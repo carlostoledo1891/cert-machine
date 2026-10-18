@@ -120,6 +120,8 @@ test:
 	@printf "%-30s " "mathbench (v0 families)"; $(PY) instruments/mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "kissing wave (Q(sqrt2,sqrt3))"; $(PY) instruments/kissing/wave/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "kissing gram form"; $(PY) instruments/kissing/wave/gram_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "interval kernel vs Arb"; $(NODE) tools/audit-kernel-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "method evaluated (planted)"; $(NODE) tools/run-method-eval.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "copy census (hub vocabulary)"; $(NODE) tools/check-copy.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

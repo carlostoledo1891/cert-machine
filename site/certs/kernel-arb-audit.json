@@ -1,0 +1,289 @@
+{
+ "what": "The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.",
+ "generated": "2026-10-18T03:55:04+00:00",
+ "seed": 20261018,
+ "perOp": 50000,
+ "node": "v24.14.1",
+ "pythonFlint": "0.9.0",
+ "arbPrec": [
+  256,
+  1024,
+  4096
+ ],
+ "modules": {
+  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/transcendental.js": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
+  "instruments/hseva/fit.js": "b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458",
+  "instruments/hseva/special.js": "cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550"
+ },
+ "counts": {
+  "cases": 946146,
+  "contained": 944642,
+  "violations": 0,
+  "undecided": 0,
+  "refused": 1504,
+  "malformed": 12,
+  "malformedRefused": 12
+ },
+ "redControls": {
+  "red:add": {
+   "cases": 50000,
+   "violationsCaught": 20022
+  },
+  "red:exp": {
+   "cases": 50000,
+   "violationsCaught": 50000
+  }
+ },
+ "byOp": {
+  "Phi": {
+   "cases": 49419,
+   "contained": 49419,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 115.0,
+    "max": 144004.0,
+    "n": 19867
+   }
+  },
+  "abs": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 0.0,
+    "max": 0.0,
+    "n": 20884
+   }
+  },
+  "add": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 2.0,
+    "max": 2.0,
+    "n": 8997
+   }
+  },
+  "cos": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 347.0,
+    "max": 6755399441055771.0,
+    "n": 19986
+   }
+  },
+  "digamma": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 36.0,
+    "max": 2654210.0,
+    "n": 25157
+   }
+  },
+  "div": {
+   "cases": 48616,
+   "contained": 48616,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 2.0,
+    "max": 2.0,
+    "n": 7566
+   }
+  },
+  "encloseCos": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 4716.0,
+    "max": 8197802317903420.0,
+    "n": 50000
+   }
+  },
+  "encloseSin": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 4724.0,
+    "max": 9842009920425656.0,
+    "n": 50000
+   }
+  },
+  "exp": {
+   "cases": 48275,
+   "contained": 46771,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 1504,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 123.0,
+    "max": 4402.0,
+    "n": 20595
+   }
+  },
+  "gammaP": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 7025.0,
+    "max": 36610.0,
+    "n": 12521
+   }
+  },
+  "lgamma": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 46.0,
+    "max": 14811138.0,
+    "n": 25157
+   }
+  },
+  "log": {
+   "cases": 49836,
+   "contained": 49836,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 5.0,
+    "max": 1.351079888211149e+16,
+    "n": 23459
+   }
+  },
+  "mul": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 2.0,
+    "max": 2.0,
+    "n": 8589
+   }
+  },
+  "pow": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 9.0,
+    "max": 33.0,
+    "n": 19925
+   }
+  },
+  "sin": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 360.0,
+    "max": 9007199254741020.0,
+    "n": 19986
+   }
+  },
+  "sqr": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 2.0,
+    "max": 2.0,
+    "n": 11556
+   }
+  },
+  "sub": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 2.0,
+    "max": 2.0,
+    "n": 8997
+   }
+  },
+  "tanh": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 0.5,
+    "max": 446676598791.0,
+    "n": 19986
+   }
+  },
+  "trigamma": {
+   "cases": 50000,
+   "contained": 50000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 22.0,
+    "max": 61.0,
+    "n": 25157
+   }
+  }
+ },
+ "malformedDecided": [],
+ "violations": []
+}

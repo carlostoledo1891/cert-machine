@@ -1,0 +1,232 @@
+{
+ "what": "The method evaluated as a decision procedure: planted claims whose truth is known by construction, decided by the system's own deciders, beside what the other records measured. Written by tools/run-method-eval.js.",
+ "generated": "2026-10-18T03:56:33.923Z",
+ "planted": {
+  "rows": [
+   {
+    "family": "kissing",
+    "what": "E8: a row duplicated",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: a row doubled (parallel to itself)",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: the sum of two contact vectors added (30 degrees from each)",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: the zero vector added",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: the configuration negated",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: the coordinates permuted",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "E8: rows of different dimension",
+    "truth": "MALFORMED",
+    "verdict": "REFUSED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: a row duplicated",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: a row doubled (parallel to itself)",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: the sum of two contact vectors added (30 degrees from each)",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: the zero vector added",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: the configuration negated",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: the coordinates permuted",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "kissing",
+    "what": "D4: rows of different dimension",
+    "truth": "MALFORMED",
+    "verdict": "REFUSED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3b, 13 points: the bound claimed just above the ratio",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3b, 13 points: the law translated by (7, -3)",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3b, 13 points: a weight moved by 10^-60",
+    "truth": "MALFORMED",
+    "verdict": "REFUSED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, 147 points: the bound claimed just above the ratio",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, 147 points: the law translated by (7, -3)",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, 147 points: a weight moved by 10^-60",
+    "truth": "MALFORMED",
+    "verdict": "REFUSED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, two laws: the bound claimed just above the ratio",
+    "truth": "FALSE",
+    "verdict": "REFUTED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, two laws: both laws translated by (5, 2)",
+    "truth": "TRUE",
+    "verdict": "CERTIFIED",
+    "correct": true
+   },
+   {
+    "family": "entropy",
+    "what": "C3c, two laws: base 53, the digit map not injective",
+    "truth": "MALFORMED",
+    "verdict": "REFUSED",
+    "correct": true
+   }
+  ],
+  "falseClaims": {
+   "planted": 11,
+   "correct": 11
+  },
+  "falseAccepted": 0,
+  "trueClaims": {
+   "planted": 7,
+   "correct": 7
+  },
+  "trueRejected": 0,
+  "malformed": {
+   "planted": 5,
+   "correct": 5
+  },
+  "malformedDecided": 0
+ },
+ "reference": {
+  "kernelVsArb": {
+   "cases": 946146,
+   "contained": 944642,
+   "violations": 0,
+   "operations": 19,
+   "malformed": 12,
+   "malformedRefused": 12,
+   "inDomainRefused": 1504,
+   "redControls": {
+    "red:add": {
+     "cases": 50000,
+     "violationsCaught": 20022
+    },
+    "red:exp": {
+     "cases": 50000,
+     "violationsCaught": 50000
+    }
+   }
+  }
+ },
+ "conventional": {
+  "checker53bit": {
+   "printedOkOnFalse": 2,
+   "of": 4
+  },
+  "toleranceGraders": {
+   "wrongSubmissions": 4000,
+   "absoluteAccepts": 0.8955,
+   "relativeAccepts": 0.9035,
+   "enclosureAccepts": 0
+  },
+  "kissingRelease": {
+   "pairwiseCheckedByClaimant": false,
+   "pairsDecidedHere": 9752282639769360
+  }
+ },
+ "incompleteness": {
+  "openaiChallengesRefusedForResources": 18,
+  "openaiChallenges": 416,
+  "cosineStraddles": 71,
+  "kernelInDomainRefusals": 1504
+ },
+ "redControls": {
+  "batteriesWithACount": 90,
+  "total": 638
+ },
+ "seconds": 0.6
+}
