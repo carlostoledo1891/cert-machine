@@ -39,6 +39,11 @@ AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 
     witness decided, the Lean note where there is one, the shared tail about the vanished fork commits. T1-T5. optimization-
     problems PRs #225, #221, #226, #217 (optional), #210 (the refusal of Mosaic's package — the operator reads it first).
     · C3 FOLLOW-UP POSTED 2026-10-16 ~11:58 UTC on the operator's word ("push the site live and proceed the response to vidigoat"): https://github.com/teorth/optimizationproblems/pull/226#issuecomment-6214990536 — 16a and 70a decided CERTIFIED after his reply of 03:25 UTC; record outreach/replies-2026-10-16/optimizationproblems-226.md.
+    · 2026-10-18 00:35–00:39 UTC Tao MERGED #216 (ours: the C3b/C3c/C71 asterisks removed, each page citing [T2026]), #221 (kept
+      asterisked) and #210 (asterisked, with every post-2021 de Bruijn–Newman row). T-PR POSTED 2026-10-18 02:24 UTC on the operator's
+      "Review and send the new PR": https://github.com/teorth/optimizationproblems/pull/230 — the J2026 C3c replay by two
+      implementations (twolaw.js + tools/verify_twolaw.py), asterisk removal, and the L2026 row's [T2026] note restored (the #221
+      merge had reverted it). Watch the thread; any follow-up is a new send.
     Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
     ALSO DRAFTED in the plan: F1 the Bandeira axiom-list follow-up on Oxelra#1; P1-P5 one-liners on the five formal-conjectures PRs
     (after B1-B5); AE-PR a minimal pull request to DeepMind's repository (week 2; the operator must sign Google's CLA first);

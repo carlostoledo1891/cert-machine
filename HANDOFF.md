@@ -16,12 +16,16 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-17 ~19:45 UTC: NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
+## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~02:40 UTC: Tao merged #216; PR #230 open; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ TAO'S REGISTRY (2026-10-18): #216 MERGED — C3b, C3c and C71 lost their asterisks on our replay and each constant page
+     cites [T2026] Toledo, Carlos (3b.md, 3c.md, 71a.md); PR #230 POSTED (the J2026 C3c replay, second implementation
+     tools/verify_twolaw.py; also restores 3c.md's L2026 [T2026] note, which the #221 merge reverted). Watch #230; if merged,
+     the record's row goes to 'merged' and the optconst-queue report §3 says so.
   0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
      corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
      by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an

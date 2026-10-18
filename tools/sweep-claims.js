@@ -214,7 +214,8 @@ for (const [repo, num, label] of [
   ['Oxelra-AI/Bandeira-0.2a-open-source', 1, 'Bandeira 0.2(a) #1 (the finite core re-decided)'],
   ...[6, 10, 12, 5].map((n) => ['google-deepmind/alphaevolve_repository_of_problems', n, 'AlphaEvolve problems #' + n]),
   ...[7304, 7305, 7306, 7308, 7330, 7310, 7320, 7321, 7322, 7337].map((n) => ['google-deepmind/formal-conjectures', n, 'formal-conjectures #' + n + ' (WOWII)']),
-  ...[225, 221, 226, 210].map((n) => ['teorth/optimizationproblems', n, 'optimizationproblems PR #' + n])]) {
+  ...[225, 221, 226, 210].map((n) => ['teorth/optimizationproblems', n, 'optimizationproblems PR #' + n]),
+  ['teorth/optimizationproblems', 230, 'optimizationproblems PR #230 (the J2026 replay; #216 was merged 2026-10-18)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }
