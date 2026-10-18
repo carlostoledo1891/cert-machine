@@ -54,10 +54,16 @@ NEXT SESSION, IN ORDER:
        ([T2026] is Together AI there); /reports/optconst-queue.html#step-functions. WATCH THE THREAD (sweep-claims).
        IF #232 MERGES: a third registry snapshot (add it to SNAPS in tools/read-optconst-registry.js) before the paper
        counts more than four marks.
+     T-PR3 DRAFTED, NOT SENT (2026-10-18): outreach/registry-pr3-draft-2026-10-18.md + outreach/registry-pr3-edit-2026-10-18.py
+       (dry-run applies) — C_1c and C_1d decided by tools/replay-autocorr.js (instruments/optq/autocorr.py, Python direct
+       sums + instruments/optq/stepfun-exact.js, the JS decider now shared with the 1a/1b replay), certs/autocorr-replay.json,
+       /reports/optconst-queue.html#autocorr (§7): C_1c >= 0.4103287 CERTIFIED (its page and README print the decimal as
+       0.41030287175…, it is 0.41032871754…); C_1d <= 1.463071582607559 REFUTED AS PRINTED — the certificate's exact value
+       (the claimant's own fraction) is 1.46307158260755932746…, above it; the certificate shows <= 1.4630715826075594.
+       SEND ONLY AFTER #232 MERGES (same README lines) and on the operator's word.
      NEXT ON THE REGISTRY, scouted 2026-10-18 (corpus/targets.json optconst-*; nothing built, each a separate send):
-       C_1c (#207) and C_1d (#224) — seconds with the step-function decider (1c's page misprints its decimal; 1d's digest
-       needs CRLF bytes); C_86 (#227) — the best value, a 31.7 KB exact certificate, ~a day; C_82 (#229) ~a day;
-       C_12, C_31, C_84a heavy or not on this machine; C_3a a Lean build (disk); 49a OCCUPIED (a comment replay exists).
+       C_86 (#227) — the best value, a 31.7 KB exact certificate, ~a day; C_82 (#229) ~a day; C_12, C_31, C_84a heavy or
+       not on this machine; C_3a a Lean build (disk); 49a OCCUPIED (a comment replay exists).
   0. Session start: `node tools/sweep-claims.js` (45 GitHub threads, 2 gists, the forums; a finding updates the row in
      corpus/outreach.json, which /about/ renders). CURVE SEEDS: compare a fresh fetch of the post against the 10-17 pin
      by VISIBLE TEXT (its HTML changes on every edit); awesome-ai-proofs#2 is to be REOPENED when HorizonMath#10 gets an

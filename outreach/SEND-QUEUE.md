@@ -49,7 +49,10 @@ AE1-AE5. google-deepmind/alphaevolve_repository_of_problems issues #6, #10, #12 
       comment there is not cited. T-PR2 FILED 2026-10-18 11:26 UTC on the operator's "Review and Proceed the suggested
       next steps": https://github.com/teorth/optimizationproblems/pull/232 — all four 1a/1b rows (Atris + the two
       EinsteinArena rows), two implementations, record certs/stepfun-replay.json @ 5de570c. Watch the thread; any
-      follow-up is a new send. Scouted next (not drafted): C_1c, C_1d, C_86, C_82 — HANDOFF's registry line.
+      follow-up is a new send. T-PR3 (C_1c + C_1d) DRAFTED 2026-10-18, NOT SENT: outreach/registry-pr3-draft-2026-10-18.md
+      — one correction in it is substantive: C_1d's printed upper bound is below its own certificate's exact value.
+      Gate: #232 merged first (the same README lines), the pages re-read, the operator's word. Scouted next (not built):
+      C_86, C_82 — HANDOFF's registry line.
     Gate for all: the three pages live, the ledgers re-derived, the threads re-read; the operator's word, item by item.
     ALSO DRAFTED in the plan: F1 the Bandeira axiom-list follow-up on Oxelra#1; P1-P5 one-liners on the five formal-conjectures PRs
     (after B1-B5); AE-PR a minimal pull request to DeepMind's repository (week 2; the operator must sign Google's CLA first);

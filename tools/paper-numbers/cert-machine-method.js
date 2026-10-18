@@ -299,6 +299,22 @@ const V = { 'S.gap': oShort, families: OS.rows.length, 'holes.displayed': OR.cou
 const fill = (t) => String(t).replace(/\{\{([^}]+)\}\}/g, (_, k) => (k in V ? String(V[k]) : die('unknown placeholder {{' + k + '}} in a finding title')));
 def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + esc(fill(x.title))).join(' \\\\\n'));
 
+/* v0.5 (2026-10-18): the registry's other step-function rows — the four C_1a/C_1b rows the maintainer asterisked, replayed
+   and offered as pull request 232 (certs/stepfun-replay.json), and C_1c/C_1d (certs/autocorr-replay.json), where the
+   C_1d bound is printed below its own certificate's exact value. Both records are of the deciders on disk. */
+{
+  const SF = J('certs/stepfun-replay.json'), AC = J('certs/autocorr-replay.json');
+  const crypto = require('crypto'), shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  need(SF.deciders.jsModule === shaOf('instruments/optq/stepfun-exact.js') && SF.deciders.py === shaOf('instruments/optq/stepfun.py') && AC.deciders.jsModule === shaOf('instruments/optq/stepfun-exact.js') && AC.deciders.py === shaOf('instruments/optq/autocorr.py'), 'a step-function record was written by other deciders — re-run tools/replay-stepfun.js and tools/replay-autocorr.js');
+  need(SF.rows.length === 4 && SF.rows.every((r) => r.agree && r.verdict === 'CERTIFIED') && SF.redControls.every((r) => r.fired), 'the four C_1a/C_1b rows are not four agreeing CERTIFIED rows with every red control fired');
+  const sent = J('corpus/outreach.json').rows.find((r) => r.id === 'gh-optq-232'); need(sent && /^2026-10-\d\d$/.test(sent.sent), 'the #232 send is not recorded');
+  def('MtSfPrDate', sent.sent); def('MtSfReds', String(SF.redControls.length));
+  const d = AC.rows.find((r) => r.id === '1d-cert2026'), c = AC.rows.find((r) => r.id === '1c-rozetyp');
+  need(d && d.agree && d.verdict === 'REFUTED' && d.repair && d.repair.js === 'CERTIFIED' && d.repair.py === 'CERTIFIED' && d.stated.fractionMatches, 'the C_1d row is not a printed bound refuted with its certificate\'s own fraction and the repair certified');
+  need(c && c.agree && c.verdict === 'CERTIFIED' && c.stated.fractionMatches && !c.stated.decimalMatches, 'the C_1c row is not CERTIFIED with its decimal misprinted');
+  def('MtAcDPrinted', d.claim.split('<= ')[1]); def('MtAcDExact', d.js.decimal.slice(0, 22)); def('MtAcDRepaired', d.repair.claim.split('<= ')[1]); def('MtAcDCells', String(d.n));
+}
+
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
    named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,
    under the concept DOI, and names the release that holds the previous version */
