@@ -14,6 +14,13 @@ with each H enclosed from the integer weights: pushforwards in exact Fractions, 
 entropy routine of tools/verify_sumdiff.py, imported, not copied — and the counts multiplied in exactly before the
 quotient is rounded outward. A claim is CERTIFIED when the lower end of the ratio exceeds it.
 
+THE DOOR, naming the reason for each refusal: a problem field that does not name 3c; a base or count that is not an
+exact integer, or a count that is not positive; a law whose points and weights differ in number or are not pairs; and,
+through verify_sumdiff's own door (law(), imported), a coordinate or weight that is not an exact integer (a JSON float or
+a boolean, never truncated by int()), a weight that is not positive, a point listed twice, a law not summing to 1; the
+injectivity bound; and a ratio whose every entropy is 0 (each law one point: 0/0). The ratio is printed to 42 decimal
+places, its lower end rounded down and its upper end up.
+
 RED CONTROLS, which must fire: the smallest 30-digit claim above the ratio's upper end must be REFUTED; the same digits in base 53, where (53-1)/2 = 26 < 27, must be REFUSED for want of injectivity; a weight moved by
 one unit in its last place must be REFUSED (the law no longer sums to 1).
 
@@ -23,6 +30,7 @@ exit 0 iff the stated claim is CERTIFIED and every red control fires."""
 import hashlib
 import json
 import os
+import re
 import sys
 from decimal import Context, Decimal, setcontext
 from fractions import Fraction
@@ -38,21 +46,30 @@ DEN = [(1, 0), (0, 1), (1, 1), (1, 2)]          # X, Y, X+Y, X+2Y — registry 3
 
 
 def laws(cert):
+    """each law through verify_sumdiff's door; a single law may have one point (only the whole ratio needs an entropy)"""
     out = []
     for law in cert['laws']:
-        mu = {}
-        for (x, y), (n, d) in zip(law['points'], law['weights']):
-            mu[(x, y)] = mu.get((x, y), Fraction(0)) + Fraction(int(n), int(d))
-        if len(mu) != len(law['points']):
-            raise ValueError('REFUSED: a point is listed twice')
-        if any(w <= 0 for w in mu.values()) or sum(mu.values()) != 1:
-            raise ValueError('REFUSED: a law is not a probability law')
-        out.append(mu)
+        try:
+            pts, ws = law['points'], law['weights']
+        except (KeyError, TypeError):
+            raise ValueError('REFUSED: a law has no points or no weights')
+        if len(pts) != len(ws):
+            raise ValueError('REFUSED: a law lists %d points and %d weights' % (len(pts), len(ws)))
+        try:
+            rows = [(x, y, n, d) for (x, y), (n, d) in zip(pts, ws)]
+        except (TypeError, ValueError) as e:
+            raise ValueError('REFUSED: a point or a weight is not a pair (%s)' % e)
+        out.append(V.law(rows, min_points=1))
     return out
 
 
 def decide(cert):
-    base, counts, mus = int(cert['base']), [int(c) for c in cert['counts']], laws(cert)
+    if not re.search('3c', str(cert.get('problem', '')), re.I):
+        raise ValueError('REFUSED: not a 3c certificate: %s' % repr(cert.get('problem'))[:60])
+    for k in ('base', 'counts', 'laws'):
+        if k not in cert:
+            raise ValueError('REFUSED: the certificate has no ' + k)
+    base, counts, mus = V.integer(cert['base'], 'the base'), [V.integer(c, 'a count') for c in cert['counts']], laws(cert)
     if len(counts) != len(mus) or any(c <= 0 for c in counts):
         raise ValueError('REFUSED: one positive count per law is needed')
     half = (base - 1) // 2
@@ -70,6 +87,8 @@ def decide(cert):
     t = total(NUM)
     hs = [total(f) for f in DEN]
     m_lo, m_hi = max(h[0] for h in hs), max(h[1] for h in hs)
+    if not m_lo > 0:
+        raise ValueError('REFUSED: every entropy is 0 (each law has one point), so the ratio is 0/0')
     return {'ratio': (V.DOWN.divide(t[0], m_hi), V.UP.divide(t[1], m_lo)), 'widest': widest, 'half': half,
             'points': [len(mu) for mu in mus], 'counts': counts}
 
@@ -92,9 +111,10 @@ def main():
         return 1
     r = decide(cert)
     v = V.decide(r['ratio'], str(claim))
+    lo, hi = V.printed(r['ratio'])
     print('%-9s  C3c >= %s  (two laws on %s points, counts %s, base %d; max |form| %d <= %d; sha256 %s…)\n'
           '           ratio in [%s, %s]' % (v, claim, ' and '.join(map(str, r['points'])), ' : '.join(map(str, r['counts'])),
-                                            int(cert['base']), r['widest'], r['half'], h[:12], str(r['ratio'][0])[:44], str(r['ratio'][1])[:44]))
+                                            int(cert['base']), r['widest'], r['half'], h[:12], lo, hi))
     reds = []
     c30 = Context(prec=30, rounding='ROUND_FLOOR')
     above = c30.next_plus(c30.plus(r['ratio'][1]))       # the smallest 30-digit number above the ratio's upper end

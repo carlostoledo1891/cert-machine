@@ -1,9 +1,9 @@
 {
  "what": "The entropy deciders' arithmetic checked against Arb (python-flint): instruments/bigfloat as instruments/sumdiff and instruments/optq/twolaw.js call it, and the Python standard library's decimal as tools/verify_sumdiff.py, tools/verify_twolaw.py and instruments/fei/fei.py call it, each run through its REAL functions on seeded random and adversarial inputs and on the registry's own certificates; every enclosure required to contain the exact value, decided in Arb at 256 bits and up from the exact inputs (exactly, in FLINT's rationals, when the value is rational); every malformed input required to be refused; planted wrong functions required to be caught. Written by tools/audit-entropy-arb.js with tools/audit-entropy-arb.py.",
- "generated": "2026-10-19T21:24:08+00:00",
- "seconds": 132.2,
- "secondsJs": 76.5,
- "secondsPython": 40.7,
+ "generated": "2026-10-19T22:49:00+00:00",
+ "seconds": 111.9,
+ "secondsJs": 71.2,
+ "secondsPython": 30.5,
  "seed": 20261019,
  "n": 20000,
  "node": "v24.14.1",
@@ -29,9 +29,9 @@
   "instruments/bigfloat/functions.js": "b66409f2295613c4b8410736394fdf42007b8ea014e84757fd16cac87a3145ce",
   "instruments/sumdiff/sumdiff.js": "e5919271fff8d04171120437a6fc78e537489f9459826f58cefb3387fdeca487",
   "instruments/optq/twolaw.js": "ad15c46f2469dc9ca944ae0450d40d7045871a52c047abdab2d9d954f86391f5",
-  "tools/verify_sumdiff.py": "0e44946d156ba937f1cb1f96908d14b6c25d94002adc6a5a14a08c8835672384",
-  "tools/verify_twolaw.py": "3714b0026bb21b39039b009c78d375dded77cc79dffbc3d298ffa08af0ddc142",
-  "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+  "tools/verify_sumdiff.py": "850e901f46d6c4180138c60fee10cade3d59ded904a6409c7c379ea16c2fd3db",
+  "tools/verify_twolaw.py": "2405d1c4b76595155aa4fe739c0fde0cebb03c048107d8b28cf29b37a2344304",
+  "instruments/fei/fei.py": "271e0f4def7ccffb5113a3d166fe73d1ec0de5942035631c5a7d9c672e11d6de"
  },
  "inputs": {
   "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json": "2efe99360a1ff5e3736e734ed06e5ab8e0cdcc33583ef22ece9e927e9e45365c",
@@ -40,34 +40,34 @@
   "corpus/optconst-queue/sources/zenodo-23289305/certificate.json": "8b6612ef91342b900733f87b00a8bc0ceebf88727eeceb2e5b390e2ccbfb97a4",
   "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json": "57f5a1ad2bf5bcdee873413e796bc868ccc6131521af799c5eb48d5ae13267ba",
   "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
-  "certs/optq-ledger.json": "163a94805d6baa3f325c4768bccb3ac816b270abbb3d5e83d527da6d2de50a93",
-  "certs/fei-ledger.json": "38d06c5e779f366e6b8ea2cd10698ea3610b600ea2be90b661629209e64152d0"
+  "certs/optq-ledger.json": "db1d13b12e10582c57a33c67cf04fb64ba47073770ea6330c1ad517c6ded8510",
+  "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e"
  },
  "counts": {
-  "cases": 298710,
+  "cases": 298746,
   "arithmetic": {
    "cases": 264031,
-   "contained": 263979,
+   "contained": 264015,
    "violations": 0,
    "undecided": 0,
-   "refused": 52
+   "refused": 16
   },
   "printed": {
-   "cases": 2679,
-   "contained": 2253,
-   "violations": 426,
+   "cases": 2715,
+   "contained": 2715,
+   "violations": 0,
    "undecided": 0,
    "refused": 0
   },
   "beyondTheDoor": {
    "cases": 4000,
-   "contained": 3771,
-   "violations": 229,
+   "contained": 2000,
+   "violations": 0,
    "undecided": 0,
-   "refused": 0
+   "refused": 2000
   },
   "malformed": 71,
-  "malformedRefused": 61,
+  "malformedRefused": 71,
   "baselines": 5,
   "baselinesDecided": 5
  },
@@ -101,296 +101,7 @@
    "violationsCaught": 4000
   }
  },
- "findings": [
-  {
-   "class": "printed",
-   "op": "fei.printed",
-   "name": "decide()[\"H\"]",
-   "misses": 202,
-   "of": 308,
-   "declared": true,
-   "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
-   "witness": {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f2"
-    },
-    "inputs": {
-     "n": 8,
-     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "7.0063574474519147637191728366",
-     "7.0063574474519147637191728366"
-    ],
-    "exact": [
-     "[7.006357447451914763719172836656825781433861850569686597978495674240193918239 +/- 3.35e-76]",
-     "[7.006357447451914763719172836656825781433861850569686597978495674240193918240 +/- 2.55e-76]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "fei.printed",
-   "name": "decide()[\"ratio\"]",
-   "misses": 216,
-   "of": 308,
-   "declared": true,
-   "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
-   "witness": {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f2"
-    },
-    "inputs": {
-     "n": 8,
-     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "2.372523156809113994063635246275327248739508",
-     "2.372523156809113994063635246275327248739508"
-    ],
-    "exact": [
-     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 5.30e-76]",
-     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 4.57e-77]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "py.printed",
-   "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-   "misses": 4,
-   "of": 4,
-   "declared": true,
-   "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
-   "witness": {
-    "kind": "real",
-    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "rho",
-     "law": "real:3b-13"
-    },
-    "inputs": {
-     "problem": "3b",
-     "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
-    },
-    "u": null,
-    "res": [
-     "1.778988841420693549805193887477289434416066",
-     "1.778988841420693549805193887477289434416066"
-    ],
-    "exact": [
-     "[1.778988841420693549805193887477289434416066785870268133201048179037478760510 +/- 5.40e-77]",
-     "[1.778988841420693549805193887477289434416066785870268133201048179037478760511 +/- 2.21e-76]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "py.printed",
-   "name": "verify_twolaw.py main(): \"ratio in [...]\"",
-   "misses": 1,
-   "of": 1,
-   "declared": true,
-   "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
-   "witness": {
-    "kind": "real",
-    "name": "verify_twolaw.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "mixRho",
-     "tl": "real:twolaw-23289305"
-    },
-    "inputs": {
-     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
-    },
-    "u": null,
-    "res": [
-     "1.674894211307116228764343737060957167779440",
-     "1.674894211307116228764343737060957167779440"
-    ],
-    "exact": [
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "rec.fei-ledger",
-   "name": "C71 ratio",
-   "misses": 1,
-   "of": 1,
-   "declared": true,
-   "why": "certs/fei-ledger.json records fei.decide's strings: ratio = [6.521845710923046575658143972948578468366662, the same] \u2014 one point, below the exact ratio. The CERTIFIED verdict (C71 > 6.521845710923046575) is sound: the full enclosure lies above the threshold.",
-   "witness": {
-    "kind": "rec",
-    "name": "C71 ratio",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "real:c71-n18"
-    },
-    "inputs": {
-     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
-    },
-    "u": null,
-    "res": [
-     "6.521845710923046575658143972948578468366662",
-     "6.521845710923046575658143972948578468366662"
-    ],
-    "exact": [
-     "[6.521845710923046575658143972948578468366662292229938598252894129325503563413 +/- 5.45e-76]",
-     "[6.521845710923046575658143972948578468366662292229938598252894129325503563416 +/- 3.15e-76]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "rec.fei-ledger",
-   "name": "C71 H",
-   "misses": 1,
-   "of": 1,
-   "declared": true,
-   "why": "certs/fei-ledger.json records H = [6.7766053090059780825197902218, the same] \u2014 one point, below the exact H.",
-   "witness": {
-    "kind": "rec",
-    "name": "C71 H",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "real:c71-n18"
-    },
-    "inputs": {
-     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
-    },
-    "u": null,
-    "res": [
-     "6.7766053090059780825197902218",
-     "6.7766053090059780825197902218"
-    ],
-    "exact": [
-     "[6.776605309005978082519790221891882314787235038020170574747147806252281046359 +/- 4.47e-76]",
-     "[6.776605309005978082519790221891882314787235038020170574747147806252281046362 +/- 4.13e-76]"
-    ]
-   }
-  },
-  {
-   "class": "printed",
-   "op": "rec.optq-ledger",
-   "name": "optq-221-3c rhoPython (verify_twolaw.py)",
-   "misses": 1,
-   "of": 1,
-   "declared": true,
-   "why": "certs/optq-ledger.json records rhoPython = verify_twolaw's printed line, [1.674894211307116228764343737060957167779440, the same] \u2014 one point, below the exact ratio (and the row's \"how\" text cuts it again to 34 characters). The row's twolaw.js rho (outward, 30 places) contains it; the verdict is sound.",
-   "witness": {
-    "kind": "rec",
-    "name": "optq-221-3c rhoPython (verify_twolaw.py)",
-    "truthSpec": {
-     "t": "mixRho",
-     "tl": "real:twolaw-23289305"
-    },
-    "inputs": {
-     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
-    },
-    "u": null,
-    "res": [
-     "1.674894211307116228764343737060957167779440",
-     "1.674894211307116228764343737060957167779440"
-    ],
-    "exact": [
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
-    ]
-   }
-  },
-  {
-   "class": "malformed",
-   "name": "verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
-   "impl": "verify_sumdiff",
-   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
-   "declared": true,
-   "why": "read() applies int() to JSON numbers (1.9 -> 1, 1.2 -> 1), so a certificate whose weights are not integers is decided as the law {1/2, 1/2}; sumdiff.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_sumdiff: a boolean weight (true/2)",
-   "impl": "verify_sumdiff",
-   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
-   "declared": true,
-   "why": "read(): int(True) = 1; sumdiff.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_sumdiff: a non-integer coordinate (x = 0.5)",
-   "impl": "verify_sumdiff",
-   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
-   "declared": true,
-   "why": "read() never checks that a coordinate is an integer (the law is taken on R^2); sumdiff.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
-   "impl": "verify_sumdiff",
-   "decided": "verdict REFUTED, -1, -1",
-   "declared": true,
-   "why": "every entropy is 0, so the ratio is 0/0; ratio() divides by the max's enclosure [-1E-1000118, 1E-1000118] without checking its sign and returns [-1, -1], and decide() says REFUTED. sumdiff.js refuses it (division by an interval containing 0)."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
-   "impl": "verify_sumdiff",
-   "decided": "verdict REFUTED, -1, -1",
-   "declared": true,
-   "why": "as the one-point law above."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
-   "impl": "verify_twolaw",
-   "decided": "verdict CERTIFIED, 0.47368421052631578947368421052631578947, 0.47368421052631578947368421052631578947",
-   "declared": true,
-   "why": "laws() applies int() to the weights; twolaw.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_twolaw: a non-integer coordinate (0.5)",
-   "impl": "verify_twolaw",
-   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
-   "declared": true,
-   "why": "laws() never checks that a point has integer coordinates (the injectivity bound is computed on the floats); twolaw.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_twolaw: not a 3c certificate",
-   "impl": "verify_twolaw",
-   "decided": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639",
-   "declared": true,
-   "why": "decide() never reads the certificate's problem field (twolaw.js requires 3c); main() decides only the pinned file."
-  },
-  {
-   "class": "malformed",
-   "name": "verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
-   "impl": "verify_twolaw",
-   "decided": "verdict REFUTED, -1, -1",
-   "declared": true,
-   "why": "as verify_sumdiff's one-point law: the ratio [-1, -1], REFUTED; twolaw.js refuses it."
-  },
-  {
-   "class": "malformed",
-   "name": "fei.ln_iv: k = 0 (the docstring's domain is a positive integer)",
-   "impl": "fei.ln_iv",
-   "decided": "verdict returned, -Infinity, -9.9999999999999999999999999999999999999",
-   "declared": true,
-   "why": "returns (-Infinity, -9.99...E+999999) rather than refusing; unreachable from fei.decide, which calls ln_iv only for a nonzero |a_S|."
-  }
- ],
+ "findings": [],
  "byOp": {
   "bf.add": {
    "cases": 20000,
@@ -948,41 +659,38 @@
   },
   "fei.H": {
    "cases": 334,
-   "contained": 308,
+   "contained": 334,
    "violations": 0,
    "undecided": 0,
-   "refused": 26,
+   "refused": 0,
    "retried": 0,
    "byKind": {
     "adv": 109,
     "gen": 224,
     "real": 1
    },
-   "refusedBy": {
-    "ArithmeticError: a weight above 1": 22,
-    "ArithmeticError: I <= 1: the amplification rule does not apply": 4
-   },
-   "refusedOutsideRule": 26,
+   "refusedBy": {},
+   "refusedOutsideRule": 0,
    "class": "arith",
    "impl": "instruments/fei/fei.py",
    "widthUlps": {
-    "median": 3.341,
-    "p99": 4.807,
-    "max": 12.1,
-    "n": 308,
+    "median": 3.007,
+    "p99": 4.695,
+    "max": 5.244,
+    "n": 203,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": {
-     "kind": "real",
+     "kind": "gen",
      "truthSpec": {
       "t": "feiH",
-      "f": "real:c71-n18"
+      "f": "f331"
      },
      "u": {
       "d": 60
      },
      "res": [
-      "6.77660530900597808251979022189188231478723503802017057474673",
-      "6.77660530900597808251979022189188231478723503802017057474755"
+      "8.96307351602631009809648676683198297859307645079420998961593",
+      "8.96307351602631009809648676683198297859307645079420998961640"
      ]
     }
    }
@@ -1196,15 +904,15 @@
    }
   },
   "fei.printed": {
-   "cases": 616,
-   "contained": 198,
-   "violations": 418,
+   "cases": 652,
+   "contained": 652,
+   "violations": 0,
    "undecided": 0,
    "refused": 0,
    "retried": 0,
    "byKind": {
     "adv": 218,
-    "gen": 396,
+    "gen": 432,
     "real": 2
    },
    "refusedBy": {},
@@ -1217,22 +925,14 @@
     "n": 0,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": null
-   },
-   "violationsByName": {
-    "decide()[\"H\"]": 202,
-    "decide()[\"ratio\"]": 216
-   },
-   "casesByName": {
-    "decide()[\"H\"]": 308,
-    "decide()[\"ratio\"]": 308
    }
   },
   "fei.ratio": {
    "cases": 334,
-   "contained": 308,
+   "contained": 318,
    "violations": 0,
    "undecided": 0,
-   "refused": 26,
+   "refused": 16,
    "retried": 0,
    "byKind": {
     "adv": 109,
@@ -1240,30 +940,30 @@
     "real": 1
    },
    "refusedBy": {
-    "ArithmeticError: a weight above 1": 22,
-    "ArithmeticError: I <= 1: the amplification rule does not apply": 4
+    "fei.decide: I > 1: the amplification rule applies: I = 1; the rule nee": 15,
+    "fei.decide: I > 1: the amplification rule applies: I = 3/4; the rule n": 1
    },
-   "refusedOutsideRule": 26,
+   "refusedOutsideRule": 16,
    "class": "arith",
    "impl": "instruments/fei/fei.py",
    "widthUlps": {
-    "median": 4.0,
-    "p99": 5.911,
-    "max": 12.42,
-    "n": 308,
+    "median": 3.569,
+    "p99": 5.88,
+    "max": 5.925,
+    "n": 216,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": {
-     "kind": "real",
+     "kind": "gen",
      "truthSpec": {
       "t": "feiRho",
-      "f": "real:c71-n18"
+      "f": "f270"
      },
      "u": {
       "d": 60
      },
      "res": [
-      "6.52184571092304657565814397294857846836666229222993859825248",
-      "6.52184571092304657565814397294857846836666229222993859825329"
+      "2.36303027090355387422312291936759503573221453732411964878078",
+      "2.36303027090355387422312291936759503573221453732411964878092"
      ]
     }
    }
@@ -1594,49 +1294,32 @@
   },
   "py.plnp>1": {
    "cases": 2000,
-   "contained": 1771,
-   "violations": 229,
+   "contained": 0,
+   "violations": 0,
    "undecided": 0,
-   "refused": 0,
-   "retried": 1771,
+   "refused": 2000,
+   "retried": 0,
    "byKind": {
     "beyond": 2000
    },
-   "refusedBy": {},
+   "refusedBy": {
+    "ValueError: REFUSED: an atom of weight outside (0, 1]": 2000
+   },
    "class": "beyond",
    "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
    "widthUlps": {
-    "median": 0.758,
-    "p99": 47.228,
-    "max": 669.591,
-    "n": 1771,
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
-    "widest": {
-     "kind": "beyond",
-     "truthSpec": {
-      "t": "plnp",
-      "q": "2817474953236053864480889649007991895133732887639175821375496152735616622574335365997234479651058807693415097365402282684296105747059586334593706910345217588279...(659 chars)...2182452266003758559120741471041367254214"
-     },
-     "u": {
-      "d": 120
-     },
-     "res": [
-      "-0.00149643681131456709149893502371003285297138541093781495365748187080992304334493307806543616350129018099467530556956899777",
-      "-0.00149643681131456709149893502371003285297138541093781495365748187080992304334493307806543616350129018099467530556956898775"
-     ]
-    }
-   },
-   "violationsByName": {
-    "None": 229
-   },
-   "casesByName": {
-    "None": 2000
+    "widest": null
    }
   },
   "py.printed": {
    "cases": 5,
-   "contained": 0,
-   "violations": 5,
+   "contained": 5,
+   "violations": 0,
    "undecided": 0,
    "refused": 0,
    "retried": 0,
@@ -1653,14 +1336,6 @@
     "n": 0,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": null
-   },
-   "violationsByName": {
-    "verify_sumdiff.py main(): \"ratio in [...]\"": 4,
-    "verify_twolaw.py main(): \"ratio in [...]\"": 1
-   },
-   "casesByName": {
-    "verify_sumdiff.py main(): \"ratio in [...]\"": 4,
-    "verify_twolaw.py main(): \"ratio in [...]\"": 1
    }
   },
   "py.ratio": {
@@ -1738,8 +1413,8 @@
   },
   "rec.fei-ledger": {
    "cases": 2,
-   "contained": 0,
-   "violations": 2,
+   "contained": 2,
+   "violations": 0,
    "undecided": 0,
    "refused": 0,
    "retried": 0,
@@ -1756,20 +1431,12 @@
     "n": 0,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": null
-   },
-   "violationsByName": {
-    "C71 ratio": 1,
-    "C71 H": 1
-   },
-   "casesByName": {
-    "C71 ratio": 1,
-    "C71 H": 1
    }
   },
   "rec.optq-ledger": {
    "cases": 2,
-   "contained": 1,
-   "violations": 1,
+   "contained": 2,
+   "violations": 0,
    "undecided": 0,
    "refused": 0,
    "retried": 0,
@@ -1786,13 +1453,6 @@
     "n": 0,
     "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
     "widest": null
-   },
-   "violationsByName": {
-    "optq-221-3c rhoPython (verify_twolaw.py)": 1
-   },
-   "casesByName": {
-    "optq-221-3c rho (twolaw.js)": 1,
-    "optq-221-3c rhoPython (verify_twolaw.py)": 1
    }
   },
   "rec.sumdiff-ledger": {
@@ -2042,7 +1702,7 @@
  },
  "malformed": {
   "cases": 71,
-  "refused": 61,
+  "refused": 71,
   "baselines": 5,
   "baselinesDecided": 5,
   "byImpl": {
@@ -2056,7 +1716,7 @@
    },
    "verify_sumdiff": {
     "cases": 15,
-    "refused": 10
+    "refused": 15
    },
    "twolaw": {
     "cases": 11,
@@ -2064,7 +1724,7 @@
    },
    "verify_twolaw": {
     "cases": 11,
-    "refused": 7
+    "refused": 11
    },
    "fei": {
     "cases": 6,
@@ -2072,7 +1732,7 @@
    },
    "fei.ln_iv": {
     "cases": 2,
-    "refused": 1
+    "refused": 2
    },
    "verify_sumdiff.ln_out": {
     "cases": 1,
@@ -2175,7 +1835,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a weight is 0",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: a weight is not positive",
     "res": null
    },
    {
@@ -2189,7 +1849,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a weight is negative (p > 1 elsewhere)",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: a weight is not positive",
     "res": null
    },
    {
@@ -2203,7 +1863,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: the weights sum to 1 + 10^-320",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: the weights are not a probability law (they sum to more than 1)",
     "res": null
    },
    {
@@ -2217,7 +1877,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: the weights sum to 1 - 10^-320",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: the weights are not a probability law (they sum to less than 1)",
     "res": null
    },
    {
@@ -2231,7 +1891,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: one weight p = 3/2 alone (p > 1)",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: the weights are not a probability law (they sum to more than 1)",
     "res": null
    },
    {
@@ -2245,7 +1905,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a point listed twice",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: a point is listed twice: (0, 0)",
     "res": null
    },
    {
@@ -2259,8 +1919,8 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+    "threw": "ValueError: REFUSED: a weight is not an exact integer: 1.9",
+    "res": null
    },
    {
     "impl": "sumdiff",
@@ -2273,8 +1933,8 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a boolean weight (true/2)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+    "threw": "ValueError: REFUSED: a weight is not an exact integer: True",
+    "res": null
    },
    {
     "impl": "sumdiff",
@@ -2287,8 +1947,8 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a non-integer coordinate (x = 0.5)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+    "threw": "ValueError: REFUSED: a coordinate is not an exact integer: 0.5",
+    "res": null
    },
    {
     "impl": "sumdiff",
@@ -2301,7 +1961,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a NaN weight",
     "expectRefusal": true,
-    "threw": "ValueError: cannot convert float NaN to integer",
+    "threw": "ValueError: REFUSED: a weight is not an exact integer: nan",
     "res": null
    },
    {
@@ -2329,7 +1989,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a denominator not of the form 10^k",
     "expectRefusal": true,
-    "threw": "AttributeError: 'NoneType' object has no attribute 'group'",
+    "threw": "ValueError: REFUSED: the denominator is not of the form 10^k: '1000'",
     "res": null
    },
    {
@@ -2343,7 +2003,7 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: an empty law",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "threw": "ValueError: REFUSED: the law has no points",
     "res": null
    },
    {
@@ -2357,8 +2017,8 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict REFUTED, -1, -1"
+    "threw": "ValueError: REFUSED: a one-point law: every entropy is 0, so the ratio is 0/0",
+    "res": null
    },
    {
     "impl": "sumdiff",
@@ -2371,8 +2031,8 @@
     "impl": "verify_sumdiff",
     "name": "verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict REFUTED, -1, -1"
+    "threw": "ValueError: REFUSED: a one-point law: every entropy is 0, so the ratio is 0/0",
+    "res": null
    },
    {
     "impl": "twolaw",
@@ -2427,7 +2087,7 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: points and weights of unequal length",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: a point is listed twice",
+    "threw": "ValueError: REFUSED: a law lists 3 points and 2 weights",
     "res": null
    },
    {
@@ -2441,7 +2101,7 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: a law does not sum to 1",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: a law is not a probability law",
+    "threw": "ValueError: REFUSED: the weights are not a probability law (they sum to less than 1)",
     "res": null
    },
    {
@@ -2455,7 +2115,7 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: a point listed twice",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: a point is listed twice",
+    "threw": "ValueError: REFUSED: a point is listed twice: (1, 0)",
     "res": null
    },
    {
@@ -2469,7 +2129,7 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: a weight is 0",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: a law is not a probability law",
+    "threw": "ValueError: REFUSED: a weight is not positive",
     "res": null
    },
    {
@@ -2497,8 +2157,8 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.47368421052631578947368421052631578947, 0.47368421052631578947368421052631578947"
+    "threw": "ValueError: REFUSED: a weight is not an exact integer: 1.9",
+    "res": null
    },
    {
     "impl": "twolaw",
@@ -2511,8 +2171,8 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: a non-integer coordinate (0.5)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+    "threw": "ValueError: REFUSED: a coordinate is not an exact integer: 0.5",
+    "res": null
    },
    {
     "impl": "twolaw",
@@ -2525,8 +2185,8 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: not a 3c certificate",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639"
+    "threw": "ValueError: REFUSED: not a 3c certificate: 'C_3b'",
+    "res": null
    },
    {
     "impl": "twolaw",
@@ -2539,8 +2199,8 @@
     "impl": "verify_twolaw",
     "name": "verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict REFUTED, -1, -1"
+    "threw": "ValueError: REFUSED: every entropy is 0 (each law has one point), so the ratio is 0/0",
+    "res": null
    },
    {
     "impl": "fei",
@@ -2553,56 +2213,56 @@
     "impl": "fei",
     "name": "fei.decide: the table is not the one its sha256 binds",
     "expectRefusal": true,
-    "threw": "verdict REFUTED",
+    "threw": "verdict REFUSED",
     "res": null
    },
    {
     "impl": "fei",
     "name": "fei.decide: I misstated",
     "expectRefusal": true,
-    "threw": "verdict REFUTED",
+    "threw": "verdict REFUSED",
     "res": null
    },
    {
     "impl": "fei",
     "name": "fei.decide: unbalanced (at-least-2-of-5, monotone)",
     "expectRefusal": true,
-    "threw": "verdict REFUTED",
+    "threw": "verdict REFUSED",
     "res": null
    },
    {
     "impl": "fei",
     "name": "fei.decide: a dictator (I = 1: the rule does not apply)",
     "expectRefusal": true,
-    "threw": "ArithmeticError: a weight above 1",
+    "threw": "verdict REFUSED",
     "res": null
    },
    {
     "impl": "fei",
     "name": "fei.decide: a parity (H = 0)",
     "expectRefusal": true,
-    "threw": "ArithmeticError: a weight above 1",
+    "threw": "verdict REFUTED",
     "res": null
    },
    {
     "impl": "fei",
     "name": "fei.decide: a mask with bits beyond 2^n inputs",
     "expectRefusal": true,
-    "threw": "ValueError: REFUSED: the mask has bits beyond 2^n inputs",
+    "threw": "verdict REFUSED",
     "res": null
    },
    {
     "impl": "fei.ln_iv",
     "name": "fei.ln_iv: k = 0 (the docstring's domain is a positive integer)",
     "expectRefusal": true,
-    "threw": null,
-    "res": "verdict returned, -Infinity, -9.9999999999999999999999999999999999999"
+    "threw": "ValueError: ln_iv: k must be a positive integer, got 0",
+    "res": null
    },
    {
     "impl": "fei.ln_iv",
     "name": "fei.ln_iv: k = -3 (the docstring's domain is a positive integer)",
     "expectRefusal": true,
-    "threw": "InvalidOperation: [<class 'decimal.InvalidOperation'>]",
+    "threw": "ValueError: ln_iv: k must be a positive integer, got -3",
     "res": null
    },
    {
@@ -2615,586 +2275,78 @@
   ]
  },
  "witnesses": {
-  "py.plnp>1": [
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "1026522160690699860868363571050822637492800282496125/9085440153435629956694098887554669040208400129868"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-534.111249212888823785329061947677819880151342131760041661884801982235241892796915272171746008378541603990828518858722707",
-     "-534.111249212888823785329061947677819880151342131760041661884801982235241892796915272171746008378541603990828518858722707"
-    ],
-    "exact": [
-     "[-534.1112492128888237853290619476778198801513421317600416618848019822352418928 +/- 1.47e-74]",
-     "[-534.1112492128888237853290619476778198801513421317600416618848019822352418928 +/- 1.47e-74]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "3509/2300"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.644469002432131723536374728661034374465279019093863019193453346962885034243261806614235360423778039948034598370869805829",
-     "-0.644469002432131723536374728661034374465279019093863019193453346962885034243261806614235360423778039948034598370869805818"
-    ],
-    "exact": [
-     "[-0.6444690024321317235363747286610343744652790190938630191934533469628850342433 +/- 5.24e-77]",
-     "[-0.6444690024321317235363747286610343744652790190938630191934533469628850342433 +/- 5.24e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "2964/1784"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.843480089456351814301966994132368851277495363436490789933497650418100507920038740117865390672069033877659672640731625497",
-     "-0.843480089456351814301966994132368851277495363436490789933497650418100507920038740117865390672069033877659672640731625488"
-    ],
-    "exact": [
-     "[-0.8434800894563518143019669941323688512774953634364907899334976504181005079200 +/- 3.92e-77]",
-     "[-0.8434800894563518143019669941323688512774953634364907899334976504181005079200 +/- 3.92e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "13145045280157602378718357175661618848834311380066020820246942375895435137103733964708758661871987568032524872815012439392/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.359464158277651879307187500607730397580776436026033954825523747469531444396875587562444793083861663973490623543304592585",
-     "-0.359464158277651879307187500607730397580776436026033954825523747469531444396875587562444793083861663973490623543304592574"
-    ],
-    "exact": [
-     "[-0.3594641582776518793071875006077303975807764360260339548255237474695314443969 +/- 3.20e-77]",
-     "[-0.3594641582776518793071875006077303975807764360260339548255237474695314443969 +/- 3.20e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "4082555480736394319644474098113714262783464655334821830694717011452965239198728662125785157574533151520555741328608324009971078104701877653575561921329281383588837548787701839869768916915227839286481725801413033783699833840018049223472611608/33968443296486032022913568815802278006856982019358100175895816624118656855313475923325841565980991472550983761312246339516615867690246505814784681676006883787357867082275702880973511754735508683343391772490048891329564116264670816202471344"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-575.579743218940859238748528110785209760669156462891762425847795676602549130362869641721381008688782203863234491641357378",
-     "-575.579743218940859238748528110785209760669156462891762425847795676602549130362869641721381008688782203863234491641357380"
-    ],
-    "exact": [
-     "[-575.5797432189408592387485281107852097606691564628917624258477956766025491304 +/- 5.17e-74]",
-     "[-575.5797432189408592387485281107852097606691564628917624258477956766025491304 +/- 5.17e-74]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "2390302688911934437156808102740162436126/1526810313632371394744359466210505753405"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.701742303650224114056018377517728572382107232604398049188486660398722787450771415971527210817881090070892889846922127901",
-     "-0.701742303650224114056018377517728572382107232604398049188486660398722787450771415971527210817881090070892889846922127892"
-    ],
-    "exact": [
-     "[-0.7017423036502241140560183775177285723821072326043980491884866603987227874508 +/- 4.36e-77]",
-     "[-0.7017423036502241140560183775177285723821072326043980491884866603987227874508 +/- 4.36e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "816854913819795282098192495934317037028442055444418904915724160671335539332276064167806391870360398877226395396199660496059618099116687927220/7169523978456236790635393718120675980632606272169644114356822439628662522356890111652600427645112717704818112416667384382767406439277872124"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-539.549948215548419341291801806145234105587820882425279501137918596240140638419486000806850487418754872536259372075412747",
-     "-539.549948215548419341291801806145234105587820882425279501137918596240140638419486000806850487418754872536259372075412747"
-    ],
-    "exact": [
-     "[-539.5499482155484193412918018061452341055878208824252795011379185962401406384 +/- 2.09e-74]",
-     "[-539.5499482155484193412918018061452341055878208824252795011379185962401406384 +/- 2.09e-74]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "36325073680210737669385242095939872747889980353395926306102655635951251745743162314072985095176045209343642099807733122194096247064455077614511580189071102586603303734510801550714794271896582589715987829407788/126508170870322552054060129981470046559864237350984402119504215365090242137467055281752692296578756982176877636058805944538549755589753250351991844314601337207136014215649013385709319450664289662696987974518"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-1625.17835640411721737612426664072783399672871847578929859336466604491549637335958624142552081753685949612825642064563239",
-     "-1625.17835640411721737612426664072783399672871847578929859336466604491549637335958624142552081753685949612825642064563238"
-    ],
-    "exact": [
-     "[-1625.178356404117217376124266640727833996728718475789298593364666044915496373 +/- 3.61e-73]",
-     "[-1625.178356404117217376124266640727833996728718475789298593364666044915496373 +/- 3.61e-73]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "15933968644505848167061415543271232706463530556109093231334648981242023035121753501101992532371266433202627151434454343542/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-808.017655240574054962595878565657622275251695165813588281829186613879391478808778467560850704775870302973703627782485598",
-     "-808.017655240574054962595878565657622275251695165813588281829186613879391478808778467560850704775870302973703627782485598"
-    ],
-    "exact": [
-     "[-808.0176552405740549625958785656576222752516951658135882818291866138793914788 +/- 1.23e-74]",
-     "[-808.0176552405740549625958785656576222752516951658135882818291866138793914788 +/- 1.23e-74]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "4020/2501"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.762837596144142231654218751908189893130631804735507195653241131203969868338828478716797037800763526621607827707709061379",
-     "-0.762837596144142231654218751908189893130631804735507195653241131203969868338828478716797037800763526621607827707709061370"
-    ],
-    "exact": [
-     "[-0.7628375961441422316542187519081898931306318047355071956532411312039698683388 +/- 3.58e-77]",
-     "[-0.7628375961441422316542187519081898931306318047355071956532411312039698683388 +/- 3.58e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "6998/4682"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-0.600702557899975923097019664352957551046394924684842363095011116902781423038260737398160159175192105011158088312596541392",
-     "-0.600702557899975923097019664352957551046394924684842363095011116902781423038260737398160159175192105011158088312596541382"
-    ],
-    "exact": [
-     "[-0.6007025578999759230970196643529575510463949246848423630950111169027814230383 +/- 5.17e-77]",
-     "[-0.6007025578999759230970196643529575510463949246848423630950111169027814230383 +/- 5.17e-77]"
-    ]
-   },
-   {
-    "kind": "beyond",
-    "name": null,
-    "truthSpec": {
-     "t": "plnp",
-     "q": "15473071168969952859847712756647424415743685361294988803356035719644440432020985429194989402248210426636948271456509894241754011664748837016115293657088158696609020847731819319066027579708268595720383173/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    },
-    "inputs": null,
-    "u": {
-     "d": 120
-    },
-    "res": [
-     "-780.103703443113428404371689133322796131615966130851177384266304021376125091176715551732328947584540310691814538214454286",
-     "-780.103703443113428404371689133322796131615966130851177384266304021376125091176715551732328947584540310691814538214454286"
-    ],
-    "exact": [
-     "[-780.1037034431134284043716891333227961316159661308511773842663040213761250912 +/- 3.50e-74]",
-     "[-780.1037034431134284043716891333227961316159661308511773842663040213761250912 +/- 3.50e-74]"
-    ]
-   }
-  ],
-  "fei.printed": [
-   {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f2"
-    },
-    "inputs": {
-     "n": 8,
-     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "7.0063574474519147637191728366",
-     "7.0063574474519147637191728366"
-    ],
-    "exact": [
-     "[7.006357447451914763719172836656825781433861850569686597978495674240193918239 +/- 3.35e-76]",
-     "[7.006357447451914763719172836656825781433861850569686597978495674240193918240 +/- 2.55e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f2"
-    },
-    "inputs": {
-     "n": 8,
-     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "2.372523156809113994063635246275327248739508",
-     "2.372523156809113994063635246275327248739508"
-    ],
-    "exact": [
-     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 5.30e-76]",
-     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 4.57e-77]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f3"
-    },
-    "inputs": {
-     "n": 9,
-     "hex": "3c395befaac72a5585181078a7269533f04462cd13ae73a97841ed33a152d432d69b2d5c9d366b8af4a4bff1f428afeb48639d9e489be76b33d641e7084c1a42",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "7.7901611782781535095750763306",
-     "7.7901611782781535095750763306"
-    ],
-    "exact": [
-     "[7.790161178278153509575076330649362875705009096843760485804321994682440717182 +/- 2.88e-76]",
-     "[7.790161178278153509575076330649362875705009096843760485804321994682440717184 +/- 1.46e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f3"
-    },
-    "inputs": {
-     "n": 9,
-     "hex": "3c395befaac72a5585181078a7269533f04462cd13ae73a97841ed33a152d432d69b2d5c9d366b8af4a4bff1f428afeb48639d9e489be76b33d641e7084c1a42",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "2.153651470452707665714059979099607879244581",
-     "2.153651470452707665714059979099607879244581"
-    ],
-    "exact": [
-     "[2.153651470452707665714059979099607879244581348587475901043095497450005209070 +/- 3.64e-76]",
-     "[2.153651470452707665714059979099607879244581348587475901043095497450005209070 +/- 3.28e-76]"
-    ]
-   },
-   {
-    "kind": "adv",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f4"
-    },
-    "inputs": {
-     "n": 7,
-     "hex": "fffefee8fee8e880fee8e880e8808000",
-     "shape": "majority"
-    },
-    "u": null,
-    "res": [
-     "4.3719873517384963314526258914",
-     "4.3719873517384963314526258914"
-    ],
-    "exact": [
-     "[4.371987351738496331452625891422827850211200948399092793664443131537601911549 +/- 2.76e-76]",
-     "[4.371987351738496331452625891422827850211200948399092793664443131537601911549 +/- 3.47e-76]"
-    ]
-   },
-   {
-    "kind": "adv",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f4"
-    },
-    "inputs": {
-     "n": 7,
-     "hex": "fffefee8fee8e880fee8e880e8808000",
-     "shape": "majority"
-    },
-    "u": null,
-    "res": [
-     "3.681673559358733752802211276987644505441011",
-     "3.681673559358733752802211276987644505441011"
-    ],
-    "exact": [
-     "[3.681673559358733752802211276987644505441011324967657089401636321294822662357 +/- 1.36e-76]",
-     "[3.681673559358733752802211276987644505441011324967657089401636321294822662357 +/- 3.14e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f5"
-    },
-    "inputs": {
-     "n": 9,
-     "hex": "f419bc485d79a5ad04a13d66b4463af246719b4045a8917b957fc17119e16cffb809a087ac35a47bfe5882ddc447b7471f4d938d1e1e6f5210b0cbe4e207e7e4",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "7.9368507044513997993943951802",
-     "7.9368507044513997993943951802"
-    ],
-    "exact": [
-     "[7.936850704451399799394395180261866937502638622798555156376982557755154626767 +/- 1.58e-76]",
-     "[7.936850704451399799394395180261866937502638622798555156376982557755154626769 +/- 1.62e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f5"
-    },
-    "inputs": {
-     "n": 9,
-     "hex": "f419bc485d79a5ad04a13d66b4463af246719b4045a8917b957fc17119e16cffb809a087ac35a47bfe5882ddc447b7471f4d938d1e1e6f5210b0cbe4e207e7e4",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "2.303666417618546880549847127150836662132285",
-     "2.303666417618546880549847127150836662132285"
-    ],
-    "exact": [
-     "[2.303666417618546880549847127150836662132285133147879954685382692500362340649 +/- 1.02e-76]",
-     "[2.303666417618546880549847127150836662132285133147879954685382692500362340650 +/- 5.14e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f6"
-    },
-    "inputs": {
-     "n": 5,
-     "hex": "17eef420",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "3.7169171866886992958645436880",
-     "3.7169171866886992958645436880"
-    ],
-    "exact": [
-     "[3.716917186688699295864543688058706427645208791345958806987278263641264493731 +/- 2.60e-76]",
-     "[3.716917186688699295864543688058706427645208791345958806987278263641264493731 +/- 5.02e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f6"
-    },
-    "inputs": {
-     "n": 5,
-     "hex": "17eef420",
-     "shape": "balanced"
-    },
-    "u": null,
-    "res": [
-     "2.703212499409963124265122682224513765560151",
-     "2.703212499409963124265122682224513765560151"
-    ],
-    "exact": [
-     "[2.703212499409963124265122682224513765560151848251606405081656919011828722714 +/- 4.26e-76]",
-     "[2.703212499409963124265122682224513765560151848251606405081656919011828722714 +/- 2.53e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"H\"]",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "f7"
-    },
-    "inputs": {
-     "n": 6,
-     "hex": "6a6c9281305a2cbd",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "5.0163996881436179833723160999",
-     "5.0163996881436179833723160999"
-    ],
-    "exact": [
-     "[5.016399688143617983372316099953537543371178964763743577264989631785253454951 +/- 2.34e-76]",
-     "[5.016399688143617983372316099953537543371178964763743577264989631785253454951 +/- 2.50e-76]"
-    ]
-   },
-   {
-    "kind": "gen",
-    "name": "decide()[\"ratio\"]",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "f7"
-    },
-    "inputs": {
-     "n": 6,
-     "hex": "6a6c9281305a2cbd",
-     "shape": "random"
-    },
-    "u": null,
-    "res": [
-     "2.169253919197240209025866421601529748484834",
-     "2.169253919197240209025866421601529748484834"
-    ],
-    "exact": [
-     "[2.169253919197240209025866421601529748484834146924862087465941462393623115654 +/- 4.39e-76]",
-     "[2.169253919197240209025866421601529748484834146924862087465941462393623115655 +/- 4.58e-76]"
-    ]
-   }
-  ],
-  "fei.H:refused": [
+  "py.plnp>1:refused": [
    {
     "truth": {
-     "t": "feiH",
-     "f": "f10"
+     "t": "plnp",
+     "q": "283298057813736/1000000000000"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "ValueError: REFUSED: an atom of weight outside (0, 1]"
    },
    {
     "truth": {
-     "t": "feiH",
-     "f": "f13"
+     "t": "plnp",
+     "q": "24055626856285821734916066884810591764415237298028211408345406136276170472278593824215466883519340361767935297192863269795805929581052883402092281439366405080782598919576067218648443882397550553660811352258826467863690042403987130/47379092172262845921294540053176957863064148471578876072358765808900480733837185251796826441303908628860099203403658239934435426150964794660775368501012608007948455078761288621529091968737745508583465551566054344204493617364992"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "ValueError: REFUSED: an atom of weight outside (0, 1]"
    },
    {
     "truth": {
-     "t": "feiH",
-     "f": "f33"
+     "t": "plnp",
+     "q": "39982991379102425881880117596625708142827924431611954648756817996453506117064182716880676960099097710234048858760342432226110551566957846371943549242188738588464387744265726288847893160914187904664427704815100549613756198195469160720616380297890023211723329886237606434716074320125291184319634202259974096776126030443910304350752149766740963426952657886961656625780651384166480329818044276765419231240937955599920554545596639162240990465104206055365188428435157267727155989670390097697492338650563083200/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "ValueError: REFUSED: an atom of weight outside (0, 1]"
    },
    {
     "truth": {
-     "t": "feiH",
-     "f": "f41"
+     "t": "plnp",
+     "q": "468962264485669309471508533061301231765596357584582601353886950910024901166319129974350803900579631512947741696270748800728660809066749680766932009449149272370653371894160584994602452568366789903078533861562319869503015282034606/246371770473384522165898256414497606089422620344766603869860529228782864443750931883254447978044124629420032855652269882457553078215454060846013032166993427936977914530723361058096317441539299712596352338367459074434761835398206"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "ValueError: REFUSED: an atom of weight outside (0, 1]"
    },
    {
     "truth": {
-     "t": "feiH",
-     "f": "f44"
+     "t": "plnp",
+     "q": "7751921062199925525283189525758158940162071325544466501400597837132711081454084062270916124641998647548906428722068513337695339030538375088299359530300505972643403492314576143305100947110586456452039196582346365588561852779646678125942953085723253328502710308186875686106744247587518219379839458358328924099090386975979563/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "ValueError: REFUSED: an atom of weight outside (0, 1]"
    }
   ],
   "fei.ratio:refused": [
    {
     "truth": {
      "t": "feiRho",
-     "f": "f10"
-    },
-    "threw": "ArithmeticError: a weight above 1"
-   },
-   {
-    "truth": {
-     "t": "feiRho",
      "f": "f13"
     },
-    "threw": "ArithmeticError: a weight above 1"
-   },
-   {
-    "truth": {
-     "t": "feiRho",
-     "f": "f33"
-    },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "fei.decide: I > 1: the amplification rule applies: I = 1; the rule needs I > 1"
    },
    {
     "truth": {
      "t": "feiRho",
      "f": "f41"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "fei.decide: I > 1: the amplification rule applies: I = 1; the rule needs I > 1"
    },
    {
     "truth": {
      "t": "feiRho",
-     "f": "f44"
+     "f": "f45"
     },
-    "threw": "ArithmeticError: a weight above 1"
+    "threw": "fei.decide: I > 1: the amplification rule applies: I = 1; the rule needs I > 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f80"
+    },
+    "threw": "fei.decide: I > 1: the amplification rule applies: I = 1; the rule needs I > 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f87"
+    },
+    "threw": "fei.decide: I > 1: the amplification rule applies: I = 1; the rule needs I > 1"
    }
   ],
   "red:bf.log.nearest": [
@@ -5028,178 +4180,295 @@
      "[0.3622420214257378114332223088444795275753872090531393470302560417680334286345 +/- 4.46e-77]"
     ]
    }
-  ],
-  "py.printed": [
-   {
-    "kind": "real",
-    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "rho",
-     "law": "real:3b-13"
-    },
-    "inputs": {
-     "problem": "3b",
-     "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
-    },
-    "u": null,
-    "res": [
-     "1.778988841420693549805193887477289434416066",
-     "1.778988841420693549805193887477289434416066"
-    ],
-    "exact": [
-     "[1.778988841420693549805193887477289434416066785870268133201048179037478760510 +/- 5.40e-77]",
-     "[1.778988841420693549805193887477289434416066785870268133201048179037478760511 +/- 2.21e-76]"
-    ]
-   },
-   {
-    "kind": "real",
-    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "rho",
-     "law": "real:3c-95"
-    },
-    "inputs": {
-     "problem": "3c",
-     "file": "corpus/optimization-constants/mi2026/c3c_pr93/certificate_3c_v3_95pt.json"
-    },
-    "u": null,
-    "res": [
-     "1.674733895020824993378207577602265184970142",
-     "1.674733895020824993378207577602265184970142"
-    ],
-    "exact": [
-     "[1.674733895020824993378207577602265184970142270208344976484815262104679531629 +/- 4.54e-76]",
-     "[1.674733895020824993378207577602265184970142270208344976484815262104679531632 +/- 3.47e-76]"
-    ]
-   },
-   {
-    "kind": "real",
-    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "rho",
-     "law": "real:3c-147"
-    },
-    "inputs": {
-     "problem": "3c",
-     "file": "corpus/optimization-constants/l2026/certificate_3c_147pt.json"
-    },
-    "u": null,
-    "res": [
-     "1.674733895041405870063135756722213999136383",
-     "1.674733895041405870063135756722213999136383"
-    ],
-    "exact": [
-     "[1.674733895041405870063135756722213999136383713818148696811828839296485589830 +/- 9.48e-77]",
-     "[1.674733895041405870063135756722213999136383713818148696811828839296485589836 +/- 1.23e-76]"
-    ]
-   },
-   {
-    "kind": "real",
-    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "rho",
-     "law": "real:3c-147"
-    },
-    "inputs": {
-     "problem": "3c",
-     "file": "corpus/optimization-constants/l2026/certificate_3c_147pt.json"
-    },
-    "u": null,
-    "res": [
-     "1.674733895041405870063135756722213999136383",
-     "1.674733895041405870063135756722213999136383"
-    ],
-    "exact": [
-     "[1.674733895041405870063135756722213999136383713818148696811828839296485589830 +/- 9.48e-77]",
-     "[1.674733895041405870063135756722213999136383713818148696811828839296485589836 +/- 1.23e-76]"
-    ]
-   },
-   {
-    "kind": "real",
-    "name": "verify_twolaw.py main(): \"ratio in [...]\"",
-    "truthSpec": {
-     "t": "mixRho",
-     "tl": "real:twolaw-23289305"
-    },
-    "inputs": {
-     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
-    },
-    "u": null,
-    "res": [
-     "1.674894211307116228764343737060957167779440",
-     "1.674894211307116228764343737060957167779440"
-    ],
-    "exact": [
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
-    ]
-   }
-  ],
-  "rec.optq-ledger": [
-   {
-    "kind": "rec",
-    "name": "optq-221-3c rhoPython (verify_twolaw.py)",
-    "truthSpec": {
-     "t": "mixRho",
-     "tl": "real:twolaw-23289305"
-    },
-    "inputs": {
-     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
-    },
-    "u": null,
-    "res": [
-     "1.674894211307116228764343737060957167779440",
-     "1.674894211307116228764343737060957167779440"
-    ],
-    "exact": [
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
-     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
-    ]
-   }
-  ],
-  "rec.fei-ledger": [
-   {
-    "kind": "rec",
-    "name": "C71 ratio",
-    "truthSpec": {
-     "t": "feiRho",
-     "f": "real:c71-n18"
-    },
-    "inputs": {
-     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
-    },
-    "u": null,
-    "res": [
-     "6.521845710923046575658143972948578468366662",
-     "6.521845710923046575658143972948578468366662"
-    ],
-    "exact": [
-     "[6.521845710923046575658143972948578468366662292229938598252894129325503563413 +/- 5.45e-76]",
-     "[6.521845710923046575658143972948578468366662292229938598252894129325503563416 +/- 3.15e-76]"
-    ]
-   },
-   {
-    "kind": "rec",
-    "name": "C71 H",
-    "truthSpec": {
-     "t": "feiH",
-     "f": "real:c71-n18"
-    },
-    "inputs": {
-     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
-    },
-    "u": null,
-    "res": [
-     "6.7766053090059780825197902218",
-     "6.7766053090059780825197902218"
-    ],
-    "exact": [
-     "[6.776605309005978082519790221891882314787235038020170574747147806252281046359 +/- 4.47e-76]",
-     "[6.776605309005978082519790221891882314787235038020170574747147806252281046362 +/- 4.13e-76]"
-    ]
-   }
   ]
  },
  "beyondTheDoor": "bf.plnp>1 and py.plnp>1 feed the bare -p ln p routines a p > 1, which no door admits (sumdiff.door, verify_sumdiff.read and verify_twolaw.laws require a law summing to 1). They are a measurement of how load-bearing the door is, not a requirement: verify_sumdiff.entropy takes p_lo\u00b7(\u2212ln_hi) as its lower end, which holds only while \u2212ln p >= 0.",
+ "foundAtPin": {
+  "what": "The findings this audit made at its first full run, recorded in certs/entropy-arb-audit.json at the commit named, before any fix (the gaps recorded at the pin), with the digests of the modules audited then; each was fixed afterwards in the file named. The audit's declared list (KNOWN in tools/audit-entropy-arb.py) is now empty: any one of these reproducing again fails the run.",
+  "commit": "470fe0b2c7fe83856eb2b4354dff890899588172",
+  "date": "2026-10-19",
+  "generated": "2026-10-19T21:24:08+00:00",
+  "seed": 20261019,
+  "n": 20000,
+  "cases": 298710,
+  "modules": {
+   "instruments/bigfloat/bigfloat.js": "106ead607bf310a02ecc1df8d23574a8c8a9aee017a48ec613cb5e7dececefb3",
+   "instruments/bigfloat/functions.js": "b66409f2295613c4b8410736394fdf42007b8ea014e84757fd16cac87a3145ce",
+   "instruments/sumdiff/sumdiff.js": "e5919271fff8d04171120437a6fc78e537489f9459826f58cefb3387fdeca487",
+   "instruments/optq/twolaw.js": "ad15c46f2469dc9ca944ae0450d40d7045871a52c047abdab2d9d954f86391f5",
+   "tools/verify_sumdiff.py": "0e44946d156ba937f1cb1f96908d14b6c25d94002adc6a5a14a08c8835672384",
+   "tools/verify_twolaw.py": "3714b0026bb21b39039b009c78d375dded77cc79dffbc3d298ffa08af0ddc142",
+   "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+  },
+  "findings": [
+   {
+    "class": "printed",
+    "op": "fei.printed",
+    "name": "decide()[\"H\"]",
+    "misses": 202,
+    "of": 308,
+    "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
+    "witness": {
+     "truthSpec": {
+      "t": "feiH",
+      "f": "f2"
+     },
+     "inputs": {
+      "n": 8,
+      "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+      "shape": "random"
+     },
+     "printed": [
+      "7.0063574474519147637191728366",
+      "7.0063574474519147637191728366"
+     ],
+     "exact": [
+      "[7.006357447451914763719172836656825781433861850569686597978495674240193918239 +/- 3.35e-76]",
+      "[7.006357447451914763719172836656825781433861850569686597978495674240193918240 +/- 2.55e-76]"
+     ]
+    },
+    "fixedIn": "instruments/fei/fei.py: outward(x, digits, up) prints the lower end rounded down and the upper end up (ROUND_FLOOR / ROUND_CEILING) at 43 (ratio) and 29 (H) significant digits"
+   },
+   {
+    "class": "printed",
+    "op": "fei.printed",
+    "name": "decide()[\"ratio\"]",
+    "misses": 216,
+    "of": 308,
+    "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
+    "witness": {
+     "truthSpec": {
+      "t": "feiRho",
+      "f": "f2"
+     },
+     "inputs": {
+      "n": 8,
+      "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+      "shape": "random"
+     },
+     "printed": [
+      "2.372523156809113994063635246275327248739508",
+      "2.372523156809113994063635246275327248739508"
+     ],
+     "exact": [
+      "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 5.30e-76]",
+      "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 4.57e-77]"
+     ]
+    },
+    "fixedIn": "instruments/fei/fei.py: outward(x, digits, up) prints the lower end rounded down and the upper end up (ROUND_FLOOR / ROUND_CEILING) at 43 (ratio) and 29 (H) significant digits"
+   },
+   {
+    "class": "printed",
+    "op": "py.printed",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "misses": 4,
+    "of": 4,
+    "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
+    "witness": {
+     "truthSpec": {
+      "t": "rho",
+      "law": "real:3b-13"
+     },
+     "inputs": {
+      "problem": "3b",
+      "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
+     },
+     "printed": [
+      "1.778988841420693549805193887477289434416066",
+      "1.778988841420693549805193887477289434416066"
+     ],
+     "exact": [
+      "[1.778988841420693549805193887477289434416066785870268133201048179037478760510 +/- 5.40e-77]",
+      "[1.778988841420693549805193887477289434416066785870268133201048179037478760511 +/- 2.21e-76]"
+     ]
+    },
+    "fixedIn": "tools/verify_sumdiff.py, tools/verify_twolaw.py: the printed \"ratio in [lo, hi]\" quantized outward (ROUND_FLOOR for lo, ROUND_CEILING for hi)"
+   },
+   {
+    "class": "printed",
+    "op": "py.printed",
+    "name": "verify_twolaw.py main(): \"ratio in [...]\"",
+    "misses": 1,
+    "of": 1,
+    "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
+    "witness": {
+     "truthSpec": {
+      "t": "mixRho",
+      "tl": "real:twolaw-23289305"
+     },
+     "inputs": {
+      "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+     },
+     "printed": [
+      "1.674894211307116228764343737060957167779440",
+      "1.674894211307116228764343737060957167779440"
+     ],
+     "exact": [
+      "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+      "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+     ]
+    },
+    "fixedIn": "tools/verify_sumdiff.py, tools/verify_twolaw.py: the printed \"ratio in [lo, hi]\" quantized outward (ROUND_FLOOR for lo, ROUND_CEILING for hi)"
+   },
+   {
+    "class": "printed",
+    "op": "rec.fei-ledger",
+    "name": "C71 ratio",
+    "misses": 1,
+    "of": 1,
+    "why": "certs/fei-ledger.json records fei.decide's strings: ratio = [6.521845710923046575658143972948578468366662, the same] \u2014 one point, below the exact ratio. The CERTIFIED verdict (C71 > 6.521845710923046575) is sound: the full enclosure lies above the threshold.",
+    "witness": {
+     "truthSpec": {
+      "t": "feiRho",
+      "f": "real:c71-n18"
+     },
+     "inputs": {
+      "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+     },
+     "printed": [
+      "6.521845710923046575658143972948578468366662",
+      "6.521845710923046575658143972948578468366662"
+     ],
+     "exact": [
+      "[6.521845710923046575658143972948578468366662292229938598252894129325503563413 +/- 5.45e-76]",
+      "[6.521845710923046575658143972948578468366662292229938598252894129325503563416 +/- 3.15e-76]"
+     ]
+    },
+    "fixedIn": "certs/fei-ledger.json regenerated by tools/run-fei-ledger.py from the fixed fei.py: the recorded ratio and H are fei.decide's outward strings"
+   },
+   {
+    "class": "printed",
+    "op": "rec.fei-ledger",
+    "name": "C71 H",
+    "misses": 1,
+    "of": 1,
+    "why": "certs/fei-ledger.json records H = [6.7766053090059780825197902218, the same] \u2014 one point, below the exact H.",
+    "witness": {
+     "truthSpec": {
+      "t": "feiH",
+      "f": "real:c71-n18"
+     },
+     "inputs": {
+      "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+     },
+     "printed": [
+      "6.7766053090059780825197902218",
+      "6.7766053090059780825197902218"
+     ],
+     "exact": [
+      "[6.776605309005978082519790221891882314787235038020170574747147806252281046359 +/- 4.47e-76]",
+      "[6.776605309005978082519790221891882314787235038020170574747147806252281046362 +/- 4.13e-76]"
+     ]
+    },
+    "fixedIn": "certs/fei-ledger.json regenerated by tools/run-fei-ledger.py from the fixed fei.py: the recorded ratio and H are fei.decide's outward strings"
+   },
+   {
+    "class": "printed",
+    "op": "rec.optq-ledger",
+    "name": "optq-221-3c rhoPython (verify_twolaw.py)",
+    "misses": 1,
+    "of": 1,
+    "why": "certs/optq-ledger.json records rhoPython = verify_twolaw's printed line, [1.674894211307116228764343737060957167779440, the same] \u2014 one point, below the exact ratio (and the row's \"how\" text cuts it again to 34 characters). The row's twolaw.js rho (outward, 30 places) contains it; the verdict is sound.",
+    "witness": {
+     "truthSpec": {
+      "t": "mixRho",
+      "tl": "real:twolaw-23289305"
+     },
+     "inputs": {
+      "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+     },
+     "printed": [
+      "1.674894211307116228764343737060957167779440",
+      "1.674894211307116228764343737060957167779440"
+     ],
+     "exact": [
+      "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+      "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+     ]
+    },
+    "fixedIn": "tools/run-optq-ledger.py records verify_twolaw's outward printed line; certs/optq-ledger.json regenerated (every verdict unchanged)"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
+    "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+    "why": "read() applies int() to JSON numbers (1.9 -> 1, 1.2 -> 1), so a certificate whose weights are not integers is decided as the law {1/2, 1/2}; sumdiff.js refuses it.",
+    "fixedIn": "tools/verify_sumdiff.py: law() refuses a coordinate or weight that is not an exact integer (a JSON float or a boolean) and a one-point law (every entropy 0, the ratio 0/0); ratio() refuses when the maximum entropy is not separated from 0; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a boolean weight (true/2)",
+    "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+    "why": "read(): int(True) = 1; sumdiff.js refuses it.",
+    "fixedIn": "tools/verify_sumdiff.py: law() refuses a coordinate or weight that is not an exact integer (a JSON float or a boolean) and a one-point law (every entropy 0, the ratio 0/0); ratio() refuses when the maximum entropy is not separated from 0; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a non-integer coordinate (x = 0.5)",
+    "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+    "why": "read() never checks that a coordinate is an integer (the law is taken on R^2); sumdiff.js refuses it.",
+    "fixedIn": "tools/verify_sumdiff.py: law() refuses a coordinate or weight that is not an exact integer (a JSON float or a boolean) and a one-point law (every entropy 0, the ratio 0/0); ratio() refuses when the maximum entropy is not separated from 0; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
+    "decided": "verdict REFUTED, -1, -1",
+    "why": "every entropy is 0, so the ratio is 0/0; ratio() divides by the max's enclosure [-1E-1000118, 1E-1000118] without checking its sign and returns [-1, -1], and decide() says REFUTED. sumdiff.js refuses it (division by an interval containing 0).",
+    "fixedIn": "tools/verify_sumdiff.py: law() refuses a coordinate or weight that is not an exact integer (a JSON float or a boolean) and a one-point law (every entropy 0, the ratio 0/0); ratio() refuses when the maximum entropy is not separated from 0; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
+    "decided": "verdict REFUTED, -1, -1",
+    "why": "as the one-point law above.",
+    "fixedIn": "tools/verify_sumdiff.py: law() refuses a coordinate or weight that is not an exact integer (a JSON float or a boolean) and a one-point law (every entropy 0, the ratio 0/0); ratio() refuses when the maximum entropy is not separated from 0; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
+    "decided": "verdict CERTIFIED, 0.47368421052631578947368421052631578947, 0.47368421052631578947368421052631578947",
+    "why": "laws() applies int() to the weights; twolaw.js refuses it.",
+    "fixedIn": "tools/verify_twolaw.py: decide() refuses a problem field that does not name 3c and two one-point laws (0/0); laws() reads each law through verify_sumdiff's law(), so a non-integer coordinate or weight is refused there; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a non-integer coordinate (0.5)",
+    "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+    "why": "laws() never checks that a point has integer coordinates (the injectivity bound is computed on the floats); twolaw.js refuses it.",
+    "fixedIn": "tools/verify_twolaw.py: decide() refuses a problem field that does not name 3c and two one-point laws (0/0); laws() reads each law through verify_sumdiff's law(), so a non-integer coordinate or weight is refused there; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: not a 3c certificate",
+    "decided": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639",
+    "why": "decide() never reads the certificate's problem field (twolaw.js requires 3c); main() decides only the pinned file.",
+    "fixedIn": "tools/verify_twolaw.py: decide() refuses a problem field that does not name 3c and two one-point laws (0/0); laws() reads each law through verify_sumdiff's law(), so a non-integer coordinate or weight is refused there; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
+    "decided": "verdict REFUTED, -1, -1",
+    "why": "as verify_sumdiff's one-point law: the ratio [-1, -1], REFUTED; twolaw.js refuses it.",
+    "fixedIn": "tools/verify_twolaw.py: decide() refuses a problem field that does not name 3c and two one-point laws (0/0); laws() reads each law through verify_sumdiff's law(), so a non-integer coordinate or weight is refused there; each with its reason"
+   },
+   {
+    "class": "malformed",
+    "impl": "fei.ln_iv",
+    "name": "fei.ln_iv: k = 0 (the docstring's domain is a positive integer)",
+    "decided": "verdict returned, -Infinity, -9.9999999999999999999999999999999999999",
+    "why": "returns (-Infinity, -9.99...E+999999) rather than refusing; unreachable from fei.decide, which calls ln_iv only for a nonzero |a_S|.",
+    "fixedIn": "instruments/fei/fei.py: ln_iv(k) refuses k <= 0"
+   }
+  ]
+ },
  "problems": []
 }

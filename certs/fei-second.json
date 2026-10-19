@@ -1,12 +1,12 @@
 {
  "what": "The registry's C71 > 6.521845710923046575 (Fourier entropy–influence), decided a second time from the cited n = 18 truth table by tools/verify_fei.js (JavaScript BigInt; H in closed form, A - sum B_p log2 p, the logarithms from the atanh series with outward rounding), which shares no code with instruments/fei/fei.py or the claimant; fei.py run beside it through tools/fei-second-harness.py; an Arb reference from fei.py's own spectrum; 12 planted claims of known truth decided by both, fei.py's own verdict recorded beside its three-word reading and required to equal it; what the planted claims found in fei.py at 470fe0b2 and the fix the same day, in findingsAtPin and findings.",
- "generated": "2026-10-19T21:45:17Z",
- "seconds": 23.8,
+ "generated": "2026-10-19T23:04:09Z",
+ "seconds": 21.3,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
-  "tools/verify_fei.js": "47af71c0f128881b791c597b926ad177fbf45eb6022f56b5de3dab9e9bfec293",
-  "tools/fei-second-harness.py": "9d0a6c9e39a7d8e847b7c14a0152e954012798ff25ea2a44800f383589d5288c",
+  "tools/verify_fei.js": "17b77c44cae2e1fbfd0b2a40547bc9babdae36a224e62594fe3ced885ace9766",
+  "tools/fei-second-harness.py": "751f421172585bcffdbe32e7ad8ce6e7e5dedd7eae8004361887de674312e5f8",
   "instruments/fei/fei.py": "271e0f4def7ccffb5113a3d166fe73d1ec0de5942035631c5a7d9c672e11d6de",
   "instruments/verdict.js": "b791f9d813a2d8208a9d9afb86a07ea79f8368293cfa6c00ca7d6aeb0ed07e18"
  },
@@ -162,7 +162,7 @@
     "ok": true
    }
   ],
-  "ms": 83
+  "ms": 71
  },
  "py": {
   "verdict": "CERTIFIED",
@@ -229,7 +229,7 @@
     "verdict": "CERTIFIED"
    }
   ],
-  "seconds": 1.61
+  "seconds": 1.47
  },
  "arb": {
   "python": "3.12.13",
@@ -251,7 +251,7 @@
     "22528": 36,
     "58368": 9
    },
-   "seconds": 1.2
+   "seconds": 1.09
   },
   "H": [
    [
@@ -274,7 +274,7 @@
    ]
   ],
   "ratioText": "[6.5218457109230465756581439729485784683666622922299385982528941293255035634145219 +/- 4.27e-81]",
-  "ms": 1456
+  "ms": 1457
  },
  "arbSource": "run now",
  "agreement": [
@@ -336,27 +336,6 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 83
-   },
-   "js128": {
-    "verdict": "CERTIFIED",
-    "why": null
-   },
-   "py": {
-    "word": "CERTIFIED",
-    "raised": null,
-    "reading": "CERTIFIED",
-    "why": null,
-    "seconds": 1.61
-   }
-  },
-  {
-   "id": "strict-improvement",
-   "claim": "C71 > 6.514326913930565372650625175957",
-   "what": "above the previous record's certified upper endpoint, the bar the pinned README says the claimant used",
-   "js": {
-    "verdict": "CERTIFIED",
-    "why": null,
     "ms": 71
    },
    "js128": {
@@ -368,17 +347,17 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 2.18
+    "seconds": 1.47
    }
   },
   {
-   "id": "logic-monotone",
-   "claim": "the n = 18 function is logic-monotone (TRUE = -1)",
-   "what": "the artifact's second claim; with it the bound holds among monotone functions too",
+   "id": "strict-improvement",
+   "claim": "C71 > 6.514326913930565372650625175957",
+   "what": "above the previous record's certified upper endpoint, the bar the pinned README says the claimant used",
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 66
+    "ms": 62
    },
    "js128": {
     "verdict": "CERTIFIED",
@@ -389,7 +368,28 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.63
+    "seconds": 1.5
+   }
+  },
+  {
+   "id": "logic-monotone",
+   "claim": "the n = 18 function is logic-monotone (TRUE = -1)",
+   "what": "the artifact's second claim; with it the bound holds among monotone functions too",
+   "js": {
+    "verdict": "CERTIFIED",
+    "why": null,
+    "ms": 62
+   },
+   "js128": {
+    "verdict": "CERTIFIED",
+    "why": null
+   },
+   "py": {
+    "word": "CERTIFIED",
+    "raised": null,
+    "reading": "CERTIFIED",
+    "why": null,
+    "seconds": 1.52
    }
   }
  ],
@@ -401,7 +401,7 @@
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 6.521845710923046575658143972948578468366664 (a statement about this certificate, not about C71)",
-    "ms": 75
+    "ms": 63
    },
    "js128": {
     "verdict": "REFUSED",
@@ -412,7 +412,7 @@
     "raised": null,
     "reading": "REFUTED",
     "why": "its upper end, 6.521845710923046575658143972948578468366663, is at or below the bar",
-    "seconds": 1.63
+    "seconds": 1.67
    },
    "truth": "FALSE",
    "expected": {
@@ -430,7 +430,7 @@
    "js": {
     "verdict": "REFUSED",
     "why": "the sha256 binding fails: the table is not the one the artifact names",
-    "ms": 20
+    "ms": 16
    },
    "js128": {
     "verdict": "REFUSED",
@@ -459,7 +459,7 @@
    "js": {
     "verdict": "REFUSED",
     "why": "not balanced: a_∅ = -2, fhat(∅) = -1/131072; the amplification rule needs a balanced g",
-    "ms": 93
+    "ms": 68
    },
    "js128": {
     "verdict": "REFUSED",
@@ -470,7 +470,7 @@
     "raised": null,
     "reading": "REFUSED",
     "why": "fei.py's check failed: balanced: fhat(emptyset) = 0",
-    "seconds": 2.11
+    "seconds": 1.48
    },
    "truth": "MALFORMED",
    "expected": {
@@ -488,7 +488,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 72
+    "ms": 62
    },
    "js128": {
     "verdict": "REFUSED",
@@ -499,7 +499,7 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.72
+    "seconds": 1.46
    },
    "truth": "TRUE",
    "expected": {
@@ -517,7 +517,7 @@
    "js": {
     "verdict": "REFUSED",
     "why": "the artifact states I = 131/64; its own table gives 261/128",
-    "ms": 72
+    "ms": 59
    },
    "js128": {
     "verdict": "REFUSED",
@@ -528,7 +528,7 @@
     "raised": null,
     "reading": "REFUSED",
     "why": "fei.py's check failed: I = 261/128, the artifact's 131/64",
-    "seconds": 1.57
+    "seconds": 1.45
    },
    "truth": "MALFORMED",
    "expected": {
@@ -546,7 +546,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 71
+    "ms": 60
    },
    "js128": {
     "verdict": "REFUSED",
@@ -557,7 +557,7 @@
     "raised": null,
     "reading": "REFUSED",
     "why": "its enclosure [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663] straddles the bar",
-    "seconds": 1.52
+    "seconds": 1.44
    },
    "truth": "TRUE",
    "expected": {
@@ -575,7 +575,7 @@
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 6.521845710923046575658143972948578468366662292229938598252894129325503563416 (a statement about this certificate, not about C71)",
-    "ms": 65
+    "ms": 67
    },
    "js128": {
     "verdict": "REFUSED",
@@ -586,7 +586,7 @@
     "raised": null,
     "reading": "REFUSED",
     "why": "its enclosure [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663] straddles the bar",
-    "seconds": 1.54
+    "seconds": 1.46
    },
    "truth": "FALSE",
    "expected": {
@@ -662,7 +662,7 @@
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 4 (a statement about this certificate, not about C71)",
-    "ms": 0
+    "ms": 1
    },
    "js128": {
     "verdict": "REFUTED",
@@ -720,7 +720,7 @@
    "js": {
     "verdict": "REFUTED",
     "why": "f(160) is TRUE and f(161) is FALSE, the second input above the first in coordinate 0",
-    "ms": 153
+    "ms": 124
    },
    "js128": {
     "verdict": "REFUTED",
@@ -731,7 +731,7 @@
     "raised": null,
     "reading": "REFUTED",
     "why": null,
-    "seconds": 1.8
+    "seconds": 1.38
    },
    "truth": "FALSE",
    "expected": {
@@ -783,8 +783,8 @@
   "FOUND while fixing (2026-10-19): planted claims b and c flipped input 123457, which also broke monotonicity — claim c stated balance as its one defect, and under the composition rule the refuted monotone check would have decided fei.py's word. The flip is now input 131017, the first FALSE input whose every immediate superset is TRUE, which keeps the function monotone; the claims keep their ids."
  ],
  "timing": {
-  "jsMs": 2110,
-  "pyMs": 20103,
-  "arbMs": 1456
+  "jsMs": 1985,
+  "pyMs": 17788,
+  "arbMs": 1457
  }
 }

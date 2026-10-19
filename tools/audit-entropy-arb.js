@@ -23,10 +23,13 @@
    truth is rational. Every malformed input must be refused (its unmutated baseline must decide), and planted wrong
    functions must be caught, or the audit cannot go red.
 
-   FINDINGS the audit made are DECLARED in tools/audit-entropy-arb.py (KNOWN), each with its cause, and recorded with a
+   FINDINGS the audit makes are DECLARED in tools/audit-entropy-arb.py (KNOWN), each with its cause, and recorded with a
    reproducing witness. A run is green only while every declared finding still reproduces where it is declared and no
    undeclared miss appears — when a module is fixed its entry stops reproducing and must be removed (the list only turns
-   down). An arithmetic violation is never declarable.
+   down). An arithmetic violation is never declarable. The list is EMPTY since 2026-10-19: the first run's seventeen
+   findings (printed enclosures cut toward zero, Python doors deciding malformed certificates, ln_iv(0)) were fixed, and
+   stay in the record as foundAtPin (tools/audit-entropy-arb-pin.json: the commit, the module digests then, each
+   finding's witness and fix); the fei recorder cross-check fails the run outright instead of booking a refusal.
 
    THE PIPELINE. This file generates every input from one seed, runs the JavaScript implementations and writes the cases;
    `python3 -I tools/audit-entropy-arb.py impl` (the interpreter the batteries use; $PY overrides) runs the Python

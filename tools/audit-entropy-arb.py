@@ -7,9 +7,11 @@
           tools/verify_twolaw.py (decide, main) and instruments/fei/fei.py (ln_iv, the DN/UP contexts, decide) — and
           appends their enclosures. The default decimal context is made unusable first (prec 1, no traps), as
           verify_sumdiff.main and verify_twolaw.main leave it, so an operation that rounded in it would show.
-          fei.decide computes its enclosures inline and returns them as strings cut at 44 and 30 characters; its
-          full-precision ends are read through a pass-through recorder on its DN and UP contexts (every call goes to
-          the real context and returns the real result) and cross-checked against those strings.
+          fei.decide computes its enclosures inline and returns them printed outward by fei.outward (43 significant
+          digits for the ratio, 29 for H); its full-precision ends are read through a pass-through recorder on its DN
+          and UP contexts (every call goes to the real context and returns the real result). The recorder's ends,
+          printed by fei.outward, must equal the strings decide returned — a mismatch FAILS the run (the impl stage exits), since a
+          recorder reading the wrong values would put the wrong numbers before Arb; it is never booked as a refusal.
 
   decide  (instruments/zetahankel/.venv/bin/python -I, python-flint): decides every case. The exact value is an Arb ball
           at 256 bits (retried at 1024 and 4096 when Arb cannot separate it from an end), computed from the exact inputs
@@ -105,6 +107,10 @@ def impl(src, dst, root):
             return None, (type(e).__name__ + ': ' + str(e))[:160]
 
     def fei_tapped(art, threshold, record=None):
+        """fei.decide with its DN and UP contexts recorded: (result, (H_lo, H_hi), (r_lo, r_hi) or None) at full precision.
+        H is the last add in each context, the ratio the last divide (fei.decide computes nothing in them afterwards); a
+        result without H came from decide's early return (an unreadable table) and carries no ends. The ends printed by
+        fei.outward must be the strings decide returned, or the run fails."""
         dn, up = fei.DN, fei.UP
         tdn, tup = Tap(dn), Tap(up)
         fei.DN, fei.UP = tdn, tup
@@ -112,11 +118,16 @@ def impl(src, dst, root):
             r = fei.decide(art, threshold, record)
         finally:
             fei.DN, fei.UP = dn, up
+        if r['H'] is None:
+            return r, None, None
         last = lambda log, name: [v for k, v in log if k == name][-1]   # noqa: E731
         H = (last(tdn.log, 'add'), last(tup.log, 'add'))
-        R = (last(tdn.log, 'divide'), last(tup.log, 'divide'))
-        if [str(R[0])[:44], str(R[1])[:44]] != r['ratio'] or [str(H[0])[:30], str(H[1])[:30]] != r['H']:
-            raise RuntimeError('the recorder did not read the values fei.decide printed')
+        R = (last(tdn.log, 'divide'), last(tup.log, 'divide')) if r['ratio'] is not None else None
+        printed_H = [fei.outward(H[0], fei.H_DIGITS, False), fei.outward(H[1], fei.H_DIGITS, True)]
+        printed_R = [fei.outward(R[0], fei.RATIO_DIGITS, False), fei.outward(R[1], fei.RATIO_DIGITS, True)] if R else None
+        if printed_H != r['H'] or printed_R != r['ratio']:
+            sys.exit('audit-entropy-arb impl: the recorder did not read the values fei.decide printed — recorded %s / %s, decide returned %s / %s'
+                     % (printed_H, printed_R, r['H'], r['ratio']))
         return r, H, R
 
     ctx_of = {'py': (V.DOWN, V.UP, V.PREC), 'fei': (fei.DN, fei.UP, fei.PREC)}
@@ -175,15 +186,23 @@ def impl(src, dst, root):
             r, e = attempt(lambda: fei_tapped(art, c['threshold'], rec))
             u = {'d': fei.PREC}
             tH, tR = {'t': 'feiH', 'f': c['f']}, {'t': 'feiRho', 'f': c['f']}
-            if r:
-                out_, H, R = r
-                result(c, 'fei.H', tH, [S(H[0]), S(H[1])], None, u)
-                result(c, 'fei.ratio', tR, [S(R[0]), S(R[1])], None, u)
-                result(c, 'fei.printed', tH, out_['H'], None, None, name='decide()["H"]')
-                result(c, 'fei.printed', tR, out_['ratio'], None, None, name='decide()["ratio"]')
-            else:
+            if r is None:                            # fei.decide raised: a refusal with the exception's reason
                 result(c, 'fei.H', tH, None, e, u)
                 result(c, 'fei.ratio', tR, None, e, u)
+            else:                                    # fei.decide returned: a REFUSED word carries its reason as the refusal
+                out_, H, R = r
+                gate = next((c for c in out_['checks'] if c['verdict'] != 'CERTIFIED' and c['name'][:5] in ('H > 0', 'I > 1')), None)
+                why = 'fei.decide: ' + (gate['name'] + ': ' + gate['why'] if gate else str(out_['why']))[:140]   # the check that withheld the ratio
+                if H is None:
+                    result(c, 'fei.H', tH, None, why, u)
+                else:
+                    result(c, 'fei.H', tH, [S(H[0]), S(H[1])], None, u)
+                    result(c, 'fei.printed', tH, out_['H'], None, None, name='decide()["H"]')
+                if R is None:
+                    result(c, 'fei.ratio', tR, None, why, u)
+                else:
+                    result(c, 'fei.ratio', tR, [S(R[0]), S(R[1])], None, u)
+                    result(c, 'fei.printed', tR, out_['ratio'], None, None, name='decide()["ratio"]')
         # ---- red controls: planted wrong functions, judged against the operation they replace ----------------------
         elif op == 'red:py.ln_out.nearest':          # ln_out without its outward step: the correctly rounded ln at each end
             X = Decimal(c['x'])
@@ -272,22 +291,13 @@ def impl(src, dst, root):
 # ======================================================================================================================
 
 PRECS = (256, 1024, 4096, 16384)
-# DECLARED FINDINGS: each names a class of misses this audit found and reported (2026-10-19), in a module it does not
-# edit. The verify_sumdiff/verify_twolaw entries were removed when those files were fixed (2026-10-19, phase 1). The run stays green only while each of these still reproduces exactly where it is declared and nowhere else —
-# when a module is fixed, its entry stops reproducing and must be removed here (the list only turns down).
-KNOWN = {
-    'printed': {
-        'fei.printed': 'fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. '
-                       'Cutting a decimal string rounds toward zero — for a positive upper end, DOWN — so the returned upper end falls below the exact value whenever the cut drops '
-                       'a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.',
-        ('rec.fei-ledger', 'C71 ratio'): 'certs/fei-ledger.json records fei.decide\'s strings: ratio = [6.521845710923046575658143972948578468366662, the same] — one point, below the exact ratio. '
-                                         'The CERTIFIED verdict (C71 > 6.521845710923046575) is sound: the full enclosure lies above the threshold.',
-        ('rec.fei-ledger', 'C71 H'): 'certs/fei-ledger.json records H = [6.7766053090059780825197902218, the same] — one point, below the exact H.',
-    },
-    'malformed': {
-        'fei.ln_iv: k = 0 (the docstring\'s domain is a positive integer)': 'returns (-Infinity, -9.99...E+999999) rather than refusing; unreachable from fei.decide, which calls ln_iv only for a nonzero |a_S|.',
-    },
-}
+# DECLARED FINDINGS: each would name a class of misses this audit found and reported, in a module it does not edit, so
+# the run stays green only while it still reproduces exactly where declared and nowhere else; when the module is fixed
+# the entry stops reproducing and must be removed (the list only turns down). EMPTY since phase 2 (2026-10-19): the
+# seventeen findings of the first run were fixed — they are kept, with their witnesses and the fixes, in
+# tools/audit-entropy-arb-pin.json and written into the record as foundAtPin.
+KNOWN = {'printed': {}, 'malformed': {}}
+PIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit-entropy-arb-pin.json')
 CLASS = {'bf.digits': 'printed', 'bf.toDecimal': 'printed', 'fei.printed': 'printed', 'py.printed': 'printed',
          'bf.plnp>1': 'beyond', 'py.plnp>1': 'beyond'}
 IMPL = [('bf.', 'instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)'), ('py.', 'tools/verify_sumdiff.py, tools/verify_twolaw.py'),
@@ -304,6 +314,19 @@ def op_class(op):
 
 class Undecidable(Exception):
     pass
+
+
+def found_at_pin(problems):
+    """the first run's findings, fixed since (tools/audit-entropy-arb-pin.json); a finding there that is also declared
+    in KNOWN, or whose fix is unnamed, is a problem"""
+    pin = json.load(open(PIN))
+    for f in pin['findings']:
+        key = (f['op'], f['name']) if f['class'] == 'printed' and (f['op'], f['name']) in KNOWN['printed'] else f.get('op') or f['name']
+        if key in KNOWN[f['class']]:
+            problems.append('a finding fixed at the pin is still declared in KNOWN: %s' % (key,))
+        if not f.get('fixedIn'):
+            problems.append('a finding at the pin names no fix: %s' % f['name'])
+    return pin
 
 
 def decide(src, out_path, meta):
@@ -737,6 +760,7 @@ def decide(src, out_path, meta):
         'malformed': dict(malformed, list=[{k: b[k] for k in ('impl', 'name', 'expectRefusal', 'threw', 'res')} for b in bad]),
         'witnesses': {k: v for k, v in witnesses.items() if v},
         'beyondTheDoor': 'bf.plnp>1 and py.plnp>1 feed the bare -p ln p routines a p > 1, which no door admits (sumdiff.door, verify_sumdiff.read and verify_twolaw.laws require a law summing to 1). They are a measurement of how load-bearing the door is, not a requirement: verify_sumdiff.entropy takes p_lo·(−ln_hi) as its lower end, which holds only while −ln p >= 0.',
+        'foundAtPin': found_at_pin(problems),
         'problems': problems,
     }
     json.dump(rec, open(out_path, 'w'), indent=1)
@@ -755,6 +779,7 @@ def decide(src, out_path, meta):
         print('  RED %-26s planted: %d of %d cases caught — %s' % (op, r['violationsCaught'], r['cases'], 'fired' if r['violationsCaught'] else 'DID NOT FIRE'))
     for f in findings:
         print('  FINDING%s %s' % (' (declared)' if f['declared'] else '', json.dumps({k: f[k] for k in f if k in ('class', 'op', 'name', 'misses', 'of', 'impl', 'decided')}, ensure_ascii=False)))
+    print('  found at the pin %s: %d findings, each fixed since; none declared now' % (rec['foundAtPin']['commit'][:8], len(rec['foundAtPin']['findings'])))
     for p in problems:
         print('  PROBLEM ' + p)
     sys.exit(1 if problems else 0)

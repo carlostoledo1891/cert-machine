@@ -253,9 +253,12 @@ const STORED = CHECK ? (() => { try { return JSON.parse(rd('certs/fei-second.jso
 
 /* ---- the Arb reference (third computation: fei.py's spectrum, Arb's logarithms; none of this file's arithmetic) --- */
 const fromManExp = ([m, e]) => (e >= 0 ? Q(BigInt(m) << BigInt(e)) : Q(BigInt(m), 1n << BigInt(-e)));
+/* the harness reads its job from a file, not stdin: the n = 18 artifact is 66 KB, past the 64 KB socket buffer, and spawnSync's
+   stdin hand-off deadlocked once at that size (2026-10-19, in make test; the rerun passed) */
+const withJob = (job, f) => { const d = fs.mkdtempSync(path.join(require('os').tmpdir(), 'fei-job-')), p = path.join(d, 'job.json'); fs.writeFileSync(p, JSON.stringify(job)); try { return f(p); } finally { fs.rmSync(d, { recursive: true, force: true }); } };
 function arbLane() {
   if (!fs.existsSync(ARBPY)) return null;
-  const t = Date.now(), r = cp.spawnSync(ARBPY, ['-I', HARNESS, '--arb'], { input: JSON.stringify({ artifact: ART, prec: ARBPREC }), encoding: 'utf8', maxBuffer: 1 << 26 });
+  const t = Date.now(), r = withJob({ artifact: ART, prec: ARBPREC }, (p) => cp.spawnSync(ARBPY, ['-I', HARNESS, '--arb', p], { encoding: 'utf8', maxBuffer: 1 << 26 }));
   if (r.status !== 0) { if (/No module named 'flint'/.test(r.stderr || '')) return null; die('the Arb lane failed: ' + (r.stderr || '').slice(-500)); }
   return Object.assign(JSON.parse(r.stdout), { ms: Date.now() - t });
 }
@@ -316,7 +319,7 @@ const JS = ALL.map((c) => { const t = Date.now(), r = decide(c.art, c.t, BITS); 
 const JS128 = ALL.map((c) => decide(c.art, c.t, LOWBITS));
 const jsMs = Date.now() - tj;
 const tp = Date.now();
-const pyRun = cp.spawnSync('python3', ['-I', HARNESS], { input: JSON.stringify({ fixtures: ALL.map((c) => ({ id: c.id, artifact: c.art, threshold: c.t, record: c.record || null })), spectrumOf: ART }), encoding: 'utf8', maxBuffer: 1 << 28 });
+const pyRun = withJob({ fixtures: ALL.map((c) => ({ id: c.id, artifact: c.art, threshold: c.t, record: c.record || null })), spectrumOf: ART }, (p) => cp.spawnSync('python3', ['-I', HARNESS, p], { encoding: 'utf8', maxBuffer: 1 << 28 }));
 if (pyRun.status !== 0) die('the fei.py harness failed: ' + (pyRun.stderr || '').slice(-600));
 const PY = JSON.parse(pyRun.stdout), pyMs = Date.now() - tp;
 const word = (c, r) => (c.kind === 'monotone' ? r.pub.monotone.verdict : r.pub.verdict);
