@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~17:00 UTC, handoff: SAGUI (ex-Atalaia) SPUN OUT to its own private repo ~/Projects/sagui — nothing here changed, nothing here depends on it; the 09:00 state stands: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
+## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~18:30 UTC, handoff: C_86 REPLAYED — CERTIFIED in two kernels, T-PR4 DRAFTED (a send); SAGUI (ex-Atalaia) SPUN OUT to its own private repo ~/Projects/sagui — nothing here changed, nothing here depends on it; the 09:00 state stands: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -31,8 +31,8 @@ NEXT SESSION, IN ORDER:
      field (login or ZENODO_TOKEN); (6) confirm the Navier–Stokes "six readers" were AI agents.
   ◆ WAITING ON THE WORLD: #232 (Tao) — IF IT MERGES: a third registry snapshot (SNAPS in read-optconst-registry.js)
      before the paper counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's
-     word; Schmidt's answer — check any proof against the 48 recorded cases; Pedro's comments on v0.5.
-  ◆ READY TO BUILD ON A WORD: the C_86 replay (#227, the best-value registry target, ~a day); the referee items
+     word; T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md) is INDEPENDENT of #232 (other README lines) and waits only for the operator's word; Schmidt's answer — check any proof against the 48 recorded cases; Pedro's comments on v0.5.
+  ◆ READY TO BUILD ON A WORD: ~~the C_86 replay~~ DONE 2026-10-19 (below); C_82 (#229) next, ~a day; the referee items
      deferred from v0.5 (S3 cut the engineering material, S5 planted Lean statements, S6 a second C71 implementation,
      O2 the Arb audit of bigfloat/decimal); check whether a crude bound on K already gives Erdős #1's effective rate
      (only log K enters k — our §7 may have asked for more than needed).
@@ -44,6 +44,27 @@ NEXT SESSION, IN ORDER:
      corpus/anp/*, corpus/janela/pnboia/*, certs/janela-pnboia-check.json. Nothing here was edited; no task here changes.
      Sagui work is done from its own folder (operator 2026-10-19: "open the new folder in a new window"); its GitHub push
      is the operator's (the auto-mode classifier refused it here). Memory: atalaia-commercial-venture.md.
+  ★ C_86 REPLAYED (2026-10-19 afternoon, on "proceed the missing PRs or issues we have planned"): the registry's newest asterisk,
+     C_86 <= 1.8117251* (R. Pinho, #227, MERGED 2026-10-18; the Schur–Siegel–Smyth trace constant from a 629-cell step measure
+     and eleven integer polynomials, Smith's sufficiency criterion) — the certificate's six finite conditions DECIDED by two
+     kernels sharing no code with each other or with the claimant's checker (never run): instruments/optq/c86.py (Fraction; its
+     own float-series log rounded outward) and tools/replay-c86.js (eqcert BigInt rationals + intervals). E1 support, E2
+     primitive/irreducible (Mignotte-bounded quadratic-factor search, enough for degree <= 5)/totally real (Sturm), E3
+     Σb·deg = 0.82978 m, E6 the bound 144938007612277893/79999999999994000 = 1.81172509515… the certificate's own fraction:
+     exact. E4 ∫log|Q|dμ > 0 (each ≈ 1e-4) and E5 U_μ − Σ b log|Q| >= 0 on the support: sound enclosures; E5 by adaptive
+     bisection with the cell-edge terms (infinite slope at the edge) by exact monotone range and the smooth rest by a
+     second-order Taylor form at the midpoint — the naive termwise enclosure cannot converge (f ~ 1e-4, the termwise width
+     ~0.4 on a cell); 3,658 boxes in BOTH kernels, depth <= 8, smallest certified margin 2.31e-8 (the claimant's arb: 6,218
+     boxes, 7.4e-8). CERTIFIED in both; 6/6 red controls REFUTED in both (densities ×0.98 → a box with f < 0; weights ×1.3;
+     extra mass at 1/20; a tampered bound; (x−1)(x−2); x²+1). NOT re-derived: the minimum principle, the resultant argument,
+     Smith's theorem — read. Pins corpus/optconst-queue/c86-2026-10-19/ (certificate @ 116a58ff, registry @ 46dbf036);
+     record certs/c86-replay.json (255 s both; --check 27 s, in make test + build-control + the shelf); page §8
+     /reports/optconst-queue.html#c86; targets.json row BUILT. T-PR4 DRAFTED, NOT SENT: outreach/registry-pr4-draft-2026-10-19.md
+     + registry-pr4-edit-2026-10-19.py (dry-run on the pinned files: every edit applies once) — independent of #232. A bug
+     found and fixed on the way: the Sturm split at an exact rational midpoint root (V(a)−V(m) counts (a, m], m included)
+     looped forever on the reducible red control in both kernels — the red control earned its keep.
+     NOT DONE: #232 still OPEN, no comment (T-PR3 waits for it); the C84b PR waits for the Althöfer email (operator item 4);
+     AE-PR needs Google's CLA (operator); the Pydantic door-opener is a send. C_82 (#229) is the next build.
   ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt (mail@felixschmidt.org) e-mailed a note claiming the
      analytic bound on our buffer K (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1
      @ 8564602b; pinned by digest only in corpus/erdos1/schmidt-2026-10-18/PINS.json; no code of his run). DECIDED on a

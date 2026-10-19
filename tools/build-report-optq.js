@@ -167,6 +167,32 @@ B.push(C.section({
       + C.pRaw('Red controls, which must come out wrong in both implementations: a C₁c bound 2·10⁻¹⁵ above the exact value and a C₁d bound 10⁻¹⁵ below it are REFUTED; a negative weight and a C₁d function changed to integral zero are REFUSED. Record ' + C.m('certs/autocorr-replay.json') + '; re-derive with ' + C.m('node tools/replay-autocorr.js') + ' (both, about two minutes) or ' + C.m('--check') + '.')
   }));
 }
+/* §8 (2026-10-19): the registry's C_86 certificate, replayed (certs/c86-replay.json, tools/replay-c86.js) — appended after §7 */
+{
+  const CR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'c86-replay.json'), 'utf8'));
+  if (CR.deciders.js !== shaOf('tools/replay-c86.js') || CR.deciders.py !== shaOf('instruments/optq/c86.py')) die('certs/c86-replay.json was written by other deciders — re-run tools/replay-c86.js');
+  if (CR.verdict !== 'CERTIFIED' || !CR.agree || CR.js.verdict !== 'CERTIFIED' || CR.py.verdict !== 'CERTIFIED' || !CR.redControls.every((r) => r.fired) || !CR.bound.lePrinted) die('the C_86 replay is not what §8 says — rewrite it');
+  const e5j = CR.js.E5, e5p = CR.py.E5, e4 = CR.js.E4.rows, e3 = CR.js.E3;
+  const minE4 = Math.min(...e4.map((r) => r.integral[0]));
+  B.push(C.section({
+    lab: '§8 · C₈₆', title: 'A measure, eleven polynomials, six conditions: the trace-constant certificate replayed', id: 'c86',
+    bodyRaw: C.pRaw('<b>Decided 2026-10-19.</b> The registry\'s newest asterisk: ' + C.m('C₈₆ ≤ ' + CR.claim.split('<= ')[1]) + ' (R. Pinho, pull request 227, merged 2026-10-18), the Schur–Siegel–Smyth trace constant, '
+      + 'from a 629-cell step measure on [1/20, 1037/200] and eleven integer polynomials with rational weights — the construction of Talebizadeh Sardari–Orloski with seven more polynomials. '
+      + 'The claimant states six finite conditions, the hypotheses of Smith\'s sufficiency criterion [Smi24] and the arithmetic of the bound; the published chain (the minimum principle, Smith\'s theorem) turns them into the bound. '
+      + 'The six are decided here from the pinned bytes by two implementations that share no code with each other or with the claimant\'s checker (kept as text, never run): '
+      + C.m('instruments/optq/c86.py') + ' (Python: Fraction, and its own float-series logarithm rounded outward) and ' + C.m('tools/replay-c86.js') + ' (JavaScript: eqcert\'s BigInt rationals and interval library). <b>CERTIFIED in both.</b>')
+      + C.plainList([
+        { b: 'Exact (E1, E2, E3, E6).', raw: 'Densities non-negative, edges increasing, the support inside [1/20, 1037/200]; each polynomial primitive, irreducible over ℤ (no integer root, no monic integer quadratic factor within the Mignotte bound — enough for degree ≤ 5) and totally real (a Sturm count equal to the degree); '
+          + 'Σ b<sub>Q</sub> deg Q = ' + C.esc(e3.ratio.toFixed(5)) + ' m &lt; m; and ∫x dμ / m = ' + C.m(CR.bound.exact) + ' = ' + C.m(CR.bound.decimal.slice(0, 20) + '…') + ', the certificate\'s own fraction, below the printed ' + C.esc(CR.claim.split('<= ')[1]) + '.' },
+        { b: 'Enclosed (E4).', raw: '∫ log|Q| dμ for each of the eleven Q as a closed form in g(u) = u ln|u| − u at the edges, the roots enclosed to 2<sup>−80</sup> by Sturm bisection: every integral is positive, the smallest lower end ' + C.esc(minE4.toExponential(3)) + ' (the claimant reports ≈ 10⁻⁴ each).' },
+        { b: 'Enclosed (E5).', raw: 'f = U<sub>μ</sub> − Σ b<sub>Q</sub> log|Q| ≥ 0 on every cell of the support, by adaptive bisection: on each box the two cell-edge terms (an infinite slope at the edge) and any −b ln|Q| with Q vanishing on the box are bounded by their exact monotone ranges, the smooth rest by a second-order Taylor form at the midpoint. '
+          + 'Proved on ' + e5j.provedBoxes.toLocaleString('en-US') + ' boxes (JavaScript) and ' + e5p.proved_boxes.toLocaleString('en-US') + ' (Python), depth ≤ ' + e5j.maxDepth + ', the smallest certified lower bound ' + C.esc(e5j.minCertifiedLowerBound.toExponential(3)) + ' and ' + C.esc(e5p.min_certified_lower_bound.toExponential(3)) + ' (the claimant\'s arb bisection: 6,218 subintervals, 7.4 × 10⁻⁸).' },
+        { b: 'Not decided.', raw: 'The extension of E5 from the support to ℂ (the minimum principle), the resultant argument that makes μ/m arithmetic, and Smith\'s theorem itself [Smi24] — published mathematics, read and cited by the claimant and here. The replay is of the certificate\'s finite conditions, which is what the asterisk is about.' }
+      ])
+      + C.pRaw('Red controls, which must come out wrong in both implementations: densities scaled by 0.98 (f dips below zero: REFUTED by a box with f &lt; 0), weights scaled by 1.3 (E3), extra mass in the first cell of the support (E4 and E6), the bound lowered by 10⁻¹² (E6), x² − 3x + 1 replaced by (x − 1)(x − 2) and by x² + 1 (E2). '
+        + 'Pins: the certificate at commit ' + C.esc(CR.certificateCommit.slice(0, 7)) + ' (sha256 ' + C.esc(CR.sha256.slice(0, 12)) + '…), the registry\'s 86a page and README at ' + C.esc(CR.registryCommit.slice(0, 8)) + '. Record ' + C.m('certs/c86-replay.json') + '; re-derive with ' + C.m('node tools/replay-c86.js') + ' (both, about ten minutes) or ' + C.m('--check') + ' (the JavaScript decider and the red controls, about two minutes).')
+  }));
+}
 const foot = '<p>' + C.esc('Generated by tools/build-report-optq.js from certs/optq-ledger.json (' + L.generated + ', ' + L.seconds + ' s), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; @ git ' + git + '.') + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'optconst-queue.html'), TPL.render({
   title: 'Five pull requests to the constants registry, decided where decidable · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,

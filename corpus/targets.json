@@ -1022,12 +1022,12 @@
    "scouted": "2026-10-18",
    "class": "registry replay candidate (highest value of the batch)",
    "name": "C_86 <= 1.8117251* (#227, rpinho): the Schur–Siegel–Smyth trace upper bound 144938007612277893/79999999999994000 via Smith's converse-Fekete theorem (Annals 2024) from a step measure and 11 integer polynomials",
-   "verdict": "OPEN — a small exact certificate (31.7 KB); never replayed; about half a day to a day of engineering",
+   "verdict": "BUILT 2026-10-19 (certs/c86-replay.json, tools/replay-c86.js + instruments/optq/c86.py, /reports/optconst-queue.html §8): the certificate's six finite conditions CERTIFIED by two implementations sharing no code (Python Fraction + its own sound series log; JavaScript BigInt + eqcert intervals) — exact support/irreducibility/total reality/Σb·deg<m/bound equality, ∫log|Q|dμ > 0 enclosed (each ≈ 1e-4), U_μ − Σ b log|Q| ≥ 0 on the support proved on 3,658 boxes (second-order Taylor form; smallest certified margin 2.3e-8), the bound 144938007612277893/79999999999994000 the certificate's own fraction; 6/6 red controls in both. Smith's theorem and the minimum principle read, not re-derived. T-PR4 (asterisk removal) DRAFTED: outreach/registry-pr4-draft-2026-10-19.md — a send, the operator's",
    "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
    "artifacts": "cert_n1200_A11.json in github.com/rpinho/c86-trace-certificate @ 116a58ff (sha256 722a287b…ffe53d): 1201 edges, 1200 densities, 11 polynomials of degree <= 5, 11 weights",
    "cost": "exact parts (support, Σ b·deg < m, the bound equality) seconds; irreducible and totally real by Sturm; ∫log|Q| dμ > 0 (margin ~1e-4) by a closed form with outward rounding; U_μ − Σ b log|Q| >= 0 on the support (margin 7.4e-8) by interval bisection — each u·log|u| − u term monotone on (−1, 1)",
    "bridge": "Smith's theorem, the minimum principle and resultants are analytic: the declared boundary, as in the Bandeira audit",
-   "next": "build after the 1a/1b PR lands; the first replay by anyone"
+   "next": "send T-PR4 on the operator's word (independent of #232; different README lines); then C_82 (#229), the next certificate of the same kind"
   },
   {
    "id": "optconst-82-zhang-zagier-2026-10",
