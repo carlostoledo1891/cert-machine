@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~09:00 UTC, handoff: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
+## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~17:00 UTC, handoff: SAGUI (ex-Atalaia) SPUN OUT to its own private repo ~/Projects/sagui — nothing here changed, nothing here depends on it; the 09:00 state stands: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -36,6 +36,14 @@ NEXT SESSION, IN ORDER:
      deferred from v0.5 (S3 cut the engineering material, S5 planted Lean statements, S6 a second C71 implementation,
      O2 the Arb audit of bigfloat/decimal); check whether a crude bound on K already gives Erdős #1's effective rate
      (only log K enters k — our §7 may have asked for more than needed).
+  ★ SAGUI SPUN OUT (2026-10-19 afternoon, this session): the operator's commercial national PNT-interference watch
+     (formerly Atalaia, planned in frontier-apps/experiments/atalaia) now lives in ~/Projects/sagui — PRIVATE, its own
+     git, CLAUDE.md and HANDOFF.md; it is NOT part of cert-machine and never competes with this pipeline. It LIFTED,
+     read-only and pinned by sha256 at ce300003: apps/janela/audit/{pnboia,currents,currents_observe,observe,passes}.py +
+     platforms.js, apps/janela/scenario/{sites,platforms}.json, instruments/forecast/*.js, instruments/horizon/interval.py,
+     corpus/anp/*, corpus/janela/pnboia/*, certs/janela-pnboia-check.json. Nothing here was edited; no task here changes.
+     Sagui work is done from its own folder (operator 2026-10-19: "open the new folder in a new window"); its GitHub push
+     is the operator's (the auto-mode classifier refused it here). Memory: atalaia-commercial-venture.md.
   ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt (mail@felixschmidt.org) e-mailed a note claiming the
      analytic bound on our buffer K (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1
      @ 8564602b; pinned by digest only in corpus/erdos1/schmidt-2026-10-18/PINS.json; no code of his run). DECIDED on a
