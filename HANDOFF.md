@@ -16,42 +16,46 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~22:30 UTC, handoff for a FRESH WINDOW: the four referee items deferred from v0.5 BUILT (S5 + the Erdős #1 effective rate + S6 + O2 on main; the fixes for what S6/O2 found and the method paper v0.6 draft on the PUSHED BRANCH wip/v06-fixes-2026-10-19, NOT merged — its entropy-vs-Arb battery is red until a short phase 2); C_86 REPLAYED by the other session (8daa22cc), T-PR4 DRAFTED (a send); SAGUI spun out to ~/Projects/sagui (nothing here depends on it); PR #232 OPEN, no reply; the method paper v0.5 is still the live one; NO POD RUNNING; nothing building; the sweep: no findings)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~00:30 UTC, handoff: the branch wip/v06-fixes-2026-10-19 FINISHED AND MERGED into main (6d2cc5c8) — O2 phase 2 done (the entropy-vs-Arb audit declares nothing; its 17 first-run findings kept as foundAtPin), the fei-second battery's stdin deadlock removed, the mathbench ratio printed outward, the METHOD PAPER v0.6 BUILT AND LIVE (52 pp; sources 7c3b736d, numbers 842b527e); make test 147/147 PASS on the final branch head (the first run's one failure was the deadlock the fix removed); C_86 REPLAYED (8daa22cc), T-PR4 DRAFTED (a send); SAGUI in its own repo; PR #232 OPEN, no reply; NO POD RUNNING; nothing building; the sweep: not run this session)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ FIRST, FINISH THE BRANCH wip/v06-fixes-2026-10-19 (pushed; 73de3ef1 on top of main 3b4382a9). main is green and
-     consistent; the branch holds the FIXES for the gaps 470fe0b2 recorded and the v0.6 DRAFT. Steps:
-     (1) `git checkout wip/v06-fixes-2026-10-19`.
-     (2) O2 phase 2, in tools/audit-entropy-arb.py:
-         - prune the fei entries from KNOWN (the verifier entries are already pruned on the branch);
-         - update fei_tapped's recorder cross-check, which still compares fei.decide's strings with str()[:44]/[:30],
-           to fei.py's outward print (43/29 significant digits);
-         - make a recorder mismatch FAIL the run instead of booking it as a refusal (36 cases do that now);
-         - add a 'foundAtPin' section to certs/entropy-arb-audit.json: commit 470fe0b2, the module digests there,
-           each finding with its witness and the file/change that fixed it;
-         - re-run the full record (`node tools/audit-entropy-arb.js`, ~132 s), then `--check` must be green.
-     (3) `make test`; every battery must pass.
-     (4) `make page R=optconst-queue` and R=optimization-constants: build-site re-copies tools/verify_*.py to /verify/.
-     (5) The method paper v0.6:
-         - review the draft (S3: thresholds moved to Appendix C, the forecaster sentence cut, the screens paragraph
-           trimmed, the three engineering rows of tab:second folded into one; S5: a §4 paragraph + threats + limits;
-           S6: tab:second + tab:trust rows, the corrected-defect sentence in the limits; C_86 at 8daa22cc in §3.2 +
-           tab:second); it compiles at 53 pp;
-         - still to write: §4's paragraph for the entropy deciders against Arb (macros from the phase-2 record) and the
-           cost-table rows (the second C71, the Arb audit, C_86);
-         - MtRgFeiChecks moves 9 → 10 (fei.py gained the "I > 1" check);
-         - then the two-step commit (sources, then numbers at that commit), make papers, make page, push.
-     (6) Merge the branch into main (merge, not rebase) and push.
-     Also open: instruments/mathbench/families.py prints the sumdiff ratio as str(r)[:22] and records ratioLo/ratioHi
-     as str(r)[:44] — the same truncation, not yet fixed or audited.
+  ◆ NOTHING IS HALF-DONE. main is green and consistent; no branch is open. The next build is the operator's choice:
+     an AI referee read of v0.6 before it goes to Pedro (run one, apply what checks out, bump to v0.7), or C_82 (#229, below).
+  ★ THE BRANCH wip/v06-fixes-2026-10-19 FINISHED AND MERGED (2026-10-19 night, this session, on "continue the tasks"): main now
+     holds the fixes for the gaps 470fe0b2 recorded AND the method paper v0.6, built and live. What was done, in HANDOFF's order:
+     (2) O2 phase 2 — tools/audit-entropy-arb.py: KNOWN is EMPTY (the fei entries pruned after the verifier ones); the fei
+         recorder cross-check reads fei.outward's 43/29-digit print and a mismatch now FAILS the impl stage (sys.exit; verified
+         with a mutant copy that cut a digit: exit 1 with both strings printed) — before, 21 of 21 fei.decide cases were being
+         booked as refusals for that mismatch; a REFUSED word's gating check (I > 1 / H > 0) is the refusal reason; the record
+         gained foundAtPin (commit 470fe0b2, the seven module digests then, all 17 findings with witness and fix) read from the
+         new sidecar tools/audit-entropy-arb-pin.json; the full record re-run (298,746 cases, 0 violations, 16 refusals all
+         outside the rule, 71/71 malformed refused, 7 reds fired, 112 s); --check green (10 s).
+     (3) make test: 147/147 PASS at 842b527e — after one FLAKE found and removed in the first run: "fei second" deadlocked once (Node spawnSync feeding
+         the harness a 66 KB job through stdin — past the 64 KB socket buffer; the Python sat in read(), Node in wait, 0 CPU);
+         the rerun passed. verify_fei.js now writes the job to a temp file and the harness reads a file argument (stdin still
+         works when no file is named); certs/fei-second.json regenerated (same decisions, 21 s).
+         Also fixed, the "also open" item: instruments/mathbench/families.py printed the sumdiff ratio as str(r)[:22] and kept
+         ratioLo/ratioHi as str(r)[:44] — now verify_sumdiff.printed(r, 20) and printed(r, 42), outward; the certified-mathbench
+         environment re-pinned (PROVENANCE.json; both mathbench batteries PASS). The existing mathbench-ledger.jsonl rows are
+         untouched (append-only; their cut strings are a verdict-neutral record of the time).
+     (4) make page R="optq optconst": both pages rebuilt, synced, gates green.
+     (5) The method paper v0.6 (Draft v0.6 of 2026-10-19): §4 gained "The entropy deciders' arithmetic against Arb" (macros
+         MtEa* from the phase-2 record; the generator needs the seven module digests on disk, a clean record, every red fired,
+         every refusal outside the rule, foundAtPin non-empty with every fix named, KNOWN empty); tab:trust's two entropy rows
+         now say "the comparison with Arb"; §3.2 names the ten checks (I > 1, H > 0, the record it replaced, monotonicity added);
+         tab:cost has the second C71 (MtFeiSeconds), C_86 (MtCeSeconds) and the entropy audit rows; tab:repro has verify_fei.js,
+         replay-c86.js and audit-entropy-arb.js rows; the limits paragraph notes the 17 findings; paper/INDEX.json status v0.6
+         + four records added. Two-step commit done (sources, then numbers at that commit), make papers, pushed.
+     (6) merged into main (merge commit 6d2cc5c8) and pushed.
+     NOT a change of any published verdict: every CERTIFIED stands; the fixes are printed enclosures and doors.
   ◆ WAITING ON THE OPERATOR (2026-10-19):
-     (1) Send v0.5 to Pedro:
+     (1) Send the method paper to Pedro — v0.6 is the live one now (52 pp; the four items deferred from v0.5 built in):
          - PDF paper/cert-machine-method.pdf, live at carlostoledo.co/paper/cert-machine-method.pdf;
          - source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
-         - or wait for v0.6.
+         - run an AI referee read before the send (the v0.5 lesson); nothing was run on v0.6 yet.
      (2) The reply to Felix Schmidt:
          - the text is from the 2026-10-18 session; it points to certs/erdos1/buffer-structure.json;
          - NEW, it could add: the effective rate needs NO structure (c0 = ½ln(3/2) from the crude bound), and a proof
