@@ -16,12 +16,26 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-18 ~11:40 UTC: Tao merged #216, then #230 at 05:54 (the fourth asterisk off on our replay) and #225 (asterisked by him: "replayed only by the submitting team's own checker"); the method paper v0.4.1 records it; PR #232 (the four 1a/1b rows replayed) FILED 11:26; NO POD RUNNING; nothing building; the PU feed cron is live (Saturday — the next publication is Monday's); `make page` BUILT; the outreach record holds 54 sends (the HN pair kept off the site); the PU instrument decides the LFT and runs the ledger's own row module; HANDOFF split (the logs before 10-10 are in HANDOFF-ARCHIVE.md); 45 GitHub threads, 2 gists and the forum threads watched by tools/sweep-claims.js)
+## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~09:00 UTC, handoff: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ WAITING ON THE OPERATOR (2026-10-19): (1) send v0.5 to Pedro — PDF paper/cert-machine-method.pdf, live
+     carlostoledo.co/paper/cert-machine-method.pdf, source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
+     it says 141 batteries (true at 3420b752; 142 now — rebuild only if wanted); (2) the reply to Felix Schmidt (text in
+     the 2026-10-18 session; points to certs/erdos1/buffer-structure.json); (3) the job applications in order Epoch →
+     FAR.AI → Nous → Cohere (outreach/<employer>/packet.md + outreach/resume/resume.pdf, 2 pp; all four postings open
+     on 10-19) — record each send in SEND-QUEUE lane J; (4) the Althöfer email, then the C84b PR; (5) Zenodo's version
+     field (login or ZENODO_TOKEN); (6) confirm the Navier–Stokes "six readers" were AI agents.
+  ◆ WAITING ON THE WORLD: #232 (Tao) — IF IT MERGES: a third registry snapshot (SNAPS in read-optconst-registry.js)
+     before the paper counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's
+     word; Schmidt's answer — check any proof against the 48 recorded cases; Pedro's comments on v0.5.
+  ◆ READY TO BUILD ON A WORD: the C_86 replay (#227, the best-value registry target, ~a day); the referee items
+     deferred from v0.5 (S3 cut the engineering material, S5 planted Lean statements, S6 a second C71 implementation,
+     O2 the Arb audit of bigfloat/decimal); check whether a crude bound on K already gives Erdős #1's effective rate
+     (only log K enters k — our §7 may have asked for more than needed).
   ★ ERDŐS #1 BUFFER STRUCTURE (2026-10-18 night): F. Schmidt (mail@felixschmidt.org) e-mailed a note claiming the
      analytic bound on our buffer K (github.com/enzocage/Analytic-Solution-oft-he-Perturbation-Buffer-Problem-for-Erd-s-Problem-1
      @ 8564602b; pinned by digest only in corpus/erdos1/schmidt-2026-10-18/PINS.json; no code of his run). DECIDED on a
