@@ -11,7 +11,7 @@ here on request.
 
 ---
 
-## LANE J — THE OCTOBER APPLICATIONS (2026-10-16; plan notes/job-search-2026-10-16.md §8, local; resume base outreach/resume/) — FOUR PACKETS DRAFTED, NOTHING SENT; every send is the operator's
+## LANE J — THE OCTOBER APPLICATIONS (2026-10-16; plan notes/job-search-2026-10-16.md §8, local; resume base outreach/resume/) — FOUR PACKETS DRAFTED, UPDATED 2026-10-19 (the registry's four marks, the method paper v0.5, the grader count as 3,582 of 4,000; all four postings re-checked open), NOTHING SENT; every send is the operator's
 
 The bar (operator, 2026-10-16): remote from Brazil at international pay, or on-site with sponsorship. The resume v3
 (verification accent) is outreach/resume/resume.md; personal lines in the git-ignored resume.private.md beside it;

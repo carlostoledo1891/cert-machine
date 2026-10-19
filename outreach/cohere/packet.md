@@ -1,4 +1,4 @@
-# Cohere — Member of Technical Staff, Data Analysis and Evaluation (packet drafted 2026-10-16; the send is the operator's)
+# Cohere — Member of Technical Staff, Data Analysis and Evaluation (packet drafted 2026-10-16, updated 2026-10-19; the send is the operator's)
 
 Written for: the Cohere hiring team reading the MTS, Data Analysis and Evaluation applications.
 
@@ -15,7 +15,11 @@ authorization, and free-text fields.
 
 - `outreach/resume/resume.pdf` (v3, verification accent).
 - Links: carlostoledo.co · github.com/carlostoledo1891/cert-machine.
-- FRESHEST SAMPLE (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — a published claim reproduced independently from the specifications within hours, two implementations agreeing field for field, every forgery failing: the reproduction discipline the role asks for.
+- FRESHEST RESULT (2026-10-18): https://carlostoledo.co/reports/optimization-constants.html — Terence Tao's
+  optimization-constants registry removed four "verification minimal" asterisks on our exact replays (pull requests
+  #216 and #230, merged; the pages cite the replays). An outside record-keeper changing a public record on the
+  verdict alone is the strongest validation the work has; lead with it where the form allows a link.
+- ALSO FRESH (2026-10-16 night): https://carlostoledo.co/reports/curve-seeds.html — a published claim reproduced independently from the specifications within hours, two implementations agreeing field for field, every forgery failing: the reproduction discipline the role asks for.
 - Writing samples: https://carlostoledo.co/reports/gsm8k-audit.html (dataset quality: an answer key audited item by
   item, with the error classes counted); https://carlostoledo.co/reports/openai-math.html (a release's statements
   read by two readers against their headlines — annotation with a second reader wherever the first found a gap);
@@ -32,8 +36,10 @@ evaluation. That is the part of my 2026 work that is not mathematics-specific:
 - **Annotation with a second reader.** OpenAI's math release: 242 formalized families read against their headlines,
   by two readers wherever the first found a gap; 34 state less than they claim with nothing saying so. The protocol,
   the ledger and the per-item evidence are public.
-- **Evaluator reliability.** Four grader families measured against 4,000 provably wrong answers: an absolute-tolerance
-  grader accepts 89.5%, a certificate grader none — ground truth that is a proof, so the measurement has no label noise.
+- **Evaluator reliability.** Four grader families measured against 4,000 provably wrong answers: absolute-tolerance
+  rules accept 3,582 (tolerances pooled), a certificate grader none — ground truth that is a proof, so no label noise.
+- **Outside acceptance.** Terence Tao's optimization-constants registry removed four "unverified" marks after my exact
+  replays of their certificates, and cites the replays.
 - **Reproduction with error bars.** METR's time-horizon estimator re-derived with a certified enclosure for every fit.
 - **Pre-registration and negative results.** A GRPO study with gates set before any spend, deviations dated, the
   negative result published as the result.
@@ -47,8 +53,8 @@ distributed-training ends from your team. Remote from Brazil (UTC−3), overlapp
 - "Hands-on experience training LLMs on distributed training infrastructures": NOT met. One LoRA GRPO study on a
   hosted trainer. The posting says the list is neither exhaustive nor necessary; apply on the statistics and
   evaluation half and say which half.
-- "One or more papers at top-tier venues": none. The method paper is a manuscript (draft v0.2, not peer-reviewed).
+- "One or more papers at top-tier venues": none. The method paper is a manuscript (draft v0.5, not peer-reviewed).
 - Human-annotator programmes: not run here; the two-reader protocol above is the nearest thing and is small.
-- Numbers above are read from the records named in resume.md's sender notes; re-read before sending.
+- Numbers above are read from the records named in resume.md's sender notes; re-read before sending (last re-read 2026-10-19).
 
 Status: NOT SENT. The operator reviews, fills the marks, builds the PDF, submits.

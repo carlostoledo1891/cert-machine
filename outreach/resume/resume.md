@@ -1,4 +1,4 @@
-# Carlos Toledo — resume (v3, the verification accent; drafted 2026-10-16 as the base for the October applications; every send is the operator's)
+# Carlos Toledo — resume (v3, the verification accent; drafted 2026-10-16, updated 2026-10-19; every send is the operator's)
 
 _Independent research engineer · exact verification of machine-generated claims · benchmark and grader audits · verifiers that cannot be gamed_
 
@@ -24,7 +24,7 @@ reason.**
     published, each pinned to file and line; a kernel fix posted upstream (ammkrn/nanoda_lib#44).
 - **The graders of mathematical benchmarks, measured against 4,000 provably wrong answers** ·
   [report](https://carlostoledo.co/reports/envs.html)
-  - An absolute-tolerance grader accepts 89.5% of them; a certificate grader accepts none and rejects nothing right.
+  - Absolute-tolerance rules accept 3,582 of them; a certificate grader accepts none and rejects nothing right.
 - **METR's time-horizon estimator, re-derived exactly** · [report](https://carlostoledo.co/reports/time-horizon.html)
   - 44 of 44 fits certified over METR's public runs; the post-2023 doubling time re-derives as 128.74 days against the
     printed 128.744.
@@ -37,12 +37,13 @@ reason.**
 - **The Qiushi Engine's kissing-number bounds** · [report](https://carlostoledo.co/reports/kissing.html)
   - 19 of 19 announced bounds witnessed and every pair of 9.75 × 10¹⁵ decided exactly; the claimant published its point
     sets at the audit's request. Also the first independent certification of K(18) ≥ 8,358 (215 billion pairs, 0 violations).
-- **Three registries audited in one day**: the AlphaEvolve repository's community certificates — 70 certified, 2 refused
-  ([report](https://carlostoledo.co/reports/alphaevolve-community.html)); the optimization-constants PR queue — 9 certified,
-  1 refused, its checkers deciding assembly rather than analysis ([report](https://carlostoledo.co/reports/optconst-queue.html));
-  Written on the Wall II — 5 of 5 witnesses certified.
-- **Two Lean certificates read against their statements**: OpenAI's Navier–Stokes blowup — partial at the announced
-  commit, certified at the next ([report](https://carlostoledo.co/reports/navier-stokes.html)); the Qiushi Engine's
+- **Registries of AI-generated certificates**: Terence Tao's optimization-constants registry removed four "verification
+  minimal" asterisks after our exact replays and cites them (#216, #230, merged 2026-10-18;
+  [report](https://carlostoledo.co/reports/optimization-constants.html)); its PR queue 9 certified, 1 refused
+  ([report](https://carlostoledo.co/reports/optconst-queue.html)); AlphaEvolve's community certificates 70 certified,
+  2 refused ([report](https://carlostoledo.co/reports/alphaevolve-community.html)); Written on the Wall II 5 of 5.
+- **Two Lean certificates read against their statements**: OpenAI's Navier–Stokes blowup — one clause of the paper's
+  theorem missing at the announced commit, proved at the next ([report](https://carlostoledo.co/reports/navier-stokes.html)); the Qiushi Engine's
   disproof of Bandeira's Open Problem 0.2(a) — the finite core re-decided with a certificate of our own, two gaps at the
   claimant's declared boundary named ([report](https://carlostoledo.co/reports/bandeira.html)).
 - **Theorems that calibrate the instruments**: λ(4) for Chowla's cosine problem (Erdős #510), re-certified by a third
@@ -68,7 +69,7 @@ reason.**
   GRPO study on Qwen3.5-9B: an answer key and an exact grader both extinguished abstention within ~10 steps, a ternary
   grader made the model abstain on everything. On the Environments Hub: `lattice-claims`, `blind-spot`, `break-the-grader`.
 - **Writing:** *cert-machine: independent exact certification of machine-generated mathematics — the method and three
-  benchmark exercises* (manuscript, draft v0.2, not peer-reviewed) · [papers](https://carlostoledo.co/papers/).
+  benchmark exercises* (manuscript, draft v0.5, 52 pp, not peer-reviewed) · [PDF](https://carlostoledo.co/paper/cert-machine-method.pdf).
 
 ## How I work
 
@@ -94,6 +95,8 @@ The audits, the re-performance and the RL work above; open source, one author.
 Notes for the sender: every figure above is in a record. The sources:
 - certs/openai-math-kernel.json, openai-math-statements.json, openai-math-finite.json, corpus/openai-math/findings.json;
 - certs/horizon-ledger.json; certs/gsm8k-ledger.json; reports/envs.html's record (the graders);
+- corpus/optconst-queue/registry-2026-10-18{,b}/record.json (the merges), certs/stepfun-replay.json (#232),
+  certs/autocorr-replay.json (C₁d), certs/erdos1/buffer-structure.json (the 48 cases);
 - certs/kissing-wave.json and kissing-ledger.json (the Qiushi rows); certs/aerp-ledger.json, optq-ledger.json,
   wowii-ledger.json; certs/bandeira-ledger.json; certs/lambda4-audit.json; certs/delta3-ledger.json;
   certs/claims-ledger.json and certs/mc100-*.json;
