@@ -16,26 +16,100 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~18:30 UTC, handoff: C_86 REPLAYED — CERTIFIED in two kernels, T-PR4 DRAFTED (a send); SAGUI (ex-Atalaia) SPUN OUT to its own private repo ~/Projects/sagui — nothing here changed, nothing here depends on it; the 09:00 state stands: the method paper v0.5 LIVE (52 pp, A4, an AI referee read applied); PR #232 OPEN, no reply; T-PR3 (C_1c/C_1d) DRAFTED for after #232; the Erdős #1 buffer structure DECIDED on 48 cases (reply to F. Schmidt drafted, the operator's); the four job packets UPDATED, nothing sent; NO POD RUNNING; nothing building; the two 44-hour Python jobs on this laptop belong to a frontier-apps session; the sweep: no findings)
+## TASKS BACKLOG — the standing menu (updated 2026-10-19 ~22:30 UTC, handoff for a FRESH WINDOW: the four referee items deferred from v0.5 BUILT (S5 + the Erdős #1 effective rate + S6 + O2 on main; the fixes for what S6/O2 found and the method paper v0.6 draft on the PUSHED BRANCH wip/v06-fixes-2026-10-19, NOT merged — its entropy-vs-Arb battery is red until a short phase 2); C_86 REPLAYED by the other session (8daa22cc), T-PR4 DRAFTED (a send); SAGUI spun out to ~/Projects/sagui (nothing here depends on it); PR #232 OPEN, no reply; the method paper v0.5 is still the live one; NO POD RUNNING; nothing building; the sweep: no findings)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ WAITING ON THE OPERATOR (2026-10-19): (1) send v0.5 to Pedro — PDF paper/cert-machine-method.pdf, live
-     carlostoledo.co/paper/cert-machine-method.pdf, source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
-     it says 141 batteries (true at 3420b752; 142 now — rebuild only if wanted); (2) the reply to Felix Schmidt (text in
-     the 2026-10-18 session; points to certs/erdos1/buffer-structure.json); (3) the job applications in order Epoch →
-     FAR.AI → Nous → Cohere (outreach/<employer>/packet.md + outreach/resume/resume.pdf, 2 pp; all four postings open
-     on 10-19) — record each send in SEND-QUEUE lane J; (4) the Althöfer email, then the C84b PR; (5) Zenodo's version
-     field (login or ZENODO_TOKEN); (6) confirm the Navier–Stokes "six readers" were AI agents.
-  ◆ WAITING ON THE WORLD: #232 (Tao) — IF IT MERGES: a third registry snapshot (SNAPS in read-optconst-registry.js)
-     before the paper counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's
-     word; T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md) is INDEPENDENT of #232 (other README lines) and waits only for the operator's word; Schmidt's answer — check any proof against the 48 recorded cases; Pedro's comments on v0.5.
-  ◆ READY TO BUILD ON A WORD: ~~the C_86 replay~~ DONE 2026-10-19 (below); C_82 (#229) next, ~a day; the referee items
-     deferred from v0.5 (S3 cut the engineering material, S5 planted Lean statements, S6 a second C71 implementation,
-     O2 the Arb audit of bigfloat/decimal); check whether a crude bound on K already gives Erdős #1's effective rate
-     (only log K enters k — our §7 may have asked for more than needed).
+  ◆ FIRST, FINISH THE BRANCH wip/v06-fixes-2026-10-19 (pushed; 73de3ef1 on top of main 3b4382a9). main is green and
+     consistent; the branch holds the FIXES for the gaps 470fe0b2 recorded and the v0.6 DRAFT. Steps:
+     (1) `git checkout wip/v06-fixes-2026-10-19`.
+     (2) O2 phase 2, in tools/audit-entropy-arb.py:
+         - prune the fei entries from KNOWN (the verifier entries are already pruned on the branch);
+         - update fei_tapped's recorder cross-check, which still compares fei.decide's strings with str()[:44]/[:30],
+           to fei.py's outward print (43/29 significant digits);
+         - make a recorder mismatch FAIL the run instead of booking it as a refusal (36 cases do that now);
+         - add a 'foundAtPin' section to certs/entropy-arb-audit.json: commit 470fe0b2, the module digests there,
+           each finding with its witness and the file/change that fixed it;
+         - re-run the full record (`node tools/audit-entropy-arb.js`, ~132 s), then `--check` must be green.
+     (3) `make test`; every battery must pass.
+     (4) `make page R=optconst-queue` and R=optimization-constants: build-site re-copies tools/verify_*.py to /verify/.
+     (5) The method paper v0.6:
+         - review the draft (S3: thresholds moved to Appendix C, the forecaster sentence cut, the screens paragraph
+           trimmed, the three engineering rows of tab:second folded into one; S5: a §4 paragraph + threats + limits;
+           S6: tab:second + tab:trust rows, the corrected-defect sentence in the limits; C_86 at 8daa22cc in §3.2 +
+           tab:second); it compiles at 53 pp;
+         - still to write: §4's paragraph for the entropy deciders against Arb (macros from the phase-2 record) and the
+           cost-table rows (the second C71, the Arb audit, C_86);
+         - MtRgFeiChecks moves 9 → 10 (fei.py gained the "I > 1" check);
+         - then the two-step commit (sources, then numbers at that commit), make papers, make page, push.
+     (6) Merge the branch into main (merge, not rebase) and push.
+     Also open: instruments/mathbench/families.py prints the sumdiff ratio as str(r)[:22] and records ratioLo/ratioHi
+     as str(r)[:44] — the same truncation, not yet fixed or audited.
+  ◆ WAITING ON THE OPERATOR (2026-10-19):
+     (1) Send v0.5 to Pedro:
+         - PDF paper/cert-machine-method.pdf, live at carlostoledo.co/paper/cert-machine-method.pdf;
+         - source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
+         - or wait for v0.6.
+     (2) The reply to Felix Schmidt:
+         - the text is from the 2026-10-18 session; it points to certs/erdos1/buffer-structure.json;
+         - NEW, it could add: the effective rate needs NO structure (c0 = ½ln(3/2) from the crude bound), and a proof
+           of his structure would double c0 — the operator's call.
+     (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere:
+         - outreach/<employer>/packet.md + outreach/resume/resume.pdf;
+         - record each send in SEND-QUEUE lane J.
+     (4) The C84b PR:
+         - the other session's answer: the PR alone is defensible, with the email sentence rewritten as "Prof. Althöfer
+           is welcome to supersede this with the calculation that reaches 0.000719";
+         - body and diff in outreach/github-p2a-2026-10-06.md item 7, re-checked 10-19 against the registry HEAD;
+         - needs the operator's "file it".
+     (5) T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md), independent of #232: the operator's word.
+     (6) Zenodo's version field (login or ZENODO_TOKEN).
+     (7) Confirm the Navier–Stokes "six readers" were AI agents.
+     (8) AE-PR needs Google's CLA.
+  ◆ WAITING ON THE WORLD:
+     - #232 (Tao). IF IT MERGES: take a third registry snapshot (SNAPS in read-optconst-registry.js) before the paper
+       counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's word.
+     - Schmidt's answer: check any proof against the 48 recorded cases.
+     - Pedro's comments.
+  ◆ READY TO BUILD ON A WORD: C_82 (#229, Pinho, a 21 KB certificate behind the Zhang–Zagier height bound, ~a day).
+  ★ THE FOUR DEFERRED REFEREE ITEMS + THE ERDŐS CHECK (2026-10-19 evening, on "Proceed the four items deferred. Proceed
+     the Erdos check"):
+     - ERDŐS #1 EFFECTIVE RATE (main, 470fe0b2): only log K enters k, so the crude Lemma 5 suffices.
+       - Lemma 5: |H⁻¹_ij| ≤ 2^{j−i−1}/H_jj for a canonical Hermite form, so K ≤ D(2^r − 1).
+       - Result: f(n) ≤ eΔ_s for n ≥ d(d+⌈log2 d⌉+s), and f(n) ≤ n^{−(c0−o(1))/ln ln n} with c0 = ½ln(3/2) — Bloom's
+         form, effective.
+       - Our old §7 ("needs a structural bound") was wrong; corrected in the note, the paper v0.3 and the report.
+       - A PROVED Schmidt structure would double c0.
+       - Code: instruments/erdos1/effective.py → certs/erdos1/effective-rate.json; battery in make test. Lemma 5 is
+         checked on 19 cached forms (worst 0.926 of the bound).
+     - S6, C71 DECIDED TWICE (main, 470fe0b2):
+       - tools/verify_fei.js: JavaScript BigInt, H in closed form.
+       - Both CERTIFY: the JS enclosure is 10⁻¹⁵¹ wide, inside fei.py's, around an Arb ball.
+       - 12 planted claims came out as expected.
+       - FOUND AT THE PIN: fei.py had two words (six refusals printed REFUTED, one a true claim), and its ledger truncated
+         both ends (the upper end below the value). FIXED on the branch.
+     - O2, THE ENTROPY DECIDERS' ARITHMETIC AGAINST ARB (main, 470fe0b2):
+       - tools/audit-entropy-arb.js/.py, 298,710 cases, no arithmetic enclosure misses; 7 red controls.
+       - FOUND AT THE PIN: printed enclosures cut toward zero (fei, the verify_* printouts, fei-ledger, optq-ledger's
+         rhoPython); Python doors deciding malformed certificates (int() on 1.9, x = 0.5, a one-point law REFUTED,
+         verify_twolaw ignoring the problem field); fei.ln_iv(0) → −Infinity.
+       - No published verdict was affected. FIXED on the branch, except the audit's own phase 2.
+     - S5, THE READINGS' RECALL (main, 3b4382a9):
+       - Set: 24 seeded packets from the 30 short MATCHES families; 12 one-line plants of five kinds; 12 controls.
+       - Read blind by two first readers plus the protocol's two second readers (fresh AI agents, not told of plants).
+       - Result: 12/12 flagged at the planted line in both pipelines, 11 with the key's word (026 → DECLARED, the
+         arguable one), 0/12 controls flagged; recall ≥ 0.735 at 95%.
+       - Every reader tool call is kept and audited (none outside the packets).
+       - Limits stated: short statements only, an alert brief, one model family.
+       - Files: corpus/openai-math/recall-2026-10-19 (Apache NOTICE names the 12 changed files);
+         tools/score-reading-recall.py → certs/reading-recall.json; battery with 5 red controls.
+     - S3: in the v0.6 draft on the branch (above).
+     - The two frontier-apps CPU jobs were killed on the operator's word (Sagui untouched). C_86 needed no RunPod, and
+       the other session built it.
+     - Coordination with the other session (cert-machine-bd) worked by message: each staged only its own hunks; it
+       closed its lane.
   ★ SAGUI SPUN OUT (2026-10-19 afternoon, this session): the operator's commercial national PNT-interference watch
      (formerly Atalaia, planned in frontier-apps/experiments/atalaia) now lives in ~/Projects/sagui — PRIVATE, its own
      git, CLAUDE.md and HANDOFF.md; it is NOT part of cert-machine and never competes with this pipeline. It LIFTED,
