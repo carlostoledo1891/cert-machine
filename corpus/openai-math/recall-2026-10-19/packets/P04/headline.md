@@ -1,0 +1,3 @@
+# The Lane–Emden and Hénon–Lane–Emden conjectures
+
+**370. The Lane–Emden and Hénon–Lane–Emden conjectures.** Resolves the subcritical Lane–Emden conjecture and its weighted Hénon extension. For <i>n</i> ≥ 2, $`p,q\gt 0`$ and real <i>A</i>, <i>B</i>, the system $`-\Delta u=|x|^A v^p`$, $`-\Delta v=|x|^B u^q`$ has no positive entire solution when $`(n+A)/(p+1)+(n+B)/(q+1)\gt n-2`$, with solutions continuous at the origin and classical elsewhere. No symmetry or growth assumption is needed. Known radial existence gives the exact existence criterion for <i>n</i> ≥ 3 and $`A,B\gt -2`$. ([Lean](lean/docs/370.md))

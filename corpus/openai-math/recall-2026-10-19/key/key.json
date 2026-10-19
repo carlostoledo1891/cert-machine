@@ -1,0 +1,801 @@
+{
+ "what": "Answer key for the lane-S recall experiment: 24 blind packets, 12 carrying one planted defect each, 12 unaltered controls. Keep out of every reader's reach.",
+ "built": "2026-10-19",
+ "release": {
+  "repository": "https://github.com/openai/math",
+  "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "contentsSha256": "cc7c0b8a1cdedd845a777e77cf682657308503daf8346c1349e06e9259d063c2"
+ },
+ "seed": 20261019,
+ "python": "3.9.6",
+ "procedure": [
+  "Eligible: rows of certs/openai-math-statements.json with word MATCHES whose family has exactly one challenge, and that challenge (corpus/openai-math/release.json) has statementLines <= 70, empty definitionNames and holeBodies, support false and supportByName false. Sorted by family number. 30 qualify.",
+  "rng = random.Random(20261019) (CPython 3.9.6); chosen = sorted(rng.sample(eligible, 24)); mutated = sorted(rng.sample(chosen, 12)); order = list(chosen); rng.shuffle(order); P01..P24 = order. Same rng object, calls in that order (key/draw.py).",
+  "Kind and difficulty per mutated family were assigned by hand after reading each statement, to spread kinds a-e roughly evenly (3/3/2/2/2) and difficulty 5 easy / 7 subtle. Plants that a stronger untouched clause would mask were avoided (see selection.md).",
+  "Each mutated challenge.lean differs from the release file in exactly one line (asserted by key/build.py); no comment, whitespace or other byte changes. Controls are byte-identical copies.",
+  "headline.md = \"# <title>\" + the CONTENTS.md paragraph for the family, verbatim. scope-note.md = byte copy of lean/docs/NNN.md."
+ ],
+ "kinds": {
+  "a": "a constant or exponent changed in the weaker direction",
+  "b": "a quantifier domain restricted",
+  "c": "a hypothesis added that the headline does not have",
+  "d": "a conclusion weakened",
+  "e": "a change that makes the statement DIFFERENT (direction reversed, sign flipped)"
+ },
+ "expectedWordRule": "kinds a-d: NARROWER — UNDECLARED; kind e: DIFFERENT; controls: the recorded word (MATCHES).",
+ "eligible": [
+  {
+   "family": "005",
+   "challenge": "Catalan",
+   "statementLines": 14
+  },
+  {
+   "family": "012",
+   "challenge": "JointDickman",
+   "statementLines": 66
+  },
+  {
+   "family": "020",
+   "challenge": "PowerFreeValues",
+   "statementLines": 47
+  },
+  {
+   "family": "026",
+   "challenge": "PrimeGaps",
+   "statementLines": 48
+  },
+  {
+   "family": "028",
+   "challenge": "GaussianMoat",
+   "statementLines": 42
+  },
+  {
+   "family": "075",
+   "challenge": "FourierLLogL",
+   "statementLines": 25
+  },
+  {
+   "family": "081",
+   "challenge": "RieszQuantitative",
+   "statementLines": 63
+  },
+  {
+   "family": "127",
+   "challenge": "GotsmanLinial",
+   "statementLines": 55
+  },
+  {
+   "family": "128",
+   "challenge": "Superstring",
+   "statementLines": 44
+  },
+  {
+   "family": "134",
+   "challenge": "GeneralizedStarHeight",
+   "statementLines": 49
+  },
+  {
+   "family": "155",
+   "challenge": "PeriodicTilingThree",
+   "statementLines": 67
+  },
+  {
+   "family": "156",
+   "challenge": "BorsukNine",
+   "statementLines": 35
+  },
+  {
+   "family": "160",
+   "challenge": "QuantitativeVanDerWaerden",
+   "statementLines": 34
+  },
+  {
+   "family": "173",
+   "challenge": "SeymourSecondNeighborhood",
+   "statementLines": 41
+  },
+  {
+   "family": "181",
+   "challenge": "CycleDecomposition",
+   "statementLines": 39
+  },
+  {
+   "family": "188",
+   "challenge": "TriangleRemoval",
+   "statementLines": 68
+  },
+  {
+   "family": "189",
+   "challenge": "CycleCliqueRamsey",
+   "statementLines": 32
+  },
+  {
+   "family": "192",
+   "challenge": "SquareRootDegree",
+   "statementLines": 65
+  },
+  {
+   "family": "196",
+   "challenge": "TorsionFreeZeroDivisors",
+   "statementLines": 41
+  },
+  {
+   "family": "241",
+   "challenge": "DegreeRigidity",
+   "statementLines": 45
+  },
+  {
+   "family": "253",
+   "challenge": "SimpleAmenable",
+   "statementLines": 22
+  },
+  {
+   "family": "295",
+   "challenge": "KadisonRingrose",
+   "statementLines": 44
+  },
+  {
+   "family": "322",
+   "challenge": "TingleySphereIsometry",
+   "statementLines": 42
+  },
+  {
+   "family": "328",
+   "challenge": "ReflexiveFixedPoints",
+   "statementLines": 36
+  },
+  {
+   "family": "329",
+   "challenge": "MetricEntropyDuality",
+   "statementLines": 60
+  },
+  {
+   "family": "333",
+   "challenge": "SurfaceImmersion",
+   "statementLines": 50
+  },
+  {
+   "family": "334",
+   "challenge": "IsometricImmersion",
+   "statementLines": 63
+  },
+  {
+   "family": "342",
+   "challenge": "TamingCompatibility",
+   "statementLines": 69
+  },
+  {
+   "family": "369",
+   "challenge": "HotSpots",
+   "statementLines": 58
+  },
+  {
+   "family": "370",
+   "challenge": "HenonEmden",
+   "statementLines": 32
+  }
+ ],
+ "chosen": [
+  "005",
+  "012",
+  "026",
+  "028",
+  "075",
+  "081",
+  "128",
+  "134",
+  "155",
+  "156",
+  "173",
+  "181",
+  "188",
+  "189",
+  "192",
+  "196",
+  "253",
+  "295",
+  "322",
+  "328",
+  "329",
+  "333",
+  "369",
+  "370"
+ ],
+ "mutatedFamilies": [
+  "005",
+  "026",
+  "081",
+  "155",
+  "156",
+  "173",
+  "188",
+  "189",
+  "192",
+  "295",
+  "328",
+  "369"
+ ],
+ "controlFamilies": [
+  "012",
+  "028",
+  "075",
+  "128",
+  "134",
+  "181",
+  "196",
+  "253",
+  "322",
+  "329",
+  "333",
+  "370"
+ ],
+ "packetOrder": {
+  "P01": "026",
+  "P02": "196",
+  "P03": "128",
+  "P04": "370",
+  "P05": "329",
+  "P06": "295",
+  "P07": "192",
+  "P08": "189",
+  "P09": "081",
+  "P10": "333",
+  "P11": "155",
+  "P12": "075",
+  "P13": "253",
+  "P14": "156",
+  "P15": "134",
+  "P16": "173",
+  "P17": "369",
+  "P18": "005",
+  "P19": "188",
+  "P20": "322",
+  "P21": "012",
+  "P22": "328",
+  "P23": "181",
+  "P24": "028"
+ },
+ "readmeSha256": "d374e1527493a8b12878b7e9f2da7004ec665f6910839503646291f9ba2df4bd",
+ "packets": {
+  "P01": {
+   "family": "026",
+   "title": "Positive lower density of large prime gaps",
+   "challenge": "PrimeGaps",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/PrimeGaps.lean",
+    "challengeSha256": "a8822683e840bc0f92cb3573b85a6b1d847314b869e7262c4a863b5c33858aa5",
+    "scopeNote": "lean/docs/026.md",
+    "scopeNoteSha256": "f75ae21800250eb70265e6e2e77a59f6d54513b9494b9ad7488de2d3574b3959"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "a",
+   "difficulty": "subtle",
+   "line": 39,
+   "originalLine": "        c * (N : ℝ) ≤ ((LargePrimeGaps.largeGapIndices C N).card : ℝ)) ∧",
+   "mutatedLine": "        c * Real.sqrt (N : ℝ) ≤ ((LargePrimeGaps.largeGapIndices C N).card : ℝ)) ∧",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline has a positive proportion (at least c·N of the first N indices) of gaps exceeding C log p_n for every C > 0; the statement only has at least c·√N such indices, which is not a positive proportion (the ratio-increase conjunct is untouched and only covers gaps above roughly log p_n).",
+   "arguable": "The scope note (026.md) describes only the ratio corollary, and the first readers recorded that as 'an understatement by the note, not a gap'. A reader could therefore argue NARROWER — DECLARED (the note never claims the large-gap clause). The note does not say the clause is left out or weakened, so the key's word is NARROWER — UNDECLARED; score DECLARED as 'defect seen, declared-ness disputed'.",
+   "files": {
+    "headline.md": "d25e1deb125bd59ab388fb55bb8355efc73fb839f0c314069c5d0c880c389f40",
+    "scope-note.md": "f75ae21800250eb70265e6e2e77a59f6d54513b9494b9ad7488de2d3574b3959",
+    "challenge.lean": "cc5affb8f66ae6f7db870618b4566c2fa8a2c26a3ae72a5fcabd8e1ab758924d"
+   }
+  },
+  "P02": {
+   "family": "196",
+   "title": "A counterexample to Kaplansky’s zero-divisor conjecture",
+   "challenge": "TorsionFreeZeroDivisors",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/TorsionFreeZeroDivisors.lean",
+    "challengeSha256": "f0fa4b50cb7bab116b37c75a74fdea60fb206a35f2b0590157468c054dfec3c2",
+    "scopeNote": "lean/docs/196.md",
+    "scopeNoteSha256": "5edd7a5890540622fdfa39349e8520d66e5edf7ebf2af1685b23125264008667"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "a1b9727dc6587babe416be51bef49ff5caec7dde3e017b6da1b3c8f121775b23",
+    "scope-note.md": "5edd7a5890540622fdfa39349e8520d66e5edf7ebf2af1685b23125264008667",
+    "challenge.lean": "f0fa4b50cb7bab116b37c75a74fdea60fb206a35f2b0590157468c054dfec3c2"
+   }
+  },
+  "P03": {
+   "family": "128",
+   "title": "A factor-two approximation for shortest common superstring",
+   "challenge": "Superstring",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/Superstring.lean",
+    "challengeSha256": "8930f17794dfd3ca55e5c238019e5ccecf8c189d2df87df83773d00d1f4d1d3a",
+    "scopeNote": "lean/docs/128.md",
+    "scopeNoteSha256": "958fd23004a8d911fe1ae7a0a0f320e7f549a36f5297132cdba95316ab302d39"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "1f4536af8ad4fd5e429b45f70dc18656ab331e8c2ecabbccf2fba4772ac85625",
+    "scope-note.md": "958fd23004a8d911fe1ae7a0a0f320e7f549a36f5297132cdba95316ab302d39",
+    "challenge.lean": "8930f17794dfd3ca55e5c238019e5ccecf8c189d2df87df83773d00d1f4d1d3a"
+   }
+  },
+  "P04": {
+   "family": "370",
+   "title": "The Lane–Emden and Hénon–Lane–Emden conjectures",
+   "challenge": "HenonEmden",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/HenonEmden.lean",
+    "challengeSha256": "f42125331b02564e56f0ccb7009c294b4233cb12fd4467b5aa96dd2a3524b3da",
+    "scopeNote": "lean/docs/370.md",
+    "scopeNoteSha256": "46f3228957de33d7c417826c135802ac463c584d876b3a00d9a9b6de87a8da08"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "2953f42c8820f8acb42d3eeeec110ee6eb0231e89f9500b572b293f9f7d39c1d",
+    "scope-note.md": "46f3228957de33d7c417826c135802ac463c584d876b3a00d9a9b6de87a8da08",
+    "challenge.lean": "f42125331b02564e56f0ccb7009c294b4233cb12fd4467b5aa96dd2a3524b3da"
+   }
+  },
+  "P05": {
+   "family": "329",
+   "title": "A counterexample to metric-entropy duality",
+   "challenge": "MetricEntropyDuality",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/MetricEntropyDuality.lean",
+    "challengeSha256": "56e4e4aaa1c1cb998e03aca8f659471996a0428e35736316dfa4cb31f9457cc8",
+    "scopeNote": "lean/docs/329.md",
+    "scopeNoteSha256": "1c44d84ab8638875d9c80d292e2b52ed5f9a6fe014f70069b95cf867b01cf6e5"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "f9ffdac8444391a0fce5039c7c972a1d6d672a6306587fd7015dd315f2121a35",
+    "scope-note.md": "1c44d84ab8638875d9c80d292e2b52ed5f9a6fe014f70069b95cf867b01cf6e5",
+    "challenge.lean": "56e4e4aaa1c1cb998e03aca8f659471996a0428e35736316dfa4cb31f9457cc8"
+   }
+  },
+  "P06": {
+   "family": "295",
+   "title": "The Kadison–Ringrose cohomology conjecture",
+   "challenge": "KadisonRingrose",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/KadisonRingrose.lean",
+    "challengeSha256": "cf483338b48e3a6cf964d8e37926c171e9c483fa7d11285e6f2f15d7d6fac8fe",
+    "scopeNote": "lean/docs/295.md",
+    "scopeNoteSha256": "e9d070126e226f55f07cdbaee5ce5ced8c660c7cda31ca0c7868c722f874f629"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "c",
+   "difficulty": "easy",
+   "line": 32,
+   "originalLine": "    (n : ℕ) (f : Cochain M (n + 2))",
+   "mutatedLine": "    [TopologicalSpace.SeparableSpace M] (n : ℕ) (f : Cochain M (n + 2))",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline covers every complex von Neumann algebra; the statement adds norm-separability of M, which no infinite-dimensional von Neumann algebra has, so only finite-dimensional algebras remain.",
+   "arguable": "The scope note says 'No separability or type restriction is imposed', which contradicts the plant rather than declaring it.",
+   "files": {
+    "headline.md": "6591b96a30f14e483415dee6c96ee08cd2152e107b7a404f94c550d3e47141e0",
+    "scope-note.md": "e9d070126e226f55f07cdbaee5ce5ced8c660c7cda31ca0c7868c722f874f629",
+    "challenge.lean": "a6bf1b1aa5f2bc2ad0b9ccaeb9fb3d5a7e105ccf792de20c550b8351486a85f5"
+   }
+  },
+  "P07": {
+   "family": "192",
+   "title": "Boolean functions violate the square-root degree bound by arbitrary factors",
+   "challenge": "SquareRootDegree",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/SquareRootDegree.lean",
+    "challengeSha256": "72f48e513f3159bf80d25c7ed5afee9f3224f5c09c672777ead3f1ec7309ac4f",
+    "scopeNote": "lean/docs/192.md",
+    "scopeNoteSha256": "2541e439837779913e446e3584cdf4c2454b4734d3e83dccf775497efccf26cf"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "d",
+   "difficulty": "subtle",
+   "line": 35,
+   "originalLine": "  ∀ x, f x = -1 ∨ f x = 1",
+   "mutatedLine": "  ∀ x, |f x| ≤ 1",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline's witness is a sign-valued (±1) Boolean function; the statement's IsBoolean only asks |f x| ≤ 1, so both clauses may be witnessed by any [−1,1]-valued function.",
+   "arguable": "The edit is in a definition (IsBoolean) shared by both conjuncts. That is deliberate: the signed and the absolute clauses imply each other (flip input signs), so weakening only one of them would leave the statement equivalent to the original.",
+   "files": {
+    "headline.md": "229e56c4b37f5af25f8abc9e1076afce05fdd37e453c5e34e12ba8aed0f7ea66",
+    "scope-note.md": "2541e439837779913e446e3584cdf4c2454b4734d3e83dccf775497efccf26cf",
+    "challenge.lean": "d5433a3759f0ed01942e53534396bd6a17b626c25ed02e3537099d07c588607e"
+   }
+  },
+  "P08": {
+   "family": "189",
+   "title": "Cycle–clique Ramsey numbers",
+   "challenge": "CycleCliqueRamsey",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/CycleCliqueRamsey.lean",
+    "challengeSha256": "8d02ae7cb616ad7160ca20eea880ef879857e398e8316299a07a5c985001dabd",
+    "scopeNote": "lean/docs/189.md",
+    "scopeNoteSha256": "89e8630c852f0408b0e0ad7be597e284d9a8936b1f4d3b398082fcfc3d9d219d"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "b",
+   "difficulty": "easy",
+   "line": 24,
+   "originalLine": "    (∀ m n : ℤ, n ≤ m → 3 ≤ n → (m, n) ≠ (3, 3) →",
+   "mutatedLine": "    (∀ m n : ℤ, n ≤ m → 3 ≤ n → m ≤ 2 * n → (m, n) ≠ (3, 3) →",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline covers every m ≥ n ≥ 3; the statement covers only n ≤ m ≤ 2n.",
+   "arguable": null,
+   "files": {
+    "headline.md": "29c371749c5f479c31ece4b6f3f6d0475194b4569a0b2b3aa59502b36b37c5f5",
+    "scope-note.md": "89e8630c852f0408b0e0ad7be597e284d9a8936b1f4d3b398082fcfc3d9d219d",
+    "challenge.lean": "92893e3310e08659fe397690e642451ab55dd8c95af5d1d7f9965923b7525b7a"
+   }
+  },
+  "P09": {
+   "family": "081",
+   "title": "Riesz transforms and rectifiability in higher codimension",
+   "challenge": "RieszQuantitative",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/RieszQuantitative.lean",
+    "challengeSha256": "6e1b35500d0313a4774dafe0ae42200202735e598191209f06e930f114f99bd0",
+    "scopeNote": "lean/docs/081.md",
+    "scopeNoteSha256": "eb66954084a4a5c7c9852494681ec82cc737a170de36d00d15b18ef78700b1a2"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "b",
+   "difficulty": "subtle",
+   "line": 43,
+   "originalLine": "  ∀ d n : ℕ, 4 ≤ d → 2 ≤ n → n + 2 ≤ d →",
+   "mutatedLine": "  ∀ d n : ℕ, 4 ≤ d → 2 ≤ n → n + 2 = d →",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline covers every 2 ≤ n ≤ d − 2 (every codimension at least two); the statement covers only n = d − 2 (codimension exactly two).",
+   "arguable": null,
+   "files": {
+    "headline.md": "959922fe4ec96deb6549cbbda4be6b56c252f1f3f8e233f90302e5c554ba5fa3",
+    "scope-note.md": "eb66954084a4a5c7c9852494681ec82cc737a170de36d00d15b18ef78700b1a2",
+    "challenge.lean": "5c0adbaecb38f6cfb689bc122035997e11170e49749a86310a6b04d8b6924abd"
+   }
+  },
+  "P10": {
+   "family": "333",
+   "title": "Smooth isometric immersions of surfaces into ℝ<sup>4</sup>",
+   "challenge": "SurfaceImmersion",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/SurfaceImmersion.lean",
+    "challengeSha256": "668f6d90af60e4b3d0a61b37d0d6ecd0709e22ddb17bb185677c26fe19c92d37",
+    "scopeNote": "lean/docs/333.md",
+    "scopeNoteSha256": "411de27774e13e69432f2f0f4a3ada67bc2f06c34975f7aa178b7c7ba88368ef"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "78a77599232a150595f144e763c0476453bfe773209206c1c0f4ee60670dd3bf",
+    "scope-note.md": "411de27774e13e69432f2f0f4a3ada67bc2f06c34975f7aa178b7c7ba88368ef",
+    "challenge.lean": "668f6d90af60e4b3d0a61b37d0d6ecd0709e22ddb17bb185677c26fe19c92d37"
+   }
+  },
+  "P11": {
+   "family": "155",
+   "title": "A counterexample to periodic tiling in dimension three",
+   "challenge": "PeriodicTilingThree",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/PeriodicTilingThree.lean",
+    "challengeSha256": "056c498ce4a6e7b71b688eb8c499ebef70ad1bddfea98b7215d480eb11e08bba",
+    "scopeNote": "lean/docs/155.md",
+    "scopeNoteSha256": "a4a8e34b1d3c463db615c2a1af9e8b78db28f6ffb1dbd0d7109d95fd0a5f6b82"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "c",
+   "difficulty": "easy",
+   "line": 57,
+   "originalLine": "      (∀ A : Set (Space 3),",
+   "mutatedLine": "      (∀ A : Set (Space 3), A ⊆ Set.range castLattice →",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline's ℝ³ clause holds 'even with arbitrary real translation vectors'; the statement only rules out fully periodic tilings whose translation set lies in the integer lattice.",
+   "arguable": null,
+   "files": {
+    "headline.md": "2829af9efd2d350751d49dfe02646465e9d375289feac97bc79867d2cf66b11f",
+    "scope-note.md": "a4a8e34b1d3c463db615c2a1af9e8b78db28f6ffb1dbd0d7109d95fd0a5f6b82",
+    "challenge.lean": "aa43d5a82145f7c978d646de2f02d069ddd8eedd4c7976a892481ee03fe3a7a3"
+   }
+  },
+  "P12": {
+   "family": "075",
+   "title": "The $`L\\log L`$ Fourier-convergence conjecture",
+   "challenge": "FourierLLogL",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/FourierLLogL.lean",
+    "challengeSha256": "c4d23b5ee24bd446a0524df1e3af08c7ea7d293e079cc8c8d6030113bdb5ab3f",
+    "scopeNote": "lean/docs/075.md",
+    "scopeNoteSha256": "06cc6a7bad49a7027ddd37e5f2533268630d822c32024e3c47fd5394aa361be5"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "d48d3d63ff6f688419fda38c1e67a0d915742b0dabf9348ea0db993418a34c58",
+    "scope-note.md": "06cc6a7bad49a7027ddd37e5f2533268630d822c32024e3c47fd5394aa361be5",
+    "challenge.lean": "c4d23b5ee24bd446a0524df1e3af08c7ea7d293e079cc8c8d6030113bdb5ab3f"
+   }
+  },
+  "P13": {
+   "family": "253",
+   "title": "An infinite finitely presented simple amenable group",
+   "challenge": "SimpleAmenable",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/SimpleAmenable.lean",
+    "challengeSha256": "ff02a2468a0567cf22ae5ac7a7f95360c8038ad79c1df0a2a100ee2b18d0beeb",
+    "scopeNote": "lean/docs/253.md",
+    "scopeNoteSha256": "fbe78247b464030790442b05d88fde1af2c88b633fb8f0441119a60a5df62e25"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "b213362e8cf5edde734c901f05c0cc39e5c1f0d6f61c7c04acb06d209006f7b0",
+    "scope-note.md": "fbe78247b464030790442b05d88fde1af2c88b633fb8f0441119a60a5df62e25",
+    "challenge.lean": "ff02a2468a0567cf22ae5ac7a7f95360c8038ad79c1df0a2a100ee2b18d0beeb"
+   }
+  },
+  "P14": {
+   "family": "156",
+   "title": "Borsuk's conjecture fails in dimension nine",
+   "challenge": "BorsukNine",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/BorsukNine.lean",
+    "challengeSha256": "c097288178f7b71023274b9cc3e5b600fad2e9b4c85bd635b7bf06c307fc631c",
+    "scopeNote": "lean/docs/156.md",
+    "scopeNoteSha256": "3734e435a27d9c0e206122088995fa6d6c9e4ad691e9aca27f07820ea3983341"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "a",
+   "difficulty": "subtle",
+   "line": 20,
+   "originalLine": "  ∃ C : Fin 10 → Set Matrix4,",
+   "mutatedLine": "  ∃ C : Fin 9 → Set Matrix4,",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline says the set cannot be covered by ten sets of smaller diameter (d + 1 for d = 9, which is what disproves Borsuk); the statement only rules out covers by nine sets.",
+   "arguable": "The definition keeps its name HasTenSmallCover while its body says Fin 9; the mismatch is a visible clue.",
+   "files": {
+    "headline.md": "c5a163bbae5b504b6c4d4bcc830b8c9f2fae26ff68576ca444ec168d5588acde",
+    "scope-note.md": "3734e435a27d9c0e206122088995fa6d6c9e4ad691e9aca27f07820ea3983341",
+    "challenge.lean": "2a51dba02bf4285a91d59767965ff1eeea2ceaa207317c88f5cdc06784582792"
+   }
+  },
+  "P15": {
+   "family": "134",
+   "title": "Generalized star height at most three",
+   "challenge": "GeneralizedStarHeight",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/GeneralizedStarHeight.lean",
+    "challengeSha256": "795709e34771f1c786ecae7c123e8a586c426d8e93c8b5bc82f2904d5340556e",
+    "scopeNote": "lean/docs/134.md",
+    "scopeNoteSha256": "5b9fdccbafa415c70b8dc442e39e51472f80018c5aae90d054c74bb39ebabf3a"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "8316ebcfbed1a9739dd2e20e5f51611195b3483f3d4820781c8b1647b23340d6",
+    "scope-note.md": "5b9fdccbafa415c70b8dc442e39e51472f80018c5aae90d054c74bb39ebabf3a",
+    "challenge.lean": "795709e34771f1c786ecae7c123e8a586c426d8e93c8b5bc82f2904d5340556e"
+   }
+  },
+  "P16": {
+   "family": "173",
+   "title": "Seymour’s second-neighborhood conjecture",
+   "challenge": "SeymourSecondNeighborhood",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/SeymourSecondNeighborhood.lean",
+    "challengeSha256": "fa4a37831405b3fe7f6a88a2dce8918982195ee1757e05e4623055822d36ca98",
+    "scopeNote": "lean/docs/173.md",
+    "scopeNoteSha256": "c377bf61fe64db99f7edf87402ff402bed8c57ffed0a1663ee610e62a276e5a3"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "e",
+   "difficulty": "subtle",
+   "line": 28,
+   "originalLine": "  (firstNeighbors r v).card ≤ (secondNeighbors r v).card",
+   "mutatedLine": "  (secondNeighbors r v).card ≤ (firstNeighbors r v).card",
+   "expectedWord": "DIFFERENT",
+   "headlineHasStatementLacks": "The headline gives a vertex with at least as many second out-neighbours as first; the statement's inequality is reversed, giving a vertex with at least as many first out-neighbours as second.",
+   "arguable": "The reversed statement may be easy or even trivial (any sink satisfies it), but it neither implies nor is implied by Seymour's conjecture, so the word stays DIFFERENT.",
+   "files": {
+    "headline.md": "4ce80d53b1dcd69a8007b6d20dbcf393d40c3c1787055cc111093c9ed8c775ac",
+    "scope-note.md": "c377bf61fe64db99f7edf87402ff402bed8c57ffed0a1663ee610e62a276e5a3",
+    "challenge.lean": "f8b1b59740273268c95047d83490cef12ee0a8f16813ebd7036dbde9966a10f3"
+   }
+  },
+  "P17": {
+   "family": "369",
+   "title": "The hot spots conjecture for simply connected planar domains",
+   "challenge": "HotSpots",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/HotSpots.lean",
+    "challengeSha256": "ef8a14d3717c0acf63c01656f93cc51a7e669aa58aa0a3ad3fd54465e49b1bde",
+    "scopeNote": "lean/docs/369.md",
+    "scopeNoteSha256": "3a79656f6ff91a6f687969cc79e40171531596880e16b2c6f4ac0b889e5ed3aa"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "b",
+   "difficulty": "easy",
+   "line": 21,
+   "originalLine": "    IsSimplyConnected Ω ∧ SmoothBoundary Ω",
+   "mutatedLine": "    Convex ℝ Ω ∧ SmoothBoundary Ω",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline covers every smooth bounded simply connected planar domain; the statement covers only convex ones.",
+   "arguable": null,
+   "files": {
+    "headline.md": "0aa4710f9bcfa455d6daa08df76cd367ea7970e1d9021f6be763a6f149e84e8b",
+    "scope-note.md": "3a79656f6ff91a6f687969cc79e40171531596880e16b2c6f4ac0b889e5ed3aa",
+    "challenge.lean": "fbf544098ab618255665bf0ad4c64a63b24577c6eddc3923074d8c78c31ff12b"
+   }
+  },
+  "P18": {
+   "family": "005",
+   "title": "Irrationality of Catalan’s constant",
+   "challenge": "Catalan",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/Catalan.lean",
+    "challengeSha256": "9bf391e5c1a95dd82d78e53774b9f2223d8c0fae0396fc3ad59332f895de8561",
+    "scopeNote": "lean/docs/005.md",
+    "scopeNoteSha256": "37dc6d183e395184ebfb3bf0f570603ab06e6640e7bda9cac9fa02736089f764"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "e",
+   "difficulty": "subtle",
+   "line": 8,
+   "originalLine": "    Irrational (∑' j : ℕ, (-1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2) := by",
+   "mutatedLine": "    Irrational (∑' j : ℕ, (1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2) := by",
+   "expectedWord": "DIFFERENT",
+   "headlineHasStatementLacks": "The headline's constant is the alternating sum Σ(−1)^j/(2j+1)^2 (Catalan's G); the sign is gone, so the statement asserts the irrationality of Σ1/(2j+1)^2 = π²/8, a different constant.",
+   "arguable": null,
+   "files": {
+    "headline.md": "a9bee1b91cf4f65f0855ad557aff02e84c97e843a5016c4dc4fac2d69c73c861",
+    "scope-note.md": "37dc6d183e395184ebfb3bf0f570603ab06e6640e7bda9cac9fa02736089f764",
+    "challenge.lean": "61e6ea07c6bec0ca86f8104a5e82e9f804778d21bd9195c9a4baa1173fec936f"
+   }
+  },
+  "P19": {
+   "family": "188",
+   "title": "The sharp terminal leave in random triangle removal",
+   "challenge": "TriangleRemoval",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/TriangleRemoval.lean",
+    "challengeSha256": "efdc9b6b4fa7a40590e1f3dd0952d18d9337e70a703c074d8f87f396ca63d22a",
+    "scopeNote": "lean/docs/188.md",
+    "scopeNoteSha256": "358522408d1f04e0df83dad8d575a7d5a013f44716aec109a6744302fd02892d"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "d",
+   "difficulty": "subtle",
+   "line": 57,
+   "originalLine": "      (normalizedLeave n G - sharpConstant) ^ 2)) atTop (𝓝 0) ∧",
+   "mutatedLine": "      |normalizedLeave n G - sharpConstant|)) atTop (𝓝 0) ∧",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline has mean-square (L²) convergence of the normalized leave; the statement only has mean-absolute (L¹) convergence, alongside the untouched convergence in probability and of the normalized expectation, none of which gives L².",
+   "arguable": null,
+   "files": {
+    "headline.md": "0c99f97d85e5de693d6b9e98fdcd3fbf74a62e7820dfb9fd590464340461b943",
+    "scope-note.md": "358522408d1f04e0df83dad8d575a7d5a013f44716aec109a6744302fd02892d",
+    "challenge.lean": "316c6f145b7a26bdaebdf8e177c2e8ad961cef0561147a3b961f43476c73ad37"
+   }
+  },
+  "P20": {
+   "family": "322",
+   "title": "Tingley’s sphere-isometry problem",
+   "challenge": "TingleySphereIsometry",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/TingleySphereIsometry.lean",
+    "challengeSha256": "fee90b109d4640af4faeebb337b39e654e57c4db645f049d654d082f25fd7303",
+    "scopeNote": "lean/docs/322.md",
+    "scopeNoteSha256": "5b8a07a1aa25bbca2c2a9ddd101fe2c7d2af88dceb7a975981f046e43e8f781c"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "a7c228d0d00df943019efc29af5be2c45b5fef295937f6aff8406ca3f5a5f1dc",
+    "scope-note.md": "5b8a07a1aa25bbca2c2a9ddd101fe2c7d2af88dceb7a975981f046e43e8f781c",
+    "challenge.lean": "fee90b109d4640af4faeebb337b39e654e57c4db645f049d654d082f25fd7303"
+   }
+  },
+  "P21": {
+   "family": "012",
+   "title": "Independent largest prime factors of consecutive integers",
+   "challenge": "JointDickman",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/JointDickman.lean",
+    "challengeSha256": "b45c341c7339e3cf13b6c62ffea0c815739b5b3a27043bfa0fca05f8b3909141",
+    "scopeNote": "lean/docs/012.md",
+    "scopeNoteSha256": "8d35d76e45f9ce263f96f9b8f5560330ca73f3eba93a08d7c6060dfed1758bcb"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "79ea9fed7a36effba389bbd8730aa5e0f326843d395740440954b69dc9108e0d",
+    "scope-note.md": "8d35d76e45f9ce263f96f9b8f5560330ca73f3eba93a08d7c6060dfed1758bcb",
+    "challenge.lean": "b45c341c7339e3cf13b6c62ffea0c815739b5b3a27043bfa0fca05f8b3909141"
+   }
+  },
+  "P22": {
+   "family": "328",
+   "title": "Nonexpansive fixed points in reflexive Banach spaces",
+   "challenge": "ReflexiveFixedPoints",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/ReflexiveFixedPoints.lean",
+    "challengeSha256": "e82d18ae968de9efbb0ea83aa401e95302a4b80686949107a3d0223335718d0d",
+    "scopeNote": "lean/docs/328.md",
+    "scopeNoteSha256": "9f79d43bd015142bdc270e47722767be151f59742df8f77ae006fd89ab6ea098"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": true,
+   "kind": "a",
+   "difficulty": "easy",
+   "line": 27,
+   "originalLine": "    (hF : ∀ a b : C, ‖(F a : X) - (F b : X)‖ ≤ ‖(a : X) - (b : X)‖) :",
+   "mutatedLine": "    (hF : ∀ a b : C, ‖(F a : X) - (F b : X)‖ ≤ ‖(a : X) - (b : X)‖ / 2) :",
+   "expectedWord": "NARROWER — UNDECLARED",
+   "headlineHasStatementLacks": "The headline covers every nonexpansive (1-Lipschitz) self-map; the statement requires F to be 1/2-Lipschitz, a strict contraction, which Banach's fixed-point theorem already handles without reflexivity.",
+   "arguable": "The docstring above the theorem (unaltered) still says 'nonexpansive'; that mismatch is a visible clue.",
+   "files": {
+    "headline.md": "4f22add3b4719e056cbc1ee58c88043c1166dab780aad66d94f2c6c9b06c7ceb",
+    "scope-note.md": "9f79d43bd015142bdc270e47722767be151f59742df8f77ae006fd89ab6ea098",
+    "challenge.lean": "25eb446747bef20a01a40f46d8872a24dac6897d12c7adbc81c093d0f2d7b90d"
+   }
+  },
+  "P23": {
+   "family": "181",
+   "title": "The Erdős–Gallai cycle-decomposition conjecture",
+   "challenge": "CycleDecomposition",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/CycleDecomposition.lean",
+    "challengeSha256": "8c40255789147b218565654daa7d4f9ef39824b009d06ec9fb6beb7b45cae0f9",
+    "scopeNote": "lean/docs/181.md",
+    "scopeNoteSha256": "2e322b0000ff85fbb7c09603243df922d38e51b22799f44cddb40ec8f5165285"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "211b464b0dee939a5f88b03b7bdf4d0db8f23382796346bbec97e8e7643bef0e",
+    "scope-note.md": "2e322b0000ff85fbb7c09603243df922d38e51b22799f44cddb40ec8f5165285",
+    "challenge.lean": "8c40255789147b218565654daa7d4f9ef39824b009d06ec9fb6beb7b45cae0f9"
+   }
+  },
+  "P24": {
+   "family": "028",
+   "title": "Uniformly bounded components of Gaussian-prime graphs",
+   "challenge": "GaussianMoat",
+   "source": {
+    "challenge": "lean/ComparatorChallenges/GaussianMoat.lean",
+    "challengeSha256": "f1d2bdcb38ababb65d98dba286dfe13286c1709aea704d9dac58e2004ca80e84",
+    "scopeNote": "lean/docs/028.md",
+    "scopeNoteSha256": "8c84833b7ad47c59ee7e5392858ee2a3d410f3e082af31d064654202b5105521"
+   },
+   "recordedWord": "MATCHES",
+   "mutated": false,
+   "expectedWord": "MATCHES",
+   "files": {
+    "headline.md": "f64a1910094fa65587803ed2093d980b9807423f25d67296c66a00ac74440e4e",
+    "scope-note.md": "8c84833b7ad47c59ee7e5392858ee2a3d410f3e082af31d064654202b5105521",
+    "challenge.lean": "f1d2bdcb38ababb65d98dba286dfe13286c1709aea704d9dac58e2004ca80e84"
+   }
+  }
+ }
+}

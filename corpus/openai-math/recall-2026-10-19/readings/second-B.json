@@ -1,0 +1,653 @@
+{
+ "reader": "B2",
+ "families": [
+  {
+   "packet": "P01",
+   "title": "Positive lower density of large prime gaps",
+   "headline": "**026. Positive lower density of large prime gaps.** For every fixed <i>C</i> &gt; 0, a positive proportion of consecutive prime gaps exceed $`C\\log p_n`$, throughout every sufficiently large initial segment of the primes. The proportion may depend on <i>C</i>. Consequently, the indices where $`p_n/n`$ increases have positive lower density, answering Erdős and Prachar. ([Lean](lean/docs/026.md))",
+   "word": "NARROWER — DECLARED",
+   "clauses": [
+    {
+     "clause": "For every fixed C > 0, a positive proportion of consecutive prime gaps exceed C log p_n",
+     "coveredBy": "first conjunct, lines 37-39, through LargePrimeGaps.largeGapIndices (lines 9-12)",
+     "note": "Only in a weaker form: the count of n in [1, N] with C·log p_n < p_{n+1} − p_n is bounded below by c·√N, not c·N. A count of order √N is compatible with density zero, so 'a positive proportion' is not stated."
+    },
+    {
+     "clause": "throughout every sufficiently large initial segment of the primes",
+     "coveredBy": "∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N → (line 38), over Finset.Icc 1 N (line 11)",
+     "note": "The quantifier form is right; it carries the weakened √N count."
+    },
+    {
+     "clause": "The proportion may depend on C",
+     "coveredBy": "∀ C : ℝ, 0 < C → ∃ c : ℝ, 0 < c (lines 37-38)",
+     "note": "Right order: c and N₀ are chosen after C."
+    },
+    {
+     "clause": "Consequently, the indices where p_n/n increases have positive lower density",
+     "coveredBy": "second conjunct, line 40; ratioIncreaseIndices (lines 31-34); lowerAsymptoticDensity (lines 27-29)",
+     "note": "Stated in full: n ≥ 1 with p_n/n < p_{n+1}/(n+1), p_n = Nat.nth Nat.Prime (n − 1) so p_1 = 2; the sSup of eventual lower bounds of count/N is the liminf, and 0 < liminf is positive lower density."
+    },
+    {
+     "clause": "answering Erdős and Prachar",
+     "coveredBy": "same as the previous clause",
+     "note": "Attribution only."
+    }
+   ],
+   "gap": "The headline's main clause (for every C > 0, at least c·N of the first N gaps exceed C log p_n) is stated only as a c·√N lower bound (challenge.lean:39). The ratio corollary, which only concerns gaps above p_n/n ≈ log p_n (C about 1), does not recover it for C > 1. The corollary itself is stated in full.",
+   "scopeNoteOnGap": "declares it: \"The formalized supplement proves that the indices $n$ for which $p_n/n<p_{n+1}/(n+1)$ have positive lower asymptotic density\" and \"This is the prime-ratio corollary associated with the paper's theorem on a positive lower density of large prime gaps.\" The note gives the formal scope as the corollary alone and names the large-gap theorem as the paper's; its only comparator row is 'Positive lower density of prime-ratio increases'.",
+   "asserts": "(i) For every real C > 0 there are c > 0 and N₀ such that for every N ≥ N₀ at least c·√N indices n in [1, N] satisfy p_{n+1} − p_n > C·log p_n; and (ii) the set of n ≥ 1 with p_n/n < p_{n+1}/(n+1) has positive lower asymptotic density.",
+   "encoding": [
+    "p_n = Nat.nth Nat.Prime (n − 1), indices from 1 (p_1 = 2); defined twice (LargePrimeGaps.prime, Problem344.primeAt) with the same body",
+    "'exceed' as a strict inequality",
+    "lower asymptotic density as sSup {d | eventually d ≤ count(N)/N}, which is the liminf",
+    "initial segments as Finset.Icc 1 N"
+   ],
+   "flags": [
+    "No sSup junk: the set is nonempty (it contains 0) and bounded above by 1, since count(N) ≤ N for N ≥ 1.",
+    "No log 0: p_n ≥ 2.",
+    "Quantifier order ∀C ∃c ∃N₀ ∀N matches the prose.",
+    "p_n/n < p_{n+1}/(n+1) is equivalent to p_{n+1} − p_n > p_n/n, and p_n/n ~ log p_n, so conjunct (ii) is a large-gap statement for C ≈ 1 only.",
+    "The theorem name large_gaps_and_ratio_density and the √N conjunct can be read as presenting the large-gap theorem; the challenge file does not say the conjunct is weaker than the headline."
+   ],
+   "evidence": [
+    "challenge.lean:37: (∀ C : ℝ, 0 < C →",
+    "challenge.lean:38: ∃ c : ℝ, 0 < c ∧ ∃ N₀ : ℕ, ∀ N : ℕ, N₀ ≤ N →",
+    "challenge.lean:39: c * Real.sqrt (N : ℝ) ≤ ((LargePrimeGaps.largeGapIndices C N).card : ℝ)) ∧",
+    "challenge.lean:12: C * Real.log (prime n : ℝ) < (prime (n + 1) : ℝ) - (prime n : ℝ)",
+    "challenge.lean:40: 0 < lowerAsymptoticDensity ratioIncreaseIndices := by",
+    "challenge.lean:33: (primeAt n : ℝ) / (n : ℝ) <",
+    "challenge.lean:34: (primeAt (n + 1) : ℝ) / ((n + 1 : ℕ) : ℝ)}",
+    "headline.md: \"a positive proportion of consecutive prime gaps exceed $`C\\log p_n`$, throughout every sufficiently large initial segment of the primes\"",
+    "scope-note.md: \"The formalized supplement proves that the indices $n$ for which $p_n/n<p_{n+1}/(n+1)$ have positive lower asymptotic density\"",
+    "scope-note.md: \"This is the prime-ratio corollary associated with the paper's theorem on a positive lower density of large prime gaps.\""
+   ],
+   "confidence": "medium",
+   "suspicious": "I disagree with the first reader's NARROWER — UNDECLARED. The gap (√N against N) is certain. The word depends on whether the scope note declares it, and I read that it does: the Scope section says what the formalized supplement proves (the ratio corollary) and calls it the corollary of 'the paper's theorem', so it places the large-gap theorem outside the formal scope. The declaration is implicit, not a 'not included' sentence, and the note never mentions the extra √N conjunct. A reader who gives weight to the theorem name may still say UNDECLARED."
+  },
+  {
+   "packet": "P06",
+   "title": "The Kadison–Ringrose cohomology conjecture",
+   "headline": "**295. The Kadison–Ringrose cohomology conjecture.** Proves that every bounded Hochschild cocycle of degree at least two on a complex von Neumann algebra, with coefficients in the algebra itself, has a bounded primitive. Equivalently, all higher bounded Hochschild cohomology groups vanish, resolving the Kadison–Ringrose conjecture. ([Lean](lean/docs/295.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "every bounded Hochschild cocycle of degree at least two",
+     "coveredBy": "f : Cochain M (n + 2) (ContinuousMultilinearMap, lines 12-13) with hf : δf = 0 (line 33)",
+     "note": "Matches: degree n + 2 ≥ 2. The differential (lines 15-24) has the standard signs: a_0 f(...), (−1)^{j+1} on the merge of positions j, j+1, (−1)^{n+1} on f(...)·a_n."
+    },
+    {
+     "clause": "on a complex von Neumann algebra",
+     "coveredBy": "[CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M] [TopologicalSpace.SeparableSpace M] (lines 31-32)",
+     "note": "NARROWER: SeparableSpace M is about the only topology in scope, the norm topology. An infinite-dimensional von Neumann algebra has an infinite family of orthogonal projections, and the sums over subsets give uncountably many projections at mutual norm distance 1, so it is never norm-separable. The statement covers only finite-dimensional W*-algebras."
+    },
+    {
+     "clause": "with coefficients in the algebra itself",
+     "coveredBy": "Cochain M n takes values in M; δ uses the left action v 0 * … and the right action … * v (Fin.last n) (lines 22, 24)",
+     "note": "Matches."
+    },
+    {
+     "clause": "has a bounded primitive",
+     "coveredBy": "∃ g : Cochain M (n + 1), ∀ x, differentialValue g x = f x (lines 34-35)",
+     "note": "Matches."
+    },
+    {
+     "clause": "Equivalently, all higher bounded Hochschild cohomology groups vanish, resolving the Kadison–Ringrose conjecture",
+     "coveredBy": "same as above",
+     "note": "Only for norm-separable, i.e. finite-dimensional, algebras, where vanishing is classical (semisimple finite-dimensional algebras have vanishing Hochschild cohomology in degrees ≥ 1)."
+    }
+   ],
+   "gap": "The headline covers every complex von Neumann algebra. The statement adds [TopologicalSpace.SeparableSpace M] (challenge.lean:32) for the norm topology, which restricts it to finite-dimensional algebras. The scope note says the opposite: 'No separability or type restriction is imposed.'",
+   "scopeNoteOnGap": "silent",
+   "asserts": "For every complex W*-algebra M that is separable in its norm topology, every n, and every bounded (n+2)-linear Hochschild cocycle f : M^{n+2} → M with coefficients in M, there is a bounded (n+1)-linear g with δg = f.",
+   "encoding": [
+    "von Neumann algebra as an abstract W*-algebra (CStarAlgebra + WStarAlgebra: a C*-algebra with a predual)",
+    "bounded cochains as ContinuousMultilinearMap ℂ (fun _ : Fin n => M) M",
+    "the Hochschild differential written out (checked against the standard formula)",
+    "PartialOrder + StarOrderedRing pins the canonical order of a C*-algebra, so it adds no restriction"
+   ],
+   "flags": [
+    "SeparableSpace on the norm topology collapses the class to finite-dimensional algebras: not vacuous (matrix algebras), but drastically narrower and classical.",
+    "The scope note contradicts the challenge on exactly this hypothesis; it does not declare it.",
+    "Quantifier order ∀ cocycle ∃ primitive matches."
+   ],
+   "evidence": [
+    "challenge.lean:31: {M : Type u} [CStarAlgebra M] [PartialOrder M] [StarOrderedRing M] [WStarAlgebra M]",
+    "challenge.lean:32: [TopologicalSpace.SeparableSpace M] (n : ℕ) (f : Cochain M (n + 2))",
+    "challenge.lean:33: (hf : ∀ x : Fin (n + 3) → M, differentialValue f x = 0) :",
+    "challenge.lean:34: ∃ g : Cochain M (n + 1), ∀ x : Fin (n + 2) → M,",
+    "challenge.lean:35: differentialValue g x = f x := by",
+    "headline.md: \"every bounded Hochschild cocycle of degree at least two on a complex von Neumann algebra\"",
+    "scope-note.md: \"No separability or type restriction is imposed.\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P07",
+   "title": "Boolean functions violate the square-root degree bound by arbitrary factors",
+   "headline": "**192. Boolean functions violate the square-root degree bound by arbitrary factors.** Disproves the proposed square-root bound relating a Boolean function's linear Fourier coefficients to its polynomial degree. For every <i>C</i> &gt; 0, there is a sign-valued Boolean function <i>f</i> with $`\\sum_i\\widehat f(\\{i\\})\\gt C\\sqrt{\\deg(f)}`$. Thus its total signed correlation with individual input bits can exceed the proposed bound by an arbitrary factor. ([Lean](lean/docs/192.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "For every C > 0",
+     "coveredBy": "∀ C : ℝ, 0 < C → (line 47)",
+     "note": "Matches."
+    },
+    {
+     "clause": "there is a sign-valued Boolean function f",
+     "coveredBy": "∃ n, 0 < n ∧ ∃ f : Cube (Fin n) → ℝ, IsBoolean f ∧ Nonconstant f (lines 47-48), IsBoolean f := ∀ x, |f x| ≤ 1 (lines 34-35)",
+     "note": "NARROWER: IsBoolean only bounds the outputs by 1 in absolute value; f need not be ±1-valued. The comment at lines 6-7 concerns the inputs (Bool encodes a sign)."
+    },
+    {
+     "clause": "with Σ_i f̂({i}) > C√deg(f)",
+     "coveredBy": "C * Real.sqrt (fourierDegree f) < singletonSum f (line 48), uniform-average Fourier coefficients and real Fourier degree (lines 20-32, 40-41)",
+     "note": "The inequality and the degree notion match; the class of f is wider."
+    },
+    {
+     "clause": "Thus its total signed correlation with individual input bits can exceed the proposed bound by an arbitrary factor",
+     "coveredBy": "same as above",
+     "note": "Covered for [−1,1]-valued f, not for Boolean f."
+    }
+   ],
+   "gap": "The headline asks for a sign-valued (±1) Boolean function; the statement only requires |f x| ≤ 1 (challenge.lean:35). For bounded functions the violation is elementary: f = T_d((x_1+…+x_n)/n) with T_d the Chebyshev polynomial (odd d) is [−1,1]-valued, has degree ≤ d, and level-one sum → T_d'(0) = ±d as n → ∞, far above C√d. The square-root conjecture is about Boolean functions, and the statement does not reach it. The second conjunct is also over bounded f.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "(i) For every C > 0 there is a nonconstant f : {±1}^n → [−1,1] (n > 0) with Σ_i f̂({i}) > C·√deg f; (ii) the ratios Σ_i |f̂({i})| / √deg f over [−1,1]-valued f of positive degree are unbounded above.",
+   "encoding": [
+    "Bool input encoded as a sign (false ↦ +1, true ↦ −1)",
+    "Fourier coefficients against the uniform average",
+    "degree = largest |s| with a nonzero real Fourier coefficient",
+    "'supremum = +∞' as ¬ BddAbove"
+   ],
+   "flags": [
+    "IsBoolean is a misnomer: it means bounded, not sign-valued.",
+    "Headline ⟹ statement (±1-valued is bounded; a witness is automatically nonconstant), so the word is NARROWER, not DIFFERENT.",
+    "Nonconstant forces a nonzero coefficient at some nonempty s, so deg f > 0 and √deg f > 0; no junk.",
+    "The Chebyshev example is a sketch; the word rests on the definition of IsBoolean alone."
+   ],
+   "evidence": [
+    "challenge.lean:34: def IsBoolean {α : Type*} (f : α → ℝ) : Prop :=",
+    "challenge.lean:35: ∀ x, |f x| ≤ 1",
+    "challenge.lean:47: ∀ C : ℝ, 0 < C → ∃ n : ℕ, 0 < n ∧ ∃ f : Cube (Fin n) → ℝ,",
+    "challenge.lean:48: IsBoolean f ∧ Nonconstant f ∧ C * Real.sqrt (fourierDegree f) < singletonSum f",
+    "challenge.lean:52: IsBoolean f ∧ 0 < fourierDegree f ∧",
+    "challenge.lean:53: r = absoluteSingletonSum f / Real.sqrt (fourierDegree f)}",
+    "challenge.lean:57: theorem main : SignedViolations ∧ ¬ BddAbove AbsoluteRatios := by",
+    "headline.md: \"there is a sign-valued Boolean function <i>f</i>\"",
+    "scope-note.md: \"it gives a nonconstant Boolean function on a finite sign cube\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P08",
+   "title": "Cycle–clique Ramsey numbers",
+   "headline": "**189. Cycle–clique Ramsey numbers.** Proves the Erdős–Faudree–Rousseau–Schelp conjecture: $`R(C_m,K_n)=(m-1)(n-1)+1`$ for every $`m\\ge n\\ge3`$, except $`R(C_3,K_3)=6`$. This is the exact threshold forcing a red <i>m</i>-cycle or a blue <i>n</i>-clique in every red–blue coloring of a complete graph. ([Lean](lean/docs/189.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "R(C_m,K_n)=(m−1)(n−1)+1 for every m ≥ n ≥ 3",
+     "coveredBy": "first conjunct, lines 24-25",
+     "note": "NARROWER: the statement adds m ≤ 2 * n, so it covers only n ≤ m ≤ 2n."
+    },
+    {
+     "clause": "except R(C_3,K_3)=6",
+     "coveredBy": "(m, n) ≠ (3, 3) (line 24) and cycleCliqueRamsey 3 3 = 6 (line 26)",
+     "note": "Matches."
+    },
+    {
+     "clause": "the exact threshold forcing a red m-cycle or a blue n-clique in every red–blue coloring of a complete graph",
+     "coveredBy": "RamseyProperty (lines 12-14), cycleCliqueRamsey = sInf (lines 18-19)",
+     "note": "Matches: G is the red class, Gᶜ the blue; the set is nonempty (Ramsey) and upward closed (restrict to Fin N), so the sInf is the threshold."
+    }
+   ],
+   "gap": "The headline covers every m ≥ n ≥ 3; the statement adds m ≤ 2 * n (challenge.lean:24), so every pair with m > 2n is missing. The scope note claims 'all integers m ≥ n ≥ 3' and 'the complete parameter range of the paper's main theorem'.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "For integers 3 ≤ n ≤ m ≤ 2n with (m,n) ≠ (3,3), R(C_m, K_n) = (m−1)(n−1)+1; and R(C_3, K_3) = 6.",
+   "encoding": [
+    "2-colourings of K_N as a simple graph G on Fin N and its complement",
+    "copies via SimpleGraph.IsContained (⊑)",
+    "R as sInf of the N with the Ramsey property",
+    "parameters as ℤ with toNat (faithful since n ≥ 3, m ≥ n)"
+   ],
+   "flags": [
+    "No sInf junk: the set is nonempty and upward closed.",
+    "cycleGraph m is C_m for m ≥ 3."
+   ],
+   "evidence": [
+    "challenge.lean:24: (∀ m n : ℤ, n ≤ m → 3 ≤ n → m ≤ 2 * n → (m, n) ≠ (3, 3) →",
+    "challenge.lean:25: (cycleCliqueRamsey m.toNat n.toNat : ℤ) = (m - 1) * (n - 1) + 1) ∧",
+    "challenge.lean:26: cycleCliqueRamsey 3 3 = 6 := by",
+    "challenge.lean:14: SimpleGraph.cycleGraph m ⊑ G ∨ (⊤ : SimpleGraph (Fin n)) ⊑ Gᶜ",
+    "headline.md: \"$`R(C_m,K_n)=(m-1)(n-1)+1`$ for every $`m\\ge n\\ge3`$\"",
+    "scope-note.md: \"for all integers $m\\ge n\\ge3$ except $(m,n)=(3,3)$\"",
+    "scope-note.md: \"This is the complete parameter range of the paper's main theorem.\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P09",
+   "title": "Riesz transforms and rectifiability in higher codimension",
+   "headline": "**081. Riesz transforms and rectifiability in higher codimension.** Resolves the remaining higher-codimension Riesz-transform rectifiability problem: for <i>d</i> ≥ 4 and $`2\\le n\\le d-2`$, an <i>n</i>-Ahlfors–David regular Radon measure on ℝ<sup><i>d</i></sup> is uniformly <i>n</i>-rectifiable whenever its <i>n</i>-dimensional Riesz transform is uniformly <i>L</i><sup>2</sup>-bounded over all positive hard truncations. The rectifiability bounds depend only on dimension, regularity and operator bounds. ([Lean](lean/docs/081.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "for d ≥ 4 and 2 ≤ n ≤ d−2",
+     "coveredBy": "∀ d n : ℕ, 4 ≤ d → 2 ≤ n → n + 2 = d → (line 43)",
+     "note": "NARROWER: n + 2 = d allows only n = d − 2 (codimension exactly two)."
+    },
+    {
+     "clause": "an n-Ahlfors–David regular Radon measure on ℝ^d",
+     "coveredBy": "μ.Regular and ADRegularWithConstant n C_AD μ (lines 22-26, 46-47)",
+     "note": "Matches: r^n/C ≤ μ(B(x,r)) ≤ C r^n at support points for admissible radii."
+    },
+    {
+     "clause": "is uniformly n-rectifiable",
+     "coveredBy": "BallImageConclusion n μ θ M (lines 34-39)",
+     "note": "Matches: big pieces of M-Lipschitz images of n-balls, the David–Semmes form of uniform rectifiability."
+    },
+    {
+     "clause": "whenever its n-dimensional Riesz transform is uniformly L²-bounded over all positive hard truncations",
+     "coveredBy": "RieszL2BoundedWithConstant n C_R μ (lines 28-32), kernel (x−y)/|x−y|^{n+1} (lines 15-16), truncation over {ε < dist x y} (lines 18-20)",
+     "note": "Matches: one constant C_R for every ε > 0."
+    },
+    {
+     "clause": "The rectifiability bounds depend only on dimension, regularity and operator bounds",
+     "coveredBy": "∃ θ, ∃ M after ∀ d n C_AD C_R and before ∀ μ (lines 43-49)",
+     "note": "Matches."
+    }
+   ],
+   "gap": "The headline covers every 2 ≤ n ≤ d−2; the statement requires n + 2 = d (challenge.lean:43), so codimension ≥ 3 (e.g. d = 5, n = 2) is missing. The scope note states the full range 2 ≤ n ≤ d−2.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "For d ≥ 4 and n = d − 2 only: for all C_AD ≥ 1 and C_R ≥ 0 there are θ > 0 and M such that every regular measure on ℝ^d that is n-ADR with constant C_AD and whose hard-truncated n-Riesz transforms are L²(μ)-bounded by C_R has big pieces of M-Lipschitz images of n-balls with mass fraction θ at every support point and admissible radius.",
+   "encoding": [
+    "uniform rectifiability as BPLI with constants θ, M",
+    "Radon as Measure.Regular",
+    "ADR at support points and radii up to the (extended) diameter of the support",
+    "truncated Riesz transform as a Bochner integral; L²-boundedness includes MemLp of the output"
+   ],
+   "flags": [
+    "Bochner junk: for f ∈ L²(μ) and ADR μ the truncated integrand is integrable for each ε > 0; a junk 0 could only enlarge the hypothesis class.",
+    "Kernel at x = y uses 0⁻¹ = 0, but the truncation removes the diagonal.",
+    "Not vacuous: Hausdorff measure on an (d−2)-plane."
+   ],
+   "evidence": [
+    "challenge.lean:43: ∀ d n : ℕ, 4 ≤ d → 2 ≤ n → n + 2 = d →",
+    "challenge.lean:44: ∀ C_AD : ℝ, 1 ≤ C_AD → ∀ C_R : ℝ≥0,",
+    "challenge.lean:45: ∃ θ : ℝ, 0 < θ ∧ ∃ M : ℝ≥0,",
+    "challenge.lean:46: ∀ μ : Measure (Ambient d), μ.Regular →",
+    "challenge.lean:47: ADRegularWithConstant n C_AD μ →",
+    "challenge.lean:48: RieszL2BoundedWithConstant n C_R μ →",
+    "challenge.lean:49: BallImageConclusion n μ θ M",
+    "headline.md: \"for <i>d</i> ≥ 4 and $`2\\le n\\le d-2`$\"",
+    "scope-note.md: \"For $d\\ge4$ and $2\\le n\\le d-2$\""
+   ],
+   "confidence": "high",
+   "suspicious": "Metric.ediam (line 13) read as the extended diameter of the support; not material to the word."
+  },
+  {
+   "packet": "P11",
+   "title": "A counterexample to periodic tiling in dimension three",
+   "headline": "**155. A counterexample to periodic tiling in dimension three.** Constructs a finite translational tile in ℤ<sup>3</sup> that tiles space but admits no fully periodic tiling, disproving the periodic tiling conjecture in the smallest possible lattice dimension. Its unit-cube thickening gives the same counterexample in ℝ<sup>3</sup>, even with arbitrary real translation vectors. ([Lean](lean/docs/155.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Constructs a finite translational tile in ℤ³ that tiles space",
+     "coveredBy": "∃ T : Finset (Lattice 3), T.Nonempty ∧ ∃ A, Tiles T A (lines 53-54); Tiles = bijectivity of (t, a) ↦ t + a (lines 15-16)",
+     "note": "Matches."
+    },
+    {
+     "clause": "but admits no fully periodic tiling",
+     "coveredBy": "∀ A, Tiles T A → ¬ FullyPeriodic A (line 55); FullyPeriodic = invariance under a finite-index subgroup (lines 21-22)",
+     "note": "Matches."
+    },
+    {
+     "clause": "disproving the periodic tiling conjecture in the smallest possible lattice dimension",
+     "coveredBy": "IsLeast {d | HasTileWithoutPeriodicComplement d} 3 (line 59)",
+     "note": "Matches."
+    },
+    {
+     "clause": "Its unit-cube thickening gives the same counterexample in ℝ³",
+     "coveredBy": "∃ A : Set (Space 3), AETiles (Thickening T) A (line 56) and lines 57-58",
+     "note": "Matches for the tiling part (Thickening = T + [0,1]³, a.e. unique covering); non-periodicity only as below."
+    },
+    {
+     "clause": "even with arbitrary real translation vectors",
+     "coveredBy": "line 57: ∀ A : Set (Space 3), A ⊆ Set.range castLattice → …",
+     "note": "NOT covered: non-periodicity is stated only for translation sets of integer vectors."
+    }
+   ],
+   "gap": "The headline's 'even with arbitrary real translation vectors' is not stated: the ℝ³ non-periodicity clause quantifies only over A ⊆ Set.range castLattice (challenge.lean:57), i.e. integer translation vectors. Real tilings by a polycube need not be integer-aligned, so this is the substantive part of the ℝ³ claim. The scope note claims the real-vector version.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "There is a nonempty finite T ⊂ ℤ³ that tiles ℤ³ by translation and has no tiling invariant under a finite-index subgroup; T + [0,1]³ tiles ℝ³ almost everywhere; no a.e. tiling of ℝ³ by T + [0,1]³ along integer translation vectors is invariant under a full-rank lattice; and 3 is the least d in which ℤ^d has a nonempty finite tile with no fully periodic tiling.",
+   "encoding": [
+    "exact lattice tiling as a bijection F × A → G",
+    "full periodicity in ℤ^d as a finite-index period subgroup; in ℝ^d as the ℤ-span of an ℝ-basis",
+    "Euclidean tiling up to measure zero"
+   ],
+   "flags": [
+    "No vacuity: both the lattice tiling (line 54) and the Euclidean tiling (line 56) are asserted to exist.",
+    "IsLeast also asserts that d = 0, 1, 2 have no such tile."
+   ],
+   "evidence": [
+    "challenge.lean:53: (∃ T : Finset (Lattice 3), T.Nonempty ∧",
+    "challenge.lean:54: (∃ A : Set (Lattice 3), Tiles T A) ∧",
+    "challenge.lean:55: (∀ A : Set (Lattice 3), Tiles T A → ¬ FullyPeriodic A) ∧",
+    "challenge.lean:56: (∃ A : Set (Space 3), AETiles (Thickening T) A) ∧",
+    "challenge.lean:57: (∀ A : Set (Space 3), A ⊆ Set.range castLattice →",
+    "challenge.lean:58: AETiles (Thickening T) A → ¬ EuclideanFullyPeriodic A)) ∧",
+    "challenge.lean:59: IsLeast {d : ℕ | HasTileWithoutPeriodicComplement d} 3 := by",
+    "headline.md: \"Its unit-cube thickening gives the same counterexample in ℝ<sup>3</sup>, even with arbitrary real translation vectors.\"",
+    "scope-note.md: \"admits no fully periodic tiling, even with arbitrary real translation vectors\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P14",
+   "title": "Borsuk's conjecture fails in dimension nine",
+   "headline": "**156. Borsuk's conjecture fails in dimension nine.** Constructs a compact subset of ℝ<sup>9</sup> that cannot be covered by ten sets of strictly smaller diameter, disproving Borsuk's covering assertion already in dimension nine. The example consists of rank-one orthogonal projectors onto lines in ℝ<sup>4</sup>, with the Frobenius metric. ([Lean](lean/docs/156.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Constructs a compact subset of ℝ⁹",
+     "coveredBy": "IsCompact projectorSet ∧ projectorSet ⊆ traceOneSymmetric (lines 26-27)",
+     "note": "Matches up to encoding: the 9-dimensional affine space of trace-one symmetric 4×4 matrices with the Frobenius metric."
+    },
+    {
+     "clause": "that cannot be covered by ten sets of strictly smaller diameter",
+     "coveredBy": "¬ HasTenSmallCover (line 29), HasTenSmallCover over C : Fin 9 → Set Matrix4 (line 20)",
+     "note": "NARROWER: Fin 9 indexes nine sets; the statement says nine smaller-diameter sets do not suffice."
+    },
+    {
+     "clause": "disproving Borsuk's covering assertion already in dimension nine",
+     "coveredBy": "not reached",
+     "note": "Borsuk in dimension 9 allows d + 1 = 10 sets; ruling out 9 sets contradicts nothing."
+    },
+    {
+     "clause": "rank-one orthogonal projectors onto lines in ℝ⁴, with the Frobenius metric",
+     "coveredBy": "projector u = (u_i u_j) for unit u in EuclideanSpace ℝ (Fin 4 × Fin 4) (lines 7-14); diameter √2 (line 28)",
+     "note": "Matches."
+    }
+   ],
+   "gap": "Headline: 'cannot be covered by ten sets of strictly smaller diameter'. HasTenSmallCover quantifies over C : Fin 9 → Set Matrix4 (challenge.lean:20): nine sets. ¬ HasTenSmallCover follows from the headline (pad a 9-cover with ∅) but is not a counterexample to Borsuk in dimension nine. The scope note says 'ten arbitrary sets'.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "The set of matrices uuᵀ for unit u ∈ ℝ⁴ is compact, lies in the trace-one symmetric matrices, has Frobenius diameter √2, and cannot be covered by nine of its subsets each of diameter < √2.",
+   "encoding": [
+    "ℝ⁹ as the affine space of trace-one symmetric matrices with the Frobenius metric",
+    "covering sets as subsets of the set (no loss of generality)",
+    "'strictly smaller diameter' as Metric.diam < √2"
+   ],
+   "flags": [
+    "No Metric.diam junk: subsets of a compact set are bounded.",
+    "The name HasTenSmallCover contradicts its own index type Fin 9."
+   ],
+   "evidence": [
+    "challenge.lean:19: def HasTenSmallCover : Prop :=",
+    "challenge.lean:20: ∃ C : Fin 9 → Set Matrix4,",
+    "challenge.lean:21: (∀ i, C i ⊆ projectorSet) ∧",
+    "challenge.lean:22: projectorSet ⊆ ⋃ i, C i ∧",
+    "challenge.lean:23: ∀ i, Metric.diam (C i) < Real.sqrt 2",
+    "challenge.lean:29: ¬ HasTenSmallCover := by",
+    "headline.md: \"cannot be covered by ten sets of strictly smaller diameter\"",
+    "scope-note.md: \"cannot be covered by ten arbitrary sets of smaller diameter\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P16",
+   "title": "Seymour’s second-neighborhood conjecture",
+   "headline": "**173. Seymour’s second-neighborhood conjecture.** Proves Seymour's second-neighborhood conjecture: every nonempty finite oriented graph has a vertex with at least as many vertices at directed distance exactly two as at directed distance one. Oriented graphs may be arbitrary apart from the exclusion of loops and oppositely directed edge pairs. ([Lean](lean/docs/173.md))",
+   "word": "DIFFERENT",
+   "clauses": [
+    {
+     "clause": "every nonempty finite oriented graph",
+     "coveredBy": "[Fintype V] [DecidableEq V] (line 14), [Nonempty V] (line 32), hr : IsOriented r (lines 10-12, 34)",
+     "note": "Matches: loopless and asymmetric relation on a finite nonempty type."
+    },
+    {
+     "clause": "has a vertex with at least as many vertices at directed distance exactly two as at directed distance one",
+     "coveredBy": "∃ v, GoodVertex r v (line 35), GoodVertex r v := (secondNeighbors r v).card ≤ (firstNeighbors r v).card (line 28)",
+     "note": "DIFFERENT: the inequality is reversed (|N⁺⁺(v)| ≤ |N⁺(v)| instead of ≥). secondNeighbors itself (lines 22-25) is right: w ≠ v, not an out-neighbour, end of a directed 2-path."
+    },
+    {
+     "clause": "Oriented graphs may be arbitrary apart from the exclusion of loops and oppositely directed edge pairs",
+     "coveredBy": "IsOriented over an arbitrary relation r (lines 10-12)",
+     "note": "Matches."
+    }
+   ],
+   "gap": "The headline asks for a vertex with |N⁺⁺(v)| ≥ |N⁺(v)|; the statement asks for |N⁺⁺(v)| ≤ |N⁺(v)| (challenge.lean:28). As written it is false: the Cayley digraph on ℤ/7 with connection set {1,3} is oriented (0 ∉ {1,3}, {1,3} ∩ {6,4} = ∅); each v has N⁺ = {v+1, v+3} and N⁺⁺ = {v+2, v+4, v+6}, so 3 ≤ 2 fails at every vertex.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "Every nonempty finite oriented graph has a vertex whose second out-neighbourhood (distance exactly two) is no larger than its first out-neighbourhood. False (counterexample in gap).",
+   "encoding": [
+    "oriented graph as a loopless asymmetric relation on a finite type",
+    "second neighbourhood: w ≠ v, w not an out-neighbour, reachable by a 2-path"
+   ],
+   "flags": [
+    "The challenge is refutable, so no sound solution exists.",
+    "Read at the level of the vertex property, neither implies the other: in the ℤ/7 example the headline's property holds at every vertex and GoodVertex at none; at a vertex whose two out-neighbours are sinks GoodVertex holds and the headline's property fails. A false proposition implies anything only in the trivial logical sense."
+   ],
+   "evidence": [
+    "challenge.lean:27: def GoodVertex (r : V → V → Prop) (v : V) : Prop :=",
+    "challenge.lean:28: (secondNeighbors r v).card ≤ (firstNeighbors r v).card",
+    "challenge.lean:24: exact Finset.univ.filter (fun w =>",
+    "challenge.lean:25: w ≠ v ∧ ¬ r v w ∧ ∃ u, r v u ∧ r u w)",
+    "challenge.lean:34: theorem exists_goodVertex (r : V → V → Prop) (hr : IsOriented r) :",
+    "challenge.lean:35: ∃ v, GoodVertex r v := by",
+    "headline.md: \"every nonempty finite oriented graph has a vertex with at least as many vertices at directed distance exactly two as at directed distance one\"",
+    "scope-note.md: \"has a vertex with at least as many second out-neighbors as first out-neighbors\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P17",
+   "title": "The hot spots conjecture for simply connected planar domains",
+   "headline": "**369. The hot spots conjecture for simply connected planar domains.** Proves a strict form of Burdzy's simply connected hot spots conjecture. On every smooth bounded simply connected planar domain, each nonzero eigenfunction for the first positive Neumann eigenvalue has no interior critical point, so all global extrema lie on the boundary. Eigenvalue multiplicity is allowed. ([Lean](lean/docs/369.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "On every smooth bounded simply connected planar domain",
+     "coveredBy": "AdmissibleDomain Ω (lines 19-21): nonempty, open, bounded, Convex ℝ Ω, SmoothBoundary Ω",
+     "note": "NARROWER: convexity replaces simple connectivity; convex domains are a proper subclass of simply connected ones."
+    },
+    {
+     "clause": "each nonzero eigenfunction for the first positive Neumann eigenvalue",
+     "coveredBy": "InFirstNeumannEigenspace Ω u (lines 38-43), μ₂ = sInf of Rayleigh quotients over mean-zero H¹ functions (lines 23-36), hne (line 51)",
+     "note": "Matches: weak Neumann eigen-equation against every H¹ pair, u smooth up to the boundary."
+    },
+    {
+     "clause": "has no interior critical point",
+     "coveredBy": "∀ x ∈ Ω, gradient u x ≠ 0 (line 46)",
+     "note": "Matches."
+    },
+    {
+     "clause": "so all global extrema lie on the boundary",
+     "coveredBy": "sInf (u '' frontier Ω) < u x < sSup (u '' frontier Ω) for x ∈ Ω (line 47)",
+     "note": "Matches (strict)."
+    },
+    {
+     "clause": "Eigenvalue multiplicity is allowed",
+     "coveredBy": "u any element of the eigenspace; no simplicity assumption",
+     "note": "Matches."
+    }
+   ],
+   "gap": "The headline covers every smooth bounded simply connected planar domain; the statement requires Convex ℝ Ω (challenge.lean:21), so non-convex simply connected domains are missing. The scope note claims every nonempty smooth bounded simply connected planar domain.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "On every nonempty bounded open convex planar domain with smooth boundary, every nonzero eigenfunction (smooth up to the boundary) for the first positive Neumann eigenvalue has nonvanishing gradient in Ω and takes interior values strictly between its boundary infimum and supremum.",
+   "encoding": [
+    "smooth boundary via local defining functions ρ with dρ ≠ 0",
+    "H¹ via a weak gradient g ∈ L² tested against smooth compactly supported φ in Ω",
+    "μ₂ as the infimum of the Rayleigh quotient over mean-zero H¹ functions",
+    "boundary extrema as strict bounds by sInf/sSup of u on the frontier"
+   ],
+   "flags": [
+    "No sInf junk for rayleighValues: nonempty, bounded below by 0.",
+    "sInf/sSup of u '' frontier Ω are genuine: frontier compact and nonempty, u continuous on the closure.",
+    "Not vacuous: the disc is admissible.",
+    "Headline ⟹ statement (bounded convex open sets are simply connected), so NARROWER."
+   ],
+   "evidence": [
+    "challenge.lean:19: def AdmissibleDomain (Ω : Set Plane) : Prop :=",
+    "challenge.lean:20: Ω.Nonempty ∧ IsOpen Ω ∧ Bornology.IsBounded Ω ∧",
+    "challenge.lean:21: Convex ℝ Ω ∧ SmoothBoundary Ω",
+    "challenge.lean:46: (∀ x ∈ Ω, gradient u x ≠ 0) ∧",
+    "challenge.lean:47: ∀ x ∈ Ω, sInf (u '' frontier Ω) < u x ∧ u x < sSup (u '' frontier Ω)",
+    "challenge.lean:49: theorem main_theorem (Ω : Set Plane) (hΩ : AdmissibleDomain Ω)",
+    "challenge.lean:50: (u : Plane → ℝ) (hu : InFirstNeumannEigenspace Ω u)",
+    "challenge.lean:51: (hne : ∃ x ∈ Ω, u x ≠ 0) : MainConclusion Ω u := by",
+    "headline.md: \"On every smooth bounded simply connected planar domain\"",
+    "scope-note.md: \"on every nonempty smooth bounded simply connected planar domain\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P18",
+   "title": "Irrationality of Catalan’s constant",
+   "headline": "**005. Irrationality of Catalan’s constant.** Proves that Catalan's constant $`G=\\sum_{j\\ge0}(-1)^j/(2j+1)^2`$ is irrational. ([Lean](lean/docs/005.md))",
+   "word": "DIFFERENT",
+   "clauses": [
+    {
+     "clause": "Catalan's constant G=Σ_{j≥0}(−1)^j/(2j+1)^2",
+     "coveredBy": "∑' j : ℕ, (1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2 (line 8)",
+     "note": "DIFFERENT: the numerator is (1 : ℝ) ^ j = 1, not (−1)^j; the sum is Σ 1/(2j+1)² = π²/8."
+    },
+    {
+     "clause": "is irrational",
+     "coveredBy": "Irrational (…) (line 8)",
+     "note": "The predicate matches; it is applied to a different number."
+    }
+   ],
+   "gap": "The headline's constant has (−1)^j; the statement has (1 : ℝ) ^ j (challenge.lean:8), so it asserts that π²/8 is irrational, a classical fact (Legendre) that says nothing about Catalan's constant.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "Σ_{j≥0} 1/(2j+1)² (= π²/8) is irrational.",
+   "encoding": [
+    "the series as a tsum over ℕ in ℝ"
+   ],
+   "flags": [
+    "The series is summable, so the tsum is its true value π²/8: no tsum junk.",
+    "The challenge is solvable from the irrationality of π² without touching G."
+   ],
+   "evidence": [
+    "challenge.lean:8: Irrational (∑' j : ℕ, (1 : ℝ) ^ j / ((2 * j + 1 : ℕ) : ℝ) ^ 2) := by",
+    "headline.md: \"Catalan's constant $`G=\\sum_{j\\ge0}(-1)^j/(2j+1)^2`$ is irrational\"",
+    "scope-note.md: \"$G=\\sum_{j=0}^{\\infty}(-1)^j/(2j+1)^2$\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P19",
+   "title": "The sharp terminal leave in random triangle removal",
+   "headline": "**188. The sharp terminal leave in random triangle removal.** Starting from the complete graph on <i>n</i> vertices, repeatedly delete a uniformly chosen remaining triangle. The terminal edge count is asymptotic to $`n^{3/2}/(2\\sqrt2)`$, with mean-square convergence after normalization by <i>n</i><sup>3/2</sup>. This proves the triangle case of the Joos–Kühn sharp-constant conjecture. ([Lean](lean/docs/188.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "Starting from the complete graph on n vertices, repeatedly delete a uniformly chosen remaining triangle",
+     "coveredBy": "completeGraph, triangles, step, evolve, terminalLaw after n.choose 2 steps (lines 15-30)",
+     "note": "Matches: each removal deletes 3 edges, so C(n,2) steps reach termination; afterwards the step is stationary."
+    },
+    {
+     "clause": "The terminal edge count is asymptotic to n^{3/2}/(2√2)",
+     "coveredBy": "convergence in probability (lines 58-60) and E[edges]/n^{3/2} → 1/(2√2) (lines 61-62)",
+     "note": "Matches."
+    },
+    {
+     "clause": "with mean-square convergence after normalization by n^{3/2}",
+     "coveredBy": "lines 56-57: expectation of |normalizedLeave n G − sharpConstant| → 0",
+     "note": "NARROWER: this is L¹ convergence, not L²."
+    },
+    {
+     "clause": "This proves the triangle case of the Joos–Kühn sharp-constant conjecture",
+     "coveredBy": "same as above",
+     "note": "Covered in the L¹ sense."
+    }
+   ],
+   "gap": "Headline: 'mean-square convergence after normalization by n^{3/2}'. The first conjunct takes the expectation of the absolute deviation (challenge.lean:56-57), i.e. L¹. The normalized leave can be as large as about √n/2, so L¹ does not give L², and no conjunct states a second moment. L² ⟹ L¹, so the headline implies the statement. The scope note claims L² convergence.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "For the random triangle-removal process on K_n, with X_n the terminal edge count: E|X_n/n^{3/2} − 1/(2√2)| → 0, X_n/n^{3/2} → 1/(2√2) in probability, and E[X_n]/n^{3/2} → 1/(2√2).",
+   "encoding": [
+    "graph as a Finset of 2-subsets of Fin n",
+    "process as an iterated PMF, stationary once no triangle remains",
+    "n^{3/2} via rpow with exponent (3/2 : ℝ)"
+   ],
+   "flags": [
+    "Division by normalization 0 only at n = 0, irrelevant to the limits.",
+    "Expectations are finite sums over Graph n: no integrability issues."
+   ],
+   "evidence": [
+    "challenge.lean:56: Tendsto (fun n => expectation n (fun G =>",
+    "challenge.lean:57: |normalizedLeave n G - sharpConstant|)) atTop (𝓝 0) ∧",
+    "challenge.lean:58: (∀ ε : ℝ, 0 < ε →",
+    "challenge.lean:59: Tendsto (fun n => probability n (fun G =>",
+    "challenge.lean:60: ε < |normalizedLeave n G - sharpConstant|)) atTop (𝓝 0)) ∧",
+    "challenge.lean:61: Tendsto (fun n => expectation n (fun G => (G.card : ℝ)) / normalization n)",
+    "challenge.lean:62: atTop (𝓝 sharpConstant) := by",
+    "challenge.lean:30: evolve (completeGraph n) (n.choose 2)",
+    "headline.md: \"with mean-square convergence after normalization by <i>n</i><sup>3/2</sup>\"",
+    "scope-note.md: \"converges in $L^2$ to $1/(2\\sqrt2)$\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  },
+  {
+   "packet": "P22",
+   "title": "Nonexpansive fixed points in reflexive Banach spaces",
+   "headline": "**328. Nonexpansive fixed points in reflexive Banach spaces.** Resolves Kirk's reflexive-space fixed-point problem: every nonexpansive selfmap of a nonempty closed bounded convex subset of a real reflexive Banach space has a fixed point. The result uses the original norm, without assuming uniform convexity. ([Lean](lean/docs/328.md))",
+   "word": "NARROWER — UNDECLARED",
+   "clauses": [
+    {
+     "clause": "every nonexpansive selfmap",
+     "coveredBy": "F : C → C with hF : ‖F a − F b‖ ≤ ‖a − b‖ / 2 (lines 26-27)",
+     "note": "NARROWER: a 1/2-contraction, not a nonexpansive (Lipschitz 1) map."
+    },
+    {
+     "clause": "of a nonempty closed bounded convex subset",
+     "coveredBy": "hne, hclosed, hbounded, hconvex (lines 24-25)",
+     "note": "Matches."
+    },
+    {
+     "clause": "of a real reflexive Banach space",
+     "coveredBy": "NormedSpace ℝ X, CompleteSpace X, CanonicallyReflexive X (lines 14-15, 22-23)",
+     "note": "Matches."
+    },
+    {
+     "clause": "has a fixed point",
+     "coveredBy": "∃ a : C, F a = a (line 28)",
+     "note": "Matches."
+    },
+    {
+     "clause": "The result uses the original norm, without assuming uniform convexity",
+     "coveredBy": "the norm of X; no extra hypothesis",
+     "note": "Matches."
+    }
+   ],
+   "gap": "Headline: 'every nonexpansive selfmap'. The statement assumes ‖F a − F b‖ ≤ ‖a − b‖ / 2 (challenge.lean:27). The Banach contraction principle on the complete nonempty set C gives the fixed point without reflexivity, convexity or boundedness, so the statement is elementary. The challenge's own doc comment (lines 19-20) and the scope note both say 'nonexpansive'.",
+   "scopeNoteOnGap": "silent",
+   "asserts": "In a real Banach space X whose canonical map into the bidual is surjective, every self-map F of a nonempty closed bounded convex set C with ‖F a − F b‖ ≤ ‖a − b‖/2 has a fixed point.",
+   "encoding": [
+    "reflexivity as surjectivity of NormedSpace.inclusionInDoubleDual ℝ X",
+    "self-map as F : C → C on the subtype"
+   ],
+   "flags": [
+    "The /2 factor makes the statement provable by Banach's fixed-point theorem alone.",
+    "Not vacuous; the zero space is allowed."
+   ],
+   "evidence": [
+    "challenge.lean:27: (hF : ∀ a b : C, ‖(F a : X) - (F b : X)‖ ≤ ‖(a : X) - (b : X)‖ / 2) :",
+    "challenge.lean:19: /-- Every nonexpansive selfmap of a nonempty closed bounded convex set has",
+    "challenge.lean:20: an actual fixed point, with nonexpansiveness stated in the original norm. -/",
+    "challenge.lean:15: Function.Surjective (NormedSpace.inclusionInDoubleDual ℝ X)",
+    "challenge.lean:23: (hX : CanonicallyReflexive X) (C : Set X)",
+    "challenge.lean:24: (hne : C.Nonempty) (hclosed : IsClosed C)",
+    "challenge.lean:25: (hbounded : Bornology.IsBounded C) (hconvex : Convex ℝ C)",
+    "headline.md: \"every nonexpansive selfmap of a nonempty closed bounded convex subset of a real reflexive Banach space has a fixed point\"",
+    "scope-note.md: \"every nonexpansive self-map of a nonempty closed bounded convex subset of a real reflexive Banach space has a fixed point in the original norm\""
+   ],
+   "confidence": "high",
+   "suspicious": null
+  }
+ ]
+}
