@@ -52,8 +52,14 @@ pv = subprocess.run([sys.executable, '-I', os.path.join(ROOT, 'tools', 'verify_t
 m = re.search(r'ratio in \[([0-9.]+), ([0-9.]+)\]', pv.stdout)
 if pv.returncode != 0 or not pv.stdout.startswith('CERTIFIED') or not m: die('#221: the standard-library verifier did not certify\n' + pv.stdout + pv.stderr[-400:])
 if not (F(m.group(1)) <= F(tw['rho'][0][1]) and F(tw['rho'][0][0]) <= F(m.group(2))): die('#221: the two enclosures of the ratio do not overlap')
+# verify_twolaw prints its enclosure outward (the lower end rounded down, the upper end up, 42 places); the shorter copy in
+# 'how' is rounded outward again, never cut — a cut rounds a positive upper end DOWN, below the value (2026-10-19)
+def outward_prefix(s, n, up):
+    from decimal import Context, Decimal, ROUND_CEILING, ROUND_FLOOR
+    q = Decimal((0, (1,), -(n - s.index('.') - 1)))
+    return format(Decimal(s).quantize(q, rounding=ROUND_CEILING if up else ROUND_FLOOR, context=Context(prec=200)), 'f')
 rows[-1]['rhoPython'] = [m.group(1), m.group(2)]
-rows[-1]['how'] += '; again by tools/verify_twolaw.py (Python standard library, decimal at 120 digits, no code shared with twolaw.js): ρ in [' + m.group(1)[:34] + ', ' + m.group(2)[:34] + ']'
+rows[-1]['how'] += '; again by tools/verify_twolaw.py (Python standard library, decimal at 120 digits, no code shared with twolaw.js): ρ in [' + outward_prefix(m.group(1), 34, False) + ', ' + outward_prefix(m.group(2), 34, True) + ']'
 
 # ---- #226 -------------------------------------------------------------------------------------------------------------------
 e = {'20a': exact226.decide_20a(), '20c': exact226.decide_20c()}

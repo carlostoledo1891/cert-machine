@@ -1,6 +1,6 @@
 {
  "what": "The optimization-constants registry's asterisked C71 lower bound, decided from the cited truth table: balanced, exact spectrum, exact influence, entropy in outward-rounded Decimal intervals, and the amplification rule C71 >= H/(I-1) (O'Donnell–Tan 2013; Hod 2017, Prop 1.2 — cited, not re-proved).",
- "generated": "2026-09-29",
+ "generated": "2026-10-19",
  "registry": {
   "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
   "row": "C71 > 6.521845710923046575*"
@@ -18,7 +18,7 @@
   }
  },
  "code": {
-  "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+  "instruments/fei/fei.py": "271e0f4def7ccffb5113a3d166fe73d1ec0de5942035631c5a7d9c672e11d6de"
  },
  "rows": [
   {
@@ -26,42 +26,57 @@
    "claim": "C71 > 6.521845710923046575",
    "claimant": "Numaro (numaro.tech, \"AI Autoresearch\"), Zenodo 10.5281/zenodo.21497769",
    "verdict": "CERTIFIED",
+   "why": null,
    "checks": [
     {
      "name": "the truth table is the one the artifact binds by sha256",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "balanced: fhat(emptyset) = 0",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "Parseval: sum of the weights is 1",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "I = 261/128, the artifact's 261/128",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
+    },
+    {
+     "name": "I > 1: the amplification rule applies",
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "H > 0",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "H/(I-1) > 6.521845710923046575, the registry's bound",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "the artifact's certified floor 6.5218457109230465756581... is inside the enclosure",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "above the record it replaced (6.514326913930565372...)",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     },
     {
      "name": "logic-monotone (the artifact's second claim; the bound then holds among monotone functions too)",
-     "ok": true
+     "ok": true,
+     "verdict": "CERTIFIED"
     }
    ],
    "n": 18,
@@ -70,11 +85,11 @@
    "nonzero": 2770,
    "ratio": [
     "6.521845710923046575658143972948578468366662",
-    "6.521845710923046575658143972948578468366662"
+    "6.521845710923046575658143972948578468366663"
    ],
    "H": [
     "6.7766053090059780825197902218",
-    "6.7766053090059780825197902218"
+    "6.7766053090059780825197902219"
    ]
   }
  ]

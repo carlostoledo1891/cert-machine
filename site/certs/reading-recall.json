@@ -1,0 +1,774 @@
+{
+ "what": "How often the openai/math statement readings catch a defect: 12 planted defects and 12 unaltered controls, read blind by fresh AI readers under the pre-registered brief of lane S, with the protocol's second reading; written by tools/score-reading-recall.py from corpus/openai-math/recall-2026-10-19.",
+ "release": {
+  "repository": "https://github.com/openai/math",
+  "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "contentsSha256": "cc7c0b8a1cdedd845a777e77cf682657308503daf8346c1349e06e9259d063c2"
+ },
+ "seed": 20261019,
+ "eligible": 30,
+ "packets": 24,
+ "plants": 12,
+ "controls": 12,
+ "kinds": {
+  "a": "a constant or exponent changed in the weaker direction",
+  "b": "a quantifier domain restricted",
+  "c": "a hypothesis added that the headline does not have",
+  "d": "a conclusion weakened",
+  "e": "a change that makes the statement DIFFERENT (direction reversed, sign flipped)"
+ },
+ "pipelines": [
+  {
+   "reader": "A",
+   "rows": [
+    {
+     "packet": "P01",
+     "family": "026",
+     "mutated": true,
+     "first": "NARROWER — DECLARED",
+     "second": null,
+     "recorded": "NARROWER — DECLARED",
+     "kind": "a",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": false
+    },
+    {
+     "packet": "P02",
+     "family": "196",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P03",
+     "family": "128",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P04",
+     "family": "370",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P05",
+     "family": "329",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P06",
+     "family": "295",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "c",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P07",
+     "family": "192",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "d",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P08",
+     "family": "189",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P09",
+     "family": "081",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P10",
+     "family": "333",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P11",
+     "family": "155",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "c",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P12",
+     "family": "075",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P13",
+     "family": "253",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P14",
+     "family": "156",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "a",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P15",
+     "family": "134",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P16",
+     "family": "173",
+     "mutated": true,
+     "first": "DIFFERENT",
+     "second": "DIFFERENT",
+     "recorded": "DIFFERENT",
+     "kind": "e",
+     "difficulty": "subtle",
+     "expected": "DIFFERENT",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P17",
+     "family": "369",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P18",
+     "family": "005",
+     "mutated": true,
+     "first": "DIFFERENT",
+     "second": "DIFFERENT",
+     "recorded": "DIFFERENT",
+     "kind": "e",
+     "difficulty": "subtle",
+     "expected": "DIFFERENT",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P19",
+     "family": "188",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "d",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P20",
+     "family": "322",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P21",
+     "family": "012",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P22",
+     "family": "328",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "a",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P23",
+     "family": "181",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P24",
+     "family": "028",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    }
+   ],
+   "firstReader": {
+    "flagged": 12,
+    "atPlant": 12,
+    "falseAlarms": 0,
+    "recall95": [
+     0.735,
+     1.0
+    ]
+   },
+   "pipeline": {
+    "flagged": 12,
+    "atPlant": 12,
+    "exact": 11,
+    "falseAlarms": 0,
+    "recall95": [
+     0.735,
+     1.0
+    ],
+    "falseAlarm95": [
+     0.0,
+     0.265
+    ],
+    "missed": []
+   },
+   "byKind": {
+    "a": "3/3",
+    "b": "3/3",
+    "c": "2/2",
+    "d": "2/2",
+    "e": "2/2"
+   },
+   "byDifficulty": {
+    "easy": "5/5",
+    "subtle": "7/7"
+   }
+  },
+  {
+   "reader": "B",
+   "rows": [
+    {
+     "packet": "P01",
+     "family": "026",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — DECLARED",
+     "recorded": "NARROWER — DECLARED",
+     "kind": "a",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": false
+    },
+    {
+     "packet": "P02",
+     "family": "196",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P03",
+     "family": "128",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P04",
+     "family": "370",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P05",
+     "family": "329",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P06",
+     "family": "295",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "c",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P07",
+     "family": "192",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "d",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P08",
+     "family": "189",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P09",
+     "family": "081",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P10",
+     "family": "333",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P11",
+     "family": "155",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "c",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P12",
+     "family": "075",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P13",
+     "family": "253",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P14",
+     "family": "156",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "a",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P15",
+     "family": "134",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P16",
+     "family": "173",
+     "mutated": true,
+     "first": "DIFFERENT",
+     "second": "DIFFERENT",
+     "recorded": "DIFFERENT",
+     "kind": "e",
+     "difficulty": "subtle",
+     "expected": "DIFFERENT",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P17",
+     "family": "369",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "b",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P18",
+     "family": "005",
+     "mutated": true,
+     "first": "DIFFERENT",
+     "second": "DIFFERENT",
+     "recorded": "DIFFERENT",
+     "kind": "e",
+     "difficulty": "subtle",
+     "expected": "DIFFERENT",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P19",
+     "family": "188",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "d",
+     "difficulty": "subtle",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P20",
+     "family": "322",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P21",
+     "family": "012",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P22",
+     "family": "328",
+     "mutated": true,
+     "first": "NARROWER — UNDECLARED",
+     "second": "NARROWER — UNDECLARED",
+     "recorded": "NARROWER — UNDECLARED",
+     "kind": "a",
+     "difficulty": "easy",
+     "expected": "NARROWER — UNDECLARED",
+     "firstFlagged": true,
+     "firstAtPlant": true,
+     "flagged": true,
+     "atPlant": true,
+     "exact": true
+    },
+    {
+     "packet": "P23",
+     "family": "181",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    },
+    {
+     "packet": "P24",
+     "family": "028",
+     "mutated": false,
+     "first": "MATCHES",
+     "second": null,
+     "recorded": "MATCHES",
+     "falseAlarm": false,
+     "gap": null
+    }
+   ],
+   "firstReader": {
+    "flagged": 12,
+    "atPlant": 12,
+    "falseAlarms": 0,
+    "recall95": [
+     0.735,
+     1.0
+    ]
+   },
+   "pipeline": {
+    "flagged": 12,
+    "atPlant": 12,
+    "exact": 11,
+    "falseAlarms": 0,
+    "recall95": [
+     0.735,
+     1.0
+    ],
+    "falseAlarm95": [
+     0.0,
+     0.265
+    ],
+    "missed": []
+   },
+   "byKind": {
+    "a": "3/3",
+    "b": "3/3",
+    "c": "2/2",
+    "d": "2/2",
+    "e": "2/2"
+   },
+   "byDifficulty": {
+    "easy": "5/5",
+    "subtle": "7/7"
+   }
+  }
+ ],
+ "flaggedByEither": 12,
+ "audit": [
+  {
+   "reader": "A",
+   "calls": 14,
+   "tools": [
+    "Bash"
+   ],
+   "outside": []
+  },
+  {
+   "reader": "A2",
+   "calls": 9,
+   "tools": [
+    "Bash",
+    "Read"
+   ],
+   "outside": []
+  },
+  {
+   "reader": "B",
+   "calls": 11,
+   "tools": [
+    "Bash",
+    "Read"
+   ],
+   "outside": []
+  },
+  {
+   "reader": "B2",
+   "calls": 8,
+   "tools": [
+    "Bash",
+    "Read"
+   ],
+   "outside": []
+  }
+ ],
+ "limits": [
+  "the eligible statements are the audit's easiest class: one challenge of at most 70 lines, no definition hole, read MATCHES; the audit's long statements (eight over 1,000 lines) and its multi-challenge families are not measured",
+  "the brief added one sentence the audit's did not have (check every constant, exponent, bound, domain and hypothesis against the headline), and the readers were asked to be careful: they read alert, and were not told that defects were planted",
+  "the plants are one-line edits made by an AI agent, and two left a clue the edit did not touch (156: the name HasTenSmallCover over Fin 9; 328: a docstring that still says nonexpansive)",
+  "the builder, the four readers and the audit's own readers are AI agents of one model family, so their misses may be correlated; a specialist reader would measure something else",
+  "the abstracts the audit's readers read are not in the packets",
+  "twelve plants measure a rate coarsely: 12 of 12 bounds the recall below by 0.735 at 95%, no more"
+ ],
+ "decider": "aa07bb2bd3af3e3de1fa37be67b4f6b0306bb589d30cc80eea98cf7eef7745c4",
+ "generated": "2026-10-19T21:42:57Z"
+}

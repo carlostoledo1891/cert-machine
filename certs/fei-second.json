@@ -1,13 +1,13 @@
 {
- "what": "The registry's C71 > 6.521845710923046575 (Fourier entropy–influence), decided a second time from the cited n = 18 truth table by tools/verify_fei.js (JavaScript BigInt; H in closed form, A - sum B_p log2 p, the logarithms from the atanh series with outward rounding), which shares no code with instruments/fei/fei.py or the claimant; fei.py run beside it through tools/fei-second-harness.py; an Arb reference from fei.py's own spectrum; 12 planted claims of known truth decided by both, fei.py's own two-word verdict recorded beside its three-word reading.",
- "generated": "2026-10-19T21:12:12Z",
- "seconds": 19.6,
+ "what": "The registry's C71 > 6.521845710923046575 (Fourier entropy–influence), decided a second time from the cited n = 18 truth table by tools/verify_fei.js (JavaScript BigInt; H in closed form, A - sum B_p log2 p, the logarithms from the atanh series with outward rounding), which shares no code with instruments/fei/fei.py or the claimant; fei.py run beside it through tools/fei-second-harness.py; an Arb reference from fei.py's own spectrum; 12 planted claims of known truth decided by both, fei.py's own verdict recorded beside its three-word reading and required to equal it; what the planted claims found in fei.py at 470fe0b2 and the fix the same day, in findingsAtPin and findings.",
+ "generated": "2026-10-19T23:04:09Z",
+ "seconds": 21.3,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
-  "tools/verify_fei.js": "3d15f9b909eec2bfa126a314c7c8642ba26837b71854d7f6bccec7a926bba903",
-  "tools/fei-second-harness.py": "c53cc3b4afb3781ee184ad18f35bd5f136529e254a5a379aefdd120d5003400b",
-  "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141",
+  "tools/verify_fei.js": "17b77c44cae2e1fbfd0b2a40547bc9babdae36a224e62594fe3ced885ace9766",
+  "tools/fei-second-harness.py": "751f421172585bcffdbe32e7ad8ce6e7e5dedd7eae8004361887de674312e5f8",
+  "instruments/fei/fei.py": "271e0f4def7ccffb5113a3d166fe73d1ec0de5942035631c5a7d9c672e11d6de",
   "instruments/verdict.js": "b791f9d813a2d8208a9d9afb86a07ea79f8368293cfa6c00ca7d6aeb0ed07e18"
  },
  "inputs": {
@@ -24,7 +24,7 @@
   "previousUpperEndpointFrom": "README.md",
   "ledger": "certs/fei-ledger.json",
   "ledgerCode": {
-   "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+   "instruments/fei/fei.py": "271e0f4def7ccffb5113a3d166fe73d1ec0de5942035631c5a7d9c672e11d6de"
   }
  },
  "js": {
@@ -162,62 +162,74 @@
     "ok": true
    }
   ],
-  "ms": 69
+  "ms": 71
  },
  "py": {
   "verdict": "CERTIFIED",
+  "why": null,
+  "digits": 60,
   "ratio": [
    "6.521845710923046575658143972948578468366662",
-   "6.521845710923046575658143972948578468366662"
+   "6.521845710923046575658143972948578468366663"
   ],
   "H": [
    "6.7766053090059780825197902218",
-   "6.7766053090059780825197902218"
-  ],
-  "readHonestly": [
-   "6.521845710923046575658143972948578468366662",
-   "6.521845710923046575658143972948578468366663"
+   "6.7766053090059780825197902219"
   ],
   "spectrumSha256": "9864bbd020585062de1b81785c0d8fa667a493ce1e4ce03f42433cb18b89e82e",
   "checks": [
    {
     "name": "the truth table is the one the artifact binds by sha256",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "balanced: fhat(emptyset) = 0",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "Parseval: sum of the weights is 1",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "I = 261/128, the artifact's 261/128",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
+   },
+   {
+    "name": "I > 1: the amplification rule applies",
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "H > 0",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "H/(I-1) > 6.521845710923046575, the registry's bound",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "the artifact's certified floor 6.5218457109230465756581... is inside the enclosure",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "above the record it replaced (6.514326913930565372...)",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    },
    {
     "name": "logic-monotone (the artifact's second claim; the bound then holds among monotone functions too)",
-    "ok": true
+    "ok": true,
+    "verdict": "CERTIFIED"
    }
   ],
-  "seconds": 1.44
+  "seconds": 1.47
  },
  "arb": {
   "python": "3.12.13",
@@ -239,7 +251,7 @@
     "22528": 36,
     "58368": 9
    },
-   "seconds": 1
+   "seconds": 1.09
   },
   "H": [
    [
@@ -262,7 +274,7 @@
    ]
   ],
   "ratioText": "[6.5218457109230465756581439729485784683666622922299385982528941293255035634145219 +/- 4.27e-81]",
-  "ms": 1209
+  "ms": 1457
  },
  "arbSource": "run now",
  "agreement": [
@@ -288,11 +300,15 @@
    "ok": true
   },
   {
-   "name": "the JS enclosure overlaps the ledger's, read honestly as [printed lower, printed upper + 10^-42]",
+   "name": "the JS enclosure overlaps the ledger's printed interval",
    "ok": true
   },
   {
-   "name": "the JS enclosure lies inside the ledger's (read honestly)",
+   "name": "the ledger's printed interval contains the JS enclosure (printed outward: the lower end down, the upper end up)",
+   "ok": true
+  },
+  {
+   "name": "fei.py's printed H contains the JS H",
    "ok": true
   },
   {
@@ -320,7 +336,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 69
+    "ms": 71
    },
    "js128": {
     "verdict": "CERTIFIED",
@@ -331,7 +347,7 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.44
+    "seconds": 1.47
    }
   },
   {
@@ -341,7 +357,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 58
+    "ms": 62
    },
    "js128": {
     "verdict": "CERTIFIED",
@@ -352,7 +368,7 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.43
+    "seconds": 1.5
    }
   },
   {
@@ -362,7 +378,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 56
+    "ms": 62
    },
    "js128": {
     "verdict": "CERTIFIED",
@@ -373,7 +389,7 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.41
+    "seconds": 1.52
    }
   }
  ],
@@ -381,11 +397,11 @@
   {
    "id": "a-bar-above-the-ledger",
    "claim": "C71 > 6.521845710923046575658143972948578468366664 (from this table)",
-   "what": "the bar one unit (10^-42) above the ledger's upper end read honestly (printed string + 10^-42): false by the first implementation's record and by Arb; refuted as a statement about this certificate, never about C71. At 128 bits the JS enclosure is wider than the bar's distance (js.width128 in this record), so there it must refuse",
+   "what": "the bar one unit (10^-42) above the ledger's printed upper end (printed outward since the fix; at the pin it was a truncation read as the string + 10^-42, which gave this same bar): false by the first implementation's record and by Arb; refuted as a statement about this certificate, never about C71. At 128 bits the JS enclosure is wider than the bar's distance (js.width128 in this record), so there it must refuse",
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 6.521845710923046575658143972948578468366664 (a statement about this certificate, not about C71)",
-    "ms": 56
+    "ms": 63
    },
    "js128": {
     "verdict": "REFUSED",
@@ -395,8 +411,8 @@
     "word": "REFUTED",
     "raised": null,
     "reading": "REFUTED",
-    "why": "its upper end, at most 6.521845710923046575658143972948578468366663, is at or below the bar",
-    "seconds": 1.43
+    "why": "its upper end, 6.521845710923046575658143972948578468366663, is at or below the bar",
+    "seconds": 1.67
    },
    "truth": "FALSE",
    "expected": {
@@ -410,22 +426,22 @@
   {
    "id": "b-one-bit-flipped",
    "claim": "C71 > 6.521845710923046575 (from this table)",
-   "what": "input 123457 of the truth table flipped, the published sha256 kept: the binding fails",
+   "what": "input 131017 of the truth table flipped (the first FALSE input whose every immediate superset is TRUE), the published sha256 kept: the binding fails",
    "js": {
     "verdict": "REFUSED",
     "why": "the sha256 binding fails: the table is not the one the artifact names",
-    "ms": 12
+    "ms": 16
    },
    "js128": {
     "verdict": "REFUSED",
     "why": "the sha256 binding fails: the table is not the one the artifact names"
    },
    "py": {
-    "word": "REFUTED",
+    "word": "REFUSED",
     "raised": null,
     "reading": "REFUSED",
     "why": "fei.py's check failed: the truth table is the one the artifact binds by sha256",
-    "seconds": 1.22
+    "seconds": 1.32
    },
    "truth": "MALFORMED",
    "expected": {
@@ -434,27 +450,27 @@
     "py": "REFUSED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "c-unbalanced-binding-bypassed",
    "claim": "C71 > 6.521845710923046575 (from this table)",
-   "what": "the same flip with the binding bypassed EXPLICITLY — sha256_table re-signed to the flipped table's own hash and the stated I set to its edge-boundary influence 133641/65536 — so balance is the one defect: fhat(∅) = ±2^-17 and the amplification rule does not apply",
+   "what": "the same flip with the binding bypassed EXPLICITLY — sha256_table re-signed to the flipped table's own hash and the stated I set to its edge-boundary influence 33409/16384 — so balance is the one defect (the flip keeps the function monotone): fhat(∅) = ±2^-17 and the amplification rule does not apply",
    "js": {
     "verdict": "REFUSED",
     "why": "not balanced: a_∅ = -2, fhat(∅) = -1/131072; the amplification rule needs a balanced g",
-    "ms": 55
+    "ms": 68
    },
    "js128": {
     "verdict": "REFUSED",
     "why": "not balanced: a_∅ = -2, fhat(∅) = -1/131072; the amplification rule needs a balanced g"
    },
    "py": {
-    "word": "REFUTED",
+    "word": "REFUSED",
     "raised": null,
     "reading": "REFUSED",
     "why": "fei.py's check failed: balanced: fhat(emptyset) = 0",
-    "seconds": 1.23
+    "seconds": 1.48
    },
    "truth": "MALFORMED",
    "expected": {
@@ -463,7 +479,7 @@
     "py": "REFUSED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "d-bar-below-the-ledger",
@@ -472,7 +488,7 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 59
+    "ms": 62
    },
    "js128": {
     "verdict": "REFUSED",
@@ -483,7 +499,7 @@
     "raised": null,
     "reading": "CERTIFIED",
     "why": null,
-    "seconds": 1.42
+    "seconds": 1.46
    },
    "truth": "TRUE",
    "expected": {
@@ -501,18 +517,18 @@
    "js": {
     "verdict": "REFUSED",
     "why": "the artifact states I = 131/64; its own table gives 261/128",
-    "ms": 53
+    "ms": 59
    },
    "js128": {
     "verdict": "REFUSED",
     "why": "the artifact states I = 131/64; its own table gives 261/128"
    },
    "py": {
-    "word": "REFUTED",
+    "word": "REFUSED",
     "raised": null,
     "reading": "REFUSED",
     "why": "fei.py's check failed: I = 261/128, the artifact's 131/64",
-    "seconds": 1.42
+    "seconds": 1.45
    },
    "truth": "MALFORMED",
    "expected": {
@@ -521,7 +537,7 @@
     "py": "REFUSED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "e2-bar-1e-75-below-the-value",
@@ -530,18 +546,18 @@
    "js": {
     "verdict": "CERTIFIED",
     "why": null,
-    "ms": 61
+    "ms": 60
    },
    "js128": {
     "verdict": "REFUSED",
     "why": "the enclosure straddles the bar at 128 bits: nothing is proved either way"
    },
    "py": {
-    "word": "REFUTED",
+    "word": "REFUSED",
     "raised": null,
     "reading": "REFUSED",
     "why": "its enclosure [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663] straddles the bar",
-    "seconds": 1.49
+    "seconds": 1.44
    },
    "truth": "TRUE",
    "expected": {
@@ -550,7 +566,7 @@
     "py": "REFUSED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "e3-bar-1e-75-above-the-value",
@@ -559,18 +575,18 @@
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 6.521845710923046575658143972948578468366662292229938598252894129325503563416 (a statement about this certificate, not about C71)",
-    "ms": 57
+    "ms": 67
    },
    "js128": {
     "verdict": "REFUSED",
     "why": "the enclosure straddles the bar at 128 bits: nothing is proved either way"
    },
    "py": {
-    "word": "REFUTED",
+    "word": "REFUSED",
     "raised": null,
     "reading": "REFUSED",
     "why": "its enclosure [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663] straddles the bar",
-    "seconds": 1.41
+    "seconds": 1.46
    },
    "truth": "FALSE",
    "expected": {
@@ -579,7 +595,7 @@
     "py": "REFUSED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "e4-mask-beyond-2^n",
@@ -595,10 +611,10 @@
     "why": "the mask sets input 262144, beyond the 2^18 inputs"
    },
    "py": {
-    "word": null,
-    "raised": "ValueError: REFUSED: the mask has bits beyond 2^n inputs",
+    "word": "REFUSED",
+    "raised": null,
     "reading": "REFUSED",
-    "why": "fei.py raised ValueError: REFUSED: the mask has bits beyond 2^n inputs",
+    "why": "fei.py's check failed: the truth table reads: hexadecimal, no input at or beyond 2^n",
     "seconds": 0
    },
    "truth": "MALFORMED",
@@ -642,11 +658,11 @@
   {
    "id": "e6-majority-of-three-at-4",
    "claim": "C71 > 4 (from this table)",
-   "what": "majority of three against 4 itself: the strict inequality fails at equality. Every |a_S| is a power of two, so the closed form is exact and refutes; fei.py's log2 4 is an interval, so the best it can do is refuse",
+   "what": "majority of three against 4 itself: the strict inequality fails at equality. Every |a_S| is a power of two, so H is exact in both deciders — the closed form here, fei.py's log2 of a power of two since 2026-10-19 (at the pin its log2 4 was an interval and it could only refuse) — and both refute",
    "js": {
     "verdict": "REFUTED",
     "why": "the ratio is proved at most 4 (a statement about this certificate, not about C71)",
-    "ms": 0
+    "ms": 1
    },
    "js128": {
     "verdict": "REFUTED",
@@ -655,23 +671,23 @@
    "py": {
     "word": "REFUTED",
     "raised": null,
-    "reading": "REFUSED",
-    "why": "its enclosure [3.999999999999999999999999999999999999999999, 4.000000000000000000000000000000000000000001] straddles the bar",
+    "reading": "REFUTED",
+    "why": "its upper end, 4.000000000000000000000000000000000000000000, is at or below the bar",
     "seconds": 0
    },
    "truth": "FALSE",
    "expected": {
     "js": "REFUTED",
     "js128": "REFUTED",
-    "py": "REFUSED"
+    "py": "REFUTED"
    },
    "fired": true,
-   "pyWordAgreesWithReading": false
+   "pyWordAgreesWithReading": true
   },
   {
    "id": "e7-dictator",
    "claim": "C71 > 1 (from this table)",
-   "what": "a dictator on two variables: balanced, all weight on one set, I = 1 and H = 0 — the amplification rule needs I > 1",
+   "what": "a dictator on two variables: balanced, all weight on one set, I = 1 and H = 0 — the amplification rule needs I > 1, the reason both deciders must give (at the pin fei.py raised \"a weight above 1\" instead)",
    "js": {
     "verdict": "REFUSED",
     "why": "I = 1: the amplification rule needs I > 1",
@@ -682,10 +698,10 @@
     "why": "I = 1: the amplification rule needs I > 1"
    },
    "py": {
-    "word": null,
-    "raised": "ArithmeticError: a weight above 1",
+    "word": "REFUSED",
+    "raised": null,
     "reading": "REFUSED",
-    "why": "fei.py raised ArithmeticError: a weight above 1",
+    "why": "fei.py's check failed: I > 1: the amplification rule applies",
     "seconds": 0
    },
    "truth": "MALFORMED",
@@ -704,7 +720,7 @@
    "js": {
     "verdict": "REFUTED",
     "why": "f(160) is TRUE and f(161) is FALSE, the second input above the first in coordinate 0",
-    "ms": 128
+    "ms": 124
    },
    "js128": {
     "verdict": "REFUTED",
@@ -715,7 +731,7 @@
     "raised": null,
     "reading": "REFUTED",
     "why": null,
-    "seconds": 1.19
+    "seconds": 1.38
    },
    "truth": "FALSE",
    "expected": {
@@ -737,6 +753,14 @@
   },
   "falseAccepted": [],
   "trueRefuted": [],
+  "pyWordDiffersFromReading": [],
+  "pyWordRefutesATrueClaim": []
+ },
+ "findingsAtPin": {
+  "feiPy": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141",
+  "commit": "470fe0b2",
+  "found": "2026-10-19",
+  "fixed": "2026-10-19",
   "pyWordDiffersFromReading": [
    "b-one-bit-flipped",
    "c-unbalanced-binding-bypassed",
@@ -747,17 +771,20 @@
   ],
   "pyWordRefutesATrueClaim": [
    "e2-bar-1e-75-below-the-value"
-  ]
+  ],
+  "ledgerTruncated": true,
+  "dictatorReason": "a weight above 1"
  },
  "findings": [
-  "certs/fei-ledger.json prints the ratio's two ends as the same 44-character string 6.521845710923046575658143972948578468366662: both are truncations (str(...)[:44] in fei.py), so the printed upper end is BELOW the value (the ratio begins 6.521845710923046575658143972948578468366662292229…). Read honestly the enclosure is [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663]; its H strings are truncated the same way. Nothing is wrong with the decision — fei.py decides on the untruncated Decimals — only with the record's printed interval.",
-  "fei.py has two words (CERTIFIED when every check passes, REFUTED otherwise): on 6 of the 12 planted claims its own word is REFUTED where the three-word reading is REFUSED (b-one-bit-flipped, c-unbalanced-binding-bypassed, e1-stated-influence-moved, e2-bar-1e-75-below-the-value, e3-bar-1e-75-above-the-value, e6-majority-of-three-at-4) — a broken binding, an unbalanced table, a contradicted I and a bar inside its enclosure are all printed REFUTED, the defect the 2026-10-09 erratum removed from families/cosine.js and families/newman.js. On e2-bar-1e-75-below-the-value, a TRUE claim, fei.py's own word is REFUTED. No published record is affected: the ledger's one row is CERTIFIED, which two words get right.",
-  "At an exact boundary (majority of three, H/(I-1) = 4 exactly, against \"> 4\") the closed form refutes and fei.py cannot: every log2 it takes is an interval one unit wide, log2 4 included. A refusal a stronger method converts.",
-  "On the dictator fei.py refuses by raising \"ArithmeticError: a weight above 1\" — the weight is exactly 1, but its log2 enclosure of 2^n is wider than a point, so 2n - 2 log2 |a| has a negative lower end and it raises before reaching its I <= 1 test. instruments/fei/battery.py's red control \"a dictator (I = 1) is refused: the amplification rule needs I > 1\" therefore fires for that other reason (it catches any ArithmeticError)."
+  "FOUND at fei.py 5825dc47… (commit 470fe0b2, 2026-10-19) and FIXED 2026-10-19: certs/fei-ledger.json printed the ratio's two ends as one truncated string (str(...)[:44], H at [:30]), so its printed upper end was below the value. fei.py now prints outward — the lower end down, the upper end up, at the same 43 and 29 significant digits — and the ledger reads [6.521845710923046575658143972948578468366662, 6.521845710923046575658143972948578468366663], which contains the value (the JS enclosure lies inside it).",
+  "FOUND at fei.py 5825dc47… (commit 470fe0b2, 2026-10-19) and FIXED 2026-10-19: fei.py had two words, and on 6 of the 12 planted claims (b-one-bit-flipped, c-unbalanced-binding-bypassed, e1-stated-influence-moved, e2-bar-1e-75-below-the-value, e3-bar-1e-75-above-the-value, e6-majority-of-three-at-4) its own word was REFUTED where the three words say REFUSED — on e2-bar-1e-75-below-the-value, a TRUE claim. fei.py now carries the three words check by check and composes them by the method paper's rule (REFUTED if any is refuted, else REFUSED if any is refused, else CERTIFIED); the bound and the record are CERTIFIED iff r_lo > bar, REFUTED iff r_hi <= bar, REFUSED on a straddle; a failed precondition is REFUSED with its reason and the bound is then not decided. Its own word now equals the reading on all 12 planted claims.",
+  "FOUND at fei.py 5825dc47… (commit 470fe0b2, 2026-10-19) and FIXED 2026-10-19: log2 of a power of two was an interval, so majority of three at exactly 4 could only be refused. fei.py now writes |a| = 2^v m and takes log2 |a| = v + log2 m with log2 1 = 0 exactly, and refutes it (e6-majority-of-three-at-4).",
+  "FOUND at fei.py 5825dc47… (commit 470fe0b2, 2026-10-19) and FIXED 2026-10-19: on the dictator fei.py raised \"a weight above 1\" (the weight is exactly 1) before reaching its I <= 1 test, so instruments/fei/battery.py's red control named for I > 1 fired for that other reason. With log2 4 exact the test is reached: fei.py returns REFUSED, why \"I > 1: the amplification rule applies: I = 1; the rule needs I > 1\", and the battery asserts the reason.",
+  "FOUND while fixing (2026-10-19): planted claims b and c flipped input 123457, which also broke monotonicity — claim c stated balance as its one defect, and under the composition rule the refuted monotone check would have decided fei.py's word. The flip is now input 131017, the first FALSE input whose every immediate superset is TRUE, which keeps the function monotone; the claims keep their ids."
  ],
  "timing": {
-  "jsMs": 1989,
-  "pyMs": 16296,
-  "arbMs": 1209
+  "jsMs": 1985,
+  "pyMs": 17788,
+  "arbMs": 1457
  }
 }

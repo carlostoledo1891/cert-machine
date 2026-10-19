@@ -402,7 +402,8 @@ class SumdiffFamily(Family):
         v = self.V.decide(r, c)
         if v == 'UNDECIDED':
             return None
-        return Verdict(v == 'CERTIFIED', f"ratio in [{str(r[0])[:22]}, {str(r[1])[:22]}]", {'law': [list(p) for p in obj], 'ratioLo': str(r[0])[:44], 'ratioHi': str(r[1])[:44]})
+        shown, kept = self.V.printed(r, 20), self.V.printed(r, 42)       # outward: the lower end down, the upper end up (a cut string rounds toward zero)
+        return Verdict(v == 'CERTIFIED', f"ratio in [{shown[0]}, {shown[1]}]", {'law': [list(p) for p in obj], 'ratioLo': kept[0], 'ratioHi': kept[1]})
 
     def statement(self, obj, c):
         return f"C3b >= {c} from a {len(obj)}-point law"

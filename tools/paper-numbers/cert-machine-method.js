@@ -365,8 +365,65 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   const d = AC.rows.find((r) => r.id === '1d-cert2026'), c = AC.rows.find((r) => r.id === '1c-rozetyp');
   need(d && d.agree && d.verdict === 'REFUTED' && d.repair && d.repair.js === 'CERTIFIED' && d.repair.py === 'CERTIFIED' && d.stated.fractionMatches, 'the C_1d row is not a printed bound refuted with its certificate\'s own fraction and the repair certified');
   need(c && c.agree && c.verdict === 'CERTIFIED' && c.stated.fractionMatches && !c.stated.decimalMatches, 'the C_1c row is not CERTIFIED with its decimal misprinted');
+  need(AC.rows.every((r) => r.agree), 'a C_1c/C_1d row has the two deciders disagreeing');
+  def('MtSfAll', String(SF.rows.length + AC.rows.length));
   def('MtAcDPrinted', d.claim.split('<= ')[1]); def('MtAcDExact', d.js.decimal.slice(0, 22)); def('MtAcDRepaired', d.repair.claim.split('<= ')[1]); def('MtAcDCells', String(d.n));
 }
+
+/* v0.6 (2026-10-19): the entropy-influence bound decided a second time (tools/verify_fei.js, certs/fei-second.json), with
+   planted claims of known truth; the first decider's two-word verdict and truncated record, found by it at the pin and
+   corrected the same day, are read from the record's findingsAtPin, never retyped */
+{ const F = J('certs/fei-second.json'), crypto = require('crypto'), shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  need(F.deciders['tools/verify_fei.js'] === shaOf('tools/verify_fei.js') && F.deciders['instruments/fei/fei.py'] === shaOf('instruments/fei/fei.py'), 'certs/fei-second.json was not written by the deciders on disk');
+  const bound = F.claims.find((c) => c.id === 'registry-bound');
+  need(bound && bound.js.verdict === 'CERTIFIED' && bound.py.reading === 'CERTIFIED' && bound.py.word === 'CERTIFIED', 'the two implementations do not both certify the registry\'s C71');
+  const P = F.plantedSummary;
+  need(P.planted === P.fired && !P.falseAccepted.length && !P.trueRefuted.length && !(P.pyWordDiffersFromReading || []).length, 'a planted claim came out other than expected, or fei.py\'s own word still differs from the three-word reading');
+  const A = F.findingsAtPin;
+  need(A && /^[0-9a-f]{64}$/.test(A.feiPy) && A.feiPy !== F.deciders['instruments/fei/fei.py'] && A.pyWordDiffersFromReading.length > 0 && A.pyWordRefutesATrueClaim.length === 1 && /^2026-\d\d-\d\d$/.test(A.found) && /^2026-\d\d-\d\d$/.test(A.fixed), 'the record does not hold the two-word finding at the earlier fei.py');
+  def('MtFeiPlanted', String(P.planted)); def('MtFeiTwoWord', String(A.pyWordDiffersFromReading.length)); def('MtFeiDate', A.fixed); def('MtFeiFound', A.found);
+  def('MtFeiLogs', String(Object.keys(F.js.closedForm.B).length)); def('MtFeiPyDigits', String(F.py.digits));
+  need(F.seconds > 0, 'certs/fei-second.json carries no run time'); def('MtFeiSeconds', String(Math.round(F.seconds))); }
+
+/* v0.6 (2026-10-19): the registry's C_86 certificate (R. Pinho, #227), decided by two implementations in the peer session's
+   commit 8daa22cc (certs/c86-replay.json, tools/replay-c86.js + instruments/optq/c86.py) */
+{ const C = J('certs/c86-replay.json'), crypto = require('crypto'), shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  need(C.deciders.js === shaOf('tools/replay-c86.js') && C.deciders.py === shaOf('instruments/optq/c86.py'), 'certs/c86-replay.json was not written by the deciders on disk');
+  need(C.verdict === 'CERTIFIED' && C.agree && C.asteriskedAtPin && C.bound.lePrinted && C.js.E5.ok && C.py.E5.ok && C.js.E5.provedBoxes === C.py.E5.proved_boxes, 'the C_86 record is not two agreeing CERTIFIED deciders with the density proved on the same boxes');
+  need(C.redControls.length && C.redControls.every((r) => r.fired && r.js === r.expect && r.py === r.expect), 'a C_86 red control did not fire in both deciders');
+  def('MtCeBound', C.claim.split('<= ')[1]); def('MtCeDate', C.generated.slice(0, 10)); def('MtCeBoxes', int(C.js.E5.provedBoxes)); def('MtCeReds', String(C.redControls.length));
+  need(C.seconds > 0, 'certs/c86-replay.json carries no run time'); def('MtCeSeconds', String(Math.round(C.seconds))); }
+
+/* v0.6 (2026-10-19): how often a reading catches a defect (the referee's S5): planted one-line defects read blind under
+   lane S's brief (certs/reading-recall.json, tools/score-reading-recall.py, corpus/openai-math/recall-2026-10-19) */
+{ const RR = J('certs/reading-recall.json'), crypto = require('crypto');
+  need(RR.decider === crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'tools/score-reading-recall.py'))).digest('hex'), 'certs/reading-recall.json was not written by the scorer on disk');
+  need(RR.audit.length >= 2 && RR.audit.every((a) => !a.outside.length), 'a reader of the recall test named a path outside its packets');
+  const P = RR.pipelines.map((q) => q.pipeline);
+  need(P.length >= 2 && P.every((q) => q.flagged === P[0].flagged && q.atPlant === q.flagged && q.exact === P[0].exact && q.falseAlarms === P[0].falseAlarms && q.recall95[0] === P[0].recall95[0]), 'the recall pipelines differ; the paper\'s sentence states one count for both');
+  need(P[0].flagged === RR.plants && P[0].falseAlarms === 0, 'not every plant was flagged, or a control was: the paper\'s sentence says otherwise');
+  def('MtRrEligible', String(RR.eligible)); def('MtRrPackets', String(RR.packets)); def('MtRrPlants', String(RR.plants)); def('MtRrControls', String(RR.controls));
+  def('MtRrPipelines', String(P.length)); def('MtRrFlagged', String(P[0].flagged)); def('MtRrExact', String(P[0].exact)); def('MtRrLower', P[0].recall95[0].toFixed(3)); }
+
+/* v0.6 (2026-10-19): the entropy deciders' arithmetic against Arb (certs/entropy-arb-audit.json, by tools/audit-entropy-arb.js
+   with tools/audit-entropy-arb.py): the seven modules audited must be the ones on disk, the record clean, every red control
+   fired; the findings of its first run, fixed since, are read from the record's foundAtPin, never retyped */
+{ const EA = J('certs/entropy-arb-audit.json'), crypto = require('crypto'), shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  for (const [m, h] of Object.entries(EA.modules)) need(shaOf(m) === h, 'the entropy audit was run on a different ' + m + ' — re-run tools/audit-entropy-arb.js');
+  const c = EA.counts;
+  need(c.arithmetic.violations === 0 && c.arithmetic.undecided === 0 && c.printed.violations === 0 && c.printed.undecided === 0 && c.malformed === c.malformedRefused && c.baselines === c.baselinesDecided && !EA.problems.length && !EA.findings.length, 'the entropy audit is not clean, or still declares a finding');
+  const rr = Object.values(EA.redControls); need(rr.length >= 2 && rr.every((r) => r.violationsCaught > 0), 'an entropy-audit red control did not fire');
+  const outside = ['fei.H', 'fei.ratio'].reduce((n, k) => n + (EA.byOp[k] ? EA.byOp[k].refusedOutsideRule : 0), 0);
+  need(outside === c.arithmetic.refused, 'an arithmetic refusal lies inside the amplification rule\'s domain; the paper says all are outside it');
+  const F = EA.foundAtPin;
+  need(F && /^[0-9a-f]{40}$/.test(F.commit) && /^2026-\d\d-\d\d$/.test(F.date) && F.findings.length > 0 && F.findings.every((f) => f.fixedIn && f.why), 'the record holds no first-run findings with their fixes');
+  need(Object.keys(F.modules).some((m) => F.modules[m] !== EA.modules[m]), 'the modules at the pin are the modules on disk: nothing was fixed');
+  const printed = F.findings.filter((f) => f.class === 'printed'), malformed = F.findings.filter((f) => f.class === 'malformed');
+  need(printed.length + malformed.length === F.findings.length, 'a first-run finding is of a third class');
+  def('MtEaCases', int(c.cases)); def('MtEaArith', int(c.arithmetic.cases)); def('MtEaContained', int(c.arithmetic.contained)); def('MtEaRefused', int(c.arithmetic.refused));
+  def('MtEaPrinted', int(c.printed.cases)); def('MtEaMalformed', String(c.malformed)); def('MtEaReds', String(rr.length)); def('MtEaPrec', String(EA.arbPrec[0]));
+  def('MtEaFindings', String(F.findings.length)); def('MtEaPrintedFindings', String(printed.length)); def('MtEaMalformedFindings', String(malformed.length)); def('MtEaPinDate', F.date);
+  need(EA.seconds > 0, 'the entropy audit carries no run time'); def('MtEaSeconds', String(Math.round(EA.seconds))); }
 
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
    named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,

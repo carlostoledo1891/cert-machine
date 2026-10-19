@@ -5,13 +5,15 @@ fei.py's own word included. The reading of that word in the repository's three w
 once, in verify_fei.js. It is NOT named verify_*.py on purpose: tools/build-site.js publishes every tools/verify_*.py at
 /verify/ as a detached verifier, and this one imports instruments/fei/fei.py, which is not served.
 
-  python3 -I tools/fei-second-harness.py
-      stdin   {"fixtures": [{"id", "artifact", "threshold", "record"}], "spectrumOf": <artifact>}
-      stdout  {"python", "results": [{"id", "raw", "raised", "result", "seconds"}],
+  python3 -I tools/fei-second-harness.py [job.json]
+      job     {"fixtures": [{"id", "artifact", "threshold", "record"}], "spectrumOf": <artifact>}   (a file, or stdin
+              when no file is named; verify_fei.js writes a file — the n = 18 job is 66 KB, past the 64 KB socket
+              buffer, and the stdin hand-off deadlocked once, 2026-10-19)
+      stdout  {"python", "digits" (fei.PREC), "results": [{"id", "raw", "raised", "result", "seconds"}],
                "spectrum": {"sha256", "a0", "histogram", "seconds"}}       (by fei.table and fei.wht)
 
-  instruments/zetahankel/.venv/bin/python -I tools/fei-second-harness.py --arb
-      stdin   {"artifact", "prec"}
+  instruments/zetahankel/.venv/bin/python -I tools/fei-second-harness.py --arb [job.json]
+      job     {"artifact", "prec"}
       stdout  H and H/(I-1) as Arb balls at prec bits, each endpoint exact as [mantissa, exponent] (value = m * 2^e),
               computed from fei.wht's spectrum of the artifact's table and Fraction I — no code of verify_fei.js
 
@@ -52,7 +54,7 @@ def run(job):
             row['raised'] = type(e).__name__ + ': ' + str(e)
         row['seconds'] = round(time.time() - t0, 2)
         out.append(row)
-    res = {'python': sys.version.split()[0], 'results': out}
+    res = {'python': sys.version.split()[0], 'digits': fei.PREC, 'results': out}
     if job.get('spectrumOf'):
         res['spectrum'] = spectrum_of(job['spectrumOf'])[1]
     return res
@@ -82,5 +84,6 @@ def arb_lane(job):
 
 
 if __name__ == '__main__':
-    job = json.load(sys.stdin)
+    files = [a for a in sys.argv[1:] if not a.startswith('--')]
+    job = json.load(open(files[0])) if files else json.load(sys.stdin)   # a job file: a 66 KB stdin crossed the 64 KB socket buffer and spawnSync deadlocked once (2026-10-19)
     print(json.dumps(arb_lane(job) if '--arb' in sys.argv else run(job)))
