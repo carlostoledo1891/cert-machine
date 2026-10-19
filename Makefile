@@ -141,6 +141,8 @@ test:
 	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "fei second (C71, planted)"; $(NODE) tools/verify_fei.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "entropy deciders vs Arb"; $(NODE) tools/audit-entropy-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -148,6 +150,7 @@ test:
 	@printf "%-30s " "navier-stokes probes"; $(PY) instruments/navierstokes/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "erdos1 (the explicit sets)"; $(PY) instruments/erdos1/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "erdos1 (the buffer structure)"; $(PY) instruments/erdos1/structure_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "erdos1 (the effective rate)"; $(PY) instruments/erdos1/effective_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "zeta-hankel (the zeta(7) wall)"; $(PY) instruments/zetahankel/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "zeta7-anand (a zeta(7) proof)"; $(PY) instruments/zeta7audit/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "pqc geometry (SVP audit)"; $(NODE) instruments/pqc/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

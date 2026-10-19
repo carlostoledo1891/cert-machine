@@ -7,7 +7,7 @@
 \title{Explicit sum-distinct sets below Bohman's constant:\\
 the Erd\H{o}s problem \#1 disproof made effective}
 \author{\cmauthor}
-\date{September 2026 --- v0.2, numbers interpolated from the certificate ledger; certificates archived at \href{https://doi.org/10.5281/zenodo.22800699}{doi:10.5281/zenodo.22800699}}
+\date{September 2026; v0.3 of 19 October 2026 adds the effective rate (Section~\ref{sec:rate}) --- numbers interpolated from the certificate ledger; certificates archived at \href{https://doi.org/10.5281/zenodo.22800699}{doi:10.5281/zenodo.22800699}}
 
 \begin{document}
 \maketitle
@@ -31,7 +31,7 @@ works for every $0<\alpha<1$ (the cube property has a three-line proof for all t
 strip property is decided exactly per $(\alpha,b)$ by a finite structured search), and the
 best tilt beats $\tfrac12$ at every dimension budget. And the base weights give the first
 explicit lower bounds for the constant in Siegel's lemma above Bohman's,
-$C_{\SiegelBestD}\ge\SiegelBest$ in the normalisation of Bloom's exposition.
+$C_{\SiegelBestD}\ge\SiegelBest$ in the normalisation of Bloom's exposition. Finally, the effective rate Bloom expects follows: the buffer enters only through its logarithm, so a crude bound on it suffices, and $f(n)\le n^{-(c_0-o(1))/\ln\ln n}$ with $c_0=\frac12\ln\frac32$.
 \end{abstract}
 
 \section{Introduction}
@@ -253,14 +253,58 @@ $d$&$\alpha$&$k$&$f$&$C_d\ge$\\\midrule
 \caption{The best verified Siegel bound per dimension.}\label{tab:siegel}
 \end{table}
 
+\section{The effective rate}\label{sec:rate}
+
+The buffer enters only through $k$, which must exceed $\log_2(rK)$ by a constant, so a crude bound on $K$ is enough for an
+effective theorem. We state it for Bloom's gadget $\alpha=\frac12$, so $D=2^s$ and $h=\frac32$.
+
+\begin{lemma}[the inverse of a reduced triangular form]\label{lem:inv}
+Let $H\in\mathbb Z^{r\times r}$ be upper triangular with $H_{jj}\ge1$ and $0\le H_{ij}<H_{ii}$ for $i<j$. Then
+$|(H^{-1})_{ij}|\le 2^{j-i-1}/H_{jj}$ for $i<j$, and $K=D\|EH^{-1}\|_{\infty\to\infty}\le D(2^r-1)$.
+\end{lemma}
+\begin{proof}
+For $x=H^{-1}e_j$, $x_j=1/H_{jj}$ and $x_i=-\frac1{H_{ii}}\sum_{k=i+1}^{j}H_{ik}x_k$; with $0\le H_{ik}/H_{ii}<1$, $y_i=H_{jj}|x_i|$
+satisfies $y_j=1$, $y_i\le\sum_{k=i+1}^{j}y_k$, so $y_i\le 2^{j-i-1}$ by downward induction. Each row of $E$ is zero, a unit
+row, or has entries $\pm1$, so every row of $EH^{-1}$ has $\ell_1$ norm at most $\sum_{i,j}|(H^{-1})_{ij}|\le 2^r-1$.
+\end{proof}
+
+\begin{lemma}[the ratio]\label{lem:ratio}
+With $t=\lceil(2^k+K)/D\rceil$ and the weights $w$ and $a$ of the chain perturbation,
+$\displaystyle\frac{N}{2^n}\le\frac{\Delta_s}{2}\Bigl(1+\frac{K+D}{2^k}\Bigr)^{r}\Bigl(1+\frac1{t-1}\Bigr)^{r+1}$. In particular
+$f(dk)\le e\,\Delta_s$ for every $k\ge k_0=\lceil\log_2(r(K+D)+2D(r+1))\rceil$.
+\end{lemma}
+\begin{proof}
+$H\ge0$ entrywise, so $w\ge0$ and $w_{j+1}\ge tH_{jj}w_j\ge tw_j$; hence $w_i\le w_j/(t^{j-i}H_{ii})$ for $i<j$ and
+$\max_ia_i\le w_r(1+\frac1t)$. Then $\sum_{i<j}w_iH_{ij}<w_j/(t-1)$, so $w_{j+1}\le tH_{jj}w_j(1+\frac1{t-1})$ and
+$w_r\le t^r\det H\,(1+\frac1{t-1})^r$ with $\det H=D^r\Delta_s$; $N=2^{k-1}\max_ia_i$, $n=(r+1)k$ and $tD\le2^k+K+D$ give the
+bound. For $k\ge k_0$, $1+x\le e^x$ and $t-1\ge2^{k-1}/D$ bound the two factors by $e$ together; $f=2N/2^n$.
+\end{proof}
+
+\begin{theorem}[effective]\label{thm:rate}
+For odd $b\ge3$, $s\ge1$ and $d=b^s$: $f(n)\le e\,\Delta_s$ for every $n\ge d\,(d+\lceil\log_2d\rceil+s)$. With $b(s)$ the
+least odd $b$ with $b^{s-1}\le2^b$, $f(n)\le e^{5/2}(2/3)^s$ on that range, and
+\[ f(n)\le n^{-(c_0-o(1))/\ln\ln n},\qquad c_0=\tfrac12\ln\tfrac32=0.2027\ldots \]
+\end{theorem}
+\begin{proof}
+Lemma~\ref{lem:inv} gives $k_0\le r+\lceil\log_2r\rceil+s+1$, Lemma~\ref{lem:ratio} the bound at $n=dk_0$, and $f(n+1)\le f(n)$
+(the set $2A\cup\{1\}$) extends it to every larger $n$. For the rate, $\frac{b^s-1}{b-1}\le\frac32b^{s-1}$ and $\ln(1+x)\le x$
+give $\Delta_s(b(s))\le e^{3/2}(2/3)^s$; with $\ln n_s=(2+o(1))s\ln b(s)$ and $\ln b(s)=(1+o(1))\ln s$, $s\ge(\frac12-o(1))\ln n/\ln\ln n$
+on $[n_s,n_{s+1})$.
+\end{proof}
+
+The theorem is tabulated exactly for $s=1,\dots,60$ in \texttt{certs/erdos1/effective-rate.json}
+(\texttt{instruments/erdos1/effective.py}: $b(s)$, the threshold, an outward-rounded upper bound on $f$, the exponent
+reached), which also checks Lemma~\ref{lem:inv}'s entrywise inequality on every cached Hermite form. The factor $\frac12$ in
+$c_0$ comes from $n\approx d^2$. A structural bound with $\log_2K=O(s^2+\log d)$ --- such as the one stated, with sketched
+proofs, in a note of 18 October 2026 by F.~Schmidt and decided exactly on 48 $(b,s)$ in
+\texttt{certs/erdos1/buffer-structure.json} --- would give $n\approx d\log d$ and $c_0=\ln\frac32$. It improves the constant;
+the rate does not need it.
+
 \section{Limits and what would come next}
 
-Bohman's bound is for all large $n$; Theorem~\ref{thm:main} is for specific $n$. An effective
-asymptotic statement $f(n)\le n^{-c/\log\log n}$, the form Bloom expects, would follow from a
-structural bound on $K$ as a function of $(b,s)$, because $k$ must only exceed
-$\log_2(rK)$ by a constant. The buffer is measured here and not proved: the Hermite basis is
-computed, not analytic, and an analytic triangular basis of $\Lambda_s$ with an explicit inverse
-would settle it. Bigger tilted instances ($\alpha=0.65$, $b=21$, $s=3$ at $d=9261$) need a Hermite
+Theorem~\ref{thm:main} is for specific $n$; Theorem~\ref{thm:rate} is for all large $n$, with the constant
+$c_0=\frac12\ln\frac32$, and its bound $e\,\Delta_s$ beats Bohman's $0.44004$ only once $\Delta_s<0.44004/e\approx0.162$. Earlier versions of this note said that the effective rate needed a structural bound on $K$; it does
+not, and a structural bound (an analytic triangular basis of $\Lambda_s$ with an explicit inverse) would double $c_0$. Bigger tilted instances ($\alpha=0.65$, $b=21$, $s=3$ at $d=9261$) need a Hermite
 path beyond PARI at that size. Nothing here concerns the lower bound
 $N\ge\binom{n}{\lfloor n/2\rfloor}$ or the true order of $f$.
 

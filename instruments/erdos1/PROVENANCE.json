@@ -518,21 +518,21 @@
    "source": "experiments/erdos1/THEOREM.md",
    "file": "paper/erdos1-explicit.md",
    "sourceSha256": "3a9ff8d38051534817aa569922511cd4849fdc8e82f0d9bd8e30f46f9b2f8378",
-   "sha256": "3ce0d0f42ae78882d830c93804dd1980ffa8e13f041db1bbbb688a3d9d65d4a9",
-   "bytes": 16406,
+   "sha256": "7120a2f65d77113dd39938bcd00879fd3daa5bd9e851d3ba5fb35b804ac4d414",
+   "bytes": 23593,
    "gzipped": false,
    "patched": true,
-   "patch": "THEOREM.md as ported: the status paragraph carries the sets built here (k = 21 at d = 81; the s = 2 tilts at d = 441 and 961; d = 3375), Bohman's Proc. AMS citation corrected to the EJC 1998 paper that holds 0.22002, and the file names point at certs/erdos1/."
+   "patch": "THEOREM.md as ported: the status paragraph carries the sets built here (k = 21 at d = 81; the s = 2 tilts at d = 441 and 961; d = 3375), Bohman's Proc. AMS citation corrected to the EJC 1998 paper that holds 0.22002, and the file names point at certs/erdos1/. 2026-10-19: \u00a73a added (Lemmas 5\u20137 and the effective theorem f(n) <= e\u00b7Delta_s for n >= d(d + ceil(log2 d) + s), the rate n^(-(c0-o(1))/ln ln n) with c0 = \u00bd ln(3/2), certs/erdos1/effective-rate.json), and \u00a76's \"needs a structural bound on K\" corrected."
   },
   {
    "source": "experiments/erdos1/paper/erdos1-paper.tex",
    "file": "paper/tex/erdos1-explicit.tex",
    "sourceSha256": "e238bc1bd5c4edb889ea40fdcb6cbbb730ae8368b281f4e0b951c477fbf34cff",
-   "sha256": "cbc3d40a7428966505ebaf07b1a9a7491bda3f9d3dac47b6f0ac10c148c8cf8a",
-   "bytes": 17530,
+   "sha256": "0feb375c437f7feba3fa54a71726a03f22b7123717860a3abb4112d0b58e8228",
+   "bytes": 23096,
    "gzipped": false,
    "patched": true,
-   "patch": "rewritten in the house preamble (certmachine.sty, the shared author block and disclosure); the tilt \u03b1 enters in \u00a72 so the theorem can state its instance; \"sixty years\" corrected to twenty-eight; the stale \"no s = 2 instance beats Bohman\" removed; the new instances and tables; numbers from paper/tex/erdos1-numbers.tex."
+   "patch": "rewritten in the house preamble (certmachine.sty, the shared author block and disclosure); the tilt \u03b1 enters in \u00a72 so the theorem can state its instance; \"sixty years\" corrected to twenty-eight; the stale \"no s = 2 instance beats Bohman\" removed; the new instances and tables; numbers from paper/tex/erdos1-numbers.tex. 2026-10-19 (v0.3): the section \"The effective rate\" (Lemmas inv and ratio, Theorem rate), a sentence in the abstract, and the limits paragraph corrected (the rate does not need a structural bound on K)."
   },
   {
    "source": "experiments/erdos1/SHARE.md",

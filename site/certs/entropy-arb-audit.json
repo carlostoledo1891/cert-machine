@@ -1,0 +1,5205 @@
+{
+ "what": "The entropy deciders' arithmetic checked against Arb (python-flint): instruments/bigfloat as instruments/sumdiff and instruments/optq/twolaw.js call it, and the Python standard library's decimal as tools/verify_sumdiff.py, tools/verify_twolaw.py and instruments/fei/fei.py call it, each run through its REAL functions on seeded random and adversarial inputs and on the registry's own certificates; every enclosure required to contain the exact value, decided in Arb at 256 bits and up from the exact inputs (exactly, in FLINT's rationals, when the value is rational); every malformed input required to be refused; planted wrong functions required to be caught. Written by tools/audit-entropy-arb.js with tools/audit-entropy-arb.py.",
+ "generated": "2026-10-19T21:24:08+00:00",
+ "seconds": 132.2,
+ "secondsJs": 76.5,
+ "secondsPython": 40.7,
+ "seed": 20261019,
+ "n": 20000,
+ "node": "v24.14.1",
+ "python": {
+  "impl": "3.9.6",
+  "libmpdec": "2.5.0",
+  "arb": "3.12.13",
+  "pythonFlint": "0.9.0"
+ },
+ "arbPrec": [
+  256,
+  1024,
+  4096,
+  16384
+ ],
+ "implPrecision": {
+  "bigfloat": "bits per case (u.b): 128, 256, 512, 1024 as sumdiff/twolaw escalate; ln2 also 24..4096",
+  "verify_sumdiff/verify_twolaw": "120 digits",
+  "fei": "60 digits"
+ },
+ "modules": {
+  "instruments/bigfloat/bigfloat.js": "106ead607bf310a02ecc1df8d23574a8c8a9aee017a48ec613cb5e7dececefb3",
+  "instruments/bigfloat/functions.js": "b66409f2295613c4b8410736394fdf42007b8ea014e84757fd16cac87a3145ce",
+  "instruments/sumdiff/sumdiff.js": "e5919271fff8d04171120437a6fc78e537489f9459826f58cefb3387fdeca487",
+  "instruments/optq/twolaw.js": "ad15c46f2469dc9ca944ae0450d40d7045871a52c047abdab2d9d954f86391f5",
+  "tools/verify_sumdiff.py": "0e44946d156ba937f1cb1f96908d14b6c25d94002adc6a5a14a08c8835672384",
+  "tools/verify_twolaw.py": "3714b0026bb21b39039b009c78d375dded77cc79dffbc3d298ffa08af0ddc142",
+  "instruments/fei/fei.py": "5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141"
+ },
+ "inputs": {
+  "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json": "2efe99360a1ff5e3736e734ed06e5ab8e0cdcc33583ef22ece9e927e9e45365c",
+  "corpus/optimization-constants/mi2026/c3c_pr93/certificate_3c_v3_95pt.json": "2ebd7ba7a32e776ff5d271510b63a0999869fecfb148087a3d0fdd57cc4ffc3e",
+  "corpus/optimization-constants/l2026/certificate_3c_147pt.json": "b3dc9587ba7a733a3f68b66017d7b5936f38040f8e9ca31a057bb65a6f227999",
+  "corpus/optconst-queue/sources/zenodo-23289305/certificate.json": "8b6612ef91342b900733f87b00a8bc0ceebf88727eeceb2e5b390e2ccbfb97a4",
+  "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json": "57f5a1ad2bf5bcdee873413e796bc868ccc6131521af799c5eb48d5ae13267ba",
+  "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
+  "certs/optq-ledger.json": "163a94805d6baa3f325c4768bccb3ac816b270abbb3d5e83d527da6d2de50a93",
+  "certs/fei-ledger.json": "38d06c5e779f366e6b8ea2cd10698ea3610b600ea2be90b661629209e64152d0"
+ },
+ "counts": {
+  "cases": 298710,
+  "arithmetic": {
+   "cases": 264031,
+   "contained": 263979,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 52
+  },
+  "printed": {
+   "cases": 2679,
+   "contained": 2253,
+   "violations": 426,
+   "undecided": 0,
+   "refused": 0
+  },
+  "beyondTheDoor": {
+   "cases": 4000,
+   "contained": 3771,
+   "violations": 229,
+   "undecided": 0,
+   "refused": 0
+  },
+  "malformed": 71,
+  "malformedRefused": 61,
+  "baselines": 5,
+  "baselinesDecided": 5
+ },
+ "redControls": {
+  "red:bf.entropy.lognearest": {
+   "cases": 4000,
+   "violationsCaught": 800
+  },
+  "red:bf.fromRatio.shrunk": {
+   "cases": 4000,
+   "violationsCaught": 4000
+  },
+  "red:bf.log.nearest": {
+   "cases": 4000,
+   "violationsCaught": 3472
+  },
+  "red:fei.ln_iv.nearest": {
+   "cases": 4000,
+   "violationsCaught": 4000
+  },
+  "red:py.entropy.lnnearest": {
+   "cases": 4000,
+   "violationsCaught": 1197
+  },
+  "red:py.ln_out.nearest": {
+   "cases": 4000,
+   "violationsCaught": 3999
+  },
+  "red:py.outward.shrunk": {
+   "cases": 4000,
+   "violationsCaught": 4000
+  }
+ },
+ "findings": [
+  {
+   "class": "printed",
+   "op": "fei.printed",
+   "name": "decide()[\"H\"]",
+   "misses": 202,
+   "of": 308,
+   "declared": true,
+   "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
+   "witness": {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f2"
+    },
+    "inputs": {
+     "n": 8,
+     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "7.0063574474519147637191728366",
+     "7.0063574474519147637191728366"
+    ],
+    "exact": [
+     "[7.006357447451914763719172836656825781433861850569686597978495674240193918239 +/- 3.35e-76]",
+     "[7.006357447451914763719172836656825781433861850569686597978495674240193918240 +/- 2.55e-76]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "fei.printed",
+   "name": "decide()[\"ratio\"]",
+   "misses": 216,
+   "of": 308,
+   "declared": true,
+   "why": "fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. Cutting a decimal string rounds toward zero \u2014 for a positive upper end, DOWN \u2014 so the returned upper end falls below the exact value whenever the cut drops a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.",
+   "witness": {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f2"
+    },
+    "inputs": {
+     "n": 8,
+     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "2.372523156809113994063635246275327248739508",
+     "2.372523156809113994063635246275327248739508"
+    ],
+    "exact": [
+     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 5.30e-76]",
+     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 4.57e-77]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "py.printed",
+   "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+   "misses": 4,
+   "of": 4,
+   "declared": true,
+   "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
+   "witness": {
+    "kind": "real",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "rho",
+     "law": "real:3b-13"
+    },
+    "inputs": {
+     "problem": "3b",
+     "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
+    },
+    "u": null,
+    "res": [
+     "1.778988841420693549805193887477289434416066",
+     "1.778988841420693549805193887477289434416066"
+    ],
+    "exact": [
+     "[1.778988841420693549805193887477289434416066785870268133201048179037478760510 +/- 5.40e-77]",
+     "[1.778988841420693549805193887477289434416066785870268133201048179037478760511 +/- 2.21e-76]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "py.printed",
+   "name": "verify_twolaw.py main(): \"ratio in [...]\"",
+   "misses": 1,
+   "of": 1,
+   "declared": true,
+   "why": "verify_sumdiff.py and verify_twolaw.py print \"ratio in [str(lo)[:44], str(hi)[:44]]\": the same cut toward zero, so the printed upper end is below the exact ratio. The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw's printed line into certs/optq-ledger.json.",
+   "witness": {
+    "kind": "real",
+    "name": "verify_twolaw.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "mixRho",
+     "tl": "real:twolaw-23289305"
+    },
+    "inputs": {
+     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+    },
+    "u": null,
+    "res": [
+     "1.674894211307116228764343737060957167779440",
+     "1.674894211307116228764343737060957167779440"
+    ],
+    "exact": [
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "rec.fei-ledger",
+   "name": "C71 ratio",
+   "misses": 1,
+   "of": 1,
+   "declared": true,
+   "why": "certs/fei-ledger.json records fei.decide's strings: ratio = [6.521845710923046575658143972948578468366662, the same] \u2014 one point, below the exact ratio. The CERTIFIED verdict (C71 > 6.521845710923046575) is sound: the full enclosure lies above the threshold.",
+   "witness": {
+    "kind": "rec",
+    "name": "C71 ratio",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "real:c71-n18"
+    },
+    "inputs": {
+     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+    },
+    "u": null,
+    "res": [
+     "6.521845710923046575658143972948578468366662",
+     "6.521845710923046575658143972948578468366662"
+    ],
+    "exact": [
+     "[6.521845710923046575658143972948578468366662292229938598252894129325503563413 +/- 5.45e-76]",
+     "[6.521845710923046575658143972948578468366662292229938598252894129325503563416 +/- 3.15e-76]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "rec.fei-ledger",
+   "name": "C71 H",
+   "misses": 1,
+   "of": 1,
+   "declared": true,
+   "why": "certs/fei-ledger.json records H = [6.7766053090059780825197902218, the same] \u2014 one point, below the exact H.",
+   "witness": {
+    "kind": "rec",
+    "name": "C71 H",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "real:c71-n18"
+    },
+    "inputs": {
+     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+    },
+    "u": null,
+    "res": [
+     "6.7766053090059780825197902218",
+     "6.7766053090059780825197902218"
+    ],
+    "exact": [
+     "[6.776605309005978082519790221891882314787235038020170574747147806252281046359 +/- 4.47e-76]",
+     "[6.776605309005978082519790221891882314787235038020170574747147806252281046362 +/- 4.13e-76]"
+    ]
+   }
+  },
+  {
+   "class": "printed",
+   "op": "rec.optq-ledger",
+   "name": "optq-221-3c rhoPython (verify_twolaw.py)",
+   "misses": 1,
+   "of": 1,
+   "declared": true,
+   "why": "certs/optq-ledger.json records rhoPython = verify_twolaw's printed line, [1.674894211307116228764343737060957167779440, the same] \u2014 one point, below the exact ratio (and the row's \"how\" text cuts it again to 34 characters). The row's twolaw.js rho (outward, 30 places) contains it; the verdict is sound.",
+   "witness": {
+    "kind": "rec",
+    "name": "optq-221-3c rhoPython (verify_twolaw.py)",
+    "truthSpec": {
+     "t": "mixRho",
+     "tl": "real:twolaw-23289305"
+    },
+    "inputs": {
+     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+    },
+    "u": null,
+    "res": [
+     "1.674894211307116228764343737060957167779440",
+     "1.674894211307116228764343737060957167779440"
+    ],
+    "exact": [
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+    ]
+   }
+  },
+  {
+   "class": "malformed",
+   "name": "verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
+   "impl": "verify_sumdiff",
+   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+   "declared": true,
+   "why": "read() applies int() to JSON numbers (1.9 -> 1, 1.2 -> 1), so a certificate whose weights are not integers is decided as the law {1/2, 1/2}; sumdiff.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_sumdiff: a boolean weight (true/2)",
+   "impl": "verify_sumdiff",
+   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+   "declared": true,
+   "why": "read(): int(True) = 1; sumdiff.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_sumdiff: a non-integer coordinate (x = 0.5)",
+   "impl": "verify_sumdiff",
+   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+   "declared": true,
+   "why": "read() never checks that a coordinate is an integer (the law is taken on R^2); sumdiff.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
+   "impl": "verify_sumdiff",
+   "decided": "verdict REFUTED, -1, -1",
+   "declared": true,
+   "why": "every entropy is 0, so the ratio is 0/0; ratio() divides by the max's enclosure [-1E-1000118, 1E-1000118] without checking its sign and returns [-1, -1], and decide() says REFUTED. sumdiff.js refuses it (division by an interval containing 0)."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
+   "impl": "verify_sumdiff",
+   "decided": "verdict REFUTED, -1, -1",
+   "declared": true,
+   "why": "as the one-point law above."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
+   "impl": "verify_twolaw",
+   "decided": "verdict CERTIFIED, 0.47368421052631578947368421052631578947, 0.47368421052631578947368421052631578947",
+   "declared": true,
+   "why": "laws() applies int() to the weights; twolaw.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_twolaw: a non-integer coordinate (0.5)",
+   "impl": "verify_twolaw",
+   "decided": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000",
+   "declared": true,
+   "why": "laws() never checks that a point has integer coordinates (the injectivity bound is computed on the floats); twolaw.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_twolaw: not a 3c certificate",
+   "impl": "verify_twolaw",
+   "decided": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639",
+   "declared": true,
+   "why": "decide() never reads the certificate's problem field (twolaw.js requires 3c); main() decides only the pinned file."
+  },
+  {
+   "class": "malformed",
+   "name": "verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
+   "impl": "verify_twolaw",
+   "decided": "verdict REFUTED, -1, -1",
+   "declared": true,
+   "why": "as verify_sumdiff's one-point law: the ratio [-1, -1], REFUTED; twolaw.js refuses it."
+  },
+  {
+   "class": "malformed",
+   "name": "fei.ln_iv: k = 0 (the docstring's domain is a positive integer)",
+   "impl": "fei.ln_iv",
+   "decided": "verdict returned, -Infinity, -9.9999999999999999999999999999999999999",
+   "declared": true,
+   "why": "returns (-Infinity, -9.99...E+999999) rather than refusing; unreachable from fei.decide, which calls ln_iv only for a nonzero |a_S|."
+  }
+ ],
+ "byOp": {
+  "bf.add": {
+   "cases": 20000,
+   "contained": 20000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 20000
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.333,
+    "p99": 2.0,
+    "max": 2.0,
+    "n": 596,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "add",
+      "a": [
+       "255211775190703847597530955573826158592*2^-1081",
+       "255211775190703847597530955573826158592*2^-1081"
+      ],
+      "b": [
+       "170141183460469231731687303715884105728*2^-128",
+       "170141183460469231731687303715884105728*2^-128"
+      ]
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "57896044618658097711785492504343953926634992332820282019728792003956564819968*2^-256",
+      "57896044618658097711785492504343953926634992332820282019728792003956564819969*2^-256"
+     ]
+    }
+   }
+  },
+  "bf.digits": {
+   "cases": 1358,
+   "contained": 1358,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 472,
+    "adv": 862,
+    "real": 24
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   }
+  },
+  "bf.div": {
+   "cases": 19518,
+   "contained": 19518,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 19518
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.404,
+    "p99": 1.984,
+    "max": 1.997,
+    "n": 671,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "div",
+      "a": [
+       "-2151677*2^-357",
+       "-2151677*2^-357"
+      ],
+      "b": [
+       "-40584167698347290964472933375*2^-350",
+       "-40584167698347290964472933375*2^-350"
+      ]
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "57981441343450165819224843854370577966986802289127477651414425099261062694173*2^-336",
+      "57981441343450165819224843854370577966986802289127477651414425099261062694174*2^-336"
+     ]
+    }
+   }
+  },
+  "bf.entropy": {
+   "cases": 3048,
+   "contained": 3048,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 925,
+   "byKind": {
+    "gen": 1057,
+    "adv": 1935,
+    "real": 56
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 15.129,
+    "p99": "2^3299",
+    "max": "2^3302",
+    "n": 2920,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "H",
+      "law": "g26",
+      "form": [
+       1,
+       1
+      ]
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "66369207799357023480063566246257112308895732962281890027523001261866936455456*2^-3557",
+      "57896044618658097711785492504343953926634992332820282019728792003956564819970*2^-511"
+     ]
+    }
+   }
+  },
+  "bf.fromRatio": {
+   "cases": 40000,
+   "contained": 40000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 30145,
+    "adv": 9855
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.359,
+    "p99": 1.978,
+    "max": 2.0,
+    "n": 34537,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "rat",
+      "x": "6252655272486812203525058726494062479031037935384178748734810273851465033243368228944860978021107861122789461451053170444403767922587192864942911990230934/12505...(310 chars)...7868280565121311043044808181431812563334"
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "57897030427711512902362807887790425863014041593906403098812979241898997737333*2^-256",
+      "57897030427711512902362807887790425863014041593906403098812979241898997737334*2^-256"
+     ]
+    }
+   }
+  },
+  "bf.ln2": {
+   "cases": 14,
+   "contained": 14,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 6,
+   "byKind": {
+    "adv": 14
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.443,
+    "p99": 1.443,
+    "max": 1.443,
+    "n": 14,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "ln2"
+     },
+     "u": {
+      "b": 1024
+     },
+     "res": [
+      "1246065927941783798349421570153279732607257775498185489198890621608565422785035380172405085563193435452357764175666558329022205575224786441102170752615138368393...(317 chars)...98912695256684345870847729194438*2^-1024",
+      "1246065927941783798349421570153279732607257775498185489198890621608565422785035380172405085563193435452357764175666558329022205575224786441102170752615138368393...(317 chars)...98912695256684345870847729194439*2^-1024"
+     ]
+    }
+   }
+  },
+  "bf.log": {
+   "cases": 10000,
+   "contained": 10000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 4001,
+   "byKind": {
+    "gen": 5922,
+    "adv": 4078
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.582,
+    "p99": 4.0,
+    "max": "2^167",
+    "n": 4533,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "ln",
+      "x": [
+       "13164036458569648337239753460458804039861886925068638906788872193*2^-213",
+       "13164036458569648337239753460458804039861886925068638906788872193*2^-213"
+      ]
+     },
+     "u": {
+      "b": 1024
+     },
+     "res": [
+      "1797693134862315907729305190789024733617976978942306572734300811509046290262319923560507090887089680368438813578199034014130217699138354550410082692775615393262...(317 chars)...21158997241670387895057336238079*2^-1237",
+      "1797693134862315907729305190789024733617976978942306572734300811509046290262319923560507090887089680368438813578199034014130217699138354550410082692775615393262...(317 chars)...62885379398073909991690140822187*2^-1237"
+     ]
+    }
+   }
+  },
+  "bf.mul": {
+   "cases": 20000,
+   "contained": 20000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 20000
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.427,
+    "p99": 1.996,
+    "max": 1.997,
+    "n": 263,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "mul",
+      "a": [
+       "805841325513624094661251457513*2^-913",
+       "805841325513624094661251457513*2^-913"
+      ],
+      "b": [
+       "-1773854380396953*2^-1074",
+       "-1773854380396953*2^-1074"
+      ]
+     },
+     "u": {
+      "b": 128
+     },
+     "res": [
+      "-170403142591384527882934229307041967721*2^-1964",
+      "-170403142591384527882934229307041967720*2^-1964"
+     ]
+    }
+   }
+  },
+  "bf.plnp": {
+   "cases": 10000,
+   "contained": 10000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 3032,
+   "byKind": {
+    "gen": 7443,
+    "adv": 2557
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 4.81,
+    "p99": "2^977",
+    "max": "2^9966",
+    "n": 9673,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999...(6002 chars)...0000000000000000000000000000000000000000"
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "0*2^-2392",
+      "57896044618658097711785492504343953926634992332820282019728792003956564819969*2^-511"
+     ]
+    }
+   }
+  },
+  "bf.plnp>1": {
+   "cases": 2000,
+   "contained": 2000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 682,
+   "byKind": {
+    "beyond": 2000
+   },
+   "refusedBy": {},
+   "class": "beyond",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 5.463,
+    "p99": 91.676,
+    "max": 4394.26,
+    "n": 2000,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "beyond",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "1000455479911/1000000000000"
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "-108038102842127799500504594556831493999025948993243117157887247788641966546095*2^-267",
+      "-108038102842127799500504594556831493999025948993243117157887247788641966541995*2^-267"
+     ]
+    }
+   }
+  },
+  "bf.ratio": {
+   "cases": 682,
+   "contained": 682,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 180,
+   "byKind": {
+    "gen": 236,
+    "adv": 431,
+    "real": 15
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 32.965,
+    "p99": "2^3299",
+    "max": "2^3301",
+    "n": 585,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "rho",
+      "law": "g26"
+     },
+     "u": {
+      "b": 256
+     },
+     "res": [
+      "87036789893885728095715970855374909440267316933909189830870964069067141808410*2^-3301",
+      "77023796180266098976765146416149013383247922690836388145809220835953744825998*2^2790"
+     ]
+    }
+   }
+  },
+  "bf.sub": {
+   "cases": 20000,
+   "contained": 20000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 20000
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 1.333,
+    "p99": 2.0,
+    "max": 2.0,
+    "n": 596,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "sub",
+      "a": [
+       "-216586482813065499218946988926554*2^-518",
+       "-216586482813065499218946988926554*2^-518"
+      ],
+      "b": [
+       "170141183460469231731687303715884105728*2^-128",
+       "170141183460469231731687303715884105728*2^-128"
+      ]
+     },
+     "u": {
+      "b": 128
+     },
+     "res": [
+      "-170141183460469231731687303715884105729*2^-128",
+      "-170141183460469231731687303715884105728*2^-128"
+     ]
+    }
+   }
+  },
+  "bf.toDecimal": {
+   "cases": 679,
+   "contained": 679,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 236,
+    "adv": 431,
+    "real": 12
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   }
+  },
+  "bf.twolaw.H": {
+   "cases": 1020,
+   "contained": 1020,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 273,
+   "byKind": {
+    "gen": 1000,
+    "real": 20
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 18.287,
+    "p99": 237005743.123,
+    "max": 4538294312347.95,
+    "n": 1005,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "mixH",
+      "tl": "t54",
+      "form": [
+       1,
+       -1
+      ]
+     },
+     "u": {
+      "b": 128
+     },
+     "res": [
+      "183912073898356001140086544328736938249*2^-219",
+      "183912073898356001140086546781544371374*2^-219"
+     ]
+    }
+   }
+  },
+  "bf.twolaw.rho": {
+   "cases": 204,
+   "contained": 204,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 48,
+   "byKind": {
+    "gen": 200,
+    "real": 4
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/bigfloat (+ instruments/sumdiff, instruments/optq/twolaw.js)",
+   "widthUlps": {
+    "median": 40.454,
+    "p99": 22304259834.464,
+    "max": 4538294312361.45,
+    "n": 189,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "mixRho",
+      "tl": "t54"
+     },
+     "u": {
+      "b": 128
+     },
+     "res": [
+      "182206312609882519509435499265960159777*2^-219",
+      "182206312609882519509435501696018113341*2^-219"
+     ]
+    }
+   }
+  },
+  "fei.H": {
+   "cases": 334,
+   "contained": 308,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 26,
+   "retried": 0,
+   "byKind": {
+    "adv": 109,
+    "gen": 224,
+    "real": 1
+   },
+   "refusedBy": {
+    "ArithmeticError: a weight above 1": 22,
+    "ArithmeticError: I <= 1: the amplification rule does not apply": 4
+   },
+   "refusedOutsideRule": 26,
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 3.341,
+    "p99": 4.807,
+    "max": 12.1,
+    "n": 308,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "real",
+     "truthSpec": {
+      "t": "feiH",
+      "f": "real:c71-n18"
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "6.77660530900597808251979022189188231478723503802017057474673",
+      "6.77660530900597808251979022189188231478723503802017057474755"
+     ]
+    }
+   }
+  },
+  "fei.ctx.add": {
+   "cases": 1231,
+   "contained": 1231,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 1231
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 0.185,
+    "p99": 0.935,
+    "max": 0.987,
+    "n": 959,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "add",
+      "a": [
+       "-96880158522855368107905828585820011163846716245713716793247695955852909836305327988318145577801691940215613264337028535782834026020347878910090465066849994808902538105139440913701179808369538741E27",
+       "-96880158522855368107905828585820011163846716245713716793247695955852909836305327988318145577801691940215613264337028535782834026020347878910090465066849994808902538105139440913701179808369538741E27"
+      ],
+      "b": [
+       "10131750681691323388498820975730375337165072175641351344432933311163315645392316153469059737668843972212013441203902006294894302887731994650814485873702310E1483",
+       "10131750681691323388498820975730375337165072175641351344432933311163315645392316153469059737668843972212013441203902006294894302887731994650814485873702310E1483"
+      ]
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "1.01317506816913233884988209757303753371650721756413513444329E+1637",
+      "1.01317506816913233884988209757303753371650721756413513444330E+1637"
+     ]
+    }
+   }
+  },
+  "fei.ctx.divide": {
+   "cases": 1260,
+   "contained": 1260,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 1260
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 0.328,
+    "p99": 0.989,
+    "max": 0.999,
+    "n": 1256,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "div",
+      "a": [
+       "-992655830562231585826012042450314675473293698467523912330101451052061315694600981051365099161466279698155687938779852808957283759633981589424601E-34",
+       "-992655830562231585826012042450314675473293698467523912330101451052061315694600981051365099161466279698155687938779852808957283759633981589424601E-34"
+      ],
+      "b": [
+       "9917728781468828886264850045082778683838094314327479566758269281997366070368650765963441419506312052130830925880653469E-4785",
+       "9917728781468828886264850045082778683838094314327479566758269281997366070368650765963441419506312052130830925880653469E-4785"
+      ]
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "-1.00089027683132299849690493550410111845432652622453139361763E+4777",
+      "-1.00089027683132299849690493550410111845432652622453139361762E+4777"
+     ]
+    }
+   }
+  },
+  "fei.ctx.multiply": {
+   "cases": 1211,
+   "contained": 1211,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 1211
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 0.288,
+    "p99": 0.946,
+    "max": 0.995,
+    "n": 1152,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "mul",
+      "a": [
+       "-18285311725650199793761528042602811353032942647E1635",
+       "-18285311725650199793761528042602811353032942647E1635"
+      ],
+      "b": [
+       "-54983024419116208012727399110891168602921382772944046073885010199682710968290959588158468328572586205970710754242046864744080975019863298917374769018727191272756225441107E163",
+       "-54983024419116208012727399110891168602921382772944046073885010199682710968290959588158468328572586205970710754242046864744080975019863298917374769018727191272756225441107E163"
+      ]
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "1.00538174112257686365035767884622530132360782564795682319001E+2014",
+      "1.00538174112257686365035767884622530132360782564795682319002E+2014"
+     ]
+    }
+   }
+  },
+  "fei.ctx.subtract": {
+   "cases": 1298,
+   "contained": 1298,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 1298
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 0.184,
+    "p99": 0.904,
+    "max": 0.987,
+    "n": 1013,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "sub",
+      "a": [
+       "-101327200260340054858071425007569950412966432819911144086843159139229712356184422732258896286458079645764353264223706013470080726224548558873410956489488644025660212754671599096E0",
+       "-101327200260340054858071425007569950412966432819911144086843159139229712356184422732258896286458079645764353264223706013470080726224548558873410956489488644025660212754671599096E0"
+      ],
+      "b": [
+       "-181262835506905673014352056526759674144569209923082734E1",
+       "-181262835506905673014352056526759674144569209923082734E1"
+      ]
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "-1.01327200260340054858071425007569950412966432819911144086844E+176",
+      "-1.01327200260340054858071425007569950412966432819911144086843E+176"
+     ]
+    }
+   }
+  },
+  "fei.ln_iv": {
+   "cases": 20000,
+   "contained": 20000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 13086,
+    "adv": 6914
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 1.45,
+    "p99": 1.943,
+    "max": 2.0,
+    "n": 19059,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "lnk",
+      "k": "2433793590996965929525690794396679122563454936179679679036633040466947309377285388585851539268790165563640548934370816211387632886744417076303126293152272244794...(435 chars)...9561237231420012313141135422301780574208"
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "1000.21138154800108148906595126414878773294669388184833169613",
+      "1000.21138154800108148906595126414878773294669388184833169615"
+     ]
+    }
+   }
+  },
+  "fei.printed": {
+   "cases": 616,
+   "contained": 198,
+   "violations": 418,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "adv": 218,
+    "gen": 396,
+    "real": 2
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "decide()[\"H\"]": 202,
+    "decide()[\"ratio\"]": 216
+   },
+   "casesByName": {
+    "decide()[\"H\"]": 308,
+    "decide()[\"ratio\"]": 308
+   }
+  },
+  "fei.ratio": {
+   "cases": 334,
+   "contained": 308,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 26,
+   "retried": 0,
+   "byKind": {
+    "adv": 109,
+    "gen": 224,
+    "real": 1
+   },
+   "refusedBy": {
+    "ArithmeticError: a weight above 1": 22,
+    "ArithmeticError: I <= 1: the amplification rule does not apply": 4
+   },
+   "refusedOutsideRule": 26,
+   "class": "arith",
+   "impl": "instruments/fei/fei.py",
+   "widthUlps": {
+    "median": 4.0,
+    "p99": 5.911,
+    "max": 12.42,
+    "n": 308,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "real",
+     "truthSpec": {
+      "t": "feiRho",
+      "f": "real:c71-n18"
+     },
+     "u": {
+      "d": 60
+     },
+     "res": [
+      "6.52184571092304657565814397294857846836666229222993859825248",
+      "6.52184571092304657565814397294857846836666229222993859825329"
+     ]
+    }
+   }
+  },
+  "py.ctx.add": {
+   "cases": 4931,
+   "contained": 4931,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 4931
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.178,
+    "p99": 0.904,
+    "max": 1.0,
+    "n": 3866,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "add",
+      "a": [
+       "-407534975536275054921417108692681090164282018167760687457549451045127589263207644306019255982881201668728777003946866390167906544058669113291955712165436941859...(281 chars)...77958420959419683373048279802297237E-386",
+       "-407534975536275054921417108692681090164282018167760687457549451045127589263207644306019255982881201668728777003946866390167906544058669113291955712165436941859...(281 chars)...77958420959419683373048279802297237E-386"
+      ],
+      "b": [
+       "-1E1970",
+       "-1E1970"
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001E+1970",
+      "-1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000E+1970"
+     ]
+    }
+   }
+  },
+  "py.ctx.divide": {
+   "cases": 5017,
+   "contained": 5017,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 5017
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.31,
+    "p99": 0.983,
+    "max": 0.999,
+    "n": 5014,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "div",
+      "a": [
+       "921073091298071020106586187295075263840851351708145699664365727338145354802193057E2",
+       "921073091298071020106586187295075263840851351708145699664365727338145354802193057E2"
+      ],
+      "b": [
+       "-920576769299899764046871617284040896769462704749696239000767291223222208237809243219376881353126401476816277669381581263760786333117981150418434493480692276541...(380 chars)...3054861083348617977095114621286247238E-8",
+       "-920576769299899764046871617284040896769462704749696239000767291223222208237809243219376881353126401476816277669381581263760786333117981150418434493480692276541...(380 chars)...3054861083348617977095114621286247238E-8"
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-1.00053914243192201102740786451431593251209371897594655663233166240657757650592101551714714804489149280566617349782889586E-285",
+      "-1.00053914243192201102740786451431593251209371897594655663233166240657757650592101551714714804489149280566617349782889585E-285"
+     ]
+    }
+   }
+  },
+  "py.ctx.multiply": {
+   "cases": 5031,
+   "contained": 5031,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 5031
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.286,
+    "p99": 0.961,
+    "max": 1.0,
+    "n": 4797,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "mul",
+      "a": [
+       "13363404398457267082470700463299513672217296910703979458E2900",
+       "13363404398457267082470700463299513672217296910703979458E2900"
+      ],
+      "b": [
+       "-74848342470508977793638816580323193403821064579755984677547523448814895798920777018619433886329354006496510777918044939408323390594306074848392797695036E-4266",
+       "-74848342470508977793638816580323193403821064579755984677547523448814895798920777018619433886329354006496510777918044939408323390594306074848392797695036E-4266"
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-1.00022866898763554233525475872157554441948712833206453984420558943568952834091021053425390829410814682976042915762957414E-1159",
+      "-1.00022866898763554233525475872157554441948712833206453984420558943568952834091021053425390829410814682976042915762957413E-1159"
+     ]
+    }
+   }
+  },
+  "py.ctx.subtract": {
+   "cases": 5021,
+   "contained": 5021,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 5021
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.186,
+    "p99": 0.925,
+    "max": 1.0,
+    "n": 3943,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "range",
+      "f": "sub",
+      "a": [
+       "6661586018297291644843E-4",
+       "6661586018297291644843E-4"
+      ],
+      "b": [
+       "-10003975637683697817022590223822980344748770515521258049313537898270436197659266872387462137074850039848730815828146946294254E1",
+       "-10003975637683697817022590223822980344748770515521258049313537898270436197659266872387462137074850039848730815828146946294254E1"
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "1.00039756376836978170225902238229803447487705155212580493135378982704361976592668723874621370748500398487308824440071292E+125",
+      "1.00039756376836978170225902238229803447487705155212580493135378982704361976592668723874621370748500398487308824440071293E+125"
+     ]
+    }
+   }
+  },
+  "py.entropy": {
+   "cases": 3006,
+   "contained": 3006,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 2430,
+   "byKind": {
+    "gen": 1057,
+    "adv": 1935,
+    "real": 14
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 3.839,
+    "p99": "2^3296",
+    "max": "2^3298",
+    "n": 2878,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "H",
+      "law": "g26",
+      "form": [
+       1,
+       1
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "1.14359449747267647348466434554114068316792389407020351400872772241442856510059304260194429075798715191744211017747986217E-994",
+      "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000002E-120"
+     ]
+    }
+   }
+  },
+  "py.ln_out": {
+   "cases": 20000,
+   "contained": 20000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 19645,
+   "byKind": {
+    "gen": 14114,
+    "adv": 5886
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.565,
+    "p99": 2.0,
+    "max": 2.0,
+    "n": 12737,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "ln",
+      "x": [
+       "0.367879441171442321595523770161460867445811131031767834507836801697461495744899803357147",
+       "0.367879441171442321595523770161460867445811131031767834507836801697461495744899803357147"
+      ]
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000074574952807948187814758647458673",
+      "-1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000074574952807948187814758647458671"
+     ]
+    }
+   }
+  },
+  "py.outward": {
+   "cases": 40000,
+   "contained": 40000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "gen": 30186,
+    "adv": 9814
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.225,
+    "p99": 0.96,
+    "max": 1.0,
+    "n": 22768,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "rat",
+      "x": "14/1399960898430449046172144633341943569048234098718446473256836295"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "1.00002793047262590842916128874541704623584859094900183149843541950542901513288160481910779720813454166479781465755498406E-62",
+      "1.00002793047262590842916128874541704623584859094900183149843541950542901513288160481910779720813454166479781465755498407E-62"
+     ]
+    }
+   }
+  },
+  "py.plnp": {
+   "cases": 10000,
+   "contained": 10000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 9455,
+   "byKind": {
+    "gen": 7501,
+    "adv": 2499
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 1.404,
+    "p99": "2^937",
+    "max": "2^9962",
+    "n": 9710,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999...(6002 chars)...0000000000000000000000000000000000000000"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-1E-1000118",
+      "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001E-120"
+     ]
+    }
+   }
+  },
+  "py.plnp>1": {
+   "cases": 2000,
+   "contained": 1771,
+   "violations": 229,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 1771,
+   "byKind": {
+    "beyond": 2000
+   },
+   "refusedBy": {},
+   "class": "beyond",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 0.758,
+    "p99": 47.228,
+    "max": 669.591,
+    "n": 1771,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "beyond",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "2817474953236053864480889649007991895133732887639175821375496152735616622574335365997234479651058807693415097365402282684296105747059586334593706910345217588279...(659 chars)...2182452266003758559120741471041367254214"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "-0.00149643681131456709149893502371003285297138541093781495365748187080992304334493307806543616350129018099467530556956899777",
+      "-0.00149643681131456709149893502371003285297138541093781495365748187080992304334493307806543616350129018099467530556956898775"
+     ]
+    }
+   },
+   "violationsByName": {
+    "None": 229
+   },
+   "casesByName": {
+    "None": 2000
+   }
+  },
+  "py.printed": {
+   "cases": 5,
+   "contained": 0,
+   "violations": 5,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "real": 5
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "verify_sumdiff.py main(): \"ratio in [...]\"": 4,
+    "verify_twolaw.py main(): \"ratio in [...]\"": 1
+   },
+   "casesByName": {
+    "verify_sumdiff.py main(): \"ratio in [...]\"": 4,
+    "verify_twolaw.py main(): \"ratio in [...]\"": 1
+   }
+  },
+  "py.ratio": {
+   "cases": 670,
+   "contained": 670,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 475,
+   "byKind": {
+    "gen": 236,
+    "adv": 431,
+    "real": 3
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 8.693,
+    "p99": "2^3296",
+    "max": "2^3298",
+    "n": 573,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "adv",
+     "truthSpec": {
+      "t": "rho",
+      "law": "g26"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "1.49971345599363107128127088285026301089434841606352721329137479533999019973791536964401303774691335189303431050184806356E-874",
+      "6.66794043891173010676524872913554609560969233087506763504560391873323652411130396417832836651853699528501396701789340924E+873"
+     ]
+    }
+   }
+  },
+  "py.twolaw": {
+   "cases": 201,
+   "contained": 201,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 186,
+   "byKind": {
+    "gen": 200,
+    "real": 1
+   },
+   "refusedBy": {},
+   "class": "arith",
+   "impl": "tools/verify_sumdiff.py, tools/verify_twolaw.py",
+   "widthUlps": {
+    "median": 9.651,
+    "p99": 148427133.2,
+    "max": 2230425987.604,
+    "n": 186,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "gen",
+     "truthSpec": {
+      "t": "mixRho",
+      "tl": "t28"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "1.37710215585321380125764722955363000540318026639051879447282583693824381268646560943045073846379180225220346444935724991E-7",
+      "1.37710215585321380125764722955363000540318026639051879447282583693824381268646560943045073846379180225220346448007249427E-7"
+     ]
+    }
+   }
+  },
+  "rec.fei-ledger": {
+   "cases": 2,
+   "contained": 0,
+   "violations": 2,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "rec": 2
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "certs/*.json (recorded)",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "C71 ratio": 1,
+    "C71 H": 1
+   },
+   "casesByName": {
+    "C71 ratio": 1,
+    "C71 H": 1
+   }
+  },
+  "rec.optq-ledger": {
+   "cases": 2,
+   "contained": 1,
+   "violations": 1,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "rec": 2
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "certs/*.json (recorded)",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "optq-221-3c rhoPython (verify_twolaw.py)": 1
+   },
+   "casesByName": {
+    "optq-221-3c rho (twolaw.js)": 1,
+    "optq-221-3c rhoPython (verify_twolaw.py)": 1
+   }
+  },
+  "rec.sumdiff-ledger": {
+   "cases": 17,
+   "contained": 17,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "rec": 17
+   },
+   "refusedBy": {},
+   "class": "printed",
+   "impl": "certs/*.json (recorded)",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   }
+  },
+  "red:bf.entropy.lognearest": {
+   "cases": 4000,
+   "contained": 3200,
+   "violations": 800,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 1004,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": 1.597,
+    "p99": 34.246,
+    "max": 3369.231,
+    "n": 3200,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "red",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "365266895507088103811776546133428209227047981533/365375409332725729550921208179070754913983135744"
+     },
+     "u": {
+      "b": 128
+     },
+     "res": [
+      "206942959090553495222994639693189604776*2^-139",
+      "206942959090553495222994639693189606825*2^-139"
+     ]
+    }
+   },
+   "violationsByName": {
+    "None": 800
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:bf.fromRatio.shrunk": {
+   "cases": 4000,
+   "contained": 0,
+   "violations": 4000,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "None": 4000
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:bf.log.nearest": {
+   "cases": 4000,
+   "contained": 528,
+   "violations": 3472,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 163,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "None": 3472
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:fei.ln_iv.nearest": {
+   "cases": 4000,
+   "contained": 0,
+   "violations": 4000,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "None": 4000
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:py.entropy.lnnearest": {
+   "cases": 4000,
+   "contained": 2803,
+   "violations": 1197,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 2803,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": 0.328,
+    "p99": 0.942,
+    "max": 1.0,
+    "n": 2803,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": {
+     "kind": "red",
+     "truthSpec": {
+      "t": "plnp",
+      "q": "2796444458774269183706139420991555352052520629700050220493639941173916997012665/100000000000000000000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "u": {
+      "d": 120
+     },
+     "res": [
+      "0.100023824172884134572073862643085569050959487644332664747551018620999753295866226087699818448997792665884967294445260112",
+      "0.100023824172884134572073862643085569050959487644332664747551018620999753295866226087699818448997792665884967294445260113"
+     ]
+    }
+   },
+   "violationsByName": {
+    "None": 1197
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:py.ln_out.nearest": {
+   "cases": 4000,
+   "contained": 1,
+   "violations": 3999,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "None": 3999
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  },
+  "red:py.outward.shrunk": {
+   "cases": 4000,
+   "contained": 0,
+   "violations": 4000,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "byKind": {
+    "red": 4000
+   },
+   "refusedBy": {},
+   "class": "red",
+   "impl": "planted",
+   "widthUlps": {
+    "median": null,
+    "p99": null,
+    "max": null,
+    "n": 0,
+    "note": "the enclosure width over |value| in units of the last place at the case's precision (2^-bits, or 10^-(digits-1)); point values only, ties of width 0 left out",
+    "widest": null
+   },
+   "violationsByName": {
+    "None": 4000
+   },
+   "casesByName": {
+    "None": 4000
+   }
+  }
+ },
+ "malformed": {
+  "cases": 71,
+  "refused": 61,
+  "baselines": 5,
+  "baselinesDecided": 5,
+  "byImpl": {
+   "bigfloat": {
+    "cases": 10,
+    "refused": 10
+   },
+   "sumdiff": {
+    "cases": 15,
+    "refused": 15
+   },
+   "verify_sumdiff": {
+    "cases": 15,
+    "refused": 10
+   },
+   "twolaw": {
+    "cases": 11,
+    "refused": 11
+   },
+   "verify_twolaw": {
+    "cases": 11,
+    "refused": 7
+   },
+   "fei": {
+    "cases": 6,
+    "refused": 6
+   },
+   "fei.ln_iv": {
+    "cases": 2,
+    "refused": 1
+   },
+   "verify_sumdiff.ln_out": {
+    "cases": 1,
+    "refused": 1
+   }
+  },
+  "list": [
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.fromRatio: denominator 0",
+    "expectRefusal": true,
+    "threw": "bigfloat: division by zero",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.fromRatio: NaN",
+    "expectRefusal": true,
+    "threw": "Cannot convert NaN to a BigInt",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.fromRatio: a non-integer numerator",
+    "expectRefusal": true,
+    "threw": "The number 1.5 cannot be converted to a BigInt because it is not an integer",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.log: p = 0",
+    "expectRefusal": true,
+    "threw": "bigfloat.log: need positive interval",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.log: p < 0",
+    "expectRefusal": true,
+    "threw": "bigfloat.log: need positive interval",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.log: an interval straddling 0",
+    "expectRefusal": true,
+    "threw": "bigfloat.log: need positive interval",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.log: an inverted interval",
+    "expectRefusal": true,
+    "threw": "bigfloat: inverted interval",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.logPoint: 0",
+    "expectRefusal": true,
+    "threw": "bigfloat.log: need positive value",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.div: by an interval containing 0",
+    "expectRefusal": true,
+    "threw": "bigfloat: interval division by an interval containing 0",
+    "res": null
+   },
+   {
+    "impl": "bigfloat",
+    "name": "bigfloat.div: by exactly 0",
+    "expectRefusal": true,
+    "threw": "bigfloat: interval division by an interval containing 0",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: baseline: a valid four-point law",
+    "expectRefusal": false,
+    "threw": null,
+    "res": "verdict CERTIFIED, rho 1.067130275691..1.067130275692"
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: baseline: a valid four-point law",
+    "expectRefusal": false,
+    "threw": null,
+    "res": "verdict CERTIFIED, 1.06713027569165740086587964747775500913, 1.06713027569165740086587964747775500913"
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a weight is 0",
+    "expectRefusal": true,
+    "threw": "REFUSED: a weight is not positive",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a weight is 0",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a weight is negative (p > 1 elsewhere)",
+    "expectRefusal": true,
+    "threw": "REFUSED: a weight is not positive",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a weight is negative (p > 1 elsewhere)",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: the weights sum to 1 + 10^-320",
+    "expectRefusal": true,
+    "threw": "REFUSED: the weights sum to 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: the weights sum to 1 + 10^-320",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: the weights sum to 1 - 10^-320",
+    "expectRefusal": true,
+    "threw": "REFUSED: the weights sum to 999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: the weights sum to 1 - 10^-320",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: one weight p = 3/2 alone (p > 1)",
+    "expectRefusal": true,
+    "threw": "REFUSED: the weights sum to 3/2, not 1",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: one weight p = 3/2 alone (p > 1)",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a point listed twice",
+    "expectRefusal": true,
+    "threw": "REFUSED: a point is listed twice",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a point listed twice",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
+    "expectRefusal": true,
+    "threw": "an unsafe integer reached the reader: 1.9",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a boolean weight (true/2)",
+    "expectRefusal": true,
+    "threw": "not an integer: true",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a boolean weight (true/2)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a non-integer coordinate (x = 0.5)",
+    "expectRefusal": true,
+    "threw": "an unsafe integer reached the reader: 0.5",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a non-integer coordinate (x = 0.5)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a NaN weight",
+    "expectRefusal": true,
+    "threw": "Unexpected token 'N', ...\"0, \"num\": NaN, \"den\"\"... is not valid JSON",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a NaN weight",
+    "expectRefusal": true,
+    "threw": "ValueError: cannot convert float NaN to integer",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: an unknown problem (3a)",
+    "expectRefusal": true,
+    "threw": "not a 3b or 3c certificate: 3a",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: an unknown problem (3a)",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: not a 3b or 3c certificate",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a denominator not of the form 10^k",
+    "expectRefusal": true,
+    "threw": "denominator not of the form 10^k: 1000",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a denominator not of the form 10^k",
+    "expectRefusal": true,
+    "threw": "AttributeError: 'NoneType' object has no attribute 'group'",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: an empty law",
+    "expectRefusal": true,
+    "threw": "REFUSED: the weights sum to 0/1, not 1",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: an empty law",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the weights are not a probability law",
+    "res": null
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
+    "expectRefusal": true,
+    "threw": "bigfloat: interval division by an interval containing 0",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict REFUTED, -1, -1"
+   },
+   {
+    "impl": "sumdiff",
+    "name": "sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
+    "expectRefusal": true,
+    "threw": "bigfloat: interval division by an interval containing 0",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff",
+    "name": "verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict REFUTED, -1, -1"
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: baseline: a valid two-law certificate",
+    "expectRefusal": false,
+    "threw": null,
+    "res": "verdict CERTIFIED, rho 0.494968961125..0.494968961126"
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: baseline: a valid two-law certificate",
+    "expectRefusal": false,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639"
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a count is 0",
+    "expectRefusal": true,
+    "threw": "REFUSED: counts and laws disagree or a count is not positive",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a count is 0",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: one positive count per law is needed",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a count is negative",
+    "expectRefusal": true,
+    "threw": "REFUSED: counts and laws disagree or a count is not positive",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a count is negative",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: one positive count per law is needed",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: points and weights of unequal length",
+    "expectRefusal": true,
+    "threw": "REFUSED: points and weights of unequal length",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: points and weights of unequal length",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: a point is listed twice",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a law does not sum to 1",
+    "expectRefusal": true,
+    "threw": "REFUSED: the weights sum to 11/15, not 1",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a law does not sum to 1",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: a law is not a probability law",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a point listed twice",
+    "expectRefusal": true,
+    "threw": "REFUSED: a point is listed twice",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a point listed twice",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: a point is listed twice",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a weight is 0",
+    "expectRefusal": true,
+    "threw": "REFUSED: a weight is not positive",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a weight is 0",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: a law is not a probability law",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: the base too small for injectivity (base 2)",
+    "expectRefusal": true,
+    "threw": "verdict REFUSED: max |L| = 3 exceeds (base - 1)/2: the digit map is not shown injective, so the entropies do not add",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: the base too small for injectivity (base 2)",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: a form reaches 3 on a support, past (base-1)/2 = 0 \u2014 the digit map need not be injective",
+    "res": null
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
+    "expectRefusal": true,
+    "threw": "Cannot convert 1.9 to a BigInt",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.47368421052631578947368421052631578947, 0.47368421052631578947368421052631578947"
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: a non-integer coordinate (0.5)",
+    "expectRefusal": true,
+    "threw": "Cannot convert 0.5 to a BigInt",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: a non-integer coordinate (0.5)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.99999999999999999999999999999999999999, 1.00000000000000000000000000000000000000"
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: not a 3c certificate",
+    "expectRefusal": true,
+    "threw": "not a 3c certificate: C_3b",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: not a 3c certificate",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict CERTIFIED, 0.49496896112507365590413242725352025639, 0.49496896112507365590413242725352025639"
+   },
+   {
+    "impl": "twolaw",
+    "name": "twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
+    "expectRefusal": true,
+    "threw": "bigfloat: interval division by an interval containing 0",
+    "res": null
+   },
+   {
+    "impl": "verify_twolaw",
+    "name": "verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict REFUTED, -1, -1"
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: baseline: majority of 5, valid",
+    "expectRefusal": false,
+    "threw": null,
+    "res": "verdict CERTIFIED, 3.80042946289491307862493203667206816167, 3.80042946289491307862493203667206816167"
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: the table is not the one its sha256 binds",
+    "expectRefusal": true,
+    "threw": "verdict REFUTED",
+    "res": null
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: I misstated",
+    "expectRefusal": true,
+    "threw": "verdict REFUTED",
+    "res": null
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: unbalanced (at-least-2-of-5, monotone)",
+    "expectRefusal": true,
+    "threw": "verdict REFUTED",
+    "res": null
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: a dictator (I = 1: the rule does not apply)",
+    "expectRefusal": true,
+    "threw": "ArithmeticError: a weight above 1",
+    "res": null
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: a parity (H = 0)",
+    "expectRefusal": true,
+    "threw": "ArithmeticError: a weight above 1",
+    "res": null
+   },
+   {
+    "impl": "fei",
+    "name": "fei.decide: a mask with bits beyond 2^n inputs",
+    "expectRefusal": true,
+    "threw": "ValueError: REFUSED: the mask has bits beyond 2^n inputs",
+    "res": null
+   },
+   {
+    "impl": "fei.ln_iv",
+    "name": "fei.ln_iv: k = 0 (the docstring's domain is a positive integer)",
+    "expectRefusal": true,
+    "threw": null,
+    "res": "verdict returned, -Infinity, -9.9999999999999999999999999999999999999"
+   },
+   {
+    "impl": "fei.ln_iv",
+    "name": "fei.ln_iv: k = -3 (the docstring's domain is a positive integer)",
+    "expectRefusal": true,
+    "threw": "InvalidOperation: [<class 'decimal.InvalidOperation'>]",
+    "res": null
+   },
+   {
+    "impl": "verify_sumdiff.ln_out",
+    "name": "verify_sumdiff.ln_out: x < 0",
+    "expectRefusal": true,
+    "threw": "InvalidOperation: [<class 'decimal.InvalidOperation'>]",
+    "res": null
+   }
+  ]
+ },
+ "witnesses": {
+  "py.plnp>1": [
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "1026522160690699860868363571050822637492800282496125/9085440153435629956694098887554669040208400129868"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-534.111249212888823785329061947677819880151342131760041661884801982235241892796915272171746008378541603990828518858722707",
+     "-534.111249212888823785329061947677819880151342131760041661884801982235241892796915272171746008378541603990828518858722707"
+    ],
+    "exact": [
+     "[-534.1112492128888237853290619476778198801513421317600416618848019822352418928 +/- 1.47e-74]",
+     "[-534.1112492128888237853290619476778198801513421317600416618848019822352418928 +/- 1.47e-74]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "3509/2300"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.644469002432131723536374728661034374465279019093863019193453346962885034243261806614235360423778039948034598370869805829",
+     "-0.644469002432131723536374728661034374465279019093863019193453346962885034243261806614235360423778039948034598370869805818"
+    ],
+    "exact": [
+     "[-0.6444690024321317235363747286610343744652790190938630191934533469628850342433 +/- 5.24e-77]",
+     "[-0.6444690024321317235363747286610343744652790190938630191934533469628850342433 +/- 5.24e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "2964/1784"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.843480089456351814301966994132368851277495363436490789933497650418100507920038740117865390672069033877659672640731625497",
+     "-0.843480089456351814301966994132368851277495363436490789933497650418100507920038740117865390672069033877659672640731625488"
+    ],
+    "exact": [
+     "[-0.8434800894563518143019669941323688512774953634364907899334976504181005079200 +/- 3.92e-77]",
+     "[-0.8434800894563518143019669941323688512774953634364907899334976504181005079200 +/- 3.92e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "13145045280157602378718357175661618848834311380066020820246942375895435137103733964708758661871987568032524872815012439392/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.359464158277651879307187500607730397580776436026033954825523747469531444396875587562444793083861663973490623543304592585",
+     "-0.359464158277651879307187500607730397580776436026033954825523747469531444396875587562444793083861663973490623543304592574"
+    ],
+    "exact": [
+     "[-0.3594641582776518793071875006077303975807764360260339548255237474695314443969 +/- 3.20e-77]",
+     "[-0.3594641582776518793071875006077303975807764360260339548255237474695314443969 +/- 3.20e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "4082555480736394319644474098113714262783464655334821830694717011452965239198728662125785157574533151520555741328608324009971078104701877653575561921329281383588837548787701839869768916915227839286481725801413033783699833840018049223472611608/33968443296486032022913568815802278006856982019358100175895816624118656855313475923325841565980991472550983761312246339516615867690246505814784681676006883787357867082275702880973511754735508683343391772490048891329564116264670816202471344"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-575.579743218940859238748528110785209760669156462891762425847795676602549130362869641721381008688782203863234491641357378",
+     "-575.579743218940859238748528110785209760669156462891762425847795676602549130362869641721381008688782203863234491641357380"
+    ],
+    "exact": [
+     "[-575.5797432189408592387485281107852097606691564628917624258477956766025491304 +/- 5.17e-74]",
+     "[-575.5797432189408592387485281107852097606691564628917624258477956766025491304 +/- 5.17e-74]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "2390302688911934437156808102740162436126/1526810313632371394744359466210505753405"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.701742303650224114056018377517728572382107232604398049188486660398722787450771415971527210817881090070892889846922127901",
+     "-0.701742303650224114056018377517728572382107232604398049188486660398722787450771415971527210817881090070892889846922127892"
+    ],
+    "exact": [
+     "[-0.7017423036502241140560183775177285723821072326043980491884866603987227874508 +/- 4.36e-77]",
+     "[-0.7017423036502241140560183775177285723821072326043980491884866603987227874508 +/- 4.36e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "816854913819795282098192495934317037028442055444418904915724160671335539332276064167806391870360398877226395396199660496059618099116687927220/7169523978456236790635393718120675980632606272169644114356822439628662522356890111652600427645112717704818112416667384382767406439277872124"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-539.549948215548419341291801806145234105587820882425279501137918596240140638419486000806850487418754872536259372075412747",
+     "-539.549948215548419341291801806145234105587820882425279501137918596240140638419486000806850487418754872536259372075412747"
+    ],
+    "exact": [
+     "[-539.5499482155484193412918018061452341055878208824252795011379185962401406384 +/- 2.09e-74]",
+     "[-539.5499482155484193412918018061452341055878208824252795011379185962401406384 +/- 2.09e-74]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "36325073680210737669385242095939872747889980353395926306102655635951251745743162314072985095176045209343642099807733122194096247064455077614511580189071102586603303734510801550714794271896582589715987829407788/126508170870322552054060129981470046559864237350984402119504215365090242137467055281752692296578756982176877636058805944538549755589753250351991844314601337207136014215649013385709319450664289662696987974518"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-1625.17835640411721737612426664072783399672871847578929859336466604491549637335958624142552081753685949612825642064563239",
+     "-1625.17835640411721737612426664072783399672871847578929859336466604491549637335958624142552081753685949612825642064563238"
+    ],
+    "exact": [
+     "[-1625.178356404117217376124266640727833996728718475789298593364666044915496373 +/- 3.61e-73]",
+     "[-1625.178356404117217376124266640727833996728718475789298593364666044915496373 +/- 3.61e-73]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "15933968644505848167061415543271232706463530556109093231334648981242023035121753501101992532371266433202627151434454343542/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-808.017655240574054962595878565657622275251695165813588281829186613879391478808778467560850704775870302973703627782485598",
+     "-808.017655240574054962595878565657622275251695165813588281829186613879391478808778467560850704775870302973703627782485598"
+    ],
+    "exact": [
+     "[-808.0176552405740549625958785656576222752516951658135882818291866138793914788 +/- 1.23e-74]",
+     "[-808.0176552405740549625958785656576222752516951658135882818291866138793914788 +/- 1.23e-74]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "4020/2501"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.762837596144142231654218751908189893130631804735507195653241131203969868338828478716797037800763526621607827707709061379",
+     "-0.762837596144142231654218751908189893130631804735507195653241131203969868338828478716797037800763526621607827707709061370"
+    ],
+    "exact": [
+     "[-0.7628375961441422316542187519081898931306318047355071956532411312039698683388 +/- 3.58e-77]",
+     "[-0.7628375961441422316542187519081898931306318047355071956532411312039698683388 +/- 3.58e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "6998/4682"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-0.600702557899975923097019664352957551046394924684842363095011116902781423038260737398160159175192105011158088312596541392",
+     "-0.600702557899975923097019664352957551046394924684842363095011116902781423038260737398160159175192105011158088312596541382"
+    ],
+    "exact": [
+     "[-0.6007025578999759230970196643529575510463949246848423630950111169027814230383 +/- 5.17e-77]",
+     "[-0.6007025578999759230970196643529575510463949246848423630950111169027814230383 +/- 5.17e-77]"
+    ]
+   },
+   {
+    "kind": "beyond",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "15473071168969952859847712756647424415743685361294988803356035719644440432020985429194989402248210426636948271456509894241754011664748837016115293657088158696609020847731819319066027579708268595720383173/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-780.103703443113428404371689133322796131615966130851177384266304021376125091176715551732328947584540310691814538214454286",
+     "-780.103703443113428404371689133322796131615966130851177384266304021376125091176715551732328947584540310691814538214454286"
+    ],
+    "exact": [
+     "[-780.1037034431134284043716891333227961316159661308511773842663040213761250912 +/- 3.50e-74]",
+     "[-780.1037034431134284043716891333227961316159661308511773842663040213761250912 +/- 3.50e-74]"
+    ]
+   }
+  ],
+  "fei.printed": [
+   {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f2"
+    },
+    "inputs": {
+     "n": 8,
+     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "7.0063574474519147637191728366",
+     "7.0063574474519147637191728366"
+    ],
+    "exact": [
+     "[7.006357447451914763719172836656825781433861850569686597978495674240193918239 +/- 3.35e-76]",
+     "[7.006357447451914763719172836656825781433861850569686597978495674240193918240 +/- 2.55e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f2"
+    },
+    "inputs": {
+     "n": 8,
+     "hex": "7b4389cd3423d9e2815e4dc2af123f5f0c5f8c24e15d6431ae1aeda59978bc2c",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "2.372523156809113994063635246275327248739508",
+     "2.372523156809113994063635246275327248739508"
+    ],
+    "exact": [
+     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 5.30e-76]",
+     "[2.372523156809113994063635246275327248739508774796084350638220757414668840039 +/- 4.57e-77]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f3"
+    },
+    "inputs": {
+     "n": 9,
+     "hex": "3c395befaac72a5585181078a7269533f04462cd13ae73a97841ed33a152d432d69b2d5c9d366b8af4a4bff1f428afeb48639d9e489be76b33d641e7084c1a42",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "7.7901611782781535095750763306",
+     "7.7901611782781535095750763306"
+    ],
+    "exact": [
+     "[7.790161178278153509575076330649362875705009096843760485804321994682440717182 +/- 2.88e-76]",
+     "[7.790161178278153509575076330649362875705009096843760485804321994682440717184 +/- 1.46e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f3"
+    },
+    "inputs": {
+     "n": 9,
+     "hex": "3c395befaac72a5585181078a7269533f04462cd13ae73a97841ed33a152d432d69b2d5c9d366b8af4a4bff1f428afeb48639d9e489be76b33d641e7084c1a42",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "2.153651470452707665714059979099607879244581",
+     "2.153651470452707665714059979099607879244581"
+    ],
+    "exact": [
+     "[2.153651470452707665714059979099607879244581348587475901043095497450005209070 +/- 3.64e-76]",
+     "[2.153651470452707665714059979099607879244581348587475901043095497450005209070 +/- 3.28e-76]"
+    ]
+   },
+   {
+    "kind": "adv",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f4"
+    },
+    "inputs": {
+     "n": 7,
+     "hex": "fffefee8fee8e880fee8e880e8808000",
+     "shape": "majority"
+    },
+    "u": null,
+    "res": [
+     "4.3719873517384963314526258914",
+     "4.3719873517384963314526258914"
+    ],
+    "exact": [
+     "[4.371987351738496331452625891422827850211200948399092793664443131537601911549 +/- 2.76e-76]",
+     "[4.371987351738496331452625891422827850211200948399092793664443131537601911549 +/- 3.47e-76]"
+    ]
+   },
+   {
+    "kind": "adv",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f4"
+    },
+    "inputs": {
+     "n": 7,
+     "hex": "fffefee8fee8e880fee8e880e8808000",
+     "shape": "majority"
+    },
+    "u": null,
+    "res": [
+     "3.681673559358733752802211276987644505441011",
+     "3.681673559358733752802211276987644505441011"
+    ],
+    "exact": [
+     "[3.681673559358733752802211276987644505441011324967657089401636321294822662357 +/- 1.36e-76]",
+     "[3.681673559358733752802211276987644505441011324967657089401636321294822662357 +/- 3.14e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f5"
+    },
+    "inputs": {
+     "n": 9,
+     "hex": "f419bc485d79a5ad04a13d66b4463af246719b4045a8917b957fc17119e16cffb809a087ac35a47bfe5882ddc447b7471f4d938d1e1e6f5210b0cbe4e207e7e4",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "7.9368507044513997993943951802",
+     "7.9368507044513997993943951802"
+    ],
+    "exact": [
+     "[7.936850704451399799394395180261866937502638622798555156376982557755154626767 +/- 1.58e-76]",
+     "[7.936850704451399799394395180261866937502638622798555156376982557755154626769 +/- 1.62e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f5"
+    },
+    "inputs": {
+     "n": 9,
+     "hex": "f419bc485d79a5ad04a13d66b4463af246719b4045a8917b957fc17119e16cffb809a087ac35a47bfe5882ddc447b7471f4d938d1e1e6f5210b0cbe4e207e7e4",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "2.303666417618546880549847127150836662132285",
+     "2.303666417618546880549847127150836662132285"
+    ],
+    "exact": [
+     "[2.303666417618546880549847127150836662132285133147879954685382692500362340649 +/- 1.02e-76]",
+     "[2.303666417618546880549847127150836662132285133147879954685382692500362340650 +/- 5.14e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f6"
+    },
+    "inputs": {
+     "n": 5,
+     "hex": "17eef420",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "3.7169171866886992958645436880",
+     "3.7169171866886992958645436880"
+    ],
+    "exact": [
+     "[3.716917186688699295864543688058706427645208791345958806987278263641264493731 +/- 2.60e-76]",
+     "[3.716917186688699295864543688058706427645208791345958806987278263641264493731 +/- 5.02e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f6"
+    },
+    "inputs": {
+     "n": 5,
+     "hex": "17eef420",
+     "shape": "balanced"
+    },
+    "u": null,
+    "res": [
+     "2.703212499409963124265122682224513765560151",
+     "2.703212499409963124265122682224513765560151"
+    ],
+    "exact": [
+     "[2.703212499409963124265122682224513765560151848251606405081656919011828722714 +/- 4.26e-76]",
+     "[2.703212499409963124265122682224513765560151848251606405081656919011828722714 +/- 2.53e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"H\"]",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "f7"
+    },
+    "inputs": {
+     "n": 6,
+     "hex": "6a6c9281305a2cbd",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "5.0163996881436179833723160999",
+     "5.0163996881436179833723160999"
+    ],
+    "exact": [
+     "[5.016399688143617983372316099953537543371178964763743577264989631785253454951 +/- 2.34e-76]",
+     "[5.016399688143617983372316099953537543371178964763743577264989631785253454951 +/- 2.50e-76]"
+    ]
+   },
+   {
+    "kind": "gen",
+    "name": "decide()[\"ratio\"]",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "f7"
+    },
+    "inputs": {
+     "n": 6,
+     "hex": "6a6c9281305a2cbd",
+     "shape": "random"
+    },
+    "u": null,
+    "res": [
+     "2.169253919197240209025866421601529748484834",
+     "2.169253919197240209025866421601529748484834"
+    ],
+    "exact": [
+     "[2.169253919197240209025866421601529748484834146924862087465941462393623115654 +/- 4.39e-76]",
+     "[2.169253919197240209025866421601529748484834146924862087465941462393623115655 +/- 4.58e-76]"
+    ]
+   }
+  ],
+  "fei.H:refused": [
+   {
+    "truth": {
+     "t": "feiH",
+     "f": "f10"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiH",
+     "f": "f13"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiH",
+     "f": "f33"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiH",
+     "f": "f41"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiH",
+     "f": "f44"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   }
+  ],
+  "fei.ratio:refused": [
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f10"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f13"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f33"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f41"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   },
+   {
+    "truth": {
+     "t": "feiRho",
+     "f": "f44"
+    },
+    "threw": "ArithmeticError: a weight above 1"
+   }
+  ],
+  "red:bf.log.nearest": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "316315969414883105480512589857917908268*2^-129",
+      "316315969414883105480512589857917908269*2^-129"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-260717995516694535046961845565357529937*2^-128",
+     "-260717995516694535046961845565357529936*2^-128"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-0.7661813272189622685990190210007708832147167536547570620276378273984112015969 +/- 5.54e-77]",
+      "[-0.7661813272189622685990190210007708832147167536547570620276378273984112015968 +/- 3.61e-77]"
+     ],
+     "highEnd": [
+      "[-0.7661813272189622685990190210007708832115553577826176119231964944678282779416 +/- 9.90e-78]",
+      "[-0.7661813272189622685990190210007708832115553577826176119231964944678282779416 +/- 3.58e-77]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "339568968616848751976947029670387021557*2^-248",
+      "339568968616848751976947029670387021558*2^-248"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-221129732298659686217348437306024379522*2^-121",
+     "-221129732298659686217348437306024379522*2^-121"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-83.17976035709414087389589247984395109171735975110635115227126202969003228203 +/- 4.82e-75]",
+      "[-83.17976035709414087389589247984395109171735975110635115227126202969003228202 +/- 4.09e-75]"
+     ],
+     "highEnd": [
+      "[-83.17976035709414087389589247984395109171441484125762953400156357510603721748 +/- 3.28e-75]",
+      "[-83.17976035709414087389589247984395109171441484125762953400156357510603721748 +/- 2.26e-75]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "63119962887615803627388686956540669560261217322707462560650300701133336031722*2^-325",
+      "63119962887615803627388686956540669560261217322707462560650300701133336031723*2^-325"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "-87629127557175461752163335781720058497697107446560666284074996482173461668884*2^-250",
+     "-87629127557175461752163335781720058497697107446560666284074996482173461668884*2^-250"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-48.43391461885688240170934290647491772287465904778621374066473679846460512753 +/- 3.03e-75]",
+      "[-48.43391461885688240170934290647491772287465904778621374066473679846460512753 +/- 3.03e-75]"
+     ],
+     "highEnd": [
+      "[-48.43391461885688240170934290647491772287465904778621374066473679846460512753 +/- 3.03e-75]",
+      "[-48.43391461885688240170934290647491772287465904778621374066473679846460512753 +/- 3.03e-75]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "238006068088447400803866926965071518675*2^-213",
+      "238006068088447400803866926965071518676*2^-213"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-315159904322923680825895875829488403736*2^-122",
+     "-315159904322923680825895875829488403736*2^-122"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-59.27498994196630634070500585096610329531364449366150536336188573259695069916 +/- 4.14e-75]",
+      "[-59.27498994196630634070500585096610329531364449366150536336188573259695069916 +/- 2.49e-75]"
+     ],
+     "highEnd": [
+      "[-59.27498994196630634070500585096610329530944292011326968669681737057898699133 +/- 1.70e-75]",
+      "[-59.27498994196630634070500585096610329530944292011326968669681737057898699133 +/- 1.07e-75]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "114881667610660714337893299321915614063205370834187322728747178662319843809895*2^-288",
+      "114881667610660714337893299321915614063205370834187322728747178662319843809896*2^-288"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "-80289523299071154987865776646794488828745917991397852602886052378019897711893*2^-251",
+     "-80289523299071154987865776646794488828745917991397852602886052378019897711893*2^-251"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-22.18860340540675466765335589788153575710693572220324789698728261890522353624 +/- 4.38e-75]",
+      "[-22.18860340540675466765335589788153575710693572220324789698728261890522353624 +/- 4.38e-75]"
+     ],
+     "highEnd": [
+      "[-22.18860340540675466765335589788153575710693572220324789698728261890522353624 +/- 4.38e-75]",
+      "[-22.18860340540675466765335589788153575710693572220324789698728261890522353624 +/- 4.38e-75]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "86422084095489638566863475691615464753460979808757971994463969405322918914937*2^-264",
+      "86422084095489638566863475691615464753460979808757971994463969405322918914938*2^-264"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "-84495375610204536509086513469776869411260654270746826264199290475309610862806*2^-253",
+     "-84495375610204536509086513469776869411260654270746826264199290475309610862806*2^-253"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-5.837730447165939915316058230329539188911254188745583565378170449812739588256 +/- 2.19e-76]",
+      "[-5.837730447165939915316058230329539188911254188745583565378170449812739588256 +/- 2.19e-76]"
+     ],
+     "highEnd": [
+      "[-5.837730447165939915316058230329539188911254188745583565378170449812739588256 +/- 2.19e-76]",
+      "[-5.837730447165939915316058230329539188911254188745583565378170449812739588256 +/- 2.19e-76]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "9864913777202631004191492452037958481116601399634142901551142193487379953518322180309603381203181065163809716068108290291649079400145911075073733320973205*2^-513",
+      "9864913777202631004191492452037958481116601399634142901551142193487379953518322180309603381203181065163809716068108290291649079400145911075073733320973206*2^-513"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 512
+    },
+    "res": [
+     "-6703903964971298549787012499102923063739682910296196688861780721860882015036773488400942148516669881358321036812891755334043048731962361252374825863172879*2^-511",
+     "-6703903964971298549787012499102923063739682910296196688861780721860882015036773488400942148516669881358321036812891755334043048731962361252374825863172878*2^-511"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]",
+      "[-1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]"
+     ],
+     "highEnd": [
+      "[-1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]",
+      "[-1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "226854911280625642308916404954512140970*2^-128",
+      "226854911280625642308916404954512140971*2^-128"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-275945253381800746931100083792632679439*2^-129",
+     "-275945253381800746931100083792632679436*2^-129"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-0.4054651081081643819780131154643491365749291593395499163839361654871562854435 +/- 3.71e-77]",
+      "[-0.4054651081081643819780131154643491365749291593395499163839361654871562854435 +/- 5.00e-77]"
+     ],
+     "highEnd": [
+      "[-0.4054651081081643819780131154643491365705210555239663382290534034725728641516 +/- 4.74e-77]",
+      "[-0.4054651081081643819780131154643491365705210555239663382290534034725728641516 +/- 3.44e-77]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "328902913442460478169561648607189123478*2^-135",
+      "328902913442460478169561648607189123479*2^-135"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-207829302331084495068800973431099429545*2^-125",
+     "-207829302331084495068800973431099429545*2^-125"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-4.886043416510541848453740045455312500287699018834235730100987585108158832900 +/- 2.80e-76]",
+      "[-4.886043416510541848453740045455312500287699018834235730100987585108158832900 +/- 7.24e-77]"
+     ],
+     "highEnd": [
+      "[-4.886043416510541848453740045455312500284658607943576521061124251486493035625 +/- 3.32e-76]",
+      "[-4.886043416510541848453740045455312500284658607943576521061124251486493035625 +/- 1.25e-76]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "231205168481742256834400823555394275292*2^-1187",
+      "231205168481742256834400823555394275293*2^-1187"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-244056008080884982831985535347056993078*2^-118",
+     "-244056008080884982831985535347056993078*2^-118"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-734.4293344852962483416953219210314171325316816995265332298648918608052093531 +/- 5.15e-74]",
+      "[-734.4293344852962483416953219210314171325316816995265332298648918608052093531 +/- 2.49e-74]"
+     ],
+     "highEnd": [
+      "[-734.4293344852962483416953219210314171325273565367000847038578502224059618835 +/- 1.90e-74]",
+      "[-734.4293344852962483416953219210314171325273565367000847038578502224059618835 +/- 2.53e-74]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "280607665023146190044418994188891372912*2^-299",
+      "280607665023146190044418994188891372913*2^-299"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-315614516970953661587646093673607217412*2^-121",
+     "-315614516970953661587646093673607217412*2^-121"
+    ],
+    "exact": {
+     "lowEnd": [
+      "[-118.7209861557955257430054415935476923262178379042067422787804231011320863076 +/- 1.83e-74]",
+      "[-118.7209861557955257430054415935476923262178379042067422787804231011320863076 +/- 2.17e-74]"
+     ],
+     "highEnd": [
+      "[-118.7209861557955257430054415935476923262142742096800175221732784852521398193 +/- 2.36e-74]",
+      "[-118.7209861557955257430054415935476923262142742096800175221732784852521398193 +/- 2.69e-74]"
+     ]
+    }
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "259199459178058595216242376754667192320*2^-137",
+      "259199459178058595216242376754667192320*2^-137"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "-276926150534073820676495758538561007167*2^-125",
+     "-276926150534073820676495758538561007167*2^-125"
+    ],
+    "exact": [
+     "[-6.510502510955323458043454053074969708305142427272865029985172425612553625234 +/- 2.48e-76]",
+     "[-6.510502510955323458043454053074969708305142427272865029985172425612553625234 +/- 9.84e-77]"
+    ]
+   }
+  ],
+  "red:bf.fromRatio.shrunk": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "46478454390258820827959487357863771427483240460665898803396268656525959014940046911124877128076008230624459607233045820281027820166344035195315320744757245217470877960488229287232140513032719184112583/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "316315969414883105480512589857917908269*2^-129",
+     "316315969414883105480512589857917908268*2^-129"
+    ],
+    "exact": [
+     "[0.4647845439025882082795948735786377142748324046066589880339626865652595901494 +/- 8.01e-78]",
+     "[0.4647845439025882082795948735786377142748324046066589880339626865652595901494 +/- 8.01e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "688237995751/291604108606315264753792167110718531376"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "84579188666035603679924739326835693518442302019554072747022302806421658974227*2^-344",
+     "84579188666035603679924739326835693518442302019554072747022302806421658974226*2^-344"
+    ],
+    "exact": [
+     "[2.360179350834067234857367635810277232629019872244055308626448484637086175769e-27 +/- 1.85e-103]",
+     "[2.360179350834067234857367635810277232629019872244055308626448484637086175769e-27 +/- 1.85e-103]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "2039011266872357103060749121126929029489880009872535621152288099737411887261237455473134727727728494556072/2716004934635388640538330430077590908298731556834700305690944709228448877027556801358482050575068404006836890373289431035418037741465654904681"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "339568968616848751976947029670387021558*2^-248",
+     "339568968616848751976947029670387021557*2^-248"
+    ],
+    "exact": [
+     "[7.507391613579984637563269568451991341729249757200349554824652302055023251135e-37 +/- 5.19e-113]",
+     "[7.507391613579984637563269568451991341729249757200349554824652302055023251135e-37 +/- 5.19e-113]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "923460118/1000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "63119962887615803627388686956540669560261217322707462560650300701133336031723*2^-325",
+     "63119962887615803627388686956540669560261217322707462560650300701133336031722*2^-325"
+    ],
+    "exact": [
+     "[9.234601180000000000000000000000000000000000000000000000000000000000000000000e-22 +/- 1.73e-98]",
+     "[9.234601180000000000000000000000000000000000000000000000000000000000000000000e-22 +/- 1.73e-98]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "180800219474861732690153553207974663325847708790094484833525191608033351280/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "238006068088447400803866926965071518676*2^-213",
+     "238006068088447400803866926965071518675*2^-213"
+    ],
+    "exact": [
+     "[1.808002194748617326901535532079746633258477087900944848335251916080333512800e-26 +/- 3.45e-103]",
+     "[1.808002194748617326901535532079746633258477087900944848335251916080333512800e-26 +/- 3.45e-103]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "231/1000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "114881667610660714337893299321915614063205370834187322728747178662319843809896*2^-288",
+     "114881667610660714337893299321915614063205370834187322728747178662319843809895*2^-288"
+    ],
+    "exact": [
+     "[2.310000000000000000000000000000000000000000000000000000000000000000000000000e-10 +/- 2.44e-87]",
+     "[2.310000000000000000000000000000000000000000000000000000000000000000000000000e-10 +/- 2.44e-87]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "12341586/100000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "184701421017703923944056236849803473792*2^-170",
+     "184701421017703923944056236849803473791*2^-170"
+    ],
+    "exact": [
+     "[1.234158600000000000000000000000000000000000000000000000000000000000000000000e-13 +/- 2.95e-90]",
+     "[1.234158600000000000000000000000000000000000000000000000000000000000000000000e-13 +/- 2.95e-90]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "1/343"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "86422084095489638566863475691615464753460979808757971994463969405322918914938*2^-264",
+     "86422084095489638566863475691615464753460979808757971994463969405322918914937*2^-264"
+    ],
+    "exact": [
+     "[0.002915451895043731778425655976676384839650145772594752186588921282798833819242 +/- 7.34e-80]",
+     "[0.002915451895043731778425655976676384839650145772594752186588921282798833819242 +/- 7.34e-80]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "367879441171442321595523770161460867445811131031767834507836801697461495744899803357147/1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 512
+    },
+    "res": [
+     "9864913777202631004191492452037958481116601399634142901551142193487379953518322180309603381203181065163809716068108290291649079400145911075073733320973206*2^-513",
+     "9864913777202631004191492452037958481116601399634142901551142193487379953518322180309603381203181065163809716068108290291649079400145911075073733320973205*2^-513"
+    ],
+    "exact": [
+     "[0.3678794411714423215955237701614608674458111310317678345078368016974614957449 +/- 6.19e-78]",
+     "[0.3678794411714423215955237701614608674458111310317678345078368016974614957449 +/- 6.19e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "2/3"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "226854911280625642308916404954512140971*2^-128",
+     "226854911280625642308916404954512140970*2^-128"
+    ],
+    "exact": [
+     "[0.6666666666666666666666666666666666666666666666666666666666666666666666666667 +/- 4.78e-77]",
+     "[0.6666666666666666666666666666666666666666666666666666666666666666666666666667 +/- 4.78e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "28/3708"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "328902913442460478169561648607189123479*2^-135",
+     "328902913442460478169561648607189123478*2^-135"
+    ],
+    "exact": [
+     "[0.007551240560949298813376483279395900755124056094929881337648327939590075512406 +/- 4.84e-79]",
+     "[0.007551240560949298813376483279395900755124056094929881337648327939590075512406 +/- 4.84e-79]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "11/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "231205168481742256834400823555394275293*2^-1187",
+     "231205168481742256834400823555394275292*2^-1187"
+    ],
+    "exact": [
+     "[1.100000000000000000000000000000000000000000000000000000000000000000000000000e-319 +/- 1.98e-396]",
+     "[1.100000000000000000000000000000000000000000000000000000000000000000000000000e-319 +/- 1.98e-396]"
+    ]
+   }
+  ],
+  "red:bf.entropy.lognearest": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "2/4"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "235865763225513294137944142764154484399*2^-129",
+     "235865763225513294137944142764154484399*2^-129"
+    ],
+    "exact": [
+     "[0.3465735902799726547086160607290882840377500671801276270603400047466968109848 +/- 4.78e-77]",
+     "[0.3465735902799726547086160607290882840377500671801276270603400047466968109848 +/- 5.21e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "16/64"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "235865763225513294137944142764154484399*2^-129",
+     "235865763225513294137944142764154484399*2^-129"
+    ],
+    "exact": [
+     "[0.3465735902799726547086160607290882840377500671801276270603400047466968109848 +/- 4.78e-77]",
+     "[0.3465735902799726547086160607290882840377500671801276270603400047466968109848 +/- 5.21e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "33302310241550673277340940145593711792105904919031221779130/200867255532373784442745261542645325315275374222849104412672"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "68996396338073609736029655549647522323359533810092105554456266268274958845117*2^-257",
+     "68996396338073609736029655549647522323359533810092105554456266268274958845118*2^-257"
+    ],
+    "exact": [
+     "[0.2979322542348523982413993916754961250410219291030783829683648528568117330268 +/- 2.79e-77]",
+     "[0.2979322542348523982413993916754961250410219291030783829683648528568117330268 +/- 2.79e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "59/64"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "204143589649150481894930110704955267544*2^-131",
+     "204143589649150481894930110704955267545*2^-131"
+    ],
+    "exact": [
+     "[0.07499051137161237417739373354269289498421229676614910496110247240888336618143 +/- 1.18e-78]",
+     "[0.07499051137161237417739373354269289498421229676614910496110247240888336618143 +/- 4.42e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "175167519748937096288200569203985215949287505/178405961588244985132285746181186892047843328"
+    },
+    "inputs": null,
+    "u": {
+     "b": 512
+    },
+    "res": [
+     "7717036137261697628327167887301458479525597719494126167040833835963136928587466547944632176009454153645501767247018698261447788057021484414198491461309223*2^-517",
+     "7717036137261697628327167887301458479525597719494126167040833835963136928587466547944632176009454153645501767247018698261447788057021484414198491461309224*2^-517"
+    ],
+    "exact": [
+     "[0.01798633904583838403139327216333471953585573100328839458282587586344404080317 +/- 3.60e-78]",
+     "[0.01798633904583838403139327216333471953585573100328839458282587586344404080317 +/- 3.60e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "135434742990/274877906944"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "80766722746048660085599885067499735762081904598545856726980128945658090637226*2^-257",
+     "80766722746048660085599885067499735762081904598545856726980128945658090637227*2^-257"
+    ],
+    "exact": [
+     "[0.3487575156387283358022876227251557613588013358967198864835771491039565501686 +/- 1.81e-77]",
+     "[0.3487575156387283358022876227251557613588013358967198864835771491039565501686 +/- 1.81e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "819614/1048576"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "262101786085233170828772044676419695829*2^-130",
+     "262101786085233170828772044676419695830*2^-130"
+    ],
+    "exact": [
+     "[0.1925619805522645220349922538509684856358531030553565222488166107989104796498 +/- 4.02e-77]",
+     "[0.1925619805522645220349922538509684856358531030553565222488166107989104796498 +/- 4.67e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "6/16"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "250319174820094661107753682723994471810*2^-129",
+     "250319174820094661107753682723994471810*2^-129"
+    ],
+    "exact": [
+     "[0.3678109698793973388211691727945014998421286919717561164852546355660074647589 +/- 2.27e-77]",
+     "[0.3678109698793973388211691727945014998421286919717561164852546355660074647589 +/- 3.56e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "12175/65536"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "212812952688127800219032587808738673131*2^-129",
+     "212812952688127800219032587808738673132*2^-129"
+    ],
+    "exact": [
+     "[0.3127005295833812172059885120471150957382817585893217446826965126983539786976 +/- 3.45e-77]",
+     "[0.3127005295833812172059885120471150957382817585893217446826965126983539786976 +/- 4.75e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "9851440949435456908754598991/79228162514264337593543950336"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "176415246922811746229965052854908157410*2^-129",
+     "176415246922811746229965052854908157411*2^-129"
+    ],
+    "exact": [
+     "[0.2592189076958551844585073849792032553612638753207209007059866624811017696458 +/- 2.36e-77]",
+     "[0.2592189076958551844585073849792032553612638753207209007059866624811017696458 +/- 3.66e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "935417267892922802350647003031977882406341205067452/23945242826029513411849172299223580994042798784118784"
+    },
+    "inputs": null,
+    "u": {
+     "b": 256
+    },
+    "res": [
+     "58669086012834197426588497447221040116445342239972561656610170875180068842955*2^-258",
+     "58669086012834197426588497447221040116445342239972561656610170875180068842956*2^-258"
+    ],
+    "exact": [
+     "[0.1266690289450425005236018210528433984535583383061227690810520564973055244526 +/- 2.55e-77]",
+     "[0.1266690289450425005236018210528433984535583383061227690810520564973055244526 +/- 2.55e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "4339486096884/8796093022208"
+    },
+    "inputs": null,
+    "u": {
+     "b": 128
+    },
+    "res": [
+     "237225780975598183144785369955931324572*2^-129",
+     "237225780975598183144785369955931324573*2^-129"
+    ],
+    "exact": [
+     "[0.3485719567577761855266529672498198410817585921975776695725394572903986392525 +/- 4.25e-77]",
+     "[0.3485719567577761855266529672498198410817585921975776695725394572903986392526 +/- 5.33e-77]"
+    ]
+   }
+  ],
+  "red:py.ln_out.nearest": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "76148631341079004382691161528923E-1518",
+      "76148631341079004382691161528923E-1518"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-3421.91393126915692559534687166191422839325695616257151220984463949579965547107488156340439599384651891244060490258933632",
+     "-3421.91393126915692559534687166191422839325695616257151220984463949579965547107488156340439599384651891244060490258933632"
+    ],
+    "exact": [
+     "[-3421.913931269156925595346871661914228393256956162571512209844639495799655471 +/- 1.08e-73]",
+     "[-3421.913931269156925595346871661914228393256956162571512209844639495799655471 +/- 1.08e-73]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "466220895551192862E1",
+      "466220895551192862E1"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "42.9860210345040862900761516528555873472933434244417950067263211304792842977473186092251132918288632092844104924054859014",
+     "42.9860210345040862900761516528555873472933434244417950067263211304792842977473186092251132918288632092844104924054859014"
+    ],
+    "exact": [
+     "[42.98602103450408629007615165285558734729334342444179500672632113047928429775 +/- 3.56e-75]",
+     "[42.98602103450408629007615165285558734729334342444179500672632113047928429775 +/- 3.56e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "874526824153493478153914486549478E-32",
+      "874526824153493478153914486549478E-32"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "2.16851278170338852374209192024994719545300485172797759120132518165827582029977426149254796484360151303767655723696808618",
+     "2.16851278170338852374209192024994719545300485172797759120132518165827582029977426149254796484360151303767655723696808618"
+    ],
+    "exact": [
+     "[2.168512781703388523742091920249947195453004851727977591201325181658275820300 +/- 2.81e-76]",
+     "[2.168512781703388523742091920249947195453004851727977591201325181658275820300 +/- 2.81e-76]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "6661099935895286811588988109842102229435356329355385451093027299562526997734078862215008336483808407292002227358E-2",
+      "6661099935895286811588988109842102229435356329355385451093027299562526997734078862215008336483808407292002227358E-2"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "252.878059762806435439942746862955792364171999933903257961722576721970084481368640405810825235015098044193058812557319075",
+     "252.878059762806435439942746862955792364171999933903257961722576721970084481368640405810825235015098044193058812557319075"
+    ],
+    "exact": [
+     "[252.8780597628064354399427468629557923641719999339032579617225767219700844814 +/- 3.49e-74]",
+     "[252.8780597628064354399427468629557923641719999339032579617225767219700844814 +/- 3.49e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "5063864465511E21",
+      "5063864465511E21"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "77.6074379889726385181104173693097818667255996214647794258740553924345855399403941042989973297616226686390812825213466841",
+     "77.6074379889726385181104173693097818667255996214647794258740553924345855399403941042989973297616226686390812825213466841"
+    ],
+    "exact": [
+     "[77.60743798897263851811041736930978186672559962146477942587405539243458553994 +/- 1.14e-75]",
+     "[77.60743798897263851811041736930978186672559962146477942587405539243458553994 +/- 1.14e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "41705998397045878451946963209275628627710337764267177583700985641482509885604687427280730516957E16",
+      "41705998397045878451946963209275628627710337764267177583700985641482509885604687427280730516957E16"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "254.712420101262766026348875907906334648685171276122641262543247092641852738654463130834247475672049678245569150860873984",
+     "254.712420101262766026348875907906334648685171276122641262543247092641852738654463130834247475672049678245569150860873984"
+    ],
+    "exact": [
+     "[254.7124201012627660263488759079063346486851712761226412625432470926418527387 +/- 4.86e-74]",
+     "[254.7124201012627660263488759079063346486851712761226412625432470926418527387 +/- 4.86e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "942053817453026642524621213185830481924189444472191278534E8",
+      "942053817453026642524621213185830481924189444472191278534E8"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "149.608338169629447357590349479250285524908275122805833576849596832833032247962197718182734125472496936651231593061946427",
+     "149.608338169629447357590349479250285524908275122805833576849596832833032247962197718182734125472496936651231593061946427"
+    ],
+    "exact": [
+     "[149.6083381696294473575903494792502855249082751228058335768495968328330322480 +/- 4.12e-74]",
+     "[149.6083381696294473575903494792502855249082751228058335768495968328330322480 +/- 4.12e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "88261027603652380503844E-305",
+      "88261027603652380503844E-305"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-649.453867763620640455679009451575402298608191217886162252449689435893911555453241021679916068579146021239271698075960963",
+     "-649.453867763620640455679009451575402298608191217886162252449689435893911555453241021679916068579146021239271698075960963"
+    ],
+    "exact": [
+     "[-649.4538677636206404556790094515754022986081912178861622524496894358939115554 +/- 5.53e-74]",
+     "[-649.4538677636206404556790094515754022986081912178861622524496894358939115554 +/- 5.53e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "2770715899449557375006272826999850930471508970673268419847881402811770665562375370888449752785121472E-359",
+      "2770715899449557375006272826999850930471508970673268419847881402811770665562375370888449752785121472E-359"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-597.653018444189707058190486826422234580367191938865922618793064555350327581355591145000222521233993549599978260178209383",
+     "-597.653018444189707058190486826422234580367191938865922618793064555350327581355591145000222521233993549599978260178209383"
+    ],
+    "exact": [
+     "[-597.6530184441897070581904868264222345803671919388659226187930645553503275814 +/- 5.69e-74]",
+     "[-597.6530184441897070581904868264222345803671919388659226187930645553503275814 +/- 5.69e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "677956654212453323400250916814183517975103532145534708769346511004979686125296E-312",
+      "677956654212453323400250916814183517975103532145534708769346511004979686125296E-312"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-539.193583685532198080918995519748773251704280622990996426057990393449894350185301872497582753573070361879324565234295252",
+     "-539.193583685532198080918995519748773251704280622990996426057990393449894350185301872497582753573070361879324565234295252"
+    ],
+    "exact": [
+     "[-539.1935836855321980809189955197487732517042806229909964260579903934498943502 +/- 2.52e-74]",
+     "[-539.1935836855321980809189955197487732517042806229909964260579903934498943502 +/- 2.52e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "158523120927283159948377168358868829744972E-1356",
+      "158523120927283159948377168358868829744972E-1356"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "-3027.43866701712106092757639994017567393337429567509915792655391378632431721167530747119639135676145054159313241925964470",
+     "-3027.43866701712106092757639994017567393337429567509915792655391378632431721167530747119639135676145054159313241925964470"
+    ],
+    "exact": [
+     "[-3027.438667017121060927576399940175673933374295675099157926553913786324317212 +/- 3.76e-73]",
+     "[-3027.438667017121060927576399940175673933374295675099157926553913786324317212 +/- 3.76e-73]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "ln",
+     "x": [
+      "282736225E4729",
+      "282736225E4729"
+     ]
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "10908.3849297226670679041996124614705259558114087273757032069874156779468850488739610318433905813423595149600567943798151",
+     "10908.3849297226670679041996124614705259558114087273757032069874156779468850488739610318433905813423595149600567943798151"
+    ],
+    "exact": [
+     "[10908.38492972266706790419961246147052595581140872737570320698741567794688505 +/- 1.34e-72]",
+     "[10908.38492972266706790419961246147052595581140872737570320698741567794688505 +/- 1.34e-72]"
+    ]
+   }
+  ],
+  "red:py.outward.shrunk": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "7693/1000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.00769300000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+     "0.00769299999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+    ],
+    "exact": [
+     "[0.007693000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.04e-79]",
+     "[0.007693000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.04e-79]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "1450540931890952402686530977538749433232035019728579939915197882076904670104511831033399605290662482311313674329025215021582363756428594712687137880453918959676527082311210390489716019783502728366854809354155095058532105023165558533809553417051941173744447071946694085303316578/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "1.45054093189095240268653097753874943323203501972857993991519788207690467010451183103339960529066248231131367432902521503E-224",
+     "1.45054093189095240268653097753874943323203501972857993991519788207690467010451183103339960529066248231131367432902521502E-224"
+    ],
+    "exact": [
+     "[1.450540931890952402686530977538749433232035019728579939915197882076904670105e-224 +/- 5.14e-300]",
+     "[1.450540931890952402686530977538749433232035019728579939915197882076904670105e-224 +/- 5.14e-300]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "3/4898883310657342436947850401401639604522231782621865961233415550616320366316550245614411808808882209683752589725123921141977824503727074585042721378292777435812376133285876920625254286345394996247527424"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "6.12384457795434549381777580960035556731040232476974825357814675678670802521203105787042647134243847013234885665397883338E-202",
+     "6.12384457795434549381777580960035556731040232476974825357814675678670802521203105787042647134243847013234885665397883337E-202"
+    ],
+    "exact": [
+     "[6.123844577954345493817775809600355567310402324769748253578146756786708025212e-202 +/- 3.11e-279]",
+     "[6.123844577954345493817775809600355567310402324769748253578146756786708025212e-202 +/- 3.11e-279]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "1/1"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+     "0.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+    ],
+    "exact": [
+     "1.000000000000000000000000000000000000000000000000000000000000000000000000000",
+     "1.000000000000000000000000000000000000000000000000000000000000000000000000000"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999198/1000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999199",
+     "0.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999197"
+    ],
+    "exact": [
+     "[1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]",
+     "[1.000000000000000000000000000000000000000000000000000000000000000000000000000 +/- 1.73e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "886/1232"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.719155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844156",
+     "0.719155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155844155"
+    ],
+    "exact": [
+     "[0.7191558441558441558441558441558441558441558441558441558441558441558441558442 +/- 5.80e-77]",
+     "[0.7191558441558441558441558441558441558441558441558441558441558441558441558442 +/- 5.80e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "118101233023/100000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "1.18101233023000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001E-39",
+     "1.18101233022999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E-39"
+    ],
+    "exact": [
+     "[1.181012330230000000000000000000000000000000000000000000000000000000000000000e-39 +/- 1.69e-116]",
+     "[1.181012330230000000000000000000000000000000000000000000000000000000000000000e-39 +/- 1.69e-116]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "14884040661278599171637949/1000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "1.48840406612785991716379490000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001E-35",
+     "1.48840406612785991716379489999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E-35"
+    ],
+    "exact": [
+     "[1.488404066127859917163794900000000000000000000000000000000000000000000000000e-35 +/- 2.14e-112]",
+     "[1.488404066127859917163794900000000000000000000000000000000000000000000000000e-35 +/- 2.14e-112]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "519328853665809899867544937888797036010007308576883747437520760220119929782391548049354637409081836949667673285903/544968038021141566768167325722350703810468084096589387850058337843088699563231803571954387090702964841924240763622092636227253906312509940308524341885675402490290904565281336870923106819918168304868110524576608298030045778251000115475737380953696815842467830747883698912691574179118"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "9.52952865917731093113810870614775248006287446364885988429786503128196039692710120460970192205388552985682129351450205938E-169",
+     "9.52952865917731093113810870614775248006287446364885988429786503128196039692710120460970192205388552985682129351450205937E-169"
+    ],
+    "exact": [
+     "[9.529528659177310931138108706147752480062874463648859884297865031281960396927e-169 +/- 1.86e-245]",
+     "[9.529528659177310931138108706147752480062874463648859884297865031281960396927e-169 +/- 1.86e-245]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "3410028805391634619192521578277746655171137512478728580625565423958128258414735489197442277737958890649047142922682023/582200484087319689914533020275532186458706437706548671998992883315513427081976757876400915328604402150542268281222144520222953449892808890671715089646087303193104205271558428679509498179682367896121389241907311612130423155159060125415199494676656080896860742569774481958"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "5.85713838891310696898376602644302023472234647176486189533536285541600347137533585004863633315271954952196800436162123958E-153",
+     "5.85713838891310696898376602644302023472234647176486189533536285541600347137533585004863633315271954952196800436162123957E-153"
+    ],
+    "exact": [
+     "[5.857138388913106968983766026443020234722346471764861895335362855416003471375e-153 +/- 4.11e-229]",
+     "[5.857138388913106968983766026443020234722346471764861895335362855416003471375e-153 +/- 4.11e-229]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "1/1"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "1.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001",
+     "0.999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
+    ],
+    "exact": [
+     "1.000000000000000000000000000000000000000000000000000000000000000000000000000",
+     "1.000000000000000000000000000000000000000000000000000000000000000000000000000"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "rat",
+     "x": "7/100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "7.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001E-320",
+     "6.99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999E-320"
+    ],
+    "exact": [
+     "[7.000000000000000000000000000000000000000000000000000000000000000000000000000e-320 +/- 1.39e-396]",
+     "[7.000000000000000000000000000000000000000000000000000000000000000000000000000e-320 +/- 1.39e-396]"
+    ]
+   }
+  ],
+  "red:fei.ln_iv.nearest": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "8589455432424813760396416455852803850"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "85.0435986862454302851154720373280320414694283894522972868914",
+     "85.0435986862454302851154720373280320414694283894522972868914"
+    ],
+    "exact": [
+     "[85.04359868624543028511547203732803204146942838945229728689136821335307259726 +/- 3.03e-75]",
+     "[85.04359868624543028511547203732803204146942838945229728689136821335307259726 +/- 2.51e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "6631321171065147430211833038104"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "70.9693568458210512778087710376374000143980570132702940839595",
+     "70.9693568458210512778087710376374000143980570132702940839595"
+    ],
+    "exact": [
+     "[70.96935684582105127780877103763740001439805701327029408395948903349137651916 +/- 1.32e-75]",
+     "[70.96935684582105127780877103763740001439805701327029408395948903349137651916 +/- 4.22e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "166129959689361017556511139454285571"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "81.0980784405567142220515787673408139641370396209795231953831",
+     "81.0980784405567142220515787673408139641370396209795231953831"
+    ],
+    "exact": [
+     "[81.09807844055671422205157876734081396413703962097952319538308127343106678497 +/- 1.51e-75]",
+     "[81.09807844055671422205157876734081396413703962097952319538308127343106678497 +/- 4.83e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "20750726403102492735"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "44.4791129273352190297267139478244717127919430032373565982970",
+     "44.4791129273352190297267139478244717127919430032373565982970"
+    ],
+    "exact": [
+     "[44.47911292733521902972671394782447171279194300323735659829700779247295324516 +/- 2.88e-75]",
+     "[44.47911292733521902972671394782447171279194300323735659829700779247295324516 +/- 4.54e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "31477927442887402255849290645924808123106753168520649445"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "127.788881605794971235420966966178061208535745706670487387659",
+     "127.788881605794971235420966966178061208535745706670487387659"
+    ],
+    "exact": [
+     "[127.7888816057949712354209669661780612085357457066704873876592627482502547991 +/- 4.47e-74]",
+     "[127.7888816057949712354209669661780612085357457066704873876592627482502547991 +/- 4.14e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "12385191748104527552282844033133"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "71.5940543349282318289287483144972513844982522344680911266549",
+     "71.5940543349282318289287483144972513844982522344680911266549"
+    ],
+    "exact": [
+     "[71.59405433492823182892874831449725138449825223446809112665489893014447565367 +/- 3.32e-75]",
+     "[71.59405433492823182892874831449725138449825223446809112665489893014447565367 +/- 2.22e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "183538133365"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "25.9356882941046746044680764417624005110283416726840911938199",
+     "25.9356882941046746044680764417624005110283416726840911938199"
+    ],
+    "exact": [
+     "[25.93568829410467460446807644176240051102834167268409119381986459754387482696 +/- 4.92e-75]",
+     "[25.93568829410467460446807644176240051102834167268409119381986459754387482696 +/- 4.09e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "264452550249348879955555284603443769662052919253273132149585"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "136.825012141723555931672146872127015033958777897955504439141",
+     "136.825012141723555931672146872127015033958777897955504439141"
+    ],
+    "exact": [
+     "[136.8250121417235559316721468721270150339587778979555044391409715450598425187 +/- 2.15e-74]",
+     "[136.8250121417235559316721468721270150339587778979555044391409715450598425187 +/- 1.48e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "1881493109672849345381648887058948175601434"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "97.3406395746488593913345582021534985958132645672034555087477",
+     "97.3406395746488593913345582021534985958132645672034555087477"
+    ],
+    "exact": [
+     "[97.34063957464885939133455820215349859581326456720345550874772415405905369059 +/- 5.72e-75]",
+     "[97.34063957464885939133455820215349859581326456720345550874772415405905369059 +/- 2.40e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "5861332809889222278405221648834921710138848055174778"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "119.200216762384867720525694320452401316800581605989233937113",
+     "119.200216762384867720525694320452401316800581605989233937113"
+    ],
+    "exact": [
+     "[119.2002167623848677205256943204524013168005816059892339371128272476061688051 +/- 4.30e-74]",
+     "[119.2002167623848677205256943204524013168005816059892339371128272476061688051 +/- 3.97e-74]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "1233292161259842"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "34.7484635425732472488980735034416403263747382046050393568910",
+     "34.7484635425732472488980735034416403263747382046050393568910"
+    ],
+    "exact": [
+     "[34.74846354257324724889807350344164032637473820460503935689095667888454084041 +/- 2.87e-75]",
+     "[34.74846354257324724889807350344164032637473820460503935689095667888454084041 +/- 1.21e-75]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "lnk",
+     "k": "18282748400277763742444925532883408506109006"
+    },
+    "inputs": null,
+    "u": {
+     "d": 60
+    },
+    "res": [
+     "99.6145318105990796064393448677053743378076029384522308439301",
+     "99.6145318105990796064393448677053743378076029384522308439301"
+    ],
+    "exact": [
+     "[99.61453181059907960643934486770537433780760293845223084393012207358993631144 +/- 2.44e-75]",
+     "[99.61453181059907960643934486770537433780760293845223084393012207358993631144 +/- 5.76e-75]"
+    ]
+   }
+  ],
+  "red:py.entropy.lnnearest": [
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "74841530356230/1000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.194017860801671206519295818369806243286146817585658019169509211427029885505358427390729916230546744205630546424965246795",
+     "0.194017860801671206519295818369806243286146817585658019169509211427029885505358427390729916230546744205630546424965246796"
+    ],
+    "exact": [
+     "[0.1940178608016712065192958183698062432861468175856580191695092114270298855054 +/- 4.57e-77]",
+     "[0.1940178608016712065192958183698062432861468175856580191695092114270298855054 +/- 4.57e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "589868385019813932951351091857346281971321/1000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.311365473754711795986226005646542264686442956635810657906185122806144107086519164813593921363065908371466543334444366912",
+     "0.311365473754711795986226005646542264686442956635810657906185122806144107086519164813593921363065908371466543334444366913"
+    ],
+    "exact": [
+     "[0.3113654737547117959862260056465422646864429566358106579061851228061441070865 +/- 1.96e-77]",
+     "[0.3113654737547117959862260056465422646864429566358106579061851228061441070865 +/- 1.96e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "35722575855364548449816374549868237/100000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.367723666292356189422061490534325909073617131057960193467642339648831059454947501361500750141622310696132087382838844685",
+     "0.367723666292356189422061490534325909073617131057960193467642339648831059454947501361500750141622310696132087382838844686"
+    ],
+    "exact": [
+     "[0.3677236662923561894220614905343259090736171310579601934676423396488310594549 +/- 4.77e-77]",
+     "[0.3677236662923561894220614905343259090736171310579601934676423396488310594549 +/- 4.77e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "893626832/1000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.100503533222083350724238978334828009754651351580296958353582547971324534224368432834002499432072680946917408340075873761",
+     "0.100503533222083350724238978334828009754651351580296958353582547971324534224368432834002499432072680946917408340075873762"
+    ],
+    "exact": [
+     "[0.1005035332220833507242389783348280097546513515802969583535825479713245342244 +/- 3.30e-77]",
+     "[0.1005035332220833507242389783348280097546513515802969583535825479713245342244 +/- 3.30e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "324/1000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.365151811273497684314883452196710280452198796943438638586030217194568905558707214008583829214813449391966568718291035313",
+     "0.365151811273497684314883452196710280452198796943438638586030217194568905558707214008583829214813449391966568718291035314"
+    ],
+    "exact": [
+     "[0.3651518112734976843148834521967102804521987969434386385860302171945689055587 +/- 7.47e-78]",
+     "[0.3651518112734976843148834521967102804521987969434386385860302171945689055587 +/- 7.47e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "9129/10000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.0831916033109949868148604023159353642570996179933434077696276094984414055802947225984603789403948753843647192273100509692",
+     "0.0831916033109949868148604023159353642570996179933434077696276094984414055802947225984603789403948753843647192273100509693"
+    ],
+    "exact": [
+     "[0.08319160331099498681486040231593536425709961799334340776962760949844140558029 +/- 5.52e-78]",
+     "[0.08319160331099498681486040231593536425709961799334340776962760949844140558029 +/- 5.52e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "48743410/100000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.350270230618204767497743715154710721320448626097752411424477969115853686521450396589216111896272437218525225247547717648",
+     "0.350270230618204767497743715154710721320448626097752411424477969115853686521450396589216111896272437218525225247547717649"
+    ],
+    "exact": [
+     "[0.3502702306182047674977437151547107213204486260977524114244779691158536865214 +/- 5.30e-77]",
+     "[0.3502702306182047674977437151547107213204486260977524114244779691158536865214 +/- 5.30e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "33088439183949/100000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.365953582413626363188244939371619228808997278975350104700447259761358564506102846229411795486260778917046260245557934944",
+     "0.365953582413626363188244939371619228808997278975350104700447259761358564506102846229411795486260778917046260245557934945"
+    ],
+    "exact": [
+     "[0.3659535824136263631882449393716192288089972789753501047004472597613585645061 +/- 5.58e-78]",
+     "[0.3659535824136263631882449393716192288089972789753501047004472597613585645061 +/- 5.58e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "8674439473369016831222558484926096198149/10000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.123354331551957809773323170239111244190617921841680404523674713239465980826443707025327991387786219152665617954264308118",
+     "0.123354331551957809773323170239111244190617921841680404523674713239465980826443707025327991387786219152665617954264308119"
+    ],
+    "exact": [
+     "[0.1233543315519578097733231702391112441906179218416804045236747132394659808264 +/- 4.42e-77]",
+     "[0.1233543315519578097733231702391112441906179218416804045236747132394659808264 +/- 4.42e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "580815796232339755856211373693812674529/1000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.315569778442861583145287118337311777492237478878515856652285431292117400008160015103952198010641795640071563371377385536",
+     "0.315569778442861583145287118337311777492237478878515856652285431292117400008160015103952198010641795640071563371377385537"
+    ],
+    "exact": [
+     "[0.3155697784428615831452871183373117774922374788785158566522854312921174000082 +/- 4.81e-77]",
+     "[0.3155697784428615831452871183373117774922374788785158566522854312921174000082 +/- 4.81e-77]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "8958462764524869370568753025482005082757458062580897595130947950647625850023439012189427214751518796/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.0985309491715412747672529720689234586106989060166405431255081111919628616895337918180257038484331122550521983882363679714",
+     "0.0985309491715412747672529720689234586106989060166405431255081111919628616895337918180257038484331122550521983882363679715"
+    ],
+    "exact": [
+     "[0.09853094917154127476725297206892345861069890601664054312550811119196286168953 +/- 3.95e-78]",
+     "[0.09853094917154127476725297206892345861069890601664054312550811119196286168953 +/- 3.95e-78]"
+    ]
+   },
+   {
+    "kind": "red",
+    "name": null,
+    "truthSpec": {
+     "t": "plnp",
+     "q": "3053840887627167867809901856563976040617805774418512721772776873555879797639787851331001744336052718247356763/10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    },
+    "inputs": null,
+    "u": {
+     "d": 120
+    },
+    "res": [
+     "0.362242021425737811433222308844479527575387209053139347030256041768033428634460091832207805849971474077195307863318946185",
+     "0.362242021425737811433222308844479527575387209053139347030256041768033428634460091832207805849971474077195307863318946186"
+    ],
+    "exact": [
+     "[0.3622420214257378114332223088444795275753872090531393470302560417680334286345 +/- 4.46e-77]",
+     "[0.3622420214257378114332223088444795275753872090531393470302560417680334286345 +/- 4.46e-77]"
+    ]
+   }
+  ],
+  "py.printed": [
+   {
+    "kind": "real",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "rho",
+     "law": "real:3b-13"
+    },
+    "inputs": {
+     "problem": "3b",
+     "file": "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json"
+    },
+    "u": null,
+    "res": [
+     "1.778988841420693549805193887477289434416066",
+     "1.778988841420693549805193887477289434416066"
+    ],
+    "exact": [
+     "[1.778988841420693549805193887477289434416066785870268133201048179037478760510 +/- 5.40e-77]",
+     "[1.778988841420693549805193887477289434416066785870268133201048179037478760511 +/- 2.21e-76]"
+    ]
+   },
+   {
+    "kind": "real",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "rho",
+     "law": "real:3c-95"
+    },
+    "inputs": {
+     "problem": "3c",
+     "file": "corpus/optimization-constants/mi2026/c3c_pr93/certificate_3c_v3_95pt.json"
+    },
+    "u": null,
+    "res": [
+     "1.674733895020824993378207577602265184970142",
+     "1.674733895020824993378207577602265184970142"
+    ],
+    "exact": [
+     "[1.674733895020824993378207577602265184970142270208344976484815262104679531629 +/- 4.54e-76]",
+     "[1.674733895020824993378207577602265184970142270208344976484815262104679531632 +/- 3.47e-76]"
+    ]
+   },
+   {
+    "kind": "real",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "rho",
+     "law": "real:3c-147"
+    },
+    "inputs": {
+     "problem": "3c",
+     "file": "corpus/optimization-constants/l2026/certificate_3c_147pt.json"
+    },
+    "u": null,
+    "res": [
+     "1.674733895041405870063135756722213999136383",
+     "1.674733895041405870063135756722213999136383"
+    ],
+    "exact": [
+     "[1.674733895041405870063135756722213999136383713818148696811828839296485589830 +/- 9.48e-77]",
+     "[1.674733895041405870063135756722213999136383713818148696811828839296485589836 +/- 1.23e-76]"
+    ]
+   },
+   {
+    "kind": "real",
+    "name": "verify_sumdiff.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "rho",
+     "law": "real:3c-147"
+    },
+    "inputs": {
+     "problem": "3c",
+     "file": "corpus/optimization-constants/l2026/certificate_3c_147pt.json"
+    },
+    "u": null,
+    "res": [
+     "1.674733895041405870063135756722213999136383",
+     "1.674733895041405870063135756722213999136383"
+    ],
+    "exact": [
+     "[1.674733895041405870063135756722213999136383713818148696811828839296485589830 +/- 9.48e-77]",
+     "[1.674733895041405870063135756722213999136383713818148696811828839296485589836 +/- 1.23e-76]"
+    ]
+   },
+   {
+    "kind": "real",
+    "name": "verify_twolaw.py main(): \"ratio in [...]\"",
+    "truthSpec": {
+     "t": "mixRho",
+     "tl": "real:twolaw-23289305"
+    },
+    "inputs": {
+     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+    },
+    "u": null,
+    "res": [
+     "1.674894211307116228764343737060957167779440",
+     "1.674894211307116228764343737060957167779440"
+    ],
+    "exact": [
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+    ]
+   }
+  ],
+  "rec.optq-ledger": [
+   {
+    "kind": "rec",
+    "name": "optq-221-3c rhoPython (verify_twolaw.py)",
+    "truthSpec": {
+     "t": "mixRho",
+     "tl": "real:twolaw-23289305"
+    },
+    "inputs": {
+     "file": "corpus/optconst-queue/sources/zenodo-23289305/certificate.json"
+    },
+    "u": null,
+    "res": [
+     "1.674894211307116228764343737060957167779440",
+     "1.674894211307116228764343737060957167779440"
+    ],
+    "exact": [
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958036 +/- 3.92e-76]",
+     "[1.674894211307116228764343737060957167779440390811255252575175205962832958038 +/- 4.12e-76]"
+    ]
+   }
+  ],
+  "rec.fei-ledger": [
+   {
+    "kind": "rec",
+    "name": "C71 ratio",
+    "truthSpec": {
+     "t": "feiRho",
+     "f": "real:c71-n18"
+    },
+    "inputs": {
+     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+    },
+    "u": null,
+    "res": [
+     "6.521845710923046575658143972948578468366662",
+     "6.521845710923046575658143972948578468366662"
+    ],
+    "exact": [
+     "[6.521845710923046575658143972948578468366662292229938598252894129325503563413 +/- 5.45e-76]",
+     "[6.521845710923046575658143972948578468366662292229938598252894129325503563416 +/- 3.15e-76]"
+    ]
+   },
+   {
+    "kind": "rec",
+    "name": "C71 H",
+    "truthSpec": {
+     "t": "feiH",
+     "f": "real:c71-n18"
+    },
+    "inputs": {
+     "file": "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json"
+    },
+    "u": null,
+    "res": [
+     "6.7766053090059780825197902218",
+     "6.7766053090059780825197902218"
+    ],
+    "exact": [
+     "[6.776605309005978082519790221891882314787235038020170574747147806252281046359 +/- 4.47e-76]",
+     "[6.776605309005978082519790221891882314787235038020170574747147806252281046362 +/- 4.13e-76]"
+    ]
+   }
+  ]
+ },
+ "beyondTheDoor": "bf.plnp>1 and py.plnp>1 feed the bare -p ln p routines a p > 1, which no door admits (sumdiff.door, verify_sumdiff.read and verify_twolaw.laws require a law summing to 1). They are a measurement of how load-bearing the door is, not a requirement: verify_sumdiff.entropy takes p_lo\u00b7(\u2212ln_hi) as its lower end, which holds only while \u2212ln p >= 0.",
+ "problems": []
+}

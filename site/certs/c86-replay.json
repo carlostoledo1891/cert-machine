@@ -1,0 +1,1031 @@
+{
+ "what": "The registry's C_86 certificate (R. Pinho, #227, merged 2026-10-18 with an asterisk) decided by two implementations that share no code with each other or with the claimant's checker (never run): the six finite conditions E1–E6 of Smith's sufficiency criterion and the bound's arithmetic, exact where the data is rational and by sound enclosures where a logarithm enters; the step from the conditions to C_86 <= bound is the published chain (the minimum principle, Smith's criterion and theorem [Smi24]), read and not re-derived here",
+ "generated": "2026-10-19T21:17:32Z",
+ "seconds": 255.4,
+ "node": "v24.14.1",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "8b4c05327e392046c4bd972146f08c91aca43e7ce17583499c521691020b6ba0",
+  "py": "9f1fa37686fa3335f59023c9cbf47d12279c7bc119a330102edb1e254db66c7a",
+  "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "eqcertTranscendental": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
+ },
+ "pins": "corpus/optconst-queue/c86-2026-10-19/PINS.json",
+ "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+ "certificateCommit": "116a58ff99681226ce6299d4a02eeff1e7d3c5c7",
+ "source": "corpus/optconst-queue/c86-2026-10-19/rpinho/cert_n1200_A11.json",
+ "sha256": "722a287b74a9f84f8c6c2f505e7e6bb987ca634710b031287a5b01619bffe53d",
+ "claim": "C_86 <= 1.8117251",
+ "asteriskedAtPin": true,
+ "verdict": "CERTIFIED",
+ "agree": true,
+ "bound": {
+  "exact": "144938007612277893/79999999999994000",
+  "decimal": "1.811725095153609541882136…",
+  "mass": "39999999999997/40000000000000",
+  "moment": "144938007612277893/80000000000000000",
+  "lePrinted": true
+ },
+ "js": {
+  "E1": {
+   "ok": true,
+   "cells": 1200,
+   "nonzeroCells": 629,
+   "support": [
+    "1/20",
+    "1037/200"
+   ]
+  },
+  "E2": {
+   "ok": true,
+   "polynomials": [
+    {
+     "Q": [
+      "0",
+      "1"
+     ],
+     "deg": 1,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 1,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "0",
+       "0"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "1",
+      "-1"
+     ],
+     "deg": 1,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 1,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "1",
+       "1"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "1",
+      "-3",
+      "1"
+     ],
+     "deg": 2,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 2,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "461768573215464038730851/1208925819614629174706176",
+       "115442143303866009682713/302231454903657293676544"
+      ],
+      [
+       "791252221407105871346919/302231454903657293676544",
+       "3165008885628423485387677/1208925819614629174706176"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "6",
+      "-5",
+      "1"
+     ],
+     "deg": 3,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 3,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "1915540680614921099601757/9671406556917033397649408",
+       "478885170153730274900441/2417851639229258349412352"
+      ],
+      [
+       "3759658068600316061149201/2417851639229258349412352",
+       "15038632274401264244596811/9671406556917033397649408"
+      ],
+      [
+       "31402859829568981644048473/9671406556917033397649408",
+       "981339369674030676376515/302231454903657293676544"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "1",
+      "-8",
+      "14",
+      "-7",
+      "1"
+     ],
+     "deg": 4,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 4,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "104517128478826387133685/604462909807314587353088",
+       "3344548111322444388277935/19342813113834066795298816"
+      ],
+      [
+       "3199972423144101666355065/4835703278458516698824704",
+       "12799889692576406665420275/19342813113834066795298816"
+      ],
+      [
+       "42729375287793113822013315/19342813113834066795298816",
+       "21364687643896556911006665/9671406556917033397649408"
+      ],
+      [
+       "76525878705146502691380195/19342813113834066795298816",
+       "38262939352573251345690105/9671406556917033397649408"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "1",
+      "-7",
+      "13",
+      "-7",
+      "1"
+     ],
+     "deg": 4,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 4,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "2202924979407969331188527/9671406556917033397649408",
+       "1101462489703984665594267/4835703278458516698824704"
+      ],
+      [
+       "5262340162618375990169177/9671406556917033397649408",
+       "164448130081824249692787/302231454903657293676544"
+      ],
+      [
+       "8887310768469701557488219/4835703278458516698824704",
+       "17774621536939403114976445/9671406556917033397649408"
+      ],
+      [
+       "10614989804863371336802925/2417851639229258349412352",
+       "42459959219453485347211707/9671406556917033397649408"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "15",
+      "-35",
+      "28",
+      "-9",
+      "1"
+     ],
+     "deg": 5,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 5,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "1567039682343844891217511/19342813113834066795298816",
+       "97939980146490305701095/1208925819614629174706176"
+      ],
+      [
+       "3337982160771102520003353/4835703278458516698824704",
+       "13351928643084410080013421/19342813113834066795298816"
+      ],
+      [
+       "33180087587576785244105013/19342813113834066795298816",
+       "16590043793788392622052511/9671406556917033397649408"
+      ],
+      [
+       "27378108075010504909376655/9671406556917033397649408",
+       "54756216150021009818753319/19342813113834066795298816"
+      ],
+      [
+       "4451877872592534445225005/1208925819614629174706176",
+       "71230045961480551123600089/19342813113834066795298816"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "11",
+      "-29",
+      "26",
+      "-9",
+      "1"
+     ],
+     "deg": 5,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 5,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "2537357780076802206184365/19342813113834066795298816",
+       "634339445019200551546095/4835703278458516698824704"
+      ],
+      [
+       "4722065453033165331063045/9671406556917033397649408",
+       "9444130906066330662126105/19342813113834066795298816"
+      ],
+      [
+       "28831583187959038526013375/19342813113834066795298816",
+       "14415791593979519263006695/9671406556917033397649408"
+      ],
+      [
+       "43804649443848573257772645/19342813113834066795298816",
+       "10951162360962143314443165/4835703278458516698824704"
+      ],
+      [
+       "44733798353277928252796415/9671406556917033397649408",
+       "89467596706555856505592845/19342813113834066795298816"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "13",
+      "-32",
+      "27",
+      "-9",
+      "1"
+     ],
+     "deg": 5,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 5,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "3836597956173349913760687/38685626227668133590597632",
+       "7673195912346699827521407/77371252455336267181195264"
+      ],
+      [
+       "46958707019447480865141369/77371252455336267181195264",
+       "23479353509723740432570701/38685626227668133590597632"
+      ],
+      [
+       "62188137440941585523517705/38685626227668133590597632",
+       "124376274881883171047035443/77371252455336267181195264"
+      ],
+      [
+       "187672998136478595706064121/77371252455336267181195264",
+       "93836499068239297853032077/38685626227668133590597632"
+      ],
+      [
+       "329660096147870457184995021/77371252455336267181195264",
+       "164830048073935228592497527/38685626227668133590597632"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "9",
+      "-6",
+      "1"
+     ],
+     "deg": 3,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 3,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "291628591380823831453875/2417851639229258349412352",
+       "1166514365523295325815505/9671406556917033397649408"
+      ],
+      [
+       "709426792562604846018175/302231454903657293676544",
+       "22701657362003355072581605/9671406556917033397649408"
+      ],
+      [
+       "8540066903493887496874835/2417851639229258349412352",
+       "34160267613975549987499345/9671406556917033397649408"
+      ]
+     ]
+    },
+    {
+     "Q": [
+      "-1",
+      "12",
+      "-31",
+      "27",
+      "-9",
+      "1"
+     ],
+     "deg": 5,
+     "primitive": true,
+     "monicUpToSign": true,
+     "irreducible": true,
+     "realRoots": 5,
+     "allReal": true,
+     "distinct": true,
+     "roots": [
+      [
+       "137080527673355919991581/1208925819614629174706176",
+       "68540263836677959995791/604462909807314587353088"
+      ],
+      [
+       "160522376261097238951261/302231454903657293676544",
+       "642089505044388955805045/1208925819614629174706176"
+      ],
+      [
+       "1711036239329451326866765/1208925819614629174706176",
+       "855518119664725663433383/604462909807314587353088"
+      ],
+      [
+       "880621371288141649214255/302231454903657293676544",
+       "3522485485152566596857021/1208925819614629174706176"
+      ],
+      [
+       "4867640619331899772835171/1208925819614629174706176",
+       "1216910154832974943208793/302231454903657293676544"
+      ]
+     ]
+    }
+   ]
+  },
+  "E3": {
+   "ok": true,
+   "mass": "39999999999997/40000000000000",
+   "sumBDeg": "6638236823/8000000000",
+   "ratio": 0.8297796028750622
+  },
+  "E6": {
+   "ok": true,
+   "mass": "39999999999997/40000000000000",
+   "moment": "144938007612277893/80000000000000000",
+   "bound": "144938007612277893/79999999999994000",
+   "boundDecimal": "1.811725095153609541882136…",
+   "equalsCertificateBound": true,
+   "printed": "1.8117251",
+   "lePrinted": true
+  },
+  "E4": {
+   "ok": true,
+   "rows": [
+    {
+     "Q": [
+      "0",
+      "1"
+     ],
+     "integral": [
+      0.00009999999936027847,
+      0.00010000000077337036
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "1",
+      "-1"
+     ],
+     "integral": [
+      0.00009999999951948445,
+      0.00010000000066812122
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "1",
+      "-3",
+      "1"
+     ],
+     "integral": [
+      0.00009999999903942401,
+      0.00010000000124676946
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "6",
+      "-5",
+      "1"
+     ],
+     "integral": [
+      0.00009999999850363038,
+      0.00010000000210741435
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "1",
+      "-8",
+      "14",
+      "-7",
+      "1"
+     ],
+     "integral": [
+      0.00009999999776910683,
+      0.00010000000375454122
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "1",
+      "-7",
+      "13",
+      "-7",
+      "1"
+     ],
+     "integral": [
+      0.00009999999631427058,
+      0.00010000000187204706
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "15",
+      "-35",
+      "28",
+      "-9",
+      "1"
+     ],
+     "integral": [
+      0.00009999999638976574,
+      0.00010000000290277812
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "11",
+      "-29",
+      "26",
+      "-9",
+      "1"
+     ],
+     "integral": [
+      0.00009999999726062468,
+      0.00010000000353826978
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "13",
+      "-32",
+      "27",
+      "-9",
+      "1"
+     ],
+     "integral": [
+      0.00009999999540211134,
+      0.00010000000196885851
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "9",
+      "-6",
+      "1"
+     ],
+     "integral": [
+      0.0000999999983359867,
+      0.00010000000242693653
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      "-1",
+      "12",
+      "-31",
+      "27",
+      "-9",
+      "1"
+     ],
+     "integral": [
+      0.00009999999648124812,
+      0.00010000000389753795
+     ],
+     "positive": true
+    }
+   ]
+  },
+  "E5": {
+   "ok": true,
+   "verdict": "CERTIFIED",
+   "cells": 629,
+   "provedBoxes": 3658,
+   "minCertifiedLowerBound": 2.3134919135593003e-8,
+   "worstBox": [
+    2.36,
+    2.36015625
+   ],
+   "maxDepth": 8,
+   "wMin": 1e-9,
+   "nonzeroEdgeJumps": 654
+  },
+  "failed": [],
+  "verdict": "CERTIFIED",
+  "seconds": 21.1
+ },
+ "py": {
+  "E1": {
+   "ok": true,
+   "densities_nonneg": true,
+   "edges_increasing": true,
+   "cells": 1200,
+   "nonzero_cells": 629,
+   "support": [
+    "1/20",
+    "1037/200"
+   ],
+   "support_inside_[1/20,1037/200]": true
+  },
+  "E2": {
+   "ok": true,
+   "polynomials": [
+    {
+     "Q": [
+      0,
+      1
+     ],
+     "deg": 1,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      1,
+      -1
+     ],
+     "deg": 1,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      1,
+      -3,
+      1
+     ],
+     "deg": 2,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      6,
+      -5,
+      1
+     ],
+     "deg": 3,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      1,
+      -8,
+      14,
+      -7,
+      1
+     ],
+     "deg": 4,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      1,
+      -7,
+      13,
+      -7,
+      1
+     ],
+     "deg": 4,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      15,
+      -35,
+      28,
+      -9,
+      1
+     ],
+     "deg": 5,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      11,
+      -29,
+      26,
+      -9,
+      1
+     ],
+     "deg": 5,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      13,
+      -32,
+      27,
+      -9,
+      1
+     ],
+     "deg": 5,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      9,
+      -6,
+      1
+     ],
+     "deg": 3,
+     "irreducible": true,
+     "all_real": true
+    },
+    {
+     "Q": [
+      -1,
+      12,
+      -31,
+      27,
+      -9,
+      1
+     ],
+     "deg": 5,
+     "irreducible": true,
+     "all_real": true
+    }
+   ]
+  },
+  "E3": {
+   "ok": true,
+   "mass": "39999999999997/40000000000000",
+   "sum_b_deg": "6638236823/8000000000",
+   "ratio": 0.8297796028750622,
+   "weights_nonneg": true
+  },
+  "E6": {
+   "ok": true,
+   "mass": "39999999999997/40000000000000",
+   "moment": "144938007612277893/80000000000000000",
+   "bound": "144938007612277893/79999999999994000",
+   "bound_decimal": "1.811725095153609541882136…",
+   "equals_certificate_bound": true,
+   "printed": "18117251/10000000",
+   "le_printed": true
+  },
+  "E4": {
+   "ok": true,
+   "rows": [
+    {
+     "Q": [
+      0,
+      1
+     ],
+     "integral": [
+      0.0000999999988073874,
+      0.00010000000132803778
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      1,
+      -1
+     ],
+     "integral": [
+      0.00009999999922416512,
+      0.00010000000096055396
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      1,
+      -3,
+      1
+     ],
+     "integral": [
+      0.0000999999983812838,
+      0.0001000000018971381
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      6,
+      -5,
+      1
+     ],
+     "integral": [
+      0.00009999999754439769,
+      0.00010000000307686109
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      1,
+      -8,
+      14,
+      -7,
+      1
+     ],
+     "integral": [
+      0.0000999999964204079,
+      0.00010000000509791108
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      1,
+      -7,
+      13,
+      -7,
+      1
+     ],
+     "integral": [
+      0.00009999999436782757,
+      0.00010000000380117059
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      15,
+      -35,
+      28,
+      -9,
+      1
+     ],
+     "integral": [
+      0.00009999999476617559,
+      0.00010000000452015102
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      11,
+      -29,
+      26,
+      -9,
+      1
+     ],
+     "integral": [
+      0.00009999999464049834,
+      0.00010000000615395523
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      13,
+      -32,
+      27,
+      -9,
+      1
+     ],
+     "integral": [
+      0.0000999999933459783,
+      0.00010000000403165289
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      9,
+      -6,
+      1
+     ],
+     "integral": [
+      0.00009999999729148888,
+      0.00010000000347543116
+     ],
+     "positive": true
+    },
+    {
+     "Q": [
+      -1,
+      12,
+      -31,
+      27,
+      -9,
+      1
+     ],
+     "integral": [
+      0.0000999999946791341,
+      0.00010000000569565516
+     ],
+     "positive": true
+    }
+   ]
+  },
+  "E5": {
+   "ok": true,
+   "verdict": "CERTIFIED",
+   "cells": 629,
+   "proved_boxes": 3658,
+   "min_certified_lower_bound": 2.3134750729207162e-8,
+   "worst_box": [
+    2.36,
+    2.36015625
+   ],
+   "max_depth": 8,
+   "w_min": 1e-9,
+   "nonzero_edge_jumps": 654
+  },
+  "failed": [],
+  "verdict": "CERTIFIED",
+  "seconds": 192.5
+ },
+ "redControls": [
+  {
+   "id": "densities-scaled-0.98",
+   "what": "every density scaled by 0.98: f dips below zero on the support (E5 refuted by a box with f < 0)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E5"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E5"
+   ],
+   "jsSeconds": 3.7,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E5"
+   ],
+   "pySeconds": 31.6
+  },
+  {
+   "id": "weights-scaled-1.3",
+   "what": "every weight scaled by 1.3: Σ b_Q deg Q exceeds the mass (E3)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E3"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E3"
+   ],
+   "jsSeconds": 0.4,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E3"
+   ],
+   "pySeconds": 1.4
+  },
+  {
+   "id": "extra-mass-near-0.05",
+   "what": "density 1/100 added in the first cell of the support: ∫ log|x| dμ turns negative (E4) and the bound no longer matches (E6)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E4",
+    "E6"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E4",
+    "E6"
+   ],
+   "jsSeconds": 0.4,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E4",
+    "E6"
+   ],
+   "pySeconds": 1.4
+  },
+  {
+   "id": "tampered-bound",
+   "what": "the certificate's bound lowered by 10^-12: it no longer equals ∫ x dμ / m (E6)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E6"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E6"
+   ],
+   "jsSeconds": 0.4,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E6"
+   ],
+   "pySeconds": 1.4
+  },
+  {
+   "id": "reducible-polynomial",
+   "what": "x^2 - 3x + 1 replaced by x^2 - 3x + 2 = (x - 1)(x - 2): not irreducible (E2)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E2"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E2"
+   ],
+   "jsSeconds": 0.1,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E2"
+   ],
+   "pySeconds": 0.1
+  },
+  {
+   "id": "complex-roots",
+   "what": "x^2 - 3x + 1 replaced by x^2 + 1: no real root (E2)",
+   "expect": "REFUTED",
+   "mustFail": [
+    "E2"
+   ],
+   "js": "REFUTED",
+   "jsFailed": [
+    "E2"
+   ],
+   "jsSeconds": 0.1,
+   "fired": true,
+   "py": "REFUTED",
+   "pyFailed": [
+    "E2"
+   ],
+   "pySeconds": 0.1
+  }
+ ],
+ "limits": [
+  "E5 is decided on the closed cells with positive density; the extension to C is the claimant's minimum-principle argument, read",
+  "irreducibility is decided for degree <= 5 by the absence of integer roots and of monic integer quadratic factors (Mignotte bound) — every Q here is monic up to sign with constant term ±1",
+  "the two deciders share the mathematics (the Taylor form on boxes) and nothing else"
+ ]
+}

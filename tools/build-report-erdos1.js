@@ -217,8 +217,8 @@ O.push(C.section({
       + '<div class="col">' + C.pRaw('The buffer is the number the proof never computed, and it is small: 1.03–1.13·d for the two-level Bloom '
         + 'lattices and 1.6–2.35·d for the three-level ones. Measured level by level at fixed b, its operator norm grows by about '
         + 'b/2 from the first level to the second and by about b from the second to the third — the dimension times a slowly '
-        + 'growing function of the level, polynomial in d, which is what the effective theorem needs and what nothing here '
-        + 'proves (the scan is certs/erdos1/logs/kscan-levels-certmachine.log; in every case the longest row of H⁻¹ is the '
+        + 'growing function of the level, polynomial in d — more than the effective theorem needs, since a crude bound already gives it (§7) — '
+        + '(the scan is certs/erdos1/logs/kscan-levels-certmachine.log; in every case the longest row of H⁻¹ is the '
         + 'first, the dual vector of the last projected coordinate). A tilt with denominator q '
         + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = 2,197 carries K ≈ 22·d while its operator norm '
         + '‖EH<sup>−1</sup>‖ is 3.5; small denominators are the lever. A bound on K as a function of (b, s) is exactly '
@@ -303,19 +303,27 @@ O.push(C.section({
 
 /* §7 */
 O.push(C.section({
-  lab: '§7 · what this does not settle', title: 'Specific n, not all large n',
-  bodyRaw: C.pRaw('Bohman\'s bound holds for all large n; these sets are for specific n. The effective asymptotic statement '
-    + 'f(n) ≤ n<sup>−c/log log n</sup> with an explicit c, the form Bloom expects, would follow from a bound on the buffer K '
-    + 'as a function of (b, s), because k must only exceed log<sub>2</sub>(rK) by a constant. K is measured here (linear in d '
-    + 'in every instance computed) and not proved; the Hermite basis is computed, not analytic, and an analytic triangular '
-    + 'basis of Λ<sub>s</sub> with an explicit inverse would settle it. The tilt family is a proven lever for the constant, '
+  lab: '§7 · the effective rate, and what this does not settle', title: 'All large n, with an explicit constant',
+  bodyRaw: (() => {
+    const ER = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1', 'effective-rate.json'), 'utf8')), last = ER.table[ER.table.length - 1];
+    if (!ER.lemma5.every((x) => x.held) || !last) throw new Error('certs/erdos1/effective-rate.json does not hold Lemma 5 on every cached form');
+    return C.pRaw('<b>Added 2026-10-19.</b> The buffer enters only through k, which must exceed log<sub>2</sub>(rK) by a constant, so a crude '
+      + 'bound on K is enough: for the canonical Hermite form, |H<sup>−1</sup><sub>ij</sub>| ≤ 2<sup>j−i−1</sup>/H<sub>jj</sub>, so K ≤ D(2<sup>r</sup> − 1) '
+      + '(checked entry by entry on ' + ER.lemma5.length + ' cached forms). That gives, for every odd b and s, f(n) ≤ e·Δ<sub>s</sub> for all '
+      + 'n ≥ d(d + ⌈log<sub>2</sub> d⌉ + s), and with b chosen against s, f(n) ≤ n<sup>−(c₀ − o(1))/ln ln n</sup> with c₀ = ½ ln(3/2) = 0.2027… — '
+      + 'the effective statement Bloom expects, every constant explicit (the theorem note\'s §3a; tabulated for s = 1..' + last.s + ' in '
+      + '<a href="/certs/erdos1/effective-rate.json">effective-rate.json</a>: at s = ' + last.s + ', b = ' + last.b + ', f ≤ ' + C.esc(Number(last.fBoundUpper).toPrecision(2)) + '). '
+      + 'Earlier versions of this page said a structural bound on K was needed; it is not. A structural bound — such as the b-independent '
+      + 'sparsity of H stated in a note of 2026-10-18 and decided on 48 (b, s) in <a href="/certs/erdos1/buffer-structure.json">buffer-structure.json</a>, '
+      + 'not yet proved — would double c₀. ')
+    + C.pRaw('The sets of §5 are for specific n. The tilt family is a proven lever for the constant, '
     + 'and bigger tilted instances (α = 0.65, b = 21, s = 3 gives Δ = 0.235 at d = 9,261) need a Hermite path beyond PARI at '
-    + 'that size. Nothing here concerns the lower bound N ≥ C(n, ⌊n/2⌋) or the true order of f.')
+    + 'that size. Nothing here concerns the lower bound N ≥ C(n, ⌊n/2⌋) or the true order of f.'); })()
     + C.note({ lab: 'the records', bodyRaw: C.pRaw('<a href="/certs/erdos1-ledger.json">The ledger</a> (every instance, verified or not, with the '
       + 'sha256 of its certificate) · the certificates under 20 MB in <a href="/certs/erdos1/' + small.file + '">/certs/erdos1/</a> '
       + '(the two 2,197-dimensional ones are 46 MB gzipped and live in the repository) · <a href="/verify/verify_erdos1.py">the '
       + 'verifier</a> · <a href="/paper/erdos1-explicit.md">the theorem note</a> with the proof chain and the tilt lemmas · '
-      + '<a href="/paper/erdos1-explicit.pdf">the paper</a> (v0.2, numbers interpolated from this ledger). Sources pinned in the '
+      + '<a href="/paper/erdos1-explicit.pdf">the paper</a> (v0.3, with the effective rate; numbers interpolated from this ledger). Sources pinned in the '
       + 'corpus: the problem page and its exposition, the forum thread, the Lean resolution (tadamcz/erdos1 at 0e395153), Epoch\'s '
       + 'FrontierMath Erdős extract.') })
 }));

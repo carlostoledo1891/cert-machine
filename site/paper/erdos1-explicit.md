@@ -91,6 +91,31 @@ $\|c\|_\infty = \|t\operatorname{lift}(H)z - Ez\|_\infty \ge Dt\|\operatorname{l
 $$\frac{N}{2^n} = \frac{\max_i a_i}{2^{kr+1}} \xrightarrow[k\to\infty]{} \frac{\Delta_s}{2}, \qquad \text{explicitly } \frac{N}{2^n} \le \frac{\Delta_s}{2}\Big(1 + \frac{K + D}{2^k}\Big)^{r}\big(1 + \eta_k\big),$$
 where $\eta_k \to 0$ is the relative size of the lower-order terms of the recurrence ($\max_i w_i / w_r$ for $i<r$). All of it is computed exactly; nothing is estimated.
 
+## 3a. The effective rate (added 2026-10-19)
+
+The buffer enters only through $k$, which must exceed $\log_2(rK)$ by a constant. So the effective theorem does not need a structural bound on $K$; a crude one suffices, and it costs only a factor 2 in the exponent. (Until 2026-10-19 §6 said otherwise; that was an overstatement.)
+
+**Lemma 5 (the inverse of a reduced triangular form).** Let $H \in \mathbb{Z}^{r\times r}$ be upper triangular with $H_{jj} \ge 1$ and $0 \le H_{ij} < H_{ii}$ for $i < j$ (the canonical Hermite form of Step H). Then $|(H^{-1})_{ij}| \le 2^{j-i-1}/H_{jj}$ for $i < j$, and $K = D\|EH^{-1}\|_{\infty\to\infty} \le D(2^r - 1)$.
+
+*Proof.* Fix $j$ and let $x = H^{-1}e_j$, so $x_j = 1/H_{jj}$ and $x_i = -\frac{1}{H_{ii}}\sum_{k=i+1}^{j} H_{ik} x_k$ for $i < j$. Since $0 \le H_{ik}/H_{ii} < 1$, $y_i := H_{jj}|x_i|$ satisfies $y_j = 1$ and $y_i \le \sum_{k=i+1}^{j} y_k$, and induction downward from $j$ gives $y_i \le 1 + \sum_{k=i+1}^{j-1} 2^{j-k-1} = 2^{j-i-1}$. Every row of $E$ is zero, a unit row, or has entries $\pm1$, so each row of $EH^{-1}$ has $\ell_1$ norm at most $\sum_{i,j}|(H^{-1})_{ij}| \le \sum_{j=0}^{r-1}\big(1 + \sum_{i<j} 2^{j-i-1}\big) = 2^r - 1$. $\square$
+
+**Lemma 6 (the ratio, re-derived).** With $t = \lceil (2^k + K)/D\rceil$ and the weights of §3,
+$$\frac{N}{2^n} \le \frac{\Delta_s}{2}\Big(1 + \frac{K+D}{2^k}\Big)^{r}\Big(1 + \frac{1}{t-1}\Big)^{r+1}.$$
+
+*Proof.* All $H_{ij} \ge 0$, so all $w_i \ge 0$ and $w_{j+1} \ge tH_{jj}w_j \ge t w_j$; hence $w_i \le w_j/(t^{j-i}H_{ii})$ for $i < j$ and $\max_i a_i \le w_r(1 + 1/t)$. Then $\sum_{i<j} w_i H_{ij} < w_j\sum_{m\ge1} t^{-m} = w_j/(t-1)$, so $w_{j+1} \le tH_{jj}w_j(1 + \tfrac{1}{t-1})$ and $w_r \le t^r \det H\,(1 + \tfrac{1}{t-1})^r$, with $\det H = |\det A| = D^r\Delta_s$. With $N = 2^{k-1}\max_i a_i$, $n = (r+1)k$ and $tD \le 2^k + K + D$ the bound follows. $\square$
+
+Taking $k \ge k_0 := \lceil\log_2(r(K+D) + 2D(r+1))\rceil$ makes both factors at most $e$ together ($1+x \le e^x$, and $t - 1 \ge 2^{k-1}/D$), so $N/2^n \le \tfrac{e}{2}\Delta_s$, i.e. $f(n) \le e\,\Delta_s$ at $n = dk$ (Bloom's normalization $f = \max A/2^{n-1}$). With Lemma 5, $k_0 \le r + \lceil\log_2 r\rceil + s + 1$.
+
+**Lemma 7.** $f(n+1) \le f(n)$: if $A$ is dissociated, so is $2A \cup \{1\}$, with $n+1$ elements and twice the maximum.
+
+**Theorem (effective).** For every odd $b \ge 3$ and $s \ge 1$, with $d = b^s$: $f(n) \le e\,\Delta_s(b)$ for every $n \ge d\,(d + \lceil\log_2 d\rceil + s)$.
+
+**Corollary (the rate).** Let $b(s)$ be the least odd $b \ge 3$ with $b^{s-1} \le 2^b$. Since $\frac{b^s-1}{b-1} \le \tfrac32 b^{s-1}$ and $\ln(1+x) \le x$, $\Delta_s(b(s)) \le e^{3/2}(2/3)^s$, so $f(n) \le e^{5/2}(2/3)^s$ for $n \ge n_s := d(d + \lceil\log_2 d\rceil + s)$. As $\ln n_s = (2 + o(1))\, s\ln b(s)$ and $\ln b(s) = (1 + o(1))\ln s$, this is
+$$f(n) \le n^{-(c_0 - o(1))/\ln\ln n}, \qquad c_0 = \tfrac12\ln\tfrac32 = 0.2027\ldots,$$
+the form Bloom expects, with every constant explicit. `instruments/erdos1/effective.py` tabulates the theorem exactly for $s = 1..60$ (`certs/erdos1/effective-rate.json`: $b(s)$, the threshold, an outward-rounded upper bound on $f$, the exponent reached; at $s = 60$, $b = 535$, $\log_2 n_s \approx 1088$, $f \le 1.7\times10^{-10}$, $c \approx 0.198$) and checks Lemma 5's entrywise inequality on every cached Hermite form.
+
+**What a structural bound would add.** The factor 2 in $c_0$ comes from $k \approx d$, i.e. $n \approx d^2$. A bound $\log_2 K = O(s^2 + \log d)$ — such as $K \le 4(3\cdot2^{s-1}-1)^s(b^s-1)$, stated with sketched proofs in F. Schmidt's note of 2026-10-18 and decided exactly on 48 cases in `certs/erdos1/buffer-structure.json` — would make $n \approx d\log d$ and give $c_0 = \ln\tfrac32 = 0.405\ldots$. It improves the constant; it is not needed for the rate.
+
 ## 4. What is checked by machine (`verify.py`)
 
 V1 rebuild $\Lambda_s$ and $A$, compare $|\det A|$. V2 $H$ upper triangular with positive diagonal and $H\mathbb{Z}^r = A'\mathbb{Z}^r$ both ways (exact rational solves, integrality). V3 the minor of $C = S^{-1}M$ has determinant $\pm 1$ (FLINT determinant, not the triangular argument). V4 $\operatorname{null}(M^{\mathsf T})$ has dimension 1 and its primitive generator is $a$ (FLINT nullspace, independent of the recurrence). V5 $K \ge D\|EH^{-1}\|$ with $H^{-1}$ from a solve. V6 $Dt - K \ge 2^k$. V7 positivity, distinctness, $n$, $N$, the ratio, and the comparison with $0.22002$.
@@ -148,7 +173,7 @@ For comparison, a Bohman-type set gives $C_d \ge 1/0.44004 = 2.2725$ for all lar
 
 * The Astra proof shows existence; Bloom's version isolates the single non-effective step. Replacing the Smith normal form by a Hermite form makes the perturbation, the buffer $K$ and the scale $t$ explicit, so the object exists on disk.
 * The smallest instance of this family that beats Bohman is $b = 9$, $s = 3$ ($d = 729$; $s = 2$ tops out at $\Delta \to 4/9 > 0.44004$). Larger $(b,s)$ give $\Delta_s \to 0$: $(11,3)$ 0.316, $(13,3)$ 0.303, $(13,4)$ 0.264, $(17,4)$ 0.206.
-* Next: the effective theorem $f(n) \le n^{-c/\log\log n}$ with explicit $c$ needs a structural bound on $K$ (conditioning of $\Lambda_s$'s basis), which the recursive basis should give; and a certified search for better base gadgets (larger height, smaller covolume) would improve every constant.
+* The effective theorem $f(n) \le n^{-(c_0-o(1))/\ln\ln n}$ with $c_0 = \tfrac12\ln\tfrac32$ holds (§3a, added 2026-10-19): a crude bound on $K$ suffices, because only $\log K$ enters. This bullet said until then that a structural bound on $K$ was needed; it was not. A structural bound would double $c_0$, and a certified search for better base gadgets (larger height, smaller covolume) would improve every constant.
 
 ## 7. Provenance
 
