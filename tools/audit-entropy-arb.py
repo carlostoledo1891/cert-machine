@@ -273,31 +273,18 @@ def impl(src, dst, root):
 
 PRECS = (256, 1024, 4096, 16384)
 # DECLARED FINDINGS: each names a class of misses this audit found and reported (2026-10-19), in a module it does not
-# edit. The run stays green only while each of these still reproduces exactly where it is declared and nowhere else —
+# edit. The verify_sumdiff/verify_twolaw entries were removed when those files were fixed (2026-10-19, phase 1). The run stays green only while each of these still reproduces exactly where it is declared and nowhere else —
 # when a module is fixed, its entry stops reproducing and must be removed here (the list only turns down).
 KNOWN = {
     'printed': {
         'fei.printed': 'fei.decide returns its enclosures as strings cut from str(): ratio [str(r_lo)[:44], str(r_hi)[:44]] and H [str(H_lo)[:30], str(H_hi)[:30]]. '
                        'Cutting a decimal string rounds toward zero — for a positive upper end, DOWN — so the returned upper end falls below the exact value whenever the cut drops '
                        'a nonzero digit. The verdict is not affected: decide() compares the full 60-digit r_lo with the threshold, and the full-precision ends (fei.H, fei.ratio) contain the value.',
-        'py.printed': 'verify_sumdiff.py and verify_twolaw.py print "ratio in [str(lo)[:44], str(hi)[:44]]": the same cut toward zero, so the printed upper end is below the exact ratio. '
-                      'The verdicts compare the full 120-digit ends; tools/run-optq-ledger.py parses verify_twolaw\'s printed line into certs/optq-ledger.json.',
         ('rec.fei-ledger', 'C71 ratio'): 'certs/fei-ledger.json records fei.decide\'s strings: ratio = [6.521845710923046575658143972948578468366662, the same] — one point, below the exact ratio. '
                                          'The CERTIFIED verdict (C71 > 6.521845710923046575) is sound: the full enclosure lies above the threshold.',
         ('rec.fei-ledger', 'C71 H'): 'certs/fei-ledger.json records H = [6.7766053090059780825197902218, the same] — one point, below the exact H.',
-        ('rec.optq-ledger', 'optq-221-3c rhoPython (verify_twolaw.py)'): 'certs/optq-ledger.json records rhoPython = verify_twolaw\'s printed line, [1.674894211307116228764343737060957167779440, the same] — one point, '
-                                                                         'below the exact ratio (and the row\'s "how" text cuts it again to 34 characters). The row\'s twolaw.js rho (outward, 30 places) contains it; the verdict is sound.',
     },
     'malformed': {
-        'verify_sumdiff: a non-integer weight that truncates to a law (num 1.9/2 and 1.2/2)': 'read() applies int() to JSON numbers (1.9 -> 1, 1.2 -> 1), so a certificate whose weights are not integers is decided as the law {1/2, 1/2}; sumdiff.js refuses it.',
-        'verify_sumdiff: a boolean weight (true/2)': 'read(): int(True) = 1; sumdiff.js refuses it.',
-        'verify_sumdiff: a non-integer coordinate (x = 0.5)': 'read() never checks that a coordinate is an integer (the law is taken on R^2); sumdiff.js refuses it.',
-        'verify_sumdiff: a one-point law (p = 1: every entropy 0, the ratio 0/0)': 'every entropy is 0, so the ratio is 0/0; ratio() divides by the max\'s enclosure [-1E-1000118, 1E-1000118] without checking its sign and returns [-1, -1], and decide() says REFUTED. sumdiff.js refuses it (division by an interval containing 0).',
-        'verify_sumdiff: a one-point law in 3c, unreduced (10^320/10^320)': 'as the one-point law above.',
-        'verify_twolaw: a non-integer weight that truncates to a law (1.9/2 and 1.2/2)': 'laws() applies int() to the weights; twolaw.js refuses it.',
-        'verify_twolaw: a non-integer coordinate (0.5)': 'laws() never checks that a point has integer coordinates (the injectivity bound is computed on the floats); twolaw.js refuses it.',
-        'verify_twolaw: not a 3c certificate': 'decide() never reads the certificate\'s problem field (twolaw.js requires 3c); main() decides only the pinned file.',
-        'verify_twolaw: two one-point laws (every entropy 0, the ratio 0/0)': 'as verify_sumdiff\'s one-point law: the ratio [-1, -1], REFUTED; twolaw.js refuses it.',
         'fei.ln_iv: k = 0 (the docstring\'s domain is a positive integer)': 'returns (-Infinity, -9.99...E+999999) rather than refusing; unreachable from fei.decide, which calls ln_iv only for a nonzero |a_S|.',
     },
 }

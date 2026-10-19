@@ -33,8 +33,13 @@
 
    PLANTED CLAIMS (truth by construction, by the first implementation's record, or by Arb at 1024 bits computed from
    fei.py's own spectrum — never by the decider being measured), decided by both, fei.py's own word recorded beside its
-   reading in the three words (fei.py has two: CERTIFIED when every check passes, REFUTED otherwise). Ids a–d are the
-   ones the referee asked for; e1–e8 are added.
+   reading in the three words, and the two required to agree. Ids a–d are the ones the referee asked for; e1–e8 are
+   added.
+
+   FOUND AND FIXED. At fei.py 5825dc47… (commit 470fe0b2) these claims found its verdict two-worded, its printed
+   enclosure truncated, log2 of a power of two inexact and its dictator refused for the wrong reason; fei.py was
+   corrected on 2026-10-19. What was found is kept, verified against that commit's record when git holds it, in the
+   record's findingsAtPin.
 
    usage: node tools/verify_fei.js           both implementations, the Arb reference, the planted claims → certs/fei-second.json
           node tools/verify_fei.js --check   the battery: everything re-derived (Arb too when python-flint is present) and
@@ -53,7 +58,6 @@ const HARNESS = path.join(ROOT, 'tools', 'fei-second-harness.py');
 const ARBPY = path.join(ROOT, 'instruments', 'zetahankel', '.venv', 'bin', 'python');
 const CHECK = process.argv.includes('--check');
 const BITS = 512, LOWBITS = 128, ARBPREC = 1024, SHOW = 80;
-const FLIP = 123457;                                  /* the input whose value the bit-flip claims change (fixed, arbitrary) */
 const T0 = Date.now();
 const die = (m) => { console.error('VERIFY_FEI REFUSED: ' + m); process.exit(1); };
 const rd = (rel) => fs.readFileSync(path.join(ROOT, rel));
@@ -207,24 +211,27 @@ function decide(art, threshold, P) {
 }
 
 /* ---- fei.py's word, read in the three words: one place -------------------------------------------------------- */
-/* fei.py says CERTIFIED when every check passes and REFUTED otherwise. Reading: a raise refuses; a failed precondition
-   (binding, balance, Parseval, the stated I, H > 0) refuses; the bar's own check passing certifies; otherwise its printed
-   upper end — a TRUNCATION of its upper end, so read as the printed string plus one unit in its last place — at or below
-   the bar refutes, and anything else straddles and refuses. */
-const PRE = [/binds by sha256/, /^balanced/, /^Parseval/, /^I = /, /^H > 0/];
+/* Since 2026-10-19 fei.py says the three words itself; this reading of what it prints is kept as an independent
+   interpretation, and the record requires the two to agree. Reading: a raise refuses; a failed precondition (binding,
+   balance, Parseval, the stated I, I > 1, H > 0) refuses; the bar's own check certifying certifies; otherwise its printed
+   upper end — rounded UP since the fix, so read as printed — at or below the bar refutes, and anything else straddles and
+   refuses. (At 5825dc47 the print was a truncation and this reading added one unit in its last place.) */
+const PRE = [/binds by sha256/, /^balanced/, /^Parseval/, /^I = /, /^I > 1/, /^H > 0/];
+const unread = (r) => { const c = r.checks.find((x) => /^the truth table reads/.test(x.name)); return c && !c.ok ? { reading: REFUSED, why: 'fei.py\'s check failed: ' + c.name } : null; };
 function readPy(res, threshold) {
   if (res.raised) return { reading: REFUSED, why: 'fei.py raised ' + res.raised };
+  if (unread(res.result)) return unread(res.result);
   const r = res.result, by = (re) => r.checks.find((c) => re.test(c.name)) || die('fei.py no longer reports a check matching ' + re);
   for (const re of PRE) { const c = by(re); if (!c.ok) return { reading: REFUSED, why: 'fei.py\'s check failed: ' + c.name }; }
   if (by(/^H\/\(I-1\) > /).ok) return { reading: CERTIFIED };
   const hs = r.ratio[1];
-  if (!/^\d+\.\d+$/.test(hs)) return { reading: REFUSED, why: 'fei.py printed an unreadable enclosure ' + hs };
-  const hiHonest = add(fromDec(hs), ulp(decimalsOf(hs)));
-  return cmp(hiHonest, fromDec(String(threshold))) <= 0 ? { reading: REFUTED, why: 'its upper end, at most ' + toDec(hiHonest, decimalsOf(hs), true) + ', is at or below the bar' }
-    : { reading: REFUSED, why: 'its enclosure [' + r.ratio[0] + ', ' + toDec(hiHonest, decimalsOf(hs), true) + '] straddles the bar' };
+  if (typeof hs !== 'string' || !/^\d+(\.\d+)?$/.test(hs)) return { reading: REFUSED, why: 'fei.py printed an unreadable enclosure ' + hs };
+  return cmp(fromDec(hs), fromDec(String(threshold))) <= 0 ? { reading: REFUTED, why: 'its upper end, ' + hs + ', is at or below the bar' }
+    : { reading: REFUSED, why: 'its enclosure [' + r.ratio[0] + ', ' + hs + '] straddles the bar' };
 }
 function readPyMonotone(res) {
   if (res.raised) return { reading: REFUSED, why: 'fei.py raised ' + res.raised };
+  if (unread(res.result)) return unread(res.result);
   const r = res.result, bind = r.checks.find((c) => /binds by sha256/.test(c.name)), mono = r.checks.find((c) => /^logic-monotone/.test(c.name));
   if (!bind || !mono) die('fei.py no longer reports its binding and monotone checks');
   return !bind.ok ? { reading: REFUSED, why: 'fei.py\'s binding check failed' } : { reading: mono.ok ? CERTIFIED : REFUTED };
@@ -261,6 +268,10 @@ const t75hi = toDec(add(fromDec(toDec(arbR[1], 75, true)), ulp(75)), 75, true); 
 
 /* ---- the fixtures ------------------------------------------------------------------------------------------------ */
 const flipHex = (hex, x) => { const j = hex.length - 1 - (x >> 2), nib = parseInt(hex[j], 16) ^ (1 << (x & 3)); return hex.slice(0, j) + nib.toString(16) + hex.slice(j + 1); };
+/* the first FALSE input whose every immediate superset is TRUE: turning it TRUE keeps the function monotone and breaks
+   balance, so the bit-flip claims test the binding (b) and balance (c) and nothing else. At the pin the flip was input
+   123457, which also broke monotonicity — a second defect claim c did not state (findings). */
+const FLIP = (() => { const t = tableOf(ART); for (let x = 0; x < t.N; x++) { if (t.bits[x]) continue; let top = true; for (let i = 0; i < t.n && top; i++) if (!(x & (1 << i)) && !t.bits[x | (1 << i)]) top = false; if (top) return x; } return die('the artifact has no maximal FALSE input'); })();
 const resign = (art) => { const t = tableOf(art); return Object.assign({}, art, { sha256_table: bindingOf(t.bits), I: qstr(edgeInfluence(t.bits, t.n)) }); };
 const FLIPPED = Object.assign({}, ART, { true_hex: flipHex(ART.true_hex, FLIP) });
 const FLIPPED_RESIGNED = resign(FLIPPED);
@@ -275,7 +286,7 @@ const small = (n, f, extra) => { const bits = Uint8Array.from({ length: 1 << n }
 const MAJ3 = small(3, (x) => pc(x) >= 2, { I: '3/2', ratio_lo_dec: '4', ratio_hi_dec: '4' });       /* weights 1/4 on {1},{2},{3},{1,2,3}: H = 2, I = 3/2, H/(I-1) = 4 */
 const DICT = small(2, (x) => x & 1, { I: '1', ratio_lo_dec: '0', ratio_hi_dec: '0' });             /* all weight on {1}: H = 0, I = 1 */
 const lo_s = LROW.ratio[0], hi_s = LROW.ratio[1], dL = decimalsOf(hi_s);
-const ledgerHi = add(fromDec(hi_s), ulp(dL));                      /* the ledger prints truncations: its upper end is the string + one unit */
+const ledgerHi = fromDec(hi_s);                                    /* printed outward since 2026-10-19: the upper end as printed */
 const tA = toDec(add(ledgerHi, ulp(dL)), dL, true), tD = toDec(sub(fromDec(lo_s), ulp(dL)), dL, false);
 
 const MAIN = [
@@ -284,17 +295,17 @@ const MAIN = [
   { id: 'logic-monotone', kind: 'monotone', claim: 'the n = 18 function is logic-monotone (TRUE = -1)', art: ART, t: THRESHOLD, what: 'the artifact\'s second claim; with it the bound holds among monotone functions too' }
 ];
 const PLANTED = [
-  { id: 'a-bar-above-the-ledger', art: ART, t: tA, truth: 'FALSE', exp: [REFUTED, REFUSED, REFUTED], what: 'the bar one unit (10^-' + dL + ') above the ledger\'s upper end read honestly (printed string + 10^-' + dL + '): false by the first implementation\'s record and by Arb; refuted as a statement about this certificate, never about C71. At ' + LOWBITS + ' bits the JS enclosure is wider than the bar\'s distance (js.width128 in this record), so there it must refuse' },
-  { id: 'b-one-bit-flipped', art: FLIPPED, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'input ' + FLIP + ' of the truth table flipped, the published sha256 kept: the binding fails' },
-  { id: 'c-unbalanced-binding-bypassed', art: FLIPPED_RESIGNED, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'the same flip with the binding bypassed EXPLICITLY — sha256_table re-signed to the flipped table\'s own hash and the stated I set to its edge-boundary influence ' + FLIPPED_RESIGNED.I + ' — so balance is the one defect: fhat(∅) = ±2^-17 and the amplification rule does not apply' },
+  { id: 'a-bar-above-the-ledger', art: ART, t: tA, truth: 'FALSE', exp: [REFUTED, REFUSED, REFUTED], what: 'the bar one unit (10^-' + dL + ') above the ledger\'s printed upper end (printed outward since the fix; at the pin it was a truncation read as the string + 10^-' + dL + ', which gave this same bar): false by the first implementation\'s record and by Arb; refuted as a statement about this certificate, never about C71. At ' + LOWBITS + ' bits the JS enclosure is wider than the bar\'s distance (js.width128 in this record), so there it must refuse' },
+  { id: 'b-one-bit-flipped', art: FLIPPED, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'input ' + FLIP + ' of the truth table flipped (the first FALSE input whose every immediate superset is TRUE), the published sha256 kept: the binding fails' },
+  { id: 'c-unbalanced-binding-bypassed', art: FLIPPED_RESIGNED, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'the same flip with the binding bypassed EXPLICITLY — sha256_table re-signed to the flipped table\'s own hash and the stated I set to its edge-boundary influence ' + FLIPPED_RESIGNED.I + ' — so balance is the one defect (the flip keeps the function monotone): fhat(∅) = ±2^-17 and the amplification rule does not apply' },
   { id: 'd-bar-below-the-ledger', art: ART, t: tD, truth: 'TRUE', exp: [CERTIFIED, REFUSED, CERTIFIED], what: 'the bar one unit (10^-' + dL + ') below the ledger\'s lower end: true by the first implementation\'s record and by Arb; at ' + LOWBITS + ' bits the JS enclosure is wider than the bar\'s distance (js.width128), so there it must refuse' },
   { id: 'e1-stated-influence-moved', art: I_MOVED, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'the artifact\'s stated I moved by 1/128 to ' + I_MOVED.I + ', the table untouched: the artifact contradicts its own table' },
   { id: 'e2-bar-1e-75-below-the-value', art: ART, t: t75lo, truth: 'TRUE', exp: [CERTIFIED, REFUSED, REFUSED], what: 'a bar between 10^-75 and 2·10^-75 below the ratio (true by Arb at ' + ARBPREC + ' bits): inside fei.py\'s 60-digit enclosure and the JS\'s ' + LOWBITS + '-bit one, so both must refuse it; decided only at ' + BITS + ' bits' },
   { id: 'e3-bar-1e-75-above-the-value', art: ART, t: t75hi, truth: 'FALSE', exp: [REFUTED, REFUSED, REFUSED], what: 'a bar between 10^-75 and 2·10^-75 above the ratio (false by Arb at ' + ARBPREC + ' bits): inside fei.py\'s 60-digit enclosure and the JS\'s ' + LOWBITS + '-bit one, so both must refuse it; REFUTED at ' + BITS + ' bits' },
   { id: 'e4-mask-beyond-2^n', art: BEYOND, t: THRESHOLD, truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'a leading hex digit 1 prepended: the mask sets input 2^18, which does not exist' },
   { id: 'e5-majority-of-three-below-4', art: MAJ3, t: '3.999999999999999999999999999999', truth: 'TRUE', exp: [CERTIFIED, CERTIFIED, CERTIFIED], what: 'majority of three (textbook: four weights 1/4, H = 2, I = 3/2, so H/(I-1) = 4 exactly) against 4 - 10^-30' },
-  { id: 'e6-majority-of-three-at-4', art: MAJ3, t: '4', truth: 'FALSE', exp: [REFUTED, REFUTED, REFUSED], what: 'majority of three against 4 itself: the strict inequality fails at equality. Every |a_S| is a power of two, so the closed form is exact and refutes; fei.py\'s log2 4 is an interval, so the best it can do is refuse' },
-  { id: 'e7-dictator', art: DICT, t: '1', truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'a dictator on two variables: balanced, all weight on one set, I = 1 and H = 0 — the amplification rule needs I > 1' },
+  { id: 'e6-majority-of-three-at-4', art: MAJ3, t: '4', truth: 'FALSE', exp: [REFUTED, REFUTED, REFUTED], what: 'majority of three against 4 itself: the strict inequality fails at equality. Every |a_S| is a power of two, so H is exact in both deciders — the closed form here, fei.py\'s log2 of a power of two since 2026-10-19 (at the pin its log2 4 was an interval and it could only refuse) — and both refute' },
+  { id: 'e7-dictator', art: DICT, t: '1', truth: 'MALFORMED', exp: [REFUSED, REFUSED, REFUSED], what: 'a dictator on two variables: balanced, all weight on one set, I = 1 and H = 0 — the amplification rule needs I > 1, the reason both deciders must give (at the pin fei.py raised "a weight above 1" instead)' },
   { id: 'e8-monotonicity-broken', kind: 'monotone', art: MONO_BROKEN.art, t: THRESHOLD, truth: 'FALSE', exp: [REFUTED, REFUTED, REFUTED], what: 'inputs ' + MONO_BROKEN.x + ' (FALSE) and ' + MONO_BROKEN.y + ' (TRUE, one coordinate above it) swapped, re-signed: balance kept, logic-monotone false by construction', claim: 'the swapped function is logic-monotone' }
 ];
 
@@ -317,13 +328,14 @@ const M = JS[0], MP = M.pub, ME = M.enc, P0 = PY.results[0];
 const agree = [];
 const ok = (name, c, detail) => { agree.push(Object.assign({ name, ok: !!c }, detail ? { detail } : {})); };
 ok('both implementations CERTIFY the registry\'s bound', MP.verdict === CERTIFIED && P0.raw === CERTIFIED);
-ok('fei.py, run through the harness, re-derives the ledger\'s row field for field', ['verdict', 'checks', 'n', 'I', 'distinctWeights', 'nonzero', 'ratio', 'H'].every((k) => JSON.stringify(P0.result[k]) === JSON.stringify(LROW[k])));
+ok('fei.py, run through the harness, re-derives the ledger\'s row field for field', ['verdict', 'why', 'checks', 'n', 'I', 'distinctWeights', 'nonzero', 'ratio', 'H'].every((k) => JSON.stringify(P0.result[k]) === JSON.stringify(LROW[k])));
 ok('the two spectra are identical, coefficient for coefficient with signs (sha256 of the 2^18 comma-joined coefficients)', MP.spectrumSha256 === PY.spectrum.sha256, MP.spectrumSha256);
 ok('the histograms of |a_S| agree (' + MP.distinct + ' magnitudes, ' + MP.nonzero + ' nonzero coefficients)', JSON.stringify(Object.fromEntries(MP.histogram.map((h) => [String(h.k), h.count]))) === JSON.stringify(PY.spectrum.histogram) && JSON.stringify(PY.spectrum.histogram) === JSON.stringify(ARB.spectrum.histogram));
 ok('I = 261/128 by the spectrum, by the edge boundary, in fei.py and as the artifact states it', MP.I === '261/128' && MP.Iedge === '261/128' && P0.result.I === '261/128' && ART.I === '261/128' && ARB.I === '261/128');
 const ledgerLo = fromDec(lo_s);
-ok('the JS enclosure overlaps the ledger\'s, read honestly as [printed lower, printed upper + 10^-' + dL + ']', cmp(ME.Rlo, ledgerHi) <= 0 && cmp(ledgerLo, ME.Rhi) <= 0);
-ok('the JS enclosure lies inside the ledger\'s (read honestly)', cmp(ledgerLo, ME.Rlo) <= 0 && cmp(ME.Rhi, ledgerHi) <= 0);
+ok('the JS enclosure overlaps the ledger\'s printed interval', cmp(ME.Rlo, ledgerHi) <= 0 && cmp(ledgerLo, ME.Rhi) <= 0);
+ok('the ledger\'s printed interval contains the JS enclosure (printed outward: the lower end down, the upper end up)', cmp(ledgerLo, ME.Rlo) <= 0 && cmp(ME.Rhi, ledgerHi) <= 0);
+ok('fei.py\'s printed H contains the JS H', cmp(fromDec(P0.result.H[0]), ME.Hlo) <= 0 && cmp(ME.Hhi, fromDec(P0.result.H[1])) <= 0);
 ok('both lower ends are above the registry\'s ' + THRESHOLD, cmp(ME.Rlo, fromDec(THRESHOLD)) > 0 && cmp(ledgerLo, fromDec(THRESHOLD)) > 0);
 ok('the Arb ball (' + ARBPREC + ' bits, from fei.py\'s spectrum) lies inside the JS enclosure (' + BITS + ' bits)', cmp(ME.Rlo, arbR[0]) <= 0 && cmp(arbR[1], ME.Rhi) <= 0);
 ok('the Arb H lies inside the JS H', cmp(ME.Hlo, arbH[0]) <= 0 && cmp(arbH[1], ME.Hhi) <= 0);
@@ -356,31 +368,51 @@ const trueRefuted = plantedRows.filter((r) => r.truth === 'TRUE' && [r.js.verdic
 const pyWordTrueRefuted = plantedRows.filter((r) => r.truth === 'TRUE' && r.py.word === REFUTED).map((r) => r.id);
 const pyWordDiffers = plantedRows.filter((r) => !r.pyWordAgreesWithReading).map((r) => r.id);
 
-/* ---- findings, computed from the runs above ---------------------------------------------------------------------- */
-const findings = [];
-if (cmp(fromDec(hi_s), ME.Rlo) < 0) findings.push('certs/fei-ledger.json prints the ratio\'s two ends as the same ' + hi_s.length + '-character string ' + hi_s + ': both are truncations (str(...)[:44] in fei.py), so the printed upper end is BELOW the value (the ratio begins ' + toDec(ME.Rlo, dL + 6, false) + '…). Read honestly the enclosure is [' + lo_s + ', ' + toDec(ledgerHi, dL, true) + ']; its H strings are truncated the same way. Nothing is wrong with the decision — fei.py decides on the untruncated Decimals — only with the record\'s printed interval.');
-if (pyWordDiffers.length) findings.push('fei.py has two words (CERTIFIED when every check passes, REFUTED otherwise): on ' + pyWordDiffers.length + ' of the ' + plantedRows.length + ' planted claims its own word is REFUTED where the three-word reading is REFUSED (' + pyWordDiffers.join(', ') + ') — a broken binding, an unbalanced table, a contradicted I and a bar inside its enclosure are all printed REFUTED, the defect the 2026-10-09 erratum removed from families/cosine.js and families/newman.js.' + (pyWordTrueRefuted.length ? ' On ' + pyWordTrueRefuted.join(', ') + ', a TRUE claim, fei.py\'s own word is REFUTED.' : '') + ' No published record is affected: the ledger\'s one row is CERTIFIED, which two words get right.');
-const e6 = plantedRows.find((r) => r.id === 'e6-majority-of-three-at-4');
-if (e6.js.verdict === REFUTED && e6.py.reading === REFUSED) findings.push('At an exact boundary (majority of three, H/(I-1) = 4 exactly, against "> 4") the closed form refutes and fei.py cannot: every log2 it takes is an interval one unit wide, log2 4 included. A refusal a stronger method converts.');
-const e7 = PY.results[MAIN.length + PLANTED.findIndex((c) => c.id === 'e7-dictator')];
-if (e7.raised && /weight above 1/.test(e7.raised)) findings.push('On the dictator fei.py refuses by raising "' + e7.raised + '" — the weight is exactly 1, but its log2 enclosure of 2^n is wider than a point, so 2n - 2 log2 |a| has a negative lower end and it raises before reaching its I <= 1 test. instruments/fei/battery.py\'s red control "a dictator (I = 1) is refused: the amplification rule needs I > 1" therefore fires for that other reason (it catches any ArithmeticError).');
+/* ---- found at the pin, fixed the same day: what the planted claims found in fei.py, kept, and verified fixed now ---- */
+const FOUND = { feiPy: '5825dc475292bf4e02e995e276c1a3422de52796bbea89b758149448fcd78141', commit: '470fe0b2', found: '2026-10-19', fixed: '2026-10-19',
+  pyWordDiffersFromReading: ['b-one-bit-flipped', 'c-unbalanced-binding-bypassed', 'e1-stated-influence-moved', 'e2-bar-1e-75-below-the-value', 'e3-bar-1e-75-above-the-value', 'e6-majority-of-three-at-4'],
+  pyWordRefutesATrueClaim: ['e2-bar-1e-75-below-the-value'], ledgerTruncated: true, dictatorReason: 'a weight above 1' };
+/* the same facts read back from the record that commit holds, when git has it: a retyped history would not be a record */
+const atPin = (() => { const r = cp.spawnSync('git', ['show', FOUND.commit + ':certs/fei-second.json'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 }); return r.status === 0 ? JSON.parse(r.stdout) : null; })();
+if (atPin) {
+  const same = (x, y) => JSON.stringify(x) === JSON.stringify(y);
+  if (atPin.deciders['instruments/fei/fei.py'] !== FOUND.feiPy || !same(atPin.plantedSummary.pyWordDiffersFromReading, FOUND.pyWordDiffersFromReading) || !same(atPin.plantedSummary.pyWordRefutesATrueClaim, FOUND.pyWordRefutesATrueClaim)
+    || !atPin.findings.some((f) => /truncations/.test(f)) !== !FOUND.ledgerTruncated || !atPin.findings.some((f) => f.includes('"ArithmeticError: ' + FOUND.dictatorReason + '"'))) die('findingsAtPin does not match certs/fei-second.json at ' + FOUND.commit);
+} else console.log('  note: git does not hold ' + FOUND.commit + ' here — findingsAtPin not re-read from that commit\'s record');
+const e6 = plantedRows.find((r) => r.id === 'e6-majority-of-three-at-4'), e7 = plantedRows.find((r) => r.id === 'e7-dictator');
+const fixedNow = {
+  ledgerTruncated: cmp(fromDec(lo_s), ME.Rlo) <= 0 && cmp(ME.Rhi, ledgerHi) <= 0,
+  pyWordDiffersFromReading: pyWordDiffers.length === 0 && pyWordTrueRefuted.length === 0,
+  boundary: e6.py.word === REFUTED,
+  dictatorReason: !e7.py.raised && e7.py.word === REFUSED && /^I > 1/.test(PY.results[MAIN.length + PLANTED.findIndex((c) => c.id === 'e7-dictator')].result.why || '')
+};
+const notFixed = Object.keys(fixedNow).filter((k) => !fixedNow[k]);
+const at = 'FOUND at fei.py ' + FOUND.feiPy.slice(0, 8) + '… (commit ' + FOUND.commit + ', ' + FOUND.found + ') and FIXED ' + FOUND.fixed + ': ';
+const findings = [
+  at + 'certs/fei-ledger.json printed the ratio\'s two ends as one truncated string (str(...)[:44], H at [:30]), so its printed upper end was below the value. fei.py now prints outward — the lower end down, the upper end up, at the same 43 and 29 significant digits — and the ledger reads [' + lo_s + ', ' + hi_s + '], which contains the value (the JS enclosure lies inside it).',
+  at + 'fei.py had two words, and on ' + FOUND.pyWordDiffersFromReading.length + ' of the ' + plantedRows.length + ' planted claims (' + FOUND.pyWordDiffersFromReading.join(', ') + ') its own word was REFUTED where the three words say REFUSED — on ' + FOUND.pyWordRefutesATrueClaim.join(', ') + ', a TRUE claim. fei.py now carries the three words check by check and composes them by the method paper\'s rule (REFUTED if any is refuted, else REFUSED if any is refused, else CERTIFIED); the bound and the record are CERTIFIED iff r_lo > bar, REFUTED iff r_hi <= bar, REFUSED on a straddle; a failed precondition is REFUSED with its reason and the bound is then not decided. Its own word now equals the reading on all ' + plantedRows.length + ' planted claims.',
+  at + 'log2 of a power of two was an interval, so majority of three at exactly 4 could only be refused. fei.py now writes |a| = 2^v m and takes log2 |a| = v + log2 m with log2 1 = 0 exactly, and refutes it (e6-majority-of-three-at-4).',
+  at + 'on the dictator fei.py raised "' + FOUND.dictatorReason + '" (the weight is exactly 1) before reaching its I <= 1 test, so instruments/fei/battery.py\'s red control named for I > 1 fired for that other reason. With log2 4 exact the test is reached: fei.py returns REFUSED, why "' + PY.results[MAIN.length + PLANTED.findIndex((c) => c.id === 'e7-dictator')].result.why + '", and the battery asserts the reason.',
+  'FOUND while fixing (' + FOUND.fixed + '): planted claims b and c flipped input 123457, which also broke monotonicity — claim c stated balance as its one defect, and under the composition rule the refuted monotone check would have decided fei.py\'s word. The flip is now input ' + FLIP + ', the first FALSE input whose every immediate superset is TRUE, which keeps the function monotone; the claims keep their ids.'
+];
 
 const counts = (rows, f) => rows.reduce((c, r) => ((c[f(r)] = (c[f(r)] || 0) + 1), c), {});
 const rec = {
-  what: 'The registry\'s C71 > ' + THRESHOLD + ' (Fourier entropy–influence), decided a second time from the cited n = 18 truth table by tools/verify_fei.js (JavaScript BigInt; H in closed form, A - sum B_p log2 p, the logarithms from the atanh series with outward rounding), which shares no code with instruments/fei/fei.py or the claimant; fei.py run beside it through tools/fei-second-harness.py; an Arb reference from fei.py\'s own spectrum; ' + plantedRows.length + ' planted claims of known truth decided by both, fei.py\'s own two-word verdict recorded beside its three-word reading.',
+  what: 'The registry\'s C71 > ' + THRESHOLD + ' (Fourier entropy–influence), decided a second time from the cited n = 18 truth table by tools/verify_fei.js (JavaScript BigInt; H in closed form, A - sum B_p log2 p, the logarithms from the atanh series with outward rounding), which shares no code with instruments/fei/fei.py or the claimant; fei.py run beside it through tools/fei-second-harness.py; an Arb reference from fei.py\'s own spectrum; ' + plantedRows.length + ' planted claims of known truth decided by both, fei.py\'s own verdict recorded beside its three-word reading and required to equal it; what the planted claims found in fei.py at ' + FOUND.commit + ' and the fix the same day, in findingsAtPin and findings.',
   generated: new Date().toISOString().replace(/\.\d+Z$/, 'Z'), seconds: null, node: process.version, python: PY.python,
   deciders: { 'tools/verify_fei.js': sha(rd('tools/verify_fei.js')), 'tools/fei-second-harness.py': sha(rd('tools/fei-second-harness.py')), 'instruments/fei/fei.py': sha(rd('instruments/fei/fei.py')), 'instruments/verdict.js': sha(rd('instruments/verdict.js')) },
   inputs: { pins: DIR + '/meta.json', files: META.files, registryCommit: META.registryCommit, threshold: THRESHOLD, thresholdFrom: '71a.md, the [Num2026] row', previousUpperEndpoint: BAR30, previousUpperEndpointFrom: 'README.md', ledger: 'certs/fei-ledger.json', ledgerCode: LEDGER.code },
   js: { verdict: MP.verdict, bits: BITS, n: MP.n, nonzero: MP.nonzero, distinct: MP.distinct, I: MP.I, Iedge: MP.Iedge, spectrumSha256: MP.spectrumSha256,
     histogram: MP.histogram, closedForm: MP.closedForm, log2: MP.log2, H: MP.H, ratio: MP.ratio, width: sciUp(sub(ME.Rhi, ME.Rlo)),
     ratio128: JS128[0].pub.ratio, width128: sciUp(sub(JS128[0].enc.Rhi, JS128[0].enc.Rlo)), checks: MP.checks, ms: M.ms },
-  py: { verdict: P0.raw, ratio: P0.result.ratio, H: P0.result.H, readHonestly: [lo_s, toDec(ledgerHi, dL, true)], spectrumSha256: PY.spectrum.sha256, checks: P0.result.checks, seconds: P0.seconds },
+  py: { verdict: P0.raw, why: P0.result.why, digits: PY.digits, ratio: P0.result.ratio, H: P0.result.H, spectrumSha256: PY.spectrum.sha256, checks: P0.result.checks, seconds: P0.seconds },
   arb: ARB, arbSource,
   agreement: agree,
   claims: mainRows,
   planted: plantedRows,
   plantedSummary: { planted: plantedRows.length, fired, byTruth: counts(plantedRows, (r) => r.truth), falseAccepted: falseAccepted.map((r) => r.id), trueRefuted: trueRefuted.map((r) => r.id),
     pyWordDiffersFromReading: pyWordDiffers, pyWordRefutesATrueClaim: pyWordTrueRefuted },
+  findingsAtPin: FOUND,
   findings,
   timing: { jsMs, pyMs, arbMs: ARB.ms }
 };
@@ -390,7 +422,7 @@ rec.seconds = +((Date.now() - T0) / 1000).toFixed(1);
 console.log('  C71 > ' + THRESHOLD + '   js ' + MP.verdict + '   fei.py ' + P0.raw + '   (I = ' + MP.I + ', ' + MP.nonzero + ' nonzero, ' + MP.distinct + ' magnitudes)');
 console.log('  js  H/(I-1) in [' + MP.ratio[0].slice(0, 62) + '…, ' + MP.ratio[1].slice(0, 62) + '…]  at ' + BITS + ' bits');
 console.log('  arb H/(I-1) = ' + ARB.ratioText.slice(0, 70) + '…  (' + arbSource + ')');
-console.log('  ledger         [' + lo_s + ', ' + hi_s + '] as printed; [' + lo_s + ', ' + toDec(ledgerHi, dL, true) + '] read honestly');
+console.log('  ledger         [' + lo_s + ', ' + hi_s + '] as printed (outward)');
 console.log('  ' + MP.closedForm.text);
 for (const a of agree) console.log('  ' + (a.ok ? 'ok   ' : 'FAIL ') + a.name);
 for (const r of mainRows) console.log('  ' + r.id.padEnd(34) + ' js ' + r.js.verdict.padEnd(9) + ' js128 ' + r.js128.verdict.padEnd(9) + ' fei.py ' + (r.py.word || 'raised').padEnd(9) + ' → ' + r.py.reading);
@@ -399,6 +431,9 @@ for (const f of findings) console.log('  finding: ' + f);
 if (!agreeAll) die('an agreement check failed: ' + agree.filter((a) => !a.ok).map((a) => a.name).join('; '));
 if (fired !== plantedRows.length) die('a planted claim did not come out as expected: ' + plantedRows.filter((r) => !r.fired).map((r) => r.id).join(', '));
 if (falseAccepted.length || trueRefuted.length) die('a false claim was accepted or a true one refuted');
+if (pyWordDiffers.length) die('fei.py\'s own word differs from the three-word reading on ' + pyWordDiffers.join(', '));
+if (notFixed.length) die('a defect found at ' + FOUND.commit + ' is not fixed in fei.py on disk: ' + notFixed.join(', '));
+if (PY.digits !== 60) die('fei.py no longer works at 60 digits (fei.PREC = ' + PY.digits + '): the record\'s py.digits and the method paper say 60');
 
 /* volatile: clocks, versions, the decider digests (a changed digest is noted, not failed), and the Arb ball's printed form
    (a python-flint upgrade may print a different radius; the bars derived from it are compared, inside the planted rows) */

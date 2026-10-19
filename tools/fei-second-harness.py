@@ -7,7 +7,7 @@ once, in verify_fei.js. It is NOT named verify_*.py on purpose: tools/build-site
 
   python3 -I tools/fei-second-harness.py
       stdin   {"fixtures": [{"id", "artifact", "threshold", "record"}], "spectrumOf": <artifact>}
-      stdout  {"python", "results": [{"id", "raw", "raised", "result", "seconds"}],
+      stdout  {"python", "digits" (fei.PREC), "results": [{"id", "raw", "raised", "result", "seconds"}],
                "spectrum": {"sha256", "a0", "histogram", "seconds"}}       (by fei.table and fei.wht)
 
   instruments/zetahankel/.venv/bin/python -I tools/fei-second-harness.py --arb
@@ -52,7 +52,7 @@ def run(job):
             row['raised'] = type(e).__name__ + ': ' + str(e)
         row['seconds'] = round(time.time() - t0, 2)
         out.append(row)
-    res = {'python': sys.version.split()[0], 'results': out}
+    res = {'python': sys.version.split()[0], 'digits': fei.PREC, 'results': out}
     if job.get('spectrumOf'):
         res['spectrum'] = spectrum_of(job['spectrumOf'])[1]
     return res
