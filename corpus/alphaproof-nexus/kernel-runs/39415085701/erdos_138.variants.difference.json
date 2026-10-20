@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_138.variants.difference",
+ "ran": true,
+ "exit": 0,
+ "seconds": 116,
+ "cacheSeconds": 99,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "Nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 6526692,
+ "env": [
+  "kernel: 6.17.0-1022-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "✔ [7989/7992] Built FormalConjectures.Util.Linters.AMSLinter (2.3s)",
+  "✔ [7990/7992] Built FormalConjectures.Util.ProblemImports (3.4s)",
+  "⚠ [7991/7992] Built Challenge (4.5s)",
+  "warning: Challenge.lean:52:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:71:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:76:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:84:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:92:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:99:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:106:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:117:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:125:8: declaration uses 'sorry'",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos138.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Challenge",
+  "Building Solution",
+  "⚠ [7991/7992] Built Solution (7.5s)",
+  "warning: Solution.lean:365:45: unused variable `hk`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos138.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution",
+  "Running nanoda kernel on solution",
+  "Nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [],
+ "sha256": [
+  "85bae10d0a91d8bee44d4fe299708c87abd425987184c6c97b80b8e97ee48bd5  Challenge.lean",
+  "c43f8170bbf340464e25fbdc479f6d407d04cda5850521e572aea2d7b53af133  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos138.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}

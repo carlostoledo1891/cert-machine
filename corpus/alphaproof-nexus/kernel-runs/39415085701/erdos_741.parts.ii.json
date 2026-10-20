@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_741.parts.ii",
+ "ran": true,
+ "exit": 0,
+ "seconds": 78,
+ "cacheSeconds": 88,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "Nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 6826924,
+ "env": [
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "✔ [7982/7992] Built FormalConjecturesForMathlib.Tactic.Linter.Term (456ms)",
+  "✔ [7983/7992] Built FormalConjectures.Util.Linters.ExistsImplicationLinter (455ms)",
+  "✔ [7984/7992] Built FormalConjecturesForMathlib (2.1s)",
+  "✔ [7985/7992] Built FormalConjectures.Util.Attributes.Basic (1.4s)",
+  "✔ [7986/7992] Built FormalConjectures.Util.Linters.AnswerLinter (1.1s)",
+  "✔ [7987/7992] Built FormalConjectures.Util.Linters.CategoryDocstringLinter (1.0s)",
+  "✔ [7988/7992] Built FormalConjectures.Util.Linters.CategoryLinter (1.1s)",
+  "✔ [7989/7992] Built FormalConjectures.Util.Linters.AMSLinter (1.4s)",
+  "✔ [7990/7992] Built FormalConjectures.Util.ProblemImports (2.8s)",
+  "⚠ [7991/7992] Built Challenge (3.6s)",
+  "warning: Challenge.lean:44:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:55:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:69:8: declaration uses 'sorry'",
+  "warning: Challenge.lean:82:8: declaration uses 'sorry'",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos741.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Challenge",
+  "Building Solution",
+  "✔ [7991/7992] Built Solution (4.9s)",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos741.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution",
+  "Running nanoda kernel on solution",
+  "Nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [],
+ "sha256": [
+  "3c73200d1206bff175472bb2e1c2537a0669411c836604163f2b1e101a5665bd  Challenge.lean",
+  "77a222124ab3d8b85346656614dc5cb5f57d41c911525ca6641255b4ba9260c8  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos741.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}

@@ -21,6 +21,14 @@ import sys
 corpus, item, root = sys.argv[1:4]
 pins = json.load(open(os.path.join(corpus, 'PINS.json')))
 sha = lambda b: hashlib.sha256(b).hexdigest()
+# RED CONTROLS, which Comparator must reject: erdos_846.red.statement (OUR challenge weakened, ε > 0 to ε ≥ 0, so the
+# solution no longer proves the challenge's statement) and erdos_846.red.sorry (THEIR solution with the main theorem's
+# proof replaced by sorry, so it rests on sorryAx, which is not permitted)
+red = None
+if '.red.' in item:
+    item, red = item.split('.red.')
+    if (item, red) not in (('erdos_846', 'statement'), ('erdos_846', 'sorry')):
+        sys.exit('unknown red control')
 n = re.match(r'erdos_([0-9]+)', item).group(1)
 challenge_src = open(os.path.join(corpus, 'fc-pin', n + '.lean'), encoding='utf-8').read()
 if item == 'erdos_741.variants.upper':
@@ -41,6 +49,14 @@ else:
     name = 'target_theorem_0'
 if sha(solution) != pins['files'][rel]['sha256']:
     sys.exit('the solution bytes are not the pinned bytes: ' + rel)
+if red == 'statement':
+    assert challenge.count('(ε > 0), A.Infinite') == 1
+    challenge = challenge.replace('(ε > 0), A.Infinite', '(ε ≥ 0), A.Infinite')
+if red == 'sorry':
+    text = solution.decode('utf-8')
+    head, tail = text.rsplit('theorem target_theorem_0', 1)
+    i = tail.index(':= by') + len(':= by')
+    solution = (head + 'theorem target_theorem_0' + tail[:i] + '\n  sorry\n').encode('utf-8')
 # the namespace that encloses the theorem in the challenge; the solution must open the same one
 upto = challenge[:challenge.index('theorem ' + name)]
 ns = [m.group(1) for m in re.finditer(r'^namespace\s+(\S+)', upto, re.M)]

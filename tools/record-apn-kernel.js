@@ -28,6 +28,7 @@ const OUT = path.join(ROOT, 'certs', 'apn-kernel.json');
 const REPO = 'carlostoledo1891/cert-machine';
 const ITEMS = ['erdos_12.parts.i', 'erdos_12.parts.ii', 'erdos_125.variants.positive_lower_density', 'erdos_138.variants.difference', 'erdos_152',
   'erdos_26.variants.tenenbaum', 'erdos_741.parts.i', 'erdos_741.parts.ii', 'erdos_846', 'erdos_741.variants.upper'];
+const REDS = { 'erdos_846.red.statement': 'our challenge weakened (ε > 0 to ε ≥ 0): the solution no longer proves the challenge statement', 'erdos_846.red.sorry': 'their solution with the main proof replaced by sorry: it rests on sorryAx, not permitted' };
 const args = process.argv.slice(2);
 if (!args.length) { console.error('usage: record-apn-kernel.js <run-id> ... [--partial] | --rebuild'); process.exit(2); }
 
@@ -80,14 +81,23 @@ const rows = ITEMS.map((item) => {
   r.why = last.decided.why; r.stage = last.decided.stage || null;
   return r;
 });
+/* the red controls: each must come out other than CERTIFIED (Comparator rejects), or the lane cannot fail */
+const reds = Object.entries(REDS).map(([item, what]) => {
+  let last = null;
+  for (const { d, meta } of runs) { const p = path.join(RUNS, d, item + '.json'); if (fs.existsSync(p)) last = { run: meta.run, f: JSON.parse(fs.readFileSync(p, 'utf8')) }; }
+  if (!last) return { item, what, fired: null, why: 'not run' };
+  const dec = decide(last.f);
+  return { item, what, run: last.run, word: dec.word, why: dec.why, fired: dec.word === 'REFUTED?' };
+});
 const sha = (p) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, p))).digest('hex');
 const counts = {}; for (const r of rows) counts[r.word] = (counts[r.word] || 0) + 1;
 const rec = {
   what: 'The AlphaProof Nexus audit, kernel lane: each Erdős proof of google-deepmind/alphaproof-nexus-results @ 0647711a checked by Comparator v4.27.0 against formal-conjectures\' own statement at the commit the repository builds against (7862bf6a), with nanoda on (.github/workflows/apn-kernel.yml). CERTIFIED here means the proof proves exactly that statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept it. Whether the statement is the problem Erdős posed is the reading lane\'s question.',
   generated: new Date().toISOString().replace(/\.\d+Z$/, 'Z'),
   workflow: '.github/workflows/apn-kernel.yml', rule: 'tools/comparator-verdict.js', deciders: { rule: sha('tools/comparator-verdict.js'), prepare: sha('tools/apn-kernel-prepare.py'), workflow: sha('.github/workflows/apn-kernel.yml') },
-  counts, rows,
+  counts, rows, redControls: reds,
 };
 fs.writeFileSync(OUT, JSON.stringify(rec, null, 1) + '\n');
 console.log('wrote certs/apn-kernel.json — ' + JSON.stringify(counts));
+for (const r of reds) console.log('  RED ' + r.item.padEnd(28) + (r.fired === null ? 'not run' : r.fired ? 'fired (' + r.word + ': ' + String(r.why).slice(0, 90) + ')' : 'DID NOT FIRE (' + r.word + ')'));
 for (const r of rows) console.log('  ' + r.word.padEnd(22) + r.item.padEnd(44) + (r.word === 'CERTIFIED' || r.word === 'NOT RUN' ? '' : (r.stage ? '[' + r.stage + '] ' : '') + String(r.why).slice(0, 160)));

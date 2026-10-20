@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_152",
+ "ran": true,
+ "exit": 0,
+ "seconds": 145,
+ "cacheSeconds": 91,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "Nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 6919204,
+ "env": [
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "  add_left_comm",
+  "Hint: Omit it from the simp argument list.",
+  "  s̵i̵m̵p̵_̵a̵l̵l̵[̵I̵s̵S̵i̵d̵o̵n̵,̵s̲i̲m̲p̲_̲a̲l̲l̲ ̲[̲I̲s̲S̲i̲d̲o̲n̲,̲ sub_eq_sub_iff_add_eq_add, add_assoc, a̵d̵d̵_̵l̵e̵f̵t̵_̵c̵o̵m̵m̵,̵P̵r̵o̵d̵.̵e̵x̵t̵_̵i̵f̵f̵]̵P̲r̲o̲d̲.̲e̲x̲t̲_̲i̲f̲f̲]̲",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "warning: Solution.lean:317:37: unused variable `hA`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:324:88: This simp argument is unused:",
+  "  Set.ncard_eq_toFinset_card'",
+  "Hint: Omit it from the simp argument list.",
+  "  s̵i̵m̵p̵_̵a̵l̵l̵-̵c̵o̵n̵t̵e̵x̵t̵u̵a̵l̵[̵ ̵E̵r̵d̵o̵s̵1̵5̵2̵.̵S̵_̵g̵o̵o̵d̵,̵S̵e̵t̵.̵s̵e̵t̵O̵f̵_̵a̵n̵d̵,̵S̵e̵t̵.̵n̵c̵a̵r̵d̵_̵e̵q̵_̵t̵o̵F̵i̵n̵s̵e̵t̵_̵c̵a̵r̵d̵'̵]̵s̲i̲m̲p̲_̲a̲l̲l̲ ̲-̲c̲o̲n̲t̲e̲x̲t̲u̲a̲l̲ ̲[̲E̲r̲d̲o̲s̲1̲5̲2̲.̲S̲_̲g̲o̲o̲d̲,̲ ̲S̲e̲t̲.̲s̲e̲t̲O̲f̲_̲a̲n̲d̲]̲",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "warning: Solution.lean:332:39: unused variable `hA`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:372:38: unused variable `hSidon`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:378:40: unused variable `hSidon`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:401:128: `mul_le_mul_right'` has been deprecated: Use `mul_le_mul_left` instead",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos152.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution",
+  "Running nanoda kernel on solution",
+  "Nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [],
+ "sha256": [
+  "93b84fbaf145d0dc4cd641f19586d9129cf015e48372441dda4ec3094c1bbcca  Challenge.lean",
+  "fb9cf6bb4de746f9e520e07ce9fccbddd6cd63eafb674bbe60dd457a827c6e35  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos152.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}

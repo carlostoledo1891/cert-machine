@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_125.variants.positive_lower_density",
+ "ran": true,
+ "exit": 0,
+ "seconds": 123,
+ "cacheSeconds": 96,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "Nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 6934524,
+ "env": [
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "Note: Simp arguments with `←` have the additional effect of removing the other direction from the simp set, even if the simp argument itself is unused. If the hint above does not work, try replacing `←` with `-` to only get that effect and silence this warning.",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "warning: Solution.lean:170:105: `Int.cast_natAbs` has been deprecated: Use `Nat.cast_natAbs` instead",
+  "Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.cast_natAbs` to `Nat.cast_natAbs x`).",
+  "warning: Solution.lean:173:24: `Int.cast_natAbs` has been deprecated: Use `Nat.cast_natAbs` instead",
+  "Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.cast_natAbs` to `Nat.cast_natAbs x`).",
+  "warning: Solution.lean:185:190: This simp argument is unused:",
+  "  S.le",
+  "Hint: Omit it from the simp argument list.",
+  "  s̵i̵m̵p̵_̵a̵l̵l̵-̵c̵o̵n̵t̵e̵x̵t̵u̵a̵l̵[̵m̵u̵l̵_̵c̵o̵m̵m̵ ̵α̵,̵a̵b̵s̵_̵d̵i̵v̵,̵ ̵s̵u̵b̵_̵d̵i̵v̵'̵,̵a̵b̵s̵_̵o̵f̵_̵p̵o̵s̵,̵s̲i̲m̲p̲_̲a̲l̲l̲ ̲-̲c̲o̲n̲t̲e̲x̲t̲u̲a̲l̲ ̲[̲m̲u̲l̲_̲c̲o̲m̲m̲ ̲α̲,̲ ̲a̲b̲s̲_̲d̲i̲v̲,̲ ̲s̲u̲b̲_̲d̲i̲v̲'̲,̲ ̲a̲b̲s̲_̲o̲f̲_̲p̲o̲s̲,̲ R.cast_def, R̵.̵p̵o̵s̵,̵←̵m̵u̵l̵_̵a̵s̵s̵o̵c̵,̵(̵(̵l̵t̵_̵d̵i̵v̵_̵i̵f̵f̵₀̵ ̵↑̵ ̵_̵)̵.̵2̵R̲.̲p̲o̲s̲,̲ ̲←̲ ̲m̲u̲l̲_̲a̲s̲s̲o̲c̲,̲",
+  "  ̲ ̲ ̲ ̲ ̲ ̲ ̲(̲(̲l̲t̲_̲d̲i̲v̲_̲i̲f̲f̲₀̲ ̲↑̲_̲)̲.̲2̲ (L.out.trans_le' ↑̵ ̵_̵)̵)̵.̵t̵r̵a̵n̵s̵↑̲_̲)̲)̲.̲t̲r̲a̲n̲s̲ ((s R.2 (by valid)).trans_le i̵n̵f̵_̵l̵e̵_̵l̵e̵f̵t̵)̵,̵s̵q̵,̵ ̵S̵.̵l̵e̵]̵i̲n̲f̲_̲l̲e̲_̲l̲e̲f̲t̲)̲,̲ ̲s̲q̲]̲",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "warning: Solution.lean:272:10: aesop: failed to prove the goal after exhaustive search.",
+  "warning: Solution.lean:351:22: This simp argument is unused:",
+  "  Set.mem_setOf",
+  "Hint: Omit it from the simp argument list.",
+  "  simp_all o̵n̵l̵y̵[̵.̵>̵·̵,̵S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵,̵S̵e̵t̵.̵l̵o̵w̵e̵r̵D̵e̵n̵s̵i̵t̵y̵,̵N̵a̵t̵.̵I̵c̵o̵_̵z̵e̵r̵o̵_̵e̵q̵_̵r̵a̵n̵g̵e̵]̵o̲n̲l̲y̲ ̲[̲·̲ ̲>̲ ̲·̲,̲ ̲S̲e̲t̲.̲l̲o̲w̲e̲r̲D̲e̲n̲s̲i̲t̲y̲,̲ ̲N̲a̲t̲.̲I̲c̲o̲_̲z̲e̲r̲o̲_̲e̲q̲_̲r̲a̲n̲g̲e̲]̲",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos125.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution",
+  "Running nanoda kernel on solution",
+  "Nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [],
+ "sha256": [
+  "6e848728cfd806030ec96de0f0325dfaf901404b731753a6accac44ce376ca97  Challenge.lean",
+  "12e2df1ba973bde5028ccd1f66e7ae3ba493144213337d9f71f39e28d5d0c47c  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos125.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}

@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_741.parts.i",
+ "ran": true,
+ "exit": 0,
+ "seconds": 161,
+ "cacheSeconds": 92,
+ "okay": true,
+ "kernels": [
+  "Lean default kernel accepts the solution",
+  "Nanoda kernel accepts the solution"
+ ],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 6794288,
+ "env": [
+  "kernel: 6.17.0-1022-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "warning: Solution.lean:915:81: unused variable `hk`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:978:81: unused variable `hk`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:1105:324: `Nat.tendsto_pow_atTop_atTop_of_one_lt` has been deprecated: Use `tendsto_pow_atTop_atTop_of_one_lt` instead",
+  "Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.tendsto_pow_atTop_atTop_of_one_lt` to `tendsto_pow_atTop_atTop_of_one_lt x`).",
+  "info: Solution.lean:1105:390: Try this:",
+  "  [apply] ring_nf",
+  "  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.",
+  "  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.",
+  "warning: Solution.lean:1117:160: This simp argument is unused:",
+  "  true",
+  "Hint: Omit it from the simp argument list.",
+  "  simp_all [Set.partialDensity,",
+  "  ̲  ̲A.inter_comm, t̵r̵u̵e̵,̵Set.ncard_eq_toFinset_card']",
+  "Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`",
+  "warning: Solution.lean:1291:105: unused variable `hk`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos741.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution",
+  "Running nanoda kernel on solution",
+  "Nanoda kernel accepts the solution",
+  "Running Lean default kernel on solution.",
+  "Lean default kernel accepts the solution",
+  "Your solution is okay!"
+ ],
+ "errTail": [],
+ "sha256": [
+  "689c1670f31318af9f52e56d379c6bf6767725497979c9a1422e4656283c790c  Challenge.lean",
+  "481e87ebaa4058e5ce4f2cf85f229cf4382a633c6de02cd4617c8bf1212184df  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos741.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}
