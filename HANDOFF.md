@@ -27,6 +27,10 @@ NEXT SESSION, IN ORDER:
      translator needs it (a three-array data block for tensor identities); the rest of the menu. Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
+  ★ CLAIMBOX IS PUBLIC: github.com/carlostoledo1891/claimbox (MIT), pushed 2026-10-20 night on the operator's "you can push when needed";
+     its own HANDOFF lists its state (five readers, three end-to-end runs, 41/41 planted defects caught). This repository is its
+     read-only receiver; claimbox's PROVENANCE.json pins instruments/claimbox/check.py, check.js, SCHEMA.md, the ten objects and the
+     register — a change to any of them is seen there as drift.
   ★ THE SPLIT — THE CLAIM-MACHINE IS ~/Projects/claimbox (2026-10-20 night, on the operator's redirect: "I asked for one thing and I'm
      receiving another, like an extension of cert-machine … This must be redirected now to the path I asked for"; then "clean up your
      mess after splitting the project"). WHAT THE OPERATOR ASKED FOR, from the first draft: [human or AI text] → [claim-machine] →
