@@ -1,0 +1,72 @@
+Wed Sep  9 17:07:28 -03 2026
+== building lean4export (the pinned package) ==
+✔ [5/6] Built Export:c.o (1.7s)
+✔ [6/6] Built lean4export:exe (2.4s)
+Build completed successfully (6 jobs).
+-rwxr-xr-x@ 1 carlostoledo  wheel  179038960 Sep  9 17:07 /Users/carlostoledo/Projects/navier-stokes-lean/NavierStokesAndEuler/.lake/packages/lean4export/.lake/build/bin/lean4export
+landrun stand-in: /Users/carlostoledo/Projects/navier-stokes-lean/bin/landrun
+nanoda: /Users/carlostoledo/Projects/navier-stokes-lean/nanoda_lib/target/release/nanoda_bin
+== lake exe comparator ComparatorChallenges/NavierStokes.json ==
+Wed Sep  9 17:07:40 -03 2026
+✔ [4/16] Built Comparator.Util (357ms)
+✔ [5/16] Built Comparator.Util:c.o (106ms)
+✔ [6/16] Built Export.Parse (1.0s)
+✔ [7/16] Built Comparator.Axioms (446ms)
+✔ [8/16] Built Comparator.Axioms:c.o (231ms)
+✔ [9/16] Built Comparator.Compare (516ms)
+✔ [10/16] Built Comparator (346ms)
+✔ [11/16] Built Comparator.Compare:c.o (311ms)
+✔ [12/16] Built Comparator:c.o (68ms)
+✔ [13/16] Built Export.Parse:c.o (2.2s)
+✔ [14/16] Built Main (1.6s)
+✔ [15/16] Built Main:c.o (585ms)
+✔ [16/16] Built comparator:exe (851ms)
+Building ComparatorChallenges.NavierStokes
+⚠ [8763/8763] Replayed ComparatorChallenges.NavierStokes
+warning: ComparatorChallenges/NavierStokes.lean:273:8: declaration uses `sorry`
+warning: ComparatorChallenges/NavierStokes.lean:280:8: declaration uses `sorry`
+Build completed successfully (8763 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, NavierStokes.Comparator.navier_stokes_breakdown_R3, NavierStokes.Comparator.navier_stokes_breakdown_periodic, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ComparatorChallenges.NavierStokes
+Building NavierStokes.ComparatorSolution
+ℹ [9342/9342] Replayed NavierStokes.ComparatorSolution
+info: NavierStokes/ComparatorSolution.lean:31:0: 'NavierStokes.Comparator.navier_stokes_breakdown_R3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: NavierStokes/ComparatorSolution.lean:32:0: 'NavierStokes.Comparator.navier_stokes_breakdown_periodic' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9342 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, NavierStokes.Comparator.navier_stokes_breakdown_R3, NavierStokes.Comparator.navier_stokes_breakdown_periodic, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from NavierStokes.ComparatorSolution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+
+real	13m3.005s
+user	7m15.731s
+sys	0m58.326s
+COMPARATOR EXIT 0 for ComparatorChallenges/NavierStokes.json
+Wed Sep  9 17:20:43 -03 2026
+== lake exe comparator ComparatorChallenges/Euler.json ==
+Wed Sep  9 17:20:43 -03 2026
+Building ComparatorChallenges.Euler
+⚠ [8763/8763] Replayed ComparatorChallenges.Euler
+warning: ComparatorChallenges/Euler.lean:85:8: declaration uses `sorry`
+warning: ComparatorChallenges/Euler.lean:170:8: declaration uses `sorry`
+Build completed successfully (8763 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from ComparatorChallenges.Euler
+Building Euler.Solution
+ℹ [10591/10591] Replayed Euler.Solution
+info: Euler/Solution.lean:73:0: 'Euler.euler_breakdown_R3' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: Euler/Solution.lean:75:0: 'Euler.exists_compact_smooth_euler_singularity' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (10591 jobs).
+Exporting #[Nat, String, String.mk, Char, Quot, Quot.mk, Quot.lift, Quot.ind, Euler.euler_breakdown_R3, Euler.exists_compact_smooth_euler_singularity, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce] from Euler.Solution
+Running nanoda kernel on solution
+nanoda kernel accepts the solution
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+
+real	17m6.980s
+user	12m57.218s
+sys	0m54.838s
+COMPARATOR EXIT 0 for ComparatorChallenges/Euler.json
+Wed Sep  9 17:37:50 -03 2026
+DONE

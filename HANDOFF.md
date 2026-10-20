@@ -16,16 +16,76 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~13:50 UTC, handoff: on "start the first steps" of the cousin engine — THE BOX, VERSION 1 BUILT (instruments/box, v1 + v2, COMMITTED AND PUSHED; ★ below); earlier the same day, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~18:33 UTC, handoff: on "Handoff" — THE BOX v3 HALF-BUILT and PARKED on the pushed branch wip/box-v3-2026-10-20 (main holds v1 + v2); the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ NOTHING IS HALF-DONE. main is green and consistent (make test 148/148 PASS at dd26247b); no branch is open. SINCE THEN (13:50 UTC): the box v1 + v2 BUILT,
-     COMMITTED AND PUSHED (★ THE BOX below); make test 151/151 PASS with the new row. Next builds, none
+  ◆ ONE THING IS HALF-DONE: the box v3, parked on branch wip/box-v3-2026-10-20 (pushed, not merged; ★ THE BOX v3 below). main is green and
+     consistent (make test 151/151 PASS at d9b70814 with the box row). The box v1 + v2 are on main (★ THE BOX below). Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
+  ★ THE BOX, VERSION 3 HALF-BUILT — PARKED ON BRANCH wip/box-v3-2026-10-20 (2026-10-20 afternoon → evening, on "Continue" after v2; the
+     session was cut off mid-way and resumed; NOT MERGED, main untouched). WHAT IS ON THE BRANCH: (1) check.py v3 — the FINITE
+     QUANTIFIER as the one new primitive: Sum / Product / MaxOver / MinOver over integer ranges, Index into typed data, a forall
+     over index tuples; a typed data block in the domain (select, elements doubles|integers|rationals, shape symbols bound to the
+     decoded sizes; an integer datum stays a Python int, a double becomes the exact rational it denotes); the GENERIC EXACT
+     DECIDER: every exact predicate is decided from the object alone, with the first violating index tuple as witness and the
+     count of all violations; a transcendental or named head, or a box-side symbol, is left to the record; record now OPTIONAL
+     (an unattached object is decided from the bytes or is a proposal), record.value may be null, a new kind record-value-mismatch
+     (the value computed from the object must equal the record's exact value); --smt exports the exact predicates to SMT-LIB 2
+     (QF_NRA, ground, the negation asserted: sat = REFUTED, unsat = CERTIFIED; quantifier terms NAMED with define-fun — the inline
+     ite chain for a 599-term maximum grew as 2^599 and never finished, found and fixed). (2) check.js — the JavaScript SECOND
+     CHECKER, same specification, no code shared with the Python: BigInt rationals, a JSON reader of its own that keeps number
+     text (so a JSON number in an object is refused as a double and an integer datum past 2^53 stays exact); it agrees with
+     check.py on all ten objects and the three primitive ones (word, decisions, values, witness, counts). (3) primitive/ — three
+     objects DECIDED FROM THE BYTES ALONE: prim-1d-cert2026 (the ratio 600·max_m|Σ_{i+j=m} v_i v_j|/(Σv)² as an expression over the
+     300 doubles of PR 224: its value EQUALS the record's exact fraction digit for digit, REFUTED as printed, the repair
+     CERTIFIED; 0.6 s Python, 0.8 s JS); prim-ae-593-kissing (K(11) >= 593 from AlphaEvolve's 593 integer vectors, the one
+     inequality 4·p·|p| <= |u|²|v|² over every pair: CERTIFIED, 21 s Python / 3 s JS, attached by word to the kissing ledger row);
+     prim-ea-605-kissing (EinsteinArena solution 2560: REFUTED, witness pair (0, 48), 9,480 violating pairs of 182,710; 46 s
+     Python / 73 s JS; unattached). (4) Z3 AS A THIRD DECIDER, written by nobody here: the 1d export (25.6 MB, 599 named knot
+     terms) comes back sat under the printed bar and unsat under the repaired bar, each within a 300 s cap (z3 4.16.0 on PATH) —
+     agreeing with both checkers and the record. (5) instruments/box/second/README.md — the BLIND SECOND READER's report (an AI
+     agent given SCHEMA.md, check.py, the ten sentences and the corpus, forbidden the first reader's objects, HANDOFF and git): the
+     same ten outcomes; agreement on every decision-bearing choice readable from the report (bars, digits, relations, record rows
+     and value paths, the reading, the repair, the k3072 finding); differences on declared fields (which page is quoted, one vs
+     two predicates for C_82, the definition path, the counts — the first reader's C_82 counts were GUESSES, 32 and 9, where the
+     second reader counted 38 and 13 from the files). ITS TEN OBJECT FILES WERE LOST: they were written to the session's scratch
+     folder and the session ended before they were copied in; concord.py's write was cut off too. Redo the second reading INTO
+     instruments/box/second/ first thing, then write concord.py (the design is in the README) → certs/box-concord.json.
+     OPEN, DECIDE BEFORE MERGING: THE 605 COUNT. certs/mc100-einstein-arena.json row ea-best-kissing-number-d11-605 says 9,510 of
+     182,710 pairs are closer than 60° (tools/run-mc100-einstein.js kissingFull, worst pair 601/604); the generic decider in BOTH
+     languages and a direct Fraction count over the doubles give 9,480 (cos > 1/2 and cos >= 1/2 both 9,480; cos² > 1/4 of either
+     sign 19,248; cos < −1/2 9,768 — none is 9,510). The one difference found so far: the record builds V = K.fromDecimals(rows)
+     — the heights read as the DECIMAL STRINGS the JSON prints — where the object reads the doubles the numbers denote; the two
+     readings differ in the last bits and 30 near-threshold pairs may flip. TO DO: re-count under the decimal-string reading; if
+     that gives 9,510 both are right under their reading and the object must declare the record's reading (reference field); if
+     not, one decider has a bug and the register row is in question. Nothing on the register was touched. ALSO NOT DONE on the
+     branch: battery.py not extended for v3 (it passes as is, 57 checks / 37 reds, against the v3 checker); SCHEMA.md not updated
+     for v3 (the quantifier grammar, the data block, forall, printed optional only for the zero bar, record optional, --smt);
+     the reds for the new kinds (data, index, empty-range, division-by-zero, record-value-mismatch); a check.js battery row;
+     a z3 row that is reported NOT RUN (never PASS) when z3 is absent. Then merge.
+  ★ DISK CLEANUP (2026-10-20, on "I'm having problems with disk space … delete everything not used", then item by item on the
+     operator's word): free space 18 → 102 GB. DELETED, each after checking no battery or builder reads it, batteries re-run PASS
+     after each (Bandeira, the three Erdős, Navier–Stokes, Sidorenko; the openai/math report builder green): corpus/bandeira/
+     .cache/repo (the Qiushi Bandeira Lean clone + .lake, 10.4 GB; lean-build.json records the 17-hour build); ~/Projects/
+     navier-stokes-lean (34.5 GB: the openai/NavierStokesAndEuler clones at the pin and at f9e8bc5b with builds, nanoda_lib, the
+     Comparator binaries — its small files of ours, run-comparator.sh, the landrun pass-through, the build and Comparator logs,
+     KEPT in corpus/navier-stokes/local-build-2026-09 with a README, committed on main); ~/.elan (all four Lean toolchains, by
+     `elan self uninstall`: THERE IS NO LOCAL LEAN ON THIS MAC NOW — Comparator/nanoda work runs on the hosted runners);
+     ~/Projects/openai-math (3.1 GB; the records and pins stay in corpus/openai-math; the Sidorenko battery skips its optional
+     source checks and says so); the Claude desktop VM bundle (10.1 GB); sagui's three data/raw folders (1.9 GB, its make export
+     re-fetches); certs/erdos1/wip-cert-b15-s3-a3_5.json.gz (superseded); git gc; the Spotify, Cursor, Claude-app, pip, npm,
+     Homebrew, Playwright, electron, node-gyp, TypeScript, Apple-Python caches; Cursor's state.vscdb.backup; ~/.lightkurve.
+     NOT DELETED: ~/.cache/mathlib (1.7 GB) — the auto-mode classifier refused twice; the operator's one-liner is
+     `rm -r ~/.cache/mathlib`. KEPT ON PURPOSE (read by batteries or make targets): apps/skyaudit/data (2 GB), corpus/kissing/
+     wave/.cache, the corpus/janela and corpus/ww3-grid caches, the five .venvs. The recorders that named the deleted clones
+     (tools/record-navierstokes-*.js, build-navierstokes-head.py, pin-navierstokes-lean.js, pin-openai-math.js, the finite lane's
+     MATH_CLONE) need a fresh clone at the pinned commit before they run again. Batteries that re-run re-stamp timings into
+     corpus/blindspot/*.json and corpus/navier-stokes/probes.json — restored before every commit. Memory: local-lean-removed-
+     2026-10-20.md.
   ★ THE BOX, VERSION 1 BUILT (2026-10-20 ~13:50 UTC, this session, on "start the first steps" after a brainstorm of the operator's
      "cousin engine" draft — a claim-machine that turns a claim into the predicate the certifier decides). COMMITTED AND PUSHED this session
      (make test 151/151 PASS): Makefile, tools/build-control.js, corpus/targets.json modified; instruments/box/ and certs/box-yield.json new. WHAT IT IS: the method paper's

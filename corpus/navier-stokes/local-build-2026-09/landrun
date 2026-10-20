@@ -1,0 +1,13 @@
+#!/bin/sh
+# NOT landrun. A pass-through stand-in for Comparator on macOS, where Landlock does not exist:
+# it ignores every sandbox flag and executes the command after '--' unsandboxed.
+# The sandbox defends against an adversarial Solution file tampering with the Challenge build;
+# on this machine both were built from a pinned commit we read, so the check performed here is
+# statement equality + axiom audit + kernel replay (Lean's and nanoda's), WITHOUT isolation.
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --) shift; break ;;
+    *) shift ;;
+  esac
+done
+exec "$@"
