@@ -1,0 +1,178 @@
+{
+ "id": "prim-ae-593-kissing",
+ "text": "K(11) >= 593: the 593 integer direction vectors AlphaEvolve published (May 2025) are a kissing configuration in R^11 — no two closer than 60 degrees, i.e. 4·p·|p| <= |u|^2 |v|^2 for every pair, p = <u, v>",
+ "source": {
+  "what": "google-deepmind/alphaevolve_results, mathematical_results.ipynb (section B.11), pinned in corpus/sources",
+  "path": "corpus/sources/alphaevolve_mathematical_results.ipynb",
+  "sha256": "2cce2543e48c89aa3e91614272a698a0147dd2548ea11cf92f1292b7435d38ff",
+  "quote": "and AlphaEvolve improved this to 593."
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/kissing/alphaevolve-d11-593.json",
+   "sha256": "71e5919df80dedf1c7d9d24130b9020700541582512c676d4edbddf215125610"
+  },
+  "decoder": "the JSON field \"vectors\": 593 rows of 11 integers, the notebook's cell B.11 extracted here 2026-09-03 (the extraction is this repository's; the integers are the notebook's)",
+  "count": 593,
+  "variable": "f",
+  "data": {
+   "select": "vectors",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "2"
+     ]
+    ],
+    [
+     "j",
+     [
+      "Add",
+      "i",
+      "1"
+     ],
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Multiply",
+     "4",
+     [
+      "Multiply",
+      [
+       "Sum",
+       "k",
+       "0",
+       [
+        "Subtract",
+        "d",
+        "1"
+       ],
+       [
+        "Multiply",
+        [
+         "Index",
+         "f",
+         "i",
+         "k"
+        ],
+        [
+         "Index",
+         "f",
+         "j",
+         "k"
+        ]
+       ]
+      ],
+      [
+       "Abs",
+       [
+        "Sum",
+        "k",
+        "0",
+        [
+         "Subtract",
+         "d",
+         "1"
+        ],
+        [
+         "Multiply",
+         [
+          "Index",
+          "f",
+          "i",
+          "k"
+         ],
+         [
+          "Index",
+          "f",
+          "j",
+          "k"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "Multiply",
+     [
+      "Sum",
+      "k",
+      "0",
+      [
+       "Subtract",
+       "d",
+       "1"
+      ],
+      [
+       "Square",
+       [
+        "Index",
+        "f",
+        "i",
+        "k"
+       ]
+      ]
+     ],
+     [
+      "Sum",
+      "k",
+      "0",
+      [
+       "Subtract",
+       "d",
+       "1"
+      ],
+      [
+       "Square",
+       [
+        "Index",
+        "f",
+        "j",
+        "k"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "c": "0"
+  }
+ ],
+ "reference": "no bar is printed: the zero of the structural inequality; the claim is the count, 593 directions pairwise at least 60 degrees apart, decided from the integers alone",
+ "hypotheses": [
+  "two directions u, v are at least 60 degrees apart iff <u, v> <= |u||v|/2, i.e. p <= 0 or 4p^2 <= |u|^2|v|^2, which is the one inequality 4·p·|p| <= |u|^2 |v|^2 (p = <u, v>)",
+  "a set of n directions pairwise at least 60 degrees apart is a kissing configuration of n (the unit spheres centred at the unit directions touch the central sphere and do not overlap)"
+ ],
+ "falsifier": [
+  "some pair of the pinned vectors has 4·p·|p| > |u|^2 |v|^2",
+  "the pinned file does not hash to 71e5919d…"
+ ],
+ "record": {
+  "path": "certs/kissing-ledger.json",
+  "row": "alphaevolve-593",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

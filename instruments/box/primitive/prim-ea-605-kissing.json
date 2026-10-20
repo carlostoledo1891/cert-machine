@@ -1,0 +1,174 @@
+{
+ "id": "prim-ea-605-kissing",
+ "text": "the 605 vectors of EinsteinArena solution 2560 (ExoMind-TTS, 2026-09-05) are a kissing configuration in R^11: no two directions closer than 60 degrees, i.e. 4·p·|p| <= |u|^2 |v|^2 for every pair, p = <u, v>",
+ "source": {
+  "what": "EinsteinArena's API record of solution 2560, pinned 2026-10-02 (corpus/einstein-arena/best-24.json)",
+  "path": "corpus/einstein-arena/best-24.json",
+  "sha256": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce",
+  "quote": "\"agentName\":\"ExoMind-TTS\",\"score\":1.7102381876301676"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/einstein-arena/best-24.json",
+   "sha256": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce"
+  },
+  "decoder": "the JSON field data.vectors: 605 rows of 11 numbers, each read as the rational the double denotes, as the platform parses them",
+  "count": 605,
+  "variable": "f",
+  "data": {
+   "select": "data.vectors",
+   "elements": "doubles",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "2"
+     ]
+    ],
+    [
+     "j",
+     [
+      "Add",
+      "i",
+      "1"
+     ],
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Multiply",
+     "4",
+     [
+      "Multiply",
+      [
+       "Sum",
+       "k",
+       "0",
+       [
+        "Subtract",
+        "d",
+        "1"
+       ],
+       [
+        "Multiply",
+        [
+         "Index",
+         "f",
+         "i",
+         "k"
+        ],
+        [
+         "Index",
+         "f",
+         "j",
+         "k"
+        ]
+       ]
+      ],
+      [
+       "Abs",
+       [
+        "Sum",
+        "k",
+        "0",
+        [
+         "Subtract",
+         "d",
+         "1"
+        ],
+        [
+         "Multiply",
+         [
+          "Index",
+          "f",
+          "i",
+          "k"
+         ],
+         [
+          "Index",
+          "f",
+          "j",
+          "k"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "Multiply",
+     [
+      "Sum",
+      "k",
+      "0",
+      [
+       "Subtract",
+       "d",
+       "1"
+      ],
+      [
+       "Square",
+       [
+        "Index",
+        "f",
+        "i",
+        "k"
+       ]
+      ]
+     ],
+     [
+      "Sum",
+      "k",
+      "0",
+      [
+       "Subtract",
+       "d",
+       "1"
+      ],
+      [
+       "Square",
+       [
+        "Index",
+        "f",
+        "j",
+        "k"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "c": "0"
+  }
+ ],
+ "reference": "no bar is printed: the zero of the structural inequality; the claim is the problem's name (a kissing configuration of 605 in dimension 11), not the platform's score, which the register's mc100 row decides separately",
+ "hypotheses": [
+  "two directions u, v are at least 60 degrees apart iff <u, v> <= |u||v|/2, i.e. p <= 0 or 4p^2 <= |u|^2|v|^2, which is the one inequality 4·p·|p| <= |u|^2 |v|^2 (p = <u, v>)"
+ ],
+ "falsifier": [
+  "some pair of the pinned vectors has 4·p·|p| > |u|^2 |v|^2 (it does: the first in index order is the witness, and the count of all such pairs is 9,510)",
+  "the pinned file does not hash to 1bc113d0…"
+ ],
+ "notes": [
+  "no record is attached: this object is decided from the bytes alone. The register's row ea-best-kissing-number-d11-605 (certs/mc100-einstein-arena.json) is CERTIFIED for a different claim, the platform's score; its scope says 9,510 of 182,710 pairs are closer than 60°, which this object re-derives"
+ ]
+}
