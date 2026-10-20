@@ -1003,7 +1003,7 @@
    "artifacts": "certificate.json in github.com/rozetyp/barnard-steinerberger-lower-bound @ 19f39715 (sha256 62ac49dd…c1fd0e, matches the page); an earlier K = 3072 certificate in previous/",
    "gap": "the page and README print the fraction's decimal as 0.41030287175…; the fraction is 0.41032871755… (the Bound column 0.4103287 is right) — scout's own exact pre-check, to be confirmed by a recorded decision",
    "cost": "seconds (bound = K·min_k Σ w_i w_{i+k} / (Σw)², linear between grid points)",
-   "next": "a stepfun-family decider for the minimum autocorrelation; then a PR row note — a separate send"
+   "next": "FILED 2026-10-20 as teorth/optimizationproblems#243 (stacked on #232), on the operator's word; watch the thread (sweep-claims)"
   },
   {
    "id": "optconst-1d-signed-autocorrelation-2026-10",
@@ -1015,7 +1015,7 @@
    "artifacts": "the 300 values exist only in the PR #224 description (merge b7209dcf)",
    "gap": "the claimed sha256 44f3f2b6…0f001e1c matches the JSON block only rebuilt with CRLF line endings and no trailing newline (as copied on Unix it hashes 79038573…); a replay record must say which bytes it decided",
    "cost": "under a second",
-   "next": "pin the PR body, decide with the stepfun-family JS decider (signed heights: the admissibility differs from 1a)"
+   "next": "FILED 2026-10-20 as teorth/optimizationproblems#243 (stacked on #232), on the operator's word; watch the thread (sweep-claims)"
   },
   {
    "id": "optconst-86-schur-siegel-smyth-2026-10",
@@ -1027,7 +1027,7 @@
    "artifacts": "cert_n1200_A11.json in github.com/rpinho/c86-trace-certificate @ 116a58ff (sha256 722a287b…ffe53d): 1201 edges, 1200 densities, 11 polynomials of degree <= 5, 11 weights",
    "cost": "exact parts (support, Σ b·deg < m, the bound equality) seconds; irreducible and totally real by Sturm; ∫log|Q| dμ > 0 (margin ~1e-4) by a closed form with outward rounding; U_μ − Σ b log|Q| >= 0 on the support (margin 7.4e-8) by interval bisection — each u·log|u| − u term monotone on (−1, 1)",
    "bridge": "Smith's theorem, the minimum principle and resultants are analytic: the declared boundary, as in the Bandeira audit",
-   "next": "send T-PR4 on the operator's word (independent of #232; different README lines); then C_82 (#229), the next certificate of the same kind"
+   "next": "FILED 2026-10-20 as teorth/optimizationproblems#242 (with C_82), on the operator's word; watch the thread (sweep-claims)"
   },
   {
    "id": "optconst-82-zhang-zagier-2026-10",
@@ -1039,7 +1039,7 @@
    "artifacts": "certificate.json in github.com/rpinho/c82-height-certificate @ 69d89640 (sha256 b33626f3…350fce)",
    "cost": "B·D = ∫₀¹ max(log|Q∘T|, log|A∘T|) dt by Jensen: upper bounds of |poly| on arcs and interval quadrature; no root finding needed",
    "gap": "the Épi row prints 0.2535744749*, Pinho's re-evaluation gives 0.25356893 (5.5e-6, the safe direction)",
-   "next": "send T-PR5 on the operator's word (independent of #232, T-PR3, T-PR4; label [T2026d] if T-PR4 goes first)"
+   "next": "FILED 2026-10-20 as teorth/optimizationproblems#242 (with C_86), on the operator's word; watch the thread (sweep-claims)"
   },
   {
    "id": "optconst-12-okeefe-2026-10",

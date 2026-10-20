@@ -11,6 +11,12 @@ assert all(rows[k]['verdict'] == 'CERTIFIED' and rows[k]['agree'] for k in ('pin
 assert all(c['agree'] and c['jsAsExpected'] and c['pyAsExpected'] for c in R['cases'])
 short = sha[:7]
 pinB, epiB = rows['pin26']['B']['js'], rows['epi26']['B']['js']
+from decimal import Decimal, ROUND_FLOOR, ROUND_CEILING
+def outward(b, k=12):
+    """[lo, hi] printed at k places, the lower end rounded down and the upper end up (from the doubles' exact values)"""
+    q = Decimal(1).scaleb(-k)
+    return str(Decimal(b[0]).quantize(q, rounding=ROUND_FLOOR)), str(Decimal(b[1]).quantize(q, rounding=ROUND_CEILING))
+pinP, epiP = outward(pinB), outward(epiB)
 REF = ('- [%s] Toledo, Carlos. Independent replay of the [Pin26] certificate and the [Epi26] construction: Doche\'s bound $B$ decided from the '
        'pinned bytes — the exact hypotheses (integer factors, monic denominators, $\\deg A < \\deg Q$, coprimality), every root of every composed '
        'factor certified by Gershgorin\'s theorem, the integral bounded on dyadic panels — by two implementations that share no code with each other '
@@ -30,10 +36,10 @@ def edit(path, subs):
 edit('constants/82a.md', [
     ('| 0.2535744749068227\\* | [Epi26] |', '| 0.2535744749068227 | [Epi26] |'),
     ('Asterisked: a self-archived computer-assisted result. |',
-     'Independently replayed [%s]: the construction gives $B \\in [%.12f, %.12f]$, below the printed bound. |' % (label, epiB[0], epiB[1])),
+     'Independently replayed [%s]: the construction gives $B \\in [%s, %s]$, below the printed bound. |' % (label, epiP[0], epiP[1])),
     ('| 0.2534449\\* | [Pin26] |', '| 0.2534449 | [Pin26] |'),
     ('Asterisked: a self-archived computer-assisted certificate, not yet independently replayed. |',
-     'Independently replayed [%s]: $B \\in [%.12f, %.12f]$, decided from the certificate\'s bytes by two implementations sharing no code with its checkers. |' % (label, pinB[0], pinB[1])),
+     'Independently replayed [%s]: $B \\in [%s, %s]$, decided from the certificate\'s bytes by two implementations sharing no code with its checkers. |' % (label, pinP[0], pinP[1])),
     ('- [Pin26] Ricardo Pinho.', REF + '\n- [Pin26] Ricardo Pinho.'),
 ])
 s = open(clone + '/constants/82a.md', encoding='utf-8').read().rstrip('\n') + '\n\n' + AI + '\n'
@@ -50,7 +56,10 @@ line = ('- [82](https://teorth.github.io/optimizationproblems/constants/82a.html
         'and the Épi construction behind 0.2535744749068227 re-decided with certified roots and interval arithmetic, with no code shared with the claimants, '
         'by [C. Toledo](https://carlostoledo.co/reports/optconst-queue.html#c82), %s; asterisks removed.' % when)
 lines = s.split('\n')
-last = max(i for i, l in enumerate(lines) if l.startswith('- [') and '**' in l and 'teorth.github.io/optimizationproblems/constants' in l)
-lines.insert(last + 1, line)
+# insert right after this constant's own Recent-progress line, not at the end of the list: the end is where #232 and
+# the other replay PRs add their lines, and stacked insertions there conflict (changed 2026-10-20)
+own = [i for i, l in enumerate(lines) if l.startswith('- [') and 'constants/82a.html) **' in l]
+assert len(own) == 1, ('the Recent-progress line for this constant is not unique', len(own))
+lines.insert(own[0] + 1, line)
 open(clone + '/README.md', 'w', encoding='utf-8').write('\n'.join(lines))
 print('edited constants/82a.md and README.md')

@@ -52,7 +52,10 @@ line = ('- [86](https://teorth.github.io/optimizationproblems/constants/86a.html
         '(a 629-cell step measure and eleven polynomials) re-decided in exact rational and interval arithmetic, with no code shared with the claimant, '
         'by [C. Toledo](https://carlostoledo.co/reports/optconst-queue.html#c86), %s; asterisk removed.' % (bound, when))
 lines = s.split('\n')
-last = max(i for i, l in enumerate(lines) if l.startswith('- [') and '**' in l and 'teorth.github.io/optimizationproblems/constants' in l)
-lines.insert(last + 1, line)
+# insert right after this constant's own Recent-progress line, not at the end of the list: the end is where #232 and
+# the other replay PRs add their lines, and stacked insertions there conflict (changed 2026-10-20)
+own = [i for i, l in enumerate(lines) if l.startswith('- [') and 'constants/86a.html) **' in l]
+assert len(own) == 1, ('the Recent-progress line for this constant is not unique', len(own))
+lines.insert(own[0] + 1, line)
 open(clone + '/README.md', 'w', encoding='utf-8').write('\n'.join(lines))
 print('edited constants/86a.md and README.md')

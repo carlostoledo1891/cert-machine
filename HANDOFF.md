@@ -101,14 +101,19 @@ NEXT SESSION, IN ORDER:
            is welcome to supersede this with the calculation that reaches 0.000719";
          - body and diff in outreach/github-p2a-2026-10-06.md item 7, re-checked 10-19 against the registry HEAD;
          - needs the operator's "file it".
-     (5) T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md) and T-PR5 (C_82, outreach/registry-pr5-draft-2026-10-19.md),
-         independent of #232 and of each other: the operator's word for each.
+     (5) DONE 2026-10-20 on the operator's "Do 1 and 2": T-PR4 + T-PR5 FILED TOGETHER as teorth/optimizationproblems#242
+         (C_86 and C_82 in one PR: their README Recent-progress lines are adjacent, so two PRs would conflict); T-PR3 FILED as
+         #243, STACKED on #232 (adjacent README table rows); evidence commit d9a3942b; bodies in outreach/registry-pr45-body-
+         2026-10-20.md and registry-pr3-body-2026-10-20.md. The three edit scripts now insert each new line after the
+         constant's own line, not at the list's end; test merges of #232, #242, #243 in every order are clean. The C_82
+         enclosures on the page are printed outward (the first draft rounded the lower end up — fixed before sending). No
+         ping was posted on #232 (two days old; a follow-up comment is premature — revisit after a week).
      (6) Zenodo's version field (login or ZENODO_TOKEN).
      (7) Confirm the Navier–Stokes "six readers" were AI agents.
      (8) AE-PR needs Google's CLA.
   ◆ WAITING ON THE WORLD:
-     - #232 (Tao). IF IT MERGES: take a third registry snapshot (SNAPS in read-optconst-registry.js) before the paper
-       counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's word.
+     - #232, #242, #243 (Tao), all filed, no reply. WHEN ANY MERGES: take a registry snapshot (SNAPS in
+       read-optconst-registry.js) before the paper counts more marks; update the queue page and the paper's counts.
      - Schmidt's answer: check any proof against the 48 recorded cases.
      - Pedro's comments.
   ◆ READY TO BUILD ON A WORD: nothing queued (C_82 was built 2026-10-20).
