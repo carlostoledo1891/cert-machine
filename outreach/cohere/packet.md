@@ -57,4 +57,4 @@ distributed-training ends from your team. Remote from Brazil (UTC−3), overlapp
 - Human-annotator programmes: not run here; the two-reader protocol above is the nearest thing and is small.
 - Numbers above are read from the records named in resume.md's sender notes; re-read before sending (last re-read 2026-10-19).
 
-Status: NOT SENT. The operator reviews, fills the marks, builds the PDF, submits.
+Status: SENT 2026-10-20 by the operator.

@@ -27,7 +27,7 @@ posting as read on 2026-10-16, names the form's fields, holds the free-text answ
   Ashby; Remote (International) explicit, EOR or contractor; ~210 words; samples = openai-math, kissing, envs; the ML-training gap stated.
 ### J3. Nous Research — ML Engineer, Evals — DRAFTED (outreach/nous/packet.md)
   Ashby; Americas (US time zones); the five responsibilities answered one by one; Harbor/Nemo NOT used — said.
-### J4. Cohere — MTS, Data Analysis and Evaluation — DRAFTED (outreach/cohere/packet.md)
+### J4. Cohere — MTS, Data Analysis and Evaluation — SENT 2026-10-20 by the operator (outreach/cohere/packet.md)
   Ashby; no location restriction; the statistics/evaluation half claimed, the distributed-training and top-venue-paper
   requirements stated as not met.
 ### J5. The second-wave packets (Pydantic after its door-opener; Elicit; Gray Swan; Prime Intellect Evals & Data; the

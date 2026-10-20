@@ -93,7 +93,7 @@ NEXT SESSION, IN ORDER:
          - NEW, it could add: the effective rate needs NO structure (c0 = ½ln(3/2) from the crude bound), and a proof
            of his structure would double c0 — the operator's call. The updated text is in notes/schmidt-reply-2026-10-20.md
            (local only, git-excluded: a private letter).
-     (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere (EPOCH and FAR.AI SENT 2026-10-20 by the operator; Nous next):
+     (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere (EPOCH, FAR.AI and COHERE SENT 2026-10-20 by the operator; Nous is the one left):
          - outreach/<employer>/packet.md + outreach/resume/resume.pdf;
          - record each send in SEND-QUEUE lane J.
      (4) The C84b PR:
