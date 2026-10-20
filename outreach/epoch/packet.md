@@ -60,4 +60,5 @@ yours.
 - Numbers quoted above are read from the records named in resume.md's sender notes; re-read before sending if any
   ledger was re-run after 2026-10-19.
 
-Status: NOT SENT. The operator reviews, fills the marks, builds the PDF, submits.
+Status: SENT 2026-10-20 by the operator. The form also carried four custom questions; the drafted answers, which the
+operator edited before sending, are local only (notes/epoch-answers-2026-10-20.txt).
