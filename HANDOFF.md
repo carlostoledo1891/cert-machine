@@ -16,14 +16,46 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~00:30 UTC, handoff: the branch wip/v06-fixes-2026-10-19 FINISHED AND MERGED into main (6d2cc5c8) — O2 phase 2 done (the entropy-vs-Arb audit declares nothing; its 17 first-run findings kept as foundAtPin), the fei-second battery's stdin deadlock removed, the mathbench ratio printed outward, the METHOD PAPER v0.6 BUILT AND LIVE (52 pp; sources 7c3b736d, numbers 842b527e); make test 147/147 PASS on the final branch head (the first run's one failure was the deadlock the fix removed); C_86 REPLAYED (8daa22cc), T-PR4 DRAFTED (a send); SAGUI in its own repo; PR #232 OPEN, no reply; NO POD RUNNING; nothing building; the sweep: not run this session)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~03:30 UTC, handoff: on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ NOTHING IS HALF-DONE. main is green and consistent; no branch is open. The next build is the operator's choice:
-     an AI referee read of v0.6 before it goes to Pedro (run one, apply what checks out, bump to v0.7), or C_82 (#229, below).
+  ◆ NOTHING IS HALF-DONE. main is green and consistent (make test 148/148 PASS at dd26247b); no branch is open. Next builds, none
+     chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
+     referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
+  ★ METHOD PAPER v0.7 (2026-10-20, this session): an AI referee read of v0.6 ("major revision": 24 errors, 11 overclaims, 15
+     structure, 8 typography; report at corpus/reviews/cert-machine-method-v06-referee-2026-10-19.md) APPLIED where the
+     records settle it — the typed cells now read from records (C71 two programs, eight untabled queue rows, Λ ≤ 0.1595 for 21a);
+     the queue counted as decided (7 by computation, 28a on the earlier kernel record + a reading, 23b by reading alone and
+     counted as a reading); what a certificate-backed CERTIFIED/REFUTED means (§2.2); the Navier–Stokes fidelity scoped as an
+     unconfirmed AI reading (abstract, highlight, §3.3); Comparator is the Lean FRO's; recall also at the audit's threshold
+     (11/12, two-sided Clopper–Pearson 0.615); the second readings' 40 changes = 39 re-categorisations + 1 disagreement; the
+     method claims as the records hold them (one claimant checker run to measure it; machines named in the exercises' records
+     only; Leech/E8 in the wave runner only; the kissing samples differ, d25's JS sample omits the new rows; span = rank of XᵀX,
+     not recorded for 25/27; the rerun kit ran before kissing/NS, not before the registry; the GPU bill as read at 21:25 UTC);
+     the Qiushi READMEs that link the check PINNED (corpus/kissing/wave/qiushi-readmes-2026-10-19); C_82 added (§3.2, tables).
+     NOT APPLIED — the operator's or the co-authors' call: S2 rename "benchmark exercises" → "case studies" (the title; Pedro's
+     shape); S3 move Krawczyk/radii-polynomial to Appendix B; S4 primary sources for the opening list of failures (l.68); S1 put
+     the exercises in the register and the rerun kit; S11 the third exercise's dollar cost (no record holds it); S15 Appendix C
+     Prop 9(a) monotonicity wording; T2/T3 box warnings; the eight uncited bib entries. AND A RECORD QUESTION: certs/optq-ledger.json
+     row optq-226-23b says CERTIFIED "BY READING, not computed" — the grammar forbids a verdict on a reading; the paper now counts
+     it as a reading; changing the record's word (and the queue page's "9 certified") is the operator's call (the #226 comment
+     of 2026-10-15 said "23b read step by step", which stays true). The v0.6 build commit said 52 pp; it was 55 (mdls was stale).
+  ★ C_82 REPLAYED (2026-10-20, this session; it was "ready to build on a word"): both asterisked rows on the 82a page — [Pin26]
+     R. Pinho's certificate (#229) and [Epi26] Épi's construction — CERTIFIED by tools/replay-c82.js (JavaScript: Gaussian-integer
+     root certification by Gershgorin on exact Weierstrass corrections + eqcert intervals) and instruments/optq/c82.py (Python:
+     integers + a priori rounding-error bounds, its own sin/cos/log), no code shared with either claimant (verify.py and
+     independent_check.py pinned as text, never run). [Pin26] B ∈ [0.2534446872487, 0.2534446875146] < 0.2534449 (2,058 roots,
+     ~13,300 panels; 32 s JS, 102 s Python; the claimant's 0.25344468733… inside); [Epi26] B = 0.25356893019…0304 <
+     0.2535744749068227 (from Épi's own bytes; the claimant's transcription equal). 3 controls (Doche 2001 0.2544362 < 0.25444;
+     Grinsztajn 0.2536269 < 0.2536331; the claimant's planted failure REFUTED), 6 red controls, all in both. Doche's theorem
+     read. Pins corpus/optconst-queue/c82-2026-10-19 (Épi's repo has no licence: verbatim for verification, the easota precedent);
+     record certs/c82-replay.json; battery `node tools/replay-c82.js --check` (~50 s) in make test + build-control + the shelf;
+     page §9 /reports/optconst-queue.html#c82; targets row BUILT. T-PR5 DRAFTED, NOT SENT: outreach/registry-pr5-draft-2026-10-19.md
+     + registry-pr5-edit-2026-10-19.py (dry-run applies; label [T2026d] if T-PR4 goes first). Bug found on the way: c82.py's
+     panel loop reused w for a factor weight, so the run never ended — caught because it never ended; fixed before any record.
   ★ THE BRANCH wip/v06-fixes-2026-10-19 FINISHED AND MERGED (2026-10-19 night, this session, on "continue the tasks"): main now
      holds the fixes for the gaps 470fe0b2 recorded AND the method paper v0.6, built and live. What was done, in HANDOFF's order:
      (2) O2 phase 2 — tools/audit-entropy-arb.py: KNOWN is EMPTY (the fei entries pruned after the verifier ones); the fei
@@ -52,14 +84,15 @@ NEXT SESSION, IN ORDER:
      (6) merged into main (merge commit 6d2cc5c8) and pushed.
      NOT a change of any published verdict: every CERTIFIED stands; the fixes are printed enclosures and doors.
   ◆ WAITING ON THE OPERATOR (2026-10-19):
-     (1) Send the method paper to Pedro — v0.6 is the live one now (52 pp; the four items deferred from v0.5 built in):
+     (1) Send the method paper to Pedro — v0.7 is the live one now (56 pp; the v0.6 referee read applied):
          - PDF paper/cert-machine-method.pdf, live at carlostoledo.co/paper/cert-machine-method.pdf;
          - source github.com/carlostoledo1891/cert-machine/tree/main/paper/tex;
-         - run an AI referee read before the send (the v0.5 lesson); nothing was run on v0.6 yet.
+         - decide the referee's structural items first or send them with it (★ METHOD PAPER v0.7 above lists them).
      (2) The reply to Felix Schmidt:
          - the text is from the 2026-10-18 session; it points to certs/erdos1/buffer-structure.json;
          - NEW, it could add: the effective rate needs NO structure (c0 = ½ln(3/2) from the crude bound), and a proof
-           of his structure would double c0 — the operator's call.
+           of his structure would double c0 — the operator's call. The updated text was given in the 2026-10-20 session's
+           final message (not committed: it is a private letter).
      (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere:
          - outreach/<employer>/packet.md + outreach/resume/resume.pdf;
          - record each send in SEND-QUEUE lane J.
@@ -68,7 +101,8 @@ NEXT SESSION, IN ORDER:
            is welcome to supersede this with the calculation that reaches 0.000719";
          - body and diff in outreach/github-p2a-2026-10-06.md item 7, re-checked 10-19 against the registry HEAD;
          - needs the operator's "file it".
-     (5) T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md), independent of #232: the operator's word.
+     (5) T-PR4 (C_86, outreach/registry-pr4-draft-2026-10-19.md) and T-PR5 (C_82, outreach/registry-pr5-draft-2026-10-19.md),
+         independent of #232 and of each other: the operator's word for each.
      (6) Zenodo's version field (login or ZENODO_TOKEN).
      (7) Confirm the Navier–Stokes "six readers" were AI agents.
      (8) AE-PR needs Google's CLA.
@@ -77,7 +111,7 @@ NEXT SESSION, IN ORDER:
        counts eight marks, then send T-PR3 (outreach/registry-pr3-draft-2026-10-18.md) on the operator's word.
      - Schmidt's answer: check any proof against the 48 recorded cases.
      - Pedro's comments.
-  ◆ READY TO BUILD ON A WORD: C_82 (#229, Pinho, a 21 KB certificate behind the Zhang–Zagier height bound, ~a day).
+  ◆ READY TO BUILD ON A WORD: nothing queued (C_82 was built 2026-10-20).
   ★ THE FOUR DEFERRED REFEREE ITEMS + THE ERDŐS CHECK (2026-10-19 evening, on "Proceed the four items deferred. Proceed
      the Erdos check"):
      - ERDŐS #1 EFFECTIVE RATE (main, 470fe0b2): only log K enters k, so the crude Lemma 5 suffices.
