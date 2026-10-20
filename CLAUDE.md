@@ -148,6 +148,18 @@ more than an unscouted one.** sin-mfg's own probe notes count as prior art and
 are the first place to look; one of the five was already killed there, on disk,
 the whole time.
 
+## The claimbox relationship (2026-10-20, permanent)
+
+`~/Projects/claimbox` (github.com/carlostoledo1891/claimbox) is the claim-machine: the standard-library translator
+from a claim's text and the claimant's bytes to the claimbox objects this repository decides. The two are a pair and
+keep seeing each other. Here, `instruments/claimbox` is the RECEIVER: the object format (its SCHEMA.md), the two
+checkers, the exact decider, the ten hand-written objects claimbox calibrates against, the three primitive ones.
+claimbox reads this repository read-only and pins `instruments/claimbox/check.py`, `check.js`, `SCHEMA.md`, the ten
+objects and `certs/claims-ledger.json` in its PROVENANCE.json: a change to any of them shows up there as drift, so
+a receiver change is followed by `make lift` in claimbox. Nothing here reads or writes claimbox; the translator, the
+readers, the grammar and the recall are its work, done in its folder. The operator's rule that made the split, in
+their words: build what is asked, never substitute a design.
+
 ## The backlog
 
 The task menu lives at the TOP of `HANDOFF.md` (**TASKS BACKLOG**) and is kept current at
