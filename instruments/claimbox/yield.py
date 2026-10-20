@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""instruments/box/yield.py — the yield measurement (version 2 of the box, 2026-10-20): can the register's claims be
+"""instruments/claimbox/yield.py — the yield measurement (version 2 of the box, 2026-10-20): can the register's claims be
 written as declared claims (B, φ) in the version-1 format? Standard library only.
 
 THE RULE, written before the count. Every row of certs/claims-ledger.json is classified by the FORM of the claim it
@@ -23,13 +23,13 @@ and by the KIND of predicate it would carry:
             index triples, a minimum over pairs, a maximum over a grid), and the vocabulary has no finite quantifier
   reading   a part no predicate states
 
-The classification is a table, instruments/box/yield-table.json, one row per register row with its reason; this program
+The classification is a table, instruments/claimbox/yield-table.json, one row per register row with its reason; this program
 refuses when the table and the register disagree on the set of rows, counts, checks two mechanical facts per row (the
-deciding record is on disk; it pins its inputs by sha256), and writes certs/box-yield.json. A row's class is a reading of
+deciding record is on disk; it pins its inputs by sha256), and writes certs/claimclaimbox-yield.json. A row's class is a reading of
 the row by the author of this file, not a verdict; the table is the record of it.
 
-usage: python3 instruments/box/yield.py --write     classify, count, write certs/box-yield.json
-       python3 instruments/box/yield.py --check     re-derive and compare with the record (the battery)
+usage: python3 instruments/claimbox/yield.py --write     classify, count, write certs/claimclaimbox-yield.json
+       python3 instruments/claimbox/yield.py --check     re-derive and compare with the record (the battery)
 MIT"""
 import json
 import os
@@ -40,7 +40,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 LEDGER = os.path.join(ROOT, 'certs', 'claims-ledger.json')
 TABLE = os.path.join(HERE, 'yield-table.json')
-OUT = os.path.join(ROOT, 'certs', 'box-yield.json')
+OUT = os.path.join(ROOT, 'certs', 'claimbox-yield.json')
 FORMS = ('F1', 'F2', 'F3', 'F4', 'F5')
 V1 = ('yes', 'feature', 'no')
 PRED = ('named', 'primitive', 'reading', 'named+reading')
@@ -48,7 +48,7 @@ SHA = re.compile(r'\b[0-9a-f]{64}\b')
 
 
 def die(m):
-    sys.stderr.write('BOX YIELD REFUSED: ' + m + '\n')
+    sys.stderr.write('CLAIMBOX YIELD REFUSED: ' + m + '\n')
     sys.exit(1)
 
 
@@ -97,7 +97,7 @@ def derive():
     n = len(out_rows)
     yes = counts['v1'].get('yes', 0)
     return {
-        'what': 'The yield measurement of the box (instruments/box, version 2): every row of the register classified by the form of the claim it decided, whether the version-1 format admits it today, and the kind of predicate it would carry. The rule is in instruments/box/yield.py; the classification is instruments/box/yield-table.json, a reading of each row by this repository, not a verdict.',
+        'what': 'The yield measurement of the box (instruments/claimbox, version 2): every row of the register classified by the form of the claim it decided, whether the version-1 format admits it today, and the kind of predicate it would carry. The rule is in instruments/claimbox/yield.py; the classification is instruments/claimbox/yield-table.json, a reading of each row by this repository, not a verdict.',
         'register': {'path': 'certs/claims-ledger.json', 'rows': n, 'count': ledger.get('count'), 'decided': ledger.get('decided')},
         'rule': {'forms': FORMS, 'v1': V1, 'predicate': PRED, 'killSwitch': 'under half of the rows admitted as is (v1 = yes) -> publish the null and stop'},
         'counts': counts,
@@ -118,13 +118,13 @@ def main(argv):
         for k in ('counts', 'yieldAsIs', 'expressibleInForm', 'primitiveExpressible', 'rows', 'register'):
             if old.get(k) != rec.get(k):
                 die('the record differs from the re-derivation at ' + k)
-        print('box yield --check: ' + str(rec['yieldAsIs']['yes']) + '/' + str(rec['yieldAsIs']['of']) + ' admitted as is, ' + str(rec['expressibleInForm']['yesOrFeature']) + ' expressible in form, ' + str(rec['primitiveExpressible']) + ' primitive — identical to the record')
+        print('claimbox yield --check: ' + str(rec['yieldAsIs']['yes']) + '/' + str(rec['yieldAsIs']['of']) + ' admitted as is, ' + str(rec['expressibleInForm']['yesOrFeature']) + ' expressible in form, ' + str(rec['primitiveExpressible']) + ' primitive — identical to the record')
         return 0
     if '--write' in argv:
         with open(OUT, 'w', encoding='utf-8') as f:
             json.dump(rec, f, indent=1, ensure_ascii=False)
             f.write('\n')
-        print('certs/box-yield.json written: ' + json.dumps({'yieldAsIs': rec['yieldAsIs'], 'v1': rec['counts']['v1'], 'form': rec['counts']['form'], 'predicate': rec['counts']['predicate'], 'feature': rec['counts']['feature'], 'recordOnDisk': rec['counts']['recordOnDisk'], 'pinned': rec['counts']['pinned']}, ensure_ascii=False))
+        print('certs/claimclaimbox-yield.json written: ' + json.dumps({'yieldAsIs': rec['yieldAsIs'], 'v1': rec['counts']['v1'], 'form': rec['counts']['form'], 'predicate': rec['counts']['predicate'], 'feature': rec['counts']['feature'], 'recordOnDisk': rec['counts']['recordOnDisk'], 'pinned': rec['counts']['pinned']}, ensure_ascii=False))
         return 0
     print(__doc__)
     return 2

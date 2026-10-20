@@ -1,0 +1,54 @@
+{
+ "id": "optq-1b-atris",
+ "text": "C_1b <= 0.3808585504, an upper bound exhibited by Atris's 114,688-step function h on [0, 2] with 0 <= h <= 1 and total mass exactly 1 [A2026].",
+ "source": {
+  "what": "the registry's 1b page at 46dbf036 (the upper-bounds table row [A2026])",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1b.md",
+  "sha256": "8d164c44a1cde292021f3b8ac0642308babfb0f1142e52d84a62f25e35d314a7",
+  "quote": "| $0.3808585504$* | [A2026] | Atris. Step function $h$ with 114,688 equal steps on $[0,2]$, $0\\le h\\le 1$, total mass exactly $1$, refined from the CodexProLong construction."
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/sources/atrislabs/1b-erdos-minimum-overlap/construction.json",
+   "sha256": "62a976fa1366a7320cbe293ee3047a109d080220b06b450d290cef411e79af02"
+  },
+  "decoder": "the key values: 114,688 strings p/q read as the exact fractions they write, the heights h_0..h_114687 of equal steps of width 1/57344 on [0, 2]; Σ h_i = n/2 exactly, i.e. ∫ h = 1",
+  "count": 114688,
+  "variable": "h"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sup_x ∫ h(t) (1 − h)(x + t) dt = (2/n) · max_m Σ_i a_i (D − a_{i+m}) / D^2 for the n-step function with integer numerators a_i over the common denominator D, g = 1 − h on [0, 2] and both zero outside (the maximum over every lag m; the overlap is piecewise linear with knots on the grid)",
+    "where": "instruments/optq/stepfun.py",
+    "args": [
+     "h"
+    ]
+   },
+   "rel": "le",
+   "printed": "0.3808585504",
+   "c": "3808585504/10000000000"
+  }
+ ],
+ "reference": "the bar is the 1b page's printed 0.3808585504 taken exactly (the README rounds it to 0.38085856); the quantity is the overlap sup_x ∫ h(t) g(x+t) dt of the pinned step function with g = 1 − h, the fractions read as written, the record's exact value 10919976354672639675467789613614419/28672000000000000000000000000000000 = 0.38085855031642856010…, below the bar by 8.4e-11; a bound on C_1b (the infimum over admissible pairs), not its value",
+ "hypotheses": [
+  "the definition on the 1b page: C_1b is the largest constant with sup_{x in [-2,2]} ∫_{-1}^{1} f(t) g(x+t) dt >= C_1b for all f, g: [-1,1] → [0,1] with f + g = 1 and ∫ f = 1 (extended by zero), so one admissible f gives C_1b <= its overlap with g = 1 − f (read)",
+  "the translation of [-1, 1] to [0, 2] leaves the supremum unchanged, and for equal steps the overlap is piecewise linear in x with knots on the grid, so the supremum is attained at a grid shift (read; relied on by the decider)"
+ ],
+ "falsifier": [
+  "the overlap computed exactly from the pinned fractions exceeds 3808585504/10000000000",
+  "a pinned height is outside [0, 1] or Σ h_i ≠ n/2 exactly (the decider refuses)",
+  "corpus/optconst-queue/sources/atrislabs/1b-erdos-minimum-overlap/construction.json does not hash to 62a976fa1366a7320cbe293ee3047a109d080220b06b450d290cef411e79af02"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1b-atris",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the 1b page prints the exact value 0.38085855031642856010… and the construction's SHA-256 prefix 62a976fa1366, both matching the pin"
+ ]
+}

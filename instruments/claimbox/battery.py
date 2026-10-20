@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""instruments/box/battery.py — the gate of the declared-claim checker (version 1). Standard library + node for the concord.
+"""instruments/claimbox/battery.py — the gate of the declared-claim checker (version 1). Standard library + node for the concord.
 
 WHAT IT HOLDS. (1) The ten objects of claims/ come out as expected: nine ADMITTED, with every decision the record's, and
 one REFUSED for the reason written on it (record-bar-mismatch: the claimant's README prints an eleven-digit bound the record
@@ -11,12 +11,13 @@ must be REFUSED with that kind; a forged record (verdict flipped; bar moved) mus
 when the kernel audit lacks an operation of the vocabulary. (5) A GREEN control: a synthetic box-domain object with a
 printed-digits box ("in") is admitted and decided CERTIFIED.
 
-usage: python3 instruments/box/battery.py        exit 0 iff every check passes and every red control fires
+usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
 import importlib.util
 import json
 import os
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -27,7 +28,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 CLAIMS = os.path.join(HERE, 'claims')
 
-spec = importlib.util.spec_from_file_location('boxcheck', os.path.join(HERE, 'check.py'))
+spec = importlib.util.spec_from_file_location('claimboxcheck', os.path.join(HERE, 'check.py'))
 B = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(B)
 B.WORDS = B.load_vocab()
@@ -124,15 +125,15 @@ else:
 
 # ---- 3b · the yield measurement (version 2) re-derives ---------------------------------------------------------------
 yr = subprocess.run([sys.executable, os.path.join(HERE, 'yield.py'), '--check'], capture_output=True, text=True, timeout=120)
-ok(yr.returncode == 0, 'yield: certs/box-yield.json re-derives from the register and the table', (yr.stdout or yr.stderr).strip()[:110])
-with open(os.path.join(ROOT, 'certs', 'box-yield.json'), encoding='utf-8') as fh:
+ok(yr.returncode == 0, 'yield: certs/claimclaimbox-yield.json re-derives from the register and the table', (yr.stdout or yr.stderr).strip()[:110])
+with open(os.path.join(ROOT, 'certs', 'claimbox-yield.json'), encoding='utf-8') as fh:
     Y = json.load(fh)
 ok(Y['register']['rows'] == 132 and Y['yieldAsIs']['yes'] * 2 >= Y['yieldAsIs']['of'], 'yield: the kill switch is not tripped (at least half admitted as is)', str(Y['yieldAsIs']))
 ok(Y['counts']['recordOnDisk'] == Y['register']['rows'], 'yield: every deciding record is on disk', str(Y['counts']['recordOnDisk']))
 with open(os.path.join(HERE, 'yield-table.json'), encoding='utf-8') as fh:
     T = json.load(fh)
 forged = clone(T); forged['rows'].pop(next(iter(forged['rows'])))
-fp_t = os.path.join(tempfile.gettempdir(), 'box-yield-table-forged.json')
+fp_t = os.path.join(tempfile.gettempdir(), 'claimbox-yield-table-forged.json')
 with open(fp_t, 'w') as fh:
     json.dump(forged, fh)
 saved = B_TABLE = None
@@ -141,7 +142,7 @@ red(yr2.returncode != 0 and 'disagree on the rows' in yr2.stderr, 'yield: a tabl
 os.remove(fp_t)
 
 # ---- 4 · red controls -------------------------------------------------------------------------------------------------
-tmp = tempfile.mkdtemp(prefix='box-battery-')
+tmp = tempfile.mkdtemp(prefix='claimbox-battery-')
 try:
     base = load('optq-1d-cert2026')
     assert B.check_obj(base)['word'] == B.ADMITTED
@@ -263,5 +264,140 @@ try:
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 
-print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/box')
+# ---- 6 · version 3: decisions from the bytes alone, the second checker held to the first, Z3 ------------------------
+import hashlib
+PRIM = os.path.join(HERE, 'primitive')
+REC = os.path.join(ROOT, 'certs', 'claimbox-decisions.json')
+with open(REC, encoding='utf-8') as fh:
+    DEC = json.load(fh)
+dec_by = {r['id']: r for r in DEC['rows']}
+FULL = os.environ.get('CLAIMBOX_FULL') == '1'
+notrun = []
+prim_files = sorted(f for f in os.listdir(PRIM) if f.endswith('.json'))
+ok(len(prim_files) == 3 and set(os.path.splitext(f)[0] for f in prim_files) == set(dec_by), 'three primitive objects, each with a row in certs/claimbox-decisions.json', str(len(prim_files)))
+
+
+def js_check(path):
+    """the JavaScript checker's result for a file, as JSON; None if node fails"""
+    js = "const C=require(process.argv[1]);C.setWords(C.loadVocab());console.log(JSON.stringify(C.check(process.argv[2])))"
+    r = subprocess.run(['node', '-e', js, os.path.join(HERE, 'check.js'), path], capture_output=True, text=True, timeout=1800)
+    return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else None
+
+
+def shape(res):
+    return (res['word'], res['kind'], res['decided'], [fo and {k: fo.get(k) for k in ('word', 'witness', 'violations', 'value')} for fo in res['fromObject']])
+
+
+for f in prim_files:
+    name = os.path.splitext(f)[0]
+    path = os.path.join(PRIM, f)
+    r = dec_by[name]
+    ok(hashlib.sha256(open(path, 'rb').read()).hexdigest() == r['sha256'], name + ': the object on disk is the one the record decided')
+    if r['seconds'] <= 5 or FULL:
+        res = B.check(path)
+        ok(shape(res) == shape(r), name + ': re-decided from the bytes by check.py, identical to the record', res['word'] + ' ' + ' · '.join(fo['word'] for fo in res['fromObject'] if fo))
+        jr = js_check(path)
+        ok(jr is not None and shape(jr) == shape(r), name + ': check.js (no shared code) gives the same word, decisions, witness, count and value', 'js ' + (str(jr['word']) + ' ' + ' · '.join(fo['word'] for fo in jr['fromObject'] if fo) if jr else 'failed'))
+    else:
+        notrun.append(name + ' (' + str(r['seconds']) + ' s on record; CLAIMBOX_FULL=1 re-runs it in both languages)')
+
+# the register's own number for the 605, read from its row, against the record's count (no re-run)
+with open(os.path.join(ROOT, 'certs', 'mc100-einstein-arena.json'), encoding='utf-8') as fh:
+    row605 = next(x for x in json.load(fh)['rows'] if x['id'] == 'ea-best-kissing-number-d11-605')
+m605 = re.search(r'([\d,]+) of ([\d,]+) pairs', row605['scope'])
+fo605 = [x for x in dec_by['prim-ea-605-kissing']['fromObject'] if x][0]
+ok(m605 is not None and int(m605.group(1).replace(',', '')) == fo605['violations'] and row605['decision']['violations'] == fo605['violations'],
+   'the 605 object\'s violating-pair count equals the register row\'s under the same reading of the bytes (decimal digits)', str(fo605['violations']) + ' vs ' + (m605.group(1) if m605 else '?'))
+ok(fo605['word'] == R and fo605['witness']['at'] == {'i': 0, 'j': 48}, 'the 605 object is REFUTED with its witness pair recorded', json.dumps(fo605['witness']['at']))
+
+# the ten named objects: the JavaScript checker held to the Python one
+for f in files:
+    path = os.path.join(CLAIMS, f)
+    pr, jr = B.check(path), js_check(path)
+    ok(jr is not None and (pr['word'], pr['kind'], pr['decided']) == (jr['word'], jr['kind'], jr['decided']), os.path.splitext(f)[0] + ': check.js agrees with check.py', (jr['word'] + ' ' + str(jr['kind']) if jr else 'js failed'))
+
+# Z3 as a third decider on the 1d export: sat under the printed bar, unsat under the repaired one
+z3 = shutil.which('z3')
+tmp6 = tempfile.mkdtemp(prefix='claimbox-z3-')
+try:
+    if z3:
+        o1d = json.load(open(os.path.join(PRIM, 'prim-1d-cert2026.json'), encoding='utf-8'))
+        smt = B.to_smt(o1d)
+        p1 = os.path.join(tmp6, '1d.smt2')
+        open(p1, 'w').write(smt)
+        z = subprocess.run([z3, '-T:300', '-smt2', p1], capture_output=True, text=True, timeout=400).stdout.strip().split('\n')[-1]
+        ok(z == 'sat', 'Z3 on the 1d export, printed bar: sat (some instance violates: REFUTED), as the checkers and the record say', z)
+        o2 = clone(o1d)
+        o2['id'] = 'prim-1d-repaired'
+        o2['predicate'][0]['printed'] = '1.4630715826075594'
+        o2['predicate'][0]['c'] = '14630715826075594/10000000000000000'
+        o2['source'] = {'what': 'the record (the SMT variant only)', 'path': 'certs/autocorr-replay.json', 'sha256': hashlib.sha256(open(os.path.join(ROOT, 'certs', 'autocorr-replay.json'), 'rb').read()).hexdigest(), 'quote': '1.4630715826075594'}
+        o2.pop('record'); o2.pop('repair')
+        p2 = os.path.join(tmp6, '1d-repaired.smt2')
+        open(p2, 'w').write(B.to_smt(o2))
+        z2 = subprocess.run([z3, '-T:300', '-smt2', p2], capture_output=True, text=True, timeout=400).stdout.strip().split('\n')[-1]
+        ok(z2 == 'unsat', 'Z3 on the 1d export, repaired bar: unsat (every instance holds: CERTIFIED)', z2)
+        ok('(define-fun q' in smt and smt.count('(ite ') < 2000, 'the export names its quantifier terms (a linear chain, not 2^599)', str(len(smt)) + ' bytes')
+    else:
+        notrun.append('Z3 (not on PATH; the 1d export is not decided by a third party here)')
+
+    # ---- red controls for the version-3 kinds, on the 1d primitive object ------------------------------------------
+    base3 = json.load(open(os.path.join(PRIM, 'prim-1d-cert2026.json'), encoding='utf-8'))
+    assert B.check_obj(base3)['word'] == B.ADMITTED
+
+    def pexpect(kind, mutate, label):
+        o = clone(base3)
+        mutate(o)
+        res = B.check_obj(o)
+        red(res['word'] == B.REFUSED_WORD and res['kind'] == kind, label + ' -> ' + kind, (res['kind'] or res['word']) + ': ' + res['msg'][:80])
+
+    pexpect('data', lambda o: o['domain'].__setitem__('count', 301), 'a declared count the decoded bytes contradict')
+    pexpect('data', lambda o: o['domain']['data'].__setitem__('elements', 'integers'), 'doubles declared as integers')
+    pexpect('data', lambda o: o['domain']['data'].__setitem__('select', 'cells'), 'a select that is not the array')
+    pexpect('index', lambda o: o['predicate'][0].__setitem__('g', ['Index', 'f', 'n']), 'an index out of range')
+    pexpect('empty-range', lambda o: o['predicate'][0].__setitem__('g', ['MaxOver', 'm', '1', '0', 'm']), 'a maximum over an empty range')
+    pexpect('division-by-zero', lambda o: o['predicate'][0].__setitem__('g', ['Divide', '1', ['Subtract', 'n', 'n']]), 'a division by zero in the evaluation')
+    pexpect('schema', lambda o: (o['predicate'][0].pop('printed'), o['predicate'][0].__setitem__('c', '3/2')), 'a bar with no printed digits that is not the zero')
+    pexpect('index', lambda o: o['predicate'][0].__setitem__('g', ['Index', 'f', '0', '0']), 'Index deeper than the data')
+    pexpect('arity', lambda o: o['predicate'][0].__setitem__('g', ['Sum', 'k', '0', '1']), 'Sum without its body')
+    pexpect('symbol', lambda o: o['predicate'][0].__setitem__('g', ['Sum', 'k', '0', '1', ['Index', 'f', 'm']]), 'a quantifier body naming an unbound symbol')
+    # a forged record value: the record copied with js.value moved by one
+    with open(os.path.join(ROOT, 'certs', 'autocorr-replay.json'), encoding='utf-8') as fh:
+        rec = json.load(fh)
+    forged = clone(rec)
+    for r in forged['rows']:
+        if r['id'] == '1d-cert2026':
+            r['js']['value'] = '2039224160683882663565441886346340189798401/1393796574908163689489385839036226787118881'
+    fp = os.path.join(tmp6, 'forged-value.json')
+    json.dump(forged, open(fp, 'w'))
+    o = clone(base3)
+    o['record']['path'] = os.path.relpath(fp, ROOT)
+    res = B.check_obj(o)
+    red(res['kind'] == 'record-value-mismatch', 'a record whose exact value is not the one the bytes give -> record-value-mismatch', str(res['kind']) + ': ' + res['msg'][:80])
+    # the other reading of the same bytes: a decision, not a refusal — the two counts of the 605 case, in FULL mode only
+    if FULL:
+        o6 = json.load(open(os.path.join(PRIM, 'prim-ea-605-kissing.json'), encoding='utf-8'))
+        o6['domain']['data']['elements'] = 'doubles'
+        r6 = B.check_obj(o6)
+        fo = [x for x in r6['fromObject'] if x][0]
+        ok(r6['word'] == B.ADMITTED and fo['violations'] == 9480, 'the 605 bytes read as doubles give 9,480 violating pairs (decimals: 9,510) — two readings, two exact counts', str(fo['violations']))
+    else:
+        notrun.append('the 605 doubles-reading count (CLAIMBOX_FULL=1)')
+finally:
+    shutil.rmtree(tmp6, ignore_errors=True)
+
+# ---- 7 · the concord of two readers re-derives, when the second reading is in the repository -------------------------
+if os.path.isdir(os.path.join(HERE, 'second', 'claims')) and os.path.exists(os.path.join(ROOT, 'certs', 'claimbox-concord.json')):
+    cr = subprocess.run([sys.executable, os.path.join(HERE, 'concord.py'), '--check'], capture_output=True, text=True, timeout=600)
+    ok(cr.returncode == 0, 'concord: certs/claimbox-concord.json re-derives from the two readings', (cr.stdout or cr.stderr).strip()[:120])
+    with open(os.path.join(ROOT, 'certs', 'claimbox-concord.json'), encoding='utf-8') as fh:
+        CC = json.load(fh)
+    diffs = {r['id']: r for r in CC['rows'] if not r['bearingAgrees']}
+    ok(CC['claims'] == 10 and CC['bearingAgree'] == 9 and CC['sameOutcome'] == 9 and list(diffs) == ['optq-86-pinho'] and any(d['field'] == 'predicates.length' for d in diffs['optq-86-pinho']['bearingDiffs']),
+       'concord: ten claims read twice; nine agree on every decision-bearing field; the one difference is structural (C_86: two predicates vs one, the same bar)', str(CC['bearingAgree']) + '/10 bearing, ' + str(CC['sameOutcome']) + '/10 same outcome')
+    ok(all(any(d['field'] == 'count' for d in r['declaredDiffs']) for r in CC['rows'] if r['id'] in ('optq-82-pinho', 'optq-82-epi', 'optq-86-pinho')), 'concord: the declared counts differ on the three objects where the first reader did not decode them (the second reader did)')
+else:
+    notrun.append('the concord (no second reading in instruments/claimbox/second/claims or no record yet)')
+
+print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)
