@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-/* instruments/box/check.js — the SECOND checker of declared claims (version 3, 2026-10-20), in JavaScript, sharing no
-   code with instruments/box/check.py: the same specification (SCHEMA.md), the same refusal kinds, the same decisions
+/* instruments/claimbox/check.js — the SECOND checker of declared claims (version 3, 2026-10-20), in JavaScript, sharing no
+   code with instruments/claimbox/check.py: the same specification (SCHEMA.md), the same refusal kinds, the same decisions
    from the object — exact rationals on BigInt here, Python's Fraction there — so that the battery can hold the two
    to each other on every object. The words are read from instruments/verdict.js and the kernel vocabulary from
    certs/kernel-arb-audit.json, as in the Python. JSON is parsed by a reader of its own that keeps every number's text,
    so that a JSON number in an object is refused as a double and an integer datum beyond 2^53 is still exact.
 
-   usage: node instruments/box/check.js <object.json>...     one line per object; exit 1 if any REFUSED
+   usage: node instruments/claimbox/check.js <object.json>...     one line per object; exit 1 if any REFUSED
    MIT */
 'use strict';
 const fs = require('fs');
@@ -35,7 +35,7 @@ const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-orde
   'record-value-mismatch', 'repair'];
 
 class Refuse extends Error { constructor(kind, msg) { super(msg); if (!KINDS.includes(kind)) throw new Error('unknown kind ' + kind); this.kind = kind; this.msg = msg; } }
-const die = (m) => { process.stderr.write('BOX CHECKER (JS) REFUSED TO RUN: ' + m + '\n'); process.exit(2); };
+const die = (m) => { process.stderr.write('CLAIMBOX CHECKER (JS) REFUSED TO RUN: ' + m + '\n'); process.exit(2); };
 
 /* ---- the words and the vocabulary, read ---------------------------------------------------------------------- */
 let WORDS = null;
@@ -497,7 +497,7 @@ function check(p, root = ROOT) {
 function main(argv) {
   WORDS = loadVocab();
   const paths = argv.filter((a) => !a.startsWith('--'));
-  if (!paths.length) { console.log('usage: node instruments/box/check.js <object.json>...'); return 2; }
+  if (!paths.length) { console.log('usage: node instruments/claimbox/check.js <object.json>...'); return 2; }
   let bad = 0;
   for (const p of paths) {
     const res = check(p);

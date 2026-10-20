@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""instruments/box/battery.py — the gate of the declared-claim checker (version 1). Standard library + node for the concord.
+"""instruments/claimbox/battery.py — the gate of the declared-claim checker (version 1). Standard library + node for the concord.
 
 WHAT IT HOLDS. (1) The ten objects of claims/ come out as expected: nine ADMITTED, with every decision the record's, and
 one REFUSED for the reason written on it (record-bar-mismatch: the claimant's README prints an eleven-digit bound the record
@@ -11,7 +11,7 @@ must be REFUSED with that kind; a forged record (verdict flipped; bar moved) mus
 when the kernel audit lacks an operation of the vocabulary. (5) A GREEN control: a synthetic box-domain object with a
 printed-digits box ("in") is admitted and decided CERTIFIED.
 
-usage: python3 instruments/box/battery.py        exit 0 iff every check passes and every red control fires
+usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
 import importlib.util
 import json
@@ -27,7 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
 CLAIMS = os.path.join(HERE, 'claims')
 
-spec = importlib.util.spec_from_file_location('boxcheck', os.path.join(HERE, 'check.py'))
+spec = importlib.util.spec_from_file_location('claimboxcheck', os.path.join(HERE, 'check.py'))
 B = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(B)
 B.WORDS = B.load_vocab()
@@ -124,15 +124,15 @@ else:
 
 # ---- 3b · the yield measurement (version 2) re-derives ---------------------------------------------------------------
 yr = subprocess.run([sys.executable, os.path.join(HERE, 'yield.py'), '--check'], capture_output=True, text=True, timeout=120)
-ok(yr.returncode == 0, 'yield: certs/box-yield.json re-derives from the register and the table', (yr.stdout or yr.stderr).strip()[:110])
-with open(os.path.join(ROOT, 'certs', 'box-yield.json'), encoding='utf-8') as fh:
+ok(yr.returncode == 0, 'yield: certs/claimclaimbox-yield.json re-derives from the register and the table', (yr.stdout or yr.stderr).strip()[:110])
+with open(os.path.join(ROOT, 'certs', 'claimbox-yield.json'), encoding='utf-8') as fh:
     Y = json.load(fh)
 ok(Y['register']['rows'] == 132 and Y['yieldAsIs']['yes'] * 2 >= Y['yieldAsIs']['of'], 'yield: the kill switch is not tripped (at least half admitted as is)', str(Y['yieldAsIs']))
 ok(Y['counts']['recordOnDisk'] == Y['register']['rows'], 'yield: every deciding record is on disk', str(Y['counts']['recordOnDisk']))
 with open(os.path.join(HERE, 'yield-table.json'), encoding='utf-8') as fh:
     T = json.load(fh)
 forged = clone(T); forged['rows'].pop(next(iter(forged['rows'])))
-fp_t = os.path.join(tempfile.gettempdir(), 'box-yield-table-forged.json')
+fp_t = os.path.join(tempfile.gettempdir(), 'claimbox-yield-table-forged.json')
 with open(fp_t, 'w') as fh:
     json.dump(forged, fh)
 saved = B_TABLE = None
@@ -141,7 +141,7 @@ red(yr2.returncode != 0 and 'disagree on the rows' in yr2.stderr, 'yield: a tabl
 os.remove(fp_t)
 
 # ---- 4 · red controls -------------------------------------------------------------------------------------------------
-tmp = tempfile.mkdtemp(prefix='box-battery-')
+tmp = tempfile.mkdtemp(prefix='claimbox-battery-')
 try:
     base = load('optq-1d-cert2026')
     assert B.check_obj(base)['word'] == B.ADMITTED
@@ -263,5 +263,5 @@ try:
 finally:
     shutil.rmtree(tmp, ignore_errors=True)
 
-print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/box')
+print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox')
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

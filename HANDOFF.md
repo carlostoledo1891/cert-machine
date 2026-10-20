@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~13:50 UTC, handoff: on "start the first steps" of the cousin engine — THE BOX, VERSION 1 BUILT (instruments/box, v1 + v2, COMMITTED AND PUSHED; ★ below); earlier the same day, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~13:50 UTC, handoff: on "start the first steps" of the cousin engine — THE BOX, VERSION 1 BUILT (instruments/claimbox, v1 + v2, COMMITTED AND PUSHED; ★ below); earlier the same day, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -28,8 +28,8 @@ NEXT SESSION, IN ORDER:
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
   ★ THE BOX, VERSION 1 BUILT (2026-10-20 ~13:50 UTC, this session, on "start the first steps" after a brainstorm of the operator's
      "cousin engine" draft — a claim-machine that turns a claim into the predicate the certifier decides). COMMITTED AND PUSHED this session
-     (make test 151/151 PASS): Makefile, tools/build-control.js, corpus/targets.json modified; instruments/box/ and certs/box-yield.json new. WHAT IT IS: the method paper's
-     Definition 2 — a claim is (B, φ) — as a FILE, and a checker that refuses malformed ones. instruments/box/SCHEMA.md (the spec);
+     (make test 151/151 PASS): Makefile, tools/build-control.js, corpus/targets.json modified; instruments/claimbox/ and certs/claimclaimbox-yield.json new. WHAT IT IS: the method paper's
+     Definition 2 — a claim is (B, φ) — as a FILE, and a checker that refuses malformed ones. instruments/claimbox/SCHEMA.md (the spec);
      check.py (stdlib: ADMITTED or REFUSED with one of 25 kinds; the vocabulary of 17 expression heads, MathJSON-shaped arrays, is READ
      from certs/kernel-arb-audit.json and the three words from instruments/verdict.js — never typed; a JSON number is refused as a
      double; a printed decimal is refused until written as the rational its digits mean or the box they allow; the quote must be byte
@@ -39,9 +39,9 @@ NEXT SESSION, IN ORDER:
      a "holds" predicate plus the bound, C_82 ×2 by enclosure; nine ADMITTED with the records' decisions, one REFUSED on purpose);
      battery.py (53 checks, 36 red controls — every refusal kind planted, a forged record with its verdict flipped and with its bar
      moved, an audit missing an operation —, a 600-case CONCORD between the checker's Python decide() and verdict.js's, a green
-     box-domain control) — in make test and build-control's Python list as "box: declared claims"; check-wiring ALL PASS. NOT a parser:
+     box-domain control) — in make test and build-control's Python list as "claimbox: declared claims"; check-wiring ALL PASS. NOT a parser:
      a proposer (human or model, untrusted) writes the object; fidelity to the sentence stays a reading (version 3 compares two
-     readers' objects). `python3 instruments/box/check.py instruments/box/claims/*.json` exits 1 BY DESIGN (one refused); the battery
+     readers' objects). `python3 instruments/claimbox/check.py instruments/claimbox/claims/*.json` exits 1 BY DESIGN (one refused); the battery
      is the gate. FOUND WRITING THE TEN: (1) rozetyp's README prints C_1c ≥ 0.41030211724 for its earlier K = 3072 certificate; the
      certificate's exact value is 0.410302117239969943…, BELOW the print by 3.0e-14 — it establishes 0.41030211723; the record's
      seven-digit 0.4103021 holds. The C_1d kind of slip, in a superseded certificate's README; the object optq-1c-rozetyp-k3072 is
@@ -59,9 +59,9 @@ NEXT SESSION, IN ORDER:
      family at a time, the oracle first; a spin-out repository (Sagui mechanics: LIFT.json + PROVENANCE.json) only when a claimant or
      an outside verifier reads the format. THE NAME IS THE OPERATOR'S: "box" is the paper's word and the working name; "claim"
      collides with the register, the ledger and the sweep. Memory: box-declared-claims.md.
-     VERSION 2 BUILT THE SAME SESSION (on "Proceed"): THE YIELD MEASUREMENT — instruments/box/yield.py (the rule in its docstring,
+     VERSION 2 BUILT THE SAME SESSION (on "Proceed"): THE YIELD MEASUREMENT — instruments/claimbox/yield.py (the rule in its docstring,
      written before the count) + yield-table.json (one row per register row, the form, whether v1 admits it, the predicate kind, the
-     reason — a reading by this session, recorded, not a verdict) → certs/box-yield.json (--check in the box battery; a table that
+     reason — a reading by this session, recorded, not a verdict) → certs/claimclaimbox-yield.json (--check in the box battery; a table that
      disagrees with the register on the rows is refused). RESULT: 123 of 132 register rows ADMITTED AS IS; 8 need one named feature
      (6 aggregates → a collection object, one per item: rm-registry, ecbench-counts, gsm8k-keys, metr-horizon, ecbench-marginals,
      design-table; 1 QUEUED row with no verdict to attach; 1 NEEDS DATA whose pin cannot resolve); 1 is a reading (navier-stokes: the

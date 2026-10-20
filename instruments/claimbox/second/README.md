@@ -1,16 +1,16 @@
 # The second reader (version 3 of the box, 2026-10-20) — the report, and the objects that were lost
 
 A blind second reading of the ten registry-queue claims was made on 2026-10-20 by an AI agent (Claude) given
-SCHEMA.md, check.py, the ten claim sentences and the corpus folders, and forbidden to open instruments/box/claims/,
+SCHEMA.md, check.py, the ten claim sentences and the corpus folders, and forbidden to open instruments/claimbox/claims/,
 HANDOFF.md, the yield files or git. It wrote its ten objects to the session's scratch folder and reported back.
 The session ended before the objects were copied into this folder, and the scratch folder was emptied with it:
-**the ten second-reader objects are lost; only the report survives**, below. The concord (instruments/box/concord.py,
+**the ten second-reader objects are lost; only the report survives**, below. The concord (instruments/claimbox/concord.py,
 whose write was also cut off and must be rewritten) could not be computed. The next second reading writes its
 objects HERE, inside the repository, before anything else.
 
 ## The second reader's report, as returned
 
-Checker lines (python3 instruments/box/check.py, per file): optq-1a-atris ADMITTED [CERTIFIED]; optq-1a-agentdiscover
+Checker lines (python3 instruments/claimbox/check.py, per file): optq-1a-atris ADMITTED [CERTIFIED]; optq-1a-agentdiscover
 ADMITTED [CERTIFIED]; optq-1b-atris ADMITTED [CERTIFIED]; optq-1b-codexprolong ADMITTED [CERTIFIED]; optq-1c-rozetyp
 ADMITTED [CERTIFIED]; optq-1c-rozetyp-k3072 REFUSED record-bar-mismatch (the record decided 0.4103021, the object states
 0.41030211724); optq-1d-cert2026 ADMITTED [REFUTED · repair:CERTIFIED]; optq-86-pinho ADMITTED [CERTIFIED · CERTIFIED];

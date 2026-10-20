@@ -1,6 +1,6 @@
-# The box — a declared claim as a file (version 1, 2026-10-20)
+# claimbox — a declared claim as a file (version 1, 2026-10-20; named claimbox by the operator the same day, formerly "the box")
 
-Working name. The method paper's Definition 2 says a claim is a pair (B, φ): a domain B, a box or a finite
+ The method paper's Definition 2 says a claim is a pair (B, φ): a domain B, a box or a finite
 set of rational points, and a predicate φ, a conjunction of relations g_j(x) ≤ c_j over functions with
 interval extensions, read universally or epistemically. Every verdict of the register rests on "decoding the
 claimant's bytes, and the reading of the claim as (B, φ)", and the only thing that checks that row of the
@@ -9,10 +9,10 @@ claim, refused when malformed, attached to the record that decided it, re-checka
 code. It does not translate prose. It checks what a proposer wrote.
 
 ```
-instruments/box/check.py      the checker: ADMITTED or REFUSED with one kind      python3 instruments/box/check.py instruments/box/claims/*.json
-instruments/box/claims/       the first corpus: the ten registry-queue claims        nine admitted, one refused with a finding
-instruments/box/battery.py    the gate (make test "box: declared claims")            the ten, the finding, the concord, the yield, 37 red controls, a green
-instruments/box/yield.py      version 2: the yield measurement over the register   certs/box-yield.json; yield-table.json the per-row reading
+instruments/claimbox/check.py      the checker: ADMITTED or REFUSED with one kind      python3 instruments/claimbox/check.py instruments/claimbox/claims/*.json
+instruments/claimbox/claims/       the first corpus: the ten registry-queue claims        nine admitted, one refused with a finding
+instruments/claimbox/battery.py    the gate (make test "claimbox: declared claims")            the ten, the finding, the concord, the yield, 37 red controls, a green
+instruments/claimbox/yield.py      version 2: the yield measurement over the register   certs/claimclaimbox-yield.json; yield-table.json the per-row reading
 ```
 
 ## The object
@@ -68,7 +68,7 @@ ADMITTED certifies nothing. It says the object can be handed to a decider.
 
 ## The refusal kinds
 
-`python3 instruments/box/check.py --kinds` prints them. They are the checker's, about the object's form;
+`python3 instruments/claimbox/check.py --kinds` prints them. They are the checker's, about the object's form;
 the register's defect kinds (`tools/run-claims-ledger.js`) are about the claim's truth and stay there.
 
 ## What version 1 does not do, on purpose
@@ -95,10 +95,10 @@ where the record's claim string wrote `<=`; the checker notes it and decides und
 
 ## Version 2: the yield measurement (2026-10-20)
 
-`instruments/box/yield.py` classifies every row of the register by the form of the claim it decided, by whether
+`instruments/claimbox/yield.py` classifies every row of the register by the form of the claim it decided, by whether
 the version-1 format admits it today, and by the kind of predicate it would carry; the rule is in its docstring,
 written before the count, and the per-row reading with its reason is `yield-table.json`. The record is
-`certs/box-yield.json`; `--check` re-derives it, and the battery refuses a table that disagrees with the
+`certs/claimclaimbox-yield.json`; `--check` re-derives it, and the battery refuses a table that disagrees with the
 register on the set of rows.
 
 | | rows |
