@@ -271,6 +271,7 @@ reports:
 	@$(NODE) tools/build-report-pu.js
 	@$(NODE) tools/run-curveseeds-ledger.js
 	@$(NODE) tools/build-report-curveseeds.js
+	@$(NODE) tools/build-report-apn.js
 	@$(NODE) tools/build-report-openai-math.js
 	@$(PY) tools/run-horizonmath-ledger.py
 	@$(NODE) tools/build-report-horizonmath.js
