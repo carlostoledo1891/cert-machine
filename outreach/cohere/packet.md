@@ -53,7 +53,7 @@ distributed-training ends from your team. Remote from Brazil (UTC−3), overlapp
 - "Hands-on experience training LLMs on distributed training infrastructures": NOT met. One LoRA GRPO study on a
   hosted trainer. The posting says the list is neither exhaustive nor necessary; apply on the statistics and
   evaluation half and say which half.
-- "One or more papers at top-tier venues": none. The method paper is a manuscript (draft v0.5, not peer-reviewed).
+- "One or more papers at top-tier venues": none. The method paper is a manuscript (draft v0.7, 56 pp, not peer-reviewed).
 - Human-annotator programmes: not run here; the two-reader protocol above is the nearest thing and is small.
 - Numbers above are read from the records named in resume.md's sender notes; re-read before sending (last re-read 2026-10-19).
 
