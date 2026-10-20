@@ -1,0 +1,97 @@
+{
+ "what": "the sentences the audit reads, quoted from their sources (the erdosproblems.com pages and the arXiv preprint are pinned by digest only, not redistributed)",
+ "paper": {
+  "arxiv": "https://arxiv.org/abs/2605.22763v1",
+  "science": "https://www.science.org/doi/10.1126/science.aej2213",
+  "pdfSha256": "1fe6b92bb5eb0b454cd26149d7756c41cd9c48208b85c1fa447770f583e84566",
+  "fetched": "2026-10-20",
+  "abstract": "Our most capable agent autonomously resolved 9 of 353 open Erdős problems at the per-problem cost of a few hundred dollars, proved 44/492 OEIS conjectures",
+  "table1Caption": "Open problems from the ErdosProblems repository autonomously resolved by our full-featured agent. The asterisk indicates a variant of the main problem with this number. Problem #26 (annotated with †) is a more general variant of a question posed by Erdős, but was not posed by Erdős himself.",
+  "validation": "after each solve, experts on our team validated that the Lean statement faithfully captured the original conjecture",
+  "misformalization": "in Erdős problems #125 and #741(i), the interpretation of “density” in the original informal statements was amended to “lower density” and “upper density” respectively, after our full-featured agent found proofs using density as “natural density.” Following the correction of the ambiguity, the agent was still able to resolve the questions.",
+  "statements": "We ran Agent (D) on all these formal statements (353 at the time of the run)"
+ },
+ "erdosproblems": {
+  "12": {
+   "url": "https://www.erdosproblems.com/12",
+   "fetched": "2026-10-20",
+   "sha256": "18ae6360e73d21cce9a73fff1d4f86f44d9aec38caa382606858329665171726",
+   "lastEdited": "08 April 2026",
+   "sentences": [
+    "Is there such an $A$ with\\[\\liminf \\frac{\\lvert A\\cap\\{1,\\ldots,N\\}\\rvert}{N^{1/2}}>0?\\]Does there exist some absolute constant $c>0$ such that there are always infinitely many $N$ with\\[\\lvert A\\cap\\{1,\\ldots,N\\}\\rvert #12 : [ErSa70] [Er73] [Er75b] [Er77c] [Er80,p.113] [Er92c] [Er95c] [Er97] [Er97b] [Er97e] [Er98] number theory Asked by Erdős and Sárközy [ErSa70] , who proved that $A$ must have density $0$.",
+    "Elsholtz and Planitzer [ElPl17] have constructed such an $A$ with\\[\\lvert A\\cap\\{1,\\ldots,N\\}\\rvert\\gg \\frac{N^{1/2}}{(\\log N)^{1/2}(\\log\\log N)^2(\\log\\log\\log N)^2}.\\]Schoen [Sc01] proved that if all elements in $A$ are pairwise coprime then\\[\\lvert A\\cap\\{1,\\ldots,N\\}\\rvert \\ll N^{2/3}\\]for infinitely many $N$.",
+    "Baier [Ba04] has improved this to $\\ll N^{2/3}/\\log N$.",
+    "DeepMind has provided a construction that shows the answer to the second question is no (and hence the answer to the first question is yes).",
+    "This construction has been simplified and improved in the comments; it is now known that there exists an $A$ with this property such that, for all large $N$,\\[\\lvert A\\cap \\{1,\\ldots,N\\}\\rvert \\geq \\frac{N}{(\\log N)^{O(\\log\\log\\log N)}}.\\]It is unknown whether there exists such an $A$ with $\\sum_{n\\in A}\\frac{1}{n}=\\infty$."
+   ]
+  },
+  "26": {
+   "url": "https://www.erdosproblems.com/26",
+   "fetched": "2026-10-20",
+   "sha256": "95f2c50706bc1a590dca8ab7f5128741e5b9ade0ea147f5118ac62e89a568e96",
+   "lastEdited": "08 April 2026",
+   "sentences": [
+    "Tenenbaum asked the weaker variant (still open) where for every $\\epsilon>0$ there is some $k=k(\\epsilon)$ such that at least $1-\\epsilon$ density of all integers have a divisor of the form $a+k$ for some $a\\in A$.",
+    "This has been resolved in the negative by DeepMind (see the commments): there exists an infinite set $A$ such that, for every $k\\geq 1$, the set of multiples of $A+k$ has upper density $ Additional thanks to : Salvatore Mercuri, Imre Ruzsa, GTsoukalas, and Wouter van Doorn Proof expositions (0) If you would like to contribute an exposition of a proof related to this problem, please message a moderator or email [email protected] No proof expositions yet."
+   ]
+  },
+  "125": {
+   "url": "https://www.erdosproblems.com/125",
+   "fetched": "2026-10-20",
+   "sha256": "0506f7b09c2ad1e0da9780894f4da1575b33274e08a2bef303bcf35cc5fe0a79",
+   "lastEdited": "30 March 2026",
+   "sentences": [
+    "Does $A+B$ have positive lower density?",
+    "In [BEGL96] they ask whether this set has 'positive density?",
+    "positive upper density?'.",
+    "The formulation in [Er97] is equivalent to asking about positive lower density only.",
+    "It seems likely, and in keeping with the spirit of other similar questions and references, that Erdős intended to ask about positive lower density: in other words, does there exist a constant $c>0$ such that $\\lvert (A+B)\\cap[1,x]\\rvert\\geq cx$ for all sufficiently large $x$?",
+    "More generally, if $n_1 1\\]and $A_i$ is the set of integers with only the digits $0,1$ in base $n_i$ then does $A_1+\\cdots+A_k$ have positive density?"
+   ]
+  },
+  "138": {
+   "url": "https://www.erdosproblems.com/138",
+   "fetched": "2026-10-20",
+   "sha256": "f8ae3d37076b7727ac331c2ffc05d17fbe326a95ea78a1369c5b8bfac80ae5f7",
+   "lastEdited": "16 October 2026",
+   "sentences": [
+    "#138 : [Er57] [Er61] [Er73] [Er74b] [Er75b] [Er77c] [ErGr79] [Er80,p.90] [ErGr80] [Er81] [Er97c] additive combinatorics When $p$ is prime Berlekamp [Be68] has proved $W(p+1)\\geq p2^p$.",
+    "Gowers [Go01] has proved\\[W(k) \\leq 2^{2^{2^{2^{2^{k+9}}}}}.\\]The best general lower bound is $W(k)\\gg 2^k$, due to Kozik and Shabanov [KoSh16] .",
+    "DeepMind has proved (see the comments) that\\[W(k+1)\\geq W(k)+k,\\]answering the second question.",
+    "The analogous question for $r\\geq 3$ colours was resolved by Fox and Hunter [FoHu26] , who proved\\[W_3(k)^{1/k}\\geq C^{\\log_*k}\\]for some constant $C>1$."
+   ]
+  },
+  "152": {
+   "url": "https://www.erdosproblems.com/152",
+   "fetched": "2026-10-20",
+   "sha256": "ee03725e44044730ea422f20797cd5a1cc13a49e40162a3de1dc76c4089ebbb1",
+   "lastEdited": "17 May 2026",
+   "sentences": [
+    "This is true, in the stronger sense that there are $\\gg \\lvert A\\rvert^2$ many such $a\\in A+A$, which was proved by DeepMind (see the comments)."
+   ]
+  },
+  "741": {
+   "url": "https://www.erdosproblems.com/741",
+   "fetched": "2026-10-20",
+   "sha256": "9b085f0e8f1d78d791e4047dc5899245329d596f5e5dc88af0aa18782f0df789",
+   "lastEdited": "02 May 2026",
+   "sentences": [
+    "741 | Erdős Problems Forum Inbox Favourites Tags More FAQ Prizes Problem Lists Definitions Links Forum Menu Inbox Favourites Tags FAQ Prizes Problem Lists Definitions Links Go Go Random Let $A\\subseteq \\mathbb{N}$ be such that $A+A$ has positive (upper) density.",
+    "Can one always decompose $A=A_1\\sqcup A_2$ such that $A_1+A_1$ and $A_2+A_2$ both have positive (upper) density?",
+    "In [Er94b] the first question is simply asked with 'positive density', but by this Erdős often meant positive upper and/or lower density, rather than necessarily that the density exists and is positive.",
+    "The interpretation of this question with upper density most likely captures the spirit of the question.",
+    "DeepMind and an internal OpenAI model (see the comments and [APSSV26] ) have independently constructed a basis which gives an affirmative answer to the second question.",
+    "DeepMind gave a counterexample to the strict density version of the first question."
+   ]
+  },
+  "846": {
+   "url": "https://www.erdosproblems.com/846",
+   "fetched": "2026-10-20",
+   "sha256": "fa4ac561696a65db3c4e9df02c3633072fe7c7470d1eb23f659a52b624ef9f3f",
+   "lastEdited": "10 April 2026",
+   "sentences": [
+    "This has been disproved independently by DeepMind and an internal model at OpenAI [PSV26] (see the comments)."
+   ]
+  }
+ }
+}

@@ -1,0 +1,18 @@
+name = "alphaproof_nexus"
+defaultTargets = ["APNOutputs"]
+
+[leanOptions]
+autoImplicit = false
+# these are not supposed to run outside formal-conjectures
+weak.linter.style.ams_attribute = false
+weak.linter.style.category_attribute = false
+weak.linter.style.copyright = false
+weak.linter.style.namespace = false
+
+[[require]]
+name = "formal_conjectures"
+scope = "google-deepmind"
+
+[[lean_lib]]
+name = "APNOutputs"
+globs = "APNOutputs.+"

@@ -1,0 +1,142 @@
+{
+ "what": "Google DeepMind's AlphaProof Nexus results (Science doi:10.1126/science.aej2213; arXiv 2605.22763): the nine Erdős proofs from the results repository, the formal-conjectures statement files they were built against, the same files at today's formal-conjectures head, and the corrected #741(i) proof formal-conjectures links; Apache-2.0 (both repositories), redistributed with their licence. Nothing of the claimant was run on this machine.",
+ "fetched": "2026-10-20T10:57:54Z",
+ "apnRepo": "https://github.com/google-deepmind/alphaproof-nexus-results",
+ "apnCommit": "0647711a71183c1ea492ad60860776617ce1ea88",
+ "fcRepo": "https://github.com/google-deepmind/formal-conjectures",
+ "fcPin": "7862bf6a6976c26acb086b6b2cec12ad1d92ce5d",
+ "fcHead": "e30c4c3defa569bb11dd45abfd71bfc2ead85669",
+ "fc741Upper": "9d492049e42167b0d2fd58a9e91da3bf160172b5",
+ "lean": "leanprover/lean4:v4.27.0",
+ "mathlib": "a3a10db0e9d6",
+ "files": {
+  "fc-head/12.lean": {
+   "sha256": "0e1f0336903abbed4d8638f6f2037df9b043216bac9a399ee7d38363088749d0",
+   "bytes": 5729
+  },
+  "fc-head/125.lean": {
+   "sha256": "4aee6de73a3e122d39a3198d6750231ac0787c4cfb9b78e572dbd69272ebb83f",
+   "bytes": 4065
+  },
+  "fc-head/138.lean": {
+   "sha256": "fd859585ca81f1f2ad3bee302052cd9806000f20a3fd7290e24903964a2139a6",
+   "bytes": 6498
+  },
+  "fc-head/152.lean": {
+   "sha256": "244765a23a50a1ec0000536155761ca73a90d92921c1bddfe070bf2af1cb3c42",
+   "bytes": 2658
+  },
+  "fc-head/26.lean": {
+   "sha256": "003040264b704ffbb022ca555fa8348fd4ba122ec365b13fdf067fdf9beb5e9d",
+   "bytes": 5203
+  },
+  "fc-head/741.lean": {
+   "sha256": "09fc45324ce0212751e884075194f324c3e6d62cb018a0ef8f0f2f8b463f437a",
+   "bytes": 3519
+  },
+  "fc-head/846.lean": {
+   "sha256": "40bc9645b06d1295b7e4212fddfe1243bb5718fa13560a07df0d2308f4822e4c",
+   "bytes": 2210
+  },
+  "fc-9d492049/741.lean": {
+   "sha256": "b330a0789b379fc6a2aa8e6f548f83aee85a0dc405bb0300d2a8084775e60c4f",
+   "bytes": 21580
+  },
+  "apn/LICENSE": {
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+   "bytes": 11358
+  },
+  "apn/README.md": {
+   "sha256": "c65d10d06ebadcb78ea0a13ca391003f6d018aa50903ac71fb871e5e946366db",
+   "bytes": 4112
+  },
+  "apn/erdos_problems_attempted.txt": {
+   "sha256": "144046c754a6ba494944bbd9378d26e23355fb0298ef4e78ca821ded44d4f6a3",
+   "bytes": 6929
+  },
+  "apn/lake-manifest.json": {
+   "sha256": "d5f3544a12eb2b6ae6913524e16b0e62cad4ca279d0cfa89e4d4bd5c467bffd5",
+   "bytes": 3468
+  },
+  "apn/lakefile.toml": {
+   "sha256": "00f7314d132e9e0ececa7f128f152253c81c25509d5fbdd08c63af3e1ad53d8a",
+   "bytes": 434
+  },
+  "apn/lean-toolchain": {
+   "sha256": "d55ca0039a5479db5b38919d005b2c427b89b3be4f0184a20f2f4eae931f5bdb",
+   "bytes": 25
+  },
+  "apn/ErdosProblems/erdos_12.parts.i.lean": {
+   "sha256": "c42238294d8d2d88ec752c5f293486a759b163412929dc4bc67d08702a499a59",
+   "bytes": 48859
+  },
+  "apn/ErdosProblems/erdos_12.parts.ii.lean": {
+   "sha256": "f155135c1e845cb3041abe20edce22e660c407b48620d696ea6325c75ae91b66",
+   "bytes": 36449
+  },
+  "apn/ErdosProblems/erdos_125.variants.positive_lower_density.lean": {
+   "sha256": "12e2df1ba973bde5028ccd1f66e7ae3ba493144213337d9f71f39e28d5d0c47c",
+   "bytes": 22480
+  },
+  "apn/ErdosProblems/erdos_138.variants.difference.lean": {
+   "sha256": "c43f8170bbf340464e25fbdc479f6d407d04cda5850521e572aea2d7b53af133",
+   "bytes": 33637
+  },
+  "apn/ErdosProblems/erdos_152.lean": {
+   "sha256": "fb9cf6bb4de746f9e520e07ce9fccbddd6cd63eafb674bbe60dd457a827c6e35",
+   "bytes": 32896
+  },
+  "apn/ErdosProblems/erdos_26.variants.tenenbaum.lean": {
+   "sha256": "5c48abbba23217e2f5426cb43c3efbf9ab8e6e1a1fa7fde8103a7956c5939afe",
+   "bytes": 45108
+  },
+  "apn/ErdosProblems/erdos_741.parts.i.lean": {
+   "sha256": "481e87ebaa4058e5ce4f2cf85f229cf4382a633c6de02cd4617c8bf1212184df",
+   "bytes": 87669
+  },
+  "apn/ErdosProblems/erdos_741.parts.ii.lean": {
+   "sha256": "77a222124ab3d8b85346656614dc5cb5f57d41c911525ca6641255b4ba9260c8",
+   "bytes": 23385
+  },
+  "apn/ErdosProblems/erdos_846.lean": {
+   "sha256": "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227",
+   "bytes": 45873
+  },
+  "fc-pin/12.lean": {
+   "sha256": "e8d45d2110214c142e2dfd6be267a21729faba79f7c3189a53cdf1bb1294c825",
+   "bytes": 5672
+  },
+  "fc-pin/125.lean": {
+   "sha256": "c7804f61c8f71afdb393f30dd5887b2a5a3d90fbead775bab572638087e496c3",
+   "bytes": 3813
+  },
+  "fc-pin/138.lean": {
+   "sha256": "8207099b56719bbde36555ef72118d78a9f5a389e5ebfb466a5d52240f0262c9",
+   "bytes": 4919
+  },
+  "fc-pin/152.lean": {
+   "sha256": "a10246d486652ac58daa040f3a7ac2e76eade8455375114bf60f481f037a8e2f",
+   "bytes": 2647
+  },
+  "fc-pin/26.lean": {
+   "sha256": "3ad304caa9fc2f95e9d69c5cb05403dbe43f0e619f81e5e0f694e3e226fcc3e5",
+   "bytes": 5031
+  },
+  "fc-pin/741.lean": {
+   "sha256": "7d31078b55ba3b1c7330ceefb1ceeaf166742dbbfcd2bb13389e846672b268d1",
+   "bytes": 3520
+  },
+  "fc-pin/846.lean": {
+   "sha256": "dae04ddaa3ee7fcf08b6587512b6455d49a3acf5f91a8fb032963d3f7de79e92",
+   "bytes": 2205
+  },
+  "fc-pin/LICENSE": {
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+   "bytes": 11358
+  },
+  "quotes.json": {
+   "sha256": "0edee21123a4667e0c02853633b2bda22ec14cb8c3bce408fa317f4a3cb7f8f4",
+   "bytes": 7740
+  }
+ }
+}

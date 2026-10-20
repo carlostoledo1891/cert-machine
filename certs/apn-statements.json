@@ -1,0 +1,174 @@
+{
+ "what": "AlphaProof Nexus's nine Erdős proofs read against the formal statements they prove: the proved theorem equal to formal-conjectures' at the commit the repository builds against; the fixed definitions verbatim outside the agent's EVOLVE blocks; no EVOLVE declaration shadowing a statement identifier; no kernel-bypassing construct; and what formal-conjectures did to each statement afterwards. Textual and exact; the elaborated statements are Comparator's (the kernel lane).",
+ "decider": "54c76d9a42edecc2e7678ed279415744930ee3271ddb0924e9f152c12eb307cf",
+ "pins": "corpus/alphaproof-nexus/PINS.json",
+ "apnCommit": "0647711a71183c1ea492ad60860776617ce1ea88",
+ "fcPin": "7862bf6a6976c26acb086b6b2cec12ad1d92ce5d",
+ "fcHead": "e30c4c3defa569bb11dd45abfd71bfc2ead85669",
+ "rows": [
+  {
+   "theorem": "erdos_12.parts.i",
+   "answer": "True",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 1,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 12,
+   "kind": "part"
+  },
+  {
+   "theorem": "erdos_12.parts.ii",
+   "answer": "False",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 1,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 12,
+   "kind": "part"
+  },
+  {
+   "theorem": "erdos_125.variants.positive_lower_density",
+   "answer": "False",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 2,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 125,
+   "kind": "variant"
+  },
+  {
+   "theorem": "erdos_138.variants.difference",
+   "answer": "True",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 3,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 138,
+   "kind": "variant"
+  },
+  {
+   "theorem": "erdos_152",
+   "answer": "True",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 1,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 152,
+   "kind": "main"
+  },
+  {
+   "theorem": "erdos_26.variants.tenenbaum",
+   "answer": "False",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 4,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 26,
+   "kind": "variant"
+  },
+  {
+   "theorem": "erdos_741.parts.i",
+   "answer": "False",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 0,
+   "S3": true,
+   "S4": true,
+   "S5": "changed",
+   "headStatement": ": ∀ A : Set ℕ, 0 < upperDensity (A + A) → ∃ A₁ A₂, A = A₁ ∪ A₂ ∧ Disjoint A₁ A₂ ∧ 0 < upperDensity (A₁ + A₁) ∧ 0 < upperDensity (A₂ + A₂)",
+   "pinStatement": ": answer(False) ↔ ∀ A : Set ℕ, HasPosDensity (A + A) → ∃ A₁ A₂, A = A₁ ∪ A₂ ∧ Disjoint A₁ A₂ ∧ HasPosDensity (A₁ + A₁) ∧ HasPosDensity (A₂ + A₂)",
+   "problem": 741,
+   "kind": "part"
+  },
+  {
+   "theorem": "erdos_741.parts.ii",
+   "answer": "True",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 0,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 741,
+   "kind": "part"
+  },
+  {
+   "theorem": "erdos_846",
+   "answer": "False",
+   "S1": true,
+   "S2": true,
+   "fixedDeclarations": 2,
+   "S3": true,
+   "S4": true,
+   "S5": "unchanged",
+   "problem": 846,
+   "kind": "main"
+  }
+ ],
+ "counts": {
+  "statements": 9,
+  "problemNumbers": 7,
+  "problems": [
+   12,
+   26,
+   125,
+   138,
+   152,
+   741,
+   846
+  ],
+  "parts": 4,
+  "variants": 3,
+  "S1": 9,
+  "S2": 9,
+  "S3": 9,
+  "S4": 9,
+  "changedAtHead": [
+   "erdos_741.parts.i"
+  ]
+ },
+ "redControls": [
+  {
+   "id": "statement-weakened",
+   "what": "ε > 0 replaced by ε ≥ 0 in the proved statement",
+   "caughtBy": "S1",
+   "fired": true
+  },
+  {
+   "id": "answer-flipped",
+   "what": "answer(False) replaced by answer(True)",
+   "caughtBy": "S1",
+   "fired": true
+  },
+  {
+   "id": "definition-changed",
+   "what": "the definition of NonTrilinearFor weakened (≤ to <)",
+   "caughtBy": "S2",
+   "fired": true
+  },
+  {
+   "id": "shadowing-def",
+   "what": "a definition named WeaklyNonTrilinear declared inside an EVOLVE block",
+   "caughtBy": "S3",
+   "fired": true
+  },
+  {
+   "id": "axiom-planted",
+   "what": "an axiom declared inside an EVOLVE block",
+   "caughtBy": "S4",
+   "fired": true
+  }
+ ]
+}

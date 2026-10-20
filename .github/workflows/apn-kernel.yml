@@ -1,0 +1,178 @@
+# The AlphaProof Nexus audit, the kernel lane — each of the nine Erdős proofs of
+# google-deepmind/alphaproof-nexus-results checked by Comparator (the Lean FRO's judge) with nanoda,
+# the independent Rust kernel, switched on.
+#
+# The CHALLENGE is ours: formal-conjectures' own statement file at the commit the results repository
+# builds against (7862bf6a), byte for byte from corpus/alphaproof-nexus/fc-pin/, with one change — the
+# theorem under test renamed to target_theorem_0, the name the agent's file uses. The SOLUTION is theirs:
+# the results repository's file, byte for byte, checked against the pinned digest. Comparator builds both
+# in landrun, exports both with lean4export, checks that the solution's theorem states exactly the
+# challenge's (the elaborated term, every constant it mentions included), that it uses only propext,
+# Quot.sound and Classical.choice, and replays the proof through Lean's kernel AND nanoda.
+# One more item, erdos_741.variants.upper: the corrected #741(i) the paper says was also solved, whose proof
+# formal-conjectures links at commit 9d492049; the challenge is the pinned statement under its own name.
+#
+# Toolchain: Lean v4.27.0 (the repository's), Comparator and lean4export at their v4.27.0 tags, landrun and
+# nanoda at the pins the openai/math lane used (nanoda with the 1 GiB worker stack). Public-repository
+# runners are free; a job that cannot finish is REFUSED, never REFUTED. Nothing here pushes. Each job uploads
+# apn-<item> (result.json + logs); tools/record-apn-kernel.js writes certs/apn-kernel.json. Dispatch:
+#   gh workflow run apn-kernel.yml -f items="erdos_846 erdos_152"
+name: apn-kernel
+on:
+  workflow_dispatch:
+    inputs:
+      items:
+        description: 'space-separated theorem names (erdos_846, erdos_12.parts.i, ..., erdos_741.variants.upper)'
+        required: true
+      max_parallel:
+        description: 'concurrent jobs'
+        required: false
+        default: '10'
+permissions:
+  contents: read
+env:
+  APN_REPO: https://github.com/google-deepmind/alphaproof-nexus-results.git
+  APN_PIN: 0647711a71183c1ea492ad60860776617ce1ea88
+  LEAN_TOOLCHAIN: leanprover/lean4:v4.27.0
+  COMPARATOR_PIN: 6c40ab4fd9cf81328877464bd49392e3f03be06c   # tag v4.27.0
+  LEAN4EXPORT_PIN: 590dec59d93ab6becdf16fdd8aee5abbb99cb856  # tag v4.27.0
+  LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4      # as in the openai/math lane
+  NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7       # as in the openai/math lane (v0.4.19), 1 GiB worker stack
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.m.outputs.matrix }}
+    steps:
+      - id: m
+        env:
+          LIST: ${{ inputs.items }}
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os, re
+          names = [n for n in os.environ['LIST'].split() if n]
+          assert names and all(re.fullmatch(r'erdos_[0-9]+(\.[a-z_]+(\.[a-z_]+)?)?', n) for n in names), 'bad item list'
+          print('matrix=' + json.dumps(list(dict.fromkeys(names))))
+          EOF
+
+  tools:
+    runs-on: ubuntu-24.04
+    steps:
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/kernel-tools
+          key: apn-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g
+      - name: build comparator, lean4export, landrun, nanoda at their pins
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          mkdir -p ~/kernel-tools/bin ~/src && cd ~/src
+          git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
+          test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
+          lake build comparator
+          cp .lake/build/bin/comparator ~/kernel-tools/bin/
+          cd ~/src && git clone -q https://github.com/leanprover/lean4export.git && cd lean4export && git checkout -q "$LEAN4EXPORT_PIN"
+          test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
+          lake build lean4export
+          cp .lake/build/bin/lean4export ~/kernel-tools/bin/
+          git rev-parse HEAD > ~/kernel-tools/lean4export.rev
+          cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
+          go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
+          cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          # ONE change to nanoda, as in the openai/math lane (amendment 11): its worker threads' stack raised to 1 GiB
+          sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+          test "$(git diff --numstat src/lib.rs | awk '{print $1+$2}')" = "2"
+          git diff | tee ~/kernel-tools/nanoda.patch
+          cargo build --release -q
+          cp target/release/nanoda_bin ~/kernel-tools/bin/
+          ls -la ~/kernel-tools/bin
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apn-kernel-tools
+          path: ~/kernel-tools
+          retention-days: 3
+
+  check:
+    needs: [plan, tools]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: ${{ fromJSON(inputs.max_parallel) }}
+      matrix:
+        item: ${{ fromJSON(needs.plan.outputs.matrix) }}
+    env:
+      ITEM: ${{ matrix.item }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            corpus/alphaproof-nexus
+            tools/apn-kernel-prepare.py
+            tools/openai-math-kernel-result.py
+          sparse-checkout-cone-mode: false
+          path: audit
+      - uses: actions/download-artifact@v4
+        with:
+          name: apn-kernel-tools
+          path: ~/kernel-tools
+      - name: free disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h / | tail -1
+      - name: toolchain
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          chmod +x ~/kernel-tools/bin/*
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          echo "$HOME/kernel-tools/bin" >> "$GITHUB_PATH"
+      - name: the results repository at its pin; the challenge and the solution written and checked against the pins
+        run: |
+          set -euo pipefail
+          git clone -q "$APN_REPO" apn && cd apn && git checkout -q "$APN_PIN"
+          test "$(git rev-parse HEAD)" = "$APN_PIN"
+          test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
+          python3 "$GITHUB_WORKSPACE/audit/tools/apn-kernel-prepare.py" "$GITHUB_WORKSPACE/audit/corpus/alphaproof-nexus" "$ITEM" .
+          cat audit-config.json; tail -6 lakefile.toml
+      - name: dependencies and the Mathlib cache
+        working-directory: apn
+        run: |
+          set -euo pipefail
+          start=$(date +%s)
+          lake exe cache get 2>&1 | tail -5
+          echo "CACHE_SECONDS=$(( $(date +%s) - start ))" >> "$GITHUB_ENV"
+          df -h / | tail -1
+      - name: comparator, Lean's kernel and nanoda
+        working-directory: apn
+        run: |
+          set +e
+          mkdir -p ~/out
+          {
+            echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null)"
+            lean --version
+            echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
+            echo "nanoda build: stack1g"
+          } > ~/out/env.txt 2>&1
+          ulimit -s unlimited || ulimit -s 4194304 || true
+          export RUST_MIN_STACK=1073741824
+          start=$(date +%s)
+          /usr/bin/time -v lake env comparator audit-config.json > ~/out/comparator.log 2> ~/out/comparator.err
+          echo $? > ~/out/exit.txt
+          echo $(( $(date +%s) - start )) > ~/out/seconds.txt
+          cp audit-config.json Challenge.lean ~/out/
+          sha256sum Challenge.lean Solution.lean > ~/out/sha256.txt
+          tail -40 ~/out/comparator.log; tail -40 ~/out/comparator.err
+          exit 0
+      - name: result
+        if: always()
+        run: python3 audit/tools/openai-math-kernel-result.py ~/out "$ITEM" > ~/out/result.json && cat ~/out/result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: apn-${{ matrix.item }}
+          path: ~/out
+          retention-days: 30

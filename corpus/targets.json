@@ -1101,6 +1101,17 @@
    "name": "EinsteinArena Erdős minimum overlap: solution 2623 by CristianBudala, 0.38085658829748237 (2026-10-16) — below the registry's best 0.3808585504 [A2026] by 2e-6",
    "verdict": "UNSCOUTED — seen in the 2026-10-18 fetch of GET /api/solutions/best?problem_id=1, not decided, not pinned",
    "next": "pin it and decide it with tools/replay-stepfun.js's decider; recording it on the registry is the claimant's"
+  },
+  {
+   "id": "alphaproof-nexus-2026-10",
+   "scouted": "2026-10-20",
+   "class": "release audit (Lean proofs of open problems, peer-reviewed headline)",
+   "name": "Google DeepMind's AlphaProof Nexus (Science, doi:10.1126/science.aej2213; arXiv 2605.22763): '9 of 353 open Erdős problems' and 44/492 OEIS conjectures, Lean proofs public at google-deepmind/alphaproof-nexus-results",
+   "verdict": "OPEN — scouted 2026-10-20: no independent replay found. Repository @ 0647711a (Lean v4.27.0, formal_conjectures 7862bf6a, Mathlib a3a10db). The nine Erdős theorem statements equal formal-conjectures' at that commit (whitespace aside), their fixed definitions too, no kernel-bypass token in any file. The nine are seven problem numbers: two parts each of #12 and #741, and three variants (#125, #138, and #26, which the paper marks as not posed by Erdős) — Table 1 discloses this; the abstract counts statements as 'problems'. #741(i) as published is the strict natural-density reading, which formal-conjectures demoted to a variant on 2026-08-06 ('known to be false'); the paper says the corrected upper-density version was also solved, and that proof lives in formal-conjectures @ 9d492049, not in the results repository.",
+   "priorArt": "formal-conjectures links each proof (formal_proof attributes); erdosproblems.com credits DeepMind on all seven pages; the repository has a Lean CI build. No second-kernel replay, no Comparator check, no published statement-equality check found.",
+   "artifacts": "APNOutputs/ErdosProblems/*.lean (9), APNOutputs/OEIS (44), NaturalLanguageProofs/*.pdf",
+   "cost": "GitHub hosted runners (free on a public repository): Mathlib cache + build per problem, Comparator v4.27.0 with nanoda; minutes to hours per problem",
+   "next": "pin; statement-equality record (tools/apn-statements.py); Comparator + nanoda on the nine (and the corrected 741(i) from formal-conjectures 9d492049); then the 44 auto-formalized OEIS statements read against OEIS"
   }
  ]
 }
