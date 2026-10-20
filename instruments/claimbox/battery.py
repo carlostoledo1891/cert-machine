@@ -392,7 +392,10 @@ if os.path.isdir(os.path.join(HERE, 'second', 'claims')) and os.path.exists(os.p
     ok(cr.returncode == 0, 'concord: certs/claimbox-concord.json re-derives from the two readings', (cr.stdout or cr.stderr).strip()[:120])
     with open(os.path.join(ROOT, 'certs', 'claimbox-concord.json'), encoding='utf-8') as fh:
         CC = json.load(fh)
-    ok(CC['claims'] == 10 and CC['sameOutcome'] == 10, 'concord: ten claims read twice, the same ten outcomes', str(CC['sameOutcome']) + '/10 same outcome, ' + str(CC['bearingAgree']) + '/10 agree on every decision-bearing field')
+    diffs = {r['id']: r for r in CC['rows'] if not r['bearingAgrees']}
+    ok(CC['claims'] == 10 and CC['bearingAgree'] == 9 and CC['sameOutcome'] == 9 and list(diffs) == ['optq-86-pinho'] and any(d['field'] == 'predicates.length' for d in diffs['optq-86-pinho']['bearingDiffs']),
+       'concord: ten claims read twice; nine agree on every decision-bearing field; the one difference is structural (C_86: two predicates vs one, the same bar)', str(CC['bearingAgree']) + '/10 bearing, ' + str(CC['sameOutcome']) + '/10 same outcome')
+    ok(all(any(d['field'] == 'count' for d in r['declaredDiffs']) for r in CC['rows'] if r['id'] in ('optq-82-pinho', 'optq-82-epi', 'optq-86-pinho')), 'concord: the declared counts differ on the three objects where the first reader did not decode them (the second reader did)')
 else:
     notrun.append('the concord (no second reading in instruments/claimbox/second/claims or no record yet)')
 

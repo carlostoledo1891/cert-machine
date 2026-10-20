@@ -1,0 +1,61 @@
+{
+ "id": "optq-1d-cert2026",
+ "text": "C_1d <= 1.463071582607559, an upper bound exhibited by the 300-cell signed step function in the body of pull request 224 [CERT2026].",
+ "source": {
+  "what": "the registry's 1d page at 46dbf036 (the upper-bounds table row [CERT2026])",
+  "path": "corpus/optconst-queue/next-2026-10-18/upstream/constants/1d.md",
+  "sha256": "962c9049af1d5e172635e19301ae7dded6dd5aefaa486a9d3463bc61fbd9a118",
+  "quote": "| $1.463071582607559*$ | [CERT2026] | Step function with $300$ equal cells on $[-1/4,1/4]$ and signed cell values $v_0,\\dots,v_{299}$."
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c"
+  },
+  "decoder": "the key values: 300 JSON numbers read as the IEEE-754 doubles they denote, the signed cell values v_0..v_299 of equal cells of width 1/600 on [-1/4, 1/4] (the keys cells = 300 and cell_width = (1/2)/300 agree; claimed_upper_bound and previous_best_published are the claimant's statements, not the domain); the bytes are the pull request body's JSON block with CRLF line endings and no trailing newline, the bytes whose SHA-256 the PR and the 1d page state",
+  "count": 300,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "max_t |(f*f)(t)| / (∫ f)^2 = 2n · max_m |Σ_{i+j=m} v_i v_j| / (Σ_i v_i)^2 for the n-cell signed step function (the maximum over every knot; f*f is piecewise linear with knots on the grid)",
+    "where": "instruments/optq/autocorr.py",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.463071582607559",
+   "c": "1463071582607559/1000000000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed 1.463071582607559 taken exactly (fifteen decimals, also the file's claimed_upper_bound); the quantity is the certificate's ratio max |f*f| / (∫ f)^2 with the values read as doubles, the record's exact value 2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881 = 1.46307158260755932746…, ABOVE the printed bar by 3.3e-16 — the 1d page itself prints the value as 1.4630715826075593…, a sixteenth digit the bar drops; the certificate establishes the round-up 1.4630715826075594 (the repair), not the printed bound",
+ "hypotheses": [
+  "the definition on the 1d page: C_1d is the largest constant with max_t |∫ f(t−x) f(x) dx| >= C_1d (∫_{-1/4}^{1/4} f)^2 for every real f supported on [-1/4, 1/4], so one such f with ∫ f ≠ 0 gives C_1d <= max |f*f| / (∫ f)^2 (read)",
+  "for equal cells f*f is piecewise linear with knots at integer multiples of the cell width, so max_t |f*f| is attained at a knot (read; the page's own account of the check)"
+ ],
+ "falsifier": [
+  "the ratio computed exactly from the pinned values exceeds 1463071582607559/1000000000000000 (it does, by 3.3e-16)",
+  "the sum of the pinned values is zero (the decider refuses)",
+  "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json does not hash to 44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c (the CRLF bytes; a Unix copy with LF endings and a trailing newline hashes 79038573…)"
+ ],
+ "record": {
+  "path": "certs/autocorr-replay.json",
+  "row": "1d-cert2026",
+  "value": "js.value",
+  "verdict": "REFUTED"
+ },
+ "repair": {
+  "printed": "1.4630715826075594",
+  "c": "14630715826075594/10000000000000000",
+  "verdict": "CERTIFIED",
+  "how": "the certificate's exact value rounded up at 16 decimals, the record's repair row"
+ },
+ "notes": [
+  "the record's stated block: the fraction printed on the 1d page matches the record's exactly; the bar is the rounding, not the certificate",
+  "the registry's README line prints the same claim with its relation, $C_{1d} \\leq 1.463071582607559*$"
+ ]
+}

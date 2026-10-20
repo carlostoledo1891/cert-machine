@@ -1,0 +1,56 @@
+{
+ "id": "optq-82-pinho",
+ "text": "C_82 < 0.2534449, an upper bound on the essential minimum of the Zhang–Zagier height exhibited by R. Pinho's limit-point construction with 7 denominator and 31 numerator factors (deg Q = 999,999,992) [Pin26].",
+ "source": {
+  "what": "the registry's 82a page at 46dbf036 (the upper-bounds table row [Pin26])",
+  "path": "corpus/optconst-queue/c82-2026-10-19/upstream/82a.md",
+  "sha256": "46734d1a56833c045f362f6505aefc6d9ab4e30e9115207521800768b967f7e1",
+  "quote": "| 0.2534449\\* | [Pin26] | Doche's limit-point construction [Doc01b] on the factor library of [Gri26] and [Epi26], adding $P\\_7$ to the denominator and 25 new numerator factors found by LP-dual-weighted lattice reduction (LLL), with all multiplicities and exponents re-optimised by a linear program ($\\deg Q = 999999992$)."
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json",
+   "sha256": "b33626f367b6f52922746c0fee7bb008449cd0bb18efcb983ab20ff073350fce"
+  },
+  "decoder": "the key denominator: 7 factors R_j, each an integer coefficient list coeffs (leading coefficient first) with an integer multiplicity m_j; the key numerator: 31 factors S_i, each an integer coefficient list coeffs with a rational exponent q_rational = q_i > 0 (all 31 active); D = Σ_j m_j deg R_j = 999,999,992; the keys description, target, grid, numeric_unverified and credits are the claimant's statements, not the domain",
+  "count": 38,
+  "variable": "P"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "Doche's limit-point bound B = ( log M(Q∘T) + ∫_0^1 max(0, Σ_i q_i log|S_i∘T(e^{2πit})| − Σ_j m_j log|R_j∘T(e^{2πit})|) dt ) / D with T(z) = z(1 − z), Q = Π_j R_j^{m_j}, D = Σ_j m_j deg R_j and M the Mahler measure, enclosed by sound arithmetic once the hypotheses of Doche's theorem hold exactly: integer factors with the denominators monic up to sign, Σ_i q_i deg S_i < D, gcd(S_i, R_j) = 1 for q_i > 0, and every root of every composed factor isolated",
+    "where": "instruments/optq/c82.py",
+    "args": [
+     "P"
+    ]
+   },
+   "rel": "lt",
+   "printed": "0.2534449",
+   "c": "2534449/10000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed 0.2534449 taken exactly, with the strict relation that the registry's README line ($C_{82} < 0.2534449*$), the 82a page's [Pin26] reference line (Certificate and checkers for C82 < 0.2534449) and the claimant's own title print; the quantity is the construction's limit-point bound B, enclosed by the record at [0.2534446872487138, 0.2534446875145076] (B.js; B.py agrees), whose upper end is below the bar by 2.1e-7 — not the row's quoted certified 0.2534446873…, which lies inside the record's enclosure, nor the file's numeric_unverified; the record's claim string writes <=, the object states the printed <, and the enclosure decides both the same way",
+ "hypotheses": [
+  "Doche's theorem [Doc01b] (the limit-point argument: U^n − W^n over the primes, Jensen's formula, coprimality), also proved in the claimant [Pin26]'s README: for integer factors with the stated hypotheses, infinitely many distinct algebraic numbers have h_Z <= B, so C_82 <= B (read, not re-derived)",
+  "the definition on the 82a page: C_82 is the supremum of the H for which {α : h_Z(α) <= H} is finite, h_Z(α) = h(α) + h(1 − α) (read)",
+  "the integrand is symmetric under t → 1 − t (real coefficients), so the integral over [0, 1/2] doubled is the integral over [0, 1] (read; the record's limit)"
+ ],
+ "falsifier": [
+  "the enclosure of B computed from the pinned factors has its lower end at or above 2534449/10000000 (REFUTED), or straddles it (REFUSED)",
+  "a hypothesis of Doche's theorem fails on the pinned factors: a non-integer coefficient or a non-rational exponent, Σ q_i deg S_i >= D, a numerator factor sharing a root with a denominator factor, a denominator factor not monic up to sign, or a root that cannot be isolated (the deciders refuse)",
+  "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json does not hash to b33626f367b6f52922746c0fee7bb008449cd0bb18efcb983ab20ff073350fce"
+ ],
+ "record": {
+  "path": "certs/c82-replay.json",
+  "row": "pin26",
+  "value": "B.js",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the checker will note the relation: the record's claim string prints <=, the object states lt; CERTIFIED either way, the enclosure's upper end being below the bar",
+  "a REFUTED of this object would refute the certificate's B against the bar, not the constant (the record's own limit)"
+ ]
+}

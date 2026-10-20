@@ -1,0 +1,55 @@
+{
+ "id": "optq-1a-atris",
+ "text": "C_1a <= 1.5027434868, an upper bound exhibited by Atris's 65,536-step non-negative step function on [-1/4, 1/4] with exact rational heights [A2026].",
+ "source": {
+  "what": "the registry's 1a page at 46dbf036 (the upper-bounds table row [A2026])",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1a.md",
+  "sha256": "c16b578d4c48126faba07e8209b9215a05eb94f05113e9ceecbd0769cab030ba",
+  "quote": "| $1.5027434868$* | [A2026] | Atris. Step function with 65,536 equal steps on $[-1/4,1/4]$ and exact rational heights, refined from the AgentDiscover construction."
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/sources/atrislabs/1a-sidon-autocorrelation/construction.json",
+   "sha256": "7387452d1da74e043897ed6ea22b1453b036a8212feeaa43727aaa3f05f97abf"
+  },
+  "decoder": "the key values: 65,536 strings p/q read as the exact fractions they write, the heights f_0..f_65535 of equal steps of width 1/131072 on [-1/4, 1/4] (f = 0 outside)",
+  "count": 65536,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "max_t (f*f)(t) / (∫ f)^2 = 2n · max_k Σ_i a_i a_{k-i} / (Σ_i a_i)^2 for the n-step function with integer numerators a_i over one common denominator (the maximum over every lag k; f*f is piecewise linear with knots on the grid)",
+    "where": "instruments/optq/stepfun.py",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.5027434868",
+   "c": "15027434868/10000000000"
+  }
+ ],
+ "reference": "the bar is the 1a page's printed 1.5027434868 taken exactly (the README's table and news line round it to 1.5027435); the quantity is the ratio max (f*f)/(∫ f)^2 of the pinned step function with its fractions read as written, the record's exact value 645423412969467179759478160871915520/429496729600000035389440000000000729 = 1.50274348670958337974…, below the bar by 9.0e-11; a bound on C_1a (the infimum over all admissible f), not its value",
+ "hypotheses": [
+  "the definition on the 1a page: C_1a is the largest constant with max_{-1/2<=t<=1/2} ∫ f(t−x) f(x) dx >= C_1a (∫_{-1/4}^{1/4} f)^2 for every non-negative f, so one admissible f with ∫ f ≠ 0 gives C_1a <= max (f*f) / (∫ f)^2 (read)",
+  "for equal steps f*f is piecewise linear between consecutive grid knots, so its maximum over t is attained at a knot (read; stated by the registry and the claimant, relied on by the decider)"
+ ],
+ "falsifier": [
+  "the ratio computed exactly from the pinned fractions exceeds 15027434868/10000000000",
+  "a pinned height is negative or the sum of the heights is zero (the decider refuses)",
+  "corpus/optconst-queue/sources/atrislabs/1a-sidon-autocorrelation/construction.json does not hash to 7387452d1da74e043897ed6ea22b1453b036a8212feeaa43727aaa3f05f97abf"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1a-atris",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the record's Python decider (instruments/optq/stepfun.py) and its JavaScript twin (instruments/optq/stepfun-exact.js), sharing no code, give the same fraction; py.value is the same rational",
+  "the 1a page prints the exact value 1.50274348670958337974… and the construction's SHA-256 prefix 7387452d1da7, both matching the pin"
+ ]
+}
