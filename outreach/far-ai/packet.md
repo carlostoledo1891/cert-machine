@@ -55,4 +55,5 @@ Remote from Brazil (UTC−3), contractor or EOR, as your logistics section allow
 - Publications: none at ML venues; the method paper is a manuscript (draft v0.5, not peer-reviewed).
 - Numbers above are read from the records named in resume.md's sender notes; re-read before sending (last re-read 2026-10-19).
 
-Status: NOT SENT. The operator reviews, fills the marks, builds the PDF, submits.
+Status: SENT 2026-10-20 by the operator. The form asked for workstreams; the advice given was Deception (first, on the
+grader result), Red-teaming and Adversarial Robustness.

@@ -22,7 +22,8 @@ posting as read on 2026-10-16, names the form's fields, holds the free-text answ
   The form also asked four questions (a fictional benchmark's flaws, GPQA score vs training compute, a data-insight pitch,
   a task AI cannot do on a computer); the drafts the operator edited are local only (notes/epoch-answers-2026-10-20.txt).
   Lever; no cover letter by their rule; the one free-text box carries the team choice and ~190 words; sample = openai-math.
-### J2. FAR.AI — Research Engineer, evals and red-teaming pod — DRAFTED (outreach/far-ai/packet.md)
+### J2. FAR.AI — Research Engineer, evals and red-teaming pod — SENT 2026-10-20 by the operator (outreach/far-ai/packet.md)
+  The form asked which workstreams to be considered for; the advice was Deception, Red-teaming and Adversarial Robustness.
   Ashby; Remote (International) explicit, EOR or contractor; ~210 words; samples = openai-math, kissing, envs; the ML-training gap stated.
 ### J3. Nous Research — ML Engineer, Evals — DRAFTED (outreach/nous/packet.md)
   Ashby; Americas (US time zones); the five responsibilities answered one by one; Harbor/Nemo NOT used — said.
