@@ -16,57 +16,57 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~18:33 UTC, handoff: on "Handoff" — THE BOX v3 HALF-BUILT and PARKED on the pushed branch wip/box-v3-2026-10-20 (main holds v1 + v2); the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 late UTC, handoff after "restart and finish the phase": CLAIMBOX (the box, named) VERSION 3 BUILT AND MERGED into main at 9a69727f — the 605 count resolved (two readings of the same bytes), the blind second reading kept and the concord written (9/10); make test green on the branch before the merge; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ ONE THING IS HALF-DONE: the box v3, parked on branch wip/box-v3-2026-10-20 (pushed, not merged; ★ THE BOX v3 below). main is green and
-     consistent (make test 151/151 PASS at d9b70814 with the box row). The box v1 + v2 are on main (★ THE BOX below). Next builds, none
+  ◆ NOTHING IS HALF-DONE. claimbox v1–v3 are on main (★ CLAIMBOX v3 below); the branch wip/box-v3-2026-10-20 is merged and deleted. Next builds,
+     none chosen: claimbox v4 (a canonical form, collection objects, named deciders — the list is in the ★ block); the rest of the menu. Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
-  ★ THE BOX, VERSION 3 HALF-BUILT — PARKED ON BRANCH wip/box-v3-2026-10-20 (2026-10-20 afternoon → evening, on "Continue" after v2; the
-     session was cut off mid-way and resumed; NOT MERGED, main untouched). WHAT IS ON THE BRANCH: (1) check.py v3 — the FINITE
-     QUANTIFIER as the one new primitive: Sum / Product / MaxOver / MinOver over integer ranges, Index into typed data, a forall
-     over index tuples; a typed data block in the domain (select, elements doubles|integers|rationals, shape symbols bound to the
-     decoded sizes; an integer datum stays a Python int, a double becomes the exact rational it denotes); the GENERIC EXACT
-     DECIDER: every exact predicate is decided from the object alone, with the first violating index tuple as witness and the
-     count of all violations; a transcendental or named head, or a box-side symbol, is left to the record; record now OPTIONAL
-     (an unattached object is decided from the bytes or is a proposal), record.value may be null, a new kind record-value-mismatch
-     (the value computed from the object must equal the record's exact value); --smt exports the exact predicates to SMT-LIB 2
-     (QF_NRA, ground, the negation asserted: sat = REFUTED, unsat = CERTIFIED; quantifier terms NAMED with define-fun — the inline
-     ite chain for a 599-term maximum grew as 2^599 and never finished, found and fixed). (2) check.js — the JavaScript SECOND
-     CHECKER, same specification, no code shared with the Python: BigInt rationals, a JSON reader of its own that keeps number
-     text (so a JSON number in an object is refused as a double and an integer datum past 2^53 stays exact); it agrees with
-     check.py on all ten objects and the three primitive ones (word, decisions, values, witness, counts). (3) primitive/ — three
-     objects DECIDED FROM THE BYTES ALONE: prim-1d-cert2026 (the ratio 600·max_m|Σ_{i+j=m} v_i v_j|/(Σv)² as an expression over the
-     300 doubles of PR 224: its value EQUALS the record's exact fraction digit for digit, REFUTED as printed, the repair
-     CERTIFIED; 0.6 s Python, 0.8 s JS); prim-ae-593-kissing (K(11) >= 593 from AlphaEvolve's 593 integer vectors, the one
-     inequality 4·p·|p| <= |u|²|v|² over every pair: CERTIFIED, 21 s Python / 3 s JS, attached by word to the kissing ledger row);
-     prim-ea-605-kissing (EinsteinArena solution 2560: REFUTED, witness pair (0, 48), 9,480 violating pairs of 182,710; 46 s
-     Python / 73 s JS; unattached). (4) Z3 AS A THIRD DECIDER, written by nobody here: the 1d export (25.6 MB, 599 named knot
-     terms) comes back sat under the printed bar and unsat under the repaired bar, each within a 300 s cap (z3 4.16.0 on PATH) —
-     agreeing with both checkers and the record. (5) instruments/box/second/README.md — the BLIND SECOND READER's report (an AI
-     agent given SCHEMA.md, check.py, the ten sentences and the corpus, forbidden the first reader's objects, HANDOFF and git): the
-     same ten outcomes; agreement on every decision-bearing choice readable from the report (bars, digits, relations, record rows
-     and value paths, the reading, the repair, the k3072 finding); differences on declared fields (which page is quoted, one vs
-     two predicates for C_82, the definition path, the counts — the first reader's C_82 counts were GUESSES, 32 and 9, where the
-     second reader counted 38 and 13 from the files). ITS TEN OBJECT FILES WERE LOST: they were written to the session's scratch
-     folder and the session ended before they were copied in; concord.py's write was cut off too. Redo the second reading INTO
-     instruments/box/second/ first thing, then write concord.py (the design is in the README) → certs/box-concord.json.
-     OPEN, DECIDE BEFORE MERGING: THE 605 COUNT. certs/mc100-einstein-arena.json row ea-best-kissing-number-d11-605 says 9,510 of
-     182,710 pairs are closer than 60° (tools/run-mc100-einstein.js kissingFull, worst pair 601/604); the generic decider in BOTH
-     languages and a direct Fraction count over the doubles give 9,480 (cos > 1/2 and cos >= 1/2 both 9,480; cos² > 1/4 of either
-     sign 19,248; cos < −1/2 9,768 — none is 9,510). The one difference found so far: the record builds V = K.fromDecimals(rows)
-     — the heights read as the DECIMAL STRINGS the JSON prints — where the object reads the doubles the numbers denote; the two
-     readings differ in the last bits and 30 near-threshold pairs may flip. TO DO: re-count under the decimal-string reading; if
-     that gives 9,510 both are right under their reading and the object must declare the record's reading (reference field); if
-     not, one decider has a bug and the register row is in question. Nothing on the register was touched. ALSO NOT DONE on the
-     branch: battery.py not extended for v3 (it passes as is, 57 checks / 37 reds, against the v3 checker); SCHEMA.md not updated
-     for v3 (the quantifier grammar, the data block, forall, printed optional only for the zero bar, record optional, --smt);
-     the reds for the new kinds (data, index, empty-range, division-by-zero, record-value-mismatch); a check.js battery row;
-     a z3 row that is reported NOT RUN (never PASS) when z3 is absent. Then merge.
+  ★ CLAIMBOX, VERSION 3 BUILT AND MERGED (2026-10-20 evening → night, on "claimbox" for the name, then "restart and finish the
+     phase"; merged into main at 9a69727f; the branch wip/box-v3-2026-10-20 deleted). The box is NAMED CLAIMBOX by the operator:
+     instruments/claimbox, certs/claimbox-yield.json / -decisions.json / -concord.json, the Makefile and control-build rows
+     "claimbox: declared claims", the targets row (id kept). WHAT v3 IS: (1) check.py — the FINITE QUANTIFIER as the one new primitive
+     (Sum / Product / MaxOver / MinOver over integer ranges, Index into typed data, a forall over index tuples) and a typed data block
+     in the domain (select, elements doubles | decimals | integers | rationals, shape symbols bound to the decoded sizes; an integer
+     stays a Python int, a double becomes the exact rational it denotes, "decimals" the exact rational the printed digits mean); the
+     GENERIC EXACT DECIDER: every exact predicate over bound symbols is decided from the object alone — the first violating index tuple
+     as witness, the count of all violations; a transcendental or named head, or a box side's symbol, is left to the record; record
+     optional; record.value may be null; the kind record-value-mismatch (a single value must equal the record's exactly); --smt exports
+     to SMT-LIB 2 (ground QF_NRA, the negation asserted: sat = REFUTED, unsat = CERTIFIED; quantifier terms NAMED with define-fun — the
+     inline ite chain for the 599-knot maximum grew as 2^599 and never finished, found and fixed); --record writes the decisions with
+     each object's sha256. (2) check.js — the JavaScript SECOND CHECKER, same specification, no code shared: BigInt rationals, a JSON
+     reader of its own that keeps number text; the battery holds it to check.py on every object (word, kind, decisions, witness, count,
+     value). (3) primitive/ — three objects DECIDED FROM THE BYTES ALONE: prim-1d-cert2026 (the C_1d ratio as an expression over the
+     300 doubles of PR 224: its value EQUALS the record's exact fraction digit for digit; REFUTED as printed, the repair CERTIFIED;
+     0.5 s Python / 0.8 s JS); prim-ae-593-kissing (AlphaEvolve's 593 integer vectors, 4·p·|p| <= |u|²|v|² over every pair: CERTIFIED,
+     20 s / 3 s); prim-ea-605-kissing (EinsteinArena solution 2560: REFUTED, witness (0, 48), 9,510 violating pairs of 182,710, worst
+     601/604; 47 s / 103 s). (4) Z3 AS A THIRD DECIDER on the 1d export (25.6 MB): sat under the printed bar, unsat under the repaired
+     bar, within a 300 s cap each — a battery row that is NOT RUN (never PASS) when z3 is absent. THE 605 COUNT, RESOLVED — the best
+     lesson of the day: the first object read the heights as the doubles the JSON numbers denote and counted 9,480 violating pairs
+     where the register's row (certs/mc100-einstein-arena.json, tools/run-mc100-einstein.js kissingFull via K.fromDecimals) says 9,510;
+     under the DECIMAL DIGITS printed the count is 9,510 with the same worst pair. Both exact, two readings of one byte string, 30 pairs
+     near 60° flip with the last bits; the object now declares the register's reading (elements "decimals") and says so in its
+     reference — the lattice-claims lesson on the register's own data; both checkers gained the "decimals" reading. THE BLIND SECOND
+     READING, KEPT: instruments/claimbox/second/claims — ten objects by an AI agent forbidden the first reader's objects, every earlier
+     report, HANDOFF and git (the first attempt's files were lost with the scratch folder; this one was written into the repository);
+     concord.py → certs/claimbox-concord.json: 9 of 10 agree on EVERY decision-bearing field and give the same outcome; the one
+     difference is STRUCTURAL (C_86: the first reader two predicates, "holds" + the bar; the second one, the bar) — a finding about the
+     format: two encodings of one claim are both admitted, so v4 needs a CANONICAL FORM; declared fields differ on all ten (which page
+     is quoted, the decoder's words, the definition path), and the COUNTS on the three the first reader did not decode (the second
+     decoded all ten from the files: C_86 1,200 cells of which 629 carry mass; C_82 38 = 7 + 31 factors; Épi 13 = 6 + 7; the first
+     reader's 629, 32, 9 were a description and two guesses); the k3072 finding made independently by both. The first reader's objects
+     are kept as they were (the measurement's input). BATTERY: 92 checks, 48 red controls (every v3 kind planted — data, index,
+     empty-range, division-by-zero, record-value-mismatch —, a forged record value, the z3 rows, the JS concord on all thirteen
+     objects, the concord record); CLAIMBOX_FULL=1 re-runs the heavy objects in both languages and the doubles count (95 checks, run
+     once, green); SCHEMA.md has the version-3 section. NEXT, v4 (none started): a canonical form (one inequality per bar; exact
+     conditions as one "holds" or as hypotheses); collection objects for the six aggregate rows; infinite box sides; deciders reading
+     NAMED objects, the oracle first; counts decoded wherever a data block can be written; the Lean/kernel row as a "holds" whose
+     decider is the hosted workflow; a spin-out repository only when a claimant or an outside verifier reads the format — the next
+     registry PR is the cheapest place to find out (attach an object beside the verdict).
   ★ DISK CLEANUP (2026-10-20, on "I'm having problems with disk space … delete everything not used", then item by item on the
      operator's word): free space 18 → 102 GB. DELETED, each after checking no battery or builder reads it, batteries re-run PASS
      after each (Bandeira, the three Erdős, Navier–Stokes, Sidorenko; the openai/math report builder green): corpus/bandeira/
@@ -88,8 +88,8 @@ NEXT SESSION, IN ORDER:
      2026-10-20.md.
   ★ THE BOX, VERSION 1 BUILT (2026-10-20 ~13:50 UTC, this session, on "start the first steps" after a brainstorm of the operator's
      "cousin engine" draft — a claim-machine that turns a claim into the predicate the certifier decides). COMMITTED AND PUSHED this session
-     (make test 151/151 PASS): Makefile, tools/build-control.js, corpus/targets.json modified; instruments/box/ and certs/box-yield.json new. WHAT IT IS: the method paper's
-     Definition 2 — a claim is (B, φ) — as a FILE, and a checker that refuses malformed ones. instruments/box/SCHEMA.md (the spec);
+     (make test 151/151 PASS): Makefile, tools/build-control.js, corpus/targets.json modified; instruments/claimbox/ and certs/claimbox-yield.json new. WHAT IT IS: the method paper's
+     Definition 2 — a claim is (B, φ) — as a FILE, and a checker that refuses malformed ones. instruments/claimbox/SCHEMA.md (the spec);
      check.py (stdlib: ADMITTED or REFUSED with one of 25 kinds; the vocabulary of 17 expression heads, MathJSON-shaped arrays, is READ
      from certs/kernel-arb-audit.json and the three words from instruments/verdict.js — never typed; a JSON number is refused as a
      double; a printed decimal is refused until written as the rational its digits mean or the box they allow; the quote must be byte
@@ -101,7 +101,7 @@ NEXT SESSION, IN ORDER:
      moved, an audit missing an operation —, a 600-case CONCORD between the checker's Python decide() and verdict.js's, a green
      box-domain control) — in make test and build-control's Python list as "box: declared claims"; check-wiring ALL PASS. NOT a parser:
      a proposer (human or model, untrusted) writes the object; fidelity to the sentence stays a reading (version 3 compares two
-     readers' objects). `python3 instruments/box/check.py instruments/box/claims/*.json` exits 1 BY DESIGN (one refused); the battery
+     readers' objects). `python3 instruments/claimbox/check.py instruments/claimbox/claims/*.json` exits 1 BY DESIGN (one refused); the battery
      is the gate. FOUND WRITING THE TEN: (1) rozetyp's README prints C_1c ≥ 0.41030211724 for its earlier K = 3072 certificate; the
      certificate's exact value is 0.410302117239969943…, BELOW the print by 3.0e-14 — it establishes 0.41030211723; the record's
      seven-digit 0.4103021 holds. The C_1d kind of slip, in a superseded certificate's README; the object optq-1c-rozetyp-k3072 is
@@ -119,9 +119,9 @@ NEXT SESSION, IN ORDER:
      family at a time, the oracle first; a spin-out repository (Sagui mechanics: LIFT.json + PROVENANCE.json) only when a claimant or
      an outside verifier reads the format. THE NAME IS THE OPERATOR'S: "box" is the paper's word and the working name; "claim"
      collides with the register, the ledger and the sweep. Memory: box-declared-claims.md.
-     VERSION 2 BUILT THE SAME SESSION (on "Proceed"): THE YIELD MEASUREMENT — instruments/box/yield.py (the rule in its docstring,
+     VERSION 2 BUILT THE SAME SESSION (on "Proceed"): THE YIELD MEASUREMENT — instruments/claimbox/yield.py (the rule in its docstring,
      written before the count) + yield-table.json (one row per register row, the form, whether v1 admits it, the predicate kind, the
-     reason — a reading by this session, recorded, not a verdict) → certs/box-yield.json (--check in the box battery; a table that
+     reason — a reading by this session, recorded, not a verdict) → certs/claimbox-yield.json (--check in the box battery; a table that
      disagrees with the register on the rows is refused). RESULT: 123 of 132 register rows ADMITTED AS IS; 8 need one named feature
      (6 aggregates → a collection object, one per item: rm-registry, ecbench-counts, gsm8k-keys, metr-horizon, ecbench-marginals,
      design-table; 1 QUEUED row with no verdict to attach; 1 NEEDS DATA whose pin cannot resolve); 1 is a reading (navier-stokes: the
