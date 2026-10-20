@@ -159,6 +159,7 @@ try:
     expect('record-row-missing', lambda o: o['record'].__setitem__('row', '1d-nobody'), 'a record row that does not exist')
     expect('record-missing', lambda o: o['record'].__setitem__('path', 'certs/nothing.json'), 'a record that does not exist')
     expect('record-value', lambda o: o['record'].__setitem__('value', 'js.decimal'), 'a record value that is a decimal string')
+    expect('record-pin-mismatch', lambda o: o['domain']['pin'].update({'path': 'corpus/optconst-queue/next-2026-10-18/rozetyp/certificate.json', 'sha256': '62ac49ddbbfc9aa1053406363d9df9c912022ab85b72a447cf73c94bb9c1fd0e'}), 'an object pinning other bytes than the record decided')
     expect('repair', lambda o: o['repair'].__setitem__('c', '14630715826075593/10000000000000000'), 'a repair whose c is not its printed digits')
     expect('repair', lambda o: o['repair'].__setitem__('verdict', 'REFUTED'), 'a repair whose verdict the value does not give')
 

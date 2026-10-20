@@ -31,7 +31,7 @@ const TOP_OPTIONAL = ['record', 'repair', 'notes'];
 const ELEMENTS = ['doubles', 'decimals', 'integers', 'rationals'];
 const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-order', 'unbounded', 'pin-unresolved', 'pin-mismatch', 'quote-not-verbatim',
   'printed-not-in-quote', 'printed-mismatch', 'vocabulary', 'arity', 'symbol', 'named', 'reading', 'falsifier', 'reference', 'data', 'index', 'empty-range',
-  'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-decision-mismatch',
+  'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-pin-mismatch', 'record-decision-mismatch',
   'record-value-mismatch', 'repair'];
 
 class Refuse extends Error { constructor(kind, msg) { super(msg); if (!KINDS.includes(kind)) throw new Error('unknown kind ' + kind); this.kind = kind; this.msg = msg; } }
@@ -443,6 +443,8 @@ function checkObj(o, root = ROOT) {
       const rv = row.verdict;
       if (!WORDS.includes(rv)) throw new Refuse('record-verdict-word', 'the record says ' + JSON.stringify(rv));
       if (r.verdict !== rv) throw new Refuse('record-verdict-word', 'the object declares ' + JSON.stringify(r.verdict) + ', the record says ' + rv);
+      const rsha = row.sha256;
+      if (isStr(rsha) && /^[0-9a-f]{64}$/.test(rsha) && d.kind === 'finite' && rsha !== d.pin.sha256) throw new Refuse('record-pin-mismatch', 'the record decided ' + rsha.slice(0, 12) + '…, the object pins ' + d.pin.sha256.slice(0, 12) + '…');
       const value = r.value === null ? null : recordValue(getPath(row, r.value), 'record.value ' + String(r.value));
       const claimStr = String(row.claim || '');
       const m = BAR_IN_CLAIM.exec(claimStr), mr = REL_IN_CLAIM.exec(claimStr);

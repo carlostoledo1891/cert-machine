@@ -100,6 +100,7 @@ KINDS = {
     'record-verdict-word': 'the record\'s verdict is not one of the three words, or the object declares another',
     'record-value': 'the record\'s value is neither an exact rational nor an enclosure of two numbers',
     'record-bar-mismatch': 'the record decided a bar other than the object\'s',
+    'record-pin-mismatch': 'the record decided bytes other than the object\'s pin (the record row carries a sha256 that differs)',
     'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict',
     'record-value-mismatch': 'the value computed from the object is not the record\'s exact value',
     'repair': 'the repair block is malformed, or its bar re-decided does not give its verdict',
@@ -688,6 +689,9 @@ def check_obj(o, root=ROOT):
                 raise Refuse('record-verdict-word', 'the record says ' + repr(rv))
             if r['verdict'] != rv:
                 raise Refuse('record-verdict-word', 'the object declares ' + repr(r['verdict']) + ', the record says ' + rv)
+            rsha = row.get('sha256')
+            if isinstance(rsha, str) and re.match(r'^[0-9a-f]{64}$', rsha) and d['kind'] == 'finite' and rsha != d['pin']['sha256']:
+                raise Refuse('record-pin-mismatch', 'the record decided ' + rsha[:12] + '…, the object pins ' + d['pin']['sha256'][:12] + '…')
             value = record_value(get_path(row, r['value']), 'record.value ' + str(r['value'])) if r['value'] is not None else None
             claim_str = str(row.get('claim', ''))
             m = BAR_IN_CLAIM.search(claim_str)
