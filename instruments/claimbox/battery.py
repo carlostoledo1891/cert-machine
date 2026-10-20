@@ -123,24 +123,6 @@ else:
     ok(not disagree, 'concord: the Python decide() and verdict.js decide() agree on 600 seeded cases', str(len(disagree)) + ' disagreements' + ('' if not disagree else ' e.g. ' + json.dumps(cases[disagree[0]]) + ' ' + mine[disagree[0]] + ' vs ' + theirs[disagree[0]]))
     ok(len(set(mine)) == 3, 'concord: the cases exercise all three words', ' · '.join(sorted(set(mine))))
 
-# ---- 3b · the yield measurement (version 2) re-derives ---------------------------------------------------------------
-yr = subprocess.run([sys.executable, os.path.join(HERE, 'yield.py'), '--check'], capture_output=True, text=True, timeout=120)
-ok(yr.returncode == 0, 'yield: certs/claimclaimbox-yield.json re-derives from the register and the table', (yr.stdout or yr.stderr).strip()[:110])
-with open(os.path.join(ROOT, 'certs', 'claimbox-yield.json'), encoding='utf-8') as fh:
-    Y = json.load(fh)
-ok(Y['register']['rows'] == 132 and Y['yieldAsIs']['yes'] * 2 >= Y['yieldAsIs']['of'], 'yield: the kill switch is not tripped (at least half admitted as is)', str(Y['yieldAsIs']))
-ok(Y['counts']['recordOnDisk'] == Y['register']['rows'], 'yield: every deciding record is on disk', str(Y['counts']['recordOnDisk']))
-with open(os.path.join(HERE, 'yield-table.json'), encoding='utf-8') as fh:
-    T = json.load(fh)
-forged = clone(T); forged['rows'].pop(next(iter(forged['rows'])))
-fp_t = os.path.join(tempfile.gettempdir(), 'claimbox-yield-table-forged.json')
-with open(fp_t, 'w') as fh:
-    json.dump(forged, fh)
-saved = B_TABLE = None
-yr2 = subprocess.run([sys.executable, '-c', "import importlib.util,sys;sp=importlib.util.spec_from_file_location('y',sys.argv[1]);m=importlib.util.module_from_spec(sp);sp.loader.exec_module(m);m.TABLE=sys.argv[2];m.derive()", os.path.join(HERE, 'yield.py'), fp_t], capture_output=True, text=True, timeout=120)
-red(yr2.returncode != 0 and 'disagree on the rows' in yr2.stderr, 'yield: a table missing one register row -> refused', yr2.stderr.strip()[:90])
-os.remove(fp_t)
-
 # ---- 4 · red controls -------------------------------------------------------------------------------------------------
 tmp = tempfile.mkdtemp(prefix='claimbox-battery-')
 try:
@@ -385,19 +367,6 @@ try:
         notrun.append('the 605 doubles-reading count (CLAIMBOX_FULL=1)')
 finally:
     shutil.rmtree(tmp6, ignore_errors=True)
-
-# ---- 7 · the concord of two readers re-derives, when the second reading is in the repository -------------------------
-if os.path.isdir(os.path.join(HERE, 'second', 'claims')) and os.path.exists(os.path.join(ROOT, 'certs', 'claimbox-concord.json')):
-    cr = subprocess.run([sys.executable, os.path.join(HERE, 'concord.py'), '--check'], capture_output=True, text=True, timeout=600)
-    ok(cr.returncode == 0, 'concord: certs/claimbox-concord.json re-derives from the two readings', (cr.stdout or cr.stderr).strip()[:120])
-    with open(os.path.join(ROOT, 'certs', 'claimbox-concord.json'), encoding='utf-8') as fh:
-        CC = json.load(fh)
-    diffs = {r['id']: r for r in CC['rows'] if not r['bearingAgrees']}
-    ok(CC['claims'] == 10 and CC['bearingAgree'] == 9 and CC['sameOutcome'] == 9 and list(diffs) == ['optq-86-pinho'] and any(d['field'] == 'predicates.length' for d in diffs['optq-86-pinho']['bearingDiffs']),
-       'concord: ten claims read twice; nine agree on every decision-bearing field; the one difference is structural (C_86: two predicates vs one, the same bar)', str(CC['bearingAgree']) + '/10 bearing, ' + str(CC['sameOutcome']) + '/10 same outcome')
-    ok(all(any(d['field'] == 'count' for d in r['declaredDiffs']) for r in CC['rows'] if r['id'] in ('optq-82-pinho', 'optq-82-epi', 'optq-86-pinho')), 'concord: the declared counts differ on the three objects where the first reader did not decode them (the second reader did)')
-else:
-    notrun.append('the concord (no second reading in instruments/claimbox/second/claims or no record yet)')
 
 print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

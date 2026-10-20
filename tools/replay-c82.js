@@ -450,7 +450,7 @@ const CASES = [
 const consOf = (c) => (c.file ? JP(c.file) : c.cons);
 
 function runPy(c) {
-  const tmp = path.join(ROOT, 'out', 'c82'); fs.mkdirSync(tmp, { recursive: true });
+  const tmp = path.join(require('os').tmpdir(), 'cert-machine-out', 'c82'); fs.mkdirSync(tmp, { recursive: true });
   const inp = path.join(tmp, c.id + '.json'), outp = path.join(tmp, 'py-' + c.id + '.json');
   fs.writeFileSync(inp, JSON.stringify(consOf(c)));
   const args = ['-I', path.join(ROOT, 'instruments', 'optq', 'c82.py'), inp, c.bound, '--json', outp];

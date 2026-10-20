@@ -16,16 +16,47 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 late UTC, handoff after "restart and finish the phase": CLAIMBOX (the box, named) VERSION 3 BUILT AND MERGED into main at 9a69727f — the 605 count resolved (two readings of the same bytes), the blind second reading kept and the concord written (9/10); make test green on the branch before the merge; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 night, handoff after the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ NOTHING IS HALF-DONE. claimbox v1–v3 are on main (★ CLAIMBOX v3 below); the branch wip/box-v3-2026-10-20 is merged and deleted. Next builds,
-     none chosen: claimbox v4 (a canonical form, collection objects, named deciders — the list is in the ★ block); the rest of the menu. Next builds, none
+  ◆ NOTHING IS HALF-DONE. The claim-machine lives in ~/Projects/claimbox (★ THE SPLIT below); cert-machine is its read-only receiver.
+     Next builds, none chosen: the claim-machine's next readers and functionals (its own HANDOFF); here, the receiver only changes if the
+     translator needs it (a three-array data block for tensor identities); the rest of the menu. Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
+  ★ THE SPLIT — THE CLAIM-MACHINE IS ~/Projects/claimbox (2026-10-20 night, on the operator's redirect: "I asked for one thing and I'm
+     receiving another, like an extension of cert-machine … This must be redirected now to the path I asked for"; then "clean up your
+     mess after splitting the project"). WHAT THE OPERATOR ASKED FOR, from the first draft: [human or AI text] → [claim-machine] →
+     [predicate JSON] → [cert-machine decides] — a standard-library pattern-matching translator with red controls, in its own project,
+     starting from our knowledge. I had built the format, the checker and a generic decider HERE and argued the parser away; that was
+     a substitution of my design for the operator's, and it was rejected twice. BUILT THE SAME NIGHT, in ~/Projects/claimbox (local
+     git; the GitHub push is the operator's, as with Sagui): claimbox/grammar.py — the shapes (bound, value-compare, digits,
+     decomposition, kissing, score, identity; LaTeX and Unicode normalised: $…$, \leq, C_{1d}, ⟨a,b,c⟩, the registry's * mark) and the
+     refusals (asymptotic, unbounded quantifier, approximation, two relations, no printed quantity, prose); claimbox/translate.py — shape
+     + the page + the claimant's bytes (+ a decider path, a record) → the object in THIS repository's format: the quote FOUND in the
+     source (a bar nobody printed is refused), the array found by key or as the largest, its element kind read off the bytes and the
+     reading stated (doubles / decimals / integers / rationals / structured records), kissing and C_1d as primitive expressions
+     decided from the bytes, every other quantity a NAMED function that needs a decider path or is refused — never guessed;
+     claimbox/readers/registry.py — the registry's constants pages: a table row under "Known upper/lower bounds" becomes a sentence;
+     python3 -m claimbox shape | translate --check (hands the object to instruments/claimbox/check.py here, a subprocess, no code
+     shared) | batch; tests/battery.py — 26 RED CONTROLS, all firing (absurd and malformed claims, a source that does not print the
+     bar, bytes that do not decode, a kissing count the bytes contradict, a bound with no decider, a third reading); CALIBRATION 10/10:
+     the ten registry-queue claims, given as the registry prints them (a README line, or a page row through the reader), reproduce
+     the ten hand-written objects here on EVERY decision-bearing field and come out of this checker with the expected word (nine
+     ADMITTED, k3072 REFUSED record-bar-mismatch); COVERAGE of this register's 132 sentences: 95 shaped (decomposition 45, bound 15,
+     score 12, identity 12, kissing 10, digits 1), 37 refused (no printed quantity 22, prose 13, asymptotic 2) — a measurement of a
+     stdlib grammar, not a target; records/coverage.json and records/calibration.json; tools/lift.py pins what it reads here
+     (check.py, check.js, SCHEMA.md, the ten objects, the ledger) and `make drift` re-hashes. THE CLEAN-UP HERE: the yield measurement
+     (yield.py, yield-table.json, certs/claimbox-yield.json), the concord (concord.py, certs/claimbox-concord.json) and the second
+     reading (second/) REMOVED — this repository keeps only what verifies the claim-machine's output: instruments/claimbox/{SCHEMA.md,
+     check.py, check.js, battery.py, claims/ (the calibration targets), primitive/} and certs/claimbox-decisions.json; the battery
+     92 → 85 checks, 48 reds; the control-build row says the producer is ~/Projects/claimbox; SCHEMA.md opens with the split. The
+     results of the removed pieces stay in this file's history (123/132 admitted as is; 9/10 concord; the counts the first reader
+     guessed). ALSO: tools/replay-c82.js and replay-c86.js wrote scratch files to out/ at the root (untracked, recreated on every
+     --check) — now the system temp folder; out/ deleted; the three replays' --check PASS. Memory: claimbox-claim-machine.md.
   ★ CLAIMBOX, VERSION 3 BUILT AND MERGED (2026-10-20 evening → night, on "claimbox" for the name, then "restart and finish the
      phase"; merged into main at 9a69727f; the branch wip/box-v3-2026-10-20 deleted). The box is NAMED CLAIMBOX by the operator:
      instruments/claimbox, certs/claimbox-yield.json / -decisions.json / -concord.json, the Makefile and control-build rows

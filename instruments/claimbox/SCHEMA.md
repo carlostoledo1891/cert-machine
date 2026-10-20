@@ -1,4 +1,6 @@
-# claimbox — a declared claim as a file (version 1, 2026-10-20; named claimbox by the operator the same day, formerly "the box")
+# claimbox objects — the predicate JSON cert-machine decides (the format and its checker)
+
+The PRODUCER of these objects is the claim-machine, a separate project: `~/Projects/claimbox`, a standard-library translator from a claim's text (prose or LaTeX) and the claimant's bytes to this format. This folder is the RECEIVER: the format, the checker that refuses malformed objects, the decider for the exact class. cert-machine never produces objects from prose; claimbox never decides.
 
  The method paper's Definition 2 says a claim is a pair (B, φ): a domain B, a box or a finite
 set of rational points, and a predicate φ, a conjunction of relations g_j(x) ≤ c_j over functions with
@@ -10,9 +12,8 @@ code. It does not translate prose. It checks what a proposer wrote.
 
 ```
 instruments/claimbox/check.py      the checker: ADMITTED or REFUSED with one kind      python3 instruments/claimbox/check.py instruments/claimbox/claims/*.json
-instruments/claimbox/claims/       the first corpus: the ten registry-queue claims        nine admitted, one refused with a finding
-instruments/claimbox/battery.py    the gate (make test "claimbox: declared claims")            the ten, the finding, the concord, the yield, 37 red controls, a green
-instruments/claimbox/yield.py      version 2: the yield measurement over the register   certs/claimclaimbox-yield.json; yield-table.json the per-row reading
+instruments/claimbox/claims/       the ten registry-queue claims, written by hand            the claim-machine's calibration targets (nine admitted, one refused with a finding)
+instruments/claimbox/battery.py    the gate (make test "claimbox: declared claims")            the ten, the finding, the concord with verdict.js, the red controls, a green
 ```
 
 ## The object
@@ -93,31 +94,6 @@ of the C_1d kind, in a superseded certificate's README, recorded on the object a
 A second thing the objects carry that the records did not: the registry prints `C_82 < 0.2534449`, strict,
 where the record's claim string wrote `<=`; the checker notes it and decides under the printed relation.
 
-## Version 2: the yield measurement (2026-10-20)
-
-`instruments/claimbox/yield.py` classifies every row of the register by the form of the claim it decided, by whether
-the version-1 format admits it today, and by the kind of predicate it would carry; the rule is in its docstring,
-written before the count, and the per-row reading with its reason is `yield-table.json`. The record is
-`certs/claimclaimbox-yield.json`; `--check` re-derives it, and the battery refuses a table that disagrees with the
-register on the set of rows.
-
-| | rows |
-|---|---|
-| admitted as is (v1 yes) | 123 of 132 |
-| one named feature missing | 8: six aggregates that need a collection object (one object per item), one QUEUED row with no verdict to attach, one NEEDS DATA row whose pin cannot resolve |
-| a reading, no predicate | 1: the formal proof's statement fidelity (the kernel's acceptance is a "holds"; whether the statement is the theorem claimed is read) |
-| by form | F2 holds 85 · F1 bar 38 · F4 aggregate 6 · F3 box 2 · F5 formal 1 |
-| primitive-expressible | 0 of 132 |
-
-The kill switch (under half admitted as is) is not tripped. The number that matters for version 3 is the last
-row: every claim on the register ranges over an indexed family, a sum over index triples, a minimum over pairs,
-a maximum over a grid, and the vocabulary of 17 scalar heads has no finite quantifier. Every predicate is a
-*named* function with its definition on disk. The next primitive is not another scalar function; it is a finite
-indexed sum, product, minimum and maximum over the pinned set, which is what the exhaustive certifier already
-computes. Without it, SMT-LIB export covers nothing on the register; with it, the tensor identities and the
-configuration bounds unroll. "Admitted" means the decided claim in the row's scope, never the claimant's wider
-headline; the ten objects of version 1 are the proof that the form carries scope, reference and hypotheses.
-
 ## Version 3: the finite quantifier, decisions from the bytes alone, a second checker, Z3 (2026-10-20)
 
 **Typed data.** A finite domain may carry a `data` block that says how the pinned bytes decode:
@@ -165,4 +141,5 @@ declares the register's reading (`decimals`) and says so in its reference; the o
 reference field doing exactly what the lattice-claims lesson asked of it, on the register's own data.
 
 **Still to do.** Collection objects for the aggregate rows; infinite box sides; deciders reading the object for the
-named class, the oracle first; a spin-out repository only when a claimant or an outside verifier reads the format.
+named class, the oracle first. The second reading and the concord experiment of 2026-10-20 were removed from this
+repository the same day (the operator: keep only what verifies the claim-machine's output); their result is in HANDOFF.

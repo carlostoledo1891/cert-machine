@@ -243,7 +243,7 @@ const REDS = [
 ];
 /* ---- the Python decider on the same bytes ------------------------------------------------------------------------ */
 function decidePy(red) {
-  const tmp = path.join(ROOT, 'out', 'c86'); fs.mkdirSync(tmp, { recursive: true });
+  const tmp = path.join(require('os').tmpdir(), 'cert-machine-out', 'c86'); fs.mkdirSync(tmp, { recursive: true });
   const out = path.join(tmp, 'py-' + (red || 'main') + '.json');
   const args = ['-I', path.join(ROOT, 'instruments', 'optq', 'c86.py'), path.join(ROOT, DIR, CERT_REL), '--printed', PRINTED, '--json', out]; if (red) args.push('--red', red);
   const r = cp.spawnSync('python3', args, { encoding: 'utf8', maxBuffer: 1 << 26 });
