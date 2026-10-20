@@ -1,4 +1,4 @@
-# AlphaProof Nexus — issue draft, NOT SENT (2026-10-20)
+# AlphaProof Nexus — issue, SENT 2026-10-20 on the operator's word: https://github.com/google-deepmind/alphaproof-nexus-results/issues/4 (the posted body also cites #1 and names the evidence commit 7b13a32f)
 
 To google-deepmind/alphaproof-nexus-results (an issue). **Send only on the operator's word.** Evidence:
 https://carlostoledo.co/reports/alphaproof-nexus.html and certs/apn-statements.json, certs/apn-kernel.json, certs/apn-oeis.json

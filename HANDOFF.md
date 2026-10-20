@@ -33,8 +33,8 @@ NEXT SESSION, IN ORDER:
      tools/apn-statements.py (9/9 statements equal, 5/5 reds). OEIS lane: tools/apn-oeis.py — 38 published of 44 claimed; all
      definitions reproduce OEIS terms; 32 MATCHES, 3 NARROWER, 1 STRONGER, 2 degenerate (A382590 with multiplicity; A237271 by
      its definition); THREE conjectures already proved on record before the preprint (A325046 Fried Dec 2025, A382590 Tao MO
-     Mar 2025, A237271 via A384149 Hoft Jan 2026). OEIS statements read by an AI agent, re-checked. Issue DRAFTED, NOT SENT:
-     outreach/apn-issue-draft-2026-10-20.md (a send, the operator's). Next build option: Comparator on the 38 OEIS proofs vs the
+     Mar 2025, A237271 via A384149 Hoft Jan 2026). OEIS statements read by an AI agent, re-checked. Issue FILED 2026-10-20 on the operator's word:
+     google-deepmind/alphaproof-nexus-results#4 (draft kept in outreach/apn-issue-draft-2026-10-20.md). Next build option: Comparator on the 38 OEIS proofs vs the
      auto_oeis statements. OPEN, not ours: the layout ruler flags site/swell/index.html @1440 (spines 9 -> 10) from the live feed.
   ★ METHOD PAPER v0.7 (2026-10-20, this session): an AI referee read of v0.6 ("major revision": 24 errors, 11 overclaims, 15
      structure, 8 typography; report at corpus/reviews/cert-machine-method-v06-referee-2026-10-19.md) APPLIED where the
@@ -120,7 +120,8 @@ NEXT SESSION, IN ORDER:
          enclosures on the page are printed outward (the first draft rounded the lower end up — fixed before sending). No
          ping was posted on #232 (two days old; a follow-up comment is premature — revisit after a week).
      (6) Zenodo's version field (login or ZENODO_TOKEN).
-     (6b) The AlphaProof Nexus issue (outreach/apn-issue-draft-2026-10-20.md): the operator's word.
+     (6b) DONE 2026-10-20 on the operator's "Send the outreach to DeepMind": google-deepmind/alphaproof-nexus-results#4 FILED
+          (cites their closed #1 on the same 44-vs-38 gap); the sweep watches it.
      (7) Confirm the Navier–Stokes "six readers" were AI agents.
      (8) AE-PR needs Google's CLA.
   ◆ WAITING ON THE WORLD:
