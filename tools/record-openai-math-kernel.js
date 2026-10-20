@@ -69,19 +69,7 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
 }
 
 /* 2 · decide: the words of the pre-registration, from the facts */
-const accepts = (f, k) => f.kernels.some((l) => new RegExp('^' + k + ' kernel accepts the solution').test(l));
-const rejects = (f) => f.kernels.filter((l) => /kernel rejects/.test(l));
-const COMPARATOR_NO = [/Challenge and solution theorem statement do not match/, /Const does not match between challenge and target/, /Challenge and solution constant kind don't match/, /not permitted|illegal axiom|uses axiom|Axiom .* is not/i];
-function decide(f) {
-  if (!f.ran) return { word: 'REFUSED', stage: 'not run', why: f.missing || 'the job stopped before Comparator ran (see the run log)' };
-  if (f.exit === 0 && f.okay && accepts(f, 'nanoda') && accepts(f, 'Lean default')) return { word: 'CERTIFIED', why: 'Comparator exit 0; nanoda and Lean\'s kernel both accept' };
-  if (f.exit === 0 && f.okay) return { word: 'REFUSED', stage: 'kernels', why: 'Comparator passed but the two acceptance lines were not both printed: ' + JSON.stringify(f.kernels) };
-  const text = (f.logTail || []).concat(f.errTail || []).join('\n');
-  const no = rejects(f).length ? 'a kernel rejects: ' + rejects(f).join('; ') : (COMPARATOR_NO.find((re) => re.test(text)) ? (text.split('\n').find((l) => COMPARATOR_NO.some((re) => re.test(l))) || '').trim() : null);
-  if (no) return { word: 'REFUTED?', stage: 'comparator', why: no };
-  const stage = /Building .*\n(?![\s\S]*Exporting)/.test(text) ? 'build' : /Exporting/.test(text) ? 'export or replay' : 'setup';
-  return { word: 'REFUSED', stage, why: (f.errTail || []).slice(-3).join(' | ') || 'exit ' + f.exit };
-}
+const { accepts, rejects, decide } = require('./comparator-verdict.js');   /* the rule, shared with the AlphaProof Nexus lane */
 /* amendment 9 — the TRANSFER check of a definition-hole challenge, with its red control (the forge) */
 function decideTransfer(f, ch) {
   if (!ch.definitionNames.length || !f.transfer) return null;

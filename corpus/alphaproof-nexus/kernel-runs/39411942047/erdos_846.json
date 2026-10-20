@@ -1,0 +1,84 @@
+{
+ "challenge": "erdos_846",
+ "ran": true,
+ "exit": 1,
+ "seconds": 61,
+ "cacheSeconds": 96,
+ "okay": false,
+ "kernels": [],
+ "buildJobs": [
+  7992
+ ],
+ "maxRssKB": 6767132,
+ "env": [
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 590dec59d93ab6becdf16fdd8aee5abbb99cb856",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "✔ [7969/7975] Built FormalConjecturesForMathlib.SetTheory.Cardinal.Continuum (1.3s)",
+  "✔ [7970/7977] Built FormalConjecturesForMathlib.SetTheory.Cardinal.SimpleGraph (1.3s)",
+  "✔ [7971/7980] Built FormalConjectures.Util.Answer.Syntax (269ms)",
+  "✔ [7972/7981] Built FormalConjecturesForMathlib.Topology.Discrete (1.3s)",
+  "✔ [7973/7984] Built FormalConjecturesForMathlib.Topology.GDelta (1.3s)",
+  "✔ [7974/7984] Built FormalConjecturesForMathlib.Topology.MetricSpace.MetricSeparated (1.4s)",
+  "✔ [7975/7988] Built FormalConjectures.Util.Answer (794ms)",
+  "✔ [7977/7992] Built FormalConjectures.Util.Linters.CopyrightLinter (598ms)",
+  "✔ [7978/7992] Built FormalConjecturesForMathlib.Lean.Elab.InfoTree.Util (345ms)",
+  "✔ [7979/7992] Built FormalConjectures.Util.Linters.NamespaceLinter (650ms)",
+  "✔ [7980/7992] Built FormalConjectures.Util.Attributes.AMS (1.5s)",
+  "✔ [7981/7992] Built FormalConjectures.Util.Linters.ModuleDocstringLinter (939ms)",
+  "✔ [7982/7992] Built FormalConjecturesForMathlib.Tactic.Linter.Term (582ms)",
+  "✔ [7983/7992] Built FormalConjectures.Util.Linters.ExistsImplicationLinter (550ms)",
+  "✔ [7984/7992] Built FormalConjecturesForMathlib (2.5s)",
+  "✔ [7985/7992] Built FormalConjectures.Util.Attributes.Basic (1.7s)",
+  "✔ [7986/7992] Built FormalConjectures.Util.Linters.AnswerLinter (1.2s)",
+  "✔ [7987/7992] Built FormalConjectures.Util.Linters.CategoryDocstringLinter (1.2s)",
+  "✔ [7988/7992] Built FormalConjectures.Util.Linters.CategoryLinter (1.3s)",
+  "✔ [7989/7992] Built FormalConjectures.Util.Linters.AMSLinter (1.5s)",
+  "✔ [7990/7992] Built FormalConjectures.Util.ProblemImports (2.8s)",
+  "⚠ [7991/7992] Built Challenge (3.6s)",
+  "warning: Challenge.lean:54:8: declaration uses 'sorry'",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos846.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Challenge"
+ ],
+ "errTail": [
+  "uncaught exception: process 'landrun' exited with code 1",
+  "stderr:",
+  "uncaught exception: unknown module prefix 'Nat'",
+  "No directory 'Nat' or file 'Nat.olean' in the search path entries:",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/Cli/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/batteries/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/Qq/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/aesop/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/proofwidgets/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/importGraph/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/LeanSearchClient/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/plausible/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/mathlib/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/packages/formal_conjectures/.lake/build/lib/lean",
+  "/home/runner/work/cert-machine/cert-machine/apn/.lake/build/lib/lean",
+  "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean",
+  "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean",
+  "Command exited with non-zero status 1"
+ ],
+ "sha256": [
+  "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+  "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos846.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}

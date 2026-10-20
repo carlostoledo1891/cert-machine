@@ -1,0 +1,101 @@
+{
+ "what": "The AlphaProof Nexus audit, kernel lane: each Erdős proof of google-deepmind/alphaproof-nexus-results @ 0647711a checked by Comparator v4.27.0 against formal-conjectures' own statement at the commit the repository builds against (7862bf6a), with nanoda on (.github/workflows/apn-kernel.yml). CERTIFIED here means the proof proves exactly that statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept it. Whether the statement is the problem Erdős posed is the reading lane's question.",
+ "generated": "2026-10-20T11:08:57Z",
+ "workflow": ".github/workflows/apn-kernel.yml",
+ "rule": "tools/comparator-verdict.js",
+ "deciders": {
+  "rule": "e3be80fcda130a761feeb562ad4a2860df7efb6c0c615bd5ea2b8a41448c9e06",
+  "prepare": "a68477f8c760b9e00b4b2fa2086da18543365e8bb3c682b6b4e4546288c4f27e",
+  "workflow": "9928c43bc939ca05835a1b8154e7f4425ce1b2ddd384d14aa777c7a2d279ba6a"
+ },
+ "counts": {
+  "NOT RUN": 9,
+  "REFUSED": 1
+ },
+ "rows": [
+  {
+   "item": "erdos_12.parts.i",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_12.parts.ii",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_125.variants.positive_lower_density",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_138.variants.difference",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_152",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_26.variants.tenenbaum",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_741.parts.i",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_741.parts.ii",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  },
+  {
+   "item": "erdos_846",
+   "runs": [
+    {
+     "run": 39411942047,
+     "workflowSha": "d493b13bb356e34c4864c8c7f3f5b4d2694f4b54",
+     "at": "2026-10-20T11:08:18Z",
+     "exit": 1,
+     "seconds": 61,
+     "cacheSeconds": 96,
+     "maxRssKB": 6767132,
+     "kernels": [],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | Command exited with non-zero status 1"
+     }
+    }
+   ],
+   "word": "REFUSED",
+   "why": "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | Command exited with non-zero status 1",
+   "stage": "export or replay"
+  },
+  {
+   "item": "erdos_741.variants.upper",
+   "runs": [],
+   "word": "NOT RUN",
+   "why": "no run of the kernel lane has reached this item yet"
+  }
+ ]
+}

@@ -62,7 +62,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/kernel-tools
-          key: apn-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g
+          key: apn-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g-amend1
       - name: build comparator, lean4export, landrun, nanoda at their pins
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -72,6 +72,13 @@ jobs:
           mkdir -p ~/kernel-tools/bin ~/src && cd ~/src
           git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
           test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
+          # AMENDMENT 1 (2026-10-20, after pilot run 39411942047): ONE change to Comparator v4.27.0, the fix Comparator
+          # v4.34.0 carries — buildLandrunArgs passes "--" before the sandboxed command. Without it landrun consumes the
+          # "--" that separates lean4export's module from its declarations, and lean4export reads every declaration
+          # as a module ("unknown module prefix 'Nat'"). Argument passing only; no checking logic changes.
+          sed -i 's/  args ++ #\[spawnArgs.cmd\] ++ spawnArgs.args/  args ++ #["--", spawnArgs.cmd] ++ spawnArgs.args/' Main.lean
+          test "$(git diff --numstat Main.lean | awk '{print $1+$2}')" = "2"
+          git diff | tee ~/kernel-tools/comparator.patch
           lake build comparator
           cp .lake/build/bin/comparator ~/kernel-tools/bin/
           cd ~/src && git clone -q https://github.com/leanprover/lean4export.git && cd lean4export && git checkout -q "$LEAN4EXPORT_PIN"
