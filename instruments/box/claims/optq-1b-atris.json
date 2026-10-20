@@ -1,0 +1,49 @@
+{
+ "id": "optq-1b-atris",
+ "text": "C_1b <= 0.3808585504, an upper bound exhibited by a 114,688-step function h on [0, 2] with 0 <= h <= 1 and mass 1 (Atris, [A2026])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1b.md",
+  "sha256": "8d164c44a1cde292021f3b8ac0642308babfb0f1142e52d84a62f25e35d314a7",
+  "quote": "| $0.3808585504$* | [A2026] |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/sources/atrislabs/1b-erdos-minimum-overlap/construction.json",
+   "sha256": "62a976fa1366a7320cbe293ee3047a109d080220b06b450d290cef411e79af02"
+  },
+  "decoder": "the JSON array of 114,688 exact rational step heights on [0, 2], read as the rationals the strings denote",
+  "count": 114688,
+  "variable": "h"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "the minimum-overlap value sup_x ∫ h(t) h(x+t) dt of the step function, exactly, as the registry's page defines it",
+    "where": "instruments/optq/stepfun-exact.js",
+    "args": [
+     "h"
+    ]
+   },
+   "rel": "le",
+   "printed": "0.3808585504",
+   "c": "3808585504/10000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the value is computed exactly from the rational heights (the record's js.value)",
+ "hypotheses": [
+  "C_1b is the largest constant with sup_x ∫ f(t) g(x+t) dt >= C_1b for every admissible pair, so one admissible h gives C_1b <= its value (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the value of the pinned heights computed exactly exceeds 3808585504/10000000000",
+  "the pinned construction does not hash to 62a976fa…"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1b-atris",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ }
+}

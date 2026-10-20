@@ -1,0 +1,49 @@
+{
+ "id": "optq-1c-rozetyp",
+ "text": "C_1c >= 0.4103287, a lower bound exhibited by a step function with 6,148 non-negative integer weights, K = 6144 (rozetyp, [R2026])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+  "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+  "quote": "$C\\_{1c} \\geq 0.4103287*$"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/next-2026-10-18/rozetyp/certificate.json",
+   "sha256": "62ac49ddbbfc9aa1053406363d9df9c912022ab85b72a447cf73c94bb9c1fd0e"
+  },
+  "decoder": "the certificate's 6,148 integer weights w_i of f = Σ w_i 1_[i/K, (i+1)/K), K = 6144",
+  "count": 6148,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "K · min_k Σ_i w_i w_{k-i} / (Σ w_i)^2, the Barnard–Steinerberger lower-bound functional of the step function, exactly, as the registry's page defines it",
+    "where": "instruments/optq/autocorr.py",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "ge",
+   "printed": "0.4103287",
+   "c": "4103287/10000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly (the Bound column); the value is the functional computed exactly from the integer weights (the record's js.value); the page prints the same fraction with a slip in its decimal (0.41030287175… for 0.41032871754…), which the record notes",
+ "hypotheses": [
+  "any non-negative step function f gives C_1c >= its functional (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the functional of the pinned weights computed exactly is below 4103287/10000000",
+  "the pinned certificate does not hash to 62ac49dd…"
+ ],
+ "record": {
+  "path": "certs/autocorr-replay.json",
+  "row": "1c-rozetyp",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ }
+}

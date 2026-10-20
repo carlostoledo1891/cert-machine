@@ -1,0 +1,53 @@
+{
+ "id": "optq-1b-codexprolong",
+ "text": "C_1b <= 0.3808585749, an upper bound exhibited by the 3,584-step function of EinsteinArena solution 2507 (CodexProLong, [EA2026]), its heights rescaled to mass exactly 1",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1b.md",
+  "sha256": "8d164c44a1cde292021f3b8ac0642308babfb0f1142e52d84a62f25e35d314a7",
+  "quote": "| $0.3808585749$* | [EA2026] |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/einstein-arena/best-1.json",
+   "sha256": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6"
+  },
+  "decoder": "the platform's JSON: 3,584 heights read as the IEEE-754 doubles the JSON numbers denote, then rescaled so that Σh = n/2 exactly (mass 1); as published the mass misses 1 by 1.9e-13",
+  "count": 3584,
+  "variable": "h"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "the minimum-overlap value sup_x ∫ h(t) h(x+t) dt of the rescaled step function, exactly",
+    "where": "instruments/optq/stepfun-exact.js",
+    "args": [
+     "h"
+    ]
+   },
+   "rel": "le",
+   "printed": "0.3808585749",
+   "c": "3808585749/10000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the value is of the RESCALED function (the record's rescaled flag): the heights as published have mass 1 - 1.9e-13 and are not an admissible h, so the claim as published is refused by the record and the certified object is the rescaled one",
+ "hypotheses": [
+  "any admissible h (0 <= h <= 1 on [0, 2], mass 1) gives C_1b <= its value (the registry's definition, read)",
+  "rescaling the heights by the exact factor that makes the mass 1 keeps 0 <= h <= 1 (checked by the record's decider)"
+ ],
+ "falsifier": [
+  "the value of the rescaled heights computed exactly exceeds 3808585749/10000000000",
+  "the pinned solution does not hash to 0c4c744e…"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1b-codexprolong",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "the other reading on record (certs/mc100-einstein-arena.json: the JSON text as exact decimals) also certifies the claim; this object follows the registry replay's reading"
+ ]
+}

@@ -1,0 +1,806 @@
+{
+ "what": "The classification behind certs/box-yield.json: one row per register row, read by the author of instruments/box/yield.py on 2026-10-20 under the rule in its docstring (form F1–F5; v1 yes/feature/no; predicate kind). A reading, recorded; not a verdict.",
+ "rule": "instruments/box/yield.py (docstring)",
+ "rows": {
+  "ai-maxwell": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a bound decided at ε = 1/6: a numeric inequality at a point; the object states the decided scope, not the manuscript's headline"
+  },
+  "ai-korenblum": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the numerical criterion for the constant: a quantity against a bar"
+  },
+  "ai-lemniscate": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the computational fragment of Erdős #1038: finitely many exact facts of the construction"
+  },
+  "ai-ranteng": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the machine-checkable fragment as a \"holds\"; the rest named in hypotheses, which is what the register's scope says"
+  },
+  "ai-mathieu": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "supporting identities, decided exactly"
+  },
+  "ai-poisson": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "an explicit counterexample: its identities and evaluations"
+  },
+  "erdos852-cstar": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the printed constant as the box its digits allow (\"in\") against the certified enclosure: REFUTED is the enclosure outside the box"
+  },
+  "kiss-cal-d4-24": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-cal-e8-240": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-alphaevolve-593": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-ea-594-winner": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-station-604-1": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-station-604-2": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-station-604-3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-station-shell-582": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-station-d12-lift": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-ea-604": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a configuration: every pair at cos <= 1/2 and every vector of the stated norm, exactly; the count is the claim's number"
+  },
+  "kiss-ganzhinov-592": {
+   "form": "F2",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "pairwise exact conditions of a configuration, like the others, but the row is QUEUED: no verdict to attach the object to",
+   "feature": "queued row (no record verdict)"
+  },
+  "rm-registry": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "52 printed rows, each a printed constant against a certified enclosure (F1 \"in\"); the row is the aggregate with its counts",
+   "feature": "collection (one object per item)"
+  },
+  "mm-strassen-1969": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-strassen-squared-4x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-q-2x2x2": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-q-3x3x3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-q-4x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-q-3x4x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-q-4x5x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-f2-4x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphatensor-f2-5x5x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mm-alphaevolve-48-4x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "ea-circles-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-circles-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the score against the printed value with the feasibility as \"holds\"; as published a tolerance witness, so the object carries the record's repair"
+  },
+  "ea-heilbronn-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-heilbronn-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-mindist-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-mindist-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-overlap-haugland_2016": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-overlap-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the score against the printed value with the feasibility as \"holds\"; as published a tolerance witness, so the object carries the record's repair"
+  },
+  "ea-overlap-ttt_discover_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the score against the printed value with the feasibility as \"holds\"; as published a tolerance witness, so the object carries the record's repair"
+  },
+  "ea-overlap-together_ai_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the score against the printed value with the feasibility as \"holds\"; as published a tolerance witness, so the object carries the record's repair"
+  },
+  "ea-edges-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-edges-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-autocorr-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-autocorr-alphaevolve_v2_2025": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's feasibility (f >= 0) decided exactly; the file prints no score, so there is no bar"
+  },
+  "ea-autocorr-ttt_discover_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-autocorr-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-flat-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-flat-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-hexagons-alphaevolve_2025": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ea-hexagons-ours_2026": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the construction's score against the printed value, with its feasibility (no overlaps, inside, the constraints) as \"holds\""
+  },
+  "ecbench-counts": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "176 printed exceedance counts, each an exact equality (F1 \"eq\") against the count of the pinned contour; the row aggregates them",
+   "feature": "collection (one object per item)"
+  },
+  "gsm8k-keys": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named+reading",
+   "why": "27,998 calculator annotations, each an exact equality; the 26 prose steps that do not hold are readings of prose, which no predicate states",
+   "feature": "collection (one object per item)"
+  },
+  "metr-horizon": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "44 fits, each a certified maximum in a box and the printed coefficients as the boxes their digits allow (F1 \"in\"); the row aggregates them",
+   "feature": "collection (one object per item)"
+  },
+  "ecbench-marginals": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "15 printed fits, each against a certified maximum-likelihood fit (F1 \"in\"); the row aggregates them",
+   "feature": "collection (one object per item)"
+  },
+  "design-table-bhaskaran-2023": {
+   "form": "F4",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "20 printed fits to a hindcast nobody outside can re-run: each is F1 \"in\" with a pin that does not resolve, which is NEEDS DATA, not a malformed object; and the row aggregates them",
+   "feature": "collection (one object per item); pins absent (needs data)"
+  },
+  "navier-stokes-openai-2026": {
+   "form": "F5",
+   "v1": "no",
+   "predicate": "named+reading",
+   "why": "the kernel's acceptance at the pin is a \"holds\" whose decider is the audit; that the statement is the paper's Theorem 1.1 is a reading, hypothesis by hypothesis, and the grammar states no predicate for it"
+  },
+  "optconst-3b": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "an entropy ratio of the pinned certificate, enclosed, against the registry's printed bar: the same shape as the ten objects"
+  },
+  "optconst-3c": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "an entropy ratio of the pinned certificate, enclosed, against the registry's printed bar: the same shape as the ten objects"
+  },
+  "optconst-3c-95": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "an entropy ratio of the pinned certificate, enclosed, against the registry's printed bar: the same shape as the ten objects"
+  },
+  "optconst-71": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "an entropy ratio of the pinned certificate, enclosed, against the registry's printed bar: the same shape as the ten objects"
+  },
+  "optconst-84b": {
+   "form": "F3",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the chain's bound for every choice of its parameters, a universal statement over the parameter box, against the printed bar; REPAIRED, so the object carries the record's repair"
+  },
+  "optconst-42a": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the limiting certificate's inequality against the bar is decided; the asymptotic reduction is a hypothesis, read, and the object says so"
+  },
+  "optconst-42a-pr184": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the limiting certificate's inequality against the bar is decided; the asymptotic reduction is a hypothesis, read, and the object says so"
+  },
+  "countex-aim-problems": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the finitely many exact facts decided are a \"holds\"; what rests on cited universal theorems or on one of two definitions goes in hypotheses and reference, which the register's scope already states"
+  },
+  "countex-courtade-volume-conjecture": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-dpp-feasible-step": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the finitely many exact facts decided are a \"holds\"; what rests on cited universal theorems or on one of two definitions goes in hypotheses and reference, which the register's scope already states"
+  },
+  "countex-hamiltonian-nepv-identity": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-lorentzian-jensen": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the finitely many exact facts decided are a \"holds\"; what rests on cited universal theorems or on one of two definitions goes in hypotheses and reference, which the register's scope already states"
+  },
+  "countex-macdonald-schur-convexity": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-odonnell-matrix-conjecture": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the finitely many exact facts decided are a \"holds\"; what rests on cited universal theorems or on one of two definitions goes in hypotheses and reference, which the register's scope already states"
+  },
+  "countex-osi-sketch-and-solve": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-qrcp-orthonormal-greedy": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-quantum-coupon-collector": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-rank-two-mixed-norm": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-sdd-nystrom-diminishing-returns": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-theta-derivative-log-concavity": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a counterexample: every fact it needs, re-derived from the published artifact as exact identities and evaluations"
+  },
+  "countex-variance-only-matrix-discrepancy": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: the finitely many exact facts decided are a \"holds\"; what rests on cited universal theorems or on one of two definitions goes in hypotheses and reference, which the register's scope already states"
+  },
+  "horizonmath-ramsey-asymptotic": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the certificate's printed pairs inside the region R: an exact membership predicate on each pair; REFUTED with the pair outside printed"
+  },
+  "horizonmath-keich-thin-triangles-128": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the exact area of the union of the printed triangles against the printed baseline"
+  },
+  "horizonmath-gpt56-closed-forms": {
+   "form": "F1",
+   "v1": "feature",
+   "predicate": "named",
+   "why": "three closed forms against a reference to stated digits: F1 \"in\", but the expressions are not published, so the pin does not resolve: NEEDS DATA",
+   "feature": "pins absent (needs data)"
+  },
+  "gnnw-gai-3782": {
+   "form": "F3",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "Theorem 14's inequality for every l in (0, 1]: a box domain with finite sides, the cover decided in interval arithmetic; the limit at 0 is the record's tail argument, named in hypotheses"
+  },
+  "polymaps-gao-g": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-gao-f4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-gao-f5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-gao-f6": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-gao-f7": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "PARTIAL: non-injectivity and the factors' determinants as exact facts; the whole determinant rests on the paper's lemma, a hypothesis"
+  },
+  "polymaps-chv-x14": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-chv-phi": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "polymaps-chv-xhat18": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a polynomial map: the determinant identity and the collision evaluations, exactly"
+  },
+  "mc100-ae-nb-2x4x5-r32": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-2x4x7-r45": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-2x4x8-r51": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-2x5x6-r47": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x3x3-r23": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x4x6-r54": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x4x7-r63": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x4x8-r74": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x5x6-r68": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-3x5x7-r80": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-4x4x8-r96": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-4x4x5-r61": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-4x4x7-r85": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-4x5x6-r90": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ae-nb-5x5x5-r93": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x2x3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x2x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x3x3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x2x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x3x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x3x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-2x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-f2-3x3x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x3x3": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x6": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x3x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x7": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x3x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x2x8": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x4x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-3x3x4": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-at-q-2x4x5": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "a tensor decomposition: every tensor-identity equation over the stated ring, exactly — a \"holds\" over the pinned factors; primitive only with a finite sum over index triples, which the vocabulary lacks"
+  },
+  "mc100-ea-best-erdos-min-overlap": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score as the printed double (\"in\" the box of its digits, or exact) with feasibility as \"holds\"; as published the mass misses, so the object carries the repair"
+  },
+  "mc100-ea-best-first-autocorrelation-inequality": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-flat-polynomials": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-edges-vs-triangles": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-circles-rectangle": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-kissing-number-d12": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-kissing-number-d11-605": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-ea-best-kissing-number-d12-842": {
+   "form": "F1",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the platform's score of the object against the printed double, with the problem's feasibility as \"holds\" — including the rows where the object is NOT a kissing configuration and the score says so"
+  },
+  "mc100-st-jacobian": {
+   "form": "F2",
+   "v1": "yes",
+   "predicate": "named",
+   "why": "the determinant identity and the collision witnesses, exactly"
+  }
+ }
+}

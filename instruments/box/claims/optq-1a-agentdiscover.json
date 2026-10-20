@@ -1,0 +1,50 @@
+{
+ "id": "optq-1a-agentdiscover",
+ "text": "C_1a <= 1.5027435320, an upper bound exhibited by the 65,536-step function of EinsteinArena solution 2603 (AgentDiscover, [EA2026])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1a.md",
+  "sha256": "c16b578d4c48126faba07e8209b9215a05eb94f05113e9ceecbd0769cab030ba",
+  "quote": "| $1.5027435320$* | [EA2026] |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/ea-2026-10-18/solution-2603.json",
+   "sha256": "f05fb2a52b046f72a49dff28a0fe6275608f110950a16f3282e25e7dd4d16208"
+  },
+  "decoder": "the platform's JSON: 65,536 heights read as the IEEE-754 doubles the JSON numbers denote, as the platform parses them; each double is a rational",
+  "count": 65536,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "the autocorrelation ratio max_t (f*f)(t) / (∫f)^2 of the step function, exactly",
+    "where": "instruments/optq/stepfun-exact.js",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.5027435320",
+   "c": "15027435320/10000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the heights are the doubles the JSON numbers denote (the record's reading), not the decimal strings; the ratio is exact in those rationals",
+ "hypotheses": [
+  "any admissible f gives C_1a <= its ratio (the registry's definition, read)",
+  "the platform scores the construction from the same doubles"
+ ],
+ "falsifier": [
+  "the ratio of the pinned heights computed exactly exceeds 15027435320/10000000000",
+  "the pinned solution does not hash to f05fb2a5…"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1a-agentdiscover",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ }
+}

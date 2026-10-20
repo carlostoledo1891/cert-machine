@@ -1,0 +1,52 @@
+{
+ "id": "optq-1c-rozetyp-k3072",
+ "text": "C_1c >= 0.41030211724, the lower bound the claimant's README prints for its earlier certificate (K = 3072)",
+ "source": {
+  "what": "rozetyp/barnard-steinerberger-lower-bound README at 19f39715, pinned 2026-10-18",
+  "path": "corpus/optconst-queue/next-2026-10-18/rozetyp/README.md",
+  "sha256": "cf8c2e87183005967040b3f0dbb3f9bc9fd1029c28cb14fda4c5a89dad2e0d37",
+  "quote": "An earlier certificate (K = 3072, C ≥ 0.41030211724) is kept in"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/next-2026-10-18/rozetyp/previous/certificate_K3072.json",
+   "sha256": "788527a6237837e8d5d441cfab3f8b39080165fc207ae6a69678cc5f3a0fdf58"
+  },
+  "decoder": "the earlier certificate's 3,584 integer weights, K = 3072",
+  "count": 3584,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "K · min_k Σ_i w_i w_{k-i} / (Σ w_i)^2, the Barnard–Steinerberger lower-bound functional of the step function, exactly",
+    "where": "instruments/optq/autocorr.py",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "ge",
+   "printed": "0.41030211724",
+   "c": "41030211724/100000000000"
+  }
+ ],
+ "reference": "the bar is the claimant's printed decimal taken exactly, eleven digits; the record (certs/autocorr-replay.json row 1c-rozetyp-k3072) decided the seven-digit bar 0.4103021 instead, so this object does not attach to it: the checker refuses it for that reason, and the exact value 0.410302117239969943… is BELOW the eleven-digit print by 3.0e-14",
+ "hypotheses": [
+  "any non-negative step function f gives C_1c >= its functional (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the functional of the pinned weights computed exactly is below 41030211724/100000000000 (it is: by 3.0e-14)",
+  "the pinned certificate does not hash to 788527a6…"
+ ],
+ "record": {
+  "path": "certs/autocorr-replay.json",
+  "row": "1c-rozetyp-k3072",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ },
+ "notes": [
+  "kept as the one object of the ten the checker REFUSES: record-bar-mismatch. A finding, not a verdict: the claimant rounded the exact value to nearest at the eleventh digit; the certificate establishes C_1c >= 0.41030211723, the record's 0.4103021 holds"
+ ]
+}

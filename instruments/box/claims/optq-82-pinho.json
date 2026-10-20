@@ -1,0 +1,51 @@
+{
+ "id": "optq-82-pinho",
+ "text": "C_82 < 0.2534449, an upper bound on the essential minimum of the Zhang–Zagier height by Doche's limit-point construction (R. Pinho, [Pin26])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/c82-2026-10-19/upstream/README.md",
+  "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+  "quote": "$C_{82} < 0.2534449*$"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json",
+   "sha256": "b33626f367b6f52922746c0fee7bb008449cd0bb18efcb983ab20ff073350fce"
+  },
+  "decoder": "the certificate: the integer factor polynomials with their multiplicities and exponents (the construction A/Q of Doche's method; count = the factors, declared)",
+  "count": 32,
+  "variable": "Q"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "Doche's limit-point bound B of the construction: every root of every composed factor certified, the integral enclosed on dyadic panels (an enclosure, not a rational)",
+    "where": "instruments/optq/c82.py",
+    "args": [
+     "Q"
+    ]
+   },
+   "rel": "lt",
+   "printed": "0.2534449",
+   "c": "2534449/10000000",
+   "note": "the registry prints a strict <; the record's claim string prints <=; the enclosure is below the bar either way"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the value is the enclosure of B from the record (B.js, outward-rounded doubles), so the decision is interval, not exact",
+ "hypotheses": [
+  "Doche's theorem [Doc01b]: the limit-point construction with these integrality conditions gives C_82 <= B (read, not re-derived)",
+  "the integrality conditions of the construction are decided exactly by the record"
+ ],
+ "falsifier": [
+  "the upper end of the enclosure of B is not below 2534449/10000000",
+  "the pinned certificate does not hash to b33626f3…"
+ ],
+ "record": {
+  "path": "certs/c82-replay.json",
+  "row": "pin26",
+  "value": "B.js",
+  "verdict": "CERTIFIED"
+ }
+}

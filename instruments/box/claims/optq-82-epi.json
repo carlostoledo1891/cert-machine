@@ -1,0 +1,49 @@
+{
+ "id": "optq-82-epi",
+ "text": "C_82 <= 0.2535744749068227, an upper bound by Doche's limit-point construction with two additional factors (Épi, [Epi26])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/c82-2026-10-19/upstream/82a.md",
+  "sha256": "46734d1a56833c045f362f6505aefc6d9ab4e30e9115207521800768b967f7e1",
+  "quote": "| 0.2535744749068227\\* | [Epi26] |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/c82-2026-10-19/epi/construction.json",
+   "sha256": "e85e26fa7122a2e68b19b2fa01e27e78bbd802450bce2a0d45717f09b930e559"
+  },
+  "decoder": "Épi's construction file: the factor polynomials with multiplicities and exponents (count = the factors, declared)",
+  "count": 9,
+  "variable": "Q"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "Doche's limit-point bound B of the construction (an enclosure)",
+    "where": "instruments/optq/c82.py",
+    "args": [
+     "Q"
+    ]
+   },
+   "rel": "le",
+   "printed": "0.2535744749068227",
+   "c": "2535744749068227/10000000000000000"
+  }
+ ],
+ "reference": "the bar is the registry page's printed decimal taken exactly (the page's table of upper bounds carries no relation symbol; <= is the table's meaning); the value is the enclosure of B from the record (B.js)",
+ "hypotheses": [
+  "Doche's theorem [Doc01b] gives C_82 <= B for the construction (read, not re-derived)"
+ ],
+ "falsifier": [
+  "the upper end of the enclosure of B exceeds 2535744749068227/10000000000000000",
+  "the pinned construction does not hash to e85e26fa…"
+ ],
+ "record": {
+  "path": "certs/c82-replay.json",
+  "row": "epi26",
+  "value": "B.js",
+  "verdict": "CERTIFIED"
+ }
+}

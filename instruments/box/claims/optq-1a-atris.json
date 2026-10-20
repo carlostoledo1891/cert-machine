@@ -1,0 +1,49 @@
+{
+ "id": "optq-1a-atris",
+ "text": "C_1a <= 1.5027434868, an upper bound exhibited by a 65,536-step function with exact rational heights (Atris, [A2026])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1a.md",
+  "sha256": "c16b578d4c48126faba07e8209b9215a05eb94f05113e9ceecbd0769cab030ba",
+  "quote": "| $1.5027434868$* | [A2026] |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/sources/atrislabs/1a-sidon-autocorrelation/construction.json",
+   "sha256": "7387452d1da74e043897ed6ea22b1453b036a8212feeaa43727aaa3f05f97abf"
+  },
+  "decoder": "the JSON array of 65,536 exact rational step heights on [-1/4, 1/4], read as the rationals the strings denote",
+  "count": 65536,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "the autocorrelation ratio max_t (f*f)(t) / (∫f)^2 of the step function, exactly, as the registry's page defines it",
+    "where": "instruments/optq/stepfun-exact.js",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.5027434868",
+   "c": "15027434868/10000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the value is the ratio computed exactly from the rational heights (the record's js.value); the slack between them is the record's",
+ "hypotheses": [
+  "C_1a is the largest constant with max_t ∫ f(t-x) f(x) dx >= C_1a (∫ f)^2 for every admissible f, so any one admissible f gives C_1a <= its ratio (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the ratio of the pinned heights computed exactly exceeds 15027434868/10000000000",
+  "the pinned construction does not hash to 7387452d…"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1a-atris",
+  "value": "js.value",
+  "verdict": "CERTIFIED"
+ }
+}

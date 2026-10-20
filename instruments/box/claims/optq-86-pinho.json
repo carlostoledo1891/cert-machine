@@ -1,0 +1,60 @@
+{
+ "id": "optq-86-pinho",
+ "text": "C_86 <= 1.8117251, an upper bound by a 629-cell step measure with eleven auxiliary integer polynomials, Smith's sufficiency criterion (R. Pinho, [Pin26])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/c86-2026-10-19/upstream/README.md",
+  "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+  "quote": "$C_{86} \\leq 1.8117251*$"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/c86-2026-10-19/rpinho/cert_n1200_A11.json",
+   "sha256": "722a287b74a9f84f8c6c2f505e7e6bb987ca634710b031287a5b01619bffe53d"
+  },
+  "decoder": "the certificate: a step measure μ on 629 cells of [0, ∞) with rational densities, eleven integer polynomials Q with rational weights b_Q (count = the cells; declared, not decoded, in version 1)",
+  "count": 629,
+  "variable": "mu"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "E1–E5 of Smith's criterion: the support; every Q primitive, irreducible and totally real; Σ b_Q deg Q as stated; ∫ log|Q| dμ > 0 for every Q; U_μ − Σ b_Q log|Q| >= 0 on the support — exact where rational, sound enclosures where a logarithm enters",
+    "where": "instruments/optq/c86.py",
+    "args": [
+     "mu"
+    ]
+   },
+   "rel": "holds"
+  },
+  {
+   "g": {
+    "named": "∫ x dμ / μ([0, ∞)), the certificate's bound, exactly (E6)",
+    "where": "instruments/optq/c86.py",
+    "args": [
+     "mu"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.8117251",
+   "c": "18117251/10000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the bound is the certificate's own fraction 144938007612277893/79999999999994000 = 1.81172509515…, re-derived from the pinned bytes (the record's bound.exact)",
+ "hypotheses": [
+  "Smith's criterion [Smi24] and the minimum principle: a measure meeting E1–E5 with these polynomials gives C_86 <= ∫ x dμ; the step from the six conditions to the bound is read, not re-derived (the record's scope)"
+ ],
+ "falsifier": [
+  "one of E1–E5 fails on the pinned certificate in either decider",
+  "the bound computed exactly exceeds 18117251/10000000",
+  "the pinned certificate does not hash to 722a287b…"
+ ],
+ "record": {
+  "path": "certs/c86-replay.json",
+  "row": null,
+  "value": "bound.exact",
+  "verdict": "CERTIFIED"
+ }
+}

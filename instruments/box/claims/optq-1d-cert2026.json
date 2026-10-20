@@ -1,0 +1,55 @@
+{
+ "id": "optq-1d-cert2026",
+ "text": "C_1d <= 1.463071582607559, an upper bound exhibited by the 300-cell signed step function in the body of pull request 224 ([CERT2026])",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+  "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+  "quote": "$C_{1d} \\leq 1.463071582607559*$"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c"
+  },
+  "decoder": "the json block of the pull request body (CRLF, no trailing newline): 300 signed rational cell values v_0..v_299 on [-1/4, 1/4]",
+  "count": 300,
+  "variable": "f"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "max_t |(f*f)(t)| / (∫ f)^2 of the signed step function, exactly, attained at a knot (the page's own reduction)",
+    "where": "instruments/optq/autocorr.py",
+    "args": [
+     "f"
+    ]
+   },
+   "rel": "le",
+   "printed": "1.463071582607559",
+   "c": "1463071582607559/1000000000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly, not the certificate's fraction: the claim decided is that the certificate establishes the PRINTED bound; the exact value 1.46307158260755932746… is above it, so as printed the claim is refuted (a statement about the certificate, not about the constant), and the bound rounded up at the next digit is certified",
+ "hypotheses": [
+  "any signed step function f with ∫ f ≠ 0 gives C_1d <= its ratio (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the ratio of the pinned values computed exactly is at most 1463071582607559/1000000000000000 (it is not: it exceeds it by 3.3e-16)",
+  "the pinned block does not hash to 44f3f2b6…"
+ ],
+ "record": {
+  "path": "certs/autocorr-replay.json",
+  "row": "1d-cert2026",
+  "value": "js.value",
+  "verdict": "REFUTED"
+ },
+ "repair": {
+  "printed": "1.4630715826075594",
+  "c": "14630715826075594/10000000000000000",
+  "verdict": "CERTIFIED",
+  "how": "the exact value rounded up at 16 decimals (the record's repair)"
+ }
+}
