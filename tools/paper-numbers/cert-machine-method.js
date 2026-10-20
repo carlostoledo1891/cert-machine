@@ -54,6 +54,9 @@ for (const [n, f] of SECOND) need(exists(f), 'the second implementation of ' + n
 def('MtSecondImpls', String(SECOND.length));
 
 const J = (rel) => { need(exists(rel), 'missing record ' + rel); return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8')); };
+/* v0.7: cells the referee found typed by hand (E2, E18), read from their records */
+function fei2Cell() { const F = J('certs/fei-second.json'); const b = F.claims.find((c) => c.id === 'registry-bound'); need(b, 'no registry-bound claim in certs/fei-second.json'); return b.js.verdict === 'CERTIFIED' && b.py.word === 'CERTIFIED' ? '\\vC, two programs' : '\\vC, one program'; }
+function lamBound() { const L = J('certs/optq-ledger.json').rows.find((r) => r.id === 'optq-210-lambda'); const m = /<=\s*(\d+\/\d+)\s*=\s*([0-9.]+)/.exec(L.claim); need(m && /21a/.test(L.constant), 'the Λ row no longer reads "<= a/b = x" for 21a'); return m[2]; }
 const int = (x) => Math.round(Number(x)).toLocaleString('en-US').replace(/,/g, '{,}');
 
 /* the abatement kernel against its Python reference: versions agreeing character for character, interior points */
@@ -246,9 +249,9 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   const rowTex = [
     ['$C_{3b} \\ge ' + b3.claim.replace(/^.*>= /, '') + '$', 'Mosaic Intelligence', b3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
     ['$C_{3c} \\ge ' + c3.claim.replace(/^.*>= /, '') + '$', 'Y.~Lin', c3.certificate.points + '-point law', '\\vC, two programs', 'asterisk removed; [T2026] cited'],
-    ['$C_{71} > ' + f71.claim.replace(/^.*> /, '') + '$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', '\\vC, one program', 'asterisk removed; [T2026] cited'],
+    ['$C_{71} > ' + f71.claim.replace(/^.*> /, '') + '$', 'Numaro', '$2^{' + f71.n + '}$-entry truth table', fei2Cell(), 'asterisk removed; [T2026] cited'],
     ['$C_{3c} \\ge 1.674894211307116$', 'M.~Jaswal', tl.laws.join(' and ') + '-point laws', '\\vC, two programs', 'merged with asterisk, then removed on the replay (\\#230); [T2026b] cited'],
-    ['$\\Lambda < 0.1595$ (the registry\'s $C_{21}$)', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as are all ' + RG.queue[210].asteriskedRows + ' rows after 2021']];
+    ['$\\Lambda \\le ' + lamBound() + '$ (the registry\'s $C_{21a}$)', 'Mosaic Intelligence', lam.inventory.files + '-file package', '\\vF: the evidence is not in it', 'merged with asterisk, as are all ' + RG.queue[210].asteriskedRows + ' rows after 2021']];
   def('MtRgTableRows', rowTex.map((r) => r.join(' & ')).join(' \\\\\n'));
 }
 
@@ -424,6 +427,64 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   def('MtEaPrinted', int(c.printed.cases)); def('MtEaMalformed', String(c.malformed)); def('MtEaReds', String(rr.length)); def('MtEaPrec', String(EA.arbPrec[0]));
   def('MtEaFindings', String(F.findings.length)); def('MtEaPrintedFindings', String(printed.length)); def('MtEaMalformedFindings', String(malformed.length)); def('MtEaPinDate', F.date);
   need(EA.seconds > 0, 'the entropy audit carries no run time'); def('MtEaSeconds', String(Math.round(EA.seconds))); }
+
+/* v0.7 (2026-10-19): the referee read of v0.6 — counts that were typed or chosen by hand, now read from their records */
+{ const WORD = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  const OQ = J('certs/optq-ledger.json'), tabled = new Set(['optq-221-3c', 'optq-210-lambda']);
+  const rest = OQ.rows.filter((r) => !tabled.has(r.id));
+  need(rest.length < WORD.length && rest.every((r) => r.verdict === 'CERTIFIED'), 'an untabled queue row is not CERTIFIED: the caption says they are');
+  def('MtRqUntabledWord', WORD[rest.length]);
+  const byReading = OQ.rows.filter((r) => /^BY READING/.test(r.scope || '')), byPrior = OQ.rows.filter((r) => /earlier record/.test(r.scope || ''));
+  need(byReading.length === 1 && byReading[0].id === 'optq-226-23b' && byPrior.length === 1 && byPrior[0].id === 'optq-217-28a', 'the queue rows decided by reading or by an earlier record are not 23b and 28a: the paper names them');
+  const computed = OQ.rows.filter((r) => r.verdict === 'CERTIFIED' && !byReading.includes(r) && !byPrior.includes(r)).length;
+  def('MtRqComputedCertified', String(computed));
+  /* the entropy audit's cases: the deciders' own functions apart from the planted ones */
+  const EA = J('certs/entropy-arb-audit.json');
+  const redRuns = Object.entries(EA.byOp).filter(([k]) => k.startsWith('red:')).reduce((n, [, r]) => n + r.cases, 0);
+  need(redRuns > 0 && redRuns < EA.counts.cases, 'the entropy audit holds no planted runs');
+  def('MtEaReal', int(EA.counts.cases - redRuns)); def('MtEaRedRuns', int(redRuns)); def('MtEaBeyond', int(EA.counts.beyondTheDoor.cases));
+  /* the date C71 was decided a second time (E20) */
+  def('MtFeiDecided', J('certs/fei-second.json').generated.slice(0, 10));
+  /* the second readings: how many changed the reading itself (S7) */
+  const OS2 = J('certs/openai-math-statements.json');
+  need(Array.isArray(OS2.counts.disagreementsOnTheReading), 'the statements record no longer lists its disagreements on the reading');
+  def('MtOaReadingDisagreements', WORD[OS2.counts.disagreementsOnTheReading.length] || String(OS2.counts.disagreementsOnTheReading.length));
+  /* the recall at the audit's own threshold (O3): a gap is DIFFERENT or NARROWER — UNDECLARED */
+  const RR2 = J('certs/reading-recall.json'), GAP = new Set(['DIFFERENT', 'NARROWER — UNDECLARED']);
+  const atThr = RR2.pipelines.map((q) => q.rows.filter((r) => r.mutated && GAP.has(r.recorded)).length);
+  need(atThr.every((x) => x === atThr[0]), 'the two recall pipelines differ at the audit\'s threshold');
+  const n = RR2.plants, k = atThr[0];
+  const tail = (p) => { let s2 = 0; for (let j = k; j <= n; j++) { let c = 1; for (let i = 0; i < j; i++) c = c * (n - i) / (i + 1); s2 += c * Math.pow(p, j) * Math.pow(1 - p, n - j); } return s2; };
+  let lo = 0, hi = 1; for (let i = 0; i < 100; i++) { const m = (lo + hi) / 2; if (tail(m) < 0.025) lo = m; else hi = m; }
+  def('MtRrAtThreshold', String(k)); def('MtRrThresholdLower', lo.toFixed(3));
+  /* the cosine family's decisions, the denominator of its straddles (O8) */
+  const CH = J('ledger.json').families.find((f) => f.name === 'chowla-cosine');
+  need(CH && CH.counts.refused === J('certs/method-eval.json').incompleteness.cosineStraddles, 'the cosine family\'s refusals are not the evaluation\'s straddles');
+  def('MtEvCosineDecisions', int(CH.counts.certified + CH.counts.refuted + CH.counts.refused));
+  /* the kernel audit's contained enclosures (O6) */
+  const AR2 = J('certs/kernel-arb-audit.json'); def('MtArbContainedAbs', int(AR2.counts.contained));
+  /* the pod's bill, and when it was read (E17) */
+  const POD2 = J('corpus/kissing/wave/qiushi-gpu-2026-10-12/pod.json'); const rdAt = /read (\d{4}-\d\d-\d\d) ~?(\d\d:\d\d) UTC/.exec(POD2.billedReadFrom);
+  need(rdAt, 'the pod record no longer says when its bill was read'); def('MtKwBillReadAt', rdAt[2] + ' UTC on ' + rdAt[1]);
+}
+
+/* v0.7 (2026-10-19): the registry's two asterisked C_82 rows (certs/c82-replay.json, tools/replay-c82.js + instruments/optq/c82.py) */
+{ const Z = J('certs/c82-replay.json'), crypto = require('crypto'), shaOf = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
+  need(Z.deciders.js === shaOf('tools/replay-c82.js') && Z.deciders.py === shaOf('instruments/optq/c82.py'), 'certs/c82-replay.json was not written by the deciders on disk');
+  const pin = Z.rows.find((r) => r.id === 'pin26'), epi = Z.rows.find((r) => r.id === 'epi26');
+  need(pin && epi && [pin, epi].every((r) => r.verdict === 'CERTIFIED' && r.agree) && Z.cases.every((c) => c.agree && c.jsAsExpected && c.pyAsExpected), 'the C_82 record is not two rows CERTIFIED by two agreeing deciders with every control and red control as expected');
+  const pc = Z.cases.find((c) => c.id === 'pin26');
+  def('MtCzPin', pin.claim.split('<= ')[1]); def('MtCzEpi', epi.claim.split('<= ')[1]);
+  const down = (x, k) => (Math.floor(x * 10 ** k) / 10 ** k).toFixed(k), upd = (x, k) => (Math.ceil(x * 10 ** k) / 10 ** k).toFixed(k);   // outward at k places
+  const lo12 = down(pin.B.js[0], 12), hi12 = upd(pin.B.js[1], 12);
+  need(Number(lo12) <= pin.B.js[0] && pin.B.js[1] <= Number(hi12), 'the printed C_82 enclosure is not outward');
+  def('MtCzPinLo', lo12); def('MtCzPinHi', hi12);
+  const a = epi.B.js[0].toFixed(16), b = epi.B.js[1].toFixed(16); let k = 0; while (k < a.length && a[k] === b[k]) k++;
+  need(k > 6, 'the [Epi26] enclosure has no common digits'); def('MtCzEpiB', a.slice(0, k));            // the digits both ends share, then \\ldots
+  def('MtCzRoots', int(pc.js.checks.X4.roots)); def('MtCzPanels', int(pc.js.checks.X6.panels)); def('MtCzDegQ', int(Number(pc.js.checks.X2.degQ)));
+  def('MtCzReds', String(Z.cases.filter((c) => c.kind === 'red').length)); def('MtCzControls', String(Z.cases.filter((c) => c.kind === 'control').length));
+  need(Z.seconds > 0, 'certs/c82-replay.json carries no run time'); def('MtCzSeconds', String(Math.round(Z.seconds)));
+  def('MtCzJsSeconds', String(Math.round(pc.js.seconds))); def('MtCzPySeconds', String(Math.round(pc.py.seconds))); }
 
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
    named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,

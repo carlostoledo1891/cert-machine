@@ -193,6 +193,36 @@ B.push(C.section({
         + 'Pins: the certificate at commit ' + C.esc(CR.certificateCommit.slice(0, 7)) + ' (sha256 ' + C.esc(CR.sha256.slice(0, 12)) + '…), the registry\'s 86a page and README at ' + C.esc(CR.registryCommit.slice(0, 8)) + '. Record ' + C.m('certs/c86-replay.json') + '; re-derive with ' + C.m('node tools/replay-c86.js') + ' (both, about ten minutes) or ' + C.m('--check') + ' (the JavaScript decider and the red controls, about two minutes).')
   }));
 }
+/* §9 (2026-10-19): the registry's two asterisked C_82 rows, replayed (certs/c82-replay.json, tools/replay-c82.js) */
+{
+  const CR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'c82-replay.json'), 'utf8'));
+  if (CR.deciders.js !== shaOf('tools/replay-c82.js') || CR.deciders.py !== shaOf('instruments/optq/c82.py')) die('certs/c82-replay.json was written by other deciders — re-run tools/replay-c82.js');
+  const row = (id) => CR.rows.find((r) => r.id === id), cs = (id) => CR.cases.find((r) => r.id === id);
+  const pin = row('pin26'), epi = row('epi26');
+  if (!pin || !epi || [pin, epi].some((r) => r.verdict !== 'CERTIFIED' || !r.agree) || !CR.cases.every((c) => c.agree && c.jsAsExpected && c.pyAsExpected)) die('the C_82 replay is not what §9 says — rewrite it');
+  const encl = (r, k) => r.B[k][0].toPrecision(13) + ', ' + r.B[k][1].toPrecision(13);
+  const pc = cs('pin26'), ec = cs('epi26');
+  const reds = CR.cases.filter((c) => c.kind === 'red'), ctl = CR.cases.filter((c) => c.kind === 'control');
+  B.push(C.section({
+    lab: '§9 · C₈₂', title: 'Seven denominators, thirty-one numerators, one integral: the Zhang–Zagier rows replayed', id: 'c82',
+    bodyRaw: C.pRaw('<b>Decided 2026-10-19.</b> Two asterisked upper bounds for C₈₂, the essential minimum of the Zhang–Zagier height h(α) + h(1 − α): '
+      + C.m('C₈₂ ≤ ' + pin.claim.split('<= ')[1]) + ' (R. Pinho, pull request 229) and ' + C.m('C₈₂ ≤ ' + epi.claim.split('<= ')[1]) + ' (Épi, September 2026). Both are Doche\'s limit-point construction [Doc01b]: integer polynomials R<sub>j</sub> with multiplicities and S<sub>i</sub> with rational exponents give, with T(z) = z(1 − z), '
+      + C.m('B = (log M(Q∘T) + ∫₀¹ max(0, log|A∘T| − log|Q∘T|) dt) / deg Q') + ', and C₈₂ ≤ B. '
+      + 'B is decided here from the pinned bytes by two implementations that share no code with each other or with the claimants\' checkers (kept as text, never run): ' + C.m('tools/replay-c82.js') + ' (JavaScript: Gaussian integers for the roots, eqcert\'s outward-rounded intervals) and ' + C.m('instruments/optq/c82.py') + ' (Python: integers, and doubles with a priori rounding-error bounds). <b>Both rows CERTIFIED in both.</b>')
+      + C.plainList([
+        { b: 'Exact.', raw: 'Every factor has integer coefficients; every denominator is monic up to sign with a positive integer multiplicity; every exponent is a rational ≥ 0; deg A = Σ q<sub>i</sub> deg S<sub>i</sub> &lt; deg Q (' + C.esc(Number(pc.js.checks.X2.degQ).toLocaleString('en-US')) + ' for the certificate); every numerator is coprime to every denominator (gcd 1 modulo a prime that divides neither leading coefficient).' },
+        { b: 'Roots, certified.', raw: 'Each composed factor P∘T (degree up to 84) has its ' + C.esc(pc.js.checks.X4.roots.toLocaleString('en-US')) + ' roots enclosed: approximations refined in Gaussian integers at 2<sup>−192</sup> (JavaScript) or 2<sup>−200</sup> (Python), then Gershgorin\'s theorem on the Weierstrass matrix with the corrections computed exactly — every disk isolated, the radius below ' + C.esc(pc.js.checks.X4.maxRadius.toExponential(1)) + ' after rounding to doubles.' },
+        { b: 'The integral.', raw: 'On [0, ½], doubled (the coefficients are real), on dyadic panels: a zeroth-order bound from |u(t) − u(t<sub>c</sub>)| ≤ πw, and where every root is away from the panel a second-order Taylor form with |g″| ≤ 4π² Σ |w<sub>k</sub>| |r<sub>k</sub>| / dist². '
+          + C.esc(pc.js.checks.X6.panels.toLocaleString('en-US')) + ' panels for the certificate (JavaScript), ' + C.esc(pc.py.checks.Y6.panels.toLocaleString('en-US')) + ' (Python).' },
+        { b: '[Pin26].', raw: 'B ∈ [' + C.esc(encl(pin, 'js')) + '] (JavaScript) and [' + C.esc(encl(pin, 'py')) + '] (Python), below the printed ' + C.esc(pin.claim.split('<= ')[1]) + ' by about 2 × 10⁻⁷. The claimant\'s own certified value 0.25344468733… lies inside both enclosures.' },
+        { b: '[Epi26].', raw: 'B ∈ [' + C.esc(encl(epi, 'js')) + '] and [' + C.esc(encl(epi, 'py')) + ']: the construction gives 0.2535689…, about 5.5 × 10⁻⁶ below the printed ' + C.esc(epi.claim.split('<= ')[1]) + ' — the row is a valid but weaker bound than its own construction, the safe side, as the row\'s comment already notes. The claimant\'s copy of Épi\'s construction is byte-for-byte the same numbers' + (CR.facts.epiTranscribedExactly ? '' : ' (NOT — see the record)') + '.' },
+        { b: 'Controls.', raw: ctl.map((c) => C.esc(c.id) + ' ' + C.esc(c.js.verdict) + (c.js.B ? ' (B ≈ ' + C.esc(c.js.B[1].toPrecision(8)) + ' against ' + C.esc(c.bound) + ')' : '')).join('; ') + ' — Doche\'s and Grinsztajn\'s constructions reproduce their published bounds, and the claimant\'s planted failure is refuted.' },
+        { b: 'Not decided.', raw: 'Doche\'s theorem — that B bounds C₈₂ — is read, not re-derived; the claimant\'s README proves it directly (U<sup>n</sup> − W<sup>n</sup> over the primes, Jensen\'s formula, coprimality), and its hypotheses are the exact checks above.' }
+      ])
+      + C.pRaw('Red controls, which must come out wrong in both implementations: ' + reds.map((r) => C.esc(r.what) + ' (' + C.esc(r.js.verdict) + ')').join('; ') + '. '
+        + 'Pins: the certificate at commit ' + C.esc(CR.certificateCommit.slice(0, 7)) + ' (sha256 ' + C.esc(pin.sha256.slice(0, 12)) + '…), Épi\'s construction at ' + C.esc(CR.epiCommit.slice(0, 8)) + ' (sha256 ' + C.esc(epi.sha256.slice(0, 12)) + '…, the digest its own result file names), the registry\'s 82a page and README at ' + C.esc(CR.registryCommit.slice(0, 8)) + '. Record ' + C.m('certs/c82-replay.json') + '; re-derive with ' + C.m('node tools/replay-c82.js') + ' (both, minutes) or ' + C.m('--check') + ' (the JavaScript decider, about a minute).')
+  }));
+}
 const foot = '<p>' + C.esc('Generated by tools/build-report-optq.js from certs/optq-ledger.json (' + L.generated + ', ' + L.seconds + ' s), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; @ git ' + git + '.') + '</p>';
 fs.writeFileSync(path.join(ROOT, 'reports', 'optconst-queue.html'), TPL.render({
   title: 'Five pull requests to the constants registry, decided where decidable · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,

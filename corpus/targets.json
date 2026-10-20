@@ -1034,12 +1034,12 @@
    "scouted": "2026-10-18",
    "class": "registry replay candidate",
    "name": "C_82 <= 0.2534449* (#229, rpinho): Doche's limit-point bound for the Zhang–Zagier essential minimum, majorant 0.25344468733 (margin ~2.1e-7)",
-   "verdict": "OPEN — a 21 KB certificate (7 denominator, 31 numerator polynomials); about a day of engineering, minutes of runtime",
+   "verdict": "BUILT 2026-10-19 (certs/c82-replay.json, tools/replay-c82.js + instruments/optq/c82.py, /reports/optconst-queue.html §9): both asterisked rows CERTIFIED by two implementations sharing no code (JavaScript: Gaussian-integer root certification + eqcert intervals; Python: integers + a priori rounding-error bounds) — every root of every composed factor certified by Gershgorin on exact Weierstrass corrections, the integral on dyadic panels by a second-order Taylor form; [Pin26] B in [0.2534446872487, 0.2534446875146] < 0.2534449 (2,058 roots, ~13,300 panels, 32 s JS / 100 s Python); [Epi26] B = 0.25356893… < 0.2535744749068227 (from Épi's own bytes, which the claimant transcribed exactly). Controls: Doche 2001 0.2544362 < 0.25444, Grinsztajn 0.2536269 < 0.2536331, the claimant's planted failure REFUTED; 6 red controls. Doche's theorem read. T-PR5 (asterisk removal for both rows) DRAFTED: outreach/registry-pr5-draft-2026-10-19.md — a send, the operator's",
    "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
    "artifacts": "certificate.json in github.com/rpinho/c82-height-certificate @ 69d89640 (sha256 b33626f3…350fce)",
    "cost": "B·D = ∫₀¹ max(log|Q∘T|, log|A∘T|) dt by Jensen: upper bounds of |poly| on arcs and interval quadrature; no root finding needed",
    "gap": "the Épi row prints 0.2535744749*, Pinho's re-evaluation gives 0.25356893 (5.5e-6, the safe direction)",
-   "next": "one instrument decides both asterisked rows (Pinho, Épi), Grinsztajn's 0.2536331 as the control"
+   "next": "send T-PR5 on the operator's word (independent of #232, T-PR3, T-PR4; label [T2026d] if T-PR4 goes first)"
   },
   {
    "id": "optconst-12-okeefe-2026-10",

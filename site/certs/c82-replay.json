@@ -1,0 +1,940 @@
+{
+ "what": "The registry's two asterisked C_82 upper bounds (the essential minimum of the Zhang–Zagier height, page 82a) decided from the cited constructions by two implementations that share no code with each other or with the claimants' checkers (never run): Doche's limit-point bound B = (log M(Q∘T) + ∫ max(0, log|A∘T| - log|Q∘T|)) / D with every root of every composed factor certified by Gershgorin's theorem on exact Weierstrass corrections, and the integral bounded on dyadic panels by a second-order Taylor form. Three controls of known truth and six planted red controls beside them. Doche's step from B to C_82 <= B is read, not re-derived.",
+ "generated": "2026-10-20T00:44:31Z",
+ "seconds": 232.9,
+ "node": "v24.14.1",
+ "platform": "darwin arm64",
+ "python": "3.9.6",
+ "deciders": {
+  "js": "37b0354416763c7526265c9eb60b7e2d3edd8092ac7640a6ffa6050875659808",
+  "py": "dcea81f835666ff57073c26d5ed1f06406f369b39a7e280dba13af0e71a57f1f",
+  "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "eqcertTranscendental": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
+ },
+ "pins": "corpus/optconst-queue/c82-2026-10-19/PINS.json",
+ "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+ "certificateCommit": "69d89640dffd8bf3e2067dab769a54c7b8e8c490",
+ "epiCommit": "97fa6a420f417458e11723c8bceb70f1529e447a",
+ "rows": [
+  {
+   "id": "pin26",
+   "claim": "C_82 <= 0.2534449",
+   "asteriskedAtPin": true,
+   "verdict": "CERTIFIED",
+   "agree": true,
+   "B": {
+    "js": [
+     0.2534446872487138,
+     0.2534446875145076
+    ],
+    "py": [
+     0.25344468724870595,
+     0.2534446875145207
+    ]
+   },
+   "sha256": "b33626f367b6f52922746c0fee7bb008449cd0bb18efcb983ab20ff073350fce"
+  },
+  {
+   "id": "epi26",
+   "claim": "C_82 <= 0.2535744749068227",
+   "asteriskedAtPin": true,
+   "verdict": "CERTIFIED",
+   "agree": true,
+   "B": {
+    "js": [
+     0.2535689301873338,
+     0.25356893042349005
+    ],
+    "py": [
+     0.2535689301873306,
+     0.2535689304234933
+    ]
+   },
+   "sha256": "e85e26fa7122a2e68b19b2fa01e27e78bbd802450bce2a0d45717f09b930e559"
+  }
+ ],
+ "facts": {
+  "claimantPrintedCertified": "the [Pin26] row prints a certified upper bound 0.2534446873… and the README 0.25344468733362658 (verify.py) and 0.25344468733741928 (independent_check.py); the field numeric_unverified of the certificate is 0.2534446872174579",
+  "claimantUpperInsideOurs": true,
+  "numericUnverifiedBelowB": true,
+  "epiRowAboveB": "the [Epi26] row prints 0.2535744749068227; the construction's B is 0.2535689301…, about 5.5e-6 below it (a weaker bound than the construction gives, the safe side); the row's comment quotes the claimant's re-evaluation 0.25356893…",
+  "epiTranscribedExactly": true
+ },
+ "cases": [
+  {
+   "id": "pin26",
+   "kind": "row",
+   "what": "the [Pin26] row: R. Pinho's certificate (#229), 7 denominator and 31 numerator factors, deg Q = 999,999,992",
+   "source": "corpus/optconst-queue/c82-2026-10-19/rpinho/certificate.json",
+   "bound": "0.2534449",
+   "expect": "CERTIFIED",
+   "js": {
+    "bound": "0.2534449",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 7,
+      "numeratorsActive": 31
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "999999992",
+      "degA": "4851685791254297479023240472937232092433245400888624864168651067812970130808251674972813522487945091574097280090922134451822304324944578282942846201827263362816319224302614256272725198910823/5135894597120519008571873276817021764375808757039756538192986189549325273851371096119126644482178773146248036903549418229817198600164264165458976358829030754026625748184922901708800"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 217,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 2058,
+      "maxRadius": 4.996003610813206e-16,
+      "minGap": 0.0058489502890949905
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       253422905.1836194,
+       253422905.18362615
+      ],
+      "minDistanceToCircleDenominator": 0.0004524642592709238
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       10890.018768489286,
+       10890.151661915897
+      ],
+      "panels": 13318,
+      "evaluated": 25612,
+      "narrowest": 4.656612873077393e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.2534446872487138,
+     0.2534446875145076
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2534449",
+    "seconds": 31.802
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2534449",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 7,
+      "numeratorsActive": 31
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "999999992",
+      "degA": "4851685791254297479023240472937232092433245400888624864168651067812970130808251674972813522487945091574097280090922134451822304324944578282942846201827263362816319224302614256272725198910823/5135894597120519008571873276817021764375808757039756538192986189549325273851371096119126644482178773146248036903549418229817198600164264165458976358829030754026625748184922901708800"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 217,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 2058,
+      "maxError": 1.774462512177135e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       253422905.18361327,
+       253422905.18363217
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       10890.018767647689,
+       10890.151665468129
+      ],
+      "panels": 13364,
+      "evaluated": 25704,
+      "narrowest": 4.656612873077393e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.25344468724870595,
+     0.2534446875145207
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2534449",
+    "seconds": 101.56
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "epi26",
+   "kind": "row",
+   "what": "the [Epi26] row: Épi's construction (BakeLab/Epi-results @ 97fa6a42), 6 denominator and 7 numerator factors",
+   "source": "corpus/optconst-queue/c82-2026-10-19/epi/construction.json",
+   "bound": "0.2535744749068227",
+   "expect": "CERTIFIED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 402,
+      "maxRadius": 4.440892098500628e-16,
+      "minGap": 0.009201095043424277
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       83.15529725142218,
+       83.1552972514244
+      ],
+      "minDistanceToCircleDenominator": 0.0004524642592709238
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       0.007655925011672499,
+       0.007655963740142603
+      ],
+      "panels": 9344,
+      "evaluated": 17664,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.2535689301873338,
+     0.25356893042349005
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2535744749068227",
+    "seconds": 7.276
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 402,
+      "maxError": 1.5168901890740044e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       83.1552972514204,
+       83.15529725142622
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       0.0076559250120358455,
+       0.0076559637397792075
+      ],
+      "panels": 9348,
+      "evaluated": 17672,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.2535689301873306,
+     0.2535689304234933
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2535744749068227",
+    "seconds": 15.19
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "doche2001",
+   "kind": "control",
+   "what": "Doche (2001b)'s construction as the claimant transcribed it, against the [Doc01b] row",
+   "source": "corpus/optconst-queue/c82-2026-10-19/rpinho/controls/doche2001.json",
+   "bound": "0.25444",
+   "expect": "CERTIFIED",
+   "js": {
+    "bound": "0.25444",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 2,
+      "numeratorsActive": 5
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "56",
+      "degA": "2429/50"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 10,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 164,
+      "maxRadius": 4.440892098500627e-16,
+      "minGap": 0.009201095043424277
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       14.193113629163667,
+       14.193113629164044
+      ],
+      "minDistanceToCircleDenominator": 0.0006771245363987877
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       0.027655531481573323,
+       0.027655554503258465
+      ],
+      "panels": 21562,
+      "evaluated": 42100,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.25443615521655016,
+     0.25443615603876013
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.25444",
+    "seconds": 7.935
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.25444",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 2,
+      "numeratorsActive": 5
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "56",
+      "degA": "2429/50"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 10,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 164,
+      "maxError": 1.5168901890740044e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       14.193113629163625,
+       14.193113629164069
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       0.02765553148183202,
+       0.027655554502999613
+      ],
+      "panels": 21562,
+      "evaluated": 42100,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.2544361552165586,
+     0.2544361560387513
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.25444",
+    "seconds": 14.67
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "grinsztajn2026",
+   "kind": "control",
+   "what": "Grinsztajn's construction as the claimant transcribed it, against the [Gri26] row",
+   "source": "corpus/optconst-queue/c82-2026-10-19/rpinho/controls/grinsztajn2026.json",
+   "bound": "0.2536331090204145",
+   "expect": "CERTIFIED",
+   "js": {
+    "bound": "0.2536331090204145",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "140",
+      "degA": "472651158004937546429382156014863230202224713/3774031381935655613867715451591849269426432"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 354,
+      "maxRadius": 4.440892098500628e-16,
+      "minGap": 0.009201095043424277
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       35.49922990493098,
+       35.499229904931916
+      ],
+      "minDistanceToCircleDenominator": 0.0004524642592709238
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       0.004269453927899247,
+       0.004269474473763976
+      ],
+      "panels": 9235,
+      "evaluated": 17446,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.253626920091334,
+     0.2536269203848533
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2536331090204145",
+    "seconds": 6.522
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2536331090204145",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "140",
+      "degA": "472651158004937546429382156014863230202224713/3774031381935655613867715451591849269426432"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 354,
+      "maxError": 1.5168901890740044e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       35.49922990493031,
+       35.49922990493261
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       0.004269453928089735,
+       0.004269474473565736
+      ],
+      "panels": 9238,
+      "evaluated": 17452,
+      "narrowest": 9.313225746154785e-10,
+      "tauRel": 2e-8
+     }
+    },
+    "B": [
+     0.2536269200913319,
+     0.25362692038485546
+    ],
+    "verdict": "CERTIFIED",
+    "why": "B < 0.2536331090204145",
+    "seconds": 12.57
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "mutated-v3",
+   "kind": "control",
+   "what": "the claimant's own planted failure: the certificate with Q1's multiplicity doubled, against the [Pin26] bound",
+   "source": "corpus/optconst-queue/c82-2026-10-19/rpinho/controls/mutated_v3_should_fail.json",
+   "bound": "0.2534449",
+   "expect": "REFUTED",
+   "js": {
+    "bound": "0.2534449",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 7,
+      "numeratorsActive": 31
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "1260320248",
+      "degA": "4851685791254297479023240472937232092433245400888624864168651067812970130808251674972813522487945091574097280090922134451822304324944578282942846201827263362816319224302614256272725198910823/5135894597120519008571873276817021764375808757039756538192986189549325273851371096119126644482178773146248036903549418229817198600164264165458976358829030754026625748184922901708800"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 217,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 2058,
+      "maxRadius": 4.996003610813206e-16,
+      "minGap": 0.0058489502890949905
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       319363289.8684038,
+       319363289.86841244
+      ],
+      "minDistanceToCircleDenominator": 0.0004524642592709238
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       6089151.761219908,
+       6093120.10619661
+      ],
+      "panels": 1611,
+      "evaluated": 2198,
+      "narrowest": 5.820766091346741e-11,
+      "tauRel": 0.0001
+     }
+    },
+    "B": [
+     0.26306138770440785,
+     0.26306768506412653
+    ],
+    "verdict": "REFUTED",
+    "why": "the certificate's B is at least 0.2534449",
+    "seconds": 4.364
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2534449",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 7,
+      "numeratorsActive": 31
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "1260320248",
+      "degA": "4851685791254297479023240472937232092433245400888624864168651067812970130808251674972813522487945091574097280090922134451822304324944578282942846201827263362816319224302614256272725198910823/5135894597120519008571873276817021764375808757039756538192986189549325273851371096119126644482178773146248036903549418229817198600164264165458976358829030754026625748184922901708800"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 217,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 2058,
+      "maxError": 1.774462512177135e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       319363289.8683964,
+       319363289.86842024
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       6089152.655605163,
+       6093119.148805705
+      ],
+      "panels": 1624,
+      "evaluated": 2224,
+      "narrowest": 5.820766091346741e-11,
+      "tauRel": 0.0001
+     }
+    },
+    "B": [
+     0.2630613891237004,
+     0.2630676835448507
+    ],
+    "verdict": "REFUTED",
+    "why": "the certificate's B is at least 0.2534449",
+    "seconds": 23.63
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "bar-below-B",
+   "kind": "red",
+   "what": "Épi's construction against 0.25356, below its B: the certificate's B is shown to be at least the bar",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.25356",
+   "expect": "REFUTED",
+   "js": {
+    "bound": "0.25356",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "X4": {
+      "ok": true,
+      "roots": 402,
+      "maxRadius": 4.440892098500628e-16,
+      "minGap": 0.009201095043424277
+     },
+     "X5": {
+      "ok": true,
+      "logM": [
+       83.15529725142218,
+       83.1552972514244
+      ],
+      "minDistanceToCircleDenominator": 0.0004524642592709238
+     },
+     "X6": {
+      "ok": true,
+      "integralHalf": [
+       0.007655283127123074,
+       0.0076571238998277905
+      ],
+      "panels": 2400,
+      "evaluated": 3776,
+      "narrowest": 2.9802322387695312e-8,
+      "tauRel": 0.000001
+     }
+    },
+    "B": [
+     0.2535689262734036,
+     0.25356893749763443
+    ],
+    "verdict": "REFUTED",
+    "why": "the certificate's B is at least 0.25356",
+    "seconds": 1.214
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.25356",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     },
+     "Y4": {
+      "ok": true,
+      "roots": 402,
+      "maxError": 1.5168901890740044e-16
+     },
+     "Y5": {
+      "ok": true,
+      "logM": [
+       83.1552972514204,
+       83.15529725142622
+      ]
+     },
+     "Y6": {
+      "ok": true,
+      "integralHalf": [
+       0.007655283127482204,
+       0.00765712389946798
+      ],
+      "panels": 2404,
+      "evaluated": 3784,
+      "narrowest": 2.9802322387695312e-8,
+      "tauRel": 0.000001
+     }
+    },
+    "B": [
+     0.2535689262734004,
+     0.25356893749763776
+    ],
+    "verdict": "REFUTED",
+    "why": "the certificate's B is at least 0.25356",
+    "seconds": 4.81
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "shared-factor",
+   "kind": "red",
+   "what": "a numerator factor equal to a denominator factor (exponent 1/2): U and W are not coprime",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.2535744749068227",
+   "expect": "REFUSED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 8
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27920485495589373527361603316005106555503597320836179902169162346/93182110283361001291484824468135357040364518079641628457395975"
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "gcd(S7, R0) is not shown to be 1 modulo any of 12 primes",
+    "seconds": 0.001
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 8
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "328",
+      "degA": "27920485495589373527361603316005106555503597320836179902169162346/93182110283361001291484824468135357040364518079641628457395975"
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "gcd(S7, R0) is not shown to be 1 modulo any of 8 primes",
+    "seconds": 0
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "not-monic",
+   "kind": "red",
+   "what": "a denominator factor with its coefficients doubled: not monic up to sign",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.2535744749068227",
+   "expect": "REFUSED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {},
+    "verdict": "REFUSED",
+    "why": "denominator 0 is not monic up to sign",
+    "seconds": 0
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {},
+    "verdict": "REFUSED",
+    "why": "denominator 0 is not monic up to sign",
+    "seconds": 0
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "degree",
+   "kind": "red",
+   "what": "every exponent doubled: deg A no longer below deg Q",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.2535744749068227",
+   "expect": "REFUSED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "deg A = 54350057226644971034059449440520047398361362352398093749019989092/93182110283361001291484824468135357040364518079641628457395975 is not below deg Q = 328",
+    "seconds": 0
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "deg A = 54350057226644971034059449440520047398361362352398093749019989092/93182110283361001291484824468135357040364518079641628457395975 is not below deg Q = 328",
+    "seconds": 0
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "repeated-root",
+   "kind": "red",
+   "what": "a denominator factor squared into one polynomial: its roots are double and cannot be isolated",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.2535744749068227",
+   "expect": "REFUSED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "X1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "X2": {
+      "ok": true,
+      "degQ": "376",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "X3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "R0: the Weierstrass refinement did not converge (|W| ~ 2^-52)",
+    "seconds": 0.072
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {
+     "Y1": {
+      "ok": true,
+      "denominators": 6,
+      "numeratorsActive": 7
+     },
+     "Y2": {
+      "ok": true,
+      "degQ": "376",
+      "degA": "27175028613322485517029724720260023699180681176199046874509994546/93182110283361001291484824468135357040364518079641628457395975"
+     },
+     "Y3": {
+      "ok": true,
+      "pairs": 42,
+      "primesUsed": 1
+     }
+    },
+    "verdict": "REFUSED",
+    "why": "R0: two root disks are not disjoint (a repeated root, or approximations not separated)",
+    "seconds": 0.46
+   },
+   "pyAsExpected": true,
+   "agree": true
+  },
+  {
+   "id": "float-exponent",
+   "kind": "red",
+   "what": "an exponent written as a JSON float (0.5): not an exact rational",
+   "source": "planted (a mutation of epi/construction.json, written by this file)",
+   "bound": "0.2535744749068227",
+   "expect": "REFUSED",
+   "js": {
+    "bound": "0.2535744749068227",
+    "checks": {},
+    "verdict": "REFUSED",
+    "why": "numerator 0 exponent is not written exactly (a string n/d or decimal, or an integer): 0.5",
+    "seconds": 0
+   },
+   "jsAsExpected": true,
+   "py": {
+    "bound": "0.2535744749068227",
+    "checks": {},
+    "verdict": "REFUSED",
+    "why": "numerator 0 exponent is not written exactly: 0.5",
+    "seconds": 0
+   },
+   "pyAsExpected": true,
+   "agree": true
+  }
+ ],
+ "limits": [
+  "Doche's theorem (the limit-point argument, also proved in the claimant's README: U^n - W^n over the primes, Jensen's formula, coprimality) is read, not re-derived: what is decided is the certificate's B < the printed bound, with the theorem's hypotheses (integer factors, monic denominators, deg A < deg Q, coprimality) checked exactly",
+  "the symmetry of the integrand under t -> 1 - t (real coefficients) halves the interval; it is a fact about conjugation, not computed",
+  "the Doche and Grinsztajn controls are the claimant's transcriptions, not the original authors' bytes; the Épi row is decided from Épi's own bytes, and the claimant's transcription of it is compared with them exactly",
+  "a REFUTED here refutes the certificate's B against a bar, not the constant: C_82 may still be below the bar"
+ ]
+}
