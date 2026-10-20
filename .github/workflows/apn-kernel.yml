@@ -12,7 +12,8 @@
 # One more item, erdos_741.variants.upper: the corrected #741(i) the paper says was also solved, whose proof
 # formal-conjectures links at commit 9d492049; the challenge is the pinned statement under its own name.
 #
-# Toolchain: Lean v4.27.0 (the repository's), Comparator and lean4export at their v4.27.0 tags, landrun and
+# Toolchain: Lean v4.27.0 (the repository's); Comparator v4.28.0 and the lean4export its manifest pins, both built with
+# v4.27.0 (amendments 1 and 2, declared below); landrun and
 # nanoda at the pins the openai/math lane used (nanoda with the 1 GiB worker stack). Public-repository
 # runners are free; a job that cannot finish is REFUSED, never REFUTED. Nothing here pushes. Each job uploads
 # apn-<item> (result.json + logs); tools/record-apn-kernel.js writes certs/apn-kernel.json. Dispatch:
@@ -34,8 +35,8 @@ env:
   APN_REPO: https://github.com/google-deepmind/alphaproof-nexus-results.git
   APN_PIN: 0647711a71183c1ea492ad60860776617ce1ea88
   LEAN_TOOLCHAIN: leanprover/lean4:v4.27.0
-  COMPARATOR_PIN: 6c40ab4fd9cf81328877464bd49392e3f03be06c   # tag v4.27.0
-  LEAN4EXPORT_PIN: 590dec59d93ab6becdf16fdd8aee5abbb99cb856  # tag v4.27.0
+  COMPARATOR_PIN: 7a0cae3df7a0200ff330c82420b8d88a51c9cac7   # tag v4.28.0 (amendment 2), built with the repository's Lean v4.27.0
+  LEAN4EXPORT_PIN: 048394e1afeeb52b0fa27bcf3f1ade2ff0f0ab6d  # the revision Comparator v4.28.0's manifest pins (export format 3.1.0, which nanoda reads)
   LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4      # as in the openai/math lane
   NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7       # as in the openai/math lane (v0.4.19), 1 GiB worker stack
 jobs:
@@ -62,7 +63,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/kernel-tools
-          key: apn-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g-amend1
+          key: apn-tools-${{ env.LEAN_TOOLCHAIN }}-${{ env.COMPARATOR_PIN }}-${{ env.LEAN4EXPORT_PIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-stack1g-amend12
       - name: build comparator, lean4export, landrun, nanoda at their pins
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -71,21 +72,25 @@ jobs:
           export PATH="$HOME/.elan/bin:$PATH"
           mkdir -p ~/kernel-tools/bin ~/src && cd ~/src
           git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
-          test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
-          # AMENDMENT 1 (2026-10-20, after pilot run 39411942047): ONE change to Comparator v4.27.0, the fix Comparator
+          # AMENDMENT 2 (2026-10-20, after pilot run 39413005702): Comparator v4.27.0 parses the OLD export format (2.0.0)
+          # while every lean4export that builds for Lean v4.27 writes NDJSON 3.1.0 ("Version invalid"); nanoda reads only
+          # 3.1.x. So Comparator v4.28.0 — the first release that parses 3.1.0, through the lean4export library its manifest
+          # pins — is built with the repository's toolchain, v4.27.0, as the openai/math lane built v4.34.0 with v4.34.1.
+          # The lean4export binary is built from that same pinned revision, with the same toolchain, so it reads v4.27 oleans.
+          echo "$LEAN_TOOLCHAIN" > lean-toolchain
+          grep -q "\"rev\": \"$LEAN4EXPORT_PIN\"" lake-manifest.json
+          # AMENDMENT 1 (2026-10-20, after pilot run 39411942047): ONE change to Comparator's code, the fix Comparator
           # v4.34.0 carries — buildLandrunArgs passes "--" before the sandboxed command. Without it landrun consumes the
-          # "--" that separates lean4export's module from its declarations, and lean4export reads every declaration
-          # as a module ("unknown module prefix 'Nat'"). Argument passing only; no checking logic changes.
+          # "--" that separates lean4export's module from its declarations ("unknown module prefix 'Nat'"). Argument
+          # passing only; no checking logic changes.
           sed -i 's/  args ++ #\[spawnArgs.cmd\] ++ spawnArgs.args/  args ++ #["--", spawnArgs.cmd] ++ spawnArgs.args/' Main.lean
           test "$(git diff --numstat Main.lean | awk '{print $1+$2}')" = "2"
           git diff | tee ~/kernel-tools/comparator.patch
-          lake build comparator
+          lake build lean4export comparator
           cp .lake/build/bin/comparator ~/kernel-tools/bin/
-          cd ~/src && git clone -q https://github.com/leanprover/lean4export.git && cd lean4export && git checkout -q "$LEAN4EXPORT_PIN"
-          test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
-          lake build lean4export
-          cp .lake/build/bin/lean4export ~/kernel-tools/bin/
-          git rev-parse HEAD > ~/kernel-tools/lean4export.rev
+          cp .lake/packages/lean4export/.lake/build/bin/lean4export ~/kernel-tools/bin/
+          (cd .lake/packages/lean4export && git rev-parse HEAD) > ~/kernel-tools/lean4export.rev
+          test "$(cat ~/kernel-tools/lean4export.rev)" = "$LEAN4EXPORT_PIN"
           cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
           go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
           cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"

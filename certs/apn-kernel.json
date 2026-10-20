@@ -1,12 +1,12 @@
 {
  "what": "The AlphaProof Nexus audit, kernel lane: each Erdős proof of google-deepmind/alphaproof-nexus-results @ 0647711a checked by Comparator v4.27.0 against formal-conjectures' own statement at the commit the repository builds against (7862bf6a), with nanoda on (.github/workflows/apn-kernel.yml). CERTIFIED here means the proof proves exactly that statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept it. Whether the statement is the problem Erdős posed is the reading lane's question.",
- "generated": "2026-10-20T11:08:57Z",
+ "generated": "2026-10-20T11:17:00Z",
  "workflow": ".github/workflows/apn-kernel.yml",
  "rule": "tools/comparator-verdict.js",
  "deciders": {
   "rule": "e3be80fcda130a761feeb562ad4a2860df7efb6c0c615bd5ea2b8a41448c9e06",
   "prepare": "a68477f8c760b9e00b4b2fa2086da18543365e8bb3c682b6b4e4546288c4f27e",
-  "workflow": "9928c43bc939ca05835a1b8154e7f4425ce1b2ddd384d14aa777c7a2d279ba6a"
+  "workflow": "05381321b74e294165c97b44d8ce656094345fa72895149483853dcb0bfed1ad"
  },
  "counts": {
   "NOT RUN": 9,
@@ -85,10 +85,32 @@
       "stage": "export or replay",
       "why": "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | Command exited with non-zero status 1"
      }
+    },
+    {
+     "run": 39413005702,
+     "workflowSha": "074faec71b0c819a70b174763923af62e5f22c9e",
+     "at": "2026-10-20T11:16:43Z",
+     "exit": 1,
+     "seconds": 89,
+     "cacheSeconds": 83,
+     "maxRssKB": 7203492,
+     "kernels": [],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "uncaught exception: Version invalid: '{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"db93fe1608548721853390a10cd40580fe7d22ae\",\"version\":\"4.27.0\"}}}' | Command exited with non-zero status 1"
+     }
     }
    ],
    "word": "REFUSED",
-   "why": "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | Command exited with non-zero status 1",
+   "why": "uncaught exception: Version invalid: '{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"db93fe1608548721853390a10cd40580fe7d22ae\",\"version\":\"4.27.0\"}}}' | Command exited with non-zero status 1",
    "stage": "export or replay"
   },
   {

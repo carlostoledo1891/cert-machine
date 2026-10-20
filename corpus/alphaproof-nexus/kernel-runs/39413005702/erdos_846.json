@@ -1,0 +1,69 @@
+{
+ "challenge": "erdos_846",
+ "ran": true,
+ "exit": 1,
+ "seconds": 89,
+ "cacheSeconds": 83,
+ "okay": false,
+ "kernels": [],
+ "buildJobs": [
+  7992,
+  7992
+ ],
+ "maxRssKB": 7203492,
+ "env": [
+  "kernel: 7.0.0-1017-azure",
+  "landlock: lockdown,capability,landlock,yama,apparmor,ima,evm",
+  "Lean (version 4.27.0, x86_64-unknown-linux-gnu, commit db93fe1608548721853390a10cd40580fe7d22ae, Release)",
+  "lean4export rev: 590dec59d93ab6becdf16fdd8aee5abbb99cb856",
+  "nanoda build: stack1g"
+ ],
+ "logTail": [
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:502:3: unused variable `h4`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:502:26: unused variable `h5`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:502:49: unused variable `h6`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:503:3: unused variable `htri`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:516:3: unused variable `h1`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:516:16: unused variable `h2`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:516:29: unused variable `h3`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:517:3: unused variable `h4`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:517:26: unused variable `h5`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:517:49: unused variable `h6`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "warning: Solution.lean:518:3: unused variable `htri`",
+  "Note: This linter can be disabled with `set_option linter.unusedVariables false`",
+  "Build completed successfully (7992 jobs).",
+  "Exporting #[Nat, String, String.mk, Char, Char.ofNat, List, Quot, Quot.mk, Quot.lift, Quot.ind, Erdos846.target_theorem_0, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList] from Solution"
+ ],
+ "errTail": [
+  "uncaught exception: Version invalid: '{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"db93fe1608548721853390a10cd40580fe7d22ae\",\"version\":\"4.27.0\"}}}'",
+  "Command exited with non-zero status 1"
+ ],
+ "sha256": [
+  "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+  "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+ ],
+ "config": {
+  "challenge_module": "Challenge",
+  "solution_module": "Solution",
+  "theorem_names": [
+   "Erdos846.target_theorem_0"
+  ],
+  "permitted_axioms": [
+   "propext",
+   "Quot.sound",
+   "Classical.choice"
+  ],
+  "enable_nanoda": true
+ }
+}
