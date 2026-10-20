@@ -1,0 +1,42 @@
+{
+	"number": 363347,
+	"data": "11,5,31,11,59,19,19,29,139,41,191,1,251,71,29,89,79,109,479,131,571,31,61,181,41,1,179,239,1019,271,1151,61,1291,1,1439,379,1,419,1759,461,1931,101,2111,1,1,599,499,59,2699,701,71,151,101,811",
+	"name": "Denominator of the continued fraction 1/(2-3/(3-4/(4-5/(...(n-1)-n/(-4))))).",
+	"comment": [
+		"Conjecture 1: Every term of this sequence is either a prime or 1.",
+		"Conjecture 2: The sequence contains all prime numbers which end with a 1 or 9.",
+		"Conjecture 3: Except for 5, the primes all appear exactly twice.",
+		"Conjecture: The sequence of record values is A028877. - _Bill McEachen_, May 20 2024",
+		"Conjectures 1 and 2 were proved by an autonomous AI agent, see the Lean file. The proof uses the fact that the continued-fraction denominator A363347(n) reduces to |n^2+2n-4| divided by its gcd with the numerator. Since p is congruent (+/-)1 (mod 10) makes 5 a quadratic residue, picking n=x-1 with x^2 congruent 5 forces p to divide n^2+2n-4; divisibility lemmas show the gcd cancels only the cofactor, leaving exactly p. - _Ralf Stephan_, Jun 09 2026"
+	],
+	"link": [
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 15 (proof, Appendix A).",
+		"Mohammed Bouras, \u003ca href=\"https://doi.org/10.5281/zenodo.10992128\"\u003eThe Distribution Of Prime Numbers And Continued Fractions\u003c/a\u003e, PowerPoint slides (2022).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_363347_conjecture_2.lean\"\u003eAlphaProof Nexus: A363347 Lean file\u003c/a\u003e."
+	],
+	"formula": [
+		"a(n) = (n^2 + 2*n - 4)/gcd(n^2 + 2*n - 4, 4*A051403(n-3) + n*A051403(n-4)).",
+		"a(n) = gpf(n^2 + 2*n - 4) if gpf(n^2 + 2*n - 4) \u003e n, otherwise a(n) = 1 (where gpf(n) denotes the greatest prime factor of n).",
+		"If n != m and a(n) = a(m) != 1, then we have:",
+		"a(n) = n + m + 2.",
+		"a(n) = gcd(n^2 + 2*n - 4, m^2 + 2*m - 4)."
+	],
+	"example": [
+		"For n=3, 1/(2 - 3/(-4)) = 4/11, so a(3) = 11.",
+		"For n=4, 1/(2 - 3/(3 - 4/(-4))) = 4/5, so a(4) = 5.",
+		"For n=5, 1/(2 - 3/(3 - 4/(4 -5/(-4)))) = 47/31, so a(5) = 31.",
+		"a(3) = a(6) = 3 + 6 + 2 = 11.",
+		"a(5) = a(24) = 5 + 24 + 2 = 31.",
+		"a(7) = a(50) = 7 + 50 + 2 = 59."
+	],
+	"xref": [
+		"Cf. A006530, A051403, A229525, A356247, A028877."
+	],
+	"keyword": "nonn",
+	"offset": "3,1",
+	"author": "_Mohammed Bouras_, May 28 2023",
+	"references": 1,
+	"revision": 43,
+	"time": "2026-08-17T18:01:10-04:00",
+	"created": "2023-06-24T23:12:27-04:00"
+}

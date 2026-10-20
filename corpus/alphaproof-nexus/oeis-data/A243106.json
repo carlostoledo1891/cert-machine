@@ -1,0 +1,60 @@
+{
+	"number": 243106,
+	"data": "10,-90,-1090,8910,-91090,908910,-9091090,90908910,1090908910,11090908910,-88909091090,911090908910,-9088909091090,90911090908910,1090911090908910,11090911090908910,-88909088909091090,911090911090908910,-9088909088909091090",
+	"name": "a(n) = Sum_{k=1..n} (-1)^isprime(k)*10^k.",
+	"comment": [
+		"Alternative definition: a(n,x)=T(x,1) for a dichromate or Tutte-Whitney polynomial in which the matrix t[i,j] is defined as t[i,j]=Delta(i,j)*((-1)^isprime(i)) and \"Delta\" is the Kronecker Delta function. - _Michel Marcus_, Aug 19 2014",
+		"If 10 is replaced by 1, then this becomes A097454. If it is replaced by 2, one gets A242002. Choosing powers of the base b=10, as done here, allows one to easily read off the equivalent for any other base b \u003e 4, by simply replacing digits 8,9 with b-2,b-1 (when terms are written in base b). [Comment extended by _M. F. Hasler_, Aug 20 2014]",
+		"There are 2^n ways of taking the partial sum of the first n powers of b=10 if exponent zero is excluded and the signs can be assigned arbitrarily. Conjecture: When expressed in base b, the absolute value for any of these terms only contains digits belonging to {0,1,b-2,b-1}; here {0,1,8,9}.",
+		"This was proved by an autonomous AI agent, see the Tsoukalas paper and the Lean file. The proof uses strong induction on N to show any integer expressible with base-b digit coefficients in {-1, 0, 1} has all base-b digits in {0, 1, b-2, b-1}, via repeated division and modular arithmetic extracting each successive digit (Summary by Opus 4.7). - _Ralf Stephan_, May 26 2026"
+	],
+	"link": [
+		"R. J. Cano, \u003ca href=\"/A243106/b243106.txt\"\u003eTable of n, a(n) for n = 1..100\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 23 (proof, Appendix A).",
+		"R. J. Cano, \u003ca href=\"https://oeis.org/w/images/d/d7/AdditionalInfo_primeSignSwitchingSeq00_.txt\"\u003eAdditional information.\u003c/a\u003e",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_243106_conjecture_0.lean\"\u003eAlphaProof Nexus: A243106 Lean file\u003c/a\u003e.",
+		"George Tsoukalas et al., \u003ca href=\"https://arxiv.org/abs/2605.22763\"\u003eAdvancing Mathematics Research with AI-Driven Formal Proof Search\u003c/a\u003e, arXiv:2605.22763 [cs.AI], 2026.",
+		"Eric Weisstein's World of Mathematics, \u003ca href=\"https://mathworld.wolfram.com/AlternatingSeries.html\"\u003eAlternating Series\u003c/a\u003e.",
+		"Eric Weisstein's World of Mathematics, \u003ca href=\"https://mathworld.wolfram.com/TuttePolynomial.html\"\u003eTutte Polynomial\u003c/a\u003e."
+	],
+	"formula": [
+		"a(n,x) = Sum_{k=1..n} (-1)^isprime(k)*(x^k), for x=10 in decimal."
+	],
+	"example": [
+		"n=1 is not prime x^1 = (10)^1 = 10, therefore a(1)=10;",
+		"n=2 is prime and x^2 = (10)^2 = 100, taking it negative, a(2) = 10 - 100 = -90;",
+		"n=3 also is prime, x^3 = 1000, and we have a(3) = 10 - 100 - 1000 = -1090;",
+		"n=4 is not prime, so a(4) = 10 - 100 - 1000 + 10000 = 8910;",
+		"n=5 is prime, then a(5) = 10 - 100 - 1000 + 10000 - 100000 = -91090;",
+		"Examples of analysis for the concatenation patterns among the terms can be found at the \"Additional Information\" link."
+	],
+	"mathematica": [
+		"Table[Sum[ (-1)^Boole@ PrimeQ@ k*10^k, {k, n}], {n, 19}] (* _Michael De Vlieger_, Jan 03 2016 *)"
+	],
+	"program": [
+		"(PARI) ap(n, x)={my(s); forprime(p=1, n, s+=x^p); s}",
+		"a=(n, x=10)-\u003e(x^(n+1)-1)/(x-1)-2*ap(n, x)-1;",
+		"(PARI) Delta=(i, j)-\u003e(i==j); /* Kronecker's Delta function */",
+		"t=n-\u003ematrix(n, n, i, j, Delta(i, j)*((-1)^isprime(i))); /* coeffs t[i, j] */",
+		"/* Tutte polynomial over n */",
+		"T(n, x, y)={my(t0=t(n)); sum(i=1, n, sum(j=1, n, t0[i, j]*(x^i)*(y^j)))};",
+		"a=(n, x=10)-\u003eT(n, x, 1);",
+		"(PARI) A243106(n,b=10)=sum(k=1,n,(-1)^isprime(k)*b^k) \\\\ _M. F. Hasler_, Aug 20 2014"
+	],
+	"xref": [
+		"Cf. A097454.",
+		"The same kind of base-independent behavior: A215940, A217626.",
+		"Partial sums of alternating series: A181482, A222739, A213203."
+	],
+	"keyword": "sign,base",
+	"offset": "1,1",
+	"author": "_R. J. Cano_, Aug 19 2014",
+	"ext": [
+		"Definition simplified by _N. J. A. Sloane_, Aug 19 2014",
+		"Definition further simplified and more terms from _M. F. Hasler_, Aug 20 2014"
+	],
+	"references": 2,
+	"revision": 39,
+	"time": "2026-08-19T09:29:03-04:00",
+	"created": "2014-08-20T09:08:25-04:00"
+}

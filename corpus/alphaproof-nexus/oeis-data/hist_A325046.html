@@ -1,0 +1,791 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+  
+  <head>
+  
+  <link rel="stylesheet" href="/styles.css?v=20260826">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="OEIS,integer sequences,Sloane" />
+  
+  
+  
+  <title>The On-Line Encyclopedia of Integer Sequences (OEIS)</title>
+  <link rel="search" type="application/opensearchdescription+xml" title="OEIS" href="/oeis.xml">
+  
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260826">
+  <link rel="icon" sizes="16x16 32x32 48x48" href="/favicon.ico?v=20260826">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=20260826">
+  <script>
+  var myURL = "\/history?seq=A325046\u0026start=0"
+  function redir() {
+      var host = document.location.hostname;
+      if(host != "oeis.org" && host != "127.0.0.1" && !/^([0-9.]+)$/.test(host) && host != "localhost" && host != "localhost.localdomain") {
+          document.location = "https"+":"+"//"+"oeis"+".org/" + myURL;
+      }
+  }
+  function sf() {
+      if(document.location.pathname == "/" && document.f) document.f.q.focus();
+  }
+  </script>
+  </head>
+  <body bgcolor=#ffffff onload="redir();sf()"><a href="https://oeis.org/cdn-cgi/content?id=dqE7M8kZ3wPxBiH44rdB05wfyaiRF19rWgbgZ2H.jt8-1792494941.580744-1.2.1.1-ZKUhnJ3QHWex.FwZoboygPgOIF_PYOQznKUi5yegYG1Pd5tFB4s1I7wJNWgpjuwX" aria-hidden="true" rel="nofollow noopener" style="display: none !important; visibility: hidden !important"></a>
+    <div class=loginbar>
+      <div class=login>
+      
+        <a href="/login?redirect=%2Fhistory%3Fseq%3DA325046%26start%3D0" rel="nofollow">login</a>
+      
+      </div>
+    </div>
+
+    <div class=center><div class=top>
+    <center>
+    <div class=donors>
+    The OEIS is supported by <a href="http://oeisf.org/#DONATE">the many generous donors to the OEIS Foundation</a>.
+    </div>
+
+    <div class=banner>
+    <a href="/"><picture>
+    <source media="(min-width: 830px)" srcset="/oeis-banner-wide.png 1x, /oeis-banner-wide@2x.png 2x" width="918" height="129">
+    <img class=banner border="0" width="540" height="129" src="/oeis-banner.png" srcset="/oeis-banner.png 1x, /oeis-banner@2x.png 2x" alt="The On-Line Encyclopedia of Integer Sequences (OEIS)">
+    </picture></a>
+    </div>
+
+    
+    </center>
+    </div></div>
+
+    <div class=center><div class=pagebody>
+      
+    
+    <div class=searchbarcenter>
+        <form name=f action="/search" method="GET">
+            <div class=searchbargreet>
+                <div class=searchbar>
+                    <div class=searchq>
+                        <input class=searchbox maxLength=1024 name=q value="" title="Search Query">
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class=searchsubmit>
+                        <input type=submit value="Search" name=go>
+                    </div>
+                    <div class=hints>
+                        <span class=hints><a href="/hints.html">Hints</a></span>
+                    </div>
+                </div>
+                <div class=searchgreet>
+                    (Greetings from <a href="/welcome">The On-Line Encyclopedia of Integer Sequences</a>!)
+                </div>
+            </div>
+        </form>
+    </div>
+
+    
+    <center>
+        <h2 style="margin-top:0; margin-bottom:0;">
+        
+            
+            
+            
+            Revision History for <a href="/A325046">A325046</a>
+        
+        </h2>
+
+        
+            
+        
+
+        
+        
+        (Bold, blue-underlined text is an <ins>addition</ins>;
+        faded, red-underlined text is a <del>deletion</del>.)
+
+    </center>
+    <br>
+
+    
+    
+        
+        Showing entries 1-10
+        
+            | <a rel="nofollow" href="/history?seq=A325046&amp;start=10">older changes</a>
+        
+    
+
+    <br>
+
+    
+    
+    <div class=history>
+        <div class=space1></div>
+        <div class=line></div>
+
+        
+        
+            
+            
+                
+                
+                
+                    <div class=seqhead>
+                        <div class=seqnumname>
+                            <div class=seqnum><a href="/A325046">A325046</a></div>
+                            <div class=seqname>
+                                   G.f.: Sum_{n&gt;=0} x^n * (1 + x^n)^n / (1 - x^(n+1))^(n+1).
+                                    <br>
+                                    <font size=-1>(<a rel="nofollow" href="/history?seq=A325046">history</a>;
+                                    
+                                    <a href="/A325046">published version</a>)
+                                    </font>
+                            </div>
+                        </div>
+                    </div>
+                
+
+                
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=25">#25</a> by <a rel="nofollow" href="/history?user=Michael%20De%20Vlieger">Michael De Vlieger</a> at Tue Aug 18 11:03:19 EDT 2026
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>editing</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>approved</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=24">#24</a> by <a rel="nofollow" href="/history?user=Michael%20De%20Vlieger">Michael De Vlieger</a> at Tue Aug 18 11:03:16 EDT 2026
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>LINKS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><ins>Tom Adamczewski, &lt;a href=&quot;https://arxiv.org/abs/2608.11941&quot;&gt;OEIS Open: How many conjectures can language models turn into theorems?&lt;/a&gt;, arXiv:2608.11941 [cs.AI], 2026. See p. 17 (proof, Appendix A).</ins></tt></p>
+            
+                
+                    
+                        </div> 
+                        </div> 
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>approved</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>editing</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=23">#23</a> by <a rel="nofollow" href="/history?user=Stefano%20Spezia">Stefano Spezia</a> at Mon Aug 03 11:16:58 EDT 2026
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>editing</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>approved</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=22">#22</a> by <a rel="nofollow" href="/history?user=Stefano%20Spezia">Stefano Spezia</a> at Mon Aug 03 11:13:12 EDT 2026
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>LINKS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><ins>Sela Fried, &lt;a href=&quot;https://arxiv.org/abs/2607.24832&quot;&gt;Further proofs of conjectures from the OEIS&lt;/a&gt;, arXiv:2607.24832 [math.GM], 2026. See pp. 50-51.</ins></tt></p>
+            
+                
+                    
+                        </div> 
+                        </div> 
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>approved</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>editing</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=21">#21</a> by <a rel="nofollow" href="/history?user=Michael%20De%20Vlieger">Michael De Vlieger</a> at Wed Dec 17 17:20:22 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>reviewed</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>approved</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=20">#20</a> by <a rel="nofollow" href="/history?user=Joerg%20Arndt">Joerg Arndt</a> at Wed Dec 17 04:32:21 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>proposed</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>reviewed</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=19">#19</a> by <a rel="nofollow" href="/history?user=Michel%20Marcus">Michel Marcus</a> at Wed Dec 17 04:21:11 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>editing</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>proposed</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+                <div class="space4"></div>
+                <div class=discussbar>
+                    <div class=discusshead>Discussion</div>
+                        
+                        
+                        
+                        
+                            
+
+                            
+                            
+                            
+                                
+                            
+
+                            <div class=discussnote>
+                                <div class=date>Wed Dec 17</div>
+                                <div class=time>04:24</div>
+                                <pre class=note><span class=user>Sela Fried</span>: what? no. just wrote that the conjecture is true and uploaded a file. Did I break something?</pre>
+                            </div>
+                        
+                </div>
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=18">#18</a> by <a rel="nofollow" href="/history?user=Michel%20Marcus">Michel Marcus</a> at Wed Dec 17 04:18:35 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>EXAMPLE</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>1, 2;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>3, 4, 6, 8;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>9, 16, 16, 18, 36, 34;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>27, 68, 76, 58, 86, 122, 170, 176;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>99, 206, 436, 350, 192, 392, 574, 690, 840, 730;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>657, 804, 1328, 2218, 2070, 846, 910, 2794, 4012, 3818, 3306, 3176;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>4109, 4280, 4546, 8550, 11694, 9366, 5726, 5016, 8338, 15636, 23498, 24736, 16434, 8474;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>14423, 28616, 32114, 31256, 42116, 51828, 50476, 42378, 28306, 26454, 56358, 101900, 133758, 132356, 87490, 41024;</tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins> </ins><ins> </ins>53475, 109392, 158936, 190868, 232342, 265698, 221026, 158178, 200048, 269954, 239516, 206696, 314724, 516784, 710010, 774678, 576170, 255094; ...</tt></p>
+            
+                
+                    
+                        </div> 
+                        </div> 
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>proposed</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>editing</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+                <div class="space4"></div>
+                <div class=discussbar>
+                    <div class=discusshead>Discussion</div>
+                        
+                        
+                        
+                        
+                            
+
+                            
+                            
+                            
+                                
+                            
+
+                            <div class=discussnote>
+                                <div class=date>Wed Dec 17</div>
+                                <div class=time>04:21</div>
+                                <pre class=note><span class=user>Michel Marcus</span>: cut data after 8474 ?  remove last 2 lines of triangle example ??</pre>
+                            </div>
+                        
+                </div>
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=17">#17</a> by <a rel="nofollow" href="/history?user=Sela%20Fried">Sela Fried</a> at Wed Dec 17 04:01:07 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>editing</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>proposed</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+            
+            
+
+            <div class=resultline></div>
+            
+                <div class="revbar">
+                    
+                    
+                        <a rel="nofollow" href="/history/view?seq=A325046&v=16">#16</a> by <a rel="nofollow" href="/history?user=Sela%20Fried">Sela Fried</a> at Wed Dec 17 04:01:02 EST 2025
+                    
+                </div>
+            
+
+            
+    
+    <div>
+        <div class=entry>
+            
+            
+                
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>COMMENTS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><ins>The conjecture is true (see Fried link). - <a href="/wiki/User:Sela_Fried">Sela Fried</a>, Dec 17 2025</ins></tt></p>
+            
+                
+                    
+                        </div> 
+                        </div> 
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>LINKS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><ins>Sela Fried, &lt;a href=&quot;/<a href="/A325046" title="G.f.: Sum_{n&gt;=0} x^n * (1 + x^n)^n / (1 - x^(n+1))^(n+1).">A325046</a>/a325046.pdf&quot;&gt;Proof of a conjecture stated in <a href="/A325046" title="G.f.: Sum_{n&gt;=0} x^n * (1 + x^n)^n / (1 - x^(n+1))^(n+1).">A325046</a>&lt;/a&gt;, 2025.</ins></tt></p>
+            
+                
+                    
+                        </div> 
+                        </div> 
+                    
+                    
+                    <div class=section>
+                        <div class=sectname>STATUS</div>
+                        <div class=sectbody>
+                
+
+                <p class="diffs"><tt><del>approved</del></tt></p>
+            
+                
+
+                <p class="diffs"><tt><ins>editing</ins></tt></p>
+            
+            
+                </div> 
+                </div> 
+            
+        </div> 
+    </div>
+
+
+            
+            <div class=space4></div>
+        
+
+        <div class=space10></div>
+    </div>
+
+    <br>
+
+    
+    
+        
+        Showing entries 1-10
+        
+            | <a rel="nofollow" href="/history?seq=A325046&amp;start=10">older changes</a>
+        
+    
+
+
+    </div></div>
+
+    <p>
+
+    <div class=footerpad></div>
+    <div class=footer>
+    <center>
+    <div class=bottom>
+    <div class=linksbar>
+      <a href="/">Lookup</a>
+      <a href="/wiki/Welcome"><font color="red">Welcome</font></a>
+      <a href="/wiki/Main_Page"><font color="red">Wiki</font></a>
+      <a href="/account">Register</a>
+      
+      <a href="/play.html">Music</a>
+      <a href="/plot2.html">Plot 2</a>
+      <a href="/demo1.html">Demos</a>
+      <a href="/wiki/Index_to_OEIS">Index</a>
+      <a href="/webcam">WebCam</a>
+      <a href="/Submit.html">Contribute</a>
+      <a href="/eishelp2.html">Format</a>
+      <a href="/wiki/Style_Sheet">Style Sheet</a>
+      <a href="/transforms.html">Transforms</a>
+      <a href="/ol.html">Superseeker</a>
+      <a href="/recent">Recents</a>
+    </div>
+    <div class=linksbar>
+      <a href="/community.html">The OEIS Community</a>
+    </div>
+    <div class=linksbar>
+      Maintained by <a href="http://oeisf.org">The OEIS Foundation Inc.</a>
+    </div>
+
+    <div class=dbinfo>Last modified October 20 07:14 EDT 2026.  Contains 400509 sequences.</div>
+    <div class=legal>
+    <a href="/wiki/Legal_Documents">License Agreements, Terms of Use, Privacy Policy</a>
+    </div>
+
+    </div>
+    </center>
+    </div>
+  <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4d79b28db480123',t:'MTc5MjQ5NDk0MQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

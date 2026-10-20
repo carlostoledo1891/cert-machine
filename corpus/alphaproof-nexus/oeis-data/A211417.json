@@ -1,0 +1,57 @@
+{
+	"number": 211417,
+	"data": "1,77636318760,53837289804317953893960,43880754270176401422739454033276880,38113558705192522309151157825210540422513019720,34255316578084325260482016910137568877961925210286281393760",
+	"name": "a(n) = (30*n)!*n!/((15*n)!*(10*n)!*(6*n)!).",
+	"comment": [
+		"The integrality of this sequence can be used to prove Chebyshev's estimate C(1)*x/log(x) \u003c= #{primes \u003c= x} \u003c= C(2)*x/log(x), for x sufficiently large; the constant C(1) = 0.921292... and C(2) = 1.105550.... Chebyshev's approach used the related step function floor(x) -floor(x/2) -floor(x/3) -floor(x/5) +floor(x/30). See A182067.",
+		"This sequence is one of the 52 sporadic integral factorial ratio sequences of height 1 found by V. I. Vasyunin.",
+		"The o.g.f. Sum_{n \u003e= 0} a(n)*z^n is a generalized hypergeometric series of type 8F7 (see Bober, Table 2, Entry 31) and is an algebraic function of degree 483840 over the field of rational functions Q(z) (see Rodriguez-Villegas). Bober remarks that the monodromy group of the differential equation satisfied by the o.g.f. is W(E_8), the Weyl group of the E_8 root system.",
+		"See the Bala link for the proof that a(n), n = 0,1,2..., is an integer.",
+		"Congruences: a(p^k) == a(p^(k-1)) ( mod p^(3*k) ) for any prime p \u003e= 5 and any positive integer k (write a(n) as C(30*n,15*n)*C(15*n,5*n)/C(6*n,n) and use equation 39 in Mestrovic, p. 12). More generally, the congruences a(n*p^k) == a(n*p^(k-1)) ( mod p^(3*k) ) may hold for any prime p \u003e= 5 and any positive integers n and k. Cf. A295431. - _Peter Bala_, Jan 24 2020",
+		"From _Peter Bala_, Aug 28 2025: (Start)",
+		"Conjectures: 7*a(n)/(2*n + 1), a(n)/(3*n + 1), a(n)/(5*n + 1) and 42*a(n)/((2*n + 1)*(3*n + 1)*(5*n + 1)) are integers for all n (checked up to n = 1000).",
+		"More generally, calculation suggests that for k = 2, 3 or 5 and r \u003e= 1, there exists a constant C(k, r) \u003e 0 such that C(k, r)*a(n)/Product_{i = 1..r, i coprime to k} (k*n + i) is an integer for all n.",
+		"It appears that a(n)/(30*n - 1) is integral for all n (checked up to n = 1000). More generally, for r \u003e= 1, we conjecture that there exists a constant D(r) \u003e 0 such that D(r)*a(n)/Product_{i = 1..r, i coprime to 30} (30*n - i) is integral for all n.",
+		"Similar results may hold for all the 52 sporadic integral factorial ratio sequences listed in A295431. (End)",
+		"The conjecture that (30*n-1) divides a(n) was proved by an autonomous AI agent, see the Lean file. The proof uses p-adic valuations v_p: it checks that, for all prime p, v_p(R) \u003c= v_p(L) via Legendre's formula. Each floor-sum term f_nat is nonnegative and equals 1 exactly when p^k divides 30*n-1, dominating the indicator that counts v_p(30*n-1). - _Ralf Stephan_, Jun 30 2026"
+	],
+	"link": [
+		"N. J. A. Sloane, \u003ca href=\"/A211417/b211417.txt\"\u003eTable of n, a(n) for n = 0..50\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 21 (proof, Appendix A).",
+		"Peter Bala, \u003ca href=\"/A211417/a211417_1.txt\"\u003eProof of the integrality of A211417 and A211418\u003c/a\u003e.",
+		"Frits Beukers, \u003ca href=\"https://www.ams.org/notices/201401/rnoti-p48.pdf\"\u003eHypergeometric functions, how special are they?\u003c/a\u003e, Notices Amer. Math. Soc. 61(1) (2014), 48-56. MR3137256.",
+		"Jonathan W. Bober, \u003ca href=\"https://arxiv.org/abs/0709.1977\"\u003eFactorial ratios, hypergeometric series, and a family of step functions\u003c/a\u003e, arXiv:0709.1977 [math.NT], 2007. See also J. London Math. Soc. 79(2) (2009), 422-444.",
+		"Florian Fürnsinn and Sergey Yurkevich, \u003ca href=\"https://arxiv.org/abs/2308.12855\"\u003eAlgebraicity of hypergeometric functions with arbitrary parameters\u003c/a\u003e, arXiv:2308.12855 [math.CA], 2023.",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_a211417_conjecture_specific.lean\"\u003eAlphaProof Nexus: A211417 Lean file\u003c/a\u003e.",
+		"Romeo Mestrovic, \u003ca href=\"https://arxiv.org/abs/1111.3057\"\u003eWolstenholme's theorem: Its Generalizations and Extensions in the last hundred and fifty years (1862-2011)\u003c/a\u003e, arXiv:1111.3057 [math.NT], 2011.",
+		"Fernando Rodriguez Villegas, \u003ca href=\"https://arxiv.org/abs/math/0701362\"\u003eIntegral ratios of factorials and algebraic hypergeometric functions\u003c/a\u003e, arXiv:math.NT/0701362, 2007.",
+		"Fernando Rodriguez Villegas, \u003ca href=\"https://arxiv.org/abs/1907.02722\"\u003eMixed Hodge numbers and factorial ratios\u003c/a\u003e, arXiv:1907.02722 [math.NT], 2019.",
+		"K. Soundararajan, \u003ca href=\"https://arxiv.org/abs/1901.05133\"\u003eIntegral Factorial Ratios\u003c/a\u003e, arXiv:1901.05133 [math.NT], 2019.",
+		"Wadim Zudilin, \u003ca href=\"http://mathoverflow.net/questions/26336/\"\u003eInteger-valued factorial ratios\u003c/a\u003e, MathOverflow question 26336, 2010."
+	],
+	"formula": [
+		"a(n) ~ 2^(14*n-1) * 3^(9*n-1/2) * 5^(5*n-1/2) / sqrt(Pi*n). - _Vaclav Kotesovec_, Aug 30 2016",
+		"a(n) = binomial(30*n,15*n)*binomial(15*n,5*n)/binomial(6*n,n) = binomial(30*n,15*n)*binomial(16*n,6*n)/binomial(16*n,n). - _Chai Wah Wu_, Feb 15 2026"
+	],
+	"mathematica": [
+		"Table[(30 n)!*n!/((15 n)!*(10 n)!*(6 n)!), {n, 0, 5}] (* _Michael De Vlieger_, Oct 02 2015 *)"
+	],
+	"program": [
+		"(PARI) a(n) = (30*n)!*n!/((15*n)!*(10*n)!*(6*n)!);",
+		"vector(10, n, a(n-1)) \\\\ _Altug Alkan_, Oct 02 2015",
+		"(Magma) [Factorial(30*n)*Factorial(n)/(Factorial(15*n)*Factorial(10*n)*Factorial(6*n)): n in [0..10]]; // _Vincenzo Librandi_, Oct 03 2015",
+		"(Python)",
+		"from math import comb",
+		"def A211417(n): return comb(30*n,15*n)*comb(15*n,5*n)//comb(6*n,n) # _Chai Wah Wu_, Feb 15 2026"
+	],
+	"xref": [
+		"Cf. A182067, A211418, A061162, A061163, A061164, A091496, A091527, A112292, A182400, A211419, A211420, A211421, A276100, A262733, A295431."
+	],
+	"keyword": "nonn,easy",
+	"offset": "0,2",
+	"author": "_Peter Bala_, Apr 11 2012",
+	"references": 7,
+	"revision": 94,
+	"time": "2026-08-26T01:12:34-04:00",
+	"created": "2012-04-11T13:01:37-04:00"
+}

@@ -1,11 +1,11 @@
 {
  "what": "The AlphaProof Nexus audit, kernel lane: each Erdős proof of google-deepmind/alphaproof-nexus-results @ 0647711a checked by Comparator v4.27.0 against formal-conjectures' own statement at the commit the repository builds against (7862bf6a), with nanoda on (.github/workflows/apn-kernel.yml). CERTIFIED here means the proof proves exactly that statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept it. Whether the statement is the problem Erdős posed is the reading lane's question.",
- "generated": "2026-10-20T11:40:24Z",
+ "generated": "2026-10-20T11:47:25Z",
  "workflow": ".github/workflows/apn-kernel.yml",
  "rule": "tools/comparator-verdict.js",
  "deciders": {
   "rule": "c179c31373100a816248fecebd0d1e929ef150bbb61670c7ab5a18022c2df87c",
-  "prepare": "a68477f8c760b9e00b4b2fa2086da18543365e8bb3c682b6b4e4546288c4f27e",
+  "prepare": "b329cdd4cb602180cd27d5d0881a94642b3d16f1d3b3b6158d37f8eeaf62ac57",
   "workflow": "3e6d6a40c40abd0233126d74f173fd5ce95891ebf5d8451f061b32be5f1b4bbe"
  },
  "counts": {
@@ -399,6 +399,24 @@
    "word": "CERTIFIED",
    "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
    "stage": null
+  }
+ ],
+ "redControls": [
+  {
+   "item": "erdos_846.red.statement",
+   "what": "our challenge weakened (ε > 0 to ε ≥ 0): the solution no longer proves the challenge statement",
+   "run": 39416708323,
+   "word": "REFUTED?",
+   "why": "uncaught exception: Challenge and solution theorem statement do not match: 'Erdos846.target_theorem_0'",
+   "fired": true
+  },
+  {
+   "item": "erdos_846.red.sorry",
+   "what": "their solution with the main proof replaced by sorry: it rests on sorryAx, not permitted",
+   "run": 39416708323,
+   "word": "REFUTED?",
+   "why": "uncaught exception: Illegal axiom detected: 'sorryAx'",
+   "fired": true
   }
  ]
 }

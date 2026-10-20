@@ -1,0 +1,58 @@
+{
+	"number": 326690,
+	"data": "1,1,1,4,1,3,1,8,9,5,1,4,1,7,15,16,1,9,1,20,7,11,1,24,25,13,27,28,1,1,1,32,33,17,35,36,1,19,13,40,1,21,1,44,45,23,1,16,49,25,51,52,1,27,11,8,19,29,1,60,1,31,63,64,65,11,1,68,69,35,1,72",
+	"name": "Denominator of the fraction (Sum_{prime p | n} 1/p - 1/n).",
+	"comment": [
+		"Theorem. If n is a prime or a Carmichael number, then a(n) = A309132(n) = denominator of (N(n-1)/n + D(n-1)/n^2), where B(k) = N(k)/D(k) is the k-th Bernoulli number. This is a generalization of Theorem 1 in A309132 that A309132(p) = 1 if p is a prime. The proof generalizes that in A309132. As an application of Theorem, for n a prime or a Carmichael number one can compute A309132(n) without calculating Bernoulli numbers; see A309268.",
+		"A composite number n is a Giuga number A007850 if and only if a(n) = 1. (In fact, Sum_{prime p | n} 1/p - 1/n = 1 for all known Giuga numbers n.)",
+		"Semiprimes m = pq such that 1/p + 1/q - 1/m = p/q are exactly A190275. - _Amiram Eldar_ and _Thomas Ordowski_, Jul 22 2019",
+		"The preceding comment may be rephrased as \"Semiprimes m = pq such that A326689(m) = p and a(m) = q are exactly A190275.\" - _Jonathan Sondow_, Jul 22 2019",
+		"More generally, semiprimes m = pq such that 1/p + 1/q - 1/m = P/Q are exactly A190273, where P \u003c\u003e Q are primes. In other words, semiprimes m such that A326689(m) is prime and a(m) is prime are exactly A190273. - _Amiram Eldar_ and _Thomas Ordowski_, Jul 25 2019"
+	],
+	"link": [
+		"Antti Karttunen, \u003ca href=\"/A326690/b326690.txt\"\u003eTable of n, a(n) for n = 1..16384\u003c/a\u003e",
+		"Antti Karttunen, \u003ca href=\"/A326690/a326690.txt\"\u003eData supplement: n, a(n) computed for n = 1..65537\u003c/a\u003e",
+		"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Bernoulli_number\"\u003eBernoulli number\u003c/a\u003e",
+		"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Carmichael_number\"\u003eCarmichael number\u003c/a\u003e",
+		"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Giuga_number\"\u003eGiuga number\u003c/a\u003e"
+	],
+	"formula": [
+		"a(n) = 1 if n is a prime or a Giuga number A007850.",
+		"a(n) = denominator of (N(n-1)/n + D(n-1)/n^2) if n is a Carmichael number A002997.",
+		"a(n) = denominator((A069359(n) - 1)/n). - _Peter Luschny_, Jul 22 2019"
+	],
+	"example": [
+		"-1/1, 0/1, 0/1, 1/4, 0/1, 2/3, 0/1, 3/8, 2/9, 3/5, 0/1, 3/4, 0/1, 4/7, 7/15, 7/16, 0/1, 7/9, 0/1, 13/20, 3/7, 6/11, 0/1, 19/24, 4/25, 7/13, 8/27, 17/28, 0/1, 1/1",
+		"a(12) = denominator of (Sum_{prime p | 12} 1/p - 1/12) = denominator of (1/2 + 1/3 - 1/12) = denominator of 3/4 = 4.",
+		"Computing A309132(561) involves numerator(B(560)) which has 865 digits. But 561 is a Carmichael number, so Theorem implies A309132(561) = a(561) = denominator(1/3 + 1/11 + 1/17 - 1/561) = denominator(90/187) = 187."
+	],
+	"maple": [
+		"A326690 := n -\u003e denom((A069359(n)-1)/n):",
+		"seq(A326690(n), n=1..72); # _Peter Luschny_, Jul 22 2019"
+	],
+	"mathematica": [
+		"PrimeFactors[n_] := Select[Divisors[n], PrimeQ];",
+		"f[n_] := Denominator[Sum[1/p, {p, PrimeFactors[n]}] - 1/n];",
+		"Table[ f[n], {n, 100}]"
+	],
+	"program": [
+		"(PARI) a(n) = denominator(sumdiv(n, d, isprime(d)/d) - 1/n); \\\\ _Michel Marcus_, Jul 19 2019",
+		"(SageMath)",
+		"p = lambda n: [n//f[0] for f in factor(n)]",
+		"A326690 = lambda n: ((sum(p(n)) - 1)/n).denominator()",
+		"[A326690(n) for n in (1..72)] # _Peter Luschny_, Jul 22 2019",
+		"(Magma) [1] cat [Denominator(\u0026+[1/p:p in PrimeDivisors(k)]-1/k):k in [2..72]]; // _Marius A. Burtea_, Jul 27 2019"
+	],
+	"xref": [
+		"Numerators are A326689. Quotients n/a(n) are A326691.",
+		"Cf. A069359, A007947 (denominator of Sum_{prime p | n} 1/p).",
+		"Cf. A002997, A007850, A190275, A309132, A309235, A309268, A309378, A326692."
+	],
+	"keyword": "nonn,frac",
+	"offset": "1,4",
+	"author": "_Jonathan Sondow_, Jul 18 2019",
+	"references": 15,
+	"revision": 64,
+	"time": "2023-12-31T10:24:21-05:00",
+	"created": "2019-07-19T05:50:15-04:00"
+}

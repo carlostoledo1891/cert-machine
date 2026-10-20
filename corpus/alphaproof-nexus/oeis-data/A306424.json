@@ -1,0 +1,31 @@
+{
+	"number": 306424,
+	"data": "1,2,3,4,5,6,7,8,9,10,12,13,14,16,17,20,22,23,25,26,31,37,43",
+	"name": "Numbers k such that the base-b expansion of k for each b = 3..k-1 never contains more than two distinct digits.",
+	"comment": [
+		"Conjecture: The sequence is finite, with 43 being the last term.",
+		"I checked the conjecture to 10809638.",
+		"This was proved by an autonomous AI agent, see the Lean file. The proof uses two regimes: for 43 \u003c k \u003c= 288, computation brute-forces every case; for k \u003e= 289, it locates the base b = floor(sqrt(k)), writes k as c^2 + y*c + z where y is a fixed per-case constant and z is either a fixed constant or a linear function of the remainder r = k - b^2. - _Ralf Stephan_, Jun 01 2026",
+		"Adamczewski includes proof abstract regarding the conjecture in the linked article. - _Michael De Vlieger_, Aug 19 2026"
+	],
+	"link": [
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 21 (proof, Appendix A)",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_306424_conjecture_0.lean\"\u003eAlphaProof Nexus: A306424 Lean file\u003c/a\u003e"
+	],
+	"example": [
+		"10 is a term of the sequence, since the base-b expansions of 10 for b = 3..9 are 101, 22, 20, 14, 13, 12, 11, respectively, and none of those expansions contain more than two distinct digits."
+	],
+	"mathematica": [
+		"Select[Range@ 100, Max@ Table[Length@ Union@ IntegerDigits[#, b], {b, 3, # - 1}] \u003c= 2 \u0026] (* _Michael De Vlieger_, Feb 15 2019 *)"
+	],
+	"program": [
+		"(PARI) is(n) = for(b=3, n-1, my(d=digits(n, b)); if(#vecsort(d, , 8) \u003e 2, return(0))); 1"
+	],
+	"keyword": "nonn,base,fini,full",
+	"offset": "1,2",
+	"author": "_Felix Fröhlich_, Feb 14 2019",
+	"references": 1,
+	"revision": 35,
+	"time": "2026-08-19T10:01:10-04:00",
+	"created": "2019-03-08T23:56:50-05:00"
+}

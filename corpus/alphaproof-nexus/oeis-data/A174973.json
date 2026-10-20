@@ -1,0 +1,95 @@
+{
+	"number": 174973,
+	"data": "1,2,4,6,8,12,16,18,20,24,28,30,32,36,40,42,48,54,56,60,64,66,72,80,84,88,90,96,100,104,108,112,120,126,128,132,140,144,150,156,160,162,168,176,180,192,196,198,200,204,208,210,216,220,224,228,234,240,252,256",
+	"name": "Numbers whose divisors increase by a factor of at most 2.",
+	"comment": [
+		"That is, if the divisors of a number are listed in increasing order, the ratio of adjacent divisors is at most 2. The only odd number in this sequence is 1. Every term appears to be a practical number (A005153). The first practical number not here is 78.",
+		"Let p1^e1 * p2^e2 * ... * pr^er be the prime factorization of a number, with primes p1 \u003c p2 \u003c ... \u003c pr and ek \u003e 0. Then the number is in this sequence if and only if pk \u003c= 2*Product_{j \u003c k} p_j^e_j. This condition is similar to, but more restrictive than, the condition for practical numbers.",
+		"The polymath8 project led by Terry Tao refers to these numbers as \"2-densely divisible\". In general they say that n is y-densely divisible if its divisors increase by a factor of y or less, or equivalently, if for every R with 1 \u003c= R \u003c= n, there is a divisor in the interval [R/y,R]. They use this as a weakening of the condition that n be y-smooth. - _David S. Metzler_, Jul 02 2013",
+		"Is this the same as numbers k with the property that the symmetric representation of sigma(k) has only one part? If not, where is the first place these sequences differ? (cf. A237593). - _Omar E. Pol_, Mar 06 2014",
+		"Yes, the sequence so defined is the same as this sequence; see proof in the links. - _Hartmut F. W. Hoft_, Nov 26 2014",
+		"Saias (1997) called these terms \"2-dense numbers\" and proved that if N(x) is the number of terms not exceeding x, then there are two positive constants c_1 and c_2 such that c_1 * x/log_2(x) \u003c= N(x) \u003c= c_2 * x/log_2(x) for all x \u003e= 2. - _Amiram Eldar_, Jul 23 2020",
+		"Weingartner (2015, 2019) showed that N(x) = c*x/log(x) + O(x/(log(x))^2), where c = 1.224830... As a result, a(n) = C*n*log(n*log(n)) + O(n), where C = 1/c = 0.816439... - _Andreas Weingartner_, Jun 22 2021"
+	],
+	"link": [
+		"Alois P. Heinz, \u003ca href=\"/A174973/b174973.txt\"\u003eTable of n, a(n) for n = 1..20000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+		"José Manuel Rodríguez Caballero, \u003ca href=\"https://math.colgate.edu/~integers/u2/u2.Abstract.html\"\u003eJordan's Expansion of the Reciprocal of Theta Functions and 2-densely Divisible Numbers\u003c/a\u003e, Integers, Vol. 20 (2020), Article A2.",
+		"Hartmut F. W. Hoft, \u003ca href=\"/A174973/a174973.pdf\"\u003eProof of a conjecture\u003c/a\u003e.",
+		"Hartmut F. W. Hoft, \u003ca href=\"/A174973/a174973_1.pdf\"\u003eProof of a second conjecture\u003c/a\u003e.",
+		"Eric Saias, \u003ca href=\"https://doi.org/10.1006/jnth.1997.2057\"\u003eEntiers à diviseurs denses 1\u003c/a\u003e, Journal of Number Theory, Vol. 62, No. 1 (1997), pp. 163-191.",
+		"Terence Tao, \u003ca href=\"https://terrytao.wordpress.com/2013/06/18/a-truncated-elementary-selberg-sieve-of-pintz/\"\u003eA Truncated Elementary Selberg Sieve of Pintz\u003c/a\u003e. (blog entry defining y-densely divisible)",
+		"Terence Tao et al., \u003ca href=\"https://web.archive.org/web/20191224082953/http://michaelnielsen.org/polymath1/index.php?title=Bounded_gaps_between_primes\"\u003ePolymath8 home page\u003c/a\u003e.",
+		"Andreas Weingartner, \u003ca href=\"https://doi.org/10.1093/qmath/hav006\"\u003ePractical numbers and the distribution of divisors\u003c/a\u003e, The Quarterly Journal of Mathematics, Vol. 66, No. 2 (2015), pp. 743-758; \u003ca href=\"https://arxiv.org/abs/1405.2585\"\u003earXiv preprint\u003c/a\u003e, arXiv:1405.2585 [math.NT], 2014-2015.",
+		"Andreas Weingartner, \u003ca href=\"https://doi.org/10.1090/mcom/3402\"\u003eOn the constant factor in several related asymptotic estimates\u003c/a\u003e, Math. Comp., Vol. 88, No. 318 (2019), pp. 1883-1902; \u003ca href=\"https://arxiv.org/abs/1705.06349\"\u003earXiv preprint\u003c/a\u003e, arXiv:1705.06349 [math.NT], 2017-2018.",
+		"Andreas Weingartner, \u003ca href=\"https://arxiv.org/abs/2101.11585\"\u003eThe number of prime factors of integers with dense divisors\u003c/a\u003e, arXiv:2101.11585 [math.NT], 2021.",
+		"Andreas Weingartner, \u003ca href=\"https://arxiv.org/abs/2303.16819\"\u003eUniform distribution of alpha*n modulo one for a family of integer sequences\u003c/a\u003e, arXiv:2303.16819 [math.NT], 2023."
+	],
+	"formula": [
+		"a(n) = A047836(n) / 2. - _Reinhard Zumkeller_, Sep 28 2011",
+		"a(n) = C*n*log(n*log(n)) + O(n), where C = 0.816439... (see comments). - _Andreas Weingartner_, Jun 23 2021"
+	],
+	"example": [
+		"The divisors of 12 are 1, 2, 3, 4, 6, 12. The ratios of adjacent divisors is 2, 3/2, 4/3, 3/2, and 2, which are all \u003c= 2. Hence 12 is in this sequence.",
+		"Example from _Omar E. Pol_, Mar 06 2014: (Start)",
+		"The symmetric representation of sigma(6) = 12 in the first quadrant looks like this:",
+		"   y",
+		"   .",
+		"   ._ _ _ _",
+		"   |_ _ _  |_",
+		"   .     |   |_",
+		"   .     |_ _  |",
+		"   .         | |",
+		"   .         | |",
+		"   . . . . . |_| . . x",
+		".",
+		"6 is in the sequence because the symmetric representation of sigma(6) = 12 has only one part. The 6th row of A237593 is [4, 1, 1, 1, 1, 4] and the 5th row of A237593 is [3, 2, 2, 3] therefore between both symmetric Dyck paths there is only one region (or part) of size 12.",
+		"70 is not in the sequence because the symmetric representation of sigma(70) = 144 has three parts. The 70th row of A237593 is [36, 12, 6, 4, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 6, 12, 36] and the 69th row of A237593 is [35, 12, 7, 4, 2, 3, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 3, 2, 4, 7, 12, 35] therefore between both symmetric Dyck paths there are three regions (or parts) of size [54, 36, 54]. (End)"
+	],
+	"maple": [
+		"a:= proc() option remember; local k; for k from 1+`if`(n=1, 0,",
+		"      a(n-1)) while (l-\u003e ormap(x-\u003e x, [seq(l[i]\u003el[i-1]*2, i=2..",
+		"      nops(l))]))(sort([(numtheory[divisors](k))[]])) do od; k",
+		"    end:",
+		"seq(a(n), n=1..100);  # _Alois P. Heinz_, Jul 27 2018"
+	],
+	"mathematica": [
+		"OK[n_] := Module[{d=Divisors[n]}, And@@(#\u003c=2\u0026 /@ (Rest[d]/Most[d]))]; Select[Range[300], OK]",
+		"(* Alternative: Requires Mathematica version 10 or later *)",
+		"dif2Q[n_]:=AllTrue[#[[2]]/#[[1]]\u0026/@Partition[Divisors[n],2,1],#\u003c=2\u0026]; Select[Range[300],dif2Q] (* _Harvey P. Dale_, Nov 29 2020 *)",
+		"(* Alternative: *)",
+		"Select[Range@300,Max[Ratios[Divisors[#]]]\u003c=2\u0026] (* _Giorgos Kalogeropoulos_, Oct 12 2026 *)"
+	],
+	"program": [
+		"(Haskell)",
+		"a174973 n = a174973_list !! (n-1)",
+		"a174973_list = filter f [1..] where",
+		"   f n = all (\u003c= 0) $ zipWith (-) (tail divs) (map (* 2) divs)",
+		"         where divs = a027750_row' n",
+		"-- _Reinhard Zumkeller_, Jun 25 2015, Sep 28 2011",
+		"(PARI) is(n)=my(d=divisors(n));for(i=2,#d,if(d[i]\u003e2*d[i-1],return(0)));1 \\\\ _Charles R Greathouse IV_, Jul 06 2013",
+		"(Magma) [k:k in [1..260]|forall{i:i in [1..#Divisors(k)-1]|d[i+1]/d[i] le 2 where d is Divisors(k)}]; // _Marius A. Burtea_, Jan 09 2020",
+		"(Python)",
+		"from sympy import divisors",
+		"def ok(n):",
+		"    d = divisors(n)",
+		"    return all(d[i]/d[i-1] \u003c= 2 for i in range(1, len(d)))",
+		"print(list(filter(ok, range(1, 257)))) # _Michael S. Branicky_, Jun 22 2021"
+	],
+	"xref": [
+		"Subsequence of A196149 and of A071562. A083207, A000396 and A000079 are subsequences.",
+		"Cf. A027750, A047836, A237593, A365429 (characteristic function).",
+		"Column 1 of A240062.",
+		"First differs from A103288 and A125225 at a(23). First differs from A005153 at a(24)."
+	],
+	"keyword": "nonn,changed",
+	"offset": "1,2",
+	"author": "_T. D. Noe_, Apr 02 2010",
+	"ext": [
+		"Edited by _N. J. A. Sloane_, Sep 09 2023",
+		"Edited by _Peter Munn_, Oct 17 2023"
+	],
+	"references": 102,
+	"revision": 175,
+	"time": "2026-10-18T23:17:44-04:00",
+	"created": "2010-06-01T03:00:00-04:00"
+}

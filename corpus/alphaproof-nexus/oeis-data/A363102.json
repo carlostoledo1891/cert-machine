@@ -1,0 +1,42 @@
+{
+	"number": 363102,
+	"data": "7,7,23,17,47,31,79,7,17,71,167,97,223,127,41,23,359,199,439,241,31,41,89,337,727,1,839,449,137,73,1087,577,1223,647,1367,103,1,47,73,881,1847,967,1,151,2207,1151,2399,1249,113,193,401,1,3023,1567,191,41,71,257,3719,113,3967,89,103,311",
+	"name": "Denominator of the continued fraction 1/(2-3/(3-4/(4-5/(...(n-1)-n/(-2))))).",
+	"comment": [
+		"Conjecture 1: The sequence contains only 1's and primes.",
+		"Conjecture 2: All prime numbers appear either twice (same as A356247 and A357127) or three times.",
+		"Similar terms of A164314.",
+		"Conjecture: Record values correspond to A028871(m), m \u003e 1. - _Bill McEachen_, Mar 06 2024",
+		"a(n) = 1 positions appear to correspond to A060515(m), m \u003e 2. - _Bill McEachen_, Aug 05 2024",
+		"Adamczewski provides a proof sketch of Conjecture 1 in linked article. - _Michael De Vlieger_, Aug 17 2026"
+	],
+	"link": [
+		"Bill McEachen, \u003ca href=\"/A363102/b363102.txt\"\u003eTable of n, a(n) for n = 3..10002\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 17 (proof, Appendix A).",
+		"Mohammed Bouras, \u003ca href=\"https://doi.org/10.5281/zenodo.10992128\"\u003eThe Distribution Of Prime Numbers And Continued Fractions\u003c/a\u003e, PowerPoint slides (2022)."
+	],
+	"formula": [
+		"a(n) = (n^2 - 2)/gcd(n^2 - 2, 2*A051403(n-3) + n*A051403(n-4)).",
+		"a(n) = A164314(n) if A164314(n) \u003e n.",
+		"If a(n) = a(m) and n \u003c m \u003c a(n), then a(n) = n + m."
+	],
+	"example": [
+		"a(5) = (5^2 - 2)/gcd(5^2 - 2, 2*A051403(5-3) + 5*A051403(5-4))= 23.",
+		"a(6) = a(11) = 6 + 11 = 17.",
+		"a(7) = a(40) = 7 + 40 = 47."
+	],
+	"program": [
+		"(PARI) a051403(n) = (n+2)*sum(k=0, n, k!)/2;",
+		"a(n) = (n^2 - 2)/gcd(n^2 - 2, 2*a051403(n-3) + n*a051403(n-4)); \\\\ _Michel Marcus_, May 24 2023"
+	],
+	"xref": [
+		"Cf. A008865, A051403, A059772, A164314, A356247, A357127."
+	],
+	"keyword": "nonn",
+	"offset": "3,1",
+	"author": "_Mohammed Bouras_, May 19 2023",
+	"references": 2,
+	"revision": 46,
+	"time": "2026-08-17T21:20:27-04:00",
+	"created": "2023-05-28T08:45:54-04:00"
+}

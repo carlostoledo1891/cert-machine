@@ -1,0 +1,28 @@
+{
+	"number": 341254,
+	"data": "4,8,12,16,21,25,29,33,40,44,48,52,57,61,65,69,76,80,84,88,93,97,101,105,110,116,120,124,129,133,137,141,146,152,156,160,165,169,173,177,182,186,192,196,201,205,209,213,218,222,228,232,237,241,245,249",
+	"name": "a(n) = floor(r*floor(r*n)), where r = (2 + sqrt(5))/2.",
+	"comment": [
+		"Conjecture:  1/4 \u003c n*r^2 - a(n) \u003c 3 for n \u003e= 1.",
+		"This was proved by an autonomous AI agent, see the Lean file. The proof uses the identity r^2 = 2*r + 1/4 and the fractional part eps = n*r - floor(n*r), irrational hence strictly between 0 and 1. It expands n*r^2 and a(n) using I = 2*floor(n*r) + floor(n/4), then case-splits on n mod 4 to evaluate the floor. - _Ralf Stephan_, Jun 09 2026"
+	],
+	"link": [
+		"Michael De Vlieger, \u003ca href=\"/A341254/b341254.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 21 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_341254_conjecture_0.lean\"\u003eAlphaProof Nexus: A341254 Lean file\u003c/a\u003e."
+	],
+	"mathematica": [
+		"z = 50; r = GoldenRatio + 1/2; a[x_] := Floor[r*Floor[r*x]];",
+		"Table[a[n], {n, 1, 120} ] (* A341254 *)"
+	],
+	"xref": [
+		"Cf. A341255."
+	],
+	"keyword": "nonn,easy",
+	"offset": "1,1",
+	"author": "_Clark Kimberling_, Feb 13 2021",
+	"references": 2,
+	"revision": 18,
+	"time": "2026-08-18T10:46:22-04:00",
+	"created": "2021-02-16T01:08:38-05:00"
+}

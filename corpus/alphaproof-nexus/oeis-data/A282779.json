@@ -1,0 +1,42 @@
+{
+	"number": 282779,
+	"data": "1,2,3,4,5,6,7,8,3,10,11,12,13,14,15,16,17,6,19,20,21,22,23,24,25,26,9,28,29,30,31,32,33,34,35,12,37,38,39,40,41,42,43,44,15,46,47,48,49,50,51,52,53,18,55,56,57,58,59,60,61,62,21,64,65,66,67,68,69,70,71,24,73,74,75,76,77,78,79,80,27",
+	"name": "Period of cubes mod n.",
+	"comment": [
+		"The length of the period of A000035 (n=2), A010872 (n=3), A109718 (n=4), A070471 (n=5), A010875 (n=6), A070472 (n=7), A109753 (n=8), A167176 (n=9), A008960 (n = 10), etc. (see also comment in A000578 from _R. J. Mathar_).",
+		"Conjecture: let a_p(n) be the length of the period of the sequence k^p mod n where p is a prime, then a_p(n) = n/p if n == 0 (mod p^2) else a_p(n) = n.",
+		"For example: sequence k^7 mod 98 gives 1, 30, 31, 18, 19, 48, 49, 50, 79, 80, 67, 68, 97, 0, 1, 30, 31, 18, 19, 48, 49, 50, 79, 80, 67, 68, 97, 0, ... (period 14), 7 is a prime, 98 == 0 (mod 7^2) and 98/7 = 14.",
+		"This was proved by an autonomous AI agent, see the Lean file. The proof uses the conjectured period as candidate and shows it both works and is minimal. Validity comes from a geometric-sum factorization modulo n; minimality compares prime factorizations, testing small shifts to bound any competing period from below. The infimum then equals this least element. - _Ralf Stephan_, May 31 2026"
+	],
+	"link": [
+		"Ray Chandler, \u003ca href=\"/A282779/b282779.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 18 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_282779_conjecture_0.lean\"\u003eAlphaProof Nexus: A282779 Lean file\u003c/a\u003e",
+		"Ilya Gutkovskiy, \u003ca href=\"/A282779/a282779.pdf\"\u003eExtended graphical example\u003c/a\u003e",
+		"\u003ca href=\"/index/Rec#order_18\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,-1)."
+	],
+	"formula": [
+		"Apparently: a(n) = 2*a(n-9) - a(n-18).",
+		"Empirical g.f.: x*(1 + 2*x + 3*x^2 + 4*x^3 + 5*x^4 + 6*x^5 + 7*x^6 + 8*x^7 + 3*x^8 + 8*x^9 + 7*x^10 + 6*x^11 + 5*x^12 + 4*x^13 + 3*x^14 + 2*x^15 + x^16) / ((1 - x)^2*(1 + x + x^2)^2*(1 + x^3 + x^6)^2). - _Colin Barker_, Feb 21 2017"
+	],
+	"example": [
+		"a(9) = 3 because reading 1, 8, 27, 64, 125, 216, 343, 512, ... modulo 9 gives 1, 8, 0, 1, 8, 0, 1, 8, 0, ... with period length 3."
+	],
+	"mathematica": [
+		"a[1] = 1; a[n_] := For[k = 1, True, k++, If[Mod[k^3, n] == 0 \u0026\u0026 Mod[(k + 1)^3 , n] == 1, Return[k]]]; Table[a[n], {n, 1, 81}]"
+	],
+	"program": [
+		"(Python)",
+		"def A282779(n): return n if n%9 else n//3 # _Chai Wah Wu_, May 31 2026"
+	],
+	"xref": [
+		"Cf. A000035, A000578, A008960, A010872, A010875, A046530, A070471, A070472, A109718, A109753, A167176, A186646."
+	],
+	"keyword": "nonn,easy",
+	"offset": "1,2",
+	"author": "_Ilya Gutkovskiy_, Feb 21 2017",
+	"references": 1,
+	"revision": 28,
+	"time": "2026-08-19T08:54:13-04:00",
+	"created": "2017-02-27T21:20:23-05:00"
+}

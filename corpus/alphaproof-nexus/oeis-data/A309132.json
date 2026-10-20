@@ -1,0 +1,55 @@
+{
+	"number": 309132,
+	"data": "1,1,1,16,1,36,1,64,27,100,1,144,1,196,75,256,1,324,1,400,49,484,1,576,125,676,243,784,1,900,1,1024,363,1156,1225,1296,1,1444,169,1600,1,1764,1,1936,135,2116,1,2304,343,2500,867,2704,1,2916,3025,3136,361,3364,1,3600,1,3844,1323,4096,845,4356,1",
+	"name": "a(n) is the denominator of F(n) = A027641(n-1)/n + A027642(n-1)/n^2.",
+	"comment": [
+		"It seems that the numerator of F(n) is the numerator of (B(n-1) + 1/n), where B(k) is the k-th Bernoulli number; if so, for n \u003e 2, the numerator of F(n) is A174341(n-1). How to prove it?",
+		"Conjecture: for n \u003e 1, a(n) = 1 if and only if n is prime.",
+		"Is this conjecture equivalent to the Agoh-Giuga conjecture?",
+		"Theorem 1. If p is prime, then a(p) = 1. Proof. a(2) = 1, so let p be an odd prime. By the von Staudt-Clausen theorem, if k is even, then B(k) = A(k) - Sum_{prime q, q-1 | k} 1/q, where A(k) is an integer and the sum is over all primes q such that q-1 divides k. Thus B(k) = N(k)/D(k) with D(k) = Product_{prime q, q-1 | k} q. Now let k = p-1. Then N(p-1)/D(p-1) = B(p-1) = A(p-1) - 1/p - Sum_{prime q \u003c p, q-1 | p-1} 1/q (*). Add 1/p to both sides of (*) and multiply by p*D(p-1) to get p*N(p-1) + D(p-1) = p*D(p-1)*(A(p-1) - Sum_{prime q \u003c p, q-1 | p-1} 1/q) (**). Now p | D(p-1), so p^2 | p*D(p-1) in (**). The denominators on the right side of (**) are all of the form q \u003c p. Therefore, p^2 divides both sides of (**). Hence F(p) = N(p-1)/p + D(p-1)/p^2 is an integer, so a(p) = 1. - _Jonathan Sondow_, Jul 14 2019",
+		"Conjecture: composite numbers n such that a(n) is squarefree are only the Carmichael numbers A002997. Cf. A309235. - _Thomas Ordowski_, Jul 15 2019",
+		"Conjecture checked up to n = 101101. - _Amiram Eldar_, Jul 16 2019",
+		"Theorem 2. If n is a prime or a Carmichael number, then a(n) = A326690(n) = denominator of (Sum_{prime p | n} 1/p - 1/n). The proof is a generalization of that of Theorem 1. (Note that Theorem 2 implies Theorem 1, since if n is prime, then (Sum_{prime p | n} 1/p - 1/n) = 1/n - 1/n = 0/1, so a(p) = A326690(n) = 1.) For n a prime or a Carmichael number, an application of Theorem 2 is computing a(n) without calculating Bernoulli(n-1) which may be huge; see A309268 and A326690. - _Jonathan Sondow_, Jul 19 2019",
+		"The values of F(n) when n is prime are A327033. - _Jonathan Sondow_, Aug 16 2019",
+		"The proof that n is Carmichael iff n is composite and a(n) is squarefree was achieved by an autonomous AI agent, see the Tsoukalas paper and the Lean proof. The proof uses the von Staudt-Clausen theorem to control the denominator of Bernoulli numbers: it shows the q-adic valuation of the m-th Bernoulli number is -1 exactly when q-1 | m, giving the denominator of Bernoulli(n-1) as the product of primes p with p-1 | n-1. It rewrites a(n) as n^2/gcd(...) and links its squarefreeness to two arithmetic conditions on n. These are then matched against Korselt's criterion (composite, squarefree, and p-1 | n-1 for every prime p | n), proved via the Chinese remainder theorem and cyclic-group generators. Combining both directions yields the Carmichael equivalence (Summary by Opus 4.7). - _Ralf Stephan_, May 25 2026"
+	],
+	"link": [
+		"Amiram Eldar, \u003ca href=\"/A309132/b309132.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See pp. 13, 15 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/A309132_conjecture_carmichael.lean\"\u003eAlphaProof Nexus: A309132 Lean file\u003c/a\u003e",
+		"George Tsoukalas et al., \u003ca href=\"https://arxiv.org/abs/2605.22763\"\u003eAdvancing Mathematics Research with AI-Driven Formal Proof Search\u003c/a\u003e, arXiv:2605.22763 [cs.AI], 2026.",
+		"Eric Weisstein's World of Mathematics, \u003ca href=\"https://mathworld.wolfram.com/AgohsConjecture.html\"\u003eAgoh's Conjecture\u003c/a\u003e.",
+		"Eric Weisstein's World of Mathematics, \u003ca href=\"https://mathworld.wolfram.com/CarmichaelNumber.html\"\u003eCarmichael Number\u003c/a\u003e.",
+		"Eric Weisstein's World of Mathematics, \u003ca href=\"https://mathworld.wolfram.com/vonStaudt-ClausenTheorem.html\"\u003evon Staudt-Clausen Theorem\u003c/a\u003e.",
+		"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Agoh-Giuga_conjecture\"\u003eAgoh-Giuga conjecture\u003c/a\u003e",
+		"Wikipedia, \u003ca href=\"https://en.wikipedia.org/wiki/Bernoulli_number#Related_sequences\"\u003eBernoulli number: Related sequences\u003c/a\u003e"
+	],
+	"formula": [
+		"a(p) = 1 for prime p.",
+		"a(2k) = (2k)^2 for k \u003e 1.",
+		"Conjecture: for k \u003e 0, a(2k+1) = (2k+1)^2 iff 2k+1 is in A121707.",
+		"Denominator(F(p)/p) = 1 for the primes p = 2 and p = 1277 but for no other prime p \u003c 1.5 * 10^4. Does denominator(F(p)/p) = 1 for any prime p \u003e 1.5 * 10^4? - _Jonathan Sondow_, Jul 14 2019",
+		"Similarly, Sum_{k=1..p-1} k^(p-1) == -1 (mod p^2) for the prime p = 1277. - _Thomas Ordowski_, Jul 15 2019",
+		"a(n) = denominator(Sum_{prime p | n} 1/p - 1/n) if n is a prime or a Carmichael number. - _Jonathan Sondow_, Jul 19 2019"
+	],
+	"example": [
+		"F(n) = 2/1, 0/1, 1/1, 1/16, 1/1, 1/36, 1/1, 1/64, 7/27, 1/100, 1/1, 1/144, -37/1, 1/196, 37/75, 1/256, -211/1, 1/324, 2311/1, 1/400, -407389/49, ..."
+	],
+	"mathematica": [
+		"Table[Denominator[Numerator[BernoulliB[n - 1]] / n + Denominator[ BernoulliB[ n - 1]] / n^2], {n, 70}] (* _Vincenzo Librandi_, Jul 14 2019 *)"
+	],
+	"program": [
+		"(PARI) a(n) = denominator(numerator(bernfrac(n-1))/n + denominator(bernfrac(n-1))/n^2); \\\\ _Michel Marcus_, Jul 14 2019",
+		"(Magma) [Denominator(Numerator(Bernoulli(n-1))/n + Denominator(Bernoulli(n-1))/n^2): n in [1..70]]; // _Vincenzo Librandi_, Jul 14 2019"
+	],
+	"xref": [
+		"Cf. A000040, A000146, A002997, A027641, A027642, A110936, A166062, A174341, A174342, A309235, A326690, A327033."
+	],
+	"keyword": "nonn,frac,changed",
+	"offset": "1,4",
+	"author": "_Thomas Ordowski_, Jul 14 2019",
+	"references": 9,
+	"revision": 123,
+	"time": "2026-10-09T12:55:04-04:00",
+	"created": "2019-07-15T13:15:01-04:00"
+}

@@ -415,6 +415,14 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'wowii-ledger.json'), 'utf8'));
       if (L.counts.CERTIFIED !== 5) fail('the WOWII card would misstate the record');
       return '5 of 5 witnesses certified · trees of 25, 41, 150 vertices · clique graphs of 39 and 15'; })() },
+  { g: 'ai', f: 'alphaproof-nexus.html', k: 'audit · a peer-reviewed release, replayed',
+    title: 'AlphaProof Nexus: the proofs hold under two kernels; three OEIS conjectures were already proved, two statements are degenerate',
+    desc: 'Google DeepMind’s AlphaProof Nexus (Science, October 2026) reports 9 of 353 open Erdős problems resolved and 44 OEIS conjectures proved, “correctly formalized and previously unproven”. '
+      + 'Every published Erdős proof, and the corrected #741(i), checked by Comparator against formal-conjectures’ own statement and replayed through Lean’s kernel and nanoda: all hold. '
+      + 'The nine are seven problems; 38 of the 44 OEIS proofs are published; three of those conjectures already had a proof on record, and two statements hold for a reason unrelated to their conjecture.',
+    n: (() => { const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'apn-kernel.json'), 'utf8')), O = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'apn-oeis.json'), 'utf8'));
+      if (K.rows.some((r) => r.word !== 'CERTIFIED') || O.counts.priorProofRows.length !== 3) fail('the AlphaProof Nexus card would misstate the record');
+      return K.rows.length + ' proofs certified, two kernels · ' + O.published + ' of ' + O.claimed + ' OEIS proofs published · 3 already proved · 2 degenerate'; })() },
   { g: 'ai', f: 'curve-seeds.html', k: 'audit · the NIST curve seeds',
     title: 'NIST\u2019s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards',
     desc: 'Anthropic\u2019s 16 October 2026 claim that the fourteen NIST and X9.62 curve seeds are lrand48 candidates seeded from 1997–98 Unix timestamps, and that six base points come from FreeLIP\u2019s generator, '

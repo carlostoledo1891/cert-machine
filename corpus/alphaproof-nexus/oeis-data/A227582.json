@@ -1,0 +1,45 @@
+{
+	"number": 227582,
+	"data": "2,7,14,23,35,50,67,86,107,131,158,187,218,251,287,326,367,410,455,503,554,607,662,719,779,842,907,974,1043,1115,1190,1267,1346,1427,1511,1598,1687,1778,1871,1967,2066,2167,2270,2375,2483,2594,2707,2822,2939",
+	"name": "Expansion of (2+3*x+2*x^2+2*x^3+3*x^4+x^5-x^6)/(1-2*x+x^2-x^5+2*x^6-x^7).",
+	"comment": [
+		"At A227581, it is conjectured that a(n) = floor(1/(2*H(n) - H(n^2 + n - 1) - g)), where H denotes harmonic number and g denotes the Euler-Mascheroni constant.",
+		"This was proved by an autonomous AI agent, see the Tsoukalas paper and the Lean file. The proof uses a(n) = floor((6n^2+6n-1)/5), derived by checking the order-7 linear recurrence collapses to a quadratic. The theorem identifies a(n) with floor(1/x(n)), where x(n) = 2H(n) - H(n^2+n-1) - g. To pin x(n), it sandwiches the harmonic-minus-log error H(m) - log(m) - g between Stirling-type rational tails, justified via monotone sequences converging to g and Taylor bounds on log(1+x). These yield 1/(a(n)+1) \u003c x(n) \u003c= 1/a(n), forcing the floor to equal a(n) (Summary by Opus 4.7). - _Ralf Stephan_, May 25 2026"
+	],
+	"link": [
+		"Clark Kimberling, \u003ca href=\"/A227582/b227582.txt\"\u003eTable of n, a(n) for n = 1..1000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 14 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_227582_conjecture_0.lean\"\u003eAlphaProof Nexus: A227582 Lean file\u003c/a\u003e.",
+		"George Tsoukalas et al., \u003ca href=\"https://arxiv.org/abs/2605.22763\"\u003eAdvancing Mathematics Research with AI-Driven Formal Proof Search\u003c/a\u003e, arXiv:2605.22763 [cs.AI], 2026.",
+		"\u003ca href=\"/index/Rec#order_07\"\u003eIndex entries for linear recurrences with constant coefficients\u003c/a\u003e, signature (2,-1,0,0,1,-2,1)"
+	],
+	"formula": [
+		"a(n) = 2*a(n-1) - a(n-2) + a(n-5) - 2*a(n-6) + a(n-7).",
+		"G.f.: (1+x) * (2+x+x^2+x^3+2*x^4-x^5) / ((1-x)^3 * (1+x+x^2+x^3+x^4)).",
+		"a(n) ~ 6*n^2/5. - _Stefano Spezia_, Feb 23 2025"
+	],
+	"mathematica": [
+		"z = 60; a[1]=2; a[2]=7; a[3]=14; a[4]=23; a[5]=35; a[6]=50; a[7] = 67; a[8]=86; a[n_]:= a[n]= 2*a[n-1] -a[n-2] +a[n-5] -2*a[n-6] + a[n-7]; Table[a[n], {n, 1, z}]  (* A227582 *)",
+		"(* Alternative: *)",
+		"h[n_] := h[n] = HarmonicNumber[n]; t1 = N[Table[2 h[n] - h[n^2 + n - 1] - EulerGamma, {n, 1, z}]]; Floor[1/t1];  (* conjectured A227582 *)",
+		"(* Alternative: *)",
+		"CoefficientList[Series[(1+x)*(2+x+x^2+x^3+2*x^4-x^5)/((1-x)^3*(1+x+x^2+ x^3+x^4)), {x, 0, 50}], x] (* _G. C. Greubel_, Aug 04 2018 *)",
+		"(* Alternative: *)",
+		"LinearRecurrence[{2,-1,0,0,1,-2,1},{2,7,14,23,35,50,67},50] (* _Harvey P. Dale_, Apr 17 2025 *)"
+	],
+	"program": [
+		"(PARI) my(x='x+O('x^50)); Vec((1+x)*(2+x+x^2+x^3+2*x^4-x^5)/((1-x)^3*(1+x + x^2+x^3+x^4))) \\\\ _G. C. Greubel_, Aug 04 2018",
+		"(Magma) R\u003cx\u003e:=PowerSeriesRing(Integers(), 50); Coefficients(R!( (1+x)*(2+x+x^2+x^3+2*x^4-x^5)/((1-x)^3*(1+x+x^2+x^3+x^4)) )); // _G. C. Greubel_, Aug 04 2018",
+		"(SageMath) ((1+x)*(2+x+x^2+x^3+2*x^4-x^5)/((1-x)^3*(1+x+x^2+x^3+x^4)) ).series(x, 30).coefficients(x, sparse=False) # _G. C. Greubel_, May 06 2019"
+	],
+	"xref": [
+		"Cf. A227581."
+	],
+	"keyword": "nonn,easy",
+	"offset": "1,1",
+	"author": "_Clark Kimberling_, Jul 17 2013",
+	"references": 2,
+	"revision": 45,
+	"time": "2026-08-19T09:39:34-04:00",
+	"created": "2013-07-17T10:23:36-04:00"
+}

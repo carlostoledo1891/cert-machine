@@ -1,0 +1,422 @@
+{
+ "what": "The AlphaProof Nexus audit, kernel lane: each Erdős proof of google-deepmind/alphaproof-nexus-results @ 0647711a checked by Comparator v4.27.0 against formal-conjectures' own statement at the commit the repository builds against (7862bf6a), with nanoda on (.github/workflows/apn-kernel.yml). CERTIFIED here means the proof proves exactly that statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept it. Whether the statement is the problem Erdős posed is the reading lane's question.",
+ "generated": "2026-10-20T11:47:25Z",
+ "workflow": ".github/workflows/apn-kernel.yml",
+ "rule": "tools/comparator-verdict.js",
+ "deciders": {
+  "rule": "c179c31373100a816248fecebd0d1e929ef150bbb61670c7ab5a18022c2df87c",
+  "prepare": "b329cdd4cb602180cd27d5d0881a94642b3d16f1d3b3b6158d37f8eeaf62ac57",
+  "workflow": "3e6d6a40c40abd0233126d74f173fd5ce95891ebf5d8451f061b32be5f1b4bbe"
+ },
+ "counts": {
+  "CERTIFIED": 10
+ },
+ "rows": [
+  {
+   "item": "erdos_12.parts.i",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 134,
+     "cacheSeconds": 82,
+     "maxRssKB": 6612728,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos12.target_theorem_0"
+     ],
+     "sha256": [
+      "8c015b235fb86fa7fd4d05a6328df2763a5153f4e68a6234e2018e245fe2e6fc  Challenge.lean",
+      "c42238294d8d2d88ec752c5f293486a759b163412929dc4bc67d08702a499a59  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_12.parts.ii",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 196,
+     "cacheSeconds": 105,
+     "maxRssKB": 6920912,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos12.target_theorem_0"
+     ],
+     "sha256": [
+      "8af5ac7979ef5f7395e2df237e39e5bcfa5b9730bfbd389c779fe6da3653dfd4  Challenge.lean",
+      "f155135c1e845cb3041abe20edce22e660c407b48620d696ea6325c75ae91b66  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_125.variants.positive_lower_density",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 123,
+     "cacheSeconds": 96,
+     "maxRssKB": 6934524,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos125.target_theorem_0"
+     ],
+     "sha256": [
+      "6e848728cfd806030ec96de0f0325dfaf901404b731753a6accac44ce376ca97  Challenge.lean",
+      "12e2df1ba973bde5028ccd1f66e7ae3ba493144213337d9f71f39e28d5d0c47c  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_138.variants.difference",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 116,
+     "cacheSeconds": 99,
+     "maxRssKB": 6526692,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos138.target_theorem_0"
+     ],
+     "sha256": [
+      "85bae10d0a91d8bee44d4fe299708c87abd425987184c6c97b80b8e97ee48bd5  Challenge.lean",
+      "c43f8170bbf340464e25fbdc479f6d407d04cda5850521e572aea2d7b53af133  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_152",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 145,
+     "cacheSeconds": 91,
+     "maxRssKB": 6919204,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos152.target_theorem_0"
+     ],
+     "sha256": [
+      "93b84fbaf145d0dc4cd641f19586d9129cf015e48372441dda4ec3094c1bbcca  Challenge.lean",
+      "fb9cf6bb4de746f9e520e07ce9fccbddd6cd63eafb674bbe60dd457a827c6e35  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_26.variants.tenenbaum",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 106,
+     "cacheSeconds": 84,
+     "maxRssKB": 6573196,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos26.target_theorem_0"
+     ],
+     "sha256": [
+      "6b963f40f0df1ae1cef8c6ef536d0b9687400ada520c8908db9a08ed077e2e28  Challenge.lean",
+      "5c48abbba23217e2f5426cb43c3efbf9ab8e6e1a1fa7fde8103a7956c5939afe  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_741.parts.i",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 161,
+     "cacheSeconds": 92,
+     "maxRssKB": 6794288,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos741.target_theorem_0"
+     ],
+     "sha256": [
+      "689c1670f31318af9f52e56d379c6bf6767725497979c9a1422e4656283c790c  Challenge.lean",
+      "481e87ebaa4058e5ce4f2cf85f229cf4382a633c6de02cd4617c8bf1212184df  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_741.parts.ii",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 78,
+     "cacheSeconds": 88,
+     "maxRssKB": 6826924,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos741.target_theorem_0"
+     ],
+     "sha256": [
+      "3c73200d1206bff175472bb2e1c2537a0669411c836604163f2b1e101a5665bd  Challenge.lean",
+      "77a222124ab3d8b85346656614dc5cb5f57d41c911525ca6641255b4ba9260c8  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_846",
+   "runs": [
+    {
+     "run": 39411942047,
+     "workflowSha": "d493b13bb356e34c4864c8c7f3f5b4d2694f4b54",
+     "at": "2026-10-20T11:08:18Z",
+     "exit": 1,
+     "seconds": 61,
+     "cacheSeconds": 96,
+     "maxRssKB": 6767132,
+     "kernels": [],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "/home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | /home/runner/.elan/toolchains/leanprover--lean4---v4.27.0/lib/lean | Command exited with non-zero status 1"
+     }
+    },
+    {
+     "run": 39413005702,
+     "workflowSha": "074faec71b0c819a70b174763923af62e5f22c9e",
+     "at": "2026-10-20T11:16:43Z",
+     "exit": 1,
+     "seconds": 89,
+     "cacheSeconds": 83,
+     "maxRssKB": 7203492,
+     "kernels": [],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "REFUSED",
+      "stage": "export or replay",
+      "why": "uncaught exception: Version invalid: '{\"meta\":{\"exporter\":{\"name\":\"lean4export\",\"version\":\"3.1.0\"},\"format\":{\"version\":\"3.1.0\"},\"lean\":{\"githash\":\"db93fe1608548721853390a10cd40580fe7d22ae\",\"version\":\"4.27.0\"}}}' | Command exited with non-zero status 1"
+     }
+    },
+    {
+     "run": 39414076582,
+     "workflowSha": "258efc578ad01486fb58937fda90bb7968f725b0",
+     "at": "2026-10-20T11:26:31Z",
+     "exit": 0,
+     "seconds": 174,
+     "cacheSeconds": 90,
+     "maxRssKB": 6842040,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    },
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 139,
+     "cacheSeconds": 95,
+     "maxRssKB": 6836020,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos846.target_theorem_0"
+     ],
+     "sha256": [
+      "b9fdbd38b87cec66e1919b10031665c13fbc8376d228ab0cac507cad24f86e1b  Challenge.lean",
+      "47f77fbc9646be4c1c58ae5713c7dcbee610f8b006e049f4f6c74ebc6159d227  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  },
+  {
+   "item": "erdos_741.variants.upper",
+   "runs": [
+    {
+     "run": 39415085701,
+     "workflowSha": "9a4246c997e956aa3fe26c7ca60b2a48fa2797c6",
+     "at": "2026-10-20T11:36:28Z",
+     "exit": 0,
+     "seconds": 131,
+     "cacheSeconds": 111,
+     "maxRssKB": 6506536,
+     "kernels": [
+      "Lean default kernel accepts the solution",
+      "Nanoda kernel accepts the solution"
+     ],
+     "theorem": [
+      "Erdos741.erdos_741.variants.upper"
+     ],
+     "sha256": [
+      "7d31078b55ba3b1c7330ceefb1ceeaf166742dbbfcd2bb13389e846672b268d1  Challenge.lean",
+      "b330a0789b379fc6a2aa8e6f548f83aee85a0dc405bb0300d2a8084775e60c4f  Solution.lean"
+     ],
+     "decided": {
+      "word": "CERTIFIED",
+      "why": "Comparator exit 0; nanoda and Lean's kernel both accept"
+     }
+    }
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; nanoda and Lean's kernel both accept",
+   "stage": null
+  }
+ ],
+ "redControls": [
+  {
+   "item": "erdos_846.red.statement",
+   "what": "our challenge weakened (ε > 0 to ε ≥ 0): the solution no longer proves the challenge statement",
+   "run": 39416708323,
+   "word": "REFUTED?",
+   "why": "uncaught exception: Challenge and solution theorem statement do not match: 'Erdos846.target_theorem_0'",
+   "fired": true
+  },
+  {
+   "item": "erdos_846.red.sorry",
+   "what": "their solution with the main proof replaced by sorry: it rests on sorryAx, not permitted",
+   "run": 39416708323,
+   "word": "REFUTED?",
+   "why": "uncaught exception: Illegal axiom detected: 'sorryAx'",
+   "fired": true
+  }
+ ]
+}

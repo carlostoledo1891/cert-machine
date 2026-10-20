@@ -1,0 +1,72 @@
+{
+	"number": 5279,
+	"id": "M4093",
+	"data": "6,12,15,18,20,24,28,30,35,36,40,42,45,48,54,56,60,63,66,70,72,75,77,78,80,84,88,90,91,96,99,100,102,104,105,108,110,112,114,117,120,126,130,132,135,138,140,143,144,150,153,154,156,160,162,165,168,170,174,175,176",
+	"name": "Numbers having divisors d, e with d \u003c e \u003c 2*d.",
+	"comment": [
+		"The arithmetic and harmonic means of A046793(n) and a(n) are both integers.",
+		"n is in this sequence iff n is a multiple of some term in A020886.",
+		"a(n) is also a positive integer v for which there exists a smaller positive integer u such that the contraharmonic mean (uu+vv)/(u+v) is an integer c (in fact, there are two distinct values u giving with v the same c). - _Pahikkala Jussi_, Dec 14 2008",
+		"A174903(a(n)) \u003e 0; complement of A174905. - _Reinhard Zumkeller_, Apr 01 2010",
+		"Also numbers n such that A239657(n) \u003e 0. - _Omar E. Pol_, Mar 23 2014",
+		"Erdős (1948) shows that this sequence has a natural density, so a(n) ~ k*n for some constant k. It can be shown that k \u003c 3.03, and by numerical experiments it seems that k is around 1.8. - _Charles R Greathouse IV_, Apr 22 2015",
+		"Numbers k such that at least one of the parts in the symmetric representation of sigma(k) has width \u003e 1. - _Omar E. Pol_, Dec 08 2016",
+		"Erdős conjectured that the asymptotic density of this sequence is 1. This has been proven by Maier \u0026 Tenenbaum (1984). The numbers of terms not exceeding 10^k for k = 1, 2, ... are 1, 32, 392, 4312, 45738, 476153, 4911730, 50359766, 513682915, 5224035310, ... - _Amiram Eldar_, Jul 21 2020",
+		"Numbers with at least one partition into two distinct parts (s,t), s\u003ct, such that t|s*n. - _Wesley Ivan Hurt_, Jan 16 2022",
+		"Appears to be the set of numbers x such that there exist numbers y and z satisfying the condition (x^2+y^2)/(x^2+z^2) = (x+y)/(x+z). For example, (15^2+10^2)/(15^2+3^2) = (15+10)/(15+3), so 15 is in the sequence. - _Gary Detlefs_, Apr 01 2023",
+		"From _Bob Andriesse_, Nov 26 2023: (Start)",
+		"Rewriting (x^2+y^2) / (x^2+z^2) = (x+y) / (x+z) as (x^2+y^2) / (x+y) = (x^2+z^2) / (x+z) has the advantage that the values on both sides of the = sign in the given example become integers. A possible sequence with the name: \"k's for which r = (k^2+m^2) / (k+m) can be an integer while m\u003ck\" appears to have the same terms as this sequence, with the corresponding m's being A053629(n) and the r's being A009003(n). If (k^2+m^2) / (k+m) = r and m satisfies the divisibility condition, then r-m also does, because (k^2 + (r-m)^2) / (k + (r-m)) = r as well, confirming Pahikkala Jussi's comment about the existence of two distinct values for his u.",
+		"The fact that 15 is in the sequence is not so much because (15^2 + 10^2) / (15^2 + 3^2) = 1.3888... = (15+10) / (15+3), as indicated by Gary Detlefs, but rather because (15+10) | (15^2 + 10^2). And since r = (15^2 + 10^2) / (15+10) = 13, the second value that satisfies the divisibility condition is 13-10 = 3, so (15^2 + 3^2) / (15+3) = 13 as well.",
+		"Since (k+m)| (k^2 + m^2) is equivalent to (k+m) | 2*k^2 as well as to (k+m) | 2*m^2, both of these alternative divisibility conditions can be used to generate the same sequence too. (End)"
+	],
+	"reference": [
+		"R. K. Guy, Unsolved Problems in Number Theory, 2nd (or 3rd) edition, E3.",
+		"N. J. A. Sloane and Simon Plouffe, The Encyclopedia of Integer Sequences, Academic Press, 1995 (includes this sequence)."
+	],
+	"link": [
+		"Reinhard Zumkeller, \u003ca href=\"/A005279/b005279.txt\"\u003eTable of n, a(n) for n = 1..10000\u003c/a\u003e (first 1000 terms from T. D. Noe)",
+		"Elijah Beregovsky, \u003ca href=\"/A384927/a384927.pdf\"\u003eEquivalence of definitions of A005279\u003c/a\u003e, 2025.",
+		"Thomas Bloom, \u003ca href=\"https://www.erdosproblems.com/144\"\u003eProblem 144\u003c/a\u003e, Erdős Problems.",
+		"Paul Erdős, \u003ca href=\"http://www.renyi.hu/~p_erdos/1948-06.pdf\"\u003eOn the density of some sequences of numbers\u003c/a\u003e, Bull. Amer. Math. Soc. 54 (1948), 685--692 MR10,105b; Zbl 32,13 (see Theorem 3).",
+		"Paul Erdős, \u003ca href=\"http://www.numdam.org/item/?id=AST_1979__61__73_0\"\u003eSome unconventional problems in number theory\u003c/a\u003e, Journées Arithmétiques de Luminy, Astérisque 61 (1979), p. 73-82.",
+		"Paul Erdős, \u003ca href=\"https://www.jstor.org/stable/2689842\"\u003eSome unconventional problems in number theory\u003c/a\u003e, Mathematics Magazine, Vol. 52, No. 2 (1979), pp. 67-70.",
+		"Paul Erdős, \u003ca href=\"https://doi.org/10.1112/jlms/s1-39.1.692\"\u003eOn some applications of probability to analysis and number theory\u003c/a\u003e, J. London Math. Soc., Vol. 39, No. 1 (1964), pp. 692-696, \u003ca href=\"https://users.renyi.hu/~p_erdos/1964-15.pdf\"\u003ealternative link\u003c/a\u003e.",
+		"Erdős problems database contributors, \u003ca href=\"https://github.com/teorth/erdosproblems/blob/main/README.md#table\"\u003eErdős problem database\u003c/a\u003e, see no. 144.",
+		"H. Maier and G. Tenenbaum, \u003ca href=\"http://hdl.handle.net/2027.42/46612\"\u003eOn the set of divisors of an integer\u003c/a\u003e, Invent. Math. (1984), 121-128.",
+		"Planet Math, \u003ca href=\"http://planetmath.org/IntegerContraharmonicMeans\"\u003eInteger Contraharmonic Means\u003c/a\u003e, Proposition 4.",
+		"Planet Math, \u003ca href=\"http://planetmath.org/ContraharmonicProportion\"\u003eContraharmonic proportion\u003c/a\u003e",
+		"Robert G. Wilson v, \u003ca href=\"/A005279/a005279.pdf\"\u003eLetter, N.D.\u003c/a\u003e"
+	],
+	"formula": [
+		"a(n) = A010814(n)/2. - _Omar E. Pol_, Dec 04 2016",
+		"a(n) ~ n. - _Charles R Greathouse IV_, Feb 05 2026"
+	],
+	"maple": [
+		"isA005279 := proc(n) local divs,d,e ; divs := numtheory[divisors](n) ; for d from 1 to nops(divs)-1 do for e from d+1 to nops(divs) do if divs[e] \u003c 2*divs[d] then RETURN(true) ; fi ; od: od: RETURN(false) : end; for n from 3 to 300 do if isA005279(n) then printf(\"%d,\",n) ; fi ; od : # _R. J. Mathar_, Jun 08 2006"
+	],
+	"mathematica": [
+		"aQ[n_] := Select[Partition[Divisors[n], 2, 1], #[[2]] \u003c 2 #[[1]] \u0026] != {}; Select[Range[178], aQ] (* _Jayanta Basu_, Jun 28 2013 *)"
+	],
+	"program": [
+		"(Haskell)",
+		"a005279 n = a005279_list !! (n-1)",
+		"a005279_list = filter ((\u003e 0) . a174903) [1..]",
+		"-- _Reinhard Zumkeller_, Sep 29 2014",
+		"(PARI) is(n)=my(d=divisors(n));for(i=3,#d,if(d[i]\u003c2*d[i-1],return(1)));0 \\\\ _Charles R Greathouse IV_, Apr 22 2015",
+		"(Python)",
+		"from sympy import divisors",
+		"def is_A005279(n): D=divisors(n)[1:]; return any(e\u003c2*d  for d,e in zip(D, D[1:]))",
+		"# _M. F. Hasler_, Mar 20 2025"
+	],
+	"xref": [
+		"Subsequence of A024619 and hence of A002808.",
+		"Cf. A010814, A089341, A020886, A046793, A174903, A174905, A237271, A237593, A239657."
+	],
+	"keyword": "nonn",
+	"offset": "1,1",
+	"author": "_N. J. A. Sloane_, _Robert G. Wilson v_",
+	"references": 43,
+	"revision": 140,
+	"time": "2026-02-26T15:42:20-05:00",
+	"created": "1991-05-20T03:00:00-04:00"
+}

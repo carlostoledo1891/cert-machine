@@ -1,0 +1,69 @@
+{
+ "items": [
+  {
+   "owner": {
+    "account_id": 10715847,
+    "reputation": 2973,
+    "user_id": 113409,
+    "user_type": "registered",
+    "profile_image": "https://i.sstatic.net/Gc6wM.png?s=256",
+    "display_name": "Somos",
+    "link": "https://mathoverflow.net/users/113409/somos"
+   },
+   "is_accepted": false,
+   "score": 6,
+   "last_activity_date": 1747865554,
+   "last_edit_date": 1747865554,
+   "creation_date": 1743537585,
+   "answer_id": 490382,
+   "question_id": 490330,
+   "content_license": "CC BY-SA 4.0",
+   "body": "<p>The question is about a pair of sequences that satisfy</p>\n<p><span class=\"math-container\">$$ A_k = A_{k-1}B_{k-2}+A_{k-2}B_{k-1}, \\\\\n   B_k = A_{k-1}B_{k-2}-A_{k-2}B_{k-1} \\tag1 $$</span></p>\n<p>for <span class=\"math-container\">$k=2,3,\\dots.$</span> Now assume that the initial values\n<span class=\"math-container\">$A_0,A_1,B_0,B_1$</span> are arbitrary. Using the equations\nin <span class=\"math-container\">$(1)$</span> for <span class=\"math-container\">$k=2,3,4$</span> produces the factorization</p>\n<p><span class=\"math-container\">$$ A_4 = 2A_1B_1(A_0B_1(A_0+B_0)-A_1B_0(A_0-B_0)).\n \\tag2 $$</span></p>\n<p>But <span class=\"math-container\">$A_0,A_1,B_0,B_1$</span> were arbitrary; implying, by the\nsame argument, that <span class=\"math-container\">$A_{k+3}$</span> is always divisible by\n<span class=\"math-container\">$A_kB_k$</span> if <span class=\"math-container\">$k&gt;0$</span>. The rest follows the same as in the\nanswer by Terry Tao.</p>\n<p>Also, the Will Jagy answer notes that equation <span class=\"math-container\">$(2)$</span>\ncan be simplified to</p>\n<p><span class=\"math-container\">$$ A_4 = 2A_1B_1(A_2B_0 - A_0B_2). \\tag3 $$</span></p>\n"
+  },
+  {
+   "owner": {
+    "account_id": 2940801,
+    "reputation": 121705,
+    "user_id": 766,
+    "user_type": "registered",
+    "accept_rate": 85,
+    "profile_image": "https://www.gravatar.com/avatar/3c795880f3b73784a9b75fbff3772701?s=256&d=identicon&r=PG",
+    "display_name": "Terry Tao",
+    "link": "https://mathoverflow.net/users/766/terry-tao"
+   },
+   "is_accepted": true,
+   "score": 16,
+   "last_activity_date": 1743540380,
+   "last_edit_date": 1743540380,
+   "creation_date": 1743465536,
+   "answer_id": 490348,
+   "question_id": 490330,
+   "content_license": "CC BY-SA 4.0",
+   "body": "<p>It is indeed true (as observed numerically by Will Jagy) that <span class=\"math-container\">$A_n$</span> divides <span class=\"math-container\">$A_{n+3}$</span> for all <span class=\"math-container\">$n \\geq 1$</span>, which implies in particular that the <span class=\"math-container\">$k^\\text{th}$</span> smallest prime factor of <span class=\"math-container\">$A_n$</span> is bounded uniformly in <span class=\"math-container\">$n$</span>.  This, combined with the eventual periodicity of <span class=\"math-container\">$A_n$</span> mod <span class=\"math-container\">$p$</span> for each prime <span class=\"math-container\">$p$</span>, gives the eventual periodicity of the smallest prime factors (as one only needs to test a bounded number of such primes to determine the <span class=\"math-container\">$k^\\text{th}$</span> smallest prime factor).</p>\n<p>To see this claimed divisibility, work modulo <span class=\"math-container\">$A_n$</span>.  With respect to this modulus, we have\n<span class=\"math-container\">\\begin{align*}\nA_{n+1} &amp;= A_n B_{n-1} + A_{n-1} B_n = A_{n-1} B_n\\\\\nB_{n+1} &amp;= A_n B_{n-1} - A_{n-1} B_n = -A_{n-1} B_n\\\\\nA_{n+2} &amp;= A_{n+1} B_n + A_n B_{n+1} = A_{n-1} B_n^2 \\\\\nB_{n+2} &amp;= A_{n+1} B_n - A_n B_{n+1} = A_{n-1} B_n^2 \\\\\nA_{n+3} &amp;= A_{n+2} B_{n+1} + A_{n+1} B_{n+2} = A_{n-1}^2 B_n^3 - A_{n-1}^2 B_n^3 = 0\n\\end{align*}</span>\nand so <span class=\"math-container\">$A_{n+3}$</span> is divisible by <span class=\"math-container\">$A_n$</span> as claimed.</p>\n"
+  },
+  {
+   "owner": {
+    "account_id": 511689,
+    "reputation": 27194,
+    "user_id": 3324,
+    "user_type": "registered",
+    "accept_rate": 75,
+    "profile_image": "https://www.gravatar.com/avatar/827c267ce68997b158a0947da3560403?s=256&d=identicon&r=PG",
+    "display_name": "Will Jagy",
+    "link": "https://mathoverflow.net/users/3324/will-jagy"
+   },
+   "is_accepted": false,
+   "score": 9,
+   "last_activity_date": 1743464683,
+   "last_edit_date": 1743464683,
+   "creation_date": 1743448309,
+   "answer_id": 490338,
+   "question_id": 490330,
+   "content_license": "CC BY-SA 4.0",
+   "body": "<p>I like to find out what the claim actually is....Program slows down early, but this gives a good picture of seed value <span class=\"math-container\">$a_1 = 2$</span>  I added the first  lines, up to <span class=\"math-container\">$k = 10,$</span>  showing the actual number <span class=\"math-container\">$a_k$</span> which grows quickly. After that suppressed <span class=\"math-container\">$a_k$</span></p>\n<p><strong>Certainly appears that <span class=\"math-container\">$a_k$</span> is always divisible by <span class=\"math-container\">$a_{k-3}$</span></strong></p>\n<p>ADDED: yes,  I get\n<span class=\"math-container\">$$ a_{k+3} = 2 a_k b_k (a_{k+1} b_{k-1}- a_{k-1} b_{k+1})   $$</span></p>\n<p><span class=\"math-container\">$$  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc     \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc $$</span></p>\n<pre><code>Mon 31 Mar 2025 12:05:47 PM PDT\n k =   2 :::                 3   primes       3\n k =   3 :::                 5   primes       5\n k =   4 :::                 8   primes       2\n k =   5 :::                18   primes       2       3\n k =   6 :::                20   primes       2       5\n k =   7 :::               896   primes       2       7\n k =   8 :::             27072   primes       2       3      47\n k =   9 :::          32814080   primes       2       5      13      17      29\n k =  10 :::     -149545811968   primes       2       7      61     167\n</code></pre>\n<p><span class=\"math-container\">$$  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc     \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc $$</span></p>\n<pre><code>Mon 31 Mar 2025 11:56:18 AM PDT\n k =   2 :::          3\n k =   3 :::          5\n k =   4 :::          2\n k =   5 :::          2       3\n k =   6 :::          2       5\n k =   7 :::          2       7\n k =   8 :::          2       3      47\n k =   9 :::          2       5      13      17      29\n k =  10 :::          2       7      61     167\n k =  11 :::          2       3      19      47    1033\n k =  12 :::          2       5      13      17      23      29    3637\n k =  13 :::          2       7      11      61     167\n k =  14 :::          2       3      19      31      47      97     661    1033\n k =  15 :::          2       5      13      17      23      29     239    1021\n k =  16 :::          2       7      11      61     167    4423\n k =  17 :::          2       3      19      31      37      47      97     109\n k =  18 :::          2       5      13      17      23      29     173     239\n k =  19 :::          2       7      11      61     167    3209    4423\n k =  20 :::          2       3      19      31      37      47      97     109\n k =  21 :::          2       5      13      17      23      29      53     131\n k =  22 :::          2       7      11      61     167    3209    4423\n k =  23 :::          2       3      19      31      37      41      47      59\n k =  24 :::          2       5      13      17      23      29      53     131\n k =  25 :::          2       7      11      61     167     373     653    3209\n k =  26 :::          2       3      19      31      37      41      47      59\n k =  27 :::          2       5      13      17      23      29      53     131\n k =  28 :::          2       7      11      61     167     373     653    3209\n k =  29 :::          2       3      19      31      37      41      47      59\n k =  30 :::          2       5      13      17      23      29      53     131\n k =  31 :::          2       7      11      61     167     269     373     653\n k =  32 :::          2       3      19      31      37      41      47      59\n k =  33 :::          2       5      13      17      23      29      53     131\n</code></pre>\n<p><span class=\"math-container\">$$  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc     \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc \\bigcirc  \\bigcirc $$</span></p>\n<p>I went back and printed the exponents for <span class=\"math-container\">$3,5,7$</span>  which share the same periodicity.</p>\n"
+  }
+ ],
+ "has_more": false,
+ "quota_max": 300,
+ "quota_remaining": 295
+}

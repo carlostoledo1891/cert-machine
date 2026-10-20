@@ -1,0 +1,35 @@
+{
+	"number": 307865,
+	"data": "0,1,2,3,0,5,6,1,8,9,0,11,0,1,14,15,0,1,18,1,20,21,0,23,0,1,26,1,0,29,30,1,0,33,0,35,36,1,0,39,0,41,4,1,44,9,0,1,48,1,50,51,0,53,54,1,56,1,0,1,0,1,2,63,0,65,0,1,68,69,0,1,0,1,74,75,0,1,78,1,0,81,0,83,0,1,86",
+	"name": "a(n) is the number of natural bases b \u003c 2n+1 such that b^n == -1 (mod 2n+1).",
+	"comment": [
+		"For n \u003e 0, a(n) = n if and only if 2n+1 is prime.",
+		"Note that a(n) \u003c n if and only if 2n+1 is composite.",
+		"Conjecture: if 2n+1 is an absolute Euler pseudoprime, then a(n) = 0.",
+		"This was proved by an autonomous AI agent, see the Lean file. The proof uses the fact that every odd composite m is either a prime power p^k or a coprime product A * B. The prime-power case derives a contradiction from a nilpotent element (1+y)^n = 1+ny; the coprime case builds a Chinese Remainder Theorem unit that can't satisfy plus or minus 1. - _Ralf Stephan_, Jun 01 2026"
+	],
+	"link": [
+		"Michael De Vlieger, \u003ca href=\"/A307865/b307865.txt\"\u003eTable of n, a(n) for n = 0..10000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 23 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/oeis_307865_conjecture_0.lean\"\u003eAlphaProof Nexus: A307865 Lean file\u003c/a\u003e."
+	],
+	"mathematica": [
+		"a[n_] := Length[Select[Range[2n], PowerMod[#, n, 2n+1] == 2n \u0026]]; Array[a, 100] (* _Amiram Eldar_, May 02 2019 *)"
+	],
+	"program": [
+		"(PARI) a(n) = sum(b=1, 2*n, Mod(b, 2*n+1)^n == -1); \\\\ _Michel Marcus_, May 02 2019"
+	],
+	"xref": [
+		"Cf. A033181, A053760, A307864."
+	],
+	"keyword": "nonn",
+	"offset": "0,3",
+	"author": "_Thomas Ordowski_, May 02 2019",
+	"ext": [
+		"More terms from _Amiram Eldar_, May 02 2019"
+	],
+	"references": 2,
+	"revision": 25,
+	"time": "2026-08-19T08:44:38-04:00",
+	"created": "2019-05-16T03:49:39-04:00"
+}

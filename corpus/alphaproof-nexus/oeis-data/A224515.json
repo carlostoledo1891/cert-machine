@@ -1,0 +1,55 @@
+{
+	"number": 224515,
+	"data": "0,4,3,24,23,44,43,112,111,180,76,264,248,348,164,480,479,411,611,327,183,115,139,943,1103,747,787,1111,1447,323,699,1984,1983,1851,2243,2008,1576,1388,1684,1072,976,1268,499,3383,3271,4124,4068,3679,4511,4315,3804,4999",
+	"name": "a(n) = least k such that sqrt(k^2 XOR (k+1)^2) = 2*n+1, a(n) = -1 if there is no such k.",
+	"comment": [
+		"Conjectures:",
+		"1. a(n) \u003e= 0.",
+		"2. Least k is also the only such k.",
+		"If both conjectures are true, then the sequence is a permutation of A221643.",
+		"The existence conjecture was proved by an autonomous AI agent, see the Tsoukalas paper and the Lean proof. In short, XOR-plus-carry decomposes as: a XOR b = a + b - 2*(a AND b), turning the target equation into the additive k + (k^2 AND S) = M. Since the AND only couples bits locally and M == 0 (mod 4), one can solve the equation greedily bit by bit; bounding the relevant quantities by S then promotes the mod-2^S solution to an honest natural-number solution. - _Ralf Stephan_, May 24 2026"
+	],
+	"link": [
+		"Charles R Greathouse IV, \u003ca href=\"/A224515/b224515.txt\"\u003eTable of n, a(n) for n = 0..1000\u003c/a\u003e",
+		"Tom Adamczewski, \u003ca href=\"https://arxiv.org/abs/2608.11941\"\u003eOEIS Open: How many conjectures can language models turn into theorems?\u003c/a\u003e, arXiv:2608.11941 [cs.AI], 2026. See p. 17 (proof, Appendix A).",
+		"Google Deepmind, \u003ca href=\"https://github.com/google-deepmind/alphaproof-nexus-results/blob/main/APNOutputs/OEIS/A224515_conjecture_existence.lean\"\u003eAlphaProof Nexus: A224515 Lean file\u003c/a\u003e.",
+		"George Tsoukalas et al., \u003ca href=\"https://arxiv.org/abs/2605.22763v1\"\u003eAdvancing Mathematics Research with AI-Driven Formal Proof Search\u003c/a\u003e, arXiv:2605.22763v1 [cs.AI], 2026."
+	],
+	"mathematica": [
+		"a[n_] := For[k=0, k \u003c= 3*n^2+1, k++, If[ Sqrt[ BitXor[k^2, (k+1)^2]] == 2*n+1, Return[k]]] /. Null -\u003e -1; a /@ Range[0, 51] (* _Jean-François Alcover_, Jun 05 2013 *)"
+	],
+	"program": [
+		"(Python)",
+		"import math",
+		"needTerms = n = 1024",
+		"i = 0",
+		"terms = [-1] * n",
+		"while n:",
+		"  s = (i*i) ^ ((i+1)*(i+1))",
+		"  r = math.isqrt(s)",
+		"  if s == r*r:",
+		"    if (r\u00261)==0: break",
+		"    r = (r-1)//2",
+		"    if r \u003c needTerms:",
+		"      if terms[r] \u003e= 0: break",
+		"      terms[r] = i",
+		"      n -= 1",
+		"  i += 1",
+		"if n: print('Error')",
+		"else:",
+		"  for i in range(needTerms):",
+		"    t = terms[i]",
+		"    print(t, end=', ') # math.sqrt((t*t) ^ ((t+1)*(t+1)))",
+		"(PARI) a(n)=my(k=sqrtint(2*n^2),t);while(!issquare(bitxor(k^2,(k+1)^2),\u0026t)||t!=2*n+1,k++);k \\\\ _Charles R Greathouse IV_, Jun 05 2013"
+	],
+	"xref": [
+		"Cf. A221643."
+	],
+	"keyword": "nonn,base,look,changed",
+	"offset": "0,2",
+	"author": "_Alex Ratushnyak_, Apr 08 2013",
+	"references": 2,
+	"revision": 35,
+	"time": "2026-10-18T15:22:04-04:00",
+	"created": "2013-04-16T12:52:03-04:00"
+}
