@@ -28,7 +28,7 @@ const RELS = ['le', 'lt', 'ge', 'gt', 'eq', 'in', 'holds'];
 const READINGS = ['universal', 'epistemic'];
 const TOP = ['id', 'text', 'source', 'reading', 'domain', 'predicate', 'reference', 'hypotheses', 'falsifier'];
 const TOP_OPTIONAL = ['record', 'repair', 'notes'];
-const ELEMENTS = ['doubles', 'integers', 'rationals'];
+const ELEMENTS = ['doubles', 'decimals', 'integers', 'rationals'];
 const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-order', 'unbounded', 'pin-unresolved', 'pin-mismatch', 'quote-not-verbatim',
   'printed-not-in-quote', 'printed-mismatch', 'vocabulary', 'arity', 'symbol', 'named', 'reading', 'falsifier', 'reference', 'data', 'index', 'empty-range',
   'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-decision-mismatch',
@@ -102,7 +102,12 @@ function gcd(a, b) { a = babs(a); b = babs(b); while (b) { [a, b] = [b, a % b]; 
 class Q {
   constructor(n, d = 1n) { if (d === 0n) throw new Refuse('division-by-zero', 'rational'); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; this.n = n / g; this.d = d / g; }
   static fromString(s) { const m = /^(-?\d+)(?:\/([1-9]\d*))?$/.exec(s); if (!m) throw new Error('not a rational ' + s); return new Q(BigInt(m[1]), m[2] ? BigInt(m[2]) : 1n); }
-  static fromDecimal(s) { const m = /^(-?)(\d+)(?:\.(\d+))?$/.exec(s); if (!m) throw new Error('not a decimal ' + s); const frac = m[3] || ''; return new Q(BigInt((m[1] || '') + m[2] + frac), 10n ** BigInt(frac.length)); }
+  static fromDecimal(s) { // the digits as printed, with an optional exponent, as the exact rational they mean
+    const m = /^(-?)(\d+)(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/.exec(s); if (!m) throw new Error('not a decimal ' + s);
+    const frac = m[3] || '', e = m[4] ? parseInt(m[4], 10) : 0;
+    let n = BigInt((m[1] || '') + m[2] + frac), d = 10n ** BigInt(frac.length);
+    if (e > 0) n *= 10n ** BigInt(e); else if (e < 0) d *= 10n ** BigInt(-e);
+    return new Q(n, d); }
   static fromDouble(x) { // exact: a finite double is m · 2^e
     if (!Number.isFinite(x)) throw new Refuse('data', 'not a finite double');
     let k = 0; let y = x;
@@ -266,6 +271,7 @@ function decodeData(spec, p, where) {
   const conv = (x, depth, w) => {
     if (depth === spec.shape.length) {
       if (spec.elements === 'doubles') { if (!isNum(x)) throw new Refuse('data', w + ': not a JSON number'); return Q.fromDouble(Number(x.text)); }
+      if (spec.elements === 'decimals') { if (!isNum(x)) throw new Refuse('data', w + ': not a JSON number'); return Q.fromDecimal(x.text); }
       if (spec.elements === 'integers') { if (!isNum(x) || !INT.test(x.text)) throw new Refuse('data', w + ': not a JSON integer'); return new Q(BigInt(x.text)); }
       if (!isStr(x) || !RAT.test(x)) throw new Refuse('data', w + ': not a rational string'); return Q.fromString(x);
     }

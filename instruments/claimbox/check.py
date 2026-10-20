@@ -35,6 +35,7 @@ this program made, in the three words, with the witness.
 
 usage: python3 instruments/claimbox/check.py <object.json>...        one line per object; exit 1 if any REFUSED
        python3 instruments/claimbox/check.py --smt <object.json>     the object's predicate unrolled to SMT-LIB 2 on stdout (exact class only)
+       python3 instruments/claimbox/check.py --record <out.json> <object.json>...   the decisions, witnesses, counts and times, with each object's sha256, written as a record
        python3 instruments/claimbox/check.py --kinds                   the refusal kinds and their meanings
 MIT"""
 import hashlib
@@ -69,7 +70,7 @@ RELS = ('le', 'lt', 'ge', 'gt', 'eq', 'in', 'holds')
 READINGS = ('universal', 'epistemic')
 TOP = ('id', 'text', 'source', 'reading', 'domain', 'predicate', 'reference', 'hypotheses', 'falsifier')
 TOP_OPTIONAL = ('record', 'repair', 'notes')
-ELEMENTS = ('doubles', 'integers', 'rationals')
+ELEMENTS = ('doubles', 'decimals', 'integers', 'rationals')   # decimals: the JSON number's printed digits as the exact rational they mean
 
 KINDS = {
     'schema': 'a field missing, unknown or of the wrong shape',
@@ -366,9 +367,11 @@ def decode_data(spec, path, where):
         raise Refuse('data', where + ': elements must be one of ' + ', '.join(ELEMENTS))
     if not isinstance(spec['shape'], list) or not spec['shape'] or any(not isinstance(s, str) or not SYM.match(s) for s in spec['shape']) or len(set(spec['shape'])) != len(spec['shape']):
         raise Refuse('data', where + ': shape must be a list of distinct symbols, one per dimension')
+    class Dec(str):
+        """a JSON number's text, kept: 'doubles' reads the double it denotes, 'decimals' the digits themselves"""
     with open(path, 'rb') as f:
         try:
-            doc = json.loads(f.read().decode('utf-8'))
+            doc = json.loads(f.read().decode('utf-8'), parse_float=Dec)
         except (ValueError, UnicodeDecodeError) as e:
             raise Refuse('data', where + ': the pinned bytes are not JSON (' + str(e)[:60] + ')')
     cur = doc
@@ -387,9 +390,13 @@ def decode_data(spec, path, where):
     def conv(x, depth, w):
         if depth == len(spec['shape']):
             if spec['elements'] == 'doubles':
-                if isinstance(x, bool) or not isinstance(x, (int, float)):
+                if isinstance(x, bool) or not isinstance(x, (int, Dec)):
                     raise Refuse('data', w + ': not a JSON number')
-                return exact_of(x)
+                return exact_of(float(x) if isinstance(x, Dec) else x)
+            if spec['elements'] == 'decimals':
+                if isinstance(x, bool) or not isinstance(x, (int, Dec)):
+                    raise Refuse('data', w + ': not a JSON number')
+                return exact_of(Fraction(str(x)))
             if spec['elements'] == 'integers':
                 if isinstance(x, bool) or not isinstance(x, int):
                     raise Refuse('data', w + ': not a JSON integer')
@@ -879,6 +886,23 @@ def run(argv):
             print(k.ljust(26) + v)
         return 0
     paths = [a for a in argv if not a.startswith('--')]
+    if '--record' in argv:
+        if len(paths) < 2:
+            die('--record takes the output path then the objects')
+        out_path, objs = paths[0], paths[1:]
+        rows = []
+        for p in objs:
+            res = check(p)
+            rows.append({'id': res['id'], 'file': os.path.relpath(p, ROOT), 'sha256': sha256(p), 'word': res['word'], 'kind': res['kind'], 'decided': res['decided'],
+                         'fromObject': res['fromObject'], 'seconds': res['seconds'], 'notes': res['notes']})
+            print(('ADMITTED  ' if res['word'] == ADMITTED else 'REFUSED   ') + str(res['id']) + '  ' + str(res['seconds']) + ' s')
+        rec = {'what': 'Decisions of claimbox objects from the bytes alone, by instruments/claimbox/check.py (Python; the exact evaluator over Fractions and ints): for each object its sha256, the checker\'s word, the decisions against the record, the decisions from the object with the first violating index tuple and the count of all, and the time. The battery re-derives the objects that decide in seconds and holds the heavy ones to their sha256 and this record; CLAIMBOX_FULL=1 re-derives all.',
+               'python': sys.version.split()[0], 'rows': rows}
+        with open(out_path, 'w', encoding='utf-8') as f:
+            json.dump(rec, f, indent=1, ensure_ascii=False)
+            f.write('\n')
+        print(os.path.relpath(out_path, ROOT) + ' written: ' + str(len(rows)) + ' objects')
+        return 0
     if '--smt' in argv:
         if len(paths) != 1:
             die('--smt takes one object')

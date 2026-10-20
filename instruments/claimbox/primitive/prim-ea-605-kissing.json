@@ -14,12 +14,12 @@
    "path": "corpus/einstein-arena/best-24.json",
    "sha256": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce"
   },
-  "decoder": "the JSON field data.vectors: 605 rows of 11 numbers, each read as the rational the double denotes, as the platform parses them",
+  "decoder": "the JSON field data.vectors: 605 rows of 11 numbers, each read as the DECIMAL DIGITS printed, exactly — the register's reading (tools/run-mc100-einstein.js reads the heights with K.fromDecimals); under the doubles the JSON numbers denote, 30 pairs near 60° flip and the count is 9,480",
   "count": 605,
   "variable": "f",
   "data": {
    "select": "data.vectors",
-   "elements": "doubles",
+   "elements": "decimals",
    "shape": [
     "n",
     "d"
@@ -160,15 +160,16 @@
    "c": "0"
   }
  ],
- "reference": "no bar is printed: the zero of the structural inequality; the claim is the problem's name (a kissing configuration of 605 in dimension 11), not the platform's score, which the register's mc100 row decides separately",
+ "reference": "no bar is printed: the zero of the structural inequality. THE READING OF THE BYTES IS THE WHOLE DIFFERENCE HERE: the vectors read as the decimal digits printed give 9,510 violating pairs, the register's number; read as the doubles those digits denote they give 9,480 — this object declares the printed digits, the register's reading. The claim is the problem's name (a kissing configuration of 605 in dimension 11), not the platform's score, which the register's mc100 row decides separately",
  "hypotheses": [
   "two directions u, v are at least 60 degrees apart iff <u, v> <= |u||v|/2, i.e. p <= 0 or 4p^2 <= |u|^2|v|^2, which is the one inequality 4·p·|p| <= |u|^2 |v|^2 (p = <u, v>)"
  ],
  "falsifier": [
-  "some pair of the pinned vectors has 4·p·|p| > |u|^2 |v|^2 (it does: the first in index order is the witness, and the count of all such pairs is 9,510)",
+  "some pair of the pinned vectors has 4·p·|p| > |u|^2 |v|^2 (it does: the first in index order is the witness; 9,510 pairs do, the worst being 601 and 604)",
   "the pinned file does not hash to 1bc113d0…"
  ],
  "notes": [
-  "no record is attached: this object is decided from the bytes alone. The register's row ea-best-kissing-number-d11-605 (certs/mc100-einstein-arena.json) is CERTIFIED for a different claim, the platform's score; its scope says 9,510 of 182,710 pairs are closer than 60°, which this object re-derives"
+  "no record is attached: this object is decided from the bytes alone. The register's row ea-best-kissing-number-d11-605 (certs/mc100-einstein-arena.json) is CERTIFIED for a different claim, the platform's score; its scope says 9,510 of 182,710 pairs are closer than 60°, worst 601/604, which this object re-derives under the same reading of the bytes",
+  "found 2026-10-20 by this object: with elements \"doubles\" the count was 9,480 and the first reading of the discrepancy was a bug hunt; the two counts are both exact, under two readings of the same bytes"
  ]
 }

@@ -118,9 +118,51 @@ computes. Without it, SMT-LIB export covers nothing on the register; with it, th
 configuration bounds unroll. "Admitted" means the decided claim in the row's scope, never the claimant's wider
 headline; the ten objects of version 1 are the proof that the form carries scope, reference and hypotheses.
 
-## Next versions
+## Version 3: the finite quantifier, decisions from the bytes alone, a second checker, Z3 (2026-10-20)
 
-3. The second checker in JavaScript, the concord on twenty rows read twice, the finite quantifier as the one
-   new primitive, SMT-LIB export of the predicates it unrolls with Z3 as a third decider.
-4. Deciders reading the object, one family at a time, the oracle first; a spin-out repository only when a
-   claimant or an outside verifier reads the format.
+**Typed data.** A finite domain may carry a `data` block that says how the pinned bytes decode:
+`{"select": "data.vectors", "elements": "doubles", "shape": ["n", "d"]}`. `select` is a dotted path into the JSON;
+`elements` is one of `doubles` (the exact rational each JSON number denotes), `decimals` (the exact rational the
+printed digits mean), `integers`, `rationals` (strings p/q); `shape` names one symbol per dimension, bound to the
+decoded size, and the array must be rectangular; `count` must equal the first size. The two readings of a JSON
+number are different numbers, and the checker will not choose: see the 605 case below.
+
+**The finite quantifier.** Four heads bind an integer index over a range, inclusive: `["Sum", "k", lo, hi, body]`,
+`Product`, `MaxOver`, `MinOver` (the last two refuse an empty range); `["Index", f, i, j]` reads the decoded data;
+`Min`, `Max` (binary) and `Kronecker` are exact heads too. A predicate may carry
+`"forall": [["i", "0", ["Subtract", "n", "2"]], ["j", ["Add", "i", "1"], ["Subtract", "n", "1"]]]`: the relation
+must hold at every index tuple. A bar the claimant printed must still be quoted; only the zero of a structural
+inequality may omit `printed`.
+
+**Decided from the object.** Every predicate written in the exact heads over bound symbols is decided by the
+checker itself, exactly: a single relation gives a value and a word; a `forall` gives the word, the first violating
+index tuple as the witness, and the count of all violations. A transcendental head, a named function or a box side's
+symbol leaves the predicate to the record. When a record is attached, its value re-decided and the decision from
+the object must agree, and a single value must equal the record's exactly (`record-value-mismatch`). The record is
+optional now: an object without one is decided from the bytes or stands as a proposal.
+
+**The second checker.** `check.js` implements the same specification in JavaScript with no code shared with the
+Python: BigInt rationals, and a JSON reader of its own that keeps every number's text. The battery holds the two to
+each other on every object: the same word, kind, decisions, values, witnesses and counts.
+
+**SMT-LIB.** `check.py --smt <object>` unrolls the exact predicates to a ground QF_NRA problem asserting that some
+instance violates: sat is REFUTED, unsat is CERTIFIED. Quantifier terms are named with `define-fun`; an inline ite
+chain for a 599-term maximum grew as 2^599 and never finished, which is how that rule was learned. Z3, written by
+nobody here, is then a third decider.
+
+**The three primitive objects, and what they found.**
+
+| object | decided from the bytes | agrees with |
+|---|---|---|
+| prim-1d-cert2026: the C_1d ratio 600·max_m\|Σ_{i+j=m} v_i v_j\|/(Σv)² over the 300 doubles of PR 224 | REFUTED as printed, the repair CERTIFIED; the value equals the record's exact fraction digit for digit | both checkers, the record, Z3 (sat printed, unsat repaired) |
+| prim-ae-593-kissing: AlphaEvolve's 593 integer vectors, 4·p·\|p\| ≤ \|u\|²\|v\|² over every pair | CERTIFIED | both checkers, the kissing ledger's row |
+| prim-ea-605-kissing: EinsteinArena solution 2560, the same inequality | REFUTED, witness pair (0, 48), 9,510 violating pairs, worst 601/604 | both checkers, the register's mc100 row |
+
+The 605 object first read the heights as `doubles` and counted 9,480 violating pairs where the register's row says
+9,510. Neither was wrong: the register's run reads the heights as the decimal digits printed, the object read the
+doubles those digits denote, and 30 pairs sit close enough to 60° to flip with the last bits. The object now
+declares the register's reading (`decimals`) and says so in its reference; the other reading is noted. This is the
+reference field doing exactly what the lattice-claims lesson asked of it, on the register's own data.
+
+**Still to do.** Collection objects for the aggregate rows; infinite box sides; deciders reading the object for the
+named class, the oracle first; a spin-out repository only when a claimant or an outside verifier reads the format.
