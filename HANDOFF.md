@@ -91,8 +91,8 @@ NEXT SESSION, IN ORDER:
      (2) The reply to Felix Schmidt:
          - the text is from the 2026-10-18 session; it points to certs/erdos1/buffer-structure.json;
          - NEW, it could add: the effective rate needs NO structure (c0 = ½ln(3/2) from the crude bound), and a proof
-           of his structure would double c0 — the operator's call. The updated text was given in the 2026-10-20 session's
-           final message (not committed: it is a private letter).
+           of his structure would double c0 — the operator's call. The updated text is in notes/schmidt-reply-2026-10-20.md
+           (local only, git-excluded: a private letter).
      (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere:
          - outreach/<employer>/packet.md + outreach/resume/resume.pdf;
          - record each send in SEND-QUEUE lane J.
