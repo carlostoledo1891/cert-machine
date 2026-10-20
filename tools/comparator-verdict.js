@@ -9,7 +9,8 @@
      REFUSED    anything else: not run, a kernel line missing, a build, export or setup failure — with the stage
    MIT */
 'use strict';
-const accepts = (f, k) => f.kernels.some((l) => new RegExp('^' + k + ' kernel accepts the solution').test(l));
+/* case-insensitive: Comparator v4.34 prints 'nanoda kernel accepts', v4.28 'Nanoda kernel accepts' (2026-10-20) */
+const accepts = (f, k) => f.kernels.some((l) => new RegExp('^' + k + ' kernel accepts the solution', 'i').test(l));
 const rejects = (f) => f.kernels.filter((l) => /kernel rejects/.test(l));
 const COMPARATOR_NO = [/Challenge and solution theorem statement do not match/, /Const does not match between challenge and target/, /Challenge and solution constant kind don't match/, /not permitted|illegal axiom|uses axiom|Axiom .* is not/i];
 function decide(f) {
