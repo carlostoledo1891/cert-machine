@@ -284,7 +284,7 @@ O.push(C.section({
   bodyRaw: C.pRaw('A day earlier the same sandbox certified lower bounds the classical way — φ discretised on L equal cells, '
     + 'a Shor relaxation with triangle cuts, exact rational multipliers. Its verifier accepted δ₃ ≥ '
     + (LADDER[LADDER.length - 1].lowerDown || LADDER[LADDER.length - 1].lower) + ' at L = 256 — the exact fraction '
-    + (LADDER[LADDER.length - 1].exact || '') + ', printed here rounded down; the claimant\'s log prints it as ' + LADDER[LADDER.length - 1].logPrint
+    + (LADDER[LADDER.length - 1].exact || '').replace('/', ' / ') + ', printed here rounded down; the claimant\'s log prints it as ' + LADDER[LADDER.length - 1].logPrint
     + ', rounded to nearest, which an outside audit noted on 2026-10-20 (these were not re-decided here; the logs are kept as the claimant\'s; the certificate itself is certs/delta3/frontier/s34/cert-L256.json). '
     + 'But the model\'s own minimum, found by local search, also stays below the answer at every L: every cell pair the boundary '
     + 'crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof '

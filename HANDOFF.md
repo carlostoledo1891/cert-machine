@@ -48,7 +48,10 @@ NEXT SESSION, IN ORDER:
      --record (certs/delta3-ledger.json) and mutate.js (certs/delta3-mutations.json: 24 mutants, 23 caught, 1 equivalent, as before); the
      page and paper/tex/delta3-numbers.tex regenerated (the PDF is rebuilt by `make papers`, not done here). OPERATOR: send the reply (and
      ask whether the auditor agrees to be named in corpus/external-reruns.json — the entry is drafted in the reply file; nothing added);
-     the evidence packet offered would be pinned beside the record.
+     the evidence packet offered would be pinned beside the record. make test after the fix: 152 rows, one FAIL, the layout ruler —
+     the δ₃ page's new 60-character fraction overflowed the phone width (fixed: it breaks at its slash; the page re-measured clean) and
+     site/swell/index.html @1440 spines 9 → 10 / @768 8 → 7, the KNOWN live-feed flake (OPEN, not ours; it passed at 13:xx today and
+     flags now with the same bytes on disk).
   ★ CLAIMBOX IS PUBLIC: github.com/carlostoledo1891/claimbox (MIT), pushed 2026-10-20 night on the operator's "you can push when needed";
      its own HANDOFF lists its state (five readers, three end-to-end runs, 41/41 planted defects caught). This repository is its
      read-only receiver; claimbox's PROVENANCE.json pins instruments/claimbox/check.py, check.js, SCHEMA.md, the ten objects and the
