@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 night, handoff after the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~02:10 UTC, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -60,6 +60,12 @@ NEXT SESSION, IN ORDER:
      tools/replay-c86.js and replay-c82.js changed today when their scratch output moved out of the repository root), so both replays were
      RE-RUN (245 s and 216 s; the records differ only in seconds, the JS decider digest and the generated stamp; every verdict the same)
      and the papers rebuilt.
+     THE REPLY WAS SENT by the operator on 2026-10-20 (e-mail; the text is in outreach/delta3-audit-reply-2026-10-20.md, marked sent).
+     NOT in corpus/outreach.json: a private e-mail exchange with an anonymous sender has no public thread to point at; HANDOFF and the
+     outreach file are its record. WAITING ON THE WORLD: the auditor's answer — a name and affiliation for corpus/external-reruns.json
+     (the entry is drafted in the reply file; add it only on their word, by hand, then rebuild /reports/rerun.html) and the evidence
+     packet (pin it under corpus/delta3/audit-2026-10-20/ by digest; read it; never run it). If a packet arrives with code or claims,
+     decide them with the instrument, not with the packet.
   ★ CLAIMBOX IS PUBLIC: github.com/carlostoledo1891/claimbox (MIT), pushed 2026-10-20 night on the operator's "you can push when needed";
      its own HANDOFF lists its state (five readers, three end-to-end runs, 41/41 planted defects caught). This repository is its
      read-only receiver; claimbox's PROVENANCE.json pins instruments/claimbox/check.py, check.js, SCHEMA.md, the ten objects and the
@@ -302,6 +308,7 @@ NEXT SESSION, IN ORDER:
      (7) Confirm the Navier–Stokes "six readers" were AI agents.
      (8) AE-PR needs Google's CLA.
   ◆ WAITING ON THE WORLD:
+     - the δ₃ auditor (hello@gocheckyourself.org, anonymous): a name for the rerun registry and the evidence packet (see ★ THE δ₃ PACKET AUDITED).
      - #232, #242, #243 (Tao), all filed, no reply. WHEN ANY MERGES: take a registry snapshot (SNAPS in
        read-optconst-registry.js) before the paper counts more marks; update the queue page and the paper's counts.
      - Schmidt's answer: check any proof against the 48 recorded cases.

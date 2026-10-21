@@ -1,7 +1,8 @@
-# Reply to the δ₃ audit (Sonny Guardian, e-mail of 2026-10-20) — DRAFT, the send is the operator's
+# Reply to the δ₃ audit (Sonny Guardian, e-mail of 2026-10-20) — SENT by the operator 2026-10-20 (e-mail to hello@gocheckyourself.org)
 
-Every point in the audit was checked against the repository before this draft was written; the fixes are in the
-commit named below. Nothing has been sent.
+Every point in the audit was checked against the repository before this draft was written; the fixes are in commits
+5e4926e2, 9349d8ba and c6f2d6a5. The reply below was SENT by the operator on 2026-10-20. Waiting: the auditor's name and
+affiliation for the registry entry (drafted at the end, not added), and the evidence packet (to be pinned by digest, never run).
 
 ## What was verified, point by point
 
