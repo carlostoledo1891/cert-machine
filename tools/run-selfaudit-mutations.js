@@ -38,7 +38,10 @@
 
    usage: node tools/run-selfaudit-mutations.js                 run every built family, write certs/selfaudit-mutations.json
           node tools/run-selfaudit-mutations.js --check         verify the record on disk, write nothing (exit 1 on drift)
-          node tools/run-selfaudit-mutations.js --out p --only strassen-1969      a dry run on rows whose id contains the text  MIT */
+          node tools/run-selfaudit-mutations.js --out p --only strassen-1969      a dry run on rows whose id contains the text
+          node tools/run-selfaudit-mutations.js --repin --why "…"  re-pin the record against the pre-registration and the inventory as
+                                                                   they are NOW (a dated amendment, the inventory regenerated), a dated
+                                                                   repinned entry kept, no mutant or decision touched                MIT */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -61,6 +64,7 @@ const FIXES = 'instruments/selfaudit/fixes.json';
 
 const argv = process.argv.slice(2);
 const CHECK = argv.includes('--check');
+const REPIN = argv.includes('--repin');
 const arg = (k) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : null; };
 const outArg = arg('--out');
 const ONLY = arg('--only') ? arg('--only').split(',') : null;
@@ -70,7 +74,7 @@ const shaBuf = (b) => crypto.createHash('sha256').update(b).digest('hex');
 const sha = (rel) => shaBuf(fs.readFileSync(path.join(ROOT, rel)));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const log = (s) => process.stderr.write(s + '\n');
-if (ONLY && !outArg) die('--only is for dry runs: give --out');
+if (ONLY && !outArg && !REPIN) die('--only is for dry runs: give --out');
 
 /* ---- inputs and their pins -------------------------------------------------------------------------------------- */
 const INVENTORY = J(INV);
@@ -156,6 +160,26 @@ const derive = (families) => {
   const killSwitch = { mutableRows: MUTABLE_ROWS, half: Math.ceil(MUTABLE_ROWS / 2), rowsWithWitnessedFalse: all.rowsWithWitnessedFalse, tripped: pending.length === 0 ? all.rowsWithWitnessedFalse < Math.ceil(MUTABLE_ROWS / 2) : null, note: pending.length ? 'decided when every family is built or its exclusion recorded; the count so far is reported' : 'decided: every family built or its exclusion recorded' };
   return { totals, all, killSwitch, findings, fixes, covered };
 };
+
+/* ---- --repin: the pins moved to the pre-registration and the inventory as they are now (the freeze) ---------------- */
+if (REPIN) {
+  const why = arg('--why');
+  if (!why) die('--repin needs --why "…"');
+  const recPath = outArg ? path.resolve(outArg) : path.join(ROOT, OUT);
+  if (!fs.existsSync(recPath)) die('no mutations record on disk to repin: ' + recPath);
+  if (stale.length) die('an input is not at the inventory\'s pin (regenerate the inventory first): ' + stale.join(', '));
+  const have = JSON.parse(fs.readFileSync(recPath, 'utf8'));
+  const before = { preregistration: have.preregistration.sha256, inventory: have.inventory.sha256, recordPins: have.inputs.recordPins };
+  have.preregistration = { path: NOTE, sha256: pins.note };
+  have.inventory = { path: INV, sha256: sha(INV) };
+  have.inputs.register = { path: REGISTER, sha256: pins.register, rows: R.rows.length };
+  have.inputs.recordPins = Object.fromEntries(Object.keys(before.recordPins).map((rec) => [rec, pins.records[rec]]));
+  const movedRecords = Object.keys(before.recordPins).filter((k) => before.recordPins[k] !== pins.records[k]);
+  have.repinned = (have.repinned || []).concat([{ at: new Date().toISOString(), git, why, before: { preregistration: before.preregistration, inventory: before.inventory, recordsMoved: movedRecords.map((k) => ({ record: k, from: before.recordPins[k], to: pins.records[k] })) }, after: { preregistration: pins.note, inventory: sha(INV) } }]);
+  fs.writeFileSync(recPath, JSON.stringify(have, null, 1) + '\n');
+  log('repinned ' + recPath + ': the note → ' + pins.note.slice(0, 12) + '…, the inventory → ' + sha(INV).slice(0, 12) + '…, records moved: ' + (movedRecords.join(', ') || 'none') + '; no mutant or decision touched');
+  process.exit(0);
+}
 
 /* ---- --check ------------------------------------------------------------------------------------------------------- */
 if (CHECK) {

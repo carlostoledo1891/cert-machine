@@ -31,6 +31,10 @@
 
    usage: node tools/run-selfaudit.js                       run everything, write certs/selfaudit-run.json
           node tools/run-selfaudit.js --check               verify the record on disk, write nothing (exit 1 on drift)
+          node tools/run-selfaudit.js --repin --why "…"       re-pin the record on disk against the pre-registration and the
+                                                            inventory as they are NOW (a dated amendment to the note, the
+                                                            inventory regenerated): the pins and the record pins updated, a
+                                                            dated repinned entry kept, no measurement touched
           node tools/run-selfaudit.js --reclassify --why "…"  re-derive the DERIVED fields of the record on disk (the stamp
                                                             classification, reproducible, the cold/warm classification,
                                                             the totals, the findings) from the raw runs under the stamp
@@ -60,6 +64,7 @@ const RUNS = ['cold', 'warm'];
 const argv = process.argv.slice(2);
 const CHECK = argv.includes('--check');
 const RECLASSIFY = argv.includes('--reclassify');
+const REPIN = argv.includes('--repin');
 const arg = (k) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : null; };
 const outArg = arg('--out');
 const ONLY = arg('--only') ? arg('--only').split(',') : null;
@@ -72,7 +77,7 @@ const sha = (rel) => shaBuf(fs.readFileSync(path.join(ROOT, rel)));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const log = (s) => process.stderr.write(s + '\n');
 
-if (!CHECK && !RECLASSIFY && (ONLY || CAP !== PORTABLE_WALL_S || PROFILE_LIST.join() !== Object.keys(PROFILES).join()) && !outArg) die('--only, --cap and --profiles are for dry runs: give --out');
+if (!CHECK && !RECLASSIFY && !REPIN && (ONLY || CAP !== PORTABLE_WALL_S || PROFILE_LIST.join() !== Object.keys(PROFILES).join()) && !outArg) die('--only, --cap and --profiles are for dry runs: give --out');
 for (const p of PROFILE_LIST) if (!(p in PROFILES)) die('unknown profile ' + p);
 
 /* ---- inputs and their pins ------------------------------------------------------------------------------------------ */
@@ -149,6 +154,26 @@ const derive = (runs, entries) => {
   const expectedPairs = entries.reduce((a, e) => a + ['rederive', 'verifier', 'second'].filter((k) => e[k]).length, 0) * Object.keys(PROFILES).length;
   return { totals, findings, pairs: pairs.length, expectedPairs };
 };
+
+/* ---- --repin: the pins moved to the pre-registration and the inventory as they are now (the freeze) ------------------------ */
+if (REPIN) {
+  const why = arg('--why');
+  if (!why) die('--repin needs --why "…"');
+  const recPath = outArg ? path.resolve(outArg) : path.join(ROOT, OUT);
+  if (!fs.existsSync(recPath)) die('no run record on disk to repin: ' + recPath);
+  if (stale.length) die('an input is not at the inventory\'s pin (regenerate the inventory first): ' + stale.join(', '));
+  const have = JSON.parse(fs.readFileSync(recPath, 'utf8'));
+  const before = { preregistration: have.preregistration.sha256, inventory: have.inventory.sha256, recordPins: have.inputs.recordPins };
+  have.preregistration = { path: NOTE, sha256: pins.note };
+  have.inventory = { path: INV, sha256: sha(INV) };
+  have.inputs.register = { path: REGISTER, sha256: pins.register, rows: R.rows.length };
+  have.inputs.recordPins = pins.records;
+  const movedRecords = Object.keys(pins.records).filter((k) => before.recordPins[k] !== pins.records[k]);
+  have.repinned = (have.repinned || []).concat([{ at: new Date().toISOString(), git, why, before: { preregistration: before.preregistration, inventory: before.inventory, recordsMoved: movedRecords.map((k) => ({ record: k, from: before.recordPins[k], to: pins.records[k] })) }, after: { preregistration: pins.note, inventory: sha(INV) } }]);
+  fs.writeFileSync(recPath, JSON.stringify(have, null, 1) + '\n');
+  log('repinned ' + recPath + ': the note ' + before.preregistration.slice(0, 12) + '… → ' + pins.note.slice(0, 12) + '…, the inventory ' + before.inventory.slice(0, 12) + '… → ' + sha(INV).slice(0, 12) + '…, records moved: ' + (movedRecords.join(', ') || 'none') + '; no measurement touched');
+  process.exit(0);
+}
 
 /* ---- --reclassify: the derived fields from the raw runs, under the rule in code ----------------------------------------- */
 const STAMPS_FIELD = { root: [...ROOT_STAMPS], leaf: [...LEAF_STAMPS], rule: 'a differing path is a stamp when it is one of the root keys at the root, or a leaf keyed by one of the leaf keys (the root included); everything else is reported' };

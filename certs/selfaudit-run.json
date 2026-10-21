@@ -6,11 +6,11 @@
  "git": "ccd5c190",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3"
+  "sha256": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "170766e6eedb97b980d2e1deca2cef197ff7ca8361fab68f5f725ef0ee61d367"
+  "sha256": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
  },
  "inputs": {
   "register": {
@@ -29,7 +29,7 @@
    "certs/kissing-ledger.json": "5c823b21ac43b5bdb3ad4b91a46e909cbf86a192e4cf382e2d8c5be2b29f611f",
    "ledger.json": "4b666d3d922357659b588cf625e2ec9f8d79bef398db1d690394a2b9760a0acd",
    "certs/strassen-certificate.json": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
-   "certs/easota-ledger.json": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+   "certs/easota-ledger.json": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b",
    "certs/ecbench-ledger.json": "cdecac8aae53d79c5803184cd12d63431a4838582950f3d833d8e520256897c8",
    "certs/gsm8k-ledger.json": "7fbcda606b601c9c2867cc6305c39906ef21e7e0a7dcd6a11285125cca8e9248",
    "certs/horizon-ledger.json": "fa5b0bac0539bf9694e6c7044a6acf0325635f18474e387d4bf56bcf49bb2315",
@@ -8401,6 +8401,28 @@
    "at": "2026-10-21T11:35:08.831Z",
    "git": "ccd5c190",
    "why": "the first classification (the run of 2026-10-21 07:20–08:33) counted a seconds field at the ROOT of gsm8k-ledger and horizon-ledger as outside the stamps; the pre-registration declares seconds a stamp (M4: generated, seconds, git) and Phase 1 saw exactly that root field; the rule in tools/selfaudit-common.js was corrected to the pre-registration's and the derived fields re-derived; no measurement changed"
+  }
+ ],
+ "repinned": [
+  {
+   "at": "2026-10-21T18:36:25.972Z",
+   "git": "6d80fdef",
+   "why": "Amendment 2026-10-22 (Phase 5, the freeze): the note amended with the fixes, the open finding, the exclusions and this re-pin; the easota ledger record's grammar string gained MISPRINTED; the inventory regenerated; no measurement touched",
+   "before": {
+    "preregistration": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3",
+    "inventory": "170766e6eedb97b980d2e1deca2cef197ff7ca8361fab68f5f725ef0ee61d367",
+    "recordsMoved": [
+     {
+      "record": "certs/easota-ledger.json",
+      "from": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+      "to": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
+    "inventory": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
+   }
   }
  ]
 }

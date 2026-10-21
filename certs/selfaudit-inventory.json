@@ -2,11 +2,11 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-10-21T03:18:55.342Z",
- "git": "fcff53c7",
+ "generated": "2026-10-21T18:36:25.912Z",
+ "git": "6d80fdef",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3"
+  "sha256": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2"
  },
  "inputs": {
   "register": {
@@ -356,7 +356,7 @@
   },
   {
    "record": "certs/easota-ledger.json",
-   "sha256": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+   "sha256": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b",
    "rows": 20,
    "byVerdict": {
     "CERTIFIED": 16,
@@ -1500,7 +1500,7 @@
    "verdict": "CERTIFIED",
    "kind": "none",
    "page": "/reports/easota.html",
-   "timingMs": 7,
+   "timingMs": 6,
    "timingField": "ms",
    "mutable": true,
    "family": "shapes",
@@ -1512,7 +1512,7 @@
    "verdict": "CERTIFIED",
    "kind": "none",
    "page": "/reports/easota.html",
-   "timingMs": 9,
+   "timingMs": 6,
    "timingField": "ms",
    "mutable": true,
    "family": "shapes",
@@ -1524,7 +1524,7 @@
    "verdict": "CERTIFIED",
    "kind": "none",
    "page": "/reports/easota.html",
-   "timingMs": 2892,
+   "timingMs": 1326,
    "timingField": "ms",
    "mutable": true,
    "family": "shapes",
@@ -1536,7 +1536,7 @@
    "verdict": "CERTIFIED",
    "kind": "none",
    "page": "/reports/easota.html",
-   "timingMs": 1804,
+   "timingMs": 971,
    "timingField": "ms",
    "mutable": true,
    "family": "shapes",

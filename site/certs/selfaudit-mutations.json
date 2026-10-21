@@ -13,11 +13,11 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3"
+  "sha256": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "170766e6eedb97b980d2e1deca2cef197ff7ca8361fab68f5f725ef0ee61d367"
+  "sha256": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
  },
  "inputs": {
   "register": {
@@ -31,7 +31,7 @@
    "certs/mc100-alphatensor-f2.json": "0222c5552b7c24f38f1231508bce613876eafce4e161325ef1b0bf3817d90a77",
    "certs/mc100-alphaevolve-nb-matmul.json": "50183f3ffba87bd2964ae6c0e32a8d985c8f0176f420728f8b19d826df4ea12a",
    "certs/kissing-ledger.json": "5c823b21ac43b5bdb3ad4b91a46e909cbf86a192e4cf382e2d8c5be2b29f611f",
-   "certs/easota-ledger.json": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+   "certs/easota-ledger.json": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b",
    "certs/mc100-einstein-arena.json": "5d05c32da7e1d4788a2bff1af3f3d2ff45056bb02c69d54fc142fe0e24060226",
    "certs/erdos852-certificate.json": "13cfc7fa212a4355139a45cba78450ed371db78d2c980b3faec09a121c024ad1",
    "certs/polymaps-ledger.json": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
@@ -29558,5 +29558,27 @@
     }
    ]
   }
- }
+ },
+ "repinned": [
+  {
+   "at": "2026-10-21T18:36:26.072Z",
+   "git": "6d80fdef",
+   "why": "Amendment 2026-10-22 (Phase 5, the freeze): the note amended with the fixes, the open finding, the exclusions and this re-pin; the easota ledger record's grammar string gained MISPRINTED; the inventory regenerated; no mutant or decision touched",
+   "before": {
+    "preregistration": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3",
+    "inventory": "170766e6eedb97b980d2e1deca2cef197ff7ca8361fab68f5f725ef0ee61d367",
+    "recordsMoved": [
+     {
+      "record": "certs/easota-ledger.json",
+      "from": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+      "to": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
+    "inventory": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
+   }
+  }
+ ]
 }

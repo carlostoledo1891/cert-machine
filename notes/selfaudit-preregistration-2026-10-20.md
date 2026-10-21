@@ -6,6 +6,22 @@
 > files, ids and records; "the self-audit" in prose. This file was renamed from bench-preregistration-2026-10-20.md
 > (git mv, history kept); every "bench" placeholder below is replaced by the name.
 
+> **Amendment 2026-10-22 (Phase 5, the freeze; no definition moved).** Phases 1–4 ran under the definitions below as
+> written. Recorded here, dated, so the records that pin this note can be re-pinned once: (1) Phase 3 found two defects
+> by M1's rule and fixed them, keeping the mutants and the counts (instruments/selfaudit/fixes.json, commit d961cda2 →
+> 2311ac2c): the EinsteinArena ledger's word did not carry the printed digits (28 false certifications; now
+> instruments/easota/word.js, MISPRINTED → REFUTED), and two deciders answered REFUTED to malformed input where this note
+> requires REFUSED (49; the tensor instrument's shape checks and the mc100 decider's). (2) One finding stays open on the
+> record: F7's partial decision reads a term with a missing exponent silently. (3) Rows not mutated, a reason each in
+> their modules: countex 14, turan 2, horizonmath 3, gnnw 1, sumproduct 1; the kill switch was decided at 94 of 119.
+> (4) Two corrections of this session's own tools, dated in the records, not of the note: the runner's stamp rule was
+> narrower than "generated, seconds, git" (re-derived by --reclassify); negating the FEI truth table is not an
+> invariance of its row (its monotonicity claim flips) and was replaced by a coordinate rotation before the record was
+> written. (5) The easota ledger record's grammar string gains MISPRINTED at this freeze, so its bytes move; the
+> inventory is regenerated and the run and mutations records re-pinned by --repin with this amendment as the reason,
+> no measurement, mutant or decision touched. (6) The hosted profile's 416 rows entered Phase 4 as recorded. Nothing
+> else below changes.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

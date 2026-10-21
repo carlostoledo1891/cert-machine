@@ -2,6 +2,7 @@
  "what": "The EinsteinArena / Together AI \"new state-of-the-art\" table (github.com/togethercomputer/EinsteinArena-new-SOTA, commit c388c6f7), every published construction re-decided in exact rational arithmetic from its own bytes read as the decimals they print. Per row: the exact value of the platform's objective, every constraint's exact slack, whether the printed digits are the exact value's (rounding, or ceiling for an upper bound), and a REPAIR where the bytes are a witness only within a verifier's tolerance. Where a verifier has a tolerance, the row's platformRule says which (the platform's or the repository notebook's) and dates it: the rule when the construction was published and the rule on 2026-10-06, each read from pinned bytes (corpus/sources/easota-platform).",
  "grammar": {
   "WITNESSED": "the bytes are an exact witness of the value stated",
+  "MISPRINTED": "the bytes are an exact witness of a value the printed digits do not state (since 2026-10-21, instruments/easota/word.js; the register's REFUTED, kind not-from-the-published-data)",
   "REPAIRED": "a witness only within a verifier's tolerance (named and dated in platformRule); an exact witness built from the same bytes, its deficit printed",
   "UNWITNESSED": "the bytes fail exactly and no repair was built — a finding about the bytes, never a refutation of the bound"
  },
@@ -68,8 +69,8 @@
    }
   }
  },
- "generated": "2026-10-06T03:12:49.753Z",
- "git": "cb6d042",
+ "generated": "2026-10-21T18:36:25.723Z",
+ "git": "6d80fdef",
  "rows": [
   {
    "id": "circles/alphaevolve_2025",
@@ -534,7 +535,7 @@
    "printed": "1.50529397",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 7
+   "ms": 6
   },
   {
    "id": "autocorr/alphaevolve_v2_2025",
@@ -558,7 +559,7 @@
    "printed": null,
    "printedConvention": "ceiling",
    "printedAgrees": null,
-   "ms": 9
+   "ms": 6
   },
   {
    "id": "autocorr/ttt_discover_2026",
@@ -582,7 +583,7 @@
    "printed": "1.50286290",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 2892
+   "ms": 1326
   },
   {
    "id": "autocorr/ours_2026",
@@ -606,7 +607,7 @@
    "printed": "1.50286286",
    "printedConvention": "ceiling",
    "printedAgrees": true,
-   "ms": 1804
+   "ms": 971
   },
   {
    "id": "flat/alphaevolve_2025",
@@ -648,7 +649,7 @@
      "nCandidates": 41,
      "isolation": "grid+sturm-total"
     },
-    "ms": 842,
+    "ms": 423,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.340925",
@@ -695,7 +696,7 @@
      "nCandidates": 44,
      "isolation": "grid+sturm-total"
     },
-    "ms": 949,
+    "ms": 460,
     "note": "the platform's score is a maximum over 1,000,000 grid points on the circle, a lower bound of the supremum; the enclosure is the supremum, certified (Sturm chain, interval Newton, exact Taylor bounds) — and the grid falls short of it by gridShortfall"
    },
    "printed": "1.280932",
@@ -735,7 +736,7 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 21,
+    "ms": 9,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9419123",
@@ -794,7 +795,7 @@
     "outside": [],
     "undecidedPairs": [],
     "undecidedVertices": [],
-    "ms": 9,
+    "ms": 3,
     "note": "every vertex is a cosine and a sine of a published decimal, so the decision runs in outward-rounded interval arithmetic with a certified π and certified sin/cos (instruments/interval): a pair is SEPARATED when some edge normal has certainly disjoint projections, a vertex INSIDE when every edge cross product is certainly non-negative. gapAtLeast and crossAtLeast are certain lower bounds; the platform separates only past 1e-9 and admits a vertex outside by up to 1e-9"
    },
    "printed": "3.9416523",
