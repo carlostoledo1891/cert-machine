@@ -189,7 +189,7 @@ function kissingRow(mr, B, prob) {
   const dims = /d(\d+)/.exec(prob.slug), nT = /n=(\d+)/.exec(prob.title);
   const d = Number(dims[1]), nWant = Number(nT[1]);
   const rows = B.data.vectors.map((v) => v.map(lit));
-  if (rows.length !== nWant || rows.some((v) => v.length !== d)) return { verdict: 'REFUTED', kind: 'not-from-the-published-data', scope: 'the object is not ' + nWant + ' vectors in R^' + d + ' (' + rows.length + ' rows)' };
+  if (rows.length !== nWant || rows.some((v) => v.length !== d)) return { verdict: 'REFUSED', kind: 'none', scope: 'the object is not ' + nWant + ' vectors in R^' + d + ' (' + rows.length + ' rows): malformed, not decided' };
   const V = K.fromDecimals(rows);
   const cert = K.certify(V);
   const full = kissingFull(V);
@@ -277,7 +277,7 @@ function easotaRow(mr, B, prob) {
     }
     case 'edges-vs-triangles': {
       const W = B.data.weights.map((row) => row.map((x) => R(lit(x))));
-      if (W.some((row) => row.length !== 20)) return { verdict: 'REFUTED', kind: 'not-from-the-published-data', scope: 'a row without 20 weights', decision: {} };
+      if (W.some((row) => row.length !== 20)) return { verdict: 'REFUSED', kind: 'none', scope: 'a row without 20 weights: malformed, not decided', decision: {} };
       const neg = W.reduce((n, row) => n + row.filter((x) => Q.sign(x) < 0).length, 0);
       const r = D.edges(W);
       const ag = agreement(r.score, r.score, Slit, minImp);

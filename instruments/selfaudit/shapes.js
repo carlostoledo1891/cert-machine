@@ -45,6 +45,7 @@ const L = require(path.join(ROOT, 'instruments', 'easota', 'lib.js'));
 const D = require(path.join(ROOT, 'instruments', 'easota', 'decide.js'));
 const H = require(path.join(ROOT, 'instruments', 'easota', 'hexagons.js'));
 const MC = require(path.join(ROOT, 'tools', 'run-mc100-einstein.js'));
+const WD = require(path.join(ROOT, 'instruments', 'easota', 'word.js'));
 const Q = L.Q;
 
 const EASOTA = 'certs/easota-ledger.json', MC100 = 'certs/mc100-einstein-arena.json';
@@ -195,7 +196,10 @@ function decideEasota(claim) {
   else throw new Error('unknown kind ' + k);
   if (bar.printed !== null && exact !== null) printedAgrees = Array.isArray(exact) ? agree(exact[0], bar.printed, bar.convention) && agree(exact[1], bar.printed, bar.convention) : agree(exact, bar.printed, bar.convention);
   else if (bar.printed !== null) printedAgrees = false;
-  const register = word === 'WITNESSED' ? 'CERTIFIED' : word === 'REPAIRED' ? 'REPAIRED' : word;
+  /* the word composed as the ledger composes it (instruments/easota/word.js, one place since the fix of 2026-10-21) */
+  word = WD.wordOf({ verdict: word, printed: bar.printed, printedAgrees });
+  const rw = WD.registerWord(word);
+  const register = rw ? rw.verdict : word;
   return { verdict: register, ledgerVerdict: word, printedAgrees, why: why + (bar.printed !== null ? '; printed ' + bar.printed + (printedAgrees ? ' agrees' : ' DOES NOT agree') + ' (' + bar.convention + ')' : '; nothing printed') };
 }
 function decideMc100(claim) {
@@ -217,7 +221,7 @@ function decide(id, claim) {
 module.exports = {
   family: 'shapes',
   records: [EASOTA, MC100],
-  decider: 'easota rows: instruments/easota/decide.js (hexagons.js) composed as tools/run-easota-ledger.js composes it — the word from the decision, printedAgrees from agree() under the row\'s convention, the register\'s CERTIFIED for WITNESSED and REPAIRED for REPAIRED, any other word reported as the ledger says it; mc100 rows: tools/run-mc100-einstein.js easotaRow / kissingRow required as a module (the agreement rule, the platform\'s resolution, is theirs)',
+  decider: 'easota rows: instruments/easota/decide.js (hexagons.js) composed as tools/run-easota-ledger.js composes it — the decision from the bytes, printedAgrees from agree() under the row\'s convention, the word by instruments/easota/word.js (WITNESSED, MISPRINTED since the fix of 2026-10-21, REPAIRED, UNWITNESSED, UNDECIDED) and the register\'s word for it (CERTIFIED, REFUTED, REPAIRED; any other reported as the ledger says it); mc100 rows: tools/run-mc100-einstein.js easotaRow / kissingRow required as a module (the agreement rule, the platform\'s resolution, is theirs)',
   witness: 'instruments/selfaudit/witness_shapes.py',
   floatcheck: 'instruments/selfaudit/floatcheck_shapes.py',
   redControl: null,

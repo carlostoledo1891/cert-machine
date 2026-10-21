@@ -108,6 +108,17 @@ red((() => { try { L.pyLiteral('x = np.array([1, 2', 'x'); return false; } catch
   ok(Q.cmp(Q.fromDouble(e[0]), r('219.59740708331')) <= 0 && Q.cmp(Q.fromDouble(e[1]), r('219.59740708331')) >= 0 && e[1] - e[0] <= 2 * 2.9e-14, 'a decimal literal is enclosed by its two neighbouring doubles');
 }
 
+/* ---- the word, composed once (instruments/easota/word.js) ---- */
+{
+  const WD = require('./word.js');
+  ok(WD.wordOf({ verdict: 'WITNESSED', printed: '2.3658321334', printedAgrees: true }) === 'WITNESSED' && WD.wordOf({ verdict: 'WITNESSED', printed: null, printedAgrees: null }) === 'WITNESSED', 'a witness whose printed digits state its value, or that prints nothing, is WITNESSED');
+  red(WD.wordOf({ verdict: 'WITNESSED', printed: '2.3658321335', printedAgrees: false }) === 'MISPRINTED', 'a witness whose printed digits do NOT state its value is MISPRINTED (the self-audit\'s 28 found)');
+  ok(WD.wordOf({ verdict: 'REPAIRED', printed: '2.3658323759', printedAgrees: false }) === 'REPAIRED' && WD.wordOf({ verdict: 'UNWITNESSED', printed: '1', printedAgrees: false }) === 'UNWITNESSED', 'REPAIRED and UNWITNESSED keep their words whatever the printed digits do');
+  ok(WD.registerWord('MISPRINTED').verdict === 'REFUTED' && WD.registerWord('MISPRINTED').kind === 'not-from-the-published-data' && WD.registerWord('WITNESSED').verdict === 'CERTIFIED' && WD.registerWord('UNWITNESSED') === null, 'the register\'s word for each: MISPRINTED is REFUTED, kind not-from-the-published-data; UNWITNESSED has none (the build refuses)');
+  let threw = false; try { WD.wordOf({ verdict: 'PROVED', printed: null, printedAgrees: null }); } catch (e) { threw = true; }
+  red(threw, 'a word outside the five is refused');
+}
+
 /* ---- the shipped record ---- */
 const CERT = path.join(ROOT, 'certs', 'easota-ledger.json');
 if (fs.existsSync(CERT)) {

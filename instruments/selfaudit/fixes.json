@@ -1,0 +1,129 @@
+{
+ "what": "The fixes the self-audit's mutation campaign forced (the pre-registration: a false certification is a defect, fixed, the fix recorded beside the mutant, the mutant kept, the count reported, never deleted). Each entry names the finding, the record and commit it was found at, the mutants it covered by id, and the fix; tools/run-selfaudit-mutations.js reads this file, marks each covered mutant that now comes out as required with fixedFrom, and reports per fix how many are as required now and which are not. Nothing here moves a definition of the pre-registration.",
+ "fixes": [
+  {
+   "id": "easota-word",
+   "finding": "the easota ledger's word (WITNESSED → the register's CERTIFIED) was about the bytes witnessing a value; the printed digits were a field beside it (printedAgrees), gated only by the easota page build and the paper numbers. A printed value moved one unit in its last digit past the bytes stayed CERTIFIED on the 15 easota rows with a printed value and a WITNESSED decision, while tools/run-mc100-einstein.js refutes the same for the mc100 rows.",
+   "found": {
+    "record": "certs/selfaudit-mutations.json",
+    "commit": "d961cda2",
+    "date": "2026-10-21",
+    "outcome": "FALSE CERTIFICATION",
+    "count": 28
+   },
+   "fix": {
+    "date": "2026-10-21",
+    "what": "instruments/easota/word.js composes the word in one place: WITNESSED with a printed value the exact value does not reproduce → MISPRINTED → the register's REFUTED, kind not-from-the-published-data, the exact value certified beside it; tools/run-easota-ledger.js and instruments/selfaudit/shapes.js both call it; tools/run-claims-ledger.js maps MISPRINTED; the easota page and battery know the word. No row of the pinned records changes word; the ledger record's grammar string gains MISPRINTED at the next re-pin (Phase 5).",
+    "files": [
+     "instruments/easota/word.js",
+     "tools/run-easota-ledger.js",
+     "tools/run-claims-ledger.js",
+     "tools/build-report-easota.js",
+     "instruments/easota/battery.js",
+     "instruments/selfaudit/shapes.js"
+    ]
+   },
+   "mutants": [
+    "ea-circles-alphaevolve_2025/printed-plus-one-unit",
+    "ea-circles-alphaevolve_2025/printed-minus-one-unit",
+    "ea-heilbronn-alphaevolve_2025/printed-plus-one-unit",
+    "ea-heilbronn-alphaevolve_2025/printed-minus-one-unit",
+    "ea-heilbronn-ours_2026/printed-plus-one-unit",
+    "ea-heilbronn-ours_2026/printed-minus-one-unit",
+    "ea-mindist-alphaevolve_2025/printed-plus-one-unit",
+    "ea-mindist-alphaevolve_2025/printed-minus-one-unit",
+    "ea-mindist-ours_2026/printed-plus-one-unit",
+    "ea-mindist-ours_2026/printed-minus-one-unit",
+    "ea-overlap-haugland_2016/printed-plus-one-unit",
+    "ea-overlap-haugland_2016/printed-minus-one-unit",
+    "ea-edges-alphaevolve_2025/printed-plus-one-unit",
+    "ea-edges-alphaevolve_2025/printed-minus-one-unit",
+    "ea-edges-ours_2026/printed-plus-one-unit",
+    "ea-edges-ours_2026/printed-minus-one-unit",
+    "ea-autocorr-alphaevolve_2025/printed-plus-one-unit",
+    "ea-autocorr-alphaevolve_2025/printed-minus-one-unit",
+    "ea-autocorr-ttt_discover_2026/printed-plus-one-unit",
+    "ea-autocorr-ttt_discover_2026/printed-minus-one-unit",
+    "ea-autocorr-ours_2026/printed-plus-one-unit",
+    "ea-autocorr-ours_2026/printed-minus-one-unit",
+    "ea-flat-alphaevolve_2025/printed-minus-one-unit",
+    "ea-flat-ours_2026/printed-minus-one-unit",
+    "ea-hexagons-alphaevolve_2025/printed-plus-one-unit",
+    "ea-hexagons-alphaevolve_2025/printed-minus-one-unit",
+    "ea-hexagons-ours_2026/printed-plus-one-unit",
+    "ea-hexagons-ours_2026/printed-minus-one-unit"
+   ]
+  },
+  {
+   "id": "malformed-word",
+   "finding": "a malformed input — a factor matrix with a short row (the rank claim no longer matching the columns), an object that is not n vectors in R^d, a weight row without 20 weights — was answered REFUTED (the tensor instrument's shape checks; the mc100-einstein decider's shape checks, kind not-from-the-published-data) where the vocabulary of instruments/verdict.js and the pre-registration say REFUSED: a claim the instrument cannot decide, not a false one.",
+   "found": {
+    "record": "certs/selfaudit-mutations.json",
+    "commit": "d961cda2",
+    "date": "2026-10-21",
+    "outcome": "not as required (REFUTED)",
+    "count": 49
+   },
+   "fix": {
+    "date": "2026-10-21",
+    "what": "instruments/strassen/tensor.js: the four shape checks of audit() and of auditZi() answer REFUSED with the same reason (the identity failing under both layouts stays REFUTED); families/strassen-audit.js and tools/run-mc100-tensors.js already map the instrument's REFUSED to the register's; tools/run-mc100-einstein.js: an object that is not n vectors in R^d and a weight row without 20 weights are REFUSED, kind none. The strassen battery's forged-rank red control expects REFUSED with its reason. No row of the pinned records changes word.",
+    "files": [
+     "instruments/strassen/tensor.js",
+     "instruments/strassen/battery.js",
+     "tools/run-mc100-einstein.js"
+    ]
+   },
+   "mutants": [
+    "mm-strassen-1969/short-row",
+    "mm-strassen-squared-4x4x4/short-row",
+    "mm-alphatensor-q-2x2x2/short-row",
+    "mm-alphatensor-q-3x3x3/short-row",
+    "mm-alphatensor-q-4x4x4/short-row",
+    "mm-alphatensor-q-3x4x5/short-row",
+    "mm-alphatensor-q-4x5x5/short-row",
+    "mm-alphatensor-f2-4x4x4/short-row",
+    "mm-alphatensor-f2-5x5x5/short-row",
+    "mm-alphaevolve-48-4x4x4/short-row",
+    "mc100-at-q-2x2x3/short-row",
+    "mc100-at-q-2x2x4/short-row",
+    "mc100-at-q-2x3x3/short-row",
+    "mc100-at-q-2x2x5/short-row",
+    "mc100-at-q-2x2x6/short-row",
+    "mc100-at-q-2x3x4/short-row",
+    "mc100-at-q-2x2x7/short-row",
+    "mc100-at-q-2x3x5/short-row",
+    "mc100-at-q-2x2x8/short-row",
+    "mc100-at-q-2x4x4/short-row",
+    "mc100-at-q-3x3x4/short-row",
+    "mc100-at-q-2x4x5/short-row",
+    "mc100-at-f2-2x2x3/short-row",
+    "mc100-at-f2-2x2x4/short-row",
+    "mc100-at-f2-2x3x3/short-row",
+    "mc100-at-f2-2x2x5/short-row",
+    "mc100-at-f2-2x3x4/short-row",
+    "mc100-at-f2-2x3x5/short-row",
+    "mc100-at-f2-2x4x4/short-row",
+    "mc100-at-f2-3x3x4/short-row",
+    "mc100-ae-nb-2x4x5-r32/short-row",
+    "mc100-ae-nb-2x4x7-r45/short-row",
+    "mc100-ae-nb-2x4x8-r51/short-row",
+    "mc100-ae-nb-2x5x6-r47/short-row",
+    "mc100-ae-nb-3x3x3-r23/short-row",
+    "mc100-ae-nb-3x4x6-r54/short-row",
+    "mc100-ae-nb-3x4x7-r63/short-row",
+    "mc100-ae-nb-3x4x8-r74/short-row",
+    "mc100-ae-nb-3x5x6-r68/short-row",
+    "mc100-ae-nb-3x5x7-r80/short-row",
+    "mc100-ae-nb-4x4x8-r96/short-row",
+    "mc100-ae-nb-4x4x5-r61/short-row",
+    "mc100-ae-nb-4x4x7-r85/short-row",
+    "mc100-ae-nb-4x5x6-r90/short-row",
+    "mc100-ae-nb-5x5x5-r93/short-row",
+    "mc100-ea-best-edges-vs-triangles/coordinate-missing",
+    "mc100-ea-best-kissing-number-d12/coordinate-missing",
+    "mc100-ea-best-kissing-number-d11-605/coordinate-missing",
+    "mc100-ea-best-kissing-number-d12-842/coordinate-missing"
+   ]
+  }
+ ]
+}

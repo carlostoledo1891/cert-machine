@@ -55,6 +55,9 @@ const TAUS = ['1e-6', '1e-9', '1e-12'];
 const MUTABLE_ROWS = 119;
 /* the families of the pre-registration's class table, in its order; a module under instruments/selfaudit/<family>.js builds one */
 const FAMILIES = ['tensor', 'kissing', 'shapes', 'erdos852', 'polymaps', 'countex', 'entropy', 'turan', 'horizonmath', 'gnnw', 'sumproduct'];
+/* the fixes the campaign forced, with the mutants each covered by id (instruments/selfaudit/fixes.json): a covered mutant that
+   now comes out as required is marked fixedFrom; per fix the record says how many are as required now and which are not */
+const FIXES = 'instruments/selfaudit/fixes.json';
 
 const argv = process.argv.slice(2);
 const CHECK = argv.includes('--check');
@@ -128,6 +131,13 @@ const derive = (families) => {
     for (const tau of TAUS) for (const k of ['witnessedFalseAccepted', 'witnessedFalse', 'originalsAccepted', 'originals', 'trueAccepted', 'trueMutants']) all.float[tau][k] += t.float[tau][k];
   }
   for (const tau of TAUS) all.float[tau].witnessedFalseAcceptRate = all.float[tau].witnessedFalse ? Math.round(1e4 * all.float[tau].witnessedFalseAccepted / all.float[tau].witnessedFalse) / 1e4 : null;
+  const fixesIn = J(FIXES).fixes;
+  const covered = new Map(); for (const f of fixesIn) for (const id of f.mutants) covered.set(id, f.id);
+  const outcomes = new Map(); for (const F of Object.values(families)) for (const row of F.rows) for (const m of row.mutants || []) outcomes.set(m.id, m.outcome);
+  const fixes = fixesIn.map((f) => ({ id: f.id, finding: f.finding, found: f.found, fix: f.fix, mutants: f.mutants.length,
+    asRequiredNow: f.mutants.filter((id) => outcomes.get(id) === 'as required').length,
+    notAsRequired: f.mutants.filter((id) => outcomes.has(id) && outcomes.get(id) !== 'as required').map((id) => ({ id, outcome: outcomes.get(id) })),
+    notInThisRun: f.mutants.filter((id) => !outcomes.has(id)).length }));
   const findings = [];
   for (const [fam, F] of Object.entries(families)) {
     const groups = {};
@@ -144,7 +154,7 @@ const derive = (families) => {
     for (const g of Object.values(groups)) findings.push(g);
   }
   const killSwitch = { mutableRows: MUTABLE_ROWS, half: Math.ceil(MUTABLE_ROWS / 2), rowsWithWitnessedFalse: all.rowsWithWitnessedFalse, tripped: pending.length === 0 ? all.rowsWithWitnessedFalse < Math.ceil(MUTABLE_ROWS / 2) : null, note: pending.length ? 'decided when every family is built or its exclusion recorded; the count so far is reported' : 'decided: every family built or its exclusion recorded' };
-  return { totals, all, killSwitch, findings };
+  return { totals, all, killSwitch, findings, fixes, covered };
 };
 
 /* ---- --check ------------------------------------------------------------------------------------------------------- */
@@ -176,6 +186,12 @@ if (CHECK) {
   if (!have.partial && pending.length) die('the record says it is whole but a family has no module: ' + pending.join(', '));
   const d = derive(have.families);
   if (JSON.stringify(d.totals) !== JSON.stringify(have.totals) || JSON.stringify(d.all) !== JSON.stringify(have.all) || JSON.stringify(d.killSwitch) !== JSON.stringify(have.killSwitch) || JSON.stringify(d.findings) !== JSON.stringify(have.findings)) die('the totals or the findings do not re-derive from the rows');
+  if (!have.fixesTable || have.fixesTable.sha256 !== sha(FIXES)) die('the record was made against another fixes table');
+  if (JSON.stringify(d.fixes) !== JSON.stringify(have.fixes)) die('the fixes do not re-derive from the rows');
+  for (const F of Object.values(have.families)) for (const row of F.rows) for (const m of row.mutants || []) {
+    const fid = d.covered.get(m.id);
+    if ((m.fixedFrom !== undefined) !== (!!fid && m.outcome === 'as required')) die('fixedFrom does not re-derive: ' + m.id);
+  }
   console.log('selfaudit mutations hold: ' + Object.keys(have.families).join(', ') + (have.partial ? ' (PARTIAL; pending ' + have.pending.join(', ') + ')' : '') + ' — ' + have.all.rows + ' rows, ' + have.all.mutants + ' mutants, false certifications ' + have.all.falseCertifications + ', false refutations ' + have.all.falseRefutations + ', refusals ' + (have.all.refusalsOnFalse + have.all.refusalsOnTrue) + ', discards ' + have.all.discards + ', malformed not refused ' + have.all.malformedNotRefused + ', rows with a witnessed FALSE ' + have.all.rowsWithWitnessedFalse + ' of ' + MUTABLE_ROWS);
   process.exit(0);
 }
@@ -196,6 +212,7 @@ const runPy = (script, items, label) => {
 };
 const canonical = (claim) => Buffer.from(JSON.stringify(claim));
 const t00 = Date.now();
+const FIXED_BY = new Map(); for (const f of J(FIXES).fixes) for (const id of f.mutants) FIXED_BY.set(id, f);
 const families = {};
 for (const fam of built) {
   const F = MODS[fam];
@@ -228,9 +245,13 @@ for (const fam of built) {
       const d = F.decide(row.entryId + '/' + m.class, m.claim);
       const bytes = canonical(m.claim);
       const required = requiredOf(m, row.verdict);
-      mutants.push({ id: row.rowId + '/' + m.class, class: m.class, truth: m.truth, preservesOriginal: !!m.preservesOriginal, transformation: m.transformation, sha256: shaBuf(bytes), bytes: bytes.length,
+      const mid = row.rowId + '/' + m.class;
+      const fixOf = FIXED_BY.get(mid);
+      const outcome = outcomeOf(m.truth, w.violated, d.verdict, required);
+      mutants.push({ id: mid, class: m.class, truth: m.truth, preservesOriginal: !!m.preservesOriginal, transformation: m.transformation, sha256: shaBuf(bytes), bytes: bytes.length,
+        ...(fixOf && outcome === 'as required' ? { fixedFrom: fixOf.found.outcome, fix: fixOf.id, foundAt: fixOf.found.commit } : {}),
         witness: { violated: w.violated, malformed: w.malformed, reason: w.reason || null, firstViolation: w.layouts || w.violation || null, ...(w.exact !== undefined ? { exact: w.exact } : {}), ...(w.constraintsWitnessed === false ? { constraintsWitnessed: false } : {}) },
-        decided: d, required, outcome: outcomeOf(m.truth, w.violated, d.verdict, required),
+        decided: d, required, outcome,
         float: (({ id, ...rest }) => rest)(fl) });
     }
     outRows.push({ rowId: row.rowId, record: row.record, entryId: row.entryId, verdict: row.verdict, object: F.describe(row.entry), original, mutants, excluded, controlsFired: ctrls.map((c) => c.id), ms: Date.now() - t0 });
@@ -250,9 +271,10 @@ const out = {
   inputs: { register: { path: REGISTER, sha256: pins.register, rows: R.rows.length }, recordPins: Object.fromEntries(built.flatMap((f) => MODS[f].records).map((rec) => [rec, pins.records[rec]])) },
   required: REQUIRED, taus: TAUS,
   partial: pending.length > 0 || !!ONLY, dryRun: !!ONLY, built, pending,
-  totals: d.totals, all: d.all, killSwitch: d.killSwitch, findings: d.findings, families
+  totals: d.totals, all: d.all, killSwitch: d.killSwitch, findings: d.findings, fixes: d.fixes, fixesTable: { path: FIXES, sha256: sha(FIXES) }, families
 };
 const dest = outArg ? path.resolve(outArg) : path.join(ROOT, OUT);
 fs.writeFileSync(dest, JSON.stringify(out, null, 1) + '\n');
 if (d.findings.length) log('FINDINGS:\n' + d.findings.map((f) => '  ' + f.family + ' · ' + f.class + ' (' + f.truth + ') → ' + f.outcome + ' × ' + f.count + ' — e.g. ' + String(f.example).slice(0, 140)).join('\n'));
+log('FIXES: ' + d.fixes.map((f) => f.id + ' found ' + f.found.count + ' at ' + f.found.commit + ' → as required now ' + f.asRequiredNow + ', not ' + f.notAsRequired.length).join('; '));
 log('written ' + dest + ': ' + built.join(', ') + (pending.length ? ' (PARTIAL; pending ' + pending.join(', ') + ')' : '') + ' — ' + out.all.rows + ' rows, ' + out.all.mutants + ' mutants (' + JSON.stringify(out.all.byTruth) + '), outcomes ' + JSON.stringify(out.all.byOutcome) + '; rows with a witnessed FALSE ' + out.all.rowsWithWitnessedFalse + '; float accept on witnessed FALSE ' + TAUS.map((t) => t + ': ' + out.all.float[t].witnessedFalseAcceptRate).join(', ') + '; ' + out.seconds + ' s');

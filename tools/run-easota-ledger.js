@@ -28,6 +28,7 @@ const ROOT = path.resolve(__dirname, '..');
 const L = require(path.join(ROOT, 'instruments', 'easota', 'lib.js'));
 const D = require(path.join(ROOT, 'instruments', 'easota', 'decide.js'));
 const H = require(path.join(ROOT, 'instruments', 'easota', 'hexagons.js'));
+const WD = require(path.join(ROOT, 'instruments', 'easota', 'word.js'));
 const Q = L.Q;
 const die = (m) => { console.error('EASOTA LEDGER REFUSED: ' + m); process.exit(1); };
 
@@ -120,6 +121,9 @@ const decUp = (r, d) => {
 };
 const rows = [];
 const push = (row) => {
+  /* the word, composed in instruments/easota/word.js (2026-10-21): a WITNESSED decision whose printed value the exact value
+     does not reproduce is MISPRINTED — the register's REFUTED, kind not-from-the-published-data */
+  row.verdict = WD.wordOf({ verdict: row.verdict, printed: row.printed === undefined ? null : row.printed, printedAgrees: row.printedAgrees === undefined ? null : row.printedAgrees });
   rows.push(row);
   console.log('  ' + row.id.padEnd(30) + row.verdict.padEnd(12) + (row.exact !== undefined && row.exact !== null ? ' exact ' + row.exact : '') + (row.printed ? '  printed ' + row.printed : ''));
 };

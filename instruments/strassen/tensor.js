@@ -78,7 +78,11 @@ function checkLayout(dims, U, V, W, ring, layout, scale = 1) {
 
 /* audit(claim) — claim: { dims: [n,m,p], rank, U, V, W, ring: 'Q'|'F2' }.
    VERIFIED iff the identity holds under some C-layout over the claimed
-   ring; the layout is recorded in the certificate, never assumed. */
+   ring; the layout is recorded in the certificate, never assumed. A claim
+   whose factors are not three integer matrices of the claimed shape and
+   rank is REFUSED, not refuted (since 2026-10-21, the self-audit's finding:
+   a malformed claim is one the instrument cannot decide, not a false one);
+   the identity failing under both layouts is REFUTED. */
 function audit(claim) {
   const { dims, U, V, W } = claim;
   const ring = claim.ring || 'Q';
@@ -86,13 +90,13 @@ function audit(claim) {
   const [n, m, p] = dims;
   const r = rankOf(U);
   if (claim.rank !== undefined && claim.rank !== r)
-    return { verdict: 'REFUTED', why: 'claimed rank ' + claim.rank + ' but the factors have ' + r + ' columns' };
+    return { verdict: 'REFUSED', why: 'claimed rank ' + claim.rank + ' but the factors have ' + r + ' columns' };
   if (U.length !== n * m || V.length !== m * p || W.length !== n * p)
-    return { verdict: 'REFUTED', why: 'factor shapes do not match dims <' + dims + '>' };
+    return { verdict: 'REFUSED', why: 'factor shapes do not match dims <' + dims + '>' };
   if (![...U, ...V, ...W].every(row => row.length === r && row.every(Number.isInteger)))
-    return { verdict: 'REFUTED', why: 'factors are not integer matrices of uniform rank' };
+    return { verdict: 'REFUSED', why: 'factors are not integer matrices of uniform rank' };
   if (!Number.isInteger(scale) || scale < 1 || (ring === 'F2' && scale !== 1))
-    return { verdict: 'REFUTED', why: 'scale must be a positive integer (and 1 over F2)' };
+    return { verdict: 'REFUSED', why: 'scale must be a positive integer (and 1 over F2)' };
   for (const layout of ['AC', 'CA']) {
     const c = checkLayout(dims, U, V, W, ring, layout, scale);
     if (c.ok) return Object.assign({ verdict: 'VERIFIED', layout, rank: r, ring,
@@ -200,14 +204,14 @@ function auditZi(claim) {
   const [n, m, p] = dims;
   const r = rankOf(U);
   if (claim.rank !== undefined && claim.rank !== r)
-    return { verdict: 'REFUTED', why: 'claimed rank ' + claim.rank + ' but the factors have ' + r + ' columns' };
+    return { verdict: 'REFUSED', why: 'claimed rank ' + claim.rank + ' but the factors have ' + r + ' columns' };
   if (U.length !== n * m || V.length !== m * p || W.length !== n * p)
-    return { verdict: 'REFUTED', why: 'factor shapes do not match dims <' + dims + '>' };
+    return { verdict: 'REFUSED', why: 'factor shapes do not match dims <' + dims + '>' };
   const intPair = (x) => Array.isArray(x) && x.length === 2 && Number.isInteger(x[0]) && Number.isInteger(x[1]);
   if (!Number.isInteger(scale) || scale < 1)
-    return { verdict: 'REFUTED', why: 'scale must be a positive integer' };
+    return { verdict: 'REFUSED', why: 'scale must be a positive integer' };
   if (![...U, ...V, ...W].every(row => row.length === r && row.every(intPair)))
-    return { verdict: 'REFUTED', why: 'factors are not [re,im] Gaussian-integer matrices of uniform rank' };
+    return { verdict: 'REFUSED', why: 'factors are not [re,im] Gaussian-integer matrices of uniform rank' };
   let mx = 0;
   for (const M of [U, V, W]) for (const row of M) for (const [a, b] of row) mx = Math.max(mx, Math.abs(a), Math.abs(b));
   if (r * 4 * Math.max(1, mx) ** 3 + scale >= EXACT)

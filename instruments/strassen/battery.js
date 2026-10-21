@@ -48,7 +48,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
 
   const rankLie = { ...s, rank: 6 };
   const b = T.audit(rankLie);
-  ok(b.verdict === 'REFUTED' && /rank/.test(b.why), 'RED: a forged rank claim (6 for 7 columns) is REFUTED');
+  ok(b.verdict === 'REFUSED' && /rank/.test(b.why), 'RED: a forged rank claim (6 for 7 columns) is REFUSED with its reason — malformed, not decided (since 2026-10-21)');
 
   const dropped = { dims: [2, 2, 2], U: s.U.map(r => r.slice(0, 6)), V: s.V.map(r => r.slice(0, 6)), W: s.W.map(r => r.slice(0, 6)) };
   const c = T.audit(dropped);
@@ -81,8 +81,8 @@ const ok = (c, m) => { if (c) { pass++; console.log('PASS  ' + m); } else { fail
     'SCALE: Strassen with every factor doubled verifies as 8*T over Q, fast path and BigInt agreeing');
   ok(T.audit({ ...dbl, scale: 4 }).verdict === 'REFUTED' && T.audit({ ...dbl, scale: 1 }).verdict === 'REFUTED',
     'RED: the same doubled factors read with scale 4 or scale 1 are REFUTED — the scale is decided, not assumed');
-  ok(T.audit({ ...s, scale: 1 }).verdict === 'VERIFIED' && T.audit({ ...s, ring: 'F2', scale: 2 }).verdict === 'REFUTED',
-    'scale 1 is the old audit exactly; a scale over F2 is refused');
+  ok(T.audit({ ...s, scale: 1 }).verdict === 'VERIFIED' && T.audit({ ...s, ring: 'F2', scale: 2 }).verdict === 'REFUSED',
+    'scale 1 is the old audit exactly; a scale over F2 is REFUSED — a malformed claim, not a false one (since 2026-10-21)');
 }
 
 /* ---- the Gaussian ring: AlphaEvolve's 48, decided ---- */
