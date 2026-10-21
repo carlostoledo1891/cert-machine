@@ -32,7 +32,7 @@ const ELEMENTS = ['doubles', 'decimals', 'integers', 'rationals'];
 const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-order', 'unbounded', 'pin-unresolved', 'pin-mismatch', 'quote-not-verbatim',
   'printed-not-in-quote', 'printed-mismatch', 'vocabulary', 'arity', 'symbol', 'named', 'reading', 'falsifier', 'reference', 'data', 'index', 'empty-range',
   'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-pin-mismatch', 'record-decision-mismatch',
-  'record-value-mismatch', 'repair', 'resolution'];
+  'record-value-mismatch', 'repair', 'resolution', 'record-predicate'];
 
 class Refuse extends Error { constructor(kind, msg) { super(msg); if (!KINDS.includes(kind)) throw new Error('unknown kind ' + kind); this.kind = kind; this.msg = msg; } }
 const die = (m) => { process.stderr.write('CLAIMBOX CHECKER (JS) REFUSED TO RUN: ' + m + '\n'); process.exit(2); };
@@ -481,7 +481,13 @@ function checkObj(o, root = ROOT) {
 
     if ('record' in o) {
       const r = o.record;
-      need(r, ['path', 'row', 'value', 'verdict'], [], 'record');
+      need(r, ['path', 'row', 'value', 'verdict'], ['predicate'], 'record');
+      let rix = null;
+      if ('predicate' in r) {
+        const t = isNum(r.predicate) ? r.predicate.text : null;
+        if (t === null || !/^\d+$/.test(t) || Number(t) >= preds.length) throw new Refuse('record-predicate', 'record.predicate must index one of the ' + preds.length + ' predicates, got ' + (t === null ? JSON.stringify(r.predicate) : t));
+        rix = Number(t);
+      }
       const rp = path.join(root, r.path);
       if (!fs.existsSync(rp)) throw new Refuse('record-missing', r.path);
       const rec = parseJSON(fs.readFileSync(rp, 'utf8'));
@@ -497,8 +503,15 @@ function checkObj(o, root = ROOT) {
       const claimStr = String(row.claim || '');
       const m = BAR_IN_CLAIM.exec(claimStr), mr = REL_IN_CLAIM.exec(claimStr);
       const recBar = m ? Q.fromDecimal(m[0]) : null, recRel = mr ? REL_WORD[mr[0]] : null;
+      if (rix !== null && preds[rix].rel === 'holds' && value !== null) throw new Refuse('record-predicate', 'record.predicate ' + rix + ' is a "holds" predicate, but the record carries a value');
       const decided = [];
       preds.forEach((p, i) => {
+        if (rix !== null && i !== rix) {
+          if (p.rel === 'holds') decided.push(rv);
+          else if (!fromObject[i]) throw new Refuse('record-predicate', 'predicate[' + i + '] stands beside the record\'s predicate ' + rix + ' and is not decidable from the object');
+          else decided.push(fromObject[i].word);
+          return;
+        }
         if (p.rel === 'holds') { decided.push(rv); return; }
         if (p.rel !== 'in' && p.printed !== null && recBar && !recBar.eq(p.c)) throw new Refuse('record-bar-mismatch', 'the record decided ' + m[0] + ', the object states ' + p.printed);
         if (p.rel !== 'in' && p.printed !== null && recRel && recRel !== p.rel) out.notes.push('the record\'s claim prints the relation ' + mr[0] + ', the object states ' + p.rel + '; the decision below is under the object\'s');
@@ -516,8 +529,8 @@ function checkObj(o, root = ROOT) {
       if ('repair' in o) {
         const rep = o.repair;
         need(rep, ['printed', 'c', 'verdict', 'how'], [], 'repair');
-        const ineq = preds.filter((p) => p.rel !== 'holds' && p.rel !== 'in');
-        if (ineq.length !== 1) throw new Refuse('repair', 'a repair needs exactly one inequality predicate');
+        const ineq = rix !== null ? [preds[rix]] : preds.filter((p) => p.rel !== 'holds' && p.rel !== 'in');
+        if (ineq.length !== 1 || ineq[0].rel === 'holds' || ineq[0].rel === 'in') throw new Refuse('repair', 'a repair needs exactly one inequality predicate (the record\'s, when it names one)');
         if (!WORDS.includes(rep.verdict)) throw new Refuse('repair', 'verdict ' + JSON.stringify(rep.verdict));
         const pr = printedRational(rep.printed, 'repair'), c = rational(rep.c, 'repair.c');
         if (!c.eq(pr)) throw new Refuse('repair', 'c is not the rational of ' + rep.printed);

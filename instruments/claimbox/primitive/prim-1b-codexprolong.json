@@ -1,0 +1,294 @@
+{
+ "id": "prim-1b-codexprolong",
+ "text": "C_1b <= 0.3808585749",
+ "source": {
+  "what": "the optimization-constants registry's constants page 1b.md (the row $0.3808585749$* [EA2026]), pinned by cert-machine 2026-10-18; the bytes are EinsteinArena's record of solution 2507 (CodexProLong), 3,584 heights read as doubles, rescaled in the expression to mass 1 as the registry's replay did",
+  "path": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1b.md",
+  "sha256": "8d164c44a1cde292021f3b8ac0642308babfb0f1142e52d84a62f25e35d314a7",
+  "quote": "| $0.3808585749$* | [EA2026] | CodexProLong on the EinsteinArena leaderboard, 15 Aug 2026 |"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/einstein-arena/best-1.json",
+   "sha256": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6"
+  },
+  "decoder": "the array at data.values: 3584 values, each JSON number as the double it denotes, exactly",
+  "count": 3584,
+  "variable": "f",
+  "data": {
+   "select": "data.values",
+   "elements": "doubles",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Divide",
+    [
+     "MaxOver",
+     "k",
+     "0",
+     [
+      "Subtract",
+      [
+       "Multiply",
+       "2",
+       "n"
+      ],
+      "2"
+     ],
+     [
+      "Subtract",
+      [
+       "Multiply",
+       [
+        "Sum",
+        "i",
+        "0",
+        [
+         "Subtract",
+         "n",
+         "1"
+        ],
+        [
+         "Index",
+         "f",
+         "i"
+        ]
+       ],
+       [
+        "Sum",
+        "i",
+        [
+         "Max",
+         "0",
+         [
+          "Subtract",
+          [
+           "Subtract",
+           "n",
+           "1"
+          ],
+          "k"
+         ]
+        ],
+        [
+         "Min",
+         [
+          "Subtract",
+          "n",
+          "1"
+         ],
+         [
+          "Subtract",
+          [
+           "Subtract",
+           [
+            "Multiply",
+            "2",
+            "n"
+           ],
+           "2"
+          ],
+          "k"
+         ]
+        ],
+        [
+         "Index",
+         "f",
+         "i"
+        ]
+       ]
+      ],
+      [
+       "Multiply",
+       [
+        "Divide",
+        "n",
+        "2"
+       ],
+       [
+        "Sum",
+        "i",
+        [
+         "Max",
+         "0",
+         [
+          "Subtract",
+          [
+           "Subtract",
+           "n",
+           "1"
+          ],
+          "k"
+         ]
+        ],
+        [
+         "Min",
+         [
+          "Subtract",
+          "n",
+          "1"
+         ],
+         [
+          "Subtract",
+          [
+           "Subtract",
+           [
+            "Multiply",
+            "2",
+            "n"
+           ],
+           "2"
+          ],
+          "k"
+         ]
+        ],
+        [
+         "Multiply",
+         [
+          "Index",
+          "f",
+          "i"
+         ],
+         [
+          "Index",
+          "f",
+          [
+           "Subtract",
+           [
+            "Add",
+            "i",
+            "k"
+           ],
+           [
+            "Subtract",
+            "n",
+            "1"
+           ]
+          ]
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "Square",
+     [
+      "Sum",
+      "i",
+      "0",
+      [
+       "Subtract",
+       "n",
+       "1"
+      ],
+      [
+       "Index",
+       "f",
+       "i"
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "printed": "0.3808585749",
+   "c": "3808585749/10000000000"
+  },
+  {
+   "g": [
+    "MinOver",
+    "i",
+    "0",
+    [
+     "Subtract",
+     "n",
+     "1"
+    ],
+    [
+     "Index",
+     "f",
+     "i"
+    ]
+   ],
+   "rel": "ge",
+   "c": "0",
+   "note": "admissibility: h ≥ 0 on every cell"
+  },
+  {
+   "g": [
+    "Subtract",
+    [
+     "Multiply",
+     [
+      "Divide",
+      [
+       "Divide",
+       "n",
+       "2"
+      ],
+      [
+       "Sum",
+       "i",
+       "0",
+       [
+        "Subtract",
+        "n",
+        "1"
+       ],
+       [
+        "Index",
+        "f",
+        "i"
+       ]
+      ]
+     ],
+     [
+      "MaxOver",
+      "i",
+      "0",
+      [
+       "Subtract",
+       "n",
+       "1"
+      ],
+      [
+       "Index",
+       "f",
+       "i"
+      ]
+     ]
+    ],
+    "1"
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "admissibility: the rescaled h ≤ 1 on every cell, the scale (n/2)/Σh"
+  }
+ ],
+ "reference": "the bar is the printed decimal taken exactly (3808585749/10000000000); the value is the minimum-overlap value sup_x ∫ h(t) (1 - h)(x + t) dt of the rescaled step function, computed from the pinned bytes by the expression itself, read as each JSON number as the double it denotes, exactly; the two admissibility inequalities are decided from the same bytes beside it (the record names predicate 0)",
+ "hypotheses": [
+  "h is the step function with n equal cells of width 2/n on [0, 2], 0 <= h <= 1, rescaled by s = (n/2) / Σ h so that ∫ h = 1 (the registry's normalisation; the identity when Σ h is n/2 already); g = 1 - h on [0, 2] and 0 outside; ∫ h(t) g(x + t) dt is piecewise linear in x with knots at multiples of 2/n (two step functions on one grid), so its sup is attained at a knot: (2/n) · max_m Σ_i (s h_i)(1 - s h_{i+m}) over -(n-1) <= m <= n-1 and the i with both indices in range — written here as max_k [Σh · P_k - (n/2) · R_k] / (Σ h)^2 with P_k = Σ_i h_i and R_k = Σ_i h_i h_{i+m} over those i, k = m + n - 1",
+  "C_1b is the largest constant with sup_x ∫ f(t) g(x + t) dt >= C_1b for every admissible pair (f, g: [-1, 1] -> [0, 1], f + g = 1, ∫ f = 1), so any one admissible h gives C_1b <= its value (the registry's definition, read)",
+  "the cells are admissible (h >= 0 on every cell; the rescaled h <= 1 on every cell): written as the two structural predicates beside the record, decided from the bytes; the record names predicate 0 as the one it decided"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned values violates C_1b <= 0.3808585749",
+  "the pinned values violate: h >= 0 on every cell",
+  "the pinned values violate: the rescaled h <= 1 on every cell",
+  "the pinned file does not hash to 0c4c744e…"
+ ],
+ "record": {
+  "path": "certs/stepfun-replay.json",
+  "row": "1b-codexprolong",
+  "value": "js.value",
+  "verdict": "CERTIFIED",
+  "predicate": 0
+ }
+}

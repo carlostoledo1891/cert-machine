@@ -257,7 +257,7 @@ dec_by = {r['id']: r for r in DEC['rows']}
 FULL = os.environ.get('CLAIMBOX_FULL') == '1'
 notrun = []
 prim_files = sorted(f for f in os.listdir(PRIM) if f.endswith('.json'))
-ok(len(prim_files) == 4 and set(os.path.splitext(f)[0] for f in prim_files) == set(dec_by), 'four primitive objects, each with a row in certs/claimbox-decisions.json', str(len(prim_files)))
+ok(len(prim_files) == 5 and set(os.path.splitext(f)[0] for f in prim_files) == set(dec_by), 'five primitive objects, each with a row in certs/claimbox-decisions.json', str(len(prim_files)))
 
 
 def js_check(path):
@@ -390,6 +390,50 @@ try:
     bexpect('schema', lambda o: o['predicate'][1].__setitem__('box', o['predicate'][0]['box']), 'a box on a predicate that is not "in"')
     j4 = js_check(os.path.join(PRIM, 'prim-ea-542-circle-packing.json'))
     ok(j4 is not None and shape(j4) == shape(r4) and any('declared resolution' in n for n in j4['notes']), 'check.js reads the resolution box the same way (word, decisions, witness, count, value, note)', 'js ' + (j4['word'] if j4 else 'failed'))
+
+    # ---- a record that names the predicate it decided (2026-10-21): the C_1b green read from the record, and the reds -------
+    r1b = dec_by['prim-1b-codexprolong']
+    with open(os.path.join(ROOT, 'certs', 'stepfun-replay.json'), encoding='utf-8') as fh:
+        row1b = next(x for x in json.load(fh)['rows'] if x['id'] == '1b-codexprolong')
+    o1b = json.load(open(os.path.join(PRIM, 'prim-1b-codexprolong.json'), encoding='utf-8'))
+    ok(r1b['word'] == B.ADMITTED and r1b['decided'] == [C, C, C] and len(o1b['predicate']) == 3 and o1b['record'].get('predicate') == 0
+       and r1b['fromObject'][0]['value'] == row1b['js']['value'] and r1b['fromObject'][1]['word'] == C and r1b['fromObject'][2]['word'] == C,
+       'GREEN: C_1b (solution 2507) with its two admissibility inequalities beside the record, the record naming predicate 0: ADMITTED, CERTIFIED ×3, the value equal to the record\'s digit for digit (on record, ' + str(r1b['seconds']) + ' s; not re-run here)',
+       r1b['word'] + ' ' + ' · '.join(r1b['decided']))
+    # the reds: the index on the 1d primitive object (fast); the named-predicate ones on the hand-written 1d object, whose g is named
+    pexpect('record-predicate', lambda o: o['record'].__setitem__('predicate', 1), 'a record naming a predicate that does not exist')
+    pexpect('record-predicate', lambda o: o['record'].__setitem__('predicate', -1), 'a record naming predicate -1')
+    pexpect('record-predicate', lambda o: o['record'].__setitem__('predicate', '0'), 'a record index given as a string')
+    def holds_named(o):
+        o['predicate'].append({'g': dict(o['predicate'][0]['g']), 'rel': 'holds'})
+        o['record']['predicate'] = 1
+    expect('record-predicate', holds_named, 'a record naming a "holds" predicate while it carries a value')
+    def named_beside(o):
+        o['predicate'].append(dict(o['predicate'][0]))
+        o['record']['predicate'] = 0
+    expect('record-predicate', named_beside, 'a named predicate beside the record\'s that nothing decides')
+    o = clone(base3)
+    o['record']['predicate'] = 0
+    res = B.check_obj(o)
+    ok(res['word'] == B.ADMITTED and res['decided'] == [R, 'repair:' + C], 'the 1d object with record.predicate 0 stated decides as without it', res['word'] + ' ' + ' · '.join(res['decided']) + ' ' + str(res['kind'] or '') + res['msg'][:60])
+    # a structural inequality beside the record: decided from the object, composed with the record's word, the value still the record's
+    o = clone(base3)
+    o['predicate'].append({'g': ['Subtract', ['MaxOver', 'i', '0', ['Subtract', 'n', '1'], ['Abs', ['Index', 'f', 'i']]], '1000000'], 'rel': 'le', 'c': '0', 'note': 'every |value| <= 10^6 (synthetic)'})
+    o['record']['predicate'] = 0
+    res = B.check_obj(o)
+    ok(res['word'] == B.ADMITTED and res['decided'] == [R, C, 'repair:' + C], 'an admissibility inequality beside the 1d record: decided from the object, composed with the record\'s word', res['word'] + ' ' + ' · '.join(res['decided']) + ' ' + str(res['kind'] or '') + res['msg'][:60])
+    tmpo = os.path.join(tmp6, 'beside.json')
+    json.dump(o, open(tmpo, 'w'))
+    jr = js_check(tmpo)
+    ok(jr is not None and (jr['word'], jr['kind'], jr['decided']) == (res['word'], res['kind'], res['decided']), 'check.js agrees on the record-named predicate and the one beside it', 'js ' + (jr['word'] + ' ' + ' · '.join(jr['decided']) if jr else 'failed'))
+    # optq-86-pinho: predicate 0 is a "holds" and the record carries a value — unchanged when no index is stated (the default is
+    # "as before", not 0), refused when 0 is stated, admitted with 1
+    o86 = load('optq-86-pinho')
+    o86a = clone(o86); o86a['record']['predicate'] = 0
+    red(B.check_obj(o86a)['kind'] == 'record-predicate', 'optq-86-pinho with record.predicate 0 (a "holds") -> record-predicate', str(B.check_obj(o86a)['msg'])[:80])
+    o86b = clone(o86); o86b['record']['predicate'] = 1
+    r86b = B.check_obj(o86b)
+    ok(r86b['word'] == B.ADMITTED and r86b['decided'] == [C, C], 'optq-86-pinho with record.predicate 1: the "holds" beside it is the record\'s word, as before', r86b['word'] + ' ' + ' · '.join(r86b['decided']))
 
     # the other reading of the same bytes: a decision, not a refusal — the two counts of the 605 case, in FULL mode only
     if FULL:

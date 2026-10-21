@@ -105,6 +105,7 @@ KINDS = {
     'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict',
     'record-value-mismatch': 'the value computed from the object is not the record\'s exact value',
     'repair': 'the repair block is malformed, or its bar re-decided does not give its verdict',
+    'record-predicate': 'the record names a predicate that does not exist, a "holds" predicate while it carries a value, or leaves a predicate beside it that is neither "holds" nor decidable from the object',
 }
 
 
@@ -724,7 +725,10 @@ def check_obj(o, root=ROOT):
         # the record, read-only: the verdict word, the bar, and the value re-decided
         if 'record' in o:
             r = o['record']
-            need(r, ('path', 'row', 'value', 'verdict'), (), 'record')
+            need(r, ('path', 'row', 'value', 'verdict'), ('predicate',), 'record')
+            ridx = r.get('predicate')
+            if ridx is not None and (isinstance(ridx, bool) or not isinstance(ridx, int) or not 0 <= ridx < len(preds)):
+                raise Refuse('record-predicate', 'record.predicate must index one of the ' + str(len(preds)) + ' predicates, got ' + repr(ridx))
             rp = os.path.join(root, r['path'])
             if not os.path.isfile(rp):
                 raise Refuse('record-missing', r['path'])
@@ -751,8 +755,20 @@ def check_obj(o, root=ROOT):
             rec_bar = Fraction(m.group(0)) if m else None
             mr = REL_IN_CLAIM.search(claim_str)
             rec_rel = REL_WORD.get(mr.group(0)) if mr else None
+            if ridx is not None and preds[ridx]['rel'] == 'holds' and value is not None:
+                raise Refuse('record-predicate', 'record.predicate ' + str(ridx) + ' is a "holds" predicate, but the record carries a value')
+            # with record.predicate stated, the record's value, bar and verdict belong to that predicate alone; beside it a
+            # "holds" predicate is the record's decider's word and every other predicate is decided from the object
             decided = []
             for i, p in enumerate(preds):
+                if ridx is not None and i != ridx:
+                    if p['rel'] == 'holds':
+                        decided.append(rv)
+                    elif from_object[i] is None:
+                        raise Refuse('record-predicate', 'predicate[' + str(i) + '] stands beside the record\'s predicate ' + str(ridx) + ' and is not decidable from the object')
+                    else:
+                        decided.append(from_object[i]['word'])
+                    continue
                 if p['rel'] == 'holds':
                     decided.append(rv)
                     continue
@@ -780,9 +796,9 @@ def check_obj(o, root=ROOT):
             if 'repair' in o:
                 rep = o['repair']
                 need(rep, ('printed', 'c', 'verdict', 'how'), (), 'repair')
-                ineq = [p for p in preds if p['rel'] not in ('holds', 'in')]
-                if len(ineq) != 1:
-                    raise Refuse('repair', 'a repair needs exactly one inequality predicate')
+                ineq = [preds[ridx]] if ridx is not None else [p for p in preds if p['rel'] not in ('holds', 'in')]
+                if len(ineq) != 1 or ineq[0]['rel'] in ('holds', 'in'):
+                    raise Refuse('repair', 'a repair needs exactly one inequality predicate (the record\'s, when it names one)')
                 if rep['verdict'] not in WORDS:
                     raise Refuse('repair', 'verdict ' + repr(rep['verdict']))
                 pr = printed_rational(rep['printed'], 'repair')
