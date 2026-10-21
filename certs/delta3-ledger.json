@@ -1,13 +1,13 @@
 {
   "what": "Independent exact verification of the claimed lower bound delta_3 >= 117/2192 (Theorem A: Q(phi) >= -5/137 for every measurable phi:[0,1]->[-1,1]), from the five claimant certificates, with a verifier written clean-room from THEOREM-EXACT.md and CERT-FORMAT.md only.",
-  "decidedOn": "2026-10-05",
+  "decidedOn": "2026-10-21",
   "verifier": {
     "files": {
       "instruments/delta3/model.js": "65b68c49c45f8a6cf5045de9e632e2f67e8f8285de2d1a77e8b242c5bb4d440a",
       "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
       "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
       "instruments/delta3/lemmas.js": "bdbd0b706cb002ed27250dda08cd4a3a5f714f33ac6b1d9b8ec993b4fdc0e439",
-      "instruments/delta3/battery.js": "cc19edd9f8e36ad6e49217177ae41b810e01ba2e0ce83832b40c3d19861afcba",
+      "instruments/delta3/battery.js": "d48529d98491ed5514a8da00d168a7a14f0631cca5fd6f50e59a2d01796891b8",
       "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
     },
     "node": "v24.14.1",
@@ -115,7 +115,7 @@
       "bound": "0",
       "boundDecimal": "0.0000000e+0",
       "claimMatchesFile": null,
-      "seconds": 0.249,
+      "seconds": 0.219,
       "psdMethod": "dyadic Cholesky of A − 2^−4I (rows rescaled by powers of 2), remainder diagonally dominant"
     },
     {
@@ -138,7 +138,7 @@
       "bound": "6296384718336605890182449/22609041927129531731084058720",
       "boundDecimal": "2.7848967e-4",
       "claimMatchesFile": true,
-      "seconds": 0.121,
+      "seconds": 0.112,
       "psdMethod": "dyadic Cholesky of A − 2^−22I (rows rescaled by powers of 2), remainder diagonally dominant"
     },
     {
@@ -161,7 +161,7 @@
       "bound": "50963377393403307885655938/185520059131196374275938963885",
       "boundDecimal": "2.7470548e-4",
       "claimMatchesFile": true,
-      "seconds": 0.177,
+      "seconds": 0.117,
       "psdMethod": "dyadic Cholesky of A − 2^−22I (rows rescaled by powers of 2), remainder diagonally dominant"
     },
     {
@@ -184,7 +184,7 @@
       "bound": "302061852991525508034881073/995093408858134763756936327093",
       "boundDecimal": "3.0355125e-4",
       "claimMatchesFile": true,
-      "seconds": 0.159,
+      "seconds": 0.17,
       "psdMethod": "dyadic Cholesky of A − 2^−21I (rows rescaled by powers of 2), remainder diagonally dominant"
     },
     {
@@ -207,7 +207,7 @@
       "bound": "336509882373552357045412601/725496284546822070496074644287",
       "boundDecimal": "4.6383405e-4",
       "claimMatchesFile": true,
-      "seconds": 0.124,
+      "seconds": 0.109,
       "psdMethod": "dyadic Cholesky of A − 2^−21I (rows rescaled by powers of 2), remainder diagonally dominant"
     }
   ],
@@ -241,5 +241,5 @@
     "Qstar": "-5/137",
     "delta3LowerBound": "117/2192"
   },
-  "seconds": 0.846
+  "seconds": 0.738
 }

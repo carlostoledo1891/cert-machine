@@ -20,6 +20,7 @@
 
    MIT licensed. Part of cert-machine. */
 'use strict';
+const fs = require('fs');
 
 const Q = require('../interval/rational.js');
 const M = require('./model.js');
@@ -132,7 +133,7 @@ check('area(R) = 1/2', M.area4(0n, BigInt(U), 0n, BigInt(U), BigInt(U)) === 2n *
 
 /* ---- GREEN: the per-grid terms of L against exact integrals --------------------- */
 const entries = V.loadEntries(V.defaultFiles());
-const byName = Object.fromEntries(entries.map(e => [e.label.replace(/^certs\/delta3\//, ''), e]));
+const byName = Object.fromEntries(entries.map(e => [e.label.replace(/^.*[\\/]/, ''), e]));   // the basename with either separator: on Windows the label keeps backslashes and the old prefix strip left them (an outside audit, 2026-10-20)
 const grids = [...new Map(entries.map(e => [JSON.stringify(e.cert.grid), e.cert.grid])).values()].map(g => V.gridData(g));
 for (const gd of grids) {
   let n = 0, bad = 0;
@@ -190,6 +191,22 @@ for (const x of run.results) check('genuine ' + x.file + ' VERIFIED' + (x.verdic
 check('genuine slab bounds equal the files\' claims exactly', run.results.filter(x => x.kind === 'slab').every(x => x.claimMatchesFile === true));
 check('genuine cover of [0, 1/2] is complete', run.cover.complete);
 check('genuine THEOREM A VERIFIED', run.theorem.verdict === 'VERIFIED');
+
+/* ---- GREEN: the ported L = 256 certificate is the bytes its log and the provenance name ---- */
+{
+  const path = require('path');
+  const ROOT = V.ROOT;
+  const PV = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments', 'delta3', 'PROVENANCE.json'), 'utf8'));
+  const ent = PV.files.find(f => f.file === 'certs/delta3/frontier/s34/cert-L256.json');
+  const buf = fs.readFileSync(path.join(ROOT, 'certs', 'delta3', 'frontier', 's34', 'cert-L256.json'));
+  check('L=256: the ported certificate hashes to its provenance pin', !!ent && V.sha256(buf) === ent.sha256);
+  const c256 = JSON.parse(buf.toString('utf8'));
+  const log = fs.readFileSync(path.join(ROOT, 'certs', 'delta3', 'frontier', 's34', 'verify-L256.log'), 'utf8');
+  const m = /\(exact (\d+)\/(\d+)\)/.exec(log);
+  check('L=256: the certificate\'s claim_delta_lower is the exact fraction its log prints', !!m && c256.claim_delta_lower === m[1] + '/' + m[2], c256.claim_delta_lower);
+  const s = (BigInt(m[1]) * 100000000n / BigInt(m[2])).toString();
+  check('L=256: the log\'s 0.05324921 is above the exact fraction (a lower bound rounded to nearest, not down)', s === '5324920' && /delta_3 >= 0\.05324921/.test(log), '0.0' + s + '… exact');
+}
 
 /* ---- RED ---------------------------------------------------------------------- */
 function red(name, fileName, mutate, expect) {

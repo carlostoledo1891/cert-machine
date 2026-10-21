@@ -10,7 +10,6 @@
    "experiments/mono3ap/cert-L64.json": "96530880bbc1cf5d4f6a9b86477368f5754d6e5594239ec82613f5a532ab7e25",
    "experiments/mono3ap/cert-L128.json": "5581783fe013e36e0d54d1c5a4c30e201eb588afe3872909deb7fe88e825979c",
    "experiments/mono3ap/cert-L192.json": "04b0b55ebbb4a192d3547ffb9eacae2eadc33d262120f17f2be6092525541074",
-   "experiments/mono3ap/cert-L256.json": "bb5b8be885a09969a31809bbf38c6716dcb965ce616ea9e7e274b65e50272944",
    "experiments/mono3ap/verify.py": "f2849a2453a41a9c7e9393925bcd0d755906737c75dea75480f420a59acd3e42",
    "experiments/mono3ap/cert.py": "74917db417be230c92b7fb8ca78be520cf37d08bfbe3010657791044f16bdba8",
    "experiments/mono3ap/cert_sym.py": "1a9961fad52f479b8049f5d0775ff8684675b247fc7f3a5fc7d1d3f059b64494",
@@ -387,6 +386,14 @@
    "file": "instruments/delta3/claimant/s34/THEOREM.md",
    "sha256": "7c8838c9a39e010e4d932b0620e69c4101201a3644a268c45976f9508077c964",
    "bytes": 5334,
+   "tracked": true
+  },
+  {
+   "phase": "frontier s34 (ported 2026-10-20 on an outside auditor's request: the earlier L = 256 bound, to be replayed with the claimant's own verifier; this repository's verify.js reads another format)",
+   "source": "experiments/mono3ap/cert-L256.json",
+   "file": "certs/delta3/frontier/s34/cert-L256.json",
+   "sha256": "bb5b8be885a09969a31809bbf38c6716dcb965ce616ea9e7e274b65e50272944",
+   "bytes": 789862,
    "tracked": true
   }
  ]

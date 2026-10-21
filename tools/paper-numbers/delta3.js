@@ -107,10 +107,12 @@ def('VnMaxN', int(Math.max(...LM.counts.map((r) => r.n))));
 const CEIL = J('certs/delta3/frontier/s34/ceilings.json');
 def('LadderRows', [32, 64, 128, 192, 256].map((Lc) => {
   const log = fs.readFileSync(path.join(ROOT, 'certs', 'delta3', 'frontier', 's34', 'verify-L' + Lc + '.log'), 'utf8');
-  const m = /VERIFIED\s+Q\* >= (-?[\d.]+)\s+delta_3 >= ([\d.]+)/.exec(log);
+  const m = /VERIFIED\s+Q\* >= (-?[\d.]+)\s+delta_3 >= ([\d.]+)(?:\s+\(exact (\d+)\/(\d+)\))?/.exec(log);
   need(m && CEIL[Lc], 'the ladder record for L = ' + Lc + ' is missing');
   need(Number(m[2]) < 117 / 2192 && CEIL[Lc].delta < 117 / 2192, 'a ladder value is not below 117/2192 at L = ' + Lc);
-  return Lc + ' & ' + m[2] + ' & ' + CEIL[Lc].delta.toFixed(6) + ' \\\\';
+  /* a lower bound printed rounded DOWN from the exact fraction the log carries (the log itself rounds to nearest) */
+  const down = m[3] ? (() => { const s = (BigInt(m[3]) * 100000000n / BigInt(m[4])).toString().padStart(9, '0'); return s.slice(0, -8) + '.' + s.slice(-8); })() : m[2];
+  return Lc + ' & ' + down + ' & ' + CEIL[Lc].delta.toFixed(6) + ' \\\\';
 }).join('\n'));
 def('RepoCommit', '\\texttt{' + git + '}');
 /* the archive: the deposit record names the version that holds these files */

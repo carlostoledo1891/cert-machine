@@ -1,13 +1,13 @@
 {
  "what": "The mutation pass over instruments/delta3: one-line edits of the clean-room verifier, each run against the genuine certificates and the battery. A row is caught when the genuine set is refused or the battery fails; a survivor must be explained as equivalent.",
- "decidedOn": "2026-10-05",
+ "decidedOn": "2026-10-21",
  "node": "v24.14.1",
  "verifierFiles": {
   "instruments/delta3/model.js": "65b68c49c45f8a6cf5045de9e632e2f67e8f8285de2d1a77e8b242c5bb4d440a",
   "instruments/delta3/psd.js": "0757eb59af84f3224cb9784add29d93e9368ced8700ccc42a4df8f83253ffae5",
   "instruments/delta3/verify.js": "a49e68a17e5e0a785ccd9a38a6679bbf8a5f2584f35021d139a608e6ccfccd7c",
   "instruments/delta3/lemmas.js": "bdbd0b706cb002ed27250dda08cd4a3a5f714f33ac6b1d9b8ec993b4fdc0e439",
-  "instruments/delta3/battery.js": "cc19edd9f8e36ad6e49217177ae41b810e01ba2e0ce83832b40c3d19861afcba"
+  "instruments/delta3/battery.js": "d48529d98491ed5514a8da00d168a7a14f0631cca5fd6f50e59a2d01796891b8"
  },
  "counts": {
   "mutants": 24,
@@ -22,7 +22,7 @@
    "genuineSet": "REFUSES (phi*   REFUSED: phi*: h < 0 at 0/1096)",
    "battery": "caught",
    "firstFail": "FAIL  phi* facts   [phi*: h < 0 at 0/1096]",
-   "seconds": 0.201
+   "seconds": 0.101
   },
   {
    "id": "M2",
@@ -30,7 +30,7 @@
    "genuineSet": "REFUSES (phi*   REFUSED: h is discontinuous at the edge 58/1096 (g* = 3/548))",
    "battery": "caught",
    "firstFail": "FAIL  phi* facts   [h is discontinuous at the edge 58/1096 (g* = 3/548)]",
-   "seconds": 0.143
+   "seconds": 0.073
   },
   {
    "id": "M3a",
@@ -38,15 +38,15 @@
    "genuineSet": "REFUSES (inner [0, 1/5]     n=null REFUSED   internal: the two area routines disagree at (0,1)   0.0 s   certs/delta3/inner-r20-g)",
    "battery": "caught",
    "firstFail": "Refusal [Error]: internal: the two area routines disagree at (0,1)",
-   "seconds": 0.289
+   "seconds": 0.138
   },
   {
    "id": "M3b",
    "desc": "R mirrored in BOTH area routines (2-line edit)",
-   "genuineSet": "REFUSES (slab  [1/5, 3/10]  n=130  REFUSED   psd: S + eps·I is not proved PSD — negative diagonal entry at 0   0.2 s   certs/delt)",
+   "genuineSet": "REFUSES (slab  [1/5, 3/10]  n=130  REFUSED   psd: S + eps·I is not proved PSD — negative diagonal entry at 0   0.1 s   certs/delt)",
    "battery": "caught",
    "firstFail": "FAIL  grid n=130: every cut-pair bound ≤ the exact contribution of σ on sub-rectangles   [920/5064 violated]",
-   "seconds": 2.015
+   "seconds": 0.969
   },
   {
    "id": "M4",
@@ -54,7 +54,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  genuine slab bounds equal the files' claims exactly",
-   "seconds": 5.04
+   "seconds": 1.796
   },
   {
    "id": "M5",
@@ -62,7 +62,7 @@
    "genuineSet": "REFUSES (slab  [1/5, 3/10]  n=130  REFUSED   psd: S + eps·I is not proved PSD — exact witness vᵀAv < 0 at pivot 115 (rescaled val)",
    "battery": "caught",
    "firstFail": "FAIL  genuine certs/delta3/slab-1_5-3_10-g24_4_8.json VERIFIED   [psd: S + eps·I is not proved PSD — exact witness vᵀAv < 0 at pivot 115 (rescaled value -2.7664e-6)]",
-   "seconds": 4.379
+   "seconds": 1.992
   },
   {
    "id": "M6",
@@ -70,7 +70,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  genuine slab bounds equal the files' claims exactly",
-   "seconds": 3.563
+   "seconds": 1.842
   },
   {
    "id": "M7",
@@ -78,7 +78,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  grid n=130: every cut-pair bound ≤ the exact contribution of σ on sub-rectangles   [2202/5064 violated]",
-   "seconds": 1.799
+   "seconds": 1.051
   },
   {
    "id": "M8",
@@ -86,7 +86,7 @@
    "genuineSet": "REFUSES (inner [0, 1/5]     n=130  REFUSED   psd: P is not proved PSD — exact witness vᵀAv < 0 at pivot 7 (rescaled value -5.9661)",
    "battery": "caught",
    "firstFail": "FAIL  grid n=146: E(σ) ≥ L(y) and E ≥ 0 on 21 adversarial step functions   [1 violated]",
-   "seconds": 1.391
+   "seconds": 0.685
   },
   {
    "id": "M9",
@@ -94,15 +94,15 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  grid n=130: bathtub a·y + b·y² ≤ ∫h over the exact minimiser {h < v}, every cell, 5 levels   [602/650 violated]",
-   "seconds": 2.189
+   "seconds": 1.111
   },
   {
    "id": "M10",
    "desc": "bathtub slope from max h",
-   "genuineSet": "REFUSES (inner [0, 1/5]     n=130  REFUSED   identity: c[0] is not what the linear budget leaves (residual 4/18769)   0.5 s   cer)",
+   "genuineSet": "REFUSES (inner [0, 1/5]     n=130  REFUSED   identity: c[0] is not what the linear budget leaves (residual 4/18769)   0.2 s   cer)",
    "battery": "caught",
    "firstFail": "FAIL  grid n=130: bathtub a·y + b·y² ≤ ∫h over the exact minimiser {h < v}, every cell, 5 levels   [650/650 violated]",
-   "seconds": 2.382
+   "seconds": 1.113
   },
   {
    "id": "M11",
@@ -110,7 +110,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  grid n=130: bathtub a·y + b·y² ≤ ∫h over the exact minimiser {h < v}, every cell, 5 levels   [44/650 violated]",
-   "seconds": 2.105
+   "seconds": 1.075
   },
   {
    "id": "M12",
@@ -118,7 +118,7 @@
    "genuineSet": "REFUSES (slab  [1/5, 3/10]  n=130  REFUSED   psd: S + eps·I is not proved PSD — exact witness vᵀAv < 0 at pivot 30 (rescaled valu)",
    "battery": "caught",
    "firstFail": "FAIL  genuine certs/delta3/slab-1_5-3_10-g24_4_8.json VERIFIED   [psd: S + eps·I is not proved PSD — exact witness vᵀAv < 0 at pivot 30 (rescaled value -8.0025e-2)]",
-   "seconds": 5.023
+   "seconds": 1.662
   },
   {
    "id": "M13",
@@ -126,7 +126,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED one tri sign flipped to s1·s2·s3 = −1 → REFUSED by ^form: tri with s1·s2·s3 = −1   [psd: S + eps·I is not proved PSD — exact witness vᵀAv < 0 at pivot 87 (rescaled value -1.3302e-1)]",
-   "seconds": 6.974
+   "seconds": 2.693
   },
   {
    "id": "M14",
@@ -134,7 +134,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED PLANTED extra tri with a repeated index, μ = 2^−100 → REFUSED by ^form: tri with a repeated index   [ACCEPTED, E ≥ 2.7470548e-4]",
-   "seconds": 7.615
+   "seconds": 2.877
   },
   {
    "id": "M15",
@@ -142,7 +142,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED PLANTED negative multiplier (extra yy form, μ = −2^−100) → REFUSED by ^multiplier:   [ACCEPTED, E ≥ 2.7470548e-4]",
-   "seconds": 7.125
+   "seconds": 2.912
   },
   {
    "id": "M16",
@@ -150,7 +150,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED PLANTED largest theta := 1 + 2^−100 → REFUSED by ^theta:   [ACCEPTED, E ≥ 2.7470548e-4]",
-   "seconds": 7.024
+   "seconds": 2.914
   },
   {
    "id": "M17",
@@ -158,7 +158,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED inner radius doubled (1/5 → 2/5) → REFUSED by ^identity:   [ACCEPTED, E ≥ 0.0000000e+0]",
-   "seconds": 8.037
+   "seconds": 2.959
   },
   {
    "id": "M18",
@@ -166,7 +166,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED slab [3/10, 2/5] missing from the cover → THEOREM REFUSED   [gap null]",
-   "seconds": 10.839
+   "seconds": 4.441
   },
   {
    "id": "M19",
@@ -174,7 +174,7 @@
    "genuineSet": "passes",
    "battery": "GREEN (SURVIVED)",
    "firstFail": null,
-   "seconds": 18.065,
+   "seconds": 5.487,
    "equivalent": "the grid rule is enforced twice: the per-cell straddle check still refuses a cell containing an edge (M19b removes both and is caught)"
   },
   {
@@ -183,7 +183,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  RED grid with the edge 68/1096 removed → REFUSED by ^grid:   [internal error: The number NaN cannot be converted to a BigInt because it is not an integer]",
-   "seconds": 7.382
+   "seconds": 2.61
   },
   {
    "id": "M20",
@@ -191,7 +191,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  psd: … and that matrix is NOT proved PSD   [PSD: ]",
-   "seconds": 2.254
+   "seconds": 0.831
   },
   {
    "id": "M21",
@@ -199,7 +199,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  psd: indefinite 3×3 with a zero leading minor is NOT proved PSD   [PSD: ]",
-   "seconds": 2.429
+   "seconds": 0.879
   },
   {
    "id": "M22",
@@ -207,7 +207,7 @@
    "genuineSet": "passes",
    "battery": "caught",
    "firstFail": "FAIL  psd: indefinite 3×3 whose elimination zeroes the rest is NOT proved PSD   [PSD: ]",
-   "seconds": 5.558
+   "seconds": 0.835
   }
  ]
 }

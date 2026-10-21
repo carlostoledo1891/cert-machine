@@ -1,0 +1,73 @@
+{
+ "what": "Decisions of claimbox objects from the bytes alone, by instruments/claimbox/check.py (Python; the exact evaluator over Fractions and ints): for each object its sha256, the checker's word, the decisions against the record, the decisions from the object with the first violating index tuple and the count of all, and the time. The battery re-derives the objects that decide in seconds and holds the heavy ones to their sha256 and this record; CLAIMBOX_FULL=1 re-derives all.",
+ "python": "3.9.6",
+ "rows": [
+  {
+   "id": "prim-1d-cert2026",
+   "file": "instruments/claimbox/primitive/prim-1d-cert2026.json",
+   "sha256": "266a62e991a42489cdc9d601ff1a9edf053ee037f1f80a9ea93c5c9ddf179e02",
+   "word": "ADMITTED",
+   "kind": null,
+   "decided": [
+    "REFUTED",
+    "repair:CERTIFIED"
+   ],
+   "fromObject": [
+    {
+     "word": "REFUTED",
+     "witness": null,
+     "violations": null,
+     "value": "2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881"
+    }
+   ],
+   "seconds": 0.506,
+   "notes": []
+  },
+  {
+   "id": "prim-ae-593-kissing",
+   "file": "instruments/claimbox/primitive/prim-ae-593-kissing.json",
+   "sha256": "6ba60335c933c06bf1a05fcda100d1443b4df3745494bb47b4701c25d29196c1",
+   "word": "ADMITTED",
+   "kind": null,
+   "decided": [
+    "CERTIFIED"
+   ],
+   "fromObject": [
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": 0,
+     "value": null
+    }
+   ],
+   "seconds": 20.158,
+   "notes": []
+  },
+  {
+   "id": "prim-ea-605-kissing",
+   "file": "instruments/claimbox/primitive/prim-ea-605-kissing.json",
+   "sha256": "15fa9802ae4587ff7e56a678c43a2ca8c59dab4b2408bcad7dad9c2b6fa4c0de",
+   "word": "ADMITTED",
+   "kind": null,
+   "decided": [],
+   "fromObject": [
+    {
+     "word": "REFUTED",
+     "witness": {
+      "at": {
+       "i": 0,
+       "j": 48
+      },
+      "value": "1986245059187317785944282209720229216401118221813815167594367/5000000000000000000000000000000000000000000000000000000000000000000000000000"
+     },
+     "violations": 9510,
+     "value": null
+    }
+   ],
+   "seconds": 46.881,
+   "notes": [
+    "no record attached"
+   ]
+  }
+ ]
+}

@@ -74,10 +74,14 @@ const secs = (x) => Number(x).toFixed(1);
 /* the superseded ladder: the claimant's own verifier logs and its float ceilings, labelled as theirs */
 const LADDER = [32, 64, 128, 192, 256].map((Lc) => {
   const log = fs.readFileSync(path.join(ROOT, 'certs', 'delta3', 'frontier', 's34', 'verify-L' + Lc + '.log'), 'utf8');
-  const m = /VERIFIED\s+Q\* >= (-?[\d.]+)\s+delta_3 >= ([\d.]+)/.exec(log);
+  const m = /VERIFIED\s+Q\* >= (-?[\d.]+)\s+delta_3 >= ([\d.]+)(?:\s+\(exact (\d+)\/(\d+)\))?/.exec(log);
   if (!m) die('the claimant\'s L = ' + Lc + ' log does not carry a VERIFIED line');
-  return { L: Lc, lower: Number(m[2]) };
+  /* the log prints its bound rounded to nearest; a lower bound is printed here rounded DOWN from the exact fraction the
+     log carries (an outside audit, 2026-10-20: 0.05324921 is above the exact 0.0532492058…), and the log's print is kept */
+  const lowerDown = m[3] ? floor8(BigInt(m[3]), BigInt(m[4])) : null;
+  return { L: Lc, lower: lowerDown !== null ? Number(lowerDown) : Number(m[2]), logPrint: m[2], exact: m[3] ? m[3] + '/' + m[4] : null, lowerDown };
 });
+function floor8(n, d) { const s = (n * 100000000n) / d; const t = s.toString().padStart(9, '0'); return t.slice(0, -8) + '.' + t.slice(-8); }
 const CEIL = J('certs/delta3/frontier/s34/ceilings.json');
 for (const r of LADDER) { if (!CEIL[r.L]) die('no ceiling for L = ' + r.L); r.ceil = CEIL[r.L].delta; }
 const TRUE = 117 / 2192;
@@ -195,7 +199,14 @@ O.push(C.section({
       + '(the region nearest the optimum) or strictly positive (the other four).')
     + C.pRaw('Step 3 is the whole idea. Discretising φ itself, as every relaxation since 2008 did, gives away a first-order amount '
       + 'at every cell pair the boundary of R crosses — and that loss caps the bound below the answer however fine the grid (§5). '
-      + 'In σ the first-order term is ∫hσ, which the bathtub bounds exactly; what is lost is second order.')
+      + 'In σ the first-order term is ∫hσ; the bathtub gives a lower bound L with E ≥ L and L(0) = 0, and that is all the proof uses.')
+    + C.pRaw('<strong>Correction (2026-10-20, from an outside audit).</strong> An earlier version of the sentence above said the bathtub bounds the '
+      + 'first-order term <em>exactly</em>, with only a second-order loss. That is false as a statement about every direction σ: for σ = t on '
+      + '[0, 16/1096] and zero elsewhere, 0 &lt; t ≤ ½, the exact functional is E = (9t + 3t²)/18769 while the certificate\'s minorant on the '
+      + 'g24·4·8 grid is L = (7t + 2t²)/18769, so E − L = (2t + t²)/18769 carries a linear term (re-derived here with the instrument\'s own exact '
+      + 'functions, lemmas.js and verify.js, on 2026-10-20; on the g8·4·0 grid L = (8t + 3t²)/18769). The bathtub is exact only along its own '
+      + 'minimiser, the sublevel set {h &lt; v}. The theorem never used the stronger sentence: the certificates prove L ≥ 0 (or &gt; 0) over '
+      + 'each region, and E ≥ L with L(0) = 0 is the lemma tested in lemmas.js. No verdict moved.')
     + C.figure({ svgRaw: FIG_H, caption: 'The first-order term h. Flipping the colouring on a set costs ∫h over it to first order; h vanishes exactly at the eleven edges, where moving an edge is free to first order and the certificates must see the second-order cost.' })
 }));
 
@@ -272,7 +283,9 @@ O.push(C.section({
   lab: '§5 · the measurement that led here', title: 'Why the obvious discretisation cannot reach the answer',
   bodyRaw: C.pRaw('A day earlier the same sandbox certified lower bounds the classical way — φ discretised on L equal cells, '
     + 'a Shor relaxation with triangle cuts, exact rational multipliers. Its verifier accepted δ₃ ≥ '
-    + LADDER[LADDER.length - 1].lower + ' at L = 256 (these were not re-decided here; the logs are kept as the claimant\'s). '
+    + (LADDER[LADDER.length - 1].lowerDown || LADDER[LADDER.length - 1].lower) + ' at L = 256 — the exact fraction '
+    + (LADDER[LADDER.length - 1].exact || '') + ', printed here rounded down; the claimant\'s log prints it as ' + LADDER[LADDER.length - 1].logPrint
+    + ', rounded to nearest, which an outside audit noted on 2026-10-20 (these were not re-decided here; the logs are kept as the claimant\'s; the certificate itself is certs/delta3/frontier/s34/cert-L256.json). '
     + 'But the model\'s own minimum, found by local search, also stays below the answer at every L: every cell pair the boundary '
     + 'crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof '
     + 'into the coordinates σ.')

@@ -27,6 +27,28 @@ NEXT SESSION, IN ORDER:
      translator needs it (a three-array data block for tensor identities); the rest of the menu. Next builds, none
      chosen: the referee's structural items the operator or the co-authors decide (below, under the operator); a second
      referee read before any send of v0.7; the remaining registry candidates (C_12, C_31, C_84a heavy; C_3a a Lean build).
+  ★ THE δ₃ PACKET AUDITED FROM OUTSIDE (2026-10-20, an e-mail from Sonny Guardian, pasted by the operator; the reply is DRAFTED, NOT
+     SENT: outreach/delta3-audit-reply-2026-10-20.md). "The main δ₃ argument held up in this audit. That is an audit result, not refereeing."
+     Four points, every one VERIFIED HERE before anything was changed, then fixed: (1) a Windows crash in instruments/delta3/battery.js —
+     line 135 stripped the prefix certs/delta3/ from each certificate's label, so a backslashed label kept its prefix and the forged lookups
+     at line 196 found nothing; FIXED with the auditor's own line (the basename with either separator); the five labels have no nested
+     folders, so macOS is unchanged (76 checks, 40 forgeries; not run on Windows here). (2) The report's sentence "In σ the first-order term
+     is ∫hσ, which the bathtub bounds exactly; what is lost is second order" was FALSE as a statement about every σ: RE-DERIVED with the
+     instrument's own exact functions (lemmas.js buildSigma/Ecentred/Edirect/cellAverages + verify.js evalL) — for σ = t on [0, 16/1096],
+     E = (9t + 3t²)/18769 (both forms equal) and on the g24·4·8 grid L = (7t + 2t²)/18769, a linear gap 2t/18769 (g8·4·0: L = (8t + 3t²)/
+     18769, gap t/18769), exactly the auditor's numbers; the bathtub is exact only along its own minimiser. The proof uses E ≥ L and L(0) = 0
+     only. The page now states the narrower sentence and a DATED CORRECTION beside it crediting an outside audit; NO VERDICT MOVED.
+     (3) cert-L256.json PORTED from frontier-apps/experiments/mono3ap beside its log, certs/delta3/frontier/s34/cert-L256.json (789,862 B,
+     sha256 bb5b8be8…, the pin the instrument's PROVENANCE.json carried under notPorted — now under files); it is in the s34 lab's own
+     format (Shor relaxation + triangle cuts), which this repository's verify.js does not read ("format: cannot tell inner from slab"),
+     so the log stays the claimant's; its claim_delta_lower is the exact fraction the log prints; three battery checks hold the file to the
+     pin and to the log (battery 76 → 79). (4) The ladder's printed bounds: the claimant's logs print to nearest (0.05324921 above the exact
+     0.0532492058…); the page and the paper's ladder table now print each bound ROUNDED DOWN from the exact fraction the log carries
+     (0.05324920 at L = 256) and say what the log prints. The battery change forced the two sha-pinned records to be re-run: verify.js
+     --record (certs/delta3-ledger.json) and mutate.js (certs/delta3-mutations.json: 24 mutants, 23 caught, 1 equivalent, as before); the
+     page and paper/tex/delta3-numbers.tex regenerated (the PDF is rebuilt by `make papers`, not done here). OPERATOR: send the reply (and
+     ask whether the auditor agrees to be named in corpus/external-reruns.json — the entry is drafted in the reply file; nothing added);
+     the evidence packet offered would be pinned beside the record.
   ★ CLAIMBOX IS PUBLIC: github.com/carlostoledo1891/claimbox (MIT), pushed 2026-10-20 night on the operator's "you can push when needed";
      its own HANDOFF lists its state (five readers, three end-to-end runs, 41/41 planted defects caught). This repository is its
      read-only receiver; claimbox's PROVENANCE.json pins instruments/claimbox/check.py, check.js, SCHEMA.md, the ten objects and the
