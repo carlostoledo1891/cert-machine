@@ -32,7 +32,7 @@ const ELEMENTS = ['doubles', 'decimals', 'integers', 'rationals'];
 const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-order', 'unbounded', 'pin-unresolved', 'pin-mismatch', 'quote-not-verbatim',
   'printed-not-in-quote', 'printed-mismatch', 'vocabulary', 'arity', 'symbol', 'named', 'reading', 'falsifier', 'reference', 'data', 'index', 'empty-range',
   'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-pin-mismatch', 'record-decision-mismatch',
-  'record-value-mismatch', 'repair'];
+  'record-value-mismatch', 'repair', 'resolution'];
 
 class Refuse extends Error { constructor(kind, msg) { super(msg); if (!KINDS.includes(kind)) throw new Error('unknown kind ' + kind); this.kind = kind; this.msg = msg; } }
 const die = (m) => { process.stderr.write('CLAIMBOX CHECKER (JS) REFUSED TO RUN: ' + m + '\n'); process.exit(2); };
@@ -145,6 +145,47 @@ function printedRational(s, where) {
   return Q.fromDecimal(s);
 }
 function printedBox(s) { const d = s.includes('.') ? s.split('.')[1].length : 0; const half = new Q(5n, 10n ** BigInt(d + 1)); const p = Q.fromDecimal(s); return [p.sub(half), p.add(half)]; }
+/* a JSON number literal as text (1e-10, 0.0001, 0) → the exact rational it denotes */
+const NUMLIT = '-?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?';
+function fromLiteral(t) {
+  const m = /^(-?)(\d+)(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/.exec(t);
+  if (!m) throw new Refuse('resolution', 'not a number literal: ' + t);
+  const frac = m[3] || '', k = Number(m[4] || 0) - frac.length;
+  const n = BigInt(m[2] + frac) * (m[1] ? -1n : 1n);
+  return k >= 0 ? new Q(n * 10n ** BigInt(k), 1n) : new Q(n, 10n ** BigInt(-k));
+}
+/* the platform's declared resolution: the box is printed ± halfWidth, halfWidth the rational of the number the pinned, quoted
+   source prints after the named key — or, when that prints 0, 10^-12 · max(1, |printed|), stated as the block's rule */
+function resolutionBox(p, box, root, where) {
+  need(box, ['kind', 'key', 'halfWidth', 'source'], ['rule'], where);
+  if (box.kind !== 'resolution') throw new Refuse('resolution', where + ': kind must be "resolution"');
+  if (!isStr(box.key) || !box.key.trim()) throw new Refuse('resolution', where + ': key must name the field the source prints the resolution under');
+  const hw = rational(box.halfWidth, where + '.halfWidth');
+  if (hw.cmp(Z(0)) <= 0) throw new Refuse('resolution', where + ': halfWidth must be positive');
+  const src = box.source;
+  need(src, ['path', 'sha256', 'quote'], [], where + '.source');
+  const spath = pinned({ path: src.path, sha256: src.sha256 }, where + '.source', root);
+  if (!isStr(src.quote) || !src.quote.trim()) throw new Refuse('schema', where + '.source.quote must be a non-empty string');
+  if (!fs.readFileSync(spath, 'utf8').includes(src.quote)) throw new Refuse('quote-not-verbatim', where + '.source: ' + src.path);
+  const re = new RegExp('"' + box.key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"\\s*:\\s*(' + NUMLIT + ')', 'g');
+  const found = []; let mm; while ((mm = re.exec(src.quote)) !== null) found.push(mm[1]);
+  if (found.length !== 1) throw new Refuse('resolution', where + ': the quote must print "' + box.key + '": <number> exactly once (' + found.length + ' found)');
+  const q = fromLiteral(found[0]);
+  if (q.cmp(Z(0)) < 0) throw new Refuse('resolution', where + ': the quoted resolution is negative');
+  let info;
+  if (q.cmp(Z(0)) > 0) {
+    if ('rule' in box) throw new Refuse('resolution', where + ': rule is stated only when the quoted resolution is 0');
+    if (!hw.eq(q)) throw new Refuse('resolution', where + ': halfWidth ' + box.halfWidth + ' is not the quoted resolution ' + found[0]);
+    info = 'the quoted ' + box.key + ' ' + found[0];
+  } else {
+    if (box.rule !== '1e-12-relative') throw new Refuse('resolution', where + ': the quoted resolution is 0, so the block must state rule "1e-12-relative"');
+    const ap = p.cmp(Z(0)) < 0 ? Z(0).sub(p) : p;
+    const want = new Q(1n, 10n ** 12n).mul(ap.cmp(Z(1)) > 0 ? ap : Z(1));
+    if (!hw.eq(want)) throw new Refuse('resolution', where + ': halfWidth ' + box.halfWidth + ' is not 10^-12 · max(1, |printed|) = ' + want.toString());
+    info = 'the quoted ' + box.key + ' is 0: 10^-12 relative';
+  }
+  return [p.sub(hw), p.add(hw), info];
+}
 const sha256 = (p) => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 function pinned(pin, where, root) {
   if (!pin || typeof pin !== 'object' || Array.isArray(pin) || Object.keys(pin).sort().join() !== 'path,sha256') throw new Refuse('schema', where + ' must be {path, sha256}');
@@ -388,7 +429,8 @@ function checkObj(o, root = ROOT) {
     const preds = [];
     P.forEach((p, i) => {
       const w = 'predicate[' + i + ']';
-      need(p, ['g', 'rel'], ['printed', 'c', 'note', 'forall'], w);
+      need(p, ['g', 'rel'], ['printed', 'c', 'note', 'forall', 'box'], w);
+      if ('box' in p && p.rel !== 'in') throw new Refuse('schema', w + ': box belongs to an "in" predicate');
       if (!RELS.includes(p.rel)) throw new Refuse('schema', w + ': rel must be one of ' + RELS.join(', '));
       let bound = [];
       const forall = [];
@@ -414,8 +456,14 @@ function checkObj(o, root = ROOT) {
         if (!Array.isArray(p.c) || p.c.length !== 2) throw new Refuse('schema', w + ': "in" takes c = [lo, hi]');
         const lo = rational(p.c[0], w + '.c[0]'), hi = rational(p.c[1], w + '.c[1]');
         if (lo.cmp(hi) > 0) throw new Refuse('box-order', w + '.c');
-        const [blo, bhi] = printedBox(p.printed);
-        if (!lo.eq(blo) || !hi.eq(bhi)) throw new Refuse('printed-mismatch', w + ': c is not the box the digits of ' + p.printed + ' allow');
+        if ('box' in p) {
+          const [blo, bhi, binfo] = resolutionBox(pr, p.box, root, w + '.box');
+          if (!lo.eq(blo) || !hi.eq(bhi)) throw new Refuse('printed-mismatch', w + ': c is not ' + p.printed + ' ± the declared resolution (' + binfo + ')');
+          out.notes.push(w + ': the box is the printed value ± the platform\'s declared resolution, ' + binfo);
+        } else {
+          const [blo, bhi] = printedBox(p.printed);
+          if (!lo.eq(blo) || !hi.eq(bhi)) throw new Refuse('printed-mismatch', w + ': c is not the box the digits of ' + p.printed + ' allow');
+        }
         preds.push({ rel: 'in', c: [lo, hi], printed: p.printed, exact, forall, g: p.g });
       } else {
         const c = rational(p.c, w + '.c');

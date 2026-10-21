@@ -257,7 +257,7 @@ dec_by = {r['id']: r for r in DEC['rows']}
 FULL = os.environ.get('CLAIMBOX_FULL') == '1'
 notrun = []
 prim_files = sorted(f for f in os.listdir(PRIM) if f.endswith('.json'))
-ok(len(prim_files) == 3 and set(os.path.splitext(f)[0] for f in prim_files) == set(dec_by), 'three primitive objects, each with a row in certs/claimbox-decisions.json', str(len(prim_files)))
+ok(len(prim_files) == 4 and set(os.path.splitext(f)[0] for f in prim_files) == set(dec_by), 'four primitive objects, each with a row in certs/claimbox-decisions.json', str(len(prim_files)))
 
 
 def js_check(path):
@@ -357,6 +357,40 @@ try:
     o['record']['path'] = os.path.relpath(fp, ROOT)
     res = B.check_obj(o)
     red(res['kind'] == 'record-value-mismatch', 'a record whose exact value is not the one the bytes give -> record-value-mismatch', str(res['kind']) + ': ' + res['msg'][:80])
+    # ---- the resolution box (2026-10-21): the circle-packing object, its green and its reds --------------------------
+    base4 = json.load(open(os.path.join(PRIM, 'prim-ea-542-circle-packing.json'), encoding='utf-8'))
+    r4 = B.check_obj(base4)
+    fo4 = r4['fromObject']
+    ok(r4['word'] == B.ADMITTED and fo4[0]['word'] == C and all(x['word'] == C for x in fo4[1:5]) and fo4[5]['word'] == R and fo4[5]['violations'] == 3 and fo4[5]['witness']['at'] == {'i': 1, 'j': 13}
+       and any('declared resolution' in n for n in r4['notes']),
+       'GREEN: circle packing (solution 542) with the platform\'s resolution box — Σ r_i CERTIFIED inside printed ± 1e-10, containment CERTIFIED, non-overlap REFUTED with 3 pairs (the finding, recorded as found)',
+       (r4['kind'] or r4['word']) + ' ' + ' · '.join(x['word'] for x in fo4 if x))
+    hw_box = Fraction(base4['predicate'][0]['c'][1]) - Fraction(base4['predicate'][0]['printed'])
+    ok(hw_box == Fraction(1, 10 ** 10) and Fraction(fo4[0]['value']) < Fraction(base4['predicate'][0]['printed']) and Fraction(base4['predicate'][0]['printed']) - Fraction(fo4[0]['value']) > Fraction(5, 10 ** 17),
+       'the exact Σ r_i lies below the print by more than half a unit of its 17th digit: the half-unit rule would have refuted a true claim', '%.2e' % float(Fraction(base4['predicate'][0]['printed']) - Fraction(fo4[0]['value'])))
+    half_unit = clone(base4)
+    del half_unit['predicate'][0]['box']
+    rh = B.check_obj(half_unit)
+    red(rh['word'] == B.REFUSED_WORD and rh['kind'] == 'printed-mismatch', 'the same object without its box block -> printed-mismatch (the half-unit rule stands)', str(rh['kind']) + ': ' + rh['msg'][:80])
+
+    def bexpect(kind, mutate, label):
+        o = clone(base4)
+        mutate(o)
+        res = B.check_obj(o)
+        red(res['word'] == B.REFUSED_WORD and res['kind'] == kind, label + ' -> ' + kind, (res['kind'] or res['word']) + ': ' + res['msg'][:80])
+
+    bexpect('schema', lambda o: o['predicate'][0]['box'].pop('source'), 'a resolution box with no source')
+    bexpect('printed-mismatch', lambda o: o['predicate'][0].__setitem__('c', ['6589957712044019/2500000000000000', '6589957712644019/2500000000000000']), 'a box wider than the quoted resolution')
+    bexpect('quote-not-verbatim', lambda o: o['predicate'][0]['box']['source'].__setitem__('quote', o['predicate'][0]['box']['source']['quote'].replace('1e-10', '1e-9')), 'a resolution quote the pinned source does not print')
+    bexpect('json-number', lambda o: o['predicate'][0]['box'].__setitem__('halfWidth', 1e-10), 'a halfWidth given as a JSON number')
+    bexpect('resolution', lambda o: (o['predicate'][0]['box'].__setitem__('halfWidth', '1/1000000000'), o['predicate'][0].__setitem__('c', ['6589957712044019/2500000000000000', '6589957712544019/2500000000000000'])), 'a halfWidth that is not the quoted resolution')
+    bexpect('resolution', lambda o: o['predicate'][0]['box'].__setitem__('rule', '1e-12-relative'), 'a rule stated where the quote prints a nonzero resolution')
+    bexpect('resolution', lambda o: o['predicate'][0]['box'].__setitem__('key', 'scoring'), 'a key the quote prints no number under')
+    bexpect('pin-mismatch', lambda o: o['predicate'][0]['box']['source'].__setitem__('sha256', '0' * 64), 'the resolution source pin forged')
+    bexpect('schema', lambda o: o['predicate'][1].__setitem__('box', o['predicate'][0]['box']), 'a box on a predicate that is not "in"')
+    j4 = js_check(os.path.join(PRIM, 'prim-ea-542-circle-packing.json'))
+    ok(j4 is not None and shape(j4) == shape(r4) and any('declared resolution' in n for n in j4['notes']), 'check.js reads the resolution box the same way (word, decisions, witness, count, value, note)', 'js ' + (j4['word'] if j4 else 'failed'))
+
     # the other reading of the same bytes: a decision, not a refusal — the two counts of the 605 case, in FULL mode only
     if FULL:
         o6 = json.load(open(os.path.join(PRIM, 'prim-ea-605-kissing.json'), encoding='utf-8'))

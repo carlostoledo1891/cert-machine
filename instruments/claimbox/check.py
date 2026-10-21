@@ -83,7 +83,8 @@ KINDS = {
     'pin-mismatch': 'a pinned file whose sha256 is not the declared one',
     'quote-not-verbatim': 'the quoted sentence is not byte for byte in the pinned source',
     'printed-not-in-quote': 'the printed bar does not appear in the quoted sentence',
-    'printed-mismatch': 'the exact bar c is not the rational of the printed digits (or, for "in", not the box the digits allow)',
+    'printed-mismatch': 'the exact bar c is not the rational of the printed digits (or, for "in", not the box the digits allow — or, with a resolution box, not printed ± the declared resolution)',
+    'resolution': 'an "in" box declared as the platform\'s resolution whose block is malformed, names no key, or whose half-width is not the resolution the quoted source prints (or, when that prints 0, not the 1e-12-relative rule it must state)',
     'vocabulary': 'an expression head outside the closed vocabulary',
     'arity': 'an expression head with the wrong number of arguments',
     'symbol': 'a symbol the domain does not declare',
@@ -173,6 +174,51 @@ def printed_box(s):
     half = Fraction(5, 10 ** (d + 1))
     p = Fraction(s)
     return p - half, p + half
+
+
+NUMLIT = r'-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?'
+
+
+def resolution_box(p, box, src_quote_root, where):
+    """the platform's declared resolution: the box is printed ± halfWidth, where halfWidth is the rational of the number the
+    pinned, quoted source prints after the named key — or, when that number is 0, 10^-12 · max(1, |printed|), which the block
+    must state as its rule. Returns (lo, hi, info)."""
+    need(box, ('kind', 'key', 'halfWidth', 'source'), ('rule',), where)
+    if box['kind'] != 'resolution':
+        raise Refuse('resolution', where + ': kind must be "resolution"')
+    if not isinstance(box['key'], str) or not box['key'].strip():
+        raise Refuse('resolution', where + ': key must name the field the source prints the resolution under')
+    hw = rational(box['halfWidth'], where + '.halfWidth')
+    if hw <= 0:
+        raise Refuse('resolution', where + ': halfWidth must be positive')
+    src = box['source']
+    need(src, ('path', 'sha256', 'quote'), (), where + '.source')
+    spath = pinned({'path': src['path'], 'sha256': src['sha256']}, where + '.source', src_quote_root)
+    if not isinstance(src['quote'], str) or not src['quote'].strip():
+        raise Refuse('schema', where + '.source.quote must be a non-empty string')
+    with open(spath, 'rb') as f:
+        if src['quote'] not in f.read().decode('utf-8', 'replace'):
+            raise Refuse('quote-not-verbatim', where + '.source: ' + src['path'])
+    found = re.findall(r'"' + re.escape(box['key']) + r'"\s*:\s*(' + NUMLIT + r')', src['quote'])
+    if len(found) != 1:
+        raise Refuse('resolution', where + ': the quote must print "' + box['key'] + '": <number> exactly once (' + str(len(found)) + ' found)')
+    q = Fraction(found[0])
+    if q < 0:
+        raise Refuse('resolution', where + ': the quoted resolution is negative')
+    if q > 0:
+        if 'rule' in box:
+            raise Refuse('resolution', where + ': rule is stated only when the quoted resolution is 0')
+        if hw != q:
+            raise Refuse('resolution', where + ': halfWidth ' + box['halfWidth'] + ' is not the quoted resolution ' + found[0])
+        info = 'the quoted ' + box['key'] + ' ' + found[0]
+    else:
+        if box.get('rule') != '1e-12-relative':
+            raise Refuse('resolution', where + ': the quoted resolution is 0, so the block must state rule "1e-12-relative"')
+        want = Fraction(1, 10 ** 12) * max(Fraction(1), abs(p))
+        if hw != want:
+            raise Refuse('resolution', where + ': halfWidth ' + box['halfWidth'] + ' is not 10^-12 · max(1, |printed|) = ' + str(want))
+        info = 'the quoted ' + box['key'] + ' is 0: 10^-12 relative'
+    return p - hw, p + hw, info
 
 
 def sha256(path):
@@ -597,7 +643,9 @@ def check_obj(o, root=ROOT):
         preds = []
         for i, p in enumerate(P):
             w = 'predicate[' + str(i) + ']'
-            need(p, ('g', 'rel'), ('printed', 'c', 'note', 'forall'), w)
+            need(p, ('g', 'rel'), ('printed', 'c', 'note', 'forall', 'box'), w)
+            if 'box' in p and p['rel'] != 'in':
+                raise Refuse('schema', w + ': box belongs to an "in" predicate')
             if p['rel'] not in RELS:
                 raise Refuse('schema', w + ': rel must be one of ' + ', '.join(RELS))
             bound = ()
@@ -634,7 +682,12 @@ def check_obj(o, root=ROOT):
                 lo, hi = rational(p['c'][0], w + '.c[0]'), rational(p['c'][1], w + '.c[1]')
                 if lo > hi:
                     raise Refuse('box-order', w + '.c')
-                if (lo, hi) != printed_box(p['printed']):
+                if 'box' in p:
+                    blo, bhi, binfo = resolution_box(pr, p['box'], root, w + '.box')
+                    if (lo, hi) != (blo, bhi):
+                        raise Refuse('printed-mismatch', w + ': c is not ' + p['printed'] + ' ± the declared resolution (' + binfo + ')')
+                    out['notes'].append(w + ': the box is the printed value ± the platform\'s declared resolution, ' + binfo)
+                elif (lo, hi) != printed_box(p['printed']):
                     raise Refuse('printed-mismatch', w + ': c is not the box the digits of ' + p['printed'] + ' allow')
                 preds.append({'rel': 'in', 'c': (lo, hi), 'printed': p['printed'], 'exact': exact, 'forall': forall, 'g': p['g']})
             else:

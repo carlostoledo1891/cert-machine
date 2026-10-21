@@ -20,7 +20,7 @@
      "value": "2039224160683882663565441886346340189798400/1393796574908163689489385839036226787118881"
     }
    ],
-   "seconds": 0.506,
+   "seconds": 0.512,
    "notes": []
   },
   {
@@ -40,7 +40,7 @@
      "value": null
     }
    ],
-   "seconds": 20.158,
+   "seconds": 21.874,
    "notes": []
   },
   {
@@ -64,8 +64,65 @@
      "value": null
     }
    ],
-   "seconds": 46.881,
+   "seconds": 53.755,
    "notes": [
+    "no record attached"
+   ]
+  },
+  {
+   "id": "prim-ea-542-circle-packing",
+   "file": "instruments/claimbox/primitive/prim-ea-542-circle-packing.json",
+   "sha256": "91ba0576bb17602ceedc2403ab3638e73a330093691867411165040b3fa995c0",
+   "word": "ADMITTED",
+   "kind": null,
+   "decided": [],
+   "fromObject": [
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": null,
+     "value": "189942599023837833/72057594037927936"
+    },
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": 0,
+     "value": null
+    },
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": 0,
+     "value": null
+    },
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": 0,
+     "value": null
+    },
+    {
+     "word": "CERTIFIED",
+     "witness": null,
+     "violations": 0,
+     "value": null
+    },
+    {
+     "word": "REFUTED",
+     "witness": {
+      "at": {
+       "i": 1,
+       "j": 13
+      },
+      "value": "361941427213607/324518553658426726783156020576256"
+     },
+     "violations": 3,
+     "value": null
+    }
+   ],
+   "seconds": 0.21,
+   "notes": [
+    "predicate[0]: the box is the printed value ± the platform's declared resolution, the quoted minImprovement 1e-10",
     "no record attached"
    ]
   }

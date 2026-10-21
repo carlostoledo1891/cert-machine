@@ -39,7 +39,8 @@ instruments/claimbox/battery.py    the gate (make test "claimbox: declared claim
 | `source` | the claimant's bytes: a pinned file and a verbatim quote | the file hashes; the quote is byte for byte in it |
 | `reading` | universal (a theorem) or epistemic (a measurement with declared uncertainty) | one of the two |
 | `domain` | `finite`: a pinned file, how it is decoded, a declared count, the variable name. `box`: sides, each with a rational `lo`, `hi` and the source of its bounds | the pin hashes; lo ≤ hi; finite ends only in version 1 |
-| `predicate` | a list of relations; `g` is an expression; `rel` is le, lt, ge, gt, eq, in or holds; `printed` is the bar as the quote prints it; `c` is the exact bar | every head in the vocabulary with its arity; every symbol declared; `printed` in the quote; `c` equals the rational of `printed`, or for `in` the half-unit box its digits allow; `holds` takes a named exact predicate and no bar |
+| `predicate` | a list of relations; `g` is an expression; `rel` is le, lt, ge, gt, eq, in or holds; `printed` is the bar as the quote prints it; `c` is the exact bar; an `in` predicate may carry a `box` block declaring the platform's resolution (below) | every head in the vocabulary with its arity; every symbol declared; `printed` in the quote; `c` equals the rational of `printed`, or for `in` the half-unit box its digits allow — or, with a `box` block, `printed` ± the declared resolution; `holds` takes a named exact predicate and no bar |
+| `predicate[i].box` | optional, `in` only: `{"kind": "resolution", "key": "minImprovement", "halfWidth": "1/10000000000", "source": {"path", "sha256", "quote"}}` — the platform's declared resolution for the score, quoted from a pinned source | the source pins and hashes; the quote is byte for byte in it and prints `"key": <number>` exactly once; `halfWidth` is a rational string equal to that number (a JSON number is refused); when the number is 0 the block states `"rule": "1e-12-relative"` and `halfWidth` is 10⁻¹²·max(1, \|printed\|); `c` equals [printed − halfWidth, printed + halfWidth] exactly; a `box` on any other relation is refused |
 | `reference` | what the number is about: which bar, which reading of the bytes, which quantity | non-empty (the lattice-claims lesson) |
 | `hypotheses` | what is taken from the literature and read, never decided | a list, may be empty |
 | `falsifier` | what would make the object go red | non-empty (the certificate rule) |
@@ -52,6 +53,18 @@ instruments/claimbox/battery.py    the gate (make test "claimbox: declared claim
 printed bound, taken exactly) or as the box its digits allow (`rel: "in"`, half a unit of the last digit
 either way). This is the rule that decided C_1d: the printed bound is a rational, the certificate's value is
 another, and the second is above the first.
+
+**Two readings of a printed number, and why both exist (2026-10-21).** A registry's print is a rounded or
+truncated statement of a value, so its half-unit box is the claim. A platform's score is a float64 evaluation
+printed to 16 or 17 digits, and the exact value of the same arithmetic over the same doubles is in general NOT
+within half a unit of that print — under the half-unit rule the checker would refute true claims (circle
+packing's Σ r_i over 26 doubles sits 7.9·10⁻¹⁶ below its print, half a unit of its 17th digit being 5·10⁻¹⁷).
+The rule the register already applies to those rows (`tools/run-mc100-einstein.js`, `agreement()`): the exact
+objective agrees with the printed S within the platform's own resolution, its `minImprovement` for the problem
+when nonzero, else 10⁻¹² relative. An `in` predicate carries that resolution as a `box` block with its source,
+and `c` is the printed value ± it. The decision of `in` is unchanged; without a `box` block the half-unit rule
+stands. The width is the platform's, quoted, never the proposer's: a box wider than the quoted resolution is
+refused, and a sum that falls outside the box is a finding, not a reason to widen it.
 
 **Expressions.** Primitive expressions are MathJSON-shaped arrays, `["Add", "x", "1/2"]`, over a closed
 vocabulary of 17 heads: Add, Subtract, Multiply, Divide, Abs, Square, Power, Exp, Ln, Sin, Cos, Tanh,
@@ -133,6 +146,7 @@ nobody here, is then a third decider.
 | prim-1d-cert2026: the C_1d ratio 600·max_m\|Σ_{i+j=m} v_i v_j\|/(Σv)² over the 300 doubles of PR 224 | REFUTED as printed, the repair CERTIFIED; the value equals the record's exact fraction digit for digit | both checkers, the record, Z3 (sat printed, unsat repaired) |
 | prim-ae-593-kissing: AlphaEvolve's 593 integer vectors, 4·p·\|p\| ≤ \|u\|²\|v\|² over every pair | CERTIFIED | both checkers, the kissing ledger's row |
 | prim-ea-605-kissing: EinsteinArena solution 2560, the same inequality | REFUTED, witness pair (0, 48), 9,510 violating pairs, worst 601/604 | both checkers, the register's mc100 row |
+| prim-ea-542-circle-packing (2026-10-21): EinsteinArena solution 542, 26 circles read as doubles; Σ r_i in the printed score ± the platform's resolution 10⁻¹⁰ (a `box` block quoting problems.json), containment r ≤ x ≤ 1 − r, r ≤ y ≤ 1 − r, non-overlap (r_i + r_j)² ≤ \|c_i − c_j\|² over every pair | Σ r_i CERTIFIED (the exact sum is 7.9·10⁻¹⁶ below the print, inside the box; the half-unit box would have refuted it); containment CERTIFIED with a slack of exactly 0 on one wall; non-overlap REFUTED — 3 pairs overlap, (1, 13), (9, 21), (19, 22), by 10⁻¹⁸ in squared distance (float64 tangencies; under the decimal-digits reading 7 pairs). Recorded as found: the platform's verifier admits them, the exact inequality does not | both checkers |
 
 The 605 object first read the heights as `doubles` and counted 9,480 violating pairs where the register's row says
 9,510. Neither was wrong: the register's run reads the heights as the decimal digits printed, the object read the
