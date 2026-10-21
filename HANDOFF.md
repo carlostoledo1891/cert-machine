@@ -51,7 +51,15 @@ NEXT SESSION, IN ORDER:
      the evidence packet offered would be pinned beside the record. make test after the fix: 152 rows, one FAIL, the layout ruler —
      the δ₃ page's new 60-character fraction overflowed the phone width (fixed: it breaks at its slash; the page re-measured clean) and
      site/swell/index.html @1440 spines 9 → 10 / @768 8 → 7, the KNOWN live-feed flake (OPEN, not ours; it passed at 13:xx today and
-     flags now with the same bytes on disk).
+     flags now with the same bytes on disk). THE SENDER: the operator gave the address, hello@gocheckyourself.org — the domain was
+     REGISTERED THE SAME MORNING (2026-10-20T07:21Z, Cloudflare), has no website, forwards mail through Cloudflare Email Routing (a Brevo
+     TXT record), and no web search finds it: a fresh anonymous mailbox; the audit's substance is unaffected; the reply asks who they are,
+     pins any packet by digest and runs nothing. THE PAPER: paper/tex/delta3.tex line 103 ("the first-order part of L at y = 0 is exact up
+     to the bathtub") is weaker than the page's old sentence but readable the same way — the operator's call, a narrower wording in the
+     reply file. `make papers` first REFUSED (the method paper's numbers: certs/c86-replay.json "was not written by the deciders on disk" —
+     tools/replay-c86.js and replay-c82.js changed today when their scratch output moved out of the repository root), so both replays were
+     RE-RUN (245 s and 216 s; the records differ only in seconds, the JS decider digest and the generated stamp; every verdict the same)
+     and the papers rebuilt.
   ★ CLAIMBOX IS PUBLIC: github.com/carlostoledo1891/claimbox (MIT), pushed 2026-10-20 night on the operator's "you can push when needed";
      its own HANDOFF lists its state (five readers, three end-to-end runs, 41/41 planted defects caught). This repository is its
      read-only receiver; claimbox's PROVENANCE.json pins instruments/claimbox/check.py, check.js, SCHEMA.md, the ten objects and the

@@ -28,6 +28,28 @@ commit named below. Nothing has been sent.
    page and the paper's ladder table now print the bound rounded down, 0.05324920, from the exact fraction the log
    carries, and say what the log prints.
 
+## One more place to look, the operator's call (not changed here)
+
+The manuscript paper/tex/delta3.tex, line 103, says "the first-order part of L at y = 0 is exact up to the bathtub". That is
+weaker than the page's old sentence (it does not claim the bathtub itself is exact in every direction), but a referee could
+read it the same way. A narrower wording: "L(0) = 0 and E ≥ L; the bathtub bound is attained along its own minimiser {h < v}
+and not in every direction σ". The paper's ladder table already prints the bounds rounded down after `make papers`.
+
+## Who the auditor is
+
+Unknown, and the address says so too. The operator gave the sender's address, hello@gocheckyourself.org. Looked up on
+2026-10-20: the domain was REGISTERED THE SAME MORNING (Creation Date 2026-10-20T07:21:50Z, registrar Cloudflare), hours
+before the e-mail; it has no website (no A record for the apex or www); its mail is forwarded through Cloudflare Email
+Routing (route1–3.mx.cloudflare.net), with a Brevo verification record in its TXT; a web search finds nothing under the
+domain. So: a fresh, anonymous mailbox made for this contact — consistent with a person who prefers not to be named, or
+with an audit run by an agent on someone's behalf. This does not touch the audit's substance, which is correct and
+specific. It does set the stance for the reply: answer the points (they are public facts about public records), ask who
+they are and whether they want to be named, accept the evidence packet as bytes to PIN and never run (the house rule
+for every claimant's code), and send nothing that is not already public. Unknown here otherwise. The name appears nowhere in the records, the outreach log or the repository's issues, and a web search finds no
+public footprint under it; the e-mail came to the operator directly. The audit is specific and real (a Windows run of the
+battery, a counterexample whose numbers re-derive exactly, the notPorted entry read off PROVENANCE.json, the rounding), so the
+sender ran the code. Whether a person or an audit run by an agent is not known; the reply asks for the name to record.
+
 ## The reply (for the operator to send, edited as they see fit)
 
 Dear Sonny,
@@ -46,8 +68,9 @@ Thank you — an independent audit is exactly what the packet was published for,
    round-to-nearest.
 
 Would you be willing to have the audit recorded in the repository's registry of independent reruns
-(`corpus/external-reruns.json`, shown on /reports/rerun.html), with your name and the date, as the λ(4) audit is?
-And yes — the full evidence packet would be welcome; it would be pinned beside the record.
+(`corpus/external-reruns.json`, shown on /reports/rerun.html), with the name and affiliation you want recorded and the
+date, as the λ(4) audit is? And yes — the full evidence packet would be welcome; it would be pinned beside the record by
+its digest (the code in it is read, never run here, as with every claimant's).
 
 With thanks,
 Carlos

@@ -1,12 +1,12 @@
 {
  "what": "The registry's two asterisked C_82 upper bounds (the essential minimum of the Zhang–Zagier height, page 82a) decided from the cited constructions by two implementations that share no code with each other or with the claimants' checkers (never run): Doche's limit-point bound B = (log M(Q∘T) + ∫ max(0, log|A∘T| - log|Q∘T|)) / D with every root of every composed factor certified by Gershgorin's theorem on exact Weierstrass corrections, and the integral bounded on dyadic panels by a second-order Taylor form. Three controls of known truth and six planted red controls beside them. Doche's step from B to C_82 <= B is read, not re-derived.",
- "generated": "2026-10-20T00:44:31Z",
- "seconds": 232.9,
+ "generated": "2026-10-21T01:58:10Z",
+ "seconds": 216.3,
  "node": "v24.14.1",
  "platform": "darwin arm64",
  "python": "3.9.6",
  "deciders": {
-  "js": "37b0354416763c7526265c9eb60b7e2d3edd8092ac7640a6ffa6050875659808",
+  "js": "fdb3aa5aaf14caceb0cb3fac43a8c609c6d493a167267879f8924037b6fd13b5",
   "py": "dcea81f835666ff57073c26d5ed1f06406f369b39a7e280dba13af0e71a57f1f",
   "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
   "eqcertTranscendental": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
@@ -118,7 +118,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2534449",
-    "seconds": 31.802
+    "seconds": 29.82
    },
    "jsAsExpected": true,
    "py": {
@@ -169,7 +169,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2534449",
-    "seconds": 101.56
+    "seconds": 96.18
    },
    "pyAsExpected": true,
    "agree": true
@@ -231,7 +231,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2535744749068227",
-    "seconds": 7.276
+    "seconds": 5.041
    },
    "jsAsExpected": true,
    "py": {
@@ -282,7 +282,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2535744749068227",
-    "seconds": 15.19
+    "seconds": 14.33
    },
    "pyAsExpected": true,
    "agree": true
@@ -344,7 +344,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.25444",
-    "seconds": 7.935
+    "seconds": 5.647
    },
    "jsAsExpected": true,
    "py": {
@@ -395,7 +395,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.25444",
-    "seconds": 14.67
+    "seconds": 14.43
    },
    "pyAsExpected": true,
    "agree": true
@@ -457,7 +457,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2536331090204145",
-    "seconds": 6.522
+    "seconds": 4.573
    },
    "jsAsExpected": true,
    "py": {
@@ -508,7 +508,7 @@
     ],
     "verdict": "CERTIFIED",
     "why": "B < 0.2536331090204145",
-    "seconds": 12.57
+    "seconds": 12.37
    },
    "pyAsExpected": true,
    "agree": true
@@ -570,7 +570,7 @@
     ],
     "verdict": "REFUTED",
     "why": "the certificate's B is at least 0.2534449",
-    "seconds": 4.364
+    "seconds": 3.7
    },
    "jsAsExpected": true,
    "py": {
@@ -621,7 +621,7 @@
     ],
     "verdict": "REFUTED",
     "why": "the certificate's B is at least 0.2534449",
-    "seconds": 23.63
+    "seconds": 23.01
    },
    "pyAsExpected": true,
    "agree": true
@@ -683,7 +683,7 @@
     ],
     "verdict": "REFUTED",
     "why": "the certificate's B is at least 0.25356",
-    "seconds": 1.214
+    "seconds": 1.181
    },
    "jsAsExpected": true,
    "py": {
@@ -734,7 +734,7 @@
     ],
     "verdict": "REFUTED",
     "why": "the certificate's B is at least 0.25356",
-    "seconds": 4.81
+    "seconds": 4.69
    },
    "pyAsExpected": true,
    "agree": true
@@ -876,7 +876,7 @@
     },
     "verdict": "REFUSED",
     "why": "R0: the Weierstrass refinement did not converge (|W| ~ 2^-52)",
-    "seconds": 0.072
+    "seconds": 0.07
    },
    "jsAsExpected": true,
    "py": {
@@ -900,7 +900,7 @@
     },
     "verdict": "REFUSED",
     "why": "R0: two root disks are not disjoint (a repeated root, or approximations not separated)",
-    "seconds": 0.46
+    "seconds": 0.45
    },
    "pyAsExpected": true,
    "agree": true

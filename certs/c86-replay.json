@@ -1,11 +1,11 @@
 {
  "what": "The registry's C_86 certificate (R. Pinho, #227, merged 2026-10-18 with an asterisk) decided by two implementations that share no code with each other or with the claimant's checker (never run): the six finite conditions E1–E6 of Smith's sufficiency criterion and the bound's arithmetic, exact where the data is rational and by sound enclosures where a logarithm enters; the step from the conditions to C_86 <= bound is the published chain (the minimum principle, Smith's criterion and theorem [Smi24]), read and not re-derived here",
- "generated": "2026-10-19T21:17:32Z",
- "seconds": 255.4,
+ "generated": "2026-10-21T01:54:34Z",
+ "seconds": 245.1,
  "node": "v24.14.1",
  "python": "3.9.6",
  "deciders": {
-  "js": "8b4c05327e392046c4bd972146f08c91aca43e7ce17583499c521691020b6ba0",
+  "js": "9c847e9accc65ceb939d857aa602cccbd3b04abe2c93adf3778eb2328a21c175",
   "py": "9f1fa37686fa3335f59023c9cbf47d12279c7bc119a330102edb1e254db66c7a",
   "eqcertInterval": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
   "eqcertTranscendental": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53"
@@ -570,7 +570,7 @@
   },
   "failed": [],
   "verdict": "CERTIFIED",
-  "seconds": 21.1
+  "seconds": 20.9
  },
  "py": {
   "E1": {
@@ -902,7 +902,7 @@
   },
   "failed": [],
   "verdict": "CERTIFIED",
-  "seconds": 192.5
+  "seconds": 180.8
  },
  "redControls": [
   {
@@ -916,7 +916,7 @@
    "jsFailed": [
     "E5"
    ],
-   "jsSeconds": 3.7,
+   "jsSeconds": 3.8,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
@@ -935,13 +935,13 @@
    "jsFailed": [
     "E3"
    ],
-   "jsSeconds": 0.4,
+   "jsSeconds": 0.5,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E3"
    ],
-   "pySeconds": 1.4
+   "pySeconds": 2
   },
   {
    "id": "extra-mass-near-0.05",
@@ -956,14 +956,14 @@
     "E4",
     "E6"
    ],
-   "jsSeconds": 0.4,
+   "jsSeconds": 0.5,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E4",
     "E6"
    ],
-   "pySeconds": 1.4
+   "pySeconds": 1.6
   },
   {
    "id": "tampered-bound",
@@ -976,13 +976,13 @@
    "jsFailed": [
     "E6"
    ],
-   "jsSeconds": 0.4,
+   "jsSeconds": 0.5,
    "fired": true,
    "py": "REFUTED",
    "pyFailed": [
     "E6"
    ],
-   "pySeconds": 1.4
+   "pySeconds": 1.5
   },
   {
    "id": "reducible-polynomial",
@@ -1001,7 +1001,7 @@
    "pyFailed": [
     "E2"
    ],
-   "pySeconds": 0.1
+   "pySeconds": 0.2
   },
   {
    "id": "complex-roots",
@@ -1020,7 +1020,7 @@
    "pyFailed": [
     "E2"
    ],
-   "pySeconds": 0.1
+   "pySeconds": 0.2
   }
  ],
  "limits": [
