@@ -124,6 +124,7 @@ test:
 	@printf "%-30s " "method evaluated (planted)"; $(NODE) tools/run-method-eval.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "selfaudit: the inventory"; $(NODE) tools/run-selfaudit-inventory.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "selfaudit: the run"; $(NODE) tools/run-selfaudit.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "selfaudit: the mutations"; $(NODE) tools/run-selfaudit-mutations.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry step functions"; $(NODE) tools/replay-stepfun.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_1c and C_1d"; $(NODE) tools/replay-autocorr.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_86 (trace constant)"; $(NODE) tools/replay-c86.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
