@@ -122,6 +122,7 @@ test:
 	@printf "%-30s " "kissing gram form"; $(PY) instruments/kissing/wave/gram_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "interval kernel vs Arb"; $(NODE) tools/audit-kernel-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "method evaluated (planted)"; $(NODE) tools/run-method-eval.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "selfaudit: the inventory"; $(NODE) tools/run-selfaudit-inventory.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry step functions"; $(NODE) tools/replay-stepfun.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_1c and C_1d"; $(NODE) tools/replay-autocorr.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_86 (trace constant)"; $(NODE) tools/replay-c86.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

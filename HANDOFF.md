@@ -16,18 +16,56 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~02:40 UTC, on "start": THE BENCHMARK OF CERT-MACHINE PRE-REGISTERED — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ THE BENCHMARK OF CERT-MACHINE, Phase 1 — THE INVENTORY (the only open build; the operator 2026-10-20: "Let's focus on benchmark
-     cert-machine", then "start"). Read notes/bench-preregistration-2026-10-20.md FIRST and do not move a definition: bring the rerun
-     kit's run (certs/rerun-kit-run.json, 2026-10-02, 88 rows, 18 records timed) to the 132-row register — 7 kit entries have never
-     been timed (ai-claims-summary, navier-stokes/audit, the five mc100 records) — and derive certs/bench-inventory.json from the
-     register and the kit, never typed (per row: record, re-derive command, stdlib verifier, second implementation, per-row timing
-     field, mutable or not and why), with --check in make test. Then Phases 2–5 in the note's order. HOLD everything else.
+  ◆ THE SELF-AUDIT, Phase 2 — THE RUNNER (the only open build; the operator's hold on the paper and every other front stands).
+     Read notes/selfaudit-preregistration-2026-10-20.md FIRST and move no definition. Build tools/run-selfaudit.js: for every record
+     of the kit, the re-derive command run under /usr/bin/time -l with the portable 60 s wall cap ENFORCED (over the cap → REFUSED:
+     resources, not covered under portable) and once more with no cap (extended); two runs each (cold, then warm); per run: wall,
+     user+sys CPU, peak RSS bytes, the record's bytes, exit status, the word, the sha256 after; the STAMP PATHS read off a leaf
+     diff between the pinned record and the re-derived one (Phase 1 saw exactly these and nothing else: generated, git,
+     generatedBy, ms, seconds, timing.runMs/rowMsTotal, decision.seconds, congruence.ms, measured.ms, detail.ms, families[*].ms,
+     generatedAt) — reproducible = identical outside those paths; the records RESTORED to their pins after every run (the pins are
+     the pre-registration's); 10 of the 23 commands are --check and write nothing (compare only; identity is trivial for them, the
+     inventory marks rederiveWrites). Expect the 5 records over 60 s (hseva, ledger.json, gnnw, horizon, polymaps) REFUSED under
+     portable, 12 rows. Output certs/selfaudit-run.json + a battery; a certificate-shelf row (tools/certs-shelf.js — the sync
+     REFUSES a cert it cannot describe, learned this session). Then Phases 3–5 in the note's order. HOLD everything else.
+  ★ THE SELF-AUDIT, PHASE 1 DONE (2026-10-21 ~00:17–04:00 local, this session, on "decide bench / proceed the next phase").
+     THE NAME: selfaudit — the self-audit of cert-machine, the instrument measured by its own rules, same author; one spelling
+     (selfaudit) in folders, files, ids and records; the note renamed by git mv to notes/selfaudit-preregistration-2026-10-20.md
+     with a dated amendment (the name only); the targets row keeps its id bench-cert-machine-2026-10. THE KIT RUN WHOLE:
+     node tools/build-report-rerun.js --run under caffeinate with a battery guard (62% on battery; never tripped), 23:49 →
+     00:17 local, 31 commands, exit 0, 132 register rows unchanged, @ fcff53c7 on the M2 (node v24.14.1, python 3.9.6) —
+     the first run since 2026-10-02 (88 rows, 18 records); the 7 never-timed entries are timed now (the five mc100 records:
+     tensors 0.1–1.6 s, einstein-arena 46.6 s, station 0.1 s). Slower than 10-02 across the board (hseva 518 s vs 379, ledger.json
+     344 vs 302, gnnw 219 vs 185, horizon 134 vs 116, polymaps 98 vs 84): on battery, with a sagui stream running and, for two
+     minutes, an accidental control build (below) — a measurement of the machine that night, not of the code; Phase 2 measures
+     properly. EVERY WRITER CAME BACK DIFFERENT, EVERY DIFFERENCE A STAMP: the 13 commands that write their record
+     (erdos852, kissing, ledger.json, strassen, easota, ecbench, gsm8k, horizon, the five mc100) re-derived every decision and
+     differed from the pin only at generated / git / generatedBy / generatedAt, ms, seconds, timing.*, decision.seconds,
+     congruence.ms, measured.ms, detail.ms, families[*].ms — compared leaf by leaf (the script is in the session scratchpad; the
+     re-derived copies too, not in the repository); the 10 --check commands write nothing. ALSO REWRITTEN by `make engine`:
+     certs/keller-certificate.json — its git stamp and four kissing pins added to its sources listing since be82e12 (a pin
+     listing that grows with corpus/sources; nothing decided moved). ALL RESTORED to the pins (git checkout); the register's
+     sha256 is the pre-registration's 270094aa…; certs/rerun-kit-run.json keeps the re-derived digests (sha256After) as the
+     kit's record of the run; /reports/rerun.html + RERUN.md rebuilt on the pins (hashes printed = pins) and synced. THE
+     INVENTORY: tools/run-selfaudit-inventory.js → certs/selfaudit-inventory.json (--check in make test + build-control's Node
+     list + the certificate shelf): 25 records, 132 rows; 23 records re-derive (125 rows), 7 stdlib verifiers (50 rows), 1 second
+     implementation (1 row); 23 timed, 0 untimed; 5 records over the portable cap (12 rows); 13 writers / 10 check-only; 74 rows
+     carry a per-row timing (kissing ms, easota ms, countex seconds, the mc100 ms); 119 mutable rows — tensor 45, shapes 28,
+     countex 14, kissing 11, polymaps 9, entropy 4, horizonmath 3, turan 2, erdos852 1, gnnw 1, sumproduct 1 — and 13 not
+     (the aggregates and the reading, each with its reason); 2 refusal rows (kiss-ganzhinov-592 QUEUED; design-table NEEDS
+     DATA) + the compositions PARTIAL 9 / MIXED 5 / REPAIRED 6; every field derived, the class table the pre-registration's
+     (a register record it does not name refuses). The inventory pins the note's sha256: amend the note and the check refuses
+     until the inventory is regenerated — on purpose. THE PAGE GATES: make page R=rerun green through build, sync, copy census,
+     style, render; the ruler FAILED on the KNOWN swell live-feed flake only (site/swell/index.html @1440 spines 9 → 10, the same
+     flag as 2026-10-20; not ours). A SLIP, UNDONE: a `node -e require(tools/build-control.js)` meant as a syntax check STARTED A
+     CONTROL BUILD; stopped within two minutes; it wrote nothing (git status clean of it) and no process survived. Nothing sent,
+     no paper edit, no pod.
   ★ THE BENCHMARK PRE-REGISTERED (2026-10-20 night, this session, on "start", after the operator's hold on the paper and every other
      front). Phase 0 = the note + the targets row, nothing run, nothing else changed. WHAT IT IS: a SELF-MEASUREMENT of the instrument
      on the frozen 132-row register (meta 2026-10-06 @ a310e6e; 25 records), not a comparison — the scouting of a ChatGPT landscape

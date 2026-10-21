@@ -1,7 +1,7 @@
 {
  "what": "The rerun kit, executed: every command of corpus/rerun-kit.json run from this repository, timed, the register's rows (verdict, scope, kind) compared before and after. Written by tools/build-report-rerun.js --run; the page reads the runtimes from here and never types one.",
- "date": "2026-10-02",
- "git": "916d077",
+ "date": "2026-10-21",
+ "git": "fcff53c7",
  "machine": {
   "os": "Darwin 27.0.0",
   "cpu": "Apple M2",
@@ -14,9 +14,9 @@
    "record": "certs/erdos852-certificate.json",
    "kind": "rederive",
    "command": "node tools/export-erdos852-certificate.js",
-   "seconds": 4.8,
+   "seconds": 5.5,
    "status": 0,
-   "sha256After": "8b532ba9db0ee19df30d820695ccf12224d011f001c5cf437e161a62f7f258f3"
+   "sha256After": "2a2eb84b841f641551ff74a863a4c5bfbda9e376cd20b8ccd09382a41e447b39"
   },
   {
    "record": "certs/erdos852-certificate.json",
@@ -24,23 +24,23 @@
    "command": "python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources",
    "seconds": 0.6,
    "status": 0,
-   "sha256After": "8b532ba9db0ee19df30d820695ccf12224d011f001c5cf437e161a62f7f258f3"
+   "sha256After": "2a2eb84b841f641551ff74a863a4c5bfbda9e376cd20b8ccd09382a41e447b39"
   },
   {
    "record": "certs/kissing-ledger.json",
    "kind": "rederive",
    "command": "node tools/run-kissing-ledger.js",
-   "seconds": 2.9,
+   "seconds": 7.2,
    "status": 0,
-   "sha256After": "ce41485393a7fc080449fac3387412f4de2c5c7b4192895267dcade6a9597add"
+   "sha256After": "bd66441a42aff059caa1d1db279231fd87dee40e2b1a9d9191946ce5d73d6a4f"
   },
   {
    "record": "ledger.json",
    "kind": "rederive",
    "command": "make engine",
-   "seconds": 302.4,
+   "seconds": 344.4,
    "status": 0,
-   "sha256After": "e53fd06e78e3cc4242fa63ff8421de7bce612dbca9fdfd43e8a8e09298c2730b"
+   "sha256After": "ad405c31a02f7ab766ce2c9753714fc29596c97f9de1f9419269119626e7764c"
   },
   {
    "record": "certs/strassen-certificate.json",
@@ -48,7 +48,7 @@
    "command": "node tools/export-strassen-certificate.js",
    "seconds": 0.1,
    "status": 0,
-   "sha256After": "54939d7f94f702e4ae131aaf73ff4d0bd5fe215a87f86c44d5066af7a82e62ff"
+   "sha256After": "5c3f7d79c58d33d9010d82d7465a86b1ddd0d2b4d1b09094e9714522d44ec768"
   },
   {
    "record": "certs/strassen-certificate.json",
@@ -56,47 +56,47 @@
    "command": "python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources",
    "seconds": 0.3,
    "status": 0,
-   "sha256After": "54939d7f94f702e4ae131aaf73ff4d0bd5fe215a87f86c44d5066af7a82e62ff"
+   "sha256After": "5c3f7d79c58d33d9010d82d7465a86b1ddd0d2b4d1b09094e9714522d44ec768"
   },
   {
    "record": "certs/easota-ledger.json",
    "kind": "rederive",
    "command": "node tools/run-easota-ledger.js",
-   "seconds": 3,
+   "seconds": 3.2,
    "status": 0,
-   "sha256After": "5ab5577a6d8055aa08fbdffde145d067be4f1b61a07b24a73b92572217ca9d9c"
+   "sha256After": "de4640982022f44861e5ca3b81e7d5a1ed97cd0b0ebefb47fa94331ef7e8fb2f"
   },
   {
    "record": "certs/ecbench-ledger.json",
    "kind": "rederive",
    "command": "node tools/run-ecbench-ledger.js",
-   "seconds": 5.8,
+   "seconds": 6.1,
    "status": 0,
-   "sha256After": "65064f838d382eeb4159d6127f88d5077ae2b02f57c38bfaeba85e784268f53e"
+   "sha256After": "04c5d28271c0d2d9014dda88d6c52eb5f4d3552aefa87d5b2228e88af58827e1"
   },
   {
    "record": "certs/gsm8k-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-gsm8k-ledger.py",
-   "seconds": 1.5,
+   "seconds": 1.6,
    "status": 0,
-   "sha256After": "56092a5fe580d9e001c525e5e034151686fe99222b8a6695185f0ea1d12231d8"
+   "sha256After": "0591b1b93ec66481ef89ecbbf0c77bd2ba4a954a4fc2df3e30fe31cf175619c6"
   },
   {
    "record": "certs/horizon-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-horizon-ledger.py",
-   "seconds": 115.7,
+   "seconds": 133.9,
    "status": 0,
-   "sha256After": "b562ca7f61b0ff61c7aad4b5134be36c19e6d41693547e6418bc69c03b61fe86"
+   "sha256After": "379712027a52086a8e10647857c1c8eea09eef85ab4add655e34ad405dd7b348"
   },
   {
    "record": "certs/hseva-ledger.json",
    "kind": "rederive",
    "command": "node tools/run-hseva-ledger.js --check",
-   "seconds": 378.7,
+   "seconds": 518.4,
    "status": 0,
-   "sha256After": "a6971779e880a3594337dd448fe29eb7723c290b6e807a6b13fb3a1a4822ae79"
+   "sha256After": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c"
   },
   {
    "record": "certs/design-table-audit.json",
@@ -104,15 +104,15 @@
    "command": "node tools/run-design-table-audit.js --check",
    "seconds": 0.3,
    "status": 0,
-   "sha256After": "e8278b62a87d2e0ae3f53a2645359b4d5e9ab2d013fa1c5a097888b65afccb06"
+   "sha256After": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd"
   },
   {
    "record": "certs/sumdiff-ledger.json",
    "kind": "rederive",
    "command": "node tools/run-sumdiff-ledger.js --check",
-   "seconds": 1.1,
+   "seconds": 1.2,
    "status": 0,
-   "sha256After": "5b4ce435f0d004fc76da050fff454b46169ec36324110adf59488f3e988b06ef"
+   "sha256After": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4"
   },
   {
    "record": "certs/sumdiff-ledger.json",
@@ -120,21 +120,21 @@
    "command": "python3 tools/verify_sumdiff.py",
    "seconds": 0.2,
    "status": 0,
-   "sha256After": "5b4ce435f0d004fc76da050fff454b46169ec36324110adf59488f3e988b06ef"
+   "sha256After": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4"
   },
   {
    "record": "certs/fei-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-fei-ledger.py --check",
-   "seconds": 1.4,
+   "seconds": 1.5,
    "status": 0,
-   "sha256After": "38d06c5e779f366e6b8ea2cd10698ea3610b600ea2be90b661629209e64152d0"
+   "sha256After": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e"
   },
   {
    "record": "certs/sumproduct-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-sumproduct-ledger.py --check",
-   "seconds": 36.7,
+   "seconds": 38.6,
    "status": 0,
    "sha256After": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0"
   },
@@ -142,7 +142,7 @@
    "record": "certs/turan-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-turan-ledger.py --check",
-   "seconds": 1.6,
+   "seconds": 1.7,
    "status": 0,
    "sha256After": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef"
   },
@@ -150,7 +150,7 @@
    "record": "certs/countex-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-countex-ledger.py --check",
-   "seconds": 33.3,
+   "seconds": 34.5,
    "status": 0,
    "sha256After": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc"
   },
@@ -166,7 +166,7 @@
    "record": "certs/gnnw-certificate.json",
    "kind": "rederive",
    "command": "python3 tools/run-gnnw-ledger.py --check",
-   "seconds": 185,
+   "seconds": 218.5,
    "status": 0,
    "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
   },
@@ -174,7 +174,7 @@
    "record": "certs/gnnw-certificate.json",
    "kind": "verifier",
    "command": "python3 tools/verify_gnnw_gai.py certs/gnnw-certificate.json",
-   "seconds": 7.7,
+   "seconds": 9.4,
    "status": 0,
    "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
   },
@@ -182,7 +182,7 @@
    "record": "certs/gnnw-certificate.json",
    "kind": "second",
    "command": "node instruments/gnnw/second.js certs/gnnw-certificate.json",
-   "seconds": 126.9,
+   "seconds": 161.1,
    "status": 0,
    "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
   },
@@ -190,12 +190,76 @@
    "record": "certs/polymaps-ledger.json",
    "kind": "rederive",
    "command": "python3 tools/run-polymaps-ledger.py --check",
-   "seconds": 83.5,
+   "seconds": 98,
    "status": 0,
-   "sha256After": "63ce598a073c1718239f8ce036227a8f645d852a26ac97bf624cc7cd1c5d6953"
+   "sha256After": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3"
+  },
+  {
+   "record": "certs/mc100-alphatensor-q.json",
+   "kind": "rederive",
+   "command": "node tools/run-mc100-tensors.js alphatensor-q",
+   "seconds": 0.2,
+   "status": 0,
+   "sha256After": "8eb3667269853ac172f131d72d0fce498453e3db7c7977e4ea894cf535ea2f21"
+  },
+  {
+   "record": "certs/mc100-alphatensor-q.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources",
+   "seconds": 0,
+   "status": 0,
+   "sha256After": "8eb3667269853ac172f131d72d0fce498453e3db7c7977e4ea894cf535ea2f21"
+  },
+  {
+   "record": "certs/mc100-alphatensor-f2.json",
+   "kind": "rederive",
+   "command": "node tools/run-mc100-tensors.js alphatensor-f2",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "fec1cb18588c980386bc6358522e995473fa4b08d6659f3a2daaf86c41ae0cb8"
+  },
+  {
+   "record": "certs/mc100-alphatensor-f2.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources",
+   "seconds": 0,
+   "status": 0,
+   "sha256After": "fec1cb18588c980386bc6358522e995473fa4b08d6659f3a2daaf86c41ae0cb8"
+  },
+  {
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "kind": "rederive",
+   "command": "node tools/run-mc100-tensors.js alphaevolve-nb-matmul",
+   "seconds": 1.6,
+   "status": 0,
+   "sha256After": "e8fafd4de2e4f684eebd42dd5474bd336a8522e2a33d0b46a633f79c63ddc66c"
+  },
+  {
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "kind": "verifier",
+   "command": "python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources",
+   "seconds": 1.1,
+   "status": 0,
+   "sha256After": "e8fafd4de2e4f684eebd42dd5474bd336a8522e2a33d0b46a633f79c63ddc66c"
+  },
+  {
+   "record": "certs/mc100-einstein-arena.json",
+   "kind": "rederive",
+   "command": "node tools/run-mc100-einstein.js",
+   "seconds": 46.6,
+   "status": 0,
+   "sha256After": "b2f2966c162444629fc4f2dffd421b4ad144836e6cf8e86935ccd131e88b94b3"
+  },
+  {
+   "record": "certs/mc100-station-v2.json",
+   "kind": "rederive",
+   "command": "python3 tools/run-mc100-station.py",
+   "seconds": 0.1,
+   "status": 0,
+   "sha256After": "81bdedb6c49552ca1c2cab65d91a22302099e2c5297967a5b6127b06c9756de7"
   }
  ],
- "registerRows": 88,
+ "registerRows": 132,
  "rowsMoved": [],
  "failed": []
 }

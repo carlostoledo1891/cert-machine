@@ -1,0 +1,2590 @@
+{
+ "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
+ "name": "selfaudit",
+ "phase": 1,
+ "generated": "2026-10-21T03:18:55.342Z",
+ "git": "fcff53c7",
+ "preregistration": {
+  "path": "notes/selfaudit-preregistration-2026-10-20.md",
+  "sha256": "a6ca4457a022a33ce75e8ba294dd4e8ae1b0408771f5244e4fc207152ec22cd3"
+ },
+ "inputs": {
+  "register": {
+   "path": "certs/claims-ledger.json",
+   "sha256": "270094aa3c9218fa000654ae3020d388e3821b845e76647da9d429f095cd77ff",
+   "rows": 132,
+   "meta": {
+    "date": "2026-10-06",
+    "git": "a310e6e"
+   }
+  },
+  "kit": {
+   "path": "corpus/rerun-kit.json",
+   "sha256": "8d276e9c3ec889d7bfaafdf8f06567f8743a9afe9437dd15d22665998ced1b5a",
+   "entries": 25
+  },
+  "run": {
+   "path": "certs/rerun-kit-run.json",
+   "sha256": "415cd158cbec52f4784214abbc91845282c4143d5d8914a6ba0348887e898ee9",
+   "date": "2026-10-21",
+   "git": "fcff53c7",
+   "machine": {
+    "os": "Darwin 27.0.0",
+    "cpu": "Apple M2",
+    "node": "v24.14.1",
+    "python": "Python 3.9.6"
+   },
+   "registerRows": 132
+  }
+ },
+ "totals": {
+  "records": 25,
+  "rows": 132,
+  "rowsDecided": 131,
+  "rowsPending": 1,
+  "byVerdict": {
+   "CERTIFIED": 107,
+   "PARTIAL": 9,
+   "REFUTED": 2,
+   "QUEUED": 1,
+   "MIXED": 5,
+   "REPAIRED": 6,
+   "NEEDS DATA": 2
+  },
+  "byKind": {
+   "none": 108,
+   "narrower-scope": 8,
+   "float-printed-as-exact": 1,
+   "sign-slip": 1,
+   "tolerance-witness": 5,
+   "not-from-the-published-data": 1,
+   "arithmetic-slip": 2,
+   "not-the-optimum": 1,
+   "wrong-quantity": 1,
+   "data-not-public": 2,
+   "depends-on-reading": 1,
+   "checker-wider-than-definition": 1
+  },
+  "recordsWithRederive": 23,
+  "recordsWithVerifier": 7,
+  "recordsWithSecond": 1,
+  "recordsWithoutRederive": [
+   "certs/ai-claims-summary.json",
+   "corpus/navier-stokes/audit.json"
+  ],
+  "rowsWithRederive": 125,
+  "rowsWithVerifier": 50,
+  "rowsWithSecond": 1,
+  "commandsTimed": 31,
+  "recordsTimed": 23,
+  "recordsUntimed": [],
+  "portableWallSeconds": 60,
+  "recordsOverPortable": [
+   {
+    "record": "ledger.json",
+    "seconds": 344.4,
+    "rows": 1
+   },
+   {
+    "record": "certs/horizon-ledger.json",
+    "seconds": 133.9,
+    "rows": 1
+   },
+   {
+    "record": "certs/hseva-ledger.json",
+    "seconds": 518.4,
+    "rows": 1
+   },
+   {
+    "record": "certs/gnnw-certificate.json",
+    "seconds": 218.5,
+    "rows": 1
+   },
+   {
+    "record": "certs/polymaps-ledger.json",
+    "seconds": 98,
+    "rows": 8
+   }
+  ],
+  "rowsOverPortable": 12,
+  "rederiveChecksOnly": [
+   "certs/hseva-ledger.json",
+   "certs/design-table-audit.json",
+   "certs/sumdiff-ledger.json",
+   "certs/fei-ledger.json",
+   "certs/sumproduct-ledger.json",
+   "certs/turan-ledger.json",
+   "certs/countex-ledger.json",
+   "certs/horizonmath-ledger.json",
+   "certs/gnnw-certificate.json",
+   "certs/polymaps-ledger.json"
+  ],
+  "rederiveWrites": [
+   "certs/erdos852-certificate.json",
+   "certs/kissing-ledger.json",
+   "ledger.json",
+   "certs/strassen-certificate.json",
+   "certs/easota-ledger.json",
+   "certs/ecbench-ledger.json",
+   "certs/gsm8k-ledger.json",
+   "certs/horizon-ledger.json",
+   "certs/mc100-alphatensor-q.json",
+   "certs/mc100-alphatensor-f2.json",
+   "certs/mc100-alphaevolve-nb-matmul.json",
+   "certs/mc100-einstein-arena.json",
+   "certs/mc100-station-v2.json"
+  ],
+  "rederiveByteIdentical": [],
+  "rederiveNotByteIdentical": [
+   "certs/erdos852-certificate.json",
+   "certs/kissing-ledger.json",
+   "ledger.json",
+   "certs/strassen-certificate.json",
+   "certs/easota-ledger.json",
+   "certs/ecbench-ledger.json",
+   "certs/gsm8k-ledger.json",
+   "certs/horizon-ledger.json",
+   "certs/mc100-alphatensor-q.json",
+   "certs/mc100-alphatensor-f2.json",
+   "certs/mc100-alphaevolve-nb-matmul.json",
+   "certs/mc100-einstein-arena.json",
+   "certs/mc100-station-v2.json"
+  ],
+  "rowsWithPerRowTiming": 74,
+  "rowsMutable": 119,
+  "rowsNotMutated": 13,
+  "byFamily": {
+   "erdos852": 1,
+   "kissing": 11,
+   "tensor": 45,
+   "shapes": 28,
+   "entropy": 4,
+   "sumproduct": 1,
+   "turan": 2,
+   "countex": 14,
+   "horizonmath": 3,
+   "gnnw": 1,
+   "polymaps": 9
+  },
+  "refusals": [
+   {
+    "id": "kiss-ganzhinov-592",
+    "verdict": "QUEUED",
+    "kind": "none",
+    "scope": "the configuration as published, in exact arithmetic"
+   },
+   {
+    "id": "design-table-bhaskaran-2023",
+    "verdict": "NEEDS DATA",
+    "kind": "data-not-public",
+    "scope": "the fits are to a commercial hindcast nobody outside can re-run; against the nearest cells of the public one they are 19 OFF THE MAXIMUM, 1 OUTSIDE ITS SUPPORT — the distance between two records, not an error"
+   },
+   {
+    "id": "horizonmath-gpt56-closed-forms",
+    "verdict": "NEEDS DATA",
+    "kind": "data-not-public",
+    "scope": "the expressions are not published: the paper says all six discoveries \"are detailed in Appendix A\", which details three (A.1–A.3), none of these; agreement with a reference to 20 digits would not decide equality in any case"
+   }
+  ],
+  "compositions": {
+   "PARTIAL": 9,
+   "MIXED": 5,
+   "REPAIRED": 6
+  }
+ },
+ "records": [
+  {
+   "record": "certs/ai-claims-summary.json",
+   "sha256": "d5e561e3888537dad824a32b7ca4079386216a95a6f26d64bb6978601aff7f70",
+   "rows": 6,
+   "byVerdict": {
+    "CERTIFIED": 5,
+    "PARTIAL": 1
+   },
+   "rederive": null,
+   "verifier": null,
+   "second": null,
+   "needs": "nothing to run",
+   "timed": {
+    "rederive": null,
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": null,
+   "untimed": false,
+   "overPortable": null,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate of six audit lanes with no single object to mutate"
+   }
+  },
+  {
+   "record": "certs/erdos852-certificate.json",
+   "sha256": "13cfc7fa212a4355139a45cba78450ed371db78d2c980b3faec09a121c024ad1",
+   "rows": 1,
+   "byVerdict": {
+    "REFUTED": 1
+   },
+   "rederive": "node tools/export-erdos852-certificate.js",
+   "verifier": "python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources",
+   "second": null,
+   "needs": "node for the export; python3 standard library for the verifier; corpus/sources for the pinned paper",
+   "timed": {
+    "rederive": {
+     "seconds": 5.5,
+     "status": 0,
+     "sha256After": "2a2eb84b841f641551ff74a863a4c5bfbda9e376cd20b8ccd09382a41e447b39"
+    },
+    "verifier": {
+     "seconds": 0.6,
+     "status": 0,
+     "sha256After": "2a2eb84b841f641551ff74a863a4c5bfbda9e376cd20b8ccd09382a41e447b39"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 5.5,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "erdos852",
+    "classes": "FALSE: the published digit string; the corrected enclosure's upper end raised by one unit. TRUE: the enclosure widened outward. MALFORMED: a non-numeric digit"
+   }
+  },
+  {
+   "record": "certs/kissing-ledger.json",
+   "sha256": "5c823b21ac43b5bdb3ad4b91a46e909cbf86a192e4cf382e2d8c5be2b29f611f",
+   "rows": 11,
+   "byVerdict": {
+    "CERTIFIED": 10,
+    "QUEUED": 1
+   },
+   "rederive": "node tools/run-kissing-ledger.js",
+   "verifier": null,
+   "second": null,
+   "needs": "node",
+   "timed": {
+    "rederive": {
+     "seconds": 7.2,
+     "status": 0,
+     "sha256After": "bd66441a42aff059caa1d1db279231fd87dee40e2b1a9d9191946ce5d73d6a4f"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 7.2,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "kissing",
+    "classes": "the seven planted classes of certs/method-eval.json (a row duplicated, doubled, a 30° sum, the zero vector = FALSE; negation, a coordinate permutation = TRUE; mixed dimensions = MALFORMED) on the register's own configurations"
+   }
+  },
+  {
+   "record": "ledger.json",
+   "sha256": "4b666d3d922357659b588cf625e2ec9f8d79bef398db1d690394a2b9760a0acd",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "make engine",
+   "verifier": null,
+   "second": null,
+   "needs": "node; about four minutes",
+   "timed": {
+    "rederive": {
+     "seconds": 344.4,
+     "status": 0,
+     "sha256After": "ad405c31a02f7ab766ce2c9753714fc29596c97f9de1f9419269119626e7764c"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 344.4,
+   "untimed": false,
+   "overPortable": true,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "the engine's own ledger (the Ramanujan-audit row); an aggregate, no object to mutate"
+   }
+  },
+  {
+   "record": "certs/strassen-certificate.json",
+   "sha256": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
+   "rows": 10,
+   "byVerdict": {
+    "CERTIFIED": 10
+   },
+   "rederive": "node tools/export-strassen-certificate.js",
+   "verifier": "python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources",
+   "second": null,
+   "needs": "node for the export; python3 standard library for the verifier; corpus/sources for the pinned bytes",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "5c3f7d79c58d33d9010d82d7465a86b1ddd0d2b4d1b09094e9714522d44ec768"
+    },
+    "verifier": {
+     "seconds": 0.3,
+     "status": 0,
+     "sha256After": "5c3f7d79c58d33d9010d82d7465a86b1ddd0d2b4d1b09094e9714522d44ec768"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "tensor",
+    "classes": "a tensor decomposition — FALSE: one coefficient +1; one coefficient × (1 + 10⁻⁹) as the exact decimal; a rank-1 term dropped; a term duplicated; an F₂ scheme asserted over Q (with a witness, else discarded). TRUE: the factor columns permuted together; one term's (u, v) signs flipped together. MALFORMED: a short row"
+   }
+  },
+  {
+   "record": "certs/easota-ledger.json",
+   "sha256": "e577361347e77561617610d9be19cbf72ac0a8846219bf03c86e20fb5121c503",
+   "rows": 20,
+   "byVerdict": {
+    "CERTIFIED": 16,
+    "REPAIRED": 4
+   },
+   "rederive": "node tools/run-easota-ledger.js",
+   "verifier": null,
+   "second": null,
+   "needs": "node",
+   "timed": {
+    "rederive": {
+     "seconds": 3.2,
+     "status": 0,
+     "sha256After": "de4640982022f44861e5ca3b81e7d5a1ed97cd0b0ebefb47fa94331ef7e8fb2f"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 3.2,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "shapes",
+    "classes": "an EinsteinArena shape — FALSE: the printed value moved one unit in its last digit past the bytes; a coordinate perturbed by 10⁻¹² (with a witness, else discarded). TRUE: a rigid motion the problem admits, stated per problem. MALFORMED: a coordinate missing"
+   }
+  },
+  {
+   "record": "certs/ecbench-ledger.json",
+   "sha256": "cdecac8aae53d79c5803184cd12d63431a4838582950f3d833d8e520256897c8",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "node tools/run-ecbench-ledger.js",
+   "verifier": null,
+   "second": null,
+   "needs": "node; about a minute",
+   "timed": {
+    "rederive": {
+     "seconds": 6.1,
+     "status": 0,
+     "sha256After": "04c5d28271c0d2d9014dda88d6c52eb5f4d3552aefa87d5b2228e88af58827e1"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 6.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate row (a benchmark's counts); no object to mutate"
+   }
+  },
+  {
+   "record": "certs/gsm8k-ledger.json",
+   "sha256": "7fbcda606b601c9c2867cc6305c39906ef21e7e0a7dcd6a11285125cca8e9248",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "python3 tools/run-gsm8k-ledger.py",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and the instrument's own modules (instruments/gsm8k)",
+   "timed": {
+    "rederive": {
+     "seconds": 1.6,
+     "status": 0,
+     "sha256After": "0591b1b93ec66481ef89ecbbf0c77bd2ba4a954a4fc2df3e30fe31cf175619c6"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 1.6,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate row (an answer key re-decided); no object to mutate"
+   }
+  },
+  {
+   "record": "certs/horizon-ledger.json",
+   "sha256": "fa5b0bac0539bf9694e6c7044a6acf0325635f18474e387d4bf56bcf49bb2315",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "python3 tools/run-horizon-ledger.py",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and the instrument's own modules (instruments/horizon)",
+   "timed": {
+    "rederive": {
+     "seconds": 133.9,
+     "status": 0,
+     "sha256After": "379712027a52086a8e10647857c1c8eea09eef85ab4add655e34ad405dd7b348"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 133.9,
+   "untimed": false,
+   "overPortable": true,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate row (a time-horizon fit); no object to mutate"
+   }
+  },
+  {
+   "record": "certs/hseva-ledger.json",
+   "sha256": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c",
+   "rows": 1,
+   "byVerdict": {
+    "MIXED": 1
+   },
+   "rederive": "node tools/run-hseva-ledger.js --check",
+   "verifier": null,
+   "second": null,
+   "needs": "node; several minutes with workers in parallel",
+   "timed": {
+    "rederive": {
+     "seconds": 518.4,
+     "status": 0,
+     "sha256After": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 518.4,
+   "untimed": false,
+   "overPortable": true,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "an aggregate row (a benchmark's marginals); no object to mutate"
+   }
+  },
+  {
+   "record": "certs/design-table-audit.json",
+   "sha256": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd",
+   "rows": 1,
+   "byVerdict": {
+    "NEEDS DATA": 1
+   },
+   "rederive": "node tools/run-design-table-audit.js --check",
+   "verifier": null,
+   "second": null,
+   "needs": "node",
+   "timed": {
+    "rederive": {
+     "seconds": 0.3,
+     "status": 0,
+     "sha256After": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.3,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a NEEDS DATA row whose pin cannot resolve; no object to mutate"
+   }
+  },
+  {
+   "record": "corpus/navier-stokes/audit.json",
+   "sha256": "5931f9ad48b4ed87f94ebb7f9b219bfe4ea6f8bce1bc32da740c6865ea5be766",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": null,
+   "verifier": null,
+   "second": null,
+   "needs": "a Lean 4 toolchain at the pinned commit, for the counts the record points at",
+   "timed": {
+    "rederive": null,
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": null,
+   "untimed": false,
+   "overPortable": null,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": null,
+    "classes": "a reading beside a kernel verdict; no object to mutate"
+   }
+  },
+  {
+   "record": "certs/sumdiff-ledger.json",
+   "sha256": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
+   "rows": 3,
+   "byVerdict": {
+    "CERTIFIED": 3
+   },
+   "rederive": "node tools/run-sumdiff-ledger.js --check",
+   "verifier": "python3 tools/verify_sumdiff.py",
+   "second": null,
+   "needs": "node; python3 standard library for the verifier",
+   "timed": {
+    "rederive": {
+     "seconds": 1.2,
+     "status": 0,
+     "sha256After": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4"
+    },
+    "verifier": {
+     "seconds": 0.2,
+     "status": 0,
+     "sha256After": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 1.2,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "entropy",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated (the three planted entropy classes of certs/method-eval.json exist already)"
+   }
+  },
+  {
+   "record": "certs/fei-ledger.json",
+   "sha256": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "python3 tools/run-fei-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/fei",
+   "timed": {
+    "rederive": {
+     "seconds": 1.5,
+     "status": 0,
+     "sha256After": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 1.5,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "entropy",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/sumproduct-ledger.json",
+   "sha256": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0",
+   "rows": 1,
+   "byVerdict": {
+    "REPAIRED": 1
+   },
+   "rederive": "python3 tools/run-sumproduct-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/sumproduct",
+   "timed": {
+    "rederive": {
+     "seconds": 38.6,
+     "status": 0,
+     "sha256After": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 38.6,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "sumproduct",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/turan-ledger.json",
+   "sha256": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef",
+   "rows": 2,
+   "byVerdict": {
+    "PARTIAL": 2
+   },
+   "rederive": "python3 tools/run-turan-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/turan",
+   "timed": {
+    "rederive": {
+     "seconds": 1.7,
+     "status": 0,
+     "sha256After": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 1.7,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "turan",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/countex-ledger.json",
+   "sha256": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc",
+   "rows": 14,
+   "byVerdict": {
+    "PARTIAL": 5,
+    "CERTIFIED": 9
+   },
+   "rederive": "python3 tools/run-countex-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/countex (fourteen deciders, each reading only the published certificate)",
+   "timed": {
+    "rederive": {
+     "seconds": 34.5,
+     "status": 0,
+     "sha256After": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 34.5,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": "seconds",
+   "mutation": {
+    "family": "countex",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/horizonmath-ledger.json",
+   "sha256": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a",
+   "rows": 3,
+   "byVerdict": {
+    "REFUTED": 1,
+    "CERTIFIED": 1,
+    "NEEDS DATA": 1
+   },
+   "rederive": "python3 tools/run-horizonmath-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/horizonmath",
+   "timed": {
+    "rederive": {
+     "seconds": 1.6,
+     "status": 0,
+     "sha256After": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 1.6,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "horizonmath",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/gnnw-certificate.json",
+   "sha256": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "python3 tools/run-gnnw-ledger.py --check",
+   "verifier": "python3 tools/verify_gnnw_gai.py certs/gnnw-certificate.json",
+   "second": "node instruments/gnnw/second.js certs/gnnw-certificate.json",
+   "needs": "python3 standard library for the ledger and the verifier; node for the second implementation (bigfloat, monotone bounds, no written derivative)",
+   "timed": {
+    "rederive": {
+     "seconds": 218.5,
+     "status": 0,
+     "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+    },
+    "verifier": {
+     "seconds": 9.4,
+     "status": 0,
+     "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+    },
+    "second": {
+     "seconds": 161.1,
+     "status": 0,
+     "sha256After": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273"
+    }
+   },
+   "rederiveSeconds": 218.5,
+   "untimed": false,
+   "overPortable": true,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "gnnw",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/polymaps-ledger.json",
+   "sha256": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3",
+   "rows": 8,
+   "byVerdict": {
+    "CERTIFIED": 7,
+    "PARTIAL": 1
+   },
+   "rederive": "python3 tools/run-polymaps-ledger.py --check",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/polymaps",
+   "timed": {
+    "rederive": {
+     "seconds": 98,
+     "status": 0,
+     "sha256After": "c3f99c9398ef410e402d4422286dfdd2ab0085ddad933bf9bcdd5c18eef6c3f3"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 98,
+   "untimed": false,
+   "overPortable": true,
+   "rederiveWrites": false,
+   "rederiveByteIdentical": null,
+   "perRowTimingField": null,
+   "mutation": {
+    "family": "polymaps",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  },
+  {
+   "record": "certs/mc100-alphatensor-q.json",
+   "sha256": "753485444a3e4498c15cfa47e8e1a48ff40d66ca2cebd5d55349216f3902d9f7",
+   "rows": 12,
+   "byVerdict": {
+    "CERTIFIED": 12
+   },
+   "rederive": "node tools/run-mc100-tensors.js alphatensor-q",
+   "verifier": "python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources",
+   "second": null,
+   "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+   "timed": {
+    "rederive": {
+     "seconds": 0.2,
+     "status": 0,
+     "sha256After": "8eb3667269853ac172f131d72d0fce498453e3db7c7977e4ea894cf535ea2f21"
+    },
+    "verifier": {
+     "seconds": 0,
+     "status": 0,
+     "sha256After": "8eb3667269853ac172f131d72d0fce498453e3db7c7977e4ea894cf535ea2f21"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 0.2,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "tensor",
+    "classes": "a tensor decomposition — FALSE: one coefficient +1; one coefficient × (1 + 10⁻⁹) as the exact decimal; a rank-1 term dropped; a term duplicated; an F₂ scheme asserted over Q (with a witness, else discarded). TRUE: the factor columns permuted together; one term's (u, v) signs flipped together. MALFORMED: a short row"
+   }
+  },
+  {
+   "record": "certs/mc100-alphatensor-f2.json",
+   "sha256": "0222c5552b7c24f38f1231508bce613876eafce4e161325ef1b0bf3817d90a77",
+   "rows": 8,
+   "byVerdict": {
+    "CERTIFIED": 8
+   },
+   "rederive": "node tools/run-mc100-tensors.js alphatensor-f2",
+   "verifier": "python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources",
+   "second": null,
+   "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "fec1cb18588c980386bc6358522e995473fa4b08d6659f3a2daaf86c41ae0cb8"
+    },
+    "verifier": {
+     "seconds": 0,
+     "status": 0,
+     "sha256After": "fec1cb18588c980386bc6358522e995473fa4b08d6659f3a2daaf86c41ae0cb8"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "tensor",
+    "classes": "a tensor decomposition — FALSE: one coefficient +1; one coefficient × (1 + 10⁻⁹) as the exact decimal; a rank-1 term dropped; a term duplicated; an F₂ scheme asserted over Q (with a witness, else discarded). TRUE: the factor columns permuted together; one term's (u, v) signs flipped together. MALFORMED: a short row"
+   }
+  },
+  {
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "sha256": "50183f3ffba87bd2964ae6c0e32a8d985c8f0176f420728f8b19d826df4ea12a",
+   "rows": 15,
+   "byVerdict": {
+    "CERTIFIED": 15
+   },
+   "rederive": "node tools/run-mc100-tensors.js alphaevolve-nb-matmul",
+   "verifier": "python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources",
+   "second": null,
+   "needs": "node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone",
+   "timed": {
+    "rederive": {
+     "seconds": 1.6,
+     "status": 0,
+     "sha256After": "e8fafd4de2e4f684eebd42dd5474bd336a8522e2a33d0b46a633f79c63ddc66c"
+    },
+    "verifier": {
+     "seconds": 1.1,
+     "status": 0,
+     "sha256After": "e8fafd4de2e4f684eebd42dd5474bd336a8522e2a33d0b46a633f79c63ddc66c"
+    },
+    "second": null
+   },
+   "rederiveSeconds": 1.6,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "tensor",
+    "classes": "a tensor decomposition — FALSE: one coefficient +1; one coefficient × (1 + 10⁻⁹) as the exact decimal; a rank-1 term dropped; a term duplicated; an F₂ scheme asserted over Q (with a witness, else discarded). TRUE: the factor columns permuted together; one term's (u, v) signs flipped together. MALFORMED: a short row"
+   }
+  },
+  {
+   "record": "certs/mc100-einstein-arena.json",
+   "sha256": "5d05c32da7e1d4788a2bff1af3f3d2ff45056bb02c69d54fc142fe0e24060226",
+   "rows": 8,
+   "byVerdict": {
+    "REPAIRED": 1,
+    "CERTIFIED": 7
+   },
+   "rederive": "node tools/run-mc100-einstein.js",
+   "verifier": null,
+   "second": null,
+   "needs": "node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate)",
+   "timed": {
+    "rederive": {
+     "seconds": 46.6,
+     "status": 0,
+     "sha256After": "b2f2966c162444629fc4f2dffd421b4ad144836e6cf8e86935ccd131e88b94b3"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 46.6,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "shapes",
+    "classes": "an EinsteinArena shape — FALSE: the printed value moved one unit in its last digit past the bytes; a coordinate perturbed by 10⁻¹² (with a witness, else discarded). TRUE: a rigid motion the problem admits, stated per problem. MALFORMED: a coordinate missing"
+   }
+  },
+  {
+   "record": "certs/mc100-station-v2.json",
+   "sha256": "b526305ff85bbb353a51f5ae2183d06f2e071c2e4a889a9e9025622c41a04431",
+   "rows": 1,
+   "byVerdict": {
+    "CERTIFIED": 1
+   },
+   "rederive": "python3 tools/run-mc100-station.py",
+   "verifier": null,
+   "second": null,
+   "needs": "python3 standard library and instruments/polymaps",
+   "timed": {
+    "rederive": {
+     "seconds": 0.1,
+     "status": 0,
+     "sha256After": "81bdedb6c49552ca1c2cab65d91a22302099e2c5297967a5b6127b06c9756de7"
+    },
+    "verifier": null,
+    "second": null
+   },
+   "rederiveSeconds": 0.1,
+   "untimed": false,
+   "overPortable": false,
+   "rederiveWrites": true,
+   "rederiveByteIdentical": false,
+   "perRowTimingField": "ms",
+   "mutation": {
+    "family": "polymaps",
+    "classes": "classes written in Phase 3 under the rule (FALSE with a witness, TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated"
+   }
+  }
+ ],
+ "rows": [
+  {
+   "id": "ai-maxwell",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "ai-korenblum",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "ai-lemniscate",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "ai-ranteng",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "ai-mathieu",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "ai-poisson",
+   "record": "certs/ai-claims-summary.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/ai-claims-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate of six audit lanes with no single object to mutate"
+  },
+  {
+   "id": "erdos852-cstar",
+   "record": "certs/erdos852-certificate.json",
+   "verdict": "REFUTED",
+   "kind": "float-printed-as-exact",
+   "page": "/reports/erdos852.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "erdos852",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-cal-d4-24",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-cal-e8-240",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 10,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-alphaevolve-593",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 103,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-ea-594-winner",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 63,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-station-604-1",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 61,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-station-604-2",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 58,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-station-604-3",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 58,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-station-shell-582",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 51,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-station-d12-lift",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 64,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-ea-604",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": 65,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "kiss-ganzhinov-592",
+   "record": "certs/kissing-ledger.json",
+   "verdict": "QUEUED",
+   "kind": "none",
+   "page": "/reports/kissing.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "kissing",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "rm-registry",
+   "record": "ledger.json",
+   "verdict": "MIXED",
+   "kind": "sign-slip",
+   "page": "/reports/rm-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "the engine's own ledger (the Ramanujan-audit row); an aggregate, no object to mutate"
+  },
+  {
+   "id": "mm-strassen-1969",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-strassen-squared-4x4x4",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-q-2x2x2",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-q-3x3x3",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-q-4x4x4",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-q-3x4x5",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-q-4x5x5",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-f2-4x4x4",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphatensor-f2-5x5x5",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mm-alphaevolve-48-4x4x4",
+   "record": "certs/strassen-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/alphaevolve.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-circles-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": 0,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-circles-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "REPAIRED",
+   "kind": "tolerance-witness",
+   "page": "/reports/easota.html",
+   "timingMs": 0,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-heilbronn-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-heilbronn-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-mindist-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-mindist-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-overlap-haugland_2016",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-overlap-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "REPAIRED",
+   "kind": "tolerance-witness",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-overlap-ttt_discover_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "REPAIRED",
+   "kind": "tolerance-witness",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-overlap-together_ai_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "REPAIRED",
+   "kind": "tolerance-witness",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-edges-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-edges-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": 7,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_v2_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": 9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-autocorr-ttt_discover_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": 2892,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-autocorr-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": 1804,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-flat-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-flat-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-hexagons-alphaevolve_2025",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ea-hexagons-ours_2026",
+   "record": "certs/easota-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/easota.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "ecbench-counts",
+   "record": "certs/ecbench-ledger.json",
+   "verdict": "MIXED",
+   "kind": "not-from-the-published-data",
+   "page": "/reports/ec-benchmark.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate row (a benchmark's counts); no object to mutate"
+  },
+  {
+   "id": "gsm8k-keys",
+   "record": "certs/gsm8k-ledger.json",
+   "verdict": "MIXED",
+   "kind": "arithmetic-slip",
+   "page": "/reports/gsm8k-audit.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate row (an answer key re-decided); no object to mutate"
+  },
+  {
+   "id": "metr-horizon",
+   "record": "certs/horizon-ledger.json",
+   "verdict": "MIXED",
+   "kind": "not-the-optimum",
+   "page": "/reports/time-horizon.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate row (a time-horizon fit); no object to mutate"
+  },
+  {
+   "id": "ecbench-marginals",
+   "record": "certs/hseva-ledger.json",
+   "verdict": "MIXED",
+   "kind": "wrong-quantity",
+   "page": "/reports/return-levels.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "an aggregate row (a benchmark's marginals); no object to mutate"
+  },
+  {
+   "id": "design-table-bhaskaran-2023",
+   "record": "certs/design-table-audit.json",
+   "verdict": "NEEDS DATA",
+   "kind": "data-not-public",
+   "page": "/instruments/return-level-atlas/",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a NEEDS DATA row whose pin cannot resolve; no object to mutate"
+  },
+  {
+   "id": "navier-stokes-openai-2026",
+   "record": "corpus/navier-stokes/audit.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/navier-stokes.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": false,
+   "family": null,
+   "notMutatedBecause": "a reading beside a kernel verdict; no object to mutate"
+  },
+  {
+   "id": "optconst-3b",
+   "record": "certs/sumdiff-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "entropy",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-3c",
+   "record": "certs/sumdiff-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "entropy",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-3c-95",
+   "record": "certs/sumdiff-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "entropy",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-71",
+   "record": "certs/fei-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "entropy",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-84b",
+   "record": "certs/sumproduct-ledger.json",
+   "verdict": "REPAIRED",
+   "kind": "arithmetic-slip",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "sumproduct",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-42a",
+   "record": "certs/turan-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "turan",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "optconst-42a-pr184",
+   "record": "certs/turan-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/optimization-constants.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "turan",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-aim-problems",
+   "record": "certs/countex-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 500,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-courtade-volume-conjecture",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 1000,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-dpp-feasible-step",
+   "record": "certs/countex-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "depends-on-reading",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-hamiltonian-nepv-identity",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-lorentzian-jensen",
+   "record": "certs/countex-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 300,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-macdonald-schur-convexity",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-odonnell-matrix-conjecture",
+   "record": "certs/countex-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 22500,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-osi-sketch-and-solve",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-qrcp-orthonormal-greedy",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-quantum-coupon-collector",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 600,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-rank-two-mixed-norm",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-sdd-nystrom-diminishing-returns",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-theta-derivative-log-concavity",
+   "record": "certs/countex-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 0,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "countex-variance-only-matrix-discrepancy",
+   "record": "certs/countex-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/counterexample-machine.html",
+   "timingMs": 8200,
+   "timingField": "seconds",
+   "mutable": true,
+   "family": "countex",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "horizonmath-ramsey-asymptotic",
+   "record": "certs/horizonmath-ledger.json",
+   "verdict": "REFUTED",
+   "kind": "checker-wider-than-definition",
+   "page": "/reports/horizonmath.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "horizonmath",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "horizonmath-keich-thin-triangles-128",
+   "record": "certs/horizonmath-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/horizonmath.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "horizonmath",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "horizonmath-gpt56-closed-forms",
+   "record": "certs/horizonmath-ledger.json",
+   "verdict": "NEEDS DATA",
+   "kind": "data-not-public",
+   "page": "/reports/horizonmath.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "horizonmath",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "gnnw-gai-3782",
+   "record": "certs/gnnw-certificate.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/diagonal-ramsey.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "gnnw",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-gao-g",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-gao-f4",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-gao-f5",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-gao-f6",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-gao-f7",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "PARTIAL",
+   "kind": "narrower-scope",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-chv-x14",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-chv-phi",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "polymaps-chv-xhat18",
+   "record": "certs/polymaps-ledger.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "/reports/polymaps.html",
+   "timingMs": null,
+   "timingField": null,
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-2x4x5-r32",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 16,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-2x4x7-r45",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 18.6,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-2x4x8-r51",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 26.2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-2x5x6-r47",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 9.4,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x3x3-r23",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 8.5,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x6-r54",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 9.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x7-r63",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 169.4,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x8-r74",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 12.3,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x5x6-r68",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 11.7,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-3x5x7-r80",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 13.2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x8-r96",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 152.8,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x5-r61",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 10.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x7-r85",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 14.2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-4x5x6-r90",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 14.3,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ae-nb-5x5x5-r93",
+   "record": "certs/mc100-alphaevolve-nb-matmul.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphaevolve-nb-matmul.json",
+   "timingMs": 13.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x3",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 0.6,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x4",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 0.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x3",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 1.1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x5",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 0.8,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x4",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 1.5,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x5",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 1.7,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-2x4x4",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-f2-3x3x4",
+   "record": "certs/mc100-alphatensor-f2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-f2.json",
+   "timingMs": 2.8,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x3",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1.3,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x4",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x3x3",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x5",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1.2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x6",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1.6,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x3x4",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x7",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1.5,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x3x5",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 1.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x2x8",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 2.3,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x4x4",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 3.2,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-3x3x4",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 3.1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-at-q-2x4x5",
+   "record": "certs/mc100-alphatensor-q.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-alphatensor-q.json",
+   "timingMs": 3.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "tensor",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-erdos-min-overlap",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "REPAIRED",
+   "kind": "tolerance-witness",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 890.3,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-first-autocorrelation-inequality",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 24410.9,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-flat-polynomials",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 618.6,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-edges-vs-triangles",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 47231.5,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-circles-rectangle",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 10.5,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d12",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 183.1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d11-605",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 174,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d12-842",
+   "record": "certs/mc100-einstein-arena.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-einstein-arena.json",
+   "timingMs": 207.1,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "shapes",
+   "notMutatedBecause": null
+  },
+  {
+   "id": "mc100-st-jacobian",
+   "record": "certs/mc100-station-v2.json",
+   "verdict": "CERTIFIED",
+   "kind": "none",
+   "page": "https://github.com/carlostoledo1891/cert-machine/blob/main/certs/mc100-station-v2.json",
+   "timingMs": 4,
+   "timingField": "ms",
+   "mutable": true,
+   "family": "polymaps",
+   "notMutatedBecause": null
+  }
+ ]
+}

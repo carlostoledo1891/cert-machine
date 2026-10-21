@@ -1,9 +1,16 @@
 # Benchmarking cert-machine — pre-registration, 2026-10-20
 
+> **Amendment 2026-10-21 (the name only; no definition moved).** On the operator's "decide \"bench\"" this session named
+> it **selfaudit** — the self-audit of cert-machine: the instrument measured by its own rules, same author, which is
+> what the measurement is and what it is not (an outside rerun). One spelling everywhere: `selfaudit` in folders,
+> files, ids and records; "the self-audit" in prose. This file was renamed from bench-preregistration-2026-10-20.md
+> (git mv, history kept); every "bench" placeholder below is replaced by the name.
+
+
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
 in this note is a result. Every count below is read from a record on disk at commit e2cab5b4 and is a pin, not a
-finding. "bench" is a placeholder in every file name; the name is the operator's.
+finding. The name is selfaudit (the amendment above).
 
 ## The question
 
@@ -12,7 +19,7 @@ costly and how reproducible is this instrument's decision procedure — and how 
 on the same false claims?
 
 This is a SELF-MEASUREMENT. It is not a comparison of verification systems. The 2026-10-20 scouting (targets row
-`bench-cert-machine-2026-10`) found no public system that audits external published claims with exact certificates,
+`bench-cert-machine-2026-10` (id kept; the name is selfaudit)) found no public system that audits external published claims with exact certificates,
 published refusals and a build-gated ledger, so the only comparators are this repository's own second
 implementations, the Lean kernel on the formal rows, and a conventional float checker written for the purpose.
 
@@ -131,12 +138,12 @@ who did not build the benchmark); the register gap (a register change); the 54 u
 
 | phase | build | output |
 |---|---|---|
-| 0 | this note; the targets row | `notes/bench-preregistration-2026-10-20.md`, `corpus/targets.json` |
-| 1 | the rerun kit's run brought to the 132-row register; the inventory derived from the register and the kit, never typed | `certs/bench-inventory.json` (+ `--check` in make test) |
-| 2 | the runner: one re-derive command per record under `/usr/bin/time -l`, the wall cap, two runs | `tools/run-bench.js`, `certs/bench-run.json` (+ battery) |
-| 3 | the mutation generator per family + the witness scripts + the float checker | `instruments/bench/`, `certs/bench-mutations.json` |
-| 4 | concordance on every row with two implementations; the kernel rows carried in | `certs/bench-concord.json` |
-| 5 | every input pinned by sha256, the records, the page, a git tag, a make test row | `reports/bench.html` (via the template) |
+| 0 | this note; the targets row | `notes/selfaudit-preregistration-2026-10-20.md`, `corpus/targets.json` |
+| 1 | the rerun kit's run brought to the 132-row register; the inventory derived from the register and the kit, never typed | `tools/run-selfaudit-inventory.js` → `certs/selfaudit-inventory.json` (+ `--check` in make test) |
+| 2 | the runner: one re-derive command per record under `/usr/bin/time -l`, the wall cap, two runs | `tools/run-selfaudit.js`, `certs/selfaudit-run.json` (+ battery) |
+| 3 | the mutation generator per family + the witness scripts + the float checker | `instruments/selfaudit/`, `certs/selfaudit-mutations.json` |
+| 4 | concordance on every row with two implementations; the kernel rows carried in | `certs/selfaudit-concord.json` |
+| 5 | every input pinned by sha256, the records, the page, a git tag, a make test row | `reports/selfaudit.html` (via the template) |
 
 Every record carries the git commit, the machine, and the sha256 of every input it read. About six sessions. No
 spend, no send, no paper edit.
