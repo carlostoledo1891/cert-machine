@@ -16,12 +16,40 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-20 ~02:10 UTC, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~02:40 UTC, on "start": THE BENCHMARK OF CERT-MACHINE PRE-REGISTERED — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE BENCHMARK OF CERT-MACHINE, Phase 1 — THE INVENTORY (the only open build; the operator 2026-10-20: "Let's focus on benchmark
+     cert-machine", then "start"). Read notes/bench-preregistration-2026-10-20.md FIRST and do not move a definition: bring the rerun
+     kit's run (certs/rerun-kit-run.json, 2026-10-02, 88 rows, 18 records timed) to the 132-row register — 7 kit entries have never
+     been timed (ai-claims-summary, navier-stokes/audit, the five mc100 records) — and derive certs/bench-inventory.json from the
+     register and the kit, never typed (per row: record, re-derive command, stdlib verifier, second implementation, per-row timing
+     field, mutable or not and why), with --check in make test. Then Phases 2–5 in the note's order. HOLD everything else.
+  ★ THE BENCHMARK PRE-REGISTERED (2026-10-20 night, this session, on "start", after the operator's hold on the paper and every other
+     front). Phase 0 = the note + the targets row, nothing run, nothing else changed. WHAT IT IS: a SELF-MEASUREMENT of the instrument
+     on the frozen 132-row register (meta 2026-10-06 @ a310e6e; 25 records), not a comparison — the scouting of a ChatGPT landscape
+     read shared by the operator (chatgpt.com/share/6ad7ff3f…, "Assess Cert Machine Landscape": a frontier-facing research
+     instrument whose biggest gap is independent validation; its plan a four-track comparative benchmark) found NO public system
+     that audits external claims with exact certificates, published refusals and a build-gated ledger (MathKernel is a runtime;
+     Aletheia broader science; lhl/ai-math-evidence a review; TheoremBench and lean-lang.org/eval prover benchmarks — each checked
+     live; targets row). Five measurements, definitions fixed before counting: M1 soundness under mutation (FALSE needs a witness
+     from a script that shares no code with the decider; TRUE an invariance; MALFORMED a shape; CERTIFIED on FALSE is a defect kept
+     on the record), M2 concordance of second implementations, M3 coverage and refusal by kind, M4 cost and reproducibility under
+     two laptop profiles (portable: 60 s wall ENFORCED, 4 GB RSS measured; extended: no cap) with the 416 kernel rows CARRIED IN as
+     recorded, M5 a double-precision checker at τ = 1e-6/1e-9/1e-12 on the same mutants (the 89.5% row generalised to
+     constructions). Mutation classes per record (45 tensor rows, 11 kissing, 28 shapes, erdos852, 34 rows whose classes are written
+     in Phase 3; 13 aggregate/reading rows NOT mutated → 119 mutable). Kill switches per phase (a digest that moves between runs is a
+     finding; a family whose witness needs the decider's code is excluded, not faked; under half the mutable rows with a witnessed
+     FALSE mutant → M1 published partial and stop; no pod, no hosted run, no paper edit, no Zenodo, no send). OUT: the 54 undecided
+     mc100 rows, the replays that are not register rows (the register gap — a register change, the operator's), the readings, the
+     LLM-judge baseline (a spend), outside reruns (a send), the claim-to-statement track (two outside reviewers). Today's baselines,
+     pinned in the note: kit 23/25 records re-derive, 7 stdlib verifiers, 1 second implementation; 18 timed, 5 over 60 s; 23 planted
+     claims in two families, all decided as required. Output names fixed (bench-inventory / run-bench + bench-run / instruments/bench
+     + bench-mutations / bench-concord / reports/bench.html); "bench" is a placeholder, THE NAME IS THE OPERATOR'S. The chat itself
+     is kept outside the repository (its extraction is in the session's scratchpad; the share link is the record).
   ◆ NOTHING IS HALF-DONE. The claim-machine lives in ~/Projects/claimbox (★ THE SPLIT below); cert-machine is its read-only receiver.
      Next builds, none chosen: the claim-machine's next readers and functionals (its own HANDOFF); here, the receiver only changes if the
      translator needs it (a three-array data block for tensor identities); the rest of the menu. Next builds, none
