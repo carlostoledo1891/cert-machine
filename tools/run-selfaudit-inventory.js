@@ -82,28 +82,10 @@ if (RUN.partial) die('the run record is partial; run the whole kit first');
 if (RUN.rowsMoved.length) die('the run record says a rerun moved a register row: ' + RUN.rowsMoved.join(', '));
 if (RUN.failed.length) die('the run record holds failed commands: ' + RUN.failed.join(', '));
 
-/* ---- the record's own rows, for per-row timing ------------------------------------------------------------------- */
-const recordRows = (rec) => {
-  const d = J(rec);
-  let rows = d.rows || d.entries || d.claims || d.decisions || [];
-  if (!Array.isArray(rows) && typeof rows === 'object') rows = Object.values(rows);
-  return Array.isArray(rows) ? rows.filter((x) => x && typeof x === 'object') : [];
-};
-const rowsByRecord = Object.fromEntries(regRecords.map((rec) => [rec, recordRows(rec)]));
-const TIMING_FIELDS = ['ms', 'seconds'];
-const findRecordRow = (rec, id) => {
-  const cands = rowsByRecord[rec].filter((x) => typeof x.id === 'string').map((x) => [x, String(x.id).replace(/\//g, '-')]);
-  const hits = cands.filter(([, n]) => id === n || id.endsWith('-' + n));
-  if (!hits.length) return null;
-  hits.sort((a, b) => b[1].length - a[1].length);
-  return hits[0][0];
-};
-const timingOf = (rec, id) => {
-  const x = findRecordRow(rec, id);
-  if (!x) return { field: null, ms: null };
-  for (const f of TIMING_FIELDS) if (typeof x[f] === 'number') return { field: f, ms: f === 'ms' ? x[f] : Math.round(x[f] * 1000) };
-  return { field: null, ms: null };
-};
+/* ---- the record's own rows, for per-row timing (the rules live in tools/selfaudit-common.js, shared with phase 2) ---- */
+const { recordRows, timingOf: timingOfRows } = require('./selfaudit-common.js');
+const rowsByRecord = Object.fromEntries(regRecords.map((rec) => [rec, recordRows(J(rec))]));
+const timingOf = (rec, id) => timingOfRows(rowsByRecord[rec], id);
 
 /* ---- per record --------------------------------------------------------------------------------------------------- */
 const timed = (rec, kind) => { const r = RUN.runs.find((x) => x.record === rec && x.kind === kind); return r ? { seconds: r.seconds, status: r.status, sha256After: r.sha256After } : null; };

@@ -16,24 +16,70 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~12:00 UTC, on "Go": THE SELF-AUDIT PHASE 2 DONE — the runner, tools/run-selfaudit.js → certs/selfaudit-run.json: 124 runs in 73 min on AC, portable 18 records / 113 rows covered and 5 records / 12 rows REFUSED at the 60 s cap (exactly the five the pre-registration expected), extended 23 / 125 covered and every one reproducible, no register row moved in any run, the kill switch not tripped, two findings (keller's pin listing, a side effect of make engine); before that, ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ THE SELF-AUDIT, Phase 2 — THE RUNNER (the only open build; the operator's hold on the paper and every other front stands).
-     Read notes/selfaudit-preregistration-2026-10-20.md FIRST and move no definition. Build tools/run-selfaudit.js: for every record
-     of the kit, the re-derive command run under /usr/bin/time -l with the portable 60 s wall cap ENFORCED (over the cap → REFUSED:
-     resources, not covered under portable) and once more with no cap (extended); two runs each (cold, then warm); per run: wall,
-     user+sys CPU, peak RSS bytes, the record's bytes, exit status, the word, the sha256 after; the STAMP PATHS read off a leaf
-     diff between the pinned record and the re-derived one (Phase 1 saw exactly these and nothing else: generated, git,
-     generatedBy, ms, seconds, timing.runMs/rowMsTotal, decision.seconds, congruence.ms, measured.ms, detail.ms, families[*].ms,
-     generatedAt) — reproducible = identical outside those paths; the records RESTORED to their pins after every run (the pins are
-     the pre-registration's); 10 of the 23 commands are --check and write nothing (compare only; identity is trivial for them, the
-     inventory marks rederiveWrites). Expect the 5 records over 60 s (hseva, ledger.json, gnnw, horizon, polymaps) REFUSED under
-     portable, 12 rows. Output certs/selfaudit-run.json + a battery; a certificate-shelf row (tools/certs-shelf.js — the sync
-     REFUSES a cert it cannot describe, learned this session). Then Phases 3–5 in the note's order. HOLD everything else.
+  ◆ THE SELF-AUDIT, Phase 3 — THE MUTATIONS (the only open build; the operator's hold on the paper and every other front stands).
+     Read notes/selfaudit-preregistration-2026-10-20.md FIRST (M1, M5, the class table, the Phase 3 kill switch) and move no
+     definition. Build instruments/selfaudit/: per family a MUTATOR that derives each mutant from a register row's pinned input by
+     ONE named transformation of the class table, and for every FALSE class a WITNESS script that shares no code with the decider
+     and prints the violated condition (the tensor equation's violated entry exact over the declared ring; the violating pair and
+     its exact inner product; the exact score from the bytes against the printed bar; the digits against the enclosure); TRUE by
+     invariance, MALFORMED by shape; a class that cannot be implemented without copying the decider is EXCLUDED and the exclusion
+     recorded — never faked. Start with the families whose classes the note already fixes: tensor (45 rows: strassen + the three
+     mc100 pools), kissing (11; the seven planted classes of certs/method-eval.json on the register's own configurations), shapes
+     (28: easota + mc100-einstein-arena), erdos852 (1); then the Phase-3 families (34 rows: polymaps, countex, sumdiff, fei, turan,
+     horizonmath, gnnw, sumproduct, station) under the same rule, each reported as not mutated when no admissible class exists.
+     Decide every original and every mutant with the system's own deciders (the rerun kit's commands on the mutant inputs, never a
+     reimplementation); a CERTIFIED on a FALSE mutant is a defect fixed and KEPT ON THE RECORD. M5 beside it: a double-precision
+     float checker written for the audit (no exact arithmetic, a tolerance τ) on every original and mutant of tensor, kissing, shapes,
+     entropy bars and erdos852 — the accept rate on FALSE mutants at τ = 1e-6, 1e-9, 1e-12; it measures a tolerance, not a named
+     grader. Output certs/selfaudit-mutations.json (+ a battery, a shelf row — the sync REFUSES a cert it cannot describe; a
+     build-control row); the kill switch: fewer than half of the 119 mutable rows with at least one witnessed FALSE mutant → M1
+     published as a partial with the count and the plan stops there. Then Phases 4–5 in the note's order. HOLD everything else.
+     While a long run is in progress NEVER edit a tracked file in this repository (the Phase 2 lesson below).
+  ★ THE SELF-AUDIT, PHASE 2 DONE (2026-10-21 ~07:20–12:00 local, this session, on "Go"). THE RUNNER: tools/run-selfaudit.js — every
+     command of the rerun kit (23 re-derive, 7 stdlib verifiers, 1 second implementation) run under /usr/bin/time -l in its own
+     process group, one process at a time, under the two pre-registered profiles — PORTABLE, the 60 s wall ENFORCED (at the cap
+     the runner SIGKILLs every process of the group except the timer, so the timer still prints the resources the command used:
+     REFUSED: resources) and EXTENDED, no cap — twice each, cold then warm, never averaged; per run: wall, user+sys CPU, peak RSS
+     bytes, the record's bytes, the exit, the sha256 after, the LEAF DIFF against the pin split into the declared stamps and the
+     rest, THE WORD = the register rebuilt from the re-derived record (tools/run-claims-ledger.js, 2.4–2.8 s) and the record's rows
+     compared verdict | scope | kind (the kit's rowsMoved rule), the per-row timing the record carries, cold diffed against warm
+     (the kill switch); EVERY tracked file a run wrote restored by git checkout and the restore verified by sha256 (the
+     pre-registration's digests held at every step; git status clean of records at the end). The rules the phases share — row
+     matching, the leaf diff, the stamp rule — moved to tools/selfaudit-common.js; the inventory refactored onto it (--check
+     identical). THE RUN: 07:20 → 08:33 local, 73 min, on AC under caffeinate + the battery guard (never tripped), load 4.0 at
+     start, @ ccd5c190, 31 commands × 2 profiles × 2 runs = 124 runs, exit 0. PORTABLE: 50 RAN, 12 REFUSED — the five records the
+     pre-registration expected (ledger.json = make engine, horizon, hseva, gnnw, polymaps; 12 rows) in both runs, plus gnnw's second
+     implementation (137 s); 18 records / 113 rows covered, all 18 reproducible; all 7 verifiers ran; wall sums cold 535 s / warm
+     524 s. EXTENDED: 62 RAN, 0 refused; 23 records / 125 rows covered, ALL 23 REPRODUCIBLE (every writer differed from its pin
+     only at its stamps; the 10 --check commands left their records untouched); wall sums cold 1,583 s / warm 1,582 s; CPU 4,595 s
+     (hseva's workers: 2,878 CPU s over 536 wall s; horizon 808 over 121); peak RSS at most 677 MiB (ecbench), hseva 559 MiB, nothing
+     near the 4 GiB reported bound. The slow five, cold/warm on AC vs Phase 1 on battery: hseva 536/523 vs 518; ledger.json 333/330
+     vs 344; gnnw 205/196 vs 219; horizon 121/135 vs 134; polymaps 89/92 vs 98. NO REGISTER ROW MOVED in any of the 124 runs; cold vs
+     warm differs only at stamps everywhere — the kill switch did not trip. Per-row timing measured on 60 rows (the inventory's 74
+     minus countex's 14: countex is a --check and rewrites nothing). FINDINGS (2, in the record): certs/keller-certificate.json
+     rewritten by make engine with nine sourcePins.kissing/* entries added — the pin listing that grows with corpus/sources, seen in
+     Phase 1, a side effect outside the stamps; reported, restored, nothing decided moved. A SLIP, CORRECTED ON THE RECORD: the first
+     classification counted a `seconds` field at the ROOT of gsm8k-ledger and horizon-ledger as outside the stamps (the rule I
+     wrote took the timing keys below the root only); the pre-registration declares seconds a stamp (M4: generated, seconds, git)
+     and Phase 1 saw that root field; the rule was corrected to the note's and the DERIVED fields re-derived by
+     `--reclassify --why "…"` (a dated `reclassified` entry in the record; the first classification kept in the session scratchpad;
+     no raw measurement touched — the runs' diffPaths are the facts, the split is derived and --check re-derives it). THE BATTERY:
+     `selfaudit: the run` = tools/run-selfaudit.js --check in make test, build-control's Node list and the certificate shelf — it
+     holds the record to the files on disk (the note, the inventory, the register, the kit, every record pin) and re-derives the
+     totals and findings from the runs; it never re-runs. THE LESSON: while the runner runs, DO NOT edit a tracked file — the runner
+     attributes every tracked change since its baseline to the command and git-checkouts it (the wiring rows waited in the
+     scratchpad). THE PAGE GATES: make page R=rerun green through build, sync (8 written: the new cert + the pages that print the
+     git stamp), copy census, style, render; the ruler FAILED on site/apps/skyaudit/index.html @1440 spines 5 → 6 — a page whose
+     bytes did not change, measured under Chrome 155.0.8059.85 against a baseline recorded under .85's predecessor .80 (the ruler's
+     own note: the browser, not the page); the swell live-feed flag of 2026-10-20 did not fire this time. make test: 153 batteries,
+     152 PASS, the one FAIL the same ruler flag; the three records the batteries re-stamp (corpus/blindspot/inspect-record.json,
+     corpus/blindspot/record.json, corpus/navier-stokes/probes.json) restored before the commit. Nothing sent, no paper edit, no pod.
   ★ THE SELF-AUDIT, PHASE 1 DONE (2026-10-21 ~00:17–04:00 local, this session, on "decide bench / proceed the next phase").
      THE NAME: selfaudit — the self-audit of cert-machine, the instrument measured by its own rules, same author; one spelling
      (selfaudit) in folders, files, ids and records; the note renamed by git mv to notes/selfaudit-preregistration-2026-10-20.md
