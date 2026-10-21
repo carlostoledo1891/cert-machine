@@ -16,53 +16,83 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~15:30 UTC, on "proceed": THE SELF-AUDIT PHASE 3, WAVES 1–3 DONE — the mutation campaign on tensor (45 rows), kissing (11) and erdos852 (1): 389 mutants, 0 false certifications, 0 false refutations, 3 refusals, 0 discards; the tensor instrument answers REFUTED to a malformed factor matrix where the vocabulary says REFUSED (45 of 45, a finding on the record); 56 of 119 rows carry a witnessed FALSE (the kill switch's half is 60; shapes decides it); the conventional float check accepts 16.7 % of the witnessed FALSE mutants at 1e-6 and every one of erdos852's; before that, ~12:00 UTC, on "Go": THE SELF-AUDIT PHASE 2 DONE — the runner, tools/run-selfaudit.js → certs/selfaudit-run.json: 124 runs in 73 min on AC, portable 18 records / 113 rows covered and 5 records / 12 rows REFUSED at the 60 s cap (exactly the five the pre-registration expected), extended 23 / 125 covered and every one reproducible, no register row moved in any run, the kill switch not tripped, two findings (keller's pin listing, a side effect of make engine); before that, ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-21 ~18:30 UTC, on "proceed": THE SELF-AUDIT PHASE 3, WAVE 4 DONE — shapes (28 rows) joins tensor, kissing and erdos852: 85 rows, 525 mutants; 28 FALSE CERTIFICATIONS, every one the same gap — the easota ledger's word does not carry the printed digits, so a printed value moved one unit past the bytes is still CERTIFIED on 15 rows (the register's CERTIFIED means "the bytes witness a value", not "the printed value") — the fix (one module composing the word with printedAgrees, a public grammar change) is THE OPERATOR'S CALL and is not applied; 0 false refutations; the kill switch cannot trip (81 of 119 rows carry a witnessed FALSE, half = 60); the float check accepts 28 % of the witnessed FALSE at 1e-6; before that, ~15:30 UTC: waves 1–3 — tensor, kissing, erdos852, 389 mutants, 0 false certifications; the tensor instrument answers REFUTED to a malformed factor matrix (45, on the record); before that, ~12:00 UTC, on "Go": THE SELF-AUDIT PHASE 2 DONE — the runner, tools/run-selfaudit.js → certs/selfaudit-run.json: 124 runs in 73 min on AC, portable 18 records / 113 rows covered and 5 records / 12 rows REFUSED at the 60 s cap (exactly the five the pre-registration expected), extended 23 / 125 covered and every one reproducible, no register row moved in any run, the kill switch not tripped, two findings (keller's pin listing, a side effect of make engine); before that, ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ THE SELF-AUDIT, Phase 3 — THE MUTATIONS, WAVE 4: SHAPES (the only open build; the operator's hold on the paper and every
-     other front stands). Read notes/selfaudit-preregistration-2026-10-20.md FIRST and move no definition. The campaign's runner,
-     format and rules exist (tools/run-selfaudit-mutations.js; one module per family under instruments/selfaudit/, see tensor.js,
-     kissing.js, erdos852.js for the shape: rows(register, J) → claimOf → mutants (class, truth, transformation, claim, or
-     excluded with the reason) → decide (the row's own decider, a throw = REFUSED) + witness_<family>.py (stdlib, exact, shares
-     nothing with the decider, prints the violated condition; the module names its redControl class) + floatcheck_<family>.py
-     (double precision at τ = 1e-6/1e-9/1e-12); the runner picks up every instruments/selfaudit/<family>.js the FAMILIES list
-     names, lists the rest as pending, and the record is PARTIAL until every family is built or its exclusion recorded).
-     NEXT: instruments/selfaudit/shapes.js for the 28 shape rows — certs/easota-ledger.json (20: circles 2, heilbronn 2, mindist 2,
-     overlap 4, edges 2, autocorr 4, flat 2, hexagons 2; decided by instruments/easota/decide.js + hexagons.js as
-     tools/run-easota-ledger.js calls them, verdicts WITNESSED/REPAIRED/UNWITNESSED → the register's CERTIFIED/REPAIRED) and
-     certs/mc100-einstein-arena.json (8: the four penalty-scored kissing rungs through instruments/kissing + the full pass, four
-     easota shapes; tools/run-mc100-einstein.js). The classes as written: FALSE the printed value moved one unit in its last
-     printed digit past the bytes · one coordinate perturbed by 10⁻¹² (FALSE only with a witness: a violated constraint or a
-     changed exact score, else DISCARDED) — witness: the exact score from the bytes against the printed bar, in Fractions, per
-     problem (Σr of circles with the no-overlap and w + h ≤ 2 constraints; min triangle area / hull area; (max d / min d)²; the
-     step function's bound; the slope-3 envelope score; the autoconvolution maximum; for flat polynomials a rational point on the
-     circle gives a rigorous LOWER bound of the supremum only, so the "moved down" direction witnesses and the "moved up" one
-     discards by the rule; hexagons: the pair/vertex constraints exactly); TRUE a rigid motion the problem admits, stated per
-     problem (a translation of the points, a reflection of the circles inside the box, a cyclic shift where the objective is
-     shift-invariant — write each one down); MALFORMED a coordinate missing. The rows' REPAIRED verdicts are compositions: the
-     original's required word is the register's (REPAIRED), decided through the same path. The decider's tolerance semantics
-     (the platform's resolution: minImprovement, else 1e-12 relative) are PART OF THE CLAIM for the mc100 rows: a printed value
-     moved by one unit in its last digit may still agree within the platform's resolution — then the witness (exact score vs
-     the printed bar under the row's printed convention) decides whether the mutant is FALSE at all; record what happens, move
-     no definition. KNOWN BEFORE THE RUN, to be measured, not pre-judged: the easota ledger's WORD does not carry printedAgrees
-     (circles/ours_2026 is REPAIRED with printedAgrees false; the register maps WITNESSED → CERTIFIED without reading the field;
-     the field IS gated downstream — tools/build-report-easota.js and tools/paper-numbers/matmul-records.js require exactly the
-     one known false printedAgrees, so a wrong printed digit cannot reach the easota page or the paper, but the ledger's and the
-     register's WORD would not move), while the mc100-einstein decider REFUTES a printed score the exact value does not reproduce (kind
-     not-from-the-published-data). So the printed-value class on the 20 easota rows will very likely come back CERTIFIED =
-     FALSE CERTIFICATIONS by the pre-registration's rule — then the rule says: fixed and kept on the record. The fix's shape
-     is a vocabulary change on a public page (the easota grammar WITNESSED / REPAIRED / UNWITNESSED gains the case "the bytes
-     witness a value the printed digits do not state" → the register's REFUTED, kind not-from-the-published-data, as the mc100
-     decider already says), composed in ONE module used by the ledger and by the adapter; no current record row changes
-     (every WITNESSED row agrees; the one false printedAgrees is the REPAIRED row; the v2 autocorr row prints no value).
-     That is the operator's call to make before the fix is written; measure first, report the count, then ask. Then the
-     Phase-3 families (34 rows: polymaps 8, countex 14, sumdiff 3, fei 1, turan 2, horizonmath 3, gnnw 1,
-     sumproduct 1, station 1) under the same rule, each reported as not mutated when no admissible class exists; then the kill
-     switch is decided (56 of 119 so far; half = 60) and Phases 4–5 follow in the note's order. HOLD everything else. While a long
-     run is in progress NEVER edit a tracked file in this repository (the Phase 2 lesson).
+  ◆ TWO DECISIONS FOR THE OPERATOR, then THE SELF-AUDIT, Phase 3 — WAVE 5: THE PHASE-3 FAMILIES (the only open build; the
+     hold on the paper and every other front stands). DECISION 1 — THE EASOTA WORD. The campaign's 28 FALSE CERTIFICATIONS
+     (certs/selfaudit-mutations.json, findings) are one gap: the easota ledger's word (WITNESSED → the register's CERTIFIED)
+     is about the BYTES witnessing a value; the printed digits are a separate field, printedAgrees, gated only downstream
+     (the easota page build and the paper numbers require exactly the one known false, circles/ours_2026). So a printed value
+     moved one unit in its last digit past the bytes is still CERTIFIED on 15 rows (circles, heilbronn ×2, mindist ×2,
+     overlap/haugland, edges ×2, autocorr ×3, flat ×2, hexagons ×2), while the mc100 decider REFUTES the same (kind
+     not-from-the-published-data). The pre-registration says a false certification is fixed and kept on the record. THE FIX:
+     one module composing the word with printedAgrees, used by tools/run-easota-ledger.js AND by instruments/selfaudit/
+     shapes.js (a rule in one place): WITNESSED with a printed value the exact value does not reproduce → the register's
+     REFUTED, kind not-from-the-published-data, the exact value certified beside it (the easota grammar line on the page
+     gains that case); no current row changes word (every WITNESSED row agrees; the REPAIRED row stays REPAIRED; the v2
+     autocorr row prints nothing). A public grammar change: not applied without your word. After the fix the campaign is
+     re-run (10 min) and the 28 flip to "as required" with the fix recorded beside them (the record keeps the count found).
+     DECISION 2 — THE MALFORMED WORDS. 49 malformed inputs answered REFUTED where the vocabulary says REFUSED: the tensor
+     instrument's shape check (45: "claimed rank 7 but the factors have 6 columns" → DISCOVERY-CLASS REFUTATION), the mc100
+     einstein decider's shape checks (4: "the object is not 841 vectors in R^12", "a row without 20 weights" → REFUTED, kind
+     not-from-the-published-data). Not false certifications; a word. Fix or leave, your call; the kissing, erdos852 and easota
+     deciders refuse (by throwing) and are counted as required. ALSO ON THE RECORD, no decision needed: 17 FALSE mutants of
+     REPAIRED rows (and of CERTIFIED rows whose perturbation breaks a repairable constraint) come back REPAIRED — the
+     composition "the claim as printed is refuted, a repair certified beside it" — reported as "not as required (REPAIRED)";
+     1 UNWITNESSED (autocorr/alphaevolve_2025 with a value pushed negative: the easota word for a failed witness, which the
+     register build refuses); 6 refusals (3 Z[i] tensors over the exact-double bound; 3 flat polynomials whose perturbed
+     coefficient is no integer literal: the reader refuses); 27 DISCARDED by the rule (a printed value moved one ulp within the
+     platform's resolution — its minImprovement is part of the mc100 claim —, a perturbation that moves the exact score but not
+     past the printed digits, the "+1 unit" direction of flat polynomials, which only a bar too LOW can be witnessed against).
+     WAVE 5, the Phase-3 families (34 rows): polymaps 8 (certs/polymaps-ledger.json: gao-g/f4–f7 polynomial maps with terms,
+     chv-x14/phi/xhat18 nilpotency), countex 14 (fourteen deciders, each reading the published certificate; rows PARTIAL and
+     CERTIFIED), sumdiff 3 + fei 1 (the entropy certificates — the three planted classes of certs/method-eval.json exist already:
+     the bound just above the ratio FALSE, the law translated TRUE, a weight moved off a probability law MALFORMED → copy them
+     onto the register's rows through tools/verify_sumdiff.py / verify_twolaw.py / fei), turan 2, horizonmath 3 (one REFUTED,
+     one NEEDS DATA), gnnw 1 (the curve; the second implementation instruments/gnnw/second.js), sumproduct 1 (REPAIRED), station
+     1 (st-jacobian). Under the rule: classes written per family (FALSE with a witness that shares no code with the decider,
+     TRUE by invariance, MALFORMED by shape); a family with no admissible class is reported as not mutated with the reason
+     (instruments/selfaudit/<family>.js may export rows() with every row carrying noObject: the reason, so the record lists
+     it). Then the kill switch is decided (it cannot trip: 81 ≥ 60 already), Phase 4 (certs/selfaudit-concord.json: the gnnw
+     second implementation + the 416 kernel rows carried in, no new run), Phase 5 (the freeze, reports/selfaudit.html from
+     the template, a tag). HOLD everything else. Never edit a tracked file while a long run is in progress.
+  ★ THE SELF-AUDIT, PHASE 3 WAVE 4 DONE (2026-10-21 ~15:30–18:30 local, this session, on "proceed"): SHAPES —
+     instruments/selfaudit/shapes.js (28 rows: the 20 easota constructions, every number the literal the file carries, the
+     printed value under its convention; the 8 mc100-einstein bests with the platform's score S under its own resolution —
+     tools/run-mc100-einstein.js's easotaRow / kissingRow required as a module, the same functions the kit's command runs;
+     the easota rows through instruments/easota/decide.js and hexagons.js composed as the ledger composes them), witness_
+     shapes.py (Fractions: circles, heilbronn with its own hull, mindist, overlap and autocorr with the long convolutions by
+     Kronecker substitution into one big integer — 65,536 values in seconds —, the edges envelope, flat polynomials bounded
+     BELOW at an exact rational point of the circle, the kissing penalty enclosed in directed-rounding Decimal; hexagons'
+     constraints not witnessed, the perturbation class EXCLUDED there), floatcheck_shapes.py (τ on every constraint and on
+     the bar; a pure-Python FFT past 2,048 values; the platform's 10⁶-point grid for flat). Classes as written: the printed
+     value moved ± one unit in its last digit (FALSE when the witness finds the bar no longer agrees under the row's
+     convention, else DISCARDED; a row that prints nothing EXCLUDED), one coordinate perturbed by 10⁻¹² aimed at the tightest
+     constraint (the worst circle pair, a zero of f, a ±1 coefficient, a step of h), a rigid motion per kind (reflection,
+     translation, reversal, the reciprocal polynomial, a coordinate rotation — TRUE by invariance, so it PRESERVES THE
+     ORIGINAL'S WORD: a REPAIRED row's motion is REPAIRED again, the runner now knows that), a coordinate missing. The
+     witness's red control per row: the bar moved far past the bytes (halved for flat), fired on 27 of 28 (the row that
+     prints nothing has no bar). THE NUMBERS (the whole record now: 85 rows, 525 mutants — FALSE 301, TRUE 140, MALFORMED 84;
+     591 s): as required 397; FALSE CERTIFICATIONS 28, all shapes, all the easota printed-digit gap (DECISION 1 above); FALSE
+     REFUTATIONS 0; refusals 6; discards 27; malformed not refused 49 (DECISION 2); every original decided as the register
+     says (84 of 84 with an object). Shapes alone: 136 mutants — as required 56, FALSE CERTIFICATION 28, DISCARDED 27,
+     REPAIRED 17, UNWITNESSED 1, refused 3, REFUTED-on-malformed 4; 25 of 28 rows with a witnessed FALSE (the three without:
+     the v2 autocorr row that prints nothing, and the mc100 autocorr and flat rows whose every FALSE class discards under the
+     platform's resolution). THE KILL SWITCH CANNOT TRIP: 81 of the 119 mutable rows carry a witnessed FALSE mutant (half =
+     60) with 34 rows still to build. M5 on the witnessed FALSE: at τ = 1e-6 78 of 274 accepted (28.5 %), at 1e-9 29 (10.6 %),
+     at 1e-12 3 (1.1 %); shapes alone 77.4 % / 30.2 % / 1.9 % — a printed value one unit off in its 7th–10th digit is
+     exactly what a 1e-6 tolerance admits, and the kissing rungs' and erdos852's bars sit on float products. Slips caught
+     before the record was written: the translation of integer-literal points was truncated to zero decimals (the TRUE
+     mutant moved the score; fixed: three decimals); the TRUE-mutant control assumed a CERTIFIED original (a REPAIRED row's
+     rigid motion carries the original's violation; the rule now follows the register's word). THE GATES: make page R=rerun
+     green through build, sync, copy census, style, render; the ruler flagged the two live-data pages again (bytes unchanged);
+     make test 154 batteries, 152 PASS, the ruler and, once, the render battery — which passes alone (5 checks, 0 failed,
+     8/8 reds; a headless-Chrome timing flake under the full battery's load); the three re-stamped records restored. Nothing
+     sent, no paper edit, no pod.
   ★ THE SELF-AUDIT, PHASE 3 WAVES 1–3 DONE (2026-10-21 ~12:00–15:30 local, this session, on "proceed"). THE RUNNER:
      tools/run-selfaudit-mutations.js → certs/selfaudit-mutations.json (PARTIAL: tensor, kissing, erdos852 built; shapes and the
      Phase-3 families pending) — per register row of a built family the original and every mutant of the class table written to a

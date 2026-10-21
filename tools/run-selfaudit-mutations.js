@@ -9,7 +9,10 @@
    CERTIFIED, MALFORMED → REFUSED; a REFUSED on a FALSE or TRUE mutant is a refusal with its reason. A FALSE-class
    mutant for which the witness finds no violation is DISCARDED and counted, never relabelled. Counted per family and
    in total: false certifications (CERTIFIED on FALSE), false refutations (REFUTED on TRUE), refusals, discards; a
-   false certification is a defect, fixed and kept on the record. A row with no object (the QUEUED kissing row: no
+   false certification is a defect, fixed and kept on the record. A TRUE mutant by invariance preserves the original's
+   status, so its required word is the original's register word (a REPAIRED row's rigid motion is REPAIRED again) and
+   the witness is expected to find the original's own violation on it; a TRUE mutant that is a true claim in its own
+   right requires CERTIFIED. A row with no object (the QUEUED kissing row: no
    bytes) is listed with the reason and has no mutant. M5 beside it: a double-precision checker with a
    tolerance τ on every original and every mutant — the accept rate on witnessed FALSE mutants at τ = 1e-6, 1e-9,
    1e-12. The Phase 3 kill switch: fewer than half of the 119 mutable rows with at least one witnessed FALSE mutant →
@@ -29,7 +32,8 @@
    the record on disk, verifies the pins against the files now, re-derives every outcome and every total from the
    stored per-mutant fields and refuses on drift; it never re-runs. Each family module names its witness red control
    (the FALSE class the witness must always flag: tensor coefficient-plus-one, kissing row-duplicated, erdos852
-   truncation-plus-one-unit); on an original the witness must find no violation when the register says CERTIFIED and
+   truncation-plus-one-unit) or, where no class is universally witnessable (shapes), a controls() list of items the
+   witness alone must flag, run beside the row (the bar moved far past the bytes), never decided, never counted; on an original the witness must find no violation when the register says CERTIFIED and
    must find one when it says REFUTED (the erdos852 row is a refuted claim).
 
    usage: node tools/run-selfaudit-mutations.js                 run every built family, write certs/selfaudit-mutations.json
@@ -79,9 +83,13 @@ for (const f of built) for (const rec of MODS[f].records) { if (!(rec in pins.re
 
 /* ---- the rules shared by the run and by --check ----------------------------------------------------------------- */
 const REQUIRED = { FALSE: 'REFUTED', TRUE: 'CERTIFIED', MALFORMED: 'REFUSED' };
-const outcomeOf = (truth, witnessViolated, word) => {
+/* a TRUE mutant by invariance preserves the ORIGINAL's status: its required word is the original's register word (a
+   REPAIRED row's rigid motion is REPAIRED again); a TRUE mutant that is a true claim in its own right (erdos852's
+   digits coarsened) requires CERTIFIED — the module marks the former preservesOriginal */
+const requiredOf = (m, rowVerdict) => (m.truth === 'TRUE' && m.preservesOriginal ? rowVerdict : REQUIRED[m.truth]);
+const outcomeOf = (truth, witnessViolated, word, required) => {
   if (truth === 'FALSE' && witnessViolated !== true) return 'DISCARDED';
-  if (word === REQUIRED[truth]) return 'as required';
+  if (word === required) return 'as required';
   if (truth === 'FALSE' && word === 'CERTIFIED') return 'FALSE CERTIFICATION';
   if (truth === 'TRUE' && word === 'REFUTED') return 'FALSE REFUTATION';
   if (word === 'REFUSED') return 'refused';
@@ -153,13 +161,14 @@ if (CHECK) {
     if (F.redControl !== MODS[fam].redControl) die('the witness red control of ' + fam + ' is not the module\'s');
     for (const row of F.rows) {
       if (row.noObject) { if (row.mutants.length || row.original) die('a row with no object carries mutants: ' + row.rowId); continue; }
+      if (F.redControl === null && !(row.controlsFired && row.controlsFired.length) && !(row.excluded || []).some((x) => /prints no value/.test(x.reason))) die('a row of a family without a red-control class fired no witness control: ' + row.rowId);
       if (row.original.asRequired !== (row.original.decided.verdict === row.original.required)) die('an original\'s asRequired does not re-derive: ' + row.rowId);
       if (row.verdict === 'CERTIFIED' && row.original.witness && row.original.witness.violated) die('the witness found a violation on a CERTIFIED original: ' + row.rowId);
       if (row.verdict === 'REFUTED' && !(row.original.witness && row.original.witness.violated)) die('the witness found no violation on a REFUTED original: ' + row.rowId);
       for (const m of row.mutants) {
-        if (m.required !== REQUIRED[m.truth]) die('a required word does not re-derive: ' + m.id);
-        if (m.outcome !== outcomeOf(m.truth, m.witness ? m.witness.violated : null, m.decided.verdict)) die('an outcome does not re-derive: ' + m.id);
-        if (m.truth === 'TRUE' && m.witness && m.witness.violated) die('the witness found a violation on a TRUE mutant: ' + m.id);
+        if (m.required !== requiredOf(m, row.verdict)) die('a required word does not re-derive: ' + m.id);
+        if (m.outcome !== outcomeOf(m.truth, m.witness ? m.witness.violated : null, m.decided.verdict, m.required)) die('an outcome does not re-derive: ' + m.id);
+        if (m.truth === 'TRUE' && m.witness && m.witness.violated && !(m.preservesOriginal && row.verdict !== 'CERTIFIED')) die('the witness found a violation on a TRUE mutant of a CERTIFIED row: ' + m.id);
         if (m.class === F.redControl && !(m.witness && m.witness.violated)) die('the witness red control did not fire: ' + m.id);
       }
     }
@@ -200,7 +209,9 @@ for (const fam of built) {
     const origClaim = F.claimOf(row.entry);
     const muts = F.mutants(row.entry);
     const items = [{ id: 'original', ...origClaim, layout: row.entry.layout }].concat(muts.filter((m) => !m.excluded).map((m) => ({ id: m.class, ...m.claim, layout: row.entry.layout })));
-    const wit = runPy(F.witness, items, row.rowId.replace(/[^a-z0-9-]/gi, '_') + '-w');
+    const ctrls = F.controls ? F.controls(row.entry).map((c) => ({ id: c.id, ...c.claim, layout: row.entry.layout })) : [];
+    const wit = runPy(F.witness, items.concat(ctrls), row.rowId.replace(/[^a-z0-9-]/gi, '_') + '-w');
+    for (const c of ctrls) if (!(wit[c.id] && wit[c.id].violated)) die('RED CONTROL: the witness finds no violation on ' + row.rowId + '/' + c.id);
     const flo = runPy(F.floatcheck, items, row.rowId.replace(/[^a-z0-9-]/gi, '_') + '-f');
     /* the original: decided again, the word the register's */
     const od = F.decide(row.entryId, origClaim);
@@ -212,16 +223,17 @@ for (const fam of built) {
     for (const m of muts) {
       if (m.excluded) { excluded.push({ class: m.class, reason: m.excluded }); continue; }
       const w = wit[m.class], fl = flo[m.class];
-      if (m.truth === 'TRUE' && w.violated) die('RED CONTROL: the witness finds a violation on the TRUE mutant ' + row.rowId + '/' + m.class + ': ' + JSON.stringify(w.layouts).slice(0, 300));
+      if (m.truth === 'TRUE' && w.violated && !(m.preservesOriginal && row.verdict !== 'CERTIFIED')) die('RED CONTROL: the witness finds a violation on the TRUE mutant ' + row.rowId + '/' + m.class + ' of a CERTIFIED row: ' + JSON.stringify(w.layouts || w.violation).slice(0, 400));
       if (m.class === F.redControl && !w.violated) die('RED CONTROL: the witness finds no violation on ' + row.rowId + '/' + F.redControl);
       const d = F.decide(row.entryId + '/' + m.class, m.claim);
       const bytes = canonical(m.claim);
-      mutants.push({ id: row.rowId + '/' + m.class, class: m.class, truth: m.truth, transformation: m.transformation, sha256: shaBuf(bytes), bytes: bytes.length,
-        witness: { violated: w.violated, malformed: w.malformed, reason: w.reason || null, firstViolation: w.layouts || w.violation || null },
-        decided: d, required: REQUIRED[m.truth], outcome: outcomeOf(m.truth, w.violated, d.verdict),
+      const required = requiredOf(m, row.verdict);
+      mutants.push({ id: row.rowId + '/' + m.class, class: m.class, truth: m.truth, preservesOriginal: !!m.preservesOriginal, transformation: m.transformation, sha256: shaBuf(bytes), bytes: bytes.length,
+        witness: { violated: w.violated, malformed: w.malformed, reason: w.reason || null, firstViolation: w.layouts || w.violation || null, ...(w.exact !== undefined ? { exact: w.exact } : {}), ...(w.constraintsWitnessed === false ? { constraintsWitnessed: false } : {}) },
+        decided: d, required, outcome: outcomeOf(m.truth, w.violated, d.verdict, required),
         float: (({ id, ...rest }) => rest)(fl) });
     }
-    outRows.push({ rowId: row.rowId, record: row.record, entryId: row.entryId, verdict: row.verdict, object: F.describe(row.entry), original, mutants, excluded, ms: Date.now() - t0 });
+    outRows.push({ rowId: row.rowId, record: row.record, entryId: row.entryId, verdict: row.verdict, object: F.describe(row.entry), original, mutants, excluded, controlsFired: ctrls.map((c) => c.id), ms: Date.now() - t0 });
     const bad = mutants.filter((m) => m.outcome !== 'as required' && m.outcome !== 'DISCARDED');
     log('  ' + row.rowId.padEnd(32) + (original.asRequired ? 'original ' + od.verdict : 'ORIGINAL ' + od.verdict + ' (register ' + row.verdict + ')') + ' · ' + mutants.length + ' mutants' + (excluded.length ? ', ' + excluded.length + ' excluded' : '') + ' · ' + (bad.length ? bad.map((m) => m.class + ' → ' + m.outcome).join(', ') : 'all as required' + (mutants.some((m) => m.outcome === 'DISCARDED') ? ' (' + mutants.filter((m) => m.outcome === 'DISCARDED').length + ' discarded)' : '')) + ' · ' + (Date.now() - t0) + ' ms');
   }
