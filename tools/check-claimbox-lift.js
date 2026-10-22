@@ -23,7 +23,7 @@ for (const f of prov.files) {
   held++;
 }
 const out = path.join(ROOT, 'paper', 'tex', 'riemann-finite-layer-numbers.tex');
-const body = (t) => t.split('\n').slice(1).join('\n');   /* the first line carries the git commit and moves with it */
+const body = (t) => t.split('\n').slice(1).filter((l) => !/^\\newcommand\{\\RfCommit\}/.test(l)).join('\n');   /* the first line and the RfCommit macro carry the git commit and move with it */
 const before = fs.existsSync(out) ? body(fs.readFileSync(out, 'utf8')) : null;
 const r = cp.spawnSync(process.execPath, [path.join(ROOT, 'tools', 'paper-numbers', 'riemann-finite-layer.js')], { encoding: 'utf8' });
 if (r.status !== 0) fail('the numbers generator refused: ' + String(r.stderr || '').trim());

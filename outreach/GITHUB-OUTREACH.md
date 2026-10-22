@@ -361,3 +361,8 @@ DAY TWO POSTED 2026-10-16 ~00:30 UTC on the operator's "go day 2":
 - P4 — https://github.com/google-deepmind/formal-conjectures/pull/7320#issuecomment-6204614697
 - P5 — https://github.com/google-deepmind/formal-conjectures/pull/7337#issuecomment-6204615715
 - C5 — https://github.com/teorth/optimizationproblems/pull/210#issuecomment-6204616687
+
+## §D 2026-10-22 — two sends on the operator's "send the ones that will be in Github"
+
+- teorth/optimizationproblems PR #249 (https://github.com/teorth/optimizationproblems/pull/249): C31's two asterisked rows (Lueker's automaton at h = 9, 10) independently replayed, asterisks removed; filed at the claimant's own request; evidence cert-machine 61aae8eb, certs/lueker-replay.json; corpus/outreach.json gh-optq-249.
+- anthropics/formal-math issue #8, comment (https://github.com/anthropics/formal-math/issues/8#issuecomment-6341978281): the zeta23 row certificate re-decided from LawN256.lean's integers without Lean, the law-file request joined (the file had been asked for in #8 and #14 since August, unanswered); evidence claimbox b37d980; corpus/outreach.json gh-formal-math-8. Seen there, not acted on: issue #25 claims the simple-on-line proportion raised to 0.6728005676 (kernel-checked, PR #17) — a replay target, scouted in corpus/targets.json.

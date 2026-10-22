@@ -1,4 +1,9 @@
-# T-PR6 — DRAFT, NOT SENT (2026-10-22)
+# T-PR6 — FILED 2026-10-22 as teorth/optimizationproblems #249 (https://github.com/teorth/optimizationproblems/pull/249) on the operator's "send the ones that will be in Github"
+
+Branch c31-replay-2026-10-22 of the fork from upstream 46dbf036 (unchanged since the pin); the edit script applied clean with the commit
+61aae8eb and the label [T2026]; the body below as posted (the parenthetical on the commit line removed). The draft as it stood:
+
+# T-PR6 — the draft
 
 To teorth/optimizationproblems, in the form of #216 / #230 / #232 / #242. **Send only on the operator's word.** The claimant
 (Leandre Jack, leandrejack-afk) asked for this replay by e-mail on 2026-10-21; the operator answers him separately.

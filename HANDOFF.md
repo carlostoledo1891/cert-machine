@@ -16,7 +16,7 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~17:00 UTC: THE FOURTH COMPANION, THE RIEMANN STORY'S FINITE LAYER, BUILT ON THE OPERATOR'S APPROVAL, NOT PUSHED — two gates (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~20:00 UTC: TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
@@ -31,7 +31,10 @@ NEXT SESSION, IN ORDER:
      method in one section and the 10/65 measurement; the battery, the planted claims, the mathematician's claims and the recall
      moved to Appendix A; plain words — "translator" and "checker" — in place of the machine's vocabulary; the INDEX entry
      reworded, which also fixed the copy census (the word "lifted" had raised papers/index.html's internal-vocabulary count 2 → 3;
-     make test had 156 PASS + that one FAIL; green after). THE OUTREACH, drafted (outreach/SEND-QUEUE.md lane Z): Z1 the issue to
+     make test had 156 PASS + that one FAIL; green after). THE OUTREACH (outreach/SEND-QUEUE.md lane Z): Z1 POSTED 2026-10-22 as a COMMENT on anthropics/formal-math issue #8
+     (the file had been requested there since 2026-08-12, and in #14, unanswered — a new issue would have duplicated it;
+     https://github.com/anthropics/formal-math/issues/8#issuecomment-6341978281; corpus/outreach.json gh-formal-math-8) — GATE 2 CLEARED, the paper's two sentences now say so;
+     Z5 the C31 PR #249; GATE 1 (the XiPrime pins) still holds the push. As drafted: Z1 the issue to
      the zeta23 authors (outreach/zeta23-law-file-issue-2026-10-22.md; anthropics/zeta-23-lean redirects to anthropics/formal-math;
      asks for cert_N256_blk_b128m.json + the interval script; links claimbox's public records only; pre-send checks) — the
      operator posts, FIRST; Z2 the paper's push after Z1 and the XiPrime pins; Z3 a Lean-community note after Z1 is answered;
@@ -68,7 +71,9 @@ NEXT SESSION, IN ORDER:
      page adds ruler debt — later, if the issue is answered). FOUND ON THE WAY: ~/Projects/sin-mfg is no longer on this disk, so `make
      drift` reports 137 "source gone" for the old lift — pre-existing, not ours; the C31 PR draft now names its commit 61aae8eb.
   ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS COMPLETE: BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR
-     DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
+     FILED 2026-10-22 AS teorth/optimizationproblems #249 on the operator's "send the ones that will be in Github" (branch
+     c31-replay-2026-10-22 of the fork from upstream 46dbf036; corpus/outreach.json gh-optq-249); the reply to Leandre given in
+     chat for the operator to send; PREVIOUSLY: the PR DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
      verify the asterisk?" → yes, no rental needed; "Proceed"; "I will send after h=10 results"). THE ASK: Leandre Jack
      (leandrejack-afk, a third party) e-mailed the operator asking for a replay of his registry PR #231 (C_31, merged 2026-10-18,
      both rows asterisked): γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10 by Lueker's 2009 automaton; he offers his eigenvectors;

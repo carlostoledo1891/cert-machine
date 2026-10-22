@@ -17,12 +17,19 @@ The fourth companion paper (paper/riemann-finite-layer.pdf, v0.2, 16 pp in the s
 is BUILT and NOT PUSHED. It says the one numerical certificate of the zeta23 formalization rests on a law file the release
 does not publish; the file's authors are asked BEFORE anyone reads that sentence in public. Order: Z1, then Z2, then Z3.
 
-### Z1. The issue to the zeta23 authors — READY, the operator posts (outreach/zeta23-law-file-issue-2026-10-22.md)
+### Z1. The request to the zeta23 authors — POSTED 2026-10-22 as a COMMENT on their open issue #8 (https://github.com/anthropics/formal-math/issues/8#issuecomment-6341978281), on the operator's "send the ones that will be in Github"
+  The pre-send check found the file already requested twice (issue #8 of 2026-08-12, one comment of 08-15; issue #14 of 08-20 on the
+  undocumented EnclOK discharge path), no author reply in two months: a new issue would have been a duplicate, so the same text went as a
+  comment on #8 — the independent re-check joined to the request. Draft and record: outreach/zeta23-law-file-issue-2026-10-22.md.
+### Z1-old. The issue draft as it was before the check
   anthropics/zeta-23-lean redirects to anthropics/formal-math; post where it lands. Asks for cert_N256_blk_b128m.json (sha256
   cc3de991…) and the interval-arithmetic script; states the no-shared-code concordance on the integers (three claims hold),
   the CUE containment as a property of the file, and two small notes (c₁* by rational series; the XiPrime rationals re-derive).
   Links only claimbox's public records at b37d980. Pre-send checks in the draft. `gh issue create -R anthropics/formal-math`.
-### Z2. The paper's push — HELD on Z1 and on the XiPrime pins
+### Z5. The C31 registry PR — FILED 2026-10-22 as #249 (https://github.com/teorth/optimizationproblems/pull/249) on the operator's word
+  Branch c31-replay-2026-10-22 of the fork from upstream 46dbf036; the edits by outreach/registry-pr6-edit-2026-10-22.py from certs/lueker-replay.json
+  at 61aae8eb; label [T2026]; the body from outreach/registry-pr6-draft-2026-10-22.md. Open beside #232, #242, #243 (all unmerged).
+### Z2. The paper's push — HELD on the XiPrime pins (Z1 is done)
   After Z1 is posted: the paper's two sentences "has been drafted and will be posted" (§2, competing interest) become "was
   posted on <date>"; after the claimbox chat pins the XiPrime Lean files: `make lift-claimbox` (the battery refuses once),
   regenerate, read the diff; then `make site`, commit, push. The paper then goes live at /paper/riemann-finite-layer.pdf.

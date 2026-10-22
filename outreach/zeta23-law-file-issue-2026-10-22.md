@@ -1,4 +1,11 @@
-# New issue on the zeta23 formalization's repository — DRAFT, NOT SENT (2026-10-22)
+# The request to the zeta23 formalization's authors — POSTED 2026-10-22 as a COMMENT on their open issue #8
+
+https://github.com/anthropics/formal-math/issues/8#issuecomment-6341978281 — on the operator's "send the ones that will be in Github". The pre-send check found the file already requested (issue #8
+of 2026-08-12 with one comment, issue #14 of 2026-08-20 on the undocumented EnclOK discharge path), no author reply: a new issue would
+have duplicated #8, so the text below went as a comment there, lightly rewritten to join the thread (the posted text is in the
+session's scratchpad, formal-math-issue8-comment.md, and at the URL). The draft as it stood before the check follows.
+
+# (the draft) New issue on the zeta23 formalization's repository — superseded by the comment above
 
 The pinned repository is anthropics/zeta-23-lean at e1a4e650; on 2026-10-22 its address redirected to
 anthropics/formal-math (check-bib recorded the resolved title "GitHub - anthropics/formal-math"). Post where the redirect
