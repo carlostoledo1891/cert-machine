@@ -16,12 +16,29 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~05:00 UTC: THE EASY READ BUILT at /explained/, unlisted, the operator decides whether to link it; THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~07:30 UTC: THE EASY READ REBUILT IN THE HOUSE GRAMMAR with the wow round (the flow figure, the microscope), still unlisted, the operator decides whether to link it; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE EASY READ, ROUND TWO — REBUILT IN THE HOUSE GRAMMAR, PLUS THE WOW ROUND (2026-10-23, ~05:00–07:30 UTC; the operator: "The
+     fonts are too big across the page, strange huge buttons that appears giant tags. Sliders, captions, numbers, it should be more
+     like the house grammar. I think we could bring back the grammar and work on the WOW factor … Like a nice sci-fi movie about tech.
+     Do the round of improvements in the visuals, narrative and wow moments"). DONE: the page is now born from design/template.js
+     like every other page (TPL.render with the report sheet; body.html + page.css + page.js filled by build.js; the old page.html
+     deleted) — the house type scale, the house range inputs, the house .tag chips for the three words, mono eyebrows, the .stats strip,
+     the footer; the page's own CSS is an EXTENSION scoped to body.easy (acts, theses, reveal, the cold-open log, panels, the verdict
+     marks by weight+shape: ● fill certified, ◆ outline refuted, ▲ dashed refused). WOW kept and added: the cold open (a typed log of
+     five dated events from the records, a scan line, grain), count-up stats, reveals, the stroke-draw figures, the acts rail; NEW this
+     round: the route-of-a-claim figure is the house flow component (design/components.js, six stations, click to read; full width
+     under act I; scrolls inside its box on a phone), and Instrument 2 gained THE MICROSCOPE — an SVG that places each reading of
+     √3/2 by its log distance from the exact value, the mark's shape being its verdict, moving with the slider. FIXES on the screenshots:
+     the header class .open clashed with the house .tag.open (the "giant tag" the operator saw) — renamed .cold; var() fallbacks and
+     inline styles removed; the margin line and the pairs stat no longer overflow; 'beaten by' spacing. GATES green (style and ruler
+     re-accepted with --accept-worse for the page's own CSS; the ruler's one 'clipped' at 390 is the flow's scroll box, by the house
+     rule). VERIFIED: every instrument read through CDP, screenshots at 1440 and 390. STILL UNLISTED: not in the sitemap, no link; the
+     operator decides.
   ◆ THE EASY READ IS BUILT AT /explained/ — NOT LINKED, NOT IN THE SITEMAP; THE OPERATOR DECIDES (2026-10-23, ~01:30–05:00 UTC; the
      operator: "build a 'easy read' page … like if would be built by Veritasium, 3Blue1Brown, Cool Worlds … highly visual and
      entertaining page that explains the method paper. Not a artifact. I want the real html page, after the final result I will decide

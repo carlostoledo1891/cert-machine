@@ -1,0 +1,118 @@
+/* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
+   No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
+body.easy{overflow-x:hidden}
+.easy .page{padding-top:0}
+.easy section{margin:clamp(4rem,10vh,7rem) 0 0}
+.easy .act{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4)}
+.easy .act b{color:var(--ink);font-weight:600}
+.easy .thesis{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.3;letter-spacing:-.02em;color:var(--ink-2);max-width:82ch;margin:0 0 28px}
+.easy .thesis b{color:var(--ink);font-weight:550}
+.easy .grid2{display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+@media(min-width:960px){.easy .grid2{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+.easy .prose p{max-width:82ch}
+.easy .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+/* progress + acts rail */
+.easy .prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:40;opacity:.9}
+.easy .rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:30}
+.easy .rail a{width:6px;height:6px;border-radius:50%;background:var(--ink-5);border:0;transition:background .16s,transform .16s}
+.easy .rail a.on{background:var(--ink);transform:scale(1.5)}
+@media(max-width:960px){.easy .rail{display:none}}
+/* reveal */
+.easy .rv{opacity:0;transform:translateY(12px);transition:opacity .52s cubic-bezier(.22,1,.36,1),transform .52s cubic-bezier(.22,1,.36,1)}
+.easy .rv.in{opacity:1;transform:none}
+.easy .rv.d1{transition-delay:.08s}.easy .rv.d2{transition-delay:.16s}.easy .rv.d3{transition-delay:.26s}
+@media(prefers-reduced-motion:reduce){.easy .rv{opacity:1;transform:none;transition:none}.easy *{animation-duration:0s!important}}
+/* the cold open */
+.easy .cold{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(72px,12vh,120px) 0 24px}
+.easy .cold h1{max-width:28ch}
+.easy .cold .deck{max-width:66ch}
+.easy .film{position:relative;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden;min-height:168px}
+.easy .film .log{padding:18px 22px;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.75;color:var(--ink-3);white-space:pre-wrap}
+.easy .film .log b{color:var(--ink);font-weight:500}
+.easy .film .log .cur{display:inline-block;width:.55em;height:1.05em;background:var(--ink);vertical-align:-.15em;animation:blink 1s steps(2) infinite}
+@keyframes blink{to{opacity:0}}
+.easy .film .scan{position:absolute;left:0;right:0;top:-2px;height:1px;background:var(--ink);opacity:.45;animation:scan 6s cubic-bezier(.22,1,.36,1) 1.2s 1 both}
+@keyframes scan{from{top:-2px;opacity:.5}to{top:100%;opacity:0}}
+.easy .grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(246,246,248,.025) 0 1px,transparent 1px 3px);opacity:.5}
+/* the stat strip counts up */
+.easy .stats .v[data-count]{font-variant-numeric:tabular-nums}
+/* panels: an instrument the reader touches */
+.easy .panel{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:20px 22px 18px}
+.easy .panel .pk{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin:0 0 10px}
+.easy .panel .pk b{color:var(--ink);font-weight:600}
+.easy .panel h3{font-size:1.0625rem;margin:0 0 6px}
+.easy .panel p{font-size:var(--text-small);color:var(--ink-3);line-height:1.6;margin:0 0 14px}
+.easy .ctl{display:grid;gap:8px;margin:0 0 10px}
+.easy .ctl label{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .ctl label .num{color:var(--ink)}
+.easy input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:0}
+.easy input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--rule-strong);border-radius:1px}
+.easy input[type=range]::-moz-range-track{height:2px;background:var(--rule-strong);border-radius:1px}
+.easy input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:3px;background:var(--ink);margin-top:-6px;border:0;cursor:pointer}
+.easy input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:3px;background:var(--ink);border:0;cursor:pointer}
+.easy input[type=range]:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:3px}
+.easy .ctrls{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.easy .ctrl{font:inherit;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);background:transparent;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:8px 11px;cursor:pointer;transition:border-color .16s,background .16s}
+.easy .ctrl:hover{border-color:var(--ink)}
+.easy .ctrl.on,.easy .ctrl[aria-pressed=true]{background:var(--sig-soft);border-color:var(--ink);color:var(--ink)}
+.easy .ctrl:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.easy .out{font-family:var(--f-mono);font-size:var(--text-small);line-height:1.65;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius-s);padding:14px 16px;white-space:pre-wrap;word-break:break-word;min-height:5rem;margin:0}
+.easy .out .k{color:var(--ink-4)}
+.easy .out .v{color:var(--ink)}
+/* verdict words in the readouts: weight and shape */
+.easy .w{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.6875rem;display:inline-block;padding:.3em .7em;border-radius:var(--radius-pill);vertical-align:.08em;margin-right:.35em}
+.easy .w.c{background:var(--ink);color:var(--paper)}
+.easy .w.r{border:1px solid var(--ink);color:var(--ink)}
+.easy .w.f{border:1px dashed var(--ink-4);color:var(--ink-3)}
+.easy .w::before{content:"● ";font-size:.8em}
+.easy .w.r::before{content:"◆ "}
+.easy .w.f::before{content:"▲ "}
+.easy .cap{font-family:var(--f-mono);font-size:var(--text-eyebrow);line-height:1.6;color:var(--ink-4);margin:10px 0 0}
+/* figures of the story */
+.easy .scene{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .scene svg{display:block;width:100%;height:auto}
+.easy .scene svg text{font-family:var(--f-mono)}
+.easy .scene canvas{display:block;width:100%;height:auto}
+.easy #w2svg .mk{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.easy #w2svg text{font-family:var(--f-mono)}
+.easy .draw path,.easy .draw line{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1)}
+.easy .draw.in path,.easy .draw.in line{stroke-dashoffset:0}
+/* the route of a claim: the house flow figure; on a phone the stations scroll inside the box, the readout stays */
+.easy .flow-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.easy .flow-scroll svg{min-width:640px}
+/* the three words, as cards */
+.easy .words{display:grid;grid-template-columns:1fr;gap:14px;margin:8px 0 22px}
+@media(min-width:720px){.easy .words{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.easy .word{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:16px 18px}
+.easy .word .tag{margin-bottom:10px}
+.easy .word p{font-size:var(--text-small);color:var(--ink-3);margin:0;line-height:1.6}
+/* bars */
+.easy .bars{display:grid;gap:8px;margin:14px 0 0}
+.easy .bar{display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .bar .t{height:8px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.easy .bar .t i{display:block;height:100%;width:0;background:var(--c-s4);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.easy .bar.lo .t i{background:var(--c-s2)}
+.easy .bar.in .t i{width:var(--w)}
+.easy .bar .n{text-align:right;color:var(--ink)}
+.easy .bar.cap{grid-template-columns:1fr;color:var(--ink-4);font-size:var(--text-eyebrow);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+/* the sorter */
+.easy .sorter{position:relative;height:220px}
+.easy .sorter .s{position:absolute;width:8px;height:8px;border-radius:2px;background:var(--c-s2);left:50%;top:-10px;transition:transform 1.3s cubic-bezier(.22,1,.36,1),background .5s}
+.easy .sorter .lab{position:absolute;bottom:10px;width:16%;text-align:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.06em;color:var(--ink-4)}
+.easy .sorter .lab b{display:block;font-size:1rem;color:var(--ink);letter-spacing:0}
+/* lineups */
+.easy .lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:10px;margin:18px 0 0}
+.easy .lineup .b{border:1px solid var(--rule);border-radius:var(--radius-s);padding:12px 14px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.easy .lineup .b b{display:block;font-family:var(--f-display);font-size:1.5rem;letter-spacing:-.02em;color:var(--ink);text-transform:none;margin-bottom:4px;font-weight:530}
+/* the credits */
+.easy .credits{font-family:var(--f-mono);font-size:var(--text-small);line-height:1.9;color:var(--ink-3);display:grid;gap:4px;margin:18px 0 0}
+.easy .credits span b{color:var(--ink);font-weight:500}
+.easy .links{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.easy .links a{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:9px 12px;color:var(--ink-2)}
+.easy .links a:hover{border-color:var(--ink);color:var(--ink)}
+.easy .closing{font-family:var(--f-display);font-weight:550;font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);letter-spacing:-.02em;line-height:1.12;color:var(--ink);margin:0 0 18px;max-width:28ch}
+
+.easy .sub{font-size:.6em;color:var(--ink-4)}
+.easy .mt18{margin-top:18px}
+.easy .h3s{font-size:1rem}
+.easy .read{max-width:82ch}

@@ -1,7 +1,9 @@
 /* build.js — the easy read: one scrolling page that explains the method paper the way a good science channel would —
    big pictures, a few things to touch, every number real.
 
-     site/explained/index.html     the page, from apps/explained/page.html with {{KEYS}} filled from the records
+     site/explained/index.html     the page: body.html, page.css and page.js with {{KEYS}} filled from the records, rendered
+                                   through design/template.js (the house tokens, sheet, nav and footer) with the page's own
+                                   css and script — the house grammar, extended for a scrolling story
 
    EVERY NUMBER ON THE PAGE IS READ HERE, AT BUILD TIME, from the same gated sources the papers read: the method paper's
    macro file (tools/build-paper-numbers.js, refuse-on-drift from the records), the register's, the Riemann companion's
@@ -123,12 +125,44 @@ need(decOf(Pstar4, 9) === '0.868641400' && decOf(Pq, 8) === '0.86864051' && decO
 V.WIN = JSON.stringify({ M: M.map((r) => r.map(String)), b: b.map(String), eps: String(eps15), cstar: cstar.map(String), pstar: String(Pstar4), pquartic: String(Pq) });
 V.WIN_PSTAR4 = decOf(Pstar4, 10); V.WIN_PQUARTIC15 = decOf(Pq, 10); V.WIN_CSTAR2 = decOf(cstar[1], 4); V.WIN_CSTAR4 = decOf(cstar[2], 4);
 
-/* ---- fill the template ---- */
-let html = T('apps/explained/page.html');
+/* ---- a few more, for the cold open and the instruments ---- */
+V.KW_REQUEST_DATE = get(MT, 'MtKwRequestDate'); V.KW_POINTS_DATE1 = get(MT, 'MtKwPointsDates').split(' ')[0]; V.KW_FROM_RELEASES = get(MT, 'MtKwFromReleases');
+need(/^\d{4}-\d{2}-\d{2}$/.test(V.KW_REQUEST_DATE) && /^\d{4}-\d{2}-\d{2}$/.test(V.KW_POINTS_DATE1), 'the kissing request and points dates are not dates');
+const C31P = J('corpus/optconst-queue/c31-2026-10-21/PINS.json'); need(C31P.pr && /^\d{4}-\d{2}-\d{2}T/.test(C31P.pr.mergedAt), 'the C31 pin has no merge date'); V.C31_MERGED = C31P.pr.mergedAt.slice(0, 10);
+V.RF_FETCHED = get(RF, 'RfPinsFetched'); need(/^\d{4}-\d{2}-\d{2}$/.test(V.RF_FETCHED), 'the Riemann fetch date');
+const pairsTotal = kw.reduce((s, r) => s + r.engine.pairs, 0); V.KW_PAIRS_BIG = String(pairsTotal); V.KW_PAIRS_PER_FRAME = String(Math.floor(pairsTotal / 100));
+const sciPlain = get(MT, 'MtKwPairsSci').match(/^([\d.]+)\s*\\times\s*10\^\{(\d+)\}$/); need(sciPlain, 'the pairs macro is not m×10^e'); V.KW_PAIRS_SCI_PLAIN = sciPlain[1] + '·10' + sciPlain[2].replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+V.KW_DESK_MAXNORM_PLAIN = V.KW_DESK_MAXNORM.replace(/,/g, ''); need(/^\d+$/.test(V.KW_DESK_MAXNORM_PLAIN), 'the laptop norm is not an integer');
+/* the route of a claim, the house flow figure (design/components.js), read on click */
+const C = require(path.join(ROOT, 'design', 'components.js'));
+const NODES = [
+  { k: 'sentence', v: 'as printed', t: 'The sentence, as the source prints it', d: 'A claim is read at the head of its sentence or not at all: the bar as the exact rational its digits mean, the relation, the quantity. A hedge, a leading quantifier or a number nobody printed is refused with the rule.', role: 'dep' },
+  { k: 'grammar', v: 'closed list', t: 'A closed grammar of claim shapes', d: 'A bound, an absolute bound with a finite range, a value printed to its digits and cut off, a constant published rounded, an exact identity, a kissing count, a tensor decomposition. Nothing else; no model, no guess.', role: 'dep' },
+  { k: 'object', v: 'the reading', t: 'The object: the reading written down', d: 'The line of the source that prints the claim and the file\'s digest; the pin of the bytes and how they were decoded; the predicate; the hypotheses under which the predicate is the claim; the shape a witness against it would take.', role: 'sig' },
+  { k: 'bytes', v: 'pinned', t: 'The claimant\'s bytes, pinned by sha256', d: 'The data the claim is about, as the claimant published it, held to its digest. A file that does not match is refused before it is read. The reading of the bytes is part of the verdict.', role: 'dep' },
+  { k: 'decide', v: 'exact', t: 'Decided over exact rationals', d: 'The predicate is evaluated over the bytes in exact arithmetic, or in outward-rounded intervals with explicit tail bounds. Two checkers that share no code decide every object; a floating-point comparison is a screen, never an authority.', role: 'held' },
+  { k: 'word', v: 'with witness', t: 'One of three words, with what justifies it', d: 'Certified with the certificate and its falsifier; refuted with the violating input; refused with the reason and, where there is one, the threshold that would change the word.', role: 'held' }
+];
+const nodes = NODES.map((n, i) => Object.assign({ x: 20 + i * 148, y: 34, w: 124, h: 52 }, n));
+const edges = []; for (let i = 0; i < nodes.length - 1; i++) { const a = nodes[i], b = nodes[i + 1]; edges.push({ d: 'M' + (a.x + a.w) + ' 60 L' + b.x + ' 60' }); }
+V.FLOW = C.flow({ w: 920, h: 120, alt: 'the route of a claim: sentence, grammar, object, bytes, decide, word', readout: { k: 'The route of a claim', d: 'Click a station to read what happens there. The dashed lines move while the page is open; nothing else on this figure is simulated.' }, nodes, edges, caption: 'The claim-machine translates; cert-machine decides. Every station leaves a record.' })
+  .replace('<svg ', '<div class="flow-scroll"><svg ').replace('</svg>', '</svg></div>');
+need(V.FLOW.includes('flow-scroll'), 'the flow figure did not wrap');
+
+/* ---- fill the three parts and render through the house template ---- */
 const flat = {}; for (const k in V) if (typeof V[k] === 'string') flat[k] = V[k];
 for (const tau of ['1e-6', '1e-9', '1e-12']) for (const f in V.FL[tau]) flat['FL_' + tau.replace('1e-', 'E') + '_' + f] = String(V.FL[tau][f]);
-html = html.replace(/\{\{([A-Za-z0-9_]+)\}\}/g, (all, k) => { need(k in flat, 'the page asks for {{' + k + '}}, which the build did not compute'); return flat[k]; });
-need(!/\{\{/.test(html), 'an unfilled placeholder remains');
+const fill = (txt, what) => { const out = txt.replace(/\{\{([A-Za-z0-9_]+)\}\}/g, (all, k) => { need(k in flat, what + ' asks for {{' + k + '}}, which the build did not compute'); return flat[k]; }); need(!/\{\{[A-Za-z0-9_]+\}\}/.test(out), 'an unfilled placeholder remains in ' + what); return out; };
+const bodyRaw = fill(T('apps/explained/body.html'), 'body.html');
+const cssRaw = fill(T('apps/explained/page.css'), 'page.css');
+const scriptRaw = '<script>\n' + fill(T('apps/explained/page.js'), 'page.js') + '</script>';
+const TPL = require(path.join(ROOT, 'design', 'template.js'));
+const footRaw = '<p>Every number on this page was read at build time from the records of the cert-machine repository at commit ' + git + ' on ' + V.DATE + ': the method paper\'s, the register\'s and the Riemann companion\'s macro files, the self-audit\'s mutation record, the kissing wave\'s record and ledger, the Chvátal–Sankoff replay and the translator\'s pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine\'s. The page builder is apps/explained/build.js.</p>';
+const html = TPL.render({
+  title: 'Who checks the machine\'s mathematics? The easy read', lang: 'en', bodyClass: 'easy', path: '/explained/',
+  desc: 'Machines now produce mathematics faster than anyone can referee it. Six acts and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.',
+  bodyRaw, footRaw, cssRaw, scriptRaw
+});
 fs.mkdirSync(SITE, { recursive: true });
 fs.writeFileSync(path.join(SITE, 'index.html'), html);
 console.log('site/explained/index.html written (' + Math.round(html.length / 1024) + ' KB; ' + Object.keys(flat).length + ' numbers from the records) @ git ' + git);

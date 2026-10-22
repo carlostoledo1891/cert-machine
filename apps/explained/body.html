@@ -1,0 +1,182 @@
+<div class="prog" id="prog"></div>
+<nav class="rail" aria-label="acts"><a href="#top" title="Cold open"></a><a href="#act1" title="Act I"></a><a href="#act2" title="Act II"></a><a href="#act3" title="Act III"></a><a href="#act4" title="Act IV"></a><a href="#act5" title="Act V"></a><a href="#end" title="Epilogue"></a></nav>
+
+<header class="col cold" id="top">
+  <div class="eyebrow">The easy read · cert-machine, the method paper, as a story</div>
+  <h1>A machine says it found new mathematics. Who checks?</h1>
+  <p class="deck">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This is how an independent machine decides such claims exactly: six acts, five instruments you can touch, every number read from a public record when the page was built.</p>
+  <div class="film" aria-hidden="true">
+    <div class="scan"></div><div class="grain"></div>
+    <div class="log" id="log" data-lines="{{KW_REQUEST_DATE}}  a request on a public thread: the points of {{KW_FROM_RELEASES}} kissing configurations, please|{{KW_POINTS_DATE1}}  the points arrive; {{KW_PAIRS_SCI_PLAIN}} pairs decided exactly within hours|{{C31_MERGED}}  a constant's new bound merged into a public registry, marked: replayed by nobody|{{RF_FETCHED}}  {{RfSentences}} sentences of a famous proof read; {{RfShaped}} are finite claims|{{DATE}}  this page built from the records at {{GIT}}"></div>
+  </div>
+</header>
+
+<div class="wide"><div class="stats" data-n="4">
+  <div class="stat"><div class="k">claims that hold</div><div class="v" data-count="{{REG_HOLDS}}">{{REG_HOLDS}}</div><div class="n">of {{REG_ROWS}} decided, {{REG_CLAIMANTS}} claimants</div></div>
+  <div class="stat"><div class="k">defects on record</div><div class="v" data-count="{{REG_DEFECTS}}">{{REG_DEFECTS}}</div><div class="n">each with its witness</div></div>
+  <div class="stat"><div class="k">planted errors</div><div class="v" data-count="{{SA_MUTANTS}}">{{SA_MUTANTS}}</div><div class="n">{{SA_FALSE_CERT}} false certifications</div></div>
+  <div class="stat"><div class="k">guesses</div><div class="v">0</div><div class="n">a probability is never a verdict</div></div>
+</div></div>
+
+<section class="col" id="act1">
+  <div class="sec-head"><div class="act">Act I · <b>a claim is an inequality</b></div><h2>A verdict is one of three words.</h2></div>
+  <p class="thesis rv">Strip any machine-made mathematical claim down to what a computer can decide and you get <b>this quantity is at most this number, for every input in this box</b>. The machine reads it as exactly that, over the exact bytes the claimant published, and answers with one of three words.</p>
+  <div class="words rv d1">
+    <div class="word"><span class="tag cert">certified</span><p>The inequality holds over the whole box, proved by exact arithmetic or by outward-rounded intervals. Shipped with the certificate and the thing that would have falsified it.</p></div>
+    <div class="word"><span class="tag dep w-ref">refuted</span><p>A specific input violates the inequality. Shipped with that input, so anyone can check the refutation in one line.</p></div>
+    <div class="word"><span class="tag open">refused</span><p>The claim cannot be decided from the bytes: a file is missing, a number is not printed, a function has no exact decider. Shipped with the reason and, where there is one, the threshold that would change the word.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>The third word is the one that makes the other two honest. A checker that must answer yes or no will guess when it cannot decide. This one says why it cannot, and what would convert a refusal into a decision. That turns the machine into an incentive: publish the file, print the digit, and the word changes. A floating-point comparison on its own is never a verdict here. It is a screen, and a screen may only prune what is not worth certifying, never admit.</p>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 1 · <b>decide a bound</b></div>
+      <h3>Move the printed bound. Watch the word.</h3>
+      <p>A real certified value: the upper bound on the binary Chvátal–Sankoff constant at history length ten, certified here from an automaton of {{C31_STATES}} states rebuilt from the 2009 paper. The claimant printed <span class="num">{{C31_PRINTED}}</span>.</p>
+      <div class="ctl"><label>printed bound B <span class="num" id="w1b">0.824120</span></label><input type="range" id="w1s" min="0" max="400" value="200" aria-label="printed bound"></div>
+      <div class="ctrls"><button class="ctrl" id="w1corrupt" aria-pressed="false">corrupt one byte of the data file</button></div>
+      <pre class="out" id="w1out"></pre>
+      <p class="cap">The certified value is {{C31_BOUND}}, rounded up at its last digit, the convention for an upper bound. The slider can set B below it; nothing else on this page can.</p>
+    </div>
+  </div>
+  <div class="rv d1 mt18">{{FLOW}}</div>
+</section>
+
+<section class="col" id="act2">
+  <div class="sec-head"><div class="act">Act II · <b>the reading</b></div><h2>One string of digits, two numbers.</h2></div>
+  <p class="thesis rv">Every decimal a machine prints is an exact rational. The number the machine <b>meant</b> is usually a binary double, and the two differ in the seventeenth place. Which one is the claim?</p>
+  <div class="grid2">
+    <div class="panel rv d1">
+      <div class="pk">Instrument 2 · <b>print √3/2 to k digits</b></div>
+      <h3>The same point, three readings.</h3>
+      <p>Two unit vectors at exactly sixty degrees: (1, 0) and (½, √3/2). A claimant prints the second coordinate as a decimal. Read it back three ways and decide, exactly, whether the pair is touching, too close, or apart.</p>
+      <div class="ctl"><label>digits printed k <span class="num" id="w2k">16</span></label><input type="range" id="w2s" min="3" max="17" value="16" aria-label="digits printed"></div>
+      <pre class="out" id="w2out"></pre>
+      <div class="scene mt18"><svg id="w2svg" viewBox="0 0 320 98" role="img" aria-label="a microscope on the gap between each reading and the square root of three over two, on a log scale"></svg></div>
+      <p class="cap">The test is the one the machine uses for kissing configurations: with p the inner product and A, B the squared norms, the angle is at least sixty degrees if and only if p ≤ 0 or 4p² ≤ AB. Here that is the sign of 3/4 − y², decided over exact rationals. The microscope below the readout places each reading by its distance from √3/2 on a log scale; the shape of a mark is its verdict.</p>
+    </div>
+    <div class="prose rv d2">
+      <p>In 2026 a public arena published a {{SIX_N}}-point candidate for the kissing number in dimension eleven, its points printed to fifteen digits. Read as printed digits, <span class="num">{{SIX_VIOL_DIGITS}}</span> of its <span class="num">{{SIX_PAIRS}}</span> pairs are closer than sixty degrees. Read as the doubles those digits denote, <span class="num">{{SIX_VIOL_DOUBLES}}</span>. Both readings refute the record; the counts differ because the reading is part of the verdict.</p>
+      <p>So every object the machine decides carries a sentence saying how the bytes were read, and when a platform's own verifier reads them another way, that is written down too. A verdict without its reading is a number without a unit.</p>
+      <div class="lineup">
+        <div class="b"><b>{{SIX_VIOL_DIGITS}}</b>violating pairs, the digits as printed</div>
+        <div class="b"><b>{{SIX_VIOL_DOUBLES}}</b>violating pairs, the doubles they denote</div>
+        <div class="b"><b>{{SIX_WORST_DEG}}°</b>the worst pair, against sixty</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act3">
+  <div class="sec-head"><div class="act">Act III · <b>the trial</b></div><h2>We tried to fool it {{SA_MUTANTS}} times.</h2></div>
+  <p class="thesis rv">How do you test a judge? <b>Plant errors whose truth you know, and count the ones it misses.</b> The benchmark was pre-registered, kill switch included, before the paper was written.</p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>Take <span class="num">{{SA_OBJECTS}}</span> published objects the machine had already decided. Mutate each in ways whose truth is known by an independent exact witness: <span class="num">{{SA_FALSE}}</span> false, <span class="num">{{SA_TRUE}}</span> true but changed, <span class="num">{{SA_MALFORMED}}</span> malformed. Count how often the machine says <span class="tag cert">certified</span> to something false or <span class="tag dep w-ref">refuted</span> to something true. Declare in advance that if fewer than half the rows can be given a witnessed false mutant, the benchmark is reported as failed.</p>
+      <div class="wide"><div class="stats" data-n="4">
+        <div class="stat"><div class="k">mutants</div><div class="v" data-count="{{SA_MUTANTS}}">{{SA_MUTANTS}}</div><div class="n">on {{SA_ROWS}} rows</div></div>
+        <div class="stat"><div class="k">false certifications</div><div class="v">{{SA_FALSE_CERT}}</div><div class="n">a false claim called true</div></div>
+        <div class="stat"><div class="k">false refutations</div><div class="v">{{SA_FALSE_REF}}</div><div class="n">a true claim called false</div></div>
+        <div class="stat"><div class="k">witnessed rows</div><div class="v">{{SA_ROWS_WITNESSED}}<span class="num sub">/{{SA_ROWS}}</span></div><div class="n">the switch at {{SA_KILL_HALF}} did not trip</div></div>
+      </div></div>
+      <p>The benchmark found two defects of the machine's own on the way, both fixed on the record, and one malformed mutant that a partial decider read silently, recorded and not hidden. That is what the exercise is for.</p>
+      <h3>What a tolerance costs</h3>
+      <p>The same mutants were also checked the way most code checks numbers: compare in floating point, allow a tolerance. Loosen it and you accept more lies; tighten it and you start rejecting the truth. There is no setting that does both jobs. Exact arithmetic has no setting.</p>
+      <div class="bars" id="flbars">
+        <div class="bar cap">false claims accepted, among the mutants known to be false</div>
+        <div class="bar lo" style="--w:{{FL_E6_falsePct}}%"><span>tolerance 10⁻⁶</span><div class="t"><i></i></div><span class="n">{{FL_E6_falsePct}}%</span></div>
+        <div class="bar lo" style="--w:{{FL_E9_falsePct}}%"><span>tolerance 10⁻⁹</span><div class="t"><i></i></div><span class="n">{{FL_E9_falsePct}}%</span></div>
+        <div class="bar lo" style="--w:{{FL_E12_falsePct}}%"><span>tolerance 10⁻¹²</span><div class="t"><i></i></div><span class="n">{{FL_E12_falsePct}}%</span></div>
+        <div class="bar cap">true originals still confirmed, of {{SA_OBJECTS}}</div>
+        <div class="bar" style="--w:calc(100% * {{FL_E6_orig}} / {{FL_E6_origOf}})"><span>tolerance 10⁻⁶</span><div class="t"><i></i></div><span class="n">{{FL_E6_orig}}</span></div>
+        <div class="bar" style="--w:calc(100% * {{FL_E9_orig}} / {{FL_E9_origOf}})"><span>tolerance 10⁻⁹</span><div class="t"><i></i></div><span class="n">{{FL_E9_orig}}</span></div>
+        <div class="bar" style="--w:calc(100% * {{FL_E12_orig}} / {{FL_E12_origOf}})"><span>tolerance 10⁻¹²</span><div class="t"><i></i></div><span class="n">{{FL_E12_orig}}</span></div>
+      </div>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 3 · <b>plant an error</b></div>
+      <h3>Twelve points. Break them, or try.</h3>
+      <p>The twelve points that touch a central sphere in the face-centred cubic packing: every permutation of (±1, ±1, 0). The claim: all twelve are at least sixty degrees apart. Decided here pair by pair in exact integers, 4p² ≤ AB.</p>
+      <div class="scene draw"><svg id="w3svg" viewBox="0 0 320 240" role="img" aria-label="twelve points and their contacts"></svg></div>
+      <div class="ctrls">
+        <button class="ctrl" data-m="nudge">nudge by 10⁻⁹</button><button class="ctrl" data-m="dup">add a point twice</button><button class="ctrl" data-m="perm">swap two coordinates</button><button class="ctrl" data-m="drop">drop a point</button><button class="ctrl" data-m="scale">multiply by 3</button><button class="ctrl" data-m="reset">reset</button>
+      </div>
+      <pre class="out" id="w3out"></pre>
+      <p class="cap">The last two buttons are controls: a change that is not an error must leave the word alone, and a change that only looks harmless must not.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act4">
+  <div class="sec-head"><div class="act">Act IV · <b>the scale</b></div><h2>Floating point can be exact. You have to prove when.</h2></div>
+  <p class="thesis rv">In September 2026 an autonomous research system published <b>{{KW_ROWS}} new kissing-number bounds</b>, the largest with {{KW_MAXPOINTS}} points in dimension {{KW_MAXDIM}}, and its own verification files said, honestly, that the pairwise angles had not been checked. Checking them is {{KW_PAIRS_SCI}} pairs.</p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>The trick is old and elementary. The coordinates are small integers, so every inner product is an integer, and a floating-point unit computes an integer product exactly as long as no partial sum can leave the range the format holds exactly: <span class="num">2¹¹</span> for half precision, <span class="num">2²⁴</span> for single. By the Cauchy–Schwarz inequality every partial sum is at most the largest squared norm in the configuration. Check that bound against the data <em>before</em> the run, assert it in the code, and the tensor cores of a rented GPU become an exact integer engine.</p>
+      <div class="wide"><div class="stats" data-n="3">
+        <div class="stat"><div class="k">pairs decided</div><div class="v">{{KW_PAIRS_SCI_PLAIN}}</div><div class="n">{{KW_PAIRS}} exactly; {{KW_CONTACTS}} at sixty degrees, none closer</div></div>
+        <div class="stat"><div class="k">the bill</div><div class="v">${{KW_GPU_COST}}</div><div class="n">one {{KW_GPU_NAME}} at ${{KW_GPU_PRICE}} an hour, {{KW_GPU_HOURS}} GPU-hours for the {{KW_GPU_ROWS}} largest</div></div>
+        <div class="stat"><div class="k">spent on rigour</div><div class="v">$0</div><div class="n">one inequality per path, checked once against the data</div></div>
+      </div></div>
+      <p>A seeded sample of every configuration was decided again in plain integers by a program that shares no code with the bulk path, and the two agreed on every count.</p>
+      <div class="scene mt18"><canvas id="w4c" width="960" height="220" aria-hidden="true"></canvas></div>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 4 · <b>which arithmetic is exact?</b></div>
+      <h3>Slide the largest squared norm.</h3>
+      <p>The page shows which path can decide the pairs exactly, and where the real configurations sit.</p>
+      <div class="ctl"><label>largest squared norm <span class="num" id="w4n">192</span></label><input type="range" id="w4s" min="0" max="400" value="23" aria-label="largest squared norm, log scale"></div>
+      <div class="scene"><svg id="w4svg" viewBox="0 0 320 120" role="img" aria-label="a logarithmic ruler of squared norms with the three exact paths"></svg></div>
+      <pre class="out" id="w4out"></pre>
+      <p class="cap">The GPU rows have squared norms up to {{KW_GPU_MAXNORM}} and coordinates up to {{KW_GPU_MAXCOORD}} in size; the laptop rows up to {{KW_DESK_MAXNORM}}; one configuration in dimension 38 has rows of squared norm {{KW_AXIS_NORM}}, decided in arbitrary-precision integers and nothing else.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act5">
+  <div class="sec-head"><div class="act">Act V · <b>the proof that is mostly out of reach</b></div><h2>A famous theorem, and the ten sentences a machine can check.</h2></div>
+  <p class="thesis rv">In 2026 a language model found a proof that more than two thirds of the zeros of the Riemann zeta function are simple and on the critical line. Two mathematicians verified it; it was formalised in Lean. <b>Most of it has no finite layer. The machine says exactly which part does.</b></p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>A translator with a closed grammar read every sentence the story's sources print, the manuscripts, the Lean files, the research post, even a video's captions, and either reduced it to a decidable claim or refused it with a rule.</p>
+      <div class="scene sorter" id="sorter" aria-label="sentences sorted into read and refused"></div>
+      <p class="cap">{{RfSentences}} printed sentences: {{RfShaped}} read; {{RfRefProse}} refused as prose, {{RfRefNoQuantity}} with no printed quantity, {{RfRefAmbiguous}} ambiguous, {{RfRefAsymptotic}} asymptotic, {{RfRefApproximate}} approximate. Every theorem is among the refused: a statement about a limit is not a finite claim, and the grammar says so rather than inventing one.</p>
+      <p class="mt18">What is read is the finite layer underneath: the formalisation's one numerical certificate, <span class="num">256</span> integer enclosures at scale <span class="num">2<sup>{{RfKPow}}</sup></span>, and the constants printed to their digits. The certificate's three inequalities hold over its integers, decided by two programs that share no code with Lean. Its one real-number hypothesis, that the enclosures enclose anything, rests on a file the release describes as "available from the authors". No published byte decides it. We asked for the file, in public.</p>
+      <h3>Then something small and new</h3>
+      <p>Once the constants were rational arithmetic they could be optimised. The proportion of simple zeros of ξ′ depends on a window function through a ratio of two quadratic forms, so the best polynomial window of each degree is exact linear algebra. The paper's quartic sits {{RF_QUARTIC_GAP}} below its own family's optimum, and the certificate's nine-term series truncation costs more than the whole window gap, {{RF_EPS9}}. A degree-six window and fifteen terms raise the formalisation's constants from <span class="num">{{RfLeanP}}</span> to <span class="num">{{RfNewP}}</span>, with an exact certificate that no even polynomial window of degree up to twenty does better. As a calibration, the same machinery with the ζ kernel returns the Montgomery–Taylor constant to {{RfMtAgreeDigits}} digits.</p>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 5 · <b>shape the window</b></div>
+      <h3>Can you beat the paper's quartic?</h3>
+      <p>v(s) = 1 + c₂s² + c₄s⁴ on [−½, ½]. The proportion P of zeros of ξ′ that are simple and on the line is computed exactly from the coefficients, with the series at fifteen terms.</p>
+      <div class="scene"><svg id="w5svg" viewBox="0 0 320 170" role="img" aria-label="the window curve"></svg></div>
+      <div class="ctl"><label>c₂ <span class="num" id="w5c2">-0.280</span></label><input type="range" id="w5s2" min="-1200" max="0" value="-280" aria-label="c2"><label>c₄ <span class="num" id="w5c4">-4.080</span></label><input type="range" id="w5s4" min="-6000" max="0" value="-4080" aria-label="c4"></div>
+      <div class="ctrls"><button class="ctrl" id="w5paper">the paper's quartic</button><button class="ctrl" id="w5best">near the best quartic</button></div>
+      <pre class="out" id="w5out"></pre>
+      <p class="cap">Exact rational arithmetic over the 3×3 matrix of the quadratic form, computed at build time from the definitions. The best quartic reaches {{WIN_PSTAR4}}; the paper's gives {{WIN_PQUARTIC15}} at fifteen terms; degree six, out of this slider's reach, gives {{RfNewP}}.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="end">
+  <div class="sec-head"><div class="act">Epilogue · <b>where it stops</b></div><h2>A referee that never guesses must say, out loud, where it stops.</h2></div>
+  <div class="words rv">
+    <div class="word"><h3 class="h3s">Theorems</h3><p>A statement about every integer, or about a limit, is not a finite claim. The machine refuses it with the rule and leaves it to proofs and proof assistants.</p></div>
+    <div class="word"><h3 class="h3s">Hypotheses nobody can check</h3><p>A certificate kernel-checked downstream of a file the public cannot read is conditional, for the kernel and for the machine alike. The word is refused, and the ask is the file.</p></div>
+    <div class="word"><h3 class="h3s">Its own code</h3><p>Soundness rests on arithmetic; the arithmetic is held to an independent library on {{ARB_CASES}} cases of {{ARB_OPS}} operations, to a second implementation on every decision, and to the {{SA_MUTANTS}} mutants above. When it fails, the failure is on the record first.</p></div>
+  </div>
+  <p class="closing rv d1">Refusal is a verdict.</p>
+  <p class="rv d1 read">The register this page is read from holds <span class="num">{{REG_ROWS}}</span> claims from <span class="num">{{REG_CLAIMANTS}}</span> claimants across <span class="num">{{REG_SOURCES}}</span> sources: <span class="num">{{REG_HOLDS}}</span> hold, <span class="num">{{REG_DEFECTS}}</span> carry a defect on record, and every row carries the object that justifies its word. The machine has never improved a theorem. It has moved an asterisk, counted a wrong digit, published the threshold that would turn a refusal green, and once, when the arithmetic allowed it, raised a constant by a unit of the sixth digit with a certificate attached. That is the job.</p>
+  <div class="credits rv d2">
+    <span><b>the method paper</b> paper/cert-machine-method.pdf · v0.8</span>
+    <span><b>the self-audit</b> {{SA_MUTANTS}} mutants, {{SA_FALSE_CERT}} false certifications · reports/selfaudit.html</span>
+    <span><b>the kissing wave</b> {{KW_ROWS}} configurations, {{KW_PAIRS}} pairs · certs/kissing-wave.json</span>
+    <span><b>the Chvátal–Sankoff replay</b> {{C31_STATES}} states at h = 10 · certs/lueker-replay.json</span>
+    <span><b>the Riemann companion</b> {{RfSentences}} sentences, {{RfShaped}} read; {{RfMathClaims}} claims by the mathematician, {{RfMathCertified}} hold · paper/riemann-finite-layer.pdf</span>
+    <span><b>built</b> {{DATE}} from the records at commit {{GIT}}</span>
+  </div>
+  <div class="links rv d3">
+    <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
+  </div>
+</section>
