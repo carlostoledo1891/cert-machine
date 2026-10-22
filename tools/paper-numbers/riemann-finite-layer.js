@@ -61,7 +61,7 @@ const mathify = (s) => { s = String(s).trim(); if (/^\$.*\$$/.test(s)) return s;
   const sub = { '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₉': '9' };
   let t = s.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻]+/g, (m) => '^{' + [...m].map((c) => sup[c]).join('') + '}').replace(/[₀₁₂₃₉]+/g, (m) => '_{' + [...m].map((c) => sub[c]).join('') + '}');
   t = t.replace(/≤/g, '\\le ').replace(/≥/g, '\\ge ').replace(/−/g, '-').replace(/·/g, '\\cdot ').replace(/…/g, '\\ldots').replace(/√/g, '\\sqrt').replace(/γ/g, '\\gamma ').replace(/τ/g, '\\tau ').replace(/κ/g, '\\kappa ').replace(/ε/g, '\\varepsilon ').replace(/ϑ/g, '\\vartheta ').replace(/Σ/g, '\\sum ').replace(/∫/g, '\\int ').replace(/≈/g, '\\approx ').replace(/′/g, "'");
-  t = t.replace(/kappa9_(flat|quartic)/g, '\\kappa_9^{\\mathrm{$1}}').replace(/(\d)e-(\d+)/g, '$1\\cdot10^{-$2}').replace(/\*/g, '^{*}').replace(/_(flat|quartic)/g, '_{\\mathrm{$1}}').replace(/kappa9/g, '\\kappa_9').replace(/eps9/g, '\\varepsilon_9').replace(/_(\d{2,})\b/g, '_{$1}').replace(/\b(lo|hi)_j\b/g, '\\mathrm{$1}_j');
+  t = t.replace(/kappa9_([A-Za-z][A-Za-z0-9]*)/g, '\\kappa_9^{\\mathrm{$1}}').replace(/\b([A-Za-z]+)_([A-Za-z][A-Za-z0-9]*)\b/g, '$1_{\\mathrm{$2}}').replace(/(\d)e-(\d+)/g, '$1\\cdot10^{-$2}').replace(/\*/g, '^{*}').replace(/kappa9/g, '\\kappa_9').replace(/eps(\d+)/g, '\\varepsilon_{$1}').replace(/\bPstar\b/g, 'P^{*}').replace(/\bDstar\b/g, 'D^{*}').replace(/\b(cmax|res|dmin|gap)\b/g, '\\mathrm{$1}').replace(/_(\d{2,})\b/g, '_{$1}').replace(/\b(lo|hi)_j\b/g, '\\mathrm{$1}_j');
   t = t.replace(/,?\s*published as\s*/g, '\\mbox{, published as }').replace(/\(0 < j < (\d+)\)/g, '\\ (0<j<$1)');
   return '$' + t + '$'; };
 
@@ -153,7 +153,8 @@ const D1 = {}; D1[1] = one; D1[2] = new Q(-4n); for (let k = 0; k <= 8; k++) D1[
 const eps9 = a(9).mul(new Q(231n, 211n));
 const Jof = (b) => { /* 2 ∫₀¹ D1(r) · Σ_l b_l r^l dr */ let s = new Q(0n); for (const d in D1) for (let l = 0; l < b.length; l++) s = s.add(D1[d].mul(b[l]).div(new Q(BigInt(Number(d) + l + 1)))); return s.mul(two); };
 const Jflat = Jof([one, new Q(-1n)]); const kflat = one.add(Jflat);
-const bq = X.vConvQuartic.map(q); need(bq.length === 10, 'the quartic autocorrelation is not ten coefficients');
+const bq = X.vConv.map(q); need(bq.length === 10, 'the quartic autocorrelation is not ten coefficients');
+need(X.window.map(String).join(',') === '1,0,-7/25,0,-102/25', 'the ξ′ certificate\'s window is not the paper\'s quartic');
 const intV = q(X.intV), intV2 = q(X.intV2); need(bq[0].eq(intV2) && bq.reduce((s, x) => s.add(x), new Q(0n)).eq(new Q(0n)), 'the quartic autocorrelation\'s structural checks');
 const Jq = Jof(bq); const kq = intV2.add(Jq).div(intV.mul(intV));
 const Pflat = two.sub(kflat).sub(eps9), Dflat = new Q(3n, 2n).sub(kflat.add(eps9).div(two)), Pq = two.sub(kq).sub(eps9), Dq = new Q(3n, 2n).sub(kq.add(eps9).div(two));
@@ -171,6 +172,96 @@ def('RfXiEpsTex', sciTex(eps9, 3)); def('RfXiANine', esc(a(9).toString()));
 /* ten terms, the first reading, matches none of the printed rationals */
 const D1ten = Object.assign({}, D1); D1ten[21] = a(9); const Jten = (() => { let s = new Q(0n); const b = [one, new Q(-1n)]; for (const d in D1ten) for (let l = 0; l < 2; l++) s = s.add(D1ten[d].mul(b[l]).div(new Q(BigInt(Number(d) + l + 1)))); return s.mul(two); })();
 need(!Jten.eq(Jflat) && !Jten.eq(printedRational('math-xi-J-flat')), 'a ten-term reading would match the printed J_flat');
+
+/* ================================================================ the window search, the tail, the parameter and the calibration: a third
+   implementation, from the definitions alone, over BigInt rationals — the monomial autocorrelations, the quadratic form, the exact
+   minimiser, the LDLᵀ pivots — held to every certificate claimbox wrote and the receiver decided */
+const binom = (n, k) => { let r = 1n; for (let i = 1n; i <= BigInt(k); i++) r = r * (BigInt(n) - i + 1n) / i; return r; };
+const padd = (p, e, v) => { p[e] = (p[e] || new Q(0n)).add(v); };
+const convPair = (i, j) => { /* (s^{2i} ⋆ s^{2j})(r) = ∫_{-1/2}^{1/2-r} t^{2i} (t+r)^{2j} dt, a polynomial in r */
+  const out = {}; const half = new Q(1n, 2n);
+  for (let a = 0; a <= 2 * j; a++) { const c = new Q(binom(2 * j, a)); const pw = 2 * i + a; const n = pw + 1;
+    /* ∫ t^pw dt from -1/2 to 1/2 - r = [(1/2 - r)^n - (-1/2)^n]/n; (1/2 - r)^n = Σ_e C(n,e) (1/2)^{n-e} (-1)^e r^e */
+    for (let e = 0; e <= n; e++) { let v = new Q(binom(n, e)); for (let t = 0; t < n - e; t++) v = v.mul(half); if (e % 2) v = v.neg(); padd(out, e + 2 * j - a, c.mul(v).div(new Q(BigInt(n)))); }
+    let v0 = new Q(1n); for (let t = 0; t < n; t++) v0 = v0.mul(half); if (n % 2) v0 = v0.neg(); padd(out, 2 * j - a, c.mul(v0).neg().div(new Q(BigInt(n)))); }
+  for (const e of Object.keys(out)) if (out[e].n === 0n) delete out[e]; return out; };
+const pmul = (p, q2) => { const r = {}; for (const a in p) for (const b in q2) padd(r, Number(a) + Number(b), p[a].mul(q2[b])); return r; };
+const integ01 = (p) => { let s = new Q(0n); for (const e in p) s = s.add(p[e].div(new Q(BigInt(Number(e) + 1)))); return s; };
+const aK = (k) => new Q(2n * 4n ** (BigInt(k) + 1n) * fact(BigInt(k)), fact(2n * BigInt(k) + 2n));
+const epsK = (K) => { const qq = BigInt((K + 2) * (2 * K + 3)); return aK(K).mul(new Q(qq, qq - 2n * BigInt(K + 1))); };
+need(epsK(9).eq(eps9), 'ε_K at K = 9 is not ε₉');
+const kernelPoly = (K, lam, kernel) => { const p = {}; if (kernel === 'zeta') { p[1] = lam; return p; } p[1] = lam; p[2] = new Q(-4n).mul(lam).mul(lam);
+  for (let k = 0; k < K; k++) { let lp = new Q(1n); for (let t = 0; t < 2 * k + 3; t++) lp = lp.mul(lam); padd(p, 2 * k + 3, aK(k).mul(lp)); } return p; };
+const intEven = (i) => new Q(1n, 4n ** BigInt(i) * BigInt(2 * i + 1));
+const CONV = {}; const conv = (i, j) => { const k = i + ',' + j; if (!CONV[k]) CONV[k] = convPair(i, j); return CONV[k]; };
+const quadForm = (m, K, lam, kernel) => { const D = kernelPoly(K, lam, kernel); const b = [], G = [], H = [];
+  for (let i = 0; i < m; i++) { b.push(intEven(i)); G.push([]); H.push([]); for (let j = 0; j < m; j++) { G[i].push(intEven(i + j)); H[i].push(integ01(pmul(D, conv(i, j))).mul(two)); } }
+  const M = G.map((row, i) => row.map((g, j) => g.div(lam).add(H[i][j].add(H[j][i]).div(two)))); return { M, b }; };
+const solveQ = (M, b) => { const n = b.length; const A = M.map((row, i) => row.concat([b[i]]));
+  for (let col = 0; col < n; col++) { let piv = col; while (A[piv][col].n === 0n) piv++; [A[col], A[piv]] = [A[piv], A[col]]; const pv = A[col][col]; A[col] = A[col].map((x) => x.div(pv));
+    for (let r = 0; r < n; r++) if (r !== col && A[r][col].n !== 0n) { const f = A[r][col]; A[r] = A[r].map((x, k) => x.sub(f.mul(A[col][k]))); } }
+  return A.map((row) => row[n]); };
+const ldlPivots = (N) => { /* N = L·D·Lᵀ exactly; a zero pivot is allowed when its whole column of the Schur complement is zero */
+  const n = N.length; const L = N.map(() => N.map(() => new Q(0n))); const Dd = [];
+  for (let j = 0; j < n; j++) { let d = N[j][j]; for (let k = 0; k < j; k++) d = d.sub(L[j][k].mul(L[j][k]).mul(Dd[k])); Dd.push(d); L[j][j] = new Q(1n);
+    for (let i = j + 1; i < n; i++) { let v = N[i][j]; for (let k = 0; k < j; k++) v = v.sub(L[i][k].mul(L[j][k]).mul(Dd[k])); if (d.n === 0n) { need(v.n === 0n, 'a zero pivot with a nonzero column: not positive semidefinite'); L[i][j] = new Q(0n); } else L[i][j] = v.div(d); } }
+  return Dd; };
+const optimum = (m, K, lam, kernel) => { const { M, b } = quadForm(m, K, lam, kernel); const x = solveQ(M, b); let bx = new Q(0n); for (let i = 0; i < m; i++) bx = bx.add(b[i].mul(x[i]));
+  const kstar = one.div(bx); const c = x.map((xi) => xi.div(x[0])); const N = M.map((row, i) => row.map((v, j) => v.sub(kstar.mul(b[i]).mul(b[j])))); const piv = ldlPivots(N);
+  need(piv.every((d) => d.n >= 0n) && piv.filter((d) => d.n === 0n).length === 1, 'the optimality certificate\'s pivots are not nonnegative with exactly one zero (degree ' + (2 * (m - 1)) + ')');
+  return { kstar, c, M, b, piv }; };
+const windowStats = (c, K, lam, kernel) => { const m = c.length; let iv = new Q(0n), iv2 = new Q(0n); const vc = {};
+  for (let i = 0; i < m; i++) { iv = iv.add(c[i].mul(intEven(i))); for (let j = 0; j < m; j++) { iv2 = iv2.add(c[i].mul(c[j]).mul(intEven(i + j))); const cp = conv(i, j); for (const e in cp) padd(vc, Number(e), c[i].mul(c[j]).mul(cp[e])); } }
+  const J = integ01(pmul(kernelPoly(K, lam, kernel), vc)).mul(two); const e = kernel === 'zeta' ? new Q(0n) : epsK(K);
+  const kappa = iv2.add(lam.mul(J)).div(lam.mul(iv).mul(iv)); return { kappa, P: two.sub(kappa).sub(e), D: new Q(3n, 2n).sub(kappa.add(e).div(two)), eps: e }; };
+const ZDIR = LIFT + '/corpus/riemann/zeta23/';
+const winFile = (f) => { const d = J(ZDIR + f); return { c: d.window.filter((x, i) => i % 2 === 0).map(q), K: Number(d.terms), lam: q(String(d.lam || '1')), kernel: d.kernel || 'd1', P: d.P ? q(d.P) : null, D: d.D ? q(d.D) : null, kappa: d.kappa9 ? q(d.kappa9) : null }; };
+/* every window certificate: its κ, P and D re-derived from its coefficients */
+for (const f of ['xi-certificate.json', 'xi-q4.json', 'xi-w6.json', 'xi-o20.json', 'xi-w6k15.json', 'xi-o20k15.json', 'xi-w6l95.json', 'xi-w6l90.json']) {
+  const d = J(ZDIR + f); if (!d.P) continue; const w = winFile(f); const st = windowStats(w.c, w.K, w.lam, w.kernel);
+  need(st.P.eq(w.P) && st.D.eq(w.D) && st.kappa.eq(w.kappa), 'the window certificate ' + f + ' prints a value this re-derivation does not reach'); }
+const W6 = winFile('xi-w6.json'); need(W6.c.length === 4, 'w6 is not a degree-6 window');
+def('RfWSixCoeffs', W6.c.map((x, i) => (i === 0 ? x.toString() : (x.n < 0n ? ' - ' : ' + ') + '\\tfrac{' + (x.n < 0n ? -x.n : x.n) + '}{' + x.d + '}s^{' + (2 * i) + '}')).join(''));
+const quarticC = [one, new Q(-7n, 25n), new Q(-102n, 25n)];
+need(winFile('xi-certificate.json').c.every((x, i) => x.eq(quarticC[i])), 'the paper\'s quartic is not 1 - (7/25)s² - (102/25)s⁴');
+/* every optimality certificate: κ*, P*, the pair autocorrelation rows and the pivots re-derived */
+const OPT = {};
+for (const [f, m, K, kernel] of [['xi-opt6.json', 4, 9, 'd1'], ['xi-opt20.json', 11, 9, 'd1'], ['xi-opt6k15.json', 4, 15, 'd1'], ['xi-opt20k15.json', 11, 15, 'd1'], ['xi-zeta2.json', 2, 9, 'zeta'], ['xi-zeta6.json', 4, 9, 'zeta'], ['xi-zeta20.json', 11, 9, 'zeta']]) {
+  const d = J(ZDIR + f); need(Number(d.m) === m && Number(d.terms) === K && (d.kernel || 'd1') === kernel && String(d.lam || '1') === '1', 'the certificate ' + f + ' is not what the table says');
+  const o = optimum(m, K, one, kernel); need(o.kstar.eq(q(d.kappaStar)), f + ': κ* differs'); need(two.sub(o.kstar).sub(kernel === 'zeta' ? new Q(0n) : epsK(K)).eq(q(d.Pstar)), f + ': P* differs');
+  for (let i = 0; i < m; i++) for (let j = 0; j < m; j++) { const row = d.convRows[i * m + j].map(q); const cp = conv(i, j); for (let e = 0; e < row.length; e++) need(row[e].eq(cp[e] || new Q(0n)), f + ': the pair autocorrelation row ' + i + ',' + j + ' differs at r^' + e); }
+  const Drow = d.convRows[m * m + m].slice(0, m).map(q); need(Drow.every((x, k) => x.eq(o.piv[k])), f + ': the pivots differ');
+  OPT[f] = o; }
+/* the table of optima by degree and truncation order */
+const PS = (m, K, kernel = 'd1', lam = one) => { const o = optimum(m, K, lam, kernel); return two.sub(o.kstar).sub(kernel === 'zeta' ? new Q(0n) : epsK(K)); };
+const degs = [2, 3, 4, 11];
+def('RfTailRows', [9, 12, 15, 20].map((K) => 'K = ' + K + ' & $' + sciTex(epsK(K), 2) + '$ & ' + degs.map((m) => PS(m, K).dec(12)).join(' & ')).join(' \\\\\n'));
+def('RfTailDegrees', degs.map((m) => String(2 * (m - 1))).join(' & '));
+const quarticP9 = windowStats(quarticC, 9, one, 'd1').P; const opt4P9 = PS(3, 9), opt20P9 = PS(11, 9), opt20P15 = PS(11, 15), opt4P15 = PS(4, 15);
+def('RfQuarticP', quarticP9.dec(12)); def('RfQuarticGapTex', sciTex(opt4P9.sub(quarticP9), 2)); def('RfCeilingGapTex', sciTex(opt20P9.sub(quarticP9), 3));
+def('RfEpsNineTex', sciTex(eps9, 2)); def('RfEpsFifteenTex', sciTex(epsK(15), 2)); def('RfEpsFifteenFrac', esc(epsK(15).toString())); def('RfEpsTwelveTex', sciTex(epsK(12), 2)); def('RfEpsTwentyTex', sciTex(epsK(20), 2));
+need(epsK(15).eq(printedRational('math-tail-eps15')), 'ε₁₅ is not the record\'s');
+const w6k15 = windowStats(W6.c, 15, one, 'd1'), w6k9 = windowStats(W6.c, 9, one, 'd1');
+def('RfWSixKNineP', w6k9.P.dec(12)); def('RfWSixKNineD', w6k9.D.dec(12)); def('RfWSixKFifteenP', w6k15.P.dec(12)); def('RfWSixKFifteenD', w6k15.D.dec(12));
+def('RfOTwentyKFifteenP', opt20P15.dec(12)); def('RfOTwentyKNineP', opt20P9.dec(12)); def('RfOSixKFifteenP', opt4P15.dec(12));
+const leanP = q('0.86864017'), leanD = q('0.93432008'), newP = q('0.86864150'), newD = q('0.93432075');
+need(w6k15.P.ge(newP) && w6k15.D.ge(newD) && w6k9.P.ge(q('0.86864115')) && w6k15.P.lt(q('0.86864151')), 'the certified eight-digit constants');
+def('RfNewP', newP.dec(8)); def('RfNewD', newD.dec(8)); def('RfLeanP', leanP.dec(8)); def('RfLeanD', leanD.dec(8)); def('RfGainTex', sciTex(newP.sub(leanP), 3)); def('RfGainNineTex', sciTex(q('0.86864115').sub(leanP), 3));
+def('RfRatioFifteen', esc(new Q(2n * 16n, 17n * 33n).toString())); def('RfRatioNine', '20/231');
+/* the parameter */
+const lams = [['1', one], ['0.99', q('0.99')], ['0.95', q('0.95')], ['0.9', q('0.9')], ['0.8', q('0.8')], ['0.5', q('0.5')]];
+def('RfLamRows', lams.map(([t, l]) => '$' + t + '$ & ' + PS(4, 15, 'd1', l).dec(10) + ' & ' + PS(11, 15, 'd1', l).dec(10)).join(' \\\\\n'));
+need(lams.slice(1).every(([t, l]) => PS(4, 15, 'd1', l).lt(PS(4, 15, 'd1', one))), 'the constant does not fall as λ leaves 1');
+const w6l95 = windowStats(W6.c, 15, q('19/20'), 'd1'), w6l90 = windowStats(W6.c, 15, q('9/10'), 'd1');
+def('RfWSixLamNinetyFiveP', w6l95.P.dec(10)); def('RfWSixLamNinetyP', w6l90.P.dec(10));
+/* the calibration against the Montgomery–Taylor constant (the series bracket of Section 5) */
+const zdeg = [2, 3, 4, 6, 11]; def('RfZetaRows', zdeg.map((m) => String(2 * (m - 1)) + ' & ' + PS(m, 9, 'zeta').dec(15) + ' & ' + new Q(3n, 2n).sub(optimum(m, 9, one, 'zeta').kstar.div(two)).dec(15)).join(' \\\\\n'));
+const z2 = optimum(2, 9, one, 'zeta'); need(two.sub(z2.kstar).eq(new Q(269n, 400n)), 'the degree-2 ζ optimum is not 269/400'); def('RfZetaDegTwo', '269/400'); def('RfZetaDegTwoKappa', esc(z2.kstar.toString()));
+const z6 = PS(4, 9, 'zeta'), z20 = PS(11, 9, 'zeta');
+need(z6.le(simpleHi) && z20.le(simpleHi) && simpleLo.sub(z20).lt(new Q(1n, 10n ** 14n)) && z20.sub(z6).abs().lt(new Q(1n, 10n ** 14n)), 'the polynomial optimum for ζ does not reach the Montgomery–Taylor constant from below to fourteen digits');
+def('RfZetaDegSix', z6.dec(15)); def('RfZetaDegTwenty', z20.dec(15)); def('RfMtSixteen', simpleLo.dec(16)); def('RfMtMinusZetaTex', sciTex(simpleLo.sub(z20).gt(new Q(0n)) ? simpleLo.sub(z20) : new Q(1n, 10n ** 30n), 1));
+const agree = (() => { const a = z20.dec(20), b = simpleLo.dec(20); let n = 0; while (n < 20 && a[n] === b[n]) n++; return n - 2; })(); def('RfMtAgreeDigits', String(agree)); need(agree >= 14, 'fewer than fourteen digits agree');
+def('RfMtDistinctSixteen', distLo.dec(16));
 
 /* ================================================================ the runs */
 const outcome = (row) => { if (row.skipped) return 'skipped'; if (row.refused) return 'refused'; const m = String(row.certMachine || '').match(/from the object: (.*?)\s+\d+(?:\.\d+)? s/);
@@ -198,12 +289,17 @@ const AC = T(LIFT + '/corpus/riemann/ai-claims.md'); need(/Written by Claude \(F
 def('RfAiRows', aiOut.map((r) => mathify(r.claim) + ' & ' + textify(r.why.replace(/^the /, '')) + ' & ' + (r.out === 'CERTIFIED' ? '\\vC' : r.out === 'REFUTED' ? '\\vR' : '\\vF{} (' + esc(r.rule) + ')')).join(' \\\\\n'));
 /* the mathematician's claims */
 const MR = J(LIFT + '/records/riemann-math-run.json');
-need(MR.jobs === 22 && MR.written === 22 && MR.refused === 0 && MR.rows.length === 22 && mjobs.length === 22, 'the mathematician\'s run is not 22 written');
+need(MR.jobs === mjobs.length && MR.written === mjobs.length && MR.refused === 0 && MR.rows.length === mjobs.length && mjobs.length === 99, 'the mathematician\'s run is not the 99 jobs, all written');
 const mathOut = MR.rows.map((r) => ({ id: r.id, claim: r.claim, out: outcome(r), expect: mjob(r.id).expect, why: mjob(r.id).why }));
 need(mathOut.every((r) => r.out === r.expect), 'a mathematician\'s claim did not come out as expected');
-def('RfMathClaims', '22'); def('RfMathCertified', String(cnt(mathOut, (r) => r.out === 'CERTIFIED'))); def('RfMathRefuted', String(cnt(mathOut, (r) => r.out === 'REFUTED')));
-need(cnt(mathOut, (r) => r.out === 'REFUTED') === 2 && mathOut.find((r) => r.id === 'math-mt-distinct-0.8362').out === 'REFUTED' && mathOut.find((r) => r.id === 'math-xi-P-flat-false').out === 'REFUTED', 'the two expected refutations');
-def('RfMathRows', mathOut.map((r) => mathify(r.claim) + ' & ' + textify(r.why) + ' & ' + (r.out === 'CERTIFIED' ? '\\vC' : '\\vR')).join(' \\\\\n'));
+const isWin = (r) => /^math-(win|opt|tail|tailopt|lam|zeta)-/.test(r.id);
+const mathFirst = mathOut.filter((r) => !isWin(r)), mathWin = mathOut.filter(isWin);
+need(mathFirst.length === 22 && cnt(mathFirst, (r) => r.out === 'REFUTED') === 2 && mathOut.find((r) => r.id === 'math-mt-distinct-0.8362').out === 'REFUTED' && mathOut.find((r) => r.id === 'math-xi-P-flat-false').out === 'REFUTED', 'the first twenty-two claims and their two expected refutations');
+def('RfMathClaims', String(mathOut.length)); def('RfMathCertified', String(cnt(mathOut, (r) => r.out === 'CERTIFIED'))); def('RfMathRefuted', String(cnt(mathOut, (r) => r.out === 'REFUTED')));
+def('RfMathFirst', String(mathFirst.length)); def('RfMathWin', String(mathWin.length)); def('RfMathWinRefuted', String(cnt(mathWin, (r) => r.out === 'REFUTED')));
+need(mathWin.length === 77 && cnt(mathWin, (r) => r.out === 'REFUTED') === 16, 'the window, tail, parameter and calibration claims: 77 with 16 controls refuted');
+def('RfMathRows', mathFirst.map((r) => mathify(r.claim) + ' & ' + textify(r.why) + ' & ' + (r.out === 'CERTIFIED' ? '\\vC' : '\\vR')).join(' \\\\\n'));
+def('RfMathWinRows', mathWin.map((r) => mathify(r.claim) + ' & ' + (r.out === 'CERTIFIED' ? '\\vC' : '\\vR')).join(' \\\\\n'));
 const MD = T(LIFT + '/corpus/riemann/mathematician.md');
 need(/Written by Claude \(Fable 5\.1\) in the claimbox session, as the mathematician the operator asked for/.test(MD), 'mathematician.md no longer says who wrote it');
 need(/cert-machine then refuted the true\s+"c₁\* = 0\.7532960…" and certified a false "c₁\* = 0\.7532961…"/.test(MD.replace(/\n/g, ' ')) || /refuted the true/.test(MD), 'the first catch is no longer on record in mathematician.md');

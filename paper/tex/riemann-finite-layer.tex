@@ -5,6 +5,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \setlength{\emergencystretch}{3em}
 \usepackage[section]{placeins}
+\usepackage{longtable}
 \renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
 \renewcommand{\floatpagefraction}{0.75}
 %% every number is read from the records: the method paper's macro file (one build, one commit) and this paper's own,
@@ -26,8 +27,8 @@
 \begin{document}
 \begin{frontmatter}
 
-\title{The numerical certificate behind the two-thirds theorem, checked without Lean, and the file it still needs\tnoteref{t1}}
-\tnotetext[t1]{Draft v0.2 of 2026-10-22, a companion to the cert-machine method paper, built from repository commit \RfCommit. Every number and count is read at build time from the records named in the Data availability statement; a record that no longer supports a sentence stops the build. Nothing here is a theorem, and nothing here bears on the truth of the theorems the story is about.}
+\title{The numerical layer of the two-thirds theorem, checked without Lean: a certificate that waits on a file, and the $\xi'$ constants raised by an exact window and a longer tail\tnoteref{t1}}
+\tnotetext[t1]{Draft v0.3 of 2026-10-22, a companion to the cert-machine method paper, built from repository commit \RfCommit. Every number and count is read at build time from the records named in the Data availability statement; a record that no longer supports a sentence stops the build. Nothing here is a theorem, and nothing here bears on the truth of the theorems the story is about.}
 
 \author[a]{Carlos Toledo\corref{cor1}}
 \ead{carlos@carlostoledo.co}
@@ -35,18 +36,20 @@
 \affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
 
 \begin{abstract}
-In 2026 a proof that more than two thirds of the nontrivial zeros of the Riemann zeta function are simple and on the critical line was found by a language model, verified by Alp\"oge and Furman, and formalised in Lean. The formalisation has one numerical input: 256 integer enclosures of a form factor at scale $2^{\RfKPow}$, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release describes as available from the authors. We re-check the certificate from its integers with two programs that share no code with Lean, state exactly what that establishes and what it does not, and ask for the file. On the way, the Montgomery--Taylor constant and the four $\xi'$ constants of the paper are decided by exact rational arithmetic alone, with no interval kernel; the paper's abstract prints one constant truncated where a rounding would print another digit, true as a lower bound; and a survey of everything the story's sources print---the manuscripts, the Lean files, the research post, a video's captions---finds that \RfShaped{} of \RfSentences{} sentences are finite claims at all. No theorem is touched. Every number here is read from a public record at build time.
+In 2026 a proof that more than two thirds of the nontrivial zeros of the Riemann zeta function are simple and on the critical line was found by a language model, verified by Alp\"oge and Furman, and formalised in Lean. The formalisation has one numerical input: 256 integer enclosures of a form factor at scale $2^{\RfKPow}$, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release describes as available from the authors. We re-check the certificate from its integers with two programs that share no code with Lean, state exactly what that establishes and what it does not, and ask for the file. On the way, the Montgomery--Taylor constant and the four $\xi'$ constants of the paper are decided by exact rational arithmetic alone, with no interval kernel. The window of the paper's Remark~7.1 is then optimised exactly: the constants depend on the window through a Rayleigh quotient, the paper's quartic sits $\RfQuarticGapTex$ below its own family's optimum, and a degree-six window with the certificate's series truncated at fifteen terms instead of nine raises the formalisation's eight-digit constants from \RfLeanP{} and \RfLeanD{} to \RfNewP{} and \RfNewD, with an exact certificate that no even polynomial window of degree up to twenty does better at $\lambda=1$; the same machinery with the $\zeta$ kernel recovers the Montgomery--Taylor constant to \RfMtAgreeDigits{} digits, which calibrates it. The paper's abstract prints one constant truncated where a rounding would print another digit, true as a lower bound; and a survey of everything the story's sources print---the manuscripts, the Lean files, the research post, a video's captions---finds that \RfShaped{} of \RfSentences{} sentences are finite claims at all. No theorem is touched. Every number here is read from a public record at build time and re-derived by a third implementation before it is printed.
 \end{abstract}
 
 \begin{highlights}
 \item The formalisation's one numerical certificate holds over its printed integers by a route that shares nothing with Lean; its hypothesis EnclOK rests on an unpublished file, which we ask for.
 \item The Montgomery--Taylor and $\xi'$ constants are decided by exact rational arithmetic, no interval kernel; the $\xi'$ rationals re-derive from their definitions.
+\item The $\xi'$ window optimised exactly: the formalisation's constants rise from \RfLeanP{} and \RfLeanD{} to \RfNewP{} and \RfNewD{} by a degree-six window and fifteen series terms, with a certificate that no even polynomial window of degree up to twenty does better.
+\item With the $\zeta$ kernel the same machinery returns the Montgomery--Taylor constant to \RfMtAgreeDigits{} digits, and exactly $0.6725$ at degree two: the calibration against a closed form.
 \item A truncated print is not a rounded one: the abstract's $0.8362$ is true as a lower bound and false as a rounding.
 \item Of \RfSentences{} sentences the story's sources print, \RfShaped{} reduce to decidable claims; every theorem is refused, with the rule.
 \end{highlights}
 
 \begin{keyword}
-Riemann zeta function \sep simple zeros \sep Lean \sep formal verification \sep independent verification \sep exact rational arithmetic \sep machine-generated mathematics
+Riemann zeta function \sep simple zeros \sep window optimisation \sep Lean \sep formal verification \sep independent verification \sep exact rational arithmetic \sep machine-generated mathematics
 \end{keyword}
 
 \end{frontmatter}
@@ -106,9 +109,53 @@ J_{\mathrm{flat}}=\RfXiJFlat,\qquad \varepsilon_9=\RfXiEps,\\
 J_{\mathrm{quartic}}=\RfXiJQuartic,\\
 \kappa_9^{\mathrm{quartic}}=\RfXiKappaQuartic.
 \end{gather*}
-The four eight-digit constants hold with margins $\RfXiPFlatMarginTex$, $\RfXiDFlatMarginTex$, $\RfXiPQuarticMarginTex$ and $\RfXiDQuarticMarginTex$; the paper's five-digit prints hold; $P_{\mathrm{flat}}=\RfXiPFlatFrac=\RfXiPFlat\ldots$ exactly, and a control one unit of the eighth digit above it, $P_{\mathrm{flat}}\ge0.85838372$, is refuted as it must be. (The identity claims cite the session's derivation note as their source; the Lean files of the $\xi'$ certificate are being pinned by the producer, and the record will name them when they are.)
+The four eight-digit constants hold with margins $\RfXiPFlatMarginTex$, $\RfXiDFlatMarginTex$, $\RfXiPQuarticMarginTex$ and $\RfXiDQuarticMarginTex$; the paper's five-digit prints hold; $P_{\mathrm{flat}}=\RfXiPFlatFrac=\RfXiPFlat\ldots$ exactly, and a control one unit of the eighth digit above it, $P_{\mathrm{flat}}\ge0.85838372$, is refuted as it must be. (The $\xi'$ certificate's Lean files---\texttt{Statement}, \texttt{Defs}, \texttt{Certificate} and its \texttt{D1}, \texttt{Poly} and \texttt{AtOne}---are pinned by digest with the other sources; the identity claims quote the derivation note as the line that prints them.)
 
 \paragraph{Two corrections the machine made} Both re-derivations began wrong, and both times the exact decision was the correction. The grammar's first reading gave a print cut off with an ellipsis, $0.7532960\ldots$, the half-unit rounding box; the checker then refuted the true print and certified a false $0.7532961\ldots$, and it was right, since $c_1^*=\RfCmtDigits\ldots$ lies in $[0.7532960,\,0.7532961)$ and not within half a unit of $0.7532961$. An ellipsis is a truncation, and the grammar now reads it so. And a first pass took ``\texttt{D1trunc 9}'' as ten terms and reproduced none of the printed rationals; nine terms reproduce all of them, and the generator checks that a ten-term reading still matches none. We report both because they are the kind of error an exact decision catches and a careful reader does not.
+
+\section{The $\xi'$ window, optimised exactly, and the tail recovered}\label{sec:window}
+
+\paragraph{The constants are a Rayleigh quotient of the window} For an even polynomial window $v(s)=\sum_{i=0}^{m-1}c_is^{2i}$ on $[-\tfrac12,\tfrac12]$, every quantity in $\kappa_9(v)=(\int v^2+J(v))/(\int v)^2$ is a rational form in the coefficients: $\int v=b^{\mathsf T}c$ with $b_i=\int s^{2i}=1/(4^i(2i+1))$, and $\int v^2+J(v)=c^{\mathsf T}Mc$ with $M_{ij}=\int s^{2i+2j}+\tfrac12(H_{ij}+H_{ji})$, $H_{ij}=2\int_0^1D_1^{(K)}(r)\,(s^{2i}{\star}s^{2j})(r)\,dr$, where the pair autocorrelation $(s^{2i}{\star}s^{2j})(r)=\int_{-1/2}^{1/2-r}t^{2i}(t+r)^{2j}\,dt$ is a polynomial in $r$. So $\kappa_9=c^{\mathsf T}Mc/(b^{\mathsf T}c)^2$, minimised over each degree exactly at $c\propto M^{-1}b$ with minimum $\kappa^*=1/(b^{\mathsf T}M^{-1}b)$: rational linear algebra, no numerics. The formalisation's own comment on its quartic window says it ``saturates the numerically optimal window to $10^{-6}$''; this section makes that exact, and then takes the two cheap steps the exact picture shows.
+
+\paragraph{The optima by degree and truncation order} Table~\ref{tab:tail} gives the minimum of $2-\kappa^*-\varepsilon_K$ over even polynomial windows of each degree, for the certificate's nine-term truncation of $D_1$ and for three longer ones. At nine terms the paper's quartic, $\RfQuarticP\ldots$, is $\RfQuarticGapTex$ below the optimum of its own degree, and the optimum saturates from degree six on: twelve digits agree up to degree twenty, $\RfCeilingGapTex$ above the paper's window. The larger lever is in the rows: the nine-term truncation costs $\varepsilon_9=\RfEpsNineTex$, more than a third of the whole window gain, and the formalisation's truncation lemma is stated for every $K\ge9$ with the tail $\varepsilon_K=a_K\cdot\frac{(K+2)(2K+3)}{(K+2)(2K+3)-2(K+1)}$, the geometric comparison from the coefficient ratio at $k=K$, which decreases. At fifteen terms $\varepsilon_{15}=\RfEpsFifteenTex$ ($=\RfEpsFifteenFrac$) and the constants move by the whole of $\varepsilon_9$; at twenty terms nothing moves in twelve digits.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrr@{}}\toprule
+terms & $\varepsilon_K$ & \RfTailDegrees \\\midrule
+\RfTailRows \\
+\bottomrule\end{tabular}
+\caption{The most the window method gives for simple zeros of $\xi'$ at $\lambda=1$, $2-\kappa^*-\varepsilon_K$, within even polynomial windows of degree 2, 4, 6 and 20 (the columns; degrees 8 to 20 agree to twelve places), by the truncation order of $D_1$ (the rows); every entry an exact rational printed to twelve places. The paper's quartic gives \RfQuarticP.}\label{tab:tail}
+\end{table}
+
+\paragraph{The certified window} The degree-six optimum rounded to thousandths,
+\[
+v_6(s)=\RfWSixCoeffs,
+\]
+satisfies the formalisation's window profile by inspection of its coefficients: every coefficient after the first is negative, so $v_6\le1$ on $\R$ and $v_6$ decreases in $|s|$, and $v_6(\tfrac12)=10737/16000>0$; both facts are decided from the certificate's bytes. With the nine-term certificate it gives $P\ge0.86864115$ and $D\ge0.93432057$ (\RfWSixKNineP{} and \RfWSixKNineD{} exactly), one unit of the sixth digit above the Lean's \RfLeanP{} and \RfLeanD; with fifteen terms, $P\ge\RfNewP$ and $D\ge\RfNewD$ (\RfWSixKFifteenP{} and \RfWSixKFifteenD), a gain of $\RfGainTex$ over the formalisation's constants, by the same window shape and three more terms of a series it already holds. The controls one unit of the eighth digit beyond are refuted, as they must be. The paper's five printed digits, $0.86864$ and $0.93432$, do not move.
+
+\paragraph{The optimality, decided} That no window of a degree does better is the statement that $N:=M-\kappa^*bb^{\mathsf T}$ is positive semidefinite, with exactly one zero eigenvalue at $c^*$. The certificate prints the pair autocorrelations as coefficient rows, from which the checker recomputes $M$ exactly, together with $L$, $D$ and $c^*$ for $N=LDL^{\mathsf T}$; the claims are that the factorisation's residual is zero, that every pivot is at least zero, that the least pivot is not positive (the one zero), that $\kappa_9(c^*)-\kappa^*$ is zero and not negative (attainment), and that $P^*$ lies in an eleven-digit bracket. All hold, and the two controls that must fail do, at degrees six and twenty, at nine and at fifteen terms. So ``no even polynomial window of degree at most twenty gives the method more than \RfOTwentyKFifteenP{} at $\lambda=1$'' is a decision of the checker, not a sentence. The generator of this paper's numbers re-derives every one of these certificates from the definitions alone, in a third implementation over arbitrary-precision rationals: the autocorrelation rows, $M$ and $b$, the solve, $\kappa^*$ and the pivots, and it stops the build if any differs from the record.
+
+\paragraph{The parameter} The paper's Theorem~8.2 holds at every fixed $\lambda\in(0,1)$ with $\kappa_1(\lambda,v)=1/c_\lambda(v;D_1)$, $c_\lambda(v;D)=\lambda(\int v)^2/(\int v^2+\lambda\mathcal J)$ and $\mathcal J=2\int_0^1D(\lambda r)(v{\star}v)(r)\,dr$, the limit form at $\lambda=1$ stated separately; the functional at $\lambda$ is a Rayleigh quotient too, with $M=G/\lambda+\operatorname{sym}H(\lambda)$. For every window and degree tried the constant falls as $\lambda$ leaves $1$ (Table~\ref{tab:lam}); on record, $v_6$ at $\lambda=19/20$ gives $P\le0.83686$ and at $9/10$ $P\le0.79415$, with the control $P\ge0.84$ refuted. The limit form is the right place, and there is nothing to gain in that direction. This is closed by evaluation at the sampled values, not by a monotonicity proof.
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}lrr@{}}\toprule
+$\lambda$ & degree 6 & degree 20 \\\midrule
+\RfLamRows \\
+\bottomrule\end{tabular}
+\caption{The most the method gives at fixed $\lambda$, fifteen terms, within even polynomial windows of degrees six and twenty.}\label{tab:lam}
+\end{table}
+
+\paragraph{The calibration} With the $\zeta$ kernel $D(s)=s$ in place of $D_1$ the same functional is the Montgomery--Taylor problem, whose optimum over all windows is the paper's closed form $2-c_{\mathrm{MT}}^{-1}=\RfMtSixteen\ldots$ (the series bracket of Section~\ref{sec:constants}), attained at the window $\cos(\sqrt2\,s)$: the Euler--Lagrange equation of the quotient, $v''+2v=0$. Polynomial windows must stay at or below it and approach it. They do (Table~\ref{tab:zeta}): degree two gives exactly $2-\RfZetaDegTwoKappa=\RfZetaDegTwo=0.6725$, the abstract's four digits to the digit; degree four gives $0.6725007036667\ldots$; from degree six on, $\RfZetaDegSix\ldots$, inside the series bracket of width $2\cdot10^{-19}$, the closed form to \RfMtAgreeDigits{} digits, and the distinct proportion $\RfMtDistinctSixteen\ldots$ likewise. The optimality certificates for $\zeta$ at degrees two, six and twenty are decided by the same route, controls refuted. This is the calibration of the whole machinery against a known answer, and it says what the saturation in Table~\ref{tab:tail} means: for $\zeta$ the polynomial optima reach the true optimum because the optimal window is analytic and the quotient's error is quadratic in the approximation error; for $\xi'$ the saturation from degree six on is the same behaviour, and the $L^2$ optimum is not certified here.
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}lrr@{}}\toprule
+degree & $2-\kappa^*$ (simple, on the line) & $\tfrac32-\kappa^*/2$ (distinct) \\\midrule
+\RfZetaRows \\
+\bottomrule\end{tabular}
+\caption{The $\zeta$ kernel: the polynomial optima of the Montgomery--Taylor functional by degree, against the closed form $\RfMtSixteen\ldots$ and $\RfMtDistinctSixteen\ldots$.}\label{tab:zeta}
+\end{table}
+
+\paragraph{What this is, and what it is not} It is a certified improvement of the formalisation's $\xi'$ constants by $\RfGainTex$, within the paper's own method and hypotheses, with an exact certificate of optimality over polynomial windows of degree up to twenty and the tail taken three terms further on the formalisation's own route; and it is a calibration of the machinery that produced it. It is not a new digit in the paper's print, not an optimum over all windows, and not a Lean proof: a Lean instance needs the truncation lemma at $k\ge15$ (the coefficient ratio is at most $\RfRatioFifteen$ there, beside the $\RfRatioNine$ of $k\ge9$) and the four lemma instances the file \texttt{AtOne.lean} proves for the quartic---its two integrals, the closed form of $v{\star}v$, positivity---with $v_6$'s rationals. Everything a formaliser needs is printed in the certificates.
 
 \section{A print, and a rule}\label{sec:print}
 
@@ -132,7 +179,7 @@ That the finite layer of a celebrated result is this thin is, we think, the most
 
 \section{Conclusion}\label{sec:conclusions}
 
-The formalisation's numerical certificate holds over its printed integers by a route that shares nothing with Lean; its hypothesis EnclOK rests on a file that only its authors can read, and we have asked for it. The constants that looked as if they needed an interval kernel needed only an alternating series and the certificate's own definitions. One print in the abstract is a truncation. Of everything the story's sources print, \RfShaped{} sentences in \RfSentences{} are finite claims. None of this bears on the theorems. What it offers their authors is small and concrete: publish the law file, and the one conditional step in an otherwise kernel-checked certificate becomes a step anyone can check.
+The formalisation's numerical certificate holds over its printed integers by a route that shares nothing with Lean; its hypothesis EnclOK rests on a file that only its authors can read, and we have asked for it. The constants that looked as if they needed an interval kernel needed only an alternating series and the certificate's own definitions, and once they were rational the window and the tail could be optimised exactly: the formalisation's $\xi'$ constants rise by $\RfGainTex$, with an optimality certificate and a calibration that returns the Montgomery--Taylor constant to \RfMtAgreeDigits{} digits. One print in the abstract is a truncation. Of everything the story's sources print, \RfShaped{} sentences in \RfSentences{} are finite claims. None of this bears on the theorems. What it offers their authors is small and concrete: publish the law file, and the one conditional step in an otherwise kernel-checked certificate becomes a step anyone can check; and take the window $v_6$ and fifteen terms, which raise two formalised constants by the same proofs with new rationals.
 
 \section*{Declaration of competing interest}
 The author declares no competing financial or personal interests. The authors of the paper, the formalisation and the post have not been consulted on this draft; the request for the law file was posted on the formalisation's repository on 2026-10-22, as a comment on its open issue 8.
@@ -190,15 +237,23 @@ claim & what it is & word \\\midrule
 \caption{The \RfAiClaims{} planted claims and their words.}\label{tab:ai}
 \end{table}
 
-\paragraph{The mathematician's claims} The author of the translator's session then wrote \RfMathClaims{} claims of its own, derived from the sources and the bytes, each with the word expected of it (Table~\ref{tab:math}): the two eighth-digit bounds on $c_1^*$; the two ``published as'' prints; the CUE containment; the three pieces of the paper's ceiling arithmetic; the five $\xi'$ identities, the four eight-digit and the four five-digit constants; and a control one unit above $P_{\mathrm{flat}}$. \RfMathCertified{} hold, \RfMathRefuted{} are refuted, both refutations expected: the $0.8362$ print and the control.
+\paragraph{The mathematician's claims} The author of the translator's session then wrote claims of its own, derived from the sources and the bytes, each with the word expected of it before the run: \RfMathClaims{} in all, \RfMathCertified{} holding and \RfMathRefuted{} refuted, every refutation a planted control. The first \RfMathFirst{} (Table~\ref{tab:math}): the two eighth-digit bounds on $c_1^*$; the two ``published as'' prints; the CUE containment; the three pieces of the paper's ceiling arithmetic; the five $\xi'$ identities, the four eight-digit and the four five-digit constants; and a control one unit above $P_{\mathrm{flat}}$. The other \RfMathWin{} (Table~\ref{tab:mathwin}) are the window search of Section~\ref{sec:window}: the windows, the optimality certificates at nine and fifteen terms, the tail, the parameter and the $\zeta$ calibration, with \RfMathWinRefuted{} controls refuted.
 
 \begin{table}[htbp]\centering\scriptsize\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}L{0.33\linewidth}L{0.49\linewidth}l@{}}\toprule
 claim & why the word was expected & word \\\midrule
 \RfMathRows \\
 \bottomrule\end{tabular}
-\caption{The mathematician's \RfMathClaims{} claims, with the expectation recorded before each run.}\label{tab:math}
+\caption{The mathematician's first \RfMathFirst{} claims, with the expectation recorded before each run.}\label{tab:math}
 \end{table}
+
+\begin{longtable}{@{}L{0.72\linewidth}l@{}}
+\caption{The \RfMathWin{} claims of the window search: the words as decided (\vR{} is a planted control in every case).}\label{tab:mathwin}\\\toprule
+claim & word \\\midrule\endfirsthead
+\toprule claim & word \\\midrule\endhead
+\bottomrule\endfoot
+\RfMathWinRows \\
+\end{longtable}
 
 \paragraph{Recall at scale} A defect planted in the bytes, the sentence or the page must come out as a refusal with its rule or as a changed decision, and an edit that is not a defect must leave the decision as it was. Every enclosure was moved by one unit either way and widened by one and two units; rows were dropped and exchanged; $K$ and $N$ were edited; the free row was moved; $p_0$ was edited in the file; the bar was moved in the sentence and in a copy of the page with the sentence following; another claimant's file was given as the bytes; the last digit of $c_1^*$ was changed in a copy of its file (Table~\ref{tab:plants}). The expectation of every row edit was computed from the edited integers by hand: an enclosure sits on one side of $j\cdot K/256$, which side varies by row, and $\tau$ is $1.63$ units of $256/K$, so a move away from $j$ crosses the tolerance and a move towards it does not. The first draft of the recall assumed every one-unit shift flips the decision; the first sample showed half do not, which is what the controls are for. \RfPlants{} plants, \RfCaught{} caught; \RfControls{} controls, \RfControls{} undisturbed; \RfRecallUndecided{} undecided as recorded, the digits plant on the paper's closed-form claim (\RfUndecidedPlant). On the translator's earlier corpora the same test caught \RfEarlierPlants{} of \RfEarlierPlants.
 
@@ -224,6 +279,7 @@ the certificate & \url{python3 -m claimbox batch corpus/riemann-jobs.json --out 
 the planted claims & \url{python3 -m claimbox batch corpus/riemann-ai-jobs.json --out records/riemann-ai --check --record records/riemann-ai-run.json} & Table~\ref{tab:ai} \\
 the mathematician's claims & \url{python3 -m claimbox batch corpus/riemann-math-jobs.json --out records/riemann-math --check --record records/riemann-math-run.json} & Table~\ref{tab:math} \\
 recall at scale & \url{CLAIMBOX_FULL=1 python3 tests/riemann_recall.py} & \RfPlants/\RfPlants, \RfControls/\RfControls \\
+the window search & \url{python3 tools/xi_window.py --check}; \url{python3 tools/xi_window.py --sweep-terms}; \url{--sweep-lambda}; \url{--sweep-zeta} & every rational of the quartic reproduced; Tables~\ref{tab:tail}, \ref{tab:lam}, \ref{tab:zeta} \\
 the translator's battery & \url{make test} & \RfClaimboxChecks{} pass, \RfClaimboxReds/\RfClaimboxReds{} reds \\
 the copies (cert-machine) & \url{node tools/check-claimbox-lift.js} & \RfLiftFiles{} files held; the numbers identical \\
 this paper's numbers (cert-machine) & \url{node tools/paper-numbers/riemann-finite-layer.js} & the macro file rewritten identically \\

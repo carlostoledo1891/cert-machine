@@ -1,5 +1,5 @@
 {
- "what": "The mathematician's claims of the fifth session (corpus/riemann/mathematician.md): the Montgomery–Taylor constant and its two proportions decided by rational arithmetic through the series certificate (zeta23/mt-series.json), two bounds of my own on it, the paper's abstract's four-digit prints under the digits reading (one a truncation, refuted; one certified), the law's exact-CUE band rows from the enclosures, the paper's arithmetic on the ceiling from the file's own p₀, and the ξ′ certificate's rational core re-derived from its definitions (five identities, the Lean's eight-digit constants, the paper's five-digit prints, one false control) — each with the outcome I expect. Run: python3 -m claimbox batch corpus/riemann-math-jobs.json --out records/riemann-math --check --record records/riemann-math-run.json; the battery holds every outcome to its expectation.",
+ "what": "The mathematician's claims of the fifth session (corpus/riemann/mathematician.md): the Montgomery–Taylor constant and its two proportions decided by rational arithmetic through the series certificate (zeta23/mt-series.json), two bounds of my own on it, the paper's abstract's four-digit prints under the digits reading (one a truncation, refuted; one certified), the law's exact-CUE band rows from the enclosures, the paper's arithmetic on the ceiling from the file's own p₀, and the ξ′ certificate's rational core re-derived from its definitions (five identities, the Lean's eight-digit constants, the paper's five-digit prints, one false control), and the window search of §7 (the paper's quartic below its own family's optimum; the windows q4, w6 and the degree-20 minimiser with their constants, hypotheses and controls; the optimality certificates of degrees 6 and 20 — the LDLᵀ residual, the pivots, the attainment, P* — with their two controls each) — each with the outcome I expect. Run: python3 -m claimbox batch corpus/riemann-math-jobs.json --out records/riemann-math --check --record records/riemann-math-run.json; the battery holds every outcome to its expectation.",
  "jobs": [
   {
    "id": "math-cmt-le",
@@ -194,6 +194,699 @@
    "elements": "rationals",
    "expect": "REFUTED",
    "why": "one unit of the eighth digit above the exact value 0.8583837135…"
+  },
+  {
+   "id": "math-win-quartic-le",
+   "claim": "P_quartic ≤ 0.86864018",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the paper's quartic window gives 0.868640173598…, below its own family's optimum 0.868641059186…"
+  },
+  {
+   "id": "math-win-q4-P",
+   "claim": "P_q4 ≥ 0.86864105",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-q4.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the degree-4 optimum rounded to 1/10000: 0.868641059184…"
+  },
+  {
+   "id": "math-win-q4-D",
+   "claim": "D_q4 ≥ 0.93432052",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-q4.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "0.934320529592…"
+  },
+  {
+   "id": "math-win-w6-P",
+   "claim": "P_w6 ≥ 0.86864115",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the degree-6 optimum rounded to 1/1000: 0.868641158927…, one unit of the sixth digit above the Lean's 0.86864017; margin 8.9·10⁻⁹"
+  },
+  {
+   "id": "math-win-w6-D",
+   "claim": "D_w6 ≥ 0.93432057",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "0.934320579464…, above the Lean's 0.93432008; margin 9.5·10⁻⁹"
+  },
+  {
+   "id": "math-win-w6-P-false",
+   "claim": "P_w6 ≥ 0.86864116",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the control: one unit of the eighth digit above the exact value 0.868641158927…"
+  },
+  {
+   "id": "math-win-w6-cmax",
+   "claim": "cmax_w6 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "every coefficient after the first is negative: v ≤ 1 on ℝ and decreasing in |s| (the paper's window hypotheses)"
+  },
+  {
+   "id": "math-win-w6-half",
+   "claim": "w6(1/2) = 10737/16000",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "v(1/2) = 1 − 157/2000 − 3763/16000 − 122/8000 = 0.6710625 > 0: positive on the interval"
+  },
+  {
+   "id": "math-win-q4-cmax",
+   "claim": "cmax_q4 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-q4.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "both coefficients after the first are negative"
+  },
+  {
+   "id": "math-win-q4-half",
+   "claim": "q4(1/2) = 26893/40000",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-q4.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "v(1/2) = 0.672325 > 0"
+  },
+  {
+   "id": "math-win-w6-kappa",
+   "claim": "kappa9_w6 = 1811057962010301991562419298932/1600781683450427687806446724875",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "κ₉(w6) exactly, (∫v² + J)/(∫v)² over the certificate's bytes"
+  },
+  {
+   "id": "math-win-o20-P-lo",
+   "claim": "P_o20 ≥ 0.86864115895",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the exact degree-20 minimiser: 0.868641158956885…"
+  },
+  {
+   "id": "math-win-o20-P-hi",
+   "claim": "P_o20 ≤ 0.86864115896",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the same value from above: the method's constant at λ = 1 bracketed to eleven digits"
+  },
+  {
+   "id": "math-win-o20-D",
+   "claim": "D_o20 ≥ 0.93432057947",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "0.934320579478443…"
+  },
+  {
+   "id": "math-win-o20-cmax",
+   "claim": "cmax_o20 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the exact minimiser's coefficients after the first are all negative"
+  },
+  {
+   "id": "math-opt-res-opt20",
+   "claim": "res_opt20 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "L·D·Lᵀ = M − κ*·bbᵀ entry by entry, M recomputed by the receiver from the pair autocorrelation rows"
+  },
+  {
+   "id": "math-opt-dmin-opt20",
+   "claim": "dmin_opt20 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "every pivot of D is at least 0: N is positive semidefinite, so κ₉(c) ≥ κ* for every even window of this degree"
+  },
+  {
+   "id": "math-opt-dmin-pos-opt20",
+   "claim": "dmin_opt20 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the control: exactly one pivot is 0 (N kills c*), so the minimum is not positive"
+  },
+  {
+   "id": "math-opt-gap-opt20",
+   "claim": "gap_opt20 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "κ₉(c*) = κ* exactly: the bound is attained"
+  },
+  {
+   "id": "math-opt-gap-neg-opt20",
+   "claim": "gap_opt20 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the control: the gap is exactly 0, not negative"
+  },
+  {
+   "id": "math-opt-P-lo-opt20",
+   "claim": "Pstar_opt20 ≥ 0.86864115895",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "P* = 2 − κ* − ε₉ from the file's κ*"
+  },
+  {
+   "id": "math-opt-P-hi-opt20",
+   "claim": "Pstar_opt20 ≤ 0.86864115896",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the same from above: the most the method gives at λ = 1 within this degree, to eleven digits"
+  },
+  {
+   "id": "math-opt-res-opt6",
+   "claim": "res_opt6 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "L·D·Lᵀ = M − κ*·bbᵀ entry by entry, M recomputed by the receiver from the pair autocorrelation rows"
+  },
+  {
+   "id": "math-opt-dmin-opt6",
+   "claim": "dmin_opt6 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "every pivot of D is at least 0: N is positive semidefinite, so κ₉(c) ≥ κ* for every even window of this degree"
+  },
+  {
+   "id": "math-opt-dmin-pos-opt6",
+   "claim": "dmin_opt6 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the control: exactly one pivot is 0 (N kills c*), so the minimum is not positive"
+  },
+  {
+   "id": "math-opt-gap-opt6",
+   "claim": "gap_opt6 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "κ₉(c*) = κ* exactly: the bound is attained"
+  },
+  {
+   "id": "math-opt-gap-neg-opt6",
+   "claim": "gap_opt6 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the control: the gap is exactly 0, not negative"
+  },
+  {
+   "id": "math-opt-P-lo-opt6",
+   "claim": "Pstar_opt6 ≥ 0.86864115894",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "P* = 2 − κ* − ε₉ from the file's κ*"
+  },
+  {
+   "id": "math-opt-P-hi-opt6",
+   "claim": "Pstar_opt6 ≤ 0.86864115895",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the same from above: the most the method gives at λ = 1 within this degree, to eleven digits"
+  },
+  {
+   "id": "math-tail-eps15",
+   "claim": "eps15 = 8192/180952685768570625",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "ε₁₅ = a_15·561/529 exactly (the coefficient ratio at k = 15 is 32/561): 4.5·10⁻¹⁴, where ε₉ was 3.4·10⁻⁷"
+  },
+  {
+   "id": "math-tail-w6k15-P",
+   "claim": "P_w6k15 ≥ 0.86864150",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the w6 window with D₁ at fifteen terms: 0.868641500500…, the tail after nine terms recovered (3.4·10⁻⁷), now 1.3·10⁻⁶ above the Lean's 0.86864017"
+  },
+  {
+   "id": "math-tail-w6k15-D",
+   "claim": "D_w6k15 ≥ 0.93432075",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "0.934320750250…, against the Lean's 0.93432008"
+  },
+  {
+   "id": "math-tail-w6k15-P-false",
+   "claim": "P_w6k15 ≥ 0.86864151",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "one unit of the eighth digit too far: the value is 0.8686415005…"
+  },
+  {
+   "id": "math-tail-w6k15-P-10",
+   "claim": "P_w6k15 ≥ 0.8686415005",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "ten digits: 0.868641500500145…"
+  },
+  {
+   "id": "math-tail-w6k15-P-10-false",
+   "claim": "P_w6k15 ≥ 0.8686415006",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the eleventh digit: the value is 0.86864150050…"
+  },
+  {
+   "id": "math-tail-w6k15-cmax",
+   "claim": "cmax_w6k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the same window as w6: every coefficient after the first is negative"
+  },
+  {
+   "id": "math-tail-w6k15-half",
+   "claim": "w6k15(1/2) = 10737/16000",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "v(1/2) = 1 − 157/2000 − 3763/16000 − 122/8000, positive"
+  },
+  {
+   "id": "math-tail-o20k15-P-lo",
+   "claim": "P_o20k15 ≥ 0.86864150052",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the exact degree-20 minimiser at fifteen terms: 0.868641500529722…"
+  },
+  {
+   "id": "math-tail-o20k15-P-hi",
+   "claim": "P_o20k15 ≤ 0.86864150053",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the eleven-digit bracket of the method's constant at λ = 1 with the tail removed"
+  },
+  {
+   "id": "math-tail-o20k15-D",
+   "claim": "D_o20k15 ≥ 0.93432075026",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "0.934320750264861…"
+  },
+  {
+   "id": "math-tail-o20k15-cmax",
+   "claim": "cmax_o20k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-o20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the minimiser's coefficients after the first are all negative: v ≤ 1 on ℝ, decreasing in |s|"
+  },
+  {
+   "id": "math-tailopt-res-opt20k15",
+   "claim": "res_opt20k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "L·D·Lᵀ = M − κ*·bbᵀ entry by entry at fifteen terms, degree 20; M recomputed by the receiver from the pair autocorrelation rows"
+  },
+  {
+   "id": "math-tailopt-dmin-opt20k15",
+   "claim": "dmin_opt20k15 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "every pivot at least 0: N positive semidefinite, κ₁₅(c) ≥ κ* for every even window of that degree"
+  },
+  {
+   "id": "math-tailopt-dmin-pos-opt20k15",
+   "claim": "dmin_opt20k15 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the one zero pivot: N kills c*"
+  },
+  {
+   "id": "math-tailopt-gap-opt20k15",
+   "claim": "gap_opt20k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "κ₁₅(c*) − κ* = 0: attainment"
+  },
+  {
+   "id": "math-tailopt-gap-neg-opt20k15",
+   "claim": "gap_opt20k15 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "exact attainment, not a strict improvement"
+  },
+  {
+   "id": "math-tailopt-P-lo-opt20k15",
+   "claim": "Pstar_opt20k15 ≥ 0.86864150052",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "P* = 2 − κ* − ε₁₅ at degree 20: the most the method gives at λ = 1 within that degree, with the tail at fifteen terms"
+  },
+  {
+   "id": "math-tailopt-P-hi-opt20k15",
+   "claim": "Pstar_opt20k15 ≤ 0.86864150053",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the eleven-digit bracket"
+  },
+  {
+   "id": "math-tailopt-res-opt6k15",
+   "claim": "res_opt6k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "L·D·Lᵀ = M − κ*·bbᵀ entry by entry at fifteen terms, degree 6; M recomputed by the receiver from the pair autocorrelation rows"
+  },
+  {
+   "id": "math-tailopt-dmin-opt6k15",
+   "claim": "dmin_opt6k15 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "every pivot at least 0: N positive semidefinite, κ₁₅(c) ≥ κ* for every even window of that degree"
+  },
+  {
+   "id": "math-tailopt-dmin-pos-opt6k15",
+   "claim": "dmin_opt6k15 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the one zero pivot: N kills c*"
+  },
+  {
+   "id": "math-tailopt-gap-opt6k15",
+   "claim": "gap_opt6k15 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "κ₁₅(c*) − κ* = 0: attainment"
+  },
+  {
+   "id": "math-tailopt-gap-neg-opt6k15",
+   "claim": "gap_opt6k15 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "exact attainment, not a strict improvement"
+  },
+  {
+   "id": "math-tailopt-P-lo-opt6k15",
+   "claim": "Pstar_opt6k15 ≥ 0.86864150051",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "P* = 2 − κ* − ε₁₅ at degree 6: the most the method gives at λ = 1 within that degree, with the tail at fifteen terms"
+  },
+  {
+   "id": "math-tailopt-P-hi-opt6k15",
+   "claim": "Pstar_opt6k15 ≤ 0.86864150052",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt6k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the eleven-digit bracket"
+  },
+  {
+   "id": "math-tailopt-D-opt20k15",
+   "claim": "Dstar_opt20k15 ≥ 0.93432075026",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-opt20k15.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "D* = 3/2 − (κ* + ε₁₅)/2 at degree 20: 0.934320750264861…"
+  },
+  {
+   "id": "math-lam-w6l95-le",
+   "claim": "P_w6l95 ≤ 0.83686",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6l95.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the w6 window at λ = 19/20 (fifteen terms): κ(λ, v) = (∫v² + λ𝒥)/(λ(∫v)²) gives 0.836853214…, far below the λ = 1 value — the constant falls with λ"
+  },
+  {
+   "id": "math-lam-w6l95-ge-false",
+   "claim": "P_w6l95 ≥ 0.84",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6l95.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "λ < 1 loses: 0.8368… < 0.84"
+  },
+  {
+   "id": "math-lam-w6l90-le",
+   "claim": "P_w6l90 ≤ 0.79415",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-w6l90.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "at λ = 9/10: 0.794149734…; the limit form at λ = 1 is the right place, as the Lean states it"
+  },
+  {
+   "id": "math-zeta-res-zeta20",
+   "claim": "res_zeta20 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the ζ kernel D(s) = s (the Montgomery–Taylor functional): L·D·Lᵀ = M − κ*·bbᵀ at degree 20, M = G + sym(H) with H_ij = 2∫₀¹ r·(s^2i ⋆ s^2j)(r) dr"
+  },
+  {
+   "id": "math-zeta-dmin-zeta20",
+   "claim": "dmin_zeta20 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "N positive semidefinite: no even polynomial window of that degree gives ζ more than P*"
+  },
+  {
+   "id": "math-zeta-dmin-pos-zeta20",
+   "claim": "dmin_zeta20 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the one zero pivot"
+  },
+  {
+   "id": "math-zeta-gap-zeta20",
+   "claim": "gap_zeta20 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "attainment"
+  },
+  {
+   "id": "math-zeta-gap-neg-zeta20",
+   "claim": "gap_zeta20 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "exact attainment"
+  },
+  {
+   "id": "math-zeta-P-lo-zeta20",
+   "claim": "Pstar_zeta20 ≥ 0.672500703679",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the polynomial optimum for ζ at degree 20: 0.672500703679412…, the Montgomery–Taylor constant 2 − 1/c₁* = 0.6725007036794116… to twelve digits — the calibration of the whole machinery against a closed form"
+  },
+  {
+   "id": "math-zeta-P-hi-zeta20",
+   "claim": "Pstar_zeta20 ≤ 0.672500703680",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the polynomial optimum cannot exceed the optimum over all windows, which is the Montgomery–Taylor constant (the paper, after Carneiro–Chandee–Littmann–Milinovich)"
+  },
+  {
+   "id": "math-zeta-res-zeta6",
+   "claim": "res_zeta6 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the ζ kernel D(s) = s (the Montgomery–Taylor functional): L·D·Lᵀ = M − κ*·bbᵀ at degree 6, M = G + sym(H) with H_ij = 2∫₀¹ r·(s^2i ⋆ s^2j)(r) dr"
+  },
+  {
+   "id": "math-zeta-dmin-zeta6",
+   "claim": "dmin_zeta6 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "N positive semidefinite: no even polynomial window of that degree gives ζ more than P*"
+  },
+  {
+   "id": "math-zeta-dmin-pos-zeta6",
+   "claim": "dmin_zeta6 > 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "the one zero pivot"
+  },
+  {
+   "id": "math-zeta-gap-zeta6",
+   "claim": "gap_zeta6 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "attainment"
+  },
+  {
+   "id": "math-zeta-gap-neg-zeta6",
+   "claim": "gap_zeta6 < 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "exact attainment"
+  },
+  {
+   "id": "math-zeta-P-lo-zeta6",
+   "claim": "Pstar_zeta6 ≥ 0.672500703679",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the polynomial optimum for ζ at degree 6: 0.672500703679412…, the Montgomery–Taylor constant 2 − 1/c₁* = 0.6725007036794116… to twelve digits — the calibration of the whole machinery against a closed form"
+  },
+  {
+   "id": "math-zeta-P-hi-zeta6",
+   "claim": "Pstar_zeta6 ≤ 0.672500703680",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the polynomial optimum cannot exceed the optimum over all windows, which is the Montgomery–Taylor constant (the paper, after Carneiro–Chandee–Littmann–Milinovich)"
+  },
+  {
+   "id": "math-zeta-D-zeta20",
+   "claim": "Dstar_zeta20 ≥ 0.836250351839",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta20.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "3/2 − κ*/2 = 0.836250351839706…, the paper's (3 − 1/c₁*)/2 = 0.836250351839705822… to twelve digits"
+  },
+  {
+   "id": "math-zeta-P-zeta2",
+   "claim": "Pstar_zeta2 = 269/400",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta2.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the quadratic optimum for ζ is exactly 2 − 531/400 = 0.6725: the abstract's four digits are the degree-2 window's value to the digit"
+  },
+  {
+   "id": "math-zeta-res-zeta2",
+   "claim": "res_zeta2 ≤ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta2.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the 2×2 factorisation"
+  },
+  {
+   "id": "math-zeta-dmin-zeta2",
+   "claim": "dmin_zeta2 ≥ 0",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-zeta2.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "positive semidefinite at degree 2"
   }
  ]
 }

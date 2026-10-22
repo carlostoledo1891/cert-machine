@@ -4,7 +4,8 @@ Built 2026-08-31, rewritten to drop the permission ceremony. This is a
 READINESS LIST, not a request. It says what is ready, what it says, and where
 it goes; sending is Carlos's call and needs no ritual from this file.
 
-Mechanics, so nothing is mysterious: there is no mail transport, no OEIS API
+THE CHANNEL RULE (operator, 2026-10-23): outreach goes through GitHub. E-mails are off — we do not start them (a first e-mail
+can land in spam and nobody knows); we answer the ones we receive. Mechanics, so nothing is mysterious: there is no mail transport, no OEIS API
 and no erdosproblems account in this repo, so those are paste-by-hand. `gh` IS
 authenticated (carlostoledo1891, repo scope), so GitHub can be driven from
 here on request.
@@ -26,6 +27,7 @@ does not publish; the file's authors are asked BEFORE anyone reads that sentence
   cc3de991…) and the interval-arithmetic script; states the no-shared-code concordance on the integers (three claims hold),
   the CUE containment as a property of the file, and two small notes (c₁* by rational series; the XiPrime rationals re-derive).
   Links only claimbox's public records at b37d980. Pre-send checks in the draft. `gh issue create -R anthropics/formal-math`.
+### Z5a. The reply to Leandre — SENT 2026-10-23 by the operator (the text given in chat; a reply to his e-mail, the one kind the channel rule allows)
 ### Z5. The C31 registry PR — FILED 2026-10-22 as #249 (https://github.com/teorth/optimizationproblems/pull/249) on the operator's word
   Branch c31-replay-2026-10-22 of the fork from upstream 46dbf036; the edits by outreach/registry-pr6-edit-2026-10-22.py from certs/lueker-replay.json
   at 61aae8eb; label [T2026]; the body from outreach/registry-pr6-draft-2026-10-22.md. Open beside #232, #242, #243 (all unmerged).
@@ -36,7 +38,14 @@ does not publish; the file's authors are asked BEFORE anyone reads that sentence
 ### Z3. A note to the Lean community — NOT DRAFTED; after Z1 is answered, or after a week unanswered
   A Zulip post in #general or the formalization's thread: the concordance, the EnclOK condition, the request; links the
   paper once live. Draft on the operator's word.
-### Z4. A two-line courtesy note to Alpöge and Furman on the abstract's 0.8362 — the operator's call, NOT SENT
+### Z6. The ξ′ window issue to the formalizers — POSTED 2026-10-23 as anthropics/formal-math #30 (https://github.com/anthropics/formal-math/issues/30) on the operator's "proceed the github issue"; pre-send checks all passed (HEAD still e1a4e650, the six XiPrime files byte for byte, no prior thread, links 200, both batteries green)
+  The quartic 8.85e-7 below its family's optimum; v₆ and D1trunc 15 give 0.86864150 / 0.93432075 (+1.33e-6); the optimality certificate
+  over polynomial windows of degree ≤ 20; the ζ calibration to eighteen digits; what AtOne.lean needs. Links claimbox afd776c. The
+  operator posts: `gh issue create -R anthropics/formal-math`.
+### Z4. The e-mail to Alpöge and Furman — DROPPED 2026-10-23: E-MAILS ARE OFF (operator: GitHub only; we answer e-mails we receive, we do not start them — the first e-mail to Pedro went to spam). Its content is in Z6.
+  Carries the three things together: the window's family optimum and v₆, the tail (the part they can act on), the abstract's 0.8362.
+  The paper link goes in after Z2. The operator sends.
+### Z4-old. The two-line courtesy note as it was
   Text, if wanted: "A small note on the abstract of arXiv:2608.13637: with the Montgomery–Taylor window the second constant
   is 0.836250351…, so 0.8362 is a truncation (a rounding would print 0.8363); true as a lower bound, as the theorem's
   0.83625… makes clear. Decided in exact rational arithmetic from the series for sin and cos at 1/√2; details at

@@ -1,0 +1,79 @@
+{
+ "what": "The optimality certificate for even polynomial windows of degree 2 (corpus/riemann/mathematician.md §7): κ₉(v) = cᵀMc/(bᵀc)² with M_ij = ∫s^(2i+2j) + (H_ij + H_ji)/2, H_ij = 2∫₀¹ D1trunc9(r)·(s^(2i) ⋆ s^(2j))(r) dr, b_i = ∫s^(2i) = 1/(4^i(2i+1)); κ* = 1/(bᵀM⁻¹b); the matrix N = M − κ*·bbᵀ is positive semidefinite, N = L·D·Lᵀ with D ≥ 0 and exactly one zero pivot, so κ₉(c) ≥ κ* for every c, with equality at c* ∝ M⁻¹b. Written by tools/xi_window.py, every number exact, 2026-10-22.",
+ "terms": 9,
+ "lam": "1",
+ "kernel": "zeta",
+ "truncationNote": "the ζ kernel D(s) = s (the Montgomery–Taylor functional, no tail); λ = 1: κ(λ, v) = (∫v² + λ𝒥)/(λ(∫v)²), 𝒥 = 2∫₀¹ D(λr)·(v⋆v)(r) dr, M = G/λ + sym(H)",
+ "m": 2,
+ "kappaStar": "531/400",
+ "Pstar": "269/400",
+ "PstarDecimal": "0.672500000000000",
+ "convRows": [
+  [
+   "1",
+   "-1",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1/12",
+   "-1/4",
+   "1/2",
+   "-1/3",
+   "0",
+   "0"
+  ],
+  [
+   "1/12",
+   "-1/4",
+   "1/2",
+   "-1/3",
+   "0",
+   "0"
+  ],
+  [
+   "1/80",
+   "-1/16",
+   "1/12",
+   "0",
+   "0",
+   "-1/30"
+  ],
+  [
+   "1",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "29/28",
+   "1",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "7/1200",
+   "0",
+   "0",
+   "0",
+   "0",
+   "0"
+  ],
+  [
+   "1",
+   "-28/29",
+   "0",
+   "0",
+   "0",
+   "0"
+  ]
+ ],
+ "convRowsNote": "rows 0..3: the coefficients in r of (s^(2i) ⋆ s^(2j))(r) = ∫_{-1/2}^{1/2-r} t^(2i) (t+r)^(2j) dt at row i·m + j, 0 ≤ r ≤ 1; rows 4..5: L (unit lower triangular); row 6: D; row 7: c* normalised to c*_0 = 1; every row padded with zeros to width 6",
+ "derivation": "M from the rows as the ξ′ functional computes J: H_ij = 2[Σ_l f_l(1/(l+2) − 4/(l+3)) + Σ_{k=0}^{8} a_k Σ_l f_l/(2k+l+4)] over row i·m+j; each row has f_0 = ∫s^(2i+2j) = 1/(4^(i+j)(2i+2j+1)) and Σ_l f_l = 0 (the autocorrelation at r = 0 and r = 1)"
+}

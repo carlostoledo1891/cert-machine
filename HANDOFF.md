@@ -16,12 +16,44 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~20:00 UTC: TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~03:00 UTC: THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE WINDOW ROUND (2026-10-22/23, ~21:00–01:30 UTC; the operator pasted the claimbox chat's briefing — the window search of
+     §7, "beat 0.86864" — and said "Proceed all your suggestions, make sure you will push even more to make the results better and
+     try to find opportunities hidden. You are allowed to use claimbox project"). VERIFIED FIRST: the briefing against claimbox
+     6c86705 (§7, 51 claims 44/7, the certificates, xi_window.py) — true; the XiPrime files were NOT pinned; the paper's window
+     hypothesis (line 200 of the source) is even + C² + positive, the Lean's WindowProfile adds v ≤ 1 on ℝ and C³. THREE
+     OPPORTUNITIES FOUND AND TAKEN, in claimbox (its seventh session, commit afd776c, pushed): (1) THE TAIL — Statement.lean
+     states the route for every K ≥ 9; ε_K = a_K·(K+2)(2K+3)/((K+2)(2K+3) − 2(K+1)); ε₉ = 3.4e-7 was more than a third of the
+     window's gain; at fifteen terms ε₁₅ = 8192/180952685768570625 = 4.5e-14 and the w6 window gives P ≥ 0.86864150, D ≥ 0.93432075
+     CERTIFIED (0.868641500500…, 0.934320750250…) against the Lean's 0.86864017 / 0.93432008 — +1.33e-6; the degree-20 ceiling at
+     fifteen terms 0.868641500529…, its optimality certificate decided (res ≤ 0, dmin ≥ 0, gap ≤ 0 CERTIFIED; dmin > 0, gap < 0
+     REFUTED) at degrees 6 and 20. (2) THE PARAMETER — κ₁(λ, v) = 1/c_λ(v; D₁) (Defs.lean's cWin) is a Rayleigh quotient with
+     M = G/λ + sym H(λ); the constant FALLS as λ leaves 1 (0.8686 → 0.8632 at 0.99 → 0.8377 at 0.95 → 0.7970 at 0.9); w6 at 19/20
+     and 9/10 on record; closed by evaluation. (3) THE CALIBRATION — the ζ kernel D(s) = s is the Montgomery–Taylor functional:
+     degree 2 gives EXACTLY 2 − 531/400 = 0.6725 (the abstract's digits to the digit), degree 6 on gives 0.672500703679411…, the
+     closed form 2 − 1/c₁* = 0.6725007036794116… to EIGHTEEN digits (inside the series bracket of width 2e-19); the optimal window is
+     cos(√2 s) (v″ + 2v = 0), analytic, so polynomial saturation is the expected behaviour — the evidence that the ξ′ saturation is
+     real, not a proof. BUILT IN CLAIMBOX: tools/xi_window.py --terms/--lam/--zeta (+ --sweep-terms/-lambda/-zeta); translate.py's
+     window and optimality functionals over K ≥ 9, λ ∈ (0, 1] and the kernel, the earlier expressions byte for byte; three new refusals
+     with reds; 48 new claims (§8 of mathematician.md, the jobs with expectations) — 99 in all, 81 CERTIFIED, 18 REFUTED, every one as
+     expected; the six XiPrime Lean files pinned (31 pins; the Anthropic post re-fetched moved 43 bytes in its head); make test 288
+     checks, 48 reds. BUILT HERE: the lift at afd776c (166 files); the generator's THIRD IMPLEMENTATION of the whole chain — the monomial
+     autocorrelations, M and b, the exact solve, κ*, the LDLᵀ pivots — held to every certificate (κ*, P*, the autocorrelation rows, the
+     pivots, each window's κ/P/D) and to the series bracket; the paper v0.3 (21 pp): a new §4 "The ξ′ window, optimised exactly, and
+     the tail recovered" with the four tables (optima by degree × truncation order; the certified window; λ; the ζ calibration), the
+     abstract, highlights, conclusion and the appendix (the 22 first claims + the 77 window claims in a longtable) updated; the INDEX
+     entry; the title now "The numerical layer of the two-thirds theorem, checked without Lean: a certificate that waits on a file, and
+     the ξ′ constants raised by an exact window and a longer tail". THE OUTREACH: Z6 the ξ′ window issue POSTED 2026-10-23 as anthropics/formal-math #30 on "proceed the github issue"
+     (outreach/zeta23-window-issue-2026-10-22.md; a drop-in: v₆'s rationals, D1trunc 15, the k ≥ 15 ratio 32/561; the abstract's
+     0.8362 folded in; corpus/outreach.json gh-formal-math-30) and Z4 the e-mail to Alpöge–Furman — DROPPED 2026-10-23, E-MAILS ARE OFF (the operator: GitHub only; we answer e-mails we receive, never start them); its content folded into Z6.
+     GATE 1 IS CLEARED (the XiPrime pins): the push of this repository carries the paper. NOT DONE: the L² optimality (saturation
+     observed); a monotonicity proof in λ; the Lean instances (the authors'); formal-math issue #25 / PR #17 (0.6728005676 for ζ by six
+     MT translates, 56,924 kernel modules) — a replay target, unread, in corpus/targets.json.
   ◆ THE FOURTH COMPANION, v0.2 — "THE NUMERICAL CERTIFICATE BEHIND THE TWO-THIRDS THEOREM, CHECKED WITHOUT LEAN, AND THE FILE IT
      STILL NEEDS" — RESHAPED FOR OUTREACH, NOT PUSHED (2026-10-22 ~17:30–19:00 UTC; the operator: "is the paper a nice read for
      mathematicians and researchers? It is real contribution?" → the honest answer: a competent case study, long and jargon-heavy
@@ -72,8 +104,8 @@ NEXT SESSION, IN ORDER:
      drift` reports 137 "source gone" for the old lift — pre-existing, not ours; the C31 PR draft now names its commit 61aae8eb.
   ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS COMPLETE: BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR
      FILED 2026-10-22 AS teorth/optimizationproblems #249 on the operator's "send the ones that will be in Github" (branch
-     c31-replay-2026-10-22 of the fork from upstream 46dbf036; corpus/outreach.json gh-optq-249); the reply to Leandre given in
-     chat for the operator to send; PREVIOUSLY: the PR DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
+     c31-replay-2026-10-22 of the fork from upstream 46dbf036; corpus/outreach.json gh-optq-249); the reply to Leandre SENT 2026-10-23 by the operator
+     (corpus/outreach.json email-leandre-c31-reply); PREVIOUSLY: the PR DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
      verify the asterisk?" → yes, no rental needed; "Proceed"; "I will send after h=10 results"). THE ASK: Leandre Jack
      (leandrejack-afk, a third party) e-mailed the operator asking for a replay of his registry PR #231 (C_31, merged 2026-10-18,
      both rows asterisked): γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10 by Lueker's 2009 automaton; he offers his eigenvectors;

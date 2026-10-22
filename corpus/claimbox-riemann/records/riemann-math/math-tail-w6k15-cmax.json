@@ -1,0 +1,53 @@
+{
+ "id": "math-tail-w6k15-cmax",
+ "text": "cmax_w6k15 ≤ 0",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "9648a12f883ee79494580468c03202d25a2a2358436ffa889e90dfe06e8e2bfa",
+  "quote": "cmax_w6k15 ≤ 0"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/xi-w6k15.json",
+   "sha256": "62d082a9460fcc83e5cd91f27ccc8a274309256f881673fb704b4f137039d518"
+  },
+  "decoder": "the array at vConv: 14 values, each p/q string as the rational it names; terms = 15, window = 7 rows, vConv = 14 rows, the file's own fields, written into the expression as literals",
+  "count": 14,
+  "variable": "f",
+  "data": {
+   "select": "vConv",
+   "elements": "rationals",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Max",
+    [
+     "Max",
+     "-157/500",
+     "-3763/1000"
+    ],
+    "-122/125"
+   ],
+   "rel": "le",
+   "printed": "0",
+   "c": "0"
+  }
+ ],
+ "reference": "the bar is the printed 0 taken exactly (0); the value is the largest coefficient of s², s⁴, … of the degree-6 optimum's rounded, D₁ at fifteen terms window: at most 0 makes v ≤ 1 on ℝ and decreasing in |s| (the paper's window hypotheses), computed from the pinned bytes by the expression itself, read as each p/q string as the rational it names; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (None, sha256 …), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic: ∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)), ∫₀¹ r^{d+l} dr = 1/(d+l+1); the flat window has vConv(r) = 1 − r and ∫v = ∫v² = 1; a polynomial window's autocorrelation coefficients b_l are the certificate's bytes, v's coefficients its literals",
+  "the ξ′ certificate as Zeta23/XiPrime/Certificate/{D1,Poly,AtOne}.lean define it: D₁(s) = s − 4s² + Σ_{k≥0} a_k s^{2k+3} with a_k = 2·4^{k+1}·k!/(2k+2)! (the paper's Lemma 7.1), truncated at nine terms (k = 0..8), the tail ε₉ = a_9·231/211 (a_{k+1}/a_k ≤ 20/231 from k = 9 on), J(v) = 2∫₀¹ D1trunc9(r)·vConv(r) dr, κ₉(v) = (∫v² + J(v))/(∫v)², and the proportions 2 − κ₉ − ε₉ (simple and on the line) and 3/2 − (κ₉ + ε₉)/2 (distinct), each a lower bound because the tail is added on the side that makes 1/c larger — for any even window v > 0 on [−1/2, 1/2] with v ≤ 1 (Statement.lean's WindowProfile), the paper's two and the mathematician's own — the definitions, read"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates cmax_w6k15 <= 0",
+  "the pinned file does not hash to 62d082a9…"
+ ]
+}

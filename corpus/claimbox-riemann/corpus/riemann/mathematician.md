@@ -148,3 +148,187 @@ sit on one parity class and the doubles on the other, and the leading weight at 
 the weights are algebraic, as the cosines in the constraints make them, which is why no law of this programme can be a
 claimbox object until the receiver decides over Cos or over a cyclotomic field. Past N = 8 the enumeration of
 configurations must give way to column generation.
+
+## 7. The window search: the paper's quartic is not the optimum of its own family, and the method saturates one unit of the sixth digit above it
+
+The ξ′ constants of §4 are 2 − κ₉(v) − ε₉ and 3/2 − (κ₉(v) + ε₉)/2 for an even window v > 0 on [−1/2, 1/2] with v ≤ 1
+(the paper's §2.2 hypotheses; Statement.lean's WindowProfile), and κ₉(v) = (∫v² + J(v))/(∫v)² with J(v) = 2∫₀¹ D1trunc9·(v ⋆ v).
+For a polynomial window v(s) = Σ c_i s^{2i} this is a Rayleigh quotient cᵀMc/(bᵀc)² — M_{ij} = ∫s^{2i+2j} + 2∫₀¹ D1trunc9·(s^{2i} ⋆ s^{2j}),
+b_i = ∫s^{2i} — whose minimiser over each degree is c ∝ M⁻¹b exactly, in rational arithmetic (tools/xi_window.py; its calibration
+reproduces every rational of §4). The paper prints the flat window and one quartic, v = 1 − (7/100)(2s)² − (51/200)(2s)⁴, and the
+formalization's Defs.lean says of it that "it saturates the numerically optimal window to 10⁻⁶". The exact minimisers:
+
+    degree 2    P = 0.868200285550    (a quadratic cannot reach the quartic)
+    degree 4    P = 0.868641059186    the paper's quartic: 0.868640173598 — its own family's optimum is 8.9·10⁻⁷ above it
+    degree 6    P = 0.868641158941
+    degree 8    P = 0.868641158957
+    degree 10, 12, 16, 20    P = 0.868641158957 (agreeing to twelve digits: the method's constant at λ = 1 is 0.8686411589568…)
+
+Every minimiser has c_i < 0 for i ≥ 1 and v(1/2) ≈ 0.671 > 0, so it is at most 1 on ℝ, decreasing in |s|, and positive on the
+interval: the paper's window hypotheses hold by inspection of the coefficients, and the tail bound ε₉ applies because v ⋆ v ≥ 0.
+The gap between the paper's window and the method's ceiling is 9.85·10⁻⁷ — the Lean comment is exact — and the printed five
+digits 0.86864 and 0.93432 do not move; the Lean's eight-digit constants 0.86864017 and 0.93432008 do. Three windows the
+mathematician writes, with coefficients rounded so that they print (zeta23/xi-q4.json, xi-w6.json, xi-o20.json):
+
+    q4:   v(s) = 1 − (179/625) s² − (10243/2500) s⁴                  (the degree-4 optimum rounded to 1/10000)
+    w6:   v(s) = 1 − (157/500) s² − (3763/1000) s⁴ − (122/125) s⁶     (the degree-6 optimum rounded to 1/1000)
+    o20:  the exact degree-20 minimiser, rationals with denominators of up to 211 digits
+
+The claims, each decided by cert-machine from the window's certificate — the paper's window below its own family's optimum:
+
+P_quartic ≤ 0.86864018
+P_q4 ≥ 0.86864105
+D_q4 ≥ 0.93432052
+
+the improved constants, one unit of the sixth digit above the Lean's, and a control one unit of the eighth digit too far:
+
+P_w6 ≥ 0.86864115
+D_w6 ≥ 0.93432057
+P_w6 ≥ 0.86864116
+
+the window hypotheses as the coefficients show them, and the exact κ₉:
+
+cmax_w6 ≤ 0
+w6(1/2) = 10737/16000
+cmax_q4 ≤ 0
+q4(1/2) = 26893/40000
+kappa9_w6 = 1811057962010301991562419298932/1600781683450427687806446724875
+
+and the method's constant bracketed to eleven digits by the degree-20 minimiser:
+
+P_o20 ≥ 0.86864115895
+P_o20 ≤ 0.86864115896
+D_o20 ≥ 0.93432057947
+cmax_o20 ≤ 0
+
+What this is and is not. It is a certified improvement of the formalization's constants for ξ′ — 0.86864017 → 0.86864115 simple
+and on the line, 0.93432008 → 0.93432057 distinct — by a window that satisfies the paper's hypotheses, with every number exact;
+and it is the exact value of what the window method can give at λ = 1 within even polynomial windows of degree ≤ 20. It is not
+a new digit in the paper's print, and the optimality within each degree is stated here from the linear algebra, not yet as an
+object the receiver decides (a stationarity-and-positivity certificate over M is the next claim). On the Lean side a new window
+needs the four lemma instances AtOne.lean proves for the quartic — its two integrals, the closed form of v ⋆ v, positivity — with
+new rationals and the same proofs.
+
+The optimality, decided. Minimising cᵀMc/(bᵀc)² over all c is the statement that N := M − κ*·bbᵀ is positive semidefinite, with
+κ* = 1/(bᵀM⁻¹b); N kills c* ∝ M⁻¹b, so it has exactly one zero eigenvalue. The certificate (zeta23/xi-opt6.json, xi-opt20.json,
+written by tools/xi_window.py --optimality) prints the pair autocorrelations (s^{2i} ⋆ s^{2j})(r) as coefficient rows — from which
+the receiver recomputes M exactly, the way it computes J for a window — together with L, D and c*, where N = L·D·Lᵀ. The claims:
+the factorisation's residual is zero and every pivot is at least zero (so κ₉(c) ≥ κ* for every even window of that degree), the
+pivot minimum is not positive (the one zero pivot, c*), the gap κ₉(c*) − κ* is zero and not negative (attainment), and P* = 2 − κ* − ε₉
+bracketed to eleven digits — the same number the o20 window reaches:
+
+res_opt20 ≤ 0
+dmin_opt20 ≥ 0
+dmin_opt20 > 0
+gap_opt20 ≤ 0
+gap_opt20 < 0
+Pstar_opt20 ≥ 0.86864115895
+Pstar_opt20 ≤ 0.86864115896
+
+and the same for degree 6, whose P* is 1.6·10⁻¹¹ below degree 20's:
+
+res_opt6 ≤ 0
+dmin_opt6 ≥ 0
+dmin_opt6 > 0
+gap_opt6 ≤ 0
+gap_opt6 < 0
+Pstar_opt6 ≥ 0.86864115894
+Pstar_opt6 ≤ 0.86864115895
+
+So the sentence "no even polynomial window of degree at most 20 gives the method more than 0.86864115896 at λ = 1" is decided,
+not stated: the two controls (dmin > 0, gap < 0) come back REFUTED, as the one zero pivot and the exact attainment require, and
+everything else CERTIFIED. What the receiver takes from the file without recomputation is the pair autocorrelation rows themselves,
+held to their values at r = 0 and r = 1 as the window certificates are; the rest is its own arithmetic.
+
+
+## 8. The tail, the parameter and the calibration: fifteen terms, λ = 1, and the Montgomery–Taylor constant recovered
+
+Written in the cert-machine chat of 2026-10-22 (the same model, allowed into this repository by the operator), continuing §7.
+Three things the window search left open, each decided by the receiver from a certificate tools/xi_window.py writes.
+
+The tail. §4 truncates D₁ at nine terms and pays ε₉ = a_9·231/211 = 3.4·10⁻⁷ for it — more than a third of the window's whole
+gain in §7. The formalization's D1trunc K is stated for every K ≥ 9 (Statement.lean: "exact rational value of κ with D1trunc K,
+K ≥ 9 … D₁ ≤ D1trunc K + ε_K on [0,1]"), and the tail after K terms is a_K/(1 − ρ_K) with ρ_K = 2(K+1)/((K+2)(2K+3)) the
+coefficient ratio at k = K, decreasing in k: ε₁₂ = 1.7·10⁻¹⁰, ε₁₅ = 4.5·10⁻¹⁴, ε₂₀ = 1.6·10⁻²⁰. At fifteen terms the tail is gone
+to all the digits printed here and the constants move by the whole of ε₉: the w6 window gives P = 0.868641500500…,
+D = 0.934320750250…; the exact degree-20 minimiser at fifteen terms gives P* = 0.868641500529722…, and the optimality
+certificate at fifteen terms (M from D1trunc15; xi-opt6k15.json, xi-opt20k15.json) decides that no even polynomial window of
+degree ≤ 20 does better. So the formalization's eight-digit constants 0.86864017 and 0.93432008 become 0.86864150 and
+0.93432075 with the same window shape and three more terms of a series it already has — a change of 1.3·10⁻⁶, the paper's
+five printed digits unchanged. The claims:
+
+eps15 = 8192/180952685768570625
+P_w6k15 ≥ 0.86864150
+D_w6k15 ≥ 0.93432075
+P_w6k15 ≥ 0.86864151
+P_w6k15 ≥ 0.8686415005
+P_w6k15 ≥ 0.8686415006
+cmax_w6k15 ≤ 0
+w6k15(1/2) = 10737/16000
+
+P_o20k15 ≥ 0.86864150052
+P_o20k15 ≤ 0.86864150053
+D_o20k15 ≥ 0.93432075026
+cmax_o20k15 ≤ 0
+
+res_opt20k15 ≤ 0
+dmin_opt20k15 ≥ 0
+dmin_opt20k15 > 0
+gap_opt20k15 ≤ 0
+gap_opt20k15 < 0
+Pstar_opt20k15 ≥ 0.86864150052
+Pstar_opt20k15 ≤ 0.86864150053
+Dstar_opt20k15 ≥ 0.93432075026
+
+res_opt6k15 ≤ 0
+dmin_opt6k15 ≥ 0
+dmin_opt6k15 > 0
+gap_opt6k15 ≤ 0
+gap_opt6k15 < 0
+Pstar_opt6k15 ≥ 0.86864150051
+Pstar_opt6k15 ≤ 0.86864150052
+
+The parameter. The paper's Theorem 8.2 holds at every fixed λ ∈ (0, 1) with κ₁(λ, v) = 1/c_λ(v; D₁), c_λ(v; D) = λ(∫v)²/(∫v² + λ𝒥),
+𝒥 = 2∫₀¹ D(λr)·(v⋆v)(r) dr (Defs.lean's cWin), and the λ → 1⁻ limit form is stated separately. The functional at λ is a
+Rayleigh quotient too, with M = G/λ + sym(H(λ)), so the same tool minimises it; for every window and degree tried the constant
+FALLS as λ leaves 1 (at the degree-6 optimum: 0.8686 at λ = 1, 0.8632 at 0.99, 0.8377 at 0.95, 0.7970 at 0.9, 0.6825 at 0.8), so
+the limit form at λ = 1 is the right place and there is nothing to gain in that direction. On record, the w6 window at
+λ = 19/20 and 9/10 (fifteen terms; the certificate carries λ, the functional uses it):
+
+P_w6l95 ≤ 0.83686
+P_w6l95 ≥ 0.84
+P_w6l90 ≤ 0.79415
+
+The calibration. With the ζ kernel D(s) = s in place of D₁ the same functional is the Montgomery–Taylor problem, whose optimum
+over all windows the paper takes from Carneiro–Chandee–Littmann–Milinovich: 2 − 1/c₁* = 0.6725007036794116… (§1's series).
+The polynomial optima for ζ must stay at or below it and approach it; they do: degree 2 gives exactly 2 − 531/400 = 0.6725 —
+the abstract's four digits to the digit — degree 4 gives 0.672500703666…, and degree 6 onward 0.672500703679412…, the
+closed form to fifteen digits. The optimality certificates for ζ (xi-zeta2.json, xi-zeta6.json, xi-zeta20.json; the kernel
+named in the file, no tail) decide it, and the degree-20 ceiling for ξ′ above is the same machinery on D₁. The claims:
+
+res_zeta20 ≤ 0
+dmin_zeta20 ≥ 0
+dmin_zeta20 > 0
+gap_zeta20 ≤ 0
+gap_zeta20 < 0
+Pstar_zeta20 ≥ 0.672500703679
+Pstar_zeta20 ≤ 0.672500703680
+Dstar_zeta20 ≥ 0.836250351839
+
+res_zeta6 ≤ 0
+dmin_zeta6 ≥ 0
+dmin_zeta6 > 0
+gap_zeta6 ≤ 0
+gap_zeta6 < 0
+Pstar_zeta6 ≥ 0.672500703679
+Pstar_zeta6 ≤ 0.672500703680
+
+Pstar_zeta2 = 269/400
+res_zeta2 ≤ 0
+dmin_zeta2 ≥ 0
+
+What this is and is not. The fifteen-term constants are the formalization's own route (D1trunc K, K ≥ 9) carried three
+terms further; a Lean instance needs D1coeff_succ_le at k ≥ 15 (ratio 32/561) beside the k ≥ 9 lemma, and the four AtOne
+instances for w6. The λ direction is closed by evaluation, not by a monotonicity proof. The ζ calibration shows the polynomial
+optima saturate at the true optimum where the true optimum is known; for ξ′ the saturation from degree 6 on is the same
+behaviour, and the L² optimum is not certified here.

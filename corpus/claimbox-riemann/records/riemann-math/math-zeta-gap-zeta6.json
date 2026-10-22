@@ -1,0 +1,344 @@
+{
+ "id": "math-zeta-gap-zeta6",
+ "text": "gap_zeta6 ≤ 0",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "9648a12f883ee79494580468c03202d25a2a2358436ffa889e90dfe06e8e2bfa",
+  "quote": "gap_zeta6 ≤ 0"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/xi-zeta6.json",
+   "sha256": "4c061173ba743ec5cda4f0c4c4a920e814e8e4e885e27dabd10b20cf8e114a6d"
+  },
+  "decoder": "the array at convRows: 22 rows of 14, each p/q string as the rational it names; terms = 9, m = 4, kappaStar = 40220425/30297888, convRows = 22 rows, the file's own fields, written into the expression as literals",
+  "count": 22,
+  "variable": "f",
+  "data": {
+   "select": "convRows",
+   "elements": "rationals",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Divide",
+     [
+      "Sum",
+      "i",
+      "0",
+      "3",
+      [
+       "Sum",
+       "j",
+       "0",
+       "3",
+       [
+        "Multiply",
+        [
+         "Multiply",
+         [
+          "Index",
+          "f",
+          "21",
+          "i"
+         ],
+         [
+          "Index",
+          "f",
+          "21",
+          "j"
+         ]
+        ],
+        [
+         "Add",
+         [
+          "Divide",
+          "1",
+          [
+           "Multiply",
+           [
+            "Power",
+            "4",
+            [
+             "Add",
+             "i",
+             "j"
+            ]
+           ],
+           [
+            "Add",
+            [
+             "Multiply",
+             "2",
+             [
+              "Add",
+              "i",
+              "j"
+             ]
+            ],
+            "1"
+           ]
+          ]
+         ],
+         [
+          "Divide",
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            [
+             "Sum",
+             "l",
+             "0",
+             [
+              "Subtract",
+              "d",
+              "1"
+             ],
+             [
+              "Divide",
+              [
+               "Index",
+               "f",
+               [
+                "Add",
+                [
+                 "Multiply",
+                 "i",
+                 "4"
+                ],
+                "j"
+               ],
+               "l"
+              ],
+              [
+               "Add",
+               "l",
+               "2"
+              ]
+             ]
+            ]
+           ],
+           [
+            "Multiply",
+            "2",
+            [
+             "Sum",
+             "l",
+             "0",
+             [
+              "Subtract",
+              "d",
+              "1"
+             ],
+             [
+              "Divide",
+              [
+               "Index",
+               "f",
+               [
+                "Add",
+                [
+                 "Multiply",
+                 "j",
+                 "4"
+                ],
+                "i"
+               ],
+               "l"
+              ],
+              [
+               "Add",
+               "l",
+               "2"
+              ]
+             ]
+            ]
+           ]
+          ],
+          "2"
+         ]
+        ]
+       ]
+      ]
+     ],
+     [
+      "Square",
+      [
+       "Sum",
+       "i",
+       "0",
+       "3",
+       [
+        "Multiply",
+        [
+         "Divide",
+         "1",
+         [
+          "Multiply",
+          [
+           "Power",
+           "4",
+           "i"
+          ],
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            "i"
+           ],
+           "1"
+          ]
+         ]
+        ],
+        [
+         "Index",
+         "f",
+         "21",
+         "i"
+        ]
+       ]
+      ]
+     ]
+    ],
+    "40220425/30297888"
+   ],
+   "rel": "le",
+   "printed": "0",
+   "c": "0"
+  },
+  {
+   "g": [
+    "MaxOver",
+    "i",
+    "0",
+    "3",
+    [
+     "MaxOver",
+     "j",
+     "0",
+     "3",
+     [
+      "Abs",
+      [
+       "Subtract",
+       [
+        "Index",
+        "f",
+        [
+         "Add",
+         [
+          "Multiply",
+          "i",
+          "4"
+         ],
+         "j"
+        ],
+        "0"
+       ],
+       [
+        "Divide",
+        "1",
+        [
+         "Multiply",
+         [
+          "Power",
+          "4",
+          [
+           "Add",
+           "i",
+           "j"
+          ]
+         ],
+         [
+          "Add",
+          [
+           "Multiply",
+           "2",
+           [
+            "Add",
+            "i",
+            "j"
+           ]
+          ],
+          "1"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "eq",
+   "c": "0",
+   "note": "every pair autocorrelation row starts at its r = 0 value ∫s^{2i+2j}: max_{i,j} |f[i·m+j][0] − 1/(4^{i+j}(2i+2j+1))| = 0, decided from the bytes"
+  },
+  {
+   "g": [
+    "MaxOver",
+    "i",
+    "0",
+    "3",
+    [
+     "MaxOver",
+     "j",
+     "0",
+     "3",
+     [
+      "Abs",
+      [
+       "Sum",
+       "l",
+       "0",
+       [
+        "Subtract",
+        "d",
+        "1"
+       ],
+       [
+        "Index",
+        "f",
+        [
+         "Add",
+         [
+          "Multiply",
+          "i",
+          "4"
+         ],
+         "j"
+        ],
+        "l"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "eq",
+   "c": "0",
+   "note": "every pair autocorrelation vanishes at r = 1: max_{i,j} |Σ_l f[i·m+j][l]| = 0, decided from the bytes"
+  }
+ ],
+ "reference": "the bar is the printed 0 taken exactly (0); the value is κ(c*) − κ* over even windows of degree 6 for ζ, with κ(c*) = c*ᵀMc*/(bᵀc*)² from the rows: zero is attainment, computed from the pinned bytes by the expression itself, read as each p/q string as the rational it names; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (None, sha256 …), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic over the rows the certificate prints: the pair autocorrelations (s^{2i} ⋆ s^{2j})(r) as coefficient rows, L, D and c* as rows, κ* a literal; M recomputed from the rows as the ξ′ functional computes J; ∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)), ∫₀¹ r^p dr = 1/(p+1)",
+  "the optimality certificate of the window search (mathematician.md §7): over even polynomial windows v = Σ c_i s^{2i} of one degree, κ₉(v) = cᵀMc/(bᵀc)² with M_ij = ∫s^{2i+2j} + (H_ij + H_ji)/2, H_ij = 2∫₀¹ D1trunc9(r)·(s^{2i} ⋆ s^{2j})(r) dr and b_i = ∫s^{2i}; κ* = 1/(bᵀM⁻¹b); N = M − κ*·bbᵀ positive semidefinite (N = L·D·Lᵀ, D ≥ 0) is κ₉(c) ≥ κ* for every c; c* ∝ M⁻¹b attains it; so P* = 2 − κ* − ε₉ is the most this method gives at λ = 1 within that degree — the definitions, read"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates gap_zeta6 <= 0",
+  "the pinned integers violate: every pair autocorrelation row starts at its r = 0 value ∫s^{2i+2j}: max_{i,j} |f[i·m+j][0] − 1/(4^{i+j}(2i+2j+1))| = 0, decided from the bytes",
+  "the pinned integers violate: every pair autocorrelation vanishes at r = 1: max_{i,j} |Σ_l f[i·m+j][l]| = 0, decided from the bytes",
+  "the pinned file does not hash to 4c061173…"
+ ]
+}

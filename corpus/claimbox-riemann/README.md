@@ -73,7 +73,14 @@ equal: five identities, the four eight-digit constants and the paper's four prin
 (records/riemann-math-run.json, 22 claims). The 11/12 manuscript the mathematicians are reading, extracted with pdftotext, prints
 no decimal constant at all: a proof for human readers with no finite layer. An exploration in floats of the paper's bandwidth-one
 programme at small N (tools/ceiling_lp.py) gives 0.7134, 0.7073, 0.7053 on the half-integer grid for N = 4, 6, 8 — far above the
-256-law's 0.6818, with algebraic weights (2 − √2 at N = 8), so the authors' law lives on finer or structured positions.
+256-law's 0.6818, with algebraic weights (2 − √2 at N = 8), so the authors' law lives on finer or structured positions. The sixth session's first chase, the window behind the ξ′ constants: κ₉(v) is a Rayleigh quotient, minimised exactly over even
+polynomial windows (tools/xi_window.py) — the paper's quartic sits 8.9·10⁻⁷ below its own family's optimum and the method saturates
+9.85·10⁻⁷ above it; the window 1 − (157/500)s² − (3763/1000)s⁴ − (122/125)s⁶ gives P ≥ 0.86864115 and D ≥ 0.93432057 CERTIFIED, one unit
+of the sixth digit above the formalization's constants, its hypotheses decided from its coefficients, and the degree-20 minimiser
+brackets the method's constant to eleven digits; and the optimality is decided, not stated — the receiver recomputes the Rayleigh
+quotient's matrix from the pair autocorrelations the certificate prints and checks M − κ*·bbᵀ = L·D·Lᵀ with D ≥ 0, so no even window
+of degree at most 20 gives the method more than 0.86864115896 (mathematician.md §7; 51 claims in records/riemann-math-run.json, every
+one as expected, the four controls REFUTED).
 
 ```
 python3 -m claimbox read zeta23 --out jobs.json && python3 -m claimbox batch jobs.json --out out --check     # the Riemann story's certificate

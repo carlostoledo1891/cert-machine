@@ -1,0 +1,69 @@
+{
+ "id": "math-win-q4-half",
+ "text": "q4(1/2) = 26893/40000",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "9648a12f883ee79494580468c03202d25a2a2358436ffa889e90dfe06e8e2bfa",
+  "quote": "q4(1/2) = 26893/40000"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/xi-q4.json",
+   "sha256": "1258263ed99ee104eb6d6b434509614f00fb3fc1aed4fbcd802ac345a3d7fe2c"
+  },
+  "decoder": "the array at vConv: 10 values, each p/q string as the rational it names; terms = 9, window = 5 rows, vConv = 10 rows, the file's own fields, written into the expression as literals",
+  "count": 10,
+  "variable": "f",
+  "data": {
+   "select": "vConv",
+   "elements": "rationals",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     [
+      "Add",
+      [
+       "Divide",
+       "1",
+       "1"
+      ],
+      [
+       "Divide",
+       "-179/625",
+       "4"
+      ]
+     ],
+     [
+      "Divide",
+      "-10243/2500",
+      "16"
+     ]
+    ],
+    "26893/40000"
+   ],
+   "rel": "eq",
+   "c": "0",
+   "note": "the bar 26893/40000 as the source prints it, written into the expression as the rational 26893/40000: the receiver reads a printed bar only as a plain decimal or integer, so the zero of the difference is the bar"
+  }
+ ],
+ "reference": "the bar is the printed 26893/40000 taken exactly (26893/40000); the value is v(1/2) of the degree-4 optimum's rounded window, its minimum on [−1/2, 1/2] when the coefficients after the first are at most 0: positive is the paper's hypothesis, computed from the pinned bytes by the expression itself, read as each p/q string as the rational it names; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (None, sha256 …), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic: ∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)), ∫₀¹ r^{d+l} dr = 1/(d+l+1); the flat window has vConv(r) = 1 − r and ∫v = ∫v² = 1; a polynomial window's autocorrelation coefficients b_l are the certificate's bytes, v's coefficients its literals",
+  "the ξ′ certificate as Zeta23/XiPrime/Certificate/{D1,Poly,AtOne}.lean define it: D₁(s) = s − 4s² + Σ_{k≥0} a_k s^{2k+3} with a_k = 2·4^{k+1}·k!/(2k+2)! (the paper's Lemma 7.1), truncated at nine terms (k = 0..8), the tail ε₉ = a_9·231/211 (a_{k+1}/a_k ≤ 20/231 from k = 9 on), J(v) = 2∫₀¹ D1trunc9(r)·vConv(r) dr, κ₉(v) = (∫v² + J(v))/(∫v)², and the proportions 2 − κ₉ − ε₉ (simple and on the line) and 3/2 − (κ₉ + ε₉)/2 (distinct), each a lower bound because the tail is added on the side that makes 1/c larger — for any even window v > 0 on [−1/2, 1/2] with v ≤ 1 (Statement.lean's WindowProfile), the paper's two and the mathematician's own — the definitions, read"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates q4(1/2) = 26893/40000",
+  "the pinned file does not hash to 1258263e…"
+ ]
+}

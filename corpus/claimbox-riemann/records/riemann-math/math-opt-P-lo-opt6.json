@@ -1,0 +1,98 @@
+{
+ "id": "math-opt-P-lo-opt6",
+ "text": "Pstar_opt6 ≥ 0.86864115894",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "9648a12f883ee79494580468c03202d25a2a2358436ffa889e90dfe06e8e2bfa",
+  "quote": "Pstar_opt6 ≥ 0.86864115894"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/xi-opt6.json",
+   "sha256": "d4f80e0c0a221cbbdd53ea70f5e2fa68fdcb90c662ba0d01fd12f1ae34c741d7"
+  },
+  "decoder": "the array at convRows: 22 rows of 14, each p/q string as the rational it names; terms = 9, m = 4, kappaStar = 333483842419019869083706… (141 chars), convRows = 22 rows, the file's own fields, written into the expression as literals",
+  "count": 22,
+  "variable": "f",
+  "data": {
+   "select": "convRows",
+   "elements": "rationals",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Subtract",
+     "2",
+     "3334838424190198690837069438059988918231255797640772637275647827474319/2947640759575873398970969914224198150343808949069883478950261344553000"
+    ],
+    [
+     "Multiply",
+     [
+      "Divide",
+      [
+       "Multiply",
+       "2",
+       [
+        "Multiply",
+        [
+         "Power",
+         "4",
+         [
+          "Add",
+          "9",
+          "1"
+         ]
+        ],
+        [
+         "Product",
+         "m",
+         "1",
+         "9",
+         "m"
+        ]
+       ]
+      ],
+      [
+       "Product",
+       "m",
+       "1",
+       [
+        "Add",
+        [
+         "Multiply",
+         "2",
+         "9"
+        ],
+        "2"
+       ],
+       "m"
+      ]
+     ],
+     "231/211"
+    ]
+   ],
+   "rel": "ge",
+   "printed": "0.86864115894",
+   "c": "43432057947/50000000000"
+  }
+ ],
+ "reference": "the bar is the printed 0.86864115894 taken exactly (43432057947/50000000000); the value is P* = 2 − κ* − ε₉ over even windows of degree 6: the most the window method gives for simple zeros of ξ′ at λ = 1 within that degree, computed from the pinned bytes by the expression itself, read as each p/q string as the rational it names; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (None, sha256 …), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic over the rows the certificate prints: the pair autocorrelations (s^{2i} ⋆ s^{2j})(r) as coefficient rows, L, D and c* as rows, κ* a literal; M recomputed from the rows as the ξ′ functional computes J; ∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)), ∫₀¹ r^p dr = 1/(p+1)",
+  "the optimality certificate of the window search (mathematician.md §7): over even polynomial windows v = Σ c_i s^{2i} of one degree, κ₉(v) = cᵀMc/(bᵀc)² with M_ij = ∫s^{2i+2j} + (H_ij + H_ji)/2, H_ij = 2∫₀¹ D1trunc9(r)·(s^{2i} ⋆ s^{2j})(r) dr and b_i = ∫s^{2i}; κ* = 1/(bᵀM⁻¹b); N = M − κ*·bbᵀ positive semidefinite (N = L·D·Lᵀ, D ≥ 0) is κ₉(c) ≥ κ* for every c; c* ∝ M⁻¹b attains it; so P* = 2 − κ* − ε₉ is the most this method gives at λ = 1 within that degree — the definitions, read"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates Pstar_opt6 >= 0.86864115894",
+  "the pinned file does not hash to d4f80e0c…"
+ ]
+}

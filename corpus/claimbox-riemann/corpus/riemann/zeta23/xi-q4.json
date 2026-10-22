@@ -1,0 +1,33 @@
+{
+ "what": "The mathematician's window q4 (corpus/riemann/mathematician.md §7): the exact minimiser of κ₉ over even windows of degree 4 — a Rayleigh quotient cᵀMc/(bᵀc)², minimised at c ∝ M⁻¹b in exact rational arithmetic by tools/xi_window.py — rounded to coefficients in (1/10000)·ℤ: v(s) = 1 − (179/625)s² − (10243/2500)s⁴, i.e. 1 − 0.0716(2s)² − 0.25607(2s)⁴ against the paper's 1 − 0.07(2s)² − 0.255(2s)⁴. Same definitions and keys as xi-certificate.json (nine terms of D₁, the tail ε₉, J over the autocorrelation coefficients b_l, κ₉ = (∫v² + J)/(∫v)²); every number re-derived with exact fractions, 2026-10-22.",
+ "terms": 9,
+ "window": [
+  "1",
+  "0",
+  "-179/625",
+  "0",
+  "-10243/2500"
+ ],
+ "windowNote": "the coefficients of v(s) in powers of s (degree 4, even), on [−1/2, 1/2]",
+ "vConv": [
+  "435146839643/504000000000",
+  "-723233449/1600000000",
+  "-42013906643/21000000000",
+  "379172341/100000000",
+  "-5684363093/1500000000",
+  "9586792/5859375",
+  "0",
+  "-1833497/82031250",
+  "0",
+  "-104919049/3937500000"
+ ],
+ "vConvNote": "the coefficients b_0..b_n of (v ⋆ v)(r) = ∫_{-1/2}^{1/2-r} v(t) v(t+r) dt for 0 ≤ r ≤ 1, by exact polynomial arithmetic; b_0 = ∫v² and Σ b_l = (v ⋆ v)(1) = 0",
+ "intV": "554951/600000",
+ "intV2": "435146839643/504000000000",
+ "J": "3584996439889416692666703461/34318930912521255000000000000",
+ "kappa9": "33215501055980849649639147836/29358950472435501836886342375",
+ "P": "413923404243406884964434114094/476518349975683914429462941625",
+ "D": "890441754219090799393897055719/953036699951367828858925883250",
+ "minOnGrid": "26893/40000",
+ "derivation": "∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)); ∫₀¹ r^p dr = 1/(p+1); J = 2[Σ_l b_l (1/(l+2) − 4/(l+3)) + Σ_{k=0}^{8} a_k Σ_l b_l/(2k+l+4)]; κ₉ = (∫v² + J)/(∫v)²; P = 2 − κ₉ − ε₉; D = 3/2 − (κ₉ + ε₉)/2"
+}

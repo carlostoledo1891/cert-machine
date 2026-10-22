@@ -1,0 +1,39 @@
+{
+ "what": "The mathematician's window w6 (corpus/riemann/mathematician.md §7): the exact minimiser of κ₉ over even windows of degree 6, rounded to coefficients in (1/1000)·ℤ: v(s) = 1 − (157/500)s² − (3763/1000)s⁴ − (122/125)s⁶. From degree 6 on the exact optima agree to twelve digits (P* = 0.868641158957 at degrees 8, 10, 12, 16, 20), so this window carries the window method's constant for ξ′ at λ = 1 to within 3·10⁻¹¹. Same definitions and keys as xi-certificate.json (nine terms of D₁, the tail ε₉, J over the autocorrelation coefficients b_l, κ₉ = (∫v² + J)/(∫v)²); every number re-derived with exact fractions by tools/xi_window.py, 2026-10-22.",
+ "terms": 9,
+ "window": [
+  "1",
+  "0",
+  "-157/500",
+  "0",
+  "-3763/1000",
+  "0",
+  "-122/125"
+ ],
+ "windowNote": "the coefficients of v(s) in powers of s (degree 6, even), on [−1/2, 1/2]",
+ "vConv": [
+  "9949670230589/11531520000000",
+  "-115283169/256000000",
+  "-75086510627/36960000000",
+  "192859637/48000000",
+  "-7581338731/1680000000",
+  "41821477/15000000",
+  "-94754777/105000000",
+  "6729209/26250000",
+  "0",
+  "-15692489/630000000",
+  "0",
+  "-229543/72187500",
+  "0",
+  "-3721/46921875"
+ ],
+ "vConvNote": "the coefficients b_0..b_n of (v ⋆ v)(r) = ∫_{-1/2}^{1/2-r} v(t) v(t+r) dt for 0 ≤ r ≤ 1, by exact polynomial arithmetic; b_0 = ∫v² and Σ b_l = (v ⋆ v)(1) = 0",
+ "intV": "1553357/1680000",
+ "intV2": "9949670230589/11531520000000",
+ "J": "195471362098129711629631792057/1872440870587159672800000000000",
+ "kappa9": "1811057962010301991562419298932/1600781683450427687806446724875",
+ "P": "293396524764123863115528045783686/337764935208040242127160258948625",
+ "D": "631161459972164105242688304732311/675529870416080484254320517897250",
+ "minOnGrid": "10737/16000",
+ "derivation": "∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)); ∫₀¹ r^p dr = 1/(p+1); J = 2[Σ_l b_l (1/(l+2) − 4/(l+3)) + Σ_{k=0}^{8} a_k Σ_l b_l/(2k+l+4)]; κ₉ = (∫v² + J)/(∫v)²; P = 2 − κ₉ − ε₉; D = 3/2 − (κ₉ + ε₉)/2"
+}

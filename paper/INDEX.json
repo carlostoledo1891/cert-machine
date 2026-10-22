@@ -439,9 +439,9 @@
   {
    "name": "riemann-finite-layer",
    "group": "decided",
-   "title": "The numerical certificate behind the two-thirds theorem, checked without Lean, and the file it still needs",
-   "desc": "The 2026 proof that more than two thirds of the zeros of the Riemann zeta function are simple and on the critical line, found by a language model and formalised in Lean, has one numerical input: 256 integer enclosures of a form factor, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release does not publish. The certificate re-checked from its integers by two programs that share no code with Lean, with exactly what that establishes stated; the request for the file; the Montgomery–Taylor and ξ′ constants decided by exact rational arithmetic alone; a truncated print in the abstract; and a survey of everything the story's sources print, in which 10 of 65 sentences are finite claims at all. No theorem is touched.",
-   "status": "draft v0.2 · 2026-10-22 · the fourth companion of the method paper, in the short form for readers outside it; every number a macro from claimbox's records, copied here and pinned by commit and sha256",
+   "title": "The numerical layer of the two-thirds theorem, checked without Lean: a certificate that waits on a file, and the ξ′ constants raised by an exact window and a longer tail",
+   "desc": "The 2026 proof that more than two thirds of the zeros of the Riemann zeta function are simple and on the critical line, found by a language model and formalised in Lean, has one numerical input: 256 integer enclosures of a form factor, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release does not publish. The certificate re-checked from its integers by two programs that share no code with Lean, with exactly what that establishes stated; the request for the file, joined on the formalisation's open issue; the Montgomery–Taylor and ξ′ constants decided by exact rational arithmetic alone; the ξ′ window of Remark 7.1 optimised exactly as a Rayleigh quotient — the paper's quartic is 8.9·10⁻⁷ below its own family's optimum, and a degree-six window with the series at fifteen terms raises the formalisation's constants from 0.86864017 and 0.93432008 to 0.86864150 and 0.93432075, with a certificate that no even polynomial window of degree up to twenty does better, every number re-derived by a third implementation; the same machinery with the ζ kernel returns the Montgomery–Taylor constant to eighteen digits; a truncated print in the abstract; and a survey in which 10 of 65 printed sentences are finite claims at all. No theorem is touched.",
+   "status": "draft v0.3 · 2026-10-22 · the fourth companion of the method paper, in the short form for readers outside it; every number a macro from claimbox's records, copied here and pinned by commit and sha256, the window chain re-derived",
    "form": "article",
    "venue": null,
    "report": null,
@@ -452,6 +452,7 @@
     "corpus/claimbox-riemann/records/riemann-math-run.json",
     "corpus/claimbox-riemann/records/riemann-coverage.json",
     "corpus/claimbox-riemann/records/riemann-recall.json",
+    "corpus/claimbox-riemann/corpus/riemann/zeta23/xi-opt20k15.json",
     "PROVENANCE-claimbox.json"
    ]
   },
