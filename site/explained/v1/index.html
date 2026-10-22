@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who checks the machine's mathematics? · the easy read, round one</title>
+<meta name="description" content="Machines now produce mathematics faster than anyone can referee it. This page explains, with pictures and things to touch, how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
+<link rel="icon" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0f1e; --bg2:#0f1629; --ink:#e9eef8; --ink2:#a9b4cc; --mute:#6f7a93; --line:#1f2a44;
+  --c:#3ddc97; --r:#ff5c7a; --f:#ffb84d; --b:#5cc8ff; --v:#b48bff; --y:#ffe066;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif; --mono:"JetBrains Mono","SF Mono",ui-monospace,Menlo,monospace;
+  --w:68rem; --gap:clamp(1rem,2.5vw,2rem);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:clamp(1.02rem,0.95rem + 0.35vw,1.2rem);line-height:1.6;overflow-x:hidden}
+a{color:var(--b);text-decoration:none;border-bottom:1px solid rgba(92,200,255,.35)}
+a:hover{border-bottom-color:var(--b)}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 16px}
+h1,h2,h3{font-weight:600;letter-spacing:-.01em;line-height:1.12;margin:0}
+h1{font-size:clamp(2.4rem,1.4rem + 4.6vw,5rem);font-weight:700}
+h2{font-size:clamp(1.8rem,1.2rem + 2.4vw,3.1rem)}
+h3{font-size:clamp(1.2rem,1rem + .8vw,1.55rem);color:var(--ink)}
+p{margin:0 0 1.1em}
+.lead{font-size:1.15em;color:var(--ink2)}
+.mono,code,kbd{font-family:var(--mono);font-size:.92em}
+code{background:rgba(255,255,255,.06);padding:.08em .35em;border-radius:.3em}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+section{padding:clamp(3.5rem,8vw,7rem) 0;position:relative}
+section + section{border-top:1px solid var(--line)}
+.kicker{font-family:var(--mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-bottom:1rem}
+.kicker b{color:var(--b);font-weight:600}
+.grid{display:grid;gap:var(--gap)}
+@media(min-width:900px){.grid.two{grid-template-columns:1.1fr .9fr;align-items:start}.grid.rev{grid-template-columns:.9fr 1.1fr}}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:clamp(1rem,2.2vw,1.6rem)}
+.card h3{margin-bottom:.6rem}
+.word{display:inline-flex;align-items:center;gap:.45em;font-family:var(--mono);font-weight:700;letter-spacing:.08em;font-size:.9em;padding:.35em .8em;border-radius:999px;border:1.5px solid currentColor}
+.word.c{color:var(--c)} .word.r{color:var(--r)} .word.f{color:var(--f)} .word.n{color:var(--mute)}
+.word::before{content:"";width:.6em;height:.6em;border-radius:50%;background:currentColor}
+.word.r::before{border-radius:2px;transform:rotate(45deg)} .word.f::before{border-radius:0;clip-path:polygon(50% 0,100% 100%,0 100%)}
+.big{font-family:var(--mono);font-weight:700;font-size:clamp(2.2rem,1.4rem + 4vw,4.4rem);line-height:1;letter-spacing:-.02em}
+.big.sci{font-size:clamp(1.5rem,1rem + 2.4vw,2.8rem);white-space:nowrap}
+.sci{white-space:nowrap}
+.bars.wide .bar{grid-template-columns:minmax(7rem,11rem) 1fr 4.2rem}
+.bar.cap{grid-template-columns:1fr}
+.stat{display:flex;flex-direction:column;gap:.25rem}
+.stat .lbl{color:var(--mute);font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:var(--gap);margin:1.5rem 0}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}*{animation-duration:0s!important}}
+.ctl{display:grid;gap:.6rem;margin:.8rem 0}
+.ctl label{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.92em;color:var(--ink2)}
+.ctl label .num{color:var(--ink)}
+input[type=range]{width:100%;accent-color:var(--b);height:2.2rem;background:transparent}
+.btns{display:flex;flex-wrap:wrap;gap:.5rem;margin:.8rem 0}
+button{font:inherit;font-size:.92em;color:var(--ink);background:rgba(92,200,255,.1);border:1px solid rgba(92,200,255,.35);border-radius:10px;padding:.5em .9em;cursor:pointer;transition:background .15s}
+button:hover{background:rgba(92,200,255,.2)} button.on{background:rgba(92,200,255,.3);border-color:var(--b)}
+button.warn{border-color:rgba(255,184,77,.5);background:rgba(255,184,77,.1)} button.warn:hover{background:rgba(255,184,77,.22)}
+.out{font-family:var(--mono);font-size:.9em;background:#070b16;border:1px solid var(--line);border-radius:12px;padding:1rem;margin-top:.8rem;white-space:pre-wrap;word-break:break-word;min-height:5.5rem;line-height:1.5}
+.out .c{color:var(--c)} .out .r{color:var(--r)} .out .f{color:var(--f)} .out .b{color:var(--b)} .out .m{color:var(--mute)}
+.pill{display:inline-block;font-family:var(--mono);font-size:.78em;padding:.15em .55em;border-radius:6px;background:rgba(255,255,255,.07);color:var(--ink2)}
+figure{margin:0}
+figcaption{color:var(--mute);font-size:.85rem;margin-top:.6rem}
+svg text{font-family:var(--sans)} svg .m{font-family:var(--mono)}
+.bars{display:grid;gap:.5rem;margin-top:1rem}
+.bar{display:grid;grid-template-columns:5.5rem 1fr 4.2rem;align-items:center;gap:.8rem;font-size:.9em}
+.bar .t{height:1.15rem;background:rgba(255,255,255,.06);border-radius:6px;overflow:hidden}
+.bar .t i{display:block;height:100%;width:0;transition:width 1.2s cubic-bezier(.2,.7,.2,1);border-radius:6px}
+.bar.in .t i{width:var(--w)}
+.bar .v{text-align:right;font-family:var(--mono);color:var(--ink2)}
+.foot{color:var(--mute);font-size:.9rem;padding:3rem 0 5rem;border-top:1px solid var(--line)}
+.prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--c),var(--b),var(--v));z-index:9}
+nav.dots{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:9}
+nav.dots a{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.18);border:0}
+nav.dots a.on{background:var(--b)}
+@media(max-width:900px){nav.dots{display:none}}
+/* hero */
+.hero{min-height:92vh;display:flex;align-items:center;padding-top:4rem;border:0}
+.hero .stage{position:relative;height:16rem;margin:2rem 0 1rem;overflow:hidden;border-radius:18px;background:radial-gradient(60% 80% at 50% 50%,rgba(92,200,255,.08),transparent)}
+.chip{position:absolute;left:-40%;top:var(--y);font-family:var(--mono);font-size:.85rem;color:var(--ink2);background:rgba(255,255,255,.06);border:1px solid var(--line);padding:.3em .7em;border-radius:8px;white-space:nowrap;animation:fly 7s linear infinite;animation-delay:var(--d)}
+@keyframes fly{0%{left:-40%;opacity:0}8%{opacity:1}44%{left:44%;opacity:1;color:var(--ink2)}50%{left:50%;opacity:0}51%{opacity:0}56%{left:56%;opacity:1;color:var(--k)}92%{left:104%;opacity:1}100%{left:110%;opacity:0}}
+.machine{position:absolute;left:calc(50% - 3.2rem);top:calc(50% - 3.2rem);width:6.4rem;height:6.4rem;border-radius:20px;background:#0f1629;border:1.5px solid var(--b);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;color:var(--b);box-shadow:0 0 60px rgba(92,200,255,.18)}
+.scroll{color:var(--mute);font-size:.85rem;margin-top:1rem}
+/* chapter accents */
+#words .kicker b{color:var(--c)} #digits .kicker b{color:var(--y)} #mutants .kicker b{color:var(--r)} #gpu .kicker b{color:var(--b)} #riemann .kicker b{color:var(--v)} #limits .kicker b{color:var(--f)}
+.ring{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+@media(min-width:900px){.ring{grid-template-columns:1fr 1fr}}
+.cell{border:1px solid var(--line);border-radius:14px;padding:1rem;background:rgba(255,255,255,.02)}
+.cell h4{margin:0 0 .4rem;font-size:1rem;font-weight:600}
+.cell p{margin:0;color:var(--ink2);font-size:.95em}
+.tile{width:100%;height:auto;border-radius:12px;background:#070b16;border:1px solid var(--line)}
+.lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(7.5rem,1fr));gap:.6rem;margin:1rem 0}
+.lineup .b{padding:.7rem .6rem;border-radius:10px;border:1px solid var(--line);text-align:center;font-size:.85em;color:var(--ink2)}
+.lineup .b b{display:block;font-family:var(--mono);font-size:1.4em;color:var(--ink)}
+.lineup .b.c b{color:var(--c)}.lineup .b.r b{color:var(--r)}.lineup .b.f b{color:var(--f)}.lineup .b.v b{color:var(--v)}
+.sorter{position:relative;height:15rem;border-radius:14px;background:#070b16;border:1px solid var(--line);overflow:hidden}
+.sorter .s{position:absolute;width:10px;height:10px;border-radius:3px;background:var(--mute);left:50%;top:-12px;transition:transform 1.4s cubic-bezier(.2,.7,.2,1),background .6s}
+.sorter .lab{position:absolute;bottom:.5rem;font-family:var(--mono);font-size:.72rem;color:var(--ink2);text-align:center;width:16%}
+.sorter .lab b{display:block;font-size:1.1rem;color:var(--ink)}
+hr.soft{border:0;border-top:1px solid var(--line);margin:2rem 0}
+.note{font-size:.92em;color:var(--ink2);border-left:3px solid var(--line);padding-left:1rem;margin:1rem 0}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+<nav class="dots" aria-label="chapters"><a href="#top" title="Start"></a><a href="#words" title="Three words"></a><a href="#digits" title="Two readings"></a><a href="#mutants" title="572 errors"></a><a href="#gpu" title="Exact on a GPU"></a><a href="#riemann" title="The Riemann layer"></a><a href="#limits" title="What it cannot do"></a></nav>
+
+<section class="hero" id="top"><div class="wrap">
+  <div class="kicker rv">the easy read · <b>cert-machine</b>, the method paper, explained with pictures</div>
+  <h1 class="rv d1">A machine says it found new mathematics.<br>Who checks?</h1>
+  <p class="lead rv d2" style="max-width:46rem;margin-top:1.2rem">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This page explains how an independent machine decides such claims <em>exactly</em>, in six short chapters, with things you can touch. Every number here is read from a public record when the page is built.</p>
+  <div class="stage rv d3" aria-hidden="true">
+    <span class="chip" style="--y:14%;--d:0s;--k:var(--c)">K(43) ≥ 1,021,000</span>
+    <span class="chip" style="--y:30%;--d:1.4s;--k:var(--r)">C₁c ≥ 0.41030211724</span>
+    <span class="chip" style="--y:46%;--d:2.8s;--k:var(--c)">γ₂ ≤ 0.824120</span>
+    <span class="chip" style="--y:62%;--d:4.2s;--k:var(--f)">we checked that |D(1)| ≤ 0.82395317</span>
+    <span class="chip" style="--y:78%;--d:5.6s;--k:var(--c)">|256·S(j) − j| ≤ 3·10⁻⁴⁰</span>
+    <div class="machine">DECIDE</div>
+  </div>
+  <div class="lineup rv d3">
+    <div class="b c"><b>107</b>claims that hold</div>
+    <div class="b r"><b>24</b>defects found</div>
+    <div class="b"><b>132</b>claims decided, 59 claimants</div>
+    <div class="b"><b>0</b>guesses</div>
+  </div>
+  <p class="scroll rv d3">Scroll. Reading time about fifteen minutes.</p>
+</div></section>
+
+<section id="words"><div class="wrap">
+  <div class="kicker rv">chapter 1 · <b>three words</b></div>
+  <h2 class="rv">A claim is an inequality. A verdict is one of three words.</h2>
+  <div class="grid two" style="margin-top:1.5rem">
+    <div>
+      <p class="rv d1">Strip any machine-made mathematical claim down to what a computer can decide and you get a sentence like <em>this quantity is at most this number, for every input in this box</em>. A record kissing configuration says every pair of points is at least sixty degrees apart. A bound on a constant says a certain ratio never exceeds a printed decimal. The machine reads the claim as exactly that, over the exact bytes the claimant published, and answers with one of three words.</p>
+      <div class="ring rv d2">
+        <div class="cell"><h4><span class="word c">certified</span></h4><p>The inequality holds over the whole box, proved by exact arithmetic or by outward-rounded intervals. Shipped with the certificate and the thing that would have falsified it.</p></div>
+        <div class="cell"><h4><span class="word r">refuted</span></h4><p>A specific input violates the inequality. Shipped with that input, so anyone can check the refutation in one line.</p></div>
+        <div class="cell"><h4><span class="word f">refused</span></h4><p>The claim cannot be decided from the bytes: a file is missing, a number is not printed, a function has no exact decider. Shipped with the reason and, where there is one, the threshold that would change the word.</p></div>
+        <div class="cell"><h4>never</h4><p>A probability, a confidence, a "looks right". A floating-point comparison on its own is a screen, not a verdict: it may only prune what is not worth certifying, never admit.</p></div>
+      </div>
+      <p class="rv d2" style="margin-top:1.2rem">The third word is the one that makes the other two honest. A checker that must answer yes or no will guess when it cannot decide. This one says why it cannot, and what would convert a refusal into a decision. That turns the machine into an incentive: publish the file, print the digit, and the word changes.</p>
+    </div>
+    <div class="card rv d3">
+      <h3>Touch it: decide a bound</h3>
+      <p style="color:var(--ink2);font-size:.95em">A real certified value: the upper bound on the binary Chvátal–Sankoff constant at history length ten, as this machine certified it from its own automaton of 400,253,317 states. The claimant printed <span class="num">0.824120</span>. Move the printed bound and watch the word.</p>
+      <div class="ctl">
+        <label>printed bound B <span class="num" id="w1b">0.824120</span></label>
+        <input type="range" id="w1s" min="0" max="400" value="200" aria-label="printed bound">
+      </div>
+      <div class="btns"><button id="w1corrupt" class="warn" aria-pressed="false">corrupt one byte of the data file</button></div>
+      <div class="out" id="w1out"></div>
+      <figcaption>The certified value is <span class="num">0.8241195407</span>, rounded up at its last digit, which is the convention for an upper bound. The slider can set B below it; nothing else on this page can.</figcaption>
+    </div>
+  </div>
+</div></section>
+
+<section id="digits"><div class="wrap">
+  <div class="kicker rv">chapter 2 · <b>one string of digits, two numbers</b></div>
+  <h2 class="rv">The same point, printed, is "too close" or "apart" depending on how many digits you read.</h2>
+  <div class="grid rev" style="margin-top:1.5rem">
+    <div class="card rv d2">
+      <h3>Touch it: print √3/2 to k digits</h3>
+      <p style="color:var(--ink2);font-size:.95em">Two unit vectors at exactly sixty degrees: <span class="num">(1, 0)</span> and <span class="num">(½, √3/2)</span>. A claimant prints the second coordinate as a decimal. Read it back three ways and decide, exactly, whether the pair is touching, too close, or apart.</p>
+      <div class="ctl">
+        <label>digits printed k <span class="num" id="w2k">16</span></label>
+        <input type="range" id="w2s" min="3" max="17" value="16" aria-label="digits printed">
+      </div>
+      <div class="out" id="w2out"></div>
+      <figcaption>The test is the exact one the machine uses for kissing configurations: with p the inner product and A, B the squared norms, the angle is at least sixty degrees if and only if p ≤ 0 or 4p² ≤ AB. Here that is the sign of 3/4 − y², decided over exact rationals.</figcaption>
+    </div>
+    <div>
+      <p class="rv d1">Every decimal a machine prints is an exact rational: <span class="num">0.8660254037844386</span> means that fraction over ten to the sixteenth, no more and no less. But the number the machine <em>meant</em> is usually a binary double, and the double nearest to √3/2 is not that decimal; it is <span class="num">0.86602540378443859659…</span>. Two readings of one string of digits, and they differ in the seventeenth place.</p>
+      <p class="rv d1">That is not a curiosity. In 2026 a public arena published a 605-point candidate for the kissing number in dimension eleven, with its points printed to fifteen digits. Read as printed digits, <span class="num">9,510</span> of its <span class="num">182,710</span> pairs are closer than sixty degrees. Read as the doubles those digits denote, <span class="num">9,480</span>. Both readings refute the record; the counts differ because the reading is part of the verdict.</p>
+      <p class="rv d2">So every object the machine decides carries a sentence saying how the bytes were read, and when a platform's own verifier reads them another way, that is written down too. A verdict without its reading is a number without a unit.</p>
+      <div class="stats rv d2">
+        <div class="stat"><span class="big" style="color:var(--y)">9,510</span><span class="lbl">violating pairs, the digits as printed</span></div>
+        <div class="stat"><span class="big" style="color:var(--y)">9,480</span><span class="lbl">violating pairs, the doubles they denote</span></div>
+        <div class="stat"><span class="big">40.24°</span><span class="lbl">the worst pair, against sixty</span></div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="mutants"><div class="wrap">
+  <div class="kicker rv">chapter 3 · <b>we tried to fool it 572 times</b></div>
+  <h2 class="rv">How do you test a judge? Plant errors and see which ones it misses.</h2>
+  <div class="grid two" style="margin-top:1.5rem">
+    <div>
+      <p class="rv d1">Before the method paper was written, its benchmark was pre-registered: take <span class="num">97</span> published objects the machine had already decided, mutate each one in ways whose truth is known by an independent exact witness, and count how often the machine says <span class="word c">certified</span> to something false or <span class="word r">refuted</span> to something true. A kill switch was declared in advance: if fewer than half the rows could be given a witnessed false mutant, the benchmark would be reported as failed.</p>
+      <div class="stats rv d2">
+        <div class="stat"><span class="big">572</span><span class="lbl">mutants: 322 false, 153 true but changed, 97 malformed</span></div>
+        <div class="stat"><span class="big" style="color:var(--c)">0</span><span class="lbl">false certifications</span></div>
+        <div class="stat"><span class="big" style="color:var(--c)">0</span><span class="lbl">false refutations</span></div>
+        <div class="stat"><span class="big">94<span style="font-size:.5em;color:var(--mute)">/119</span></span><span class="lbl">rows with a witnessed false mutant; the switch at 60 did not trip</span></div>
+      </div>
+      <p class="rv d2">The benchmark found two defects of the machine's own on the way, both fixed on the record, and one malformed mutant that a partial decider read silently, recorded and not hidden. That is what the exercise is for.</p>
+      <h3 class="rv d2" style="margin-top:1.4rem">What a tolerance costs</h3>
+      <p class="rv d2">The same mutants were also checked the way most code checks numbers: compare in floating point, allow a tolerance. The bars show what a tolerance accepts among the mutants known to be false, and how many of the 97 true originals it still manages to confirm.</p>
+      <div class="bars rv d3" id="flbars">
+        <div class="bar" style="--w:27.8%"><span>tol 10⁻⁶</span><div class="t"><i style="background:var(--r)"></i></div><span class="v">27.8%</span></div>
+        <div class="bar" style="--w:11.2%"><span>tol 10⁻⁹</span><div class="t"><i style="background:var(--r)"></i></div><span class="v">11.2%</span></div>
+        <div class="bar" style="--w:2.4%"><span>tol 10⁻¹²</span><div class="t"><i style="background:var(--r)"></i></div><span class="v">2.4%</span></div>
+        <div class="bar cap" style="--w:0%"><span class="pill">false claims accepted, among the mutants known to be false</span></div>
+        <div class="bar" style="--w:calc(100% * 94 / 97)"><span>tol 10⁻⁶</span><div class="t"><i style="background:var(--c)"></i></div><span class="v">94/97</span></div>
+        <div class="bar" style="--w:calc(100% * 81 / 97)"><span>tol 10⁻⁹</span><div class="t"><i style="background:var(--c)"></i></div><span class="v">81/97</span></div>
+        <div class="bar" style="--w:calc(100% * 72 / 97)"><span>tol 10⁻¹²</span><div class="t"><i style="background:var(--c)"></i></div><span class="v">72/97</span></div>
+        <div class="bar cap" style="--w:0%"><span class="pill">true originals confirmed, of 97</span></div>
+      </div>
+      <p class="rv d3" style="margin-top:1rem">Loosen the tolerance and you accept more lies; tighten it and you start rejecting the truth. There is no setting that does both jobs. Exact arithmetic has no setting.</p>
+    </div>
+    <div class="card rv d3">
+      <h3>Touch it: plant an error</h3>
+      <p style="color:var(--ink2);font-size:.95em">Twelve points in three dimensions, the ones that touch a central sphere in the face-centred cubic packing: every permutation of <span class="num">(±1, ±1, 0)</span>. The claim: all twelve are at least sixty degrees apart. Break it, or try to.</p>
+      <svg id="w3svg" class="tile" viewBox="0 0 320 240" role="img" aria-label="twelve points and their contacts"></svg>
+      <div class="btns">
+        <button data-m="nudge">nudge a coordinate by 10⁻⁹</button>
+        <button data-m="dup">add a point twice</button>
+        <button data-m="perm">swap two coordinates of a point</button>
+        <button data-m="drop">drop a point</button>
+        <button data-m="scale">multiply every point by 3</button>
+        <button data-m="reset">reset</button>
+      </div>
+      <div class="out" id="w3out"></div>
+      <figcaption>Decided in the browser in exact integer arithmetic, pair by pair: 4p² ≤ AB. The last two buttons are controls: a change that is not an error must leave the word alone, and a change that only looks harmless must not.</figcaption>
+    </div>
+  </div>
+</div></section>
+
+<section id="gpu"><div class="wrap">
+  <div class="kicker rv">chapter 4 · <b>exact arithmetic at ten quadrillion pairs</b></div>
+  <h2 class="rv">Floating point can be exact. You just have to prove when.</h2>
+  <div class="grid two" style="margin-top:1.5rem">
+    <div>
+      <p class="rv d1">In September 2026 an autonomous research system published <span class="num">19</span> new kissing-number lower bounds in dimensions 25, 27, 32–39, 43, 45 and 49–55, the largest with <span class="num">53,301,140</span> points in dimension 55, and its own verification files said, honestly, that the pairwise angles had not been checked. Checking them is <span class="num">9.75&thinsp;×&thinsp;10<sup>15</sup></span> pairs. Exactly.</p>
+      <p class="rv d1">The trick is old and elementary. The coordinates are small integers, so every inner product is an integer, and a floating-point unit computes an integer product exactly as long as no partial sum can leave the range the format holds exactly: <span class="num">2¹¹</span> for half precision, <span class="num">2²⁴</span> for single. By the Cauchy–Schwarz inequality every partial sum is at most the largest squared norm in the configuration. Check that bound against the data <em>before</em> the run, assert it in the code, and the tensor cores of a rented GPU become an exact integer engine.</p>
+      <div class="stats rv d2">
+        <div class="stat"><span class="big sci" style="color:var(--b)">9.75&thinsp;×&thinsp;10<sup>15</sup></span><span class="lbl">pairs decided, 6,716,665,650,099 of them at exactly sixty degrees, none closer</span></div>
+        <div class="stat"><span class="big" style="color:var(--b)">$8.15</span><span class="lbl">one NVIDIA L40S at $1.09 an hour, 6.8 GPU-hours for the 7 largest</span></div>
+      </div>
+      <p class="rv d2">Nothing in the cost is spent on rigour. The rigour is one inequality per path, checked once against the data. A seeded sample of every configuration was decided again in plain integers by a program that shares no code with the bulk path, and the two agreed on every count.</p>
+    </div>
+    <div class="card rv d3">
+      <h3>Touch it: which arithmetic is exact?</h3>
+      <p style="color:var(--ink2);font-size:.95em">Slide the largest squared norm in a configuration. The page shows which path can decide its pairs exactly, and where the real configurations sit.</p>
+      <div class="ctl">
+        <label>largest squared norm <span class="num" id="w4n">192</span></label>
+        <input type="range" id="w4s" min="0" max="400" value="23" aria-label="largest squared norm, log scale">
+      </div>
+      <div id="w4bars" class="bars wide"></div>
+      <div class="out" id="w4out"></div>
+      <canvas id="w4c" class="tile" width="640" height="200" aria-hidden="true"></canvas>
+      <figcaption>The GPU rows have squared norms up to 192 and coordinates up to 12 in size; the laptop rows up to 4,608; one configuration in dimension 38 has rows of squared norm 3.95× 10<sup>35</sup>, decided in arbitrary-precision integers and nothing else.</figcaption>
+    </div>
+  </div>
+</div></section>
+
+<section id="riemann"><div class="wrap">
+  <div class="kicker rv">chapter 5 · <b>a famous proof, and the ten sentences a machine can check</b></div>
+  <h2 class="rv">Most of a celebrated result has no finite layer. The machine says exactly which part does.</h2>
+  <div class="grid two" style="margin-top:1.5rem">
+    <div>
+      <p class="rv d1">In 2026 a language model found a proof that more than two thirds of the zeros of the Riemann zeta function are simple and on the critical line; two mathematicians verified it and it was formalised in Lean. A translator with a closed grammar read every sentence the story's sources print, the manuscripts, the Lean files, the research post, even a video's captions, and either reduced it to a decidable claim or refused it with a rule.</p>
+      <div class="sorter rv d2" id="sorter" aria-label="sentences sorted into read and refused"></div>
+      <figcaption class="rv d2">65 printed sentences: 10 read; 43 refused as prose, 6 with no printed quantity, 3 ambiguous, 2 asymptotic, 1 approximate. Every theorem is among the refused: a statement about a limit is not a finite claim, and the grammar says so rather than inventing one.</figcaption>
+      <p class="rv d2" style="margin-top:1.2rem">What is read is the finite layer underneath: the formalisation's one numerical certificate, <span class="num">256</span> integer enclosures at scale <span class="num">2<sup>140</sup></span>, and the constants printed to their digits. The certificate's three inequalities hold over its integers, decided by two programs that share no code with Lean. And its one real-number hypothesis, that the enclosures enclose anything, rests on a file the release describes as "available from the authors". No published byte decides it. We asked for the file, in public.</p>
+      <h3 class="rv d3" style="margin-top:1.4rem">Then something small and new</h3>
+      <p class="rv d3">Once the constants were rational arithmetic, they could be optimised. The proportion of simple zeros of ξ′ depends on a window function through a ratio of two quadratic forms, so the best polynomial window of each degree is exact linear algebra. The paper's quartic sits <span class="sci">8.85&thinsp;×&thinsp;10<sup>-7</sup></span> below its own family's optimum, and the certificate's nine-term series truncation costs more than the whole window gap: <span class="sci">3.42&thinsp;×&thinsp;10<sup>-7</sup></span>. A degree-six window and fifteen terms raise the formalisation's constants from <span class="num">0.86864017</span> to <span class="num">0.86864150</span>, with an exact certificate that no even polynomial window of degree up to twenty does better. As a calibration, the same machinery with the ζ kernel returns the Montgomery–Taylor constant to 18 digits.</p>
+    </div>
+    <div class="card rv d3">
+      <h3>Touch it: shape the window</h3>
+      <p style="color:var(--ink2);font-size:.95em">v(s) = 1 + c₂s² + c₄s⁴ on [−½, ½]. The proportion P of zeros of ξ′ that are simple and on the line is computed exactly from the coefficients, with the series at fifteen terms. Can you beat the paper's quartic?</p>
+      <svg id="w5svg" class="tile" viewBox="0 0 320 180" role="img" aria-label="the window curve"></svg>
+      <div class="ctl">
+        <label>c₂ <span class="num" id="w5c2">-0.280</span></label><input type="range" id="w5s2" min="-1200" max="0" value="-280" aria-label="c2">
+        <label>c₄ <span class="num" id="w5c4">-4.080</span></label><input type="range" id="w5s4" min="-6000" max="0" value="-4080" aria-label="c4">
+      </div>
+      <div class="btns"><button id="w5paper">the paper's quartic</button><button id="w5best">near the best quartic</button></div>
+      <div class="out" id="w5out"></div>
+      <figcaption>Exact rational arithmetic in the browser over the 3×3 matrix of the quadratic form, computed at build time from the definitions. The best quartic reaches <span class="num">0.8686414007</span>; the paper's gives <span class="num">0.8686405151</span> at fifteen terms; degree six, out of this slider's reach, gives <span class="num">0.86864150</span>.</figcaption>
+    </div>
+  </div>
+</div></section>
+
+<section id="limits"><div class="wrap">
+  <div class="kicker rv">chapter 6 · <b>what it cannot do, and why that is the point</b></div>
+  <h2 class="rv">A referee that never guesses must say, out loud, where it stops.</h2>
+  <div class="ring rv d1" style="margin-top:1.5rem">
+    <div class="cell"><h4>Theorems</h4><p>A statement about every integer, or about a limit, is not a finite claim. The machine refuses it with the rule and leaves it to proofs and proof assistants.</p></div>
+    <div class="cell"><h4>Hypotheses nobody can check</h4><p>A certificate kernel-checked downstream of a file the public cannot read is conditional, for the kernel and for the machine alike. The word is refused, and the ask is the file.</p></div>
+    <div class="cell"><h4>Closed forms it has no decider for</h4><p>A tangent or a logarithm is admitted and left undecided until someone reduces it to rational arithmetic, as the Montgomery–Taylor constant was, by two alternating series.</p></div>
+    <div class="cell"><h4>Its own code</h4><p>Soundness rests on arithmetic; the arithmetic is held to an independent library on 1,012,121 cases of 24 operations, to a second implementation on every decision, and to the 572 mutants above. When it fails, the failure is on the record first.</p></div>
+  </div>
+  <p class="rv d2" style="margin-top:1.4rem">The register this page is read from holds <span class="num">132</span> claims from <span class="num">59</span> claimants across <span class="num">25</span> sources: <span class="num">107</span> hold, <span class="num">24</span> have a defect on record, and every row carries the object that justifies its word. The machine has never improved a theorem. It has moved an asterisk, counted a wrong digit, published the threshold that would turn a refusal green, and once in a while, when the arithmetic allowed it, raised a constant by a unit of the sixth digit with a certificate attached. That is the job.</p>
+  <div class="btns rv d3" style="margin-top:1.5rem">
+    <a class="word n" href="/paper/cert-machine-method.pdf" style="border:1.5px solid currentColor">the method paper</a>
+    <a class="word n" href="/paper/riemann-finite-layer.pdf" style="border:1.5px solid currentColor">the Riemann companion</a>
+    <a class="word n" href="/reports/selfaudit.html" style="border:1.5px solid currentColor">the self-audit</a>
+    <a class="word n" href="/machine/" style="border:1.5px solid currentColor">the method, formally</a>
+    <a class="word n" href="https://github.com/carlostoledo1891/cert-machine" style="border:1.5px solid currentColor">the repository</a>
+  </div>
+</div></section>
+
+<div class="foot"><div class="wrap">
+  <p>Every number on this page was read at build time from the records of the cert-machine repository at commit <span class="num">373d71415eaa</span> on 2026-10-22: the method paper's and the register's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the Riemann companion's generator, which re-derives claimbox's certificates in a third implementation. The interactive pieces compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p>
+  <p>Carlos Toledo · <a href="/">carlostoledo.co</a> · the page builder is <code>apps/explained/build.js</code>.</p>
+</div></div>
+
+<script>
+window.__errs=[];window.addEventListener('error',function(e){window.__errs.push(String(e.message)+' @'+e.lineno+':'+e.colno);});
+(function(){
+'use strict';
+/* ---------------- exact rationals over BigInt ---------------- */
+const gcd=(a,b)=>{a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;};
+class Q{constructor(n,d=1n){n=BigInt(n);d=BigInt(d);if(d<0n){n=-n;d=-d;}const g=gcd(n,d)||1n;this.n=n/g;this.d=d/g;}
+ add(o){return new Q(this.n*o.d+o.n*this.d,this.d*o.d)} sub(o){return new Q(this.n*o.d-o.n*this.d,this.d*o.d)} mul(o){return new Q(this.n*o.n,this.d*o.d)} div(o){return new Q(this.n*o.d,this.d*o.n)}
+ toString(){return this.d===1n?String(this.n):this.n+'/'+this.d} cmp(o){const l=this.n*o.d,r=o.n*this.d;return l<r?-1:l>r?1:0} sign(){return this.n<0n?-1:this.n>0n?1:0} neg(){return new Q(-this.n,this.d)} abs(){return this.n<0n?this.neg():this}
+ dec(k,up){const neg=this.n<0n,a=neg?-this.n:this.n,s=10n**BigInt(k);let q=(a*s)/this.d;const rem=(a*s)%this.d;if(up&&rem!==0n&&!neg)q+=1n;const t=q.toString().padStart(k+1,'0');return (neg?'-':'')+t.slice(0,-k)+'.'+t.slice(-k)}
+ sci(m){if(this.n===0n)return '0';let v=this.abs(),e=0;const ten=new Q(10n);while(v.cmp(new Q(1n))<0){v=v.mul(ten);e--;}while(v.cmp(ten)>=0){v=v.div(ten);e++;}const sup=String(e).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);return (this.n<0n?'−':'')+v.dec(m)+'·10'+sup}}
+const qdec=s=>{s=String(s).trim();let m;if((m=s.match(/^(-?\d+)\/(\d+)$/)))return new Q(m[1],m[2]);if((m=s.match(/^(-?)(\d+)\.(\d+)$/)))return new Q((m[1]+m[2]+m[3]).replace(/^(-?)0+(?=\d)/,'$1'),10n**BigInt(m[3].length));if((m=s.match(/^-?\d+$/)))return new Q(s);throw new Error('not a decimal: '+s)};
+const qdouble=x=>{const dv=new DataView(new ArrayBuffer(8));dv.setFloat64(0,x);const bits=dv.getBigUint64(0);const sign=bits>>63n?-1n:1n;const exp=Number((bits>>52n)&0x7ffn);let man=bits&((1n<<52n)-1n);if(exp===0)return new Q(sign*man,1n<<1074n);man|=1n<<52n;const e=exp-1075;return e>=0?new Q(sign*man*(1n<<BigInt(e))):new Q(sign*man,1n<<BigInt(-e))};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+/* ---------------- reveal on scroll, progress, dots ---------------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.rv,.bar').forEach(el=>io.observe(el));
+const prog=$('prog');const dots=[...document.querySelectorAll('nav.dots a')];const secs=dots.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(100*h.scrollTop/(h.scrollHeight-h.clientHeight))+'%';let cur=0;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<innerHeight*.45)cur=i;});dots.forEach((d,i)=>d.classList.toggle('on',i===cur));},{passive:true});
+/* ---------------- W1: decide a bound ---------------- */
+{const v=qdec('0.8241195407');const lo=qdec('0.8240'),hi=qdec('0.8260');let corrupt=false;
+ const render=()=>{const t=Number($('w1s').value)/400;const B=lo.add(hi.sub(lo).mul(new Q(Math.round(t*100000),100000)));$('w1b').textContent=B.dec(6);
+  let out;if(corrupt){out='<span class="f">REFUSED</span>  the data file does not match its pin\n<span class="m">sha256 expected</span> a5fb5091773a…\n<span class="m">sha256 read    </span> a5fb5091773f…  <span class="m">(simulated here; the pin is the record\'s)</span>\n<span class="m">nothing is decided from bytes that are not the claimant\'s; the word would be CERTIFIED or REFUTED the moment the file matches</span>';}
+  else if(v.cmp(B)<=0){out='<span class="c">CERTIFIED</span>  γ₂ ≤ '+B.dec(6)+'\n<span class="m">certificate</span> λ(z) ≤ 0.385532597279844 at h = 10, every state of the automaton, rounding mode up\n<span class="m">value      </span> '+v.dec(10)+' ≤ '+B.dec(6)+'  (margin '+B.sub(v).sci(2)+')\n<span class="m">falsifier  </span> a state whose ratio exceeds λ — there is none';}
+  else{out='<span class="r">REFUTED</span>  the printed bound '+B.dec(6)+' is below what the method certifies\n<span class="m">witness    </span> the certified value is '+v.dec(10)+', above B by '+v.sub(B).sci(2)+'\n<span class="m">threshold  </span> at B = '+v.dec(10)+' the word turns green';}
+  $('w1out').innerHTML=out;};
+ $('w1s').addEventListener('input',render);$('w1corrupt').addEventListener('click',e=>{corrupt=!corrupt;e.currentTarget.classList.toggle('on',corrupt);e.currentTarget.setAttribute('aria-pressed',String(corrupt));e.currentTarget.textContent=corrupt?'restore the data file':'corrupt one byte of the data file';render();});render();}
+/* ---------------- W2: print √3/2 to k digits ---------------- */
+{const S32='0.86602540378443864676372317075294';const three4=new Q(3n,4n);const dbl=qdouble(Math.sqrt(3)/2);
+ const roundTo=k=>{const digits=S32.slice(2,2+k+1);let q=BigInt(digits.slice(0,k));if(Number(digits[k])>=5)q+=1n;return new Q(q,10n**BigInt(k))};
+ const judge=y=>{const g=three4.sub(y.mul(y));const s=g.sign();return {s,g,word:s>0?'<span class="r">too close</span>  (angle below sixty degrees)':s<0?'<span class="b">apart</span>      (angle above sixty degrees)':'<span class="c">touching</span>   (exactly sixty degrees)'}};
+ const render=()=>{const k=Number($('w2s').value);$('w2k').textContent=String(k);const y=roundTo(k);const a=judge(y),b=judge(dbl);
+  const lines=['<span class="m">the printed string, k = '+k+'</span>  y = '+y.dec(k)+'\n  read as the decimal it is:   '+a.word+'\n  3/4 − y² = '+a.g.sci(3),
+   '\n<span class="m">the double nearest to √3/2</span>  y = 0.86602540378443859659…\n  read as the number it denotes: '+b.word+'\n  3/4 − y² = '+b.g.sci(3),
+   '\n<span class="m">the point as it was meant</span>   y = √3/2\n  read as an algebraic number:   <span class="c">touching</span>   (3/4 − y² = 0, exactly)'];
+  $('w2out').innerHTML=lines.join('\n');};
+ $('w2s').addEventListener('input',render);render();}
+/* ---------------- W3: plant an error on the fcc kissing configuration ---------------- */
+{const base=[];for(const [i,j] of [[0,1],[0,2],[1,2]])for(const a of [1n,-1n])for(const b of [1n,-1n]){const p=[new Q(0n),new Q(0n),new Q(0n)];p[i]=new Q(a);p[j]=new Q(b);base.push(p);}
+ let pts=base.map(p=>p.slice());let last='the twelve points as published';
+ const dot=(x,y)=>x[0].mul(y[0]).add(x[1].mul(y[1])).add(x[2].mul(y[2]));
+ const decide=()=>{const n=pts.length;let viol=null,contacts=0,pairs=0;const lines=[];
+  for(let i=0;i<n;i++)for(let j=i+1;j<n;j++){pairs++;const p=dot(pts[i],pts[j]),A=dot(pts[i],pts[i]),B=dot(pts[j],pts[j]);const t=new Q(4n).mul(p).mul(p).sub(A.mul(B));
+   if(p.sign()>0&&t.sign()>0){if(!viol)viol={i,j,p,A,B,t};}else if(p.sign()>0&&t.sign()===0){contacts++;lines.push([i,j]);}}
+  return {n,pairs,contacts,viol,lines};};
+ const draw=d=>{const svg=$('w3svg');const cx=160,cy=120,R=86;const pos=pts.map((p,i)=>{const a=-Math.PI/2+2*Math.PI*i/pts.length;return [cx+R*Math.cos(a),cy+R*Math.sin(a)]});
+  let s='';for(const [i,j] of d.lines)s+='<line x1="'+pos[i][0]+'" y1="'+pos[i][1]+'" x2="'+pos[j][0]+'" y2="'+pos[j][1]+'" stroke="#3ddc97" stroke-opacity=".35" stroke-width="1.2"/>';
+  if(d.viol){const [i,j]=[d.viol.i,d.viol.j];s+='<line x1="'+pos[i][0]+'" y1="'+pos[i][1]+'" x2="'+pos[j][0]+'" y2="'+pos[j][1]+'" stroke="#ff5c7a" stroke-width="2.5"/>';}
+  pos.forEach((q,i)=>{const bad=d.viol&&(i===d.viol.i||i===d.viol.j);s+='<circle cx="'+q[0]+'" cy="'+q[1]+'" r="'+(bad?7:5)+'" fill="'+(bad?'#ff5c7a':'#5cc8ff')+'"/>';});
+  s+='<text x="160" y="232" text-anchor="middle" fill="#6f7a93" font-size="11" class="m">'+d.n+' points · '+d.pairs+' pairs · '+d.contacts+' contacts</text>';svg.innerHTML=s;};
+ const render=()=>{const d=decide();draw(d);const fmt=p=>'('+p.map(x=>x.d===1n?String(x.n):x.n+'/'+x.d).join(', ')+')';let out='<span class="m">change</span> '+esc(last)+'\n';
+  if(pts.length!==12)out+='<span class="f">REFUSED</span>  the claim says twelve points; the file holds '+pts.length+'\n<span class="m">count mismatch: nothing is decided until the object is the one claimed</span>';
+  else if(d.viol){const v=d.viol;out+='<span class="r">REFUTED</span>  a pair closer than sixty degrees\n<span class="m">witness</span> points '+v.i+' and '+v.j+': '+fmt(pts[v.i])+' · '+fmt(pts[v.j])+'\n  p = '+v.p.toString()+', A = '+v.A.toString()+', B = '+v.B.toString()+', 4p² − AB = '+v.t.toString()+' > 0';}
+  else out+='<span class="c">CERTIFIED</span>  every pair at least sixty degrees apart\n<span class="m">'+d.pairs+' pairs decided, '+d.contacts+' at exactly sixty degrees, none closer</span>';
+  $('w3out').innerHTML=out;};
+ document.querySelectorAll('#mutants button[data-m]').forEach(b=>b.addEventListener('click',()=>{const m=b.dataset.m;
+  if(m==='reset'){pts=base.map(p=>p.slice());last='reset: the twelve points as published';}
+  else if(m==='nudge'){const i=3,c=0;pts[i]=pts[i].slice();pts[i][c]=pts[i][c].add(new Q(1n,1000000000n));last='point 3, first coordinate: '+pts[i][c].toString()+' (was '+pts[i][c].sub(new Q(1n,1000000000n)).toString()+')';}
+  else if(m==='dup'){pts.push(pts[5].slice());last='point 5 appended again';}
+  else if(m==='perm'){const i=1;pts[i]=[pts[i][2],pts[i][1],pts[i][0]];last='point 1: first and third coordinates swapped → '+'('+pts[i].map(x=>String(x.n)).join(', ')+')';}
+  else if(m==='drop'){if(pts.length>1){pts.pop();last='the last point removed';}}
+  else if(m==='scale'){pts=pts.map(p=>p.map(x=>x.mul(new Q(3n))));last='every coordinate multiplied by 3';}
+  render();}));render();}
+/* ---------------- W4: which arithmetic is exact ---------------- */
+{const marks=[{n:qdec('192'),t:'the GPU rows (dimensions 49–55)'},{n:qdec('4,608'.replace(/,/g,'')),t:'the laptop rows'},{n:new Q(395n*10n**33n),t:'dimension 38, the axis rows'}];
+ const paths=[{t:'half precision on tensor cores',lim:2048n,c:'var(--b)'},{t:'single precision BLAS',lim:16777216n,c:'var(--c)'},{t:'exact integers (BigInt)',lim:null,c:'var(--v)'}];
+ const canvas=$('w4c'),ctx=canvas.getContext('2d');let N=192n;
+ const render=()=>{const t=Number($('w4s').value)/10;N=BigInt(Math.round(Math.pow(10,t)));$('w4n').textContent=N.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');
+  $('w4bars').innerHTML=paths.map(p=>{const ok=p.lim===null||N<p.lim;return '<div class="bar in" style="--w:100%"><span>'+p.t+'</span><div class="t"><i style="background:'+(ok?p.c:'rgba(255,255,255,.08)')+'"></i></div><span class="v">'+(ok?'exact':'not safe')+'</span></div>'}).join('');
+  const first=paths.find(p=>p.lim===null||N<p.lim);const near=marks.map((m,i)=>({i,d:Math.abs(m.n.n.toString().length-1-Number(t))})).sort((a,b)=>a.d-b.d)[0];
+  $('w4out').innerHTML='<span class="b">'+first.t+'</span> is the cheapest exact path for squared norms up to '+N.toString()+'\n<span class="m">every partial sum of an inner product is at most the largest squared norm (Cauchy–Schwarz); half precision holds integers below 2¹¹ = 2,048, single below 2²⁴ = 16,777,216</span>\n<span class="m">nearest real configuration:</span> '+marks[near.i].t+', squared norm '+marks[near.i].n.n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',');};
+ $('w4s').addEventListener('input',render);render();
+ /* the tile animation: 128×128 blocks lighting up, a pairs counter */
+ let frame=0,pairs=0n;const per=97522826397693n;let vis=false;const ioc=new IntersectionObserver(es=>{vis=es[0].isIntersecting},{threshold:.2});ioc.observe(canvas);
+ const tick=()=>{if(vis&&!matchMedia('(prefers-reduced-motion: reduce)').matches){frame++;const w=canvas.width,h=canvas.height;ctx.fillStyle='#070b16';ctx.fillRect(0,0,w,h);const cols=32,rows=9,cw=w/cols,ch=(h-34)/rows;const n=(frame*7)%(cols*rows);
+   for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const i=r*cols+c;const on=i<n;ctx.fillStyle=on?'rgba(92,200,255,'+(0.25+0.6*((i*37)%100)/100)+')':'rgba(255,255,255,.04)';ctx.fillRect(c*cw+1,r*ch+1,cw-2,ch-2);}
+   pairs=(pairs+per)%9752282639769360n;ctx.fillStyle='#a9b4cc';ctx.font='15px "JetBrains Mono",monospace';ctx.fillText('pairs decided  '+pairs.toString().replace(/\B(?=(\d{3})+(?!\d))/g,','),8,h-9);ctx.fillStyle='#6f7a93';ctx.font='12px "JetBrains Mono",monospace';ctx.fillText('each tile = one 128×128 block',430,h-9);}
+  requestAnimationFrame(tick);};tick();}
+/* ---------------- the sentence sorter ---------------- */
+{const box=$('sorter');const bins=[{k:'read',n:10,c:'#b48bff'},{k:'prose',n:43,c:'#6f7a93'},{k:'no number',n:6,c:'#6f7a93'},{k:'ambiguous',n:3,c:'#6f7a93'},{k:'asymptotic',n:2,c:'#6f7a93'},{k:'≈',n:1,c:'#6f7a93'}];
+ const total=bins.reduce((s,b)=>s+b.n,0);const seq=[];bins.forEach((b,bi)=>{for(let i=0;i<b.n;i++)seq.push(bi)});for(let i=seq.length-1;i>0;i--){const j=(i*7919)%(i+1);[seq[i],seq[j]]=[seq[j],seq[i]];}
+ bins.forEach((b,i)=>{const l=document.createElement('div');l.className='lab';l.style.left=(2+i*16.3)+'%';l.innerHTML='<b>'+b.n+'</b>'+b.k;box.appendChild(l);});
+ const chips=seq.map((bi,i)=>{const s=document.createElement('span');s.className='s';s.style.transitionDelay=(i*0.022)+'s';box.appendChild(s);return {s,bi,i}});
+ const place={};bins.forEach((b,i)=>place[i]=0);
+ const go=()=>chips.forEach(({s,bi})=>{const k=place[bi]++;const bx=box.clientWidth*(0.1+bi*0.163);const col=k%4,row=Math.floor(k/4);s.style.transform='translate('+(bx-box.clientWidth/2+col*13)+'px,'+(box.clientHeight-30-row*13-24)+'px)';s.style.background=bins[bi].c;});
+ const ios=new IntersectionObserver(es=>{if(es[0].isIntersecting){setTimeout(go,300);ios.disconnect();}},{threshold:.4});ios.observe(box);}
+/* ---------------- W5: shape the window ---------------- */
+{const W=JSON.parse('{"M":[["1973644077286499554136/1728816144718258220625","9165777816917910604279/89060225637001181062500","73265885188177979272430971/4567186491116694567247125000"],["9165777816917910604279/89060225637001181062500","23435655653129106876480743/1522395497038898189082375000","302489266859600520399678479/109612475786800669613931000000"],["73265885188177979272430971/4567186491116694567247125000","302489266859600520399678479/109612475786800669613931000000","8732644973291030029327405739/16478408859949033998627627000000"]],"b":["1/1","1/12","1/80"],"eps":"8192/180952685768570625","cstar":["1/1","-16145489583267174155156840883559127700166832234453096/56376732754721841741002834281659563470664794898615157","-692958550163401811638449798715871132241641403494156816/169130198264165525223008502844978690411994384695845471"],"pstar":"1025935667121956216830026390645283966830213476722810792249328254915770000265505554/1181080784574542076367560790582080190518698574331213849283925573349875929838849375","pquartic":"311929854986352133858676408749388462/359101204169111128316603589622419375"}'.replace(/&quot;/g,'"'));const M=W.M.map(r=>r.map(qdec)),b=W.b.map(qdec),eps=qdec(W.eps);
+ const P=c=>{let num=new Q(0n),den=new Q(0n);for(let i=0;i<3;i++){den=den.add(b[i].mul(c[i]));for(let j=0;j<3;j++)num=num.add(c[i].mul(c[j]).mul(M[i][j]));}return new Q(2n).sub(num.div(den.mul(den))).sub(eps)};
+ const svg=$('w5svg');const render=()=>{const c2=new Q(BigInt($('w5s2').value),1000n),c4=new Q(BigInt($('w5s4').value),1000n);$('w5c2').textContent=c2.dec(3);$('w5c4').textContent=c4.dec(3);const c=[new Q(1n),c2,c4];
+  const vhalf=new Q(1n).add(c2.div(new Q(4n))).add(c4.div(new Q(16n)));const ok=vhalf.sign()>0;let s='<rect x="0" y="0" width="320" height="180" fill="#070b16"/>';
+  const X=t=>160+t*280,Y=v=>150-v*120;s+='<line x1="'+X(-.5)+'" y1="'+Y(0)+'" x2="'+X(.5)+'" y2="'+Y(0)+'" stroke="#1f2a44"/><line x1="'+X(-.5)+'" y1="'+Y(1)+'" x2="'+X(.5)+'" y2="'+Y(1)+'" stroke="#1f2a44" stroke-dasharray="3 3"/>';
+  let d='';for(let i=0;i<=60;i++){const t=-.5+i/60;const v=1+Number(c2.n)/Number(c2.d)*t*t+Number(c4.n)/Number(c4.d)*t*t*t*t;d+=(i?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
+  s+='<path d="'+d+'" fill="none" stroke="'+(ok?'#b48bff':'#ff5c7a')+'" stroke-width="2.5"/><text x="'+(X(.5)+2)+'" y="'+(Y(1)+4)+'" fill="#6f7a93" font-size="10" class="m">1</text><text x="'+X(-.5)+'" y="170" fill="#6f7a93" font-size="10" class="m">−½</text><text x="'+(X(.5)-8)+'" y="170" fill="#6f7a93" font-size="10" class="m">½</text>';
+  svg.innerHTML=s;const p=P(c);const pq=qdec(W.pquartic),ps=qdec(W.pstar);
+  let out;if(!ok)out='<span class="f">REFUSED</span>  v(½) = '+vhalf.dec(4)+' ≤ 0: the window must be positive on the interval\n<span class="m">the paper\'s hypotheses: even, positive on [−½, ½], at most 1 — the last holds because c₂, c₄ ≤ 0</span>';
+  else{const cmp=p.cmp(pq);out='P = <span class="'+(cmp>0?'c':'b')+'">'+p.dec(10)+'</span>  simple and on the line\n<span class="m">the paper\'s quartic   </span> '+pq.dec(10)+(cmp>0?'  <span class="c">beaten by '+p.sub(pq).sci(2)+'</span>':cmp<0?'  <span class="m">ahead by '+pq.sub(p).sci(2)+'</span>':'  <span class="m">equal</span>')+'\n<span class="m">the best quartic      </span> '+ps.dec(10)+'  <span class="m">(gap '+ps.sub(p).sci(2)+')</span>\n<span class="m">D = </span>'+new Q(1n).add(p).div(new Q(2n)).dec(10)+'<span class="m">  distinct zeros, (1 + P)/2; ε₁₅ = '+eps.sci(2)+'</span>';}
+  $('w5out').innerHTML=out;};
+ $('w5s2').addEventListener('input',render);$('w5s4').addEventListener('input',render);
+ $('w5paper').addEventListener('click',()=>{$('w5s2').value=-280;$('w5s4').value=-4080;render();});
+ $('w5best').addEventListener('click',()=>{$('w5s2').value=Math.round(Number('-0.2863')*1000);$('w5s4').value=Math.round(Number('-4.0971')*1000);render();});
+ render();}
+})();
+</script>
+</body>
+</html>
