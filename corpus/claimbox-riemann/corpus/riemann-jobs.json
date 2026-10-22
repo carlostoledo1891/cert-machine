@@ -1,0 +1,62 @@
+{
+ "what": "translation jobs read from zeta23 by claimbox.readers.zeta23 (cert-machine's pinned corpus)",
+ "jobs": [
+  {
+   "id": "zeta23-rows",
+   "claim": "|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 256)",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__README.md",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "what": "the zeta23 README's statement of the near-CUE row inequalities Lean kernel-checks downstream of EnclOK; the bytes: the Lean formalization zeta23 (anthropics/zeta-23-lean, pinned here by tools/riemann.py): the 256 integer enclosures of Zeta23/PairCeiling/LawN256.lean, decoded as literals into LawN256.encl.json beside it"
+  },
+  {
+   "id": "zeta23-edge",
+   "claim": "|D(1)| ≤ 0.82395317",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "what": "CeilingLaw256.lean's statement of the edge bound Lean kernel-checks downstream of EnclOK; the bytes: the Lean formalization zeta23 (anthropics/zeta-23-lean, pinned here by tools/riemann.py): the 256 integer enclosures of Zeta23/PairCeiling/LawN256.lean, decoded as literals into LawN256.encl.json beside it"
+  },
+  {
+   "id": "zeta23-p0",
+   "claim": "p_0\\le0.6818287",
+   "source": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "what": "the paper's rounded-up print of the law's simple-point fraction (arXiv:2608.13637v2, §limits), against the exact rational LawN256.lean's header prints"
+  },
+  {
+   "id": "zeta23-cmt",
+   "claim": "c₁* = 0.7532960…",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__ChallengeDeps.lean",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "what": "ChallengeDeps.lean's docstring of cMT: the Montgomery–Taylor constant to its printed digits, decided from the series certificate (mathematician.md §1: c₁* = 2s/(2c + s), two rational partial sums enclose it)"
+  },
+  {
+   "id": "zeta23-mt-simple",
+   "claim": "2 − 1/c₁* = 0.67250…",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__formalization.yaml",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "what": "formalization.yaml's abstract: the Montgomery–Taylor proportion of simple zeros on the line, to its printed digits, decided from the series certificate"
+  },
+  {
+   "id": "zeta23-mt-distinct",
+   "claim": "(3 − 1/c₁*)/2 = 0.83625…",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__formalization.yaml",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "what": "formalization.yaml's abstract: the Montgomery–Taylor proportion of distinct zeros, to its printed digits, decided from the series certificate"
+  },
+  {
+   "id": "af-mt-simple",
+   "claim": "$2-c_{\\mathrm{MT}}^{-1}=0.67250\\ldots$",
+   "source": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+   "data": "../claimbox/corpus/riemann/zeta23/zeta23__ChallengeDeps.lean",
+   "what": "the paper's main theorem (arXiv:2608.13637v2): the same proportion as the paper prints it, with c_MT^{-1} := 1/2 + (1/√2) cot(1/√2) — kept on the closed-form route on purpose: the receiver admits the transcendental heads and does not decide them (its item (h)); the three claims above show the exact route"
+  },
+  {
+   "id": "zeta23-enclok",
+   "source": "../claimbox/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "skipped": "the hypothesis EnclOK — that the law's form factor lies in the enclosures — is about the law itself (cert_N256_blk_b128m.json, sha256 cc3de991…), which the release does not publish (\"available from the authors\"); no bytes, no claim"
+  }
+ ]
+}

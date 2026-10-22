@@ -1,0 +1,143 @@
+{
+ "what": "The sources of the 2026 Riemann-hypothesis story the claim-machine was put to on 2026-10-22: the openai/math release's quasi-Riemann family (its index, Lean scope note, four Comparator statements and manuscript READMEs), the Lean formalization of Alpöge–Furman (zeta23, with the bandwidth-one ceiling's numeric certificate), the paper's arXiv source, Anthropic's post and the video's captions — fetched byte for byte and pinned by sha256; read by the translator for the claims they print, never run.",
+ "fetched": "2026-10-22",
+ "commits": {
+  "github.com/openai/math": "1581d4cbdd69a0faf34b2089614fe2a814316a6a",
+  "github.com/anthropics/zeta-23-lean": "e1a4e6508154ea59f030480661590a9fe3018011"
+ },
+ "arxiv": "2608.13637v2",
+ "licenses": "openai/math: see its LICENSE (held for verification only); zeta-23-lean: Apache-2.0; the arXiv source: the authors' (held for verification only); the Anthropic page and the captions: held verbatim for verification only",
+ "files": {
+  "openai-math/CONTENTS.md": {
+   "sha256": "cc7c0b8a1cdedd845a777e77cf682657308503daf8346c1349e06e9259d063c2",
+   "bytes": 638727,
+   "from": "github.com/openai/math CONTENTS.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/README.md": {
+   "sha256": "5e8878ee04866f52ec942852552b9c28db278f65691c7ab49a87c9e93a9199fd",
+   "bytes": 4190,
+   "from": "github.com/openai/math README.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/history.md": {
+   "sha256": "41c2a2d470014b3628695c7aabf5fd0c93f6f687621fca172062f22b59ed6a1e",
+   "bytes": 2281,
+   "from": "github.com/openai/math history.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/lean__docs__003.md": {
+   "sha256": "41e52ed718260e6feb1db218f8e97287e703cb63c6f16e6c36f5563e6e2395ce",
+   "bytes": 1911,
+   "from": "github.com/openai/math lean/docs/003.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/lean__ComparatorChallenges__QuasiRiemannHypothesis.lean": {
+   "sha256": "065f8c9a01d28db78c8b1bfc5083b535082a2d2aac2230d563f98b8caa812cc5",
+   "bytes": 169,
+   "from": "github.com/openai/math lean/ComparatorChallenges/QuasiRiemannHypothesis.lean at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/lean__ComparatorChallenges__DirichletSevenEighths.lean": {
+   "sha256": "8fb13ad977bca104591fcbc6ef01a58496e7385053c9b1445f95749afc0eff54",
+   "bytes": 379,
+   "from": "github.com/openai/math lean/ComparatorChallenges/DirichletSevenEighths.lean at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/lean__ComparatorChallenges__HeckeSevenEighths.lean": {
+   "sha256": "cb5e404fa65a502c0a9006b9ad45c28914feb79e4b7b1ffcf05e4af82ed0cfc2",
+   "bytes": 10095,
+   "from": "github.com/openai/math lean/ComparatorChallenges/HeckeSevenEighths.lean at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/lean__ComparatorChallenges__SiegelZeros.lean": {
+   "sha256": "bedaac0248a641910f79a380d9702d82c6bfbbfd3760a69d27c72c5d8fb136ce",
+   "bytes": 904,
+   "from": "github.com/openai/math lean/ComparatorChallenges/SiegelZeros.lean at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/preprints__The-Quasi-Riemann-Hypothesis-September-30-2026__README.md": {
+   "sha256": "5a9c5ef1322c1e0051f58bee69ce422984eb523ba85d56529eae18f05771bd32",
+   "bytes": 590,
+   "from": "github.com/openai/math preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/README.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/preprints__The-Quasi-Riemann-Hypothesis-October-5-2026__README.md": {
+   "sha256": "35c877a13fd9208ac0d4fb82a21560d9d7c79679982387760c73da9f82220026",
+   "bytes": 537,
+   "from": "github.com/openai/math preprints/The-Quasi-Riemann-Hypothesis-October-5-2026/README.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "openai-math/preprints__Uniform-exclusion-of-Landau-Siegel-zeros-October-1-2026__README.md": {
+   "sha256": "52acef9c7db3c63e6e1ee623cb8fd1c92e098aa8785e5ad2a434ede0088fc7fd",
+   "bytes": 551,
+   "from": "github.com/openai/math preprints/Uniform-exclusion-of-Landau-Siegel-zeros-October-1-2026/README.md at 1581d4cbdd69a0faf34b2089614fe2a814316a6a"
+  },
+  "zeta23/zeta23__README.md": {
+   "sha256": "b92f3ebfedb8ce299c3b18239e9a165af751fd89b32e07922c099087b52f9889",
+   "bytes": 26989,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/README.md at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__formalization.yaml": {
+   "sha256": "07d6fb33253544c7c8356d68132f6f6ea6563da1cb12626d5089d769f971e927",
+   "bytes": 14180,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/formalization.yaml at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__ChallengeDeps.lean": {
+   "sha256": "8f9a7e7bb313bbada77d0dd1b71a80bda1c0580b71ba1dd0020b438d63a318e0",
+   "bytes": 6227,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/ChallengeDeps.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Challenge.lean": {
+   "sha256": "6f2a4ba95ab8c5319e541a1cc1b3699c0ae8cef23ea8e68f958e11b07281761e",
+   "bytes": 13335,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Challenge.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__AUDIT.md": {
+   "sha256": "296bce6abcc2c860a5fdeda6f7b47f0f6da2b9284fa2509e1931f160255e3860",
+   "bytes": 25053,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/AUDIT.md at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean": {
+   "sha256": "11ae9f7dcc1747f68b51c44f057641ba20bd623b2abea04849b612e716903c6e",
+   "bytes": 26084,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Zeta23/PairCeiling/LawN256.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean": {
+   "sha256": "58a344ade8cc0e62c4f232fe608d92abb0a9103b804f9b1dca494b9acf0a1031",
+   "bytes": 4167,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Zeta23/PairCeiling/CeilingLaw256.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Zeta23__PairCeiling__NumericCert.lean": {
+   "sha256": "eeae8d2c6073eaaad9438010e1788545d4334a933b5c5aca95492cac48d9fc29",
+   "bytes": 17365,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Zeta23/PairCeiling/NumericCert.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Zeta23__PairCeiling__RowCert.lean": {
+   "sha256": "4bc9ef51e7e4562bbc588fa8ebe75989758024231ce760be309d9ec8240836d2",
+   "bytes": 7697,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Zeta23/PairCeiling/RowCert.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "zeta23/zeta23__Zeta23__PairCeiling__NearCUE.lean": {
+   "sha256": "ac8daac5867a750749f6fafa8d428bd2403025e884f24e5eca625d9292993b80",
+   "bytes": 12612,
+   "from": "github.com/anthropics/zeta-23-lean zeta23/Zeta23/PairCeiling/NearCUE.lean at e1a4e6508154ea59f030480661590a9fe3018011"
+  },
+  "alpoge-furman/00README.json": {
+   "sha256": "18a03eb6c506bd134300688d2565fb2d092bc207b50badb72e6ceee542ae7312",
+   "bytes": 225,
+   "from": "arxiv.org/e-print/2608.13637v2, member 00README.json"
+  },
+  "alpoge-furman/paper-v5-draft18.tex": {
+   "sha256": "ae369aaffb66335ff0dd5ebeafa59da7ca1fc26affa748960e7cdc3d82df26b3",
+   "bytes": 86793,
+   "from": "arxiv.org/e-print/2608.13637v2, member paper-v5-draft18.tex"
+  },
+  "anthropic/riemann-zeta.html": {
+   "sha256": "82b95cd4d18cfbd94d8f9dda51e0594a421237a850b6d56c79e0d5eaa211273f",
+   "bytes": 202705,
+   "from": "https://www.anthropic.com/research/riemann-zeta as served on 2026-10-22"
+  },
+  "video/dsBXYAwQieI-transcript.txt": {
+   "sha256": "b86fd8794cfb9a0ca9d7e8cd2bad922965600d1f1ae2856f2698f43ba9890e0d",
+   "bytes": 9538,
+   "from": "the YouTube captions of youtu.be/dsBXYAwQieI (\"Mathematicians Checked the AI's Riemann Breakthrough\", channel Adem B10), as the operator pasted them into the chat on 2026-10-22; not fetched"
+  }
+ },
+ "tarball": {
+  "sha256": "d6a2e5ca0b1d2cece6597ccdfc6cbb0f458739113f28ca4ce84ac307de6b682d",
+  "bytes": 31280,
+  "from": "arxiv.org/e-print/2608.13637v2 (the tarball itself is not kept; its members are)",
+  "notKept": true
+ }
+}

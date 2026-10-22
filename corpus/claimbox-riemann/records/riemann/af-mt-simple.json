@@ -1,0 +1,297 @@
+{
+ "id": "af-mt-simple",
+ "text": "$2-c_{\\mathrm{MT}}^{-1}=0.67250\\ldots$",
+ "source": {
+  "what": "the paper's main theorem (arXiv:2608.13637v2): the same proportion as the paper prints it, with c_MT^{-1} := 1/2 + (1/√2) cot(1/√2) — kept on the closed-form route on purpose: the receiver admits the transcendental heads and does not decide them (its item (h)); the three claims above show the exact route",
+  "path": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+  "sha256": "ae369aaffb66335ff0dd5ebeafa59da7ca1fc26affa748960e7cdc3d82df26b3",
+  "quote": "Montgomery--Taylor window $\\psi_{\\mathrm{MT}}$ of~\\eqref{eq:psi} in place of the indicator window $\\psi_0$, the constants improve to $2-c_{\\mathrm{MT}}^{-1}=0.67250\\ldots$ and $\\tfrac12(3-c_{\\mathrm{MT}}^{-1})=0.83625\\ldots$ respectively, where $c_{\\mathrm{MT}}^{-1}:=\\tfrac12+\\tfrac1{\\sqrt2}\\cot\\tfrac1{\\sqrt2}$; among"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/zeta23__ChallengeDeps.lean",
+   "sha256": "8f9a7e7bb313bbada77d0dd1b71a80bda1c0580b71ba1dd0020b438d63a318e0"
+  },
+  "count": 1,
+  "variable": "f",
+  "decoder": "no bytes are decoded: the quantity is the Montgomery–Taylor proportion of simple zeros on the critical line, 2 − 1/c₁*, the closed form the pinned file defines; the count is the one constant"
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    "2",
+    [
+     "Divide",
+     "1",
+     [
+      "Divide",
+      [
+       "Multiply",
+       [
+        "Exp",
+        [
+         "Divide",
+         [
+          "Ln",
+          "2"
+         ],
+         "2"
+        ]
+       ],
+       [
+        "Divide",
+        [
+         "Sin",
+         [
+          "Divide",
+          "1",
+          [
+           "Exp",
+           [
+            "Divide",
+            [
+             "Ln",
+             "2"
+            ],
+            "2"
+           ]
+          ]
+         ]
+        ],
+        [
+         "Cos",
+         [
+          "Divide",
+          "1",
+          [
+           "Exp",
+           [
+            "Divide",
+            [
+             "Ln",
+             "2"
+            ],
+            "2"
+           ]
+          ]
+         ]
+        ]
+       ]
+      ],
+      [
+       "Add",
+       "1",
+       [
+        "Multiply",
+        [
+         "Divide",
+         "1",
+         [
+          "Exp",
+          [
+           "Divide",
+           [
+            "Ln",
+            "2"
+           ],
+           "2"
+          ]
+         ]
+        ],
+        [
+         "Divide",
+         [
+          "Sin",
+          [
+           "Divide",
+           "1",
+           [
+            "Exp",
+            [
+             "Divide",
+             [
+              "Ln",
+              "2"
+             ],
+             "2"
+            ]
+           ]
+          ]
+         ],
+         [
+          "Cos",
+          [
+           "Divide",
+           "1",
+           [
+            "Exp",
+            [
+             "Divide",
+             [
+              "Ln",
+              "2"
+             ],
+             "2"
+            ]
+           ]
+          ]
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "ge",
+   "printed": "0.67250",
+   "c": "269/400",
+   "note": "the print is cut off with an ellipsis: the expansion begins with these digits, so the quantity is at least 0.67250"
+  },
+  {
+   "g": [
+    "Subtract",
+    [
+     "Subtract",
+     "2",
+     [
+      "Divide",
+      "1",
+      [
+       "Divide",
+       [
+        "Multiply",
+        [
+         "Exp",
+         [
+          "Divide",
+          [
+           "Ln",
+           "2"
+          ],
+          "2"
+         ]
+        ],
+        [
+         "Divide",
+         [
+          "Sin",
+          [
+           "Divide",
+           "1",
+           [
+            "Exp",
+            [
+             "Divide",
+             [
+              "Ln",
+              "2"
+             ],
+             "2"
+            ]
+           ]
+          ]
+         ],
+         [
+          "Cos",
+          [
+           "Divide",
+           "1",
+           [
+            "Exp",
+            [
+             "Divide",
+             [
+              "Ln",
+              "2"
+             ],
+             "2"
+            ]
+           ]
+          ]
+         ]
+        ]
+       ],
+       [
+        "Add",
+        "1",
+        [
+         "Multiply",
+         [
+          "Divide",
+          "1",
+          [
+           "Exp",
+           [
+            "Divide",
+            [
+             "Ln",
+             "2"
+            ],
+            "2"
+           ]
+          ]
+         ],
+         [
+          "Divide",
+          [
+           "Sin",
+           [
+            "Divide",
+            "1",
+            [
+             "Exp",
+             [
+              "Divide",
+              [
+               "Ln",
+               "2"
+              ],
+              "2"
+             ]
+            ]
+           ]
+          ],
+          [
+           "Cos",
+           [
+            "Divide",
+            "1",
+            [
+             "Exp",
+             [
+              "Divide",
+              [
+               "Ln",
+               "2"
+              ],
+              "2"
+             ]
+            ]
+           ]
+          ]
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    "67251/100000"
+   ],
+   "rel": "lt",
+   "c": "0",
+   "note": "and below the next unit of the last printed digit, 67251/100000 (the truncation box [0.67250, 67251/100000), its upper end not printed)"
+  }
+ ],
+ "reference": "the printed 0.67250 is the box its digits allow; the quantity is the Montgomery–Taylor proportion of simple zeros on the critical line, 2 − 1/c₁*, a closed form over transcendental heads (Exp, Ln, Sin, Cos): the receiver admits it and does not decide it from the object — its decision needs a decider with the interval kernel, which the receiver does not have for claimbox objects yet",
+ "hypotheses": [
+  "c₁* = √2·tan ϑ/(1 + ϑ·tan ϑ) at ϑ = 1/√2, the Montgomery–Taylor constant as ChallengeDeps.lean defines cMT (the paper's c_MT^{-1} := 1/2 + (1/√2) cot(1/√2) is its reciprocal), written here with √2 = exp(ln 2 / 2) and tan = sin/cos over the receiver's audited heads (the definition, read)",
+  "the printed number is the value cut off at its digits (an ellipsis: the truncation box, from the digits to one unit above) or rounded to them (published as: half a unit either side)"
+ ],
+ "falsifier": [
+  "the closed form, enclosed by the receiver's interval kernel, lies outside the box",
+  "the pinned file does not hash to 8f9a7e7b…"
+ ]
+}

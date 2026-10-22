@@ -1,0 +1,139 @@
+{
+ "id": "math-xi-kappa-flat",
+ "text": "kappa9_flat = 100905635384/88388425125",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "f8750b4c8c47a320eed05bbe1b00537371ddb6a720514fd0439869f32b52568b",
+  "quote": "kappa9_flat = 100905635384/88388425125"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "sha256": "628c9fa416ef4a6d4d48a34b2da2f3feea2ca11539144cb7d28e193a3539f017"
+  },
+  "decoder": "the array at vConvQuartic: 10 values, each p/q string as the rational it names; terms = 9, vQuartic = ['1', '0', '-7/25', '0', '-102/25'], vConvQuartic = ['518783/600000', '-729/1600', '-522523/262500', '7082/1875', '-47209/12500', '30551/18750', '0', '-68/3125', '0', '-578/21875'], the file's own fields, written into the expression as literals",
+  "count": 10,
+  "variable": "f",
+  "data": {
+   "select": "vConvQuartic",
+   "elements": "rationals",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     "1",
+     [
+      "Multiply",
+      "2",
+      [
+       "Add",
+       [
+        "Add",
+        [
+         "Subtract",
+         "1/6",
+         "1/3"
+        ],
+        "1/5"
+       ],
+       [
+        "Sum",
+        "k",
+        "1",
+        "8",
+        [
+         "Divide",
+         [
+          "Divide",
+          [
+           "Multiply",
+           "2",
+           [
+            "Multiply",
+            [
+             "Power",
+             "4",
+             [
+              "Add",
+              "k",
+              "1"
+             ]
+            ],
+            [
+             "Product",
+             "m",
+             "1",
+             "k",
+             "m"
+            ]
+           ]
+          ],
+          [
+           "Product",
+           "m",
+           "1",
+           [
+            "Add",
+            [
+             "Multiply",
+             "2",
+             "k"
+            ],
+            "2"
+           ],
+           "m"
+          ]
+         ],
+         [
+          "Multiply",
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            "k"
+           ],
+           "4"
+          ],
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            "k"
+           ],
+           "5"
+          ]
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    "100905635384/88388425125"
+   ],
+   "rel": "eq",
+   "c": "0",
+   "note": "the bar 100905635384/88388425125 as the source prints it, written into the expression as the rational 100905635384/88388425125: the receiver reads a printed bar only as a plain decimal or integer, so the zero of the difference is the bar"
+  }
+ ],
+ "reference": "the bar is the printed 100905635384/88388425125 taken exactly (100905635384/88388425125); the value is κ₉(flat) = 1 + J(flat), computed from the pinned bytes by the expression itself, read as each p/q string as the rational it names; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (None, sha256 …), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic: ∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)), ∫₀¹ r^{d+l} dr = 1/(d+l+1); the flat window has vConv(r) = 1 − r and ∫v = ∫v² = 1; the quartic window's autocorrelation coefficients b_l are the certificate's bytes, v's coefficients and the two integrals its literals",
+  "the ξ′ certificate as Zeta23/XiPrime/Certificate/{D1,Poly,AtOne}.lean define it: D₁(s) = s − 4s² + Σ_{k≥0} a_k s^{2k+3} with a_k = 2·4^{k+1}·k!/(2k+2)! (the paper's Lemma 7.1), truncated at nine terms (k = 0..8), the tail ε₉ = a_9·231/211 (a_{k+1}/a_k ≤ 20/231 from k = 9 on), J(v) = 2∫₀¹ D1trunc9(r)·vConv(r) dr, κ₉(v) = (∫v² + J(v))/(∫v)², and the proportions 2 − κ₉ − ε₉ (simple and on the line) and 3/2 − (κ₉ + ε₉)/2 (distinct), each a lower bound because the tail is added on the side that makes 1/c larger — the definitions, read"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates kappa9_flat = 100905635384/88388425125",
+  "the pinned file does not hash to 628c9fa4…"
+ ]
+}

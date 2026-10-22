@@ -1,0 +1,792 @@
+{
+ "what": "Planted-defect recall of the pipeline claimbox -> cert-machine: a defect planted in the input must come out as a refusal with its rule, or as a changed decision. Each row: the plant, the job, what was planted, the unplanted outcome, the planted outcome, caught or missed.",
+ "plants": 56,
+ "caught": 56,
+ "missed": [],
+ "rows": [
+  {
+   "plant": "bar+1",
+   "job": "optq-1a-atris",
+   "planted": "bar 1.5027434868 -> 1.5027434869",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1a-atris",
+   "planted": "<= -> >=",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-decision-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1a-atris",
+   "planted": "C_1a -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1a-atris",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-1a-agentdiscover",
+   "planted": "bar 1.5027435320 -> 1.5027435321",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1a-agentdiscover",
+   "planted": "<= -> >=",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-decision-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1a-agentdiscover",
+   "planted": "C_1a -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1a-agentdiscover",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-1b-atris",
+   "planted": "bar 0.3808585504 -> 0.3808585505",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1b-atris",
+   "planted": "<= -> >=",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1b-atris",
+   "planted": "C_1b -> C_1a",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1b-atris",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-1b-codexprolong",
+   "planted": "bar 0.3808585749 -> 0.3808585750",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1b-codexprolong",
+   "planted": "<= -> >=",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-decision-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1b-codexprolong",
+   "planted": "C_1b -> C_1a",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1b-codexprolong",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-1c-rozetyp",
+   "planted": "bar 0.4103287 -> 0.4103288",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1c-rozetyp",
+   "planted": "\\geq -> \\leq",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1c-rozetyp",
+   "planted": "C_1c -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1c-rozetyp",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-1d-cert2026",
+   "planted": "bar 1.463071582607559 -> 1.463071582607560",
+   "unplanted": [
+    "checked",
+    "ADMITTED REFUTED from the object: REFUTED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-1d-cert2026",
+   "planted": "\\leq -> \\geq",
+   "unplanted": [
+    "checked",
+    "ADMITTED REFUTED from the object: REFUTED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-1d-cert2026",
+   "planted": "C_1d -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED REFUTED from the object: REFUTED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-1d-cert2026",
+   "planted": "bytes -> best-15.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED REFUTED from the object: REFUTED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "count"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-86-pinho",
+   "planted": "bar 1.8117251 -> 1.8117252",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-86-pinho",
+   "planted": "\\leq -> \\geq",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-86-pinho",
+   "planted": "C_86 -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-86-pinho",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-82-pinho",
+   "planted": "bar 0.2534449 -> 0.2534450",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-82-pinho",
+   "planted": "< -> >",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-82-pinho",
+   "planted": "C_82 -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-82-pinho",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "optq-82-epi",
+   "planted": "bar 0.2535744749068227 -> 0.2535744749068228",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rel-flip",
+   "job": "optq-82-epi",
+   "planted": "<= -> >=",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-decision-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "name-swap",
+   "job": "optq-82-epi",
+   "planted": "C_82 -> C_1b",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "optq-82-epi",
+   "planted": "bytes -> certificate_K3072.json",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "count+1",
+   "job": "ea-kissing-kissing-number-d11",
+   "planted": "K(11) >= 594 -> 595",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "rank+1",
+   "job": "ae-nb-2x4x5-r32",
+   "planted": "Rank-32 -> Rank-33",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "ae-nb-2x4x5-r32",
+   "planted": "the notebook -> another file as the bytes",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "REFUSED record-pin-mismatch"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "count+1",
+   "job": "ae-kissing-d11-593",
+   "planted": "K(11) >= 593 -> 594",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED from the object: CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "count+1",
+   "job": "ea-best-shannon-capacity-c7-5",
+   "planted": "score 367 -> 368",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "row-edit",
+   "job": "ea-best-shannon-capacity-c7-5",
+   "planted": "word 1 -> word 0 with its last coordinate + 1 (adjacent)",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·REFUTED·CERTIFIED·CERTIFIED"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "count+1",
+   "job": "ea-best-no-three-in-line-75",
+   "planted": "score 148 -> 149",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "row-edit",
+   "job": "ea-best-no-three-in-line-75",
+   "planted": "point 2 -> on the line through points 0 and 1",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·REFUTED·CERTIFIED·CERTIFIED"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "row-edit",
+   "job": "ea-best-circle-packing",
+   "planted": "circle 0 -> x = -0.5, outside the square",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·REFUTED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·REFUTED·CERTIFIED·CERTIFIED·CERTIFIED·REFUTED"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "score-edit",
+   "job": "ea-best-circle-packing",
+   "planted": "the printed score 2.6359830849176076 -> 2.6359830852176076 (+3e-10, three resolutions), the sentence following",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·REFUTED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "ADMITTED  from the object: REFUTED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED·REFUTED"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "row-edit",
+   "job": "ea-best-circles-rectangle",
+   "planted": "circle 1 -> centred on circle 0 (overlapping)",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED·CERTIFIED·REFUTED"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "ea-best-third-autocorrelation-inequality",
+   "planted": "score 1.4508066395052834 -> 1.4508066395052835",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "ea-best-third-autocorrelation-inequality",
+   "planted": "bytes -> best-15.json (11 points in the plane)",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "count"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "prim-1b-codexprolong",
+   "planted": "bar 0.3808585749 -> 0.3808585750",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED · CERTIFIED · CERTIFIED from the object: CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "prim-1b-codexprolong",
+   "planted": "bytes -> best-15.json (11 points in the plane)",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED · CERTIFIED · CERTIFIED from the object: CERTIFIED·CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "count"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "prim-1c-rozetyp",
+   "planted": "bar 0.4103287 -> 0.4103288",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED · CERTIFIED from the object: CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "prim-1c-rozetyp",
+   "planted": "bytes -> best-15.json (11 points in the plane)",
+   "unplanted": [
+    "checked",
+    "ADMITTED CERTIFIED · CERTIFIED from the object: CERTIFIED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "count"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "bar+1",
+   "job": "prim-1c-rozetyp-k3072",
+   "planted": "bar 0.41030211724 -> 0.41030211725",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: REFUTED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "source"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "wrong-bytes",
+   "job": "prim-1c-rozetyp-k3072",
+   "planted": "bytes -> best-15.json (11 points in the plane)",
+   "unplanted": [
+    "checked",
+    "ADMITTED  from the object: REFUTED·CERTIFIED"
+   ],
+   "planted_outcome": [
+    "refused",
+    "count"
+   ],
+   "caught": true
+  },
+  {
+   "plant": "score-edit",
+   "job": "ea-kissing-kissing-number-d11",
+   "planted": "the record's printed score 0 -> 0.5",
+   "unplanted": [
+    "reader",
+    "emits the kissing claim"
+   ],
+   "planted_outcome": [
+    "reader",
+    "no kissing claim; the score claim reads 0.5"
+   ],
+   "caught": true
+  }
+ ]
+}

@@ -1,0 +1,219 @@
+{
+ "what": "A run of the claim-machine over the jobs in corpus/riemann-ai-jobs.json: for each, the sentence read, the object written (its pin and predicate) or the refusal, and what cert-machine's checker said of the object (when --check ran).",
+ "jobs": 15,
+ "written": 10,
+ "refused": 5,
+ "skipped": 0,
+ "rows": [
+  {
+   "id": "ai-edge-0.8239",
+   "claim": "|D(1)| ≤ 0.8239",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-edge-0.8239.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": "0.8239",
+     "c": "8239/10000"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-edge-0.8239  []  from the object: REFUTED value 146998155940647117829503750779…  0.004 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-edge-0.824",
+   "claim": "|D(1)| ≤ 0.824",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-edge-0.824.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": "0.824",
+     "c": "103/125"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-edge-0.824  []  from the object: CERTIFIED value 146998155940647117829503750779…  0.003 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-edge-strict",
+   "claim": "|D(1)| < 0.82395316",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-edge-strict.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "lt",
+     "printed": "0.82395316",
+     "c": "20598829/25000000"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-edge-strict  []  from the object: REFUTED value 146998155940647117829503750779…  0.004 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-rows-2e-40",
+   "claim": "|256·S(j) − j| ≤ 2·10⁻⁴⁰ (0 < j < 256)",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-rows-2e-40.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "lt",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-rows-2e-40  []  from the object: CERTIFIED · CERTIFIED value -13759999999999999999999999999…  0.013 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-rows-1e-40",
+   "claim": "|256·S(j) − j| ≤ 1e-40 (0 < j < 256)",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-rows-1e-40.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "lt",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-rows-1e-40  []  from the object: REFUTED (witness {\"i\": 0}, 255 violating) · CERTIFIED value -13759999999999999999999999999…  0.015 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-rows-range-100",
+   "claim": "|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 100)",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "refused": "count: the claim's rows (0 < j < 100) are not the certificate's 0 < j < 256 (256 enclosures, the last row free)"
+  },
+  {
+   "id": "ai-rows-range-257",
+   "claim": "|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 257)",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "refused": "count: the claim's rows (0 < j < 257) are not the certificate's 0 < j < 256 (256 enclosures, the last row free)"
+  },
+  {
+   "id": "ai-p0-0.68182",
+   "claim": "p₀ ≤ 0.68182",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-p0-0.68182.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": "0.68182",
+     "c": "34091/50000"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-p0-0.68182  []  from the object: REFUTED value 109092589994213035880952301958…  0.002 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-p0-0.6819",
+   "claim": "p₀ ≤ 0.6819",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-p0-0.6819.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": "0.6819",
+     "c": "6819/10000"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-p0-0.6819  []  from the object: CERTIFIED value 109092589994213035880952301958…  0.003 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-p0-ge",
+   "claim": "p₀ ≥ 0.6818287",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-p0-ge.json",
+   "pin": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "predicate": [
+    {
+     "rel": "ge",
+     "printed": "0.6818287",
+     "c": "6818287/10000000"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-p0-ge  []  from the object: REFUTED value 109092589994213035880952301958…  0.001 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-cmt-digit",
+   "claim": "c₁* = 0.7532961…",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-cmt-digit.json",
+   "pin": "00cbd97bdd4ffa1724e90a60b8ea8eeaf39967463b89d38e45c06376a0c4fc94",
+   "predicate": [
+    {
+     "rel": "ge",
+     "printed": "0.7532961",
+     "c": "7532961/10000000"
+    },
+    {
+     "rel": "lt",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-cmt-digit  []  from the object: REFUTED value 114440642422208910934/15191987… · CERTIFIED value -2641485377115879877/199894568…  0.004 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-mt-simple-4",
+   "claim": "2 − 1/c₁* = 0.6725…",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "object": "records/riemann-ai/ai-mt-simple-4.json",
+   "pin": "00cbd97bdd4ffa1724e90a60b8ea8eeaf39967463b89d38e45c06376a0c4fc94",
+   "predicate": [
+    {
+     "rel": "ge",
+     "printed": "0.6725",
+     "c": "269/400"
+    },
+    {
+     "rel": "lt",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ai-mt-simple-4  []  from the object: CERTIFIED value 76961412558459420585/114440642… · CERTIFIED value -373800484154370709/3764494816…  0.001 s  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ai-edge-nobars",
+   "claim": "D(1) ≤ 0.82395317",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "refused": "decider: the quantity \"D(1)\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ai-edge-hedged",
+   "claim": "we checked that |D(1)| ≤ 0.82395317",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "refused": "prose: no claim shape in the grammar matches"
+  },
+  {
+   "id": "ai-constant",
+   "claim": "1/(6·256²) + τ/512 < 2.5431316·10⁻⁶",
+   "source": "../claimbox/corpus/riemann/ai-claims.md",
+   "refused": "prose: no claim shape in the grammar matches"
+  }
+ ]
+}

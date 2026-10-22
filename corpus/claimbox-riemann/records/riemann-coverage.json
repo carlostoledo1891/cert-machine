@@ -1,0 +1,761 @@
+{
+ "what": "The grammar over the sentences of the 2026 Riemann-hypothesis story as its pinned sources print them (corpus/riemann-sentences.json, by author) and over eighty AI phrasings of eight of its claims (corpus/riemann/ai-phrasings.json): the shape each takes, or the rule that refuses it. A measurement: a theorem is refused (prose, asymptotic, no quantity); what is read is the finite layer — the certificate's inequalities and the constants printed to their digits — and only when it stands at the head of its sentence.",
+ "story": {
+  "byFamily": {
+   "digits": 5,
+   "bound": 5
+  },
+  "byRefusal": {
+   "prose": 43,
+   "no-quantity": 6,
+   "ambiguous": 3,
+   "asymptotic": 2,
+   "approximate": 1
+  },
+  "byAuthor": {
+   "OpenAI (the model's manuscript, as the release's index prints its abstract)": {
+    "shaped": 0,
+    "refused": 6
+   },
+   "OpenAI (the release: its index, scope note, Lean statements, history)": {
+    "shaped": 0,
+    "refused": 7
+   },
+   "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)": {
+    "shaped": 5,
+    "refused": 13
+   },
+   "Claude (the Lean formalization zeta23, reviewed by the authors)": {
+    "shaped": 5,
+    "refused": 16
+   },
+   "Anthropic (the research post)": {
+    "shaped": 0,
+    "refused": 4
+   },
+   "the video (YouTube captions, as pasted)": {
+    "shaped": 0,
+    "refused": 9
+   }
+  },
+  "rows": [
+   {
+    "id": "om-headline-78",
+    "refused": "prose"
+   },
+   {
+    "id": "om-headline-1112",
+    "refused": "prose"
+   },
+   {
+    "id": "om-abstract-78",
+    "refused": "prose"
+   },
+   {
+    "id": "om-abstract-78-zeta",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "om-abstract-1112",
+    "refused": "prose"
+   },
+   {
+    "id": "om-abstract-siegel",
+    "refused": "ambiguous"
+   },
+   {
+    "id": "om-scope-theta",
+    "refused": "prose"
+   },
+   {
+    "id": "om-scope-siegel",
+    "refused": "ambiguous"
+   },
+   {
+    "id": "om-scope-noc",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "om-lean-zeta",
+    "refused": "prose"
+   },
+   {
+    "id": "om-lean-dirichlet",
+    "refused": "prose"
+   },
+   {
+    "id": "om-lean-siegel",
+    "refused": "prose"
+   },
+   {
+    "id": "om-history-14",
+    "refused": "prose"
+   },
+   {
+    "id": "af-abstract",
+    "refused": "prose"
+   },
+   {
+    "id": "af-abstract-mt",
+    "refused": "prose"
+   },
+   {
+    "id": "af-thm-i",
+    "refused": "asymptotic"
+   },
+   {
+    "id": "af-mt-simple",
+    "shape": "digits",
+    "name": "2-c_{\\mathrm{MT}}^{-1}",
+    "rel": "in",
+    "printed": "0.67250"
+   },
+   {
+    "id": "af-mt-distinct",
+    "shape": "digits",
+    "name": "\\tfrac12(3-c_{\\mathrm{MT}}^{-1})",
+    "rel": "in",
+    "printed": "0.83625"
+   },
+   {
+    "id": "af-cmt-def",
+    "refused": "prose"
+   },
+   {
+    "id": "af-ceiling-approx",
+    "refused": "approximate"
+   },
+   {
+    "id": "af-records",
+    "refused": "prose"
+   },
+   {
+    "id": "af-rh-sdp",
+    "refused": "prose"
+   },
+   {
+    "id": "af-within",
+    "refused": "prose"
+   },
+   {
+    "id": "af-ceiling-ineq",
+    "refused": "prose"
+   },
+   {
+    "id": "af-p0",
+    "shape": "bound",
+    "name": "p_0",
+    "rel": "le",
+    "printed": "0.6818287"
+   },
+   {
+    "id": "af-below",
+    "refused": "prose"
+   },
+   {
+    "id": "af-rows",
+    "shape": "bound",
+    "name": "|256\\,S(j)-j|",
+    "rel": "le",
+    "printed": "3\\cdot10^{-40}"
+   },
+   {
+    "id": "af-edge",
+    "shape": "bound",
+    "name": "|D(1)|",
+    "rel": "le",
+    "printed": "0.82395317"
+   },
+   {
+    "id": "af-xi-liminf",
+    "refused": "prose"
+   },
+   {
+    "id": "af-xi-quartic",
+    "refused": "prose"
+   },
+   {
+    "id": "af-enclok",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "z-readme-ceiling",
+    "refused": "prose"
+   },
+   {
+    "id": "z-readme-rows",
+    "shape": "bound",
+    "name": "|256·S(j) - j|",
+    "rel": "le",
+    "printed": "3·10⁻⁴⁰"
+   },
+   {
+    "id": "z-readme-edge",
+    "refused": "prose"
+   },
+   {
+    "id": "z-readme-xi",
+    "refused": "prose"
+   },
+   {
+    "id": "z-readme-enclok",
+    "refused": "prose"
+   },
+   {
+    "id": "z-yaml-23",
+    "refused": "asymptotic"
+   },
+   {
+    "id": "z-yaml-mt-simple",
+    "shape": "digits",
+    "name": "2 - 1/c₁*",
+    "rel": "in",
+    "printed": "0.67250"
+   },
+   {
+    "id": "z-yaml-mt-distinct",
+    "shape": "digits",
+    "name": "(3 - 1/c₁*)/2",
+    "rel": "in",
+    "printed": "0.83625"
+   },
+   {
+    "id": "z-yaml-cmt",
+    "refused": "prose"
+   },
+   {
+    "id": "z-yaml-xi",
+    "refused": "prose"
+   },
+   {
+    "id": "z-deps-cmt",
+    "refused": "prose"
+   },
+   {
+    "id": "z-deps-cmt-frag",
+    "shape": "digits",
+    "name": "c₁*",
+    "rel": "in",
+    "printed": "0.7532960"
+   },
+   {
+    "id": "z-law-rows",
+    "refused": "prose"
+   },
+   {
+    "id": "z-law-edge",
+    "shape": "bound",
+    "name": "|D(1)|",
+    "rel": "le",
+    "printed": "82395317/10^8"
+   },
+   {
+    "id": "z-law-p0",
+    "refused": "prose"
+   },
+   {
+    "id": "z-law-encl",
+    "refused": "ambiguous"
+   },
+   {
+    "id": "z-law-K",
+    "refused": "prose"
+   },
+   {
+    "id": "z-ceil-const",
+    "refused": "prose"
+   },
+   {
+    "id": "z-ceil-rows-edge",
+    "refused": "prose"
+   },
+   {
+    "id": "z-ceil-p0",
+    "refused": "prose"
+   },
+   {
+    "id": "z-audit-check",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "an-416-672",
+    "refused": "prose"
+   },
+   {
+    "id": "an-416",
+    "refused": "prose"
+   },
+   {
+    "id": "an-tokens",
+    "refused": "prose"
+   },
+   {
+    "id": "an-650",
+    "refused": "prose"
+   },
+   {
+    "id": "v-wall",
+    "refused": "prose"
+   },
+   {
+    "id": "v-199",
+    "refused": "prose"
+   },
+   {
+    "id": "v-49",
+    "refused": "prose"
+   },
+   {
+    "id": "v-1112",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "v-722",
+    "refused": "prose"
+   },
+   {
+    "id": "v-7to13",
+    "refused": "prose"
+   },
+   {
+    "id": "v-1896",
+    "refused": "prose"
+   },
+   {
+    "id": "v-200",
+    "refused": "prose"
+   },
+   {
+    "id": "v-radziwill",
+    "refused": "no-quantity"
+   }
+  ],
+  "sentences": 65,
+  "shaped": 10,
+  "refused": 55
+ },
+ "aiPhrasings": {
+  "byFamily": {
+   "digits": 3
+  },
+  "byRefusal": {
+   "prose": 66,
+   "unbounded": 3,
+   "ambiguous": 3,
+   "approximate": 4,
+   "no-quantity": 1
+  },
+  "byAuthor": {
+   "an AI (paper)": {
+    "shaped": 1,
+    "refused": 14
+   },
+   "an AI (abstract)": {
+    "shaped": 0,
+    "refused": 8
+   },
+   "an AI (readme)": {
+    "shaped": 0,
+    "refused": 8
+   },
+   "an AI (docstring)": {
+    "shaped": 0,
+    "refused": 8
+   },
+   "an AI (blog)": {
+    "shaped": 0,
+    "refused": 7
+   },
+   "an AI (tweet; rounded)": {
+    "shaped": 0,
+    "refused": 1
+   },
+   "an AI (referee; sloppy)": {
+    "shaped": 0,
+    "refused": 3
+   },
+   "an AI (assistant)": {
+    "shaped": 0,
+    "refused": 9
+   },
+   "an AI (assistant; sloppy)": {
+    "shaped": 0,
+    "refused": 1
+   },
+   "an AI (tweet; sloppy)": {
+    "shaped": 0,
+    "refused": 2
+   },
+   "an AI (tweet)": {
+    "shaped": 2,
+    "refused": 3
+   },
+   "an AI (referee)": {
+    "shaped": 0,
+    "refused": 3
+   },
+   "an AI (abstract; rounded; sloppy)": {
+    "shaped": 0,
+    "refused": 1
+   },
+   "an AI (blog; rounded; sloppy)": {
+    "shaped": 0,
+    "refused": 2
+   },
+   "an AI (blog; rounded)": {
+    "shaped": 0,
+    "refused": 2
+   },
+   "an AI (tweet; rounded; sloppy)": {
+    "shaped": 0,
+    "refused": 2
+   },
+   "an AI (referee; rounded; sloppy)": {
+    "shaped": 0,
+    "refused": 1
+   },
+   "an AI (readme; rounded; sloppy)": {
+    "shaped": 0,
+    "refused": 1
+   },
+   "an AI (referee; rounded)": {
+    "shaped": 0,
+    "refused": 1
+   }
+  },
+  "rows": [
+   {
+    "id": "1/paper/0",
+    "refused": "prose"
+   },
+   {
+    "id": "1/abstract/1",
+    "refused": "prose"
+   },
+   {
+    "id": "1/readme/2",
+    "refused": "prose"
+   },
+   {
+    "id": "1/docstring/3",
+    "refused": "prose"
+   },
+   {
+    "id": "1/blog/4",
+    "refused": "prose"
+   },
+   {
+    "id": "1/tweet/5",
+    "refused": "prose"
+   },
+   {
+    "id": "1/referee/6",
+    "refused": "prose"
+   },
+   {
+    "id": "1/assistant/7",
+    "refused": "prose"
+   },
+   {
+    "id": "1/paper/8",
+    "refused": "prose"
+   },
+   {
+    "id": "1/assistant/9",
+    "refused": "prose"
+   },
+   {
+    "id": "2/paper/10",
+    "refused": "prose"
+   },
+   {
+    "id": "2/abstract/11",
+    "refused": "prose"
+   },
+   {
+    "id": "2/readme/12",
+    "refused": "unbounded"
+   },
+   {
+    "id": "2/docstring/13",
+    "refused": "ambiguous"
+   },
+   {
+    "id": "2/blog/14",
+    "refused": "prose"
+   },
+   {
+    "id": "2/tweet/15",
+    "refused": "prose"
+   },
+   {
+    "id": "2/referee/16",
+    "refused": "ambiguous"
+   },
+   {
+    "id": "2/assistant/17",
+    "refused": "unbounded"
+   },
+   {
+    "id": "2/paper/18",
+    "refused": "unbounded"
+   },
+   {
+    "id": "2/blog/19",
+    "refused": "prose"
+   },
+   {
+    "id": "3/paper/20",
+    "refused": "prose"
+   },
+   {
+    "id": "3/abstract/21",
+    "refused": "prose"
+   },
+   {
+    "id": "3/readme/22",
+    "refused": "prose"
+   },
+   {
+    "id": "3/docstring/23",
+    "refused": "prose"
+   },
+   {
+    "id": "3/blog/24",
+    "refused": "prose"
+   },
+   {
+    "id": "3/tweet/25",
+    "refused": "prose"
+   },
+   {
+    "id": "3/referee/26",
+    "refused": "prose"
+   },
+   {
+    "id": "3/assistant/27",
+    "refused": "prose"
+   },
+   {
+    "id": "3/abstract/28",
+    "refused": "prose"
+   },
+   {
+    "id": "3/assistant/29",
+    "refused": "prose"
+   },
+   {
+    "id": "4/paper/30",
+    "refused": "prose"
+   },
+   {
+    "id": "4/abstract/31",
+    "refused": "prose"
+   },
+   {
+    "id": "4/readme/32",
+    "refused": "prose"
+   },
+   {
+    "id": "4/docstring/33",
+    "refused": "prose"
+   },
+   {
+    "id": "4/blog/34",
+    "refused": "prose"
+   },
+   {
+    "id": "4/tweet/35",
+    "refused": "prose"
+   },
+   {
+    "id": "4/referee/36",
+    "refused": "prose"
+   },
+   {
+    "id": "4/assistant/37",
+    "refused": "prose"
+   },
+   {
+    "id": "4/blog/38",
+    "refused": "approximate"
+   },
+   {
+    "id": "4/paper/39",
+    "refused": "prose"
+   },
+   {
+    "id": "5/paper/40",
+    "refused": "prose"
+   },
+   {
+    "id": "5/abstract/41",
+    "refused": "prose"
+   },
+   {
+    "id": "5/readme/42",
+    "refused": "prose"
+   },
+   {
+    "id": "5/docstring/43",
+    "refused": "prose"
+   },
+   {
+    "id": "5/blog/44",
+    "refused": "prose"
+   },
+   {
+    "id": "5/tweet/45",
+    "shape": "digits",
+    "name": "c₁*",
+    "rel": "in",
+    "printed": "0.7532960"
+   },
+   {
+    "id": "5/referee/46",
+    "refused": "prose"
+   },
+   {
+    "id": "5/assistant/47",
+    "refused": "prose"
+   },
+   {
+    "id": "5/paper/48",
+    "refused": "prose"
+   },
+   {
+    "id": "5/tweet/49",
+    "refused": "approximate"
+   },
+   {
+    "id": "6/paper/50",
+    "refused": "prose"
+   },
+   {
+    "id": "6/abstract/51",
+    "refused": "prose"
+   },
+   {
+    "id": "6/readme/52",
+    "refused": "prose"
+   },
+   {
+    "id": "6/docstring/53",
+    "refused": "prose"
+   },
+   {
+    "id": "6/blog/54",
+    "refused": "prose"
+   },
+   {
+    "id": "6/tweet/55",
+    "shape": "digits",
+    "name": "2 - 1/c₁*",
+    "rel": "in",
+    "printed": "0.67250"
+   },
+   {
+    "id": "6/referee/56",
+    "refused": "prose"
+   },
+   {
+    "id": "6/assistant/57",
+    "refused": "prose"
+   },
+   {
+    "id": "6/paper/58",
+    "refused": "prose"
+   },
+   {
+    "id": "6/readme/59",
+    "refused": "approximate"
+   },
+   {
+    "id": "7/paper/60",
+    "refused": "prose"
+   },
+   {
+    "id": "7/abstract/61",
+    "refused": "prose"
+   },
+   {
+    "id": "7/readme/62",
+    "refused": "prose"
+   },
+   {
+    "id": "7/docstring/63",
+    "refused": "prose"
+   },
+   {
+    "id": "7/blog/64",
+    "refused": "prose"
+   },
+   {
+    "id": "7/tweet/65",
+    "refused": "prose"
+   },
+   {
+    "id": "7/referee/66",
+    "refused": "prose"
+   },
+   {
+    "id": "7/assistant/67",
+    "refused": "prose"
+   },
+   {
+    "id": "7/paper/68",
+    "shape": "digits",
+    "name": "\\tfrac{1}{2}\\bigl(3 - 1/c_1^*\\bigr)",
+    "rel": "in",
+    "printed": "0.83625"
+   },
+   {
+    "id": "7/blog/69",
+    "refused": "approximate"
+   },
+   {
+    "id": "8/paper/70",
+    "refused": "prose"
+   },
+   {
+    "id": "8/abstract/71",
+    "refused": "prose"
+   },
+   {
+    "id": "8/readme/72",
+    "refused": "prose"
+   },
+   {
+    "id": "8/docstring/73",
+    "refused": "prose"
+   },
+   {
+    "id": "8/blog/74",
+    "refused": "no-quantity"
+   },
+   {
+    "id": "8/tweet/75",
+    "refused": "prose"
+   },
+   {
+    "id": "8/referee/76",
+    "refused": "prose"
+   },
+   {
+    "id": "8/assistant/77",
+    "refused": "prose"
+   },
+   {
+    "id": "8/paper/78",
+    "refused": "prose"
+   },
+   {
+    "id": "8/tweet/79",
+    "refused": "ambiguous"
+   }
+  ],
+  "sentences": 80,
+  "shaped": 3,
+  "refused": 77
+ }
+}

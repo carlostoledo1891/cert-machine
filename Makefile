@@ -134,7 +134,8 @@ test:
 	@printf "%-30s " "AlphaProof Nexus statements"; $(PY) tools/apn-statements.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox: declared claims"; $(PY) instruments/claimbox/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "AlphaProof Nexus OEIS"; $(PY) tools/apn-oeis.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
-	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib paper/tex/qiushi-kissing-refs.bib paper/tex/optconst-replays-refs.bib paper/tex/openai-math-release-refs.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib paper/tex/qiushi-kissing-refs.bib paper/tex/optconst-replays-refs.bib paper/tex/openai-math-release-refs.bib paper/tex/riemann-finite-layer-refs.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "claimbox lift (Riemann records)"; $(NODE) tools/check-claimbox-lift.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "copy census (hub vocabulary)"; $(NODE) tools/check-copy.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "aerp (AlphaEvolve community)"; $(PY) instruments/aerp/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -245,9 +246,13 @@ test:
 
 drift:
 	@$(NODE) tools/lift.js --check
+	@$(NODE) tools/lift.js --check --manifest LIFT-claimbox.json
 
 lift:
 	@$(NODE) tools/lift.js
+
+lift-claimbox:
+	@$(NODE) tools/lift.js --manifest LIFT-claimbox.json
 
 clean:
 	@rm -f index.html ledger.json

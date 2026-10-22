@@ -1,0 +1,110 @@
+{
+ "id": "zeta23-edge",
+ "text": "|D(1)| ≤ 0.82395317",
+ "source": {
+  "what": "CeilingLaw256.lean's statement of the edge bound Lean kernel-checks downstream of EnclOK; the bytes: the Lean formalization zeta23 (anthropics/zeta-23-lean, pinned here by tools/riemann.py): the 256 integer enclosures of Zeta23/PairCeiling/LawN256.lean, decoded as literals into LawN256.encl.json beside it",
+  "path": "../claimbox/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+  "sha256": "58a344ade8cc0e62c4f232fe608d92abb0a9103b804f9b1dca494b9acf0a1031",
+  "quote": "/-- **the row certificate of the N = 256 law, unpacked**: near-CUE rows with τ = 3·10⁻⁴⁰ and |D(1)| ≤ 0.82395317. -/"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; N = 256, dn = 82395317, dd = 100000000, K = 139379… (43 digits), the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Max",
+    [
+     "Abs",
+     [
+      "Subtract",
+      [
+       "Divide",
+       [
+        "Divide",
+        [
+         "Sum",
+         "i",
+         "0",
+         [
+          "Subtract",
+          "n",
+          "1"
+         ],
+         [
+          "Index",
+          "f",
+          "i",
+          "0"
+         ]
+        ],
+        "1393796574908163946345982392040522594123776"
+       ],
+       "256"
+      ],
+      "1/2"
+     ]
+    ],
+    [
+     "Abs",
+     [
+      "Subtract",
+      [
+       "Divide",
+       [
+        "Divide",
+        [
+         "Sum",
+         "i",
+         "0",
+         [
+          "Subtract",
+          "n",
+          "1"
+         ],
+         [
+          "Index",
+          "f",
+          "i",
+          "1"
+         ]
+        ],
+        "1393796574908163946345982392040522594123776"
+       ],
+       "256"
+      ],
+      "1/2"
+     ]
+    ]
+   ],
+   "rel": "le",
+   "printed": "0.82395317",
+   "c": "82395317/100000000"
+  }
+ ],
+ "reference": "the bar is the printed 0.82395317 taken exactly (82395317/100000000); the value is the larger of |D(1)| at the two ends of the enclosures, D(1) = T_N/N − 1/2 with T_N = Σ_{j<=N} S(j) (all N rows, the closed-band row included), computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "D(1) = Σ_j S(j)/N − 1/2 is monotone in each S(j), so over all S inside the enclosures it ranges over [Σ lo_j/(K·N) − 1/2, Σ hi_j/(K·N) − 1/2], and |D(1)| <= d₁ for every such S iff both ends are within d₁ of 0: exact over the integers the file prints",
+  "the edge bound of RowCert.lean, |D(1)| <= d₁ with d₁ = dn/dd as the certificate declares it: kernel-checked given EnclOK, re-decided here from the same integers (read)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates |D(1)| <= 0.82395317",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

@@ -158,7 +158,9 @@ claimbox reads this repository read-only and pins `instruments/claimbox/check.py
 objects and `certs/claims-ledger.json` in its PROVENANCE.json: a change to any of them shows up there as drift, so
 a receiver change is followed by `make lift` in claimbox. Nothing here reads or writes claimbox; the translator, the
 readers, the grammar and the recall are its work, done in its folder. The operator's rule that made the split, in
-their words: build what is asked, never substitute a design.
+their words: build what is asked, never substitute a design. The one exception (operator-approved 2026-10-22): `LIFT-claimbox.json` copies claimbox's
+pinned Riemann records and corpus OUT into `corpus/claimbox-riemann` for the companion paper `riemann-finite-layer`, with the claimbox commit and every
+sha256 in `PROVENANCE-claimbox.json`; the build reads the copies, never claimbox; `make drift` re-hashes both ends and `make lift-claimbox` refreshes them.
 
 ## The backlog
 

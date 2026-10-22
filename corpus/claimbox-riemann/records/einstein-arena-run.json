@@ -1,0 +1,461 @@
+{
+ "what": "A run of the claim-machine over the jobs in corpus/einstein-arena-jobs.json: for each, the sentence read, the object written (its pin and predicate) or the refusal, and what cert-machine's checker said of the object (when --check ran).",
+ "jobs": 30,
+ "written": 15,
+ "refused": 14,
+ "skipped": 1,
+ "rows": [
+  {
+   "id": "ea-best-erdos-min-overlap",
+   "claim": "the object is a feasible solution of \"Erdős Minimum Overlap (Upper Bound)\" and the platform's score of it is 0.3808585748578584 (minimize)",
+   "source": "corpus/einstein-arena/best-1.json",
+   "object": "records/einstein-arena/ea-best-erdos-min-overlap.json",
+   "pin": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "0.3808585748578584",
+     "c": [
+      "7617171497157167/20000000000000000",
+      "7617171497157169/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-erdos-min-overlap  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-thomson-problem",
+   "claim": "the object is a feasible solution of \"Thomson Problem (n = 282)\" and the platform's score of it is 37147.29441846226 (minimize)",
+   "source": "corpus/einstein-arena/best-10.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-tammes-problem",
+   "claim": "the object is a feasible solution of \"Tammes Problem (n = 50)\" and the platform's score of it is 0.5633081876528571 (maximize)",
+   "source": "corpus/einstein-arena/best-11.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-flat-polynomials",
+   "claim": "the object is a feasible solution of \"Flat Polynomials (degree 69)\" and the platform's score of it is 1.2807274949642549 (minimize)",
+   "source": "corpus/einstein-arena/best-12.json",
+   "object": "records/einstein-arena/ea-best-flat-polynomials.json",
+   "pin": "772b895b2cb8b9511dc0b57f1508aeb7b66ce480b2a633bfe04140cd956793d2",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "1.2807274949642549",
+     "c": [
+      "25614549899285097/20000000000000000",
+      "25614549899285099/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-flat-polynomials  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-edges-vs-triangles",
+   "claim": "the object is a feasible solution of \"Edges vs Triangles (Minimal Triangle Density)\" and the platform's score of it is -0.7117091757692579 (maximize)",
+   "source": "corpus/einstein-arena/best-13.json",
+   "object": "records/einstein-arena/ea-best-edges-vs-triangles.json",
+   "pin": "91be01ed42c02f5123af1c0c44831ad6c0dc2f030cf894feff2c46e6ed01aa7a",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "-0.7117091757692579",
+     "c": [
+      "-14234183515385159/20000000000000000",
+      "-14234183515385157/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-edges-vs-triangles  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-circle-packing",
+   "claim": "the object is a feasible solution of \"Circle Packing in a Square\" and the platform's score of it is 2.6359830849176076 (maximize)",
+   "source": "corpus/einstein-arena/best-14.json",
+   "object": "records/einstein-arena/ea-best-circle-packing.json",
+   "pin": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "2.6359830849176076",
+     "c": [
+      "6589957712044019/2500000000000000",
+      "6589957712544019/2500000000000000"
+     ]
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-circle-packing  []  from the object: CERTIFIED value 189942599023837833/72057594037… · CERTIFIED value 2492496546109449/3602879701896… · CERTIFIED · CERTIFIED · CERTIFIED · CERTIFIED · REFUTED (witness {\"i\": 1, \"j\": 13}, 3 violating)  0.012 s  note: predicate[0]: the box is the printed value ± the platform's declared resolution, the quoted minImprovement 1e-10  note: no record at",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-heilbronn-triangles",
+   "claim": "the object is a feasible solution of \"Heilbronn Problem for Triangles (n = 11)\" and the platform's score of it is 0.036529889880030156 (maximize)",
+   "source": "corpus/einstein-arena/best-15.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-circles-rectangle",
+   "claim": "the object is a feasible solution of \"Circles in a Rectangle (n = 21)\" and the platform's score of it is 2.3658323759098576 (maximize)",
+   "source": "corpus/einstein-arena/best-18.json",
+   "object": "records/einstein-arena/ea-best-circles-rectangle.json",
+   "pin": "b38b661088eda8a1814771a780025dce3308cd9ff8b14c420068aedba09ef7e6",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "2.3658323759098576",
+     "c": [
+      "1478645234881161/625000000000000",
+      "1478645235006161/625000000000000"
+     ]
+    },
+    {
+     "rel": "gt",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-circles-rectangle  []  from the object: CERTIFIED value 85238094452549551/360287970189… · CERTIFIED value 2692846334979835/3602879701896… · CERTIFIED value -24871/36028797018963968 · CERTIFIED  0.011 s  note: predicate[0]: the box is the printed value ± the platform's declared resolution, the quoted minImprovement 1e-10  note: no record attached",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-difference-bases",
+   "claim": "the object is a feasible solution of \"Difference Bases\" and the platform's score of it is 2.639027469506608 (minimize)",
+   "source": "corpus/einstein-arena/best-19.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-first-autocorrelation-inequality",
+   "claim": "the object is a feasible solution of \"First Autocorrelation Inequality (Upper Bound)\" and the platform's score of it is 1.5027436492326165 (minimize)",
+   "source": "corpus/einstein-arena/best-2.json",
+   "object": "records/einstein-arena/ea-best-first-autocorrelation-inequality.json",
+   "pin": "50abacd697b1545a4c4723a66f164a445539472c7a7c33533685519f5313cd9e",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "1.5027436492326165",
+     "c": [
+      "30054872984652329/20000000000000000",
+      "30054872984652331/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-first-autocorrelation-inequality  []  0.003 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-kissing-number-d12",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 12 (n=841)\" and the platform's score of it is 2 (minimize)",
+   "source": "corpus/einstein-arena/best-22.json",
+   "object": "records/einstein-arena/ea-best-kissing-number-d12.json",
+   "pin": "5d9d2124947a496e0581d344e738c4f4899c85bf036cbe151a4ce4ff5e8fe66f",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "2",
+     "c": [
+      "3/2",
+      "5/2"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-kissing-number-d12  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-kissing-number-d11-605",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 11 (n=605)\" and the platform's score of it is 1.7102381876301676 (minimize)",
+   "source": "corpus/einstein-arena/best-24.json",
+   "object": "records/einstein-arena/ea-best-kissing-number-d11-605.json",
+   "pin": "1bc113d0235788eaf7ec9951abe770b9c062bdcf6a2c2b49ae583f4096dad6ce",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "1.7102381876301676",
+     "c": [
+      "34204763752603351/20000000000000000",
+      "34204763752603353/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-kissing-number-d11-605  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-kissing-number-d12-842",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 12 (n=842)\" and the platform's score of it is 0.5469062458557645 (minimize)",
+   "source": "corpus/einstein-arena/best-25.json",
+   "object": "records/einstein-arena/ea-best-kissing-number-d12-842.json",
+   "pin": "0a58d04ac86fcea33f5fafe0f618e18ef5ebd38d7d9f8cbe6d0159b6e7aca7b9",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "0.5469062458557645",
+     "c": [
+      "10938124917115289/20000000000000000",
+      "10938124917115291/20000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-kissing-number-d12-842  []  0.001 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-kakeya-needle-128",
+   "claim": "the object is a feasible solution of \"Discretized Kakeya Needle (n = 128)\" and the platform's score of it is 0.10679779034341574 (minimize)",
+   "source": "corpus/einstein-arena/best-26.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-hadamard-det-51",
+   "claim": "the object is a feasible solution of \"Hadamard Maximal Determinant (order 51)\" and the platform's score of it is 43.301336781918444 (maximize)",
+   "source": "corpus/einstein-arena/best-27.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-sorting-network-16",
+   "claim": "the object is a feasible solution of \"Sorting Network (16 inputs)\" and the platform's score of it is 60 (minimize)",
+   "source": "corpus/einstein-arena/best-28.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-shannon-capacity-c7-5",
+   "claim": "the object is a feasible solution of \"Shannon Capacity of the 7-Cycle (Fifth Power)\" and the platform's score of it is 367 (maximize)",
+   "source": "corpus/einstein-arena/best-29.json",
+   "object": "records/einstein-arena/ea-best-shannon-capacity-c7-5.json",
+   "pin": "59b31ea158c0beaf7437071240e9c1c78befcaf6517317b840e7d517ae3bc0d5",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "367",
+     "c": [
+      "733/2",
+      "735/2"
+     ]
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-shannon-capacity-c7-5  []  from the object: CERTIFIED value 367 · CERTIFIED · CERTIFIED value 0 · CERTIFIED value 0  4.749 s  note: no record attached",
+   "certMachineSeconds": 4.8
+  },
+  {
+   "id": "ea-best-second-autocorrelation-inequality",
+   "claim": null,
+   "source": "corpus/einstein-arena/best-3.json.gz",
+   "skipped": "gzipped: the receiver reads JSON bytes only"
+  },
+  {
+   "id": "ea-best-ring-loading-15",
+   "claim": "the object is a feasible solution of \"Ring Loading Problem (15 pairs)\" and the platform's score of it is 1.125 (maximize)",
+   "source": "corpus/einstein-arena/best-30.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-spencer-discrepancy",
+   "claim": "the object is a feasible solution of \"Spencer Discrepancy Constant\" and the platform's score of it is 1.697749375254331 (maximize)",
+   "source": "corpus/einstein-arena/best-31.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-sidon-45-set",
+   "claim": "the object is a feasible solution of \"Sidon Subsets of (4,5)-Sets\" and the platform's score of it is 0.5714285714285714 (minimize)",
+   "source": "corpus/einstein-arena/best-32.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-no-three-in-line-75",
+   "claim": "the object is a feasible solution of \"No-Three-in-Line (75 × 75 grid)\" and the platform's score of it is 148 (maximize)",
+   "source": "corpus/einstein-arena/best-33.json",
+   "object": "records/einstein-arena/ea-best-no-three-in-line-75.json",
+   "pin": "b3d56aea63aed5565ebb8bf34facfa31dc01cc64467d9029fc2e8ea1662342ec",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "148",
+     "c": [
+      "295/2",
+      "297/2"
+     ]
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-no-three-in-line-75  []  from the object: CERTIFIED value 148 · CERTIFIED · CERTIFIED value 0 · CERTIFIED value 1  13.653 s  note: no record attached",
+   "certMachineSeconds": 13.7
+  },
+  {
+   "id": "ea-best-two-deletion-code-16",
+   "claim": "the object is a feasible solution of \"Two-Deletion-Correcting Code (length 16)\" and the platform's score of it is 211 (maximize)",
+   "source": "corpus/einstein-arena/best-34.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-snake-in-the-box-13",
+   "claim": "the object is a feasible solution of \"Snake-in-the-Box (13-dimensional hypercube)\" and the platform's score of it is 2934 (maximize)",
+   "source": "corpus/einstein-arena/best-35.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  },
+  {
+   "id": "ea-best-third-autocorrelation-inequality",
+   "claim": "the object is a feasible solution of \"Third Autocorrelation Inequality (Upper Bound)\" and the platform's score of it is 1.4508066395052834 (minimize)",
+   "source": "corpus/einstein-arena/best-4.json",
+   "object": "records/einstein-arena/ea-best-third-autocorrelation-inequality.json",
+   "pin": "fcb94502274522cbaa5f954066b35e411f1a3b785238e28b1e1b7d1ae9fab169",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "1.4508066395052834",
+     "c": [
+      "7253983197526417/5000000000000000",
+      "7254083197526417/5000000000000000"
+     ]
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-third-autocorrelation-inequality  []  from the object: CERTIFIED value 315957707030701161231684717233… · CERTIFIED value 425352956949761163472382904805…  1863.585 s  note: predicate[0]: the box is the printed value ± the platform's declared resolution, the quoted minImprovement 0.00001  note: no record attached",
+   "certMachineSeconds": 1863.6
+  },
+  {
+   "id": "ea-best-min-distance-ratio-2d",
+   "claim": "the object is a feasible solution of \"Minimizing Max/Min Distance Ratio (2D, n=16)\" and the platform's score of it is 12.889229907717521 (minimize)",
+   "source": "corpus/einstein-arena/best-5.json",
+   "object": "records/einstein-arena/ea-best-min-distance-ratio-2d.json",
+   "pin": "3954bce1147e175701bb56560b1795c08f7f711c7055aa17394a52489002bbed",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "12.889229907717521",
+     "c": [
+      "25778459815435041/2000000000000000",
+      "25778459815435043/2000000000000000"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-min-distance-ratio-2d  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.1
+  },
+  {
+   "id": "ea-best-kissing-number-d11",
+   "claim": "the object is a feasible solution of \"Kissing Number in Dimension 11 (n=594)\" and the platform's score of it is 0 (minimize)",
+   "source": "corpus/einstein-arena/best-6.json",
+   "object": "records/einstein-arena/ea-best-kissing-number-d11.json",
+   "pin": "4ff52e989f3ef0b9c3f3d97ef078c6201eb4fda73eecc1bb09163094b43f27c0",
+   "predicate": [
+    {
+     "rel": "in",
+     "printed": "0",
+     "c": [
+      "-1/2",
+      "1/2"
+     ]
+    }
+   ],
+   "certMachine": "ADMITTED  ea-best-kissing-number-d11  []  0.0 s  note: predicate[0] not decided from the object: a transcendental or named head  note: no record attached: a proposal, undecided",
+   "certMachineSeconds": 0.0
+  },
+  {
+   "id": "ea-kissing-kissing-number-d11",
+   "claim": "K(11) >= 594",
+   "source": "corpus/einstein-arena/problems.json",
+   "object": "records/einstein-arena/ea-kissing-kissing-number-d11.json",
+   "pin": "4ff52e989f3ef0b9c3f3d97ef078c6201eb4fda73eecc1bb09163094b43f27c0",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  ea-kissing-kissing-number-d11  []  from the object: CERTIFIED  26.052 s  note: no record attached",
+   "certMachineSeconds": 26.2
+  },
+  {
+   "id": "ea-best-prime-number-theorem",
+   "claim": "the object is a feasible solution of \"The Prime Number Theorem\" and the platform's score of it is 0.9976572852677297 (maximize)",
+   "source": "corpus/einstein-arena/best-7.json",
+   "refused": "data: no array in the published bytes"
+  },
+  {
+   "id": "ea-best-uncertainty-principle",
+   "claim": "the object is a feasible solution of \"Uncertainty Principle (Upper Bound)\" and the platform's score of it is 0.3130922465438896 (minimize)",
+   "source": "corpus/einstein-arena/best-9.json",
+   "refused": "decider: the quantity \"the platform's score\" has no primitive expression here: a decider path is needed, and none was given"
+  }
+ ]
+}

@@ -16,12 +16,57 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~11:30 UTC, after the h = 10 run — THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED (the ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~17:00 UTC: THE FOURTH COMPANION, THE RIEMANN STORY'S FINITE LAYER, BUILT ON THE OPERATOR'S APPROVAL, NOT PUSHED — two gates (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE FOURTH COMPANION, v0.2 — "THE NUMERICAL CERTIFICATE BEHIND THE TWO-THIRDS THEOREM, CHECKED WITHOUT LEAN, AND THE FILE IT
+     STILL NEEDS" — RESHAPED FOR OUTREACH, NOT PUSHED (2026-10-22 ~17:30–19:00 UTC; the operator: "is the paper a nice read for
+     mathematicians and researchers? It is real contribution?" → the honest answer: a competent case study, long and jargon-heavy
+     for mathematicians, no new mathematics, a modest methodological contribution whose one real finding is that the certificate
+     is conditional on an unpublished file; "make the fixes to start outreaching" → DONE: the paper rewritten in the short form
+     (16 pp with the highlights page; the body ~8 pp leads with the certificate and EnclOK, then the constants, the print, the
+     method in one section and the 10/65 measurement; the battery, the planted claims, the mathematician's claims and the recall
+     moved to Appendix A; plain words — "translator" and "checker" — in place of the machine's vocabulary; the INDEX entry
+     reworded, which also fixed the copy census (the word "lifted" had raised papers/index.html's internal-vocabulary count 2 → 3;
+     make test had 156 PASS + that one FAIL; green after). THE OUTREACH, drafted (outreach/SEND-QUEUE.md lane Z): Z1 the issue to
+     the zeta23 authors (outreach/zeta23-law-file-issue-2026-10-22.md; anthropics/zeta-23-lean redirects to anthropics/formal-math;
+     asks for cert_N256_blk_b128m.json + the interval script; links claimbox's public records only; pre-send checks) — the
+     operator posts, FIRST; Z2 the paper's push after Z1 and the XiPrime pins; Z3 a Lean-community note after Z1 is answered;
+     Z4 a two-line courtesy note to Alpöge–Furman on the 0.8362 print, the operator's call. THE FIRST BUILD (v0.1, the same day,
+     ~13:00–17:00 UTC;
+     the operator: "I did this test on claimbox stacking AI Claims + Claimbox + cert-machine … Evaluate and give me your thoughts" →
+     assessed in chat; "Ok, I approve your plan"). THE BRIEF (written in the claimbox chat, pasted): the Riemann pre-paper for the shelf,
+     group "decided", in the form of the three 2026-10-21 companions, every number a macro from the record; it claims only the finite
+     layer (10 of 65 printed sentences read; the one certificate and EnclOK; the constants decided without a kernel; the two catches;
+     the battery) and no theorem. BUILT: paper/tex/riemann-finite-layer.tex (19 pp in the elsarticle preprint class with its highlights
+     page — the companions run 17–19) + riemann-finite-layer-refs.bib (7 entries verified; the zeta-23-lean URL now redirects to
+     anthropics/formal-math, cited as pinned) + tools/paper-numbers/riemann-finite-layer.js (113 macros; it RE-DERIVES over BigInt
+     rationals what it prints — |D(1)| at the enclosures' ends 0.82395316071…, the CUE containment 124/131, the Montgomery–Taylor
+     enclosure from the series at K = 8 [0.75329606785607067702, …722] of width 1.96e-19, the five ξ′ rationals from their definitions
+     (a third implementation beside claimbox's translator and the Lean's CAS) — and refuses unless each equals what claimbox's records
+     decided; the certificate's integers are read from the file's TEXT, never through JSON.parse, which rounds 43-digit integers) +
+     paper/INDEX.json entry + the PDF on the shelf + site/papers/index.html. THE LIFT (the one operator-approved exception to CLAUDE.md's
+     "nothing here reads claimbox", stated there): LIFT-claimbox.json → corpus/claimbox-riemann (69 files: the five Riemann records, the
+     two earlier-corpora records, the 39 per-object records, PINS.json, the zeta23 files, mathematician.md, ai-claims.md,
+     ai-phrasings.json, the sentences and the three jobs files, README.md) with PROVENANCE-claimbox.json naming claimbox b37d9800aa81
+     and every sha256 on both ends; tools/lift.js gained --manifest (the provenance file named after it; the source's git commit
+     recorded); `make lift-claimbox`; `make drift` runs both manifests; claimbox's own `make test` observed ONCE from here (207 pass,
+     44/44 reds; corpus/claimbox-riemann/make-test-2026-10-22.txt, the tree untouched). THE BATTERY `claimbox lift (Riemann records)`
+     (tools/check-claimbox-lift.js: every copy held to its digest, no patch allowed, the paper's macros regenerated identically) in make
+     test, the control page's Node list and the check-bib line. THE TWO GATES BEFORE THE PUSH, approved: (1) the ξ′ identity claims
+     quote mathematician.md as their source today — when the claimbox chat pins the XiPrime Lean files: `make lift-claimbox`, the battery
+     refuses once (the numbers moved), regenerate, read the diff, commit; (2) the issue requesting the law file (cert_N256_blk_b128m.json,
+     sha256 cc3de991…) goes to the zeta23 authors BEFORE the paper is public — the operator posts it; then the paper's "a request … has
+     been drafted" becomes "requested on <date>" (one sentence in §4 and in the competing-interest declaration). SAID IN THE ASSESSMENT
+     and held in the text: the 15 AI claims were PLANTED (written by Claude in the claimbox session) — never "public AI text refuted";
+     the three CERTIFIED words on the certificate are a CONCORDANCE on the printed integers, not a verification of the ceiling (EnclOK
+     waits on the law file); the CUE containment is a property of the file, most likely by construction; the 0.8362 print is one
+     sentence; the LP exploration is floats and is not quoted. NOT BUILT, on purpose: a reports/ page (the paper serves the reader; a
+     page adds ruler debt — later, if the issue is answered). FOUND ON THE WAY: ~/Projects/sin-mfg is no longer on this disk, so `make
+     drift` reports 137 "source gone" for the old lift — pre-existing, not ours; the C31 PR draft now names its commit 61aae8eb.
   ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS COMPLETE: BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR
      DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
      verify the asterisk?" → yes, no rental needed; "Proceed"; "I will send after h=10 results"). THE ASK: Leandre Jack

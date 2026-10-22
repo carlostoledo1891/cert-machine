@@ -1,0 +1,147 @@
+{
+ "id": "zeta23-rows",
+ "text": "|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 256)",
+ "source": {
+  "what": "the zeta23 README's statement of the near-CUE row inequalities Lean kernel-checks downstream of EnclOK; the bytes: the Lean formalization zeta23 (anthropics/zeta-23-lean, pinned here by tools/riemann.py): the 256 integer enclosures of Zeta23/PairCeiling/LawN256.lean, decoded as literals into LawN256.encl.json beside it",
+  "path": "../claimbox/corpus/riemann/zeta23/zeta23__README.md",
+  "sha256": "b92f3ebfedb8ce299c3b18239e9a165af751fd89b32e07922c099087b52f9889",
+  "quote": "available from the authors); everything downstream of the enclosures — the 255 near-CUE row inequalities |256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 256), the edge bound |D(1)| ≤ 0.82395317, the sign of the edge term — is checked in the kernel by `decide` (`LawN256_check`, `LawN256_edge`), and the"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; N = 256, tn = 3, td = 10000000000000000000000000000000000000000, K = 139379… (43 digits), the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Max",
+     [
+      "Abs",
+      [
+       "Subtract",
+       [
+        "Divide",
+        [
+         "Multiply",
+         "256",
+         [
+          "Index",
+          "f",
+          "i",
+          "0"
+         ]
+        ],
+        "1393796574908163946345982392040522594123776"
+       ],
+       [
+        "Add",
+        "i",
+        "1"
+       ]
+      ]
+     ],
+     [
+      "Abs",
+      [
+       "Subtract",
+       [
+        "Divide",
+        [
+         "Multiply",
+         "256",
+         [
+          "Index",
+          "f",
+          "i",
+          "1"
+         ]
+        ],
+        "1393796574908163946345982392040522594123776"
+       ],
+       [
+        "Add",
+        "i",
+        "1"
+       ]
+      ]
+     ]
+    ],
+    "3/10000000000000000000000000000000000000000"
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "the bar 3·10⁻⁴⁰ as the source prints it, written into the expression as the rational 3/10000000000000000000000000000000000000000: the receiver reads a printed bar only as a plain decimal or integer, so the zero of the difference is the bar",
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "2"
+     ]
+    ]
+   ]
+  },
+  {
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     [
+      "Divide",
+      "1",
+      [
+       "Multiply",
+       "6",
+       [
+        "Square",
+        "256"
+       ]
+      ]
+     ],
+     [
+      "Divide",
+      "3/10000000000000000000000000000000000000000",
+      [
+       "Multiply",
+       "2",
+       "256"
+      ]
+     ]
+    ],
+    "25431316/10000000000000"
+   ],
+   "rel": "lt",
+   "c": "0",
+   "note": "the decimal constant of ceiling_law256_decimal: 1/(6·N²) + τ/(2N) < 2.5431316·10⁻⁶, the bar written into the expression as 25431316/10^13"
+  }
+ ],
+ "reference": "the bar is the printed 3·10⁻⁴⁰ taken exactly (3/10000000000000000000000000000000000000000); the value is the larger deviation |N·S(j) − j| at the two ends of the enclosure of K·S(j), for every row j = 1..N−1 (the closed-band row j = N is free), computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "the enclosure lo_j <= K·S(j) <= hi_j puts N·S(j) between N·lo_j/K and N·hi_j/K, so |N·S(j) − j| <= τ holds for every S inside the enclosures iff both ends are within τ of j: max(|N·lo_j/K − j|, |N·hi_j/K − j|) <= τ, exact rational arithmetic over the integers the file prints, with N and K as the file prints them written into the expression; the row j = N is not held (NearCUE.lean: the closed-band row is free)",
+  "the near-CUE rows of RowCert.lean, |N·S(j) − j| <= τ for 0 < j < N with τ = tn/td as the certificate declares it: what Lean kernel-checks (LawN256_check, decide +kernel) given the displayed hypothesis EnclOK, re-decided here from the same integers (read)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates |256·S(j) - j| <= 3·10⁻⁴⁰",
+  "the pinned integers violate: the decimal constant of ceiling_law256_decimal: 1/(6·N²) + τ/(2N) < 2.5431316·10⁻⁶, the bar written into the expression as 25431316/10^13",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

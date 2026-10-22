@@ -1,0 +1,77 @@
+{
+ "what": "A run of the claim-machine over the jobs in corpus/primitive-jobs.json: for each, the sentence read, the object written (its pin and predicate) or the refusal, and what cert-machine's checker said of the object (when --check ran).",
+ "jobs": 3,
+ "written": 3,
+ "refused": 0,
+ "skipped": 0,
+ "rows": [
+  {
+   "id": "prim-1b-codexprolong",
+   "claim": "C_1b <= 0.3808585749",
+   "source": "corpus/optconst-queue/registry-2026-10-18b/upstream/constants/1b.md",
+   "object": "records/primitive/prim-1b-codexprolong.json",
+   "pin": "0c4c744e6ae714b488e931cb647dd6d47552c5dc7a131b2d5286742e7e8df2e6",
+   "predicate": [
+    {
+     "rel": "le",
+     "printed": "0.3808585749",
+     "c": "3808585749/10000000000"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    },
+    {
+     "rel": "le",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  prim-1b-codexprolong  [CERTIFIED · CERTIFIED · CERTIFIED]  from the object: CERTIFIED value 786138150670075354476385813552… · CERTIFIED value 570511527016931/31691265005705… · CERTIFIED value -73624039343656824511/45432597…  262.289 s",
+   "certMachineSeconds": 262.3
+  },
+  {
+   "id": "prim-1c-rozetyp",
+   "claim": "$C\\_{1c} \\geq 0.4103287*$",
+   "source": "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+   "object": "records/primitive/prim-1c-rozetyp.json",
+   "pin": "62ac49ddbbfc9aa1053406363d9df9c912022ab85b72a447cf73c94bb9c1fd0e",
+   "predicate": [
+    {
+     "rel": "ge",
+     "printed": "0.4103287",
+     "c": "4103287/10000000"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  prim-1c-rozetyp  [CERTIFIED · CERTIFIED]  from the object: CERTIFIED value 21072342208353792/513547829023… · CERTIFIED value 0  78.876 s",
+   "certMachineSeconds": 78.9
+  },
+  {
+   "id": "prim-1c-rozetyp-k3072",
+   "claim": "C ≥ 0.41030211724",
+   "source": "corpus/optconst-queue/next-2026-10-18/rozetyp/README.md",
+   "object": "records/primitive/prim-1c-rozetyp-k3072.json",
+   "pin": "788527a6237837e8d5d441cfab3f8b39080165fc207ae6a69678cc5f3a0fdf58",
+   "predicate": [
+    {
+     "rel": "ge",
+     "printed": "0.41030211724",
+     "c": "10257552931/25000000000"
+    },
+    {
+     "rel": "ge",
+     "printed": null,
+     "c": "0"
+    }
+   ],
+   "certMachine": "ADMITTED  prim-1c-rozetyp-k3072  []  from the object: REFUTED value 92043155785589760/224330199426… · CERTIFIED value 0  26.798 s  note: no record attached",
+   "certMachineSeconds": 26.9
+  }
+ ]
+}

@@ -1,0 +1,40 @@
+PASS  math-c256: cert-machine says today what the record says   [ADMITTED  math-c256  []  from the object: CERTIFIED value -10549999999]
+PASS  math-xi-J-flat: cert-machine says today what the record says   [ADMITTED  math-xi-J-flat  []  from the object: CERTIFIED value 0  0.00]
+PASS  math-xi-kappa-flat: cert-machine says today what the record says   [ADMITTED  math-xi-kappa-flat  []  from the object: CERTIFIED value 0  ]
+PASS  math-xi-eps9: cert-machine says today what the record says   [ADMITTED  math-xi-eps9  []  from the object: CERTIFIED value 0  0.0 s ]
+PASS  math-xi-J-quartic: cert-machine says today what the record says   [ADMITTED  math-xi-J-quartic  []  from the object: CERTIFIED value 0 · ]
+PASS  math-xi-kappa-quartic: cert-machine says today what the record says   [ADMITTED  math-xi-kappa-quartic  []  from the object: CERTIFIED value ]
+PASS  math-xi-P-flat-8: cert-machine says today what the record says   [ADMITTED  math-xi-P-flat-8  []  from the object: CERTIFIED value 16008]
+PASS  math-xi-D-flat-8: cert-machine says today what the record says   [ADMITTED  math-xi-D-flat-8  []  from the object: CERTIFIED value 34658]
+PASS  math-xi-P-quartic-8: cert-machine says today what the record says   [ADMITTED  math-xi-P-quartic-8  []  from the object: CERTIFIED value 44]
+PASS  math-xi-D-quartic-8: cert-machine says today what the record says   [ADMITTED  math-xi-D-quartic-8  []  from the object: CERTIFIED value 96]
+PASS  math-xi-P-flat-5: cert-machine says today what the record says   [ADMITTED  math-xi-P-flat-5  []  from the object: CERTIFIED value 16008]
+PASS  math-xi-D-flat-5: cert-machine says today what the record says   [ADMITTED  math-xi-D-flat-5  []  from the object: CERTIFIED value 34658]
+PASS  math-xi-P-quartic-5: cert-machine says today what the record says   [ADMITTED  math-xi-P-quartic-5  []  from the object: CERTIFIED value 44]
+PASS  math-xi-D-quartic-5: cert-machine says today what the record says   [ADMITTED  math-xi-D-quartic-5  []  from the object: CERTIFIED value 96]
+PASS  math-xi-P-flat-false: cert-machine says today what the record says   [ADMITTED  math-xi-P-flat-false  []  from the object: REFUTED value 160]
+PASS  riemann-math: every job translates (or is refused) today exactly as the record says   [22/22]
+PASS  riemann-math: the mathematician's 22 claims: c₁* bounded both sides and the paper's abstract's two four-digit prints decided through the series certificate (0.8362 REFUTED as a rounding — a truncation; 0.6725 CERTIFIED), the law's exact-CUE band rows, the paper's arithmetic on the ceiling from the file's own p₀, and the ξ′ certificate's rational core re-derived from its definitions (five identities, the Lean's eight-digit constants, the paper's five-digit prints CERTIFIED; the control one unit above REFUTED)   [{"written": 22, "refused": 0, "skipped": 0}]
+NOT RUN (recorded, not re-run; CLAIMBOX_FULL=1 re-runs them): ea-best-no-three-in-line-75 (13.7 s on record), ea-best-third-autocorrelation-inequality (1863.6 s on record), ea-kissing-kissing-number-d11 (26.2 s on record), ae-kissing-d11-593 (20.2 s on record), prim-1b-codexprolong (262.3 s on record), prim-1c-rozetyp (78.9 s on record), prim-1c-rozetyp-k3072 (26.9 s on record)
+PASS  riemann: every sentence of the story corpus is byte for byte in its pinned file   [65 sentences]
+PASS  riemann coverage: every sentence shaped or refused, none dropped   [story 10/65 {"digits": 5, "bound": 5} / {"prose": 43, "no-quantity": 6, "ambiguous": 3, "asymptotic": 2, "approximate": 1}; AI phrasings 3/80 {"prose": 66, "unbounded": 3, "ambiguous": 3, "approximate": 4, "no-quantity": 1}]
+PASS  riemann coverage: identical to records/riemann-coverage.json
+PASS  zeta23: LawN256.encl.json is the decoding of the pinned LawN256.lean (N, K, τ, d₁, p₀, the 256 enclosures), and names its sha256   [256 enclosures, K of 43 digits]
+PASS  zeta23: the row certificate Lean kernel-checks (AUDIT.md: LawN256_check, axioms [propext]) is CERTIFIED by cert-machine from the same integers — two checkers, one certificate
+PASS  zeta23: the paper's Montgomery–Taylor digits claim on the closed-form route is admitted and left undecided — the receiver has no decider for a transcendental closed form (its item (h))
+PASS  zeta23: the same three digits claims through the series certificate (c₁* = 2s/(2c + s), two rational partial sums) are DECIDED from the object, CERTIFIED — the transcendental reduced to rational arithmetic (mathematician.md §1)
+PASS  grammar: an ellipsis print is the truncation box [p, p + unit), a "published as" print the half-unit rounding box
+PASS  riemann-ai: every AI-written claim comes out as expected — the false REFUTED or refused with the rule, the true CERTIFIED   [15/15]
+PASS  riemann-math: every claim of the mathematician comes out as expected — the series enclosures certified, the abstract's 0.8362 refuted as a rounding, the CUE rows and the ceiling arithmetic certified   [22/22]
+PASS  riemann-math: every claim whose source is the mathematician's write-up is printed there verbatim
+PASS  recall: every planted defect caught, identical to records/recall.json   [56/56 plants caught]
+PASS  riemann recall: every planted defect caught, every control unchanged, the transcendental gap recorded — the sample identical to records/riemann-recall.json   [32/32 plants caught, 11/11 controls unchanged, 1/1 undecided as recorded (sample)]
+PASS  drift: every pinned cert-machine file unchanged   [15/15 pinned files unchanged]
+PASS  platform: every pinned problem definition unchanged   [platform: 29/29 pinned files unchanged]
+PASS  riemann: every pinned source of the story unchanged   [riemann: 25/25 pinned files unchanged]
+PASS  platform: the reader states the verifier's reading of the bytes for every pinned problem, and only those   [29/29]
+PASS  platform: every reading's evidence line is byte for byte in the platform's pinned verifier   [29 lines quoted]
+PASS  platform: each score written here as an expression is keyed by the title its pinned verifier prints   [shannon-capacity-c7-5, no-three-in-line-75, circle-packing, circles-rectangle, third-autocorrelation-inequality]
+PASS  platform: each float-printed score's resolution in problems.json equals the one its pinned verifier declares, and is positive   [circle-packing, circles-rectangle, third-autocorrelation-inequality]
+
+207 pass, 0 fail; 44/44 red controls fired — claimbox

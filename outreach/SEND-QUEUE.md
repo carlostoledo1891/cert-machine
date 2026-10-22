@@ -11,6 +11,30 @@ here on request.
 
 ---
 
+## LANE Z — THE RIEMANN STORY (2026-10-22): the law-file request first, then the paper, then the note to the community
+
+The fourth companion paper (paper/riemann-finite-layer.pdf, v0.2, 16 pp in the short form for readers outside the method)
+is BUILT and NOT PUSHED. It says the one numerical certificate of the zeta23 formalization rests on a law file the release
+does not publish; the file's authors are asked BEFORE anyone reads that sentence in public. Order: Z1, then Z2, then Z3.
+
+### Z1. The issue to the zeta23 authors — READY, the operator posts (outreach/zeta23-law-file-issue-2026-10-22.md)
+  anthropics/zeta-23-lean redirects to anthropics/formal-math; post where it lands. Asks for cert_N256_blk_b128m.json (sha256
+  cc3de991…) and the interval-arithmetic script; states the no-shared-code concordance on the integers (three claims hold),
+  the CUE containment as a property of the file, and two small notes (c₁* by rational series; the XiPrime rationals re-derive).
+  Links only claimbox's public records at b37d980. Pre-send checks in the draft. `gh issue create -R anthropics/formal-math`.
+### Z2. The paper's push — HELD on Z1 and on the XiPrime pins
+  After Z1 is posted: the paper's two sentences "has been drafted and will be posted" (§2, competing interest) become "was
+  posted on <date>"; after the claimbox chat pins the XiPrime Lean files: `make lift-claimbox` (the battery refuses once),
+  regenerate, read the diff; then `make site`, commit, push. The paper then goes live at /paper/riemann-finite-layer.pdf.
+### Z3. A note to the Lean community — NOT DRAFTED; after Z1 is answered, or after a week unanswered
+  A Zulip post in #general or the formalization's thread: the concordance, the EnclOK condition, the request; links the
+  paper once live. Draft on the operator's word.
+### Z4. A two-line courtesy note to Alpöge and Furman on the abstract's 0.8362 — the operator's call, NOT SENT
+  Text, if wanted: "A small note on the abstract of arXiv:2608.13637: with the Montgomery–Taylor window the second constant
+  is 0.836250351…, so 0.8362 is a truncation (a rounding would print 0.8363); true as a lower bound, as the theorem's
+  0.83625… makes clear. Decided in exact rational arithmetic from the series for sin and cos at 1/√2; details at
+  <the paper, once live>." Nothing else in the paper concerns their text.
+
 ## LANE J — THE OCTOBER APPLICATIONS (2026-10-16; plan notes/job-search-2026-10-16.md §8, local; resume base outreach/resume/) — FOUR PACKETS DRAFTED, UPDATED 2026-10-19 (the registry's four marks, the method paper v0.5, the grader count as 3,582 of 4,000; all four postings re-checked open), NOTHING SENT; every send is the operator's
 
 The bar (operator, 2026-10-16): remote from Brazil at international pay, or on-site with sponsorship. The resume v3

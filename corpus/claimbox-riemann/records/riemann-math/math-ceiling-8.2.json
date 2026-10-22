@@ -1,0 +1,50 @@
+{
+ "id": "math-ceiling-8.2",
+ "text": "B(8.2) ≤ 0.6819",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "f8750b4c8c47a320eed05bbe1b00537371ddb6a720514fd0439869f32b52568b",
+  "quote": "B(8.2) ≤ 0.6819"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; p0 = 10909258999421303588095230195816054408197/16000000000000000000000000000000000000000, the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Add",
+    "10909258999421303588095230195816054408197/16000000000000000000000000000000000000000",
+    "2091/100000000"
+   ],
+   "rel": "le",
+   "printed": "0.6819",
+   "c": "6819/10000"
+  }
+ ],
+ "reference": "the bar is the printed 0.6819 taken exactly (6819/10000); the value is B(8.2) := p₀ + 2.55·10⁻⁶·8.2, the paper's ceiling bound at the window norm 8.2 (2.55·10⁻⁶ × 8.2 = 2091/10^8 exactly), computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "the paper says the bound p₀ + 2.55·10⁻⁶(|r′(1)| + ∫|r″|) is below 0.6819 for any window with |r′(1)| + ∫|r″| < 8.2; at the endpoint 8.2 it is p₀ + 2091/10^8, exact",
+  "the paper's sentence (§limits), read; p₀ the file's own number (§3 of the mathematician's claims)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates B(8.2) <= 0.6819",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

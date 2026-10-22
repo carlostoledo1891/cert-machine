@@ -1,0 +1,223 @@
+{
+ "id": "math-mt-simple-0.6725",
+ "text": "2 − 1/c₁*, published as 0.6725",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+  "path": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+  "sha256": "ae369aaffb66335ff0dd5ebeafa59da7ca1fc26affa748960e7cdc3d82df26b3",
+  "quote": "at least five sixths are distinct; the previous unconditional records are $\\tfrac5{12}$ and $0.6603$. With the Montgomery--Taylor window the constants become $0.6725$ and $0.8362$. The argument makes Montgomery's 1973 deduction unconditional: the Riemann hypothesis, classically needed to read the zero side as a positive"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "sha256": "00cbd97bdd4ffa1724e90a60b8ea8eeaf39967463b89d38e45c06376a0c4fc94"
+  },
+  "count": 1,
+  "variable": "f",
+  "decoder": "no array: the file is the series certificate and its one datum is the truncation order K = 8, written into the expressions as a literal; the quantity is the Montgomery–Taylor proportion of simple zeros on the critical line, 2 − 1/c₁*, enclosed by two rational partial sums"
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    "3/2",
+    [
+     "Divide",
+     [
+      "Add",
+      "1",
+      [
+       "Sum",
+       "k",
+       "1",
+       "8",
+       [
+        "Divide",
+        [
+         "Power",
+         "-1",
+         "k"
+        ],
+        [
+         "Multiply",
+         [
+          "Power",
+          "2",
+          "k"
+         ],
+         [
+          "Product",
+          "m",
+          "1",
+          [
+           "Multiply",
+           "2",
+           "k"
+          ],
+          "m"
+         ]
+        ]
+       ]
+      ]
+     ],
+     [
+      "Add",
+      "1",
+      [
+       "Sum",
+       "k",
+       "1",
+       "9",
+       [
+        "Divide",
+        [
+         "Power",
+         "-1",
+         "k"
+        ],
+        [
+         "Multiply",
+         [
+          "Power",
+          "2",
+          "k"
+         ],
+         [
+          "Product",
+          "m",
+          "1",
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            "k"
+           ],
+           "1"
+          ],
+          "m"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "in",
+   "printed": "0.6725",
+   "c": [
+    "13449/20000",
+    "13451/20000"
+   ],
+   "note": "the lower end of the enclosure, 2·s_{K+1}/(2·c_K + s_{K+1}) and its kin, K = 8"
+  },
+  {
+   "g": [
+    "Subtract",
+    "3/2",
+    [
+     "Divide",
+     [
+      "Add",
+      "1",
+      [
+       "Sum",
+       "k",
+       "1",
+       "9",
+       [
+        "Divide",
+        [
+         "Power",
+         "-1",
+         "k"
+        ],
+        [
+         "Multiply",
+         [
+          "Power",
+          "2",
+          "k"
+         ],
+         [
+          "Product",
+          "m",
+          "1",
+          [
+           "Multiply",
+           "2",
+           "k"
+          ],
+          "m"
+         ]
+        ]
+       ]
+      ]
+     ],
+     [
+      "Add",
+      "1",
+      [
+       "Sum",
+       "k",
+       "1",
+       "8",
+       [
+        "Divide",
+        [
+         "Power",
+         "-1",
+         "k"
+        ],
+        [
+         "Multiply",
+         [
+          "Power",
+          "2",
+          "k"
+         ],
+         [
+          "Product",
+          "m",
+          "1",
+          [
+           "Add",
+           [
+            "Multiply",
+            "2",
+            "k"
+           ],
+           "1"
+          ],
+          "m"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "in",
+   "printed": "0.6725",
+   "c": [
+    "13449/20000",
+    "13451/20000"
+   ],
+   "note": "the upper end of the enclosure, K = 8"
+  }
+ ],
+ "reference": "the printed 0.6725 is the box its digits allow; the quantity is the Montgomery–Taylor proportion of simple zeros on the critical line, 2 − 1/c₁*, enclosed by two rational partial sums of its Maclaurin series at K = 8 (width about 2·10⁻¹⁹ at K = 8) and decided by the receiver's exact evaluator — the kernel is not needed: the transcendental is reduced to rational arithmetic by the identities in the hypotheses",
+ "hypotheses": [
+  "c₁* = √2·tan ϑ/(1 + ϑ·tan ϑ) at ϑ = 1/√2 (ChallengeDeps.lean; the paper's c_MT^{-1} = 1/2 + (1/√2)·cot(1/√2) is its reciprocal) — the definition, read",
+  "with ϑ² = 1/2 the Maclaurin series give sin ϑ = ϑ·s and cos ϑ = c, s = 1 + Σ_{k≥1} (−1)^k/(2^k (2k+1)!), c = 1 + Σ_{k≥1} (−1)^k/(2^k (2k)!) — read; hence tan ϑ = ϑ·s/c and, since √2·ϑ = 1 and ϑ² = 1/2, c₁* = 2s/(2c + s), 1/c₁* = 1/2 + c/s, 2 − 1/c₁* = 3/2 − c/s, (3 − 1/c₁*)/2 = 5/4 − c/(2s) — algebra",
+  "the terms of both series alternate and decrease in absolute value (by a factor of at least 12 at every step), so for an even truncation order K the partial sums bracket the limits: s_{K+1} <= s <= s_K and c_{K+1} <= c <= c_K (the alternating-series bracket, read); 2s/(2c+s) increases in s and decreases in c on positive values, and so do 3/2 − c/s and 5/4 − c/(2s) in the matching directions, so the two expressions written here enclose the quantity",
+  "the claim holds when both ends of the enclosure satisfy it: both in the box the digits allow (a digits claim), or the relevant end on the right side of the bar (a bound)",
+  "c₁* = √2·tan ϑ/(1 + ϑ·tan ϑ) at ϑ = 1/√2, the Montgomery–Taylor constant as ChallengeDeps.lean defines cMT (the paper's c_MT^{-1} := 1/2 + (1/√2) cot(1/√2) is its reciprocal), written here with √2 = exp(ln 2 / 2) and tan = sin/cos over the receiver's audited heads (the definition, read)"
+ ],
+ "falsifier": [
+  "an end of the enclosure lies outside the box (the quantity may still satisfy the claim if K is too small to separate — a refusal to decide, not a refutation of the quantity; a REFUTED here says the enclosure, hence the quantity when the enclosure is wholly outside, violates the claim)",
+  "the pinned certificate does not hash to 00cbd97b…"
+ ]
+}

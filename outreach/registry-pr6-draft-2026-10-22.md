@@ -38,7 +38,7 @@ Beside each certificate a certified **lower** bound on the spectral radius of $A
 
 **Red controls**, which must come out wrong: the weights off by one power of $z$ and the truncation weight not summed both miss Lueker's $\lambda$ at $h = 8$; a claim below the certificate, $z = 1/2$, $\lambda = 1$, a vector with a zero entry, a vector of the wrong length and the all-ones vector are refused; a claimant $\lambda$ below the certified lower bound on $\rho$ is refuted. 9 of 9 fired.
 
-**Re-derive** from https://github.com/carlostoledo1891/cert-machine at `<COMMIT>`:
+**Re-derive** from https://github.com/carlostoledo1891/cert-machine at `61aae8eb42f1967e16d37d78cfe8a5c1be6d0d72` (the C31 commit of 2026-10-22; pass it to the edit script):
 
 ```
 python3 tools/run-lueker.py --check     # seconds: the reference automaton at h <= 4, every decision re-derived from the record's hex values, the pins, the red controls

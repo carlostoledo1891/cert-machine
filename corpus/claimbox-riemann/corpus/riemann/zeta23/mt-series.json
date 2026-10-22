@@ -1,0 +1,6 @@
+{
+ "what": "The certificate behind the exact decision of the Montgomery–Taylor constant c₁* = √2·tan ϑ/(1 + ϑ·tan ϑ), ϑ = 1/√2 (ChallengeDeps.lean; the paper's c_MT^{-1} = 1/2 + (1/√2)cot(1/√2) is its reciprocal): with ϑ² = 1/2, sin ϑ = ϑ·s and cos ϑ = c for the alternating rational series s = 1 + Σ_{k≥1} (−1)^k/(2^k (2k+1)!) and c = 1 + Σ_{k≥1} (−1)^k/(2^k (2k)!), so c₁* = 2s/(2c + s), 2 − 1/c₁* = 3/2 − c/s and (3 − 1/c₁*)/2 = 5/4 − c/(2s). For an even truncation order K the partial sums bracket the limits (s_{K+1} ≤ s ≤ s_K, c_{K+1} ≤ c ≤ c_K), and the three quantities are monotone in s and c, so each is enclosed by two rationals the receiver computes exactly (Sum, Product, Power over integer ranges). Written by the mathematician of the session (corpus/riemann/mathematician.md, §1), 2026-10-22; the only datum is K.",
+ "series": "s = 1 + Σ_{k=1}^{∞} (−1)^k/(2^k (2k+1)!), c = 1 + Σ_{k=1}^{∞} (−1)^k/(2^k (2k)!), the Maclaurin series of sin ϑ/ϑ and cos ϑ at ϑ² = 1/2",
+ "K": 8,
+ "bracket": "for even K: s_{K+1} <= s <= s_K and c_{K+1} <= c <= c_K (the terms alternate and decrease in absolute value by a factor of at least 12); c₁* = 2s/(2c+s) increases in s and decreases in c, so 2 s_{K+1}/(2 c_K + s_{K+1}) <= c₁* <= 2 s_K/(2 c_{K+1} + s_K); 3/2 − c/s and 5/4 − c/(2s) likewise"
+}

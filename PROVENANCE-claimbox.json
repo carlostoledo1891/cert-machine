@@ -1,0 +1,496 @@
+{
+ "source_root": "~/Projects/claimbox",
+ "source_commit": "b37d9800aa81428f7c3d16b8dfb97cdce80aef30",
+ "lifted_at_utc": "2026-10-22T12:16:16.208Z",
+ "policy": "READ-ONLY. claimbox is the producer (the claim-machine); this manifest copies its pinned Riemann records and corpus OUT, for the companion paper riemann-finite-layer, and never writes back. The build reads the copies under corpus/claimbox-riemann only; `make drift` re-hashes both ends and names what moved, and PROVENANCE-claimbox.json records the claimbox commit the copies came from. Operator-approved 2026-10-22 as the one exception to CLAUDE.md's 'nothing here reads claimbox'.",
+ "counts": {
+  "files": 69,
+  "patched": 0,
+  "missing_in_source": 0
+ },
+ "files": [
+  {
+   "src": "records/riemann-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-run.json",
+   "src_sha256": "d97286c2db9e30da799c6899b3a289cc7619febbd4836c001f6b02e5d6919208",
+   "patched": false,
+   "local_sha256": "d97286c2db9e30da799c6899b3a289cc7619febbd4836c001f6b02e5d6919208"
+  },
+  {
+   "src": "records/riemann-ai-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai-run.json",
+   "src_sha256": "f34eb56beabc3bc4edfdfce302a2bdec684f8a694a4117eed3dcb06397d7ec61",
+   "patched": false,
+   "local_sha256": "f34eb56beabc3bc4edfdfce302a2bdec684f8a694a4117eed3dcb06397d7ec61"
+  },
+  {
+   "src": "records/riemann-math-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math-run.json",
+   "src_sha256": "a3d7407e9e883649e0d9558675ed96750719c9fbde643f8878bc270e7affe71a",
+   "patched": false,
+   "local_sha256": "a3d7407e9e883649e0d9558675ed96750719c9fbde643f8878bc270e7affe71a"
+  },
+  {
+   "src": "records/riemann-coverage.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-coverage.json",
+   "src_sha256": "bdccf3410a6eba13b2a3dae11c451fd9b00fcb30afa8a7154c4117fd456ec6a1",
+   "patched": false,
+   "local_sha256": "bdccf3410a6eba13b2a3dae11c451fd9b00fcb30afa8a7154c4117fd456ec6a1"
+  },
+  {
+   "src": "records/riemann-recall.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-recall.json",
+   "src_sha256": "b2dd0a72205a32ab7965fc68f7337b79578a884baa64a39a785a4101f31471ab",
+   "patched": false,
+   "local_sha256": "b2dd0a72205a32ab7965fc68f7337b79578a884baa64a39a785a4101f31471ab"
+  },
+  {
+   "src": "records/recall.json",
+   "dst": "corpus/claimbox-riemann/records/recall.json",
+   "src_sha256": "c78076eb4dde336dd25f3676037186a570cb2aefb12fe4bb16a2643d2e4df7b7",
+   "patched": false,
+   "local_sha256": "c78076eb4dde336dd25f3676037186a570cb2aefb12fe4bb16a2643d2e4df7b7"
+  },
+  {
+   "src": "records/riemann/af-mt-simple.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/af-mt-simple.json",
+   "src_sha256": "3044ac500e7b43f57cbb15981b6339e16f58335fd657823c80ae4fdadc4e280a",
+   "patched": false,
+   "local_sha256": "3044ac500e7b43f57cbb15981b6339e16f58335fd657823c80ae4fdadc4e280a"
+  },
+  {
+   "src": "records/riemann/zeta23-cmt.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-cmt.json",
+   "src_sha256": "6df2dea2f80c17a48f9959373bc93f9ba11de71cf8563a7b3da779587d5119af",
+   "patched": false,
+   "local_sha256": "6df2dea2f80c17a48f9959373bc93f9ba11de71cf8563a7b3da779587d5119af"
+  },
+  {
+   "src": "records/riemann/zeta23-edge.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-edge.json",
+   "src_sha256": "ef4d5b3207bdb0b38c49b2a316dae6a7ef785971a3fb38ab5ad049ff6a9ba044",
+   "patched": false,
+   "local_sha256": "ef4d5b3207bdb0b38c49b2a316dae6a7ef785971a3fb38ab5ad049ff6a9ba044"
+  },
+  {
+   "src": "records/riemann/zeta23-mt-distinct.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-mt-distinct.json",
+   "src_sha256": "2e6de3fc2cb0aaf44ebf94dcc9c61cdc43cd278e321a06d753f22ddd5631e450",
+   "patched": false,
+   "local_sha256": "2e6de3fc2cb0aaf44ebf94dcc9c61cdc43cd278e321a06d753f22ddd5631e450"
+  },
+  {
+   "src": "records/riemann/zeta23-mt-simple.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-mt-simple.json",
+   "src_sha256": "e07d7a3e5612fc5c4ef478b6b177a5b3d8a22781fbf06c2154efdcbbc219f7e8",
+   "patched": false,
+   "local_sha256": "e07d7a3e5612fc5c4ef478b6b177a5b3d8a22781fbf06c2154efdcbbc219f7e8"
+  },
+  {
+   "src": "records/riemann/zeta23-p0.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-p0.json",
+   "src_sha256": "1632425bdcfda589f44a046fc622206ac660166aab30eab4f8ad6c3d02cedbb9",
+   "patched": false,
+   "local_sha256": "1632425bdcfda589f44a046fc622206ac660166aab30eab4f8ad6c3d02cedbb9"
+  },
+  {
+   "src": "records/riemann/zeta23-rows.json",
+   "dst": "corpus/claimbox-riemann/records/riemann/zeta23-rows.json",
+   "src_sha256": "c6fa4d260dee239a6bdd01c2563a25a123b5a41624893a2a1078a96fd1c7a947",
+   "patched": false,
+   "local_sha256": "c6fa4d260dee239a6bdd01c2563a25a123b5a41624893a2a1078a96fd1c7a947"
+  },
+  {
+   "src": "records/riemann-ai/ai-cmt-digit.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-cmt-digit.json",
+   "src_sha256": "ec1798297d3a4f49dd68d5bfbcacfd44ac5cdb63e4f60bf31878edef541a1821",
+   "patched": false,
+   "local_sha256": "ec1798297d3a4f49dd68d5bfbcacfd44ac5cdb63e4f60bf31878edef541a1821"
+  },
+  {
+   "src": "records/riemann-ai/ai-edge-0.8239.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-edge-0.8239.json",
+   "src_sha256": "865245dda513dcc11d62cad63c802e870b91cdf34f9d3f0c04205a584b37533e",
+   "patched": false,
+   "local_sha256": "865245dda513dcc11d62cad63c802e870b91cdf34f9d3f0c04205a584b37533e"
+  },
+  {
+   "src": "records/riemann-ai/ai-edge-0.824.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-edge-0.824.json",
+   "src_sha256": "9ba149283d9f39545cddc6c74bb96452c471a89b0b5d738a2ed4b9da70d14f36",
+   "patched": false,
+   "local_sha256": "9ba149283d9f39545cddc6c74bb96452c471a89b0b5d738a2ed4b9da70d14f36"
+  },
+  {
+   "src": "records/riemann-ai/ai-edge-strict.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-edge-strict.json",
+   "src_sha256": "64ac23c22d5216943b720dbe7692d1d10b6c15f1a8475bc5a0d0a9dd748c4d58",
+   "patched": false,
+   "local_sha256": "64ac23c22d5216943b720dbe7692d1d10b6c15f1a8475bc5a0d0a9dd748c4d58"
+  },
+  {
+   "src": "records/riemann-ai/ai-mt-simple-4.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-mt-simple-4.json",
+   "src_sha256": "c80a82d5b817fbd2b3da305a704c3a9037f632d35fb3ade447e6004249987998",
+   "patched": false,
+   "local_sha256": "c80a82d5b817fbd2b3da305a704c3a9037f632d35fb3ade447e6004249987998"
+  },
+  {
+   "src": "records/riemann-ai/ai-p0-0.68182.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-p0-0.68182.json",
+   "src_sha256": "66aef233a6b3dd2b78cd805f105e88591dc1dcc396404d53fb1661469eedab90",
+   "patched": false,
+   "local_sha256": "66aef233a6b3dd2b78cd805f105e88591dc1dcc396404d53fb1661469eedab90"
+  },
+  {
+   "src": "records/riemann-ai/ai-p0-0.6819.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-p0-0.6819.json",
+   "src_sha256": "7a4191089479248ba4cc4ef2b883ed44244ddc7ac6e810f1444575387895b1bf",
+   "patched": false,
+   "local_sha256": "7a4191089479248ba4cc4ef2b883ed44244ddc7ac6e810f1444575387895b1bf"
+  },
+  {
+   "src": "records/riemann-ai/ai-p0-ge.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-p0-ge.json",
+   "src_sha256": "031fea10456fffb3febf15f01a1322a0c3a3931137abca50c52a483f1ec0ea73",
+   "patched": false,
+   "local_sha256": "031fea10456fffb3febf15f01a1322a0c3a3931137abca50c52a483f1ec0ea73"
+  },
+  {
+   "src": "records/riemann-ai/ai-rows-1e-40.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-rows-1e-40.json",
+   "src_sha256": "7712f7df5ea2400368f6fff18c15c9fc12f0b70409871fd33316b7f98239141f",
+   "patched": false,
+   "local_sha256": "7712f7df5ea2400368f6fff18c15c9fc12f0b70409871fd33316b7f98239141f"
+  },
+  {
+   "src": "records/riemann-ai/ai-rows-2e-40.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai/ai-rows-2e-40.json",
+   "src_sha256": "5be4ff061faf6ee5847ac17cf3d61b8221abf1c6e77df1178347b14c0463ea11",
+   "patched": false,
+   "local_sha256": "5be4ff061faf6ee5847ac17cf3d61b8221abf1c6e77df1178347b14c0463ea11"
+  },
+  {
+   "src": "records/riemann-math/math-c256.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-c256.json",
+   "src_sha256": "a54cf6f77d68875fe91bf04623b396bfa013f59fddf01482105f6323adc9548c",
+   "patched": false,
+   "local_sha256": "a54cf6f77d68875fe91bf04623b396bfa013f59fddf01482105f6323adc9548c"
+  },
+  {
+   "src": "records/riemann-math/math-ceiling-8.2.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-ceiling-8.2.json",
+   "src_sha256": "aa5b244f9899184189e29067f6d1f7d6f1eb6fa2fc238a8da336d73ad5e4d484",
+   "patched": false,
+   "local_sha256": "aa5b244f9899184189e29067f6d1f7d6f1eb6fa2fc238a8da336d73ad5e4d484"
+  },
+  {
+   "src": "records/riemann-math/math-cmt-ge.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-cmt-ge.json",
+   "src_sha256": "d6b4e70b67a6db705abda3322e701ab7ece5bc9e58d6ff088c47c69d4923b3ce",
+   "patched": false,
+   "local_sha256": "d6b4e70b67a6db705abda3322e701ab7ece5bc9e58d6ff088c47c69d4923b3ce"
+  },
+  {
+   "src": "records/riemann-math/math-cmt-le.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-cmt-le.json",
+   "src_sha256": "b3b42d15d3af901301a00cb54dbf2723073099fcbc06e64bfa2b43ad1b1334bb",
+   "patched": false,
+   "local_sha256": "b3b42d15d3af901301a00cb54dbf2723073099fcbc06e64bfa2b43ad1b1334bb"
+  },
+  {
+   "src": "records/riemann-math/math-cue-rows.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-cue-rows.json",
+   "src_sha256": "22dc6e2c80f580882e697f28c0dd987852c88647b28e7b1b4c72fa3d160f2dea",
+   "patched": false,
+   "local_sha256": "22dc6e2c80f580882e697f28c0dd987852c88647b28e7b1b4c72fa3d160f2dea"
+  },
+  {
+   "src": "records/riemann-math/math-mt-distinct-0.8362.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-mt-distinct-0.8362.json",
+   "src_sha256": "da163d8f3a6dac72990154ed48e2290f679ed91b97f14475fad9eb2acbc6da9e",
+   "patched": false,
+   "local_sha256": "da163d8f3a6dac72990154ed48e2290f679ed91b97f14475fad9eb2acbc6da9e"
+  },
+  {
+   "src": "records/riemann-math/math-mt-simple-0.6725.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-mt-simple-0.6725.json",
+   "src_sha256": "a5bb23cebbe72d51250ac45236105a5390f598dc64262ae9e66857060f34b34b",
+   "patched": false,
+   "local_sha256": "a5bb23cebbe72d51250ac45236105a5390f598dc64262ae9e66857060f34b34b"
+  },
+  {
+   "src": "records/riemann-math/math-p0-gap.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-p0-gap.json",
+   "src_sha256": "25feedc9bc11a83a63fcd76355f32da4af8fe780d302bfbda8ac0852ddfd9b8b",
+   "patched": false,
+   "local_sha256": "25feedc9bc11a83a63fcd76355f32da4af8fe780d302bfbda8ac0852ddfd9b8b"
+  },
+  {
+   "src": "records/riemann-math/math-xi-D-flat-5.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-D-flat-5.json",
+   "src_sha256": "faef381b4087bf912f88a771a61d4a9928c92c4ab1407921a4b2f78c496df0a8",
+   "patched": false,
+   "local_sha256": "faef381b4087bf912f88a771a61d4a9928c92c4ab1407921a4b2f78c496df0a8"
+  },
+  {
+   "src": "records/riemann-math/math-xi-D-flat-8.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-D-flat-8.json",
+   "src_sha256": "9fdfe89a8a0d4a3c677523643c3df5b6fb0ebd33a667bda838cdae6fd43a381a",
+   "patched": false,
+   "local_sha256": "9fdfe89a8a0d4a3c677523643c3df5b6fb0ebd33a667bda838cdae6fd43a381a"
+  },
+  {
+   "src": "records/riemann-math/math-xi-D-quartic-5.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-D-quartic-5.json",
+   "src_sha256": "441bf8eb94fa522a369effd12a0c4afc74e82339e6fb1b62ba2d39e95ffa5226",
+   "patched": false,
+   "local_sha256": "441bf8eb94fa522a369effd12a0c4afc74e82339e6fb1b62ba2d39e95ffa5226"
+  },
+  {
+   "src": "records/riemann-math/math-xi-D-quartic-8.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-D-quartic-8.json",
+   "src_sha256": "77261b3b84fe0c4ca33a6a8fd7f40cda9efc2825f09db26162f79129e7044ca6",
+   "patched": false,
+   "local_sha256": "77261b3b84fe0c4ca33a6a8fd7f40cda9efc2825f09db26162f79129e7044ca6"
+  },
+  {
+   "src": "records/riemann-math/math-xi-J-flat.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-J-flat.json",
+   "src_sha256": "7e4209c86320fa3c82fe670176eba1f7998f8932fc26fabc4bfaa76996491e67",
+   "patched": false,
+   "local_sha256": "7e4209c86320fa3c82fe670176eba1f7998f8932fc26fabc4bfaa76996491e67"
+  },
+  {
+   "src": "records/riemann-math/math-xi-J-quartic.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-J-quartic.json",
+   "src_sha256": "1c49a44a5192851e200fb4de7ae5b7f47352a43fe575c7b5d09cb0fb7182524f",
+   "patched": false,
+   "local_sha256": "1c49a44a5192851e200fb4de7ae5b7f47352a43fe575c7b5d09cb0fb7182524f"
+  },
+  {
+   "src": "records/riemann-math/math-xi-P-flat-5.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-P-flat-5.json",
+   "src_sha256": "e72dff8cc5862f7f9b11772cc03967dc04332cadc4aedbfd3893024dd72d45b8",
+   "patched": false,
+   "local_sha256": "e72dff8cc5862f7f9b11772cc03967dc04332cadc4aedbfd3893024dd72d45b8"
+  },
+  {
+   "src": "records/riemann-math/math-xi-P-flat-8.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-P-flat-8.json",
+   "src_sha256": "6d68616819b38e78704ea7ea879987337ad90e24066da241a99676f1b439a073",
+   "patched": false,
+   "local_sha256": "6d68616819b38e78704ea7ea879987337ad90e24066da241a99676f1b439a073"
+  },
+  {
+   "src": "records/riemann-math/math-xi-P-flat-false.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-P-flat-false.json",
+   "src_sha256": "f6be25683504eaad1f3a1591504cfdb118792efb60a7566aa31c6237f1270044",
+   "patched": false,
+   "local_sha256": "f6be25683504eaad1f3a1591504cfdb118792efb60a7566aa31c6237f1270044"
+  },
+  {
+   "src": "records/riemann-math/math-xi-P-quartic-5.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-P-quartic-5.json",
+   "src_sha256": "05edc159f4783f6fc710dcd30c48fa7d8954bad68d17eccfa8847075fe8c05fd",
+   "patched": false,
+   "local_sha256": "05edc159f4783f6fc710dcd30c48fa7d8954bad68d17eccfa8847075fe8c05fd"
+  },
+  {
+   "src": "records/riemann-math/math-xi-P-quartic-8.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-P-quartic-8.json",
+   "src_sha256": "47a85e97976554129143df5fe6990f45c338ecce3f73839d20ab6c28778a6320",
+   "patched": false,
+   "local_sha256": "47a85e97976554129143df5fe6990f45c338ecce3f73839d20ab6c28778a6320"
+  },
+  {
+   "src": "records/riemann-math/math-xi-eps9.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-eps9.json",
+   "src_sha256": "3967bd21d3e7942eb44bde4bba6bb4bf11a53ca2241c1b24afa40c305448ea6f",
+   "patched": false,
+   "local_sha256": "3967bd21d3e7942eb44bde4bba6bb4bf11a53ca2241c1b24afa40c305448ea6f"
+  },
+  {
+   "src": "records/riemann-math/math-xi-kappa-flat.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-kappa-flat.json",
+   "src_sha256": "4bb5dd22a2033dbddae89e47cb8fe61f92618adf46b0f3157f789b23db47b480",
+   "patched": false,
+   "local_sha256": "4bb5dd22a2033dbddae89e47cb8fe61f92618adf46b0f3157f789b23db47b480"
+  },
+  {
+   "src": "records/riemann-math/math-xi-kappa-quartic.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math/math-xi-kappa-quartic.json",
+   "src_sha256": "1a2b4b63440e3ffd0d6f7b801f09a36eb36fe3e95d47794f25f6d5ac39997908",
+   "patched": false,
+   "local_sha256": "1a2b4b63440e3ffd0d6f7b801f09a36eb36fe3e95d47794f25f6d5ac39997908"
+  },
+  {
+   "src": "corpus/riemann/PINS.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/PINS.json",
+   "src_sha256": "1cac0b0d998dc6a1ad56d7ec23217750d19461f4ee560c2a7c982873f4954d47",
+   "patched": false,
+   "local_sha256": "1cac0b0d998dc6a1ad56d7ec23217750d19461f4ee560c2a7c982873f4954d47"
+  },
+  {
+   "src": "corpus/riemann/zeta23/LawN256.encl.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/LawN256.encl.json",
+   "src_sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229",
+   "patched": false,
+   "local_sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  {
+   "src": "corpus/riemann/zeta23/mt-series.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/mt-series.json",
+   "src_sha256": "00cbd97bdd4ffa1724e90a60b8ea8eeaf39967463b89d38e45c06376a0c4fc94",
+   "patched": false,
+   "local_sha256": "00cbd97bdd4ffa1724e90a60b8ea8eeaf39967463b89d38e45c06376a0c4fc94"
+  },
+  {
+   "src": "corpus/riemann/zeta23/xi-certificate.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/xi-certificate.json",
+   "src_sha256": "628c9fa416ef4a6d4d48a34b2da2f3feea2ca11539144cb7d28e193a3539f017",
+   "patched": false,
+   "local_sha256": "628c9fa416ef4a6d4d48a34b2da2f3feea2ca11539144cb7d28e193a3539f017"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__AUDIT.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__AUDIT.md",
+   "src_sha256": "296bce6abcc2c860a5fdeda6f7b47f0f6da2b9284fa2509e1931f160255e3860",
+   "patched": false,
+   "local_sha256": "296bce6abcc2c860a5fdeda6f7b47f0f6da2b9284fa2509e1931f160255e3860"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Challenge.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Challenge.lean",
+   "src_sha256": "6f2a4ba95ab8c5319e541a1cc1b3699c0ae8cef23ea8e68f958e11b07281761e",
+   "patched": false,
+   "local_sha256": "6f2a4ba95ab8c5319e541a1cc1b3699c0ae8cef23ea8e68f958e11b07281761e"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__ChallengeDeps.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__ChallengeDeps.lean",
+   "src_sha256": "8f9a7e7bb313bbada77d0dd1b71a80bda1c0580b71ba1dd0020b438d63a318e0",
+   "patched": false,
+   "local_sha256": "8f9a7e7bb313bbada77d0dd1b71a80bda1c0580b71ba1dd0020b438d63a318e0"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__README.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__README.md",
+   "src_sha256": "b92f3ebfedb8ce299c3b18239e9a165af751fd89b32e07922c099087b52f9889",
+   "patched": false,
+   "local_sha256": "b92f3ebfedb8ce299c3b18239e9a165af751fd89b32e07922c099087b52f9889"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "src_sha256": "58a344ade8cc0e62c4f232fe608d92abb0a9103b804f9b1dca494b9acf0a1031",
+   "patched": false,
+   "local_sha256": "58a344ade8cc0e62c4f232fe608d92abb0a9103b804f9b1dca494b9acf0a1031"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "src_sha256": "11ae9f7dcc1747f68b51c44f057641ba20bd623b2abea04849b612e716903c6e",
+   "patched": false,
+   "local_sha256": "11ae9f7dcc1747f68b51c44f057641ba20bd623b2abea04849b612e716903c6e"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__NearCUE.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__NearCUE.lean",
+   "src_sha256": "ac8daac5867a750749f6fafa8d428bd2403025e884f24e5eca625d9292993b80",
+   "patched": false,
+   "local_sha256": "ac8daac5867a750749f6fafa8d428bd2403025e884f24e5eca625d9292993b80"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__NumericCert.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__NumericCert.lean",
+   "src_sha256": "eeae8d2c6073eaaad9438010e1788545d4334a933b5c5aca95492cac48d9fc29",
+   "patched": false,
+   "local_sha256": "eeae8d2c6073eaaad9438010e1788545d4334a933b5c5aca95492cac48d9fc29"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__RowCert.lean",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__Zeta23__PairCeiling__RowCert.lean",
+   "src_sha256": "4bc9ef51e7e4562bbc588fa8ebe75989758024231ce760be309d9ec8240836d2",
+   "patched": false,
+   "local_sha256": "4bc9ef51e7e4562bbc588fa8ebe75989758024231ce760be309d9ec8240836d2"
+  },
+  {
+   "src": "corpus/riemann/zeta23/zeta23__formalization.yaml",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23/zeta23__formalization.yaml",
+   "src_sha256": "07d6fb33253544c7c8356d68132f6f6ea6563da1cb12626d5089d769f971e927",
+   "patched": false,
+   "local_sha256": "07d6fb33253544c7c8356d68132f6f6ea6563da1cb12626d5089d769f971e927"
+  },
+  {
+   "src": "corpus/riemann/mathematician.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/mathematician.md",
+   "src_sha256": "188aee92ff2c95fd03f9cc66d39c2dc893611537ab11b6d2a03233ea253f6712",
+   "patched": false,
+   "local_sha256": "188aee92ff2c95fd03f9cc66d39c2dc893611537ab11b6d2a03233ea253f6712"
+  },
+  {
+   "src": "corpus/riemann/ai-claims.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/ai-claims.md",
+   "src_sha256": "da5b363f99209315405bfe8ce7dbcfdc8b373a1e6802614f4cca59c7cc39a7c2",
+   "patched": false,
+   "local_sha256": "da5b363f99209315405bfe8ce7dbcfdc8b373a1e6802614f4cca59c7cc39a7c2"
+  },
+  {
+   "src": "corpus/riemann/ai-phrasings.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/ai-phrasings.json",
+   "src_sha256": "fbca091a7153927310ff3d9f9bc823eaa6f997b4ba6a475e22c737f225b47886",
+   "patched": false,
+   "local_sha256": "fbca091a7153927310ff3d9f9bc823eaa6f997b4ba6a475e22c737f225b47886"
+  },
+  {
+   "src": "corpus/riemann-sentences.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-sentences.json",
+   "src_sha256": "db9b8fb4f0245f8c7a08c3686fc336e43fc83d512da0656106773643a3393d45",
+   "patched": false,
+   "local_sha256": "db9b8fb4f0245f8c7a08c3686fc336e43fc83d512da0656106773643a3393d45"
+  },
+  {
+   "src": "corpus/riemann-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-jobs.json",
+   "src_sha256": "19e324f1c4a97435a3f327390b3e483aa492dbd5a7c6f3114117ae53ab0e80bd",
+   "patched": false,
+   "local_sha256": "19e324f1c4a97435a3f327390b3e483aa492dbd5a7c6f3114117ae53ab0e80bd"
+  },
+  {
+   "src": "corpus/riemann-math-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-math-jobs.json",
+   "src_sha256": "b2715cdf04f33b05d36095e89fd2e64063f7cc2a81341c3cc90aebf716a05110",
+   "patched": false,
+   "local_sha256": "b2715cdf04f33b05d36095e89fd2e64063f7cc2a81341c3cc90aebf716a05110"
+  },
+  {
+   "src": "corpus/riemann-ai-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-ai-jobs.json",
+   "src_sha256": "6d39f61dbbafc237b2c855cc3d63e35b8b1e9134f78aaec90e14328478e937b5",
+   "patched": false,
+   "local_sha256": "6d39f61dbbafc237b2c855cc3d63e35b8b1e9134f78aaec90e14328478e937b5"
+  },
+  {
+   "src": "records/einstein-arena-run.json",
+   "dst": "corpus/claimbox-riemann/records/einstein-arena-run.json",
+   "src_sha256": "64bb62708c6530bf78283cc68bdb6e2ad866f952f722273e5df9aed1e3eebda2",
+   "patched": false,
+   "local_sha256": "64bb62708c6530bf78283cc68bdb6e2ad866f952f722273e5df9aed1e3eebda2"
+  },
+  {
+   "src": "records/primitive-run.json",
+   "dst": "corpus/claimbox-riemann/records/primitive-run.json",
+   "src_sha256": "878538ead7a8cdf403dc1234be1093bf01a7d2d20c732eb60e60f554e8869714",
+   "patched": false,
+   "local_sha256": "878538ead7a8cdf403dc1234be1093bf01a7d2d20c732eb60e60f554e8869714"
+  },
+  {
+   "src": "README.md",
+   "dst": "corpus/claimbox-riemann/README.md",
+   "src_sha256": "704132bf277e4041dd373ed2e43f9f6c1f222de62d098b799f50fcdead2a620f",
+   "patched": false,
+   "local_sha256": "704132bf277e4041dd373ed2e43f9f6c1f222de62d098b799f50fcdead2a620f"
+  }
+ ]
+}

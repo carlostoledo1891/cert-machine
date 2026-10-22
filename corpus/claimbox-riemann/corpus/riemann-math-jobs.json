@@ -1,0 +1,199 @@
+{
+ "what": "The mathematician's claims of the fifth session (corpus/riemann/mathematician.md): the Montgomery–Taylor constant and its two proportions decided by rational arithmetic through the series certificate (zeta23/mt-series.json), two bounds of my own on it, the paper's abstract's four-digit prints under the digits reading (one a truncation, refuted; one certified), the law's exact-CUE band rows from the enclosures, the paper's arithmetic on the ceiling from the file's own p₀, and the ξ′ certificate's rational core re-derived from its definitions (five identities, the Lean's eight-digit constants, the paper's five-digit prints, one false control) — each with the outcome I expect. Run: python3 -m claimbox batch corpus/riemann-math-jobs.json --out records/riemann-math --check --record records/riemann-math-run.json; the battery holds every outcome to its expectation.",
+ "jobs": [
+  {
+   "id": "math-cmt-le",
+   "claim": "c₁* ≤ 0.75329607",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "expect": "CERTIFIED",
+   "why": "the upper end of the enclosure, 0.75329606785607067722…, is below the bar"
+  },
+  {
+   "id": "math-cmt-ge",
+   "claim": "c₁* ≥ 0.75329606",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "expect": "CERTIFIED",
+   "why": "the lower end, 0.75329606785607067702…, is above the bar"
+  },
+  {
+   "id": "math-mt-distinct-0.8362",
+   "claim": "(3 − 1/c₁*)/2, published as 0.8362",
+   "source": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "expect": "REFUTED",
+   "why": "the paper's abstract prints 0.8362; the exact value 0.836250351839705822… lies above the box [0.83615, 0.83625] its digits allow — a truncation (a rounding prints 0.8363); as a lower bound the print is still true"
+  },
+  {
+   "id": "math-mt-simple-0.6725",
+   "claim": "2 − 1/c₁*, published as 0.6725",
+   "source": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+   "data": "../claimbox/corpus/riemann/zeta23/mt-series.json",
+   "expect": "CERTIFIED",
+   "why": "0.672500703… lies in [0.67245, 0.67255]"
+  },
+  {
+   "id": "math-cue-rows",
+   "claim": "|2·j·K/256 − lo_j − hi_j| ≤ 1 (0 < j < 256)",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "expect": "CERTIFIED",
+   "why": "every band enclosure contains the exact CUE value j·K/256 (124 at the upper end, 131 at the lower end)"
+  },
+  {
+   "id": "math-p0-gap",
+   "claim": "|p₀ − 2/3| ≤ 0.016",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "expect": "CERTIFIED",
+   "why": "p₀ − 2/3 = 0.0151620207…"
+  },
+  {
+   "id": "math-ceiling-8.2",
+   "claim": "B(8.2) ≤ 0.6819",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "expect": "CERTIFIED",
+   "why": "p₀ + 2.55·10⁻⁶·8.2 = 0.68184954…"
+  },
+  {
+   "id": "math-c256",
+   "claim": "c_256 ≤ 2.55·10⁻⁶",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "elements": "integers",
+   "expect": "CERTIFIED",
+   "why": "1/(6·256²) + τ/512 = 2.5431315104…·10⁻⁶"
+  },
+  {
+   "id": "math-xi-J-flat",
+   "claim": "J_flat = 12517210259/88388425125",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the flat window integral, re-derived exactly from a_k and ∫ s^d(1 − s)"
+  },
+  {
+   "id": "math-xi-kappa-flat",
+   "claim": "kappa9_flat = 100905635384/88388425125",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "1 + J_flat"
+  },
+  {
+   "id": "math-xi-eps9",
+   "claim": "eps9 = 1024/2990212875",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "a_9·231/211 with a_9 = 2·4^10·9!/20!"
+  },
+  {
+   "id": "math-xi-J-quartic",
+   "claim": "J_quartic = 29965280330934234270211/285991090937677125000000",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the quartic window integral over my own autocorrelation coefficients; b_0 = ∫v² and Σ b_l = 0 beside it"
+  },
+  {
+   "id": "math-xi-kappa-quartic",
+   "claim": "kappa9_quartic = 277244140547469154168336/245053976636191319722125",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "(∫v² + J_quartic)/(∫v)²"
+  },
+  {
+   "id": "math-xi-P-flat-8",
+   "claim": "P_flat ≥ 0.85838371",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the Lean constant; margin 3.6·10⁻⁹"
+  },
+  {
+   "id": "math-xi-D-flat-8",
+   "claim": "D_flat ≥ 0.92919185",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the Lean constant; margin 6.8·10⁻⁹"
+  },
+  {
+   "id": "math-xi-P-quartic-8",
+   "claim": "P_quartic ≥ 0.86864017",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the Lean constant"
+  },
+  {
+   "id": "math-xi-D-quartic-8",
+   "claim": "D_quartic ≥ 0.93432008",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the Lean constant"
+  },
+  {
+   "id": "math-xi-P-flat-5",
+   "claim": "P_flat ≥ 0.85838",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the paper's print"
+  },
+  {
+   "id": "math-xi-D-flat-5",
+   "claim": "D_flat ≥ 0.92919",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the paper's print"
+  },
+  {
+   "id": "math-xi-P-quartic-5",
+   "claim": "P_quartic ≥ 0.86864",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the paper's print"
+  },
+  {
+   "id": "math-xi-D-quartic-5",
+   "claim": "D_quartic ≥ 0.93432",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "CERTIFIED",
+   "why": "the paper's print"
+  },
+  {
+   "id": "math-xi-P-flat-false",
+   "claim": "P_flat ≥ 0.85838372",
+   "source": "../claimbox/corpus/riemann/mathematician.md",
+   "data": "../claimbox/corpus/riemann/zeta23/xi-certificate.json",
+   "elements": "rationals",
+   "expect": "REFUTED",
+   "why": "one unit of the eighth digit above the exact value 0.8583837135…"
+  }
+ ]
+}

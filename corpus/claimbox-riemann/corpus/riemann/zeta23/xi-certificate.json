@@ -1,0 +1,11 @@
+{
+ "what": "The certificate behind the exact decision of the ξ′ constants of Alpöge–Furman (Remark 7.1; Lean: Zeta23/XiPrime/Certificate/{D1,Poly,AtOne}.lean): the diagonal density D₁(s) = s − 4s² + Σ_{k≥0} a_k s^{2k+3} with a_k = D1coeff k = 2·4^{k+1}·k!/(2k+2)! (the paper's Lemma 7.1), truncated at nine terms (k = 0..8) with the certified tail ε₉ = a_9·231/211 (the ratio a_{k+1}/a_k = 2(k+1)/((k+2)(2k+3)) is at most 20/231 from k = 9 on); the window integral J(v) = 2∫₀¹ D1trunc9(r)·vConv(r) dr with vConv(r) = ∫ v(t) v(t + r) dt the window's autocorrelation; κ₉(v) = (∫v² + J(v))/(∫v)²; and the constants 2 − κ₉ − ε₉ (simple, on the line) and 3/2 − (κ₉ + ε₉)/2 (distinct). The flat window is v = 1 on [−1/2, 1/2] (vConv = 1 − r, ∫v = ∫v² = 1); the quartic window is v(s) = 1 − (7/100)(2s)² − (51/200)(2s)⁴ on [−1/2, 1/2]. Written by the mathematician of the session (corpus/riemann/mathematician.md §4), 2026-10-22, from the definitions those files print; every number below was re-derived here with exact fractions, independently of the Lean's computer-algebra-generated closed forms.",
+ "terms": 9,
+ "vQuartic": ["1", "0", "-7/25", "0", "-102/25"],
+ "vQuarticNote": "the coefficients of v(s) = 1 − (7/100)(2s)² − (51/200)(2s)⁴ in powers of s: 1, 0, −28/100, 0, −816/200",
+ "vConvQuartic": ["518783/600000", "-729/1600", "-522523/262500", "7082/1875", "-47209/12500", "30551/18750", "0", "-68/3125", "0", "-578/21875"],
+ "vConvQuarticNote": "the coefficients b_0..b_9 of vConv(r) = ∫_{-1/2}^{1/2-r} v(t) v(t+r) dt for 0 ≤ r ≤ 1, derived here by exact polynomial arithmetic (the Lean's Poly.lean prints the same degree-9 polynomial); b_0 = ∫v² and Σ b_l = vConv(1) = 0 are the consistency checks the receiver decides from these bytes",
+ "intV": "2777/3000",
+ "intV2": "518783/600000",
+ "derivation": "∫_{-1/2}^{1/2} s^{2m} ds = 1/(4^m (2m+1)); ∫₀¹ r^d · r^l dr = 1/(d + l + 1); J_flat = 2[∫(s − 4s²)(1 − s) + Σ_k a_k ∫ s^{2k+3}(1 − s)] = 2[1/6 − 1/3 + Σ_{k=0}^{8} a_k/((2k+4)(2k+5))]; J_quartic = 2[Σ_l b_l (1/(l+2) − 4/(l+3)) + Σ_{k=0}^{8} a_k Σ_l b_l/(2k+l+4)]"
+}

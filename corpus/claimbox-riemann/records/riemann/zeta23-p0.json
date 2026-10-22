@@ -1,0 +1,46 @@
+{
+ "id": "zeta23-p0",
+ "text": "p_0\\le0.6818287",
+ "source": {
+  "what": "the paper's rounded-up print of the law's simple-point fraction (arXiv:2608.13637v2, §limits), against the exact rational LawN256.lean's header prints",
+  "path": "../claimbox/corpus/riemann/alpoge-furman/paper-v5-draft18.tex",
+  "sha256": "ae369aaffb66335ff0dd5ebeafa59da7ca1fc26affa748960e7cdc3d82df26b3",
+  "quote": "and \\texttt{EnclOK}, certifying the form-factor enclosures \\texttt{LawN256.encl}. Here $p_0:=1-a_N$ is the exact rational recorded there (rounded up, $p_0\\le0.6818287$): configuration-wise validity of the certificate gives $\\mathbb E_{\\mathcal L}[p]\\le\\mathbb E_{\\mathcal L}[N_0^{s}/N]=1-a_N$ on averaging over $\\mathcal"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; p0 = 10909258999421303588095230195816054408197/16000000000000000000000000000000000000000, the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": "10909258999421303588095230195816054408197/16000000000000000000000000000000000000000",
+   "rel": "le",
+   "printed": "0.6818287",
+   "c": "6818287/10000000"
+  }
+ ],
+ "reference": "the bar is the printed 0.6818287 taken exactly (6818287/10000000); the value is the law's simple-point fraction p₀ = 1 − a_N, the exact rational LawN256.lean's header prints, as a literal, computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "the paper prints p₀ rounded up and the Lean file prints it exactly; the inequality between the two literals is decided, nothing else",
+  "p₀ is the law's own number, the optimum of an exact-rational linear programme the release does not publish: what is decided is that the print is a rounding up of the exact rational the file states, not the rational itself (read)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates p_0 <= 0.6818287",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

@@ -1,0 +1,396 @@
+{
+ "what": "The claim sentences of the 2026 Riemann-hypothesis story as the pinned sources print them (corpus/riemann, tools/riemann.py) — the release's headline, abstracts, scope note and Lean statements; the paper's theorem, constants and ceiling section; the Lean formalization's README, metadata, definitions and numeric certificate; Anthropic's post; the video's captions — one row per sentence or fragment with a quantity (a few without, for the tiers), each a byte-for-byte substring of its pinned file (a battery check), tagged by who wrote it. The corpus the grammar's coverage of the story is measured on (records/riemann-coverage.json): a refusal is the grammar saying so.",
+ "count": 65,
+ "rows": [
+  {
+   "id": "om-headline-78",
+   "file": "openai-math/CONTENTS.md",
+   "text": "Proves that every Dirichlet <i>L</i>-function, including $`\\zeta(s)`$, is zero-free in $`\\Re s\\gt 7/8`$, resolving the quasi-Riemann hypothesis.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-headline-1112",
+   "file": "openai-math/CONTENTS.md",
+   "text": "A companion gives a different proof of the zero-free half-plane $`\\Re s\\gt 11/12`$.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-abstract-78",
+   "file": "openai-math/CONTENTS.md",
+   "text": "We prove that all finite-order Hecke <i>L</i>-functions over $`\\mathbb Q(\\sqrt{-3})`$ and all Dirichlet <i>L</i>-functions are zero-free in the half-plane $`\\Re s\\gt 7/8`$, with the principal pole at <i>s</i> = 1 allowed.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-abstract-78-zeta",
+   "file": "openai-math/CONTENTS.md",
+   "text": "In particular, the Riemann zeta function is zero-free in this half-plane, proving the quasi-Riemann hypothesis.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-abstract-1112",
+   "file": "openai-math/CONTENTS.md",
+   "text": "We establish the quasi-Riemann hypothesis by proving that every Dirichlet <i>L</i>-function, including Riemann's zeta function, has no zeros in the half-plane $`\\mathop{\\mathrm{Re}}\\nolimits s\\gt 11/12`$.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-abstract-siegel",
+   "file": "openai-math/CONTENTS.md",
+   "text": "There is an absolute constant <i>c</i> &gt; 0 such that every real zero $`\\beta\\in(0,1)`$ of every primitive nonprincipal real Dirichlet <i>L</i>-function of conductor <i>q</i> ≥ 3 satisfies $`(1-\\beta)\\log q\\ge c`$.",
+   "author": "OpenAI (the model's manuscript, as the release's index prints its abstract)"
+  },
+  {
+   "id": "om-scope-theta",
+   "file": "openai-math/lean__docs__003.md",
+   "text": "The formalization gives $\\theta=7/8$ for the Riemann zeta function and every Dirichlet $L$-function, uniformly over all positive moduli and all characters.",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-scope-siegel",
+   "file": "openai-math/lean__docs__003.md",
+   "text": "There is one constant $c>0$ such that every primitive nonprincipal real Dirichlet character of conductor $q\\ge3$ and every real zero $0<\\beta<1$ of its $L$-function satisfy $1-\\beta\\ge c/\\log q$.",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-scope-noc",
+   "file": "openai-math/lean__docs__003.md",
+   "text": "No explicit value of $c$ is given.",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-lean-zeta",
+   "file": "openai-math/lean__ComparatorChallenges__QuasiRiemannHypothesis.lean",
+   "text": "(hs : (7 / 8 : ℝ) < s.re) : riemannZeta s ≠ 0",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-lean-dirichlet",
+   "file": "openai-math/lean__ComparatorChallenges__DirichletSevenEighths.lean",
+   "text": "(hs : (7 / 8 : ℝ) < s.re) (hpole : ¬ (χ = 1 ∧ s = 1)) :",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-lean-siegel",
+   "file": "openai-math/lean__ComparatorChallenges__SiegelZeros.lean",
+   "text": "c ≤ (1 - β) * Real.log (q : ℝ)",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "om-history-14",
+   "file": "openai-math/history.md",
+   "text": "We have revised 14 other manuscripts with proof repairs, corrected statements, clearer hypotheses and dependencies, and one correction to an obsolete citation.",
+   "author": "OpenAI (the release: its index, scope note, Lean statements, history)"
+  },
+  {
+   "id": "af-abstract",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "We prove unconditionally that at least two thirds of the nontrivial zeros of the Riemann zeta function, counted with multiplicity, are simple and lie on the critical line, and that at least five sixths are distinct; the previous unconditional records are $\\tfrac5{12}$ and $0.6603$.",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-abstract-mt",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "With the Montgomery--Taylor window the constants become $0.6725$ and $0.8362$.",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-thm-i",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "N_0^{s}(T,2T)\\ge\\bigl(\\tfrac23-o(1)\\bigr)N(T,2T)",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-mt-simple",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$2-c_{\\mathrm{MT}}^{-1}=0.67250\\ldots$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-mt-distinct",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$\\tfrac12(3-c_{\\mathrm{MT}}^{-1})=0.83625\\ldots$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-cmt-def",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$c_{\\mathrm{MT}}^{-1}:=\\tfrac12+\\tfrac1{\\sqrt2}\\cot\\tfrac1{\\sqrt2}$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-ceiling-approx",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "The ceiling over the broader class of all bandwidth-one certificates is approximately $0.682$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-records",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "The previous unconditional records are $\\tfrac5{12}$ for $N_0^{s}/N$~\\cite{PRZZ20} and $0.6603$ for $N_d/N$~\\cite{Wu15}.",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-rh-sdp",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "Under RH, $0.6792$ for $N^{s}/N$ is known via semidefinite programming",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-within",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "The $\\tfrac23$ of Theorem~\\ref{thm:main}(i) is within $0.016$ of the ceiling of its own method",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-ceiling-ineq",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "c_0+\\int_0^1\\!r(x)\\,x\\,\\dd x\\ \\le\\ p\\ +\\ 0.824\\,|r(1)|\\ +\\ 2.55\\cdot10^{-6}\\Bigl(|r'(1)|+\\!\\int_0^1\\!|r''|\\Bigr)",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-p0",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$p_0\\le0.6818287$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-below",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "is below $0.6819$ for both windows~\\eqref{eq:psi} and for any window with $|r'(1)|+\\!\\int|r''|<8.2$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-rows",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$|256\\,S(j)-j|\\le3\\cdot10^{-40}$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-edge",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "$|D(1)|\\le0.82395317$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-xi-liminf",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "\\liminf_{T\\to\\infty}\\frac{N^{s}_{0,\\xi'}(T,2T)}{N_{\\xi'}(T,2T)}\\ \\ge\\ 0.85838",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-xi-quartic",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "the constants become $0.86864$ and $0.93432$",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "af-enclok",
+   "file": "alpoge-furman/paper-v5-draft18.tex",
+   "text": "the enclosures \\texttt{EnclOK} are certified by interval arithmetic and are \\emph{not} checked by the Lean kernel",
+   "author": "Claude (the paper, arXiv:2608.13637v2, verified by Alpöge and Furman)"
+  },
+  {
+   "id": "z-readme-ceiling",
+   "file": "zeta23/zeta23__README.md",
+   "text": "every bandwidth-one certificate certifies a proportion of simple zeros at most 0.6818287 + 2.55·10⁻⁶·(|r′(1)| + ∫|r″|)",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-readme-rows",
+   "file": "zeta23/zeta23__README.md",
+   "text": "|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 < j < 256)",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-readme-edge",
+   "file": "zeta23/zeta23__README.md",
+   "text": "the edge bound |D(1)| ≤ 0.82395317",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-readme-xi",
+   "file": "zeta23/zeta23__README.md",
+   "text": "at least 0.85838 of the zeros of ξ′ (the derivative of the completed zeta function) with ordinates in (T, 2T] are simple and on the critical line and at least 0.92919 are distinct",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-readme-enclok",
+   "file": "zeta23/zeta23__README.md",
+   "text": "lies in the 256 integer enclosures recorded in `LawN256.lean`",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-yaml-23",
+   "file": "zeta23/zeta23__formalization.yaml",
+   "text": "counted with multiplicity, the formalization proves unconditionally that, as T → ∞, at least 2/3",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-yaml-mt-simple",
+   "file": "zeta23/zeta23__formalization.yaml",
+   "text": "2 − 1/c₁* = 0.67250…",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-yaml-mt-distinct",
+   "file": "zeta23/zeta23__formalization.yaml",
+   "text": "(3 − 1/c₁*)/2 = 0.83625…",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-yaml-cmt",
+   "file": "zeta23/zeta23__formalization.yaml",
+   "text": "c₁* = √2·tan ϑ/(1 + ϑ·tan ϑ)",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-yaml-xi",
+   "file": "zeta23/zeta23__formalization.yaml",
+   "text": "at least 85.838% simple and on the critical line, at least 92.919% distinct",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-deps-cmt",
+   "file": "zeta23/zeta23__ChallengeDeps.lean",
+   "text": "Numerically c₁* = 0.7532960…",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-deps-cmt-frag",
+   "file": "zeta23/zeta23__ChallengeDeps.lean",
+   "text": "c₁* = 0.7532960…",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-law-rows",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "text": "|256·S(j) − j| ≤ τ := 3/10^40 for 0 < j < 256",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-law-edge",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "text": "|D(1)| ≤ 82395317/10^8",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-law-p0",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "text": "p₀ = 1 − a_N = 10909258999421303588095230195816054408197/16000000000000000000000000000000000000000 exactly (= 0.68182868746…)",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-law-encl",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "text": "enclosures lo_j ≤ K·S(j) ≤ hi_j, j = 1..256",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-law-K",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean",
+   "text": "scale K = 2^140",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-ceil-const",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "text": "1/(6·256²) + τ/512 < 2.5431316·10⁻⁶",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-ceil-rows-edge",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "text": "near-CUE rows with τ = 3·10⁻⁴⁰ and |D(1)| ≤ 0.82395317",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-ceil-p0",
+   "file": "zeta23/zeta23__Zeta23__PairCeiling__CeilingLaw256.lean",
+   "text": "p = p₀ = 0.68182868746…",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "z-audit-check",
+   "file": "zeta23/zeta23__AUDIT.md",
+   "text": "'Zeta23.PairCeiling.LawN256_check' depends on axioms: [propext]",
+   "author": "Claude (the Lean formalization zeta23, reviewed by the authors)"
+  },
+  {
+   "id": "an-416-672",
+   "file": "anthropic/riemann-zeta.html",
+   "text": "raising it from 41.6% to 67.2%.",
+   "author": "Anthropic (the research post)"
+  },
+  {
+   "id": "an-416",
+   "file": "anthropic/riemann-zeta.html",
+   "text": "they’ve gradually increased this known constant proportion to 41.6%.",
+   "author": "Anthropic (the research post)"
+  },
+  {
+   "id": "an-tokens",
+   "file": "anthropic/riemann-zeta.html",
+   "text": "using a total of 31 million output tokens.",
+   "author": "Anthropic (the research post)"
+  },
+  {
+   "id": "an-650",
+   "file": "anthropic/riemann-zeta.html",
+   "text": "Claude generated and tried 650 ideas, none of which worked.",
+   "author": "Anthropic (the research post)"
+  },
+  {
+   "id": "v-wall",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "Open AI's model built that wall at 7/8.",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-199",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "30th is 199 pages long, and it comes",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-49",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "later. It's only 49 pages. It proves a",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-1112",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "slightly weaker wall at 1112ths and no",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-722",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "it. Out of all 722 papers Open AAI",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-7to13",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "versions running 7 to 13 pages which",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-1896",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "1896 that the zeros never touch the edge",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-200",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "gone through the 200 pages yet, so he",
+   "author": "the video (YouTube captions, as pasted)"
+  },
+  {
+   "id": "v-radziwill",
+   "file": "video/dsBXYAwQieI-transcript.txt",
+   "text": "consequences of RH already follow from",
+   "author": "the video (YouTube captions, as pasted)"
+  }
+ ]
+}

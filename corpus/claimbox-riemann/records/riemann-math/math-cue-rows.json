@@ -1,0 +1,94 @@
+{
+ "id": "math-cue-rows",
+ "text": "|2·j·K/256 − lo_j − hi_j| ≤ 1 (0 < j < 256)",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "f8750b4c8c47a320eed05bbe1b00537371ddb6a720514fd0439869f32b52568b",
+  "quote": "|2·j·K/256 − lo_j − hi_j| ≤ 1 (0 < j < 256)"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; N = 256, K = 139379… (43 digits), the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Abs",
+    [
+     "Subtract",
+     [
+      "Divide",
+      [
+       "Multiply",
+       [
+        "Multiply",
+        "2",
+        [
+         "Add",
+         "i",
+         "1"
+        ]
+       ],
+       "1393796574908163946345982392040522594123776"
+      ],
+      "256"
+     ],
+     [
+      "Add",
+      [
+       "Index",
+       "f",
+       "i",
+       "0"
+      ],
+      [
+       "Index",
+       "f",
+       "i",
+       "1"
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "printed": "1",
+   "c": "1",
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "2"
+     ]
+    ]
+   ]
+  }
+ ],
+ "reference": "the bar is the printed 1 taken exactly (1); the value is the distance |2·j·K/N − lo_j − hi_j| between twice the CUE value j·K/N and the two ends of the enclosure of K·S(j), for every band row j = 1..N−1, computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "j·K/N is an integer (K = 2^140, N = 256) and each enclosure is one unit wide, so the enclosure contains the CUE value j·K/N iff |2·j·K/N − lo_j − hi_j| <= 1; the predicate is exact integer arithmetic over the file's rows, with N and K as the file prints them",
+  "the CUE form factor of an N-periodic configuration is S(j) = j/N on the band 0 < j < N; the claim is that every band enclosure of the law's form factor contains that value exactly — the law sits on the CUE values, not merely within 3·10⁻⁴⁰ of them (the mathematician's observation from the bytes, §2)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates |2·j·K/256 - lo_j - hi_j| <= 1",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

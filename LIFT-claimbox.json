@@ -1,0 +1,133 @@
+{
+ "source_root": "~/Projects/claimbox",
+ "policy": "READ-ONLY. claimbox is the producer (the claim-machine); this manifest copies its pinned Riemann records and corpus OUT, for the companion paper riemann-finite-layer, and never writes back. The build reads the copies under corpus/claimbox-riemann only; `make drift` re-hashes both ends and names what moved, and PROVENANCE-claimbox.json records the claimbox commit the copies came from. Operator-approved 2026-10-22 as the one exception to CLAUDE.md's 'nothing here reads claimbox'.",
+ "items": [
+  {
+   "src": "records/riemann-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-run.json",
+   "note": "the certificate: 8 jobs over the zeta23 bytes",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-ai-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai-run.json",
+   "note": "the planted false-claim battery, 15 claims written by Claude in the claimbox session",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-math-run.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-math-run.json",
+   "note": "the mathematician's 22 claims with their expectations",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-coverage.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-coverage.json",
+   "note": "the grammar over the 65 printed sentences and the 80 AI phrasings",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-recall.json",
+   "dst": "corpus/claimbox-riemann/records/riemann-recall.json",
+   "note": "planted-defect recall at scale on the certificate",
+   "exclude": []
+  },
+  {
+   "src": "records/recall.json",
+   "dst": "corpus/claimbox-riemann/records/recall.json",
+   "note": "planted-defect recall on the earlier corpora",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann",
+   "dst": "corpus/claimbox-riemann/records/riemann",
+   "note": "the seven claimbox objects of the certificate run",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-ai",
+   "dst": "corpus/claimbox-riemann/records/riemann-ai",
+   "note": "the ten objects of the false-claim battery",
+   "exclude": []
+  },
+  {
+   "src": "records/riemann-math",
+   "dst": "corpus/claimbox-riemann/records/riemann-math",
+   "note": "the twenty-two objects of the mathematician's claims",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann/PINS.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/PINS.json",
+   "note": "the 25 pinned sources of the story, by sha256 and commit",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann/zeta23",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/zeta23",
+   "note": "the pinned zeta23 files (Apache-2.0), the decoded enclosures, the two series certificates, the Lean audit",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann/mathematician.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/mathematician.md",
+   "note": "the derivations behind the mathematician's claims",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann/ai-claims.md",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/ai-claims.md",
+   "note": "the planted claims, with the note on each",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann/ai-phrasings.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann/ai-phrasings.json",
+   "note": "eighty phrasings of eight claims, by a fresh subagent",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann-sentences.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-sentences.json",
+   "note": "the 65 sentences the sources print, by author",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-jobs.json",
+   "note": "the 8 jobs",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann-math-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-math-jobs.json",
+   "note": "the 22 jobs with the word expected",
+   "exclude": []
+  },
+  {
+   "src": "corpus/riemann-ai-jobs.json",
+   "dst": "corpus/claimbox-riemann/corpus/riemann-ai-jobs.json",
+   "note": "the 15 jobs with the word expected",
+   "exclude": []
+  },
+  {
+   "src": "records/einstein-arena-run.json",
+   "dst": "corpus/claimbox-riemann/records/einstein-arena-run.json",
+   "note": "the earlier corpus: EinsteinArena's 30 best solutions (the 26-circle packing refuted on three overlaps)",
+   "exclude": []
+  },
+  {
+   "src": "records/primitive-run.json",
+   "dst": "corpus/claimbox-riemann/records/primitive-run.json",
+   "note": "the earlier corpus: the C_1c certificates (the k = 3072 one refuted, a lower bound rounded up)",
+   "exclude": []
+  },
+  {
+   "src": "README.md",
+   "dst": "corpus/claimbox-riemann/README.md",
+   "note": "the producer's own description at the pinned commit",
+   "exclude": []
+  }
+ ],
+ "patches": []
+}

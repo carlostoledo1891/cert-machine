@@ -7,6 +7,10 @@
                                    write PROVENANCE.json
      node tools/lift.js --check    re-hash both ends and NAME what moved
                                    (`make drift`). Exit 0 always — it reports.
+     --manifest LIFT-<name>.json   another source lab, its own manifest; the
+                                   provenance is PROVENANCE-<name>.json and
+                                   records the source's git commit (2026-10-22:
+                                   LIFT-claimbox.json, the Riemann records)
 
    PROVENANCE.json records, per lifted file: the source path, the source
    sha256 AT LIFT TIME, the local sha256 after patching, and whether a patch
@@ -17,9 +21,13 @@
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
-const MAN = JSON.parse(fs.readFileSync(path.join(ROOT, 'LIFT.json'), 'utf8'));
-const SRC = MAN.source_root;
-const CHECK = process.argv.includes('--check');
+const ARGV = process.argv.slice(2);
+const MANIFEST = ARGV.includes('--manifest') ? ARGV[ARGV.indexOf('--manifest') + 1] : 'LIFT.json';
+const PROV = MANIFEST === 'LIFT.json' ? 'PROVENANCE.json' : MANIFEST.replace(/^LIFT-/, 'PROVENANCE-');
+const MAN = JSON.parse(fs.readFileSync(path.join(ROOT, MANIFEST), 'utf8'));
+const SRC = MAN.source_root.replace(/^~/, process.env.HOME || '');
+const CHECK = ARGV.includes('--check');
+const sourceCommit = () => { try { return require('child_process').execSync('git rev-parse HEAD', { cwd: SRC, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch (e) { return null; } };
 
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const rel = (a, b) => path.relative(a, b).split(path.sep).join('/');
@@ -71,8 +79,9 @@ function applyPatches() {
 }
 
 if (CHECK) {
-  const prov = JSON.parse(fs.readFileSync(path.join(ROOT, 'PROVENANCE.json'), 'utf8'));
+  const prov = JSON.parse(fs.readFileSync(path.join(ROOT, PROV), 'utf8'));
   let moved = 0, edited = 0, gone = 0, ok = 0;
+  if (prov.source_commit) { const now = sourceCommit(); console.log('source commit at lift ' + prov.source_commit.slice(0, 12) + (now === prov.source_commit ? ', unchanged' : ', now ' + (now ? now.slice(0, 12) : 'not a git tree'))); }
   for (const f of prov.files) {
     const s = path.join(SRC, f.src), d = path.join(ROOT, f.dst);
     if (!fs.existsSync(s)) { console.log('SOURCE GONE   ' + f.src); gone++; continue; }
@@ -111,11 +120,12 @@ for (const f of files) {
   f.local_sha256 = sha(path.join(ROOT, f.dst));
 }
 
-fs.writeFileSync(path.join(ROOT, 'PROVENANCE.json'), JSON.stringify({
-  source_root: SRC,
+fs.writeFileSync(path.join(ROOT, PROV), JSON.stringify({
+  source_root: MAN.source_root,
+  source_commit: sourceCommit(),
   lifted_at_utc: new Date().toISOString(),
   policy: MAN.policy,
   counts: { files: files.length, patched: touched.size, missing_in_source: missing.length },
   files
 }, null, 1) + '\n');
-console.log('  PROVENANCE.json written: ' + files.length + ' files, ' + touched.size + ' patched');
+console.log('  ' + PROV + ' written: ' + files.length + ' files, ' + touched.size + ' patched');

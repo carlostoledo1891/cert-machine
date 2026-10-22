@@ -1,0 +1,53 @@
+{
+ "id": "math-p0-gap",
+ "text": "|p₀ − 2/3| ≤ 0.016",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "f8750b4c8c47a320eed05bbe1b00537371ddb6a720514fd0439869f32b52568b",
+  "quote": "|p₀ − 2/3| ≤ 0.016"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; p0 = 10909258999421303588095230195816054408197/16000000000000000000000000000000000000000, the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Abs",
+    [
+     "Subtract",
+     "10909258999421303588095230195816054408197/16000000000000000000000000000000000000000",
+     "2/3"
+    ]
+   ],
+   "rel": "le",
+   "printed": "0.016",
+   "c": "2/125"
+  }
+ ],
+ "reference": "the bar is the printed 0.016 taken exactly (2/125); the value is the gap p₀ − 2/3 between the ceiling's simple-point fraction and the theorem's 2/3, p₀ the exact rational LawN256.lean prints, computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "the paper says the 2/3 is within 0.016 of the ceiling of its own method; p₀ is the law's simple-point fraction as the file prints it, written in as a literal; the gap is exact",
+  "the paper's sentence (§limits), read; p₀ the file's own number (§3 of the mathematician's claims)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates |p₀ - 2/3| <= 0.016",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}

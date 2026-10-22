@@ -1,0 +1,237 @@
+\documentclass[preprint,11pt,authoryear,a4paper]{elsarticle}
+\PassOptionsToPackage{obeyspaces,spaces}{url}   % the reproduction commands are set with \url: keep their spaces
+\usepackage{cmelsevier}
+\usepackage{amsthm}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\emergencystretch}{3em}
+\usepackage[section]{placeins}
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}
+%% every number is read from the records: the method paper's macro file (one build, one commit) and this paper's own,
+%% generated from the copies of claimbox's records that LIFT-claimbox.json lifted and PROVENANCE-claimbox.json pins
+\input{register-numbers.tex}
+\let\RepoCommit\relax
+\input{cert-machine-method-numbers.tex}
+\input{riemann-finite-layer-numbers.tex}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\vword}[1]{{\normalfont\scshape #1}}
+\newcommand{\vC}{\vword{certified}}
+\newcommand{\vR}{\vword{refuted}}
+\newcommand{\vF}{\vword{refused}}
+\newcommand{\vA}{\vword{admitted}}
+\journal{a journal to be agreed}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{The numerical certificate behind the two-thirds theorem, checked without Lean, and the file it still needs\tnoteref{t1}}
+\tnotetext[t1]{Draft v0.2 of 2026-10-22, a companion to the cert-machine method paper, built from repository commit \RfCommit. Every number and count is read at build time from the records named in the Data availability statement; a record that no longer supports a sentence stops the build. Nothing here is a theorem, and nothing here bears on the truth of the theorems the story is about.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
+
+\begin{abstract}
+In 2026 a proof that more than two thirds of the nontrivial zeros of the Riemann zeta function are simple and on the critical line was found by a language model, verified by Alp\"oge and Furman, and formalised in Lean. The formalisation has one numerical input: 256 integer enclosures of a form factor at scale $2^{\RfKPow}$, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release describes as available from the authors. We re-check the certificate from its integers with two programs that share no code with Lean, state exactly what that establishes and what it does not, and ask for the file. On the way, the Montgomery--Taylor constant and the four $\xi'$ constants of the paper are decided by exact rational arithmetic alone, with no interval kernel; the paper's abstract prints one constant truncated where a rounding would print another digit, true as a lower bound; and a survey of everything the story's sources print---the manuscripts, the Lean files, the research post, a video's captions---finds that \RfShaped{} of \RfSentences{} sentences are finite claims at all. No theorem is touched. Every number here is read from a public record at build time.
+\end{abstract}
+
+\begin{highlights}
+\item The formalisation's one numerical certificate holds over its printed integers by a route that shares nothing with Lean; its hypothesis EnclOK rests on an unpublished file, which we ask for.
+\item The Montgomery--Taylor and $\xi'$ constants are decided by exact rational arithmetic, no interval kernel; the $\xi'$ rationals re-derive from their definitions.
+\item A truncated print is not a rounded one: the abstract's $0.8362$ is true as a lower bound and false as a rounding.
+\item Of \RfSentences{} sentences the story's sources print, \RfShaped{} reduce to decidable claims; every theorem is refused, with the rule.
+\end{highlights}
+
+\begin{keyword}
+Riemann zeta function \sep simple zeros \sep Lean \sep formal verification \sep independent verification \sep exact rational arithmetic \sep machine-generated mathematics
+\end{keyword}
+
+\end{frontmatter}
+
+\section{The certificate, and what it rests on}\label{sec:cert}
+
+Alp\"oge and Furman \citep{AlpogeFurman26} prove that at least two thirds of the nontrivial zeros of $\zeta$, counted with multiplicity, are simple and on the critical line, and that at least five sixths are distinct; with the Montgomery--Taylor window \citep{Montgomery73,CCLM17} the constants become $2-c_{\mathrm{MT}}^{-1}=0.67250\ldots$ and $\tfrac12(3-c_{\mathrm{MT}}^{-1})=0.83625\ldots$. The argument was discovered and written by Claude, an AI developed by Anthropic; the authors verified it and take responsibility for it, as the paper's own dedication says. Anthropic formalised the result in Lean \citep{Zeta23Lean} and described the work in a research post \citep{AnthropicPost26}; a video explained the checking to a wide audience \citep{Video26}. The formalisation's audit prints the axioms of every main statement; they are Lean's three standard ones.
+
+One part of the formalisation is numerical. The bandwidth-one ceiling, \texttt{Zeta23/PairCeiling/}, is the stability inequality behind the paper's remark on the optimality of its method: a bound on the simple-point fraction of any law of 256-periodic marked configurations whose form factor is near the CUE values on the band. Its input is the generated file \texttt{Zeta23/PairCeiling/LawN256.lean} (\RfLawLeanBytes{} bytes, sha256 \texttt{\RfLawLeanSha}), whose header states that it was computed by 70-digit interval arithmetic at scale $K=2^{\RfKPow}$ and holds enclosures $\mathrm{lo}_j\le K\cdot S(j)\le\mathrm{hi}_j$, $j=1,\ldots,256$, of the grid form factor of a law recorded in a certificate file, \texttt{\RfLawFile} (sha256 \texttt{\RfLawFileSha}), ``available from the authors''. The enclosures are \RfKDigits-digit integers, every one exactly \RfEnclWidth{} unit wide. The row certificate they satisfy is
+\begin{equation}\label{eq:rows}
+|256\,S(j)-j|\le\tau:=\RfTauTex\quad(0<j<256),\qquad |D(1)|\le\RfEdgeBar,
+\end{equation}
+with the closed-band row $j=256$ free; the law's simple-point fraction is the exact rational $p_0=\RfPZeroFrac$, that is $\RfPZeroExact\ldots$, which the paper prints as $p_0\le0.6818287$.
+
+The Lean side is as the audit prints it. \texttt{LawN256\_check}, the kernel check of \eqref{eq:rows} over the enclosures, depends on the axiom \texttt{propext} alone. \texttt{ceiling\_law256} and the other ceiling theorems depend on the three standard axioms and, as the audit says of all of them except the two kernel checks, carry the displayed hypothesis \texttt{EnclOK}: that the true form factor of the law lies in the enclosures. That hypothesis is about the law itself, the weights and positions in \texttt{\RfLawFile}, and the release does not publish that file. The audit is exemplary in saying so. But it means that the one place where the formalisation's numerical certificate meets the real numbers is checked by interval arithmetic outside Lean, from bytes no one outside can read.
+
+\section{What was checked without Lean}\label{sec:checked}
+
+We decoded the integer literals of \texttt{LawN256.lean} into a JSON file beside it, naming the Lean file's digest, and decided three claims over those integers with two programs, one in Python and one in JavaScript, that share no code with each other or with Lean and evaluate in exact rational arithmetic (Table~\ref{tab:run}; the programs are described in Section~\ref{sec:method}):
+\begin{itemize}
+\item the band rows, $|256\,S(j)-j|\le\tau$ over the \RfBandRows{} rows, with both ends of each enclosure tested: the worst row sits at $\RfWorstRowTex$ from its target against the tolerance $\RfTauTex$;
+\item the edge bound, $|D(1)|$ with $D(1)=\sum_{j\le256}S(j)/256-\tfrac12$ evaluated at both ends of the enclosures, which is exact because $D(1)$ is monotone in each $S(j)$: $|D(1)|$ at the ends is $\RfEdgeExact\ldots$, under the printed bound by $\RfEdgeMarginTex$;
+\item $p_0$, the file's rational against the printed bar.
+\end{itemize}
+All three hold, in milliseconds. Beside them, three pieces of the paper's own arithmetic on the ceiling were decided from the file's $p_0$ and $\tau$: $p_0-\tfrac23=\RfPZeroGap\ldots$ is within the paper's $0.016$; the decimal constant the Lean prints beside the ceiling, $1/(6\cdot256^2)+\tau/512=\RfCTwoFiveSixTex$, is under the paper's rounded $2.55\cdot10^{-6}$; and the paper's bound for any window with $|r'(1)|+\int|r''|<8.2$, $p_0+2.55\cdot10^{-6}\cdot8.2=\RfBEightTwo\ldots$, is under its printed $0.6819$.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.30\linewidth}L{0.17\linewidth}L{0.33\linewidth}lr@{}}\toprule
+claim, as printed & source & decided by & word & s \\\midrule
+\RfRunRows \\
+\bottomrule\end{tabular}
+\caption{The certificate run: \RfJobs{} claims, \RfRunCertified{} decided and holding (\vC), \RfRunUndecided{} admitted and undecided (the paper's own closed form, kept on that route on purpose; see Section~\ref{sec:constants}), \RfRunSkipped{} with no bytes to decide from.}\label{tab:run}
+\end{table}
+
+\paragraph{A property of the file} Every band enclosure contains $j\cdot K/256$ exactly: \RfCueUpper{} rows at the upper end, \RfCueLower{} at the lower, counted from the decoded integers and decided as $|2\,j\,K/256-\mathrm{lo}_j-\mathrm{hi}_j|\le1$ over the \RfBandRows{} rows. The law's form factor is thus consistent with $S(j)=j/256$ on every band frequency to $2^{-\RfKPow}$: the enclosures do not merely lie within $\RfTauTex$ of the CUE values, they sit on them, and $D(1)=S(256)/256-1/512$ to the same precision, with $256\,S(256)=\RfRowClosed\ldots$. This is most likely so by construction, an optimal law of a linear programme whose constraints are the CUE band values being expected to meet them exactly, and it is reported as a property of the file, not as a finding about the method.
+
+\paragraph{What this establishes, and what it does not} The three checks are decided from the same integers the Lean kernel accepted; the independence is in the checking code, not in the data. They establish that the row certificate \eqref{eq:rows} holds over the printed enclosures by a route that does not pass through Lean, its elaborator or its \texttt{decide} tactic, a no-shared-code concordance with \texttt{LawN256\_check}. They do not establish that the enclosures enclose anything. That is EnclOK, and it waits on the law file: there is no reading of any published byte that decides it, because the bytes it is about are not there.
+
+\paragraph{The request} A request for \texttt{\RfLawFile}, with its interval-arithmetic script if the authors are willing, has been drafted and will be posted on the formalisation's repository. With the file, the enclosures can be re-derived by an independent interval arithmetic from the law's weights and positions, and the certificate becomes checkable end to end by exactly the pipeline described here with one more claim. Until then it is a conditional certificate, for the kernel and for us alike.
+
+\section{Two families of constants, decided by rational arithmetic}\label{sec:constants}
+
+\paragraph{The Montgomery--Taylor constant} The formalisation defines $c_1^*=\sqrt2\tan\vartheta/(1+\vartheta\tan\vartheta)$ at $\vartheta=1/\sqrt2$, the reciprocal of the paper's $c_{\mathrm{MT}}^{-1}=\tfrac12+\tfrac1{\sqrt2}\cot\tfrac1{\sqrt2}$. An exact checker over rationals cannot evaluate a tangent, and an interval kernel would be the usual answer. None is needed. With $\vartheta^2=\tfrac12$ the Maclaurin series give $\sin\vartheta=\vartheta s$ and $\cos\vartheta=c$ for
+\begin{equation}\label{eq:series}
+s=1+\sum_{k\ge1}\frac{(-1)^k}{2^k(2k+1)!},\qquad c=1+\sum_{k\ge1}\frac{(-1)^k}{2^k(2k)!},
+\end{equation}
+alternating series of rationals whose terms fall by a factor of at least twelve at every step; hence $\tan\vartheta=\vartheta s/c$ and, since $\sqrt2\,\vartheta=1$,
+\begin{equation}\label{eq:cmt}
+c_1^*=\frac{2s}{2c+s},\qquad 2-\frac1{c_1^*}=\frac32-\frac cs,\qquad \frac12\Bigl(3-\frac1{c_1^*}\Bigr)=\frac54-\frac c{2s}.
+\end{equation}
+For an even truncation order $K$ the partial sums bracket the limits, $s_{K+1}\le s\le s_K$ and $c_{K+1}\le c\le c_K$, and $2s/(2c+s)$ increases in $s$ and decreases in $c$ on positive values, so $2s_{K+1}/(2c_K+s_{K+1})\le c_1^*\le2s_K/(2c_{K+1}+s_K)$. At $K=\RfSeriesK$ this is the enclosure $[\RfCmtLo,\ \RfCmtHi]$, of width $\RfCmtWidthTex$, in sums, products and powers over integer ranges. The three prints of the sources, $c_1^*=0.7532960\ldots$, $2-1/c_1^*=0.67250\ldots$ and $(3-1/c_1^*)/2=0.83625\ldots$, hold as truncation boxes, and so do the two bounds one unit of the eighth digit either side, $c_1^*\le0.75329607$ and $c_1^*\ge0.75329606$. This is elementary; the point is only that it removes the kernel, and that the paper's own print of $2-c_{\mathrm{MT}}^{-1}$, kept on the closed-form route on purpose, stands admitted and undecided in Table~\ref{tab:run} to show what the checker cannot do without it.
+
+\paragraph{The $\xi'$ constants} The paper's Remark~7.1 states that at least $0.85838$ of the zeros of $\xi'$ are simple and on the critical line and at least $0.92919$ are distinct (flat window), $0.86864$ and $0.93432$ with the quartic window $v(s)=1-\tfrac7{100}(2s)^2-\tfrac{51}{200}(2s)^4$; the formalisation proves eight-digit versions, $0.85838371$, $0.92919185$, $0.86864017$, $0.93432008$, from a certificate every number of which is rational: the diagonal density $D_1(s)=s-4s^2+\sum_{k\ge0}a_ks^{2k+3}$ with $a_k=2\cdot4^{k+1}k!/(2k+2)!$, truncated at nine terms ($k=0,\ldots,8$) with the certified tail $\varepsilon_9=a_9\cdot231/211=\RfXiEpsTex$ (the coefficient ratio is at most $20/231$ from $k=9$ on); the window integral $J(v)=2\int_0^1D_1^{(9)}(r)\,(v{*}v)(r)\,dr$ with $v{*}v$ the window's autocorrelation; $\kappa_9(v)=(\int v^2+J(v))/(\int v)^2$; and the proportions $2-\kappa_9-\varepsilon_9$ and $\tfrac32-(\kappa_9+\varepsilon_9)/2$. We re-derived every number from those definitions in exact fractions, the quartic window's degree-nine autocorrelation polynomial included, twice and independently (once in the translator's session, once in the generator of this paper's numbers, which stops the build if any differs), and each equals the Lean's computer-algebra-generated closed form:
+\begin{gather*}
+J_{\mathrm{flat}}=\RfXiJFlat,\qquad \varepsilon_9=\RfXiEps,\\
+\kappa_9^{\mathrm{flat}}=\RfXiKappaFlat,\\
+J_{\mathrm{quartic}}=\RfXiJQuartic,\\
+\kappa_9^{\mathrm{quartic}}=\RfXiKappaQuartic.
+\end{gather*}
+The four eight-digit constants hold with margins $\RfXiPFlatMarginTex$, $\RfXiDFlatMarginTex$, $\RfXiPQuarticMarginTex$ and $\RfXiDQuarticMarginTex$; the paper's five-digit prints hold; $P_{\mathrm{flat}}=\RfXiPFlatFrac=\RfXiPFlat\ldots$ exactly, and a control one unit of the eighth digit above it, $P_{\mathrm{flat}}\ge0.85838372$, is refuted as it must be. (The identity claims cite the session's derivation note as their source; the Lean files of the $\xi'$ certificate are being pinned by the producer, and the record will name them when they are.)
+
+\paragraph{Two corrections the machine made} Both re-derivations began wrong, and both times the exact decision was the correction. The grammar's first reading gave a print cut off with an ellipsis, $0.7532960\ldots$, the half-unit rounding box; the checker then refuted the true print and certified a false $0.7532961\ldots$, and it was right, since $c_1^*=\RfCmtDigits\ldots$ lies in $[0.7532960,\,0.7532961)$ and not within half a unit of $0.7532961$. An ellipsis is a truncation, and the grammar now reads it so. And a first pass took ``\texttt{D1trunc 9}'' as ten terms and reproduced none of the printed rationals; nine terms reproduce all of them, and the generator checks that a ten-term reading still matches none. We report both because they are the kind of error an exact decision catches and a careful reader does not.
+
+\section{A print, and a rule}\label{sec:print}
+
+The paper's abstract prints: ``\RfAbstractSentence'' Its theorem prints $0.67250\ldots$ and $0.83625\ldots$. The exact second constant is $\RfDistinctLo\ldots$, which lies above the box the four printed digits allow as a rounding, $[0.83615,\,0.83625]$: $0.8362$ is a truncation, and a rounding would print $0.8363$. As a lower bound on a proportion the truncated print is still true, a weaker true statement, and the paper says nothing else about it. The rule it illustrates is general: a print cut off with an ellipsis and a print rounded to four digits are different claims, and a reader with exact arithmetic will tell them apart. In our grammar the two are read differently, and Table~\ref{tab:math} in the appendix shows the claim ``$(3-1/c_1^*)/2$, published as $0.8362$'' refuted under the rounding reading and its companion $0.6725$ holding.
+
+\section{How the claims were read, and how much of the story is finite}\label{sec:method}
+
+The claims above were not typed by hand. They were extracted from the sources by a translator with a closed grammar, \texttt{claimbox} \citep{Claimbox}, and decided by an exact checker, cert-machine, whose grammar of three verdicts with witnesses is described in the method paper this is a companion to \citep[the method paper]{CMArchive}. The translator is a standard-library pattern matcher, with no model and no parser framework. A sentence is read only if it matches one of a short list of shapes: a trailing finite range; $|\mathrm{EXPR}|\ \mathrm{REL}\ \mathrm{NUMBER}$; $\mathrm{EXPR}=\mathrm{NUMBER}\ldots$, a value printed to its digits and cut off; $\mathrm{NAME}\ \mathrm{REL}\ \mathrm{NUMBER}$; a constant ``published as'' a number; an exact identity $\mathrm{NAME}=\mathrm{RATIONAL}$; a few others for other corpora. The number is kept as the source spells it and read as the exact rational it means. Everything else is refused with a rule: an asymptotic, an unbounded quantifier, an approximation sign, two relations in one sentence, no printed quantity, prose. The object the translator emits carries the line of the source that prints the claim with the file's digest, the pin of the bytes and a sentence saying how they were decoded, the predicate, the hypotheses under which the predicate is the claim, and the shape a witness against it would take; the checker resolves the pin, reads the data as stated, evaluates the predicate over exact rationals and prints the word with a witness. Two checkers, in Python and in JavaScript, share no code and agree on every object here. Neither runs the claimant's code, reads a proof, or evaluates a transcendental function: a closed form over $\exp$, $\log$, $\sin$ or $\cos$ is admitted and left undecided.
+
+Put to the whole story, the grammar is a measuring instrument. The \RfSentences{} sentences the sources print were extracted byte for byte, tagged by author, and read: \RfShaped{} match a shape and \RfRefused{} are refused (Table~\ref{tab:refusals}), \RfRefProse{} as prose with no claim shape, \RfRefNoQuantity{} with no printed quantity, \RfRefAmbiguous{} as ambiguous, \RfRefAsymptotic{} as asymptotic, \RfRefApproximate{} as an approximation. Every theorem is among the refused: a statement about the limit inferior of a ratio of counting functions is not a finite claim, and the grammar says so rather than inventing one. The \RfShaped{} read are the certificate's inequalities and the digits prints of Sections~\ref{sec:checked} and~\ref{sec:constants}, and nothing else. The $11/12$ companion manuscript of the \texttt{openai/math} release \citep{OpenAIMath} (\RfManuscriptBytes{} bytes, sha256 \texttt{\RfManuscriptSha}; \RfManuscriptLines{} lines by \texttt{pdftotext} \RfPdftotext) states \RfManuscriptStatements{} numbered theorems, lemmas, propositions and corollaries and prints no decimal constant at all; it is a proof for human readers, and nothing in it is a claim this pipeline can touch. The same is true of eighty phrasings of \RfPhrasingsClaims{} of the story's claims written by a fresh AI agent in the voices of a paper, an abstract, a README, a Lean docstring, a blog, a tweet, a referee report and a chat assistant: \RfPhrasingsShaped{} read, \RfPhrasingsRefused{} refused, because a claim is read at the head of its sentence or not at all, and nothing in the grammar was extended for a phrasing no pinned source prints.
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}L{0.5\linewidth}rr@{}}\toprule
+rule & printed sentences & AI phrasings \\\midrule
+\RfRefusalRows \\
+\bottomrule\end{tabular}
+\caption{The refusals by rule, over the \RfRefused{} refused printed sentences and the \RfPhrasingsRefused{} refused AI phrasings. The \RfShaped{} sentences read are listed in Table~\ref{tab:shaped}.}\label{tab:refusals}
+\end{table}
+
+That the finite layer of a celebrated result is this thin is, we think, the most useful number in this paper. It is not a criticism of the result; a proof is not a list of inequalities. It is a measurement of what independent machine checking can reach in a story of this kind without reading proofs, and the answer, here, is one certificate and a handful of printed constants. The battery that holds the instrument to account, planted claims with their expected words, the author's own claims as a mathematician with expectations recorded before each run, and \RfPlants{} planted defects at scale on the certificate with \RfControls{} controls undisturbed, is in \ref{app:battery}.
+
+\section{Conclusion}\label{sec:conclusions}
+
+The formalisation's numerical certificate holds over its printed integers by a route that shares nothing with Lean; its hypothesis EnclOK rests on a file that only its authors can read, and we have asked for it. The constants that looked as if they needed an interval kernel needed only an alternating series and the certificate's own definitions. One print in the abstract is a truncation. Of everything the story's sources print, \RfShaped{} sentences in \RfSentences{} are finite claims. None of this bears on the theorems. What it offers their authors is small and concrete: publish the law file, and the one conditional step in an otherwise kernel-checked certificate becomes a step anyone can check.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The authors of the paper, the formalisation and the post have not been consulted on this draft; the request for the law file is drafted and will be posted on the formalisation's repository.
+
+\section*{CRediT authorship contribution statement}
+Carlos Toledo: conceptualization, methodology, software, validation, investigation, data curation, writing---original draft, writing---review and editing. The author list and the roles are to be agreed with the prospective co-authors.
+
+\section*{Data availability}
+Every record, script and table source is public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \RfCommit; archived as \citealp{CMArchive}): the copies of the translator's records and pinned corpus \url{corpus/claimbox-riemann/} with their provenance \url{PROVENANCE-claimbox.json} (claimbox commit \texttt{\RfClaimboxCommitFull}, \RfLiftFiles{} files, each with its sha256 on both ends); the manifest \url{LIFT-claimbox.json}; the battery \url{tools/check-claimbox-lift.js}; and the generator of this paper's numbers \url{tools/paper-numbers/riemann-finite-layer.js}. The translator, \texttt{claimbox} \citep{Claimbox}, holds the grammar, the readers, the runs and the recall at the commit cited. The sources are cited at their origin and pinned by digest in \url{corpus/claimbox-riemann/corpus/riemann/PINS.json}; the \texttt{zeta-23-lean} repository's address redirected to \texttt{anthropics/formal-math} when checked on 2026-10-22, and is cited as pinned. The $11/12$ manuscript is cited by digest and not redistributed.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration{} For this paper specifically: the translator, its grammar and readers, the certificate files, the planted claims, the mathematician's claims with their derivations, the recall at scale and this prose were drafted by AI agents (Claude) under written briefs and consolidated into the public record; every verdict here is a computation by the checker over pinned bytes, and no reading by an agent enters any verdict. The two corrections of Section~\ref{sec:constants} are the machine correcting the agent.
+
+\section*{Funding}
+This work received no external funding.
+
+\appendix
+\section{The battery}\label{app:battery}
+
+\paragraph{The sources} Twenty-five files were fetched byte for byte on \RfPinsFetched{} and pinned by sha256 (Table~\ref{tab:pins}): \texttt{openai/math} at commit \texttt{\RfOpenAICommit}, \texttt{anthropics/zeta-23-lean} at \texttt{\RfZetaCommit}, the paper's e-print arXiv \RfArxiv{} (the \LaTeX{} source, sha256 \texttt{\RfTexSha}), the post as served (\texttt{\RfPostSha}), the video's captions as pasted (\RfVideoBytes{} bytes, \texttt{\RfVideoSha}). The sources were read for the claims they print and never run. Every decision took at most \RfRunMaxSeconds{} seconds on an \MtDeskCpus-core laptop.
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}L{0.72\linewidth}rr@{}}\toprule
+source & files & bytes \\\midrule
+\RfPinRows \\
+\bottomrule\end{tabular}
+\caption{The \RfPins{} pinned sources of the story, by origin.}\label{tab:pins}
+\end{table}
+
+\paragraph{The sentences read} Table~\ref{tab:shaped} lists the \RfShaped{} of \RfSentences{} sentences the grammar reads, and Table~\ref{tab:authors} the count by author.
+
+\begin{table}[htbp]\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.36\linewidth}L{0.27\linewidth}L{0.22\linewidth}l@{}}\toprule
+sentence, as printed & author & file & shape \\\midrule
+\RfShapedRows \\
+\bottomrule\end{tabular}
+\caption{The \RfShaped{} sentences the grammar reads.}\label{tab:shaped}
+\end{table}
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}L{0.58\linewidth}rrr@{}}\toprule
+author, source & sentences & read & refused \\\midrule
+\RfAuthorRows \\
+\bottomrule\end{tabular}
+\caption{The \RfSentences{} printed sentences by author.}\label{tab:authors}
+\end{table}
+
+\paragraph{The planted claims} Fifteen claims about the certificate were written by Claude in the translator's session, as a claimant summarising the certificate might write them, some right and some wrong on purpose, each with the word expected of it recorded before the run (Table~\ref{tab:ai}). They are a planted battery, not a sample of what any published AI text says. \RfAiRefuted{} refuted, \RfAiCertified{} certified, \RfAiRefused{} refused with the rule, every one as expected. The one that measures a limit is the wrong last digit of the transcendental, $c_1^*=0.7532961\ldots$: through the series certificate it is refuted; through the closed form it would be admitted and undecided.
+
+\begin{table}[htbp]\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.34\linewidth}L{0.42\linewidth}l@{}}\toprule
+claim & what it is & word \\\midrule
+\RfAiRows \\
+\bottomrule\end{tabular}
+\caption{The \RfAiClaims{} planted claims and their words.}\label{tab:ai}
+\end{table}
+
+\paragraph{The mathematician's claims} The author of the translator's session then wrote \RfMathClaims{} claims of its own, derived from the sources and the bytes, each with the word expected of it (Table~\ref{tab:math}): the two eighth-digit bounds on $c_1^*$; the two ``published as'' prints; the CUE containment; the three pieces of the paper's ceiling arithmetic; the five $\xi'$ identities, the four eight-digit and the four five-digit constants; and a control one unit above $P_{\mathrm{flat}}$. \RfMathCertified{} hold, \RfMathRefuted{} are refuted, both refutations expected: the $0.8362$ print and the control.
+
+\begin{table}[htbp]\centering\scriptsize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.33\linewidth}L{0.49\linewidth}l@{}}\toprule
+claim & why the word was expected & word \\\midrule
+\RfMathRows \\
+\bottomrule\end{tabular}
+\caption{The mathematician's \RfMathClaims{} claims, with the expectation recorded before each run.}\label{tab:math}
+\end{table}
+
+\paragraph{Recall at scale} A defect planted in the bytes, the sentence or the page must come out as a refusal with its rule or as a changed decision, and an edit that is not a defect must leave the decision as it was. Every enclosure was moved by one unit either way and widened by one and two units; rows were dropped and exchanged; $K$ and $N$ were edited; the free row was moved; $p_0$ was edited in the file; the bar was moved in the sentence and in a copy of the page with the sentence following; another claimant's file was given as the bytes; the last digit of $c_1^*$ was changed in a copy of its file (Table~\ref{tab:plants}). The expectation of every row edit was computed from the edited integers by hand: an enclosure sits on one side of $j\cdot K/256$, which side varies by row, and $\tau$ is $1.63$ units of $256/K$, so a move away from $j$ crosses the tolerance and a move towards it does not. The first draft of the recall assumed every one-unit shift flips the decision; the first sample showed half do not, which is what the controls are for. \RfPlants{} plants, \RfCaught{} caught; \RfControls{} controls, \RfControls{} undisturbed; \RfRecallUndecided{} undecided as recorded, the digits plant on the paper's closed-form claim (\RfUndecidedPlant). On the translator's earlier corpora the same test caught \RfEarlierPlants{} of \RfEarlierPlants.
+
+\begin{table}[htbp]\centering\scriptsize
+\begin{tabular}{@{}L{0.6\linewidth}rrr@{}}\toprule
+plant & must flip or refuse & must stay & undecided \\\midrule
+\RfPlantRows \\
+\bottomrule\end{tabular}
+\caption{The \RfRecallRows{} rows of the recall at scale on the certificate.}\label{tab:plants}
+\end{table}
+
+\paragraph{The translator's own battery, and its earlier corpora} The translator's test suite at the pinned commit prints \RfClaimboxChecks{} checks passing with \RfClaimboxReds{} of \RfClaimboxReds{} red controls firing, observed once from this repository on \RfLiftDate{} and kept with the copies. The stronger evidence for the pipeline is on its earlier corpora, in the method paper's register: EinsteinArena's 26-circle packing, decided as \RfCirclePredicatesCertified{} predicates holding and one refuted on \RfCircleViolating{} pairs that overlap by $10^{-18}$, float64 tangencies the platform admits and exact arithmetic does not; an earlier $C_{1c}$ certificate of the optimization-constants registry, \RfPrimClaim, refuted by $3\cdot10^{-14}$, a lower bound rounded up; and a 605-point kissing record read two ways from one byte string, $9{,}510$ against $9{,}480$ violating pairs, the lesson that a reading is part of a verdict \citep{Register}.
+
+\section{Reproduction}\label{app:repro}\setcounter{table}{0}
+
+Each result re-derives with the command beside it in Table~\ref{tab:repro}: in the translator's repository at commit \texttt{\RfClaimboxCommit}, with cert-machine beside it read-only, for the runs; in this repository for the copies and the numbers. Every run re-pins the sources before it reads them and refuses a file that does not match.
+
+\begin{table}[h]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.2\linewidth}L{0.5\linewidth}L{0.26\linewidth}@{}}\toprule
+result & command (in \texttt{claimbox} unless marked) & expected \\\midrule
+the pins & \url{make riemann && make drift} & \RfPins{} files held \\
+the certificate & \url{python3 -m claimbox batch corpus/riemann-jobs.json --out records/riemann --check --record records/riemann-run.json} & Table~\ref{tab:run} \\
+the planted claims & \url{python3 -m claimbox batch corpus/riemann-ai-jobs.json --out records/riemann-ai --check --record records/riemann-ai-run.json} & Table~\ref{tab:ai} \\
+the mathematician's claims & \url{python3 -m claimbox batch corpus/riemann-math-jobs.json --out records/riemann-math --check --record records/riemann-math-run.json} & Table~\ref{tab:math} \\
+recall at scale & \url{CLAIMBOX_FULL=1 python3 tests/riemann_recall.py} & \RfPlants/\RfPlants, \RfControls/\RfControls \\
+the translator's battery & \url{make test} & \RfClaimboxChecks{} pass, \RfClaimboxReds/\RfClaimboxReds{} reds \\
+the copies (cert-machine) & \url{node tools/check-claimbox-lift.js} & \RfLiftFiles{} files held; the numbers identical \\
+this paper's numbers (cert-machine) & \url{node tools/paper-numbers/riemann-finite-layer.js} & the macro file rewritten identically \\
+\bottomrule\end{tabular}
+\caption{Each result, the command that re-derives it and what it must print.}\label{tab:repro}
+\end{table}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{cert-machine-method,riemann-finite-layer-refs}
+
+\end{document}

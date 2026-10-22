@@ -437,6 +437,25 @@
    ]
   },
   {
+   "name": "riemann-finite-layer",
+   "group": "decided",
+   "title": "The numerical certificate behind the two-thirds theorem, checked without Lean, and the file it still needs",
+   "desc": "The 2026 proof that more than two thirds of the zeros of the Riemann zeta function are simple and on the critical line, found by a language model and formalised in Lean, has one numerical input: 256 integer enclosures of a form factor, kernel-checked downstream of a hypothesis, EnclOK, that the kernel does not check and that rests on a law file the release does not publish. The certificate re-checked from its integers by two programs that share no code with Lean, with exactly what that establishes stated; the request for the file; the Montgomery–Taylor and ξ′ constants decided by exact rational arithmetic alone; a truncated print in the abstract; and a survey of everything the story's sources print, in which 10 of 65 sentences are finite claims at all. No theorem is touched.",
+   "status": "draft v0.2 · 2026-10-22 · the fourth companion of the method paper, in the short form for readers outside it; every number a macro from claimbox's records, copied here and pinned by commit and sha256",
+   "form": "article",
+   "venue": null,
+   "report": null,
+   "tex": "paper/tex/riemann-finite-layer.tex",
+   "records": [
+    "corpus/claimbox-riemann/records/riemann-run.json",
+    "corpus/claimbox-riemann/records/riemann-ai-run.json",
+    "corpus/claimbox-riemann/records/riemann-math-run.json",
+    "corpus/claimbox-riemann/records/riemann-coverage.json",
+    "corpus/claimbox-riemann/records/riemann-recall.json",
+    "PROVENANCE-claimbox.json"
+   ]
+  },
+  {
    "name": "navier-stokes-audit",
    "group": "decided",
    "title": "An audit of the 2026 Navier–Stokes finite-time blowup claim: the formal statement read against Clay's wording and Mathlib's definitions, the Lean proof built and its axioms asked of the kernel, and what remains open",

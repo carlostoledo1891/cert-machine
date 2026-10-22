@@ -1,0 +1,73 @@
+{
+ "id": "math-c256",
+ "text": "c_256 ≤ 2.55·10⁻⁶",
+ "source": {
+  "what": "the page pinned at ../claimbox/corpus/riemann/mathematician.md",
+  "path": "../claimbox/corpus/riemann/mathematician.md",
+  "sha256": "f8750b4c8c47a320eed05bbe1b00537371ddb6a720514fd0439869f32b52568b",
+  "quote": "c_256 ≤ 2.55·10⁻⁶"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "../claimbox/corpus/riemann/zeta23/LawN256.encl.json",
+   "sha256": "889e4d2e9b7c8b8688a1bc215deb0f8ddab707f5bb5e1dafdc83765d14ccf229"
+  },
+  "decoder": "the array at encl: 256 rows of 2, each JSON integer exactly; N = 256, tn = 3, td = 10000000000000000000000000000000000000000, the file's own fields, written into the expression as literals",
+  "count": 256,
+  "variable": "f",
+  "data": {
+   "select": "encl",
+   "elements": "integers",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     [
+      "Divide",
+      "1",
+      [
+       "Multiply",
+       "6",
+       [
+        "Square",
+        "256"
+       ]
+      ]
+     ],
+     [
+      "Divide",
+      "3/10000000000000000000000000000000000000000",
+      [
+       "Multiply",
+       "2",
+       "256"
+      ]
+     ]
+    ],
+    "51/20000000"
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "the bar 2.55·10⁻⁶ as the source prints it, written into the expression as the rational 51/20000000: the receiver reads a printed bar only as a plain decimal or integer, so the zero of the difference is the bar"
+  }
+ ],
+ "reference": "the bar is the printed 2.55·10⁻⁶ taken exactly (51/20000000); the value is the decimal constant c_256 := 1/(6·N²) + τ/(2N) of ceiling_law256_decimal, τ = tn/td as the file declares it, computed from the pinned bytes by the expression itself, read as each JSON integer exactly; the bytes are LawN256.lean's integer literals decoded into JSON by the reader (zeta23/zeta23__Zeta23__PairCeiling__LawN256.lean, sha256 11ae9f7dcc17…), the receiver reading JSON only",
+ "hypotheses": [
+  "exact rational arithmetic in N and τ as the file prints them",
+  "the paper rounds this coefficient to 2.55·10⁻⁶ and the Lean file to 2.5431316·10⁻⁶ (§3 of the mathematician's claims)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned integers violates c_256 <= 2.55·10⁻⁶",
+  "the pinned file does not hash to 889e4d2e…"
+ ]
+}
