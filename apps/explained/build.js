@@ -89,6 +89,15 @@ const C31 = J('certs/lueker-replay.json'); need(C31.rows.length === 2 && C31.row
 V.C31_STATES = fmtInt(C31.rows.find((r) => r.h === 10).states); V.C31_BOUND = C31.rows.find((r) => r.h === 10).boundUp; V.C31_PRINTED = C31.rows.find((r) => r.h === 10).printed;
 const c10 = C31.rows.find((r) => r.h === 10); V.C31_LAMBDA = c10.lambdaCertUp; V.C31_TABLE_SHA = c10.files.table.slice(0, 12); V.C31_TABLE_SHA_BAD = c10.files.table.slice(0, 11) + (c10.files.table[11] === 'f' ? '0' : 'f');
 V.KW_MAXPOINTS = get(MT, 'MtKwMaxPoints');
+/* the cold open's stage: six claims from the records fly through the box and come out with their word; each verdict is pinned to its record */
+need(kw.some((r) => r.dim === Number(V.KW_MAXDIM) && fmtInt(r.claimed) === V.KW_MAXPOINTS), 'the largest kissing row is not the dimension-' + V.KW_MAXDIM + ' row at ' + V.KW_MAXPOINTS);
+need(r605.measured.violations > 0, 'the 605 rung is not refuted');
+const AI = get(RF, 'RfAiRows');
+need(/\\mbox\{we checked that \}\|D\(1\)\| \\le  0\.82395317\$ & [^&]*& \\vF\{\} \(prose\)/.test(AI), 'the prose-prefixed |D(1)| claim is not REFUSED (prose) in the companion\'s AI rows');
+need(/\$\|D\(1\)\| < 0\.82395316\$ & [^&]*& \\vR/.test(AI), 'the cut-short |D(1)| claim is not REFUTED in the companion\'s AI rows');
+need(/\|256\\cdot S\(j\) - j\| \\le  3\\cdot 10\^\{-40\}[^&]*&[^&]*&[^&]*& \\vC/.test(get(RF, 'RfRunRows')), 'the band-rows claim is not CERTIFIED in the companion\'s run rows');
+need(get(RF, 'RfEdgeBar') === '0.82395317' && get(RF, 'RfTauTex') === '3\\cdot10^{-40}', 'the companion\'s edge bar or tolerance changed; the stage chips quote them');
+V.RF_D1_SHORT = '0.82395316'; V.RF_TAU_PLAIN = '3·10⁻⁴⁰';
 
 /* ---- the window widget's matrix: degree-4 even windows, D₁ at fifteen terms, exactly ---- */
 const gcd = (a, b) => { a = a < 0n ? -a : a; b = b < 0n ? -b : b; while (b) { [a, b] = [b, a % b]; } return a; };

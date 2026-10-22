@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
   "recorded": "2026-10-22",
-  "browser": "Chrome/155.0.8059.85",
+  "browser": "Chrome/155.0.8059.86",
   "viewports": [
     1440,
     768,
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ace1060585e52faaa28fbd564a903bd5e1bdc8579acef4688e95e161e60c4abb"
+      "sha": "a2b88895b4b69ee158fea88fdda88438078c95824e04c90ca3c9034868109c05"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -163,24 +163,24 @@
     },
     "site/explained/index.html": {
       "390": {
-        "spines": 9,
+        "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1
       },
       "768": {
-        "spines": 11,
+        "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 20,
+        "spines": 22,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f44bd1647aabf891bded8ec74acc2066e31701af0f71bdc23e9ddc3a5ef2b356"
+      "sha": "315236952298d8865e442f930d683c46f2f7fc6058bb1981a743067e85aeeeb8"
     },
     "site/explained/v1/index.html": {
       "390": {
@@ -222,7 +222,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "6b7b8d8a0933ba4bfc52a56aedfbaaf57e47870609bbcdb34aea23f98a8deab8"
+      "sha": "06454c61c56ba4e34df686f3e54a039b4c9919d8e6ab9303de95c519137793f4"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -789,7 +789,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "98f5d812cd45b2d789d38b8c71a06b611686834c43ba2355f9734ceceb667edb"
+      "sha": "2962cc06f220ab0b3fede53e5febc6c94e141671bf607c467d3970fdb83538da"
     },
     "site/machine/log.html": {
       "390": {
@@ -831,7 +831,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c6e1de5de8680f72a7ecce419b9a90a880b0bf32b5a38dc23683cf771158e780"
+      "sha": "a1dfabc25506c35111b40fe958af644aaa1299df0199a9dc32f8db3f2523b314"
     },
     "site/papers/index.html": {
       "390": {
@@ -852,7 +852,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "53fe7417216208bfdfb182de27d2b4430496aec07aea85f6f4e796b12ba72523"
+      "sha": "db6fa95c472a648eaa6d7f3411d77d294f4511067236331bd0299a7eb9d94ec6"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1839,7 +1839,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "202251839f9e6a7835b8d867aa23d7512c36ffc76a517436865bdb4dd855adfb"
+      "sha": "ceeded8488bcbe54b0e54357d6282b5765fcd7c52eed65bc7cee1b90a06ce130"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2737,7 +2737,7 @@
         "clipped": 0
       },
       "1440": {
-        "spines": 9,
+        "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0

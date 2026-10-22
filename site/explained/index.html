@@ -647,6 +647,39 @@ body.easy{overflow-x:hidden}
 .easy .film .scan{position:absolute;left:0;right:0;top:-2px;height:1px;background:var(--ink);opacity:.45;animation:scan 6s cubic-bezier(.22,1,.36,1) 1.2s 1 both}
 @keyframes scan{from{top:-2px;opacity:.5}to{top:100%;opacity:0}}
 .easy .grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(246,246,248,.025) 0 1px,transparent 1px 3px);opacity:.5}
+/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
+   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
+   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
+   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
+   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
+.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
+.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
+.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
+.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
+.easy .stage .fly i b::before{content:"● ";font-size:.8em}
+.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
+.easy .stage .fly .vd.r b::before{content:"◆ "}
+.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
+.easy .stage .fly .vd.f b::before{content:"▲ "}
+@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
+@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
+.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(max-width:960px){
+  .easy .stage{height:300px}.easy .stage .sl{display:none}
+  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
+  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
+  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
+  .easy .stage .decide{width:6.5rem;height:3.5rem}
+}
+@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
+@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
+@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
 /* the stat strip counts up */
 .easy .stats .v[data-count]{font-variant-numeric:tabular-nums}
 /* panels: an instrument the reader touches */
@@ -806,9 +839,19 @@ body.easy{overflow-x:hidden}
   <div class="eyebrow">The easy read · cert-machine, the method paper, as a story</div>
   <h1>A machine says it found new mathematics. Who checks?</h1>
   <p class="deck">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This is how an independent machine decides such claims exactly: six acts, five instruments you can touch, every number read from a public record when the page was built.</p>
+  <div class="stage" aria-hidden="true">
+    <div class="sl l">claims, as published</div><div class="sl r">words, with witnesses</div>
+    <div class="fly" style="--y:18%;--d:0s"><i class="pub">γ₂ ≤ 0.824120</i><i class="vd c"><b>certified</b>γ₂ ≤ 0.824120</i></div>
+    <div class="fly" style="--y:32%;--d:1.6s"><i class="pub">K(11) ≥ 605</i><i class="vd r"><b>refuted</b>K(11) ≥ 605</i></div>
+    <div class="fly" style="--y:46%;--d:3.2s"><i class="pub">K(55) ≥ 53,301,140</i><i class="vd c"><b>certified</b>K(55) ≥ 53,301,140</i></div>
+    <div class="fly" style="--y:60%;--d:4.8s"><i class="pub">we checked that |D(1)| ≤ 0.82395317</i><i class="vd f"><b>refused</b>we checked that |D(1)| ≤ 0.82395317</i></div>
+    <div class="fly" style="--y:74%;--d:6.4s"><i class="pub">|D(1)| &lt; 0.82395316</i><i class="vd r"><b>refuted</b>|D(1)| &lt; 0.82395316</i></div>
+    <div class="fly" style="--y:88%;--d:8s"><i class="pub">|256·S(j) − j| ≤ 3·10⁻⁴⁰</i><i class="vd c"><b>certified</b>|256·S(j) − j| ≤ 3·10⁻⁴⁰</i></div>
+    <div class="decide">decide</div>
+  </div>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-22  this page built from the records at d60b27c34797"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-22  this page built from the records at 341b738c6183"></div>
   </div>
 </header>
 
@@ -1030,7 +1073,7 @@ body.easy{overflow-x:hidden}
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-22 from the records at commit d60b27c34797</span>
+    <span><b>built</b> 2026-10-22 from the records at commit 341b738c6183</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1040,7 +1083,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit d60b27c34797 on 2026-10-22: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit 341b738c6183 on 2026-10-22: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
