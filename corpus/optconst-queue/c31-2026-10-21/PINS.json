@@ -1,0 +1,60 @@
+{
+ "what": "the registry's C_31 page and README at the HEAD of the day, and the claimant's README, Makefile and certificates (leandrejack-afk/chvatal-sankoff-bound @ cd99c689, the commit the registry row names; no licence file — kept verbatim as the published record, for verification only), plus the README at the later commit 472c18de that corrects 'independent reviewer' to the claimant's own review pass. The claimant's src/ and review/ are NOT fetched and NOT read: the replay's automaton is written from Lueker's paper alone.",
+ "fetched": "2026-10-22T01:35:28Z",
+ "claimantCommit": "cd99c689",
+ "claimantLaterCommit": "472c18de",
+ "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+ "pr": {
+  "number": 231,
+  "title": "C_31: improved upper bound 0.824120 (Lueker's method at h = 9 and 10)",
+  "mergedAt": "2026-10-18T05:48:50Z",
+  "mergeCommit": "87ce7072a011871a9edbc7af85b5422253f521f8",
+  "author": "leandrejack-afk"
+ },
+ "urls": {
+  "claimant": "https://github.com/leandrejack-afk/chvatal-sankoff-bound/tree/cd99c68",
+  "upstream": "https://raw.githubusercontent.com/teorth/optimizationproblems/46dbf03669219cb2bcf33fd5bbf65209d137f994/"
+ },
+ "files": {
+  "upstream/31a.md": {
+   "sha256": "87b45b99d718d1fbf78050d79b20012e263680e78cc7d1c8edee90d9a41eae89",
+   "bytes": 3311
+  },
+  "upstream/README.md": {
+   "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+   "bytes": 41168
+  },
+  "claimant/README.md": {
+   "sha256": "37dcddfbba47dca7559b7c4c1ed0153dd0021ebc5c3e9b264e9e8834be338c07",
+   "bytes": 6634
+  },
+  "claimant/Makefile": {
+   "sha256": "a818a689a3f3b73e53767bd892c79c00b8fcbfc6e6236f01bec6e5700200557b",
+   "bytes": 791
+  },
+  "claimant/certificates/SHA256SUMS.txt": {
+   "sha256": "c313cc64ba1bcb9f4449a5084318ea2959adb2cf9c0b7ca500f598846827c8fb",
+   "bytes": 642
+  },
+  "claimant/certificates/certify_h9.out": {
+   "sha256": "80f151044cad2926ff808795f97bcf5b58e5bbc47f62d5f65011764596894746",
+   "bytes": 570
+  },
+  "claimant/certificates/certify_h10.out": {
+   "sha256": "05570f674225808f80c20ad59eec28cf218194871c8546e88b2db42a706e4f34",
+   "bytes": 577
+  },
+  "claimant/certificates/weights_up_h9_z0.3298.txt": {
+   "sha256": "4527978829778b09a63b7b85e5eb2937e92e043b1f085ce800d77712d0a99b4e",
+   "bytes": 367
+  },
+  "claimant/certificates/weights_up_h10_z0.3376.txt": {
+   "sha256": "1fa072bf1fe9a02e46443760ec1417426a521accad9e721be5ea2527fc51adfd",
+   "bytes": 411
+  },
+  "claimant/README-472c18de.md": {
+   "sha256": "8590bc10bbe0304b635b65a19769c28c69e45edb6dbea077a2c38103d35d82d3",
+   "bytes": 6709
+  }
+ }
+}

@@ -16,37 +16,41 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~02:40 UTC, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~11:30 UTC, after the h = 10 run — THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED (the ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS BUILT; h = 9 CERTIFIED; h = 10 RUNNING (2026-10-22, the
-     operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and verify the asterisk?" → yes, no rental
-     needed; "Proceed"). THE ASK: Leandre Jack (leandrejack-afk, a third party) e-mailed the operator asking for a replay of his
-     registry PR #231 (C_31, merged 2026-10-18, both rows asterisked): γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10 by Lueker's
-     2009 automaton; he offers his eigenvectors; no rush. BUILT: instruments/lueker/mh.py (the reference, stdlib, exact λ at small h)
-     and mh.c (the fast builder, compact table, power iteration, certificate pass with FE_UPWARD per thread + a nearest-mode
-     inflated bound + a FE_DOWNWARD lower bound on ρ), both from Lueker's paper ALONE (the extended version, Wayback 2009-02-05,
-     sha256 c662fc3b…; its Thm 2 / Fig. 8 / Fig. 9 = the journal's Thm 3.3 / Fig. 7 / Table II; UCI 403 since 2015, ACM closed);
-     the claimant's src/ and review/ never fetched. CALIBRATION: Lueker's Table II reproduced exactly h = 2..8 (orbit counts, λ to
-     nine digits, bounds to six); h = 8 accepted transitions 91,508,397 = the claimant's number; C and Python tables identical at
-     h ≤ 5; 2,000 random states re-derived at h = 8 and h = 9, 0 mismatches. h = 9: 51,425,006 states (= the claimant's), 294
-     passes, λ_cert 0.36470836116889566 (his 0.364708361184291, 1.5e-11 above ours and above our ρ lower bound), bound ≤
-     0.8251002729035 ≤ 0.825101 → CERTIFIED. tools/run-lueker.py DATA_DIR writes certs/lueker-replay.json (recompiles, re-runs
-     h ≤ 8 from nothing, re-certifies 9/10 from the stored vectors, 9 red controls; ~2 min + hashing); --check is the battery
-     (30 checks, seconds); tools/build-report-lueker.js → reports/chvatal-sankoff.html; sources pinned in
-     corpus/optconst-queue/c31-2026-10-21 (PINS.json). NOT YET REGISTERED (the wiring gate says so): scratchpad c31/register.py adds
-     the Makefile test + reports lines, build-control's Python list, design/titles.json and the /reports card — run it with the
-     C_31 commit. WHAT IS NEXT, IN ORDER: (a) h = 10 (scratchpad c31/h10.sh: build ~15 min at 7.7 GB with the pre-size hint,
-     eigen ~1.5 h over a 32 GB table, certify; then h = 9 rebuilt with the final binary) → `python3 tools/run-lueker.py
-     <scratchpad>/c31/data` → `node tools/build-report-lueker.js` → register.py → `make page R=lueker` / `make site` → make test →
-     commit → push; (b) THE OPERATOR'S: the reply to Leandre (draft given in chat: accept, replaying either way, ask for the
-     vectors + the state-index rule to run his λ under our matrix), the registry PR at the #216 standard quoting the CONTRIBUTING
-     rule (draft after h = 10 in outreach/), whether to deposit our vectors (0.4 + 3.2 GB) on Zenodo. The big files (tables, keys,
-     vectors) stay OUT of git, pinned by sha256 in the record. One observation on record: the claimant's 15-digit λ at h = 8
-     (0.341832258734487) lies 1.6e-11 ABOVE our certified bracket for ρ — a power-iteration artefact, not a bound error.
+  ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS COMPLETE: BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR
+     DRAFTED (2026-10-22 10:00–11:30 UTC; the operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and
+     verify the asterisk?" → yes, no rental needed; "Proceed"; "I will send after h=10 results"). THE ASK: Leandre Jack
+     (leandrejack-afk, a third party) e-mailed the operator asking for a replay of his registry PR #231 (C_31, merged 2026-10-18,
+     both rows asterisked): γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10 by Lueker's 2009 automaton; he offers his eigenvectors;
+     no rush. BUILT: instruments/lueker/mh.py (the reference, stdlib, exact λ at small h) and mh.c (the fast builder, compact table,
+     power iteration, certificate pass with FE_UPWARD per thread + a nearest-mode inflated bound + a FE_DOWNWARD lower bound on ρ),
+     both from Lueker's paper ALONE (the extended version, Wayback 2009-02-05, sha256 c662fc3b…; its Thm 2 / Fig. 8 / Fig. 9 = the
+     journal's Thm 3.3 / Fig. 7 / Table II; UCI 403 since 2015, ACM closed); the claimant's src/ and review/ never fetched.
+     CALIBRATION: Lueker's Table II reproduced exactly h = 2..8 (orbit counts, λ to nine digits, bounds to six); h = 8 accepted
+     transitions 91,508,397 = the claimant's number; C and Python tables identical at h ≤ 5; random states re-derived at h = 8, 9, 10
+     (2,000 / 2,000 / 1,000), 0 mismatches. THE ROWS (certs/lueker-replay.json): h = 9 — 51,425,006 states (= the claimant's), 294
+     passes, λ_cert ≤ 0.364708361168896, ρ ≥ 0.364708361168863, γ₂ ≤ 0.8251002730 ≤ 0.825101 → CERTIFIED; h = 10 — 400,253,317
+     states (= the claimant's), built in 3 h 47 min (29.5 GB table, 15.2 B transitions) and iterated 338 passes in 3 h 23 min on this
+     Mac, λ_cert ≤ 0.385532597279844, ρ ≥ 0.385532597279807, γ₂ ≤ 0.8241195407 ≤ 0.824120 → CERTIFIED. ON RECORD: the claimant's λ
+     sits above ours by 1.5e-11 at h = 9 and 1.1e-7 at h = 10 (1.6e-11 at h = 8) — valid certificates (any positive vector gives
+     one), less converged; no bound is wrong. THE DIGITS: every printed upper bound is rounded UP and every lower bound DOWN from the
+     exact double (dec_up / dec_down in tools/run-lueker.py → the record's lambdaCertUp / rhoLowerDown / boundUp; the page builder,
+     the shelf and the registry edit print them verbatim, --check re-derives them) — the first draft of the page and of the edit
+     script truncated, which puts a printed upper bound BELOW the value it stands for; caught in the dry run and fixed before anything
+     went out. REGISTERED: the battery `registry C_31 (Lueker M_h)` (tools/run-lueker.py --check, seconds) in make test and the
+     control page; tools/build-report-lueker.js → /reports/chvatal-sankoff.html in make reports, design/titles.json, the /reports
+     card, the certificate shelf; the ruler/render/style baselines recorded for the new page. The big files (tables 33 GB, keys,
+     vectors) stay OUT of git in the session scratchpad, pinned by sha256 and size in the record; they are deleted with the
+     scratchpad, so a Zenodo deposit of the two vectors (0.4 + 3.2 GB) is the way to keep the witnesses. THE OPERATOR'S: (1) the
+     reply to Leandre (final text in chat with the h = 10 line); (2) the registry PR — outreach/registry-pr6-draft-2026-10-22.md
+     (the body) + outreach/registry-pr6-edit-2026-10-22.py (applies the edits to a clone from the record; dry-run clean on 46dbf036,
+     still upstream HEAD on 2026-10-22; refuses unless both rows are CERTIFIED); label [T2026] (none on 31a.md); if #242/#243 merge
+     first, rebase; (3) the vectors deposit; (4) claimbox `make lift` unaffected (no receiver file changed).
   ◆ THE METHOD PAPER v0.8 IS BUILT ON THE CO-AUTHOR'S STRUCTURE, WITH ITS SUPPLEMENT AND THREE COMPANIONS (2026-10-21, the
      operator lifted the paper hold: "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of
      the use cases … do another pass on the literature research … review the citations"). WHAT IS NEXT:

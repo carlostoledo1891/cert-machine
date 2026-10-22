@@ -1,0 +1,756 @@
+{
+ "what": "The optimization-constants registry's C_31 rows of 2026-10-18 (PR #231, [J2026]: γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10, both asterisked), replayed: Lueker's automaton M_h rebuilt from his paper alone in two implementations that share no code with each other or with the claimant (instruments/lueker/mh.py, the reference; mh.c, held to it), calibrated on Lueker's own table for h = 2..8, run at h = 9 and h = 10 with our own witness vectors, the certificate pass under directed rounding, the bound evaluated outward, the printed rows decided.",
+ "generated": "2026-10-22T10:42:47Z",
+ "seconds": 176.1,
+ "machine": {
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "cpus": 8,
+  "python": "3.9.6",
+  "model": "Apple M2",
+  "memoryBytes": 17179869184
+ },
+ "compiler": {
+  "command": "/usr/bin/clang -O2 -ffp-model=strict -o /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/mh-runner instruments/lueker/mh.c -lpthread -lm",
+  "version": "Apple clang version 21.0.0 (clang-2100.0.123.102)"
+ },
+ "code": {
+  "mh.c": "d1aa7051b26ce93afa56954b10f8ffac006d688e1e33c32f22841e69122b03eb",
+  "mh.py": "08faf521d55ac83c1590686c3b2c5d9ae514424e8ac88ad35726f5434f753259",
+  "runner": "adf344639ec3f87003296792a996d6456ab50a6b963f29ab3789a8dbe9cb8efc"
+ },
+ "paper": {
+  "title": "Improved bounds on the average length of longest common subsequences",
+  "author": "George S. Lueker",
+  "journal": "J. ACM 56(3), Article 17 (2009)",
+  "doi": "10.1145/1516512.1516519",
+  "readAs": "the author's extended version dated 2008-12-18 (41 pages), Wayback Machine capture of 2009-02-05; its Theorem 2, Figure 8 and Figure 9 are the journal's Theorem 3.3, Figure 7 and Table II",
+  "url": "https://web.archive.org/web/20090205160100id_/http://www.ics.uci.edu/~lueker/papers/lcs/lcs.pdf",
+  "sha256": "c662fc3b247307437876ec075da9ca376e4ca90de314a3a2b867d757c1692a7e"
+ },
+ "sources": {
+  "dir": "corpus/optconst-queue/c31-2026-10-21",
+  "claimantCommit": "cd99c689",
+  "registryCommit": "46dbf03669219cb2bcf33fd5bbf65209d137f994",
+  "pr": {
+   "number": 231,
+   "title": "C_31: improved upper bound 0.824120 (Lueker's method at h = 9 and 10)",
+   "mergedAt": "2026-10-18T05:48:50Z",
+   "mergeCommit": "87ce7072a011871a9edbc7af85b5422253f521f8",
+   "author": "leandrejack-afk"
+  },
+  "files": {
+   "upstream/31a.md": "87b45b99d718d1fbf78050d79b20012e263680e78cc7d1c8edee90d9a41eae89",
+   "upstream/README.md": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+   "claimant/README.md": "37dcddfbba47dca7559b7c4c1ed0153dd0021ebc5c3e9b264e9e8834be338c07",
+   "claimant/Makefile": "a818a689a3f3b73e53767bd892c79c00b8fcbfc6e6236f01bec6e5700200557b",
+   "claimant/certificates/SHA256SUMS.txt": "c313cc64ba1bcb9f4449a5084318ea2959adb2cf9c0b7ca500f598846827c8fb",
+   "claimant/certificates/certify_h9.out": "80f151044cad2926ff808795f97bcf5b58e5bbc47f62d5f65011764596894746",
+   "claimant/certificates/certify_h10.out": "05570f674225808f80c20ad59eec28cf218194871c8546e88b2db42a706e4f34",
+   "claimant/certificates/weights_up_h9_z0.3298.txt": "4527978829778b09a63b7b85e5eb2937e92e043b1f085ce800d77712d0a99b4e",
+   "claimant/certificates/weights_up_h10_z0.3376.txt": "1fa072bf1fe9a02e46443760ec1417426a521accad9e721be5ea2527fc51adfd",
+   "claimant/README-472c18de.md": "8590bc10bbe0304b635b65a19769c28c69e45edb6dbea077a2c38103d35d82d3"
+  }
+ },
+ "method": {
+  "theorem": "Lueker's Theorem 2 (journal Theorem 3.3), after Dančík–Paterson: M covers Σ*, z ∈ (0, 1/2), λ ∈ (0, 1), v > 0 with A_z v ≤ λ v component-wise ⇒ γ₂ ≤ 2 log(2z)/log λ; any positive v is a witness (eq. 41)",
+  "automaton": "Figure 8 (journal Figure 7), transition by transition; states (x, y, dx, dy); one representative per complement orbit (x̄, ȳ, dx, dy), the symmetry Lueker names in §3.2 and checks here on every state at h = 4",
+  "weights": "z^{a+2} for a < h−1, z^{h+1}/(1−z) at a = h−1 (eq. 36), rounded up from exact for the certificate",
+  "certificate": "λ_cert = max_s (A_z v)_s / v_s with FE_UPWARD in every thread (self-tested); λ_free the same in round-to-nearest inflated by (1+2^-52)^(4h−1); ρ_lower = min_s with FE_DOWNWARD, a lower bound on the spectral radius; the bound 2 ln(2z)/ln λ in 60-digit decimal, widened outward",
+  "words": "CERTIFIED: our certificate reaches the printed bound; REFUSED: it does not, or an input is malformed; REFUTED: the claimant's λ below our certified lower bound on ρ(A_z)"
+ },
+ "calibration": [
+  {
+   "h": 2,
+   "states": 7,
+   "luekerStates": 7,
+   "accepted": 36,
+   "rejected": 6,
+   "z": "0x1.b1c432ca57a78p-3",
+   "iters": 32,
+   "lambdaCert": "0x1.0cb4cb2bcd4bbp-3",
+   "lambdaCertDecimal": "0.13120421149657155",
+   "lambdaFree": "0x1.0cb4cb2bcd4c7p-3",
+   "rhoLower": "0x1.0cb4cb2bcd449p-3",
+   "luekerLambda": "0.131204211",
+   "bound": [
+    "0.845854787826",
+    "0.845854787826"
+   ],
+   "lambdaCertUp": "0.131204211497",
+   "boundUp": "0.845855",
+   "luekerBound": "0.845855",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.0,
+    "eigen": 0.0,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 3,
+   "states": 98,
+   "luekerStates": 98,
+   "accepted": 707,
+   "rejected": 273,
+   "z": "0x1.f0068db8bac71p-3",
+   "iters": 71,
+   "lambdaCert": "0x1.6c098f85099a8p-3",
+   "lambdaCertDecimal": "0.17775261044262192",
+   "lambdaFree": "0x1.6c098f85099c4p-3",
+   "rhoLower": "0x1.6c098f8509815p-3",
+   "luekerLambda": "0.177752610",
+   "bound": [
+    "0.839249731398",
+    "0.839249731398"
+   ],
+   "lambdaCertUp": "0.177752610443",
+   "boundUp": "0.839250",
+   "luekerBound": "0.839250",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.0,
+    "eigen": 0.0,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 4,
+   "states": 1020,
+   "luekerStates": 1020,
+   "accepted": 9165,
+   "rejected": 5115,
+   "z": "0x1.0e8a71de69ad4p-2",
+   "iters": 101,
+   "lambdaCert": "0x1.bc73ad2441ed2p-3",
+   "lambdaCertDecimal": "0.21701751009844955",
+   "lambdaFree": "0x1.bc73ad2441f02p-3",
+   "rhoLower": "0x1.bc73ad2441cc4p-3",
+   "luekerLambda": "0.217017510",
+   "bound": [
+    "0.835071620240",
+    "0.835071620240"
+   ],
+   "lambdaCertUp": "0.217017510099",
+   "boundUp": "0.835072",
+   "luekerBound": "0.835072",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.0,
+    "eigen": 0.0,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 5,
+   "states": 10160,
+   "luekerStates": 10160,
+   "accepted": 106114,
+   "rejected": 76766,
+   "z": "0x1.219652bd3c361p-2",
+   "iters": 136,
+   "lambdaCert": "0x1.0432f303afbfbp-2",
+   "lambdaCertDecimal": "0.25410060606003498",
+   "lambdaFree": "0x1.0432f303afc2p-2",
+   "rhoLower": "0x1.0432f303afa93p-2",
+   "luekerLambda": "0.254100606",
+   "bound": [
+    "0.831909144620",
+    "0.831909144620"
+   ],
+   "lambdaCertUp": "0.254100606061",
+   "boundUp": "0.831910",
+   "luekerBound": "0.831910",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.0,
+    "eigen": 0.0,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 6,
+   "states": 89960,
+   "luekerStates": 89960,
+   "accepted": 1065417,
+   "rejected": 913703,
+   "z": "0x1.3126e978d4fdfp-2",
+   "iters": 172,
+   "lambdaCert": "0x1.260c1eb060d36p-2",
+   "lambdaCertDecimal": "0.28715560866858725",
+   "lambdaFree": "0x1.260c1eb060d65p-2",
+   "rhoLower": "0x1.260c1eb060b73p-2",
+   "luekerLambda": "0.287155609",
+   "bound": [
+    "0.829529127284",
+    "0.829529127284"
+   ],
+   "lambdaCertUp": "0.287155608669",
+   "boundUp": "0.829530",
+   "luekerBound": "0.829530",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.1,
+    "eigen": 0.4,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 7,
+   "states": 780368,
+   "luekerStates": 780368,
+   "accepted": 10203881,
+   "rejected": 10085687,
+   "z": "0x1.3dd97f62b6ae8p-2",
+   "iters": 211,
+   "lambdaCert": "0x1.439b775ae88p-2",
+   "lambdaCertDecimal": "0.3160227441059078",
+   "lambdaFree": "0x1.439b775ae883dp-2",
+   "rhoLower": "0x1.439b775ae861fp-2",
+   "luekerLambda": "0.316022744",
+   "bound": [
+    "0.827726891633",
+    "0.827726891633"
+   ],
+   "lambdaCertUp": "0.316022744106",
+   "boundUp": "0.827727",
+   "luekerBound": "0.827727",
+   "reproduced": true,
+   "seconds": {
+    "build": 0.6,
+    "eigen": 4.6,
+    "certify": 0.0
+   }
+  },
+  {
+   "h": 8,
+   "states": 6419109,
+   "luekerStates": 6419109,
+   "accepted": 91508397,
+   "rejected": 101064873,
+   "z": "0x1.489a027525461p-2",
+   "iters": 251,
+   "lambdaCert": "0x1.5e09468fa87cp-2",
+   "lambdaCertDecimal": "0.34183225871867862",
+   "lambdaFree": "0x1.5e09468fa880fp-2",
+   "rhoLower": "0x1.5e09468fa858fp-2",
+   "luekerLambda": "0.341832259",
+   "bound": [
+    "0.826279178560",
+    "0.826279178560"
+   ],
+   "lambdaCertUp": "0.341832258719",
+   "boundUp": "0.826280",
+   "luekerBound": "0.826280",
+   "reproduced": true,
+   "seconds": {
+    "build": 8.1,
+    "eigen": 55.8,
+    "certify": 0.3
+   },
+   "claimantAccepted": 91508397,
+   "acceptedAgrees": true
+  }
+ ],
+ "reference": {
+  "exact": [
+   {
+    "h": 2,
+    "states": 7,
+    "luekerStates": 7,
+    "z": "0.2118",
+    "lambdaExact": "0.131204211496571",
+    "lambdaLowerExact": "0.131204211496571",
+    "luekerLambda": "0.131204211",
+    "bound": [
+     "0.845854787826",
+     "0.845854787826"
+    ],
+    "luekerBound": "0.845855",
+    "reproduced": true,
+    "seconds": 0.0
+   },
+   {
+    "h": 3,
+    "states": 98,
+    "luekerStates": 98,
+    "z": "0.2422",
+    "lambdaExact": "0.177752610442616",
+    "lambdaLowerExact": "0.177752610442616",
+    "luekerLambda": "0.177752610",
+    "bound": [
+     "0.839249731398",
+     "0.839249731398"
+    ],
+    "luekerBound": "0.839250",
+    "reproduced": true,
+    "seconds": 0.0
+   },
+   {
+    "h": 4,
+    "states": 1020,
+    "luekerStates": 1020,
+    "z": "0.2642",
+    "lambdaExact": "0.217017510098443",
+    "lambdaLowerExact": "0.217017510098442",
+    "luekerLambda": "0.217017510",
+    "bound": [
+     "0.835071620240",
+     "0.835071620240"
+    ],
+    "luekerBound": "0.835072",
+    "reproduced": true,
+    "seconds": 0.5
+   },
+   {
+    "h": 5,
+    "states": 10160,
+    "luekerStates": 10160,
+    "z": "0.2828",
+    "lambdaExact": "0.254100606060025",
+    "lambdaLowerExact": "0.254100606060025",
+    "luekerLambda": "0.254100606",
+    "bound": [
+     "0.831909144620",
+     "0.831909144620"
+    ],
+    "luekerBound": "0.831910",
+    "reproduced": true,
+    "seconds": 6.9
+   }
+  ],
+  "dumpsIdentical": [
+   {
+    "h": 2,
+    "rows": 7,
+    "identical": true
+   },
+   {
+    "h": 3,
+    "rows": 98,
+    "identical": true
+   },
+   {
+    "h": 4,
+    "rows": 1020,
+    "identical": true
+   },
+   {
+    "h": 5,
+    "rows": 10160,
+    "identical": true
+   }
+  ],
+  "symmetry": {
+   "h": 4,
+   "violations": 0
+  },
+  "samples": [
+   {
+    "h": 8,
+    "states": 2000,
+    "transitions": 60000,
+    "seed": 20261021,
+    "mismatches": 0
+   },
+   {
+    "h": 9,
+    "states": 2000,
+    "transitions": 68000,
+    "seed": 20261021,
+    "mismatches": 0
+   },
+   {
+    "h": 10,
+    "states": 1000,
+    "transitions": 38000,
+    "seed": 20261021,
+    "mismatches": 0
+   }
+  ]
+ },
+ "counts": {
+  "CERTIFIED": 2,
+  "REFUSED": 0,
+  "REFUTED": 0
+ },
+ "rows": [
+  {
+   "h": 9,
+   "constant": "C_31",
+   "ref": "J2026",
+   "claim": "γ₂ ≤ 0.825101 (Lueker's method at h = 9)",
+   "asteriskedAtPin": true,
+   "states": 51425006,
+   "claimantStates": 51425006,
+   "accepted": 790078170,
+   "rejected": 958372034,
+   "files": {
+    "keys": "c3d2d3fea4ba5f6d8e556bd06f5a8ed0af140b625daec284d0e7b8a07a3eceea",
+    "table": "316208ccbc5ea219aabb68a0fe40dbb4d54e9624d92fb3241d9cfc011a66c818",
+    "v": "888395f17f2eb63ae34577f6ef2ea1ec2d07fe1fea3b330e3c070c6414f21a8e"
+   },
+   "bytes": {
+    "keys": 411400048,
+    "table": 3571712728,
+    "v": 411400048
+   },
+   "z": "0x1.51b71758e2196p-2",
+   "zDecimal": "0.3298",
+   "iters": 294,
+   "powerRatio": [
+    "0.36470836116886202",
+    "0.36470836116889666"
+   ],
+   "lambdaCert": "0x1.75761bcf3151bp-2",
+   "lambdaCertDecimal": "0.36470836116889566",
+   "lambdaFree": "0x1.75761bcf31579p-2",
+   "lambdaFreeDecimal": "0.36470836116890087",
+   "rhoLower": "0x1.75761bcf312cfp-2",
+   "rhoLowerDecimal": "0.36470836116886302",
+   "weightsUp": [
+    "0x1.bd838e6a667b3p-4",
+    "0x1.25dc68132fbb2p-5",
+    "0x1.83a9505c7c33bp-7",
+    "0x1.ff67242d006abp-9",
+    "0x1.515243fef68cp-10",
+    "0x1.bcfe8c14c01ffp-12",
+    "0x1.2584ac79696d2p-13",
+    "0x1.833593a7f2e97p-15",
+    "0x1.7d15ca150f00dp-16",
+    "0x1.25dc68132fbb2p-5",
+    "0x1.83a9505c7c33bp-7",
+    "0x1.ff67242d006abp-9",
+    "0x1.515243fef68cp-10",
+    "0x1.bcfe8c14c01ffp-12",
+    "0x1.2584ac79696d2p-13",
+    "0x1.833593a7f2e97p-15",
+    "0x1.7d15ca150f00dp-16",
+    "0x1.bd838e6a667b3p-4",
+    "0x1.25dc68132fbb2p-5",
+    "0x1.83a9505c7c33bp-7",
+    "0x1.ff67242d006abp-9",
+    "0x1.515243fef68cp-10",
+    "0x1.bcfe8c14c01ffp-12",
+    "0x1.2584ac79696d2p-13",
+    "0x1.833593a7f2e97p-15",
+    "0x1.7d15ca150f00dp-16",
+    "0x1.25dc68132fbb2p-5",
+    "0x1.83a9505c7c33bp-7",
+    "0x1.ff67242d006abp-9",
+    "0x1.515243fef68cp-10",
+    "0x1.bcfe8c14c01ffp-12",
+    "0x1.2584ac79696d2p-13",
+    "0x1.833593a7f2e97p-15",
+    "0x1.7d15ca150f00dp-16"
+   ],
+   "claimant": {
+    "lambda": "0x1.75761bcf75075p-2",
+    "lambdaDecimal": "0.36470836118429101",
+    "states": 51425006
+   },
+   "bound": [
+    "0.8251002729035169632489791876920656689137",
+    "0.8251002729035169632489791876920656689137"
+   ],
+   "boundUp": "0.8251002730",
+   "lambdaCertUp": "0.364708361168896",
+   "rhoLowerDown": "0.364708361168863",
+   "printed": "0.825101",
+   "verdict": "CERTIFIED",
+   "why": "γ₂ ≤ 0.825100272904 by our certificate, at or below the printed 0.825101",
+   "claimantLambdaMinusOurs": "1.540e-11",
+   "claimantLambdaAboveOurLowerBound": true,
+   "statesAgree": true,
+   "sample": {
+    "h": 9,
+    "states": 2000,
+    "transitions": 68000,
+    "seed": 20261021,
+    "mismatches": 0
+   },
+   "seconds": {
+    "build": 81.3,
+    "eigen": 635.9,
+    "certify": 5.2
+   }
+  },
+  {
+   "h": 10,
+   "constant": "C_31",
+   "ref": "J2026",
+   "claim": "γ₂ ≤ 0.824120 (Lueker's method at h = 10)",
+   "asteriskedAtPin": true,
+   "states": 400253317,
+   "claimantStates": 400253317,
+   "accepted": 6574257580,
+   "rejected": 8635368466,
+   "files": {
+    "keys": "8633d1f70da4ec2616f6389e0ba1c802033adecace181d9b8f72edd0e823fe23",
+    "table": "a5fb5091773aeb55a6b1816b6d407e247d10332f7e7e2c4c48d9b065c704334a",
+    "v": "a4822c9e044d8026d071c538a93ef73867a7e6cbc6971da395a8b58ece4f4494"
+   },
+   "bytes": {
+    "keys": 3202026536,
+    "table": 29499056856,
+    "v": 3202026536
+   },
+   "z": "0x1.59b3d07c84b5ep-2",
+   "zDecimal": "0.3376",
+   "iters": 338,
+   "powerRatio": [
+    "0.38553259727980627",
+    "0.38553259727984368"
+   ],
+   "lambdaCert": "0x1.8ac90ea36f7a2p-2",
+   "lambdaCertDecimal": "0.38553259727984301",
+   "lambdaFree": "0x1.8ac90ea36f80dp-2",
+   "lambdaFreeDecimal": "0.38553259727984895",
+   "rhoLower": "0x1.8ac90ea36f51ep-2",
+   "rhoLowerDecimal": "0.38553259727980727",
+   "weightsUp": [
+    "0x1.d2d6263cd59e7p-4",
+    "0x1.3b3540bae49dp-5",
+    "0x1.a9a82b2cb6901p-7",
+    "0x1.1f674eb68fbf2p-8",
+    "0x1.841c185fcc5bp-10",
+    "0x1.060d3c48dfff4p-11",
+    "0x1.61dfe6e994111p-13",
+    "0x1.dddf4df149621p-15",
+    "0x1.42a8cc2dc56ap-16",
+    "0x1.48e4f2c096861p-17",
+    "0x1.3b3540bae49dp-5",
+    "0x1.a9a82b2cb6901p-7",
+    "0x1.1f674eb68fbf2p-8",
+    "0x1.841c185fcc5bp-10",
+    "0x1.060d3c48dfff4p-11",
+    "0x1.61dfe6e994111p-13",
+    "0x1.dddf4df149621p-15",
+    "0x1.42a8cc2dc56ap-16",
+    "0x1.48e4f2c096861p-17",
+    "0x1.d2d6263cd59e7p-4",
+    "0x1.3b3540bae49dp-5",
+    "0x1.a9a82b2cb6901p-7",
+    "0x1.1f674eb68fbf2p-8",
+    "0x1.841c185fcc5bp-10",
+    "0x1.060d3c48dfff4p-11",
+    "0x1.61dfe6e994111p-13",
+    "0x1.dddf4df149621p-15",
+    "0x1.42a8cc2dc56ap-16",
+    "0x1.48e4f2c096861p-17",
+    "0x1.3b3540bae49dp-5",
+    "0x1.a9a82b2cb6901p-7",
+    "0x1.1f674eb68fbf2p-8",
+    "0x1.841c185fcc5bp-10",
+    "0x1.060d3c48dfff4p-11",
+    "0x1.61dfe6e994111p-13",
+    "0x1.dddf4df149621p-15",
+    "0x1.42a8cc2dc56ap-16",
+    "0x1.48e4f2c096861p-17"
+   ],
+   "claimant": {
+    "lambda": "0x1.8ac915e584bc4p-2",
+    "lambdaDecimal": "0.38553270543451057",
+    "states": 400253317
+   },
+   "bound": [
+    "0.8241195406941601630209750195431848205262",
+    "0.8241195406941601630209750195431848205262"
+   ],
+   "boundUp": "0.8241195407",
+   "lambdaCertUp": "0.385532597279844",
+   "rhoLowerDown": "0.385532597279807",
+   "printed": "0.824120",
+   "verdict": "CERTIFIED",
+   "why": "γ₂ ≤ 0.824119540695 by our certificate, at or below the printed 0.824120",
+   "claimantLambdaMinusOurs": "1.082e-07",
+   "claimantLambdaAboveOurLowerBound": true,
+   "statesAgree": true,
+   "sample": {
+    "h": 10,
+    "states": 1000,
+    "transitions": 38000,
+    "seed": 20261021,
+    "mismatches": 0
+   },
+   "seconds": {
+    "build": 13613.2,
+    "eigen": 12206.9,
+    "certify": 46.4
+   }
+  }
+ ],
+ "redControls": [
+  {
+   "id": "weights-off-by-one-power",
+   "what": "the weights read as z^{a+1} instead of z^{a+2} at h = 4",
+   "expect": "DIFFERS from Lueker",
+   "luekerLambda": "0.217017510",
+   "got": "0.821413740",
+   "fired": true
+  },
+  {
+   "id": "truncation-weight-not-summed",
+   "what": "the truncated input weighted z^{h+1} instead of z^{h+1}/(1−z) at h = 4",
+   "expect": "DIFFERS from Lueker",
+   "luekerLambda": "0.217017510",
+   "got": "0.215991524",
+   "fired": true
+  },
+  {
+   "id": "claim-below-the-certificate",
+   "what": "Lueker's h = 8 certificate against a printed bound 10^-6 below his",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "why": "our certificate gives γ₂ ≤ 0.826279178561, above the printed 0.826279: not reached by this certificate",
+   "fired": true
+  },
+  {
+   "id": "lambda-below-the-spectral-radius",
+   "what": "a claimant λ one part in 10^9 below our certified lower bound on ρ(A_z) at h = 8",
+   "expect": "REFUTED",
+   "got": "REFUTED",
+   "why": "the claimant's certified λ = 0.34183225837681519 is below our certified lower bound 0.34183225871864747 on the spectral radius of A_z: no positive vector satisfies A_z v ≤ λ v",
+   "fired": true
+  },
+  {
+   "id": "z-at-one-half",
+   "what": "z = 1/2, outside Theorem 2's (0, 1/k)",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "why": "z outside (0, 1/2): Theorem 2 needs 0 < z < 1/k with k = 2",
+   "fired": true
+  },
+  {
+   "id": "lambda-at-one",
+   "what": "λ = 1, outside (0, 1)",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "why": "λ outside (0, 1): Theorem 2 needs λ(z) in (0, 1)",
+   "fired": true
+  },
+  {
+   "id": "vector-with-a-zero",
+   "what": "a witness vector with one zero component (h = 5)",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "why": "mh: v not positive and finite",
+   "fired": true
+  },
+  {
+   "id": "vector-wrong-length",
+   "what": "a witness vector one component short (h = 5)",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "why": "mh: v read: size differs from the state count",
+   "fired": true
+  },
+  {
+   "id": "all-ones-vector",
+   "what": "the all-ones vector as the witness at h = 8: a valid certificate (λ = the largest row sum), too weak for the printed bound",
+   "expect": "REFUSED",
+   "got": "REFUSED",
+   "lambda": "0x1.9a359a8137a0dp-2",
+   "bound": [
+    "0.9695596334708344583242636497500245546543",
+    "0.9695596334708344583242636497500245546543"
+   ],
+   "why": "our certificate gives γ₂ ≤ 0.969559633471, above the printed 0.826280: not reached by this certificate",
+   "fired": true
+  }
+ ],
+ "redControlsFired": "9/9",
+ "log": [
+  {
+   "cmd": "build 2 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 2 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2118 600 1e-13 8",
+   "stderr_tail": "  iter 32 ratio [0.13120421149656478, 0.13120421149657246] spread 5.860e-14 0 s"
+  },
+  {
+   "cmd": "certify 2 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2118 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h2.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 3 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 3 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2422 600 1e-13 8",
+   "stderr_tail": "  iter 71 ratio [0.17775261044260832, 0.17775261044262408] spread 8.869e-14 0 s"
+  },
+  {
+   "cmd": "certify 3 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2422 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h3.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 4 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 4 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2642 600 1e-13 8",
+   "stderr_tail": "  iter 101 ratio [0.2170175100984329, 0.21701751009845147] spread 8.556e-14 0 s"
+  },
+  {
+   "cmd": "certify 4 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2642 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h4.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 5 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 5 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2828 600 1e-13 8",
+   "stderr_tail": "  iter 136 ratio [0.25410060606001322, 0.25410060606003682] spread 9.285e-14 0 s"
+  },
+  {
+   "cmd": "certify 5 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2828 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h5.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 6 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 6 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2980 600 1e-13 8",
+   "stderr_tail": "  iter 172 ratio [0.28715560866856055, 0.28715560866858897] spread 9.898e-14 0 s"
+  },
+  {
+   "cmd": "certify 6 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.2980 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h6.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 7 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "eigen 7 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3104 600 1e-13 8",
+   "stderr_tail": "  iter 211 ratio [0.31602274410587972, 0.31602274410590908] spread 9.292e-14 5 s"
+  },
+  {
+   "cmd": "certify 7 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3104 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h7.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "build 8 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 8",
+   "stderr_tail": "6419098 states, 2 to go, 8 s"
+  },
+  {
+   "cmd": "eigen 8 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3209 600 1e-13 8",
+   "stderr_tail": "  iter 251 ratio [0.3418322587186462, 0.34183225871868] spread 9.890e-14 56 s"
+  },
+  {
+   "cmd": "certify 8 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3209 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h8.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "certify 9 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3298 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h9.bin 8",
+   "stderr_tail": ""
+  },
+  {
+   "cmd": "certify 10 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data 0.3376 /private/tmp/claude-501/-Users-carlostoledo-Projects-cert-machine/8e6103f2-2be3-4982-be32-838cc5c0061f/scratchpad/c31/data/v_h10.bin 8",
+   "stderr_tail": ""
+  }
+ ]
+}

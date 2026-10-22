@@ -461,6 +461,14 @@ const REPORTS = [
       + '(C3b, C3c, C71); C42 holds in its limiting inequality, the rest an argument in prose; C84b <= 1.999281 quotes a constant its source only suggests '
       + 'and cannot reach, and holds as 1.9993 — and the checker published with C3c prints OK for a false bound.',
     n: '3 certified · 1 partly · 1 repaired · 1 checker that compares in doubles' },
+  { g: 'ai', f: 'chvatal-sankoff.html', k: 'audit · the registry\'s asterisks',
+    title: 'Two asterisks on the Chvátal–Sankoff constant, replayed',
+    desc: 'Lueker\'s 2009 automaton method for the binary Chvátal–Sankoff constant, run two history lengths past his paper by an outside claimant and merged '
+      + 'asterisked. The automaton rebuilt here from the paper alone, in two implementations, calibrated on Lueker\'s own table for h = 2..8, run at h = 9 and 10 '
+      + 'with our own witness vectors under directed rounding — and the printed bounds decided.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lueker-replay.json'), 'utf8'));
+      if (!L.rows.length || L.calibration.some((c) => !c.reproduced)) fail('the C31 card would misstate the record');
+      return L.rows.map((r) => 'h = ' + r.h + ' ' + r.verdict).join(' · ') + ' · Lueker\'s table reproduced ' + L.calibration.length + '/7 · ' + L.redControlsFired + ' red controls'; })() },
   { g: 'ai', f: 'selfaudit.html', k: 'the self-audit',
     title: 'The instrument, measured by its own rules',
     desc: 'A pre-registered self-measurement of this machine on its frozen register: planted false, true and malformed claims on every mutable row, '

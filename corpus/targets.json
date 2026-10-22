@@ -1057,11 +1057,11 @@
    "scouted": "2026-10-18",
    "class": "registry replay candidate",
    "name": "C_31 (#231, leandrejack-afk): Chvátal–Sankoff γ₂ <= 0.825101* (h = 9) and 0.824120* (h = 10) from certified sub-eigenvalue bounds of Lueker's automaton M_h",
-   "verdict": "OPEN — not on this machine: h = 9 has 51,425,006 states and 1.75 B transitions (7.4 GB), h = 10 400,253,317 states (64 GB); only table digests, λ/z and weights are published, eigenvectors \"on request\"",
+   "verdict": "DECIDED 2026-10-22: both rows CERTIFIED by our own certificate — h = 9: 51,425,006 states (= the claimant's), λ ≤ 0.364708361168896, γ₂ ≤ 0.8251002730 ≤ 0.825101; h = 10: 400,253,317 states (= the claimant's), λ ≤ 0.385532597279844, γ₂ ≤ 0.8241195407 ≤ 0.824120; Lueker's Table II reproduced h = 2..8; 9/9 red controls. Run on this Mac (h = 10: 3 h 47 min build, 3 h 23 min iteration, 29.5 GB table) — no rental.",
    "priorArt": "teorth/optimizationproblems, the batch merged 2026-10-18 05:44–05:56 UTC (upstream 46dbf036), asterisked by the maintainer; scouted read-only, no claimant code run",
-   "artifacts": "github.com/leandrejack-afk/chvatal-sankoff-bound @ cd99c689",
+   "artifacts": "github.com/leandrejack-afk/chvatal-sankoff-bound @ cd99c689 (2 commits; 472c18de of 2026-10-19 corrects the README: the review pass is his own, not an independent person); no licence; C + Python; README, certificates/ (SHA256SUMS of tables and vectors, upward weights as hex doubles, certify_h9/h10.out) and the Makefile read 2026-10-21; src/ and review/ deliberately NOT read (clean room for our M_h). Vector files: one double per accepting state in his table order (0.4 GB / 3.2 GB), sha256 pinned at cd99c68. Calibration targets from Lueker Table II as quoted: states h=2..8 = 7, 98, 1020, 10160, 89960, 780368, 6419109; λ(0.3209) = 0.341832259 at h = 8 → 0.826280. Weights z^{|l|+2} for |l| < h−1, z^{h+1}/(1−z) at |l| = h−1. OURS: instruments/lueker/mh.py + mh.c (from Lueker's paper alone), tools/run-lueker.py, tools/build-report-lueker.js; tables/keys/vectors out of git, sha256 in the record.",
    "cost": "any positive vector works, so ours could be computed — but M_h must be re-implemented from Lueker (JACM 2009, Fig. 7); h = 9 streaming and days of engineering, h = 10 a rented machine",
-   "next": "none now"
+   "next": "2026-10-22: record certs/lueker-replay.json, page /reports/chvatal-sankoff.html, battery in make test. The claimant's λ sits above ours by 1.5e-11 (h = 9) and 1.1e-7 (h = 10): valid, less converged certificates. THE OPERATOR'S: the reply to Leandre (h = 10 line in chat), the registry PR (outreach/registry-pr6-draft-2026-10-22.md + registry-pr6-edit-2026-10-22.py, dry-run clean on 46dbf036), a Zenodo deposit of the two vectors (0.4 + 3.2 GB) if wanted."
   },
   {
    "id": "optconst-49a-sunflower-2026-10",
