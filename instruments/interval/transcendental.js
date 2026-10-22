@@ -128,9 +128,11 @@ function expNarrow(X) {
     term = div(mul(term, r), iv(n));
     sum = add(sum, term);
   }
-  let fact = 1, p = 1;
-  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact *= n; p *= rmag; }
-  const tail = nextUp((p / fact) / (1 - rmag / (EXP_TERMS + 2)));
+  /* the tail |r|^{25}/25! · (1 − |r|/26)^{-1}, every operation outward (2026-10-21; it was round-to-nearest with one nextUp,
+     sound only by the margin below the ulp of the sum — debt of 2026-09-04, paid) */
+  let fact = ONE, p = ONE;
+  for (let n = 1; n <= EXP_TERMS + 1; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }
+  const tail = div(p, mul(fact, sub(ONE, div(iv(rmag), iv(EXP_TERMS + 2)))))[1];
   sum = add(sum, iv(-tail, tail));
   if (k > 1023 || k < -1074) {
     throw new Error('transcendental.exp: 2^k out of finite range, k=' + k);
@@ -165,10 +167,11 @@ function logMantissa(m) {
     sum = add(sum, div(vpow, iv(odd)));
     vpow = mul(vpow, V2);
   }
-  let p = 1;
-  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p *= vmax;
-  const denom = (2 * LOG_TERMS + 1) * (1 - vmax * vmax);
-  const tail = nextUp(p / denom);
+  /* the one-sided tail v^{2N+1} / ((2N+1)(1 − v²)), every operation outward (2026-10-21) */
+  let p = ONE;
+  for (let n = 0; n < 2 * LOG_TERMS + 1; n++) p = mul(p, iv(vmax));
+  const denom = mul(iv(2 * LOG_TERMS + 1), sub(ONE, mul(iv(vmax), iv(vmax))));
+  const tail = div(p, denom)[1];
   return mul(iv(2), add(sum, iv(0, tail)));
 }
 
@@ -205,10 +208,10 @@ function sinSeries(X) {
     const k = 2 * n + 2;
     term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
   }
-  let fact = 1, p = 1;
+  let fact = ONE, p = ONE;
   const deg = 2 * TRIG_TERMS + 1;
-  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }
-  const tail = nextUp(p / fact);
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
   return add(sum, iv(-tail, tail));
 }
 
@@ -223,10 +226,10 @@ function cosSeries(X) {
     term = neg(div(mul(term, mul(X, X)), iv(k * (k + 1))));
     sum = add(sum, term);
   }
-  let fact = 1, p = 1;
+  let fact = ONE, p = ONE;
   const deg = 2 * TRIG_TERMS + 2;
-  for (let n = 1; n <= deg; n++) { fact *= n; p *= rmag; }
-  const tail = nextUp(p / fact);
+  for (let n = 1; n <= deg; n++) { fact = mul(fact, iv(n)); p = mul(p, iv(rmag)); }   /* outward (2026-10-21) */
+  const tail = div(p, fact)[1];
   return add(sum, iv(-tail, tail));
 }
 

@@ -26,6 +26,7 @@ const IV = require(path.join(ROOT, 'instruments', 'interval', 'interval.js'));
 const TR = require(path.join(ROOT, 'instruments', 'interval', 'transcendental.js'));
 const FIT = require(path.join(ROOT, 'instruments', 'hseva', 'fit.js'));
 const OPS = FIT.intervalOps;
+const IVS = require(path.join(ROOT, 'instruments', 'ivspecial', 'ivspecial.js'));   /* Γ by Spouge and Bessel J_ν (2026-10-21) */
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? Number(process.argv[i + 1]) : d; };
 /* --check: the battery form — a smaller seeded sample, decided the same way, written to a temporary file (the record is the full run) */
 const CHECK = process.argv.includes('--check');
@@ -34,7 +35,8 @@ const N = arg('--n', CHECK ? 1000 : 50000), SEED = arg('--seed', 20261018);
 const PY = path.join(ROOT, 'instruments', 'zetahankel', '.venv', 'bin', 'python');
 const CASES = path.join(require('os').tmpdir(), 'kernel-arb-cases-' + process.pid + '.jsonl');
 const sha = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
-const MODULES = ['instruments/interval/interval.js', 'instruments/interval/transcendental.js', 'instruments/hseva/fit.js', 'instruments/hseva/special.js'];
+const MODULES = ['instruments/interval/interval.js', 'instruments/interval/transcendental.js', 'instruments/hseva/fit.js', 'instruments/hseva/special.js',
+  'instruments/hseva/families.js', 'instruments/ivspecial/ivspecial.js'];
 
 /* ---- a seeded generator of doubles: ordinary, extreme, and adversarial ------------------------------------------ */
 let s = SEED >>> 0;
@@ -100,6 +102,21 @@ for (let i = 0; i < N; i++) {
   const G = pos(0.05, 1e5); run('lgamma', [G], () => OPS.lgamma(G)); run('digamma', [G], () => OPS.digamma(G)); run('trigamma', [G], () => OPS.trigamma(G));
   const a = pos(0.2, 60), z = pos(0.01, 120); run('gammaP', [a, z], () => OPS.gammaP(a, z));
   const ph = box((rnd() - 0.5) * 20); if (ph[0] > -12 && ph[1] < 12) run('Phi', [ph], () => OPS.Phi(ph));
+  /* 2026-10-21: the functions the co-author's pending list named as outside the audit — Γ (Spouge, a = 20), Bessel J_ν, the
+     inverses Φ⁻¹ and P⁻¹ (each a bisection that moves an end only on a certified sign), and the compensated sum Sum2 with
+     its outward error bound; the inverses and the sums at a tenth and a fiftieth of the rate, their Arb truth costing a
+     bisection and an exact rational sum */
+  const g2 = pos(0.41, 160); run('gamma', [g2], () => IVS.gammaIv(g2));
+  if (i % 10 === 0) {
+    const nu = rnd() < 0.15 ? -logU(0.01, 0.55) : logU(0.01, 12), xb = logU(0.05, 28);
+    run('besselJ', [[nu, nu], [xb, xb]], () => IVS.besselJIv([nu, nu], [xb, xb]));
+    const pp = 0.001 + rnd() * 0.998; run('PhiInv', [[pp, pp]], () => OPS.PhiInv([pp, pp]));
+    const aa = logU(0.3, 50), p2 = 0.001 + rnd() * 0.998; run('gammaPinv', [[aa, aa], [p2, p2]], () => OPS.gammaPinv([aa, aa], [p2, p2]));
+  }
+  if (i % 50 === 0) {
+    const xs = Array.from({ length: 50 + Math.floor(rnd() * 950) }, () => dbl(pick(['unit', 'unit', 'wide'])));
+    run('sum2', [xs], () => { const acc = OPS.acc(); for (const x of xs) acc.add([x, x]); return acc.value(); });
+  }
 }
 /* RED CONTROLS: two planted wrong kernels the audit must catch — addition rounded to nearest with no outward step, and
    the platform's Math.exp at the ends taken as an enclosure. If neither shows a violation, the audit cannot go red. */

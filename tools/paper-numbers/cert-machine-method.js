@@ -268,9 +268,11 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   def('MtArbRedAdd', int(AR.redControls['red:add'].violationsCaught)); def('MtArbRedAddOf', int(AR.redControls['red:add'].cases));
   def('MtArbRedExp', int(AR.redControls['red:exp'].violationsCaught)); def('MtArbRedExpOf', int(AR.redControls['red:exp'].cases));
   const NAMES = { add: '$x + y$', sub: '$x - y$', mul: '$x \\times y$', div: '$x / y$', sqr: '$x^2$', abs: '$|x|$', pow: '$x^k$', exp: '$\\exp$', log: '$\\log$', sin: '$\\sin$', cos: '$\\cos$', tanh: '$\\tanh$',
-    encloseCos: 'the platform\'s $\\cos$, padded', encloseSin: 'the platform\'s $\\sin$, padded', lgamma: '$\\ln\\Gamma$', digamma: '$\\psi$', trigamma: '$\\psi\'$', gammaP: '$P(a, z)$', Phi: '$\\Phi$' };
-  const ORDER = ['add', 'sub', 'mul', 'div', 'sqr', 'abs', 'pow', 'exp', 'log', 'sin', 'cos', 'tanh', 'encloseCos', 'encloseSin', 'lgamma', 'digamma', 'trigamma', 'gammaP', 'Phi'];
-  need(ORDER.every((k) => AR.byOp[k]) && ORDER.length === Object.keys(AR.byOp).length, 'the Arb audit\'s operations are not the nineteen the table lists');
+    encloseCos: 'the platform\'s $\\cos$, padded', encloseSin: 'the platform\'s $\\sin$, padded', lgamma: '$\\ln\\Gamma$', digamma: '$\\psi$', trigamma: '$\\psi\'$', gammaP: '$P(a, z)$', Phi: '$\\Phi$',
+    gamma: '$\\Gamma$ (Spouge)', besselJ: '$J_\\nu$', PhiInv: '$\\Phi^{-1}$', gammaPinv: '$P^{-1}$', sum2: 'Sum2, $n$ terms' };
+  const ORDER = ['add', 'sub', 'mul', 'div', 'sqr', 'abs', 'pow', 'exp', 'log', 'sin', 'cos', 'tanh', 'encloseCos', 'encloseSin', 'lgamma', 'digamma', 'trigamma', 'gammaP', 'Phi',
+    'gamma', 'besselJ', 'PhiInv', 'gammaPinv', 'sum2'];   /* the five of 2026-10-21 */
+  need(ORDER.every((k) => AR.byOp[k]) && ORDER.length === Object.keys(AR.byOp).length, 'the Arb audit\'s operations are not the twenty-four the table lists');
   const med = (x) => (x === null ? '---' : x < 10 ? String(x) : int(x));
   def('MtArbTableRows', ORDER.map((k) => { const r = AR.byOp[k]; return NAMES[k] + ' & ' + int(r.cases) + ' & ' + int(r.contained) + ' & ' + r.violations + ' & ' + int(r.refused) + ' & ' + med(r.thinWidthUlps.median); }).join(' \\\\\n'));
   const P = EV.planted; need(P.falseAccepted === 0 && P.trueRejected === 0 && P.malformedDecided === 0, 'a planted claim was decided wrongly');
@@ -485,6 +487,84 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   def('MtCzReds', String(Z.cases.filter((c) => c.kind === 'red').length)); def('MtCzControls', String(Z.cases.filter((c) => c.kind === 'control').length));
   need(Z.seconds > 0, 'certs/c82-replay.json carries no run time'); def('MtCzSeconds', String(Math.round(Z.seconds)));
   def('MtCzJsSeconds', String(Math.round(pc.js.seconds))); def('MtCzPySeconds', String(Math.round(pc.py.seconds))); }
+
+/* v0.8 (2026-10-21): THE SELF-AUDIT — the pre-registered self-measurement of 2026-10-20 (notes/selfaudit-preregistration-2026-10-20.md):
+   the inventory, the run under two profiles, the mutation campaign and the concordance, four records that name the same
+   pre-registration. Nothing here is re-run; a record that is partial, that trips the kill switch, that carries a disagreement
+   or a moved row refuses the build. The benchmark with known ground truth of the method paper is this campaign. */
+{
+  const INV = J('certs/selfaudit-inventory.json'), RUN = J('certs/selfaudit-run.json'), MUT = J('certs/selfaudit-mutations.json'), CON = J('certs/selfaudit-concord.json');
+  const pre = (r) => (r.preregistration && (r.preregistration.sha256 || r.preregistration.path)) || '';
+  need(pre(INV) && pre(RUN) === pre(INV) && pre(MUT) === pre(INV) && pre(CON) === pre(INV), 'the four self-audit records do not name one pre-registration');
+  need(RUN.partial === false && MUT.partial === false && Array.isArray(MUT.pending) && MUT.pending.length === 0, 'a self-audit record is partial');
+  need(MUT.killSwitch && MUT.killSwitch.tripped === false, 'the self-audit\'s kill switch tripped');
+  def('MtSaRecords', String(INV.totals.records)); def('MtSaRows', String(INV.totals.rows)); def('MtSaRowsDecided', String(INV.totals.rowsDecided));
+  const P = RUN.totals.portable, X = RUN.totals.extended;
+  const zero = (v) => (Array.isArray(v) ? v.length : v) === 0;   /* a count, or the list it was counted from */
+  need(P && X && [P.rowsMoved, X.rowsMoved, P.recordsNotReproducible, X.recordsNotReproducible, P.recordsFailed, X.recordsFailed].every(zero),
+    'the self-audit run moved a row or failed a record');
+  def('MtSaRunCommands', String(P.commands)); def('MtSaRuns', String(P.runs + X.runs)); def('MtSaRunCap', String(RUN.portableCapSecondsUsed));
+  const n = (v) => String(Array.isArray(v) ? v.length : v);   /* the record lists the records it covered; the paper counts them */
+  def('MtSaRunRecordsExt', n(X.recordsCovered)); def('MtSaRunRowsExt', n(X.rowsCovered));
+  def('MtSaRunRecordsPort', n(P.recordsCovered)); def('MtSaRunRowsPort', n(P.rowsCovered)); def('MtSaRunRefused', n(P.recordsRefused));
+  def('MtSaRunWallMinutesExt', String(Math.round(X.wallSecondsCold / 60))); def('MtSaRunWallMinutesPort', String(Math.round(P.wallSecondsCold / 60)));
+  def('MtSaRunPeakGiB', (Math.max(P.peakRssBytesMax, X.peakRssBytesMax) / 2 ** 30).toFixed(2));
+  def('MtSaRunMachine', esc(RUN.machine.cpu + ', ' + RUN.machine.cores + ' cores, ' + Math.round(RUN.machine.memoryBytes / 2 ** 30) + '~GB, Node ' + RUN.machine.node.replace(/^v/, '')));
+  def('MtSaRunDate', RUN.generated.slice(0, 10));
+  /* the mutation campaign */
+  const A = MUT.all; const fams = Object.entries(MUT.families);
+  const withObject = fams.reduce((n, [, f]) => n + f.rows.filter((r) => (r.mutants || []).length > 0).length, 0);
+  need(A.originalsAsRequired === withObject, 'the rows with an object (' + withObject + ') are not the originals decided as the register says (' + A.originalsAsRequired + ')');
+  def('MtSaMutRows', String(A.rows)); def('MtSaMutObjects', String(withObject)); def('MtSaMutNotMutated', String(A.rows - withObject));
+  def('MtSaMutants', String(A.mutants)); def('MtSaFalse', String(A.byTruth.FALSE)); def('MtSaTrue', String(A.byTruth.TRUE)); def('MtSaMalformed', String(A.byTruth.MALFORMED));
+  def('MtSaAsRequired', String(A.byOutcome['as required'])); def('MtSaFalseCert', String(A.falseCertifications)); def('MtSaFalseRef', String(A.falseRefutations));
+  def('MtSaRefusalsOnFalse', String(A.refusalsOnFalse)); def('MtSaRefusalsOnTrue', String(A.refusalsOnTrue)); def('MtSaDiscards', String(A.discards));
+  def('MtSaRepaired', String(A.byOutcome['not as required (REPAIRED)'] || 0)); def('MtSaUnwitnessed', String(A.byOutcome['not as required (UNWITNESSED)'] || 0));
+  def('MtSaMalformedNotRefused', String(A.malformedNotRefused)); def('MtSaWitnessedRows', String(A.rowsWithWitnessedFalse)); def('MtSaKillBar', String(MUT.killSwitch.half));
+  /* the cells of the verdict–truth table, counted from the mutants themselves (every mutant carries its truth and its outcome) */
+  const cell = {}; for (const [, f] of fams) for (const r of f.rows) for (const m of (r.mutants || [])) { const k = m.truth + '|' + m.outcome; cell[k] = (cell[k] || 0) + 1; }
+  const c = (t, o) => cell[t + '|' + o] || 0;
+  need(c('FALSE', 'as required') + c('FALSE', 'refused') + c('FALSE', 'DISCARDED') + c('FALSE', 'not as required (REPAIRED)') + c('FALSE', 'not as required (UNWITNESSED)') === A.byTruth.FALSE, 'the FALSE cells do not sum');
+  const falseWitnessed = A.byTruth.FALSE - c('FALSE', 'DISCARDED');
+  need(falseWitnessed === A.float['1e-6'].witnessedFalse, 'the witnessed FALSE count disagrees with the float check\'s denominator');
+  def('MtSaFalseWitnessed', String(falseWitnessed)); def('MtSaFalseRefuted', String(c('FALSE', 'as required'))); def('MtSaTrueCertified', String(c('TRUE', 'as required')));
+  def('MtSaMalformedRefused', String(c('MALFORMED', 'as required')));
+  /* Clopper–Pearson at β = 0.05 with zero errors: 1 − β^{1/N}, on the witnessed false claims and on the true ones (mutants and originals) */
+  const cp = (N) => (100 * (1 - Math.pow(0.05, 1 / N))).toFixed(2) + '\\%';
+  def('MtSaTrueDecided', String(A.byTruth.TRUE + withObject)); def('MtSaCpFalse', cp(falseWitnessed)); def('MtSaCpTrue', cp(A.byTruth.TRUE + withObject));
+  /* the conventional check, M5, at its three tolerances */
+  for (const [tau, name] of [['1e-6', 'Six'], ['1e-9', 'Nine'], ['1e-12', 'Twelve']]) {
+    const F = A.float[tau]; need(F && F.witnessedFalse === falseWitnessed && F.originals === withObject && F.trueMutants === A.byTruth.TRUE, 'the float table at ' + tau + ' counts other denominators');
+    def('MtSaFloatFalse' + name, (100 * F.witnessedFalseAccepted / F.witnessedFalse).toFixed(1) + '\\%'); def('MtSaFloatFalseN' + name, String(F.witnessedFalseAccepted));
+    def('MtSaFloatOrig' + name, String(F.originalsAccepted)); def('MtSaFloatTrue' + name, String(F.trueAccepted));
+  }
+  /* the family table: every family of the register, mutated or not, with the reason for an exclusion read from the rows */
+  const LABEL = { tensor: 'matrix-multiplication tensors', kissing: 'kissing configurations', shapes: 'point sets and shapes (EinsteinArena)', erdos852: 'a printed constant (Erd\\H{o}s 852)',
+    polymaps: 'polynomial maps and fields', entropy: 'entropy certificates and a truth table', countex: 'counterexamples (finite objects by reading)', turan: 'Tur\\\'an-type bounds', horizonmath: 'HorizonMath rows', gnnw: 'the GNNW constant', sumproduct: 'a sum--product bound' };
+  const rowsTex = fams.map(([name, f]) => { const t = MUT.totals[name] || {}; const n = f.rows.length, o = f.rows.filter((r) => (r.mutants || []).length > 0).length;
+    const bt = t.byTruth || {}, bo = t.byOutcome || {};
+    return (LABEL[name] || esc(name)) + ' & ' + n + ' & ' + o + ' & ' + (t.mutants || 0) + ' & ' + (bt.FALSE || 0) + '/' + (bt.TRUE || 0) + '/' + (bt.MALFORMED || 0) + ' & ' + (t.falseCertifications || 0) + ' & ' + (t.falseRefutations || 0)
+      + ' & ' + (t.refusalsOnFalse || 0) + ' & ' + (t.discards || 0) + ' & ' + ((bo['not as required (REPAIRED)'] || 0) + (bo['not as required (UNWITNESSED)'] || 0) + (bo['not as required (PARTIAL)'] || 0)); });
+  def('MtSaTableRows', rowsTex.join(' \\\\\n'));
+  /* the two defects the campaign found and the fixes table it pins */
+  need(Array.isArray(MUT.fixes) && MUT.fixes.length === 2 && MUT.fixes.every((x) => x.found && x.found.count > 0 && x.fix && x.asRequiredNow === x.found.count), 'the fixes are not two, each covering every mutant it was found on');
+  def('MtSaFixes', String(MUT.fixes.length)); def('MtSaFixMutants', String(MUT.fixes.reduce((n, x) => n + x.found.count, 0))); def('MtSaFixCommit', esc(MUT.fixes[0].found.commit)); def('MtSaFixDate', MUT.fixes[0].found.date);
+  def('MtSaFixOneMutants', String(MUT.fixes[0].found.count)); def('MtSaFixTwoMutants', String(MUT.fixes[1].found.count));
+  def('MtSaFixOneOutcome', esc(MUT.fixes[0].found.outcome.toLowerCase())); def('MtSaFixTwoOutcome', esc(MUT.fixes[1].found.outcome.toLowerCase()));
+  def('MtSaSeconds', String(Math.round(MUT.seconds))); def('MtSaMinutes', String(Math.round(MUT.seconds / 60))); def('MtSaDate', MUT.generated.slice(0, 10));
+  /* concordance, and the hosted rows carried in as recorded */
+  need(CON.counts.disagreements.length === 0 && CON.counts.concordant === CON.counts.comparisons, 'the concordance record holds a disagreement');
+  def('MtSaConcord', String(CON.counts.comparisons)); def('MtSaConcordRows', String(CON.counts.rowsWithTwoOrMore)); def('MtSaConcordField', String(CON.counts.fieldLevel)); def('MtSaConcordWord', String(CON.counts.wordLevelOnly));
+  const H = CON.hosted; need(H && H.challenges > 0 && H.words && H.seconds && H.maxRssKB, 'the hosted profile is not carried in');
+  def('MtSaHostedChallenges', String(H.challenges)); def('MtSaHostedCertified', String(H.words.CERTIFIED)); def('MtSaHostedRefused', String(H.words.REFUSED));
+  def('MtSaHostedSecondsMin', int(H.seconds.min)); def('MtSaHostedSecondsMedian', int(H.seconds.median)); def('MtSaHostedSecondsMax', int(H.seconds.max)); def('MtSaHostedRssGiB', (H.maxRssKB.max / 2 ** 20).toFixed(1));
+}
+
+/* the repository's size at the build, from git ls-files (physical lines of the tracked JavaScript and Python, lifted code included) */
+{ const ls = (pat) => cp.execSync('git ls-files ' + pat, { cwd: ROOT }).toString().trim().split('\n').filter(Boolean);
+  const lines = (files) => files.reduce((n, f) => n + fs.readFileSync(path.join(ROOT, f), 'utf8').split('\n').length, 0);
+  const dirs = new Set(ls('instruments').map((f) => f.split('/')[1]));
+  def('MtRepoInstrumentDirs', String(dirs.size)); def('MtRepoJsKLines', String(Math.round(lines(ls("'*.js'")) / 1000))); def('MtRepoPyKLines', String(Math.round(lines(ls("'*.py'")) / 1000))); }
 
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
    named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,

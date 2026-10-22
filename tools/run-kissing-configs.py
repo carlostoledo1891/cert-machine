@@ -311,6 +311,12 @@ def decide(d, X, backend='numpy', procs=None, tile=None, log=print):
         G += np.rint(Xc.T @ Xc).astype(np.int64)            # exact: each chunk's entries are below 2^20 * 192 < 2^53
     rank = rank_of_gram(G.tolist())
     maxA = max(normCounts)
+    # the exactness bound, ASSERTED before any path runs (2026-10-21; it was recorded, not checked): every partial sum of
+    # products is at most |x||y| <= maxA, which fp16 holds exactly below 2^11 and float32 below 2^24
+    if backend in ('torch', 'triton'):
+        assert maxA < 2 ** 11, 'fp16 exactness bound violated: max squared norm %d >= 2^11' % maxA
+    else:
+        assert maxA < 2 ** 24, 'float32 exactness bound violated: max squared norm %d >= 2^24' % maxA
     facts = {'rows': int(n), 'rowsClaimed': pin[4], 'columns': cols, 'normCounts': {str(k): v for k, v in sorted(normCounts.items())},
              'normCountsClaimed': {str(k): v for k, v in sorted(pin[6].items())}, 'spanDimension': rank, 'maxAbsCoordinate': int(np.abs(X).max()),
              'partialSumBound': maxA}

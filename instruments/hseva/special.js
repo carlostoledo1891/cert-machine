@@ -37,7 +37,6 @@ const B2K = [[1, 6], [-1, 30], [1, 42], [-1, 30], [5, 66], [-691, 2730], [7, 6],
 const M = 8;             /* terms kept; B_18 bounds the tail */
 const SHIFT = 20;        /* the recurrences lift the argument to at least this */
 const XSTAR = 1.4616321449683622;               /* the minimum of Γ on (0, ∞) */
-const LGAMMA_MIN = -0.12148629053584962;        /* lnΓ(x*); a lower bound is taken 1e-15 below it */
 
 function makeGamma(ops) {
   const { add, sub, mul, div, c, log, exp, lo, hi, abs } = ops;
@@ -163,7 +162,13 @@ function makeGamma(ops) {
     if (lo(X) >= XSTAR + 1e-12) return ops.hull(lgammaPoint(thin(lo(X))), lgammaPoint(thin(hi(X))));
     if (hi(X) <= XSTAR - 1e-12) return ops.hull(lgammaPoint(thin(hi(X))), lgammaPoint(thin(lo(X))));
     const a = lgammaPoint(thin(lo(X))), b = lgammaPoint(thin(hi(X)));
-    return ops.hull(ops.hull(a, b), c(LGAMMA_MIN - 1e-15));
+    /* the box straddles the minimum. lnΓ is convex on (0, ∞) (Γ is log-convex: Bohr–Mollerup), so for any p > 0 and every
+       x in the box, lnΓ(x) ≥ lnΓ(p) + ψ(p)(x − p) ≥ lnΓ(p) − |ψ(p)| · max(p − lo, hi − p): a lower end PROVED from the
+       enclosures at p = XSTAR, in place of the hard-coded double LGAMMA_MIN − 1e-15 (debt of 2026-09-04, paid 2026-10-21) */
+    const p = thin(XSTAR), L = lgammaPoint(p), D = abs(digammaPoint(p));
+    const r = c(Math.max(XSTAR - lo(X), hi(X) - XSTAR));
+    const low = sub(L, mul(D, r)), h = ops.hull(a, b);
+    return ops.pair(Math.min(lo(h), lo(low)), hi(h));
   };
   const digamma = (X) => ops.hull(digammaPoint(thin(lo(X))), digammaPoint(thin(hi(X))));
   const trigamma = (X) => ops.hull(trigammaPoint(thin(hi(X))), trigammaPoint(thin(lo(X))));
@@ -190,4 +195,4 @@ function makeGamma(ops) {
   return { lgamma, digamma, trigamma, gammaP, gammaPinv, gap1, gap2, prenticeC, prenticeC1, prenticeC2, lgammaPoint, digammaPoint, trigammaPoint, gammaPPoint };
 }
 
-module.exports = { makeGamma, B2K, XSTAR, LGAMMA_MIN };
+module.exports = { makeGamma, B2K, XSTAR };

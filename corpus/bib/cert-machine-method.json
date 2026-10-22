@@ -1,6 +1,6 @@
 {
  "what": "every entry of paper/tex/cert-machine-method.bib resolved at its source (Crossref / DataCite / the arXiv API / a fetch); the offline check refuses an entry without an ok row whose title matched",
- "verified": "2026-10-18",
+ "verified": "2026-10-22",
  "entries": {
   "Abramowitz64": {
    "kind": "url",
@@ -244,8 +244,8 @@
    "ok": true,
    "source": "fetch",
    "status": 200,
-   "finalUrl": "https://github.com/rainrzk/erdos510-lambda4-audit",
-   "resolvedTitle": "GitHub - rainrzk/erdos510-lambda4-audit: Independent audit of the λ(4) proof for Erdős Problem #510 (teorth/erdosproblems#392). · GitHub",
+   "finalUrl": "https://github.com/yuanzhu-lab/erdos510-lambda4-audit",
+   "resolvedTitle": "GitHub - yuanzhu-lab/erdos510-lambda4-audit: Independent audit of the λ(4) proof for Erdős Problem #510 (teorth/erdosproblems#392). · GitHub",
    "titleMatch": true,
    "bibTitle": "erdos510-lambda4-audit: an independent re-certification of the $\\lambda(4)$ argument with no shared code"
   },
@@ -902,6 +902,639 @@
    "titleMatch": true,
    "year": 2022,
    "bibTitle": "Reproducible Builds: Increasing the Integrity of Software Supply Chains"
+  },
+  "Gao14proof": {
+   "kind": "doi",
+   "id": "10.1109/SYNASC.2014.29",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Proof Generation from Delta-Decisions",
+   "titleMatch": true,
+   "year": 2014,
+   "bibTitle": "Proof generation from delta-decisions"
+  },
+  "Kong18": {
+   "kind": "doi",
+   "id": "10.1007/978-3-319-96142-2_15",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Delta-Decision Procedures for Exists-Forall Problems over the Reals",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "Delta-decision procedures for exists-forall problems over the reals"
+  },
+  "Loup13": {
+   "kind": "doi",
+   "id": "10.1007/978-3-642-38574-2_13",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A Symbiosis of Interval Constraint Propagation and Cylindrical Algebraic Decomposition",
+   "titleMatch": true,
+   "year": 2013,
+   "bibTitle": "A symbiosis of interval constraint propagation and cylindrical algebraic decomposition"
+  },
+  "Magron15": {
+   "kind": "doi",
+   "id": "10.6092/issn.1972-5787/4319",
+   "ok": true,
+   "source": "datacite",
+   "resolvedTitle": "Formal Proofs for Nonlinear Optimization",
+   "titleMatch": true,
+   "year": 2015,
+   "bibTitle": "Formal proofs for nonlinear optimization"
+  },
+  "Rump18global": {
+   "kind": "doi",
+   "id": "10.1080/10556788.2018.1435649",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Mathematically rigorous global optimization in floating-point arithmetic",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "Mathematically rigorous global optimization in floating-point arithmetic"
+  },
+  "HansenWalster04": {
+   "kind": "doi",
+   "id": "10.1201/9780203026922",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Global Optimization Using Interval Analysis",
+   "titleMatch": true,
+   "year": 2003,
+   "bibTitle": "Global Optimization Using Interval Analysis"
+  },
+  "Tucker11": {
+   "kind": "doi",
+   "id": "10.1515/9781400838974",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Validated Numerics",
+   "titleMatch": true,
+   "year": 2011,
+   "bibTitle": "Validated Numerics: A Short Introduction to Rigorous Computations"
+  },
+  "Kleene38": {
+   "kind": "doi",
+   "id": "10.2307/2267778",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "On notation for ordinal numbers",
+   "titleMatch": true,
+   "year": 1938,
+   "bibTitle": "On notation for ordinal numbers"
+  },
+  "Tarski51": {
+   "kind": "doi",
+   "id": "10.1007/978-3-7091-9459-1_3",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A Decision Method for Elementary Algebra and Geometry",
+   "titleMatch": true,
+   "year": 1998,
+   "bibTitle": "A decision method for elementary algebra and geometry"
+  },
+  "Chow70": {
+   "kind": "doi",
+   "id": "10.1109/TIT.1970.1054406",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "On optimum recognition error and reject tradeoff",
+   "titleMatch": true,
+   "year": 1970,
+   "bibTitle": "On optimum recognition error and reject tradeoff"
+  },
+  "ElYaniv10": {
+   "kind": "url",
+   "id": "https://jmlr.org/papers/v11/el-yaniv10a.html",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://jmlr.org/papers/v11/el-yaniv10a.html",
+   "resolvedTitle": "On the Foundations of Noise-free Selective Classification",
+   "titleMatch": true,
+   "bibTitle": "On the foundations of noise-free selective classification"
+  },
+  "Geifman17": {
+   "kind": "arxiv",
+   "id": "1705.08500",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Selective Classification for Deep Neural Networks",
+   "titleMatch": true,
+   "bibTitle": "Selective classification for deep neural networks"
+  },
+  "Franc21": {
+   "kind": "arxiv",
+   "id": "2101.12523",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Optimal strategies for reject option classifiers",
+   "titleMatch": true,
+   "bibTitle": "Optimal strategies for reject option classifiers"
+  },
+  "ClopperPearson34": {
+   "kind": "doi",
+   "id": "10.1093/biomet/26.4.404",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "THE USE OF CONFIDENCE OR FIDUCIAL LIMITS ILLUSTRATED IN THE CASE OF THE BINOMIAL",
+   "titleMatch": true,
+   "year": 1934,
+   "bibTitle": "The use of confidence or fiducial limits illustrated in the case of the binomial"
+  },
+  "Hanley83": {
+   "kind": "doi",
+   "id": "10.1001/jama.1983.03330370053031",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "If Nothing Goes Wrong, Is Everything All Right?",
+   "titleMatch": true,
+   "year": 1983,
+   "bibTitle": "If nothing goes wrong, is everything all right? {Interpreting} zero numerators"
+  },
+  "McNemar47": {
+   "kind": "doi",
+   "id": "10.1007/BF02295996",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Note on the Sampling Error of the Difference Between Correlated Proportions or Percentages",
+   "titleMatch": true,
+   "year": 1947,
+   "bibTitle": "Note on the sampling error of the difference between correlated proportions or percentages"
+  },
+  "Muller18": {
+   "kind": "doi",
+   "id": "10.1007/978-3-319-76526-6",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Handbook of Floating-Point Arithmetic",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "Handbook of Floating-Point Arithmetic"
+  },
+  "Kearfott96": {
+   "kind": "doi",
+   "id": "10.1007/978-1-4757-2495-0",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Rigorous Global Search: Continuous Problems",
+   "titleMatch": true,
+   "year": 1996,
+   "bibTitle": "Rigorous Global Search: Continuous Problems"
+  },
+  "Benet24": {
+   "kind": "doi",
+   "id": "10.1002/cpe.7856",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "A framework to test interval arithmetic libraries and their IEEE 1788‐2015 compliance",
+   "titleMatch": true,
+   "year": 2023,
+   "bibTitle": "A framework to test interval arithmetic libraries and their {IEEE} 1788-2015 compliance"
+  },
+  "Revol23testing": {
+   "kind": "doi",
+   "id": "10.1007/978-3-031-30445-3_36",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Testing Interval Arithmetic Libraries, Including Their IEEE-1788 Compliance",
+   "titleMatch": true,
+   "year": 2023,
+   "bibTitle": "Testing interval arithmetic libraries, including their {IEEE}-1788 compliance"
+  },
+  "Rump16fixed": {
+   "kind": "doi",
+   "id": "10.1587/nolta.7.362",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Interval arithmetic with fixed rounding mode",
+   "titleMatch": true,
+   "year": 2016,
+   "bibTitle": "Interval arithmetic with fixed rounding mode"
+  },
+  "BerzMakino98": {
+   "kind": "doi",
+   "id": "10.1023/A:1024467732637",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Verified Integration of ODEs and Flows Using Differential Algebraic Methods on High-Order Taylor Models",
+   "titleMatch": true,
+   "year": 1998,
+   "bibTitle": "Verified integration of {ODEs} and flows using differential algebraic methods on high-order {Taylor} models"
+  },
+  "Winterer20": {
+   "kind": "doi",
+   "id": "10.1145/3428261",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "On the unusual effectiveness of type-aware operator mutations for testing SMT solvers",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "On the unusual effectiveness of type-aware operator mutations for testing {SMT} solvers"
+  },
+  "Mansur20": {
+   "kind": "doi",
+   "id": "10.1145/3368089.3409763",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Detecting critical bugs in SMT solvers using blackbox mutational fuzzing",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "Detecting critical bugs in {SMT} solvers using blackbox mutational fuzzing"
+  },
+  "Petrovic18": {
+   "kind": "doi",
+   "id": "10.1145/3183519.3183521",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "State of mutation testing at google",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "State of mutation testing at {Google}"
+  },
+  "Moore79": {
+   "kind": "doi",
+   "id": "10.1137/1.9781611970906",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Methods and Applications of Interval Analysis",
+   "titleMatch": true,
+   "year": 1979,
+   "bibTitle": "Methods and Applications of Interval Analysis"
+  },
+  "Ishii20": {
+   "kind": "doi",
+   "id": "10.1016/j.cam.2020.112893",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Computer-assisted verification of four interval arithmetic operators",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "Computer-assisted verification of four interval arithmetic operators"
+  },
+  "Spouge94": {
+   "kind": "doi",
+   "id": "10.1137/0731050",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Computation of the Gamma, Digamma, and Trigamma Functions",
+   "titleMatch": true,
+   "year": 1994,
+   "bibTitle": "Computation of the gamma, digamma, and trigamma functions"
+  },
+  "RatzCsendes95": {
+   "kind": "doi",
+   "id": "10.1007/BF01097060",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "On the selection of subdivision directions in interval branch-and-bound methods for global optimization",
+   "titleMatch": true,
+   "year": 1995,
+   "bibTitle": "On the selection of subdivision directions in interval branch-and-bound methods for global optimization"
+  },
+  "Scholz12": {
+   "kind": "doi",
+   "id": "10.1007/s10898-011-9735-9",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Theoretical rate of convergence for interval inclusion functions",
+   "titleMatch": true,
+   "year": 2011,
+   "bibTitle": "Theoretical rate of convergence for interval inclusion functions"
+  },
+  "Nogueira26": {
+   "kind": "arxiv",
+   "id": "2607.02808",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "A Systematic Methodology for Evaluating Failure Independence in LLM-Generated Code",
+   "titleMatch": true,
+   "bibTitle": "A systematic methodology for evaluating failure independence of {LLM}-generated program variants"
+  },
+  "Ron26": {
+   "kind": "arxiv",
+   "id": "2606.20158",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "N-Version Programming with Coding Agents",
+   "titleMatch": true,
+   "bibTitle": "{N}-version programming with coding agents"
+  },
+  "Li26": {
+   "kind": "arxiv",
+   "id": "2607.16646",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Falsification-Based Verification of LLM-Generated Optimization Models: Sound Test Batteries and Their Detection Limits",
+   "titleMatch": true,
+   "bibTitle": "Falsification-based verification of {LLM}-generated outputs"
+  },
+  "Troxell26": {
+   "kind": "arxiv",
+   "id": "2605.17153",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Stress-Testing Neural Network Verifiers with Provably Robust Instances",
+   "titleMatch": true,
+   "bibTitle": "Stress-testing neural network verifiers with provably robust instances"
+  },
+  "Koomullil26": {
+   "kind": "arxiv",
+   "id": "2605.16407",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Proof-Carrying Certificates for LLM Pipelines: A Trust-Boundary Architecture",
+   "titleMatch": true,
+   "bibTitle": "Proof-carrying certificates for {LLM} pipelines"
+  },
+  "Kallel26": {
+   "kind": "arxiv",
+   "id": "2608.28997",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Verification abundance, adjudication scarcity: what happens to mathematical knowledge when proof checking becomes free",
+   "titleMatch": true,
+   "bibTitle": "Verification abundance, adjudication scarcity"
+  },
+  "IEEE1788std": {
+   "kind": "doi",
+   "id": "10.1109/IEEESTD.2015.7140721",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "IEEE Standard for Interval Arithmetic",
+   "titleMatch": true,
+   "year": null,
+   "bibTitle": "{IEEE} Standard for Interval Arithmetic"
+  },
+  "vandenBergLessard15": {
+   "kind": "doi",
+   "id": "10.1090/noti1276",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Rigorous Numerics in Dynamics",
+   "titleMatch": true,
+   "year": 2015,
+   "bibTitle": "Rigorous numerics in dynamics"
+  },
+  "GomezSerrano19": {
+   "kind": "doi",
+   "id": "10.1007/s40324-019-00186-x",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Computer-assisted proofs in PDE: a survey",
+   "titleMatch": true,
+   "year": 2019,
+   "bibTitle": "Computer-assisted proofs in {PDE}: a survey"
+  },
+  "NakaoPlumWatanabe19": {
+   "kind": "doi",
+   "id": "10.1007/978-981-13-7669-6",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Numerical Verification Methods and Computer-Assisted Proofs for Partial Differential Equations",
+   "titleMatch": true,
+   "year": 2019,
+   "bibTitle": "Numerical Verification Methods and Computer-Assisted Proofs for Partial Differential Equations"
+  },
+  "Neumaier04": {
+   "kind": "doi",
+   "id": "10.1017/S0962492904000194",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Complete search in continuous global optimization and constraint satisfaction",
+   "titleMatch": true,
+   "year": 2004,
+   "bibTitle": "Complete search in continuous global optimization and constraint satisfaction"
+  },
+  "Revol17": {
+   "kind": "doi",
+   "id": "10.1007/978-3-319-63501-9_2",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Introduction to the IEEE 1788-2015 Standard for Interval Arithmetic",
+   "titleMatch": true,
+   "year": 2017,
+   "bibTitle": "Introduction to the {IEEE} 1788-2015 standard for interval arithmetic"
+  },
+  "Johansson19": {
+   "kind": "doi",
+   "id": "10.1145/3328732",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Computing Hypergeometric Functions Rigorously",
+   "titleMatch": true,
+   "year": 2019,
+   "bibTitle": "Computing hypergeometric functions rigorously"
+  },
+  "Brehard18": {
+   "kind": "doi",
+   "id": "10.1145/3208103",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Validated and Numerically Efficient Chebyshev Spectral Methods for Linear Ordinary Differential Equations",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "Validated and numerically efficient {Chebyshev} spectral methods for linear ordinary differential equations"
+  },
+  "Mahboubi19": {
+   "kind": "doi",
+   "id": "10.1007/s10817-018-9463-7",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Formally Verified Approximations of Definite Integrals",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "Formally verified approximations of definite integrals"
+  },
+  "RumpOgitaOishi08": {
+   "kind": "doi",
+   "id": "10.1137/050645671",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Accurate Floating-Point Summation Part I: Faithful Rounding",
+   "titleMatch": true,
+   "year": 2008,
+   "bibTitle": "Accurate floating-point summation part {I}: faithful rounding"
+  },
+  "Avigad24": {
+   "kind": "doi",
+   "id": "10.1090/bull/1832",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Mathematics and the formal turn",
+   "titleMatch": true,
+   "year": 2024,
+   "bibTitle": "Mathematics and the formal turn"
+  },
+  "Tao25": {
+   "kind": "doi",
+   "id": "10.1090/noti3041",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Machine-Assisted Proof",
+   "titleMatch": true,
+   "year": 2025,
+   "bibTitle": "Machine-assisted proof"
+  },
+  "Trinh24": {
+   "kind": "doi",
+   "id": "10.1038/s41586-023-06747-5",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Solving olympiad geometry without human demonstrations",
+   "titleMatch": true,
+   "year": 2024,
+   "bibTitle": "Solving olympiad geometry without human demonstrations"
+  },
+  "Glazer24": {
+   "kind": "arxiv",
+   "id": "2411.04872",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "FrontierMath: A Benchmark for Evaluating Advanced Mathematical Reasoning in AI",
+   "titleMatch": true,
+   "bibTitle": "{FrontierMath}: a benchmark for evaluating advanced mathematical reasoning in {AI}"
+  },
+  "Wu22": {
+   "kind": "arxiv",
+   "id": "2205.12615",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Autoformalization with Large Language Models",
+   "titleMatch": true,
+   "bibTitle": "Autoformalization with large language models"
+  },
+  "Carneiro24": {
+   "kind": "arxiv",
+   "id": "2403.14064",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Lean4Lean: Verifying a Typechecker for Lean, in Lean",
+   "titleMatch": true,
+   "bibTitle": "{Lean4Lean}: towards a verified typechecker for {Lean}, in {Lean}"
+  },
+  "Fawzi22": {
+   "kind": "doi",
+   "id": "10.1038/s41586-022-05172-4",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Discovering faster matrix multiplication algorithms with reinforcement learning",
+   "titleMatch": true,
+   "year": 2022,
+   "bibTitle": "Discovering faster matrix multiplication algorithms with reinforcement learning"
+  },
+  "Davies21": {
+   "kind": "doi",
+   "id": "10.1038/s41586-021-04086-x",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Advancing mathematics by guiding human intuition with AI",
+   "titleMatch": true,
+   "year": 2021,
+   "bibTitle": "Advancing mathematics by guiding human intuition with {AI}"
+  },
+  "Wagner21": {
+   "kind": "arxiv",
+   "id": "2104.14516",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Constructions in combinatorics via neural networks",
+   "titleMatch": true,
+   "bibTitle": "Constructions in combinatorics via neural networks"
+  },
+  "Blanchard20": {
+   "kind": "doi",
+   "id": "10.1137/19M1289546",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Mixed Precision Block Fused Multiply-Add: Error Analysis and Application to GPU Tensor Cores",
+   "titleMatch": true,
+   "year": 2020,
+   "bibTitle": "Mixed precision block fused multiply-add: error analysis and application to {GPU} tensor cores"
+  },
+  "HighamMary22": {
+   "kind": "doi",
+   "id": "10.1017/S0962492922000022",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Mixed precision algorithms in numerical linear algebra",
+   "titleMatch": true,
+   "year": 2022,
+   "bibTitle": "Mixed precision algorithms in numerical linear algebra"
+  },
+  "Cuyt08": {
+   "kind": "doi",
+   "id": "10.1007/978-1-4020-6949-9",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "Handbook of Continued Fractions for Special Functions",
+   "titleMatch": true,
+   "year": 2008,
+   "bibTitle": "Handbook of Continued Fractions for Special Functions"
+  },
+  "DLMF": {
+   "kind": "url",
+   "id": "https://dlmf.nist.gov/",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://dlmf.nist.gov/",
+   "resolvedTitle": "DLMF: NIST Digital Library of Mathematical Functions",
+   "titleMatch": true,
+   "bibTitle": "{NIST} Digital Library of Mathematical Functions"
+  },
+  "Jenssen18": {
+   "kind": "doi",
+   "id": "10.1016/j.aim.2018.07.001",
+   "ok": true,
+   "source": "crossref",
+   "resolvedTitle": "On kissing numbers and spherical codes in high dimensions",
+   "titleMatch": true,
+   "year": 2018,
+   "bibTitle": "On kissing numbers and spherical codes in high dimensions"
+  },
+  "Ganzhinov22": {
+   "kind": "arxiv",
+   "id": "2207.08266",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Highly symmetric lines",
+   "titleMatch": true,
+   "bibTitle": "Highly symmetric lines"
+  },
+  "CohnLi24": {
+   "kind": "arxiv",
+   "id": "2411.04916",
+   "ok": true,
+   "source": "arxiv api",
+   "status": 200,
+   "resolvedTitle": "Improved kissing numbers in seventeen through twenty-one dimensions",
+   "titleMatch": true,
+   "bibTitle": "Improved kissing numbers in seventeen through twenty-one dimensions"
+  },
+  "P3": {
+   "kind": "url",
+   "id": "https://carlostoledo.co/paper/p3-4d-detectability.pdf",
+   "ok": true,
+   "source": "fetch",
+   "status": 200,
+   "finalUrl": "https://carlostoledo.co/paper/p3-4d-detectability.pdf",
+   "resolvedTitle": "",
+   "titleMatch": true,
+   "bibTitle": "Guaranteed {4D} seismic detectability of gas and {CO$_2$} injection fronts in a pre-salt-type carbonate: a decision over a declared petro-elastic envelope"
   }
  }
 }

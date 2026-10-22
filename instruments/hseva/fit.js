@@ -57,7 +57,12 @@ function sum2() {
     get() { return { res: s + sig, ab, n }; },
   };
 }
-function boundOf(r) {                                   /* u|res| + γ²_{n−1} Σ|x|, rounded up generously */
+function boundOf(r) {                                   /* u|res| + 2γ²_n Σ|x| ≥ u|s| + γ²_{n−1} Σ|x| (Prop. 4.5), rounded up */
+  /* the proposition's hypotheses, checked rather than assumed (2026-10-21): n·u < 1, and no overflow in the stream — an
+     overflowed sum or absolute sum is not a floating-point number the bound speaks about. The doubled γ_n² term covers
+     u|s| ≤ u|res| + u²Σ|x| + uγ²Σ|x|, since u² + uγ² ≤ γ_n² */
+  if (!(r.n * U < 1)) throw new Error('sum2: n·u ≥ 1 at n = ' + r.n + '; the error bound does not apply');
+  if (!Number.isFinite(r.res) || !Number.isFinite(r.ab)) throw new Error('sum2: the stream overflowed (res ' + r.res + ', Σ|x| ' + r.ab + ')');
   const g = (r.n * U) / (1 - r.n * U);
   return IV.nextUp(IV.nextUp(U * Math.abs(r.res)) + IV.nextUp(IV.nextUp(g * g) * r.ab) * 2);
 }

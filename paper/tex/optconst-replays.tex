@@ -1,0 +1,205 @@
+\documentclass[preprint,11pt,authoryear,a4paper]{elsarticle}
+\PassOptionsToPackage{obeyspaces,spaces}{url}   % the reproduction commands are set with \url: keep their spaces
+\usepackage{cmelsevier}
+\usepackage{amsthm}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+%% every number is read from the records; the macro files are the ones the method paper and the register paper use, so
+%% the same record cannot say one thing here and another there (each carries \RepoCommit: one build, one commit)
+\input{register-numbers.tex}
+\let\RepoCommit\relax
+\input{cert-machine-method-numbers.tex}
+\input{optconst-replays-numbers.tex}
+
+\newcommand{\vword}[1]{{\normalfont\scshape #1}}
+\newcommand{\vC}{\vword{certified}}
+\newcommand{\vR}{\vword{refuted}}
+\newcommand{\vF}{\vword{refused}}
+\newcommand{\Z}{\mathbb{Z}}
+\journal{a journal to be agreed}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{Replaying the certificates behind a registry's unverified bounds: entropy laws, a truth table, step functions and a record package, decided from their bytes\tnoteref{t1}}
+\tnotetext[t1]{Draft v0.1 of 2026-10-21, a companion to the cert-machine method paper, built from repository commit \OcCommit; \MtArchiveNote. Every measured number and count is a macro read at build time from the records named in the Data availability statement; a record that no longer supports the sentence quoting it stops the build.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
+
+\begin{abstract}
+A curated registry of the best known bounds on \MtRgConstants{} constants of analysis and combinatorics marks with an asterisk every bound whose only verification is the producer's own, and states what removes the mark: refereeing, formalisation, or an independent replay. We replayed the certificates behind the asterisked bounds that rest on finite objects, from the bytes the registry cites and with no code of any producer's run: entropy laws for the sums--differences constants $C_{3b}$ and $C_{3c}$, a truth table on \MtRgFeiN{} variables for the Fourier entropy--influence constant $C_{71}$, step functions for the autocorrelation constants $C_{1a}$--$C_{1d}$, two constructions for the Zhang--Zagier height $C_{82}$, a step measure for the Schur--Siegel--Smyth trace constant $C_{86}$, and a ``certified record package'' for the de Bruijn--Newman constant. Each certificate is read as a finite exact object and decided by two programs that share no code with each other or with the claimants, in exact rationals where the object is rational and in outward-rounded intervals where an entropy or a logarithm enters; the deciders' arithmetic is compared with Arb, and claims of known truth planted on the certificates are decided as constructed. Every finite certificate holds. One bound, $C_{1d}$, is printed below its own certificate's exact value: refuted as printed, certified one unit up. The package is refused, because the analytic inputs its bound rests on are not in it. One certificate's own checker printed OK on false claims, since it compares in double precision what it encloses at a hundred digits. After the replays the registry removed \MtRgMarksWord{} asterisks and cites the replays on its pages; we report that as what happened and draw no causal conclusion. A replay decides that a certificate establishes a printed bound, and nothing about the constant beyond it.
+\end{abstract}
+
+\begin{highlights}
+\item Every finite certificate behind the registry's asterisked bounds holds, decided by two programs sharing no code.
+\item A bound printed on the wrong side of its own certificate: refuted as printed, certified one unit up.
+\item A producer's checker printed OK on false claims: it compared in double precision what it enclosed at a hundred digits.
+\item A record package was refused because the analytic inputs its bound rests on are not in it.
+\item The registry removed \MtRgMarksWord{} unverified marks on the replays and cites them beside the certificates.
+\end{highlights}
+
+\begin{keyword}
+optimization constants \sep entropy certificates \sep sums--differences problem \sep autocorrelation inequalities \sep independent replay \sep interval arithmetic
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+Curated records of what is known are how a field keeps score, and machines now write to them faster than referees read. The optimization-constants registry \citep{OptConst} keeps the best known bounds on \MtRgConstants{} constants of analysis and combinatorics, each with its source, and many of its recent rows come from program search and AI-assisted contributors \citep{GGSWT25,RomeraParedes24,Novikov25}: two of the rows decided here carry the registry's own note that they were prepared with an AI system, and a third producer signs its archive ``AI Autoresearch'' \citep{NumaroC71}. Such a bound arrives as a self-archived artifact---a certificate file, a script that checks it---checked so far only by the program its producer wrote. The registry's answer is a mark: \OcStarNote{} \citep{OptConst}. Its contributing guide states how the mark comes off: it ``is removed when that changes---when the paper is refereed and published, or when the argument is formalized or independently replayed''. On \MtRgRuleDate{} the maintainer, writing that rule into the guide, added of one such bound: ``If the 13-point certificate does get independently replayed, or formalized, the asterisk comes off'', and that he would take a pull request that removes it on those grounds \citep{OptConstRule}.
+
+This paper is the replay the rule asked for, made with cert-machine \citep[the method paper]{CMArchive}, a system that decides machine-generated claims independently of the claimant and records one of three verdicts---\vC, \vR\ or \vF---with the object that justifies it. A claim is read from its published statement and bytes; the claimant's program is never in the trust path; a verdict is a computation with a witness, and a reading---a file inventoried, a five-sentence argument checked line by line---is recorded as a reading and never counted as a verdict. The claims decided are the registry's asterisked bounds that rest on finite objects, as they stood on three dates: three lower bounds before the replays, the \MtRqRows{} bounds of its open pull-request queue on 2026-10-15, and the rows its merges of \MtRgMergeDate{} added (Section~\ref{sec:materials}).
+
+\paragraph{Contributions} Every finite certificate behind those bounds decided twice, by programs sharing no code with each other or with any producer, with the verdict, enclosure and scope of each recorded; two findings beside the verdicts, a bound printed on the wrong side of its own certificate and a producer's checker that accepts false claims; a refusal with its reason; and what the registry did afterwards, from its pinned bytes. The constants are not the contribution: a replay decides that a certificate establishes a printed bound and nothing more. Sections~\ref{sec:materials}--\ref{sec:after} give the materials, the method, the verdicts and the registry's response; Section~\ref{sec:discussion} what the exercise shows and its limits; \ref{app:repro} the command that re-derives each result.
+
+\section{Materials}\label{sec:materials}
+
+\paragraph{The bounds} On \MtRgBeforeCommit{} (\MtRgRuleDate) three asterisked lower bounds rested on finite certificates: two constants of the sums--differences problem \citep{KatzTao99}, $C_{3b} \ge \MtRgCbBound$ and $C_{3c} \ge \MtRgCcBound$, each certified by an entropy law on \MtRgCbPoints{} and \MtRgCcPoints{} points of $\Z^2$ \citep{MosaicC3b,LinC3c}; and the Fourier entropy--influence constant \citep{FriedgutKalai96}, $C_{71} > \MtRgFeiBound$, certified by a Boolean function on \MtRgFeiN{} variables \citep{NumaroC71}. On 2026-10-15 the open pull requests (\MtRqPrs) offered \MtRqRows{} new bounds: two step functions, five one-line constructions, a nine-dimensional counterexample, a two-law entropy certificate \citep{JaswalC3c}, and a ``certified record package'' for the de Bruijn--Newman constant, $\Lambda \le 0.1595$ \citep{MosaicLambda}, against the recorded $0 \le \Lambda \le 0.2$ \citep{RodgersTao20,PlattTrudgian21} and an asterisked $0.1875$ from the same claimant. The merges of \MtRgMergeDate{} added asterisked rows that rest on finite objects: four step functions for $C_{1a}$ and $C_{1b}$, two for $C_{1c}$ and $C_{1d}$, two constructions for $C_{82}$ and a step measure for $C_{86}$.
+
+\paragraph{The bytes} Every object decided is a byte sequence named by path and SHA-256 digest in the record that decided it, fetched from the source the registry cites and refused if its digest does not match: deposit and gist files for the entropy laws and the two-law certificate, the artifact that binds the truth table by digest, the pull requests' bytes at the registry commit \OcQueueRegistryCommit{}, the package at its pinned commit, and the files the new pages cite. The registry's own bytes---README, contributing guide and constant pages---are pinned at \MtRgBeforeCommit{} before the replays and at \MtRgRegistryCommit{} and \MtRgSecondRegistryCommit{} after each round of merges on \MtRgMergeDate{}; what the registry prints beside each bound is read from those bytes. Each decision writes a record naming its inputs by digest, the verdict, the witness, the scope, the time and the second implementation's answer; every number in this paper is a macro written from one of the records named in the Data availability statement by a generator that refuses to write when the record no longer supports the sentence quoting it. Everything ran on an \MtDeskCpus-core laptop with \MtDeskMemory~GB of memory, the JavaScript deciders in Node v24.14.1 and the Python ones in the standard library alone; nothing was rented.
+
+\section{Method}\label{sec:method}
+
+\subsection{What each certificate claims, and how it is read}\label{sec:reading}
+
+Every certificate here is a universal claim over one finite object---a law, a truth table, a step function, a polynomial, a step measure---and the claim decided is that the object establishes the printed bound, given the published theorem that turns such an object into a bound; the theorem is read and named, never re-proved, and each record's scope sentence says so.
+
+\paragraph{An entropy law} The sums--differences problem of \citet{KatzTao99} asks for the best exponents in bounds on $|A - B|$ by $|A|$, $|B|$ and $|A + B|$; its constants have entropy forms, as Ruzsa's entropy analogues of sumset inequalities make precise \citep{LauNair23}, and the registry states $C_{3b}$ and $C_{3c}$ in that form. A certificate is a finite law $\mu$ on $\Z^2$ with rational weights, claiming for $(X, Y) \sim \mu$
+\[
+C \;\ge\; \frac{H(X - Y)}{\max\{H(X),\, H(Y),\, H(X + Y)\}},
+\]
+with $H(X + 2Y)$ added to the maximum for $C_{3c}$. The pushforward of $\mu$ under each linear form is computed exactly in rationals; each $-p \ln p$ is enclosed in an interval, the logarithm by its series with an outward-rounded tail; the ratio is a quotient of intervals, and $C \ge c$ is \vC\ when the enclosure's lower end is at or above $c$, \vR\ when its upper end is below $c$, \vF\ when it straddles $c$. Earlier lower bounds were found by hand and by search \citep{Lemm15}; these were found by AI-assisted search \citep{GGSWT25}, which is why they come as artifacts. The two-law certificate draws $10^{20}$ independent base-55 digits from laws on \MtRqTwoLawPoints{} points; its entropies add digit by digit only if the map from digits to the linear form is injective, which holds when every form is at most $\MtRqTwoLawMax$ in absolute value on both supports---a condition of the claim, checked and not assumed.
+
+\paragraph{A truth table} The Fourier entropy--influence conjecture of \citet{FriedgutKalai96} asks for a constant $C$ with $H(\hat f^{\,2}) \le C \cdot I(f)$ for every Boolean function $f$; the best general results are of the form $H \le O(I \log I)$ \citep{KKLMS20}, and lower bounds on $C$ come from explicit functions \citep{ODonnellTan13,Hod17}. The $C_{71}$ bound is read from a truth table of $2^{\MtRgFeiN}$ entries: the integer Walsh--Hadamard transform gives the spectrum exactly, the influence $I$ is a rational, the entropy $H$ of the spectral weights is an enclosure, and the bound $H/(I - 1)$ follows from an amplification rule that is cited, not re-proved \citep{ODonnellTan13,Hod17}. The decision is \MtRgFeiChecks{} named checks, from the digest the artifact binds and balance to $I = \MtRgFeiI$ exactly, the bound, the claimant's printed floor inside the enclosure and monotonicity.
+
+\paragraph{A step function} The autocorrelation constants $C_{1a}$--$C_{1d}$ are suprema and infima of autoconvolutions and correlations of functions on an interval \citep{MatolcsiVinuesa10,CloningerSteinerberger17,BarnardSteinerberger20}, and a bound is exhibited by one function. A step function with $n$ heights written as integers over one denominator has an autoconvolution that is one exact integer polynomial, so the bound it exhibits is one exact rational; the printed bound is \vC\ when it lies on the safe side of that rational and \vR\ as printed when it does not, in which case the rational the certificate does establish is recorded beside the refutation, as a repair.
+
+\paragraph{A Zhang--Zagier construction} The essential minimum of the Zhang--Zagier height \citep{Zhang92,Zagier93} is bounded above by limit-point constructions; Doche's \citep{Doche00} gives the bound as a ratio of a Mahler measure and an integral of $\max(0, \log\lvert A\rvert - \log\lvert Q\rvert)$ on the unit circle. Every root of every composed factor is certified by Gershgorin's theorem on exactly computed Weierstrass corrections, the integral is bounded on dyadic panels, the theorem's hypotheses are checked exactly, and the enclosure of the construction's value is compared with the printed bound; Doche's theorem is read.
+
+\paragraph{A step measure} The Schur--Siegel--Smyth trace problem asks for the smallest limit of $\operatorname{tr}(\alpha)/\deg(\alpha)$ over totally positive algebraic integers \citep{Smyth84}; Smith's criterion \citep{Smith24} turns an explicit measure and finitely many integer polynomials into an upper bound, the route recent bounds take \citep{OrloskiSardari23}. The $C_{86}$ certificate is a step measure on \OcTraceCells{} cells, \OcTraceNonzero{} nonzero, and \OcTracePolys{} integer polynomials with weights. Decided are the six finite conditions the claimant states---the hypotheses of the criterion and the arithmetic of the bound: densities nonnegative; each polynomial primitive, irreducible over $\Z$ and totally real; the weighted degree below the mass; each $\int \log\lvert Q\rvert\,d\mu$ positive, by enclosures; the potential minus the weighted logarithms nonnegative on every cell of positive density, by adaptive bisection with second-order Taylor forms; and the first moment over the mass at or below the printed bound. The chain from the conditions to the bound is the published one, read.
+
+\paragraph{A one-line construction, a counterexample, a package} Two of the queue's one-line bounds are decided from the moments of an explicit law, exactly; two more needed derivations the pull request did not contain, which their author supplied when asked, and were decided from those with no code of his run. A five-sentence argument was checked by reading alone and is counted as a reading, not a verdict. The nine-dimensional counterexample is a Lean development this project had already built and checked under two kernels; the request's statement was read against that record. The package was inventoried without running anything.
+
+\subsection{Deciding twice, and checking the deciders}\label{sec:deciders}
+
+\paragraph{Two implementations that share no code} Each certificate was decided by two programs written from the specification in different languages and arithmetics: the entropy certificates in JavaScript over arbitrary-precision integers with dyadic intervals at 128 bits, and again by the Python standard library alone, its \texttt{decimal} arithmetic at 120 digits rounded outward; the truth table in Python \texttt{decimal} intervals at \MtFeiPyDigits{} digits and again in JavaScript over BigInt with the entropy in closed form; the step functions, autocorrelation rows, Zhang--Zagier rows and step measure each in JavaScript over BigInt rationals with the interval kernel's series logarithm and again in Python with \texttt{fractions} and its own logarithm. Each record states the agreement: the same word, and the same exact fraction or overlapping enclosures. These are N-version checks written by one author with AI agents from one specification, the correlated-failure case \citet{KnightLeveson86} measured: they catch a slip in one arithmetic, not a shared misreading.
+
+\paragraph{The deciders' arithmetic against Arb} The real functions of the entropy deciders---outward conversions, logarithms, entropies and ratios, directed-rounding contexts---were run on \MtEaReal{} cases from one seed, among them the registry's own certificates, and every enclosure was compared with the exact value computed in Arb \citep{Johansson17} at \MtEaPrec{} bits and more, or exactly in rationals when the value is rational. Of the \MtEaArith{} arithmetic cases, \MtEaContained{} returned an enclosure and every one contained the value; the other \MtEaRefused{} were refused, each outside the amplification rule's domain; all \MtEaMalformed{} malformed certificates were refused and all \MtEaReds{} planted wrong functions caught. The first run, on \MtEaPinDate, found \MtEaPrintedFindings{} kinds of printed enclosure cut toward zero and \MtEaMalformedFindings{} malformed inputs a Python decider let through; no published verdict was affected, since every verdict compared the full-precision ends, each finding was fixed the same day, and the record keeps all \MtEaFindings{} with their witnesses. The audit took \MtEaSeconds{} s and runs in reduced form in every build.
+
+\paragraph{Planted claims and red controls} A checker that refuses everything never accepts a false claim, so claims of known truth are planted beside the real ones. On the three entropy certificates: the bound claimed just above the ratio, false; the law translated by an integer vector, true; a weight moved off a probability law, and a base too small for the digit map to be injective, malformed---\OcEvFalse{} false, \OcEvTrue{} true and \OcEvMalformed{} malformed claims, every one decided as constructed. On the truth table: \OcFeiPlantedFalse{} false, \OcFeiPlantedTrue{} true and \OcFeiPlantedMalformed{} malformed, all decided as expected by both implementations after a first run whose Python word differed from the reading on \OcFeiFindingsAtPin{} of them and refuted \OcFeiFindingRefutedTrue{} true claim, kept in the record and fixed on \OcFeiFixedDate. In the method paper's pre-registered self-audit of \OcSaDate, the \OcSaRows{} entropy rows of the public register were mutated in \OcSaMutants{} ways---\OcSaFalse{} false, \OcSaTrue{} true, \OcSaMalformed{} malformed, each witnessed by a standard-library script sharing no code with the deciders---and every one came out as required. Every battery also carries deliberately wrong variants that must be rejected (\MtSfReds{} on the step functions, \OcAcReds{} on the autocorrelation rows, \MtCzReds{} on the Zhang--Zagier rows, \OcTraceReds{} on the step measure), and fails if any does not fire. The planted sets are targeted, not sampled, and give no rate.
+
+\section{Results}\label{sec:results}
+
+\subsection{The three asterisked bounds}
+
+All three are \vC\ (Table~\ref{tab:registry}), their ratios enclosed as
+\[\small\begin{array}{ll} C_{3b}: & \MtRgCbEnc\ldots \\ C_{3c}: & \MtRgCcEnc\ldots \\ C_{71}: & \MtRgFeiEnc\ldots \end{array}\] The entropy certificates took \MtRgSecSumdiff{} s in JavaScript and \MtRgSecVerify{} s in Python, in the rerun kit's timing of \MtRunDate; the truth table \MtRgSecFei{} s by its \MtRgFeiChecks{} checks, and \MtFeiSeconds{} s a second time with its planted claims. The sums--differences ledger decides five side claims about the printed digits as well: the 13-point certificate's printed ``true value'' is a truncation of the ratio and not a rounding, since its \OcCbDenominatorDigits-digit prefix is \vC\ and the prefix's next value is \vR; the 147-point certificate's own 60-digit bound is \vC, while the same bound raised by one unit in the seventeenth significant digit---the same double as the true bound---is \vR. The improvement the registry prints for that row, \OcImprovementPrinted, rounds from the enclosure.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.28\linewidth}L{0.13\linewidth}L{0.13\linewidth}L{0.18\linewidth}L{0.19\linewidth}@{}}\toprule
+bound & producer & object decided & verdict here & the registry afterwards \\\midrule
+\MtRgTableRows \\
+\bottomrule\end{tabular}
+\caption{Five bounds of the registry, from the certificate to the registry's record (\texttt{certs/sumdiff-ledger.json}, \texttt{certs/fei-ledger.json}, \texttt{certs/optq-ledger.json}; the registry's bytes after each round of merges in \texttt{\MtRgDirs}). [T2026] and [T2026b] are the references by which the pages cite the replays.}\label{tab:registry}
+\end{table}
+
+\subsection{The queue of 2026-10-15}
+
+The queue was decided wherever a finite exact object exists, in \MtRqSeconds{} s for all of it (Table~\ref{tab:queue}). Of its \MtRqRows{} rows, \OcQueueComputed{} are \vC\ by a computation made here; one is \vC\ on this project's earlier two-kernel record of the same Lean development; one is a reading; and one is \vF. For the two-law certificate both implementations enclose the ratio as $\MtRqTwoLawEnc\ldots$, the enclosures sharing \MtRqTwoLawDigits{} digits. The refused row is the package: of its \MtRqLamFiles{} files, \MtRqLamFrozen{} are frozen tables and \MtRqLamScripts{} are scripts, and none of the scripts evaluates the zeta function, the heat-flow function $H_t$ or the Dirichlet polynomial whose zeros the bound is about; the analytic inputs enter as frozen outputs whose proofs cite \MtRqLamBanks{} numbered banks the bundle does not contain. The package certifies that its parts fit together as declared; whether the parts are true is not in it. That is a verdict on the evidence, not on $\Lambda$, whose known bounds stand as published \citep{RodgersTao20,Polymath19,PlattTrudgian21}; the scope is ``\OcLamScope'', and the refusal names what would convert it: the bank that holds the floor on the torus, the separator at the barrier point and the constants of the heat-flow approximation, each a check that would run once published.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.17\linewidth}L{0.07\linewidth}L{0.22\linewidth}L{0.12\linewidth}L{0.34\linewidth}@{}}\toprule
+constant & request & object & verdict & how \\\midrule
+\OcQueueRows \\
+\bottomrule\end{tabular}
+\caption{The registry's open pull requests of 2026-10-15, decided (\texttt{certs/optq-ledger.json}). A reading is not a verdict and is not counted as one.}\label{tab:queue}
+\end{table}
+
+\subsection{The rows decided after the merges}
+
+The \OcLaterCount{} rows the merges of \MtRgMergeDate{} added were decided the same way (Table~\ref{tab:later}). The four step functions behind the new $C_{1a}$ and $C_{1b}$ rows are \vC, their bounds exact rationals in both programs, in \OcSfSeconds{} of Python. The $C_{1c}$ certificate is \vC; its page prints its fraction under the decimal $\OcAcPrintedDecimal\ldots$ while the fraction is $\OcAcExactDecimal\ldots$, a printing slip that does not move the bound. The $C_{1d}$ certificate is the one row refuted as printed: $C_{1d} \le \MtAcDPrinted$ rests on a \MtAcDCells-cell step function whose exact ratio, the claimant's own fraction, is $\MtAcDExact\ldots$, above the printed bound. Rounded to nearest, as a floating-point print rounds, an upper bound fell below the value it bounds; the certificate shows $C_{1d} \le \MtAcDRepaired$, and the record holds both the refutation as printed and the repair \vC. The two $C_{82}$ rows are both Doche's construction, over $\deg Q = \MtCzDegQ$ for the larger, whose \MtCzRoots{} roots were certified and integral bounded on \MtCzPanels{} dyadic panels; both are \vC\ in both implementations, the larger certificate's value enclosed in $[\MtCzPinLo, \MtCzPinHi]$ against the printed $\MtCzPin$, the other's construction at $\MtCzEpiB\ldots$ against the printed $\OcCzEpiPrinted$, a weaker bound than the construction gives and so on the safe side. The trace-constant certificate $C_{86} \le \MtCeBound$ is \vC\ in both on its six conditions, the density proved positive on \MtCeBoxes{} boxes in each, its first moment over its mass $\OcTraceDecimal\ldots$, at or below the printed bound. Each \vC\ here is the certificate's: the chain from the conditions to the bound is the claimant's published one, read.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.085\linewidth}L{0.175\linewidth}L{0.19\linewidth}>{\scriptsize\raggedright\arraybackslash}p{0.25\linewidth}L{0.22\linewidth}@{}}\toprule
+constant & producer & object & printed bound & verdict here \\\midrule
+\OcLaterRows \\
+\bottomrule\end{tabular}
+\caption{The rows decided after the merges of \MtRgMergeDate{}, each by two implementations that share no code (\texttt{certs/stepfun-replay.json}, \texttt{certs/autocorr-replay.json}, \texttt{certs/c82-replay.json}, \texttt{certs/c86-replay.json}). ``Two programs'': the same word and the same exact value or overlapping enclosures in both.}\label{tab:later}
+\end{table}
+
+\subsection{A producer's checker, observed}\label{sec:checker}
+
+One finding is recorded beside the verdicts and is not one of them. The 147-point certificate's own checker, at the pinned gist revision and run on \OcCheckerDate, encloses its ratio at \OcCheckerDps{} digits and then makes its final comparison in the default context of 53 bits, so any claim within a double of the true bound prints OK (Table~\ref{tab:checker}). It printed OK on all \MtRgCheckerOk{} claims it was given, of which \MtRgCheckerFalse{} are \vR\ here and \MtRgCheckerUndecided{} is not \vC\ here. The bound the registry prints is true, and it was decided without that checker.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}L{0.30\linewidth}L{0.09\linewidth}L{0.55\linewidth}@{}}\toprule
+claim given to the checker & printed & decided here \\\midrule
+\OcCheckerRows \\
+\bottomrule\end{tabular}
+\caption{The 147-point certificate's own checker on four claims (\texttt{certs/sumdiff-ledger.json}): its own 60-digit bound; that bound raised at the fifty-eighth decimal; and two bounds raised in the seventeenth significant digit, within one double of the true bound.}\label{tab:checker}
+\end{table}
+
+\section{What the registry did next}\label{sec:after}
+
+The replay of the three bounds was offered as a pull request that quoted the rule back (pull request 216 to \citealp{OptConst}), and on \MtRgMergeDate{} the maintainer merged it (commit \MtRgMergeCommit): the three asterisks are gone, and each of the \MtRgPages{} constant pages cites the replay beside the certificate it replays. The same day the registry merged the two-law certificate and the package with their asterisks, marking all \MtRgStarRows{} of the latter constant's rows after 2021 as not independently replayed. The two-law replay was then offered in the form the first was accepted (pull request 230) and merged \MtRgSecondHours{} hours later (commit \MtRgSecondCommit), so the best lower bound the registry lists for $C_{3c}$ without the mark moved from $\MtRgCcBound$ to $\MtRgSecondBound$. In the same minute the maintainer merged the queue's two step functions for $C_{1a}$ and $C_{1b}$, decided \vC\ here and reported only in a comment, and marked them and the two rows beside them with the asterisk, as ``\MtRgStarReason'' (commit \MtRgStarCommit): the pull requests that cited the rule removed every mark they asked about and the comment removed none, and three cases support no causal conclusion. The four step functions were then decided by two implementations and offered in the same form on \MtSfPrDate{} (pull request 232), the $C_{82}$ and $C_{86}$ certificates on \MtCeDate{} (pull request 242), and the $C_{1c}$ and $C_{1d}$ rows, with the $C_{1d}$ bound printed one unit up and the $C_{1c}$ decimal corrected (pull request 243). None of this is peer review: the mark records the verification available, the replay is the verification the rule asked for, and the maintainer applied the rule without re-deriving it.
+
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What the exercise shows} No bound was found false. Where there is a gap it lies between what was claimed and what was checked: a checker that compares in double precision what it encloses at a hundred digits, so that a bound one unit above the truth in its seventeenth significant digit prints OK; a bound printed below its own certificate's exact value, because a print rounds to nearest and an upper bound rounded down is no longer a bound; a package that certifies its own assembly and not the analysis it assembles. Each was closed, or named, by a finite exact computation whose only hard part was deciding to make it; an independent decision is not a better checker but one that was not written by the claimant and so does not know where to stop. The refusal is a result with a size: neither a claim that the bound is wrong nor that it is right, it measures what an outside party can decide from the submission and names what would convert it.
+
+\paragraph{Relation to the literature} The certificates are instances of certifying algorithms \citep{McConnell11}: an output with a witness a small independent checker can confirm. The checkers the producers ship are the usual form; the replay is the independent check the form presumes and rarely gets. For the constants nothing is claimed beyond the certificates: the sums--differences and entropy literature \citep{KatzTao99,Lemm15,LauNair23}, the entropy--influence results \citep{FriedgutKalai96,ODonnellTan13,Hod17,KKLMS20}, the autocorrelation inequalities \citep{MatolcsiVinuesa10,CloningerSteinerberger17,BarnardSteinerberger20}, the Zhang--Zagier height \citep{Zhang92,Zagier93,Doche00} and the trace problem \citep{Smyth84,Smith24,OrloskiSardari23} are cited, not advanced. Curated records with an explicit rule---the registry's asterisk, the status of a problem in the Erd\H{o}s problems database \citep{ErdosProblems}---are the setting in which a replay can change a record, and the one in which an unreplayed artifact otherwise stands indefinitely.
+
+\paragraph{Threats to validity} \emph{Selection.} The rows were chosen because they rest on finite objects; rows resting on proofs, or on packages whose evidence is elsewhere, were not decided, and the results describe these rows, not the registry. \emph{The author in the outcomes.} The merges and the removed marks followed pull requests the author made; they are reported as what happened and no causal claim rests on them. \emph{Correlated implementations.} The two deciders of each row were written by AI agents under the author's direction from shared briefs; N-version programs written that way can fail together \citep{KnightLeveson86}, and the comparison with Arb covers the entropy deciders only, so for the step-function, Zhang--Zagier and trace deciders the second implementation is the only outside check. \emph{Read theorems.} Every chain from a finite object to a bound---the entropy inequality, the amplification rule, Doche's theorem, Smith's criterion---is the published one, read and not re-derived; a slip in a published theorem would not be caught here.
+
+\paragraph{What is not claimed} Nothing about any constant beyond what its certificate establishes: an exhibited bound holds and says nothing about the true value or about optimality, and the registry's other rows are not decided here. ``Independent'' means independent of the claimant, not that the two implementations are independent of each other. Nothing is certified in the regulatory sense.
+
+\section{Conclusions and recommendations}\label{sec:conclusions}
+
+Every finite certificate behind the registry's asterisked bounds holds, each decided twice from its bytes with no code of its producer's run; one bound was printed on the wrong side of its own certificate and is now printed on the right side; one producer's checker accepts false claims and was not needed; one package was refused with the inputs that would decide it named. The registry removed \MtRgMarksWord{} marks on the replays and cites them beside the certificates. The cost was seconds to hours on a laptop. To those who maintain curated records: distinguish a bound decided from outside from one only claimed, write down what removes the distinction, and keep the mark until it is met; the registry's rule is the model. To producers: publish the object with a digest beside each file, print bounds rounded toward the safe side, and make the checker compare at the precision it encloses. A replay that shares no code with the producer is cheap once the bytes exist and impossible until they do.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. The maintainer and contributors of the optimization-constants registry have not been consulted on this draft; the exchanges with the registry took place on the public threads cited, and the registry's pages cite the replays. Prospective co-authors are reviewing this manuscript.
+
+\section*{CRediT authorship contribution statement}
+Carlos Toledo: conceptualization, methodology, software, validation, investigation, data curation, writing---original draft, writing---review and editing. The author list and the roles are to be agreed with the prospective co-authors.
+
+\section*{Data availability}
+Every record, decider, table source and pinned input is public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \OcCommit; archived as \citealp{CMArchive}): the replays \url{certs/sumdiff-ledger.json}, \url{certs/fei-ledger.json}, \url{certs/fei-second.json}, \url{certs/optq-ledger.json}, \url{certs/stepfun-replay.json}, \url{certs/autocorr-replay.json}, \url{certs/c82-replay.json} and \url{certs/c86-replay.json}; the arithmetic audit \url{certs/entropy-arb-audit.json} and the planted claims \url{certs/method-eval.json}; the registry's bytes after each round of merges under \url{corpus/optconst-queue/}, and the certificates under \url{corpus/optimization-constants/} and \url{corpus/optconst-queue/}, each with its digest. The certificates remain under their producers' licences.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration{} For this paper specifically: the deciders and their second implementations were written by AI agents (Claude) under written briefs, and the inventory of the record package is a reading produced the same way and consolidated into the public record; no verdict here rests on a reading alone.
+
+\section*{Funding}
+This work received no external funding. Nothing was rented.
+
+\appendix
+\section{Reproduction}\label{app:repro}\setcounter{table}{0}
+
+Each result re-derives with the command beside it in Table~\ref{tab:repro}, on the laptop of Section~\ref{sec:materials}; each command that fetches a producer's file refuses it unless it matches the pinned digest, and each battery fails unless its red controls fire. The numbers of this paper are written by \url{node tools/paper-numbers/optconst-replays.js} and \url{node tools/paper-numbers/cert-machine-method.js}, which refuse when a record no longer supports a sentence.
+
+\begin{table}[h]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.18\linewidth}L{0.37\linewidth}L{0.29\linewidth}L{0.10\linewidth}@{}}\toprule
+result & command & expected & time \\\midrule
+the entropy certificates & \url{python3 tools/verify_sumdiff.py}; \url{python3 tools/verify_twolaw.py} & \vC; their red controls refuted or refused & \MtRgSecVerify{} s;---\\
+the records & \url{node tools/run-sumdiff-ledger.js --check}; \url{python3 tools/run-fei-ledger.py --check}; \url{python3 -I tools/run-optq-ledger.py} & re-derived identical; the queue \MtRqComputedCertified{} \vC\ by computation, one on an earlier record, one read, \MtRqRefused{} \vF & \MtRgSecSumdiff{} s; \MtRgSecFei{} s; \MtRqSeconds{} s \\
+the truth table, a second time & \url{node tools/verify_fei.js} & \vC\ in both implementations; the \MtFeiPlanted{} planted claims as expected & \MtFeiSeconds{} s \\
+the registry's response & \url{node tools/read-optconst-registry.js --check} & re-read identical from its pinned bytes &---\\
+the step functions & \url{node tools/replay-stepfun.js} & the four $C_{1a}$, $C_{1b}$ rows \vC\ in both; \MtSfReds{} red controls as expected & \OcSfSeconds \\
+the autocorrelation rows & \url{node tools/replay-autocorr.js} & $C_{1c}$ \vC; the printed $C_{1d}$ \vR, its repair \vC; \OcAcReds{} red controls as expected & \OcAcSeconds \\
+the Zhang--Zagier rows & \url{node tools/replay-c82.js} & both rows \vC\ in both; the controls and red controls as expected & \MtCzSeconds{} s \\
+the trace-constant certificate & \url{node tools/replay-c86.js} & \vC\ in both; \OcTraceReds{} red controls \vR\ in both & \MtCeSeconds{} s \\
+the deciders against Arb & \url{node tools/audit-entropy-arb.js} & no violation; every malformed input refused; every planted function caught & \MtEaSeconds{} s \\
+the planted claims & \url{node tools/run-method-eval.js} & every false claim refuted, every true one certified, every malformed one refused & under a second \\
+\bottomrule\end{tabular}
+\caption{Each result, the command that re-derives it, what it must print, and what it took (the times are those the records hold;---where a record holds none).}\label{tab:repro}
+\end{table}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{cert-machine-method,optconst-replays-refs}
+
+\end{document}

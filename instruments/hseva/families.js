@@ -46,7 +46,9 @@ const { makeAD } = require('./ad2.js');
    value). In floats the same code runs with thin values. */
 function makePhi(ops) {
   const { add, sub, mul, div, exp, c, neg, abs, lo, hi } = ops;
-  const SQRT_PI = ops.sqrt(c(Math.PI)), SQRT2 = ops.sqrt(c(2));
+  /* ops.PI is Math.PI in floats and the ENCLOSURE of π in intervals (2026-10-21: c(Math.PI) was a thin box of the double,
+     which does not contain π; the gap was below the series tails and unproved) */
+  const SQRT_PI = ops.sqrt(ops.PI), SQRT2 = ops.sqrt(c(2));
   function erfTaylor(z, N) {            /* Σ (−1)^k z^(2k+1) / (k! (2k+1)), times 2/√π */
     N = N || 40;
     let term = z, sum = z, z2 = mul(z, z);
@@ -57,8 +59,10 @@ function makePhi(ops) {
     }
     /* the truncation: the next term, in magnitude, as a symmetric pad */
     const nxt = div(div(mul(term, z2), c(N + 1)), c(2 * N + 3));
-    const pad = abs(nxt);
     const s = mul(div(c(2), SQRT_PI), sum);
+    /* the terms of the alternating series decrease from k = 2 on for |z| ≤ 2, so the tail after N ≥ 2 terms is at most the
+       next term — carrying the same 2/√π the sum carries (2026-10-21: the pad was the bare term, 13 % short of the bound) */
+    const pad = abs(mul(div(c(2), SQRT_PI), nxt));
     return ops.widen(s, pad);
   }
   function convergent(x, N) {          /* the N-th convergent of √π e^{x²} erfc(x) = 1/(x + (1/2)/(x + 1/(x + …))) */

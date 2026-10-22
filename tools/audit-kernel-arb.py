@@ -14,7 +14,7 @@ import sys
 from collections import defaultdict
 
 import flint
-from flint import arb, ctx
+from flint import arb, ctx, fmpq
 
 ctx.prec = 256
 XSTAR_DIGITS = '1.4616321449683623412626595423257213284681962040064463512959884085987864403538'   # the minimum of Γ on (0, ∞)
@@ -69,8 +69,45 @@ def trig_range(f, a, b):
     return mn(vals), mx(vals)
 
 
+def inverse(f, p, lo, hi, steps=160):
+    """the z with f(z) = p for an increasing f, bracketed by bisection on CERTAIN signs (a midpoint Arb cannot separate from p
+    stops the bracket, which stays correct): the truth of an inverse is this bracket, which the kernel's enclosure must contain"""
+    l, u = lo, hi
+    for _ in range(steps):
+        m = (l + u) / 2
+        v = f(m)
+        if v < p:
+            l = m
+        elif v > p:
+            u = m
+        else:
+            break
+    return l, u
+
+
 def truth(op, args):
     XSTAR = arb(XSTAR_DIGITS); SQRT2 = arb(2).sqrt()
+    if op == 'gamma':                                      # unimodal on (0, ∞), the minimum at x*
+        a0, a1 = [A(x) for x in args[0]]
+        v = [a0.gamma(), a1.gamma()]
+        if not (a1 < XSTAR or a0 > XSTAR):
+            v.append(XSTAR.gamma())
+        return mn(v), mx(v)
+    if op == 'besselJ':                                    # thin order and argument
+        nu, x = A(args[0][0]), A(args[1][0])
+        v = x.bessel_j(nu)
+        return v, v
+    if op == 'PhiInv':
+        p = A(args[0][0])
+        return inverse(lambda t: (-t / SQRT2).erfc() / 2, p, arb(-13), arb(13))
+    if op == 'gammaPinv':
+        a, p = A(args[0][0]), A(args[1][0])
+        return inverse(lambda t: t.gamma_lower(a, regularized=1), p, arb(0), arb(4000))
+    if op == 'sum2':                                       # the exact sum of the doubles, a rational
+        from fractions import Fraction
+        s = sum(Fraction(float(x)) for x in args[0])
+        v = arb(fmpq(s.numerator, s.denominator))
+        return v, v
     op = op[4:] if op.startswith('red:') else op           # a planted kernel is judged against the true operation
     if op in ('add', 'sub', 'mul', 'div'):
         (a0, a1), (b0, b1) = [[A(x) for x in iv] for iv in args]

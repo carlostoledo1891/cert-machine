@@ -1,0 +1,226 @@
+\documentclass[preprint,11pt,authoryear,a4paper]{elsarticle}
+\PassOptionsToPackage{obeyspaces,spaces,hyphens}{url}
+\usepackage{cmelsevier}
+\usepackage{amsthm}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\emergencystretch}{3em}
+\usepackage[section]{placeins}
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+%% every number is read from the records: the register's macros, the method paper's, the Navier--Stokes note's and this
+%% paper's own (tools/paper-numbers/openai-math-release.js); a record that no longer supports a sentence stops the build
+\input{register-numbers.tex}
+\let\RepoCommit\relax
+\input{cert-machine-method-numbers.tex}
+\let\RepoCommit\relax
+\let\DateRows\relax
+\input{navier-stokes-audit-numbers.tex}
+\input{openai-math-release-numbers.tex}
+\newcommand{\vword}[1]{{\normalfont\scshape #1}}
+\newcommand{\vC}{\vword{certified}}
+\newcommand{\vR}{\vword{refuted}}
+\newcommand{\vF}{\vword{refused}}
+\newcommand{\vP}{\vword{partial}}
+\newcommand{\wMatches}{\vword{matches}}
+\newcommand{\wNarrowerDeclared}{\vword{narrower---declared}}
+\newcommand{\wNarrowerUndeclared}{\vword{narrower---undeclared}}
+\newcommand{\wNarrowerUnlinked}{\vword{narrower---unlinked}}
+\newcommand{\wDifferent}{\vword{different}}
+\newcommand{\wSupport}{\vword{support-only}}
+\newcommand{\lean}[1]{\texttt{#1}}
+\journal{a journal to be agreed}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{A machine-written mathematics release read against its claims: the Navier--Stokes certificate, the challenges under two kernels, and the statements their manuscripts claim\tnoteref{t1}}
+\tnotetext[t1]{Draft v0.1 of 2026-10-21, built from repository commit \MtCommit; \MtArchiveNote. Every measured number and count is a macro read at build time from the records named in the Data availability statement; a record that no longer supports a sentence stops the build. Companion to the method paper \citep[the method paper]{CMArchive}; the Navier--Stokes certificate is audited line by line in a separate note \citep[the Navier--Stokes note]{CMArchive}.}
+
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
+
+\begin{abstract}
+In September 2026 OpenAI published \MtOaManuscripts{} machine-written mathematics manuscripts in \MtOaFamilies{} families, with \MtOaChallenges{} Lean challenge statements as their formal spine, and a Lean proof of finite-time blowup for the forced three-dimensional Navier--Stokes equations. A formal certificate makes two claims: that a kernel accepts the proof, which a build decides, and that the statement proved is the theorem claimed, which no build decides. We decided the first and read the second from bytes pinned by digest, under a pre-registration amended \OmAmendments{} times, each amendment dated before the run it changed. Every challenge was replayed under Lean's kernel and under a second kernel written independently of it: \MtOaCertified{} were accepted by both, \MtOaRefused{} were refused for resources, none was rejected. Every statement was read against the headline its manuscript claims: of \MtOaStatements{} families, \MtOaMatches{} match and \MtOaShort{} state less than, or other than, what they claim without saying so. The Navier--Stokes proof was built at its announced commit on the three standard axioms and accepted by both kernels; its formal statement is Clay's, and one clause of the paper's own theorem, the uniform energy bound, was not among its conclusions at that commit; it is a conclusion of the next upstream commit, decided here with one kernel. \MtOaGaps{} gaps between what the release claims and what it checks are recorded, each pinned to a file and line; \MtOaGapsSevOne{} are headline theorems that no checked statement carries. The readings were made by AI agents and no specialist has confirmed them; their recall was measured once, on \MtRrPlants{} defects planted in short statements, all flagged. Nothing in the release was found false. What is claimed is the two decisions and the reading, each with its scope; what is not claimed is the mathematics.
+\end{abstract}
+
+\begin{highlights}
+\item \MtOaChallenges{} Lean challenges replayed under two kernels: \MtOaCertified{} accepted by both, \MtOaRefused{} refused for resources, none rejected.
+\item The Navier--Stokes blowup proof builds on the standard axioms; its statement is Clay's; one clause of the paper's theorem was not formal at the announced commit.
+\item \MtOaShort{} of \MtOaStatements{} families state less than, or other than, their headline without saying so.
+\item A reading is not a verdict: the readings are AI-made, recorded with their second readings, and their recall was measured on planted defects.
+\item Every input is pinned by digest; every count names its denominator; the pre-registration and its amendments are public.
+\end{highlights}
+
+\begin{keyword}
+machine-generated mathematics \sep formal proof \sep autoformalization \sep independent checking \sep Lean \sep Navier--Stokes \sep certificates \sep reproducibility
+\end{keyword}
+
+\end{frontmatter}
+
+\section{Introduction}\label{sec:intro}
+
+Formal proof has become the currency of machine-made mathematics. Systems that search for proofs in Lean now reach Olympiad problems \citep{AlphaProof25,DeepSeekProverV2,Kimina25,Goedel25}, and a release of research-level results arrives with a Lean development as its warrant. In September 2026 OpenAI published a mathematics release of \MtOaManuscripts{} manuscripts in \MtOaFamilies{} families \citep{OpenAIMath} and, beside it, a Lean~4 repository proving finite-time blowup for the forced three-dimensional Navier--Stokes equations against a statement that DeepMind's Formal Conjectures project had written months earlier \citep{OpenAINS,FormalConjectures}. The release describes itself as ``\MtOaStatedScope'', with review ``\MtOaStatedReview'', and counts \MtOaStatedFormalized{} of its \MtOaManuscripts{} manuscripts (\MtOaStatedPercent\%) as formalized at its top line. Its formal spine is \MtOaChallenges{} Comparator challenges: Lean statements, written by the claimant, that a proof must satisfy to be accepted \citep{Comparator}.
+
+A formal certificate makes two claims, and only one of them is a computation. That the kernel accepts the proof is decided by building it at the pinned commit, asking the kernel which axioms the result depends on, and replaying the proof under a second kernel written independently of the first. That the statement proved is the theorem claimed is not decided by any build: a translation that compiles may still not be the theorem intended, which is the general point an independent paper on the same release argues \citep{Bastounis26}, and which the autoformalization literature has measured on benchmarks \citep{Wu22Autoformal,Lu24FormalAlign,Liu25BEq,Poiroux25BEq}. This paper decides the first claim for every challenge of the release and for the Navier--Stokes proof, and reads the second, hypothesis by hypothesis, for every challenge against the headline its manuscript claims. The reading issues no verdict of its own.
+
+The method is the one of the cert-machine project \citep[the method paper]{CMArchive}: a claim is read as a statement over pinned bytes, decided independently of the claimant with no code of the claimant's in the trust path, and recorded with one of three verdicts and the object that justifies it, where a refusal is a result that names its reason. Here the deciders are the two kernels and Comparator, which the claimant itself used; what this project adds is the pre-registration, the second kernel switched on for every challenge where the release enabled it for \MtOaNanodaOn, the reading of every statement against its claim, the measurement of that reading's recall on planted defects, and the record.
+
+\paragraph{Contributions} (i)~The kernel lane: every challenge replayed under two kernels at the release's pins on hosted runners and then on a rented machine under a pre-registered cap, with the refusals counted by reason and never summed with rejections (there were none). (ii)~The Navier--Stokes certificate: built, its axioms asked of the kernel, replayed by the second kernel and by Comparator, its statement read against Clay's wording and the paper's theorem, the next upstream commit decided. (iii)~The statement lane: \MtOaStatements{} families read against their headlines with a fixed vocabulary of \OmLaneSWords{} words, every family not read as matching or declared read a second time, the less severe word recorded. (iv)~A measurement of the readings' recall on \MtRrPlants{} planted defects. (v)~\MtOaGaps{} gaps between what the release claims and what it checks, pinned to file and line with the ask that would close each. (vi)~The cost and the hosted profile of every run.
+
+\paragraph{Outline} Section~\ref{sec:materials} gives the materials and the pre-registration, Section~\ref{sec:method} the four lanes, Section~\ref{sec:results} the results, Section~\ref{sec:discussion} what they show and what they do not, and Section~\ref{sec:conclusions} concludes. The reproduction table is in \ref{app:repro}.
+
+\section{Materials}\label{sec:materials}
+
+\paragraph{The release} The release at commit \MtOaCommit{} holds \OmDenManuscripts{} manuscripts, \OmDenFamilies{} families and \OmDenChallenges{} challenges, with \OmWithdrawn{} manuscripts withdrawn by the claimant; manuscripts, families and challenges are three denominators and are never mixed in one count. Each challenge is a Lean file with a statement, a configuration naming the definitions the proof may leave as holes, and, in \OmNanodaInRelease{} of the \MtOaChallenges{} configurations, the second kernel switched on (\OmNanodaOff{} off, \OmNanodaAbsent{} absent). A manuscript's headline is the sentence the release's contents file writes for its family; a scope note beside each formalized family says what the formalization leaves out.
+
+\paragraph{The Navier--Stokes repository} \MtNsFiles{} files were pinned on \MtNsFetched, the day after the announcement: the repository at commit \NsCommit{} (\MtNsLeanFiles{} files, \MtNsLeanLines{} lines, toolchain \LeanToolchain, Mathlib at \MathlibRev), the \PaperPages-page manuscript and the \EulerPages-page companion on Euler, the announcement, and the Formal Conjectures statement the proof targets, added on \FormalConjAdded{} (\#\FormalConjPR) and last changed on \FormalConjTouched, the revision the claimant pinned. Every file is named by path and SHA-256 and re-hashed when it is used.
+
+\paragraph{The machines} The Navier--Stokes build ran on a laptop with \MtDeskCpus{} cores and \MtDeskMemory~GB of memory. The challenge replays ran on GitHub's hosted runners (\OmRunnerVcpu{} vCPU, \OmRunnerMemGB~GB, \OmRunnerHours~h per job), one job per challenge, and then on one rented CPU pod (\OmPodVcpu{} vCPU, \OmPodMemGB~GB, at \$\OmPodPrice{} per hour, approved on \OmPodDate) and a second (\OmPodTwoVcpu{} vCPU, \OmPodTwoMemGB~GB, \$\OmPodTwoPrice{} per hour) within a \$\OmPodTwoCap{} cap approved on \OmPodTwoDate. The pods held no credential: each cloned the public repositories, built the tools from source at their pins and served its facts read-only.
+
+\paragraph{The pre-registration} The audit was registered on \OmPreregDate, before any challenge was run: each lane's membership, its decider, the words it may return and the second-reading rule \citep[the openai/math report]{CMArchive}. It was amended \OmAmendments{} times, every amendment dated and placed before the run it changed.
+
+\section{Method}\label{sec:method}
+
+\subsection{Two claims of a formal certificate}\label{sec:two}
+A formal certificate is read as two claims over a box, in the grammar of the method paper. The kernel's claim---that the proof is accepted---is decided: the development is built at the pinned commit with the toolchain and library the claimant pinned; the kernel is asked which axioms each main declaration depends on; the proof is exported and replayed under a second kernel; and Comparator \citep{Comparator}, the Lean FRO's judging tool, compares the theorem proved with the challenge statement, name by name, universe by universe, type by type. The verdict is \vC{} when the theorem states exactly the challenge, depends only on \AxiomList, and both kernels accept, and \vF{} when a resource ran out before a kernel answered; a kernel that rejected would be \vR, and none did. The statement's claim---that the theorem proved is the one claimed---is read: the formal statement is set beside the headline, the abstracts the scope note names and the scope note itself, and every difference is recorded. A reading is not a certificate and is never called one. Throughout, manuscripts, families and challenges are never mixed in one count, a lane's count is stated over the rows it decided, refusal kinds are never summed into one total, and every number is a macro written from a record by a generator that refuses when the record no longer supports the sentence quoting it.
+
+\subsection{The kernel lane}\label{sec:lanek}
+The decider is Comparator at commit \OmComparatorCommit{} (tag \OmComparatorTag, built with the release's toolchain \OmLeanToolchain), the exporter \lean{lean4export} at \OmLeanExportCommit, the sandbox \lean{landrun} at \OmLandrunCommit, and the second kernel \lean{nanoda} at \OmNanodaCommit{} \citep{Nanoda}, a type checker for Lean~4 export files written independently of Lean's kernel, in the line of independent checkers for the language \citep{Carneiro24Lean4Lean}. Three changes to the release's own configuration were declared before the run. The second kernel was switched on for every challenge. The \OmDefHoleConfigs{} configurations that declare definition holes were run a second time with the holes emptied, because Comparator compares a hole's name, universe levels, type and safety and never its body, so the second run decides whether the theorem is proved about the definitions the challenge file displays. And the second kernel's worker-thread stack, a hard-coded 16~MiB, was raised to 1~GiB, the only byte of its source changed; a later amendment added a patch of two reduction rules, so that four builds of the second kernel appear in the record (Section~\ref{sec:results}). The challenge bytes and the configuration are checked against the census by SHA-256 before every job.
+
+\subsection{The statement lane}\label{sec:lanes}
+Every family with a challenge is read against three sources: the headline the release writes for it, the abstracts of the manuscripts its scope note names, and the scope note. The reading returns one of \OmLaneSWords{} words. \wMatches: the Lean statement states the headline, up to the formalization's unavoidable encoding choices, each named. \wNarrowerDeclared: it proves less, and the scope note says what is left out. \wNarrowerUndeclared: it proves less, and neither the scope note nor the challenge file says so. \wNarrowerUnlinked: it proves less than the family's headline, and every missing clause comes from a manuscript the scope note does not link, so the formalization never claimed it. \wDifferent: the statement neither implies nor is implied by the headline. \wSupport: the claimant declares the challenge a supporting result. The unit of counting is the family: a family's challenges are read together, and the family carries one word. Every family a first reader did not read as \wMatches{} or \wNarrowerDeclared{} was read again by a second reader who saw the first reading; where the two disagreed, the less severe word was recorded and both are shown. The readers are AI agents working from the written brief of the pre-registration; no specialist in the fields concerned has confirmed any reading, and the paper reports the readings as readings.
+
+\subsection{The finite-core lane}\label{sec:lanef}
+A manuscript whose headline, or a stated component of it, is witnessed by a finite explicit object---a graph, a table, a configuration, a polynomial identity---is a claim about that object, decided exactly wherever the object is published. A census of all \OmDenManuscripts{} abstracts by \OmFReaders{} readers on disjoint slices fixed \OmFRows{} rows over \OmFManuscripts{} manuscripts in three tiers (\OmFTierA{} A, \OmFTierB{} B, \OmFTierC{} C) and was appended to the pre-registration before any row was decided; \OmFNearMisses{} near misses are recorded with the reason. Each row is decided by a clean-room re-decision sharing no code with the release, in exact rationals, integers, finite-field arithmetic or interval enclosures as the object requires, with red controls that perturb the witness and must refute; a row is \vC{} only when the whole finite certificate its manuscript rests on is decided, and one whose witness is asserted but not published is \vword{needs data}, the file named.
+
+\subsection{The recall of a reading}\label{sec:recall}
+A reading issues no verdict, but its misses can be counted. From the \MtRrEligible{} families read as \wMatches{} whose one challenge is at most seventy lines with no definition hole, \MtRrPackets{} were drawn with a seed (\OmRecallSeed), and in \MtRrPlants{} of them one line of the statement was changed so that it states less than the headline, or something else, in one of \OmRecallKinds{} kinds: a constant or exponent weakened, a quantifier's domain restricted, a hypothesis added, a conclusion weakened, a direction reversed; the scope note was left silent. The other \MtRrControls{} packets are the release's bytes. \OmRecallReaders{} fresh AI readers, not told that anything was planted, read every packet blind under the pre-registered brief in \MtRrPipelines{} pipelines, with the protocol's second reading; every tool call they made (\OmRecallCalls{} in all) is kept and audited, and none opened a file outside its packets. The measurement's \OmRecallLimits{} limits are stated with it (Section~\ref{sec:threats}).
+
+\section{Results}\label{sec:results}
+
+\subsection{The Navier--Stokes certificate}\label{sec:ns}
+The repository was built at commit \NsCommit{} over \MtNsJobsBuilt{} modules of its own (\MtNsJobsTotal{} with the library it imports, the other \MtNsNotRebuilt{} taken from the pinned build cache) in \MtNsBuildMinutes{} minutes of build time over two legs of \MtNsBuildLegs{} threads (\MtNsBuildWall{} of wall-clock), and the kernel reported \AxiomList{} and nothing else for every main declaration asked. Comparator, with the exporter and the second kernel, accepted both challenge theorems, the periodic and the whole-space statement, in \ComparatorMinutesNS{} and \ComparatorMinutesEuler{} minutes; a non-vacuity file of \MtNsNonVacuity{} declarations compiled against the result with no error. The reading set the formal statement beside Clay's wording \citep{Fefferman00} and Mathlib's definitions in \FidelityRows{} rows, \FidelitySame{} the same and \FidelityEquivalent{} equivalent, and found it to be Clay's alternatives (C) and (D) with nothing added to the competitor class and nothing dropped from the data conditions. It set the paper's Theorem~1.1 beside the formal conclusions in \PaperVsLeanRows{} rows and found \PaperClausesNotFormal{} clauses of the paper's theorem absent from them at that commit, among them the uniform energy bound $\sup_{0 \le t < 1}\|u(t)\|_{L^2} < \infty$, whose lemma was proved and used by nothing. It re-derived \MtNsByHand{} steps of the manuscript, recorded \MtNsSlips{} slips, none affecting a conclusion, and named \MtNsWeakPoints{} weak points. The record's word at \NsCommit{} is \vP: the kernels' claim \vC{} by two kernels, the statement Clay's on the reading, the energy clause named in the scope sentence.
+
+The next upstream commit, \NsHeadCommit{} of \NsHeadDate, the day after the audit pinned the repository (\MtNsUpstreamFiles{} files changed, \MtNsUpstreamInsertions{} lines added), was decided on \MtNsUpstreamChecked{} with one kernel: an incremental rebuild of the \MtNsHeadRebuilt{} changed or dependent modules under the pinned toolchain in \MtNsHeadMinutes{} minutes, the other \MtNsHeadReused{} kept from the pin's build, the same axioms for all \UpAxiomDecls{} declarations asked. The clause is now a conclusion of \lean{theorem\_1\_1}, whose statement is the claimant's own, read here (\UpFidRows{} rows, \UpFidSame{} the same, \UpFidEquivalent{} equivalent) and not judged by Comparator; the exporter, the second kernel and Lake abort at start on this machine's operating system at that toolchain, so neither was re-run, and the challenge files are byte-identical to the pin's. The record's word is \vC{} with that scope, recorded \NsRecorded, the \vP{} of \NsPriorRecorded{} kept as its history. The note \citep[the Navier--Stokes note]{CMArchive} gives the clause-by-clause tables, the \SectionMemos{} section memos, the obstructions the manuscript meets, the probes re-run, and the \DateRowsCount{} dates of the claim as the three parties state them, adjudicated nowhere.
+
+\subsection{The challenges under two kernels}\label{sec:kernel}
+All \MtOaChallenges{} challenges were decided: \MtOaCertified{} \vC{} by both kernels, \MtOaRefused{} \vF, and none rejected by either kernel (Table~\ref{tab:kernel}). The second kernel accepted \MtOaNanodaStock{} as built, \MtOaNanodaStack{} with its stack raised to 1~GiB, and \MtOaNanodaPatched{} with the patch that does two reduction rules as Lean's reference kernel does. The \OmRefused{} refusals have three reasons, counted apart: \OmRefusedStack{} stopped in the export-or-replay stage with the second kernel's stack overflowing at every build; \OmRefusedTerminated{} jobs were terminated by the hosted runner before a result was uploaded, for memory or time; and \OmRefusedBefore{} (\OmRefusedBeforeNames) stopped before Comparator ran. The refused statements run from \OmRefusedLinesMin{} to \OmRefusedLinesMax{} lines; the longest certified one has \OmCertifiedLinesMax. Under the pre-registration's amendment of \OmPodTwoDate, the three that never reached Comparator were sent one at a time to the second rented pod within the \$\OmPodTwoCap{} cap, and the \OmNotRerun{} the runners terminated for memory or the second kernel refused were not re-run, by the operator's choice of the day before; what did not finish at the cap stays \vF. The record carries the hosted runs; the three remain \vF{} in it. Of the \OmDefHoleConfigs{} configurations with definition holes, the second run with the holes emptied found \OmStrictSame{} with the same bodies and \OmStrictDiffer{} whose bodies differ from the displayed definitions; the transfer check that follows found \OmTransferYes{} theorems that transfer to the displayed definitions, \OmTransferNotDefinitional{} that do not definitionally, and \OmTransferNotDecided{} not decided. \MtOaHolesDisplayed{} displayed definitions are never compared by Comparator, which is one of the gaps of Table~\ref{tab:gaps}.
+
+\begin{table}[htbp]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.53\linewidth}rL{0.25\linewidth}@{}}\toprule
+& count & of \\\midrule
+challenges decided & \MtOaChallenges & \MtOaChallenges{} in the census \\
+\vC{} by both kernels & \MtOaCertified & \MtOaChallenges \\
+\vF{} for resources & \MtOaRefused & \MtOaChallenges \\
+\quad second kernel's stack overflowed, every build & \OmRefusedStack & \MtOaRefused \\
+\quad job terminated by the runner (memory or time) & \OmRefusedTerminated & \MtOaRefused \\
+\quad job stopped before Comparator ran & \OmRefusedBefore & \MtOaRefused \\
+rejected by a kernel & 0 & \MtOaChallenges \\
+second kernel enabled by the release & \OmNanodaInRelease & \MtOaChallenges \\
+second kernel accepted: as built / stack 1~GiB / patched & \MtOaNanodaStock{} / \MtOaNanodaStack{} / \MtOaNanodaPatched & \MtOaCertified \\
+runs recorded (both kernels in the run) & \OmRuns{} (\OmRunsBothKernels) & \\
+wall seconds per timed run, min / median / max & \OmSecondsMin{} / \OmSecondsMedian{} / \OmSecondsMax & \OmRunsTimed{} runs \\
+peak memory per timed run, min / median / max (GiB) & \OmRssMinGiB{} / \OmRssMedianGiB{} / \OmRssMaxGiB & \OmRunsTimed{} runs \\
+library cache fetched per run, median / max (s) & \OmCacheMedian{} / \OmCacheMax & \\
+\bottomrule\end{tabular}
+\caption{The kernel lane (\texttt{certs/openai-math-kernel.json}). A refusal names its reason and the reasons are never summed with rejections, of which there were none. The hosted profile is GitHub's Linux runners (\OmRunnerVcpu{} vCPU, \OmRunnerMemGB~GB, \OmRunnerHours~h), one job per challenge, as carried into the self-audit's concordance record.}\label{tab:kernel}
+\end{table}
+
+\subsection{The statements against their headlines}\label{sec:statements}
+Of \MtOaStatements{} families with a challenge (\OmChallengesInFamilies{} challenges, \OmMultiChallengeFamilies{} families with more than one), \MtOaMatches{} \wMatches; \MtOaShort{} state less than, or other than, what they claim without saying so (\MtOaDifferent{} \wDifferent, \MtOaNarrowerUndeclared{} \wNarrowerUndeclared); \MtOaNarrowerDeclared{} are \wNarrowerDeclared; \MtOaUnlinked{} are \wNarrowerUnlinked; and \MtOaSupportOnly{} are \wSupport{} (Table~\ref{tab:statements}). The second readings covered \OmSecondReadings{} families and changed the word of \OmSecondChanged; all but \MtOaReadingDisagreements{} of the changes moved a family into the category the first pass did not use, narrower and not linked to a claim, which the pre-registration added by amendment, and \MtOaReadingDisagreements{} was a disagreement on the reading itself. The less severe word was recorded, so that \MtOaFirstUndeclared{} families read as \wNarrowerUndeclared{} on the first pass became \MtOaNarrowerUndeclared. \OmFlagReadings{} flag readings were made on suspicious statements and \OmFlagsCleared{} flags cleared. \OmConditionalOnK{} families carry a word conditional on the kernel lane, their challenges among the refused.
+
+\begin{table}[htbp]\centering\footnotesize
+\begin{tabular}{@{}L{0.30\linewidth}rL{0.52\linewidth}@{}}\toprule
+word & families & meaning \\\midrule
+\wMatches & \MtOaMatches & the statement states the headline, up to named encoding choices \\
+\wNarrowerDeclared & \MtOaNarrowerDeclared & proves less; the scope note says what is left out \\
+\wNarrowerUndeclared & \MtOaNarrowerUndeclared & proves less; neither the scope note nor the file says so \\
+\wNarrowerUnlinked & \MtOaUnlinked & proves less than a headline whose missing clauses the formalization never claimed \\
+\wDifferent & \MtOaDifferent & neither implies nor is implied by the headline \\
+\wSupport & \MtOaSupportOnly & declared a supporting result by the claimant \\\midrule
+all & \MtOaStatements & the families with a challenge; the unit is the family \\
+\bottomrule\end{tabular}
+\caption{The statement lane (\texttt{certs/openai-math-statements.json}): every family's challenges read together against its headline, the abstracts its scope note names and the scope note, by AI agents under the pre-registered brief, with the second-reading rule. A word here is a reading, not a verdict.}\label{tab:statements}
+\end{table}
+
+\subsection{The finite objects}
+Of the \MtOaFiniteTotal{} rows whose headline rests on a finite object, \MtOaFiniteCertified{} were decided \vC{} by an exact re-decision made here, \MtOaFiniteRefused{} were \vF{} with the reason, and \MtOaFiniteNeedsData{} assert a witness the release does not publish and are \vword{needs data}, each naming the file that would decide it. Each \vC{} is the certificate's: the object has the property the manuscript states, and the chain from that property to the headline is the manuscript's, read and not re-derived.
+
+\subsection{The gaps}\label{sec:gaps}
+Table~\ref{tab:gaps} ranks the \MtOaGaps{} gaps between what the release claims and what it checks, found on \MtOaFound{} at commit \MtOaCommit{} and pinned to file and line before any fix, by the severity the audit assigned: \OmGapsSevOne{} headline theorems that no checked statement carries; \OmGapsSevTwo{} checks weaker than shown; \OmGapsSevThree{} claims that cannot be re-checked as shipped; \OmGapsSevFour{} of documentation. When upstream was last checked, on \OmGapsUpstreamChecked, its head was still \MtOaCommit, so none had been closed. Each carries the ask that would close it. Nothing in the release was found false.
+
+\begin{table}[htbp]\centering\small
+\begin{tabular}{@{}cp{0.80\linewidth}@{}}\toprule
+severity & the gap \\\midrule
+\MtOaGapRows \\
+\bottomrule\end{tabular}
+\caption{What the release claims beyond what it checks (\texttt{corpus/openai-math/findings.json}), from 1 (a headline theorem that no checked statement carries) to 4 (documentation). The readings behind the severity-1 rows were made by AI agents (Section~\ref{sec:threats}).}\label{tab:gaps}
+\end{table}
+
+\subsection{The recall of the readings}\label{sec:recallresult}
+In both pipelines all \MtRrFlagged{} plants were flagged, each at the planted line, \MtRrExact{} with the key's word; the twelfth was recorded as declared, the case the key marks arguable; and no control was flagged. Twelve of twelve bounds the rate of flagging below by \MtRrLower{} (two-sided 95\% Clopper--Pearson). Counted at the audit's own threshold, where a declared narrowing is not a gap, \MtRrAtThreshold{} of \MtRrPlants{} were caught, with the lower bound \MtRrThresholdLower; in one pipeline the first reader had the key's word for the twelfth and the rule that records the less severe word downgraded it. Two plants left a clue the edit did not touch, a name and a docstring.
+
+\subsection{The cost}
+The Navier--Stokes build took \MtNsBuildMinutes{} minutes on the laptop and the upstream rebuild \MtNsHeadMinutes. The hosted runs cost nothing beyond GitHub's allowance and are profiled in Table~\ref{tab:kernel}: the longest timed run took \OmMinutesMax{} minutes and the largest \OmRssMaxGiB~GiB. The rented pods ran at \$\OmPodPrice{} and \$\OmPodTwoPrice{} per hour, the second within a \$\OmPodTwoCap{} cap. The readings are not timed and are not a method.
+
+\section{Discussion}\label{sec:discussion}
+
+\paragraph{What the exercise shows} No proof of the release was rejected and nothing was found false; the gaps are between what was claimed and what was checked. A clause present in the paper's theorem and absent from the formal statement at the announced commit is the finite instance of the general point that a Lean verification of an autoformalized statement does not by itself establish the natural-language theorem \citep{Bastounis26}, and of the measured fact that statement autoformalization at research level is far from reliable \citep{Poiroux25BEq}. \MtOaShort{} of \MtOaStatements{} formal statements narrower than, or other than, the theorems beside them, with nothing in the release saying so, is the same instance at scale. The second kernel, which the release enabled for \MtOaNanodaOn{} challenges, accepted every proof it could finish; what it could not finish, it refused with the reason, and the refusals are reported as what they are. The commit of \NsHeadDate{} proves the clause; it was made the day after the audit pinned the repository, and this paper draws no causal link between the two.
+
+\paragraph{Relation to the literature} Independent checkers for Lean's export format are the line this lane stands in: a verified type checker for Lean in Lean \citep{Carneiro24Lean4Lean}, a type checker in Rust \citep{Nanoda}, and Comparator's statement comparison \citep{Comparator}; the reading complements them, as a check on what the statement says rather than on whether the proof is valid. Faithfulness of autoformalization has its own metrics and benchmarks---alignment scores \citep{Lu24FormalAlign}, equivalence checking against a reference \citep{Liu25BEq,Poiroux25BEq}---which compare a machine's translation with a human's; here there is no reference translation, the statement is compared with the prose claim, and the comparison is a recorded reading with a measured recall rather than a score. The sociology of a world where proof checking is cheap and adjudication of what was proved is scarce has been named \citep{Kallel26,Avigad24}; this paper is one adjudication, with its scope. On the mathematics itself nothing is claimed: finite-time blowup for the forced Navier--Stokes system stands beside the averaged-equation blowup \citep{Tao16Averaged}, the $C^{1,\alpha}$ Euler singularities \citep{Elgindi21} and the computer-assisted blowup of Chen and Hou \citep{ChenHou22,ChenHou23}, and this paper says only what the kernels accepted and what the readings found.
+
+\paragraph{Threats to validity}\label{sec:threats}
+\begin{itemize}
+\item \emph{The readings.} The statement readings and the Navier--Stokes reading were made by AI agents and checked by second readings made the same way, a check on consistency and not an independent review; no specialist has confirmed them. The clause the upstream commit proves is consistent with the reading and does not confirm it.
+\item \emph{The recall.} It was measured once, on \MtRrPlants{} one-line defects planted in the audit's easiest class---one challenge of at most seventy lines, no definition hole, read as matching---under a brief that asked for every constant, bound and domain to be checked; the audit's long statements, eight of them over a thousand lines, and its multi-challenge families are not measured. The builder of the plants, the readers and the audit's readers are agents of one model family, whose misses may be correlated \citep{KnightLeveson86}.
+\item \emph{Resources.} \MtOaRefused{} challenges are refused for a stack, memory or time limit that more resources might clear; \OmNotRerun{} were not re-run by the operator's choice, and the cap on the rented pod was set before the run. A refusal is not a rejection and is never counted as one.
+\item \emph{One kernel upstream.} The upstream commit was decided with Lean's kernel only; Comparator and the second kernel abort at start on this machine at that toolchain.
+\item \emph{Selection.} The release was chosen by the author because it had a formal spine to decide; the results describe this release, not machine-written mathematics at large.
+\end{itemize}
+
+\paragraph{What is not claimed} Nothing about the truth of any theorem beyond the kernels' acceptance of a proof of the statement the kernel saw; nothing about the mathematics of the manuscripts, whose weak points are recorded as notes; nothing about priority, whose dates are recorded as the parties state them; and nothing about the release's authors, whose checks the gaps describe as what they do not show, never as errors.
+
+\section{Conclusions and recommendations}\label{sec:conclusions}
+A machine-written release with a formal spine can be decided and read from its bytes, and the two answers are different in kind. The kernels accepted \MtOaCertified{} of \MtOaChallenges{} challenges and the Navier--Stokes proof, and refused \MtOaRefused{} for resources, each with its reason; the readings found \MtOaShort{} families whose formal statement says less than, or other than, its headline without saying so, and one clause of the Navier--Stokes theorem that was not formal at the announced commit; \MtOaGaps{} gaps are pinned to file and line with the ask that would close each. To producers of formal releases: state beside every headline which of its clauses the formal statement carries, and where it is narrower, say so where the theorem is stated; switch the second kernel on, and ship the export files so that anyone can; declare the definitions a proof may leave as holes beside the theorem, not only in a configuration file; publish the finite witnesses the headlines rest on, with a digest beside each; and name the scope of every check in the release itself. To readers of such releases: a kernel's acceptance is a fact about a statement the kernel saw, and the statement is what to read.
+
+\section*{Declaration of competing interest}
+The author declares no competing financial or personal interests. OpenAI has not been consulted on this draft; issues and discussions are disabled on the release's repository, and no message was sent to its authors. Prospective co-authors are reviewing this manuscript.
+
+\section*{CRediT authorship contribution statement}
+Carlos Toledo: conceptualization, methodology, software, validation, investigation, data curation, writing---original draft, writing---review and editing. The author list and the roles are to be agreed with the prospective co-authors.
+
+\section*{Data availability}
+Every record, lane and reading is public in the cert-machine repository (\url{https://github.com/carlostoledo1891/cert-machine}, commit \MtCommit; archived as \citealp{CMArchive}): the pre-registration and its amendments \url{corpus/openai-math/preregistration.json}; the kernel lane \url{certs/openai-math-kernel.json} with every hosted run under \url{corpus/openai-math/kernel-runs/}; the statement lane \url{certs/openai-math-statements.json} with the readings under \url{corpus/openai-math/readings/}; the finite-core lane \url{corpus/openai-math/f-lane.json}; the gaps \url{corpus/openai-math/findings.json}; the recall measurement \url{certs/reading-recall.json} with its packets, keys and the readers' calls under \url{corpus/openai-math/recall-2026-10-19/}; the Navier--Stokes audit \url{corpus/navier-stokes/} (the manifest of pinned files, the build, the reading, the upstream decision); and the register row \url{certs/claims-ledger.json}. The release's bytes are the claimant's, cited at their source and pinned by SHA-256 digest; they remain under their owner's licence.
+
+\section*{Declaration of generative AI and AI-assisted technologies}
+\cmaideclaration{} For this paper specifically: the readings of the statements against their headlines, the \SectionMemos{} section memos and the Lean map of the Navier--Stokes manuscript, the census of finite objects and the planted defects of the recall measurement were produced by AI agents (Claude) under written briefs and consolidated into the public records; no verdict here rests on a reading alone, and no human specialist has confirmed the readings.
+
+\section*{Funding}
+This work received no external funding. The rented compute (two CPU pods, the second within a \$\OmPodTwoCap{} cap) was paid by the author.
+
+\appendix
+\section{Reproduction}\label{app:repro}\setcounter{table}{0}
+Every number in this paper is a macro written from a record of the repository at commit \MtCommit, and a record that no longer supports such a sentence stops the build. Each result re-derives with the command beside it in Table~\ref{tab:repro}; each command that fetches the claimant's bytes refuses them unless they match the pinned digest.
+
+\begin{table}[h]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.15\linewidth}L{0.44\linewidth}L{0.29\linewidth}L{0.08\linewidth}@{}}\toprule
+result & command & expected & time \\\midrule
+Navier--Stokes, the pin & the build that \url{corpus/navier-stokes/build.json} records, at \NsCommit & both challenge theorems accepted by Comparator and the second kernel; only \AxiomList & \MtNsBuildMinutes{} min \\
+Navier--Stokes, upstream & the incremental rebuild that \url{corpus/navier-stokes/} \url{upstream-f9e8bc5b.json} records, at \NsHeadCommit & the energy clause a conclusion of \lean{theorem\_1\_1}; the same axioms for \UpAxiomDecls{} declarations & \MtNsHeadMinutes{} min \\
+the challenges, hosted & \url{.github/workflows/} \url{openai-math-kernel.yml}, one job per challenge & \MtOaCertified{} accepted by both kernels, \MtOaRefused{} refused for resources, none rejected & \OmSecondsMin--\OmSecondsMax{} s per run \\
+the challenges, rented & \url{tools/runpod-openai-math.sh} on a CPU pod; \url{node tools/} \url{import-runpod-openai-math.js} & the same steps at the same pins; the facts served read-only & at the cap \\
+the kernel record & \url{node tools/} \url{record-openai-math-kernel.js} & \url{certs/openai-math-kernel.json} re-derived from the run store &---\\
+the statement record & \url{node tools/} \url{record-openai-math-statements.js} & \url{certs/openai-math-statements.json} re-derived from the readings &---\\
+the finite objects & \url{python3 -I tools/run-openai-math-finite.py} & \MtOaFiniteCertified{} \vC, \MtOaFiniteRefused{} \vF, \MtOaFiniteNeedsData{} needing data; the red controls refuted &---\\
+the readings' recall & \url{python3 tools/score-reading-recall.py --check} & re-scored identical from the kept readings &---\\
+this paper's numbers & \url{node tools/paper-numbers/} \url{openai-math-release.js} & \url{paper/tex/openai-math-release-numbers.tex} rewritten identical &---\\
+\bottomrule\end{tabular}
+\caption{Each result, the command that re-derives it, what it must print, and what it took (the times are those the records hold;---where a record holds none).}\label{tab:repro}
+\end{table}
+
+\bibliographystyle{elsarticle-harv}
+\bibliography{cert-machine-method,openai-math-release-refs}
+
+\end{document}

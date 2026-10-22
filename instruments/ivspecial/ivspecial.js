@@ -108,6 +108,9 @@ function powIv(x, p) {
 
 /* ---------- Γ via Spouge, a = 20 ---------- */
 const SPOUGE_A = 20;
+/* Spouge's bound |ε_a(w)| ≤ a^{-1/2} (2π)^{-(a+1/2)} for Re w ≥ 0 (Spouge 1994), widened tenfold as a margin; the margin's value
+   is itself an upper end computed in interval arithmetic from the enclosure of π (2026-10-21: it was a float with Math.PI) */
+const SPOUGE_EPS = div(mul(iv(10), T.exp(neg(mul(iv(SPOUGE_A + 0.5), T.log(T.TWO_PI))))), sqrtIv(iv(SPOUGE_A)))[1];
 let spougeC = null;
 function spougeCoeffs() {
   if (spougeC) return spougeC;
@@ -157,9 +160,8 @@ function gammaIvRaw(z) {
   const cs = spougeCoeffs();
   let s = cs[0];
   for (let k = 1; k < a; k++) s = add(s, div(cs[k], add(w, iv(k))));
-  // defensively widened Spouge error: |ε| ≤ 10 · a^{-1/2} (2π)^{-(a+1/2)}
-  const epsBound = 10 * Math.pow(2 * Math.PI, -(a + 0.5)) / Math.sqrt(a);
-  s = [I.nextDown(s[0] - epsBound), I.nextUp(s[1] + epsBound)];
+  // Spouge's error, tenfold, enclosed (SPOUGE_EPS above)
+  s = [I.nextDown(s[0] - SPOUGE_EPS), I.nextUp(s[1] + SPOUGE_EPS)];
   const wpa = add(w, iv(a));
   const pref = mul(powIv(wpa, add(w, iv(0.5))), T.exp(neg(wpa)));
   return mul(pref, s);

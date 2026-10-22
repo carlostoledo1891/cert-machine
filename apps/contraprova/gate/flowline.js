@@ -128,10 +128,13 @@ function envelope(B, Qd, Pd, depth) {
 /* the 64 corners of the box, each a THIN box decided on its own: a corner with
    P_wh proved above the bound is a declared input that violates the rule; one
    proved at or below it is a declared input that respects it */
-function corners(B, Qd, Pd, bound) {
+function corners(B, Qd, Pd, bound, boxDecl) {
   let above = null, below = null, evals = 0;
   for (let m = 0; m < 1 << DIMS.length; m++) {
-    const C = {}; DIMS.forEach((k, i) => { const x = B[k][(m >> i) & 1]; C[k] = [x, x]; });
+    /* each corner is the DECLARED decimal, enclosed (dec: the nearest double, one ulp each side), so a verdict proved over
+       that thin box is proved at the exact corner of B — a point of B, not of its double hull (2026-10-21; before, the corner
+       was the widened double, one ulp outside B). Without the declared box (the battery's direct call) the doubles stand. */
+    const C = {}; DIMS.forEach((k, i) => { C[k] = boxDecl ? dec(boxDecl[k][(m >> i) & 1]) : [B[k][(m >> i) & 1], B[k][(m >> i) & 1]]; });
     const P = wellhead(C, Qd, Pd).P; evals++;
     if (lo(P) > bound && (!above || lo(P) > above.P[0])) above = { at: C, P };
     if (hi(P) <= bound && (!below || hi(P) < below.P[1])) below = { at: C, P };
@@ -234,7 +237,7 @@ function decide(proposal, boxDecl, rules, opts) {
     /* 8 — the operational rule, decided on the whole box */
     const bound = Number(rules.PwhMax);
     const name = 'Regra: P_wh ≤ ' + rules.PwhMax + ' bar';
-    const W = corners(B, Qd, Pd, bound); evals += W.evals;
+    const W = corners(B, Qd, Pd, bound, boxDecl); evals += W.evals;
     /* whether the WHOLE box respects the bound: impossible once a violating corner is proved */
     const allOk = (S) => { const r = decideLE(S, Qd, Pd, bound, depth); evals += r.evals; return r.bad === 0 && r.open === 0; };
     const allBad = (S) => { const r = decideLE(S, Qd, Pd, bound, depth); evals += r.evals; return r.ok === 0 && r.open === 0; };
@@ -245,8 +248,10 @@ function decide(proposal, boxDecl, rules, opts) {
         ? 'A caixa declarada contém entradas dos dois lados, ambos provados. Viola: ' + pointText(W.above.at) + ' → P_wh ≥ ' + dn(lo(W.above.P), 1) + ' bar. Respeita: ' + pointText(W.below.at) + ' → P_wh ≤ ' + up(hi(W.below.P), 1) + ' bar. A evidência declarada não decide.'
         : 'Não decidido na profundidade do portão.');
       /* the flip thresholds: P_wh = P_d + G(box), so the pump pressure moves the whole enclosure */
-      const Gl = env[0] - hi(Pd), Gh = env[1] - lo(Pd);   /* bounds on G over the box */
-      const greenPd = Math.floor((bound - Gh) * 10) / 10, redPd = Math.ceil((bound - Gl) * 10) / 10;
+      /* bounds on G over the box and the two thresholds, every step in directed rounding (2026-10-21; before, round-to-nearest
+         and then the decimal rounding): the floor of a lower bound is a lower bound, the ceiling of an upper bound an upper bound */
+      const Gl = nextDown(env[0] - hi(Pd)), Gh = nextUp(env[1] - lo(Pd));
+      const greenPd = Math.floor(nextDown(nextDown(bound - Gh) * 10)) / 10, redPd = Math.ceil(nextUp(nextUp(bound - Gl) * 10)) / 10;
       flip.pdGreen = greenPd; flip.pdRed = redPd;
       thresholds.push('Com P_d ≤ ' + f1(greenPd) + ' bar a regra fica PROVADA na caixa inteira; acima de ' + f1(redPd) + ' bar fica REFUTADA.');
       /* and the disclosure that would decide it: for each input whose higher values

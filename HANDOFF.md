@@ -16,13 +16,114 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~04:30 UTC, on "proceed" and "do we already have a HTML on the self-benchmark": PHASE 5, THE FREEZE — the self-audit is COMPLETE: the dated amendment in the note, the inventory regenerated and the run and mutations records re-pinned by --repin (the easota ledger record's grammar string gained MISPRINTED), the four checks holding, the page /reports/selfaudit.html built from the five records and listed on /reports, the tag selfaudit-v0; everything committed locally, NOT PUSHED (main is six commits ahead of origin: the two receiver changes and the four self-audit commits — the push is the operator's, and it carries them all); before that, ~03:00 UTC: PHASE 4 BUILT — certs/selfaudit-concord.json: 91 comparisons on 56 register rows decided by two or more programs, all concordant, 0 disagreements, read from the records, nothing re-run; the 416 kernel challenges carried in as the hosted profile; Phase 5 (the freeze, the page, the tag) next; before that, ~02:00 UTC: PHASE 3 COMPLETE — every one of the 119 mutable rows built or excluded with its reason: entropy (4 rows) and polymaps (9, the Station's map included) built with exact witnesses; countex 14, turan 2, horizonmath 3, gnnw 1, sumproduct 1 reported not mutated, a reason per row; 572 mutants, 0 false certifications, 0 false refutations, the kill switch decided and NOT tripped (94 of 119 rows carry a witnessed FALSE, the bar 60); one new finding, F7's partial path reads a malformed term silently; the conventional float check cannot confirm four of the nine polynomial-map originals at any tolerance; Phase 4 next; committed locally, NOT PUSHED; before that, ~23:00 UTC: THE TWO DECISIONS TAKEN AND THE CAMPAIGN RE-RUN — the easota word composed in one module (MISPRINTED → the register's REFUTED) and the malformed words made REFUSED in the tensor instrument and the mc100 decider; the 28 false certifications and the 49 wrong words all come out as required now, each marked fixedFrom with the commit it was found at (instruments/selfaudit/fixes.json), 0 false certifications, 0 false refutations; no pinned record changed; committed locally, NOT PUSHED (main is ahead of origin: the two receiver commits wait on your word, and a push carries them); wave 5 next; before that, ~20:30 UTC: THE RECEIVER, TWO CHANGES, TWO COMMITS, NOT PUSHED — change 1, an `in` box with the platform's declared resolution (both checkers, the schema, the battery; a fourth primitive object, circle packing solution 542: Σ r_i CERTIFIED inside the resolution box, non-overlap REFUTED on three pairs by 10⁻¹⁸, recorded as found); change 2, a record that names the predicate it decided (record.predicate; absent = as before, since optq-86-pinho's predicate 0 is a `holds`; a fifth primitive object, C_1b with its two admissibility inequalities beside the record, ADMITTED CERTIFIED ×3, the value the record's digit for digit, 208 s in Python); the battery 114 pass, 64/64 reds; THE PUSH IS THE OPERATOR'S; the reply to the claimbox chat is in the session's closing message; before that, ~18:30 UTC, on "proceed": THE SELF-AUDIT PHASE 3, WAVE 4 DONE — shapes (28 rows) joins tensor, kissing and erdos852: 85 rows, 525 mutants; 28 FALSE CERTIFICATIONS, every one the same gap — the easota ledger's word does not carry the printed digits, so a printed value moved one unit past the bytes is still CERTIFIED on 15 rows (the register's CERTIFIED means "the bytes witness a value", not "the printed value") — the fix (one module composing the word with printedAgrees, a public grammar change) is THE OPERATOR'S CALL and is not applied; 0 false refutations; the kill switch cannot trip (81 of 119 rows carry a witnessed FALSE, half = 60); the float check accepts 28 % of the witnessed FALSE at 1e-6; before that, ~15:30 UTC: waves 1–3 — tensor, kissing, erdos852, 389 mutants, 0 false certifications; the tensor instrument answers REFUTED to a malformed factor matrix (45, on the record); before that, ~12:00 UTC, on "Go": THE SELF-AUDIT PHASE 2 DONE — the runner, tools/run-selfaudit.js → certs/selfaudit-run.json: 124 runs in 73 min on AC, portable 18 records / 113 rows covered and 5 records / 12 rows REFUSED at the 60 s cap (exactly the five the pre-registration expected), extended 23 / 125 covered and every one reproducible, no register row moved in any run, the kill switch not tripped, two findings (keller's pin listing, a side effect of make engine); before that, ~04:00 UTC, on "decide bench / proceed the next phase": THE SELF-AUDIT NAMED (selfaudit) AND PHASE 1 DONE — the inventory, certs/selfaudit-inventory.json, after the whole rerun kit ran on the 132-row register (31 commands, no row moved); before that, on "start": the pre-registration (Phase 0) — Phase 0 only, NOTHING RUN (notes/bench-preregistration-2026-10-20.md + targets row bench-cert-machine-2026-10); THE OPERATOR'S HOLD: "Hold any change on the paper and other fronts. I do not know yet if they are really valuable" — no paper edit, no send, no other front until they say so; before that, handoff on "Sent. Handoff.": the δ₃ outside audit answered — every point verified, fixed, page and paper LIVE, the reply SENT by the operator; earlier that night the operator's redirect: THE CLAIM-MACHINE IS ITS OWN PROJECT, ~/Projects/claimbox (the translator text → predicate JSON, stdlib, red controls; calibration 10/10 against the ten hand-written objects here; coverage 95/132 of the register) — cert-machine keeps only the RECEIVER (instruments/claimbox: format, checkers, decider) and the yield/concord/second-reading extensions were REMOVED; earlier: v3 merged at 9a69727f; the DISK CLEANUP of the same day, 18 → 102 GB free, no local Lean any more (★ below); earlier that day v1 + v2 BUILT AND PUSHED; before that, on "Proceed all next steps" — the METHOD PAPER v0.7 BUILT AND LIVE (56 pp; an AI referee read of v0.6, "major revision", applied where the records settle it; sources c9fcf3b9, numbers at that commit); C_82 REPLAYED — both asterisked Zhang–Zagier rows CERTIFIED by two implementations, T-PR5 DRAFTED (a send); the sweep: no findings; PR #232 OPEN, no reply; every send waits on the operator (Pedro v0.7, Schmidt, T-PR4, T-PR5, C84b, the four applications); NO POD RUNNING; nothing building)
+## TASKS BACKLOG — the standing menu (updated 2026-10-22 ~02:40 UTC, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ THE SELF-AUDIT IS COMPLETE; WHAT IS NEXT IS THE OPERATOR'S (the hold on the paper and every other front stands).
+  ◆ THE C_31 REPLAY (CHVÁTAL–SANKOFF, LUEKER'S METHOD AT h = 9, 10) IS BUILT; h = 9 CERTIFIED; h = 10 RUNNING (2026-10-22, the
+     operator: "Should we respond?" → assessed; "If we rent machine can we proceed all and verify the asterisk?" → yes, no rental
+     needed; "Proceed"). THE ASK: Leandre Jack (leandrejack-afk, a third party) e-mailed the operator asking for a replay of his
+     registry PR #231 (C_31, merged 2026-10-18, both rows asterisked): γ₂ ≤ 0.825101 at h = 9 and ≤ 0.824120 at h = 10 by Lueker's
+     2009 automaton; he offers his eigenvectors; no rush. BUILT: instruments/lueker/mh.py (the reference, stdlib, exact λ at small h)
+     and mh.c (the fast builder, compact table, power iteration, certificate pass with FE_UPWARD per thread + a nearest-mode
+     inflated bound + a FE_DOWNWARD lower bound on ρ), both from Lueker's paper ALONE (the extended version, Wayback 2009-02-05,
+     sha256 c662fc3b…; its Thm 2 / Fig. 8 / Fig. 9 = the journal's Thm 3.3 / Fig. 7 / Table II; UCI 403 since 2015, ACM closed);
+     the claimant's src/ and review/ never fetched. CALIBRATION: Lueker's Table II reproduced exactly h = 2..8 (orbit counts, λ to
+     nine digits, bounds to six); h = 8 accepted transitions 91,508,397 = the claimant's number; C and Python tables identical at
+     h ≤ 5; 2,000 random states re-derived at h = 8 and h = 9, 0 mismatches. h = 9: 51,425,006 states (= the claimant's), 294
+     passes, λ_cert 0.36470836116889566 (his 0.364708361184291, 1.5e-11 above ours and above our ρ lower bound), bound ≤
+     0.8251002729035 ≤ 0.825101 → CERTIFIED. tools/run-lueker.py DATA_DIR writes certs/lueker-replay.json (recompiles, re-runs
+     h ≤ 8 from nothing, re-certifies 9/10 from the stored vectors, 9 red controls; ~2 min + hashing); --check is the battery
+     (30 checks, seconds); tools/build-report-lueker.js → reports/chvatal-sankoff.html; sources pinned in
+     corpus/optconst-queue/c31-2026-10-21 (PINS.json). NOT YET REGISTERED (the wiring gate says so): scratchpad c31/register.py adds
+     the Makefile test + reports lines, build-control's Python list, design/titles.json and the /reports card — run it with the
+     C_31 commit. WHAT IS NEXT, IN ORDER: (a) h = 10 (scratchpad c31/h10.sh: build ~15 min at 7.7 GB with the pre-size hint,
+     eigen ~1.5 h over a 32 GB table, certify; then h = 9 rebuilt with the final binary) → `python3 tools/run-lueker.py
+     <scratchpad>/c31/data` → `node tools/build-report-lueker.js` → register.py → `make page R=lueker` / `make site` → make test →
+     commit → push; (b) THE OPERATOR'S: the reply to Leandre (draft given in chat: accept, replaying either way, ask for the
+     vectors + the state-index rule to run his λ under our matrix), the registry PR at the #216 standard quoting the CONTRIBUTING
+     rule (draft after h = 10 in outreach/), whether to deposit our vectors (0.4 + 3.2 GB) on Zenodo. The big files (tables, keys,
+     vectors) stay OUT of git, pinned by sha256 in the record. One observation on record: the claimant's 15-digit λ at h = 8
+     (0.341832258734487) lies 1.6e-11 ABOVE our certified bracket for ρ — a power-iteration artefact, not a bound error.
+  ◆ THE METHOD PAPER v0.8 IS BUILT ON THE CO-AUTHOR'S STRUCTURE, WITH ITS SUPPLEMENT AND THREE COMPANIONS (2026-10-21, the
+     operator lifted the paper hold: "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of
+     the use cases … do another pass on the literature research … review the citations"). WHAT IS NEXT:
+     1. THE PUSH, IN FLIGHT THIS SESSION (2026-10-22, the operator: "Push zenodo. Finish all we can … review, push live and
+        handoff"): one push carries the two receiver commits, the four self-audit commits and this commit, with the tag
+        selfaudit-v0 (--follow-tags); then the release v2026.10.21 (gh release create → Zenodo mints the DOI → tools/stamp-release.py
+        → a second commit). claimbox then runs `make lift`. If this block still reads "in flight", the push did not happen.
+     2. THE OPERATOR READS the four PDFs on the shelf: paper/cert-machine-method.pdf (46 pp at 11pt; 73 pp in the co-author's
+        12pt review format, against his 52 pp with empty Results/Discussion), paper/cert-machine-method-supplement.pdf (13 pp:
+        the lemma proofs, thresholds, certifiers in detail, decision loop, reproduction table), paper/qiushi-kissing.pdf (17),
+        paper/optconst-replays.pdf (19), paper/openai-math-release.pdf (17). The co-author block IS in the tex on the operator's word
+        (2026-10-21 night, "Add Pedro name and email to the paper"): Pedro Veras Guimarães, Department of Mechanical Engineering,
+        UFSC, Florianópolis, pedro.veras.guimaraes@ufsc.br (the address his own manuscript carries); CRediT roles written as
+        methodology, formal analysis, review — to be confirmed by him. The title is the co-author's; JoCS is numbered (elsarticle-num).
+     3. THE CO-AUTHOR'S REMAINING ITEMS, his: lane B notation (α→ω for the convergence order, u/ρ/t, T/F sans-serif, y± for the
+        rounded ends — done here; he may prefer other letters), the Introduction's \todo{Last thing to do} (his paragraphs restored
+        and kept), lane E bibliography (his unconfirmed entries replaced by verified ones: Kleene 1938 for the three-valued logic,
+        Tarski's 1998 reprint with a DOI, Ratschek 1984 and the ITF1788 suite dropped/kept as a limit), the register freeze decision
+        (frozen 2026-10-06; the kissing wave and the registry replays stay out), the Zenodo version for the commit the paper cites
+        (the macros carry \MtCommit; a new release is needed before a send), and the specialist read of the Navier–Stokes reading.
+     4. STILL OPEN IN CODE (listed in the paper's limits, DEBT.md): the six padded-cosine callers (retire for the series sin/cos,
+        re-run labs/mfg's records); the polymaps P.ev shape check (the one malformed object decided in the benchmark); the quadrature
+        on a general interval; the hseva battery's four positive "red" controls; the IEEE-1788 conformance suite never run; the GPU
+        tensor-core characterisation for the device rented (Ada), stated as a check not a proof.
+     5. THE ATLAS CHAIN FINISHED (2026-10-22 01:08 UTC, 3.9 h): certs/hseva-atlas.json and certs/design-table-audit.json re-derived
+        under the new kernel — EVERY DECIDED NUMBER IDENTICAL, only stamps, timings and code digests moved (the ledger too); the
+        self-audit's run and mutation records re-pinned (--repin --why, a dated repinned entry, nothing measured again), the inventory,
+        the concordance (91/91) and /reports/selfaudit regenerated; make papers (31 compiled, 0 "??"); make test 155 batteries,
+        153 PASS — the bib battery red because P3's URL had moved after verification (verified, green again), wiring red only
+        because the C_31 page builder of the next commit sits in tools/ unregistered (see the ◆ above); the layout ruler PASSED.
+  ★ THE SESSION OF 2026-10-21 (evening): the co-author's manuscript (cert-machine-jocs.tex, 52 pp, 1,555 lines, a mathematical
+     Methodology with 35 CODE-CHECK marks and a PENDING list A–E) assessed first (notes/pedro-feedback-2026-10-21.md, local), then
+     the operator lifted the hold. CODE (lane A): instruments/hseva/families.js √π from the ENCLOSURE of π (c(Math.PI) was a thin
+     box that does not contain π; found writing the lemmas) and the erf pad carrying its 2/√π (13 % short); special.js LGAMMA_MIN
+     retired — across the minimum the lower end is proved by convexity from the enclosures at XSTAR; fit.js Sum2's hypotheses
+     (n·u < 1, no overflow) checked by name, Prop. 4.5 of Ogita–Rump–Oishi verified against the paper; ivspecial.js's Spouge margin
+     enclosed from π (SPOUGE_EPS); transcendental.js's four tails (exp, log, sin, cos) computed in interval arithmetic (DEBT:132
+     paid); apps/contraprova/gate/flowline.js: witnesses at the EXACT declared corners (dec-enclosed, a point of B) and the flip
+     thresholds in directed rounding (DEBT:130's clause paid; gate ledger re-derived with --accept: ia-mais-4-2 pdGreen 204,
+     pdRed 222.3 unchanged); tools/run-kissing-configs.py asserts the Cauchy–Schwarz bound before any path (maxA < 2^11 GPU,
+     < 2^24 float32); DEBT.md: a PAID section for the lot, the stale :136 row removed. THE ARB AUDIT EXTENDED (lane A2):
+     tools/audit-kernel-arb.js + .py now audit Γ (Spouge), Bessel J_ν, Φ⁻¹ and P⁻¹ (each against a bracket bisected in Arb on certain
+     signs) and Sum2 (against the exact rational sum): 24 operations, 1,012,121 cases, 0 violations, 2,624 in-domain refusals
+     (exp near underflow, Γ beyond the doubles), both planted kernels caught; certs/kernel-arb-audit.json re-derived (211 s).
+     RECORDS RE-DERIVED after the kernel change: certs/kernel-arb-audit.json, apps/contraprova/data/gate-ledger.json,
+     certs/method-eval.json (red controls now 99 batteries / 705), certs/hseva-ledger.json (1,186 s); certs/hseva-atlas.json and
+     certs/design-table-audit.json by the guarded chain (scratchpad rederive/chain.sh under a battery guard that SIGSTOPs at 20 %).
+     THE PAPER: paper/tex/cert-machine-method.tex REWRITTEN on the co-author's shape — Introduction (his, the commented paragraphs
+     restored; Q1–Q3; five contributions, the fifth the benchmark), Methodology (foundations halved; mathematical formulation with
+     his propositions kept and checked — outward rounding, soundness, termination, composition, thresholds — the function
+     enclosures as an assumption + eight lemmas; metrics with the malformed label and the structural zeros, Clopper–Pearson,
+     coverage/risk, cost with c_s for split refusals; decision rules; evaluation design = the self-audit as the benchmark of known
+     truth + the Arb audit + the register observational; architecture; protocol R1–R7 with enforcement table), Results (3.1 the
+     benchmark: 572 mutants, 295 witnessed false, 0/0 false verdicts, 6 refusals, 27 discards, 17 REPAIRED, the two defects found
+     at d961cda2 and fixed, B0 at three tolerances, concordance 91/56, hosted rows, cost, Clopper–Pearson 1.01 %/1.19 %; 3.2 the
+     kernel vs Arb, 24 ops; 3.3 the register + the three exercises in one paragraph each pointing to the companions; 3.4 coverage
+     table), Discussion (what the results show; independence counted; relation to practice; threats; limits with the lemma-found
+     gaps named and closed), Conclusions, declarations; Appendix A (outward proof, the function table, the eight lemma STATEMENTS),
+     Appendix B (the certifiers' results). THE SUPPLEMENT paper/tex/cert-machine-method-supplement.tex (S1 lemma proofs, S2
+     thresholds incl. how each instance verifies the hypotheses, S3 certifiers in detail, S4 the decision loop, S5 reproduction).
+     The co-author's \todo/\missing/TODO marks all resolved or stated as limits (the build refuses the string TODO). THE NUMBERS:
+     tools/paper-numbers/cert-machine-method.js gained the self-audit block (MtSa*, 60 macros: the four records must name one
+     pre-registration, be whole, kill switch untripped, no disagreement, no moved row; the verdict–truth cells counted from the
+     mutants themselves; Clopper–Pearson computed) and the repository size (MtRepo*); the Arb table now 24 rows. THE
+     BIBLIOGRAPHY: paper/tex/cert-machine-method.bib 88 → 151 entries (the co-author's references with identifiers + a literature
+     pass 2015–2026: IEEE 1788 and its test suites, Rump 2016/2018, Neumaier 2004, van den Berg–Lessard, Gómez-Serrano, Nakao–Plum–
+     Watanabe, Johansson 2019, Bréhard, Mahboubi, Avigad 2024, Tao 2025, Trinh 2024, FrontierMath, Wu 2022, Lean4Lean, AlphaTensor,
+     Davies 2021, Wagner, Blanchard 2020, Higham–Mary 2022, Cuyt 2008, DLMF, Jenssen–Joos–Perkins, Ganzhinov, Cohn–Li, Kleene 1938,
+     Tarski 1998 reprint, Chow 1970, El-Yaniv, Geifman, Franc, Clopper–Pearson, Hanley, McNemar, Spouge, Ratz–Csendes, Scholz, Berz–
+     Makino, Winterer, Mansur, Petrović, Moore 1979, Ishii, Gao 2014, Kong 2018, Loup, Magron, Hansen–Walster, Tucker 2011, Muller,
+     Kearfott, Revol 2017/2023, Benet 2024, the 2026 arXiv preprints the co-author found), EVERY entry verified at its source
+     (check-bib --verify: 151/151; URL fields dropped where a DOI exists). THE COMPANIONS (three forks, same rules): paper/tex/
+     qiushi-kissing.tex, optconst-replays.tex, openai-math-release.tex, each with its own numbers generator (tools/paper-numbers/
+     <name>.js → Qk*/Oc*/Om* macros, refuse-on-drift) and references fragment (paper/tex/<name>-refs.bib, 18 + 14 + 15 entries, all
+     verified; the Makefile's check-bib battery now covers the four files); paper/INDEX.json lists the four new papers; the shelf
+     index rebuilt. NOT DONE: the co-author's name in the public tex; the push; the Zenodo version.
+  ◆ THE SELF-AUDIT IS COMPLETE; WHAT WAS NEXT IS THE OPERATOR'S (the hold on the paper was lifted 2026-10-21; the rest stands).
      1. THE PUSH: main is six commits ahead of origin (5ac157ce, 40833648 the receiver changes — the ask said "I decide the push";
         2311ac2c, 1be1b28c, 6d80fdef and the Phase 5 commit the self-audit). One push carries all six; claimbox then runs `make lift`.
      2. THE PAPER (held): one sentence for the abstract and a paragraph for §4 — the pre-registered campaign, 572 mutants with

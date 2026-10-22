@@ -1,0 +1,289 @@
+%% =====================================================================
+%% cert-machine: the method paper, v0.8 (2026-10-21)
+%% Target: Journal of Computational Science (elsarticle, author-year).
+%% Shape: the co-author's restructure of 2026-10-21 (foundations -> mathematical
+%% formulation -> metrics and decision rules -> architecture; results; discussion),
+%% with the long derivations moved to appendices B-E and the three use cases
+%% moved to their companion papers. Every measured number is a macro read from
+%% a record at build time (paper/tex/*-numbers.tex); a record that no longer
+%% supports the sentence quoting it stops the build.
+%% For the journal's review copy switch the class options to
+%% [preprint,review,12pt,authoryear] (line numbers, 1.5 spacing).
+%% =====================================================================
+\documentclass[preprint,11pt,a4paper]{elsarticle}
+\PassOptionsToPackage{obeyspaces,spaces}{url}
+\usepackage{cmelsevier}
+\usepackage{amsthm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+\usepackage[capitalise,nameinlink]{cleveref}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\emergencystretch}{3em}
+\usepackage[section]{placeins}
+\renewcommand{\topfraction}{0.9}\renewcommand{\bottomfraction}{0.8}\renewcommand{\textfraction}{0.07}
+\renewcommand{\floatpagefraction}{0.75}\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+\AtBeginEnvironment{table}{\def\baselinestretch{1}\selectfont}
+\AtBeginEnvironment{algorithm}{\def\baselinestretch{1}\small}
+%% every number is read from the records; the macro files are the ones the companion papers use, so the
+%% same record cannot say one thing here and another there (each carries \RepoCommit: one build, one commit)
+\input{register-numbers.tex}
+\let\RepoCommit\relax
+\input{p1-numbers.tex}
+\input{p2-numbers.tex}
+\let\RepoCommit\relax
+\input{p3-numbers.tex}
+\let\RepoCommit\relax
+\input{ec-benchmark-numbers.tex}
+\let\RepoCommit\relax
+\input{delta3-numbers.tex}
+\let\RepoCommit\relax
+\input{cert-machine-method-numbers.tex}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\IR}{\mathbb{IR}}
+\newcommand{\verdict}[1]{{\normalfont\scshape #1}}
+\newcommand{\CERT}{\verdict{certified}}
+\newcommand{\REFT}{\verdict{refuted}}
+\newcommand{\REFS}{\verdict{refused}}
+\newcommand{\vC}{\CERT}
+\newcommand{\vR}{\REFT}
+\newcommand{\vF}{\REFS}
+\newcommand{\Tp}{\mathsf{T}}
+\newcommand{\Fp}{\mathsf{F}}
+\journal{Journal of Computational Science}
+\setlength{\bibsep}{0pt plus 0.2ex}
+\def\bibfont{\footnotesize}
+
+\begin{document}
+\begin{frontmatter}
+\title{Supplementary material to ``cert-machine: independent three-valued certification of machine-proposed numerical claims in exact and interval arithmetic''\tnoteref{t1}}
+\tnotetext[t1]{Supplement v0.8 of 2026-10-21, built from repository commit \MtCommit{} with the same macro files as the main text. S1 proves the function lemmas stated in the main text's Appendix A; S2--S4 give the thresholds, the certifiers in detail and the decision loop; S5 is the reproduction table.}
+\author[a]{Carlos Toledo\corref{cor1}}
+\ead{carlos@carlostoledo.co}
+\author[b]{Pedro Veras Guimar\~aes}
+\ead{pedro.veras.guimaraes@ufsc.br}
+\cortext[cor1]{Corresponding author.}
+\affiliation[a]{organization={Independent researcher, the cert-machine project}, country={Brazil}}
+\affiliation[b]{organization={Department of Mechanical Engineering, Universidade Federal de Santa Catarina}, city={Florian\'opolis}, country={Brazil}}
+\end{frontmatter}
+
+\section*{S1. Proofs of the function lemmas}
+The lemmas are stated in Appendix A of the main text with the table of functions; each proof below restates what it proves. Throughout, a series is evaluated by the natural extension on the enclosed argument, the tail bound is evaluated in interval arithmetic and its upper end taken, and the tail is added by an outward-rounded addition.
+
+\paragraph{Lemma A.1 (exp)}
+Let $x$ be a double, $k$ an integer, and $R\ni x-k\ln 2$ the interval computed from $x$, $k$ and the enclosure of $\ln2$ by the outward-rounding proposition, with $\rho=\max_{r\in R}|r|<1$ and $-1074\le k\le1023$ (the call is refused otherwise). Then for every $r\in R$,
+\[
+e^{r}\in\sum_{i=0}^{24}\frac{r^{i}}{i!}+[-T,T],\qquad T=\frac{\rho^{25}}{25!}\Bigl(1-\frac{\rho}{26}\Bigr)^{-1},
+\]
+and $e^{x}=2^{k}e^{x-k\ln2}$ exactly, $2^k$ being a double.
+
+\begin{proof}
+Taylor's theorem gives the tail $\sum_{i\ge25}r^i/i!$, bounded in magnitude by $\sum_{i\ge25}\rho^i/i!\le(\rho^{25}/25!)\sum_{j\ge0}(\rho/26)^j$ since $i!\ge25!\,26^{\,i-25}$ for $i\ge25$; the geometric series sums to $(1-\rho/26)^{-1}$. The implementation takes $k$ as the nearest integer to $x/\ln2$ in floating point, which only affects $\rho$, evaluates the sum by the natural extension on $R$ and $T$ in interval arithmetic with its upper end, and for a box wider than $10^{-6}$ encloses by the images of its ends, $\exp$ being increasing.
+\end{proof}
+
+\paragraph{Lemma A.2 (log)}
+Let $x>0$ be a normal double, $x=\mathrm{m}\,2^{e}$ with $\mathrm{m}\in[1,2)$ (exact), and $V\ni v=(\mathrm{m}-1)/(\mathrm{m}+1)$ the interval computed outward, with $\nu=\max V<0.34$ (refused otherwise). Then
+\[
+\ln x=e\ln2+2\operatorname{atanh}v,\qquad \operatorname{atanh}v\in\sum_{k=0}^{39}\frac{v^{2k+1}}{2k+1}+[0,T],\qquad T=\frac{\nu^{81}}{81\,(1-\nu^{2})}.
+\]
+
+\begin{proof}
+$\ln\mathrm{m}=2\operatorname{atanh}v$ for $\mathrm{m}>0$, and the series of $\operatorname{atanh}$ has positive terms for $v\ge0$, so the tail $\sum_{k\ge40}v^{2k+1}/(2k+1)$ is nonnegative and at most $(\nu^{81}/81)\sum_{j\ge0}\nu^{2j}$. A subnormal argument is refused; a box is enclosed by the images of its ends, $\log$ being increasing.
+\end{proof}
+
+\paragraph{Lemma A.3 (sin, cos)}
+Let $x$ be a double, $H$ the enclosure of $\pi/2$, $n$ an integer and $R\ni x-n\pi/2$ the interval computed outward from $x$, $n$ and $H$, with $\rho=\max_{r\in R}|r|\le2$. Then $\sin x$ and $\cos x$ are $\pm\sin r$ or $\pm\cos r$ according to $n\bmod4$, and for $|r|\le2$
+\[
+\sin r\in\sum_{j=0}^{15}\frac{(-1)^{j}r^{2j+1}}{(2j+1)!}+\Bigl[-\frac{\rho^{33}}{33!},\frac{\rho^{33}}{33!}\Bigr],\qquad
+\cos r\in\sum_{j=0}^{15}\frac{(-1)^{j}r^{2j}}{(2j)!}+\Bigl[-\frac{\rho^{34}}{34!},\frac{\rho^{34}}{34!}\Bigr].
+\]
+For a box $X$ of width below $2\pi$, $\sin(X)$ lies in the hull of the images of its ends, extended to $1$ (to $-1$) whenever some $\pi/2+2k\pi$ (some $3\pi/2+2k\pi$) may lie in $X$, the test made on the enclosures of these points and answering ``may'' whenever it cannot separate; a box of width at least $2\pi$ is enclosed by $[-1,1]$. The same holds for $\cos$ with the critical points $2k\pi$ and $\pi+2k\pi$.
+
+\begin{proof}
+The quadrant identities are exact. The Lagrange remainder of the Taylor polynomial of degree $31$ (resp.\ $30$) is bounded by $\rho^{33}/33!$ (resp.\ $\rho^{34}/34!$) since every derivative of $\sin$ and $\cos$ is bounded by one in magnitude. On a box, $\sin$ is monotone between consecutive critical points, so its range is the hull of the end values unless a critical point lies inside, where it attains $\pm1$; a test that says ``may lie inside'' whenever it cannot prove otherwise can only widen the result. The implementation takes $n$ as the nearest integer to $x$ over the midpoint of $H$, which only affects $\rho$, and refuses $\rho>\pi/2+0.02$.
+\end{proof}
+
+\paragraph{Lemma A.4 ($\Gamma$ by Spouge's formula)}
+Let $a=20$ and $w\ge0$ real. Then, with $c_0=\sqrt{2\pi}$ and $c_k=(-1)^{k-1}(a-k)^{k-1/2}e^{a-k}/(k-1)!$ for $1\le k\le a-1$,
+\[
+\Gamma(w+1)=(w+a)^{w+1/2}e^{-(w+a)}\Bigl[c_0+\sum_{k=1}^{a-1}\frac{c_k}{w+k}+\varepsilon_a(w)\Bigr],\qquad|\varepsilon_a(w)|\le a^{-1/2}(2\pi)^{-(a+1/2)}
+\]
+\citep{Spouge94}. The implementation encloses each $c_k$, the sum and the prefactor by the natural extension, with $(w+a)^{w+1/2}$ as $\exp((w+\tfrac12)\log(w+a))$, and widens the bracket by $\bar\varepsilon$, the upper end of $10\,a^{-1/2}(2\pi)^{-(a+1/2)}$ computed in interval arithmetic from the enclosure of $\pi$---a tenfold margin, which cannot cost soundness. For $0.4<z<1$ it uses $\Gamma(z)=\Gamma(z+1)/z$; for a box of width above $10^{-3}$ it uses that $\Gamma$ is log-convex on $(0,\infty)$ with its minimum in $[1.4616,1.4617]$, so the maximum over a box is at an end and the minimum at the interior minimum when the box straddles it, else at the nearer end; a value beyond the doubles is refused.
+
+
+\paragraph{Lemma A.5 ($\ln\Gamma$, $\psi$, $\psi'$)}
+For real $z\ge20$ and $m=8$, with $B_{2k}$ the Bernoulli numbers,
+\begin{align*}
+\ln\Gamma(z)&=(z-\tfrac12)\ln z-z+\tfrac12\ln2\pi+\sum_{k=1}^{m}\frac{B_{2k}}{2k(2k-1)z^{2k-1}}+R_0, & |R_0|&\le\frac{|B_{2m+2}|}{(2m+2)(2m+1)z^{2m+1}},\\
+\psi(z)&=\ln z-\frac1{2z}-\sum_{k=1}^{m}\frac{B_{2k}}{2k\,z^{2k}}+R_1, & |R_1|&\le\frac{|B_{2m+2}|}{(2m+2)z^{2m+2}},\\
+\psi'(z)&=\frac1z+\frac1{2z^2}+\sum_{k=1}^{m}\frac{B_{2k}}{z^{2k+1}}+R_2, & |R_2|&\le\frac{|B_{2m+2}|}{z^{2m+3}}.
+\end{align*}
+
+\begin{proof}
+Binet's second formula~\citep[\S5.9]{DLMF} writes $\ln\Gamma(z)-(z-\tfrac12)\ln z+z-\tfrac12\ln2\pi$ as $2\int_0^\infty\arctan(t/z)/(e^{2\pi t}-1)\,dt$, and its derivatives give $\psi$ and $\psi'$ with the integrands $t/((t^2+z^2)(e^{2\pi t}-1))$ and $t/((t^2+z^2)^2(e^{2\pi t}-1))$. Expanding $\arctan(s)$, $1/(1+s)$ and $1/(1+s)^2$ to $m$ terms leaves remainders bounded by $s^{2m+1}/(2m+1)$, $s^{m}$ and $(m+1)s^{m}$ for every $s\ge0$, and $\int_0^\infty t^{2k-1}/(e^{2\pi t}-1)\,dt=|B_{2k}|/(4k)$; the bounds follow term by term, and for real positive argument the remainder after $m$ terms is bounded by the first omitted term~\citep[\S5.11(ii)]{DLMF}. The implementation lifts an argument below 20 by $\Gamma(z+1)=z\Gamma(z)$, $\psi(z+1)=\psi(z)+1/z$, $\psi'(z+1)=\psi'(z)-1/z^2$, each step in interval arithmetic, so every tail is below $10^{-23}$ and is added as a pad. Over a box, $\psi$ is increasing and $\psi'$ decreasing, so each is enclosed by its ends; $\ln\Gamma$ is convex (Bohr--Mollerup), decreasing to its minimum at $x^*=1.4616\ldots$ and increasing after it, so a box on one side of $x^*$ is enclosed by its ends, and a box across $x^*$ has, for any $p>0$ and every $x$ in it, $\ln\Gamma(x)\ge\ln\Gamma(p)+\psi(p)(x-p)\ge\ln\Gamma(p)-|\psi(p)|\max(p-\underline x,\overline x-p)$: a lower end proved from the enclosures at $p$, which the implementation takes at a double near $x^*$.
+\end{proof}
+
+\paragraph{Lemma A.6 (the regularized incomplete gamma)}
+For $a>0$ and $z>0$, $P(a,z)=\dfrac{z^{a}e^{-z}}{\Gamma(a+1)}\sum_{n\ge0}t_n$ with $t_0=1$ and $t_{n+1}=t_n\,z/(a+n+1)$. If $r_N=z/(a+N+1)<1$ then $0\le\sum_{n>N}t_n\le t_N\,r_N/(1-r_N)$.
+
+\begin{proof}
+The ratios $t_{n+1}/t_n=z/(a+n+1)$ decrease in $n$, so for $n\ge N$ they are at most $r_N$ and the tail is bounded by the geometric series. The implementation stops at the first $N$ with $r_N<0.95$ and tail below $10^{-18}$ of the sum (or refuses after $40{,}000$ terms), rescales the running term and sum by $10^{250}$ when the sum passes it, takes the prefactor in logarithms by Lemma A.1, Lemma A.2, Lemma A.5, and states a value whose logarithm is certainly below $-708$ as $[0,10^{-307}]$ rather than underflowing. Over a box, $P$ increases in $z$ and decreases in $a$, so it is enclosed by two corners; $P^{-1}(a,p)$ is enclosed by a bisection in which an end moves only where the sign of $P(a,z)-p$ is certain, and increases in both $a$ and $p$.
+\end{proof}
+
+\paragraph{Lemma A.7 (Bessel $J_\nu$)}
+For $\nu>-0.6$ and $x>0$, $J_\nu(x)=\sum_{m\ge0}t_m$ with $t_0=(x/2)^{\nu}/\Gamma(\nu+1)$ and $t_{m+1}=-t_m\,(x/2)^2/((m+1)(\nu+m+1))$. If $q=(x/2)^2/((M+2)(\nu+M+2))<1$ then $\bigl|\sum_{m>M}t_m\bigr|\le|t_{M+1}|/(1-q)$. For $0\le x\le1$ a box containing zero is enclosed by $[\max(0,1-x^2/4),1]$ when $\nu=0$ and by $[0,(x/2)^{\nu}/\Gamma(\nu+1)]$ when $\nu>0$.
+
+\begin{proof}
+Beyond $M+1$ the magnitude ratios are at most $q$, so the tail is a geometric series; for the box containing zero, the series alternates with decreasing terms when $x^2\le4(\nu+1)$, which $x\le1$ guarantees, so the first two partial sums bracket it. The implementation uses $M=40$, takes $t_0$ by Lemma A.4 and the exact ratios, and refuses when $q\ge1$. For $J_\nu'$ the terms carry the factor $(2m+\nu)/2$, whose ratio of consecutive values is $1+2/(2m+\nu)\le1.026$ for $m\ge M=40$ and $\nu>-0.6$, so with $q\le0.9$ the magnitude ratios are at most $1.026q$ and $1/(1-1.026q)\le2/(1-q)$; the implementation uses that bound and refuses $q>0.9$.
+\end{proof}
+
+\paragraph{Lemma A.8 (erf, erfc)}
+For $|z|\le2$ and $N=40$,
+\[
+\operatorname{erf}z=\frac{2}{\sqrt\pi}\Bigl[\sum_{k=0}^{N}\frac{(-1)^k z^{2k+1}}{k!\,(2k+1)}+T\Bigr],\qquad |T|\le a_{N+1}=\frac{|z|^{2N+3}}{(N+1)!\,(2N+3)}.
+\]
+For $x\ge1$, $\sqrt\pi\,e^{x^2}\operatorname{erfc}x=1/(x+\tfrac12/(x+1/(x+\tfrac32/(x+\cdots))))$, Laplace's continued fraction~\citep[7.9.2]{DLMF}, whose consecutive convergents bracket its value.
+
+\begin{proof}
+The magnitudes $a_k=|z|^{2k+1}/(k!(2k+1))$ satisfy $a_{k+1}/a_k=z^2(2k+1)/((k+1)(2k+3))<1$ for $k\ge2$ when $|z|\le2$, so the alternating series bound applies after $N\ge2$ terms. The implementation adds $(2/\sqrt\pi)\,a_{N+1}$ as a symmetric pad, with $\sqrt\pi$ from the enclosure of $\pi$. The continued fraction has positive partial numerators and denominators for $x>0$, so its even convergents increase, its odd convergents decrease, and the value lies between any two consecutive ones~\citep[Thm.~1.5.1 and \S13.2]{Cuyt08}; the implementation evaluates the 80th and 81st convergents in interval arithmetic and takes their hull. $\Phi(z)=\tfrac12\operatorname{erfc}(-z/\sqrt2)$ is pieced from the two: the series for $|z/\sqrt2|\le2$ and the fraction beyond $1$ in magnitude, the overlap decided by the series; $\Phi^{-1}$ is enclosed by a bisection that moves an end only on a certified sign.
+\end{proof}
+
+\paragraph{Derivatives and sums} The derivatives of these functions that the certifiers use ($\nabla G$ in the mean-value form, the Hessians of \cref{prop:max}) are obtained by forward differentiation over the same arithmetic or, for the gamma family, by the series of Lemma A.5 written in the shape parameter so that nothing is divided by it near the lognormal limit (S3). Long sums are enclosed by Sum2 with the bound of the Sum2 bound.
+
+\section*{S2. Thresholds}
+
+\begin{proof}[Proof of the threshold proposition (main text, Proposition 4)]
+Soundness gives $\Tp(m)$ in the first case and $\Fp(m)$ in the second, and the monotone-truth assumption extends them to the half-lines. In the third case the two proved witnesses show that neither $\Tp(m)$ nor $\Fp(m)$ holds; by the monotone-truth assumption, $\Tp(p)$ fails for every $p\ge m$ and $\Fp(p)$ fails for every $p\le m$, so $p_T\le m\le p_F$.
+\end{proof}
+
+\paragraph{An operating choice}
+Where $p$ enters additively, $g(x;p)=p+h(x)$ on a fixed box, no bisection is needed: an enclosure $[\underline h,\overline h]$ of $h$ over $B$ gives $\Tp(p)$ for every $p\le c-\overline h$ and $\Fp(p)$ for every $p>c-\underline h$, and the gate reports these two values rounded outward to the precision printed (a tenth of a bar for the pump pressure), every step in directed rounding: the subtractions stepped outward, the product by ten stepped outward, then the floor of the lower bound and the ceiling of the upper one. The gap between them is the width of the enclosure.
+
+\paragraph{A measurement that narrows the box}
+Let $p$ be the lower end of the declared interval of one input, so that $B(p')\subseteq B(p)$ whenever $p\le p'$: raising $p$ is what a measurement showing ``the roughness is at least $p$'' would do. Here the half of the monotone-truth assumption for $\Tp$ fails: as the box shrinks with $p$, truth propagates upward, not downward, and the threshold is an infimum, resting on soundness and nesting alone.
+
+\begin{proposition}[nested boxes]\label{prop:nested}
+Let the hypothesis of the soundness proposition hold. If the claim is certified over $B(p_0)$, then $\Tp(p)$ holds for every $p\ge p_0$, and $p^*=\inf\{p:\Tp(p)\}\le p_0$. The same holds for an epistemic refutation and $\Fp$; a universal refutation is not kept, because its counterexample may lie outside the smaller box.
+\end{proposition}
+\begin{proof}
+By the soundness proposition, $\varphi$ holds at every point of $B(p_0)$, and $B(p)\subseteq B(p_0)$ for $p\ge p_0$. For an epistemic refutation the argument is the same with $\neg\varphi$.
+\end{proof}
+
+If the claim is certified at the declared upper end, the gate bisects for sixteen steps over the two-valued question ``is the claim certified over $B(m)$?'': a certified midpoint lowers the upper end of the search, and any other outcome---a refutation, a split or an unresolved refusal---raises its lower end, so the search never stalls. The upper end, rounded up to the precision printed, is a proved sufficient measurement by \cref{prop:nested}; the lower end proves nothing, since the gate decides each $B(m)$ afresh and a midpoint can fail through the depth budget alone. The rock-physics engine bisects for ten steps, one-sidedly, on whether a proved violating witness is found as the parameter moves, and reports the end at which one was proved. A two-sided bracket of $p_T$ and $p_F$ by bisection in the operating-choice case is not implemented and not described.
+
+\paragraph{How each instance verifies the hypotheses}
+The flow-line gate's box is fixed by declaration and its rule is $P_d+h(x)\le c$ with $h$ the friction and hydrostatic terms, which do not depend on the pump pressure, so the monotone-truth assumption holds by construction and the closed form applies; its roughness and viscosity thresholds raise a lower end, so the boxes are nested by construction and \cref{prop:nested} applies with no monotonicity needed. The rock-physics engine moves one declared end and decides each box afresh, nested by construction. The likelihood certifier and the universal branch-and-bound declare no parameter and report no threshold.
+
+\section*{S3. The certifiers in detail}
+
+\paragraph{A zero, exactly one}
+\begin{theorem}[Krawczyk~\citep{Krawczyk69,Neumaier90,Rump10}]\label{thm:krawczyk}
+Let $f:D\subseteq\R^n\to\R^n$ be continuously differentiable, $X\subseteq D$ a box, $\hat x\in X$, $Y$ a nonsingular matrix and $F'(X)$ an interval extension of the Jacobian over $X$. If $K(X)=\hat x-Yf(\hat x)+(I-YF'(X))(X-\hat x)\subseteq\operatorname{int}X$, then $f$ has exactly one zero in $X$.
+\end{theorem}
+The certifier takes $\hat x$ from a floating-point search and $Y$ as an approximate inverse of the Jacobian at $\hat x$, evaluates $K(X)$ with every datum enclosed by its neighbouring doubles, and inflates $X$ for at most a fixed number of rounds (twelve for a likelihood) and below a radius cap; if the inclusion never holds the zero is refused (``no contraction''). A sibling certifier for fixed points in weighted sequence spaces uses the radii-polynomial form of the same argument~\citep{vandenBergLessard15} and requires the contraction factor to be proved below one.
+
+\paragraph{A maximum in a box}
+\begin{proposition}\label{prop:max}
+Let $\ell$ be twice continuously differentiable on a convex box $X$, let $\nabla\ell$ have exactly one zero $\theta^*$ in $X$, and let the Hessian of $\ell$ be negative definite at every point of $X$. Then $\theta^*$ is the unique maximiser of $\ell$ on $X$.
+\end{proposition}
+\begin{proof}
+A function whose Hessian is negative definite on a convex set is strictly concave there, and a critical point of a strictly concave function is its unique maximiser on the set.
+\end{proof}
+Negative definiteness over the box is proved either by Sylvester's criterion on the interval Hessian $\mathbf{H}(X)$, i.e.\ by enclosures of the leading principal minors satisfying $(-1)^k\det\mathbf{H}_{1:k,1:k}(X)>0$ for $k=1,\dots,n$, for up to three parameters, with the two enclosures of each symmetric entry intersected; or, where the minors are too wide, at the candidate point together with a proof that every symmetric Hessian over $X$ is nonsingular ($|I-A\mathbf{H}(X)|\,\rho<\rho$ componentwise, with $\rho>0$ the half-widths of $X$ and $A$ the approximate inverse used in the Krawczyk step), so that, $X$ being connected and the eigenvalues of symmetric matrices continuous, no Hessian over $X$ can change inertia. The statement is local: that no better maximum exists elsewhere remains the search's claim, and every fit is stated with that scope.
+
+\paragraph{A supremum at a limit}
+\begin{proposition}\label{prop:limit}
+Let $\ell(\mu,\sigma,Q)$ be continuous on $B\times[0,q_1]$ and differentiable in $Q$ on $B\times(0,q_1]$, with $\partial\ell/\partial Q<0$ there. Then $\ell(\mu,\sigma,Q)<\ell(\mu,\sigma,0)$ for every $(\mu,\sigma)\in B$ and $Q\in(0,q_1]$.
+\end{proposition}
+The proof is the mean value theorem. In Prentice's form of the generalized gamma~\citep{Prentice74}, with $Q=1/\sqrt{\alpha}>0$ for the shape $\alpha$, the family reaches the lognormal at $Q=0$, an ordinary point in these coordinates, and the limit is approached from $Q>0$ only; a proof that the $Q$-score is negative over a neighbourhood of the lognormal fit refuses the family at its edge \emph{with the proof}, and the neighbourhood is recorded because the conclusion is local. For $Q\le0.2$ the log-likelihood is written through the entire functions $(e^{t}-1)/t$ and $(e^{t}-1-t)/t^2$ of $t=Qw$ and Binet's series for the gamma-function part (Lemma A.5) as polynomials in $Q$, so nothing is divided by $Q$, $\ell$ is smooth at $Q=0$ and equals the lognormal log-likelihood there; each series is truncated with its tail bound, $|t|^Je^{|t|}/(J+1)!$ and the first omitted Bernoulli term, added outward.
+
+\paragraph{A statement for every input in a box}
+Three reductions are used. \emph{Bisection with a proposer}: the box is split until each piece's enclosure decides, a floating-point heuristic choosing the coordinate and never a verdict, under a depth budget (the termination proposition, \cref{alg:decide}); the engineering gate is the main instance. \emph{Monotone implicit functions}: where a model quantity is the root of an equation monotone in its parameters, its range over the box is bracketed by the roots at two corners, each counted only when the sign of the equation just beyond it is proved; for Colebrook's friction law, $h(x)=x+(2/\ln 10)\ln(a+bx)$ is increasing in $x$, $a$ and $b$, so the root decreases in $a$ and $b$ and every root over the box lies in $[x^*(a_+,b_+),\,x^*(a_-,b_-)]$. \emph{Multilinear forms}:
+\begin{lemma}\label{lem:multilinear}
+Let $f$ be multilinear on a box $X\subset\R^n$. Then $f(X)=[\min_v f(v),\max_v f(v)]$, the minimum and maximum taken over the $2^n$ vertices $v$ of $X$.
+\end{lemma}
+\begin{proof}
+$f$ is affine in each coordinate with the others fixed, so its extremes over an interval of one coordinate are at that coordinate's ends; induction over the coordinates places both extremes at vertices, and $X$ is connected, so every value between is attained.
+\end{proof}
+The kernel checks multilinearity syntactically and evaluates the corners in exact rationals; the enclosure is the exact range ($q=0$ in the convergence-order inequality), and the two extreme corners are the witnesses of a split refusal.
+
+\paragraph{A sign, exactly}
+Orientation predicates $\operatorname{orient}(a,b,c)=\operatorname{sign}\det\bigl(\begin{smallmatrix}b_x-a_x & b_y-a_y\\ c_x-a_x & c_y-a_y\end{smallmatrix}\bigr)$ are evaluated first in double precision and trusted only when the computed magnitude clears a forward-error bound proved for the inputs~\citep[Thm.~2.2 and \S3.1]{Higham02}: with every coordinate a decimal literal of magnitude at most $M=128$ and its double within relative error $u=2^{-53}$ of it, the computed determinant is within $48uM^2\approx8.7\times10^{-11}$ of the determinant of the literals, the conversion included, up to terms of order $u^2M^2$ that the threshold absorbs; a computed magnitude above $10^{-10}$ fixes the sign, and inputs beyond $M$ go to integers directly. Below the threshold the sign is recomputed in integers, each decimal literal scaled to a fixed sixty-four places; a literal needing more is refused. A point on an edge is reported \verdict{on}, an answer a floating-point test does not have~\citep{Yap97}.
+
+\paragraph{A polynomial, nonnegative}
+A claim $p\ge\gamma$ is certified by an identity $p(x)-\gamma=\sum_i c_i\,q_i(x)^2$ with $c_i\in\Q_{\ge0}$ and $q_i\in\Q[x]$, checked by exact coefficient comparison; finding the decomposition is a semidefinite program~\citep{Parrilo03,PeyrlParrilo08} outside the trust path. A separate refuter evaluates $p$ at an exact witness $w$ and refutes if $p(w)<\gamma$. The checker has so far been exercised on worked examples and red controls only; no semidefinite solver is yet wired to it as a proposer.
+
+\paragraph{A minimum of a cosine polynomial}
+Since $\cos(ax)=T_a(\cos x)$ for the Chebyshev polynomial $T_a$, $\min_{x\in\R}\sum_{a\in A}\cos(ax)=\min_{y\in[-1,1]}P_A(y)$ with $P_A=\sum_{a\in A}T_a$. The certifier isolates the critical points with a Sturm chain of the square-free part of $P_A'$ on $[-1025/1024,1025/1024]$, refines each by interval Newton on 192-bit dyadic balls around exact Horner values (with bisection as fallback), encloses $P_A$ on each critical interval using the bound $|T_a''|\le a^2(a^2-1)/3$ on $[-1,1]$ (V.~Markov), adds the endpoints $\pm1$ exactly and returns $[\min_i\underline v_i,\ \min_i\overline v_i]$ over the candidate enclosures, rounded outward. A stronger certificate identifies the minimum as an algebraic number---both endpoint values above the enclosure, so the minimum is a critical value; an exact sign change of the resultant across the enclosure and a Sturm count of one; irreducibility modulo a prime at which the degree does not drop---and is certified only when all of these hold.
+
+\paragraph{A formal proof, built and read}
+A formal certificate is two claims. That the proof is accepted is decided by building it at the pinned commit, with the toolchain and library versions the claimant pinned, and asking the kernel which axioms the result depends on; where the claimant's checker allows it, the proof is replayed by a second kernel written independently of the first~\citep{Comparator,Nanoda}. That the statement proved is the one claimed is not a computation: the statement is read hypothesis by hypothesis against the published theorem and the library's definitions, the reading is recorded with its slips and weak points, and it never issues a verdict of its own---the verdict is the kernel's, scoped by what the reading found absent.
+
+\section*{S4. The decision loop}
+
+\begin{algorithm}[htbp]
+\caption{Deciding a claim $(B,\varphi)$ with $\varphi \equiv \bigwedge_j g_j(x)\le c_j$ (sketch).}
+\label{alg:decide}
+\begin{algorithmic}[1]
+\Require box $B$, interval extensions $G_j$ of $g_j$, reading $\in\{\text{universal},\text{epistemic}\}$, budget $d_{\max}$
+\State pin every input by SHA-256 and refuse on mismatch; record the digests of the certifying modules
+\State decide the $2^n$ corners of $B$ (each the declared decimal enclosed) or proposer points as thin boxes; keep one proved satisfying point as $x^+$ and one proved violating point as $x^-$, or $\bot$ \Comment{the gate; the branch-and-bound has no corner step}
+\If{universal and $x^-\neq\bot$} \Return \REFT{} with witness $x^-$ \EndIf
+\State $\mathcal{Q}\gets\{B\}$; $\mathcal{X}\gets\emptyset$
+\While{$\mathcal{Q}\neq\emptyset$}
+  \State pop $X$ from $\mathcal{Q}$
+  \If{$\sup G_j(X)\le c_j$ for all $j$} \State $\mathcal{X}\gets\mathcal{X}\cup\{X\}$
+  \ElsIf{$\inf G_j(X)>c_j$ for some $j$}
+     \If{universal} \Return \REFT{} with witness $X$ \EndIf
+     \State count $X$ as violating \Comment{epistemic: $\varphi$ false on all of $X$}
+  \ElsIf{depth$(X)<d_{\max}$} \State split $X$ (heuristic choice of coordinate; never a verdict); push the halves
+  \Else \State mark $X$ unresolved
+  \EndIf
+\EndWhile
+\If{$x^-=\bot$ and $\mathcal{X}$ covers $B$} \Return \CERT{} with certificate $(\text{digests},\text{hull of enclosures},\text{counts},\text{falsifier})$ \EndIf
+\If{epistemic and every box was refuted} \Return \REFT \EndIf
+\If{epistemic and $x^+\neq\bot$ and $x^-\neq\bot$} \Return \REFS{} (split) with witnesses $x^+,x^-$, and thresholds if a parameter is declared (the main text) \EndIf
+\State \Return \REFS{} (unresolved) with its reason
+\end{algorithmic}
+\end{algorithm}
+In the gate the epistemic refutation is decided by a second pass over the box only when no satisfying corner was proved; the universal branch-and-bound keeps no corners and refutes nothing, since its claims are bounds that either certify or exhaust the budget.
+
+\section*{S5. Reproduction}\setcounter{table}{0}
+
+Each headline result re-derives with the command beside it in \cref{tab:repro}, on the laptop of the benchmark of the main text unless the row says otherwise; each command that fetches a claimant's file refuses it unless it matches the pinned digest, and each battery fails unless its red controls fire.
+
+\begin{table}[h]\centering\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.20\linewidth}L{0.36\linewidth}L{0.29\linewidth}L{0.11\linewidth}@{}}\toprule
+result & command & expected & time \\\midrule
+the benchmark, re-derived & \url{node tools/run-selfaudit-mutations.js --check} & the campaign's totals and every mutant's outcome identical to the record & \MtSaMinutes{} min \\
+the records under two profiles & \url{node tools/run-selfaudit.js --check} & every record identical to its pin outside stamps & \MtSaRunWallMinutesExt{} min \\
+the concordance & \url{node tools/run-selfaudit-concord.js --check} & \MtSaConcord{} comparisons, none in disagreement & seconds \\
+the kernel against Arb & \url{node tools/audit-kernel-arb.js --check} & no violation; every malformed input refused; both planted kernels caught & \MtArbSeconds{} s for the record \\
+planted claims & \url{node tools/run-method-eval.js --check} & every false claim refuted, every true one certified, every malformed one refused & \MtEvSeconds \\
+the register as of \MtRunDate{} (\MtRunRows{} rows) & the rerun kit, \url{RERUN.md} & \MtRunMoved{} rows moved, \MtRunFailed{} failed & \MtRunMinutes{} min \\
+kissing, $d = 25$, 27 & \url{python3 tools/run-kissing-wave.py --only qiushi-25,qiushi-27} & \vC; the constructions rebuilt from the repository's files & as recorded \\
+kissing, $d = 32$--39 & \url{python3 tools/run-kissing-configs.py <d>} & \vC; the pairs and contacts of the record & as recorded \\
+kissing, $d = 49$--55 & \url{tools/runpod-qiushi-lifting.sh}, on a CUDA machine & the calibration on 32 and 39 first, then \vC & \MtKwGpuHours{} GPU-hours \\
+the registry's certificates & \url{python3 tools/verify_sumdiff.py}; \url{node tools/verify_fei.js} & \vC; their red controls refuted or refused & seconds \\
+the registry's queue & \url{python3 -I tools/run-optq-ledger.py} & \MtRqComputedCertified{} \vC\ by computation, \MtRqRefused{} \vF & \MtRqSeconds{} s \\
+Navier--Stokes & the build that \url{corpus/navier-stokes/build.json} records & both challenge theorems accepted; only the standard axioms & \MtNsBuildMinutes{} min \\
+the release's challenges & \url{.github/workflows/openai-math-kernel.yml} & \MtOaCertified{} accepted by both kernels, \MtOaRefused{} refused for resources & hosted runners \\
+the engineering gate & \url{node apps/contraprova/gate/battery.js} & \GChecks{} checks, \GReds{} red controls fired, the reference inside the enclosures at \GRefPoints{} inputs & seconds \\
+the likelihood certifier & \url{node instruments/hseva/battery.js} & \HsevaChecks{} checks; the atlas and the ledger written by the code on disk & minutes \\
+\bottomrule\end{tabular}
+\caption{Each headline result, the command that re-derives it, what it must print, and what it took (the times are those the records hold).}\label{tab:repro}
+\end{table}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{cert-machine-method}
+
+\end{document}
