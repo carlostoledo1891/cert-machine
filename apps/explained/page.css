@@ -121,7 +121,7 @@ body.easy{overflow-x:hidden}
 .easy .word p{font-size:var(--text-small);color:var(--ink-3);margin:0;line-height:1.6}
 /* bars */
 .easy .bars{display:grid;gap:8px;margin:14px 0 0}
-.easy .bar{display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .bar{--w:0;display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
 .easy .bar .t{height:8px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
 .easy .bar .t i{display:block;height:100%;width:0;background:var(--c-s4);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
 .easy .bar.lo .t i{background:var(--c-s2)}

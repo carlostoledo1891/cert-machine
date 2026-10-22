@@ -1,0 +1,10 @@
+/* the Uirapuru story — the easy read's sheet (apps/explained/page.css) plus the forest grids and the asking list */
+.easy .forest{padding:12px 12px 8px}
+.easy .forest svg{display:block;width:100%;height:auto}
+.easy .ask{display:grid;gap:8px;margin:0 0 12px}
+.easy .ask .q{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:start;padding:12px 14px;border:1px solid var(--rule);border-radius:var(--radius-s);background:var(--paper)}
+.easy .ask .q .s{font-size:var(--text-small);color:var(--ink-2);line-height:1.5}
+.easy .ask .q .a{grid-column:1/-1;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.65;color:var(--ink-3);white-space:pre-wrap;display:none}
+.easy .ask .q.on .a{display:block}
+.easy .ask .q.on .ctrl{opacity:.45;pointer-events:none}
+.easy .tblwrap{overflow-x:auto;margin:24px 0 0}

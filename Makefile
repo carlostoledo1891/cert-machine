@@ -37,6 +37,7 @@ site: playground control
 	@$(NODE) apps/swell/build.js
 	@$(NODE) apps/explained/build.js
 	@$(NODE) apps/explained-v1/build.js
+	@$(NODE) apps/uirapuru/build.js
 
 playground:
 	@$(NODE) playground/build.js

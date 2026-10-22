@@ -734,7 +734,7 @@ body.easy{overflow-x:hidden}
 .easy .word p{font-size:var(--text-small);color:var(--ink-3);margin:0;line-height:1.6}
 /* bars */
 .easy .bars{display:grid;gap:8px;margin:14px 0 0}
-.easy .bar{display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .bar{--w:0;display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
 .easy .bar .t{height:8px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
 .easy .bar .t i{display:block;height:100%;width:0;background:var(--c-s4);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
 .easy .bar.lo .t i{background:var(--c-s2)}
@@ -851,7 +851,7 @@ body.easy{overflow-x:hidden}
   </div>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-22  this page built from the records at 341b738c6183"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-22  this page built from the records at c5daedfa7fc4"></div>
   </div>
 </header>
 
@@ -1073,7 +1073,7 @@ body.easy{overflow-x:hidden}
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-22 from the records at commit 341b738c6183</span>
+    <span><b>built</b> 2026-10-22 from the records at commit c5daedfa7fc4</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1083,10 +1083,13 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit 341b738c6183 on 2026-10-22: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit c5daedfa7fc4 on 2026-10-22: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
+/* apps/explained/common.js — the script every story page shares: the error hook the smoke test reads, exact rationals over
+   BigInt (Q, qdec, qdouble), the small DOM helpers, the reveal/progress/rail/count-up, and the cold open's typing log. The
+   builders wrap this and the page's own instruments in one strict IIFE. */
 window.__errs=[];window.addEventListener('error',function(e){window.__errs.push(String(e.message)+' @'+e.lineno+':'+e.colno);});
 /* ---------------- exact rationals over BigInt ---------------- */
 const gcd=(a,b)=>{a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;};
@@ -1114,6 +1117,7 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
  const fmt=l=>{const m=l.match(/^(\S+)\s{2}(.*)$/);return m?'<b>'+esc(m[1])+'</b>  '+esc(m[2]):esc(l)};
  if(reduced){log.innerHTML=lines.map(fmt).join('\n');}
  else{const tick=()=>{if(li>=lines.length){log.innerHTML=lines.map(fmt).join('\n');return;}const l=lines[li];ci++;const done=lines.slice(0,li).map(fmt).join('\n');const m=l.match(/^(\S+)\s{2}(.*)$/);const part=m?'<b>'+esc(m[1])+'</b>  '+esc(m[2].slice(0,Math.max(0,ci-m[1].length-2))):esc(l.slice(0,ci));log.innerHTML=(done?done+'\n':'')+part+cur;if(ci>=l.length){li++;ci=0;setTimeout(tick,420);}else setTimeout(tick,14+Math.random()*22);};setTimeout(tick,900);}}}
+/* apps/explained/page.js — the five instruments of the easy read; runs after common.js inside the builder's IIFE */
 /* ---------------- Instrument 1: decide a bound ---------------- */
 {const v=qdec('0.8241195407');const lo=qdec('0.8240'),hi=qdec('0.8260');let corrupt=false;
  const render=()=>{const t=Number($('w1s').value)/400;const B=lo.add(hi.sub(lo).mul(new Q(Math.round(t*100000),100000)));$('w1b').textContent=B.dec(6);let out;
@@ -1209,7 +1213,7 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
  $('w5paper').addEventListener('click',()=>{$('w5s2').value=-280;$('w5s4').value=-4080;render();});
  $('w5best').addEventListener('click',()=>{$('w5s2').value=Math.round(Number('-0.2863')*1000);$('w5s4').value=Math.round(Number('-4.0971')*1000);render();});
  render();}
-})();
-</script>
+
+})();</script>
 </body>
 </html>

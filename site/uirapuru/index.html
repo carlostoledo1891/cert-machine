@@ -1,0 +1,1121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Uirapuru test · a story · Carlos Toledo</title>
+<meta name="description" content="Someone says there is a blue Uirapuru in the forest. Nobody has seen it. A machine that can call every Uirapuru in a patch, and cannot call a toucan: what cert-machine does, told as a story with four things to touch.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/uirapuru/">
+<meta property="og:url" content="https://carlostoledo.co/uirapuru/">
+<meta property="og:title" content="The Uirapuru test · a story · Carlos Toledo">
+<meta property="og:description" content="Someone says there is a blue Uirapuru in the forest. Nobody has seen it. A machine that can call every Uirapuru in a patch, and cannot call a toucan: what cert-machine does, told as a story with four things to touch.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Uirapuru test · a story · Carlos Toledo">
+<meta name="twitter:description" content="Someone says there is a blue Uirapuru in the forest. Nobody has seen it. A machine that can call every Uirapuru in a patch, and cannot call a toucan: what cert-machine does, told as a story with four things to touch.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+/* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
+   No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
+body.easy{overflow-x:hidden}
+.easy .page{padding-top:0}
+.easy section{margin:clamp(4rem,10vh,7rem) 0 0}
+.easy .act{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-4)}
+.easy .act b{color:var(--ink);font-weight:600}
+.easy .thesis{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.3;letter-spacing:-.02em;color:var(--ink-2);max-width:82ch;margin:0 0 28px}
+.easy .thesis b{color:var(--ink);font-weight:550}
+.easy .grid2{display:grid;grid-template-columns:1fr;gap:28px;align-items:start}
+@media(min-width:960px){.easy .grid2{grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr)}}
+.easy .prose p{max-width:82ch}
+.easy .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;color:var(--ink)}
+/* progress + acts rail */
+.easy .prog{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:40;opacity:.9}
+.easy .rail{position:fixed;right:14px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:30}
+.easy .rail a{width:6px;height:6px;border-radius:50%;background:var(--ink-5);border:0;transition:background .16s,transform .16s}
+.easy .rail a.on{background:var(--ink);transform:scale(1.5)}
+@media(max-width:960px){.easy .rail{display:none}}
+/* reveal */
+.easy .rv{opacity:0;transform:translateY(12px);transition:opacity .52s cubic-bezier(.22,1,.36,1),transform .52s cubic-bezier(.22,1,.36,1)}
+.easy .rv.in{opacity:1;transform:none}
+.easy .rv.d1{transition-delay:.08s}.easy .rv.d2{transition-delay:.16s}.easy .rv.d3{transition-delay:.26s}
+@media(prefers-reduced-motion:reduce){.easy .rv{opacity:1;transform:none;transition:none}.easy *{animation-duration:0s!important}}
+/* the cold open */
+.easy .cold{position:relative;min-height:88vh;display:flex;flex-direction:column;justify-content:center;padding:clamp(72px,12vh,120px) 0 24px}
+.easy .cold h1{max-width:28ch}
+.easy .cold .deck{max-width:66ch}
+.easy .film{position:relative;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden;min-height:168px}
+.easy .film .log{padding:18px 22px;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.75;color:var(--ink-3);white-space:pre-wrap}
+.easy .film .log b{color:var(--ink);font-weight:500}
+.easy .film .log .cur{display:inline-block;width:.55em;height:1.05em;background:var(--ink);vertical-align:-.15em;animation:blink 1s steps(2) infinite}
+@keyframes blink{to{opacity:0}}
+.easy .film .scan{position:absolute;left:0;right:0;top:-2px;height:1px;background:var(--ink);opacity:.45;animation:scan 6s cubic-bezier(.22,1,.36,1) 1.2s 1 both}
+@keyframes scan{from{top:-2px;opacity:.5}to{top:100%;opacity:0}}
+.easy .grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(246,246,248,.025) 0 1px,transparent 1px 3px);opacity:.5}
+/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
+   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
+   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
+   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
+   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
+.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
+.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
+.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
+.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
+.easy .stage .fly i b::before{content:"● ";font-size:.8em}
+.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
+.easy .stage .fly .vd.r b::before{content:"◆ "}
+.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
+.easy .stage .fly .vd.f b::before{content:"▲ "}
+@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
+@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
+.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(max-width:960px){
+  .easy .stage{height:300px}.easy .stage .sl{display:none}
+  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
+  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
+  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
+  .easy .stage .decide{width:6.5rem;height:3.5rem}
+}
+@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
+@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
+@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
+/* the stat strip counts up */
+.easy .stats .v[data-count]{font-variant-numeric:tabular-nums}
+/* panels: an instrument the reader touches */
+.easy .panel{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:20px 22px 18px}
+.easy .panel .pk{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4);margin:0 0 10px}
+.easy .panel .pk b{color:var(--ink);font-weight:600}
+.easy .panel h3{font-size:1.0625rem;margin:0 0 6px}
+.easy .panel p{font-size:var(--text-small);color:var(--ink-3);line-height:1.6;margin:0 0 14px}
+.easy .ctl{display:grid;gap:8px;margin:0 0 10px}
+.easy .ctl label{display:flex;justify-content:space-between;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .ctl label .num{color:var(--ink)}
+.easy input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:0}
+.easy input[type=range]::-webkit-slider-runnable-track{height:2px;background:var(--rule-strong);border-radius:1px}
+.easy input[type=range]::-moz-range-track{height:2px;background:var(--rule-strong);border-radius:1px}
+.easy input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:3px;background:var(--ink);margin-top:-6px;border:0;cursor:pointer}
+.easy input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:3px;background:var(--ink);border:0;cursor:pointer}
+.easy input[type=range]:focus-visible{outline:2px solid var(--ink);outline-offset:4px;border-radius:3px}
+.easy .ctrls{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px}
+.easy .ctrl{font:inherit;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);background:transparent;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:8px 11px;cursor:pointer;transition:border-color .16s,background .16s}
+.easy .ctrl:hover{border-color:var(--ink)}
+.easy .ctrl.on,.easy .ctrl[aria-pressed=true]{background:var(--sig-soft);border-color:var(--ink);color:var(--ink)}
+.easy .ctrl:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.easy .out{font-family:var(--f-mono);font-size:var(--text-small);line-height:1.65;color:var(--ink-2);background:var(--paper);border:1px solid var(--rule);border-radius:var(--radius-s);padding:14px 16px;white-space:pre-wrap;word-break:break-word;min-height:5rem;margin:0}
+.easy .out .k{color:var(--ink-4)}
+.easy .out .v{color:var(--ink)}
+/* verdict words in the readouts: weight and shape */
+.easy .w{font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.6875rem;display:inline-block;padding:.3em .7em;border-radius:var(--radius-pill);vertical-align:.08em;margin-right:.35em}
+.easy .w.c{background:var(--ink);color:var(--paper)}
+.easy .w.r{border:1px solid var(--ink);color:var(--ink)}
+.easy .w.f{border:1px dashed var(--ink-4);color:var(--ink-3)}
+.easy .w::before{content:"● ";font-size:.8em}
+.easy .w.r::before{content:"◆ "}
+.easy .w.f::before{content:"▲ "}
+.easy .cap{font-family:var(--f-mono);font-size:var(--text-eyebrow);line-height:1.6;color:var(--ink-4);margin:10px 0 0}
+/* figures of the story */
+.easy .scene{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .scene svg{display:block;width:100%;height:auto}
+.easy .scene svg text{font-family:var(--f-mono)}
+.easy .scene canvas{display:block;width:100%;height:auto}
+.easy #w2svg .mk{transition:transform .45s cubic-bezier(.22,1,.36,1)}
+.easy #w2svg text{font-family:var(--f-mono)}
+.easy .draw path,.easy .draw line{stroke-dasharray:600;stroke-dashoffset:600;transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1)}
+.easy .draw.in path,.easy .draw.in line{stroke-dashoffset:0}
+/* the route of a claim: the house flow figure; on a phone the stations scroll inside the box, the readout stays */
+.easy .flow-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.easy .flow-scroll svg{min-width:640px}
+/* the three words, as cards */
+.easy .words{display:grid;grid-template-columns:1fr;gap:14px;margin:8px 0 22px}
+@media(min-width:720px){.easy .words{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.easy .word{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:16px 18px}
+.easy .word .tag{margin-bottom:10px}
+.easy .word p{font-size:var(--text-small);color:var(--ink-3);margin:0;line-height:1.6}
+/* bars */
+.easy .bars{display:grid;gap:8px;margin:14px 0 0}
+.easy .bar{--w:0;display:grid;grid-template-columns:minmax(6rem,10rem) 1fr 4.5rem;align-items:center;gap:12px;font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3)}
+.easy .bar .t{height:8px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.easy .bar .t i{display:block;height:100%;width:0;background:var(--c-s4);transition:width 1.2s cubic-bezier(.22,1,.36,1)}
+.easy .bar.lo .t i{background:var(--c-s2)}
+.easy .bar.in .t i{width:var(--w)}
+.easy .bar .n{text-align:right;color:var(--ink)}
+.easy .bar.cap{grid-template-columns:1fr;color:var(--ink-4);font-size:var(--text-eyebrow);letter-spacing:.08em;text-transform:uppercase;margin-top:6px}
+/* the sorter */
+.easy .sorter{position:relative;height:220px}
+.easy .sorter .s{position:absolute;width:8px;height:8px;border-radius:2px;background:var(--c-s2);left:50%;top:-10px;transition:transform 1.3s cubic-bezier(.22,1,.36,1),background .5s}
+.easy .sorter .lab{position:absolute;bottom:10px;width:16%;text-align:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.06em;color:var(--ink-4)}
+.easy .sorter .lab b{display:block;font-size:1rem;color:var(--ink);letter-spacing:0}
+/* lineups */
+.easy .lineup{display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));gap:10px;margin:18px 0 0}
+.easy .lineup .b{border:1px solid var(--rule);border-radius:var(--radius-s);padding:12px 14px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-4)}
+.easy .lineup .b b{display:block;font-family:var(--f-display);font-size:1.5rem;letter-spacing:-.02em;color:var(--ink);text-transform:none;margin-bottom:4px;font-weight:530}
+/* the credits */
+.easy .credits{font-family:var(--f-mono);font-size:var(--text-small);line-height:1.9;color:var(--ink-3);display:grid;gap:4px;margin:18px 0 0}
+.easy .credits span b{color:var(--ink);font-weight:500}
+.easy .links{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.easy .links a{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:9px 12px;color:var(--ink-2)}
+.easy .links a:hover{border-color:var(--ink);color:var(--ink)}
+.easy .closing{font-family:var(--f-display);font-weight:550;font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);letter-spacing:-.02em;line-height:1.12;color:var(--ink);margin:0 0 18px;max-width:28ch}
+
+.easy .sub{font-size:.6em;color:var(--ink-4)}
+.easy .mt18{margin-top:18px}
+.easy .h3s{font-size:1rem}
+.easy .read{max-width:82ch}
+
+/* the Uirapuru story — the easy read's sheet (apps/explained/page.css) plus the forest grids and the asking list */
+.easy .forest{padding:12px 12px 8px}
+.easy .forest svg{display:block;width:100%;height:auto}
+.easy .ask{display:grid;gap:8px;margin:0 0 12px}
+.easy .ask .q{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 14px;align-items:start;padding:12px 14px;border:1px solid var(--rule);border-radius:var(--radius-s);background:var(--paper)}
+.easy .ask .q .s{font-size:var(--text-small);color:var(--ink-2);line-height:1.5}
+.easy .ask .q .a{grid-column:1/-1;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.65;color:var(--ink-3);white-space:pre-wrap;display:none}
+.easy .ask .q.on .a{display:block}
+.easy .ask .q.on .ctrl{opacity:.45;pointer-events:none}
+.easy .tblwrap{overflow-x:auto;margin:24px 0 0}
+
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body class="easy">
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<div class="prog" id="prog"></div>
+<nav class="rail" aria-label="acts"><a href="#top" title="The forest"></a><a href="#act1" title="Act I"></a><a href="#act2" title="Act II"></a><a href="#act3" title="Act III"></a><a href="#act4" title="Act IV"></a><a href="#act5" title="Act V"></a><a href="#end" title="Epilogue"></a></nav>
+
+<header class="col cold" id="top">
+  <div class="eyebrow">A story · what cert-machine does, told with birds</div>
+  <h1>Someone says there is a blue Uirapuru in the forest. Nobody has seen it.</h1>
+  <p class="deck">The Uirapuru is a small Amazon bird famous for its song; in the old story the forest falls silent to listen. Imagine a machine that can call every Uirapuru in a patch of forest and look at each one, and that cannot call a toucan at all. That is what cert-machine does for mathematics. The birds here are invented and seeded, the notebook too; the machine is real, and the few real numbers on this page were read from its records when the page was built.</p>
+  <div class="stage" aria-hidden="true">
+    <div class="sl l">claims, as they arrive</div><div class="sl r">words, with the bird or the reason</div>
+    <div class="fly" style="--y:18%;--d:0s"><i class="pub">the Uirapuru at tree 76 is 99 blue</i><i class="vd c"><b>certified</b>the Uirapuru at tree 76 is 99 blue</i></div>
+    <div class="fly" style="--y:32%;--d:1.6s"><i class="pub">every Uirapuru in patch 7 is blue</i><i class="vd r"><b>refuted</b>every Uirapuru in patch 7 is blue</i></div>
+    <div class="fly" style="--y:46%;--d:3.2s"><i class="pub">the toucan at tree 5 has a red beak</i><i class="vd f"><b>refused</b>the toucan at tree 5 has a red beak</i></div>
+    <div class="fly" style="--y:60%;--d:4.8s"><i class="pub">Uirapurus are, roughly, blue</i><i class="vd f"><b>refused</b>Uirapurus are, roughly, blue</i></div>
+    <div class="fly" style="--y:74%;--d:6.4s"><i class="pub">35 of the 144 birds in patch 7 are blue</i><i class="vd c"><b>certified</b>35 of the 144 birds in patch 7 are blue</i></div>
+    <div class="fly" style="--y:88%;--d:8s"><i class="pub">no Uirapuru will ever be bluer than 100</i><i class="vd f"><b>refused</b>no Uirapuru will ever be bluer than 100</i></div>
+    <div class="decide">decide</div>
+  </div>
+  <div class="film" aria-hidden="true">
+    <div class="scan"></div><div class="grain"></div>
+    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at c5daedfa7fc4"></div>
+  </div>
+</header>
+
+<div class="wide"><div class="stats" data-n="4">
+  <div class="stat"><div class="k">claims decided, for real</div><div class="v" data-count="132">132</div><div class="n">107 hold, 24 carry a defect, 59 claimants</div></div>
+  <div class="stat"><div class="k">planted errors, for real</div><div class="v" data-count="572">572</div><div class="n">0 false certifications</div></div>
+  <div class="stat"><div class="k">birds in patch 7</div><div class="v" data-count="144">144</div><div class="n">a seeded toy; 35 of them blue</div></div>
+  <div class="stat"><div class="k">toucans called</div><div class="v">0</div><div class="n">it never could, and says so</div></div>
+</div></div>
+
+<section class="col" id="act1">
+  <div class="sec-head"><div class="act">Act I · <b>the three words a forest can give</b></div><h2>A claim about birds is a sentence the machine can act on.</h2></div>
+  <p class="thesis rv">Strip a claim down to what a machine can check and you get <b>every bird in this patch is at least this blue</b>. The machine calls every bird in the patch, looks at each one, and answers with one of three words.</p>
+  <div class="words rv d1">
+    <div class="word"><span class="tag cert">certified</span><p>Every bird in the patch answered the call, and every one is at least that blue. Shipped with the list of calls and the least blue bird, the one that would have broken the claim.</p></div>
+    <div class="word"><span class="tag dep w-ref">refuted</span><p>One bird answered and it is not blue enough. Shipped with that bird's tree, so anyone can walk there and look.</p></div>
+    <div class="word"><span class="tag open">refused</span><p>The claim cannot be acted on: the patch has no map, "blue" has no number, the bird is a toucan. Shipped with the reason and, where there is one, the number that would change the word.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>The third word is the honest one. A checker that must answer yes or no will guess when it cannot see. This one says why it cannot, and what would let it: name the patch, print the number, bring the recording. That turns the machine into an incentive. Say the number, and the word changes.</p>
+      <p>In the real machine the patch is a box of inputs, "blue" is an inequality with a printed bar, and calling the birds is exact arithmetic: every input, no sampling, no rounding. A glance through binoculars, a floating-point comparison, is never a verdict. It may only prune what is not worth calling, never admit.</p>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 1 · <b>describe your Uirapuru</b></div>
+      <h3>Name the patch, the claim and the number. Watch the call.</h3>
+      <p>Patch 7 of a seeded toy forest: one Uirapuru in every tree, each with a blueness on the field guide's scale, 0 to 100. Choose the shape of the claim and the number that counts as blue.</p>
+      <div class="ctrls"><button class="ctrl on" data-shape="every" aria-pressed="true">every bird</button><button class="ctrl" data-shape="some" aria-pressed="false">at least one bird</button><button class="ctrl" data-shape="none" aria-pressed="false">no bird</button></div>
+      <div class="ctl"><label>trees in the patch <span class="num" id="f1nv">144</span></label><input type="range" id="f1n" min="16" max="400" value="144" aria-label="trees in the patch"></div>
+      <div class="ctl"><label>blue means at least <span class="num" id="f1tv">70</span></label><input type="range" id="f1t" min="0" max="100" value="70" aria-label="the number that counts as blue"></div>
+      <div class="ctrls"><button class="ctrl" id="f1rough" aria-pressed="false">say "roughly" instead of a number</button><button class="ctrl" id="f1amazon" aria-pressed="false">claim the whole Amazon</button></div>
+      <div class="scene forest"><svg id="f1svg" viewBox="0 0 320 320" role="img" aria-label="the patch: one square per tree, darker is bluer; the ringed tree is the bird the verdict names"></svg></div>
+      <pre class="out" id="f1out"></pre>
+      <p class="cap">Darker is bluer. The ring marks the bird the word rests on: the least blue for "every bird", the bluest for the other two. The forest is seeded, so patch 7 is the same for every reader, and the call is a loop over every tree in whole numbers. Nothing is sampled.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act2">
+  <div class="sec-head"><div class="act">Act II · <b>which tree?</b></div><h2>The claimant wrote 0.3 m. Which tree is that?</h2></div>
+  <p class="thesis rv">Every number a claimant prints is exact, as printed. The number their computer <b>meant</b> is usually a binary double, and the two can differ by less than the width of a feather. In a forest with a tree every ten centimetres, that is the difference between on the tree and just before it.</p>
+  <div class="grid2">
+    <div class="panel rv d1">
+      <div class="pk">Instrument 2 · <b>read the map twice</b></div>
+      <h3>One printed position, two readings.</h3>
+      <p>Trees stand at 0.0, 0.1, 0.2 … 1.0 metres. The claimant prints the bird's position with one decimal. Read it as the decimal it is, then as the double it denotes, and decide whether the bird is on the tree.</p>
+      <div class="ctl"><label>printed position, metres <span class="num" id="f2kv">0.3</span></label><input type="range" id="f2s" min="1" max="9" value="3" aria-label="the printed position, in tenths of a metre"></div>
+      <div class="scene"><svg id="f2svg" viewBox="0 0 320 84" role="img" aria-label="a row of trees; the printed reading on a tree, the double reading a hair before it, exaggerated"></svg></div>
+      <pre class="out" id="f2out"></pre>
+      <p class="cap">The decimal 0.3 is exactly three tenths. The double nearest 0.3 is a hair less, so under that reading the bird is a hair before the tree. Only 0.5 is the same number both ways. The gap in the drawing is exaggerated by a factor of ten to the seventeenth; the arithmetic is exact.</p>
+    </div>
+    <div class="prose rv d2">
+      <p>That is not a curiosity. On one real record, 605 points claimed in dimension eleven, the printed digits put <span class="num">9,510</span> pairs of points too close together and the doubles those digits denote put <span class="num">9,480</span>. Both readings refuted the record; the counts differ because the reading is part of the verdict.</p>
+      <p>So every claim the machine decides carries a sentence saying how the bytes were read, and when a platform's own checker reads them another way, that is written down too. A verdict without its reading is a bird without a tree.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act3">
+  <div class="sec-head"><div class="act">Act III · <b>the painted birds</b></div><h2>We tried to fool it.</h2></div>
+  <p class="thesis rv">How do you test a judge of birds? <b>Plant birds whose truth you know, and count the ones it gets wrong.</b> Paint one, move one, put a toy in a tree, cut a tree down.</p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>The real machine was tried this way <span class="num">572</span> times on <span class="num">97</span> published objects, with the plan registered before the paper was written and a kill switch declared in advance. It said <span class="tag cert">certified</span> to a false claim <span class="num">0</span> times and <span class="tag dep w-ref">refuted</span> to a true one <span class="num">0</span> times. It found two defects of its own on the way, both fixed on the record.</p>
+      <p>The toy on the right is the same idea in a patch of 36 trees. A painted bird must flip the word. A swap must not. A toy in a tree and a missing tree must refuse, because nothing is decided until the patch is the one the claim is about. In the toy the judge and the witness share one arithmetic; in the real audit they do not, which is the point of the audit.</p>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 3 · <b>plant a bird</b></div>
+      <h3>Patch 3, 36 trees. The claim: every bird is at most 70 blue.</h3>
+      <p>As seeded, the claim holds. Change the forest and watch the word.</p>
+      <div class="ctrls"><button class="ctrl" data-m="paint">paint tree 14 blue 95</button><button class="ctrl" data-m="swap">swap trees 5 and 22</button><button class="ctrl" data-m="toy">a toy in tree 20</button><button class="ctrl" data-m="drop">cut the last tree down</button><button class="ctrl" data-m="reset">reset</button></div>
+      <div class="scene forest"><svg id="f3svg" viewBox="0 0 320 320" role="img" aria-label="patch 3: six by six trees; a dashed square is a toy; the ringed tree is the bird the verdict names"></svg></div>
+      <pre class="out" id="f3out"></pre>
+      <p class="cap">The counter is the toy's. The real count, 572 tries and 0 false certifications, is in the self-audit, linked at the end.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="act4">
+  <div class="sec-head"><div class="act">Act IV · <b>ten quadrillion calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
+  <p class="thesis rv">In the real machine, one wave of <b>19 record claims</b> meant 9.75·10¹⁵ pairs of points to call. It took a rented graphics card 6.8 hours and $8.15, and every call was exact.</p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>The trick is old. A bird's blueness is a whole number, and whole numbers add exactly as long as the sum stays on the page of the ledger you are writing in. A half-precision ledger holds whole numbers below 2,048; a single-precision one below 16,777,216. Check, before the run, that no flock in the patch can run off the page, write that check into the code, and a card built for guessing becomes an engine for counting. The slowest ledger, arbitrary precision, is kept for the flocks that need it.</p>
+      <p>A seeded sample of every patch was counted again by a program that shares no code with the fast one, and the two agreed on every count. The real ruler, with the real numbers, is on the easy read.</p>
+    </div>
+    <div class="wide rv d2"><div class="stats" data-n="3">
+      <div class="stat"><div class="k">pairs called</div><div class="v">9.75·10¹⁵</div><div class="n">9,752,282,639,769,360 exactly; 6,716,665,650,099 at exactly sixty degrees</div></div>
+      <div class="stat"><div class="k">the bill</div><div class="v">$8.15</div><div class="n">one NVIDIA L40S at $1.09 an hour</div></div>
+      <div class="stat"><div class="k">guesses</div><div class="v">0</div><div class="n">one inequality per path, checked against the data first</div></div>
+    </div></div>
+  </div>
+</section>
+
+<section class="col" id="act5">
+  <div class="sec-head"><div class="act">Act V · <b>the toucans</b></div><h2>What the machine cannot hear.</h2></div>
+  <p class="thesis rv">The machine can call Uirapurus. It cannot see, hear or call a toucan. It cannot call every bird in the Amazon, nor any bird forever. And it cannot judge a song from a recording it was not given. <b>When it cannot, it says so, and says what would let it.</b></p>
+  <div class="grid2">
+    <div class="prose rv d1">
+      <p>In 2026 a language model wrote a proof about all the zeros of a famous function, a statement about infinitely many birds at once. Two mathematicians checked it; a proof assistant checked it. Most of it is toucan territory for this machine: <span class="num">65</span> sentences, of which <span class="num">10</span> are claims about a finite patch. Those it decided. One rests on a recording the paper calls "available from the authors". The word there is refused, and the ask is the file.</p>
+      <p>A refusal is not a shrug. It names the rule that stopped the call, and where a number would change the word, it prints the number. The machine has never found a bird. It has looked at every bird someone claimed, and said which claims hold, which do not, and which it cannot judge, with the tree, the list of calls or the reason attached.</p>
+    </div>
+    <div class="panel rv d2">
+      <div class="pk">Instrument 4 · <b>ask the machine</b></div>
+      <h3>Ten sentences. Which can it act on?</h3>
+      <p>Each sentence is asked of patch 7 by the same call as Instrument 1, or refused with the rule.</p>
+      <div class="ask" id="ask"></div>
+      <div class="ctrls"><button class="ctrl" id="askall">ask all ten</button></div>
+      <p class="cap">Four refusals, each with its reason and, where there is one, the number that would change the word; the rest decided over patch 7 as seeded.</p>
+    </div>
+  </div>
+</section>
+
+<section class="col" id="end">
+  <div class="sec-head"><div class="act">Epilogue · <b>bring the recording</b></div><h2>A referee that never guesses must say, out loud, where it stops.</h2></div>
+  <p class="closing rv">Refusal is a verdict.</p>
+  <p class="read rv d1">That is the whole of it. A claim is a sentence about a patch. The machine calls every bird in the patch, exactly, and answers with one of three words and what justifies it. Where it cannot call, it says why, and what would let it. The table below says what each thing in the story stands for, with the real number beside it.</p>
+  <div class="tblwrap rv d2"><div class="wide"><div class="tw"><table><thead><tr><th>in the story</th><th>in the machine</th><th>on the record</th></tr></thead><tbody><tr><td class="k">a Uirapuru</td><td>an object a program can enumerate and decide exactly</td><td>132 claims from 59 claimants in the register</td></tr><tr><td class="k">the patch</td><td>the box of inputs the claim is made over</td><td>every claim names one, or is refused</td></tr><tr><td class="k">blue, at least 70</td><td>an inequality with a printed number</td><td>the number read as the exact rational its digits mean</td></tr><tr><td class="k">calling every bird</td><td>exact arithmetic over every input, no sampling</td><td>9.75·10¹⁵ pairs decided in one wave, 6,716,665,650,099 at exactly sixty degrees</td></tr><tr><td class="k">the bird&#39;s tree</td><td>the witness shipped with a refutation</td><td>24 defects on record, each with its witness</td></tr><tr><td class="k">the painted birds</td><td>the self-audit&#39;s planted errors</td><td>572 tries, 0 false certifications</td></tr><tr><td class="k">the two readings of 0.3</td><td>the printed digits and the double they denote</td><td>9,510 and 9,480 violating pairs on the 605-point record</td></tr><tr><td class="k">a toucan</td><td>a claim with no exact decider</td><td>refused, with the reason</td></tr><tr><td class="k">every bird, forever</td><td>a theorem</td><td>refused; left to proofs and proof assistants</td></tr><tr><td class="k">the recording</td><td>a file the public cannot read</td><td>refused; the ask is the file</td></tr></tbody></table></div></div></div>
+  <div class="links rv d2">
+    <a href="/explained/">the easy read, with the real instruments</a>
+    <a href="/paper/cert-machine-method.pdf">the method paper</a>
+    <a href="/reports/selfaudit.html">the self-audit</a>
+    <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
+  </div>
+</section>
+
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit c5daedfa7fc4 on 2026-10-22, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<script>
+(function(){
+'use strict';
+/* apps/explained/common.js — the script every story page shares: the error hook the smoke test reads, exact rationals over
+   BigInt (Q, qdec, qdouble), the small DOM helpers, the reveal/progress/rail/count-up, and the cold open's typing log. The
+   builders wrap this and the page's own instruments in one strict IIFE. */
+window.__errs=[];window.addEventListener('error',function(e){window.__errs.push(String(e.message)+' @'+e.lineno+':'+e.colno);});
+/* ---------------- exact rationals over BigInt ---------------- */
+const gcd=(a,b)=>{a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a;};
+class Q{constructor(n,d=1n){n=BigInt(n);d=BigInt(d);if(d<0n){n=-n;d=-d;}const g=gcd(n,d)||1n;this.n=n/g;this.d=d/g;}
+ add(o){return new Q(this.n*o.d+o.n*this.d,this.d*o.d)} sub(o){return new Q(this.n*o.d-o.n*this.d,this.d*o.d)} mul(o){return new Q(this.n*o.n,this.d*o.d)} div(o){return new Q(this.n*o.d,this.d*o.n)}
+ toString(){return this.d===1n?String(this.n):this.n+'/'+this.d} cmp(o){const l=this.n*o.d,r=o.n*this.d;return l<r?-1:l>r?1:0} sign(){return this.n<0n?-1:this.n>0n?1:0} neg(){return new Q(-this.n,this.d)} abs(){return this.n<0n?this.neg():this}
+ dec(k,up){const neg=this.n<0n,a=neg?-this.n:this.n,s=10n**BigInt(k);let q=(a*s)/this.d;const rem=(a*s)%this.d;if(up&&rem!==0n&&!neg)q+=1n;const t=q.toString().padStart(k+1,'0');return (neg?'-':'')+t.slice(0,-k)+'.'+t.slice(-k)}
+ sci(m){if(this.n===0n)return '0';let v=this.abs(),e=0;const ten=new Q(10n);while(v.cmp(new Q(1n))<0){v=v.mul(ten);e--;}while(v.cmp(ten)>=0){v=v.div(ten);e++;}const sup=String(e).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);return (this.n<0n?'−':'')+v.dec(m)+'·10'+sup}}
+const qdec=s=>{s=String(s).trim();let m;if((m=s.match(/^(-?\d+)\/(\d+)$/)))return new Q(m[1],m[2]);if((m=s.match(/^(-?)(\d+)\.(\d+)$/)))return new Q((m[1]+m[2]+m[3]).replace(/^(-?)0+(?=\d)/,'$1'),10n**BigInt(m[3].length));if((m=s.match(/^-?\d+$/)))return new Q(s);throw new Error('not a decimal: '+s)};
+const qdouble=x=>{const dv=new DataView(new ArrayBuffer(8));dv.setFloat64(0,x);const bits=dv.getBigUint64(0);const sign=bits>>63n?-1n:1n;const exp=Number((bits>>52n)&0x7ffn);let man=bits&((1n<<52n)-1n);if(exp===0)return new Q(sign*man,1n<<1074n);man|=1n<<52n;const e=exp-1075;return e>=0?new Q(sign*man*(1n<<BigInt(e))):new Q(sign*man,1n<<BigInt(-e))};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+const W=(k,t)=>'<span class="w '+k+'">'+t+'</span>';
+const K=t=>'<span class="k">'+t+'</span>',V=t=>'<span class="v">'+t+'</span>';
+const group=s=>String(s).replace(/\B(?=(\d{3})+(?!\d))/g,',');
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+/* ---------------- reveal, progress, rail, count-up, draw-in ---------------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.rv,.bar,.draw').forEach(el=>io.observe(el));
+const prog=$('prog');const dots=[...document.querySelectorAll('nav.rail a')];const secs=dots.map(a=>document.querySelector(a.getAttribute('href')));
+addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width=(100*h.scrollTop/(h.scrollHeight-h.clientHeight))+'%';let cur=0;secs.forEach((s,i)=>{if(s&&s.getBoundingClientRect().top<innerHeight*.45)cur=i;});dots.forEach((d,i)=>d.classList.toggle('on',i===cur));},{passive:true});
+{const ioc=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;ioc.unobserve(e.target);const el=e.target,to=Number(String(el.dataset.count).replace(/,/g,''));if(reduced||!Number.isFinite(to))return;const t0=performance.now(),dur=1100;const step=now=>{const u=Math.min(1,(now-t0)/dur),k=1-Math.pow(1-u,3);el.textContent=group(Math.round(to*k));if(u<1)requestAnimationFrame(step);};requestAnimationFrame(step);}),{threshold:.6});document.querySelectorAll('[data-count]').forEach(el=>ioc.observe(el));}
+/* ---------------- the cold open: a log that types itself ---------------- */
+{const log=$('log');if(log){const lines=log.dataset.lines.split('|');let li=0,ci=0,out='';const cur='<span class="cur"></span>';
+ const fmt=l=>{const m=l.match(/^(\S+)\s{2}(.*)$/);return m?'<b>'+esc(m[1])+'</b>  '+esc(m[2]):esc(l)};
+ if(reduced){log.innerHTML=lines.map(fmt).join('\n');}
+ else{const tick=()=>{if(li>=lines.length){log.innerHTML=lines.map(fmt).join('\n');return;}const l=lines[li];ci++;const done=lines.slice(0,li).map(fmt).join('\n');const m=l.match(/^(\S+)\s{2}(.*)$/);const part=m?'<b>'+esc(m[1])+'</b>  '+esc(m[2].slice(0,Math.max(0,ci-m[1].length-2))):esc(l.slice(0,ci));log.innerHTML=(done?done+'\n':'')+part+cur;if(ci>=l.length){li++;ci=0;setTimeout(tick,420);}else setTimeout(tick,14+Math.random()*22);};setTimeout(tick,900);}}}
+/* apps/uirapuru/forest.js — the toy forest of the Uirapuru story: a seeded generator, THE ONE DEFINITION for the builder
+   (which computes the notebook's and the stage's facts from it at build time) and for the page (which decides the claims a
+   reader makes in the browser). Patch p with n trees is the same forest for everyone; the birds are invented. mulberry32. */
+(function (root) {
+  const mulberry = (seed) => () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const forest = (patch, n, max) => { const r = mulberry(patch * 1000003 + n * 7919 + max); const out = []; for (let i = 0; i < n; i++) out.push(Math.floor(r() * (max + 1))); return out; };
+  root.FOREST = { forest };
+})(typeof module !== 'undefined' ? module.exports : window);
+
+/* apps/uirapuru/page.js — the four instruments of the Uirapuru story; runs after common.js and forest.js inside the builder's IIFE.
+   Every decision here is a loop over whole numbers; the forest is seeded (forest.js), the birds invented. */
+const {forest}=window.FOREST;
+const BLUE=70;
+/* one square per tree, darker is bluer; a toy is a dashed square; a missing tree is not drawn; the ringed tree is the bird the word rests on */
+const drawPatch=(svg,b,wit,slots)=>{const n=slots||b.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=320/cols;svg.setAttribute('viewBox','0 0 320 '+(rows*cell).toFixed(1));let s='';
+ for(let i=0;i<b.length;i++){const x=(i%cols)*cell,y=Math.floor(i/cols)*cell,g=cell*.14,w=cell-2*g,r=(cell*.12).toFixed(2);
+  if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="none" stroke="var(--ink-4)" stroke-dasharray="3 2"/>';
+  else s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="var(--ink)" fill-opacity="'+(0.06+0.9*b[i]/100).toFixed(3)+'"/>';}
+ if(wit>=0&&wit<b.length){const cx=(wit%cols)*cell+cell/2,cy=Math.floor(wit/cols)*cell+cell/2,rr=cell*.58;s+='<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--paper)" stroke-width="3.5"/><circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';}
+ svg.innerHTML=s;};
+/* the call: every bird in the patch, in whole numbers; the word, the bird it rests on, the count */
+const call=(b,shape,T)=>{const n=b.length;let least=0,most=0,cnt=0;for(let i=0;i<n;i++){if(b[i]<b[least])least=i;if(b[i]>b[most])most=i;if(b[i]>=T)cnt++;}
+ const tree=i=>'tree '+(i+1);let w,html,wit;
+ if(shape==='every'){if(b[least]>=T){w='c';wit=least;html=W('c','certified')+' every one of '+n+' birds is at least '+T+' blue\n'+K('certificate ')+n+' calls; the least blue is '+tree(least)+' at '+b[least]+', margin '+(b[least]-T)+'\n'+K('falsifier   ')+'a bird below '+T+' — there is none';}
+  else{w='r';wit=least;html=W('r','refuted')+' the bird at '+tree(least)+' is '+b[least]+' blue, below '+T+'\n'+K('witness     ')+tree(least)+'; walk there and look';}}
+ else if(shape==='some'){if(b[most]>=T){w='c';wit=most;html=W('c','certified')+' the bird at '+tree(most)+' is '+b[most]+' blue\n'+K('witness     ')+tree(most)+', the bird itself; walk there and look';}
+  else{w='r';wit=most;html=W('r','refuted')+' no bird in the patch is '+T+' blue\n'+K('certificate ')+n+' calls; the bluest is '+tree(most)+' at '+b[most]+', below '+T;}}
+ else{if(b[most]<T){w='c';wit=most;html=W('c','certified')+' no bird in the patch is '+T+' blue\n'+K('certificate ')+n+' calls; the bluest is '+tree(most)+' at '+b[most]+', margin '+(T-b[most])+'\n'+K('falsifier   ')+'a bird at '+T+' or more — there is none';}
+  else{w='r';wit=most;html=W('r','refuted')+' the bird at '+tree(most)+' is '+b[most]+' blue\n'+K('witness     ')+tree(most)+'; walk there and look';}}
+ return {w,html:html+'\n'+K('count       ')+cnt+' of '+n+' birds are at least '+T+' blue',wit,cnt,least,most};};
+const WORD={c:'CERTIFIED',r:'REFUTED',f:'REFUSED'};
+/* ---------------- Instrument 1: describe your Uirapuru ---------------- */
+{const svg=$('f1svg'),out=$('f1out');let shape='every';
+ const pressed=id=>$(id).getAttribute('aria-pressed')==='true';
+ const render=()=>{const n=Number($('f1n').value),T=Number($('f1t').value);$('f1nv').textContent=group(n);$('f1tv').textContent=String(T);const b=forest(7,n,100);
+  const claim=shape==='every'?'every Uirapuru in patch 7 is at least '+T+' blue':shape==='some'?'at least one Uirapuru in patch 7 is at least '+T+' blue':'no Uirapuru in patch 7 is '+T+' blue';
+  const rough=pressed('f1rough'),amazon=pressed('f1amazon');const r=call(b,shape,T);
+  let html=K('claim   ')+(rough?claim.replace(/at least \d+ blue|\d+ blue/,'roughly blue'):claim)+(amazon?', and in the whole Amazon':'')+'\n';
+  if(amazon){html+=W('f','refused')+' the claim names no finite patch\n'+K('reason      ')+'the machine can call every bird in a patch; it cannot call every bird in the forest\n'+K('to flip     ')+'name the patch: over patch 7 alone the word would be '+WORD[r.w];drawPatch(svg,b,-1);}
+  else if(rough){html+=W('f','refused')+' "roughly blue" is not a number\n'+K('reason      ')+'the guide\'s scale runs 0 to 100; the claim does not say where blue begins\n'+K('to flip     ')+'print the number: at "at least '+T+'" the word would be '+WORD[r.w];drawPatch(svg,b,-1);}
+  else{html+=r.html;drawPatch(svg,b,r.wit);}
+  out.innerHTML=html;};
+ document.querySelectorAll('#act1 button[data-shape]').forEach(bt=>bt.addEventListener('click',()=>{shape=bt.dataset.shape;document.querySelectorAll('#act1 button[data-shape]').forEach(o=>{o.classList.toggle('on',o===bt);o.setAttribute('aria-pressed',o===bt?'true':'false');});render();}));
+ for(const id of ['f1rough','f1amazon'])$(id).addEventListener('click',()=>{const on=!pressed(id);$(id).setAttribute('aria-pressed',on?'true':'false');$(id).classList.toggle('on',on);render();});
+ $('f1n').addEventListener('input',render);$('f1t').addEventListener('input',render);render();}
+/* ---------------- Instrument 2: read the map twice ---------------- */
+{const svg=$('f2svg'),out=$('f2out');
+ const render=()=>{const k=Number($('f2s').value);$('f2kv').textContent='0.'+k;const exact=new Q(BigInt(k),10n);const dbl=qdouble(k/10);const diff=dbl.sub(exact);const s=diff.sign();
+  let g='<line x1="14" y1="58" x2="306" y2="58" stroke="var(--rule-strong)"/>';
+  for(let i=0;i<=10;i++){const x=16+i*28.8;g+='<path d="M'+x+' 44 L'+(x+5)+' 58 L'+(x-5)+' 58 Z" fill="var(--ink-4)"/><text x="'+x+'" y="74" text-anchor="middle" font-size="7" fill="var(--ink-4)">'+(i/10).toFixed(1)+'</text>';}
+  const x=16+k*28.8;g+='<circle cx="'+x+'" cy="30" r="4" fill="var(--ink)"/><text x="'+(x+8)+'" y="20" text-anchor="start" font-size="7" fill="var(--ink-3)">printed, 0.'+k+'</text>';
+  if(s!==0){const xd=x+(s<0?-10:10);g+='<rect x="-4" y="-4" width="8" height="8" transform="translate('+xd+' 30) rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/><line x1="'+x+'" y1="40" x2="'+xd+'" y2="40" stroke="var(--ink-3)" stroke-dasharray="2 1.5"/><text x="'+(xd-8)+'" y="20" text-anchor="end" font-size="6.5" fill="var(--ink-3)">the double, gap ×10¹⁷</text>';}
+  svg.innerHTML=g;
+  out.innerHTML=K('printed                      ')+V('0.'+k+' m')+'\n'+K('read as the decimal it is    ')+exact.n+'/'+exact.d+' m, exactly  '+W('c','on tree '+k)+'\n'+K('read as the double it denotes  ')+dbl.dec(20)+'… m  '+(s===0?W('c','on tree '+k)+K(' the same number both ways'):(s<0?W('r','before tree '+k):W('r','past tree '+k))+K(' by '+diff.abs().sci(2)+' m'))+'\n'+K('the claim "the bird is on tree '+k+'"   ')+(s===0?'holds under both readings':'holds under one reading and fails under the other; the machine writes down which it used');};
+ $('f2s').addEventListener('input',render);render();}
+/* ---------------- Instrument 3: plant a bird ---------------- */
+{const base=forest(3,36,60);let birds=base.slice(),moves=0,fooled=0;const svg=$('f3svg'),out=$('f3out');
+ const decide=(what)=>{let html=K('change  ')+what+'\n';let w,wit=-1;
+  const malformed=birds.length!==36||birds.some(x=>typeof x!=='number');
+  if(birds.length!==36){w='f';html+=W('f','refused')+' the claim says 36 trees; the patch holds '+birds.length+'\n'+K('rule    ')+'nothing is decided until the patch is the one claimed';}
+  else if(birds.some(x=>typeof x!=='number')){const t=birds.findIndex(x=>typeof x!=='number');w='f';wit=t;html+=W('f','refused')+' tree '+(t+1)+' holds a toy, and the guide has no number for a toy\n'+K('rule    ')+'a bird without a number is not a bird the claim is about';}
+  else{let most=0;for(let i=1;i<36;i++)if(birds[i]>birds[most])most=i;wit=most;
+   if(birds[most]<=70){w='c';html+=W('c','certified')+' every bird is at most 70 blue\n'+K('certificate ')+'36 calls; the bluest is tree '+(most+1)+' at '+birds[most]+', margin '+(70-birds[most])+'\n'+K('falsifier   ')+'a bird above 70 — there is none';}
+   else{w='r';html+=W('r','refuted')+' the bird at tree '+(most+1)+' is '+birds[most]+' blue, above 70\n'+K('witness     ')+'tree '+(most+1)+'; walk there and look';}}
+  const truth=malformed?'malformed':birds.every(x=>x<=70);
+  if((truth===true&&w==='r')||(truth===false&&w==='c'))fooled++;
+  html+='\n'+K('moves '+moves+' · fooled '+fooled);out.innerHTML=html;drawPatch(svg,birds,wit,36);};
+ const M={paint:()=>{birds[13]=95;return 'tree 14 painted 95 blue';},swap:()=>{[birds[4],birds[21]]=[birds[21],birds[4]];return 'the birds at trees 5 and 22 swapped';},toy:()=>{birds[19]='toy';return 'a toy put in tree 20';},drop:()=>{birds.pop();return 'the last tree cut down';},reset:()=>{birds=base.slice();moves=-1;fooled=0;return 'the patch as seeded';}};
+ document.querySelectorAll('#act3 button[data-m]').forEach(bt=>bt.addEventListener('click',()=>{const what=M[bt.dataset.m]();moves++;decide(what);}));
+ decide('the patch as seeded');}
+/* ---------------- Instrument 4: ask the machine ---------------- */
+{const b=forest(7,144,100);const box=$('ask');
+ const refused=(why,flip)=>W('f','refused')+' '+why+(flip?'\n'+K('to flip  ')+flip:'');
+ const every=call(b,'every',BLUE);
+ const ROWS=[
+  ['Every Uirapuru in patch 7 is at least '+BLUE+' blue.',()=>every.html],
+  ['There is a blue Uirapuru somewhere in the Amazon.',()=>refused('no finite patch is named; the machine calls patches, not forests','name the patch, and the word is the call\'s')],
+  ['Uirapurus are, roughly, blue.',()=>refused('"roughly" is not a number on the guide\'s scale','print the number: at "at least '+BLUE+'", patch 7 would be '+WORD[every.w])],
+  ['The Uirapuru at tree 17 is bluer than the one at tree 18.',()=>b[16]>b[17]?W('c','certified')+' tree 17 is '+b[16]+', tree 18 is '+b[17]+'\n'+K('certificate ')+'two calls; the difference is '+(b[16]-b[17]):W('r','refuted')+' tree 17 is '+b[16]+', tree 18 is '+b[17]+'\n'+K('witness     ')+'the pair itself'],
+  ['The toucan at tree 5 has a red beak.',()=>refused('the machine cannot see, hear or call a toucan: there is no exact decider for toucans, so it says so rather than guess')],
+  ['The recording proves the bird sings above C5 (recording available from the authors).',()=>refused('the recording was not published; nothing decides a song nobody can hear','publish the recording, and the song is a claim about a finite patch')],
+  ['No Uirapuru will ever be bluer than 100.',()=>refused('a statement about every bird for all time is a theorem, not a claim about a patch; it is left to proofs and proof assistants')],
+  ['35 of the 144 birds in patch 7 are at least '+BLUE+' blue.',()=>every.cnt===35?W('c','certified')+' the count is '+every.cnt+'\n'+K('certificate ')+'144 calls, each bird against '+BLUE:W('r','refuted')+' the count is '+every.cnt],
+  ['The bird is at 0.3 m.',()=>{const d=qdouble(0.3).sub(new Q(3n,10n));return W('c','on tree 3')+K(' as the decimal it is')+'\n'+W('r','before tree 3')+K(' as the double it denotes, by '+d.abs().sci(2)+' m')+'\n'+K('the machine writes down which reading it used');}],
+  ['The bluest bird in patch 7 is at tree 76, 99 blue.',()=>every.most===76-1&&b[every.most]===99?W('c','certified')+' tree '+(every.most+1)+' is '+b[every.most]+'\n'+K('certificate ')+'144 calls; no bird is bluer':W('r','refuted')+' the bluest is tree '+(every.most+1)+' at '+b[every.most]]
+ ];
+ const els=ROWS.map(([s,f],i)=>{const q=document.createElement('div');q.className='q';q.innerHTML='<div class="s">'+esc(s)+'</div><button class="ctrl" type="button">ask</button><div class="a"></div>';
+  const bt=q.querySelector('button');bt.addEventListener('click',()=>{q.querySelector('.a').innerHTML=f();q.classList.add('on');});box.appendChild(q);return q;});
+ $('askall').addEventListener('click',()=>{els.forEach((q,i)=>{if(q.classList.contains('on'))return;const go=()=>q.querySelector('button').click();if(reduced)go();else setTimeout(go,i*220);});});}
+
+})();</script>
+</body>
+</html>

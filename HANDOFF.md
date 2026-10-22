@@ -16,12 +16,32 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~08:30 UTC: THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~10:00 UTC: THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE UIRAPURU STORY — /uirapuru/, UNLISTED (2026-10-23, ~09:00–10:00 UTC; the operator: "duplicate the page and build a fun page
+     with an analogy for what cert-machine does … a blue Uirapuru … cert-machine can call all Uirapurus … It not works for Toucans …
+     be creative!! Its not need to pin math maybe. You decide"). BUILT as a sibling of the easy read in the house grammar: the same
+     template, the same shared script and the same reader of the records — apps/explained/build.js was SPLIT for it into
+     records.js (THE ONE READER of the records behind the story pages: every number, every cross-check, the {{KEY}} filler) and
+     common.js (the error hook, the BigInt rationals, reveal/progress/rail/count-up, the typing log); the easy read rebuilt
+     byte-identical but for two file-header comments. The story: a machine that can call every Uirapuru in a patch of forest and
+     look at each one, and cannot call a toucan. Cold open (the stage with six bird claims; a field notebook that types itself),
+     Act I the three words + INSTRUMENT 1 "describe your Uirapuru" (patch size, every/at least one/no bird, the blue threshold,
+     "roughly" and "the whole Amazon" → refused WITH the number that would flip the word), Act II which tree? + INSTRUMENT 2 (0.k m
+     printed, read as the decimal and as the double, on the tree vs a hair before it, exaggerated ×10¹⁷ in the drawing, exact in
+     the arithmetic), Act III the painted birds + INSTRUMENT 3 (paint / swap / a toy / cut a tree → refuted / unchanged / refused /
+     refused; the toy's counter, the real 572 beside it), Act IV ten quadrillion calls (the real wave, real numbers), Act V the
+     toucans + INSTRUMENT 4 "ask the machine" (ten sentences, four refusals with their rule, the rest decided over patch 7), the
+     epilogue with the WHAT-STANDS-FOR-WHAT table (the story, the machine, the record with the real number). THE FOREST is a seeded
+     toy (apps/uirapuru/forest.js, mulberry32, ONE definition run by the builder AND the page): patch 7 = 144 trees, 35 of them ≥ 70
+     blue, the bluest tree 76 at 99, the least tree 3 at 0; the builder computes those and the page re-decides them, so notebook,
+     stage and instruments cannot disagree; the page and the footer say the birds are invented and which numbers are real (read
+     through records.js: the register, the self-audit, the kissing wave, the 605 readings, the Riemann sentence counts). WIRED:
+     make site, build-site's app zones and the unlisted sitemap. STILL UNLISTED, like /explained/.
   ◆ THE STAGE IN THE HOUSE VERSION'S COLD OPEN (2026-10-23, ~08:30 UTC; the operator: "On the our grammar version, I would like to
      apply the same hero section concept for the animation"): the round-one hero's idea — claims fly into a DECIDE box and come out
      with their word — rebuilt in the house grammar above the typed log: six claims from the records enter as outlined mono pills
