@@ -16,12 +16,38 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~03:00 UTC: THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~05:00 UTC: THE EASY READ BUILT at /explained/, unlisted, the operator decides whether to link it; THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE EASY READ IS BUILT AT /explained/ — NOT LINKED, NOT IN THE SITEMAP; THE OPERATOR DECIDES (2026-10-23, ~01:30–05:00 UTC; the
+     operator: "build a 'easy read' page … like if would be built by Veritasium, 3Blue1Brown, Cool Worlds … highly visual and
+     entertaining page that explains the method paper. Not a artifact. I want the real html page, after the final result I will decide
+     if I link or not"; their answers: its own visual language (color, motion; the site's fonts), all four stories, several interactive
+     moments). BUILT: apps/explained/build.js + page.html → site/explained/index.html (49 KB, one file, no CDN but the fonts). Six
+     chapters: three words (a bound slider on the C31 h = 10 value, with a simulated corrupt-file REFUSED); one string of digits, two
+     numbers (√3/2 printed to k digits, judged three ways in exact rationals — the double nearest √3/2 is "too close" by 8.7e-17; the
+     605 record's 9,510 vs 9,480); 572 planted errors (the self-audit's counts, the float-tolerance bars 27.8/11.2/2.4 % and 94/81/72
+     of 97, a plant-an-error toy on the fcc twelve points decided exactly: nudge → REFUTED with the witness pair, duplicate/permute →
+     REFUTED, drop → REFUSED count, scale by 3 → unchanged); exact arithmetic on a GPU (the Cauchy–Schwarz slider: half < 2¹¹,
+     single < 2²⁴, else BigInt; the real norms 192 / 4,608 / 3.95e35; a tile animation; 9.75e15 pairs, $8.15); the Riemann layer (a
+     65-sentence sorter into read/prose/no number/ambiguous/asymptotic/≈; the certificate and EnclOK; the window widget: c₂, c₄
+     sliders, P computed exactly from a 3×3 matrix the builder derives at fifteen terms — the paper's quartic 0.8686405151, the best
+     quartic 0.8686414007, degree six 0.86864150 named as out of reach); what it cannot do (the register 132/107/24; links). EVERY NUMBER
+     from the records at build (109 placeholders; the method paper's, the register's and the Riemann companion's macro files, the
+     self-audit mutation record, kissing-wave + the kissing ledger, the C31 record, the lifted claimbox README for the 9,480); the
+     builder refuses on a missing or shapeless number and cross-checks the counts; the widgets compute in the browser over BigInt
+     rationals (double → exact fraction via the bits). WIRED: make site runs the builder; build-site.js treats explained/ as an app zone
+     (never prunes it) and does NOT list it in the sitemap until the operator links it; make page R=apps/explained is the edit loop.
+     GATES: the ruler, render and style baselines recorded for the page (style with --accept-worse once: its own CSS adds literals,
+     which the census counts as debt by design; the ruler with --accept-worse: its layout has more spines than the house pages, by
+     design); the copy census tripped on the about page because an outreach note said "operator" — reworded. VERIFIED in Chrome:
+     every widget's output read through CDP at desktop width (scratchpad ex/shots.js, ex/smoke.js), screenshots at 1440 and 390
+     scrolled through the page, one JS syntax slip (an unescaped apostrophe) and one sign slip (the angle test's label) found and
+     fixed that way. THE OPERATOR'S: look at https://carlostoledo.co/explained/ (live but unlisted after the push) and decide whether
+     to link it (the landing, /about, the papers index) — then add '/explained/' to build-site.js's sitemap list and a card.
   ◆ THE WINDOW ROUND (2026-10-22/23, ~21:00–01:30 UTC; the operator pasted the claimbox chat's briefing — the window search of
      §7, "beat 0.86864" — and said "Proceed all your suggestions, make sure you will push even more to make the results better and
      try to find opportunities hidden. You are allowed to use claimbox project"). VERIFIED FIRST: the briefing against claimbox

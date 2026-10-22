@@ -35,6 +35,7 @@ site: playground control
 	@$(NODE) apps/abatimento/build.js
 	@$(NODE) apps/janela/build.js
 	@$(NODE) apps/swell/build.js
+	@$(NODE) apps/explained/build.js
 
 playground:
 	@$(NODE) playground/build.js

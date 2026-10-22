@@ -1736,7 +1736,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    batteries and drift gates. site/contraprova/ and site/decidivel/ are the same
    arrangement at top-level paths (apps/contraprova/build.js,
    apps/decidivel/build.js; the URLs chosen by the operator, 2026-09-29/30), and so is
-   site/janela/ (apps/janela/build.js, 2026-10-06).
+   site/janela/ (apps/janela/build.js, 2026-10-06), and site/explained/ (apps/explained/build.js, 2026-10-23: the easy read).
    The site sync neither generates nor prunes under them — two builders
    writing one tree is how files get eaten. */
 /* site/instruments/ is the same arrangement for the opposite reason. It is
@@ -1749,7 +1749,7 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    the reports) plus the app-zone pages the app builds emit. Raw citation
    files, certificates and verifiers are crawlable but are not pages. */
 {
-  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/abatimento/', '/janela/', '/janela/metodo/'];
+  const urls = ['/', '/apps/skyaudit/', '/apps/skyaudit/sp/', '/contraprova/', '/decidivel/', '/abatimento/', '/janela/', '/janela/metodo/'];   /* /explained/ is built but not yet listed: the operator decides whether to link it (2026-10-23) */
   for (const e of (() => { try { return fs.readdirSync(path.join(SITE, 'instruments'), { recursive: true }); } catch (e) { return []; } })()) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
@@ -1791,7 +1791,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
   /* swell/ joined the app zones 2026-10-08 and was missing from this list: a bare `node tools/build-site.js`
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/')) continue;
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/')) continue;
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }
