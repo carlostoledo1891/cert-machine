@@ -1,7 +1,7 @@
 {
  "what": "The interval kernel checked against Arb (python-flint): every enclosure the kernel returned must contain the exact result or range, computed in Arb at 256 bits from the exact input doubles; every malformed input must be refused. Written by tools/audit-kernel-arb.js + tools/audit-kernel-arb.py.",
- "generated": "2026-10-18T04:01:38+00:00",
- "seconds": 54.9,
+ "generated": "2026-10-21T20:57:53+00:00",
+ "seconds": 211.2,
  "seed": 20261018,
  "perOp": 50000,
  "node": "v24.14.1",
@@ -13,23 +13,25 @@
  ],
  "modules": {
   "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
-  "instruments/interval/transcendental.js": "29da890cec151b2be460fe8904c37323f997722722e1b4d397850eeddbc78d53",
-  "instruments/hseva/fit.js": "b6b67a513590847324475707edf8530a787516bc5339d093c8727febd2da1458",
-  "instruments/hseva/special.js": "cdfa6ac130b8b22d58b771e7ce008aa4a174b706e69b0fd1b667703fcd30f550"
+  "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
+  "instruments/hseva/fit.js": "032e9b039b6e44cee2b7f977e68f4f2379ed6b84c5718ebb7927adae084a2b75",
+  "instruments/hseva/special.js": "be98f1c495adcca04b3624bef64f1b52d81318976a7e7f5622ac08f8d75b624b",
+  "instruments/hseva/families.js": "703d26d8f29d651522ebc7aa15ae157d3e9a475c625f9c75ec9f83dd1252f039",
+  "instruments/ivspecial/ivspecial.js": "4fc16f7e5ae0ba3d1565d72ce1ebdc34eda46c96997375986f6da8cd68cc3af5"
  },
  "counts": {
-  "cases": 946146,
-  "contained": 944642,
+  "cases": 1012121,
+  "contained": 1009497,
   "violations": 0,
   "undecided": 0,
-  "refused": 1504,
+  "refused": 2624,
   "malformed": 12,
   "malformedRefused": 12
  },
  "redControls": {
   "red:add": {
    "cases": 50000,
-   "violationsCaught": 20022
+   "violationsCaught": 19846
   },
   "red:exp": {
    "cases": 50000,
@@ -38,16 +40,29 @@
  },
  "byOp": {
   "Phi": {
-   "cases": 49419,
-   "contained": 49419,
+   "cases": 49465,
+   "contained": 49465,
    "violations": 0,
    "undecided": 0,
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 115.0,
-    "max": 144004.0,
-    "n": 19867
+    "median": 117.0,
+    "max": 144388.0,
+    "n": 20106
+   }
+  },
+  "PhiInv": {
+   "cases": 5000,
+   "contained": 5000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 240.0,
+    "max": 786432.0,
+    "n": 5000
    }
   },
   "abs": {
@@ -60,7 +75,7 @@
    "thinWidthUlps": {
     "median": 0.0,
     "max": 0.0,
-    "n": 20884
+    "n": 20880
    }
   },
   "add": {
@@ -73,7 +88,20 @@
    "thinWidthUlps": {
     "median": 2.0,
     "max": 2.0,
-    "n": 8997
+    "n": 9018
+   }
+  },
+  "besselJ": {
+   "cases": 5000,
+   "contained": 5000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 1098797.0,
+    "max": 1.749926894292238e+16,
+    "n": 5000
    }
   },
   "cos": {
@@ -84,9 +112,9 @@
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 347.0,
-    "max": 6755399441055771.0,
-    "n": 19986
+    "median": 328.0,
+    "max": 9007199254741020.0,
+    "n": 20014
    }
   },
   "digamma": {
@@ -98,13 +126,13 @@
    "retried": 0,
    "thinWidthUlps": {
     "median": 36.0,
-    "max": 2654210.0,
-    "n": 25157
+    "max": 10354690.0,
+    "n": 25072
    }
   },
   "div": {
-   "cases": 48616,
-   "contained": 48616,
+   "cases": 48529,
+   "contained": 48529,
    "violations": 0,
    "undecided": 0,
    "refused": 0,
@@ -112,7 +140,7 @@
    "thinWidthUlps": {
     "median": 2.0,
     "max": 2.0,
-    "n": 7566
+    "n": 7649
    }
   },
   "encloseCos": {
@@ -123,8 +151,8 @@
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 4716.0,
-    "max": 8197802317903420.0,
+    "median": 4816.0,
+    "max": 1.3531114373143612e+16,
     "n": 50000
    }
   },
@@ -136,22 +164,35 @@
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 4724.0,
-    "max": 9842009920425656.0,
+    "median": 4820.0,
+    "max": 5943453385310691.0,
     "n": 50000
    }
   },
   "exp": {
-   "cases": 48275,
-   "contained": 46771,
+   "cases": 48289,
+   "contained": 46799,
    "violations": 0,
    "undecided": 0,
-   "refused": 1504,
+   "refused": 1490,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 123.0,
+    "median": 120.0,
     "max": 4402.0,
-    "n": 20595
+    "n": 20609
+   }
+  },
+  "gamma": {
+   "cases": 50000,
+   "contained": 48866,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 1134,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 21638632.0,
+    "max": 16541882835.0,
+    "n": 24503
    }
   },
   "gammaP": {
@@ -162,9 +203,22 @@
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 7025.0,
-    "max": 36610.0,
-    "n": 12521
+    "median": 7061.0,
+    "max": 36598.0,
+    "n": 12328
+   }
+  },
+  "gammaPinv": {
+   "cases": 5000,
+   "contained": 5000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": 5934.0,
+    "max": 464128.0,
+    "n": 5000
    }
   },
   "lgamma": {
@@ -176,13 +230,13 @@
    "retried": 0,
    "thinWidthUlps": {
     "median": 46.0,
-    "max": 14811138.0,
-    "n": 25157
+    "max": 56623106.0,
+    "n": 25072
    }
   },
   "log": {
-   "cases": 49836,
-   "contained": 49836,
+   "cases": 49838,
+   "contained": 49838,
    "violations": 0,
    "undecided": 0,
    "refused": 0,
@@ -190,7 +244,7 @@
    "thinWidthUlps": {
     "median": 5.0,
     "max": 1.351079888211149e+16,
-    "n": 23459
+    "n": 23526
    }
   },
   "mul": {
@@ -203,7 +257,7 @@
    "thinWidthUlps": {
     "median": 2.0,
     "max": 2.0,
-    "n": 8589
+    "n": 8592
    }
   },
   "pow": {
@@ -215,8 +269,8 @@
    "retried": 0,
    "thinWidthUlps": {
     "median": 9.0,
-    "max": 33.0,
-    "n": 19925
+    "max": 32.0,
+    "n": 19950
    }
   },
   "sin": {
@@ -227,9 +281,9 @@
    "refused": 0,
    "retried": 0,
    "thinWidthUlps": {
-    "median": 360.0,
-    "max": 9007199254741020.0,
-    "n": 19986
+    "median": 365.0,
+    "max": 5629499534213142.0,
+    "n": 20014
    }
   },
   "sqr": {
@@ -242,7 +296,7 @@
    "thinWidthUlps": {
     "median": 2.0,
     "max": 2.0,
-    "n": 11556
+    "n": 11584
    }
   },
   "sub": {
@@ -255,7 +309,20 @@
    "thinWidthUlps": {
     "median": 2.0,
     "max": 2.0,
-    "n": 8997
+    "n": 9018
+   }
+  },
+  "sum2": {
+   "cases": 1000,
+   "contained": 1000,
+   "violations": 0,
+   "undecided": 0,
+   "refused": 0,
+   "retried": 0,
+   "thinWidthUlps": {
+    "median": null,
+    "max": null,
+    "n": 0
    }
   },
   "tanh": {
@@ -268,7 +335,7 @@
    "thinWidthUlps": {
     "median": 0.5,
     "max": 446676598791.0,
-    "n": 19986
+    "n": 20014
    }
   },
   "trigamma": {
@@ -281,7 +348,7 @@
    "thinWidthUlps": {
     "median": 22.0,
     "max": 61.0,
-    "n": 25157
+    "n": 25072
    }
   }
  },

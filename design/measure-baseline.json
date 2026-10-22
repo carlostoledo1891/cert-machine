@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-21",
+  "recorded": "2026-10-22",
   "browser": "Chrome/155.0.8059.85",
   "viewports": [
     1440,
@@ -138,7 +138,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "742151eb20017e920433f11411f8559ea8235d327054059641dfe1cc52e21236"
+      "sha": "0996d37be0bc7f44b4fd1a067628d0128bcf4afde4f98a0ccda379d5ecac8b59"
     },
     "site/decidivel/index.html": {
       "390": {
@@ -369,7 +369,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9bdf86fa3404b90d2cf679b0cef0b81b5907177ea6db95ea4ab560d4f11edd90"
+      "sha": "3afc55a43d93caa5d6316e947f03e23d5553acd9ef6ebd2edfaccdef1aaa9f2b"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -558,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b1e325baa19999c10dfeba19168a042c78ce9e642528dcfc0e2d34ed56443a97"
+      "sha": "4023074ec757ab7a5e54f7ee618a467a6fdc4cc7342206772f14ae6945dd2562"
     },
     "site/instruments/return-level-check/index.html": {
       "390": {
@@ -579,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "efe43832d28ab6223bf43ed76899794614fe34781261c1ebd8125ad0ba5ec6ef"
+      "sha": "b8fcc607b46a3c61a93b833b4d7c28c52a507a41e92c588fe9889c56f315f899"
     },
     "site/instruments/rewire/index.html": {
       "390": {
@@ -810,7 +810,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8cdd3c74fc1fb21e6bbd7cd80d8a6a3cc77475ce38ac1cec30cf729cf24a35ea"
+      "sha": "deebb9c6a0ecb8e71504a0f7393979128aee1e7509f10dc40665228860d3daf3"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2668,13 +2668,13 @@
         "clipped": 0
       },
       "768": {
-        "spines": 8,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 9,
+        "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0

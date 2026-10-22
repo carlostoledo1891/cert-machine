@@ -10,7 +10,7 @@
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
+  "sha256": "b5f226e1eff7d9810a0a95b59039de184316f589ee8f0de0d6b9b2734a015b8e"
  },
  "inputs": {
   "register": {
@@ -33,8 +33,8 @@
    "certs/ecbench-ledger.json": "cdecac8aae53d79c5803184cd12d63431a4838582950f3d833d8e520256897c8",
    "certs/gsm8k-ledger.json": "7fbcda606b601c9c2867cc6305c39906ef21e7e0a7dcd6a11285125cca8e9248",
    "certs/horizon-ledger.json": "fa5b0bac0539bf9694e6c7044a6acf0325635f18474e387d4bf56bcf49bb2315",
-   "certs/hseva-ledger.json": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c",
-   "certs/design-table-audit.json": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd",
+   "certs/hseva-ledger.json": "23aa58c1078c357ab77ff00337ba73667c389101b6c3192eb604b7171291bf73",
+   "certs/design-table-audit.json": "c88a6bcd5ce5b76ef10ed8cacfb434eec190b8ce781e69f890b0de7ae21fe357",
    "corpus/navier-stokes/audit.json": "5931f9ad48b4ed87f94ebb7f9b219bfe4ea6f8bce1bc32da740c6865ea5be766",
    "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
@@ -8422,6 +8422,31 @@
    "after": {
     "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
     "inventory": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74"
+   }
+  },
+  {
+   "at": "2026-10-22T01:17:24.915Z",
+   "git": "16849460",
+   "why": "lane A of Pedro's 2026-10-21 review: the interval kernel's π, erf tail, Spouge margin, transcendental tails, lnΓ minimum and Sum2 hypotheses tightened; hseva-ledger, hseva-atlas and design-table-audit re-derived under the new kernel, every decided number identical, only stamps and timings moved",
+   "before": {
+    "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
+    "inventory": "752389f8c27e251ac8ef1bc556171f1c867de315a17544d606b2ac4ccaca5e74",
+    "recordsMoved": [
+     {
+      "record": "certs/hseva-ledger.json",
+      "from": "f7b0379625119653b63814cff4c8efce81a12c7e4ba8b2891ed7cf21d13ff64c",
+      "to": "23aa58c1078c357ab77ff00337ba73667c389101b6c3192eb604b7171291bf73"
+     },
+     {
+      "record": "certs/design-table-audit.json",
+      "from": "24ef5a69b5ffc4186bde102d6080e616b78ea96df92f40f97252cd4da9424bcd",
+      "to": "c88a6bcd5ce5b76ef10ed8cacfb434eec190b8ce781e69f890b0de7ae21fe357"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
+    "inventory": "b5f226e1eff7d9810a0a95b59039de184316f589ee8f0de0d6b9b2734a015b8e"
    }
   }
  ]

@@ -50,10 +50,12 @@ NEXT SESSION, IN ORDER:
   ◆ THE METHOD PAPER v0.8 IS BUILT ON THE CO-AUTHOR'S STRUCTURE, WITH ITS SUPPLEMENT AND THREE COMPANIONS (2026-10-21, the
      operator lifted the paper hold: "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of
      the use cases … do another pass on the literature research … review the citations"). WHAT IS NEXT:
-     1. THE PUSH, IN FLIGHT THIS SESSION (2026-10-22, the operator: "Push zenodo. Finish all we can … review, push live and
-        handoff"): one push carries the two receiver commits, the four self-audit commits and this commit, with the tag
-        selfaudit-v0 (--follow-tags); then the release v2026.10.21 (gh release create → Zenodo mints the DOI → tools/stamp-release.py
-        → a second commit). claimbox then runs `make lift`. If this block still reads "in flight", the push did not happen.
+     1. THE PUSH AND THE RELEASE ARE DONE (2026-10-22 02:50–03:30 UTC, on "Push zenodo. Finish all we can … review, push live and
+        handoff"): main pushed at 839899e2 with the tags selfaudit-v0 and v2026.10.21; the GitHub release v2026.10.21 archived by
+        Zenodo as doi:10.5281/zenodo.23551746, stamped into corpus/zenodo.json and CITATION.cff; corpus/ww3-grid/SERVED.json repointed
+        to 839899e2 and the site rebuilt on it (commit B of the serve flow; the control page 155/155 at build). claimbox's `make lift`
+        is still to run (the receiver files moved in the two receiver commits). The paper's \MtCommit macro names the commit the
+        records were read at; a send to the journal needs the numbers regenerated at a tagged commit — this one is tagged.
      2. THE OPERATOR READS the four PDFs on the shelf: paper/cert-machine-method.pdf (46 pp at 11pt; 73 pp in the co-author's
         12pt review format, against his 52 pp with empty Results/Discussion), paper/cert-machine-method-supplement.pdf (13 pp:
         the lemma proofs, thresholds, certifiers in detail, decision loop, reproduction table), paper/qiushi-kissing.pdf (17),
