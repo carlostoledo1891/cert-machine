@@ -1,0 +1,52 @@
+# Derived from sources/goldbach_25_bbchallenge.txt (standard, SHA-256 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c) by instances/derive.py.
+# 25 states, 2 symbols; the start state is 0 and the others follow the published order.
+# state 0: A
+# state 1: B
+# state 2: C
+# state 3: D
+# state 4: E
+# state 5: F
+# state 6: G
+# state 7: H
+# state 8: I
+# state 9: J
+# state 10: K
+# state 11: L
+# state 12: M
+# state 13: N
+# state 14: O
+# state 15: P
+# state 16: Q
+# state 17: R
+# state 18: S
+# state 19: T
+# state 20: U
+# state 21: V
+# state 22: W
+# state 23: X
+# state 24: Y
+1R1 1R3
+1L2 1R1
+0R0 1L2
+0L16 1R4
+0L5 1R6
+0L2 1L5
+0L5 0L7
+1L16 1L8
+0R9 0L8
+1R10 0L9
+0R11 0R18
+1R11 0R12
+1R13 1R12
+0L14 0L20
+0L15 1L14
+1R7 1L23
+1L17 1L16
+0R10 0L19
+1L17 1R18
+--- 1R2
+1L21 1L20
+0L22 0L9
+0R10 0L22
+1R24 1L23
+1R4 1R24

@@ -1,0 +1,384 @@
+{
+ "source_root": "~/Projects/cryptids-src",
+ "source_commit": "664cd03904a870e9a8796476dbf9dbc13a72a37b",
+ "lifted_at_utc": "2026-10-23T01:46:05.719Z",
+ "policy": "READ-ONLY. A clone of github.com/google-deepmind/cryptids checked out at commit 664cd03904a870e9a8796476dbf9dbc13a72a37b (2026-10-22T15:52:03+01:00, the pin of the cryptids audit and its benchmark, notes/cryptids-benchmark-preregistration-2026-10-23.md). This manifest copies the repository's finite layer IN — the transition tables, the upstream sources and their provenance, the producer's checker, the comparator configurations, the write-ups and the Lean files the checker reads — and never writes back. PROVENANCE-cryptids.json records every sha256 and the commit; `make drift` re-hashes both ends.",
+ "counts": {
+  "files": 53,
+  "patched": 0,
+  "missing_in_source": 0
+ },
+ "files": [
+  {
+   "src": "artifacts/goldbach_21/README.md",
+   "dst": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "src_sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+   "patched": false,
+   "local_sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461"
+  },
+  {
+   "src": "artifacts/goldbach_21/machine.txt",
+   "dst": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "src_sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "patched": false,
+   "local_sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+  },
+  {
+   "src": "artifacts/riemann_104/README.md",
+   "dst": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "src_sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+   "patched": false,
+   "local_sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4"
+  },
+  {
+   "src": "artifacts/riemann_104/machine.txt",
+   "dst": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "src_sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "patched": false,
+   "local_sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+  },
+  {
+   "src": "artifacts/riemann_95/README.md",
+   "dst": "corpus/cryptids/artifacts/riemann_95/README.md",
+   "src_sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+   "patched": false,
+   "local_sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86"
+  },
+  {
+   "src": "artifacts/riemann_95/machine.txt",
+   "dst": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "src_sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "patched": false,
+   "local_sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+  },
+  {
+   "src": "artifacts/zf_380/README.md",
+   "dst": "corpus/cryptids/artifacts/zf_380/README.md",
+   "src_sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+   "patched": false,
+   "local_sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9"
+  },
+  {
+   "src": "artifacts/zf_380/machine.txt",
+   "dst": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "src_sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "patched": false,
+   "local_sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+  },
+  {
+   "src": "baselines/PROVENANCE.md",
+   "dst": "corpus/cryptids/baselines/PROVENANCE.md",
+   "src_sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+   "patched": false,
+   "local_sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665"
+  },
+  {
+   "src": "baselines/sources/goldbach_25_bbchallenge.txt",
+   "dst": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "src_sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "patched": false,
+   "local_sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+  },
+  {
+   "src": "baselines/sources/riemann_120_shunia.tm",
+   "dst": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "src_sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "patched": false,
+   "local_sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+  },
+  {
+   "src": "baselines/sources/riemann_744_sorear.tm",
+   "dst": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "src_sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "patched": false,
+   "local_sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+  },
+  {
+   "src": "baselines/sources/zf_393_wade.tm",
+   "dst": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "src_sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "patched": false,
+   "local_sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+  },
+  {
+   "src": "baselines/sources/zf_432_wade.tm",
+   "dst": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "src_sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "patched": false,
+   "local_sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+  },
+  {
+   "src": "baselines/tables/goldbach_25.txt",
+   "dst": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "src_sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "patched": false,
+   "local_sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+  },
+  {
+   "src": "baselines/tables/riemann_120.txt",
+   "dst": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "src_sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "patched": false,
+   "local_sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+  },
+  {
+   "src": "baselines/tables/riemann_744.txt",
+   "dst": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "src_sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "patched": false,
+   "local_sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+  },
+  {
+   "src": "baselines/tables/zf_393.txt",
+   "dst": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "src_sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "patched": false,
+   "local_sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+  },
+  {
+   "src": "baselines/tables/zf_432.txt",
+   "dst": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "src_sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "patched": false,
+   "local_sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+  },
+  {
+   "src": "comparator/README.md",
+   "dst": "corpus/cryptids/comparator/README.md",
+   "src_sha256": "2d46409ffc9c78989742f40861967be70ce31515bc2cf0e82316089a116ac4a7",
+   "patched": false,
+   "local_sha256": "2d46409ffc9c78989742f40861967be70ce31515bc2cf0e82316089a116ac4a7"
+  },
+  {
+   "src": "comparator/all.json",
+   "dst": "corpus/cryptids/comparator/all.json",
+   "src_sha256": "ec1d056be5d1557bf1d5094ff9fd581592fc0ba2d33b1c6234cff258d04b303f",
+   "patched": false,
+   "local_sha256": "ec1d056be5d1557bf1d5094ff9fd581592fc0ba2d33b1c6234cff258d04b303f"
+  },
+  {
+   "src": "comparator/busy_beaver.json",
+   "dst": "corpus/cryptids/comparator/busy_beaver.json",
+   "src_sha256": "5e441a61de7251c3344f2905422405b2717511b8e77ebbb786cc724b0308549d",
+   "patched": false,
+   "local_sha256": "5e441a61de7251c3344f2905422405b2717511b8e77ebbb786cc724b0308549d"
+  },
+  {
+   "src": "comparator/constructive.json",
+   "dst": "corpus/cryptids/comparator/constructive.json",
+   "src_sha256": "e3c9815ce40c2ddc066b0d8d4f7cf5add5ac4a3395e2d964d367c532fda050f2",
+   "patched": false,
+   "local_sha256": "e3c9815ce40c2ddc066b0d8d4f7cf5add5ac4a3395e2d964d367c532fda050f2"
+  },
+  {
+   "src": "comparator/goldbach_21.json",
+   "dst": "corpus/cryptids/comparator/goldbach_21.json",
+   "src_sha256": "57e6ca3a23c0deb02e2651e842dc16db49d6eb26d6f908d9b2f07d8de5031718",
+   "patched": false,
+   "local_sha256": "57e6ca3a23c0deb02e2651e842dc16db49d6eb26d6f908d9b2f07d8de5031718"
+  },
+  {
+   "src": "comparator/goldbach_semantics.json",
+   "dst": "corpus/cryptids/comparator/goldbach_semantics.json",
+   "src_sha256": "a4d98153be5114fe037f579bcd35416b73334acdbe9ccfba79d7d444f218c1f0",
+   "patched": false,
+   "local_sha256": "a4d98153be5114fe037f579bcd35416b73334acdbe9ccfba79d7d444f218c1f0"
+  },
+  {
+   "src": "comparator/riemann_104.json",
+   "dst": "corpus/cryptids/comparator/riemann_104.json",
+   "src_sha256": "6029f58f2a36a511aa5806d8180c39c6806fcba53d3f1c7c7758fe6803881bf4",
+   "patched": false,
+   "local_sha256": "6029f58f2a36a511aa5806d8180c39c6806fcba53d3f1c7c7758fe6803881bf4"
+  },
+  {
+   "src": "comparator/riemann_120.json",
+   "dst": "corpus/cryptids/comparator/riemann_120.json",
+   "src_sha256": "5ddc27907ea649e3365adf4c1c82b91d87e6d090ca9ca0b76ca0ca6e93ae3502",
+   "patched": false,
+   "local_sha256": "5ddc27907ea649e3365adf4c1c82b91d87e6d090ca9ca0b76ca0ca6e93ae3502"
+  },
+  {
+   "src": "comparator/riemann_95.json",
+   "dst": "corpus/cryptids/comparator/riemann_95.json",
+   "src_sha256": "8dc4fb20106d159c31aafbc4e4d4ea07d3f41277d4b67768055f2903305ba307",
+   "patched": false,
+   "local_sha256": "8dc4fb20106d159c31aafbc4e4d4ea07d3f41277d4b67768055f2903305ba307"
+  },
+  {
+   "src": "comparator/riemann_semantics.json",
+   "dst": "corpus/cryptids/comparator/riemann_semantics.json",
+   "src_sha256": "526f06df78de6147cabd38ad02bbf0e275a039b50f74a88b9454e8b12600c2b7",
+   "patched": false,
+   "local_sha256": "526f06df78de6147cabd38ad02bbf0e275a039b50f74a88b9454e8b12600c2b7"
+  },
+  {
+   "src": "comparator/zf_380.json",
+   "dst": "corpus/cryptids/comparator/zf_380.json",
+   "src_sha256": "de4cb1483c433c2f298f59fc11f08846107b80e50d341192ae01528c9f9364e5",
+   "patched": false,
+   "local_sha256": "de4cb1483c433c2f298f59fc11f08846107b80e50d341192ae01528c9f9364e5"
+  },
+  {
+   "src": "comparator/zf_393.json",
+   "dst": "corpus/cryptids/comparator/zf_393.json",
+   "src_sha256": "260d56707f22399723c680228ba0b8845389e7f0dd00953701b96860807bd2b7",
+   "patched": false,
+   "local_sha256": "260d56707f22399723c680228ba0b8845389e7f0dd00953701b96860807bd2b7"
+  },
+  {
+   "src": "comparator/zf_semantics.json",
+   "dst": "corpus/cryptids/comparator/zf_semantics.json",
+   "src_sha256": "0a6819e05122bc4b50c15cf03ea4b56dcf06d331fd806bb5f3553a3fadb8fa9d",
+   "patched": false,
+   "local_sha256": "0a6819e05122bc4b50c15cf03ea4b56dcf06d331fd806bb5f3553a3fadb8fa9d"
+  },
+  {
+   "src": "verify.py",
+   "dst": "corpus/cryptids/verify.py",
+   "src_sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+   "patched": false,
+   "local_sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+  },
+  {
+   "src": "README.md",
+   "dst": "corpus/cryptids/README.md",
+   "src_sha256": "f59f80f9f07a7744c1ac38430bfc8b22588948c7bfa82540fc5fd4ef53e6d9ba",
+   "patched": false,
+   "local_sha256": "f59f80f9f07a7744c1ac38430bfc8b22588948c7bfa82540fc5fd4ef53e6d9ba"
+  },
+  {
+   "src": "RELATED_WORK.md",
+   "dst": "corpus/cryptids/RELATED_WORK.md",
+   "src_sha256": "2d09ca92dcb1d7e4998bba990e6fac5967763399e665922243a8db02f393e141",
+   "patched": false,
+   "local_sha256": "2d09ca92dcb1d7e4998bba990e6fac5967763399e665922243a8db02f393e141"
+  },
+  {
+   "src": "CONTRIBUTING.md",
+   "dst": "corpus/cryptids/CONTRIBUTING.md",
+   "src_sha256": "fc411d2c175be94cc332e56258bd8206d0a54bd532e729922176af70847a29b2",
+   "patched": false,
+   "local_sha256": "fc411d2c175be94cc332e56258bd8206d0a54bd532e729922176af70847a29b2"
+  },
+  {
+   "src": "Cryptids/README.md",
+   "dst": "corpus/cryptids/Cryptids/README.md",
+   "src_sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+   "patched": false,
+   "local_sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0"
+  },
+  {
+   "src": "Cryptids/Semantics/README.md",
+   "dst": "corpus/cryptids/Cryptids/Semantics/README.md",
+   "src_sha256": "a7d7a1934d9a5be73b42f7fd3671aaaa71d4ac34f522f9878b691eede2332a5f",
+   "patched": false,
+   "local_sha256": "a7d7a1934d9a5be73b42f7fd3671aaaa71d4ac34f522f9878b691eede2332a5f"
+  },
+  {
+   "src": "Cryptids/ReductionSupport/Riemann95/README.md",
+   "dst": "corpus/cryptids/Cryptids/ReductionSupport/Riemann95/README.md",
+   "src_sha256": "d8760204b00fe6781df5706249f82395889b9e27b50f0ee2dfae0d145f22975a",
+   "patched": false,
+   "local_sha256": "d8760204b00fe6781df5706249f82395889b9e27b50f0ee2dfae0d145f22975a"
+  },
+  {
+   "src": "BusyBeaver/README.md",
+   "dst": "corpus/cryptids/BusyBeaver/README.md",
+   "src_sha256": "81e0168c33e24a5672ae634d5382b08cadc45237e0112ae04f18e2f95d4f7c2a",
+   "patched": false,
+   "local_sha256": "81e0168c33e24a5672ae634d5382b08cadc45237e0112ae04f18e2f95d4f7c2a"
+  },
+  {
+   "src": "BusyBeaver/BB6/README.md",
+   "dst": "corpus/cryptids/BusyBeaver/BB6/README.md",
+   "src_sha256": "be287cd48dd1cc7303ab811d1552c7a06774d1cc5e38fa0dcf84a8862940f871",
+   "patched": false,
+   "local_sha256": "be287cd48dd1cc7303ab811d1552c7a06774d1cc5e38fa0dcf84a8862940f871"
+  },
+  {
+   "src": "BusyBeaver/BB33/README.md",
+   "dst": "corpus/cryptids/BusyBeaver/BB33/README.md",
+   "src_sha256": "967d6c1ec03777d085b97ebdbbc68d6bbd8e0298b06b887f972aa303c0b783ea",
+   "patched": false,
+   "local_sha256": "967d6c1ec03777d085b97ebdbbc68d6bbd8e0298b06b887f972aa303c0b783ea"
+  },
+  {
+   "src": "Cryptids/Machines.lean",
+   "dst": "corpus/cryptids/Cryptids/Machines.lean",
+   "src_sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb",
+   "patched": false,
+   "local_sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+  },
+  {
+   "src": "Challenge.lean",
+   "dst": "corpus/cryptids/Challenge.lean",
+   "src_sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c",
+   "patched": false,
+   "local_sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+  },
+  {
+   "src": "Cryptids/Goldbach21.lean",
+   "dst": "corpus/cryptids/Cryptids/Goldbach21.lean",
+   "src_sha256": "89b6fdd98244b11d56627eae35812ad1de081bc230aa35d5558a446ca767b04c",
+   "patched": false,
+   "local_sha256": "89b6fdd98244b11d56627eae35812ad1de081bc230aa35d5558a446ca767b04c"
+  },
+  {
+   "src": "Cryptids/Zf380.lean",
+   "dst": "corpus/cryptids/Cryptids/Zf380.lean",
+   "src_sha256": "2b8101920ce40d10999d18c5513cef6c8ed6a115b5bd68fa804b6837e8694918",
+   "patched": false,
+   "local_sha256": "2b8101920ce40d10999d18c5513cef6c8ed6a115b5bd68fa804b6837e8694918"
+  },
+  {
+   "src": "Cryptids/Riemann104.lean",
+   "dst": "corpus/cryptids/Cryptids/Riemann104.lean",
+   "src_sha256": "3e37fbaa3d046deaa5d8c155fcca59eb76de9d629d44e99b8e2d43a553c9a848",
+   "patched": false,
+   "local_sha256": "3e37fbaa3d046deaa5d8c155fcca59eb76de9d629d44e99b8e2d43a553c9a848"
+  },
+  {
+   "src": "Cryptids/Riemann95Definition.lean",
+   "dst": "corpus/cryptids/Cryptids/Riemann95Definition.lean",
+   "src_sha256": "da475619b025b44bb6eb6159efc2cdfef3cd2b746e0c504de8e88f310fc528c3",
+   "patched": false,
+   "local_sha256": "da475619b025b44bb6eb6159efc2cdfef3cd2b746e0c504de8e88f310fc528c3"
+  },
+  {
+   "src": "Cryptids/Riemann95.lean",
+   "dst": "corpus/cryptids/Cryptids/Riemann95.lean",
+   "src_sha256": "f7f20b858f540a088fa71c665cb2d1467edce55288d9bffe4c7e26d3f032e4d0",
+   "patched": false,
+   "local_sha256": "f7f20b858f540a088fa71c665cb2d1467edce55288d9bffe4c7e26d3f032e4d0"
+  },
+  {
+   "src": "lean-toolchain",
+   "dst": "corpus/cryptids/lean-toolchain",
+   "src_sha256": "8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7",
+   "patched": false,
+   "local_sha256": "8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7"
+  },
+  {
+   "src": "lakefile.toml",
+   "dst": "corpus/cryptids/lakefile.toml",
+   "src_sha256": "7c4250e8165473fa250cf95f1db6d36b0deb9a25203209016fe10771ab0db699",
+   "patched": false,
+   "local_sha256": "7c4250e8165473fa250cf95f1db6d36b0deb9a25203209016fe10771ab0db699"
+  },
+  {
+   "src": "lake-manifest.json",
+   "dst": "corpus/cryptids/lake-manifest.json",
+   "src_sha256": "4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284",
+   "patched": false,
+   "local_sha256": "4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284"
+  },
+  {
+   "src": "LICENSE",
+   "dst": "corpus/cryptids/LICENSE",
+   "src_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+   "patched": false,
+   "local_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  }
+ ]
+}

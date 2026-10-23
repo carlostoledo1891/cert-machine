@@ -250,12 +250,16 @@ test:
 drift:
 	@$(NODE) tools/lift.js --check
 	@$(NODE) tools/lift.js --check --manifest LIFT-claimbox.json
+	@$(NODE) tools/lift.js --check --manifest LIFT-cryptids.json
 
 lift:
 	@$(NODE) tools/lift.js
 
 lift-claimbox:
 	@$(NODE) tools/lift.js --manifest LIFT-claimbox.json
+
+lift-cryptids:
+	@$(NODE) tools/lift.js --manifest LIFT-cryptids.json
 
 clean:
 	@rm -f index.html ledger.json

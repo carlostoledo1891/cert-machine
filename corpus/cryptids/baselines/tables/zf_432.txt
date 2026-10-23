@@ -1,0 +1,866 @@
+# Derived from sources/zf_432_wade.tm (tursi, SHA-256 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261) by instances/derive.py.
+# 432 states, 2 symbols; the start state is 0 and the others follow the published order.
+# state 0: 0a.boot1.A
+# state 1: 0a.boot1.B
+# state 2: 0a.boot1.C
+# state 3: 0a.boot1.D
+# state 4: 0a.boot1.E
+# state 5: 0b.boot2.0
+# state 6: 0b.boot2.1
+# state 7: 0b.boot2.2
+# state 8: 1b.reg.prep_1
+# state 9: 1b.reg.prep_2
+# state 10: 2b.reg.-1.dec
+# state 11: 2b.reg.-1.inc
+# state 12: 2b.reg.-2.dec
+# state 13: 2b.reg.-2.inc
+# state 14: 2b.reg.0.dec
+# state 15: 2b.reg.0.inc
+# state 16: 2b.reg.1.dec
+# state 17: 2b.reg.1.inc
+# state 18: 2b.reg.10.dec
+# state 19: 2b.reg.10.inc
+# state 20: 2b.reg.2.dec
+# state 21: 2b.reg.2.inc
+# state 22: 2b.reg.3.dec
+# state 23: 2b.reg.3.inc
+# state 24: 2b.reg.4.dec
+# state 25: 2b.reg.4.inc
+# state 26: 2b.reg.5.dec
+# state 27: 2b.reg.5.inc
+# state 28: 2b.reg.6.dec
+# state 29: 2b.reg.6.inc
+# state 30: 2b.reg.7.dec
+# state 31: 2b.reg.7.inc
+# state 32: 2b.reg.8.dec
+# state 33: 2b.reg.8.inc
+# state 34: 2b.reg.9.dec
+# state 35: 2b.reg.9.inc
+# state 36: 2b.reg.dec.check
+# state 37: 2b.reg.dec.scan_1
+# state 38: 2b.reg.dec.scan_2
+# state 39: 2b.reg.dec.shift_1
+# state 40: 2b.reg.dec.shift_2
+# state 41: 2b.reg.inc.shift_1
+# state 42: 2b.reg.inc.shift_2
+# state 43: 2c.reg.return_0_1
+# state 44: 2c.reg.return_0_2
+# state 45: 2c.reg.return_1_1
+# state 46: 2c.reg.return_1_2
+# state 47: 2e.reg.cleanup_1
+# state 48: 2e.reg.cleanup_2
+# state 49: 3.axiomcode.decnz
+# state 50: 3.axiomcode.inc
+# state 51: 3.nextproof.decnz
+# state 52: 3.nextproof.inc
+# state 53: 3.param1.decnz
+# state 54: 3.param1.inc
+# state 55: 3.param2.decnz
+# state 56: 3.param2.inc
+# state 57: 3.param3.decnz
+# state 58: 3.param3.inc
+# state 59: 3.prooflist.decnz
+# state 60: 3.prooflist.inc
+# state 61: 3.scratch1.decnz
+# state 62: 3.scratch1.inc
+# state 63: 3.scratch2.decnz
+# state 64: 3.scratch2.inc
+# state 65: 3.scratch3.decnz
+# state 66: 3.scratch3.inc
+# state 67: 3.topwff.decnz
+# state 68: 3.topwff.inc
+# state 69: 3.wffstack.decnz
+# state 70: 3.wffstack.inc
+# state 71: 4.dispatch.0
+# state 72: 4.dispatch.1
+# state 73: 4.dispatch.10
+# state 74: 4.dispatch.11
+# state 75: 4.dispatch.12
+# state 76: 4.dispatch.13
+# state 77: 4.dispatch.14
+# state 78: 4.dispatch.2
+# state 79: 4.dispatch.3
+# state 80: 4.dispatch.4
+# state 81: 4.dispatch.5
+# state 82: 4.dispatch.6
+# state 83: 4.dispatch.7
+# state 84: 4.dispatch.8
+# state 85: 4.dispatch.9
+# state 86: 4.dispatch.scan
+# state 87: 5.root.1
+# state 88: 5.root.1.1
+# state 89: 6.break.0
+# state 90: 6.break.1
+# state 91: 6.break.2
+# state 92: 6.continue.0
+# state 93: 6.continue.1
+# state 94: 6.continue.2
+# state 95: 6.continue.3
+# state 96: cons().0
+# state 97: cons().1
+# state 98: cparam().n_91.0
+# state 99: cparam().n_91.0.0
+# state 100: cparam().n_91.0.1
+# state 101: cparam().n_91.0.1.0
+# state 102: cparam().n_91.0.1.1
+# state 103: cparam().n_91.0.1.1.0
+# state 104: cparam().n_91.0.2
+# state 105: cparam().n_91.0.2.0
+# state 106: cparam(param2).0
+# state 107: cparam(param2).1
+# state 108: cparam(param3).0
+# state 109: cparam(param3).1
+# state 110: if_decnz(axiomcode,63).0
+# state 111: if_decnz(axiomcode,63).1
+# state 112: if_eq().n_111.0
+# state 113: if_eq().n_111.0.0
+# state 114: if_eq().n_111.0.1
+# state 115: if_eq().n_111.0.1.0
+# state 116: if_eq().n_111.0.2
+# state 117: if_eq().n_111.1
+# state 118: if_eq().n_111.2
+# state 119: if_eq(scratch2,scratch3,102).0
+# state 120: if_eq(scratch2,scratch3,102).1
+# state 121: if_eq(scratch2,scratch3,61).0
+# state 122: if_not_decnz(prooflist,72).0
+# state 123: if_not_decnz(prooflist,72).0.0
+# state 124: if_not_decnz(prooflist,72).1
+# state 125: if_not_decnz(prooflist,72).2
+# state 126: main().0
+# state 127: main().1
+# state 128: main().10
+# state 129: main().100
+# state 130: main().101
+# state 131: main().102
+# state 132: main().103
+# state 133: main().104
+# state 134: main().105
+# state 135: main().106
+# state 136: main().107
+# state 137: main().108
+# state 138: main().109
+# state 139: main().11
+# state 140: main().110
+# state 141: main().111
+# state 142: main().112
+# state 143: main().113
+# state 144: main().114
+# state 145: main().115
+# state 146: main().116
+# state 147: main().117
+# state 148: main().118
+# state 149: main().119
+# state 150: main().12
+# state 151: main().120
+# state 152: main().121
+# state 153: main().122
+# state 154: main().123
+# state 155: main().124
+# state 156: main().125
+# state 157: main().126
+# state 158: main().127
+# state 159: main().128
+# state 160: main().129
+# state 161: main().13
+# state 162: main().130
+# state 163: main().131
+# state 164: main().132
+# state 165: main().133
+# state 166: main().134
+# state 167: main().134.0
+# state 168: main().134.1
+# state 169: main().134.1.0
+# state 170: main().14
+# state 171: main().15
+# state 172: main().16
+# state 173: main().17
+# state 174: main().18
+# state 175: main().19
+# state 176: main().2
+# state 177: main().20
+# state 178: main().21
+# state 179: main().22
+# state 180: main().23
+# state 181: main().24
+# state 182: main().25
+# state 183: main().26
+# state 184: main().27
+# state 185: main().28
+# state 186: main().29
+# state 187: main().3
+# state 188: main().30
+# state 189: main().31
+# state 190: main().32
+# state 191: main().33
+# state 192: main().34
+# state 193: main().35
+# state 194: main().36
+# state 195: main().37
+# state 196: main().38
+# state 197: main().39
+# state 198: main().4
+# state 199: main().40
+# state 200: main().41
+# state 201: main().42
+# state 202: main().43
+# state 203: main().44
+# state 204: main().45
+# state 205: main().46
+# state 206: main().47
+# state 207: main().48
+# state 208: main().49
+# state 209: main().5
+# state 210: main().50
+# state 211: main().51
+# state 212: main().52
+# state 213: main().53
+# state 214: main().54
+# state 215: main().55
+# state 216: main().56
+# state 217: main().57
+# state 218: main().58
+# state 219: main().59
+# state 220: main().6
+# state 221: main().60
+# state 222: main().61
+# state 223: main().62
+# state 224: main().63
+# state 225: main().64
+# state 226: main().65
+# state 227: main().66
+# state 228: main().67
+# state 229: main().68
+# state 230: main().69
+# state 231: main().7
+# state 232: main().70
+# state 233: main().71
+# state 234: main().72
+# state 235: main().73
+# state 236: main().74
+# state 237: main().75
+# state 238: main().76
+# state 239: main().77
+# state 240: main().78
+# state 241: main().79
+# state 242: main().8
+# state 243: main().80
+# state 244: main().81
+# state 245: main().82
+# state 246: main().83
+# state 247: main().84
+# state 248: main().85
+# state 249: main().86
+# state 250: main().87
+# state 251: main().88
+# state 252: main().89
+# state 253: main().9
+# state 254: main().90
+# state 255: main().91
+# state 256: main().92
+# state 257: main().93
+# state 258: main().94
+# state 259: main().95
+# state 260: main().96
+# state 261: main().97
+# state 262: main().98
+# state 263: main().99
+# state 264: main().n_125.0
+# state 265: main().n_125.1
+# state 266: main().n_125.2
+# state 267: main().n_125.3
+# state 268: main().n_125.4
+# state 269: main().n_125.5
+# state 270: main().n_125.6
+# state 271: main().n_125.7
+# state 272: main().n_126.0
+# state 273: main().n_126.1
+# state 274: main().n_126.2
+# state 275: main().n_126.3
+# state 276: main().n_126.4
+# state 277: main().n_127.0
+# state 278: main().n_127.1
+# state 279: main().n_127.2
+# state 280: main().n_128.0
+# state 281: main().n_128.1
+# state 282: main().n_128.2
+# state 283: main().n_129.0
+# state 284: main().n_129.1
+# state 285: main().n_129.2
+# state 286: main().n_130.0
+# state 287: main().n_131.0
+# state 288: main().n_132.0
+# state 289: main().n_133.0
+# state 290: main().n_134.0
+# state 291: main().n_135.0
+# state 292: main().n_135.1
+# state 293: main().n_135.2
+# state 294: main().n_136.0
+# state 295: main().n_137.0
+# state 296: main().n_138.0
+# state 297: main().n_139.0
+# state 298: main().n_140.0
+# state 299: main().n_140.1
+# state 300: main().n_141.0
+# state 301: main().n_142.0
+# state 302: main().n_143.0
+# state 303: main().n_143.1
+# state 304: main().n_144.0
+# state 305: main().n_145.0
+# state 306: main().n_146.0
+# state 307: main().n_147.0
+# state 308: main().n_148.0
+# state 309: main().n_148.1
+# state 310: main().n_149.0
+# state 311: main().n_150.0
+# state 312: main().n_151.0
+# state 313: main().n_152.0
+# state 314: main().n_153.0
+# state 315: main().n_154.0
+# state 316: main().n_155.0
+# state 317: main().n_156.0
+# state 318: main().n_157.0
+# state 319: main().n_158.0
+# state 320: main().n_159.0
+# state 321: main().n_160.0
+# state 322: main().n_161.0
+# state 323: main().n_162.0
+# state 324: main().n_163.0
+# state 325: main().n_164.0
+# state 326: main().n_185.0
+# state 327: main().n_188.0
+# state 328: n_165.0
+# state 329: pair(scratch1,topwff,wffstack).0
+# state 330: pair(scratch1,topwff,wffstack).1
+# state 331: pair(scratch1,topwff,wffstack).2
+# state 332: pair(scratch1,topwff,wffstack).2.0
+# state 333: pair(scratch2,scratch1,topwff).0
+# state 334: pair(scratch2,scratch1,topwff).1
+# state 335: pair(scratch2,scratch1,topwff).2
+# state 336: pair(scratch2,scratch1,topwff).2.0
+# state 337: par1().0
+# state 338: par1().1
+# state 339: par2().0
+# state 340: par2().1
+# state 341: par3().0
+# state 342: par3().1
+# state 343: pushwff().0
+# state 344: select().0
+# state 345: select().1
+# state 346: select().2
+# state 347: select().3
+# state 348: unpair().n_2.0
+# state 349: unpair().n_5.0
+# state 350: unpair().n_5.1
+# state 351: unpair().n_5.2
+# state 352: unpair(scratch1,scratch2,prooflist).0
+# state 353: unpair(scratch1,scratch2,wffstack).0
+# state 354: unpair(topwff,scratch2,wffstack).0
+# state 355: unpair(topwff,scratch2,wffstack).1
+# state 356: unpair(topwff,scratch2,wffstack).2
+# state 357: unpair(topwff,scratch2,wffstack).3
+# state 358: v_1().0
+# state 359: v_2().0
+# state 360: v_3().0
+# state 361: v_4().0
+# state 362: wa().0
+# state 363: wa().1
+# state 364: wal().0
+# state 365: wal().1
+# state 366: wel().0
+# state 367: wel().1
+# state 368: weq().0
+# state 369: weq().1
+# state 370: wex().0
+# state 371: wex().1
+# state 372: while_decnz().n_0.0
+# state 373: while_decnz().n_114.0
+# state 374: while_decnz().n_114.0.0
+# state 375: while_decnz().n_18.0
+# state 376: while_decnz().n_43.0
+# state 377: while_decnz().n_43.0.0
+# state 378: while_decnz().n_7.0
+# state 379: while_decnz().n_97.0
+# state 380: while_decnz().n_97.0.0
+# state 381: while_decnz(axiomcode,()).0
+# state 382: while_decnz(nextproof,67).0
+# state 383: while_decnz(nextproof,67).1
+# state 384: while_decnz(nextproof,67).1.0
+# state 385: while_decnz(param1,()).0
+# state 386: while_decnz(param1,113).0
+# state 387: while_decnz(param1,42).0
+# state 388: while_decnz(param1,99).0
+# state 389: while_decnz(param1,99).1
+# state 390: while_decnz(param1,99).1.0
+# state 391: while_decnz(param2,()).0
+# state 392: while_decnz(param2,113).0
+# state 393: while_decnz(param2,42).0
+# state 394: while_decnz(param2,96).0
+# state 395: while_decnz(param3,()).0
+# state 396: while_decnz(param3,42).0
+# state 397: while_decnz(param3,96).0
+# state 398: while_decnz(scratch1,()).0
+# state 399: while_decnz(scratch1,3.axiomcode.inc).0
+# state 400: while_decnz(scratch1,3.axiomcode.inc).1
+# state 401: while_decnz(scratch1,3.nextproof.inc).0
+# state 402: while_decnz(scratch1,3.nextproof.inc).1
+# state 403: while_decnz(scratch1,3.param1.inc).0
+# state 404: while_decnz(scratch1,3.param1.inc).1
+# state 405: while_decnz(scratch1,3.param2.inc).0
+# state 406: while_decnz(scratch1,3.param2.inc).1
+# state 407: while_decnz(scratch1,3.param3.inc).0
+# state 408: while_decnz(scratch1,3.param3.inc).1
+# state 409: while_decnz(scratch1,3.scratch2.inc).0
+# state 410: while_decnz(scratch1,3.topwff.inc).0
+# state 411: while_decnz(scratch1,3.wffstack.inc).0
+# state 412: while_decnz(scratch1,9).0
+# state 413: while_decnz(scratch1,9).1
+# state 414: while_decnz(scratch1,9).1.0
+# state 415: while_decnz(scratch2,()).0
+# state 416: while_decnz(scratch2,3.prooflist.inc).0
+# state 417: while_decnz(scratch2,3.prooflist.inc).1
+# state 418: while_decnz(scratch2,3.topwff.inc).0
+# state 419: while_decnz(scratch2,3.wffstack.inc).0
+# state 420: while_decnz(scratch3,()).0
+# state 421: while_decnz(topwff,()).0
+# state 422: while_decnz(topwff,21).0
+# state 423: while_decnz(topwff,21).1
+# state 424: while_decnz(topwff,21).1.0
+# state 425: while_decnz(topwff,3.scratch1.inc).0
+# state 426: while_decnz(topwff,3.scratch1.inc).1
+# state 427: while_decnz(topwff,3.scratch2.inc).0
+# state 428: while_decnz(wffstack,3.topwff.inc).0
+# state 429: wim().0
+# state 430: wim().1
+# state 431: wn().0
+1R1 1L2
+0L0 0L3
+1L0 1R60
+1L1 1R4
+0R3 0R1
+1L92 1R6
+0R5 1R7
+0R60 1R59
+0R9 ---
+1R9 1L92
+0R12 1R10
+0R13 1R11
+1L45 0R36
+1R41 1R13
+0R10 1R14
+0R11 1R15
+0R14 1R16
+0R15 1R17
+0R34 1R18
+0R35 1R19
+0R16 1R20
+0R17 1R21
+0R20 1R22
+0R21 1R23
+0R22 1R24
+0R23 1R25
+0R24 1R26
+0R25 1R27
+0R26 1R28
+0R27 1R29
+0R28 1R30
+0R29 1R31
+0R30 1R32
+0R31 1R33
+0R32 1R34
+0R33 1R35
+0L12 1R37
+0R38 1R37
+0L39 1R37
+1L40 1L39
+0L43 0L39
+0L43 0R42
+1R41 1R42
+0L44 1L43
+0L89 1L43
+0L46 1L45
+0L90 1L45
+0R47 0R48
+0L5 0R48
+1R8 0R24
+1R8 0R25
+1R8 0R16
+1R8 0R17
+1R8 0R26
+1R8 0R27
+1R8 0R28
+1R8 0R29
+1R8 0R30
+1R8 0R31
+1R8 0R14
+1R8 0R15
+1R8 0R32
+1R8 0R33
+1R8 0R34
+1R8 0R35
+1R8 0R18
+1R8 0R19
+1R8 0R20
+1R8 0R21
+1R8 0R22
+1R8 0R23
+0L86 1L71
+0L71 1L72
+0L85 1L73
+0L73 1L74
+0L74 1L75
+0L75 1L76
+0L76 1L77
+0L72 1L78
+0L78 1L79
+0L79 1L80
+0L80 1L81
+0L81 1L82
+0L82 1L83
+0L83 1L84
+0L84 1L85
+0R86 1R87
+0R5 1R88
+0R126 0R126
+1R47 0L89
+0L89 0L90
+0L90 0L91
+0L92 1L77
+0L93 0L92
+0L94 0L93
+0L95 0L94
+0R328 1R97
+0R333 1R418
+0R99 0L90
+0R49 1R100
+0R101 1R104
+0R49 1R102
+0R103 0L90
+0R50 1R50
+0R105 0L90
+0R50 1R328
+0R98 1R107
+0R391 1R405
+0R98 1R109
+0R395 1R407
+0R49 1R111
+0R421 1R410
+0R113 1R117
+0R63 1R114
+0R115 1R116
+0R65 0L93
+0R415 0L91
+0R65 1R118
+0R420 0L90
+0R112 1R120
+0R388 1R403
+0R112 1R421
+0R123 1R124
+0R59 0L90
+0R382 1R125
+0R401 1R52
+0R122 1R127
+0R381 1R176
+0R405 1R139
+0R277 1R130
+0R288 1R131
+0R362 1R132
+0R315 1R133
+0R320 1R134
+0R316 1R135
+0R360 1R136
+0R317 1R137
+0R289 1R138
+0R319 1R140
+0R310 1R150
+0R280 1R141
+0R359 1R142
+0R317 1R143
+0R360 1R144
+0R289 1R145
+0R318 1R146
+0R280 1R147
+0R301 1R148
+0R343 1R149
+0R301 1R151
+0R407 1R161
+0R290 1R152
+0R358 1R153
+0R316 1R154
+0R366 1R155
+0R302 1R156
+0R429 1R157
+0R302 1R158
+0R316 1R159
+0R291 1R160
+0R318 1R162
+0R343 1R170
+0R319 1R163
+0R318 1R164
+0R344 1R165
+0R67 1R166
+0R167 ---
+0R67 1R168
+0R169 0L90
+0R68 1R68
+0R108 1R171
+0R106 1R172
+0R341 1R173
+0R312 1R174
+0R427 1R175
+0R394 1R177
+0R385 1R187
+0R405 1R178
+0R119 1R179
+0R344 1R180
+0R108 1R181
+0R296 1R182
+0R306 1R183
+0R429 1R184
+0R339 1R185
+0R311 1R186
+0R337 1R188
+0R391 1R198
+0R311 1R189
+0R295 1R190
+0R431 1R191
+0R312 1R192
+0R337 1R193
+0R294 1R194
+0R431 1R195
+0R339 1R196
+0R287 1R197
+0R311 1R199
+0R395 1R209
+0R364 1R200
+0R321 1R201
+0R364 1R202
+0R296 1R203
+0R429 1R204
+0R429 1R205
+0R272 1R206
+0R264 1R207
+0R339 1R208
+0R368 1R210
+0R310 1R220
+0R313 1R211
+0R297 1R212
+0R341 1R213
+0R297 1R214
+0R313 1R215
+0R362 1R216
+0R386 1R217
+0R403 1R218
+0R298 1R219
+0R392 1R221
+0R399 1R231
+0R405 1R222
+0R298 1R223
+0R272 1R224
+0R286 1R225
+0R315 1R226
+0R339 1R227
+0R286 1R228
+0R368 1R229
+0R370 1R230
+0R283 1R232
+0R310 1R242
+0R368 1R233
+0R324 1R234
+0R322 1R235
+0R264 1R236
+0R366 1R237
+0R341 1R238
+0R339 1R239
+0R366 1R240
+0R305 1R241
+0R359 1R243
+0R403 1R253
+0R314 1R244
+0R366 1R245
+0R288 1R246
+0R304 1R247
+0R314 1R248
+0R291 1R249
+0R343 1R250
+0R300 1R251
+0R344 1R252
+0R360 1R254
+0R310 1R128
+0R316 1R255
+0R308 1R256
+0R359 1R257
+0R300 1R258
+0R315 1R259
+0R364 1R260
+0R358 1R261
+0R290 1R262
+0R277 1R263
+0R429 1R129
+0R429 1R265
+0R283 1R266
+0R366 1R267
+0R324 1R268
+0R366 1R269
+0R287 1R270
+0R368 1R271
+0R341 1R337
+0R306 1R273
+0R325 1R274
+0R364 1R275
+0R339 1R276
+0R296 1R364
+0R360 1R278
+0R307 1R279
+0R308 1R318
+0R288 1R281
+0R315 1R282
+0R344 1R358
+0R306 1R284
+0R368 1R285
+0R337 1R341
+0R294 1R339
+0R295 1R339
+0R304 1R429
+0R366 1R307
+0R359 1R304
+0R366 1R292
+0R429 1R293
+0R362 1R364
+0R320 1R326
+0R305 1R337
+0R337 1R325
+0R321 1R366
+0R397 1R299
+0R403 1R121
+0R358 1R322
+0R343 1R323
+0R358 1R303
+0R343 1R368
+0R359 1R323
+0R429 1R320
+0R344 1R321
+0R360 1R327
+0R358 1R309
+0R337 1R364
+0R352 1R416
+0R341 1R429
+0R337 1R429
+0R364 1R429
+0R359 1R343
+0R364 1R370
+0R358 1R359
+0R360 1R359
+0R362 1R370
+0R429 1R364
+0R429 1R344
+0R337 1R339
+0R368 1R429
+0R358 1R366
+0R339 1R341
+0R341 1R364
+0R337 1R337
+0R343 1R366
+0R353 1R419
+0R422 1R330
+0R69 1R331
+0R332 0L94
+0R62 1R428
+0R412 1R334
+0R67 1R335
+0R336 0L94
+0R64 1R425
+0R343 1R338
+0R387 1R403
+0R343 1R340
+0R393 1R405
+0R343 1R342
+0R396 1R407
+0R329 1R411
+0R425 1R345
+0R354 1R346
+0R419 1R347
+0R110 1R398
+0R63 0L94
+0R62 1R350
+0R348 1R351
+0R409 0L95
+0R59 1R349
+0R69 1R349
+0R69 1R355
+0R68 1R356
+0R348 1R357
+0R427 0L95
+0R343 1R68
+0R358 1R68
+0R359 1R68
+0R360 1R68
+0R431 1R363
+0R429 1R431
+0R96 1R365
+0R361 1R96
+0R96 1R367
+0R358 1R96
+0R96 1R369
+0R343 1R96
+0R431 1R371
+0R364 1R431
+0R64 0L93
+0R374 0L93
+0R62 1R64
+0R68 0L93
+0R377 0L93
+0R68 1R62
+0R70 0L93
+0R380 0L93
+0R62 1R66
+0R49 0L92
+0R51 1R383
+0R384 0L93
+0R62 1R60
+0R53 0L92
+0R53 1R373
+0R53 1R376
+0R53 1R389
+0R390 0L93
+0R62 1R68
+0R55 0L92
+0R55 1R373
+0R55 1R376
+0R55 1R379
+0R57 0L92
+0R57 1R376
+0R57 1R379
+0R61 0L92
+0R61 1R400
+0R50 0L93
+0R61 1R402
+0R52 0L93
+0R61 1R404
+0R54 0L93
+0R61 1R406
+0R56 0L93
+0R61 1R408
+0R58 0L93
+0R61 1R372
+0R61 1R375
+0R61 1R378
+0R61 1R413
+0R414 0L93
+0R68 1R64
+0R63 0L92
+0R63 1R417
+0R60 0L93
+0R63 1R375
+0R63 1R378
+0R65 0L92
+0R67 0L92
+0R67 1R423
+0R424 0L93
+0R70 1R62
+0R67 1R426
+0R62 0L93
+0R67 1R372
+0R69 1R375
+0R96 1R430
+0R359 1R96
+0R360 1R96

@@ -1,0 +1,31 @@
+{
+ "source_root": "~/Projects/cryptids-src",
+ "policy": "READ-ONLY. A clone of github.com/google-deepmind/cryptids checked out at commit 664cd03904a870e9a8796476dbf9dbc13a72a37b (2026-10-22T15:52:03+01:00, the pin of the cryptids audit and its benchmark, notes/cryptids-benchmark-preregistration-2026-10-23.md). This manifest copies the repository's finite layer IN — the transition tables, the upstream sources and their provenance, the producer's checker, the comparator configurations, the write-ups and the Lean files the checker reads — and never writes back. PROVENANCE-cryptids.json records every sha256 and the commit; `make drift` re-hashes both ends.",
+ "items": [
+  { "src": "artifacts", "dst": "corpus/cryptids/artifacts", "note": "the four candidate machines: machine.txt and the write-up of each reduction", "exclude": [] },
+  { "src": "baselines", "dst": "corpus/cryptids/baselines", "note": "the five upstream sources (standard, tursi, nql), the five derived tables, PROVENANCE.md with the pins", "exclude": [] },
+  { "src": "comparator", "dst": "corpus/cryptids/comparator", "note": "the axiom-audit configurations: which theorems, which axioms", "exclude": [] },
+  { "src": "verify.py", "dst": "corpus/cryptids/verify.py", "note": "the producer's standard-library checker, the artifact under audit", "exclude": [] },
+  { "src": "README.md", "dst": "corpus/cryptids/README.md", "note": "the repository's claims as it prints them", "exclude": [] },
+  { "src": "RELATED_WORK.md", "dst": "corpus/cryptids/RELATED_WORK.md", "note": "the lineage and the state counts of prior machines", "exclude": [] },
+  { "src": "CONTRIBUTING.md", "dst": "corpus/cryptids/CONTRIBUTING.md", "note": "what the repository invites", "exclude": [] },
+  { "src": "Cryptids/README.md", "dst": "corpus/cryptids/Cryptids/README.md", "note": "the conjecture-checking library's stated results", "exclude": [] },
+  { "src": "Cryptids/Semantics/README.md", "dst": "corpus/cryptids/Cryptids/Semantics/README.md", "note": "the proof architecture", "exclude": [] },
+  { "src": "Cryptids/ReductionSupport/Riemann95/README.md", "dst": "corpus/cryptids/Cryptids/ReductionSupport/Riemann95/README.md", "note": "the 95-state proof guide", "exclude": [] },
+  { "src": "BusyBeaver/README.md", "dst": "corpus/cryptids/BusyBeaver/README.md", "note": "the holdout library's stated results", "exclude": [] },
+  { "src": "BusyBeaver/BB6/README.md", "dst": "corpus/cryptids/BusyBeaver/BB6/README.md", "note": "the 53 BB(6) holdouts as listed", "exclude": [] },
+  { "src": "BusyBeaver/BB33/README.md", "dst": "corpus/cryptids/BusyBeaver/BB33/README.md", "note": "the 6 BB(3,3) holdouts as listed", "exclude": [] },
+  { "src": "Cryptids/Machines.lean", "dst": "corpus/cryptids/Cryptids/Machines.lean", "note": "the machine definitions the checker string-matches", "exclude": [] },
+  { "src": "Challenge.lean", "dst": "corpus/cryptids/Challenge.lean", "note": "the challenge statements the comparator audits against", "exclude": [] },
+  { "src": "Cryptids/Goldbach21.lean", "dst": "corpus/cryptids/Cryptids/Goldbach21.lean", "note": "the Goldbach reduction proof (the edited table the checker reads)", "exclude": [] },
+  { "src": "Cryptids/Zf380.lean", "dst": "corpus/cryptids/Cryptids/Zf380.lean", "note": "the ZF reduction proof", "exclude": [] },
+  { "src": "Cryptids/Riemann104.lean", "dst": "corpus/cryptids/Cryptids/Riemann104.lean", "note": "the 120 → 104 reduction proof", "exclude": [] },
+  { "src": "Cryptids/Riemann95Definition.lean", "dst": "corpus/cryptids/Cryptids/Riemann95Definition.lean", "note": "the 95-state aliases", "exclude": [] },
+  { "src": "Cryptids/Riemann95.lean", "dst": "corpus/cryptids/Cryptids/Riemann95.lean", "note": "the 104 → 95 reduction proof", "exclude": [] },
+  { "src": "lean-toolchain", "dst": "corpus/cryptids/lean-toolchain", "note": "v4.35.0-rc4", "exclude": [] },
+  { "src": "lakefile.toml", "dst": "corpus/cryptids/lakefile.toml", "note": "the libraries and their dependencies", "exclude": [] },
+  { "src": "lake-manifest.json", "dst": "corpus/cryptids/lake-manifest.json", "note": "the dependency pins (Mathlib, verso)", "exclude": [] },
+  { "src": "LICENSE", "dst": "corpus/cryptids/LICENSE", "note": "Apache-2.0 for the software; CC-BY 4.0 for the rest, as the README states", "exclude": [] }
+ ],
+ "patches": []
+}
