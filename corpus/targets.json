@@ -740,11 +740,11 @@
   {
    "id": "ramsey-lower-bounds-2026",
    "name": "The 2026 Ramsey lower bounds (AlphaEvolve arXiv:2603.09172 v5; Wang ScaleAutoResearch-Ramsey; Yu arXiv:2608.18169; Coniglio et al. arXiv:2608.18769)",
-   "verdict": "OPEN",
+   "verdict": "BUILDING 2026-10-23 (the AlphaEvolve 18 first, on the operator’s word): 13 CERTIFIED, 5 REFUSED pending long searches",
    "scouted": "2026-10-04",
    "finding": "Witnesses published as adjacency matrices / circulant distance lists; Radziszowski's DS1 rev. 18 (2026-04-24) predates Wang, Yu and Coniglio; no independent re-check found. Yu's abstract names two circulants, Zenodo ships one (NEEDS DATA for the second); Coniglio's R_C(3,n) 'exact' values rest on CPLEX optimality (REFUSED by kind without proof logs). Scout's uncertified probe: Wang R(3,17) and R(4,15) pass in ~20 s each; Yu's needs ~3.7e8 nodes (compiled checker).",
    "fit": "a new exact clique/independence decider with a checkable certificate (attack plan K5)",
-   "next": "2–4 days. 2026-10-23: maximusrufus (cert-machine#1) delivered AlphaEvolve’s 18 graphs at maximusrufus/openai-math-replays 4c5524a (copied unmodified from google-research 0d94f8c4 ramsey_number_bounds/improved_bounds, SHA256SUMS; their verdicts: 13 VERIFIED by two methods, R(8,12) and R(9,11) by one solver family, R(7,13), R(10,12), R(8,18) not finished). Ours: pin google-research 0d94f8c4 directly, check the sums, decide each with a clique/independence search of our own; the three large ones need a real solver and compute"
+   "next": "the AlphaEvolve 18: instruments/ramsey (clique.c held root by root to clique.py) + tools/run-ramsey-ledger.py → certs/ramsey-ledger.json; 13 of 18 CERTIFIED by both implementations; the five large graphs K side complete, I side running (R(9,11), R(10,12), R(8,12) est. 0.5–1.5 h each on this Mac; R(7,13), R(8,18): no root finished in a minute — measure, then decide RunPod). Then Wang, Yu, Coniglio as in the finding. maximusrufus’s delivery (cert-machine#1): their 18 sha256 equal ours"
   },
   {
    "id": "gcm-explicit-order-2026",

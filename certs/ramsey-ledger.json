@@ -1,0 +1,641 @@
+{
+ "what": "Google's 18 Ramsey lower-bound graphs for AlphaEvolve (arXiv 2603.09172), each decided by an exhaustive clique search written here from the definition: a file R(s, t) >= m is CERTIFIED when its graph on m - 1 vertices has no s-clique and no independent t-set, both searched to the end. Written by tools/run-ramsey-ledger.py.",
+ "source": {
+  "repository": "https://github.com/google-research/google-research",
+  "commit": "0d94f8c4d92678ce5f7a0eacae725f79174cfb03",
+  "directory": "ramsey_number_bounds/improved_bounds",
+  "pins": "corpus/ramsey/alphaevolve/PINS.json"
+ },
+ "method": {
+  "kernel": "instruments/ramsey/clique.c",
+  "reference": "instruments/ramsey/clique.py",
+  "refMax": 250,
+  "order": "smallest-last (ties by smallest label); roots in rank order with their later neighbours",
+  "bounds": "greedy colouring of the candidates (lowest label first), walked backwards; size + colour < k closes the branch"
+ },
+ "code": {
+  "instruments/ramsey/clique.c": "3db98fed2f36bf78354f3b605d7108edb73d90e202fc3f7107a3ec8bf91d82a1",
+  "instruments/ramsey/clique.py": "dd6ef69e4d750a5f2b432365b5c046df4a493a9c8b2294205e56caf790dd0316",
+  "instruments/ramsey/graph.py": "5aa0a9e27a38f3ddf36294c2f4b9c8ad00db2a4d2406ee348f4b62ece34f99f9",
+  "tools/run-ramsey-ledger.py": "b43da752cdc66d07fef36c9e126f08c6b2b6ad968947a88bba94973c67b6d69c"
+ },
+ "machine": {
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.0.123.102)",
+  "threads": 8
+ },
+ "counts": {
+  "CERTIFIED": 13,
+  "REFUSED": 5
+ },
+ "rows": [
+  {
+   "file": "graphs/R_3_12_ge_53.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 12) >= 53.txt",
+   "sha256": "f255d720051434018a9095438816c06f2151196e7b9dbf82d55528d691bd84bf",
+   "s": 3,
+   "t": 12,
+   "claim": "R(3, 12) >= 53",
+   "n": 52,
+   "K": {
+    "k": 3,
+    "complete": true,
+    "found": null,
+    "nodes": 52,
+    "roots": 52,
+    "rootsDone": 52,
+    "reference": {
+     "nodes": 52,
+     "rootsEqual": true
+    },
+    "seconds": 0.5
+   },
+   "I": {
+    "k": 12,
+    "complete": true,
+    "found": null,
+    "nodes": 4967,
+    "roots": 52,
+    "rootsDone": 52,
+    "reference": {
+     "nodes": 4967,
+     "rootsEqual": true
+    },
+    "seconds": 0.1
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_3_13_ge_61.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 13) >= 61.txt",
+   "sha256": "d619f0bfed32af5e2fbc8c724d9c65dbf388a19d5647d20e7835b501bc03227a",
+   "s": 3,
+   "t": 13,
+   "claim": "R(3, 13) >= 61",
+   "n": 60,
+   "K": {
+    "k": 3,
+    "complete": true,
+    "found": null,
+    "nodes": 60,
+    "roots": 60,
+    "rootsDone": 60,
+    "reference": {
+     "nodes": 60,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 13,
+    "complete": true,
+    "found": null,
+    "nodes": 54515,
+    "roots": 60,
+    "rootsDone": 60,
+    "reference": {
+     "nodes": 54515,
+     "rootsEqual": true
+    },
+    "seconds": 0.2
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_3_15_ge_74.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 15) >= 74.txt",
+   "sha256": "ae94e8e6b3c1a26b90cf55d754c742074efd62449c8227a285bd288eb093d26e",
+   "s": 3,
+   "t": 15,
+   "claim": "R(3, 15) >= 74",
+   "n": 73,
+   "K": {
+    "k": 3,
+    "complete": true,
+    "found": null,
+    "nodes": 73,
+    "roots": 73,
+    "rootsDone": 73,
+    "reference": {
+     "nodes": 73,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 15,
+    "complete": true,
+    "found": null,
+    "nodes": 130758,
+    "roots": 73,
+    "rootsDone": 73,
+    "reference": {
+     "nodes": 130758,
+     "rootsEqual": true
+    },
+    "seconds": 0.7
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_3_17_ge_93.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 17) >= 93.txt",
+   "sha256": "71810667cd353e766375041e7968596e6ba7f67cd7d722158b09ab9a30e2336b",
+   "s": 3,
+   "t": 17,
+   "claim": "R(3, 17) >= 93",
+   "n": 92,
+   "K": {
+    "k": 3,
+    "complete": true,
+    "found": null,
+    "nodes": 92,
+    "roots": 92,
+    "rootsDone": 92,
+    "reference": {
+     "nodes": 92,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 17,
+    "complete": true,
+    "found": null,
+    "nodes": 1730104,
+    "roots": 92,
+    "rootsDone": 92,
+    "reference": {
+     "nodes": 1730104,
+     "rootsEqual": true
+    },
+    "seconds": 10.8
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_3_18_ge_100.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 18) >= 100.txt",
+   "sha256": "3e9d16e29111f3a2f25ae3b992235804c2612de2f6ada5570901d17ceedfca45",
+   "s": 3,
+   "t": 18,
+   "claim": "R(3, 18) >= 100",
+   "n": 99,
+   "K": {
+    "k": 3,
+    "complete": true,
+    "found": null,
+    "nodes": 99,
+    "roots": 99,
+    "rootsDone": 99,
+    "reference": {
+     "nodes": 99,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 18,
+    "complete": true,
+    "found": null,
+    "nodes": 1423686,
+    "roots": 99,
+    "rootsDone": 99,
+    "reference": {
+     "nodes": 1423686,
+     "rootsEqual": true
+    },
+    "seconds": 10.2
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_13_ge_139.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 13) >= 139.txt",
+   "sha256": "c50a55389d2c69b4cc7c1304639b2af67f16fd1a4a866870b87f907d41b69c54",
+   "s": 4,
+   "t": 13,
+   "claim": "R(4, 13) >= 139",
+   "n": 138,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 1371,
+    "roots": 138,
+    "rootsDone": 138,
+    "reference": {
+     "nodes": 1371,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 13,
+    "complete": true,
+    "found": null,
+    "nodes": 250304,
+    "roots": 138,
+    "rootsDone": 138,
+    "reference": {
+     "nodes": 250304,
+     "rootsEqual": true
+    },
+    "seconds": 1.7
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_14_ge_148.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 14) >= 148.txt",
+   "sha256": "00563a5e5e82289ffd1bf62ed2422a8c2865c11da9eaab1c101c4569a5ff2c8a",
+   "s": 4,
+   "t": 14,
+   "claim": "R(4, 14) >= 148",
+   "n": 147,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 1300,
+    "roots": 147,
+    "rootsDone": 147,
+    "reference": {
+     "nodes": 1300,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 14,
+    "complete": true,
+    "found": null,
+    "nodes": 1038704,
+    "roots": 147,
+    "rootsDone": 147,
+    "reference": {
+     "nodes": 1038704,
+     "rootsEqual": true
+    },
+    "seconds": 7.2
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_15_ge_163.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt",
+   "sha256": "56f3cf76b87efe7d845b2bd59505d44638a9b49e04dfd33dcb4e86426cb4ec23",
+   "s": 4,
+   "t": 15,
+   "claim": "R(4, 15) >= 163",
+   "n": 162,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 1716,
+    "roots": 162,
+    "rootsDone": 162,
+    "reference": {
+     "nodes": 1716,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 15,
+    "complete": true,
+    "found": null,
+    "nodes": 2344398,
+    "roots": 162,
+    "rootsDone": 162,
+    "reference": {
+     "nodes": 2344398,
+     "rootsEqual": true
+    },
+    "seconds": 18.4
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_16_ge_174.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 16) >= 174.txt",
+   "sha256": "def3d53ed5879f8984434b93861b3a6a66049f2491fa04da212d704504b82f6f",
+   "s": 4,
+   "t": 16,
+   "claim": "R(4, 16) >= 174",
+   "n": 173,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 1689,
+    "roots": 173,
+    "rootsDone": 173,
+    "reference": {
+     "nodes": 1689,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 16,
+    "complete": true,
+    "found": null,
+    "nodes": 5024559,
+    "roots": 173,
+    "rootsDone": 173,
+    "reference": {
+     "nodes": 5024559,
+     "rootsEqual": true
+    },
+    "seconds": 38.1
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_18_ge_209.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 18) >= 209.txt",
+   "sha256": "5317e46e94f27bca829f0aa7b7f1bb2dcdf56e040ea9b98c199b00b7685f9945",
+   "s": 4,
+   "t": 18,
+   "claim": "R(4, 18) >= 209",
+   "n": 208,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 2793,
+    "roots": 208,
+    "rootsDone": 208,
+    "reference": {
+     "nodes": 2793,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 18,
+    "complete": true,
+    "found": null,
+    "nodes": 10754608,
+    "roots": 208,
+    "rootsDone": 208,
+    "reference": {
+     "nodes": 10754608,
+     "rootsEqual": true
+    },
+    "seconds": 112.9
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_19_ge_219.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 19) >= 219.txt",
+   "sha256": "8d2378420e281725f4fa6d510b2be0ec458dcb2a155ef7a61ec5c4b85bfd0f2c",
+   "s": 4,
+   "t": 19,
+   "claim": "R(4, 19) >= 219",
+   "n": 218,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 2722,
+    "roots": 218,
+    "rootsDone": 218,
+    "reference": {
+     "nodes": 2722,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 19,
+    "complete": true,
+    "found": null,
+    "nodes": 16226653,
+    "roots": 218,
+    "rootsDone": 218,
+    "reference": {
+     "nodes": 16226653,
+     "rootsEqual": true
+    },
+    "seconds": 178.5
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_20_ge_237.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 20) >= 237.txt",
+   "sha256": "d33838caf70a91612889c26d8ac63a9bd96513a9d5e95803042361ed7a999e3e",
+   "s": 4,
+   "t": 20,
+   "claim": "R(4, 20) >= 237",
+   "n": 236,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 3612,
+    "roots": 236,
+    "rootsDone": 236,
+    "reference": {
+     "nodes": 3612,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 20,
+    "complete": true,
+    "found": null,
+    "nodes": 10401596,
+    "roots": 236,
+    "rootsDone": 236,
+    "reference": {
+     "nodes": 10401596,
+     "rootsEqual": true
+    },
+    "seconds": 147.1
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_4_21_ge_244.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(4,21)>=244.txt",
+   "sha256": "3cdf3083ccf1dde21e41b512d93443cfe55e28e9071976336fff3f9d27d7599e",
+   "s": 4,
+   "t": 21,
+   "claim": "R(4, 21) >= 244",
+   "n": 243,
+   "K": {
+    "k": 4,
+    "complete": true,
+    "found": null,
+    "nodes": 3488,
+    "roots": 243,
+    "rootsDone": 243,
+    "reference": {
+     "nodes": 3488,
+     "rootsEqual": true
+    },
+    "seconds": 0.0
+   },
+   "I": {
+    "k": 21,
+    "complete": true,
+    "found": null,
+    "nodes": 17515703,
+    "roots": 243,
+    "rootsDone": 243,
+    "reference": {
+     "nodes": 17515703,
+     "rootsEqual": true
+    },
+    "seconds": 239.3
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "file": "graphs/R_8_12_ge_511.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(8, 12) >= 511.txt",
+   "sha256": "5db94f26576014f66792c665096e7dd84dd0835a3c048d0b82af5bf0d735a2df",
+   "s": 8,
+   "t": 12,
+   "claim": "R(8, 12) >= 511",
+   "n": 510,
+   "K": {
+    "k": 8,
+    "complete": true,
+    "found": null,
+    "nodes": 1805950,
+    "roots": 510,
+    "rootsDone": 510,
+    "seconds": 0.1
+   },
+   "I": {
+    "k": 12,
+    "complete": false,
+    "found": null,
+    "nodes": 604275771,
+    "roots": 510,
+    "rootsDone": 7,
+    "seconds": 60.0
+   },
+   "verdict": "REFUSED"
+  },
+  {
+   "file": "graphs/R_7_13_ge_513.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(7, 13) >= 513.txt",
+   "sha256": "e8160ebe4e877ac22bb2689e2fbb0eca8f517c65d5516e11745d4ef93829d70c",
+   "s": 7,
+   "t": 13,
+   "claim": "R(7, 13) >= 513",
+   "n": 512,
+   "K": {
+    "k": 7,
+    "complete": true,
+    "found": null,
+    "nodes": 2399667,
+    "roots": 512,
+    "rootsDone": 512,
+    "seconds": 0.1
+   },
+   "I": {
+    "k": 13,
+    "complete": false,
+    "found": null,
+    "nodes": 0,
+    "roots": 512,
+    "rootsDone": 0,
+    "seconds": 60.0
+   },
+   "verdict": "REFUSED"
+  },
+  {
+   "file": "graphs/R_9_11_ge_617.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(9, 11) >= 617.txt",
+   "sha256": "ce12b6cb8becabd658780db0ab8d3248b89f25e3841ed749c55c80902be5afa1",
+   "s": 9,
+   "t": 11,
+   "claim": "R(9, 11) >= 617",
+   "n": 616,
+   "K": {
+    "k": 9,
+    "complete": true,
+    "found": null,
+    "nodes": 79590364,
+    "roots": 616,
+    "rootsDone": 616,
+    "seconds": 2.2
+   },
+   "I": {
+    "k": 11,
+    "complete": false,
+    "found": null,
+    "nodes": 1706635118,
+    "roots": 616,
+    "rootsDone": 29,
+    "seconds": 60.1
+   },
+   "verdict": "REFUSED"
+  },
+  {
+   "file": "graphs/R_10_12_ge_856.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(10, 12) >= 856.txt",
+   "sha256": "4d270464208e92dcda82232a2618879810c3e11b29af9d001a7484df665f79e2",
+   "s": 10,
+   "t": 12,
+   "claim": "R(10, 12) >= 856",
+   "n": 855,
+   "K": {
+    "k": 10,
+    "complete": true,
+    "found": null,
+    "nodes": 503223948,
+    "roots": 855,
+    "rootsDone": 855,
+    "seconds": 21.7
+   },
+   "I": {
+    "k": 12,
+    "complete": false,
+    "found": null,
+    "nodes": 983625671,
+    "roots": 855,
+    "rootsDone": 15,
+    "seconds": 60.1
+   },
+   "verdict": "REFUSED"
+  },
+  {
+   "file": "graphs/R_8_18_ge_1052.txt",
+   "source": "ramsey_number_bounds/improved_bounds/R(8, 18) >= 1052.txt",
+   "sha256": "c5a4706f05436f1d74b56fa401b7ed0e0348422c92f14c03aa522752a72bf1ad",
+   "s": 8,
+   "t": 18,
+   "claim": "R(8, 18) >= 1052",
+   "n": 1051,
+   "K": {
+    "k": 8,
+    "complete": true,
+    "found": null,
+    "nodes": 18979448,
+    "roots": 1051,
+    "rootsDone": 1051,
+    "seconds": 0.9
+   },
+   "I": {
+    "k": 18,
+    "complete": false,
+    "found": null,
+    "nodes": 0,
+    "roots": 1051,
+    "rootsDone": 0,
+    "seconds": 60.1
+   },
+   "verdict": "REFUSED"
+  }
+ ]
+}

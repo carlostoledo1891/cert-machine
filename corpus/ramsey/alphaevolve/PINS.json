@@ -1,0 +1,175 @@
+{
+ "what": "Google's released Ramsey lower-bound graphs for AlphaEvolve (arXiv 2603.09172), copied unmodified from google-research/google-research at a pinned commit; the 18 adjacency files renamed from 'R(s, t) >= m.txt' to R_s_t_ge_m.txt (the original path kept per file). Read by tools/run-ramsey-ledger.py, which refuses on any byte that differs.",
+ "repository": "https://github.com/google-research/google-research",
+ "commit": "0d94f8c4d92678ce5f7a0eacae725f79174cfb03",
+ "directory": "ramsey_number_bounds/improved_bounds",
+ "retrieved": "2026-10-23",
+ "license": "Apache-2.0 (LICENSE, copied from the repository root at the same commit; NOTICE.md)",
+ "crossCheck": "all 18 graph sha256 equal to maximusrufus/openai-math-replays ramsey_alphaevolve/SHA256SUMS at 4c5524a0e03e88bd96f48d68e8ec25aa5f7566cd (checked 2026-10-23)",
+ "files": {
+  "LICENSE": {
+   "source": "LICENSE",
+   "bytes": 11358,
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "README-improved_bounds.md": {
+   "source": "ramsey_number_bounds/improved_bounds/README.md",
+   "bytes": 326,
+   "sha256": "e6a3868911b4ecf1d9ab8d2c67c6c549f88d8c660f0b7451cdcec7d928d36c95"
+  },
+  "README-ramsey_number_bounds.md": {
+   "source": "ramsey_number_bounds/README.md",
+   "bytes": 384,
+   "sha256": "869e9f8fb7c6b0db3e00a9bdb111b50fb09f09a1f7996218c1d6511faf2630ed"
+  },
+  "graphs/R_10_12_ge_856.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(10, 12) >= 856.txt",
+   "s": 10,
+   "t": 12,
+   "bound": 856,
+   "bytes": 1503946,
+   "sha256": "4d270464208e92dcda82232a2618879810c3e11b29af9d001a7484df665f79e2"
+  },
+  "graphs/R_3_12_ge_53.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 12) >= 53.txt",
+   "s": 3,
+   "t": 12,
+   "bound": 53,
+   "bytes": 5669,
+   "sha256": "f255d720051434018a9095438816c06f2151196e7b9dbf82d55528d691bd84bf"
+  },
+  "graphs/R_3_13_ge_61.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 13) >= 61.txt",
+   "s": 3,
+   "t": 13,
+   "bound": 61,
+   "bytes": 7501,
+   "sha256": "d619f0bfed32af5e2fbc8c724d9c65dbf388a19d5647d20e7835b501bc03227a"
+  },
+  "graphs/R_3_15_ge_74.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 15) >= 74.txt",
+   "s": 3,
+   "t": 15,
+   "bound": 74,
+   "bytes": 11024,
+   "sha256": "ae94e8e6b3c1a26b90cf55d754c742074efd62449c8227a285bd288eb093d26e"
+  },
+  "graphs/R_3_17_ge_93.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 17) >= 93.txt",
+   "s": 3,
+   "t": 17,
+   "bound": 93,
+   "bytes": 17389,
+   "sha256": "71810667cd353e766375041e7968596e6ba7f67cd7d722158b09ab9a30e2336b"
+  },
+  "graphs/R_3_18_ge_100.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(3, 18) >= 100.txt",
+   "s": 3,
+   "t": 18,
+   "bound": 100,
+   "bytes": 20297,
+   "sha256": "3e9d16e29111f3a2f25ae3b992235804c2612de2f6ada5570901d17ceedfca45"
+  },
+  "graphs/R_4_13_ge_139.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 13) >= 139.txt",
+   "s": 4,
+   "t": 13,
+   "bound": 139,
+   "bytes": 39330,
+   "sha256": "c50a55389d2c69b4cc7c1304639b2af67f16fd1a4a866870b87f907d41b69c54"
+  },
+  "graphs/R_4_14_ge_148.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 14) >= 148.txt",
+   "s": 4,
+   "t": 14,
+   "bound": 148,
+   "bytes": 44836,
+   "sha256": "00563a5e5e82289ffd1bf62ed2422a8c2865c11da9eaab1c101c4569a5ff2c8a"
+  },
+  "graphs/R_4_15_ge_163.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt",
+   "s": 4,
+   "t": 15,
+   "bound": 163,
+   "bytes": 53299,
+   "sha256": "56f3cf76b87efe7d845b2bd59505d44638a9b49e04dfd33dcb4e86426cb4ec23"
+  },
+  "graphs/R_4_16_ge_174.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 16) >= 174.txt",
+   "s": 4,
+   "t": 16,
+   "bound": 174,
+   "bytes": 61762,
+   "sha256": "def3d53ed5879f8984434b93861b3a6a66049f2491fa04da212d704504b82f6f"
+  },
+  "graphs/R_4_18_ge_209.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 18) >= 209.txt",
+   "s": 4,
+   "t": 18,
+   "bound": 209,
+   "bytes": 89233,
+   "sha256": "5317e46e94f27bca829f0aa7b7f1bb2dcdf56e040ea9b98c199b00b7685f9945"
+  },
+  "graphs/R_4_19_ge_219.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 19) >= 219.txt",
+   "s": 4,
+   "t": 19,
+   "bound": 219,
+   "bytes": 98319,
+   "sha256": "8d2378420e281725f4fa6d510b2be0ec458dcb2a155ef7a61ec5c4b85bfd0f2c"
+  },
+  "graphs/R_4_20_ge_237.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4, 20) >= 237.txt",
+   "s": 4,
+   "t": 20,
+   "bound": 237,
+   "bytes": 114933,
+   "sha256": "d33838caf70a91612889c26d8ac63a9bd96513a9d5e95803042361ed7a999e3e"
+  },
+  "graphs/R_4_21_ge_244.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(4,21)>=244.txt",
+   "s": 4,
+   "t": 21,
+   "bound": 244,
+   "bytes": 121743,
+   "sha256": "3cdf3083ccf1dde21e41b512d93443cfe55e28e9071976336fff3f9d27d7599e"
+  },
+  "graphs/R_7_13_ge_513.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(7, 13) >= 513.txt",
+   "s": 7,
+   "t": 13,
+   "bound": 513,
+   "bytes": 540161,
+   "sha256": "e8160ebe4e877ac22bb2689e2fbb0eca8f517c65d5516e11745d4ef93829d70c"
+  },
+  "graphs/R_8_12_ge_511.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(8, 12) >= 511.txt",
+   "s": 8,
+   "t": 12,
+   "bound": 511,
+   "bytes": 536011,
+   "sha256": "5db94f26576014f66792c665096e7dd84dd0835a3c048d0b82af5bf0d735a2df"
+  },
+  "graphs/R_8_18_ge_1052.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(8, 18) >= 1052.txt",
+   "s": 8,
+   "t": 18,
+   "bound": 1052,
+   "bytes": 2273314,
+   "sha256": "c5a4706f05436f1d74b56fa401b7ed0e0348422c92f14c03aa522752a72bf1ad"
+  },
+  "graphs/R_9_11_ge_617.txt": {
+   "source": "ramsey_number_bounds/improved_bounds/R(9, 11) >= 617.txt",
+   "s": 9,
+   "t": 11,
+   "bound": 617,
+   "bytes": 781705,
+   "sha256": "ce12b6cb8becabd658780db0ab8d3248b89f25e3841ed749c55c80902be5afa1"
+  },
+  "verify_bounds.ipynb": {
+   "source": "ramsey_number_bounds/improved_bounds/verify_bounds.ipynb",
+   "bytes": 5013,
+   "sha256": "322258d0d4a796dc22b14b042baebe6124194227ec96bcce443eabde3a10c00e"
+  }
+ }
+}

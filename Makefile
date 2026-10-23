@@ -137,6 +137,7 @@ test:
 	@printf "%-30s " "cryptids: arm H, second impl"; $(NODE) tools/run-cryptids.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "cryptids: the benchmark"; $(NODE) tools/build-cryptids-benchmark.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "foreign zones (pinned bytes)"; $(NODE) tools/publish-zone.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ramsey graphs (AlphaEvolve)"; $(PY) tools/run-ramsey-ledger.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "AlphaProof Nexus statements"; $(PY) tools/apn-statements.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox: declared claims"; $(PY) instruments/claimbox/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "AlphaProof Nexus OEIS"; $(PY) tools/apn-oeis.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
