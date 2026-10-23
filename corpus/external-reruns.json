@@ -8,5 +8,44 @@
     "posted": "https://github.com/teorth/erdosproblems/issues/392",
     "hash": null,
     "outcome": "the same verdict; three documentation findings in the write-up, folded in (commit 1c248ca)"
+  },
+  {
+    "who": "maximusrufus (GitHub)",
+    "date": "2026-10-23",
+    "what": "Twelve register rows re-decided with their own exact code, at cert-machine aa52e8d (Linux): the kissing configurations of AlphaEvolve (593) and EinsteinArena (594, 604); the sum–difference certificates of 3b (13 points) and 3c (147 and 95 points), agreeing to 30 digits; and six EinsteinArena constructions — two circles-in-a-rectangle (with the 44 overlapping pairs of the as-published Together AI packing), two Heilbronn convex, two min-distance ratios. A duplicated vector and moved probability weight are rejected by their check as by ours.",
+    "kind": "own-code",
+    "rows": [
+      "kiss-alphaevolve-593",
+      "kiss-ea-594-winner",
+      "kiss-ea-604",
+      "optconst-3b",
+      "optconst-3c",
+      "optconst-3c-95",
+      "ea-circles-alphaevolve_2025",
+      "ea-circles-ours_2026",
+      "ea-heilbronn-alphaevolve_2025",
+      "ea-heilbronn-ours_2026",
+      "ea-mindist-alphaevolve_2025",
+      "ea-mindist-ours_2026"
+    ],
+    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+    "hash": null,
+    "outcome": "the same verdict on all twelve rows, no disagreement; two findings, both answered on the thread"
+  },
+  {
+    "who": "maximusrufus (GitHub)",
+    "date": "2026-10-23",
+    "what": "The three ledgers re-derived with the tools that write them, at cert-machine aa52e8d (Linux, Python 3.14.4, Node v22.11.0); verify_sumdiff.py run beside the sum–difference ledger, its false-bound control firing.",
+    "kind": "full-rederive",
+    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+    "hash": null,
+    "outcome": "every verdict and count identical",
+    "records": [
+      "certs/kissing-ledger.json",
+      "certs/sumdiff-ledger.json",
+      "certs/easota-ledger.json"
+    ]
   }
 ]

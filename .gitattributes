@@ -1,0 +1,4 @@
+# Every file is stored and checked out byte for byte (2026-10-23). Records pin their inputs by sha256, so a checkout
+# that converts line endings (core.autocrlf on Windows) changes the bytes and the re-run refuses at the pin: reported by
+# an outside re-run (cert-machine#1) for run-sumdiff-ledger.js --check, reproduced here with autocrlf=true, fixed by this.
+* -text

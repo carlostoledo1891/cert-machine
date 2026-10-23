@@ -80,6 +80,7 @@ for (const x of EXT) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(x.date)) die('external rerun date is not ISO: ' + x.date);
   if (x.hash && !/^[0-9a-f]{64}$/.test(x.hash)) die('external rerun hash is not a sha256: ' + x.hash);
   for (const id of x.rows || []) if (!rowIds.has(id)) die('external rerun row names a register id that does not exist: ' + id);
+  for (const r of x.records || []) if (!fs.existsSync(path.join(ROOT, r))) die('external rerun row names a record that is not on disk: ' + r);
 }
 /* THE CORPUS for outside reruns: ten register rows, five parties. A row must exist in the register and its party
    in the corpus's own list; a party COUNTS toward the milestone only when a registry row of theirs names one of
@@ -288,7 +289,9 @@ B.push(C.section({
   lab: '§5 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true,
   bodyRaw: (EXT.length ? C.table({
     cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'how' }, { h: 'obtained' }, { h: 'hash · code' }],
-    rows: EXT.map((x) => [x.who, x.date, { raw: C.esc(x.what) + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id) + '</span>').join(', ') + '</small>' : '<br><small>not a register row (a lab theorem)</small>') }, { raw: '<span class="m">' + C.esc(x.kind) + '</span>' }, x.outcome || '',
+    rows: EXT.map((x) => [x.who, x.date, { raw: C.esc(x.what).replace(/\//g, '/<wbr>') + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id).replace(/[-_]/g, '$&<wbr>') + '</span>').join(', ') + '</small>'
+      : (x.records || []).length ? '<br><small>records: ' + x.records.map((r) => '<span class="m">' + C.esc(r).replace(/\//g, '/<wbr>') + '</span>').join(', ') + '</small>'
+      : '<br><small>not a register row (a lab theorem)</small>') }, { raw: '<span class="m">' + C.esc(x.kind).replace(/-/g, '-<wbr>') + '</span>' }, x.outcome || '',
       { raw: (x.hash ? '<span class="m">' + x.hash.slice(0, 16) + '…</span><br>' : '') + '<a href="' + C.escAttr(x.where) + '">code</a>' + (x.posted ? ' · <a href="' + C.escAttr(x.posted) + '">posted</a>' : '') }])
   }) : '<div class="col">' + C.p('None recorded yet.') + '</div>')
     + '<div class="col">' + C.pRaw('Three kinds and no fourth: ' + Object.entries(RERUN_KINDS).map(([k, d]) => '<span class="m">' + C.esc(k) + '</span> — ' + C.esc(d)).join('; ') + '. '
