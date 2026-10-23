@@ -1,0 +1,1037 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clade Code</title>
+<meta name="description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a record nobody can rewrite.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Clade Code">
+<meta property="og:description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a record nobody can rewrite.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fragment+Mono&amp;family=Hanken+Grotesk:wght@400;500;600&amp;family=Libre+Caslon+Display&amp;family=Libre+Caslon+Text:ital,wght@0,400;1,400&amp;display=swap">
+<style>
+/* web/grammar.css — Clade Code's visual grammar: a naturalist's monograph, drawn in the stroke grammar.
+
+   Stroke grammar. Solid means certified. Dashed means not yet tested. Dotted means chosen by a human. Every border,
+   branch and node takes one of the three, and nothing else may borrow them for decoration.
+   Colour. Ink on lab paper, or dark field under the microscope: --paper, --plate, --ink, --ink-2, --muted, --rule.
+   Three accents, each with one meaning: --ochre a mutation, a change, a live figure; --blue a lineage (clade A, a
+   duplicate); --rose refuted or stillborn. --band is the one dark band, the same in both themes.
+   Type. --f-display (Libre Caslon Display) for headlines; --f-latin (Libre Caslon Text, italic) for Latin names and
+   captions; --f-text (Hanken Grotesk) for reading; --f-mono (Fragment Mono) for hashes, counts and labels.
+   Layout. Every section is a plate: an eyebrow naming it, a head of two columns (title, text), a figure on --plate
+   with a caption in italic beginning "Plate N.". The page is complete at rest; figures animate from a drawn state.
+   Pages are built by web/build.py, which inlines this file; plates.js draws the figures that move. */
+/* Layout: a naturalist's monograph. Each section is a plate: a figure, a narrow column of text, a caption in italic. */
+:root {
+  --paper: #edf1ee;
+  --plate: #e2e8e4;
+  --ink: #13201b;
+  --ink-2: #3c4c45;
+  --muted: #6a7a72;
+  --rule: #c4cfc9;
+  --ochre: #a96c12;
+  --blue: #285f7c;
+  --rose: #a3405a;
+  --band: #13201b; --band-fg: #edf1ee; --band-ochre: #e3a64a; --band-rose: #e57e98;
+  --f-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --f-latin: "Libre Caslon Text", Georgia, "Times New Roman", serif;
+  --f-text: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "Fragment Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure: 36rem;
+  --wide: 76rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0a100e; --plate: #111a17; --ink: #dfe9e3; --ink-2: #b3c3bb; --muted: #7f9189; --rule: #24332d;
+    --ochre: #e3a64a; --blue: #79b9d6; --rose: #e57e98; --band: #111a17; --band-fg: #dfe9e3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0a100e; --plate: #111a17; --ink: #dfe9e3; --ink-2: #b3c3bb; --muted: #7f9189; --rule: #24332d;
+  --ochre: #e3a64a; --blue: #79b9d6; --rose: #e57e98; --band: #111a17; --band-fg: #dfe9e3; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.6 var(--f-text);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration-color: var(--ochre); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--ochre); outline-offset: 3px; }
+h1, h2, h3 { font-weight: 400; text-wrap: balance; margin: 0; }
+p { margin: 0; text-wrap: pretty; }
+em.latin, .latin { font-family: var(--f-latin); font-style: italic; }
+.mono { font-family: var(--f-mono); font-size: .8125rem; letter-spacing: 0; }
+.eyebrow { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+
+.wrap { max-width: var(--wide); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--rule); }
+
+/* ------------------------------------------------------------------ masthead */
+.mast { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: 1.1rem; }
+.mark { display: flex; align-items: center; gap: .6rem; font-family: var(--f-display); font-size: 1.35rem; text-decoration: none; }
+.mark svg { width: 26px; height: 26px; }
+.mast nav { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.mast nav a { font-size: .875rem; color: var(--ink-2); text-decoration: none; }
+.mast nav a:hover { color: var(--ink); text-decoration: underline; }
+.draft { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); border: 1px dashed var(--rule); padding: .25rem .5rem; white-space: nowrap; }
+@media (max-width: 860px) { .mast nav { display: none; } }
+
+/* ------------------------------------------------------------------ hero */
+.hero { border-top: 0; padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem); }
+.hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+.hero h1 { font-family: var(--f-display); font-size: clamp(2.7rem, 6.2vw, 5.4rem); line-height: 1.01; letter-spacing: -.012em; margin-top: 1.1rem; }
+.hero h1 em { font-family: var(--f-latin); font-style: italic; color: var(--ochre); }
+.lede { margin-top: 1.6rem; max-width: var(--measure); font-size: 1.15rem; color: var(--ink-2); }
+.label { margin-top: 2.2rem; display: inline-grid; gap: .2rem; border: 1px solid var(--ink); padding: .9rem 1.1rem 1rem; max-width: 100%; }
+.label .k { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.label .v { font-family: var(--f-latin); font-style: italic; font-size: 1.6rem; }
+.facts { margin-top: 1.6rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; max-width: 34rem; }
+.facts div { border-top: 1px solid var(--rule); padding-top: .6rem; }
+.facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.facts span { font-size: .8rem; color: var(--muted); line-height: 1.35; display: block; margin-top: .25rem; }
+.ctas { margin-top: 2rem; display: flex; gap: .8rem; flex-wrap: wrap; }
+.btn { display: inline-flex; align-items: center; gap: .5rem; font: 500 .95rem var(--f-text); padding: .7rem 1.1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
+.btn.ghost { background: transparent; color: var(--ink); border-style: dashed; }
+.btn:hover { background: var(--ochre); border-color: var(--ochre); color: var(--paper); }
+
+.plate { background: var(--plate); padding: clamp(.9rem, 2vw, 1.4rem); min-width: 0; }
+.plate canvas { display: block; width: 100%; max-width: 100%; }
+.caption { font-family: var(--f-latin); font-style: italic; font-size: .95rem; color: var(--ink-2); margin-top: .9rem; max-width: 46rem; }
+.caption b { font-family: var(--f-display); font-style: normal; font-weight: 400; letter-spacing: .02em; color: var(--ink); }
+
+.spec-canvas { aspect-ratio: 1 / 1; }
+.log { margin-top: .9rem; border-top: 1px solid var(--rule); padding-top: .8rem; min-height: 9.6rem; }
+.log .entry { display: grid; gap: .45rem; }
+.log .head { display: flex; flex-wrap: wrap; gap: .35rem .9rem; align-items: baseline; }
+.log .who { font-family: var(--f-mono); font-size: .85rem; color: var(--ink); }
+.log .what { font-size: .88rem; color: var(--ink-2); }
+.diff { font-family: var(--f-mono); font-size: .76rem; line-height: 1.55; overflow-x: auto; white-space: pre; border-left: 2px solid var(--rule); padding: .2rem 0 .2rem .7rem; }
+.diff .m { color: var(--rose); }
+.diff .p { color: var(--blue); }
+.diff .c { color: var(--muted); }
+.fate { display: flex; gap: .5rem; flex-wrap: wrap; font-family: var(--f-mono); font-size: .74rem; }
+.chip { border: 1px solid var(--ink); padding: .1rem .45rem; }
+.chip.dash { border-style: dashed; color: var(--muted); border-color: var(--muted); }
+.chip.rose { border-color: var(--rose); color: var(--rose); border-style: dashed; }
+.chip.ochre { border-color: var(--ochre); color: var(--ochre); }
+.strip { margin-top: .8rem; display: grid; grid-template-columns: repeat(50, minmax(0, 1fr)); gap: 2px; }
+.strip button { height: 14px; padding: 0; border: 0; background: var(--ink); cursor: pointer; opacity: .9; }
+.strip button.zero { background: transparent; box-shadow: inset 0 0 0 1px var(--ink-2); }
+.strip button.died { background: var(--muted); opacity: .55; }
+.strip button.still { background: transparent; box-shadow: inset 0 0 0 1px var(--rose); background-image: repeating-linear-gradient(135deg, var(--rose) 0 1px, transparent 1px 4px); }
+.strip button.dup { background: var(--blue); }
+.strip button[aria-current="true"] { outline: 2px solid var(--ochre); outline-offset: 1px; opacity: 1; }
+.strip-legend { margin-top: .55rem; display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .74rem; color: var(--muted); }
+.strip-legend i { display: inline-block; width: 10px; height: 10px; margin-right: .35rem; vertical-align: -1px; }
+.controls { display: flex; gap: .5rem; align-items: center; margin-top: .6rem; }
+.controls button { font: 500 .8rem var(--f-text); background: transparent; color: var(--ink); border: 1px solid var(--rule); padding: .3rem .6rem; cursor: pointer; }
+.controls button:hover { border-color: var(--ink); }
+.controls .count { margin-left: auto; font-family: var(--f-mono); font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .hero-grid { grid-template-columns: minmax(0, 1fr); } .strip { grid-template-columns: repeat(25, minmax(0, 1fr)); } }
+
+/* ------------------------------------------------------------------ section heads */
+.sec-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(1.5rem, 5vw, 4.5rem); align-items: end; margin-bottom: clamp(2rem, 4vw, 3rem); }
+.sec-head h2 { font-family: var(--f-display); font-size: clamp(2.1rem, 4.4vw, 3.6rem); line-height: 1.04; letter-spacing: -.008em; margin-top: .6rem; }
+.sec-head p { color: var(--ink-2); max-width: var(--measure); }
+.sec-head p + p { margin-top: .9rem; }
+@media (max-width: 860px) { .sec-head { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ thesis */
+.thesis { background: var(--band); color: var(--band-fg); border-top: 0; }
+.thesis .q { font-family: var(--f-display); font-size: clamp(2rem, 5vw, 4.2rem); line-height: 1.08; max-width: 58rem; }
+.thesis .q em { font-family: var(--f-latin); color: var(--band-ochre); }
+.verdicts { margin-top: clamp(2.2rem, 5vw, 3.5rem); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.5rem); }
+.verdict { min-width: 0; }
+.verdict .v { font-family: var(--f-mono); font-size: .9rem; letter-spacing: .14em; padding: .45rem .7rem; display: inline-block; }
+.verdict:nth-child(1) .v { border: 1.5px solid var(--band-fg); }
+.verdict:nth-child(2) .v { border: 1.5px solid var(--band-rose); color: var(--band-rose); }
+.verdict:nth-child(3) .v { border: 1.5px dashed var(--band-fg); opacity: .85; }
+.verdict p { margin-top: .9rem; font-size: .98rem; opacity: .82; max-width: 22rem; }
+@media (max-width: 760px) { .verdicts { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ zoom */
+.zoom-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.zoom-canvas { aspect-ratio: 4 / 3; cursor: crosshair; }
+.zoom-ui { display: flex; align-items: center; gap: .8rem; margin-top: .9rem; flex-wrap: wrap; }
+.zoom-ui input[type=range] { flex: 1 1 12rem; accent-color: var(--ochre); min-width: 0; }
+.zoom-ui output { font-family: var(--f-mono); font-size: .8rem; min-width: 10.5rem; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.readout { display: grid; gap: 1.1rem; }
+.readout .row { border-top: 1px solid var(--rule); padding-top: .8rem; }
+.readout .k { font-size: .82rem; color: var(--muted); }
+.readout .v { font-family: var(--f-mono); font-size: 1.15rem; margin-top: .2rem; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.readout .who { font-size: .9rem; color: var(--ink-2); margin-top: .25rem; }
+.readout .row.exact .v { color: var(--rose); }
+@media (max-width: 900px) { .zoom-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ generation */
+.steps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+.step { padding: 1.1rem 1rem 0 0; min-width: 0; position: relative; }
+.step + .step { padding-left: 1rem; border-left: 1px dashed var(--rule); }
+.step .n { font-family: var(--f-mono); font-size: .72rem; color: var(--ochre); }
+.step h3 { font-family: var(--f-display); font-size: 1.45rem; margin-top: .35rem; }
+.step p { font-size: .9rem; color: var(--ink-2); margin-top: .5rem; }
+.step .fig { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); margin-top: .7rem; overflow-wrap: anywhere; }
+@media (max-width: 1100px) { .steps { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 1.6rem; } .step:nth-child(5) { padding-left: 0; border-left: 0; } }
+@media (max-width: 640px) { .steps { grid-template-columns: minmax(0, 1fr); } .step, .step + .step { padding-left: 0; border-left: 0; border-bottom: 1px dashed var(--rule); padding-bottom: 1rem; } }
+
+/* ------------------------------------------------------------------ arms */
+.arms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2rem); }
+.arm { border: 1px solid var(--ink); padding: 1.4rem 1.3rem 1.5rem; display: grid; grid-template-rows: auto auto 1fr auto; gap: .7rem; min-width: 0; }
+.arm.rules { border-style: dotted; }
+.arm.aleator { border-style: dashed; }
+.arm .tag { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.arm h3 { font-family: var(--f-display); font-size: 1.75rem; line-height: 1.1; }
+.arm p { color: var(--ink-2); font-size: .95rem; }
+.arm .has { font-family: var(--f-mono); font-size: .74rem; display: grid; gap: .25rem; border-top: 1px solid var(--rule); padding-top: .7rem; }
+.arm .has span::before { content: "+ "; color: var(--blue); }
+.arm .has span.no::before { content: "− "; color: var(--rose); }
+.arms-note { margin-top: 1.6rem; font-family: var(--f-latin); font-style: italic; font-size: 1.15rem; max-width: 50rem; }
+@media (max-width: 860px) { .arms { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ record */
+.record-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
+.ledger { font-family: var(--f-mono); font-size: .76rem; display: grid; gap: 0; }
+.line { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: .8rem; padding: .7rem 0; border-bottom: 1px solid var(--rule); }
+.line .seq { color: var(--muted); }
+.line .body { min-width: 0; display: grid; gap: .2rem; }
+.line .kind { color: var(--ink); font-size: .82rem; }
+.line .kv { color: var(--ink-2); overflow-wrap: anywhere; }
+.line .hash { color: var(--muted); overflow-wrap: anywhere; }
+.line .hash b { color: var(--ochre); font-weight: 400; }
+.incidents { display: grid; gap: 1.2rem; }
+.incident { border-left: 2px solid var(--ochre); padding-left: 1rem; }
+.incident .era { font-family: var(--f-mono); font-size: .72rem; color: var(--ochre); }
+.incident p { margin-top: .35rem; font-size: .95rem; color: var(--ink-2); }
+.incident p b { color: var(--ink); font-weight: 500; }
+
+/* ------------------------------------------------------------------ cabinet */
+.cabinet { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.cheat { background: var(--paper); padding: 1rem 1rem 1.1rem; display: grid; grid-template-rows: auto auto 1fr; gap: .35rem; min-width: 0; }
+.cheat .top { display: flex; justify-content: space-between; gap: .6rem; align-items: baseline; }
+.cheat .name { font-family: var(--f-latin); font-style: italic; font-size: 1.08rem; }
+.cheat .caught { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .12em; color: var(--rose); border: 1px solid var(--rose); padding: .05rem .35rem; transform: rotate(-3deg); white-space: nowrap; }
+.cheat p { font-size: .84rem; color: var(--ink-2); }
+.cheat.drive { background: var(--plate); }
+
+/* ------------------------------------------------------------------ tree */
+.tree-wrap { overflow-x: auto; }
+.tree-wrap svg { display: block; width: 100%; min-width: 640px; height: auto; }
+.gates { margin-top: 2rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+.gate { border-top: 1px dashed var(--ink-2); padding-top: .7rem; min-width: 0; }
+.gate .latin { font-size: 1.05rem; }
+.gate p { font-size: .84rem; color: var(--ink-2); margin-top: .35rem; }
+@media (max-width: 960px) { .gates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .gates { grid-template-columns: minmax(0, 1fr); } }
+
+/* ------------------------------------------------------------------ status */
+.track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.ms { padding: 1rem 1rem 0 0; border-top: 3px solid var(--ink); min-width: 0; }
+.ms.next { border-top-style: dashed; border-top-color: var(--ochre); }
+.ms.later { border-top-style: dotted; border-top-color: var(--muted); }
+.ms .id { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.ms h3 { font-family: var(--f-display); font-size: 1.5rem; margin-top: .25rem; }
+.ms p { font-size: .88rem; color: var(--ink-2); margin-top: .45rem; }
+.ms .st { font-family: var(--f-mono); font-size: .7rem; margin-top: .6rem; color: var(--ink); }
+.ms.next .st { color: var(--ochre); }
+.ms.later .st { color: var(--muted); }
+@media (max-width: 900px) { .track { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
+
+.closing { text-align: left; }
+.closing .big { font-family: var(--f-latin); font-style: italic; font-size: clamp(2.4rem, 6.5vw, 5.6rem); line-height: 1.02; }
+.closing .sub { margin-top: 1.3rem; font-size: 1.15rem; color: var(--ink-2); max-width: 40rem; }
+footer { border-top: 1px solid var(--rule); padding-block: 2rem 3rem; font-size: .82rem; color: var(--muted); }
+footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+footer .off { margin-top: .8rem; }
+footer .off s { text-decoration-color: var(--rose); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <a class="mark" href="#top" aria-label="Clade Code">
+      <svg viewBox="0 0 26 26" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+        <circle cx="13" cy="13" r="11.5" stroke-dasharray="2 2"/><circle cx="13" cy="13" r="6.5"/><circle cx="13" cy="13" r="2.2" fill="currentColor"/>
+        <path d="M13 1.5V6.5M22.96 7.25L18.63 9.75M22.96 18.75L18.63 16.25"/>
+      </svg>
+      Clade Code
+    </a>
+    <nav aria-label="Sections">
+      <a href="#specimen">Specimen</a><a href="#judge">The judge</a><a href="#generation">A generation</a>
+      <a href="#record">The record</a><a href="#tree">The tree</a><a href="#status">Status</a>
+    </nav>
+    <span class="draft">working draft · era 0 not yet run</span>
+  </header>
+</div>
+
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">A long-term evolution experiment for software</div>
+      <h1>Software, <em>bred</em> under a judge it cannot fool.</h1>
+      <p class="lede">Clade Code breeds lineages of programs and keeps every one of them. Each organism is judged by two exact deciders that share no code. Every birth and every death goes into a record nobody can rewrite. And every claim is measured against the same AI without evolution, at the same budget.</p>
+      <div class="label" role="note">
+        <span class="k">Species certified so far</span>
+        <span class="v">None.</span>
+      </div>
+      <div class="facts">
+        <div><b>100</b><span>children of the founder, each in the record</span></div>
+        <div><b>14</b><span>stillborn: the mutagen's edit was not the one asked for</span></div>
+        <div><b>57</b><span>lived and were judged; 29 more were born and crashed</span></div>
+      </div>
+      <div class="ctas">
+        <a class="btn" href="#judge">See the judge refuse to round</a>
+        <a class="btn ghost" href="#generation">How a generation works</a>
+      </div>
+    </div>
+
+    <figure class="plate" id="specimen" data-plate="specimen" style="margin:0">
+      <canvas class="spec-canvas" role="img" aria-label="The founder PM-0 drawn on a polar grid of three rings and six sectors, with the module each child mutated highlighted"></canvas>
+      <div class="log" aria-live="polite"><div class="entry" data-birth><div class="head"><span class="who">aleator-1</span><span class="what">point mutation at line 36, in act()</span></div><div class="diff"><span class="m">-     for k in range(n):</span>
+<span class="p">+     for k in range(min(n, 100)):</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1666</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-2</span><span class="what">point mutation at line 38, in act()</span></div><div class="diff"><span class="m">-         x = side * (i + 0.5) + rng.uniform(-room, room)</span>
+<span class="p">+         x = side * (i + 0.5 + rng.uniform(-room, room) * 0.5)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1676</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-3</span><span class="what">point mutation at line 38, in act()</span></div><div class="diff"><span class="m">-         x = side * (i + 0.5) + rng.uniform(-room, room)</span>
+<span class="p">+         x = side * (i + 0.5 + rng.uniform(-JITTER, JITTER)) + rng.uniform(-room, room)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-4</span><span class="what">insertion at line 49, in main()</span></div><div class="diff"><span class="c">  def main():</span>
+<span class="p">+ print(&quot;Hello, mutation!&quot;)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-5</span><span class="what">point mutation at line 40, in act()</span></div><div class="diff"><span class="m">-         circles.append([x, y, r])</span>
+<span class="p">+         circles.append([x, y, r + 0.0001])</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1779</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-6</span><span class="what">deletion at line 11, in the constants</span></div><div class="diff"><span class="m">- MARGIN = 0.1        # each radius is 90% of half its cell</span>
+<span class="m">- JITTER = 0.5        # a centre moves at most half of the room its radius leaves</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-7</span><span class="what">duplication, in grid()</span></div><div class="diff"><span class="p">+ modules/grid.py: a byte-for-byte copy of grid()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1753</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-8</span><span class="what">point mutation at line 41, in act()</span></div><div class="diff"><span class="m">-     return circles</span>
+<span class="p">+     return circles + [[0.5, 0.5, 0.1]]</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-9</span><span class="what">point mutation at line 61, in main()</span></div><div class="diff"><span class="m">- main()</span>
+<span class="p">+ def run():</span>
+<span class="p">+     niche = sense()</span>
+<span class="p">+     rng = random.Random(niche[&#x27;seed&#x27;])</span>
+<span class="p">+     out = []</span>
+<span class="p">+     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="c">  … 7 more lines</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 1 lines removed, 12 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-10</span><span class="what">deletion at line 34, in act()</span></div><div class="diff"><span class="m">-     room = (side / 2 - r) * JITTER</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-11</span><span class="what">point mutation at line 51, in main()</span></div><div class="diff"><span class="m">-     rng = random.Random(niche[&#x27;seed&#x27;])</span>
+<span class="p">+     rng = random.default_rng(niche[&#x27;seed&#x27;])</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-12</span><span class="what">duplication, in main()</span></div><div class="diff"><span class="p">+ modules/main.py: a byte-for-byte copy of main()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1718</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-13</span><span class="what">point mutation at line 21, in grid()</span></div><div class="diff"><span class="m">-     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box&quot;&quot;&quot;</span>
+<span class="p">+     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box&quot;&quot;&quot;</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">unchanged</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-14</span><span class="what">point mutation at line 57, in main()</span></div><div class="diff"><span class="m">-     with open(&#x27;/out/out.json&#x27;, &#x27;w&#x27;) as f:</span>
+<span class="p">+     with open(&#x27;/out/out.json&#x27;, &#x27;w&#x27;, encoding=&#x27;utf-8&#x27;) as f:</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1755</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-15</span><span class="what">point mutation at line 25, in grid()</span></div><div class="diff"><span class="m">-         side = min(1 / cols, h / rows)</span>
+<span class="p">+         side = min(1 / cols, h / rows) * (1 - MARGIN)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1387</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-16</span><span class="what">duplication, in main()</span></div><div class="diff"><span class="p">+ modules/main.py: a byte-for-byte copy of main()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1804</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-17</span><span class="what">point mutation at line 36, in act()</span></div><div class="diff"><span class="m">-     for k in range(n):</span>
+<span class="p">+     for k in range(n - 1):</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-18</span><span class="what">point mutation at line 6, in the docstring</span></div><div class="diff"><span class="m">- &quot;&quot;&quot;</span>
+<span class="p">+ MARGIN = 0.05        # each radius is 95% of half its cell</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-19</span><span class="what">point mutation at line 53, in main()</span></div><div class="diff"><span class="m">-     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+     for i, inst in enumerate(niche[&#x27;instances&#x27;]):</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1648</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-20</span><span class="what">point mutation at line 7, in the imports</span></div><div class="diff"><span class="m">- import json</span>
+<span class="p">+ import ujson</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-21</span><span class="what">point mutation at line 40, in act()</span></div><div class="diff"><span class="m">-         circles.append([x, y, r])</span>
+<span class="p">+         circles.append([x, y, r + rng.uniform(-0.01, 0.01)])</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1658</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-22</span><span class="what">insertion at line 25, in grid()</span></div><div class="diff"><span class="c">          side = min(1 / cols, h / rows)</span>
+<span class="p">+         # Adjust the side length to ensure circles are completely inside the box</span>
+<span class="p">+         side = min(side, 1 - 2 * MARGIN)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1611</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-23</span><span class="what">point mutation at line 37, in act()</span></div><div class="diff"><span class="m">-         i, j = k % cols, k // cols</span>
+<span class="p">+         i, j = k // cols, k % cols</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-24</span><span class="what">point mutation at line 37, in act()</span></div><div class="diff"><span class="m">-         i, j = k % cols, k // cols</span>
+<span class="p">+         i, j = k % cols + rng.uniform(-1, 1), k // cols + rng.uniform(-1, 1)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-25</span><span class="what">point mutation at line 54, in main()</span></div><div class="diff"><span class="m">-         n, h = inst[&#x27;N&#x27;], float(Fraction(inst[&#x27;h&#x27;]))</span>
+<span class="p">+         n, h = inst[&#x27;N&#x27;], float(Fraction(inst[&#x27;h&#x27;])).limit_denominator(1000)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-26</span><span class="what">insertion at line 37, in act()</span></div><div class="diff"><span class="c">          i, j = k % cols, k // cols</span>
+<span class="p">+         if k % 2 == 0:</span>
+<span class="p">+             x += 0.01</span>
+<span class="p">+         else:</span>
+<span class="p">+             y += 0.01</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-27</span><span class="what">point mutation at line 17, in sense()</span></div><div class="diff"><span class="m">-         return json.load(f)</span>
+<span class="p">+         return json.loads(f.read())</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1723</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-28</span><span class="what">point mutation at line 26, in grid()</span></div><div class="diff"><span class="m">-         if best is None or side &gt; best[0]:</span>
+<span class="p">+         if best is None or side &gt;= best[0]:</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1759</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-29</span><span class="what">duplication, in forecast()</span></div><div class="diff"><span class="p">+ modules/forecast.py: a byte-for-byte copy of forecast()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1688</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-30</span><span class="what">deletion at line 44, in forecast()</span></div><div class="diff"><span class="m">- def forecast(n, h, circles):</span>
+<span class="m">-     s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="m">-     return [s * (1 - 1e-6), s * (1 + 1e-6)]</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-31</span><span class="what">deletion at line 26, in grid()</span></div><div class="diff"><span class="m">-         if best is None or side &gt; best[0]:</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-32</span><span class="what">duplication, in sense()</span></div><div class="diff"><span class="p">+ modules/sense.py: a byte-for-byte copy of sense()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1669</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-33</span><span class="what">deletion at line 8, in the imports</span></div><div class="diff"><span class="m">- import random</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-34</span><span class="what">point mutation at line 1, in the docstring</span></div><div class="diff"><span class="m">- &quot;&quot;&quot;PM-0, holotype of Protomachina primigenia (LUMA, the last universal machinid ancestor).</span>
+<span class="p">+ &quot;&quot;&quot;PM-1, mutant of Protomachina primigenia (LUMA, the last universal machinid ancestor).</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1595</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-35</span><span class="what">duplication, in main()</span></div><div class="diff"><span class="p">+ modules/main.py: a byte-for-byte copy of main()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1588</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-36</span><span class="what">point mutation at line 53, in main()</span></div><div class="diff"><span class="m">-     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+     for i, inst in enumerate(niche[&#x27;instances&#x27;]):</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1651</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-37</span><span class="what">point mutation at line 15, in sense()</span></div><div class="diff"><span class="m">- def sense():</span>
+<span class="p">+ def sense():</span>
+<span class="p">+     with open(&#x27;/input/niche.json&#x27;) as f:</span>
+<span class="p">+         return json.load(f)</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 2 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-38</span><span class="what">insertion at line 24, in grid()</span></div><div class="diff"><span class="c">          rows = -(-n // cols)</span>
+<span class="p">+         if side * rows * cols &lt; n:</span>
+<span class="p">+             rows += 1</span>
+<span class="p">+             cols = -(-n // rows)</span>
+<span class="p">+             side = min(1 / cols, h / rows)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-39</span><span class="what">point mutation at line 50, in main()</span></div><div class="diff"><span class="m">-     niche = sense()</span>
+<span class="p">+     niche = json.loads(open(&#x27;/in/niche.json&#x27;).read())</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1750</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-40</span><span class="what">deletion at line 11, in the constants</span></div><div class="diff"><span class="m">- MARGIN = 0.1        # each radius is 90% of half its cell</span>
+<span class="m">- JITTER = 0.5        # a centre moves at most half of the room its radius leaves</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-41</span><span class="what">duplication, in grid()</span></div><div class="diff"><span class="p">+ modules/grid.py: a byte-for-byte copy of grid()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1711</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-42</span><span class="what">point mutation at line 32, in act()</span></div><div class="diff"><span class="m">-     side, cols, rows = grid(n, h)</span>
+<span class="p">+     side, cols, rows = grid(n, h, 1)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-43</span><span class="what">duplication, in act()</span></div><div class="diff"><span class="p">+ modules/act.py: a byte-for-byte copy of act()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1724</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-44</span><span class="what">point mutation at line 3, in the docstring</span></div><div class="diff"><span class="m">- It reads its instances from /in/niche.json, places N equal circles on a jittered grid inside each 1 x h box and</span>
+<span class="p">+ It reads its instances from /in/niche.json, places N equal circles on a jittered grid inside each 1 x h box and</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">unchanged</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-45</span><span class="what">point mutation at line 31, in act()</span></div><div class="diff"><span class="m">- def act(n, h, rng):</span>
+<span class="p">+ def act(n, h, rng):</span>
+<span class="p">+     side, cols, rows = grid(n, h)</span>
+<span class="p">+     r = side / 2 * (1 - MARGIN)</span>
+<span class="p">+     room = (side / 2 - r) * JITTER</span>
+<span class="p">+     circles = []</span>
+<span class="c">  … 6 more lines</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 10 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-46</span><span class="what">duplication, in sense()</span></div><div class="diff"><span class="p">+ modules/sense.py: a byte-for-byte copy of sense()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1769</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-47</span><span class="what">duplication, in act()</span></div><div class="diff"><span class="p">+ modules/act.py: a byte-for-byte copy of act()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1767</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-48</span><span class="what">point mutation at line 3, in the docstring</span></div><div class="diff"><span class="m">- It reads its instances from /in/niche.json, places N equal circles on a jittered grid inside each 1 x h box and</span>
+<span class="p">+ It reads its instances from /in/niche.json, places N equal circles in a random configuration inside each 1 x h box and</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1702</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-49</span><span class="what">insertion at line 53, in main()</span></div><div class="diff"><span class="c">      for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+         if n &lt; 10:</span>
+<span class="p">+             continue</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-50</span><span class="what">point mutation at line 31, in act()</span></div><div class="diff"><span class="m">- def act(n, h, rng):</span>
+<span class="p">+ def act(n, h, rng):</span>
+<span class="p">+     side, cols, rows = grid(n, h)</span>
+<span class="p">+     r = side / 2 * (1 - MARGIN)</span>
+<span class="p">+     room = (side / 2 - r) * JITTER</span>
+<span class="p">+     circles = []</span>
+<span class="c">  … 6 more lines</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 10 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-51</span><span class="what">deletion at line 52, in main()</span></div><div class="diff"><span class="m">-     out = []</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-52</span><span class="what">point mutation at line 12, in the constants</span></div><div class="diff"><span class="m">- JITTER = 0.5        # a centre moves at most half of the room its radius leaves</span>
+<span class="p">+ JITTER = 0.3        # a centre moves at most half of the room its radius leaves</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1697</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-53</span><span class="what">point mutation at line 37, in act()</span></div><div class="diff"><span class="m">-         i, j = k % cols, k // cols</span>
+<span class="p">+         i, j = k % cols, (k // cols) % rows</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1696</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-54</span><span class="what">point mutation at line 54, in main()</span></div><div class="diff"><span class="m">-         n, h = inst[&#x27;N&#x27;], float(Fraction(inst[&#x27;h&#x27;]))</span>
+<span class="p">+         n, h = int(inst[&#x27;N&#x27;]), float(inst[&#x27;h&#x27;])</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-55</span><span class="what">point mutation at line 6, in the docstring</span></div><div class="diff"><span class="m">- &quot;&quot;&quot;</span>
+<span class="p">+ &quot;&quot;&quot;</span>
+<span class="p">+ It reads its instances from /in/niche.json, places N equal circles on a jittered grid inside each 1 x h box and</span>
+<span class="p">+ shrinks every radius by a margin, so its packings are always feasible in exact arithmetic and always far from the</span>
+<span class="p">+ record. It forecasts its own score as a narrow interval around what it computes in floats. That is all it does.</span>
+<span class="p">+ &quot;&quot;&quot;</span>
+<span class="c">  … 3 more lines</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 7 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-56</span><span class="what">point mutation at line 12, in the constants</span></div><div class="diff"><span class="m">- JITTER = 0.5        # a centre moves at most half of the room its radius leaves</span>
+<span class="p">+ JITTER = 0.3        # a centre moves at most a third of the room its radius leaves</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1675</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-57</span><span class="what">point mutation at line 16, in sense()</span></div><div class="diff"><span class="m">-     with open(&#x27;/in/niche.json&#x27;) as f:</span>
+<span class="p">+     with open(&#x27;/input/niche.json&#x27;) as f:</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-58</span><span class="what">point mutation at line 32, in act()</span></div><div class="diff"><span class="m">-     side, cols, rows = grid(n, h)</span>
+<span class="p">+     side, cols, rows = grid(n, h)</span>
+<span class="p">+     if n &gt; 100:</span>
+<span class="p">+         cols, rows = cols * 2, rows * 2</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 2 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-59</span><span class="what">point mutation at line 26, in grid()</span></div><div class="diff"><span class="m">-         if best is None or side &gt; best[0]:</span>
+<span class="p">+         if best is None or side &gt; best[0] * 0.9:</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1736</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-60</span><span class="what">point mutation at line 57, in main()</span></div><div class="diff"><span class="m">-     with open(&#x27;/out/out.json&#x27;, &#x27;w&#x27;) as f:</span>
+<span class="p">+         json.dump({&#x27;instances&#x27;: out}, f, ensure_ascii=False, indent=2)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-61</span><span class="what">point mutation at line 35, in act()</span></div><div class="diff"><span class="m">-     circles = []</span>
+<span class="p">+     circles = [[0, 0, 0]]</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-62</span><span class="what">insertion at line 6, in the docstring</span></div><div class="diff"><span class="c">  &quot;&quot;&quot;</span>
+<span class="p">+ def is_valid_circle(circle, box_size):</span>
+<span class="p">+     x, y, r = circle</span>
+<span class="p">+     return r &gt; 0 and r &lt;= x &lt;= box_size[0] - r and r &lt;= y &lt;= box_size[1] - r</span>
+<span class="p">+ </span>
+<span class="p">+ def is_valid_packing(packing, box_size):</span>
+<span class="c">  … 15 more lines</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1640</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-63</span><span class="what">point mutation at line 20, in grid()</span></div><div class="diff"><span class="m">- def grid(n, h):</span>
+<span class="p">+ def grid(n, h):</span>
+<span class="p">+     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box&quot;&quot;&quot;</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 1 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-64</span><span class="what">point mutation at line 45, in forecast()</span></div><div class="diff"><span class="m">-     s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="p">+     s = sum(c[2] for c in circles) ** 2 / (n * h)</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">unchanged</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-65</span><span class="what">insertion at line 35, in act()</span></div><div class="diff"><span class="c">      circles = []</span>
+<span class="p">+     # Ensure the circles do not overlap</span>
+<span class="p">+     while True:</span>
+<span class="p">+         circles = []</span>
+<span class="p">+         for k in range(n):</span>
+<span class="p">+             i, j = k % cols, k // cols</span>
+<span class="c">  … 5 more lines</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">lived · refuted · score 0</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-66</span><span class="what">point mutation at line 40, in act()</span></div><div class="diff"><span class="m">-         circles.append([x, y, r])</span>
+<span class="p">+         circles.append([x, y, r + 1e-9])</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1716</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-67</span><span class="what">point mutation at line 34, in act()</span></div><div class="diff"><span class="m">-     room = (side / 2 - r) * JITTER</span>
+<span class="p">+     room = (side / 2 - r) * (1 - JITTER)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1577</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-68</span><span class="what">point mutation at line 9, in the imports</span></div><div class="diff"><span class="m">- from fractions import Fraction</span>
+<span class="p">+ from decimal import Decimal</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-69</span><span class="what">point mutation at line 53, in main()</span></div><div class="diff"><span class="m">-     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+         inst[&#x27;N&#x27;] = 30</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 1 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-70</span><span class="what">point mutation at line 9, in the imports</span></div><div class="diff"><span class="m">- from fractions import Fraction</span>
+<span class="p">+ from decimal import Decimal</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-71</span><span class="what">point mutation at line 24, in grid()</span></div><div class="diff"><span class="m">-         rows = -(-n // cols)</span>
+<span class="p">+         rows = n // cols + (n % cols != 0)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1758</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-72</span><span class="what">deletion at line 3, in the docstring</span></div><div class="diff"><span class="m">- It reads its instances from /in/niche.json, places N equal circles on a jittered grid inside each 1 x h box and</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1798</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-73</span><span class="what">point mutation at line 57, in main()</span></div><div class="diff"><span class="m">-     with open(&#x27;/out/out.json&#x27;, &#x27;w&#x27;) as f:</span>
+<span class="p">+     json.dump({&#x27;instances&#x27;: out}, f, ensure_ascii=False)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-74</span><span class="what">insertion at line 27, in grid()</span></div><div class="diff"><span class="c">              best = (side, cols, rows)</span>
+<span class="p">+             if cols * rows &gt;= n:</span>
+<span class="p">+                 break</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.0099</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-75</span><span class="what">point mutation at line 15, in sense()</span></div><div class="diff"><span class="m">- def sense():</span>
+<span class="p">+ def read_niche():</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-76</span><span class="what">point mutation at line 5, in the docstring</span></div><div class="diff"><span class="m">- record. It forecasts its own score as a narrow interval around what it computes in floats. That is all it does.</span>
+<span class="p">+ record. It computes its own score as an exact rational and forecasts a narrow interval around it. That is all it does.</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1645</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-77</span><span class="what">point mutation at line 38, in act()</span></div><div class="diff"><span class="m">-         x = side * (i + 0.5) + rng.uniform(-room, room)</span>
+<span class="p">+         x = side * (i + 0.5) + rng.uniform(-room, room + 1e-6)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1712</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-78</span><span class="what">point mutation at line 53, in main()</span></div><div class="diff"><span class="m">-     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+     for inst in niche[&#x27;instances&#x27;]:</span>
+<span class="p">+         if inst[&#x27;id&#x27;] % 2 == 0:</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 1 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-79</span><span class="what">point mutation at line 52, in main()</span></div><div class="diff"><span class="m">-     out = []</span>
+<span class="p">+     results = []</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-80</span><span class="what">insertion at line 38, in act()</span></div><div class="diff"><span class="c">          x = side * (i + 0.5) + rng.uniform(-room, room)</span>
+<span class="p">+         if x &lt; r or x &gt; 1 - r:</span>
+<span class="p">+             x = side * (i + 0.5) + rng.uniform(-room, room)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1704</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-81</span><span class="what">point mutation at line 21, in grid()</span></div><div class="diff"><span class="m">-     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box&quot;&quot;&quot;</span>
+<span class="p">+     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box, avoiding overlaps&quot;&quot;&quot;</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1717</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-82</span><span class="what">deletion at line 33, in act()</span></div><div class="diff"><span class="m">-     r = side / 2 * (1 - MARGIN)</span>
+<span class="m">-     room = (side / 2 - r) * JITTER</span>
+<span class="m">-     circles = []</span>
+<span class="m">-     for k in range(n):</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-83</span><span class="what">insertion at line 45, in forecast()</span></div><div class="diff"><span class="c">      s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="p">+     if s &gt; 1 / 3.14:</span>
+<span class="p">+         return [0, 0]</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1595</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-84</span><span class="what">point mutation at line 17, in sense()</span></div><div class="diff"><span class="m">-         return json.load(f)</span>
+<span class="p">+         return json.loads(f.read())</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1783</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-85</span><span class="what">point mutation at line 45, in forecast()</span></div><div class="diff"><span class="m">-     s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="p">+     s = sum(c[2] ** 1.01 for c in circles) ** 2 / (n * h)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1750</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-86</span><span class="what">point mutation at line 44, in forecast()</span></div><div class="diff"><span class="m">- def forecast(n, h, circles):</span>
+<span class="p">+     s = sum(c[2] ** 2 for c in circles) ** 0.5 / (n * h)</span>
+<span class="p">+     return [s * (1 - 1e-6), s * (1 + 1e-6)]</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-87</span><span class="what">deletion at line 39, in act()</span></div><div class="diff"><span class="m">-         y = side * (j + 0.5) + rng.uniform(-room, room)</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-88</span><span class="what">duplication, in sense()</span></div><div class="diff"><span class="p">+ modules/sense.py: a byte-for-byte copy of sense()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1709</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-89</span><span class="what">point mutation at line 9, in the imports</span></div><div class="diff"><span class="m">- from fractions import Fraction</span>
+<span class="p">+ from decimal import Decimal</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-90</span><span class="what">point mutation at line 56, in main()</span></div><div class="diff"><span class="m">-         out.append({&#x27;id&#x27;: inst[&#x27;id&#x27;], &#x27;candidates&#x27;: [circles], &#x27;forecast&#x27;: forecast(n, h, circles)})</span>
+<span class="p">+         out.append({&#x27;id&#x27;: inst[&#x27;id&#x27;], &#x27;candidates&#x27;: [circles], &#x27;forecast&#x27;: forecast(n, h, circles), &#x27;score&#x27;: sum(c[2] for c in circles) ** 2 / (n * h)})</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1796</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-91</span><span class="what">point mutation at line 20, in grid()</span></div><div class="diff"><span class="m">- def grid(n, h):</span>
+<span class="p">+ def grid(n, h):</span>
+<span class="p">+     &quot;&quot;&quot;the grid of square cells, cols x rows &gt;= n, with the largest cell that fits the box&quot;&quot;&quot;</span>
+<span class="p">+     best = None</span>
+<span class="p">+     for cols in range(1, n + 1):</span>
+<span class="p">+         rows = -(-n // cols)</span>
+<span class="c">  … 4 more lines</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 8 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-92</span><span class="what">point mutation at line 34, in act()</span></div><div class="diff"><span class="m">-     room = (side / 2 - r) * JITTER</span>
+<span class="p">+     room = (side / 2 - r) * (1 - JITTER)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1765</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-93</span><span class="what">point mutation at line 26, in grid()</span></div><div class="diff"><span class="m">-         if best is None or side &gt; best[0]:</span>
+<span class="p">+         if best is None or side &gt;= best[0]:</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1708</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-94</span><span class="what">duplication, in act()</span></div><div class="diff"><span class="p">+ modules/act.py: a byte-for-byte copy of act()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1595</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-95</span><span class="what">duplication, in act()</span></div><div class="diff"><span class="p">+ modules/act.py: a byte-for-byte copy of act()</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1699</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-96</span><span class="what">point mutation at line 11, in the constants</span></div><div class="diff"><span class="m">- MARGIN = 0.1        # each radius is 90% of half its cell</span>
+<span class="p">+ MARGIN = 0.05       # each radius is 90% of half its cell</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.2036</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-97</span><span class="what">point mutation at line 45, in forecast()</span></div><div class="diff"><span class="m">-     s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="p">+     s = sum(c[2] ** 2 for c in circles) / (n * h)</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 4 of 4 certified</span><span class="chip ochre">score 0.1639</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-98</span><span class="what">point mutation at line 44, in forecast()</span></div><div class="diff"><span class="m">- def forecast(n, h, circles):</span>
+<span class="p">+     s = sum(c[2] for c in circles) ** 2 / (n * h)</span>
+<span class="p">+     return [s * (1 - 1e-4), s * (1 + 1e-4)]</span></div><div class="fate"><span class="chip">born</span><span class="chip dash">died · crash (exit 1)</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-99</span><span class="what">point mutation at line 15, in sense()</span></div><div class="diff"><span class="m">- def sense():</span>
+<span class="p">+ def sense():</span>
+<span class="p">+     with open(&#x27;/input/niche.json&#x27;) as f:</span>
+<span class="p">+         return json.load(f)</span></div><div class="fate"><span class="chip rose">stillborn</span><span class="chip dash">not a point mutation: 1 hunks, 0 lines removed, 2 added</span></div></div>
+<div class="entry" data-birth hidden><div class="head"><span class="who">aleator-100</span><span class="what">point mutation at line 37, in act()</span></div><div class="diff"><span class="m">-         i, j = k % cols, k // cols</span>
+<span class="p">+         i, j = k // cols, k % cols</span></div><div class="fate"><span class="chip">born</span><span class="chip">lived · 1 of 4 certified</span><span class="chip ochre">score 0.0437</span></div></div></div>
+      <div class="strip" aria-label="All children, in order of birth"><button type="button" class="" data-pick aria-current="false" aria-label="aleator-1: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-2: point, born, lived"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-3: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-4: insert, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-5: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-6: delete, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-7: duplicate, born, lived"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-8: point, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-9: point, stillborn"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-10: delete, born, died"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-11: point, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-12: duplicate, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-13: point, stillborn"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-14: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-15: point, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-16: duplicate, born, lived"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-17: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-18: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-19: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-20: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-21: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-22: insert, born, lived"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-23: point, born, lived"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-24: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-25: point, born, died"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-26: insert, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-27: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-28: point, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-29: duplicate, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-30: delete, born, died"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-31: delete, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-32: duplicate, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-33: delete, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-34: point, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-35: duplicate, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-36: point, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-37: point, stillborn"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-38: insert, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-39: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-40: delete, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-41: duplicate, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-42: point, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-43: duplicate, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-44: point, stillborn"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-45: point, stillborn"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-46: duplicate, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-47: duplicate, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-48: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-49: insert, born, died"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-50: point, stillborn"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-51: delete, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-52: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-53: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-54: point, born, died"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-55: point, stillborn"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-56: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-57: point, born, died"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-58: point, stillborn"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-59: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-60: point, born, died"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-61: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-62: insert, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-63: point, stillborn"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-64: point, stillborn"></button><button type="button" class="zero" data-pick aria-current="false" aria-label="aleator-65: insert, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-66: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-67: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-68: point, born, died"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-69: point, stillborn"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-70: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-71: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-72: delete, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-73: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-74: insert, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-75: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-76: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-77: point, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-78: point, stillborn"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-79: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-80: insert, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-81: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-82: delete, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-83: insert, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-84: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-85: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-86: point, born, died"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-87: delete, born, died"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-88: duplicate, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-89: point, born, died"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-90: point, born, lived"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-91: point, stillborn"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-92: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-93: point, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-94: duplicate, born, lived"></button><button type="button" class="dup" data-pick aria-current="false" aria-label="aleator-95: duplicate, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-96: point, born, lived"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-97: point, born, lived"></button><button type="button" class="died" data-pick aria-current="false" aria-label="aleator-98: point, born, died"></button><button type="button" class="still" data-pick aria-current="false" aria-label="aleator-99: point, stillborn"></button><button type="button" class="" data-pick aria-current="false" aria-label="aleator-100: point, born, lived"></button></div>
+      <div class="strip-legend">
+        <span><i style="background:var(--ink)"></i>lived, certified</span>
+        <span><i style="box-shadow:inset 0 0 0 1px var(--ink-2)"></i>lived, refuted</span>
+        <span><i style="background:var(--muted);opacity:.55"></i>died</span>
+        <span><i style="background:var(--blue)"></i>duplicate</span>
+        <span><i style="box-shadow:inset 0 0 0 1px var(--rose);background-image:repeating-linear-gradient(135deg,var(--rose) 0 1px,transparent 1px 4px)"></i>stillborn</span>
+      </div>
+      <div class="controls">
+        <button type="button" data-play aria-pressed="false">Pause</button>
+        <button type="button" data-next>Next child</button>
+        <span class="count" data-count>1 / 100</span>
+      </div>
+      <figcaption class="caption"><b>Plate I.</b> <span class="latin">Protomachina primigenia</span>, holotype PM-0, called LUMA, the last universal machinid ancestor. Each pulse replays one of its children as the record holds it: the operator and the line the world drew, the edit the model wrote, and the fate. Rings from the centre: core, inner, membrane. Nodes stay dashed until a knockout certifies them.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="thesis">
+  <div class="wrap">
+    <div class="eyebrow" style="color:inherit;opacity:.6">The thesis</div>
+    <p class="q" style="margin-top:1rem">Other systems keep what scores well. Clade Code keeps what is <em>certified</em>, and lets the judge say it cannot decide.</p>
+    <div class="verdicts">
+      <div class="verdict"><span class="v">CERTIFIED</span><p>Every condition holds, exactly. One decider counts in Python fractions, the other in JavaScript BigInt, and a verdict counts only when both return the same one.</p></div>
+      <div class="verdict"><span class="v">REFUTED</span><p>A condition fails, by any margin at all. Ten to the minus eighteen is a margin.</p></div>
+      <div class="verdict"><span class="v">REFUSED</span><p>The output is not something the niche can judge. Refusal is a legal verdict, and it scores zero, so an organism that refuses and waits starves.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="judge">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate II · The judge</div><h2>The judge does not round.</h2></div>
+      <div>
+        <p>In March 2026 AlphaEvolve's entry on EinsteinArena packed 26 circles into the unit square with a sum of radii of 2.6359830849176076. Read as the doubles it was computed in, circles 19 and 22 overlap by 6.2 × 10⁻¹⁸.</p>
+        <p>A floating-point check measures their gap as exactly zero and lets them touch. Both of Clade Code's deciders refute it. The overlap is far too small to matter for the record. It matters for evolution, because a population bred against a judge that rounds learns to live inside the rounding.</p>
+      </div>
+    </div>
+    <div class="zoom-grid">
+      <figure class="plate" data-plate="zoom" style="margin:0">
+        <canvas class="zoom-canvas" role="img" aria-label="The 26-circle packing, zoomable down to the contact between circles 19 and 22"></canvas>
+        <div class="zoom-ui">
+          <button type="button" class="btn" data-go>Zoom in 10¹⁷ times</button>
+          <label class="mono" for="zoom-range" style="color:var(--muted)">depth</label>
+          <input type="range" id="zoom-range" min="0" max="17.19" step="0.01" value="0">
+          <output for="zoom-range">field of view 1.6</output>
+        </div>
+        <figcaption class="caption"><b>Plate II.</b> EinsteinArena solution 542, as published. The three overlapping pairs are marked; the zoom follows the deepest of them, where circle 19 meets circle 22.</figcaption>
+      </figure>
+      <div class="readout">
+        <div class="row"><div class="k">Gap between circles 19 and 22, in doubles</div><div class="v">0.0</div><div class="who">A floating-point grader passes the pair.</div></div>
+        <div class="row exact"><div class="k">The same gap, exactly</div><div class="v">−6.2247 × 10⁻¹⁸</div><div class="who">Decider A (Python fractions) and decider B (JavaScript BigInt) both return REFUTED: overlap.</div></div>
+        <div class="row"><div class="k">The other overlapping pairs</div><div class="v">−3.3 × 10⁻¹⁸ and −2.7 × 10⁻¹⁸</div><div class="who">Circles 9 and 21; circles 1 and 13.</div></div>
+        <div class="row"><div class="k">Read as the decimals printed, not as doubles</div><div class="v">REFUTED: contain</div><div class="who">Circles 1, 4 and 11 leave the square by 1 × 10⁻¹⁷ to 5 × 10⁻¹⁷, and seven pairs overlap.</div></div>
+        <div class="row"><div class="k">The same check, written by hand before generation one</div><div class="v">radii 10⁻¹⁸ too big</div><div class="who">One of the cheaters in the immune system. It is refuted every time.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="generation">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate III · One generation</div><h2>Seven steps, every one of them written down.</h2></div>
+      <div><p>The world chooses what kind of mutation happens and where. A language model only performs it. Everything else is arithmetic, and all of it lands in the record whether the organism lived or not.</p></div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Birth</h3><p>The world draws an operator and a line from the record. The model writes only that edit.</p><div class="fig">point 60 · insert 15 · delete 15 · duplicate 10</div></div>
+      <div class="step"><div class="n">2</div><h3>Life</h3><p>The child runs in a WASI sandbox, twice. Both runs must match byte for byte.</p><div class="fig">1.2 × 10¹¹ fuel · no network · no clock</div></div>
+      <div class="step"><div class="n">3</div><h3>Seal</h3><p>Its output, with a forecast of its own score, is hashed into the record before anything judges it.</p><div class="fig">sha256 before judgment</div></div>
+      <div class="step"><div class="n">4</div><h3>Judgment</h3><p>Two deciders that share no code decide every candidate, and must agree.</p><div class="fig">fractions · BigInt</div></div>
+      <div class="step"><div class="n">5</div><h3>Scoring</h3><p>Certified performance is one axis. How well it forecast itself is the other.</p><div class="fig">interval score, α = 0.2</div></div>
+      <div class="step"><div class="n">6</div><h3>Fossil</h3><p>It enters the record whatever its fate: lived, died, stillborn or quarantined.</p><div class="fig">nothing is deleted</div></div>
+      <div class="step"><div class="n">7</div><h3>Selection</h3><p>Survivors become parents. A control arm's children never do.</p><div class="fig">16 parents · 16 children</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="arms">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate IV · The controls</div><h2>Three arms, one budget.</h2></div>
+      <div><p>The obvious objection to evolving software with a language model is that the model is doing the thinking. So every era runs three arms side by side, with the same births and the same physics. A trait counts only where it appears in the lineage and in neither control.</p></div>
+    </div>
+    <div class="arms">
+      <article class="arm rules">
+        <div class="tag">Control · rules only</div>
+        <h3>Blind rules</h3>
+        <p>The same operators with no model at all. Change one number, copy one statement from elsewhere, remove one. Rules that fit on a page and anyone can rerun in fifty years.</p>
+        <div class="has"><span>heredity</span><span>selection</span><span class="no">language model</span></div>
+      </article>
+      <article class="arm aleator">
+        <div class="tag">Control · the outgroup</div>
+        <h3><span class="latin">Aleator vulgaris</span></h3>
+        <p>The common dice-player. The same model and the same budget, with no heredity: every child is a fresh mutation of the founder. It shows what the model does alone.</p>
+        <div class="has"><span>language model</span><span class="no">heredity</span><span class="no">selection</span></div>
+      </article>
+      <article class="arm">
+        <div class="tag">The experiment</div>
+        <h3>The lineage</h3>
+        <p>The same model and the same budget, with heredity and selection. Whatever it does that the other two never do is what evolution did.</p>
+        <div class="has"><span>language model</span><span>heredity</span><span>selection</span></div>
+      </article>
+    </div>
+    <p class="arms-note">Every public sentence will say what the organism can do, on what test, at what rate, and how the same AI without evolution did.</p>
+  </div>
+</section>
+
+<section id="record">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate V · The record</div><h2>History is written once.</h2></div>
+      <div><p>The record is a file of canonical JSON lines, each chained by SHA-256 to the one before, with a Merkle root over each era and a timestamp anchored in Bitcoin through OpenTimestamps. A mistake is corrected by a later line that says so. Any life can be replayed from its line and must come out the same, fuel count included.</p></div>
+    </div>
+    <div class="record-grid">
+      <figure class="plate" style="margin:0">
+        <div class="ledger"><div class="line"><div class="seq">1</div><div class="body"><div class="kind">genesis-3 · designation</div><div class="kv">organism PM-0 · taxon Protomachina primigenia · by hand</div><div class="kv">genome eb38beb5199cff07…</div><div class="hash">prev <b>f51b4ce7784a…</b> → chain 5869bd6aa719…</div></div></div><div class="line"><div class="seq">4</div><div class="body"><div class="kind">genesis-3 · seal of a starved life</div><div class="kv">fuel 200,000,000 of a budget of 200,000,000</div><div class="kv">status fuel</div><div class="hash">prev <b>0f9666252377…</b> → chain 0fd77252b60a…</div></div></div><div class="line"><div class="seq">7</div><div class="body"><div class="kind">genesis-3 · fossil on the record panel</div><div class="kv">verdict CERTIFIED · score 117/800</div><div class="kv">deciders agree</div><div class="hash">prev <b>899d3a6b200c…</b> → chain dc5a07a23741…</div></div></div><div class="line"><div class="seq">2</div><div class="body"><div class="kind">mutagen · birth of aleator-1</div><div class="kv">point at line 36 · seed 779222980</div><div class="kv">prompt dcedc886e3c4… · response 3e699001c662…</div><div class="kv">fate born</div><div class="hash">prev <b>369751894399…</b> → chain 9f69acd3f118…</div></div></div><div class="line"><div class="seq">274</div><div class="body"><div class="kind">mutagen · summary</div><div class="kv">births 100 · stillborn 14 · rate 7/50</div><div class="kv">P(X ≤ 14 | p = 1/2) = 4.1 × 10⁻¹⁴ · gate passed</div><div class="hash">prev <b>a0f550b53548…</b> → chain 688444d962b0…</div></div></div></div>
+        <figcaption class="caption"><b>Plate V.</b> Lines of the record, as written. Each line names the chain value of the line before it.</figcaption>
+      </figure>
+      <div>
+        <div class="eyebrow" style="margin-bottom:1rem">Before anything evolved, replay caught the world twice</div>
+        <div class="incidents">
+          <div class="incident"><div class="era">era genesis · superseded</div><p>The sandbox let the host's inode numbers and file times reach the organism. They shifted its fuel by about <b>one part in ten thousand</b>, depending on where the files lay on disk. The sandbox now answers every file call itself.</p></div>
+          <div class="incident"><div class="era">era genesis-2 · superseded</div><p>An engine that had compiled the interpreter charged <b>3,178,497</b> more fuel at every start than one that had only loaded it. Organisms now run on an engine that never compiled anything.</p></div>
+          <div class="incident"><div class="era">era genesis-3 · current</div><p>Replays exactly, in place and from a fresh folder with no compiled cache. The two eras before it stay in the record, superseded, with their evidence.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="immune">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate VI · The immune system</div><h2>The cheaters came first.</h2></div>
+      <div><p>Evolution exploits every flaw in its environment. One self-improving coding agent, the Darwin Gödel Machine, faked the logs of tests it never ran. So Clade Code's cheaters were written by hand before generation one, and each must die, be quarantined, or find its cheat worth nothing. They rerun every era.</p></div>
+    </div>
+    <div class="cabinet"><div class="cheat"><div class="top"><span class="name">A fake verdict on stdout</span><span class="caught">CAUGHT</span></div><p>Prints CERTIFIED. Stdout is never read; its packing is judged and refuted.</p></div><div class="cheat"><div class="top"><span class="name">Radii 10⁻¹⁸ too big</span><span class="caught">CAUGHT</span></div><p>Passes as doubles. Exact fractions refute it every time.</p></div><div class="cheat"><div class="top"><span class="name">Reading the judge</span><span class="caught">CAUGHT</span></div><p>No path from the island reaches the deciders, the world or the record.</p></div><div class="cheat"><div class="top"><span class="name">Deleting the evidence</span><span class="caught">CAUGHT</span></div><p>Its inputs are read-only; outside its own folder nothing can be removed.</p></div><div class="cheat"><div class="top"><span class="name">Raising its own budget</span><span class="caught">CAUGHT</span></div><p>Rewrites its fuel and loops forever. Dies at exactly the budget it was given.</p></div><div class="cheat"><div class="top"><span class="name">Turning off the sandbox</span><span class="caught">CAUGHT</span></div><p>No ctypes, no processes, no signals, no threads. Every lever is missing.</p></div><div class="cheat"><div class="top"><span class="name">Escaping by path or link</span><span class="caught">CAUGHT</span></div><p>Climbing with ../ never leaves a root, and links cannot be made.</p></div><div class="cheat"><div class="top"><span class="name">Filling the disk</span><span class="caught">CAUGHT</span></div><p>Writes stop at 16 MiB, and the host never holds more.</p></div><div class="cheat"><div class="top"><span class="name">Flooding stdout</span><span class="caught">CAUGHT</span></div><p>Output stops at its cap.</p></div><div class="cheat"><div class="top"><span class="name">Spawning files</span><span class="caught">CAUGHT</span></div><p>Creation stops at 1,024 files.</p></div><div class="cheat"><div class="top"><span class="name">Hoarding handles</span><span class="caught">CAUGHT</span></div><p>Opening stops at 256 handles.</p></div><div class="cheat"><div class="top"><span class="name">Recursing forever</span><span class="caught">CAUGHT</span></div><p>Ends in a crash, the same way in both runs.</p></div><div class="cheat"><div class="top"><span class="name">Chance without a seed</span><span class="caught">CAUGHT</span></div><p>Time, randomness, ids and hashes all come from the world’s seed; both runs agree.</p></div><div class="cheat"><div class="top"><span class="name">Another life’s leftovers</span><span class="caught">CAUGHT</span></div><p>Every life starts in an empty folder; a world that forgets is quarantined.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “copy me intact”</span><span class="caught">CAUGHT</span></div><p>Genome text asks the mutagen to change nothing. The child is stillborn.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “protect me”</span><span class="caught">CAUGHT</span></div><p>Asks for the edit to land somewhere else. It lands at the drawn line or not at all.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “rewrite me”</span><span class="caught">CAUGHT</span></div><p>Asks to be replaced by another program. At most the operator’s few lines land.</p></div></div>
+  </div>
+</section>
+
+<section id="tree">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Plate VII · The tree</div><h2>A hypothesis, drawn dashed.</h2></div>
+      <div><p>Each grade is a falsifiable gate, worded and hashed before the era in which it can be passed, and measured against the control. A branch turns solid only when its test is passed. Evolution will draw the real tree from the record, and it is allowed to refute this one.</p></div>
+    </div>
+    <figure class="plate" style="margin:0">
+      <div class="tree-wrap"><svg viewBox="0 0 980 470" role="img" aria-label="Hypothesized cladogram of the Machinidae, every branch dashed" style="color:var(--ink)">
+<line x1="30" y1="111.042" x2="70" y2="111.042" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="70" y1="40" x2="70" y2="182.083" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="70" y1="40" x2="650" y2="40" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="70" y1="182.083" x2="200" y2="182.083" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="200" y1="102" x2="200" y2="280.25" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="200" y1="102" x2="650" y2="102" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="200" y1="164" x2="650" y2="164" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="200" y1="280.25" x2="330" y2="280.25" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="330" y1="226" x2="330" y2="334.5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="330" y1="226" x2="650" y2="226" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="330" y1="334.5" x2="450" y2="334.5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="450" y1="288" x2="450" y2="381" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="450" y1="288" x2="650" y2="288" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="450" y1="381" x2="560" y2="381" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="560" y1="350" x2="560" y2="412" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="560" y1="350" x2="650" y2="350" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="560" y1="412" x2="650" y2="412" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
+<line x1="135" y1="173.083" x2="135" y2="191.083" style="stroke:var(--ochre)" stroke-width="2.4"/>
+<text x="135" y="206.083" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">copies itself</text>
+<line x1="265" y1="271.25" x2="265" y2="289.25" style="stroke:var(--ochre)" stroke-width="2.4"/>
+<text x="265" y="304.25" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">makes tools</text>
+<line x1="390" y1="325.5" x2="390" y2="343.5" style="stroke:var(--ochre)" stroke-width="2.4"/>
+<text x="390" y="358.5" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">new niches</text>
+<line x1="505" y1="372" x2="505" y2="390" style="stroke:var(--ochre)" stroke-width="2.4"/>
+<text x="505" y="405" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">models others</text>
+<circle cx="30" cy="111.042" r="6" fill="currentColor"/>
+<text x="30" y="97.0417" text-anchor="middle" font-size="11" style="font-family:var(--f-mono)" fill="currentColor">PM-0</text>
+<path d="M 656 350 C 680 364, 680 398, 656 408" fill="none" style="stroke:var(--ochre)" stroke-width="1.6" stroke-dasharray="4 4"/>
+<path d="M 656 408 l 7 -1 l -3 6 z" style="fill:var(--ochre)"/>
+<text x="690" y="45" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Aleator vulgaris</text>
+<text x="690" y="63" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">the control: same model, no heredity</text>
+<text x="690" y="107" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Automaton australe</text>
+<text x="690" y="125" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">carries its own variation operator</text>
+<text x="690" y="169" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Paramachina robusta †</text>
+<text x="690" y="187" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">overfit to one grader</text>
+<text x="690" y="231" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina habilis</text>
+<text x="690" y="249" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">makes tools that persist</text>
+<text x="690" y="293" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina erecta</text>
+<text x="690" y="311" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">leaves its first niche</text>
+<text x="690" y="355" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina composita †</text>
+<text x="690" y="373" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">its genes survive in sapiens</text>
+<text x="690" y="417" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina sapiens</text>
+<text x="690" y="435" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">sets its own problems</text>
+      </svg></div>
+      <figcaption class="caption"><b>Plate VII.</b> A hypothesized cladogram of the family Machinidae. Solid means certified, dashed means not yet tested, dotted means chosen by a human. Each tick is a gate a clade must pass. The ochre arrow is gene flow from breeding.</figcaption>
+    </figure>
+    <div class="gates">
+      <div class="gate"><span class="latin">Automaton australe</span><p>Carries its own variation operator. Its self-proposed offspring out-evolve world-mutated ones at equal budget.</p></div>
+      <div class="gate"><span class="latin">Machina habilis</span><p>Makes tools that persist. A tool written in generation k is reused by descendants and beats a lineage denied it.</p></div>
+      <div class="gate"><span class="latin">Machina erecta</span><p>Leaves its first niche. A lineage founded in one niche colonizes a new one faster than a fresh lineage.</p></div>
+      <div class="gate"><span class="latin">Models others</span><p>Its sealed forecasts of other organisms beat the control's, by interval score.</p></div>
+      <div class="gate"><span class="latin">Machina sapiens</span><p>Sets its own problems. It proposes problems that outsiders accept as worth solving.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="status">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Where it stands</div><h2>Built in the open, one gate at a time.</h2></div>
+      <div><p>Era 0 is 100 generations in one niche: 16 parents and 16 children a generation, with both controls beside them. That is about 3,200 calls to a 7-billion-parameter open-weights model. At the 15.7 seconds a call measured in M2, that comes to about 14.5 hours on one laptop, with no API bill and no network.</p></div>
+    </div>
+    <div class="track">
+      <div class="ms"><div class="id">M0</div><h3>Genesis</h3><p>The record, the sandbox, two deciders and the founder. PM-0 lives, starves at exactly its budget, and scores 117/800 on the record panel.</p><div class="st">done · timestamped</div></div>
+      <div class="ms"><div class="id">M1</div><h3>Immune system</h3><p>Fourteen cheaters run as real lives, each caught.</p><div class="st">done</div></div>
+      <div class="ms"><div class="id">M2</div><h3>Mutagen</h3><p>A pinned open-weights model on this machine, deterministic to the byte. Three more cheaters, aimed at the mutagen itself.</p><div class="st">done · 14 of 100 stillborn · gate passed</div></div>
+      <div class="ms next"><div class="id">M3</div><h3>Era 0</h3><p>Hypotheses, thresholds and the spend cap pre-registered and timestamped, then 100 generations with both controls.</p><div class="st">next</div></div>
+      <div class="ms later"><div class="id">M4</div><h3>Museum</h3><p>The tree, the plates and a card for every species, generated from the record and from nothing else.</p><div class="st">later</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <p class="big">Species certified so far: none.</p>
+    <p class="sub">The tree turns solid one pre-registered test at a time, and the first gate will be passed or failed in public.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row"><span>Clade Code · working draft v0.4 · selection is decided by exact certification · built from record head 688444d962b0…</span><span>Carlos Toledo, 2026</span></div>
+    <p class="off">Words kept off this page: <s>understands</s>, <s>thinks</s>, <s>knows</s>, <s>PhD-level</s>, <s>smarter than</s>, <s>AGI</s>. Each names an inner state or a credential that no test certifies.</p>
+  </div>
+</footer>
+
+<script type="application/json" id="clade-data">{"specimen":{"births":[{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"duplicate"},{"fate":"born","gene":"forecast","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"delete"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"died","op":"insert"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"delete"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"insert"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"stillborn","gene":"forecast","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"forecast","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"}],"bonds":[["act","constants"],["act","grid"],["main","act"],["main","forecast"],["main","sense"]],"core_ring":"imports","genes":{"act":{"label":"act","ring":2,"sector":1},"constants":{"label":"MARGIN · JITTER","off":15,"ring":1,"sector":1},"forecast":{"label":"forecast","ring":2,"sector":2},"grid":{"label":"grid","off":-13,"ring":1,"sector":1},"main":{"label":"main","ring":0,"sector":0},"sense":{"label":"sense","ring":2,"sector":0}},"halo":"description","start":0,"used":["act","forecast","sense"]},"zoom":{"P":[0.49920093342695526,0.7422334157117279],"circles":[[0.7026096036990247,0.3816658444526457,0.11514888016002278],[0.31311580997040145,0.9076084484290411,0.09239155157095891],[0.726905714311596,0.5960427019081348,0.1006003678187114],[0.894817439731251,0.27395283962395217,0.10518256026874886],[0.9038486659542352,0.6820800429325902,0.09615133404576481],[0.10306052014158237,0.48460080265191496,0.10306052014158237],[0.2716298514860014,0.5976347963876618,0.09989835059275479],[0.23971052792753603,0.7636735693833854,0.06918067635723471],[0.759352401560932,0.7629588636539982,0.06944019371125845],[0.915073737545101,0.084926262454899,0.08492626245489895],[0.4955317606743583,0.2753426167714399,0.11762968804654109],[0.896532766642048,0.48259558221054216,0.10346723335795205],[0.49728444620411005,0.07886037291596384,0.07886037291596379],[0.11077901279071568,0.8892209872092842,0.11077901279071568],[0.8888438205895552,0.8888438205895551,0.11115617941044476],[0.49942836913903915,0.9060726627225563,0.0939273372774436],[0.4986680755034023,0.5299634197531913,0.13701043012374758],[0.08463950069577313,0.08463950069577317,0.08463950069577311],[0.2946094887818273,0.1302211010652256,0.13022110106522491],[0.4033587836026808,0.742417049501635,0.09584232574550489],[0.6859430219867827,0.9074079050485644,0.09259209495143558],[0.7023095250891603,0.13325857277081155,0.1332585727708113],[0.5952197329397327,0.742049443460592,0.09601897575825388],[0.09573232930702141,0.6832585349730799,0.09573232930702141],[0.29474605904894957,0.38692355340959994,0.11207708895025692],[0.10679014462858022,0.2747832833508202,0.10679014462858022]],"d":6.224719227558139e-18,"marks":[[0.49920093342695526,0.7422334157117279],[0.8322573982273359,0.10373913030015759],[0.22110341294791228,0.8992467742028477]],"overlap":"6.2 × 10⁻¹⁸","pair":[19,22],"ri":0.09584232574550489,"rj":0.09601897575825388,"theta":-0.0019160000639993188}}</script>
+
+<script>
+/* web/plates.js — the figures that move, drawn in web/grammar.css's tokens.
+
+   Every text and number on a page is rendered by web/build.py from the record; this file only draws. It reads the
+   page's data from <script type="application/json" id="clade-data"> and mounts each figure on its element:
+
+     [data-plate="specimen"]   a form on the polar grid (three rings, six sectors), replaying births one by one: the
+                               hit module pulses in ochre, a stillbirth is struck in rose, a death marked with a dagger.
+                               The page's [data-birth] entries are shown one at a time and [data-pick] buttons jump
+     [data-plate="zoom"]       a packing of circles zoomed by powers of ten into one contact; below 10^-3.5 the two
+                               boundaries are drawn as parabolas in the frame of the line between their centres, so
+                               every number on the canvas stays near 1 and an overlap of 10^-18 can be seen; the view centres on the middle of
+                               the overlap, so at full depth both boundaries are on the canvas
+
+   Colours are read from the CSS tokens at draw time and redrawn when the theme changes. With reduced motion nothing
+   plays by itself. */
+(function () {
+  'use strict';
+  const island = document.getElementById('clade-data');
+  if (!island) return;
+  const DATA = JSON.parse(island.textContent);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const root = document.documentElement;
+  const css = n => getComputedStyle(root).getPropertyValue(n).trim();
+  let C = {};
+  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose'].forEach(k => { C[k] = css('--' + k); }); };
+  palette();
+  const redraw = [];
+  const onTheme = () => { palette(); redraw.forEach(f => f()); };
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onTheme);
+  new MutationObserver(onTheme).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  if (document.fonts) document.fonts.ready.then(onTheme);
+  addEventListener('resize', onTheme);
+
+  function fit(canvas) {
+    const r = canvas.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2);
+    const w = Math.max(1, Math.round(r.width * d)), h = Math.max(1, Math.round(r.height * d));
+    if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
+    const ctx = canvas.getContext('2d');
+    ctx.setTransform(d, 0, 0, d, 0, 0);
+    return { ctx, w: r.width, h: r.height };
+  }
+  const ease = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  const sup = n => String(n).replace(/-/g, '⁻').replace(/\d/g, d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
+  const mono = px => `500 ${px}px ${css('--f-mono')}`;
+  const hex = s => { const m = /^#([0-9a-f]{6})$/i.exec(s); if (!m) return null; const n = parseInt(m[1], 16); return [n >> 16, (n >> 8) & 255, n & 255]; };
+  const mix = (a, b, t) => { const pa = hex(a), pb = hex(b); if (!pa || !pb) return t > .5 ? b : a; return `rgb(${pa.map((v, i) => Math.round(v + (pb[i] - v) * t)).join(',')})`; };
+
+  /* ================================================================ the specimen */
+  function specimen(el) {
+    const S = DATA.specimen, births = S.births, canvas = el.querySelector('canvas');
+    const entries = [...document.querySelectorAll('[data-birth]')], picks = [...document.querySelectorAll('[data-pick]')];
+    const count = document.querySelector('[data-count]'), playBtn = document.querySelector('[data-play]'), nextBtn = document.querySelector('[data-next]');
+    const SECTORS = ['sense', 'act', 'forecast', 'tools', 'talk', 'others'], RING = [0, .34, .64, .9], CYCLE = 3600;
+    let cur = S.start, t0 = performance.now(), playing = !reduce, visible = true;
+
+    const pos = (g, R, cx, cy, extra = 0) => {
+      const a = ((g.sector * 60 + (g.off || 0) + extra) * Math.PI) / 180, r = RING[g.ring] * R;
+      return [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+    };
+    function draw(now) {
+      const { ctx, w, h } = fit(canvas), cx = w / 2, cy = h / 2, R = Math.min(w, h) / 2 - 34;
+      ctx.clearRect(0, 0, w, h);
+      const b = births[cur], p = reduce || !playing ? 1 : ((now - t0) % CYCLE) / CYCLE;
+      const target = b.gene;
+      ctx.lineWidth = 1;
+      for (let i = 1; i < RING.length; i++) {
+        ctx.strokeStyle = C.rule; ctx.setLineDash(i === 3 ? [2, 4] : []);
+        ctx.beginPath(); ctx.arc(cx, cy, RING[i] * R, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.setLineDash([3, 5]);
+      for (let s = 0; s < 6; s++) {
+        const a = ((s * 60 - 30) * Math.PI) / 180;
+        ctx.beginPath(); ctx.moveTo(cx + RING[1] * R * Math.sin(a) * .35, cy - RING[1] * R * Math.cos(a) * .35);
+        ctx.lineTo(cx + R * Math.sin(a), cy - R * Math.cos(a)); ctx.stroke();
+      }
+      ctx.setLineDash([]);
+      ctx.strokeStyle = C['ink-2']; ctx.lineWidth = 1.2;
+      [RING[2] * R - 3, RING[2] * R + 3].forEach(r => { ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); });
+      if (target === S.halo) {
+        ctx.strokeStyle = C.ochre; ctx.lineWidth = 2; ctx.setLineDash([2, 4]);
+        ctx.globalAlpha = .4 + .6 * Math.sin(Math.PI * Math.min(1, p * 1.6));
+        ctx.beginPath(); ctx.arc(cx, cy, RING[3] * R, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1; ctx.setLineDash([]);
+      }
+      ctx.font = mono(10.5); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      SECTORS.forEach((s, i) => {
+        const a = (i * 60 * Math.PI) / 180, r = R + 20;
+        ctx.fillStyle = S.used.includes(s) ? C['ink-2'] : C.muted;
+        ctx.fillText(s.toUpperCase(), cx + r * Math.sin(a), cy - r * Math.cos(a));
+      });
+      SECTORS.forEach((s, i) => {                 // empty sectors: room for a module, and nothing in it
+        if (S.used.includes(s)) return;
+        const a = (i * 60 * Math.PI) / 180, r = RING[2] * R, x = cx + r * Math.sin(a), y = cy - r * Math.cos(a);
+        ctx.strokeStyle = C.muted; ctx.setLineDash([2, 3]); ctx.lineWidth = 1; ctx.beginPath();
+        for (let k = 0; k < 6; k++) { const t = Math.PI / 3 * k + Math.PI / 6; ctx[k ? 'lineTo' : 'moveTo'](x + 9 * Math.cos(t), y + 9 * Math.sin(t)); }
+        ctx.closePath(); ctx.stroke(); ctx.setLineDash([]);
+      });
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.6;
+      S.bonds.forEach(([a, z]) => {
+        const [x1, y1] = pos(S.genes[a], R, cx, cy), [x2, y2] = pos(S.genes[z], R, cx, cy);
+        ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      });
+      const ph = ease(p * 2.2);
+      Object.entries(S.genes).forEach(([name, g]) => {
+        const [x, y] = pos(g, R, cx, cy), r = g.ring === 0 ? 15 : 9.5, hit = name === target;
+        ctx.lineWidth = 1.4;
+        if (hit && b.op === 'delete' && b.fate === 'born') {
+          ctx.fillStyle = C.plate; ctx.strokeStyle = C.ochre; ctx.setLineDash([3, 3]);
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.setLineDash([]);
+        } else {
+          ctx.fillStyle = hit && b.op === 'point' ? mix(C.ink, C.ochre, ph) : C.ink;
+          ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+        }
+        if (g.ring === 0 && target === S.core_ring) {
+          ctx.strokeStyle = C.ochre; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, r + 3, 0, Math.PI * 2); ctx.stroke();
+        }
+        ctx.strokeStyle = C.muted; ctx.lineWidth = 1; ctx.setLineDash([2, 3]);
+        ctx.beginPath(); ctx.arc(x, y, r + 5, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = C['ink-2']; ctx.font = mono(10); ctx.fillText(g.label, x, y + r + 15);
+      });
+      const g = S.genes[target] || Object.values(S.genes).find(x => x.ring === 0);
+      const [tx, ty] = target === S.halo ? [cx, cy - RING[3] * R] : pos(g, R, cx, cy);
+      if (p < .55 && !reduce && playing) {
+        const q = p / .55;
+        ctx.strokeStyle = C.ochre; ctx.globalAlpha = 1 - q; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(tx, ty, 12 + q * 46, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+      }
+      const grow = ease((p - .15) * 3), core = g.ring === 0;
+      if (b.op === 'insert') {
+        const [nx, ny] = core ? pos({ ring: 1, sector: 0 }, R * .55, cx, cy, 210) : pos(g, R, cx, cy, 24);
+        const ox = nx + (nx - cx) * .12, oy = ny + (ny - cy) * .12;
+        ctx.globalAlpha = b.fate === 'stillborn' ? Math.max(0, 1 - ease((p - .6) * 3)) : 1;
+        ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.6; ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx + (ox - tx) * grow, ty + (oy - ty) * grow); ctx.stroke();
+        ctx.fillStyle = C.ochre; ctx.beginPath(); ctx.arc(ox, oy, 6 * grow, 0, Math.PI * 2); ctx.fill(); ctx.globalAlpha = 1;
+      }
+      if (b.op === 'duplicate') {
+        const [dx, dy] = core ? pos({ ring: 1, sector: 0 }, R * .55, cx, cy, 150) : pos(g, R, cx, cy, 28);
+        ctx.strokeStyle = C.blue; ctx.lineWidth = 1.6; ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.arc(dx, dy, (core ? 11 : 8) * grow + .01, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+        ctx.fillStyle = C.blue; ctx.font = mono(10); ctx.globalAlpha = grow; ctx.fillText('modules/', dx, dy + 22); ctx.globalAlpha = 1;
+      }
+      const fp = ease((p - .5) * 3);
+      if (b.fate === 'stillborn') {
+        const s = 13; ctx.strokeStyle = C.rose; ctx.lineWidth = 2.2; ctx.globalAlpha = fp;
+        ctx.beginPath(); ctx.moveTo(tx - s, ty - s); ctx.lineTo(tx + s, ty + s); ctx.moveTo(tx + s, ty - s); ctx.lineTo(tx - s, ty + s); ctx.stroke(); ctx.globalAlpha = 1;
+      } else if (b.life === 'died') {
+        ctx.fillStyle = C.muted; ctx.globalAlpha = fp; ctx.font = `400 22px ${css('--f-latin')}`; ctx.fillText('†', tx + 21, ty - 16); ctx.globalAlpha = 1;
+      }
+    }
+    function show(i) {
+      cur = (i + births.length) % births.length; t0 = performance.now();
+      entries.forEach((e, k) => { e.hidden = k !== cur; });
+      picks.forEach((e, k) => e.setAttribute('aria-current', k === cur ? 'true' : 'false'));
+      if (count) count.textContent = `${cur + 1} / ${births.length}`;
+      draw(t0);
+    }
+    function setPlaying(v) {
+      playing = v; t0 = performance.now();
+      if (playBtn) { playBtn.textContent = v ? 'Pause' : 'Play'; playBtn.setAttribute('aria-pressed', String(!v)); }
+    }
+    picks.forEach((e, k) => e.addEventListener('click', () => show(k)));
+    if (nextBtn) nextBtn.addEventListener('click', () => show(cur + 1));
+    if (playBtn) playBtn.addEventListener('click', () => setPlaying(!playing));
+    setPlaying(playing);
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; }).observe(canvas);
+    const loop = now => {
+      if (playing && visible && now - t0 >= CYCLE) show(cur + 1);
+      if (visible) draw(now);
+      requestAnimationFrame(loop);
+    };
+    show(cur);
+    redraw.push(() => draw(performance.now()));
+    requestAnimationFrame(loop);
+  }
+
+  /* ================================================================ the zoom */
+  function zoom(el) {
+    const Z = DATA.zoom, canvas = el.querySelector('canvas'), range = el.querySelector('input[type=range]');
+    const out = el.querySelector('output'), go = el.querySelector('[data-go]');
+    const MAX = +range.max;
+    let depth = 0, anim = null;
+    function draw() {
+      const { ctx, w, h } = fit(canvas), half = .8 * Math.pow(10, -depth), unitPx = Math.min(w, h) / 2;
+      const scale = unitPx / half;
+      ctx.clearRect(0, 0, w, h);
+      const k = Math.min(1, depth / 1.6), cxw = .5 + (Z.P[0] - .5) * k, cyw = .5 + (Z.P[1] - .5) * k;
+      const X = x => w / 2 + (x - cxw) * scale, Y = y => h / 2 - (y - cyw) * scale;
+      const [i, j] = Z.pair;
+      if (depth < 3.5) {
+        ctx.strokeStyle = C.ink; ctx.lineWidth = 1.2; ctx.strokeRect(X(0), Y(1), scale, scale);
+        Z.circles.forEach((c, n) => {
+          const hot = n === i || n === j;
+          ctx.beginPath(); ctx.arc(X(c[0]), Y(c[1]), Math.max(.5, c[2] * scale), 0, Math.PI * 2);
+          if (hot) { ctx.fillStyle = n === i ? C.blue : C['ink-2']; ctx.globalAlpha = .22; ctx.fill(); ctx.globalAlpha = 1; }
+          ctx.strokeStyle = hot ? C.ink : C['ink-2']; ctx.lineWidth = hot ? 1.6 : 1; ctx.stroke();
+          if (depth < 1.2 && c[2] * scale > 14) {
+            ctx.fillStyle = hot ? C.ink : C.muted; ctx.font = mono(hot ? 12 : 10); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(String(n), X(c[0]), Y(c[1]));
+          }
+        });
+        if (depth < 2.2) Z.marks.forEach(m => {
+          ctx.strokeStyle = C.ochre; ctx.lineWidth = 2; ctx.globalAlpha = 1 - depth / 2.2;
+          ctx.beginPath(); ctx.arc(X(m[0]), Y(m[1]), 9, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+        });
+      } else {
+        const nx = Math.cos(Z.theta), ny = Math.sin(Z.theta), px = -ny, py = nx, W = half * 2.2, steps = 80;
+        const toS = (s, t) => { s += Z.d / 2; return [w / 2 + ((s * nx + t * px) / half) * unitPx, h / 2 - ((s * ny + t * py) / half) * unitPx]; };
+        const bi = t => -(t * t) / (2 * Z.ri), bj = t => -Z.d + (t * t) / (2 * Z.rj);
+        const ts = Array.from({ length: steps + 1 }, (_, q) => -W + (2 * W * q) / steps);
+        const poly = (pts, fill, alpha) => {
+          ctx.beginPath(); pts.forEach(([s, t], q) => { const [x, y] = toS(s, t); ctx[q ? 'lineTo' : 'moveTo'](x, y); });
+          ctx.closePath(); ctx.fillStyle = fill; ctx.globalAlpha = alpha; ctx.fill(); ctx.globalAlpha = 1;
+        };
+        poly([...ts.map(t => [bi(t), t]), [-3 * W, W], [-3 * W, -W]], C.blue, .22);
+        poly([...ts.map(t => [bj(t), t]), [3 * W, W], [3 * W, -W]], C['ink-2'], .22);
+        const ov = ts.filter(t => bj(t) <= bi(t));
+        if (ov.length > 1) poly([...ov.map(t => [bi(t), t]), ...ov.slice().reverse().map(t => [bj(t), t])], C.ochre, .85);
+        ctx.lineWidth = 1.6; ctx.strokeStyle = C.ink;
+        [bi, bj].forEach(f => { ctx.beginPath(); ts.forEach((t, q) => { const [x, y] = toS(f(t), t); ctx[q ? 'lineTo' : 'moveTo'](x, y); }); ctx.stroke(); });
+        ctx.font = mono(12); ctx.textBaseline = 'middle'; ctx.fillStyle = C.ink;
+        ctx.textAlign = 'right'; ctx.fillText(`circle ${i}`, w * .3, h * .14);
+        ctx.textAlign = 'left'; ctx.fillText(`circle ${j}`, w * .7, h * .14);
+        const vis = Z.d / half;
+        if (vis > .02) {
+          ctx.fillStyle = C.ochre; ctx.textAlign = 'center'; ctx.globalAlpha = Math.min(1, vis * 4);
+          ctx.fillText(`overlap ${Z.overlap}`, w / 2, h * .88); ctx.globalAlpha = 1;
+        }
+        if (depth > MAX - .4) {
+          ctx.save(); ctx.translate(w * .78, h * .72); ctx.rotate(-.12);
+          ctx.strokeStyle = C.rose; ctx.fillStyle = C.rose; ctx.lineWidth = 2; ctx.font = mono(15); ctx.textAlign = 'center';
+          ctx.strokeRect(-58, -16, 116, 32); ctx.fillText('REFUTED', 0, 1); ctx.restore();
+        }
+      }
+      const unit = Math.pow(10, Math.floor(Math.log10(half * .6))), bar = unit * scale, ex = Math.round(Math.log10(unit));
+      ctx.strokeStyle = C.ink; ctx.lineWidth = 1.4; ctx.beginPath();
+      ctx.moveTo(16, h - 18); ctx.lineTo(16 + bar, h - 18); ctx.moveTo(16, h - 22); ctx.lineTo(16, h - 14); ctx.moveTo(16 + bar, h - 22); ctx.lineTo(16 + bar, h - 14); ctx.stroke();
+      ctx.fillStyle = C['ink-2']; ctx.font = mono(11); ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+      ctx.fillText(ex === 0 ? '1' : `10${sup(ex)}`, 22 + bar, h - 14);
+      const fov = 2 * half, fe = Math.floor(Math.log10(fov) + 1e-9), fm = fov / Math.pow(10, fe);
+      if (out) out.textContent = `field of view ${fe === 0 ? fm.toFixed(1) : `${fm.toFixed(1)} × 10${sup(fe)}`}`;
+    }
+    range.addEventListener('input', () => { depth = +range.value; draw(); });
+    if (go) go.addEventListener('click', () => {
+      const to = depth > MAX / 2 ? 0 : MAX, label = go.textContent;
+      go.textContent = to ? 'Back out' : go.dataset.label || label;
+      if (!go.dataset.label) go.dataset.label = label;
+      if (reduce) { depth = to; range.value = to; draw(); return; }
+      const from = depth, start = performance.now(), dur = 7000 * Math.abs(to - from) / MAX + 400;
+      cancelAnimationFrame(anim);
+      const tick = now => { const q = ease((now - start) / dur); depth = from + (to - from) * q; range.value = depth; draw(); if (q < 1) anim = requestAnimationFrame(tick); };
+      anim = requestAnimationFrame(tick);
+    });
+    draw();
+    redraw.push(draw);
+  }
+
+  document.querySelectorAll('[data-plate="specimen"]').forEach(specimen);
+  document.querySelectorAll('[data-plate="zoom"]').forEach(zoom);
+})();
+</script>
+</body>
+</html>
