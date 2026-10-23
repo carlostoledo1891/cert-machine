@@ -62,7 +62,9 @@ NEXT SESSION, IN ORDER:
      gh-cert-machine-1; the sweep watches cert-machine #1). maximusrufus opened carlostoledo1891/cert-machine #1: they re-ran
      the N(6) = 3 search of openai/math family 266 from the text (7.7e9 cells, 0 unresolved, coverage proven with a negative
      control, pre-registered) and checked Manvir Jaswal's earlier independent run (doi:10.5281/zenodo.23533384); they offer
-     AlphaEvolve Ramsey lower-bound graphs. Our reply POSTED on "post" after a tone pass (issuecomment-6368692166). WE OWE:
+     AlphaEvolve Ramsey lower-bound graphs. Our reply POSTED on "post" after a tone pass (issuecomment-6368692166). THEY
+     ANSWERED 16:28 UTC (pin 90607dd4; the graphs to come; they will re-run a few of our claims) and THE NOTE IS DONE (0b17df38:
+     a dated since-the-pin note on the gap, F-532 still NEEDS DATA; the report builder renders `since` per gap). Before that, WE OWED:
      a dated "since the pin" line on the N(6) entry of the openai/math audit (finding `missing-artifacts`, F-532) naming both
      re-runs as EXTERNAL — theirs, not re-decided here — pinned at the commit or manifest they name, else their HEAD (90607dd4
      at the reply); do it when they answer or within a few days. WAITING ON THEM: the Ramsey graphs, which open target
