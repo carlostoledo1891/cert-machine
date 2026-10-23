@@ -1749,6 +1749,9 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    site/janela/ (apps/janela/build.js, 2026-10-06), and site/explained/ (apps/explained/build.js, 2026-10-23: the easy read) and site/uirapuru/ (apps/uirapuru/build.js, 2026-10-23: the story).
    The site sync neither generates nor prunes under them — two builders
    writing one tree is how files get eaten. */
+/* site/clade-code/ is a FOREIGN ZONE (2026-10-23): a byte copy of another repository's build
+   (~/Projects/clade-code/web/, built there by `make web`), which this file never writes or prunes and the page gates
+   never measure. The foreign zones are listed once, in design/zones.js. */
 /* site/instruments/ is the same arrangement for the opposite reason. It is
    emitted by playground/build.js, which is not wired into this file and to
    which none of this file's gates apply, because nothing under /instruments
@@ -1794,6 +1797,8 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
   }
 }
 fs.mkdirSync(SITE, { recursive: true });
+const { isForeign } = require(path.join(ROOT, 'design', 'zones.js'));
+for (const rel of desired.keys()) if (isForeign(rel)) fail('a foreign zone is written by its own repository, never by this build: ' + rel);
 let wrote = 0, pruned = 0, kept = 0;
 for (const e of fs.readdirSync(SITE, { recursive: true })) {
   const rel = String(e).split(path.sep).join('/');
@@ -1802,6 +1807,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
   if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('uirapuru/')) continue;
+  if (isForeign(rel)) continue;   /* clade-code/: owned by clade-code's page engine (design/zones.js) */
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

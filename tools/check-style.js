@@ -71,6 +71,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'style-baseline.json');
 const METRICS = ['attrs', 'decls', 'unresolved', 'fallbacks', 'blocks', 'literals'];
 
@@ -209,7 +210,7 @@ function pages() {
   (function walk(dir) {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
-      if (e.isDirectory()) { if (!/vendor|node_modules/.test(e.name)) walk(p); }
+      if (e.isDirectory()) { if (!/vendor|node_modules/.test(e.name) && !skipDir(SITE, p)) walk(p); }
       else if (e.name.endsWith('.html')) out.push(path.relative(ROOT, p));
     }
   })(SITE);

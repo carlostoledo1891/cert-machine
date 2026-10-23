@@ -61,6 +61,7 @@ const zlib = require('zlib');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'render-baseline.json');
 const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
 
@@ -201,7 +202,7 @@ function pages() {
   (function walk(d) {
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
       const p = path.join(d, e.name);
-      if (e.isDirectory()) walk(p);
+      if (e.isDirectory()) { if (!skipDir(SITE, p)) walk(p); }
       else if (e.name.endsWith('.html')) out.push(path.relative(ROOT, p));
     }
   })(SITE);

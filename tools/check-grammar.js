@@ -40,6 +40,7 @@ const G = require(path.join(__dirname, '..', 'design', 'grammar.js'));
 
 const ROOT = path.join(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'grammar-baseline.json');
 
 /* ------------------------------------------------------------ collection --
@@ -58,7 +59,7 @@ const RE = [
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) walk(p, out);
+    if (e.isDirectory()) { if (!skipDir(SITE, p)) walk(p, out); }
     else if (e.name.endsWith('.html')) out.push(p);
   }
   return out;

@@ -60,6 +60,12 @@ key(obj)     -> string          canonical identity for dedup
 
 `tools/run-engine.js` picks up every `.js` in `families/` automatically.
 
+## Foreign zones (2026-10-23)
+
+`site/clade-code/` belongs to clade-code's page engine (`~/Projects/clade-code/web/`, `make web`): a byte copy of its
+`web/dist/`, never edited, written or pruned here and never measured by the page gates. The list lives once, in
+`design/zones.js`. Copying a build in, or updating it, is published only on the operator's word.
+
 ## The one rule
 
 `/Users/carlostoledo/Projects/sin-mfg` is **read-only, permanently.** Read anything —
