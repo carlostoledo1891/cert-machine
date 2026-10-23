@@ -657,7 +657,23 @@
      ]
     }
    ],
-   "ask": "Ship what the papers cite."
+   "ask": "Ship what the papers cite.",
+   "since": [
+    {
+     "date": "2026-10-23",
+     "text": "Two independent re-runs of the N(6) = 3 search, each written from the paper’s text without the authors’ code, have since been published: M. Jaswal’s certified computation, and maximusrufus’s certified re-run (7,726,523,584 cells, 0 unresolved; the seed cover proved by a separate checker; pinned at commit 90607dd4, whose run artifacts are those of 7e6ed79f). They are their authors’ results, not re-decided here: F-532 stays NEEDS DATA in this audit, and the release still ships no verification code for the paper (checked at its HEAD 1581d4cb on 2026-10-23).",
+     "links": [
+      {
+       "label": "Jaswal, doi:10.5281/zenodo.23533384",
+       "url": "https://doi.org/10.5281/zenodo.23533384"
+      },
+      {
+       "label": "maximusrufus/mub6-certified-rerun @ 90607dd4",
+       "url": "https://github.com/maximusrufus/mub6-certified-rerun/tree/90607dd463b097caece56650157386020699d543"
+      }
+     ]
+    }
+   ]
   },
   {
    "id": "checkers-that-do-not-check",

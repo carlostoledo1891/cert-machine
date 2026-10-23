@@ -135,6 +135,11 @@ for (const g of gaps) {
   for (const k of ['id', 'severity', 'category', 'title', 'detail', 'evidence', 'refs', 'ask']) if (!(k in g)) die('finding ' + (g.id || '?') + ' has no ' + k);
   if (!sevLabel[String(g.severity)]) die(g.id + ': unknown severity ' + g.severity);
   g.refs.forEach((r) => refOk(r, g.id));
+  /* since: what changed after the pin, dated and kept apart from the gap as found (2026-10-23) */
+  for (const u of g.since || []) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(u.date || '') || u.date < G.found || !u.text) die(g.id + ': a since-note needs a date on or after ' + G.found + ' and a text');
+    for (const l of u.links || []) if (!l.label || !/^https:\/\//.test(l.url || '')) die(g.id + ': a since-note link needs a label and an https url');
+  }
 }
 const sev1 = gaps.filter((g) => g.severity === 1 && g.headline);
 
@@ -184,7 +189,9 @@ B.push(C.section({
     ...gaps.map((g, i) => C.note({ lab: 'G' + (i + 1) + ' · ' + sevLabel[String(g.severity)].split(' — ')[0] + ' · found ' + (g.found || G.found),
       bodyRaw: C.pRaw('<b>' + C.esc(fill(g.title, g.id)) + '</b>') + C.p(fill(g.detail, g.id))
         + C.pRaw('<b>What would close it.</b> ' + C.esc(fill(g.ask, g.id)))
-        + (g.evidence.length ? C.pRaw('<b>Evidence.</b> ' + g.evidence.map(evidenceLink).join(' · ')) : '') }))
+        + (g.evidence.length ? C.pRaw('<b>Evidence.</b> ' + g.evidence.map(evidenceLink).join(' · ')) : '')
+        + (g.since || []).map((u) => C.pRaw('<b>Since the pin (' + u.date + ').</b> ' + C.esc(u.text)
+          + ((u.links || []).length ? ' ' + u.links.map((l) => '<a href="' + C.escAttr(l.url) + '">' + C.esc(l.label) + '</a>').join(' · ') : ''))).join('') }))
   ].join('\n')
 }));
 
