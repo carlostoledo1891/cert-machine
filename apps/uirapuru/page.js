@@ -5,7 +5,7 @@ const BLUE={{F7_BLUE}};
 /* one square per tree, darker is bluer; a toy is a dashed square; a missing tree is not drawn; the ringed tree is the bird the word rests on */
 const drawPatch=(svg,b,wit,slots)=>{const n=slots||b.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=320/cols;svg.setAttribute('viewBox','0 0 320 '+(rows*cell).toFixed(1));let s='';
  for(let i=0;i<b.length;i++){const x=(i%cols)*cell,y=Math.floor(i/cols)*cell,g=cell*.14,w=cell-2*g,r=(cell*.12).toFixed(2);
-  if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="none" stroke="var(--ink-4)" stroke-dasharray="3 2"/>';
+  if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="none" stroke="var(--ink-4)" stroke-dasharray="2 3"/>';
   else s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="var(--ink)" fill-opacity="'+(0.06+0.9*b[i]/100).toFixed(3)+'"/>';}
  if(wit>=0&&wit<b.length){const cx=(wit%cols)*cell+cell/2,cy=Math.floor(wit/cols)*cell+cell/2,rr=cell*.58;s+='<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--paper)" stroke-width="3.5"/><circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';}
  svg.innerHTML=s;};
@@ -40,7 +40,7 @@ const WORD={c:'CERTIFIED',r:'REFUTED',f:'REFUSED'};
   let g='<line x1="14" y1="58" x2="306" y2="58" stroke="var(--rule-strong)"/>';
   for(let i=0;i<=10;i++){const x=16+i*28.8;g+='<path d="M'+x+' 44 L'+(x+5)+' 58 L'+(x-5)+' 58 Z" fill="var(--ink-4)"/><text x="'+x+'" y="74" text-anchor="middle" font-size="7" fill="var(--ink-4)">'+(i/10).toFixed(1)+'</text>';}
   const x=16+k*28.8;g+='<circle cx="'+x+'" cy="30" r="4" fill="var(--ink)"/><text x="'+(x+8)+'" y="20" text-anchor="start" font-size="7" fill="var(--ink-3)">printed, 0.'+k+'</text>';
-  if(s!==0){const xd=x+(s<0?-10:10);g+='<rect x="-4" y="-4" width="8" height="8" transform="translate('+xd+' 30) rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/><line x1="'+x+'" y1="40" x2="'+xd+'" y2="40" stroke="var(--ink-3)" stroke-dasharray="2 1.5"/><text x="'+(xd-8)+'" y="20" text-anchor="end" font-size="6.5" fill="var(--ink-3)">the double, gap ×10¹⁷</text>';}
+  if(s!==0){const xd=x+(s<0?-10:10);g+='<rect x="-4" y="-4" width="8" height="8" transform="translate('+xd+' 30) rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/><line x1="'+x+'" y1="40" x2="'+xd+'" y2="40" stroke="var(--ink-3)" stroke-dasharray="2 3"/><text x="'+(xd-8)+'" y="20" text-anchor="end" font-size="6.5" fill="var(--ink-3)">the double, gap ×10¹⁷</text>';}
   svg.innerHTML=g;
   out.innerHTML=K('printed                      ')+V('0.'+k+' m')+'\n'+K('read as the decimal it is    ')+exact.n+'/'+exact.d+' m, exactly  '+W('c','on tree '+k)+'\n'+K('read as the double it denotes  ')+dbl.dec(20)+'… m  '+(s===0?W('c','on tree '+k)+K(' the same number both ways'):(s<0?W('r','before tree '+k):W('r','past tree '+k))+K(' by '+diff.abs().sci(2)+' m'))+'\n'+K('the claim "the bird is on tree '+k+'"   ')+(s===0?'holds under both readings':'holds under one reading and fails under the other; the machine writes down which it used');};
  $('f2s').addEventListener('input',render);render();}

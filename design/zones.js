@@ -6,8 +6,12 @@
    check-measure, check-grammar) — a rule defined twice WILL diverge, and a gate that met a foreign page would refuse
    every later build of this site over bytes this repository cannot fix.
 
-   Nothing is skipped silently: each gate prints the zones it skipped. Copying a build in, or updating it, is a commit
-   like any other and is published only on the operator's word.
+   Nothing is skipped silently: each gate prints the zones it skipped. A zone is published ONLY by
+   tools/publish-zone.js, which builds one commit on top of origin/main holding the zone's files and their pin
+   (corpus/zones/<name>.json: every file's sha256 and the source repository's commit) and nothing else — it never touches
+   this checkout's working tree, index or branch, runs no build and no gate, and refuses if the commit would change any
+   other path. Its --check (a battery) refuses a zone whose bytes differ from its pin, or a zone with no pin: a hand copy
+   or a hand edit here is drift. Publishing is the operator's word.
 
    clade-code/ (2026-10-23, at clade-code's request, the operator approving): ~/Projects/clade-code/web/, built there by
    `make web`; the folder holds a copy of its web/dist/ — one self-contained index.html, noindex while a draft. Not in
@@ -15,7 +19,7 @@
 'use strict';
 
 const FOREIGN = [
-  { dir: 'clade-code/', owner: '~/Projects/clade-code', build: 'make web → web/dist/' },
+  { dir: 'clade-code/', owner: '~/Projects/clade-code', build: 'make web → web/dist/', src: '~/Projects/clade-code/web/dist' },
 ];
 
 /* rel: a path relative to site/, '/'-separated (a directory may end in '/' or not) */

@@ -404,7 +404,7 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
  const P=c=>{let num=new Q(0n),den=new Q(0n);for(let i=0;i<3;i++){den=den.add(b[i].mul(c[i]));for(let j=0;j<3;j++)num=num.add(c[i].mul(c[j]).mul(M[i][j]));}return new Q(2n).sub(num.div(den.mul(den))).sub(eps)};
  const svg=$('w5svg');const render=()=>{const c2=new Q(BigInt($('w5s2').value),1000n),c4=new Q(BigInt($('w5s4').value),1000n);$('w5c2').textContent=c2.dec(3);$('w5c4').textContent=c4.dec(3);const c=[new Q(1n),c2,c4];
   const vhalf=new Q(1n).add(c2.div(new Q(4n))).add(c4.div(new Q(16n)));const ok=vhalf.sign()>0;let s='<rect x="0" y="0" width="320" height="180" fill="#070b16"/>';
-  const X=t=>160+t*280,Y=v=>150-v*120;s+='<line x1="'+X(-.5)+'" y1="'+Y(0)+'" x2="'+X(.5)+'" y2="'+Y(0)+'" stroke="#1f2a44"/><line x1="'+X(-.5)+'" y1="'+Y(1)+'" x2="'+X(.5)+'" y2="'+Y(1)+'" stroke="#1f2a44" stroke-dasharray="3 3"/>';
+  const X=t=>160+t*280,Y=v=>150-v*120;s+='<line x1="'+X(-.5)+'" y1="'+Y(0)+'" x2="'+X(.5)+'" y2="'+Y(0)+'" stroke="#1f2a44"/><line x1="'+X(-.5)+'" y1="'+Y(1)+'" x2="'+X(.5)+'" y2="'+Y(1)+'" stroke="#1f2a44" stroke-dasharray="2 3"/>';
   let d='';for(let i=0;i<=60;i++){const t=-.5+i/60;const v=1+Number(c2.n)/Number(c2.d)*t*t+Number(c4.n)/Number(c4.d)*t*t*t*t;d+=(i?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
   s+='<path d="'+d+'" fill="none" stroke="'+(ok?'#b48bff':'#ff5c7a')+'" stroke-width="2.5"/><text x="'+(X(.5)+2)+'" y="'+(Y(1)+4)+'" fill="#6f7a93" font-size="10" class="m">1</text><text x="'+X(-.5)+'" y="170" fill="#6f7a93" font-size="10" class="m">−½</text><text x="'+(X(.5)-8)+'" y="170" fill="#6f7a93" font-size="10" class="m">½</text>';
   svg.innerHTML=s;const p=P(c);const pq=qdec(W.pquartic),ps=qdec(W.pstar);
