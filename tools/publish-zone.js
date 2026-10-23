@@ -16,6 +16,7 @@
    usage
      node tools/publish-zone.js clade-code              dry run: what would change, nothing pushed
      node tools/publish-zone.js clade-code --push       commit and push (the operator's word)
+     node tools/publish-zone.js clade-code --remove [--push]   take the zone down: its files and its pin go, nothing else
        --src <dir>        the build to publish (default: the zone's src in design/zones.js)
        -m <message>       the commit message (default: names the source commit and the file count)
      node tools/publish-zone.js --check                 the battery: every zone in this checkout matches its pin  */
@@ -92,12 +93,12 @@ const args = process.argv.slice(2);
 const opt = (k) => { const i = args.indexOf(k); return i >= 0 ? args[i + 1] : null; };
 const zone = FOREIGN.find((z) => nameOf(z) === args[0]);
 if (!zone) die('name a foreign zone (' + FOREIGN.map(nameOf).join(', ') + '), from design/zones.js');
-const PUSH = args.includes('--push');
+const PUSH = args.includes('--push'), REMOVE = args.includes('--remove');
 const src = path.resolve((opt('--src') || zone.src).replace(/^~(?=\/)/, os.homedir()));
-if (!fs.existsSync(path.join(src, 'index.html'))) die(src + ' has no index.html — build it first (' + zone.build + ')');
+if (!REMOVE && !fs.existsSync(path.join(src, 'index.html'))) die(src + ' has no index.html — build it first (' + zone.build + ')');
 
-let list;
-try { list = files(src); } catch (e) { die(e.message); }
+let list = [];
+if (!REMOVE) try { list = files(src); } catch (e) { die(e.message); }
 const pin = { zone: 'site/' + zone.dir, src, files: {} };
 let total = 0;
 for (const f of list) {
@@ -111,13 +112,14 @@ if (total > MAX_TOTAL) die('the build is ' + total + ' bytes; a zone stays under
 /* the source repository's commit: provenance, not a condition (a dirty or commit-less source is recorded as such) */
 const inSrc = (a) => { try { return cp.execFileSync('git', ['-C', src, ...a], { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim(); } catch (e) { return null; } };
 const top = inSrc(['rev-parse', '--show-toplevel']);
-const head = top ? inSrc(['rev-parse', 'HEAD']) : null;
+const head = top && !REMOVE ? inSrc(['rev-parse', 'HEAD']) : null;
 const tilde = (p) => p && p.replace(os.homedir(), '~');
 pin.src = tilde(src);
 pin.source = { repository: tilde(top), commit: head, dirty: head ? (inSrc(['status', '--porcelain', '--untracked-files=no']) || '') !== '' : null };
-if (!pin.source.commit) console.log('  note  the source has no commit to pin: the bytes are pinned by sha256 alone');
+if (REMOVE) { /* nothing to pin */ }
+else if (!pin.source.commit) console.log('  note  the source has no commit to pin: the bytes are pinned by sha256 alone');
 else if (pin.source.dirty) console.log('  note  the source repository has uncommitted changes: its commit ' + pin.source.commit.slice(0, 8) + ' may not reproduce these bytes');
-const index = fs.readFileSync(path.join(src, 'index.html'), 'utf8');
+const index = REMOVE ? '' : fs.readFileSync(path.join(src, 'index.html'), 'utf8');
 const noindex = /<meta[^>]+name=["']robots["'][^>]*noindex/i.test(index);
 
 const git = (a, o = {}) => cp.execFileSync('git', a, { cwd: ROOT, maxBuffer: 1 << 28, ...o }).toString().trim();
@@ -132,8 +134,8 @@ function build(base) {
   pin.published = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
   const lines = old.map((p) => '0 ' + '0'.repeat(40) + '\t' + p)
     .concat(list.map((f) => '100644 ' + git(['hash-object', '-w', path.join(src, f)]) + '\t' + ZPATH + '/' + f));
-  const pinBlob = git(['hash-object', '-w', '--stdin'], { input: JSON.stringify(pin, null, 1) + '\n' });
-  lines.push('100644 ' + pinBlob + '\t' + pinPath(zone));
+  if (!REMOVE) lines.push('100644 ' + git(['hash-object', '-w', '--stdin'], { input: JSON.stringify(pin, null, 1) + '\n' }) + '\t' + pinPath(zone));
+  if (!lines.length) return { tree: git(['rev-parse', base + '^{tree}']), touched: [], same: true };
   git(['update-index', '--index-info'], { env, input: lines.join('\n') + '\n' });
   const tree = git(['write-tree'], { env });
   fs.rmSync(path.dirname(tmpIndex), { recursive: true, force: true });
@@ -142,7 +144,8 @@ function build(base) {
   const outside = touched.filter((p) => !p.startsWith(ZPATH + '/') && p !== pinPath(zone));
   if (outside.length) die('the commit would change paths outside the zone: ' + outside.join(', '));
   const quiet = { stdio: ['ignore', 'pipe', 'ignore'] };   /* a zone not yet published has no subtree: not an error */
-  const same = (() => { try { return git(['rev-parse', base + ':' + ZPATH], quiet) === git(['rev-parse', tree + ':' + ZPATH], quiet); } catch (e) { return false; } })();
+  const sub = (t) => { try { return git(['rev-parse', t + ':' + ZPATH], quiet); } catch (e) { return null; } };
+  const same = sub(base) === sub(tree);
   return { tree, touched, same };
 }
 
@@ -150,22 +153,24 @@ git(['fetch', '-q', 'origin', 'main']);
 let base = git(['rev-parse', 'origin/main']);
 let b = build(base);
 const status = git(['diff-tree', '-r', '--name-status', base, b.tree, '--', ZPATH]);
-console.log('zone      ' + ZPATH + '/   from ' + src);
-console.log('files     ' + list.length + ', ' + total + ' bytes; index.html ' + (noindex ? 'carries noindex (a draft)' : 'has NO noindex (indexable)'));
-console.log('source    ' + (pin.source.repository || '(not a git repository)') + (pin.source.commit ? ' @ ' + pin.source.commit.slice(0, 12) + (pin.source.dirty ? ' (dirty)' : '') : ''));
+console.log('zone      ' + ZPATH + '/   ' + (REMOVE ? 'TO BE REMOVED' : 'from ' + src));
+if (!REMOVE) {
+  console.log('files     ' + list.length + ', ' + total + ' bytes; index.html ' + (noindex ? 'carries noindex (a draft)' : 'has NO noindex (indexable)'));
+  console.log('source    ' + (pin.source.repository || '(not a git repository)') + (pin.source.commit ? ' @ ' + pin.source.commit.slice(0, 12) + (pin.source.dirty ? ' (dirty)' : '') : ''));
+}
 console.log('base      origin/main ' + base.slice(0, 8));
-if (b.same) { console.log('unchanged the zone on origin/main already holds these bytes; nothing to publish'); process.exit(0); }
-console.log('changes   ' + (status ? status.split('\n').join('  ·  ') : '(the zone is new)') + '  ·  M/A ' + pinPath(zone));
+if (b.same) { console.log('unchanged ' + (REMOVE ? 'the zone is not on origin/main; nothing to remove' : 'the zone on origin/main already holds these bytes; nothing to publish')); process.exit(0); }
+console.log('changes   ' + (status ? status.split('\n').join('  ·  ') : '(the zone is new)') + '  ·  ' + (REMOVE ? 'D ' : 'M/A ') + pinPath(zone));
 if (!PUSH) { console.log('DRY RUN   nothing pushed; add --push to publish (the operator\'s word)'); process.exit(0); }
 
-const msg = opt('-m') || (ZPATH + '/: published from ' + (pin.source.repository ? path.basename(pin.source.repository) : 'its build')
+const msg = opt('-m') || (REMOVE ? ZPATH + '/: removed, with its pin ' + pinPath(zone) + '; nothing else changed (tools/publish-zone.js --remove)' : ZPATH + '/: published from ' + (pin.source.repository ? path.basename(pin.source.repository) : 'its build')
   + (pin.source.commit ? ' ' + pin.source.commit.slice(0, 8) + (pin.source.dirty ? ' (dirty)' : '') : '') + ' — ' + list.length + ' file(s), '
   + total + ' bytes, pinned in ' + pinPath(zone) + '; nothing else changed (tools/publish-zone.js)');
 for (let i = 1; i <= 5; i++) {
   const commit = git(['commit-tree', b.tree, '-p', base], { input: msg + '\n' });
   try {
     git(['push', '-q', 'origin', commit + ':refs/heads/main'], { stdio: ['ignore', 'pipe', 'pipe'] });
-    console.log('PUSHED    ' + commit.slice(0, 8) + ' on origin/main — the site redeploys by itself in about a minute');
+    console.log('PUSHED    ' + commit.slice(0, 8) + ' on origin/main — the site redeploys by itself in about a minute' + (REMOVE ? ' (the zone is gone)' : ''));
     console.log('          this checkout was not touched; `git pull --rebase` here brings the zone in when convenient');
     process.exit(0);
   } catch (e) {
