@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Clade Code</title>
-<meta name="description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a record nobody can rewrite.">
+<meta name="description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a tamper-evident record.">
 <meta name="robots" content="noindex">
 <meta property="og:title" content="Clade Code">
-<meta property="og:description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a record nobody can rewrite.">
+<meta property="og:description" content="A long-term evolution experiment for software: lineages of programs bred under an exact judge, with controls at equal budget and a tamper-evident record.">
 <meta name="color-scheme" content="light dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -275,14 +275,14 @@ footer .off s { text-decoration-color: var(--rose); }
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">A long-term evolution experiment for software</div>
-      <h1>Software, <em>bred</em> under a judge it cannot fool.</h1>
-      <p class="lede">Clade Code breeds lineages of programs and keeps every one of them. Each organism is judged by two exact deciders that share no code. Every birth and every death goes into a record nobody can rewrite. And every claim is measured against the same AI without evolution, at the same budget.</p>
+      <h1>Software, <em>bred</em> under an exact judge.</h1>
+      <p class="lede">Clade Code breeds lineages of programs and keeps every one of them. Each organism is judged by two exact deciders that share no code. Every birth and every death goes into a tamper-evident record, chained, timestamped and replayable. And every claim is measured against the same AI without evolution, at the same budget.</p>
       <div class="label" role="note">
         <span class="k">Species certified so far</span>
         <span class="v">None.</span>
       </div>
       <div class="facts">
-        <div><b>100</b><span>children of the founder, each in the record</span></div>
+        <div><b>100</b><span>children of the founder in the M2 assay, an infrastructure test</span></div>
         <div><b>14</b><span>stillborn: the mutagen's edit was not the one asked for</span></div>
         <div><b>57</b><span>lived and were judged; 29 more were born and crashed</span></div>
       </div>
@@ -548,7 +548,7 @@ footer .off s { text-decoration-color: var(--rose); }
         <button type="button" data-next>Next child</button>
         <span class="count" data-count>1 / 100</span>
       </div>
-      <figcaption class="caption"><b>Plate I.</b> <span class="latin">Protomachina primigenia</span>, holotype PM-0, called LUMA, the last universal machinid ancestor. Each pulse replays one of its children as the record holds it: the operator and the line the world drew, the edit the model wrote, and the fate. Rings from the centre: core, inner, membrane. Nodes stay dashed until a knockout certifies them.</figcaption>
+      <figcaption class="caption"><b>Plate I.</b> <span class="latin">Protomachina primigenia</span>, holotype PM-0, called LUMA, the last universal machinid ancestor. Each pulse replays one of its children from the M2 mutagen assay, as the record holds it: the operator and the line the world drew, the edit the model wrote, and the fate. The assay tests the machinery. It has no heredity and no selection, and no evolutionary result is claimed from it. Rings from the centre: core, inner, membrane. Nodes stay dashed until a knockout certifies them.</figcaption>
     </figure>
   </div>
 </section>
@@ -607,7 +607,7 @@ footer .off s { text-decoration-color: var(--rose); }
       <div class="step"><div class="n">2</div><h3>Life</h3><p>The child runs in a WASI sandbox, twice. Both runs must match byte for byte.</p><div class="fig">1.2 × 10¹¹ fuel · no network · no clock</div></div>
       <div class="step"><div class="n">3</div><h3>Seal</h3><p>Its output, with a forecast of its own score, is hashed into the record before anything judges it.</p><div class="fig">sha256 before judgment</div></div>
       <div class="step"><div class="n">4</div><h3>Judgment</h3><p>Two deciders that share no code decide every candidate, and must agree.</p><div class="fig">fractions · BigInt</div></div>
-      <div class="step"><div class="n">5</div><h3>Scoring</h3><p>Certified performance is one axis. How well it forecast itself is the other.</p><div class="fig">interval score, α = 0.2</div></div>
+      <div class="step"><div class="n">5</div><h3>Scoring</h3><p>Certified performance decides selection. How well it forecast itself is measured beside it, never selected on.</p><div class="fig">interval score, α = 0.2</div></div>
       <div class="step"><div class="n">6</div><h3>Fossil</h3><p>It enters the record whatever its fate: lived, died, stillborn or quarantined.</p><div class="fig">nothing is deleted</div></div>
       <div class="step"><div class="n">7</div><h3>Selection</h3><p>Survivors become parents. A control arm's children never do.</p><div class="fig">16 parents · 16 children</div></div>
     </div>
@@ -648,11 +648,11 @@ footer .off s { text-decoration-color: var(--rose); }
   <div class="wrap">
     <div class="sec-head">
       <div><div class="eyebrow">Plate V · The record</div><h2>History is written once.</h2></div>
-      <div><p>The record is a file of canonical JSON lines, each chained by SHA-256 to the one before, with a Merkle root over each era and a timestamp anchored in Bitcoin through OpenTimestamps. A mistake is corrected by a later line that says so. Any life can be replayed from its line and must come out the same, fuel count included.</p></div>
+      <div><p>The record is a file of canonical JSON lines, each chained by SHA-256 to the one before, with a Merkle root over each era and a timestamp anchored in Bitcoin through OpenTimestamps. A mistake is corrected by a later line that says so. Any life can be replayed from its line and must come out the same, fuel count included. This makes the record tamper-evident: a change made after its head was timestamped shows. It does not prove the inputs were honest; replay and the two deciders check those.</p></div>
     </div>
     <div class="record-grid">
       <figure class="plate" style="margin:0">
-        <div class="ledger"><div class="line"><div class="seq">1</div><div class="body"><div class="kind">genesis-3 · designation</div><div class="kv">organism PM-0 · taxon Protomachina primigenia · by hand</div><div class="kv">genome eb38beb5199cff07…</div><div class="hash">prev <b>f51b4ce7784a…</b> → chain 5869bd6aa719…</div></div></div><div class="line"><div class="seq">4</div><div class="body"><div class="kind">genesis-3 · seal of a starved life</div><div class="kv">fuel 200,000,000 of a budget of 200,000,000</div><div class="kv">status fuel</div><div class="hash">prev <b>0f9666252377…</b> → chain 0fd77252b60a…</div></div></div><div class="line"><div class="seq">7</div><div class="body"><div class="kind">genesis-3 · fossil on the record panel</div><div class="kv">verdict CERTIFIED · score 117/800</div><div class="kv">deciders agree</div><div class="hash">prev <b>899d3a6b200c…</b> → chain dc5a07a23741…</div></div></div><div class="line"><div class="seq">2</div><div class="body"><div class="kind">mutagen · birth of aleator-1</div><div class="kv">point at line 36 · seed 779222980</div><div class="kv">prompt dcedc886e3c4… · response 3e699001c662…</div><div class="kv">fate born</div><div class="hash">prev <b>369751894399…</b> → chain 9f69acd3f118…</div></div></div><div class="line"><div class="seq">274</div><div class="body"><div class="kind">mutagen · summary</div><div class="kv">births 100 · stillborn 14 · rate 7/50</div><div class="kv">P(X ≤ 14 | p = 1/2) = 4.1 × 10⁻¹⁴ · gate passed</div><div class="hash">prev <b>a0f550b53548…</b> → chain 688444d962b0…</div></div></div></div>
+        <div class="ledger"><div class="line"><div class="seq">1</div><div class="body"><div class="kind">genesis-3 · designation</div><div class="kv">organism PM-0 · taxon Protomachina primigenia · by hand</div><div class="kv">genome eb38beb5199cff07…</div><div class="hash">prev <b>f51b4ce7784a…</b> → chain 5869bd6aa719…</div></div></div><div class="line"><div class="seq">4</div><div class="body"><div class="kind">genesis-3 · seal of a starved life</div><div class="kv">fuel 200,000,000 of a budget of 200,000,000</div><div class="kv">status fuel</div><div class="hash">prev <b>0f9666252377…</b> → chain 0fd77252b60a…</div></div></div><div class="line"><div class="seq">7</div><div class="body"><div class="kind">genesis-3 · fossil on the record panel</div><div class="kv">verdict CERTIFIED · score 117/800</div><div class="kv">deciders agree</div><div class="hash">prev <b>899d3a6b200c…</b> → chain dc5a07a23741…</div></div></div><div class="line"><div class="seq">2</div><div class="body"><div class="kind">mutagen · birth of aleator-1</div><div class="kv">point at line 36 · seed 779222980</div><div class="kv">prompt dcedc886e3c4… · response 3e699001c662…</div><div class="kv">fate born</div><div class="hash">prev <b>369751894399…</b> → chain 9f69acd3f118…</div></div></div><div class="line"><div class="seq">274</div><div class="body"><div class="kind">mutagen · summary</div><div class="kv">births 100 · stillborn 14 · rate 7/50</div><div class="kv">stop: birth budget reached (100) · gate passed</div><div class="hash">prev <b>a0f550b53548…</b> → chain 688444d962b0…</div></div></div></div>
         <figcaption class="caption"><b>Plate V.</b> Lines of the record, as written. Each line names the chain value of the line before it.</figcaption>
       </figure>
       <div>
@@ -745,7 +745,7 @@ footer .off s { text-decoration-color: var(--rose); }
   <div class="wrap">
     <div class="sec-head">
       <div><div class="eyebrow">Where it stands</div><h2>Built in the open, one gate at a time.</h2></div>
-      <div><p>Era 0 is 100 generations in one niche: 16 parents and 16 children a generation, with both controls beside them. That is about 3,200 calls to a 7-billion-parameter open-weights model. At the 15.7 seconds a call measured in M2, that comes to about 14.5 hours on one laptop, with no API bill and no network.</p></div>
+      <div><p>Era 0 is 100 generations in one niche: 16 parents and 16 children a generation, with both controls beside them, first as a pilot and then as ten independent runs named in advance. That is about 3,200 calls to a 7-billion-parameter open-weights model. At the 15.7 seconds a call measured in M2, that comes to about 14.5 hours on one laptop, with no API bill and no network.</p></div>
     </div>
     <div class="track">
       <div class="ms"><div class="id">M0</div><h3>Genesis</h3><p>The record, the sandbox, two deciders and the founder. PM-0 lives, starves at exactly its budget, and scores 117/800 on the record panel.</p><div class="st">done · timestamped</div></div>
