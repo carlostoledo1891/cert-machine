@@ -1,0 +1,46 @@
+{
+ "id": "derive-riemann_120",
+ "text": "baselines/tables/riemann_120.txt compiled from baselines/sources/riemann_120_shunia.tm (tursi) has canonical sha256 a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann_120: the format column",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`tursi`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the tursi format; the decider compiles it under the convention the provenance file states: the start state is 0, the others follow the order of first appearance, a target naming no defined state is a halt"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(tursi) canonical_sha256(M) = a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the table baselines/tables/riemann_120.txt is claimed to be this source compiled; the object decides that the compilation hashes to the canonical digest the provenance prints",
+ "hypotheses": [
+  "the compilation convention is the one the provenance file states"
+ ],
+ "falsifier": [
+  "the compiled table hashes to something else"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-riemann_120",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "id": "cells-goldbach-25",
+ "text": "baselines/tables/goldbach_25.txt has 49 non-halting cells",
+ "source": {
+  "what": "the Goldbach write-up: the reference",
+  "path": "corpus/cryptids/artifacts/goldbach_21/README.md",
+  "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+  "quote": "`49` non-halting cells in table"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "nonhalting_cells(M) = 49",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a non-halting cell is a table cell that is not ---; the write-ups call these transitions",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of non-halting cells"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cells-goldbach-25",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

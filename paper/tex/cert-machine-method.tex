@@ -10,6 +10,9 @@
 %% For the journal's review copy switch the class options to
 %% [preprint,review,12pt,authoryear] (line numbers, 1.5 spacing).
 %% =====================================================================
+%% THE CLAIMBOX VARIANT (2026-10-23): \ifdefined\ClaimboxOn guards the passages that describe the claim-machine (claimbox) and the
+%% benchmark of the process with and without it; cert-machine-method-claimbox.tex sets \claimboxtrue and inputs this file,
+%% so one source yields both documents and they cannot diverge. Alone, the toggle is false and the paper is v0.8.
 \documentclass[preprint,11pt,a4paper]{elsarticle}
 \PassOptionsToPackage{obeyspaces,spaces}{url}
 \usepackage{cmelsevier}
@@ -39,6 +42,7 @@
 \input{delta3-numbers.tex}
 \let\RepoCommit\relax
 \input{cert-machine-method-numbers.tex}
+\ifdefined\ClaimboxOn\let\RepoCommit\relax\input{cryptids-benchmark-numbers.tex}\fi
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -452,6 +456,10 @@ Where a verdict is the product, a program written from the specification in anot
 Published records re-run in the reader's browser by the bytes that wrote them and are compared with the record by digest or field by field. A rerun kit of \MtKitCommands{} commands re-derives the register's records; run whole on \MtRunDate, it moved none of the \MtRunRows{} rows, and the pre-registered self-audit of \cref{sec:results} ran \MtSaRuns{} runs of its \MtSaRunCommands{} commands under two profiles and found every re-derived record identical to its pin outside declared time stamps (\MtSaRunRecordsExt{} records and \MtSaRunRowsExt{} rows without a wall-clock cap; \MtSaRunRecordsPort{} records and \MtSaRunRowsPort{} rows under a \MtSaRunCap-second cap, the other \MtSaRunRefused{} refused for resources).
 \paragraph{R7. Honest counting.}
 Every number in a paper is a macro written from a record by a generator that refuses when the record no longer supports the sentence quoting it; queued rows are not decided rows; refusal kinds are never merged.
+\ifdefined\ClaimboxOn
+\paragraph{R8. The claim as a checked object.}
+The reading of a claim as $(B,\varphi)$ is itself a file: the verbatim quote of the source sentence, the file it is about and that file's SHA-256, the decoding of the bytes, the predicate, the hypotheses, the falsifier and the deciding record. Two checkers that share no code admit or refuse the object; the predicate is decided from the object when it is exact, and from the named record otherwise. The objects are produced by a separate program, the claim-machine (claimbox), from a closed grammar of claim shapes with no model: a sentence the grammar does not cover is refused with a named rule, and every refusal rule carries a planted red control. The system here is the receiver: it checks and decides, and never translates. Over the register's \CbRegSentences{} claim sentences the grammar states \CbRegShaped{} and refuses \CbRegRefused{} (\CbRegNoQuantity{} print no quantity, \CbRegProse{} are prose, \CbRegAsymptotic{} asymptotic), a measurement of what claimants print rather than a target; \CbRegCaught{} of \CbRegPlants{} defects planted in the input of the whole pipeline were caught.
+\fi
 
 
 \begin{table}[htbp]
@@ -548,6 +556,31 @@ An optimization-constants registry marks with an asterisk a bound whose verifica
 \paragraph{A formal release}
 A mathematics release of \MtOaManuscripts{} machine-written manuscripts came with \MtOaChallenges{} Lean challenge statements as its formal spine, and with a Navier--Stokes repository proved against a statement written months earlier~\citep{OpenAIMath,OpenAINS}. Every challenge was replayed under Lean's kernel and under a second kernel written independently of it: \MtOaCertified{} accepted by both, \MtOaRefused{} \REFS{} for resources, none rejected. The Navier--Stokes development built clean at its pinned commit with the standard axioms, and its formal statement, read hypothesis by hypothesis against the paper's theorem, lacks the energy clause of that theorem; the record is \verdict{partial} at \NsCommit{} with the clause named in its scope, and the next upstream commit, \NsHeadCommit{} of \NsHeadDate, proves it. Of the \MtOaStatements{} manuscript families whose statements were read against their theorems, \MtOaMatches{} match and \MtOaShort{} state less than, or other than, what they claim; the readings were made by AI agents and are not verdicts; their recall was measured once, on \MtRrPlants{} defects planted in short statements, \MtRrFlagged{} flagged. The companion paper gives the kernel lane, the readings and the \MtOaGaps{} gaps the audit pinned~\citep[the release companion]{CMArchive}; the Navier--Stokes reading has its own note.
 
+\ifdefined\ClaimboxOn
+\subsection{The same audit under two protocols}\label{sec:twoarms}
+
+To measure what the claim-machine changes, one audit was run twice, the metrics fixed before the run. The target is a public repository of small Turing machines whose halting encodes Goldbach's conjecture, the consistency of ZF and the Riemann hypothesis, with Lean proofs of its state reductions and a standard-library checker of its own, at commit \CbPin{}. The theorems are the kernel's and were left to it (the build, the stated theorems and the axioms were re-checked under \CbKernelNanoda{} on hosted runners: \CbKernelWords{}); the finite layer underneath---pinned tables, digests, state and cell counts, the step at which a bootstrap ends and the configuration it ends in, lockstep checkpoints, ratios printed to their digits---is decidable from the bytes. Arm H decided it by hand, one lane written for the source with its own parsers and simulator, every claim stated in the auditor's prose. Arm C decided it through the claim-machine: a structural reader of the repository's text, a grammar family for machine claims, and the receiver's decider for machines, every object checked by the two checkers. Both arms were run by the same agent, arm H first; the pre-registration states the leak. \Cref{tab:twoarms} gives the eight metrics.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{One audit, two protocols: the finite layer of a repository of conjecture-checking Turing machines at commit \CbPin{}, decided by hand (arm H) and through the claim-machine (arm C). Every count is read from the benchmark record.}
+\label{tab:twoarms}
+\begin{tabular}{@{}L{0.2\linewidth}L{0.37\linewidth}L{0.37\linewidth}@{}}\toprule
+metric & arm H, by hand & arm C, through the claim-machine \\\midrule
+claims stated & \CbHRows{} rows: \CbHCert{} \CERT, \CbHRef{} \REFT, \CbHRefused{} \REFS & \CbCWritten{} objects (\CbCReceiverCert{} \CERT{} and \CbCReceiverRef{} \REFT{} by the receiver, \CbCFromObject{} decided from the object) and \CbCGrammarRefused{} sentences refused by the grammar \\
+pins & \CbHQuotesVerbatim{} of \CbHQuotes{} quotes found byte for byte; every row names a file and its digest & every object carries a verbatim quote and the digest of the bytes it is about; the format refuses otherwise \\
+refusals with a rule & \CbHRefused, the rule in prose on the row & \CbCGrammarRefused{} by the grammar (\CbCRefUnbounded{} unbounded, \CbCRefAmbiguous{} undefined event or term, \CbCRefDecider{} no decider) and \CbCCheckerRefused{} by the checker \\
+planted defects caught & \CbHRecall{} of \CbHRecallOf; the miss, a proof file no source pins & \CbCRecall{} of \CbCRecallOf; the misses, the same proof file and a theorem name in a configuration the receiver cannot count \\
+concordance & \multicolumn{2}{l}{\CbAgree{} of \CbPairs{} paired claims carry the same word; the \CbDisagree{} that differ are one digit-grouped decimal the receiver's printed-bar rule does not read and three counts arm H decided for which the receiver has no decider} \\
+cost & \CbHSeconds{} s for the full run; \CbHLines{} lines written for this source & \CbCLines{} lines of decider, reused by every machine claim; the format, the checkers and the record machinery reused as they are \\
+what an outsider must trust & two files by one author; nothing outside them checks the record & the reader, the grammar family and the decider; the checkers share no code with the reader and refuse an object whose quote, pin or record is wrong \\
+the producer's checker & \multicolumn{2}{l}{\CbGaps{} gaps found by reading and confirmed by running: statements tested by substring, a stage named and never run, digests recorded and compared to nothing, a message overstating what is checked, two checkpoints used without explanation, a bounded run; and in the write-ups one phrase counted by two conventions and a checkpoint event with no finite definition} \\
+\bottomrule\end{tabular}
+\end{table}
+
+Two things are measured. The hand lane reaches further: \CbHOnly{} of its claims have no counterpart, because the reader states only what the sources print and the receiver decides only what it has a decider for, and the auditor supplied readings where the write-ups are loose. The claim-machine's lane is the one a reader can check without reading the auditor: the reading of each claim is an object a checker that shares no code with the reader accepts or refuses, and a planted defect in the source is caught by the pin or by the missing quote rather than by the auditor's attention. On the claims both state, the words agree except where the receiver's format or decider surface falls short, which is a measurement of the receiver and not a disagreement about the repository; the two findings about the repository came out of both arms.
+\fi
+
 \subsection{Coverage across domains}\label{sec:coverage}
 
 Q1 asks whether one grammar covers claims from mathematics, from engineering and from metocean statistics. \Cref{tab:coverage} lists, for each domain, the claims stated in the form of \cref{def:claim} and their verdicts, each read from the record that holds it. In mathematics the register's rows are the claims. In engineering the flow-line gate decides nine demonstrator receipts over a declared box of six inputs under the epistemic reading---the lead proposal split, with the pump pressure at which the rule is proved (\GFlipGreen~bar) and refuted (\GFlipRed~bar) and the roughness measurement that would prove it (\GFlipEps~mm) reported as thresholds---and seven faulty proposals planted beside it, six refuted and one refused~\citep{P2}; the rock-physics engine decides detectability over declared petro-elastic boxes under the same reading~\citep{P3}. In metocean statistics the likelihood certifier decided \AFits{} fits of six families at \ACells{} open-sea cells of a public hindcast: \ACertified{} \CERT{} (\ACertifiedPct), \ARefused{} \REFS, of which \AGGLimit{} are the generalized gamma proved at its lognormal limit with the proof; at the benchmark's buoys \RCertified{} of \RFits{} fits are \CERT{} and every ranking of families is decided or refused by name~\citep{P1}. What could not be stated in the grammar is listed with the register: a claim about an object the claimant did not publish is \verdict{needs data}, and a statement decided by reading alone---a formal statement against its theorem, an inventory of a package---is recorded as a reading and never as a verdict.
@@ -561,6 +594,9 @@ Q1 asks whether one grammar covers claims from mathematics, from engineering and
 domain, instrument & claims & \CERT & \REFT & other & other, by word \\
 \midrule
 mathematics, the register & \RegRows{} rows, \RegClaimants{} claimants & \VCertified & \VRefuted & \VPartial{}+\VMixed{}+\VRepaired{}+\VNeedsData{}+\VQueued & partial, mixed, repaired, needs data, queued \\
+\ifdefined\ClaimboxOn
+mathematics, the register read by the claim-machine's grammar & \CbRegSentences{} sentences & \multicolumn{3}{l}{\CbRegShaped{} stated as claims of \cref{def:claim}, \CbRegRefused{} refused} & no quantity printed, prose, asymptotic \\
+\fi
 engineering, the flow-line gate & \GFaults{} planted faults; one lead proposal & 0 & \GFaultsRefuted & \GFaultsRefused{}+1 & refused (split, with thresholds) \\
 metocean, the likelihood certifier & \AFits{} atlas fits & \ACertified & 0 & \ARefused & refused, \AGGLimit{} at the lognormal limit with the proof \\
 metocean, the benchmark's buoys & \RFits{} fits & \RCertified & 0 & \RFits{} less \RCertified & refused by name \\
@@ -595,6 +631,9 @@ Each exercise ends outside the system. The kissing claimant published its points
 level & evidence & where it holds in this paper & what it cannot catch \\\midrule
 1 & the same code, rerun from pinned inputs & every record re-read against its pins at build; the register re-derived by the rerun kit on \MtRunDate{} (\MtRunMoved{} rows moved) and by the self-audit under two profiles (\MtSaRunRecordsExt{} records identical outside stamps) & any defect in the code itself \\
 2 & a second implementation by the same author, from the same specification & the benchmark's six oracles, the kissing samples, the entropy and truth-table certificates, the step functions, the trace-constant and Zhang--Zagier certificates, $\delta_3$, the Hankel cross-checks, three engineering decisions; written by AI agents from one brief & a misreading the two share \\
+\ifdefined\ClaimboxOn
+2 & the reading of a claim, re-derived by a second program from the source's own text & the claim-machine's objects for the register (\CbRegShaped{} of \CbRegSentences{} sentences) and for the audit of \cref{sec:twoarms} (\CbCWritten{} objects), each checked by two checkers sharing no code with the reader & a reading the grammar and the author share \\
+\fi
 3 & an implementation by another party & the Lean kernel and a second kernel for the kernels' claim (\cref{sec:register}); Arb for the interval kernel's arithmetic on \MtArbOps{} operations and for the entropy deciders' arithmetic, on sampled inputs (\cref{sec:arb}); outside this paper, the $\lambda(4)$ audit (\MtOutsideReruns{} such rerun) & a defect outside the part re-derived \\
 4 & review of the specification and the scope by a specialist & none: the readings were made by AI agents and no specialist has confirmed them &---\\
 5 & a formal proof of the metatheory & none: \cref{prop:sound} and the lemmas are paper proofs; the exact-class certificates are in a form a proof assistant could check &---\\
@@ -622,7 +661,7 @@ Validated numerics and computer-assisted proof are the certifiers' ancestry (\cr
 
 \subsection{What is not claimed, and the limits}\label{sec:limits}
 
-\paragraph{Not claimed} Interval arithmetic, the Krawczyk operator, floating-point filters, sums of squares and Sturm sequences are not claimed; they are cited. The validity of a declared model is not claimed: a \textsc{proved} engineering number holds for the declared model over the declared envelope, not for the sea or the reservoir. A kissing bound ``decided here'' is a statement about one published configuration, not about the record in that dimension. Nothing is certified in the regulatory sense; the word is used in the sense of \cref{def:verdicts} only. Nothing is a probability.
+\paragraph{Not claimed} Interval arithmetic, the Krawczyk operator, floating-point filters, sums of squares and Sturm sequences are not claimed; they are cited. \ifdefined\ClaimboxOn Translation from natural language to claims is not claimed: the claim-machine's grammar covers the shapes it lists over the corpora it was measured on and refuses the rest, and the readings behind its prose refusals, the Navier--Stokes clause among them, remain the author's.\fi The validity of a declared model is not claimed: a \textsc{proved} engineering number holds for the declared model over the declared envelope, not for the sea or the reservoir. A kissing bound ``decided here'' is a statement about one published configuration, not about the record in that dimension. Nothing is certified in the regulatory sense; the word is used in the sense of \cref{def:verdicts} only. Nothing is a probability.
 
 \paragraph{Locality and incompleteness} A certified maximum is the maximum in its box; a global statement over a family would need a branch-and-bound over the family's whole parameter space, which the system does not run. The system refuses what it cannot decide, and the refusal rate is a property of each campaign, published with it (\cref{sec:eval}).
 

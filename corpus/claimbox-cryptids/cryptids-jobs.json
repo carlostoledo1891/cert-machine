@@ -1,0 +1,1774 @@
+{
+ "what": "translation jobs read from cryptids by claimbox.readers.cryptids (cert-machine's pinned corpus)",
+ "jobs": [
+  {
+   "id": "prov-src-sha-goldbach",
+   "claim": "sha256 of baselines/sources/goldbach_25_bbchallenge.txt is 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "quote": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-src-sha-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-table-sha-goldbach",
+   "claim": "sha256 of baselines/tables/goldbach_25.txt is f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-table-sha-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-machine-sha-goldbach",
+   "claim": "canonical sha256 of baselines/tables/goldbach_25.txt is da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-machine-sha-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-states-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt has 25 states",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "`25` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-states-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt compiled from baselines/sources/goldbach_25_bbchallenge.txt (standard) has canonical sha256 da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "quote": "`standard`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for goldbach: the format column",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-src-sha-zf",
+   "claim": "sha256 of baselines/sources/zf_432_wade.tm is 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "quote": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-src-sha-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-table-sha-zf",
+   "claim": "sha256 of baselines/tables/zf_432.txt is e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-table-sha-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-machine-sha-zf",
+   "claim": "canonical sha256 of baselines/tables/zf_432.txt is cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-machine-sha-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-states-zf",
+   "claim": "baselines/tables/zf_432.txt has 432 states",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "`432` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-states-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-zf",
+   "claim": "baselines/tables/zf_432.txt compiled from baselines/sources/zf_432_wade.tm (tursi) has canonical sha256 cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf: the format column",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-undefined-zf",
+   "claim": "the undefined targets of baselines/sources/zf_432_wade.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf: the convention makes an undefined target a halt; this job asks which names that absorbed",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-undefined-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-src-sha-riemann",
+   "claim": "sha256 of baselines/sources/riemann_744_sorear.tm is de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "quote": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-src-sha-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-table-sha-riemann",
+   "claim": "sha256 of baselines/tables/riemann_744.txt is 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-table-sha-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-machine-sha-riemann",
+   "claim": "canonical sha256 of baselines/tables/riemann_744.txt is 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-machine-sha-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-states-riemann",
+   "claim": "baselines/tables/riemann_744.txt has 744 states",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "`744` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-states-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-riemann",
+   "claim": "baselines/tables/riemann_744.txt compiled from baselines/sources/riemann_744_sorear.tm (nql) has canonical sha256 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "quote": "`nql`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann: the format column",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-undefined-riemann",
+   "claim": "the undefined targets of baselines/sources/riemann_744_sorear.tm (nql) are among [\"halt\",\"H\",\"HALT\"]",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "quote": "`nql`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann: the convention makes an undefined target a halt; this job asks which names that absorbed",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-undefined-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-src-sha-zf_393",
+   "claim": "sha256 of baselines/sources/zf_393_wade.tm is a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "quote": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-src-sha-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-table-sha-zf_393",
+   "claim": "sha256 of baselines/tables/zf_393.txt is f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-table-sha-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-machine-sha-zf_393",
+   "claim": "canonical sha256 of baselines/tables/zf_393.txt is dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-machine-sha-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-states-zf_393",
+   "claim": "baselines/tables/zf_393.txt has 393 states",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "`393` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-states-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-zf_393",
+   "claim": "baselines/tables/zf_393.txt compiled from baselines/sources/zf_393_wade.tm (tursi) has canonical sha256 dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393: the format column",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-undefined-zf_393",
+   "claim": "the undefined targets of baselines/sources/zf_393_wade.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for zf_393: the convention makes an undefined target a halt; this job asks which names that absorbed",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-undefined-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-src-sha-riemann_120",
+   "claim": "sha256 of baselines/sources/riemann_120_shunia.tm is b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "quote": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-src-sha-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-table-sha-riemann_120",
+   "claim": "sha256 of baselines/tables/riemann_120.txt is ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-table-sha-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-machine-sha-riemann_120",
+   "claim": "canonical sha256 of baselines/tables/riemann_120.txt is a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-machine-sha-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "prov-states-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt has 120 states",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`120` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "prov-states-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt compiled from baselines/sources/riemann_120_shunia.tm (tursi) has canonical sha256 a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120: the format column",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "derive-undefined-riemann_120",
+   "claim": "the undefined targets of baselines/sources/riemann_120_shunia.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "source": "corpus/cryptids/baselines/PROVENANCE.md",
+   "data": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "quote": "`tursi`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "PROVENANCE.md's row for riemann_120: the convention makes an undefined target a halt; this job asks which names that absorbed",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "derive-undefined-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-source_sha256-goldbach",
+   "claim": "sha256 of baselines/sources/goldbach_25_bbchallenge.txt is 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "quote": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned source_sha256 for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-source_sha256-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-goldbach",
+   "claim": "sha256 of baselines/tables/goldbach_25.txt is f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned table_file_sha256 for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-table_file_sha256-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-goldbach",
+   "claim": "canonical sha256 of baselines/tables/goldbach_25.txt is da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for goldbach",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-canonical_machine_sha256-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf",
+   "claim": "sha256 of baselines/sources/zf_432_wade.tm is 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "quote": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned source_sha256 for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-source_sha256-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf",
+   "claim": "sha256 of baselines/tables/zf_432.txt is e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned table_file_sha256 for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-table_file_sha256-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf",
+   "claim": "canonical sha256 of baselines/tables/zf_432.txt is cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for zf",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-canonical_machine_sha256-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann",
+   "claim": "sha256 of baselines/sources/riemann_744_sorear.tm is de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "quote": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned source_sha256 for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-source_sha256-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann",
+   "claim": "sha256 of baselines/tables/riemann_744.txt is 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned table_file_sha256 for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-table_file_sha256-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann",
+   "claim": "canonical sha256 of baselines/tables/riemann_744.txt is 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for riemann",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-canonical_machine_sha256-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf_393",
+   "claim": "sha256 of baselines/sources/zf_393_wade.tm is a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "quote": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned source_sha256 for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-source_sha256-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf_393",
+   "claim": "sha256 of baselines/tables/zf_393.txt is f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned table_file_sha256 for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-table_file_sha256-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf_393",
+   "claim": "canonical sha256 of baselines/tables/zf_393.txt is dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for zf_393",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-canonical_machine_sha256-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann_120",
+   "claim": "sha256 of baselines/sources/riemann_120_shunia.tm is b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "quote": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned source_sha256 for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-source_sha256-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann_120",
+   "claim": "sha256 of baselines/tables/riemann_120.txt is ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned table_file_sha256 for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-table_file_sha256-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann_120",
+   "claim": "canonical sha256 of baselines/tables/riemann_120.txt is a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for riemann_120",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-pin-canonical_machine_sha256-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-sha-goldbach_21",
+   "claim": "canonical sha256 of artifacts/goldbach_21/machine.txt is b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for goldbach_21",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-sha-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has 21 states",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "\"states\": 21",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's state count for goldbach_21",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-states-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cand-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has 21 states",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`21` states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up of goldbach_21",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cand-states-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cand-readme-sha-goldbach_21",
+   "claim": "canonical sha256 of artifacts/goldbach_21/machine.txt is b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up of goldbach_21: the digest it prints for machine.txt (the canonical machine, the reading verify.py pins)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cand-readme-sha-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "fewer-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has fewer states than goldbach (25)",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "candidate_fewer_states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the reduction claim, stated by the library README as a theorem name",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "fewer-states-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-sha-zf_380",
+   "claim": "canonical sha256 of artifacts/zf_380/machine.txt is c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for zf_380",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-sha-zf_380",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-states-zf_380",
+   "claim": "artifacts/zf_380/machine.txt has 380 states",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "\"states\": 380",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's state count for zf_380",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-states-zf_380",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cand-readme-sha-zf_380",
+   "claim": "canonical sha256 of artifacts/zf_380/machine.txt is c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up of zf_380: the digest it prints for machine.txt (the canonical machine, the reading verify.py pins)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cand-readme-sha-zf_380",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "fewer-states-zf_380",
+   "claim": "artifacts/zf_380/machine.txt has fewer states than zf_393 (393)",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "candidate_fewer_states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the reduction claim, stated by the library README as a theorem name",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "fewer-states-zf_380",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_104",
+   "claim": "canonical sha256 of artifacts/riemann_104/machine.txt is ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for riemann_104",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-sha-riemann_104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-states-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt has 104 states",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "\"states\": 104",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's state count for riemann_104",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-states-riemann_104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cand-readme-sha-riemann_104",
+   "claim": "canonical sha256 of artifacts/riemann_104/machine.txt is ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up of riemann_104: the digest it prints for machine.txt (the canonical machine, the reading verify.py pins)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cand-readme-sha-riemann_104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "fewer-states-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt has fewer states than riemann_120 (120)",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "candidate_fewer_states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the reduction claim, stated by the library README as a theorem name",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "fewer-states-riemann_104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_95",
+   "claim": "canonical sha256 of artifacts/riemann_95/machine.txt is 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned canonical machine digest for riemann_95",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-sha-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has 95 states",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "\"states\": 95",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's state count for riemann_95",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-states-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "verifypy-cand-file-sha-riemann_95",
+   "claim": "sha256 of artifacts/riemann_95/machine.txt is 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's pinned file digest for riemann_95",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "verifypy-cand-file-sha-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cand-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has 95 states",
+   "source": "corpus/cryptids/artifacts/riemann_95/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "**95 states**",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up of riemann_95",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cand-states-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "fewer-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has fewer states than riemann_104 (104)",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "candidate_fewer_states",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the reduction claim, stated by the library README as a theorem name",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "fewer-states-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cells-goldbach-25",
+   "claim": "baselines/tables/goldbach_25.txt has 49 non-halting cells",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "`49` non-halting cells in table",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: the reference",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-goldbach-25",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cells-goldbach-21",
+   "claim": "artifacts/goldbach_21/machine.txt has 41 non-halting cells",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`41` non-halting cells in table",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: the candidate",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-goldbach-21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "core-transitions-goldbach",
+   "claim": "artifacts/goldbach_21/machine.txt has 37 core non-halting transitions (41 non-halting cells in table)",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`37` core non-halting transitions",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: \"core\"",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "cells-zf-393",
+   "claim": "baselines/tables/zf_393.txt has 785 non-halting transitions",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "reducing `785` non-halting transitions to `759` non-halting transitions",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the ZF write-up",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-zf-393",
+    "value": null,
+    "verdict": "REFUTED"
+   }
+  },
+  {
+   "id": "cells-zf-380",
+   "claim": "artifacts/zf_380/machine.txt has 759 non-halting transitions",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "reducing `785` non-halting transitions to `759` non-halting transitions",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the ZF write-up",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-zf-380",
+    "value": null,
+    "verdict": "REFUTED"
+   }
+  },
+  {
+   "id": "cells-riemann-120",
+   "claim": "baselines/tables/riemann_120.txt has 238 non-halting transitions",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "non-halting transitions `238 -> 207`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the 120 → 104 write-up",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-riemann-120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cells-riemann-104",
+   "claim": "artifacts/riemann_104/machine.txt has 207 non-halting transitions",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "non-halting transitions `238 -> 207`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the 120 → 104 write-up",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-riemann-104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "cells-riemann-95",
+   "claim": "artifacts/riemann_95/machine.txt has 189 defined transitions",
+   "source": "corpus/cryptids/artifacts/riemann_95/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "189 defined transitions",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the 95-state write-up",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "cells-riemann-95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "halting-riemann-95",
+   "claim": "artifacts/riemann_95/machine.txt has halting cells [[61,1]]",
+   "source": "corpus/cryptids/artifacts/riemann_95/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "one\nhalting transition (`61/ONE`)",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the 95-state write-up: ONE is symbol 1",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "halting-riemann-95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-393-boot-state",
+   "claim": "after 39,753 steps from the blank tape, baselines/tables/zf_393.txt is in state 64",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "run_to_checkpoints(ref_machine, 39_753, 64)",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's boot checkpoint for the reference: the state at the boot step (the head is printed nowhere)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-393-boot-state",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-380-boot-state",
+   "claim": "after 39,753 steps from the blank tape, artifacts/zf_380/machine.txt is in state 64",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "run_to_checkpoints(cand_380, 39_753, 64)",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's boot checkpoint for the candidate",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-380-boot-state",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-boot-tapes-equal",
+   "claim": "after 39,753 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 39,753 steps",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "exact 39,753-step bootstrap",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the ZF write-up: the exact bootstrap synchronisation",
+   "other": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-boot-tapes-equal",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-post-boot-checkpoints",
+   "claim": "the first 30 entries of artifacts/zf_380/machine.txt into state 64 after step 39,753 (within 250,000) show the tape baselines/tables/zf_393.txt shows",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "assert common >= 30",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's post-boot checkpoint rule (each entry into state 64)",
+   "other": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-post-boot-checkpoints",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-393-39773-state-99",
+   "claim": "baselines/tables/zf_393.txt enters state 99 at steps [39773] (after 39,773, within 39,773)",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "39773",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's second, unexplained ZF checkpoint",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-393-39773-state-99",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-overhead-1m",
+   "claim": "after 1,000,930 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 1,000,000 steps",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "`1,000,930` candidate steps",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the ZF write-up's step overhead at one million steps, read as a configuration correspondence",
+   "other": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-overhead-1m",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "zf-overhead-10m",
+   "claim": "after 10,015,814 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 10,000,000 steps",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "`10,015,814` candidate steps",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the ZF write-up's step overhead at ten million steps",
+   "other": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "zf-overhead-10m",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-104-boot",
+   "claim": "after 9,037 steps from the blank tape, artifacts/riemann_104/machine.txt is in state 19 with the head at -7, 19 nonzero cells",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "state == 19 and head == -7 and len(tape) == 19",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's boot assertion for riemann_104 (the write-up prints the step count, the checker the configuration)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-104-boot",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-104-root-dispatches",
+   "claim": "artifacts/riemann_104/machine.txt enters state 19 at least 1,000 times between steps 9,037 and 250,000",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "root_dispatches >= 1000",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's post-boot dispatch count",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-104-root-dispatches",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-104-table-steps-are-root-entries",
+   "claim": "artifacts/riemann_104/machine.txt enters state 19 at steps [26093,28934,165200,498382] (after 9,037, within 500,000)",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "| `100` | `[1, 0, 0, 0, 0]` | `91,965,528` | `26,093` |",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table: the candidate steps are root entries (which entries, the decider records)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-104-table-steps-are-root-entries",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-104-checkpoint-100",
+   "claim": "checkpoint 100 of artifacts/riemann_104/machine.txt is at step 26,093",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "`26,093`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, candidate column",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-104-checkpoint-116",
+   "claim": "checkpoint 116 of artifacts/riemann_104/machine.txt is at step 28,934",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "`28,934`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, candidate column",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-104-checkpoint-500",
+   "claim": "checkpoint 500 of artifacts/riemann_104/machine.txt is at step 165,200",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "`165,200`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, candidate column",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-104-checkpoint-1000",
+   "claim": "checkpoint 1000 of artifacts/riemann_104/machine.txt is at step 498,382",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "`498,382`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, candidate column",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-120-checkpoint-0",
+   "claim": "checkpoint 0 of baselines/tables/riemann_120.txt is at step 89,775,610",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`89,775,610`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, reference column (the stage verify.py names and never runs)",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-120-checkpoint-100",
+   "claim": "checkpoint 100 of baselines/tables/riemann_120.txt is at step 91,965,528",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`91,965,528`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, reference column (the stage verify.py names and never runs)",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-120-checkpoint-116",
+   "claim": "checkpoint 116 of baselines/tables/riemann_120.txt is at step 92,295,002",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`92,295,002`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, reference column (the stage verify.py names and never runs)",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-120-checkpoint-500",
+   "claim": "checkpoint 500 of baselines/tables/riemann_120.txt is at step 100,693,638",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`100,693,638`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, reference column (the stage verify.py names and never runs)",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-120-checkpoint-1000",
+   "claim": "checkpoint 1000 of baselines/tables/riemann_120.txt is at step 111,294,346",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`111,294,346`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's checkpoint table, reference column (the stage verify.py names and never runs)",
+   "expect": "refused:ambiguous"
+  },
+  {
+   "id": "riemann-95-init",
+   "claim": "after 3,634 steps from the blank tape, artifacts/riemann_95/machine.txt is in state 15 with the head at -4",
+   "source": "corpus/cryptids/artifacts/riemann_95/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "The exact 3,634-step initializer reaches state 15 at head position -4",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the 95-state write-up's initializer sentence",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-95-init",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-95-init-tape",
+   "claim": "after 3,634 steps from the blank tape, the ones of artifacts/riemann_95/machine.txt are [-5,18,20,22,24,26,28,30,32,34,36]",
+   "source": "corpus/cryptids/verify.py",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "assert sorted(ones) == [-5, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36]",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "verify.py's statement of the initializer's tape",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-95-init-tape",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "riemann-120-no-halt-boot-length",
+   "claim": "baselines/tables/riemann_120.txt does not halt within 89,775,610 steps",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "`89,775,610`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's bootstrap length for riemann_120: a bounded run (the root event itself is refused above)",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "riemann-120-no-halt-boot-length",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "goldbach-boot-cand",
+   "claim": "artifacts/goldbach_21/machine.txt (candidate) enters Goldbach stage n = 4 at step 125",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`125` vs. `49` bootstrap steps to enter `n = 4`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: the bootstrap",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "goldbach-boot-cand",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "goldbach-boot-ref",
+   "claim": "baselines/tables/goldbach_25.txt (reference) enters Goldbach stage n = 4 at step 49",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "`125` vs. `49` bootstrap steps to enter `n = 4`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: the bootstrap",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "goldbach-boot-ref",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "goldbach-through-40-cand",
+   "claim": "artifacts/goldbach_21/machine.txt (candidate) enters Goldbach stage n = 42 at step 339,411",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`339,411` candidate steps vs. `170,966` reference steps through completion of `n = 40`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: \"through completion of n = 40\", read as the entry into stage 42",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "goldbach-through-40-cand",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "goldbach-through-40-ref",
+   "claim": "baselines/tables/goldbach_25.txt (reference) enters Goldbach stage n = 42 at step 170,966",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "`339,411` candidate steps vs. `170,966` reference steps through completion of `n = 40`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up: the same, the reference",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "goldbach-through-40-ref",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "goldbach-embed",
+   "claim": "artifacts/goldbach_21/machine.txt embeds into the Lean table corpus/cryptids/Cryptids/Goldbach21.lean (def edited) under the map 0→2, 1→0, 2→23, 3..7→q, 8→9, 9..14→q+2, 15→24, 16..20→q+2",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "`embed : Fin 21 → Fin 25` (`embed 0 = 2`, `embed 1 = 0`,\n   `embed 2 = 23`, `embed q = q` for `3 ≤ q < 8`, `embed 8 = 9`, `embed q = q + 2` for\n   `9 ≤ q < 15`, `embed 15 = 24`, and `embed q = q + 2` for `16 ≤ q < 21`)",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the Goldbach write-up's embedding, read clause by clause, against the edited table of the proof file",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "goldbach-embed",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-goldbach",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-goldbach_21",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-zf",
+   "claim": "baselines/tables/zf_432.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-zf",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-zf_393",
+   "claim": "baselines/tables/zf_393.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-zf_393",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-zf_380",
+   "claim": "artifacts/zf_380/machine.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-zf_380",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-riemann",
+   "claim": "baselines/tables/riemann_744.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-riemann",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-riemann_120",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-riemann_104",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "no-halt-250k-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt does not halt within 250,000 steps",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "simulates `250,000` steps per domain",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README: the checker's bounded runs, applied to every machine",
+   "record": {
+    "path": "certs/claimbox-cryptids-decisions.json",
+    "row": "no-halt-250k-riemann_95",
+    "value": null,
+    "verdict": "CERTIFIED"
+   }
+  },
+  {
+   "id": "ratio-riemann-104-boot",
+   "claim": "the ratio 89,775,610/9,037 is printed as 9,934.23x",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "quote": "`9,934.23x` faster initialization",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "ratio-riemann-95-boot",
+   "claim": "the ratio 9,037/3,634 is printed as 2.49x",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/Cryptids/README.md",
+   "quote": "`2.49x` faster initialization",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "ratio-goldbach-steps",
+   "claim": "the ratio 339,411/170,966 is printed as 1.99x",
+   "source": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/README.md",
+   "quote": "`1.99x` cumulative ratio",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "ratio-zf-1m",
+   "claim": "the ratio 1,000,930/1,000,000 is printed as 1.000930x",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/README.md",
+   "quote": "`1.000930x`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "ratio-zf-10m",
+   "claim": "the ratio 10,015,814/10,000,000 is printed as 1.001581x",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/README.md",
+   "quote": "`1.001581x`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "pct-riemann-104",
+   "claim": "the percentage 16/120 is printed as -13.33%",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "quote": "`-13.33%`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "pct-riemann-104-tr",
+   "claim": "the percentage 31/238 is printed as -13.03%",
+   "source": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/README.md",
+   "quote": "`-13.03%`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "pct-zf-380",
+   "claim": "the percentage 13/393 is printed as -3.31%",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/README.md",
+   "quote": "`-3.31%`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "pct-zf-1m",
+   "claim": "the percentage 930/1000000 is printed as +0.0930%",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/README.md",
+   "quote": "`+0.0930%`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "pct-zf-10m",
+   "claim": "the percentage 15814/10000000 is printed as +0.1581%",
+   "source": "corpus/cryptids/artifacts/zf_380/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/README.md",
+   "quote": "`+0.1581%`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker"
+  },
+  {
+   "id": "theorem-goldbach_21",
+   "claim": "goldbach_21 halts from the blank tape if and only if ¬ GoldbachConjecture",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "quote": "| Goldbach's Conjecture | `goldbach_21` | `21` | Reduced from `goldbach_25` (`25` states, Yao / Leng 2024) | `¬ GoldbachConjecture` | [`Goldbach21.lean`](./Goldbach21.lean), [`Semantics/Goldbach.lean`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-zf_380",
+   "claim": "zf_380 halts from the blank tape if and only if ZFInconsistent",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "quote": "| ZF Consistency | `zf_380` | `380` | Reduced from `zf_393` (`393` states, Wade Aug 2026) | `ZFInconsistent` (`¬ Halts candidate` proved) | [`Zf380.lean`](./Zf380.lean), [`Semantics/Zf393.lean`](./Sem",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-zf_393",
+   "claim": "zf_393 halts from the blank tape if and only if ZFInconsistent",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "quote": "| ZF Consistency | `zf_393` | `393` | Andrew Wade ([`turing_machine_explorer`](https://codeberg.org/ajwade/turing_machine_explorer) `9c5c2e82`, Aug 2026) | `ZFInconsistent` (`¬ Halts zf393` proved) | ",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-zf_432",
+   "claim": "zf_432 halts from the blank tape if and only if WadeZFInconsistent",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "quote": "| ZF Consistency | `zf_432` | `432` | Andrew Wade ([`turing_machine_explorer`](https://codeberg.org/ajwade/turing_machine_explorer) `33b30300`, Aug 2025) | `WadeZFInconsistent` | [`Semantics/Zf.lean`]",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-riemann_95",
+   "claim": "riemann_95 halts from the blank tape if and only if ¬ RiemannHypothesis",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "quote": "| Riemann Hypothesis | `riemann_95` | `95` | Retained stage counter and proved operand-bank permutation | `¬ RiemannHypothesis` | [`Riemann95.lean`](./Riemann95.lean), [`Semantics/Riemann95.lean`](./S",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-riemann_104",
+   "claim": "riemann_104 halts from the blank tape if and only if ¬ RiemannHypothesis",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "quote": "| Riemann Hypothesis | `riemann_104` | `104` | Reduced from `riemann_120` (`120` states, Shunia Sept 2026) | `¬ RiemannHypothesis` | [`Riemann104.lean`](./Riemann104.lean), [`Semantics/Riemann120.lean",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-riemann_120",
+   "claim": "riemann_120 halts from the blank tape if and only if ¬ RiemannHypothesis",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "quote": "| Riemann Hypothesis | `riemann_120` | `120` | Joseph M. Shunia ([`arXiv:2609.30306`](https://arxiv.org/abs/2609.30306), Sept 2026) | `¬ RiemannHypothesis` | [`Riemann120.lean`](./Riemann120.lean), [`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "theorem-riemann_744",
+   "claim": "riemann_744 halts from the blank tape if and only if ¬ RiemannHypothesis",
+   "source": "corpus/cryptids/Cryptids/README.md",
+   "data": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "quote": "| Riemann Hypothesis | `riemann_744` | `744` | Matiyasevich, O'Rear & Aaronson (`riemann_744_sorear.tm`, 2016) | `¬ RiemannHypothesis` | [`Semantics/Riemann.lean`](./Semantics/Riemann.lean) |",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the library README's table: the proved halting condition",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "kernel-all-proofs",
+   "claim": "every proof is checked by the kernel without sorry",
+   "source": "corpus/cryptids/README.md",
+   "data": "corpus/cryptids/Challenge.lean",
+   "quote": "All Lean 4 proofs are checked by the kernel without `sorry`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the README's kernel sentence",
+   "expect": "refused:unbounded"
+  },
+  {
+   "id": "comparator-count-all",
+   "claim": "the all configuration names 22 theorems",
+   "source": "corpus/cryptids/comparator/README.md",
+   "data": "corpus/cryptids/comparator/all.json",
+   "quote": "all 22",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the comparator README",
+   "expect": "refused:decider"
+  },
+  {
+   "id": "holdouts-BB6",
+   "claim": "the BB6 catalogue lists 53 holdout machines",
+   "source": "corpus/cryptids/BusyBeaver/README.md",
+   "data": "corpus/cryptids/BusyBeaver/BB6/README.md",
+   "quote": "53 `BB(6)`",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the holdout library README",
+   "expect": "refused:decider"
+  },
+  {
+   "id": "holdouts-BB33",
+   "claim": "the BB33 catalogue lists 6 holdout machines",
+   "source": "corpus/cryptids/BusyBeaver/README.md",
+   "data": "corpus/cryptids/BusyBeaver/BB33/README.md",
+   "quote": "All 6 remaining",
+   "decider": "instruments/claimbox/tm.py",
+   "what": "the holdout library README",
+   "expect": "refused:decider"
+  }
+ ]
+}

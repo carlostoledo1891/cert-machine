@@ -127,6 +127,36 @@
    "dst": "corpus/claimbox-riemann/README.md",
    "note": "the producer's own description at the pinned commit",
    "exclude": []
+  },
+  {
+   "src": "records/cryptids",
+   "dst": "corpus/claimbox-cryptids/objects",
+   "note": "the cryptids objects the reader wrote (arm C of the cryptids benchmark), decided here by tm.py and tm.js",
+   "exclude": []
+  },
+  {
+   "src": "records/cryptids-run.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-run.json",
+   "note": "the run record: what was written, what was refused and why",
+   "exclude": []
+  },
+  {
+   "src": "corpus/cryptids-jobs.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-jobs.json",
+   "note": "the jobs the reader made",
+   "exclude": []
+  },
+  {
+   "src": "records/cryptids-recall.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-recall.json",
+   "note": "arm C's twelve plants (tests/cryptids_recall.py)",
+   "exclude": []
+  },
+  {
+   "src": "records/coverage.json",
+   "dst": "corpus/claimbox-cryptids/register-coverage.json",
+   "note": "the grammar over the register's 132 sentences: shaped or refused, by family and rule (M1 of the paper variant)",
+   "exclude": []
   }
  ],
  "patches": []

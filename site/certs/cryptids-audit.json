@@ -1,0 +1,2368 @@
+{
+ "what": "ARM H of the cryptids benchmark: google-deepmind/cryptids audited by hand — one lane for this source, its own parsers and simulator, every claim stated in the auditor's prose with the file, its sha256, the quote where there is one, what was computed and one of three words. The pre-registration is notes/cryptids-benchmark-preregistration-2026-10-23.md.",
+ "source": {
+  "repository": "github.com/google-deepmind/cryptids",
+  "commit": "664cd03904a870e9a8796476dbf9dbc13a72a37b",
+  "lift": "LIFT-cryptids.json",
+  "provenance": "PROVENANCE-cryptids.json"
+ },
+ "corpus": "corpus/cryptids",
+ "quick": false,
+ "generated": "2026-10-23T02:06:23Z",
+ "seconds": 18.3,
+ "summary": {
+  "CERTIFIED": 143,
+  "REFUSED": 8,
+  "REFUTED": 1
+ },
+ "byClass": {
+  "count": {
+   "CERTIFIED": 27,
+   "REFUSED": 1,
+   "REFUTED": 1
+  },
+  "hash": {
+   "CERTIFIED": 38,
+   "REFUSED": 1
+  },
+  "derivation": {
+   "CERTIFIED": 13
+  },
+  "lean-def": {
+   "CERTIFIED": 18
+  },
+  "structural": {
+   "CERTIFIED": 4
+  },
+  "arithmetic": {
+   "CERTIFIED": 12
+  },
+  "checkpoint": {
+   "CERTIFIED": 18,
+   "REFUSED": 3
+  },
+  "runtime": {
+   "CERTIFIED": 10
+  },
+  "statement-string": {
+   "CERTIFIED": 3
+  },
+  "kernel": {
+   "REFUSED": 3
+  }
+ },
+ "rows": [
+  {
+   "id": "prov-table",
+   "class": "count",
+   "claim": "PROVENANCE.md lists five baseline machines",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665"
+   },
+   "expected": 5,
+   "computed": 5,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-src-sha-goldbach",
+   "class": "hash",
+   "claim": "the upstream source baselines/sources/goldbach_25_bbchallenge.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+    "quoted": true
+   },
+   "expected": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "computed": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-table-sha-goldbach",
+   "class": "hash",
+   "claim": "the derived table baselines/tables/goldbach_25.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+    "quoted": true
+   },
+   "expected": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "computed": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-states-goldbach",
+   "class": "count",
+   "claim": "baselines/tables/goldbach_25.txt has 25 states",
+   "source": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   },
+   "expected": 25,
+   "computed": 25,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-machine-sha-goldbach",
+   "class": "hash",
+   "claim": "the canonical text of baselines/tables/goldbach_25.txt (cells joined by one space, rows by newline) hashes to the canonical machine sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+    "quoted": true
+   },
+   "expected": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "computed": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "verdict": "CERTIFIED",
+   "reading": "the canonical text is the table without its comments, exactly as the write-ups define it"
+  },
+  {
+   "id": "derive-goldbach",
+   "class": "derivation",
+   "claim": "baselines/tables/goldbach_25.txt is the standard source baselines/sources/goldbach_25_bbchallenge.txt compiled under the stated convention (start state 0, then the published order; an undefined target is a halt)",
+   "source": {
+    "path": "baselines/sources/goldbach_25_bbchallenge.txt",
+    "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+   },
+   "expected": "equal to the table",
+   "computed": "equal",
+   "verdict": "CERTIFIED",
+   "reading": "derived by this lane's own parser from the format as the provenance file describes it"
+  },
+  {
+   "id": "prov-src-sha-zf",
+   "class": "hash",
+   "claim": "the upstream source baselines/sources/zf_432_wade.tm hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+    "quoted": true
+   },
+   "expected": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "computed": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-table-sha-zf",
+   "class": "hash",
+   "claim": "the derived table baselines/tables/zf_432.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+    "quoted": true
+   },
+   "expected": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "computed": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-states-zf",
+   "class": "count",
+   "claim": "baselines/tables/zf_432.txt has 432 states",
+   "source": {
+    "path": "baselines/tables/zf_432.txt",
+    "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   },
+   "expected": 432,
+   "computed": 432,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-machine-sha-zf",
+   "class": "hash",
+   "claim": "the canonical text of baselines/tables/zf_432.txt (cells joined by one space, rows by newline) hashes to the canonical machine sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+    "quoted": true
+   },
+   "expected": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "computed": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "verdict": "CERTIFIED",
+   "reading": "the canonical text is the table without its comments, exactly as the write-ups define it"
+  },
+  {
+   "id": "derive-zf",
+   "class": "derivation",
+   "claim": "baselines/tables/zf_432.txt is the tursi source baselines/sources/zf_432_wade.tm compiled under the stated convention (start state 0, then the published order; an undefined target is a halt)",
+   "source": {
+    "path": "baselines/sources/zf_432_wade.tm",
+    "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   },
+   "expected": "equal to the table",
+   "computed": "equal",
+   "verdict": "CERTIFIED",
+   "reading": "derived by this lane's own parser from the format as the provenance file describes it"
+  },
+  {
+   "id": "derive-undefined-zf",
+   "class": "derivation",
+   "claim": "every transition target in baselines/sources/zf_432_wade.tm that names no defined state is a halting name, not a typo",
+   "source": {
+    "path": "baselines/sources/zf_432_wade.tm",
+    "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   },
+   "expected": [
+    "halt-like names only"
+   ],
+   "computed": [
+    "halt"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the convention makes any undefined target a halt; this row says which names that rule actually absorbed"
+  },
+  {
+   "id": "derive-names-zf",
+   "class": "derivation",
+   "claim": "the state names the table's header comments list are the published order the derivation produced",
+   "source": {
+    "path": "baselines/tables/zf_432.txt",
+    "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   },
+   "expected": 432,
+   "computed": 432,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-src-sha-riemann",
+   "class": "hash",
+   "claim": "the upstream source baselines/sources/riemann_744_sorear.tm hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+    "quoted": true
+   },
+   "expected": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "computed": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-table-sha-riemann",
+   "class": "hash",
+   "claim": "the derived table baselines/tables/riemann_744.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+    "quoted": true
+   },
+   "expected": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "computed": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-states-riemann",
+   "class": "count",
+   "claim": "baselines/tables/riemann_744.txt has 744 states",
+   "source": {
+    "path": "baselines/tables/riemann_744.txt",
+    "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   },
+   "expected": 744,
+   "computed": 744,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-machine-sha-riemann",
+   "class": "hash",
+   "claim": "the canonical text of baselines/tables/riemann_744.txt (cells joined by one space, rows by newline) hashes to the canonical machine sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+    "quoted": true
+   },
+   "expected": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "computed": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "verdict": "CERTIFIED",
+   "reading": "the canonical text is the table without its comments, exactly as the write-ups define it"
+  },
+  {
+   "id": "derive-riemann",
+   "class": "derivation",
+   "claim": "baselines/tables/riemann_744.txt is the nql source baselines/sources/riemann_744_sorear.tm compiled under the stated convention (start state 0, then the published order; an undefined target is a halt)",
+   "source": {
+    "path": "baselines/sources/riemann_744_sorear.tm",
+    "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   },
+   "expected": "equal to the table",
+   "computed": "equal",
+   "verdict": "CERTIFIED",
+   "reading": "derived by this lane's own parser from the format as the provenance file describes it"
+  },
+  {
+   "id": "derive-undefined-riemann",
+   "class": "derivation",
+   "claim": "every transition target in baselines/sources/riemann_744_sorear.tm that names no defined state is a halting name, not a typo",
+   "source": {
+    "path": "baselines/sources/riemann_744_sorear.tm",
+    "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   },
+   "expected": [
+    "halt-like names only"
+   ],
+   "computed": [
+    "HALT"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the convention makes any undefined target a halt; this row says which names that rule actually absorbed"
+  },
+  {
+   "id": "derive-names-riemann",
+   "class": "derivation",
+   "claim": "the state names the table's header comments list are the published order the derivation produced",
+   "source": {
+    "path": "baselines/tables/riemann_744.txt",
+    "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   },
+   "expected": 744,
+   "computed": 744,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-src-sha-zf_393",
+   "class": "hash",
+   "claim": "the upstream source baselines/sources/zf_393_wade.tm hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+    "quoted": true
+   },
+   "expected": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "computed": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-table-sha-zf_393",
+   "class": "hash",
+   "claim": "the derived table baselines/tables/zf_393.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+    "quoted": true
+   },
+   "expected": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "computed": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-states-zf_393",
+   "class": "count",
+   "claim": "baselines/tables/zf_393.txt has 393 states",
+   "source": {
+    "path": "baselines/tables/zf_393.txt",
+    "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   },
+   "expected": 393,
+   "computed": 393,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-machine-sha-zf_393",
+   "class": "hash",
+   "claim": "the canonical text of baselines/tables/zf_393.txt (cells joined by one space, rows by newline) hashes to the canonical machine sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+    "quoted": true
+   },
+   "expected": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "computed": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "verdict": "CERTIFIED",
+   "reading": "the canonical text is the table without its comments, exactly as the write-ups define it"
+  },
+  {
+   "id": "derive-zf_393",
+   "class": "derivation",
+   "claim": "baselines/tables/zf_393.txt is the tursi source baselines/sources/zf_393_wade.tm compiled under the stated convention (start state 0, then the published order; an undefined target is a halt)",
+   "source": {
+    "path": "baselines/sources/zf_393_wade.tm",
+    "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   },
+   "expected": "equal to the table",
+   "computed": "equal",
+   "verdict": "CERTIFIED",
+   "reading": "derived by this lane's own parser from the format as the provenance file describes it"
+  },
+  {
+   "id": "derive-undefined-zf_393",
+   "class": "derivation",
+   "claim": "every transition target in baselines/sources/zf_393_wade.tm that names no defined state is a halting name, not a typo",
+   "source": {
+    "path": "baselines/sources/zf_393_wade.tm",
+    "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   },
+   "expected": [
+    "halt-like names only"
+   ],
+   "computed": [
+    "halt"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the convention makes any undefined target a halt; this row says which names that rule actually absorbed"
+  },
+  {
+   "id": "derive-names-zf_393",
+   "class": "derivation",
+   "claim": "the state names the table's header comments list are the published order the derivation produced",
+   "source": {
+    "path": "baselines/tables/zf_393.txt",
+    "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   },
+   "expected": 393,
+   "computed": 393,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-src-sha-riemann_120",
+   "class": "hash",
+   "claim": "the upstream source baselines/sources/riemann_120_shunia.tm hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+    "quoted": true
+   },
+   "expected": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "computed": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-table-sha-riemann_120",
+   "class": "hash",
+   "claim": "the derived table baselines/tables/riemann_120.txt hashes to the sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+    "quoted": true
+   },
+   "expected": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "computed": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-states-riemann_120",
+   "class": "count",
+   "claim": "baselines/tables/riemann_120.txt has 120 states",
+   "source": {
+    "path": "baselines/tables/riemann_120.txt",
+    "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   },
+   "expected": 120,
+   "computed": 120,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "prov-machine-sha-riemann_120",
+   "class": "hash",
+   "claim": "the canonical text of baselines/tables/riemann_120.txt (cells joined by one space, rows by newline) hashes to the canonical machine sha256 PROVENANCE.md prints",
+   "source": {
+    "path": "baselines/PROVENANCE.md",
+    "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+    "quote": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+    "quoted": true
+   },
+   "expected": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "computed": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "verdict": "CERTIFIED",
+   "reading": "the canonical text is the table without its comments, exactly as the write-ups define it"
+  },
+  {
+   "id": "derive-riemann_120",
+   "class": "derivation",
+   "claim": "baselines/tables/riemann_120.txt is the tursi source baselines/sources/riemann_120_shunia.tm compiled under the stated convention (start state 0, then the published order; an undefined target is a halt)",
+   "source": {
+    "path": "baselines/sources/riemann_120_shunia.tm",
+    "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   },
+   "expected": "equal to the table",
+   "computed": "equal",
+   "verdict": "CERTIFIED",
+   "reading": "derived by this lane's own parser from the format as the provenance file describes it"
+  },
+  {
+   "id": "derive-undefined-riemann_120",
+   "class": "derivation",
+   "claim": "every transition target in baselines/sources/riemann_120_shunia.tm that names no defined state is a halting name, not a typo",
+   "source": {
+    "path": "baselines/sources/riemann_120_shunia.tm",
+    "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   },
+   "expected": [
+    "halt-like names only"
+   ],
+   "computed": [
+    "H"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the convention makes any undefined target a halt; this row says which names that rule actually absorbed"
+  },
+  {
+   "id": "derive-names-riemann_120",
+   "class": "derivation",
+   "claim": "the state names the table's header comments list are the published order the derivation produced",
+   "source": {
+    "path": "baselines/tables/riemann_120.txt",
+    "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   },
+   "expected": 120,
+   "computed": 120,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-source_sha256-goldbach",
+   "class": "hash",
+   "claim": "verify.py pins the same source_sha256 for goldbach as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-goldbach",
+   "class": "hash",
+   "claim": "verify.py pins the same table_file_sha256 for goldbach as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-goldbach",
+   "class": "hash",
+   "claim": "verify.py pins the same canonical_machine_sha256 for goldbach as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf",
+   "class": "hash",
+   "claim": "verify.py pins the same source_sha256 for zf as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf",
+   "class": "hash",
+   "claim": "verify.py pins the same table_file_sha256 for zf as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf",
+   "class": "hash",
+   "claim": "verify.py pins the same canonical_machine_sha256 for zf as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann",
+   "class": "hash",
+   "claim": "verify.py pins the same source_sha256 for riemann as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann",
+   "class": "hash",
+   "claim": "verify.py pins the same table_file_sha256 for riemann as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann",
+   "class": "hash",
+   "claim": "verify.py pins the same canonical_machine_sha256 for riemann as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf_393",
+   "class": "hash",
+   "claim": "verify.py pins the same source_sha256 for zf_393 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf_393",
+   "class": "hash",
+   "claim": "verify.py pins the same table_file_sha256 for zf_393 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf_393",
+   "class": "hash",
+   "claim": "verify.py pins the same canonical_machine_sha256 for zf_393 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann_120",
+   "class": "hash",
+   "claim": "verify.py pins the same source_sha256 for riemann_120 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann_120",
+   "class": "hash",
+   "claim": "verify.py pins the same table_file_sha256 for riemann_120 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann_120",
+   "class": "hash",
+   "claim": "verify.py pins the same canonical_machine_sha256 for riemann_120 as PROVENANCE.md",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-states-goldbach_21",
+   "class": "count",
+   "claim": "artifacts/goldbach_21/machine.txt has 21 states",
+   "source": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   },
+   "expected": 21,
+   "computed": 21,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-readme-sha-goldbach_21",
+   "class": "hash",
+   "claim": "the write-up of goldbach_21 prints the canonical machine sha256 of its machine.txt among the digests it quotes",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+    "quoted": true
+   },
+   "expected": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "computed": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+    "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the digest is the canonical machine's (the table without comments), the reading verify.py pins for every candidate; it equals the file digest only while the file carries no comment"
+  },
+  {
+   "id": "cand-readme-ref-sha-goldbach_21",
+   "class": "hash",
+   "claim": "the write-up of goldbach_21 prints a digest of its reference goldbach (the canonical machine or the table file)",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461"
+   },
+   "expected": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+    "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   ],
+   "computed": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+    "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-cand-sha-goldbach_21",
+   "class": "hash",
+   "claim": "verify.py pins the canonical machine sha256 of goldbach_21",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "fewer-states-goldbach_21",
+   "class": "count",
+   "claim": "goldbach_21 has fewer states than its reference goldbach (21)",
+   "source": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   },
+   "expected": "< 21",
+   "computed": 21,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-states-zf_380",
+   "class": "count",
+   "claim": "artifacts/zf_380/machine.txt has 380 states",
+   "source": {
+    "path": "artifacts/zf_380/machine.txt",
+    "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   },
+   "expected": 380,
+   "computed": 380,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-readme-sha-zf_380",
+   "class": "hash",
+   "claim": "the write-up of zf_380 prints the canonical machine sha256 of its machine.txt among the digests it quotes",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+    "quoted": true
+   },
+   "expected": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "computed": [
+    "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the digest is the canonical machine's (the table without comments), the reading verify.py pins for every candidate; it equals the file digest only while the file carries no comment"
+  },
+  {
+   "id": "verifypy-cand-sha-zf_380",
+   "class": "hash",
+   "claim": "verify.py pins the canonical machine sha256 of zf_380",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "fewer-states-zf_380",
+   "class": "count",
+   "claim": "zf_380 has fewer states than its reference zf_393 (393)",
+   "source": {
+    "path": "artifacts/zf_380/machine.txt",
+    "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   },
+   "expected": "< 393",
+   "computed": 380,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-states-riemann_104",
+   "class": "count",
+   "claim": "artifacts/riemann_104/machine.txt has 104 states",
+   "source": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   },
+   "expected": 104,
+   "computed": 104,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-readme-sha-riemann_104",
+   "class": "hash",
+   "claim": "the write-up of riemann_104 prints the canonical machine sha256 of its machine.txt among the digests it quotes",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+    "quoted": true
+   },
+   "expected": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "computed": [
+    "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the digest is the canonical machine's (the table without comments), the reading verify.py pins for every candidate; it equals the file digest only while the file carries no comment"
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_104",
+   "class": "hash",
+   "claim": "verify.py pins the canonical machine sha256 of riemann_104",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "fewer-states-riemann_104",
+   "class": "count",
+   "claim": "riemann_104 has fewer states than its reference riemann_120 (120)",
+   "source": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   },
+   "expected": "< 120",
+   "computed": 104,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cand-states-riemann_95",
+   "class": "count",
+   "claim": "artifacts/riemann_95/machine.txt has 95 states",
+   "source": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   },
+   "expected": 95,
+   "computed": 95,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_95",
+   "class": "hash",
+   "claim": "verify.py pins the canonical machine sha256 of riemann_95",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "computed": "present",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "fewer-states-riemann_95",
+   "class": "count",
+   "claim": "riemann_95 has fewer states than its reference riemann_104 (104)",
+   "source": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   },
+   "expected": "< 104",
+   "computed": 95,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "lean-loads-goldbach-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines goldbach25Rows by loading baselines/tables/goldbach_25.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "states": 25
+   },
+   "computed": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "states": 25
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines zf432Rows by loading baselines/tables/zf_432.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "baselines/tables/zf_432.txt",
+    "states": 432
+   },
+   "computed": {
+    "path": "baselines/tables/zf_432.txt",
+    "states": 432
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines riemann744Rows by loading baselines/tables/riemann_744.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "baselines/tables/riemann_744.txt",
+    "states": 744
+   },
+   "computed": {
+    "path": "baselines/tables/riemann_744.txt",
+    "states": 744
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf_393-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines zf393Rows by loading baselines/tables/zf_393.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "baselines/tables/zf_393.txt",
+    "states": 393
+   },
+   "computed": {
+    "path": "baselines/tables/zf_393.txt",
+    "states": 393
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_120-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines riemann120Rows by loading baselines/tables/riemann_120.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "baselines/tables/riemann_120.txt",
+    "states": 120
+   },
+   "computed": {
+    "path": "baselines/tables/riemann_120.txt",
+    "states": 120
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-goldbach_21-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines goldbach21Rows by loading artifacts/goldbach_21/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "states": 21
+   },
+   "computed": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "states": 21
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf_380-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines zf380Rows by loading artifacts/zf_380/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "artifacts/zf_380/machine.txt",
+    "states": 380
+   },
+   "computed": {
+    "path": "artifacts/zf_380/machine.txt",
+    "states": 380
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_104-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines riemann104Rows by loading artifacts/riemann_104/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "states": 104
+   },
+   "computed": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "states": 104
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_95-Machines.lean",
+   "class": "lean-def",
+   "claim": "Cryptids/Machines.lean defines riemann95Rows by loading artifacts/riemann_95/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Cryptids/Machines.lean",
+    "sha256": "2bb6a5b22d5e53270d54e552aee95a1cdbef01e110e087494a0ad866c1d5aeeb"
+   },
+   "expected": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "states": 95
+   },
+   "computed": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "states": 95
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-goldbach-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines goldbach25Rows by loading baselines/tables/goldbach_25.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "states": 25
+   },
+   "computed": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "states": 25
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines zf432Rows by loading baselines/tables/zf_432.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "baselines/tables/zf_432.txt",
+    "states": 432
+   },
+   "computed": {
+    "path": "baselines/tables/zf_432.txt",
+    "states": 432
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines riemann744Rows by loading baselines/tables/riemann_744.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "baselines/tables/riemann_744.txt",
+    "states": 744
+   },
+   "computed": {
+    "path": "baselines/tables/riemann_744.txt",
+    "states": 744
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf_393-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines zf393Rows by loading baselines/tables/zf_393.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "baselines/tables/zf_393.txt",
+    "states": 393
+   },
+   "computed": {
+    "path": "baselines/tables/zf_393.txt",
+    "states": 393
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_120-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines riemann120Rows by loading baselines/tables/riemann_120.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "baselines/tables/riemann_120.txt",
+    "states": 120
+   },
+   "computed": {
+    "path": "baselines/tables/riemann_120.txt",
+    "states": 120
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-goldbach_21-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines goldbach21Rows by loading artifacts/goldbach_21/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "states": 21
+   },
+   "computed": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "states": 21
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-zf_380-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines zf380Rows by loading artifacts/zf_380/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "artifacts/zf_380/machine.txt",
+    "states": 380
+   },
+   "computed": {
+    "path": "artifacts/zf_380/machine.txt",
+    "states": 380
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_104-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines riemann104Rows by loading artifacts/riemann_104/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "states": 104
+   },
+   "computed": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "states": 104
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "lean-loads-riemann_95-Challenge.lean",
+   "class": "lean-def",
+   "claim": "Challenge.lean defines riemann95Rows by loading artifacts/riemann_95/machine.txt with the type's state count equal to the table's",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "states": 95
+   },
+   "computed": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "states": 95
+   },
+   "verdict": "CERTIFIED",
+   "reading": "what a kernel build would elaborate from the file; this row checks the definition names the right bytes and the right count, not the elaborator"
+  },
+  {
+   "id": "goldbach-edited-rows",
+   "class": "count",
+   "claim": "the edited table in Goldbach21.lean has 25 rows",
+   "source": {
+    "path": "Cryptids/Goldbach21.lean",
+    "sha256": "89b6fdd98244b11d56627eae35812ad1de081bc230aa35d5558a446ca767b04c"
+   },
+   "expected": 25,
+   "computed": 25,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-embed-map-printed",
+   "class": "structural",
+   "claim": "the write-up prints the embedding for all 21 states (eight clauses)",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`embed 0 = 2`",
+    "quoted": true
+   },
+   "expected": 21,
+   "computed": 21,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-embed",
+   "class": "structural",
+   "claim": "under the write-up's map embed (0→2, 1→0, 2→23, q for 3≤q<8, 8→9, q+2 for 9≤q<15, 15→24, q+2 for 16≤q<21), every cell of goldbach_21 matches the edited 25-state table of Goldbach21.lean: same write, same move, embedded target, halts in the same places",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`embed 0 = 2`, `embed 1 = 0`",
+    "quoted": true
+   },
+   "expected": "all 42 cells",
+   "computed": "42 of 42",
+   "verdict": "CERTIFIED",
+   "reading": "the map is the one the write-up prints; the edited table is parsed from the Lean literal by this lane"
+  },
+  {
+   "id": "goldbach-embed-injective",
+   "class": "structural",
+   "claim": "the write-up's embed is injective into the 25 states",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461"
+   },
+   "expected": "injective",
+   "computed": "injective",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-eliminated-states",
+   "class": "structural",
+   "claim": "the four states the write-up says were eliminated, 1, 8, 10 and 17 in the 25-state numbering, are exactly the states outside the image of embed",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "eliminates **4 states** (`states 1, 8, 10, 17`",
+    "quoted": true
+   },
+   "expected": [
+    1,
+    8,
+    10,
+    17
+   ],
+   "computed": [
+    1,
+    8,
+    10,
+    17
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cells-goldbach-25",
+   "class": "count",
+   "claim": "goldbach_25 has 49 non-halting cells in its table",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`49` non-halting cells in table",
+    "quoted": true
+   },
+   "expected": 49,
+   "computed": 49,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "cells-goldbach-21",
+   "class": "count",
+   "claim": "goldbach_21 has 41 non-halting cells in its table",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`41` non-halting cells in table",
+    "quoted": true
+   },
+   "expected": 41,
+   "computed": 41,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "core-transitions-goldbach",
+   "class": "count",
+   "claim": "goldbach_25 has 40 and goldbach_21 37 \"core non-halting transitions\"",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`40` core non-halting transitions",
+    "quoted": true
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "no definition of \"core\" is printed; the table has 49 and 41 non-halting cells; the claim is not decidable from the bytes until \"core\" is defined"
+  },
+  {
+   "id": "cells-zf",
+   "class": "count",
+   "claim": "the ZF reduction takes 785 non-halting transitions to 759",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "reducing `785` non-halting transitions to `759` non-halting transitions",
+    "quoted": true
+   },
+   "expected": [
+    785,
+    759
+   ],
+   "computed": [
+    784,
+    758
+   ],
+   "verdict": "REFUTED",
+   "witness": {
+    "expected": [
+     785,
+     759
+    ],
+    "computed": [
+     784,
+     758
+    ]
+   },
+   "reading": "a non-halting transition is a table cell that is not ---",
+   "note": "each ZF table has two halting cells: the explicit `halt` line of the source and one (state, symbol) pair the source never defines; the printed counts are the non-halting cells plus one, i.e. the transitions the source defines including the one that halts — the riemann_104 write-up counts the other way (238 and 207 are non-halting cells exactly), so the two write-ups use two conventions for one phrase"
+  },
+  {
+   "id": "cells-riemann",
+   "class": "count",
+   "claim": "the 120 → 104 reduction takes 238 non-halting transitions to 207",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "non-halting transitions `238 -> 207`",
+    "quoted": true
+   },
+   "expected": [
+    238,
+    207
+   ],
+   "computed": [
+    238,
+    207
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "a non-halting transition is a table cell that is not ---"
+  },
+  {
+   "id": "cells-riemann-95",
+   "class": "count",
+   "claim": "riemann_95 has 189 defined transitions and one halting transition, at state 61 on symbol 1",
+   "source": {
+    "path": "artifacts/riemann_95/README.md",
+    "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+    "quote": "189 defined transitions, and one\nhalting transition (`61/ONE`)",
+    "quoted": true
+   },
+   "expected": {
+    "defined": 189,
+    "halting": [
+     [
+      61,
+      1
+     ]
+    ]
+   },
+   "computed": {
+    "defined": 189,
+    "halting": [
+     [
+      61,
+      1
+     ]
+    ]
+   },
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "pct-riemann_104",
+   "class": "arithmetic",
+   "claim": "the reduction percentage the write-up prints, -13.33%, is 16/120 to the printed digits",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "-13.33%",
+    "quoted": true
+   },
+   "expected": "-13.33%",
+   "computed": "13.33333",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box"
+  },
+  {
+   "id": "pct-riemann_104-tr",
+   "class": "arithmetic",
+   "claim": "the reduction percentage the write-up prints, -13.03%, is 31/238 to the printed digits",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "-13.03%",
+    "quoted": true
+   },
+   "expected": "-13.03%",
+   "computed": "13.02521",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box"
+  },
+  {
+   "id": "pct-zf_380",
+   "class": "arithmetic",
+   "claim": "the reduction percentage the write-up prints, -3.31%, is 13/393 to the printed digits",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "-3.31%",
+    "quoted": true
+   },
+   "expected": "-3.31%",
+   "computed": "3.307888",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box"
+  },
+  {
+   "id": "ratio-riemann-104-boot",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 9,934.23x, is 89775610/9037 to the printed digits",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "`9,934.23x`",
+    "quoted": true
+   },
+   "expected": "9,934.23x",
+   "computed": "9934.22706",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "ratio-riemann-95-boot",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 2.49x, is 9037/3634 to the printed digits",
+   "source": {
+    "path": "Cryptids/README.md",
+    "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+    "quote": "`2.49x`",
+    "quoted": true
+   },
+   "expected": "2.49x",
+   "computed": "2.48679141",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "ratio-goldbach-steps",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 1.99x, is 339411/170966 to the printed digits",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`1.99x`",
+    "quoted": true
+   },
+   "expected": "1.99x",
+   "computed": "1.98525437",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "ratio-zf-1m",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 1.000930x, is 1000930/1000000 to the printed digits",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "`1.000930x`",
+    "quoted": true
+   },
+   "expected": "1.000930x",
+   "computed": "1.00093",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "ratio-zf-10m",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 1.001581x, is 10015814/10000000 to the printed digits",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "`1.001581x`",
+    "quoted": true
+   },
+   "expected": "1.001581x",
+   "computed": "1.0015814",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "ratio-riemann-104-total",
+   "class": "arithmetic",
+   "claim": "the ratio the write-up prints, 223.31x, is 111294346/498382 to the printed digits",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "`223.31x`",
+    "quoted": true
+   },
+   "expected": "223.31x",
+   "computed": "223.311327",
+   "verdict": "CERTIFIED",
+   "reading": "the printed decimal is read as its half-unit box; the two step counts are the write-up's own and are decided separately where the checkpoint is stated"
+  },
+  {
+   "id": "pct-zf-1m",
+   "class": "arithmetic",
+   "claim": "the overhead percentage the write-up prints, +0.0930%, is 930/1000000 to the printed digits",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "+0.0930%",
+    "quoted": true
+   },
+   "expected": "+0.0930%",
+   "computed": "0.093",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "pct-zf-10m",
+   "class": "arithmetic",
+   "claim": "the overhead percentage the write-up prints, +0.1581%, is 15814/10000000 to the printed digits",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "+0.1581%",
+    "quoted": true
+   },
+   "expected": "+0.1581%",
+   "computed": "0.15814",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-bounce-sum",
+   "class": "arithmetic",
+   "claim": "the ten-million-step overhead the write-up prints, 15,814 steps, is 2 × 7,887 three-step bounces + 4 × 10 five-step excursions",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "`7,887` occurrences up to `t = 10,000,000`",
+    "quoted": true
+   },
+   "expected": 10015814,
+   "computed": 10015814,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-393-boot-state",
+   "class": "checkpoint",
+   "claim": "zf_393 is in state 64 after 39,753 steps from the blank tape (the step from the write-up, the state from the checker)",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "exact 39,753-step bootstrap",
+    "quoted": true
+   },
+   "expected": 64,
+   "computed": 64,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-380-boot-state",
+   "class": "checkpoint",
+   "claim": "zf_380 is in state 64 after 39,753 steps from the blank tape",
+   "source": {
+    "path": "artifacts/zf_380/machine.txt",
+    "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   },
+   "expected": 64,
+   "computed": 64,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-boot-tapes-equal",
+   "class": "checkpoint",
+   "claim": "after 39,753 steps zf_393 and zf_380 have the same tape and the same head position (the exact bootstrap synchronisation the write-up states)",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "39,753-step bootstrap",
+    "quoted": true
+   },
+   "expected": "equal",
+   "computed": "equal",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-post-boot-checkpoints",
+   "class": "checkpoint",
+   "claim": "every later entry into state 64 within 250,000 steps shows the same tape (relative to the head) on both machines, at least 30 of them",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9"
+   },
+   "expected": ">= 30 equal",
+   "computed": {
+    "common": 3527,
+    "equal": 3527
+   },
+   "verdict": "CERTIFIED",
+   "reading": "the checkpoint rule is the producer checker's: each entry into state 64 after the boot"
+  },
+  {
+   "id": "zf-overhead-starts-after-boot",
+   "class": "checkpoint",
+   "claim": "the candidate's extra steps begin after the bootstrap, not during it (the write-up: zero step overhead during the 39,753-step bootstrap)",
+   "source": {
+    "path": "Cryptids/README.md",
+    "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+    "quote": "`0` step overhead during `39,753`-step bootstrap",
+    "quoted": true
+   },
+   "expected": "first extra step after the boot",
+   "computed": {
+    "checkpoints_at_the_same_step": 14,
+    "first_differing_checkpoint": 14,
+    "delta_steps_there": 4
+   },
+   "verdict": "CERTIFIED",
+   "reading": "the boot steps are equal by the row above; this row records where the first extra step appears"
+  },
+  {
+   "id": "zf-no-halt-250k",
+   "class": "runtime",
+   "claim": "neither ZF machine halts within 250,000 steps",
+   "source": {
+    "path": "artifacts/zf_380/machine.txt",
+    "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   },
+   "expected": "no halt",
+   "computed": [
+    null,
+    null
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-39773-is-not-state-64",
+   "class": "checkpoint",
+   "claim": "verify.py's second ZF loop asserts state 99 at step 39,773; that step is not an entry into state 64, so the two ZF checkpoints in the checker are different events (one at the boot, one 20 steps later)",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": "not an entry into 64",
+   "computed": "not an entry",
+   "verdict": "CERTIFIED",
+   "reading": "measured to explain the checker's unexplained pair 39,753 / 64 and 39,773 / 99"
+  },
+  {
+   "id": "zf-393-39773-state-99",
+   "class": "checkpoint",
+   "claim": "zf_393 is in state 99 after 39,773 steps (the checker's second, unexplained ZF checkpoint)",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+    "quote": "39773",
+    "quoted": true
+   },
+   "expected": 99,
+   "computed": 99,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "zf-overhead-1m",
+   "class": "checkpoint",
+   "claim": "zf_380 after 1,000,930 steps has the tape and head zf_393 has after 1,000,000 steps (the write-up's step overhead, read as a configuration correspondence)",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "`1,000,930` candidate steps",
+    "quoted": true
+   },
+   "expected": "same tape and head",
+   "computed": "same",
+   "verdict": "CERTIFIED",
+   "reading": "the write-up prints the two step counts and calls the difference overhead; this lane reads that as: the candidate reaches the baseline's configuration (tape and head; the states differ by the map) at the candidate step printed",
+   "note": "ran in 4.2 s"
+  },
+  {
+   "id": "zf-overhead-10m",
+   "class": "checkpoint",
+   "claim": "zf_380 after 10,015,814 steps has the tape and head zf_393 has after 10,000,000 steps (the write-up's step overhead, read as a configuration correspondence)",
+   "source": {
+    "path": "artifacts/zf_380/README.md",
+    "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+    "quote": "`10,015,814` candidate steps",
+    "quoted": true
+   },
+   "expected": "same tape and head",
+   "computed": "same",
+   "verdict": "CERTIFIED",
+   "reading": "the write-up prints the two step counts and calls the difference overhead; this lane reads that as: the candidate reaches the baseline's configuration (tape and head; the states differ by the map) at the candidate step printed",
+   "note": "ran in 4.2 s"
+  },
+  {
+   "id": "riemann-104-boot",
+   "class": "checkpoint",
+   "claim": "riemann_104 is in state 19 with the head at -7 and 19 nonzero cells after 9,037 steps from the blank tape (the step from the write-up, the configuration from the checker)",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "`9,037` candidate steps vs. `89,775,610` baseline steps",
+    "quoted": true
+   },
+   "expected": [
+    19,
+    -7,
+    19
+   ],
+   "computed": [
+    19,
+    -7,
+    19
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-104-root-dispatches",
+   "class": "checkpoint",
+   "claim": "riemann_104 enters state 19 at least 1,000 times within 250,000 steps after its boot",
+   "source": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   },
+   "expected": ">= 1000",
+   "computed": 1136,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-104-no-halt-250k",
+   "class": "runtime",
+   "claim": "riemann_104 does not halt within 250,000 steps",
+   "source": {
+    "path": "artifacts/riemann_104/machine.txt",
+    "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-104-table-steps-are-root-entries",
+   "class": "checkpoint",
+   "claim": "each candidate step the write-up's checkpoint table prints (26,093; 28,934; 165,200; 498,382) is a step at which riemann_104 enters its root state 19",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "| `100` | `[1, 0, 0, 0, 0]` | `91,965,528` | `26,093` |",
+    "quoted": true
+   },
+   "expected": "all four are root entries",
+   "computed": {
+    "26093": {
+     "ordinal_among_root_entries": 179,
+     "head": -7,
+     "nonzero": 50
+    },
+    "28934": {
+     "ordinal_among_root_entries": 210,
+     "head": -8,
+     "nonzero": 45
+    },
+    "165200": {
+     "ordinal_among_root_entries": 879,
+     "head": -8,
+     "nonzero": 183
+    },
+    "498382": {
+     "ordinal_among_root_entries": 1721,
+     "head": -8,
+     "nonzero": 324
+    }
+   },
+   "verdict": "CERTIFIED",
+   "reading": "a root entry is an entry into state 19, the state the checker names as the root (rhRootCfg); the boot entry at 9,037 is ordinal 0"
+  },
+  {
+   "id": "riemann-104-checkpoint-k",
+   "class": "checkpoint",
+   "claim": "the k-th canonical root/instruction checkpoint of riemann_104 is at the printed step (k = 100 at 26,093, 116 at 28,934, 500 at 165,200, 1,000 at 498,382)",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "| `1,000` | `[7, 0, 0, 1, 2]` | `111,294,346` | `498,382` |",
+    "quoted": true
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "the event \"checkpoint k\" is not defined in finite terms: the printed steps are root entries, but the 179th, 210th, 879th and 1,721st, not the 100th, 116th, 500th and 1,000th; which root entries count as instruction checkpoints is the register machine's abstraction and is not printed. Publish the selection rule and the four rows become decidable from the bytes"
+  },
+  {
+   "id": "riemann-120-checkpoint-table",
+   "class": "checkpoint",
+   "claim": "the reference column of the riemann_104 write-up's checkpoint table: riemann_120 reaches canonical root entry main.0 at step 89,775,610, and checkpoints 100, 116, 500 and 1,000 at 91,965,528; 92,295,002; 100,693,638; 111,294,346",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+    "quote": "`89,775,610`",
+    "quoted": true
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "the root entry is named by a register-machine state (main.0), not by a state of riemann_120, and \"checkpoint k\" is not defined in finite terms (the candidate column above); publish the state of riemann_120 that is the root and the selection rule, and the column becomes decidable — the stage verify.py says it checks and never runs"
+  },
+  {
+   "id": "riemann-120-no-halt-boot-length",
+   "class": "runtime",
+   "claim": "riemann_120 does not halt within 89,775,610 steps, the length the write-up prints for its bootstrap",
+   "source": {
+    "path": "baselines/tables/riemann_120.txt",
+    "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED",
+   "note": "ran in 13.3 s; the machine's state, head and nonzero count at that step: [27, -3818, 1912]"
+  },
+  {
+   "id": "riemann-95-readme-states",
+   "class": "count",
+   "claim": "the riemann_95 write-up's state count is the table's",
+   "source": {
+    "path": "artifacts/riemann_95/README.md",
+    "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+    "quote": "**95 states**",
+    "quoted": true
+   },
+   "expected": 95,
+   "computed": 95,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-95-init",
+   "class": "checkpoint",
+   "claim": "riemann_95's initializer: after 3,634 steps from the blank tape the machine is in state 15 with the head at -4 (the write-up's sentence, read from its text)",
+   "source": {
+    "path": "artifacts/riemann_95/README.md",
+    "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+    "quote": "The exact 3,634-step initializer reaches state 15 at head position -4",
+    "quoted": true
+   },
+   "expected": [
+    15,
+    -4
+   ],
+   "computed": [
+    15,
+    -4
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-95-init-tape",
+   "class": "checkpoint",
+   "claim": "after the initializer the nonzero cells are exactly −5 and 18, 20, …, 36 (one cell left of the head's start, then ten cells two apart)",
+   "source": {
+    "path": "artifacts/riemann_95/README.md",
+    "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86"
+   },
+   "expected": [
+    -5,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36
+   ],
+   "computed": [
+    -5,
+    18,
+    20,
+    22,
+    24,
+    26,
+    28,
+    30,
+    32,
+    34,
+    36
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "the write-up says \"padding 22, five zero active registers, and four zero extra registers\"; the cell list is the checker's statement of the same tape"
+  },
+  {
+   "id": "riemann-95-selector-unvisited",
+   "class": "checkpoint",
+   "claim": "during the initializer state 41 is never entered on a 1 (the selector stays unused)",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": 0,
+   "computed": 0,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "riemann-95-no-halt-250k",
+   "class": "runtime",
+   "claim": "riemann_95 does not halt within 250,000 steps",
+   "source": {
+    "path": "artifacts/riemann_95/machine.txt",
+    "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-no-halt-400k",
+   "class": "runtime",
+   "claim": "neither Goldbach machine halts within 400,000 steps",
+   "source": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   },
+   "expected": "no halt",
+   "computed": [
+    null,
+    null
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-lockstep",
+   "class": "checkpoint",
+   "claim": "the two Goldbach machines pass through the same stages n = 4, 6, 8, … in lockstep: at least 15 stage checkpoints each, the i-th carrying n = 2i + 4 on both",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461"
+   },
+   "expected": "2i + 4 on both",
+   "computed": {
+    "ref": [
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34
+    ],
+    "cand": [
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34
+    ]
+   },
+   "verdict": "CERTIFIED",
+   "reading": "a stage checkpoint is the producer checker's pattern: the checkpoint state with a unary block under the head and the stated neighbours"
+  },
+  {
+   "id": "goldbach-boot-steps",
+   "class": "checkpoint",
+   "claim": "goldbach_25 enters stage n = 4 after 49 steps and goldbach_21 after 125",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`125` vs. `49` bootstrap steps to enter `n = 4`",
+    "quoted": true
+   },
+   "expected": [
+    49,
+    125
+   ],
+   "computed": [
+    49,
+    125
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "goldbach-steps-through-40",
+   "class": "checkpoint",
+   "claim": "through the completion of n = 40, read as the entry into stage n = 42, goldbach_25 takes 170,966 steps and goldbach_21 339,411",
+   "source": {
+    "path": "artifacts/goldbach_21/README.md",
+    "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+    "quote": "`339,411` candidate steps vs. `170,966` reference steps through completion of `n = 40`",
+    "quoted": true
+   },
+   "expected": [
+    170966,
+    339411
+   ],
+   "computed": [
+    170966,
+    339411
+   ],
+   "verdict": "CERTIFIED",
+   "reading": "\"through completion of n = 40\" is read as the step at which the stage n = 42 checkpoint is entered"
+  },
+  {
+   "id": "no-halt-250k-goldbach",
+   "class": "runtime",
+   "claim": "goldbach does not halt within 250,000 steps from the blank tape",
+   "source": {
+    "path": "baselines/tables/goldbach_25.txt",
+    "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "no-halt-250k-goldbach_21",
+   "class": "runtime",
+   "claim": "goldbach_21 does not halt within 250,000 steps from the blank tape",
+   "source": {
+    "path": "artifacts/goldbach_21/machine.txt",
+    "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "no-halt-250k-zf",
+   "class": "runtime",
+   "claim": "zf does not halt within 250,000 steps from the blank tape",
+   "source": {
+    "path": "baselines/tables/zf_432.txt",
+    "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "no-halt-250k-riemann",
+   "class": "runtime",
+   "claim": "riemann does not halt within 250,000 steps from the blank tape",
+   "source": {
+    "path": "baselines/tables/riemann_744.txt",
+    "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "no-halt-250k-riemann_120",
+   "class": "runtime",
+   "claim": "riemann_120 does not halt within 250,000 steps from the blank tape",
+   "source": {
+    "path": "baselines/tables/riemann_120.txt",
+    "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   },
+   "expected": "no halt",
+   "computed": null,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "comparator-count-all",
+   "class": "count",
+   "claim": "comparator/all.json names 22 theorems",
+   "source": {
+    "path": "comparator/all.json",
+    "sha256": "ec1d056be5d1557bf1d5094ff9fd581592fc0ba2d33b1c6234cff258d04b303f"
+   },
+   "expected": 22,
+   "computed": 22,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "challenge-states-all",
+   "class": "statement-string",
+   "claim": "every theorem named in comparator/all.json is stated in Challenge.lean",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": "all stated",
+   "computed": "all stated",
+   "verdict": "CERTIFIED",
+   "reading": "a substring check, as the producer's checker does it; what the statement means is the kernel lane's"
+  },
+  {
+   "id": "comparator-count-constructive",
+   "class": "count",
+   "claim": "comparator/constructive.json names 10 theorems",
+   "source": {
+    "path": "comparator/constructive.json",
+    "sha256": "e3c9815ce40c2ddc066b0d8d4f7cf5add5ac4a3395e2d964d367c532fda050f2"
+   },
+   "expected": 10,
+   "computed": 10,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "challenge-states-constructive",
+   "class": "statement-string",
+   "claim": "every theorem named in comparator/constructive.json is stated in Challenge.lean",
+   "source": {
+    "path": "Challenge.lean",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c"
+   },
+   "expected": "all stated",
+   "computed": "all stated",
+   "verdict": "CERTIFIED",
+   "reading": "a substring check, as the producer's checker does it; what the statement means is the kernel lane's"
+  },
+  {
+   "id": "comparator-count-busy_beaver",
+   "class": "count",
+   "claim": "comparator/busy_beaver.json names 299 theorems",
+   "source": {
+    "path": "comparator/busy_beaver.json",
+    "sha256": "5e441a61de7251c3344f2905422405b2717511b8e77ebbb786cc724b0308549d"
+   },
+   "expected": 299,
+   "computed": 299,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "comparator-constructive-subset",
+   "class": "count",
+   "claim": "the constructive configuration's theorems are among the full configuration's",
+   "source": {
+    "path": "comparator/constructive.json",
+    "sha256": "e3c9815ce40c2ddc066b0d8d4f7cf5add5ac4a3395e2d964d367c532fda050f2"
+   },
+   "expected": "subset",
+   "computed": "subset",
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "comparator-constructive-axioms",
+   "class": "statement-string",
+   "claim": "the constructive configuration permits propext and Quot.sound only",
+   "source": {
+    "path": "comparator/constructive.json",
+    "sha256": "e3c9815ce40c2ddc066b0d8d4f7cf5add5ac4a3395e2d964d367c532fda050f2"
+   },
+   "expected": [
+    "propext",
+    "Quot.sound"
+   ],
+   "computed": [
+    "propext",
+    "Quot.sound"
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "holdouts-BB6",
+   "class": "count",
+   "claim": "the BB6 catalogue lists 53 holdout machines",
+   "source": {
+    "path": "BusyBeaver/BB6/README.md",
+    "sha256": "be287cd48dd1cc7303ab811d1552c7a06774d1cc5e38fa0dcf84a8862940f871"
+   },
+   "expected": 53,
+   "computed": 53,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "holdouts-BB33",
+   "class": "count",
+   "claim": "the BB33 catalogue lists 6 holdout machines",
+   "source": {
+    "path": "BusyBeaver/BB33/README.md",
+    "sha256": "967d6c1ec03777d085b97ebdbbc68d6bbd8e0298b06b887f972aa303c0b783ea"
+   },
+   "expected": 6,
+   "computed": 6,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "holdouts-theorems-machines",
+   "class": "count",
+   "claim": "the 299 BusyBeaver theorems range over 59 machines",
+   "source": {
+    "path": "comparator/busy_beaver.json",
+    "sha256": "5e441a61de7251c3344f2905422405b2717511b8e77ebbb786cc724b0308549d"
+   },
+   "expected": 59,
+   "computed": 59,
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "kernel-all-proofs",
+   "class": "kernel",
+   "claim": "all Lean 4 proofs are checked by the kernel without sorry and depend only on standard axioms",
+   "source": {
+    "path": "README.md",
+    "sha256": "f59f80f9f07a7744c1ac38430bfc8b22588948c7bfa82540fc5fd4ef53e6d9ba"
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+  },
+  {
+   "id": "kernel-equivalences",
+   "class": "kernel",
+   "claim": "each reduced machine halts from the blank tape if and only if its reference does, and each machine halts if and only if its conjecture is false",
+   "source": {
+    "path": "Cryptids/README.md",
+    "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0"
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+  },
+  {
+   "id": "kernel-holdouts",
+   "class": "kernel",
+   "claim": "the 59 holdout machines have the behavioural properties the catalogue lists",
+   "source": {
+    "path": "BusyBeaver/README.md",
+    "sha256": "81e0168c33e24a5672ae634d5382b08cadc45237e0112ae04f18e2f95d4f7c2a"
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+  },
+  {
+   "id": "riemann-104-register-values",
+   "class": "checkpoint",
+   "claim": "the register states [m, j, x, f, v] printed beside each checkpoint of the riemann_104 table",
+   "source": {
+    "path": "artifacts/riemann_104/README.md",
+    "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4"
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "the encoding of the five registers on the tape is not stated in finite terms in the write-up; the step counts are decided above, the register values are not"
+  },
+  {
+   "id": "verifypy-proof-hashes",
+   "class": "hash",
+   "claim": "verify.py records the sha256 of each proof file",
+   "source": {
+    "path": "verify.py",
+    "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262"
+   },
+   "expected": null,
+   "computed": null,
+   "verdict": "REFUSED",
+   "note": "recorded and compared to nothing: no pin exists for the proof files in verify.py or PROVENANCE.md, so there is no claim to decide; a plant in a proof file flips no word (recall plant 10)"
+  }
+ ]
+}

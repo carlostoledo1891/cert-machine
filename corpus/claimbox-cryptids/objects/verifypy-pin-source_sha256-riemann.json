@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-pin-source_sha256-riemann",
+ "text": "sha256 of baselines/sources/riemann_744_sorear.tm is de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+ "source": {
+  "what": "verify.py's pinned source_sha256 for riemann",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/sources/riemann_744_sorear.tm is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to de0084433909…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-pin-source_sha256-riemann",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

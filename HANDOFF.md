@@ -16,12 +16,47 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~10:00 UTC: THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~04:30 UTC: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ THE CRYPTIDS AUDIT, RUN TWICE — THE BENCHMARK OF THE PROCESS WITH AND WITHOUT CLAIMBOX (2026-10-23, ~00:30–04:30 UTC; the
+     operator: "Proceed. Can we benchmark the process using claimbox vs not using? To have more information to the paper? After that we
+     build not a new version but a variation of the paper considering claimbox so we can compare and present to Pedro?").
+     PRE-REGISTERED FIRST: notes/cryptids-benchmark-preregistration-2026-10-23.md (the target at google-deepmind/cryptids 664cd039, the two
+     arms, eight metrics M1–M8, twelve plants, the kill switch, the leak stated: arm H first, then arm C, same agent). THE LIFT:
+     LIFT-cryptids.json → corpus/cryptids (53 files; PROVENANCE-cryptids.json; make drift). ARM H (tools/run-cryptids.py, its own parsers
+     and simulator; tools/run-cryptids.js the second implementation, 0 disagreements quick and --full): certs/cryptids-audit.json, 152
+     claims — 143 CERTIFIED, 1 REFUTED, 8 REFUSED with the rule; recall 10/11 (certs/cryptids-recall-h.json), green control quiet. ARM C
+     (claimbox: the grammar's MACHINE FAMILY, readers/cryptids.py, translate's machine branch; here the receiver's decider for machines
+     instruments/claimbox/tm.py + tm.js; claimbox commit 219cc99, pushed): 129 jobs → 107 objects written, 22 refused by the grammar
+     with the rule, 106 admitted by check.py (1 refused: a digit-grouped decimal the receiver's printed-bar rule does not read); the
+     receiver 95 CERTIFIED / 2 REFUTED (certs/claimbox-cryptids-decisions.json, -js.json, 0 disagreements); recall 9/11 end to end
+     (tests/cryptids_recall.py in claimbox; the misses: the proof file no source pins, and a comparator theorem name the receiver has no
+     decider to count). THE COMPARISON: certs/cryptids-benchmark.json (tools/build-cryptids-benchmark.js, --check in make test): 128
+     paired claims, 124 agree, 4 differ (the digit-grouped decimal; three counts arm H decided and arm C refused for lack of a decider).
+     THE GAPS (both arms): the ZF write-up's "785 → 759 non-halting transitions" are the non-halting cells plus one while the riemann_104
+     write-up counts cells — one phrase, two conventions (REFUTED); the riemann_104 checkpoint table's "checkpoint k" is not defined in
+     finite terms — the printed candidate steps ARE root entries, the 179th, 210th, 879th and 1,721st, not the 100th, 116th, 500th and
+     1,000th (REFUSED with the threshold: publish the selection rule); verify.py never builds Lean and tests statements by substring; its
+     riemann_104 check says it runs riemann_120 and never does (run here: no halt within the printed 89,775,610 steps); the proof-file
+     digests it records and compares to nothing; the Goldbach message that says 92 cells where the code checks 42; the two ZF
+     checkpoints 39,753/64 and 39,773/99 used without explanation (both hold, twenty steps apart); the 250,000-step bound. THE KERNEL
+     LANE: .github/workflows/cryptids-kernel.yml — run 39889985974 CERTIFIED both configurations (constructive, 10 theorems with propext
+     and Quot.sound only; all, 22 theorems) under Lean's kernel AND nanoda (certs/cryptids-kernel.json; the first dispatch had set a
+     nanoda key comparator ignores — enable_nanoda is the key — and passed under Lean's kernel alone; recorded, then re-run). THE PAGE:
+     /reports/cryptids.html (tools/build-report-cryptids.js; the shelf card; the six certificate-shelf rows), leading with the gaps. THE
+     PAPER VARIANT: paper/tex/cert-machine-method.tex carries \ifdefined\ClaimboxOn blocks (R8 the claim as a checked object in the
+     protocol; a row in the coverage table; a level-2 line in the evidence table; the not-claimed guard against the autoformalization
+     reading; a new results subsection "The same audit under two protocols" with the eight-metric table), every number from
+     paper/tex/cryptids-benchmark-numbers.tex (tools/paper-numbers/cryptids-benchmark.js, 45 macros from the benchmark, the audit, the
+     decisions, claimbox's register coverage 97/132 and recall 56/56, the kernel record); paper/tex/cert-machine-method-claimbox.tex is
+     the two-line wrapper that defines the toggle and inputs the base — ONE SOURCE, two PDFs: paper/cert-machine-method.pdf (45 pp,
+     unchanged in content) and paper/cert-machine-method-claimbox.pdf (47 pp), for Pedro's comparison; the variant is NOT on the papers
+     index. NEXT (the operator's): read the variant beside the base and decide; one GitHub issue to google-deepmind/cryptids with the
+     gaps and the asks (drafted nowhere yet; GitHub only).
   ◆ THE UIRAPURU STORY — /uirapuru/, UNLISTED (2026-10-23, ~09:00–10:00 UTC; the operator: "duplicate the page and build a fun page
      with an analogy for what cert-machine does … a blue Uirapuru … cert-machine can call all Uirapurus … It not works for Toucans …
      be creative!! Its not need to pin math maybe. You decide"). BUILT as a sibling of the easy read in the house grammar: the same

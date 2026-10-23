@@ -1,0 +1,46 @@
+{
+ "id": "goldbach-boot-cand",
+ "text": "artifacts/goldbach_21/machine.txt (candidate) enters Goldbach stage n = 4 at step 125",
+ "source": {
+  "what": "the Goldbach write-up: the bootstrap",
+  "path": "corpus/cryptids/artifacts/goldbach_21/README.md",
+  "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+  "quote": "`125` vs. `49` bootstrap steps to enter `n = 4`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "stage_entry(M, candidate, n = 4) = 125",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a Goldbach stage checkpoint is the producer checker's pattern: the checkpoint state with a unary block under the head and the stated neighbours; the stage is the even number the blocks encode",
+ "hypotheses": [
+  "the checkpoint pattern is the one the producer's checker states"
+ ],
+ "falsifier": [
+  "the stage is entered at another step, or not within the window"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "goldbach-boot-cand",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

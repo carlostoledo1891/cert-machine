@@ -1,0 +1,46 @@
+{
+ "id": "derive-goldbach",
+ "text": "baselines/tables/goldbach_25.txt compiled from baselines/sources/goldbach_25_bbchallenge.txt (standard) has canonical sha256 da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+ "source": {
+  "what": "PROVENANCE.md's row for goldbach: the format column",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`standard`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the standard format; the decider compiles it under the convention the provenance file states: the start state is 0, the others follow the order of first appearance, a target naming no defined state is a halt"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(standard) canonical_sha256(M) = da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the table baselines/tables/goldbach_25.txt is claimed to be this source compiled; the object decides that the compilation hashes to the canonical digest the provenance prints",
+ "hypotheses": [
+  "the compilation convention is the one the provenance file states"
+ ],
+ "falsifier": [
+  "the compiled table hashes to something else"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-goldbach",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

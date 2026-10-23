@@ -1,0 +1,44 @@
+{
+ "id": "derive-undefined-riemann",
+ "text": "the undefined targets of baselines/sources/riemann_744_sorear.tm (nql) are among [\"halt\",\"H\",\"HALT\"]",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann: the convention makes an undefined target a halt; this job asks which names that absorbed",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`nql`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the nql format"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(nql) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the convention turns any undefined target into a halt; this object decides that the only such targets are the halting names",
+ "hypotheses": [],
+ "falsifier": [
+  "a transition targets a name that is neither defined nor a halting name — a typo the convention would silently turn into a halt"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-undefined-riemann",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

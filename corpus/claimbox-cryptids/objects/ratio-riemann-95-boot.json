@@ -1,0 +1,41 @@
+{
+ "id": "ratio-riemann-95-boot",
+ "text": "the ratio 9,037/3,634 is printed as 2.49x",
+ "source": {
+  "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker",
+  "path": "corpus/cryptids/Cryptids/README.md",
+  "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+  "quote": "`2.49x` faster initialization"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/Cryptids/README.md",
+   "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "no bytes are decoded: the two integers are the ones the write-up prints, written into the expression as literals"
+ },
+ "predicate": [
+  {
+   "g": [
+    "Divide",
+    "9037",
+    "3634"
+   ],
+   "rel": "in",
+   "printed": "2.49",
+   "c": [
+    "497/200",
+    "499/200"
+   ]
+  }
+ ],
+ "reference": "the printed 2.49x is read as the box its digits allow (half a unit of the last digit either way); the quantity is 9037/3634; the two integers are decided by their own objects",
+ "hypotheses": [],
+ "falsifier": [
+  "the exact quotient lies outside the printed box"
+ ]
+}

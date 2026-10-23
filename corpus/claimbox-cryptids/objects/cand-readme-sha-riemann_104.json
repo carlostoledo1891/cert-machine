@@ -1,0 +1,44 @@
+{
+ "id": "cand-readme-sha-riemann_104",
+ "text": "canonical sha256 of artifacts/riemann_104/machine.txt is ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+ "source": {
+  "what": "the write-up of riemann_104: the digest it prints for machine.txt (the canonical machine, the reading verify.py pins)",
+  "path": "corpus/cryptids/artifacts/riemann_104/README.md",
+  "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+  "quote": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "canonical_sha256(M) = ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for artifacts/riemann_104/machine.txt is of the canonical text of the table (the reading verify.py pins)",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to ac0c7e8a7667…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cand-readme-sha-riemann_104",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

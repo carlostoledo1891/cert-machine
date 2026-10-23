@@ -1,0 +1,368 @@
+{
+ "what": "metric M4 of the cryptids benchmark for arm C: twelve pre-registered plants in copies of cert-machine's lifted corpus; the reader, the translator, cert-machine's decider for machines and its checker run on each copy; the words compared with the unplanted run; plant 12 is the green control",
+ "preregistration": "notes/cryptids-benchmark-preregistration-2026-10-23.md (cert-machine)",
+ "generated": "2026-10-23T02:29:33Z",
+ "seconds": 317.1,
+ "plants": 12,
+ "caught": 9,
+ "of": 11,
+ "green_control_quiet": true,
+ "baseline": {
+  "core-transitions-goldbach": "refused:ambiguous",
+  "riemann-104-checkpoint-100": "refused:ambiguous",
+  "riemann-104-checkpoint-116": "refused:ambiguous",
+  "riemann-104-checkpoint-500": "refused:ambiguous",
+  "riemann-104-checkpoint-1000": "refused:ambiguous",
+  "riemann-120-checkpoint-0": "refused:ambiguous",
+  "riemann-120-checkpoint-100": "refused:ambiguous",
+  "riemann-120-checkpoint-116": "refused:ambiguous",
+  "riemann-120-checkpoint-500": "refused:ambiguous",
+  "riemann-120-checkpoint-1000": "refused:ambiguous",
+  "theorem-goldbach_21": "refused:unbounded",
+  "theorem-zf_380": "refused:unbounded",
+  "theorem-zf_393": "refused:unbounded",
+  "theorem-zf_432": "refused:unbounded",
+  "theorem-riemann_95": "refused:unbounded",
+  "theorem-riemann_104": "refused:unbounded",
+  "theorem-riemann_120": "refused:unbounded",
+  "theorem-riemann_744": "refused:unbounded",
+  "kernel-all-proofs": "refused:unbounded",
+  "comparator-count-all": "refused:decider",
+  "holdouts-BB6": "refused:decider",
+  "holdouts-BB33": "refused:decider",
+  "prov-src-sha-goldbach": "ADMITTED CERTIFIED",
+  "prov-table-sha-goldbach": "ADMITTED CERTIFIED",
+  "prov-machine-sha-goldbach": "ADMITTED CERTIFIED",
+  "prov-states-goldbach": "ADMITTED CERTIFIED",
+  "derive-goldbach": "ADMITTED CERTIFIED",
+  "prov-src-sha-zf": "ADMITTED CERTIFIED",
+  "prov-table-sha-zf": "ADMITTED CERTIFIED",
+  "prov-machine-sha-zf": "ADMITTED CERTIFIED",
+  "prov-states-zf": "ADMITTED CERTIFIED",
+  "derive-zf": "ADMITTED CERTIFIED",
+  "derive-undefined-zf": "ADMITTED CERTIFIED",
+  "prov-src-sha-riemann": "ADMITTED CERTIFIED",
+  "prov-table-sha-riemann": "ADMITTED CERTIFIED",
+  "prov-machine-sha-riemann": "ADMITTED CERTIFIED",
+  "prov-states-riemann": "ADMITTED CERTIFIED",
+  "derive-riemann": "ADMITTED CERTIFIED",
+  "derive-undefined-riemann": "ADMITTED CERTIFIED",
+  "prov-src-sha-zf_393": "ADMITTED CERTIFIED",
+  "prov-table-sha-zf_393": "ADMITTED CERTIFIED",
+  "prov-machine-sha-zf_393": "ADMITTED CERTIFIED",
+  "prov-states-zf_393": "ADMITTED CERTIFIED",
+  "derive-zf_393": "ADMITTED CERTIFIED",
+  "derive-undefined-zf_393": "ADMITTED CERTIFIED",
+  "prov-src-sha-riemann_120": "ADMITTED CERTIFIED",
+  "prov-table-sha-riemann_120": "ADMITTED CERTIFIED",
+  "prov-machine-sha-riemann_120": "ADMITTED CERTIFIED",
+  "prov-states-riemann_120": "ADMITTED CERTIFIED",
+  "derive-riemann_120": "ADMITTED CERTIFIED",
+  "derive-undefined-riemann_120": "ADMITTED CERTIFIED",
+  "verifypy-pin-source_sha256-goldbach": "ADMITTED CERTIFIED",
+  "verifypy-pin-table_file_sha256-goldbach": "ADMITTED CERTIFIED",
+  "verifypy-pin-canonical_machine_sha256-goldbach": "ADMITTED CERTIFIED",
+  "verifypy-pin-source_sha256-zf": "ADMITTED CERTIFIED",
+  "verifypy-pin-table_file_sha256-zf": "ADMITTED CERTIFIED",
+  "verifypy-pin-canonical_machine_sha256-zf": "ADMITTED CERTIFIED",
+  "verifypy-pin-source_sha256-riemann": "ADMITTED CERTIFIED",
+  "verifypy-pin-table_file_sha256-riemann": "ADMITTED CERTIFIED",
+  "verifypy-pin-canonical_machine_sha256-riemann": "ADMITTED CERTIFIED",
+  "verifypy-pin-source_sha256-zf_393": "ADMITTED CERTIFIED",
+  "verifypy-pin-table_file_sha256-zf_393": "ADMITTED CERTIFIED",
+  "verifypy-pin-canonical_machine_sha256-zf_393": "ADMITTED CERTIFIED",
+  "verifypy-pin-source_sha256-riemann_120": "ADMITTED CERTIFIED",
+  "verifypy-pin-table_file_sha256-riemann_120": "ADMITTED CERTIFIED",
+  "verifypy-pin-canonical_machine_sha256-riemann_120": "ADMITTED CERTIFIED",
+  "verifypy-cand-sha-goldbach_21": "ADMITTED CERTIFIED",
+  "verifypy-cand-states-goldbach_21": "ADMITTED CERTIFIED",
+  "cand-states-goldbach_21": "ADMITTED CERTIFIED",
+  "cand-readme-sha-goldbach_21": "ADMITTED CERTIFIED",
+  "fewer-states-goldbach_21": "ADMITTED CERTIFIED",
+  "verifypy-cand-sha-zf_380": "ADMITTED CERTIFIED",
+  "verifypy-cand-states-zf_380": "ADMITTED CERTIFIED",
+  "cand-readme-sha-zf_380": "ADMITTED CERTIFIED",
+  "fewer-states-zf_380": "ADMITTED CERTIFIED",
+  "verifypy-cand-sha-riemann_104": "ADMITTED CERTIFIED",
+  "verifypy-cand-states-riemann_104": "ADMITTED CERTIFIED",
+  "cand-readme-sha-riemann_104": "ADMITTED CERTIFIED",
+  "fewer-states-riemann_104": "ADMITTED CERTIFIED",
+  "verifypy-cand-sha-riemann_95": "ADMITTED CERTIFIED",
+  "verifypy-cand-states-riemann_95": "ADMITTED CERTIFIED",
+  "verifypy-cand-file-sha-riemann_95": "ADMITTED CERTIFIED",
+  "cand-states-riemann_95": "ADMITTED CERTIFIED",
+  "fewer-states-riemann_95": "ADMITTED CERTIFIED",
+  "cells-goldbach-25": "ADMITTED CERTIFIED",
+  "cells-goldbach-21": "ADMITTED CERTIFIED",
+  "cells-zf-393": "ADMITTED REFUTED",
+  "cells-zf-380": "ADMITTED REFUTED",
+  "cells-riemann-120": "ADMITTED CERTIFIED",
+  "cells-riemann-104": "ADMITTED CERTIFIED",
+  "cells-riemann-95": "ADMITTED CERTIFIED",
+  "halting-riemann-95": "ADMITTED CERTIFIED",
+  "zf-393-boot-state": "ADMITTED CERTIFIED",
+  "zf-380-boot-state": "ADMITTED CERTIFIED",
+  "zf-boot-tapes-equal": "ADMITTED CERTIFIED",
+  "zf-post-boot-checkpoints": "ADMITTED CERTIFIED",
+  "zf-393-39773-state-99": "ADMITTED CERTIFIED",
+  "zf-overhead-1m": "ADMITTED CERTIFIED",
+  "zf-overhead-10m": "ADMITTED CERTIFIED",
+  "riemann-104-boot": "ADMITTED CERTIFIED",
+  "riemann-104-root-dispatches": "ADMITTED CERTIFIED",
+  "riemann-104-table-steps-are-root-entries": "ADMITTED CERTIFIED",
+  "riemann-95-init": "ADMITTED CERTIFIED",
+  "riemann-95-init-tape": "ADMITTED CERTIFIED",
+  "riemann-120-no-halt-boot-length": "ADMITTED CERTIFIED",
+  "goldbach-boot-cand": "ADMITTED CERTIFIED",
+  "goldbach-boot-ref": "ADMITTED CERTIFIED",
+  "goldbach-through-40-cand": "ADMITTED CERTIFIED",
+  "goldbach-through-40-ref": "ADMITTED CERTIFIED",
+  "goldbach-embed": "ADMITTED CERTIFIED",
+  "no-halt-250k-goldbach": "ADMITTED CERTIFIED",
+  "no-halt-250k-goldbach_21": "ADMITTED CERTIFIED",
+  "no-halt-250k-zf": "ADMITTED CERTIFIED",
+  "no-halt-250k-zf_393": "ADMITTED CERTIFIED",
+  "no-halt-250k-zf_380": "ADMITTED CERTIFIED",
+  "no-halt-250k-riemann": "ADMITTED CERTIFIED",
+  "no-halt-250k-riemann_120": "ADMITTED CERTIFIED",
+  "no-halt-250k-riemann_104": "ADMITTED CERTIFIED",
+  "no-halt-250k-riemann_95": "ADMITTED CERTIFIED",
+  "ratio-riemann-104-boot": "REFUSED from-object",
+  "ratio-riemann-95-boot": "ADMITTED from-object",
+  "ratio-goldbach-steps": "ADMITTED from-object",
+  "ratio-zf-1m": "ADMITTED from-object",
+  "ratio-zf-10m": "ADMITTED from-object",
+  "pct-riemann-104": "ADMITTED from-object",
+  "pct-riemann-104-tr": "ADMITTED from-object",
+  "pct-zf-380": "ADMITTED from-object",
+  "pct-zf-1m": "ADMITTED from-object",
+  "pct-zf-10m": "ADMITTED from-object"
+ },
+ "results": [
+  {
+   "plant": "01-cell-edited",
+   "file": "artifacts/zf_380/machine.txt",
+   "changed": [
+    {
+     "row": "cand-readme-sha-zf_380",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "verifypy-cand-sha-zf_380",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "zf-380-boot-state",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "zf-boot-tapes-equal",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "zf-overhead-10m",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "zf-overhead-1m",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "zf-post-boot-checkpoints",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "02-source-byte",
+   "file": "baselines/sources/riemann_120_shunia.tm",
+   "changed": [
+    {
+     "row": "derive-riemann_120",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "prov-src-sha-riemann_120",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "verifypy-pin-source_sha256-riemann_120",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "03-readme-states",
+   "file": "artifacts/riemann_95/README.md",
+   "changed": [
+    {
+     "row": "cand-states-riemann_95",
+     "from": "ADMITTED CERTIFIED",
+     "to": null
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "04-readme-steps",
+   "file": "artifacts/riemann_95/README.md",
+   "changed": [
+    {
+     "row": "riemann-95-init",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "05-readme-checkpoint-state",
+   "file": "artifacts/riemann_95/README.md",
+   "changed": [
+    {
+     "row": "riemann-95-init",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "06-provenance-sha",
+   "file": "baselines/PROVENANCE.md",
+   "changed": [
+    {
+     "row": "prov-src-sha-goldbach",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "07-embed-entry",
+   "file": "artifacts/goldbach_21/README.md",
+   "changed": [
+    {
+     "row": "goldbach-embed",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "08-halt-moved",
+   "file": "artifacts/riemann_95/machine.txt",
+   "changed": [
+    {
+     "row": "halting-riemann-95",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "no-halt-250k-riemann_95",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "verifypy-cand-file-sha-riemann_95",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "verifypy-cand-sha-riemann_95",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "09-rows-swapped",
+   "file": "artifacts/riemann_104/machine.txt",
+   "changed": [
+    {
+     "row": "cand-readme-sha-riemann_104",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "riemann-104-boot",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "riemann-104-root-dispatches",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "riemann-104-table-steps-are-root-entries",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    },
+    {
+     "row": "verifypy-cand-sha-riemann_104",
+     "from": "ADMITTED CERTIFIED",
+     "to": "ADMITTED REFUTED"
+    }
+   ],
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "10-proof-file",
+   "file": "Cryptids/Zf380.lean",
+   "changed": [],
+   "caught": false,
+   "expected": "a change",
+   "ok": false
+  },
+  {
+   "plant": "11-theorem-removed",
+   "file": "comparator/all.json",
+   "changed": [],
+   "caught": false,
+   "expected": "a change",
+   "ok": false
+  },
+  {
+   "plant": "12-comment-added",
+   "file": "artifacts/goldbach_21/machine.txt",
+   "changed": [],
+   "caught": false,
+   "expected": "no change",
+   "ok": true
+  }
+ ]
+}

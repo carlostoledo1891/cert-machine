@@ -99,9 +99,9 @@ function decideNamed(name, bytes, text) {
   if ((m = /^halting_cells\(M\) = (\[.*\])$/.exec(name))) { const got = []; rows.forEach((r, q) => r.forEach((c, s) => { if (c === null) got.push([q, s]); })); return [JSON.stringify(got) === JSON.stringify(JSON.parse(m[1])), got, null]; }
   if ((m = /^derived\((standard|tursi|nql)\) canonical_sha256\(M\) = ([0-9a-f]{64})$/.exec(name))) { const got = sha(compileSource(text, m[1]).canon); return [got === m[2], got, null]; }
   if ((m = /^derived\((standard|tursi|nql)\) undefined_targets\(M\) ⊆ (\[.*\])$/.exec(name))) { const und = compileSource(text, m[1]).undefined; const allowed = JSON.parse(m[2]); const bad = und.filter((u) => !allowed.includes(u)); return [bad.length === 0, und, bad.length ? bad : null]; }
-  if ((m = /^after\(M, (\d+)\) = state (\d+), head (-?\d+)(?:, nonzero (\d+))?$/.exec(name))) {
+  if ((m = /^after\(M, (\d+)\) = state (\d+)(?:, head (-?\d+))?(?:, nonzero (\d+))?$/.exec(name))) {
     const fin = simulate(rows, Number(m[1])); if (fin.halted_at !== null) return [false, { halted_at: fin.halted_at }, 'halted'];
-    const got = [fin.state, fin.head].concat(m[4] ? [fin.ones.size] : []); const want = [Number(m[2]), Number(m[3])].concat(m[4] ? [Number(m[4])] : []);
+    const got = [fin.state].concat(m[3] ? [fin.head] : []).concat(m[4] ? [fin.ones.size] : []); const want = [Number(m[2])].concat(m[3] ? [Number(m[3])] : []).concat(m[4] ? [Number(m[4])] : []);
     return [JSON.stringify(got) === JSON.stringify(want), got, null];
   }
   if ((m = /^after\(M, (\d+)\) ones = (\[.*\])$/.exec(name))) { const got = sortedOnes(simulate(rows, Number(m[1])).ones); return [JSON.stringify(got) === JSON.stringify(JSON.parse(m[2])), got, null]; }
@@ -153,7 +153,7 @@ if (!A.includes('--decide') || !A.includes('--record')) { console.log('usage: tm
 const out = A[A.indexOf('--record') + 1]; const paths = A.filter((a) => a.endsWith('.json') && a !== out);
 const rows = []; const t0 = Date.now();
 for (const p of paths) {
-  const o = JSON.parse(fs.readFileSync(p, 'utf8')); const t1 = Date.now(); let r;
+  const o = JSON.parse(fs.readFileSync(p, 'utf8')); if (!(o.predicate || []).some((pr) => pr.g && typeof pr.g === 'object' && pr.g.where === 'instruments/claimbox/tm.py')) continue; const t1 = Date.now(); let r;
   try { r = decideObject(o); } catch (e) { if (!(e instanceof Refuse)) throw e; r = { id: o.id, claim: o.text, verdict: 'REFUSED', rule: e.message }; }
   r.ms = Date.now() - t1; rows.push(r); console.log('  ' + r.verdict.padEnd(9) + ' ' + r.id + (r.verdict === 'REFUSED' ? '  ' + r.rule : ''));
 }

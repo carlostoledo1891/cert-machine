@@ -1,0 +1,766 @@
+{
+ "what": "The cryptids audit run twice: arm H by hand (one lane for the source) and arm C through claimbox (a reader, the grammar, cert-machine's receiver), compared on the eight pre-registered metrics. Written from the two arms' records by tools/build-cryptids-benchmark.js; --check refuses when it would differ.",
+ "preregistration": "notes/cryptids-benchmark-preregistration-2026-10-23.md",
+ "target": {
+  "repository": "github.com/google-deepmind/cryptids",
+  "commit": "664cd03904a870e9a8796476dbf9dbc13a72a37b",
+  "lift": "LIFT-cryptids.json",
+  "provenance": "PROVENANCE-cryptids.json"
+ },
+ "order": "arm H first, then arm C, by the same agent; what arm H learned about the source was available to arm C (stated in the pre-registration)",
+ "M1": {
+  "H": {
+   "rows": 152,
+   "words": {
+    "CERTIFIED": 143,
+    "REFUSED": 8,
+    "REFUTED": 1
+   },
+   "byClass": {
+    "count": {
+     "CERTIFIED": 27,
+     "REFUSED": 1,
+     "REFUTED": 1
+    },
+    "hash": {
+     "CERTIFIED": 38,
+     "REFUSED": 1
+    },
+    "derivation": {
+     "CERTIFIED": 13
+    },
+    "lean-def": {
+     "CERTIFIED": 18
+    },
+    "structural": {
+     "CERTIFIED": 4
+    },
+    "arithmetic": {
+     "CERTIFIED": 12
+    },
+    "checkpoint": {
+     "CERTIFIED": 18,
+     "REFUSED": 3
+    },
+    "runtime": {
+     "CERTIFIED": 10
+    },
+    "statement-string": {
+     "CERTIFIED": 3
+    },
+    "kernel": {
+     "REFUSED": 3
+    }
+   }
+  },
+  "C": {
+   "jobs": 129,
+   "written": 107,
+   "refusedByGrammar": 22,
+   "admittedByChecker": 106,
+   "refusedByChecker": [
+    {
+     "id": "ratio-riemann-104-boot",
+     "line": "REFUSED   ratio-riemann-104-boot  schema: predicate[0] (printed) must be the digits as printed, e.g. \"1.4630715826075594\""
+    }
+   ],
+   "decidedByReceiver": {
+    "CERTIFIED": 95,
+    "REFUTED": 2
+   },
+   "byKind": {
+    "canonical_sha256": {
+     "CERTIFIED": 17
+    },
+    "states": {
+     "CERTIFIED": 15
+    },
+    "nonhalting_cells": {
+     "CERTIFIED": 5,
+     "REFUTED": 2
+    },
+    "derived": {
+     "CERTIFIED": 9
+    },
+    "stage_entry": {
+     "CERTIFIED": 4
+    },
+    "embeds_into": {
+     "CERTIFIED": 1
+    },
+    "halting_cells": {
+     "CERTIFIED": 1
+    },
+    "no_halt": {
+     "CERTIFIED": 10
+    },
+    "arithmetic": {
+     "CERTIFIED": 9,
+     "REFUSED": 1
+    },
+    "sha256": {
+     "CERTIFIED": 21
+    },
+    "after": {
+     "CERTIFIED": 5
+    },
+    "entries": {
+     "CERTIFIED": 3
+    },
+    "same_tape_and_head": {
+     "CERTIFIED": 3
+    },
+    "same_tape_and_head_at_entries": {
+     "CERTIFIED": 1
+    }
+   },
+   "grammarRefusals": {
+    "ambiguous": 10,
+    "unbounded": 9,
+    "decider": 3
+   }
+  }
+ },
+ "M2": {
+  "H": {
+   "rowsWithQuote": 53,
+   "quotedVerbatim": 53,
+   "rowsWithFileDigest": 152,
+   "of": 152
+  },
+  "C": {
+   "objectsWithQuote": 107,
+   "objectsWithPinAndSourceDigest": 107,
+   "of": 107,
+   "note": "every object carries a quote found byte for byte in its source and the digest of the bytes it is about: the format refuses otherwise"
+  }
+ },
+ "M3": {
+  "H": [
+   {
+    "id": "core-transitions-goldbach",
+    "rule": "no definition of \"core\" is printed; the table has 49 and 41 non-halting cells; the claim is not decidable from the bytes until \"core\" is defined"
+   },
+   {
+    "id": "riemann-104-checkpoint-k",
+    "rule": "the event \"checkpoint k\" is not defined in finite terms: the printed steps are root entries, but the 179th, 210th, 879th and 1,721st, not the 100th, 116th, 500th and 1,000th; which root entries count as instruction checkpoints is the register machine's abstraction and is not printed. Publish the selection rule and the four rows become decidable from the bytes"
+   },
+   {
+    "id": "riemann-120-checkpoint-table",
+    "rule": "the root entry is named by a register-machine state (main.0), not by a state of riemann_120, and \"checkpoint k\" is not defined in finite terms (the candidate column above); publish the state of riemann_120 that is the root and the selection rule, and the column becomes decidable — the stage verify.py says it checks and never runs"
+   },
+   {
+    "id": "kernel-all-proofs",
+    "rule": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+   },
+   {
+    "id": "kernel-equivalences",
+    "rule": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+   },
+   {
+    "id": "kernel-holdouts",
+    "rule": "a theorem, not a finite claim: the Lean kernel is the authority; the kernel lane re-checks the build and the axioms as stated (a concordance), this lane does not"
+   },
+   {
+    "id": "riemann-104-register-values",
+    "rule": "the encoding of the five registers on the tape is not stated in finite terms in the write-up; the step counts are decided above, the register values are not"
+   },
+   {
+    "id": "verifypy-proof-hashes",
+    "rule": "recorded and compared to nothing: no pin exists for the proof files in verify.py or PROVENANCE.md, so there is no claim to decide; a plant in a proof file flips no word (recall plant 10)"
+   }
+  ],
+  "C": {
+   "byGrammar": [
+    {
+     "id": "core-transitions-goldbach",
+     "rule": "ambiguous: the write-up prints no definition of a \"core\" transition; the table has its non-halting cells, which is another count"
+    },
+    {
+     "id": "riemann-104-checkpoint-100",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-104-checkpoint-116",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-104-checkpoint-500",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-104-checkpoint-1000",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-120-checkpoint-0",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-120-checkpoint-100",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-120-checkpoint-116",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-120-checkpoint-500",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "riemann-120-checkpoint-1000",
+     "rule": "ambiguous: the event \"checkpoint k\" is not defined in finite terms by the write-up (the register machine's abstraction): no decider until th"
+    },
+    {
+     "id": "theorem-goldbach_21",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-zf_380",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-zf_393",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-zf_432",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-riemann_95",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-riemann_104",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-riemann_120",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "theorem-riemann_744",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "kernel-all-proofs",
+     "rule": "unbounded: a halting equivalence or a kernel-checked theorem is a statement about every step: the Lean kernel is the authority, no finite bo"
+    },
+    {
+     "id": "comparator-count-all",
+     "rule": "decider: a count of rows in a markdown table or names in a JSON file: the receiver has no decider for it"
+    },
+    {
+     "id": "holdouts-BB6",
+     "rule": "decider: a count of rows in a markdown table or names in a JSON file: the receiver has no decider for it"
+    },
+    {
+     "id": "holdouts-BB33",
+     "rule": "decider: a count of rows in a markdown table or names in a JSON file: the receiver has no decider for it"
+    }
+   ],
+   "byChecker": [
+    {
+     "id": "ratio-riemann-104-boot",
+     "line": "REFUSED   ratio-riemann-104-boot  schema: predicate[0] (printed) must be the digits as printed, e.g. \"1.4630715826075594\""
+    }
+   ]
+  }
+ },
+ "M4": {
+  "H": {
+   "caught": 10,
+   "of": 11,
+   "greenControlQuiet": true,
+   "misses": [
+    "10-proof-file"
+   ]
+  },
+  "C": {
+   "caught": 9,
+   "of": 11,
+   "greenControlQuiet": true,
+   "misses": [
+    "10-proof-file",
+    "11-theorem-removed"
+   ]
+  }
+ },
+ "M5": {
+  "pairs": 128,
+  "agree": 124,
+  "disagree": [
+   {
+    "h": "ratio-riemann-104-boot",
+    "c": "ratio-riemann-104-boot",
+    "hWord": "CERTIFIED",
+    "cWord": "REFUSED"
+   },
+   {
+    "h": "comparator-count-all",
+    "c": "comparator-count-all",
+    "hWord": "CERTIFIED",
+    "cWord": "REFUSED"
+   },
+   {
+    "h": "holdouts-BB6",
+    "c": "holdouts-BB6",
+    "hWord": "CERTIFIED",
+    "cWord": "REFUSED"
+   },
+   {
+    "h": "holdouts-BB33",
+    "c": "holdouts-BB33",
+    "hWord": "CERTIFIED",
+    "cWord": "REFUSED"
+   }
+  ],
+  "hOnly": [
+   {
+    "id": "prov-table",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "derive-names-zf",
+    "word": "CERTIFIED",
+    "class": "derivation"
+   },
+   {
+    "id": "derive-names-riemann",
+    "word": "CERTIFIED",
+    "class": "derivation"
+   },
+   {
+    "id": "derive-names-zf_393",
+    "word": "CERTIFIED",
+    "class": "derivation"
+   },
+   {
+    "id": "derive-names-riemann_120",
+    "word": "CERTIFIED",
+    "class": "derivation"
+   },
+   {
+    "id": "cand-readme-ref-sha-goldbach_21",
+    "word": "CERTIFIED",
+    "class": "hash"
+   },
+   {
+    "id": "lean-loads-goldbach-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf_393-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_120-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-goldbach_21-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf_380-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_104-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_95-Machines.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-goldbach-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf_393-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_120-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-goldbach_21-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-zf_380-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_104-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "lean-loads-riemann_95-Challenge.lean",
+    "word": "CERTIFIED",
+    "class": "lean-def"
+   },
+   {
+    "id": "goldbach-edited-rows",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "goldbach-embed-map-printed",
+    "word": "CERTIFIED",
+    "class": "structural"
+   },
+   {
+    "id": "goldbach-embed-injective",
+    "word": "CERTIFIED",
+    "class": "structural"
+   },
+   {
+    "id": "goldbach-eliminated-states",
+    "word": "CERTIFIED",
+    "class": "structural"
+   },
+   {
+    "id": "ratio-riemann-104-total",
+    "word": "CERTIFIED",
+    "class": "arithmetic"
+   },
+   {
+    "id": "zf-bounce-sum",
+    "word": "CERTIFIED",
+    "class": "arithmetic"
+   },
+   {
+    "id": "zf-overhead-starts-after-boot",
+    "word": "CERTIFIED",
+    "class": "checkpoint"
+   },
+   {
+    "id": "zf-39773-is-not-state-64",
+    "word": "CERTIFIED",
+    "class": "checkpoint"
+   },
+   {
+    "id": "riemann-95-readme-states",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "riemann-95-selector-unvisited",
+    "word": "CERTIFIED",
+    "class": "checkpoint"
+   },
+   {
+    "id": "goldbach-no-halt-400k",
+    "word": "CERTIFIED",
+    "class": "runtime"
+   },
+   {
+    "id": "goldbach-lockstep",
+    "word": "CERTIFIED",
+    "class": "checkpoint"
+   },
+   {
+    "id": "challenge-states-all",
+    "word": "CERTIFIED",
+    "class": "statement-string"
+   },
+   {
+    "id": "comparator-count-constructive",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "challenge-states-constructive",
+    "word": "CERTIFIED",
+    "class": "statement-string"
+   },
+   {
+    "id": "comparator-count-busy_beaver",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "comparator-constructive-subset",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "comparator-constructive-axioms",
+    "word": "CERTIFIED",
+    "class": "statement-string"
+   },
+   {
+    "id": "holdouts-theorems-machines",
+    "word": "CERTIFIED",
+    "class": "count"
+   },
+   {
+    "id": "kernel-holdouts",
+    "word": "REFUSED",
+    "class": "kernel"
+   },
+   {
+    "id": "riemann-104-register-values",
+    "word": "REFUSED",
+    "class": "checkpoint"
+   },
+   {
+    "id": "verifypy-proof-hashes",
+    "word": "REFUSED",
+    "class": "hash"
+   }
+  ],
+  "cOnly": [
+   {
+    "id": "verifypy-cand-file-sha-riemann_95",
+    "word": "CERTIFIED"
+   }
+  ],
+  "note": "a pair is the same claim under its two names; H-only rows are claims arm H stated and arm C has no object for (its own measurements, the statement-string checks, the counts the receiver has no decider for); C-only are the receiver's per-file digests from verify.py"
+ },
+ "M6": {
+  "H": {
+   "seconds": 18.3,
+   "lines": {
+    "tools/run-cryptids.py": 681,
+    "tools/run-cryptids.js (second implementation)": 172,
+    "tools/run-cryptids-recall.py": 127
+   },
+   "reused": "nothing: one lane for one source"
+  },
+  "C": {
+   "secondsDecide": 17.8,
+   "secondsBatch": 0,
+   "lines": {
+    "instruments/claimbox/tm.py (the receiver's decider, reused by every machine claim)": 425,
+    "instruments/claimbox/tm.js (second implementation)": 164
+   },
+   "claimboxLines": "the reader (claimbox/readers/cryptids.py), the machine family in grammar.py and translate.py: counted in claimbox's record",
+   "reused": "the object format, check.py and check.js (shared with every object the receiver has ever admitted), the batch and record machinery, the lift"
+  }
+ },
+ "M7": {
+  "H": {
+   "trust": [
+    "tools/run-cryptids.py: the parsers, the simulator, every claim's prose and its expected value (one file, this author)",
+    "tools/run-cryptids.js: the same computations again, same author, held to the record by the battery"
+   ],
+   "checkerSharingNoCode": "none: the record is a JSON the lane wrote; nothing outside the lane and its twin checks it"
+  },
+  "C": {
+   "trust": [
+    "claimbox/readers/cryptids.py: which sentences were read and quoted",
+    "claimbox/grammar.py and translate.py (the machine family): what each sentence means as a predicate",
+    "instruments/claimbox/tm.py: the decider for machines (tm.js its twin)",
+    "instruments/claimbox/check.py and check.js: the object format's checkers, which admit or refuse every object"
+   ],
+   "checkerSharingNoCode": "check.py (and check.js) accept or refuse each object: the quote in the source, the pins, the record's row and word, the arithmetic decided from the object; they share no code with the reader"
+  }
+ },
+ "M8": [
+  {
+   "gap": "verify.py never builds Lean and checks theorem statements by substring",
+   "status": "confirmed by reading; the kernel lane decides the build and the axioms (certs/cryptids-kernel.json)",
+   "rows": [
+    "challenge-states-all",
+    "challenge-states-constructive"
+   ],
+   "words": [
+    "CERTIFIED",
+    "CERTIFIED"
+   ]
+  },
+  {
+   "gap": "the riemann_104 check never runs riemann_120 although its docstring says it does",
+   "status": "confirmed by reading; the stage run here: riemann_120 does not halt within its printed 89,775,610-step bootstrap, and the write-up's reference column is REFUSED because the root event is not stated in finite terms",
+   "rows": [
+    "riemann-120-no-halt-boot-length",
+    "riemann-120-checkpoint-table"
+   ],
+   "words": [
+    "CERTIFIED",
+    "REFUSED"
+   ]
+  },
+  {
+   "gap": "the proof files' sha256s are recorded and compared to nothing",
+   "status": "confirmed: no pin exists; the recall plant in a proof file flips no word in either arm",
+   "rows": [
+    "verifypy-proof-hashes"
+   ],
+   "words": [
+    "REFUSED"
+   ]
+  },
+  {
+   "gap": "the Goldbach message says 92 cells checked where the code checks 42",
+   "status": "confirmed by reading verify.py (verify_goldbach_proof_tables: the message counts candidate and edited cells, the loop runs over the 42 candidate cells); both arms check the 42 under the write-up's map",
+   "rows": [
+    "goldbach-embed"
+   ],
+   "words": [
+    "CERTIFIED"
+   ]
+  },
+  {
+   "gap": "two ZF boot checkpoints (39,753 / state 64 and 39,773 / state 99) are used without explanation",
+   "status": "measured: both hold; step 39,773 is not an entry into state 64, so the two are different events twenty steps apart",
+   "rows": [
+    "zf-393-39773-state-99",
+    "zf-39773-is-not-state-64"
+   ],
+   "words": [
+    "CERTIFIED",
+    "CERTIFIED"
+   ]
+  },
+  {
+   "gap": "the simulations stop at 250,000 steps",
+   "status": "confirmed; the ten-million-step correspondence and the 89,775,610-step run were done here",
+   "rows": [
+    "zf-overhead-10m",
+    "riemann-120-no-halt-boot-length"
+   ],
+   "words": [
+    "CERTIFIED",
+    "CERTIFIED"
+   ]
+  },
+  {
+   "gap": "the ZF write-up's \"785 → 759 non-halting transitions\" and the riemann_104 write-up's \"238 → 207\" count by two conventions",
+   "status": "found by both arms: the ZF numbers are the non-halting cells plus one (the explicit halt line is counted), the Riemann numbers are the non-halting cells",
+   "rows": [
+    "cells-zf"
+   ],
+   "words": [
+    "REFUTED"
+   ]
+  },
+  {
+   "gap": "the riemann_104 checkpoint table's \"checkpoint k\" is not defined in finite terms",
+   "status": "found by both arms: the printed candidate steps are root entries (the 179th, 210th, 879th, 1,721st), not the 100th, 116th, 500th, 1,000th; REFUSED with the threshold: publish the selection rule",
+   "rows": [
+    "riemann-104-table-steps-are-root-entries",
+    "riemann-104-checkpoint-k"
+   ],
+   "words": [
+    "CERTIFIED",
+    "REFUSED"
+   ]
+  }
+ ],
+ "secondImplementations": {
+  "H": "tools/run-cryptids.js recomputes the decision-bearing rows (the battery runs it; 0 disagreements at the last run)",
+  "C": {
+   "objects": 97,
+   "jsObjects": 97,
+   "disagree": 0
+  }
+ },
+ "kernel": {
+  "what": "The kernel lane of the cryptids audit: google-deepmind/cryptids at its pin built with its own toolchain and audited by leanprover/comparator with nanoda on, using the configurations the repository ships. A CERTIFIED row is a concordance with the repository's own CI (the stated theorems are the ones proved, the axioms are as printed, a second kernel accepts the proofs); it verifies no mathematics. Written by tools/record-cryptids-kernel.js from the workflow's artifacts.",
+  "source": {
+   "repository": "github.com/google-deepmind/cryptids",
+   "commit": "664cd03904a870e9a8796476dbf9dbc13a72a37b",
+   "workflow": ".github/workflows/cryptids-kernel.yml",
+   "run": "39889985974"
+  },
+  "generated": "2026-10-23",
+  "summary": {
+   "CERTIFIED": 2
+  },
+  "rows": [
+   {
+    "config": "all",
+    "theorems": 22,
+    "permittedAxioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "nanodaRequested": true,
+    "nanodaAnswered": true,
+    "exit": 0,
+    "seconds": 398,
+    "cacheSeconds": 115,
+    "buildSeconds": 340,
+    "rssKb": 4556364,
+    "kernels": [
+     "Lean default kernel accepts the solution",
+     "nanoda kernel accepts the solution"
+    ],
+    "env": "kernel: 6.17.0-1022-azure\nlandlock: lockdown,capability,landlock,yama,apparmor,ima,evm\nLean (version 4.35.0-rc4, x86_64-unknown-linux-gnu, commit c29b6dda4f7c20e3eeaa717c4e565663c5cfa364, Release)\ncomparator rev: ca04cfc72b550331658ec314bf47685281bfd4bf\nlean4export rev: 05d43a2bc773b40ecfdebb32294192a5ef756951\nnanoda build: stack1g\n",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c  Challenge.lean\n9b320cacdc2d1c8bb6af00468d5cd2a1856c1831ff08201a0985194e00786ffb  BusyBeaverChallenge.lean\n8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7  lean-toolchain\n4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284  lake-manifest.json\n",
+    "verdict": "CERTIFIED",
+    "why": "Comparator: every named theorem states what the challenge states, uses only the permitted axioms, and its proof replays through Lean's kernel and through nanoda",
+    "logTail": "Semantics.Zf.not_zfInconsistent, ConjectureMachines.Semantics.Zf.halts_zf432_iff_wadeZFInconsistent, ConjectureMachines.Semantics.Riemann.halts_riemann744_iff_exists_counterexample, ConjectureMachines.Semantics.Riemann.halts_riemann744_iff_not_riemannHypothesis, ConjectureMachines.Riemann120.halts_riemann120_iff_not_riemannHypothesis, ConjectureMachines.Riemann104.candidate_fewer_states, ConjectureMachines.Riemann104.candidate_equivalent, ConjectureMachines.Riemann104.Semantics.halts_candidate_iff_not_riemannHypothesis, ConjectureMachines.Riemann95.candidate_fewer_states, ConjectureMachines.Riemann95.candidate_equivalent, ConjectureMachines.Riemann95.Semantics.halts_candidate_iff_not_riemannHypothesis, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Cryptids\nRunning nanoda kernel on solution\nnanoda kernel accepts the solution\nRunning Lean default kernel on solution.\nLean default kernel accepts the solution\nYour solution is okay!\n",
+    "errTail": ":mm:ss or m:ss): 6:37.71\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 4556364\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4744\n\tMinor (reclaiming a frame) page faults: 2851098\n\tVoluntary context switches: 300444\n\tInvoluntary context switches: 45455\n\tSwaps: 0\n\tFile system inputs: 1043360\n\tFile system outputs: 1216280\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n"
+   },
+   {
+    "config": "constructive",
+    "theorems": 10,
+    "permittedAxioms": [
+     "propext",
+     "Quot.sound"
+    ],
+    "nanodaRequested": true,
+    "nanodaAnswered": true,
+    "exit": 0,
+    "seconds": 101,
+    "cacheSeconds": 100,
+    "buildSeconds": 321,
+    "rssKb": 4014708,
+    "kernels": [
+     "Lean default kernel accepts the solution",
+     "nanoda kernel accepts the solution"
+    ],
+    "env": "kernel: 6.17.0-1022-azure\nlandlock: lockdown,capability,landlock,yama,apparmor,ima,evm\nLean (version 4.35.0-rc4, x86_64-unknown-linux-gnu, commit c29b6dda4f7c20e3eeaa717c4e565663c5cfa364, Release)\ncomparator rev: ca04cfc72b550331658ec314bf47685281bfd4bf\nlean4export rev: 05d43a2bc773b40ecfdebb32294192a5ef756951\nnanoda build: stack1g\n",
+    "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c  Challenge.lean\n9b320cacdc2d1c8bb6af00468d5cd2a1856c1831ff08201a0985194e00786ffb  BusyBeaverChallenge.lean\n8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7  lean-toolchain\n4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284  lake-manifest.json\n",
+    "verdict": "CERTIFIED",
+    "why": "Comparator: every named theorem states what the challenge states, uses only the permitted axioms, and its proof replays through Lean's kernel and through nanoda",
+    "logTail": "har, optParam, autoParam, semiOutParam, outParam] from Challenge\nBuilding Cryptids\nBuild completed successfully (3871 jobs).\nExporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ConjectureMachines.Goldbach21.candidate_fewer_states, ConjectureMachines.Goldbach21.candidate_equivalent, ConjectureMachines.Zf393.halts_zf393_iff_zfInconsistent, ConjectureMachines.Zf380.candidate_fewer_states, ConjectureMachines.Zf380.candidate_equivalent, ConjectureMachines.Zf380.Semantics.halts_candidate_iff_zfInconsistent, ConjectureMachines.Semantics.Zf.halts_zf432_iff_wadeZFInconsistent, ConjectureMachines.Riemann104.candidate_fewer_states, ConjectureMachines.Riemann104.candidate_equivalent, ConjectureMachines.Riemann95.candidate_fewer_states, propext, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Cryptids\nRunning nanoda kernel on solution\nnanoda kernel accepts the solution\nRunning Lean default kernel on solution.\nLean default kernel accepts the solution\nYour solution is okay!\n",
+    "errTail": " (h:mm:ss or m:ss): 1:41.37\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 4014708\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4834\n\tMinor (reclaiming a frame) page faults: 474909\n\tVoluntary context switches: 76869\n\tInvoluntary context switches: 17113\n\tSwaps: 0\n\tFile system inputs: 1059544\n\tFile system outputs: 121648\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n"
+   }
+  ]
+ },
+ "generated": "2026-10-23"
+}

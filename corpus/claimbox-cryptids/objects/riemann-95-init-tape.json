@@ -1,0 +1,44 @@
+{
+ "id": "riemann-95-init-tape",
+ "text": "after 3,634 steps from the blank tape, the ones of artifacts/riemann_95/machine.txt are [-5,18,20,22,24,26,28,30,32,34,36]",
+ "source": {
+  "what": "verify.py's statement of the initializer's tape",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "assert sorted(ones) == [-5, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36]"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "after(M, 3634) ones = [-5,18,20,22,24,26,28,30,32,34,36]",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the cells holding 1 after the printed number of steps, sorted",
+ "hypotheses": [],
+ "falsifier": [
+  "another set of cells holds 1"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "riemann-95-init-tape",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-pin-source_sha256-goldbach",
+ "text": "sha256 of baselines/sources/goldbach_25_bbchallenge.txt is 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+ "source": {
+  "what": "verify.py's pinned source_sha256 for goldbach",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/sources/goldbach_25_bbchallenge.txt is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to 3b8934a193ec…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-pin-source_sha256-goldbach",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

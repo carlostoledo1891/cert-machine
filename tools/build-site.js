@@ -469,6 +469,14 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'lueker-replay.json'), 'utf8'));
       if (!L.rows.length || L.calibration.some((c) => !c.reproduced)) fail('the C31 card would misstate the record');
       return L.rows.map((r) => 'h = ' + r.h + ' ' + r.verdict).join(' · ') + ' · Lueker\'s table reproduced ' + L.calibration.length + '/7 · ' + L.redControlsFired + ' red controls'; })() },
+  { g: 'ai', f: 'cryptids.html', k: 'audit · a producer\'s checker',
+    title: 'The cryptids audit: a repository\'s finite layer, decided twice',
+    desc: 'google-deepmind/cryptids publishes small Turing machines whose halting encodes Goldbach, ZF consistency and the Riemann Hypothesis, Lean proofs '
+      + 'of the state reductions, and a checker of its own. The theorems are the kernel\'s; the finite layer underneath — tables, digests, counts, bootstraps, '
+      + 'checkpoints, ratios — decided exactly from the bytes at one commit, by hand and through claimbox, the gaps of the producer\'s checker first.',
+    n: (() => { const B = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'cryptids-benchmark.json'), 'utf8'));
+      if (!B.M8.length || !B.M5.pairs) fail('the cryptids card would misstate the record');
+      return B.M8.length + ' gaps · ' + B.M1.H.rows + ' claims by hand · ' + B.M1.C.written + ' through claimbox · ' + B.M5.agree + ' of ' + B.M5.pairs + ' paired claims agree'; })() },
   { g: 'ai', f: 'selfaudit.html', k: 'the self-audit',
     title: 'The instrument, measured by its own rules',
     desc: 'A pre-registered self-measurement of this machine on its frozen register: planted false, true and malformed claims on every mutable row, '

@@ -1,0 +1,44 @@
+{
+ "id": "cand-states-riemann_95",
+ "text": "artifacts/riemann_95/machine.txt has 95 states",
+ "source": {
+  "what": "the write-up of riemann_95",
+  "path": "corpus/cryptids/artifacts/riemann_95/README.md",
+  "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+  "quote": "**95 states**"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "states(M) = 95",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the state count is the number of rows of the table",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of rows"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cand-states-riemann_95",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

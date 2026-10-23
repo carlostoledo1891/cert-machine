@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-pin-source_sha256-zf",
+ "text": "sha256 of baselines/sources/zf_432_wade.tm is 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+ "source": {
+  "what": "verify.py's pinned source_sha256 for zf",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/sources/zf_432_wade.tm is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to 68a9de26ef68…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-pin-source_sha256-zf",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

@@ -1,0 +1,44 @@
+{
+ "id": "derive-undefined-riemann_120",
+ "text": "the undefined targets of baselines/sources/riemann_120_shunia.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann_120: the convention makes an undefined target a halt; this job asks which names that absorbed",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`tursi`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the tursi format"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(tursi) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the convention turns any undefined target into a halt; this object decides that the only such targets are the halting names",
+ "hypotheses": [],
+ "falsifier": [
+  "a transition targets a name that is neither defined nor a halting name — a typo the convention would silently turn into a halt"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-undefined-riemann_120",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

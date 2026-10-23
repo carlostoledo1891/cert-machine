@@ -17,7 +17,7 @@ The named functions (the expectation is written in the name, as the quote prints
   derived(FMT) canonical_sha256(M) = <hex>           M is an upstream source in FMT (standard | tursi | nql); the table it
                                                      compiles to under the stated convention hashes to <hex>
   derived(FMT) undefined_targets(M) ⊆ [names]        the targets that name no defined state are all in the list
-  after(M, T) = state Q, head H                      the configuration after T steps from the blank tape
+  after(M, T) = state Q[, head H]                    the configuration after T steps from the blank tape
   after(M, T) = state Q, head H, nonzero N
   after(M, T) ones = [cells]                         the cells holding 1 after T steps, sorted
   no_halt(M, T)                                      the machine does not halt within T steps
@@ -249,11 +249,11 @@ def decide_named(name, M_bytes, M_text):
         _, und = compile_source(M_text, m.group(1))
         allowed = json.loads(m.group(2))
         return all(u in allowed for u in und), und, [u for u in und if u not in allowed] or None
-    m = re.fullmatch(r'after\(M, (\d+)\) = state (\d+), head (-?\d+)(?:, nonzero (\d+))?', name)
+    m = re.fullmatch(r'after\(M, (\d+)\) = state (\d+)(?:, head (-?\d+))?(?:, nonzero (\d+))?', name)
     if m:
         fin = simulate(rows, int(m.group(1)))
-        got = [fin['state'], fin['head']] + ([len(fin['ones'])] if m.group(4) else [])
-        want = [int(m.group(2)), int(m.group(3))] + ([int(m.group(4))] if m.group(4) else [])
+        got = [fin['state']] + ([fin['head']] if m.group(3) else []) + ([len(fin['ones'])] if m.group(4) else [])
+        want = [int(m.group(2))] + ([int(m.group(3))] if m.group(3) else []) + ([int(m.group(4))] if m.group(4) else [])
         if fin['halted_at'] is not None:
             return False, {'halted_at': fin['halted_at']}, 'halted'
         return got == want, got, None
@@ -396,6 +396,8 @@ def main(argv):
     t0 = time.time()
     for p in paths:
         o = json.load(open(p, encoding='utf-8'))
+        if not any(isinstance(pr.get('g'), dict) and pr['g'].get('where') == 'instruments/claimbox/tm.py' for pr in o.get('predicate', [])):
+            continue   # not this decider's object (an exact expression the checker decides from the object alone): no row
         t1 = time.time()
         try:
             r = decide_object(o)

@@ -1,0 +1,840 @@
+{
+ "what": "The grammar over the 132 claim sentences of cert-machine's register: the shape each takes, or the rule that refuses it. A measurement of what a standard-library grammar covers, not a target; a refusal is the grammar saying so.",
+ "sentences": 132,
+ "shaped": 97,
+ "refused": 35,
+ "byFamily": {
+  "digits": 1,
+  "kissing": 10,
+  "decomposition": 45,
+  "identity": 12,
+  "bound": 15,
+  "score": 14
+ },
+ "byRefusal": {
+  "no-quantity": 22,
+  "prose": 11,
+  "asymptotic": 2
+ },
+ "rows": [
+  {
+   "id": "ai-maxwell",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "ai-korenblum",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "ai-lemniscate",
+   "refused": "prose"
+  },
+  {
+   "id": "ai-ranteng",
+   "refused": "prose"
+  },
+  {
+   "id": "ai-mathieu",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "ai-poisson",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "erdos852-cstar",
+   "shape": "digits",
+   "name": "C* for Erdos #852",
+   "rel": "in",
+   "printed": "0.0752403861777"
+  },
+  {
+   "id": "kiss-cal-d4-24",
+   "shape": "kissing",
+   "name": "K(4)",
+   "rel": "ge",
+   "printed": "24"
+  },
+  {
+   "id": "kiss-cal-e8-240",
+   "shape": "kissing",
+   "name": "K(8)",
+   "rel": "ge",
+   "printed": "240"
+  },
+  {
+   "id": "kiss-alphaevolve-593",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "593"
+  },
+  {
+   "id": "kiss-ea-594-winner",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "594"
+  },
+  {
+   "id": "kiss-station-604-1",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "604"
+  },
+  {
+   "id": "kiss-station-604-2",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "604"
+  },
+  {
+   "id": "kiss-station-604-3",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "604"
+  },
+  {
+   "id": "kiss-station-shell-582",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "582"
+  },
+  {
+   "id": "kiss-station-d12-lift",
+   "refused": "prose"
+  },
+  {
+   "id": "kiss-ea-604",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "604"
+  },
+  {
+   "id": "kiss-ganzhinov-592",
+   "shape": "kissing",
+   "name": "K(11)",
+   "rel": "ge",
+   "printed": "592"
+  },
+  {
+   "id": "rm-registry",
+   "refused": "prose"
+  },
+  {
+   "id": "mm-strassen-1969",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-strassen-squared-4x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-q-2x2x2",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-q-3x3x3",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-q-4x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-q-3x4x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-q-4x5x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-f2-4x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphatensor-f2-5x5x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mm-alphaevolve-48-4x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "ea-circles-alphaevolve_2025",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "21"
+  },
+  {
+   "id": "ea-circles-ours_2026",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "21"
+  },
+  {
+   "id": "ea-heilbronn-alphaevolve_2025",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "14"
+  },
+  {
+   "id": "ea-heilbronn-ours_2026",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "14"
+  },
+  {
+   "id": "ea-mindist-alphaevolve_2025",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "16"
+  },
+  {
+   "id": "ea-mindist-ours_2026",
+   "shape": "identity",
+   "name": "n",
+   "rel": "eq",
+   "printed": "16"
+  },
+  {
+   "id": "ea-overlap-haugland_2016",
+   "shape": "bound",
+   "name": "a step function h with 51 steps, 0 <= h <= 1, Σh = n/2",
+   "rel": "le",
+   "printed": "0.380927"
+  },
+  {
+   "id": "ea-overlap-alphaevolve_2025",
+   "shape": "bound",
+   "name": "a step function h with 95 steps, 0 <= h <= 1, Σh = n/2",
+   "rel": "le",
+   "printed": "0.380924"
+  },
+  {
+   "id": "ea-overlap-ttt_discover_2026",
+   "shape": "bound",
+   "name": "a step function h with 600 steps, 0 <= h <= 1, Σh = n/2",
+   "rel": "le",
+   "printed": "0.380876"
+  },
+  {
+   "id": "ea-overlap-together_ai_2026",
+   "shape": "bound",
+   "name": "a step function h with 600 steps, 0 <= h <= 1, Σh = n/2",
+   "rel": "le",
+   "printed": "0.380871"
+  },
+  {
+   "id": "ea-edges-alphaevolve_2025",
+   "shape": "score",
+   "name": "the platform's envelope score",
+   "rel": "in",
+   "printed": "-0.712494"
+  },
+  {
+   "id": "ea-edges-ours_2026",
+   "shape": "score",
+   "name": "the platform's envelope score",
+   "rel": "in",
+   "printed": "-0.712256"
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_2025",
+   "shape": "bound",
+   "name": "C₁",
+   "rel": "le",
+   "printed": "1.50529397"
+  },
+  {
+   "id": "ea-autocorr-alphaevolve_v2_2025",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "ea-autocorr-ttt_discover_2026",
+   "shape": "bound",
+   "name": "C₁",
+   "rel": "le",
+   "printed": "1.50286290"
+  },
+  {
+   "id": "ea-autocorr-ours_2026",
+   "shape": "bound",
+   "name": "C₁",
+   "rel": "le",
+   "printed": "1.50286286"
+  },
+  {
+   "id": "ea-flat-alphaevolve_2025",
+   "shape": "score",
+   "name": "C⁺ = max_{|z|=1} |g(z)| / √71",
+   "rel": "in",
+   "printed": "1.340925"
+  },
+  {
+   "id": "ea-flat-ours_2026",
+   "shape": "score",
+   "name": "C⁺ = max_{|z|=1} |g(z)| / √71",
+   "rel": "in",
+   "printed": "1.280932"
+  },
+  {
+   "id": "ea-hexagons-alphaevolve_2025",
+   "shape": "score",
+   "name": "the outer side",
+   "rel": "in",
+   "printed": "3.9419123"
+  },
+  {
+   "id": "ea-hexagons-ours_2026",
+   "shape": "score",
+   "name": "the outer side",
+   "rel": "in",
+   "printed": "3.9416523"
+  },
+  {
+   "id": "ecbench-counts",
+   "refused": "prose"
+  },
+  {
+   "id": "gsm8k-keys",
+   "refused": "prose"
+  },
+  {
+   "id": "metr-horizon",
+   "refused": "prose"
+  },
+  {
+   "id": "ecbench-marginals",
+   "refused": "prose"
+  },
+  {
+   "id": "design-table-bhaskaran-2023",
+   "refused": "prose"
+  },
+  {
+   "id": "navier-stokes-openai-2026",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "optconst-3b",
+   "shape": "bound",
+   "name": "C3b",
+   "rel": "ge",
+   "printed": "1.77898884"
+  },
+  {
+   "id": "optconst-3c",
+   "shape": "bound",
+   "name": "C3c",
+   "rel": "ge",
+   "printed": "1.6747338950414058"
+  },
+  {
+   "id": "optconst-3c-95",
+   "shape": "bound",
+   "name": "C3c",
+   "rel": "ge",
+   "printed": "1.6747338950208249"
+  },
+  {
+   "id": "optconst-71",
+   "shape": "bound",
+   "name": "C71",
+   "rel": "gt",
+   "printed": "6.521845710923046575"
+  },
+  {
+   "id": "optconst-84b",
+   "shape": "bound",
+   "name": "C84b",
+   "rel": "le",
+   "printed": "1.999281"
+  },
+  {
+   "id": "optconst-42a",
+   "shape": "bound",
+   "name": "C42",
+   "rel": "le",
+   "printed": "0.6906538"
+  },
+  {
+   "id": "optconst-42a-pr184",
+   "shape": "bound",
+   "name": "C42",
+   "rel": "le",
+   "printed": "0.688983"
+  },
+  {
+   "id": "countex-aim-problems",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-courtade-volume-conjecture",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-dpp-feasible-step",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-hamiltonian-nepv-identity",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-lorentzian-jensen",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-macdonald-schur-convexity",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-odonnell-matrix-conjecture",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-osi-sketch-and-solve",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-qrcp-orthonormal-greedy",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-quantum-coupon-collector",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-rank-two-mixed-norm",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-sdd-nystrom-diminishing-returns",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-theta-derivative-log-concavity",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "countex-variance-only-matrix-discrepancy",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "horizonmath-ramsey-asymptotic",
+   "refused": "asymptotic"
+  },
+  {
+   "id": "horizonmath-keich-thin-triangles-128",
+   "shape": "bound",
+   "name": "Area(E)",
+   "rel": "lt",
+   "printed": "0.1148103258186177"
+  },
+  {
+   "id": "horizonmath-gpt56-closed-forms",
+   "refused": "no-quantity"
+  },
+  {
+   "id": "gnnw-gai-3782",
+   "refused": "asymptotic"
+  },
+  {
+   "id": "polymaps-gao-g",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "2"
+  },
+  {
+   "id": "polymaps-gao-f4",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "-44/9"
+  },
+  {
+   "id": "polymaps-gao-f5",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "160/29"
+  },
+  {
+   "id": "polymaps-gao-f6",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "-290"
+  },
+  {
+   "id": "polymaps-gao-f7",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "119377"
+  },
+  {
+   "id": "polymaps-chv-x14",
+   "refused": "prose"
+  },
+  {
+   "id": "polymaps-chv-phi",
+   "shape": "identity",
+   "name": "det J",
+   "rel": "eq",
+   "printed": "-2"
+  },
+  {
+   "id": "polymaps-chv-xhat18",
+   "refused": "prose"
+  },
+  {
+   "id": "mc100-ae-nb-2x4x5-r32",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-2x4x7-r45",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-2x4x8-r51",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-2x5x6-r47",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x3x3-r23",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x6-r54",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x7-r63",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x4x8-r74",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x5x6-r68",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-3x5x7-r80",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x8-r96",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x5-r61",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-4x4x7-r85",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-4x5x6-r90",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ae-nb-5x5x5-r93",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x3",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x3",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x2x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x3x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-2x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-f2-3x3x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x3",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x3x3",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x6",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x3x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x7",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x3x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x2x8",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x4x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-3x3x4",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-at-q-2x4x5",
+   "shape": "decomposition",
+   "name": null,
+   "rel": null,
+   "printed": null
+  },
+  {
+   "id": "mc100-ea-best-erdos-min-overlap",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "0.3808585748578584"
+  },
+  {
+   "id": "mc100-ea-best-first-autocorrelation-inequality",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "1.5027436492326165"
+  },
+  {
+   "id": "mc100-ea-best-flat-polynomials",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "1.2807274949642549"
+  },
+  {
+   "id": "mc100-ea-best-edges-vs-triangles",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "-0.7117091757692579"
+  },
+  {
+   "id": "mc100-ea-best-circles-rectangle",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "2.3658323759098576"
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d12",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "2"
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d11-605",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "1.7102381876301676"
+  },
+  {
+   "id": "mc100-ea-best-kissing-number-d12-842",
+   "shape": "score",
+   "name": "the platform's score",
+   "rel": "in",
+   "printed": "0.5469062458557645"
+  },
+  {
+   "id": "mc100-st-jacobian",
+   "refused": "no-quantity"
+  }
+ ]
+}

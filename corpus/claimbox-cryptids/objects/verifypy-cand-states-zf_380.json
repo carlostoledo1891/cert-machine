@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-cand-states-zf_380",
+ "text": "artifacts/zf_380/machine.txt has 380 states",
+ "source": {
+  "what": "verify.py's state count for zf_380",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "\"states\": 380"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "states(M) = 380",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the state count is the number of rows of the table",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of rows"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-cand-states-zf_380",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

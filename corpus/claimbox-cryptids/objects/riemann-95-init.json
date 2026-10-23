@@ -1,0 +1,44 @@
+{
+ "id": "riemann-95-init",
+ "text": "after 3,634 steps from the blank tape, artifacts/riemann_95/machine.txt is in state 15 with the head at -4",
+ "source": {
+  "what": "the 95-state write-up's initializer sentence",
+  "path": "corpus/cryptids/artifacts/riemann_95/README.md",
+  "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+  "quote": "The exact 3,634-step initializer reaches state 15 at head position -4"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "after(M, 3634) = state 15, head -4",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the configuration after the printed number of steps from the blank tape (head at 0, state 0)",
+ "hypotheses": [],
+ "falsifier": [
+  "the machine halts first, or is elsewhere"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "riemann-95-init",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

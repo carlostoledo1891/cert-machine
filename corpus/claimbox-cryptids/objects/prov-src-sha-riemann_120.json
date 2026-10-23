@@ -1,0 +1,44 @@
+{
+ "id": "prov-src-sha-riemann_120",
+ "text": "sha256 of baselines/sources/riemann_120_shunia.tm is b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann_120",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/sources/riemann_120_shunia.tm is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to b4b0f07607fc…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "prov-src-sha-riemann_120",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

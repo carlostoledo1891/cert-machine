@@ -1,0 +1,44 @@
+{
+ "id": "prov-states-riemann",
+ "text": "baselines/tables/riemann_744.txt has 744 states",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`744` states"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "states(M) = 744",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the state count is the number of rows of the table",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of rows"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "prov-states-riemann",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

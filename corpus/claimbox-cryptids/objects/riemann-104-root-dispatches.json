@@ -1,0 +1,44 @@
+{
+ "id": "riemann-104-root-dispatches",
+ "text": "artifacts/riemann_104/machine.txt enters state 19 at least 1,000 times between steps 9,037 and 250,000",
+ "source": {
+  "what": "verify.py's post-boot dispatch count",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "root_dispatches >= 1000"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "entries(M, state 19, after 9037, within 250000) >= 1000",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "entries into the state counted at steps in the window",
+ "hypotheses": [],
+ "falsifier": [
+  "fewer entries"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "riemann-104-root-dispatches",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

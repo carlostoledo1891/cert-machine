@@ -1,0 +1,44 @@
+{
+ "id": "fewer-states-riemann_104",
+ "text": "artifacts/riemann_104/machine.txt has fewer states than riemann_120 (120)",
+ "source": {
+  "what": "the reduction claim, stated by the library README as a theorem name",
+  "path": "corpus/cryptids/Cryptids/README.md",
+  "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+  "quote": "candidate_fewer_states"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "states(M) < 120",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the reference riemann_120 has 120 states, as its own table shows; this object decides the candidate's count against that number",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has 120 rows or more"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "fewer-states-riemann_104",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

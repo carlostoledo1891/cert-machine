@@ -1,0 +1,66 @@
+{
+ "what": "The kernel lane of the cryptids audit: google-deepmind/cryptids at its pin built with its own toolchain and audited by leanprover/comparator with nanoda on, using the configurations the repository ships. A CERTIFIED row is a concordance with the repository's own CI (the stated theorems are the ones proved, the axioms are as printed, a second kernel accepts the proofs); it verifies no mathematics. Written by tools/record-cryptids-kernel.js from the workflow's artifacts.",
+ "source": {
+  "repository": "github.com/google-deepmind/cryptids",
+  "commit": "664cd03904a870e9a8796476dbf9dbc13a72a37b",
+  "workflow": ".github/workflows/cryptids-kernel.yml",
+  "run": "39889985974"
+ },
+ "generated": "2026-10-23",
+ "summary": {
+  "CERTIFIED": 2
+ },
+ "rows": [
+  {
+   "config": "all",
+   "theorems": 22,
+   "permittedAxioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "nanodaRequested": true,
+   "nanodaAnswered": true,
+   "exit": 0,
+   "seconds": 398,
+   "cacheSeconds": 115,
+   "buildSeconds": 340,
+   "rssKb": 4556364,
+   "kernels": [
+    "Lean default kernel accepts the solution",
+    "nanoda kernel accepts the solution"
+   ],
+   "env": "kernel: 6.17.0-1022-azure\nlandlock: lockdown,capability,landlock,yama,apparmor,ima,evm\nLean (version 4.35.0-rc4, x86_64-unknown-linux-gnu, commit c29b6dda4f7c20e3eeaa717c4e565663c5cfa364, Release)\ncomparator rev: ca04cfc72b550331658ec314bf47685281bfd4bf\nlean4export rev: 05d43a2bc773b40ecfdebb32294192a5ef756951\nnanoda build: stack1g\n",
+   "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c  Challenge.lean\n9b320cacdc2d1c8bb6af00468d5cd2a1856c1831ff08201a0985194e00786ffb  BusyBeaverChallenge.lean\n8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7  lean-toolchain\n4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284  lake-manifest.json\n",
+   "verdict": "CERTIFIED",
+   "why": "Comparator: every named theorem states what the challenge states, uses only the permitted axioms, and its proof replays through Lean's kernel and through nanoda",
+   "logTail": "Semantics.Zf.not_zfInconsistent, ConjectureMachines.Semantics.Zf.halts_zf432_iff_wadeZFInconsistent, ConjectureMachines.Semantics.Riemann.halts_riemann744_iff_exists_counterexample, ConjectureMachines.Semantics.Riemann.halts_riemann744_iff_not_riemannHypothesis, ConjectureMachines.Riemann120.halts_riemann120_iff_not_riemannHypothesis, ConjectureMachines.Riemann104.candidate_fewer_states, ConjectureMachines.Riemann104.candidate_equivalent, ConjectureMachines.Riemann104.Semantics.halts_candidate_iff_not_riemannHypothesis, ConjectureMachines.Riemann95.candidate_fewer_states, ConjectureMachines.Riemann95.candidate_equivalent, ConjectureMachines.Riemann95.Semantics.halts_candidate_iff_not_riemannHypothesis, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Cryptids\nRunning nanoda kernel on solution\nnanoda kernel accepts the solution\nRunning Lean default kernel on solution.\nLean default kernel accepts the solution\nYour solution is okay!\n",
+   "errTail": ":mm:ss or m:ss): 6:37.71\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 4556364\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4744\n\tMinor (reclaiming a frame) page faults: 2851098\n\tVoluntary context switches: 300444\n\tInvoluntary context switches: 45455\n\tSwaps: 0\n\tFile system inputs: 1043360\n\tFile system outputs: 1216280\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n"
+  },
+  {
+   "config": "constructive",
+   "theorems": 10,
+   "permittedAxioms": [
+    "propext",
+    "Quot.sound"
+   ],
+   "nanodaRequested": true,
+   "nanodaAnswered": true,
+   "exit": 0,
+   "seconds": 101,
+   "cacheSeconds": 100,
+   "buildSeconds": 321,
+   "rssKb": 4014708,
+   "kernels": [
+    "Lean default kernel accepts the solution",
+    "nanoda kernel accepts the solution"
+   ],
+   "env": "kernel: 6.17.0-1022-azure\nlandlock: lockdown,capability,landlock,yama,apparmor,ima,evm\nLean (version 4.35.0-rc4, x86_64-unknown-linux-gnu, commit c29b6dda4f7c20e3eeaa717c4e565663c5cfa364, Release)\ncomparator rev: ca04cfc72b550331658ec314bf47685281bfd4bf\nlean4export rev: 05d43a2bc773b40ecfdebb32294192a5ef756951\nnanoda build: stack1g\n",
+   "sha256": "1c98af712d2815470449faa3c3f3d594910934247bc8d79e0cd3967d107b2e2c  Challenge.lean\n9b320cacdc2d1c8bb6af00468d5cd2a1856c1831ff08201a0985194e00786ffb  BusyBeaverChallenge.lean\n8f89aa44fccdb1a0b6cc768c7c9f54b94cd40e47a08d582f82d1235f13075cf7  lean-toolchain\n4bb9288d47457931549bbeff4d0e68d9a8dbd47b063e6b72a3210b0d09311284  lake-manifest.json\n",
+   "verdict": "CERTIFIED",
+   "why": "Comparator: every named theorem states what the challenge states, uses only the permitted axioms, and its proof replays through Lean's kernel and through nanoda",
+   "logTail": "har, optParam, autoParam, semiOutParam, outParam] from Challenge\nBuilding Cryptids\nBuild completed successfully (3871 jobs).\nExporting #[Quot, Quot.mk, Quot.lift, Quot.ind, ConjectureMachines.Goldbach21.candidate_fewer_states, ConjectureMachines.Goldbach21.candidate_equivalent, ConjectureMachines.Zf393.halts_zf393_iff_zfInconsistent, ConjectureMachines.Zf380.candidate_fewer_states, ConjectureMachines.Zf380.candidate_equivalent, ConjectureMachines.Zf380.Semantics.halts_candidate_iff_zfInconsistent, ConjectureMachines.Semantics.Zf.halts_zf432_iff_wadeZFInconsistent, ConjectureMachines.Riemann104.candidate_fewer_states, ConjectureMachines.Riemann104.candidate_equivalent, ConjectureMachines.Riemann95.candidate_fewer_states, propext, Quot.sound, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Cryptids\nRunning nanoda kernel on solution\nnanoda kernel accepts the solution\nRunning Lean default kernel on solution.\nLean default kernel accepts the solution\nYour solution is okay!\n",
+   "errTail": " (h:mm:ss or m:ss): 1:41.37\n\tAverage shared text size (kbytes): 0\n\tAverage unshared data size (kbytes): 0\n\tAverage stack size (kbytes): 0\n\tAverage total size (kbytes): 0\n\tMaximum resident set size (kbytes): 4014708\n\tAverage resident set size (kbytes): 0\n\tMajor (requiring I/O) page faults: 4834\n\tMinor (reclaiming a frame) page faults: 474909\n\tVoluntary context switches: 76869\n\tInvoluntary context switches: 17113\n\tSwaps: 0\n\tFile system inputs: 1059544\n\tFile system outputs: 121648\n\tSocket messages sent: 0\n\tSocket messages received: 0\n\tSignals delivered: 0\n\tPage size (bytes): 4096\n\tExit status: 0\n"
+  }
+ ]
+}

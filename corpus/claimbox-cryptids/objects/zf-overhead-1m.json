@@ -1,0 +1,46 @@
+{
+ "id": "zf-overhead-1m",
+ "text": "after 1,000,930 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 1,000,000 steps",
+ "source": {
+  "what": "the ZF write-up's step overhead at one million steps, read as a configuration correspondence",
+  "path": "corpus/cryptids/artifacts/zf_380/README.md",
+  "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+  "quote": "`1,000,930` candidate steps"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "same_tape_and_head(M, 1000930; corpus/cryptids/baselines/tables/zf_393.txt@f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97, 1000000)",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the write-up prints two step counts and calls the difference overhead; this object reads that as: M reaches, at its printed step, the tape and head the other machine has at its printed step (the states differ by the reduction's map)",
+ "hypotheses": [
+  "the reading of \"step overhead\" as a configuration correspondence"
+ ],
+ "falsifier": [
+  "the tapes or the heads differ at the printed steps"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "zf-overhead-1m",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

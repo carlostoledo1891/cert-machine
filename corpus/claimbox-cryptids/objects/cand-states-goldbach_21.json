@@ -1,0 +1,44 @@
+{
+ "id": "cand-states-goldbach_21",
+ "text": "artifacts/goldbach_21/machine.txt has 21 states",
+ "source": {
+  "what": "the write-up of goldbach_21",
+  "path": "corpus/cryptids/artifacts/goldbach_21/README.md",
+  "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+  "quote": "`21` states"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "states(M) = 21",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the state count is the number of rows of the table",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of rows"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cand-states-goldbach_21",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

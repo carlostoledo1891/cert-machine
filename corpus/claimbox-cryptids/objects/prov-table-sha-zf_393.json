@@ -1,0 +1,44 @@
+{
+ "id": "prov-table-sha-zf_393",
+ "text": "sha256 of baselines/tables/zf_393.txt is f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+ "source": {
+  "what": "PROVENANCE.md's row for zf_393",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/tables/zf_393.txt is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to f0acf81abb42…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "prov-table-sha-zf_393",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

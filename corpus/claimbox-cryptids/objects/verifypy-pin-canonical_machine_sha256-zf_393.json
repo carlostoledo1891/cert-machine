@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-pin-canonical_machine_sha256-zf_393",
+ "text": "canonical sha256 of baselines/tables/zf_393.txt is dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+ "source": {
+  "what": "verify.py's pinned canonical machine digest for zf_393",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "canonical_sha256(M) = dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/tables/zf_393.txt is of the canonical text of the table (the reading verify.py pins)",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to dcb8680665d4…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-pin-canonical_machine_sha256-zf_393",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

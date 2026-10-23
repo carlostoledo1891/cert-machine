@@ -1,0 +1,41 @@
+{
+ "id": "ratio-zf-10m",
+ "text": "the ratio 10,015,814/10,000,000 is printed as 1.001581x",
+ "source": {
+  "what": "the write-up's arithmetic over two integers it prints (each decided by its own object): decided from this object by the receiver's checker",
+  "path": "corpus/cryptids/artifacts/zf_380/README.md",
+  "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+  "quote": "`1.001581x`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/zf_380/README.md",
+   "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "no bytes are decoded: the two integers are the ones the write-up prints, written into the expression as literals"
+ },
+ "predicate": [
+  {
+   "g": [
+    "Divide",
+    "10015814",
+    "10000000"
+   ],
+   "rel": "in",
+   "printed": "1.001581",
+   "c": [
+    "2003161/2000000",
+    "2003163/2000000"
+   ]
+  }
+ ],
+ "reference": "the printed 1.001581x is read as the box its digits allow (half a unit of the last digit either way); the quantity is 10015814/10000000; the two integers are decided by their own objects",
+ "hypotheses": [],
+ "falsifier": [
+  "the exact quotient lies outside the printed box"
+ ]
+}

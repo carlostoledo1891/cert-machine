@@ -1,0 +1,44 @@
+{
+ "id": "zf-393-39773-state-99",
+ "text": "baselines/tables/zf_393.txt enters state 99 at steps [39773] (after 39,773, within 39,773)",
+ "source": {
+  "what": "verify.py's second, unexplained ZF checkpoint",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "39773"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "entries(M, state 99, after 39773, within 39773) at steps [39773]",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "each listed step is an entry into the state; which entry (the ordinal) the decider records beside the word",
+ "hypotheses": [],
+ "falsifier": [
+  "a listed step is not an entry into the state"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "zf-393-39773-state-99",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

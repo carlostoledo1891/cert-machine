@@ -1,10 +1,10 @@
 {
  "source_root": "~/Projects/claimbox",
- "source_commit": "afd776c380318bf7b6a7949ec18d130dc64e62a1",
- "lifted_at_utc": "2026-10-22T15:36:28.718Z",
+ "source_commit": "219cc99c33638f03b654cacf565428f1403736fc",
+ "lifted_at_utc": "2026-10-23T02:44:20.046Z",
  "policy": "READ-ONLY. claimbox is the producer (the claim-machine); this manifest copies its pinned Riemann records and corpus OUT, for the companion paper riemann-finite-layer, and never writes back. The build reads the copies under corpus/claimbox-riemann only; `make drift` re-hashes both ends and names what moved, and PROVENANCE-claimbox.json records the claimbox commit the copies came from. Operator-approved 2026-10-22 as the one exception to CLAUDE.md's 'nothing here reads claimbox'.",
  "counts": {
-  "files": 166,
+  "files": 277,
   "patched": 0,
   "missing_in_source": 0
  },
@@ -1170,6 +1170,783 @@
    "src_sha256": "1b4e697bedb1f930261a6842699eda08f8d7d78083821b625118219ecca2a294",
    "patched": false,
    "local_sha256": "1b4e697bedb1f930261a6842699eda08f8d7d78083821b625118219ecca2a294"
+  },
+  {
+   "src": "records/cryptids/cand-readme-sha-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/cand-readme-sha-goldbach_21.json",
+   "src_sha256": "1d88d2ee4d1992959fd9678b8175ad1ce22e60ed88caaa19386e9182d559e04c",
+   "patched": false,
+   "local_sha256": "1d88d2ee4d1992959fd9678b8175ad1ce22e60ed88caaa19386e9182d559e04c"
+  },
+  {
+   "src": "records/cryptids/cand-readme-sha-riemann_104.json",
+   "dst": "corpus/claimbox-cryptids/objects/cand-readme-sha-riemann_104.json",
+   "src_sha256": "a45a958537ab4dc5c88023e0fde2fff0f55833eb9aaad954f7c6126d0a835f70",
+   "patched": false,
+   "local_sha256": "a45a958537ab4dc5c88023e0fde2fff0f55833eb9aaad954f7c6126d0a835f70"
+  },
+  {
+   "src": "records/cryptids/cand-readme-sha-zf_380.json",
+   "dst": "corpus/claimbox-cryptids/objects/cand-readme-sha-zf_380.json",
+   "src_sha256": "b442a10c316bb1f7624c049e52da65db27f44aeff0f96e71fdedaad1d73b6ccb",
+   "patched": false,
+   "local_sha256": "b442a10c316bb1f7624c049e52da65db27f44aeff0f96e71fdedaad1d73b6ccb"
+  },
+  {
+   "src": "records/cryptids/cand-states-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/cand-states-goldbach_21.json",
+   "src_sha256": "6cc60387f49ae122ef62da23ada3b04e1e7af1618be0dd8b3743773edf6d1e1d",
+   "patched": false,
+   "local_sha256": "6cc60387f49ae122ef62da23ada3b04e1e7af1618be0dd8b3743773edf6d1e1d"
+  },
+  {
+   "src": "records/cryptids/cand-states-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/cand-states-riemann_95.json",
+   "src_sha256": "f3f5a9b919532a943c73c4d57407b241357982761872b0821fde162168d609d3",
+   "patched": false,
+   "local_sha256": "f3f5a9b919532a943c73c4d57407b241357982761872b0821fde162168d609d3"
+  },
+  {
+   "src": "records/cryptids/cells-goldbach-21.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-goldbach-21.json",
+   "src_sha256": "2bea3b5bbcb71c377baafa26b806d7b087c215cbefbf2b6347a46d712e98bb07",
+   "patched": false,
+   "local_sha256": "2bea3b5bbcb71c377baafa26b806d7b087c215cbefbf2b6347a46d712e98bb07"
+  },
+  {
+   "src": "records/cryptids/cells-goldbach-25.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-goldbach-25.json",
+   "src_sha256": "2c3b6a52608fac5d6096f9724b0864dc741105e61d3e75693b65db4eb325da18",
+   "patched": false,
+   "local_sha256": "2c3b6a52608fac5d6096f9724b0864dc741105e61d3e75693b65db4eb325da18"
+  },
+  {
+   "src": "records/cryptids/cells-riemann-104.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-riemann-104.json",
+   "src_sha256": "f3aaedb3947b8edd9c1ea05cc4955e92fae8ceae15e0d3be5d5e6afffa42a305",
+   "patched": false,
+   "local_sha256": "f3aaedb3947b8edd9c1ea05cc4955e92fae8ceae15e0d3be5d5e6afffa42a305"
+  },
+  {
+   "src": "records/cryptids/cells-riemann-120.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-riemann-120.json",
+   "src_sha256": "29243fd0d32c18f85710d651dec7fdf37d0619015cc4991983faebf9f91c5258",
+   "patched": false,
+   "local_sha256": "29243fd0d32c18f85710d651dec7fdf37d0619015cc4991983faebf9f91c5258"
+  },
+  {
+   "src": "records/cryptids/cells-riemann-95.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-riemann-95.json",
+   "src_sha256": "65455609a56b8cb04de9ec0bc3927cde00b66dbdfe50d9a7006fdf74fb7a8f1c",
+   "patched": false,
+   "local_sha256": "65455609a56b8cb04de9ec0bc3927cde00b66dbdfe50d9a7006fdf74fb7a8f1c"
+  },
+  {
+   "src": "records/cryptids/cells-zf-380.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-zf-380.json",
+   "src_sha256": "304e0a11e72aa6f10c8978622b09fe83764dd3cdd184f1a889125543e97ca520",
+   "patched": false,
+   "local_sha256": "304e0a11e72aa6f10c8978622b09fe83764dd3cdd184f1a889125543e97ca520"
+  },
+  {
+   "src": "records/cryptids/cells-zf-393.json",
+   "dst": "corpus/claimbox-cryptids/objects/cells-zf-393.json",
+   "src_sha256": "9ee8c6bab12dad13b8b47ca57289f97d7e393892cc1c7c892bdea2ffbc515ce3",
+   "patched": false,
+   "local_sha256": "9ee8c6bab12dad13b8b47ca57289f97d7e393892cc1c7c892bdea2ffbc515ce3"
+  },
+  {
+   "src": "records/cryptids/derive-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-goldbach.json",
+   "src_sha256": "22eb0000915128d96357110a9196804c24a243b763e6c661af82a7eb996dc144",
+   "patched": false,
+   "local_sha256": "22eb0000915128d96357110a9196804c24a243b763e6c661af82a7eb996dc144"
+  },
+  {
+   "src": "records/cryptids/derive-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-riemann.json",
+   "src_sha256": "a84cde19320b658b33586f664bc6ca8f841f5e63782b33e4f03c06ce7def8e7f",
+   "patched": false,
+   "local_sha256": "a84cde19320b658b33586f664bc6ca8f841f5e63782b33e4f03c06ce7def8e7f"
+  },
+  {
+   "src": "records/cryptids/derive-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-riemann_120.json",
+   "src_sha256": "b0eb506241069920b8328968329598de27d89cef48db7b57bc9ccc70621b1ae7",
+   "patched": false,
+   "local_sha256": "b0eb506241069920b8328968329598de27d89cef48db7b57bc9ccc70621b1ae7"
+  },
+  {
+   "src": "records/cryptids/derive-undefined-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-undefined-riemann.json",
+   "src_sha256": "2f4c86f5c106bb45f13508f8fcd482f850072ef059e285a721ab3b5412933c73",
+   "patched": false,
+   "local_sha256": "2f4c86f5c106bb45f13508f8fcd482f850072ef059e285a721ab3b5412933c73"
+  },
+  {
+   "src": "records/cryptids/derive-undefined-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-undefined-riemann_120.json",
+   "src_sha256": "80a02d7e5ae7801b7f718bdb7287625de9b42924e4266c85c95127c667b45e7c",
+   "patched": false,
+   "local_sha256": "80a02d7e5ae7801b7f718bdb7287625de9b42924e4266c85c95127c667b45e7c"
+  },
+  {
+   "src": "records/cryptids/derive-undefined-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-undefined-zf.json",
+   "src_sha256": "8674e029771f92d879838c9bfebdeabfd8c95d5894d7f8bf9aef617813ef2222",
+   "patched": false,
+   "local_sha256": "8674e029771f92d879838c9bfebdeabfd8c95d5894d7f8bf9aef617813ef2222"
+  },
+  {
+   "src": "records/cryptids/derive-undefined-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-undefined-zf_393.json",
+   "src_sha256": "de11e9ccc9d0fe10273344af73ea174c356585019dbe593ceac165d2da74b7a5",
+   "patched": false,
+   "local_sha256": "de11e9ccc9d0fe10273344af73ea174c356585019dbe593ceac165d2da74b7a5"
+  },
+  {
+   "src": "records/cryptids/derive-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-zf.json",
+   "src_sha256": "b7d750bb17fb377225b6884f24f9d70b9fe8ed3a27158b73e5f612793927ef07",
+   "patched": false,
+   "local_sha256": "b7d750bb17fb377225b6884f24f9d70b9fe8ed3a27158b73e5f612793927ef07"
+  },
+  {
+   "src": "records/cryptids/derive-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/derive-zf_393.json",
+   "src_sha256": "0c02f5f32f1c0c4f11ba60fcc26d6da29853d6e90a76df361707605a8ff39d4d",
+   "patched": false,
+   "local_sha256": "0c02f5f32f1c0c4f11ba60fcc26d6da29853d6e90a76df361707605a8ff39d4d"
+  },
+  {
+   "src": "records/cryptids/fewer-states-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/fewer-states-goldbach_21.json",
+   "src_sha256": "93c8d3ce29442953c5fd871fc67e6386eace49c1839c2fd535822acb975b04a7",
+   "patched": false,
+   "local_sha256": "93c8d3ce29442953c5fd871fc67e6386eace49c1839c2fd535822acb975b04a7"
+  },
+  {
+   "src": "records/cryptids/fewer-states-riemann_104.json",
+   "dst": "corpus/claimbox-cryptids/objects/fewer-states-riemann_104.json",
+   "src_sha256": "69eeef3d8916b888442cd49123ad9d2bf51cf115c3bd945de9b2744487f9e81b",
+   "patched": false,
+   "local_sha256": "69eeef3d8916b888442cd49123ad9d2bf51cf115c3bd945de9b2744487f9e81b"
+  },
+  {
+   "src": "records/cryptids/fewer-states-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/fewer-states-riemann_95.json",
+   "src_sha256": "ba083245177c671377b4216185db44d86eb49bdaf696eb30f2438f70ff8ef189",
+   "patched": false,
+   "local_sha256": "ba083245177c671377b4216185db44d86eb49bdaf696eb30f2438f70ff8ef189"
+  },
+  {
+   "src": "records/cryptids/fewer-states-zf_380.json",
+   "dst": "corpus/claimbox-cryptids/objects/fewer-states-zf_380.json",
+   "src_sha256": "753a6d36133a7c5cdc97610fc1b2a48cff980c43b497134853d290919c6c9fa1",
+   "patched": false,
+   "local_sha256": "753a6d36133a7c5cdc97610fc1b2a48cff980c43b497134853d290919c6c9fa1"
+  },
+  {
+   "src": "records/cryptids/goldbach-boot-cand.json",
+   "dst": "corpus/claimbox-cryptids/objects/goldbach-boot-cand.json",
+   "src_sha256": "f520589b4aacad53f4e673a382489dcb1d0ee138128786c6c3e03bffc1dc313f",
+   "patched": false,
+   "local_sha256": "f520589b4aacad53f4e673a382489dcb1d0ee138128786c6c3e03bffc1dc313f"
+  },
+  {
+   "src": "records/cryptids/goldbach-boot-ref.json",
+   "dst": "corpus/claimbox-cryptids/objects/goldbach-boot-ref.json",
+   "src_sha256": "b166be6c88400c8aaca835de715d1857a44246b94ea65e0283e3b1b04d4e8bc7",
+   "patched": false,
+   "local_sha256": "b166be6c88400c8aaca835de715d1857a44246b94ea65e0283e3b1b04d4e8bc7"
+  },
+  {
+   "src": "records/cryptids/goldbach-embed.json",
+   "dst": "corpus/claimbox-cryptids/objects/goldbach-embed.json",
+   "src_sha256": "4466de78194343e83bb684e5563e0914928055876a85925cefb70b43a8c476be",
+   "patched": false,
+   "local_sha256": "4466de78194343e83bb684e5563e0914928055876a85925cefb70b43a8c476be"
+  },
+  {
+   "src": "records/cryptids/goldbach-through-40-cand.json",
+   "dst": "corpus/claimbox-cryptids/objects/goldbach-through-40-cand.json",
+   "src_sha256": "9a7805ac3f1f1eaa6e89f4edc6fd16f2983db83a5275af352696ce7e09611940",
+   "patched": false,
+   "local_sha256": "9a7805ac3f1f1eaa6e89f4edc6fd16f2983db83a5275af352696ce7e09611940"
+  },
+  {
+   "src": "records/cryptids/goldbach-through-40-ref.json",
+   "dst": "corpus/claimbox-cryptids/objects/goldbach-through-40-ref.json",
+   "src_sha256": "a00084ca8c88fc7f8a1320d6b6f8f468d42613a78b9ae04d30b7527fbce4e1c3",
+   "patched": false,
+   "local_sha256": "a00084ca8c88fc7f8a1320d6b6f8f468d42613a78b9ae04d30b7527fbce4e1c3"
+  },
+  {
+   "src": "records/cryptids/halting-riemann-95.json",
+   "dst": "corpus/claimbox-cryptids/objects/halting-riemann-95.json",
+   "src_sha256": "075b93382e5d637f26588f0b5afd29b5c3abcf4b5e975213ed446ca34403b8ad",
+   "patched": false,
+   "local_sha256": "075b93382e5d637f26588f0b5afd29b5c3abcf4b5e975213ed446ca34403b8ad"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-goldbach.json",
+   "src_sha256": "c9e6370252db1afda002c006eef4b750af335b0bcc6c394411ec307bb1787ba5",
+   "patched": false,
+   "local_sha256": "c9e6370252db1afda002c006eef4b750af335b0bcc6c394411ec307bb1787ba5"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-goldbach_21.json",
+   "src_sha256": "84403be0205ae5c54f8e4cd7187ee6e3bcbd16c2913f191ca3596069e7bd0f1f",
+   "patched": false,
+   "local_sha256": "84403be0205ae5c54f8e4cd7187ee6e3bcbd16c2913f191ca3596069e7bd0f1f"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-riemann.json",
+   "src_sha256": "bea299ce6482de3f57f99f3c6a8277d27314c8feeb3492d6383c6ca07da6c21e",
+   "patched": false,
+   "local_sha256": "bea299ce6482de3f57f99f3c6a8277d27314c8feeb3492d6383c6ca07da6c21e"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-riemann_104.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-riemann_104.json",
+   "src_sha256": "d599333c214ac0ab26a1f2a7a100a603b3a1c326dee0861ee2a46c7014aa2d20",
+   "patched": false,
+   "local_sha256": "d599333c214ac0ab26a1f2a7a100a603b3a1c326dee0861ee2a46c7014aa2d20"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-riemann_120.json",
+   "src_sha256": "1b4e4e8ed134e8459421aedb11bbdf2f65a393dced87e7675c2298f8875dd8df",
+   "patched": false,
+   "local_sha256": "1b4e4e8ed134e8459421aedb11bbdf2f65a393dced87e7675c2298f8875dd8df"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-riemann_95.json",
+   "src_sha256": "e1ff3ff89e807d1ed3dc59488865e002763bffc3413a45713f5f09fb0ee8d7fc",
+   "patched": false,
+   "local_sha256": "e1ff3ff89e807d1ed3dc59488865e002763bffc3413a45713f5f09fb0ee8d7fc"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-zf.json",
+   "src_sha256": "b84fe3989f7ee113e9ac023d1b25e3652de3bb0dd597db84af4dd3d0686e9b58",
+   "patched": false,
+   "local_sha256": "b84fe3989f7ee113e9ac023d1b25e3652de3bb0dd597db84af4dd3d0686e9b58"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-zf_380.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-zf_380.json",
+   "src_sha256": "1e7097de7cdfd9a250815e8d34c9fb9f97962ab0b6306ccdc4eb3241b73c0627",
+   "patched": false,
+   "local_sha256": "1e7097de7cdfd9a250815e8d34c9fb9f97962ab0b6306ccdc4eb3241b73c0627"
+  },
+  {
+   "src": "records/cryptids/no-halt-250k-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/no-halt-250k-zf_393.json",
+   "src_sha256": "28af4ba36e3878e7ed8975da38f847912bc44ca6da680c8021e3211562a7ad65",
+   "patched": false,
+   "local_sha256": "28af4ba36e3878e7ed8975da38f847912bc44ca6da680c8021e3211562a7ad65"
+  },
+  {
+   "src": "records/cryptids/pct-riemann-104-tr.json",
+   "dst": "corpus/claimbox-cryptids/objects/pct-riemann-104-tr.json",
+   "src_sha256": "61d6ff77fcedf23cce87f2da5da848ddbc3724da7ed08a866ff77942b98485c1",
+   "patched": false,
+   "local_sha256": "61d6ff77fcedf23cce87f2da5da848ddbc3724da7ed08a866ff77942b98485c1"
+  },
+  {
+   "src": "records/cryptids/pct-riemann-104.json",
+   "dst": "corpus/claimbox-cryptids/objects/pct-riemann-104.json",
+   "src_sha256": "7c68b078c85324d9bd1210bbb6ec66171b7c462a0846fd31cc10e756cb836014",
+   "patched": false,
+   "local_sha256": "7c68b078c85324d9bd1210bbb6ec66171b7c462a0846fd31cc10e756cb836014"
+  },
+  {
+   "src": "records/cryptids/pct-zf-10m.json",
+   "dst": "corpus/claimbox-cryptids/objects/pct-zf-10m.json",
+   "src_sha256": "03676b83a1bd011acdda6741c18729b434b249c0c7ba05e9dcfa13e380e7aa06",
+   "patched": false,
+   "local_sha256": "03676b83a1bd011acdda6741c18729b434b249c0c7ba05e9dcfa13e380e7aa06"
+  },
+  {
+   "src": "records/cryptids/pct-zf-1m.json",
+   "dst": "corpus/claimbox-cryptids/objects/pct-zf-1m.json",
+   "src_sha256": "6df54f5b44f504a66810bba9e096e3a0def414f890c523db49b4e2198dd713bd",
+   "patched": false,
+   "local_sha256": "6df54f5b44f504a66810bba9e096e3a0def414f890c523db49b4e2198dd713bd"
+  },
+  {
+   "src": "records/cryptids/pct-zf-380.json",
+   "dst": "corpus/claimbox-cryptids/objects/pct-zf-380.json",
+   "src_sha256": "0f41745f6cfd7d66bfe2016ea253f9d6fae0956680904e185d2dc45b416da77e",
+   "patched": false,
+   "local_sha256": "0f41745f6cfd7d66bfe2016ea253f9d6fae0956680904e185d2dc45b416da77e"
+  },
+  {
+   "src": "records/cryptids/prov-machine-sha-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-machine-sha-goldbach.json",
+   "src_sha256": "e05784aebed03fdd4ccd01813bf7c776cd37c1ba820f35f1cf343e8b0c4b771b",
+   "patched": false,
+   "local_sha256": "e05784aebed03fdd4ccd01813bf7c776cd37c1ba820f35f1cf343e8b0c4b771b"
+  },
+  {
+   "src": "records/cryptids/prov-machine-sha-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-machine-sha-riemann.json",
+   "src_sha256": "d65d413e50bbac882008cd93655805fb0e38d0566cd5d78cf5f6f372d2360b85",
+   "patched": false,
+   "local_sha256": "d65d413e50bbac882008cd93655805fb0e38d0566cd5d78cf5f6f372d2360b85"
+  },
+  {
+   "src": "records/cryptids/prov-machine-sha-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-machine-sha-riemann_120.json",
+   "src_sha256": "87180e8213ed6d4a9fe6ce45c25fc87b306fff4d51fb8be96852d414de892ba2",
+   "patched": false,
+   "local_sha256": "87180e8213ed6d4a9fe6ce45c25fc87b306fff4d51fb8be96852d414de892ba2"
+  },
+  {
+   "src": "records/cryptids/prov-machine-sha-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-machine-sha-zf.json",
+   "src_sha256": "606d7db10c2ad6ac92c38e6c2a52a1449f22fb06e13c276808a0836484a6e377",
+   "patched": false,
+   "local_sha256": "606d7db10c2ad6ac92c38e6c2a52a1449f22fb06e13c276808a0836484a6e377"
+  },
+  {
+   "src": "records/cryptids/prov-machine-sha-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-machine-sha-zf_393.json",
+   "src_sha256": "b438ef48c2014584159b230e585102893cab98608008df1d2d8fafaaefc2b373",
+   "patched": false,
+   "local_sha256": "b438ef48c2014584159b230e585102893cab98608008df1d2d8fafaaefc2b373"
+  },
+  {
+   "src": "records/cryptids/prov-src-sha-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-src-sha-goldbach.json",
+   "src_sha256": "437cceecfc9e096b9336ad18a40c43bffcaa3f62ff23a20476195e75adf7a86b",
+   "patched": false,
+   "local_sha256": "437cceecfc9e096b9336ad18a40c43bffcaa3f62ff23a20476195e75adf7a86b"
+  },
+  {
+   "src": "records/cryptids/prov-src-sha-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-src-sha-riemann.json",
+   "src_sha256": "ccf4406d38bf0f98636ebefdb9ca182c3f395583b5181950e208a024c925af2c",
+   "patched": false,
+   "local_sha256": "ccf4406d38bf0f98636ebefdb9ca182c3f395583b5181950e208a024c925af2c"
+  },
+  {
+   "src": "records/cryptids/prov-src-sha-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-src-sha-riemann_120.json",
+   "src_sha256": "e75f88984a9f8f6ee1fc74bf123bf213ac7983ef5a5283047147ba5d3cc5d1c3",
+   "patched": false,
+   "local_sha256": "e75f88984a9f8f6ee1fc74bf123bf213ac7983ef5a5283047147ba5d3cc5d1c3"
+  },
+  {
+   "src": "records/cryptids/prov-src-sha-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-src-sha-zf.json",
+   "src_sha256": "4993d5c3bc16e7f8a766b1779efb55a84d470d0bc1277ba569cd35f5f11857c8",
+   "patched": false,
+   "local_sha256": "4993d5c3bc16e7f8a766b1779efb55a84d470d0bc1277ba569cd35f5f11857c8"
+  },
+  {
+   "src": "records/cryptids/prov-src-sha-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-src-sha-zf_393.json",
+   "src_sha256": "1c1965d361341d2d44ca00dc47cda27365cf9e0b67678c1830a3a6702501e8f6",
+   "patched": false,
+   "local_sha256": "1c1965d361341d2d44ca00dc47cda27365cf9e0b67678c1830a3a6702501e8f6"
+  },
+  {
+   "src": "records/cryptids/prov-states-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-states-goldbach.json",
+   "src_sha256": "4502b748586f8f5ba810fe767c2311acaca294fb0b92c1fd974eae88e66640d9",
+   "patched": false,
+   "local_sha256": "4502b748586f8f5ba810fe767c2311acaca294fb0b92c1fd974eae88e66640d9"
+  },
+  {
+   "src": "records/cryptids/prov-states-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-states-riemann.json",
+   "src_sha256": "6ae242217e00f0145085a91ed9f621dfd418c46dfe2b6ca1ce9508a5ca3cee54",
+   "patched": false,
+   "local_sha256": "6ae242217e00f0145085a91ed9f621dfd418c46dfe2b6ca1ce9508a5ca3cee54"
+  },
+  {
+   "src": "records/cryptids/prov-states-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-states-riemann_120.json",
+   "src_sha256": "e6b6673330155704ef643ab7fc6c7aae8b80928d973f00478b9974a886d68531",
+   "patched": false,
+   "local_sha256": "e6b6673330155704ef643ab7fc6c7aae8b80928d973f00478b9974a886d68531"
+  },
+  {
+   "src": "records/cryptids/prov-states-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-states-zf.json",
+   "src_sha256": "2bea1a010ee608de35dadc04926d5b883bbacd2f98d4c3e66a457276dadb7cd2",
+   "patched": false,
+   "local_sha256": "2bea1a010ee608de35dadc04926d5b883bbacd2f98d4c3e66a457276dadb7cd2"
+  },
+  {
+   "src": "records/cryptids/prov-states-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-states-zf_393.json",
+   "src_sha256": "56a4d4119f1d83c033c8e2838ea50d15ddbd40a05f18601256b0db025a58dcb7",
+   "patched": false,
+   "local_sha256": "56a4d4119f1d83c033c8e2838ea50d15ddbd40a05f18601256b0db025a58dcb7"
+  },
+  {
+   "src": "records/cryptids/prov-table-sha-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-table-sha-goldbach.json",
+   "src_sha256": "5bdcdadd54425796116ee27c862f4283b5d994a47ea1583f84495d10fc354469",
+   "patched": false,
+   "local_sha256": "5bdcdadd54425796116ee27c862f4283b5d994a47ea1583f84495d10fc354469"
+  },
+  {
+   "src": "records/cryptids/prov-table-sha-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-table-sha-riemann.json",
+   "src_sha256": "1a70090173cfbf96be3342d14e05ac812e6209a64635c9cc22d79a020b512ce0",
+   "patched": false,
+   "local_sha256": "1a70090173cfbf96be3342d14e05ac812e6209a64635c9cc22d79a020b512ce0"
+  },
+  {
+   "src": "records/cryptids/prov-table-sha-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-table-sha-riemann_120.json",
+   "src_sha256": "56b60cdf6375cd416b0236b57ba0ff9f347c1cb04216b71d66bdf9aac747abd6",
+   "patched": false,
+   "local_sha256": "56b60cdf6375cd416b0236b57ba0ff9f347c1cb04216b71d66bdf9aac747abd6"
+  },
+  {
+   "src": "records/cryptids/prov-table-sha-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-table-sha-zf.json",
+   "src_sha256": "6603e028829ba8ef23eb07464339f45ff48a46223a95922043e6061b50d56d0e",
+   "patched": false,
+   "local_sha256": "6603e028829ba8ef23eb07464339f45ff48a46223a95922043e6061b50d56d0e"
+  },
+  {
+   "src": "records/cryptids/prov-table-sha-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/prov-table-sha-zf_393.json",
+   "src_sha256": "2cba367811a04927cf056661ea24181af4a0e7c07126ce3549a0f26a0abad8f0",
+   "patched": false,
+   "local_sha256": "2cba367811a04927cf056661ea24181af4a0e7c07126ce3549a0f26a0abad8f0"
+  },
+  {
+   "src": "records/cryptids/ratio-goldbach-steps.json",
+   "dst": "corpus/claimbox-cryptids/objects/ratio-goldbach-steps.json",
+   "src_sha256": "f0356ecc9dfbcfe24352e190998eb284004068c5235908d5faa4a5a93e88218d",
+   "patched": false,
+   "local_sha256": "f0356ecc9dfbcfe24352e190998eb284004068c5235908d5faa4a5a93e88218d"
+  },
+  {
+   "src": "records/cryptids/ratio-riemann-104-boot.json",
+   "dst": "corpus/claimbox-cryptids/objects/ratio-riemann-104-boot.json",
+   "src_sha256": "5c803c1c74076dd5c1eee2ff67fa6b558f73a6b3c9f406f7fde0f2c55b7f7d64",
+   "patched": false,
+   "local_sha256": "5c803c1c74076dd5c1eee2ff67fa6b558f73a6b3c9f406f7fde0f2c55b7f7d64"
+  },
+  {
+   "src": "records/cryptids/ratio-riemann-95-boot.json",
+   "dst": "corpus/claimbox-cryptids/objects/ratio-riemann-95-boot.json",
+   "src_sha256": "a7ece679da5a26e61308df849d436b1298944f27da82bf66e9cfbe5bc3cdd8fc",
+   "patched": false,
+   "local_sha256": "a7ece679da5a26e61308df849d436b1298944f27da82bf66e9cfbe5bc3cdd8fc"
+  },
+  {
+   "src": "records/cryptids/ratio-zf-10m.json",
+   "dst": "corpus/claimbox-cryptids/objects/ratio-zf-10m.json",
+   "src_sha256": "16dbe27ad4e99200ecab0fa23e8036c60101a4e79ea44adcc43ed9be0929c4af",
+   "patched": false,
+   "local_sha256": "16dbe27ad4e99200ecab0fa23e8036c60101a4e79ea44adcc43ed9be0929c4af"
+  },
+  {
+   "src": "records/cryptids/ratio-zf-1m.json",
+   "dst": "corpus/claimbox-cryptids/objects/ratio-zf-1m.json",
+   "src_sha256": "66f746453b2d6ed98c63784076c49c9227f2448677da4c6375ad213702983b06",
+   "patched": false,
+   "local_sha256": "66f746453b2d6ed98c63784076c49c9227f2448677da4c6375ad213702983b06"
+  },
+  {
+   "src": "records/cryptids/riemann-104-boot.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-104-boot.json",
+   "src_sha256": "b4071df15b9a36ff53f77b0ef12d9c39eb04f831de5fd92ddb9ff53db6dc6720",
+   "patched": false,
+   "local_sha256": "b4071df15b9a36ff53f77b0ef12d9c39eb04f831de5fd92ddb9ff53db6dc6720"
+  },
+  {
+   "src": "records/cryptids/riemann-104-root-dispatches.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-104-root-dispatches.json",
+   "src_sha256": "ad9aed77c4c6d3099fea17f6f13b126276889db74a41474b05df13a35b4080fa",
+   "patched": false,
+   "local_sha256": "ad9aed77c4c6d3099fea17f6f13b126276889db74a41474b05df13a35b4080fa"
+  },
+  {
+   "src": "records/cryptids/riemann-104-table-steps-are-root-entries.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-104-table-steps-are-root-entries.json",
+   "src_sha256": "595631ab7ec802613b475114bb3163a49ea7572de4b90493a35834a4ff8c8f81",
+   "patched": false,
+   "local_sha256": "595631ab7ec802613b475114bb3163a49ea7572de4b90493a35834a4ff8c8f81"
+  },
+  {
+   "src": "records/cryptids/riemann-120-no-halt-boot-length.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-120-no-halt-boot-length.json",
+   "src_sha256": "1b664fac3dd46bb4f0b913cf36c502f9efdb4a7cb6507404bf8ca8cdc2ea69f0",
+   "patched": false,
+   "local_sha256": "1b664fac3dd46bb4f0b913cf36c502f9efdb4a7cb6507404bf8ca8cdc2ea69f0"
+  },
+  {
+   "src": "records/cryptids/riemann-95-init-tape.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-95-init-tape.json",
+   "src_sha256": "16fb97da95c53a6689f8ca8a59b4fb4c44075aaff68210b7917a1aac29c0a5c1",
+   "patched": false,
+   "local_sha256": "16fb97da95c53a6689f8ca8a59b4fb4c44075aaff68210b7917a1aac29c0a5c1"
+  },
+  {
+   "src": "records/cryptids/riemann-95-init.json",
+   "dst": "corpus/claimbox-cryptids/objects/riemann-95-init.json",
+   "src_sha256": "36c7b866ab340d10ac22a6b054dca2b26d2680073cfe6ed3d0f96781fc914180",
+   "patched": false,
+   "local_sha256": "36c7b866ab340d10ac22a6b054dca2b26d2680073cfe6ed3d0f96781fc914180"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-file-sha-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-file-sha-riemann_95.json",
+   "src_sha256": "653464bad9a82c1b23de74f00f40c7ee6599ed68eb06086a868b0b03bdedd86d",
+   "patched": false,
+   "local_sha256": "653464bad9a82c1b23de74f00f40c7ee6599ed68eb06086a868b0b03bdedd86d"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-sha-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-sha-goldbach_21.json",
+   "src_sha256": "f1342e90b74a7ae1611a56a24c4a77b48db52c568520b889e767f7c99b06305d",
+   "patched": false,
+   "local_sha256": "f1342e90b74a7ae1611a56a24c4a77b48db52c568520b889e767f7c99b06305d"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-sha-riemann_104.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-sha-riemann_104.json",
+   "src_sha256": "f0844b7f26305949b6577669e850b990f1c549f91c77ffaebf52df5dff620eb0",
+   "patched": false,
+   "local_sha256": "f0844b7f26305949b6577669e850b990f1c549f91c77ffaebf52df5dff620eb0"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-sha-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-sha-riemann_95.json",
+   "src_sha256": "3b283dc0b4dc429202a3f0d3bf45fb0530c989f3142d120690b5d5f68a8cbc6c",
+   "patched": false,
+   "local_sha256": "3b283dc0b4dc429202a3f0d3bf45fb0530c989f3142d120690b5d5f68a8cbc6c"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-sha-zf_380.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-sha-zf_380.json",
+   "src_sha256": "adb278a64a440d66c0dc2ddb4cbbdec6790857dd23dda1b269474a711ae41849",
+   "patched": false,
+   "local_sha256": "adb278a64a440d66c0dc2ddb4cbbdec6790857dd23dda1b269474a711ae41849"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-states-goldbach_21.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-states-goldbach_21.json",
+   "src_sha256": "aef3b349749ed6f511c80af65651ebc6a7e619ca0e724f45fd85f6a837822fb6",
+   "patched": false,
+   "local_sha256": "aef3b349749ed6f511c80af65651ebc6a7e619ca0e724f45fd85f6a837822fb6"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-states-riemann_104.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-states-riemann_104.json",
+   "src_sha256": "4d15f012c88deae53b8c7a38f190fd392dbd87887a9573dd06955907289952d4",
+   "patched": false,
+   "local_sha256": "4d15f012c88deae53b8c7a38f190fd392dbd87887a9573dd06955907289952d4"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-states-riemann_95.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-states-riemann_95.json",
+   "src_sha256": "0396384bc8b59b86307538006c2a5b3f0709f6e489c729e8598f4dbb41003272",
+   "patched": false,
+   "local_sha256": "0396384bc8b59b86307538006c2a5b3f0709f6e489c729e8598f4dbb41003272"
+  },
+  {
+   "src": "records/cryptids/verifypy-cand-states-zf_380.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-cand-states-zf_380.json",
+   "src_sha256": "76e9be75438f5fa926450a8c1ee9e92f5767fe1165740a0f5429ac68b1d8c8cd",
+   "patched": false,
+   "local_sha256": "76e9be75438f5fa926450a8c1ee9e92f5767fe1165740a0f5429ac68b1d8c8cd"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-canonical_machine_sha256-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-canonical_machine_sha256-goldbach.json",
+   "src_sha256": "5297cab281eb75504bbbbcb3dffcc30d896657a6ea6e5b7eae3044213a0fd42c",
+   "patched": false,
+   "local_sha256": "5297cab281eb75504bbbbcb3dffcc30d896657a6ea6e5b7eae3044213a0fd42c"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-canonical_machine_sha256-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-canonical_machine_sha256-riemann.json",
+   "src_sha256": "e875201bf0664fb6850d932da2494469815f2bfbfc98d8277954f5211055a0c4",
+   "patched": false,
+   "local_sha256": "e875201bf0664fb6850d932da2494469815f2bfbfc98d8277954f5211055a0c4"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-canonical_machine_sha256-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-canonical_machine_sha256-riemann_120.json",
+   "src_sha256": "911c1fd1ab5ce624fbdf03a5f3e9d010cc34670777099631ebd575506ca2fcfe",
+   "patched": false,
+   "local_sha256": "911c1fd1ab5ce624fbdf03a5f3e9d010cc34670777099631ebd575506ca2fcfe"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-canonical_machine_sha256-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-canonical_machine_sha256-zf.json",
+   "src_sha256": "fe0d55269f84ce5e182ba4882baed867433d7d8454db284fe07b4866761bb111",
+   "patched": false,
+   "local_sha256": "fe0d55269f84ce5e182ba4882baed867433d7d8454db284fe07b4866761bb111"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-canonical_machine_sha256-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-canonical_machine_sha256-zf_393.json",
+   "src_sha256": "d87e3370f2422124dc887705b5279b4dc0e0482cc408026939a856fdbf6810bf",
+   "patched": false,
+   "local_sha256": "d87e3370f2422124dc887705b5279b4dc0e0482cc408026939a856fdbf6810bf"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-source_sha256-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-source_sha256-goldbach.json",
+   "src_sha256": "3dbdc406e559ebcda5d475e7d08723f0e67e0602af816ab4052f614a6da4f087",
+   "patched": false,
+   "local_sha256": "3dbdc406e559ebcda5d475e7d08723f0e67e0602af816ab4052f614a6da4f087"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-source_sha256-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-source_sha256-riemann.json",
+   "src_sha256": "88113816f4f437e70a13cb1f66921d11bf9d4b11607edde1e8cc43c2c9109d62",
+   "patched": false,
+   "local_sha256": "88113816f4f437e70a13cb1f66921d11bf9d4b11607edde1e8cc43c2c9109d62"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-source_sha256-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-source_sha256-riemann_120.json",
+   "src_sha256": "9744320538fb22d4f9668c4f42f5f0967fff61b35045e34a7c3921ed9c83b540",
+   "patched": false,
+   "local_sha256": "9744320538fb22d4f9668c4f42f5f0967fff61b35045e34a7c3921ed9c83b540"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-source_sha256-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-source_sha256-zf.json",
+   "src_sha256": "2930407b189efc228ebea37cdd52660113aaa17be0011aedbb47737c22956eb3",
+   "patched": false,
+   "local_sha256": "2930407b189efc228ebea37cdd52660113aaa17be0011aedbb47737c22956eb3"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-source_sha256-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-source_sha256-zf_393.json",
+   "src_sha256": "e0a33ce612da59d9c0bf1b2f7e24f8ffb533b4fa1abd6a429b5b83ddbb12c172",
+   "patched": false,
+   "local_sha256": "e0a33ce612da59d9c0bf1b2f7e24f8ffb533b4fa1abd6a429b5b83ddbb12c172"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-table_file_sha256-goldbach.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-table_file_sha256-goldbach.json",
+   "src_sha256": "f804fa6eb9ef239b0773d180dfaef1431923103b9eabde6857cee149c0c4032f",
+   "patched": false,
+   "local_sha256": "f804fa6eb9ef239b0773d180dfaef1431923103b9eabde6857cee149c0c4032f"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-table_file_sha256-riemann.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-table_file_sha256-riemann.json",
+   "src_sha256": "d214ee7f08c7a4a3c790a60e268950d93a2ab9e04ecb5203c7c1bd41ae342df9",
+   "patched": false,
+   "local_sha256": "d214ee7f08c7a4a3c790a60e268950d93a2ab9e04ecb5203c7c1bd41ae342df9"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-table_file_sha256-riemann_120.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-table_file_sha256-riemann_120.json",
+   "src_sha256": "3ee845d9a44feda20e531d2602a9bd51ed5e044a55efab198af884f1531a7b30",
+   "patched": false,
+   "local_sha256": "3ee845d9a44feda20e531d2602a9bd51ed5e044a55efab198af884f1531a7b30"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-table_file_sha256-zf.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-table_file_sha256-zf.json",
+   "src_sha256": "5861546446c21a876b1d26ffea27b084617f25afcd855841650f02d92f918eed",
+   "patched": false,
+   "local_sha256": "5861546446c21a876b1d26ffea27b084617f25afcd855841650f02d92f918eed"
+  },
+  {
+   "src": "records/cryptids/verifypy-pin-table_file_sha256-zf_393.json",
+   "dst": "corpus/claimbox-cryptids/objects/verifypy-pin-table_file_sha256-zf_393.json",
+   "src_sha256": "7fa28fd5b43f26a38573638c117923a4e608f769ed33f7a698e783e72b108707",
+   "patched": false,
+   "local_sha256": "7fa28fd5b43f26a38573638c117923a4e608f769ed33f7a698e783e72b108707"
+  },
+  {
+   "src": "records/cryptids/zf-380-boot-state.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-380-boot-state.json",
+   "src_sha256": "9a1282cefc2cb8b6a37c2fa67e2cf31c04b0ff485d3c967fc0e45c530d378730",
+   "patched": false,
+   "local_sha256": "9a1282cefc2cb8b6a37c2fa67e2cf31c04b0ff485d3c967fc0e45c530d378730"
+  },
+  {
+   "src": "records/cryptids/zf-393-39773-state-99.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-393-39773-state-99.json",
+   "src_sha256": "22b923c5ea573756322b36b8ae75180967d139dacb80a39db619f6bea890dfbd",
+   "patched": false,
+   "local_sha256": "22b923c5ea573756322b36b8ae75180967d139dacb80a39db619f6bea890dfbd"
+  },
+  {
+   "src": "records/cryptids/zf-393-boot-state.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-393-boot-state.json",
+   "src_sha256": "d07c9c7a7e59a4adc82f4d95d527232e753d3a1cb361d52a640610b613059f2c",
+   "patched": false,
+   "local_sha256": "d07c9c7a7e59a4adc82f4d95d527232e753d3a1cb361d52a640610b613059f2c"
+  },
+  {
+   "src": "records/cryptids/zf-boot-tapes-equal.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-boot-tapes-equal.json",
+   "src_sha256": "be9d8c2cc8d8eeaf2a0cae259ccb744b56a3d46a232fa4640770afc2834c6b77",
+   "patched": false,
+   "local_sha256": "be9d8c2cc8d8eeaf2a0cae259ccb744b56a3d46a232fa4640770afc2834c6b77"
+  },
+  {
+   "src": "records/cryptids/zf-overhead-10m.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-overhead-10m.json",
+   "src_sha256": "849ab9ec6cc551f2c63111673dba43c0b207b331f940c73ce70204cc561d34ea",
+   "patched": false,
+   "local_sha256": "849ab9ec6cc551f2c63111673dba43c0b207b331f940c73ce70204cc561d34ea"
+  },
+  {
+   "src": "records/cryptids/zf-overhead-1m.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-overhead-1m.json",
+   "src_sha256": "897e60cfdf7edfb67bd8a9f5489abeabbf27e3e3e79047635c478a89ba4bf075",
+   "patched": false,
+   "local_sha256": "897e60cfdf7edfb67bd8a9f5489abeabbf27e3e3e79047635c478a89ba4bf075"
+  },
+  {
+   "src": "records/cryptids/zf-post-boot-checkpoints.json",
+   "dst": "corpus/claimbox-cryptids/objects/zf-post-boot-checkpoints.json",
+   "src_sha256": "40359dbf2645ff58119215ea5bd2858e9db121b2e603d5574cf9c593d1aff7b1",
+   "patched": false,
+   "local_sha256": "40359dbf2645ff58119215ea5bd2858e9db121b2e603d5574cf9c593d1aff7b1"
+  },
+  {
+   "src": "records/cryptids-run.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-run.json",
+   "src_sha256": "3504f66720c7daffe6005b2a943d9ac7884a63e7f51570ff9993224c5ea1c3ca",
+   "patched": false,
+   "local_sha256": "3504f66720c7daffe6005b2a943d9ac7884a63e7f51570ff9993224c5ea1c3ca"
+  },
+  {
+   "src": "corpus/cryptids-jobs.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-jobs.json",
+   "src_sha256": "6dc6d6c6c7a1c27358c8f6c7c44b33088e6827633d8f61d451be6b7ae4322698",
+   "patched": false,
+   "local_sha256": "6dc6d6c6c7a1c27358c8f6c7c44b33088e6827633d8f61d451be6b7ae4322698"
+  },
+  {
+   "src": "records/cryptids-recall.json",
+   "dst": "corpus/claimbox-cryptids/cryptids-recall.json",
+   "src_sha256": "f0a37efde8f5193d6887ff9c1ede455dafa2a0b7d31e624747bb52a92612c46e",
+   "patched": false,
+   "local_sha256": "f0a37efde8f5193d6887ff9c1ede455dafa2a0b7d31e624747bb52a92612c46e"
+  },
+  {
+   "src": "records/coverage.json",
+   "dst": "corpus/claimbox-cryptids/register-coverage.json",
+   "src_sha256": "7b90fcc39201ba25cca9d53351b652b0e8a9ff81f17e95503400a5cb20e35cba",
+   "patched": false,
+   "local_sha256": "7b90fcc39201ba25cca9d53351b652b0e8a9ff81f17e95503400a5cb20e35cba"
   }
  ]
 }

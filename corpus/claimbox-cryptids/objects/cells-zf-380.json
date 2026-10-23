@@ -1,0 +1,44 @@
+{
+ "id": "cells-zf-380",
+ "text": "artifacts/zf_380/machine.txt has 759 non-halting transitions",
+ "source": {
+  "what": "the ZF write-up",
+  "path": "corpus/cryptids/artifacts/zf_380/README.md",
+  "sha256": "0758e14de3d768c3b8cc2b50e7fdc39a589ce30152adc836ee88297ae2e6f4a9",
+  "quote": "reducing `785` non-halting transitions to `759` non-halting transitions"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "nonhalting_cells(M) = 759",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a non-halting cell is a table cell that is not ---; the write-ups call these transitions",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of non-halting cells"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cells-zf-380",
+  "value": null,
+  "verdict": "REFUTED"
+ }
+}

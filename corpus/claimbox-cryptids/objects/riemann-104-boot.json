@@ -1,0 +1,44 @@
+{
+ "id": "riemann-104-boot",
+ "text": "after 9,037 steps from the blank tape, artifacts/riemann_104/machine.txt is in state 19 with the head at -7, 19 nonzero cells",
+ "source": {
+  "what": "verify.py's boot assertion for riemann_104 (the write-up prints the step count, the checker the configuration)",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "state == 19 and head == -7 and len(tape) == 19"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "after(M, 9037) = state 19, head -7, nonzero 19",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the configuration after the printed number of steps from the blank tape (head at 0, state 0)",
+ "hypotheses": [],
+ "falsifier": [
+  "the machine halts first, or is elsewhere"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "riemann-104-boot",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

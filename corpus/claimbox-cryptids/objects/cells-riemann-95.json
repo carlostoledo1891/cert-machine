@@ -1,0 +1,44 @@
+{
+ "id": "cells-riemann-95",
+ "text": "artifacts/riemann_95/machine.txt has 189 defined transitions",
+ "source": {
+  "what": "the 95-state write-up",
+  "path": "corpus/cryptids/artifacts/riemann_95/README.md",
+  "sha256": "7e330903a5021fa2d71e1f45904ef4e19748a880197a0e1968bd25bdc20c1b86",
+  "quote": "189 defined transitions"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "nonhalting_cells(M) = 189",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a non-halting cell is a table cell that is not ---; the write-ups call these transitions",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of non-halting cells"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cells-riemann-95",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

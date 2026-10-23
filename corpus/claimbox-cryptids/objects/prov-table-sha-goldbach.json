@@ -1,0 +1,44 @@
+{
+ "id": "prov-table-sha-goldbach",
+ "text": "sha256 of baselines/tables/goldbach_25.txt is f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+ "source": {
+  "what": "PROVENANCE.md's row for goldbach",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "the file's bytes, hashed as they are"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "sha256(M) = f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/tables/goldbach_25.txt is of the file's bytes",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to f5b995cb7917…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "prov-table-sha-goldbach",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

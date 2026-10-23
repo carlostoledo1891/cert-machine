@@ -1,0 +1,44 @@
+{
+ "id": "riemann-120-no-halt-boot-length",
+ "text": "baselines/tables/riemann_120.txt does not halt within 89,775,610 steps",
+ "source": {
+  "what": "the write-up's bootstrap length for riemann_120: a bounded run (the root event itself is refused above)",
+  "path": "corpus/cryptids/artifacts/riemann_104/README.md",
+  "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+  "quote": "`89,775,610`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "no_halt(M, 89775610)",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a bounded run; it says nothing beyond the bound",
+ "hypotheses": [],
+ "falsifier": [
+  "the machine halts within the bound"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "riemann-120-no-halt-boot-length",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

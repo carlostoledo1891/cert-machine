@@ -1,0 +1,46 @@
+{
+ "id": "goldbach-embed",
+ "text": "artifacts/goldbach_21/machine.txt embeds into the Lean table corpus/cryptids/Cryptids/Goldbach21.lean (def edited) under the map 0→2, 1→0, 2→23, 3..7→q, 8→9, 9..14→q+2, 15→24, 16..20→q+2",
+ "source": {
+  "what": "the Goldbach write-up's embedding, read clause by clause, against the edited table of the proof file",
+  "path": "corpus/cryptids/artifacts/goldbach_21/README.md",
+  "sha256": "75afc8e698f6a91b8e209a3584d47a99de234765355ad152730d71c0fec35461",
+  "quote": "`embed : Fin 21 → Fin 25` (`embed 0 = 2`, `embed 1 = 0`,\n   `embed 2 = 23`, `embed q = q` for `3 ≤ q < 8`, `embed 8 = 9`, `embed q = q + 2` for\n   `9 ≤ q < 15`, `embed 15 = 24`, and `embed q = q + 2` for `16 ≤ q < 21`)"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "embeds_into(M; lean corpus/cryptids/Cryptids/Goldbach21.lean@89b6fdd98244b11d56627eae35812ad1de081bc230aa35d5558a446ca767b04c def edited; map 0→2, 1→0, 2→23, 3..7→q, 8→9, 9..14→q+2, 15→24, 16..20→q+2)",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "every cell of M matches the Lean literal table under the map the write-up prints: same write, same move, embedded target, halts in the same places",
+ "hypotheses": [
+  "the map is the one the write-up prints"
+ ],
+ "falsifier": [
+  "a cell differs under the map"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "goldbach-embed",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

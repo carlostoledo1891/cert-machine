@@ -1,0 +1,1831 @@
+{
+ "what": "the receiver's decisions of claimbox objects about small Turing machines, by instruments/claimbox/tm.py (arm C of the cryptids benchmark): one row per object, the named functions, what was computed, the word",
+ "decider": "instruments/claimbox/tm.py",
+ "generated": "2026-10-23T02:23:54Z",
+ "seconds": 17.8,
+ "summary": {
+  "CERTIFIED": 95,
+  "REFUTED": 2
+ },
+ "rows": [
+  {
+   "id": "cand-readme-sha-goldbach_21",
+   "claim": "canonical sha256 of artifacts/goldbach_21/machine.txt is b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "canonical_sha256(M) = b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "computed": [
+    "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cand-readme-sha-riemann_104",
+   "claim": "canonical sha256 of artifacts/riemann_104/machine.txt is ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "canonical_sha256(M) = ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   ],
+   "computed": [
+    "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cand-readme-sha-zf_380",
+   "claim": "canonical sha256 of artifacts/zf_380/machine.txt is c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "canonical_sha256(M) = c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   ],
+   "computed": [
+    "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "cand-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has 21 states",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "states(M) = 21"
+   ],
+   "computed": [
+    21
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cand-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has 95 states",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "states(M) = 95"
+   ],
+   "computed": [
+    95
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-goldbach-21",
+   "claim": "artifacts/goldbach_21/machine.txt has 41 non-halting cells",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "nonhalting_cells(M) = 41"
+   ],
+   "computed": [
+    41
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-goldbach-25",
+   "claim": "baselines/tables/goldbach_25.txt has 49 non-halting cells",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "nonhalting_cells(M) = 49"
+   ],
+   "computed": [
+    49
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-riemann-104",
+   "claim": "artifacts/riemann_104/machine.txt has 207 non-halting transitions",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "nonhalting_cells(M) = 207"
+   ],
+   "computed": [
+    207
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-riemann-120",
+   "claim": "baselines/tables/riemann_120.txt has 238 non-halting transitions",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "nonhalting_cells(M) = 238"
+   ],
+   "computed": [
+    238
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-riemann-95",
+   "claim": "artifacts/riemann_95/machine.txt has 189 defined transitions",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "nonhalting_cells(M) = 189"
+   ],
+   "computed": [
+    189
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "cells-zf-380",
+   "claim": "artifacts/zf_380/machine.txt has 759 non-halting transitions",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "nonhalting_cells(M) = 759"
+   ],
+   "computed": [
+    758
+   ],
+   "words": [
+    "REFUTED"
+   ],
+   "witness": null,
+   "verdict": "REFUTED",
+   "ms": 1
+  },
+  {
+   "id": "cells-zf-393",
+   "claim": "baselines/tables/zf_393.txt has 785 non-halting transitions",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "nonhalting_cells(M) = 785"
+   ],
+   "computed": [
+    784
+   ],
+   "words": [
+    "REFUTED"
+   ],
+   "witness": null,
+   "verdict": "REFUTED",
+   "ms": 1
+  },
+  {
+   "id": "derive-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt compiled from baselines/sources/goldbach_25_bbchallenge.txt (standard) has canonical sha256 da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "path": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "named": [
+    "derived(standard) canonical_sha256(M) = da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "computed": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "derive-riemann",
+   "claim": "baselines/tables/riemann_744.txt compiled from baselines/sources/riemann_744_sorear.tm (nql) has canonical sha256 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "named": [
+    "derived(nql) canonical_sha256(M) = 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "computed": [
+    "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "derive-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt compiled from baselines/sources/riemann_120_shunia.tm (tursi) has canonical sha256 a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "named": [
+    "derived(tursi) canonical_sha256(M) = a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "computed": [
+    "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "derive-undefined-riemann",
+   "claim": "the undefined targets of baselines/sources/riemann_744_sorear.tm (nql) are among [\"halt\",\"H\",\"HALT\"]",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "named": [
+    "derived(nql) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]"
+   ],
+   "computed": [
+    [
+     "HALT"
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "derive-undefined-riemann_120",
+   "claim": "the undefined targets of baselines/sources/riemann_120_shunia.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "named": [
+    "derived(tursi) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]"
+   ],
+   "computed": [
+    [
+     "H"
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "derive-undefined-zf",
+   "claim": "the undefined targets of baselines/sources/zf_432_wade.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "named": [
+    "derived(tursi) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]"
+   ],
+   "computed": [
+    [
+     "halt"
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "derive-undefined-zf_393",
+   "claim": "the undefined targets of baselines/sources/zf_393_wade.tm (tursi) are among [\"halt\",\"H\",\"HALT\"]",
+   "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "path": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "named": [
+    "derived(tursi) undefined_targets(M) ⊆ [\"halt\",\"H\",\"HALT\"]"
+   ],
+   "computed": [
+    [
+     "halt"
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "derive-zf",
+   "claim": "baselines/tables/zf_432.txt compiled from baselines/sources/zf_432_wade.tm (tursi) has canonical sha256 cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "named": [
+    "derived(tursi) canonical_sha256(M) = cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "computed": [
+    "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "derive-zf_393",
+   "claim": "baselines/tables/zf_393.txt compiled from baselines/sources/zf_393_wade.tm (tursi) has canonical sha256 dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "path": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "named": [
+    "derived(tursi) canonical_sha256(M) = dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "computed": [
+    "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "fewer-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has fewer states than goldbach (25)",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "states(M) < 25"
+   ],
+   "computed": [
+    21
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "fewer-states-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt has fewer states than riemann_120 (120)",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "states(M) < 120"
+   ],
+   "computed": [
+    104
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "fewer-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has fewer states than riemann_104 (104)",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "states(M) < 104"
+   ],
+   "computed": [
+    95
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "fewer-states-zf_380",
+   "claim": "artifacts/zf_380/machine.txt has fewer states than zf_393 (393)",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "states(M) < 393"
+   ],
+   "computed": [
+    380
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "goldbach-boot-cand",
+   "claim": "artifacts/goldbach_21/machine.txt (candidate) enters Goldbach stage n = 4 at step 125",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "stage_entry(M, candidate, n = 4) = 125"
+   ],
+   "computed": [
+    125
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "goldbach-boot-ref",
+   "claim": "baselines/tables/goldbach_25.txt (reference) enters Goldbach stage n = 4 at step 49",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "stage_entry(M, reference, n = 4) = 49"
+   ],
+   "computed": [
+    49
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "goldbach-embed",
+   "claim": "artifacts/goldbach_21/machine.txt embeds into the Lean table corpus/cryptids/Cryptids/Goldbach21.lean (def edited) under the map 0→2, 1→0, 2→23, 3..7→q, 8→9, 9..14→q+2, 15→24, 16..20→q+2",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "embeds_into(M; lean corpus/cryptids/Cryptids/Goldbach21.lean@89b6fdd98244b11d56627eae35812ad1de081bc230aa35d5558a446ca767b04c def edited; map 0→2, 1→0, 2→23, 3..7→q, 8→9, 9..14→q+2, 15→24, 16..20→q+2)"
+   ],
+   "computed": [
+    "42 of 42"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "goldbach-through-40-cand",
+   "claim": "artifacts/goldbach_21/machine.txt (candidate) enters Goldbach stage n = 42 at step 339,411",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "stage_entry(M, candidate, n = 42) = 339411"
+   ],
+   "computed": [
+    339411
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 65
+  },
+  {
+   "id": "goldbach-through-40-ref",
+   "claim": "baselines/tables/goldbach_25.txt (reference) enters Goldbach stage n = 42 at step 170,966",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "stage_entry(M, reference, n = 42) = 170966"
+   ],
+   "computed": [
+    170966
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 35
+  },
+  {
+   "id": "halting-riemann-95",
+   "claim": "artifacts/riemann_95/machine.txt has halting cells [[61,1]]",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "halting_cells(M) = [[61,1]]"
+   ],
+   "computed": [
+    [
+     [
+      61,
+      1
+     ]
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "no-halt-250k-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt does not halt within 250,000 steps",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 41
+  },
+  {
+   "id": "no-halt-250k-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt does not halt within 250,000 steps",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 40
+  },
+  {
+   "id": "no-halt-250k-riemann",
+   "claim": "baselines/tables/riemann_744.txt does not halt within 250,000 steps",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 39
+  },
+  {
+   "id": "no-halt-250k-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt does not halt within 250,000 steps",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 38
+  },
+  {
+   "id": "no-halt-250k-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt does not halt within 250,000 steps",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 41
+  },
+  {
+   "id": "no-halt-250k-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt does not halt within 250,000 steps",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 38
+  },
+  {
+   "id": "no-halt-250k-zf",
+   "claim": "baselines/tables/zf_432.txt does not halt within 250,000 steps",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 41
+  },
+  {
+   "id": "no-halt-250k-zf_380",
+   "claim": "artifacts/zf_380/machine.txt does not halt within 250,000 steps",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 38
+  },
+  {
+   "id": "no-halt-250k-zf_393",
+   "claim": "baselines/tables/zf_393.txt does not halt within 250,000 steps",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "no_halt(M, 250000)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 39
+  },
+  {
+   "id": "prov-machine-sha-goldbach",
+   "claim": "canonical sha256 of baselines/tables/goldbach_25.txt is da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "canonical_sha256(M) = da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "computed": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-machine-sha-riemann",
+   "claim": "canonical sha256 of baselines/tables/riemann_744.txt is 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "canonical_sha256(M) = 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "computed": [
+    "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "prov-machine-sha-riemann_120",
+   "claim": "canonical sha256 of baselines/tables/riemann_120.txt is a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "canonical_sha256(M) = a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "computed": [
+    "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-machine-sha-zf",
+   "claim": "canonical sha256 of baselines/tables/zf_432.txt is cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "canonical_sha256(M) = cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "computed": [
+    "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "prov-machine-sha-zf_393",
+   "claim": "canonical sha256 of baselines/tables/zf_393.txt is dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "canonical_sha256(M) = dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "computed": [
+    "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "prov-src-sha-goldbach",
+   "claim": "sha256 of baselines/sources/goldbach_25_bbchallenge.txt is 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "path": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "named": [
+    "sha256(M) = 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+   ],
+   "computed": [
+    "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-src-sha-riemann",
+   "claim": "sha256 of baselines/sources/riemann_744_sorear.tm is de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "named": [
+    "sha256(M) = de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   ],
+   "computed": [
+    "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-src-sha-riemann_120",
+   "claim": "sha256 of baselines/sources/riemann_120_shunia.tm is b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "named": [
+    "sha256(M) = b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   ],
+   "computed": [
+    "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-src-sha-zf",
+   "claim": "sha256 of baselines/sources/zf_432_wade.tm is 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "named": [
+    "sha256(M) = 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   ],
+   "computed": [
+    "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-src-sha-zf_393",
+   "claim": "sha256 of baselines/sources/zf_393_wade.tm is a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "path": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "named": [
+    "sha256(M) = a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   ],
+   "computed": [
+    "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-states-goldbach",
+   "claim": "baselines/tables/goldbach_25.txt has 25 states",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "states(M) = 25"
+   ],
+   "computed": [
+    25
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-states-riemann",
+   "claim": "baselines/tables/riemann_744.txt has 744 states",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "states(M) = 744"
+   ],
+   "computed": [
+    744
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "prov-states-riemann_120",
+   "claim": "baselines/tables/riemann_120.txt has 120 states",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "states(M) = 120"
+   ],
+   "computed": [
+    120
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-states-zf",
+   "claim": "baselines/tables/zf_432.txt has 432 states",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "states(M) = 432"
+   ],
+   "computed": [
+    432
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "prov-states-zf_393",
+   "claim": "baselines/tables/zf_393.txt has 393 states",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "states(M) = 393"
+   ],
+   "computed": [
+    393
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "prov-table-sha-goldbach",
+   "claim": "sha256 of baselines/tables/goldbach_25.txt is f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "sha256(M) = f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   ],
+   "computed": [
+    "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-table-sha-riemann",
+   "claim": "sha256 of baselines/tables/riemann_744.txt is 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "sha256(M) = 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   ],
+   "computed": [
+    "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "prov-table-sha-riemann_120",
+   "claim": "sha256 of baselines/tables/riemann_120.txt is ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "sha256(M) = ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   ],
+   "computed": [
+    "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "prov-table-sha-zf",
+   "claim": "sha256 of baselines/tables/zf_432.txt is e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "sha256(M) = e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   ],
+   "computed": [
+    "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "prov-table-sha-zf_393",
+   "claim": "sha256 of baselines/tables/zf_393.txt is f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "sha256(M) = f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   ],
+   "computed": [
+    "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "riemann-104-boot",
+   "claim": "after 9,037 steps from the blank tape, artifacts/riemann_104/machine.txt is in state 19 with the head at -7, 19 nonzero cells",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "after(M, 9037) = state 19, head -7, nonzero 19"
+   ],
+   "computed": [
+    [
+     19,
+     -7,
+     19
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "riemann-104-root-dispatches",
+   "claim": "artifacts/riemann_104/machine.txt enters state 19 at least 1,000 times between steps 9,037 and 250,000",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "entries(M, state 19, after 9037, within 250000) >= 1000"
+   ],
+   "computed": [
+    1136
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 58
+  },
+  {
+   "id": "riemann-104-table-steps-are-root-entries",
+   "claim": "artifacts/riemann_104/machine.txt enters state 19 at steps [26093,28934,165200,498382] (after 9,037, within 500,000)",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "entries(M, state 19, after 9037, within 500000) at steps [26093,28934,165200,498382]"
+   ],
+   "computed": [
+    {
+     "26093": 179,
+     "28934": 210,
+     "165200": 879,
+     "498382": 1721
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 118
+  },
+  {
+   "id": "riemann-120-no-halt-boot-length",
+   "claim": "baselines/tables/riemann_120.txt does not halt within 89,775,610 steps",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "no_halt(M, 89775610)"
+   ],
+   "computed": [
+    null
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 13586
+  },
+  {
+   "id": "riemann-95-init-tape",
+   "claim": "after 3,634 steps from the blank tape, the ones of artifacts/riemann_95/machine.txt are [-5,18,20,22,24,26,28,30,32,34,36]",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "after(M, 3634) ones = [-5,18,20,22,24,26,28,30,32,34,36]"
+   ],
+   "computed": [
+    [
+     -5,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     30,
+     32,
+     34,
+     36
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "riemann-95-init",
+   "claim": "after 3,634 steps from the blank tape, artifacts/riemann_95/machine.txt is in state 15 with the head at -4",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "after(M, 3634) = state 15, head -4"
+   ],
+   "computed": [
+    [
+     15,
+     -4
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-file-sha-riemann_95",
+   "claim": "sha256 of artifacts/riemann_95/machine.txt is 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "sha256(M) = 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   ],
+   "computed": [
+    "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-sha-goldbach_21",
+   "claim": "canonical sha256 of artifacts/goldbach_21/machine.txt is b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "canonical_sha256(M) = b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "computed": [
+    "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_104",
+   "claim": "canonical sha256 of artifacts/riemann_104/machine.txt is ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "canonical_sha256(M) = ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   ],
+   "computed": [
+    "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-sha-riemann_95",
+   "claim": "canonical sha256 of artifacts/riemann_95/machine.txt is 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "canonical_sha256(M) = 7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   ],
+   "computed": [
+    "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-sha-zf_380",
+   "claim": "canonical sha256 of artifacts/zf_380/machine.txt is c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "canonical_sha256(M) = c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   ],
+   "computed": [
+    "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "verifypy-cand-states-goldbach_21",
+   "claim": "artifacts/goldbach_21/machine.txt has 21 states",
+   "sha256": "b248827bd190d5aedcc9ed6eae5e85f58ed43df8208b0406a9f477fdb2607602",
+   "path": "corpus/cryptids/artifacts/goldbach_21/machine.txt",
+   "named": [
+    "states(M) = 21"
+   ],
+   "computed": [
+    21
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-states-riemann_104",
+   "claim": "artifacts/riemann_104/machine.txt has 104 states",
+   "sha256": "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d",
+   "path": "corpus/cryptids/artifacts/riemann_104/machine.txt",
+   "named": [
+    "states(M) = 104"
+   ],
+   "computed": [
+    104
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-states-riemann_95",
+   "claim": "artifacts/riemann_95/machine.txt has 95 states",
+   "sha256": "7e9731ed1b7c63d4e67c0f8d646f8498d9645f26e237a8604d4b7f91a6ab398d",
+   "path": "corpus/cryptids/artifacts/riemann_95/machine.txt",
+   "named": [
+    "states(M) = 95"
+   ],
+   "computed": [
+    95
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-cand-states-zf_380",
+   "claim": "artifacts/zf_380/machine.txt has 380 states",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "states(M) = 380"
+   ],
+   "computed": [
+    380
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-goldbach",
+   "claim": "canonical sha256 of baselines/tables/goldbach_25.txt is da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "canonical_sha256(M) = da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "computed": [
+    "da5bdb63c1ad0d0e3e97f8ca75addc2b6622dea483b3e3cdfbd2fc55363a5a67"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann",
+   "claim": "canonical sha256 of baselines/tables/riemann_744.txt is 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "canonical_sha256(M) = 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "computed": [
+    "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-riemann_120",
+   "claim": "canonical sha256 of baselines/tables/riemann_120.txt is a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "canonical_sha256(M) = a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "computed": [
+    "a6f0c72649252257bf193268235d0cf9cd847d507d7b241627be7d818c3b86a8"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf",
+   "claim": "canonical sha256 of baselines/tables/zf_432.txt is cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "canonical_sha256(M) = cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "computed": [
+    "cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "verifypy-pin-canonical_machine_sha256-zf_393",
+   "claim": "canonical sha256 of baselines/tables/zf_393.txt is dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "canonical_sha256(M) = dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "computed": [
+    "dcb8680665d4ec9667a1b6de6edf136e6bb0255a2f73a69c4d4f2e068dba23b2"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "verifypy-pin-source_sha256-goldbach",
+   "claim": "sha256 of baselines/sources/goldbach_25_bbchallenge.txt is 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "sha256": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c",
+   "path": "corpus/cryptids/baselines/sources/goldbach_25_bbchallenge.txt",
+   "named": [
+    "sha256(M) = 3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+   ],
+   "computed": [
+    "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann",
+   "claim": "sha256 of baselines/sources/riemann_744_sorear.tm is de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31",
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "named": [
+    "sha256(M) = de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   ],
+   "computed": [
+    "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-source_sha256-riemann_120",
+   "claim": "sha256 of baselines/sources/riemann_120_shunia.tm is b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "sha256": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+   "path": "corpus/cryptids/baselines/sources/riemann_120_shunia.tm",
+   "named": [
+    "sha256(M) = b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   ],
+   "computed": [
+    "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf",
+   "claim": "sha256 of baselines/sources/zf_432_wade.tm is 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261",
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "named": [
+    "sha256(M) = 68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   ],
+   "computed": [
+    "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-source_sha256-zf_393",
+   "claim": "sha256 of baselines/sources/zf_393_wade.tm is a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "sha256": "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135",
+   "path": "corpus/cryptids/baselines/sources/zf_393_wade.tm",
+   "named": [
+    "sha256(M) = a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   ],
+   "computed": [
+    "a1a777fb3994c5b098228f0bd6f27fefcb47a091f36ef8c723bb668c43caf135"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-goldbach",
+   "claim": "sha256 of baselines/tables/goldbach_25.txt is f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5",
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "named": [
+    "sha256(M) = f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   ],
+   "computed": [
+    "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann",
+   "claim": "sha256 of baselines/tables/riemann_744.txt is 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "named": [
+    "sha256(M) = 9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   ],
+   "computed": [
+    "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-riemann_120",
+   "claim": "sha256 of baselines/tables/riemann_120.txt is ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0",
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "named": [
+    "sha256(M) = ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   ],
+   "computed": [
+    "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 0
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf",
+   "claim": "sha256 of baselines/tables/zf_432.txt is e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "sha256": "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66",
+   "path": "corpus/cryptids/baselines/tables/zf_432.txt",
+   "named": [
+    "sha256(M) = e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   ],
+   "computed": [
+    "e662deaa52994e73413af37a434dbfb4e8c8204a8d972154ead2d839f442af66"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "verifypy-pin-table_file_sha256-zf_393",
+   "claim": "sha256 of baselines/tables/zf_393.txt is f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "sha256(M) = f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   ],
+   "computed": [
+    "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97"
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 1
+  },
+  {
+   "id": "zf-380-boot-state",
+   "claim": "after 39,753 steps from the blank tape, artifacts/zf_380/machine.txt is in state 64",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "after(M, 39753) = state 64"
+   ],
+   "computed": [
+    [
+     64
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 6
+  },
+  {
+   "id": "zf-393-39773-state-99",
+   "claim": "baselines/tables/zf_393.txt enters state 99 at steps [39773] (after 39,773, within 39,773)",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "entries(M, state 99, after 39773, within 39773) at steps [39773]"
+   ],
+   "computed": [
+    {
+     "39773": 0
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 9
+  },
+  {
+   "id": "zf-393-boot-state",
+   "claim": "after 39,753 steps from the blank tape, baselines/tables/zf_393.txt is in state 64",
+   "sha256": "f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97",
+   "path": "corpus/cryptids/baselines/tables/zf_393.txt",
+   "named": [
+    "after(M, 39753) = state 64"
+   ],
+   "computed": [
+    [
+     64
+    ]
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 6
+  },
+  {
+   "id": "zf-boot-tapes-equal",
+   "claim": "after 39,753 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 39,753 steps",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "same_tape_and_head(M, 39753; corpus/cryptids/baselines/tables/zf_393.txt@f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97, 39753)"
+   ],
+   "computed": [
+    {
+     "M": [
+      -21,
+      203
+     ],
+     "other": [
+      -21,
+      203
+     ]
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 13
+  },
+  {
+   "id": "zf-overhead-10m",
+   "claim": "after 10,015,814 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 10,000,000 steps",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "same_tape_and_head(M, 10015814; corpus/cryptids/baselines/tables/zf_393.txt@f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97, 10000000)"
+   ],
+   "computed": [
+    {
+     "M": [
+      70,
+      398
+     ],
+     "other": [
+      70,
+      398
+     ]
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 2932
+  },
+  {
+   "id": "zf-overhead-1m",
+   "claim": "after 1,000,930 steps artifacts/zf_380/machine.txt has the tape and head baselines/tables/zf_393.txt has after 1,000,000 steps",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "same_tape_and_head(M, 1000930; corpus/cryptids/baselines/tables/zf_393.txt@f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97, 1000000)"
+   ],
+   "computed": [
+    {
+     "M": [
+      -18,
+      248
+     ],
+     "other": [
+      -18,
+      248
+     ]
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 324
+  },
+  {
+   "id": "zf-post-boot-checkpoints",
+   "claim": "the first 30 entries of artifacts/zf_380/machine.txt into state 64 after step 39,753 (within 250,000) show the tape baselines/tables/zf_393.txt shows",
+   "sha256": "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784",
+   "path": "corpus/cryptids/artifacts/zf_380/machine.txt",
+   "named": [
+    "same_tape_and_head_at_entries(M; corpus/cryptids/baselines/tables/zf_393.txt@f0acf81abb428d9407a9ddd837a1bee07a709634692862386dd6d3e25cc45a97; state 64, after 39753, within 250000) >= 30"
+   ],
+   "computed": [
+    {
+     "common": 3527,
+     "equal": 3527
+    }
+   ],
+   "words": [
+    "CERTIFIED"
+   ],
+   "witness": null,
+   "verdict": "CERTIFIED",
+   "ms": 209
+  }
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "id": "no-halt-250k-goldbach",
+ "text": "baselines/tables/goldbach_25.txt does not halt within 250,000 steps",
+ "source": {
+  "what": "the library README: the checker's bounded runs, applied to every machine",
+  "path": "corpus/cryptids/Cryptids/README.md",
+  "sha256": "0a511e5450e0c4c98de3fc828160196923a5ac8603d54c5dc9ca0eceb19e23b0",
+  "quote": "simulates `250,000` steps per domain"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/goldbach_25.txt",
+   "sha256": "f5b995cb7917d9943431fc8f2554b0872b185ca81e14865307d26db2776b52a5"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "no_halt(M, 250000)",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a bounded run; it says nothing beyond the bound",
+ "hypotheses": [],
+ "falsifier": [
+  "the machine halts within the bound"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "no-halt-250k-goldbach",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

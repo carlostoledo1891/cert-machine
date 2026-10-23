@@ -1,6 +1,6 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-22",
+  "recorded": "2026-10-23",
   "browser": "Chrome/155.0.8059.86",
   "viewports": [
     1440,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "adbc176fe506caeebc50192ef75f410153cc7d4fd8b886e6d6c8861668ca3a9b"
+      "sha": "c91f48c1731245f6124a8f8509557fb22d7f6d20818f73ae82e7de8ec7ece1ac"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "1a1d4f7b88c59afc4a874c43ff686b012dd783d8493dbaa21e6ba32299a0dde7"
+      "sha": "049058aaea59137b9c2358d43a12459969447072237a3affd315f2bdc3729a82"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -222,7 +222,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "0573fb90d6c40d52830068682fc1de4089cdcb7e747049f8f6f53593300a3f7f"
+      "sha": "446d903e12662c8f6c55816329588d5ffb8c08905da75c4bb4b5487ed17ab804"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -789,7 +789,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "10c760ce9171e37bb96b2d2f577ba967f3d7d4481bb11da13cf7545e21f8cde9"
+      "sha": "d11571a316007ee28599942702586b62a2a461f5d2afb2172206ca30f74a3d55"
     },
     "site/machine/log.html": {
       "390": {
@@ -831,7 +831,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e016ae7083c924ebdb2af5461a965588b111cb33be652ee225f27c7cb2079771"
+      "sha": "d22f44f65967f2149367395b3a43041d478f9b8f840f85711d4a3e6f0f8bbac8"
     },
     "site/papers/index.html": {
       "390": {
@@ -852,7 +852,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ab75a2453baf9cc4168eec41d259a1ba3af0224d690aeb203f96c973ba696e2e"
+      "sha": "468c239fbf4b877db23baf2f3a985075f6460dce874c9f1a261d4bb4bfa35967"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1273,6 +1273,27 @@
         "clipped": 0
       },
       "sha": "e429c30bdb9ec3fe2b2ec6cd176545d84e949b16ab9e6647fead0ad6192f40fd"
+    },
+    "site/reports/cryptids.html": {
+      "390": {
+        "spines": 7,
+        "pageOverflow": 135,
+        "escapes": 0,
+        "clipped": 9
+      },
+      "768": {
+        "spines": 9,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "1440": {
+        "spines": 16,
+        "pageOverflow": 0,
+        "escapes": 0,
+        "clipped": 0
+      },
+      "sha": "f578f85902148cd57fdb69272cd3e49334b75ad5a319f9999b3eef664f927788"
     },
     "site/reports/curve-seeds.html": {
       "390": {
@@ -1839,7 +1860,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d7d71a8a545fc3ed6dba5644c33bf6e7861710bb2214eb53a9396805b7181b5d"
+      "sha": "566a9c4f4b0f130e23f740a481cb3255921085c43784e22a9b555d6782feebc1"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2763,7 +2784,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2b678298526cd80b9dc7c6fa50288587d708b5d2fa3494864f6ab2b2437b4ff1"
+      "sha": "4aaf81f6779c53eb7efd4f0b218600a44937b195779bbdb4cfc3e7f902be184e"
     }
   }
 }

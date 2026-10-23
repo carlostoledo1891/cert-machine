@@ -1,0 +1,44 @@
+{
+ "id": "verifypy-pin-canonical_machine_sha256-riemann",
+ "text": "canonical sha256 of baselines/tables/riemann_744.txt is 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+ "source": {
+  "what": "verify.py's pinned canonical machine digest for riemann",
+  "path": "corpus/cryptids/verify.py",
+  "sha256": "2624c3133d376820afac20e907487da3644f669d61b8b639e61f532f485ec262",
+  "quote": "4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/riemann_744.txt",
+   "sha256": "9866af71143c85cceeaf2e05be8fef1c3ccb226fe04640b23b7b887f815a25d0"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "canonical_sha256(M) = 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the digest the source prints for baselines/tables/riemann_744.txt is of the canonical text of the table (the reading verify.py pins)",
+ "hypotheses": [],
+ "falsifier": [
+  "the pinned bytes do not hash to 4f629ed5be17…"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "verifypy-pin-canonical_machine_sha256-riemann",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

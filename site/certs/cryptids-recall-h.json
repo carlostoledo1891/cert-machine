@@ -1,0 +1,453 @@
+{
+ "what": "metric M4 of the cryptids benchmark for arm H: twelve pre-registered plants in copies of the lifted corpus, the quick lane run on each, the words compared with the unplanted record; plant 12 is the green control",
+ "preregistration": "notes/cryptids-benchmark-preregistration-2026-10-23.md",
+ "lane": "tools/run-cryptids.py --quick",
+ "generated": "2026-10-23T02:06:35Z",
+ "seconds": 11.4,
+ "plants": 12,
+ "caught": 10,
+ "of": 11,
+ "green_control_quiet": true,
+ "results": [
+  {
+   "plant": "01-cell-edited",
+   "file": "artifacts/zf_380/machine.txt",
+   "what": "one cell of a candidate table edited (the write bit of the first cell)",
+   "changed": [
+    {
+     "row": "cand-readme-sha-zf_380",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "20ae803151218bac15c38225e9a48cc5a94768d987b2466a32faf03b1dbd4a0e",
+      "computed": [
+       "c3b8b166f41bd731e6de552a0f9cf7bfa15938fa5165cb4ccd19ead3206b8784"
+      ]
+     }
+    },
+    {
+     "row": "verifypy-cand-sha-zf_380",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "20ae803151218bac15c38225e9a48cc5a94768d987b2466a32faf03b1dbd4a0e",
+      "computed": "absent"
+     }
+    },
+    {
+     "row": "zf-380-boot-state",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": 64,
+      "computed": 0
+     }
+    },
+    {
+     "row": "zf-boot-tapes-equal",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "equal",
+      "computed": "different"
+     }
+    },
+    {
+     "row": "zf-post-boot-checkpoints",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": ">= 30 equal",
+      "computed": {
+       "common": 0,
+       "equal": 0
+      }
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "02-source-byte",
+   "file": "baselines/sources/riemann_120_shunia.tm",
+   "what": "one byte of an upstream source edited (the first transition writes 0 instead of 1)",
+   "changed": [
+    {
+     "row": "prov-src-sha-riemann_120",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "b4b0f07607fc92dae6940f6e6c2d184fec3c13bbfc8cd00a0253321be6009db5",
+      "computed": "1657e18cbfa82d86f048c83c6962784ea4b8b97b1a0134aedeecf045fa28f3cf"
+     }
+    },
+    {
+     "row": "derive-riemann_120",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "first_differing_line": 0
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "03-readme-states",
+   "file": "artifacts/riemann_95/README.md",
+   "what": "a README state count +1",
+   "changed": [
+    {
+     "row": "riemann-95-readme-states",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": 96,
+      "computed": 95
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "04-readme-steps",
+   "file": "artifacts/riemann_95/README.md",
+   "what": "a README step count +1",
+   "changed": [
+    {
+     "row": "riemann-95-init",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": [
+       15,
+       -4
+      ],
+      "computed": [
+       16,
+       -3
+      ]
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "05-readme-checkpoint-state",
+   "file": "artifacts/riemann_95/README.md",
+   "what": "a checkpoint state changed in the README",
+   "changed": [
+    {
+     "row": "riemann-95-init",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": [
+       16,
+       -4
+      ],
+      "computed": [
+       15,
+       -4
+      ]
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "06-provenance-sha",
+   "file": "baselines/PROVENANCE.md",
+   "what": "a sha256 in PROVENANCE.md edited (the last hex digit of the Goldbach source digest)",
+   "changed": [
+    {
+     "row": "prov-src-sha-goldbach",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380d",
+      "computed": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380c"
+     }
+    },
+    {
+     "row": "verifypy-pin-source_sha256-goldbach",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "3b8934a193ecb165a64dbf048332961fc7a62e7381e69095340a9a85d752380d",
+      "computed": "absent"
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "07-embed-entry",
+   "file": "artifacts/goldbach_21/README.md",
+   "what": "one entry of the Goldbach embed map changed in the README",
+   "changed": [
+    {
+     "row": "goldbach-embed",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": [
+      [
+       8,
+       0,
+       {
+        "candidate": [
+         1,
+         1,
+         1
+        ],
+        "edited": [
+         0,
+         1,
+         11
+        ]
+       }
+      ],
+      [
+       8,
+       1,
+       {
+        "candidate": [
+         0,
+         -1,
+         8
+        ],
+        "edited": [
+         0,
+         1,
+         18
+        ]
+       }
+      ],
+      [
+       19,
+       1,
+       {
+        "candidate": [
+         0,
+         -1,
+         8
+        ],
+        "edited": [
+         0,
+         -1,
+         9
+        ]
+       }
+      ]
+     ]
+    },
+    {
+     "row": "goldbach-eliminated-states",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": [
+       1,
+       8,
+       10,
+       17
+      ],
+      "computed": [
+       1,
+       8,
+       9,
+       17
+      ]
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "08-halt-moved",
+   "file": "artifacts/riemann_95/machine.txt",
+   "what": "the halting cell of riemann_95 moved to another row",
+   "changed": [
+    {
+     "row": "verifypy-cand-sha-riemann_95",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "4d4f695fca3e8eae1ffdc8803060d8265c97577925334d06a93a2f693a6beb21",
+      "computed": "absent"
+     }
+    },
+    {
+     "row": "cells-riemann-95",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": {
+       "defined": 189,
+       "halting": [
+        [
+         61,
+         1
+        ]
+       ]
+      },
+      "computed": {
+       "defined": 189,
+       "halting": [
+        [
+         60,
+         1
+        ]
+       ]
+      }
+     }
+    },
+    {
+     "row": "riemann-95-no-halt-250k",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "no halt",
+      "computed": 13948
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "09-rows-swapped",
+   "file": "artifacts/riemann_104/machine.txt",
+   "what": "two rows of a candidate table swapped",
+   "changed": [
+    {
+     "row": "cand-readme-sha-riemann_104",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "8caced6359c9657ce1ce94ff8cd6407cbd4b79f1a3b81398cb48941b400f845a",
+      "computed": [
+       "ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d"
+      ]
+     }
+    },
+    {
+     "row": "verifypy-cand-sha-riemann_104",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "8caced6359c9657ce1ce94ff8cd6407cbd4b79f1a3b81398cb48941b400f845a",
+      "computed": "absent"
+     }
+    },
+    {
+     "row": "riemann-104-boot",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": [
+       19,
+       -7,
+       19
+      ],
+      "computed": [
+       16,
+       599,
+       604
+      ]
+     }
+    },
+    {
+     "row": "riemann-104-root-dispatches",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": ">= 1000",
+      "computed": 0
+     }
+    },
+    {
+     "row": "riemann-104-table-steps-are-root-entries",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": "all four are root entries",
+      "computed": {
+       "26093": null,
+       "28934": null,
+       "165200": null,
+       "498382": null
+      }
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "10-proof-file",
+   "file": "Cryptids/Zf380.lean",
+   "what": "a proof file's bytes edited (what verify.py records but never compares)",
+   "changed": [],
+   "crashed": null,
+   "caught": false,
+   "expected": "a change",
+   "ok": false
+  },
+  {
+   "plant": "11-theorem-removed",
+   "file": "comparator/all.json",
+   "what": "a theorem name removed from comparator/all.json",
+   "changed": [
+    {
+     "row": "comparator-count-all",
+     "from": "CERTIFIED",
+     "to": "REFUTED",
+     "witness": {
+      "expected": 22,
+      "computed": 21
+     }
+    }
+   ],
+   "crashed": null,
+   "caught": true,
+   "expected": "a change",
+   "ok": true
+  },
+  {
+   "plant": "12-comment-added",
+   "file": "artifacts/goldbach_21/machine.txt",
+   "what": "a trailing comment added to machine.txt — the green control: nothing may flip",
+   "changed": [],
+   "crashed": null,
+   "caught": false,
+   "expected": "no change",
+   "ok": true
+  }
+ ]
+}

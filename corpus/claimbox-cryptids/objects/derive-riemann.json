@@ -1,0 +1,46 @@
+{
+ "id": "derive-riemann",
+ "text": "baselines/tables/riemann_744.txt compiled from baselines/sources/riemann_744_sorear.tm (nql) has canonical sha256 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+ "source": {
+  "what": "PROVENANCE.md's row for riemann: the format column",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`nql`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/riemann_744_sorear.tm",
+   "sha256": "de0084433909f2600a5052eeb0bb2acd9b0ac315078abd1b92d4f3595601dd31"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the nql format; the decider compiles it under the convention the provenance file states: the start state is 0, the others follow the order of first appearance, a target naming no defined state is a halt"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(nql) canonical_sha256(M) = 4f629ed5be1715747f3d467dbb35bded647a25dc740a80b5208c14f65d7d5f44",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the table baselines/tables/riemann_744.txt is claimed to be this source compiled; the object decides that the compilation hashes to the canonical digest the provenance prints",
+ "hypotheses": [
+  "the compilation convention is the one the provenance file states"
+ ],
+ "falsifier": [
+  "the compiled table hashes to something else"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-riemann",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

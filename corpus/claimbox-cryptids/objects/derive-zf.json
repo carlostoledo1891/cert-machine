@@ -1,0 +1,46 @@
+{
+ "id": "derive-zf",
+ "text": "baselines/tables/zf_432.txt compiled from baselines/sources/zf_432_wade.tm (tursi) has canonical sha256 cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+ "source": {
+  "what": "PROVENANCE.md's row for zf: the format column",
+  "path": "corpus/cryptids/baselines/PROVENANCE.md",
+  "sha256": "aa6354d6c2b153b433c367320818e2024fa50c232b0611f5d052621892f37665",
+  "quote": "`tursi`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/sources/zf_432_wade.tm",
+   "sha256": "68a9de26ef68ee9cdf085d201b996686ae55d9570822bcf040aca5999e4f4261"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "an upstream source in the tursi format; the decider compiles it under the convention the provenance file states: the start state is 0, the others follow the order of first appearance, a target naming no defined state is a halt"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "derived(tursi) canonical_sha256(M) = cb9ffd320f7360b5e0e49181a6201286b408d1f8c168d61fafc51d1ca8b86702",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the table baselines/tables/zf_432.txt is claimed to be this source compiled; the object decides that the compilation hashes to the canonical digest the provenance prints",
+ "hypotheses": [
+  "the compilation convention is the one the provenance file states"
+ ],
+ "falsifier": [
+  "the compiled table hashes to something else"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "derive-zf",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}

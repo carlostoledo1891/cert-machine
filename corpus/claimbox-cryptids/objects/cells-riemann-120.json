@@ -1,0 +1,44 @@
+{
+ "id": "cells-riemann-120",
+ "text": "baselines/tables/riemann_120.txt has 238 non-halting transitions",
+ "source": {
+  "what": "the 120 → 104 write-up",
+  "path": "corpus/cryptids/artifacts/riemann_104/README.md",
+  "sha256": "76b9051b8f3a21e482add76c26bcf3d154b825ef25a6695644bb8f02fc6d8bb4",
+  "quote": "non-halting transitions `238 -> 207`"
+ },
+ "reading": "universal",
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/cryptids/baselines/tables/riemann_120.txt",
+   "sha256": "ec3d408bbeba415afb0666573354bb1e1f2b3f4290b84b8745a3d84c841ab6d0"
+  },
+  "count": 1,
+  "variable": "M",
+  "decoder": "a (Q, 2) transition table: one line per state, two cells wD<next> or ---, comments after #; the decider parses it; the canonical text is the table without comments"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "nonhalting_cells(M) = 238",
+    "where": "instruments/claimbox/tm.py",
+    "args": [
+     "M"
+    ]
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "a non-halting cell is a table cell that is not ---; the write-ups call these transitions",
+ "hypotheses": [],
+ "falsifier": [
+  "the table has another number of non-halting cells"
+ ],
+ "record": {
+  "path": "certs/claimbox-cryptids-decisions.json",
+  "row": "cells-riemann-120",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}
