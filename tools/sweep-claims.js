@@ -28,7 +28,7 @@
         by the operator; shout + snapshot when it shows.
      3e. gmDevi/zeta-7-21-lean issue #1 — our reply posted 2026-10-05; a new
         comment, or a new Zenodo version of Anand's preprint, is a finding.
-     3f. the GitHub sends of 2026-10-05 → 10-16 (verifiers, METR, the re-run asks,
+     3f. the GitHub sends of 2026-10-05 → 10-23 (verifiers, METR, the re-run asks,
         the P1–P3 threads, nanoda, Bandeira, the three audits): a new comment on
         any of them is a finding. corpus/outreach.json is the public record of
         the same threads; a finding here updates its row.
@@ -219,7 +219,13 @@ for (const [repo, num, label] of [
   ['teorth/optimizationproblems', 232, 'optimizationproblems PR #232 (the four C_1a/C_1b step functions replayed)'],
   ['teorth/optimizationproblems', 242, 'optimizationproblems PR #242 (C_82 and C_86: Pinho\'s certificates and the Épi construction replayed)'],
   ['teorth/optimizationproblems', 243, 'optimizationproblems PR #243 (C_1c and C_1d replayed; stacked on #232)'],
-  ['google-deepmind/alphaproof-nexus-results', 4, 'alphaproof-nexus-results #4 (the replay and four OEIS notes)']]) {
+  ['google-deepmind/alphaproof-nexus-results', 4, 'alphaproof-nexus-results #4 (the replay and four OEIS notes)'],
+  /* the sends of 2026-10-22 → 10-23 (added 2026-10-23) */
+  ['anthropics/formal-math', 8, 'formal-math #8 (the law-file request, joined)'],
+  ['anthropics/formal-math', 30, 'formal-math #30 (the ξ′ window and tail)'],
+  ['teorth/optimizationproblems', 249, 'optimizationproblems PR #249 (C_31: Lueker h = 9, 10 replayed)'],
+  ['google-deepmind/cryptids', 14, 'cryptids #14 (the finite layer re-checked; six notes)'],
+  ['teorth/optimizationproblems', 257, 'optimizationproblems PR #257 (C_84b: the note\'s theorem, 1.9993*)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }
   if (out === null) { say(label + ': gh api failed (transient)'); continue; }

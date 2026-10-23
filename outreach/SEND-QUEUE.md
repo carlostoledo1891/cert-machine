@@ -12,6 +12,22 @@ here on request.
 
 ---
 
+## LANE D — THE SENDS OF 2026-10-23: the week's work communicated (outreach/github-2026-10-23.md)
+
+On the operator's "Proceed the githib outreaches, issues, reponses, PRs. Let's focus on communicate what we did latelly".
+### D1. google-deepmind/cryptids #14 — POSTED 2026-10-23 (https://github.com/google-deepmind/cryptids/issues/14)
+  The finite layer re-checked at 664cd039 (143 of 152 hold; both comparator configurations under Lean's kernel and nanoda)
+  and six notes: riemann_120 never run by the check that names it; the checkpoint table's steps are root entries 179/210/
+  879/1721; "non-halting transitions" two ways; proof digests compared to nothing; statements by substring; three prints.
+  A PR (docstring, the missing stage) only if they answer, and only after the operator signs Google's CLA.
+### D2. anthropics/formal-math #30 — the companion paper linked, POSTED 2026-10-23 (issuecomment-6357042052)
+### D3. teorth/optimizationproblems #257 — the C84b correction, FILED 2026-10-23 (https://github.com/teorth/optimizationproblems/pull/257)
+  The 10-06 draft, its courtesy e-mail dropped by the channel rule; merges cleanly with #232, #242, #243, #249.
+### D4. The unknown-config-key issue — HELD: comparator is archived (now `lake check` in Lean core); a leanprover/lean4 issue
+  needs a reproduction under `lake check` first (a hosted-runner run). Draft in outreach/github-2026-10-23.md §4.
+### D5. The responses: nothing asked for an answer (formal-conjectures #6882 closed by a third party's PR #7467; nanoda #44
+  closed as fixed by #45; incrediblecrab/erdos-1186 deleted; registry PRs #232/#242/#243/#249 unanswered — no ping yet).
+
 ## LANE Z — THE RIEMANN STORY (2026-10-22): the law-file request first, then the paper, then the note to the community
 
 The fourth companion paper (paper/riemann-finite-layer.pdf, v0.2, 16 pp in the short form for readers outside the method)
@@ -38,7 +54,7 @@ does not publish; the file's authors are asked BEFORE anyone reads that sentence
 ### Z3. A note to the Lean community — NOT DRAFTED; after Z1 is answered, or after a week unanswered
   A Zulip post in #general or the formalization's thread: the concordance, the EnclOK condition, the request; links the
   paper once live. Draft on the operator's word.
-### Z6. The ξ′ window issue to the formalizers — POSTED 2026-10-23 as anthropics/formal-math #30 (https://github.com/anthropics/formal-math/issues/30) on the operator's "proceed the github issue"; pre-send checks all passed (HEAD still e1a4e650, the six XiPrime files byte for byte, no prior thread, links 200, both batteries green)
+### Z6. The ξ′ window issue to the formalizers — POSTED 2026-10-23 as anthropics/formal-math #30 (https://github.com/anthropics/formal-math/issues/30) on the operator's "proceed the github issue" (the paper linked there the same day, D2); pre-send checks all passed (HEAD still e1a4e650, the six XiPrime files byte for byte, no prior thread, links 200, both batteries green)
   The quartic 8.85e-7 below its family's optimum; v₆ and D1trunc 15 give 0.86864150 / 0.93432075 (+1.33e-6); the optimality certificate
   over polynomial windows of degree ≤ 20; the ζ calibration to eighteen digits; what AtOne.lean needs. Links claimbox afd776c. The
   operator posts: `gh issue create -R anthropics/formal-math`.
@@ -124,7 +140,7 @@ B1. A new issue on Oxelra-AI/Bandeira-0.2a-open-source (issues enabled, none ope
   - POSTED: #164 to Woett (the 1/(1+c) bracket); the PR #184 review.
   - WAITING:
     - easota page fix, then the Together AI issue;
-    - the operator's email to Althöfer, then the C84b PR, after 7 days or a reply, and after #216.
+    - the C84b PR — FILED 2026-10-23 as teorth/optimizationproblems #257 (lane D3); the e-mail to Althöfer dropped (e-mails off).
   - P2b POSTED: Qiushi#1; Awesome-AI-Scientist PR #5; awesome-ai-proofs#2 (the issue form, YAML to paste) — ANSWERED 2026-10-17: both records added (commit 852a8fac), issue closed; 'debunked' softened to 'disputed' on their side; reply POSTED 2026-10-17 on the operator's word: https://github.com/subroy13/awesome-ai-proofs/issues/2#issuecomment-6235076477; the maintainer then (14:34 UTC, issuecomment-6235146613): "disputed" stays until HorizonMath#10 has a comment from its authors — reopen #2 when it does (a send, the operator's)
   - Qiushi#1 follow-up POSTED 2026-10-12 00:01 UTC on the operator's "post it": K(43) and K(45) WITNESSED pair by pair, the offer for 32–39/49–55, the link request (outreach/qiushi-43-45-reply.md; https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/issues/1#issuecomment-6115369960). A note to H. Cohn is NOT approved.
   - Qiushi#1 all-19 reply POSTED 2026-10-12 ~22:20 UTC on the operator's "Ok, post it": dimensions 32-39 and 49-55 WITNESSED pair by pair (every bound of their paper holds), 43/45 re-checked from their lattice data, the Gram-form input offered (outreach/qiushi-all19-reply.md; https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/issues/1#issuecomment-6133731693).

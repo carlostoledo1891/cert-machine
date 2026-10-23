@@ -16,12 +16,32 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~05:00 UTC, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-23 ~04:10 UTC: THE WEEK COMMUNICATED ON GITHUB — google-deepmind/cryptids #14 POSTED, the companion paper linked on formal-math #30, the C84b correction FILED as registry PR #257, the lake-check config issue HELD for a reproduction; CLAIM COURT PARKED for a future environment; earlier, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ THE SENDS OF 2026-10-23 (~03:30–04:10 UTC; the operator, after the evaluation of the Claim Court brainstorm: "Ok, just save
+     the idea for a future environment. Proceed the githib outreaches, issues, reponses, PRs. Let's focus on communicate what we
+     did latelly"). SAVED: the brainstorm verbatim + the evaluation in notes/claim-court-2026-10-23.md (LOCAL ONLY, git-excluded:
+     an unbuilt research idea) and the row `claim-court-2026-10` in corpus/targets.json (PARKED: the training reward OCCUPIED —
+     Reinforced Hesitation 2511.11500, TruthRL, Kalai et al.; its GRPO collapse explained by Che et al. 2608.00301 and seen in
+     our own lattice-claims arm C; the deference evaluation OPEN). THE RESPONSES: the sweep and a pass over every GitHub row of
+     corpus/outreach.json found nothing asking for an answer (formal-conjectures #6882 closed by a third party's PR #7467;
+     nanoda #44 fixed by #45; incrediblecrab/erdos-1186 deleted; the registry PRs unanswered — no ping before a week). POSTED/
+     FILED, each with pre-send checks re-run here (outreach/github-2026-10-23.md, lane D of SEND-QUEUE, corpus/outreach.json,
+     the sweep's 3f list): D1 google-deepmind/cryptids #14 (their HEAD = our pin 664cd039; the layer holds, 143 of 152, both
+     comparator configurations under two kernels; six notes, items 1–3 re-run independently); D2 a comment on
+     anthropics/formal-math #30 linking the companion paper, live since the last push; D3 teorth/optimizationproblems #257,
+     the C84b correction drafted 10-06 (the courtesy e-mail dropped by the channel rule; the record re-derived identical; the
+     note's tex unchanged by sha256; the README line placed after the constant's own line, so it merges cleanly with #232,
+     #242, #243, #249). HELD: D4 the unknown-config-key issue — comparator's Config derives FromJson and ignores unknown keys
+     (our "nanoda": true ran Lean's kernel alone and exited 0); leanprover/comparator is ARCHIVED, merged into Lean core as
+     `lake check`, which has the same derive (src/lake/Lake/CLI/Check.lean); a lean4 issue wants a reproduction under
+     `lake check` first (a hosted-runner run) — the draft is in outreach/github-2026-10-23.md §4. STILL THE OPERATOR'S: the
+     paper variant to Pedro; the choice between the easy reads; Z3 (a Lean Zulip note, not GitHub); the C31 vectors deposit;
+     Google's CLA if cryptids answers and wants a PR.
   ★ HANDOFF 2026-10-23 (the session that ran from the C_31 replay to the cryptids benchmark; everything below is COMMITTED AND
      PUSHED: cert-machine 94102fe1, claimbox 219cc99). STATE OF THE PAGES: /reports/cryptids.html LIVE and on the shelf;
      /explained/ (the house-grammar easy read, with the stage), /explained/v1/ (the round-one visual language, for comparison) and
@@ -29,7 +49,7 @@ NEXT SESSION, IN ORDER:
      the loser of the two easy reads is deleted (folder, output, baseline rows, Makefile line) and the chosen pages get a card and a
      sitemap line in tools/build-site.js. THE PAPER VARIANT: paper/variants/cert-machine-method-claimbox.pdf (47 pp) beside
      paper/cert-machine-method.pdf (45 pp), one source, `make paper-variant`; for Pedro's reading, off the papers index. THE OPERATOR'S
-     ITEMS, in order: (1) read the cryptids report and say whether to post the issue to google-deepmind/cryptids (GitHub only; the
+     ITEMS, in order: (1) [DONE 2026-10-23: POSTED as google-deepmind/cryptids #14, ★ above] read the cryptids report and say whether to post the issue to google-deepmind/cryptids (GitHub only; the
      gaps and the asks; the draft is NOT written — write it, show it, post on the word; their CONTRIBUTING invites "reports of
      oversights" as issues; a PR fixing verify.py's docstring and the missing stage only if they answer); (2) send Pedro the variant
      beside the base with §3.4 first; (3) choose between the two easy reads and whether to link /explained/ and /uirapuru/; (4) the
@@ -901,7 +921,7 @@ NEXT SESSION, IN ORDER:
      (3) The job applications, in order Epoch → FAR.AI → Nous → Cohere (EPOCH, FAR.AI and COHERE SENT 2026-10-20 by the operator; NOUS DROPPED the same day — the operator did not like the job description; a new scout for roles nearer cert-machine's work — formal verification, mathematics, finance — is under way):
          - outreach/<employer>/packet.md + outreach/resume/resume.pdf;
          - record each send in SEND-QUEUE lane J.
-     (4) The C84b PR:
+     (4) The C84b PR — FILED 2026-10-23 as teorth/optimizationproblems #257 (★ THE SENDS OF 2026-10-23):
          - the other session's answer: the PR alone is defensible, with the email sentence rewritten as "Prof. Althöfer
            is welcome to supersede this with the calculation that reaches 0.000719";
          - body and diff in outreach/github-p2a-2026-10-06.md item 7, re-checked 10-19 against the registry HEAD;

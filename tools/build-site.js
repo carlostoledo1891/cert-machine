@@ -1006,7 +1006,9 @@ const REPORT_BY_FILE = new Map(REPORTS.map((r) => [r.f, r]));
 const REPORT_ORDER = new Map(REPORTS.map((r, i) => [r.f, i]));
 const unescHtml = (s) => String(s).replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 const reportDesc = (f) => { const m = /name="description" content="([^"]*)"/.exec(fs.readFileSync(path.join(ROOT, 'reports', f), 'utf8')); return m ? unescHtml(m[1]) : ''; };
-const reportBorn = (f) => { try { return (cp.execSync('git log --diff-filter=A --format=%as --follow -- reports/' + f, { cwd: ROOT }).toString().trim().split('\n').pop() || ''); } catch (e) { return ''; } };
+/* no --follow: its copy detection traced every page that began as a copy of another report back to the first page of
+   2026-08-25, so 57 cards read "2026-08" (found 2026-10-23); the add of the file itself is the birth */
+const reportBorn = (f) => { try { return (cp.execSync('git log --diff-filter=A --format=%as -- reports/' + f, { cwd: ROOT }).toString().trim().split('\n').pop() || ''); } catch (e) { return ''; } };
 const seriesRows = (id) => TITLES.entries().filter((r) => r.series === id)
   .sort((a, b) => ((REPORT_ORDER.has(a.file) ? REPORT_ORDER.get(a.file) : 1e9) - (REPORT_ORDER.has(b.file) ? REPORT_ORDER.get(b.file) : 1e9)) || a.file.localeCompare(b.file));
 const seriesCards = (id) => C.cards(seriesRows(id).map((r) => {
