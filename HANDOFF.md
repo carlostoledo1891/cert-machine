@@ -22,6 +22,18 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-23 ~23:50 UTC — THE RAMSEY GRAPHS, STARTED on "Post the comment and star Ramsey" (start; the reply to
+     cert-machine#1 POSTED, issuecomment-6376613867). Google's 18 AlphaEvolve graphs pinned at google-research 0d94f8c4
+     (corpus/ramsey/alphaevolve; sha256 = maximusrufus's SHA256SUMS); instruments/ramsey (graph.py, clique.py the reference,
+     clique.c the kernel held to it root by root); tools/run-ramsey-ledger.py → certs/ramsey-ledger.json: 13 of 18 CERTIFIED by
+     both implementations, the five large graphs' clique side closed, their independent-set side RUNNING (a background chain,
+     resumable from corpus/ramsey/runs/*.progress: R(9,11) 3600 s, R(10,12) 5400 s, R(8,12) 7200 s, then 1800 s each on
+     R(7,13) and R(8,18) to measure). The battery is registered (both registries). The page tools/build-report-ramsey-graphs.js
+     → reports/ramsey-graphs.html is written, wired into `make reports`, NOT YET BUILT (its --check refuses while a search is
+     mid-run); gaps G1 (the notebook ships unexecuted) and G2 (it reads only the upper triangle). WHEN THE CHAIN ENDS: commit the
+     ledger and progress files, build the page, add `--fresh` to the runner (the page's re-run line needs it), decide RunPod for
+     R(7,13)/R(8,18) by the measured per-root rate (the operator's word for any spend), the shelf card, then the cert-machine#1
+     report. Don't edit instruments/ramsey or the runner while a search runs (the ledger records their sha256).
   ★ 2026-10-23 ~21:30 UTC — cert-machine #1, THE FIRST OUTSIDE RERUN OF THE MONTH (maximusrufus). 18:24 UTC: the Ramsey graphs
      at maximusrufus/openai-math-replays 4c5524a (Google's 18 files from google-research 0d94f8c4, SHA256SUMS, their verdicts;
      three not finished) — target `ramsey-lower-bounds-2026` updated, the decider NOT built (2–4 days, the operator's call).

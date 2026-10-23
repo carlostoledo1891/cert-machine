@@ -311,6 +311,7 @@ reports:
 	@$(NODE) tools/build-report-selfaudit.js
 	@$(NODE) tools/build-report-lueker.js
 	@$(NODE) tools/build-report-cryptids.js
+	@$(NODE) tools/build-report-ramsey-graphs.js
 	@$(NODE) tools/build-report-monthly.js
 	@$(NODE) tools/build-paper-grading.js
 	@$(NODE) tools/run-gym-record.js
