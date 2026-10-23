@@ -23,6 +23,10 @@ On the operator's "Proceed the githib outreaches, issues, reponses, PRs. Let's f
 ### D2. anthropics/formal-math #30 — the companion paper linked, POSTED 2026-10-23 (issuecomment-6357042052)
 ### D3. teorth/optimizationproblems #257 — the C84b correction, FILED 2026-10-23 (https://github.com/teorth/optimizationproblems/pull/257)
   The 10-06 draft, its courtesy e-mail dropped by the channel rule; merges cleanly with #232, #242, #243, #249.
+  2026-10-23 afternoon: CHANGES REQUESTED by a non-maintainer contributor (Chessing234); the 28 May line corrected in place
+  (24cf417, one 84b line), "move it to the top" declined with the evidence (#177's own correction went at the end); the
+  reply POSTED (issuecomment-6368058989) and the description updated, on "proceed the changes and fix the PR".
+  #243 and #249 approved by the same contributor ("all good"); nothing merged. KissingNumbers #2 closed as completed, no comment.
 ### D4. The unknown-config-key issue — HELD: comparator is archived (now `lake check` in Lean core); a leanprover/lean4 issue
   needs a reproduction under `lake check` first (a hosted-runner run). Draft in outreach/github-2026-10-23.md §4.
 ### D5. The responses: nothing asked for an answer (formal-conjectures #6882 closed by a third party's PR #7467; nanoda #44

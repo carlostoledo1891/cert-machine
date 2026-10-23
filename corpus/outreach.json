@@ -10,7 +10,9 @@
   "submitted, awaiting moderation": "in a queue, not yet visible",
   "still in the moderation queue": "submitted and confirmed not yet visible",
   "answered": "the other party replied in the thread; what came back is in the note",
-  "merged": "accepted into the other party's repository"
+  "reviewed, not merged": "a reviewer who is not a maintainer answered in the review; nothing merged",
+  "merged": "accepted into the other party's repository",
+  "closed, no comment": "the other party closed it without a reply"
  },
  "lastChecked": "2026-10-23",
  "rows": [
@@ -191,8 +193,8 @@
    "where": "alexlegeartis/KissingNumbers issue 2",
    "url": "https://github.com/alexlegeartis/KissingNumbers/issues/2",
    "sent": "2026-10-06",
-   "status": "open, no comments",
-   "note": ""
+   "status": "closed, no comment",
+   "note": "closed by the owner as completed on 2026-10-23, without a comment; no commit to the repository since 2026-09-27"
   },
   {
    "id": "gh-leech_lifting-1",
@@ -533,8 +535,8 @@
    "where": "teorth/optimizationproblems pull request 243",
    "url": "https://github.com/teorth/optimizationproblems/pull/243",
    "sent": "2026-10-20",
-   "status": "filed, no reply",
-   "note": "stacked on #232 (adjacent README table rows); evidence at cert-machine d9a3942b"
+   "status": "reviewed, not merged",
+   "note": "stacked on #232 (adjacent README table rows); evidence at cert-machine d9a3942b; 2026-10-23: approved by a registry contributor who is not a maintainer (Chessing234), “all good”; not merged"
   },
   {
    "id": "gh-apn-4",
@@ -551,8 +553,8 @@
    "where": "teorth/optimizationproblems pull request 249",
    "url": "https://github.com/teorth/optimizationproblems/pull/249",
    "sent": "2026-10-22",
-   "status": "filed, no reply",
-   "note": "filed at the claimant's own request (e-mail of 2026-10-21); evidence at cert-machine 61aae8eb (certs/lueker-replay.json); label [T2026] on 31a.md; the README's Recent-progress list also edited by our open #242/#243"
+   "status": "reviewed, not merged",
+   "note": "filed at the claimant's own request (e-mail of 2026-10-21); evidence at cert-machine 61aae8eb (certs/lueker-replay.json); label [T2026] on 31a.md; the README's Recent-progress list also edited by our open #242/#243; 2026-10-23: approved by a registry contributor who is not a maintainer (Chessing234), “all good”; not merged"
   },
   {
    "id": "gh-formal-math-8",
@@ -596,8 +598,8 @@
    "where": "teorth/optimizationproblems pull request 257",
    "url": "https://github.com/teorth/optimizationproblems/pull/257",
    "sent": "2026-10-23",
-   "status": "filed, no reply",
-   "note": "drafted 2026-10-06 (outreach/github-p2a-2026-10-06.md item 7b) and held for a courtesy e-mail that the channel rule of 2026-10-23 dropped; the body now says Prof. Althoefer is welcome to supersede it; branch cut from 46dbf036, merges cleanly with #232, #242, #243 and #249; evidence certs/sumproduct-ledger.json at 422b952 (re-derived identical 2026-10-23), the note’s tex pinned by sha256 and unchanged"
+   "status": "reviewed, not merged",
+   "note": "drafted 2026-10-06 (outreach/github-p2a-2026-10-06.md item 7b) and held for a courtesy e-mail that the channel rule of 2026-10-23 dropped; the body now says Prof. Althoefer is welcome to supersede it; branch cut from 46dbf036, merges cleanly with #232, #242, #243 and #249 (and #235, #250, #251); evidence certs/sumproduct-ledger.json at 422b952 (re-derived identical 2026-10-23), the note’s tex pinned by sha256 and unchanged; 2026-10-23: a registry contributor who is not a maintainer (Chessing234) requested changes — the 28 May line kept 1.999281 beside the correction as if it were still the record, and the note should go at the top; the first point taken: the 28 May line corrected in place (24cf417, one 84b line), the second declined with the evidence (the section is not newest-first; #177’s own 10c correction went at the end); reply posted, description updated"
   }
  ]
 }
