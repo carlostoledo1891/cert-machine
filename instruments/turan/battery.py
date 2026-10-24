@@ -53,22 +53,32 @@ ok(L['rows'][0]['ratioUpper'] == r['ratioUpper'], 'the ledger\'s |Y|/D is the on
 def forged(mut):
     q = json.loads(json.dumps(P))
     mut(q)
-    return c42.decide(q)['verdict'] == 'REFUTED'
+    return c42.decide(q)['verdict']
 
 
-red(forged(lambda q: q.update(bound='3453268/5000000')), 'RED: C = 0.6906536 is below |Y|/D: the limiting inequality fails')
+# the words on the failure paths (2026-10-24, after maximusrufus's rerun: every failed check had read REFUTED). REFUTED
+# needs the negation shown — a fact false exactly, or the inequality false with disjoint enclosures; a certificate whose
+# printed numbers do not match what it defines, or enclosures that straddle, is REFUSED
+red(forged(lambda q: q.update(bound='3453268/5000000')) == 'REFUTED', 'RED: C = 0.6906536 is below |Y|/D: shown false, REFUTED')
 def movealpha(q):
     q['alpha']['re'] = '50000000/100000000'
     q['s']['re'] = '50000000/100000000'
     q['w']['re'] = str(Fr(q['eta']['re']) - Fr(1, 2))
-red(forged(movealpha), 'RED: Re alpha = 1/2 makes |1 - alpha| exceed C')
-red(forged(lambda q: q.update(tau='1/3')), 'RED: tau = 1/3 is refused (the construction needs tau > 1/3)')
+red(forged(movealpha) == 'REFUSED', 'RED: Re alpha = 1/2: the printed enclosures no longer match the certificate, REFUSED')
+red(forged(lambda q: q.update(tau='1/3')) == 'REFUSED', 'RED: tau = 1/3 is refused (the construction needs tau > 1/3, and the printed enclosures no longer match)')
 def forgeK(q):
     q['enclosures']['K']['re'] = ['1/4', '1/4']
-red(forged(forgeK), 'RED: a forged enclosure for Re K (exactly 1/4) is not met')
+red(forged(forgeK) == 'REFUSED', 'RED: a forged enclosure for Re K (exactly 1/4) is not met: REFUSED, not REFUTED')
+def nudge_s(q):
+    q['s']['re'] = str(Fr(q['s']['re']) + Fr(1, 10 ** 9))
+red(forged(nudge_s) == 'REFUSED', 'RED: s that is not 1 - alpha (bookkeeping): REFUSED')
+red(c42.verdict([{'name': 'ineq', 'role': 'inequality', 'ok': False, 'refuted': False}])[0] == 'REFUSED', 'RED: an inequality whose enclosures straddle is REFUSED')
+red(c42.verdict([{'name': 'ineq', 'role': 'inequality', 'ok': False, 'refuted': True}])[0] == 'REFUTED', 'RED: an inequality false with disjoint enclosures is REFUTED')
+red(c42.verdict([{'name': 'fact', 'role': 'fact', 'ok': False}])[0] == 'REFUTED', 'RED: an exact fact that is false is REFUTED')
+ok(Fr(r['ratioUpper']) >= Fr(r['ratio'][1]), 'the printed |Y|/D is not below the enclosure\'s upper end (rounded outward, the C31 lesson)')
 Q = json.load(open(os.path.join(ROOT, 'corpus', 'optimization-constants', 'c42', 'pr184.json')))
 g = c42.decide_profile(P['bound'], (P['alpha']['re'], P['alpha']['im']), [P['tau'], str(1 - Fr(P['tau']))], [(P['eta']['re'], P['eta']['im'])])
-ok(g['ratioUpper'] == r['ratioUpper'], 'the step-profile form, one block, reproduces the two-block |Y|/D to every printed digit')
+ok(Fr(g['ratio'][0]) <= Fr(r['ratio'][1]) and Fr(r['ratio'][0]) <= Fr(g['ratio'][1]) and g['ratioUpper'] == r['ratioUpper'], 'the step-profile form, one block, and the two-block computation enclose the same |Y|/D (the enclosures meet; the printed upper ends agree)')
 q = c42.decide_profile(Q['C'], Q['alpha'], Q['breaks'], Q['eta'])
 ok(q['verdict'] == 'PARTIAL' and q['ratioUpper'].startswith('0.68898209850'), 'GREEN: PR #184\'s eight-block certificate holds in its limiting inequality (' + q['ratioUpper'][:14] + ')')
 red(c42.decide_profile('0.688982', Q['alpha'], Q['breaks'], Q['eta'])['verdict'] == 'REFUTED', 'RED: PR #184 with C = 0.688982, below its |Y|/D, is refuted')

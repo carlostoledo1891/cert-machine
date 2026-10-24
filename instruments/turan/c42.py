@@ -168,6 +168,37 @@ def I_series(A, x, N):
     return tot.widen(tail)
 
 
+def verdict(checks):
+    """The word, from the checks' roles (2026-10-24, after an outside rerun found every failed check reported as REFUTED).
+    The claim decided is the conjunction the record's scope names: the exact facts (|1 - alpha| < C, |eta| < C, tau > 1/3,
+    C below the previous bound) and the limiting inequality |Y| < C D. PARTIAL when all hold (the asymptotic reduction is
+    the note's prose). REFUSED when the certificate's own printed numbers do not match what they define (bookkeeping): it
+    is then unclear which statement it makes. REFUTED when a fact is false exactly, or the inequality is false with the two
+    enclosures disjoint — the negation shown. REFUSED otherwise: the enclosures straddle. instruments/verdict.js states the
+    same rule for this repository."""
+    failed = [c for c in checks if not c['ok']]
+    if not failed:
+        return 'PARTIAL', None
+    book = [c['name'] for c in failed if c.get('role') == 'bookkeeping']
+    if book:
+        return 'REFUSED', 'the certificate does not match what it defines: ' + '; '.join(book)
+    shown = [c['name'] for c in failed if c.get('role') == 'fact' or (c.get('role') == 'inequality' and c.get('refuted'))]
+    if shown:
+        return 'REFUTED', 'shown false: ' + '; '.join(shown)
+    return 'REFUSED', 'not decided, the enclosures straddle: ' + '; '.join(c['name'] for c in failed)
+
+
+def ratio_enclosure(Y2, D):
+    """|Y|/D as an outward enclosure [lo, hi]"""
+    root = (Y2.ln() * Fr(1, 2)).exp()
+    return DN.divide(root.lo, D.hi), UP.divide(root.hi, D.lo)
+
+
+def outward(hi, places=16):
+    """an upper end printed to `places` decimals, rounded up: never below the value it bounds (the C31 lesson, again)"""
+    return str(hi.quantize(Decimal(1).scaleb(-places), rounding=ROUND_CEILING))
+
+
 def decide(cert, N=160, NA2=160):
     tau, C = Fr(cert['tau']), Fr(cert['bound'])
     al = (Fr(cert['alpha']['re']), Fr(cert['alpha']['im']))
@@ -175,11 +206,11 @@ def decide(cert, N=160, NA2=160):
     s = (1 - al[0], -al[1])
     w = (eta[0] - s[0], eta[1] - s[1])
     checks = []
-    checks.append({'name': 's = 1 - alpha and w = eta - s are the certificate\'s', 'ok': s == (Fr(cert['s']['re']), Fr(cert['s']['im'])) and w == (Fr(cert['w']['re']), Fr(cert['w']['im']))})
-    checks.append({'name': '|1 - alpha|^2 < C^2 (exactly)', 'ok': s[0] ** 2 + s[1] ** 2 < C * C, 'detail': str(C * C - s[0] ** 2 - s[1] ** 2)})
-    checks.append({'name': '|eta|^2 < C^2 (exactly)', 'ok': eta[0] ** 2 + eta[1] ** 2 < C * C, 'detail': str(C * C - eta[0] ** 2 - eta[1] ** 2)})
-    checks.append({'name': 'tau > 1/3 (three middle corrections cannot reach z^n)', 'ok': tau > Fr(1, 3)})
-    checks.append({'name': 'C < 0.69368, the previous public bound', 'ok': C < Fr(69368, 100000)})
+    checks.append({'name': 's = 1 - alpha and w = eta - s are the certificate\'s', 'role': 'bookkeeping', 'ok': s == (Fr(cert['s']['re']), Fr(cert['s']['im'])) and w == (Fr(cert['w']['re']), Fr(cert['w']['im']))})
+    checks.append({'name': '|1 - alpha|^2 < C^2 (exactly)', 'role': 'fact', 'ok': s[0] ** 2 + s[1] ** 2 < C * C, 'detail': str(C * C - s[0] ** 2 - s[1] ** 2)})
+    checks.append({'name': '|eta|^2 < C^2 (exactly)', 'role': 'fact', 'ok': eta[0] ** 2 + eta[1] ** 2 < C * C, 'detail': str(C * C - eta[0] ** 2 - eta[1] ** 2)})
+    checks.append({'name': 'tau > 1/3 (three middle corrections cannot reach z^n)', 'role': 'fact', 'ok': tau > Fr(1, 3)})
+    checks.append({'name': 'C < 0.69368, the previous public bound', 'role': 'fact', 'ok': C < Fr(69368, 100000)})
     A = Cx(Iv.q(al[0]), Iv.q(al[1]))
     ar = Cx(Iv.q(al[0]), Iv.q(0))
     K = I_series(A, tau, N)
@@ -208,18 +239,18 @@ def decide(cert, N=160, NA2=160):
     Y = Cx(1, 0) - W * A1 + (W * W) * Cx(Fr(1, 2), 0) * A2 + S * K
     Y2 = Y.re * Y.re + Y.im * Y.im
     CD2 = Iv.q(C * C) * D * D
-    checks.append({'name': '|Y|^2 < C^2 D^2: the limiting inequality', 'ok': Y2.hi < CD2.lo, 'detail': 'gap %.4e' % float(DN.subtract(CD2.lo, Y2.hi))})
+    checks.append({'name': '|Y|^2 < C^2 D^2: the limiting inequality', 'role': 'inequality', 'ok': Y2.hi < CD2.lo, 'refuted': Y2.lo > CD2.hi, 'detail': 'gap %.4e' % float(DN.subtract(CD2.lo, Y2.hi))})
     enc = cert['enclosures']
     def inside(iv, pair):
         lo, hi = Fr(pair[0]), Fr(pair[1])
         return Fr(iv.lo) <= hi and lo <= Fr(iv.hi)
     agree = inside(K.re, enc['K']['re']) and inside(K.im, enc['K']['im']) and inside(A1.re, enc['A1']['re']) and inside(A1.im, enc['A1']['im']) \
         and inside(A2.re, enc['A2']['re']) and inside(A2.im, enc['A2']['im']) and Fr(D.hi) >= Fr(enc['D_lower'])
-    checks.append({'name': 'every enclosure the certificate prints (K, A1, A2, D) meets the one computed here', 'ok': agree})
-    ok = all(c['ok'] for c in checks)
-    ratio_hi = UP.divide((Y2.ln() * Fr(1, 2)).exp().hi, D.lo)
-    return {'verdict': 'PARTIAL' if ok else 'REFUTED', 'checks': checks, 'Y': [str(Y.re.lo)[:22], str(Y.im.lo)[:22]], 'D': str(D.lo)[:24],
-            'ratioUpper': str(ratio_hi)[:18], 'bound': str(Decimal(C.numerator) / Decimal(C.denominator))}
+    checks.append({'name': 'every enclosure the certificate prints (K, A1, A2, D) meets the one computed here', 'role': 'bookkeeping', 'ok': agree})
+    ratio = ratio_enclosure(Y2, D)
+    word, why = verdict(checks)
+    return {'verdict': word, 'why': why, 'checks': checks, 'Y': [str(Y.re.lo)[:22], str(Y.im.lo)[:22]], 'D': str(D.lo)[:24],
+            'ratioUpper': outward(ratio[1]), 'ratio': [str(ratio[0]), str(ratio[1])], 'bound': str(Decimal(C.numerator) / Decimal(C.denominator))}
 
 
 def J_series(A, t, r, N):
@@ -258,10 +289,10 @@ def decide_profile(C, alpha, cuts, etas, N=300):
     etas = [(Fr(e[0]), Fr(e[1])) for e in etas]
     s = (1 - al[0], -al[1])
     checks = []
-    checks.append({'name': 'the cuts rise from 1/3 <= t_0 to 1 - t_0, one eta per block', 'ok': len(cuts) == len(etas) + 1 and Fr(1, 3) <= cuts[0] < Fr(1, 2)
+    checks.append({'name': 'the cuts rise from 1/3 <= t_0 to 1 - t_0, one eta per block', 'role': 'fact', 'ok': len(cuts) == len(etas) + 1 and Fr(1, 3) <= cuts[0] < Fr(1, 2)
                    and cuts[-1] == 1 - cuts[0] and all(x < y for x, y in zip(cuts, cuts[1:]))})
     margins = [C * C - z[0] ** 2 - z[1] ** 2 for z in [s] + etas]
-    checks.append({'name': '|s| < C and |eta_j| < C for every block (exactly)', 'ok': min(margins) > 0, 'detail': 'smallest margin ' + str(min(margins))})
+    checks.append({'name': '|s| < C and |eta_j| < C for every block (exactly)', 'role': 'fact', 'ok': min(margins) > 0, 'detail': 'smallest margin ' + str(min(margins))})
     A = Cx(Iv.q(al[0]), Iv.q(al[1]))
     K = I_series(A, cuts[0], N)
     D = I_series(Cx(Iv.q(al[0]), Iv.q(0)), cuts[0], N).re
@@ -283,11 +314,11 @@ def decide_profile(C, alpha, cuts, etas, N=300):
             Y = Y + Cx(coef, 0) * di * dj * J_series(A, ti, tj, N)
     Y2 = Y.re * Y.re + Y.im * Y.im
     CD2 = Iv.q(C * C) * D * D
-    checks.append({'name': '|Y|^2 < C^2 D^2: the limiting inequality', 'ok': Y2.hi < CD2.lo, 'detail': 'gap %.4e' % float(DN.subtract(CD2.lo, Y2.hi))})
-    ratio_hi = UP.divide((Y2.ln() * Fr(1, 2)).exp().hi, D.lo)
-    ok = all(c['ok'] for c in checks)
-    return {'verdict': 'PARTIAL' if ok else 'REFUTED', 'checks': checks, 'D': str(D.lo)[:24], 'ratioUpper': str(ratio_hi)[:18], 'bound': str(Decimal(C.numerator) / Decimal(C.denominator)),
-            'Y': [str(Y.re.lo)[:22], str(Y.im.lo)[:22]]}
+    checks.append({'name': '|Y|^2 < C^2 D^2: the limiting inequality', 'role': 'inequality', 'ok': Y2.hi < CD2.lo, 'refuted': Y2.lo > CD2.hi, 'detail': 'gap %.4e' % float(DN.subtract(CD2.lo, Y2.hi))})
+    ratio = ratio_enclosure(Y2, D)
+    word, why = verdict(checks)
+    return {'verdict': word, 'why': why, 'checks': checks, 'D': str(D.lo)[:24], 'ratioUpper': outward(ratio[1]), 'ratio': [str(ratio[0]), str(ratio[1])],
+            'bound': str(Decimal(C.numerator) / Decimal(C.denominator)), 'Y': [str(Y.re.lo)[:22], str(Y.im.lo)[:22]]}
 
 
 if __name__ == '__main__':

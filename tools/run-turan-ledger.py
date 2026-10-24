@@ -28,8 +28,9 @@ def build():
     P = json.load(open(os.path.join(CORPUS, 'params.json')))
     r = c42.decide(P)
     g = c42.decide_profile(P['bound'], (P['alpha']['re'], P['alpha']['im']), [P['tau'], str(1 - __import__('fractions').Fraction(P['tau']))], [(P['eta']['re'], P['eta']['im'])])
-    if g['ratioUpper'] != r['ratioUpper']:
-        sys.exit('turan-ledger: the step-profile form does not reproduce the two-block computation')
+    F = __import__('fractions').Fraction
+    if not (F(g['ratio'][0]) <= F(r['ratio'][1]) and F(r['ratio'][0]) <= F(g['ratio'][1])) or g['ratioUpper'] != r['ratioUpper']:
+        sys.exit('turan-ledger: the step-profile form does not reproduce the two-block computation (the two enclosures of |Y|/D must meet, 2026-10-24)')
     Q = json.load(open(os.path.join(CORPUS, 'pr184.json')))
     q = c42.decide_profile(Q['C'], Q['alpha'], Q['breaks'], Q['eta'])
     return {'what': 'The registry\'s asterisked C42 <= 0.6906538, decided from the certificate it cites: the four exact facts the note\'s asymptotic argument needs, the limiting inequality |Y| < C D among them, in Decimal intervals; the argument itself is the note\'s.',

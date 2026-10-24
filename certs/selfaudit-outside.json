@@ -1,0 +1,167 @@
+{
+ "what": "The self-audit's first outside mutant set: maximusrufus's seven boundary mutants of the EinsteinArena circles-rectangle rows, each the smallest nextafter move breaking exactly one constraint under the strict reading, decided by instruments/easota/decide.js circles() (the ledger's path). Written by tools/run-selfaudit-outside.js.",
+ "source": {
+  "by": "maximusrufus (GitHub)",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1",
+  "repository": "https://github.com/maximusrufus/openai-math-replays",
+  "commit": "2152f9e2c1b723c896005bbba762d4674899cf7a",
+  "dir": "corpus/selfaudit/outside/maximusrufus-2152f9e2"
+ },
+ "decider": "instruments/easota/decide.js circles(), sha256 9c6cfa654ca1a1308eadd88b01e0436f322c5b384028a8016b6ec9263027c0fc",
+ "bases": [
+  {
+   "file": "circles__alphaevolve_2025__BASE.json",
+   "word": "WITNESSED",
+   "overlaps": 0,
+   "boxFails": false,
+   "worstPair": [
+    8,
+    9
+   ]
+  },
+  {
+   "file": "circles__ours_2026__BASE.json",
+   "word": "WITNESSED",
+   "overlaps": 0,
+   "boxFails": false,
+   "worstPair": [
+    3,
+    17
+   ]
+  }
+ ],
+ "rows": [
+  {
+   "id": "circles__alphaevolve_2025/m01",
+   "row": "circles/alphaevolve_2025",
+   "aimedAt": "pair8-9",
+   "kind": "pair overlap",
+   "nextafterSteps": 113727614,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 1,
+   "boxFails": false,
+   "worstPair": [
+    8,
+    9
+   ],
+   "sha256": "83a5eecc5dd188a8011145ed0a84906b692be3881cbbcdac4c2291a7797579e6"
+  },
+  {
+   "id": "circles__alphaevolve_2025/m02",
+   "row": "circles/alphaevolve_2025",
+   "aimedAt": "pair4-9",
+   "kind": "pair overlap",
+   "nextafterSteps": 781926331,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 1,
+   "boxFails": false,
+   "worstPair": [
+    4,
+    9
+   ],
+   "sha256": "634c98cd0bb721deb438349156adecac996bf1898c02a3a686e9679d695e24b0"
+  },
+  {
+   "id": "circles__alphaevolve_2025/m03",
+   "row": "circles/alphaevolve_2025",
+   "aimedAt": "box",
+   "kind": "box overflow in x",
+   "nextafterSteps": 287913097,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 0,
+   "boxFails": true,
+   "worstPair": [
+    8,
+    9
+   ],
+   "sha256": "e859bcebcc23f4096a6e921d070102bdde2efb5f3dead2fa0bd95cd878126d32"
+  },
+  {
+   "id": "circles__alphaevolve_2025/m04",
+   "row": "circles/alphaevolve_2025",
+   "aimedAt": "box",
+   "kind": "box overflow in y",
+   "nextafterSteps": 287913097,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 0,
+   "boxFails": true,
+   "worstPair": [
+    8,
+    9
+   ],
+   "sha256": "a779a10870c3805a9a9e0f6b2468b124109846ca9a9aee491650ffbd0e363ed1"
+  },
+  {
+   "id": "circles__ours_2026/m01",
+   "row": "circles/ours_2026",
+   "aimedAt": "pair3-17",
+   "kind": "pair overlap",
+   "nextafterSteps": 3,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 1,
+   "boxFails": false,
+   "worstPair": [
+    3,
+    17
+   ],
+   "sha256": "2d1c2cb26b85f04b6b91d87370e98edb9bbbc2e7186aee1f31788eb470677046"
+  },
+  {
+   "id": "circles__ours_2026/m02",
+   "row": "circles/ours_2026",
+   "aimedAt": "pair5-16",
+   "kind": "pair overlap",
+   "nextafterSteps": 2,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 1,
+   "boxFails": false,
+   "worstPair": [
+    5,
+    16
+   ],
+   "sha256": "50b6683d2dd5f9f84386c3440e751c348b206b7528b9ec7f90031a83ce1c925b"
+  },
+  {
+   "id": "circles__ours_2026/m03",
+   "row": "circles/ours_2026",
+   "aimedAt": "box",
+   "kind": "box overflow in y",
+   "nextafterSteps": 138825,
+   "platformFormerRule": "PASS",
+   "word": "REPAIRED",
+   "certified": false,
+   "located": true,
+   "overlaps": 0,
+   "boxFails": true,
+   "worstPair": [
+    3,
+    17
+   ],
+   "sha256": "ce142b57036f6b664af11ac254992727b9d8f6ddf6cddd8e95fafc4802804759"
+  }
+ ],
+ "counts": {
+  "mutants": 7,
+  "certified": 0,
+  "located": 7,
+  "passed": 7
+ }
+}

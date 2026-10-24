@@ -1,6 +1,6 @@
 {
  "what": "The registry's asterisked C42 <= 0.6906538, decided from the certificate it cites: the four exact facts the note's asymptotic argument needs, the limiting inequality |Y| < C D among them, in Decimal intervals; the argument itself is the note's.",
- "generated": "2026-09-29",
+ "generated": "2026-10-24",
  "registry": {
   "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
   "row": "C42 <= 0.6906538*"
@@ -16,7 +16,7 @@
   "ai": "\"AI assistance was used for formatting, exposition, and preparation of verification scripts.\" (the repo); the registry asterisk added 2026-07-29 (commit 79c1f5c)"
  },
  "code": {
-  "instruments/turan/c42.py": "d1568c515ba24ac515124e67d9e1a0ed445ae6cea09ed313151fea15ff224729"
+  "instruments/turan/c42.py": "5931eb0914d0d99e0ca44759109d40c0fe5ed8c6703f8e041067c0beeaf485e4"
  },
  "rows": [
   {
@@ -25,36 +25,45 @@
    "claimant": "S. Griego (github.com/sebastian-griego/turan-c42-certificate v1.0.0)",
    "scope": "the limiting certificate decided (|Y|/D <= 0.690653695151… < 0.6906538, |1-alpha| < C, |eta| < C, tau > 1/3); the asymptotic reduction to it, with no finite threshold, is the note's prose",
    "verdict": "PARTIAL",
+   "why": null,
    "checks": [
     {
      "name": "s = 1 - alpha and w = eta - s are the certificate's",
+     "role": "bookkeeping",
      "ok": true
     },
     {
      "name": "|1 - alpha|^2 < C^2 (exactly)",
+     "role": "fact",
      "ok": true,
      "detail": "693863919/5000000000000000"
     },
     {
      "name": "|eta|^2 < C^2 (exactly)",
+     "role": "fact",
      "ok": true,
      "detail": "1374484479/10000000000000000"
     },
     {
      "name": "tau > 1/3 (three middle corrections cannot reach z^n)",
+     "role": "fact",
      "ok": true
     },
     {
      "name": "C < 0.69368, the previous public bound",
+     "role": "fact",
      "ok": true
     },
     {
      "name": "|Y|^2 < C^2 D^2: the limiting inequality",
+     "role": "inequality",
      "ok": true,
+     "refuted": false,
      "detail": "gap 1.5501e-07"
     },
     {
      "name": "every enclosure the certificate prints (K, A1, A2, D) meets the one computed here",
+     "role": "bookkeeping",
      "ok": true
     }
    ],
@@ -63,7 +72,11 @@
     "-0.5195122928242195445"
    ],
    "D": "1.0345433556496055446433",
-   "ratioUpper": "0.6906536951516311",
+   "ratioUpper": "0.6906536951516312",
+   "ratio": [
+    "0.690653695151631184446790731972638944420315932715740759385089",
+    "0.690653695151631184446790731972638944420315932715740766569175"
+   ],
    "bound": "0.6906538"
   },
   {
@@ -72,24 +85,33 @@
    "claimant": "A. Röhrig with Codex (teorth/optimizationproblems PR #184, 9 Sep 2026)",
    "scope": "the eight-block limiting certificate decided (|Y|/D <= 0.688982098504… < 0.688983, every block inside C, gap 9.7997e-07); the asymptotic reduction is the note's prose",
    "verdict": "PARTIAL",
+   "why": null,
    "checks": [
     {
      "name": "the cuts rise from 1/3 <= t_0 to 1 - t_0, one eta per block",
+     "role": "fact",
      "ok": true
     },
     {
      "name": "|s| < C and |eta_j| < C for every block (exactly)",
+     "role": "fact",
      "ok": true,
      "detail": "smallest margin 6210826259987/5000000000000000000"
     },
     {
      "name": "|Y|^2 < C^2 D^2: the limiting inequality",
+     "role": "inequality",
      "ok": true,
+     "refuted": false,
      "detail": "gap 9.7997e-07"
     }
    ],
    "D": "0.8881906504525119541782",
-   "ratioUpper": "0.6889820985040607",
+   "ratioUpper": "0.6889820985040608",
+   "ratio": [
+    "0.688982098504060748505120997583642685543196043346682092989502",
+    "0.688982098504060748505120997583642685543693286495675584930587"
+   ],
    "bound": "0.688983",
    "Y": [
     "0.41810722618164745369",

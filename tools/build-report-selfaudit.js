@@ -176,6 +176,22 @@ B.push(C.section({
 }));
 
 /* §6 what is claimed */
+/* §5b (2026-10-24): the first outside mutant set, recorded beside the campaign (certs/selfaudit-outside.json), re-checked */
+{
+  try { require('child_process').execFileSync(process.execPath, [path.join(ROOT, 'tools', 'run-selfaudit-outside.js'), '--check'], { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'] }); } catch (e) { console.error('SELFAUDIT PAGE REFUSED: the outside mutants do not re-check'); process.exit(1); }
+  const O = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'selfaudit-outside.json'), 'utf8'));
+  B.push(C.section({
+    lab: '§5b · from outside', title: 'Mutants someone else built to fool it',
+    bodyRaw: C.pRaw('Every mutant above is this repository\'s own. After the self-audit closed, ' + C.esc(O.source.by) + ' built ' + O.counts.mutants + ' more for the two EinsteinArena circles-rectangle rows (<a href="' + C.escAttr(O.source.posted) + '">cert-machine#1</a>): '
+      + 'each the smallest single-value nextafter move that breaks exactly one constraint — a pair or the bounding box — under the strict reading, while passing the platform\'s former 1e-9 rule, '
+      + 'which is where a floating-point checker with a tolerance accepts and an exact one must not. Pinned as received (' + C.m(O.source.dir) + '), decided by the ledger\'s own path: '
+      + '<b>' + O.counts.certified + ' certified, ' + O.counts.located + ' of ' + O.counts.mutants + ' located</b> at the constraint each was aimed at; both starting bases are witnesses.')
+      + C.plainList(O.rows.map((r) => ({ b: r.id.replace('circles__', '') + '.', text: 'Aimed at ' + (r.aimedAt === 'box' ? 'the bounding box' : 'pair ' + r.aimedAt.replace('pair', '').replace('-', '–')) + ', '
+        + r.nextafterSteps.toLocaleString('en-US') + ' nextafter step' + (r.nextafterSteps === 1 ? '' : 's') + ' past the base; the former 1e-9 rule: ' + r.platformFormerRule + '; decided ' + r.word + (r.located ? ', the target located.' : ', the target NOT located.') })))
+      + C.pRaw('Re-derive: ' + C.m('node tools/run-selfaudit-outside.js --check') + '. The same rerun found three defects in the C42 decider, none moving a verdict, fixed and recorded in the pre-registration\'s amendment of 2026-10-24.')
+  }));
+}
+
 B.push(C.section({
   lab: '§6 · what is claimed, and what is not', title: 'The limits, from the note',
   bodyRaw: C.plainList([

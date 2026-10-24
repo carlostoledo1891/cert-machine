@@ -13,11 +13,11 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2"
+  "sha256": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "b5f226e1eff7d9810a0a95b59039de184316f589ee8f0de0d6b9b2734a015b8e"
+  "sha256": "0f351c66b10c525fec073bef9be7edfd7e1ac562e2a773c3152da40b5154b656"
  },
  "inputs": {
   "register": {
@@ -39,7 +39,7 @@
    "certs/countex-ledger.json": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc",
    "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
-   "certs/turan-ledger.json": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef",
+   "certs/turan-ledger.json": "e6143188777c194f0efae8a6ec56c493920d17aee93372fa584c7d784e38db73",
    "certs/horizonmath-ledger.json": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a",
    "certs/gnnw-certificate.json": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273",
    "certs/sumproduct-ledger.json": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0"
@@ -29592,6 +29592,26 @@
    "after": {
     "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
     "inventory": "b5f226e1eff7d9810a0a95b59039de184316f589ee8f0de0d6b9b2734a015b8e"
+   }
+  },
+  {
+   "at": "2026-10-24T21:16:58.385Z",
+   "git": "a5bdc934",
+   "why": "Amendment 2026-10-24 (notes/selfaudit-preregistration-2026-10-20.md): the C42 decider's failure-path words, outward printed upper ends and route comparison fixed after maximusrufus's rerun (cert-machine#1); certs/turan-ledger.json moves; the turan rows were never mutated; no mutant, decision or measurement touched",
+   "before": {
+    "preregistration": "b799715c0f840d2a201b7a7907025137e70653095319ad8c97a3b7f8be7b23c2",
+    "inventory": "b5f226e1eff7d9810a0a95b59039de184316f589ee8f0de0d6b9b2734a015b8e",
+    "recordsMoved": [
+     {
+      "record": "certs/turan-ledger.json",
+      "from": "f0b9c2b48a5b32654f0cdeab9389464549c64d5fd10c075dd928ba0a5e9a38ef",
+      "to": "e6143188777c194f0efae8a6ec56c493920d17aee93372fa584c7d784e38db73"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1",
+    "inventory": "0f351c66b10c525fec073bef9be7edfd7e1ac562e2a773c3152da40b5154b656"
    }
   }
  ]

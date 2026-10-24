@@ -1,0 +1,228 @@
+{
+ "source": "carlostoledo1891/cert-machine",
+ "sha": "89247979bd0d570a3eb2389ef22308acf054864a",
+ "decider": "instruments/easota/decide.js circles() via run_his.js, node v22.11.0",
+ "bases": {
+  "circles__alphaevolve_2025/BASE": "WITNESSED",
+  "circles__ours_2026/BASE": "WITNESSED"
+ },
+ "mutants": [
+  {
+   "id": "circles__alphaevolve_2025/m01",
+   "row": "circles/alphaevolve_2025",
+   "base": "pinned bytes (strictly feasible)",
+   "constraint": "pair8-9",
+   "kind": "pair overlap",
+   "change": {
+    "circle": 9,
+    "field": "y",
+    "from": "0.90818577",
+    "to": "0.9081857573736984",
+    "nextafterSteps": 113727614,
+    "direction": "-"
+   },
+   "strictSlack": "-601620793336883801/10000000000000000000000000000000000",
+   "strictVerdict": "FAIL (only pair8-9)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "83a5eecc5dd188a8011145ed0a84906b692be3881cbbcdac4c2291a7797579e6",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 1,
+    "boxSlackSign": 1,
+    "worst": [
+     8,
+     9
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__alphaevolve_2025/m02",
+   "row": "circles/alphaevolve_2025",
+   "base": "pinned bytes (strictly feasible)",
+   "constraint": "pair4-9",
+   "kind": "pair overlap",
+   "change": {
+    "circle": 4,
+    "field": "x",
+    "from": "0.12396161",
+    "to": "0.1239616208514077",
+    "nextafterSteps": 781926331,
+    "direction": "+"
+   },
+   "strictSlack": "-1268707121524297/312500000000000000000000000000000",
+   "strictVerdict": "FAIL (only pair4-9)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "634c98cd0bb721deb438349156adecac996bf1898c02a3a686e9679d695e24b0",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 1,
+    "boxSlackSign": 1,
+    "worst": [
+     4,
+     9
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__alphaevolve_2025/m03",
+   "row": "circles/alphaevolve_2025",
+   "base": "pinned bytes (strictly feasible)",
+   "constraint": "box",
+   "kind": "box overflow in x",
+   "change": {
+    "circle": 16,
+    "field": "x",
+    "from": "0.85766825",
+    "to": "0.857668281964775",
+    "nextafterSteps": 287913097,
+    "direction": "+"
+   },
+   "strictSlack": "-1/25000000000000000",
+   "strictVerdict": "FAIL (only box)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "e859bcebcc23f4096a6e921d070102bdde2efb5f3dead2fa0bd95cd878126d32",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 0,
+    "boxSlackSign": -1,
+    "worst": [
+     8,
+     9
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__alphaevolve_2025/m04",
+   "row": "circles/alphaevolve_2025",
+   "base": "pinned bytes (strictly feasible)",
+   "constraint": "box",
+   "kind": "box overflow in y",
+   "change": {
+    "circle": 14,
+    "field": "y",
+    "from": "0.9103472",
+    "to": "0.910347231964775",
+    "nextafterSteps": 287913097,
+    "direction": "+"
+   },
+   "strictSlack": "-1/25000000000000000",
+   "strictVerdict": "FAIL (only box)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "a779a10870c3805a9a9e0f6b2468b124109846ca9a9aee491650ffbd0e363ed1",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 0,
+    "boxSlackSign": -1,
+    "worst": [
+     8,
+     9
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__ours_2026/m01",
+   "row": "circles/ours_2026",
+   "base": "pinned bytes fail strictly on 45 constraints, so the base is their binary64 repair: every radius times lambda=0.9999999999633541, rounded down; strictly feasible",
+   "constraint": "pair3-17",
+   "kind": "pair overlap",
+   "change": {
+    "circle": 17,
+    "field": "y",
+    "from": "0.11906285634451454",
+    "to": "0.11906285634451458",
+    "nextafterSteps": 3,
+    "direction": "+"
+   },
+   "strictSlack": "-3041961786263001/2500000000000000000000000000000000",
+   "strictVerdict": "FAIL (only pair3-17)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "2d1c2cb26b85f04b6b91d87370e98edb9bbbc2e7186aee1f31788eb470677046",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 1,
+    "boxSlackSign": 1,
+    "worst": [
+     3,
+     17
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__ours_2026/m02",
+   "row": "circles/ours_2026",
+   "base": "pinned bytes fail strictly on 45 constraints, so the base is their binary64 repair: every radius times lambda=0.9999999999633541, rounded down; strictly feasible",
+   "constraint": "pair5-16",
+   "kind": "pair overlap",
+   "change": {
+    "circle": 16,
+    "field": "y",
+    "from": "0.29820323111822633",
+    "to": "0.2982032311182262",
+    "nextafterSteps": 2,
+    "direction": "-"
+   },
+   "strictSlack": "-254107491917494577/10000000000000000000000000000000000",
+   "strictVerdict": "FAIL (only pair5-16)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "50b6683d2dd5f9f84386c3440e751c348b206b7528b9ec7f90031a83ce1c925b",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 1,
+    "boxSlackSign": 1,
+    "worst": [
+     5,
+     16
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  },
+  {
+   "id": "circles__ours_2026/m03",
+   "row": "circles/ours_2026",
+   "base": "pinned bytes fail strictly on 45 constraints, so the base is their binary64 repair: every radius times lambda=0.9999999999633541, rounded down; strictly feasible",
+   "constraint": "box",
+   "kind": "box overflow in y",
+   "change": {
+    "circle": 10,
+    "field": "y",
+    "from": "0.9019896034585835",
+    "to": "0.9019896034739961",
+    "nextafterSteps": 138825,
+    "direction": "+"
+   },
+   "strictSlack": "-1/20000000000000000",
+   "strictVerdict": "FAIL (only box)",
+   "platformVerdict_1e-9_rule_2026-03-26_to_2026-08-24": "PASS",
+   "platformVerdict_exact_rule_since_2026-08-24": "FAIL",
+   "sha256": "ce142b57036f6b664af11ac254992727b9d8f6ddf6cddd8e95fafc4802804759",
+   "hisDecider": {
+    "word": "REPAIRED",
+    "overlaps": 0,
+    "boxSlackSign": -1,
+    "worst": [
+     3,
+     17
+    ]
+   },
+   "hisVerdict": "REPAIRED",
+   "certifiedByHim": false
+  }
+ ]
+}

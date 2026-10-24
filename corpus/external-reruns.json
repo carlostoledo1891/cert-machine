@@ -81,5 +81,35 @@
     "posted": "https://github.com/teorth/optimizationproblems/pull/257#issuecomment-6379486052",
     "hash": null,
     "outcome": "the same verdict; their 0.00071385 is the maximum, our 0.0007150507 a ceiling above it (answered on the thread)"
+  },
+  {
+    "who": "maximusrufus (GitHub)",
+    "date": "2026-10-24",
+    "what": "The registry’s C₄₂ record (certs/turan-ledger.json) re-derived with the tool that writes it, at cert-machine 8924797: both rows identical. The rerun’s reading of instruments/turan/c42.py found three defects, none moving a verdict: failed checks answered REFUTED where the rule asks REFUSED, printed upper ends truncated rather than rounded outward, and the two routes compared on truncated strings.",
+    "kind": "full-rederive",
+    "rows": [
+      "optconst-42a",
+      "optconst-42a-pr184"
+    ],
+    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+    "hash": null,
+    "outcome": "the same verdicts (PARTIAL); the three defects fixed, recorded in the self-audit’s amendment of 2026-10-24"
+  },
+  {
+    "who": "maximusrufus (GitHub)",
+    "date": "2026-10-24",
+    "what": "Google’s AlphaEvolve Ramsey lower-bound graphs decided with their own clique search (two methods), before ours and with no code of ours: 15 of the 18 graphs, the verdicts compared with certs/ramsey-ledger.json.",
+    "kind": "own-code",
+    "records": [
+      "certs/ramsey-ledger.json"
+    ],
+    "pages": [
+      "reports/ramsey-graphs.html"
+    ],
+    "where": "https://github.com/maximusrufus/openai-math-replays/tree/4c5524a0e03e88bd96f48d68e8ec25aa5f7566cd/ramsey_alphaevolve",
+    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+    "hash": null,
+    "outcome": "the same verdict on all 15; R(10,12) and R(7,13), which they could not finish, decided here; R(8,18) unfinished on both sides"
   }
 ]

@@ -22,6 +22,21 @@
 > no measurement, mutant or decision touched. (6) The hosted profile's 416 rows entered Phase 4 as recorded. Nothing
 > else below changes.
 
+> **Amendment 2026-10-24 (an outside rerun's findings; no definition moved).** maximusrufus re-ran the C42 decider
+> (cert-machine#1) and found three defects, none of which moves a verdict: (1) instruments/turan/c42.py answered REFUTED to
+> every failed check, where this repository's rule (instruments/verdict.js) requires REFUSED unless the negation is shown —
+> it now gives each check a role and answers REFUTED only for a fact false exactly or the limiting inequality false with
+> disjoint enclosures, REFUSED for a certificate whose printed numbers do not match what it defines or for straddling
+> enclosures (the battery's controls follow, with three new ones); (2) the printed upper end of |Y|/D was truncated — it is
+> now rounded outward (0.6906536951516312, 0.6889820985040608); (3) tools/run-turan-ledger.py compared its two routes on
+> those truncated strings — it now requires the two enclosures to meet. certs/turan-ledger.json moves (the digits, the
+> roles, the enclosures, the code's sha256); the turan rows were never mutated (point (3) of the amendment above), so no
+> mutant or decision moves; the inventory is regenerated and the run and mutations records re-pinned with this amendment
+> as the reason. Separately, the first OUTSIDE mutant set is recorded beside the campaign, not inside it:
+> maximusrufus's seven boundary mutants of the two EinsteinArena circles-rectangle rows (the smallest nextafter move
+> breaking exactly one constraint under the strict reading), pinned as received and decided by the ledger's path —
+> certs/selfaudit-outside.json, tools/run-selfaudit-outside.js: none certified, all seven located. Nothing else changes.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing
