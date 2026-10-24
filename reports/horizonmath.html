@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HorizonMath&#39;s discoveries, decided · cert-machine</title>
+<title>HorizonMath's discoveries, decided · Carlos Toledo</title>
 <meta name="description" content="The discoveries HorizonMath (arXiv 2603.15617) credits to frontier models, decided from what it prints: the Kakeya area certified exactly; the diagonal-Ramsey certificate refuted — its pair at λ = 1 lies outside the region Gupta–Ndiaye–Norin–Wei&#39;s theorem needs, admitted by a checker that asks one of two inequalities.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
@@ -22,7 +22,7 @@
 <meta name="twitter:title" content="HorizonMath&#39;s discoveries, decided · cert-machine">
 <meta name="twitter:description" content="The discoveries HorizonMath (arXiv 2603.15617) credits to frontier models, decided from what it prints: the Kakeya area certified exactly; the diagonal-Ramsey certificate refuted — its pair at λ = 1 lies outside the region Gupta–Ndiaye–Norin–Wei&#39;s theorem needs, admitted by a checker that asks one of two inequalities.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"HorizonMath's discoveries, decided · cert-machine","description":"The discoveries HorizonMath (arXiv 2603.15617) credits to frontier models, decided from what it prints: the Kakeya area certified exactly; the diagonal-Ramsey certificate refuted — its pair at λ = 1 lies outside the region Gupta–Ndiaye–Norin–Wei's theorem needs, admitted by a checker that asks one of two inequalities.","url":"https://carlostoledo.co/reports/horizonmath.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"HorizonMath's discoveries, decided","description":"The discoveries HorizonMath (arXiv 2603.15617) credits to frontier models, decided from what it prints: the Kakeya area certified exactly; the diagonal-Ramsey certificate refuted — its pair at λ = 1 lies outside the region Gupta–Ndiaye–Norin–Wei's theorem needs, admitted by a checker that asks one of two inequalities.","url":"https://carlostoledo.co/reports/horizonmath.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -266,6 +266,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -673,7 +676,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
@@ -994,6 +997,14 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>What is not decided here</h2>
   </div>
 <ul class="plain"><li><b>Whether c &lt; 3.7992 is reachable.</b> A certificate with pairs inside R might exist for this F or another. The Erdős bound alone does not rule out the quintic at λ = 1 for every M; deciding that needs a better outer bound on R, or a certificate that passes the two-sided test.</li><li><b>The three GPT-5.6 Sol Max closed forms.</b> The Airy moment a₅ and the two spherical-mode quality factors: the expressions are not in the paper, which details A.1–A.3. Agreement with a reference to 20 digits would not decide an equality in any case.</li><li><b>The spinor-norm integral.</b> Γ(1/4)²/(8√π) + Γ(3/4)²/√π, with a printed derivation through a Landen transformation and a Beltrami transform to 2E(½) − K(½)/2. Not checked here yet: an enclosure of the integral to hundreds of digits, or each step, is next.</li><li><b>Whose defect.</b> The model optimised against the problem exactly as stated — the statement gives the either-orientation rule in words. The defect is in the statement and its checker, and in the verification that relied on them.</li></ul>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">outside</div>
+    <h2>What has come back from outside</h2>
+  </div>
+<ul class="plain"><li><b>Listed, 2026-10-17.</b> Awesome-ai-proofs (a registry of AI-assisted mathematical results): Two of our audits recorded as audit events: the 4 × 4 matrix-multiplication decompositions (the row now marked verified) and the HorizonMath diagonal-Ramsey certificate (marked disputed). In their words: “Audit events from cert-machine (https://github.com/carlostoledo1891/cert-machine).” (<a href="https://github.com/subroy13/awesome-ai-proofs/blob/852a8fac91cbf32d31a8c3f1ac64bbf669a9eac3/data/problems/carlostoledo1891.yaml">the source</a>, pinned)</li></ul><p>Each credit is quoted from a snapshot pinned by sha256 (corpus/recognition.json); each re-run is a row of corpus/external-reruns.json. Neither is a peer review.</p>
 </section><script>
 (function(){
   var tip=null;
@@ -1024,7 +1035,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-horizonmath.js from certs/horizonmath-ledger.json (2026-09-29), re-derived at build; battery 22 checks, 7 red controls fired. The Lemma 15 curve in the figure is drawn in floats; every verdict is decided in intervals.</p><p>git 054078d</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-horizonmath.js from certs/horizonmath-ledger.json (2026-09-29), re-derived at build; battery 22 checks, 7 red controls fired. The Lemma 15 curve in the figure is drawn in floats; every verdict is decided in intervals.</p><p>git 4ce1666d</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

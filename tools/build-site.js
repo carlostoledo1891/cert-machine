@@ -897,8 +897,11 @@ const recent = (() => {
   for (const r of rows) { const k = r.page || r.id; if (seen.has(k)) continue; seen.add(k); out.push(r); if (out.length === 5) break; }
   return out;
 })();
-/* what came back: third-party re-derivations (corpus/external-reruns.json); the 604 congruence (certs/kissing-ledger.json) */
+/* what came back: third-party re-derivations (corpus/external-reruns.json) and public credits (corpus/recognition.json),
+   both through design/outside.js (pinned quotes, checked once); the 604 congruence (certs/kissing-ledger.json) */
 const externalReruns = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'));
+const OUTSIDE = require(path.join(ROOT, 'design', 'outside.js'));
+const outside = OUTSIDE.load();
 const cong604 = (() => {
   const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'kissing-ledger.json'), 'utf8'));
   const row = K.rows.find((r) => r.congruence && r.congruence['station-604-1']);
@@ -962,6 +965,8 @@ B.push(C.section({
 B.push(C.section({
   lab: 'outside the building', title: 'What has come back',
   bodyRaw: C.plainList([
+    ...outside.credits.filter((r) => r.landing).map((r) => ({ b: OUTSIDE.KINDS[r.kind] + ' — ' + longDate(r.date) + '.',
+      raw: C.esc(OUTSIDE.cap(r.who)) + ': ' + C.esc(r.what) + ' In their words: “' + C.esc(OUTSIDE.plain(r.quote)) + '” (<a href="' + C.escAttr(r.url) + '">the source</a>, pinned).' })),
     ...externalReruns.map((r) => ({ b: 'Independently re-derived, no shared code — ' + longDate(r.date) + '.',
       raw: C.esc(r.who) + ': ' + C.esc(r.what.split(';').slice(0, 2).join(';')) + '. Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' })),
     { b: 'Data published at the system’s request — from ' + longDate(KW.publishedOn) + '.',
@@ -1432,6 +1437,8 @@ const aboutBody = [
   C.section({
     lab: 'outside the building', title: 'Where the work has gone, and what has come back', id: 'outside',
     bodyRaw: [
+      C.p('Credited elsewhere: what registries, claimants and curated lists have published about this work, each quoted from a snapshot pinned by sha256 (corpus/recognition.json).'),
+      C.plainList(OUTSIDE.items(C, { credits: outside.credits, reruns: [] })),
       C.plainList(externalReruns.map((r) => ({ b: 'Independently re-derived, no shared code — ' + longDate(r.date) + '.', raw: C.esc(r.who) + ': ' + C.esc(r.what) + ' Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' }))),
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
         + 'leaves. The record, with the status words meant exactly: first what has come back (' + outreachBack.length + ' of '

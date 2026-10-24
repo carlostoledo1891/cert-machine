@@ -1,0 +1,134 @@
+{
+ "what": "What others have published about this work: credits by claimants, registries that cite or merged it, listings. One row per public statement, each quoted verbatim from a pinned snapshot (corpus/sources, PINS.json) — design/outside.js refuses a row whose quote is not in its pinned bytes. Re-runs of our claims live in corpus/external-reruns.json; this record is for what was SAID. Ordered by weight: registries, credits, listings.",
+ "rows": [
+  {
+   "id": "registry-3b-3c-71",
+   "date": "2026-10-18",
+   "kind": "registry",
+   "who": "the optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)",
+   "what": "Three asterisks removed on our replays — C₃b, C₃c and C₇₁ — merged by T. Tao (pull request #216); the constants' pages cite the replays as [T2026].",
+   "quote": "with no code shared with the claimants, by [C. Toledo](https://carlostoledo.co/reports/optimization-constants.html)",
+   "source": "recognition/teorth__optimizationproblems__README.md@46dbf036",
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/README.md",
+   "pages": [
+    "reports/optimization-constants.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "registry-3c-two-law",
+   "date": "2026-10-18",
+   "kind": "registry",
+   "who": "the optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)",
+   "what": "A fourth asterisk removed — C₃c's two-law certificate — on our replay, merged by T. Tao (pull request #230).",
+   "quote": "by [C. Toledo](https://carlostoledo.co/reports/optconst-queue.html), 17 Oct 2026; asterisk removed.",
+   "source": "recognition/teorth__optimizationproblems__README.md@46dbf036",
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/README.md",
+   "pages": [
+    "reports/optconst-queue.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "registry-3b-reference",
+   "date": "2026-10-18",
+   "kind": "registry",
+   "who": "the optimization-constants registry, constant 3b",
+   "what": "The constant's page lists the replay as a reference of its own.",
+   "quote": "[T2026] Toledo, Carlos. Independent replay of the 13-point [MI2026] certificate",
+   "source": "recognition/teorth__optimizationproblems__constants__3b.md@46dbf036",
+   "url": "https://github.com/teorth/optimizationproblems/blob/46dbf03669219cb2bcf33fd5bbf65209d137f994/constants/3b.md",
+   "pages": []
+  },
+  {
+   "id": "qiushi-readme",
+   "date": "2026-10-24",
+   "kind": "credit",
+   "who": "the Qiushi Engine authors (Oxelra-AI)",
+   "what": "The claimants credit the complete verification of all nineteen kissing configurations in their English and Chinese READMEs, linking the report and the programs.",
+   "quote": "Carlos Toledo has independently verified the complete configurations in\n**all 19 dimensions**, confirming their point counts and exact dimensions.",
+   "source": "recognition/Oxelra-AI__Qiushi-Engine-Kissing-Number-Research__README.md@39911e4b",
+   "url": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/blob/39911e4b38c01c4631e06b12a3e0b23a84e403f8/README.md",
+   "pages": [
+    "reports/kissing.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "qiushi-readme-zh",
+   "date": "2026-10-24",
+   "kind": "credit",
+   "who": "the Qiushi Engine authors (Oxelra-AI), Chinese README",
+   "what": "The same credit in the Chinese README.",
+   "quote": "Carlos Toledo 已对 **全部19个维数的完整构型**完成独立验证",
+   "source": "recognition/Oxelra-AI__Qiushi-Engine-Kissing-Number-Research__README.zh-CN.md@39911e4b",
+   "url": "https://github.com/Oxelra-AI/Qiushi-Engine-Kissing-Number-Research/blob/39911e4b38c01c4631e06b12a3e0b23a84e403f8/README.zh-CN.md",
+   "pages": []
+  },
+  {
+   "id": "maximusrufus-related-work",
+   "date": "2026-10-23",
+   "kind": "peer",
+   "who": "maximusrufus, an independent replayer of AI-generated mathematics",
+   "what": "Opening cert-machine issue 1, before re-running three of our records and finding no disagreement.",
+   "quote": "It covers much of the same ground, carefully, and I will cite it in our related-work notes.",
+   "source": "recognition/carlostoledo1891__cert-machine__issue-1_opening_2026-10-23.json",
+   "url": "https://github.com/carlostoledo1891/cert-machine/issues/1",
+   "pages": [
+    "reports/rerun.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "awesome-ai-proofs",
+   "date": "2026-10-17",
+   "kind": "listing",
+   "who": "awesome-ai-proofs (a registry of AI-assisted mathematical results)",
+   "what": "Two of our audits recorded as audit events: the 4 × 4 matrix-multiplication decompositions (the row now marked verified) and the HorizonMath diagonal-Ramsey certificate (marked disputed).",
+   "quote": "# Audit events from cert-machine (https://github.com/carlostoledo1891/cert-machine).",
+   "source": "recognition/subroy13__awesome-ai-proofs__data__problems__carlostoledo1891.yaml@852a8fac",
+   "url": "https://github.com/subroy13/awesome-ai-proofs/blob/852a8fac91cbf32d31a8c3f1ac64bbf669a9eac3/data/problems/carlostoledo1891.yaml",
+   "pages": [
+    "reports/horizonmath.html"
+   ],
+   "landing": true
+  },
+  {
+   "id": "awesome-ai-scientist",
+   "date": "2026-10-06",
+   "kind": "listing",
+   "who": "Awesome-AI-Scientist (a curated list)",
+   "what": "cert-machine listed under peer review and verification.",
+   "quote": "[cert-machine](https://github.com/carlostoledo1891/cert-machine), Independent exact certification of machine-generated mathematics",
+   "source": "recognition/Omni-Scientist__Awesome-AI-Scientist__README.md@a63f65d3",
+   "url": "https://github.com/Omni-Scientist/Awesome-AI-Scientist/blob/a63f65d31f5da62408e7006fa4f0418f21e7021a/README.md",
+   "pages": []
+  },
+  {
+   "id": "erdos-wiki-1186",
+   "date": "2026-10-07",
+   "kind": "listing",
+   "who": "plasma-ai/erdos, an open record of the Erdős problems",
+   "what": "The δ₃ = 117/2192 result recorded as a claim on Problem 1186 (status: claimed), with the paper, the page and the archive.",
+   "quote": "title: Toledo's computer-assisted value of delta_3",
+   "source": "recognition/plasma-ai__erdos__wiki__problems__additive_combinatorics__E1186__claims__2026_10_05_toledo.md@05a6a79d",
+   "url": "https://github.com/plasma-ai/erdos/blob/05a6a79d5c64985d0e8a73697fd63a2731d6acc4/wiki/problems/additive_combinatorics/E1186/claims/2026_10_05_toledo.md",
+   "pages": [
+    "reports/delta3.html"
+   ]
+  },
+  {
+   "id": "erdosproblems-claim-395",
+   "date": "2026-10-06",
+   "kind": "listing",
+   "who": "erdosproblems.com, Problem 1186",
+   "what": "Listed as a partial proof claim; the site says a listing is no guarantee of correctness and that nobody there has examined the proof.",
+   "quote": "claimed by Carlos Toledo (using Claude (Anthropic)).",
+   "source": "delta3/erdosproblems-1186-proof-claims_2026-10-06.html",
+   "url": "https://www.erdosproblems.com/forum/thread/1186/proof-claims#proof-claim-395",
+   "pages": [
+    "reports/delta3.html"
+   ]
+  }
+ ]
+}
