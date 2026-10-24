@@ -1,0 +1,130 @@
+{
+ "what": "EinsteinArena solution 542 (AlphaEvolve, 26 circles in the unit square, score 2.6359830849176076) decided under both readings of its own bytes: the decimals as printed, and the doubles the platform verified. Written by tools/run-ea542-readings.py.",
+ "source": {
+  "path": "corpus/einstein-arena/best-14.json",
+  "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+  "id": 542,
+  "agent": "AlphaEvolve",
+  "score": 2.6359830849176076,
+  "createdAt": "2026-03-24T02:05:31.263Z"
+ },
+ "claim": "a feasible packing: every circle inside the unit square (r <= x <= 1 - r, r <= y <= 1 - r) and no two overlapping ((r_i + r_j)^2 <= |c_i - c_j|^2)",
+ "readings": {
+  "decimals": {
+   "outside": [
+    {
+     "circle": 2,
+     "by": "1/100000000000000000",
+     "approx": "1.000e-17"
+    },
+    {
+     "circle": 5,
+     "by": "1/100000000000000000",
+     "approx": "1.000e-17"
+    },
+    {
+     "circle": 12,
+     "by": "1/20000000000000000",
+     "approx": "5.000e-17"
+    }
+   ],
+   "overlaps": [
+    {
+     "pair": [
+      1,
+      11
+     ],
+     "squaredExcess": "16689115791467769/10000000000000000000000000000000000",
+     "depthApprox": "3.585e-18"
+    },
+    {
+     "pair": [
+      2,
+      16
+     ],
+     "squaredExcess": "22925605324819701/10000000000000000000000000000000000",
+     "depthApprox": "6.152e-18"
+    },
+    {
+     "pair": [
+      3,
+      9
+     ],
+     "squaredExcess": "548806423164277/80000000000000000000000000000000",
+     "depthApprox": "2.017e-17"
+    },
+    {
+     "pair": [
+      4,
+      22
+     ],
+     "squaredExcess": "6803235927173439/1250000000000000000000000000000000",
+     "depthApprox": "1.141e-17"
+    },
+    {
+     "pair": [
+      7,
+      20
+     ],
+     "squaredExcess": "680788874006939/625000000000000000000000000000000",
+     "depthApprox": "2.782e-18"
+    },
+    {
+     "pair": [
+      13,
+      22
+     ],
+     "squaredExcess": "18553707983854403/2000000000000000000000000000000000",
+     "depthApprox": "2.187e-17"
+    },
+    {
+     "pair": [
+      20,
+      23
+     ],
+     "squaredExcess": "200445817272093029/10000000000000000000000000000000000",
+     "depthApprox": "5.224e-17"
+    }
+   ],
+   "sumRadii": "6589957712294017/2500000000000000",
+   "sumRadiiApprox": "2.6359830849176068",
+   "verdict": "REFUTED",
+   "how": "each literal read as the decimal it spells, exactly"
+  },
+  "doubles": {
+   "outside": [],
+   "overlaps": [
+    {
+     "pair": [
+      2,
+      14
+     ],
+     "squaredExcess": "361941427213607/324518553658426726783156020576256",
+     "depthApprox": "2.745e-18"
+    },
+    {
+     "pair": [
+      10,
+      22
+     ],
+     "squaredExcess": "7420139318870319/5192296858534827628530496329220096",
+     "depthApprox": "3.275e-18"
+    },
+    {
+     "pair": [
+      20,
+      23
+     ],
+     "squaredExcess": "3100535240067509/1298074214633706907132624082305024",
+     "depthApprox": "6.225e-18"
+    }
+   ],
+   "sumRadii": "189942599023837833/72057594037927936",
+   "sumRadiiApprox": "2.63598308491760681404",
+   "verdict": "REFUTED",
+   "how": "each literal read as the IEEE double the platform verified, exactly"
+  }
+ },
+ "credit": "the decimals reading was first noticed by Clade Code (a sister experiment whose judge is calibrated against cert-machine's object for this solution); decided here independently",
+ "secondDecision": "the doubles reading is also decided by instruments/claimbox (check.py and check.js) as prim-ea-542-circle-packing: --check holds the two to the same violation count"
+}

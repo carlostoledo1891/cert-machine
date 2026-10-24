@@ -232,6 +232,29 @@ B.push(C.section({
   }) + '<div class="col">' + C.pRaw('Every construction the repository publishes is now decided. The Monte Carlo score is refused on principle: a number estimated from ten million random samples is not a claim about the construction that exact arithmetic can decide. The four remaining README rows have no files at the pinned commit; the day they do, they are rows.') + '</div>'
 }));
 
+/* §5 (2026-10-24): AlphaEvolve's own entry on the same platform, solution 542, under both readings of its bytes —
+   certs/ea542-readings.json (tools/run-ea542-readings.py), re-checked here before a word is written */
+{
+  let chk = '';
+  try { chk = require('child_process').execFileSync('python3', ['-I', 'tools/run-ea542-readings.py', '--check'], { cwd: ROOT, encoding: 'utf8' }); } catch (e) { console.error('EASOTA PAGE REFUSED: the 542 record does not re-check: ' + (e.stdout || e.message)); process.exit(1); }
+  const E = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ea542-readings.json'), 'utf8'));
+  const R = E.readings;
+  const deepest = (r) => r.overlaps.slice().sort((a, b) => Number(b.depthApprox) - Number(a.depthApprox))[0];
+  const item = (k, r) => ({ b: (k === 'decimals' ? 'The decimals as printed' : 'The doubles the platform verified') + ' — ' + r.verdict + '.',
+    text: (r.outside.length ? r.outside.length + ' circles outside the square (' + r.outside.map((o) => o.circle).join(', ') + '; by up to ' + r.outside.map((o) => Number(o.approx)).reduce((a, b) => Math.max(a, b)).toExponential(0) + '), ' : 'every circle inside the square; ')
+      + r.overlaps.length + ' overlapping pairs (the deepest, circles ' + deepest(r).pair.join(' and ') + ', by ' + Number(deepest(r).depthApprox).toExponential(1) + '); Σ r = ' + r.sumRadiiApprox.slice(0, 18) + '.' });
+  B.push(C.section({
+    lab: '§5 · AlphaEvolve’s entry, both readings', title: 'Solution 542: one byte string, two packings, both infeasible',
+    bodyRaw: C.pRaw('AlphaEvolve’s entry for 26 circles in the unit square (EinsteinArena solution 542, score ' + C.esc(String(E.source.score)) + ') is printed as decimals. '
+      + 'Read as the decimals they spell, or as the doubles the platform’s verifier computed with, the same bytes give two different packings — and neither is feasible: '
+      + 'circles leave the square or overlap by 10⁻¹⁸ to 10⁻¹⁷, gaps a floating-point check measures as zero. Decided in exact rational arithmetic, every side compared without a square root.')
+      + C.plainList([item('decimals', R.decimals), item('doubles', R.doubles)])
+      + C.pRaw('The doubles reading is also decided by the declared-claim checkers in two languages (the same three pairs). The decimals reading was first noticed by '
+        + 'Clade Code, a sister experiment whose exact judge is calibrated against this decision. Re-derive: ' + C.m('python3 tools/run-ea542-readings.py --check') + '.')
+  }));
+  if (!/ea542-readings: decimals REFUTED/.test(chk)) { console.error('EASOTA PAGE REFUSED: the 542 check did not pass whole'); process.exit(1); }
+}
+
 B.push(C.note({
   lab: 'what this page does NOT claim',
   bodyRaw: C.pRaw('No bound is improved and no construction searched for; no optimality is asserted for any construction and no upper-bound theorem is touched. A REPAIRED row is not a refutation: a verifier\'s tolerance is a design choice (the platform has since dropped its circles slack itself), and the repaired witness attains the printed value to nine of ten digits. Edges vs triangles is a benchmark quantity defined by the platform\'s verifier rather than by mathematics, and the page says so. The flat-polynomial enclosures certify the supremum of the two published polynomials, not the flatness constant. Sources are published, not peer-reviewed; the repository carries no licence file and its bytes are held here for verification only.')

@@ -22,6 +22,21 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-24 — CLADE CODE ASSESSED, on "make your assessment on the results and methodology … Will you pin or use results from
+     there?" and "Decide the best always thinking in give credits to cert-machine". Clade Code published era 1 + the narrative
+     revision (d07d87b9, 26 files, 17.0 MB; the zone check holds). ASSESSMENT: the method is sound (protocols timestamped before
+     data, equal-budget controls, exact sign-flip tests, byte-for-byte replay, two exact deciders); the headline "blind rules did
+     as well as the AI" is what its records say (era 0: lineage > fresh mutation p = 1/256, not > rules; era 1: nothing
+     supported, rules ahead 9/10); its limits: a 7B quantized mutagen, one niche, one founder, tiny effects, 10 runs an era.
+     DECIDED: cert-machine pins the zone's bytes (integrity, not endorsement) and uses ONE result, a finding about our own
+     record — EinsteinArena solution 542 under both readings, now decided HERE with our own code: tools/run-ea542-readings.py →
+     certs/ea542-readings.json (decimals: 3 circles outside by up to 5e-17, 7 overlaps; doubles: 3 overlaps, held to the
+     claimbox object's decision; a battery in both registries; the certificate-table row), shown as /reports/easota.html §5,
+     "first noticed by Clade Code, a sister experiment whose judge is calibrated against this decision". The receiver
+     (instruments/claimbox) is NOT touched (the operator removed second readings there on 2026-10-20). Clade Code's checks are
+     same-operator: never counted as independent re-runs. SENT to clade-code-1d: ship era data compressed and treat completed
+     eras as immutable (17.0 of the 20 MB cap; every publish lives in our git history), and credit cert-machine visibly (the
+     judge's calibration on our 542 decision, the chain and governor ported from cert-machine, the site as cert-machine's home).
   ★ 2026-10-24 ~08:15 UTC — R(7,13) >= 513 CERTIFIED: the independent-set side closed (512/512 roots, 613.2e9 nodes, 16,489 s in
      the resumed run, ~5.1 h in all on the M2). THE RAMSEY GRAPHS: 17 of 18 CERTIFIED; R(8,18) REFUSED, left open on the
      operator's word. With R(10,12), the two graphs maximusrufus could not finish. The page rebuilt; the battery holds. A
