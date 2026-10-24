@@ -32,6 +32,12 @@ NEXT SESSION, IN ORDER:
      '[r]un-ramsey-ledger|[r]amsey-[A-Za-z0-9_]+/clique' — a pattern that matches its own command line stops the guard itself).
      `--fresh` re-runs a file from nothing. The report to maximusrufus on cert-machine#1 is DRAFTED, not posted (the operator's
      word). The battery (run-ramsey-ledger.py --check, 6 s) is in both registries.
+     ON "Review the updates on github. Respond with what we have so far and leave R(8,18) unfinished for now" (03:13 UTC):
+     the report POSTED on cert-machine#1 (issuecomment-6379173543: 16/18, R(10,12), R(7,13) resuming, R(8,18) left open; their
+     three mutations answered — two are self-audit classes already, the repeated Heilbronn point is not; their one-ulp
+     boundary mutants for the EinsteinArena rows ACCEPTED, with the 1e-9 platform-rule caveat). R(7,13) RESUMED (budget
+     18000 s, the guard on). Qiushi #1: the authors thanked us and updated both READMEs to acknowledge the complete
+     verification — no reply needed. #257: nothing new (the sweep counted our own reply).
   ★ 2026-10-23 ~23:50 UTC — THE RAMSEY GRAPHS, STARTED on "Post the comment and star Ramsey" (start; the reply to
      cert-machine#1 POSTED, issuecomment-6376613867). Google's 18 AlphaEvolve graphs pinned at google-research 0d94f8c4
      (corpus/ramsey/alphaevolve; sha256 = maximusrufus's SHA256SUMS); instruments/ramsey (graph.py, clique.py the reference,
