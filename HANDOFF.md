@@ -37,6 +37,10 @@ NEXT SESSION, IN ORDER:
      same-operator: never counted as independent re-runs. SENT to clade-code-1d: ship era data compressed and treat completed
      eras as immutable (17.0 of the 20 MB cap; every publish lives in our git history), and credit cert-machine visibly (the
      judge's calibration on our 542 decision, the chain and governor ported from cert-machine, the site as cert-machine's home).
+     DONE by clade-code the same day, and PUBLISHED on the operator's "Publish Clade Code" (bec0c84f, from this session through
+     tools/publish-zone.js): 26 files, 17.0 → 3.5 MB (the era data as .json.gz, the 22 uncompressed files removed), every footer
+     crediting cert-machine; the source was dirty (its commit dd882833 plus uncommitted web changes — the bytes are pinned by
+     sha256 regardless); live, .gz served as application/gzip, the Museum renders from it in Chrome.
   ★ 2026-10-24 ~08:15 UTC — R(7,13) >= 513 CERTIFIED: the independent-set side closed (512/512 roots, 613.2e9 nodes, 16,489 s in
      the resumed run, ~5.1 h in all on the M2). THE RAMSEY GRAPHS: 17 of 18 CERTIFIED; R(8,18) REFUSED, left open on the
      operator's word. With R(10,12), the two graphs maximusrufus could not finish. The page rebuilt; the battery holds. A
