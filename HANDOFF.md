@@ -35,7 +35,7 @@ NEXT SESSION, IN ORDER:
      located, both bases witnessed; a battery in both registries; §5b of /reports/selfaudit.html. RECORDED in
      corpus/external-reruns.json (7 rows): their C42 re-derivation (full-rederive, both rows) and their Ramsey cross-check
      (own-code, 15 of 15 agree; shown on the Ramsey page's new outside section). Next paper build: the C42 digits come from
-     the ledger (outward now). The reply goes after the push.
+     the ledger (outward now). The reply POSTED after the push (issuecomment-6389814859).
   ★ 2026-10-24 — CLADE CODE ASSESSED, on "make your assessment on the results and methodology … Will you pin or use results from
      there?" and "Decide the best always thinking in give credits to cert-machine". Clade Code published era 1 + the narrative
      revision (d07d87b9, 26 files, 17.0 MB; the zone check holds). ASSESSMENT: the method is sound (protocols timestamped before
