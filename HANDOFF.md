@@ -22,6 +22,16 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-24 ~08:00 UTC — THE INDEXES ORDERED BY IMPORTANCE, on "Are the order of the card in Reports and Instruments showing
+     the most important first? Seems not. Also, there is a gap on Instruments grid." REPORTS: design/titles.json gains `rank` on
+     the head of three series (28 pages; the rule written in its _what: outside validation, then the claimant's reach, then the
+     strength of the finding); build-site sorts by rank, then the shelf's order. Audits now lead: optimization-constants,
+     kissing, openai-math, ramsey-graphs, alphaevolve, cryptids, alphaproof-nexus, navier-stokes, chvatal-sankoff, easota …;
+     evaluation: time-horizon, gsm8k-audit, envs …; theorems: delta3, lambda4, lambda5, erdos1038 … The landing's "leads" lines
+     follow. INSTRUMENTS: playground/build.js INSTRUMENT_ORDER (one list; the cards and the manifest the homepage reads follow
+     it; a card missing from it refuses): navier-stokes, pu, interferometer, blind-spot, return-level-check, pqc … the geometry
+     studies last. THE GAP: the grammar legend spanned a grid row after the third card, so the third sat alone; it is now at the
+     head of the grid (CDP check at 1440: every row two cards; only the 23rd, affect, ends alone — 23 is odd).
   ★ 2026-10-24 ~06:00 UTC — WHAT CAME BACK, PINNED AND ON THE SITE, on "Can we make sure all recent updates are being explored and
      pinned to the website? We need to use the updates in our favor to build reputation". EXPLORED: GitHub code search for
      carlostoledo.co / cert-machine outside our account, plus the known threads. PINNED: snapshots at each repository's commit in

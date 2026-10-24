@@ -142,6 +142,15 @@ const MANIFEST = [
   { id: 'transit', title: 'The transit, without a law for the star.', blurb: 'What a planet\'s transit photometry forces on the radius ratio, assuming only that the star darkens toward its limb.', backing: 'exact', art: () => TR.cardArt(), scale: TR.facts.name },
   { id: 'simplex', title: 'An attention row is a point. Nobody draws it that way.', blurb: 'A row of attention weights is a point in a simplex; focus is distance from the centre, temperature is a path.', backing: 'exact', art: () => SIMPLEX.cardArt(), scale: `${SIMPLEX.M.positions} positions` },
 ].map((m) => Object.assign(m, { href: m.id + '/index.html', battery: !!(BATTERY_FOR[m.id] && fs.existsSync(path.join(ROOT, BATTERY_FOR[m.id]))) }));
+/* THE ORDER, most important first (2026-10-24): the instruments tied to a decided public claim or a live product
+   lead (the Navier–Stokes object, the Treasury's price), then the widest audiences (the black-hole image, a grader's
+   blind spot, a return level certified in your tab), then the rest, the geometry studies last. One list; the cards and
+   the manifest the homepage reads follow it, and a card missing from it refuses the page. */
+const INSTRUMENT_ORDER = ['navier-stokes', 'pu', 'interferometer', 'blind-spot', 'return-level-check', 'pqc', 'lattice-claims', 'rewire',
+  'shape-hunt', 'contours', 'occultation', 'transit', 'curveset', 'stereo-reach', 'census', 'return-level-atlas', 'simplex', 'graph',
+  'plates', 'answer-shape', 'neural-geometry', 'exact-geometry', 'affect'];
+for (const m of MANIFEST) if (!INSTRUMENT_ORDER.includes(m.id)) { console.error('instruments: ' + m.id + ' has no place in INSTRUMENT_ORDER'); process.exit(1); }
+MANIFEST.sort((a, b) => INSTRUMENT_ORDER.indexOf(a.id) - INSTRUMENT_ORDER.indexOf(b.id));
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
 const word = (k) => (WORDS[k] || String(k));
 const COUNT = { all: MANIFEST.length, battery: MANIFEST.filter((m) => m.battery).length, certificate: MANIFEST.filter((m) => m.backing === 'certificate').length, exact: MANIFEST.filter((m) => m.backing === 'exact').length, float: MANIFEST.filter((m) => m.backing === 'float').length };
@@ -160,6 +169,24 @@ const body = `
   </div>
 
   <div class="cards">
+  <!-- THE GRAMMAR, once, at the head of the grid (2026-10-24): it used to sit where the marks first appear, after the
+       third card, and an odd count before it left a hole in the grid. It spans the row, so at the head it never splits one.
+       THE GRAMMAR, once, where the marks first appear. check-wiring refuses any
+       page that draws a w-* mark without printing this: "a grammar nobody is
+       told about is a decoration" was a comment in warrant.js for a week. -->
+  <!-- IT IS A GRID CHILD, SO IT MUST SAY SO, 2026-09-05. This block carried
+       class="wrap" and sat between two <a class="card"> inside <div
+       class="cards">, so it became a GRID ITEM in one card column: three
+       legend items crushed into ~150px, "float; nothing decided it" wrapping
+       to three lines. And .wrap adds its own gutter on top of the grid's, so
+       its left edge landed at x=216 while every other thing on the site sits
+       at x=168. That is the "text block lost on the page". It spans the grid
+       now and carries no second container. -->
+  <div class="mt8 span-all">
+    <div class="eyebrow">what the marks below mean</div>
+    ${W.legendHtml({ exclude: [W.DECIDED] })}
+  </div>
+
   <a class="card" href="shape-hunt/index.html">
     <figure class="card-art">
       ${plate(SH.cardArt(), `${fmt(SH.SHAPETESTS)} shape tests &middot; ${fmt(SH.PERMTESTS)} permutations`)}
@@ -193,21 +220,6 @@ const body = `
     </div>
   </a>
 
-  <!-- THE GRAMMAR, once, where the marks first appear. check-wiring refuses any
-       page that draws a w-* mark without printing this: "a grammar nobody is
-       told about is a decoration" was a comment in warrant.js for a week. -->
-  <!-- IT IS A GRID CHILD, SO IT MUST SAY SO, 2026-09-05. This block carried
-       class="wrap" and sat between two <a class="card"> inside <div
-       class="cards">, so it became a GRID ITEM in one card column: three
-       legend items crushed into ~150px, "float; nothing decided it" wrapping
-       to three lines. And .wrap adds its own gutter on top of the grid's, so
-       its left edge landed at x=216 while every other thing on the site sits
-       at x=168. That is the "text block lost on the page". It spans the grid
-       now and carries no second container. -->
-  <div class="mt8 span-all">
-    <div class="eyebrow">what the marks below mean</div>
-    ${W.legendHtml({ exclude: [W.DECIDED] })}
-  </div>
 
   <a class="card" href="curveset/index.html">
     <figure class="card-art">
@@ -438,7 +450,12 @@ const body = `
 const REG = JSON.parse(fs.readFileSync(path.join(ROOT, 'design', 'titles.json'), 'utf8'))._instruments || {};
 const unesc = (t) => t.replace(/&mdash;/g, '—').replace(/&rsquo;/g, '’').replace(/&amp;/g, '&').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 const escT = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const titled = body.replace(/(<a class="card" href="([^"/]+)\/index\.html">[\s\S]*?<div class="card-body">\s*)<h2>([\s\S]*?)<\/h2>/g, (all, pre, id, h2) => {
+/* the cards in INSTRUMENT_ORDER: each block lifted out where it was written and set back in order at the first card's place */
+const cardBlocks = new Map();
+const lifted = body.replace(/<a class="card" href="([^"/]+)\/index\.html">[\s\S]*?<\/a>\s*/g, (blk, id) => { cardBlocks.set(id, blk.trimEnd()); return '\u0000'; });
+if (cardBlocks.size !== MANIFEST.length) { console.error('instruments: ' + cardBlocks.size + ' card blocks lifted, ' + MANIFEST.length + ' in the manifest'); process.exit(1); }
+const ordered = lifted.replace('\u0000', MANIFEST.map((m) => cardBlocks.get(m.id)).join('\n\n  ') + '\n  ').replace(/\u0000/g, '');
+const titled = ordered.replace(/(<a class="card" href="([^"/]+)\/index\.html">[\s\S]*?<div class="card-body">\s*)<h2>([\s\S]*?)<\/h2>/g, (all, pre, id, h2) => {
   const e = REG[id]; const text = unesc(h2);
   if (!e) { console.error('instruments: ' + id + ' has no row in design/titles.json _instruments'); process.exit(1); }
   if (text === e.title) return all;

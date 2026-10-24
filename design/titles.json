@@ -1,5 +1,5 @@
 {
- "_what": "THE TITLE REGISTRY (2026-10-16). One formal title per report page: object + what was decided. `was` is the H1 the builder writes today and is the gate: design/titles.js refuses a page whose H1 is neither `was` nor `title`. `standfirst` is the demoted editorial line (null = none). `frozen`: the H1 is quoted by the method paper's bibliography and does not change. File names and URLs never change. `_instruments`: the same for the 22 cards of /instruments/, keyed by id; playground/build.js applies it to the index; since 2026-10-17 the same row retitles the instrument's own page (`pageWas` is its builder's H1 and the gate; the line is demoted to the standfirst unless `pageStandfirst` is null).",
+ "_what": "THE TITLE REGISTRY (2026-10-16). One formal title per report page: object + what was decided. `was` is the H1 the builder writes today and is the gate: design/titles.js refuses a page whose H1 is neither `was` nor `title`. `standfirst` is the demoted editorial line (null = none). `frozen`: the H1 is quoted by the method paper's bibliography and does not change. File names and URLs never change. `_instruments`: the same for the 22 cards of /instruments/, keyed by id; playground/build.js applies it to the index; since 2026-10-17 the same row retitles the instrument's own page (`pageWas` is its builder's H1 and the gate; the line is demoted to the standfirst unless `pageStandfirst` is null). `rank` (2026-10-24): a page's place at the head of its series on /reports/, most important first — outside validation (a registry citing or merging our replay, a claimant's credit, an independent re-run), then the claimant's reach, then the strength of the finding (a refutation or a gap before a confirmation); unranked pages follow in the shelf's order.",
  "_series": {
   "audits": {
    "title": "Audits of machine-generated mathematics",
@@ -63,28 +63,32 @@
    "standfirst": null,
    "was": "The AlphaEvolve repository's community certificates, decided",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 15
   },
   "alphaevolve.html": {
    "title": "AlphaEvolve and AlphaTensor matrix multiplication, certified",
    "standfirst": "The AI-discovered algorithms, certified",
    "was": "The AI-discovered algorithms, certified",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 5
   },
   "answer-key.html": {
    "title": "When the answer key is wrong: three certified specimens",
    "standfirst": null,
    "was": "When the answer key is wrong",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 5
   },
   "bandeira.html": {
    "title": "Bandeira's Open Problem 0.2(a): the disproof, decided",
    "standfirst": null,
    "was": "Bandeira's Open Problem 0.2(a): the disproof, decided",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 14
   },
   "breaking-geometry.html": {
    "title": "The geometry of 16,369 Black Sea breaking waves, decided",
@@ -168,7 +172,8 @@
    "standfirst": "Graham's $100 question: the twelve blocks are optimal",
    "was": "Graham's $100 question: the twelve blocks are optimal",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 1
   },
   "diagonal-ramsey.html": {
    "title": "Diagonal Ramsey: the Gupta–Ndiaye–Norin–Wei iteration, certified",
@@ -182,7 +187,8 @@
    "standfirst": "Their table, re-decided to the last digit",
    "was": "Their table, re-decided to the last digit.",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 10
   },
   "ec-benchmark.html": {
    "title": "The environmental-contour benchmark, re-decided exactly",
@@ -210,35 +216,40 @@
    "standfirst": "We graded the graders",
    "was": "We graded the graders",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 3
   },
   "erdos1.html": {
    "title": "Erdős #1: the Astra disproof made effective, with explicit sets",
    "standfirst": "The swarm proved the set exists. Here is the set",
    "was": "The swarm proved the set exists. Here is the set.",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 16
   },
   "erdos1038-inf.html": {
    "title": "Erdős #1038: a certified unconditional bracket for the infimum",
    "standfirst": null,
    "was": "A certified bracket for the Erdős–Herzog–Piranian infimum",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 4
   },
   "erdos1038-sup.html": {
    "title": "Erdős #1038, supremum side: Tao's theorem re-decided degree by degree",
    "standfirst": "How shallow can a lemniscate stay?",
    "was": "How shallow can a lemniscate stay?",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 5
   },
   "erdos290.html": {
    "title": "Erdős #290: the 4k(k+1) law as exact integer identities",
    "standfirst": "A digit that was a guess is now a theorem",
    "was": "A digit that was a guess is now a theorem",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 6
   },
   "erdos852-h.html": {
    "title": "Erdős #852: the conjectured constant c₀ against the OEIS record",
@@ -252,7 +263,8 @@
    "standfirst": "The constant that was a rounding error",
    "was": "The constant that was a rounding error",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 12
   },
   "evtol-energy.html": {
    "title": "eVTOL energy reserves: feasibility certificates under the FAA rule",
@@ -287,7 +299,8 @@
    "standfirst": null,
    "was": "GSM8K’s answer key, re-decided to the last step.",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 2
   },
   "gym.html": {
    "title": "break-the-grader: an RL environment with no answer key",
@@ -315,7 +328,8 @@
    "standfirst": null,
    "was": "HorizonMath's discoveries, decided",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 11
   },
   "impostors.html": {
    "title": "The impostor catalog: published constants that match closed forms",
@@ -336,28 +350,32 @@
    "standfirst": "Two platforms announced 604. It is one configuration",
    "was": "Two platforms announced 604. It is one configuration.",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 2
   },
   "lambda4.html": {
    "title": "Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved",
    "standfirst": "λ(4), settled",
    "was": "λ(4), settled",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 2
   },
   "lambda5.html": {
    "title": "Chowla's cosine problem: λ(5) = −L(1,2,4,5,6), and λ(6) < λ(5)",
    "standfirst": "λ(5), settled — and the sequence turns down",
    "was": "λ(5), settled — and the sequence turns down",
    "series": "theorems",
-   "frozen": false
+   "frozen": false,
+   "rank": 3
   },
   "mathbench.html": {
    "title": "Certified MathBench v0: three models on 46 constructions, decided exactly",
    "standfirst": null,
    "was": "Certified MathBench v0",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 6
   },
   "matmul-additions.html": {
    "title": "3×3 matrix multiplication: the 55-addition claim re-derived",
@@ -371,7 +389,8 @@
    "standfirst": "The matmul eval: model proposes, the machine certifies",
    "was": "The matmul eval: model proposes, the machine certifies",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 4
   },
   "maxval.html": {
    "title": "The Gomes–Üçer maximal value function, enclosed",
@@ -441,14 +460,16 @@
    "standfirst": "Their theorem, read to the last hypothesis",
    "was": "Their theorem, read to the last hypothesis.",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 8
   },
   "openai-math.html": {
    "title": "OpenAI's math release: what it claims beyond what it checks",
    "standfirst": null,
    "was": "OpenAI's math release: what it claims beyond what it checks",
    "series": "audits",
-   "frozen": true
+   "frozen": true,
+   "rank": 3
   },
   "optconst-queue.html": {
    "title": "Five pull requests to the constants registry, decided where decidable",
@@ -462,14 +483,16 @@
    "standfirst": "Five asterisks, replayed",
    "was": "Five asterisks, replayed",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 1
   },
   "chvatal-sankoff.html": {
    "title": "The Chvátal–Sankoff constant: two asterisked upper bounds replayed",
    "standfirst": "Two asterisks on the Chvátal–Sankoff constant, replayed",
    "was": "Two asterisks on the Chvátal–Sankoff constant, replayed",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 9
   },
   "polymaps.html": {
    "title": "Gao's Keller maps and a Markus–Yamabe field, decided",
@@ -560,7 +583,8 @@
    "standfirst": "METR’s time horizon, certified to the last bit",
    "was": "METR’s time horizon, certified to the last bit.",
    "series": "evaluation",
-   "frozen": false
+   "frozen": false,
+   "rank": 1
   },
   "verifier-loop.html": {
    "title": "The verified reward channel in closed loop",
@@ -630,28 +654,32 @@
    "standfirst": "It’s just timestamps, checked",
    "was": "NIST’s ECDSA curve seeds: the timestamp-and-lrand48 origin, re-decided from the standards",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 13
   },
   "alphaproof-nexus.html": {
    "title": "AlphaProof Nexus: the proofs hold under two kernels; three OEIS conjectures were already proved, and two statements are degenerate",
    "standfirst": "The proofs hold; the claims hold less well",
    "was": "AlphaProof Nexus: the proofs hold under two kernels; three OEIS conjectures were already proved, and two statements are degenerate",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 7
   },
   "cryptids.html": {
    "title": "The cryptids audit: a repository's finite layer, decided twice",
    "standfirst": "What a producer's checker checks, and what it does not",
    "was": "The cryptids audit: what a producer's checker checks, and what it does not",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 6
   },
   "ramsey-graphs.html": {
    "title": "AlphaEvolve’s Ramsey lower bounds: the 18 released graphs decided",
    "standfirst": "Each graph decided by an exhaustive search, in two implementations held to each other",
    "was": "AlphaEvolve's Ramsey lower bounds, each graph decided",
    "series": "audits",
-   "frozen": false
+   "frozen": false,
+   "rank": 4
   }
  },
  "_instruments": {

@@ -940,10 +940,10 @@ B.push(C.section({
   bodyRaw: C.cards([
     { href: 'reports/index.html#audits', k: seriesCount('audits') + ' reports', title: TITLES.SERIES.audits.title,
       desc: 'Releases, registries, manuscripts and announced records from AI systems and autonomous platforms, re-decided from their published bytes by programs that share no code with the claimant.',
-      n: 'leads: OpenAI’s math release under two kernels · the AlphaEvolve repository’s community certificates · the Qiushi Engine’s kissing bounds' },
+      n: 'leads: the optimization-constants registry, four asterisks removed on our replays · the Qiushi Engine’s kissing bounds, credited by the claimants · OpenAI’s math release under two kernels' },
     { href: 'reports/index.html#evaluation', k: seriesCount('evaluation') + ' reports', title: TITLES.SERIES.evaluation.title,
       desc: 'Graders measured against answers that are provably wrong, published answer keys re-decided step by step, and environments and benchmarks in which a certificate replaces the answer key.',
-      n: 'leads: the graders measured · GSM8K’s answer key · METR’s time horizon · three environments on two frameworks' },
+      n: 'leads: METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
     { href: 'reports/index.html#theorems', k: (seriesCount('theorems') + seriesCount('decisions')) + ' reports', title: 'Certified decisions: theorems, exact values, operations',
       desc: 'Results proved here in exact or interval arithmetic — the calibration of the instruments and some values that were not known — and operational numbers decided over declared envelopes for energy, maritime, aviation and ocean statistics.',
       n: 'leads: δ₃ = 117/2192 · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
@@ -1021,8 +1021,11 @@ const reportDesc = (f) => { const m = /name="description" content="([^"]*)"/.exe
 /* no --follow: its copy detection traced every page that began as a copy of another report back to the first page of
    2026-08-25, so 57 cards read "2026-08" (found 2026-10-23); the add of the file itself is the birth */
 const reportBorn = (f) => { try { return (cp.execSync('git log --diff-filter=A --format=%as -- reports/' + f, { cwd: ROOT }).toString().trim().split('\n').pop() || ''); } catch (e) { return ''; } };
+/* most important first (2026-10-24): the registry's `rank` leads (design/titles.json says what decides it), then the
+   shelf's order, then the file name */
 const seriesRows = (id) => TITLES.entries().filter((r) => r.series === id)
-  .sort((a, b) => ((REPORT_ORDER.has(a.file) ? REPORT_ORDER.get(a.file) : 1e9) - (REPORT_ORDER.has(b.file) ? REPORT_ORDER.get(b.file) : 1e9)) || a.file.localeCompare(b.file));
+  .sort((a, b) => ((a.rank || 1e6) - (b.rank || 1e6))
+    || ((REPORT_ORDER.has(a.file) ? REPORT_ORDER.get(a.file) : 1e9) - (REPORT_ORDER.has(b.file) ? REPORT_ORDER.get(b.file) : 1e9)) || a.file.localeCompare(b.file));
 const seriesCards = (id) => C.cards(seriesRows(id).map((r) => {
   const cur = REPORT_BY_FILE.get(r.file) || {};
   const born = reportBorn(r.file);
