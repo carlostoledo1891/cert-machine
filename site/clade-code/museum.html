@@ -482,6 +482,22 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .specimens .sp-cap b { font-family: var(--f-mono); font-weight: 400; font-size: .78rem; color: var(--ink); }
 .specimens .sp-cap span:last-child { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); }
 @media (max-width: 760px) { .specimens .sp-row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ------------------------------------------------------------------ era band (the front page, under the hero) */
+.era-band { background: var(--plate); }
+.era-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
+.era-band h2 { font-family: var(--f-display); font-size: clamp(2rem, 4.2vw, 3.4rem); line-height: 1.04; margin-top: .7rem; }
+.era-band h2 em { display: block; margin-top: .5rem; font-family: var(--f-latin); font-size: .62em; line-height: 1.2; color: var(--ochre); }
+.era-text { margin-top: 1.1rem; color: var(--ink-2); max-width: var(--measure); }
+.era-facts { margin-top: 1.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.era-facts div { border-top: 1px solid var(--rule); padding-top: .6rem; min-width: 0; }
+.era-facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.8rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.era-facts span { display: block; margin-top: .25rem; font-size: .78rem; line-height: 1.35; color: var(--muted); }
+.era-band .plate { background: var(--paper); }
+.strata-link { display: block; }
+.strata-mini { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; }
+@media (max-width: 900px) { .era-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .era-facts { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -563,6 +579,8 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
      [data-plate="trajectory"] a crosshair over a step chart: the generation under the pointer (or chosen with the
                                arrow keys) and each arm's champion there, from the page's data
      [data-plate="specimens"]  organisms' packings side by side on one instance, from the page's data
+     [data-plate="strata-mini"] a run's fossil record, small: every birth by generation and arm, drawn at rest, and the
+                               lineage champion's line of descent, which draws itself in when it first comes into view
      [data-tip]                any mark: its text in a tooltip on hover and on focus. This works on every page, with
                                or without data
 
@@ -903,6 +921,52 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
     draw(); redraw.push(draw);
   }
 
+  /* ================================================================ a run's fossil record, small */
+  function strataMini(el) {
+    const S = DATA.strata, cv = el.querySelector('canvas'), G = S.G, ARM = ['lineage', 'Aleator', 'blind rules'];
+    let thread = reduce ? 1 : 0, started = false;           // the births are drawn at rest; the thread draws itself in
+    const draw = () => {
+      const { ctx, w, h } = fit(cv), left = Math.min(78, w * .14), top = 6, gap = 8;
+      const colW = (w - left - 4) / G, laneH = (h - top * 2 - gap * 2) / 48, size = Math.max(1.4, Math.min(colW, laneH) * .78);
+      const X = g => left + (g - .5) * colW, Y = (a, s) => top + a * (16 * laneH + gap) + (s + .5) * laneH;
+      ctx.clearRect(0, 0, w, h);
+      ctx.font = mono(10); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+      for (let a = 0; a < 3; a++) {
+        ctx.fillStyle = C.plate; ctx.fillRect(left - 2, top + a * (16 * laneH + gap) - 2, w - left - 2, 16 * laneH + 4);
+        ctx.fillStyle = C['ink-2']; ctx.fillText(ARM[a], left - 8, Y(a, 7.5));
+      }
+      for (let k = 0; k < S.cells.length; k++) {
+        const g = Math.floor(k / 48) + 1;
+        const a = Math.floor((k % 48) / 16), s = k % 16, ch = S.cells[k], x = X(g), y = Y(a, s);
+        if (ch === 's') { ctx.strokeStyle = C.rose; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(x, y, size * .32, 0, Math.PI * 2); ctx.stroke(); }
+        else if (ch === 'd') { ctx.fillStyle = C.muted; ctx.globalAlpha = .45; ctx.fillRect(x - size * .2, y - size * .2, size * .4, size * .4); ctx.globalAlpha = 1; }
+        else if (ch === 'z') { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = .7; ctx.strokeRect(x - size / 2 + .4, y - size / 2 + .4, size - .8, size - .8); }
+        else { ctx.fillStyle = mix(C.plate, C.ink, .15 + .085 * +ch); ctx.fillRect(x - size / 2, y - size / 2, size, size); }
+      }
+      const path = S.path.filter(([g]) => g <= thread * G);
+      if (path.length) {
+        ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.6; ctx.beginPath();
+        let [px, py] = [left - 6, Y(1, 7.5)];
+        ctx.moveTo(px, py);
+        path.forEach(([g, s]) => { const x = X(g), y = Y(0, s), mx = (px + x) / 2; ctx.bezierCurveTo(mx, py, mx, y, x, y); px = x; py = y; });
+        ctx.stroke();
+        ctx.fillStyle = C.ochre; ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI * 2); ctx.fill();
+      }
+    };
+    const play = () => {
+      if (started) return; started = true;
+      if (reduce) { draw(); return; }
+      const t0 = performance.now();
+      const tick = now => { thread = Math.min(1, (now - t0) / 3000); draw(); if (thread < 1) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick);
+    };
+    draw(); redraw.push(draw);
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver((es, io) => { if (es.some(e => e.isIntersecting)) { play(); io.disconnect(); } }, { threshold: .35 }).observe(cv);
+    } else { thread = 1; draw(); }
+  }
+
+  document.querySelectorAll('[data-plate="strata-mini"]').forEach(strataMini);
   document.querySelectorAll('[data-plate="specimens"]').forEach(specimens);
   document.querySelectorAll('[data-plate="trajectory"]').forEach(trajectory);
   document.querySelectorAll('[data-plate="specimen"]').forEach(specimen);
