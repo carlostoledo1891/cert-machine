@@ -25,7 +25,7 @@ NEXT SESSION, IN ORDER:
   ★ 2026-10-24 ~08:15 UTC — R(7,13) >= 513 CERTIFIED: the independent-set side closed (512/512 roots, 613.2e9 nodes, 16,489 s in
      the resumed run, ~5.1 h in all on the M2). THE RAMSEY GRAPHS: 17 of 18 CERTIFIED; R(8,18) REFUSED, left open on the
      operator's word. With R(10,12), the two graphs maximusrufus could not finish. The page rebuilt; the battery holds. A
-     one-line update to cert-machine#1 is the operator's word.
+     one-line update POSTED on cert-machine#1 on the operator's "Yes" (issuecomment-6383790070).
   ★ 2026-10-24 ~08:00 UTC — THE INDEXES ORDERED BY IMPORTANCE, on "Are the order of the card in Reports and Instruments showing
      the most important first? Seems not. Also, there is a gap on Instruments grid." REPORTS: design/titles.json gains `rank` on
      the head of three series (28 pages; the rule written in its _what: outside validation, then the claimant's reach, then the
