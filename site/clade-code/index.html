@@ -479,6 +479,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .specimens .sp-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.6rem, 2vw, 1.4rem); }
 .specimens .sp-cell { min-width: 0; }
 .specimens canvas { display: block; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; }
+.specimens canvas.sp-form-c { margin-bottom: .6rem; background: var(--plate); }
 .specimens .sp-cap { display: grid; gap: .1rem; margin-top: .5rem; font-size: .8rem; color: var(--ink-2); }
 .specimens .sp-cap b { font-family: var(--f-mono); font-weight: 400; font-size: .78rem; color: var(--ink); }
 .specimens .sp-cap span:last-child { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); }
@@ -499,6 +500,14 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .strata-mini { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; }
 @media (max-width: 900px) { .era-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .era-facts { grid-template-columns: minmax(0, 1fr); } }
+
+/* forms (plates.js form): the card's, and compare's two */
+.sp-form { margin-top: .5rem; background: var(--plate); padding: .4rem; }
+.sp-form canvas { display: block; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; }
+.sp-form.small { margin-top: .8rem; }
+.sp-rules { margin-top: .5rem; font-size: .76rem; color: var(--ink-2); }
+.sp-rules summary { cursor: pointer; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sp-rules pre { margin: .5rem 0 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: .7rem; line-height: 1.5; color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -1137,7 +1146,64 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
     ctx.restore();
     return { x: ox, y: oy, w: bw, h: bh };
   }
-  window.CladeDraw = { C, fit, mix, mono, packing, frac, reduce, tip: show, hide, onTheme: f => redraw.push(f) };
+  /* ================================================================ a form, as its genome lays it out */
+  /* f {m: [[name, ring, sector, lines, state, label]], b: [[i, j, state]]} (web/record.py FORM_RULES): rings 0 core,
+     1 inner, 2 membrane; sectors clockwise from the top, sense, act, forecast, tools, talk, others; state k kept,
+     c changed, n new, l lost against the founder. Kept is ink, changed ochre, new blue, lost a dashed ghost. */
+  const SECTOR_NAMES = ['sense', 'act', 'forecast', 'tools', 'talk', 'others'], RINGS = [0, .46, .8];
+  function form(ctx, f, box, opts = {}) {
+    const big = !!opts.labels, R = Math.min(box.w, box.h) / 2 * (big ? .74 : .9);
+    const cx = box.x + box.w / 2, cy = box.y + box.h / 2, s = R / 110;
+    const ring = (r, dash) => { ctx.setLineDash(dash || []); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); };
+    ctx.save();
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 1;
+    ring(R * .98, [2, 4]); ring(R * RINGS[1]); ring(R * RINGS[2]);
+    ctx.setLineDash([2, 5]); ctx.beginPath();
+    for (let k = 0; k < 6; k++) { const a = (30 + k * 60) * Math.PI / 180; ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.sin(a), cy - R * Math.cos(a)); }
+    ctx.stroke(); ctx.setLineDash([]);
+    if (big) {
+      ctx.fillStyle = C.muted; ctx.font = mono(9.5); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      SECTOR_NAMES.forEach((n, k) => { const a = k * 60 * Math.PI / 180; ctx.fillText(n.toUpperCase(), cx + R * 1.2 * Math.sin(a), cy - R * 1.2 * Math.cos(a)); });
+    }
+    const groups = {};
+    f.m.forEach((m, i) => { const key = m[1] + ':' + m[2]; (groups[key] = groups[key] || []).push(i); });
+    const pos = f.m.map((m, i) => {
+      if (m[1] === 0) return [cx, cy];
+      const g = groups[m[1] + ':' + m[2]], k = g.indexOf(i), n = g.length, step = Math.min(24, 44 / Math.max(1, n - 1));
+      const a = (m[2] * 60 + (k - (n - 1) / 2) * step) * Math.PI / 180, r = RINGS[m[1]] * R;
+      return [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+    });
+    f.b.forEach(([i, j, st]) => {
+      ctx.strokeStyle = st === 'n' ? C.blue : st === 'l' ? C.muted : C['ink-2']; ctx.lineWidth = st === 'k' ? 1 : 1.4;
+      ctx.setLineDash(st === 'l' ? [3, 3] : []); ctx.beginPath(); ctx.moveTo(pos[i][0], pos[i][1]); ctx.lineTo(pos[j][0], pos[j][1]); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    const core = f.m.findIndex(m => m[1] === 0);
+    if (core >= 0) { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = 1; ring(Math.max(6, (4 + 2 * Math.sqrt(f.m[core][3])) * s) + 5 * s); }
+    f.m.forEach((m, i) => {
+      const [x, y] = pos[i], r = Math.max(2.2, (3 + 1.7 * Math.sqrt(m[3])) * s), st = m[4];
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+      if (st === 'l') { ctx.strokeStyle = C.muted; ctx.lineWidth = 1; ctx.setLineDash([2, 2]); ctx.stroke(); ctx.setLineDash([]); }
+      else {
+        ctx.fillStyle = st === 'c' ? C.ochre : st === 'n' ? C.blue : C.ink; ctx.fill();
+        if (st === 'c') { ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(x, y, r + 3.5 * s + 1, 0, Math.PI * 2); ctx.stroke(); }
+      }
+      if (big) {                                           // the label sits outward from the centre, beside its node
+        const label = m[0].includes(':') ? m[0].split(':')[1] + '′' : m[0];
+        const dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy);
+        ctx.fillStyle = st === 'l' ? C.muted : C['ink-2']; ctx.font = mono(9.5);
+        if (d < 1) { ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(label, x, y + r + 9 * s + 4); }
+        else {
+          const ux = dx / d, uy = dy / d;
+          ctx.textAlign = Math.abs(ux) < .3 ? 'center' : ux > 0 ? 'left' : 'right';
+          ctx.textBaseline = Math.abs(uy) < .3 ? 'middle' : uy > 0 ? 'top' : 'bottom';
+          ctx.fillText(label, x + ux * (r + 5), y + uy * (r + 5));
+        }
+      }
+    });
+    ctx.restore();
+  }
+  window.CladeDraw = { C, fit, mix, mono, packing, form, frac, reduce, tip: show, hide, onTheme: f => redraw.push(f) };
 
   const island = document.getElementById('clade-data');
   if (!island) return;
@@ -1376,12 +1442,19 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 
   /* ================================================================ specimens: packings side by side */
   function specimens(el) {
-    const S = DATA.specimens, cans = [...el.querySelectorAll('canvas[data-specimen]')];
-    const draw = () => cans.forEach(cv => {
-      const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimen];
-      ctx.clearRect(0, 0, w, h);
-      packing(ctx, S.instance, sp.ph, { x: 4, y: 4, w: w - 8, h: h - 8 }, { fill: C[sp.color] || C.ink, alpha: .38, stroke: C.ink });
-    });
+    const S = DATA.specimens, cans = [...el.querySelectorAll('canvas[data-specimen]')], forms = [...el.querySelectorAll('canvas[data-specimen-form]')];
+    const draw = () => {
+      cans.forEach(cv => {
+        const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimen];
+        ctx.clearRect(0, 0, w, h);
+        packing(ctx, S.instance, sp.ph, { x: 4, y: 4, w: w - 8, h: h - 8 }, { fill: C[sp.color] || C.ink, alpha: .38, stroke: C.ink });
+      });
+      forms.forEach(cv => {
+        const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimenForm];
+        ctx.clearRect(0, 0, w, h);
+        if (sp.form) form(ctx, sp.form, { x: 0, y: 0, w, h }, { labels: w > 220 });
+      });
+    };
     draw(); redraw.push(draw);
   }
 

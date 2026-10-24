@@ -479,6 +479,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .specimens .sp-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(.6rem, 2vw, 1.4rem); }
 .specimens .sp-cell { min-width: 0; }
 .specimens canvas { display: block; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; }
+.specimens canvas.sp-form-c { margin-bottom: .6rem; background: var(--plate); }
 .specimens .sp-cap { display: grid; gap: .1rem; margin-top: .5rem; font-size: .8rem; color: var(--ink-2); }
 .specimens .sp-cap b { font-family: var(--f-mono); font-weight: 400; font-size: .78rem; color: var(--ink); }
 .specimens .sp-cap span:last-child { font-family: var(--f-mono); font-size: .74rem; color: var(--muted); }
@@ -499,6 +500,14 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .strata-mini { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; }
 @media (max-width: 900px) { .era-grid { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 520px) { .era-facts { grid-template-columns: minmax(0, 1fr); } }
+
+/* forms (plates.js form): the card's, and compare's two */
+.sp-form { margin-top: .5rem; background: var(--plate); padding: .4rem; }
+.sp-form canvas { display: block; width: 100%; aspect-ratio: 1 / 1; max-width: 100%; }
+.sp-form.small { margin-top: .8rem; }
+.sp-rules { margin-top: .5rem; font-size: .76rem; color: var(--ink-2); }
+.sp-rules summary { cursor: pointer; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.sp-rules pre { margin: .5rem 0 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: .7rem; line-height: 1.5; color: var(--ink-2); }
 </style>
 </head>
 <body>
@@ -560,13 +569,13 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 <section id="specimens">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Plate III · descriptive</div><h2>What the champions look like.</h2></div>
+      <div><div class="eyebrow">Plate III · descriptive</div><h2>What the champions look like, inside and out.</h2></div>
       <div><p>The founder and each arm's champion from era-0-1, packing the panel's (26, 1): 26 disks in the unit square, drawn from the packing the judge certified. PM-0 lays its disks on a grid, each 90% of half its cell. With no margin at all, that grid scores 0.20516 on the panel. No champion of any arm, in any run, scored above it; the best reached 0.20447. What selection found was a smaller margin for PM-0&#x27;s own grid, not another arrangement.</p>
       <p><a class="btn" href="museum.html">Open the Museum</a></p></div>
     </div>
     <figure class="plate specimens" data-plate="specimens" style="margin:0">
-      <div class="sp-row"><div class="sp-cell"><canvas data-specimen="0" role="img" aria-label="PM-0 packing (26, 1)"></canvas><div class="sp-cap"><span>PM-0</span><b>PM-0</b><span>score 0.14625</span></div></div><div class="sp-cell"><canvas data-specimen="1" role="img" aria-label="Aleator&#x27;s champion packing (26, 1)"></canvas><div class="sp-cap"><span>Aleator&#x27;s champion</span><b>aleator-4-0</b><span>score 0.16295</span></div></div><div class="sp-cell"><canvas data-specimen="2" role="img" aria-label="rules&#x27;s champion packing (26, 1)"></canvas><div class="sp-cap"><span>rules&#x27;s champion</span><b>rules-91-12</b><span>score 0.17873</span></div></div><div class="sp-cell"><canvas data-specimen="3" role="img" aria-label="lineage&#x27;s champion packing (26, 1)"></canvas><div class="sp-cap"><span>lineage&#x27;s champion</span><b>lineage-99-13</b><span>score 0.17816</span></div></div></div>
-      <figcaption class="caption"><b>Plate III.</b> Four packings of (26, 1), each scored exactly. The published record for this instance is a sum of radii of about 2.636, far beyond any grid; it is drawn nowhere here, because no organism found it.</figcaption>
+      <div class="sp-row"><div class="sp-cell"><canvas class="sp-form-c" data-specimen-form="0" role="img" aria-label="PM-0: its form"></canvas><canvas data-specimen="0" role="img" aria-label="PM-0 packing (26, 1)"></canvas><div class="sp-cap"><span>PM-0</span><b>PM-0</b><span>score 0.14625</span></div></div><div class="sp-cell"><canvas class="sp-form-c" data-specimen-form="1" role="img" aria-label="Aleator&#x27;s champion: its form"></canvas><canvas data-specimen="1" role="img" aria-label="Aleator&#x27;s champion packing (26, 1)"></canvas><div class="sp-cap"><span>Aleator&#x27;s champion</span><b>aleator-4-0</b><span>score 0.16295</span></div></div><div class="sp-cell"><canvas class="sp-form-c" data-specimen-form="2" role="img" aria-label="the blind rules&#x27; champion: its form"></canvas><canvas data-specimen="2" role="img" aria-label="the blind rules&#x27; champion packing (26, 1)"></canvas><div class="sp-cap"><span>the blind rules&#x27; champion</span><b>rules-91-12</b><span>score 0.17873</span></div></div><div class="sp-cell"><canvas class="sp-form-c" data-specimen-form="3" role="img" aria-label="lineage&#x27;s champion: its form"></canvas><canvas data-specimen="3" role="img" aria-label="lineage&#x27;s champion packing (26, 1)"></canvas><div class="sp-cap"><span>lineage&#x27;s champion</span><b>lineage-99-13</b><span>score 0.17816</span></div></div></div>
+      <figcaption class="caption"><b>Plate III.</b> Above, each organism's form: its genome laid out by one page of rules, modules on three rings and six sectors, ochre where it changed since PM-0 and blue where it grew something new. Below, its packing of (26, 1), scored exactly. The published record for this instance is a sum of radii of about 2.636, far beyond any grid; it is drawn nowhere here, because no organism found it.</figcaption>
     </figure>
   </div>
 </section>
@@ -579,6 +588,16 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
     </div>
     <div class="table-wrap"><table class="results"><thead><tr><th>Hypothesis</th><th>difference</th><th class="num">mean</th><th class="num">median</th><th class="num">p, exact</th><th class="num">95% interval</th><th>verdict</th></tr></thead><tbody><tr><td><b>H1</b> The lineage&#x27;s champion scores higher on the panel than Aleator&#x27;s, run for run.</td><td>panel(lineage) − panel(Aleator)</td><td class="num">+0.01399</td><td class="num">+0.01762</td><td class="num">1/256<small>0.0039</small></td><td class="num">+0.00842 to +0.01850</td><td><span class="chip">supported</span></td></tr><tr><td><b>H2</b> The lineage&#x27;s champion scores higher on the panel than the blind rules&#x27; champion, run for run.</td><td>panel(lineage) − panel(rules)</td><td class="num">−0.00217</td><td class="num">+0.00001</td><td class="num">403/512<small>0.7871</small></td><td class="num">−0.00744 to +0.00216</td><td><span class="chip no">not supported</span><small>Holm</small></td></tr><tr><td><b>H3</b> The blind rules&#x27; champion scores higher on the panel than PM-0.</td><td>panel(rules) − panel(PM-0)</td><td class="num">+0.03513</td><td class="num">+0.03584</td><td class="num">1/1024<small>0.0010</small></td><td class="num">+0.03328 to +0.03667</td><td><span class="chip">supported</span><small>Holm</small></td></tr><tr><td><b>H4</b> Selection overfits: training exceeds panel by more in the lineage than in Aleator.</td><td>(training − panel), lineage − Aleator</td><td class="num">+0.00041</td><td class="num">+0.00020</td><td class="num">1/256<small>0.0039</small></td><td class="num">+0.00009 to +0.00080</td><td><span class="chip">supported</span><small>Holm</small></td></tr></tbody></table></div>
     <p class="verdict-line">H1 is supported. After Holm&#x27;s correction H3 and H4 are supported, H2 is not.</p>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Beside the tests</div><h2>What else the protocol asked for.</h2></div>
+      <div><p>Section 4 names one sensitivity check and section 6 two descriptive measures. None of them is a hypothesis; each is reported as the protocol says.</p></div>
+    </div>
+    <div class="table-wrap"><table class="results"><thead><tr><th>measure</th><th>what it found</th></tr></thead><tbody><tr><td>Equal tokens (§4, sensitivity)</td><td>The lineage used more model tokens in every run; cut at Aleator&#x27;s total, its champion was higher in eight runs and tied in two, p = 1/256. Three of the cut champions had never lived on the panel and lived there once for this.</td></tr><tr><td>Forecasts (§6)</td><td>Median interval score over the runs, lower is better: lineage 0.314, Aleator 0.315, blind rules 55.5. Forecasts are sealed before judgment and never selected on.</td></tr><tr><td>Toward the record on (26, 1) (§6)</td><td>Share of PM-0&#x27;s gap to the published sum of radii closed by each final champion: lineage 16% to 31%, Aleator 16%, blind rules 24% to 31%. The value for (32, 1) is not in this repository yet.</td></tr></tbody></table></div><p class="caption">From strata/era-0.more-2026-10-23.json.</p>
   </div>
 </section>
 
@@ -657,7 +676,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       <div>protocol/era-0.amendment-1.md<br><b>f3d4a56686b5aec681aa4e86e8715956df5b8fb7841c7a5ee2a04d8487c8a6e4</b></div>
       <div>strata/era-0.rules.md, the blind rules' card<br><b>fffd50e8eb36f4fdfbe84be28a447a8ca477909d30ff73fd7a00f4e78ff33572</b></div>
     </div>
-    <p class="verdict-line">Replayed on 2026-10-23 (era-0.replay-2026-10-23.json): in ten runs, 48,000 of 48,000 births re-derived from their kept answers, 2,885 model answers asked again and returned byte for byte, and 37,971 of 37,971 lives re-run with the same outcome.</p>
+    <p class="verdict-line">Replayed on 2026-10-23 (era-0.replay-2026-10-23.json): in ten runs, 48,000 of 48,000 births re-derived from their kept answers, 2,885 model answers asked again and returned byte for byte, and 37,971 of 37,971 lives re-run with the same outcome. Away from home, on another machine from a fresh copy with no compiled cache, era-0-1 came out the same: 4,800 of 4,800 births and 3,819 of 3,819 lives (era-0-1.replay-away-2026-10-23.json; the one difference, the host Python&#x27;s patch release, is named in the file).</p>
     <div class="cmd">make verify ERA=era-0-1 TIER=1     # integrity: the chain, the Merkle root, the head
 make verify ERA=era-0-1 TIER=2     # re-derive every birth and re-run every life, without the model
 make analyze                            # H1 to H4, exactly as the protocol fixes them</div>
@@ -670,7 +689,7 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
   </div>
 </footer>
 
-<script type="application/json" id="clade-data">{"specimens":{"instance":{"N":26,"h":"1/1"},"items":[{"color":"ink","ph":{"N":26,"c":[856,830,750,2515,826,750,4128,828,750,5794,844,750,7519,802,750,832,2538,750,2505,2459,750,4185,2464,750,5817,2492,750,7526,2497,750,806,4180,750,2479,4196,750,4156,4137,750,5817,4197,750,7521,4169,750,849,5806,750,2484,5843,750,4169,5828,750,5814,5829,750,7497,5843,750,818,7489,750,2463,7502,750,4207,7531,750,5832,7483,750,7466,7527,750,873,9180,750],"h":"1/1","rule":"ok","s":146250,"v":"C","w":[]}},{"color":"s-aleator","ph":{"N":26,"c":[822,822,792,2489,849,792,4146,814,792,5842,825,792,7511,849,792,842,2511,792,2508,2487,792,4180,2488,792,5839,2482,792,7521,2484,792,846,4183,792,2512,4146,792,4160,4149,792,5850,4184,792,7480,4158,792,850,5819,792,2505,5839,792,4171,5832,792,5853,5836,792,7502,5825,792,814,7508,792,2517,7500,792,4178,7507,792,5825,7503,792,7485,7511,792,822,9171,792],"h":"1/1","rule":"ok","s":162951,"v":"C","w":[]}},{"color":"s-rules","ph":{"N":26,"c":[834,834,829,2499,833,829,4167,834,829,5834,834,829,7500,832,829,833,2500,829,2501,2500,829,4167,2500,829,5834,2501,829,7500,2501,829,834,4166,829,2500,4167,829,4167,4167,829,5834,4167,829,7501,4167,829,833,5833,829,2500,5833,829,4168,5832,829,5834,5833,829,7500,5833,829,834,7500,829,2500,7501,829,4166,7501,829,5833,7500,829,7499,7500,829,834,9167,829],"h":"1/1","rule":"ok","s":178732,"v":"C","w":[]}},{"color":"s-lineage","ph":{"N":26,"c":[835,834,828,2497,831,828,4166,833,828,5831,838,828,7500,833,828,832,2502,828,2499,2505,828,4168,2502,828,5833,2505,828,7498,2501,828,835,4165,828,2500,4165,828,4168,4168,828,5836,4165,828,7501,4168,828,832,5839,828,2501,5838,828,4168,5831,828,5832,5834,828,7499,5839,828,836,7498,828,2498,7502,828,4169,7499,828,5833,7501,828,7501,7499,828,831,9168,828],"h":"1/1","rule":"ok","s":178156,"v":"C","w":[]}}]},"trajectory":{"run":"era-0-1","series":{"aleator":["0.16781","0.16781","0.16781","0.16781","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698"],"lineage":["0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.19359","0.19359","0.19359","0.19359","0.19359","0.19359","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20442","0.20442"],"rules":["0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.17156","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.19073","0.19073","0.19073","0.19073","0.19073","0.19073","0.19073","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508"]}}}</script>
+<script type="application/json" id="clade-data">{"specimens":{"instance":{"N":26,"h":"1/1"},"items":[{"color":"ink","form":{"b":[[2,5,"k"],[2,1,"k"],[4,2,"k"],[4,3,"k"],[4,0,"k"]],"m":[["sense",2,0,3,"k",""],["grid",1,1,9,"k",""],["act",2,1,11,"k",""],["forecast",2,2,3,"k",""],["main",0,0,10,"k",""],["constants",1,1,2,"k","MARGIN 0.1 · JITTER 0.5"]]},"ph":{"N":26,"c":[856,830,750,2515,826,750,4128,828,750,5794,844,750,7519,802,750,832,2538,750,2505,2459,750,4185,2464,750,5817,2492,750,7526,2497,750,806,4180,750,2479,4196,750,4156,4137,750,5817,4197,750,7521,4169,750,849,5806,750,2484,5843,750,4169,5828,750,5814,5829,750,7497,5843,750,818,7489,750,2463,7502,750,4207,7531,750,5832,7483,750,7466,7527,750,873,9180,750],"h":"1/1","rule":"ok","s":146250,"v":"C","w":[]}},{"color":"s-aleator","form":{"b":[[2,5,"k"],[2,1,"k"],[4,2,"k"],[4,3,"k"],[4,0,"k"]],"m":[["sense",2,0,3,"k",""],["grid",1,1,9,"k",""],["act",2,1,11,"c",""],["forecast",2,2,3,"k",""],["main",0,0,10,"k",""],["constants",1,1,2,"k","MARGIN 0.1 · JITTER 0.5"]]},"ph":{"N":26,"c":[822,822,792,2489,849,792,4146,814,792,5842,825,792,7511,849,792,842,2511,792,2508,2487,792,4180,2488,792,5839,2482,792,7521,2484,792,846,4183,792,2512,4146,792,4160,4149,792,5850,4184,792,7480,4158,792,850,5819,792,2505,5839,792,4171,5832,792,5853,5836,792,7502,5825,792,814,7508,792,2517,7500,792,4178,7507,792,5825,7503,792,7485,7511,792,822,9171,792],"h":"1/1","rule":"ok","s":162951,"v":"C","w":[]}},{"color":"s-rules","form":{"b":[[2,6,"k"],[2,1,"k"],[4,2,"k"],[4,3,"k"],[4,0,"k"]],"m":[["sense",2,0,3,"k",""],["grid",1,1,9,"c",""],["act",2,1,12,"c",""],["forecast",2,2,3,"c",""],["main",0,0,11,"c",""],["modules/grid.py:grid",1,3,11,"n",""],["constants",1,1,2,"c","MARGIN 0.005062499999999999 · JITTER 0.25"]]},"ph":{"N":26,"c":[834,834,829,2499,833,829,4167,834,829,5834,834,829,7500,832,829,833,2500,829,2501,2500,829,4167,2500,829,5834,2501,829,7500,2501,829,834,4166,829,2500,4167,829,4167,4167,829,5834,4167,829,7501,4167,829,833,5833,829,2500,5833,829,4168,5832,829,5834,5833,829,7500,5833,829,834,7500,829,2500,7501,829,4166,7501,829,5833,7500,829,7499,7500,829,834,9167,829],"h":"1/1","rule":"ok","s":178732,"v":"C","w":[]}},{"color":"s-lineage","form":{"b":[[2,6,"k"],[2,1,"k"],[4,2,"k"],[4,3,"k"],[4,0,"k"]],"m":[["sense",2,0,10,"c",""],["grid",1,1,9,"k",""],["act",2,1,11,"c",""],["forecast",2,2,3,"k",""],["main",0,0,10,"c",""],["modules/main.py:main",1,3,10,"n",""],["constants",1,1,2,"c","MARGIN 0.02 · JITTER 0.5"]]},"ph":{"N":26,"c":[835,834,828,2497,831,828,4166,833,828,5831,838,828,7500,833,828,832,2502,828,2499,2505,828,4168,2502,828,5833,2505,828,7498,2501,828,835,4165,828,2500,4165,828,4168,4168,828,5836,4165,828,7501,4168,828,832,5839,828,2501,5838,828,4168,5831,828,5832,5834,828,7499,5839,828,836,7498,828,2498,7502,828,4169,7499,828,5833,7501,828,7501,7499,828,831,9168,828],"h":"1/1","rule":"ok","s":178156,"v":"C","w":[]}}]},"trajectory":{"run":"era-0-1","series":{"aleator":["0.16781","0.16781","0.16781","0.16781","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698"],"lineage":["0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.19359","0.19359","0.19359","0.19359","0.19359","0.19359","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20033","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20305","0.20442","0.20442"],"rules":["0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.16781","0.17156","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18698","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.18895","0.19073","0.19073","0.19073","0.19073","0.19073","0.19073","0.19073","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.19887","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20300","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508","0.20508"]}}}</script>
 
 <script>
 /* web/plates.js — the figures that move, drawn in web/grammar.css's tokens.
@@ -782,7 +801,64 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
     ctx.restore();
     return { x: ox, y: oy, w: bw, h: bh };
   }
-  window.CladeDraw = { C, fit, mix, mono, packing, frac, reduce, tip: show, hide, onTheme: f => redraw.push(f) };
+  /* ================================================================ a form, as its genome lays it out */
+  /* f {m: [[name, ring, sector, lines, state, label]], b: [[i, j, state]]} (web/record.py FORM_RULES): rings 0 core,
+     1 inner, 2 membrane; sectors clockwise from the top, sense, act, forecast, tools, talk, others; state k kept,
+     c changed, n new, l lost against the founder. Kept is ink, changed ochre, new blue, lost a dashed ghost. */
+  const SECTOR_NAMES = ['sense', 'act', 'forecast', 'tools', 'talk', 'others'], RINGS = [0, .46, .8];
+  function form(ctx, f, box, opts = {}) {
+    const big = !!opts.labels, R = Math.min(box.w, box.h) / 2 * (big ? .74 : .9);
+    const cx = box.x + box.w / 2, cy = box.y + box.h / 2, s = R / 110;
+    const ring = (r, dash) => { ctx.setLineDash(dash || []); ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke(); };
+    ctx.save();
+    ctx.strokeStyle = C.rule; ctx.lineWidth = 1;
+    ring(R * .98, [2, 4]); ring(R * RINGS[1]); ring(R * RINGS[2]);
+    ctx.setLineDash([2, 5]); ctx.beginPath();
+    for (let k = 0; k < 6; k++) { const a = (30 + k * 60) * Math.PI / 180; ctx.moveTo(cx, cy); ctx.lineTo(cx + R * Math.sin(a), cy - R * Math.cos(a)); }
+    ctx.stroke(); ctx.setLineDash([]);
+    if (big) {
+      ctx.fillStyle = C.muted; ctx.font = mono(9.5); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      SECTOR_NAMES.forEach((n, k) => { const a = k * 60 * Math.PI / 180; ctx.fillText(n.toUpperCase(), cx + R * 1.2 * Math.sin(a), cy - R * 1.2 * Math.cos(a)); });
+    }
+    const groups = {};
+    f.m.forEach((m, i) => { const key = m[1] + ':' + m[2]; (groups[key] = groups[key] || []).push(i); });
+    const pos = f.m.map((m, i) => {
+      if (m[1] === 0) return [cx, cy];
+      const g = groups[m[1] + ':' + m[2]], k = g.indexOf(i), n = g.length, step = Math.min(24, 44 / Math.max(1, n - 1));
+      const a = (m[2] * 60 + (k - (n - 1) / 2) * step) * Math.PI / 180, r = RINGS[m[1]] * R;
+      return [cx + r * Math.sin(a), cy - r * Math.cos(a)];
+    });
+    f.b.forEach(([i, j, st]) => {
+      ctx.strokeStyle = st === 'n' ? C.blue : st === 'l' ? C.muted : C['ink-2']; ctx.lineWidth = st === 'k' ? 1 : 1.4;
+      ctx.setLineDash(st === 'l' ? [3, 3] : []); ctx.beginPath(); ctx.moveTo(pos[i][0], pos[i][1]); ctx.lineTo(pos[j][0], pos[j][1]); ctx.stroke();
+    });
+    ctx.setLineDash([]);
+    const core = f.m.findIndex(m => m[1] === 0);
+    if (core >= 0) { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = 1; ring(Math.max(6, (4 + 2 * Math.sqrt(f.m[core][3])) * s) + 5 * s); }
+    f.m.forEach((m, i) => {
+      const [x, y] = pos[i], r = Math.max(2.2, (3 + 1.7 * Math.sqrt(m[3])) * s), st = m[4];
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2);
+      if (st === 'l') { ctx.strokeStyle = C.muted; ctx.lineWidth = 1; ctx.setLineDash([2, 2]); ctx.stroke(); ctx.setLineDash([]); }
+      else {
+        ctx.fillStyle = st === 'c' ? C.ochre : st === 'n' ? C.blue : C.ink; ctx.fill();
+        if (st === 'c') { ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(x, y, r + 3.5 * s + 1, 0, Math.PI * 2); ctx.stroke(); }
+      }
+      if (big) {                                           // the label sits outward from the centre, beside its node
+        const label = m[0].includes(':') ? m[0].split(':')[1] + '′' : m[0];
+        const dx = x - cx, dy = y - cy, d = Math.hypot(dx, dy);
+        ctx.fillStyle = st === 'l' ? C.muted : C['ink-2']; ctx.font = mono(9.5);
+        if (d < 1) { ctx.textAlign = 'center'; ctx.textBaseline = 'top'; ctx.fillText(label, x, y + r + 9 * s + 4); }
+        else {
+          const ux = dx / d, uy = dy / d;
+          ctx.textAlign = Math.abs(ux) < .3 ? 'center' : ux > 0 ? 'left' : 'right';
+          ctx.textBaseline = Math.abs(uy) < .3 ? 'middle' : uy > 0 ? 'top' : 'bottom';
+          ctx.fillText(label, x + ux * (r + 5), y + uy * (r + 5));
+        }
+      }
+    });
+    ctx.restore();
+  }
+  window.CladeDraw = { C, fit, mix, mono, packing, form, frac, reduce, tip: show, hide, onTheme: f => redraw.push(f) };
 
   const island = document.getElementById('clade-data');
   if (!island) return;
@@ -1021,12 +1097,19 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
 
   /* ================================================================ specimens: packings side by side */
   function specimens(el) {
-    const S = DATA.specimens, cans = [...el.querySelectorAll('canvas[data-specimen]')];
-    const draw = () => cans.forEach(cv => {
-      const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimen];
-      ctx.clearRect(0, 0, w, h);
-      packing(ctx, S.instance, sp.ph, { x: 4, y: 4, w: w - 8, h: h - 8 }, { fill: C[sp.color] || C.ink, alpha: .38, stroke: C.ink });
-    });
+    const S = DATA.specimens, cans = [...el.querySelectorAll('canvas[data-specimen]')], forms = [...el.querySelectorAll('canvas[data-specimen-form]')];
+    const draw = () => {
+      cans.forEach(cv => {
+        const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimen];
+        ctx.clearRect(0, 0, w, h);
+        packing(ctx, S.instance, sp.ph, { x: 4, y: 4, w: w - 8, h: h - 8 }, { fill: C[sp.color] || C.ink, alpha: .38, stroke: C.ink });
+      });
+      forms.forEach(cv => {
+        const { ctx, w, h } = fit(cv), sp = S.items[+cv.dataset.specimenForm];
+        ctx.clearRect(0, 0, w, h);
+        if (sp.form) form(ctx, sp.form, { x: 0, y: 0, w, h }, { labels: w > 220 });
+      });
+    };
     draw(); redraw.push(draw);
   }
 
