@@ -38,6 +38,12 @@ NEXT SESSION, IN ORDER:
      boundary mutants for the EinsteinArena rows ACCEPTED, with the 1e-9 platform-rule caveat). R(7,13) RESUMED (budget
      18000 s, the guard on). Qiushi #1: the authors thanked us and updated both READMEs to acknowledge the complete
      verification — no reply needed. #257: nothing new (the sweep counted our own reply).
+     04:0x UTC, on "yes for both": JeetuSK0808 (a registry contributor) posted independent checks on #249 (a third C₃₁ replay
+     from Lueker's published programs: state counts equal ours at h = 8, 9, 10) and #257 (C₈₄b in mpmath: 0.000719 not
+     reached; their 0.00071385 is the maximum at the regulator limit, our 0.0007150507 a ceiling — recomputed their chain
+     without the grid: 0.0007139). Both replies POSTED (issuecomment-6379668934, -6379669104); both RECORDED in
+     corpus/external-reruns.json (5 rows; the rerun corpus milestone now 2 of 5 independent parties). The control page's
+     rerun count (index.html, written only by build-control.js) is stale at 3 until the next full control build.
   ★ 2026-10-23 ~23:50 UTC — THE RAMSEY GRAPHS, STARTED on "Post the comment and star Ramsey" (start; the reply to
      cert-machine#1 POSTED, issuecomment-6376613867). Google's 18 AlphaEvolve graphs pinned at google-research 0d94f8c4
      (corpus/ramsey/alphaevolve; sha256 = maximusrufus's SHA256SUMS); instruments/ramsey (graph.py, clique.py the reference,

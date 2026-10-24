@@ -47,5 +47,31 @@
       "certs/sumdiff-ledger.json",
       "certs/easota-ledger.json"
     ]
+  },
+  {
+    "who": "JeetuSK0808 (GitHub)",
+    "date": "2026-10-24",
+    "what": "The registry’s two C₃₁ rows (Lueker’s automaton at h = 9 and h = 10), our replay of reports/chvatal-sankoff.html re-derived with their own C program, written from Lueker’s published programs with no code of ours or the claimant’s: the state counts equal ours at h = 8, 9 and 10 (6,419,109; 51,425,006; 400,253,317); λ certified in round-to-nearest with an explicit inflation; γ₂ ≤ 0.8251007652 and ≤ 0.8241199563, below the printed bounds.",
+    "kind": "own-code",
+    "records": [
+      "certs/lueker-replay.json"
+    ],
+    "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/fbe82cc/c31-chvatal-sankoff-replay",
+    "posted": "https://github.com/teorth/optimizationproblems/pull/249#issuecomment-6379485903",
+    "hash": null,
+    "outcome": "the same verdict on both rows; their bounds a little looser (vectors stopped once certified)"
+  },
+  {
+    "who": "JeetuSK0808 (GitHub)",
+    "date": "2026-10-24",
+    "what": "The registry’s C₈₄b correction (reports/optimization-constants.html §4) re-derived in their own interval arithmetic (mpmath), the note’s lemmas and inputs taken as given: c ≈ 0.000706 at the note’s choice; at most about 0.000707 over Y and X with R_K ≤ 103^d, and 0.00071385 with the regulator at its limit — so 0.000719 is not reached and 1.9993 is the entry.",
+    "kind": "own-code",
+    "rows": [
+      "optconst-84b"
+    ],
+    "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/f43c315/c84b-sum-product-check",
+    "posted": "https://github.com/teorth/optimizationproblems/pull/257#issuecomment-6379486052",
+    "hash": null,
+    "outcome": "the same verdict; their 0.00071385 is the maximum, our 0.0007150507 a ceiling above it (answered on the thread)"
   }
 ]
