@@ -19,6 +19,8 @@ usage
   python3 tools/run-ramsey-ledger.py [--budget SECONDS] [--threads N] [--only R_8_12_ge_511,...]
         decide every claim, spending at most SECONDS per unfinished side (default 300; progress resumes), write
         certs/ramsey-ledger.json
+  python3 tools/run-ramsey-ledger.py --only R_8_12_ge_511 --fresh --budget 0
+        re-run one file from nothing (its recorded sides and progress forgotten; --budget 0 = no time limit)
   python3 tools/run-ramsey-ledger.py --check
         the battery: the pins, every graph's format, the reference and the kernel re-run where both are quick, and the
         recorded long searches re-read from their progress files; refuses unless the ledger is what they give now
@@ -141,6 +143,9 @@ def build(args):
     budget = int(args[args.index('--budget') + 1]) if '--budget' in args else 300
     threads = int(args[args.index('--threads') + 1]) if '--threads' in args else (os.cpu_count() or 1)
     only = set(args[args.index('--only') + 1].split(',')) if '--only' in args else None
+    fresh = '--fresh' in args          # with --only: forget the named files' recorded sides and progress, search from nothing
+    if fresh and only is None:
+        die('--fresh needs --only')
     prev = json.load(open(OUT)) if os.path.exists(OUT) else None
     prevrows = {r['file']: r for r in prev['rows']} if prev else {}
     tmp = tempfile.mkdtemp(prefix='ramsey-')
@@ -157,7 +162,10 @@ def build(args):
             die('%s: %d vertices, the name claims %d' % (rel, n, m - 1))
         sides = {}
         for side, k, A in side_rows(name, n, adj, s, t):
-            pr = prevrows.get(rel, {}).get(side)
+            pr = None if fresh else prevrows.get(rel, {}).get(side)
+            prog = os.path.join(RUNS, '%s.%s.progress' % (name, side))
+            if fresh and os.path.exists(prog):
+                os.remove(prog)
             if pr and pr['complete']:                      # decided earlier and recorded: not re-searched here
                 sides[side] = pr; continue
             t0 = time.time()

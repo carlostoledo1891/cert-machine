@@ -67,7 +67,7 @@ B.push(C.tldr({
   mechanismRaw: 'For each side, every clique of the forbidden size would start at its lowest-ranked vertex in a smallest-last order and lie among that vertex\'s later neighbours; each such root is searched with a greedy colouring as the bound '
     + '(c colour classes are independent sets, so no clique among them is larger than c). A branch closes only on that bound or on too few candidates — both theorems — so "none" means none. A "found" answer would print the vertices and be re-checked edge by edge without the search.',
   checkRaw: m('python3 tools/run-ramsey-ledger.py --check') + ' re-checks the pins, re-searches the small graphs with both implementations, re-reads every long search from its per-root record, fires a planted triangle and a planted independent set, refuses four malformed matrices and decides 24 random graphs both ways (seconds); '
-    + m('python3 tools/run-ramsey-ledger.py --only R_8_12_ge_511 --budget 0') + ' re-runs a long search from nothing.'
+    + m('python3 tools/run-ramsey-ledger.py --only R_8_12_ge_511 --fresh --budget 0') + ' re-runs a long search from nothing (16 min on an 8-core M2).'
 }));
 B.push(C.stats([
   { k: 'files decided', v: Object.entries(L.counts).map(([w, n]) => n + ' ' + w).join(' · '), n: 'Google\'s 18 released graphs, google-research ' + P.commit.slice(0, 8) + ', ramsey_number_bounds/improved_bounds.' },

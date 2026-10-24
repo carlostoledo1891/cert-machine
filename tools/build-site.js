@@ -477,6 +477,13 @@ const REPORTS = [
     n: (() => { const B = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'cryptids-benchmark.json'), 'utf8'));
       if (!B.M8.length || !B.M5.pairs) fail('the cryptids card would misstate the record');
       return B.M8.length + ' gaps · ' + B.M1.H.rows + ' claims by hand · ' + B.M1.C.written + ' through claimbox · ' + B.M5.agree + ' of ' + B.M5.pairs + ' paired claims agree'; })() },
+  { g: 'ai', f: 'ramsey-graphs.html', k: 'audit · AlphaEvolve\'s Ramsey graphs',
+    title: 'AlphaEvolve\'s Ramsey lower bounds, each graph decided',
+    desc: 'Google released 18 graphs with AlphaEvolve, one per claimed lower bound R(s, t) ≥ m. Each is read as a simple graph and both of its properties '
+      + '(no s-clique, no independent t-set) decided by an exhaustive search written from the definition, in two implementations held to each other root by root.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ramsey-ledger.json'), 'utf8'));
+      if (L.rows.length !== 18) fail('the Ramsey graphs card would misstate the record');
+      return Object.entries(L.counts).map(([w, c]) => c + ' ' + w).join(' · ') + ' · 2 gaps in the release\'s check'; })() },
   { g: 'ai', f: 'selfaudit.html', k: 'the self-audit',
     title: 'The instrument, measured by its own rules',
     desc: 'A pre-registered self-measurement of this machine on its frozen register: planted false, true and malformed claims on every mutable row, '
