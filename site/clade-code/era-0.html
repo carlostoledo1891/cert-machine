@@ -41,7 +41,7 @@
   --blue: #285f7c;
   --rose: #a3405a;
   --band: #13201b; --band-fg: #edf1ee; --band-ochre: #e3a64a; --band-rose: #e57e98;
-  --s-lineage: #1f6fae; --s-aleator: #b06a00; --s-rules: #7b4fb5;
+  --s-lineage: #1f6fae; --s-aleator: #b06a00; --s-rules: #7b4fb5; --s-alone: var(--s-aleator);
   --o-lived: #244c3d; --o-died: #4f7d6a; --o-stillborn: #86ab9b;
   --f-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, "Times New Roman", serif;
   --f-latin: "Libre Caslon Text", Georgia, "Times New Roman", serif;
@@ -93,12 +93,14 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .mast nav a:hover { color: var(--ink); text-decoration: underline; }
 .draft { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); border: 1px dashed var(--rule); padding: .25rem .5rem; white-space: nowrap; }
 @media (max-width: 860px) { .mast nav { display: none; } }
+@media (max-width: 480px) { .draft { white-space: normal; text-align: right; min-width: 0; } }
 
 /* ------------------------------------------------------------------ hero */
 .hero { border-top: 0; padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
 .hero h1 { font-family: var(--f-display); font-size: clamp(2.7rem, 6.2vw, 5.4rem); line-height: 1.01; letter-spacing: -.012em; margin-top: 1.1rem; }
 .hero h1 em { font-family: var(--f-latin); font-style: italic; color: var(--ochre); }
+.hero h1 em.ask { display: block; margin-top: .3em; font-size: .6em; line-height: 1.08; }
 .lede { margin-top: 1.6rem; max-width: var(--measure); font-size: 1.15rem; color: var(--ink-2); }
 .label { margin-top: 2.2rem; display: inline-grid; gap: .2rem; border: 1px solid var(--ink); padding: .9rem 1.1rem 1rem; max-width: 100%; }
 .label .k { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -108,6 +110,8 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .facts div { border-top: 1px solid var(--rule); padding-top: .6rem; }
 .facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .facts span { font-size: .8rem; color: var(--muted); line-height: 1.35; display: block; margin-top: .25rem; }
+.facts b { overflow-wrap: anywhere; }
+@media (max-width: 480px) { .facts b { font-size: 1.5rem; } }
 .ctas { margin-top: 2rem; display: flex; gap: .8rem; flex-wrap: wrap; }
 .btn { display: inline-flex; align-items: center; gap: .5rem; font: 500 .95rem var(--f-text); padding: .7rem 1.1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
 .btn.ghost { background: transparent; color: var(--ink); border-style: dashed; }
@@ -205,7 +209,10 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .arm .has span::before { content: "+ "; color: var(--blue); }
 .arm .has span.no::before { content: "− "; color: var(--rose); }
 .arms-note { margin-top: 1.6rem; font-family: var(--f-latin); font-style: italic; font-size: 1.15rem; max-width: 50rem; }
-@media (max-width: 860px) { .arms { grid-template-columns: minmax(0, 1fr); } }
+.arms.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) and (min-width: 861px) { .arms.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.thesis-sub { margin-top: 1.2rem; max-width: 44rem; font-size: 1.1rem; opacity: .82; }
+@media (max-width: 860px) { .arms, .arms.four { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------------ record */
 .record-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
@@ -239,11 +246,14 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .gate { border-top: 1px dashed var(--ink-2); padding-top: .7rem; min-width: 0; }
 .gate .latin { font-size: 1.05rem; }
 .gate p { font-size: .84rem; color: var(--ink-2); margin-top: .35rem; }
+.gate p b { font-family: var(--f-mono); font-weight: 400; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 960px) { .gates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .gates { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------------ status */
 .track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.track.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+@media (max-width: 1100px) and (min-width: 901px) { .track.six { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.6rem; } }
 .ms { padding: 1rem 1rem 0 0; border-top: 3px solid var(--ink); min-width: 0; }
 .ms.next { border-top-style: dashed; border-top-color: var(--ochre); }
 .ms.later { border-top-style: dotted; border-top-color: var(--muted); }
@@ -253,7 +263,7 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .ms .st { font-family: var(--f-mono); font-size: .7rem; margin-top: .6rem; color: var(--ink); }
 .ms.next .st { color: var(--ochre); }
 .ms.later .st { color: var(--muted); }
-@media (max-width: 900px) { .track { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
+@media (max-width: 900px) { .track, .track.six { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
 
 .closing { text-align: left; }
 .closing .big { font-family: var(--f-latin); font-style: italic; font-size: clamp(2.4rem, 6.5vw, 5.6rem); line-height: 1.02; }
@@ -272,6 +282,8 @@ footer .off s { text-decoration-color: var(--rose); }
 .lane { position: relative; height: 22px; }
 .lane .g { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--rule); }
 .lane .z { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink-2); }
+.lane .ref { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed var(--ochre); z-index: 0; }
+.legend i.ref { width: 0; height: 14px; border-left: 1.5px dashed var(--ochre); vertical-align: -3px; }
 .lane .mean { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--ink); z-index: 2; }
 .lane.wait { border: 1px dashed var(--rule); }
 .lane.wait em { position: absolute; left: .6rem; top: 50%; transform: translateY(-50%); font-family: var(--f-latin); font-size: .78rem; color: var(--muted); }
@@ -279,12 +291,13 @@ footer .off s { text-decoration-color: var(--rose); }
 .bar { position: absolute; top: 4px; height: 14px; z-index: 1; }
 .bar.pos { background: var(--s-lineage); border-radius: 0 4px 4px 0; }
 .bar.neg { background: var(--s-aleator); border-radius: 4px 0 0 4px; }
+.bar.neg.rules { background: var(--s-rules); }
 .bar.nil { width: 10px; height: 10px; top: 6px; margin-left: -5px; border: 2px solid var(--ink-2); border-radius: 50%; background: var(--plate); }
 .mk { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; box-shadow: 0 0 0 2px var(--plate); z-index: 1; }
 .mk::after, .bar::after, .stack span::after { content: ""; position: absolute; inset: -6px; }
 .stack span { position: relative; }
 .mk.lineage { background: var(--s-lineage); border-radius: 50%; z-index: 3; top: calc(50% - 4px); }
-.mk.aleator { background: var(--s-aleator); transform: rotate(45deg) scale(.86); }
+.mk.aleator, .mk.alone { background: var(--s-aleator); transform: rotate(45deg) scale(.86); }
 .mk.rules { background: var(--s-rules); border-radius: 1px; z-index: 2; top: calc(50% + 4px); }
 .mk.founder { width: 2px; height: 20px; margin: -10px 0 0 -1px; background: var(--ink-2); box-shadow: none; }
 [data-tip]:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
@@ -298,6 +311,7 @@ footer .off s { text-decoration-color: var(--rose); }
 .legend i.mk.founder { height: 14px; vertical-align: -3px; }
 .legend i.bar-pos { background: var(--s-lineage); border-radius: 0 3px 3px 0; height: 9px; }
 .legend i.bar-neg { background: var(--s-aleator); border-radius: 3px 0 0 3px; height: 9px; }
+.legend i.bar-neg.rules { background: var(--s-rules); }
 .legend i.mean { width: 2px; height: 14px; background: var(--ink); vertical-align: -3px; }
 .legend i.o-lived, .stack .o-lived { background: var(--o-lived); }
 .legend i.o-died, .stack .o-died { background: var(--o-died); }
@@ -320,6 +334,7 @@ footer .off s { text-decoration-color: var(--rose); }
 .traj svg .lineage { stroke: var(--s-lineage); stroke-width: 2.5; }
 .traj svg .aleator { stroke: var(--s-aleator); stroke-width: 2; }
 .traj svg .rules { stroke: var(--s-rules); stroke-width: 2; }
+.traj svg .alone { stroke: var(--s-alone); stroke-width: 2; }
 .traj .plot > span.pm0 { position: absolute; right: .3rem; transform: translateY(-120%); font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); }
 .traj .ends span { position: absolute; left: 0; transform: translateY(-50%); font-family: var(--f-mono); font-size: .72rem; color: var(--ink); white-space: nowrap; }
 .traj .ends .mk { position: relative; display: inline-block; top: auto; margin: 0 .4rem 0 0; vertical-align: -1px; box-shadow: none; }
@@ -376,8 +391,9 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .m-runs button { font: 500 .72rem var(--f-mono); min-width: 2rem; padding: .3rem .45rem; color: var(--ink-2); background: transparent; border: 1px solid var(--rule); cursor: pointer; }
 .m-runs button:hover { border-color: var(--ink); color: var(--ink); }
 .m-runs button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.m-link { margin-left: auto; font-size: .85rem; color: var(--ink-2); text-decoration: none; }
-.m-link:hover { color: var(--ink); text-decoration: underline; }
+.m-link { margin-left: auto; font-size: .85rem; color: var(--muted); }
+.m-link a { color: var(--ink-2); text-decoration: none; }
+.m-link a:hover { color: var(--ink); text-decoration: underline; }
 .m-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); min-height: 0; }
 .m-view { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: .8rem; padding: 1rem max(16px, env(safe-area-inset-left, 0px)) 1rem 1.4rem; }
 .m-view[hidden] { display: none; }
@@ -496,6 +512,18 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .era-facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.8rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .era-facts span { display: block; margin-top: .25rem; font-size: .78rem; line-height: 1.35; color: var(--muted); }
 .era-band .plate { background: var(--paper); }
+.era-rows { margin-top: 1.4rem; display: grid; gap: 1.1rem; max-width: var(--measure); }
+.era-row { border-left: 2px solid var(--ochre); padding-left: 1rem; }
+.era-k { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .06em; color: var(--ochre); }
+.era-row p { margin-top: .35rem; font-size: .95rem; color: var(--ink-2); }
+.era-row a { display: inline-block; margin-top: .35rem; font-family: var(--f-mono); font-size: .74rem; }
+.era-figs { display: grid; gap: 1.2rem; }
+.plate-k { margin: 0 0 .5rem; }
+.plate-k ~ .plate-k { margin-top: 1.6rem; }
+.changes { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .7rem; }
+.changes li { border-left: 2px solid var(--ochre); padding-left: .9rem; color: var(--ink-2); font-size: .95rem; }
+.changes li b { color: var(--ink); font-weight: 500; }
+.changes + p { margin-top: 1rem; }
 .strata-link { display: block; }
 .strata-mini { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; }
 @media (max-width: 900px) { .era-grid { grid-template-columns: minmax(0, 1fr); } }
@@ -508,6 +536,28 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .sp-rules { margin-top: .5rem; font-size: .76rem; color: var(--ink-2); }
 .sp-rules summary { cursor: pointer; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .sp-rules pre { margin: .5rem 0 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: .7rem; line-height: 1.5; color: var(--ink-2); }
+.m-era { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); align-self: center; margin: 0 .2rem 0 .5rem; }
+.m-era:first-child { margin-left: 0; }
+.m-tape { flex-basis: 100%; font-size: .8rem; color: var(--ink-2); }
+.m-tape summary { cursor: pointer; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ochre); }
+.m-tape p { margin: .5rem 0 0; max-width: 46rem; }
+.m-tape pre { margin: .5rem 0 0; padding: .6rem .8rem; background: var(--plate); font-family: var(--f-mono); font-size: .74rem; line-height: 1.6; overflow-x: auto; color: var(--ink); }
+.m-tape pre i { font-style: normal; color: var(--muted); }
+.m-tl { overflow-y: auto; min-height: 0; padding-bottom: 1rem; }
+.tl { list-style: none; margin: 0; padding: 0; max-width: 52rem; }
+.tl-item { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1.2rem; padding: .9rem 0; border-top: 1px solid var(--rule); }
+.tl-when { font-family: var(--f-mono); font-size: .76rem; color: var(--ochre); padding-top: .2rem; }
+.tl-era { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.tl-item h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.3rem; margin-top: .1rem; }
+.tl-item p { margin-top: .25rem; font-size: .88rem; color: var(--ink-2); }
+.tl-item code { display: inline-block; margin: .35rem .8rem 0 0; font-family: var(--f-mono); font-size: .7rem; color: var(--muted); }
+.m-tl .off { margin-top: 1.4rem; max-width: 52rem; font-size: .76rem; color: var(--muted); }
+.m-tl .off s { text-decoration-color: var(--rose); }
+.tl-runs { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem; }
+.tl-runs button { font: .74rem var(--f-mono); padding: .2rem .5rem; background: none; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
+.tl-runs button:hover, .tl-runs button:focus-visible { border-color: var(--ochre); }
+@media (max-width: 640px) { .tl-item { grid-template-columns: minmax(0, 1fr); gap: .3rem; } }
+.m-grid-era { grid-column: 1 / -1; font-family: var(--f-display); font-size: 1.4rem; margin: .4rem 0 0; }
 </style>
 </head>
 <body>
@@ -522,7 +572,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
     </a>
     <nav aria-label="Sections">
       <a href="#champions">Champions</a><a href="#specimens">Specimens</a><a href="#tests">The tests</a><a href="#descent">A lineage</a>
-      <a href="#failures">Failures</a><a href="#runs">The runs</a><a href="#verify">Verify</a><a href="museum.html">Museum</a>
+      <a href="#expected">Why H1</a><a href="#runs">The runs</a><a href="#verify">Verify</a><a href="era-1.html">Era 1</a><a href="museum.html">Museum</a>
     </nav>
     <span class="draft">working draft · era 0 · 10 of 10 runs in</span>
   </header>
@@ -532,21 +582,25 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">Era 0 · results, built from the record</div>
-      <h1>Selection over lineages beat fresh mutation by the same model.</h1>
-      <p class="lede">Era 0 asks one question. Under the same budget of births, does selection over inherited lineages of programs find better programs than the same AI mutating the founder afresh each time? In every run three arms start from PM-0: the <b>lineage</b>, bred by a 7-billion-parameter model under selection; <em class="latin">Aleator vulgaris</em>, the same model with no heredity, every child a fresh mutation of PM-0; and <b>blind rules</b>, selection with heredity but mutations drawn by a page of fixed rules, with no model at all. Each arm's champion is picked on eight training instances, then scored on a frozen panel of eight it never saw.</p>
-      <p class="verdict-line">In eight of ten runs the lineage&#x27;s champion scored higher on the frozen panel than Aleator&#x27;s, and in two they tied. The exact one-sided p-value is 1/256 (0.0039), against a threshold of 0.05 fixed before the first run began. Blind rules under the same selection, with no model at all, scored higher than the lineage in five of ten runs; H2 is not supported.</p>
+      <h1>Selection mattered. The model, so far, did not.</h1>
+      <p class="lede">Era 0 asks two questions, at the same budget of births. Does selection over inherited lineages of programs find better programs than the same AI mutating the founder afresh each time (H1)? And does the AI add anything that blind rules under the same selection do not (H2)? In every run three arms start from PM-0: the <b>lineage</b>, bred by a 7-billion-parameter model under selection; <em class="latin">Aleator vulgaris</em>, the same model with no heredity, every child a fresh mutation of PM-0; and <b>blind rules</b>, selection with heredity but mutations drawn by a page of fixed rules, with no model at all. Each arm's champion is picked on eight training instances, then scored on a frozen panel of eight it never saw.</p>
+      <p class="verdict-line">Does selection matter? The lineage&#x27;s champion scored higher on the frozen panel than Aleator&#x27;s in eight of ten runs and tied in two: H1 is supported, p = 1/256. Does the model add anything to selection? Blind rules under the same selection, with no model at all, scored higher than the lineage in five of ten runs: H2 is not supported, p = 403/512.</p>
       <div class="ctas"><a class="btn" href="museum.html">Open the Museum</a><a class="btn ghost" href="#tests">The four tests</a></div>
       <div class="facts">
         <div><b>10/10</b><span>confirmatory runs in, named before the first began; none is replaced or dropped</span></div>
         <div><b>4,800</b><span>births a run, 1,600 an arm: the budget the three arms share</span></div>
-        <div><b>1/256</b><span>H1's exact p-value, over all 1,024 ways to flip the signs</span></div>
+        <div><b>1/256 · 403/512</b><span>H1's and H2's exact p-values, each over all 1,024 ways to flip the signs</span></div>
       </div>
     </div>
 
     <figure class="plate" style="margin:0">
+      <div class="eyebrow plate-k">H1 · does selection matter?</div>
       <div class="legend"><span><i class="bar-pos"></i>the lineage&#x27;s champion higher</span><span><i class="bar-neg"></i>Aleator&#x27;s champion higher</span><span><i class="mean"></i>mean of the runs in, +0.01399</span></div>
-      <div class="chart"><span class="k">era-0-1</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:43.191%" data-tip="era-0-1: dᵢ = +0.01728 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-1: dᵢ = +0.01728 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-2</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:46.934%" data-tip="era-0-2: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-2: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-3</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar nil" style="left:50.000%" data-tip="era-0-3: dᵢ = 0 (the two champions score the same on the panel)" tabindex="0" aria-label="era-0-3: dᵢ = 0 (the two champions score the same on the panel)"></span></div><span class="k">era-0-4</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:48.299%" data-tip="era-0-4: dᵢ = +0.01932 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-4: dᵢ = +0.01932 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-5</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:36.220%" data-tip="era-0-5: dᵢ = +0.01449 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-5: dᵢ = +0.01449 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-6</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar nil" style="left:50.000%" data-tip="era-0-6: dᵢ = 0 (the two champions score the same on the panel)" tabindex="0" aria-label="era-0-6: dᵢ = 0 (the two champions score the same on the panel)"></span></div><span class="k">era-0-7</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:46.934%" data-tip="era-0-7: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-7: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-8</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:37.265%" data-tip="era-0-8: dᵢ = +0.01491 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-8: dᵢ = +0.01491 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-9</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:45.960%" data-tip="era-0-9: dᵢ = +0.01838 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-9: dᵢ = +0.01838 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-10</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:44.891%" data-tip="era-0-10: dᵢ = +0.01796 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-10: dᵢ = +0.01796 (the lineage&#x27;s champion higher on the panel)"></span></div><span></span><div class="axis"><span style="left:0.000%">−0.02</span><span style="left:25.000%">−0.01</span><span style="left:50.000%">0</span><span style="left:75.000%">+0.01</span><span style="left:100.000%">+0.02</span></div><span></span><div class="axis-note"><span>← Aleator's champion higher</span><span>the lineage's champion higher →</span></div></div>
-      <figcaption class="caption"><b>Plate I.</b> The primary endpoint, run by run: dᵢ, the lineage champion's panel score minus Aleator's, in each of the ten runs named in advance. A dashed lane is a run not yet in. Median of the runs in: +0.01762.</figcaption>
+      <div class="chart"><span class="k">era-0-1</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:43.191%" data-tip="era-0-1: dᵢ = +0.01728 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-1: dᵢ = +0.01728 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-2</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:46.934%" data-tip="era-0-2: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-2: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-3</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar nil" style="left:50.000%" data-tip="era-0-3: dᵢ = 0 (the two champions score the same on the panel)" tabindex="0" aria-label="era-0-3: dᵢ = 0 (the two champions score the same on the panel)"></span></div><span class="k">era-0-4</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:48.299%" data-tip="era-0-4: dᵢ = +0.01932 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-4: dᵢ = +0.01932 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-5</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:36.220%" data-tip="era-0-5: dᵢ = +0.01449 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-5: dᵢ = +0.01449 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-6</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar nil" style="left:50.000%" data-tip="era-0-6: dᵢ = 0 (the two champions score the same on the panel)" tabindex="0" aria-label="era-0-6: dᵢ = 0 (the two champions score the same on the panel)"></span></div><span class="k">era-0-7</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:46.934%" data-tip="era-0-7: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-7: dᵢ = +0.01877 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-8</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:37.265%" data-tip="era-0-8: dᵢ = +0.01491 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-8: dᵢ = +0.01491 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-9</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:45.960%" data-tip="era-0-9: dᵢ = +0.01838 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-9: dᵢ = +0.01838 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-10</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:84.969%"></i><span class="bar pos" style="left:50.000%;width:44.891%" data-tip="era-0-10: dᵢ = +0.01796 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-10: dᵢ = +0.01796 (the lineage&#x27;s champion higher on the panel)"></span></div><span></span><div class="axis"><span style="left:0.000%">−0.02</span><span style="left:25.000%">−0.01</span><span style="left:50.000%">0</span><span style="left:75.000%">+0.01</span><span style="left:100.000%">+0.02</span></div><span></span><div class="axis-note"><span>← Aleator&#x27;s champion higher</span><span>the lineage's champion higher →</span></div></div>
+      <div class="eyebrow plate-k">H2 · does the model add to selection?</div>
+      <div class="legend"><span><i class="bar-pos"></i>the lineage&#x27;s champion higher</span><span><i class="bar-neg rules"></i>the blind rules&#x27; champion higher</span><span><i class="mean"></i>mean of the runs in, −0.00217</span></div>
+      <div class="chart"><span class="k">era-0-1</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar neg rules" style="left:48.364%;width:1.636%" data-tip="era-0-1: dᵢ = −0.00065 (the blind rules&#x27; champion higher on the panel)" tabindex="0" aria-label="era-0-1: dᵢ = −0.00065 (the blind rules&#x27; champion higher on the panel)"></span></div><span class="k">era-0-2</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar pos" style="left:50.000%;width:3.318%" data-tip="era-0-2: dᵢ = +0.00133 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-2: dᵢ = +0.00133 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-3</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar neg rules" style="left:2.874%;width:47.126%" data-tip="era-0-3: dᵢ = −0.01885 (the blind rules&#x27; champion higher on the panel)" tabindex="0" aria-label="era-0-3: dᵢ = −0.01885 (the blind rules&#x27; champion higher on the panel)"></span></div><span class="k">era-0-4</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar pos" style="left:50.000%;width:4.046%" data-tip="era-0-4: dᵢ = +0.00162 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-4: dᵢ = +0.00162 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-5</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar neg rules" style="left:46.547%;width:3.453%" data-tip="era-0-5: dᵢ = −0.00138 (the blind rules&#x27; champion higher on the panel)" tabindex="0" aria-label="era-0-5: dᵢ = −0.00138 (the blind rules&#x27; champion higher on the panel)"></span></div><span class="k">era-0-6</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar neg rules" style="left:22.814%;width:27.186%" data-tip="era-0-6: dᵢ = −0.01087 (the blind rules&#x27; champion higher on the panel)" tabindex="0" aria-label="era-0-6: dᵢ = −0.01087 (the blind rules&#x27; champion higher on the panel)"></span></div><span class="k">era-0-7</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar pos" style="left:50.000%;width:15.452%" data-tip="era-0-7: dᵢ = +0.00618 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-7: dᵢ = +0.00618 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-8</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar neg rules" style="left:46.563%;width:3.437%" data-tip="era-0-8: dᵢ = −0.00137 (the blind rules&#x27; champion higher on the panel)" tabindex="0" aria-label="era-0-8: dᵢ = −0.00137 (the blind rules&#x27; champion higher on the panel)"></span></div><span class="k">era-0-9</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar pos" style="left:50.000%;width:1.707%" data-tip="era-0-9: dᵢ = +0.00068 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-9: dᵢ = +0.00068 (the lineage&#x27;s champion higher on the panel)"></span></div><span class="k">era-0-10</span><div class="lane"><i class="g" style="left:0.000%"></i><i class="g" style="left:25.000%"></i><i class="g" style="left:50.000%"></i><i class="g" style="left:75.000%"></i><i class="g" style="left:100.000%"></i><i class="z" style="left:50.000%"></i><i class="mean" style="left:44.587%"></i><span class="bar pos" style="left:50.000%;width:4.189%" data-tip="era-0-10: dᵢ = +0.00168 (the lineage&#x27;s champion higher on the panel)" tabindex="0" aria-label="era-0-10: dᵢ = +0.00168 (the lineage&#x27;s champion higher on the panel)"></span></div><span></span><div class="axis"><span style="left:0.000%">−0.02</span><span style="left:25.000%">−0.01</span><span style="left:50.000%">0</span><span style="left:75.000%">+0.01</span><span style="left:100.000%">+0.02</span></div><span></span><div class="axis-note"><span>← the blind rules&#x27; champion higher</span><span>the lineage's champion higher →</span></div></div>
+      <figcaption class="caption"><b>Plate I.</b> The two questions, run by run, in each of the ten runs named in advance. Above, dᵢ is the lineage champion's panel score minus Aleator's (median +0.01762); below, minus the blind rules' (median +0.00001). A dashed lane is a run not yet in.</figcaption>
     </figure>
   </div>
 </section>
@@ -588,6 +642,15 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
     </div>
     <div class="table-wrap"><table class="results"><thead><tr><th>Hypothesis</th><th>difference</th><th class="num">mean</th><th class="num">median</th><th class="num">p, exact</th><th class="num">95% interval</th><th>verdict</th></tr></thead><tbody><tr><td><b>H1</b> The lineage&#x27;s champion scores higher on the panel than Aleator&#x27;s, run for run.</td><td>panel(lineage) − panel(Aleator)</td><td class="num">+0.01399</td><td class="num">+0.01762</td><td class="num">1/256<small>0.0039</small></td><td class="num">+0.00842 to +0.01850</td><td><span class="chip">supported</span></td></tr><tr><td><b>H2</b> The lineage&#x27;s champion scores higher on the panel than the blind rules&#x27; champion, run for run.</td><td>panel(lineage) − panel(rules)</td><td class="num">−0.00217</td><td class="num">+0.00001</td><td class="num">403/512<small>0.7871</small></td><td class="num">−0.00744 to +0.00216</td><td><span class="chip no">not supported</span><small>Holm</small></td></tr><tr><td><b>H3</b> The blind rules&#x27; champion scores higher on the panel than PM-0.</td><td>panel(rules) − panel(PM-0)</td><td class="num">+0.03513</td><td class="num">+0.03584</td><td class="num">1/1024<small>0.0010</small></td><td class="num">+0.03328 to +0.03667</td><td><span class="chip">supported</span><small>Holm</small></td></tr><tr><td><b>H4</b> Selection overfits: training exceeds panel by more in the lineage than in Aleator.</td><td>(training − panel), lineage − Aleator</td><td class="num">+0.00041</td><td class="num">+0.00020</td><td class="num">1/256<small>0.0039</small></td><td class="num">+0.00009 to +0.00080</td><td><span class="chip">supported</span><small>Holm</small></td></tr></tbody></table></div>
     <p class="verdict-line">H1 is supported. After Holm&#x27;s correction H3 and H4 are supported, H2 is not.</p>
+  </div>
+</section>
+
+<section id="expected">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Reading the result</div><h2>Why H1 was expected.</h2></div>
+      <div><p>Aleator has no heredity: every child is one edit from PM-0, so its champion can be no better than the best single edit the model offered. In all ten runs that best edit scored the same, 0.18515 on the panel: the model wrote one idea, a smaller margin for PM-0&#x27;s grid, six different ways. The lineage and the blind rules could stack edits and keep shrinking the margin; Aleator could not.</p><p>So H1 shows that heredity lets small gains accumulate, the least that evolution must do. It says nothing about whether the model's edits are better than blind ones. That is H2's question, and H2 was not supported: the result that matters most here is the one the controls give.</p></div>
+    </div>
   </div>
 </section>
 
@@ -683,9 +746,19 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
   </div>
 </section>
 
+<section id="next">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">After era 0</div><h2>What era 1 changed.</h2></div>
+      <div><p>Every gain in era 0 was a smaller margin for PM-0's grid, and no champion got past what that grid can do. So era 1 asked whether a lineage can leave its founder's design, and changed four things, each fixed and timestamped before its first birth.</p><ul class="changes"><li><b>The founder.</b> Era 0's best champion, so the lineage starts where era 0 ended.</li><li><b>A fifth mutation.</b> The lineage may rewrite a whole function, one birth in five, so it can leave the grid in one step.</li><li><b>The AI alone.</b> Aleator gave way to the same model asked directly for a whole better program, as often as the lineage's tokens allow.</li><li><b>A line to cross.</b> 0.20516 on the panel, just above what the founder's grid can score with no margin at all. Crossing it is an existence claim: one champion, certified, is enough.</li></ul><p>No champion of any arm crossed it; the best reached 0.20512. Blind rules scored higher than the lineage in nine of ten runs. <a href="era-1.html">The era 1 report</a>.</p></div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="row"><span>Clade Code · era 0 · built from the record, and from nothing else</span><span>Carlos Toledo, 2026</span></div>
+    <p class="off">Words kept off these pages: <s>understands</s>, <s>thinks</s>, <s>knows</s>, <s>PhD-level</s>, <s>smarter than</s>, <s>AGI</s>, <s>journey toward</s>, <s>path to</s>, <s>progress toward</s>, <s>higher organism</s>, <s>lower organism</s>, <s>evolves into</s>, <s>evolve into</s>, <s>goal of evolution</s>, <s>meant to</s>. Each names an inner state or a credential no test certifies, or gives evolution a direction it does not have. <span class="latin">Machina sapiens</span>, <span class="latin">habilis</span> and <span class="latin">erecta</span> are the names of tests, never destinations.</p>
   </div>
 </footer>
 
@@ -745,7 +818,7 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
   const root = document.documentElement;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   let C = {};
-  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules',
+  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules', 's-alone',
     'o-lived', 'o-died', 'o-stillborn'].forEach(k => { C[k] = css('--' + k); }); };
   palette();
   const redraw = [];
@@ -1115,30 +1188,36 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
 
   /* ================================================================ a run's fossil record, small */
   function strataMini(el) {
-    const S = DATA.strata, cv = el.querySelector('canvas'), G = S.G, ARM = ['lineage', 'Aleator', 'blind rules'];
+    const S = DATA.strata[+el.dataset.strata || 0], cv = el.querySelector('canvas'), G = S.G, A = S.arms.length;
+    const start = [0];                                      // where each generation's births begin, in the record's order
+    S.per.forEach(n => start.push(start[start.length - 1] + n.reduce((x, y) => x + y, 0)));
     let thread = reduce ? 1 : 0, started = false;           // the births are drawn at rest; the thread draws itself in
     const draw = () => {
-      const { ctx, w, h } = fit(cv), left = Math.min(78, w * .14), top = 6, gap = 8;
-      const colW = (w - left - 4) / G, laneH = (h - top * 2 - gap * 2) / 48, size = Math.max(1.4, Math.min(colW, laneH) * .78);
+      const { ctx, w, h } = fit(cv), left = Math.min(84, w * .15), top = 6, gap = 8;
+      const colW = (w - left - 4) / G, laneH = (h - top * 2 - gap * (A - 1)) / (16 * A), size = Math.max(1.4, Math.min(colW, laneH) * .78);
       const X = g => left + (g - .5) * colW, Y = (a, s) => top + a * (16 * laneH + gap) + (s + .5) * laneH;
       ctx.clearRect(0, 0, w, h);
       ctx.font = mono(10); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      for (let a = 0; a < 3; a++) {
+      for (let a = 0; a < A; a++) {
         ctx.fillStyle = C.plate; ctx.fillRect(left - 2, top + a * (16 * laneH + gap) - 2, w - left - 2, 16 * laneH + 4);
-        ctx.fillStyle = C['ink-2']; ctx.fillText(ARM[a], left - 8, Y(a, 7.5));
+        ctx.fillStyle = C['ink-2']; ctx.fillText(S.arms[a], left - 8, Y(a, 7.5));
       }
-      for (let k = 0; k < S.cells.length; k++) {
-        const g = Math.floor(k / 48) + 1;
-        const a = Math.floor((k % 48) / 16), s = k % 16, ch = S.cells[k], x = X(g), y = Y(a, s);
-        if (ch === 's') { ctx.strokeStyle = C.rose; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(x, y, size * .32, 0, Math.PI * 2); ctx.stroke(); }
-        else if (ch === 'd') { ctx.fillStyle = C.muted; ctx.globalAlpha = .45; ctx.fillRect(x - size * .2, y - size * .2, size * .4, size * .4); ctx.globalAlpha = 1; }
-        else if (ch === 'z') { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = .7; ctx.strokeRect(x - size / 2 + .4, y - size / 2 + .4, size - .8, size - .8); }
-        else { ctx.fillStyle = mix(C.plate, C.ink, .15 + .085 * +ch); ctx.fillRect(x - size / 2, y - size / 2, size, size); }
+      for (let g = 1; g <= G; g++) {
+        let k = start[g - 1];
+        S.per[g - 1].forEach((n, a) => {
+          for (let s = 0; s < n; s++, k++) {
+            const ch = S.cells[k], x = X(g), y = Y(a, s);
+            if (ch === 's') { ctx.strokeStyle = C.rose; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(x, y, size * .32, 0, Math.PI * 2); ctx.stroke(); }
+            else if (ch === 'd') { ctx.fillStyle = C.muted; ctx.globalAlpha = .45; ctx.fillRect(x - size * .2, y - size * .2, size * .4, size * .4); ctx.globalAlpha = 1; }
+            else if (ch === 'z') { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = .7; ctx.strokeRect(x - size / 2 + .4, y - size / 2 + .4, size - .8, size - .8); }
+            else { ctx.fillStyle = mix(C.plate, C.ink, .15 + .085 * +ch); ctx.fillRect(x - size / 2, y - size / 2, size, size); }
+          }
+        });
       }
       const path = S.path.filter(([g]) => g <= thread * G);
       if (path.length) {
         ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.6; ctx.beginPath();
-        let [px, py] = [left - 6, Y(1, 7.5)];
+        let [px, py] = [left - 6, Y(0, 7.5)];
         ctx.moveTo(px, py);
         path.forEach(([g, s]) => { const x = X(g), y = Y(0, s), mx = (px + x) / 2; ctx.bezierCurveTo(mx, py, mx, y, x, y); px = x; py = y; });
         ctx.stroke();

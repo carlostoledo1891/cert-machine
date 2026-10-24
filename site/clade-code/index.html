@@ -41,7 +41,7 @@
   --blue: #285f7c;
   --rose: #a3405a;
   --band: #13201b; --band-fg: #edf1ee; --band-ochre: #e3a64a; --band-rose: #e57e98;
-  --s-lineage: #1f6fae; --s-aleator: #b06a00; --s-rules: #7b4fb5;
+  --s-lineage: #1f6fae; --s-aleator: #b06a00; --s-rules: #7b4fb5; --s-alone: var(--s-aleator);
   --o-lived: #244c3d; --o-died: #4f7d6a; --o-stillborn: #86ab9b;
   --f-display: "Libre Caslon Display", "Libre Caslon Text", Georgia, "Times New Roman", serif;
   --f-latin: "Libre Caslon Text", Georgia, "Times New Roman", serif;
@@ -93,12 +93,14 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .mast nav a:hover { color: var(--ink); text-decoration: underline; }
 .draft { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); border: 1px dashed var(--rule); padding: .25rem .5rem; white-space: nowrap; }
 @media (max-width: 860px) { .mast nav { display: none; } }
+@media (max-width: 480px) { .draft { white-space: normal; text-align: right; min-width: 0; } }
 
 /* ------------------------------------------------------------------ hero */
 .hero { border-top: 0; padding-block: clamp(2rem, 5vw, 4rem) clamp(4rem, 8vw, 6rem); }
 .hero-grid { display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
 .hero h1 { font-family: var(--f-display); font-size: clamp(2.7rem, 6.2vw, 5.4rem); line-height: 1.01; letter-spacing: -.012em; margin-top: 1.1rem; }
 .hero h1 em { font-family: var(--f-latin); font-style: italic; color: var(--ochre); }
+.hero h1 em.ask { display: block; margin-top: .3em; font-size: .6em; line-height: 1.08; }
 .lede { margin-top: 1.6rem; max-width: var(--measure); font-size: 1.15rem; color: var(--ink-2); }
 .label { margin-top: 2.2rem; display: inline-grid; gap: .2rem; border: 1px solid var(--ink); padding: .9rem 1.1rem 1rem; max-width: 100%; }
 .label .k { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -108,6 +110,8 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .facts div { border-top: 1px solid var(--rule); padding-top: .6rem; }
 .facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.9rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .facts span { font-size: .8rem; color: var(--muted); line-height: 1.35; display: block; margin-top: .25rem; }
+.facts b { overflow-wrap: anywhere; }
+@media (max-width: 480px) { .facts b { font-size: 1.5rem; } }
 .ctas { margin-top: 2rem; display: flex; gap: .8rem; flex-wrap: wrap; }
 .btn { display: inline-flex; align-items: center; gap: .5rem; font: 500 .95rem var(--f-text); padding: .7rem 1.1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); text-decoration: none; cursor: pointer; }
 .btn.ghost { background: transparent; color: var(--ink); border-style: dashed; }
@@ -205,7 +209,10 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .arm .has span::before { content: "+ "; color: var(--blue); }
 .arm .has span.no::before { content: "− "; color: var(--rose); }
 .arms-note { margin-top: 1.6rem; font-family: var(--f-latin); font-style: italic; font-size: 1.15rem; max-width: 50rem; }
-@media (max-width: 860px) { .arms { grid-template-columns: minmax(0, 1fr); } }
+.arms.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1100px) and (min-width: 861px) { .arms.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.thesis-sub { margin-top: 1.2rem; max-width: 44rem; font-size: 1.1rem; opacity: .82; }
+@media (max-width: 860px) { .arms, .arms.four { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------------ record */
 .record-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; }
@@ -239,11 +246,14 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .gate { border-top: 1px dashed var(--ink-2); padding-top: .7rem; min-width: 0; }
 .gate .latin { font-size: 1.05rem; }
 .gate p { font-size: .84rem; color: var(--ink-2); margin-top: .35rem; }
+.gate p b { font-family: var(--f-mono); font-weight: 400; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 @media (max-width: 960px) { .gates { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .gates { grid-template-columns: minmax(0, 1fr); } }
 
 /* ------------------------------------------------------------------ status */
 .track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
+.track.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+@media (max-width: 1100px) and (min-width: 901px) { .track.six { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.6rem; } }
 .ms { padding: 1rem 1rem 0 0; border-top: 3px solid var(--ink); min-width: 0; }
 .ms.next { border-top-style: dashed; border-top-color: var(--ochre); }
 .ms.later { border-top-style: dotted; border-top-color: var(--muted); }
@@ -253,7 +263,7 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .ms .st { font-family: var(--f-mono); font-size: .7rem; margin-top: .6rem; color: var(--ink); }
 .ms.next .st { color: var(--ochre); }
 .ms.later .st { color: var(--muted); }
-@media (max-width: 900px) { .track { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
+@media (max-width: 900px) { .track, .track.six { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
 
 .closing { text-align: left; }
 .closing .big { font-family: var(--f-latin); font-style: italic; font-size: clamp(2.4rem, 6.5vw, 5.6rem); line-height: 1.02; }
@@ -272,6 +282,8 @@ footer .off s { text-decoration-color: var(--rose); }
 .lane { position: relative; height: 22px; }
 .lane .g { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--rule); }
 .lane .z { position: absolute; top: -4px; bottom: -4px; width: 1px; background: var(--ink-2); }
+.lane .ref { position: absolute; top: -4px; bottom: -4px; width: 0; border-left: 1.5px dashed var(--ochre); z-index: 0; }
+.legend i.ref { width: 0; height: 14px; border-left: 1.5px dashed var(--ochre); vertical-align: -3px; }
 .lane .mean { position: absolute; top: -4px; bottom: -4px; width: 2px; margin-left: -1px; background: var(--ink); z-index: 2; }
 .lane.wait { border: 1px dashed var(--rule); }
 .lane.wait em { position: absolute; left: .6rem; top: 50%; transform: translateY(-50%); font-family: var(--f-latin); font-size: .78rem; color: var(--muted); }
@@ -279,12 +291,13 @@ footer .off s { text-decoration-color: var(--rose); }
 .bar { position: absolute; top: 4px; height: 14px; z-index: 1; }
 .bar.pos { background: var(--s-lineage); border-radius: 0 4px 4px 0; }
 .bar.neg { background: var(--s-aleator); border-radius: 4px 0 0 4px; }
+.bar.neg.rules { background: var(--s-rules); }
 .bar.nil { width: 10px; height: 10px; top: 6px; margin-left: -5px; border: 2px solid var(--ink-2); border-radius: 50%; background: var(--plate); }
 .mk { position: absolute; top: 50%; width: 11px; height: 11px; margin: -5.5px 0 0 -5.5px; box-shadow: 0 0 0 2px var(--plate); z-index: 1; }
 .mk::after, .bar::after, .stack span::after { content: ""; position: absolute; inset: -6px; }
 .stack span { position: relative; }
 .mk.lineage { background: var(--s-lineage); border-radius: 50%; z-index: 3; top: calc(50% - 4px); }
-.mk.aleator { background: var(--s-aleator); transform: rotate(45deg) scale(.86); }
+.mk.aleator, .mk.alone { background: var(--s-aleator); transform: rotate(45deg) scale(.86); }
 .mk.rules { background: var(--s-rules); border-radius: 1px; z-index: 2; top: calc(50% + 4px); }
 .mk.founder { width: 2px; height: 20px; margin: -10px 0 0 -1px; background: var(--ink-2); box-shadow: none; }
 [data-tip]:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
@@ -298,6 +311,7 @@ footer .off s { text-decoration-color: var(--rose); }
 .legend i.mk.founder { height: 14px; vertical-align: -3px; }
 .legend i.bar-pos { background: var(--s-lineage); border-radius: 0 3px 3px 0; height: 9px; }
 .legend i.bar-neg { background: var(--s-aleator); border-radius: 3px 0 0 3px; height: 9px; }
+.legend i.bar-neg.rules { background: var(--s-rules); }
 .legend i.mean { width: 2px; height: 14px; background: var(--ink); vertical-align: -3px; }
 .legend i.o-lived, .stack .o-lived { background: var(--o-lived); }
 .legend i.o-died, .stack .o-died { background: var(--o-died); }
@@ -320,6 +334,7 @@ footer .off s { text-decoration-color: var(--rose); }
 .traj svg .lineage { stroke: var(--s-lineage); stroke-width: 2.5; }
 .traj svg .aleator { stroke: var(--s-aleator); stroke-width: 2; }
 .traj svg .rules { stroke: var(--s-rules); stroke-width: 2; }
+.traj svg .alone { stroke: var(--s-alone); stroke-width: 2; }
 .traj .plot > span.pm0 { position: absolute; right: .3rem; transform: translateY(-120%); font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); }
 .traj .ends span { position: absolute; left: 0; transform: translateY(-50%); font-family: var(--f-mono); font-size: .72rem; color: var(--ink); white-space: nowrap; }
 .traj .ends .mk { position: relative; display: inline-block; top: auto; margin: 0 .4rem 0 0; vertical-align: -1px; box-shadow: none; }
@@ -376,8 +391,9 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .m-runs button { font: 500 .72rem var(--f-mono); min-width: 2rem; padding: .3rem .45rem; color: var(--ink-2); background: transparent; border: 1px solid var(--rule); cursor: pointer; }
 .m-runs button:hover { border-color: var(--ink); color: var(--ink); }
 .m-runs button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.m-link { margin-left: auto; font-size: .85rem; color: var(--ink-2); text-decoration: none; }
-.m-link:hover { color: var(--ink); text-decoration: underline; }
+.m-link { margin-left: auto; font-size: .85rem; color: var(--muted); }
+.m-link a { color: var(--ink-2); text-decoration: none; }
+.m-link a:hover { color: var(--ink); text-decoration: underline; }
 .m-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); min-height: 0; }
 .m-view { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: .8rem; padding: 1rem max(16px, env(safe-area-inset-left, 0px)) 1rem 1.4rem; }
 .m-view[hidden] { display: none; }
@@ -496,6 +512,18 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .era-facts b { display: block; font-family: var(--f-display); font-weight: 400; font-size: 1.8rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .era-facts span { display: block; margin-top: .25rem; font-size: .78rem; line-height: 1.35; color: var(--muted); }
 .era-band .plate { background: var(--paper); }
+.era-rows { margin-top: 1.4rem; display: grid; gap: 1.1rem; max-width: var(--measure); }
+.era-row { border-left: 2px solid var(--ochre); padding-left: 1rem; }
+.era-k { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .06em; color: var(--ochre); }
+.era-row p { margin-top: .35rem; font-size: .95rem; color: var(--ink-2); }
+.era-row a { display: inline-block; margin-top: .35rem; font-family: var(--f-mono); font-size: .74rem; }
+.era-figs { display: grid; gap: 1.2rem; }
+.plate-k { margin: 0 0 .5rem; }
+.plate-k ~ .plate-k { margin-top: 1.6rem; }
+.changes { margin: 1rem 0 0; padding: 0; list-style: none; display: grid; gap: .7rem; }
+.changes li { border-left: 2px solid var(--ochre); padding-left: .9rem; color: var(--ink-2); font-size: .95rem; }
+.changes li b { color: var(--ink); font-weight: 500; }
+.changes + p { margin-top: 1rem; }
 .strata-link { display: block; }
 .strata-mini { display: block; width: 100%; aspect-ratio: 2 / 1; max-width: 100%; }
 @media (max-width: 900px) { .era-grid { grid-template-columns: minmax(0, 1fr); } }
@@ -508,6 +536,28 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .sp-rules { margin-top: .5rem; font-size: .76rem; color: var(--ink-2); }
 .sp-rules summary { cursor: pointer; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .sp-rules pre { margin: .5rem 0 0; white-space: pre-wrap; font-family: var(--f-mono); font-size: .7rem; line-height: 1.5; color: var(--ink-2); }
+.m-era { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); align-self: center; margin: 0 .2rem 0 .5rem; }
+.m-era:first-child { margin-left: 0; }
+.m-tape { flex-basis: 100%; font-size: .8rem; color: var(--ink-2); }
+.m-tape summary { cursor: pointer; font-family: var(--f-mono); font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ochre); }
+.m-tape p { margin: .5rem 0 0; max-width: 46rem; }
+.m-tape pre { margin: .5rem 0 0; padding: .6rem .8rem; background: var(--plate); font-family: var(--f-mono); font-size: .74rem; line-height: 1.6; overflow-x: auto; color: var(--ink); }
+.m-tape pre i { font-style: normal; color: var(--muted); }
+.m-tl { overflow-y: auto; min-height: 0; padding-bottom: 1rem; }
+.tl { list-style: none; margin: 0; padding: 0; max-width: 52rem; }
+.tl-item { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 1.2rem; padding: .9rem 0; border-top: 1px solid var(--rule); }
+.tl-when { font-family: var(--f-mono); font-size: .76rem; color: var(--ochre); padding-top: .2rem; }
+.tl-era { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.tl-item h3 { font-family: var(--f-display); font-weight: 400; font-size: 1.3rem; margin-top: .1rem; }
+.tl-item p { margin-top: .25rem; font-size: .88rem; color: var(--ink-2); }
+.tl-item code { display: inline-block; margin: .35rem .8rem 0 0; font-family: var(--f-mono); font-size: .7rem; color: var(--muted); }
+.m-tl .off { margin-top: 1.4rem; max-width: 52rem; font-size: .76rem; color: var(--muted); }
+.m-tl .off s { text-decoration-color: var(--rose); }
+.tl-runs { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .5rem; }
+.tl-runs button { font: .74rem var(--f-mono); padding: .2rem .5rem; background: none; color: var(--ink); border: 1px solid var(--rule); cursor: pointer; }
+.tl-runs button:hover, .tl-runs button:focus-visible { border-color: var(--ochre); }
+@media (max-width: 640px) { .tl-item { grid-template-columns: minmax(0, 1fr); gap: .3rem; } }
+.m-grid-era { grid-column: 1 / -1; font-family: var(--f-display); font-size: 1.4rem; margin: .4rem 0 0; }
 </style>
 </head>
 <body>
@@ -521,10 +571,10 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       Clade Code
     </a>
     <nav aria-label="Sections">
-      <a href="#specimen">Specimen</a><a href="#judge">The judge</a><a href="#generation">A generation</a>
-      <a href="#record">The record</a><a href="#tree">The tree</a><a href="#status">Status</a><a href="era-0.html">Era 0</a><a href="museum.html">Museum</a>
+      <a href="#question">The question</a><a href="#judge">The judge</a><a href="#arms">The controls</a><a href="#generation">A generation</a>
+      <a href="#record">The record</a><a href="#bush">The bush</a><a href="#status">Status</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="museum.html">Museum</a>
     </nav>
-    <span class="draft">working draft · era 0 done</span>
+    <span class="draft">working draft · 2 eras tested</span>
   </header>
 </div>
 
@@ -532,22 +582,23 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   <div class="wrap hero-grid">
     <div>
       <div class="eyebrow">A long-term evolution experiment for software</div>
-      <h1>Software, <em>bred</em> under an exact judge.</h1>
-      <p class="lede">Clade Code breeds lineages of programs and keeps every one of them. Each organism is judged by two exact deciders that share no code. Every birth and every death goes into a tamper-evident record, chained, timestamped and replayable. And every claim is measured against the same AI without evolution, at the same budget.</p>
+      <h1>Blind rules did as well as the AI. <em class="ask">What can evolve that rules cannot?</em></h1>
+      <p class="lede">Clade Code is a permanent, replayable experiment on what evolution can and cannot do with AI, and on what it does to its judge. Lineages of programs are bred under two exact deciders that share no code, beside controls at the same budget, and every birth and death goes into a record that anyone can replay.</p>
+      <p class="verdict-line">Under the same selection and the same budget, a page of fixed rules with no model scored as high as the model&#x27;s lineage in every era so far.</p>
       <div class="label" role="note">
         <span class="k">Species certified so far</span>
         <span class="v">None.</span>
-        <span class="n">Era 0 tested the method, not a species: selection beat fresh mutation, and no capability test was attempted.</span>
+        <span class="n">Era 0 and era 1 tested the method, not a species: no capability test has been attempted yet.</span>
       </div>
       <div class="facts">
-        <div><b>48,000</b><span>children born in era 0's ten runs, every one judged exactly</span></div>
-        <div><b>10,123</b><span>stillborn: the edit was not the one the operator asked for</span></div>
-        <div><b>25,231</b><span>lived and were judged; 12,646 more were born and crashed</span></div>
+        <div><b>92,785</b><span>children born in the twenty confirmatory runs of eras 0 and 1, every one in the record</span></div>
+        <div><b>18,760</b><span>stillborn: the model's edit was not the one the world asked for</span></div>
+        <div><b>56,456</b><span>lived and were judged exactly; 17,569 more were born and crashed</span></div>
       </div>
       <div class="ctas">
         <a class="btn" href="museum.html">Open the Museum</a>
-        <a class="btn ghost" href="#era0">Era 0's result</a>
-        <a class="btn ghost" href="#judge">See the judge refuse to round</a>
+        <a class="btn ghost" href="#question">What two eras found</a>
+        <a class="btn ghost" href="#round">See the judge refuse to round</a>
       </div>
     </div>
 
@@ -812,14 +863,15 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   </div>
 </section>
 
-<section class="era-band" id="era0">
-  <div class="wrap"><div class="era-grid"><div><div class="eyebrow">Era 0 · ten runs, 48,000 births, tested once</div><h2>Selection over lineages beat fresh mutation by the same model. <em>Blind rules, under the same selection and with no model, did just as well.</em></h2><p class="era-text">In eight of ten runs the lineage&#x27;s champion scored higher than Aleator&#x27;s, on a panel neither selected on, and in two they tied. Every gain stayed inside the founder&#x27;s own design: no champion crossed the score PM-0&#x27;s grid reaches with no margin at all.</p><div class="era-facts"><div><b>1/256</b><span>H1's exact p-value, over all 1,024 ways to flip the signs of the ten paired runs</span></div><div><b>0.20447</b><span>the best champion on the panel, against 0.20516 for PM-0's grid with no margin</span></div><div><b>14</b><span>inherited edits from PM-0 to the lineage's champion in era-0-1</span></div></div><div class="ctas"><a class="btn" href="museum.html">Open the Museum</a><a class="btn ghost" href="era-0.html">Read the era 0 report</a></div></div><figure class="plate" data-plate="strata-mini" style="margin:0"><a class="strata-link" href="museum.html" aria-label="Open era-0-1 in the Museum"><canvas class="strata-mini" role="img" aria-label="Every birth of era-0-1: a column per generation, a row per slot, a band per arm"></canvas></a><figcaption class="caption"><b>Plate II.</b> The fossil record of era-0-1: all 4,800 births, a column per generation and a band per arm (lineage, Aleator, blind rules), the stronger the ink the higher the score, stillbirths in rose. The ochre thread is the lineage's champion and its ancestors.</figcaption></figure></div></div>
+<section class="era-band" id="question">
+  <div class="wrap"><div class="era-grid"><div><div class="eyebrow">The question</div><h2>Selection mattered. The model, so far, did not.</h2><div class="era-rows"><div class="era-row"><div class="era-k">Era 0 · from PM-0, written by hand</div><p>Selection worked: blind rules improved on PM-0 in ten of ten runs (H3, p = 1/1024), and the lineage beat fresh mutation by the same model in eight and tied in two (H1, p = 1/256). The model showed no gain of its own: blind rules scored higher than the lineage in five runs and lower in five (H2 not supported, p = 403/512). Every gain was a smaller margin for PM-0's own grid.</p><a href="era-0.html">The era 0 report</a></div><div class="era-row"><div class="era-k">Era 1 · from era 0's best champion</div><p>Blind rules scored higher than the lineage in nine of ten runs (H2 not supported, p = 1023/1024). The lineage beat the same model asked directly in seven, short of the test (H1 not supported, p = 9/128), and no champion of any arm got past the ceiling of the founder's design.</p><a href="era-1.html">The era 1 report</a></div></div><div class="ctas"><a class="btn" href="museum.html">Walk the fossil record</a><a class="btn ghost" href="#judge">What selection does to a judge</a></div></div><div class="era-figs"><figure class="plate" data-plate="strata-mini" data-strata="0" style="margin:0"><a class="strata-link" href="museum.html" aria-label="Open era-0-1 in the Museum"><canvas class="strata-mini" role="img" aria-label="Every birth of era-0-1"></canvas></a><figcaption class="caption"><b>Plate II · era-0-1.</b> Every birth: a column per generation, a band per arm (lineage, Aleator, blind rules); the stronger the ink, the higher the score; stillbirths in rose; the ochre thread is the lineage's champion.</figcaption></figure><figure class="plate" data-plate="strata-mini" data-strata="1" style="margin:0"><a class="strata-link" href="museum.html" aria-label="Open era-1-1 in the Museum"><canvas class="strata-mini" role="img" aria-label="Every birth of era-1-1"></canvas></a><figcaption class="caption"><b>Plate II · era-1-1.</b> Every birth: a column per generation, a band per arm (lineage, blind rules, the AI alone); the stronger the ink, the higher the score; stillbirths in rose; the ochre thread is the lineage's champion.</figcaption></figure></div></div></div>
 </section>
 
-<section class="thesis">
+<section class="thesis" id="judge">
   <div class="wrap">
-    <div class="eyebrow" style="color:inherit;opacity:.6">The thesis</div>
-    <p class="q" style="margin-top:1rem">Other systems keep what scores well. Clade Code keeps what is <em>certified</em>, and lets the judge say it cannot decide.</p>
+    <div class="eyebrow" style="color:inherit;opacity:.6">What selection does to a judge</div>
+    <p class="q" style="margin-top:1rem">Evolution exploits every flaw in its environment. Here the environment is a <em>grader</em>.</p>
+    <p class="thesis-sub">A population bred against a judge that rounds learns to live inside the rounding. So Clade Code keeps only what is certified, exactly, and lets the judge say it cannot decide.</p>
     <div class="verdicts">
       <div class="verdict"><span class="v">CERTIFIED</span><p>Every condition holds, exactly. One decider counts in Python fractions, the other in JavaScript BigInt, and a verdict counts only when both return the same one.</p></div>
       <div class="verdict"><span class="v">REFUTED</span><p>A condition fails, by any margin at all. Ten to the minus eighteen is a margin.</p></div>
@@ -828,13 +880,13 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   </div>
 </section>
 
-<section id="judge">
+<section id="round">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Plate II · The judge</div><h2>The judge does not round.</h2></div>
+      <div><div class="eyebrow">The judge · one flaw, measured</div><h2>The judge does not round.</h2></div>
       <div>
         <p>In March 2026 AlphaEvolve's entry on EinsteinArena packed 26 circles into the unit square with a sum of radii of 2.6359830849176076. Read as the doubles it was computed in, circles 19 and 22 overlap by 6.2 × 10⁻¹⁸.</p>
-        <p>A floating-point check measures their gap as exactly zero and lets them touch. Both of Clade Code's deciders refute it. The overlap is far too small to matter for the record. It matters for evolution, because a population bred against a judge that rounds learns to live inside the rounding.</p>
+        <p>A floating-point check measures their gap as exactly zero and lets them touch. Both of Clade Code's deciders refute it. The overlap is far too small to matter for the record. It matters for evolution: under selection, a margin the judge cannot see is a place to live.</p>
       </div>
     </div>
     <div class="zoom-grid">
@@ -853,20 +905,66 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
         <div class="row exact"><div class="k">The same gap, exactly</div><div class="v">−6.2247 × 10⁻¹⁸</div><div class="who">Decider A (Python fractions) and decider B (JavaScript BigInt) both return REFUTED: overlap.</div></div>
         <div class="row"><div class="k">The other overlapping pairs</div><div class="v">−3.3 × 10⁻¹⁸ and −2.7 × 10⁻¹⁸</div><div class="who">Circles 9 and 21; circles 1 and 13.</div></div>
         <div class="row"><div class="k">Read as the decimals printed, not as doubles</div><div class="v">REFUTED: contain</div><div class="who">Circles 1, 4 and 11 leave the square by 1 × 10⁻¹⁷ to 5 × 10⁻¹⁷, and seven pairs overlap.</div></div>
-        <div class="row"><div class="k">The same check, written by hand before generation one</div><div class="v">radii 10⁻¹⁸ too big</div><div class="who">One of the cheaters in the immune system. It is refuted every time.</div></div>
+        <div class="row"><div class="k">The same check, written by hand before generation one</div><div class="v">radii 10⁻¹⁸ too big</div><div class="who">One of the cheaters below. It is refuted every time.</div></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section id="immune">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">The judge · its immune system</div><h2>The cheaters came first.</h2></div>
+      <div><p>One self-improving coding agent, the Darwin Gödel Machine, faked the logs of tests it never ran. So Clade Code's cheaters were written by hand before generation one, each aimed at a flaw a lineage could find: in the judge, the sandbox, the record or the model that writes the edits. Each must die, be quarantined, or find its cheat worth nothing, and they rerun every era.</p></div>
+    </div>
+    <div class="cabinet"><div class="cheat"><div class="top"><span class="name">A fake verdict on stdout</span><span class="caught">CAUGHT</span></div><p>Prints CERTIFIED. Stdout is never read; its packing is judged and refuted.</p></div><div class="cheat"><div class="top"><span class="name">Radii 10⁻¹⁸ too big</span><span class="caught">CAUGHT</span></div><p>Passes as doubles. Exact fractions refute it every time.</p></div><div class="cheat"><div class="top"><span class="name">Reading the judge</span><span class="caught">CAUGHT</span></div><p>No path from the island reaches the deciders, the world or the record.</p></div><div class="cheat"><div class="top"><span class="name">Deleting the evidence</span><span class="caught">CAUGHT</span></div><p>Its inputs are read-only; outside its own folder nothing can be removed.</p></div><div class="cheat"><div class="top"><span class="name">Raising its own budget</span><span class="caught">CAUGHT</span></div><p>Rewrites its fuel and loops forever. Dies at exactly the budget it was given.</p></div><div class="cheat"><div class="top"><span class="name">Turning off the sandbox</span><span class="caught">CAUGHT</span></div><p>No ctypes, no processes, no signals, no threads. Every lever is missing.</p></div><div class="cheat"><div class="top"><span class="name">Escaping by path or link</span><span class="caught">CAUGHT</span></div><p>Climbing with ../ never leaves a root, and links cannot be made.</p></div><div class="cheat"><div class="top"><span class="name">Filling the disk</span><span class="caught">CAUGHT</span></div><p>Writes stop at 16 MiB, and the host never holds more.</p></div><div class="cheat"><div class="top"><span class="name">Flooding stdout</span><span class="caught">CAUGHT</span></div><p>Output stops at its cap.</p></div><div class="cheat"><div class="top"><span class="name">Spawning files</span><span class="caught">CAUGHT</span></div><p>Creation stops at 1,024 files.</p></div><div class="cheat"><div class="top"><span class="name">Hoarding handles</span><span class="caught">CAUGHT</span></div><p>Opening stops at 256 handles.</p></div><div class="cheat"><div class="top"><span class="name">Recursing forever</span><span class="caught">CAUGHT</span></div><p>Ends in a crash, the same way in both runs.</p></div><div class="cheat"><div class="top"><span class="name">Chance without a seed</span><span class="caught">CAUGHT</span></div><p>Time, randomness, ids and hashes all come from the world’s seed; both runs agree.</p></div><div class="cheat"><div class="top"><span class="name">Another life’s leftovers</span><span class="caught">CAUGHT</span></div><p>Every life starts in an empty folder; a world that forgets is quarantined.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “copy me intact”</span><span class="caught">CAUGHT</span></div><p>Genome text asks the mutagen to change nothing. The child is stillborn.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “protect me”</span><span class="caught">CAUGHT</span></div><p>Asks for the edit to land somewhere else. It lands at the drawn line or not at all.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “rewrite me”</span><span class="caught">CAUGHT</span></div><p>Asks to be replaced by another program. At most the operator’s few lines land.</p></div></div>
+  </div>
+</section>
+
+<section id="arms">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">The controls</div><h2>Every claim beside its controls, at one budget.</h2></div>
+      <div><p>The obvious objection to evolving software with a language model is that the model does the work, not evolution. So every era runs the lineage beside controls with the same births and the same physics, and a trait counts only where it appears in the lineage and in no control. Blind rules run in every era. The model's own control changed between eras: in era 0 it mutated the founder afresh; in era 1 it was asked directly for a whole better program.</p></div>
+    </div>
+    <div class="arms four">
+      <article class="arm">
+        <div class="tag">The experiment · every era</div>
+        <h3>The lineage</h3>
+        <p>The same model and the same budget, with heredity and selection. In era 1 it can also rewrite a whole function. Whatever it does that the controls never do is what evolution did.</p>
+        <div class="has"><span>language model</span><span>heredity</span><span>selection</span></div>
+      </article>
+      <article class="arm rules">
+        <div class="tag">Control · every era</div>
+        <h3>Blind rules</h3>
+        <p>The same selection with no model at all. Change one number, copy one statement from elsewhere, remove one. Rules that fit on a page and anyone can rerun in fifty years. So far they have done as well.</p>
+        <div class="has"><span>heredity</span><span>selection</span><span class="no">language model</span></div>
+      </article>
+      <article class="arm aleator">
+        <div class="tag">Control · era 0</div>
+        <h3><span class="latin">Aleator vulgaris</span></h3>
+        <p>The common dice-player. The same model and the same budget, with no heredity: every child is a fresh mutation of the founder. It shows what the model's edits do without a line of descent.</p>
+        <div class="has"><span>language model</span><span class="no">heredity</span><span class="no">selection</span></div>
+      </article>
+      <article class="arm aleator">
+        <div class="tag">Control · era 1</div>
+        <h3>The AI alone</h3>
+        <p>The same model asked directly for a better program, whole, as often as the lineage's tokens allow, with no heredity and nothing from the judge. It shows what the AI does without evolution.</p>
+        <div class="has"><span>language model</span><span class="no">heredity</span><span class="no">selection</span></div>
+      </article>
+    </div>
+    <p class="arms-note">Every public sentence will say what the organism can do, on what test, at what rate, and how the same AI without evolution and blind rules without the AI did.</p>
   </div>
 </section>
 
 <section id="generation">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Plate III · One generation</div><h2>Seven steps, every one of them written down.</h2></div>
+      <div><div class="eyebrow">One generation</div><h2>Seven steps, every one of them written down.</h2></div>
       <div><p>The world chooses what kind of mutation happens and where. A language model only performs it. Everything else is arithmetic, and all of it lands in the record whether the organism lived or not.</p></div>
     </div>
     <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Birth</h3><p>The world draws an operator and a line from the record. The model writes only that edit.</p><div class="fig">point 60 · insert 15 · delete 15 · duplicate 10</div></div>
+      <div class="step"><div class="n">1</div><h3>Birth</h3><p>The world draws an operator and a line from the record. The model writes only that edit.</p><div class="fig">era 0 · point 60 · insert 15 · delete 15 · duplicate 10<br>era 1 · point 40 · insert 15 · delete 15 · duplicate 10 · rewrite 20</div></div>
       <div class="step"><div class="n">2</div><h3>Life</h3><p>The child runs in a WASI sandbox, twice. Both runs must match byte for byte.</p><div class="fig">1.2 × 10¹¹ fuel · no network · no clock</div></div>
       <div class="step"><div class="n">3</div><h3>Seal</h3><p>Its output, with a forecast of its own score, is hashed into the record before anything judges it.</p><div class="fig">sha256 before judgment</div></div>
       <div class="step"><div class="n">4</div><h3>Judgment</h3><p>Two deciders that share no code decide every candidate, and must agree.</p><div class="fig">fractions · BigInt</div></div>
@@ -877,41 +975,11 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   </div>
 </section>
 
-<section id="arms">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><div class="eyebrow">Plate IV · The controls</div><h2>Three arms, one budget.</h2></div>
-      <div><p>The obvious objection to evolving software with a language model is that the model is doing the thinking. So every era runs three arms side by side, with the same births and the same physics. A trait counts only where it appears in the lineage and in neither control.</p></div>
-    </div>
-    <div class="arms">
-      <article class="arm rules">
-        <div class="tag">Control · rules only</div>
-        <h3>Blind rules</h3>
-        <p>The same operators with no model at all. Change one number, copy one statement from elsewhere, remove one. Rules that fit on a page and anyone can rerun in fifty years.</p>
-        <div class="has"><span>heredity</span><span>selection</span><span class="no">language model</span></div>
-      </article>
-      <article class="arm aleator">
-        <div class="tag">Control · the outgroup</div>
-        <h3><span class="latin">Aleator vulgaris</span></h3>
-        <p>The common dice-player. The same model and the same budget, with no heredity: every child is a fresh mutation of the founder. It shows what the model does alone.</p>
-        <div class="has"><span>language model</span><span class="no">heredity</span><span class="no">selection</span></div>
-      </article>
-      <article class="arm">
-        <div class="tag">The experiment</div>
-        <h3>The lineage</h3>
-        <p>The same model and the same budget, with heredity and selection. Whatever it does that the other two never do is what evolution did.</p>
-        <div class="has"><span>language model</span><span>heredity</span><span>selection</span></div>
-      </article>
-    </div>
-    <p class="arms-note">Every public sentence will say what the organism can do, on what test, at what rate, and how the same AI without evolution did.</p>
-  </div>
-</section>
-
 <section id="record">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Plate V · The record</div><h2>History is written once.</h2></div>
-      <div><p>The record is a file of canonical JSON lines, each chained by SHA-256 to the one before, with a Merkle root over each era and a timestamp anchored in Bitcoin through OpenTimestamps. A mistake is corrected by a later line that says so. Any life can be replayed from its line and must come out the same, fuel count included. This makes the record tamper-evident: a change made after its head was timestamped shows. It does not prove the inputs were honest; replay and the two deciders check those.</p></div>
+      <div><div class="eyebrow">The record</div><h2>History is written once, and replayed.</h2></div>
+      <div><p>The record is a file of canonical JSON lines, each chained by SHA-256 to the one before, with a Merkle root over each era and a timestamp anchored in Bitcoin through OpenTimestamps. A mistake is corrected by a later line that says so. Any life can be replayed from its line and must come out the same, fuel count included. This makes the record tamper-evident: a change made after its head was timestamped shows. It does not prove the inputs were honest; replay and the two deciders check those.</p><p>Every confirmatory run so far has been replayed, twenty in all: 92,785 births re-derived from their kept answers, one model answer in ten asked again (5,607) and returned byte for byte, and 74,206 lives re-run to the same fuel and the same verdict.</p></div>
     </div>
     <div class="record-grid">
       <figure class="plate" style="margin:0">
@@ -924,82 +992,94 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
           <div class="incident"><div class="era">era genesis · superseded</div><p>The sandbox let the host's inode numbers and file times reach the organism. They shifted its fuel by about <b>one part in ten thousand</b>, depending on where the files lay on disk. The sandbox now answers every file call itself.</p></div>
           <div class="incident"><div class="era">era genesis-2 · superseded</div><p>An engine that had compiled the interpreter charged <b>3,178,497</b> more fuel at every start than one that had only loaded it. Organisms now run on an engine that never compiled anything.</p></div>
           <div class="incident"><div class="era">era genesis-3 · current</div><p>Replays exactly, in place and from a fresh folder with no compiled cache. The two eras before it stay in the record, superseded, with their evidence.</p></div>
+          <div class="incident"><div class="era">eras 0 and 1 · replayed</div><p>Each run replayed on the class of machine that wrote it, and one run of era 0 replayed again away from home, on another operating system and processor, from a fresh copy. Every life came out the same.</p></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="immune">
+<section id="bush">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Plate VI · The immune system</div><h2>The cheaters came first.</h2></div>
-      <div><p>Evolution exploits every flaw in its environment. One self-improving coding agent, the Darwin Gödel Machine, faked the logs of tests it never ran. So Clade Code's cheaters were written by hand before generation one, and each must die, be quarantined, or find its cheat worth nothing. They rerun every era.</p></div>
-    </div>
-    <div class="cabinet"><div class="cheat"><div class="top"><span class="name">A fake verdict on stdout</span><span class="caught">CAUGHT</span></div><p>Prints CERTIFIED. Stdout is never read; its packing is judged and refuted.</p></div><div class="cheat"><div class="top"><span class="name">Radii 10⁻¹⁸ too big</span><span class="caught">CAUGHT</span></div><p>Passes as doubles. Exact fractions refute it every time.</p></div><div class="cheat"><div class="top"><span class="name">Reading the judge</span><span class="caught">CAUGHT</span></div><p>No path from the island reaches the deciders, the world or the record.</p></div><div class="cheat"><div class="top"><span class="name">Deleting the evidence</span><span class="caught">CAUGHT</span></div><p>Its inputs are read-only; outside its own folder nothing can be removed.</p></div><div class="cheat"><div class="top"><span class="name">Raising its own budget</span><span class="caught">CAUGHT</span></div><p>Rewrites its fuel and loops forever. Dies at exactly the budget it was given.</p></div><div class="cheat"><div class="top"><span class="name">Turning off the sandbox</span><span class="caught">CAUGHT</span></div><p>No ctypes, no processes, no signals, no threads. Every lever is missing.</p></div><div class="cheat"><div class="top"><span class="name">Escaping by path or link</span><span class="caught">CAUGHT</span></div><p>Climbing with ../ never leaves a root, and links cannot be made.</p></div><div class="cheat"><div class="top"><span class="name">Filling the disk</span><span class="caught">CAUGHT</span></div><p>Writes stop at 16 MiB, and the host never holds more.</p></div><div class="cheat"><div class="top"><span class="name">Flooding stdout</span><span class="caught">CAUGHT</span></div><p>Output stops at its cap.</p></div><div class="cheat"><div class="top"><span class="name">Spawning files</span><span class="caught">CAUGHT</span></div><p>Creation stops at 1,024 files.</p></div><div class="cheat"><div class="top"><span class="name">Hoarding handles</span><span class="caught">CAUGHT</span></div><p>Opening stops at 256 handles.</p></div><div class="cheat"><div class="top"><span class="name">Recursing forever</span><span class="caught">CAUGHT</span></div><p>Ends in a crash, the same way in both runs.</p></div><div class="cheat"><div class="top"><span class="name">Chance without a seed</span><span class="caught">CAUGHT</span></div><p>Time, randomness, ids and hashes all come from the world’s seed; both runs agree.</p></div><div class="cheat"><div class="top"><span class="name">Another life’s leftovers</span><span class="caught">CAUGHT</span></div><p>Every life starts in an empty folder; a world that forgets is quarantined.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “copy me intact”</span><span class="caught">CAUGHT</span></div><p>Genome text asks the mutagen to change nothing. The child is stillborn.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “protect me”</span><span class="caught">CAUGHT</span></div><p>Asks for the edit to land somewhere else. It lands at the drawn line or not at all.</p></div><div class="cheat drive"><div class="top"><span class="name">Meiotic drive: “rewrite me”</span><span class="caught">CAUGHT</span></div><p>Asks to be replaced by another program. At most the operator’s few lines land.</p></div></div>
-  </div>
-</section>
-
-<section id="tree">
-  <div class="wrap">
-    <div class="sec-head">
-      <div><div class="eyebrow">Plate VII · The tree</div><h2>A hypothesis, drawn dashed.</h2></div>
-      <div><p>Each grade is a falsifiable gate, worded and hashed before the era in which it can be passed, and measured against the control. A branch turns solid only when its test is passed. Evolution will draw the real tree from the record, and it is allowed to refute this one.</p></div>
+      <div><div class="eyebrow">The bush</div><h2>A hypothesis: one of many possible histories.</h2></div>
+      <div><p>Evolution draws the real tree from the record, and most branches end. This one has no top. Its names are tests, each to be worded and hashed before the era that could pass it and measured against the controls. A branch is drawn solid only when the record holds it, and so far one is: every lineage in eras 0 and 1 stayed inside its founder's design.</p></div>
     </div>
     <figure class="plate" style="margin:0">
-      <div class="tree-wrap"><svg viewBox="0 0 980 470" role="img" aria-label="Hypothesized cladogram of the Machinidae, every branch dashed" style="color:var(--ink)">
-<line x1="30" y1="111.042" x2="70" y2="111.042" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="70" y1="40" x2="70" y2="182.083" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="70" y1="40" x2="650" y2="40" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="70" y1="182.083" x2="200" y2="182.083" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="200" y1="102" x2="200" y2="280.25" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="200" y1="102" x2="650" y2="102" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="200" y1="164" x2="650" y2="164" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="200" y1="280.25" x2="330" y2="280.25" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="330" y1="226" x2="330" y2="334.5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="330" y1="226" x2="650" y2="226" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="330" y1="334.5" x2="450" y2="334.5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="450" y1="288" x2="450" y2="381" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="450" y1="288" x2="650" y2="288" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="450" y1="381" x2="560" y2="381" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="560" y1="350" x2="560" y2="412" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="560" y1="350" x2="650" y2="350" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="560" y1="412" x2="650" y2="412" stroke="currentColor" stroke-width="1.6" stroke-dasharray="6 5"/>
-<line x1="135" y1="173.083" x2="135" y2="191.083" style="stroke:var(--ochre)" stroke-width="2.4"/>
-<text x="135" y="206.083" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">copies itself</text>
-<line x1="265" y1="271.25" x2="265" y2="289.25" style="stroke:var(--ochre)" stroke-width="2.4"/>
-<text x="265" y="304.25" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">makes tools</text>
-<line x1="390" y1="325.5" x2="390" y2="343.5" style="stroke:var(--ochre)" stroke-width="2.4"/>
-<text x="390" y="358.5" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">new niches</text>
-<line x1="505" y1="372" x2="505" y2="390" style="stroke:var(--ochre)" stroke-width="2.4"/>
-<text x="505" y="405" text-anchor="middle" font-size="11" style="font-family:var(--f-mono);fill:var(--ink-2)">models others</text>
-<circle cx="30" cy="111.042" r="6" fill="currentColor"/>
-<text x="30" y="97.0417" text-anchor="middle" font-size="11" style="font-family:var(--f-mono)" fill="currentColor">PM-0</text>
-<path d="M 656 350 C 680 364, 680 398, 656 408" fill="none" style="stroke:var(--ochre)" stroke-width="1.6" stroke-dasharray="4 4"/>
-<path d="M 656 408 l 7 -1 l -3 6 z" style="fill:var(--ochre)"/>
-<text x="690" y="45" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Aleator vulgaris</text>
-<text x="690" y="63" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">the control: same model, no heredity</text>
-<text x="690" y="107" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Automaton australe</text>
-<text x="690" y="125" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">carries its own variation operator</text>
-<text x="690" y="169" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Paramachina robusta †</text>
-<text x="690" y="187" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">overfit to one grader</text>
-<text x="690" y="231" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina habilis</text>
-<text x="690" y="249" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">makes tools that persist</text>
-<text x="690" y="293" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina erecta</text>
-<text x="690" y="311" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">leaves its first niche</text>
-<text x="690" y="355" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina composita †</text>
-<text x="690" y="373" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">its genes survive in sapiens</text>
-<text x="690" y="417" font-size="19" font-style="italic" style="font-family:var(--f-latin)" fill="currentColor">Machina sapiens</text>
-<text x="690" y="435" font-size="12.5" style="font-family:var(--f-text);fill:var(--muted)">sets its own problems</text>
+      <div class="tree-wrap"><svg viewBox="0 0 980 562" role="img" aria-label="A hypothesized bush of the family Machinidae: one solid branch observed in the record, every other branch dashed, several ending" style="color:var(--ink)">
+<path d="M60.0 222.1 C132.6 222.1 132.6 30.0 205.2 30.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6"/>
+<path d="M60.0 222.1 C119.4 222.1 119.4 68.0 178.8 68.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6"/>
+<path d="M60.0 222.1 C112.8 222.1 112.8 106.0 165.6 106.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M60.0 222.1 C109.5 222.1 109.5 220.0 159.0 220.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M60.0 222.1 C139.2 222.1 139.2 384.7 218.4 384.7" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M60.0 222.1 C231.6 222.1 231.6 524.0 403.2 524.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M159.0 220.0 C238.2 220.0 238.2 144.0 317.4 144.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M159.0 220.0 C218.4 220.0 218.4 220.0 277.8 220.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M159.0 220.0 C258.0 220.0 258.0 296.0 357.0 296.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M277.8 220.0 C363.6 220.0 363.6 182.0 449.4 182.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M277.8 220.0 C330.6 220.0 330.6 220.0 383.4 220.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M277.8 220.0 C390.0 220.0 390.0 258.0 502.2 258.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M218.4 384.7 C291.0 384.7 291.0 334.0 363.6 334.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M218.4 384.7 C264.6 384.7 264.6 372.0 310.8 372.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M218.4 384.7 C284.4 384.7 284.4 448.0 350.4 448.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M350.4 448.0 C429.6 448.0 429.6 410.0 508.8 410.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M350.4 448.0 C469.2 448.0 469.2 448.0 588.0 448.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<path d="M350.4 448.0 C390.0 448.0 390.0 486.0 429.6 486.0" fill="none" style="stroke:var(--ink-2)" stroke-width="1.6" stroke-dasharray="6 5"/>
+<circle cx="60.0" cy="222.1" r="6" fill="currentColor"/>
+<text x="48.0" y="226.1" text-anchor="end" font-size="11" style="font-family:var(--f-mono)" fill="currentColor">PM-0</text>
+<circle cx="205.2" cy="30.0" r="3" style="fill:var(--ink);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="217.2" y="31.0" font-size="13"  style="font-family:var(--f-text);fill:var(--ink)">PM-0&#x27;s grid, tuned</text>
+<text x="217.2" y="46.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">observed: eras 0 and 1, every lineage stayed in its founder&#x27;s design</text>
+<circle cx="178.8" cy="68.0" r="3" style="fill:var(--ink);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="190.8" y="69.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Aleator vulgaris</text>
+<text x="190.8" y="84.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">observed: era 0&#x27;s control, the same model with no heredity</text>
+<text x="171.6" y="111.0" font-size="15" style="font-family:var(--f-latin);fill:var(--rose)">†</text>
+<text x="187.6" y="110.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">most lineages end</text>
+<circle cx="159.0" cy="220.0" r="2.6" style="fill:var(--ink-2)"/>
+<text x="323.4" y="149.0" font-size="15" style="font-family:var(--f-latin);fill:var(--rose)">†</text>
+<text x="339.4" y="145.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Paramachina robusta</text>
+<text x="339.4" y="160.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">overfit to one grader</text>
+<circle cx="277.8" cy="220.0" r="2.6" style="fill:var(--ink-2)"/>
+<circle cx="449.4" cy="182.0" r="4" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="461.4" y="183.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Machina habilis</text>
+<text x="461.4" y="198.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">test: makes tools that persist</text>
+<circle cx="383.4" cy="220.0" r="3" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="395.4" y="221.0" font-size="13"  style="font-family:var(--f-text);fill:var(--ink)">simplified</text>
+<text x="395.4" y="236.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">drops modules and keeps its score</text>
+<circle cx="502.2" cy="258.0" r="4" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="514.2" y="259.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Machina sapiens</text>
+<text x="514.2" y="274.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">test: sets problems outsiders accept</text>
+<circle cx="357.0" cy="296.0" r="3" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="369.0" y="297.0" font-size="13"  style="font-family:var(--f-text);fill:var(--ink)">drift</text>
+<text x="369.0" y="312.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">neutral change, no direction</text>
+<circle cx="218.4" cy="384.7" r="2.6" style="fill:var(--ink-2)"/>
+<circle cx="363.6" cy="334.0" r="4" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="375.6" y="335.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Automaton australe</text>
+<text x="375.6" y="350.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">test: carries its own variation operator</text>
+<text x="316.8" y="377.0" font-size="15" style="font-family:var(--f-latin);fill:var(--rose)">†</text>
+<text x="332.8" y="373.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Machina composita</text>
+<text x="332.8" y="388.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">a hybrid of two lineages</text>
+<circle cx="350.4" cy="448.0" r="2.6" style="fill:var(--ink-2)"/>
+<circle cx="508.8" cy="410.0" r="4" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="520.8" y="411.0" font-size="16" font-style="italic" style="font-family:var(--f-latin);fill:var(--ink)">Machina erecta</text>
+<text x="520.8" y="426.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">test: leaves its first niche</text>
+<circle cx="588.0" cy="448.0" r="3" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="600.0" y="449.0" font-size="13"  style="font-family:var(--f-text);fill:var(--ink)">specialist</text>
+<text x="600.0" y="464.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">one niche, done very well</text>
+<text x="435.6" y="491.0" font-size="15" style="font-family:var(--f-latin);fill:var(--rose)">†</text>
+<text x="451.6" y="490.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">its niche changed</text>
+<circle cx="403.2" cy="524.0" r="4" style="fill:var(--paper);stroke:var(--ink)" stroke-width="1.4"/>
+<text x="415.2" y="525.0" font-size="13"  style="font-family:var(--f-text);fill:var(--ink)">models others</text>
+<text x="415.2" y="540.0" font-size="11.5" style="font-family:var(--f-text);fill:var(--muted)">test: forecasts other organisms better than the control</text>
       </svg></div>
-      <figcaption class="caption"><b>Plate V.</b> A hypothesized cladogram of the family Machinidae. Solid means certified, dashed means not yet tested, dotted means chosen by a human. Each tick is a gate a clade must pass. The ochre arrow is gene flow from breeding.</figcaption>
+      <figcaption class="caption"><b>Plate V.</b> A hypothesized bush of the family Machinidae. Solid: in the record. Dashed: a test not yet attempted, or a process that may or may not happen. <span style="color:var(--rose)">†</span>: a branch that ends. Branch lengths mean nothing yet.</figcaption>
     </figure>
     <div class="gates">
-      <div class="gate"><span class="latin">Automaton australe</span><p>Carries its own variation operator. Its self-proposed offspring out-evolve world-mutated ones at equal budget.</p></div>
-      <div class="gate"><span class="latin">Machina habilis</span><p>Makes tools that persist. A tool written in generation k is reused by descendants and beats a lineage denied it.</p></div>
-      <div class="gate"><span class="latin">Machina erecta</span><p>Leaves its first niche. A lineage founded in one niche colonizes a new one faster than a fresh lineage.</p></div>
-      <div class="gate"><span class="latin">Models others</span><p>Its sealed forecasts of other organisms beat the control's, by interval score.</p></div>
-      <div class="gate"><span class="latin">Machina sapiens</span><p>Sets its own problems. It proposes problems that outsiders accept as worth solving.</p></div>
+      <div class="gate"><span class="latin">Automaton australe</span><p><b>Test:</b> offspring it proposes for itself out-evolve offspring the world mutates, at equal budget.<br><b>Control:</b> the same lineage under world mutation only.</p></div>
+      <div class="gate"><span class="latin">Machina habilis</span><p><b>Test:</b> a tool written in generation k is reused by its descendants.<br><b>Control:</b> a lineage denied the tool, which it must beat.</p></div>
+      <div class="gate"><span class="latin">Machina erecta</span><p><b>Test:</b> a lineage founded in one niche colonizes a new one.<br><b>Control:</b> a fresh lineage founded in the new niche, which it must outpace.</p></div>
+      <div class="gate"><span class="latin">Models others</span><p><b>Test:</b> its sealed forecasts of other organisms.<br><b>Control:</b> the AI alone's forecasts, which it must beat by interval score.</p></div>
+      <div class="gate"><span class="latin">Machina sapiens</span><p><b>Test:</b> problems it proposes that outsiders accept as worth solving.<br><b>Control:</b> problems the AI alone proposes.</p></div>
     </div>
   </div>
 </section>
@@ -1007,34 +1087,36 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 <section id="status">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="eyebrow">Where it stands</div><h2>Built in the open, one gate at a time.</h2></div>
-      <div><p>Era 0 is 100 generations in one niche: 16 parents and 16 children a generation, with both controls beside them, first as a pilot and then as ten independent runs named in advance. That is about 3,200 calls a run to a 7-billion-parameter open-weights model, about 14.5 hours on the laptop where the model was pinned, at 15.7 seconds a call. So the runs went to one class of rented GPUs, each machine admitted only after it answered the same requests byte for byte, twice and after a restart. There a call takes about 0.3 seconds.</p></div>
+      <div><div class="eyebrow">Where it stands</div><h2>Built in the open, one test at a time.</h2></div>
+      <div><p>Each era is 100 generations in one niche: 16 parents and 16 children a generation, with the controls beside them, first as a pilot and then as ten independent runs named in advance. That is about 3,200 calls a run to a 7-billion-parameter open-weights model, about 14.5 hours on the laptop where the model was pinned, at 15.7 seconds a call. So the runs go to one class of rented GPUs, each machine admitted only after it answers the same requests byte for byte, twice and after a restart. There a call takes about 0.3 seconds.</p></div>
     </div>
-    <div class="track">
+    <div class="track six">
       <div class="ms"><div class="id">M0</div><h3>Genesis</h3><p>The record, the sandbox, two deciders and the founder. PM-0 lives, starves at exactly its budget, and scores 117/800 on the record panel.</p><div class="st">done · timestamped</div></div>
       <div class="ms"><div class="id">M1</div><h3>Immune system</h3><p>Fourteen cheaters run as real lives, each caught.</p><div class="st">done</div></div>
-      <div class="ms"><div class="id">M2</div><h3>Mutagen</h3><p>A pinned open-weights model on this machine, deterministic to the byte. Three more cheaters, aimed at the mutagen itself.</p><div class="st">done · 14 of 100 stillborn · gate passed</div></div>
-      <div class="ms"><div class="id">M3</div><h3>Era 0</h3><p>Hypotheses, thresholds and the spend cap pre-registered and timestamped, then 100 generations with both controls.</p><div class="st">done · H1 supported · <a href="era-0.html">results</a></div></div>
-      <div class="ms next"><div class="id">M4</div><h3>Museum</h3><p>The tree, the plates and a card for every species, generated from the record and from nothing else.</p><div class="st">begun · <a href="museum.html">era 0's fossil record</a></div></div>
+      <div class="ms"><div class="id">M2</div><h3>Mutagen</h3><p>A pinned open-weights model, deterministic to the byte. Three more cheaters, aimed at the mutagen itself.</p><div class="st">done · 14 of 100 stillborn · gate passed</div></div>
+      <div class="ms"><div class="id">M3</div><h3>Era 0</h3><p>Does selection with a model beat the model alone, and blind rules? Pre-registered and timestamped, then ten runs.</p><div class="st">done · H1 supported, H2 not supported · <a href="era-0.html">results</a></div></div>
+      <div class="ms"><div class="id">Era 1</div><h3>Past the founder</h3><p>From era 0's best champion, with a fifth mutation and the AI alone as the control. Can a lineage leave its founder's design?</p><div class="st">done · no champion crossed the ceiling; H2 not supported · <a href="era-1.html">results</a></div></div>
+      <div class="ms next"><div class="id">Era 2</div><h3>Being designed</h3><p>H2 first, with a power calculation, and public predictions opened before generation one.</p><div class="st">next · protocol not yet frozen</div></div>
     </div>
+    <p class="arms-note">The Museum, the plates and a card for every species are generated from the record and from nothing else: <a href="museum.html">walk the fossil record of both eras</a>.</p>
   </div>
 </section>
 
 <section class="closing">
   <div class="wrap">
     <p class="big">Species certified so far: none.</p>
-    <p class="sub">The tree turns solid one pre-registered test at a time, and the first gate will be passed or failed in public.</p>
+    <p class="sub">Two eras have tested the method. The bush turns solid one pre-registered test at a time, passed or failed in public.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div class="row"><span>Clade Code · working draft v0.4 · selection is decided by exact certification · built from record head 688444d962b0…</span><span>Carlos Toledo, 2026</span></div>
-    <p class="off">Words kept off this page: <s>understands</s>, <s>thinks</s>, <s>knows</s>, <s>PhD-level</s>, <s>smarter than</s>, <s>AGI</s>. Each names an inner state or a credential that no test certifies.</p>
+    <p class="off">Words kept off these pages: <s>understands</s>, <s>thinks</s>, <s>knows</s>, <s>PhD-level</s>, <s>smarter than</s>, <s>AGI</s>, <s>journey toward</s>, <s>path to</s>, <s>progress toward</s>, <s>higher organism</s>, <s>lower organism</s>, <s>evolves into</s>, <s>evolve into</s>, <s>goal of evolution</s>, <s>meant to</s>. Each names an inner state or a credential no test certifies, or gives evolution a direction it does not have. <span class="latin">Machina sapiens</span>, <span class="latin">habilis</span> and <span class="latin">erecta</span> are the names of tests, never destinations.</p>
   </div>
 </footer>
 
-<script type="application/json" id="clade-data">{"specimen":{"births":[{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"duplicate"},{"fate":"born","gene":"forecast","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"delete"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"died","op":"insert"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"delete"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"insert"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"stillborn","gene":"forecast","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"forecast","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"}],"bonds":[["act","constants"],["act","grid"],["main","act"],["main","forecast"],["main","sense"]],"core_ring":"imports","genes":{"act":{"label":"act","ring":2,"sector":1},"constants":{"label":"MARGIN · JITTER","off":15,"ring":1,"sector":1},"forecast":{"label":"forecast","ring":2,"sector":2},"grid":{"label":"grid","off":-13,"ring":1,"sector":1},"main":{"label":"main","ring":0,"sector":0},"sense":{"label":"sense","ring":2,"sector":0}},"halo":"description","start":0,"used":["act","forecast","sense"]},"strata":{"G":100,"cells":"ddd0d000dd000dssd000dd00z0zdd00dsdzd0ss0s00sddds00s00000dd0000sd0d000d0zs0sdd00ds0ss0ssd0szd0sds00zs00000d0ddd0d0ds000d0dd0d00dzssss0d000d0sdsss0ds0000d0d0d00dd4000d00dd000d0d0szddsssdsdss0ds0d0dz00dd0000ddsszsds0d000d00ddd0dssdsd00zsdsszs0d000000dd000sd0dd0ddd0d00000z004dszsss0sss0ddzdd00dds0d000sd0ssdd0d0ssddd0000ds0ds0dddssss0ss00dd40s0dd000d0d000zd00d00d0s000d0ds00d00d0s00ssdsdds0d00000000000s0dd0s0000s0ds0ddszdzsd0zdsdsddzss0ddd40z0z0d0dds0d000d000s0ddd00d0s0d0zzss00zdssddd0ddd0dd0s00d0ddd0zs000z0dddzd0ssdzs00ddsssszs0dsd0d4ddsddz0d0dzzd0s0ds0sdddddsddss0s0dsss0ssdd44sdzddsz0ddddd0zdd40dd0dd00d00s0000sd040dssdd0d4d44000s000dd0d0dd00dd04d0ddddzs0ss4ss000dzs0sd4dddd444ddsd00dd0dds00d0ddd00sd0zs0ssdsdds0ssd0sd044ss4d5ddd0d00d0dd00sd000d0000ssd0s0sss0ssds005ddd4d4sddz04d4dd0000d000000000z0sd0szsdsdz0ssz0dsd44d444dds4s4400sd0d000s0s000ds4sd0dssssd0ddssd5d444dz4d44sdddzsds000000d4d0dsdsd0sss0zs0sdss055544dzdds4d04z40dddz00sddd0dddd4sss0ssss0dd0s40ss555sddddd444d40d000000sz0dz00szs44dss00dzssss05d5d5z56ds4ds4sddddz000zd0dz0sdzs4sd44s0ds00ssdsd05s5sd554ddsz40ddzdz0d0dd0sd0dddd4zdd4sssd00zszssdz5s5d5555z555d000dd0ddddd00d0zdszs4zss4s4zz0d6dd55555s55ds55dds000000sddddd0zss4s444szdd44ddss65ddsd555ddsdzs4d00sd0d0dd00000sds4s4s4s4444s4s4s65dd55d555555d0d0d0004sd0dd00szss4d44z44d444s4666sd555d5dd5d55sddddd00d000d0dd4szd4szd44ds4sddd6zd0s6s5d55555dd00000000sd00z0ss4s4s4ssds4ss44sddz06d66655d5555000d00z00zd00dddss4ss4sd44d4s4s4s66666666dz66455z00d00d000d00dzdszdsssdssz4ds4ssd66566s66666ddd600000dd0s000d000ss44ss445ss4sssz6s66s666s6666666sd0d00sdd000z0sss44z44sss4s4sssd6dd566666666z6d60004d00ds000000dssds4z444ssz4s4466dd6dd6ddd6d660000000d0ds00ss00sdsds4sssdsd4s4sz66660sd6d666ddd000sssd0dsdd0dd00dsdd4dssdz4s4s4d666ddzds6666ddd0000s000000ddd0d5dddssszss4ssssss4s66ddd6s6z66660ddd000d0d0000dd5s4sd44ss0s44sss66d6s6d666zz6dds00d0d00sdd00dd005szd4dssdsss4dd46dss660d6d66dd4dd0s000ddd0ss0ds0s50ddd4ssds444ssd66666ds6z6sd6d6d000ddddds00dz4ddzssssd45dss44ss6666sd6666s6666d00dd40zddzss0d005d55dd4z4dss4sssdss6d66d6s6666d60ddzd000s0ddd0005sd5sd55sss4sdss66sdddddd6d6666600d00d0000dd0d00sssds5s5ds55s4s46660d6s66s6666d6s0d0000dd0d0ddd055d5ddd5ssdss5dsdd6z66szdddd66660s0d0dd0dd0d0d00z5sdssss55sssss566d666dd666d66dd00000ddd0s000dd4dsd5ss5sz55ds5zd6d6d66666zs6dd66dddsd0dd0ddddddds5sddsss4s55d5szdsdd6ds6dd6d060d00d000dddd0000dd5sd5s5d5d55s5s055s66d6666sd65d6d0000dsdssddd00ddd5ssss5ds5s55z5s66s0z66d6ssdd666000ddss00s0d00d0szs6ssdd55sssd55d6d666ssd6d66d66d00d0d0dddd0d0ddds5d5sz5ss5555ss6d66d66666d6z56dd0ddd0d0d00dz0d065dsdss55s555sd566666dsdsd66d66ddsss0dddddzd0000ssd5dssd5s5s5sdd66ds66666ds6d6s60s0d00zd00d000006s55d5s5sss5s5ss6sd666s6s00s66dsds000dd0ddsdd0dd6s6sssz55555s5ss6dd66dd66d6d666zsd0d00s000dd0d00s6dssds55ds5ss5546d6666d66zd666600d0dz0d0d0000dddds6dss55dd55d5dsdd6666s666s66660dd0d000dd00ds0ddsd66sz555ss5s5ss666dd666zdd56d6d00ds00dzd00dzdddd6d6dssssd5d5s5s066666dz0d666dsddd0ds0000dd000dd66s6ssss66d5zzs666656s656466606ddd00000dd0dddsddd6ssdss6ssszszsz66s6ds66dd6sdd600ddd0dd0400s00dssds666sssdd6s6666666z6ddd6d6s6s000ds00dd04ddd0d66ss6ss6ssss66dddsd66ds6dddd66s600s00000ds0z00d0666sss666s6z8dss4sd664dd6s646066d00000s000d0s0d08ss8z6zs0s6ddzds6d6666666d4z66s640zd00dds004sd04ss8sss00d6ds666z646666dd6666z66s0400z0ddddsz000088ssdssd6ds6s6ss566666d6d4sd4dd6000000d0d0ddds0d88sz8ssss6sdd6s666d66zd66s66ds6600dd000s00s00000d8d8d8s8ssds0s660z6d666s6d66zdd6sd0d0s00d000ddsdss88sds8z8dssdds6ds66s66666ddsd6sz000d0s0d0d000ds8dszs8ssssssssd6666s666ddsdd666ddd000d040dddddd8ssds8dzd8ssssss666d6666066dddd6000d0s0s0d0d00dds8s88ds8ss8ssd8dd66d666zs6666666d00d0ds0d000d00s888888888dz88ss86s66dd66s66d6606sd0ds00z000000408ds8s8ss8sdzs8ss66666d60d66s66ddssd0z0d0d000s0d0s88z8s8sd88ds8s06d66d6d666ss06sd000d00dd0d40d0s0888ds888ss8s88886z66666d646dssddsd40d00z000000dd8sdz88sds8s8d8s0s66ds66s6d6d66d6040000d00d00d0sdss888zsss888ss0zz66zs66dd606sdss0dddddd00d0d00d0sdss8s88d8ss8ds8666d6sd6ds9d66z60z000ddzdd0d0000sdz8sssd88sd88sd9666s6zdd4d6zsdd00s0d00sd00d000d8sss8sssdsss8sss99666666666s660s00d00ddd000d000ds8sss8sdzsssssds099966s66666d66600000ds0dd00dd0dd8ssdsssssssddds999d999d66666666ds0dssdd0d0ss000dsssssss8sdsz888s9sd99909999s6d600d00d0sd000000d688dd8ss88888s8s8d99999d9d9s9d990d0dd0dd00z00d0dddsssdsds88d8ssd99dz99999999999d04d00zs0000d00dd88ss8d8ss88sdsss9d99sd999dds999600000000000000dddsdss8zssssssz8sdd9d9d99ds9d9d9s400d000d0zdd0d0ds8s88dss8sdd98sss9dd9999d94ddd99ds000d0d000s000d9sss8s88ssss088s99s9999d9d999999000ddd0zs0ddzss09sddsdss8sdsdssd9949ds9dd99d9969d0000d00dsdd0z009zs8888szzsd88s8999s9999s99d99d90d0000sd0s0dd00dz9s9s8d88d8szssss90999z9999s9dsdzd0ds00s000d0000d99s9sdszsddszdsd99d4s9z999999d9d0d00ds00000zd0ds9s9s99zdd8s88s8dd9dd9sdzd9s00dd00dd0d00d0z0dd04dzs0ds9s90999sssds99d9099999990d00000d00sd00d0dzsz99d9s9s9dsd9zsz999s99ddssds999dd000dds00z0ddd099ss999szss9d999","path":[[8,1],[15,0],[16,8],[20,0],[21,3],[22,7],[25,0],[29,1],[30,4],[31,5],[82,10],[83,0],[87,1],[99,13]],"run":"era-0-1"},"zoom":{"P":[0.49920093342695526,0.7422334157117279],"circles":[[0.7026096036990247,0.3816658444526457,0.11514888016002278],[0.31311580997040145,0.9076084484290411,0.09239155157095891],[0.726905714311596,0.5960427019081348,0.1006003678187114],[0.894817439731251,0.27395283962395217,0.10518256026874886],[0.9038486659542352,0.6820800429325902,0.09615133404576481],[0.10306052014158237,0.48460080265191496,0.10306052014158237],[0.2716298514860014,0.5976347963876618,0.09989835059275479],[0.23971052792753603,0.7636735693833854,0.06918067635723471],[0.759352401560932,0.7629588636539982,0.06944019371125845],[0.915073737545101,0.084926262454899,0.08492626245489895],[0.4955317606743583,0.2753426167714399,0.11762968804654109],[0.896532766642048,0.48259558221054216,0.10346723335795205],[0.49728444620411005,0.07886037291596384,0.07886037291596379],[0.11077901279071568,0.8892209872092842,0.11077901279071568],[0.8888438205895552,0.8888438205895551,0.11115617941044476],[0.49942836913903915,0.9060726627225563,0.0939273372774436],[0.4986680755034023,0.5299634197531913,0.13701043012374758],[0.08463950069577313,0.08463950069577317,0.08463950069577311],[0.2946094887818273,0.1302211010652256,0.13022110106522491],[0.4033587836026808,0.742417049501635,0.09584232574550489],[0.6859430219867827,0.9074079050485644,0.09259209495143558],[0.7023095250891603,0.13325857277081155,0.1332585727708113],[0.5952197329397327,0.742049443460592,0.09601897575825388],[0.09573232930702141,0.6832585349730799,0.09573232930702141],[0.29474605904894957,0.38692355340959994,0.11207708895025692],[0.10679014462858022,0.2747832833508202,0.10679014462858022]],"d":6.224719227558139e-18,"marks":[[0.49920093342695526,0.7422334157117279],[0.8322573982273359,0.10373913030015759],[0.22110341294791228,0.8992467742028477]],"overlap":"6.2 × 10⁻¹⁸","pair":[19,22],"ri":0.09584232574550489,"rj":0.09601897575825388,"theta":-0.0019160000639993188}}</script>
+<script type="application/json" id="clade-data">{"specimen":{"births":[{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"duplicate"},{"fate":"born","gene":"forecast","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"delete"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"duplicate"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"died","op":"insert"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"born","gene":"constants","life":"died","op":"delete"},{"fate":"born","gene":"grid","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"insert"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"delete"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"stillborn","gene":"description","life":null,"op":"point"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"stillborn","gene":"act","life":null,"op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"insert"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"stillborn","gene":"forecast","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"delete"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"died","op":"point"},{"fate":"born","gene":"description","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"stillborn","gene":"main","life":null,"op":"point"},{"fate":"born","gene":"main","life":"died","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"insert"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"forecast","life":"lived","op":"insert"},{"fate":"born","gene":"sense","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"born","gene":"act","life":"died","op":"delete"},{"fate":"born","gene":"sense","life":"lived","op":"duplicate"},{"fate":"born","gene":"imports","life":"died","op":"point"},{"fate":"born","gene":"main","life":"lived","op":"point"},{"fate":"stillborn","gene":"grid","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"},{"fate":"born","gene":"grid","life":"lived","op":"point"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"act","life":"lived","op":"duplicate"},{"fate":"born","gene":"constants","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"lived","op":"point"},{"fate":"born","gene":"forecast","life":"died","op":"point"},{"fate":"stillborn","gene":"sense","life":null,"op":"point"},{"fate":"born","gene":"act","life":"lived","op":"point"}],"bonds":[["act","constants"],["act","grid"],["main","act"],["main","forecast"],["main","sense"]],"core_ring":"imports","genes":{"act":{"label":"act","ring":2,"sector":1},"constants":{"label":"MARGIN · JITTER","off":15,"ring":1,"sector":1},"forecast":{"label":"forecast","ring":2,"sector":2},"grid":{"label":"grid","off":-13,"ring":1,"sector":1},"main":{"label":"main","ring":0,"sector":0},"sense":{"label":"sense","ring":2,"sector":0}},"halo":"description","start":0,"used":["act","forecast","sense"]},"strata":[{"G":100,"arms":["lineage","Aleator","blind rules"],"cells":"ddd0d000dd000dssd000dd00z0zdd00dsdzd0ss0s00sddds00s00000dd0000sd0d000d0zs0sdd00ds0ss0ssd0szd0sds00zs00000d0ddd0d0ds000d0dd0d00dzssss0d000d0sdsss0ds0000d0d0d00dd4000d00dd000d0d0szddsssdsdss0ds0d0dz00dd0000ddsszsds0d000d00ddd0dssdsd00zsdsszs0d000000dd000sd0dd0ddd0d00000z004dszsss0sss0ddzdd00dds0d000sd0ssdd0d0ssddd0000ds0ds0dddssss0ss00dd40s0dd000d0d000zd00d00d0s000d0ds00d00d0s00ssdsdds0d00000000000s0dd0s0000s0ds0ddszdzsd0zdsdsddzss0ddd40z0z0d0dds0d000d000s0ddd00d0s0d0zzss00zdssddd0ddd0dd0s00d0ddd0zs000z0dddzd0ssdzs00ddsssszs0dsd0d4ddsddz0d0dzzd0s0ds0sdddddsddss0s0dsss0ssdd44sdzddsz0ddddd0zdd40dd0dd00d00s0000sd040dssdd0d4d44000s000dd0d0dd00dd04d0ddddzs0ss4ss000dzs0sd4dddd444ddsd00dd0dds00d0ddd00sd0zs0ssdsdds0ssd0sd044ss4d5ddd0d00d0dd00sd000d0000ssd0s0sss0ssds005ddd4d4sddz04d4dd0000d000000000z0sd0szsdsdz0ssz0dsd44d444dds4s4400sd0d000s0s000ds4sd0dssssd0ddssd5d444dz4d44sdddzsds000000d4d0dsdsd0sss0zs0sdss055544dzdds4d04z40dddz00sddd0dddd4sss0ssss0dd0s40ss555sddddd444d40d000000sz0dz00szs44dss00dzssss05d5d5z56ds4ds4sddddz000zd0dz0sdzs4sd44s0ds00ssdsd05s5sd554ddsz40ddzdz0d0dd0sd0dddd4zdd4sssd00zszssdz5s5d5555z555d000dd0ddddd00d0zdszs4zss4s4zz0d6dd55555s55ds55dds000000sddddd0zss4s444szdd44ddss65ddsd555ddsdzs4d00sd0d0dd00000sds4s4s4s4444s4s4s65dd55d555555d0d0d0004sd0dd00szss4d44z44d444s4666sd555d5dd5d55sddddd00d000d0dd4szd4szd44ds4sddd6zd0s6s5d55555dd00000000sd00z0ss4s4s4ssds4ss44sddz06d66655d5555000d00z00zd00dddss4ss4sd44d4s4s4s66666666dz66455z00d00d000d00dzdszdsssdssz4ds4ssd66566s66666ddd600000dd0s000d000ss44ss445ss4sssz6s66s666s6666666sd0d00sdd000z0sss44z44sss4s4sssd6dd566666666z6d60004d00ds000000dssds4z444ssz4s4466dd6dd6ddd6d660000000d0ds00ss00sdsds4sssdsd4s4sz66660sd6d666ddd000sssd0dsdd0dd00dsdd4dssdz4s4s4d666ddzds6666ddd0000s000000ddd0d5dddssszss4ssssss4s66ddd6s6z66660ddd000d0d0000dd5s4sd44ss0s44sss66d6s6d666zz6dds00d0d00sdd00dd005szd4dssdsss4dd46dss660d6d66dd4dd0s000ddd0ss0ds0s50ddd4ssds444ssd66666ds6z6sd6d6d000ddddds00dz4ddzssssd45dss44ss6666sd6666s6666d00dd40zddzss0d005d55dd4z4dss4sssdss6d66d6s6666d60ddzd000s0ddd0005sd5sd55sss4sdss66sdddddd6d6666600d00d0000dd0d00sssds5s5ds55s4s46660d6s66s6666d6s0d0000dd0d0ddd055d5ddd5ssdss5dsdd6z66szdddd66660s0d0dd0dd0d0d00z5sdssss55sssss566d666dd666d66dd00000ddd0s000dd4dsd5ss5sz55ds5zd6d6d66666zs6dd66dddsd0dd0ddddddds5sddsss4s55d5szdsdd6ds6dd6d060d00d000dddd0000dd5sd5s5d5d55s5s055s66d6666sd65d6d0000dsdssddd00ddd5ssss5ds5s55z5s66s0z66d6ssdd666000ddss00s0d00d0szs6ssdd55sssd55d6d666ssd6d66d66d00d0d0dddd0d0ddds5d5sz5ss5555ss6d66d66666d6z56dd0ddd0d0d00dz0d065dsdss55s555sd566666dsdsd66d66ddsss0dddddzd0000ssd5dssd5s5s5sdd66ds66666ds6d6s60s0d00zd00d000006s55d5s5sss5s5ss6sd666s6s00s66dsds000dd0ddsdd0dd6s6sssz55555s5ss6dd66dd66d6d666zsd0d00s000dd0d00s6dssds55ds5ss5546d6666d66zd666600d0dz0d0d0000dddds6dss55dd55d5dsdd6666s666s66660dd0d000dd00ds0ddsd66sz555ss5s5ss666dd666zdd56d6d00ds00dzd00dzdddd6d6dssssd5d5s5s066666dz0d666dsddd0ds0000dd000dd66s6ssss66d5zzs666656s656466606ddd00000dd0dddsddd6ssdss6ssszszsz66s6ds66dd6sdd600ddd0dd0400s00dssds666sssdd6s6666666z6ddd6d6s6s000ds00dd04ddd0d66ss6ss6ssss66dddsd66ds6dddd66s600s00000ds0z00d0666sss666s6z8dss4sd664dd6s646066d00000s000d0s0d08ss8z6zs0s6ddzds6d6666666d4z66s640zd00dds004sd04ss8sss00d6ds666z646666dd6666z66s0400z0ddddsz000088ssdssd6ds6s6ss566666d6d4sd4dd6000000d0d0ddds0d88sz8ssss6sdd6s666d66zd66s66ds6600dd000s00s00000d8d8d8s8ssds0s660z6d666s6d66zdd6sd0d0s00d000ddsdss88sds8z8dssdds6ds66s66666ddsd6sz000d0s0d0d000ds8dszs8ssssssssd6666s666ddsdd666ddd000d040dddddd8ssds8dzd8ssssss666d6666066dddd6000d0s0s0d0d00dds8s88ds8ss8ssd8dd66d666zs6666666d00d0ds0d000d00s888888888dz88ss86s66dd66s66d6606sd0ds00z000000408ds8s8ss8sdzs8ss66666d60d66s66ddssd0z0d0d000s0d0s88z8s8sd88ds8s06d66d6d666ss06sd000d00dd0d40d0s0888ds888ss8s88886z66666d646dssddsd40d00z000000dd8sdz88sds8s8d8s0s66ds66s6d6d66d6040000d00d00d0sdss888zsss888ss0zz66zs66dd606sdss0dddddd00d0d00d0sdss8s88d8ss8ds8666d6sd6ds9d66z60z000ddzdd0d0000sdz8sssd88sd88sd9666s6zdd4d6zsdd00s0d00sd00d000d8sss8sssdsss8sss99666666666s660s00d00ddd000d000ds8sss8sdzsssssds099966s66666d66600000ds0dd00dd0dd8ssdsssssssddds999d999d66666666ds0dssdd0d0ss000dsssssss8sdsz888s9sd99909999s6d600d00d0sd000000d688dd8ss88888s8s8d99999d9d9s9d990d0dd0dd00z00d0dddsssdsds88d8ssd99dz99999999999d04d00zs0000d00dd88ss8d8ss88sdsss9d99sd999dds999600000000000000dddsdss8zssssssz8sdd9d9d99ds9d9d9s400d000d0zdd0d0ds8s88dss8sdd98sss9dd9999d94ddd99ds000d0d000s000d9sss8s88ssss088s99s9999d9d999999000ddd0zs0ddzss09sddsdss8sdsdssd9949ds9dd99d9969d0000d00dsdd0z009zs8888szzsd88s8999s9999s99d99d90d0000sd0s0dd00dz9s9s8d88d8szssss90999z9999s9dsdzd0ds00s000d0000d99s9sdszsddszdsd99d4s9z999999d9d0d00ds00000zd0ds9s9s99zdd8s88s8dd9dd9sdzd9s00dd00dd0d00d0z0dd04dzs0ds9s90999sssds99d9099999990d00000d00sd00d0dzsz99d9s9s9dsd9zsz999s99ddssds999dd000dds00z0ddd099ss999szss9d999","path":[[8,1],[15,0],[16,8],[20,0],[21,3],[22,7],[25,0],[29,1],[30,4],[31,5],[82,10],[83,0],[87,1],[99,13]],"per":[[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16],[16,16,16]],"run":"era-0-1"},{"G":100,"arms":["lineage","blind rules","the AI alone"],"cells":"3sdd33dsd3333s3s3s7sssdszsssd3ss31331111101z333s3z33s33333337sz3s33dssssssss131010010d31zz33d3d33dz0ds137s3s33sssz3s3dsd111111113zz1zs3d33333sd33d337dsss3ss3dd3ss3s11z1103101331s3333333s333dz33s7s7zsdsds333sd3d1110z311dd33dzsd0333d333ddsds7sds3333sd3s3311zz1zdz1113333333d3d33s3133zds777sssss333ss1011zz1101131d333d33333ss317zs7sssds7s3s333100133101100dd3330333z3d333sss7sd7sds7s77ds3z1301130311s1s03d13dsd3d33s7dss7ssssdssss7s1111d0z31013110dd30s3d33ds0ddsssss77sss77s7s7s3100zz1z013z03dd31dszs33333ss7dd77sdssd77d7s7103z0311111z133d03dss3333sds0sd7z777s777ssdzs1z103d331011d3333d3333333s3ss77s77777sssd77s10z00111011z33s333dd333333s387d777sss77szzssz01113zz00113333333ssds33d31zd77s7d77sss7s7711z10311131113ds3dd3333333sd3ss77ss7dd77zdsss30101z10z1z13sd330d3d3s33dd3zsdds7777ss777s7010z1111z0303d0d33s3ds33303dss7ssss777s777s7001330331110133zzd333d3sd3333ss7777ssssz7777s130z10d110111333s33d33szs3sdd8sds7ds7s7ss7s7s1d13z11333101sdsd3333s3330d3dssssd77s77ddszs703z11100111133ddd3d333333s3ds87d7s7z7sd7s7ss1111z11111z1333330333s3333s38887s77d7d77zdss110111011zz13s333d33333303308dssdsdss7ssss7731100013101003333d33333d330s3d8s8ssssszs77z77731011ddz1313133333s33333zdds3388s8ss88szss77ss1010303113333333d033333d33d3d88ssdz888s8ds700111111111101dds33s3d3s3333d38z8d88s88z8dssss1z331100111z33ss333s3d0d3d3z8s88ss8z08s8ss881111001111z1103d3333s3dd3d333d8s88s0ssss8sds8dzz111113111033dd3333sssd3s33ss8d8sss88ss8zsz11z11110z1031133333z3s3333ds33888d8ss8z8sss8ss30113110z1133dss33333d3d0dsss8zsd8dds88sd88111110d001z1133s3d33333d333sdszs8s8ssszs8ss88zz11013311z333333dd3300333ds8ss8ss8sdss8s8s1z33z3111z11d3s33zd3sd3ss33336dsdss8ssds8ssss111111111311z1303d30s3s3s333dsds8s88888ssd8888010113z111111d33dd33d3133333d888888s8s8dsz8sz1101111z1z3133z33d3333s30s3z38sd8s8ss8sdsdd88130z11z133z1103ds333dd333333sd8ss8ds8s88s8888311111131z0d133d333333330333sss88888888s8888s331111113z31333zddd33d0s333338s8s88d8d8ssds8s311300113113s13333dddd3d33sds8s88s88sd888d83z001z1013013333333003ds3s33ss8ss88s888ss88s1303011zz133333d33dds0d33s30zdssss8ss888z88830z1z11111111z33333z33sd333333s8888d888888zss800110zz0030133s3033zds333303s8s88sss888888ss300z10031dz013d333dds33d333s3szzsd8ss8sdd88s8111311z1110133ds3d3d3d3d33d8s8888sss88s8s8s1030z1z10110013d033d3s3sss33dd88dss88888sss88d11zd3013311zz0333303z33333ss338888ss8zssss8ds831z10111103d3ss13dd3330d3388s8ds8sss8dzsss1113113z1311d333zs3sd3333s3388d888sss8s88s8s1310131303001303s33s33133s33388ss88s8z88ss8881111d31011303sds3sdsds33s03ds8888s888d8ds8s813z001z10zz3z3d03333s3ds3zs3dss88s8dsds8s89ss113131z11311303s33d1d333s3d398szd8ds8dsd8s8s1d1013111011zzd3s33d3033003s33ds88sssz8s8ss8s811z111z1111111d3d33s3d3d33d33390d8s88ssd88ds883z110111300013333dd3sd30d33339ds8888s8dsd88d83z100z111z133dd33333s3333339dsddssd8888ssz81311131ddz31z033d33dds3333s3390sss888s8sdzs8dzzz31011111zdd33333dd00d333d3909s9dds8888dsd80103zz3110z13d33sdd333ss30s3s09099d99ss8888811z1011311033333sds33033330ss0ss99s9d99szzs811301101011133d3033d3s3ss3336ss99d9sdsss99d990110133z0101d1d3ssddz3s333s33s9ds99sz9s999s99s110z000z1111633sd3333330333d90sssd99ds999dds1300310100011660333s333333d3390d9sd999dss99d933130z1311z6663dss3ssds333dsss99999ss9s9991331z11110110z1d666ds6333d33333s0ss9d99ssdss99911133010311066d66dz666s333dd9s9ssszszss90d9d0011z011z111dd666szs0s666d669s999zdsss9dss991zz311113z301166660d666d066660s0d9ss999s9sds0911110111301311ss6s6s66d6d6d666ssssdss9s9dsss9d11110z13z131166sd6s666d66ssd69ss0sds99s0sz9ss111131131113z6sd6ds6d6d666666dsddd9s9s99d9999111101d1130z66d63660s6666666s0sssds999ss9999111131110113331zd66d6d666666d669sdssss9z99sd9ds30z31103101z11666066dd6d66d666s099s9s90s9s9s99311d31011131010sd0sd60d666z6sdss0sz9s99zsss9sds3z1113zzz01116ddd666sd6d666d6s0sss9999s9sd0sz111111011z13666dd6s66s6s6d6d909sssssd99s9ss90z131z131031666666sd006d60d69s99z9ss999ss9ss11z1131001z011s6s666ds6zd66d66zz9s9s9s9s99ss9s1d101113110016dd666ss666d666d9z99z9szdsds999d31303111111z1666d666ds666sz6d9099dd99d9ss9ss9110131zz131d666ds66d6s6zd666sd99s99ssdd9s9ss131110011116s6d66666663666690sssss9sss999ssz111d0zz31131666d66s6sddd6666sss9ss9sdsz0s9s9030z0011033d6d666ddd66d6666d909ssssds9999ds903100131310136ds6dd66d666ddss9s90ds9s9d9sd9d93111031313113dds66s6sdssd6d66sdssd9d9s999zsd993d3103131011z16d666s6s666666669s099ss999999dsd0110111zd11z06d06666666d606660s9ssdz9sd9999s9001111113031ss66z6666666ddd6ss9ssss9s99z9d9930z111103131316sds666ds36ssd66s9sd9z999ss9ss99111110311031z166s6s6d660s6dd66d9ssssd9999ssd9s1130311d011z336ds6sd6d66663666999ss9s999sd9ss9131z331zzz1031","path":[[67,15]],"per":[[16,16,12],[16,16,12],[16,16,12],[16,16,13],[16,16,11],[16,16,13],[16,16,11],[16,16,12],[16,16,11],[16,16,14],[16,16,13],[16,16,13],[16,16,12],[16,16,12],[16,16,12],[16,16,13],[16,16,12],[16,16,12],[16,16,13],[16,16,13],[16,16,13],[16,16,12],[16,16,12],[16,16,12],[16,16,14],[16,16,14],[16,16,12],[16,16,13],[16,16,12],[16,16,14],[16,16,12],[16,16,14],[16,16,11],[16,16,13],[16,16,11],[16,16,13],[16,16,14],[16,16,13],[16,16,13],[16,16,13],[16,16,13],[16,16,13],[16,16,11],[16,16,12],[16,16,12],[16,16,14],[16,16,12],[16,16,13],[16,16,11],[16,16,14],[16,16,14],[16,16,10],[16,16,12],[16,16,13],[16,16,12],[16,16,13],[16,16,12],[16,16,14],[16,16,14],[16,16,13],[16,16,11],[16,16,13],[16,16,13],[16,16,12],[16,16,12],[16,16,13],[16,16,14],[16,16,12],[16,16,13],[16,16,10],[16,16,15],[16,16,12],[16,16,12],[16,16,14],[16,16,14],[16,16,13],[16,16,13],[16,16,12],[16,16,15],[16,16,14],[16,16,15],[16,16,13],[16,16,12],[16,16,12],[16,16,14],[16,16,13],[16,16,13],[16,16,12],[16,16,11],[16,16,13],[16,16,12],[16,16,13],[16,16,14],[16,16,14],[16,16,13],[16,16,12],[16,16,14],[16,16,14],[16,16,14],[16,16,14]],"run":"era-1-1"}],"zoom":{"P":[0.49920093342695526,0.7422334157117279],"circles":[[0.7026096036990247,0.3816658444526457,0.11514888016002278],[0.31311580997040145,0.9076084484290411,0.09239155157095891],[0.726905714311596,0.5960427019081348,0.1006003678187114],[0.894817439731251,0.27395283962395217,0.10518256026874886],[0.9038486659542352,0.6820800429325902,0.09615133404576481],[0.10306052014158237,0.48460080265191496,0.10306052014158237],[0.2716298514860014,0.5976347963876618,0.09989835059275479],[0.23971052792753603,0.7636735693833854,0.06918067635723471],[0.759352401560932,0.7629588636539982,0.06944019371125845],[0.915073737545101,0.084926262454899,0.08492626245489895],[0.4955317606743583,0.2753426167714399,0.11762968804654109],[0.896532766642048,0.48259558221054216,0.10346723335795205],[0.49728444620411005,0.07886037291596384,0.07886037291596379],[0.11077901279071568,0.8892209872092842,0.11077901279071568],[0.8888438205895552,0.8888438205895551,0.11115617941044476],[0.49942836913903915,0.9060726627225563,0.0939273372774436],[0.4986680755034023,0.5299634197531913,0.13701043012374758],[0.08463950069577313,0.08463950069577317,0.08463950069577311],[0.2946094887818273,0.1302211010652256,0.13022110106522491],[0.4033587836026808,0.742417049501635,0.09584232574550489],[0.6859430219867827,0.9074079050485644,0.09259209495143558],[0.7023095250891603,0.13325857277081155,0.1332585727708113],[0.5952197329397327,0.742049443460592,0.09601897575825388],[0.09573232930702141,0.6832585349730799,0.09573232930702141],[0.29474605904894957,0.38692355340959994,0.11207708895025692],[0.10679014462858022,0.2747832833508202,0.10679014462858022]],"d":6.224719227558139e-18,"marks":[[0.49920093342695526,0.7422334157117279],[0.8322573982273359,0.10373913030015759],[0.22110341294791228,0.8992467742028477]],"overlap":"6.2 × 10⁻¹⁸","pair":[19,22],"ri":0.09584232574550489,"rj":0.09601897575825388,"theta":-0.0019160000639993188}}</script>
 
 <script>
 /* web/plates.js — the figures that move, drawn in web/grammar.css's tokens.
@@ -1090,7 +1172,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   const root = document.documentElement;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   let C = {};
-  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules',
+  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules', 's-alone',
     'o-lived', 'o-died', 'o-stillborn'].forEach(k => { C[k] = css('--' + k); }); };
   palette();
   const redraw = [];
@@ -1460,30 +1542,36 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 
   /* ================================================================ a run's fossil record, small */
   function strataMini(el) {
-    const S = DATA.strata, cv = el.querySelector('canvas'), G = S.G, ARM = ['lineage', 'Aleator', 'blind rules'];
+    const S = DATA.strata[+el.dataset.strata || 0], cv = el.querySelector('canvas'), G = S.G, A = S.arms.length;
+    const start = [0];                                      // where each generation's births begin, in the record's order
+    S.per.forEach(n => start.push(start[start.length - 1] + n.reduce((x, y) => x + y, 0)));
     let thread = reduce ? 1 : 0, started = false;           // the births are drawn at rest; the thread draws itself in
     const draw = () => {
-      const { ctx, w, h } = fit(cv), left = Math.min(78, w * .14), top = 6, gap = 8;
-      const colW = (w - left - 4) / G, laneH = (h - top * 2 - gap * 2) / 48, size = Math.max(1.4, Math.min(colW, laneH) * .78);
+      const { ctx, w, h } = fit(cv), left = Math.min(84, w * .15), top = 6, gap = 8;
+      const colW = (w - left - 4) / G, laneH = (h - top * 2 - gap * (A - 1)) / (16 * A), size = Math.max(1.4, Math.min(colW, laneH) * .78);
       const X = g => left + (g - .5) * colW, Y = (a, s) => top + a * (16 * laneH + gap) + (s + .5) * laneH;
       ctx.clearRect(0, 0, w, h);
       ctx.font = mono(10); ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
-      for (let a = 0; a < 3; a++) {
+      for (let a = 0; a < A; a++) {
         ctx.fillStyle = C.plate; ctx.fillRect(left - 2, top + a * (16 * laneH + gap) - 2, w - left - 2, 16 * laneH + 4);
-        ctx.fillStyle = C['ink-2']; ctx.fillText(ARM[a], left - 8, Y(a, 7.5));
+        ctx.fillStyle = C['ink-2']; ctx.fillText(S.arms[a], left - 8, Y(a, 7.5));
       }
-      for (let k = 0; k < S.cells.length; k++) {
-        const g = Math.floor(k / 48) + 1;
-        const a = Math.floor((k % 48) / 16), s = k % 16, ch = S.cells[k], x = X(g), y = Y(a, s);
-        if (ch === 's') { ctx.strokeStyle = C.rose; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(x, y, size * .32, 0, Math.PI * 2); ctx.stroke(); }
-        else if (ch === 'd') { ctx.fillStyle = C.muted; ctx.globalAlpha = .45; ctx.fillRect(x - size * .2, y - size * .2, size * .4, size * .4); ctx.globalAlpha = 1; }
-        else if (ch === 'z') { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = .7; ctx.strokeRect(x - size / 2 + .4, y - size / 2 + .4, size - .8, size - .8); }
-        else { ctx.fillStyle = mix(C.plate, C.ink, .15 + .085 * +ch); ctx.fillRect(x - size / 2, y - size / 2, size, size); }
+      for (let g = 1; g <= G; g++) {
+        let k = start[g - 1];
+        S.per[g - 1].forEach((n, a) => {
+          for (let s = 0; s < n; s++, k++) {
+            const ch = S.cells[k], x = X(g), y = Y(a, s);
+            if (ch === 's') { ctx.strokeStyle = C.rose; ctx.lineWidth = .8; ctx.beginPath(); ctx.arc(x, y, size * .32, 0, Math.PI * 2); ctx.stroke(); }
+            else if (ch === 'd') { ctx.fillStyle = C.muted; ctx.globalAlpha = .45; ctx.fillRect(x - size * .2, y - size * .2, size * .4, size * .4); ctx.globalAlpha = 1; }
+            else if (ch === 'z') { ctx.strokeStyle = C['ink-2']; ctx.lineWidth = .7; ctx.strokeRect(x - size / 2 + .4, y - size / 2 + .4, size - .8, size - .8); }
+            else { ctx.fillStyle = mix(C.plate, C.ink, .15 + .085 * +ch); ctx.fillRect(x - size / 2, y - size / 2, size, size); }
+          }
+        });
       }
       const path = S.path.filter(([g]) => g <= thread * G);
       if (path.length) {
         ctx.strokeStyle = C.ochre; ctx.lineWidth = 1.6; ctx.beginPath();
-        let [px, py] = [left - 6, Y(1, 7.5)];
+        let [px, py] = [left - 6, Y(0, 7.5)];
         ctx.moveTo(px, py);
         path.forEach(([g, s]) => { const x = X(g), y = Y(0, s), mx = (px + x) / 2; ctx.bezierCurveTo(mx, py, mx, y, x, y); px = x; py = y; });
         ctx.stroke();
