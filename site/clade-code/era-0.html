@@ -270,7 +270,10 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .closing .sub { margin-top: 1.3rem; font-size: 1.15rem; color: var(--ink-2); max-width: 40rem; }
 footer { border-top: 1px solid var(--rule); padding-block: 2rem 3rem; font-size: .82rem; color: var(--muted); }
 footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
-footer .off { margin-top: .8rem; }
+footer .off, footer .credit { margin-top: .8rem; }
+.credit { font-size: .8rem; color: var(--muted); max-width: 60rem; }
+.credit a { color: var(--ink-2); }
+.m-tl .credit { margin-top: 1.4rem; max-width: 52rem; font-size: .76rem; }
 footer .off s { text-decoration-color: var(--rose); }
 
 /* ------------------------------------------------------------------ charts (web/engine.py's chart components) */
@@ -758,6 +761,7 @@ make analyze                            # H1 to H4, exactly as the protocol fixe
 <footer>
   <div class="wrap">
     <div class="row"><span>Clade Code · era 0 · built from the record, and from nothing else</span><span>Carlos Toledo, 2026</span></div>
+    <p class="credit">The judge is calibrated against <a href="https://carlostoledo.co/reports/easota.html">cert-machine's exact decision of EinsteinArena solution 542</a> (§5). The record chain and the run governor are ported from <a href="https://github.com/carlostoledo1891/cert-machine">cert-machine</a>. Clade Code is published at carlostoledo.co, the home of cert-machine.</p>
     <p class="off">Words kept off these pages: <s>understands</s>, <s>thinks</s>, <s>knows</s>, <s>PhD-level</s>, <s>smarter than</s>, <s>AGI</s>, <s>journey toward</s>, <s>path to</s>, <s>progress toward</s>, <s>higher organism</s>, <s>lower organism</s>, <s>evolves into</s>, <s>evolve into</s>, <s>goal of evolution</s>, <s>meant to</s>. Each names an inner state or a credential no test certifies, or gives evolution a direction it does not have. <span class="latin">Machina sapiens</span>, <span class="latin">habilis</span> and <span class="latin">erecta</span> are the names of tests, never destinations.</p>
   </div>
 </footer>
