@@ -25,8 +25,8 @@
   "threads": 8
  },
  "counts": {
-  "CERTIFIED": 16,
-  "REFUSED": 2
+  "CERTIFIED": 17,
+  "REFUSED": 1
  },
  "rows": [
   {
@@ -544,14 +544,14 @@
    },
    "I": {
     "k": 13,
-    "complete": false,
+    "complete": true,
     "found": null,
-    "nodes": 46390841578,
+    "nodes": 613161647297,
     "roots": 512,
-    "rootsDone": 57,
-    "seconds": 1862.3
+    "rootsDone": 512,
+    "seconds": 18351.3
    },
-   "verdict": "REFUSED"
+   "verdict": "CERTIFIED"
   },
   {
    "file": "graphs/R_9_11_ge_617.txt",

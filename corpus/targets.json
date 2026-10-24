@@ -740,11 +740,11 @@
   {
    "id": "ramsey-lower-bounds-2026",
    "name": "The 2026 Ramsey lower bounds (AlphaEvolve arXiv:2603.09172 v5; Wang ScaleAutoResearch-Ramsey; Yu arXiv:2608.18169; Coniglio et al. arXiv:2608.18769)",
-   "verdict": "BUILDING 2026-10-23 (the AlphaEvolve 18 first, on the operator’s word): 13 CERTIFIED, 5 REFUSED pending long searches",
+   "verdict": "BUILT 2026-10-24 for the AlphaEvolve 18: 17 CERTIFIED, R(8,18) REFUSED (left open on the operator’s word)",
    "scouted": "2026-10-04",
    "finding": "Witnesses published as adjacency matrices / circulant distance lists; Radziszowski's DS1 rev. 18 (2026-04-24) predates Wang, Yu and Coniglio; no independent re-check found. Yu's abstract names two circulants, Zenodo ships one (NEEDS DATA for the second); Coniglio's R_C(3,n) 'exact' values rest on CPLEX optimality (REFUSED by kind without proof logs). Scout's uncertified probe: Wang R(3,17) and R(4,15) pass in ~20 s each; Yu's needs ~3.7e8 nodes (compiled checker).",
    "fit": "a new exact clique/independence decider with a checkable certificate (attack plan K5)",
-   "next": "the AlphaEvolve 18: instruments/ramsey (clique.c held root by root to clique.py) + tools/run-ramsey-ledger.py → certs/ramsey-ledger.json; 13 of 18 CERTIFIED by both implementations; the five large graphs K side complete, I side running (R(9,11), R(10,12), R(8,12) est. 0.5–1.5 h each on this Mac; R(7,13), R(8,18): no root finished in a minute — measure, then decide RunPod). Then Wang, Yu, Coniglio as in the finding. maximusrufus’s delivery (cert-machine#1): their 18 sha256 equal ours"
+   "next": "R(8,18) >= 1052: no root finished in 30 min on the M2 — needs a sharper bound than greedy colouring (automorphism orbits, SAT) or a large machine; then Wang, Yu, Coniglio as in the finding. R(7,13) closed 2026-10-24 (512/512 roots, 613.2e9 nodes, ~5.1 h on the M2) — with R(10,12), the two graphs maximusrufus could not finish"
   },
   {
    "id": "gcm-explicit-order-2026",
