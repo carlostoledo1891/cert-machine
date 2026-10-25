@@ -2,20 +2,20 @@
  "what": "The self-audit of cert-machine, Phase 1 — the inventory: per register row and per record, what exists before anything is measured (the re-derive command, the standard-library verifier, the second implementation, the rerun kit's measured seconds, the per-row timing field, and whether the row is mutable under the pre-registration's class table or why not). Every field derived from the register, the kit, the kit's run record and the records; the class table is the pre-registration's. Written by tools/run-selfaudit-inventory.js.",
  "name": "selfaudit",
  "phase": 1,
- "generated": "2026-10-24T21:16:58.228Z",
- "git": "a5bdc934",
+ "generated": "2026-10-25T00:26:01.392Z",
+ "git": "9a580442",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1"
+  "sha256": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "270094aa3c9218fa000654ae3020d388e3821b845e76647da9d429f095cd77ff",
+   "sha256": "981131c1e185dc452eb91fc932bb469219c25368c530239fcdd0d72e8cd4b568",
    "rows": 132,
    "meta": {
-    "date": "2026-10-06",
-    "git": "a310e6e"
+    "date": "2026-10-25",
+    "git": "9a580442"
    }
   },
   "kit": {
@@ -636,7 +636,7 @@
   },
   {
    "record": "certs/sumproduct-ledger.json",
-   "sha256": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0",
+   "sha256": "d7ba43139ee629015bb0f075400fb497e20266551cf41966f7f095249c11b8f0",
    "rows": 1,
    "byVerdict": {
     "REPAIRED": 1

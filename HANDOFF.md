@@ -25,13 +25,15 @@ NEXT SESSION, IN ORDER:
   ★ HANDOFF 2026-10-24 ~23:20 UTC (the session that ran from 2026-10-23 02:00 to 10-24 23:20 BRT; everything COMMITTED AND
      PUSHED, origin and main level, the tree clean but for the local-only notes; the site live). NOTHING IS HALF-DONE.
      IN ORDER:
-     (1) THE TRUNCATED-UPPER-BOUND SWEEP — found at the end, NOT FIXED, the operator's decision pending: a printed upper end
-         cut with str(x)[:k] rounds DOWN (the C31 lesson, then C42 today). Remaining: instruments/sumproduct/c84b.py prints the
-         C84b ceiling as 0.0007150507 where the computed ceiling is 0.00071505073368… — outward it is 0.0007150508; that digit
-         is PUBLIC in teorth/optimizationproblems PR #257's description ("c ≤ 0.0007150507") and in our reply to JeetuSK0808
-         (issuecomment-6379669104). The fix: round the ceiling (and the detail strings) outward, re-derive
-         certs/sumproduct-ledger.json, a self-audit amendment + --repin (sumproduct was never mutated), the constants page; then,
-         on the operator's word, edit the PR description and add one line on the thread. Also cut toward zero:
+     (1) THE TRUNCATED-UPPER-BOUND SWEEP — a printed upper end cut with str(x)[:k] rounds DOWN (the C31 lesson, then C42).
+         C84b FIXED HERE 2026-10-24 night, on the operator's "go": instruments/sumproduct/c84b.py rounds every printed upper
+         end outward (the ceiling 0.0007150507 → 0.0007150508; f, the additive factor, L, c at the note's choice); no check or
+         verdict moved; certs/sumproduct-ledger.json re-derived, the register's scope, a dated self-audit amendment + --repin
+         (sumproduct never mutated), the concordance, the constants/claims/rerun/selfaudit pages, paper/register.pdf, the
+         external-reruns outcome text. STILL PUBLIC with …507, the operator's word pending (draft in this session, not sent):
+         the row in PR #257's FILE CHANGE (fork branch c84b-correction-2026-10-23) and its description, and one correction
+         line on the thread (our reply issuecomment-6379669104 used …507; rainrzk/erdos510-lambda4-audit#1 item 3 too).
+         Also cut toward zero, NOT FIXED yet (measure their re-run cost first):
          instruments/lonelyrunner/threshold.py (threshold, target, mass enclosures [:24]) and tools/verify_gnnw_gai.py (c
          enclosure [:32]) — printed enclosures that may not contain their value; fix the same way. The search:
          grep -rnE "str\([a-zA-Z_.]*(hi|upper|Up|_up|Hi|ceiling)[^)]*\)\[:[0-9]+\]" instruments tools. The fei/sumdiff

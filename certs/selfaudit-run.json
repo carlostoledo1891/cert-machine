@@ -6,16 +6,16 @@
  "git": "ccd5c190",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1"
+  "sha256": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "0f351c66b10c525fec073bef9be7edfd7e1ac562e2a773c3152da40b5154b656"
+  "sha256": "8169578404d3c801e99a11491c2597062cc329278b6dadd5fee861da7e4c42e1"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "270094aa3c9218fa000654ae3020d388e3821b845e76647da9d429f095cd77ff",
+   "sha256": "981131c1e185dc452eb91fc932bb469219c25368c530239fcdd0d72e8cd4b568",
    "rows": 132
   },
   "kit": {
@@ -38,7 +38,7 @@
    "corpus/navier-stokes/audit.json": "5931f9ad48b4ed87f94ebb7f9b219bfe4ea6f8bce1bc32da740c6865ea5be766",
    "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
-   "certs/sumproduct-ledger.json": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0",
+   "certs/sumproduct-ledger.json": "d7ba43139ee629015bb0f075400fb497e20266551cf41966f7f095249c11b8f0",
    "certs/turan-ledger.json": "e6143188777c194f0efae8a6ec56c493920d17aee93372fa584c7d784e38db73",
    "certs/countex-ledger.json": "948f6c633e5142746a7fa952700f39f18b806129effa2eaf622b7133400701dc",
    "certs/horizonmath-ledger.json": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a",
@@ -8467,6 +8467,26 @@
    "after": {
     "preregistration": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1",
     "inventory": "0f351c66b10c525fec073bef9be7edfd7e1ac562e2a773c3152da40b5154b656"
+   }
+  },
+  {
+   "at": "2026-10-25T00:26:01.443Z",
+   "git": "9a580442",
+   "why": "Amendment 2026-10-24, later: the C84b ceiling's printed digits rounded outward (0.0007150507 -> 0.0007150508); certs/sumproduct-ledger.json and the register's C84b scope moved, the sumproduct row never mutated",
+   "before": {
+    "preregistration": "1f50f9b0b03d17418eeba1feb9192dea7a8329c864e37be76e511baac3f4a4d1",
+    "inventory": "0f351c66b10c525fec073bef9be7edfd7e1ac562e2a773c3152da40b5154b656",
+    "recordsMoved": [
+     {
+      "record": "certs/sumproduct-ledger.json",
+      "from": "61cc3c57f7a6567c55f7850551e8ca92543e988b7eb57645d4afa5bc66673ea0",
+      "to": "d7ba43139ee629015bb0f075400fb497e20266551cf41966f7f095249c11b8f0"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be",
+    "inventory": "8169578404d3c801e99a11491c2597062cc329278b6dadd5fee861da7e4c42e1"
    }
   }
  ]

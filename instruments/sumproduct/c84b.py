@@ -178,11 +178,17 @@ def M1_of(R):
     return M2 * (EPS + 1) * 4, M2
 
 
+def outward(hi, places=10):
+    """an upper end printed to `places` decimals, rounded up: never below the value it bounds (2026-10-24, the C31 and
+    C42 lesson: str(x)[:k] cut the ceiling 0.000715050733... to 0.0007150507, below the value it bounds)"""
+    return str(hi.quantize(Decimal(1).scaleb(-places), rounding=ROUND_CEILING))
+
+
 def decide():
     checks = []
     s0 = Fr(1371966384, 10 ** 9)
     f0 = f_at(s0)
-    checks.append({'name': 'f(1.371966384) <= 103 (the note: about 101.956)', 'ok': f0.hi <= 103, 'detail': '[%s, %s]' % (str(f0.lo)[:14], str(f0.hi)[:14])})
+    checks.append({'name': 'f(1.371966384) <= 103 (the note: about 101.956)', 'ok': f0.hi <= 103, 'detail': '[%s, %s]' % (str(f0.lo)[:14], outward(f0.hi))})
     # 2. the chain at the note's choice
     Y = 1415
     M1, M2 = M1_of(103)
@@ -193,8 +199,8 @@ def decide():
     L = Iv.q(5 * Y + 1).ln() + (EPS * 2 * Iv.q(1423).exp() + 1).ln()   # X <= e^1423
     q = Fr(364, 1000)
     checks.append({'name': '515/Y = 515/1415 < 0.364', 'ok': prod < q})
-    checks.append({'name': 'M1 e^Y/(X Y^2) + M2/(X^2 Y^2) < 0.136 (and so < 0.364)', 'ok': add.hi < Decimal('0.136'), 'detail': str(add.hi)[:12]})
-    checks.append({'name': 'log|A|/d < L < 1432', 'ok': L.hi < 1432, 'detail': str(L.hi)[:12]})
+    checks.append({'name': 'M1 e^Y/(X Y^2) + M2/(X^2 Y^2) < 0.136 (and so < 0.364)', 'ok': add.hi < Decimal('0.136'), 'detail': outward(add.hi)})
+    checks.append({'name': 'log|A|/d < L < 1432', 'ok': L.hi < 1432, 'detail': outward(L.hi, 7)})
     nl = -(Iv.q(q).ln())
     checks.append({'name': '-log(0.364) > 0.0007 * 1432 = 1.0024: c = 0.0007 holds', 'ok': nl.lo > Decimal('1.0024'), 'detail': str(nl.lo)[:10]})
     c_note = -(Iv.q(max(prod, Fr(0))).ln()) / L
@@ -240,10 +246,10 @@ def decide():
     yT = Iv.q(20000)
     tail = UP.divide((yT / (Iv.q(Fr(str(R_lo))) * 5)).ln().hi, (yT - yT.ln() * 2).lo)   # decreasing beyond; a crude bound
     ceiling = max(g_max[0], tail)
-    checks.append({'name': 'for every s > 1, X and Y, the chain gives c <= %s < 0.000719' % str(ceiling)[:9], 'ok': ceiling < Decimal('0.000719'),
+    checks.append({'name': 'for every s > 1, X and Y, the chain gives c <= %s < 0.000719' % outward(ceiling), 'ok': ceiling < Decimal('0.000719'),
                    'detail': 'the maximum near Y = %.1f' % g_max[1]})
     ok_note = all(c['ok'] for c in checks[:5])
-    return {'checks': checks, 'noteHolds': ok_note, 'ceiling': str(ceiling)[:12], 'cAtNoteChoice': [str(c_note.lo)[:12], str(c_note.hi)[:12]],
+    return {'checks': checks, 'noteHolds': ok_note, 'ceiling': outward(ceiling), 'cAtNoteChoice': [str(c_note.lo)[:12], outward(c_note.hi)],
             'suggestedOutOfReach': checks[-1]['ok'] and checks[-2]['ok'],
             'verdict': 'REPAIRED' if ok_note and checks[-1]['ok'] and checks[-2]['ok'] else 'REFUSED'}
 

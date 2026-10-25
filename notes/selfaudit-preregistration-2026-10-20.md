@@ -37,6 +37,14 @@
 > breaking exactly one constraint under the strict reading), pinned as received and decided by the ledger's path —
 > certs/selfaudit-outside.json, tools/run-selfaudit-outside.js: none certified, all seven located. Nothing else changes.
 
+> **Amendment 2026-10-24, later (the C84b ceiling's digits; no definition moved).** The sweep for truncated upper ends
+> that the C42 finding started found the same defect in instruments/sumproduct/c84b.py: str(x)[:k] cut the ceiling on c,
+> 0.000715050733…, to 0.0007150507 — below the value it bounds — and four printed upper ends with it (f at the note's s,
+> the additive factor, L, c at the note's choice). They are now rounded outward (the ceiling 0.0007150508); every
+> decision is made on the full Decimal enclosures, so no check, verdict or ok-bit moves. certs/sumproduct-ledger.json
+> moves (those digits and the code's sha256); the sumproduct row was never mutated (0 mutants), so no mutant or decision
+> moves; the inventory is regenerated and the run and mutations records re-pinned with this amendment as the reason.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

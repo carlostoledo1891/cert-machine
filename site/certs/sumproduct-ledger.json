@@ -1,6 +1,6 @@
 {
  "what": "The registry's asterisked upper bound C84b <= 1.999281, decided from the chain of the note it cites: the note's own constant 0.0007 holds (C84b <= 1.9993, given BSSZ2026 §5, the note's lattice-doubling lemma and the regulator bound), and no choice of the chain's parameters reaches the 0.000719 the registry quotes.",
- "generated": "2026-09-29",
+ "generated": "2026-10-24",
  "registry": {
   "commit": "2c1968cd520b60f1cf3cf50749f7285e800e4e15",
   "row": "| $1.999281$ | [Al26], [EPF52] | Althoefer (28 May 2026), posted on the Erdős Problems forum [EPF52]; a ChatGPT 5.5 long-thinking optimization of the explicit constant of [BSSZ2026, §5] giving $c \\ge 0.000719$.  Unverified. |"
@@ -17,7 +17,7 @@
   "theorem": "\"there are arbitrarily large finite sets A ⊂ R such that max(|A+A|,|AA|) ≤ |A|^{2-0.0007}. The optimized value suggested by the same calculation is about 0.000719, but 0.0007 is the safer quoted constant.\""
  },
  "code": {
-  "instruments/sumproduct/c84b.py": "6546ed1a6151cd1836d3f92186d3195400e1646864cd19c1d8c7dbac6c391778"
+  "instruments/sumproduct/c84b.py": "a3e5c53499bdac5f08e676bb21b66aa93a1112a6d1a728980ca0ad5d1f214c40"
  },
  "rows": [
   {
@@ -26,16 +26,16 @@
    "claimant": "I. Althoefer with ChatGPT 5.5 (the note, 28 May 2026), as the registry quotes it",
    "verdict": "REPAIRED",
    "repairedTo": "C84b <= 1.9993 (c >= 0.0007, the note's own theorem)",
-   "ceiling": "0.0007150507",
+   "ceiling": "0.0007150508",
    "cAtNoteChoice": [
     "0.0007062455",
-    "0.0007062455"
+    "0.0007062456"
    ],
    "checks": [
     {
      "name": "f(1.371966384) <= 103 (the note: about 101.956)",
      "ok": true,
-     "detail": "[101.9560758327, 101.9560758327]"
+     "detail": "[101.9560758327, 101.9560758328]"
     },
     {
      "name": "515/Y = 515/1415 < 0.364",
@@ -44,12 +44,12 @@
     {
      "name": "M1 e^Y/(X Y^2) + M2/(X^2 Y^2) < 0.136 (and so < 0.364)",
      "ok": true,
-     "detail": "0.1352394769"
+     "detail": "0.1352394770"
     },
     {
      "name": "log|A|/d < L < 1432",
      "ok": true,
-     "detail": "1431.1139757"
+     "detail": "1431.1139758"
     },
     {
      "name": "-log(0.364) > 0.0007 * 1432 = 1.0024: c = 0.0007 holds",
@@ -62,7 +62,7 @@
      "detail": "smallest endpoint bound 101.927484 at s = 1.372"
     },
     {
-     "name": "for every s > 1, X and Y, the chain gives c <= 0.0007150 < 0.000719",
+     "name": "for every s > 1, X and Y, the chain gives c <= 0.0007150508 < 0.000719",
      "ok": true,
      "detail": "the maximum near Y = 1399.0"
     }

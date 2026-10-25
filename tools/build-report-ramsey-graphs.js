@@ -114,7 +114,7 @@ B.push(C.section({
   bodyRaw: C.plainList([
     { b: 'Claimed.', text: 'For each CERTIFIED file: the pinned bytes are a simple graph on m − 1 vertices with no clique of size s and no independent set of size t, so R(s, t) ≥ m.' },
     { b: 'Not claimed.', text: 'That a bound is new or best known (the paper\'s comparison with the literature is not re-checked), anything about how AlphaEvolve found the graphs, or the code in the release\'s code/ directory.' },
-    { b: 'The trust in a "none".', text: 'An exhaustive search has no short certificate. It rests on the algorithm (stated in full in ' + m('clique.py') + '), on its two implementations agreeing node for node where both run, and on the kernel for the large graphs alone.' },
+    { b: 'The trust in a "none".', raw: 'An exhaustive search has no short certificate. It rests on the algorithm (stated in full in ' + m('clique.py') + '), on its two implementations agreeing node for node where both run, and on the kernel for the large graphs alone.' },
     { b: 'Independence.', text: 'From Google and from maximusrufus, whose results on the same files (cert-machine#1) were read only after these were decided; not from the operator (one).' }
   ])
 }));
