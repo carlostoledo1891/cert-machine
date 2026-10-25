@@ -1,9 +1,9 @@
 # Exactness in the loop — pre-registration
 
-**Status: DRAFT, 2026-10-25, for the operator's approval. Not frozen, no code written, no run made.** Written on the
-operator's "Proceed" after the scout (`corpus/targets.json`, `exactness-in-the-loop-2026-10`). Once approved it is
-frozen: its sha256 goes into every record the measurement writes, and it changes only by a dated amendment written
-before the data it affects. It is hosted by Clade Code (`~/Projects/clade-code`) and moves into that repository's
+**Status: FROZEN, 2026-10-25, approved by the operator ("1. Approved"). No code written, no run made.** Written on
+the operator's "Proceed" after the scout (`corpus/targets.json`, `exactness-in-the-loop-2026-10`). Its sha256 goes
+into every record the measurement writes, and it changes only by a dated amendment written before the data it
+affects. It is hosted by Clade Code (`~/Projects/clade-code`) and moves into that repository's
 `protocol/` when its session builds it; Clade Code's rules bind there.
 
 ## 1. Question
