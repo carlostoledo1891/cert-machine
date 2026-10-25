@@ -44,7 +44,11 @@ NEXT SESSION, IN ORDER:
          (sha256 ac38172e2335f009…; copy it byte for byte into clade-code's protocol/): hosted by Clade Code outside any era's record, CPU only, blind rules from PM-1 with
          the hidden hexagonal gene, three arms selecting exactly / under τ = 10⁻⁶ / under doubles, T's champion repaired
          by r − τ; ~1.5 h on this Mac, US$ 0. Not built: the build is new files in clade-code, on a git worktree branch, and the run waits until no clade-code
-         run is using this Mac's CPU (their lives die at a 300 s wall-clock guard); who builds it is the operator's call; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
+         run is using this Mac's CPU (their lives die at a 300 s wall-clock guard); BUILT 2026-10-25 by this session on clade-code
+         branch `exactness` (worktree ~/Projects/clade-code-exactness); the pilot found the arms identical and the repair
+         biased, so AMENDMENT 1 (A1 repair only what decision/2 refuses; A2 a second founder PM-1u without fit()'s check),
+         notes/exactness-in-the-loop-amendment-1-2026-10-25.md, on the operator's 'go'; the 32 runs on this Mac; merging the
+         branch into m0-m2 is the operator's; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
          RunPod credit.
      (2) The sweep at session start: `node tools/sweep-claims.js` AND `gh api notifications` — the sweep counts comments,
          not reviews. Watched now: cert-machine#1 (maximusrufus; last word ours, issuecomment-6389814859), registry PRs #232
