@@ -38,6 +38,14 @@ NEXT SESSION, IN ORDER:
          enclosure [:32]) — printed enclosures that may not contain their value; fix the same way. The search:
          grep -rnE "str\([a-zA-Z_.]*(hi|upper|Up|_up|Hi|ceiling)[^)]*\)\[:[0-9]+\]" instruments tools. The fei/sumdiff
          instances were fixed after the entropy-arb audit of 10-19 (tools/audit-entropy-arb-pin.json).
+     (1b) EXACTNESS IN THE LOOP (2026-10-25, from an outside "verification-guided discovery" proposal, on "Proceed"):
+         scouted (corpus/targets.json exactness-in-the-loop-2026-10: broad question OCCUPIED, the equal-budget float vs
+         exact measurement OPEN); PRE-REGISTRATION DRAFTED, notes/exactness-in-the-loop-preregistration-2026-10-25.md,
+         for the operator's approval: hosted by Clade Code outside any era's record, CPU only, blind rules from PM-1 with
+         the hidden hexagonal gene, three arms selecting exactly / under τ = 10⁻⁶ / under doubles, T's champion repaired
+         by r − τ; ~1.5 h on this Mac, US$ 0. Not built: the build is new files in clade-code (a clade-code session was
+         busy there on era 2 the same morning); era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
+         RunPod credit.
      (2) The sweep at session start: `node tools/sweep-claims.js` AND `gh api notifications` — the sweep counts comments,
          not reviews. Watched now: cert-machine#1 (maximusrufus; last word ours, issuecomment-6389814859), registry PRs #232
          #242 #243 #249 #257 (none merged; #243/#249 approved and #257 changes-requested by a non-maintainer, answered), cryptids
