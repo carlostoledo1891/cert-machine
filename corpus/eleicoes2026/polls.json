@@ -1,0 +1,4910 @@
+{
+ "read": "2026-10-26",
+ "sources_note": "SCOPE: national (Brazil-wide) polls of the 2026 presidential race whose results were published 27 Sep - 3 Oct 2026 (round 1, 1st-round question) or 18 - 24 Oct 2026 (round 2). State- and municipal-level polls registered under BR protocols (they ask the presidential question) are out of scope. Read 2026-10-26.\n\nINDEX: pt.wikipedia \"Pesquisas de opinião para a eleição presidencial no Brasil em 2026\", revid 73293541 (2026-10-26T02:03:50Z), used only as an index; every number here was read from a primary or media source. The index has errors (see each poll's conflicts): Caiado/Renan columns swapped in several round-1 rows, valid-vote figures placed in total-vote columns (AtlasIntel and Futura, 3 Oct), a duplicate \"DataFolha 1-3 Out, 2 002\" row with no matching registration, the g1 sample 2.154 attached to Datafolha 20-22 Oct (it is the Quaest 17-20 Oct sample), and a 24 Oct Datafolha citation that points at a Jovem Pan article about BTG/Nexus.\n\nREGISTRY: TSE open data (dadosabertos.tse.jus.br dataset pesquisas-eleitorais-2026), https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip (Last-Modified Mon, 26 Oct 2026 08:47:57 GMT, sha256 dd163dee1ae371dca6a4b09d17f230a7195c5f24c66dfdc052f8bcaeac0bd2d6; file pesquisa_eleitoral_2026_BRASIL.csv, generated 26/10/2026 05:47) and pesquisa_contratante_2026.zip (sha256 162bfe158cfa86e863264ea32c77deaeb3872a6ff872482c9d80b644a91e17df). Each poll's \"registry\" block copies its row (protocol, registered fieldwork and disclosure dates, planned sample, company, contractors, start of the methodology text). The registry holds what was REGISTERED (planned sample, planned dates); the published release can differ, and every difference is listed in \"conflicts\". The TSE PesqEle web consultation was not used.\n\nVALUES: copied exactly as printed. The only normalizations: the \"%\" sign dropped and a decimal comma written as a dot (\"40,4%\" -> \"40.4\"); \"<1\" and the like kept. Nothing was computed, rounded or summed. valid_votes is null when the pollster did not publish valid votes; total_votes is null when only valid votes were found. Non-candidate categories (branco/nulo, não sabe, outros, nenhum) are under total_votes.other with their printed labels. Where a printed \"Outros\" is the sum of minor candidates also listed, the poll's notes say so; do not add both. Some valid-vote objects carry an \"Outros\" key as printed. Numbers read from chart images in pollster PDFs (rendered pages) are flagged in the source \"what\"; AtlasIntel 3 Oct and CNT/MDA 3 Oct chart labels were re-checked by a second reader. margin_of_error_pp and confidence_level_pct are as printed by the source (the registry's planned margin, when different, is in conflicts). method is coarse: in-person, phone (human CATI), phone-IVR (automated/URA), online.\n\nCAVEATS for an exact check: (1) verita-r1-2026-09-30 is not one national sample but Veritá's reweighted consolidation of 27 state polls; it prints no national margin. (2) Tracking polls overlap: the two Gerp round-1 polls of 3 Oct share interviews; gerp-r2-2026-10-20 (3-day moving average 15-19 Oct, no registration printed) and gerp-r2-2026-10-21 print identical numbers; the two Veritá round-2 polls (18-22 and 19-23 Oct) overlap and report the same n. (3) Quaest's 3 Oct valid votes come from a likely-voter model (per g1), not from rescaling its totals; Datafolha 24 Oct also published propensity-weighted segments (other_published_scenarios). (4) PoderData round-2 sources print valid votes only.\n\nEXCLUDED after checking: PoderData/Aya 23-24 Oct (BR-02828/2026) - published by Poder360 at 0h01 on 25 Oct, outside the window. Veritá 12-16 Oct (BR-01107/2026, registry disclosure 17 Oct) and Ipespe 13-15 Oct (BR-00223/2026, published 17 Oct) - before the window. Vetor Arrow 23-24 Oct (BR-06523, not in the TSE open data, due 26 Oct) and Phoenix 19-22 Oct (BR-06173, not in the TSE open data) - nothing published in the window was found. JOTA web poll (BR-05869/2026, registered disclosure 29 Sep) - no publication found. Instituto Seta (BR-07902, BR-08499), Badra, Ranking Brasil (MS), American Analytics (state polls) and the many state polls by Real Time Big Data, AtlasIntel, Veritá, Datafolha, Quaest, Instituto França and others - not national. The wiki's second \"DataFolha 1-3 Out, 2 002\" row - no registration, its headline matches the 3 Oct poll; treated as a duplicate.\n\nGAPS: Veritá's final round-1 poll (26 Sep - 2 Oct, n 40.500, BR-04522/2026, published 3 Oct) - its only per-candidate source is an Instagram post that could not be read; later articles give only \"about 47% / 45%\" of valid votes; left out. Some polls rest on one source outside the preferred list (noted per poll): Palver 3 Oct (CartaCapital), Gerp 1-3 Oct (Jovem Pan), DataTrends (Blog Edmar Lyra), França 20 Oct (FanF1), Vetor Arrow (Agenda do Poder), Colectta and CNT/MDA 24 Oct (CartaCapital). UOL returned HTTP 403 to the fetcher, so UOL-cited polls were read from other outlets.",
+ "polls": [
+  {
+   "id": "nexus-r1-2026-09-28",
+   "round": 1,
+   "pollster": "Nexus",
+   "contractor": "BTG Pactual",
+   "tse_registration": "BR-07557/2026",
+   "fieldwork_start": "2026-09-25",
+   "fieldwork_end": "2026-09-27",
+   "published": "2026-09-28",
+   "published_time_printed": null,
+   "sample_size": 2000,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "por telefone (via CATI)",
+   "total_votes": {
+    "candidates": {
+     "Lula": "42",
+     "Flávio Bolsonaro": "37",
+     "Augusto Cury": "5",
+     "Ronaldo Caiado": "5",
+     "Renan Santos": "4",
+     "Romeu Zema": "1",
+     "Samara Martins": "1",
+     "Rui Costa Pimenta": "0",
+     "Hertz Dias": "0",
+     "Edmilson Costa": "0",
+     "Wilson Grassi": "0",
+     "Clariana Barão": "0",
+     "Leonardo Avalanche": "0"
+    },
+    "other": {
+     "Nenhum/Branco/Nulo": "3",
+     "NS/NR": "2"
+    }
+   },
+   "valid_votes": {
+    "Lula": "44",
+    "Flávio Bolsonaro": "39",
+    "Augusto Cury": "5",
+    "Ronaldo Caiado": "5",
+    "Renan Santos": "4",
+    "Romeu Zema": "1",
+    "Samara Martins": "1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR075572026",
+    "fieldwork_start": "2026-09-25",
+    "fieldwork_end": "2026-09-27",
+    "disclosure_date": "2026-09-28",
+    "sample_size": 2000,
+    "company": "NEXUS PESQUISA E INTELIGENCIA DE DADOS LTDA",
+    "contractors": [
+     "BANCO BTG PACTUAL S.A."
+    ],
+    "method_excerpt": "Pesquisa quantitativa telefônica realizada com população brasileira a partir de 16 anos e com título de eleitor, em um questionário estruturado, para avaliação "
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/09/Pesquisa-presidencial-BTG-Nexus-28-set-2026.pdf",
+     "what": "Nexus/BTG full report PDF (linked by Poder360): methodology p.4, 1st-round stimulated scenario 1 total p.20 and valid votes p.22"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-46-contra-44-de-flavio-no-2o-turno-diz-btg-nexus/",
+     "what": "Poder360 article: sample, dates, MoE, confidence, registration, paid by BTG Pactual; Lula 42% vs Flávio 37% in 1st round"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR075572026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Report labels the 1st-round question 'Cenário 1'. Valid-vote page lists only the seven candidates shown."
+  },
+  {
+   "id": "quaest-r1-2026-09-28",
+   "round": 1,
+   "pollster": "Quaest",
+   "contractor": "Globo e jornal O Globo",
+   "tse_registration": "BR-06520/2026",
+   "fieldwork_start": "2026-09-24",
+   "fieldwork_end": "2026-09-27",
+   "published": "2026-09-28",
+   "published_time_printed": "28/09/2026 10h17",
+   "sample_size": 2004,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "39",
+     "Flávio Bolsonaro": "34",
+     "Augusto Cury": "4",
+     "Ronaldo Caiado": "4",
+     "Renan Santos": "3",
+     "Romeu Zema": "1",
+     "Samara Martins": "0",
+     "Clariana Barão": "0",
+     "Edmilson Costa": "0",
+     "Hertz Dias": "0",
+     "Rui Costa Pimenta": "0",
+     "Wilson Grassi": "0",
+     "Leonardo Avalanche": "0"
+    },
+    "other": {
+     "Indecisos": "5",
+     "Branco/nulo/não vai votar": "10"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR065202026",
+    "fieldwork_start": "2026-09-24",
+    "fieldwork_end": "2026-09-27",
+    "disclosure_date": "2026-09-28",
+    "sample_size": 2004,
+    "company": "QUAEST PESQUISAS, CONSULTORIA E PROJETOS LTDA.",
+    "contractors": [
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA",
+     "EDITORA GLOBO S/A / EDITORA GLOBO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, de survey, que consiste na realização de entrevistas pessoais, domiciliares e presenciais, conduzidas por profissionais treinados, com a "
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/noticia/2026/09/28/quaest-presidente-1o-turno-28-setembro.ghtml",
+     "what": "g1 article: stimulated 1st-round totals per candidate, sample 2.004, dates 24–27 Sep, MoE 2 pp, 95% confidence, commissioned by Globo and O Globo"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR065202026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "The g1 article does not print the TSE registration or the collection method; tse_registration and method (in-person household interviews) come from the TSE open-data registry match (protocol BR065202026: Quaest, 24–27 Sep, n=2004, disclosure 28 Sep). The g1 list prints the zero candidates as '0' without '%'. No valid-vote figures found."
+  },
+  {
+   "id": "atlasintel-r1-2026-09-29",
+   "round": 1,
+   "pollster": "AtlasIntel",
+   "contractor": "Bloomberg (published as 'AtlasIntel/Bloomberg'; paid with own resources)",
+   "tse_registration": "BR-04391/2026",
+   "fieldwork_start": "2026-09-23",
+   "fieldwork_end": "2026-09-28",
+   "published": "2026-09-29",
+   "published_time_printed": "29.set.2026 (terça-feira) - 7h30",
+   "sample_size": 5005,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "Recrutamento digital aleatório (Atlas RDR)",
+   "total_votes": {
+    "candidates": {
+     "Lula": "45.3",
+     "Flávio Bolsonaro": "42.2",
+     "Renan Santos": "5.2",
+     "Augusto Cury": "2.0",
+     "Ronaldo Caiado": "1.8",
+     "Romeu Zema": "0.9",
+     "Samara Martins": "0.4",
+     "Rui Costa Pimenta": "0.1"
+    },
+    "other": {
+     "outros": "0.5",
+     "branco/nulo": "0.9",
+     "não sabe": "1.2"
+    }
+   },
+   "valid_votes": {
+    "Lula": "46.2",
+    "Flávio Bolsonaro": "43.1",
+    "Renan Santos": "5.3",
+    "Augusto Cury": "2.1",
+    "Ronaldo Caiado": "1.8",
+    "Romeu Zema": "0.9",
+    "Outros": "0.5"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR043912026",
+    "fieldwork_start": "2026-09-23",
+    "fieldwork_end": "2026-09-28",
+    "disclosure_date": "2026-09-29",
+    "sample_size": 5000,
+    "company": "ATLASINTEL TECNOLOGIA DE DADOS LTDA",
+    "contractors": [
+     "ATLASINTEL TECNOLOGIA DE DADOS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa com coleta aleatória via questionário estruturado web e pós-estratificação da amostra de acordo com as características do eleitorado de Br"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/09/atlasintelnacionalpresidencia-29set2026.pdf",
+     "what": "Atlas/Bloomberg report PDF (linked in Poder360's 6 Oct retrospective): sample profile (5.005, RDR, ±1, 95%, 23/09–28/09, BR-04391/2026); total p.14 and valid votes p.15 (charts read from rendered page images); same totals as Poder360"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-477-e-lula-476-no-2o-turno-diz-atlasintel/",
+     "what": "Poder360 article: 1st-round scenario per candidate, sample 5.005, 23–28 Sep, MoE 1 pp, 95%, BR-04391/2026, R$ 75.000 own resources"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-setembro-2026-4/",
+     "what": "Gazeta do Povo article (29/09/2026 07:30): same valid votes 46,2/43,1/5,3/2,1/1,8/0,9/Outros 0,5; 5.005, 23–28 Sep, 'contratada pelo próprio instituto', BR-04391/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR043912026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Renan Santos / Ronaldo Caiado",
+     "values": [
+      {
+       "value": "Renan Santos 5.2, Ronaldo Caiado 1.8",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-477-e-lula-476-no-2o-turno-diz-atlasintel/"
+      },
+      {
+       "value": "Caiado column 5,2%, Renan column 1,8% (and Cury 2%, undecided 2,1%)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index only, cites the same Poder360 article)"
+      }
+     ]
+    },
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "5005",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-477-e-lula-476-no-2o-turno-diz-atlasintel/"
+      },
+      {
+       "value": "5000 (registered QT_ENTREVISTADO)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR043912026"
+      }
+     ]
+    }
+   ],
+   "notes": "In total_votes, 'Outros' 0.5 is the printed sum of the footnoted Samara (0,4) and Rui Costa Pimenta (0,1) — do not add it to them. Footnote: Clariana Barão, Edmilson Costa, Hertz Dias and Wilson Grassi 'não pontuaram'; Leonardo Avalanche not mentioned. Valid-vote chart prints 'Outros' 0.5% (kept as key inside valid_votes). Method from the report (Atlas RDR, online). Bloomberg partnership per the report title 'Pesquisa Atlas/Bloomberg'. The wiki index appears to swap the Caiado and Renan columns for AtlasIntel rows."
+  },
+  {
+   "id": "gerp-r1-2026-09-29",
+   "round": 1,
+   "pollster": "Gerp",
+   "contractor": null,
+   "tse_registration": "BR-03929/2026",
+   "fieldwork_start": "2026-09-24",
+   "fieldwork_end": "2026-09-28",
+   "published": "2026-09-29",
+   "published_time_printed": null,
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95.55",
+   "method": null,
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "42",
+     "Lula": "40",
+     "Augusto Cury": "5",
+     "Ronaldo Caiado": "3",
+     "Renan Santos": "3",
+     "Samara Martins": "1",
+     "Romeu Zema": "1",
+     "Rui Costa Pimenta": "0",
+     "Wilson Grassi": "0",
+     "Edmilson Costa": "0",
+     "Hertz Dias": "0",
+     "Clariana Barão": "0",
+     "Leonardo Avalanche": "0"
+    },
+    "other": {
+     "não sabem": "3",
+     "nenhum deles": "2"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR039292026",
+    "fieldwork_start": "2026-09-23",
+    "fieldwork_end": "2026-09-26",
+    "disclosure_date": "2026-09-27",
+    "sample_size": 2400,
+    "company": "GERP MERCADOLOGIA LTDA",
+    "contractors": [
+     "GERP MERCADOLOGIA LTDA"
+    ],
+    "method_excerpt": "A população pesquisada é definida como pessoas maiores de 16 anos, eleitoras e residentes em todas as\nregiões do Brasil. A pesquisa é do tipo QUANTITATIVA e os "
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-50-contra-43-de-lula-no-2o-turno-diz-gerp-2/",
+     "what": "Poder360 article (29.set.2026): 1st-round scenario per candidate, 2.400 interviews 24–28 Sep, MoE 2 pp, confidence 95,55%, BR-03929/2026, R$ 20.000 own resources"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR039292026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork dates / disclosure date",
+     "values": [
+      {
+       "value": "24–28 Sep 2026, published 29 Sep",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-50-contra-43-de-lula-no-2o-turno-diz-gerp-2/"
+      },
+      {
+       "value": "23–26 Sep 2026, registered disclosure date 27 Sep",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR039292026"
+      }
+     ]
+    },
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-50-contra-43-de-lula-no-2o-turno-diz-gerp-2/"
+      },
+      {
+       "value": "2.04 (registered sample plan)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR039292026"
+      }
+     ]
+    }
+   ],
+   "notes": "Hertz Dias, Clariana Barão and Leonardo Avalanche printed as 'tiveram 0%' in a sentence. Collection method ambiguous in the registry (control text mentions 'por telefone, Sistema Cati' and also in-person supervision); left null."
+  },
+  {
+   "id": "palver-r1-2026-09-29",
+   "round": 1,
+   "pollster": "Palver",
+   "contractor": "próprio instituto (self-funded)",
+   "tse_registration": "BR-02990/2026",
+   "fieldwork_start": "2026-09-24",
+   "fieldwork_end": "2026-09-28",
+   "published": "2026-09-29",
+   "published_time_printed": "29/09/2026 às 08:23",
+   "sample_size": 5000,
+   "margin_of_error_pp": "2.4",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "44",
+     "Flávio Bolsonaro": "44",
+     "Renan Santos": "8",
+     "Augusto Cury": "1",
+     "Ronaldo Caiado": "1",
+     "Romeu Zema": "1"
+    },
+    "other": {
+     "Outros": "0",
+     "Branco/Nulo/Não votaria": "1",
+     "Indecisos": "1"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR029902026",
+    "fieldwork_start": "2026-09-24",
+    "fieldwork_end": "2026-09-28",
+    "disclosure_date": "2026-09-29",
+    "sample_size": 5000,
+    "company": "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA.",
+    "contractors": [
+     "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA."
+    ],
+    "method_excerpt": "A metodologia utilizada é survey quantitativo online por questionário estruturado com amostragem não-probabilística, baseada em recrutamento por meio de anúncio"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-setembro-2026-3/",
+     "what": "Gazeta do Povo article: stimulated 1st-round scenario, methodology box (5.000, 24–28 Sep, 95%, MoE 2,4 pp, BR-02990/2026, contracted by the institute itself)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR029902026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Renan Santos / Ronaldo Caiado",
+     "values": [
+      {
+       "value": "Renan Santos 8, Ronaldo Caiado 1",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-setembro-2026-3/"
+      },
+      {
+       "value": "Caiado column 8%, Renan column 1%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index; cites this same article)"
+      }
+     ]
+    },
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.4",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-setembro-2026-3/"
+      },
+      {
+       "value": "'margem de erro amostral máxima de +/- 4 pontos percentuais' (registered sample plan)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR029902026"
+      }
+     ]
+    }
+   ],
+   "notes": "Method 'online' from the TSE registry (online survey, non-probability recruitment by ads); not stated in the article."
+  },
+  {
+   "id": "vox-r1-2026-09-29",
+   "round": 1,
+   "pollster": "Vox Brasil",
+   "contractor": "Instituto Vox Brasil Opinião e Pesquisas LTDA (self; recursos próprios)",
+   "tse_registration": "BR-00895/2026",
+   "fieldwork_start": "2026-09-26",
+   "fieldwork_end": "2026-09-28",
+   "published": "2026-09-29",
+   "published_time_printed": "29.set.2026 (terça-feira) - 1h00",
+   "sample_size": 2100,
+   "margin_of_error_pp": "2.15",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "abordagem presencial domiciliar",
+   "total_votes": {
+    "candidates": {
+     "Lula": "41.1",
+     "Flávio Bolsonaro": "37.8",
+     "Ronaldo Caiado": "3.8",
+     "Renan Santos": "2.7",
+     "Augusto Cury": "2.2",
+     "Romeu Zema": "1.8",
+     "Edmilson Costa": "0.2",
+     "Wilson Grassi": "0.1",
+     "Leonardo Avalanche": "0.0",
+     "Clariana Barão": "0.0",
+     "Rui Costa Pimenta": "0.0",
+     "Hertz Dias": "0.0",
+     "Samara Martins": "0.0"
+    },
+    "other": {
+     "NENHUM/BRANCO/NULO": "3.5",
+     "NÃO SABE/NÃO OPINOU": "6.8"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR008952026",
+    "fieldwork_start": "2026-09-26",
+    "fieldwork_end": "2026-09-28",
+    "disclosure_date": "2026-09-29",
+    "sample_size": 2100,
+    "company": "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em domicílios particulares permanentemente ocupados"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/09/pesquisa-vox-nacional-29set2026.pdf",
+     "what": "Vox Brasil release PDF: ficha técnica (BR-00895/2026, 26–28/09, 2.100, ±2,15, 95%, publication 29/09/2026, presencial domiciliar) and 1st-round stimulated results"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-452-contra-447-de-lula-no-2o-turno-diz-pesquisa/",
+     "what": "Poder360 article: same 1st-round numbers (prints zero candidates as '0%')"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR008952026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Ronaldo Caiado / Renan Santos",
+     "values": [
+      {
+       "value": "Caiado 3.8, Renan 2.7",
+       "url": "https://static.poder360.com.br/uploads/2026/09/pesquisa-vox-nacional-29set2026.pdf"
+      },
+      {
+       "value": "Caiado column 2,7%, Renan column 3,8%; Lula '41%'",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "Pollster PDF prints '0,0%' for zero candidates; Poder360 prints '0%'. Values here follow the PDF."
+  },
+  {
+   "id": "futura-r1-2026-09-30",
+   "round": 1,
+   "pollster": "Futura",
+   "contractor": null,
+   "tse_registration": "BR-01122/2026",
+   "fieldwork_start": "2026-09-25",
+   "fieldwork_end": "2026-09-29",
+   "published": "2026-09-30",
+   "published_time_printed": null,
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "Entrevista telefônica assistida por computador (CATI)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "42.2",
+     "Lula": "39.4",
+     "Ronaldo Caiado": "4.0",
+     "Augusto Cury": "3.8",
+     "Renan Santos": "3.2",
+     "Romeu Zema": "1.6",
+     "Edmilson Costa": "0.2",
+     "Samara Martins": "0.2",
+     "Leonardo Avalanche": "0.1",
+     "Rui Costa Pimenta": "0.1",
+     "Wilson Grassi": "0.1",
+     "Hertz Dias": "0.1"
+    },
+    "other": {
+     "Ninguém/Branco/Nulo": "2.4",
+     "NS/NR/Indeciso": "2.6"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "44.4",
+    "Lula": "41.5",
+    "Ronaldo Caiado": "4.2",
+    "Augusto Cury": "4.0",
+    "Renan Santos": "3.3",
+    "Romeu Zema": "1.7",
+    "Edmilson Costa": "0.2",
+    "Samara Martins": "0.2",
+    "Leonardo Avalanche": "0.1",
+    "Rui Costa Pimenta": "0.1",
+    "Wilson Grassi": "0.1",
+    "Hertz Dias": "0.1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR011222026",
+    "fieldwork_start": "2026-09-24",
+    "fieldwork_end": "2026-09-29",
+    "disclosure_date": "2026-09-30",
+    "sample_size": 2000,
+    "company": "100% CIDADES PARTICIPACOES LTDA",
+    "contractors": [
+     "FUTURA CONSULTORIA E ASSESSORIA LTDA / FUTURA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativa, por amostragem, com aplicação de questionário estruturado realizado por meio telefônico. O universo da pesquisa é o eleitorado br"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/09/futuracidadeparticipacoesBR-30set2026.pdf",
+     "what": "Futura report PDF 'Avaliação Política Setembro 2026, Rodada 4' (linked in Poder360's 1 Oct roundup): ficha técnica p.4, 1st-round stimulated p.22, valid votes p.26 (pages also checked as rendered images)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR011222026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start",
+     "values": [
+      {
+       "value": "2026-09-25 ('CAMPO 25/set a 29/set')",
+       "url": "https://static.poder360.com.br/uploads/2026/09/futuracidadeparticipacoesBR-30set2026.pdf"
+      },
+      {
+       "value": "2026-09-24",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR011222026"
+      }
+     ]
+    },
+    {
+     "field": "total_votes Ronaldo Caiado / Renan Santos",
+     "values": [
+      {
+       "value": "Caiado 4.0, Renan 3.2",
+       "url": "https://static.poder360.com.br/uploads/2026/09/futuracidadeparticipacoesBR-30set2026.pdf"
+      },
+      {
+       "value": "Caiado column 3,4%, Renan column 4% (undecided 5%)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index; cites a CNN-hosted PDF Relatorio_BR_Setembro_4_1a28dc.pdf not read here)"
+      }
+     ]
+    }
+   ],
+   "notes": "Clariana Barão not listed in either chart. Report cover says 'DIVULGAÇÃO Setembro de 2026'; published date 30 Sep from the TSE registered disclosure date and the Poder360 upload name. Registry company is 100% CIDADES PARTICIPACOES; contractor in registry FUTURA CONSULTORIA E ASSESSORIA.",
+   "pollster_as_labelled": "Futura Inteligência (100% Cidades)"
+  },
+  {
+   "id": "ideia-r1-2026-09-30",
+   "round": 1,
+   "pollster": "Ideia",
+   "contractor": "Canal Meio S.A.",
+   "tse_registration": "BR-08706/2026",
+   "fieldwork_start": "2026-09-25",
+   "fieldwork_end": "2026-09-28",
+   "published": "2026-09-30",
+   "published_time_printed": "30/09/2026 às 08:28 (Gazeta do Povo)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "pesquisa telefônica; 2.000 entrevistas por telefone",
+   "total_votes": {
+    "candidates": {
+     "Lula": "39.4",
+     "Flávio Bolsonaro": "38.4",
+     "Augusto Cury": "6.7",
+     "Renan Santos": "4.5",
+     "Ronaldo Caiado": "4.4",
+     "Romeu Zema": "3.5",
+     "Samara Martins": "0.4",
+     "Clariana Barão": "0.3",
+     "Hertz Dias": "0.3",
+     "Wilson Grassi": "0.1",
+     "Leonardo Avalanche": "0.1",
+     "Rui Costa Pimenta": "0.1",
+     "Edmilson Costa": "0.1"
+    },
+    "other": {
+     "Ninguém/Branco/Nulo": "0.7",
+     "Não sabe": "1.5"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR087062026",
+    "fieldwork_start": "2026-09-25",
+    "fieldwork_end": "2026-09-28",
+    "disclosure_date": "2026-09-30",
+    "sample_size": 2000,
+    "company": "BOAS IDEIAS INTELIGENCIA EM PESQUISA E ESTRATEGIA DIGITAL LTDA",
+    "contractors": [
+     "CANAL MEIO S.A."
+    ],
+    "method_excerpt": "Pesquisa quantitativa com aplicação de questionário estruturado, através pesquisa telefônica, junto a uma parcela representativa do eleitorado de todo o país."
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/09/Pesquisa-Meio_Ideia-Setembro2_Imprensa.pdf",
+     "what": "Meio/Ideia press report PDF (linked in Poder360's 30 Sep and 1 Oct poll roundups): dados técnicos p.1; stimulated 1st round p.14 (chart text read from the rendered page image, not from extractable text)"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/meio-ideia-presidente-setembro-2026-2/",
+     "what": "Gazeta do Povo article (30/09/2026 08:28): 'divulgou nesta quarta-feira (30)'; same stimulated numbers (decimal comma); methodology 2.000, 25–28 Sep, contracted by Canal Meio S.A., 95%, 2,2, BR-08706/2026"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/saiba-como-estao-lula-e-flavio-nas-pesquisas-a-4-dias-do-1o-turno/",
+     "what": "Poder360 roundup dated 30.set.2026 6h00 listing and linking the Meio/Ideia report"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR087062026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Renan Santos / Ronaldo Caiado",
+     "values": [
+      {
+       "value": "Renan Santos 4.5, Ronaldo Caiado 4.4",
+       "url": "https://static.poder360.com.br/uploads/2026/09/Pesquisa-Meio_Ideia-Setembro2_Imprensa.pdf"
+      },
+      {
+       "value": "Caiado column 4,5%, Renan column 4,4%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "The report prints decimals with a point ('39.4%'). Publication date 30 Sep per Gazeta do Povo ('divulgou nesta quarta-feira (30)') and the TSE registered disclosure date; the wiki's UOL citation (noticias.uol.com.br/eleicoes/2026/09/30/meioideia-pesquisa-setembro.ghtm) returned HTTP 403 and was not read. No valid-vote figures in the report.",
+   "pollster_as_labelled": "Ideia (Meio/Ideia)"
+  },
+  {
+   "id": "indexa-r1-2026-09-30",
+   "round": 1,
+   "pollster": "Indexa",
+   "contractor": "Agência Estado S.A. (Broadcast, O Estado de S. Paulo)",
+   "tse_registration": "BR-00698/2026",
+   "fieldwork_start": "2026-09-27",
+   "fieldwork_end": "2026-09-29",
+   "published": "2026-09-30",
+   "published_time_printed": "30/09/2026 às 09:27 (Gazeta do Povo)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "39",
+     "Flávio Bolsonaro": "34",
+     "Ronaldo Caiado": "4",
+     "Augusto Cury": "4",
+     "Renan Santos": "3",
+     "Romeu Zema": "1",
+     "Edmilson Costa": "0",
+     "Hertz Dias": "0",
+     "Rui Costa Pimenta": "0",
+     "Clariana Barão": "0",
+     "Samara Martins": "0",
+     "Wilson Grassi": "0",
+     "Leonardo Avalanche": "0"
+    },
+    "other": {
+     "Branco/Nulo": "4",
+     "Indeciso/Não sabe": "7",
+     "Não iria votar": "4"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR006982026",
+    "fieldwork_start": "2026-09-27",
+    "fieldwork_end": "2026-09-29",
+    "disclosure_date": "2026-09-30",
+    "sample_size": 2000,
+    "company": "INSTITUTO INDEXA PESQUISAS LTDA",
+    "contractors": [
+     "AGENCIA ESTADO S.A / AGENCIA ESTADO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa; Amostral; Entrevistas individuais por telefone por meio de questionários estruturados. Universo: Eleitores brasileiros; 157.846.547 eleit"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/",
+     "what": "Gazeta do Povo article: 1st-round stimulated per candidate, methodology box (2.000, 27–29 Sep, contracted by Agência Estado, 95%, MoE 2,2, BR-00698/2026)"
+    },
+    {
+     "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/",
+     "what": "CartaCapital article (30.09.2026 09h57): same per-candidate numbers, sample, dates, MoE, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR006982026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Ronaldo Caiado / Renan Santos",
+     "values": [
+      {
+       "value": "Caiado 4, Renan 3",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-setembro-2026-2/"
+      },
+      {
+       "value": "Caiado 4, Renan 3",
+       "url": "https://www.cartacapital.com.br/politica/lula-lidera-em-1o-turno-e-empata-com-flavio-bolsonaro-no-2o-aponta-pesquisa-indexa-broadcast/"
+      },
+      {
+       "value": "Caiado column 3%, Renan column 4%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "Method 'phone' from the TSE registry ('Entrevistas individuais por telefone'); not stated in the articles read."
+  },
+  {
+   "id": "verita-r1-2026-09-30",
+   "round": 1,
+   "pollster": "Veritá",
+   "contractor": "Sistema de Comunicação Pantanal Ltda / Rede Brasil de Televisão",
+   "tse_registration": null,
+   "fieldwork_start": "2026-09-20",
+   "fieldwork_end": "2026-09-25",
+   "published": "2026-09-30",
+   "published_time_printed": "01 out 2026 - 01h05 (Revista Oeste article; text: 'divulgou na noite desta quarta-feira, 30')",
+   "sample_size": 40500,
+   "margin_of_error_pp": null,
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "44.3",
+     "Lula": "43.8",
+     "Augusto Cury": "4.2",
+     "Renan Santos": "2.3",
+     "Ronaldo Caiado": "2.1",
+     "Romeu Zema": "0.5",
+     "Clariana Barão": "0.3",
+     "Samara Martins": "0.2",
+     "Leonardo Avalanche": "0.1",
+     "Hertz Dias": "0.1",
+     "Edmilson Costa": "0.1",
+     "Rui Costa Pimenta": "0.1",
+     "Wilson Grassi": "0.0"
+    },
+    "other": {
+     "NS/NR": "1.4",
+     "Branco/nulo": "0.5"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "45.1",
+    "Lula": "44.7",
+    "Augusto Cury": "4.3",
+    "Renan Santos": "2.4",
+    "Ronaldo Caiado": "2.2",
+    "Romeu Zema": "0.5",
+    "Clariana Barão": "0.3",
+    "Samara Martins": "0.2",
+    "Leonardo Avalanche": "0.1",
+    "Hertz Dias": "0.1",
+    "Edmilson Costa": "0.1",
+    "Rui Costa Pimenta": "0.1",
+    "Wilson Grassi": "0.0"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "same report, two-decimal headline blocks ('DUAS BASES'): sobre o total de respostas",
+     "values": {
+      "Flávio Bolsonaro": "44.27",
+      "Lula": "43.79",
+      "OUTROS": "10.01",
+      "NS/NR + B/N": "1.93"
+     }
+    },
+    {
+     "label": "same report, two-decimal headline blocks: entre votos válidos",
+     "values": {
+      "Flávio Bolsonaro": "45.14",
+      "Lula": "44.65",
+      "OUTROS": "10.21"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR044672026",
+    "fieldwork_start": "2026-09-20",
+    "fieldwork_end": "2026-09-25",
+    "disclosure_date": "2026-09-26",
+    "sample_size": 40500,
+    "company": "INSTITUTO VERITA LTDA",
+    "contractors": [
+     "SISTEMA DE COMUNICACAO PANTANAL LTDA / REDE BRASIL DE TELEVISAO"
+    ],
+    "method_excerpt": "Estudo quantitativo voltado às Eleições 2026, realizado por meio de entrevistas individuais, aplicadas mediante questionário eletrônico estruturado e Unidade Au"
+   },
+   "sources": [
+    {
+     "url": "https://lgjdbpskgjfbmlffbntx.supabase.co/storage/v1/object/public/pesquisas/pdfs/1790855512625_Relatorio_Nacional_Verita_Imprensa_27_UFs_20_a_25_Setembro_2026.pdf",
+     "what": "Veritá 'Pesquisa Nacional – Consolidação das 27 UFs' PDF (the wiki's citation): data box, ficha técnica of the 27 state polls, table 'PRIMEIRO TURNO: TODOS OS CANDIDATOS' (% total and % válido) and 'DUAS BASES' blocks"
+    },
+    {
+     "url": "https://revistaoeste.com/politica/verita-flavio-lula-1-turno/",
+     "what": "Revista Oeste article: released the night of Wed 30 Sep; valid votes Flávio 45,14%, Lula 44,65%, Cury 4,25%, Renan 2,39%, Caiado 2,16%, Zema 0,46%; others 10,21%"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR044672026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "valid_votes minor candidates (precision)",
+     "values": [
+      {
+       "value": "Cury 4.3, Renan 2.4, Caiado 2.2, Zema 0.5 (one-decimal table)",
+       "url": "https://lgjdbpskgjfbmlffbntx.supabase.co/storage/v1/object/public/pesquisas/pdfs/1790855512625_Relatorio_Nacional_Verita_Imprensa_27_UFs_20_a_25_Setembro_2026.pdf"
+      },
+      {
+       "value": "Cury 4,25%, Renan 2,39%, Caiado 2,16%, Zema 0,46%",
+       "url": "https://revistaoeste.com/politica/verita-flavio-lula-1-turno/"
+      }
+     ]
+    },
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-09-30 (night)",
+       "url": "https://revistaoeste.com/politica/verita-flavio-lula-1-turno/"
+      },
+      {
+       "value": "2026-09-26 (registered disclosure date of national protocol BR-04467/2026)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR044672026"
+      }
+     ]
+    },
+    {
+     "field": "wiki index columns",
+     "values": [
+      {
+       "value": "Cury 4.2, Renan 2.3, Caiado 2.1 (total)",
+       "url": "https://lgjdbpskgjfbmlffbntx.supabase.co/storage/v1/object/public/pesquisas/pdfs/1790855512625_Relatorio_Nacional_Verita_Imprensa_27_UFs_20_a_25_Setembro_2026.pdf"
+      },
+      {
+       "value": "Caiado column 2,3%, Renan column 2,1%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "CAUTION: not a single national sample. Veritá states this is a consolidation of 27 state polls (20–25 Sep; 1.030–3.025 interviews each; per-UF margins 2,0–3,5 p.p.; each with its own BR registration, listed in the report), reweighted by UF electorate; 'A margem nacional não pode ser recalculada com rigor'. Hence margin_of_error_pp is null and tse_registration is null (the report lists 27 state-poll registrations, not a national one). The TSE registry nonetheless holds a national-level protocol BR-04467/2026 (Veritá, 20–25 Sep, n=40500, same contractor, IVR to mobiles), shown in registry. Wiki index cites this PDF with fieldwork 20–25 Sep and comment BR-04467/2026. Method from the registry (URA, celulares)."
+  },
+  {
+   "id": "datafolha-r1-2026-10-01",
+   "round": 1,
+   "pollster": "Datafolha",
+   "contractor": "Globo e Folha de S.Paulo",
+   "tse_registration": "BR-08039/2026",
+   "fieldwork_start": "2026-09-28",
+   "fieldwork_end": "2026-10-01",
+   "published": "2026-10-01",
+   "published_time_printed": "01/10/2026 19h05 (g1)",
+   "sample_size": 2506,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "42",
+     "Flávio Bolsonaro": "38",
+     "Augusto Cury": "4",
+     "Ronaldo Caiado": "3",
+     "Renan Santos": "3",
+     "Romeu Zema": "1",
+     "Samara Martins": "1",
+     "Wilson Grassi": "1",
+     "Edmilson Costa": "0",
+     "Rui Costa Pimenta": "0",
+     "Leonardo Avalanche": "0",
+     "Clariana Barão": "0",
+     "Hertz Dias": "0"
+    },
+    "other": {
+     "Em branco/nulo/nenhum": "5",
+     "Indecisos": "2"
+    }
+   },
+   "valid_votes": {
+    "Lula": "45",
+    "Flávio Bolsonaro": "40",
+    "Augusto Cury": "4",
+    "Ronaldo Caiado": "3",
+    "Renan Santos": "3",
+    "Romeu Zema": "1",
+    "Samara Martins": "1",
+    "Wilson Grassi": "1",
+    "Edmilson Costa": "0",
+    "Rui Costa Pimenta": "0",
+    "Hertz Dias": "0",
+    "Clariana Barão": "0",
+    "Leonardo Avalanche": "0"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR080392026",
+    "fieldwork_start": "2026-09-28",
+    "fieldwork_end": "2026-10-01",
+    "disclosure_date": "2026-10-01",
+    "sample_size": 2506,
+    "company": "DATAFOLHA INSTITUTO DE PESQUISAS LTDA.",
+    "contractors": [
+     "EMPRESA FOLHA DA MANHA S.A.",
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em pontos de fluxo populacional. O conjunto do elei"
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/01/datafolha-presidente-1-outubro.ghtml",
+     "what": "g1 article: stimulated totals and valid votes per candidate, 2.506 interviews, MoE 2 pp, 95%, registration (printed 'BR- BR-08039/2026'), commissioned by Globo and Folha"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-outubro-2026-2/",
+     "what": "Gazeta do Povo article: same totals and valid votes; methodology '28 de setembro a 1º de outubro', BR-08039/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR080392026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork dates",
+     "values": [
+      {
+       "value": "28 Sep – 1 Oct",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/datafolha-presidente-outubro-2026-2/"
+      },
+      {
+       "value": "'entre 28 e 30 de setembro' (lede) and 'entre os dias 29 de setembro e 1º de outubro' (methodology paragraph) in the same article",
+       "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/01/datafolha-presidente-1-outubro.ghtml"
+      },
+      {
+       "value": "28 Sep – 1 Oct",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR080392026"
+      }
+     ]
+    }
+   ],
+   "notes": "Fieldwork dates follow Gazeta do Povo and the TSE registry; g1 is internally inconsistent. Method 'in-person' from the registry (abordagem pessoal em pontos de fluxo populacional). Zero candidates printed by g1 as '0' (no %); Gazeta says they 'não pontuaram'."
+  },
+  {
+   "id": "realtimebigdata-r1-2026-10-01",
+   "round": 1,
+   "pollster": "Real Time Big Data",
+   "contractor": "próprio instituto (per Gazeta do Povo)",
+   "tse_registration": "BR-09503/2026",
+   "fieldwork_start": "2026-09-26",
+   "fieldwork_end": "2026-09-30",
+   "published": "2026-10-01",
+   "published_time_printed": "DIVULGAÇÃO:01/10 2026",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.0",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "PESQUISA REALIZADA TELEFONICAMENTE, COM ENTREVISTADORES HUMANOS",
+   "total_votes": {
+    "candidates": {
+     "Lula": "43",
+     "Flávio Bolsonaro": "39",
+     "Renan Santos": "4",
+     "Augusto Cury": "3",
+     "Ronaldo Caiado": "3",
+     "Romeu Zema": "1"
+    },
+    "other": {
+     "Outros": "1",
+     "Nulo/Branco": "3",
+     "NS/NR": "3"
+    }
+   },
+   "valid_votes": {
+    "Lula": "46",
+    "Flávio Bolsonaro": "41",
+    "Renan Santos": "5",
+    "Augusto Cury": "3",
+    "Ronaldo Caiado": "3",
+    "Romeu Zema": "1",
+    "Outros": "1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR095032026",
+    "fieldwork_start": "2026-09-26",
+    "fieldwork_end": "2026-09-30",
+    "disclosure_date": "2026-10-01",
+    "sample_size": 2000,
+    "company": "REAL TIME MIDIA LTDA",
+    "contractors": [
+     "REAL TIME MIDIA LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, que consiste na realização de entrevistas com eleitores do universo a ser explorado, feitas em combinação mista por entrevistadores human"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/Presidencial-BR-09503-2026-Out26.pdf",
+     "what": "Real Time Big Data release PDF (linked in Poder360's 1 Oct roundup): cover/methodology, stimulated 1st round, 'VOTOS VÁLIDOS PRIMEIRO TURNO'"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/real-time-big-data-presidente-outubro-2026/",
+     "what": "Gazeta do Povo article (01/10/2026 07:00): 'divulgada nesta quinta-feira (1º)'; same valid votes 46/41/5/3/3/1/Outros 1; 2.000, 26–30 Sep, 'contratada pelo próprio instituto', 95%, 2 pp, BR-09503/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR095032026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes Ronaldo Caiado / Renan Santos",
+     "values": [
+      {
+       "value": "Renan 4, Caiado 3",
+       "url": "https://static.poder360.com.br/uploads/2026/10/Presidencial-BR-09503-2026-Out26.pdf"
+      },
+      {
+       "value": "Caiado column 4%, Renan column 3%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index; cites a VEJA article not read here)"
+      }
+     ]
+    }
+   ],
+   "notes": "Seven minor candidates (Clariana Barão, Rui Costa Pimenta, Samara, Edmilson Costa, Hertz Dias, Wilson Grassi, Leonardo Avalanche) printed only as 'SOMADOS, ATINGIRAM 1%' = the 'Outros' line. The valid-vote list keeps 'Outros' 1% as printed (stored under the key 'Outros' inside valid_votes)."
+  },
+  {
+   "id": "datatrends-r1-2026-10-02",
+   "round": 1,
+   "pollster": "DataTrends",
+   "contractor": null,
+   "tse_registration": "BR-04414/2026",
+   "fieldwork_start": "2026-09-28",
+   "fieldwork_end": "2026-09-30",
+   "published": "2026-10-02",
+   "published_time_printed": "outubro 2, 2026 18:51",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.19",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "entrevistas foram realizadas por telefone, por meio de sistema automatizado",
+   "total_votes": {
+    "candidates": {
+     "Lula": "41",
+     "Flávio Bolsonaro": "39",
+     "Augusto Cury": "4",
+     "Renan Santos": "4",
+     "Ronaldo Caiado": "3",
+     "Romeu Zema": "1"
+    },
+    "other": {
+     "Brancos e nulos": "4",
+     "não souberam ou não responderam": "4"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR044142026",
+    "fieldwork_start": "2026-09-28",
+    "fieldwork_end": "2026-09-30",
+    "disclosure_date": "2026-10-02",
+    "sample_size": 1200,
+    "company": "INSTITUTO DATATRENDS LTDA",
+    "contractors": [
+     "INSTITUTO DATATRENDS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem, realizada por meio de questionário estruturado aplicado via contatos telefônicos fixos e móveis, com abrangência nacional."
+   },
+   "sources": [
+    {
+     "url": "https://www.edmarlyra.com/datatrends-lula-tem-41-e-flavio-bolsonaro-39-na-reta-final-da-disputa-presidencial/",
+     "what": "Blog Edmar Lyra (Edmar Lyra is DataTrends' CEO, per the blog's own bio): 1st-round stimulated numbers, 2 mil eleitores, 28–30 Sep, phone automated, 95%, MoE 2,19, BR-04414/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR044142026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "2000 ('2 mil eleitores')",
+       "url": "https://www.edmarlyra.com/datatrends-lula-tem-41-e-flavio-bolsonaro-39-na-reta-final-da-disputa-presidencial/"
+      },
+      {
+       "value": "1200 (QT_ENTREVISTADO) while the registered sample plan text says 'A pesquisa terá 2.000 entrevistas'",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR044142026"
+      }
+     ]
+    },
+    {
+     "field": "total_votes Ronaldo Caiado / Renan Santos",
+     "values": [
+      {
+       "value": "Renan 4, Caiado 3",
+       "url": "https://www.edmarlyra.com/datatrends-lula-tem-41-e-flavio-bolsonaro-39-na-reta-final-da-disputa-presidencial/"
+      },
+      {
+       "value": "Caiado column 4%, Renan column 3% (undecided 8%)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index; cites this same post)"
+      }
+     ]
+    }
+   ],
+   "notes": "Published in prose only: 'Os demais candidatos não alcançam 1% no resultado arredondado' (minor candidates not given individually). Registry registers it as national ('abrangência nacional', 27 UFs, URA). No valid-vote figures in the post."
+  },
+  {
+   "id": "vox-r1-2026-10-02",
+   "round": 1,
+   "pollster": "Vox Brasil",
+   "contractor": "Instituto Vox Brasil Opinião e Pesquisas LTDA (self; recursos próprios)",
+   "tse_registration": "BR-00148/2026",
+   "fieldwork_start": "2026-09-29",
+   "fieldwork_end": "2026-10-01",
+   "published": "2026-10-02",
+   "published_time_printed": "02/10/2026 00:00 (Metrópoles)",
+   "sample_size": 2100,
+   "margin_of_error_pp": "2.15",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "abordagem presencial domiciliar",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "41.2",
+     "Lula": "40.4",
+     "Ronaldo Caiado": "3.3",
+     "Renan Santos": "2.2",
+     "Romeu Zema": "1.3",
+     "Augusto Cury": "1.2",
+     "Edmilson Costa": "0.2",
+     "Wilson Grassi": "0.0",
+     "Leonardo Avalanche": "0.0",
+     "Clariana Barão": "0.0",
+     "Rui Costa Pimenta": "0.0",
+     "Hertz Dias": "0.0",
+     "Samara Martins": "0.0"
+    },
+    "other": {
+     "NENHUM/BRANCO/NULO": "3.2",
+     "NÃO SABE/NÃO OPINOU": "7.0"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR001482026",
+    "fieldwork_start": "2026-09-29",
+    "fieldwork_end": "2026-10-01",
+    "disclosure_date": "2026-10-02",
+    "sample_size": 2100,
+    "company": "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em domicílios particulares permanentemente ocupados"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/RELATORIO-VOX-BRASIL-NACIONAL-8-02-10-2026-1-1.pdf",
+     "what": "Vox Brasil release PDF (linked in Poder360's 2 Oct roundup): ficha técnica (BR-00148/2026, 29/09–01/10, 2.100, ±2,15, 95%, publicação 02/10/2026) and 1st-round stimulated results"
+    },
+    {
+     "url": "https://www.metropoles.com/brasil/vox-brasil-flavio-bolsonaro-tem-412-e-lula-marca-404-no-1o-turno",
+     "what": "Metrópoles article: same numbers (prints zeros as '0%', 'Não sabe/não opinou: 7%')"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR001482026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.15",
+       "url": "https://static.poder360.com.br/uploads/2026/10/RELATORIO-VOX-BRASIL-NACIONAL-8-02-10-2026-1-1.pdf"
+      },
+      {
+       "value": "'2,1 pontos percentuais' in the AI-generated summary box; 2,15 in the article body",
+       "url": "https://www.metropoles.com/brasil/vox-brasil-flavio-bolsonaro-tem-412-e-lula-marca-404-no-1o-turno"
+      }
+     ]
+    }
+   ],
+   "notes": "Values follow the pollster PDF ('0,0%', '7,0%')."
+  },
+  {
+   "id": "atlasintel-r1-2026-10-03",
+   "round": 1,
+   "pollster": "AtlasIntel",
+   "contractor": "Bloomberg (report titled 'Pesquisa Atlas/Bloomberg'; Gazeta do Povo: 'contratada pelo próprio instituto')",
+   "tse_registration": "BR-00999/2026",
+   "fieldwork_start": "2026-09-27",
+   "fieldwork_end": "2026-10-02",
+   "published": "2026-10-03",
+   "published_time_printed": "03/10/2026 às 22:10 (Gazeta do Povo)",
+   "sample_size": 4945,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "Recrutamento digital aleatório (Atlas RDR)",
+   "total_votes": {
+    "candidates": {
+     "Lula": "46.7",
+     "Flávio Bolsonaro": "43.8",
+     "Renan Santos": "4.6",
+     "Augusto Cury": "2.1",
+     "Ronaldo Caiado": "1.4",
+     "Rui Costa Pimenta": "0.4",
+     "Romeu Zema": "0.3",
+     "Samara Martins": "0.1",
+     "Clariana Barão": "0.1"
+    },
+    "other": {
+     "Outros": "0.9",
+     "Voto branco / nulo": "0.3",
+     "Não sei": "0.3"
+    }
+   },
+   "valid_votes": {
+    "Lula": "47.0",
+    "Flávio Bolsonaro": "44.1",
+    "Renan Santos": "4.6",
+    "Augusto Cury": "2.1",
+    "Ronaldo Caiado": "1.4",
+    "Outros": "0.9"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR009992026",
+    "fieldwork_start": "2026-09-27",
+    "fieldwork_end": "2026-10-02",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 5000,
+    "company": "ATLASINTEL TECNOLOGIA DE DADOS LTDA",
+    "contractors": [
+     "ATLASINTEL TECNOLOGIA DE DADOS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa com coleta aleatória via questionário estruturado web e pós-estratificação da amostra de acordo com as características do eleitorado de Br"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-Atlas_Bloomberg-Nacional-261003.pdf",
+     "what": "Atlas/Bloomberg report PDF (linked in Poder360's 6 Oct retrospective): sample profile p.4 (4.945, RDR, ±1, 95%, 27/09–02/10, BR-00999/2026); total p.14 and valid votes p.15 (charts read from rendered page images)"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-outubro-2026/",
+     "what": "Gazeta do Povo article (03/10/2026 22:10): valid-vote figures 47 / 44,1 / 4,6 / 2,1 / 1,4 / Outros 0,9; 4.945 entrevistados; BR-00999/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR009992026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "4945",
+       "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-Atlas_Bloomberg-Nacional-261003.pdf"
+      },
+      {
+       "value": "5000 (registered)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR009992026"
+      },
+      {
+       "value": "5 000",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    },
+    {
+     "field": "which figures are total votes",
+     "values": [
+      {
+       "value": "total 46.7/43.8; valid 47.0/44.1",
+       "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-Atlas_Bloomberg-Nacional-261003.pdf"
+      },
+      {
+       "value": "wiki total-vote table shows 47% / 44,1% (the valid-vote figures)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "In total_votes, 'Outros' 0.9 is the printed sum of the four footnoted candidates (Rui Costa Pimenta 0,4; Zema 0,3; Samara 0,1; Clariana Barão 0,1) — do not add it to them. Footnote: Edmilson Costa, Hertz Dias, Leonardo Avalanche and Wilson Grassi 'não pontuaram' (no number printed). The valid-vote chart prints only 'Outros' 0.9% (no breakdown); key 'Outros' kept inside valid_votes. The PDF prints decimals with a point."
+  },
+  {
+   "id": "datafolha-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Datafolha",
+   "contractor": "Globo e Folha de S.Paulo",
+   "tse_registration": "BR-01708/2026",
+   "fieldwork_start": "2026-10-03",
+   "fieldwork_end": "2026-10-03",
+   "published": "2026-10-03",
+   "published_time_printed": "03/10/2026 18h32 (g1)",
+   "sample_size": 4006,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "42",
+     "Flávio Bolsonaro": "40",
+     "Ronaldo Caiado": "4",
+     "Renan Santos": "3",
+     "Augusto Cury": "3",
+     "Romeu Zema": "0",
+     "Samara Martins": "0",
+     "Rui Costa Pimenta": "0",
+     "Edmilson Costa": "0",
+     "Wilson Grassi": "0",
+     "Clariana Barão": "0",
+     "Hertz Dias": "0"
+    },
+    "other": {
+     "Em branco/nulo/nenhum": "4",
+     "Indecisos": "3"
+    }
+   },
+   "valid_votes": {
+    "Lula": "45",
+    "Flávio Bolsonaro": "42",
+    "Ronaldo Caiado": "4",
+    "Renan Santos": "3",
+    "Augusto Cury": "3",
+    "Romeu Zema": "1",
+    "Samara Martins": "0",
+    "Rui Costa Pimenta": "0",
+    "Edmilson Costa": "0",
+    "Wilson Grassi": "0",
+    "Clariana Barão": "0",
+    "Hertz Dias": "0"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR017082026",
+    "fieldwork_start": "2026-10-03",
+    "fieldwork_end": "2026-10-03",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 4006,
+    "company": "DATAFOLHA INSTITUTO DE PESQUISAS LTDA.",
+    "contractors": [
+     "EMPRESA FOLHA DA MANHA S.A.",
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em pontos de fluxo populacional. O eleitorado brasi"
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/datafolha-presidente-3-outubro.ghtml",
+     "what": "g1 article (03/10/2026 18h32): valid and total votes per candidate, 4.006 eleitores 'neste sábado (3)', MoE 2 pp, 95%, registration printed 'BR-01708-2026', commissioned by Globo and Folha"
+    },
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/datafolha-presidente-outubro-2.pdf",
+     "what": "PDF print of the same g1 article, linked by Poder360 as the Datafolha 'íntegra'"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/pesquisas-mostravam-avanco-de-flavio-antes-do-1o-turno/",
+     "what": "Poder360 retrospective: 'O Datafolha fez seu último levantamento nos dias 2 e 3 de outubro… Lula com 45% e Flávio com 42%' (valid votes)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR017082026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork dates",
+     "values": [
+      {
+       "value": "3 Oct only",
+       "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/datafolha-presidente-3-outubro.ghtml"
+      },
+      {
+       "value": "3 Oct only",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR017082026"
+      },
+      {
+       "value": "'nos dias 2 e 3 de outubro'",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/pesquisas-mostravam-avanco-de-flavio-antes-do-1o-turno/"
+      }
+     ]
+    },
+    {
+     "field": "Romeu Zema",
+     "values": [
+      {
+       "value": "total '0' (no %), valid '1%'",
+       "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/datafolha-presidente-3-outubro.ghtml"
+      }
+     ]
+    }
+   ],
+   "notes": "Leonardo Avalanche (withdrew 30 Sep) not listed in this release. Zema is printed '0' in totals but '1%' in valid votes — as printed. Method 'in-person' from the TSE registry (abordagem pessoal em pontos de fluxo). The wiki index also shows a second 'DataFolha 1–3 Out, 2 002' row citing Diário do Poder (headline 'Datafolha mostra Lula com 45% e Flávio Bolsonaro com 42% dos votos válidos' = this poll's valid votes); no registry protocol matches it and the page returned HTTP 403, so it was not included."
+  },
+  {
+   "id": "futura-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Futura",
+   "contractor": null,
+   "tse_registration": "BR-02431/2026",
+   "fieldwork_start": "2026-10-02",
+   "fieldwork_end": "2026-10-03",
+   "published": "2026-10-03",
+   "published_time_printed": "sábado, 3 de outubro de 2026 (report header)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "CATI (Entrevista telefônica assistido por computador)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "42.5",
+     "Lula": "40.5",
+     "Augusto Cury": "3.9",
+     "Ronaldo Caiado": "3.7",
+     "Renan Santos": "2.6",
+     "Romeu Zema": "0.8",
+     "Samara Martins": "0.4",
+     "Edmilson Costa": "0.2",
+     "Rui Costa Pimenta": "0.1",
+     "Clariana Barão": "0.1",
+     "Wilson Grassi": "0.1",
+     "Hertz Dias": "0.1"
+    },
+    "other": {
+     "Ninguém/Branco/Nulo": "2.6",
+     "NS/NR/Indeciso": "2.4"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "44.8",
+    "Lula": "42.6",
+    "Augusto Cury": "4.1",
+    "Ronaldo Caiado": "3.9",
+    "Renan Santos": "2.8",
+    "Romeu Zema": "0.8",
+    "Samara Martins": "0.4",
+    "Edmilson Costa": "0.2",
+    "Rui Costa Pimenta": "0.1",
+    "Clariana Barão": "0.1",
+    "Wilson Grassi": "0.1",
+    "Hertz Dias": "0.1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR024312026",
+    "fieldwork_start": "2026-09-29",
+    "fieldwork_end": "2026-10-03",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 2000,
+    "company": "100% CIDADES PARTICIPACOES LTDA",
+    "contractors": [
+     "FUTURA CONSULTORIA E ASSESSORIA LTDA / FUTURA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativa, por amostragem, com aplicação de questionário estruturado realizado por meio telefônico. O universo da pesquisa é o eleitorado br"
+   },
+   "sources": [
+    {
+     "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/Relatorio_Tracking_Nacional_1_Turno_Final_Votos_Validos-3.pdf",
+     "what": "Futura '1º Turno' report PDF hosted by CNN Brasil (the wiki's citation): metodologia p.2 (CATI, 2000, 2,2 p.p., 95%, coleta 02–03/out, BR-02431/2026); Cenário 1 totals p.4; Cenário 1 votos válidos p.5 (charts read from rendered page images)"
+    },
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/pesquisa-futura-nacional-3out2026.pdf",
+     "what": "same PDF (identical sha256 b6d58bcd…) linked by Poder360"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR024312026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start",
+     "values": [
+      {
+       "value": "2026-10-02 ('Período de coleta: 02/out - 03/out de 2026')",
+       "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/Relatorio_Tracking_Nacional_1_Turno_Final_Votos_Validos-3.pdf"
+      },
+      {
+       "value": "2026-09-29",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR024312026"
+      },
+      {
+       "value": "'29 Set – 3 Out'",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    },
+    {
+     "field": "which figures are total votes",
+     "values": [
+      {
+       "value": "total 42.5/40.5; valid 44.8/42.6",
+       "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/Relatorio_Tracking_Nacional_1_Turno_Final_Votos_Validos-3.pdf"
+      },
+      {
+       "value": "wiki total-vote table shows 42,6% / 44,8% (the valid-vote figures)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "Leonardo Avalanche not listed. CNN file name calls it 'Tracking Nacional'. Registry company 100% CIDADES PARTICIPACOES, registry contractor FUTURA CONSULTORIA E ASSESSORIA.",
+   "pollster_as_labelled": "Futura Inteligência (100% Cidades)"
+  },
+  {
+   "id": "gerp-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Gerp",
+   "contractor": "Pesquisa institucional da Gerp Mercadologia, recursos próprios",
+   "tse_registration": "BR-00509/2026",
+   "fieldwork_start": "2026-09-30",
+   "fieldwork_end": "2026-10-02",
+   "published": "2026-10-03",
+   "published_time_printed": "3.out.2026 (sábado) - 8h00 (Poder360)",
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95.55",
+   "method": "phone",
+   "method_printed": "GerpCati (telefone); entrevista pessoal por telefone, gravada",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "43",
+     "Lula": "41",
+     "Augusto Cury": "4",
+     "Ronaldo Caiado": "3",
+     "Renan Santos": "2",
+     "Samara Martins": "1",
+     "Edmilson Costa": "0",
+     "Rui Costa Pimenta": "0",
+     "Romeu Zema": "0",
+     "Leonardo Avalanche": "0",
+     "Hertz Dias": "0",
+     "Wilson Grassi": "0",
+     "Clariana Barão": "0"
+    },
+    "other": {
+     "Nenhum deles": "3",
+     "Não sabe": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "46",
+    "Lula": "44",
+    "Augusto Cury": "4",
+    "Ronaldo Caiado": "3",
+    "Renan Santos": "2",
+    "Samara Martins": "1",
+    "Edmilson Costa": "0",
+    "Rui Costa Pimenta": "0",
+    "Romeu Zema": "0",
+    "Leonardo Avalanche": "0",
+    "Hertz Dias": "0",
+    "Wilson Grassi": "0",
+    "Clariana Barão": "0"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR005092026",
+    "fieldwork_start": "2026-09-30",
+    "fieldwork_end": "2026-10-02",
+    "disclosure_date": "2026-09-29",
+    "sample_size": 2400,
+    "company": "GERP MERCADOLOGIA LTDA",
+    "contractors": [
+     "GERP MERCADOLOGIA LTDA"
+    ],
+    "method_excerpt": "A população pesquisada é definida como pessoas maiores de 16 anos, eleitoras e residentes em todas as regiões do Brasil. A pesquisa é do tipo QUANTITATIVA e os "
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/presidente-gerp-nacional-outubro-1.pdf",
+     "what": "Gerp report PDF 'OUT/2026, TSE BR-00509/2026' (linked in Poder360's 3 Oct roundup): specs, stimulated 1st round (Pergunta 2) and valid votes (base 2.300)"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-49-contra-44-de-lula-no-2o-turno-diz-gerp/",
+     "what": "Poder360 article (3.out.2026 8h00): 'divulgado neste sábado', totals for top 5, valid votes for all candidates, phone, 2 pp, 95,55%, BR-00509/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR005092026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "disclosure date",
+     "values": [
+      {
+       "value": "2026-10-03",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-49-contra-44-de-lula-no-2o-turno-diz-gerp/"
+      },
+      {
+       "value": "2026-09-29 (registered disclosure date, before fieldwork started)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR005092026"
+      }
+     ]
+    }
+   ],
+   "notes": "Clariana Barão's 0% in totals is printed in the table footnote ('consta da cédula e teve 0%'). Valid-vote base printed as 2.300 entrevistas (excludes 'Nenhum deles' and 'Não sabe/Não respondeu'). Wiki index row (Gerp 30 Set–2 Out, cites Poder360) matches."
+  },
+  {
+   "id": "gerp-r1-2026-10-03-b",
+   "round": 1,
+   "pollster": "Gerp",
+   "contractor": "recursos próprios do instituto",
+   "tse_registration": "BR-08168/2026",
+   "fieldwork_start": "2026-10-01",
+   "fieldwork_end": "2026-10-03",
+   "published": "2026-10-03",
+   "published_time_printed": "04/10/2026 às 08h00 (Jovem Pan article date; text says 'divulgada neste sábado (3)')",
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95.55",
+   "method": "phone",
+   "method_printed": "por telefone",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "44",
+     "Lula": "42",
+     "Ronaldo Caiado": "4",
+     "Augusto Cury": "3",
+     "Renan Santos": "2",
+     "Samara Martins": "1",
+     "Romeu Zema": "1"
+    },
+    "other": {
+     "não votariam em nenhum dos candidatos": "2",
+     "não saber em quem votar": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "45",
+    "Lula": "43",
+    "Ronaldo Caiado": "4",
+    "Augusto Cury": "3",
+    "Renan Santos": "2",
+    "Samara Martins": "1",
+    "Romeu Zema": "1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR081682026",
+    "fieldwork_start": "2026-10-01",
+    "fieldwork_end": "2026-10-03",
+    "disclosure_date": "2026-09-29",
+    "sample_size": 2400,
+    "company": "GERP MERCADOLOGIA LTDA",
+    "contractors": [
+     "GERP MERCADOLOGIA LTDA"
+    ],
+    "method_excerpt": "A população pesquisada é definida como pessoas maiores de 16 anos, eleitoras e residentes em todas as regiões do Brasil. A pesquisa é do tipo QUANTITATIVA e os "
+   },
+   "sources": [
+    {
+     "url": "https://jovempan.com.br/politica/gerp-flavio-bolsonaro-44-lula-42-empate-primeiro-turno-2026/",
+     "what": "Jovem Pan article (dated 04/10/2026 08h00): totals and valid votes per candidate, 2.400 by phone 1–3 Oct, 2 pp, 95,55%, BR-08168/2026, 'divulgada neste sábado (3)'"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR081682026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-03 ('divulgada neste sábado (3), véspera da votação')",
+       "url": "https://jovempan.com.br/politica/gerp-flavio-bolsonaro-44-lula-42-empate-primeiro-turno-2026/"
+      },
+      {
+       "value": "article timestamp 04/10/2026 08h00",
+       "url": "https://jovempan.com.br/politica/gerp-flavio-bolsonaro-44-lula-42-empate-primeiro-turno-2026/"
+      },
+      {
+       "value": "2026-09-29 (registered disclosure date, before fieldwork)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR081682026"
+      }
+     ]
+    }
+   ],
+   "notes": "Only source read is Jovem Pan (not on the preferred-outlet list); no pollster release found. Rui Costa Pimenta, Edmilson Costa, Leonardo Avalanche, Hertz Dias, Wilson Grassi and Clariana Barão 'não pontuaram' (no number). Jovem Pan: 'as medições de 2 e 3 de outubro compartilham parte das entrevistas' — overlaps gerp-r1-2026-10-03 (BR-00509/2026), i.e. a rolling/tracking design; the two are not independent samples."
+  },
+  {
+   "id": "franca-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Instituto França",
+   "contractor": "recursos próprios (self-funded)",
+   "tse_registration": "BR-02928/2026",
+   "fieldwork_start": "2026-09-28",
+   "fieldwork_end": "2026-10-02",
+   "published": "2026-10-03",
+   "published_time_printed": "3.out.2026 (sábado) - 10h00 (Poder360)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "40.62",
+     "Flávio Bolsonaro": "37.49",
+     "Augusto Cury": "4.52",
+     "Ronaldo Caiado": "3.47",
+     "Renan Santos": "3.22",
+     "Romeu Zema": "1.19",
+     "Samara Martins": "0.68",
+     "Wilson Grassi": "0.41",
+     "Clariana Barão": "0.28",
+     "Rui Costa Pimenta": "0.21",
+     "Hertz Dias": "0.18",
+     "Leonardo Avalanche": "0.17",
+     "Edmilson Costa": "0.12"
+    },
+    "other": {
+     "NS": "5.19",
+     "BR/NL": "2.25"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR029282026",
+    "fieldwork_start": "2026-09-28",
+    "fieldwork_end": "2026-10-02",
+    "disclosure_date": "2026-10-02",
+    "sample_size": 2000,
+    "company": "INSTITUTO FRANCA DE PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO FRANCA DE PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa de natureza quantitativa, realizada por meio da execução da metodologia CATI (FONE), com aplicação de questionário estruturado junto a eleitoras e elei"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-Franca_Brasil_Presidente_1o-turno.pdf",
+     "what": "Instituto França summary report PDF: ficha técnica (2.000, nacional, 28/09–02/10, ±2,2, 95%, BR-02928/2026) and Cenário 1 stimulated 1st round"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-4588-contra-4501-de-flavio-no-2o-turno-diz-pesquisa/",
+     "what": "Poder360 article: 'divulgado neste sábado (3.out.2026)', R$ 80.000 own resources, same registration and dates"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR029282026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-03 ('divulgado neste sábado (3.out.2026)')",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-4588-contra-4501-de-flavio-no-2o-turno-diz-pesquisa/"
+      },
+      {
+       "value": "2026-10-02 (registered disclosure date)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR029282026"
+      }
+     ]
+    },
+    {
+     "field": "fieldwork_start / pollster label",
+     "values": [
+      {
+       "value": "28 Sep, 'Instituto França'",
+       "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-Franca_Brasil_Presidente_1o-turno.pdf"
+      },
+      {
+       "value": "'29 Set – 2 Out', labelled 'IFP'",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    }
+   ],
+   "notes": "This is the wiki's 'IFP' row. Method 'phone' from the TSE registry (CATI, 'metodologia CATI (FONE)'); the report does not state it. No valid-vote figures."
+  },
+  {
+   "id": "mda-r1-2026-10-03",
+   "round": 1,
+   "pollster": "MDA",
+   "contractor": "CNT – Confederação Nacional do Transporte (Pesquisa CNT de Opinião, 171ª rodada)",
+   "tse_registration": "BR-04756/2026",
+   "fieldwork_start": "2026-09-30",
+   "fieldwork_end": "2026-10-02",
+   "published": "2026-10-03",
+   "published_time_printed": "03/10/2026 às 11:04 (Gazeta do Povo)",
+   "sample_size": 2007,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "presencial, domiciliar e ponto de fluxo",
+   "total_votes": {
+    "candidates": {
+     "Lula": "43.1",
+     "Flávio Bolsonaro": "38.0",
+     "Augusto Cury": "3.2",
+     "Ronaldo Caiado": "3.0",
+     "Renan Santos": "1.5",
+     "Romeu Zema": "0.8"
+    },
+    "other": {
+     "Outros": "0.5",
+     "Branco / Nulo": "5.0",
+     "Indeciso": "4.7"
+    }
+   },
+   "valid_votes": {
+    "Lula": "47.8",
+    "Flávio Bolsonaro": "42.1",
+    "Augusto Cury": "3.6",
+    "Ronaldo Caiado": "3.4",
+    "Renan Santos": "1.7",
+    "Romeu Zema": "0.9",
+    "Outros": "0.6"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR047562026",
+    "fieldwork_start": "2026-09-29",
+    "fieldwork_end": "2026-10-02",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 2002,
+    "company": "MDA-PESQUISA DE OPINIAO PUBLICA E CONSULT. ESTATIST. LTDA - EPP",
+    "contractors": [
+     "CONFEDERACAO NACIONAL DO TRANSPORTE"
+    ],
+    "method_excerpt": "Será adotada metodologia quantitativa do tipo survey, com realização de entrevistas presenciais, face a face, em domicílios e em pontos de fluxo, mediante aplic"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/pesquisa-cnt-mda-presidente-3out2026-3.pdf",
+     "what": "CNT/MDA 171ª rodada report PDF (linked in Poder360's 3 Oct roundup): dados técnicos p.2 (2.007, 30/09–02/10, 2,2 pp, 95%, presencial, BR-04756/2026); totals p.6 and valid votes p.9 (bar labels read from rendered page images)"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/pesquisas-mostravam-avanco-de-flavio-antes-do-1o-turno/",
+     "what": "Poder360 retrospective (6 Oct): 'Lula ficou com 47,8% e Flávio com 42,1%' for the CNT/MDA study closed 2 Oct"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/cnt-mda-presidente-outubro-2026-vespera-primeiro-turno/",
+     "what": "Gazeta do Povo article (03/10/2026 11:04): same valid votes 47,8/42,1/3,6/3,4/1,7/0,9/Outros 0,6; 2.007, 30 Sep–2 Oct, 95%, 2,2, BR-04756/2026, contracted by CNT"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR047562026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start / sample_size",
+     "values": [
+      {
+       "value": "30 Sep – 2 Oct, 2.007 interviews",
+       "url": "https://static.poder360.com.br/uploads/2026/10/pesquisa-cnt-mda-presidente-3out2026-3.pdf"
+      },
+      {
+       "value": "29 Sep – 2 Oct, 2002 (registered)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR047562026"
+      }
+     ]
+    }
+   ],
+   "notes": "Report gives no per-candidate figures for the minor candidates, only 'Outros'. Field split printed: 30/09 38%, 01/10 42%, 02/10 20%. Valid-vote 'Outros' kept as key inside valid_votes. Published date 3 Oct from the registry disclosure date and the PDF name; the wiki cites an Exame article not read here.",
+   "pollster_as_labelled": "MDA (CNT/MDA)"
+  },
+  {
+   "id": "palver-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Palver",
+   "contractor": null,
+   "tse_registration": "BR-00198/2026",
+   "fieldwork_start": "2026-09-30",
+   "fieldwork_end": "2026-10-03",
+   "published": "2026-10-03",
+   "published_time_printed": null,
+   "sample_size": 5000,
+   "margin_of_error_pp": "4",
+   "confidence_level_pct": null,
+   "method": "online",
+   "method_printed": "realizadas pela internet",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "47",
+     "Lula": "43",
+     "Renan Santos": "7",
+     "Augusto Cury": "1",
+     "Ronaldo Caiado": "1",
+     "Romeu Zema": "0"
+    },
+    "other": {
+     "Outros": "0",
+     "Branco/nulo ou não votaria": "0",
+     "Não sabe": "0"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR001982026",
+    "fieldwork_start": "2026-09-30",
+    "fieldwork_end": "2026-10-03",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 5000,
+    "company": "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA.",
+    "contractors": [
+     "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA."
+    ],
+    "method_excerpt": "A metodologia utilizada é survey quantitativo online por questionário estruturado com amostragem não-probabilística, baseada em recrutamento por meio de anúncio"
+   },
+   "sources": [
+    {
+     "url": "https://www.cartacapital.com.br/politica/pesquisa-palver-mostra-lideranca-de-flavio-bolsonaro-contra-lula/",
+     "what": "CartaCapital article: 'divulgou neste próximo sábado 3 sua última pesquisa'; 1st-round list, 5.000 entrevistas pela internet 'entre quarta-feira e sábado', MoE 'quatro pontos percentuais', BR-00198/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR001982026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork dates",
+     "values": [
+      {
+       "value": "'entre quarta-feira e sábado' (30 Sep – 3 Oct)",
+       "url": "https://www.cartacapital.com.br/politica/pesquisa-palver-mostra-lideranca-de-flavio-bolsonaro-contra-lula/"
+      },
+      {
+       "value": "30 Sep – 3 Oct",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026 BR001982026"
+      },
+      {
+       "value": "'30 Set – 1 Out'",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index)"
+      }
+     ]
+    },
+    {
+     "field": "total_votes Renan Santos / Ronaldo Caiado",
+     "values": [
+      {
+       "value": "Renan 7, Caiado 1",
+       "url": "https://www.cartacapital.com.br/politica/pesquisa-palver-mostra-lideranca-de-flavio-bolsonaro-contra-lula/"
+      },
+      {
+       "value": "Caiado column 1%, Renan column 7%",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541 (index; consistent)"
+      }
+     ]
+    }
+   ],
+   "notes": "Only source read is CartaCapital (not on the preferred list; UOL and the pollster release were not reachable). Margin 4 pp matches the registry's 'margem de erro amostral máxima de +/- 4 pontos percentuais' (the 29 Sep Palver release printed 2,4 pp for the same design). Blank/null and undecided printed as 0% each; minor candidates only as 'Outros: 0%'. Method 'online' per the article ('pela internet') and the registry (non-probability online panel recruited via social-media ads)."
+  },
+  {
+   "id": "poderdata-r1-2026-10-03",
+   "round": 1,
+   "pollster": "PoderData",
+   "contractor": "recursos próprios (PoderData, grupo Poder360); parceria de divulgação Aya Bancah",
+   "tse_registration": "BR-03519/2026",
+   "fieldwork_start": "2026-09-30",
+   "fieldwork_end": "2026-10-02",
+   "published": "2026-10-03",
+   "published_time_printed": "3.out.2026 (sábado) - 7h30",
+   "sample_size": 4000,
+   "margin_of_error_pp": "1.5",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "pesquisa telefônica IVR; ligações para celulares e telefones fixos",
+   "total_votes": {
+    "candidates": {
+     "Lula": "42",
+     "Flávio Bolsonaro": "41",
+     "Augusto Cury": "3",
+     "Renan Santos": "3",
+     "Ronaldo Caiado": "2",
+     "Romeu Zema": "1",
+     "Rui Costa Pimenta": "1"
+    },
+    "other": {
+     "branco ou anular": "4",
+     "não souberam responder": "2"
+    }
+   },
+   "valid_votes": {
+    "Lula": "45",
+    "Flávio Bolsonaro": "43",
+    "Augusto Cury": "4",
+    "Renan Santos": "3",
+    "Ronaldo Caiado": "3",
+    "Rui Costa Pimenta": "1",
+    "Romeu Zema": "1",
+    "Samara Martins": "1",
+    "Hertz Dias": "0",
+    "Clariana Barão": "0",
+    "Leonardo Avalanche": "0",
+    "Wilson Grassi": "0",
+    "Edmilson Costa": "0"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR035192026",
+    "fieldwork_start": "2026-09-30",
+    "fieldwork_end": "2026-10-02",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 4000,
+    "company": "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA",
+    "contractors": [
+     "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem. Aplicação de questionário estruturado por meio de ligações automatizadas para telefones fixos e celulares. O universo da p"
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poderdata/lula-e-flavio-tem-46-cada-um-no-2o-turno-diz-poderdata-aya/",
+     "what": "Poder360 article (3.out.2026 7h30): 1st-round totals in prose, valid votes Lula 45 / Flávio 43 / Cury 4, methodology (4.000, 786 municípios, 30/09–02/10, 1,5 pp, 95%, BR-03519/2026)"
+    },
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/Relatorio-PoderData-Eleitoral-3out26-1.pdf",
+     "what": "PoderData report PDF: ficha técnica (IVR), totals time series p.6, full valid-vote chart p.15 (02/out series read from rendered page image)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR035192026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Total votes: Samara Martins, Clariana Barão, Wilson Grassi, Leonardo Avalanche, Hertz Dias and Edmilson Costa printed as 'não pontuam' (no number). The valid-vote chart nevertheless prints Samara 1 and Caiado 3 (vs 2 in totals) — as printed. Labels in 'other' are the article's phrasing ('pretendem votar em branco ou anular' 4%, 'não souberam responder' 2%); the PDF chart labels them Branco/Nulo and Não sabe.",
+   "pollster_as_labelled": "PoderData (PoderData/Aya)"
+  },
+  {
+   "id": "quaest-r1-2026-10-03",
+   "round": 1,
+   "pollster": "Quaest",
+   "contractor": "Globo e jornal O Globo",
+   "tse_registration": "BR-02197/2026",
+   "fieldwork_start": "2026-10-02",
+   "fieldwork_end": "2026-10-03",
+   "published": "2026-10-03",
+   "published_time_printed": "03/10/2026 19h16 (g1)",
+   "sample_size": 3702,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Lula": "40",
+     "Flávio Bolsonaro": "38",
+     "Ronaldo Caiado": "3",
+     "Renan Santos": "3",
+     "Augusto Cury": "3",
+     "Romeu Zema": "0",
+     "Samara Martins": "0",
+     "Clariana Barão": "0",
+     "Edmilson Costa": "0",
+     "Hertz Dias": "0",
+     "Rui Costa Pimenta": "0",
+     "Wilson Grassi": "0",
+     "Leonardo Avalanche": "0"
+    },
+    "other": {
+     "Indecisos": "3",
+     "Branco/nulo/não vai votar": "10"
+    }
+   },
+   "valid_votes": {
+    "Lula": "46",
+    "Flávio Bolsonaro": "45",
+    "Augusto Cury": "3",
+    "Renan Santos": "3",
+    "Ronaldo Caiado": "3",
+    "Clariana Barão": "0",
+    "Edmilson Costa": "0",
+    "Hertz Dias": "0",
+    "Leonardo Avalanche": "0",
+    "Romeu Zema": "0",
+    "Rui Costa Pimenta": "0",
+    "Samara Martins": "0",
+    "Wilson Grassi": "0"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR021972026",
+    "fieldwork_start": "2026-10-02",
+    "fieldwork_end": "2026-10-03",
+    "disclosure_date": "2026-10-03",
+    "sample_size": 3702,
+    "company": "QUAEST PESQUISAS, CONSULTORIA E PROJETOS LTDA.",
+    "contractors": [
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA",
+     "EDITORA GLOBO S/A / EDITORA GLOBO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, de survey, que consiste na realização de entrevistas pessoais, domiciliares e presenciais, conduzidas por profissionais treinados, com a "
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/quaest-presidente-3-outubro.ghtml",
+     "what": "g1 article (03/10/2026 19h16): valid votes and total votes per candidate, 3.702, 2–3 Oct, MoE 2 pp, 95%, BR-02197/2026, commissioned by Globo and O Globo; explains valid votes use a likely-voter model"
+    },
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/03/quaest-2o-turno-flavio-bolsonaro-44percent-lula-42percent.ghtml",
+     "what": "g1 2nd-round article: same 1st-round valid and total lists (its total list omits the branco/nulo line)"
+    },
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/quaest-presidente-outubro-2026/",
+     "what": "Gazeta do Povo article: same valid votes; contracted by Editora Globo and Globo Comunicação e Participações"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR021972026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "IMPORTANT for the check: per g1, Quaest's valid-vote figures are NOT a simple renormalisation of totals — 'A Quaest leva em consideração as intenções de voto da pesquisa e o perfil de comparecimento para estimar os votos válidos. É o modelo likely voter'. Method 'in-person' from the TSE registry (entrevistas pessoais, domiciliares e presenciais). g1 prints zero candidates as '0' without '%'."
+  },
+  {
+   "id": "vox-r2-2026-10-18",
+   "round": 2,
+   "pollster": "Vox Brasil",
+   "contractor": "Vox Brasil (encomendado pela Vox Brasil, per Metrópoles)",
+   "tse_registration": "BR-04332/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-17",
+   "published": "2026-10-18",
+   "published_time_printed": "18/10/2026 00:01 (Metrópoles)",
+   "sample_size": 2100,
+   "margin_of_error_pp": "2.15",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "registry only: abordagem pessoal em domicílios (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Lula": "46.4",
+     "Flávio Bolsonaro": "44.6"
+    },
+    "other": {
+     "Nenhum/branco/nulo": "5",
+     "Não sabe/não opinou": "3.9"
+    }
+   },
+   "valid_votes": {
+    "Lula": "51",
+    "Flávio Bolsonaro": "49"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR043322026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-17",
+    "disclosure_date": "2026-10-18",
+    "sample_size": 2100,
+    "company": "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em domicílios particulares permanentemente ocupados"
+   },
+   "sources": [
+    {
+     "url": "https://www.metropoles.com/brasil/vox-brasil-com-empate-tecnico-lula-tem-464-e-flavio-bolsonaro-446",
+     "what": "Metrópoles article (18/10/2026): totals, valid votes, sample, MoE 2,15, 95% confidence, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR043322026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": null,
+   "pollster_as_labelled": "Instituto Vox Brasil"
+  },
+  {
+   "id": "atlasintel-r2-2026-10-19",
+   "round": 2,
+   "pollster": "AtlasIntel",
+   "contractor": "AtlasIntel (contratada pelo próprio instituto, per Gazeta do Povo)",
+   "tse_registration": "BR-02418/2026",
+   "fieldwork_start": "2026-10-13",
+   "fieldwork_end": "2026-10-18",
+   "published": "2026-10-19",
+   "published_time_printed": "19/10/2026 às 07:30 (Gazeta do Povo)",
+   "sample_size": 4998,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "registry only: coleta aleatória via questionário estruturado web (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "49.8",
+     "Lula": "47.6"
+    },
+    "other": {
+     "Branco/Nulo/Não sabe": "2.6"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.1",
+    "Lula": "48.9"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR024182026",
+    "fieldwork_start": "2026-10-13",
+    "fieldwork_end": "2026-10-18",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 5000,
+    "company": "ATLASINTEL TECNOLOGIA DE DADOS LTDA",
+    "contractors": [
+     "ATLASINTEL TECNOLOGIA DE DADOS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa com coleta aleatória via questionário estruturado web e pós-estratificação da amostra de acordo com as características do eleitorado de Br"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-outubro-2026-segundo-turno-2/",
+     "what": "Gazeta do Povo, 19/10/2026 07:30: valid votes, totals, sample 4.998, MoE, confidence, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR024182026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "4998",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/atlasintel-presidente-outubro-2026-segundo-turno-2/"
+      },
+      {
+       "value": "5000 (registered QT_ENTREVISTADO)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "futura-r2-2026-10-19",
+   "round": 2,
+   "pollster": "Futura",
+   "contractor": null,
+   "tse_registration": "BR-06715/2026",
+   "fieldwork_start": "2026-10-16",
+   "fieldwork_end": "2026-10-17",
+   "published": "2026-10-19",
+   "published_time_printed": "DIVULGAÇÃO Outubro (report cover)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "Metodologia CATI — Entrevista telefônica assistida por computador (CATI)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48.3",
+     "Lula": "47.5"
+    },
+    "other": {
+     "Ninguém/Branco/Nulo": "2.4",
+     "NS/NR/Indeciso": "1.9"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.4",
+    "Lula": "49.6"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR067152026",
+    "fieldwork_start": "2026-10-16",
+    "fieldwork_end": "2026-10-17",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 2000,
+    "company": "100% CIDADES PARTICIPACOES LTDA",
+    "contractors": [
+     "FUTURA CONSULTORIA E ASSESSORIA LTDA / FUTURA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativa, por amostragem, com aplicação de questionário estruturado realizado por meio telefônico. O universo da pesquisa é o eleitorado br"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/pesquisa-futura-eleicao-presidencial-19out2026.pdf",
+     "what": "Futura report PDF 'Avaliação Política Outubro 2026, Rodada 3' (hosted by Poder360, file dated 19out2026): stimulated totals p.10, valid votes p.12, methodology p.4"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR067152026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes.other (undecided)",
+     "values": [
+      {
+       "value": "NS/NR/Indeciso 1,9% (stimulated question)",
+       "url": "https://static.poder360.com.br/uploads/2026/10/pesquisa-futura-eleicao-presidencial-19out2026.pdf"
+      },
+      {
+       "value": "4,3% 'Indecisos e Absentos' (wiki rev 73293541 index; not a figure printed in the report)",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541"
+      }
+     ]
+    }
+   ],
+   "notes": "Publication date taken from the PDF filename (19out2026), the wiki citation date and registry DT_DIVULGACAO 2026-10-19; the report cover only says 'Outubro'. Registry company is 100% CIDADES PARTICIPACOES LTDA with contractor FUTURA CONSULTORIA E ASSESSORIA LTDA; the report's disclaimer names Apex (usually reported as Futura/Apex) but no contractor is stated.",
+   "pollster_as_labelled": "Futura Inteligência"
+  },
+  {
+   "id": "phoenix-r2-2026-10-19",
+   "round": 2,
+   "pollster": "Instituto Phoenix",
+   "contractor": "Franco & Rodrigues Comunicação Social e Empreendimentos Ltda. (Jornal Correio Continental RO)",
+   "tse_registration": "BR-08809/2026",
+   "fieldwork_start": "2026-10-13",
+   "fieldwork_end": "2026-10-16",
+   "published": "2026-10-19",
+   "published_time_printed": "19 de outubro de 2026 (Phoenix News RO)",
+   "sample_size": 3999,
+   "margin_of_error_pp": "1.55",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry only: entrevistas por telefone (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Lula": "47.59",
+     "Flávio Bolsonaro": "45.21"
+    },
+    "other": {
+     "indecisos ou que não souberam responder": "4.20",
+     "voto branco, nulo ou em nenhum dos candidatos": "3"
+    }
+   },
+   "valid_votes": {
+    "Lula": "51.3",
+    "Flávio Bolsonaro": "48.7"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR088092026",
+    "fieldwork_start": "2026-10-13",
+    "fieldwork_end": "2026-10-16",
+    "disclosure_date": "2026-10-18",
+    "sample_size": 3999,
+    "company": "J J COELHO",
+    "contractors": [
+     "FRANCO & RODRIGUES COMUNICACAO SOCIAL  E EMPREENDIMENTOS LTDA / JORNAL CORREIO CONTINENTAL RO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, com realização de entrevistas por telefone e aplicação de questionário estruturado junto a uma amostra representativa do eleitorado brasi"
+   },
+   "sources": [
+    {
+     "url": "https://www.phoenixnewsrondonia.com.br/pesquisa-do-instituto-phoenix-aponta-lula-com-51-3-e-flavio-bolsonaro-com-48-7-dos-votos-validos",
+     "what": "Phoenix News RO (the institute's own portal), 19/10/2026: totals, valid votes, sample, MoE, confidence, contractor, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR088092026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "tse_registration",
+     "values": [
+      {
+       "value": "TRE-RO nº 08809-2026",
+       "url": "https://www.phoenixnewsrondonia.com.br/pesquisa-do-instituto-phoenix-aponta-lula-com-51-3-e-flavio-bolsonaro-com-48-7-dos-votos-validos"
+      },
+      {
+       "value": "BR088092026 (national, SG_UE BR)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data pesquisa_eleitoral_2026_BRASIL.csv"
+      }
+     ]
+    },
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-19",
+       "url": "https://www.phoenixnewsrondonia.com.br/pesquisa-do-instituto-phoenix-aponta-lula-com-51-3-e-flavio-bolsonaro-com-48-7-dos-votos-validos"
+      },
+      {
+       "value": "2026-10-18 (registered disclosure date DT_DIVULGACAO)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Article says sample covered 15 states and 311 municipalities ('levantamento nacional'). Wiki rev 73293541 shows 7,2% undecided+abstain (its own sum of 4,20 and 3).",
+   "pollster_as_labelled": "Instituto Phoenix de Pesquisa"
+  },
+  {
+   "id": "nexus-r2-2026-10-19",
+   "round": 2,
+   "pollster": "Nexus",
+   "contractor": "BTG Pactual",
+   "tse_registration": "BR-04499/2026",
+   "fieldwork_start": "2026-10-16",
+   "fieldwork_end": "2026-10-18",
+   "published": "2026-10-19",
+   "published_time_printed": "19/10/2026 | 07:53 (DGABC, Estadão Conteúdo text)",
+   "sample_size": 2002,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "ouviu 2.002 eleitores por telefone",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "46.5",
+     "Lula": "45.9"
+    },
+    "other": {
+     "Nenhum, branco e nulo": "4.7",
+     "não sabem ou não responderam": "2.9"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.3",
+    "Lula": "49.7"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "44.5",
+      "Lula": "44.5"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR044992026",
+    "fieldwork_start": "2026-10-16",
+    "fieldwork_end": "2026-10-18",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 2000,
+    "company": "NEXUS PESQUISA E INTELIGENCIA DE DADOS LTDA",
+    "contractors": [
+     "BANCO BTG PACTUAL S.A."
+    ],
+    "method_excerpt": "Pesquisa quantitativa telefônica realizada com população brasileira a partir de 16 anos e com título de eleitor, em um questionário estruturado, para avaliação "
+   },
+   "sources": [
+    {
+     "url": "https://www.dgabc.com.br/Noticia/4353493/flavio-tem-46-5-e-lula-45-9-mostra-btg-nexus-distancia-cai-e-empate-tecnico-permanece",
+     "what": "DGABC (Estadão text), 19/10/2026: totals, nenhum/branco/nulo, NS/NR, valid votes, spontaneous, sample, method, MoE, confidence, contractor, registration"
+    },
+    {
+     "url": "https://sbtnews.sbt.com.br/noticia/politica/btg-nexus-flavio-tem-50-3-dos-votos-validos-lula-49-7",
+     "what": "SBT News, 19/10/2026 10:18: valid votes 50,3/49,7, sample 2.002, phone"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR044992026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "2002",
+       "url": "https://www.dgabc.com.br/Noticia/4353493/flavio-tem-46-5-e-lula-45-9-mostra-btg-nexus-distancia-cai-e-empate-tecnico-permanece"
+      },
+      {
+       "value": "2000 (registered QT_ENTREVISTADO)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Nexus began publishing one decimal this round and restated its series; DGABC compares with the 13 Oct round as originally published (Flávio 48 / Lula 45 totals; 52/48 valid), SBT News quotes the restated 13 Oct valid votes 51,6/48,4. UOL/Agência Estado URL cited by the wiki returned HTTP 403."
+  },
+  {
+   "id": "poderdata-r2-2026-10-19",
+   "round": 2,
+   "pollster": "PoderData",
+   "contractor": "recursos próprios (PoderData, grupo Poder360); parceria de divulgação com Aya Bancah",
+   "tse_registration": "BR-02586/2026",
+   "fieldwork_start": "2026-10-16",
+   "fieldwork_end": "2026-10-18",
+   "published": "2026-10-19",
+   "published_time_printed": "19.out.2026 (segunda-feira) - 7h00",
+   "sample_size": 3000,
+   "margin_of_error_pp": "1.8",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "ligações para celulares e telefones fixos (registry: ligações automatizadas)",
+   "total_votes": null,
+   "valid_votes": {
+    "Flávio Bolsonaro": "52",
+    "Lula": "48"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR025862026",
+    "fieldwork_start": "2026-10-16",
+    "fieldwork_end": "2026-10-18",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 3000,
+    "company": "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA",
+    "contractors": [
+     "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem. Aplicação de questionário estruturado por meio de ligações automatizadas para telefones fixos e celulares. O universo da p"
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poderdata/flavio-reage-e-vai-a-52-contra-48-de-lula-diz-poderdata-aya/",
+     "what": "Poder360 (the pollster's own outlet), 19/10/2026 7h00: valid votes, sample, municipalities, MoE, 'intervalo de confiança' 95%, registration. Total-vote figures not in the article text (only demographic totals)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR025862026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Article text gives only valid votes for the national 2nd-round question; totals left null."
+  },
+  {
+   "id": "alfa-r2-2026-10-20",
+   "round": 2,
+   "pollster": "Alfa Inteligência",
+   "contractor": null,
+   "tse_registration": "BR-00820/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-19",
+   "published": "2026-10-20",
+   "published_time_printed": "20/10/2026 07h49 (UOL / Agência Estado)",
+   "sample_size": 2700,
+   "margin_of_error_pp": "1.9",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry only: entrevistas telefônicas (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48.8",
+     "Lula": "45.9"
+    },
+    "other": {
+     "branco, nulo ou em nenhum candidato": "3.5",
+     "não soube ou não quis responder": "1.8"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.5",
+    "Lula": "48.5"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "47",
+      "Lula": "43"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR008202026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-19",
+    "disclosure_date": "2026-10-20",
+    "sample_size": 2700,
+    "company": "ALFA INTELIGENCIA E SERVICOS DE SOFTWARE E OPINIAO S/A",
+    "contractors": [
+     "ALFA INTELIGENCIA E SERVICOS DE SOFTWARE E OPINIAO S/A"
+    ],
+    "method_excerpt": "A presente pesquisa será realizada através de entrevistas telefônicas, individuais e pessoais utilizando questionário estruturado junto a uma amostra representa"
+   },
+   "sources": [
+    {
+     "url": "https://noticias.uol.com.br/ultimas-noticias/agencia-estado/2026/10/20/alfa-inteligencia-flavio-tem-488-dos-votos-totais-contra-459-de-lula-em-empate-tecnico.htm",
+     "what": "UOL (Agência Estado text), 20/10/2026 07h49: totals, branco/nulo, NS, valid votes, spontaneous, sample '2,7 mil', MoE, confidence, registration (the .amp.htm variant cited by the wiki was not used)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR008202026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Sample printed as '2,7 mil eleitores'; 2700 matches the registered QT_ENTREVISTADO. Contractor not stated; registry: the institute itself."
+  },
+  {
+   "id": "datatrends-r2-2026-10-20",
+   "round": 2,
+   "pollster": "DataTrends",
+   "contractor": null,
+   "tse_registration": "BR-04454/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-17",
+   "published": "2026-10-20",
+   "published_time_printed": "20 de Outubro de 2026 (institute release page)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.19",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "por meio de entrevistas telefônicas automatizadas",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "49",
+     "Lula": "46"
+    },
+    "other": {
+     "branco ou nulo": "4",
+     "não soube ou não respondeu": "1"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.5",
+    "Lula": "48.5"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR044542026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-17",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 2000,
+    "company": "INSTITUTO DATATRENDS LTDA",
+    "contractors": [
+     "INSTITUTO DATATRENDS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem, realizada por meio de questionário estruturado aplicado via contatos telefônicos fixos e móveis, com abrangência nacional."
+   },
+   "sources": [
+    {
+     "url": "https://institutodatatrends.com/pesquisas/62535/datatrends-flavio-bolsonaro-tem-51-5-dos-votos-validos-contra-48-5-de-lula-na-disputa-presidencial",
+     "what": "DataTrends own release (dated 20/10/2026): valid votes, totals, sample, method, MoE, confidence, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR044542026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-20 (release page date)",
+       "url": "https://institutodatatrends.com/pesquisas/62535/datatrends-flavio-bolsonaro-tem-51-5-dos-votos-validos-contra-48-5-de-lula-na-disputa-presidencial"
+      },
+      {
+       "value": "2026-10-19 (registered DT_DIVULGACAO; wiki index also says 19/10)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Contractor not stated in the release; registry lists the institute itself (ST_PESQUISA_PROPRIA=S)."
+  },
+  {
+   "id": "gerp-r2-2026-10-20",
+   "round": 2,
+   "pollster": "Gerp",
+   "contractor": "obtida com exclusividade por Times Brasil – Licenciado Exclusivo CNBC (no contractor named)",
+   "tse_registration": null,
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-19",
+   "published": "2026-10-20",
+   "published_time_printed": "20/10/2026 • 08:28 (Times Brasil)",
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": null,
+   "method": null,
+   "method_printed": null,
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "45"
+    },
+    "other": {
+     "Nenhum dos dois": "2",
+     "Não sabem": "3"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "53",
+    "Lula": "47"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "49",
+      "Lula": "43",
+      "não sabem": "7",
+      "outras respostas": "1"
+     }
+    }
+   ],
+   "registry": null,
+   "sources": [
+    {
+     "url": "https://timesbrasil.com.br/eleicoes-2026/bolsonaro-lula-2-gerp-segundo-turno-votos-validos/",
+     "what": "Times Brasil | CNBC, 20/10/2026 08:28: Gerp tracking (3-day moving average), valid and total votes table, spontaneous, sample, MoE"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "total_votes.other",
+     "values": [
+      {
+       "value": "'Outros 2% não escolhem nenhum dos dois e 3% não sabem' (table and text)",
+       "url": "https://timesbrasil.com.br/eleicoes-2026/bolsonaro-lula-2-gerp-segundo-turno-votos-validos/"
+      },
+      {
+       "value": "'Desse grupo, 5% não escolheram nenhum dos dois candidatos e 2% afirmam que podem mudar o voto' (eleitorado em jogo section, same article)",
+       "url": "https://timesbrasil.com.br/eleicoes-2026/bolsonaro-lula-2-gerp-segundo-turno-votos-validos/"
+      }
+     ]
+    }
+   ],
+   "notes": "Tracking 'em média móvel de três dias' over 15–19 Oct; the article does not give a TSE registration. No registry row matches 15–19 Oct for Gerp (BR051872026 covers 14–16 Oct, BR038352026 covers 17–20 Oct). Method and confidence level not stated; Gerp registrations describe quota sampling in all regions (method field not specific). Overlaps in time with gerp-r2-2026-10-21.",
+   "pollster_as_labelled": "Gerp Mercadologia"
+  },
+  {
+   "id": "franca-r2-2026-10-20",
+   "round": 2,
+   "pollster": "Instituto França",
+   "contractor": null,
+   "tse_registration": "BR-07896/2026",
+   "fieldwork_start": "2026-10-16",
+   "fieldwork_end": "2026-10-20",
+   "published": "2026-10-20",
+   "published_time_printed": "20/10/2026 07:09 (FanF1)",
+   "sample_size": 3000,
+   "margin_of_error_pp": "1.8",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry only: metodologia CATI (FONE) (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "40.95",
+     "Lula": "39.65"
+    },
+    "other": {
+     "Branco/nulo/nenhum": "10.56",
+     "Não sabe": "8.84"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.81",
+    "Lula": "49.19"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR078962026",
+    "fieldwork_start": "2026-10-16",
+    "fieldwork_end": "2026-10-20",
+    "disclosure_date": "2026-10-20",
+    "sample_size": 3000,
+    "company": "INSTITUTO FRANCA DE PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO FRANCA DE PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa de natureza quantitativa, realizada por meio da execução da metodologia CATI (FONE), com aplicação de questionário estruturado junto a eleitoras e elei"
+   },
+   "sources": [
+    {
+     "url": "https://fanf1.com.br/2026/10/20/instituto-franca-flavio-tem-508-e-lula-492-indecisos-sao-quase-9/",
+     "what": "FanF1 (Aracaju) blog post, 20/10/2026 07:09: totals, valid votes, sample '3 mil', 27 UFs, MoE, 'intervalo de confiança' 95%, registration"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR078962026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "valid_votes",
+     "values": [
+      {
+       "value": "Flávio 50,8% / Lula 49,2% (headline)",
+       "url": "https://fanf1.com.br/2026/10/20/instituto-franca-flavio-tem-508-e-lula-492-indecisos-sao-quase-9/"
+      },
+      {
+       "value": "Flávio 50,81% / Lula 49,19% (body list)",
+       "url": "https://fanf1.com.br/2026/10/20/instituto-franca-flavio-tem-508-e-lula-492-indecisos-sao-quase-9/"
+      }
+     ]
+    }
+   ],
+   "notes": "Only a regional blog source found; no pollster release located. Sample printed as '3 mil eleitores' (registry 3000). Published at 07:09 on the last fieldwork day (20 Oct), as printed. Registry: no external contractor (institute's own initiative)."
+  },
+  {
+   "id": "ranking-r2-2026-10-20",
+   "round": 2,
+   "pollster": "Instituto Ranking",
+   "contractor": "em parceria com o portal Fonte83 (registry contractor: INTELIGENCIA.COM SERVICOS LTDA / FONTE 83)",
+   "tse_registration": "BR-00152/2026",
+   "fieldwork_start": "2026-10-14",
+   "fieldwork_end": "2026-10-16",
+   "published": "2026-10-20",
+   "published_time_printed": "20 de outubro de 2026 (Fonte83)",
+   "sample_size": 2100,
+   "margin_of_error_pp": "2.15",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "entrevistas pessoais e domiciliares",
+   "total_votes": {
+    "candidates": {
+     "Lula": "45.4",
+     "Flávio Bolsonaro": "44.6"
+    },
+    "other": {
+     "branco, nulo ou em nenhum dos candidatos": "6",
+     "não souberam responder": "4"
+    }
+   },
+   "valid_votes": {
+    "Lula": "50.4",
+    "Flávio Bolsonaro": "49.6"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR001522026",
+    "fieldwork_start": "2026-10-14",
+    "fieldwork_end": "2026-10-16",
+    "disclosure_date": "2026-10-19",
+    "sample_size": 2100,
+    "company": "INSTITUTO RANKING DE PESQUISA LTDA",
+    "contractors": [
+     "INTELIGENCIA.COM SERVICOS LTDA / FONTE 83"
+    ],
+    "method_excerpt": "A metodologia da pesquisa será quantitativa, utilizando questionário estruturado e padronizado, aplicado por meio de entrevistas pessoais domiciliares junto a u"
+   },
+   "sources": [
+    {
+     "url": "https://fonte83.com.br/politica/pesquisa-nacional-data-ranking-lula-tem-504-e-flavio-496-no-2o-turno/",
+     "what": "Fonte83 (the contracting portal), 20/10/2026: totals, valid votes, sample, method, MoE, confidence, registration, municipality list. The wiki-cited URL (...lula-tem-504-e-flavio-496-dos-votos-validos-no-2o-turno/) redirects here"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR001522026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.15 ('margem de erro estimada de 2,15 pontos percentuais', methodology paragraph)",
+       "url": "https://fonte83.com.br/politica/pesquisa-nacional-data-ranking-lula-tem-504-e-flavio-496-no-2o-turno/"
+      },
+      {
+       "value": "2 ('margem de erro de dois pontos percentuais', body text of the same article)",
+       "url": "https://fonte83.com.br/politica/pesquisa-nacional-data-ranking-lula-tem-504-e-flavio-496-no-2o-turno/"
+      }
+     ]
+    },
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-20",
+       "url": "https://fonte83.com.br/politica/pesquisa-nacional-data-ranking-lula-tem-504-e-flavio-496-no-2o-turno/"
+      },
+      {
+       "value": "2026-10-19 (registered DT_DIVULGACAO)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Sample is drawn from listed mid-size municipalities in all five regions (no state capitals except Brasília listed).",
+   "pollster_as_labelled": "Instituto Data Ranking (Instituto Ranking de Pesquisa)"
+  },
+  {
+   "id": "realtimebigdata-r2-2026-10-20",
+   "round": 2,
+   "pollster": "Real Time Big Data",
+   "contractor": null,
+   "tse_registration": "BR-02952/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-19",
+   "published": "2026-10-20",
+   "published_time_printed": "DIVULGAÇÃO: 20/10/2026 (report cover)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.0",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "PESQUISA REALIZADA TELEFONICAMENTE, COM ENTREVISTADORES HUMANOS ... LIGAÇÕES TELEFÔNICAS E DISPAROS DE MENSAGENS VIRTUAIS",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48",
+     "Lula": "45"
+    },
+    "other": {
+     "Nulo/Branco": "5",
+     "NS/NR": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "52",
+    "Lula": "48"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "47",
+      "Lula": "44",
+      "Nulo/Branco": "5",
+      "NS/NR": "4"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR029522026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-19",
+    "disclosure_date": "2026-10-20",
+    "sample_size": 2000,
+    "company": "REAL TIME MIDIA LTDA",
+    "contractors": [
+     "REAL TIME MIDIA LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, que consiste na realização de entrevistas com eleitores do universo a ser explorado, feitas em combinação mista por entrevistadores human"
+   },
+   "sources": [
+    {
+     "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/Presidencial-BR-02952-2026-Out26.pdf",
+     "what": "Real Time Big Data report PDF (hosted by CNN Brasil): cover (registration, divulgação 20/10/2026, sample, MoE, confidence, field dates, method), stimulated 2nd round, valid votes"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR029522026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Registry describes the method as mixed human interviewers + AI, telephone and digital approaches; the report says telephone with human interviewers. Contractor not stated; registry: own resources (REAL TIME MIDIA LTDA)."
+  },
+  {
+   "id": "futura-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Futura",
+   "contractor": null,
+   "tse_registration": "BR-06614/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-20",
+   "published": "2026-10-21",
+   "published_time_printed": "21.10.2026 09h32 (CartaCapital)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": null,
+   "method": "phone",
+   "method_printed": "2 mil entrevistas por telefone",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48.9",
+     "Lula": "46.8"
+    },
+    "other": {
+     "Ninguém/branco/nulo": "2",
+     "Não sabe/não respondeu": "2.3"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.1",
+    "Lula": "48.9"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR066142026",
+    "fieldwork_start": "2026-10-19",
+    "fieldwork_end": "2026-10-20",
+    "disclosure_date": "2026-10-21",
+    "sample_size": 2000,
+    "company": "100% CIDADES PARTICIPACOES LTDA",
+    "contractors": [
+     "FUTURA CONSULTORIA E ASSESSORIA LTDA / FUTURA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativa, por amostragem, com aplicação de questionário estruturado realizado por meio telefônico. O universo da pesquisa é o eleitorado br"
+   },
+   "sources": [
+    {
+     "url": "https://www.cartacapital.com.br/politica/flavio-e-lula-seguem-tecnicamente-empatados-mostra-pesquisa-futura/",
+     "what": "CartaCapital, 21.10.2026 09h32: totals, valid votes, sample '2 mil', phone, MoE, registration printed 'BR-06614-2026'"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR066142026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Sample printed as '2 mil entrevistas' (registry 2000). Registry company 100% CIDADES PARTICIPACOES LTDA, contractor FUTURA CONSULTORIA E ASSESSORIA LTDA. Confidence level not stated in the source.",
+   "pollster_as_labelled": "Futura Inteligência"
+  },
+  {
+   "id": "gerp-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Gerp",
+   "contractor": null,
+   "tse_registration": "BR-03835/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-21",
+   "published": "2026-10-21",
+   "published_time_printed": "'divulgada em 21 de outubro' (report press text)",
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95.55",
+   "method": "phone",
+   "method_printed": "GERPCATI (TELEFONE)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "45"
+    },
+    "other": {
+     "Não sabe": "2",
+     "Nenhum deles": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "53",
+    "Lula": "47"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "48",
+      "Lula": "43",
+      "Não sabe / Não respondeu": "8",
+      "Outros": "1"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR038352026",
+    "fieldwork_start": "2026-10-17",
+    "fieldwork_end": "2026-10-20",
+    "disclosure_date": "2026-10-21",
+    "sample_size": 2400,
+    "company": "GERP MERCADOLOGIA LTDA",
+    "contractors": [
+     "GERP MERCADOLOGIA LTDA"
+    ],
+    "method_excerpt": "A população pesquisada é definida como pessoas maiores de 16 anos, eleitoras e residentes em todas as regiões do Brasil. A pesquisa é do tipo QUANTITATIVA e os "
+   },
+   "sources": [
+    {
+     "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/PRESIDENCIA-DO-BRASIL-34o-Relatorio-Presidencia-do-Brasil-2026.pdf",
+     "what": "Gerp 34º relatório (pollster's own report, hosted by CNN Brasil): cover, press text, totals chart, valid votes, methodology (GerpCati telephone), confidence 95,55%"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR038352026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork dates",
+     "values": [
+      {
+       "value": "19, 20 e 21/10 (report cover and text)",
+       "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/PRESIDENCIA-DO-BRASIL-34o-Relatorio-Presidencia-do-Brasil-2026.pdf"
+      },
+      {
+       "value": "2026-10-17 to 2026-10-20 (registered DT_INICIO/DT_FIM; wiki rev 73293541 also says 17–20 Out)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Report says the total-vote question sums may vary between 99% and 101% due to rounding. Previous Gerp release cited in the report: divulgada 16 Oct, BR-05187/2026 (50/45 totals, 52/48 valid) — outside this window.",
+   "pollster_as_labelled": "Gerp Mercadologia"
+  },
+  {
+   "id": "ideia-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Ideia",
+   "contractor": "Meio (registry contractor: CANAL MEIO S.A.)",
+   "tse_registration": "BR-08251/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-19",
+   "published": "2026-10-21",
+   "published_time_printed": "21/10/2026 08h10 (UOL / Agência Estado)",
+   "sample_size": 1500,
+   "margin_of_error_pp": "2.5",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "por meio de entrevistas telefônicas",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48",
+     "Lula": "46"
+    },
+    "other": {
+     "branco ou nulo": "3.4",
+     "não sabem": "2.6"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.1",
+    "Lula": "48.9"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR082512026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-19",
+    "disclosure_date": "2026-10-21",
+    "sample_size": 1500,
+    "company": "BOAS IDEIAS INTELIGENCIA EM PESQUISA E ESTRATEGIA DIGITAL LTDA",
+    "contractors": [
+     "CANAL MEIO S.A."
+    ],
+    "method_excerpt": "Pesquisa quantitativa com aplicação de questionário estruturado, através pesquisa telefônica, junto a uma parcela representativa do eleitorado de todo o país."
+   },
+   "sources": [
+    {
+     "url": "https://noticias.uol.com.br/ultimas-noticias/agencia-estado/2026/10/21/pesquisa-meioideia-flavio-bolsonaro-tem-48-e-lula-soma-46-das-intencoes-de-voto.htm",
+     "what": "UOL (Agência Estado), 21/10/2026 08h10: totals, branco/nulo, não sabe, sample, phone, MoE, confidence, registration"
+    },
+    {
+     "url": "https://sbtnews.sbt.com.br/noticia/eleicoes/meio-ideia-flavio-bolsonaro-tem-51-1-contra-48-9-de-lula",
+     "what": "SBT News, 21/10/2026 11:20: valid votes 51,1/48,9 and totals 48/46"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR082512026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Contractor stated in the registry (Canal Meio); the sources name the poll 'Meio/Ideia'. Registry company: BOAS IDEIAS INTELIGENCIA EM PESQUISA E ESTRATEGIA DIGITAL LTDA. Totals printed as integers for candidates and one decimal for branco/nulo and não sabe.",
+   "pollster_as_labelled": "Ideia (Meio/Ideia)"
+  },
+  {
+   "id": "palver-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Palver",
+   "contractor": "contratada pelo próprio instituto",
+   "tse_registration": "BR-04612/2026",
+   "fieldwork_start": "2026-10-18",
+   "fieldwork_end": "2026-10-20",
+   "published": "2026-10-21",
+   "published_time_printed": "21/10/2026 às 10:15 (Gazeta do Povo)",
+   "sample_size": 5000,
+   "margin_of_error_pp": "2.4",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "registry only: survey quantitativo online, recrutamento por anúncios em redes sociais (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "48"
+    },
+    "other": {
+     "Branco/Nulo/Não vai votar": "1",
+     "Indecisos": "0"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR046122026",
+    "fieldwork_start": "2026-10-16",
+    "fieldwork_end": "2026-10-20",
+    "disclosure_date": "2026-10-21",
+    "sample_size": 5000,
+    "company": "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA.",
+    "contractors": [
+     "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA."
+    ],
+    "method_excerpt": "A metodologia utilizada é survey quantitativo online por questionário estruturado com amostragem não-probabilística, baseada em recrutamento por meio de anúncio"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-outubro-2026-segundo-turno/",
+     "what": "Gazeta do Povo, 21/10/2026 10:15: stimulated totals, sample, fieldwork, confidence, MoE, registration. The UOL URL cited by the wiki returned HTTP 403 (both .htm and .amp.htm)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR046122026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start",
+     "values": [
+      {
+       "value": "2026-10-18 ('de 18 a 20 de outubro')",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-outubro-2026-segundo-turno/"
+      },
+      {
+       "value": "2026-10-16 (registered DT_INICIO_PESQUISA)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "No valid-vote figures found in the source read. 'Indecisos: 0' printed without a percent sign."
+  },
+  {
+   "id": "quaest-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Quaest",
+   "contractor": "Globo e jornal O Globo",
+   "tse_registration": "BR-08535/2026",
+   "fieldwork_start": "2026-10-17",
+   "fieldwork_end": "2026-10-20",
+   "published": "2026-10-21",
+   "published_time_printed": "21/10/2026 10h16 (g1)",
+   "sample_size": 2154,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "registry only: entrevistas pessoais, domiciliares e presenciais (article silent)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "45",
+     "Lula": "44"
+    },
+    "other": {
+     "Branco/nulo/não vai votar": "9",
+     "Indecisos": "2"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "40",
+      "Lula": "40",
+      "indecisos": "14"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR085352026",
+    "fieldwork_start": "2026-10-17",
+    "fieldwork_end": "2026-10-20",
+    "disclosure_date": "2026-10-21",
+    "sample_size": 2154,
+    "company": "QUAEST PESQUISAS, CONSULTORIA E PROJETOS LTDA.",
+    "contractors": [
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA",
+     "EDITORA GLOBO S/A / EDITORA GLOBO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, de survey, que consiste na realização de entrevistas pessoais, domiciliares e presenciais, conduzidas por profissionais treinados, com a "
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/21/quaest-presidente-21-outubro.ghtml",
+     "what": "g1, 21/10/2026 10h16: stimulated totals, spontaneous, sample, fieldwork, MoE, confidence, contractor, registration. No valid-vote figure in the article text"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR085352026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Wiki rev 73293541 gives Datafolha 20–22 Oct a note that 'o g1 informa 2.154' for sample; 2.154 is this Quaest poll's sample, not Datafolha's (possible wiki mix-up; outside this slice)."
+  },
+  {
+   "id": "verita-r2-2026-10-21",
+   "round": 2,
+   "pollster": "Veritá",
+   "contractor": "recursos próprios do instituto",
+   "tse_registration": "BR-06396/2026",
+   "fieldwork_start": "2026-10-15",
+   "fieldwork_end": "2026-10-19",
+   "published": "2026-10-21",
+   "published_time_printed": "21/10/2026 • 11:54 (Times Brasil | CNBC)",
+   "sample_size": 15554,
+   "margin_of_error_pp": "1.0",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "registry only: Unidade Automatizada de Respostas Audíveis, ligações para telefones móveis (article silent)",
+   "total_votes": null,
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.7",
+    "Lula": "49.3"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR063962026",
+    "fieldwork_start": "2026-10-15",
+    "fieldwork_end": "2026-10-19",
+    "disclosure_date": "2026-10-20",
+    "sample_size": 15554,
+    "company": "INSTITUTO VERITA LTDA",
+    "contractors": [
+     "INSTITUTO VERITA LTDA"
+    ],
+    "method_excerpt": "Estudo quantitativo voltado às Eleições 2026, realizado por meio de entrevistas individuais, aplicadas mediante questionário eletrônico estruturado e Unidade Au"
+   },
+   "sources": [
+    {
+     "url": "https://timesbrasil.com.br/eleicoes-2026/decisao-2026-flavio-tem-507-e-lula-493-dos-votos-validos-mostra-pesquisa-verita/",
+     "what": "Times Brasil | CNBC, 21/10/2026 11:54: valid votes, sample 15.554, MoE 1,0, 95%, fieldwork, own resources, registration. No total-vote figures printed"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR063962026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-21 ('divulgada nesta quarta-feira (21)')",
+       "url": "https://timesbrasil.com.br/eleicoes-2026/decisao-2026-flavio-tem-507-e-lula-493-dos-votos-validos-mostra-pesquisa-verita/"
+      },
+      {
+       "value": "2026-10-20 (registered DT_DIVULGACAO; wiki comment also says 20/10)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE open data"
+      }
+     ]
+    }
+   ],
+   "notes": "Totals not found in any source read; left null.",
+   "pollster_as_labelled": "Instituto Veritá"
+  },
+  {
+   "id": "datafolha-r2-2026-10-22",
+   "round": 2,
+   "pollster": "Datafolha",
+   "contractor": "Globo e Folha de S.Paulo",
+   "tse_registration": "BR-09709/2026",
+   "fieldwork_start": "2026-10-20",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-22",
+   "published_time_printed": "22/10/2026 19h04 (g1)",
+   "sample_size": 2520,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "registry: abordagem pessoal em pontos de fluxo populacional",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "47",
+     "Lula": "46"
+    },
+    "other": {
+     "Em branco/nulo/nenhum": "5",
+     "Indecisos": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50",
+    "Lula": "50"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR097092026",
+    "fieldwork_start": "2026-10-20",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-22",
+    "sample_size": 2520,
+    "company": "DATAFOLHA INSTITUTO DE PESQUISAS LTDA.",
+    "contractors": [
+     "EMPRESA FOLHA DA MANHA S.A.",
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em pontos d"
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/22/datafolha-presidente-segundo-turno-22-outubro.ghtml",
+     "what": "g1: totals, valid, n=2.154, dates, MoE, 95%, contractor, BR-09709/2026"
+    },
+    {
+     "url": "https://www.cnnbrasil.com.br/eleicoes/datafolha-flavio-e-lula-empatam-em-50-de-votos-validos-no-2o-turno/",
+     "what": "CNN Brasil: valid 50/50, n=2.520, dates, MoE, 95%, 'Contratada pela Folha de S.Paulo e pela Globo', BR-09709/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR097092026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "2154",
+       "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/22/datafolha-presidente-segundo-turno-22-outubro.ghtml"
+      },
+      {
+       "value": "2520",
+       "url": "https://www.cnnbrasil.com.br/eleicoes/datafolha-flavio-e-lula-empatam-em-50-de-votos-validos-no-2o-turno/"
+      },
+      {
+       "value": "2520",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR097092026"
+      }
+     ]
+    }
+   ],
+   "notes": "sample_size holds 2.520, printed by CNN Brasil and registered under BR-09709/2026; g1 printed 2.154 (recorded in conflicts). 2.154 is also the registered sample of the Quaest 17-20 Oct poll (BR085352026), so the g1 figure may be a slip; not resolved."
+  },
+  {
+   "id": "indexa-r2-2026-10-22",
+   "round": 2,
+   "pollster": "Indexa",
+   "contractor": "Agência Estado S.A. (Broadcast)",
+   "tse_registration": "BR-02348/2026",
+   "fieldwork_start": "2026-10-20",
+   "fieldwork_end": "2026-10-21",
+   "published": "2026-10-22",
+   "published_time_printed": "22/10/2026 às 09:20 (Gazeta do Povo)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry: entrevistas individuais por telefone",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "45.2",
+     "Lula": "44.1"
+    },
+    "other": {
+     "Não iria votar": "4.8",
+     "Branco/nulo": "4.3",
+     "Não sabe": "1.6"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.6",
+    "Lula": "49.4"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "cenário espontâneo (votos totais)",
+     "values": {
+      "Flávio Bolsonaro": "41.9",
+      "Lula": "41.1",
+      "Não iria votar": "4.5",
+      "Branco/nulo": "4.8",
+      "Não sabe": "7.8"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR023482026",
+    "fieldwork_start": "2026-10-20",
+    "fieldwork_end": "2026-10-21",
+    "disclosure_date": "2026-10-22",
+    "sample_size": 2000,
+    "company": "INSTITUTO INDEXA PESQUISAS LTDA",
+    "contractors": [
+     "AGENCIA ESTADO S.A / AGENCIA ESTADO"
+    ],
+    "method_excerpt": "Pesquisa de abrangência nacional, quantitativa, amostral, com entrevistas individuais por telefone com questionários est"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-outubro-2026-segundo-turno-2/",
+     "what": "Gazeta do Povo: totals, valid, spontaneous, n, dates, MoE, 95%, contractor, BR-02348/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR023482026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.2",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/indexa-broadcast-presidente-outubro-2026-segundo-turno-2/"
+      },
+      {
+       "value": "2.19",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541",
+       "label": "pt.wikipedia rev 73293541 (index only)"
+      }
+     ]
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "poderdata-r2-2026-10-22",
+   "round": 2,
+   "pollster": "PoderData",
+   "contractor": null,
+   "tse_registration": "BR-07926/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-21",
+   "published": "2026-10-22",
+   "published_time_printed": "22.out.2026 (quinta-feira) - 7h15",
+   "sample_size": 4000,
+   "margin_of_error_pp": "1.6",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "ligações para celulares e telefones fixos (registry: ligações automatizadas)",
+   "total_votes": null,
+   "valid_votes": {
+    "Flávio Bolsonaro": "51",
+    "Lula": "49"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR079262026",
+    "fieldwork_start": "2026-10-19",
+    "fieldwork_end": "2026-10-21",
+    "disclosure_date": "2026-10-22",
+    "sample_size": 4000,
+    "company": "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA",
+    "contractors": [
+     "PODERDATA PESQUISA, JORNALISMO E COMUNICACAO LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem. Aplicação de questionário estruturado por meio de ligações automatizadas para tele"
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poderdata/flavio-tem-51-e-lula-tem-49-dos-votos-validos-diz-poderdata-aya/",
+     "what": "Poder360 article: valid votes, dates, n, MoE, 95%, BR-07926/2026, 'realizada pelo PoderData ... com recursos próprios'"
+    },
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/pd-intencao-voto-21-out-2026-01-33-scaled.png",
+     "what": "PoderData chart 'votos válidos' (19-21.out.2026): Flávio 51, Lula 49 (read from image)"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR079262026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Own resources (PoderData, Poder360 group); Aya Bancah is a dissemination partner, not a contractor. Total-vote figures not found in the text. The stratification chart (pd-intencao-voto-21-out-2026-03) shows a 'total' row Lula 49 / Flávio 51, while the article text calls the demographic breakdown 'votos totais' (mulheres 55 x 41) — ambiguous, so total_votes left null.",
+   "pollster_as_labelled": "PoderData/Aya"
+  },
+  {
+   "id": "alfa-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Alfa Inteligência",
+   "contractor": null,
+   "tse_registration": "BR-08496/2026",
+   "fieldwork_start": "2026-10-18",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-23",
+   "published_time_printed": "23/10/26 às 07:30 (CNN Brasil)",
+   "sample_size": 2700,
+   "margin_of_error_pp": "1.9",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry: entrevistas telefônicas",
+   "total_votes": null,
+   "valid_votes": {
+    "Flávio Bolsonaro": "52",
+    "Lula": "48"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR084962026",
+    "fieldwork_start": "2026-10-18",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 1200,
+    "company": "ALFA INTELIGENCIA E SERVICOS DE SOFTWARE E OPINIAO S/A",
+    "contractors": [
+     "ALFA INTELIGENCIA E SERVICOS DE SOFTWARE E OPINIAO S/A"
+    ],
+    "method_excerpt": "A presente pesquisa será realizada através de entrevistas telefônicas, individuais e pessoais utilizando questionário es"
+   },
+   "sources": [
+    {
+     "url": "https://www.cnnbrasil.com.br/eleicoes/alfa-flavio-tem-52-dos-votos-validos-no-2o-turno-lula-48/",
+     "what": "CNN Brasil: valid votes, n=2.700, dates, MoE 1,9, 95%, BR-08496/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR084962026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "2700",
+       "url": "https://www.cnnbrasil.com.br/eleicoes/alfa-flavio-tem-52-dos-votos-validos-no-2o-turno-lula-48/"
+      },
+      {
+       "value": "1200",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR084962026"
+      }
+     ]
+    }
+   ],
+   "notes": "Total-vote figures not found in any source read."
+  },
+  {
+   "id": "datatrends-r2-2026-10-23",
+   "round": 2,
+   "pollster": "DataTrends",
+   "contractor": null,
+   "tse_registration": "BR-03365/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-21",
+   "published": "2026-10-23",
+   "published_time_printed": "outubro 23, 2026 (Blog Edmar Lyra)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.19",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry: contatos telefônicos fixos e móveis",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "46"
+    },
+    "other": {
+     "branco ou nulo": "4",
+     "não soube ou não respondeu": "1"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.9",
+    "Lula": "48.1"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR033652026",
+    "fieldwork_start": "2026-10-19",
+    "fieldwork_end": "2026-10-21",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 2000,
+    "company": "INSTITUTO DATATRENDS LTDA",
+    "contractors": [
+     "INSTITUTO DATATRENDS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa por amostragem, realizada por meio de questionário estruturado aplicado via contatos telefônicos f"
+   },
+   "sources": [
+    {
+     "url": "https://www.edmarlyra.com/datatrends-flavio-bolsonaro-amplia-vantagem-sobre-lula-e-chega-a-519-dos-votos-validos-2/",
+     "what": "Blog Edmar Lyra (not a major outlet; the only source found): valid, totals, n, dates, MoE, 95%, BR-03365/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR033652026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Secondary source is a political blog, not one of the listed major outlets; pollster's own page not read. Registry: own resources."
+  },
+  {
+   "id": "ipespe-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Ipespe",
+   "contractor": null,
+   "tse_registration": "BR-04350/2026",
+   "fieldwork_start": "2026-10-20",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-23",
+   "published_time_printed": "23.out.2026 às 10h00 (Folha)",
+   "sample_size": 1500,
+   "margin_of_error_pp": "2.6",
+   "confidence_level_pct": null,
+   "method": "phone",
+   "method_printed": "ouviu por telefone 1.500 eleitores",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48",
+     "Lula": "47"
+    },
+    "other": {
+     "Brancos e nulos": "3",
+     "não souberam dizer ou não responderam": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.5",
+    "Lula": "49.5"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea (votos totais)",
+     "values": {
+      "Flávio Bolsonaro": "47",
+      "Lula": "46",
+      "Brancos e nulos": "3",
+      "não souberam dizer ou não responderam": "4"
+     }
+    },
+    {
+     "label": "entrevistados com nota 10 de chance de comparecer (91%) — votos válidos",
+     "values": {
+      "Flávio Bolsonaro": "51.5",
+      "Lula": "48.5"
+     }
+    },
+    {
+     "label": "entrevistados com nota 10 de chance de comparecer (91%) — votos totais",
+     "values": {
+      "Flávio Bolsonaro": "50",
+      "Lula": "47",
+      "Brancos e nulos": "2",
+      "não soube dizer ou não respondeu": "1"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR043502026",
+    "fieldwork_start": "2026-10-20",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 1500,
+    "company": "IPESPE INST DE PESQUISAS SOCIAIS POLITICAS E ECONOMICAS",
+    "contractors": [
+     "IPESPE INST DE PESQUISAS SOCIAIS POLITICAS E ECONOMICAS"
+    ],
+    "method_excerpt": "Pesquisa quantitativa telefônica IPESPE/ABRAPEL, realizada através de entrevistas a pessoas nas quais é aplicado um ques"
+   },
+   "sources": [
+    {
+     "url": "https://www1.folha.uol.com.br/poder/2026/10/ipespeabrapel-flavio-bolsonaro-tem-505-dos-votos-validos-no-2o-turno-e-lula-495.shtml",
+     "what": "Folha: valid, stimulated totals, spontaneous, turnout-propensity group, n, dates, phone, MoE 'máxima de 2,6', BR-04350/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR043502026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Confidence level not stated in the Folha text. Registry: own resources (Ipespe); 'Abrapel' is the co-branding partner named in the poll title.",
+   "pollster_as_labelled": "Ipespe/Abrapel"
+  },
+  {
+   "id": "realtimebigdata-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Real Time Big Data",
+   "contractor": null,
+   "tse_registration": "BR-09670/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-23",
+   "published_time_printed": "DIVULGAÇÃO: 23/10/2026 (report cover)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.0",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "PESQUISA REALIZADA TELEFONICAMENTE, COM ENTREVISTADORES HUMANOS",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "49",
+     "Lula": "45"
+    },
+    "other": {
+     "Nulo/Branco": "5",
+     "NS/NR": "1"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "52",
+    "Lula": "48"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "48",
+      "Lula": "44",
+      "Nulo/Branco": "5",
+      "NS/NR": "3"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR096702026",
+    "fieldwork_start": "2026-10-19",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 2000,
+    "company": "REAL TIME MIDIA LTDA",
+    "contractors": [
+     "REAL TIME MIDIA LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, que consiste na realização de entrevistas com eleitores do universo a ser explorado, feitas em co"
+   },
+   "sources": [
+    {
+     "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/Presidencial-BR-09670-2026-Out26.pdf",
+     "what": "Real Time Big Data report (hosted by CNN Brasil): methodology, stimulated totals, valid votes, spontaneous"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR096702026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Contractor not stated in the report; registry lists Real Time Mídia Ltda (own). Registry describes collection as mixed human interviewers + AI."
+  },
+  {
+   "id": "verita-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Veritá",
+   "contractor": null,
+   "tse_registration": "BR-06070/2026",
+   "fieldwork_start": "2026-10-18",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-23",
+   "published_time_printed": "23/10/2026 - 15h20 (R7)",
+   "sample_size": 15554,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "registry: questionário eletrônico ... Unidade Automatizada de Respostas Audíveis ... ligações para telefones móveis",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50.2",
+     "Lula": "47.5"
+    },
+    "other": {
+     "Nulo / Branco": "1.4",
+     "Não sabe / Não respondeu (NS/NR)": "0.9"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.3",
+    "Lula": "48.7"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR060702026",
+    "fieldwork_start": "2026-10-18",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 15554,
+    "company": "INSTITUTO VERITA LTDA",
+    "contractors": [
+     "INSTITUTO VERITA LTDA"
+    ],
+    "method_excerpt": "Estudo quantitativo voltado às Eleições 2026, realizado por meio de entrevistas individuais, aplicadas mediante question"
+   },
+   "sources": [
+    {
+     "url": "https://noticias.r7.com/eleicoes/2026/verita-flavio-bolsonaro-tem-513-dos-votos-validos-e-lula-487-no-2-turno-23102026/",
+     "what": "R7: stimulated totals, valid, n, dates, MoE, 95%, BR-06070/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR060702026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "R7 text prints 'Flávio Bolsoanaro (PL): 50,2%' (typo in name). Registry: own resources. Fieldwork overlaps the next Veritá poll (19-23 Oct, same n=15.554)."
+  },
+  {
+   "id": "vetorarrow-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Vetor Arrow",
+   "contractor": null,
+   "tse_registration": "BR-06957/2026",
+   "fieldwork_start": "2026-10-22",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-23",
+   "published_time_printed": "23 de outubro de 2026, 10:16 (Agenda do Poder)",
+   "sample_size": 6867,
+   "margin_of_error_pp": "1.2",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "chamadas telefônicas automatizadas (URA)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "44.9"
+    },
+    "other": {
+     "branco ou anular": "3.6",
+     "não saber em quem votar": "1.5"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "52.7",
+    "Lula": "47.3"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR069572026",
+    "fieldwork_start": "2026-10-22",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-20",
+    "sample_size": 3000,
+    "company": "VETOR ARROW INSTITUTO DE PESQUISA E OPINIAO LTDA",
+    "contractors": [
+     "VETOR ARROW INSTITUTO DE PESQUISA E OPINIAO LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa de opinião eleitoral, de abrangência nacional, destinada a investigar a intenção de voto para Pres"
+   },
+   "sources": [
+    {
+     "url": "https://agendadopoder.com.br/flavio-bolsonaro-tem-527-dos-votos-validos-contra-473-de-lula-aponta-pesquisa-vetor-arrow/",
+     "what": "Agenda do Poder (not a major outlet; the only source found): valid, totals, n=6.867, dates, IVR, MoE 1,2, 95%, BR-06957/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR069572026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "6867",
+       "url": "https://agendadopoder.com.br/flavio-bolsonaro-tem-527-dos-votos-validos-contra-473-de-lula-aponta-pesquisa-vetor-arrow/"
+      },
+      {
+       "value": "3000",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR069572026"
+      }
+     ]
+    },
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-23",
+       "url": "https://agendadopoder.com.br/flavio-bolsonaro-tem-527-dos-votos-validos-contra-473-de-lula-aponta-pesquisa-vetor-arrow/"
+      },
+      {
+       "value": "2026-10-20 (registry DT_DIVULGACAO, before the registered fieldwork 22-23 Oct)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR069572026"
+      }
+     ]
+    }
+   ],
+   "notes": "Fieldwork published: 22 and 23 Oct. Source also reports a complementary collection of 824 interviews with 16-24 year-olds (gender inferred from first name in 616 cases); whether these are inside the 6.867 is not stated. Second-tier source only."
+  },
+  {
+   "id": "vox-r2-2026-10-23",
+   "round": 2,
+   "pollster": "Vox Brasil",
+   "contractor": "Instituto Vox Brasil Opinião e Pesquisas Ltda (own resources)",
+   "tse_registration": "BR-03259/2026",
+   "fieldwork_start": "2026-10-20",
+   "fieldwork_end": "2026-10-22",
+   "published": "2026-10-23",
+   "published_time_printed": "23.out.2026 (sexta-feira) - 0h02 (Poder360); report cover 'Publicação: 23/10/2026'",
+   "sample_size": 2100,
+   "margin_of_error_pp": "2.15",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "abordagem presencial domiciliar",
+   "total_votes": {
+    "candidates": {
+     "Lula": "45.4",
+     "Flávio Bolsonaro": "44.3"
+    },
+    "other": {
+     "NENHUM/BRANCO/NULO": "6",
+     "NÃO SABE/NÃO OPINOU": "4.3"
+    }
+   },
+   "valid_votes": {
+    "Lula": "50.6",
+    "Flávio Bolsonaro": "49.4"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "respostas espontâneas (resultado geral)",
+     "values": {
+      "Lula": "43.8",
+      "Flávio Bolsonaro": "43.3",
+      "NENHUM/BRANCO/NULO": "6.3",
+      "NÃO SABE/NÃO OPINOU": "6.6",
+      "votos válidos Lula": "50.3",
+      "votos válidos Flávio": "49.7"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR032592026",
+    "fieldwork_start": "2026-10-20",
+    "fieldwork_end": "2026-10-22",
+    "disclosure_date": "2026-10-23",
+    "sample_size": 2100,
+    "company": "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO VOX BRASIL OPINIAO E PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em domicíli"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/RELATORIO-VOX-BRASIL-NACIONAL-11-2-TURNO-23-10-2026.pdf",
+     "what": "Vox Brasil report (pollster PDF): ficha técnica, stimulated totals and valid votes, spontaneous"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/lula-tem-506-contra-494-de-flavio-em-votos-validos-diz-vox/",
+     "what": "Poder360: valid 50,6/49,4, n, dates, MoE, 95%, BR-03259/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR032592026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Spontaneous valid-vote pair read from the PDF layout (50,3% / 49,7% next to labels LU..LA / FL..ÁVIO); order Lula then Flávio as in the stimulated block, which Poder360 confirms for the stimulated figures."
+  },
+  {
+   "id": "atlasintel-r2-2026-10-24",
+   "round": 2,
+   "pollster": "AtlasIntel",
+   "contractor": "AtlasIntel/Bloomberg (paid with own resources)",
+   "tse_registration": "BR-06380/2026",
+   "fieldwork_start": "2026-10-18",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-24",
+   "published_time_printed": "24.out.2026 (sábado) - 19h30 (Poder360)",
+   "sample_size": 4990,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "recrutamento digital aleatório (Atlas RDR)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "49.9",
+     "Lula": "48.4"
+    },
+    "other": {
+     "branco/nulo/não sabe": "1.7"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.8",
+    "Lula": "49.2"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR063802026",
+    "fieldwork_start": "2026-10-18",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 5000,
+    "company": "ATLASINTEL TECNOLOGIA DE DADOS LTDA",
+    "contractors": [
+     "ATLASINTEL TECNOLOGIA DE DADOS LTDA"
+    ],
+    "method_excerpt": "Pesquisa quantitativa com coleta aleatória via questionário estruturado web e pós-estratificação da amostra de acordo co"
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-508-dos-votos-validos-e-lula-492-diz-atlasintel/",
+     "what": "Poder360: valid, totals, n=4.990, dates, MoE, 95%, BR-06380/2026, 'pago com recursos próprios'"
+    },
+    {
+     "url": "https://www.cnnbrasil.com.br/eleicoes/atlasintel-flavio-tem-508-dos-votos-validos-no-2o-turno-lula-492/",
+     "what": "CNN Brasil: valid 50,8/49,2, n, dates, 'recrutamento digital', MoE, 95%, BR-06380/2026"
+    },
+    {
+     "url": "https://jovempan.com.br/politica/flavio-x-lula-o-que-dizem-as-pesquisas-divulgadas-na-vespera-do-2o-turno/",
+     "what": "Jovem Pan roundup: same totals and valid, 'recrutamento digital aleatório (Atlas RDR)'"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR063802026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "4990",
+       "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-508-dos-votos-validos-e-lula-492-diz-atlasintel/"
+      },
+      {
+       "value": "5000",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR063802026 (planned)"
+      }
+     ]
+    }
+   ],
+   "notes": "Bloomberg is named as partner ('AtlasIntel/Bloomberg'); the cost was paid by AtlasIntel."
+  },
+  {
+   "id": "colectta-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Colectta",
+   "contractor": null,
+   "tse_registration": "BR-05601/2026",
+   "fieldwork_start": "2026-10-23",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-24",
+   "published_time_printed": null,
+   "sample_size": 3000,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "entrevistas presenciais",
+   "total_votes": {
+    "candidates": {
+     "Lula": "46.5",
+     "Flávio Bolsonaro": "46"
+    },
+    "other": {
+     "branco ou nulo": "4.4",
+     "não sabem ou não responderam": "3.1"
+    }
+   },
+   "valid_votes": {
+    "Lula": "50.3",
+    "Flávio Bolsonaro": "49.7"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR056012026",
+    "fieldwork_start": "2026-10-23",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 3000,
+    "company": "COLECTTA INSTITUTO DE PESQUISA E ESTATISTICA LTDA",
+    "contractors": [
+     "EDITORA BRAZIL ECONOMY LTDA"
+    ],
+    "method_excerpt": "Pesquisa com metodologia quantitativa, de caráter survey, realizada por meio de entrevistas pessoais, domiciliares e pre"
+   },
+   "sources": [
+    {
+     "url": "https://www.cartacapital.com.br/cartaexpressa/pesquisa-colectta-mostra-lula-com-503-contra-497-de-flavio-bolsonaro/",
+     "what": "CartaCapital: valid, totals, n, 101 municípios/27 UFs, date, presencial, MoE, 95%, BR-05601/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR056012026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Contractor not stated in the source; registry lists Editora Brazil Economy Ltda. Only CartaCapital read."
+  },
+  {
+   "id": "datafolha-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Datafolha",
+   "contractor": null,
+   "tse_registration": "BR-09540/2026",
+   "fieldwork_start": "2026-10-23",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": "24/10/2026 18h30 (g1)",
+   "sample_size": 4050,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "registry: abordagem pessoal em pontos de fluxo populacional",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48",
+     "Lula": "47"
+    },
+    "other": {
+     "Em branco/nulo/nenhum": "3",
+     "Indecisos": "2"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51",
+    "Lula": "49"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "votos válidos, segmento de alta propensão a votar (76% dos entrevistados)",
+     "values": {
+      "Flávio Bolsonaro": "52",
+      "Lula": "48"
+     }
+    },
+    {
+     "label": "votos válidos, segmento de baixa ou média propensão a votar (24%)",
+     "values": {
+      "Lula": "52",
+      "Flávio Bolsonaro": "48"
+     }
+    },
+    {
+     "label": "pesquisa espontânea (votos totais)",
+     "values": {
+      "Flávio Bolsonaro": "47",
+      "Lula": "45",
+      "Outras respostas": "1",
+      "Em branco/nulo/nenhum": "3",
+      "Indecisos": "4"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR095402026",
+    "fieldwork_start": "2026-10-23",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 4050,
+    "company": "DATAFOLHA INSTITUTO DE PESQUISAS LTDA.",
+    "contractors": [
+     "EMPRESA FOLHA DA MANHA S.A.",
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativo, por amostragem, com aplicação de questionário estruturado e abordagem pessoal em pontos d"
+   },
+   "sources": [
+    {
+     "url": "https://g1.globo.com/politica/eleicoes/2026/pesquisa-eleitoral/noticia/2026/10/24/datafolha-presidente-24-outubro.ghtml",
+     "what": "g1: valid, stimulated totals, spontaneous, propensity segments, n, dates, MoE, 95%, BR-09540/2026"
+    },
+    {
+     "url": "https://jovempan.com.br/politica/flavio-x-lula-o-que-dizem-as-pesquisas-divulgadas-na-vespera-do-2o-turno/",
+     "what": "Jovem Pan roundup: valid 51/49, n 4.050, dates, MoE, 95%, BR-09540/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR095402026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Contractor not stated in the sources read for this round; registry lists Empresa Folha da Manhã S.A. and Globo Comunicação e Participações. The g1 headline/lede also mentions a propensity scenario 'Flávio Bolsonaro tem 52% dos votos válidos, contra 48% de Lula' — that is the high-propensity segment, kept in other_published_scenarios. The wiki (rev 73293541) cites a Jovem Pan BTG/Nexus URL for this Datafolha row (citation error in the index)."
+  },
+  {
+   "id": "futura-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Futura",
+   "contractor": "own resources (per CNN)",
+   "tse_registration": "BR-09726/2026",
+   "fieldwork_start": "2026-10-23",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": "24/10/26 às 20:32 (CNN Brasil)",
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "CATI – entrevistas telefônicas assistidas por computador",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "48.2",
+     "Lula": "47.9"
+    },
+    "other": {
+     "Branco/Nulo/Ninguém": "2.3",
+     "NS/NR/Indeciso": "1.6"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.1",
+    "Lula": "49.9"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "intenção de voto espontânea",
+     "values": {
+      "Lula": "46.6",
+      "Flávio Bolsonaro": "46.1",
+      "Outros": "1.2",
+      "Branco/Nulo/Ninguém": "2.3",
+      "NS/NR/Indeciso": "3.7"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR097262026",
+    "fieldwork_start": "2026-10-21",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 2000,
+    "company": "100% CIDADES PARTICIPACOES LTDA",
+    "contractors": [
+     "FUTURA CONSULTORIA E ASSESSORIA LTDA / FUTURA"
+    ],
+    "method_excerpt": "Pesquisa do tipo quantitativa, por amostragem, com aplicação de questionário estruturado realizado por meio telefônico. "
+   },
+   "sources": [
+    {
+     "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-501-dos-votos-validos-no-2o-turno-lula-499/",
+     "what": "CNN Brasil: valid, n, dates 23-24 Oct, MoE, 95%, own resources, BR-09726/2026"
+    },
+    {
+     "url": "https://ndmais.com.br/politica/pesquisa-futura-vantagem-flavio-bolsonaro-50-1-disputa-lula-segundo-turno/",
+     "what": "ND Mais: totals, valid, spontaneous, CATI, campo 23-24 Oct"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR097262026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start",
+     "values": [
+      {
+       "value": "2026-10-23",
+       "url": "https://www.cnnbrasil.com.br/eleicoes/futura-flavio-tem-501-dos-votos-validos-no-2o-turno-lula-499/"
+      },
+      {
+       "value": "2026-10-21",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR097262026"
+      }
+     ]
+    }
+   ],
+   "notes": "Registry company: 100% Cidades Participações Ltda; registry contractor: Futura Consultoria e Assessoria Ltda.",
+   "pollster_as_labelled": "Futura/100% Cidades"
+  },
+  {
+   "id": "gerp-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Gerp",
+   "contractor": "own resources (Gerp Mercadologia)",
+   "tse_registration": "BR-09327/2026",
+   "fieldwork_start": "2026-10-22",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": "'divulgada em 24 de outubro' (report text)",
+   "sample_size": 2400,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95.55",
+   "method": "phone",
+   "method_printed": "GERPCATI (TELEFONE)",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "49",
+     "Lula": "46"
+    },
+    "other": {
+     "não souberam ou não quiseram responder": "3",
+     "não votarão em nenhum dos dois": "1"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "52",
+    "Lula": "48"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea (votos totais)",
+     "values": {
+      "Flávio Bolsonaro": "47",
+      "Lula": "44",
+      "não souberam responder": "8"
+     }
+    },
+    {
+     "label": "projeção dos votos válidos (faixa, base tracking 9.600 entrevistas 09/10-24/10)",
+     "values": {
+      "Flávio Bolsonaro": "51 a 53",
+      "Lula": "47 a 49"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR093272026",
+    "fieldwork_start": "2026-10-21",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-22",
+    "sample_size": 2400,
+    "company": "GERP MERCADOLOGIA LTDA",
+    "contractors": [
+     "GERP MERCADOLOGIA LTDA"
+    ],
+    "method_excerpt": "A população pesquisada é definida como pessoas maiores de 16 anos, eleitoras e residentes em todas as regiões do Brasil."
+   },
+   "sources": [
+    {
+     "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/PRESIDENCIA-DO-BRASIL-35o-Relatorio-Presidencia-2026-2o-Turno-DIVULGACAO-com-projecao-1.pdf",
+     "what": "Gerp 35º relatório (pollster PDF hosted by CNN Brasil): totals, valid, spontaneous, projection, n, campo 22-24/10, MoE, 95,55%, CATI, BR-09327/2026"
+    },
+    {
+     "url": "https://jovempan.com.br/politica/flavio-x-lula-o-que-dizem-as-pesquisas-divulgadas-na-vespera-do-2o-turno/",
+     "what": "Jovem Pan roundup: same totals and valid"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR093272026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "fieldwork_start",
+     "values": [
+      {
+       "value": "2026-10-22",
+       "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/PRESIDENCIA-DO-BRASIL-35o-Relatorio-Presidencia-2026-2o-Turno-DIVULGACAO-com-projecao-1.pdf",
+       "label": "Gerp PDF"
+      },
+      {
+       "value": "2026-10-21",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR093272026"
+      }
+     ]
+    },
+    {
+     "field": "published",
+     "values": [
+      {
+       "value": "2026-10-24",
+       "url": "https://admin.cnnbrasil.com.br/wp-content/uploads/sites/12/2026/10/PRESIDENCIA-DO-BRASIL-35o-Relatorio-Presidencia-2026-2o-Turno-DIVULGACAO-com-projecao-1.pdf",
+       "label": "Gerp PDF"
+      },
+      {
+       "value": "2026-10-22 (registry DT_DIVULGACAO, before fieldwork ended)",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR093272026"
+      }
+     ]
+    }
+   ],
+   "notes": null
+  },
+  {
+   "id": "franca-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Instituto França",
+   "contractor": "own resources (Instituto França de Pesquisas)",
+   "tse_registration": "BR-04863/2026",
+   "fieldwork_start": "2026-10-21",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-24",
+   "published_time_printed": "24.out.2026 (sábado) - 7h28 (Poder360)",
+   "sample_size": 1537,
+   "margin_of_error_pp": "2.5",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "registry: amostra aleatória simples a partir de banco de números telefônicos fixos e celulares; PDF: 'Seleção por cotas'",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "45.6",
+     "Lula": "43.1"
+    },
+    "other": {
+     "Branco/Nulo": "7.4",
+     "NS/NR": "3.9"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.4",
+    "Lula": "48.6"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR048632026",
+    "fieldwork_start": "2026-10-21",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 1537,
+    "company": "INSTITUTO FRANCA DE PESQUISAS LTDA",
+    "contractors": [
+     "INSTITUTO FRANCA DE PESQUISAS LTDA"
+    ],
+    "method_excerpt": "Universo: eleitoras e eleitores com 16 anos de idade ou mais do Brasil. Tamanho da amostra: 1537 entrevistas. Técnica de"
+   },
+   "sources": [
+    {
+     "url": "https://static.poder360.com.br/uploads/2026/10/Pesquisa-presidencial-Instituto-Franca-24out2026.pdf",
+     "what": "Instituto França press dossier (PDF): totals, valid, n, MoE, 95%, BR-04863/2026"
+    },
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-514-contra-486-de-lula-em-votos-validos-diz-pesquisa/",
+     "what": "Poder360: valid, n, fieldwork 21-23 Oct, 95%, own resources, BR-04863/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR048632026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": null
+  },
+  {
+   "id": "mda-r2-2026-10-24",
+   "round": 2,
+   "pollster": "MDA",
+   "contractor": "CNT (Confederação Nacional do Transporte) — per registry; source says 'pesquisa CNT/MDA'",
+   "tse_registration": "BR-02136/2026",
+   "fieldwork_start": "2026-10-21",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-24",
+   "published_time_printed": null,
+   "sample_size": 2032,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "entrevistas presenciais",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "46.3",
+     "Lula": "45"
+    },
+    "other": {
+     "branco ou anular": "5.8",
+     "não sabem ou não responderam": "2.9"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.7",
+    "Lula": "49.3"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR021362026",
+    "fieldwork_start": "2026-10-21",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 2002,
+    "company": "MDA-PESQUISA DE OPINIAO PUBLICA E CONSULT. ESTATIST. LTDA - EPP",
+    "contractors": [
+     "CONFEDERACAO NACIONAL DO TRANSPORTE"
+    ],
+    "method_excerpt": "Será adotada metodologia quantitativa do tipo survey, com realização de entrevistas presenciais, face a face, em domicíl"
+   },
+   "sources": [
+    {
+     "url": "https://www.cartacapital.com.br/politica/cnt-mda-mostra-flavio-bolsonaro-com-507-e-lula-com-493-na-vespera-do-2o-turno/",
+     "what": "CartaCapital: valid, totals, n=2.032, dates, presencial, MoE, 95%, BR-02136/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR021362026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "sample_size",
+     "values": [
+      {
+       "value": "2032",
+       "url": "https://www.cartacapital.com.br/politica/cnt-mda-mostra-flavio-bolsonaro-com-507-e-lula-com-493-na-vespera-do-2o-turno/"
+      },
+      {
+       "value": "2002",
+       "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+       "label": "TSE registry BR021362026"
+      },
+      {
+       "value": "2002",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541",
+       "label": "pt.wikipedia rev 73293541 (index only)"
+      }
+     ]
+    }
+   ],
+   "notes": "Only CartaCapital read (UOL source 403; CNT's own release not found). contractor field is from the registry, not the source text."
+  },
+  {
+   "id": "nexus-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Nexus",
+   "contractor": "BTG Pactual",
+   "tse_registration": "BR-08234/2026",
+   "fieldwork_start": "2026-10-23",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": null,
+   "sample_size": 2000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "phone",
+   "method_printed": "entrevistados ... por telefone",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "47",
+     "Lula": "46"
+    },
+    "other": {
+     "branco ou nulo": "5.2",
+     "não souberam ou não responderam": "1.8"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "50.5",
+    "Lula": "49.5"
+   },
+   "other_published_scenarios": [
+    {
+     "label": "espontânea",
+     "values": {
+      "Flávio Bolsonaro": "45.7",
+      "Lula": "44.9",
+      "brancos e nulos": "5.9",
+      "não souberam ou não responderam": "3.4"
+     }
+    }
+   ],
+   "registry": {
+    "protocol": "BR082342026",
+    "fieldwork_start": "2026-10-23",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 2000,
+    "company": "NEXUS PESQUISA E INTELIGENCIA DE DADOS LTDA",
+    "contractors": [
+     "BANCO BTG PACTUAL S.A."
+    ],
+    "method_excerpt": "Pesquisa quantitativa telefônica realizada com população brasileira a partir de 16 anos e com título de eleitor, em um q"
+   },
+   "sources": [
+    {
+     "url": "https://jovempan.com.br/politica/btg-nexus-flavio-tem-505-dos-votos-validos-e-lula-495-na-vespera-do-2o-turno/",
+     "what": "Jovem Pan: valid, stimulated totals, spontaneous, n, dates (10% on 23rd, 90% on 24th), phone, MoE 2,2, 95%, contractor, BR-08234/2026"
+    },
+    {
+     "url": "https://jovempan.com.br/politica/flavio-x-lula-o-que-dizem-as-pesquisas-divulgadas-na-vespera-do-2o-turno/",
+     "what": "Jovem Pan roundup: same figures"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR082342026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.2",
+       "url": "https://jovempan.com.br/politica/btg-nexus-flavio-tem-505-dos-votos-validos-e-lula-495-na-vespera-do-2o-turno/"
+      },
+      {
+       "value": "2.0",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541",
+       "label": "pt.wikipedia rev 73293541 (index only)"
+      }
+     ]
+    }
+   ],
+   "notes": "Only Jovem Pan read (not on the preferred-outlet list); BTG/Nexus own release not found."
+  },
+  {
+   "id": "palver-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Palver",
+   "contractor": "próprio instituto",
+   "tse_registration": "BR-01794/2026",
+   "fieldwork_start": "2026-10-22",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": "24/10/2026 às 18:32 (Gazeta do Povo); Exame 24 de outubro de 2026 às 18h00",
+   "sample_size": 5000,
+   "margin_of_error_pp": "2.2",
+   "confidence_level_pct": "95",
+   "method": "online",
+   "method_printed": "questionário online com amostragem não-probabilística",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "50",
+     "Lula": "49"
+    },
+    "other": {
+     "Branco/Nulo/Não vai votar": "1",
+     "Indecisos": "0"
+    }
+   },
+   "valid_votes": null,
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR017942026",
+    "fieldwork_start": "2026-10-22",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 5000,
+    "company": "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA.",
+    "contractors": [
+     "PALVER CONSULTORIA E DESENVOLVIMENTO TECNOLOGICO LTDA."
+    ],
+    "method_excerpt": "A metodologia utilizada é survey quantitativo online por questionário estruturado com amostragem não-probabilística, bas"
+   },
+   "sources": [
+    {
+     "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-outubro-2026-vespera-segundo-turno/",
+     "what": "Gazeta do Povo: stimulated totals, n, dates, contractor, MoE, 95%, BR-01794/2026"
+    },
+    {
+     "url": "https://exame.com/brasil/pesquisa-para-presidente-palver-flavio-bolsonaro-tem-50-e-lula-49-no-2o-turno/",
+     "what": "Exame: totals 50/49, b/n/indecisos 1, online non-probability, MoE 2,2, 95%, BR-01794/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR017942026: the registry block"
+    }
+   ],
+   "conflicts": [
+    {
+     "field": "margin_of_error_pp",
+     "values": [
+      {
+       "value": "2.2",
+       "url": "https://www.gazetadopovo.com.br/eleicoes/2026/pesquisa-eleitoral-2026/palver-presidente-outubro-2026-vespera-segundo-turno/"
+      },
+      {
+       "value": "3.0",
+       "url": "https://pt.wikipedia.org/w/index.php?oldid=73293541",
+       "label": "pt.wikipedia rev 73293541 (index only)"
+      }
+     ]
+    }
+   ],
+   "notes": "Only total votes published; no valid-vote figures found (UOL source returned 403). Exame prints 'Votos brancos, nulos e eleitores indecisos somam apenas 1%'."
+  },
+  {
+   "id": "quaest-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Quaest",
+   "contractor": "Editora Globo e Globo Comunicação e Participações",
+   "tse_registration": "BR-09158/2026",
+   "fieldwork_start": "2026-10-23",
+   "fieldwork_end": "2026-10-24",
+   "published": "2026-10-24",
+   "published_time_printed": "24.out.2026 (sábado) - 19h11 (Poder360)",
+   "sample_size": 3702,
+   "margin_of_error_pp": "2",
+   "confidence_level_pct": "95",
+   "method": "in-person",
+   "method_printed": "entrevistou 3.702 eleitores presencialmente",
+   "total_votes": {
+    "candidates": {
+     "Flávio Bolsonaro": "46",
+     "Lula": "45"
+    },
+    "other": {
+     "Brancos, nulos e nenhum": "8",
+     "Não sabe/não respondeu": "1"
+    }
+   },
+   "valid_votes": {
+    "Flávio Bolsonaro": "51",
+    "Lula": "49"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR091582026",
+    "fieldwork_start": "2026-10-23",
+    "fieldwork_end": "2026-10-24",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 3702,
+    "company": "QUAEST PESQUISAS, CONSULTORIA E PROJETOS LTDA.",
+    "contractors": [
+     "GLOBO COMUNICACAO E PARTICIPACOES S/A / TV/REDE/GLOBO.COM/CANAIS GLOBO/GLOBOPLAY/ELETROMIDIA",
+     "EDITORA GLOBO S/A / EDITORA GLOBO"
+    ],
+    "method_excerpt": "Pesquisa quantitativa, de survey, que consiste na realização de entrevistas pessoais, domiciliares e presenciais, conduz"
+   },
+   "sources": [
+    {
+     "url": "https://www.poder360.com.br/poder-eleicoes-2026/flavio-tem-51-dos-votos-validos-contra-49-de-lula-diz-quaest/",
+     "what": "Poder360: valid, totals, n, dates, presencial, MoE, 95%, contractor, cost R$ 570.108, BR-09158/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR091582026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Poder360 also prints its own recalculation of the previous Quaest round (50,56/49,44) — that is Poder360's computation, not a Quaest figure, and is not used. Wiki's 'Indecisos e Absentos 9' = 8+1 as printed separately here."
+  },
+  {
+   "id": "verita-r2-2026-10-24",
+   "round": 2,
+   "pollster": "Veritá",
+   "contractor": "own resources (Instituto Veritá)",
+   "tse_registration": "BR-03181/2026",
+   "fieldwork_start": "2026-10-19",
+   "fieldwork_end": "2026-10-23",
+   "published": "2026-10-24",
+   "published_time_printed": "24/10/26 às 22:11 (CNN Brasil)",
+   "sample_size": 15554,
+   "margin_of_error_pp": "1",
+   "confidence_level_pct": "95",
+   "method": "phone-IVR",
+   "method_printed": "entrevistas por telefone (registry: Unidade Automatizada de Respostas Audíveis)",
+   "total_votes": null,
+   "valid_votes": {
+    "Flávio Bolsonaro": "51.56",
+    "Lula": "48.44"
+   },
+   "other_published_scenarios": [],
+   "registry": {
+    "protocol": "BR031812026",
+    "fieldwork_start": "2026-10-19",
+    "fieldwork_end": "2026-10-23",
+    "disclosure_date": "2026-10-24",
+    "sample_size": 15554,
+    "company": "INSTITUTO VERITA LTDA",
+    "contractors": [
+     "INSTITUTO VERITA LTDA"
+    ],
+    "method_excerpt": "Estudo quantitativo voltado às Eleições 2026, realizado por meio de entrevistas individuais, aplicadas mediante question"
+   },
+   "sources": [
+    {
+     "url": "https://www.cnnbrasil.com.br/eleicoes/verita-flavio-tem-5156-dos-votos-validos-no-2o-turno-lula-4844/",
+     "what": "CNN Brasil: valid votes, n, 905 municípios, dates, phone, MoE, 95%, own resources, BR-03181/2026"
+    },
+    {
+     "url": "https://cdn.tse.jus.br/estatistica/sead/odsele/pesquisa_eleitoral/pesquisa_eleitoral_2026.zip",
+     "what": "TSE open data, PesqEle registrations (file pesquisa_eleitoral_2026_BRASIL.csv + pesquisa_contratante_2026), row BR031812026: the registry block"
+    }
+   ],
+   "conflicts": [],
+   "notes": "Total-vote figures not found. CNN timestamp 22:11 on the eve of the vote; the pollster's own release time not checked."
+  }
+ ]
+}

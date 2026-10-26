@@ -36,6 +36,7 @@ site: playground control
 	@$(NODE) apps/janela/build.js
 	@$(NODE) apps/swell/build.js
 	@$(NODE) apps/explained/build.js
+	@$(NODE) apps/eleicoes2026/build.js
 	@$(NODE) apps/explained-v1/build.js
 	@$(NODE) apps/uirapuru/build.js
 
@@ -159,6 +160,7 @@ test:
 	@printf "%-30s " "countex (AI counterexamples)"; $(PY) instruments/countex/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "turan (the registry's C42)"; $(PY) instruments/turan/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "sumproduct (the registry's C84b)"; $(PY) instruments/sumproduct/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "eleicoes2026 (BUs, signatures)"; $(PY) instruments/eleicoes2026/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "fei (the registry's C71)"; $(PY) instruments/fei/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "fei second (C71, planted)"; $(NODE) tools/verify_fei.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "entropy deciders vs Arb"; $(NODE) tools/audit-entropy-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

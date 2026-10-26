@@ -1,0 +1,3407 @@
+{
+ "claims": [],
+ "decisions": {
+  "C6": {
+   "bounds_of_51_74": "a share rounds to 51,74 only within [51.735, 51.745)",
+   "said": "51,74",
+   "signed_2dp": "51,79",
+   "signed_exact": "64256232/124082273",
+   "verdict": "REFUTED"
+  },
+  "EXT": {
+   "logs": {
+    "AC": {
+     "complete": true,
+     "late_votes": 158,
+     "max_late_in_a_section": 3,
+     "sections_installed": 2270,
+     "sections_read": 2270,
+     "sections_with_late_votes": 141,
+     "sections_without_ready_event": 0,
+     "turnout_signed": 453654,
+     "votes_in_logs": 453654
+    }
+   },
+   "question": "could the votes cast after 17:00 Brasília have decided the winner?",
+   "rule": "a vote is late when its \"O voto do eleitor foi computado\" log line is at or after the urn's ready hour + 9 h (8:00 → 17:00 Brasília in the urn's local clock)",
+   "threshold": {
+    "removal": 4430191,
+    "swing": 2215096
+   },
+   "tse_figure_share_of_threshold": "35521/4430191",
+   "tse_reported_late_votes": 35521,
+   "ufs_complete": [
+    "AC"
+   ],
+   "verdict": "NEEDS DATA"
+  },
+  "POLLS": {
+   "by_round": {
+    "1": {
+     "compared": 13,
+     "inside_margin": 8,
+     "lula_flavio_cells": 26,
+     "mean_error_pp_13": "0,31",
+     "mean_error_pp_22": "3,99",
+     "polls": 24,
+     "polls_below_result_13": 8,
+     "polls_below_result_22": 13
+    },
+    "2": {
+     "compared": 36,
+     "inside_margin": 18,
+     "lula_flavio_cells": 72,
+     "mean_error_pp_13": "2,78",
+     "mean_error_pp_22": "-2,78",
+     "polls": 39,
+     "polls_below_result_13": 36,
+     "polls_below_result_22": 0
+    }
+   },
+   "cells": 192,
+   "inside_margin_all_candidates": 115,
+   "polls": [
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "1,16",
+       "inside_margin": true,
+       "published": "44",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "8,03",
+       "inside_margin": false,
+       "published": "39",
+       "result": "47,03"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-2,11",
+       "inside_margin": false,
+       "published": "5",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-2,82",
+       "inside_margin": false,
+       "published": "5",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-1,76",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,24"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,90",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,10"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-25",
+      "2026-09-27"
+     ],
+     "id": "nexus-r1-2026-09-28",
+     "lead_published_flavio_minus_lula": "-5",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Nexus",
+     "published": "2026-09-28",
+     "registration": "BR-07557/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-24",
+      "2026-09-27"
+     ],
+     "id": "quaest-r1-2026-09-28",
+     "margin": "2",
+     "pollster": "Quaest",
+     "published": "2026-09-28",
+     "registration": "BR-06520/2026",
+     "round": 1,
+     "sample": 2004
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "-1,04",
+       "inside_margin": false,
+       "published": "46.2",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "3,93",
+       "inside_margin": false,
+       "published": "43.1",
+       "result": "47,03"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-3,06",
+       "inside_margin": false,
+       "published": "5.3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "0,79",
+       "inside_margin": true,
+       "published": "2.1",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "0,38",
+       "inside_margin": true,
+       "published": "1.8",
+       "result": "2,18"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,63",
+       "inside_margin": true,
+       "published": "0.9",
+       "result": "0,27"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-23",
+      "2026-09-28"
+     ],
+     "id": "atlasintel-r1-2026-09-29",
+     "lead_published_flavio_minus_lula": "-31/10",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "1",
+     "pollster": "AtlasIntel",
+     "published": "2026-09-29",
+     "registration": "BR-04391/2026",
+     "round": 1,
+     "sample": 5005
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-24",
+      "2026-09-28"
+     ],
+     "id": "gerp-r1-2026-09-29",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-09-29",
+     "registration": "BR-03929/2026",
+     "round": 1,
+     "sample": 2400
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-24",
+      "2026-09-28"
+     ],
+     "id": "palver-r1-2026-09-29",
+     "margin": "2.4",
+     "pollster": "Palver",
+     "published": "2026-09-29",
+     "registration": "BR-02990/2026",
+     "round": 1,
+     "sample": 5000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-26",
+      "2026-09-28"
+     ],
+     "id": "vox-r1-2026-09-29",
+     "margin": "2.15",
+     "pollster": "Vox Brasil",
+     "published": "2026-09-29",
+     "registration": "BR-00895/2026",
+     "round": 1,
+     "sample": 2100
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "2,63",
+       "inside_margin": false,
+       "published": "44.4",
+       "result": "47,03"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,66",
+       "inside_margin": false,
+       "published": "41.5",
+       "result": "45,16"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-2,02",
+       "inside_margin": true,
+       "published": "4.2",
+       "result": "2,18"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-1,11",
+       "inside_margin": true,
+       "published": "4.0",
+       "result": "2,89"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-1,06",
+       "inside_margin": true,
+       "published": "3.3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-1,43",
+       "inside_margin": true,
+       "published": "1.7",
+       "result": "0,27"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "-0,18",
+       "inside_margin": true,
+       "published": "0.2",
+       "result": "0,02"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,10",
+       "inside_margin": true,
+       "published": "0.2",
+       "result": "0,10"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "-0,09",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "-0,09",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "-0,06",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,04"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-25",
+      "2026-09-29"
+     ],
+     "id": "futura-r1-2026-09-30",
+     "lead_published_flavio_minus_lula": "29/10",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2.2",
+     "pollster": "Futura",
+     "published": "2026-09-30",
+     "registration": "BR-01122/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-25",
+      "2026-09-28"
+     ],
+     "id": "ideia-r1-2026-09-30",
+     "margin": "2.2",
+     "pollster": "Ideia",
+     "published": "2026-09-30",
+     "registration": "BR-08706/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-27",
+      "2026-09-29"
+     ],
+     "id": "indexa-r1-2026-09-30",
+     "margin": "2.2",
+     "pollster": "Indexa",
+     "published": "2026-09-30",
+     "registration": "BR-00698/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-20",
+      "2026-09-25"
+     ],
+     "id": "verita-r1-2026-09-30",
+     "margin": null,
+     "pollster": "Veritá",
+     "published": "2026-09-30",
+     "registration": null,
+     "round": 1,
+     "sample": 40500
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "0,16",
+       "inside_margin": true,
+       "published": "45",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "7,03",
+       "inside_margin": false,
+       "published": "40",
+       "result": "47,03"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-1,11",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-0,82",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-0,76",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,90",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,10"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "-0,99",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "0,02",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,02"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "0,04",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,04"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "0,03",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,03"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-28",
+      "2026-10-01"
+     ],
+     "id": "datafolha-r1-2026-10-01",
+     "lead_published_flavio_minus_lula": "-5",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Datafolha",
+     "published": "2026-10-01",
+     "registration": "BR-08039/2026",
+     "round": 1,
+     "sample": 2506
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "-0,84",
+       "inside_margin": true,
+       "published": "46",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "6,03",
+       "inside_margin": false,
+       "published": "41",
+       "result": "47,03"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-2,76",
+       "inside_margin": false,
+       "published": "5",
+       "result": "2,24"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-0,11",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-0,82",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,18"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-26",
+      "2026-09-30"
+     ],
+     "id": "realtimebigdata-r1-2026-10-01",
+     "lead_published_flavio_minus_lula": "-5",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2.0",
+     "pollster": "Real Time Big Data",
+     "published": "2026-10-01",
+     "registration": "BR-09503/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-28",
+      "2026-09-30"
+     ],
+     "id": "datatrends-r1-2026-10-02",
+     "margin": "2.19",
+     "pollster": "DataTrends",
+     "published": "2026-10-02",
+     "registration": "BR-04414/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-29",
+      "2026-10-01"
+     ],
+     "id": "vox-r1-2026-10-02",
+     "margin": "2.15",
+     "pollster": "Vox Brasil",
+     "published": "2026-10-02",
+     "registration": "BR-00148/2026",
+     "round": 1,
+     "sample": 2100
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "-1,84",
+       "inside_margin": false,
+       "published": "47.0",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "2,93",
+       "inside_margin": false,
+       "published": "44.1",
+       "result": "47,03"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-2,36",
+       "inside_margin": false,
+       "published": "4.6",
+       "result": "2,24"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "0,79",
+       "inside_margin": true,
+       "published": "2.1",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "0,78",
+       "inside_margin": true,
+       "published": "1.4",
+       "result": "2,18"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-27",
+      "2026-10-02"
+     ],
+     "id": "atlasintel-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "-29/10",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "1",
+     "pollster": "AtlasIntel",
+     "published": "2026-10-03",
+     "registration": "BR-00999/2026",
+     "round": 1,
+     "sample": 4945
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "0,16",
+       "inside_margin": true,
+       "published": "45",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "5,03",
+       "inside_margin": false,
+       "published": "42",
+       "result": "47,03"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-1,82",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-0,76",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-0,11",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,89"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "0,10",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,10"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "0,02",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,02"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "0,03",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,03"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "0,04",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,04"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-03",
+      "2026-10-03"
+     ],
+     "id": "datafolha-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "-3",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Datafolha",
+     "published": "2026-10-03",
+     "registration": "BR-01708/2026",
+     "round": 1,
+     "sample": 4006
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "2,23",
+       "inside_margin": false,
+       "published": "44.8",
+       "result": "47,03"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,56",
+       "inside_margin": false,
+       "published": "42.6",
+       "result": "45,16"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-1,21",
+       "inside_margin": true,
+       "published": "4.1",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-1,72",
+       "inside_margin": true,
+       "published": "3.9",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-0,56",
+       "inside_margin": true,
+       "published": "2.8",
+       "result": "2,24"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,53",
+       "inside_margin": true,
+       "published": "0.8",
+       "result": "0,27"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,30",
+       "inside_margin": true,
+       "published": "0.4",
+       "result": "0,10"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "-0,18",
+       "inside_margin": true,
+       "published": "0.2",
+       "result": "0,02"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "-0,09",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "-0,07",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,03"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "-0,09",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "-0,06",
+       "inside_margin": true,
+       "published": "0.1",
+       "result": "0,04"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-02",
+      "2026-10-03"
+     ],
+     "id": "futura-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "11/5",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2.2",
+     "pollster": "Futura",
+     "published": "2026-10-03",
+     "registration": "BR-02431/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "1,03",
+       "inside_margin": true,
+       "published": "46",
+       "result": "47,03"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "1,16",
+       "inside_margin": true,
+       "published": "44",
+       "result": "45,16"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-1,11",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-0,82",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "0,24",
+       "inside_margin": true,
+       "published": "2",
+       "result": "2,24"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,90",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,10"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "0,02",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,02"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "0,27",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,27"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "0,04",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,04"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "0,03",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,03"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-30",
+      "2026-10-02"
+     ],
+     "id": "gerp-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "2",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-10-03",
+     "registration": "BR-00509/2026",
+     "round": 1,
+     "sample": 2400
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "2,03",
+       "inside_margin": false,
+       "published": "45",
+       "result": "47,03"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,16",
+       "inside_margin": false,
+       "published": "43",
+       "result": "45,16"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-1,82",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,18"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-0,11",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,89"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "0,24",
+       "inside_margin": true,
+       "published": "2",
+       "result": "2,24"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,90",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,10"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-01",
+      "2026-10-03"
+     ],
+     "id": "gerp-r1-2026-10-03-b",
+     "lead_published_flavio_minus_lula": "2",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-10-03",
+     "registration": "BR-08168/2026",
+     "round": 1,
+     "sample": 2400
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-28",
+      "2026-10-02"
+     ],
+     "id": "franca-r1-2026-10-03",
+     "margin": "2.2",
+     "pollster": "Instituto França",
+     "published": "2026-10-03",
+     "registration": "BR-02928/2026",
+     "round": 1,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "-2,64",
+       "inside_margin": false,
+       "published": "47.8",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "4,93",
+       "inside_margin": false,
+       "published": "42.1",
+       "result": "47,03"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-0,71",
+       "inside_margin": true,
+       "published": "3.6",
+       "result": "2,89"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-1,22",
+       "inside_margin": true,
+       "published": "3.4",
+       "result": "2,18"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "0,54",
+       "inside_margin": true,
+       "published": "1.7",
+       "result": "2,24"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,63",
+       "inside_margin": true,
+       "published": "0.9",
+       "result": "0,27"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-30",
+      "2026-10-02"
+     ],
+     "id": "mda-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "-57/10",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2.2",
+     "pollster": "MDA",
+     "published": "2026-10-03",
+     "registration": "BR-04756/2026",
+     "round": 1,
+     "sample": 2007
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-09-30",
+      "2026-10-03"
+     ],
+     "id": "palver-r1-2026-10-03",
+     "margin": "4",
+     "pollster": "Palver",
+     "published": "2026-10-03",
+     "registration": "BR-00198/2026",
+     "round": 1,
+     "sample": 5000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "0,16",
+       "inside_margin": true,
+       "published": "45",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "4,03",
+       "inside_margin": false,
+       "published": "43",
+       "result": "47,03"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-1,11",
+       "inside_margin": true,
+       "published": "4",
+       "result": "2,89"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-0,76",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-0,82",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,18"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "-0,99",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,01"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "-0,73",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,27"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "-0,90",
+       "inside_margin": true,
+       "published": "1",
+       "result": "0,10"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "0,04",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,04"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "0,03",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,03"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "0,02",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,02"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-09-30",
+      "2026-10-02"
+     ],
+     "id": "poderdata-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "-2",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "1.5",
+     "pollster": "PoderData",
+     "published": "2026-10-03",
+     "registration": "BR-03519/2026",
+     "round": 1,
+     "sample": 4000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "-0,84",
+       "inside_margin": true,
+       "published": "46",
+       "result": "45,16"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "2,03",
+       "inside_margin": false,
+       "published": "45",
+       "result": "47,03"
+      },
+      {
+       "candidate": "70",
+       "error_pp": "-0,11",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,89"
+      },
+      {
+       "candidate": "14",
+       "error_pp": "-0,76",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,24"
+      },
+      {
+       "candidate": "55",
+       "error_pp": "-0,82",
+       "inside_margin": true,
+       "published": "3",
+       "result": "2,18"
+      },
+      {
+       "candidate": "27",
+       "error_pp": "0,03",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,03"
+      },
+      {
+       "candidate": "21",
+       "error_pp": "0,02",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,02"
+      },
+      {
+       "candidate": "16",
+       "error_pp": "0,04",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,04"
+      },
+      {
+       "candidate": "30",
+       "error_pp": "0,27",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,27"
+      },
+      {
+       "candidate": "29",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      },
+      {
+       "candidate": "80",
+       "error_pp": "0,10",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,10"
+      },
+      {
+       "candidate": "35",
+       "error_pp": "0,01",
+       "inside_margin": true,
+       "published": "0",
+       "result": "0,01"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-02",
+      "2026-10-03"
+     ],
+     "id": "quaest-r1-2026-10-03",
+     "lead_published_flavio_minus_lula": "-1",
+     "lead_result_flavio_minus_lula": "1,87",
+     "margin": "2",
+     "pollster": "Quaest",
+     "published": "2026-10-03",
+     "registration": "BR-02197/2026",
+     "round": 1,
+     "sample": 3702
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "0,79",
+       "inside_margin": true,
+       "published": "51",
+       "result": "51,79"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "-0,79",
+       "inside_margin": true,
+       "published": "49",
+       "result": "48,21"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-17"
+     ],
+     "id": "vox-r2-2026-10-18",
+     "lead_published_flavio_minus_lula": "-2",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.15",
+     "pollster": "Vox Brasil",
+     "published": "2026-10-18",
+     "registration": "BR-04332/2026",
+     "round": 2,
+     "sample": 2100
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,89",
+       "inside_margin": false,
+       "published": "51.1",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,89",
+       "inside_margin": false,
+       "published": "48.9",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-13",
+      "2026-10-18"
+     ],
+     "id": "atlasintel-r2-2026-10-19",
+     "lead_published_flavio_minus_lula": "11/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1",
+     "pollster": "AtlasIntel",
+     "published": "2026-10-19",
+     "registration": "BR-02418/2026",
+     "round": 2,
+     "sample": 4998
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,19",
+       "inside_margin": true,
+       "published": "50.4",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,19",
+       "inside_margin": true,
+       "published": "49.6",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-16",
+      "2026-10-17"
+     ],
+     "id": "futura-r2-2026-10-19",
+     "lead_published_flavio_minus_lula": "4/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "Futura",
+     "published": "2026-10-19",
+     "registration": "BR-06715/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "0,49",
+       "inside_margin": true,
+       "published": "51.3",
+       "result": "51,79"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "-0,49",
+       "inside_margin": true,
+       "published": "48.7",
+       "result": "48,21"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-13",
+      "2026-10-16"
+     ],
+     "id": "phoenix-r2-2026-10-19",
+     "lead_published_flavio_minus_lula": "-13/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.55",
+     "pollster": "Instituto Phoenix",
+     "published": "2026-10-19",
+     "registration": "BR-08809/2026",
+     "round": 2,
+     "sample": 3999
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,09",
+       "inside_margin": false,
+       "published": "50.3",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,09",
+       "inside_margin": false,
+       "published": "49.7",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-16",
+      "2026-10-18"
+     ],
+     "id": "nexus-r2-2026-10-19",
+     "lead_published_flavio_minus_lula": "3/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Nexus",
+     "published": "2026-10-19",
+     "registration": "BR-04499/2026",
+     "round": 2,
+     "sample": 2002
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,79",
+       "inside_margin": false,
+       "published": "52",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,79",
+       "inside_margin": false,
+       "published": "48",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-16",
+      "2026-10-18"
+     ],
+     "id": "poderdata-r2-2026-10-19",
+     "lead_published_flavio_minus_lula": "4",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.8",
+     "pollster": "PoderData",
+     "published": "2026-10-19",
+     "registration": "BR-02586/2026",
+     "round": 2,
+     "sample": 3000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,29",
+       "inside_margin": false,
+       "published": "51.5",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,29",
+       "inside_margin": false,
+       "published": "48.5",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-19"
+     ],
+     "id": "alfa-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "3",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.9",
+     "pollster": "Alfa Inteligência",
+     "published": "2026-10-20",
+     "registration": "BR-00820/2026",
+     "round": 2,
+     "sample": 2700
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,29",
+       "inside_margin": false,
+       "published": "51.5",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,29",
+       "inside_margin": false,
+       "published": "48.5",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-17"
+     ],
+     "id": "datatrends-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "3",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.19",
+     "pollster": "DataTrends",
+     "published": "2026-10-20",
+     "registration": "BR-04454/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-4,79",
+       "inside_margin": false,
+       "published": "53",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "4,79",
+       "inside_margin": false,
+       "published": "47",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-19"
+     ],
+     "id": "gerp-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "6",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-10-20",
+     "registration": null,
+     "round": 2,
+     "sample": 2400
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,60",
+       "inside_margin": false,
+       "published": "50.81",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,60",
+       "inside_margin": false,
+       "published": "49.19",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-16",
+      "2026-10-20"
+     ],
+     "id": "franca-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "81/50",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.8",
+     "pollster": "Instituto França",
+     "published": "2026-10-20",
+     "registration": "BR-07896/2026",
+     "round": 2,
+     "sample": 3000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "1,39",
+       "inside_margin": true,
+       "published": "50.4",
+       "result": "51,79"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "-1,39",
+       "inside_margin": true,
+       "published": "49.6",
+       "result": "48,21"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-14",
+      "2026-10-16"
+     ],
+     "id": "ranking-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "-4/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.15",
+     "pollster": "Instituto Ranking",
+     "published": "2026-10-20",
+     "registration": "BR-00152/2026",
+     "round": 2,
+     "sample": 2100
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,79",
+       "inside_margin": false,
+       "published": "52",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,79",
+       "inside_margin": false,
+       "published": "48",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-19"
+     ],
+     "id": "realtimebigdata-r2-2026-10-20",
+     "lead_published_flavio_minus_lula": "4",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.0",
+     "pollster": "Real Time Big Data",
+     "published": "2026-10-20",
+     "registration": "BR-02952/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,89",
+       "inside_margin": false,
+       "published": "51.1",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,89",
+       "inside_margin": false,
+       "published": "48.9",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-20"
+     ],
+     "id": "futura-r2-2026-10-21",
+     "lead_published_flavio_minus_lula": "11/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "Futura",
+     "published": "2026-10-21",
+     "registration": "BR-06614/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-4,79",
+       "inside_margin": false,
+       "published": "53",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "4,79",
+       "inside_margin": false,
+       "published": "47",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-21"
+     ],
+     "id": "gerp-r2-2026-10-21",
+     "lead_published_flavio_minus_lula": "6",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-10-21",
+     "registration": "BR-03835/2026",
+     "round": 2,
+     "sample": 2400
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,89",
+       "inside_margin": false,
+       "published": "51.1",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,89",
+       "inside_margin": false,
+       "published": "48.9",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-19"
+     ],
+     "id": "ideia-r2-2026-10-21",
+     "lead_published_flavio_minus_lula": "11/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.5",
+     "pollster": "Ideia",
+     "published": "2026-10-21",
+     "registration": "BR-08251/2026",
+     "round": 2,
+     "sample": 1500
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-10-18",
+      "2026-10-20"
+     ],
+     "id": "palver-r2-2026-10-21",
+     "margin": "2.4",
+     "pollster": "Palver",
+     "published": "2026-10-21",
+     "registration": "BR-04612/2026",
+     "round": 2,
+     "sample": 5000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-10-17",
+      "2026-10-20"
+     ],
+     "id": "quaest-r2-2026-10-21",
+     "margin": "2",
+     "pollster": "Quaest",
+     "published": "2026-10-21",
+     "registration": "BR-08535/2026",
+     "round": 2,
+     "sample": 2154
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,49",
+       "inside_margin": false,
+       "published": "50.7",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,49",
+       "inside_margin": false,
+       "published": "49.3",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-15",
+      "2026-10-19"
+     ],
+     "id": "verita-r2-2026-10-21",
+     "lead_published_flavio_minus_lula": "7/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.0",
+     "pollster": "Veritá",
+     "published": "2026-10-21",
+     "registration": "BR-06396/2026",
+     "round": 2,
+     "sample": 15554
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-1,79",
+       "inside_margin": true,
+       "published": "50",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "1,79",
+       "inside_margin": true,
+       "published": "50",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-20",
+      "2026-10-22"
+     ],
+     "id": "datafolha-r2-2026-10-22",
+     "lead_published_flavio_minus_lula": "0",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Datafolha",
+     "published": "2026-10-22",
+     "registration": "BR-09709/2026",
+     "round": 2,
+     "sample": 2520
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,39",
+       "inside_margin": false,
+       "published": "50.6",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,39",
+       "inside_margin": false,
+       "published": "49.4",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-20",
+      "2026-10-21"
+     ],
+     "id": "indexa-r2-2026-10-22",
+     "lead_published_flavio_minus_lula": "6/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "Indexa",
+     "published": "2026-10-22",
+     "registration": "BR-02348/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,79",
+       "inside_margin": false,
+       "published": "51",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,79",
+       "inside_margin": false,
+       "published": "49",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-21"
+     ],
+     "id": "poderdata-r2-2026-10-22",
+     "lead_published_flavio_minus_lula": "2",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.6",
+     "pollster": "PoderData",
+     "published": "2026-10-22",
+     "registration": "BR-07926/2026",
+     "round": 2,
+     "sample": 4000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,79",
+       "inside_margin": false,
+       "published": "52",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,79",
+       "inside_margin": false,
+       "published": "48",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-18",
+      "2026-10-22"
+     ],
+     "id": "alfa-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "4",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.9",
+     "pollster": "Alfa Inteligência",
+     "published": "2026-10-23",
+     "registration": "BR-08496/2026",
+     "round": 2,
+     "sample": 2700
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,69",
+       "inside_margin": false,
+       "published": "51.9",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,69",
+       "inside_margin": false,
+       "published": "48.1",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-21"
+     ],
+     "id": "datatrends-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "19/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.19",
+     "pollster": "DataTrends",
+     "published": "2026-10-23",
+     "registration": "BR-03365/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,29",
+       "inside_margin": true,
+       "published": "50.5",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,29",
+       "inside_margin": true,
+       "published": "49.5",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-20",
+      "2026-10-22"
+     ],
+     "id": "ipespe-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "1",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.6",
+     "pollster": "Ipespe",
+     "published": "2026-10-23",
+     "registration": "BR-04350/2026",
+     "round": 2,
+     "sample": 1500
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,79",
+       "inside_margin": false,
+       "published": "52",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,79",
+       "inside_margin": false,
+       "published": "48",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-22"
+     ],
+     "id": "realtimebigdata-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "4",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.0",
+     "pollster": "Real Time Big Data",
+     "published": "2026-10-23",
+     "registration": "BR-09670/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,09",
+       "inside_margin": false,
+       "published": "51.3",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,09",
+       "inside_margin": false,
+       "published": "48.7",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-18",
+      "2026-10-22"
+     ],
+     "id": "verita-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "13/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1",
+     "pollster": "Veritá",
+     "published": "2026-10-23",
+     "registration": "BR-06070/2026",
+     "round": 2,
+     "sample": 15554
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-4,49",
+       "inside_margin": false,
+       "published": "52.7",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "4,49",
+       "inside_margin": false,
+       "published": "47.3",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-22",
+      "2026-10-23"
+     ],
+     "id": "vetorarrow-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "27/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1.2",
+     "pollster": "Vetor Arrow",
+     "published": "2026-10-23",
+     "registration": "BR-06957/2026",
+     "round": 2,
+     "sample": 6867
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "1,19",
+       "inside_margin": true,
+       "published": "50.6",
+       "result": "51,79"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "-1,19",
+       "inside_margin": true,
+       "published": "49.4",
+       "result": "48,21"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-20",
+      "2026-10-22"
+     ],
+     "id": "vox-r2-2026-10-23",
+     "lead_published_flavio_minus_lula": "-6/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.15",
+     "pollster": "Vox Brasil",
+     "published": "2026-10-23",
+     "registration": "BR-03259/2026",
+     "round": 2,
+     "sample": 2100
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,59",
+       "inside_margin": false,
+       "published": "50.8",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,59",
+       "inside_margin": false,
+       "published": "49.2",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-18",
+      "2026-10-23"
+     ],
+     "id": "atlasintel-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "8/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1",
+     "pollster": "AtlasIntel",
+     "published": "2026-10-24",
+     "registration": "BR-06380/2026",
+     "round": 2,
+     "sample": 4990
+    },
+    {
+     "cells": [
+      {
+       "candidate": "13",
+       "error_pp": "1,49",
+       "inside_margin": true,
+       "published": "50.3",
+       "result": "51,79"
+      },
+      {
+       "candidate": "22",
+       "error_pp": "-1,49",
+       "inside_margin": true,
+       "published": "49.7",
+       "result": "48,21"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-23",
+      "2026-10-23"
+     ],
+     "id": "colectta-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "-3/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Colectta",
+     "published": "2026-10-24",
+     "registration": "BR-05601/2026",
+     "round": 2,
+     "sample": 3000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,79",
+       "inside_margin": false,
+       "published": "51",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,79",
+       "inside_margin": false,
+       "published": "49",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-23",
+      "2026-10-24"
+     ],
+     "id": "datafolha-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "2",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Datafolha",
+     "published": "2026-10-24",
+     "registration": "BR-09540/2026",
+     "round": 2,
+     "sample": 4050
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-1,89",
+       "inside_margin": true,
+       "published": "50.1",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "1,89",
+       "inside_margin": true,
+       "published": "49.9",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-23",
+      "2026-10-24"
+     ],
+     "id": "futura-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "1/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "Futura",
+     "published": "2026-10-24",
+     "registration": "BR-09726/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,79",
+       "inside_margin": false,
+       "published": "52",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,79",
+       "inside_margin": false,
+       "published": "48",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-22",
+      "2026-10-24"
+     ],
+     "id": "gerp-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "4",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Gerp",
+     "published": "2026-10-24",
+     "registration": "BR-09327/2026",
+     "round": 2,
+     "sample": 2400
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,19",
+       "inside_margin": false,
+       "published": "51.4",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,19",
+       "inside_margin": false,
+       "published": "48.6",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-21",
+      "2026-10-23"
+     ],
+     "id": "franca-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "14/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.5",
+     "pollster": "Instituto França",
+     "published": "2026-10-24",
+     "registration": "BR-04863/2026",
+     "round": 2,
+     "sample": 1537
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,49",
+       "inside_margin": false,
+       "published": "50.7",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,49",
+       "inside_margin": false,
+       "published": "49.3",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-21",
+      "2026-10-23"
+     ],
+     "id": "mda-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "7/5",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "MDA",
+     "published": "2026-10-24",
+     "registration": "BR-02136/2026",
+     "round": 2,
+     "sample": 2032
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,29",
+       "inside_margin": false,
+       "published": "50.5",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,29",
+       "inside_margin": false,
+       "published": "49.5",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-23",
+      "2026-10-24"
+     ],
+     "id": "nexus-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "1",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2.2",
+     "pollster": "Nexus",
+     "published": "2026-10-24",
+     "registration": "BR-08234/2026",
+     "round": 2,
+     "sample": 2000
+    },
+    {
+     "cells": [],
+     "compared": false,
+     "fieldwork": [
+      "2026-10-22",
+      "2026-10-24"
+     ],
+     "id": "palver-r2-2026-10-24",
+     "margin": "2.2",
+     "pollster": "Palver",
+     "published": "2026-10-24",
+     "registration": "BR-01794/2026",
+     "round": 2,
+     "sample": 5000
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-2,79",
+       "inside_margin": false,
+       "published": "51",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "2,79",
+       "inside_margin": false,
+       "published": "49",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-23",
+      "2026-10-24"
+     ],
+     "id": "quaest-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "2",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "2",
+     "pollster": "Quaest",
+     "published": "2026-10-24",
+     "registration": "BR-09158/2026",
+     "round": 2,
+     "sample": 3702
+    },
+    {
+     "cells": [
+      {
+       "candidate": "22",
+       "error_pp": "-3,35",
+       "inside_margin": false,
+       "published": "51.56",
+       "result": "48,21"
+      },
+      {
+       "candidate": "13",
+       "error_pp": "3,35",
+       "inside_margin": false,
+       "published": "48.44",
+       "result": "51,79"
+      }
+     ],
+     "compared": true,
+     "fieldwork": [
+      "2026-10-19",
+      "2026-10-23"
+     ],
+     "id": "verita-r2-2026-10-24",
+     "lead_published_flavio_minus_lula": "78/25",
+     "lead_result_flavio_minus_lula": "-3,57",
+     "margin": "1",
+     "pollster": "Veritá",
+     "published": "2026-10-24",
+     "registration": "BR-03181/2026",
+     "round": 2,
+     "sample": 15554
+    }
+   ],
+   "read": "2026-10-26",
+   "verdict": "MEASURED"
+  },
+  "R1-SEC": {
+   "aggregated_sections": 16142,
+   "failures": {
+    "S1": 0,
+    "S2": 0,
+    "S3": 0,
+    "duplicate": 0
+   },
+   "sections": 499206,
+   "verdict": "CERTIFIED",
+   "witnesses": {
+    "S1": [],
+    "S2": [],
+    "S3": []
+   }
+  },
+  "R1-SUM": {
+   "blank": 2300798,
+   "bu_files": {
+    "bweb_1t_AC_051020261403.zip": "c095164588a0ad4f46717e081f51eab226f78365325629124672ba8ea044c8e2266028e8456a9e5188ab763c1556160cc8d175b2aab361c5f81544e393c99ab1",
+    "bweb_1t_AL_051020261403.zip": "dc4340c5d6ff227b6398bd0ed5416a42fac6f182f5775b236e4e5be6358d9eab82ded3ecfe33c8326f0a4caee38bd048635e8f14aff8893fe498de6c641e2b7f",
+    "bweb_1t_AM_051020261403.zip": "143619aaf27787f27435bc6b78961d289ac0bc9ec6683a678cc319fa1d68eef0611aad9e608d7493a100bafe83f46516e3155dc4b3e62717c5870fb992239f5d",
+    "bweb_1t_AP_051020261403.zip": "bd40faf189a3ba0462d8efc73216bf60480fda36b3e7d6e144b49d05e54e0415494d06a7858ccf4926cd2570059cdf6518b976e6129c243f44cb9708107b0769",
+    "bweb_1t_BA_051020261403.zip": "8fc0b0c6e926af2c9554de33d5ed1f7c4d376cc2e1655970e78aa8498c71c7caef3d4a4adfcc2f3c4989c9783d2917f8478404a9789bcccbb9bdc366a8024e5e",
+    "bweb_1t_CE_051020261403.zip": "0ac4f8dbcd6eb06ed3e67b71d64fdb36909a885da32e765c9ae966c02ed48dcee57f82b3a95dfa3b1dd586e7f057ed556a991fe9e2dc4ae117e72caa2359fabf",
+    "bweb_1t_DF_051020261403.zip": "10916bdfc73018dab34d21dbb1f7fa49d33921a6d8de9e283a2b4b6d8d7ce6c02af4e5cff948f17cab726195b372ee84f2177ab5756dff04e0f2d71c759d4572",
+    "bweb_1t_ES_051020261403.zip": "fb3dc71fccd1528f091ead2caa11a6182e25d581aaaf565519bcd6884e5827d868a60dad74a77df51593a2bcba692a0bc4dc777e6fa6782a27cf19782d8c7f31",
+    "bweb_1t_GO_051020261403.zip": "995aa51719659a4f22f4e9a9a904f545be3e57112fd204ca35dc697a76950222c244477284b28fb74bde65d45df3f20855f2c40fe436f33afc885917fc73c394",
+    "bweb_1t_MA_051020261403.zip": "28eda5cc72f2d7f29b32282e72461fd93baa7f4da430e1f624128aeb3d83326f25b26efda431c2669e9a23d9d9b76a8f62e27f7a616b54ae5f8e1630a1775134",
+    "bweb_1t_MG_051020261403.zip": "c0d4a82adb1fa1c89447c8a19448c588bad2597d4509c04a1b1671b835b9160e9c835091b1000180d1ad3a329dd36ce3bee1d57f4589a4e96d8c2601a99a80c6",
+    "bweb_1t_MS_051020261403.zip": "e62c150f16fff1a4e6a08ba36e3f7d5b3820a01bb2cf5131df8426c462bb8edac5cb01584770271e356a9e56a8f2d59edf7516f795ce955928b53e3a853361a4",
+    "bweb_1t_MT_051020261403.zip": "0b97fc665251f8a82d5b43938245bbc2b39b680c6053626abf5d94cc67b0105aed3d3c9bc97a6366507e7e409d81b8d5c1f5c15b2f95542e8d6e3e788818ab1d",
+    "bweb_1t_PA_051020261403.zip": "7ec84395ef9ce10fcfeedc9236b9fb93de80d7d278b56b074d0538009ed53e4fff695a627dd848028e91ef8cd1a5a36a1e6fe2318b0adac909c741739371d788",
+    "bweb_1t_PB_051020261403.zip": "22784224b1e752b10371a22cc5cdb381b78c9a3b694da02a71867db116adf39d6b08e52f9cd69888fa708c2be12a3a35d24acf78a3b2f601e2c98561ae496812",
+    "bweb_1t_PE_051020261403.zip": "8d01dd88ba42adf623d3ec23a934691b3cd9ae4e90a7093877592d425d5f79aafc20f1cc419e9de73265116f1c908555c7c8b42015b1f72dadb4a09378da7cfa",
+    "bweb_1t_PI_051020261403.zip": "c77cafd73117432124f789dc75fcb2401338a82dfae707ea4626639c980c318c25555b53fd5a2ad3604aec8bce76012de3ef7102c0cd9e1460b1d7f8f05f8c8a",
+    "bweb_1t_PR_051020261403.zip": "762372bbafff59673da579e81a31536fe990b90e81dd92277af12e395dcb23784e7b6eccdb8826b214c9772edf997bd6747ff8ab87bd40b17049bafca1c5b10b",
+    "bweb_1t_RJ_051020261403.zip": "15fec8c7104496cb39379030cf3fc732801e80405fe0efac7985164bdf72a5decdac3a34ae3fcd7d39e44a9be12674bc5961685a67a9d1c0c38c0c7e1d45719d",
+    "bweb_1t_RN_051020261403.zip": "8c306c4501a9c5f9bdaa17f416c07280a24563f68f65d64e51843bc0b5377bacd534417396200772c471e412f9e4981273432f104ee1e2f7f3681399fd95b820",
+    "bweb_1t_RO_051020261403.zip": "883b0c3cdf8047d9776b2409abecc0ed287a8a6a7f3657a860701a2b9999664a8a6c8012db96238ed1476899120dd2dc62167a3e8924e9d4b1db686c2302fcaf",
+    "bweb_1t_RR_051020261403.zip": "4cde1919c20ba0940a9b5fc83422e93248b28fb494510205ae3862b61340a9e8d5d297444af84618c84ec7bb7f1dbc7c487b51e22377c3cde3f71bc39a8dc5c6",
+    "bweb_1t_RS_051020261403.zip": "b6dd056af20ce8768b2a439b1929102a077f0931f966c5314f706b4c98eb6e39549f8b143aee3808c22490a9d9e3f7dc24af925ea421fa1ae2d896283ff45732",
+    "bweb_1t_SC_051020261403.zip": "618c1cacf80bc2964d3bb5e6274ba3e2adeed853077083bc01004e5110e79615868cf3c39b490e283c181c716275d4473da35d11f407111f4170fc91a8a93db7",
+    "bweb_1t_SE_051020261403.zip": "dd1afedc6867ca7828becbe52178cda4e9104d2966fd3cad8c28d4f4ff7c86270dcc5c24cb3904b02a0f0f5a4f7308bb2b7d9f9d60775092f55de136204b9d40",
+    "bweb_1t_SP_051020261403.zip": "00c8b12de9077c8263c87ba91d1300e230719bd1ad27e7f37131478d8e3b4bc9c66b727b3e30c73c89799e136c329db45b85e6d037874ea8fa166d74f26ca403",
+    "bweb_1t_TO_051020261403.zip": "b936b450693c00741226bd1b6c09843c6671e41abafa393ef31606a7038272011b9030ec8d62a8f61d7ff31f532b7979321cac456bef3b44925e0b00026bc614",
+    "bweb_1t_ZZ_051020261403.zip": "001ae12d79a7d5f9471c0a8bb3e09b5cb6633be598683db74b0ab08c0002f2c764cb9fde9c0470c6414985ce47cd01b00c343438d9c914f3f792a1975b400a55"
+   },
+   "candidates": {
+    "13": {
+     "name": "LULA",
+     "votes": 53879538
+    },
+    "14": {
+     "name": "RENAN SANTOS",
+     "votes": 2675887
+    },
+    "16": {
+     "name": "HERTZ DIAS",
+     "votes": 43103
+    },
+    "21": {
+     "name": "EDMILSON COSTA",
+     "votes": 22693
+    },
+    "22": {
+     "name": "FLAVIO BOLSONARO",
+     "votes": 56104503
+    },
+    "27": {
+     "name": "CLARIANA BARAO",
+     "votes": 40043
+    },
+    "29": {
+     "name": "RUI COSTA PIMENTA",
+     "votes": 15024
+    },
+    "30": {
+     "name": "ZEMA",
+     "votes": 326488
+    },
+    "35": {
+     "name": "VETERINÁRIO WILSON GRASSI",
+     "votes": 16881
+    },
+    "55": {
+     "name": "RONALDO CAIADO",
+     "votes": 2605148
+    },
+    "70": {
+     "name": "ESCRITOR AUGUSTO CURY",
+     "votes": 3448569
+    },
+    "80": {
+     "name": "SAMARA",
+     "votes": 122911
+    }
+   },
+   "null": 3674249,
+   "registered": 158745502,
+   "scopes": [
+    {
+     "bu_registered": 158745007,
+     "bu_sections_with_votes": 499206,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "BR",
+     "signed_registered_functioning": 158745079,
+     "signed_sections_installed": 499207,
+     "turnout": 125275835
+    },
+    {
+     "bu_registered": 613742,
+     "bu_sections_with_votes": 2270,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "AC",
+     "signed_registered_functioning": 613742,
+     "signed_sections_installed": 2270,
+     "turnout": 488330
+    },
+    {
+     "bu_registered": 2442126,
+     "bu_sections_with_votes": 7101,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "AL",
+     "signed_registered_functioning": 2442126,
+     "signed_sections_installed": 7101,
+     "turnout": 1938428
+    },
+    {
+     "bu_registered": 2798611,
+     "bu_sections_with_votes": 8157,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "AM",
+     "signed_registered_functioning": 2798611,
+     "signed_sections_installed": 8157,
+     "turnout": 2234549
+    },
+    {
+     "bu_registered": 576988,
+     "bu_sections_with_votes": 1914,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "AP",
+     "signed_registered_functioning": 576988,
+     "signed_sections_installed": 1914,
+     "turnout": 476562
+    },
+    {
+     "bu_registered": 11312752,
+     "bu_sections_with_votes": 35476,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "BA",
+     "signed_registered_functioning": 11312752,
+     "signed_sections_installed": 35476,
+     "turnout": 9053601
+    },
+    {
+     "bu_registered": 6996545,
+     "bu_sections_with_votes": 23765,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "CE",
+     "signed_registered_functioning": 6996545,
+     "signed_sections_installed": 23765,
+     "turnout": 5910471
+    },
+    {
+     "bu_registered": 2258320,
+     "bu_sections_with_votes": 6969,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "DF",
+     "signed_registered_functioning": 2258320,
+     "signed_sections_installed": 6969,
+     "turnout": 1831396
+    },
+    {
+     "bu_registered": 2991650,
+     "bu_sections_with_votes": 9844,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "ES",
+     "signed_registered_functioning": 2991650,
+     "signed_sections_installed": 9844,
+     "turnout": 2352282
+    },
+    {
+     "bu_registered": 5080590,
+     "bu_sections_with_votes": 15686,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "GO",
+     "signed_registered_functioning": 5080590,
+     "signed_sections_installed": 15686,
+     "turnout": 3971587
+    },
+    {
+     "bu_registered": 5183115,
+     "bu_sections_with_votes": 18093,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "MA",
+     "signed_registered_functioning": 5183115,
+     "signed_sections_installed": 18093,
+     "turnout": 4160343
+    },
+    {
+     "bu_registered": 16372372,
+     "bu_sections_with_votes": 52062,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "MG",
+     "signed_registered_functioning": 16372372,
+     "signed_sections_installed": 52062,
+     "turnout": 12637274
+    },
+    {
+     "bu_registered": 2024430,
+     "bu_sections_with_votes": 7106,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "MS",
+     "signed_registered_functioning": 2024430,
+     "signed_sections_installed": 7106,
+     "turnout": 1541220
+    },
+    {
+     "bu_registered": 2637801,
+     "bu_sections_with_votes": 8287,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "MT",
+     "signed_registered_functioning": 2637801,
+     "signed_sections_installed": 8287,
+     "turnout": 2052133
+    },
+    {
+     "bu_registered": 6262397,
+     "bu_sections_with_votes": 20827,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "PA",
+     "signed_registered_functioning": 6262397,
+     "signed_sections_installed": 20827,
+     "turnout": 5066504
+    },
+    {
+     "bu_registered": 3248531,
+     "bu_sections_with_votes": 10712,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "PB",
+     "signed_registered_functioning": 3248531,
+     "signed_sections_installed": 10712,
+     "turnout": 2683988
+    },
+    {
+     "bu_registered": 7223450,
+     "bu_sections_with_votes": 21418,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "PE",
+     "signed_registered_functioning": 7223450,
+     "signed_sections_installed": 21418,
+     "turnout": 5911062
+    },
+    {
+     "bu_registered": 2704758,
+     "bu_sections_with_votes": 10225,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "PI",
+     "signed_registered_functioning": 2704758,
+     "signed_sections_installed": 10225,
+     "turnout": 2240883
+    },
+    {
+     "bu_registered": 8613657,
+     "bu_sections_with_votes": 27142,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "PR",
+     "signed_registered_functioning": 8613657,
+     "signed_sections_installed": 27142,
+     "turnout": 6841457
+    },
+    {
+     "bu_registered": 12857648,
+     "bu_sections_with_votes": 37675,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "RJ",
+     "signed_registered_functioning": 12857648,
+     "signed_sections_installed": 37675,
+     "turnout": 9859802
+    },
+    {
+     "bu_registered": 2659825,
+     "bu_sections_with_votes": 8115,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "RN",
+     "signed_registered_functioning": 2659825,
+     "signed_sections_installed": 8115,
+     "turnout": 2171013
+    },
+    {
+     "bu_registered": 1265893,
+     "bu_sections_with_votes": 4698,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "RO",
+     "signed_registered_functioning": 1265893,
+     "signed_sections_installed": 4698,
+     "turnout": 991080
+    },
+    {
+     "bu_registered": 401521,
+     "bu_sections_with_votes": 1519,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "RR",
+     "signed_registered_functioning": 401521,
+     "signed_sections_installed": 1519,
+     "turnout": 332772
+    },
+    {
+     "bu_registered": 8522545,
+     "bu_sections_with_votes": 27547,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "RS",
+     "signed_registered_functioning": 8522545,
+     "signed_sections_installed": 27547,
+     "turnout": 6702903
+    },
+    {
+     "bu_registered": 5734651,
+     "bu_sections_with_votes": 17326,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "SC",
+     "signed_registered_functioning": 5734651,
+     "signed_sections_installed": 17326,
+     "turnout": 4648159
+    },
+    {
+     "bu_registered": 1740135,
+     "bu_sections_with_votes": 5923,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "SE",
+     "signed_registered_functioning": 1740135,
+     "signed_sections_installed": 5923,
+     "turnout": 1439082
+    },
+    {
+     "bu_registered": 34122892,
+     "bu_sections_with_votes": 103656,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "SP",
+     "signed_registered_functioning": 34122892,
+     "signed_sections_installed": 103656,
+     "turnout": 26431992
+    },
+    {
+     "bu_registered": 1182023,
+     "bu_sections_with_votes": 4384,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "TO",
+     "signed_registered_functioning": 1182023,
+     "signed_sections_installed": 4384,
+     "turnout": 965196
+    },
+    {
+     "bu_registered": 916039,
+     "bu_sections_with_votes": 1309,
+     "equal": {
+      "blank": true,
+      "candidates": true,
+      "null": true,
+      "technical_null": true,
+      "turnout": true
+     },
+     "scope": "ZZ",
+     "signed_registered_functioning": 916111,
+     "signed_sections_installed": 1310,
+     "turnout": 341766
+    }
+   ],
+   "turnout": 125275835,
+   "verdict": "CERTIFIED"
+  },
+  "R2-ARITH": {
+   "generated": "25/10/2026 23:27:02",
+   "signed_arithmetic": {
+    "registered = functioning + not installed (423)": true,
+    "total = valid + blank + null": true,
+    "turnout + abstention = registered in the sections that functioned": true,
+    "turnout = total votes": true,
+    "valid = Lula + Flávio": true
+   },
+   "ufs_plus_abroad_sum_to_brazil": {
+    "abstention": true,
+    "blank": true,
+    "candidate 13": true,
+    "candidate 22": true,
+    "null_total": true,
+    "registered": true,
+    "sections": true,
+    "turnout": true,
+    "valid": true
+   },
+   "verdict": "CERTIFIED"
+  },
+  "R2-SUM": {
+   "verdict": "NEEDS DATA",
+   "why": "the TSE has not yet published the round-2 BU na Web in bulk (checked 2026-10-26); the sum of every section's BU against the signed result is decided the day it does"
+  },
+  "R2-WIN": {
+   "abstention": 30509005,
+   "blank": 1430496,
+   "flavio": 59826041,
+   "lula": 64256232,
+   "lula_share_2dp": "51,79",
+   "lula_share_exact": "64256232/124082273",
+   "margin": 4430191,
+   "null": 2723305,
+   "per_uf": {
+    "AC": {
+     "flavio": 287715,
+     "lula": 144513,
+     "r1_flavio": 302807,
+     "r1_lula": 134770,
+     "r1_registered": 613742,
+     "r1_turnout": 488330,
+     "r1_valid": 469066,
+     "registered": 613715,
+     "turnout": 453654
+    },
+    "AL": {
+     "flavio": 744140,
+     "lula": 1152621,
+     "r1_flavio": 735718,
+     "r1_lula": 995459,
+     "r1_registered": 2442126,
+     "r1_turnout": 1938428,
+     "r1_valid": 1818856,
+     "registered": 2442081,
+     "turnout": 1951632
+    },
+    "AM": {
+     "flavio": 975245,
+     "lula": 1145783,
+     "r1_flavio": 976764,
+     "r1_lula": 1046996,
+     "r1_registered": 2798611,
+     "r1_turnout": 2234549,
+     "r1_valid": 2170763,
+     "registered": 2798661,
+     "turnout": 2192059
+    },
+    "AP": {
+     "flavio": 198674,
+     "lula": 222968,
+     "r1_flavio": 212278,
+     "r1_lula": 212503,
+     "r1_registered": 576988,
+     "r1_turnout": 476562,
+     "r1_valid": 464858,
+     "registered": 576910,
+     "turnout": 429975
+    },
+    "BA": {
+     "flavio": 2608761,
+     "lula": 6485258,
+     "r1_flavio": 2442585,
+     "r1_lula": 5664771,
+     "r1_registered": 11312752,
+     "r1_turnout": 9053601,
+     "r1_valid": 8560291,
+     "registered": 11312891,
+     "turnout": 9422047
+    },
+    "CE": {
+     "flavio": 1819478,
+     "lula": 4036124,
+     "r1_flavio": 1756850,
+     "r1_lula": 3555263,
+     "r1_registered": 6996545,
+     "r1_turnout": 5910471,
+     "r1_valid": 5617814,
+     "registered": 6996521,
+     "turnout": 6024843
+    },
+    "DF": {
+     "flavio": 979542,
+     "lula": 825224,
+     "r1_flavio": 909616,
+     "r1_lula": 675627,
+     "r1_registered": 2258320,
+     "r1_turnout": 1831396,
+     "r1_valid": 1772808,
+     "registered": 2258995,
+     "turnout": 1868280
+    },
+    "ES": {
+     "flavio": 1294504,
+     "lula": 1001965,
+     "r1_flavio": 1233194,
+     "r1_lula": 850028,
+     "r1_registered": 2991650,
+     "r1_turnout": 2352282,
+     "r1_valid": 2251078,
+     "registered": 2991515,
+     "turnout": 2409214
+    },
+    "GO": {
+     "flavio": 2345334,
+     "lula": 1585555,
+     "r1_flavio": 2051888,
+     "r1_lula": 1188880,
+     "r1_registered": 5080590,
+     "r1_turnout": 3971587,
+     "r1_valid": 3827823,
+     "registered": 5080385,
+     "turnout": 4047280
+    },
+    "MA": {
+     "flavio": 1229971,
+     "lula": 2808231,
+     "r1_flavio": 1239040,
+     "r1_lula": 2566301,
+     "r1_registered": 5183115,
+     "r1_turnout": 4160343,
+     "r1_valid": 4010439,
+     "registered": 5183049,
+     "turnout": 4127771
+    },
+    "MG": {
+     "flavio": 6241786,
+     "lula": 6351099,
+     "r1_flavio": 5777548,
+     "r1_lula": 5188936,
+     "r1_registered": 16372372,
+     "r1_turnout": 12637274,
+     "r1_valid": 11976235,
+     "registered": 16372144,
+     "turnout": 13044203
+    },
+    "MS": {
+     "flavio": 927892,
+     "lula": 628973,
+     "r1_flavio": 873351,
+     "r1_lula": 516855,
+     "r1_registered": 2024430,
+     "r1_turnout": 1541220,
+     "r1_valid": 1490278,
+     "registered": 2024437,
+     "turnout": 1594460
+    },
+    "MT": {
+     "flavio": 1351099,
+     "lula": 694167,
+     "r1_flavio": 1298581,
+     "r1_lula": 581681,
+     "r1_registered": 2637801,
+     "r1_turnout": 2052133,
+     "r1_valid": 1993288,
+     "registered": 2637879,
+     "turnout": 2085334
+    },
+    "PA": {
+     "flavio": 2199940,
+     "lula": 2690449,
+     "r1_flavio": 2163957,
+     "r1_lula": 2427237,
+     "r1_registered": 6262397,
+     "r1_turnout": 5066504,
+     "r1_valid": 4863172,
+     "registered": 6262063,
+     "turnout": 4989573
+    },
+    "PB": {
+     "flavio": 865210,
+     "lula": 1794059,
+     "r1_flavio": 831377,
+     "r1_lula": 1541127,
+     "r1_registered": 3248531,
+     "r1_turnout": 2683988,
+     "r1_valid": 2513747,
+     "registered": 3248434,
+     "turnout": 2743560
+    },
+    "PE": {
+     "flavio": 1832554,
+     "lula": 4117513,
+     "r1_flavio": 1738043,
+     "r1_lula": 3553971,
+     "r1_registered": 7223450,
+     "r1_turnout": 5911062,
+     "r1_valid": 5601017,
+     "registered": 7223227,
+     "turnout": 6126467
+    },
+    "PI": {
+     "flavio": 525859,
+     "lula": 1653989,
+     "r1_flavio": 517028,
+     "r1_lula": 1523710,
+     "r1_registered": 2704758,
+     "r1_turnout": 2240883,
+     "r1_valid": 2146394,
+     "registered": 2704695,
+     "turnout": 2239830
+    },
+    "PR": {
+     "flavio": 4291444,
+     "lula": 2566504,
+     "r1_flavio": 3945345,
+     "r1_lula": 2054597,
+     "r1_registered": 8613657,
+     "r1_turnout": 6841457,
+     "r1_valid": 6585243,
+     "registered": 8613628,
+     "turnout": 7059339
+    },
+    "RJ": {
+     "flavio": 5169033,
+     "lula": 4565393,
+     "r1_flavio": 4966844,
+     "r1_lula": 3693021,
+     "r1_registered": 12857648,
+     "r1_turnout": 9859802,
+     "r1_valid": 9369700,
+     "registered": 12857526,
+     "turnout": 10077449
+    },
+    "RN": {
+     "flavio": 737409,
+     "lula": 1413596,
+     "r1_flavio": 720493,
+     "r1_lula": 1237963,
+     "r1_registered": 2659825,
+     "r1_turnout": 2171013,
+     "r1_valid": 2071898,
+     "registered": 2659867,
+     "turnout": 2232823
+    },
+    "RO": {
+     "flavio": 674382,
+     "lula": 294446,
+     "r1_flavio": 652988,
+     "r1_lula": 250667,
+     "r1_registered": 1265893,
+     "r1_turnout": 991080,
+     "r1_valid": 968059,
+     "registered": 1265926,
+     "turnout": 988489
+    },
+    "RR": {
+     "flavio": 219675,
+     "lula": 83505,
+     "r1_flavio": 231322,
+     "r1_lula": 74420,
+     "r1_registered": 401521,
+     "r1_turnout": 332772,
+     "r1_valid": 325545,
+     "registered": 401540,
+     "turnout": 308597
+    },
+    "RS": {
+     "flavio": 3874378,
+     "lula": 2824552,
+     "r1_flavio": 3573783,
+     "r1_lula": 2294759,
+     "r1_registered": 8522545,
+     "r1_turnout": 6702903,
+     "r1_valid": 6423046,
+     "registered": 8522318,
+     "turnout": 6889638
+    },
+    "SC": {
+     "flavio": 3220071,
+     "lula": 1418314,
+     "r1_flavio": 3000020,
+     "r1_lula": 1127168,
+     "r1_registered": 5734651,
+     "r1_turnout": 4648159,
+     "r1_valid": 4500897,
+     "registered": 5734687,
+     "turnout": 4762303
+    },
+    "SE": {
+     "flavio": 433354,
+     "lula": 989041,
+     "r1_flavio": 417839,
+     "r1_lula": 856019,
+     "r1_registered": 1740135,
+     "r1_turnout": 1439082,
+     "r1_valid": 1364196,
+     "registered": 1740093,
+     "turnout": 1466659
+    },
+    "SP": {
+     "flavio": 14139178,
+     "lula": 12119274,
+     "r1_flavio": 12922023,
+     "r1_lula": 9505413,
+     "r1_registered": 34122892,
+     "r1_turnout": 26431992,
+     "r1_valid": 24882948,
+     "registered": 34123591,
+     "turnout": 27364389
+    },
+    "TO": {
+     "flavio": 467916,
+     "lula": 442962,
+     "r1_flavio": 469321,
+     "r1_lula": 404009,
+     "r1_registered": 1182023,
+     "r1_turnout": 965196,
+     "r1_valid": 930447,
+     "registered": 1182041,
+     "turnout": 954763
+    },
+    "ZZ": {
+     "flavio": 171497,
+     "lula": 200154,
+     "r1_flavio": 143900,
+     "r1_lula": 157387,
+     "r1_registered": 916534,
+     "r1_turnout": 341766,
+     "r1_valid": 330882,
+     "registered": 916683,
+     "turnout": 381443
+    }
+   },
+   "registered": 158745502,
+   "removal_to_reverse": 4430191,
+   "sections": 499248,
+   "swing_to_reverse": 2215096,
+   "turnout": 128236074,
+   "valid": 124082273,
+   "verdict": "CERTIFIED"
+  },
+  "SIG": {
+   "files": 58,
+   "key": "Ed25519, kid sNbt9Q_fLS65zE1_ZLNV-XRRwPY, as embedded in resultados.tse.jus.br/oficial/app",
+   "red_control_tampered_digit_refused_by_both": true,
+   "verdict": "CERTIFIED",
+   "verified": 58
+  }
+ },
+ "generated": "2026-10-26",
+ "what": "tools/eleicoes2026/ledger.py — the 2026 presidential election dossier's record: corpus/eleicoes2026/ledger.json."
+}

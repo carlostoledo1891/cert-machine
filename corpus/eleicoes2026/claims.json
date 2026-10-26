@@ -1,0 +1,82 @@
+{
+ "what": "The public statements this dossier decides or refuses, each with where it was read. Statements are quoted only where the source was read in full; otherwise paraphrased and marked so. Read 2026-10-26. The fields quem/disse are the Portuguese the page shows; who/said keep the reading in English for the record.",
+ "claims": [
+  {
+   "id": "C1",
+   "who": "Flávio Bolsonaro (PL), the candidate who lost the second round",
+   "said": "É impossível reconhecer o resultado dessa eleição no contexto em que essas coisas aconteceram. Vamos pedir a anulação dessas eleições.",
+   "quoted": true,
+   "when": "2026-10-25, evening",
+   "source": "https://www.infomoney.com.br/politica/flavio-nao-reconhece-resultado-da-eleicao-e-diz-que-pedira-anulacao-ao-tse/",
+   "decidable_part": "whether the votes cast after the legal close (17:00 Brasília), which the extension made possible, could have decided the winner",
+   "quem": "Flávio Bolsonaro (PL), derrotado no 2º turno",
+   "disse": "É impossível reconhecer o resultado dessa eleição no contexto em que essas coisas aconteceram. Vamos pedir a anulação dessas eleições."
+  },
+  {
+   "id": "C2",
+   "who": "Flávio Bolsonaro (PL)",
+   "said": "Eu nunca vou saber se, num estado onde as urnas não foram reabertas, quantos votos eu poderia ter.",
+   "quoted": true,
+   "when": "2026-10-25, evening",
+   "source": "https://www.infomoney.com.br/politica/flavio-nao-reconhece-resultado-da-eleicao-e-diz-que-pedira-anulacao-ao-tse/",
+   "decidable_part": "none: votes that were not cast cannot be counted; a counterfactual has no bytes",
+   "quem": "Flávio Bolsonaro (PL)",
+   "disse": "Eu nunca vou saber se, num estado onde as urnas não foram reabertas, quantos votos eu poderia ter."
+  },
+  {
+   "id": "C3",
+   "who": "Flávio Bolsonaro (PL)",
+   "said": "Nossos fiscais do PL foram retirados de dentro da sala-cofre a partir do momento que essa eleição foi tomada.",
+   "quoted": true,
+   "when": "2026-10-25, evening",
+   "source": "https://www.infomoney.com.br/politica/flavio-nao-reconhece-resultado-da-eleicao-e-diz-que-pedira-anulacao-ao-tse/",
+   "decidable_part": "none from published data: a procedural event inside the TSE, not a number; what the totals the inspectors would have watched say is decided in C5 and C6",
+   "quem": "Flávio Bolsonaro (PL)",
+   "disse": "Nossos fiscais do PL foram retirados de dentro da sala-cofre a partir do momento que essa eleição foi tomada."
+  },
+  {
+   "id": "C4",
+   "who": "The TSE (its president and its press office)",
+   "said": "Only about 35 thousand votes (35,521) were cast in the extended period after 17:00, an insignificant number against the final difference.",
+   "quoted": false,
+   "when": "2026-10-25/26",
+   "source": "https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/presidente-do-tse-anuncia-reeleicao-de-lula-e-faz-balanco-do-2o-turno-das-eleicoes-2026 (403 to automated readers; the figure as reported by Senado Notícias, CNN Brasil and mixvale.com.br)",
+   "decidable_part": "the count of votes after 17:00, from the urns' own logs",
+   "quem": "O TSE (presidente e assessoria)",
+   "disse": "Só cerca de 35 mil votos (35.521) foram dados no período prorrogado, depois das 17h, número insignificante diante da diferença final."
+  },
+  {
+   "id": "C5",
+   "who": "The TSE (the official totalization)",
+   "said": "Lula 64,256,232 votes (51.79% of valid votes), Flávio Bolsonaro 59,826,041 (48.21%), all 499,248 sections totalized.",
+   "quoted": false,
+   "when": "2026-10-25, 23:26 (the signed result)",
+   "source": "https://resultados.tse.jus.br/oficial/ele2026/6258/dados/br/br-c0001-e006258-u.jws",
+   "decidable_part": "the signature, the arithmetic of the signed result, and its agreement with every section's boletim de urna once the TSE publishes them in bulk",
+   "quem": "O TSE (a totalização oficial)",
+   "disse": "Lula 64.256.232 votos (51,79% dos válidos), Flávio Bolsonaro 59.826.041 (48,21%), as 499.248 seções totalizadas."
+  },
+  {
+   "id": "C6",
+   "who": "The TSE president, at the proclamation (as reported)",
+   "said": "Lula received 64.2 million votes, 51.74%.",
+   "quoted": false,
+   "when": "2026-10-25",
+   "source": "reported by InfoMoney's live coverage, which noted the difference from the 51.79% of the results site",
+   "decidable_part": "whether 51.74% is Lula's share of the valid votes in the signed result",
+   "quem": "O presidente do TSE, na proclamação (segundo a imprensa)",
+   "disse": "Lula recebeu 64,2 milhões de votos, 51,74%."
+  },
+  {
+   "id": "C7",
+   "who": "The final polls of the second round (Datafolha, Quaest, AtlasIntel and others)",
+   "said": "Flávio Bolsonaro ahead in valid votes on 24 October (e.g. 51% to 49%)",
+   "quoted": false,
+   "when": "2026-10-24",
+   "source": "corpus/eleicoes2026/polls.json (each poll with its own sources)",
+   "decidable_part": "whether each poll's published numbers, with its declared margin, contain the result; and what a miss does and does not say about the count",
+   "quem": "As pesquisas finais do 2º turno (Datafolha, Quaest, AtlasIntel e outras)",
+   "disse": "Flávio Bolsonaro à frente nos votos válidos em 24 de outubro (por exemplo, 51% a 49%)."
+  }
+ ]
+}

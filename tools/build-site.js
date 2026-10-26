@@ -1823,7 +1823,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
   /* swell/ joined the app zones 2026-10-08 and was missing from this list: a bare `node tools/build-site.js`
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
-  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('uirapuru/')) continue;
+  if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('eleicoes2026/') || rel.startsWith('uirapuru/')) continue;
   if (isForeign(rel)) continue;   /* clade-code/: owned by clade-code's page engine (design/zones.js) */
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
