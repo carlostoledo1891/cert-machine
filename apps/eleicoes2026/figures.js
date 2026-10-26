@@ -27,8 +27,8 @@ const HATCH = '    <defs><pattern id="el-hatch" width="6" height="6" patternUnit
 function electorate(r1, r2) {
   const W = 900, L = 120, R = 24, BW = W - L - R, BH = 34;
   const parts = [
-    { k: 'Lula', fill: 'var(--c-2)' },
-    { k: 'Flávio Bolsonaro', fill: 'var(--c-3)' },
+    { k: 'Lula', fill: 'var(--el-lula)' },
+    { k: 'Flávio Bolsonaro', fill: 'var(--el-flavio)' },
     { k: 'outros candidatos', fill: 'var(--c-s2)' },
     { k: 'brancos e nulos', fill: 'var(--c-s1)' },
     { k: 'abstenção', fill: 'url(#el-hatch)', stroke: 'var(--ink-5)' }
@@ -127,4 +127,70 @@ function tilemap(perUf) {
   return out.join('\n');
 }
 
-module.exports = { electorate, scale, tilemap };
+/* ---- the headline: the scoreboard every election night shows ------------------------------------------------------- */
+function scoreboard({ lula, flavio, margin }) {
+  const W = 900, H = 190, X0 = 10, BW = W - 20, Y = 100, BH = 40;
+  const tot = lula + flavio, xl = BW * lula / tot;
+  const out = [open(W, H, 'Placar do 2º turno: Lula ' + pc(lula / tot, 2) + '% e Flávio Bolsonaro ' + pc(flavio / tot, 2) + '% dos votos válidos')];
+  out.push(text(X0, 18, 'LULA', 't-kick', 'start'));
+  out.push(text(X0, 84, pc(lula / tot, 2) + '%', 't-score', 'start'));
+  out.push(text(X0 + BW, 18, 'FLÁVIO BOLSONARO', 't-kick', 'end'));
+  out.push(text(X0 + BW, 84, pc(flavio / tot, 2) + '%', 't-score', 'end'));
+  out.push('    <rect x="' + X0 + '" y="' + Y + '" width="' + (xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-lula)"' + hit('Lula', nBR(lula) + ' votos') + '/>');
+  out.push('    <rect x="' + (X0 + xl + 1).toFixed(1) + '" y="' + Y + '" width="' + (BW - xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-flavio)"' + hit('Flávio Bolsonaro', nBR(flavio) + ' votos') + '/>');
+  out.push('    <line x1="' + (X0 + BW / 2) + '" y1="' + (Y - 8) + '" x2="' + (X0 + BW / 2) + '" y2="' + (Y + BH + 8) + '" stroke="var(--ink)" stroke-width="2"/>');
+  out.push(text(X0, Y + BH + 24, nBR(lula) + ' votos', 't-lab', 'start'));
+  out.push(text(X0 + BW, Y + BH + 24, nBR(flavio) + ' votos', 't-lab', 'end'));
+  out.push(text(X0 + BW / 2, Y + BH + 24, '50% · diferença de ' + nBR(margin) + ' votos', 't-note', 'middle'));
+  out.push('  </svg>');
+  return out.join('\n');
+}
+
+/* ---- where the new votes came from, as a balance: the pool that opened between the rounds, and who took it -------------- */
+function balance({ others, blankDrop, abstDrop, lulaGain, flavioGain }) {
+  const W = 900, L = 170, BW = W - L - 30, BH = 34;
+  const pool = others + blankDrop + abstDrop;
+  const out = [open(W, 206, 'De onde vieram os votos novos dos finalistas no 2º turno, e para quem foram')];
+  const row = (y, title, parts) => {
+    out.push(text(L - 14, y + BH / 2 + 5, title, 't-lab', 'end'));
+    let x = L;
+    for (const p of parts) {
+      const w = BW * p.v / pool;
+      out.push('    <rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + Math.max(1, w - 2).toFixed(1) + '" height="' + BH + '" rx="2" fill="' + p.fill + '"'
+        + (p.stroke ? ' stroke="' + p.stroke + '" stroke-width="1"' : '') + hit(title + ' · ' + p.k, nBR(p.v) + ' votos') + '/>');
+      /* narrow segments: one label below the bar, one hung from the bar's right end, so neighbours never collide */
+      out.push(p.at === 'below' ? text(x + 2, y + BH + 16, p.k + ' · ' + nBR(p.v), 't-note', 'start')
+        : p.at === 'end' ? text(x + w - 2, y - 7, p.k + ' · ' + nBR(p.v), 't-note', 'end') : text(x + 2, y - 7, p.k + ' · ' + nBR(p.v), 't-note', 'start'));
+      x += w;
+    }
+  };
+  row(36, 'disponíveis', [{ k: 'eram de outros candidatos', v: others, fill: 'var(--c-s3)' }, { k: 'brancos e nulos a menos', v: blankDrop, fill: 'var(--c-s2)', at: 'below' },
+    { k: 'abstenção a menos', v: abstDrop, fill: 'url(#el-hatch)', stroke: 'var(--ink-5)', at: 'end' }]);
+  row(144, 'ganhos', [{ k: 'Lula', v: lulaGain, fill: 'var(--el-lula)' }, { k: 'Flávio', v: flavioGain, fill: 'var(--el-flavio)' }]);
+  out.splice(1, 0, HATCH);
+  out.push('  </svg>');
+  return out.join('\n');
+}
+
+/* ---- labelled scatter for 28 named units (the mean-field lens) ---------------------------------------------------------- */
+function labelled({ pts, x0, x1, y0, y1, xTicks, yTicks, xLabel, yLabel, alt, fit }) {
+  const W = 900, H = 420, L = 74, R = 24, T = 18, Bm = 58;
+  const px = (x) => L + (x - x0) / (x1 - x0) * (W - L - R), py = (y) => T + (1 - (y - y0) / (y1 - y0)) * (H - T - Bm);
+  const out = [open(W, H, alt)];
+  for (const t of yTicks) { out.push('    <line x1="' + L + '" y1="' + py(t.v).toFixed(1) + '" x2="' + (W - R) + '" y2="' + py(t.v).toFixed(1) + '" stroke="var(--c-grid)" stroke-width="1"/>'); out.push(text(L - 9, py(t.v) + 4, t.t, 't-ax', 'end')); }
+  for (const t of xTicks) out.push(text(px(t.v), H - Bm + 20, t.t, 't-ax', 'middle'));
+  out.push('    <line x1="' + L + '" y1="' + (H - Bm) + '" x2="' + (W - R) + '" y2="' + (H - Bm) + '" stroke="var(--c-axis)" stroke-width="1"/>');
+  if (fit) out.push('    <path d="M' + px(fit[0][0]).toFixed(1) + ' ' + py(fit[0][1]).toFixed(1) + ' L' + px(fit[1][0]).toFixed(1) + ' ' + py(fit[1][1]).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>');
+  /* a label goes left of its dot when another dot sits just to its right on the same line */
+  const crowded = (p) => pts.some((q) => q !== p && Math.abs(py(q.y) - py(p.y)) < 12 && px(q.x) - px(p.x) > 0 && px(q.x) - px(p.x) < 44);
+  for (const p of pts) {
+    out.push('    <circle cx="' + px(p.x).toFixed(1) + '" cy="' + py(p.y).toFixed(1) + '" r="5" fill="' + p.fill + '" stroke="var(--sunk)" stroke-width="1.5"' + hit(p.k, p.v) + '/>');
+    out.push(crowded(p) ? text(px(p.x) - 8, py(p.y) + 4, p.label, 't-note', 'end') : text(px(p.x) + 8, py(p.y) + 4, p.label, 't-note', 'start'));
+  }
+  out.push(text(L + (W - L - R) / 2, H - 14, xLabel, 't-note', 'middle'));
+  out.push('    <text x="14" y="' + (T + (H - T - Bm) / 2) + '" class="t-note" transform="rotate(-90 14 ' + (T + (H - T - Bm) / 2) + ')" text-anchor="middle">' + esc(yLabel) + '</text>');
+  out.push('  </svg>');
+  return out.join('\n');
+}
+
+module.exports = { electorate, scale, tilemap, scoreboard, balance, labelled };

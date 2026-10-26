@@ -139,6 +139,7 @@ def build():
                    'blank': s1['blank'], 'null': s1['null_total'], 'turnout': s1['turnout'], 'registered': s1['registered'],
                    'abstention': s1['abstention'], 'registered_functioning': s1['registered_functioning'], 'valid': s1['valid'],
                    'bu_files': A['files']}
+    R1S_reg_f = s1['registered_functioning']
     D['R1-SEC'] = {'verdict': 'CERTIFIED' if fails['S1'] == fails['S2'] == fails['S3'] == 0 else 'REFUTED',
                    'sections': int(A['counts']['sections']), 'failures': fails,
                    'witnesses': {k: A['checks'][k]['witnesses'][:5] for k in ('S1', 'S2', 'S3')},
@@ -208,11 +209,137 @@ def build():
         D['R1-CLOSE'] = {'verdict': 'MEASURED', **{k: c[k] for k in ('sections', 'closed_before_legal_close', 'closed_60_or_more_minutes_after',
                          'minute_histogram', 'percentiles_minutes', 'within_10_minutes', 'within_30_minutes', 'table_sha256')}}
 
+    # ---- how many urns would have to be forged --------------------------------------------------------------------
+    cap = json.load(open(os.path.join(DER, 'r1-capacity.json')))
+    sw, rm = margin // 2 + 1, margin
+    if {str(sw), str(rm)} - set(cap['first_reaching']):
+        die('r1-capacity.json was not computed for this margin; run tools/eleicoes2026/sections.py ' + str(sw) + ' ' + str(rm))
+    D['MINURNS'] = {'verdict': 'CERTIFIED', 'question': 'the fewest urns whose boletins would have to be altered to reverse the round-2 winner',
+                    'bound': 'in an urn, an alteration moves at most its registered voters; so k urns move at most the sum of the k largest capacities',
+                    'swing_needed': sw, 'removal_needed': rm,
+                    'urns_if_every_voter_swapped': cap['first_reaching'][str(sw)]['sections'],
+                    'urns_if_every_voter_removed': cap['first_reaching'][str(rm)]['sections'],
+                    'sections': cap['sections'], 'largest_capacity': cap['largest'][0], 'median_capacity': cap['median'],
+                    'curve': cap['curve'], 'rolls_same_both_rounds': R1S_reg_f == s2['registered_functioning']}
+
+    # ---- the risk-limiting audit this margin allows ---------------------------------------------------------------------
+    D['RLA'] = rla(L13, F22, s2['valid'], s2['turnout'], margin)
+
+    # ---- where the votes came from: exact (Fréchet) bounds by unit ----------------------------------------------------------
+    D['TRANSFER'] = transfers()
+
+    # ---- the mean-field lens: the swing in log-odds, state by state ----------------------------------------------------------
+    D['MEANFIELD'] = meanfield(D['R2-WIN']['per_uf'])
+
     # ---- polls -----------------------------------------------------------------------------------------------------
     pp = os.path.join(E, 'polls.json')
     if os.path.exists(pp):
         D['POLLS'] = polls(json.load(open(pp)), s1, s2)
     return L
+
+
+def dln(x):
+    """ln of a Decimal (or Fraction) at 60 digits"""
+    from decimal import Decimal, getcontext
+    getcontext().prec = 60
+    if isinstance(x, Fraction):
+        x = Decimal(x.numerator) / Decimal(x.denominator)
+    return x.ln()
+
+
+def ceil_safe(x):
+    """the ceiling of a 60-digit value, refused when the value sits within 1e-40 of an integer (the rounding could
+    then decide the integer)"""
+    from decimal import Decimal, ROUND_CEILING
+    c = x.to_integral_value(rounding=ROUND_CEILING)
+    if abs(x - x.to_integral_value()) < Decimal('1e-40'):
+        die('a sample size sits on an integer to 1e-40; decide it exactly')
+    return int(c)
+
+
+def rla(L, F, valid, ballots, margin, alpha=Fraction(1, 100)):
+    """three risk-limiting audit sample sizes for this margin, at risk alpha (Lindeman & Stark, "A Gentle Introduction to
+    Risk-limiting Audits", IEEE S&P 2012), each assuming the sample turns up no discrepancy:
+      polling     BRAVO ballot-polling, the average sample number for a two-candidate race with winner share s among the
+                  two: ASN = (ln 1/α + ½ ln 2s) / (s ln 2s + (1 − s) ln(2 − 2s)), in ballots for the two, then in ballots
+      comparison  ballot-level comparison, "super-simple": n = ⌈2γ ln(1/α) / μ⌉, γ = 1.03905, μ = margin / ballots
+      batches     batch-level comparison with whole sections as batches, PPEB with the Kaplan–Markov bound:
+                  n = ⌈ln α / ln(1 − 1/U)⌉, U = Σ 2 b_p / margin = 2 · ballots / margin"""
+    from decimal import Decimal
+    s = Fraction(L, L + F)
+    sd = Decimal(s.numerator) / Decimal(s.denominator)
+    la = dln(1 / alpha)
+    asn = (la + dln(2 * s) / 2) / (sd * dln(2 * s) + (1 - sd) * dln(2 - 2 * s))
+    two = Fraction(L + F, ballots)
+    polling = ceil_safe(asn)
+    polling_ballots = ceil_safe(asn * Decimal(ballots) / Decimal(L + F))
+    mu = Fraction(margin, ballots)
+    gamma = Decimal('1.03905')
+    comparison = ceil_safe(2 * gamma * la / (Decimal(mu.numerator) / Decimal(mu.denominator)))
+    U = Fraction(2 * ballots, margin)
+    batches = ceil_safe(dln(alpha) / dln(1 - 1 / U))
+    return {'verdict': 'CERTIFIED', 'risk': f'{alpha}', 'winner_share_of_two': f'{s}', 'diluted_margin': f'{mu}',
+            'polling_two_candidate_ballots': polling, 'polling_ballots': polling_ballots,
+            'comparison_ballots': comparison, 'comparison_gamma': str(gamma), 'batch_U': f'{U}', 'batch_sections': batches,
+            'arithmetic': '60-digit decimal logarithms; each ceiling refused if its value lies within 1e-40 of an integer',
+            'source': 'Lindeman & Stark (2012), A Gentle Introduction to Risk-limiting Audits; Stark (2010) super-simple; Stark (2009) PPEB/Kaplan–Markov'}
+
+
+def transfers():
+    """exact bounds on the flows from round-1 choices to round-2 choices, unit by unit (UF and abroad until the round-2
+    BUs are public; then section by section): in a unit with n voters, a flow from a round-1 group of size r to a
+    round-2 group of size c lies in [max(0, r + c − n), min(r, c)] (Fréchet), each end attained, and units are
+    independent, so the sums of the ends are the exact bounds of the national flow. Voters registered in a unit in
+    one round only (transit voting) form their own row or column, so every unit balances."""
+    R1G = ['lula', 'flavio', 'others', 'blank_null', 'abstention']
+    R2G = ['lula', 'flavio', 'blank_null', 'abstention']
+    lo = {(a, b): 0 for a in R1G + ['moved_in'] for b in R2G + ['moved_out']}
+    hi = dict(lo)
+    for uf in UFS:
+        a, b = signed('6257', uf), signed('6258', uf)
+        r = {'lula': a['cand']['13']['votes'], 'flavio': a['cand']['22']['votes'],
+             'others': a['valid'] - a['cand']['13']['votes'] - a['cand']['22']['votes'],
+             'blank_null': a['blank'] + a['null_total'], 'abstention': a['abstention']}
+        c = {'lula': b['cand']['13']['votes'], 'flavio': b['cand']['22']['votes'], 'blank_null': b['blank'] + b['null_total'],
+             'abstention': b['abstention']}
+        n1, n2 = sum(r.values()), sum(c.values())
+        if n1 != a['registered_functioning'] or n2 != b['registered_functioning']:
+            die('transfers: ' + uf + ' does not balance')
+        r['moved_in'] = max(0, n2 - n1)
+        c['moved_out'] = max(0, n1 - n2)
+        n = max(n1, n2)
+        for x, rv in r.items():
+            for y, cv in c.items():
+                lo[(x, y)] += max(0, rv + cv - n)
+                hi[(x, y)] += min(rv, cv)
+    keep = [(x, y) for x in R1G for y in R2G]
+    return {'verdict': 'CERTIFIED', 'units': 'UF and abroad (28)', 'groups_round1': R1G, 'groups_round2': R2G,
+            'bounds': {f'{x}->{y}': [lo[(x, y)], hi[(x, y)]] for x, y in keep}}
+
+
+def meanfield(per_uf):
+    """the swing between the finalists measured as a change in log-odds, logit m2 − logit m1, state by state: in a
+    mean-field logit model of the choice (Brock–Durlauf), a common shift of the national field moves every state's
+    log-odds by the same amount when there is no social interaction, and by more where the race is balanced when there
+    is (d logit m / dh = 1 / (1 − 4J m(1 − m))). Measured, with the round-1 share of the other candidates beside it"""
+    import math
+    rows = []
+    for uf, u in per_uf.items():
+        m1 = Fraction(u['r1_lula'], u['r1_lula'] + u['r1_flavio'])
+        m2 = Fraction(u['lula'], u['lula'] + u['flavio'])
+        lg = lambda m: math.log(m.numerator / (m.denominator - m.numerator))
+        others = Fraction(u['r1_valid'] - u['r1_lula'] - u['r1_flavio'], u['r1_valid'])
+        rows.append({'uf': uf, 'm1': round(float(m1), 6), 'm2': round(float(m2), 6), 'logit_shift': round(lg(m2) - lg(m1), 6),
+                     'balance_r1': round(float(m1 * (1 - m1)), 6), 'others_r1': round(float(others), 6)})
+    def corr(xs, ys):
+        mx, my = sum(xs) / len(xs), sum(ys) / len(ys)
+        return round(sum((x - mx) * (y - my) for x, y in zip(xs, ys)) / math.sqrt(sum((x - mx) ** 2 for x in xs) * sum((y - my) ** 2 for y in ys)), 4)
+    ls = [r['logit_shift'] for r in rows]
+    return {'verdict': 'MEASURED', 'rows': sorted(rows, key=lambda r: r['uf']),
+            'logit_shift_min': min(ls), 'logit_shift_max': max(ls),
+            'corr_shift_vs_balance': corr([r['balance_r1'] for r in rows], ls),
+            'corr_shift_vs_others': corr([r['others_r1'] for r in rows], ls),
+            'note': 'floats, 6 decimals: a description of a model\'s fit, not a decision; correlations over 28 units'}
 
 
 POLL_NAMES = {'Lula': '13', 'Flávio Bolsonaro': '22', 'Augusto Cury': '70', 'Ronaldo Caiado': '55', 'Renan Santos': '14',
