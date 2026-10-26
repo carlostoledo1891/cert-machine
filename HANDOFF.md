@@ -48,8 +48,11 @@ NEXT SESSION, IN ORDER:
          run is using this Mac's CPU (their lives die at a 300 s wall-clock guard); BUILT 2026-10-25 by this session on clade-code
          branch `exactness` (worktree ~/Projects/clade-code-exactness); the pilot found the arms identical and the repair
          biased, so AMENDMENT 1 (A1 repair only what decision/2 refuses; A2 a second founder PM-1u without fit()'s check),
-         notes/exactness-in-the-loop-amendment-1-2026-10-25.md, on the operator's 'go'; the 32 runs on this Mac; merging the
-         branch into m0-m2 is the operator's; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
+         notes/exactness-in-the-loop-amendment-1-2026-10-25.md, on the operator's 'go'; the 32 runs DONE 2026-10-26 (clade-code exactness
+         243805c2c): PM-1 EQUIVALENT; PM-1u INCONCLUSIVE (tolerant champion false before repair in 12/16, yet the step found
+         6/16 as by exact selection); doubles = exact; ERRATUM 1 (an interval endpoint at exactly 0 misread by the bisection;
+         both readings kept; the same bisection in era 2's analyze2.py, reported to that session); the operator approved the
+         merge, which the clade-code session does; then remove the worktree; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
          RunPod credit.
      (2) The sweep at session start: `node tools/sweep-claims.js` AND `gh api notifications` — the sweep counts comments,
          not reviews. 2026-10-26 THE SECOND-PARTY RULE: Tao's CONTRIBUTING now requires someone other than the requester to
