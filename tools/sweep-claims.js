@@ -226,6 +226,7 @@ for (const [repo, num, label] of [
   ['teorth/optimizationproblems', 249, 'optimizationproblems PR #249 (C_31: Lueker h = 9, 10 replayed)'],
   ['google-deepmind/cryptids', 14, 'cryptids #14 (the finite layer re-checked; six notes)'],
   ['teorth/optimizationproblems', 257, 'optimizationproblems PR #257 (C_84b: the note\'s theorem, 1.9993*)'],
+  ['teorth/optimizationproblems', 275, 'optimizationproblems PR #275 (C_84b: the ceiling rounded up)'],
   ['carlostoledo1891/cert-machine', 1, 'cert-machine #1 (maximusrufus: the N(6) re-run note we owe, the Ramsey graphs)']]) {
   let out = null;
   try { out = execFileSync('gh', ['api', 'repos/' + repo + '/issues/' + num, '--jq', '[.comments, .state] | @tsv'], { timeout: 30000 }).toString().trim(); } catch (e) { out = null; }

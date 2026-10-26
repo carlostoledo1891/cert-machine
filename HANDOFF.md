@@ -30,9 +30,10 @@ NEXT SESSION, IN ORDER:
          end outward (the ceiling 0.0007150507 → 0.0007150508; f, the additive factor, L, c at the note's choice); no check or
          verdict moved; certs/sumproduct-ledger.json re-derived, the register's scope, a dated self-audit amendment + --repin
          (sumproduct never mutated), the concordance, the constants/claims/rerun/selfaudit pages, paper/register.pdf, the
-         external-reruns outcome text. STILL PUBLIC with …507, the operator's word pending (draft in this session, not sent):
-         the row in PR #257's FILE CHANGE (fork branch c84b-correction-2026-10-23) and its description, and one correction
-         line on the thread (our reply issuecomment-6379669104 used …507; rainrzk/erdos510-lambda4-audit#1 item 3 too).
+         external-reruns outcome text. 2026-10-26, on "send all": #257 was MERGED by Tao (03:50 UTC) with …507 in the row,
+         so the digit goes by a one-digit follow-up PR #275 (OPEN); #257's description edited to …508 and a correction
+         comment posted (issuecomment-6421787433). rainrzk/erdos510-lambda4-audit#1 item 3 keeps …507 (left; #257's comment
+         corrects it).
          Also cut toward zero, NOT FIXED yet (measure their re-run cost first):
          instruments/lonelyrunner/threshold.py (threshold, target, mass enclosures [:24]) and tools/verify_gnnw_gai.py (c
          enclosure [:32]) — printed enclosures that may not contain their value; fix the same way. The search:
@@ -51,8 +52,14 @@ NEXT SESSION, IN ORDER:
          branch into m0-m2 is the operator's; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
          RunPod credit.
      (2) The sweep at session start: `node tools/sweep-claims.js` AND `gh api notifications` — the sweep counts comments,
-         not reviews. Watched now: cert-machine#1 (maximusrufus; last word ours, issuecomment-6389814859), registry PRs #232
-         #242 #243 #249 #257 (none merged; #243/#249 approved and #257 changes-requested by a non-maintainer, answered), cryptids
+         not reviews. 2026-10-26 THE SECOND-PARTY RULE: Tao's CONTRIBUTING now requires someone other than the requester to
+         take an asterisk off (refereed paper, Palomar-style registration, maintainer, or an independent confirmation in the
+         thread); hold notes on #232 #242 #243 #249. Then #257, #232, #243 MERGED (03:50–03:53); constants/1d.md lists
+         [CERT2026] twice — our comment on #243 asks which way (issuecomment-6421793916). #249: our reply names JeetuSK0808's
+         in-thread C replay as the second party (issuecomment-6421793297). #242: maximusrufus asked, no obligation, to re-run
+         C82/C86 (cert-machine#1, issuecomment-6421798844). #275 (C84b digit) open. The credit for #257 pinned
+         (corpus/recognition.json registry-84b). Never file an asterisk-removal PR without the second party lined up. Also
+         watched: cert-machine#1 (maximusrufus), cryptids
          #14 (no reply), formal-math #8/#30, Qiushi #1 (credit in their README, pinned). On or after 2026-10-25 one short ping
          on #232 is reasonable — a send, the operator's word.
      (3) Ramsey: 17 of 18 CERTIFIED; R(8,18) REFUSED and left open on the operator's word (no root finishes in 30 min on the
