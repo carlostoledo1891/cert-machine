@@ -53,7 +53,10 @@ NEXT SESSION, IN ORDER:
          6/16 as by exact selection); doubles = exact; ERRATUM 1 (an interval endpoint at exactly 0 misread by the bisection;
          both readings kept; the same bisection in era 2's analyze2.py, reported to that session); the operator approved the
          merge, which the clade-code session does; then remove the worktree; era 2's own estimate ($10–20, ~$40 if it extends) exceeds the US$ 15
-         RunPod credit.
+         RunPod credit. 2026-10-26 STATUS FROM clade-code-82: era 2 FROZEN (step 8, 175959fcc on m0-m2), step 9 running on
+         one RunPod pod (balance $100.22, est. $20–25), so it no longer competes for this Mac's CPU; the `exactness` branch
+         and worktree untouched — clade-code merges and runs make test only when the operator says the branch is FINAL.
+         Nothing to send from here; that word is the operator's, given in the clade-code session.
      (2) The sweep at session start: `node tools/sweep-claims.js` AND `gh api notifications` — the sweep counts comments,
          not reviews. 2026-10-26 THE SECOND-PARTY RULE: Tao's CONTRIBUTING now requires someone other than the requester to
          take an asterisk off (refereed paper, Palomar-style registration, maintainer, or an independent confirmation in the
