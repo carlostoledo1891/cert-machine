@@ -79,8 +79,23 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .mast nav { display: flex; gap: .5rem 1.2rem; flex-wrap: wrap; }
 .mast nav a { font-size: .875rem; color: var(--ink-2); text-decoration: none; }
 .mast nav a:hover { color: var(--ink); text-decoration: underline; }
+.mast nav a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink-2); }
 .draft { font-family: var(--f-mono); font-size: .7rem; color: var(--muted); border: 1px dashed var(--rule); padding: .25rem .5rem; white-space: nowrap; }
-@media (max-width: 860px) { .mast nav { display: none; } }
+@media (max-width: 520px) { .mast nav { display: none; } }
+
+/* the rail: the page's own sections, ticks at the left edge, each a button; the masthead keeps the other pages. Labels
+   show on hover or focus, and at rest where the margin has room for them. */
+.rail { position: fixed; z-index: 5; top: 50%; left: max(14px, env(safe-area-inset-left, 0px)); transform: translateY(-50%); display: grid; gap: .2rem; }
+.rail a { display: flex; align-items: center; gap: .55rem; min-height: 24px; text-decoration: none; color: var(--muted); font: 500 .66rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+.rail a::before { content: ""; flex: none; width: 12px; height: 1px; background: var(--muted); transition: width .2s, background-color .2s; }
+.rail span { padding: .3rem .45rem; background: var(--paper); border: 1px solid var(--rule); border-radius: 6px; white-space: nowrap; opacity: 0; transform: translateX(-4px); pointer-events: none; transition: opacity .16s, transform .16s; }
+.rail:hover span, .rail:focus-within span { opacity: 1; transform: none; pointer-events: auto; }
+.rail a:hover, .rail a:focus-visible, .rail a[aria-current="true"] { color: var(--ink); }
+.rail a:hover::before, .rail a:focus-visible::before { width: 20px; background: var(--ink); }
+.rail a[aria-current="true"]::before { width: 26px; height: 2px; background: var(--ink); }
+@media (min-width: 1600px) { .rail span { opacity: 1; transform: none; pointer-events: auto; border-color: transparent; background: transparent; } }
+@media (max-width: 1279px) { .rail { display: none; } }
+@media (prefers-reduced-motion: reduce) { .rail a::before, .rail span { transition: none; } }
 @media (max-width: 480px) { .draft { white-space: normal; text-align: right; min-width: 0; } }
 
 /* ------------------------------------------------------------------ hero */
@@ -382,9 +397,10 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .m-runs button { font: 500 .72rem var(--f-mono); min-width: 2rem; padding: .3rem .45rem; color: var(--ink-2); background: transparent; border: 1px solid var(--rule); cursor: pointer; }
 .m-runs button:hover { border-color: var(--ink); color: var(--ink); }
 .m-runs button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.m-link { margin-left: auto; font-size: .85rem; color: var(--muted); }
+.m-link { margin-left: auto; display: flex; gap: .5rem 1.2rem; flex-wrap: wrap; font-size: .875rem; }
 .m-link a { color: var(--ink-2); text-decoration: none; }
 .m-link a:hover { color: var(--ink); text-decoration: underline; }
+.m-link a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-decoration-color: var(--ink-2); }
 .m-main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); min-height: 0; }
 .m-view { min-width: 0; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: .8rem; padding: 1rem max(16px, env(safe-area-inset-left, 0px)) 1rem 1.4rem; }
 .m-view[hidden] { display: none; }
@@ -561,13 +577,19 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       </svg>
       Clade Code
     </a>
-    <nav aria-label="Sections">
-      <a href="#question">The question</a><a href="#judge">The judge</a><a href="#arms">The controls</a><a href="#generation">A generation</a>
-      <a href="#record">The record</a><a href="#bush">The bush</a><a href="#status">Status</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="museum.html">Museum</a>
-    </nav>
+    <nav aria-label="Pages"><a href="index.html" aria-current="page">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="museum.html">Museum</a></nav>
     <span class="draft">working draft · 2 eras tested</span>
   </header>
 </div>
+<nav class="rail" aria-label="On this page">
+  <a href="#question"><span>The question</span></a>
+  <a href="#judge"><span>The judge</span></a>
+  <a href="#arms"><span>The controls</span></a>
+  <a href="#generation"><span>A generation</span></a>
+  <a href="#record"><span>The record</span></a>
+  <a href="#bush"><span>The bush</span></a>
+  <a href="#status"><span>Status</span></a>
+</nav>
 
 <section class="hero" id="top">
   <div class="wrap hero-grid">
@@ -1159,6 +1181,20 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   document.addEventListener('focusout', hide);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
   addEventListener('scroll', hide, { passive: true });
+
+  /* ================================================================ the rail: the section in view */
+  const rail = document.querySelector('.rail');
+  if (rail && 'IntersectionObserver' in window) {
+    const links = new Map([...rail.querySelectorAll('a[href^="#"]')].map(a => [a.getAttribute('href').slice(1), a]));
+    const seen = new Set();
+    const mark = () => {
+      const here = [...links.keys()].find(k => seen.has(k));
+      links.forEach((a, k) => { if (k === here) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    };
+    const io = new IntersectionObserver(es => { es.forEach(e => (e.isIntersecting ? seen.add : seen.delete).call(seen, e.target.id)); mark(); },
+                                        { rootMargin: '-40% 0px -55% 0px' });
+    links.forEach((_, k) => { const s = document.getElementById(k); if (s) io.observe(s); });
+  }
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const root = document.documentElement;
