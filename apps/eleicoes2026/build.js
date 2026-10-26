@@ -19,6 +19,7 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const OUT = path.join(ROOT, 'site', 'eleicoes2026');
+const FIG = require(path.join(__dirname, 'figures.js'));
 const die = (m) => { console.error('ELEICOES2026 PAGE REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const sha = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
@@ -126,33 +127,40 @@ B.push(C.section({
 }));
 
 /* §4 round 2 */
-const ufs2 = Object.entries(W2.per_uf).filter(([uf]) => uf !== 'ZZ');
+const R1S = D['R1-SUM'];
+const r1Other = R1S.valid - r1c['13'].votes - r1c['22'].votes;
+const elect = FIG.electorate([r1c['13'].votes, r1c['22'].votes, r1Other, R1S.blank + R1S.null, R1S.abstention],
+  [W2.lula, W2.flavio, 0, W2.blank + W2.null, W2.abstention]);
 const grewAll = Object.values(W2.per_uf).every((u) => u.lula / (u.lula + u.flavio) > u.r1_lula / (u.r1_lula + u.r1_flavio));
-const dumb = CH.dumbbell({
-  w: 900, alt: 'Participação de Lula nos votos de Lula e Flávio, por estado, no 1º e no 2º turno',
-  x0: 20, x1: 80, xTicks: [20, 30, 40, 50, 60, 70, 80].map((v) => ({ v, t: v + '%' })),
-  aName: '1º turno (Lula entre Lula e Flávio)', bName: '2º turno', vOf: (v) => v.toFixed(1).replace('.', ',') + '%',
-  rows: ufs2.map(([uf, u]) => ({ k: UF_NAMES[uf], a: 100 * u.r1_lula / (u.r1_lula + u.r1_flavio), b: 100 * u.lula / (u.lula + u.flavio),
-    lab: (100 * u.lula / (u.lula + u.flavio)).toFixed(1).replace('.', ',') + '%' })).sort((a, b) => b.b - a.b)
-});
+const swings = Object.entries(W2.per_uf).map(([uf, u]) => [uf, 100 * (u.lula / (u.lula + u.flavio) - u.r1_lula / (u.r1_lula + u.r1_flavio))]);
+const swMin = swings.reduce((a, b) => (b[1] < a[1] ? b : a)), swMax = swings.reduce((a, b) => (b[1] > a[1] ? b : a));
+const fmt1 = (x) => x.toFixed(1).replace('.', ',');
 B.push(C.section({
   lab: '§4 · 2º turno', title: 'O resultado assinado: ' + n(W2.margin) + ' votos de diferença', wide: true,
   bodyRaw: C.pRaw('Lula ' + n(W2.lula) + ' (' + W2.lula_share_2dp + '% dos válidos), Flávio Bolsonaro ' + n(W2.flavio) + '. Brancos ' + n(W2.blank) + ', nulos ' + n(W2.null)
       + ', comparecimento ' + n(W2.turnout) + ' de ' + n(W2.registered) + ' aptos, ' + n(W2.sections) + ' seções. As contas do próprio arquivo fecham, e os 27 estados mais o exterior somam exatamente o Brasil.')
     + C.pRaw('Para inverter o vencedor seria preciso trocar de lado ' + n(W2.swing_to_reverse) + ' votos (um voto que sai de Lula e vai para Flávio muda a diferença em dois), ou anular ' + n(W2.removal_to_reverse) + ' votos de Lula.')
-    + C.figure({ svgRaw: dumb, caption: 'Lula entre os votos de Lula e Flávio, por estado, no 1º e no 2º turno (pontos como na legenda). No 1º turno havia outros candidatos; a comparação usa só os dois finalistas. ' + (grewAll ? 'Entre os dois, Lula cresceu em todos os estados e no exterior.' : 'Entre os dois, Lula não cresceu em todos os estados.') })
+    + C.figure({ svgRaw: elect, caption: 'Todo o eleitorado das seções que funcionaram, em cada turno: quem votou em quem, quem votou branco ou nulo e quem não foi votar. Entre os turnos, a abstenção caiu de '
+      + fmt1(100 * R1S.abstention / R1S.registered_functioning) + '% para ' + fmt1(100 * W2.abstention / W2.registered_functioning) + '%; os outros dez candidatos do 1º turno deixaram de ser opção no 2º.' })
+    + C.pRaw('<b>Uma virada espalhada, não concentrada.</b> Entre os dois finalistas, a parcela de Lula cresceu ' + (grewAll ? 'em todos os 27 estados e no exterior' : 'na maioria dos estados')
+      + ', de +' + fmt1(swMin[1]) + ' p.p. (' + (UF_NAMES[swMin[0]] || swMin[0]) + ') a +' + fmt1(swMax[1]) + ' p.p. (' + (UF_NAMES[swMax[0]] || swMax[0]) + '). '
+      + 'Mudanças parecidas em todo o país são o que se espera quando eleitores de outros candidatos e quem não tinha votado escolhem um lado; o mapa mostra cada estado.')
+    + C.figure({ svgRaw: FIG.tilemap(W2.per_uf), caption: 'O Brasil em blocos, um por estado na posição aproximada. Em cada bloco: a parcela de Lula entre os dois finalistas no 2º turno (a parte mais clara da barra; o traço marca 50%) e, embaixo, quanto ela mudou desde o 1º turno.' })
 }));
 
 /* §5 the extension */
-const extRows = [
-  { k: 'anular votos de Lula até inverter', v: W2.removal_to_reverse, lab: n(W2.removal_to_reverse), need: true },
-  { k: 'trocar votos de lado até inverter', v: W2.swing_to_reverse, lab: n(W2.swing_to_reverse), need: true },
-  { k: 'depois das 17h, segundo o TSE', v: EXT.tse_reported_late_votes, lab: n(EXT.tse_reported_late_votes) }
-].concat(extDone.map((uf) => ({ k: 'depois das 17h, ' + (UF_NAMES[uf] || uf) + ' (lido)', v: Math.max(10, EXT.logs[uf].late_votes), lab: n(EXT.logs[uf].late_votes) })));
-const barsSvg = CH.bars({ w: 900, alt: 'Votos necessários para inverter o resultado, contra os votos registrados depois das 17h', logX: true, min: 10, max: 1e7,
-  xTicks: [10, 100, 1e3, 1e4, 1e5, 1e6, 1e7].map((v) => ({ v, t: n(v) })), padL: 300, rowH: 34,
-  rows: extRows.map((r) => ({ k: r.k, v: r.v, lab: r.lab, token: r.need ? CH.CTX : CH.CAT[0] })), vOf: (v) => n(Math.round(v)),
-  xLabel: 'votos, em escala logarítmica (cada marca vale dez vezes a anterior)' });
+const scaleSvg = FIG.scale([
+  { k: 'votos de Lula que precisariam ser anulados para inverter o resultado', v: W2.removal_to_reverse, fill: 'var(--c-s1)', stroke: 'var(--ink-5)', emph: true },
+  { k: 'ou votos que precisariam trocar de lado', v: W2.swing_to_reverse, fill: 'var(--c-s2)' },
+  { k: 'votos depois das 17h no país, segundo o TSE', v: EXT.tse_reported_late_votes, fill: 'var(--c-1)', emph: true }
+].concat(extDone.map((uf) => ({ k: 'votos depois das 17h no ' + (UF_NAMES[uf] || uf) + ', contados nos registros das urnas', v: Math.max(1, EXT.logs[uf].late_votes), fill: 'var(--c-1)' }))));
+const RC = D['R1-CLOSE'];
+const closeSvg = RC ? CH.dist({ w: 900, h: 300, alt: 'Minutos depois das 17h em que cada urna fechou, no 1º turno', x0: 0, x1: 61, padL: 70,
+  bins: Object.keys(RC.minute_histogram).sort((a, b) => a - b).map((k) => ({ k: k + ' min', n: RC.minute_histogram[k] }))
+    .concat([{ k: '60 min ou mais', n: RC.closed_60_or_more_minutes_after, token: CH.CTX }]),
+  xTicks: [0, 10, 20, 30, 40, 50, 60].map((v) => ({ v: v + 0.5, t: v === 60 ? '60+' : v + ' min' })), yTicks: [],
+  xLabel: 'minutos depois das 17h (no relógio de cada urna) em que a urna encerrou a votação',
+  marks: [{ x: RC.percentiles_minutes.p50 + 0.5, t: 'metade fechou até ' + fmt1(RC.percentiles_minutes.p50) + ' min' }], unit: 'urnas' }) : '';
 const logTable = Object.entries(EXT.logs).map(([uf, x]) => [UF_NAMES[uf] || uf, n(x.sections_read) + ' de ' + n(x.sections_installed), n(x.votes_in_logs) + ' de ' + n(x.turnout_signed),
   n(x.late_votes), String(x.max_late_in_a_section), { raw: x.complete ? '<b>completo</b>' : 'parcial' }]);
 B.push(C.section({
@@ -160,7 +168,11 @@ B.push(C.section({
   bodyRaw: C.pRaw('Às 16h32 de 25 de outubro, o ministro Cristiano Zanin, do STF, estendeu a votação até as 19h nas seções ainda abertas, a pedido da coligação de Lula, por causa da redução de ônibus em algumas cidades. '
       + 'A campanha de Flávio Bolsonaro havia pedido ao TSE extensão parecida em 17 municípios de SP, PR e SC, por causa de chuva. A legalidade da decisão é uma questão jurídica e não é decidida aqui. '
       + 'A pergunta que é uma conta é outra: <b>os votos que só existiram por causa da prorrogação poderiam ter decidido a eleição?</b>')
-    + C.figure({ svgRaw: barsSvg, caption: 'Escala logarítmica: cada marca vale dez vezes a anterior. As duas primeiras barras são o que seria preciso para inverter o resultado; as outras, os votos registrados depois das 17h.' })
+    + C.figure({ svgRaw: scaleSvg, caption: 'Quadrados de área proporcional ao número de votos, todos no mesmo canto. O quadrado de fora é o que inverteria o resultado; os pequenos, no canto, os votos dados depois das 17h.' })
+    + (RC ? C.pRaw('<b>Votar depois das 17h não é, por si, irregular.</b> Pela lei, quem está na fila às 17h vota. No 1º turno, sem prorrogação nenhuma, metade das ' + n(RC.sections)
+        + ' urnas do país encerrou até ' + fmt1(RC.percentiles_minutes.p50) + ' minutos depois das 17h, e ' + n(RC.closed_60_or_more_minutes_after) + ' encerraram uma hora ou mais depois, por causa das filas de um dia com seis votos por eleitor. '
+        + 'Parte dos votos depois das 17h do 2º turno é essa fila de sempre; o que a prorrogação acrescentou é no máximo o total tardio.')
+      + C.figure({ svgRaw: closeSvg, caption: '1º turno, sem prorrogação: quantas urnas encerraram a votação em cada minuto depois das 17h (no relógio de cada urna, exterior excluído). A última barra junta as que encerraram uma hora ou mais depois.' }) : '')
     + C.pRaw('<b>Como contamos.</b> Cada urna grava um registro (log) com a hora de cada evento, e uma linha "O voto do eleitor foi computado" para cada voto. O relógio da urna está na hora local, então o limite é a hora em que a urna ficou "pronta para receber votos" (8h de Brasília, no fuso dela) mais 9 horas. '
       + 'Um voto às 17h00 ou depois conta como tardio. Os registros vêm do site de resultados do TSE, seção por seção; cada arquivo é lacrado por sha256.')
     + (logTable.length ? C.table({ cols: [{ h: 'UF' }, { h: 'seções lidas' }, { h: 'votos nos registros × comparecimento' }, { h: 'após as 17h' }, { h: 'máx. numa seção' }, { h: 'leitura' }], rows: logTable }) : '')
@@ -174,15 +186,34 @@ if (D.POLLS) {
   const BR = D.POLLS.by_round;
   const lulaAhead1 = P.filter((p) => p.round === 1).filter((p) => { const l = p.cells.find((x) => x.candidate === '13'), f = p.cells.find((x) => x.candidate === '22'); return l && f && Number(l.published) > Number(f.published); }).length;
   const res = { 1: { '13': 100 * r1c['13'].votes / r1valid, '22': 100 * r1c['22'].votes / r1valid }, 2: { '13': 100 * W2.lula / W2.valid, '22': 100 * W2.flavio / W2.valid } };
+  const ELEC = { 1: Date.UTC(2026, 9, 4), 2: Date.UTC(2026, 9, 25) };
+  const leadRes = { 1: res[1]['22'] - res[1]['13'], 2: res[2]['22'] - res[2]['13'] };
+  const leadPts = P.filter((p) => p.lead_published_flavio_minus_lula !== undefined).map((p) => {
+    const [y, mo, d] = String(p.published).split('-').map(Number);
+    const days = (Date.UTC(y, mo - 1, d) - ELEC[p.round]) / 864e5;
+    const [ln, ld] = p.lead_published_flavio_minus_lula.split('/'); const lead = Number(ln) / Number(ld || 1);   /* the ledger keeps it as an exact fraction */
+    return { x: days, y: lead, token: p.round === 1 ? CH.CAT[1] : CH.CAT[0], diamond: p.round === 1, hollow: p.round === 1, k: p.pollster + ' · ' + p.round + 'º turno · ' + p.published,
+      v: 'Flávio − Lula: ' + (lead >= 0 ? '+' : '') + lead.toFixed(1).replace('.', ',') + ' p.p.' };
+  });
+  const below1 = leadPts.filter((q) => q.diamond && q.y < leadRes[1]).length, n1 = leadPts.filter((q) => q.diamond).length;
+  const above2 = leadPts.filter((q) => !q.diamond && q.y > leadRes[2]).length, n2 = leadPts.filter((q) => !q.diamond).length;
+  const leadSvg = CH.scatter({ w: 900, h: 360, alt: 'Vantagem de Flávio sobre Lula em cada pesquisa, por dias antes da eleição, nos dois turnos, contra o resultado',
+    x0: -9, x1: 3.2, y0: -8, y1: 8, padL: 70,
+    xTicks: [-8, -6, -4, -2, 0].map((v) => ({ v, t: v === 0 ? 'véspera' : v + ' dias' })), yTicks: [-8, -4, 0, 4, 8].map((v) => ({ v, t: (v > 0 ? '+' : '') + v + ' p.p.' })),
+    xLabel: 'dias antes da eleição', yLabel: 'Flávio − Lula, votos válidos',
+    pts: leadPts,
+    hlines: [{ y: leadRes[1], token: CH.CAT[1], t: 'urnas, 1º turno: Flávio ' + (leadRes[1] >= 0 ? '+' : '') + leadRes[1].toFixed(2).replace('.', ',') },
+      { y: leadRes[2], token: CH.CAT[0], t: 'urnas, 2º turno: Flávio ' + leadRes[2].toFixed(2).replace('.', ',') }],
+    keys: [{ token: CH.CAT[1], t: 'pesquisas do 1º turno (losango)' }, { token: CH.CAT[0], t: 'pesquisas do 2º turno (ponto)' }] });
   const fig = (rnd, cand, nome, lo, hi) => {
     const rows = P.filter((p) => p.round === rnd).map((p) => ({ p, c: p.cells.find((x) => x.candidate === cand) })).filter((x) => x.c)
       .sort((a, b) => (a.p.published + a.p.pollster < b.p.published + b.p.pollster ? -1 : 1));
     const ticks = []; for (let v = lo; v <= hi; v += 2) ticks.push({ v, t: v + '%' });
     return CH.intervals({ w: 900, rowH: 22, padL: 250, alt: nome + ' nas pesquisas finais do ' + rnd + 'º turno, com a margem declarada, contra o resultado das urnas',
       x0: lo, x1: hi, xTicks: ticks, xLabel: nome + ', % dos votos válidos · última linha: o resultado das urnas',
-      rows: rows.map(({ p, c }) => ({ k: p.pollster + ' · ' + String(p.published).slice(8, 10) + '/' + String(p.published).slice(5, 7),
+      rows: rows.map(({ p, c }) => ({ k: (c.inside_margin ? '✓ ' : '') + p.pollster + ' · ' + String(p.published).slice(8, 10) + '/' + String(p.published).slice(5, 7),
         lo: Number(c.published) - Number(p.margin), hi: Number(c.published) + Number(p.margin), point: Number(c.published), v: c.published + '% ± ' + p.margin,
-        note: c.inside_margin ? 'contém o resultado' : undefined, token: c.inside_margin ? CH.CAT[1] : CH.CTX }))
+        token: c.inside_margin ? CH.CAT[1] : CH.CTX }))
         .concat([{ k: 'RESULTADO DAS URNAS', point: res[rnd][cand], note: res[rnd][cand].toFixed(2).replace('.', ',') + '%', token: CH.CAT[0] }]) });
   };
   B.push(C.section({
@@ -193,8 +224,9 @@ if (D.POLLS) {
         + ' o subestimaram, e ' + lulaAhead1 + ' delas o puseram atrás de Lula, que ficou em segundo. <b>2º turno.</b> O erro trocou de lado: em média deram a Lula ' + BR['2'].mean_error_pp_13
         + ' ponto a menos, e todas as ' + BR['2'].polls_below_result_13 + ' o subestimaram. Somando os dois turnos, ' + (BR['1'].inside_margin + BR['2'].inside_margin) + ' de '
         + (BR['1'].lula_flavio_cells + BR['2'].lula_flavio_cells) + ' números (Lula ou Flávio, numa pesquisa) contêm o resultado dentro da margem declarada.')
-      + C.figure({ svgRaw: fig(1, '22', 'Flávio Bolsonaro', 36, 52), caption: '1º turno: Flávio Bolsonaro em cada pesquisa (ponto) com a margem declarada (barra), contra o resultado das urnas (última linha). As que contêm o resultado dizem isso ao lado.' })
-      + C.figure({ svgRaw: fig(2, '13', 'Lula', 44, 56), caption: '2º turno: Lula em cada pesquisa, com a margem declarada, contra o resultado das urnas (última linha). As que contêm o resultado dizem isso ao lado.' })
+      + C.figure({ svgRaw: leadSvg, caption: 'Cada ponto é uma pesquisa: a vantagem de Flávio sobre Lula nos votos válidos que ela publicou, pelo número de dias antes da eleição. As linhas são o resultado das urnas em cada turno. No 1º turno, ' + below1 + ' de ' + n1 + ' pesquisas ficam abaixo da linha do seu turno; no 2º, ' + above2 + ' de ' + n2 + ' ficam acima.' })
+      + C.figure({ svgRaw: fig(1, '22', 'Flávio Bolsonaro', 36, 52), caption: '1º turno: Flávio Bolsonaro em cada pesquisa (ponto) com a margem declarada (barra), contra o resultado das urnas (última linha). Marcadas com ✓ as que contêm o resultado.' })
+      + C.figure({ svgRaw: fig(2, '13', 'Lula', 44, 56), caption: '2º turno: Lula em cada pesquisa, com a margem declarada, contra o resultado das urnas (última linha). Marcadas com ✓ as que contêm o resultado.' })
       + C.pRaw('<b>O que um erro de pesquisa prova.</b> Uma pesquisa estima a opinião de uma amostra dias antes da eleição. A margem de erro cobre só o acaso da amostragem, não mudança de última hora, '
         + 'comparecimento diferente do previsto ou eleitores que não respondem; e a margem impressa costuma ser a dos votos totais, mais estreita que a dos válidos. '
         + 'Um erro grande contra um candidato num turno e contra o outro no turno seguinte é o retrato de pesquisas com dificuldade de medir o eleitorado, não de uma contagem desviada para um lado. '
@@ -235,6 +267,7 @@ B.push(C.section({
 const foot = '<p>' + C.esc('Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 ' + sha('corpus/eleicoes2026/ledger.json').slice(0, 16)
   + '…), refeito na construção por tools/eleicoes2026/ledger.py --check.') + '</p><p>' + C.esc('git ' + git) + '</p>';
 let html = TPL.render({ title: 'Eleições 2026: o que os números permitem decidir · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
+  cssRaw: '.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}', scriptRaw: CH.script(),
   desc: 'A eleição presidencial de 2026 nos dois turnos, decidida em conta exata a partir dos arquivos do TSE: boletins de urna, resultados assinados, registros das urnas e as alegações do lado derrotado.',
   path: '/eleicoes2026/' });
 html = html.replace('<span class="lab">tl;dr</span>', '<span class="lab">em resumo</span>').replace('<b>The finding.</b>', '<b>O resultado.</b>')

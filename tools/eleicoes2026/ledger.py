@@ -137,6 +137,7 @@ def build():
     D['R1-SUM'] = {'verdict': 'CERTIFIED' if eq_all else 'REFUTED', 'scopes': rows,
                    'candidates': {n: {'name': s1['cand'][n]['name'], 'votes': s1['cand'][n]['votes']} for n in s1['cand']},
                    'blank': s1['blank'], 'null': s1['null_total'], 'turnout': s1['turnout'], 'registered': s1['registered'],
+                   'abstention': s1['abstention'], 'registered_functioning': s1['registered_functioning'], 'valid': s1['valid'],
                    'bu_files': A['files']}
     D['R1-SEC'] = {'verdict': 'CERTIFIED' if fails['S1'] == fails['S2'] == fails['S3'] == 0 else 'REFUTED',
                    'sections': int(A['counts']['sections']), 'failures': fails,
@@ -163,7 +164,7 @@ def build():
                    'swing_to_reverse': margin // 2 + 1, 'removal_to_reverse': margin,
                    'lula_share_exact': f'{L13}/{s2["valid"]}', 'lula_share_2dp': frac_str(Fraction(L13, s2['valid'])),
                    'blank': s2['blank'], 'null': s2['null_total'], 'turnout': s2['turnout'], 'abstention': s2['abstention'],
-                   'registered': s2['registered'], 'sections': s2['sections'],
+                   'registered': s2['registered'], 'registered_functioning': s2['registered_functioning'], 'sections': s2['sections'],
                    'per_uf': {uf: {'lula': signed('6258', uf)['cand']['13']['votes'], 'flavio': signed('6258', uf)['cand']['22']['votes'],
                                    'turnout': signed('6258', uf)['turnout'], 'registered': signed('6258', uf)['registered'],
                                    'r1_lula': signed('6257', uf)['cand']['13']['votes'], 'r1_flavio': signed('6257', uf)['cand']['22']['votes'],
@@ -199,6 +200,13 @@ def build():
     share = Fraction(L13, s2['valid'])
     D['C6'] = {'verdict': 'REFUTED' if frac_str(share) != '51,74' else 'CERTIFIED', 'said': '51,74', 'signed_2dp': frac_str(share),
                'signed_exact': f'{L13}/{s2["valid"]}', 'bounds_of_51_74': 'a share rounds to 51,74 only within [51.735, 51.745)'}
+
+    # ---- round 1: how long after 17:00 the urns closed (no extension that day) -----------------------------------------
+    cp = os.path.join(DER, 'r1-closing.json')
+    if os.path.exists(cp):
+        c = json.load(open(cp))
+        D['R1-CLOSE'] = {'verdict': 'MEASURED', **{k: c[k] for k in ('sections', 'closed_before_legal_close', 'closed_60_or_more_minutes_after',
+                         'minute_histogram', 'percentiles_minutes', 'within_10_minutes', 'within_30_minutes', 'table_sha256')}}
 
     # ---- polls -----------------------------------------------------------------------------------------------------
     pp = os.path.join(E, 'polls.json')
