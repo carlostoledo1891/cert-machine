@@ -1202,11 +1202,11 @@
   {
    "id": "maximusrufus-c16-bgw-2026",
    "name": "maximusrufus's C_16 enclosure 2.1562247706 ≤ C_16 ≤ 2.1562256466 (the registry's PR #246, merged 2026-10-26 asterisked; upper certificate of 84 δ-boxes with an S1 tail bound and a convexity argument, a lower certificate, numpy checkers)",
-   "verdict": "OPEN (scouted 2026-10-27, nothing built)",
+   "verdict": "BUILT 2026-10-27: lower end CERTIFIED (both implementations; the trial polynomial's exact value 2.15622477064423579…), upper end PARTIAL (finite core certified on all 84 boxes against the printed digits; the boxes support 2.1562256458, the printed 2.1562256466 conservative by ~8e-10; the weighted Cauchy–Schwarz bound, the tail bounds and the asymptotic g read, not computed) — the row PARTIAL; certs/c16-replay.json, tools/replay-c16.js + instruments/optq/c16.py, pins in corpus/optconst-queue/c16-2026-10-27; findings: their checkers test a 1e-9 tolerance, not the printed inequality; two float fields slip 1e-12 against their rationals; the registry's BDZ numerical row (≈ 2.15627) lies above the proved upper end",
    "scouted": "2026-10-27",
    "finding": "Their replays of our rows are recorded (corpus/external-reruns.json); nothing of theirs has been re-decided by us. The upper certificate is a finite list of boxes with a tail bound — the shape instruments/interval (eqcert) decides — about a day with the lower bound's lattice sums; the second party #246 lacks under the rule of 2026-10-26.",
    "fit": "eqcert interval enclosures of the 84 boxes and the tail bound, a second implementation in Python decimal, red controls",
-   "next": "the operator decides whether to build; read their checker as text only, never run it"
+   "next": "the confirmation on #246 (drafted, the operator's word); maximusrufus may then open the asterisk PR citing it"
   },
   {
    "id": "openai-math-release-2026-10-26",

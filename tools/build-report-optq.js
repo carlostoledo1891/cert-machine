@@ -259,6 +259,31 @@ B.push(C.section({
         + 'Pins: the certificates at ' + C.esc(Z.certificateCommit.slice(0, 8)) + ' (the K₅ folder byte-identical to the ' + C.esc(Z.c89bCitedCommit.slice(0, 8)) + ' the page cites), the 89b and 89c pages from the pull-request branches (they are not on the registry\'s main branch). Record ' + C.m('certs/graphon-replay.json') + '; the battery re-derives the K₆ value and the five controls at every run and re-combines the K₅ integers.')
   }));
 }
+/* §11 (2026-10-27): maximusrufus's C_16 enclosure (#246, merged asterisked), replayed as the second party (certs/c16-replay.json,
+   tools/replay-c16.js + instruments/optq/c16.py); their checkers read as text, never run */
+{
+  const Q = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'c16-replay.json'), 'utf8'));
+  if (Q.deciders.js !== shaOf('tools/replay-c16.js') || Q.deciders.py !== shaOf('instruments/optq/c16.py')) die('certs/c16-replay.json was written by other deciders — re-run tools/replay-c16.js');
+  if (!(Q.word.lower === 'CERTIFIED' && Q.word.upper === 'PARTIAL' && Q.word.row === 'PARTIAL' && Q.agree && Q.redControls.every((r) => r.fired))) die('the C_16 replay is not what §11 says — rewrite it');
+  if (!Q.findings.some((f) => /support 2\.1562256458/.test(f)) || !Q.findings.some((f) => /BDZ2013\] lies above the upper end/.test(f)) || !Q.findings.some((f) => /neither checker's VERIFIED is the printed inequality/.test(f))) die('the C_16 findings moved — rewrite §11\'s gaps');
+  B.push(C.section({
+    lab: '§11 · C₁₆', title: 'An enclosure from 84 boxes: the lower end certified, the upper end\'s finite core certified', id: 'c16',
+    bodyRaw: C.pRaw('<b>Decided 2026-10-27, as the second party.</b> maximusrufus, who re-ran three of our records, filed the enclosure ' + C.m(Q.printed.lower + ' ≤ C₁₆ ≤ ' + Q.printed.upper) + ' (<a href="https://github.com/teorth/optimizationproblems/pull/246">#246</a>, merged asterisked on 2026-10-26): a lower certificate from one trial polynomial, and an upper certificate of 84 boxes in δ with a tail bound, a convexity argument and numpy checkers. Under the registry\'s rule a mark comes off only on a second party\'s confirmation; nothing of theirs had been re-decided by anyone.')
+      + C.pRaw('<b>Gaps, at the pin.</b>')
+      + C.plainList([
+        { b: 'The checkers test a tolerance, not the printed inequality.', raw: 'The lower checker accepts |L − claimed| < 10⁻⁹ and the upper accepts U ≤ claimed + 10⁻⁹; neither prints VERIFIED for the inequality against the printed digits. Both inequalities are decided here against the digits directly.' },
+        { b: 'The certifiers are not in the repository.', raw: 'The checkers name ' + C.m('certify_c16_upper.py') + ' and ' + C.m('certify_c16_lower.py') + '; neither is published. The asymptotic bound g they use was re-derived here by hand and agrees with the checker\'s formula.' },
+        { b: 'Two float fields slip by 10⁻¹² against their own rationals.', raw: 'The rounded-down lower float sits 10⁻¹² below its rational and the upper float 10⁻¹² above; both slips fall on the safe side.' },
+        { b: 'The registry\'s numerical row lies above the proved upper end.', raw: 'The page keeps a numerical value ≈ 2.15627 [BDZ2013]; any value printing as 2.15627 is at least 2.156265, above the upper end 2.1562256466 that #246 proves.' }
+      ])
+      + C.pRaw('<b>What was decided.</b> Two implementations that share no code with each other or with the claimant — ' + C.m('tools/replay-c16.js') + ' (JavaScript, this repository\'s outward-rounded interval kernel) and ' + C.m('instruments/optq/c16.py') + ' (Python, exact rationals and directed decimal rounding) — decided every finite claim written down before either decider existed (' + C.m('corpus/optconst-queue/c16-2026-10-27/claims.json') + ').')
+      + C.plainList([
+        { b: 'C₁₆ ≥ ' + Q.printed.lower + ' — CERTIFIED.', raw: 'The trial polynomial (|k|² ≤ 4000², μ = 1221/10000, 50,265,328 lattice points, checked against Gauss\'s count) gives exactly ' + C.m('2.15622477064423579…') + '; the printed bound is its floor at ten places. The one reading is the normalisation (Parseval) for that explicit function.' },
+        { b: 'C₁₆ ≤ ' + Q.printed.upper + ' — PARTIAL.', raw: 'The finite core is CERTIFIED by both: the 84 boxes tile [1, 4.9·10⁸] exactly, every box\'s supremum is at or below the printed digits, and the asymptotic bound at the last box\'s end is ' + C.m('2.05869178083391…') + '. The boxes in fact support ' + C.m('2.1562256458') + ' (box 31); the printed bound is conservative by about 8·10⁻¹⁰. The step from the finite boxes to the constant — a weighted Cauchy–Schwarz bound, the tail bounds through Catalan\'s constant, the asymptotic g — is analysis, read and re-derived by hand in the claims file, not computed, so the end is PARTIAL by this repository\'s rule.' }
+      ])
+      + C.pRaw('Red controls, which must come out wrong: ' + Q.redControls.map((r) => C.esc(r.what.split(':')[0])).join('; ') + '. Pins: the registry at ' + C.esc(Q.registryCommit.slice(0, 8)) + ', the certificates at ' + C.esc(Q.certificateCommit.slice(0, 8)) + '. Record ' + C.m('certs/c16-replay.json') + '; re-derive with ' + C.m('node tools/replay-c16.js') + ' (both, about four minutes) or ' + C.m('--check') + ' (the JavaScript decider, about a minute).')
+  }));
+}
 { const OUT = require(path.join(ROOT, 'design', 'outside.js')).section(C, 'reports/optconst-queue.html'); if (OUT) B.push(OUT); }
 
 const foot = '<p>' + C.esc('Generated by tools/build-report-optq.js from certs/optq-ledger.json (' + L.generated + ', ' + L.seconds + ' s), re-derived at build; battery ' + bm[1] + ' checks, ' + bm[3] + ' red controls; @ git ' + git + '.') + '</p>';
