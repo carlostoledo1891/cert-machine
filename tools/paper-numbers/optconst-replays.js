@@ -8,7 +8,10 @@
    (certs/stepfun-replay.json), the autocorrelation rows (certs/autocorr-replay.json), the Zhang–Zagier rows
    (certs/c82-replay.json), the trace constant (certs/c86-replay.json), the truth table's second decision
    (certs/fei-second.json), the sums–differences ledger's side claims (certs/sumdiff-ledger.json), the planted claims
-   (certs/method-eval.json) and the self-audit's entropy family (certs/selfaudit-mutations.json). A record that no
+   (certs/method-eval.json), the self-audit's entropy family (certs/selfaudit-mutations.json) and, since v0.2 (2026-10-27),
+   the C_31 replay (certs/lueker-replay.json), the C_84b ledger (certs/sumproduct-ledger.json), the graphon replay
+   (certs/graphon-replay.json), the registry's third-round snapshot (corpus/optconst-queue/registry-2026-10-26/record.json),
+   the outreach rows (corpus/outreach.json) and the outside reruns (corpus/external-reruns.json). A record that no
    longer says what a sentence of the paper needs makes this refuse (need()), as the other generators do. Macro names
    start with Oc.
 
@@ -135,6 +138,123 @@ const hours = (sec) => (sec >= 3600 ? (sec / 3600).toFixed(1) + '~h' : sec >= 60
   need(t && t.falseCertifications === 0 && t.falseRefutations === 0 && t.malformedNotRefused === 0 && t.byOutcome['as required'] === t.mutants, 'the self-audit\'s entropy family is not all as required');
   def('OcSaRows', String(t.rows)); def('OcSaMutants', String(t.mutants)); def('OcSaFalse', String(t.byTruth.FALSE)); def('OcSaTrue', String(t.byTruth.TRUE)); def('OcSaMalformed', String(t.byTruth.MALFORMED));
   def('OcSaDate', S.generated.slice(0, 10));
+}
+
+/* ==== v0.2 (2026-10-27): the third round's rows, the reciprocity, the outside reruns ==================================== */
+const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const OUTR = J('corpus/outreach.json').rows;
+const RG3 = J('corpus/optconst-queue/registry-2026-10-26/record.json').facts;
+
+/* ---- C_31: Lueker's automaton at h = 9 and 10 (certs/lueker-replay.json), our pull request 249 ------------------------- */
+{
+  const L = J('certs/lueker-replay.json');
+  need(L.counts.CERTIFIED === 2 && L.counts.REFUTED === 0 && L.counts.REFUSED === 0 && L.rows.length === 2, 'the C_31 replay is not two CERTIFIED rows');
+  const [r9, r10] = [9, 10].map((h) => L.rows.find((r) => r.h === h));
+  need(r9 && r10 && [r9, r10].every((r) => r.verdict === 'CERTIFIED' && r.statesAgree && r.states === r.claimantStates && Number(r.boundUp) <= Number(r.printed)), 'a C_31 row is not CERTIFIED at or below its printed bound with the claimant\'s state count');
+  const cal = L.calibration; need(cal.length >= 7 && cal.every((c) => c.states === c.luekerStates), 'the C_31 calibration no longer reproduces Lueker\'s state counts');
+  need(L.redControlsFired === L.redControls.length + '/' + L.redControls.length && L.redControls.every((r) => r.fired), 'a C_31 red control did not fire');
+  need(/two implementations that share no code/.test(L.what) && /mh\.py/.test(L.what) && /mh\.c/.test(L.what), 'the C_31 record no longer names its two implementations');
+  need(RG3.open[249] && RG3.open[249].state === 'open' && RG3.stillAsterisked['31'], 'the C_31 pull request is no longer open with the row asterisked — rewrite the third-round sentences');
+  def('OcLuPrintedNine', r9.printed); def('OcLuPrintedTen', r10.printed); def('OcLuOursNine', r9.boundUp); def('OcLuOursTen', r10.boundUp);
+  def('OcLuStatesNine', int(r9.states)); def('OcLuStatesTen', int(r10.states));
+  def('OcLuCalFrom', String(Math.min(...cal.map((c) => c.h)))); def('OcLuCalTo', String(Math.max(...cal.map((c) => c.h))));
+  def('OcLuReds', String(L.redControls.length)); def('OcLuPr', String(L.sources.pr.number));
+  def('OcLuHoursTen', ((r10.seconds.build + r10.seconds.eigen + r10.seconds.certify) / 3600).toFixed(1));
+  def('OcLuAuthor', esc(L.paper.author)); def('OcLuYear', String(/\((\d{4})\)/.exec(L.paper.journal)[1]));
+  const o249 = OUTR.find((o) => o.id === 'gh-optq-249'); const cl = o249 && /^C₃₁ [^:]*: ([A-Z]\. [A-Z][a-z]+)['’]s two asterisked rows/.exec(o249.what);
+  need(cl && /\/pull\/(\d+)$/.test(o249.url) && o249.sent && /at the claimant's own request/.test(o249.note), 'the C_31 pull request row no longer names the claimant, the pull request and that it was filed at the claimant\'s request');
+  def('OcLuClaimant', cl[1].replace('. ', '.~')); def('OcLuOurPr', /\/pull\/(\d+)$/.exec(o249.url)[1]); def('OcLuFiled', o249.sent);
+}
+
+/* ---- C_84b: the chain of the note the registry cites (certs/sumproduct-ledger.json), merged as pull request 257 -------- */
+{
+  const S = J('certs/sumproduct-ledger.json'); const r = S.rows[0];
+  need(S.rows.length === 1 && r.verdict === 'REPAIRED' && r.checks.every((c) => c.ok), 'the C_84b row is not the REPAIRED decision with every check holding');
+  const m = /^C84b <= ([\d.]+) \(c >= ([\d.]+)\)$/.exec(r.claim), n = /^C84b <= ([\d.]+) \(c >= ([\d.]+),/.exec(r.repairedTo);
+  need(m && n && Number(r.ceiling) < Number(m[2]) && Number(r.cAtNoteChoice[0]) >= Number(n[2]), 'the C_84b chain no longer separates the note\'s constant from the one the registry quoted');
+  need(RG3.merged[257] && RG3.merged[257].merged && RG3.sumProduct.asterisked && /1\.9993/.test(RG3.sumProduct.readme), 'the registry no longer shows the C_84b correction merged, the row 1.9993 and asterisked');
+  need(RG3.open[275] && RG3.open[275].state === 'open', 'the one-digit follow-up is no longer open — rewrite the sentence');
+  const fu = OUTR.find((o) => o.id === 'gh-optq-257'); need(fu && /#275/.test(fu.note) && /0\.0007150508/.test(fu.note) && r.ceiling === '0.0007150508', 'the outreach row no longer records the one-digit follow-up of the ceiling');
+  def('OcSpPrinted', m[1]); def('OcSpClaimedC', m[2]); def('OcSpRepaired', n[1]); def('OcSpNoteC', n[2]); def('OcSpCeiling', r.ceiling); def('OcSpAtChoice', r.cAtNoteChoice[0]);
+  def('OcSpMerged', RG3.merged[257].mergedAt.slice(0, 10));
+  need(/\/pull\/257$/.test(fu.url) && /^merged/.test(fu.status), 'the C_84b pull request row is not 257, merged');
+  def('OcSpPr', '257'); def('OcSpFollowPr', '275'); def('OcSpFiled', fu.sent);
+  const an = /^(.+?) with ChatGPT/.exec(r.claimant); need(an && S.note.author && /0\.0007 is the safer quoted constant/.test(S.note.theorem), 'the C_84b note no longer states 0.0007 as its constant');
+  def('OcSpNoteAuthor', esc(S.note.author)); def('OcSpNoteDate', S.note.date);
+}
+
+/* ---- the reciprocity: the registry's C_89b and C_89c graphon bounds of another contributor (certs/graphon-replay.json),
+   confirmed on pull requests 277 and 279 as the second party the rule of the third round asks for -------------------- */
+{
+  const G = J('certs/graphon-replay.json');
+  need(G.rows.length === 2 && G.rows.every((r) => r.verdict === 'CERTIFIED' && r.agree && r.equalsStated && r.lePrinted && r.printedIs.includes('up') && r.js.num === r.py.num && r.js.den === r.py.den),
+    'the graphon replay no longer shows both rows CERTIFIED, the two implementations equal to the stated fraction, the printed bound rounded up');
+  const wm = /\(([^,()]+), pull requests (\d+) and (\d+)\)/.exec(G.what);
+  need(wm && /Python, Fraction/.test(G.what) && /JavaScript: modular counting \+ CRT/.test(G.what) && /sharing no code with each other or with the claimant's evaluators/.test(G.what), 'the graphon record no longer names the claimant, the two pull requests and the two implementations');
+  const b = G.rows.find((r) => r.constant === 'C_89b'), c = G.rows.find((r) => r.constant === 'C_89c');
+  need(b && c && b.pr === Number(wm[2]) && c.pr === Number(wm[3]), 'the graphon rows are not C_89b on the first pull request and C_89c on the second');
+  const reds = G.controls.filter((x) => x.kind === 'red'), pos = G.controls.filter((x) => x.kind === 'positive');
+  need(reds.length + pos.length === G.controls.length && reds.every((x) => x.fired) && pos.every((x) => x.held), 'a graphon control did not fire or hold');
+  const sb = /m(\d+)_D(\d+)/.exec(b.source), kc = /Z_2\^(\d+) step graphon/.exec(G.definitions.k6);
+  need(sb && kc && /K5|t\(K5/.test(G.definitions.k5) && /K6/.test(G.definitions.k6), 'the graphon definitions moved');
+  const cb = /^C_89b <= ([\d.]+)$/.exec(b.claim), cc = /^C_89c <= ([\d.]+) \* 2\^-(\d+)$/.exec(c.claim);
+  need(cb && cc, 'the printed graphon bounds moved');
+  /* the exact values, as decimals cut toward zero: below the printed bound, which is the value rounded up */
+  const dec = (num, den, scale, digits) => { const q = (BigInt(num) * scale * 10n ** BigInt(digits)) / BigInt(den); const s = q.toString().padStart(digits + 1, '0'); return s.slice(0, -digits) + '.' + s.slice(-digits); };
+  const exB = dec(b.js.num, b.js.den, 1n, 20), exC = dec(c.js.num, c.js.den, 2n ** BigInt(cc[2]), 16);
+  need(exB.startsWith(cb[1].slice(0, cb[1].length - 1)) && exB < cb[1] && exC.startsWith(cc[1].slice(0, cc[1].length - 1)) && exC < cc[1], 'the exact graphon values no longer sit just below their printed bounds');
+  def('OcGnClaimant', esc(wm[1]).replace(/\. /g, '.~')); def('OcGnPrB', wm[2]); def('OcGnPrC', wm[3]);
+  def('OcGnBoundB', cb[1]); def('OcGnBoundC', cc[1]); def('OcGnScaleC', cc[2]); def('OcGnExactB', exB); def('OcGnExactC', exC);
+  def('OcGnBlocksB', sb[1]); def('OcGnDenB', sb[2]); def('OcGnCubeC', kc[1]);
+  def('OcGnReds', WORDS[reds.length]); def('OcGnPositives', WORDS[pos.length]); def('OcGnMinutes', String(Math.round(G.seconds / 60)));
+  need(G.limits.some((l) => /pinned from the pull-request branches/.test(l)) && G.limits.some((l) => /standard random-colouring argument, read/.test(l)), 'the graphon record\'s limits moved');
+  const o277 = OUTR.find((o) => o.id === 'gh-optq-277'), o279 = OUTR.find((o) => o.id === 'gh-optq-279');
+  need(o277 && o279 && o277.sent && o277.sent === o279.sent && new RegExp('pull/' + wm[2] + '#issuecomment-').test(o277.url) && new RegExp('pull/' + wm[3] + '#issuecomment-').test(o279.url),
+    'the two confirmations are not recorded as comments posted on the two pull requests the same day');
+  need(/second party/.test(o277.what) && /second party/.test(o279.what) && /second party on our #249/.test(o277.note), 'the outreach rows no longer record the confirmations as the second party, and the claimant as the second party on #249');
+  need(/^posted/.test(o277.status) && /^posted/.test(o279.status), 'a graphon confirmation has an answer now — say so');
+  def('OcGnPosted', o277.sent);
+}
+
+/* ---- the outside reruns of this paper's rows (corpus/external-reruns.json), by level: their own code (level 3 in the
+   method paper's table) or the tools that write the records (level 1) ------------------------------------------------- */
+{
+  const EXT = J('corpus/external-reruns.json');
+  const mine = (x) => (x.rows || []).some((id) => /^optconst-/.test(id)) || (x.records || []).some((r) => /sumdiff-ledger|turan-ledger|lueker-replay|sumproduct-ledger/.test(r));
+  const on = EXT.filter(mine);
+  need(on.length === 5 && on.every((x) => (x.kind === 'own-code' || x.kind === 'full-rederive') && /same verdict|identical/.test(x.outcome) && !/disagree[^m]/.test(x.outcome)), 'the outside reruns of the registry rows are not five, each with the same verdicts — rewrite the section');
+  const own = on.filter((x) => x.kind === 'own-code'), tools = on.filter((x) => x.kind === 'full-rederive');
+  def('OcOutRuns', WORDS[on.length]); def('OcOutOwn', WORDS[own.length]); def('OcOutTools', WORDS[tools.length]); def('OcOutParties', WORDS[new Set(on.map((x) => x.who)).size]);
+  def('OcOutFirst', on.map((x) => x.date).sort()[0]); def('OcOutLast', on.map((x) => x.date).sort().slice(-1)[0]);
+  const who = (x) => esc(x.who.replace(/ \(GitHub\)$/, ''));
+  /* the sums–differences certificates, re-decided with a party's own code */
+  const sd = own.find((x) => (x.rows || []).includes('optconst-3b')); const sdDig = sd && /agreeing to (\d+) digits/.exec(sd.what);
+  need(sd && sdDig && ['optconst-3c', 'optconst-3c-95'].every((id) => sd.rows.includes(id)), 'the own-code rerun of the sums–differences certificates moved');
+  def('OcOutSdWho', who(sd)); def('OcOutSdDate', sd.date); def('OcOutSdDigits', sdDig[1]); def('OcOutSdRows', WORDS[sd.rows.filter((id) => /^optconst-/.test(id)).length]);
+  const sdl = tools.find((x) => (x.records || []).includes('certs/sumdiff-ledger.json')); need(sdl && sdl.who === sd.who && sdl.date === sd.date, 'the tool rerun of the sums–differences ledger moved');
+  /* C_31: their own C, from Lueker's published programs; the state counts; their bounds; independence confirmed on #249 */
+  const L = J('certs/lueker-replay.json');
+  const lu = own.find((x) => (x.records || []).includes('certs/lueker-replay.json'));
+  need(lu && /their own C program/.test(lu.what) && /Lueker’s published programs/.test(lu.what), 'the own-code rerun of C_31 moved');
+  const st = (h) => { const c = L.calibration.find((x) => x.h === h) || L.rows.find((x) => x.h === h); return c.states.toLocaleString('en-US'); };
+  need([8, 9, 10].every((h) => lu.what.includes(st(h))), 'the C_31 rerun no longer reports our state counts at h = 8, 9 and 10');
+  const lb = /γ₂ ≤ ([\d.]+) and ≤ ([\d.]+)/.exec(lu.what); need(lb && Number(lb[1]) <= Number(L.rows.find((r) => r.h === 9).printed) && Number(lb[2]) <= Number(L.rows.find((r) => r.h === 10).printed), 'the C_31 rerun\'s bounds no longer sit below the printed ones');
+  const ind = /independence confirmed on the thread (\d{4}-\d\d-\d\d)/.exec(lu.outcome); need(ind && /pull\/249#/.test(lu.posted), 'the C_31 rerun\'s independence is no longer recorded as confirmed on #249');
+  const o249 = OUTR.find((o) => o.id === 'gh-optq-249'); need(o249 && /no connection to us or to the C31 authors/.test(o249.note), 'the outreach row no longer records the confirmation of independence');
+  def('OcOutLuWho', who(lu)); def('OcOutLuDate', lu.date); const sts = [8, 9, 10].map((h) => st(h).replace(/,/g, '{,}'));
+  def('OcOutLuStates', sts.slice(0, -1).join(', ') + ' and ' + sts[sts.length - 1]);
+  def('OcOutLuNine', lb[1]); def('OcOutLuTen', lb[2]); def('OcOutLuIndependent', ind[1]);
+  /* C_84b: their own interval arithmetic; the maximum of the chain against our ceiling */
+  const sp = own.find((x) => (x.rows || []).includes('optconst-84b')); const spMax = sp && /and ([\d.]+) with the regulator at its limit/.exec(sp.what);
+  need(sp && spMax && /mpmath/.test(sp.what) && Number(spMax[1]) < Number(J('certs/sumproduct-ledger.json').rows[0].ceiling) && /pull\/257#/.test(sp.posted), 'the own-code rerun of C_84b moved');
+  def('OcOutSpWho', who(sp)); def('OcOutSpDate', sp.date); def('OcOutSpMax', spMax[1]);
+  /* C_42: the tool re-run, and the three defects it found in what the decider printed */
+  const tu = tools.find((x) => (x.rows || []).includes('optconst-42a')); const tuDef = tu && /found (\w+) defects, none moving a verdict/.exec(tu.what);
+  need(tu && tuDef && /self-audit’s amendment of (\d{4}-\d\d-\d\d)/.test(tu.outcome), 'the tool rerun of C_42 moved');
+  const T = J('certs/turan-ledger.json'); need(T.rows.length === 2 && T.rows.every((r) => r.verdict === 'PARTIAL'), 'the C_42 rows are not two PARTIAL');
+  const tc = T.rows.map((r) => /^C42 <= ([\d.]+)/.exec(r.claim)[1]);
+  def('OcOutTuWho', who(tu)); def('OcOutTuDate', tu.date); def('OcOutTuDefects', tuDef[1]); def('OcOutTuAmended', /self-audit’s amendment of (\d{4}-\d\d-\d\d)/.exec(tu.outcome)[1]);
+  def('OcTuBound', tc[0]); def('OcTuPrBound', tc[1]); def('OcTuPr', String(/pull\/(\d+)/.exec(T.pr184.source.pr)[1]));
 }
 
 def('OcCommit', git);
