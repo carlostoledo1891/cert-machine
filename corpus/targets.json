@@ -1188,16 +1188,16 @@
    "scouted": "2026-10-27",
    "finding": "A second party's replay is exactly what the registry's rule of 2026-10-26 now needs for these rows, and this contributor is the second party on our #249. K_5 (192 blocks, minutes) and K_6 (20 min on their evaluators) are within a session with an exact graphon evaluator of our own (BigInt rationals; the K_5/K_6 density of a block graphon is a finite sum over block tuples); K_4 at 3840 blocks is ~10 h on 4 threads by their count. Nothing of theirs has been re-decided by anyone; their repo does not cite us.",
    "fit": "an exact evaluator for block-graphon clique densities, two implementations, red controls; posted on #277/#279 as the second-party confirmation",
-   "next": "the K4 confirmation on #255 (drafted, the operator's word); the K5/K6 ones were posted on #277/#279"
+   "next": "all three confirmations posted: #277, #279 and the K4 on #255 (2026-10-27, issuecomment-6450361795)"
   },
   {
    "id": "jeetu-r3-33-circulant-2026",
    "name": "JeetuSK0808's R(3,33) ≥ 241: a circulant triangle-free graph on Z_240 with 16 generators and independence number ≤ 32 (Zenodo 10.5281/zenodo.23552014, cited in the registry's merged #252)",
-   "verdict": "MEASURED 2026-10-27, not decided: the circulant rebuilt from the text equals the certificate's 3840 edges; the triangle side COMPLETE, none (our kernel, 0.0 s); the independence side (a 33-clique in the complement, 240 vertices) REFUSED at the budget — 0 of 240 roots finished in ~2 h on 4 threads of the M2 with the plain branch-and-bound; the deposit's own proof needed orbital branching (1,665 jobs) and three solvers. Scratch only, nothing pinned in the corpus",
+   "verdict": "CERTIFIED 2026-10-27 by the orbital kernel (instruments/ramsey/orbital.c: one root by transitivity, 31 orbits of the stabilizer of 0 under the multipliers 1, 13, 37, 71, 169, 203, 227, 239; 2,572 units, 2.9e9 nodes, 537 s on 8 threads of the M2), held to orbital.py; the SAT second path (satpath.py, kissat + drat-trim) closed 22 of 31 cubes, 9 open at a 20-min cap; an 'outside' row of certs/ramsey-ledger.json; /reports/ramsey-graphs.html §5",
    "scouted": "2026-10-27",
    "finding": "The triangle-free side is immediate; the independence side is an exact search for a 33-set on 240 vertices, the kind instruments/ramsey decided for the AlphaEvolve graphs (R(4,21) ≥ 244 took minutes there). The witness is a 16-generator list, so the graph is rebuilt from the text and the sha256 of the deposit pinned.",
    "fit": "instruments/ramsey as is (graph.py, clique.py, clique.c), a row in certs/ramsey-ledger.json, the page",
-   "next": "a decider with orbital branching (the multipliers ±1, ±13, ±37, ±71 fix 0; the automorphism group is in the certificate) or a large machine; not started"
+   "next": "the re-decision POSTED on #252 (2026-10-27, issuecomment-6450362406)"
   },
   {
    "id": "maximusrufus-c16-bgw-2026",
@@ -1206,7 +1206,7 @@
    "scouted": "2026-10-27",
    "finding": "Their replays of our rows are recorded (corpus/external-reruns.json); nothing of theirs has been re-decided by us. The upper certificate is a finite list of boxes with a tail bound — the shape instruments/interval (eqcert) decides — about a day with the lower bound's lattice sums; the second party #246 lacks under the rule of 2026-10-26.",
    "fit": "eqcert interval enclosures of the 84 boxes and the tail bound, a second implementation in Python decimal, red controls",
-   "next": "the confirmation on #246 (drafted, the operator's word); maximusrufus may then open the asterisk PR citing it"
+   "next": "the confirmation POSTED on #246 (2026-10-27, issuecomment-6450361158); maximusrufus may open the asterisk PR citing it"
   },
   {
    "id": "openai-math-release-2026-10-26",

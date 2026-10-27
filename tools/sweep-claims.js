@@ -228,6 +228,9 @@ for (const [repo, num, label] of [
   ['teorth/optimizationproblems', 257, 'optimizationproblems PR #257 (C_84b: the note\'s theorem, 1.9993*)'],
   ['teorth/optimizationproblems', 275, 'optimizationproblems PR #275 (C_84b: the ceiling rounded up)'],
   ['teorth/optimizationproblems', 277, 'optimizationproblems PR #277 (C_89b, the K5 graphon: our second-party confirmation)'],
+  ['teorth/optimizationproblems', 246, 'optimizationproblems PR #246 (C_16, maximusrufus: our second-party confirmation)'],
+  ['teorth/optimizationproblems', 255, 'optimizationproblems PR #255 (C_89, the K4 graphon: our second-party confirmation)'],
+  ['teorth/optimizationproblems', 252, 'optimizationproblems PR #252 (C_17b; our R(3,33) re-decision)'],
   ['teorth/optimizationproblems', 279, 'optimizationproblems PR #279 (C_89c, the K6 graphon: our second-party confirmation)'],
   ['carlostoledo1891/cert-machine', 1, 'cert-machine #1 (maximusrufus: the N(6) re-run note we owe, the Ramsey graphs)']]) {
   let out = null;
