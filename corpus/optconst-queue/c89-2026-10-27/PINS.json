@@ -1,0 +1,115 @@
+{
+ "what": "The registry's C_89b (K5) and C_89c (K6) Ramsey-multiplicity certificates (J. SK, JeetuSK0808/tao-constants-certificates: the c89b folder at the commit the 89b page cites, 82a6e4de, byte-identical at HEAD 98b6ee34; the c89c folder at 98b6ee34, the commit the 89c page cites) and the registry pages, which on 2026-10-27 exist only on the pull-request branches (teorth/optimizationproblems #277 head 658cd6ab, #279 head 0c26ba04; 89a.md from the same branch); the claimant's evaluators (exact5.py, k5.py, c6.c, check6.c, certify6.py, opt11.py) kept as TEXT, never run; the PPSS 192-vertex graph (Zenodo 6602512, graphs.zip → c5.graph6.txt) for the published-value control. Read by tools/replay-graphon.js; nothing here is ours.",
+ "fetched": "2026-10-27T00:30:00Z",
+ "certificateCommit": "98b6ee34e8f51f82be85517e4b7f0e7e7af393b8",
+ "c89bCitedCommit": "82a6e4def9c63e9a7254bc2393f61a872891c480",
+ "registryBranch": {
+  "277": "658cd6ab0a6cd0393145d0a2c8ba4d55c5102f3d",
+  "279": "0c26ba04a254965b09411bbeadbb68ff4a9dd41a",
+  "note": "constants/89b.md and 89c.md are not on teorth main; pinned from the PR branches (JeetuSK0808/optimizationproblems)"
+ },
+ "urls": {
+  "certificates": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/98b6ee34e8f51f82be85517e4b7f0e7e7af393b8",
+  "pr277": "https://github.com/teorth/optimizationproblems/pull/277",
+  "pr279": "https://github.com/teorth/optimizationproblems/pull/279",
+  "ppss": "https://doi.org/10.5281/zenodo.6602512"
+ },
+ "files": {
+  "c89b/c89b_stepgraphon_m192_D20.json.gz": {
+   "sha256": "19c433540936fcdf6d90256dcee9585729bcf36a443d7f76ef4b8bb91e6abc06",
+   "bytes": 9786
+  },
+  "c89b/README.md": {
+   "sha256": "3e83c664b31c86aa9d3d40ff9f34444270c24a8fd5fcce59aac1d1b5ef9ab22b",
+   "bytes": 1926
+  },
+  "c89b/SHA256SUMS.txt": {
+   "sha256": "59a7b32b12eff0fcf875ce4f3ee0963dd15b39d35bf2dc38dbc647be9f600fd3",
+   "bytes": 513
+  },
+  "c89b/exact5.py": {
+   "sha256": "561da85bec1f3a4b0ac5276f29355f2cbf3bf5fc7faa2349193e8fa272d0006d",
+   "bytes": 2974
+  },
+  "c89b/k5.py": {
+   "sha256": "b9bc7a757945c8759ef4883cac06bdade94324752c8f14f0dff5ddf8309cffa0",
+   "bytes": 3715
+  },
+  "c89b/results/exact.txt": {
+   "sha256": "e356878638c7baa33642b35e4ae4d3336ca3f0f72687c60567eb73595b288e45",
+   "bytes": 496
+  },
+  "c89b/results/input_sha256.txt": {
+   "sha256": "84703098d6370100dd3613204940bd7854774a96beac3b3041177ba1bba130a1",
+   "bytes": 129
+  },
+  "c89b/results/refine_tail.txt": {
+   "sha256": "01c19e758dfb4122ac8d6fa7f2f6def5358cf9f1e32ec3b0c200b520b11bcdf4",
+   "bytes": 140
+  },
+  "c89c/construction.json": {
+   "sha256": "f90cc19090067c5a480257e802a3e47bd55cb75f6b71d3a545419e91cd11ac49",
+   "bytes": 341
+  },
+  "c89c/README.md": {
+   "sha256": "96052ed841cf0d795262293f38007d2a9d7848a7e5b42672447f9138165be986",
+   "bytes": 2671
+  },
+  "c89c/SHA256SUMS.txt": {
+   "sha256": "35d3d706ee8b2c468e17e6e534f40f6f7f6550777c950c7090210f206a597198",
+   "bytes": 648
+  },
+  "c89c/c6.c": {
+   "sha256": "abd647568fd5fa0c39253b9969d6a14afe3ec289c65b483f90992414093b3c0c",
+   "bytes": 4255
+  },
+  "c89c/check6.c": {
+   "sha256": "7884df33e4ad65709203a2d787c090374fe05042ef3b3f56c030ec8ee3029798",
+   "bytes": 1996
+  },
+  "c89c/certify6.py": {
+   "sha256": "a3034830cb1d82b54ec4a324e43096d17436d0705d1eb1055b495cd7eb042fd8",
+   "bytes": 1874
+  },
+  "c89c/opt11.py": {
+   "sha256": "0c9a1630eb4150aaa35e81854c6e936646cbad82ddce18845dd195ae758f87f1",
+   "bytes": 755
+  },
+  "c89c/results/cert_c6.txt": {
+   "sha256": "48c973d476b95324b239cc793ba1385005329f75b7cbeff6bda0dc6be8bea271",
+   "bytes": 360
+  },
+  "c89c/results/cert_check6.txt": {
+   "sha256": "80d8f7564b0b94d552e7d21738c29ecc917a59c4bec6aca7af67dbf5c0bfebf3",
+   "bytes": 364
+  },
+  "c89c/results/opt11_tail.txt": {
+   "sha256": "f2b5891e6fef108674039eda2883f8589915eb2855cd0eb0fe501c2666f86d34",
+   "bytes": 348
+  },
+  "upstream/constants/89a.md": {
+   "sha256": "bee4f58a0cc04459f4aa60106f7f68536bad5ed23669d2362d6635d423b970b8",
+   "bytes": 8985
+  },
+  "upstream/constants/89b.md": {
+   "sha256": "e6261892ca40ce25d1706a2daa76880a77f0f81fad6adb3c8c0c7f1fd5b0d72d",
+   "bytes": 4126
+  },
+  "upstream/constants/89c.md": {
+   "sha256": "6af91ffa9d78448530f0b89751279573abab148a5060aeec95017e779cf0d0b5",
+   "bytes": 4692
+  },
+  "upstream/README.md": {
+   "sha256": "c5cff063b78c2cc46c43d4ff0a6d2676509caf145049c0ba1060bf1b035a32f7",
+   "bytes": 1449
+  },
+  "ppss/c5.graph6.txt": {
+   "sha256": "67a77b276899ff3d5dae4f88d8249ad87b497fa2a9af2b1c73b385c583c48b42",
+   "bytes": 3060
+  },
+  "ppss/graph6_description.txt": {
+   "sha256": "761333521670ac6718780463a2bc7df53307c5c4ba8cf19163652e62f04d50eb",
+   "bytes": 6657
+  }
+ }
+}

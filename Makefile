@@ -134,6 +134,7 @@ test:
 	@printf "%-30s " "registry step functions"; $(NODE) tools/replay-stepfun.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_1c and C_1d"; $(NODE) tools/replay-autocorr.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_86 (trace constant)"; $(NODE) tools/replay-c86.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "registry C_89b/C_89c (graphons)"; $(NODE) tools/replay-graphon.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_82 (Zhang–Zagier)"; $(NODE) tools/replay-c82.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "registry C_31 (Lueker M_h)"; $(PY) tools/run-lueker.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "cryptids: arm H, second impl"; $(NODE) tools/run-cryptids.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

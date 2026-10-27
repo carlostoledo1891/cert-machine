@@ -1,0 +1,156 @@
+{
+ "what": "The registry's C_89b (K5) and C_89c (K6) Ramsey-multiplicity upper bounds (J. SK, pull requests 277 and 279) decided twice from the pinned certificates: the monochromatic density of each step graphon as an exact rational, by instruments/optq/graphon_k5.py + graphon_k6.py (Python, Fraction; an AI agent's implementation from the definition) and instruments/optq/graphon-second.js (JavaScript: modular counting + CRT; the reduction in BigInt), sharing no code with each other or with the claimant's evaluators (kept as text). CERTIFIED when both agree and the value is at or below the printed bound; the step from a graphon's density to the constant is the standard argument, read.",
+ "generated": "2026-10-27T03:46:49.000Z",
+ "git": "a9564cea",
+ "deciders": {
+  "js": "81a906a023f8655fcea5c821e262d7b92ab03fd3ba40e3722f1f9a74c6b2ada7",
+  "pyK5": "1ab80131e5be739616bbcfd9f19d560786c2fc165a291e034fe6897ab713a26e",
+  "pyK6": "a615cb7cb361cb837f16d32f83669ca3d246f6c026bf540dc0b0ed7af8902974"
+ },
+ "pins": "corpus/optconst-queue/c89-2026-10-27/PINS.json",
+ "certificateCommit": "98b6ee34e8f51f82be85517e4b7f0e7e7af393b8",
+ "c89bCitedCommit": "82a6e4def9c63e9a7254bc2393f61a872891c480",
+ "registryBranch": {
+  "277": "658cd6ab0a6cd0393145d0a2c8ba4d55c5102f3d",
+  "279": "0c26ba04a254965b09411bbeadbb68ff4a9dd41a",
+  "note": "constants/89b.md and 89c.md are not on teorth main; pinned from the PR branches (JeetuSK0808/optimizationproblems)"
+ },
+ "definitions": {
+  "k5": "constants/89b.md (the PR branch): C_89b = min over 2-edge-coloured graphons of t(K5,W) + t(K5,1−W); a step graphon with m equal blocks and red value R_ij/D: t(K5,W) = m^-5 Σ over ordered 5-tuples of blocks of the product of the ten pair values, the diagonal included",
+  "k6": "constants/89c.md (the PR branch): the same for K6 on a Z_2^10 step graphon with red value n[|x ⊕ y|]/D; the page prints the value × 2^14"
+ },
+ "rows": [
+  {
+   "id": "c89b-k5",
+   "constant": "C_89b",
+   "claim": "C_89b <= 0.0016870052",
+   "pr": 277,
+   "source": "c89b/c89b_stepgraphon_m192_D20.json.gz",
+   "sha256": "19c433540936fcdf6d90256dcee9585729bcf36a443d7f76ef4b8bb91e6abc06",
+   "js": {
+    "num": "107218716425177032911811117405568916263805081691166740697",
+    "den": "63555655070790142733837367909977622463036348875198349443072",
+    "decimal": "0.0016870051344094195654855860228588550857…",
+    "seconds": 592,
+    "Nred": "339276008057083285552025752874382890664005300766433223694741028208640",
+    "Nblue": "368053344491115197442986447654720259867382092844579164211604820590592"
+   },
+   "py": {
+    "num": "107218716425177032911811117405568916263805081691166740697",
+    "den": "63555655070790142733837367909977622463036348875198349443072",
+    "decimal": "0.0016870051344094195654855860228588550857…",
+    "seconds": 87
+   },
+   "agree": true,
+   "equalsStated": true,
+   "lePrinted": true,
+   "printedIs": [
+    "up"
+   ],
+   "verdict": "CERTIFIED"
+  },
+  {
+   "id": "c89c-k6",
+   "constant": "C_89c",
+   "claim": "C_89c <= 0.7422548616 * 2^-14",
+   "pr": 279,
+   "source": "c89c/construction.json",
+   "sha256": "f90cc19090067c5a480257e802a3e47bd55cb75f6b71d3a545419e91cd11ac49",
+   "js": {
+    "num": "180244428715156181493112659521741405180580225001966676111887908798425648907356856409",
+    "den": "3978585891278293137243057985174566720803649206378781739523711815145275976100267004264448",
+    "decimal": "0.0000453036414546890296063115944679921914…",
+    "seconds": 12.5,
+    "Nred": "49435063167370116359401986494263426484939852161424336823671220514438364578971301232533945763326117019648",
+    "Nblue": "56962467943684956341309185173729458669852761004528516500433356275355605123804620511360342416215832002560"
+   },
+   "py": {
+    "num": "180244428715156181493112659521741405180580225001966676111887908798425648907356856409",
+    "den": "3978585891278293137243057985174566720803649206378781739523711815145275976100267004264448",
+    "decimal": "0.0000453036414546890296063115944679921914…",
+    "seconds": 24.4
+   },
+   "agree": true,
+   "equalsStated": true,
+   "lePrinted": true,
+   "printedIs": [
+    "up",
+    "nearest"
+   ],
+   "verdict": "CERTIFIED"
+  }
+ ],
+ "controls": [
+  {
+   "id": "k5-perturb",
+   "kind": "red",
+   "what": "R[0][1] and R[1][0] raised by one unit of 2^-20: the value must move in both implementations",
+   "js": {
+    "num": "3430998925605665255907026774174930255925411592517530046129",
+    "den": "2033780962265284567482795773119283918817163164006347182178304",
+    "decimal": "0.0016870051344094196651664635502948339334…",
+    "seconds": 595,
+    "Nred": "339276008431929711901447289091151894249479304720116782643631557181440",
+    "Nblue": "368053344116268812887871949869377841699987239529582570387796909883392"
+   },
+   "py": {
+    "num": "3430998925605665255907026774174930255925411592517530046129",
+    "den": "2033780962265284567482795773119283918817163164006347182178304",
+    "decimal": "0.0016870051344094196651664635502948339334…",
+    "seconds": 86.6
+   },
+   "fired": true
+  },
+  {
+   "id": "k6-perturb",
+   "kind": "red",
+   "what": "n[1] raised by one unit of 2^-20: the value must move in both implementations",
+   "js": {
+    "num": "180244428715241060251793804834270907549600745684885107387173143181348811203128975449",
+    "den": "3978585891278293137243057985174566720803649206378781739523711815145275976100267004264448",
+    "decimal": "0.0000453036414547103635076023051563867974…",
+    "seconds": 12.7,
+    "Nred": "49435078755433554937207193369309892215915047782858700221401563661321460308426699608171668681743702949888",
+    "Nblue": "56962452355671621339141905993119524495632921612745795446944674736317860927510607814780725960280689868800"
+   },
+   "py": {
+    "num": "180244428715241060251793804834270907549600745684885107387173143181348811203128975449",
+    "den": "3978585891278293137243057985174566720803649206378781739523711815145275976100267004264448",
+    "decimal": "0.0000453036414547103635076023051563867974…",
+    "seconds": 24.6
+   },
+   "fired": true
+  },
+  {
+   "id": "k5-printed-below",
+   "kind": "red",
+   "what": "a printed bound one unit below the exact value at its last place (0.0016870051) must not hold",
+   "fired": true
+  },
+  {
+   "id": "half-graphons",
+   "kind": "positive",
+   "what": "W ≡ 1/2 gives 2·2^-10 (K5) and 2·2^-15 (K6) exactly",
+   "held": true
+  },
+  {
+   "id": "ppss-published",
+   "kind": "positive",
+   "what": "the PPSS 192-vertex 99-regular graph (Zenodo 6602512, pinned) as a 0/1 graphon gives its published K5 value 2320651/1358954496",
+   "value": {
+    "num": "2320651",
+    "den": "1358954496",
+    "decimal": "0.0017076738086747534481095679012345679012…",
+    "Nred": "231229440",
+    "Nblue": "214335552"
+   },
+   "held": true
+  }
+ ],
+ "seconds": 1496,
+ "limits": [
+  "the densities are decided exactly; that a step graphon's monochromatic density bounds the constant from above is the standard random-colouring argument, read and not re-derived",
+  "the claimant's evaluators (exact5.py, k5.py, c6.c, check6.c, certify6.py, opt11.py) are pinned as text and never run",
+  "the 89b and 89c pages are pinned from the pull-request branches; they are not on the registry's main branch on 2026-10-27"
+ ]
+}

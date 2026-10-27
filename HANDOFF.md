@@ -119,6 +119,20 @@ NEXT SESSION, IN ORDER:
      openai/math and google-deepmind commits, erdosproblems claims, formal-conjectures PRs, arXiv keyword listings, GitHub
      repo search for certificate words), never posting, never deciding; every new claim gets a targets.json row before any
      build (the targets rule). Not built — the operator's call.
+     ~04:00–05:00 UTC, THE GRAPHON REPLAY INTEGRATED AND THE OUTREACH DONE, on "Proceed the outreaching": the K5 and K6
+     certificates, the 89b/89c pages (PR branches) and the PPSS control graph PINNED (corpus/optconst-queue/c89-2026-10-27,
+     24 files); the first implementation adopted as instruments/optq/graphon_k5.py + graphon_k6.py (the agent's, from the
+     definition), the second written here as instruments/optq/graphon-second.js (K5 modulo ten 25-bit primes + CRT on the
+     common support; K6 by translation / row classes / binomials / the S4 quotient in BigInt; brute-force selftests); the
+     runner tools/replay-graphon.js → certs/graphon-replay.json (1496 s: K5 js 592 s + py 87 s, K6 js 12.5 s + py 24.4 s;
+     both CERTIFIED, both implementations equal to the fractions the pages state; printed K5 = rounded up, K6 = up and
+     nearest; controls: both perturbations fire in both, printed-below fires, W ≡ ½ gives 2^-9 and 2^-14, the PPSS graph
+     gives its published 2320651/1358954496); `--check` (~1 min: pins, the K6 value and five controls re-derived, the K5
+     integers re-combined) in both registries; the shelf row; /reports/optconst-queue.html §10 (gates green after two
+     refusals of my own: a free-text status word on the #249 outreach row, and the word "operator" in its public note).
+     POSTED on the word: the thanks on #249 (issuecomment-6433116322); the K5 and K6 confirmations on #277 and #279 (the
+     comment ids in corpus/outreach.json). R(3,33): REFUSED at the budget (0 of 240 roots in ~2 h on 4 threads; the
+     deposit's own proof used orbital branching); the kernel honours -s within a root (checked in the code); scratch only.
      RULES LEARNED: Decimal.quantize to k places needs a Context with prec > the digits printed (the default 28 refuses at 31);
      a longer table cell on a report page can add a spine — shorten the cell before accepting a ruler regression.
   ★ HANDOFF 2026-10-26 evening — THE ELEIÇÕES 2026 DOSSIER (on the operator's "verify the results ... present the full dossiê

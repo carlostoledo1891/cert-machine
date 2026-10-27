@@ -1184,20 +1184,20 @@
   {
    "id": "jeetu-graphon-bounds-2026",
    "name": "JeetuSK0808's K_4, K_5 and K_6 Ramsey-multiplicity upper bounds (the registry's C_89 ≤ 0.0301388794, PR #255 merged asterisked; C_89b ≤ 0.0016870052, PR #277; C_89c ≤ 0.7422548616·2^-14, PR #279): exact rational step graphons (3840 / 192 blocks; K_6 by 11 parameters), evaluated by their own C/CRT code",
-   "verdict": "EVALUATED 2026-10-27 in the scratchpad (one independent exact evaluator, Python Fraction, by an agent; a second implementation and the integration pending): K_5 (C_89b) value = the claimed fraction exactly, 0.00168700513440941957…, the printed 0.0016870052 is it rounded UP at 10 places — HOLDS; K_6 (C_89c) value·2^14 = 0.74225486159362506107…, the printed 0.7422548616 holds (nearest and up) — HOLDS; PPSS's published K_5 value and Franek's K_6 value reproduced exactly as positive controls; red controls fire. Their README overstates the descent (only 1,248 pairs moved, two values). Copies in corpus/scouting-2026-10-27/graphon (untracked)",
+   "verdict": "BUILT 2026-10-27: C_89b (K5) and C_89c (K6) CERTIFIED by two implementations sharing no code (instruments/optq/graphon_k5.py + graphon_k6.py; graphon-second.js), both equal to the fractions the pages state and at or below the printed bounds (K5 printed rounded up; K6 up and nearest); five controls; certs/graphon-replay.json, pins in corpus/optconst-queue/c89-2026-10-27, /reports/optconst-queue.html §10; the battery in both registries. K_4 (#255, 3840 blocks) not decided",
    "scouted": "2026-10-27",
    "finding": "A second party's replay is exactly what the registry's rule of 2026-10-26 now needs for these rows, and this contributor is the second party on our #249. K_5 (192 blocks, minutes) and K_6 (20 min on their evaluators) are within a session with an exact graphon evaluator of our own (BigInt rationals; the K_5/K_6 density of a block graphon is a finite sum over block tuples); K_4 at 3840 blocks is ~10 h on 4 threads by their count. Nothing of theirs has been re-decided by anyone; their repo does not cite us.",
    "fit": "an exact evaluator for block-graphon clique densities, two implementations, red controls; posted on #277/#279 as the second-party confirmation",
-   "next": "the operator decides: integrate (an instrument with a second implementation in JS, the ledger row, the page) and post the confirmation on #277/#279 — the second party the rule asks for; K_4 (#255, 3840 blocks) on rented CPU"
+   "next": "the confirmations posted on #277/#279 (2026-10-27); K_4 on rented CPU if asked"
   },
   {
    "id": "jeetu-r3-33-circulant-2026",
    "name": "JeetuSK0808's R(3,33) ≥ 241: a circulant triangle-free graph on Z_240 with 16 generators and independence number ≤ 32 (Zenodo 10.5281/zenodo.23552014, cited in the registry's merged #252)",
-   "verdict": "STARTED 2026-10-27 in the scratchpad: the circulant rebuilt from the text equals the certificate's 3840 edges; triangle side COMPLETE, none (our kernel, 0.0 s); the independence side (k = 33 in the complement) running with a 7200 s budget, resumable (corpus/scouting-2026-10-27/r333, untracked)",
+   "verdict": "MEASURED 2026-10-27, not decided: the circulant rebuilt from the text equals the certificate's 3840 edges; the triangle side COMPLETE, none (our kernel, 0.0 s); the independence side (a 33-clique in the complement, 240 vertices) REFUSED at the budget — 0 of 240 roots finished in ~2 h on 4 threads of the M2 with the plain branch-and-bound; the deposit's own proof needed orbital branching (1,665 jobs) and three solvers. Scratch only, nothing pinned in the corpus",
    "scouted": "2026-10-27",
    "finding": "The triangle-free side is immediate; the independence side is an exact search for a 33-set on 240 vertices, the kind instruments/ramsey decided for the AlphaEvolve graphs (R(4,21) ≥ 244 took minutes there). The witness is a 16-generator list, so the graph is rebuilt from the text and the sha256 of the deposit pinned.",
    "fit": "instruments/ramsey as is (graph.py, clique.py, clique.c), a row in certs/ramsey-ledger.json, the page",
-   "next": "the operator decides whether to build; under an hour on the M2 if the search behaves like R(4,21)"
+   "next": "a decider with orbital branching (the multipliers ±1, ±13, ±37, ±71 fix 0; the automorphism group is in the certificate) or a large machine; not started"
   },
   {
    "id": "maximusrufus-c16-bgw-2026",
