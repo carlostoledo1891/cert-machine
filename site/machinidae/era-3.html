@@ -587,6 +587,13 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
 .tl-runs button:hover, .tl-runs button:focus-visible { border-color: var(--ochre); }
 @media (max-width: 640px) { .tl-item { grid-template-columns: minmax(0, 1fr); gap: .3rem; } }
 .m-grid-era { grid-column: 1 / -1; font-family: var(--f-display); font-size: 1.4rem; margin: .4rem 0 0; }
+
+/* ------------------------------------------------------------------ the Laboratory: synthetic machinids */
+.lab-inst { display: flex; flex-wrap: wrap; gap: .35rem; margin: 0 0 1.1rem; }
+.lab-inst button { font-family: var(--f-mono); font-size: .74rem; padding: .25rem .6rem; border: 1px solid var(--rule); border-radius: 999px; background: var(--paper); color: var(--ink-2); cursor: pointer; }
+.lab-inst button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.lab-kind { display: block; font-family: var(--f-mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+.specimens .sp-note { font-size: .78rem; line-height: 1.45; color: var(--ink-2); margin: .45rem 0 0; }
 </style>
 </head>
 <body>
@@ -599,7 +606,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       </svg>
       Machinidae
     </a>
-    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="era-2.html">Era 2</a><a href="era-3.html" aria-current="page">Era 3</a><a href="museum.html">Museum</a></nav>
+    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="era-2.html">Era 2</a><a href="era-3.html" aria-current="page">Era 3</a><a href="museum.html">Museum</a><a href="lab.html">Laboratory</a></nav>
     <span class="draft">working draft · era 3 · 32 of 32 runs in</span>
   </header>
 </div>
@@ -731,6 +738,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
           <li><b>The AI alone's one step.</b> It came from a whole program the model also wrote in era 2. Whether the model has further layouts in it, or only that one, is a question for the model alone, asked more times from PM-2, before any lineage is asked to find more.</li>
           <li><b>Era 2's readings on era 3's record.</b> The landscapes, the knockouts against PM-2 and the recall flag, as the protocol's §12 names them, are not run yet.</li>
         </ul>
+        <p><b>Asked since, outside the record (2026-10-27).</b> A trial for era 4 asked the model alone 1,000 more times from PM-2 and spliced era 3's 529 answers again, under a cap of 65,536 bytes and the same judge. Under the lifted cap 1,304 of the 1,529 were born, against 399 under era 3's. Single steps stay rare: 12 answers step 0.003 above PM-2 on the panel and hold on sixteen fresh instances, 0.8% an answer. Pieces are common: 201 answers beat PM-2 on some panel instance while most lose overall. The trial is not an era and changes nothing on this page. Eras are now frozen, and <a href="lab.html">the Laboratory</a> takes those answers apart.</p>
       </div>
     </div>
   </div>
