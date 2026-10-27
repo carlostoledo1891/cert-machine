@@ -621,6 +621,38 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   const dirs = new Set(ls('instruments').map((f) => f.split('/')[1]));
   def('MtRepoInstrumentDirs', String(dirs.size)); def('MtRepoJsKLines', String(Math.round(lines(ls("'*.js'")) / 1000))); def('MtRepoPyKLines', String(Math.round(lines(ls("'*.py'")) / 1000))); }
 
+/* the runtime table (supplement S5): per record of the register, the extended profile's cold run in the self-audit's run record
+   (wall, CPU, peak resident memory), the register rows it holds (the inventory), and whether the portable 60-second profile ran it */
+{ const RUNR = J('certs/selfaudit-run.json'), INVR = J('certs/selfaudit-inventory.json');
+  const LABEL = {
+    'certs/countex-ledger.json': 'counterexamples (finite objects)', 'certs/design-table-audit.json': 'metocean design table',
+    'certs/easota-ledger.json': 'point sets and shapes', 'certs/ecbench-ledger.json': 'elliptic-curve benchmark',
+    'certs/erdos852-certificate.json': 'a printed constant (Erd\\H{o}s 852)', 'certs/fei-ledger.json': 'a truth table (entropy--influence)',
+    'certs/gnnw-certificate.json': 'the GNNW constant', 'certs/gsm8k-ledger.json': 'graded answers (GSM8K)',
+    'certs/horizon-ledger.json': 'time horizons (bootstrap)', 'certs/horizonmath-ledger.json': 'HorizonMath rows',
+    'certs/hseva-ledger.json': 'likelihood fits', 'certs/kissing-ledger.json': 'kissing configurations',
+    'certs/mc100-alphaevolve-nb-matmul.json': 'tensor decompositions (AlphaEvolve)', 'certs/mc100-alphatensor-f2.json': 'tensor decompositions over $\\mathbb{F}_2$',
+    'certs/mc100-alphatensor-q.json': 'tensor decompositions over $\\mathbb{Q}$', 'certs/mc100-einstein-arena.json': 'point sets (EinsteinArena)',
+    'certs/mc100-station-v2.json': 'station constructions', 'certs/polymaps-ledger.json': 'polynomial maps',
+    'certs/strassen-certificate.json': 'a Strassen decomposition', 'certs/sumdiff-ledger.json': 'entropy laws (sums--differences)',
+    'certs/sumproduct-ledger.json': 'a sum--product bound', 'certs/turan-ledger.json': 'Tur\\\'an-type bounds', 'ledger.json': 'the generation loop' };
+  const cold = RUNR.runs.filter((r) => r.profile === 'extended' && r.run === 'cold');
+  need(cold.length >= 20 && cold.every((r) => LABEL[r.record]), 'the run record holds a record the runtime table has no label for: ' + cold.filter((r) => !LABEL[r.record]).map((r) => r.record).join(', '));
+  const portOk = (rec, kind) => { const x = RUNR.runs.find((r) => r.profile === 'portable' && r.run === 'cold' && r.record === rec && r.kind === kind); return x && /^RAN/.test(x.verdict); };
+  const rowsOf = (rec) => { const x = INVR.records.find((y) => y.record === rec); return x ? x.rows : null; };
+  const f1 = (x) => x < 10 ? x.toFixed(1) : String(Math.round(x));
+  const recs = [...new Set(cold.map((r) => r.record))].map((rec) => {
+    const re = cold.find((r) => r.record === rec && r.kind === 'rederive'); need(re, 'no re-derivation run for ' + rec);
+    const others = cold.filter((r) => r.record === rec && r.kind !== 'rederive');
+    return { rec, re, second: others.length ? others.reduce((t, r) => t + r.wallSeconds, 0) : null, port: portOk(rec, 'rederive') && others.every((r) => portOk(rec, r.kind)) };
+  }).sort((x, y) => y.re.wallSeconds - x.re.wallSeconds);
+  def('MtRtTableRows', recs.map((x) => [LABEL[x.rec], rowsOf(x.rec) === null ? '---' : String(rowsOf(x.rec)), f1(x.re.wallSeconds), f1(x.re.cpuSeconds),
+    String(Math.ceil(x.re.peakRssBytes / 2 ** 20)), x.second === null ? '---' : f1(x.second), x.port ? 'yes' : 'no'].join(' & ')).join(' \\\\\n'));
+  const walls = recs.map((x) => x.re.wallSeconds).sort((p, q) => p - q);
+  def('MtRtRecords', String(recs.length)); def('MtRtMedianWall', f1(walls[Math.floor(walls.length / 2)])); def('MtRtMaxWall', String(Math.round(recs[0].re.wallSeconds)));
+  def('MtRtMaxLabel', LABEL[recs[0].rec]); def('MtRtUnderMinute', String(recs.filter((x) => x.port).length));
+  def('MtRtMaxRssMiB', String(Math.ceil(Math.max(...cold.map((r) => r.peakRssBytes)) / 2 ** 20))); }
+
 /* the archive this version is deposited in (corpus/zenodo.json, stamped by tools/stamp-release.py after Zenodo mints it):
    named only when the release's tag holds the commit being built; otherwise the note says the next release will hold it,
    under the concept DOI, and names the release that holds the previous version */

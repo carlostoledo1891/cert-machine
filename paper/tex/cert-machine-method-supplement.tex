@@ -4,7 +4,7 @@
 %% Shape: the co-author's restructure of 2026-10-21 (foundations -> mathematical
 %% formulation -> metrics and decision rules -> architecture; results; discussion),
 %% with the long derivations moved to appendices B-E and the three use cases
-%% moved to their companion papers. Every measured number is a macro read from
+%% told from their records and public reports. Every measured number is a macro read from
 %% a record at build time (paper/tex/*-numbers.tex); a record that no longer
 %% supports the sentence quoting it stops the build.
 %% For the journal's review copy switch the class options to
@@ -25,7 +25,7 @@
 \renewcommand{\floatpagefraction}{0.75}\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
 \AtBeginEnvironment{table}{\def\baselinestretch{1}\selectfont}
 \AtBeginEnvironment{algorithm}{\def\baselinestretch{1}\small}
-%% every number is read from the records; the macro files are the ones the companion papers use, so the
+%% every number is read from the records; the macro files are shared with the other papers on the shelf, so the
 %% same record cannot say one thing here and another there (each carries \RepoCommit: one build, one commit)
 \input{register-numbers.tex}
 \let\RepoCommit\relax
@@ -268,7 +268,7 @@ A formal certificate is two claims. That the proof is accepted is decided by bui
 \end{algorithm}
 In the gate the epistemic refutation is decided by a second pass over the box only when no satisfying corner was proved; the universal branch-and-bound keeps no corners and refutes nothing, since its claims are bounds that either certify or exhaust the budget.
 
-\section*{S5. Reproduction}\setcounter{table}{0}
+\section*{S5. Reproduction}\setcounter{table}{0}\renewcommand{\thetable}{S\arabic{table}}
 
 \paragraph{Second implementations (rule R5)} Where a verdict is the product, a program written from the specification in another language and arithmetic, sharing no code, re-derives it: the benchmark's six oracles (Python standard library), the kissing samples, the entropy and truth-table certificates, the step functions, the trace-constant and Zhang--Zagier certificates, the graphon densities of the registry's $K_5$ and $K_6$ bounds, $\delta_3$, the Hankel cross-checks and \MtSecondImpls{} engineering decisions (the flow-line gate, the emissions ledger and the operating-window verifier, each second program named by its file on disk in the generator that writes the paper's macros). Not every certifier has one (main text, Table 4).
 
@@ -294,6 +294,16 @@ the engineering gate & \url{node apps/contraprova/gate/battery.js} & \GChecks{} 
 the likelihood certifier & \url{node instruments/hseva/battery.js} & \HsevaChecks{} checks; the atlas and the ledger written by the code on disk & minutes \\
 \bottomrule\end{tabular}
 \caption{Each headline result, the command that re-derives it, what it must print, and what it took (the times are those the records hold).}\label{tab:repro}
+\end{table}
+
+\paragraph{Cost per record} \Cref{tab:runtime} gives, for each of the \MtRtRecords{} records of the register that the self-audit re-derived, the cold run under the extended profile (no wall-clock cap) on the laptop of the benchmark: wall-clock and CPU time, peak resident memory, the wall-clock of the record's second program or verifier where one exists, and whether every command of the record finished under the portable profile's 60-second cap. The median re-derivation takes \MtRtMedianWall{} s; the longest, \MtRtMaxLabel, \MtRtMaxWall{} s; no command exceeded \MtRtMaxRssMiB~MiB.
+
+\begin{table}[h]\centering\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}L{0.36\linewidth}rrrrrc@{}}\toprule
+claim class (record) & rows & wall (s) & CPU (s) & peak MiB & second (s) & under 60 s \\\midrule
+\MtRtTableRows \\
+\bottomrule\end{tabular}
+\caption{Cost of re-deriving each record of the register (\texttt{certs/selfaudit-run.json}, the extended profile's cold runs; rows from \texttt{certs/selfaudit-inventory.json}; a dash where the record has no second program). CPU above wall means the command runs threads.}\label{tab:runtime}
 \end{table}
 
 \bibliographystyle{elsarticle-num}
