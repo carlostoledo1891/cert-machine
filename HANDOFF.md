@@ -16,12 +16,111 @@ make test      every battery
 make drift     re-hash the lift against the source lab
 ```
 
-## TASKS BACKLOG — the standing menu (updated 2026-10-26 evening, HANDOFF: THE ELEIÇÕES 2026 DOSSIER BUILT AND LIVE, UNLISTED, at /eleicoes2026/ — both rounds decided from the TSE's public files, redesigned with party colours, maps and four calculations on the margin; the round-2 pieces wait on the TSE's bulk publication; earlier, 2026-10-24 ~23:20 UTC, HANDOFF: the session of 10-23/24 closed — the Ramsey graphs 17/18, the outside credits pinned and shown, the indexes ordered, Clade Code's zone made safe and republished, an outside rerun's C42 findings fixed; NEXT: the truncated-upper-bound sweep (C84b first, a public digit); earlier, ~21:45 UTC, AN OUTSIDE RERUN'S FINDINGS FIXED: the C42 decider's verdict words, outward printed bounds and route check (self-audit amended and re-pinned), the first outside mutant set recorded (7 of 7 located, none certified); earlier, ~08:20 UTC, R(7,13) CERTIFIED: the Ramsey graphs 17 of 18, R(8,18) left open; earlier, ~06:00 UTC, WHAT CAME BACK, PINNED AND ON THE SITE — corpus/recognition.json (10 public credits, each quoted verbatim from a pinned snapshot) and design/outside.js, read by the landing, the About page and eight reports; earlier, ~03:00 UTC, THE RAMSEY GRAPHS: 16 of 18 CERTIFIED, the page LIVE at /reports/ramsey-graphs.html, R(7,13) and R(8,18) REFUSED pending compute; earlier, 2026-10-23 ~21:30 UTC, THE FIRST OUTSIDE RERUN OF THE MONTH recorded (maximusrufus: twelve rows, no disagreement), the Windows line-ending fix, the control build repaired; earlier, ~17:45 UTC, THE FOREIGN ZONE MADE SAFE TO UPDATE — tools/publish-zone.js publishes site/clade-code/ as one pinned commit on origin/main without touching this checkout or rebuilding the site; `make test` GREEN again (the grammar and wiring fixes); earlier, site/clade-code/ RESERVED as a FOREIGN ZONE (design/zones.js: never pruned, never gated; nothing published there yet); earlier, AN INBOUND CROSS-CHECK OFFER ANSWERED — cert-machine #1 (maximusrufus: their N(6) = 3 re-run, AlphaEvolve Ramsey graphs) REPLIED, the N(6) note OWED; earlier, THE FIRST REVIEWS: registry PR #257 FIXED on a contributor's change request (the 28 May line corrected in place) and the reply POSTED, #243 and #249 approved by the same contributor (not merged), KissingNumbers #2 closed as completed; earlier, HANDOFF: THE WEEK COMMUNICATED ON GITHUB — google-deepmind/cryptids #14 POSTED, the companion paper linked on formal-math #30, the C84b correction FILED as registry PR #257, the lake-check config issue HELD for a reproduction; CLAIM COURT PARKED for a future environment; earlier, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
+## TASKS BACKLOG — the standing menu (updated 2026-10-27 ~01:30 UTC, HANDOFF: THE BUILD BEFORE THE SENDS — the registry's third round pinned (six more asterisks off, the second-party rule), the truncated-upper-bound sweep CLOSED (GNNW, the entropy witness, the lonely-runner threshold), three reciprocity targets scouted OPEN; Eleições PAUSED on the operator's word; earlier, 2026-10-26 evening, HANDOFF: THE ELEIÇÕES 2026 DOSSIER BUILT AND LIVE, UNLISTED, at /eleicoes2026/ — both rounds decided from the TSE's public files, redesigned with party colours, maps and four calculations on the margin; the round-2 pieces wait on the TSE's bulk publication; earlier, 2026-10-24 ~23:20 UTC, HANDOFF: the session of 10-23/24 closed — the Ramsey graphs 17/18, the outside credits pinned and shown, the indexes ordered, Clade Code's zone made safe and republished, an outside rerun's C42 findings fixed; NEXT: the truncated-upper-bound sweep (C84b first, a public digit); earlier, ~21:45 UTC, AN OUTSIDE RERUN'S FINDINGS FIXED: the C42 decider's verdict words, outward printed bounds and route check (self-audit amended and re-pinned), the first outside mutant set recorded (7 of 7 located, none certified); earlier, ~08:20 UTC, R(7,13) CERTIFIED: the Ramsey graphs 17 of 18, R(8,18) left open; earlier, ~06:00 UTC, WHAT CAME BACK, PINNED AND ON THE SITE — corpus/recognition.json (10 public credits, each quoted verbatim from a pinned snapshot) and design/outside.js, read by the landing, the About page and eight reports; earlier, ~03:00 UTC, THE RAMSEY GRAPHS: 16 of 18 CERTIFIED, the page LIVE at /reports/ramsey-graphs.html, R(7,13) and R(8,18) REFUSED pending compute; earlier, 2026-10-23 ~21:30 UTC, THE FIRST OUTSIDE RERUN OF THE MONTH recorded (maximusrufus: twelve rows, no disagreement), the Windows line-ending fix, the control build repaired; earlier, ~17:45 UTC, THE FOREIGN ZONE MADE SAFE TO UPDATE — tools/publish-zone.js publishes site/clade-code/ as one pinned commit on origin/main without touching this checkout or rebuilding the site; `make test` GREEN again (the grammar and wiring fixes); earlier, site/clade-code/ RESERVED as a FOREIGN ZONE (design/zones.js: never pruned, never gated; nothing published there yet); earlier, AN INBOUND CROSS-CHECK OFFER ANSWERED — cert-machine #1 (maximusrufus: their N(6) = 3 re-run, AlphaEvolve Ramsey graphs) REPLIED, the N(6) note OWED; earlier, THE FIRST REVIEWS: registry PR #257 FIXED on a contributor's change request (the 28 May line corrected in place) and the reply POSTED, #243 and #249 approved by the same contributor (not merged), KissingNumbers #2 closed as completed; earlier, HANDOFF: THE WEEK COMMUNICATED ON GITHUB — google-deepmind/cryptids #14 POSTED, the companion paper linked on formal-math #30, the C84b correction FILED as registry PR #257, the lake-check config issue HELD for a reproduction; CLAIM COURT PARKED for a future environment; earlier, HANDOFF: THE CRYPTIDS AUDIT RUN TWICE — arm H by hand, arm C through claimbox — compared on eight pre-registered metrics, the report at /reports/cryptids.html, the kernel lane re-dispatched for nanoda; THE UIRAPURU STORY built at /uirapuru/ (unlisted; the records reader and the shared script split out of the easy read's builder); THE STAGE (claims through the DECIDE box, in the house grammar) added to the house version's cold open; THE TWO EASY READS SIDE BY SIDE — the house-grammar version at /explained/ and the round-one version at /explained/v1/, both unlisted, the operator compares and chooses; earlier, THE WINDOW ISSUE POSTED (formal-math #30) and the Leandre reply SENT; E-MAILS ARE OFF from now (the channel rule); THE WINDOW ROUND — the ξ′ constants raised by an exact window and a longer tail, the ζ calibration, the paper v0.3 (21 pp), two outreach drafts (the ◆ below); earlier, TWO GITHUB SENDS on the operator's word — the C31 registry PR #249 FILED and the zeta23 law-file request POSTED as a comment on formal-math #8; the fourth companion (v0.2, reshaped for outreach) BUILT, NOT PUSHED — one gate left, the XiPrime pins (the ◆ below); earlier the same day THE C_31 REPLAY COMPLETE, BOTH ROWS CERTIFIED, THE PAGE LIVE, THE PR DRAFTED, PUSHED at 61aae8eb (its ◆ below); earlier the same night, on "Proceed" (the C_31 replay) after "fix the issues, fill the gaps, adapt the structure … build a complete paper for each one of the use cases … do another pass on the literature": THE METHOD PAPER v0.8 ON THE CO-AUTHOR'S STRUCTURE, ITS SUPPLEMENT AND THREE COMPANION USE-CASE PAPERS BUILT; the kernel fixes behind the co-author's soundness list made and the records re-derived)
 
 Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ HANDOFF 2026-10-27 ~01:30 UTC — THE BUILD BEFORE THE SENDS, on "Let's pause Eleições and focus on cert-machine's tasks,
+     outreaches, responses" and "Before sending anything out. Can we run the build and development phase to provide better
+     answers? Are we also being kind to offer them verification on their work? Anything on the list can use rented CPU GPU to go
+     faster?". NOTHING SENT; the push is the operator's. ELEIÇÕES PAUSED (its ★ below stands; nothing moved).
+     THE SWEEP (session start): one finding — #249: JeetuSK0808 CONFIRMED their independence on the thread (2026-10-27 00:26 UTC,
+     issuecomment-6430610425: no connection to us or to [J2026], Lueker's programs only, Palomar offered) — the second party
+     Tao's rule asks for; the decision is Tao's. #242 (maximusrufus asked), #275, the #243 [CERT2026]-twice question: no reply.
+     Notifications hold only old CI failures; the PU feed runs green. Recorded: corpus/outreach.json gh-optq-249's note and
+     the C31 row of corpus/external-reruns.json ("independence confirmed on the thread 2026-10-27").
+     THE REGISTRY'S THIRD ROUND PINNED: tools/read-optconst-registry.js gained `registry-2026-10-26` (12 pages, PRs 232, 242,
+     243, 249, 257, 275; readThird) → corpus/optconst-queue/registry-2026-10-26/ (record.json; --check holds: 3 snapshots, 49
+     pins). Facts read from the bytes: CONTRIBUTING's second-party rule with its four routes; #232 and #243 merged 03:53 UTC
+     (commit 6d83f98a) and #257 03:50, SIX asterisks off on our replays (1a A2026/EA2026, 1b A2026/EA2026, 1c R2026, 1d
+     CERT2026), the pages citing [T2026b]/[T2026], the README's two "independently replayed" lines; 84b at 1.9993* citing
+     [T2026]; 31/82/86 still asterisked, no replay cited; the 1d page keeps the row as first printed (1.463071582607559*)
+     beside the corrected one (duplicate1dRow: true — our #243 comment asked which way). /reports/optconst-queue.html: a
+     second "afterwards · 2026-10-26" note from the snapshot. THE CREDITS: README, 1a, 1b, 1c, 1d pinned at e95af44b in
+     corpus/sources/recognition; four rows in corpus/recognition.json (registry-1a-1b, registry-1c-1d on the landing and the
+     queue page; registry-1a-reference, registry-1c-reference). THE PAPER: paper-numbers/cert-machine-method.js reads the third
+     snapshot (MtRgThirdDate, MtRgThirdCommit, MtRgThirdMarksWord = six, MtRgMarksTotalWord = TEN across the three rounds);
+     optconst-replays.tex: the highlight and the Discussion count ten, a new paragraph after the #216 one tells the rule change
+     and the 10-26 merges; `make papers` rebuilt all 32 (tectonic).
+     THE TRUNCATED-UPPER-BOUND SWEEP CLOSED (backlog item 1): tools/verify_gnnw_gai.py printed c with str(x)[:32] at both ends —
+     the upper end of the GNNW certificate read …806, below the enclosure's; now printed(lo, ROUND_FLOOR)/printed(hi,
+     ROUND_CEILING) at 30 decimals in an explicit Context (the default 28-digit context raised InvalidOperation on the first
+     try): c ∈ [3.782328775537311621742800457806, …807], the chain [3.772130762900366389246867113974, …975]; certs re-derived
+     (7.9 s + 188 s), --check identical, the gnnw battery 27/27 + 7 reds. instruments/selfaudit/witness_entropy.py: the
+     witnesses' printed ratio ends (str[:50]) now outward at 48 decimals — the four entropy witnesses in the mutations record
+     KEEP their strings as run (cut toward zero in the 49th decimal, dated at the pin; no decision used them).
+     instruments/lonelyrunner/threshold.py: threshold/target/mass outward at 22 decimals, the shortfall rounded up (no record
+     pins it). THE SELF-AUDIT: amendment 2026-10-27 in notes/selfaudit-preregistration-2026-10-20.md; the inventory
+     regenerated; run + mutations re-pinned (records moved: certs/gnnw-certificate.json; no measurement, mutant or decision
+     touched); concord regenerated (91/91); all four --checks hold; certs/claims-ledger.json and the rerun kit (RERUN.md +
+     /reports/rerun.html) regenerated. PAGES rebuilt and gated green: optconst-queue, optimization-constants, selfaudit,
+     claims, rerun (+ the hubs by the sync). One ruler regression met and fixed: a longer external-rerun outcome cell added a
+     spine to rerun.html at 1440 — the cell shortened, not accepted.
+     RECIPROCITY (the operator's question "are we being kind to offer them verification on their work?"): NO — nothing of
+     theirs has been re-decided by us. Scouted (an agent, read-only) and written to corpus/targets.json as OPEN:
+     jeetu-graphon-bounds-2026 (their C_89/89b/89c Ramsey-multiplicity graphon bounds: #255 merged asterisked, #277 and #279
+     open with NO second party — K_5 minutes, K_6 ~1 h, K_4 ~10 h), jeetu-r3-33-circulant-2026 (R(3,33) ≥ 241, Zenodo
+     23552014, instruments/ramsey as is, under an hour), maximusrufus-c16-bgw-2026 (C_16 enclosure, #246 merged asterisked,
+     eqcert, ~a day). chessing234 (approvals on #243/#249) has no claims of their own. The operator chooses which to build;
+     each posted confirmation would be exactly the second party the rule asks for — kindness that is also the rule.
+     RENTED COMPUTE (the operator's question): RunPod CPU pods top out at 32 vCPU ($0.96/h compute-optimized, HIGH stock,
+     eight data centres). R(8,18) ≥ 1052 is the one item that needs it: ≥ 528 thread-hours by the M2 lower bound (no root
+     finished in 30 min × 8 threads × 66 h), i.e. ≥ 16.5 h ≈ ≥ $16 on one 32-vCPU pod with NO ceiling known — propose a 2 h
+     probe (~$2) with -t 32 and the progress file to measure roots/hour before any full run; a sharper bound (orbits, SAT)
+     first is cheaper. The K_4 graphon (10 h/4 threads) would fit a pod (~$3). Nothing else on the list is compute-bound;
+     the lonely-runner full run ($65–200, cap $250) is a separate target, not on this list.
+     LATER THE SAME SESSION (~02:30–03:30 UTC): (i) the first `make test` found the four self-audit batteries RED — the
+     claims ledger (a date-stamped register) had been regenerated AFTER the re-pin, so the register was off its pin; the
+     chain redone register-first (inventory → re-pin run + mutations, "records moved: none" → concord), all four --checks
+     hold, the method paper + register rebuilt, selfaudit + claims pages green; NOTE tools/run-claims-ledger.js has no
+     --check — calling it rewrites the ledger (same bytes on the same day and commit). ORDER THAT WORKS: regenerate the
+     register, THEN the inventory, THEN the re-pins. (ii) THE PAPER'S INDEPENDENCE SENTENCES FIXED: the table cell read
+     "the λ(4) audit (7 such rerun)" once MtOutsideReruns grew from 1 to 7 — the paragraph and the cell now count the outside
+     reruns from corpus/external-reruns.json split by whether they land on the paper's own rows (MtOutsideRerunsOnRows = 5,
+     by 2 parties: the registry's C3b/C3c/C42/C84b/C31 rows and the kissing ledger; MtOutsideRerunsElsewhere = 2: λ(4),
+     the Ramsey graphs), the counts pinned by need(). λ(4)/λ(5) are lab theorems, not candidates for the exercises; the
+     λ(4) audit keeps its place as third-level evidence. (iii) RECIPROCITY STARTED, in the scratchpad only (no tracked
+     file): R(3,33) ≥ 241 from JeetuSK0808's deposit (Zenodo 23552014, zip sha256 a17548de…, md5 as listed) — the circulant
+     Cay(Z_240, ±{14,34,38,40,43,50,58,60,63,67,69,70,79,87,89,99}) rebuilt from the TEXT; our kernel: triangle side
+     COMPLETE, none (240 roots, 0.0 s); the independence side (k = 33 in the complement) RUNNING with -t 4, budget 7200 s,
+     progress file …/scratchpad/r333/Gc_k33.progress (resumable); their certificate JSON read as data to compare edge
+     sets. An agent is evaluating their K_5 graphon (C_89b, #277) exactly with its own Fraction code in the scratchpad.
+     Integration (corpus/ramsey pin, the ledger row, the page) and any post are NEXT, on the operator's word.
+     ~03:45 UTC, THE K_5 AND K_6 GRAPHON BOUNDS HOLD (the agent's report; its evaluator and logs copied, untracked, to
+     corpus/scouting-2026-10-27/graphon/ours): C_89b's 192-block graphon (D = 2^20, four values, every row 92/87/12/1) has
+     t(K5,W)+t(K5,1−W) = the claimed fraction exactly, 0.00168700513440941957…; the printed 0.0016870052 is it rounded UP —
+     HOLDS. C_89c's Z_2^10 graphon: value·2^14 = 0.74225486159362506107…, the printed 0.7422548616 HOLDS. Positive controls:
+     PPSS's 2320651/1358954496 and Franek's 51162598917/2^50 reproduced exactly; red controls fire; measures sum to 1. Pins:
+     JeetuSK0808/tao-constants-certificates 98b6ee34 (data gz sha256 19c43354…, = their SHA256SUMS); constants/89b.md and
+     89c.md exist only on the PR branches (JeetuSK0808/optimizationproblems 0c26ba04). A nit: their README says the descent
+     moved all 18,528 entries; 1,248 pairs moved, to two values. ONE evaluator so far (level 2 by the house count: two
+     methods by one author); the second implementation (JS BigInt), the instrument, the ledger row and the page are the
+     integration — then the confirmation on #277/#279 is a send, the operator's word.
+     ~04:30 UTC, SCOUTED on "Is this worth a verification?" (OpenAI's 2026-10-26 post "Building scientific understanding with
+     academic communities" — the page itself refuses non-browser fetches and the Chrome route was denied by the permission
+     classifier; read through coverage and through openai/math): the post announces three AI results — local smoothing (and
+     with it Kakeya and Stein restriction in all dimensions), "The Exponential Time Hypothesis is False", and an existence
+     proof for 4D QFTs — with outside "shepherd" groups (ETH: Impagliazzo, Paturi, Williams; physics: Gross, Jaffe, Klebanov,
+     Nekrasov). openai/math moved to 7ef5c0cc the same day (721 manuscripts, 373 families): TWO new Lean-formalized results
+     (ComparatorChallenges LocalSmoothing.json — six theorems, the Kakeya one reads ∀ n ≥ 2 every Kakeya set has dimH = n;
+     SubexponentialSAT.json — one theorem, a primitive multi-tape machine counting width-k CNF assignments within
+     runtimeBound ~ n·(log log n)²/√log n bits of time and polynomial space; enable_nanoda: false), a Hodge-CM
+     formalization, 282 Comparator files changed ("some configurations were fixed": in 3 of the 12 json configs the commit
+     API lists, definition_names went to [] — fewer things compared), and the N(6) = 3 family's numerical artifacts RESTORED
+     (48 MB of records, a coverage checker, the seven C++ sources) — the exact gap our finding `missing-artifacts` (F-532)
+     named. No QFT artifact is in openai/math. Two targets written OPEN: openai-math-release-2026-10-26 (lane K on the diff
+     under two kernels, lane S on the two headline statements, the config fixes vs our held D4) and mub6-saved-run-2026-10-26
+     (an independent coverage checker of the records; maximusrufus's 12.4 h rerun as outside evidence). The mathematics of
+     ETH and Kakeya is the shepherds'; ours is the kernel-level and statement-level replay, dated at the pin.
+     ON "Should we daily search for new math claims to verify?": recommended YES as a SCOUT lane of tools/sweep-claims.js
+     (one module), run daily by a GitHub Actions cron like the PU feed, read-only, writing a dated report (new registry PRs,
+     openai/math and google-deepmind commits, erdosproblems claims, formal-conjectures PRs, arXiv keyword listings, GitHub
+     repo search for certificate words), never posting, never deciding; every new claim gets a targets.json row before any
+     build (the targets rule). Not built — the operator's call.
+     RULES LEARNED: Decimal.quantize to k places needs a Context with prec > the digits printed (the default 28 refuses at 31);
+     a longer table cell on a report page can add a spine — shorten the cell before accepting a ruler regression.
   ★ HANDOFF 2026-10-26 evening — THE ELEIÇÕES 2026 DOSSIER (on the operator's "verify the results ... present the full dossiê
      ... build as unlisted report for now"). LIVE at https://carlostoledo.co/eleicoes2026/ (noindex, in no index or sitemap;
      excluded from pruning in tools/build-site.js; built by apps/eleicoes2026/build.js in `make site`), pushed at 6247c174.
@@ -52,7 +151,9 @@ NEXT SESSION, IN ORDER:
          so the digit goes by a one-digit follow-up PR #275 (OPEN); #257's description edited to …508 and a correction
          comment posted (issuecomment-6421787433). rainrzk/erdos510-lambda4-audit#1 item 3 keeps …507 (left; #257's comment
          corrects it).
-         Also cut toward zero, NOT FIXED yet (measure their re-run cost first):
+         DONE 2026-10-27 (the ★ above): the three remaining sites fixed and re-derived; the sweep's grep now finds only
+         instruments/gnnw/battery.py's [:28] comparison (a test, not a printed bound) and the fei/sumdiff audit pin's text.
+         Were (before 2026-10-27) cut toward zero, NOT FIXED (measure their re-run cost first):
          instruments/lonelyrunner/threshold.py (threshold, target, mass enclosures [:24]) and tools/verify_gnnw_gai.py (c
          enclosure [:32]) — printed enclosures that may not contain their value; fix the same way. The search:
          grep -rnE "str\([a-zA-Z_.]*(hi|upper|Up|_up|Hi|ceiling)[^)]*\)\[:[0-9]+\]" instruments tools. The fei/sumdiff
@@ -80,7 +181,8 @@ NEXT SESSION, IN ORDER:
          take an asterisk off (refereed paper, Palomar-style registration, maintainer, or an independent confirmation in the
          thread); hold notes on #232 #242 #243 #249. Then #257, #232, #243 MERGED (03:50–03:53); constants/1d.md lists
          [CERT2026] twice — our comment on #243 asks which way (issuecomment-6421793916). #249: our reply names JeetuSK0808's
-         in-thread C replay as the second party (issuecomment-6421793297). #242: maximusrufus asked, no obligation, to re-run
+         in-thread C replay as the second party (issuecomment-6421793297). 2026-10-27: JeetuSK0808 CONFIRMED their independence on
+         the thread (issuecomment-6430610425) — Tao's call now. #242: maximusrufus asked, no obligation, to re-run
          C82/C86 (cert-machine#1, issuecomment-6421798844). #275 (C84b digit) open. The credit for #257 pinned
          (corpus/recognition.json registry-84b). Never file an asterisk-removal PR without the second party lined up. Also
          watched: cert-machine#1 (maximusrufus), cryptids

@@ -20,6 +20,17 @@ ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
 sys.path.insert(0, os.path.join(ROOT, 'tools'))
 import verify_sumdiff as V  # noqa: E402  (standard library; no code shared with the JavaScript decider)
 
+
+def down50(x, places=48):
+    """a lower end printed to `places` decimals, rounded down"""
+    return str(Context(prec=places + 40, rounding=ROUND_FLOOR).quantize(Decimal(x), Decimal(1).scaleb(-places)))
+
+
+def up50(x, places=48):
+    """an upper end printed to `places` decimals, rounded up — never below the value it bounds (2026-10-27: str(x)[:50]
+    cut toward zero; the witness's decision is made on the full Decimal, this is only what it prints)"""
+    return str(Context(prec=places + 40, rounding=ROUND_CEILING).quantize(Decimal(x), Decimal(1).scaleb(-places)))
+
 DN = Context(prec=60, rounding=ROUND_FLOOR)
 UP = Context(prec=60, rounding=ROUND_CEILING)
 
@@ -37,7 +48,7 @@ def sumdiff(it):
     lo, hi = V.ratio(prob, mu)
     bar = Decimal(it['claim'])
     violated = hi < bar
-    return {'malformed': False, 'violated': bool(violated), 'violation': {'kind': 'the ratio lies below the bar', 'ratioHi': str(hi)[:50], 'bar': it['claim']} if violated else None, 'exact': [str(lo)[:50], str(hi)[:50]]}
+    return {'malformed': False, 'violated': bool(violated), 'violation': {'kind': 'the ratio lies below the bar', 'ratioHi': up50(hi), 'bar': it['claim']} if violated else None, 'exact': [down50(lo), up50(hi)]}
 
 
 def wht(t):
@@ -106,7 +117,7 @@ def fei(it):
     r_hi = UP.divide(UP.multiply(H_hi, Decimal(den.denominator)), Decimal(den.numerator))
     bar = Decimal(it['claim'])
     violated = r_hi <= bar
-    return {'malformed': False, 'violated': bool(violated), 'violation': {'kind': 'the ratio lies at or below the bar', 'ratioHi': str(r_hi)[:50], 'bar': it['claim']} if violated else None, 'exact': [str(r_lo)[:50], str(r_hi)[:50]]}
+    return {'malformed': False, 'violated': bool(violated), 'violation': {'kind': 'the ratio lies at or below the bar', 'ratioHi': up50(r_hi), 'bar': it['claim']} if violated else None, 'exact': [down50(r_lo), up50(r_hi)]}
 
 
 def main():

@@ -95,6 +95,16 @@ def('MtRunMinutes', String(Math.round(RUN.runs.reduce((s, r) => s + r.seconds, 0
 const EXT = J('corpus/external-reruns.json');
 need(Array.isArray(EXT) && EXT.length > 0, 'no outside rerun is recorded');
 def('MtOutsideReruns', String(EXT.length));
+/* which of them re-derive rows of THIS paper's exercises (the registry's C_3b/C_3c, C_42, C_84b, C_31; the kissing ledger) and
+   which lie outside it (the lambda(4) theorem, the Ramsey graphs): read from each row's records and text, the counts pinned */
+const onRows = (x) => (x.records || []).some((r) => /kissing-ledger|sumdiff-ledger|turan-ledger|lueker-replay|sumproduct-ledger/.test(r))
+  || /sum.difference certificates|C₈₄b|C₄₂ record|C₃₁ rows|kissing configurations/.test(x.what);
+const EXT_ON = EXT.filter(onRows), EXT_OFF = EXT.filter((x) => !onRows(x));
+need(EXT_ON.length === 5 && EXT_OFF.length === 2 && EXT_OFF.some((x) => /λ\(4\)/.test(x.what)) && EXT_OFF.some((x) => /Ramsey/.test(x.what)) && EXT.every((x) => !/disagree[^m]|differs/.test(x.outcome) || /no disagreement/.test(x.outcome)),
+  'the outside reruns are not five on this paper\'s rows and two outside it (λ(4), the Ramsey graphs), all agreeing — rewrite the independence sentences');
+def('MtOutsideRerunsOnRows', String(EXT_ON.length)); def('MtOutsideRerunsElsewhere', String(EXT_OFF.length));
+def('MtOutsideParties', String(new Set(EXT.map((x) => x.who)).size)); def('MtOutsidePartiesOnRows', String(new Set(EXT_ON.map((x) => x.who)).size));
+def('MtOutsideFirstDate', EXT.map((x) => x.date).sort()[0]); def('MtOutsideLastDate', EXT.map((x) => x.date).sort().slice(-1)[0]);
 
 
 /* ---- the three benchmark exercises of the restructured paper (v0.2, 2026-10-14) ---------------------------
@@ -226,6 +236,17 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   const marks = [!RG.replay.asterisksNow['3b'], !RG.replay.asterisksNow['71'], RG.replay.asterisksNow['3cL2026'], !S2.rowJ2026.star].filter(Boolean).length;
   need(marks === 4 && RG2.firstReplayHolds['3b'] && RG2.firstReplayHolds['71'], 'the marks removed on the replays are not the four the paper counts');
   def('MtRgMarksWord', ['no', 'one', 'two', 'three', 'four', 'five'][marks]);
+  /* the third round (2026-10-26, corpus/optconst-queue/registry-2026-10-26/): the second-party rule, then #232, #243 and #257
+     merged minutes after it was stated — six more marks off on the replays; #242, #249 and #275 open under the rule */
+  const RG3 = J('corpus/optconst-queue/registry-2026-10-26/record.json').facts;
+  need(RG3.rule.secondParty && RG3.rule.routes.length === 4 && RG3.merged[232].merged && RG3.merged[243].merged && RG3.merged[257].merged && RG3.marksRemovedOnReplays === 6
+    && RG3.sumProduct.asterisked && ['242', '249', '275'].every((n) => RG3.open[n].state === 'open') && RG3.stillAsterisked['31'] && RG3.stillAsterisked['82'] && RG3.stillAsterisked['86'],
+    'the third snapshot does not show the rule stated, #232/#243/#257 merged with six marks off, and #242/#249/#275 open — rewrite the sentence');
+  const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  def('MtRgThirdDate', RG3.merged[232].mergedAt.slice(0, 10)); def('MtRgThirdCommit', RG3.merged[232].mergeCommit.slice(0, 8));
+  def('MtRgThirdRegistryCommit', RG3.registryCommit.slice(0, 8)); def('MtRgThirdMarksWord', WORDS[RG3.marksRemovedOnReplays]);
+  def('MtRgMarksTotalWord', WORDS[marks + RG3.marksRemovedOnReplays]);
+  def('MtRgThirdMinutes', String(Math.ceil((Date.parse(RG3.merged[232].mergedAt) - Date.parse(RG3.merged[257].mergedAt)) / 60000)));
   /* the three merges' span, and the number of constants the registry's table holds (both from the pinned bytes) */
   const mt = [RG.replay.mergedAt, RG.queue[221].mergedAt, RG.queue[210].mergedAt].map((t) => Date.parse(t));
   def('MtRgMergeMinutes', String(Math.ceil((Math.max(...mt) - Math.min(...mt)) / 60000)));

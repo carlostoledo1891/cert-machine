@@ -14,6 +14,10 @@
      registry-2026-10-18b   after the merges of 05:44–05:56 UTC: #230 merged (the fourth asterisk removed, [T2026b] cited,
                             the reverted note restored), and #225's step functions merged and then asterisked by the
                             maintainer, in a commit that gives the reason
+     registry-2026-10-26    after the merges of 03:50–03:53 UTC on 2026-10-26: #232 (the four C_1a/C_1b step-function rows),
+                            #243 (C_1c and C_1d) and #257 (C_84b corrected to the note's theorem) merged minutes after the
+                            maintainer's hold note; CONTRIBUTING's new rule (removing an asterisk takes a second party);
+                            #242, #249 and #275 open
 
    usage: node tools/read-optconst-registry.js <snapshot>   fetch (gh api), pin, read → corpus/optconst-queue/<snapshot>/
           node tools/read-optconst-registry.js --check      offline: re-hash every snapshot's pins and re-read its facts;
@@ -33,7 +37,10 @@ const gh = (args) => cp.execFileSync('gh', args, { maxBuffer: 64 * 1024 * 1024 }
 const BASE = ['README.md', 'CONTRIBUTING.md', 'constants/3b.md', 'constants/3c.md', 'constants/71a.md', 'constants/21a.md'];
 const SNAPS = {
   'registry-2026-10-18': { pages: BASE, prs: [216, 221, 210, 226, 230], commits: [], read: readMorning },
-  'registry-2026-10-18b': { pages: BASE.concat(['constants/1a.md', 'constants/1b.md']), prs: [216, 221, 210, 225, 226, 230], commits: ['3010f7ed'], read: readAfter }
+  'registry-2026-10-18b': { pages: BASE.concat(['constants/1a.md', 'constants/1b.md']), prs: [216, 221, 210, 225, 226, 230], commits: ['3010f7ed'], read: readAfter },
+  'registry-2026-10-26': { pages: BASE.concat(['constants/1a.md', 'constants/1b.md', 'constants/1c.md', 'constants/1d.md', 'constants/31a.md', 'constants/82a.md', 'constants/84b.md', 'constants/86a.md']),
+    prs: [232, 242, 243, 249, 257, 275], commits: [], read: readThird,
+    what: 'The optimization-constants registry after the merges of 2026-10-26 (#232, #243, #257) and the second-party rule' }
 };
 
 /* ---- fetch and pin (skipped by --check) ---------------------------------------------------------------- */
@@ -70,7 +77,7 @@ function fetchSnapshot(DIR, spec) {
     fs.writeFileSync(path.join(DIR, 'api', 'commit-' + c + '.json'), cbuf);
     files['api/commit-' + c + '.json'] = { url: m.html_url, sha256: sha(cbuf) };
   }
-  fs.writeFileSync(path.join(DIR, 'PINS.json'), JSON.stringify({ what: 'The optimization-constants registry after the 2026-10-18 merges, pinned: the pages at upstream main and the pull requests the method paper\'s second exercise quotes. Read by tools/read-optconst-registry.js; nothing here is ours.', repo: REPO, commit: head.sha, committed: head.commit.committer.date, fetched: new Date().toISOString(), files }, null, 1) + '\n');
+  fs.writeFileSync(path.join(DIR, 'PINS.json'), JSON.stringify({ what: (spec.what || 'The optimization-constants registry after the 2026-10-18 merges') + ', pinned: the pages at upstream main and the pull requests the method paper\'s second exercise quotes. Read by tools/read-optconst-registry.js; nothing here is ours.', repo: REPO, commit: head.sha, committed: head.commit.committer.date, fetched: new Date().toISOString(), files }, null, 1) + '\n');
 }
 
 /* ---- read the facts from the pinned bytes only ---------------------------------------------------------- */
@@ -157,6 +164,58 @@ function readAfter(DIR, spec) {
   if (!(F.firstReplayHolds['3b'] && F.firstReplayHolds['71'] && F.firstReplayHolds.pagesCiting.length === 3)) die('the first replay\'s three marks are not still off');
   if (!(P.merged && A1 && A1.star && A2 && A2.star && !P.citesUs['1a'] && !P.citesUs['1b'] && P.asteriskCommit.author === 'teorth' && P.asteriskCommit.reason)) die('#225 is not merged with its rows asterisked by the maintainer, for the reason quoted');
   return { facts, line: '#230 merged ' + S.mergedAt + ' (C3c ' + S.readme3c + ', [T2026b] cited, 3c row notes ' + S.rowNotes3c + '); #225 merged ' + P.mergedAt + ', asterisked by ' + P.asteriskCommit.author + ' in ' + P.asteriskCommit.sha.slice(0, 8) + '; #226 ' + F.open[226] };
+}
+
+/* after the merges of 2026-10-26: #232, #243 and #257 merged minutes after the maintainer's hold note that stated the new
+   rule; #242, #249 and #275 open. A page's table row for a bound: "| $v$ | [ref] |", the asterisk inside or after the $ */
+function rowOf(t, v, ref) {
+  const re = new RegExp('^\\| \\$' + v.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(\\*)?\\$(\\*)? \\| \\[' + ref + '\\]');
+  const l = t.split('\n').find((x) => re.test(x));
+  if (!l) return null;
+  const m = re.exec(l);
+  return { star: Boolean(m[1] || m[2]), note: /Independently replayed \[T2026b?\]/.test(l) };
+}
+function readThird(DIR, spec) {
+  const { PINS, T, readme, tableRow } = pinned(DIR);
+  const contributing = T('upstream/CONTRIBUTING.md');
+  const page = Object.fromEntries(['1a', '1b', '1c', '1d', '31a', '82a', '84b', '86a'].map((k) => [k, T('upstream/constants/' + k + '.md')]));
+  const pr = prs(T, spec.prs);
+  const citesB = (t) => /\[T2026b\]\**\s*Toledo, Carlos/.test(t);
+  const r = Object.fromEntries(['1a', '1b', '1c', '1d', '31', '82', '84b', '86'].map((k) => [k, tableRow(k)]));
+  const meta = (n) => ({ merged: pr[n].merged, mergedAt: pr[n].merged_at, mergedBy: pr[n].merged_by, mergeCommit: pr[n].merge_commit_sha, createdAt: pr[n].created_at, state: pr[n].state });
+  const facts = {
+    registryCommit: PINS.commit, registryCommitted: PINS.committed, fetched: PINS.fetched,
+    rule: { secondParty: contributing.includes('**Removing an asterisk takes a second party.**'),
+      routes: ['refereed and published', 'Palomar', 'a maintainer signs off', 'someone independent confirms'].filter((w) => contributing.includes(w)) },
+    merged: { 232: meta(232), 243: meta(243), 257: meta(257) },
+    open: { 242: meta(242), 249: meta(249), 275: meta(275) },
+    stepFunctions: { readme: { '1a': r['1a'].upper, '1b': r['1b'].upper },
+      rows: { '1a-A2026': rowOf(page['1a'], '1.5027434868', 'A2026'), '1a-EA2026': rowOf(page['1a'], '1.5027435320', 'EA2026'),
+        '1b-A2026': rowOf(page['1b'], '0.3808585504', 'A2026'), '1b-EA2026': rowOf(page['1b'], '0.3808585749', 'EA2026') },
+      cites: { '1a': citesB(page['1a']), '1b': citesB(page['1b']) },
+      progressLine: readme.split('\n').some((l) => /^- \[1a\]\(.*\[1b\]\(.*\*\*independently replayed:\*\*.*Toledo/.test(l)) },
+    autocorr: { readme: { '1c': r['1c'].upper, '1d': r['1d'].upper },
+      rows: { '1c-R2026': rowOf(page['1c'], '0.4103287', 'R2026'), '1d-CERT2026': rowOf(page['1d'], '1.4630715826075594', 'CERT2026'),
+        '1d-CERT2026-asPrinted': rowOf(page['1d'], '1.463071582607559', 'CERT2026') },
+      cites: { '1c': cites(page['1c']), '1d': cites(page['1d']) },
+      progressLine: readme.split('\n').some((l) => /^- \[1c\]\(.*\[1d\]\(.*\*\*independently replayed:\*\*.*Toledo/.test(l)) },
+    sumProduct: { readme: r['84b'].upper, asterisked: /1\.9993\*/.test(r['84b'].upper), cites: cites(page['84b']),
+      progressLine: readme.split('\n').some((l) => /^- \[84b\]\(.*\*\*improved upper bound \(unverified\):\*\*.*1\.9993\*/.test(l)) },
+    stillAsterisked: { '31': /\*/.test(r['31'].upper), '82': /\*/.test(r['82'].upper), '86': /\*/.test(r['86'].upper),
+      cites: { '31a': cites(page['31a']), '82a': cites(page['82a']), '86a': cites(page['86a']) } }
+  };
+  const F = facts, S = F.stepFunctions, A = F.autocorr;
+  const sfRows = Object.values(S.rows), acRows = [A.rows['1c-R2026'], A.rows['1d-CERT2026']];
+  if (!(F.rule.secondParty && F.rule.routes.length === 4)) die('CONTRIBUTING does not state the second-party rule with its four routes');
+  if (!Object.values(F.merged).every((m) => m.merged && m.mergedBy === 'teorth')) die('#232, #243 and #257 are not all merged by the maintainer');
+  if (!Object.values(F.open).every((m) => m.state === 'open' && !m.merged)) die('#242, #249 and #275 are not all open');
+  if (!(sfRows.every((x) => x && !x.star && x.note) && !S.readme['1a'].includes('*') && !S.readme['1b'].includes('*') && S.cites['1a'] && S.cites['1b'] && S.progressLine)) die('#232 is not merged with the four step-function rows unmarked, [T2026b] cited and the README line in place');
+  if (!(acRows.every((x) => x && !x.star && x.note) && !A.readme['1c'].includes('*') && !A.readme['1d'].includes('*') && A.cites['1c'] && A.cites['1d'] && A.progressLine)) die('#243 is not merged with the C_1c and C_1d rows unmarked, [T2026] cited and the README line in place');
+  if (!(F.sumProduct.asterisked && F.sumProduct.cites && F.sumProduct.progressLine)) die('#257 is not merged with C_84b at 1.9993*, [T2026] cited and the README line in place');
+  if (!(F.stillAsterisked['31'] && F.stillAsterisked['82'] && F.stillAsterisked['86'] && !F.stillAsterisked.cites['31a'] && !F.stillAsterisked.cites['82a'] && !F.stillAsterisked.cites['86a'])) die('C_31, C_82 and C_86 are not still asterisked with no replay cited (#249 and #242 open)');
+  facts.marksRemovedOnReplays = sfRows.length + acRows.length;   // six on this day; four before it (registry-2026-10-18, -18b)
+  facts.duplicate1dRow = Boolean(A.rows['1d-CERT2026-asPrinted']);  // the page keeps the row as first printed (asterisked) beside the corrected one
+  return { facts, line: '#232 merged ' + F.merged[232].mergedAt + ', #243 ' + F.merged[243].mergedAt + ', #257 ' + F.merged[257].mergedAt + '; six marks off on the replays; the second-party rule stated; #242, #249, #275 open; 1d row kept as printed: ' + facts.duplicate1dRow };
 }
 
 /* ---- run --------------------------------------------------------------------------------------------- */

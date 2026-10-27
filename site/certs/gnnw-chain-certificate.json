@@ -1,6 +1,6 @@
 {
  "what": "A chain of iterations of GNNW Theorem 14 (arXiv 2407.19026v2), each decided on all of (0, 1]: step 1 is the remark's G_AI in the region of the proved F_0.03; step k > 1 is a degree-9 correction proposed by this program's float optimiser, in the region of the bound step k-1 establishes (Lemma 15's hypotheses for that bound decided first). The conclusion is the paper's theorem applied six times: R(k, k) <= c^(k+o(k)) with c = e^F(1) of the last step. Re-run: python3 verify/verify_gnnw_gai.py certs/gnnw-chain-certificate.json",
- "generated": "2026-09-29",
+ "generated": "2026-10-26",
  "source": {
   "paper": "arXiv:2407.19026v2",
   "sha256": "2d5be61d04424f096ab1e4f6d94aefaacda71189276f281807ee5e8650c2eae9"
@@ -726,7 +726,7 @@
  ],
  "verifier": {
   "file": "tools/verify_gnnw_gai.py",
-  "sha256": "996c82c5500cde1b7ca72e55ee38b0ac27dd54be92387b4230117637e596a2f7"
+  "sha256": "f0783e61a21a152c77d15358b41da68f394656b2e0329f887743a2682cf035a2"
  },
  "second": {
   "file": "instruments/gnnw/second.js",
@@ -809,7 +809,7 @@
   "verdict": "CERTIFIED",
   "c": [
    "3.772130762900366389246867113974",
-   "3.772130762900366389246867113974"
+   "3.772130762900366389246867113975"
   ],
   "bases": [
    "3.78232877553731",
@@ -863,6 +863,6 @@
     "region": "strictly concave and increasing on (0, 1]; A < B"
    }
   ],
-  "seconds": 175.8
+  "seconds": 188.2
  }
 }

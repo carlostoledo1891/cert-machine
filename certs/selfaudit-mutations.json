@@ -13,16 +13,16 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be"
+  "sha256": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "8169578404d3c801e99a11491c2597062cc329278b6dadd5fee861da7e4c42e1"
+  "sha256": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
  },
  "inputs": {
   "register": {
    "path": "certs/claims-ledger.json",
-   "sha256": "981131c1e185dc452eb91fc932bb469219c25368c530239fcdd0d72e8cd4b568",
+   "sha256": "42e96aa98a0c8613b255f2678bfabcc3e58de7c1a6c1344630da2f5d1ed7389f",
    "rows": 132
   },
   "recordPins": {
@@ -41,7 +41,7 @@
    "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
    "certs/turan-ledger.json": "e6143188777c194f0efae8a6ec56c493920d17aee93372fa584c7d784e38db73",
    "certs/horizonmath-ledger.json": "78adab0aa528381db4e8a49e4ba7e0a57224f536d1ea984472fa402a2ee1f03a",
-   "certs/gnnw-certificate.json": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273",
+   "certs/gnnw-certificate.json": "3d53ef1378303a8a4dde462c92e8659b291f9e8c97a281d6dc4de1120a901116",
    "certs/sumproduct-ledger.json": "d7ba43139ee629015bb0f075400fb497e20266551cf41966f7f095249c11b8f0"
   }
  },
@@ -29632,6 +29632,40 @@
    "after": {
     "preregistration": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be",
     "inventory": "8169578404d3c801e99a11491c2597062cc329278b6dadd5fee861da7e4c42e1"
+   }
+  },
+  {
+   "at": "2026-10-27T01:04:53.166Z",
+   "git": "aae61990",
+   "why": "Amendment 2026-10-27: tools/verify_gnnw_gai.py now prints the c enclosure rounded outward (str(x)[:32] cut both ends toward zero); certs/gnnw-certificate.json and gnnw-chain-certificate.json re-derived (the 31st decimal of the upper end and the verifier's sha256); no decision, verdict or mutant outcome moved",
+   "before": {
+    "preregistration": "1a128dc6c9f5a883c806b646adf43a3e0e476f32cf5f475f351d3127bab669be",
+    "inventory": "8169578404d3c801e99a11491c2597062cc329278b6dadd5fee861da7e4c42e1",
+    "recordsMoved": [
+     {
+      "record": "certs/gnnw-certificate.json",
+      "from": "b7127457078d064ed8b6e7cd4f26110f8949c7a384b322a0d22de575a9875273",
+      "to": "3d53ef1378303a8a4dde462c92e8659b291f9e8c97a281d6dc4de1120a901116"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
+    "inventory": "40f27fb2f26834c9e98d17846902c7433b5c54d8f9fb9b359bd1278327c44cd5"
+   }
+  },
+  {
+   "at": "2026-10-27T02:04:52.937Z",
+   "git": "aae61990",
+   "why": "Amendment 2026-10-27, the re-pin repeated: the register (certs/claims-ledger.json) was regenerated after the first re-pin and carries a date stamp, so it had moved off its pin; nothing else moved",
+   "before": {
+    "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
+    "inventory": "40f27fb2f26834c9e98d17846902c7433b5c54d8f9fb9b359bd1278327c44cd5",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
+    "inventory": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
    }
   }
  ]

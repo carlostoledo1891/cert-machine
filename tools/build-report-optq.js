@@ -72,6 +72,20 @@ B.push(C.tldr({
     + C.esc(P.asteriskCommit.reason.replace(/\s+/g, ' ')) + '\u201d (commit ' + C.esc(P.asteriskCommit.sha.slice(0, 8)) + '); the exact decision above was posted as a comment on that pull request and is not cited there. '
     + '<b>#210</b>\'s package went in asterisked. #217 and #226 are open. The registry\'s bytes after each round are pinned in ' + C.m('corpus/optconst-queue/registry-2026-10-18/') + ' and ' + C.m('registry-2026-10-18b/') + '.') }) + '</div>');
 }
+/* what the registry did next, 2026-10-26, read from the third snapshot (registry-2026-10-26): the rule changed and three replays merged */
+{
+  const RG3 = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', 'registry-2026-10-26', 'record.json'), 'utf8')).facts;
+  const M = RG3.merged, O = RG3.open;
+  if (!(RG3.rule.secondParty && RG3.rule.routes.length === 4 && M[232].merged && M[243].merged && M[257].merged && RG3.marksRemovedOnReplays === 6 && RG3.sumProduct.asterisked
+    && O[242].state === 'open' && O[249].state === 'open' && O[275].state === 'open' && RG3.stillAsterisked['31'] && RG3.stillAsterisked['82'] && RG3.stillAsterisked['86']))
+    die('the third registry snapshot no longer says what the second afterwards note says — rewrite it');
+  const hm = (iso) => iso.slice(11, 16) + ' UTC';
+  B.push('<div class="col">' + C.note({ lab: 'afterwards · ' + M[232].mergedAt.slice(0, 10), bodyRaw: C.pRaw('The maintainer changed the rule, then merged three more. CONTRIBUTING now says that <b>removing an asterisk takes a second party</b>: a refereed paper, a registration with a service that checks the proof mechanically, a maintainer\'s sign-off, or someone independent confirming the replay on the thread — a replay by the requester alone is not enough, however documented. '
+    + 'Minutes after stating it he merged <a href="https://github.com/teorth/optimizationproblems/pull/232">#232</a> (the four C₁a and C₁b rows of §2, ' + hm(M[232].mergedAt) + ', commit ' + C.esc(M[232].mergeCommit.slice(0, 8)) + ') and <a href="https://github.com/teorth/optimizationproblems/pull/243">#243</a> (C₁c and C₁d of §7, ' + hm(M[243].mergedAt) + '): six asterisks removed, the pages citing the replays as [T2026b] and [T2026], the C₁d bound printed rounded up'
+    + (RG3.duplicate1dRow ? ' — the 1d page keeps the row as first printed beside the corrected one' : '') + '. <a href="https://github.com/teorth/optimizationproblems/pull/257">#257</a> (' + hm(M[257].mergedAt) + ') corrected C₈₄b to the note\'s theorem, ' + C.m('1.9993*') + ', still asterisked; its ceiling digit is <a href="https://github.com/teorth/optimizationproblems/pull/275">#275</a>, open. '
+    + '<a href="https://github.com/teorth/optimizationproblems/pull/242">#242</a> (C₈₂ and C₈₆, §8 and §9) and <a href="https://github.com/teorth/optimizationproblems/pull/249">#249</a> (C₃₁) stay open under the new rule, waiting for a second party; their rows keep the asterisk. '
+    + 'The registry\'s bytes after this round are pinned in ' + C.m('corpus/optconst-queue/registry-2026-10-26/') + '.') }) + '</div>');
+}
 B.push(C.stats([
   { k: 'decided', v: String(L.counts.CERTIFIED), n: L.counts.REFUTED + ' refuted · ' + L.counts.REFUSED + ' refused (evidence not submitted). 16a and 70a joined the decided on 10-16.' },
   { k: 'C₁a ≤', v: r1a.valueDecimal.slice(0, 10), n: 'From the registry\'s 1.502862; a 65,536-step function, exact.' },

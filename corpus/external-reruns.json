@@ -1,115 +1,115 @@
 [
-  {
-    "who": "rainrzk (GitHub)",
-    "date": "2026-09-30",
-    "what": "λ(4) for Erdős #510 (reports/lambda4.html): the cubic, the 14 generic collisions and the nine families re-derived from the write-up with independent code; every finite case re-certified in interval arithmetic; every gcd-reduced 4-set with largest element ≤ 80 swept as a proof-independent control.",
-    "kind": "own-code",
-    "where": "https://github.com/rainrzk/erdos510-lambda4-audit",
-    "posted": "https://github.com/teorth/erdosproblems/issues/392",
-    "hash": null,
-    "outcome": "the same verdict; three documentation findings in the write-up, folded in (commit 1c248ca)"
-  },
-  {
-    "who": "maximusrufus (GitHub)",
-    "date": "2026-10-23",
-    "what": "Twelve register rows re-decided with their own exact code, at cert-machine aa52e8d (Linux): the kissing configurations of AlphaEvolve (593) and EinsteinArena (594, 604); the sum–difference certificates of 3b (13 points) and 3c (147 and 95 points), agreeing to 30 digits; and six EinsteinArena constructions — two circles-in-a-rectangle (with the 44 overlapping pairs of the as-published Together AI packing), two Heilbronn convex, two min-distance ratios. A duplicated vector and moved probability weight are rejected by their check as by ours.",
-    "kind": "own-code",
-    "rows": [
-      "kiss-alphaevolve-593",
-      "kiss-ea-594-winner",
-      "kiss-ea-604",
-      "optconst-3b",
-      "optconst-3c",
-      "optconst-3c-95",
-      "ea-circles-alphaevolve_2025",
-      "ea-circles-ours_2026",
-      "ea-heilbronn-alphaevolve_2025",
-      "ea-heilbronn-ours_2026",
-      "ea-mindist-alphaevolve_2025",
-      "ea-mindist-ours_2026"
-    ],
-    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
-    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
-    "hash": null,
-    "outcome": "the same verdict on all twelve rows, no disagreement; two findings, both answered on the thread"
-  },
-  {
-    "who": "maximusrufus (GitHub)",
-    "date": "2026-10-23",
-    "what": "The three ledgers re-derived with the tools that write them, at cert-machine aa52e8d (Linux, Python 3.14.4, Node v22.11.0); verify_sumdiff.py run beside the sum–difference ledger, its false-bound control firing.",
-    "kind": "full-rederive",
-    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
-    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
-    "hash": null,
-    "outcome": "every verdict and count identical",
-    "records": [
-      "certs/kissing-ledger.json",
-      "certs/sumdiff-ledger.json",
-      "certs/easota-ledger.json"
-    ],
-    "pages": [
-      "reports/kissing.html",
-      "reports/optimization-constants.html",
-      "reports/easota.html"
-    ]
-  },
-  {
-    "who": "JeetuSK0808 (GitHub)",
-    "date": "2026-10-24",
-    "what": "The registry’s two C₃₁ rows (Lueker’s automaton at h = 9 and h = 10), our replay of reports/chvatal-sankoff.html re-derived with their own C program, written from Lueker’s published programs with no code of ours or the claimant’s: the state counts equal ours at h = 8, 9 and 10 (6,419,109; 51,425,006; 400,253,317); λ certified in round-to-nearest with an explicit inflation; γ₂ ≤ 0.8251007652 and ≤ 0.8241199563, below the printed bounds.",
-    "kind": "own-code",
-    "records": [
-      "certs/lueker-replay.json"
-    ],
-    "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/fbe82cc/c31-chvatal-sankoff-replay",
-    "posted": "https://github.com/teorth/optimizationproblems/pull/249#issuecomment-6379485903",
-    "hash": null,
-    "outcome": "the same verdict on both rows; their bounds a little looser (vectors stopped once certified)",
-    "pages": [
-      "reports/chvatal-sankoff.html"
-    ]
-  },
-  {
-    "who": "JeetuSK0808 (GitHub)",
-    "date": "2026-10-24",
-    "what": "The registry’s C₈₄b correction (reports/optimization-constants.html §4) re-derived in their own interval arithmetic (mpmath), the note’s lemmas and inputs taken as given: c ≈ 0.000706 at the note’s choice; at most about 0.000707 over Y and X with R_K ≤ 103^d, and 0.00071385 with the regulator at its limit — so 0.000719 is not reached and 1.9993 is the entry.",
-    "kind": "own-code",
-    "rows": [
-      "optconst-84b"
-    ],
-    "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/f43c315/c84b-sum-product-check",
-    "posted": "https://github.com/teorth/optimizationproblems/pull/257#issuecomment-6379486052",
-    "hash": null,
-    "outcome": "the same verdict; their 0.00071385 is the maximum, our 0.0007150508 a ceiling above it (answered on the thread, where we printed 0.0007150507: the ceiling truncated, rounded outward since 2026-10-24)"
-  },
-  {
-    "who": "maximusrufus (GitHub)",
-    "date": "2026-10-24",
-    "what": "The registry’s C₄₂ record (certs/turan-ledger.json) re-derived with the tool that writes it, at cert-machine 8924797: both rows identical. The rerun’s reading of instruments/turan/c42.py found three defects, none moving a verdict: failed checks answered REFUTED where the rule asks REFUSED, printed upper ends truncated rather than rounded outward, and the two routes compared on truncated strings.",
-    "kind": "full-rederive",
-    "rows": [
-      "optconst-42a",
-      "optconst-42a-pr184"
-    ],
-    "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
-    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
-    "hash": null,
-    "outcome": "the same verdicts (PARTIAL); the three defects fixed, recorded in the self-audit’s amendment of 2026-10-24"
-  },
-  {
-    "who": "maximusrufus (GitHub)",
-    "date": "2026-10-24",
-    "what": "Google’s AlphaEvolve Ramsey lower-bound graphs decided with their own clique search (two methods), before ours and with no code of ours: 15 of the 18 graphs, the verdicts compared with certs/ramsey-ledger.json.",
-    "kind": "own-code",
-    "records": [
-      "certs/ramsey-ledger.json"
-    ],
-    "pages": [
-      "reports/ramsey-graphs.html"
-    ],
-    "where": "https://github.com/maximusrufus/openai-math-replays/tree/4c5524a0e03e88bd96f48d68e8ec25aa5f7566cd/ramsey_alphaevolve",
-    "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
-    "hash": null,
-    "outcome": "the same verdict on all 15; R(10,12) and R(7,13), which they could not finish, decided here; R(8,18) unfinished on both sides"
-  }
+ {
+  "who": "rainrzk (GitHub)",
+  "date": "2026-09-30",
+  "what": "λ(4) for Erdős #510 (reports/lambda4.html): the cubic, the 14 generic collisions and the nine families re-derived from the write-up with independent code; every finite case re-certified in interval arithmetic; every gcd-reduced 4-set with largest element ≤ 80 swept as a proof-independent control.",
+  "kind": "own-code",
+  "where": "https://github.com/rainrzk/erdos510-lambda4-audit",
+  "posted": "https://github.com/teorth/erdosproblems/issues/392",
+  "hash": null,
+  "outcome": "the same verdict; three documentation findings in the write-up, folded in (commit 1c248ca)"
+ },
+ {
+  "who": "maximusrufus (GitHub)",
+  "date": "2026-10-23",
+  "what": "Twelve register rows re-decided with their own exact code, at cert-machine aa52e8d (Linux): the kissing configurations of AlphaEvolve (593) and EinsteinArena (594, 604); the sum–difference certificates of 3b (13 points) and 3c (147 and 95 points), agreeing to 30 digits; and six EinsteinArena constructions — two circles-in-a-rectangle (with the 44 overlapping pairs of the as-published Together AI packing), two Heilbronn convex, two min-distance ratios. A duplicated vector and moved probability weight are rejected by their check as by ours.",
+  "kind": "own-code",
+  "rows": [
+   "kiss-alphaevolve-593",
+   "kiss-ea-594-winner",
+   "kiss-ea-604",
+   "optconst-3b",
+   "optconst-3c",
+   "optconst-3c-95",
+   "ea-circles-alphaevolve_2025",
+   "ea-circles-ours_2026",
+   "ea-heilbronn-alphaevolve_2025",
+   "ea-heilbronn-ours_2026",
+   "ea-mindist-alphaevolve_2025",
+   "ea-mindist-ours_2026"
+  ],
+  "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+  "hash": null,
+  "outcome": "the same verdict on all twelve rows, no disagreement; two findings, both answered on the thread"
+ },
+ {
+  "who": "maximusrufus (GitHub)",
+  "date": "2026-10-23",
+  "what": "The three ledgers re-derived with the tools that write them, at cert-machine aa52e8d (Linux, Python 3.14.4, Node v22.11.0); verify_sumdiff.py run beside the sum–difference ledger, its false-bound control firing.",
+  "kind": "full-rederive",
+  "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6373634714",
+  "hash": null,
+  "outcome": "every verdict and count identical",
+  "records": [
+   "certs/kissing-ledger.json",
+   "certs/sumdiff-ledger.json",
+   "certs/easota-ledger.json"
+  ],
+  "pages": [
+   "reports/kissing.html",
+   "reports/optimization-constants.html",
+   "reports/easota.html"
+  ]
+ },
+ {
+  "who": "JeetuSK0808 (GitHub)",
+  "date": "2026-10-24",
+  "what": "The registry’s two C₃₁ rows (Lueker’s automaton at h = 9 and h = 10), our replay of reports/chvatal-sankoff.html re-derived with their own C program, written from Lueker’s published programs with no code of ours or the claimant’s: the state counts equal ours at h = 8, 9 and 10 (6,419,109; 51,425,006; 400,253,317); λ certified in round-to-nearest with an explicit inflation; γ₂ ≤ 0.8251007652 and ≤ 0.8241199563, below the printed bounds.",
+  "kind": "own-code",
+  "records": [
+   "certs/lueker-replay.json"
+  ],
+  "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/fbe82cc/c31-chvatal-sankoff-replay",
+  "posted": "https://github.com/teorth/optimizationproblems/pull/249#issuecomment-6379485903",
+  "hash": null,
+  "outcome": "the same verdict on both rows; their bounds a little looser (vectors stopped once certified); their independence confirmed on the thread 2026-10-27",
+  "pages": [
+   "reports/chvatal-sankoff.html"
+  ]
+ },
+ {
+  "who": "JeetuSK0808 (GitHub)",
+  "date": "2026-10-24",
+  "what": "The registry’s C₈₄b correction (reports/optimization-constants.html §4) re-derived in their own interval arithmetic (mpmath), the note’s lemmas and inputs taken as given: c ≈ 0.000706 at the note’s choice; at most about 0.000707 over Y and X with R_K ≤ 103^d, and 0.00071385 with the regulator at its limit — so 0.000719 is not reached and 1.9993 is the entry.",
+  "kind": "own-code",
+  "rows": [
+   "optconst-84b"
+  ],
+  "where": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/f43c315/c84b-sum-product-check",
+  "posted": "https://github.com/teorth/optimizationproblems/pull/257#issuecomment-6379486052",
+  "hash": null,
+  "outcome": "the same verdict; their 0.00071385 is the maximum, our 0.0007150508 a ceiling above it (answered on the thread, where we printed 0.0007150507: the ceiling truncated, rounded outward since 2026-10-24)"
+ },
+ {
+  "who": "maximusrufus (GitHub)",
+  "date": "2026-10-24",
+  "what": "The registry’s C₄₂ record (certs/turan-ledger.json) re-derived with the tool that writes it, at cert-machine 8924797: both rows identical. The rerun’s reading of instruments/turan/c42.py found three defects, none moving a verdict: failed checks answered REFUTED where the rule asks REFUSED, printed upper ends truncated rather than rounded outward, and the two routes compared on truncated strings.",
+  "kind": "full-rederive",
+  "rows": [
+   "optconst-42a",
+   "optconst-42a-pr184"
+  ],
+  "where": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+  "hash": null,
+  "outcome": "the same verdicts (PARTIAL); the three defects fixed, recorded in the self-audit’s amendment of 2026-10-24"
+ },
+ {
+  "who": "maximusrufus (GitHub)",
+  "date": "2026-10-24",
+  "what": "Google’s AlphaEvolve Ramsey lower-bound graphs decided with their own clique search (two methods), before ours and with no code of ours: 15 of the 18 graphs, the verdicts compared with certs/ramsey-ledger.json.",
+  "kind": "own-code",
+  "records": [
+   "certs/ramsey-ledger.json"
+  ],
+  "pages": [
+   "reports/ramsey-graphs.html"
+  ],
+  "where": "https://github.com/maximusrufus/openai-math-replays/tree/4c5524a0e03e88bd96f48d68e8ec25aa5f7566cd/ramsey_alphaevolve",
+  "posted": "https://github.com/carlostoledo1891/cert-machine/issues/1#issuecomment-6385439601",
+  "hash": null,
+  "outcome": "the same verdict on all 15; R(10,12) and R(7,13), which they could not finish, decided here; R(8,18) unfinished on both sides"
+ }
 ]

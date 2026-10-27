@@ -47,6 +47,13 @@ DN = Context(prec=PREC, rounding=ROUND_FLOOR, **_E)
 UP = Context(prec=PREC, rounding=ROUND_CEILING, **_E)
 NE = Context(prec=PREC, rounding=ROUND_HALF_EVEN, **_E)
 
+
+def printed(x, rounding, places=30):
+    """an enclosure end printed to `places` decimals and rounded OUTWARD (the lower end down, the upper end up): never
+    inside the value it bounds (2026-10-27, the C31/C42/C84b lesson: str(x)[:32] cut both ends toward zero, so the
+    printed upper end of c sat below the enclosure's). The decision is made on the full Decimal, never on this string."""
+    return str(Context(prec=places + 40, rounding=rounding).quantize(Decimal(x), Decimal(1).scaleb(-places)))
+
 Q_AI = [Fr(Decimal(s)) for s in ('-0.3864', '0.8347', '-2.0156', '2.7171', '-1.7541', '0.4522')]   # replaced by the certificate's q
 P03 = [Fr(-1, 4), Fr(3, 100), Fr(8, 100)]   # GNNW Theorem 1's G: the PROVED bound whose Lemma 15 region the first step uses; never read from a certificate
 PR = P03   # the region's q: F_0.03 for the first step of a chain, then each step's own certified q
@@ -479,7 +486,7 @@ def certify_step(cert, log=None):
             log(j, stats)
     c = (F_of(Q_AI, ONE)).exp()
     return {'claim': 'GNNW Theorem 14 holds for F = h + q e^-l with the certificate\'s q and M and Y = Y_f(X), f = F_0.03, on all of (0, 1]; so R(k,k) <= e^{F(1)(k+o(k))}',
-            'verdict': 'CERTIFIED', 'c': [str(c.lo)[:32], str(c.hi)[:32]], 'stats': stats}
+            'verdict': 'CERTIFIED', 'c': [printed(c.lo, ROUND_FLOOR), printed(c.hi, ROUND_CEILING)], 'stats': stats}
 
 
 if __name__ == '__main__':

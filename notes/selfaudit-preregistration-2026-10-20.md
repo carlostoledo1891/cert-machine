@@ -45,6 +45,18 @@
 > moves (those digits and the code's sha256); the sumproduct row was never mutated (0 mutants), so no mutant or decision
 > moves; the inventory is regenerated and the run and mutations records re-pinned with this amendment as the reason.
 
+> **Amendment 2026-10-27 (two more printed enclosures rounded outward; no definition moved).** The same sweep found the
+> last two sites that cut a printed enclosure toward zero: tools/verify_gnnw_gai.py printed c = e^{F(1)} as
+> str(x)[:32] at both ends, so the upper end of the GNNW certificate (and of its chain's) read 3.782328775537311621742800457806,
+> below the enclosure's; instruments/selfaudit/witness_entropy.py printed its witnesses' ratio ends with str(x)[:50]
+> (and instruments/lonelyrunner/threshold.py, which no record pins, with str(x)[:24]). Each now prints the lower end
+> rounded down and the upper end rounded up (…807 for c); every decision is made on the full Decimal, so no verdict,
+> check or mutant outcome moves. certs/gnnw-certificate.json and certs/gnnw-chain-certificate.json move (the digit and
+> the verifier's sha256); the gnnw rows' mutants were decided on the old verifier and are not re-run — the fix is to the
+> print, not to the decision — and the four entropy witnesses in the mutations record keep the strings as run (cut
+> toward zero in their 49th decimal, dated at the pin). The inventory is regenerated and the run and mutations records
+> re-pinned with this amendment as the reason.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

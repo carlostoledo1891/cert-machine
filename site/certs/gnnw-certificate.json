@@ -1,6 +1,6 @@
 {
  "what": "The iteration GNNW v2 prints as \"preliminary, unverified\" (G_AI, proposed by ChatGPT 5.6 Sol), decided: Theorem 14 of the same paper checked on all of (0, 1] for F = h + G_AI, with a continuous M chosen here and Y = Y_f(X) from Lemma 15 for the proved bound f = F_0.03 of Theorem 1. The conclusion is the paper's: R(k, l) <= e^{F(l/k)k + o(k)} for k >= l, so R(k, k) <= c^(k+o(k)), c = e^F(1). Re-run: python3 verify/verify_gnnw_gai.py certs/gnnw-certificate.json",
- "generated": "2026-09-29",
+ "generated": "2026-10-26",
  "source": {
   "paper": "arXiv:2407.19026v2",
   "sha256": "2d5be61d04424f096ab1e4f6d94aefaacda71189276f281807ee5e8650c2eae9",
@@ -128,7 +128,7 @@
  "mWhat": "m(l) = M(l)/l at l = j/100, j = 0..100; M is l times the piecewise-linear interpolant (continuous, as GNNW Theorem 14 asks). Chosen by this program: at each node the float value of M maximising the slack, rounded to six decimals; at 0 the root 1.505717 of 1/mu + 1/(E + mu) = 1, E = e^0.3864, which maximises the slack's limit slack/l as l -> 0. A proposer's choice: any continuous M in (0, 1) that passes is a witness.",
  "verifier": {
   "file": "tools/verify_gnnw_gai.py",
-  "sha256": "996c82c5500cde1b7ca72e55ee38b0ac27dd54be92387b4230117637e596a2f7"
+  "sha256": "f0783e61a21a152c77d15358b41da68f394656b2e0329f887743a2682cf035a2"
  },
  "curve": {
   "what": "slack(l)/l at sample points, the lower end of an interval enclosure each (for the page's figure; the decision is the intervals, not these points)",
@@ -780,7 +780,7 @@
   "claim": "GNNW Theorem 14 holds for F = h + q e^-l with the certificate's q and M and Y = Y_f(X), f = F_0.03, on all of (0, 1]; so R(k,k) <= e^{F(1)(k+o(k))}",
   "c": [
    "3.782328775537311621742800457806",
-   "3.782328775537311621742800457806"
+   "3.782328775537311621742800457807"
   ],
   "printedBase": "3.78233",
   "printedDigitsHold": true,
@@ -799,6 +799,6 @@
     0.69
    ]
   },
-  "seconds": 7.6
+  "seconds": 7.9
  }
 }

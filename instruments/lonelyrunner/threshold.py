@@ -16,11 +16,22 @@ Definitions (paper, Proposition prop:prefix, Lemma lem:minimize, Theorem thm:fla
 import json
 import math
 import sys
-from decimal import Decimal, getcontext
+from decimal import Decimal, getcontext, ROUND_FLOOR, ROUND_CEILING, Context
 from fractions import Fraction
 
 getcontext().prec = 80
 ULP = Decimal(10) ** -75
+
+
+def down(x, places=22):
+    """a lower end printed to `places` decimals, rounded down — never above the value it bounds"""
+    return str(Context(prec=places + 40, rounding=ROUND_FLOOR).quantize(Decimal(x), Decimal(1).scaleb(-places)))
+
+
+def up(x, places=22):
+    """an upper end printed to `places` decimals, rounded up — never below the value it bounds (2026-10-27: str(x)[:24]
+    cut both ends toward zero, so a printed upper end could sit below the enclosure's)"""
+    return str(Context(prec=places + 40, rounding=ROUND_CEILING).quantize(Decimal(x), Decimal(1).scaleb(-places)))
 
 
 def ln_enclosure(q):
@@ -53,9 +64,9 @@ out = {
     'K_n': '%d/%d' % (K.numerator, K.denominator),
     'minRatio': '%s' % min(ratios), 'ratioHypothesisHolds': all(r > Fraction(4, 3) for r in ratios),
     'A_n': str((Decimal(K.denominator) / Decimal(K.numerator)).sqrt())[:30],
-    'threshold': [str(thr_lo)[:24], str(thr_hi)[:24]],
+    'threshold': [down(thr_lo), up(thr_hi)],
     'lcm': lcm,
-    'target': [str(target_lo)[:24], str(target_hi)[:24]],
+    'target': [down(target_lo), up(target_hi)],
     'notChecked': 'the proofs of Section 3 (prop:prefix, lem:kz, lem:minimize, lem:det, lem:shape) are read, not certified',
 }
 if '--primes' in sys.argv:
@@ -64,7 +75,7 @@ if '--primes' in sys.argv:
     lo = sum(ln_enclosure(Fraction(q))[0] for q in ps)
     hi = sum(ln_enclosure(Fraction(q))[1] for q in ps)
     out['primes'] = len(ps)
-    out['mass'] = [str(lo)[:24], str(hi)[:24]]
+    out['mass'] = [down(lo), up(hi)]
     out['massExceedsTarget'] = lo > target_hi
-    out['shortfall'] = None if lo > target_hi else str(target_hi - lo)[:12]
+    out['shortfall'] = None if lo > target_hi else up(target_hi - lo, 10)
 print(json.dumps(out, indent=1))

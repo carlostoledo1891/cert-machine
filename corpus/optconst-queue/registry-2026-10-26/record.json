@@ -1,0 +1,141 @@
+{
+ "what": "Facts read from the pinned registry bytes in this directory (PINS.json); the method paper quotes them through tools/paper-numbers/cert-machine-method.js.",
+ "facts": {
+  "registryCommit": "e95af44bc6ae938f545a0fc62cd1b6c1f6088a56",
+  "registryCommitted": "2026-10-26T04:08:12Z",
+  "fetched": "2026-10-27T00:49:53.703Z",
+  "rule": {
+   "secondParty": true,
+   "routes": [
+    "refereed and published",
+    "Palomar",
+    "a maintainer signs off",
+    "someone independent confirms"
+   ]
+  },
+  "merged": {
+   "232": {
+    "merged": true,
+    "mergedAt": "2026-10-26T03:53:53Z",
+    "mergedBy": "teorth",
+    "mergeCommit": "6d83f98ae6739d35995ae095603d06d7615b693f",
+    "createdAt": "2026-10-18T11:26:02Z",
+    "state": "closed"
+   },
+   "243": {
+    "merged": true,
+    "mergedAt": "2026-10-26T03:53:53Z",
+    "mergedBy": "teorth",
+    "mergeCommit": "53b9999c0eaac9da19bfb8492dc8062933a2dd36",
+    "createdAt": "2026-10-20T04:42:17Z",
+    "state": "closed"
+   },
+   "257": {
+    "merged": true,
+    "mergedAt": "2026-10-26T03:50:40Z",
+    "mergedBy": "teorth",
+    "mergeCommit": "aae20a57317ef6bf581c1bb926bc0ad3b7b76088",
+    "createdAt": "2026-10-23T04:03:04Z",
+    "state": "closed"
+   }
+  },
+  "open": {
+   "242": {
+    "merged": false,
+    "mergedAt": null,
+    "mergedBy": null,
+    "mergeCommit": null,
+    "createdAt": "2026-10-20T04:42:15Z",
+    "state": "open"
+   },
+   "249": {
+    "merged": false,
+    "mergedAt": null,
+    "mergedBy": null,
+    "mergeCommit": null,
+    "createdAt": "2026-10-22T13:30:33Z",
+    "state": "open"
+   },
+   "275": {
+    "merged": false,
+    "mergedAt": null,
+    "mergedBy": null,
+    "mergeCommit": null,
+    "createdAt": "2026-10-26T16:46:52Z",
+    "state": "open"
+   }
+  },
+  "stepFunctions": {
+   "readme": {
+    "1a": "1.5027435",
+    "1b": "0.38085856"
+   },
+   "rows": {
+    "1a-A2026": {
+     "star": false,
+     "note": true
+    },
+    "1a-EA2026": {
+     "star": false,
+     "note": true
+    },
+    "1b-A2026": {
+     "star": false,
+     "note": true
+    },
+    "1b-EA2026": {
+     "star": false,
+     "note": true
+    }
+   },
+   "cites": {
+    "1a": true,
+    "1b": true
+   },
+   "progressLine": true
+  },
+  "autocorr": {
+   "readme": {
+    "1c": "0.4107675",
+    "1d": "1.4630715826075594"
+   },
+   "rows": {
+    "1c-R2026": {
+     "star": false,
+     "note": true
+    },
+    "1d-CERT2026": {
+     "star": false,
+     "note": true
+    },
+    "1d-CERT2026-asPrinted": {
+     "star": true,
+     "note": false
+    }
+   },
+   "cites": {
+    "1c": true,
+    "1d": true
+   },
+   "progressLine": true
+  },
+  "sumProduct": {
+   "readme": "$<2$ (1.9993*)",
+   "asterisked": true,
+   "cites": true,
+   "progressLine": true
+  },
+  "stillAsterisked": {
+   "31": true,
+   "82": true,
+   "86": true,
+   "cites": {
+    "31a": false,
+    "82a": false,
+    "86a": false
+   }
+  },
+  "marksRemovedOnReplays": 6,
+  "duplicate1dRow": true
+ }
+}
