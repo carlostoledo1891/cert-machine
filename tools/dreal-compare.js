@@ -335,7 +335,7 @@ function oursTimes() {
     else die('no timing procedure for ' + cl.id);
     claims[cl.id] = median(fn, reps, 9);
   }
-  return { machine: { platform: process.platform + '-' + process.arch, os: os.release(), cpu: (os.cpus()[0] || {}).model || null, cpus: os.cpus().length, node: process.version },
+  return { machine: { platform: process.platform + '-' + process.arch, os: os.release(), cpu: (os.cpus()[0] || {}).model || null, cpus: os.cpus().length, node: process.version, loadAverage: os.loadavg().map((x) => Math.round(x * 100) / 100) },
     unit: 'milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)', receipts, claims, limiteWords: words };
 }
 
@@ -388,17 +388,20 @@ function witness(cl, q, box) {
   if (m[1] === 'P') val = F.wellhead(thin, Qd, F.dec(p.Pd)).P;
   else if (m[1] === 'v') val = F.kinematics(thin, Qd).v;
   else if (m[1] === 'Re') val = F.kinematics(thin, Qd).Re;
-  else if (m[1] === 'claim' && m[3] === 'ceiling') { const c = I.add(F.dec(p.Pd), I.div(I.mul(I.mul(I.iv(mid.rho), F.dec('9.80665')), I.iv(mid.dz)), I.iv(1e5))); const cv = F.dec(p.claim); val = I.sub(cv, c); return { at: mid, value: val, status: val[1] <= 0 ? 'witness' : val[0] > 0 ? 'delta artifact' : 'undecided', of: 'claim − ceiling at the midpoint' }; }
-  else return null;
+  else if (m[1] === 'claim' && m[3] === 'ceiling') {
+    const c = I.add(F.dec(p.Pd), I.div(I.mul(I.mul(I.iv(mid.rho), F.dec('9.80665')), I.iv(mid.dz)), I.iv(1e5))); val = I.sub(F.dec(p.claim), c);
+    return { at: mid, value: val, status: val[1] <= 0 ? 'witness' : val[0] > 0 ? 'delta artifact' : 'undecided', of: 'claim − ceiling ≤ 0 at the midpoint', inDeclaredBox: ['rho', 'dz'].every((k) => mid[k] >= Number(S.box[k][0]) && mid[k] <= Number(S.box[k][1])) };
+  } else return null;
   const c = Number(p[m[3]]), op = m[2];
-  if (op === '==') return { at: mid, value: val, status: 'equality (a point cannot prove it)', of: m[1] + ' at the midpoint against ' + c };
+  if (op === '==') return { at: mid, value: val, status: 'equality: a point cannot prove it; the gate puts ' + m[1] + ' within ' + Math.max(Math.abs(val[0] - c), Math.abs(val[1] - c)).toExponential(1) + ' of ' + p[m[3]] + ' at the midpoint', of: m[1] + ' = ' + p[m[3]] + ' at the midpoint' };
   const holds = op === '>' ? val[0] > c : op === '>=' ? val[0] >= c : op === '<' ? val[1] < c : val[1] <= c;
   const fails = op === '>' ? val[1] <= c : op === '>=' ? val[1] < c : op === '<' ? val[0] >= c : val[0] > c;
   const inBox = BOX6.every((k) => !box[k] || (mid[k] >= Number(S.box[k][0]) && mid[k] <= Number(S.box[k][1])));
   return { at: mid, value: val, status: holds ? 'witness' : fails ? 'delta artifact' : 'undecided', of: m[1] + ' ' + op + ' ' + c + ' at the midpoint', inDeclaredBox: inBox };
 }
 const KLEENE = (ws) => (ws.includes('REFUTADO') ? 'REFUTADO' : ws.includes('RECUSADO') ? 'RECUSADO' : 'PROVADO');
-const TO_GATE = (cl, w) => (w === 'REFUTED' ? 'REFUTADO' : (w === 'CERTIFIED' || w === 'CONSISTENT' || w === 'HOLDS') ? 'PROVADO' : 'RECUSADO');
+/* a precondition that is not certified declines the receipt (the model does not apply), whatever else dReal proves of it */
+const TO_GATE = (cl, w) => (cl.kind === 'precondition' ? (w === 'CERTIFIED' ? 'PROVADO' : 'RECUSADO') : w === 'REFUTED' ? 'REFUTADO' : (w === 'CERTIFIED' || w === 'CONSISTENT' || w === 'HOLDS') ? 'PROVADO' : 'RECUSADO');
 
 function derive(C, run) {
   need(run.claimsSha256 === shaBuf(fs.readFileSync(abs(CLAIMS))), 'the run decided another claims file');
@@ -440,15 +443,26 @@ function derive(C, run) {
     for (const c of claims) { t.claims++; t[c.agree[d]]++; for (const a of Object.values((c.dreal[d] || {}).queries || {})) if (a.witness) { if (a.witness.status === 'delta artifact') t.deltaArtifacts++; if (a.witness.status === 'witness') t.witnesses++; } }
     totals[d] = t;
   }
+  /* does delta move any answer? (per claim and query, the answers at every delta compared) */
+  const moved = [];
+  for (const c of claims) for (const q of Object.keys((c.dreal[C.deltas[0]] || {}).queries || {})) { const as = C.deltas.map((d) => c.dreal[d].queries[q].answer); if (new Set(as).size > 1) moved.push(c.id + ' ' + q + ': ' + as.join(' / ')); }
+  for (const d of C.deltas) totals[d].queries = claims.reduce((s, c) => s + Object.keys((c.dreal[d] || {}).queries || {}).length, 0);
+  totals.deltaMoved = moved;
   /* findings, derived from the answers — never written by hand */
   const findings = [];
+  if (!moved.length) findings.push({ kind: 'note', statement: 'no answer changed between delta = ' + C.deltas.join(' and delta = ') + ': on all ' + totals[C.deltas[0]].queries + ' queries dReal gave the same unsat or delta-sat at every delta' });
   for (const c of claims) for (const d of C.deltas) {
     const a = c.agree[d];
     if (a === 'contradiction' || a === 'anomaly' || a === 'differ') findings.push({ kind: a, delta: d, claim: c.id, ours: c.ours, dreal: c.dreal[d].word, statement: c.statement });
     else if (a === 'dReal weaker' || a === 'dReal stronger') findings.push({ kind: a, delta: d, claim: c.id, ours: c.ours, dreal: c.dreal[d].word, statement: c.statement });
     else if (a === 'door') findings.push({ kind: 'door', delta: d, claim: c.id, ours: c.ours, dreal: c.dreal[d].word, statement: c.encodable === false ? c.why : 'a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written' });
     for (const [q, an] of Object.entries((c.dreal[d] || {}).queries || {})) if (an.witness && an.witness.status === 'delta artifact') findings.push({ kind: 'delta artifact', delta: d, claim: c.id, query: q, at: an.witness.at, value: an.witness.value, statement: 'dReal\'s delta-sat box for "' + C.claims.find((x) => x.id === c.id).queries[q].join(' ∧ ') + '": at its midpoint the gate proves the atom false' });
-    if (c.kind === 'precondition' && c.ours === 'REFUSED' && c.dreal[d] && c.dreal[d].word === 'REFUTED') findings.push({ kind: 'note', delta: d, claim: c.id, statement: 'dReal proves the precondition fails on ALL of the box (Re < 4000 everywhere); the gate declines the receipt, as it should, but its text says "parte da caixa não é turbulenta" (part of the box) — the printed Re range shows the whole box' });
+    if (c.kind === 'precondition' && c.ours === 'REFUSED' && c.dreal[d] && c.dreal[d].word === 'REFUTED') {
+      /* the gate's own sentence for that check, read from its ledger */
+      const texts = [];
+      for (const r of C.receipts) for (const k of r.checks) if (k.claim === c.id) { const lr = J(LEDGER).receipts.find((x) => x.id === r.id); const t = lr && lr.receipt.checks.find((x) => x.id === k.check); if (t) texts.push(t.text); }
+      findings.push({ kind: 'note', delta: d, claim: c.id, gateText: texts[0] || null, statement: 'dReal proves the precondition fails on ALL of the declared box (phi unsat); the gate declines the receipt, as its grammar requires' + (texts.some((t) => /parte da caixa/.test(t)) ? ', but its sentence says "parte da caixa não é turbulenta" (part of the box) where the whole box is not; the Re range it prints shows it' : '') });
+    }
   }
   return { claims, receipts, totals, findings };
 }
