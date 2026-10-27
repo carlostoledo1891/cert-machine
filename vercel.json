@@ -20,12 +20,22 @@
       "statusCode": 301
     },
     {
+      "source": "/portfolio/",
+      "destination": "/about/#work",
+      "statusCode": 301
+    },
+    {
       "source": "/portfolio/:path*",
       "destination": "/about/#work",
       "statusCode": 301
     },
     {
       "source": "/playground",
+      "destination": "/instruments/",
+      "statusCode": 301
+    },
+    {
+      "source": "/playground/",
       "destination": "/instruments/",
       "statusCode": 301
     },
@@ -40,12 +50,22 @@
       "statusCode": 301
     },
     {
+      "source": "/research/mfg-lab/mfg-lab/",
+      "destination": "/reports/mfg-lab.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/mfg-lab/mfg-lab.html",
       "destination": "/reports/mfg-lab.html",
       "statusCode": 301
     },
     {
       "source": "/research/mfg-cap/mfg-cap",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/mfg-cap/mfg-cap/",
       "destination": "/reports/mfg-cap.html",
       "statusCode": 301
     },
@@ -60,6 +80,11 @@
       "statusCode": 301
     },
     {
+      "source": "/research/mfg-cap/cap-for-mfg/",
+      "destination": "/reports/mfg-cap.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/mfg-cap/cap-for-mfg.html",
       "destination": "/reports/mfg-cap.html",
       "statusCode": 301
@@ -70,12 +95,22 @@
       "statusCode": 301
     },
     {
+      "source": "/research/stock-constraint/stock-constraint/",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/stock-constraint/stock-constraint.html",
       "destination": "/reports/water-value.html",
       "statusCode": 301
     },
     {
       "source": "/research/stock-constraint/water-value",
+      "destination": "/reports/water-value.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/stock-constraint/water-value/",
       "destination": "/reports/water-value.html",
       "statusCode": 301
     },
@@ -95,12 +130,22 @@
       "statusCode": 301
     },
     {
+      "source": "/research/mfg-congest/mfg-congest/",
+      "destination": "/reports/mfg-congest.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/mfg-congest/mfg-congest.html",
       "destination": "/reports/mfg-congest.html",
       "statusCode": 301
     },
     {
       "source": "/research/wardrop-repro/wardrop-repro",
+      "destination": "/reports/wardrop-repro.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/wardrop-repro/wardrop-repro/",
       "destination": "/reports/wardrop-repro.html",
       "statusCode": 301
     },
@@ -115,12 +160,22 @@
       "statusCode": 301
     },
     {
+      "source": "/research/alien-science/alien-science/",
+      "destination": "/reports/alien-science.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/alien-science/alien-science.html",
       "destination": "/reports/alien-science.html",
       "statusCode": 301
     },
     {
       "source": "/technical-reports/alien-science",
+      "destination": "/reports/alien-science.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/technical-reports/alien-science/",
       "destination": "/reports/alien-science.html",
       "statusCode": 301
     },
@@ -135,6 +190,11 @@
       "statusCode": 301
     },
     {
+      "source": "/research/challenges/erdos290/",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/challenges/erdos290.html",
       "destination": "/reports/erdos290.html",
       "statusCode": 301
@@ -145,7 +205,17 @@
       "statusCode": 301
     },
     {
+      "source": "/technical-reports/erdos290/",
+      "destination": "/reports/erdos290.html",
+      "statusCode": 301
+    },
+    {
       "source": "/research/challenges/verify-lemniscate",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/research/challenges/verify-lemniscate/",
       "destination": "/reports/verify-lemniscate.html",
       "statusCode": 301
     },
@@ -160,12 +230,27 @@
       "statusCode": 301
     },
     {
+      "source": "/technical-reports/verify-lemniscate/",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
       "source": "/reports/verify-lemniscate",
       "destination": "/reports/verify-lemniscate.html",
       "statusCode": 301
     },
     {
+      "source": "/reports/verify-lemniscate/",
+      "destination": "/reports/verify-lemniscate.html",
+      "statusCode": 301
+    },
+    {
       "source": "/reports/harborproof",
+      "destination": "/reports/harbor-proof.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/reports/harborproof/",
       "destination": "/reports/harbor-proof.html",
       "statusCode": 301
     },
@@ -177,6 +262,126 @@
     {
       "source": "/reports/harbor-proof",
       "destination": "/reports/harbor-proof.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/reports/harbor-proof/",
+      "destination": "/reports/harbor-proof.html",
+      "statusCode": 301
+    },
+    {
+      "source": "/affect/:path*",
+      "destination": "/instruments/affect/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/answer-shape/:path*",
+      "destination": "/instruments/answer-shape/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/blind-spot/:path*",
+      "destination": "/instruments/blind-spot/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/census/:path*",
+      "destination": "/instruments/census/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/contours/:path*",
+      "destination": "/instruments/contours/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/curveset/:path*",
+      "destination": "/instruments/curveset/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/exact-geometry/:path*",
+      "destination": "/instruments/exact-geometry/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/graph/:path*",
+      "destination": "/instruments/graph/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/interferometer/:path*",
+      "destination": "/instruments/interferometer/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/lattice-claims/:path*",
+      "destination": "/instruments/lattice-claims/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/navier-stokes/:path*",
+      "destination": "/instruments/navier-stokes/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/neural-geometry/:path*",
+      "destination": "/instruments/neural-geometry/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/occultation/:path*",
+      "destination": "/instruments/occultation/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/plates/:path*",
+      "destination": "/instruments/plates/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/pqc/:path*",
+      "destination": "/instruments/pqc/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/pu/:path*",
+      "destination": "/instruments/pu/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/return-level-atlas/:path*",
+      "destination": "/instruments/return-level-atlas/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/return-level-check/:path*",
+      "destination": "/instruments/return-level-check/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/rewire/:path*",
+      "destination": "/instruments/rewire/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/shape-hunt/:path*",
+      "destination": "/instruments/shape-hunt/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/simplex/:path*",
+      "destination": "/instruments/simplex/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/stereo-reach/:path*",
+      "destination": "/instruments/stereo-reach/:path*",
+      "statusCode": 301
+    },
+    {
+      "source": "/transit/:path*",
+      "destination": "/instruments/transit/:path*",
       "statusCode": 301
     }
   ]
