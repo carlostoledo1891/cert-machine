@@ -1766,8 +1766,8 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
    site/janela/ (apps/janela/build.js, 2026-10-06), and site/explained/ (apps/explained/build.js, 2026-10-23: the easy read) and site/uirapuru/ (apps/uirapuru/build.js, 2026-10-23: the story).
    The site sync neither generates nor prunes under them — two builders
    writing one tree is how files get eaten. */
-/* site/clade-code/ is a FOREIGN ZONE (2026-10-23): a byte copy of another repository's build
-   (~/Projects/clade-code/web/, built there by `make web`), which this file never writes or prunes and the page gates
+/* site/machinidae/ is a FOREIGN ZONE (2026-10-23 as site/clade-code/; renamed 2026-10-27): a byte copy of another repository's build
+   (~/Projects/machinidae/web/, built there by `make web`), which this file never writes or prunes and the page gates
    never measure. The foreign zones are listed once, in design/zones.js. */
 /* site/instruments/ is the same arrangement for the opposite reason. It is
    emitted by playground/build.js, which is not wired into this file and to
@@ -1824,7 +1824,7 @@ for (const e of fs.readdirSync(SITE, { recursive: true })) {
      pruned the Swell app that `make site` then rebuilt after it — invisible in the make, nine files gone
      when run alone (found 2026-10-16) */
   if (rel.startsWith('apps/') || rel.startsWith('instruments/') || rel.startsWith('contraprova/') || rel.startsWith('decidivel/') || rel.startsWith('abatimento/') || rel.startsWith('janela/') || rel.startsWith('swell/') || rel.startsWith('explained/') || rel.startsWith('eleicoes2026/') || rel.startsWith('uirapuru/')) continue;
-  if (isForeign(rel)) continue;   /* clade-code/: owned by clade-code's page engine (design/zones.js) */
+  if (isForeign(rel)) continue;   /* machinidae/: owned by Machinidae's page engine (design/zones.js) */
   if (!fs.statSync(abs).isFile()) continue;
   if (!desired.has(rel)) { fs.rmSync(abs); pruned++; }
 }

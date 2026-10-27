@@ -64,12 +64,20 @@ NEXT SESSION, IN ORDER:
      Ramsey importer's urllib refused by the pod proxy (curl user agent); the Ramsey page printed "undefined / undefined roots".
      DISK (35 → ~50 GB): removed the merged worktrees, the openai-math clone, SkyAudit's *.full.jsonl, the Spotify cache; the
      Eleições zips removed AND RESTORED (the ledger re-derives from them) — memory disk-cleanup-2026-10-27.
-     MACHINIDAE (the operator renamed Clade Code; the session clade-code-9f asked): agreed order — register machinidae/ in
-     design/zones.js, the first publish after their renamed build is committed and their folder moved (SHA from them), then
-     `publish-zone.js clade-code --remove --push` only after /machinidae/ is live; history kept, "now Machinidae" on current pages;
-     the CLAUDE.md zone paragraph the OPERATOR'S word. NOT STARTED — waiting on the operator. Herald (the cert-model idea) now lives
-     at ~/Projects/herald (their note).
-     NEXT: (1) the operator: the sends (C_16 on #246, K4 on #255, R(3,33) to JeetuSK0808); the Machinidae go; R(8,18) ~$60 or not;
+     MACHINIDAE — DONE on the operator's go (~19:30 UTC): machinidae/ registered in design/zones.js (393a9f76); the first publish
+     pinned machinidae 2148a081 (27ad7035: 78 files, 9.0 MB; /machinidae/ live, every page and data file 200); then the old zone
+     taken down (`publish-zone.js clade-code --remove --push`, aecb2155; no redirect, the operator's word) and dropped from
+     FOREIGN; current mentions read "Clade Code (now Machinidae)" (the easota page), the tools' comments and the zone battery's
+     text say machinidae; the CLAUDE.md zone paragraph updated (the operator approved). History left as written. Herald (the
+     cert-model idea) lives at ~/Projects/herald (the note points there).
+     THE SITE INCIDENT (~18:30 UTC, the operator's screenshot: /navier-stokes/index.html 404): Vercel served a folder URL without
+     its slash with 200, so relative links resolved one level up. Fixed live in three pushes from a separate worktree:
+     vercel.json trailingSlash true; every legacy slashless redirect given its slashed twin (Vercel adds the slash before
+     matching); /<instrument>/… → /instruments/<instrument>/… for the 23 instruments, and each '/x/:path*' its bare '/x/' twin.
+     All 288 live URLs (pages, PDFs, slashless folders, redirect sources) fetched: 200. Four dead internal links fixed at the
+     source. tools/check-links.js, a battery in build-control and make test, refuses a regression (4 red controls).
+     RELEASE v2026.10.27 archived by Zenodo as doi:10.5281/zenodo.23698128, stamped (corpus/zenodo.json, CITATION.cff).
+     NEXT: (1) the operator: the sends (C_16 on #246, K4 on #255, R(3,33) to JeetuSK0808); R(8,18) ~$60 or not;
      the ITF membership fix (four records re-derived); (2) record LocalSmoothing; (3) the Pedro meeting (the note's §5 questions).
   ★ HANDOFF 2026-10-27 ~07:00 UTC — THE METHOD PAPER v0.9, on "back to the method paper and companions. Tomorrow I have a
      meeting with Pedro … review the methods paper first and decide the final companions later … consider all suggestions

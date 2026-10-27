@@ -62,10 +62,11 @@ key(obj)     -> string          canonical identity for dedup
 
 ## Foreign zones (2026-10-23)
 
-`site/clade-code/` belongs to clade-code's page engine (`~/Projects/clade-code/web/`, `make web`): a byte copy of its
+`site/machinidae/` belongs to Machinidae's page engine (`~/Projects/machinidae/web/`, `make web`; Clade Code, renamed
+2026-10-27, its old zone `site/clade-code/` taken down with no redirect): a byte copy of its
 `web/dist/`, never edited, written or pruned here and never measured by the page gates. The list lives once, in
-`design/zones.js`. It is published ONLY by `node tools/publish-zone.js clade-code [--push]` (and `--remove` to take it down): one commit on origin/main
-holding the zone and its pin (`corpus/zones/clade-code.json`) and nothing else, built without touching this checkout,
+`design/zones.js`. It is published ONLY by `node tools/publish-zone.js machinidae [--push]` (and `--remove` to take it down): one commit on origin/main
+holding the zone and its pin (`corpus/zones/machinidae.json`) and nothing else, built without touching this checkout,
 with no build and no gate; `--check` (a battery) refuses a zone that differs from its pin. Never copy files in by hand.
 A push is the operator's word.
 

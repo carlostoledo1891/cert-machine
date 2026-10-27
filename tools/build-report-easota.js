@@ -250,7 +250,7 @@ B.push(C.section({
       + 'circles leave the square or overlap by 10⁻¹⁸ to 10⁻¹⁷, gaps a floating-point check measures as zero. Decided in exact rational arithmetic, every side compared without a square root.')
       + C.plainList([item('decimals', R.decimals), item('doubles', R.doubles)])
       + C.pRaw('The doubles reading is also decided by the declared-claim checkers in two languages (the same three pairs). The decimals reading was first noticed by '
-        + 'Clade Code, a sister experiment whose exact judge is calibrated against this decision. Re-derive: ' + C.m('python3 tools/run-ea542-readings.py --check') + '.')
+        + 'Clade Code (now Machinidae), a sister experiment whose exact judge is calibrated against this decision. Re-derive: ' + C.m('python3 tools/run-ea542-readings.py --check') + '.')
   }));
   if (!/ea542-readings: decimals REFUTED/.test(chk)) { console.error('EASOTA PAGE REFUSED: the 542 check did not pass whole'); process.exit(1); }
 }

@@ -68,7 +68,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
-const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/machinidae/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'measure-baseline.json');
 const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
 

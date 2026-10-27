@@ -71,7 +71,7 @@ const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
-const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/machinidae/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'style-baseline.json');
 const METRICS = ['attrs', 'decls', 'unresolved', 'fallbacks', 'blocks', 'literals'];
 

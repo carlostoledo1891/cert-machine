@@ -22,7 +22,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
 let FOREIGN = [];
-try { FOREIGN = (require(path.join(ROOT, 'design', 'zones.js')).FOREIGN || []).map((z) => (z.dir || z).replace(/\/$/, '')); } catch (e) { FOREIGN = ['clade-code']; }
+try { FOREIGN = (require(path.join(ROOT, 'design', 'zones.js')).FOREIGN || []).map((z) => (z.dir || z).replace(/\/$/, '')); } catch (e) { FOREIGN = ['machinidae']; }
 
 function configProblems(cfg) {
   const out = [];

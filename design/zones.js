@@ -18,12 +18,11 @@
    the sitemap, linked from no page here.
 
    machinidae/ (2026-10-27, the operator's go): Clade Code renamed Machinidae, its repository moved to ~/Projects/machinidae;
-   the same contract, `make web` → web/dist/. clade-code/ stays until /machinidae/ is live, then publish-zone --remove takes
-   it down (no redirect: the operator's word). */
+   the same contract, `make web` → web/dist/. clade-code/ was taken down by publish-zone --remove the same day, once
+   /machinidae/ was live (no redirect: the operator's word). */
 'use strict';
 
 const FOREIGN = [
-  { dir: 'clade-code/', owner: '~/Projects/clade-code', build: 'make web → web/dist/', src: '~/Projects/clade-code/web/dist' },
   { dir: 'machinidae/', owner: '~/Projects/machinidae', build: 'make web → web/dist/', src: '~/Projects/machinidae/web/dist' },
 ];
 

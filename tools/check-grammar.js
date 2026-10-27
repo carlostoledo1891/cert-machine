@@ -40,7 +40,7 @@ const G = require(path.join(__dirname, '..', 'design', 'grammar.js'));
 
 const ROOT = path.join(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
-const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/clade-code/ and any other foreign zone: never measured */
+const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/machinidae/ and any other foreign zone: never measured */
 const BASELINE = path.join(ROOT, 'design', 'grammar-baseline.json');
 
 /* ------------------------------------------------------------ collection --
