@@ -1,0 +1,868 @@
+{
+ "what": "The interval kernel (instruments/interval: interval.js, transcendental.js, algebraic.js) run on ITF1788, the IEEE Std 1788-2015 interval test suite, at one pinned commit. Every test of an operation the kernel implements with the IEEE meaning is run; its expected result is the tightest double enclosure, so any valid enclosure contains it: CONTAINED-TIGHT = exactly the expected interval, CONTAINED = a wider enclosure, REFUSED = the kernel threw (its domain is enforced by refusal), VIOLATION = a result that does not contain the expected one (a soundness defect, each listed). NOT-APPLICABLE tests (decorations, the empty set, reverse and set operations, operations the kernel does not have, binary32 literals, tests with no tightest result) are counted per file and never run. mag and wid are scored as upper bounds, mig as a lower bound, subset/interior/isMember as proofs (a false where the suite says true is CONTAINED, a true where it says false is a VIOLATION). Literals are read exactly and rounded to the nearest double (the C double literal ITF1788 compiles them to). Two planted wrong kernels are red controls. Written by tools/audit-kernel-itf1788.js; --check re-hashes the pins and re-derives every number.",
+ "generated": "2026-10-27T14:25:34Z",
+ "seconds": 0.175,
+ "git": "c36f1f03",
+ "node": "v24.14.1",
+ "modules": {
+  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "instruments/interval/algebraic.js": "bf6bbbccc41237c3519e173cf5a9439c3da59f8487b74c090f56a3c3fa57cfb0"
+ },
+ "itf1788": {
+  "repo": "https://github.com/oheim/ITF1788",
+  "commit": "b6ee1e24d209c289f99a68ddc357839935799eae",
+  "commitDate": "2018-09-22T22:10:39Z",
+  "corpus": "corpus/itf1788/b6ee1e24",
+  "pins": "corpus/itf1788/PINS.json",
+  "pinsSha256": "415ce1679c6e38ae06da6152c23968320762d8fce854d9be388d8e8264a4861c",
+  "pinnedFiles": 25,
+  "itlFiles": [
+   "abs_rev.itl",
+   "atan2.itl",
+   "c-xsc.itl",
+   "fi_lib.itl",
+   "ieee1788-constructors.itl",
+   "ieee1788-exceptions.itl",
+   "libieeep1788_bool.itl",
+   "libieeep1788_cancel.itl",
+   "libieeep1788_class.itl",
+   "libieeep1788_elem.itl",
+   "libieeep1788_mul_rev.itl",
+   "libieeep1788_num.itl",
+   "libieeep1788_overlap.itl",
+   "libieeep1788_rec_bool.itl",
+   "libieeep1788_reduction.itl",
+   "libieeep1788_rev.itl",
+   "libieeep1788_set.itl",
+   "mpfi.itl",
+   "pow_rev.itl"
+  ]
+ },
+ "counts": {
+  "suiteFiles": 19,
+  "suiteTests": 9542,
+  "kernelOpTests": 2209,
+  "run": 1891,
+  "tight": 466,
+  "contained": 974,
+  "refused": 449,
+  "violations": 2,
+  "notApplicable": 7651
+ },
+ "notApplicableByReason": {
+  "decorations": 1687,
+  "reverse operation": 1472,
+  "set operation": 83,
+  "not in the kernel": 4281,
+  "empty set": 128,
+  "binary32 literal": 0,
+  "no tightest result": 0,
+  "signature": 0
+ },
+ "byOp": {
+  "neg": {
+   "fn": "interval.neg",
+   "tests": 24,
+   "tight": 19,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 5,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "add": {
+   "fn": "interval.add",
+   "tests": 109,
+   "tight": 19,
+   "contained": 79,
+   "refused": 0,
+   "notApplicable": 11,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "sub": {
+   "fn": "interval.sub",
+   "tests": 141,
+   "tight": 25,
+   "contained": 105,
+   "refused": 0,
+   "notApplicable": 11,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "mul": {
+   "fn": "interval.mul",
+   "tests": 278,
+   "tight": 45,
+   "contained": 184,
+   "refused": 34,
+   "notApplicable": 15,
+   "violations": 0,
+   "refusedBy": {
+    "indeterminate (0·∞ or ∞−∞)": 34
+   }
+  },
+  "div": {
+   "fn": "interval.div",
+   "tests": 501,
+   "tight": 9,
+   "contained": 145,
+   "refused": 288,
+   "notApplicable": 59,
+   "violations": 0,
+   "refusedBy": {
+    "divisor contains 0": 269,
+    "indeterminate (0·∞ or ∞−∞)": 19
+   }
+  },
+  "sqr": {
+   "fn": "interval.sqr",
+   "tests": 60,
+   "tight": 21,
+   "contained": 34,
+   "refused": 0,
+   "notApplicable": 5,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "sqrt": {
+   "fn": "algebraic.sqrtInterval",
+   "tests": 57,
+   "tight": 20,
+   "contained": 23,
+   "refused": 8,
+   "notApplicable": 6,
+   "violations": 0,
+   "refusedBy": {
+    "sqrt: an upper end of 0": 2,
+    "outside the domain (log, sqrt)": 5,
+    "infinite endpoint": 1
+   }
+  },
+  "pown": {
+   "fn": "interval.pow",
+   "tests": 174,
+   "tight": 19,
+   "contained": 73,
+   "refused": 50,
+   "notApplicable": 32,
+   "violations": 0,
+   "refusedBy": {
+    "indeterminate (0·∞ or ∞−∞)": 40,
+    "divisor contains 0": 10
+   }
+  },
+  "abs": {
+   "fn": "interval.abs",
+   "tests": 32,
+   "tight": 23,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 9,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "exp": {
+   "fn": "transcendental.exp",
+   "tests": 59,
+   "tight": 0,
+   "contained": 31,
+   "refused": 25,
+   "notApplicable": 3,
+   "violations": 0,
+   "refusedBy": {
+    "argument reduction": 9,
+    "infinite endpoint": 11,
+    "exp: 2^k beyond the double range": 5
+   }
+  },
+  "log": {
+   "fn": "transcendental.log",
+   "tests": 61,
+   "tight": 1,
+   "contained": 41,
+   "refused": 13,
+   "notApplicable": 6,
+   "violations": 0,
+   "refusedBy": {
+    "outside the domain (log, sqrt)": 9,
+    "infinite endpoint": 4
+   }
+  },
+  "sin": {
+   "fn": "transcendental.sin",
+   "tests": 213,
+   "tight": 71,
+   "contained": 127,
+   "refused": 11,
+   "notApplicable": 4,
+   "violations": 0,
+   "refusedBy": {
+    "infinite endpoint": 10,
+    "argument reduction": 1
+   }
+  },
+  "cos": {
+   "fn": "transcendental.cos",
+   "tests": 131,
+   "tight": 27,
+   "contained": 90,
+   "refused": 10,
+   "notApplicable": 4,
+   "violations": 0,
+   "refusedBy": {
+    "infinite endpoint": 10
+   }
+  },
+  "tanh": {
+   "fn": "transcendental.tanh",
+   "tests": 60,
+   "tight": 11,
+   "contained": 33,
+   "refused": 10,
+   "notApplicable": 6,
+   "violations": 0,
+   "refusedBy": {
+    "infinite endpoint": 10
+   }
+  },
+  "mag": {
+   "fn": "interval.mag",
+   "tests": 27,
+   "tight": 17,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 10,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "mig": {
+   "fn": "interval.mig",
+   "tests": 33,
+   "tight": 20,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 13,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "wid": {
+   "fn": "interval.width",
+   "tests": 27,
+   "tight": 9,
+   "contained": 8,
+   "refused": 0,
+   "notApplicable": 10,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "subset": {
+   "fn": "interval.subset",
+   "tests": 83,
+   "tight": 43,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 40,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "interior": {
+   "fn": "interval.interior",
+   "tests": 64,
+   "tight": 39,
+   "contained": 1,
+   "refused": 0,
+   "notApplicable": 24,
+   "violations": 0,
+   "refusedBy": {}
+  },
+  "isMember": {
+   "fn": "interval.contains (arguments swapped)",
+   "tests": 75,
+   "tight": 28,
+   "contained": 0,
+   "refused": 0,
+   "notApplicable": 45,
+   "violations": 2,
+   "refusedBy": {}
+  }
+ },
+ "byFile": {
+  "abs_rev.itl": {
+   "tests": 24,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 24,
+    "set operation": 0,
+    "not in the kernel": 0,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "atan2.itl": {
+   "tests": 38,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 38,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "c-xsc.itl": {
+   "tests": 160,
+   "run": 97,
+   "tight": 58,
+   "contained": 30,
+   "refused": 9,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 0,
+    "set operation": 42,
+    "not in the kernel": 21,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "fi_lib.itl": {
+   "tests": 863,
+   "run": 311,
+   "tight": 32,
+   "contained": 270,
+   "refused": 9,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 552,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "ieee1788-constructors.itl": {
+   "tests": 43,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 21,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 22,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "ieee1788-exceptions.itl": {
+   "tests": 4,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 1,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 3,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_bool.itl": {
+   "tests": 392,
+   "run": 28,
+   "tight": 27,
+   "contained": 1,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 221,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 128,
+    "empty set": 15,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_cancel.itl": {
+   "tests": 242,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 121,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 121,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_class.itl": {
+   "tests": 210,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 134,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 76,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_elem.itl": {
+   "tests": 3818,
+   "run": 786,
+   "tight": 136,
+   "contained": 302,
+   "refused": 348,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 495,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 2438,
+    "empty set": 99,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_mul_rev.itl": {
+   "tests": 347,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 175,
+    "reverse operation": 172,
+    "set operation": 0,
+    "not in the kernel": 0,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_num.itl": {
+   "tests": 184,
+   "run": 24,
+   "tight": 20,
+   "contained": 4,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 95,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 62,
+    "empty set": 3,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_overlap.itl": {
+   "tests": 77,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 29,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 48,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_rec_bool.itl": {
+   "tests": 139,
+   "run": 30,
+   "tight": 28,
+   "contained": 0,
+   "refused": 0,
+   "violations": 2,
+   "notApplicable": {
+    "decorations": 77,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 27,
+    "empty set": 5,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_reduction.itl": {
+   "tests": 15,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 0,
+    "set operation": 0,
+    "not in the kernel": 15,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_rev.itl": {
+   "tests": 780,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 308,
+    "reverse operation": 472,
+    "set operation": 0,
+    "not in the kernel": 0,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "libieeep1788_set.itl": {
+   "tests": 20,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 10,
+    "reverse operation": 0,
+    "set operation": 10,
+    "not in the kernel": 0,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "mpfi.itl": {
+   "tests": 1382,
+   "run": 615,
+   "tight": 165,
+   "contained": 367,
+   "refused": 83,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 0,
+    "set operation": 31,
+    "not in the kernel": 730,
+    "empty set": 6,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  },
+  "pow_rev.itl": {
+   "tests": 804,
+   "run": 0,
+   "tight": 0,
+   "contained": 0,
+   "refused": 0,
+   "violations": 0,
+   "notApplicable": {
+    "decorations": 0,
+    "reverse operation": 804,
+    "set operation": 0,
+    "not in the kernel": 0,
+    "empty set": 0,
+    "binary32 literal": 0,
+    "no tightest result": 0,
+    "signature": 0
+   }
+  }
+ },
+ "notInKernel": {
+  "pow": 1347,
+  "fma": 564,
+  "atan2": 225,
+  "tan": 191,
+  "csc": 109,
+  "sec": 109,
+  "b-textToInterval": 91,
+  "cancelMinus": 63,
+  "atan": 59,
+  "cancelPlus": 58,
+  "less": 58,
+  "exp2": 57,
+  "log10": 57,
+  "acos": 56,
+  "asin": 56,
+  "asinh": 56,
+  "cosh": 55,
+  "log2": 55,
+  "atanh": 54,
+  "sinh": 54,
+  "precedes": 53,
+  "cot": 49,
+  "overlap": 48,
+  "acosh": 46,
+  "coth": 46,
+  "strictPrecedes": 46,
+  "exp10": 43,
+  "expm1": 38,
+  "logp1": 37,
+  "acot": 30,
+  "acoth": 30,
+  "equal": 29,
+  "recip": 29,
+  "isCommonInterval": 28,
+  "mid": 23,
+  "roundTiesToAway": 18,
+  "roundTiesToEven": 18,
+  "hypot": 17,
+  "csch": 16,
+  "ceil": 15,
+  "isSingleton": 15,
+  "max": 15,
+  "min": 15,
+  "inf": 14,
+  "isEmpty": 14,
+  "isEntire": 14,
+  "sech": 14,
+  "strictLess": 14,
+  "sup": 14,
+  "floor": 13,
+  "midRad": 13,
+  "trunc": 13,
+  "pos": 12,
+  "sign": 11,
+  "b-numsToInterval": 10,
+  "cbrt": 10,
+  "disjoint": 10,
+  "rad": 9,
+  "dot_nearest": 6,
+  "rootn": 3,
+  "sum_abs_nearest": 3,
+  "sum_nearest": 3,
+  "sum_sqr_nearest": 3
+ },
+ "signatureNotApplicable": [],
+ "literals": {
+  "runTestsWithInexactInput": 85,
+  "runTestsWithInexactExpected": 18,
+  "signalClausesOnRunTests": 0,
+  "inexactExpected": [
+   {
+    "at": "libieeep1788_elem.itl:1460",
+    "test": "pown [13.1,13.1] 1 = [13.1,13.1];",
+    "read": "[0x1.a333333333333p+3, 0x1.a333333333333p+3]",
+    "outcome": "contained"
+   },
+   {
+    "at": "libieeep1788_elem.itl:1461",
+    "test": "pown [-7451.145,-7451.145] 1 = [-7451.145,-7451.145];",
+    "read": "[-0x1.d1b251eb851ecp+12, -0x1.d1b251eb851ecp+12]",
+    "outcome": "contained"
+   },
+   {
+    "at": "libieeep1788_elem.itl:1468",
+    "test": "pown [-324.3,2.5] 1 = [-324.3,2.5];",
+    "read": "[-0x1.444cccccccccdp+8, 0x1.4p+1]",
+    "outcome": "contained"
+   },
+   {
+    "at": "libieeep1788_elem.itl:1469",
+    "test": "pown [0.01,2.33] 1 = [0.01,2.33];",
+    "read": "[0x1.47ae147ae147bp-7, 0x1.2a3d70a3d70a4p+1]",
+    "outcome": "contained"
+   },
+   {
+    "at": "libieeep1788_elem.itl:1470",
+    "test": "pown [-1.9,-0.33] 1 = [-1.9,-0.33];",
+    "read": "[-0x1.e666666666666p+0, -0x1.51eb851eb851fp-2]",
+    "outcome": "contained"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4309",
+    "test": "abs [1.1,2.1] = [1.1,2.1];",
+    "read": "[0x1.199999999999ap+0, 0x1.0cccccccccccdp+1]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4311",
+    "test": "abs [-1.1,0.0] = [0.0,1.1];",
+    "read": "[0x0p+0, 0x1.199999999999ap+0]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4312",
+    "test": "abs [-1.1,-0.0] = [0.0,1.1];",
+    "read": "[0x0p+0, 0x1.199999999999ap+0]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4313",
+    "test": "abs [-1.1,-0.4] = [0.4,1.1];",
+    "read": "[0x1.999999999999ap-2, 0x1.199999999999ap+0]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4314",
+    "test": "abs [-1.9,0.2] = [0.0,1.9];",
+    "read": "[0x0p+0, 0x1.e666666666666p+0]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4315",
+    "test": "abs [0.0,0.2] = [0.0,0.2];",
+    "read": "[0x0p+0, 0x1.999999999999ap-3]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4316",
+    "test": "abs [-0.0,0.2] = [0.0,0.2];",
+    "read": "[0x0p+0, 0x1.999999999999ap-3]",
+    "outcome": "tight"
+   },
+   {
+    "at": "libieeep1788_elem.itl:4318",
+    "test": "abs [-infinity,-2.2] = [2.2,infinity];",
+    "read": "[0x1.199999999999ap+1, infinity]",
+    "outcome": "tight"
+   },
+   {
+    "at": "mpfi.itl:104",
+    "test": "add [-infinity, 0.0] [-0x170ef54646d497p-106, -0x170ef54646d497p-106] = [-infinity, -8.0e-17];",
+    "read": "[-infinity, -0x1.70ef54646d497p-54]",
+    "outcome": "contained"
+   },
+   {
+    "at": "mpfi.itl:130",
+    "test": "add [0x123456789abcdfp-56, 0x123456789abcdfp-4] [3.5, 3.5] = [0x3923456789abcdp-52, 0x123456789abd17p-4];",
+    "read": "[0x1.c91a2b3c4d5e6p+1, 0x1.23456789abd17p+48]",
+    "outcome": "contained"
+   },
+   {
+    "at": "mpfi.itl:745",
+    "test": "sub [3.5, 3.5] [-0x123456789abcdfp-4, -0x123456789abcdfp-56] = [0x3923456789abcdp-52, 0x123456789abd17p-4];",
+    "read": "[0x1.c91a2b3c4d5e6p+1, 0x1.23456789abd17p+48]",
+    "outcome": "contained"
+   },
+   {
+    "at": "mpfi.itl:1617",
+    "test": "sub [-infinity, 0.0] [0x170ef54646d497p-106, 0x170ef54646d497p-106] = [-infinity, -8.0e-17];",
+    "read": "[-infinity, -0x1.70ef54646d497p-54]",
+    "outcome": "contained"
+   },
+   {
+    "at": "mpfi.itl:1640",
+    "test": "sub [0x123456789abcdfp-56, 0x123456789abcdfp-4] [-3.5, -3.5] = [0x3923456789abcdp-52, 0x123456789abd17p-4];",
+    "read": "[0x1.c91a2b3c4d5e6p+1, 0x1.23456789abd17p+48]",
+    "outcome": "contained"
+   }
+  ]
+ },
+ "redControls": {
+  "red:add": {
+   "what": "addition rounded to nearest, no outward step",
+   "op": "add",
+   "tests": 98,
+   "violationsCaught": 19,
+   "contained": 79,
+   "refused": 0
+  },
+  "red:exp": {
+   "what": "Math.exp at the two ends taken as an enclosure",
+   "op": "exp",
+   "tests": 56,
+   "violationsCaught": 32,
+   "contained": 24,
+   "refused": 0
+  }
+ },
+ "violations": [
+  {
+   "at": "libieeep1788_rec_bool.itl:139",
+   "testcase": "minimal_is_member_test",
+   "op": "isMember",
+   "fn": "interval.contains (arguments swapped)",
+   "test": "isMember -infinity [entire] = false;",
+   "inputs": [
+    "-infinity",
+    "[-infinity, infinity]"
+   ],
+   "expected": "false",
+   "got": "true",
+   "expectedLiteralInexact": false,
+   "declared": true
+  },
+  {
+   "at": "libieeep1788_rec_bool.itl:140",
+   "testcase": "minimal_is_member_test",
+   "op": "isMember",
+   "fn": "interval.contains (arguments swapped)",
+   "test": "isMember infinity [entire] = false;",
+   "inputs": [
+    "infinity",
+    "[-infinity, infinity]"
+   ],
+   "expected": "false",
+   "got": "true",
+   "expectedLiteralInexact": false,
+   "declared": true
+  }
+ ],
+ "declaredViolationsWhy": "interval.contains(a, x) answers a[0] <= x && x <= a[1], so ±∞ is a member of any interval with that infinite end; an IEEE 1788 interval holds reals only, so isMember(±∞, X) is false. The minimal fix is const contains = (a, x) => Number.isFinite(x) && a[0] <= x && x <= a[1]; no enclosure is affected."
+}

@@ -1,0 +1,184 @@
+{
+ "what": "ITF1788, the interval test framework for IEEE Std 1788-2015 (Nehmeier, Kiesner; test libraries converted to ITL by Heimlich), one of the two test frameworks discussed by Benet, Ferranti & Revol, \"A framework to test interval arithmetic libraries and their IEEE 1788-2015 compliance\" (Concurrency Computat Pract Exper, doi:10.1002/cpe.7856). Every .itl file of the suite at one commit, the language description (README + the grammar) and the licences, pinned by sha256; each file's git blob hash was checked against the commit's tree at fetch time. Data only: nothing from this repository is executed here (tools/audit-kernel-itf1788.js parses the .itl files with its own Node parser). Licences: Apache 2.0, LGPL 2.1, and the FSF all-permissive notice, per file header.",
+ "repo": "https://github.com/oheim/ITF1788",
+ "commit": "b6ee1e24d209c289f99a68ddc357839935799eae",
+ "commitDate": "2018-09-22T22:10:39Z",
+ "fetched": "2026-10-27",
+ "files": {
+  "b6ee1e24/AUTHORS": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/AUTHORS",
+   "what": "the framework authors",
+   "bytes": 306,
+   "gitBlobSha1": "ea5a9ba8d708919c7cfac7f173ebdc14f157694b",
+   "sha256": "ad975d941940cfc8f1d7b57b5acf70fda638d8d4b875d7c023fa2067a0294675"
+  },
+  "b6ee1e24/COPYING.LESSER": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/COPYING.LESSER",
+   "what": "GNU LGPL 2.1 (fi_lib.itl, mpfi.itl, c-xsc.itl carry it in their headers)",
+   "bytes": 26530,
+   "gitBlobSha1": "4362b49151d7b34ef83b3067a8f9c9f877d72a0e",
+   "sha256": "dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551"
+  },
+  "b6ee1e24/LICENSE": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/LICENSE",
+   "what": "Apache License 2.0 (the framework and the libieeep1788_* files)",
+   "bytes": 11358,
+   "gitBlobSha1": "d645695673349e3947e8e5ae42332d0ac3164cd7",
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+  },
+  "b6ee1e24/NOTICE": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/NOTICE",
+   "what": "the framework NOTICE (Apache 2.0 section 4)",
+   "bytes": 397,
+   "gitBlobSha1": "b5d923ab28243dc04eb8004f112c3df2f7a31843",
+   "sha256": "162c150ef5ffc1444a5540ef730d657d639452ce7a1f0ed235445087a1277196"
+  },
+  "b6ee1e24/README.md": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/README.md",
+   "what": "the framework README: the ITL language in prose (test syntax, tightest and accurate outputs, signals)",
+   "bytes": 5387,
+   "gitBlobSha1": "118f58be57a55027b5a5398a124c2d56626609dc",
+   "sha256": "6d8d52feeda97b65de9d223fe9cf71970310943d178770c20ddcf55f7a67fc06"
+  },
+  "b6ee1e24/itf1788/dslparser.py": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itf1788/dslparser.py",
+   "what": "the ITL grammar (lexer regexes and productions) that tools/audit-kernel-itf1788.js mirrors; data, never executed here",
+   "bytes": 16143,
+   "gitBlobSha1": "b26b13bc425c008660192b3e4616fa892a9ecf9a",
+   "sha256": "bbf1359c2eee26d2604b379d63b21d49d9b1bc85c9613dd8f1a7414a9d3e3209"
+  },
+  "b6ee1e24/itl/abs_rev.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/abs_rev.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 1647,
+   "gitBlobSha1": "f832e39d2271228518eae50b3fc2b056edd55739",
+   "sha256": "23d4c8abcf1a0e2f23860cf51b71efd3d7c3c854201f519d167d79497a5daeb6"
+  },
+  "b6ee1e24/itl/atan2.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/atan2.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 3226,
+   "gitBlobSha1": "6dc1927fb189e58e6dc4ea988136246c444b6a97",
+   "sha256": "e5ba6952210a313abf4b2c60831a412ffc337e990451e751919cd9b776ff0c7f"
+  },
+  "b6ee1e24/itl/c-xsc.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/c-xsc.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 9264,
+   "gitBlobSha1": "af53dee1ef463cdddd7580fccdd9af86bad139b0",
+   "sha256": "cbba9d32a22a3c01cc9247c59ccf3497a1d86b5eedd20fd5c39574b05004ad90"
+  },
+  "b6ee1e24/itl/fi_lib.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/fi_lib.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 102133,
+   "gitBlobSha1": "acf767bb41312ef178fec88d8c17c57477238646",
+   "sha256": "71e67cd3e040cceec56617d731e2f645f23a0a113d4d88cbba77ec6b47ca52c6"
+  },
+  "b6ee1e24/itl/ieee1788-constructors.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/ieee1788-constructors.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 3480,
+   "gitBlobSha1": "f98f2cad364df43931943a170283837bb5b7aae9",
+   "sha256": "743bb6c0a5bf5473f54d06570aa66f71399e37501dbc2d7e670caeadbf52b217"
+  },
+  "b6ee1e24/itl/ieee1788-exceptions.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/ieee1788-exceptions.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 703,
+   "gitBlobSha1": "1f2913829a788dca7c7b037ffd654708e3057c38",
+   "sha256": "576863aaf4312b653eaa0730d4aa7fff76bd445bd9ec155a4ffe853c4e6a0051"
+  },
+  "b6ee1e24/itl/libieeep1788_bool.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_bool.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 19584,
+   "gitBlobSha1": "c58fce7b820d48974ff7e4d047ef36b70e432698",
+   "sha256": "8d18f4a8ba7dfcd588544aedc6d2cbfa5b25fe27e4b16f31ef87b20482c4289e"
+  },
+  "b6ee1e24/itl/libieeep1788_cancel.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_cancel.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 19578,
+   "gitBlobSha1": "e35329ad6df87b7d4e069b89a17af0b33913d0c5",
+   "sha256": "13b4424f6100c0bd6956cfbe538bb1c79ec5bca762b0a7c889e69e13255602f0"
+  },
+  "b6ee1e24/itl/libieeep1788_class.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_class.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 17304,
+   "gitBlobSha1": "02e6f64aa633e40cc02deea536530b6398177a19",
+   "sha256": "9baa1dda2b7601da3738e5a7c87ccf98d537fecb96490f719b57943d8c524774"
+  },
+  "b6ee1e24/itl/libieeep1788_elem.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_elem.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 219436,
+   "gitBlobSha1": "b5dea4bc111813ab2307391071fbb3783d4f4113",
+   "sha256": "c14a195b0a0a968d0f8e7e05a10430ec6cc9872be6f9d20e61b66f07ea92e62a"
+  },
+  "b6ee1e24/itl/libieeep1788_mul_rev.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_mul_rev.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 29251,
+   "gitBlobSha1": "da616466029bd626769c9ba831dcb878c9dd54d2",
+   "sha256": "44c7f2abf354796c1938cc09b043ec8b5a4b4259441318bb75c5d317397884b6"
+  },
+  "b6ee1e24/itl/libieeep1788_num.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_num.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 8950,
+   "gitBlobSha1": "0afd618f01d3ab2a2c86666fc9f45d153c7d4343",
+   "sha256": "67832843fdc2bb394d2c54c1290e5334ad5a81bf10b838432b40dae80e96c170"
+  },
+  "b6ee1e24/itl/libieeep1788_overlap.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_overlap.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 4584,
+   "gitBlobSha1": "afc6ccac7a3327bc7771553c26826d688d1a7fe5",
+   "sha256": "353bb0a90c9c20ab3f577c8374b626a0712b4f9afa592f05c5c7cb4192327504"
+  },
+  "b6ee1e24/itl/libieeep1788_rec_bool.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_rec_bool.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 6916,
+   "gitBlobSha1": "abb57980b4a46edcf004c9124edd516a4bcdc381",
+   "sha256": "45fdd80d7741cb82e469b4595811f12fbfdea096b92dba95e4db9478d1d45f5b"
+  },
+  "b6ee1e24/itl/libieeep1788_reduction.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_reduction.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 1823,
+   "gitBlobSha1": "9d3dd9c445c05c8a4d179e5ffffd17d798d438c3",
+   "sha256": "0d08bcb584f0ca30310a86f8b0484e8a939d774d0e282f7ccd5f9cc8bb4dd86e"
+  },
+  "b6ee1e24/itl/libieeep1788_rev.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_rev.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 55051,
+   "gitBlobSha1": "2a28132a1ed965abe613ddb67df5e69c18625fcb",
+   "sha256": "28232a6d939de4726259bde80f12ea65d2e8df93d3e0679988113af92a7cbd04"
+  },
+  "b6ee1e24/itl/libieeep1788_set.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/libieeep1788_set.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 2034,
+   "gitBlobSha1": "2b283605bd8acca7597105d09ba5c126f85a402f",
+   "sha256": "6d1fc9163d0db66a7bc52755a3ba6392a6b8d4e11d34d92ed34080e2a268dbbd"
+  },
+  "b6ee1e24/itl/mpfi.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/mpfi.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 85848,
+   "gitBlobSha1": "62130e1e9b8391c1a28e9d06a60bf407050d97bd",
+   "sha256": "d2bfe0c71f6890ef9ab50e944bb804f7c033af46b9b45ca3ff37c2a81af2f57c"
+  },
+  "b6ee1e24/itl/pow_rev.itl": {
+   "url": "https://github.com/oheim/ITF1788/blob/b6ee1e24d209c289f99a68ddc357839935799eae/itl/pow_rev.itl",
+   "what": "ITL test file (licence in its header)",
+   "bytes": 58068,
+   "gitBlobSha1": "64eec205088ef4dacc27a6e78d5547ffc93767e5",
+   "sha256": "7256a5ac3d93855f790289ff0135d58caf6128f679ab3264936c04ad7aed0e25"
+  }
+ }
+}
