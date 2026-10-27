@@ -1,0 +1,1253 @@
+{
+ "what": "The N(6) = 3 saved run of openai/math at 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a (published 2026-10-26), every file pinned by sha256: verification/saved-run (VERIFY.md, execution/{commands.json, results, data}, the release's check_records.py and compiled-build sources — those two pinned as bytes only, never opened or run here), the manuscript's build/sections/execution.tex and README.md. The bytes are Apache-2.0 (openai/math LICENSE) and are not copied: they resolve at https://github.com/openai/math/blob/7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a/<path>. Read by tools/check-openai-math-mub6.py.",
+ "repository": "https://github.com/openai/math",
+ "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+ "count": 311,
+ "totalBytes": 82528463,
+ "files": {
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/README.md": {
+   "bytes": 1229,
+   "sha256": "e21d1a5ec6153f45f25215142ecbd8272844795ccc2e9b183185655bcd5b84fc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/build/sections/execution.tex": {
+   "bytes": 20443,
+   "sha256": "bd5e193a7cb0ecc8a34b7452e51dfa3bad686ba423af1b9998b5d70a40f59fbf"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/code/extraction.json": {
+   "bytes": 1032,
+   "sha256": "ec191ada390d8b59436b673cb402da27dfd930b1c6a5bc2c9f3c00bb870bccde"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/VERIFY.md": {
+   "bytes": 3880,
+   "sha256": "f68b8abe0d7f038b0ca03e31f0f16338831043ee449fa99ccb169ee43831102d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/build.sh": {
+   "bytes": 1303,
+   "sha256": "81dc6c71ecaa6511c9c5245ec7f946b24c5b41344ebd5171c10bedd9944e93bc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/abi-fp-probe.cpp": {
+   "bytes": 2496,
+   "sha256": "1589fe5b4365a3eb1a94818c3801cfcc1509f7c88da23d06175503a4934b4c3c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/atlas.cpp": {
+   "bytes": 8821,
+   "sha256": "dcbf2dbe1054c01f9a7551094c1ac5f495e8c360a5ab5187ba2de30861909c5f"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/covout.cpp": {
+   "bytes": 5286,
+   "sha256": "2a7e6bf5ca4857653d0083144a1a1e815b5109df418d7f6f3bf98c4b974fe52c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/patchx.cpp": {
+   "bytes": 16137,
+   "sha256": "a78a1ab171d8c7f11490f83f4fc6896f0b135a1648563c970c584210b192095a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/seed.cpp": {
+   "bytes": 3514,
+   "sha256": "3c6c7a7092230de231fdb23b6d1782de0dd9ef6689095763b875d90ce5ddeb44"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/stageB.cpp": {
+   "bytes": 12030,
+   "sha256": "7e609a2f282d519a73479e6adb4f18e13202844e3ca8325135a444981e1b0c0a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/stageC.cpp": {
+   "bytes": 17471,
+   "sha256": "60a1b10091852809f523d4f5cc70abb28ebe8d7ed691843e7a2d73e9bbd7caae"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/ub.cpp": {
+   "bytes": 11557,
+   "sha256": "bb031282340012e6fea15eadc073cf79a9e5a75fa0d558ccc5e1ef541e2b1e77"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/check_records.py": {
+   "bytes": 18229,
+   "sha256": "565f4ee47ab7b7c4bf1c224981eb86ec94ef5f75a9487347a53af407eee45734"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/commands.json": {
+   "bytes": 46908,
+   "sha256": "e27de17eb16a447c6b1f73b34ff0a1ef20e6889781b0dd0f2f065fe5784cdeba"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/bad0.txt": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/bad1.txt": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/bad2.txt": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/bad3.txt": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad0.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad1.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad10.bin": {
+   "bytes": 1516,
+   "sha256": "8966ffed8fdaf36f9791df342c35148467d5a207eac11433d30a4ac15d7104bb"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad11.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad12.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad13.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad14.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad15.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad16.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad17.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad18.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad19.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad2.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad20.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad21.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad22.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad23.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad24.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad25.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad26.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad27.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad28.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad29.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad3.bin": {
+   "bytes": 3024,
+   "sha256": "9a9593704f38a71b303b6fc194bc5d763ff6916cb02a057b72ba143556dcf6c9"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad30.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad31.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad32.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad33.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad34.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad35.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad36.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad37.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad38.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad39.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad4.bin": {
+   "bytes": 6040,
+   "sha256": "001bbc234c9604da2b07044db2adbef9fae135552755d47698d7ea05c81ba884"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad40.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad41.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad42.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad43.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad44.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad45.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad46.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad47.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad48.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad49.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad5.bin": {
+   "bytes": 7548,
+   "sha256": "688d7e852fb0a502a59ef22f5466cf69f1b4c01f9c3a24405e312eb9f0029a29"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad50.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad51.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad52.bin": {
+   "bytes": 43740,
+   "sha256": "d444ef39b69608fd6e1cbd465f4b6741bd2d66e5189923ce37dcc21f7d6bef88"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad53.bin": {
+   "bytes": 48264,
+   "sha256": "cc97425c64bf0ab0f36ea87433bcced62c45043f685b64f2dbdd765346babeff"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad54.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad55.bin": {
+   "bytes": 34692,
+   "sha256": "f6753649b149c33cdf818d96c63504f295a50c87a5b64f90b669236f9ed66bee"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad56.bin": {
+   "bytes": 24136,
+   "sha256": "c6dc7fd0a18e2c5188ac01eeee4ff48ddb0fdf97b27d64e27101f71584e51d5a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad57.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad58.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad59.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad6.bin": {
+   "bytes": 12072,
+   "sha256": "7d314b89eb46b018901ab1b76299abdea1245e34da8f5b124de5920980526e18"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad60.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad61.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad62.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad63.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad64.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad65.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad66.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad67.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad68.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad69.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad7.bin": {
+   "bytes": 9056,
+   "sha256": "2126d6ad906965dadbacb4195acc6715eb6ece2ab87c702a8e2d1b311b23be7c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad70.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad71.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad72.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad73.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad74.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad75.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad76.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad77.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad78.bin": {
+   "bytes": 3024,
+   "sha256": "aaeb2a985529acc7abc167b5fa88dd1afbdff9a7f4a237246e2c49db2e23c571"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad79.bin": {
+   "bytes": 21120,
+   "sha256": "e08bd9097eda09b458b1cd7d1f9305e2c7c4d8d65ef5ff36f93ea5dd9ed37039"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad8.bin": {
+   "bytes": 6040,
+   "sha256": "8f6f03217cac3db787710ad06cebd55fdae400e5c3171547bc87f331da087c3c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad80.bin": {
+   "bytes": 19612,
+   "sha256": "f23c8b0933a603f8fd66f435d99b8916c70735984d2e403ab377443a0e8664dd"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad81.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad82.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad83.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad84.bin": {
+   "bytes": 6040,
+   "sha256": "479314fb3a32bcfada6919273a44266e87deb1331f2ce84511ffd244ae6f0ac4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad85.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad86.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad87.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/bad9.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f0.bin": {
+   "bytes": 386056,
+   "sha256": "5012189a07a0ee0a8c56a2b5cc160813d912e71497280d7a6202bd972ef18fe4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f1.bin": {
+   "bytes": 386056,
+   "sha256": "fb4ef73fb999a1bcd96a235a2adf42371dacdedb5f329a80b63c7a68ce9bba9c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f10.bin": {
+   "bytes": 386056,
+   "sha256": "00476c6344711f8d26f1c2fa49364a6a1a15321885b959093a2f0397d2787bcc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f11.bin": {
+   "bytes": 386056,
+   "sha256": "83f425f43dbe6964c1165b49a75ea5e1c1d45c24d6a28ed99043d61976573bf1"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f12.bin": {
+   "bytes": 386056,
+   "sha256": "1e83638b423e8df4367c05e6eba1ba037c9baae6baefee08f52a65efb2558bd4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f13.bin": {
+   "bytes": 386056,
+   "sha256": "cfa303b83d53845e25f5cea2922c7800da89ce9cda6dc49d33b8a3b51e5f7186"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f14.bin": {
+   "bytes": 386056,
+   "sha256": "107e29a313d19f9600949b51e42cf0a97a3f9a59d727624acc61e11ecc9b5632"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f15.bin": {
+   "bytes": 386056,
+   "sha256": "cef9a1fb3282b2fc5c7aef7b9fca44984f1bb185166bd177b8f56d6b4a50e963"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f16.bin": {
+   "bytes": 386056,
+   "sha256": "fdbfbed1608929ea64f54d8b5d296a2666e3e26ada6ef7de410ec7c8508bc8d4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f17.bin": {
+   "bytes": 386056,
+   "sha256": "14e78f42f1bee7b6da345e0814664ed59ff256ce86ccc794e98bf1385847a4df"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f18.bin": {
+   "bytes": 386056,
+   "sha256": "9a9e3a24bf0f82173bf15593b8e99d96dd2e85490aaff0cc7eb02b821fd74321"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f19.bin": {
+   "bytes": 386056,
+   "sha256": "c90091cae55a76380d549a0a12e6a8c30114054ce9757ba71e9a70e7e7f00a30"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f2.bin": {
+   "bytes": 386056,
+   "sha256": "5864fd137a3fb226edec1d5cf690a23b138a805953898102dc309335e95d93e1"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f20.bin": {
+   "bytes": 386056,
+   "sha256": "17420838059aba4535e635ea627c6d8a7ecb9b2bce84456c351c3f1b4dd98341"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f21.bin": {
+   "bytes": 386056,
+   "sha256": "50e97589cd05235c7b6b1d6884ba8b870d6aa015a223e3603ca275fa65fed188"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f22.bin": {
+   "bytes": 386056,
+   "sha256": "cde18e800d0426320270ae1df89c6f5b41df52c4cae103b9db00380da4b17f01"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f23.bin": {
+   "bytes": 386056,
+   "sha256": "63fb064e8b666534eaee39247ea7ec95e3ee1e777291e38a835f311ada6b0b8e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f24.bin": {
+   "bytes": 386056,
+   "sha256": "1c016736ff33fa884c102ece71a760d95d49bb456aa0802d5f0e07ef300eb950"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f25.bin": {
+   "bytes": 386056,
+   "sha256": "3d31fbc4f7800bd0a1bfe53ae3bca532c8f1a041baa94ae3c4c0ea075c059f7d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f26.bin": {
+   "bytes": 386056,
+   "sha256": "2f91f774883ea664dff77b54f3524ca94d9e39fc5965deb7d3fc09303b714fe5"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f27.bin": {
+   "bytes": 386056,
+   "sha256": "df282770ad181cc9c65934609c7009f8a041e62e9082bc0724da730624ede4e2"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f28.bin": {
+   "bytes": 386056,
+   "sha256": "247e395ff2a46dbefe5c5aa0afbe502272c7dfd9d472a2f24837dbf76ffca299"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f29.bin": {
+   "bytes": 386056,
+   "sha256": "2cac6aed419b82ab8d3e844279023427368f9ace91d504444a142e450deee2b5"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f3.bin": {
+   "bytes": 386056,
+   "sha256": "c305122ea8dd74eb8f8ec3b4e61afe6b3eba838cca7a89f8ffa8c799cb8ef4be"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f30.bin": {
+   "bytes": 386056,
+   "sha256": "d29f4c2905fa89d26eaed3adc0dbf395ac5a85ad63d9f9f07739ec697bf15e47"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f31.bin": {
+   "bytes": 386056,
+   "sha256": "ace35b24eb20120ed8b616a276055747dee871bcd21ac503dc108f4595518ddd"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f32.bin": {
+   "bytes": 386056,
+   "sha256": "0777330a02521094dbde967714604a97da2679ff5be38e029b87a8a172684d1b"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f33.bin": {
+   "bytes": 386056,
+   "sha256": "9a488596ee9cd105ebb898f9fb184d62bfc6100eb9c84bb7f7f36ffba32e553f"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f34.bin": {
+   "bytes": 386056,
+   "sha256": "9cbc5404467743eafcbb05e3883595a45021d35856560ff88966ea9b156eba3a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f35.bin": {
+   "bytes": 386056,
+   "sha256": "82591dd03d2f47bf613de5eade4cdb67dc868f3496d253a15547864eae71ff79"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f36.bin": {
+   "bytes": 386056,
+   "sha256": "69faac36d1213594968cbe8cce723f1547c2f63b3a689e9bd1c3d337c18f0596"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f37.bin": {
+   "bytes": 386056,
+   "sha256": "91389fad5f54e419a503307545dfe3c66bc467c8527faeed6f763901c8a6a319"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f38.bin": {
+   "bytes": 386056,
+   "sha256": "85e8e20c1a799927c5a57ac538204d9c437ee6e447f7db511599466da1d7336e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f39.bin": {
+   "bytes": 386056,
+   "sha256": "84eb1cfd0e3f26ea13d576d26bde94f360b111215d7016307b7a8ef309ac01cd"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f4.bin": {
+   "bytes": 386056,
+   "sha256": "1eb02efad4c42fb94f3c22ab1fe258180bcb66918855215f976327797fa1f5ca"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f40.bin": {
+   "bytes": 386056,
+   "sha256": "d267894a9633f9a9ea8615638bce20973eba44681a43cb73a9f21e764b758af0"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f41.bin": {
+   "bytes": 386056,
+   "sha256": "b8653ed6ff481d77b344e92d55dff3588b5437f1ae5bc1d16b8222909dda0b64"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f42.bin": {
+   "bytes": 386056,
+   "sha256": "f1b875de60b391e360bef6769d86fd51af7663f506c32edb7ba4b0ae3761ab53"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f43.bin": {
+   "bytes": 386056,
+   "sha256": "3ef82f38b0333030c2b34d1e0b8932fc65c45ccfeef1a24fb119578751bbb49a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f44.bin": {
+   "bytes": 386056,
+   "sha256": "21b63418a53d4212244d8f18d288ed8428cb6803e1617c675ed1fb298bd52175"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f45.bin": {
+   "bytes": 386056,
+   "sha256": "a21b581f3721b67cf2c42b34ea0a3ef1a931d287527b6081b5343e6c6cd5d43c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f46.bin": {
+   "bytes": 386056,
+   "sha256": "281882628d7aaefa391a26f05f7e681b53005d74228d1faa0f642f384e2357bd"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f47.bin": {
+   "bytes": 386056,
+   "sha256": "3d022494d011a3848c8520f0460886875109056664f968e44acd06b1b7188bf3"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f48.bin": {
+   "bytes": 386056,
+   "sha256": "11011accef9619354d76b2fdfd69e89a3e8652f1c646e8d5bd2138eae4cb7ca1"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f49.bin": {
+   "bytes": 386056,
+   "sha256": "19e9bdc131bcaef2c021ee746786726ec638bed0e0c0b209288ea70f1ed2cad9"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f5.bin": {
+   "bytes": 386056,
+   "sha256": "50688c6bd5c8936893523e1801e8130f0212f65b5993cd7a2ca314cafc1a3714"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f50.bin": {
+   "bytes": 386056,
+   "sha256": "0cf505eabf3579ecfba2092d8274b26836ff6181853357d7bba88592b429e08b"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f51.bin": {
+   "bytes": 386056,
+   "sha256": "eb0b159a5d5ecaf34c2220027d57d045429b2ad2a57c193d4c2b468385f41b06"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f52.bin": {
+   "bytes": 386056,
+   "sha256": "c581980320c8fb33d6c363861e7c31e57c2164e26d05fcd87329befb27eff184"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f53.bin": {
+   "bytes": 386056,
+   "sha256": "dc5faeda1a55b9164666e185fe0a28922af6ce9f46f52241115dee8a41261ecf"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f54.bin": {
+   "bytes": 386056,
+   "sha256": "5be3cc3852c48f0a2d768087e2c43224586aa6c3155938ad41dee92f15ae88ba"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f55.bin": {
+   "bytes": 386056,
+   "sha256": "fda0358e5c4f02b9ec7176b26d05e2897e44b348da63958a9585c6aeeffb079a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f56.bin": {
+   "bytes": 386056,
+   "sha256": "f2d61d85de60d7d31c4c4f6475ba6cc073d0833328961eb9978b85e1f3799b3b"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f57.bin": {
+   "bytes": 386056,
+   "sha256": "daf888d41bedacd807081316039bd4ae738519ca0db71f04e1f5cda9e5b8719e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f58.bin": {
+   "bytes": 386056,
+   "sha256": "89d1fbc1b342ae285b6e66bac6a407f36ff680baa6e20212616fdb34766e141d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f59.bin": {
+   "bytes": 386056,
+   "sha256": "74bf9056300d55779e7cfc252a076f63063d304bd617f41aaf4d5c73f2994596"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f6.bin": {
+   "bytes": 386056,
+   "sha256": "b7c99459219f0c534a431bbc62de59798c93ea0f6e645d514bb070f98bfb52cf"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f60.bin": {
+   "bytes": 386056,
+   "sha256": "56880888cd8fa735f666a56d889b90c15128840d09de883a2a309b018499b75a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f61.bin": {
+   "bytes": 386056,
+   "sha256": "16d2ce0d24ab37f749dc4dd699b78bfb69d9e42e55bca37dcb1b47f8e7ab3406"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f62.bin": {
+   "bytes": 386056,
+   "sha256": "ac836b74d2be856de4627e4503f7647b51fa8610b2ef4c93b4b6d4d72d95072c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f63.bin": {
+   "bytes": 386056,
+   "sha256": "2992277e79e84e88f67cd03970f5ef03ba1480dee33554d3855393c94797011e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f64.bin": {
+   "bytes": 386056,
+   "sha256": "dd0901a97aa623c39d15b67042e5aad6e09ceb8f73741c088e02767f9568105c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f65.bin": {
+   "bytes": 386056,
+   "sha256": "8a42e52372d5fbe5795a2ecf3e26361e13ff7374a307505cc82773496fb051bb"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f66.bin": {
+   "bytes": 386056,
+   "sha256": "4477bb867fc570b8de07f55bf6fee45159f33d42f9acff5ca6dcffafe69b512e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f67.bin": {
+   "bytes": 386056,
+   "sha256": "23c020df6badae97e40af15dc604182b63615c0a638c6d8a839a10588f1b619b"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f68.bin": {
+   "bytes": 386056,
+   "sha256": "d6f9aa7226a24aca162c6193ad5ae2a9aa1302fd055a03cf69ead59cfab4957f"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f69.bin": {
+   "bytes": 386056,
+   "sha256": "d0aa7ba8a3f8f599f0f54a9936e537133ec9fad55481948c6cabb9273af67996"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f7.bin": {
+   "bytes": 386056,
+   "sha256": "502faf8163b98a766296dc38f8fea852c1021f59ea483caafbd24c95de68e6b6"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f70.bin": {
+   "bytes": 386056,
+   "sha256": "ef21f9256517e2cd99f50990386f35d5b34b11cd91ec7e16b0868c67d28ee852"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f71.bin": {
+   "bytes": 386056,
+   "sha256": "746e12c3be3e01fddc5c0aeed0c17830a8cb4711cb616b81347ec7dc41de8577"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f72.bin": {
+   "bytes": 386056,
+   "sha256": "6d491d0d7b90068e67b9858c8f56ba231a1cea468c491d35861c7c52c2a05509"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f73.bin": {
+   "bytes": 386056,
+   "sha256": "36c13c52a12030a3ef0f531101888b4ca4fd22db4c352aba78e16d7f47071ff2"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f74.bin": {
+   "bytes": 386056,
+   "sha256": "0519a9bd956ec844e84215c26d72c4ba316d95d98de6d7a40140d4c41b0e6d3e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f75.bin": {
+   "bytes": 386056,
+   "sha256": "fa5ab22bd3f0813e1b1345849d46110c6f56e548d99dde49bdab033ecaf6e2f2"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f76.bin": {
+   "bytes": 386056,
+   "sha256": "74466ab41c611b63cae29a2a4633527d48e0b39b54f78066ce6dc84ff673148d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f77.bin": {
+   "bytes": 386056,
+   "sha256": "8fdef268f66dd915e3e6a78f0a346416284cda6a8cce205c328a8e587af8c2d5"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f78.bin": {
+   "bytes": 386056,
+   "sha256": "051dcbe5ce3bc6c5cc9c596e58d9d272a6727c0eae2b16e97bbeffe68ef48d51"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f79.bin": {
+   "bytes": 386056,
+   "sha256": "5a8f551bfc7bb981b5e22df3ffd8f9706407094e2e8d9fb06d6f547983fbe1e8"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f8.bin": {
+   "bytes": 386056,
+   "sha256": "55618a6db9a446ded94358fb30c6ddb8a51d2aa37d8cea081bbe94f22200ca7a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f80.bin": {
+   "bytes": 386056,
+   "sha256": "67460ab3193a1650c2da4b056f6996d2ff2976df537f092e8db83f3fc450e9c3"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f81.bin": {
+   "bytes": 386056,
+   "sha256": "57d593d5dea5573c93ed53918dc4eac77224b6813346cdce5730b26c6c6a1c03"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f82.bin": {
+   "bytes": 386056,
+   "sha256": "b1717afd9fd9ee4552e447d2cf904cb770ff3b2eec039d94adad60d8a195850a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f83.bin": {
+   "bytes": 386056,
+   "sha256": "d150a6ceb04100481f0a45456d5ebcecc842adbc492963c4c3680cb4e86a28d7"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f84.bin": {
+   "bytes": 386056,
+   "sha256": "fbc1d59ff0da44ead1dd2071ddfb40405a419292e0dcdc4325c11b817ec0cafa"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f85.bin": {
+   "bytes": 386056,
+   "sha256": "e851e936daeac8e202f5b051958b8c46487f711a4f72446f76c1589f14213696"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f86.bin": {
+   "bytes": 386056,
+   "sha256": "a7b093fe57b91ee62ec61b7f820d313ac28411f13ba4237530f945937fadea3a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f87.bin": {
+   "bytes": 160212,
+   "sha256": "ea148e1628f487bd38b81361a835f2ef87feac739f4acd5409c08ab9f6a20e86"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/f9.bin": {
+   "bytes": 386056,
+   "sha256": "52e778058f8b26758d9d4d4fd7f87b5a151f3710b0ca42eed646823ce26fe2b2"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/batches/fdone.txt": {
+   "bytes": 9,
+   "sha256": "2a106a30147541978ffcbd498ffd71ade9b342094620a935cd22b69d63130d34"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/centers.txt": {
+   "bytes": 7339546,
+   "sha256": "c48bc9a2be1eb2cdeea82ea1b030d7cb9f00a6c9563b63f0248dd115748a5789"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/coarse0.bin": {
+   "bytes": 1150968,
+   "sha256": "77b0cda59484ffde0654db8d6008bcaab1daf1deefd00d4dc085d3d751418cd4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/coarse1.bin": {
+   "bytes": 1166048,
+   "sha256": "48ca7775dba57a87a10d154da8b172074b29c9a65b32e44ee169f23a48d24b8a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/coarse2.bin": {
+   "bytes": 1140412,
+   "sha256": "418b6d9cf338187c63635d26050940a13177515050a057b2bc67fd11a163e43e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/coarse3.bin": {
+   "bytes": 1187160,
+   "sha256": "8c23427e63e31cd18abbb80838e3289e646fd108fa850687ca7b857471376535"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1.bin": {
+   "bytes": 1699524,
+   "sha256": "ef85ec73217ecb0c770d3c775396df88b60ca06918f77310df5dff2f6d9bf215"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1bad.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1cbad0.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1cbad1.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1cbad2.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fb1cbad3.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/fine.bin": {
+   "bytes": 33746388,
+   "sha256": "9b5b743b61907277fa6687a0ad45677bbcd0e4c9bd44a0d93d258253fb52923d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/finebad.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/mid.bin": {
+   "bytes": 903656,
+   "sha256": "e97c74dde90a0e758df2cb5d9708f5bd6bd660ed920b3299f5df92ff4de11be4"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/data/midbad.bin": {
+   "bytes": 8,
+   "sha256": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/A0.txt": {
+   "bytes": 1828,
+   "sha256": "9509a4040b8fa0d9c8cad4ff53610fcbaf09862cce5aa374ee8a06e328879c6c"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/A1.txt": {
+   "bytes": 1828,
+   "sha256": "5c8a6026d6589d7f53c2a24868d5597fee5a8d08cef5ecfece7d45b1570e4d66"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/A2.txt": {
+   "bytes": 1828,
+   "sha256": "a88a253e51d1ca78f60836c5e8cad13f947390ef33707e8b761b27ee84c3444d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/A3.txt": {
+   "bytes": 1828,
+   "sha256": "07fe7e8f51b9c0324daed4dd15b305d09dbf03dffad70304fd1fd35df7e4fd01"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/Bfine.txt": {
+   "bytes": 1825,
+   "sha256": "deb7490920422a9a79f35c25b87821735c0643fa412d139643ffd58ada6468e0"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/Bmid.txt": {
+   "bytes": 8836,
+   "sha256": "31650da20c56a0da3d784d48854b169fe95c359d45984d05c0d12c086341e545"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.Bfallback.txt": {
+   "bytes": 498,
+   "sha256": "6cad9fb3a1def1753e22968bb7b6db5c935c2130595934a77a85eec0b78296a0"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch0.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch1.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch10.txt": {
+   "bytes": 133,
+   "sha256": "45aad5809a2f02e69a207457354dd7b598e9332fccb6416a6bf7b45ffef32f0b"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch11.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch12.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch13.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch14.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch15.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch16.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch17.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch18.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch19.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch2.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch20.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch21.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch22.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch23.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch24.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch25.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch26.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch27.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch28.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch29.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch3.txt": {
+   "bytes": 133,
+   "sha256": "467fade5c466a108c760044441a0db93d3ef161c61e35e0aee840ee8c0e0d14d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch30.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch31.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch32.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch33.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch34.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch35.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch36.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch37.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch38.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch39.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch4.txt": {
+   "bytes": 133,
+   "sha256": "ccf0c7b36859f99be176f42054724ff340ddf9283cb49286fa21323fe2da6907"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch40.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch41.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch42.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch43.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch44.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch45.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch46.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch47.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch48.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch49.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch5.txt": {
+   "bytes": 133,
+   "sha256": "567d17e4dfc47a6b390fb5adea740ad5e00c385c6d9a5e2a55c6c389ec343bdc"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch50.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch51.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch52.txt": {
+   "bytes": 137,
+   "sha256": "a9fced60bdd075c2896e6817253ba6192cc749f4cb315d4829c22a87982ffcf2"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch53.txt": {
+   "bytes": 139,
+   "sha256": "12497762c7d4645e3b72069068ff1d078396e841a7dc8475c5e03ec07ee7bd28"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch54.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch55.txt": {
+   "bytes": 135,
+   "sha256": "504604e5681988feb502852311368c90c5835ac3c89aa9e10ef916cd71708b50"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch56.txt": {
+   "bytes": 139,
+   "sha256": "8884f5ee9fb656be0e17a2846c15a2d3f13cbd679f0deb0b1c280d8c8a36279e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch57.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch58.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch59.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch6.txt": {
+   "bytes": 133,
+   "sha256": "aafa0e204c4e838085f1b8f8fee9866fabd16a88411aeb70174022de216244e7"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch60.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch61.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch62.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch63.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch64.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch65.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch66.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch67.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch68.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch69.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch7.txt": {
+   "bytes": 133,
+   "sha256": "5de2f4f560bf46f07a1191d6143c6f3d89a4457a9d799abb4cbe8de727b97885"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch70.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch71.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch72.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch73.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch74.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch75.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch76.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch77.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch78.txt": {
+   "bytes": 133,
+   "sha256": "467fade5c466a108c760044441a0db93d3ef161c61e35e0aee840ee8c0e0d14d"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch79.txt": {
+   "bytes": 137,
+   "sha256": "1206ee1f815f7fcfc2291f00a280bb03ecb731e07324935040c88f884b9b35ed"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch8.txt": {
+   "bytes": 133,
+   "sha256": "b6e6abd69a9ba0b69d29cc7b74e3104c5c08685a8d3490c2d2c53dea4e10db50"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch80.txt": {
+   "bytes": 139,
+   "sha256": "2b62af7305a8ec7304bdd52697dde8861d1fc2966a2a46e3af36b5dd6356796e"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch81.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch82.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch83.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch84.txt": {
+   "bytes": 133,
+   "sha256": "b6e6abd69a9ba0b69d29cc7b74e3104c5c08685a8d3490c2d2c53dea4e10db50"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch85.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch86.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch87.txt": {
+   "bytes": 91,
+   "sha256": "d905907a00d3215375c290651b550c38e72b1a430cad65a1c29a0968f2138083"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.batch9.txt": {
+   "bytes": 133,
+   "sha256": "9f3da91ea65e9d95ed48552148e904d622585407b7ccd536a729bc42762f631a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.final0.txt": {
+   "bytes": 133,
+   "sha256": "682716f15702d241a1ba6594cd330fab2b6f0b4f0ab549cc80dbadcf54883176"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.final1.txt": {
+   "bytes": 133,
+   "sha256": "682716f15702d241a1ba6594cd330fab2b6f0b4f0ab549cc80dbadcf54883176"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.final2.txt": {
+   "bytes": 133,
+   "sha256": "682716f15702d241a1ba6594cd330fab2b6f0b4f0ab549cc80dbadcf54883176"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/C.final3.txt": {
+   "bytes": 133,
+   "sha256": "2d1c39ffaa2e8aa5fd329b43294bd759b91ae43189fd25f6406b9d86a059ca3a"
+  },
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/results/covrun.txt": {
+   "bytes": 75,
+   "sha256": "5a4d8451ce1bc2a5f5a7f3363fcf10bff35438d78533ca6aa3d5e472b0952ad6"
+  }
+ }
+}

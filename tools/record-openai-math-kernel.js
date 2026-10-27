@@ -10,8 +10,13 @@
    A challenge run twice keeps both runs; its row is decided on the LATEST run, and a REFUTED
    is only stated when two runs agree (preregistration: "reproduced by a second run").
 
-   usage: node tools/record-openai-math-kernel.js <run-id> [<run-id> ...]
-          node tools/record-openai-math-kernel.js --rebuild      (re-decide from the runs on disk) */
+   A LATER PIN (pre-registration amendment 17, 2026-10-27): --pin <sha> records runs dispatched with math_pin=<sha>
+   into their own store and ledger — corpus/openai-math/kernel-runs-<pin8>/ and certs/openai-math-kernel-<pin8>.json,
+   decided against that pin's census (release-<pin8>.json) — and never touches the audit pin's. A run whose title or
+   whose jobs' env.txt name another pin is refused.
+
+   usage: node tools/record-openai-math-kernel.js [--pin <sha>] <run-id> [<run-id> ...] [--partial]
+          node tools/record-openai-math-kernel.js [--pin <sha>] --rebuild      (re-decide from the runs on disk) */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -19,24 +24,41 @@ const cp = require('child_process');
 const { writeStable } = require('./stable-json.js');
 
 const ROOT = path.resolve(__dirname, '..');
-const RUNS = path.join(ROOT, 'corpus', 'openai-math', 'kernel-runs');
-const OUT = path.join(ROOT, 'certs', 'openai-math-kernel.json');
-const release = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'release.json'), 'utf8'));
+const AUDIT_PIN = 'fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb';
+const argv = process.argv.slice(2);
+const pinAt = argv.indexOf('--pin');
+const PIN = pinAt >= 0 ? argv[pinAt + 1] : AUDIT_PIN;
+if (!/^[0-9a-f]{40}$/.test(PIN || '')) { console.error('--pin takes a full 40-hex commit'); process.exit(2); }
+const LATER = PIN !== AUDIT_PIN;
+const SUFFIX = LATER ? '-' + PIN.slice(0, 8) : '';
+const RUNS = path.join(ROOT, 'corpus', 'openai-math', 'kernel-runs' + SUFFIX);
+const OUT = path.join(ROOT, 'certs', 'openai-math-kernel' + SUFFIX + '.json');
+const release = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', LATER ? 'release' + SUFFIX + '.json' : 'release.json'), 'utf8'));
+if (release.commit !== PIN) { console.error('the census is of ' + release.commit + ', not ' + PIN); process.exit(1); }
 const prereg = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'openai-math', 'preregistration.json'), 'utf8'));
+/* a later pin runs only the challenges its amendment lists (ADDED + CHANGED), fixed before any run */
+const AMEND = LATER ? prereg.amendments.find((a) => a.pin && a.pin.commit === PIN) : null;
+if (LATER && !AMEND) { console.error('no pre-registration amendment names the pin ' + PIN); process.exit(1); }
 const REPO = 'carlostoledo1891/cert-machine';
 
-const args = process.argv.slice(2);
-if (!args.length) { console.error('usage: record-openai-math-kernel.js <run-id> ... | --rebuild'); process.exit(2); }
+const args = argv.filter((a, i) => !(pinAt >= 0 && (i === pinAt || i === pinAt + 1)));
+if (!args.length) { console.error('usage: record-openai-math-kernel.js [--pin <sha>] <run-id> ... | --rebuild'); process.exit(2); }
 
 /* 1 · fetch: each run's artifacts land in corpus/openai-math/kernel-runs/<run>/<challenge>.json,
    the facts only (result.json), with the run's own metadata beside them */
 for (const run of args.filter((a) => /^\d+$/.test(a))) {
-  const meta = JSON.parse(cp.execSync(`gh run view ${run} -R ${REPO} --json databaseId,headSha,createdAt,updatedAt,status,conclusion,url`, { encoding: 'utf8' }));
+  const meta = JSON.parse(cp.execSync(`gh run view ${run} -R ${REPO} --json databaseId,headSha,createdAt,updatedAt,status,conclusion,url,displayTitle`, { encoding: 'utf8' }));
+  /* the run's title carries its math_pin (run-name, amendment 17); a run with no pin in its title predates the input
+     and ran at the audit pin */
+  const titlePin = (/@ ([0-9a-f]{40})/.exec(meta.displayTitle || '') || [])[1] || AUDIT_PIN;
+  if (titlePin !== PIN) { console.error('run ' + run + ' ran at ' + titlePin + ', not ' + PIN + ' (pass --pin ' + titlePin + ')'); process.exit(1); }
   /* --partial records the jobs of a run still in progress (their artifacts exist once each job ends); the run's
      directory is rewritten whole when it is recorded again after it completes */
   if (meta.status !== 'completed' && !args.includes('--partial')) { console.error('run ' + run + ' is ' + meta.status + '; record it when it completes, or pass --partial'); process.exit(1); }
   const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'omk-'));
-  cp.execSync(`gh run download ${run} -R ${REPO} -D ${tmp} --pattern 'kernel-*'`, { stdio: 'inherit' });
+  /* a run in progress may have no challenge artifact yet (only kernel-tools): with --partial that is not an error */
+  try { cp.execSync(`gh run download ${run} -R ${REPO} -D ${tmp} --pattern 'kernel-*'`, { stdio: 'inherit' }); }
+  catch (e) { if (!args.includes('--partial')) throw e; }
   const dir = path.join(RUNS, String(run));
   fs.mkdirSync(dir, { recursive: true });
   let n = 0;
@@ -45,6 +67,8 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
     const f = path.join(tmp, a, 'result.json');
     const ch = a.replace(/^kernel-/, '');
     const fact = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : { challenge: ch, ran: false, missing: 'no result.json in the artifact' };
+    const factPin = ((fact.env || []).find((l) => /^math pin: /.test(l)) || '').replace(/^math pin: /, '') || AUDIT_PIN;
+    if (fact.ran !== false && factPin !== PIN) { console.error('run ' + run + ', ' + ch + ': the job ran at ' + factPin + ', not ' + PIN); process.exit(1); }
     fs.writeFileSync(path.join(dir, ch + '.json'), JSON.stringify(fact, null, 1) + '\n');
   }
   /* a job that ENDED without uploading a result (the runner terminated it mid-step, so even the always() upload
@@ -63,7 +87,7 @@ for (const run of args.filter((a) => /^\d+$/.test(a))) {
         : 'the job ended (' + j.conclusion + ') in the step "' + step + '" without uploading a result: the runner terminated it' + (said ? ' (GitHub: ' + said + ')' : '') }, null, 1) + '\n');
   }
   n = fs.readdirSync(dir).filter((f) => f.endsWith('.json') && f !== '_run.json').length;
-  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, null, 1) + '\n');
+  fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify(Object.assign({ run: meta.databaseId, workflowSha: meta.headSha, createdAt: meta.createdAt, updatedAt: meta.updatedAt, status: meta.status, conclusion: meta.conclusion, url: meta.url, jobs: n }, LATER ? { mathPin: PIN } : {}), null, 1) + '\n');
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log('run ' + run + ': ' + n + ' challenge results');
 }
@@ -160,16 +184,20 @@ for (const r of rows.values()) {
 const list = [...rows.values()].filter((r) => r.word !== 'NOT RUN').sort((a, b) => a.challenge.localeCompare(b.challenge));
 const notRun = [...rows.values()].filter((r) => r.word === 'NOT RUN').map((r) => r.challenge).sort();
 const tally = (xs) => xs.reduce((o, x) => ((o[x] = (o[x] || 0) + 1), o), {});
+/* a later pin: only its amendment's challenges are members, and every one of them is listed, run or not */
+if (LATER) for (const r of list) if (!AMEND.challenges.order.includes(r.challenge)) { console.error(r.challenge + ' is not in the amendment\'s list for ' + PIN.slice(0, 8)); process.exit(1); }
+const members = LATER ? AMEND.challenges.order : release.challenges.map((c) => c.name);
 const ledger = {
-  what: 'Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper\'s claim is proved: that is lane S.',
-  release: { commit: release.commit, challenges: release.challenges.length },
+  what: 'Lane K of the openai/math audit: each Comparator challenge re-run on Linux with nanoda on, decided by the words of corpus/openai-math/preregistration.json (lanes.K). CERTIFIED here means the Lean theorem states exactly the challenge statement, uses only propext / Quot.sound / Classical.choice, and two independently written kernels accept the proof. It does not mean the paper\'s claim is proved: that is lane S.'
+    + (LATER ? ' THIS LEDGER IS THE SECOND PIN, ' + PIN + ' (pre-registration amendment ' + (prereg.amendments.indexOf(AMEND) + 1) + '): only the ' + members.length + ' challenges ADDED or CHANGED since ' + AUDIT_PIN.slice(0, 8) + ' are members; the ' + AMEND.challenges.unchanged + ' unchanged ones are not re-run, and the audit pin\'s ledger, certs/openai-math-kernel.json, stands as it was.' : ''),
+  release: Object.assign({ commit: release.commit, challenges: release.challenges.length }, LATER ? { previous: AUDIT_PIN, members: members.length, unchangedNotRun: AMEND.challenges.unchanged, amendment: prereg.amendments.indexOf(AMEND) + 1 } : {}),
   decider: prereg.lanes.K.decider,
   declaredChanges: prereg.lanes.K.declaredChanges,
   trustBase: prereg.lanes.K.trustBase,
-  notRunYet: notRun,
-  counts: { decided: list.length, of: release.challenges.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)), displayed: tally(list.filter((r) => r.displayed).map((r) => r.displayed.word)) },
+  notRunYet: LATER ? members.filter((m) => !list.find((r) => r.challenge === m)).sort() : notRun,
+  counts: { decided: list.length, of: members.length, cancelledBeforeComparator: notRun.length, words: tally(list.map((r) => r.word)), strict: tally(list.filter((r) => r.strict).map((r) => r.strict.word)), transfer: tally(list.filter((r) => r.transfer).map((r) => r.transfer.word)), displayed: tally(list.filter((r) => r.displayed).map((r) => r.displayed.word)) },
   rows: list,
 };
 writeStable(OUT, ledger);
-console.log('certs/openai-math-kernel.json: ' + list.length + ' of ' + release.challenges.length + ' challenges — ' + JSON.stringify(ledger.counts.words) + (Object.keys(ledger.counts.strict).length ? '; strict ' + JSON.stringify(ledger.counts.strict) : ''));
+console.log(path.relative(ROOT, OUT) + ': ' + list.length + ' of ' + members.length + ' challenges — ' + JSON.stringify(ledger.counts.words) + (Object.keys(ledger.counts.strict).length ? '; strict ' + JSON.stringify(ledger.counts.strict) : ''));
 for (const r of list) console.log('  ' + r.word.padEnd(22) + r.challenge.padEnd(34) + (r.strict ? '[' + r.strict.word + '] ' : '') + (r.word === 'CERTIFIED' ? '' : r.why));
