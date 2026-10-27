@@ -494,7 +494,7 @@ ${plate({
   idx: 'PLATE III',
   title: 'Where one peak becomes two',
   art: plateSplitting(),
-  what: `A crowd distributing itself in a landscape with a single valley, drawn as viscosity falls. Near the top of the plate the density has one maximum, where the cost function has one minimum, and everything is as it should be. Downward, a second harmonic overtakes the first and the crowd splits into two peaks the landscape never asked for. The bright curves are the ones where the second harmonic has won. The bar on the left marks the part of this sweep that is certified &mdash; every viscosity in [${BAND.lo}, ${BAND.hi}], ${BAND.cells.length} closed cells &mdash; and <a href="../mfg/index.html">the crossing itself sits at 1/(8π²)</a>, exactly, with the congestion coupling cancelling out of it.`,
+  what: `A crowd distributing itself in a landscape with a single valley, drawn as viscosity falls. Near the top of the plate the density has one maximum, where the cost function has one minimum, and everything is as it should be. Downward, a second harmonic overtakes the first and the crowd splits into two peaks the landscape never asked for. The bright curves are the ones where the second harmonic has won. The bar on the left marks the part of this sweep that is certified &mdash; every viscosity in [${BAND.lo}, ${BAND.hi}], ${BAND.cells.length} closed cells &mdash; and <a href="../../reports/mfg-lab.html">the crossing itself sits at 1/(8π²)</a>, exactly, with the congestion coupling cancelling out of it.`,
   rule: `m(x) − 1  =  2 Σ_k B_k cos(2πkx)
 B_k        =  − c(κ_k) · A_k
 c(κ)       =  κ / ( (1 + σκ)² + γκ )      κ_k = (2πk)²

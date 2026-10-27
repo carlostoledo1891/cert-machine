@@ -73,7 +73,7 @@ B.push(C.tldr({
     + 'soundness under mutation — a FALSE mutant needs a <em>witness</em>, a violated condition computed and printed by a standard-library script that shares no code with the decider; a TRUE one an invariance; a MALFORMED one a shape; '
     + 'concordance of second implementations; coverage and refusal; cost and reproducibility under a portable profile (a ' + RUN.profiles.portable.wallSecondsCap + ' s wall enforced) and an extended one; '
     + 'and a double-precision checker at three tolerances on the same mutants. A false certification found is a defect: fixed, recorded beside the mutant, the mutant kept, the count reported — never deleted.',
-  checkRaw: 'The five records are on the <a href="/certs/">certificate shelf</a> — ' + ['selfaudit-inventory', 'selfaudit-run', 'selfaudit-mutations', 'selfaudit-concord'].map((n) => '<a href="/certs/' + n + '.json">' + m(n + '.json') + '</a>').join(', ')
+  checkRaw: 'The five records are on the <a href="/machine/log.html#certificates">certificate shelf</a> — ' + ['selfaudit-inventory', 'selfaudit-run', 'selfaudit-mutations', 'selfaudit-concord'].map((n) => '<a href="/certs/' + n + '.json">' + m(n + '.json') + '</a>').join(', ')
     + ' — and each has a <span class="m">--check</span> in <span class="m">make test</span> that re-derives its totals from its rows and refuses when an input left its pin. The mutants are regenerable from the pinned records by their class; the witness scripts are in '
     + m('instruments/selfaudit/') + '.'
 }));

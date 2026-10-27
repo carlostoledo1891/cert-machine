@@ -145,7 +145,7 @@ const body = `
     <pre>f(x)   &le;   Re &Sigma;<sub>k</sub> conj(y<sub>k</sub>) exp(&minus;2&pi;i (u<sub>k</sub>l + v<sub>k</sub>m))  +  &lambda;
 
 &int; f d&mu;   &le;   &Sigma;<sub>k</sub> |y<sub>k</sub>| A<sub>k</sub>  +  &lambda; F</pre>
-    <p>Nonnegative multipliers, one pointwise inequality over a continuum, checked by subdividing the field. The optimiser that proposes y is not part of the proof. It is the same certificate shape the bench used on <a href="../erdos1038/index.html">an Erd&odblac;s problem about the positivity set of a potential</a>, with cosines in place of a logarithmic kernel &mdash; which is why this front exists at all.</p>
+    <p>Nonnegative multipliers, one pointwise inequality over a continuum, checked by subdividing the field. The optimiser that proposes y is not part of the proof. It is the same certificate shape the bench used on <a href="../../reports/erdos1038-inf.html">an Erd&odblac;s problem about the positivity set of a potential</a>, with cosines in place of a logarithmic kernel &mdash; which is why this front exists at all.</p>
     <p>On the ${M.K} rows this page carries, with the extremal skies as witnesses:</p>
     <table><thead><tr><th>r (µas)</th><th>witness (Jy)</th><th>ceiling (Jy)</th><th>closure &chi;&sup2;</th></tr></thead><tbody>${ceilRows}</tbody></table>
     ${profRows ? `<p>And on the full ${D.profileFull.data.K ? '' : ''}set above ${D.profileFull.data.bcut} Gλ:</p>
