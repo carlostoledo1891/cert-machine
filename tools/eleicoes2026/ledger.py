@@ -397,6 +397,11 @@ def main():
     if '--check' in sys.argv:
         old = json.load(open(OUT))
         old['generated'] = L['generated']
+        # the R2-SUM refusal stamps the day it was checked: a stamp, not a fact (the check failed on every new day, 2026-10-27)
+        import re as _re
+        o2, n2 = old.get('decisions', {}).get('R2-SUM', {}), L['decisions'].get('R2-SUM', {})
+        if o2.get('verdict') == n2.get('verdict') == 'NEEDS DATA' and _re.sub(r'\d{4}-\d{2}-\d{2}', 'D', o2.get('why', '')) == _re.sub(r'\d{4}-\d{2}-\d{2}', 'D', n2.get('why', '')):
+            o2['why'] = n2['why']
         if old != json.loads(json.dumps(L)):
             die('the ledger on disk is not what the inputs give now')
         print('eleicoes2026 ledger: re-derived, identical')
