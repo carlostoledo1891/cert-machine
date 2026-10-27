@@ -1,0 +1,254 @@
+{
+ "what": "The registry's C_89 (K4) Ramsey-multiplicity upper bound 0.0301388794* ([SK2026], J. SK, pull request 255, merged asterisked) decided twice from the pinned certificate: the monochromatic K4 density of the 3840-block step graphon as an exact rational, by instruments/optq/graphon_k4.c (C; every block, no symmetry; nine primes below 2^21, CRT over eight and a check prime; run on a RunPod CPU pod) and instruments/optq/graphon-k4-second.js (JavaScript; exact integers; one g(i,j) per orbit of ordered block pairs under block permutations verified exactly), sharing no code with each other or with the claimant's evaluators (kept as text). CERTIFIED when the two integers agree, every block agrees, and the value is at or below the printed bound; the step from a graphon's density to the constant is the standard argument, read.",
+ "generated": "2026-10-27T16:37:59.433Z",
+ "git": "1db41496",
+ "deciders": {
+  "c": "e81f0cdbde2ddad8f86905383bf79d1e97b6ab9a4a17f7d0c61a6d335207639f",
+  "js": "d8e6eefa5aa1464c7517c5cd2b2040168b628ed512da30069260071791e474d6",
+  "proposer": "54aee67ab44700c3481cc64d10e1888e1b5c11b5567fc0d7a73abfc8a0343250"
+ },
+ "pins": "corpus/optconst-queue/c89a-k4-2026-10-27/PINS.json",
+ "certificateCommit": "3d9431a00abf03be3752f8f9f126dec81ac34987",
+ "registryMain": "e95af44bc6ae938f545a0fc62cd1b6c1f6088a56",
+ "pr255": {
+  "merged": "2026-10-26T03:53:53Z",
+  "mergeCommit": "915416c7e98a19e2d6bba02523675c53a47c460a",
+  "head": "77dff95d8f6dbd212e7c9662929003951cf1e262"
+ },
+ "blocksFile": {
+  "path": "certs/graphon-k4-blocks.txt",
+  "sha256": "724cf573dae3151df73e51ecf169a6070ba6a72250386800e12f68237b1cdd0b"
+ },
+ "automorphisms": {
+  "path": "certs/graphon-k4-automorphisms.json",
+  "sha256": "fcda6686545235bca130a2263f4927b17508816b4bf696d6e8bd9ad0b0f1c3ce",
+  "generators": 7,
+  "blockOrbits": 128,
+  "pairOrbits": 176128
+ },
+ "pod": {
+  "pod": "0e7lo3wljzrnxa",
+  "commit": "93694dd47b861095f187e62fcfaaf79385b8a45b",
+  "threads": 32,
+  "finished": "2026-10-27T16:35:07Z",
+  "kernelSeconds": 7219.1,
+  "build": [
+   "e81f0cdbde2ddad8f86905383bf79d1e97b6ab9a4a17f7d0c61a6d335207639f  /work/graphon_k4.c",
+   "82c28f7761f8392df6ed1728b5eefdc4ef388b266fc2beb1a2f0a54f7dd2631a  /work/cert.json.gz",
+   "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+   "model name\t: AMD EPYC 9575F 64-Core Processor",
+   "avx2",
+   "threads 32"
+  ],
+  "selftest": "graphon_k4 selftest: kernel = brute force over all ordered 4-tuples (14 random step graphons, m = 1..34, D = 7 and 2^20, both colours, 3 primes; chunk and reduction boundaries exercised)",
+  "imported": "2026-10-27T16:35:32.290Z"
+ },
+ "definition": "constants/89a.md (registry main e95af44b): C_89 = min over 2-edge-coloured graphons of t(K4,W) + t(K4,1−W); a step graphon with m equal blocks and red value R_ij/D: t(K4,W) = m^-4 Σ over ordered 4-tuples of blocks of the product of the six pair values, the diagonal included; value = (N(R) + N(D−R)) / (m^4 D^6)",
+ "rows": [
+  {
+   "id": "c89-k4",
+   "constant": "C_89",
+   "claim": "C_89 <= 0.0301388794",
+   "pr": 255,
+   "reference": "[SK2026]",
+   "source": "c89-k4/c89_stepgraphon_D20.json.gz",
+   "sha256": "82c28f7761f8392df6ed1728b5eefdc4ef388b266fc2beb1a2f0a54f7dd2631a",
+   "stated": {
+    "num": "27220838459434583306277336063848530765605851167",
+    "den": "903180180540490237232196590042258640992206848000",
+    "decimal": "0.030138879313256…"
+   },
+   "c": {
+    "Nred": "4348131949084831248639221983730378288140567843680",
+    "Nblue": "4362536357934235409369525556701151556853304529760",
+    "num": "27220838459434583306277336063848530765605851167",
+    "den": "903180180540490237232196590042258640992206848000",
+    "lower": "0.0301388793132559",
+    "upper": "0.0301388793132560",
+    "primes": [
+     "2097143",
+     "2097133",
+     "2097131",
+     "2097097",
+     "2097091",
+     "2097083",
+     "2097047",
+     "2097041",
+     "2097031"
+    ],
+    "crtPrimes": 8,
+    "checkPrime": "2097031",
+    "kernelSeconds": 7219,
+    "blocks": 3840,
+    "where": "RunPod 0e7lo3wljzrnxa (AMD EPYC 9575F 64-Core Processor, 32 threads)"
+   },
+   "js": {
+    "Nred": "4348131949084831248639221983730378288140567843680",
+    "Nblue": "4362536357934235409369525556701151556853304529760",
+    "num": "27220838459434583306277336063848530765605851167",
+    "den": "903180180540490237232196590042258640992206848000",
+    "lower": "0.0301388793132559",
+    "upper": "0.0301388793132560",
+    "seconds": 59.5,
+    "where": "Apple M2, 6 worker threads",
+    "pairOrbits": 176128,
+    "blockOrbits": 128,
+    "pairOrbitsEvaluated": {
+     "red": 38422,
+     "blue": 57353
+    },
+    "f0": {
+     "red": "1132327774783870979580461728098195773816557380",
+     "blue": "1136071694466850456156025825145684494266126148"
+    }
+   },
+   "perBlock": {
+    "blocks": 3840,
+    "primes": 9,
+    "mismatches": 0
+   },
+   "agree": true,
+   "equalsStated": true,
+   "lePrinted": true,
+   "printedIs": [
+    "up"
+   ],
+   "theirResidues": {
+    "primes": 10,
+    "consistent": true,
+    "what": "the ten residues in their results/candidate_exact.txt (nine CRT primes and a check prime below 1.5e6) are those of the exact numerator N_red + N_blue"
+   },
+   "theirEnclosure": {
+    "printed": "[0.03013887931325597, 0.03013887931325599]",
+    "holds": true
+   },
+   "verdict": "CERTIFIED"
+  }
+ ],
+ "controls": [
+  {
+   "id": "c-selftest",
+   "kind": "positive",
+   "what": "graphon_k4.c --selftest (here and on the pod): the kernel against a brute force over all ordered 4-tuples",
+   "text": "graphon_k4 selftest: kernel = brute force over all ordered 4-tuples (14 random step graphons, m = 1..34, D = 7 and 2^20, both colours, 3 primes; chunk and reduction boundaries exercised)",
+   "held": true
+  },
+  {
+   "id": "js-selftest",
+   "kind": "positive",
+   "what": "graphon-k4-second.js --selftest: brute force = the pair decomposition = the per-block sum = the orbit sum",
+   "text": "graphon-k4-second selftest: brute force over all ordered 4-tuples = the pair decomposition = the per-block sum on 8 random step graphons; = the orbit sum on a circulant (shift + reflection); a transposition that is not an automorphism refused; W = 1/2 gives 2^-5",
+   "held": true
+  },
+  {
+   "id": "perturb",
+   "kind": "red",
+   "what": "R[0][1242] (and R[1242][0]) raised by one unit of 2^-20 (73371 → 73372, the first fractional entry of row 0): f(0) must move in both implementations, and they must agree on the moved value",
+   "pair": {
+    "i": 0,
+    "j": 1242,
+    "from": 73371,
+    "to": 73372
+   },
+   "c": {
+    "red": [
+     "855248",
+     "228273",
+     "51583",
+     "1065144",
+     "1177473",
+     "1481390",
+     "1731845",
+     "1063220",
+     "733488"
+    ],
+    "blue": [
+     "1556069",
+     "2085037",
+     "522809",
+     "1080590",
+     "182445",
+     "1014671",
+     "2070795",
+     "467081",
+     "456502"
+    ],
+    "primes": [
+     "2097143",
+     "2097133",
+     "2097131",
+     "2097097",
+     "2097091",
+     "2097083",
+     "2097047",
+     "2097041",
+     "2097031"
+    ]
+   },
+   "js": {
+    "red": "1132327776531530015998249322117182321076586684",
+    "blue": "1136071692712776771952836554213042576408299708"
+   },
+   "fired": true
+  },
+  {
+   "id": "printed-below",
+   "kind": "red",
+   "what": "a printed bound one unit below at its last place (0.0301388793) must not hold",
+   "fired": true
+  },
+  {
+   "id": "half-graphon",
+   "kind": "positive",
+   "what": "W ≡ 1/2 (6 blocks, D = 2) gives 2·2^-6 = 1/32 exactly in both implementations",
+   "c": "1/32",
+   "js": "1/32",
+   "held": true
+  },
+  {
+   "id": "ppss-published",
+   "kind": "positive",
+   "what": "the PPSS 768-vertex Cayley graph (Zenodo 6602512, pinned c4.graph6) as a 0/1 step graphon gives the published 4551721·2^-24·3^-2 (PPSS 2024, Theorem 1.1) in both implementations (the second without symmetry)",
+   "m": 768,
+   "c": "4551721/150994944",
+   "js": "4551721/150994944",
+   "seconds": {
+    "c": 5,
+    "js": 43
+   },
+   "held": true
+  },
+  {
+   "id": "direct-blocks",
+   "kind": "positive",
+   "what": "blocks 0 and 3839 by the second implementation with no symmetry equal its orbit value and the C residues",
+   "blocks": [
+    {
+     "block": 0,
+     "red": "1132327774783870979580461728098195773816557380",
+     "blue": "1136071694466850456156025825145684494266126148",
+     "equalsOrbit": true,
+     "equalsC": true
+    },
+    {
+     "block": 3839,
+     "red": "1132304827534510160392964703275961648294373296",
+     "blue": "1136096180093394078822503763103925954392860592",
+     "equalsOrbit": true,
+     "equalsC": true
+    }
+   ],
+   "held": true
+  }
+ ],
+ "seconds": 134,
+ "gaps": [
+  "registry README.md (main e95af44b) lists C_89's best asterisked upper bound as 0.0301388857* ([Kos2026], #264) while constants/89a.md carries the smaller 0.0301388794* ([SK2026], #255): the README cell does not show the page's best row"
+ ],
+ "limits": [
+  "the density is decided exactly; that a step graphon's monochromatic density bounds the constant from above is the standard random-colouring argument, read and not re-derived",
+  "the claimant's evaluators (exact_eval.py, float_eval.py, refine.py) are pinned as text and never run",
+  "the second implementation uses the block permutations only after verifying each exactly; the first uses none",
+  "the first implementation ran on a rented pod: its output is imported verbatim (certs/graphon-k4-blocks.txt) and every block of it is compared with the second implementation"
+ ]
+}

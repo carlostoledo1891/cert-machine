@@ -1184,11 +1184,11 @@
   {
    "id": "jeetu-graphon-bounds-2026",
    "name": "JeetuSK0808's K_4, K_5 and K_6 Ramsey-multiplicity upper bounds (the registry's C_89 ≤ 0.0301388794, PR #255 merged asterisked; C_89b ≤ 0.0016870052, PR #277; C_89c ≤ 0.7422548616·2^-14, PR #279): exact rational step graphons (3840 / 192 blocks; K_6 by 11 parameters), evaluated by their own C/CRT code",
-   "verdict": "BUILT 2026-10-27: C_89b (K5) and C_89c (K6) CERTIFIED by two implementations sharing no code (instruments/optq/graphon_k5.py + graphon_k6.py; graphon-second.js), both equal to the fractions the pages state and at or below the printed bounds (K5 printed rounded up; K6 up and nearest); five controls; certs/graphon-replay.json, pins in corpus/optconst-queue/c89-2026-10-27, /reports/optconst-queue.html §10; the battery in both registries. K_4 (#255, 3840 blocks) not decided",
+   "verdict": "BUILT 2026-10-27: C_89b (K5) and C_89c (K6) CERTIFIED by two implementations sharing no code (instruments/optq/graphon_k5.py + graphon_k6.py; graphon-second.js), both equal to the fractions the pages state and at or below the printed bounds (K5 printed rounded up; K6 up and nearest); five controls; certs/graphon-replay.json, pins in corpus/optconst-queue/c89-2026-10-27, /reports/optconst-queue.html §10; the battery in both registries. K_4 (#255, 3840 blocks) CERTIFIED the same day: the stated fraction exactly, printed up, by graphon_k4.c (every block, nine primes, a RunPod cpu5c 32-vCPU pod, 2.0 h of kernel, about $2.3) and the exact graphon-k4-second.js (orbits under seven verified block permutations), agreeing on all 3840 blocks; certs/graphon-k4.json, /reports/optconst-queue.html §12; gap: the registry README shows [Kos2026] 0.0301388857 as C_89's best, not the page's smaller [SK2026] row",
    "scouted": "2026-10-27",
    "finding": "A second party's replay is exactly what the registry's rule of 2026-10-26 now needs for these rows, and this contributor is the second party on our #249. K_5 (192 blocks, minutes) and K_6 (20 min on their evaluators) are within a session with an exact graphon evaluator of our own (BigInt rationals; the K_5/K_6 density of a block graphon is a finite sum over block tuples); K_4 at 3840 blocks is ~10 h on 4 threads by their count. Nothing of theirs has been re-decided by anyone; their repo does not cite us.",
    "fit": "an exact evaluator for block-graphon clique densities, two implementations, red controls; posted on #277/#279 as the second-party confirmation",
-   "next": "the confirmations posted on #277/#279 (2026-10-27); K_4 on rented CPU if asked"
+   "next": "the K4 confirmation on #255 (drafted, the operator's word); the K5/K6 ones were posted on #277/#279"
   },
   {
    "id": "jeetu-r3-33-circulant-2026",

@@ -116,7 +116,11 @@ def('MtOutsideOnRowsOwn', String(EXT_ON.filter((x) => x.kind === 'own-code').len
   need(Array.isArray(G.rows) && G.rows.length === 2 && G.rows.every((r) => r.verdict === 'CERTIFIED' && r.agree && r.equalsStated && r.lePrinted),
     'the graphon replay no longer shows both rows CERTIFIED by two agreeing implementations at the stated fraction');
   need(Array.isArray(G.controls) && G.controls.length >= 5 && G.deciders && G.deciders.js && G.deciders.pyK5 && G.deciders.pyK6, 'the graphon replay lost its controls or its two deciders');
-  def('MtGnRows', String(G.rows.length)); def('MtGnControls', String(G.controls.length)); def('MtGnDate', G.generated.slice(0, 10)); }
+  def('MtGnRows', String(G.rows.length)); def('MtGnControls', String(G.controls.length)); def('MtGnDate', G.generated.slice(0, 10));
+  /* the same contributor's K4 bound (#255), decided the same day from a rented pod and an exact second implementation */
+  const G4 = J('certs/graphon-k4.json'), r4 = G4.rows.find((r) => r.id === 'c89-k4');
+  need(r4 && r4.verdict === 'CERTIFIED' && r4.agree && r4.equalsStated && r4.lePrinted && G4.controls.every((c) => c.kind === 'red' ? c.fired : c.held), 'the K4 replay is not CERTIFIED at the stated fraction with every control right — rewrite the graphon sentence');
+  def('MtGnKfBlocks', r4.c.blocks.toLocaleString('en-US').replace(/,/g, '{,}')); def('MtGnKfPodHours', (r4.c.kernelSeconds / 3600).toFixed(1)); }
 
 /* the self-audit's amendments: dated paragraphs at the head of the pre-registration, each stating that no definition moved;
    the printed-enclosure sweep (str(x)[:k] cut an upper end toward zero) is among them */

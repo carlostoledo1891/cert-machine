@@ -43,7 +43,9 @@ const secs = (s) => (s === null || s === undefined ? '—' : s < 90 ? Math.round
 const cnt = (w) => L.counts[w] || 0;
 const rows = L.rows.slice().sort((a, b) => a.n - b.n);
 const small = rows.filter((r) => r.n <= L.method.refMax), large = rows.filter((r) => r.n > L.method.refMax);
-const sideCell = (x) => (x.found ? 'FOUND ' + x.found.length + ' (' + x.found.join(', ') + ')' : x.complete ? 'none · ' + num(x.nodes) + ' nodes' : x.rootsDone + ' / ' + x.roots + ' roots · ' + num(x.nodes) + ' nodes');
+/* an unfinished side: the plain kernel counts roots, the orbital kernel (a run on a pod, 2026-10-27) counts units */
+const progress = (x) => x.units !== undefined ? num(x.unitsDone) + ' / ' + num(x.units) + ' units' : x.rootsDone + ' / ' + x.roots + ' roots';
+const sideCell = (x) => (x.found ? 'FOUND ' + x.found.length + ' (' + x.found.join(', ') + ')' : x.complete ? 'none · ' + num(x.nodes) + ' nodes' : progress(x) + ' so far');
 const refused = rows.filter((r) => r.verdict === 'REFUSED');
 
 const B = [];
@@ -61,7 +63,7 @@ B.push(C.scope('Published, not peer-reviewed. The graphs and the bounds are Goog
 B.push(C.tldr({
   findingRaw: '<b>' + cnt('CERTIFIED') + ' of 18 files prove their bounds' + (cnt('REFUTED') ? '; ' + cnt('REFUTED') + ' do not' : '; none fails') + '.</b> '
     + 'All 18 are simple graphs of the order their names claim. The ' + small.length + ' graphs up to ' + L.method.refMax + ' vertices were searched to the end on both sides by both implementations, with equal node counts at every root. '
-    + (refused.length ? 'Of the ' + large.length + ' large graphs, every clique side is closed; the independent-set side of ' + refused.map((r) => r.claim).join(', ') + ' is still being searched (' + refused.map((r) => r.I.rootsDone + '/' + r.I.roots + ' roots').join(', ') + '). '
+    + (refused.length ? 'Of the ' + large.length + ' large graphs, every clique side is closed; the independent-set side of ' + refused.map((r) => r.claim).join(', ') + ' is still being searched (' + refused.map((r) => progress(r.I)).join(', ') + '). '
       : 'The ' + large.length + ' large graphs were searched to the end too, by the fast implementation, every finished root on record. ')
     + 'Two gaps in the release\'s own check, neither of which changes a verdict, lead below.',
   mechanismRaw: 'For each side, every clique of the forbidden size would start at its lowest-ranked vertex in a smallest-last order and lie among that vertex\'s later neighbours; each such root is searched with a greedy colouring as the bound '
@@ -128,15 +130,15 @@ if (Array.isArray(L.outside) && L.outside.length) {
       + 'No triangle (' + o.K.roots + ' roots, ' + o.K.seconds + ' s). No independent set of size ' + o.t + ': the graph is circulant, so a translation moves any such set onto one through vertex 0, and the multipliers '
       + C.esc(o.symmetry.multipliers.join(', ')) + ' — each checked as an automorphism — fix 0 and split its non-neighbours into ' + o.I.reduction.orbits + ' orbits; ' + m('orbital.c') + ' searched the ' + o.I.pieces
       + ' pieces this leaves (' + o.I.unitsDone.toLocaleString('en-US') + ' units, ' + (o.I.nodes / 1e9).toFixed(1) + '·10⁹ nodes, ' + Math.round(o.I.seconds) + ' s on 8 threads of the laptop) and found none. '
-      + 'The reduction is a lemma proved in ' + m('orbital.py') + '\'s docstring and re-derived by it here; the kernel is held to it root by root on 78 smaller instances (' + m('battery-orbital.py') + ', 8 red controls). '
+      + 'The reduction is a lemma proved in ' + m('orbital.py') + '\'s docstring and re-derived by it here; the kernel is held to it root by root on 78 smaller instances, with 8 red controls. '
       + 'The claimant\'s own proof needed orbital branching too, split into 1,665 jobs across three solvers.'
       + (() => { const f = path.join(ROOT, 'corpus', 'ramsey', 'runs', 'R_3_33_ge_241.satpath.summary.json'); if (!fs.existsSync(f) || o.t !== 33) return '';
           const Z = JSON.parse(fs.readFileSync(f, 'utf8')); if (Z.satpath !== crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'instruments', 'ramsey', 'satpath.py'))).digest('hex')) throw new Error('the SAT summary was written by another satpath.py');
           if (Z.sat.length) throw new Error('the SAT path found an independent set — rewrite §5');
-          return ' A second path that shares no code with the search — the same cubes as CNF formulas, solved by kissat with a DRAT proof, every UNSAT checked by drat-trim — closed ' + Z.closed + ' of the ' + Z.cubes.length + ' cubes; the ' + (Z.cubes.length - Z.closed) + ' largest stayed open at a ' + Math.round(Z.capSeconds / 60) + '-minute cap, so the second path is partial and the verdict rests on the orbital kernel (' + m('corpus/ramsey/runs/R_3_33_ge_241.satpath.summary.json') + ').'; })() };
+          return ' A second path that shares no code with the search — the same cubes as CNF formulas, solved by kissat with a DRAT proof, every UNSAT checked by drat-trim — closed ' + Z.closed + ' of the ' + Z.cubes.length + ' cubes; the ' + (Z.cubes.length - Z.closed) + ' largest stayed open at a ' + Math.round(Z.capSeconds / 60) + '-minute cap, so the second path is partial and the verdict rests on the orbital kernel (the summary is pinned beside the run in corpus/ramsey/runs).'; })() };
   });
   B.push(C.section({
-    lab: '§5 · from outside Google', title: 'A Ramsey graph from another contributor, decided by the same instruments', id: 'outside',
+    lab: '§5 · from outside Google', title: 'A Ramsey graph from another contributor, decided by the same instruments', id: 'other-graphs',
     bodyRaw: C.pRaw('<b>Decided 2026-10-27.</b> ' + C.esc(L.outsideWhat) + ' The contributor below had re-run two of our rows with their own code; this is the reciprocal check, kept apart from Google\'s counts.') + C.plainList(rows)
   }));
 }

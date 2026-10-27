@@ -640,15 +640,61 @@
     "seconds": 0.9
    },
    "I": {
+    "kernel": "instruments/ramsey/orbital.c",
     "k": 18,
+    "mode": "plain",
+    "split": true,
+    "reverse": true,
     "complete": false,
     "found": null,
-    "nodes": 0,
-    "roots": 1051,
-    "rootsDone": 0,
-    "seconds": 1862.1
+    "nodes": 664663286765,
+    "units": 288647,
+    "unitsDone": 9402,
+    "pieces": 1,
+    "pieceSizes": [
+     1051
+    ],
+    "pieceNodes": [
+     664663286765
+    ],
+    "runs": [
+     {
+      "where": "runpod pod uppb0y08v0dl9h (AMD EPYC 9655 96-Core Processor)",
+      "threads": 32,
+      "seconds": 7200.0,
+      "date": "2026-10-27T16:48:01Z",
+      "audit": "dd831296d7c9ac26a359763e168a9261b2fb5c83",
+      "unitsBefore": 0,
+      "unitsAfter": 9402,
+      "nodesAfter": null,
+      "kernelReport": {
+       "units": 288647,
+       "unitsDone": 9402,
+       "nodes": 664663286765,
+       "complete": false,
+       "timedOut": true,
+       "seconds": 7200.0
+      }
+     }
+    ],
+    "seconds": 7200.0,
+    "threadHours": 64.0,
+    "previous": {
+     "kernel": "instruments/ramsey/clique.c",
+     "roots": 1051,
+     "rootsDone": 0,
+     "nodes": 0,
+     "seconds": 1862.1
+    }
    },
-   "verdict": "REFUSED"
+   "verdict": "REFUSED",
+   "automorphisms": {
+    "method": "colour refinement (1-dimensional Weisfeiler-Leman), started from the degrees",
+    "vertices": 1051,
+    "classes": 1051,
+    "roundsToStable": 3,
+    "automorphismGroup": "trivial (every class is a single vertex)"
+   }
   }
  ],
  "outsideWhat": "Ramsey lower-bound graphs published by others than Google, decided by the same instruments; kept apart from Google's 18 and their counts.",

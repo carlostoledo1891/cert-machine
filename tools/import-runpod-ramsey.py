@@ -16,7 +16,8 @@ RUNS = os.path.join(ROOT, 'corpus', 'ramsey', 'runs')
 def get(base, rel):
     for i in range(4):
         try:
-            with urllib.request.urlopen(base + rel, timeout=120) as r:
+            # the pod proxy refuses Python's default user agent (403 on 2026-10-27); curl's is accepted
+            with urllib.request.urlopen(urllib.request.Request(base + rel, headers={'User-Agent': 'curl/8.7.1'}), timeout=120) as r:
                 return r.read().decode()
         except Exception:
             time.sleep(3 * (i + 1))
