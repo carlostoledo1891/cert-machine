@@ -213,7 +213,9 @@ function sincePin() {
   };
   const before = new Map(prev.challenges.map((c) => [c.name, c]));
   const after = new Map(challenges.map((c) => [c.name, c]));
-  const added = challenges.filter((c) => !before.has(c.name)).map((c) => ({ name: c.name, config: c.config, statement: c.statement, theorems: c.theoremNames.length, definitionNames: c.definitionNames.length, enableNanoda: c.enableNanoda, statementLines: c.statementLines }));
+  const added = challenges.filter((c) => !before.has(c.name)).map((c) => ({ name: c.name, config: c.config, statement: c.statement, theorems: c.theoremNames.length, definitionNames: c.definitionNames.length, enableNanoda: c.enableNanoda, statementLines: c.statementLines,
+    /* modules of the release's own tree each side imports, transitively: what a reader must read for the statement, what a run must build */
+    statementClosureModules: closure(c.challengeModule).length, solutionClosureModules: closure(c.solutionModule).length }));
   const removed = prev.challenges.filter((c) => !after.has(c.name)).map((c) => c.name);
   const CFG_KEYS = ['challengeModule', 'solutionModule', 'theoremNames', 'definitionNames', 'permittedAxioms', 'enableNanoda', 'solutionImports'];
   const changed = [];
