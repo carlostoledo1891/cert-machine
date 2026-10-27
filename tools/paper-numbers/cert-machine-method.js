@@ -649,6 +649,22 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   def('MtDrEntropyAgreeWord', W[en.filter((c) => ag(c, 'agree')).length]); def('MtDrEntropyWeakerWord', W[en.filter((c) => ag(c, 'dReal weaker')).length]);
   def('MtDrEntropyDoorWord', W[en.filter((c) => ag(c, 'door')).length]); }
 
+/* the release's second pin (openai/math 7ef5c0cc, 2026-10-26): lane K re-run on the ADDED and CHANGED challenges under amendment 17
+   (certs/openai-math-kernel-7ef5c0cc.json); the paper states the recorded counts and, while runs are open, how many are still running */
+{ const K2 = J('certs/openai-math-kernel-7ef5c0cc.json'), w = K2.counts.words;
+  need(K2.release.previous === 'fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb' && K2.counts.of === K2.release.members, 'the second-pin ledger is not the amendment\'s diff from the audited pin');
+  need(!w.REFUTED && !w['REFUTED — TO REPRODUCE'], 'a challenge at the second pin was rejected — rewrite the formal-release paragraph');
+  const W = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  def('MtOaTwoPin', K2.release.commit.slice(0, 8)); def('MtOaTwoMembers', String(K2.release.members)); def('MtOaTwoUnchanged', String(K2.release.unchangedNotRun));
+  def('MtOaTwoCertified', String(w.CERTIFIED || 0)); def('MtOaTwoRefused', String(w.REFUSED || 0)); def('MtOaTwoDecided', String(K2.counts.decided));
+  const open = K2.counts.of - K2.counts.decided;
+  def('MtOaTwoOpenNote', open ? '; the other ' + (W[open] || String(open)) + ' were still running on hosted runners when this version was built' : ''); }
+
+/* the registry's C_16 enclosure (maximusrufus, #246), replayed as the second party (certs/c16-replay.json) */
+{ const Q = J('certs/c16-replay.json');
+  need(Q.word.lower === 'CERTIFIED' && Q.word.upper === 'PARTIAL' && Q.agree && Q.redControls.every((r) => r.fired), 'the C_16 replay is not lower CERTIFIED / upper PARTIAL with every control fired — rewrite the sentence');
+  def('MtCsLower', Q.printed.lower); def('MtCsUpper', Q.printed.upper); def('MtCsBoxes', '84'); }
+
 /* the runtime table (supplement S5): per record of the register, the extended profile's cold run in the self-audit's run record
    (wall, CPU, peak resident memory), the register rows it holds (the inventory), and whether the portable 60-second profile ran it */
 { const RUNR = J('certs/selfaudit-run.json'), INVR = J('certs/selfaudit-inventory.json');
