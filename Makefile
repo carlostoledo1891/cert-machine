@@ -144,6 +144,7 @@ test:
 	@printf "%-30s " "cryptids: the benchmark"; $(NODE) tools/build-cryptids-benchmark.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "foreign zones (pinned bytes)"; $(NODE) tools/publish-zone.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "ramsey graphs (AlphaEvolve)"; $(PY) tools/run-ramsey-ledger.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "ramsey orbital kernel"; $(PY) instruments/ramsey/battery-orbital.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "EinsteinArena 542, two readings"; $(PY) tools/run-ea542-readings.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "AlphaProof Nexus statements"; $(PY) tools/apn-statements.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox: declared claims"; $(PY) instruments/claimbox/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -169,6 +170,7 @@ test:
 	@printf "%-30s " "fei second (C71, planted)"; $(NODE) tools/verify_fei.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "entropy deciders vs Arb"; $(NODE) tools/audit-entropy-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "readings recall (planted)"; $(PY) tools/score-reading-recall.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "openai/math N(6) saved run"; $(PY) tools/check-openai-math-mub6.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "polymaps (Keller, Markus-Yamabe)"; $(PY) instruments/polymaps/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "gnnw (the G_AI iteration)"; $(PY) instruments/gnnw/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "horizonmath (credited discoveries)"; $(PY) instruments/horizonmath/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

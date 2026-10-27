@@ -119,6 +119,23 @@ B.push(C.section({
   ])
 }));
 
+/* §5 (2026-10-27): Ramsey graphs published by others than Google, decided by the same instruments (L.outside), kept apart */
+if (Array.isArray(L.outside) && L.outside.length) {
+  const rows = L.outside.map((o) => {
+    if (!(o.verdict === 'CERTIFIED' && o.K.complete && o.I.complete && !o.K.found && !o.I.found && o.graph.certificateEdgesEqual && o.I.reduction && o.I.reduction.referenceEqual)) throw new Error('the outside row ' + o.claim + ' is not what §5 says — rewrite it');
+    return { b: o.claim + ' — CERTIFIED.', raw: C.esc(o.claimant) + ' (<a href="' + C.esc(o.source) + '">' + C.esc(o.source.replace('https://doi.org/', 'doi:')) + '</a>, pinned by sha256). '
+      + 'The graph is rebuilt from the connection set the text prints (x ~ y iff y − x ∈ ±D on Z<sub>' + o.n + '</sub>, ' + o.graph.edges.toLocaleString('en-US') + ' edges, equal to the certificate\'s edge list). '
+      + 'No triangle (' + o.K.roots + ' roots, ' + o.K.seconds + ' s). No independent set of size ' + o.t + ': the graph is circulant, so a translation moves any such set onto one through vertex 0, and the multipliers '
+      + C.esc(o.symmetry.multipliers.join(', ')) + ' — each checked as an automorphism — fix 0 and split its non-neighbours into ' + o.I.reduction.orbits + ' orbits; ' + m('orbital.c') + ' searched the ' + o.I.pieces
+      + ' pieces this leaves (' + o.I.unitsDone.toLocaleString('en-US') + ' units, ' + (o.I.nodes / 1e9).toFixed(1) + '·10⁹ nodes, ' + Math.round(o.I.seconds) + ' s on 8 threads of the laptop) and found none. '
+      + 'The reduction is a lemma proved in ' + m('orbital.py') + '\'s docstring and re-derived by it here; the kernel is held to it root by root on 78 smaller instances (' + m('battery-orbital.py') + ', 8 red controls). '
+      + 'The claimant\'s own proof needed orbital branching too, split into 1,665 jobs across three solvers.' };
+  });
+  B.push(C.section({
+    lab: '§5 · from outside Google', title: 'A Ramsey graph from another contributor, decided by the same instruments', id: 'outside',
+    bodyRaw: C.pRaw('<b>Decided 2026-10-27.</b> ' + C.esc(L.outsideWhat) + ' The contributor below had re-run two of our rows with their own code; this is the reciprocal check, kept apart from Google\'s counts.') + C.plainList(rows)
+  }));
+}
 /* what has come back from outside: re-runs and credits, from design/outside.js (one record, pinned quotes) */
 { const OUT = require(path.join(ROOT, 'design', 'outside.js')).section(C, 'reports/ramsey-graphs.html'); if (OUT) B.push(OUT); }
 
