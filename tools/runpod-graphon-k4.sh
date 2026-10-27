@@ -27,7 +27,7 @@ fetch() { for t in 1 2 3 4 5 6; do curl -fsSL "$RAW/$1" -o "$2" && return 0; sle
 fetch instruments/optq/graphon_k4.c $W/graphon_k4.c || { status "FAILED: fetch the kernel"; sleep infinity; }
 fetch $CERT $W/cert.json.gz || { status "FAILED: fetch the certificate"; sleep infinity; }
 [ "$(sha256sum $W/cert.json.gz | cut -d' ' -f1)" = "$CERT_SHA" ] || { status "FAILED: the certificate does not match its pin"; sleep infinity; }
-gcc -O3 -march=native -ffp-contract=fast -pthread -o $W/graphon_k4 $W/graphon_k4.c > $R/_build.log 2>&1 || { status "FAILED: build"; sleep infinity; }
+gcc -O3 -march=native -ffp-contract=fast -pthread -o $W/graphon_k4 $W/graphon_k4.c -lm > $R/_build.log 2>&1 || { status "FAILED: build"; sleep infinity; }
 { sha256sum $W/graphon_k4.c $W/cert.json.gz; gcc --version | head -1; grep -m1 "model name" /proc/cpuinfo; grep -m1 -o -E "avx512f|avx2" /proc/cpuinfo | head -1; echo "threads $THREADS"; } > $R/_build.txt
 $W/graphon_k4 --selftest > $R/selftest.txt 2>&1 || { status "FAILED: selftest"; sleep infinity; }
 status running

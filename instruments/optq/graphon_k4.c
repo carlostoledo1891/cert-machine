@@ -16,7 +16,7 @@
    done in 64-bit integers. This program prints f_red(i) mod p and f_blue(i) mod p for every block and prime; the
    driver (tools/replay-graphon-k4.js) sums them, lifts by the Chinese remainder theorem and checks one extra prime.
 
-   build:  cc -O3 -march=native -ffp-contract=fast -pthread -o graphon_k4 graphon_k4.c        (gcc or clang)
+   build:  cc -O3 -march=native -ffp-contract=fast -pthread -o graphon_k4 graphon_k4.c -lm    (gcc or clang)
    usage:  gunzip -c X.json.gz | ./graphon_k4 [--threads=T] [--nprimes=K | --primes=p,q,..] [--blocks=a:b]
                                               [--done=file] [--perturb=i,j,delta]
            ./graphon_k4 --selftest           the kernel against a brute force over all m^4 tuples, small m
