@@ -105,6 +105,28 @@ need(EXT_ON.length === 5 && EXT_OFF.length === 2 && EXT_OFF.some((x) => /λ\(4\)
 def('MtOutsideRerunsOnRows', String(EXT_ON.length)); def('MtOutsideRerunsElsewhere', String(EXT_OFF.length));
 def('MtOutsideParties', String(new Set(EXT.map((x) => x.who)).size)); def('MtOutsidePartiesOnRows', String(new Set(EXT_ON.map((x) => x.who)).size));
 def('MtOutsideFirstDate', EXT.map((x) => x.date).sort()[0]); def('MtOutsideLastDate', EXT.map((x) => x.date).sort().slice(-1)[0]);
+/* of the reruns on this paper's rows, which used the party's own code (level 3 of the evidence table) and which re-ran the
+   tools that write the records (level 1 by the table's own definition) */
+need(EXT.every((x) => x.kind === 'own-code' || x.kind === 'full-rederive'), 'an outside rerun has a kind other than own-code / full-rederive');
+def('MtOutsideOnRowsOwn', String(EXT_ON.filter((x) => x.kind === 'own-code').length)); def('MtOutsideOnRowsTools', String(EXT_ON.filter((x) => x.kind === 'full-rederive').length));
+
+/* the reciprocal second party (2026-10-27): the registry's C_89b (K5) and C_89c (K6) graphon bounds, another contributor's pull
+   requests, decided twice from the pinned certificates by two implementations sharing no code (certs/graphon-replay.json) */
+{ const G = J('certs/graphon-replay.json');
+  need(Array.isArray(G.rows) && G.rows.length === 2 && G.rows.every((r) => r.verdict === 'CERTIFIED' && r.agree && r.equalsStated && r.lePrinted),
+    'the graphon replay no longer shows both rows CERTIFIED by two agreeing implementations at the stated fraction');
+  need(Array.isArray(G.controls) && G.controls.length >= 5 && G.deciders && G.deciders.js && G.deciders.pyK5 && G.deciders.pyK6, 'the graphon replay lost its controls or its two deciders');
+  def('MtGnRows', String(G.rows.length)); def('MtGnControls', String(G.controls.length)); def('MtGnDate', G.generated.slice(0, 10)); }
+
+/* the self-audit's amendments: dated paragraphs at the head of the pre-registration, each stating that no definition moved;
+   the printed-enclosure sweep (str(x)[:k] cut an upper end toward zero) is among them */
+{ const note = fs.readFileSync(path.join(ROOT, 'notes', 'selfaudit-preregistration-2026-10-20.md'), 'utf8');
+  const am = [...note.matchAll(/^> \*\*Amendment (\d{4}-\d{2}-\d{2})[^*]*\*\*/gm)].map((m) => m[1]);
+  need(am.length >= 5 && am.every((d) => d >= '2026-10-21'), 'the pre-registration no longer carries its dated amendments');
+  need(/no definition moved/.test(note) && /rounded outward/.test(note) && /str\(x\)\[:k\]/.test(note), 'the amendments no longer record the outward-printing sweep');
+  const W = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  def('MtSaAmendments', W[am.length] || String(am.length)); def('MtSaAmendLast', am.sort().slice(-1)[0]);
+  def('MtSaAmendPrintFirst', am.filter((d) => d >= '2026-10-24').sort()[0]); }
 
 
 /* ---- the three benchmark exercises of the restructured paper (v0.2, 2026-10-14) ---------------------------
@@ -247,6 +269,9 @@ def('MtKwTableRows', kw.map((r) => r.dim + ' & ' + int(r.claimed) + ' & ' + int(
   def('MtRgThirdRegistryCommit', RG3.registryCommit.slice(0, 8)); def('MtRgThirdMarksWord', WORDS[RG3.marksRemovedOnReplays]);
   def('MtRgMarksTotalWord', WORDS[marks + RG3.marksRemovedOnReplays]);
   def('MtRgThirdMinutes', String(Math.ceil((Date.parse(RG3.merged[232].mergedAt) - Date.parse(RG3.merged[257].mergedAt)) / 60000)));
+  /* the second-party rule's routes, and the day the registry corrected its C_84b row on the check (#257) */
+  def('MtRgRuleRoutesWord', WORDS[RG3.rule.routes.length]); def('MtRgCorrectedDate', RG3.merged[257].mergedAt.slice(0, 10));
+  need(J('corpus/recognition.json').rows.some((r) => r.id === 'registry-84b' && /corrected on our check/.test(r.what)), 'the C_84b correction is no longer pinned in the recognition record');
   /* the three merges' span, and the number of constants the registry's table holds (both from the pinned bytes) */
   const mt = [RG.replay.mergedAt, RG.queue[221].mergedAt, RG.queue[210].mergedAt].map((t) => Date.parse(t));
   def('MtRgMergeMinutes', String(Math.ceil((Math.max(...mt) - Math.min(...mt)) / 60000)));
@@ -553,6 +578,13 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   /* Clopper–Pearson at β = 0.05 with zero errors: 1 − β^{1/N}, on the witnessed false claims and on the true ones (mutants and originals) */
   const cp = (N) => (100 * (1 - Math.pow(0.05, 1 / N))).toFixed(2) + '\\%';
   def('MtSaTrueDecided', String(A.byTruth.TRUE + withObject)); def('MtSaCpFalse', cp(falseWitnessed)); def('MtSaCpTrue', cp(A.byTruth.TRUE + withObject));
+  /* coverage and selective risk over the witnessed claims (the discarded false mutants are not claims): informative answers are
+     every verdict but the unresolved refusals on true and false claims; the one malformed object decided counts as the error */
+  { const N = falseWitnessed + A.byTruth.TRUE + A.byTruth.MALFORMED;
+    const unresolved = A.refusalsOnFalse + A.refusalsOnTrue + (A.byOutcome['not as required (UNWITNESSED)'] || 0);
+    const D = N - unresolved; need(N > 0 && D > 0 && D <= N, 'the coverage counts do not close');
+    def('MtSaN', String(N)); def('MtSaInformative', String(D)); def('MtSaCoveragePct', (100 * D / N).toFixed(1) + '\\%');
+    def('MtSaRiskPct', (100 * A.malformedNotRefused / D).toFixed(2) + '\\%'); }
   /* the conventional check, M5, at its three tolerances */
   for (const [tau, name] of [['1e-6', 'Six'], ['1e-9', 'Nine'], ['1e-12', 'Twelve']]) {
     const F = A.float[tau]; need(F && F.witnessedFalse === falseWitnessed && F.originals === withObject && F.trueMutants === A.byTruth.TRUE, 'the float table at ' + tau + ' counts other denominators');
@@ -576,6 +608,8 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   /* concordance, and the hosted rows carried in as recorded */
   need(CON.counts.disagreements.length === 0 && CON.counts.concordant === CON.counts.comparisons, 'the concordance record holds a disagreement');
   def('MtSaConcord', String(CON.counts.comparisons)); def('MtSaConcordRows', String(CON.counts.rowsWithTwoOrMore)); def('MtSaConcordField', String(CON.counts.fieldLevel)); def('MtSaConcordWord', String(CON.counts.wordLevelOnly));
+  { const other = CON.counts.comparisons - CON.counts.fieldLevel - CON.counts.wordLevelOnly; need(other >= 0, 'the concordance counts do not close');
+    def('MtSaConcordObject', ['no', 'one', 'two', 'three', 'four', 'five'][other] || String(other)); }
   const H = CON.hosted; need(H && H.challenges > 0 && H.words && H.seconds && H.maxRssKB, 'the hosted profile is not carried in');
   def('MtSaHostedChallenges', String(H.challenges)); def('MtSaHostedCertified', String(H.words.CERTIFIED)); def('MtSaHostedRefused', String(H.words.REFUSED));
   def('MtSaHostedSecondsMin', int(H.seconds.min)); def('MtSaHostedSecondsMedian', int(H.seconds.median)); def('MtSaHostedSecondsMax', int(H.seconds.max)); def('MtSaHostedRssGiB', (H.maxRssKB.max / 2 ** 20).toFixed(1));

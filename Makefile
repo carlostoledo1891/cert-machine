@@ -381,14 +381,6 @@ reports:
 	@$(NODE) tools/build-report-erdos1.js
 	@$(NODE) tools/build-report-delta3.js
 
-# the claimbox variant of the method paper: one source (paper/tex/cert-machine-method.tex, the \ifdefined\ClaimboxOn blocks) with the
-# toggle on; compiled by name (the --all build skips the wrapper, which has no \documentclass) and moved OUT of paper/, where the
-# papers index would list it: it is a comparison copy for the co-author, not a release (2026-10-23)
-paper-variant:
-	@$(NODE) tools/paper-numbers/cryptids-benchmark.js
-	@$(NODE) tools/build-paper-tex.js cert-machine-method-claimbox
-	@mkdir -p paper/variants && mv paper/cert-machine-method-claimbox.pdf paper/variants/cert-machine-method-claimbox.pdf && ls -la paper/variants/cert-machine-method-claimbox.pdf
-
 papers:
 	@$(NODE) tools/build-kissing-paper.js
 	@$(NODE) tools/build-paper-numbers.js
