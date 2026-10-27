@@ -19,7 +19,15 @@
    sha256 (Apache-2.0, LICENSE copied with them); everything else is pinned by sha256
    and resolvable at https://github.com/openai/math/blob/<commit>/<path>.
 
-   usage: node tools/pin-openai-math.js */
+   A LATER PIN (2026-10-27). `--pin <sha>` censuses another commit of the release into its own record,
+   corpus/openai-math/release-<sha8>.json (copies in release-<sha8>/), and adds `sincePin`: the challenges
+   ADDED, CHANGED (config, statement, solution module, or a file of the release's own library the solution module
+   imports, transitively) and REMOVED since the audit's pin, read from release.json and from git, and every changed
+   config whose definition_names shrank, with the names before and after. The audit's census, release.json, is never
+   rewritten by a later pin. A challenge whose config sits in its own directory (<dir>/main.json, first seen at
+   7ef5c0cc) is named after the directory, and its statement is the file of its challenge_module.
+
+   usage: node tools/pin-openai-math.js [--pin <sha>] */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -30,7 +38,12 @@ const { writeStable } = require('./stable-json.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const CLONE = process.env.MATH_CLONE || path.join(os.homedir(), 'Projects', 'openai-math');
-const PIN = 'fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb';
+const AUDIT_PIN = 'fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb';
+const argPin = process.argv.indexOf('--pin');
+const PIN = argPin > 0 ? process.argv[argPin + 1] : AUDIT_PIN;
+if (!/^[0-9a-f]{40}$/.test(PIN || '')) { console.error('OPENAI-MATH PIN REFUSED: --pin takes a full 40-hex commit'); process.exit(1); }
+const LATER = PIN !== AUDIT_PIN;
+const RECORD = LATER ? 'release-' + PIN.slice(0, 8) : 'release';
 const FIRST = 'adc7f1241b42e322a6451854ab7e4b4c146bf78a';
 const OUT = path.join(ROOT, 'corpus', 'openai-math');
 const die = (m) => { console.error('OPENAI-MATH PIN REFUSED: ' + m); process.exit(1); };
@@ -98,17 +111,25 @@ for (const d of allDirs) {
 
 /* ── the challenges ─────────────────────────────────────────────────────────── */
 const CH = 'lean/ComparatorChallenges';
-const chNames = fs.readdirSync(path.join(CLONE, CH)).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)).sort();
+/* a config is <name>.json beside <name>.lean, or <dir>/main.json whose statement is its challenge_module's file */
+const chFiles = new Map(fs.readdirSync(path.join(CLONE, CH)).filter((f) => f.endsWith('.json')).map((f) => [f.slice(0, -5), { jp: CH + '/' + f, lp: CH + '/' + f.slice(0, -5) + '.lean' }]));
+for (const d of fs.readdirSync(path.join(CLONE, CH)).filter((f) => fs.statSync(path.join(CLONE, CH, f)).isDirectory() && fs.existsSync(path.join(CLONE, CH, f, 'main.json')))) {
+  if (chFiles.has(d)) die('a challenge named twice: ' + d);
+  const mod = JSON.parse(rd(CH + '/' + d + '/main.json')).challenge_module || '';
+  if (!mod.startsWith('ComparatorChallenges.' + d + '.')) die('a directory challenge whose challenge_module is outside its directory: ' + d);
+  chFiles.set(d, { jp: CH + '/' + d + '/main.json', lp: 'lean/' + mod.replace(/\./g, '/') + '.lean' });
+}
+const chNames = [...chFiles.keys()].sort();
 const stripComments = (s) => s.replace(/\/-[\s\S]*?-\//g, (m) => m.replace(/[^\n]/g, ' ')).replace(/--.*$/gm, '');
 const chReadme = rd(CH + '/README.md');
 const declaredSupport = new Set([...chReadme.matchAll(/`([A-Za-z0-9]+)\.json`/g)].map((m) => m[1]));
 const challenges = chNames.map((name) => {
-  const jp = CH + '/' + name + '.json', lp = CH + '/' + name + '.lean';
+  const { jp, lp } = chFiles.get(name);
   if (!exists(lp)) die('a challenge config without its statement: ' + name);
   const cfg = JSON.parse(rd(jp));
   const src = rd(lp), code = stripComments(src);
   const lines = src.split('\n').length;
-  const imports = [...src.matchAll(/^import\s+(\S+)/gm)].map((m) => m[1]);
+  const imports = [...src.matchAll(/^(?:public\s+)?(?:meta\s+)?import\s+(?:all\s+)?(\S+)/gm)].map((m) => m[1]);   /* the module system's `public import` (7ef5c0cc) */
   const axioms = [...code.matchAll(/^\s*axiom\s+(\S+)/gm)].map((m) => m[1]);
   const sorries = (code.match(/\bsorry\b/g) || []).length;
   const defs = (code.match(/^\s*(noncomputable\s+)?(def|abbrev|structure|class|inductive|instance)\b/gm) || []).length;
@@ -141,7 +162,8 @@ const scopeNotes = docFiles.map((f) => {
   return {
     family: f.slice(0, 3), path: 'lean/docs/' + f, sha256: sha(path.join(CLONE, 'lean', 'docs', f)), title: unhtml((/^# (.*)$/m.exec(s) || [])[1] || ''),
     papers: [...new Set([...s.matchAll(/\(\.\.\/\.\.\/preprints\/([^/\n]+?)\/[^/\n]+?\.pdf\)/g)].map((m) => m[1]))],
-    challenges: [...new Set([...s.matchAll(/\(\.\.\/ComparatorChallenges\/([^)]+)\.lean\)/g)].map((m) => m[1]))],
+    /* a link may carry a line anchor (#L84, first seen at 7ef5c0cc) and may point into a directory challenge (<dir>/Challenge.lean) */
+    challenges: [...new Set([...s.matchAll(/\(\.\.\/ComparatorChallenges\/([^)#]+)\.lean(?:#L\d+(?:-L\d+)?)?\)/g)].map((m) => (/\//.test(m[1]) && chFiles.has(m[1].split('/')[0]) ? m[1].split('/')[0] : m[1])))],
     scope: unhtml(((/## Scope\n([\s\S]*?)(\n## |$)/.exec(s)) || [])[1] || ''),
   };
 });
@@ -165,7 +187,72 @@ const toolchain = rd('lean/lean-toolchain').trim();
 const log = sh("git log --format='%H|%aI|%an|%s'").trim().split('\n').map((l) => { const [sha_, date, author, ...msg] = l.split('|'); return { sha: sha_, date, author, msg: msg.join('|') }; });
 const diffFirst = sh('git diff --shortstat ' + FIRST + ' ' + PIN).trim();
 const changedFirst = sh('git diff --name-status ' + FIRST + ' ' + PIN).trim().split('\n').map((l) => l.split('\t'));
-const challengesAdded = changedFirst.filter(([st, p]) => st === 'A' && p.startsWith(CH + '/') && p.endsWith('.json')).map(([, p]) => path.basename(p, '.json')).sort();
+const cfgName = (p) => (path.basename(p) === 'main.json' && path.dirname(p) !== CH ? path.basename(path.dirname(p)) : path.basename(p, '.json'));
+const challengesAdded = changedFirst.filter(([st, p]) => st === 'A' && p.startsWith(CH + '/') && p.endsWith('.json') && (path.dirname(p) === CH || path.basename(p) === 'main.json')).map(([, p]) => cfgName(p)).sort();
+
+/* ── a later pin: what changed since the audit's pin (2026-10-27) ──────────── */
+function sincePin() {
+  const prevPath = path.join(OUT, 'release.json');
+  const prev = JSON.parse(fs.readFileSync(prevPath, 'utf8'));
+  if (prev.commit !== AUDIT_PIN) die('release.json is not the audit pin\'s census');
+  const changedPaths = new Set(sh('git diff --name-only ' + AUDIT_PIN + ' ' + PIN).trim().split('\n').filter(Boolean));
+  const shortstat = sh('git diff --shortstat ' + AUDIT_PIN + ' ' + PIN).trim();
+  /* the solution module's closure inside the release's own library (lean/OAI/**, lean/ComparatorChallenges/**), at the later pin */
+  const modFile = (m) => 'lean/' + m.replace(/\./g, '/') + '.lean';
+  /* the lakefile maps HodgeConjecture.* to lean/ComparatorChallenges/HodgeConjectureCMAbelianVarieties/ (srcDir) */
+  const fileOf = (m) => (m.startsWith('HodgeConjecture.') ? 'lean/ComparatorChallenges/HodgeConjectureCMAbelianVarieties/' + m.replace(/\./g, '/') + '.lean' : modFile(m));
+  const importsOf = new Map();
+  const imps = (f) => {
+    if (!importsOf.has(f)) importsOf.set(f, exists(f) ? [...stripComments(rd(f)).matchAll(/^\s*(?:public\s+)?(?:meta\s+)?import\s+(?:all\s+)?([A-Za-z0-9_.«»']+)/gm)].map((x) => x[1]).filter((x) => /^(OAI|ComparatorChallenges|HodgeConjecture)\./.test(x)) : []);
+    return importsOf.get(f);
+  };
+  const closure = (root) => {
+    const seen = new Set([root]); const stack = [root];
+    while (stack.length) for (const x of imps(fileOf(stack.pop()))) if (!seen.has(x)) { seen.add(x); stack.push(x); }
+    return [...seen].map(fileOf);
+  };
+  const before = new Map(prev.challenges.map((c) => [c.name, c]));
+  const after = new Map(challenges.map((c) => [c.name, c]));
+  const added = challenges.filter((c) => !before.has(c.name)).map((c) => ({ name: c.name, config: c.config, statement: c.statement, theorems: c.theoremNames.length, definitionNames: c.definitionNames.length, enableNanoda: c.enableNanoda, statementLines: c.statementLines,
+    /* modules of the release's own tree each side imports, transitively: what a reader must read for the statement, what a run must build */
+    statementClosureModules: closure(c.challengeModule).length, solutionClosureModules: closure(c.solutionModule).length }));
+  const removed = prev.challenges.filter((c) => !after.has(c.name)).map((c) => c.name);
+  const CFG_KEYS = ['challengeModule', 'solutionModule', 'theoremNames', 'definitionNames', 'permittedAxioms', 'enableNanoda', 'solutionImports'];
+  const changed = [];
+  for (const c of challenges) {
+    const o = before.get(c.name);
+    if (!o) continue;
+    const configBytes = o.configSha256 !== c.configSha256, statementBytes = o.statementSha256 !== c.statementSha256;
+    const solFile = modFile(c.solutionModule);
+    const solutionModuleBytes = changedPaths.has(solFile);
+    const closureFiles = closure(c.solutionModule);
+    const closureChanged = closureFiles.filter((f) => changedPaths.has(f) && f !== solFile).sort();
+    const statementClosureChanged = closure(c.challengeModule).filter((f) => changedPaths.has(f) && f !== c.statement).sort();
+    if (!configBytes && !statementBytes && !solutionModuleBytes && !closureChanged.length && !statementClosureChanged.length) continue;
+    const configKeys = CFG_KEYS.filter((k) => JSON.stringify(o[k]) !== JSON.stringify(c[k]));
+    const row = { name: c.name, why: [configBytes && 'config', statementBytes && 'statement', solutionModuleBytes && 'solution module', closureChanged.length && 'solution imports', statementClosureChanged.length && 'statement imports'].filter(Boolean),
+      configKeys, solutionClosureFiles: closureFiles.length, solutionImportsChanged: closureChanged, statementImportsChanged: statementClosureChanged };
+    if (configKeys.includes('definitionNames')) row.definitionNames = { before: o.definitionNames, after: c.definitionNames };
+    if (configKeys.includes('enableNanoda')) row.enableNanoda = { before: o.enableNanoda, after: c.enableNanoda };
+    changed.push(row);
+  }
+  const shrank = changed.filter((r) => r.definitionNames && r.definitionNames.after.length < r.definitionNames.before.length)
+    .map((r) => ({ name: r.name, before: r.definitionNames.before.length, after: r.definitionNames.after.length, dropped: r.definitionNames.before.filter((x) => !r.definitionNames.after.includes(x)),
+      statementChanged: r.why.includes('statement'),
+      displayedBefore: (before.get(r.name).holeBodies || []).filter((h) => h.displayed === true).length }));
+  const grew = changed.filter((r) => r.definitionNames && r.definitionNames.after.length > r.definitionNames.before.length).map((r) => ({ name: r.name, before: r.definitionNames.before.length, after: r.definitionNames.after.length }));
+  const deps = (rel) => Object.fromEntries((rel.dependencies || []).map((d) => [d.name, d.rev]));
+  const dBefore = deps(prev), dAfter = Object.fromEntries(manifest.packages.map((p) => [p.name, p.rev]));
+  return {
+    from: AUDIT_PIN, to: PIN, shortstat,
+    toolchain: { before: prev.counted.toolchain, after: toolchain }, dependenciesMoved: Object.keys({ ...dBefore, ...dAfter }).filter((k) => dBefore[k] !== dAfter[k]).sort(),
+    buildFilesChanged: ['lean/lakefile.lean', 'lean/lake-manifest.json', 'lean/lean-toolchain', 'lean/OAI.lean'].filter((f) => changedPaths.has(f)),
+    challenges: { before: prev.challenges.length, after: challenges.length, added: added.length, changed: changed.length, removed: removed.length, unchanged: challenges.length - added.length - changed.length },
+    added, changed, removed, definitionNamesShrank: shrank, definitionNamesGrew: grew,
+    toRun: added.map((c) => c.name).concat(changed.map((c) => c.name)),
+    note: 'CHANGED means a byte changed in the config, the statement, the solution module, or a file of the release\'s own library (lean/OAI, lean/ComparatorChallenges) the solution or challenge module imports, transitively, at the later pin. A definition name dropped from definition_names is no longer a HOLE: Comparator then compares that definition as an ordinary constant, body included (Comparator/Compare.lean, definitionHoleMatches) — the check of that constant becomes stricter, provided the definition is still displayed in the challenge file rather than imported from the release\'s own library.',
+  };
+}
 const challengesModified = changedFirst.filter(([st, p]) => st === 'M' && p.startsWith(CH + '/')).map(([, p]) => path.basename(p)).sort();
 
 /* ── per-family rows: what the census lanes read ────────────────────────────── */
@@ -180,8 +267,8 @@ const readmeRatio = /(\d+) \/ (\d+) = ~(\d+)%/.exec(rd('history.md'));
 
 /* ── copies of the small top-level files ────────────────────────────────────── */
 const COPY = ['README.md', 'CONTENTS.md', 'history.md', 'LICENSE', 'lean/formalization.yaml', 'lean/lake-manifest.json', 'lean/lakefile.lean', 'lean/lean-toolchain', 'lean/ComparatorChallenges/README.md'];
-fs.mkdirSync(path.join(OUT, 'release'), { recursive: true });
-const copied = COPY.map((p) => { const dst = path.join(OUT, 'release', p.replace(/\//g, '__')); fs.copyFileSync(path.join(CLONE, p), dst); return { path: p, copy: path.relative(ROOT, dst), sha256: sha(dst), bytes: fs.statSync(dst).size }; });
+fs.mkdirSync(path.join(OUT, RECORD), { recursive: true });
+const copied = COPY.map((p) => { const dst = path.join(OUT, RECORD, p.replace(/\//g, '__')); fs.copyFileSync(path.join(CLONE, p), dst); return { path: p, copy: path.relative(ROOT, dst), sha256: sha(dst), bytes: fs.statSync(dst).size }; });
 
 const sizeHist = (xs, cuts) => Object.fromEntries(cuts.map((c, i) => [(i ? '>' + cuts[i - 1] + ' ' : '') + '<=' + c, xs.filter((x) => x <= c && (i === 0 || x > cuts[i - 1])).length]).concat([['>' + cuts[cuts.length - 1], xs.filter((x) => x > cuts[cuts.length - 1]).length]]));
 const lineCounts = challenges.map((c) => c.statementLines).sort((a, b) => a - b);
@@ -220,7 +307,9 @@ const release = {
   dependencies: manifest.packages.map((p) => ({ name: p.name, url: p.url, rev: p.rev })),
 };
 fs.mkdirSync(OUT, { recursive: true });
-const wrote = writeStable(path.join(OUT, 'release.json'), release);
-console.log('corpus/openai-math/release.json' + (wrote ? '' : ' (unchanged)') + ': ' + families.length + ' families, ' + manuscripts.length + ' manuscript links (' + seenDir.size + ' dirs), ' + withdrawn.length + ' withdrawn, ' + earlierEditions.length + ' earlier editions; ' + challenges.length + ' challenges (' + release.counted.challengesSupport + ' support), nanoda ' + JSON.stringify(release.counted.enableNanoda) + '; ' + scopeNotes.length + ' scope notes; ' + mainResults.length + ' catalogue main results; ' + leanFiles + ' Lean files');
+if (LATER) release.sincePin = sincePin();
+const wrote = writeStable(path.join(OUT, RECORD + '.json'), release);
+if (LATER) { const d = release.sincePin; console.log('since ' + AUDIT_PIN.slice(0, 8) + ': ' + JSON.stringify(d.challenges) + '; definition_names shrank in ' + d.definitionNamesShrank.length + ': ' + d.definitionNamesShrank.map((x) => x.name + ' ' + x.before + '→' + x.after).join(', ')); }
+console.log('corpus/openai-math/' + RECORD + '.json' + (wrote ? '' : ' (unchanged)') + ': ' + families.length + ' families, ' + manuscripts.length + ' manuscript links (' + seenDir.size + ' dirs), ' + withdrawn.length + ' withdrawn, ' + earlierEditions.length + ' earlier editions; ' + challenges.length + ' challenges (' + release.counted.challengesSupport + ' support), nanoda ' + JSON.stringify(release.counted.enableNanoda) + '; ' + scopeNotes.length + ' scope notes; ' + mainResults.length + ' catalogue main results; ' + leanFiles + ' Lean files');
 if (families.length !== statedFamilies) console.log('NOTE: CONTENTS.md states ' + statedFamilies + ' families; parsed ' + families.length);
 if (manuscripts.length !== statedManuscripts) console.log('NOTE: CONTENTS.md states ' + statedManuscripts + ' manuscripts; parsed ' + manuscripts.length + ' links over ' + seenDir.size + ' directories');

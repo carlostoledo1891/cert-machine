@@ -21,10 +21,21 @@
 # tools/record-openai-math-kernel.js downloads a run's artifacts and writes the ledger
 # certs/openai-math-kernel.json. Dispatch by hand:
 #   gh workflow run openai-math-kernel.yml -f challenges="BorsukNine PiExponent"
+#
+# A LATER PIN (2026-10-27, pre-registration amendment 17): math_pin names the release commit; the
+# census for it is corpus/openai-math/release.json at the audit's pin and release-<pin8>.json
+# (tools/pin-openai-math.js --pin) otherwise, and every byte check reads that census. The pin is
+# printed in the run's title and in each job's env.txt, so a ledger can refuse a run of another pin.
+#   gh workflow run openai-math-kernel.yml -f math_pin=<sha> -f challenges="LocalSmoothing"
 name: openai-math-kernel
+run-name: openai-math-kernel @ ${{ inputs.math_pin }}
 on:
   workflow_dispatch:
     inputs:
+      math_pin:
+        description: 'the openai/math commit (full sha) whose census corpus/openai-math holds'
+        required: false
+        default: 'fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb'
       challenges:
         description: 'space-separated Comparator challenge names (lean/ComparatorChallenges/<name>.json)'
         required: true
@@ -40,7 +51,7 @@ permissions:
   contents: read
 env:
   MATH_REPO: https://github.com/openai/math.git
-  MATH_PIN: fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb
+  MATH_PIN: ${{ inputs.math_pin }}
   LEAN_TOOLCHAIN: leanprover/lean4:v4.34.1
   COMPARATOR_PIN: d03acab154d269c06e60e4de7e4cc85deebff94b   # tag v4.34.0, toolchain raised to v4.34.1 (the release's)
   LEAN4EXPORT_PIN: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest
@@ -63,6 +74,7 @@ jobs:
           import json, os, re
           names = [n for n in os.environ['LIST'].split() if n]
           assert names and all(re.fullmatch(r'[A-Za-z0-9_]+', n) for n in names), 'bad challenge list'
+          assert re.fullmatch(r'[0-9a-f]{40}', os.environ['MATH_PIN']), 'math_pin must be a full 40-hex commit'
           print('matrix=' + json.dumps(list(dict.fromkeys(names))))   # the dispatch order is the pre-registered order
           EOF
 
@@ -142,6 +154,7 @@ jobs:
         with:
           sparse-checkout: |
             corpus/openai-math/release.json
+            corpus/openai-math/release-*.json
             tools/openai-math-kernel-result.py
             tools/openai-math-transfer.py
           sparse-checkout-cone-mode: false
@@ -164,19 +177,27 @@ jobs:
       - name: the release at its pin, the challenge checked against the census
         run: |
           set -euo pipefail
+          # the census of the chosen pin: release.json at the audit's pin, release-<pin8>.json at a later one
+          if [ "$MATH_PIN" = fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb ]; then CENSUS=corpus/openai-math/release.json; else CENSUS="corpus/openai-math/release-${MATH_PIN:0:8}.json"; fi
+          test -f "audit/$CENSUS"
+          echo "CENSUS=$CENSUS" >> "$GITHUB_ENV"
           git clone -q --filter=blob:none --no-checkout "$MATH_REPO" math
           cd math && git sparse-checkout set lean && git checkout -q "$MATH_PIN"
           test "$(git rev-parse HEAD)" = "$MATH_PIN"
           cd lean && test "$(cat lean-toolchain)" = "$LEAN_TOOLCHAIN"
-          python3 - <<'EOF'
+          CENSUS="$CENSUS" python3 - <<'EOF'
           import hashlib, json, os, sys
-          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit/corpus/openai-math/release.json')))
+          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit', os.environ['CENSUS'])))
+          assert rel['commit'] == os.environ['MATH_PIN'], 'the census is of another commit'
           ch = next((c for c in rel['challenges'] if c['name'] == os.environ['CH']), None)
           if ch is None: sys.exit('not a census challenge: ' + os.environ['CH'])
           sha = lambda p: hashlib.sha256(open(p, 'rb').read()).hexdigest()
-          assert sha('ComparatorChallenges/%s.json' % ch['name']) == ch['configSha256'], 'config bytes differ from the census'
-          assert sha('ComparatorChallenges/%s.lean' % ch['name']) == ch['statementSha256'], 'statement bytes differ from the census'
-          cfg = json.load(open('ComparatorChallenges/%s.json' % ch['name']))
+          # the census paths are the repository's (lean/...); this step runs in lean/
+          cfg_path, st_path = ch['config'][len('lean/'):], ch['statement'][len('lean/'):]
+          assert sha(cfg_path) == ch['configSha256'], 'config bytes differ from the census'
+          assert sha(st_path) == ch['statementSha256'], 'statement bytes differ from the census'
+          with open(os.environ['GITHUB_ENV'], 'a') as e: e.write('CH_CONFIG=%s\nCH_STATEMENT=%s\n' % (cfg_path, st_path))
+          cfg = json.load(open(cfg_path))
           cfg['enable_nanoda'] = True   # declared change 1
           json.dump(cfg, open('audit-config.json', 'w'), indent=1)
           if cfg.get('definition_names'):
@@ -200,7 +221,7 @@ jobs:
           lake update 2>&1 | grep -v '^warning: .* has local changes' | tail -15
           python3 - <<'EOF'
           import json, os, sys
-          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit/corpus/openai-math/release.json')))
+          rel = json.load(open(os.path.join(os.environ['GITHUB_WORKSPACE'], 'audit', os.environ['CENSUS'])))
           want = {d['name']: d['rev'] for d in rel['dependencies']}
           got = {p['name']: p['rev'] for p in json.load(open('lake-manifest.json'))['packages']}
           moved = sorted(k for k in want if got.get(k) != want[k])
@@ -216,6 +237,7 @@ jobs:
           set +e
           mkdir -p ~/out
           {
+            echo "math pin: $MATH_PIN"
             echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null)"
             lean --version; comparator --version 2>/dev/null || true
             echo "lean4export rev: $(cat ~/kernel-tools/lean4export.rev)"
@@ -241,14 +263,14 @@ jobs:
             # DISPLAYS? (tools/openai-math-transfer.py), and its red control, the same file with one displayed hole
             # body replaced by sorry, which must NOT transfer
             T="$GITHUB_WORKSPACE/audit/tools/openai-math-transfer.py"
-            if python3 "$T" "ComparatorChallenges/$CH.lean" "ComparatorChallenges/$CH.json" > AuditTransfer.lean 2> ~/out/transfer.err; then
+            if python3 "$T" "$CH_STATEMENT" "$CH_CONFIG" > AuditTransfer.lean 2> ~/out/transfer.err; then
               cp AuditTransfer.lean ~/out/AuditTransfer.lean
               timeout 3600 lake env lean AuditTransfer.lean > ~/out/transfer.log 2>> ~/out/transfer.err
               echo $? > ~/out/transfer-exit.txt
             else
               echo 97 > ~/out/transfer-exit.txt
             fi
-            python3 "$T" "ComparatorChallenges/$CH.lean" "ComparatorChallenges/$CH.json" --forge > AuditTransferForge.lean 2> ~/out/forge.err
+            python3 "$T" "$CH_STATEMENT" "$CH_CONFIG" --forge > AuditTransferForge.lean 2> ~/out/forge.err
             fe=$?
             if [ $fe -eq 0 ]; then
               cp AuditTransferForge.lean ~/out/AuditTransferForge.lean

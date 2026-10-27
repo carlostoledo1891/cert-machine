@@ -1,0 +1,325 @@
+{
+ "what": "The N(6) = 3 saved run (openai/math family 266), its records' consistency and coverage decided by an independent standard-library reader written from VERIFY.md and execution.tex (tools/check-openai-math-mub6.py; the release's check_records.py never opened, no C++ compiled). The audit's F-532 was NEEDS DATA (the code and data were absent); the artifacts were published on 2026-10-26.",
+ "release": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+ "manifest": "corpus/openai-math/mub6-7ef5c0cc/files.json",
+ "writtenFrom": {
+  "verify": {
+   "path": "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/VERIFY.md",
+   "sha256": "f68b8abe0d7f038b0ca03e31f0f16338831043ee449fa99ccb169ee43831102d"
+  },
+  "execution": {
+   "path": "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/build/sections/execution.tex",
+   "sha256": "bd5e193a7cb0ecc8a34b7452e51dfa3bad686ba423af1b9998b5d70a40f59fbf"
+  }
+ },
+ "neverOpenedAsCode": {
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/build.sh": "81dc6c71ecaa6511c9c5245ec7f946b24c5b41344ebd5171c10bedd9944e93bc",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/abi-fp-probe.cpp": "1589fe5b4365a3eb1a94818c3801cfcc1509f7c88da23d06175503a4934b4c3c",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/atlas.cpp": "dcbf2dbe1054c01f9a7551094c1ac5f495e8c360a5ab5187ba2de30861909c5f",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/covout.cpp": "2a7e6bf5ca4857653d0083144a1a1e815b5109df418d7f6f3bf98c4b974fe52c",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/patchx.cpp": "a78a1ab171d8c7f11490f83f4fc6896f0b135a1648563c970c584210b192095a",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/seed.cpp": "3c6c7a7092230de231fdb23b6d1782de0dd9ef6689095763b875d90ce5ddeb44",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/stageB.cpp": "7e609a2f282d519a73479e6adb4f18e13202844e3ca8325135a444981e1b0c0a",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/stageC.cpp": "60a1b10091852809f523d4f5cc70abb28ebe8d7ed691843e7a2d73e9bbd7caae",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/compiled-build/source/ub.cpp": "bb031282340012e6fea15eadc073cf79a9e5a75fa0d558ccc5e1ef541e2b1e77",
+  "preprints/The-maximum-number-of-mutually-unbiased-bases-in-dimension-six-September-24-2026/verification/saved-run/execution/check_records.py": "565f4ee47ab7b7c4bf1c224981eb86ec94ef5f75a9487347a53af407eee45734"
+ },
+ "neverOpenedAsCodeNote": "the release's checker and build files: pinned by sha256; check_records.py and build.sh never read, the seven C++ sources hashed (check X6) and never opened or compiled",
+ "word": "CERTIFIED",
+ "decides": "the manuscript's terminal conditions read off the saved records: every record file parses to its exact end, the 100 invocations are the stated schedule and all completed, the A shards cover the centers modulo four with no unresolved seed, both B refinements process every parent with no failure, the batches are fine.bin record for record (radius enlarged to .016), every initial C failure is saved, in order, unchanged, and enters the fallback, and the four final C parts partition the fallback output with no unresolved record; the printed counts and hashes are those of the records",
+ "doesNotDecide": "that N(6) = 3. The records record a search; the manuscript's finite-execution theorem turns them into a proof only under hypotheses this reader does not touch: the seed cover covers (Proposition seed:cover), each A, B and C rejection is justified by its lemma under the binary64 model, the seven C++ files implement those lemmas, the compiled build obeyed the arithmetic model, and these bytes are what those programs wrote (the release says itself: \"a numerical consistency check, not an authentication of the historical archive, a proof of the C++ implementation, or a verification of compiler and hardware behavior\"). Independent re-runs of the search from the paper's text exist (maximusrufus, Jaswal); they are their authors' results.",
+ "checks": [
+  {
+   "id": "X1",
+   "what": "exactly 100 invocations: 1 cover, 4 A, 2 B, 88 initial C, 1 fallback B, 4 final C",
+   "pass": true,
+   "detail": "100 invocations, by stage {\"A\": 4, \"Bfine\": 1, \"Bmid\": 1, \"C.fallback\": 1, \"C.final\": 4, \"C.initial\": 88, \"cov\": 1}"
+  },
+  {
+   "id": "X2",
+   "what": "every invocation completed, with an empty stderr",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "X3",
+   "what": "one result file per invocation, and no other",
+   "pass": true,
+   "detail": "missing []; extra []"
+  },
+  {
+   "id": "X4",
+   "what": "every argv is the stated schedule (cover; A i of 4; B mid .07 .013 on the coarse files in part order; B fine .016 .005 into batches/f; C 12 4 1 .042 1 1 5000000 0 1 per batch; B fallback .011 .0038; final C i of 4)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "S1",
+   "what": "centers.txt is complete: its header count equals its center lines, ten integers each",
+   "pass": true,
+   "detail": "header 112 249878, 249878 lines, 0 malformed"
+  },
+  {
+   "id": "S2",
+   "what": "the cover's own counters: centers written = centers.txt, completed_write printed",
+   "pass": true,
+   "detail": "checked151744086 centers249878; xs 22829"
+  },
+  {
+   "id": "A1",
+   "what": "the four A shards: part i processes exactly the centers = i (mod 4), terminal failedBalls0, logged global = saved records, radius at most the global target .125, exit 0, empty bad text file",
+   "pass": true,
+   "detail": "saved [764, 774, 757, 788]"
+  },
+  {
+   "id": "B1",
+   "what": "B mid and B fine: every parent processed, logged output = saved records, zero saved failures (an eight-byte bad file), every output radius at most its target, exit 0",
+   "pass": true,
+   "detail": "Bmid: 3083 parents -> 600 saved records, bad file count 0 | Bfine: 600 parents -> 22379 saved records, bad file count 0"
+  },
+  {
+   "id": "B2",
+   "what": "the batches are consecutive groups of at most 256 (every one full but the last), named f0..f87, and the completion marker agrees with both the number of batches and the sum of their counts",
+   "pass": true,
+   "detail": "marker 88 22379; 88 batches, sizes [256, 256, ..., 107]; all parse"
+  },
+  {
+   "id": "B3",
+   "what": "the concatenation of the batches equals fine.bin record for record, byte for byte, except the radius, which is the target .016 in every batch record and at least the original",
+   "pass": true,
+   "detail": "22379 records compared"
+  },
+  {
+   "id": "C1",
+   "what": "every initial C batch processed once: done = its batch count, logged bad = saved bad, the four categories sum to it, exit 0 exactly when bad = 0 and 1 exactly when bad > 0",
+   "pass": true,
+   "detail": "88 batches; 163 unresolved (163 graph caps); exits 0/1: 73/15"
+  },
+  {
+   "id": "C2",
+   "what": "every saved initial C failure is an unchanged, ordered subsequence of its batch",
+   "pass": true,
+   "detail": "163 failures in 15 files"
+  },
+  {
+   "id": "F1",
+   "what": "the fallback B takes exactly the nonempty initial bad files, in ASCII filename order, processes every parent (= every unresolved record), saves zero failures, every output radius at most its target .011, exit 0",
+   "pass": true,
+   "detail": "inputs bad10.bin bad3.bin bad4.bin bad5.bin bad52.bin bad53.bin bad55.bin bad56.bin bad6.bin bad7.bin bad78.bin bad79.bin bad8.bin bad80.bin bad84.bin; parents 163 -> 1127 records; bad file count 0"
+  },
+  {
+   "id": "G1",
+   "what": "final C: part i processes exactly the fallback records = i (mod 4), the four parts partition all of them without omission, every exit 0, zero failures logged and saved (eight-byte bad files)",
+   "pass": true,
+   "detail": "done [282, 282, 282, 281] of 1127"
+  },
+  {
+   "id": "X5",
+   "what": "the data directory holds exactly the files the schedule writes",
+   "pass": true,
+   "detail": "missing []; unexpected []"
+  },
+  {
+   "id": "X6",
+   "what": "the seven C++ sources the manuscript names are shipped in compiled-build/source with the lengths and sha256 digests verification/code/extraction.json lists (hashed as bytes, never opened or compiled)",
+   "pass": true,
+   "detail": "atlas.cpp, covout.cpp, patchx.cpp, seed.cpp, stageB.cpp, stageC.cpp, ub.cpp"
+  },
+  {
+   "id": "T1",
+   "what": "every count the manuscript prints (Table execute:counts, the batch arithmetic 87 x 256 + 107, the fallback order) is the count the records give",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "T2",
+   "what": "the eight principal data files have the sha256 digests the manuscript prints (Table execute:hashes)",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "id": "P1",
+   "what": "every record file read parses: count, k in 0..10, 356 + 288k bytes per record, finite fields, positive radius, the declared count reaching the exact end of file",
+   "pass": true,
+   "detail": "190 files, 49731 records"
+  }
+ ],
+ "counts": {
+  "cover": {
+   "pairs": 151744086,
+   "centers": 249878,
+   "xs": 22829
+  },
+  "A": {
+   "inputs": [
+    62470,
+    62470,
+    62469,
+    62469
+   ],
+   "outputs": [
+    764,
+    774,
+    757,
+    788
+   ]
+  },
+  "Bmid": {
+   "inputs": 3083,
+   "outputs": 600
+  },
+  "Bfine": {
+   "inputs": 600,
+   "outputs": 22379
+  },
+  "batches": {
+   "count": 88,
+   "full": 87,
+   "size": 256,
+   "last": 107
+  },
+  "initialC": {
+   "inputs": 22379,
+   "unresolved": 163,
+   "allGraphCaps": true,
+   "exit0": 73,
+   "exit1": 15
+  },
+  "fallbackOrder": [
+   "bad10.bin",
+   "bad3.bin",
+   "bad4.bin",
+   "bad5.bin",
+   "bad52.bin",
+   "bad53.bin",
+   "bad55.bin",
+   "bad56.bin",
+   "bad6.bin",
+   "bad7.bin",
+   "bad78.bin",
+   "bad79.bin",
+   "bad8.bin",
+   "bad80.bin",
+   "bad84.bin"
+  ],
+  "fallback": {
+   "inputs": 163,
+   "outputs": 1127
+  },
+  "final": [
+   282,
+   282,
+   282,
+   281
+  ],
+  "invocations": 100
+ },
+ "redControls": [
+  {
+   "control": "dropped A shard",
+   "mutation": "coarse2.bin removed",
+   "mustFail": [
+    "A1"
+   ],
+   "failed": [
+    "A1",
+    "B1",
+    "X5",
+    "T1",
+    "T2"
+   ],
+   "fired": true
+  },
+  {
+   "control": "dropped A command",
+   "mutation": "the A3 invocation removed from commands.json",
+   "mustFail": [
+    "X1"
+   ],
+   "failed": [
+    "X1",
+    "X3",
+    "X4",
+    "A1",
+    "T1"
+   ],
+   "fired": true
+  },
+  {
+   "control": "record moved between batches",
+   "mutation": "the last record of f10 and the first of f11 exchanged (counts unchanged)",
+   "mustFail": [
+    "B3"
+   ],
+   "failed": [
+    "B3"
+   ],
+   "fired": true
+  },
+  {
+   "control": "saved failures reordered",
+   "mutation": "the two saved failures of bad3.bin swapped",
+   "mustFail": [
+    "C2"
+   ],
+   "failed": [
+    "C2"
+   ],
+   "fired": true
+  },
+  {
+   "control": "fallback input dropped",
+   "mutation": "batches/bad84.bin removed from the fallback's inputs",
+   "mustFail": [
+    "F1"
+   ],
+   "failed": [
+    "F1",
+    "T1"
+   ],
+   "fired": true
+  },
+  {
+   "control": "final C failure planted",
+   "mutation": "one fallback record saved as a final C1 failure",
+   "mustFail": [
+    "G1"
+   ],
+   "failed": [
+    "G1"
+   ],
+   "fired": true
+  },
+  {
+   "control": "truncated file",
+   "mutation": "the last byte of fine.bin cut",
+   "mustFail": [
+    "P1"
+   ],
+   "failed": [
+    "B1",
+    "B3",
+    "T2",
+    "P1"
+   ],
+   "fired": true
+  },
+  {
+   "control": "batch radius enlarged",
+   "mutation": "the radius of f1's first record set to .017",
+   "mustFail": [
+    "B3"
+   ],
+   "failed": [
+    "B3"
+   ],
+   "fired": true
+  }
+ ],
+ "summary": {
+  "checks": 19,
+  "passed": 19,
+  "redControls": 8,
+  "fired": 8
+ }
+}

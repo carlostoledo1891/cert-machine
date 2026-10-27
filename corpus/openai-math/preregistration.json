@@ -197,6 +197,116 @@
    "before": "the three challenges that never reached Comparator (ErdosReciprocal, MUBSix, PlanarPacking) are run again",
    "what": "they run ONE AT A TIME (SLOTS=1) on one RunPod CPU pod, cpu3c (32 vCPU, 64 GB, $0.96/h), within a $10 cap the operator approved on 2026-10-12 (\"go the Proposed use of the $59.34\"), by the same tools/runpod-openai-math.sh at the same pins, nanoda build issue44-stack1g as on the first pod; amendment 15's GLIBC_TUNABLES workaround is exported for all three (the release's own README prescribes it for full builds). The 15 challenges the runners terminated for memory or nanoda refused are NOT re-run: they stay REFUSED for resources (the operator's choice of 2026-10-11 stands). At the cap the pod is terminated and whatever did not finish stays REFUSED.",
    "why": "these three stopped in the build step on GitHub's 6-hour runners and on the 256 GB pod (which ran out of memory running four at once), so they were never decided by either kernel; one at a time on a pod with no job time limit is the cheapest machine that can finish a build"
+  },
+  {
+   "date": "2026-10-27",
+   "before": "any lane-K run at a commit other than fd4aeeb2, and any row of the new ledger",
+   "what": "A SECOND PIN. github.com/openai/math moved on 2026-10-26 to 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a ('Update math/cs papers, formalizations, and verification data', merged as PR #3). Its census is corpus/openai-math/release-7ef5c0cc.json (tools/pin-openai-math.js --pin; the audit's census release.json is re-derived unchanged at fd4aeeb2). Lane K runs, at the new pin, exactly the 20 challenges the census lists as ADDED (3) or CHANGED (17): a byte changed in the config, the statement, the solution module, or a file of the release's own library that the solution or challenge module imports, transitively. The 399 others are not re-run: every one of those bytes is identical, the toolchain (leanprover/lean4:v4.34.1) and all 42 dependency revisions are unchanged; the lakefile changed only to add the HodgeConjecture library and a module collector for the new directory challenge. THE SAME RULE: enable_nanoda: true is the one change to OpenAI's configs; a config that still declares definition_names (ElementaryPositivity) runs twice, the second time with the holes emptied, and gets the transfer check; nanoda is built as amendment 11 says (stack1g, the workflow's default); the words of lanes.K are unchanged, and a job that cannot finish (the 6 h limit, memory, a build failure) is REFUSED with its reason, never REFUTED. The workflow takes the pin as an input (math_pin, default fd4aeeb2) and reads that pin's census for every byte check; nothing else in it changes. The rows are recorded in a NEW ledger, certs/openai-math-kernel-7ef5c0cc.json, from runs kept in corpus/openai-math/kernel-runs-7ef5c0cc/. The fd4aeeb2 ledger certs/openai-math-kernel.json and its runs are KEPT, not overwritten: a row decided at one pin is never moved to another.",
+   "pin": {
+    "repository": "https://github.com/openai/math",
+    "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+    "previous": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+    "census": "corpus/openai-math/release-7ef5c0cc.json",
+    "shortstat": "40615 files changed, 3950909 insertions(+), 170 deletions(-)"
+   },
+   "challenges": {
+    "added": [
+     "HodgeConjectureCMAbelianVarieties",
+     "LocalSmoothing",
+     "SubexponentialSAT"
+    ],
+    "changed": [
+     "Brenier",
+     "DefocusingNLS",
+     "ElementaryPositivity",
+     "EuclideanFiveColor",
+     "FinitisticAsymmetry",
+     "HarmonicGrowth",
+     "KServer",
+     "KaplanskyQuasitrace",
+     "KaplanskyStableFiniteness",
+     "LittleFinitistic",
+     "LogKodairaFiberNegative",
+     "LogspaceEquality",
+     "MaximalSeshadriConstants",
+     "Naimark",
+     "OccupiedOverlap",
+     "Rokhlin",
+     "SpinAngle"
+    ],
+    "order": [
+     "HodgeConjectureCMAbelianVarieties",
+     "LocalSmoothing",
+     "SubexponentialSAT",
+     "Brenier",
+     "DefocusingNLS",
+     "ElementaryPositivity",
+     "EuclideanFiveColor",
+     "FinitisticAsymmetry",
+     "HarmonicGrowth",
+     "KServer",
+     "KaplanskyQuasitrace",
+     "KaplanskyStableFiniteness",
+     "LittleFinitistic",
+     "LogKodairaFiberNegative",
+     "LogspaceEquality",
+     "MaximalSeshadriConstants",
+     "Naimark",
+     "OccupiedOverlap",
+     "Rokhlin",
+     "SpinAngle"
+    ],
+    "unchanged": 399,
+    "removed": []
+   },
+   "definitionNamesShrank": [
+    {
+     "name": "Brenier",
+     "before": 12,
+     "after": 0
+    },
+    {
+     "name": "DefocusingNLS",
+     "before": 3,
+     "after": 0
+    },
+    {
+     "name": "EuclideanFiveColor",
+     "before": 1,
+     "after": 0
+    },
+    {
+     "name": "KServer",
+     "before": 9,
+     "after": 0
+    },
+    {
+     "name": "LogspaceEquality",
+     "before": 20,
+     "after": 0
+    },
+    {
+     "name": "Naimark",
+     "before": 7,
+     "after": 0
+    },
+    {
+     "name": "OccupiedOverlap",
+     "before": 5,
+     "after": 0
+    },
+    {
+     "name": "Rokhlin",
+     "before": 4,
+     "after": 0
+    },
+    {
+     "name": "SpinAngle",
+     "before": 3,
+     "after": 0
+    }
+   ],
+   "why": "release.note: a later commit is a new pin, re-censused, never silently followed. The commit message says some Comparator configurations were fixed; 9 configs emptied their definition_names (Comparator then compares those definitions body and all, which is what the audit's strict run did) and three statements changed, so the audit's fd4aeeb2 rows do not decide them at the new pin."
   }
  ]
 }

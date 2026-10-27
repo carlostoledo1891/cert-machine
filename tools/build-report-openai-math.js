@@ -131,6 +131,47 @@ const refOk = (ref, id) => {
   else die(id + ': unknown lane ' + ref.lane);
 };
 const gaps = G.findings.slice().sort((a, b) => a.severity - b.severity);
+
+/* ---- since the pin (2026-10-27): openai/math moved to 7ef5c0cc on 2026-10-26. Its census (release-7ef5c0cc.json, with
+   the diff against this pin), lane K's second ledger (amendment 17: the ADDED and CHANGED challenges only, the same
+   rule) and the N(6) saved-run reader (certs/openai-math-mub6-records.json) are read here; every number comes from
+   them, and the fd4aeeb2 ledgers above are not touched. ---- */
+const R2 = opt('corpus/openai-math/release-7ef5c0cc.json');
+const K2 = opt('certs/openai-math-kernel-7ef5c0cc.json');
+const M6 = opt('certs/openai-math-mub6-records.json');
+const SINCE = '2026-10-27';
+const since = {};
+if (R2) {
+  const d = R2.sincePin;
+  if (d.from !== R.commit || R2.commit !== d.to) die('release-7ef5c0cc.json is not a diff from the audited pin');
+  const A17 = P.amendments.find((a) => a.pin && a.pin.commit === R2.commit) || die('no pre-registration amendment names ' + R2.commit);
+  if (JSON.stringify(A17.challenges.order) !== JSON.stringify(d.toRun)) die('the amendment\'s challenge list is not the census diff');
+  if (K2 && (K2.release.commit !== R2.commit || K2.rows.some((r) => !d.toRun.includes(r.challenge)))) die('the second lane-K ledger is not the amendment\'s');
+  if (M6 && M6.release !== R2.commit) die('the N(6) records ledger is pinned to another commit');
+  const p2 = R2.commit.slice(0, 8);
+  const k2 = K2 ? K2.rows : [];
+  const k2w = (K2 && K2.counts.words) || {};
+  const k2of = (name) => k2.find((r) => r.challenge === name);
+  const shr = d.definitionNamesShrank;
+  const shrCert = shr.filter((s) => (k2of(s.name) || {}).word === 'CERTIFIED');
+  const nan2 = R2.counted.enableNanoda;
+  since.R2 = R2; since.d = d; since.p2 = p2; since.k2 = k2; since.k2w = k2w; since.k2of = k2of; since.A17 = P.amendments.indexOf(A17) + 1;
+  const kSoFar = K2 && K2.rows.length < d.toRun.length ? ' so far' : '';
+  const notes = {
+    'definition-holes': 'At ' + p2 + ' (2026-10-26) OpenAI took the definitions out of definition_names in ' + shr.length + ' of the ' + holes.length + ' configs ('
+      + shr.reduce((a, s) => a + s.before, 0) + ' of the ' + R.counted.definitionHoles.declared + ' holes), as this gap asks: Comparator now compares them body and all. '
+      + d.changed.filter((c) => c.definitionNames && c.why.includes('statement')).map((c) => c.name).join(', ') + ' — the challenges whose bodies differed here — had their challenge text edited to match. '
+      + (K2 ? 'Re-run at the new pin (amendment ' + since.A17 + '): ' + shrCert.length + ' of the ' + shr.length + ' accepted by both kernels' + kSoFar + '.' : 'Lane K re-runs them at the new pin (amendment ' + since.A17 + ').'),
+    'second-kernel-off': 'At ' + p2 + ' (2026-10-26) nanoda is switched on in ' + cnt(nan2, 'true') + ' of ' + R2.counted.challenges + ' configs; the ' + d.added.length + ' challenges added ('
+      + d.added.map((a) => a.name + ': ' + a.enableNanoda).join(', ') + ') leave it off.',
+  };
+  if (M6) notes['missing-artifacts'] = 'On 2026-10-26 the N(6) = 3 saved run was published (verification/saved-run: the command and result records of its '
+    + M6.counts.invocations + ' invocations, the numerical records, and the seven C++ sources). A reader written here from VERIFY.md and the manuscript, never from the release\'s checker, finds the records '
+    + (M6.word === 'CERTIFIED' ? 'consistent and the coverage complete' : 'NOT consistent') + ' (' + M6.summary.passed + ' of ' + M6.summary.checks + ' checks; ' + M6.summary.fired + ' of ' + M6.summary.redControls
+    + ' red controls fire). That settles the search\'s bookkeeping, not N(6) = 3: the geometric lemmas, the arithmetic model, the programs and the provenance of the bytes are the manuscript\'s, and the execution archive it cites is still not shipped. F-532 stays NEEDS DATA in the ledger pinned at ' + pin8 + '.';
+  for (const g of gaps) if (notes[g.id]) g.since = (g.since || []).concat([{ date: SINCE, text: notes[g.id] }]);
+}
+
 for (const g of gaps) {
   for (const k of ['id', 'severity', 'category', 'title', 'detail', 'evidence', 'refs', 'ask']) if (!(k in g)) die('finding ' + (g.id || '?') + ' has no ' + k);
   if (!sevLabel[String(g.severity)]) die(g.id + ': unknown severity ' + g.severity);
@@ -179,6 +220,63 @@ B.push(C.stats([
   { k: 'second kernel switched on', v: cnt(R.counted.enableNanoda, 'true') + ' / ' + n(R.counted.challenges), n: 'In the release. Here it is on for all: ' + n(kCert) + ' of ' + n(kDecided) + soFar + ' accepted by both kernels.' },
   { k: 'witnesses not published', v: String(fNeeds.length), n: 'Headline objects asserted with no checkable instance; ' + (fRefuted.length ? fRefuted.length : 'no') + ' finite claim refuted, ' + fCert.length + ' certified.' }
 ]));
+
+/* since the pin — the release moved (2026-10-26); the gaps found at the new pin lead */
+if (since.R2) {
+  const { R2: N2, d, p2, k2, k2w, k2of } = since;
+  const ep = d.changed.find((c) => c.name === 'ElementaryPositivity');
+  const epOld = R.challenges.find((c) => c.name === 'ElementaryPositivity');
+  const epK = K.rows.find((r) => r.challenge === 'ElementaryPositivity');
+  const axBefore = R.counted.statementsWithAxiomDeclaration.map((x) => x.name), axAfter = N2.counted.statementsWithAxiomDeclaration.map((x) => x.name);
+  const nan2 = N2.counted.enableNanoda;
+  const added = d.added;
+  const big = added.slice().sort((a, b) => b.solutionClosureModules - a.solutionClosureModules)[0];
+  const kDone = k2.length, kOf = d.toRun.length;
+  const kNot = k2.filter((r) => r.word !== 'CERTIFIED');
+  const gapsAt = [
+    '<b>The second kernel is still off.</b> nanoda is switched on in ' + cnt(nan2, 'true') + ' of ' + N2.counted.challenges + ' configs at ' + p2 + '; the ' + added.length
+      + ' challenges added — ' + added.map((a) => C.m(a.name) + ' (' + C.esc(String(a.enableNanoda)) + ')').join(', ') + ', the last the formal statement behind "The Exponential Time Hypothesis is False" — leave it off. Here it is on for every challenge run.',
+    M6 ? '<b>N(6) = 3: the bookkeeping is now checkable; the run\'s archive still is not.</b> The saved run published with this commit lets anyone check the records\' consistency and coverage, '
+      + 'and a reader written here does (below). The manuscript still cites an execution archive (' + C.m('verification/computation/README.md') + ', ' + C.m('full-run-01/') + ': raw command and stream records, binaries, '
+      + 'validation records) that is not shipped, and the release says of its own check that it is "not an authentication of the historical archive, a proof of the C++ implementation, or a verification of compiler and hardware behavior".' : '',
+    epOld && !epOld.theoremNames.length && epK ? '<b>A correction to this audit.</b> At ' + pin8 + ' ' + C.m('ElementaryPositivity') + '\'s config named no theorem: its one definition hole, sorried in the challenge, carries the whole claim in its type (lane S read it so). '
+      + 'Our strict run with the hole emptied passed although the challenge\'s body is ' + C.m('sorry') + ' and the solution\'s is not: with no theorem and no hole listed it compared nothing, so its ' + C.esc(epK.strict ? epK.strict.word : '—') + ' — and the "displayed statement PROVED" drawn from it in §3 — is vacuous; the pre-registered word was GENUINE HOLE. '
+      + 'The CERTIFIED stands on the hole\'s type and both kernels. At ' + p2 + ' the config names ' + (N2.challenges.find((c) => c.name === 'ElementaryPositivity') || { theoremNames: [] }).theoremNames.length + ' theorem (' + C.m((N2.challenges.find((c) => c.name === 'ElementaryPositivity') || { theoremNames: [] }).theoremNames.join(', ')) + ').' : '',
+    kNot.length ? '<b>Lane K at ' + p2 + ': ' + kNot.length + ' not certified.</b> ' + kNot.map((r) => C.m(r.challenge) + ' ' + C.esc(r.word) + ' — ' + C.esc(short(r.why || '', 160))).join('; ') + '.' : '',
+  ].filter(Boolean);
+  B.push(C.section({
+    lab: 'since the pin · ' + SINCE, title: 'The release moved to ' + p2 + ': what changed, re-run under the same rule',
+    bodyRaw: [
+      C.pRaw('On 2026-10-26 github.com/openai/math moved to ' + C.m(p2) + ' ("Update math/cs papers, formalizations, and verification data"): two new manuscripts with Lean, a Lean formalization of the rational Hodge conjecture for CM abelian varieties, '
+        + 'configurations "fixed", and the N(6) = 3 saved run. Everything above is pinned at ' + pin8 + ' and stays as it was; this section is the second pin, censused by the same tool and re-run under pre-registration amendment ' + since.A17
+        + ', committed before any run: the challenges ADDED or CHANGED, ' + C.m('enable_nanoda: true') + ' the one change to OpenAI\'s configs, definition-hole configs run twice, a new ledger beside the old.'),
+      C.pRaw('<b>Gaps at ' + p2 + ', first.</b>'),
+      C.plainList(gapsAt.map((t) => ({ raw: t }))),
+      C.pRaw('<b>What changed.</b> ' + d.challenges.after + ' challenges (' + d.challenges.before + ' before): ' + d.added.length + ' added, ' + d.changed.length + ' changed, ' + d.removed.length + ' removed, '
+        + d.challenges.unchanged + ' unchanged — config, statement, solution module and every file of the release\'s own library either side imports byte-identical; toolchain ' + C.m(d.toolchain.after)
+        + (d.dependenciesMoved.length ? ', dependencies moved: ' + C.esc(d.dependenciesMoved.join(', ')) : ' and all ' + N2.dependencies.length + ' dependency revisions unchanged') + '. The unchanged ones are not re-run. '
+        + 'In ' + d.definitionNamesShrank.length + ' configs ' + C.m('definition_names') + ' was emptied — a name dropped from that list is no longer a hole, so Comparator compares that definition body and all, the check this audit\'s strict run made. '
+        + (axBefore.length && !axAfter.length ? C.esc(axBefore.join(', ')) + '\'s challenge no longer declares an axiom (it is a ' + C.m('sorry') + ' now). ' : '')
+        + 'The largest addition, ' + C.m(big.name) + ', states its theorem over ' + n(big.statementClosureModules) + ' modules of definitions in its challenge directory and proves it through ' + n(big.solutionClosureModules) + ' modules of the release\'s library.'),
+      /* a list, not a table: the ruler counts a table that scrolls inside its box on a phone as clipped */
+      C.plainList(d.toRun.map((name) => {
+        const a = added.find((x) => x.name === name), c = d.changed.find((x) => x.name === name), s = d.definitionNamesShrank.find((x) => x.name === name), r = k2of(name);
+        return { raw: (r ? C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'REFUSED' ? 'open' : 'dep') : C.tag('NOT YET RECORDED', 'open')) + ' ' + C.m(name) + ' — '
+          + C.esc(a ? 'added, ' + a.theorems + ' theorem' + (a.theorems > 1 ? 's' : '') : 'changed: ' + c.why.join(', ')) + (s ? C.esc('; definition_names ' + s.before + ' → ' + s.after) : '')
+          + (r && r.word !== 'CERTIFIED' ? C.esc(' — ' + short(r.why || '', 140)) : '') };
+      })),
+      C.pRaw('<b>Lane K at ' + p2 + '.</b> ' + (kDone ? n(cnt(k2w, 'CERTIFIED')) + ' of ' + n(kDone) + ' recorded CERTIFIED by Lean\'s kernel and nanoda' + (kDone < kOf ? ' (' + (kOf - kDone) + ' of the ' + kOf + ' still running)' : ', of the ' + kOf + ' re-run')
+        + (cnt(k2w, 'REFUSED') ? ', ' + cnt(k2w, 'REFUSED') + ' REFUSED for the runner\'s resources' : '') + (cnt(k2w, 'REFUTED') + cnt(k2w, 'REFUTED — TO REPRODUCE') ? ', ' + (cnt(k2w, 'REFUTED') + cnt(k2w, 'REFUTED — TO REPRODUCE')) + ' rejected' : ', none rejected') + '. '
+        + 'CERTIFIED means what it means above: the theorem states the challenge\'s statement exactly, uses only the three permitted axioms, and two independently written kernels accept the proof — not that the headline ("every Euclidean Kakeya set has full Hausdorff dimension"; "The Exponential Time Hypothesis is False") is what the Lean states; lane S has not read the new statements yet. Ledger: ' + C.m('certs/openai-math-kernel-' + p2 + '.json') + '.' : 'Dispatched; no job recorded yet.')),
+      M6 ? C.pRaw('<b>The N(6) = 3 records.</b> ' + C.esc(M6.word === 'CERTIFIED' ? 'CERTIFIED as consistency and coverage, ' : M6.word + ', ') + M6.summary.passed + ' of ' + M6.summary.checks + ' checks, ' + M6.summary.fired + ' of ' + M6.summary.redControls + ' red controls firing ('
+        + C.m('python3 tools/check-openai-math-mub6.py --check') + '; the reader was written from ' + C.m('VERIFY.md') + ' and ' + C.m('execution.tex') + ', the release\'s ' + C.m('check_records.py') + ' never opened, no C++ compiled). '
+        + 'The ' + M6.counts.invocations + ' invocations are the stated schedule; the four A shards take the ' + n(M6.counts.cover.centers) + ' centers modulo four with no unresolved seed; B refines ' + n(M6.counts.Bmid.inputs) + ' → ' + n(M6.counts.Bmid.outputs) + ' → ' + n(M6.counts.Bfine.outputs)
+        + ' records; the ' + M6.counts.batches.count + ' batches are fine.bin byte for byte but the radius; ' + M6.counts.initialC.unresolved + ' initial C failures, every one saved unchanged and in order, enter the fallback, which yields ' + n(M6.counts.fallback.outputs)
+        + ' records that four final C parts (' + M6.counts.final.join(', ') + ') partition with none unresolved; the counts and the eight digests the manuscript prints are the records\'. '
+        + '<b>What that does not establish:</b> ' + C.esc(M6.doesNotDecide)) : ''
+    ].join('\n')
+  }));
+}
 
 /* §1 — the gaps, ranked */
 B.push(C.section({
