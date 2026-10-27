@@ -23,7 +23,9 @@
    duplicate); --rose refuted or stillborn. --band is the one raised band.
    Charts. Three arms have series tokens of their own, validated as a categorical palette on the dark field (the
    dataviz validator: lightness band, chroma, CVD and normal-vision separation, contrast): --s-lineage, --s-aleator,
-   --s-rules, always with a second channel (shape) and a legend. How far a child got is an ordinal ramp, one hue:
+   --s-rules, always with a second channel (shape) and a legend. Era 2's two controls, the 7B's lineage and blind tree
+   edits, take cert-machine's validated greys (--s-l7, --s-tree) and shapes of their own (ring, triangle): five hues
+   cannot all be told apart under colour blindness, so colour stays with the three arms the tests compare most. How far a child got is an ordinal ramp, one hue:
    --o-lived, --o-died, --o-stillborn. Gridlines and axes are solid hairlines in --rule. One theme, as cert-machine's.
    Type. Sans serif, cert-machine's faces: --f-display (Inter, heavy and tight) for headlines; --f-latin (Inter, italic)
    for Latin names and captions; --f-text (Inter) for reading; --f-mono (JetBrains Mono) for hashes, counts and labels.
@@ -44,6 +46,7 @@
   --rose: #e57e98;
   --band: #141419; --band-fg: #f6f6f8; --band-ochre: #e3a64a; --band-rose: #e57e98;
   --s-lineage: #3d8ac8; --s-aleator: #b87a20; --s-rules: #9070c8; --s-alone: var(--s-aleator);
+  --s-tree: #a9a9b4; --s-l7: #6e6e7a;
   --o-lived: #9fd0bb; --o-died: #5f9a83; --o-stillborn: #335e4e;
   --f-display: "Inter", -apple-system, "Helvetica Neue", system-ui, sans-serif;
   --f-latin: var(--f-display);
@@ -306,6 +309,11 @@ footer .off s { text-decoration-color: var(--rose); }
 .mk.aleator, .mk.alone { background: var(--s-aleator); transform: rotate(45deg) scale(.86); }
 .mk.rules { background: var(--s-rules); border-radius: 1px; z-index: 2; top: calc(50% + 4px); }
 .mk.founder { width: 2px; height: 20px; margin: -10px 0 0 -1px; background: var(--ink-2); box-shadow: none; }
+.mk.off { background: var(--plate); border: 2px solid currentColor; }
+.mk.rules.off { color: var(--s-rules); } .mk.lineage.off { color: var(--s-lineage); } .mk.alone.off { color: var(--s-alone); }
+.mk.l7 { border: 2px solid var(--s-l7); border-radius: 50%; background: var(--plate); z-index: 2; top: calc(50% - 4px); }
+.mk.tree { width: 0; height: 0; margin: -6px 0 0 -6px; border-left: 6px solid transparent; border-right: 6px solid transparent;
+  border-bottom: 11px solid var(--s-tree); box-shadow: none; top: calc(50% + 4px); }
 [data-tip]:focus-visible { outline: 2px solid var(--ochre); outline-offset: 2px; }
 .axis { position: relative; height: 1.1rem; margin-top: 2px; }
 .axis span { position: absolute; transform: translateX(-50%); font-family: var(--f-mono); font-size: .7rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -341,6 +349,8 @@ footer .off s { text-decoration-color: var(--rose); }
 .traj svg .aleator { stroke: var(--s-aleator); stroke-width: 2; }
 .traj svg .rules { stroke: var(--s-rules); stroke-width: 2; }
 .traj svg .alone { stroke: var(--s-alone); stroke-width: 2; }
+.traj svg .l7 { stroke: var(--s-l7); stroke-width: 1.5; }
+.traj svg .tree { stroke: var(--s-tree); stroke-width: 1.5; }
 .traj .plot > span.pm0 { position: absolute; right: .3rem; transform: translateY(-120%); font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); }
 .traj .ends span { position: absolute; left: 0; transform: translateY(-50%); font-family: var(--f-mono); font-size: .72rem; color: var(--ink); white-space: nowrap; }
 .traj .ends .mk { position: relative; display: inline-block; top: auto; margin: 0 .4rem 0 0; vertical-align: -1px; box-shadow: none; }
@@ -577,7 +587,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       </svg>
       Clade Code
     </a>
-    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html" aria-current="page">Era 1</a><a href="museum.html">Museum</a></nav>
+    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html" aria-current="page">Era 1</a><a href="era-2.html">Era 2</a><a href="museum.html">Museum</a></nav>
     <span class="draft">working draft · era 1 · 10 of 10 runs in</span>
   </header>
 </div>
@@ -752,7 +762,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
   const root = document.documentElement;
   const css = n => getComputedStyle(root).getPropertyValue(n).trim();
   let C = {};
-  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules', 's-alone',
+  const palette = () => { ['paper', 'plate', 'ink', 'ink-2', 'muted', 'rule', 'ochre', 'blue', 'rose', 's-lineage', 's-aleator', 's-rules', 's-alone', 's-tree', 's-l7',
     'o-lived', 'o-died', 'o-stillborn'].forEach(k => { C[k] = css('--' + k); }); };
   palette();
   const redraw = [];
