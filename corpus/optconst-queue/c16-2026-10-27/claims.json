@@ -1,0 +1,68 @@
+{
+ "what": "The finite claims of maximusrufus's C_16 enclosure (teorth/optimizationproblems #246), stated from the registry's definition, the pull-request write-up, the claimant's README and the two certificates (pinned in PINS.json), BEFORE any of them was decided. Each claim is FINITE (decided by computation, two implementations) or a READING (an analytic step, read and re-derived by hand here, never given a verdict). The claimant's checkers were read as text to learn what the certificates' fields mean; none was run.",
+ "written": "2026-10-27",
+ "definition": {
+  "source": "upstream/16a.md (registry main e95af44b; identical at the merge 87cb5dbb)",
+  "text": "L = C_16 = max_{δ ≥ 1} F(δ), F(δ) = 4πΘ(δ) − ln δ − ln(1 + ln δ), Θ(δ) = sup{ |u(0)|² : u zero-mean in H²(T²), ‖∇u‖₂² = 1, ‖Δu‖₂² = δ }",
+  "torus": "T² = [0, 2π]² with Lebesgue measure (BDZ2013 (2.4), (3.14); the registry's numerical row 2.15627 is BDZ's) — as in this repository's optq-226-16a row of 2026-10-16; Parseval: ‖∇u‖² = 4π² Σ|k|²|û_k|², ‖Δu‖² = 4π² Σ|k|⁴|û_k|², u(0) = Σ û_k",
+  "printed": { "lower": "2.1562247706*", "upper": "2.1562256466*", "numericalRow": "≈ 2.15627 [BDZ2013], 'lies above the certified upper bound'" }
+ },
+ "lower": {
+  "claim": "C_16 >= 2.1562247706",
+  "certificate": "claimant/lower_certificate.json: R = 4000, μ = 1221/10000, PREC = 120, six integers S{1,2,3}{lo,hi}_num, L_lower_bound_rational, L_lower_bound_float_rounded_down = 2.1562247706432345",
+  "LR1": {
+   "kind": "READING",
+   "statement": "For the real zero-mean trigonometric polynomial u = Σ_{0 < |k|² ≤ R²} c_k e^{ik·x}, c_k = 1/(|k|²(1 + μ|k|²)) (c_k = c_{−k}), Parseval on [0, 2π]² gives u(0) = S1, ‖∇u‖² = 4π² S2, ‖Δu‖² = 4π² S3, with (the certificate's names, n = |k|², r₂(n) lattice points of norm n, c_n = q/(n(q + pn)), μ = p/q) S1 = Σ r₂(n) c_n, S2 = Σ r₂(n) n c_n², S3 = Σ r₂(n) n² c_n². Normalising ũ = u/‖∇u‖: Θ(δ_u) ≥ S1²/(4π² S2) at δ_u = S3/S2, so L ≥ F(δ_u) ≥ S1²/(π S2) − ln δ_u − ln(1 + ln δ_u), provided δ_u >= 1.",
+   "reason": "definitional: the sup in Θ and the max in L applied to one explicit u; Parseval on the 2π-torus. The same reading as optq-226-16a (2026-10-16)."
+  },
+  "LF1": {
+   "kind": "FINITE",
+   "statement": "δ_u = S3/S2 >= 1 and S1²/(π S2) − ln(S3/S2) − ln(1 + ln(S3/S2)) >= 2.1562247706, the sums over every lattice point 0 < |k|² <= 4000² (Gauss's count 50,265,328) with μ = 1221/10000 exactly"
+  },
+  "LF2": {
+   "kind": "FINITE",
+   "statement": "the certificate's own numbers: [S*lo_num, S*hi_num]/2^120 contain the exact sums S1, S2, S3; L_lower_bound_rational <= the exact right-hand side of LF1; L_lower_bound_float_rounded_down <= L_lower_bound_rational; the printed 2.1562247706 <= L_lower_bound_rational"
+  },
+  "checkerNote": "verify_c16_lower.py prints VERIFIED when |L_lo − claimed| < 1e-9 and both exceed 2.1562 — agreement within a tolerance, not the inequality L_lo >= claimed; LF1 decides the inequality against the printed digits directly"
+ },
+ "upper": {
+  "claim": "C_16 <= 2.1562256466",
+  "certificate": "claimant/upper_certificate.json: 84 boxes [d1, d2, μ, box bound] (d1, d2 exact dyadic rationals as strings; μ a decimal string, read as the double it names — the checker reads Fraction(float(μ)); the box bound a float), D0 = 490000000, R0 = 100, U_rational, K (a rational), g_D0, the note 'box bound = min(max(B_mu(d1),B_mu(d2)), g(d1) if d1>=16)'",
+  "UR1": {
+   "kind": "READING",
+   "statement": "for every μ > 0 and δ >= 1: F(δ) <= B_μ(δ) := S1(μ)(1 + μδ)/π − ln δ − ln(1 + ln δ), S1(μ) = Σ_{k≠0} 1/(|k|²(1 + μ|k|²))",
+   "derivation": "Cauchy–Schwarz with weights w_k = |k|²(1 + μ|k|²): |u(0)|² = |Σ û_k|² <= (Σ 1/w_k)(Σ w_k |û_k|²) = S1(μ)(‖∇u‖² + μ‖Δu‖²)/(4π²); at ‖∇u‖² = 1, ‖Δu‖² = δ this is S1(μ)(1 + μδ)/(4π²), so 4πΘ(δ) <= S1(μ)(1 + μδ)/π. Equality holds for û_k ∝ 1/w_k (the BDZ conditional extremal), so the bound is sharp at the right μ.",
+   "reason": "an inequality between infinite sums; three lines, re-derived here"
+  },
+  "UR2": {
+   "kind": "READING",
+   "statement": "for R >= 2 and T = R − √2: Σ_{|k|>R} 1/(|k|²(1 + μ|k|²)) <= min( (Z2 − P2(R))/μ , π ln(1 + 1/(μT²)) + π√2/T ), where P2(R) = Σ_{0<|k|<=R} |k|⁻⁴ and Z2 = Σ_{k≠0} |k|⁻⁴ = 4ζ(2)β(2) = (2π²/3)G, G Catalan's constant",
+   "derivation": "(A) termwise 1/(|k|²(1 + μ|k|²)) <= 1/(μ|k|⁴), and the Dirichlet series Σ r₂(n) n^{−s} = 4ζ(s)β(s) (Jacobi's two-square theorem; Hardy) at s = 2. (B) f(r) = 1/(r²(1 + μr²)) is decreasing; for x in the unit square Q_k centred at k, |k| >= |x| − √2/2, so f(|k|) <= ∫_{Q_k} f(|x| − √2/2) dx; the Q_k with |k| > R are disjoint and lie in |x| > R − √2/2; in polar coordinates with s = r − √2/2 the integral is 2π∫_T^∞ f(s)(s + √2/2) ds = π ln(1 + 1/(μT²)) + π√2∫_T^∞ f <= π ln(1 + 1/(μT²)) + π√2/T.",
+   "reason": "bounds on an infinite sum; (A) rests on a classical identity, (B) on an integral comparison; both re-derived here. The value of G and π are computed, not read."
+  },
+  "UR3": {
+   "kind": "READING",
+   "statement": "B_μ is convex in δ on [1, ∞), so its maximum over a box is attained at an endpoint (the claimant's step between boxes)",
+   "derivation": "B_μ'' = 1/δ² + (2 + ln δ)/(δ²(1 + ln δ)²) > 0",
+   "reason": "correct, and NOT USED: the replay decides every box by subdivision with monotone enclosures (FINITE UF2), so no verdict rests on convexity"
+  },
+  "UR4": {
+   "kind": "READING",
+   "statement": "with R0 = 100, T0 = R0 − √2, H = Σ_{0<|k|<=R0} |k|⁻², K = H/π + √2/T0 − 2 ln T0: for every δ >= e, F(δ) <= g(δ) := 1 + K + (K + ln ln δ)/ln δ + 2T0²/(δ ln δ); and sup_{δ >= D0} g(δ) <= g(D0) when ln D0 >= 1 and K + ln ln D0 >= 1",
+   "derivation": "UR1 at μ = 1/(δ ln δ) (so 1 + μδ = 1 + 1/ln δ); S1(μ) <= H + π ln(1 + 1/(μT0²)) + π√2/T0 (UR2(B) at R0, and 1/(|k|²(1 + μ|k|²)) <= |k|⁻²); ln(1 + x) <= ln x + 1/x at x = δ ln δ/T0² gives S1/π <= K + ln δ + ln ln δ + T0²/(δ ln δ); expanding (·)(1 + 1/ln δ) − ln δ − ln(1 + ln δ), dropping ln ln δ − ln(1 + ln δ) <= 0 and using 1 + 1/ln δ <= 2 gives g. For the sup, with t = ln δ >= t0 = ln D0: ln t <= ln t0 + t/t0 − 1, so (K + ln t)/t <= (K + ln t0 − 1)/t + 1/t0 <= (K + ln t0)/t0 when K + ln t0 >= 1, and 2T0²/(δ ln δ) is decreasing.",
+   "reason": "the claimant's g is stated in the checker with its derivation in certify_c16_upper.py, which is NOT in the repository; re-derived here from the write-up's 'μ = 1/(δ ln δ)' and found to be the same function"
+  },
+  "UF1": { "kind": "FINITE", "statement": "the 84 boxes, read as exact rationals, tile [1, D0] = [1, 490000000]: the first starts at 1, the last ends at D0, each ends where the next begins" },
+  "UF2": { "kind": "FINITE", "statement": "for every box [d1, d2] with its μ: sup over δ in [d1, d2] of min(B_μ(δ), g(δ) where δ >= e) <= 2.1562256466, with S1(μ) bounded by its partial sum over 0 < |k| <= R and the tail of UR2" },
+  "UF3": { "kind": "FINITE", "statement": "g(D0) <= 2.1562256466 (the certificate prints g_D0 = 2.058691780833913), with the side conditions ln D0 >= 1 and K + ln ln D0 >= 1 of UR4" },
+  "UR5": {
+   "kind": "READING",
+   "statement": "a LOWER bound for the same tail, used only for lower ends of enclosures (refutations, red controls), never for a certification: with T' = R + √2, Σ_{|k|>R} 1/(|k|²(1 + μ|k|²)) >= max(0, π ln(1 + 1/(μT'²)) − π√2 · min(1/T', 1/(3μT'³)))",
+   "derivation": "for x in Q_k, |k| <= |x| + √2/2, so f(|k|) >= ∫_{Q_k} f(|x| + √2/2) dx; the Q_k with |k| > R cover |x| > R + √2/2; with s = r + √2/2 the integral is 2π∫_{T'}^∞ f(s)(s − √2/2) ds = π ln(1 + 1/(μT'²)) − π√2∫_{T'}^∞ f, and ∫_{T'}^∞ f <= min(1/T', 1/(3μT'³))",
+   "reason": "an integral comparison, re-derived here"
+  },
+  "UF4": { "kind": "FINITE", "statement": "the certificate's U_rational <= 2.1562256466; and, box by box, the printed box bound b is at least the note's formula min(max(B_μ(d1), B_μ(d2)), g(d1) if d1 >= 16) (decided as a claim about the certificate's own numbers: CERTIFIED when b is at least the formula's upper end, REFUTED when b is below its lower end)" },
+  "checkerNote": "verify_c16_upper.py (R = 1000) prints VERIFIED when its own bound U_v <= U + 1e-9 — a tolerance of 1e-9 above the certificate's U, which is 4.9e-11 below the printed digits; its VERIFIED therefore does not by itself establish C_16 <= 2.1562256466. UF2 decides each box against the printed digits directly."
+ },
+ "consequence": "if both ends hold, the registry's numerical row ≈ 2.15627 [BDZ2013] (any value rounding to 2.15627 is >= 2.156265) lies above C_16 — a finite comparison, recorded with the verdicts"
+}
