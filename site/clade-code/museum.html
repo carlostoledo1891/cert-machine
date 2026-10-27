@@ -349,6 +349,16 @@ footer .off s { text-decoration-color: var(--rose); }
 .traj svg .aleator { stroke: var(--s-aleator); stroke-width: 2; }
 .traj svg .rules { stroke: var(--s-rules); stroke-width: 2; }
 .traj svg .alone { stroke: var(--s-alone); stroke-width: 2; }
+.land { display: grid; grid-template-columns: 3.4rem minmax(0, 1fr); column-gap: .6rem; --land-h: 280px; }
+.land .ylab { position: relative; height: var(--land-h); }
+.land .ylab span { position: absolute; right: 0; transform: translateY(-50%); font-family: var(--f-mono); font-size: .7rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.land .plot { position: relative; height: var(--land-h); border-left: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.land .plot .gx { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.land .plot .gy { position: absolute; left: 0; right: 0; height: 1px; background: var(--rule); }
+.land .plot .gy.z { background: var(--ink-2); }
+.land .xlab { position: relative; height: 1.1rem; margin-top: 4px; }
+.land .xlab span { position: absolute; transform: translateX(-50%); font-family: var(--f-mono); font-size: .7rem; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.land .axis-note { margin-top: .3rem; }
 .traj svg .l7 { stroke: var(--s-l7); stroke-width: 1.5; }
 .traj svg .tree { stroke: var(--s-tree); stroke-width: 1.5; }
 .traj .plot > span.pm0 { position: absolute; right: .3rem; transform: translateY(-120%); font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); }
