@@ -1,5 +1,5 @@
 %% =====================================================================
-%% cert-machine: the method paper, v0.8 (2026-10-21)
+%% cert-machine: the method paper's supplement, v0.9 (2026-10-27)
 %% Target: Journal of Computational Science (elsarticle, author-year).
 %% Shape: the co-author's restructure of 2026-10-21 (foundations -> mathematical
 %% formulation -> metrics and decision rules -> architecture; results; discussion),
@@ -66,7 +66,7 @@
 \begin{document}
 \begin{frontmatter}
 \title{Supplementary material to ``cert-machine: independent three-valued certification of machine-proposed numerical claims in exact and interval arithmetic''\tnoteref{t1}}
-\tnotetext[t1]{Supplement v0.8 of 2026-10-21, built from repository commit \MtCommit{} with the same macro files as the main text. S1 proves the function lemmas stated in the main text's Appendix A; S2--S4 give the thresholds, the certifiers in detail and the decision loop; S5 is the reproduction table.}
+\tnotetext[t1]{Supplement v0.9 of 2026-10-27, built from repository commit \MtCommit{} with the same macro files as the main text. S1 states and proves the function lemmas that the main text's Table A.1 cites and the Sum2 bound as implemented; S2 proves the main text's termination proposition, composition corollary and threshold proposition and gives the threshold procedures; S3 states the results the certifiers rest on and their implementation; S4 is the decision loop; S5 the reproduction table and the list of second implementations.}
 \author[a]{Carlos Toledo\corref{cor1}}
 \ead{carlos@carlostoledo.co}
 \author[b]{Pedro Veras Guimar\~aes}
@@ -77,9 +77,9 @@
 \end{frontmatter}
 
 \section*{S1. Proofs of the function lemmas}
-The lemmas are stated in Appendix A of the main text with the table of functions; each proof below restates what it proves. Throughout, a series is evaluated by the natural extension on the enclosed argument, the tail bound is evaluated in interval arithmetic and its upper end taken, and the tail is added by an outward-rounded addition.
+Each lemma is stated here and proved; the main text's Table A.1 lists the functions and cites these lemmas by number. Throughout, a series is evaluated by the natural extension on the enclosed argument, the tail bound is evaluated in interval arithmetic and its upper end taken, and the tail is added by an outward-rounded addition.
 
-\paragraph{Lemma A.1 (exp)}
+\paragraph{Lemma S1.1 (exp)}
 Let $x$ be a double, $k$ an integer, and $R\ni x-k\ln 2$ the interval computed from $x$, $k$ and the enclosure of $\ln2$ by the outward-rounding proposition, with $\rho=\max_{r\in R}|r|<1$ and $-1074\le k\le1023$ (the call is refused otherwise). Then for every $r\in R$,
 \[
 e^{r}\in\sum_{i=0}^{24}\frac{r^{i}}{i!}+[-T,T],\qquad T=\frac{\rho^{25}}{25!}\Bigl(1-\frac{\rho}{26}\Bigr)^{-1},
@@ -90,7 +90,7 @@ and $e^{x}=2^{k}e^{x-k\ln2}$ exactly, $2^k$ being a double.
 Taylor's theorem gives the tail $\sum_{i\ge25}r^i/i!$, bounded in magnitude by $\sum_{i\ge25}\rho^i/i!\le(\rho^{25}/25!)\sum_{j\ge0}(\rho/26)^j$ since $i!\ge25!\,26^{\,i-25}$ for $i\ge25$; the geometric series sums to $(1-\rho/26)^{-1}$. The implementation takes $k$ as the nearest integer to $x/\ln2$ in floating point, which only affects $\rho$, evaluates the sum by the natural extension on $R$ and $T$ in interval arithmetic with its upper end, and for a box wider than $10^{-6}$ encloses by the images of its ends, $\exp$ being increasing.
 \end{proof}
 
-\paragraph{Lemma A.2 (log)}
+\paragraph{Lemma S1.2 (log)}
 Let $x>0$ be a normal double, $x=\mathrm{m}\,2^{e}$ with $\mathrm{m}\in[1,2)$ (exact), and $V\ni v=(\mathrm{m}-1)/(\mathrm{m}+1)$ the interval computed outward, with $\nu=\max V<0.34$ (refused otherwise). Then
 \[
 \ln x=e\ln2+2\operatorname{atanh}v,\qquad \operatorname{atanh}v\in\sum_{k=0}^{39}\frac{v^{2k+1}}{2k+1}+[0,T],\qquad T=\frac{\nu^{81}}{81\,(1-\nu^{2})}.
@@ -100,19 +100,19 @@ Let $x>0$ be a normal double, $x=\mathrm{m}\,2^{e}$ with $\mathrm{m}\in[1,2)$ (e
 $\ln\mathrm{m}=2\operatorname{atanh}v$ for $\mathrm{m}>0$, and the series of $\operatorname{atanh}$ has positive terms for $v\ge0$, so the tail $\sum_{k\ge40}v^{2k+1}/(2k+1)$ is nonnegative and at most $(\nu^{81}/81)\sum_{j\ge0}\nu^{2j}$. A subnormal argument is refused; a box is enclosed by the images of its ends, $\log$ being increasing.
 \end{proof}
 
-\paragraph{Lemma A.3 (sin, cos)}
+\paragraph{Lemma S1.3 (sin, cos)}
 Let $x$ be a double, $H$ the enclosure of $\pi/2$, $n$ an integer and $R\ni x-n\pi/2$ the interval computed outward from $x$, $n$ and $H$, with $\rho=\max_{r\in R}|r|\le2$. Then $\sin x$ and $\cos x$ are $\pm\sin r$ or $\pm\cos r$ according to $n\bmod4$, and for $|r|\le2$
 \[
 \sin r\in\sum_{j=0}^{15}\frac{(-1)^{j}r^{2j+1}}{(2j+1)!}+\Bigl[-\frac{\rho^{33}}{33!},\frac{\rho^{33}}{33!}\Bigr],\qquad
-\cos r\in\sum_{j=0}^{15}\frac{(-1)^{j}r^{2j}}{(2j)!}+\Bigl[-\frac{\rho^{34}}{34!},\frac{\rho^{34}}{34!}\Bigr].
+\cos r\in\sum_{j=0}^{16}\frac{(-1)^{j}r^{2j}}{(2j)!}+\Bigl[-\frac{\rho^{34}}{34!},\frac{\rho^{34}}{34!}\Bigr].
 \]
 For a box $X$ of width below $2\pi$, $\sin(X)$ lies in the hull of the images of its ends, extended to $1$ (to $-1$) whenever some $\pi/2+2k\pi$ (some $3\pi/2+2k\pi$) may lie in $X$, the test made on the enclosures of these points and answering ``may'' whenever it cannot separate; a box of width at least $2\pi$ is enclosed by $[-1,1]$. The same holds for $\cos$ with the critical points $2k\pi$ and $\pi+2k\pi$.
 
 \begin{proof}
-The quadrant identities are exact. The Lagrange remainder of the Taylor polynomial of degree $31$ (resp.\ $30$) is bounded by $\rho^{33}/33!$ (resp.\ $\rho^{34}/34!$) since every derivative of $\sin$ and $\cos$ is bounded by one in magnitude. On a box, $\sin$ is monotone between consecutive critical points, so its range is the hull of the end values unless a critical point lies inside, where it attains $\pm1$; a test that says ``may lie inside'' whenever it cannot prove otherwise can only widen the result. The implementation takes $n$ as the nearest integer to $x$ over the midpoint of $H$, which only affects $\rho$, and refuses $\rho>\pi/2+0.02$.
+The quadrant identities are exact. The Taylor polynomial of $\sin$ with sixteen terms has degree $31$ and, its coefficient of degree $32$ being zero, its Lagrange remainder is bounded by $\rho^{33}/33!$; that of $\cos$ with seventeen terms has degree $32$ and remainder at most $\rho^{34}/34!$, since every derivative of $\sin$ and $\cos$ is bounded by one in magnitude. On a box, $\sin$ is monotone between consecutive critical points, so its range is the hull of the end values unless a critical point lies inside, where it attains $\pm1$; a test that says ``may lie inside'' whenever it cannot prove otherwise can only widen the result. The implementation takes $n$ as the nearest integer to $x$ over the midpoint of $H$, which only affects $\rho$, and refuses $\rho>\pi/2+0.02$.
 \end{proof}
 
-\paragraph{Lemma A.4 ($\Gamma$ by Spouge's formula)}
+\paragraph{Lemma S1.4 ($\Gamma$ by Spouge's formula)}
 Let $a=20$ and $w\ge0$ real. Then, with $c_0=\sqrt{2\pi}$ and $c_k=(-1)^{k-1}(a-k)^{k-1/2}e^{a-k}/(k-1)!$ for $1\le k\le a-1$,
 \[
 \Gamma(w+1)=(w+a)^{w+1/2}e^{-(w+a)}\Bigl[c_0+\sum_{k=1}^{a-1}\frac{c_k}{w+k}+\varepsilon_a(w)\Bigr],\qquad|\varepsilon_a(w)|\le a^{-1/2}(2\pi)^{-(a+1/2)}
@@ -120,7 +120,7 @@ Let $a=20$ and $w\ge0$ real. Then, with $c_0=\sqrt{2\pi}$ and $c_k=(-1)^{k-1}(a-
 \citep{Spouge94}. The implementation encloses each $c_k$, the sum and the prefactor by the natural extension, with $(w+a)^{w+1/2}$ as $\exp((w+\tfrac12)\log(w+a))$, and widens the bracket by $\bar\varepsilon$, the upper end of $10\,a^{-1/2}(2\pi)^{-(a+1/2)}$ computed in interval arithmetic from the enclosure of $\pi$---a tenfold margin, which cannot cost soundness. For $0.4<z<1$ it uses $\Gamma(z)=\Gamma(z+1)/z$; for a box of width above $10^{-3}$ it uses that $\Gamma$ is log-convex on $(0,\infty)$ with its minimum in $[1.4616,1.4617]$, so the maximum over a box is at an end and the minimum at the interior minimum when the box straddles it, else at the nearer end; a value beyond the doubles is refused.
 
 
-\paragraph{Lemma A.5 ($\ln\Gamma$, $\psi$, $\psi'$)}
+\paragraph{Lemma S1.5 ($\ln\Gamma$, $\psi$, $\psi'$)}
 For real $z\ge20$ and $m=8$, with $B_{2k}$ the Bernoulli numbers,
 \begin{align*}
 \ln\Gamma(z)&=(z-\tfrac12)\ln z-z+\tfrac12\ln2\pi+\sum_{k=1}^{m}\frac{B_{2k}}{2k(2k-1)z^{2k-1}}+R_0, & |R_0|&\le\frac{|B_{2m+2}|}{(2m+2)(2m+1)z^{2m+1}},\\
@@ -132,21 +132,21 @@ For real $z\ge20$ and $m=8$, with $B_{2k}$ the Bernoulli numbers,
 Binet's second formula~\citep[\S5.9]{DLMF} writes $\ln\Gamma(z)-(z-\tfrac12)\ln z+z-\tfrac12\ln2\pi$ as $2\int_0^\infty\arctan(t/z)/(e^{2\pi t}-1)\,dt$, and its derivatives give $\psi$ and $\psi'$ with the integrands $t/((t^2+z^2)(e^{2\pi t}-1))$ and $t/((t^2+z^2)^2(e^{2\pi t}-1))$. Expanding $\arctan(s)$, $1/(1+s)$ and $1/(1+s)^2$ to $m$ terms leaves remainders bounded by $s^{2m+1}/(2m+1)$, $s^{m}$ and $(m+1)s^{m}$ for every $s\ge0$, and $\int_0^\infty t^{2k-1}/(e^{2\pi t}-1)\,dt=|B_{2k}|/(4k)$; the bounds follow term by term, and for real positive argument the remainder after $m$ terms is bounded by the first omitted term~\citep[\S5.11(ii)]{DLMF}. The implementation lifts an argument below 20 by $\Gamma(z+1)=z\Gamma(z)$, $\psi(z+1)=\psi(z)+1/z$, $\psi'(z+1)=\psi'(z)-1/z^2$, each step in interval arithmetic, so every tail is below $10^{-23}$ and is added as a pad. Over a box, $\psi$ is increasing and $\psi'$ decreasing, so each is enclosed by its ends; $\ln\Gamma$ is convex (Bohr--Mollerup), decreasing to its minimum at $x^*=1.4616\ldots$ and increasing after it, so a box on one side of $x^*$ is enclosed by its ends, and a box across $x^*$ has, for any $p>0$ and every $x$ in it, $\ln\Gamma(x)\ge\ln\Gamma(p)+\psi(p)(x-p)\ge\ln\Gamma(p)-|\psi(p)|\max(p-\underline x,\overline x-p)$: a lower end proved from the enclosures at $p$, which the implementation takes at a double near $x^*$.
 \end{proof}
 
-\paragraph{Lemma A.6 (the regularized incomplete gamma)}
+\paragraph{Lemma S1.6 (the regularized incomplete gamma)}
 For $a>0$ and $z>0$, $P(a,z)=\dfrac{z^{a}e^{-z}}{\Gamma(a+1)}\sum_{n\ge0}t_n$ with $t_0=1$ and $t_{n+1}=t_n\,z/(a+n+1)$. If $r_N=z/(a+N+1)<1$ then $0\le\sum_{n>N}t_n\le t_N\,r_N/(1-r_N)$.
 
 \begin{proof}
-The ratios $t_{n+1}/t_n=z/(a+n+1)$ decrease in $n$, so for $n\ge N$ they are at most $r_N$ and the tail is bounded by the geometric series. The implementation stops at the first $N$ with $r_N<0.95$ and tail below $10^{-18}$ of the sum (or refuses after $40{,}000$ terms), rescales the running term and sum by $10^{250}$ when the sum passes it, takes the prefactor in logarithms by Lemma A.1, Lemma A.2, Lemma A.5, and states a value whose logarithm is certainly below $-708$ as $[0,10^{-307}]$ rather than underflowing. Over a box, $P$ increases in $z$ and decreases in $a$, so it is enclosed by two corners; $P^{-1}(a,p)$ is enclosed by a bisection in which an end moves only where the sign of $P(a,z)-p$ is certain, and increases in both $a$ and $p$.
+The ratios $t_{n+1}/t_n=z/(a+n+1)$ decrease in $n$, so for $n\ge N$ they are at most $r_N$ and the tail is bounded by the geometric series. The implementation stops at the first $N$ with $r_N<0.95$ and tail below $10^{-18}$ of the sum (or refuses after $40{,}000$ terms), rescales the running term and sum by $10^{250}$ when the sum passes it, takes the prefactor in logarithms by Lemma S1.1, Lemma S1.2, Lemma S1.5, and states a value whose logarithm is certainly below $-708$ as $[0,10^{-307}]$ rather than underflowing. Over a box, $P$ increases in $z$ and decreases in $a$, so it is enclosed by two corners; $P^{-1}(a,p)$ is enclosed by a bisection in which an end moves only where the sign of $P(a,z)-p$ is certain, and increases in both $a$ and $p$.
 \end{proof}
 
-\paragraph{Lemma A.7 (Bessel $J_\nu$)}
+\paragraph{Lemma S1.7 (Bessel $J_\nu$)}
 For $\nu>-0.6$ and $x>0$, $J_\nu(x)=\sum_{m\ge0}t_m$ with $t_0=(x/2)^{\nu}/\Gamma(\nu+1)$ and $t_{m+1}=-t_m\,(x/2)^2/((m+1)(\nu+m+1))$. If $q=(x/2)^2/((M+2)(\nu+M+2))<1$ then $\bigl|\sum_{m>M}t_m\bigr|\le|t_{M+1}|/(1-q)$. For $0\le x\le1$ a box containing zero is enclosed by $[\max(0,1-x^2/4),1]$ when $\nu=0$ and by $[0,(x/2)^{\nu}/\Gamma(\nu+1)]$ when $\nu>0$.
 
 \begin{proof}
-Beyond $M+1$ the magnitude ratios are at most $q$, so the tail is a geometric series; for the box containing zero, the series alternates with decreasing terms when $x^2\le4(\nu+1)$, which $x\le1$ guarantees, so the first two partial sums bracket it. The implementation uses $M=40$, takes $t_0$ by Lemma A.4 and the exact ratios, and refuses when $q\ge1$. For $J_\nu'$ the terms carry the factor $(2m+\nu)/2$, whose ratio of consecutive values is $1+2/(2m+\nu)\le1.026$ for $m\ge M=40$ and $\nu>-0.6$, so with $q\le0.9$ the magnitude ratios are at most $1.026q$ and $1/(1-1.026q)\le2/(1-q)$; the implementation uses that bound and refuses $q>0.9$.
+Beyond $M+1$ the magnitude ratios are at most $q$, so the tail is a geometric series; for the box containing zero, the series alternates with decreasing terms when $x^2\le4(\nu+1)$, which $x\le1$ guarantees, so the first two partial sums bracket it. The implementation uses $M=40$, takes $t_0$ by Lemma S1.4 and the exact ratios, and refuses when $q\ge1$. For $J_\nu'$ the terms carry the factor $(2m+\nu)/2$, whose ratio of consecutive values is $1+2/(2m+\nu)\le1.026$ for $m\ge M=40$ and $\nu>-0.6$, so with $q\le0.9$ the magnitude ratios are at most $1.026q$ and $1/(1-1.026q)\le2/(1-q)$; the implementation uses that bound and refuses $q>0.9$.
 \end{proof}
 
-\paragraph{Lemma A.8 (erf, erfc)}
+\paragraph{Lemma S1.8 (erf, erfc)}
 For $|z|\le2$ and $N=40$,
 \[
 \operatorname{erf}z=\frac{2}{\sqrt\pi}\Bigl[\sum_{k=0}^{N}\frac{(-1)^k z^{2k+1}}{k!\,(2k+1)}+T\Bigr],\qquad |T|\le a_{N+1}=\frac{|z|^{2N+3}}{(N+1)!\,(2N+3)}.
@@ -157,9 +157,20 @@ For $x\ge1$, $\sqrt\pi\,e^{x^2}\operatorname{erfc}x=1/(x+\tfrac12/(x+1/(x+\tfrac
 The magnitudes $a_k=|z|^{2k+1}/(k!(2k+1))$ satisfy $a_{k+1}/a_k=z^2(2k+1)/((k+1)(2k+3))<1$ for $k\ge2$ when $|z|\le2$, so the alternating series bound applies after $N\ge2$ terms. The implementation adds $(2/\sqrt\pi)\,a_{N+1}$ as a symmetric pad, with $\sqrt\pi$ from the enclosure of $\pi$. The continued fraction has positive partial numerators and denominators for $x>0$, so its even convergents increase, its odd convergents decrease, and the value lies between any two consecutive ones~\citep[Thm.~1.5.1 and \S13.2]{Cuyt08}; the implementation evaluates the 80th and 81st convergents in interval arithmetic and takes their hull. $\Phi(z)=\tfrac12\operatorname{erfc}(-z/\sqrt2)$ is pieced from the two: the series for $|z/\sqrt2|\le2$ and the fraction beyond $1$ in magnitude, the overlap decided by the series; $\Phi^{-1}$ is enclosed by a bisection that moves an end only on a certified sign.
 \end{proof}
 
-\paragraph{Derivatives and sums} The derivatives of these functions that the certifiers use ($\nabla G$ in the mean-value form, the Hessians of \cref{prop:max}) are obtained by forward differentiation over the same arithmetic or, for the gamma family, by the series of Lemma A.5 written in the shape parameter so that nothing is divided by it near the lognormal limit (S3). Long sums are enclosed by Sum2 with the bound of the Sum2 bound.
+\paragraph{Derivatives and sums} The derivatives of these functions that the certifiers use ($\nabla G$ in the mean-value form, the Hessians of the maximum certifier of S3) are obtained by forward differentiation over the same arithmetic or, for the gamma family, by the series of Lemma S1.5 written in the shape parameter so that nothing is divided by it near the lognormal limit (S3). Long sums are enclosed by Sum2 with the bound of the main text's equation (Sum2), as follows.
 
-\section*{S2. Thresholds}
+\paragraph{The Sum2 bound as implemented} Write $s=\sum p_i$, $S=\sum|p_i|$ and $\gamma=\gamma_{n-1}$. The bound of Ogita, Rump and Oishi, $u|s|+\gamma^2S$, involves the exact sum $s$; the implementation evaluates $u|\tilde s|+2\gamma_n^2S$ from computable quantities, each step rounded upward. The second covers the first whenever $nu\le1/3$: since $|s|\le|\tilde s|+|\tilde s-s|\le|\tilde s|+u|s|+\gamma^2S$ and $|s|\le S$, one has $u|s|\le u|\tilde s|+u^2S+u\gamma^2S$; with $u\le\gamma_n/n\le\gamma_n/2$, $\gamma\le\gamma_n$ and $\gamma_n\le1/2$ (which $nu\le1/3$ gives), $u^2\le\gamma_n^2/4$ and $u\gamma^2\le\gamma_n^3/2\le\gamma_n^2/4$, hence $u|s|+\gamma^2S\le u|\tilde s|+(\tfrac14+\tfrac14+1)\gamma_n^2S\le u|\tilde s|+2\gamma_n^2S$. The implementation checks $nu<1$ and the absence of overflow by name; the stronger hypothesis $nu\le1/3$ holds for every stream of fewer than $3\times10^{15}$ terms, which every stream decided here is.
+
+\section*{S2. Termination, composition and thresholds}
+
+\begin{proof}[Proof of the termination proposition (main text, Proposition 3)]
+By the convergence-order inequality, $\sup G_j(X)\le\sup g_j(X)+\kappa w(X)^\omega+\eta\le c_j-\varepsilon+\eta+\kappa w(X)^\omega\le c_j$ when $\kappa w(X)^\omega\le\varepsilon-\eta$. Under widest-coordinate bisection, every $n$ consecutive splits along a branch at least halve $w(X)$: a coordinate wider than half the current width is split before any narrower one, and at most $n$ such coordinates exist; after $d^*$ splits $w(X)\le 2^{-d^*/n}w(B)\le((\varepsilon-\eta)/\kappa)^{1/\omega}$.
+\end{proof}
+
+\begin{proof}[Proof of the composition corollary (main text, Corollary 1)]
+If every $\varphi_i$ is certified, $\varphi_i(x)$ holds on $B$ for every $i$, hence $\varphi$. Under the universal reading a refuted $\varphi_i$ gives $x\in B$ with $\neg\varphi_i(x)$, hence $\neg\varphi(x)$; under the epistemic reading it gives $\neg\varphi_i(x)$ for every $x\in B$, hence $\neg\varphi$ on all of $B$. A split refusal of one check carries nothing to the conjunction (main text), so a composed refusal is unresolved.
+\end{proof}
+
 
 \begin{proof}[Proof of the threshold proposition (main text, Proposition 4)]
 Soundness gives $\Tp(m)$ in the first case and $\Fp(m)$ in the second, and the monotone-truth assumption extends them to the half-lines. In the third case the two proved witnesses show that neither $\Tp(m)$ nor $\Fp(m)$ holds; by the monotone-truth assumption, $\Tp(p)$ fails for every $p\ge m$ and $\Fp(p)$ fails for every $p\le m$, so $p_T\le m\le p_F$.
@@ -204,7 +215,7 @@ Negative definiteness over the box is proved either by Sylvester's criterion on 
 \begin{proposition}\label{prop:limit}
 Let $\ell(\mu,\sigma,Q)$ be continuous on $B\times[0,q_1]$ and differentiable in $Q$ on $B\times(0,q_1]$, with $\partial\ell/\partial Q<0$ there. Then $\ell(\mu,\sigma,Q)<\ell(\mu,\sigma,0)$ for every $(\mu,\sigma)\in B$ and $Q\in(0,q_1]$.
 \end{proposition}
-The proof is the mean value theorem. In Prentice's form of the generalized gamma~\citep{Prentice74}, with $Q=1/\sqrt{\alpha}>0$ for the shape $\alpha$, the family reaches the lognormal at $Q=0$, an ordinary point in these coordinates, and the limit is approached from $Q>0$ only; a proof that the $Q$-score is negative over a neighbourhood of the lognormal fit refuses the family at its edge \emph{with the proof}, and the neighbourhood is recorded because the conclusion is local. For $Q\le0.2$ the log-likelihood is written through the entire functions $(e^{t}-1)/t$ and $(e^{t}-1-t)/t^2$ of $t=Qw$ and Binet's series for the gamma-function part (Lemma A.5) as polynomials in $Q$, so nothing is divided by $Q$, $\ell$ is smooth at $Q=0$ and equals the lognormal log-likelihood there; each series is truncated with its tail bound, $|t|^Je^{|t|}/(J+1)!$ and the first omitted Bernoulli term, added outward.
+The proof is the mean value theorem. In Prentice's form of the generalized gamma~\citep{Prentice74}, with $Q=1/\sqrt{\alpha}>0$ for the shape $\alpha$, the family reaches the lognormal at $Q=0$, an ordinary point in these coordinates, and the limit is approached from $Q>0$ only; a proof that the $Q$-score is negative over a neighbourhood of the lognormal fit refuses the family at its edge \emph{with the proof}, and the neighbourhood is recorded because the conclusion is local. For $Q\le0.2$ the log-likelihood is written through the entire functions $(e^{t}-1)/t$ and $(e^{t}-1-t)/t^2$ of $t=Qw$ and Binet's series for the gamma-function part (Lemma S1.5) as polynomials in $Q$, so nothing is divided by $Q$, $\ell$ is smooth at $Q=0$ and equals the lognormal log-likelihood there; each series is truncated with its tail bound, $|t|^Je^{|t|}/(J+1)!$ and the first omitted Bernoulli term, added outward.
 
 \paragraph{A statement for every input in a box}
 Three reductions are used. \emph{Bisection with a proposer}: the box is split until each piece's enclosure decides, a floating-point heuristic choosing the coordinate and never a verdict, under a depth budget (the termination proposition, \cref{alg:decide}); the engineering gate is the main instance. \emph{Monotone implicit functions}: where a model quantity is the root of an equation monotone in its parameters, its range over the box is bracketed by the roots at two corners, each counted only when the sign of the equation just beyond it is proved; for Colebrook's friction law, $h(x)=x+(2/\ln 10)\ln(a+bx)$ is increasing in $x$, $a$ and $b$, so the root decreases in $a$ and $b$ and every root over the box lies in $[x^*(a_+,b_+),\,x^*(a_-,b_-)]$. \emph{Multilinear forms}:
@@ -258,6 +269,8 @@ A formal certificate is two claims. That the proof is accepted is decided by bui
 In the gate the epistemic refutation is decided by a second pass over the box only when no satisfying corner was proved; the universal branch-and-bound keeps no corners and refutes nothing, since its claims are bounds that either certify or exhaust the budget.
 
 \section*{S5. Reproduction}\setcounter{table}{0}
+
+\paragraph{Second implementations (rule R5)} Where a verdict is the product, a program written from the specification in another language and arithmetic, sharing no code, re-derives it: the benchmark's six oracles (Python standard library), the kissing samples, the entropy and truth-table certificates, the step functions, the trace-constant and Zhang--Zagier certificates, the graphon densities of the registry's $K_5$ and $K_6$ bounds, $\delta_3$, the Hankel cross-checks and \MtSecondImpls{} engineering decisions (the flow-line gate, the emissions ledger and the operating-window verifier, each second program named by its file on disk in the generator that writes the paper's macros). Not every certifier has one (main text, Table 4).
 
 Each headline result re-derives with the command beside it in \cref{tab:repro}, on the laptop of the benchmark of the main text unless the row says otherwise; each command that fetches a claimant's file refuses it unless it matches the pinned digest, and each battery fails unless its red controls fire.
 
