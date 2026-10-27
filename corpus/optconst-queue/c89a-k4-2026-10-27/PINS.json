@@ -1,0 +1,78 @@
+{
+ "what": "The registry's C_89 (K4) Ramsey-multiplicity certificate [SK2026] (J. SK, JeetuSK0808/tao-constants-certificates, the c89-k4-ramsey-multiplicity folder at commit 3d9431a, the commit constants/89a.md cites; byte-identical at HEAD 98b6ee34 on 2026-10-27) and the registry page constants/89a.md + README.md from teorth/optimizationproblems main (e95af44b, after #255 merged at 915416c7 and #264 added [Kos2026]); the claimant's evaluators (exact_eval.py, float_eval.py, refine.py) kept as TEXT, never run; the PPSS 768-vertex K4 graph (Zenodo 6602512, graphs.zip -> graphs/c4.graph6.txt, zip md5 587c961bd729d6c164e58b96d7bce574 as Zenodo lists it) for the published-value control. Read by tools/replay-graphon-k4.js; nothing here is ours.",
+ "fetched": "2026-10-27T14:28:46.988Z",
+ "certificateCommit": "3d9431a00abf03be3752f8f9f126dec81ac34987",
+ "certificateHead": "98b6ee34e8f51f82be85517e4b7f0e7e7af393b8",
+ "registryMain": "e95af44bc6ae938f545a0fc62cd1b6c1f6088a56",
+ "pr255": {
+  "merged": "2026-10-26T03:53:53Z",
+  "mergeCommit": "915416c7e98a19e2d6bba02523675c53a47c460a",
+  "head": "77dff95d8f6dbd212e7c9662929003951cf1e262"
+ },
+ "ppssZip": {
+  "url": "https://zenodo.org/api/records/6602512/files/graphs.zip/content",
+  "md5": "587c961bd729d6c164e58b96d7bce574",
+  "sha256": "6ff8a2496c545e86def3a12bd69ef557c50a890c732a8506d30b1bbe8467ec89",
+  "member": "graphs/c4.graph6.txt"
+ },
+ "urls": {
+  "certificate": "https://github.com/JeetuSK0808/tao-constants-certificates/tree/3d9431a00abf03be3752f8f9f126dec81ac34987/c89-k4-ramsey-multiplicity",
+  "page": "https://github.com/teorth/optimizationproblems/blob/e95af44bc6ae938f545a0fc62cd1b6c1f6088a56/constants/89a.md",
+  "pr255": "https://github.com/teorth/optimizationproblems/pull/255",
+  "ppss": "https://doi.org/10.5281/zenodo.6602512"
+ },
+ "files": {
+  "c89-k4/README.md": {
+   "sha256": "b5efa6e3b660de65bbc190cfc5084f2ee30bef37f9d6217e8147610eddcd24ce",
+   "bytes": 2042
+  },
+  "c89-k4/SHA256SUMS.txt": {
+   "sha256": "63b799fce4d242f51d5f3c13605900112eee8db37bedcf2e74814953a99e03c1",
+   "bytes": 699
+  },
+  "c89-k4/c89_stepgraphon_D20.json.gz": {
+   "sha256": "82c28f7761f8392df6ed1728b5eefdc4ef388b266fc2beb1a2f0a54f7dd2631a",
+   "bytes": 1558490
+  },
+  "c89-k4/exact_eval.py": {
+   "sha256": "1399dd2c94f685e735e6a744ace77c4ecdf156b7d02700a9a4c23de97629ec15",
+   "bytes": 3331
+  },
+  "c89-k4/float_eval.py": {
+   "sha256": "c7538f0f56070daab4b37cbe7b7eba30f72a84415f389e0cc1e49737ccee916a",
+   "bytes": 1368
+  },
+  "c89-k4/refine.py": {
+   "sha256": "d5e5485353f28fb1bc87b38a74a8fb919ea3076264f798b0046b53fb22e26d4a",
+   "bytes": 3430
+  },
+  "c89-k4/results/candidate_exact.txt": {
+   "sha256": "58d19750ec84afe79a55c5d3c25c3fb146f98778e3136214997abf3e02740175",
+   "bytes": 608
+  },
+  "c89-k4/results/candidate_float.txt": {
+   "sha256": "76a7551450d925b184b2f6bda326a2db135afb2146d3eca0f84c6be570301d3e",
+   "bytes": 69
+  },
+  "c89-k4/results/input_sha256.txt": {
+   "sha256": "c447774aaed946522cfe8183b64784aed3a91f2656fe69ccec79e124efd93284",
+   "bytes": 112
+  },
+  "c89-k4/results/refine_tail.txt": {
+   "sha256": "2b4e5cbd1a5148b9e5404df618f3fa887fd42cf556f13f0df9f2f6baa01077e0",
+   "bytes": 359
+  },
+  "upstream/constants/89a.md": {
+   "sha256": "bee4f58a0cc04459f4aa60106f7f68536bad5ed23669d2362d6635d423b970b8",
+   "bytes": 8985
+  },
+  "upstream/README.md": {
+   "sha256": "4a4e6232e278a1b27a0198eb31207b5f4d0c3dfb989fa3a336f344e3a1781697",
+   "bytes": 56907
+  },
+  "ppss/c4.graph6.txt": {
+   "sha256": "8b4694cb27eab76cddf36a260a2f4f89d9ebfefe6e2df045b05bf9ba99d4364b",
+   "bytes": 49092
+  }
+ }
+}
