@@ -216,6 +216,23 @@ const RG3 = J('corpus/optconst-queue/registry-2026-10-26/record.json').facts;
   def('OcGnPosted', o277.sent);
 }
 
+/* ---- the same evening (2026-10-27): the K4 graphon (#255), a third contributor's C_16 (#246) and the R(3,33) circulant (#252),
+   each decided here and confirmed on its pull request — read from the three records and the outreach rows ---------------- */
+{
+  const K4 = J('certs/graphon-k4.json'), r4 = K4.rows.find((r) => r.id === 'c89-k4');
+  need(r4 && r4.verdict === 'CERTIFIED' && r4.agree && r4.equalsStated && r4.lePrinted && K4.controls.every((c) => c.kind === 'red' ? c.fired : c.held), 'the K4 replay is not CERTIFIED at the stated fraction');
+  const Q = J('certs/c16-replay.json');
+  need(Q.word.lower === 'CERTIFIED' && Q.word.upper === 'PARTIAL' && Q.agree && Q.redControls.every((r) => r.fired), 'the C_16 replay is not lower CERTIFIED / upper PARTIAL');
+  const RL = J('certs/ramsey-ledger.json'), r33 = (RL.outside || []).find((o) => o.t === 33 && o.s === 3);
+  need(r33 && r33.verdict === 'CERTIFIED' && r33.I.complete && !r33.I.found, 'the R(3,33) row is not CERTIFIED with a complete independence search');
+  const OUTR2 = J('corpus/outreach.json').rows, o = (id) => OUTR2.find((x) => x.id === id);
+  need(['gh-optq-255', 'gh-optq-246', 'gh-optq-252'].every((id) => o(id) && /^posted/.test(o(id).status) && /#issuecomment-/.test(o(id).url)), 'the three later confirmations are not recorded as posted');
+  def('OcKfBlocks', r4.c.blocks.toLocaleString('en-US').replace(/,/g, '{,}')); def('OcKfLower', r4.c.lower); def('OcKfPodHours', (r4.c.kernelSeconds / 3600).toFixed(1));
+  def('OcCsLower', Q.printed.lower); def('OcCsUpper', Q.printed.upper);
+  def('OcRtOrbits', String(r33.I.reduction.orbits)); def('OcRtSeconds', String(Math.round(r33.I.seconds)));
+  def('OcLaterPosted', o('gh-optq-255').sent);
+}
+
 /* ---- the outside reruns of this paper's rows (corpus/external-reruns.json), by level: their own code (level 3 in the
    method paper's table) or the tools that write the records (level 1) ------------------------------------------------- */
 {

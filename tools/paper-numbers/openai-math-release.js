@@ -120,14 +120,23 @@ need(R.limits.some((l) => /the plants are one-line edits made by an AI agent/.te
   'the recall record no longer says the plants are one-line AI-made edits in the easiest class — rewrite the design sentence');
 
 /* ---- since the pin (v0.2, 2026-10-27): the release moved on 2026-10-26; read from the two target rows written the day after
-   (corpus/targets.json). Nothing of the new release is decided here: a replay is in progress elsewhere, and this refuses as soon
-   as a target row records a result, so that the paragraph is rewritten rather than left saying "being replayed". ---------- */
+   (corpus/targets.json) and, since the replay was recorded the same day, from its two records. ---------- */
 {
   const TG = J('corpus/targets.json').targets;
   const t1 = TG.find((r) => r.id === 'openai-math-release-2026-10-26'), t2 = TG.find((r) => r.id === 'mub6-saved-run-2026-10-26');
   need(t1 && t2, 'the two target rows of the 2026-10-26 release are gone');
-  const RESULT = /CERTIFIED|REFUTED|REFUSED|DECIDED|WITNESSED|DONE|CLOSED|KILLED/;
-  need(!RESULT.test(t1.verdict) && !RESULT.test(t2.verdict), 'a target row of the new release records a result now — rewrite the since-the-pin paragraph with it');
+  /* v0.2, later the same day: the replay of the new release is recorded — its results are read from the records themselves */
+  need(/^BUILT/.test(t1.verdict) && /^BUILT/.test(t2.verdict), 'the target rows of the 2026-10-26 release do not record the replay as built');
+  const K2 = J('certs/openai-math-kernel-7ef5c0cc.json'), M6 = J('certs/openai-math-mub6-records.json'), w2 = K2.counts.words;
+  need(K2.counts.decided === K2.counts.of && !w2.REFUTED && !w2['REFUTED — TO REPRODUCE'], 'the second-pin ledger is partial or holds a rejection — rewrite the since-the-pin paragraph');
+  const ep = K2.rows.find((r) => r.challenge === 'ElementaryPositivity');
+  need(ep && ep.word === 'CERTIFIED' && ep.strict && ep.strict.word === 'BODIES DIFFER', 'ElementaryPositivity at the second pin is not CERTIFIED with its strict run BODIES DIFFER — rewrite the correction');
+  need(M6.word === 'CERTIFIED' && M6.summary.passed === M6.summary.checks && M6.summary.fired === M6.summary.redControls, 'the N(6) records reader is not CERTIFIED with every check and control');
+  const W = ['no', 'one', 'two', 'three', 'four', 'five', 'six'];
+  def('OmTwoMembers', String(K2.counts.of)); def('OmTwoCertified', String(w2.CERTIFIED || 0)); def('OmTwoRefusedWord', W[w2.REFUSED || 0]);
+  def('OmTwoRefusedNames', K2.rows.filter((r) => r.word === 'REFUSED').map((r) => '\\texttt{' + r.challenge + '}').join(' and '));
+  def('OmTwoUnchanged', String(K2.release.unchangedNotRun)); def('OmTwoAmendment', String(K2.release.amendment));
+  def('OmMubChecks', String(M6.summary.checks)); def('OmMubReds', String(M6.summary.redControls));
   const pinned = /Our audit pinned ([0-9a-f]{8}) \((\d+) challenges, (\d+) CERTIFIED by two kernels\)/.exec(t1.finding);
   need(pinned && K.release.commit.startsWith(pinned[1]) && Number(pinned[2]) === K.rows.length && Number(pinned[3]) === K.counts.words.CERTIFIED, 'the target row no longer names this audit\'s pin and counts');
   const up = /update of (\d{4}-\d\d-\d\d) \(commit ([0-9a-f]{8})/.exec(t1.name);
