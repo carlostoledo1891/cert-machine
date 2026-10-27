@@ -259,7 +259,9 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 /* ------------------------------------------------------------------ status */
 .track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 0; }
 .track.six { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.track.seven { grid-template-columns: repeat(7, minmax(0, 1fr)); }
 @media (max-width: 1100px) and (min-width: 901px) { .track.six { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 1.6rem; } }
+@media (max-width: 1300px) and (min-width: 901px) { .track.seven { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 1.6rem; } }
 .ms { padding: 1rem 1rem 0 0; border-top: 3px solid var(--ink); min-width: 0; }
 .ms.next { border-top-style: dashed; border-top-color: var(--ochre); }
 .ms.later { border-top-style: dotted; border-top-color: var(--muted); }
@@ -269,7 +271,7 @@ section { padding-block: clamp(4rem, 9vw, 7.5rem); border-top: 1px solid var(--r
 .ms .st { font-family: var(--f-mono); font-size: .7rem; margin-top: .6rem; color: var(--ink); }
 .ms.next .st { color: var(--ochre); }
 .ms.later .st { color: var(--muted); }
-@media (max-width: 900px) { .track, .track.six { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
+@media (max-width: 900px) { .track, .track.six, .track.seven { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; } }
 
 .closing { text-align: left; }
 .closing .big { font-family: var(--f-latin); font-style: italic; font-size: clamp(2.4rem, 6.5vw, 5.6rem); line-height: 1.02; }
@@ -597,7 +599,7 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       </svg>
       Clade Code
     </a>
-    <nav aria-label="Pages"><a href="index.html" aria-current="page">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="era-2.html">Era 2</a><a href="museum.html">Museum</a></nav>
+    <nav aria-label="Pages"><a href="index.html" aria-current="page">Overview</a><a href="era-0.html">Era 0</a><a href="era-1.html">Era 1</a><a href="era-2.html">Era 2</a><a href="era-3.html">Era 3</a><a href="museum.html">Museum</a></nav>
     <span class="draft">working draft · 3 eras tested</span>
   </header>
 </div>
@@ -1127,13 +1129,14 @@ td .chip { font-family: var(--f-mono); font-size: .72rem; white-space: nowrap; }
       <div><div class="eyebrow">Where it stands</div><h2>Built in the open, one test at a time.</h2></div>
       <div><p>Each era is 100 generations in one niche: 16 parents and 16 children a generation, with the controls beside them, first as a pilot and then as independent runs named in advance, ten in eras 0 and 1 and sixteen in era 2. That is about 3,200 calls a run to a 7-billion-parameter open-weights model, about 14.5 hours on the laptop where the model was pinned, at 15.7 seconds a call. So the runs go to one class of rented GPUs, each machine admitted only after it answers the same requests byte for byte, twice and after a restart. There a call takes about 0.3 seconds.</p></div>
     </div>
-    <div class="track six">
+    <div class="track seven">
       <div class="ms"><div class="id">M0</div><h3>Genesis</h3><p>The record, the sandbox, two deciders and the founder. PM-0 lives, starves at exactly its budget, and scores 117/800 on the record panel.</p><div class="st">done · timestamped</div></div>
       <div class="ms"><div class="id">M1</div><h3>Immune system</h3><p>Fourteen cheaters run as real lives, each caught.</p><div class="st">done</div></div>
       <div class="ms"><div class="id">M2</div><h3>Mutagen</h3><p>A pinned open-weights model, deterministic to the byte. Three more cheaters, aimed at the mutagen itself.</p><div class="st">done · 14 of 100 stillborn · gate passed</div></div>
       <div class="ms"><div class="id">M3</div><h3>Era 0</h3><p>Does selection with a model beat the model alone, and blind rules? Pre-registered and timestamped, then ten runs.</p><div class="st">done · H1 supported, H2 not supported · <a href="era-0.html">results</a></div></div>
       <div class="ms"><div class="id">Era 1</div><h3>Past the founder</h3><p>From era 0's best champion, with a fifth mutation and the AI alone as the control. Can a lineage leave its founder's design?</p><div class="st">done · no champion crossed the ceiling; H2 not supported · <a href="era-1.html">results</a></div></div>
       <div class="ms"><div class="id">Era 2</div><h3>Structure</h3><p>From PM-1, a founder with no knob. Does a capable model's lineage evolve what blind rules cannot? H2 first, five arms, sixteen runs.</p><div class="st">done · H2 supported; the lineage crossed in ten of sixteen · <a href="era-2.html">results</a></div></div>
+      <div class="ms"><div class="id">Era 3</div><h3>The second step</h3><p>From PM-2, the first founder that evolved. Once the model's first answer is in the founder, can its lineage take a second step, and does the model alone take it too? H3 first, three arms, sixteen runs.</p><div class="st">done · H3 not supported; the lineage stepped in none of thirty-two · <a href="era-3.html">results</a></div></div>
     </div>
     <p class="arms-note">The Museum, the plates and a card for every species are generated from the record and from nothing else: <a href="museum.html">walk the fossil record of every era</a>.</p>
   </div>
