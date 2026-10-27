@@ -1,0 +1,4530 @@
+{
+ "what": "cert-machine and dReal 4 (delta-complete; Gao, Avigad, Clarke) on the same claims: the Contraprova flow-line gate's nine receipts (every check as a claim, the printed enclosures, the bracket of Colebrook's root) and the self-audit's entropy family (4 originals, 12 mutants), each put to dReal at two deltas. dReal's unsat is a proof; delta-sat is not a witness — each delta-sat box of a flow-line query has its midpoint re-decided by the gate. Agreement means dReal's unsat matches our CERTIFIED/REFUTED and a split refusal of ours shows delta-sat on both sides; disagreements are reported as they fell. Written by tools/dreal-compare.js --record; --check re-derives every word, agreement and total from the stored run and refuses on drift.",
+ "name": "dreal-compare",
+ "generated": "2026-10-27T14:45:08.053Z",
+ "git": "60c0df51",
+ "run": {
+  "id": 40522733573,
+  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/40522733573",
+  "headSha": "60c0df51ed06f1524e5f617e44c119c86ac2d290",
+  "event": "push",
+  "conclusion": "success",
+  "createdAt": "2026-10-27T14:36:29Z",
+  "dir": "corpus/dreal-compare/run-40522733573",
+  "files": {
+   "dreal.json": "4235ea4b1dc4a1090753e14d1e6abdaf126cb5ef4989175fae692d23370d21ab",
+   "dreal.log": "79fa145a554dbc240de5afa4329753d67aec47fd2a66b05472682ca12a141ec5",
+   "ibex-version.txt": "b4ed3e3aef6923782ad6a5cb202ab65c09fe386db40f8b60d7a9aa40d3ee144b",
+   "ours-runner.json": "d32cae20e3c0b109cc564b7540dffc47b15f8c3f9d489e2a78c6dfca8a916771",
+   "run.json": "db8d80029b9a1fd565e22a3b39895518c10fc1f185aa09f5adae16a6a6d593ca"
+  }
+ },
+ "dreal": {
+  "package": "4.21.6.2",
+  "contextVersion": "4.21.06.2",
+  "moduleVersion": "4.21.6.2",
+  "wheelSha256": "936759fb2990fd4cf516b3fdbe119418777cbd2507d503f7eb4bab075c5216bc",
+  "config": "CheckSatisfiability(formula, delta): the default Config except its precision (one job, no polytope contractor, no local optimization, largest-first branching)",
+  "wheel": {
+   "pin": "dreal==4.21.6.2",
+   "file": "dreal-4.21.6.2-cp310-none-manylinux1_x86_64.whl",
+   "sha256": "936759fb2990fd4cf516b3fdbe119418777cbd2507d503f7eb4bab075c5216bc"
+  },
+  "host": {
+   "python": "3.10.22",
+   "platform": "Linux-6.8.0-1064-azure-x86_64-with-glibc2.35",
+   "cpu": "AMD EPYC 7763 64-Core Processor",
+   "cpus": 4
+  },
+  "systemLibraries": [
+   "coinor-libclp-dev 1.17.5+repack1-1",
+   "libibex-dev 2.7.4.20220710184652.git352eeeb2345fb2b7a7ec248b44770d8cdc4a5d67~22.04",
+   "libnlopt-cxx-dev 2.7.1-3build1"
+  ],
+  "started": "2026-10-27T14:37:57Z",
+  "finished": "2026-10-27T14:39:11Z"
+ },
+ "deltas": [
+  "0.001",
+  "1e-9"
+ ],
+ "timeoutSeconds": 900,
+ "claimsFile": {
+  "path": "corpus/dreal-compare/claims.json",
+  "sha256": "4362dfdb169857f614e6387448f0ce0e042ae2ad488ad46917e9e5415e133ae4"
+ },
+ "sources": {
+  "apps/contraprova/gate/scenarios.json": "199bb6f8170f6353b2d6348c3bf60d4488cd3691b15f346a5c8fab35f443b934",
+  "apps/contraprova/gate/flowline.js": "e64151a67ae8ab98619cd661623ac2e14fba7a367c730a8218c77495bbeee8c7",
+  "apps/contraprova/data/gate-ledger.json": "b124ffe573e014c1740a8cabb66fa817a6b65e62c2443d70818fe49b911b7d07",
+  "certs/selfaudit-mutations.json": "b9f9e75c84e5d327e3c1abec24f3258eeb0b9ce10ab19a6a71ec426f74526aa9",
+  "certs/claims-ledger.json": "42e96aa98a0c8613b255f2678bfabcc3e58de7c1a6c1344630da2f5d1ed7389f",
+  "certs/sumdiff-ledger.json": "bf8857db9f64b6508da042b5f0d4e4b30fe452f47fb14a64b701482e7ab94ac4",
+  "certs/fei-ledger.json": "ad853dabf838029896747144ee765fd418830311dc7c4b133575119d08bcf59e",
+  "instruments/selfaudit/entropy.js": "63ca98745e8d7fd14c038d367f3eb6fa16b1bfeb4bda3bb5765f5ca47608ce84",
+  "corpus/optimization-constants/mi2026/c3b_pr92/certificate_3b_13pt.json": "2efe99360a1ff5e3736e734ed06e5ab8e0cdcc33583ef22ece9e927e9e45365c",
+  "corpus/optimization-constants/l2026/certificate_3c_147pt.json": "b3dc9587ba7a733a3f68b66017d7b5936f38040f8e9ca31a057bb65a6f227999",
+  "corpus/optimization-constants/mi2026/c3c_pr93/certificate_3c_v3_95pt.json": "2ebd7ba7a32e776ff5d271510b63a0999869fecfb148087a3d0fdd57cc4ffc3e",
+  "corpus/optimization-constants/num2026/fei_c71_n18_artifact.json": "57f5a1ad2bf5bcdee873413e796bc868ccc6131521af799c5eb48d5ae13267ba"
+ },
+ "ours": {
+  "local": {
+   "machine": {
+    "platform": "darwin-arm64",
+    "os": "27.0.0",
+    "cpu": "Apple M2",
+    "cpus": 8,
+    "node": "v24.14.1",
+    "loadAverage": [
+     34.46,
+     35.54,
+     31.03
+    ]
+   },
+   "unit": "milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)"
+  },
+  "runner": {
+   "machine": {
+    "platform": "linux-x64",
+    "os": "6.8.0-1064-azure",
+    "cpu": "AMD EPYC 7763 64-Core Processor",
+    "cpus": 4,
+    "node": "v20.20.2"
+   },
+   "unit": "milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)"
+  },
+  "entropy": "decided.ms of certs/selfaudit-mutations.json (the self-audit's own timing, this Mac, 2026-10-21)"
+ },
+ "totals": {
+  "0.001": {
+   "claims": 48,
+   "agree": 34,
+   "dReal weaker": 10,
+   "dReal stronger": 0,
+   "contradiction": 0,
+   "door": 4,
+   "anomaly": 0,
+   "differ": 0,
+   "receipts": 9,
+   "receiptsAgree": 9,
+   "deltaArtifacts": 0,
+   "witnesses": 16,
+   "queries": 76
+  },
+  "1e-9": {
+   "claims": 48,
+   "agree": 34,
+   "dReal weaker": 10,
+   "dReal stronger": 0,
+   "contradiction": 0,
+   "door": 4,
+   "anomaly": 0,
+   "differ": 0,
+   "receipts": 9,
+   "receiptsAgree": 9,
+   "deltaArtifacts": 0,
+   "witnesses": 16,
+   "queries": 76
+  },
+  "deltaMoved": []
+ },
+ "findings": [
+  {
+   "kind": "note",
+   "statement": "no answer changed between delta = 0.001 and delta = 1e-9: on all 76 queries dReal gave the same unsat or delta-sat at every delta"
+  },
+  {
+   "kind": "note",
+   "delta": "0.001",
+   "claim": "flowline/dominio/Q40",
+   "gateText": "Re ∈ [2.821; 3.711]: parte da caixa não é turbulenta, e nenhum modelo declarado vale ali. Não há decisão a dar.",
+   "statement": "dReal proves the precondition fails on ALL of the declared box (phi unsat); the gate declines the receipt, as its grammar requires, but its sentence says \"parte da caixa não é turbulenta\" (part of the box) where the whole box is not; the Re range it prints shows it"
+  },
+  {
+   "kind": "note",
+   "delta": "1e-9",
+   "claim": "flowline/dominio/Q40",
+   "gateText": "Re ∈ [2.821; 3.711]: parte da caixa não é turbulenta, e nenhum modelo declarado vale ali. Não há decisão a dar.",
+   "statement": "dReal proves the precondition fails on ALL of the declared box (phi unsat); the gate declines the receipt, as its grammar requires, but its sentence says \"parte da caixa não é turbulenta\" (part of the box) where the whole box is not; the Re range it prints shows it"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3b/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.778988841420693550 for the 13-point law of the certificate (C3b), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3b/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.778988841420693550 for the 13-point law of the certificate (C3b), entropies in nats"
+  },
+  {
+   "kind": "door",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3b/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "CERTIFIED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "door",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3b/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "CERTIFIED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058700631357567222139991363837138181486968118289 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058700631357567222139991363837138181486968118289 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c/law-translated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c/law-translated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "door",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "REFUSED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "door",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "REFUSED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c-95/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c-95/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c-95/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.674733895020824993378207577604 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c-95/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.674733895020824993378207577604 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c-95/law-translated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c-95/law-translated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats"
+  },
+  {
+   "kind": "door",
+   "delta": "0.001",
+   "claim": "entropy/optconst-3c-95/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "REFUSED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "door",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-3c-95/weight-moved",
+   "ours": "REFUSED",
+   "dreal": "REFUSED",
+   "statement": "a MALFORMED object: cert-machine refuses it at the door; dReal has no door and decides the formula as written"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-71/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-71/original",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-71/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.5218457109230465756581439729485784683668 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-71/bar-above-ratio",
+   "ours": "REFUTED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.5218457109230465756581439729485784683668 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "0.001",
+   "claim": "entropy/optconst-71/inputs-rotated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "dReal weaker",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-71/inputs-rotated",
+   "ours": "CERTIFIED",
+   "dreal": "REFUSED",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128"
+  },
+  {
+   "kind": "door",
+   "delta": "0.001",
+   "claim": "entropy/optconst-71/hex-beyond-2n",
+   "ours": "REFUSED",
+   "dreal": "NO FORMULA",
+   "statement": "the truth table sets a bit at or beyond 2^n = 262144: the object is not a function of n = 18 inputs, so there is no ratio to state"
+  },
+  {
+   "kind": "door",
+   "delta": "1e-9",
+   "claim": "entropy/optconst-71/hex-beyond-2n",
+   "ours": "REFUSED",
+   "dreal": "NO FORMULA",
+   "statement": "the truth table sets a bit at or beyond 2^n = 262144: the object is not a function of n = 18 inputs, so there is no ratio to state"
+  }
+ ],
+ "receipts": [
+  {
+   "id": "ia-mais-4-2",
+   "gate": "RECUSADO",
+   "dreal": {
+    "0.001": "RECUSADO",
+    "1e-9": "RECUSADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd206-claim352"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q7000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q7000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "PROVADO",
+     "claim": "flowline/modelo/Q7000-Pd206-claim352"
+    },
+    {
+     "check": "limite",
+     "gate": "RECUSADO",
+     "claim": "flowline/limite/Q7000-Pd206-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 47.325208,
+    "runner": 19.645339
+   }
+  },
+  {
+   "id": "ia-ajustada",
+   "gate": "PROVADO",
+   "dreal": {
+    "0.001": "PROVADO",
+    "1e-9": "PROVADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd200-claim346"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q7000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q7000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "PROVADO",
+     "claim": "flowline/modelo/Q7000-Pd200-claim346"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q7000-Pd200-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 19.552,
+    "runner": 6.614115
+   }
+  },
+  {
+   "id": "parametro",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd180-claim350.9"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "REFUTADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim350.9"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 17.226042,
+    "runner": 6.694134
+   }
+  },
+  {
+   "id": "massa",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "massa",
+     "gate": "REFUTADO",
+     "claim": "flowline/massa/H12000-W6000+6400"
+    },
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd180-claim344"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "PROVADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim344"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 26.25975,
+    "runner": 6.659289
+   }
+  },
+  {
+   "id": "instabilidade",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd180-claim358.9"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "colebrook",
+     "gate": "REFUTADO",
+     "claim": "flowline/colebrook/Q6000-f0.0110"
+    },
+    {
+     "check": "modelo",
+     "gate": "REFUTADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim358.9"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 14.399625,
+    "runner": 6.614647
+   }
+  },
+  {
+   "id": "contorno",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "REFUTADO",
+     "claim": "flowline/energia/Pd180-claim395"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "REFUTADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim395"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 17.190667,
+    "runner": 6.544606
+   }
+  },
+  {
+   "id": "unidade",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "REFUTADO",
+     "claim": "flowline/energia/Pd180-claim4989"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "REFUTADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim4989"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 18.677,
+    "runner": 6.554644
+   }
+  },
+  {
+   "id": "alucinada",
+   "gate": "REFUTADO",
+   "dreal": {
+    "0.001": "REFUTADO",
+    "1e-9": "REFUTADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "cinematica",
+     "gate": "REFUTADO",
+     "claim": "flowline/cinematica/Q6000-v2.9"
+    },
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd180-claim344"
+    },
+    {
+     "check": "dominio",
+     "gate": "PROVADO",
+     "claim": "flowline/dominio/Q6000"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q6000-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "PROVADO",
+     "claim": "flowline/modelo/Q6000-Pd180-claim344"
+    },
+    {
+     "check": "limite",
+     "gate": "PROVADO",
+     "claim": "flowline/limite/Q6000-Pd180-max360"
+    }
+   ],
+   "oursMs": {
+    "local": 16.461583,
+    "runner": 6.53077
+   }
+  },
+  {
+   "id": "dominio",
+   "gate": "RECUSADO",
+   "dreal": {
+    "0.001": "RECUSADO",
+    "1e-9": "RECUSADO"
+   },
+   "agree": {
+    "0.001": true,
+    "1e-9": true
+   },
+   "checks": [
+    {
+     "check": "energia",
+     "gate": "PROVADO",
+     "claim": "flowline/energia/Pd180-claim391"
+    },
+    {
+     "check": "dominio",
+     "gate": "RECUSADO",
+     "claim": "flowline/dominio/Q40"
+    },
+    {
+     "check": "velocidade",
+     "gate": "PROVADO",
+     "claim": "flowline/velocidade/Q40-max5"
+    },
+    {
+     "check": "modelo",
+     "gate": "NÃO AVALIADO",
+     "claim": null
+    },
+    {
+     "check": "limite",
+     "gate": "NÃO AVALIADO",
+     "claim": null
+    }
+   ],
+   "oursMs": {
+    "local": 0.014375,
+    "runner": 0.011201
+   }
+  }
+ ],
+ "claims": [
+  {
+   "id": "flowline/energia/Pd206-claim352",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 352 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 206 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0005207880000170917,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005207880000170917,
+       "buildSeconds": 0.0014061239999989539,
+       "wallSeconds": 0.017353686000006974,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -65.08814125000028,
+         -65.08814124999968
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0005141249999951469,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005141249999951469,
+       "buildSeconds": 0.0013299020000090422,
+       "wallSeconds": 0.00506500500000584,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -65.08814125000028,
+         -65.08814124999968
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000434959,
+    "runner": 0.000217454
+   }
+  },
+  {
+   "id": "flowline/dominio/Q7000",
+   "family": "flowline",
+   "kind": "precondition",
+   "statement": "the flow is turbulent on the whole declared box, Re ≥ 4000, so Colebrook applies (Q = 7000 m³/d)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0012595119999900817,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006791829999883703,
+       "buildSeconds": 0.001349809000004143,
+       "wallSeconds": 0.005136096000001089
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005803290000017114,
+       "buildSeconds": 0.001414879999998675,
+       "wallSeconds": 0.00520282099998326,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ],
+        "mu": [
+         "0.0010799999999999998",
+         "0.0013900000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         561780.1076140807,
+         561780.1076140825
+        ],
+        "status": "witness",
+        "of": "Re >= 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0012269800000126452,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006790120000061961,
+       "buildSeconds": 0.0015108080000061364,
+       "wallSeconds": 0.005430864000004476
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005479680000064491,
+       "buildSeconds": 0.0014067650000129106,
+       "wallSeconds": 0.005140595000000303,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ],
+        "mu": [
+         "0.0012349995",
+         "0.0012350005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         561780.1076140807,
+         561780.1076140825
+        ],
+        "status": "witness",
+        "of": "Re >= 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000451292,
+    "runner": 0.00023280300000000001
+   }
+  },
+  {
+   "id": "flowline/velocidade/Q7000-max5",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "v(x†) ≤ 5 m/s at the true input x† of the declared box (Q = 7000 m³/d)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.001025706000007176,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005586280000215993,
+       "buildSeconds": 0.0012079349999964961,
+       "wallSeconds": 0.004786667999979954
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00046707799998557675,
+       "buildSeconds": 0.0012052700000140248,
+       "wallSeconds": 0.004687603000007812,
+       "box": {
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         4.441446981008834,
+         4.441446981008844
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.001028662000010172,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005380000000059226,
+       "buildSeconds": 0.001128227000009474,
+       "wallSeconds": 0.004607994999986431
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004906620000042494,
+       "buildSeconds": 0.0011150720000046022,
+       "wallSeconds": 0.004696744999989733,
+       "box": {
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         4.441446981008834,
+         4.441446981008844
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000403875,
+    "runner": 0.00042082199999999995
+   }
+  },
+  {
+   "id": "flowline/modelo/Q7000-Pd206-claim352",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 352 bar is the model's value at some declared input (Q = 7000 m³/d, P_d = 206 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.00346066199998063,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00346066199998063,
+       "buildSeconds": 0.0024238690000117913,
+       "wallSeconds": 0.00951784800000155,
+       "box": {
+        "f": [
+         "0.016305263062722477",
+         "0.016305367761152934"
+        ],
+        "eps": [
+         "4.951949918372245e-05",
+         "4.954093347724217e-05"
+        ],
+        "D": [
+         "0.1521328125",
+         "0.1521330078125"
+        ],
+        "rho": [
+         "1026.0003663301468",
+         "1026.0003666877747"
+        ],
+        "mu": [
+         "0.0011829296875",
+         "0.0011841406249999999"
+        ],
+        "dz": [
+         "2101.6664624214172",
+         "2101.6664627194405"
+        ],
+        "L": [
+         "5993.3335372805595",
+         "5993.333537578583"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333537429571,
+         "D": 0.15213291015625,
+         "eps": 0.00004953021633048231,
+         "rho": 1026.0003665089607,
+         "mu": 0.0011835351562499998,
+         "dz": 2101.666462570429
+        },
+        "value": [
+         352.00000000436063,
+         352.000000004388
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 4.4e-9 of 352 at the midpoint",
+        "of": "P = 352 at the midpoint"
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.004971079999990025,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.004971079999990025,
+       "buildSeconds": 0.0022854380000012497,
+       "wallSeconds": 0.010746624999995902,
+       "box": {
+        "f": [
+         "0.01630554219720848",
+         "0.0163055421973084"
+        ],
+        "eps": [
+         "4.953792848423889e-05",
+         "4.95379285046824e-05"
+        ],
+        "D": [
+         "0.1521333333335817",
+         "0.15213333333376797"
+        ],
+        "rho": [
+         "1026.000366210937",
+         "1026.0003662109373"
+        ],
+        "mu": [
+         "0.0011833333317935466",
+         "0.0011833333329483867"
+        ],
+        "dz": [
+         "2101.666463216147",
+         "2101.6664632161473"
+        ],
+        "L": [
+         "5993.333536783854",
+         "5993.3335367838545"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333536783854,
+         "D": 0.15213333333367485,
+         "eps": 0.00004953792849446065,
+         "rho": 1026.000366210937,
+         "mu": 0.0011833333323709666,
+         "dz": 2101.6664632161473
+        },
+        "value": [
+         351.99999999998624,
+         352.0000000000137
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 1.4e-11 of 352 at the midpoint",
+        "of": "P = 352 at the midpoint"
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 18.096,
+    "runner": 4.412683
+   }
+  },
+  {
+   "id": "flowline/enclosure/Q7000-Pd206",
+   "family": "flowline",
+   "kind": "universal",
+   "statement": "the printed enclosure: 343.7 ≤ P_wh(x) ≤ 362.0 bar for every declared input (Q = 7000 m³/d, P_d = 206 bar)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.003559436999978516,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.001810415999983661,
+       "buildSeconds": 0.002268315999998549,
+       "wallSeconds": 0.007434288999974115
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017490209999948547,
+       "buildSeconds": 0.002280549000005294,
+       "wallSeconds": 0.0074389669999845864
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.003589240999986032,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018400600000063605,
+       "buildSeconds": 0.002338355999995656,
+       "wallSeconds": 0.007553881000006868
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017491809999796715,
+       "buildSeconds": 0.002283845000022211,
+       "wallSeconds": 0.007605826999991905
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 26.042959,
+    "runner": 4.419866
+   }
+  },
+  {
+   "id": "flowline/limite/Q7000-Pd206-max360",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "P_wh(x†) ≤ 360 bar at the true input x† of the declared box (Q = 7000 m³/d, P_d = 206 bar), P_wh by Darcy–Weisbach with Colebrook's friction factor",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 0.005597816000005196,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.002801116999989972,
+       "buildSeconds": 0.0022671339999931206,
+       "wallSeconds": 0.008377481999986003,
+       "box": {
+        "f": [
+         "0.014503831164485777",
+         "0.014504256796085817"
+        ],
+        "eps": [
+         "2.0070807563110092e-05",
+         "2.008810826744042e-05"
+        ],
+        "D": [
+         "0.15263411224802836",
+         "0.15263477846389972"
+        ],
+        "rho": [
+         "1025.9998474121094",
+         "1025.999848127365"
+        ],
+        "mu": [
+         "0.001162946648055555",
+         "0.0011635993122265367"
+        ],
+        "dz": [
+         "2101.666259765625",
+         "2101.6664123535156"
+        ],
+        "L": [
+         "5993.333587646484",
+         "5993.333740234375"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.33366394043,
+         "D": 0.15263444535596404,
+         "eps": 0.000020079457915275257,
+         "rho": 1025.9998477697372,
+         "mu": 0.001163272980141046,
+         "dz": 2101.6663360595703
+        },
+        "value": [
+         360.18198379206,
+         360.1819837920842
+        ],
+        "status": "witness",
+        "of": "P > 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0027966990000152236,
+       "buildSeconds": 0.002286559999987503,
+       "wallSeconds": 0.008515888999994559,
+       "box": {
+        "f": [
+         "0.014767816449526548",
+         "0.014768575284928838"
+        ],
+        "eps": [
+         "2.000919991525006e-05",
+         "2.0031002410013312e-05"
+        ],
+        "D": [
+         "0.1526",
+         "0.15260078125"
+        ],
+        "rho": [
+         "1026.001220703125",
+         "1026.0012214183807"
+        ],
+        "mu": [
+         "0.0013893945312500001",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2101.6653442382812",
+         "2101.665496826172"
+        ],
+        "L": [
+         "5993.334503173828",
+         "5993.334655761719"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.334579467773,
+         "D": 0.15260039062500003,
+         "eps": 0.000020020101162631686,
+         "rho": 1026.0012210607529,
+         "mu": 0.0013896972656250001,
+         "dz": 2101.6654205322266
+        },
+        "value": [
+         359.07378591392967,
+         359.0737859139542
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 0.008276532999985875,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0040959330000021055,
+       "buildSeconds": 0.002388980999995738,
+       "wallSeconds": 0.01014649999999051,
+       "box": {
+        "f": [
+         "0.014504256795273989",
+         "0.014504256796085817"
+        ],
+        "eps": [
+         "2.00879359087155e-05",
+         "2.008793593081921e-05"
+        ],
+        "D": [
+         "0.15263477846326437",
+         "0.15263477846389972"
+        ],
+        "rho": [
+         "1025.9998474121094",
+         "1025.99984741211"
+        ],
+        "mu": [
+         "0.001162946648055555",
+         "0.001162946648677984"
+        ],
+        "dz": [
+         "2101.66633605907",
+         "2101.6663360600705"
+        ],
+        "L": [
+         "5993.3336639399295",
+         "5993.33366394093"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.33366394043,
+         "D": 0.15263477846358203,
+         "eps": 0.000020087935919767355,
+         "rho": 1025.9998474121098,
+         "mu": 0.0011629466483667693,
+         "dz": 2101.6663360595703
+        },
+        "value": [
+         360.1817683223894,
+         360.1817683224135
+        ],
+        "status": "witness",
+        "of": "P > 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0041805999999837695,
+       "buildSeconds": 0.002287142000000131,
+       "wallSeconds": 0.010150656999996954,
+       "box": {
+        "f": [
+         "0.014768575284205155",
+         "0.014768575284928838"
+        ],
+        "eps": [
+         "2.002059983709589e-05",
+         "2.0020599857889724e-05"
+        ],
+        "D": [
+         "0.1526",
+         "0.15260000000074508"
+        ],
+        "rho": [
+         "1026.001220703125",
+         "1026.0012207031257"
+        ],
+        "mu": [
+         "0.0013899999994225801",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2101.6654205317263",
+         "2101.665420532727"
+        ],
+        "L": [
+         "5993.334579467273",
+         "5993.334579468274"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.334579467773,
+         "D": 0.15260000000037255,
+         "eps": 0.000020020599847492805,
+         "rho": 1026.0012207031255,
+         "mu": 0.0013899999997112901,
+         "dz": 2101.6654205322266
+        },
+        "value": [
+         359.07153848657066,
+         359.0715384865952
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 4.597542,
+    "runner": 1.930749
+   }
+  },
+  {
+   "id": "flowline/energia/Pd200-claim346",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 346 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 200 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004967229999977008,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004967229999977008,
+       "buildSeconds": 0.0013173979999976382,
+       "wallSeconds": 0.005266148000004023,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -65.08814125000028,
+         -65.08814124999968
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0005916389999924831,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005916389999924831,
+       "buildSeconds": 0.0013712489999875288,
+       "wallSeconds": 0.005367957999993678,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -65.08814125000028,
+         -65.08814124999968
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000282875,
+    "runner": 0.000202867
+   }
+  },
+  {
+   "id": "flowline/modelo/Q7000-Pd200-claim346",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 346 bar is the model's value at some declared input (Q = 7000 m³/d, P_d = 200 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.003109219000009489,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.003109219000009489,
+       "buildSeconds": 0.0022600609999869903,
+       "wallSeconds": 0.008713176000014755,
+       "box": {
+        "f": [
+         "0.016305263062722477",
+         "0.016305367761152934"
+        ],
+        "eps": [
+         "4.951949918372245e-05",
+         "4.954093347724217e-05"
+        ],
+        "D": [
+         "0.1521328125",
+         "0.1521330078125"
+        ],
+        "rho": [
+         "1026.0003663301468",
+         "1026.0003666877747"
+        ],
+        "mu": [
+         "0.0011829296875",
+         "0.0011841406249999999"
+        ],
+        "dz": [
+         "2101.6664624214172",
+         "2101.6664627194405"
+        ],
+        "L": [
+         "5993.3335372805595",
+         "5993.333537578583"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333537429571,
+         "D": 0.15213291015625,
+         "eps": 0.00004953021633048231,
+         "rho": 1026.0003665089607,
+         "mu": 0.0011835351562499998,
+         "dz": 2101.666462570429
+        },
+        "value": [
+         346.00000000436063,
+         346.000000004388
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 4.4e-9 of 346 at the midpoint",
+        "of": "P = 346 at the midpoint"
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0049044859999867185,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0049044859999867185,
+       "buildSeconds": 0.00216164799999774,
+       "wallSeconds": 0.010438411000023962,
+       "box": {
+        "f": [
+         "0.01630554219720848",
+         "0.0163055421973084"
+        ],
+        "eps": [
+         "4.953792848423889e-05",
+         "4.95379285046824e-05"
+        ],
+        "D": [
+         "0.1521333333335817",
+         "0.15213333333376797"
+        ],
+        "rho": [
+         "1026.000366210937",
+         "1026.0003662109373"
+        ],
+        "mu": [
+         "0.0011833333317935466",
+         "0.0011833333329483867"
+        ],
+        "dz": [
+         "2101.666463216147",
+         "2101.6664632161473"
+        ],
+        "L": [
+         "5993.333536783854",
+         "5993.3335367838545"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333536783854,
+         "D": 0.15213333333367485,
+         "eps": 0.00004953792849446065,
+         "rho": 1026.000366210937,
+         "mu": 0.0011833333323709666,
+         "dz": 2101.6664632161473
+        },
+        "value": [
+         345.99999999998624,
+         346.0000000000137
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 1.4e-11 of 346 at the midpoint",
+        "of": "P = 346 at the midpoint"
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 18.240125,
+    "runner": 4.450854
+   }
+  },
+  {
+   "id": "flowline/enclosure/Q7000-Pd200",
+   "family": "flowline",
+   "kind": "universal",
+   "statement": "the printed enclosure: 337.7 ≤ P_wh(x) ≤ 356.0 bar for every declared input (Q = 7000 m³/d, P_d = 200 bar)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.003491971000016747,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017865110000059303,
+       "buildSeconds": 0.0022139149999986785,
+       "wallSeconds": 0.007225900999998203
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017054600000108167,
+       "buildSeconds": 0.0021513289999859353,
+       "wallSeconds": 0.006997455999993463
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0033985059999963596,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017153080000014143,
+       "buildSeconds": 0.0021330040000009376,
+       "wallSeconds": 0.006899694999987105
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0016831979999949453,
+       "buildSeconds": 0.002288905000000341,
+       "wallSeconds": 0.0071892729999945
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 13.263042,
+    "runner": 4.468928
+   }
+  },
+  {
+   "id": "flowline/limite/Q7000-Pd200-max360",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "P_wh(x†) ≤ 360 bar at the true input x† of the declared box (Q = 7000 m³/d, P_d = 200 bar), P_wh by Darcy–Weisbach with Colebrook's friction factor",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0040071269999941705,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018079200000045148,
+       "buildSeconds": 0.0022341829999845686,
+       "wallSeconds": 0.007263760999990154
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0021992069999896557,
+       "buildSeconds": 0.0021811740000146074,
+       "wallSeconds": 0.007616798000015024,
+       "box": {
+        "f": [
+         "0.01741816675716177",
+         "0.017418988830933013"
+        ],
+        "eps": [
+         "7.025706645254491e-05",
+         "7.02965822221595e-05"
+        ],
+        "D": [
+         "0.15239843749999998",
+         "0.1524"
+        ],
+        "rho": [
+         "1023.9984130859375",
+         "1023.998414516449"
+        ],
+        "mu": [
+         "0.0013887890625",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ],
+        "L": [
+         "5999.9995",
+         "6000.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239921875,
+         "eps": 0.0000702768243373522,
+         "rho": 1023.9984138011932,
+         "mu": 0.0013893945312500001,
+         "dz": 2100
+        },
+        "value": [
+         341.6177486556618,
+         341.61774865569066
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.00533104999999523,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018220670000062,
+       "buildSeconds": 0.002218542999997908,
+       "wallSeconds": 0.007187920000006898
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00350898299998903,
+       "buildSeconds": 0.002203976000004104,
+       "wallSeconds": 0.00889430199998742,
+       "box": {
+        "f": [
+         "0.01741816675716177",
+         "0.01741816675794576"
+        ],
+        "eps": [
+         "7.025800727642423e-05",
+         "7.025800731410996e-05"
+        ],
+        "D": [
+         "0.1523999999985099",
+         "0.1524"
+        ],
+        "rho": [
+         "1023.9984130859375",
+         "1023.9984130859389"
+        ],
+        "mu": [
+         "0.00138999999884516",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ],
+        "L": [
+         "5999.9999999995",
+         "6000.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999925496,
+         "eps": 0.0000702580072952671,
+         "rho": 1023.9984130859382,
+         "mu": 0.0013899999994225801,
+         "dz": 2100
+        },
+        "value": [
+         341.6211583350761,
+         341.62115833510506
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 4.445542,
+    "runner": 1.982084
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim350.9",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 350.9 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004730290000054538,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004730290000054538,
+       "buildSeconds": 0.0011900620000062645,
+       "wallSeconds": 0.004677775000004658,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -40.18814125000029,
+         -40.18814124999971
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004786599999988539,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004786599999988539,
+       "buildSeconds": 0.00118518299998982,
+       "wallSeconds": 0.004743326000010484,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -40.18814125000029,
+         -40.18814124999971
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00037470799999999996,
+    "runner": 0.00010657800000000001
+   }
+  },
+  {
+   "id": "flowline/dominio/Q6000",
+   "family": "flowline",
+   "kind": "precondition",
+   "statement": "the flow is turbulent on the whole declared box, Re ≥ 4000, so Colebrook applies (Q = 6000 m³/d)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0012007029999949737,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006506899999862981,
+       "buildSeconds": 0.00133664400001976,
+       "wallSeconds": 0.004898616000019729
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005500130000086756,
+       "buildSeconds": 0.0013805160000117667,
+       "wallSeconds": 0.004888285000021142,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ],
+        "mu": [
+         "0.0010799999999999998",
+         "0.0013900000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         481525.8065263549,
+         481525.80652635643
+        ],
+        "status": "witness",
+        "of": "Re >= 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.001162278999998989,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006180180000114888,
+       "buildSeconds": 0.001327887999991617,
+       "wallSeconds": 0.004933921000002783
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005442609999875003,
+       "buildSeconds": 0.0013719810000054622,
+       "wallSeconds": 0.0049622530000021925,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ],
+        "mu": [
+         "0.0012349995",
+         "0.0012350005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         481525.8065263549,
+         481525.80652635643
+        ],
+        "status": "witness",
+        "of": "Re >= 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00041825,
+    "runner": 0.000194432
+   }
+  },
+  {
+   "id": "flowline/velocidade/Q6000-max5",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "v(x†) ≤ 5 m/s at the true input x† of the declared box (Q = 6000 m³/d)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0010650389999966592,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005364470000017718,
+       "buildSeconds": 0.0011565599999983078,
+       "wallSeconds": 0.004671833999992714
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005285919999948874,
+       "buildSeconds": 0.001176536999992095,
+       "wallSeconds": 0.004913122999994357,
+       "box": {
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         3.8069545551504294,
+         3.806954555150438
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0010988209999709397,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006153929999754837,
+       "buildSeconds": 0.0012296260000255188,
+       "wallSeconds": 0.005116780999998127
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00048342799999545605,
+       "buildSeconds": 0.0012484110000059445,
+       "wallSeconds": 0.004895348999980342,
+       "box": {
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         3.8069545551504294,
+         3.806954555150438
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00064975,
+    "runner": 0.000194381
+   }
+  },
+  {
+   "id": "flowline/modelo/Q6000-Pd180-claim350.9",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 350.9 bar is the model's value at some declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0017511650000017198,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017511650000017198,
+       "buildSeconds": 0.002252806999990753,
+       "wallSeconds": 0.007175706999987597
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.001812137999991137,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.001812137999991137,
+       "buildSeconds": 0.0022126230000196756,
+       "wallSeconds": 0.007293967000009616
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 7.81875,
+    "runner": 4.428763
+   }
+  },
+  {
+   "id": "flowline/enclosure/Q6000-Pd180",
+   "family": "flowline",
+   "kind": "universal",
+   "statement": "the printed enclosure: 336.6 ≤ P_wh(x) ≤ 350.2 bar for every declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.003730923999995639,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018629520000104094,
+       "buildSeconds": 0.002332264999978406,
+       "wallSeconds": 0.007623921000003975
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018679719999852296,
+       "buildSeconds": 0.002224404000003233,
+       "wallSeconds": 0.007398531000006869
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0035516110000060053,
+     "queries": {
+      "below": {
+       "answer": "unsat",
+       "solveSeconds": 0.00188942200000497,
+       "buildSeconds": 0.002278945999989901,
+       "wallSeconds": 0.007628899999986061
+      },
+      "above": {
+       "answer": "unsat",
+       "solveSeconds": 0.0016621890000010353,
+       "buildSeconds": 0.0021823860000154127,
+       "wallSeconds": 0.007066755000010971
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 8.675792,
+    "runner": 4.445244
+   }
+  },
+  {
+   "id": "flowline/limite/Q6000-Pd180-max360",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "P_wh(x†) ≤ 360 bar at the true input x† of the declared box (Q = 6000 m³/d, P_d = 180 bar), P_wh by Darcy–Weisbach with Colebrook's friction factor",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0038988479999773062,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.001760091999983615,
+       "buildSeconds": 0.002139325999991115,
+       "wallSeconds": 0.006902870999994093
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.002138755999993691,
+       "buildSeconds": 0.002168380000000525,
+       "wallSeconds": 0.007384935999994013,
+       "box": {
+        "f": [
+         "0.01757020379394675",
+         "0.0175710026910518"
+        ],
+        "eps": [
+         "7.031883001034351e-05",
+         "7.03614696044356e-05"
+        ],
+        "D": [
+         "0.15239843749999998",
+         "0.1524"
+        ],
+        "rho": [
+         "1023.9984130859375",
+         "1023.998414516449"
+        ],
+        "mu": [
+         "0.0013887890625",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ],
+        "L": [
+         "5999.9995",
+         "6000.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239921875,
+         "eps": 0.00007034014980738956,
+         "rho": 1023.9984138011932,
+         "mu": 0.0013893945312500001,
+         "dz": 2100
+        },
+        "value": [
+         339.5498069713647,
+         339.54980697138626
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.005311391999981652,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018440279999936138,
+       "buildSeconds": 0.002256895000016357,
+       "wallSeconds": 0.0076200439999922764
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.003467363999988038,
+       "buildSeconds": 0.0021601750000002085,
+       "wallSeconds": 0.008813912000022128,
+       "box": {
+        "f": [
+         "0.01757020379394675",
+         "0.01757020379470864"
+        ],
+        "eps": [
+         "7.03198071016941e-05",
+         "7.031980714235911e-05"
+        ],
+        "D": [
+         "0.1523999999985099",
+         "0.1524"
+        ],
+        "rho": [
+         "1023.9984130859375",
+         "1023.9984130859389"
+        ],
+        "mu": [
+         "0.00138999999884516",
+         "0.0013900000000000002"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ],
+        "L": [
+         "5999.9999999995",
+         "6000.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999925496,
+         "eps": 0.0000703198071220266,
+         "rho": 1023.9984130859382,
+         "mu": 0.0013899999994225801,
+         "dz": 2100
+        },
+        "value": [
+         339.5522895270225,
+         339.5522895270442
+        ],
+        "status": "witness",
+        "of": "P <= 360 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 3.5225,
+    "runner": 1.943463
+   }
+  },
+  {
+   "id": "flowline/massa/H12000-W6000+6400",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the manifold conserves mass: header 12000 m³/d = the sum of the wells (6000 + 6400)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.00047220700000139004,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.00047220700000139004,
+       "buildSeconds": 0.0009524710000050618,
+       "wallSeconds": 0.004422920999985536
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.00047684599999797683,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.00047684599999797683,
+       "buildSeconds": 0.0008996120000119845,
+       "wallSeconds": 0.004254647999999861
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.0047779170000000004,
+    "runner": 0.001744453
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim344",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 344 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004877060000012534,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004877060000012534,
+       "buildSeconds": 0.0011799339999924996,
+       "wallSeconds": 0.004648481000003812,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -47.08814125000027,
+         -47.08814124999969
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004243289999976696,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004243289999976696,
+       "buildSeconds": 0.001133056000014676,
+       "wallSeconds": 0.004447756999979902,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -47.08814125000027,
+         -47.08814124999969
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00028675,
+    "runner": 0.00010708
+   }
+  },
+  {
+   "id": "flowline/modelo/Q6000-Pd180-claim344",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 344 bar is the model's value at some declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.003097997999987001,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.003097997999987001,
+       "buildSeconds": 0.0021356299999979456,
+       "wallSeconds": 0.008253381000002946,
+       "box": {
+        "f": [
+         "0.01609080328887906",
+         "0.016090906619899203"
+        ],
+        "eps": [
+         "4.2261572423584574e-05",
+         "4.228627723213327e-05"
+        ],
+        "D": [
+         "0.1521328125",
+         "0.1521330078125"
+        ],
+        "rho": [
+         "1026.0003663301468",
+         "1026.0003666877747"
+        ],
+        "mu": [
+         "0.0011829296875",
+         "0.0011841406249999999"
+        ],
+        "dz": [
+         "2101.6664624214172",
+         "2101.6664627194405"
+        ],
+        "L": [
+         "5993.3335372805595",
+         "5993.333537578583"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333537429571,
+         "D": 0.15213291015625,
+         "eps": 0.00004227392482785892,
+         "rho": 1026.0003665089607,
+         "mu": 0.0011835351562499998,
+         "dz": 2101.666462570429
+        },
+        "value": [
+         344.0000000041206,
+         344.00000000414065
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 4.1e-9 of 344 at the midpoint",
+        "of": "P = 344 at the midpoint"
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.004823716000004197,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.004823716000004197,
+       "buildSeconds": 0.0020815389999881972,
+       "wallSeconds": 0.009918675999983861,
+       "box": {
+        "f": [
+         "0.016091078757130478",
+         "0.0160910787572291"
+        ],
+        "eps": [
+         "4.228196803862933e-05",
+         "4.2281968062192e-05"
+        ],
+        "D": [
+         "0.1521333333335817",
+         "0.15213333333376797"
+        ],
+        "rho": [
+         "1026.000366210937",
+         "1026.0003662109373"
+        ],
+        "mu": [
+         "0.0011833333317935466",
+         "0.0011833333329483867"
+        ],
+        "dz": [
+         "2101.666463216147",
+         "2101.6664632161473"
+        ],
+        "L": [
+         "5993.333536783854",
+         "5993.3335367838545"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 5993.333536783854,
+         "D": 0.15213333333367485,
+         "eps": 0.00004228196805041066,
+         "rho": 1026.000366210937,
+         "mu": 0.0011833333323709666,
+         "dz": 2101.6664632161473
+        },
+        "value": [
+         343.9999999999899,
+         344.00000000001006
+        ],
+        "status": "equality: a point cannot prove it; the gate puts P within 1.0e-11 of 344 at the midpoint",
+        "of": "P = 344 at the midpoint"
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 8.973916,
+    "runner": 4.633724
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim358.9",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 358.9 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004616379999902165,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004616379999902165,
+       "buildSeconds": 0.0011579730000050859,
+       "wallSeconds": 0.004603005999996412,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "dz": [
+         "2099.9995",
+         "2100.0005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -32.18814125000029,
+         -32.18814124999971
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0004236579999883361,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0004236579999883361,
+       "buildSeconds": 0.0011285170000121525,
+       "wallSeconds": 0.004442377000003717,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "dz": [
+         "2099.9999999995",
+         "2100.0000000005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         -32.18814125000029,
+         -32.18814124999971
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00021558299999999999,
+    "runner": 0.00010552599999999999
+   }
+  },
+  {
+   "id": "flowline/colebrook/Q6000-f0.0110",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed friction factor f = 0.0110 solves Colebrook for some declared input (Q = 6000 m³/d)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0009069959999976618,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0009069959999976618,
+       "buildSeconds": 0.001720358000000033,
+       "wallSeconds": 0.00551378899999122
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0008786429999929624,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008786429999929624,
+       "buildSeconds": 0.0016608970000220324,
+       "wallSeconds": 0.005562759000014239
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.066892583,
+    "runner": 0.028573315999999998
+   }
+  },
+  {
+   "id": "flowline/modelo/Q6000-Pd180-claim358.9",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 358.9 bar is the model's value at some declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0017803899999933037,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0017803899999933037,
+       "buildSeconds": 0.002146319000019048,
+       "wallSeconds": 0.007075330999981588
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0018671310000115682,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0018671310000115682,
+       "buildSeconds": 0.0023485349999816663,
+       "wallSeconds": 0.007674304999994774
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 9.794417,
+    "runner": 4.50236
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim395",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 395 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0005838449999941986,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005838449999941986,
+       "buildSeconds": 0.0012522570000044198,
+       "wallSeconds": 0.004955179999996062
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0006924270000183697,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006924270000183697,
+       "buildSeconds": 0.001246947999987924,
+       "wallSeconds": 0.005198011999993923
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000174709,
+    "runner": 0.00010676900000000001
+   }
+  },
+  {
+   "id": "flowline/modelo/Q6000-Pd180-claim395",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 395 bar is the model's value at some declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0015212279999730072,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0015212279999730072,
+       "buildSeconds": 0.002214466000026505,
+       "wallSeconds": 0.006910634999997001
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0014736589999984062,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0014736589999984062,
+       "buildSeconds": 0.002152109999997265,
+       "wallSeconds": 0.006687389999996185
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 11.529291,
+    "runner": 4.451174
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim4989",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 4989 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0004983060000256501,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0004983060000256501,
+       "buildSeconds": 0.0012333519999856435,
+       "wallSeconds": 0.004715164000003824
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0005316680000078122,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005316680000078122,
+       "buildSeconds": 0.0011939599999948314,
+       "wallSeconds": 0.004602384000008897
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000175416,
+    "runner": 0.000105866
+   }
+  },
+  {
+   "id": "flowline/modelo/Q6000-Pd180-claim4989",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 4989 bar is the model's value at some declared input (Q = 6000 m³/d, P_d = 180 bar)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0014622669999937443,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0014622669999937443,
+       "buildSeconds": 0.0021276150000062444,
+       "wallSeconds": 0.00656459200001791
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.00156976700000655,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.00156976700000655,
+       "buildSeconds": 0.0021652849999895807,
+       "wallSeconds": 0.006858497999985502
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 10.020708,
+    "runner": 4.437438
+   }
+  },
+  {
+   "id": "flowline/cinematica/Q6000-v2.9",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed velocity 2.9 m/s is Q/A for some declared diameter (Q = 6000 m³/d)",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0004990679999821168,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0004990679999821168,
+       "buildSeconds": 0.0011469320000117023,
+       "wallSeconds": 0.004592295000009017
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0005360969999799181,
+     "queries": {
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005360969999799181,
+       "buildSeconds": 0.001214777000001277,
+       "wallSeconds": 0.004788531000002649
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00042070800000000005,
+    "runner": 0.00019392999999999998
+   }
+  },
+  {
+   "id": "flowline/energia/Pd180-claim391",
+   "family": "flowline",
+   "kind": "consistency",
+   "statement": "the claimed P_wh = 391 bar needs no negative friction at some declared input: P_wh ≤ P_d + ρgΔz (P_d = 180 bar)",
+   "ours": "CONSISTENT",
+   "dreal": {
+    "0.001": {
+     "word": "CONSISTENT",
+     "seconds": 0.0005624149999903238,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005624149999903238,
+       "buildSeconds": 0.001249713000021302,
+       "wallSeconds": 0.004794501999981549,
+       "box": {
+        "rho": [
+         "1024.573178294242",
+         "1024.5741782942423"
+        ],
+        "dz": [
+         "2099.998279296875",
+         "2099.999279296875"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1024.5736782942422,
+         "mu": 0.001235,
+         "dz": 2099.998779296875
+        },
+        "value": [
+         -0.00022205532900443362,
+         -0.00022205532843599937
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CONSISTENT",
+     "seconds": 0.0007446740000034424,
+     "queries": {
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0007446740000034424,
+       "buildSeconds": 0.0011560080000094786,
+       "wallSeconds": 0.0047591860000011366,
+       "box": {
+        "rho": [
+         "1024.572004469395",
+         "1024.572004470395"
+        ],
+        "dz": [
+         "2099.9999999983356",
+         "2099.999999999336"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.15239999999999998,
+         "eps": 0.00005,
+         "rho": 1024.572004469895,
+         "mu": 0.001235,
+         "dz": 2099.999999998836
+        },
+        "value": [
+         -2.119122655130923e-10,
+         -2.1140067474334498e-10
+        ],
+        "status": "witness",
+        "of": "claim − ceiling ≤ 0 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.000296375,
+    "runner": 0.000105537
+   }
+  },
+  {
+   "id": "flowline/dominio/Q40",
+   "family": "flowline",
+   "kind": "precondition",
+   "statement": "the flow is turbulent on the whole declared box, Re ≥ 4000, so Colebrook applies (Q = 40 m³/d)",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUTED",
+     "seconds": 0.0011612779999836675,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005106689999934133,
+       "buildSeconds": 0.001343837999996822,
+       "wallSeconds": 0.004854432999991332,
+       "box": {
+        "rho": [
+         "1024.9995",
+         "1025.0005"
+        ],
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ],
+        "mu": [
+         "0.0010799999999999998",
+         "0.0013900000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         3210.172043509033,
+         3210.172043509042
+        ],
+        "status": "witness",
+        "of": "Re < 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      },
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006506089999902542,
+       "buildSeconds": 0.0013934899999981099,
+       "wallSeconds": 0.0052587250000044605
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUTED",
+     "seconds": 0.0012268700000106492,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0005863599999997859,
+       "buildSeconds": 0.001336084000001847,
+       "wallSeconds": 0.005033835999995517,
+       "box": {
+        "rho": [
+         "1024.9999999995",
+         "1025.0000000005"
+        ],
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ],
+        "mu": [
+         "0.0012349995",
+         "0.0012350005"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         3210.172043509033,
+         3210.172043509042
+        ],
+        "status": "witness",
+        "of": "Re < 4000 at the midpoint",
+        "inDeclaredBox": true
+       }
+      },
+      "phi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0006405100000108632,
+       "buildSeconds": 0.0013048259999948186,
+       "wallSeconds": 0.004862607999996271
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00047225,
+    "runner": 0.000194381
+   }
+  },
+  {
+   "id": "flowline/velocidade/Q40-max5",
+   "family": "flowline",
+   "kind": "rule",
+   "statement": "v(x†) ≤ 5 m/s at the true input x† of the declared box (Q = 40 m³/d)",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.0010569440000267605,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005688470000109191,
+       "buildSeconds": 0.0011399589999996351,
+       "wallSeconds": 0.004656825000012077
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00048809700001584133,
+       "buildSeconds": 0.0011796629999878405,
+       "wallSeconds": 0.004662816000006842,
+       "box": {
+        "D": [
+         "0.152",
+         "0.15280000000000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         0.025379697034336197,
+         0.025379697034336245
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0009669869999981984,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0005138749999957781,
+       "buildSeconds": 0.001120613000011872,
+       "wallSeconds": 0.004627801999987469
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.00045311200000242025,
+       "buildSeconds": 0.0011851229999990665,
+       "wallSeconds": 0.004610288999998602,
+       "box": {
+        "D": [
+         "0.1523999995",
+         "0.15240000050000002"
+        ]
+       },
+       "witness": {
+        "at": {
+         "L": 6000,
+         "D": 0.1524,
+         "eps": 0.00005,
+         "rho": 1025,
+         "mu": 0.001235,
+         "dz": 2100
+        },
+        "value": [
+         0.025379697034336197,
+         0.025379697034336245
+        ],
+        "status": "witness",
+        "of": "v <= 5 at the midpoint",
+        "inDeclaredBox": true
+       }
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.00042862499999999997,
+    "runner": 0.000193359
+   }
+  },
+  {
+   "id": "flowline/bracket/Q6000",
+   "family": "flowline",
+   "kind": "support",
+   "statement": "Colebrook's root lies in s = 1/√f ∈ (7, 10) for every declared input (Q = 6000 m³/d): h(7) < 0 < h(10)",
+   "ours": "HOLDS",
+   "dreal": {
+    "0.001": {
+     "word": "HOLDS",
+     "seconds": 0.001831293000009282,
+     "queries": {
+      "low": {
+       "answer": "unsat",
+       "solveSeconds": 0.0009335949999922377,
+       "buildSeconds": 0.0016859140000065054,
+       "wallSeconds": 0.005599848000002794
+      },
+      "high": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008976980000170443,
+       "buildSeconds": 0.0017640189999781342,
+       "wallSeconds": 0.006052379999999857
+      }
+     }
+    },
+    "1e-9": {
+     "word": "HOLDS",
+     "seconds": 0.0018105649999995421,
+     "queries": {
+      "low": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008835220000094068,
+       "buildSeconds": 0.0016495460000101048,
+       "wallSeconds": 0.005849022000006698
+      },
+      "high": {
+       "answer": "unsat",
+       "solveSeconds": 0.0009270429999901353,
+       "buildSeconds": 0.0017131040000037956,
+       "wallSeconds": 0.00605489400001602
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.11457225,
+    "runner": 0.043430975
+   }
+  },
+  {
+   "id": "flowline/bracket/Q7000",
+   "family": "flowline",
+   "kind": "support",
+   "statement": "Colebrook's root lies in s = 1/√f ∈ (7, 10) for every declared input (Q = 7000 m³/d): h(7) < 0 < h(10)",
+   "ours": "HOLDS",
+   "dreal": {
+    "0.001": {
+     "word": "HOLDS",
+     "seconds": 0.0017205579999881593,
+     "queries": {
+      "low": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008531649999952151,
+       "buildSeconds": 0.0017480400000238205,
+       "wallSeconds": 0.006005815999998276
+      },
+      "high": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008673929999929442,
+       "buildSeconds": 0.0017439009999975497,
+       "wallSeconds": 0.0058063630000049216
+      }
+     }
+    },
+    "1e-9": {
+     "word": "HOLDS",
+     "seconds": 0.0017851579999899059,
+     "queries": {
+      "low": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008896029999903021,
+       "buildSeconds": 0.0016353500000150234,
+       "wallSeconds": 0.005661413000012772
+      },
+      "high": {
+       "answer": "unsat",
+       "solveSeconds": 0.0008955549999996038,
+       "buildSeconds": 0.0016784299999983432,
+       "wallSeconds": 0.005783911000008857
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "oursMs": {
+    "local": 0.09400220799999999,
+    "runner": 0.043396591
+   }
+  },
+  {
+   "id": "entropy/optconst-3b/original",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.77898884 for the 13-point law of the certificate (C3b), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.013181774000003088,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.0070582719999947585,
+       "buildSeconds": 0.0036030569999923046,
+       "wallSeconds": 0.014189173999994864
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0061235020000083296,
+       "buildSeconds": 0.0036027559999922687,
+       "wallSeconds": 0.013136166000009553,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.013206177000000707,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.006921635999987075,
+       "buildSeconds": 0.0036338540000144803,
+       "wallSeconds": 0.014059893999984752
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006284541000013633,
+       "buildSeconds": 0.003659651999981861,
+       "wallSeconds": 0.013528034000017897,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "object": {
+    "row": "optconst-3b",
+    "class": "original",
+    "truth": "TRUE",
+    "sha256": "26a7341e81dcd9d3ad5ee2259ad451bcab97d43d11605200b1871853e77ae184",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 14.9
+   }
+  },
+  {
+   "id": "entropy/optconst-3b/bar-above-ratio",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.778988841420693550 for the 13-point law of the certificate (C3b), entropies in nats",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 0.012314088999971773,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006148728999988862,
+       "buildSeconds": 0.0036591810000174974,
+       "wallSeconds": 0.013465698999993947,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006165359999982911,
+       "buildSeconds": 0.003591656000025978,
+       "wallSeconds": 0.013257111999990911,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 0.012250890000018444,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006111940000010918,
+       "buildSeconds": 0.00359154599999556,
+       "wallSeconds": 0.013282648000000563,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006138950000007526,
+       "buildSeconds": 0.0036479810000003,
+       "wallSeconds": 0.013219531999993706,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3b",
+    "class": "bar-above-ratio",
+    "truth": "FALSE",
+    "sha256": "cade3e786c1161bcb26bc2a10c6e441fc89831d7f8e44f78ab846b4d81101b93",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 13.8
+   }
+  },
+  {
+   "id": "entropy/optconst-3b/law-translated",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.77898884 for the 13-point law of the certificate (C3b), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.01304227200000696,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.006953565000003437,
+       "buildSeconds": 0.003582749000003105,
+       "wallSeconds": 0.01384596500000157
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006088707000003524,
+       "buildSeconds": 0.0035938799999826188,
+       "wallSeconds": 0.012847830999987764,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.0129896340000073,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.006920422999996845,
+       "buildSeconds": 0.003682205000018257,
+       "wallSeconds": 0.013859760999991977
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006069211000010455,
+       "buildSeconds": 0.0036045999999885225,
+       "wallSeconds": 0.013113381000010804,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "agree",
+    "1e-9": "agree"
+   },
+   "object": {
+    "row": "optconst-3b",
+    "class": "law-translated",
+    "truth": "TRUE",
+    "sha256": "727ef9af416fbdc790b9e06b7e93530ae58c07aacec21eec0677bbc9ef53cc3f",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 14.7
+   }
+  },
+  {
+   "id": "entropy/optconst-3b/weight-moved",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y)) ≥ 1.77898884 for the 13-point law of the certificate (C3b), entropies in nats",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "CERTIFIED",
+     "seconds": 0.013020020999988446,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.006863226999996641,
+       "buildSeconds": 0.00353822600001763,
+       "wallSeconds": 0.013616718999998056
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.006156793999991805,
+       "buildSeconds": 0.00351205800001253,
+       "wallSeconds": 0.012910145999995848,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "CERTIFIED",
+     "seconds": 0.012853152000019463,
+     "queries": {
+      "notphi": {
+       "answer": "unsat",
+       "solveSeconds": 0.006894095000006928,
+       "buildSeconds": 0.0035205529999871032,
+       "wallSeconds": 0.013666381999996702
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.005959057000012535,
+       "buildSeconds": 0.0035423539999897002,
+       "wallSeconds": 0.012667875000005324,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "door",
+    "1e-9": "door"
+   },
+   "object": {
+    "row": "optconst-3b",
+    "class": "weight-moved",
+    "truth": "MALFORMED",
+    "sha256": "286bb55fa42731801ed486adac2eeaf5dc738b27f9e2f9e1b154972e88159984",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 0.1
+   }
+  },
+  {
+   "id": "entropy/optconst-3c/original",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 6.637458914999996,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3084285839999836,
+       "buildSeconds": 0.03756519300000605,
+       "wallSeconds": 3.350344279000012,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3290303310000127,
+       "buildSeconds": 0.038154045999988284,
+       "wallSeconds": 3.3718391719999943,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 6.6172024050000005,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3063904649999927,
+       "buildSeconds": 0.038931550000000925,
+       "wallSeconds": 3.3497534229999815,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.310811940000008,
+       "buildSeconds": 0.03739442500000223,
+       "wallSeconds": 3.3527259870000137,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c",
+    "class": "original",
+    "truth": "TRUE",
+    "sha256": "8bf6986a6e0e3791bcc103fc938a63091abeecefdc6e20d04c28ca78b1f50eda",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 99.1
+   }
+  },
+  {
+   "id": "entropy/optconst-3c/bar-above-ratio",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058700631357567222139991363837138181486968118289 for the 147-point law of the certificate (C3c), entropies in nats",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 6.613850681999992,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3025923499999976,
+       "buildSeconds": 0.03770231800001511,
+       "wallSeconds": 3.3446752109999807,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.311258331999994,
+       "buildSeconds": 0.03783573499998738,
+       "wallSeconds": 3.3532029259999945,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 6.6265982329999815,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.310270376999995,
+       "buildSeconds": 0.037360825999996905,
+       "wallSeconds": 3.351996847999999,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3163278559999867,
+       "buildSeconds": 0.03863049599999613,
+       "wallSeconds": 3.359304327000018,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c",
+    "class": "bar-above-ratio",
+    "truth": "FALSE",
+    "sha256": "243c37c9a50347668836cac9aefaeb1d2602c20909c75d788b3df2538862120c",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 299.2
+   }
+  },
+  {
+   "id": "entropy/optconst-3c/law-translated",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 6.609410860999986,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3048317660000066,
+       "buildSeconds": 0.039605141999999205,
+       "wallSeconds": 3.3487442789999875,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.30457909499998,
+       "buildSeconds": 0.03796129899998846,
+       "wallSeconds": 3.3470099890000142,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 6.616393818000006,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3160091999999963,
+       "buildSeconds": 0.039644995999992716,
+       "wallSeconds": 3.36029180099996,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3003846180000096,
+       "buildSeconds": 0.038214799999991556,
+       "wallSeconds": 3.3431224999999927,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c",
+    "class": "law-translated",
+    "truth": "TRUE",
+    "sha256": "bae06b1b6c60c46f5434ac400020e94c1bcf8e89e98d62713274f3435514e138",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 81.2
+   }
+  },
+  {
+   "id": "entropy/optconst-3c/weight-moved",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950414058 for the 147-point law of the certificate (C3c), entropies in nats",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 6.620944113000064,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3206647400000406,
+       "buildSeconds": 0.03822820900001034,
+       "wallSeconds": 3.3632824779999737,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3002793730000235,
+       "buildSeconds": 0.03871384999996508,
+       "wallSeconds": 3.3436133380000115,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 6.619592844999943,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.3072546479999687,
+       "buildSeconds": 0.03903453300000592,
+       "wallSeconds": 3.3509251199999994,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 3.312338196999974,
+       "buildSeconds": 0.03805272500000001,
+       "wallSeconds": 3.354972280000027,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "door",
+    "1e-9": "door"
+   },
+   "object": {
+    "row": "optconst-3c",
+    "class": "weight-moved",
+    "truth": "MALFORMED",
+    "sha256": "5335d953d0c27e58d180c6aceb0533291045a97f1a7bb1e344df39d33be3dfce",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 0.3
+   }
+  },
+  {
+   "id": "entropy/optconst-3c-95/original",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 2.293733354999972,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1459369789999982,
+       "buildSeconds": 0.023720630000013898,
+       "wallSeconds": 1.1738685469999837,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1477963759999739,
+       "buildSeconds": 0.02348691500003497,
+       "wallSeconds": 1.175330645000031,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 2.3400498190000008,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1481791780000208,
+       "buildSeconds": 0.02323403499997312,
+       "wallSeconds": 1.1754558289999864,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.19187064099998,
+       "buildSeconds": 0.023555993000002218,
+       "wallSeconds": 1.219523630000026,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c-95",
+    "class": "original",
+    "truth": "TRUE",
+    "sha256": "90ab89d857a47acbbe502b6cff68e3a1c11f68877ec480184b85afc62cbac08a",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 55.4
+   }
+  },
+  {
+   "id": "entropy/optconst-3c-95/bar-above-ratio",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.674733895020824993378207577604 for the 95-point law of the certificate (C3c), entropies in nats",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 2.2967102439999962,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1477565640000194,
+       "buildSeconds": 0.02370663900001091,
+       "wallSeconds": 1.1756294369999978,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1489536799999769,
+       "buildSeconds": 0.0235716480000292,
+       "wallSeconds": 1.1767199150000351,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 2.300798332999989,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.148281510000004,
+       "buildSeconds": 0.023559965999993437,
+       "wallSeconds": 1.1760345010000037,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.152516822999985,
+       "buildSeconds": 0.023727418000021316,
+       "wallSeconds": 1.1803900080000176,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c-95",
+    "class": "bar-above-ratio",
+    "truth": "FALSE",
+    "sha256": "e911c52f228f3b132c546930928935916400577dbfb30f6431b23301551cb9bd",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 54.7
+   }
+  },
+  {
+   "id": "entropy/optconst-3c-95/law-translated",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 2.2973669670000163,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1478661579999994,
+       "buildSeconds": 0.023326342000018485,
+       "wallSeconds": 1.1752636680000137,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.149500809000017,
+       "buildSeconds": 0.023434863999966637,
+       "wallSeconds": 1.1770248809999657,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 2.3095474479999893,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1490967799999794,
+       "buildSeconds": 0.02341793300001882,
+       "wallSeconds": 1.1766595279999592,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.16045066800001,
+       "buildSeconds": 0.02391301199997997,
+       "wallSeconds": 1.1885401650000063,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-3c-95",
+    "class": "law-translated",
+    "truth": "TRUE",
+    "sha256": "381bb8937863fbbba8eb5784211d93c0ef23a82e7bf0ec6b99a91ef1cb7c841f",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 55.1
+   }
+  },
+  {
+   "id": "entropy/optconst-3c-95/weight-moved",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "ρ(μ) = H(X−Y)/max(H(X), H(Y), H(X+Y), H(X+2Y)) ≥ 1.6747338950208249 for the 95-point law of the certificate (C3c), entropies in nats",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 2.2994028749999416,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1504046299999686,
+       "buildSeconds": 0.023487210000041614,
+       "wallSeconds": 1.1779723959999728,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.148998244999973,
+       "buildSeconds": 0.023140566000051876,
+       "wallSeconds": 1.1761783410000248,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 2.3065578770000457,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1544183120000184,
+       "buildSeconds": 0.02351786699995273,
+       "wallSeconds": 1.182179388999998,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 1.1521395650000272,
+       "buildSeconds": 0.023942917999988822,
+       "wallSeconds": 1.1802272799999969,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "door",
+    "1e-9": "door"
+   },
+   "object": {
+    "row": "optconst-3c-95",
+    "class": "weight-moved",
+    "truth": "MALFORMED",
+    "sha256": "1299eaa5ebd42c63318e575aca1e30c8e9d96352c78f09d1a6db74f8913905b3",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 0.4
+   }
+  },
+  {
+   "id": "entropy/optconst-71/original",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 0.0028272680000327455,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0014459290000559122,
+       "buildSeconds": 0.0021021789999622342,
+       "wallSeconds": 0.006792259000008016,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0013813389999768333,
+       "buildSeconds": 0.002002713000024414,
+       "wallSeconds": 0.006562883000015063,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 0.002810635999992428,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.001387679999993452,
+       "buildSeconds": 0.0020196450000184996,
+       "wallSeconds": 0.006646638000006533,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.001422955999998976,
+       "buildSeconds": 0.00198008199998867,
+       "wallSeconds": 0.006574252999996588,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-71",
+    "class": "original",
+    "truth": "TRUE",
+    "sha256": "498e0f2e8c72370a1a55861bf4143721fa0d8812a7c8c95379b1f9fddf693280",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 1790.9
+   }
+  },
+  {
+   "id": "entropy/optconst-71/bar-above-ratio",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "H/(I−1) > 6.5218457109230465756581439729485784683668 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128",
+   "ours": "REFUTED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 0.002739905000055387,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.001364758000022448,
+       "buildSeconds": 0.0020172299999785537,
+       "wallSeconds": 0.006614689000002727,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.001375147000032939,
+       "buildSeconds": 0.0020522450000157733,
+       "wallSeconds": 0.006637231000013344,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 0.002763287999982822,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0013665010000067923,
+       "buildSeconds": 0.002025075000005927,
+       "wallSeconds": 0.006614318000004005,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0013967869999760296,
+       "buildSeconds": 0.00202998400004617,
+       "wallSeconds": 0.006628333999969982,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-71",
+    "class": "bar-above-ratio",
+    "truth": "FALSE",
+    "sha256": "afbe49cf2958687bd1873558d4a41fd62bc150f23e1f4d7553124df20abb771c",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 1878.2
+   }
+  },
+  {
+   "id": "entropy/optconst-71/inputs-rotated",
+   "family": "entropy",
+   "kind": "rule",
+   "statement": "H/(I−1) > 6.521845710923046575 for the n = 18 truth table: H = Σ ŵ log2(1/ŵ) over its 2770 nonzero Fourier weights (10 distinct), I = 261/128",
+   "ours": "CERTIFIED",
+   "dreal": {
+    "0.001": {
+     "word": "REFUSED",
+     "seconds": 0.00278136099996118,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0014011249999725806,
+       "buildSeconds": 0.0020849169999905826,
+       "wallSeconds": 0.0067074309999952675,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0013802359999885994,
+       "buildSeconds": 0.0020826119999810544,
+       "wallSeconds": 0.006704695999985688,
+       "box": {}
+      }
+     }
+    },
+    "1e-9": {
+     "word": "REFUSED",
+     "seconds": 0.00283938899997338,
+     "queries": {
+      "notphi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0013969770000130666,
+       "buildSeconds": 0.0021285880000050383,
+       "wallSeconds": 0.006863651999992726,
+       "box": {}
+      },
+      "phi": {
+       "answer": "delta-sat",
+       "solveSeconds": 0.0014424119999603136,
+       "buildSeconds": 0.002119180000022425,
+       "wallSeconds": 0.007118194999975458,
+       "box": {}
+      }
+     }
+    }
+   },
+   "agree": {
+    "0.001": "dReal weaker",
+    "1e-9": "dReal weaker"
+   },
+   "object": {
+    "row": "optconst-71",
+    "class": "inputs-rotated",
+    "truth": "TRUE",
+    "sha256": "dffdf654e763edfdcfad4ef9eec2655b2b12037e078549c57ca15230d191a488",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "oursMs": {
+    "record": 1853
+   }
+  },
+  {
+   "id": "entropy/optconst-71/hex-beyond-2n",
+   "family": "entropy",
+   "kind": "rule",
+   "ours": "REFUSED",
+   "dreal": {
+    "0.001": {
+     "word": "NO FORMULA"
+    },
+    "1e-9": {
+     "word": "NO FORMULA"
+    }
+   },
+   "agree": {
+    "0.001": "door",
+    "1e-9": "door"
+   },
+   "object": {
+    "row": "optconst-71",
+    "class": "hex-beyond-2n",
+    "truth": "MALFORMED",
+    "sha256": "d4d63bfe1d3e8ff94149f45711f12798cef29cb9d0a505eb560851c8776b7043",
+    "record": "certs/selfaudit-mutations.json"
+   },
+   "encodable": false,
+   "why": "the truth table sets a bit at or beyond 2^n = 262144: the object is not a function of n = 18 inputs, so there is no ratio to state",
+   "oursMs": {
+    "record": 80.5
+   }
+  }
+ ]
+}

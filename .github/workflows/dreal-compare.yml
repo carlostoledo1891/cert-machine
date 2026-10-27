@@ -1,0 +1,70 @@
+# cert-machine against dReal 4 (delta-complete; Gao, Avigad, Clarke) on the same claims — the comparison a referee asked
+# for: the Contraprova flow-line gate's receipts over their 6-box, and the self-audit's entropy family as constant formulas.
+#
+# dReal's Python wheel exists for x86_64 Linux only, so the solver runs here. The wheel is pinned by version AND sha256
+# (dreal==4.21.6.2, cp310 manylinux1); it links IBEX, CLP and NLopt from the system, installed the way dReal's own
+# Ubuntu 22.04 setup script installs them (ppa:dreal/dreal for libibex-dev). tools/dreal-compare.py puts every query of
+# corpus/dreal-compare/claims.json to dReal, one fresh process each, and writes only the raw answers; the gate's own
+# procedures are timed on the same runner (node tools/dreal-compare.js --time-ours). The artifact is downloaded into
+# corpus/dreal-compare/run-<id>/ and tools/dreal-compare.js --record writes certs/dreal-compare.json from it.
+# Nothing here pushes. Public-repository runners are free.
+name: dreal-compare
+on:
+  push:
+    branches: [wip/dreal-compare-2026-10-27]
+    paths:
+      - corpus/dreal-compare/claims.json
+      - tools/dreal-compare.py
+      - .github/workflows/dreal-compare.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  DREAL_PIN: dreal==4.21.6.2
+  DREAL_WHEEL: dreal-4.21.6.2-cp310-none-manylinux1_x86_64.whl
+  DREAL_WHEEL_SHA256: 936759fb2990fd4cf516b3fdbe119418777cbd2507d503f7eb4bab075c5216bc
+jobs:
+  dreal:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: system libraries dReal links (IBEX from dReal's PPA, CLP, NLopt)
+        run: |
+          set -euxo pipefail
+          sudo add-apt-repository ppa:dreal/dreal --no-update -y
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends coinor-libclp-dev libibex-dev libnlopt-cxx-dev libnlopt0 liblapack3 libblas3
+          dpkg-query -W -f='${Package} ${Version}\n' libibex-dev coinor-libclp-dev libnlopt-cxx-dev | tee ibex-version.txt
+      - name: the pinned wheel, checked by sha256
+        run: |
+          set -euxo pipefail
+          python -m pip download "$DREAL_PIN" --only-binary=:all: --no-deps --python-version 3.10 --platform manylinux1_x86_64 -d wheel
+          ls -la wheel
+          echo "$DREAL_WHEEL_SHA256  wheel/$DREAL_WHEEL" | sha256sum -c -
+          python -m pip install --no-deps "wheel/$DREAL_WHEEL"
+          python -c "import dreal; print('dreal', dreal.__version__, dreal.Context.version)"
+      - name: dReal on every query
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          python tools/dreal-compare.py corpus/dreal-compare/claims.json out/dreal.json --wheel-sha256 "$DREAL_WHEEL_SHA256" | tee out/dreal.log
+      - name: the gate's own procedures, timed on the same runner
+        if: always()
+        run: |
+          set -euo pipefail
+          mkdir -p out
+          node tools/dreal-compare.js --time-ours > out/ours-runner.json
+          cp ibex-version.txt out/ || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dreal-compare
+          path: out/
+          if-no-files-found: error
