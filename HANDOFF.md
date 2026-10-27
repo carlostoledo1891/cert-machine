@@ -77,8 +77,12 @@ NEXT SESSION, IN ORDER:
      All 288 live URLs (pages, PDFs, slashless folders, redirect sources) fetched: 200. Four dead internal links fixed at the
      source. tools/check-links.js, a battery in build-control and make test, refuses a regression (4 red controls).
      RELEASE v2026.10.27 archived by Zenodo as doi:10.5281/zenodo.23698128, stamped (corpus/zenodo.json, CITATION.cff).
-     NEXT: (1) the operator: the sends (C_16 on #246, K4 on #255, R(3,33) to JeetuSK0808); R(8,18) ~$60 or not;
-     the ITF membership fix (four records re-derived); (2) record LocalSmoothing; (3) the Pedro meeting (the note's §5 questions).
+     THE SENDS, on the operator's word (evening): C_16 on #246 (issuecomment-6450361158), K4 on #255 (-6450361795), R(3,33) on
+     #252 (-6450362406), all citing f4ee2715; corpus/outreach.json rows, the sweep watches all three.
+     THE OPERATOR'S DECISIONS (evening): R(8,18) PARKED (no full run; the probe's measurement stands); the ITF1788 membership fix
+     HELD for a while (open finding stays in the paper's limits); the bibliography cut REVISED to protect Pedro's references
+     (15 of the first proposal's 36 were his; the revised proposal drops 21, 101 → 80 cited — the note's §7b, his call).
+     NEXT: (1) record LocalSmoothing; (2) the Pedro meeting (the note's §5 questions, §7b); (3) replies on #246/#255/#252/#277/#279.
   ★ HANDOFF 2026-10-27 ~07:00 UTC — THE METHOD PAPER v0.9, on "back to the method paper and companions. Tomorrow I have a
      meeting with Pedro … review the methods paper first and decide the final companions later … consider all suggestions
      lately sent by Pedro, add cert-machine's updates about the external validations, findings and interactions … more
