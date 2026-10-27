@@ -635,6 +635,20 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   def('MtItfRedAdd', String(IT.redControls['red:add'].violationsCaught)); def('MtItfRedAddOf', String(IT.redControls['red:add'].tests));
   def('MtItfRedExp', String(IT.redControls['red:exp'].violationsCaught)); def('MtItfRedExpOf', String(IT.redControls['red:exp'].tests)); }
 
+/* cert-machine against dReal 4 on the same claims (certs/dreal-compare.json): the flow-line gate's claims and receipts and the
+   benchmark's entropy family; the paper says there is no contradiction, that dReal agrees on every gate claim, and that it is weaker
+   on the entropy claims below one double */
+{ const DR = J('certs/dreal-compare.json'), T = DR.totals['0.001'], T9 = DR.totals['1e-9'];
+  need(T.contradiction === 0 && T['dReal stronger'] === 0 && T9.contradiction === 0 && DR.totals.deltaMoved.length === 0, 'the dReal comparison holds a contradiction or a δ that moved an answer — rewrite the section');
+  const fam = (f) => DR.claims.filter((c) => c.family === f), ag = (c, w) => c.agree['0.001'] === w && c.agree['1e-9'] === w;
+  const fl = fam('flowline'), en = fam('entropy');
+  need(fl.length > 0 && fl.every((c) => ag(c, 'agree')) && T.receipts === T.receiptsAgree, 'a flow-line claim or receipt does not agree with dReal');
+  const W = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  def('MtDrVersion', DR.dreal.contextVersion); def('MtDrRun', String(DR.run.id)); def('MtDrClaims', String(T.claims)); def('MtDrQueries', String(T.queries));
+  def('MtDrGateClaims', String(fl.length)); def('MtDrReceiptsWord', W[T.receipts]); def('MtDrEntropy', String(en.length));
+  def('MtDrEntropyAgreeWord', W[en.filter((c) => ag(c, 'agree')).length]); def('MtDrEntropyWeakerWord', W[en.filter((c) => ag(c, 'dReal weaker')).length]);
+  def('MtDrEntropyDoorWord', W[en.filter((c) => ag(c, 'door')).length]); }
+
 /* the runtime table (supplement S5): per record of the register, the extended profile's cold run in the self-audit's run record
    (wall, CPU, peak resident memory), the register rows it holds (the inventory), and whether the portable 60-second profile ran it */
 { const RUNR = J('certs/selfaudit-run.json'), INVR = J('certs/selfaudit-inventory.json');
