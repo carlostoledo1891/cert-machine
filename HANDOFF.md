@@ -130,8 +130,8 @@ NEXT SESSION, IN ORDER:
      gives its published 2320651/1358954496); `--check` (~1 min: pins, the K6 value and five controls re-derived, the K5
      integers re-combined) in both registries; the shelf row; /reports/optconst-queue.html §10 (gates green after two
      refusals of my own: a free-text status word on the #249 outreach row, and the word "operator" in its public note).
-     POSTED on the word: the thanks on #249 (issuecomment-6433116322); the K5 and K6 confirmations on #277 and #279 (the
-     comment ids in corpus/outreach.json). R(3,33): REFUSED at the budget (0 of 240 roots in ~2 h on 4 threads; the
+     POSTED on the word: the thanks on #249 (issuecomment-6433116322); the K5 and K6 confirmations on #277 and #279 (issuecomment-6433758020 and
+     issuecomment-6433758202; corpus/outreach.json gh-optq-277/279; the sweep watches both). R(3,33): REFUSED at the budget (0 of 240 roots in ~2 h on 4 threads; the
      deposit's own proof used orbital branching); the kernel honours -s within a root (checked in the code); scratch only.
      RULES LEARNED: Decimal.quantize to k places needs a Context with prec > the digits printed (the default 28 refuses at 31);
      a longer table cell on a report page can add a spine — shorten the cell before accepting a ruler regression.
