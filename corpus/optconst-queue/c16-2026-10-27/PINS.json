@@ -1,0 +1,71 @@
+{
+ "what": "The registry's C_16 enclosure 2.1562247706 <= C_16 <= 2.1562256466 (maximusrufus, teorth/optimizationproblems #246, merged 2026-10-26 03:54 UTC with both rows asterisked): the constant's page, README and CONTRIBUTING at registry main e95af44b (16a.md byte-identical at the merge commit 87cb5dbb, kept as 16a.at-merge-87cb5dbb.md), the claimant's repository maximusrufus/c16-bgw-certificates at its HEAD b3728b85 (README, LICENSE CC0-1.0, the two certificates and the two numpy checkers, kept as TEXT and never run), and the pull request as gh returns it (body = the write-up, one comment). The certifiers named in the checkers' docstrings (certify_c16_upper.py, certify_c16_lower.py) are NOT in the repository; the asymptotic bound g is re-derived in claims.json from the stated choice mu = 1/(delta ln delta). Read by tools/replay-c16.js; nothing here is ours.",
+ "fetched": "2026-10-27T14:20:00Z",
+ "registryCommit": "e95af44bc6ae938f545a0fc62cd1b6c1f6088a56",
+ "mergeCommit": "87cb5dbb8c28795c2511fa87742cda1538ea227f",
+ "prHead": "39fc975c08246ee953304631f03f7528953a9df7",
+ "certificateCommit": "b3728b856bd79a85f8ba94c158e7a51616c0179b",
+ "certificateFirstCommit": "3faa0d868b08071c399fe4999b99c25f9b3a3a86",
+ "pr": {
+  "number": 246,
+  "title": "C_16: certified upper bound 2.1562256466 (enclosure with the #226 lower bound)",
+  "author": "maximusrufus",
+  "mergedAt": "2026-10-26T03:54:34Z"
+ },
+ "urls": {
+  "page": "https://github.com/teorth/optimizationproblems/blob/e95af44bc6ae938f545a0fc62cd1b6c1f6088a56/constants/16a.md",
+  "pr246": "https://github.com/teorth/optimizationproblems/pull/246",
+  "certificates": "https://github.com/maximusrufus/c16-bgw-certificates/tree/b3728b856bd79a85f8ba94c158e7a51616c0179b"
+ },
+ "license": "claimant/LICENSE: CC0-1.0",
+ "neverRun": [
+  "claimant/verify_c16_lower.py",
+  "claimant/verify_c16_upper.py"
+ ],
+ "files": {
+  "claimant/LICENSE": {
+   "sha256": "7b90cd8ab8ad105223c740e224377213eba3942ad5190b3694a5ef61af2fce99",
+   "bytes": 84
+  },
+  "claimant/README.md": {
+   "sha256": "42b6f60041bfc45795f1210c00b3fc860061b10c5e2c420eca97180c99ae9e14",
+   "bytes": 1640
+  },
+  "claimant/lower_certificate.json": {
+   "sha256": "52129d0c2dde27cdd2266917558957ff9603c53035613b6dad6f19b29ebe1aec",
+   "bytes": 625
+  },
+  "claimant/upper_certificate.json": {
+   "sha256": "dca67fe3756eefeaeb8cc95e50c56bc3a246a913c7bb9306d77a9d52b656d733",
+   "bytes": 10679
+  },
+  "claimant/verify_c16_lower.py": {
+   "sha256": "9e107acfdc5754e0a6640f8f51557efe75ceca9adb233e874b4dba8ece1889c3",
+   "bytes": 4850
+  },
+  "claimant/verify_c16_upper.py": {
+   "sha256": "8b005b24853e6965d8d899ad7ed8699fe25a3c13537af483ecdc846c012b758d",
+   "bytes": 7013
+  },
+  "pr/pr246.json": {
+   "sha256": "6e701feac153dd4febb942824c2fc187e5ce90e57a5460494a6e39de7aa3353a",
+   "bytes": 2319
+  },
+  "upstream/16a.at-merge-87cb5dbb.md": {
+   "sha256": "bb8d59d5ebe74772bb34157b7f2e3e3aa1134a92e33b3c0a436e86142658228d",
+   "bytes": 4697
+  },
+  "upstream/16a.md": {
+   "sha256": "bb8d59d5ebe74772bb34157b7f2e3e3aa1134a92e33b3c0a436e86142658228d",
+   "bytes": 4697
+  },
+  "upstream/CONTRIBUTING.md": {
+   "sha256": "bd76c6edc88a8ae914e2b7f988c3bffcba05581343e118e53f0df13d8bc9c985",
+   "bytes": 12432
+  },
+  "upstream/README.md": {
+   "sha256": "4a4e6232e278a1b27a0198eb31207b5f4d0c3dfb989fa3a336f344e3a1781697",
+   "bytes": 56907
+  }
+ }
+}
