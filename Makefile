@@ -125,6 +125,7 @@ test:
 	@printf "%-30s " "kissing wave (Q(sqrt2,sqrt3))"; $(PY) instruments/kissing/wave/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "kissing gram form"; $(PY) instruments/kissing/wave/gram_battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "interval kernel vs Arb"; $(NODE) tools/audit-kernel-arb.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "interval kernel vs ITF1788"; $(NODE) tools/audit-kernel-itf1788.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "method evaluated (planted)"; $(NODE) tools/run-method-eval.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "selfaudit: the inventory"; $(NODE) tools/run-selfaudit-inventory.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "selfaudit: the run"; $(NODE) tools/run-selfaudit.js --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

@@ -621,6 +621,20 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   const dirs = new Set(ls('instruments').map((f) => f.split('/')[1]));
   def('MtRepoInstrumentDirs', String(dirs.size)); def('MtRepoJsKLines', String(Math.round(lines(ls("'*.js'")) / 1000))); def('MtRepoPyKLines', String(Math.round(lines(ls("'*.py'")) / 1000))); }
 
+/* the interval kernel run on ITF1788, the IEEE Std 1788-2015 test suite (certs/kernel-itf1788.json): no enclosure violation; the two
+   membership answers at ±∞ are declared in the tool and stated in the paper's limits */
+{ const IT = J('certs/kernel-itf1788.json'), c = IT.counts;
+  need(c.run === c.tight + c.contained + c.refused + c.violations && c.run > 1000, 'the ITF1788 counts do not close');
+  const enc = IT.violations.filter((v) => v.op !== 'isMember');
+  need(enc.length === 0 && IT.violations.every((v) => v.declared), 'the ITF1788 record holds an enclosure violation or an undeclared one — rewrite the paragraph');
+  need(Object.values(IT.redControls).every((r) => r.violationsCaught > 0), 'an ITF1788 red control did not fire');
+  const W = ['no', 'one', 'two', 'three', 'four', 'five'];
+  def('MtItfCommit', IT.itf1788.commit.slice(0, 8)); def('MtItfFiles', String(c.suiteFiles)); def('MtItfTests', c.suiteTests.toLocaleString('en-US').replace(/,/g, '{,}'));
+  def('MtItfRun', c.run.toLocaleString('en-US').replace(/,/g, '{,}')); def('MtItfTight', String(c.tight)); def('MtItfContained', String(c.contained)); def('MtItfRefused', String(c.refused));
+  def('MtItfNotApplicable', c.notApplicable.toLocaleString('en-US').replace(/,/g, '{,}')); def('MtItfMemberViolationsWord', W[IT.violations.length] || String(IT.violations.length));
+  def('MtItfRedAdd', String(IT.redControls['red:add'].violationsCaught)); def('MtItfRedAddOf', String(IT.redControls['red:add'].tests));
+  def('MtItfRedExp', String(IT.redControls['red:exp'].violationsCaught)); def('MtItfRedExpOf', String(IT.redControls['red:exp'].tests)); }
+
 /* the runtime table (supplement S5): per record of the register, the extended profile's cold run in the self-audit's run record
    (wall, CPU, peak resident memory), the register rows it holds (the inventory), and whether the portable 60-second profile ran it */
 { const RUNR = J('certs/selfaudit-run.json'), INVR = J('certs/selfaudit-inventory.json');
