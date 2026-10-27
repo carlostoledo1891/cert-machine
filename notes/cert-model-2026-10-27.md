@@ -174,3 +174,6 @@ The two gates before any Phase 1 build, pre-registered first in the house way:
    record, refusals by kind. A null is publishable; a win funds Phase 3.
 Families in order of decider cost: sum-distinct sets, then Chowla cosine / Newman; kissing and Ramsey last (hours per
 decision). Pitch to labs what exists: environments + exact grader + the audit trail.
+
+
+**2026-10-27 (later): the idea has a home.** It is called Herald and lives in its own repository at ~/Projects/herald (created by the Machinidae session on the operator's word; its HANDOFF.md there). It uses cert-machine one way, as pinned hash-checked copies, and sends its claims through claimbox like anyone else's; when its first claims arrive, the pages may mark them as the operator's own.

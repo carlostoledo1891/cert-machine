@@ -661,8 +661,9 @@ def('MtOaGapRows', OG.findings.map((x) => x.severity + ' & ' + quotes(esc(fill(x
   const W = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
   def('MtOaTwoPin', K2.release.commit.slice(0, 8)); def('MtOaTwoMembers', String(K2.release.members)); def('MtOaTwoUnchanged', String(K2.release.unchangedNotRun));
   def('MtOaTwoCertified', String(w.CERTIFIED || 0)); def('MtOaTwoRefused', String(w.REFUSED || 0)); def('MtOaTwoDecided', String(K2.counts.decided));
-  const open = K2.counts.of - K2.counts.decided;
-  def('MtOaTwoOpenNote', open ? '; the other ' + (W[open] || String(open)) + ' were still running on hosted runners when this version was built' : ''); }
+  const open = K2.counts.of - K2.counts.decided, ref = w.REFUSED || 0;
+  def('MtOaTwoRefusedNote', ref ? ', ' + (W[ref] || String(ref)) + ' refused because the hosted runner terminated ' + (ref === 1 ? 'its job' : 'their jobs') + ' (resources)' : '');
+  def('MtOaTwoOpenNote', open ? '; ' + (open === 1 ? 'the last was' : 'the other ' + (W[open] || String(open)) + ' were') + ' still running when this version was built' : ''); }
 
 /* the registry's C_16 enclosure (maximusrufus, #246), replayed as the second party (certs/c16-replay.json) */
 { const Q = J('certs/c16-replay.json');
