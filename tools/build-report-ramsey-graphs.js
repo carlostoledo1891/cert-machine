@@ -129,7 +129,11 @@ if (Array.isArray(L.outside) && L.outside.length) {
       + C.esc(o.symmetry.multipliers.join(', ')) + ' — each checked as an automorphism — fix 0 and split its non-neighbours into ' + o.I.reduction.orbits + ' orbits; ' + m('orbital.c') + ' searched the ' + o.I.pieces
       + ' pieces this leaves (' + o.I.unitsDone.toLocaleString('en-US') + ' units, ' + (o.I.nodes / 1e9).toFixed(1) + '·10⁹ nodes, ' + Math.round(o.I.seconds) + ' s on 8 threads of the laptop) and found none. '
       + 'The reduction is a lemma proved in ' + m('orbital.py') + '\'s docstring and re-derived by it here; the kernel is held to it root by root on 78 smaller instances (' + m('battery-orbital.py') + ', 8 red controls). '
-      + 'The claimant\'s own proof needed orbital branching too, split into 1,665 jobs across three solvers.' };
+      + 'The claimant\'s own proof needed orbital branching too, split into 1,665 jobs across three solvers.'
+      + (() => { const f = path.join(ROOT, 'corpus', 'ramsey', 'runs', 'R_3_33_ge_241.satpath.summary.json'); if (!fs.existsSync(f) || o.t !== 33) return '';
+          const Z = JSON.parse(fs.readFileSync(f, 'utf8')); if (Z.satpath !== crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, 'instruments', 'ramsey', 'satpath.py'))).digest('hex')) throw new Error('the SAT summary was written by another satpath.py');
+          if (Z.sat.length) throw new Error('the SAT path found an independent set — rewrite §5');
+          return ' A second path that shares no code with the search — the same cubes as CNF formulas, solved by kissat with a DRAT proof, every UNSAT checked by drat-trim — closed ' + Z.closed + ' of the ' + Z.cubes.length + ' cubes; the ' + (Z.cubes.length - Z.closed) + ' largest stayed open at a ' + Math.round(Z.capSeconds / 60) + '-minute cap, so the second path is partial and the verdict rests on the orbital kernel (' + m('corpus/ramsey/runs/R_3_33_ge_241.satpath.summary.json') + ').'; })() };
   });
   B.push(C.section({
     lab: '§5 · from outside Google', title: 'A Ramsey graph from another contributor, decided by the same instruments', id: 'outside',

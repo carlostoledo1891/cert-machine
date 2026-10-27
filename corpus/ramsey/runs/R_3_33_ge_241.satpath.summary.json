@@ -1,0 +1,346 @@
+{
+ "n": 240,
+ "edges": 3840,
+ "k": 33,
+ "multipliers": [
+  1,
+  13,
+  37,
+  71,
+  169,
+  203,
+  227,
+  239
+ ],
+ "orbits": [
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  8,
+  2,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  8,
+  4,
+  8,
+  8,
+  4,
+  8,
+  8,
+  2,
+  2,
+  1
+ ],
+ "reps": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12,
+  15,
+  16,
+  20,
+  21,
+  22,
+  23,
+  24,
+  25,
+  28,
+  29,
+  30,
+  31,
+  42,
+  48,
+  49,
+  62,
+  80,
+  100,
+  120
+ ],
+ "solver": {
+  "name": "kissat",
+  "version": "4.0.4",
+  "sha256": "ef5bf56e6cf1cdfde8b679332a3f6d989b21fe67932bc4a7bd5824488bcba450"
+ },
+ "checker": {
+  "name": "drat-trim",
+  "sha256": "74127da9c175abf3d0e450639634ce39840cc46b8d6db6253689ad1ff8c134e3"
+ },
+ "cubes": [
+  {
+   "cube": 0,
+   "rep": 1,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 1,
+   "rep": 2,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 2,
+   "rep": 3,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 3,
+   "rep": 4,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 4,
+   "rep": 5,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 5,
+   "rep": 6,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 6,
+   "rep": 7,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 7,
+   "rep": 8,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 8,
+   "rep": 9,
+   "verdict": "OPEN",
+   "solveSeconds": 1200.0,
+   "checkSeconds": null,
+   "proofBytes": null
+  },
+  {
+   "cube": 9,
+   "rep": 10,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 690.7,
+   "checkSeconds": 673.3,
+   "proofBytes": 1341964373
+  },
+  {
+   "cube": 10,
+   "rep": 11,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 1034.8,
+   "checkSeconds": 835.0,
+   "proofBytes": 2113015173
+  },
+  {
+   "cube": 11,
+   "rep": 12,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 230.7,
+   "checkSeconds": 253.7,
+   "proofBytes": 519408044
+  },
+  {
+   "cube": 12,
+   "rep": 15,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 82.2,
+   "checkSeconds": 87.3,
+   "proofBytes": 198716754
+  },
+  {
+   "cube": 13,
+   "rep": 16,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 20.6,
+   "checkSeconds": 18.0,
+   "proofBytes": 57229851
+  },
+  {
+   "cube": 14,
+   "rep": 20,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 12.6,
+   "checkSeconds": 10.0,
+   "proofBytes": 32793617
+  },
+  {
+   "cube": 15,
+   "rep": 21,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 6.9,
+   "checkSeconds": 5.7,
+   "proofBytes": 19843563
+  },
+  {
+   "cube": 16,
+   "rep": 22,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 1.7,
+   "checkSeconds": 1.2,
+   "proofBytes": 4696571
+  },
+  {
+   "cube": 17,
+   "rep": 23,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 1.3,
+   "checkSeconds": 0.9,
+   "proofBytes": 3575654
+  },
+  {
+   "cube": 18,
+   "rep": 24,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.5,
+   "checkSeconds": 0.4,
+   "proofBytes": 1090058
+  },
+  {
+   "cube": 19,
+   "rep": 25,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.1,
+   "checkSeconds": 0.1,
+   "proofBytes": 212763
+  },
+  {
+   "cube": 20,
+   "rep": 28,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.1,
+   "checkSeconds": 0.1,
+   "proofBytes": 142539
+  },
+  {
+   "cube": 21,
+   "rep": 29,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 131077
+  },
+  {
+   "cube": 22,
+   "rep": 30,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 132075
+  },
+  {
+   "cube": 23,
+   "rep": 31,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 134022
+  },
+  {
+   "cube": 24,
+   "rep": 42,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.0,
+   "proofBytes": 15976
+  },
+  {
+   "cube": 25,
+   "rep": 48,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 15058
+  },
+  {
+   "cube": 26,
+   "rep": 49,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 15444
+  },
+  {
+   "cube": 27,
+   "rep": 62,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 15866
+  },
+  {
+   "cube": 28,
+   "rep": 80,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 15590
+  },
+  {
+   "cube": 29,
+   "rep": 100,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.1,
+   "proofBytes": 15376
+  },
+  {
+   "cube": 30,
+   "rep": 120,
+   "verdict": "UNSAT-CHECKED",
+   "solveSeconds": 0.0,
+   "checkSeconds": 0.0,
+   "proofBytes": 15300
+  }
+ ],
+ "closed": 22,
+ "sat": [],
+ "decided": "OPEN",
+ "what": "The second decision path for R(3,33) >= 241 (instruments/ramsey/satpath.py, sharing no code with the orbital kernel): one CNF per cube of the orbital lemma, solved by kissat with a DRAT proof, every UNSAT checked by drat-trim; a cube the solver does not finish within the cap stays OPEN. Run 2026-10-27 on the M2 (6 jobs, 1200 s per cube); proofs not kept (1.3-2.1 GB each).",
+ "satpath": "46a337319694f98caf2666f9943ebaf98280e32a9eabdf24a26d64587f121223",
+ "capSeconds": 1200
+}
