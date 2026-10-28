@@ -93,7 +93,7 @@ function stats(items) {
     const cls = 'v' + (it.sm ? ' sm' : '');
     return '    <div class="stat"><div class="k">' + esc(it.k) + '</div>'
       + '<div class="' + cls + '">' + (it.vRaw || esc(it.v)) + '</div>'
-      + (it.n ? '<div class="n">' + esc(it.n) + '</div>' : '') + '</div>';
+      + (it.nRaw ? '<div class="n">' + it.nRaw + '</div>' : it.n ? '<div class="n">' + esc(it.n) + '</div>' : '') + '</div>';
   }).join('\n');
   return '<div class="wide">\n  <div class="stats" data-n="' + items.length + '">\n' + cells + '\n  </div>\n</div>';
 }

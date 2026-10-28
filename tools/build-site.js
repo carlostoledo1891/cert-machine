@@ -948,37 +948,92 @@ const paperStatus = (() => {
   return String(p.status).split('·')[0].trim();
 })();
 
+/* ---- THE LANDING, the operator's approach of 2026-10-28 ("Not so begging for work. Do not add cv-hire links. Add the
+   method pre paper like the artifact"): the sentence, three ways in, three numbers that each link to the record that
+   decided them, what came back from outside in the outsiders' own words, the grammar every mark obeys, the work, the
+   register, and documents with an address. No role-seeking prose and no CV link. Colours: the grammar's only (WARRANT
+   v2.2; the mock's amber is rule 6's "no yellow"). */
+const regCited = outside.credits.filter((r) => r.kind === 'registry' && /^\[T2026b?\]/.test(OUTSIDE.plain(r.quote)));
+if (!regCited.length) fail('the landing says the registry cites our replays as [T2026]; corpus/recognition.json holds no such quote');
+const regCorrection = outside.credits.find((r) => r.kind === 'registry' && /corrected on our check/.test(r.what));
+if (!regCorrection) fail('the landing says the registry corrected a row on our check; corpus/recognition.json holds no such credit');
+const regQuote = outside.credits.find((r) => r.kind === 'registry' && /no code shared/.test(OUTSIDE.plain(r.quote)));
+const qiushi = outside.credits.find((r) => r.kind === 'credit' && r.landing);
+const peer = outside.credits.find((r) => r.kind === 'peer' && r.landing);
+const listing = outside.credits.find((r) => r.kind === 'listing' && r.landing);
+if (!regQuote || !qiushi || !peer || !listing) fail('the landing quotes four outside voices; corpus/recognition.json no longer holds one of them');
+const rerunParties = [...new Set(externalReruns.map((r) => r.who.replace(/\s*\(.*$/, '')))];
+if (!externalReruns.every((r) => /same verdict|identical/.test(r.outcome))) fail('the landing says every outside re-derivation agreed; corpus/external-reruns.json holds a disagreement');
+const firstDate = (rows) => rows.map((r) => r.date).sort()[0], lastDate = (rows) => rows.map((r) => r.date).sort().slice(-1)[0];
+
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · independent certification',
   title: 'Independent exact certification of machine-generated mathematics',
-  deck: 'AI systems now propose mathematical claims faster than anyone reads them, and most checks compare decimals. '
-    + 'Each claim here is decided in exact arithmetic, without running the claimant’s code, and the outcome is '
-    + 'published as a re-runnable certificate: proved, refuted with a witness, or refused with the reason. The '
-    + 'theorems on this site are the calibration; the audits are the work.'
+  deck: 'AI systems now announce records, constants and proofs faster than anyone reads them, and most checks compare '
+    + 'decimals. Each claim here is re-decided from its published bytes in exact arithmetic, without running the '
+    + 'claimant’s code, and comes back as one of three words: CERTIFIED, REFUTED with the object that breaks it, or '
+    + 'REFUSED with the reason. Nothing asks for trust: every page is built from records that re-run, and refuses to '
+    + 'build when a record stops supporting a sentence.'
 }));
+B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href="reports/index.html#audits">The audits →</a> · '
+  + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));
 B.push(C.stats([
-  { k: 'kissing bounds of an autonomous discovery system', v: KW.rows + ' of ' + KW.rows,
-    n: 'every pair decided exactly · ' + sci15(KW.pairs) + ' pairs · ' + KW.atRequest.length + ' of the ' + KW.rows + ' point sets published at our request' },
-  { k: 'a Lean certificate for Navier–Stokes blowup', v: 'certified', sm: true,
-    n: 'partial at the announced commit, certified at the next · every hypothesis read against the statement' },
-  { k: 'tolerance graders against provably wrong answers', v: tolPct,
-    n: 'admitted by an absolute-tolerance grader · a certificate grader admits none and rejects nothing right' }
+  { k: 'machine-generated claims decided', v: fmt(claimsLedger.decided),
+    nRaw: 'since ' + C.esc(registerSince) + ', each with its verdict and the record that decided it · <a href="certs/claims-ledger.json">the register</a>' },
+  { k: 'asterisks removed from a registry', v: String(asterisksOff),
+    nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays, merged upstream and cited as [T2026] · <a href="reports/optimization-constants.html">the replays</a>' },
+  { k: 'provably wrong answers a tolerance grader admits', v: tolPct,
+    nRaw: 'an absolute-tolerance grader; a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' }
 ]));
-B.push(C.pRaw('<a href="reports/index.html#audits">The audits →</a> · <a href="about/index.html#contact">Contact →</a>'));
 
 B.push(C.section({
-  lab: 'three lines of work', title: 'What is decided here', wide: true,
+  lab: 'outside the building', title: 'What has come back, in their words', wide: true, id: 'outside',
+  bodyRaw: C.cards([
+    { href: 'reports/optimization-constants.html', k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
+      title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
+      desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
+      n: '“' + OUTSIDE.plain(regQuote.quote) + '”' },
+    { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
+      title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',
+      desc: 'The authors published the point sets behind ' + KW.atRequest.length + ' of ' + KW.rows + ' bounds at the audit’s request; every pair of ' + sci15(KW.pairs) + ' was then decided exactly.',
+      n: '“' + OUTSIDE.plain(qiushi.quote) + '”' },
+    { href: 'about/index.html#outside', k: 'outside re-derivations · ' + longDate(firstDate(externalReruns)) + ' – ' + longDate(lastDate(externalReruns)),
+      title: numword(rerunParties.length).replace(/^./, (c) => c.toUpperCase()) + ' outside replayers, ' + numword(externalReruns.length) + ' re-derivations, no disagreement',
+      desc: rerunsOwn + ' with their own code, ' + rerunsTools + ' with the tools that wrote the record; the same verdict on every row. ' + rerunParties.join(', ') + '.',
+      n: '“' + OUTSIDE.plain(peer.quote) + '” — ' + peer.who.replace(/,.*$/, '') },
+    { href: listing.url, k: 'listed · ' + longDate(listing.date),
+      title: OUTSIDE.cap(listing.who),
+      desc: listing.what,
+      n: '“' + OUTSIDE.plain(listing.quote) + '”' }
+  ]) + '<div class="col after-fig">' + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
+    + 'Nothing here has been peer-reviewed; the pages ship their own falsifiers rather than asking for trust.') + '</div>'
+}));
+
+B.push(C.section({
+  lab: 'the visual grammar', title: 'Every mark says what it rests on', wide: true,
+  bodyRaw: '<div class="col">' + C.pRaw('A line is solid only where an exact decision backs it, dashed where float arithmetic or a printed '
+      + 'number stands unverified, dotted where something other than the data chose it, and absent where the instrument '
+      + 'refused. A mark’s standing is the weakest one on its path to the pixel. Where a number rests on a model, it also '
+      + 'names its premises and how far each was checked:') + '</div>'
+    + W.legendHtml()
+    + '<div class="col">' + C.pRaw([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join(' · ')
+      + ' — a conclusion is as checked as its weakest premise (<a href="swell/">Swell</a> and <a href="janela/">Janela</a> show the chain; '
+      + 'the same arithmetic runs in the browser on <a href="instruments/index.html">the instruments</a>).') + '</div>'
+}));
+
+B.push(C.section({
+  lab: 'three lines of work', title: 'The audits are the work; the theorems are the calibration', wide: true,
   bodyRaw: C.cards([
     { href: 'reports/index.html#audits', k: seriesCount('audits') + ' reports', title: TITLES.SERIES.audits.title,
       desc: 'Releases, registries, manuscripts and announced records from AI systems and autonomous platforms, re-decided from their published bytes by programs that share no code with the claimant.',
-      n: 'leads: the optimization-constants registry, ' + numword(asterisksOff) + ' asterisks removed on our replays · the Qiushi Engine’s kissing bounds, credited by the claimants · OpenAI’s math release under two kernels' },
+      n: 'the optimization-constants registry · the Qiushi Engine’s kissing bounds · OpenAI’s math release under two kernels' },
     { href: 'reports/index.html#evaluation', k: seriesCount('evaluation') + ' reports', title: TITLES.SERIES.evaluation.title,
       desc: 'Graders measured against answers that are provably wrong, published answer keys re-decided step by step, and environments and benchmarks in which a certificate replaces the answer key.',
-      n: 'leads: METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
+      n: 'METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
     { href: 'reports/index.html#theorems', k: (seriesCount('theorems') + seriesCount('decisions')) + ' reports', title: 'Certified decisions: theorems, exact values, operations',
       desc: 'Results proved here in exact or interval arithmetic — the calibration of the instruments and some values that were not known — and operational numbers decided over declared envelopes for energy, maritime, aviation and ocean statistics.',
-      n: 'leads: δ₃ = 117/2192 · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
+      n: 'δ₃ = 117/2192 · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
   ])
 }));
 
@@ -986,56 +1041,38 @@ B.push(C.section({
   lab: 'the register', title: 'Decided recently', wide: true,
   bodyRaw: C.table({
     cols: [{ h: 'recorded' }, { h: 'claim' }, { h: 'claimant' }, { h: 'verdict' }],
-    rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '\u2011'),
+    rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '‑'),
       { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
       String(r.claimant).replace(/\s*\(.*$/, ''), r.verdict])
-  }) + '<div class="col after-fig">' + C.pRaw(fmt(claimsLedger.decided) + ' published claims decided since ' + registerSince + ', each with its verdict and the record that decided it. '
-    + 'The monthly registers: <a href="reports/decided-2026-09.html">September</a>, <a href="reports/decided-2026-10.html">October</a>. '
+  }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: <a href="reports/decided-2026-09.html">September</a>, <a href="reports/decided-2026-10.html">October</a>. '
     + '<a href="reports/refusals.html">What was refused, by kind.</a>') + '</div>'
-}));
-
-B.push(C.section({
-  lab: 'outside the building', title: 'What has come back',
-  bodyRaw: C.plainList([
-    ...outside.credits.filter((r) => r.landing).map((r) => ({ b: OUTSIDE.KINDS[r.kind] + ' — ' + longDate(r.date) + '.',
-      raw: C.esc(OUTSIDE.cap(r.who)) + ': ' + C.esc(r.what) + ' In their words: “' + C.esc(OUTSIDE.plain(r.quote)) + '” (<a href="' + C.escAttr(r.url) + '">the source</a>, pinned).' })),
-    ...externalReruns.map((r) => ({ b: RERUN_HEAD[r.kind] + ' — ' + longDate(r.date) + '.',
-      raw: C.esc(r.who) + ': ' + C.esc(r.what.split(';').slice(0, 2).join(';')) + '. Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' })),
-    { b: 'Data published at our request — from ' + longDate(KW.publishedOn) + '.',
-      raw: 'The Qiushi Engine (Oxelra-AI) released the point sets behind ' + KW.atRequest.length + ' of its ' + KW.rows + ' announced kissing bounds (dimensions ' + KW.ranges + ') after the audit asked for them; every bound was then witnessed, every pair decided '
-        + '(<a href="reports/kissing.html">the kissing page</a> · <a href="' + C.escAttr(KW.source) + '">the release</a>).' },
-    { b: 'Two announcements, one configuration.',
-      raw: 'EinsteinArena provided the vectors of its 604-point dimension-11 configuration on request; it is the Station 604 up to a ' + C.esc(cong604.isometry) + ', decided ' + C.esc(cong604.verdict) + ' (<a href="reports/kissing.html">the kissing page</a>).' },
-    ...(woett ? [{ b: 'Answered on the mathematics — ' + longDate(woett.sent) + '.', raw: 'Erdős #290: ' + C.esc(woett.note.split(/(?<=\.)\s+/).slice(0, 2).join(' ')) + ' (<a href="' + C.escAttr(woett.url) + '">the thread</a>).' }] : [])
-  ]) + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
-    + 'Nothing here has been peer-reviewed; the pages ship their own falsifiers rather than asking for trust.')
 }));
 
 B.push(C.section({
   lab: 'the method', title: 'How a verdict is made',
   bodyRaw: C.p('A claim is read as a predicate over a declared box of inputs and decided in exact rational arithmetic or in '
-      + 'outward-rounded interval arithmetic; the claimant’s program is never run in the trust path. The verdict is one '
-      + 'of three words — CERTIFIED, REFUTED with the falsifying object, REFUSED with the reason — and NEEDS DATA where '
-      + 'the claimant published no bytes. A red control, a deliberately wrong input, must be rejected before its check '
-      + 'counts, and the control build refuses on any red battery; every record is pinned by path and SHA-256. The '
-      + 'method paper describes the arithmetic, the certifiers and the discipline; the rerun kit gives the command that '
-      + 're-derives each record of the register (' + kitRederive + ' of ' + kitN + ' in one line, ' + kitVerifier + ' with a verifier in the '
-      + 'standard library alone).')
+      + 'outward-rounded interval arithmetic; the claimant’s program is never run in the trust path. A red control, a '
+      + 'deliberately wrong input, must be rejected before its check counts, and the control build refuses on any red '
+      + 'battery. The rerun kit gives the command that re-derives each record of the register (' + kitRederive + ' of ' + kitN
+      + ' in one line, ' + kitVerifier + ' with a verifier in the standard library alone).')
     + C.plainList([
-      { raw: '<a href="paper/cert-machine-method.pdf">The method paper</a> (' + C.esc(paperStatus) + '; not peer-reviewed) · <a href="papers/index.html">all papers</a>' },
       { raw: '<a href="machine/index.html">How a claim becomes a certificate</a> — the machine, its batteries and its errata' },
-      { raw: '<a href="reports/rerun.html">The rerun kit</a> · <a href="reports/refusals.html">refusals, by kind</a> · <a href="reports/methods-note.html">how the bugs were found</a>' },
-      { raw: '<a href="instruments/index.html">The instruments</a> — the same arithmetic, running in the browser' }
+      { raw: '<a href="reports/rerun.html">The rerun kit</a> · <a href="reports/refusals.html">refusals, by kind</a> · <a href="reports/methods-note.html">how the bugs were found</a>' }
     ])
 }));
 
 B.push(C.section({
-  lab: 'about', title: 'Who', id: 'about',
-  bodyRaw: C.p('Carlos Toledo, working alone, from Brazil. The mathematics, the design of every check and the decision about '
-      + 'what may be claimed are the author’s; the writing and much of the implementation are done with AI assistance under '
-      + 'the discipline above. Open to collaboration — an independent audit of a release or a registry, a benchmark '
-      + 'review, a certified decision product — and to roles in evaluation and verification. A conventional CV on request.')
-    + C.pRaw('<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> · <a href="about/index.html">About →</a> · <a href="' + GITHUB + '">GitHub</a> · <a href="https://doi.org/10.5281/zenodo.22225860">DOI</a>')
+  lab: 'documents', title: 'Documents and address', id: 'about',
+  bodyRaw: C.plainList([
+      { raw: '<a href="paper/cert-machine-method.pdf">The method paper</a> — ' + C.esc(paperStatus) + ', not peer-reviewed · <a href="papers/index.html">all papers</a>' },
+      { raw: '<a href="' + GITHUB + '">The repository</a> — MIT; every record pinned by path and SHA-256' },
+      { raw: '<a href="https://doi.org/10.5281/zenodo.22225860">The archive</a> — concept DOI 10.5281/zenodo.22225860' },
+      { raw: '<a href="reports/envs.html">Three verifier-soundness environments</a> on the Prime Intellect Hub' }
+    ])
+    + C.p('Carlos Toledo, independent, Brazil. The mathematics, the design of every check and the decision about what may '
+      + 'be claimed are the author’s; the writing and much of the implementation are done with AI assistance under the '
+      + 'discipline above.')
+    + C.pRaw('<a href="mailto:carlos@carlostoledo.co"><span class="m">carlos@carlostoledo.co</span></a> · <a href="about/index.html">About →</a>')
 }));
 
 const foot = '<p>Built from the records at git ' + git + ' by tools/build-site.js; a record that stops supporting a sentence refuses the page. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
