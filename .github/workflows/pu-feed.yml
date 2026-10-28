@@ -61,6 +61,11 @@ jobs:
         run: |
           node tools/run-pu-ledger.js
           node instruments/pu/battery.js
+      - name: poppler, for the papers index (tools/build-papers-index.js reads each PDF's page count with pdfinfo)
+        if: steps.feed.outputs.code == '0'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends poppler-utils
       - name: rebuild the page and the site
         if: steps.feed.outputs.code == '0'
         run: |

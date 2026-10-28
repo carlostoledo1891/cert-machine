@@ -22,6 +22,17 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-28 ~12:00 UTC — GITHUB, read on "New comments on github, maybe some troll profile". (1) frintroper ("TONE", repos
+     "lean-proof-that-rh-is-trivial", "…-n-eq-np") pasted one identical licence rant into eleven anthropics/formal-math
+     threads in five minutes, our #8 and #30 among them: a crank blast, not aimed at us — never reply; the sweep will count it
+     once on #8/#30. (2) maximusrufus answered on #246 (00:00 UTC): their 0c57070 adds the two certify scripts, regenerates
+     both float fields from the rationals and makes both checkers decide the printed digits. Checked here: one commit past
+     our pin b3728b85, the certificates differ only in the two float fields, 2.156224770644234 is the largest double ≤ L and
+     2.156225646551083 the smallest ≥ U, so certs/c16-replay.json covers their HEAD unchanged. A short thank-you is drafted
+     in chat, NOT posted (the operator's word). (3) pu-feed had failed every hour since 2026-10-27 19:41 UTC, the first
+     time Tesouro Direto rewrote its file since the 10-16 pin: the runner has no pdfinfo for the papers index, and behind
+     that the push allowlist would have refused site/machine/log.html, left stale by 02aca470. Fixed: poppler in the
+     workflow, the site resynced; the feed had never pushed a day from CI before.
   ★ 2026-10-28 ~09:00 UTC — WARRANT v2 ON THE LAST THIRTEEN INSTRUMENTS, on "Speed up the process, batch the instruments to
      the new visual grammar": four agents in worktrees (geometry: simplex, neural-geometry, answer-shape, exact-geometry ·
      affect, graph, rewire · verifiers: blind-spot, lattice-claims, pqc · science: contours, plates, navier-stokes), one brief
