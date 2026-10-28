@@ -965,6 +965,21 @@ if (!regQuote || !qiushi || !peer || !listing) fail('the landing quotes four out
 const rerunParties = [...new Set(externalReruns.map((r) => r.who.replace(/\s*\(.*$/, '')))];
 if (!externalReruns.every((r) => /same verdict|identical/.test(r.outcome))) fail('the landing says every outside re-derivation agreed; corpus/external-reruns.json holds a disagreement');
 const firstDate = (rows) => rows.map((r) => r.date).sort()[0], lastDate = (rows) => rows.map((r) => r.date).sort().slice(-1)[0];
+/* WHERE THE ASTERISKS CAME OFF (2026-10-28, the operator: "the link on the homepage '10 constants' are '5 constants' in
+   the report copy"). The landing's ten was right and its one link was not: reports/optimization-constants.html replays
+   the FIRST five asterisked bounds (three removed), and the other seven removals are on reports/optconst-queue.html. The
+   rounds are read from the pinned credits, each "N asterisks removed ... (pull request #P)", and their sum must equal the
+   snapshots' count or the page refuses. */
+const ASTER_WORD = { a: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10 };
+const asterRounds = outside.credits.filter((r) => r.kind === 'registry' && /asterisks? removed/i.test(r.what)).map((r) => {
+  const n = ASTER_WORD[(/^(\w+)/.exec(r.what) || [])[1].toLowerCase()], pr = (/pull request #(\d+)/.exec(r.what) || [])[1];
+  if (!n || !pr) fail('a registry credit names asterisks removed without a count word and a pull request: ' + r.what.slice(0, 80));
+  return { n, pr, date: r.date };
+}).sort((a, b) => a.date.localeCompare(b.date) || Number(a.pr) - Number(b.pr));
+if (asterRounds.reduce((a, r) => a + r.n, 0) !== asterisksOff)
+  fail('the registry credits remove ' + asterRounds.reduce((a, r) => a + r.n, 0) + ' asterisks; the snapshots count ' + asterisksOff);
+const asterNote = asterRounds.map((r) => r.n).join(' + ') + ' in ' + numword(asterRounds.length) + ' merged pull requests ('
+  + asterRounds.map((r) => '#' + r.pr).join(', ') + ')';
 
 const B = [];
 B.push(C.header({
@@ -982,7 +997,8 @@ B.push(C.stats([
   { k: 'machine-generated claims decided', v: fmt(claimsLedger.decided),
     nRaw: 'since ' + C.esc(registerSince) + ', each with its verdict and the record that decided it · <a href="certs/claims-ledger.json">the register</a>' },
   { k: 'asterisks removed from a registry', v: String(asterisksOff),
-    nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays, merged upstream and cited as [T2026] · <a href="reports/optimization-constants.html">the replays</a>' },
+    nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays: ' + asterNote + ', cited as [T2026] · '
+      + '<a href="reports/optimization-constants.html">the first round</a> · <a href="reports/optconst-queue.html">the later rounds</a>' },
   { k: 'provably wrong answers a tolerance grader admits', v: tolPct,
     nRaw: 'an absolute-tolerance grader; a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' }
 ]));
@@ -990,9 +1006,9 @@ B.push(C.stats([
 B.push(C.section({
   lab: 'outside the building', title: 'What has come back, in their words', wide: true, id: 'outside',
   bodyRaw: C.cards([
-    { href: 'reports/optimization-constants.html', k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
+    { href: 'about/index.html#outside', k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
       title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
-      desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
+      desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
       n: '“' + OUTSIDE.plain(regQuote.quote) + '”' },
     { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
       title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',

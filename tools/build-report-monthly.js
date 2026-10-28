@@ -36,7 +36,10 @@ const out = [];
 
 for (const m of months) {
   const rows = R.rows.filter((r) => r.recordedOn.slice(0, 7) === m).sort((a, b) => a.recordedOn.localeCompare(b.recordedOn) || a.id.localeCompare(b.id));
-  const before = R.rows.filter((r) => r.recordedOn.slice(0, 7) < m).length;
+  /* decided before the month, and the queued apart (2026-10-28: "87 claims were decided before October" counted the one
+     QUEUED row, so 87 + 45 read 132 against the landing's 131 decided) */
+  const earlier = R.rows.filter((r) => r.recordedOn.slice(0, 7) < m), before = earlier.filter((r) => r.verdict !== 'QUEUED').length,
+    queuedBefore = earlier.length - before;
   const running = m === thisMonth;
   const decided = rows.filter((r) => r.verdict !== 'QUEUED');
   const byV = count(decided, (r) => r.verdict), defects = decided.filter((r) => r.kind !== 'none'), byK = count(defects, (r) => r.kind);
@@ -50,7 +53,7 @@ for (const m of months) {
   }));
   B.push(C.scope((running ? 'The month is still running: this is ' + monthName(m) + ' as of ' + today + ' (git ' + git + '), and the page is rebuilt with every site build until the month closes. ' : 'The month is closed. ')
     + 'A row belongs to the month in which its deciding record first held it (the first commit, by git\'s pickaxe on the record). '
-    + fmt(before) + ' claims were decided before ' + monthName(m) + ' and are on the claims desk, not here.'));
+    + fmt(before) + ' claims were decided before ' + monthName(m) + (queuedBefore ? ' (and ' + queuedBefore + ' recorded then is still queued)' : '') + ' and are on the claims desk, not here.'));
   B.push(C.tldr({
     findingRaw: '<b>' + decided.length + ' published claims decided in ' + monthName(m) + '</b>: ' + words(byV) + '. '
       + (defects.length ? defects.length + ' of them name something that went wrong — ' + words(byK) + '; the other ' + (decided.length - defects.length) + ' hold as printed.' : 'Every one holds as printed.')
