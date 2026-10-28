@@ -10,6 +10,8 @@
    glyph has a shape (filled · crossed · hatched · dotted) and a word.
    apps/janela/app · cert-machine                                         MIT */
 'use strict';
+/* the one place a dash pattern is written down: a guide is design/grammar.js GUIDE, never a literal here */
+const G = require('../../../design/grammar.js');
 
 module.exports = () => `
 /* ---- Janela (apps/janela/app/style.js) ---- */
@@ -336,12 +338,14 @@ svg .ax{fill:var(--ink-4);font-family:var(--f-mono);font-size:var(--text-eyebrow
 svg .gl{stroke:var(--rule);stroke-width:1}
 svg .dl{stroke:var(--rule-strong);stroke-width:1}
 svg .band{fill:var(--band-fill);stroke:var(--ink);stroke-width:1.5;stroke-linejoin:round}
-svg .det{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 4}
+/* the forecast line is drawn by playground/warrant.js attrs(COMPUTED): its dash comes from grammar.js, never from here.
+   THE HALO (WARRANT rule 13): a band not validated where it is drawn keeps its edges and gains a blur, in ink */
+svg .halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:4;stroke-linejoin:round;opacity:.32}
 svg .ens{stroke:none}
 svg .hl{stroke:var(--ink-4);stroke-width:1}
 svg .swr{fill:none;stroke:var(--ink-5);stroke-width:1}
-svg .lim{stroke:var(--ink-2);stroke-width:1;stroke-dasharray:2 3}
-svg .opwf{stroke:var(--ink-4);stroke-width:1;stroke-dasharray:2 3}
+svg .lim{stroke:var(--ink-2);stroke-width:1;stroke-dasharray:${G.GUIDE}}
+svg .opwf{stroke:var(--ink-4);stroke-width:1;stroke-dasharray:${G.GUIDE}}
 svg .limt{fill:var(--ink-2);font-family:var(--f-mono);font-size:var(--text-eyebrow);paint-order:stroke;stroke:var(--surface);stroke-width:3}
 svg .opwft{fill:var(--ink-4);font-family:var(--f-mono);font-size:var(--text-eyebrow);paint-order:stroke;stroke:var(--surface);stroke-width:3}
 svg .win{fill:var(--band-fill);stroke:var(--rule-strong);stroke-width:1}
@@ -350,10 +354,16 @@ svg .arr{fill:none;stroke:var(--ink-3);stroke-width:1.2;stroke-linecap:round;str
 svg .arrw{fill:none;stroke:var(--ink-4);stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round}
 svg .w1{fill:var(--c-1)}
 svg .w2{fill:var(--c-3)}
-svg .w3{fill:var(--c-2);stroke:var(--ink);stroke-width:1;stroke-dasharray:1.5 2}
+/* the site alpha's bar: an EXTENT, so no dash (warrant.js extentAttrs): its standing, chosen, is said in the key */
+svg .w3{fill:var(--c-2)}
 svg .wv{fill:var(--ink-3);font-family:var(--f-mono);font-size:var(--text-eyebrow)}
 .jn-dir{display:grid;grid-template-columns:44px minmax(0,1fr);gap:var(--s-1) var(--s-2);align-items:center}
 .jn-dir .l{font-family:var(--f-mono);font-size:var(--jn-fs-xs);color:var(--ink-4);font-style:italic}
+/* the premise chain beside the certificate (WARRANT v2.1): the grammar's own .w-premises, held to the rail's measure */
+.jn-rests .w-premises li{grid-template-columns:6.5rem minmax(0,1fr);font-size:var(--jn-fs-s);line-height:var(--leading-snug)}
+.jn-rests .w-meet,#jn-m-rests .w-meet,#jn-trust .w-meet{font-size:var(--jn-fs-s);line-height:var(--leading-snug)}
+#jn-m-rests .w-premises li,#jn-trust .w-premises li{grid-template-columns:6.5rem minmax(0,1fr);font-size:var(--jn-fs-s);line-height:var(--leading-snug)}
+.jn-fig .w-legend,#jn-trust .w-legend{margin-top:var(--s-2);font-size:var(--jn-fs-xs)}
 .jn-note{border-left:2px solid var(--v-refd);padding:var(--s-1) var(--s-2);color:var(--ink-2);font-size:var(--jn-fs-s);line-height:var(--leading-snug)}
 .jn-note b{color:var(--ink)}
 

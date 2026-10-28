@@ -1,6 +1,8 @@
 /* figures.js — the Eleições 2026 page's own figures, the ones design/charts.js has no form for. Pure functions: numbers
    in, SVG out, every colour a token from design/tokens.js FIGURE_TOKENS and every mark carrying a word beside it (colour is
-   never the only channel). The house is monochrome on purpose here: no party colour appears anywhere on the page.
+   never the only channel). These figures are monochrome on purpose; the page's party tokens (build.js, --el-*) colour only
+   its maps and the dots of §7, always beside a word (this note used to say no party colour appeared anywhere on the page,
+   which the maps had made false).
 
      electorate(r1, r2)      the whole electorate of each round as one bar: Lula, Flávio, other candidates, blank and null,
                              abstention, as shares of the voters registered in the sections that functioned
@@ -12,6 +14,7 @@
 'use strict';
 const path = require('path');
 const C = require(path.join(__dirname, '..', '..', 'design', 'components.js'));
+const WR = require(path.join(__dirname, '..', '..', 'playground', 'warrant.js'));
 const esc = C.esc, escAttr = C.escAttr;
 const nBR = (x) => Number(x).toLocaleString('pt-BR');
 const pc = (x, d = 1) => (100 * x).toFixed(d).replace('.', ',');
@@ -180,7 +183,8 @@ function labelled({ pts, x0, x1, y0, y1, xTicks, yTicks, xLabel, yLabel, alt, fi
   for (const t of yTicks) { out.push('    <line x1="' + L + '" y1="' + py(t.v).toFixed(1) + '" x2="' + (W - R) + '" y2="' + py(t.v).toFixed(1) + '" stroke="var(--c-grid)" stroke-width="1"/>'); out.push(text(L - 9, py(t.v) + 4, t.t, 't-ax', 'end')); }
   for (const t of xTicks) out.push(text(px(t.v), H - Bm + 20, t.t, 't-ax', 'middle'));
   out.push('    <line x1="' + L + '" y1="' + (H - Bm) + '" x2="' + (W - R) + '" y2="' + (H - Bm) + '" stroke="var(--c-axis)" stroke-width="1"/>');
-  if (fit) out.push('    <path d="M' + px(fit[0][0]).toFixed(1) + ' ' + py(fit[0][1]).toFixed(1) + ' L' + px(fit[1][0]).toFixed(1) + ' ' + py(fit[1][1]).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1.5" stroke-dasharray="5 4" fill="none"/>');
+  /* a least-squares fit in floating point: computed, so its stroke is warrant.js's, never a dasharray written here */
+  if (fit) out.push('    <path d="M' + px(fit[0][0]).toFixed(1) + ' ' + py(fit[0][1]).toFixed(1) + ' L' + px(fit[1][0]).toFixed(1) + ' ' + py(fit[1][1]).toFixed(1) + '" ' + WR.attrs(WR.COMPUTED, { width: 1.5 }) + '/>');
   /* a label goes left of its dot when another dot sits just to its right on the same line */
   const crowded = (p) => pts.some((q) => q !== p && Math.abs(py(q.y) - py(p.y)) < 12 && px(q.x) - px(p.x) > 0 && px(q.x) - px(p.x) < 44);
   for (const p of pts) {

@@ -19,6 +19,11 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const { br } = require('./numbers.js');
 const PLACAR = require('./audit/placar.js');
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const G = require(path.join(ROOT, 'design', 'grammar.js'));
+/* the grammar's words in Portuguese, once (playground/warrant-pt.js): the legend and the premise ladder */
+const WP = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
+const legendPt = WP.legendHtml;
 
 const esc = C.esc;
 const REPO = 'https://github.com/carlostoledo1891/cert-machine';
@@ -40,8 +45,11 @@ function bundle() {
    lib(Q, D) — pure string builders, shared by the build and the tab.
    Self-contained on purpose: it is serialised into the page, so it may not
    reach for anything outside its own body. Q = q.js, D = decide.js.
+   K = the INK (WARRANT, design/WARRANT.md): the grammar's attribute strings and
+   value wrappers, made by playground/warrant.js in the build and carried to the
+   tab as data, so the crawler's grid and the reader's grid draw the same marks.
    ====================================================================== */
-function lib(Q, D) {
+function lib(Q, D, K) {
   var DOW = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
   var MON = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
   var VAR = { hs: 'Hs', wind_sustained: 'vento', wind_gust: 'rajada', current: 'corrente', visibility: 'visibilidade', tp: 'período',
@@ -61,6 +69,9 @@ function lib(Q, D) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
+  /* a value in text with its standing: a forecast or an estimate is computed, a count over a chosen alpha is chosen */
+  function cw(t) { return K.comp[0] + esc(t) + K.comp[1]; }
+  function chw(t) { return K.chosen[0] + esc(t) + K.chosen[1]; }
   function dc(s) { return String(s).replace('.', ','); }
   function p2(n) { return (n < 10 ? '0' : '') + n; }
   function grp(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
@@ -169,18 +180,18 @@ function lib(Q, D) {
     if (s.wind) dcd.push('vento [' + dc(s.wind.loDec) + '; ' + dc(s.wind.hiDec) + '] nós (' + s.wind.n + ' pares)');
     else if (s.windDetKn !== undefined) dcd.push('vento: recusada neste prazo');
     var fc = [];
-    if (s.hsDet !== undefined) fc.push('Hs ' + dc(s.hsDet) + ' m');
-    if (s.tp) fc.push('Tp ' + dc(s.tp) + ' s');
-    if (s.mwd) fc.push('de ' + s.mwd + '°');
-    if (s.windDetKn !== undefined) fc.push('vento ' + dc(s.windDetKn) + ' nós');
-    if (s.gustKn !== undefined && Number(s.gustKn) > 0) fc.push('rajada ' + dc(s.gustKn) + ' nós');
+    if (s.hsDet !== undefined) fc.push('Hs ' + cw(dc(s.hsDet) + ' m'));
+    if (s.tp) fc.push('Tp ' + cw(dc(s.tp) + ' s'));
+    if (s.mwd) fc.push('de ' + cw(s.mwd + '°'));
+    if (s.windDetKn !== undefined) fc.push('vento ' + cw(dc(s.windDetKn) + ' nós'));
+    if (s.gustKn !== undefined && Number(s.gustKn) > 0) fc.push('rajada ' + cw(dc(s.gustKn) + ' nós'));
     var vessel = op.limits.filter(function (l) { return !sea(l); });
     return '<div class="jn-ro-h">' + chip(r.verdict, true) + '<span class="jn-ro-t">' + esc(op.name) + ' · ' + esc(whenText(s.t))
       + ' · prazo +' + s.lead + ' h' + (s.past ? ' · antes da publicação' : '') + '</span></div>'
       + '<p class="jn-why">' + esc(why) + '</p>'
       + '<p class="jn-dc"><span class="jn-k">decidido sobre</span> faixa medida, reivindicação ' + esc(claim) + ': ' + esc(dcd.join(' · ') || 'nenhuma') + '</p>'
-      + '<p class="jn-fc"><span class="jn-k">previsto</span> ECMWF determinística: ' + esc(fc.join(' · ') || 'nada neste nó')
-      + (s.ens ? '. Ensemble, 40 centrais de 50: Hs ' + esc(dc(s.ens[0])) + ' a ' + esc(dc(s.ens[1])) + ' m' : '') + '.</p>'
+      + '<p class="jn-fc"><span class="jn-k">previsto</span> ECMWF determinística: ' + (fc.join(' · ') || 'nada neste nó')
+      + (s.ens ? '. Ensemble, 40 centrais de 50: Hs ' + cw(dc(s.ens[0])) + ' a ' + cw(dc(s.ens[1]) + ' m') : '') + '.</p>'
       + (vessel.length ? '<p class="jn-op"><span class="jn-k">do operador</span> ' + esc(vessel.map(limText).join(' · ')) + ': atributos do navio, conferidos por quem opera, nunca decididos aqui.</p>' : '');
   }
 
@@ -255,7 +266,12 @@ function lib(Q, D) {
     var alt = (isHs ? 'Hs' : 'Vento') + ' em ' + site.name + ', sete dias de 6 em 6 horas: a faixa medida, que se decide, contra a previsão determinística'
       + (isHs ? ' e o ensemble' : ' e a rajada') + ' do ECMWF' + (guides.length ? '; limites ' + guides.map(function (g) { return g.text; }).join(', ') : '') + '.';
     o.push('<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(alt) + '">');
-    o.push('<defs><pattern id="' + uid + '" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="jn-hl" x1="0" y1="0" x2="0" y2="6"/></pattern></defs>');
+    /* THE HALO (WARRANT rule 13): a band the satellites have not validated where it is drawn (the wind band anywhere; a
+       terminal's Hs band, borrowed from its open-sea neighbour) keeps its edges, on which the decision is made, and
+       gains a blur: its error there has no edge to draw */
+    var halo = isHs ? !!site.bandFrom : true;
+    o.push('<defs><pattern id="' + uid + '" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line class="jn-hl" x1="0" y1="0" x2="0" y2="6"/></pattern>'
+      + '<filter id="' + uid + '-b" x="-10%" y="-60%" width="120%" height="220%"><feGaussianBlur stdDeviation="3"/></filter></defs>');
     for (var t = 0; t <= top + 1e-9; t += tick) {
       o.push('<line class="jn-gl" x1="' + PL + '" y1="' + f1(y(t)) + '" x2="' + (W - PR) + '" y2="' + f1(y(t)) + '"/>');
       o.push('<text class="t-ax" x="' + (PL - 8) + '" y="' + f1(y(t) + 4) + '" text-anchor="end">' + dc(String(Math.round(t * 10) / 10)) + '</text>');
@@ -278,7 +294,7 @@ function lib(Q, D) {
       var up = r.map(function (i) { return f1(x(i)) + ',' + f1(y(+st[i].ens[1])); });
       var dn = r.slice().reverse().map(function (i) { return f1(x(i)) + ',' + f1(y(+st[i].ens[0])); });
       if (r.length === 1) return;
-      o.push('<polygon class="jn-ens" fill="url(#' + uid + ')" points="' + up.concat(dn).join(' ') + '"/>');
+      o.push('<polygon ' + K.ens + ' fill="url(#' + uid + ')" points="' + up.concat(dn).join(' ') + '"/>');
     });
     /* decided: the measured band (solid) */
     var has = isHs ? function (s) { return s.hs; } : function (s) { return s.wind; };
@@ -286,23 +302,26 @@ function lib(Q, D) {
       var b = function (i) { return isHs ? st[i].hs : st[i].wind; };
       if (r.length === 1) {
         var i0 = r[0];
-        o.push('<rect class="jn-band" x="' + f1(x(i0) - 3) + '" y="' + f1(y(+b(i0).hiDec)) + '" width="6" height="' + f1(Math.max(1, y(+b(i0).loDec) - y(+b(i0).hiDec))) + '"/>');
+        var one = 'x="' + f1(x(i0) - 3) + '" y="' + f1(y(+b(i0).hiDec)) + '" width="6" height="' + f1(Math.max(1, y(+b(i0).loDec) - y(+b(i0).hiDec))) + '"';
+        if (halo) o.push('<rect class="jn-halo" filter="url(#' + uid + '-b)" ' + one + '/>');
+        o.push('<rect ' + K.band + ' ' + one + '/>');
         return;
       }
       var up = r.map(function (i) { return f1(x(i)) + ',' + f1(y(+b(i).hiDec)); });
       var dn = r.slice().reverse().map(function (i) { return f1(x(i)) + ',' + f1(y(+b(i).loDec)); });
-      o.push('<polygon class="jn-band" points="' + up.concat(dn).join(' ') + '"/>');
+      if (halo) o.push('<polygon class="jn-halo" filter="url(#' + uid + '-b)" points="' + up.concat(dn).join(' ') + '"/>');
+      o.push('<polygon ' + K.band + ' points="' + up.concat(dn).join(' ') + '"/>');
     });
     /* forecast: the deterministic line (and the gust), dashed */
-    var line = function (get, cls) {
+    var line = function (get, ink) {
       runs(st, function (s) { return get(s) !== undefined; }).forEach(function (r) {
         if (r.length < 2) return;
-        o.push('<polyline class="' + cls + '" points="' + r.map(function (i) { return f1(x(i)) + ',' + f1(y(+get(st[i]))); }).join(' ') + '"/>');
+        o.push('<polyline ' + ink + ' points="' + r.map(function (i) { return f1(x(i)) + ',' + f1(y(+get(st[i]))); }).join(' ') + '"/>');
       });
     };
     /* the gust at step 0 is 0: ECMWF's gust is a maximum since the previous step, and step 0 has none */
-    if (!isHs) line(function (s) { return Number(s.gustKn) > 0 ? s.gustKn : undefined; }, 'jn-gust');
-    line(isHs ? function (s) { return s.hsDet; } : function (s) { return s.windDetKn; }, 'jn-det');
+    if (!isHs) line(function (s) { return Number(s.gustKn) > 0 ? s.gustKn : undefined; }, K.gust);
+    line(isHs ? function (s) { return s.hsDet; } : function (s) { return s.windDetKn; }, K.det);
     /* the limits, as guides, labels kept apart */
     /* each label sits just above its own line; when two lines are too close
        for two rows of text, the lower one's label joins the upper one's row,
@@ -318,15 +337,18 @@ function lib(Q, D) {
     o.push('</svg>');
     return o.join('');
   }
-  function stripKey(isHs, hasBand) {
+  function stripKey(isHs, hasBand, from) {
     var sw = function (inner) { return '<svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true">' + inner + '</svg>'; };
     var k = [];
-    k.push('<li>' + sw('<rect class="jn-band" x="1" y="2" width="26" height="8"/>') + '<span>faixa medida, o que se decide: '
+    k.push('<li>' + sw('<rect ' + K.band + ' x="1" y="2" width="26" height="8"/>') + '<span>faixa medida, o que se decide: '
       + (isHs ? 'a previsão × a razão observado/previsto medida no prazo' : 'a previsão ± o erro medido em m/s no prazo')
       + (hasBand ? '' : ' (recusada em todos os prazos desta rodada)') + '</span></li>');
-    k.push('<li class="jn-fck">' + sw('<line class="jn-det" x1="1" y1="6" x2="27" y2="6"/>') + '<span>previsão determinística ECMWF</span></li>');
-    if (isHs) k.push('<li class="jn-fck">' + sw('<rect class="jn-swr" x="1" y="2" width="26" height="8"/><line class="jn-hl" x1="4" y1="10" x2="10" y2="2"/><line class="jn-hl" x1="11" y1="10" x2="17" y2="2"/><line class="jn-hl" x1="18" y1="10" x2="24" y2="2"/>') + '<span>ensemble ECMWF, 40 centrais de 50</span></li>');
-    else k.push('<li class="jn-fck">' + sw('<line class="jn-gust" x1="1" y1="6" x2="27" y2="6"/>') + '<span>rajada, determinística</span></li>');
+    if (hasBand && (!isHs || from)) k.push('<li>' + sw('<defs><filter id="jn-kb-' + (isHs ? 'h' : 'w') + '" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="2"/></filter></defs>'
+      + '<rect class="jn-halo" filter="url(#jn-kb-' + (isHs ? 'h' : 'w') + ')" x="3" y="3" width="22" height="6"/><rect ' + K.band + ' x="3" y="3" width="22" height="6"/>')
+      + '<span>halo: ' + (isHs ? 'a faixa é a de ' + esc(from) + ', levada até aqui, e nada mediu o erro neste nó' : 'a faixa do vento não foi validada fora da calibração, aqui nem em lugar nenhum') + '</span></li>');
+    k.push('<li class="jn-fck">' + sw('<line ' + K.det + ' x1="1" y1="6" x2="27" y2="6"/>') + '<span>previsão determinística ECMWF, tracejada</span></li>');
+    if (isHs) k.push('<li class="jn-fck">' + sw('<rect ' + K.swr + ' x="1" y="2" width="26" height="8"/><line class="jn-hl" x1="4" y1="10" x2="10" y2="2"/><line class="jn-hl" x1="11" y1="10" x2="17" y2="2"/><line class="jn-hl" x1="18" y1="10" x2="24" y2="2"/>') + '<span>ensemble ECMWF, 40 centrais de 50</span></li>');
+    else k.push('<li class="jn-fck">' + sw('<line ' + K.gust + ' x1="1" y1="6" x2="27" y2="6"/>') + '<span>rajada, determinística, tracejada</span></li>');
     k.push('<li>' + sw('<line class="jn-lim" x1="1" y1="6" x2="27" y2="6"/>') + '<span>limite</span></li>');
     return '<ul class="jn-key">' + k.join('') + '</ul>';
   }
@@ -353,8 +375,8 @@ function lib(Q, D) {
       + '<div class="jn-ro" id="jn-ro" aria-live="polite">' + (r && s ? explain(r.op, r.steps[sel.i], s, ctx.claim)
         : '<p class="jn-why">Nenhuma operação com limite publicado neste local: decida o seu acima.</p>') + '</div>'
       + '<div class="jn-strips">'
-      + '<figure class="jn-fig"><div class="figbox">' + strip(site, 'hs', guidesFor(site, ops, custom, 'hs')) + '</div>' + stripKey(true, hasHs) + '</figure>'
-      + '<figure class="jn-fig"><div class="figbox">' + strip(site, 'wind', guidesFor(site, ops, custom, 'wind_sustained')) + '</div>' + stripKey(false, hasW) + '</figure>'
+      + '<figure class="jn-fig"><div class="figbox">' + strip(site, 'hs', guidesFor(site, ops, custom, 'hs')) + '</div>' + stripKey(true, hasHs, site.bandFrom ? site.bandFromName : null) + '</figure>'
+      + '<figure class="jn-fig"><div class="figbox">' + strip(site, 'wind', guidesFor(site, ops, custom, 'wind_sustained')) + '</div>' + stripKey(false, hasW, null) + K.legend + '</figure>'
       + '</div>';
   }
 
@@ -376,8 +398,8 @@ function lib(Q, D) {
       + gapPP(c.o[12], c.f[12]) + ' pontos, é o que o α da tabela custa se a previsão fosse perfeita. O mês que mais perde: ' + MON[worst]
       + ' (' + pct(c.o[worst][0], c.o[worst][1]) + ' → ' + pct(c.f[worst][0], c.f[worst][1]) + '). Espera média até a próxima janela: '
       + hrs(c.wo) + ' h → ' + hrs(c.wfw) + ' h.'
-      + (c.s ? ' Se o vistoriador adotasse o α do local, ' + dc(c.s.a) + ' (o limite inferior do intervalo de 90% da estimativa ' + dc(Number(c.s.pt).toFixed(3))
-        + '), o OPWF seria ' + dc(c.s.wf) + ' m e sobrariam <b>' + pct(c.s.c[12][0], c.s.c[12][1]) + '</b>, com espera média de ' + hrs(c.s.w) + ' h. O α do local é uma estimativa; a contagem sobre ele é exata.' : '');
+      + (c.s ? ' Se o vistoriador adotasse o α do local, ' + chw(dc(c.s.a)) + ' (o limite inferior do intervalo de 90% da estimativa ' + cw(dc(Number(c.s.pt).toFixed(3)))
+        + '), o OPWF seria ' + chw(dc(c.s.wf) + ' m') + ' e sobrariam <b>' + chw(pct(c.s.c[12][0], c.s.c[12][1])) + '</b>, com espera média de ' + chw(hrs(c.s.w) + ' h') + '. O α do local é uma estimativa e o seu limite inferior, uma escolha; a contagem sobre ele é exata.' : '');
   }
   /* the same operation, three ways: what the sea allows, what Table 4-1 leaves, what the
      site's alpha would leave. The third rests on an ESTIMATED alpha, so its card is dashed. */
@@ -391,7 +413,7 @@ function lib(Q, D) {
     return '<div class="jn-three">'
       + '<div><div class="jn-k">o mar permite</div><div class="big">' + pct(c.o[12][0], c.o[12][1]) + '</div><p>Hs ≤ ' + dc(lim) + ' m (OPLIM) a janela inteira de ' + tr + ' h</p></div>'
       + '<div><div class="jn-k">a Tabela 4-1 deixa</div><div class="big">' + pct(c.f[12][0], c.f[12][1]) + '</div><p>α ' + dc(c.ad) + ' → OPWF ' + dc(c.wf) + ' m</p></div>'
-      + '<div class="est"><div class="jn-k">o alfa do local deixaria</div><div class="big">' + pct(c.s.c[12][0], c.s.c[12][1]) + '</div><p>α ' + dc(c.s.a) + ' → OPWF ' + dc(c.s.wf) + ' m; α estimado, contagem exata</p></div>'
+      + '<div class="est"><div class="jn-k">o alfa do local deixaria</div><div class="big">' + chw(pct(c.s.c[12][0], c.s.c[12][1])) + '</div><p>α ' + chw(dc(c.s.a)) + ' → OPWF ' + dc(c.s.wf) + ' m; α escolhido no intervalo estimado, contagem exata</p></div>'
       + '</div>';
   }
   function workChart(name, lim, tr, c) {
@@ -411,7 +433,7 @@ function lib(Q, D) {
       (three ? [[c.o[m], 'jn-w1', cx - 1.5 * bw - 2], [c.f[m], 'jn-w2', cx - bw / 2], [c.s.c[m], 'jn-w3', cx + bw / 2 + 2]]
         : [[c.o[m], 'jn-w1', cx - bw - 1], [c.f[m], 'jn-w2', cx + 1]]).forEach(function (b) {
         var p = b[0][1] ? 100 * b[0][0] / b[0][1] : 0, top = y(p);
-        o.push('<rect class="' + b[1] + '" x="' + f1(b[2]) + '" y="' + f1(top) + '" width="' + f1(bw) + '" height="' + f1(Math.max(1, y(0) - top)) + '" rx="2"/>');
+        o.push('<rect ' + (b[1] === 'jn-w3' ? K.w3 : 'class="' + b[1] + '"') + ' x="' + f1(b[2]) + '" y="' + f1(top) + '" width="' + f1(bw) + '" height="' + f1(Math.max(1, y(0) - top)) + '" rx="2"/>');
         o.push('<text class="jn-wv" x="' + f1(b[2] + bw / 2) + '" y="' + f1(top - 5) + '" text-anchor="middle">' + Math.floor((b[0][0] * 200 + b[0][1]) / (2 * b[0][1] || 1)) + '</text>');
       });
       o.push('<text class="t-ax" x="' + f1(cx) + '" y="' + (H - PB + 18) + '" text-anchor="middle">' + MON[m] + '</text>');
@@ -423,15 +445,15 @@ function lib(Q, D) {
     return '<ul class="jn-key"><li><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w1" x="1" y="1" width="26" height="10" rx="2"/></svg><span>o mar permite: Hs ≤ '
       + dc(lim) + ' m (OPLIM) a janela inteira</span></li><li><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w2" x="1" y="1" width="26" height="10" rx="2"/></svg><span>com o α da tabela: Hs ≤ '
       + dc(c.wf) + ' m (OPWF)</span></li>'
-      + (c.s ? '<li class="jn-fck"><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect class="jn-w3" x="1" y="1" width="26" height="10" rx="2"/></svg><span>se o α do local fosse adotado: Hs ≤ '
-        + dc(c.s.wf) + ' m (α estimado)</span></li>' : '') + '</ul>';
+      + (c.s ? '<li class="jn-fck"><svg class="jn-sw" viewBox="0 0 28 12" aria-hidden="true"><rect ' + K.w3 + ' x="1" y="1" width="26" height="10" rx="2"/></svg><span>se o α do local fosse adotado: Hs ≤ '
+        + dc(c.s.wf) + ' m (escolhido: o limite inferior do α estimado; a contagem sobre ele é exata)</span></li>' : '') + '</ul>' + (c.s ? K.legendChosen : '');
   }
   function workTable(c) {
     var rowsH = '';
     for (var m = 0; m <= 12; m++) {
       rowsH += '<tr><td class="k">' + (m === 12 ? 'ano' : MON[m]) + '</td><td class="n">' + pct(c.o[m][0], c.o[m][1]) + '</td><td class="n">' + grp(c.o[m][0]) + ' / ' + grp(c.o[m][1])
         + '</td><td class="n">' + pct(c.f[m][0], c.f[m][1]) + '</td><td class="n">' + grp(c.f[m][0]) + ' / ' + grp(c.f[m][1]) + '</td><td class="n">' + gapPP(c.o[m], c.f[m]) + '</td>'
-        + (c.s ? '<td class="n">' + pct(c.s.c[m][0], c.s.c[m][1]) + '</td><td class="n">' + grp(c.s.c[m][0]) + ' / ' + grp(c.s.c[m][1]) + '</td>' : '') + '</tr>';
+        + (c.s ? '<td class="n">' + chw(pct(c.s.c[m][0], c.s.c[m][1])) + '</td><td class="n">' + grp(c.s.c[m][0]) + ' / ' + grp(c.s.c[m][1]) + '</td>' : '') + '</tr>';
     }
     return '<div class="tw"><table><thead><tr><th>mês</th><th>OPLIM</th><th>inícios com janela / determinados</th><th>OPWF da tabela</th><th>inícios com janela / determinados</th><th>custo do alfa (pontos)</th>'
       + (c.s ? '<th>OPWF do alfa local</th><th>inícios com janela / determinados</th>' : '') + '</tr></thead><tbody>'
@@ -441,7 +463,7 @@ function lib(Q, D) {
   return { esc: esc, dc: dc, when: when, whenText: whenText, limText: limText, chip: chip, glyph: glyph, short: short, kicker: kicker,
     decideStep: decideStep, same: same, customOp: customOp, rowsFor: rowsFor, defaultSel: defaultSel, explain: explain, grid: grid,
     guidesFor: guidesFor, strip: strip, panel: panel, pct: pct, workSentence: workSentence, workThree: workThree, workChart: workChart, workKey: workKey,
-    workTable: workTable, MEANS: MEANS, CLS: CLS, latlon: latlon };
+    workTable: workTable, MEANS: MEANS, CLS: CLS, latlon: latlon, cw: cw, chw: chw };
 }
 
 /* ======================================================================
@@ -460,8 +482,8 @@ function client(libFn) {
     return m.exports;
   }
   var Q = req('q.js'), D = req('decide.js');
-  var L = libFn(Q, D);
   var DATA = JSON.parse(document.getElementById('jn-data').textContent);
+  var L = libFn(Q, D, DATA.ink);
   var $ = function (id) { return document.getElementById(id); };
   var S = { site: DATA.def, custom: DATA.custom.slice(), sel: null, rows: null, ms: DATA.work.def.s, ml: DATA.work.def.l, mt: DATA.work.def.t };
   var siteOf = function (id) { for (var i = 0; i < DATA.sites.length; i++) if (DATA.sites[i].id === id) return DATA.sites[i]; return null; };
@@ -707,16 +729,16 @@ svg.jn-sw{width:28px;height:12px;flex:none}
 svg .jn-gl{stroke:var(--rule-strong);stroke-width:1}
 svg .jn-dl{stroke:var(--rule-strong);stroke-width:1}
 svg .jn-band{fill:var(--band-fill);stroke:var(--ink);stroke-width:1.5}
-svg .jn-det{fill:none;stroke:var(--ink-3);stroke-width:2;stroke-dasharray:5 4}
-svg .jn-gust{fill:none;stroke:var(--ink-4);stroke-width:1.2;stroke-dasharray:1.5 2}
+/* the forecast lines are drawn by playground/warrant.js attrs(COMPUTED); their dash comes from design/grammar.js */
+svg .jn-halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:5;stroke-linejoin:round;opacity:.3}
 svg .jn-ens{stroke:none}
 svg .jn-hl{stroke:var(--ink-4);stroke-width:1}
 svg .jn-swr{fill:none;stroke:var(--ink-5);stroke-width:1}
-svg .jn-lim{stroke:var(--ink-2);stroke-width:1.2;stroke-dasharray:2 3}
+svg .jn-lim{stroke:var(--ink-2);stroke-width:1.2;stroke-dasharray:${G.GUIDE}}
 svg .jn-limt{fill:var(--ink-2);font-size:var(--text-small);paint-order:stroke;stroke:var(--sunk);stroke-width:4}
 svg .jn-w1{fill:var(--c-1)}
 svg .jn-w2{fill:var(--c-3)}
-svg .jn-w3{fill:var(--c-2);stroke:var(--ink);stroke-width:1;stroke-dasharray:1.5 2}
+svg .jn-w3{fill:var(--c-2)}
 .jn-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s-4);margin:0 0 var(--s-5)}
 @media (max-width:700px){.jn-three{grid-template-columns:minmax(0,1fr)}}
 .jn-three > div{background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-m);padding:var(--s-4) var(--s-5);display:flex;flex-direction:column;gap:var(--s-1)}
@@ -753,11 +775,76 @@ svg .jn-wv{fill:var(--ink-3);font-size:var(--text-eyebrow)}
 `;
 }
 
+/* ======================================================================
+   WHAT EACH NUMBER RESTS ON (WARRANT v2.1, design/WARRANT.md rules 11-12).
+   The verdicts are exact arithmetic; they are exact OVER premises, and each
+   premise was checked to a different rung of the verification-and-validation
+   ladder (Roache 1998; Oberkampf & Roy 2010; ASME V&V 20). Every grade below is
+   read by numbers.js premises() from the record that earns it, and the build
+   refuses when a record stops saying what the grade needs. A grade is where the
+   checking stopped, never a probability.
+   ====================================================================== */
+function restsSection(N, L, sec, borrowKm) {
+  const P = N.premises, H = P.heldOut.main, A = P.alpha, Hc = P.hindcast, D = N.ledger.decisions;
+  const GW = WP.GRADE, GG = WP.GRADE_GLOSS;
+  const fl = (txt, rec) => W.value(txt, W.COMPUTED, { title: 'computado: avaliação em ponto flutuante (' + rec + ')' });
+  const pc = (x, k, rec) => fl(L.dc((100 * x).toFixed(k)) + '%', rec);
+  const mm = (iso) => iso.slice(5, 7) + '/' + iso.slice(0, 4);
+  const chain = (items, meetLine) => W.premisesHtml(items, { words: GW, gloss: GG, meetLine });
+  const weakest = (items) => GW[W.weakest(...items.map((x) => x.grade))];
+  const fwd = (crit) => {
+    const b = D && D.graded && D.byCrit && D.byCrit[crit];
+    return b ? ' Para a frente: desde ' + br.date(D.days[0]) + ', das LIBERADA deste critério que um satélite viu nos locais de mar aberto, ' + br.int(b.L.held) + ' mantiveram e ' + br.int(b.L.broke) + ' romperam (só a Hs; contagem descritiva, as janelas de um dia se sobrepõem).' : '';
+  };
+  const U = H.opt['U(E,N)'];
+  const hsBand = { grade: W.VALIDATED, label: 'A faixa de Hs, nos locais medidos', evidence: 'calibrada antes de ' + mm(H.split) + ' e julgada em ' + H.months + ' meses que não viu: a união ECMWF ∪ NOAA cobriu '
+    + pc(U.coverage, 1, H.file) + ' de ' + br.int(H.test) + ' passagens de satélite (promete 9 em 10); das LIBERADA com Hs ≤ 2 m, o mar rompeu ' + pc(U.broke / U.liberada, 2, H.file)
+    + ' (' + br.int(U.broke) + ' de ' + br.int(U.liberada) + ').'
+    + Object.entries(P.heldOut).filter(([k]) => k !== 'main').map(([k, R]) => ' Em ' + esc(k === 'sergipe' ? 'Sergipe-Alagoas' : k) + ', julgada à parte (' + br.int(R.test) + ' passagens): a união cobriu '
+      + pc(R.opt['U(E,N)'].coverage, 1, R.file) + '; a faixa do ECMWF sozinha, ' + pc(R.opt.E.coverage, 1, R.file) + (R.opt.E.coverage < 0.9 ? ', abaixo do que promete' : '') + '.').join('') };
+  const windBand = { grade: W.ASSUMED, label: 'A faixa do vento', evidence: 'medida nos mesmos ' + br.int(P.wind.rows) + ' pares (o vento do altímetro); promete 9 em 10 por teorema, se o próximo erro se parecer com os do arquivo. Isso não foi testado fora da calibração: o placar e a conferência das decisões só olham a Hs.' };
+  const hsShort = { grade: W.VALIDATED, label: 'A faixa de Hs, no local medido de onde vem', evidence: 'a mesma faixa validada acima, nos locais medidos.' };
+  const carried = { grade: W.ASSUMED, label: 'A faixa levada a uma unidade ou a um terminal', evidence: 'cada unidade usa a faixa e o α do local medido mais perto, a até ' + borrowKm + ' km; um terminal, a do seu vizinho de mar aberto. Supõe-se que o erro da previsão lá vale aqui; nada o mediu no nó da unidade, e um altímetro não enxerga dentro de uma baía.' };
+  const sum = (k) => Object.values(A.bySite).reduce((a, s) => a + s[k], 0);
+  const t41 = { grade: W.ASSUMED, label: 'O α da Tabela 4-1 (DNV-OS-H101)', evidence: 'adotado da DNV, calibrado no Mar do Norte; a cauda de 1 em ' + br.int(A.oneIn) + ' por trás dele é extrapolada: três anos de satélite não a observam. Nos pares daqui, o intervalo de 90% do α estimado fica acima do da tabela em '
+    + sum('above') + ' de ' + sum('est') + ' células estimadas e abaixo em ' + sum('below') + ': a tabela é conservadora na maior parte, se o modelo gaussiano da cauda valer.' };
+  const t46 = { grade: W.ASSUMED, label: 'O α do vento (Tabela 4-6)', evidence: 'adotado da DNV; não refeito aqui.' };
+  const method = { grade: W.VERIFIED, label: 'O método do α do local', evidence: 'refaz a Tabela 4-1 da DNV em ' + A.within + ' de ' + A.of + ' células (±' + L.dc(A.tol) + ') antes de olhar para o Brasil; não refaz '
+    + A.missed.map((m) => 'Hs ' + L.dc(String(m.hs)) + ' m com TPOP ' + m.T + ' h').join(', ') + '.' };
+  const est = { grade: W.ASSUMED, label: 'O α estimado em cada local', evidence: 'de três anos de pares previsão × satélite, em ponto flutuante (reamostragem por dia, intervalo de 90%); decide-se com o limite inferior, arredondado para baixo, uma escolha por cautela. A mesma cauda de 1 em ' + br.int(A.oneIn) + ', extrapolada.' };
+  const rnd = (x, up) => { const v = up ? Math.ceil(x * 100 - 1e-9) / 100 : Math.floor(x * 100 + 1e-9) / 100; return (v > 0 ? '+' : v < 0 ? '−' : '') + L.dc(Math.abs(v).toFixed(2)); };
+  const at = Object.values(Hc.buoysAt).filter((b) => b.length).length, nodes = Object.keys(Hc.buoysAt).length;
+  const hind = { grade: at === nodes ? W.VALIDATED : W.ASSUMED, label: 'O hindcast (Ifremer WAVEWATCH III) nos ' + nodes + ' nós das áreas',
+    evidence: (at ? at + ' dos ' + nodes + ' nós têm boia. ' : 'Nenhuma boia num nó das áreas. ') + 'Conferido contra ' + Hc.deployments + ' implantações das boias da Marinha (PNBOIA, ' + Hc.from + '–' + Hc.to + ') em ' + Hc.nodes + ' outros nós da margem, '
+      + br.int(Hc.pairs) + ' pares: viés de ' + rnd(Hc.bias[0], false) + ' a ' + rnd(Hc.bias[1], true) + ' m, RMS de ' + L.dc((Math.floor(Hc.rms[0] * 100 + 1e-9) / 100).toFixed(2)) + ' a ' + L.dc((Math.ceil(Hc.rms[1] * 100 - 1e-9) / 100).toFixed(2))
+      + ' m; Hs ≤ 2 m em ' + pc(Hc.le2.buoy / Hc.le2.n, 1, 'certs/janela-pnboia-check.json') + ' do tempo nas boias e em ' + pc(Hc.le2.hind / Hc.le2.n, 1, 'certs/janela-pnboia-check.json') + ' no hindcast (certs/janela-pnboia-check.json).' };
+  const cur = { grade: W.ASSUMED, label: 'A corrente (Copernicus Marine, 1/12°)', evidence: 'mostrada, nunca decidida. A verdade contra a qual será conferida (GlobCurrent, regra current-truth-v1, fixada em ' + br.date(P.currents.since) + ') está sendo juntada; nenhuma comparação registrada ainda.' };
+  const block = (h, items, meet) => '<h3>' + esc(h) + '</h3>' + chain(items, meet);
+  return '<section id="premissas"><div class="col sec-head"><div class="lab">' + sec + ' · em que cada número se apoia</div><h2>A conta é exata; as premissas foram conferidas até degraus diferentes, e a decisão vale o da mais fraca.</h2></div>'
+    + '<div class="col">' + C.pRaw('Cada premissa tem um degrau, da escada de verificação e validação da modelagem (Roache 1998; Oberkampf e Roy 2010; ASME V&V 20): <b>validado</b>, conferido contra o próprio mar, guardado fora da calibração; <b>comparado</b>, contra um modelo que guarda mais da física; <b>verificado</b>, o código contra uma solução de referência das próprias equações; <b>suposto</b>, adotado de uma fonte ou escolhido. O degrau é onde a conferência parou, nunca uma probabilidade.')
+    + block('Pela faixa medida, num local medido', [hsBand, windBand], 'Com limite só de Hs, a premissa mais fraca fica no degrau <b>' + weakest([hsBand]) + '</b>; com limite de vento, no degrau <b>' + weakest([hsBand, windBand]) + '</b>.' + fwd('band'))
+    + block('Numa unidade de produção ou num terminal', [hsShort, carried], 'A premissa mais fraca fica no degrau <b>' + weakest([hsShort, carried]) + '</b>: no gráfico, a faixa levada tem halo.')
+    + block('Pela Tabela 4-1 da DNV', [t41, t46], 'A premissa mais fraca fica no degrau <b>' + weakest([t41, t46]) + '</b>.' + fwd('table'))
+    + block('Pelo α do local', [method, est, t46], 'A premissa mais fraca fica no degrau <b>' + weakest([method, est, t46]) + '</b>.' + fwd('site'))
+    + block('O mês e a campanha', [hind, t41], 'Cada contagem é exata sobre o hindcast; a premissa mais fraca fica no degrau <b>' + weakest([hind, t41]) + '</b>: o mar passado é o de um modelo' + (at === nodes ? '.' : ', e nenhuma boia o conferiu nos nós das áreas.'))
+    + block('O que é mostrado e nunca decidido', [cur], null)
+    + '</div></section>';
+}
+
 /* ================================================================ build */
 function build(N, B, git, battery) {
   const D = require(path.join(ROOT, 'instruments', 'window', 'decide.js'));
   const Q = require(path.join(ROOT, 'instruments', 'window', 'q.js'));
-  const L = lib(Q, D);
+  /* THE INK (WARRANT, design/WARRANT.md): the grammar's strokes and voices, from playground/warrant.js and nowhere else;
+     lib() draws with them here and in the reader's tab (data.ink), so the two grids are one design */
+  const ext = (s, cls, w) => W.extentAttrs(s, { width: w }).replace(/class="([^"]+)"/, 'class="$1 ' + cls + '"').replace(' fill="none"', '');
+  const voice = (s, title) => W.value('\u0000', s, { title }).split('\u0000');
+  const INK = { det: W.attrs(W.COMPUTED, { width: 2 }), gust: W.attrs(W.COMPUTED, { width: 1.2 }) + ' opacity="' + G.IDENTITY[1].opacity + '"',
+    band: ext(W.DECIDED, 'jn-band', 1.5), ens: ext(W.COMPUTED, 'jn-ens', 1), swr: ext(W.COMPUTED, 'jn-swr', 1), w3: ext(W.CHOSEN, 'jn-w3', 1),
+    comp: voice(W.COMPUTED, 'computado: previsão ou estimativa em ponto flutuante; nada o decidiu'),
+    chosen: voice(W.CHOSEN, 'escolhido: contado exatamente sobre o α do local no limite inferior do seu intervalo de 90%, um membro do intervalo escolhido por cautela'),
+    legend: legendPt({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }), legendChosen: legendPt({ compact: true, exclude: [W.COMPUTED, W.REFUSED] }) };
+  const L = lib(Q, D, INK);
   const out = [];
   const claim = (() => { const [a, b] = String(N.bands.miss).split('/').map(Number); return (b - a) + '/' + b; })();
   const groupOf = {};
@@ -899,7 +986,7 @@ function build(N, B, git, battery) {
     const HS = [...new Set([].concat(...sitesA.map((sid) => A.sites[sid].cells.map((c) => c.designHs))))].sort((a, b) => a - b);
     const cellOf = (s, h, t) => s.cells.find((c) => c.designHs === h && c.TPOP === t);
     const cellRaw = (c) => (c && c.verdict === 'ESTIMATED'
-      ? '<span class="jn-a">' + f2(c.alpha) + '</span><span class="jn-ai">' + f2(c.ci90[0]) + '–' + f2(c.ci90[1]) + '</span><span class="jn-ar">tabela ' + f2(c.dnv['4-1']) + ' · ' + READ(c) + '</span>'
+      ? '<span class="jn-a">' + L.cw(f2(c.alpha)) + '</span><span class="jn-ai">' + L.cw(L.dc(Q.dec(Q.parse(String(c.ci90[0])), 2, 'down')) + '–' + L.dc(Q.dec(Q.parse(String(c.ci90[1])), 2, 'up'))) + '</span><span class="jn-ar">tabela ' + f2(c.dnv['4-1']) + ' · ' + READ(c) + '</span>'
       : '<span class="jn-ar">' + br.int(c ? c.n : 0) + ' pares</span>');
     const hsLab = (h, i) => (i === HS.length - 1 ? '≥' + NB : '') + L.dc(String(h)) + NB + 'm';
     /* the headline: every site at the one design Hs the archive fills, side by side */
@@ -935,12 +1022,12 @@ function build(N, B, git, battery) {
     for (const [sid, ws] of Object.entries(N.work.sites)) for (const [k, c] of Object.entries(ws.cells)) {
       if (!c.s) continue;
       const m = /^([\d.]+)m\/(\d+)h$/.exec(k);
-      wrows.push([L.short(ws.name), L.dc(m[1]) + NB + 'm · ' + m[2] + NB + 'h', pctOf(c.o[12]), pctOf(c.f[12]) + ' (α ' + L.dc(c.ad) + ')', { raw: '<em>' + esc(pctOf(c.s.c[12]) + ' (α ' + L.dc(c.s.a) + ')') + '</em>' }]);
+      wrows.push([L.short(ws.name), L.dc(m[1]) + NB + 'm · ' + m[2] + NB + 'h', pctOf(c.o[12]), pctOf(c.f[12]) + ' (α ' + L.dc(c.ad) + ')', { raw: L.chw(pctOf(c.s.c[12]) + ' (α ' + L.dc(c.s.a) + ')') }]);
     }
     out.push('<section id="alfa"><div class="col sec-head"><div class="lab">' + sec + ' · o alfa do local</div><h2>O α que os satélites medem aqui, ao lado do α da tabela do Mar do Norte.</h2></div>'
-      + '<div class="col">' + C.pRaw('O α da DNV encolhe o limite da previsão (OPWF = α × OPLIM) para cobrir o erro da previsão. A tabela foi calibrada no Mar do Norte; aqui o mesmo método é aplicado aos pares ECMWF × altímetro de cada local. <b>O método reproduz a Tabela 4-1 da DNV em ' + A.calibration.within + ' de ' + A.calibration.of + ' células</b> (±0,02) antes de olhar para o Brasil.')
-      + C.note({ lab: 'o que isto é, e o que não é', bodyRaw: C.p('O α do local é uma estimativa estatística (ponto flutuante, reamostragem por dia, intervalo de 90%), não um intervalo decidido; as contagens ao lado dele são exatas. A cauda de 1 em 10.000 por trás do α é extrapolação de modelo: três anos de satélite não a observam. É evidência para o vistoriador refazer, nunca uma aprovação.') })
-      + C.p('Em cada célula: o α do local, o intervalo de 90% e o α da Tabela 4-1. “acima”: o intervalo inteiro fica acima da tabela, e a tabela do Mar do Norte é conservadora aqui; “abaixo”: a tabela não é conservadora aqui; “contém”: não se distingue da tabela. Abaixo de ' + (minPairs || '—') + ' pares, a célula diz só quantos pares há.')
+      + '<div class="col">' + C.pRaw('O α da DNV encolhe o limite da previsão (OPWF = α × OPLIM) para cobrir o erro da previsão. A tabela foi calibrada no Mar do Norte; aqui o mesmo método é aplicado aos pares ECMWF × altímetro de cada local. <b>O método reproduz a Tabela 4-1 da DNV em ' + N.premises.alpha.within + ' de ' + N.premises.alpha.of + ' células</b> (±' + L.dc(N.premises.alpha.tol) + ') antes de olhar para o Brasil.')
+      + C.note({ lab: 'o que isto é, e o que não é', bodyRaw: C.p('O α do local é uma estimativa estatística (ponto flutuante, reamostragem por dia, intervalo de 90%), não um intervalo decidido; as contagens ao lado dele são exatas. A cauda de 1 em ' + br.int(N.premises.alpha.oneIn) + ' por trás do α é extrapolação de modelo: três anos de satélite não a observam. É evidência para o vistoriador refazer, nunca uma aprovação.') })
+      + C.p('Em cada célula: o α do local, o intervalo de 90% (arredondado para fora) e o α da Tabela 4-1. “acima”: o intervalo inteiro fica acima da tabela, e a tabela do Mar do Norte é conservadora aqui; “abaixo”: a tabela não é conservadora aqui; “contém”: não se distingue da tabela. Abaixo de ' + (minPairs || '—') + ' pares, a célula diz só quantos pares há.')
       + '</div><div class="jn-at">' + cross + '</div>'
       + (wrows.length ? '<div class="col">' + C.pRaw('<b>O que isso muda no mês.</b> A mesma contagem exata de “O mês”, refeita com o α do local no lugar do α da tabela: o limite inferior do intervalo de 90%, arredondado para baixo a 0,01, para não ganhar janela com a parte otimista da estimativa. É o que sobraria se o vistoriador adotasse o α do local.') + '</div>'
         + C.table({ cols: [{ h: 'área' }, { h: 'OPLIM · TR' }, { h: 'o mar permite', cls: 'n' }, { h: 'a Tabela 4-1 deixa', cls: 'n' }, { h: 'o alfa do local deixaria', cls: 'n' }], rows: wrows }) : '')
@@ -965,6 +1052,12 @@ function build(N, B, git, battery) {
       + '</div></section>');
   sec++;
 
+  /* ---- what each number rests on (WARRANT v2.1, models as premises) ---- */
+  const borrowKm = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'janela', 'scenario', 'platforms.json'), 'utf8')).borrowKm;
+  if (!(borrowKm > 0)) throw new Error('janela page: apps/janela/scenario/platforms.json lost borrowKm');
+  out.push(restsSection(N, L, sec, borrowKm));
+  sec++;
+
   /* ---- why trust it ---- */
   const srcRows = [
     ['Previsão ECMWF aberta, 00 UTC: IFS 0,25°, ondas e ensemble de ondas (50 membros)', 'CC BY 4.0', 'a previsão do dia', { raw: C.m(N.feed.file) + ' <span class="jn-pin">sha256 ' + esc(N.feed.sha.slice(0, 16)) + '… do JSON; ' + N.feed.groups + ' arquivos GRIB, cada um com o seu sha256</span>' }],
@@ -982,11 +1075,21 @@ function build(N, B, git, battery) {
   ];
   const boundaries = [
     { b: 'O nó, não o berço.', text: 'A previsão é a do ECMWF, lida no nó de mar aberto mais próximo. Num terminal, é a aproximação: um limite de onda no berço fica SEM DADOS até existir a transferência para dentro da baía.' },
-    { b: 'A faixa é uma reivindicação.', text: 'Hoje, o ensemble do ECMWF (40 centrais de 50), o da NOAA (WAVEWATCH III, 25 centrais de 31) e as faixas medidas da Janela sobre cada provedor; todas avaliadas em público contra os mesmos satélites, e o proponente que erra a própria reivindicação é podado pela regra binomial exata. Um ensemble bruto é mostrado e avaliado, nunca decidido. Onde há as duas faixas medidas, decide-se a união, conferida como ela mesma: em 15 meses que nenhuma faixa viu, as LIBERADA da união romperam 0,33% das vezes (Hs ≤ 2 m), contra 1,10% da faixa do ECMWF sozinha e 0,72% dela alargada até a mesma cobertura (certs/janela-providers-eval.json).' },
+    { b: 'A faixa é uma reivindicação.', text: 'Hoje, o ensemble do ECMWF (40 centrais de 50), o da NOAA (WAVEWATCH III, 25 centrais de 31) e as faixas medidas da Janela sobre cada provedor; todas avaliadas em público contra os mesmos satélites, e o proponente que erra a própria reivindicação é podado pela regra binomial exata. Um ensemble bruto é mostrado e avaliado, nunca decidido. Onde há as duas faixas medidas, decide-se a união, conferida como ela mesma.', raw: '' },
     { b: 'Os passos da previsão.', text: 'Decide-se a faixa nos passos da própria previsão: não o mar entre passos, não uma probabilidade.' },
     { b: 'A cauda do α.', text: 'A cauda de 1 em 10.000 por trás do α da DNV é extrapolação de modelo; três anos de pares com satélite não a observam.' },
     { b: 'Não é aprovação.', text: 'Garantia marítima e sociedades classificadoras são donas dessa palavra. A Janela entrega evidência que um vistoriador refaz.' }
   ];
+  {
+    /* the union's held-out record, read and gated (it used to be typed: 0,33% · 1,10% · 0,72% · 15 meses) */
+    const H = N.premises.heldOut.main, U = H.opt['U(E,N)'], E = H.opt.E, Wd = H.wide;
+    const pcv = (a, b) => W.value(L.dc((100 * a / b).toFixed(2)) + '%', W.COMPUTED, { title: 'computado: avaliação em ponto flutuante (' + H.file + ')' });
+    const bq = boundaries.find((x) => x.b === 'A faixa é uma reivindicação.');
+    if (!bq) throw new Error('janela page: the boundary on the band\'s claim is gone');
+    bq.raw = esc(bq.text) + ' Em ' + H.months + ' meses que nenhuma faixa viu, as LIBERADA da união romperam ' + pcv(U.broke, U.liberada) + ' das vezes (Hs ≤ 2 m), contra '
+      + pcv(E.broke, E.liberada) + ' da faixa do ECMWF sozinha e ' + pcv(Wd.broke, Wd.liberada) + ' dela alargada até cobrir ' + W.value(L.dc((100 * Wd.coverage).toFixed(1)) + '%', W.COMPUTED, { title: 'computado: avaliação em ponto flutuante' })
+      + ' (' + C.m(H.file) + ').';
+  }
   const ruleBlocks = N.ops.map((o) => '<div class="jn-rule" id="regra-' + esc(o.id) + '"><h3>' + esc(o.name) + '</h3>'
     + '<p>' + esc(o.source.title) + '. ' + esc(o.source.act) + '.</p>'
     + C.quote({ text: o.quote, cite: o.page })
@@ -1000,7 +1103,7 @@ function build(N, B, git, battery) {
     + '<div class="col">'
     + C.pRaw('<b>Aritmética exata.</b> Toda comparação é feita em racionais exatos, inteiros sem arredondamento: a previsão sai dos inteiros empacotados do GRIB (valor = (R + X·2<sup>E</sup>)/10<sup>D</sup>), o vento em nós por 1 nó = 463/900 m/s, os limites como impressos, com a vírgula virada ponto. Nenhum ponto flutuante decide. A borda é exata: uma borda de exatamente 2,0 contra “&lt; 2,0” é INDEFINIDA, nunca LIBERADA.')
     + C.pRaw('<b>A faixa medida.</b> Hs: a previsão determinística × o intervalo exato da razão observado/previsto nos pares satélite × previsão do local e do prazo (blocos de ' + N.bands.binHours + ' h). Vento: a previsão ± o erro medido em m/s no prazo (observado − previsto), com piso em zero. Cada faixa reivindica cobertura de ' + claim + ', um teorema de contagem sob a hipótese de que o próximo erro se parece com os ' + br.int(N.bands.rows) + ' pares do arquivo no mesmo local e prazo; o placar audita essa hipótese em público.')
-    + C.pRaw('<b>No app, a faixa arredondada para fora.</b> O app (<a href="/janela/">/janela/</a>) publica as faixas de cada local e de cada unidade de produção em decimais curtos, arredondados PARA FORA: Hs a 0,001 m e vento a 0,01 nó, a borda inferior para baixo e a superior para cima; a previsão determinística vai como o intervalo de 1 mm que a contém. Sobre uma faixa mais larga, um LIBERADA ou um VETADA continua valendo sobre a exata; só INDEFINIDA pode crescer. O build confere isso contra as decisões exatas desta página a cada dia e recusa se falhar. As unidades emprestam a faixa e o α do local medido mais perto, a até 350 km; mais longe, dizem SEM DADOS.')
+    + C.pRaw('<b>No app, a faixa arredondada para fora.</b> O app (<a href="/janela/">/janela/</a>) publica as faixas de cada local e de cada unidade de produção em decimais curtos, arredondados PARA FORA: Hs a 0,001 m e vento a 0,01 nó, a borda inferior para baixo e a superior para cima; a previsão determinística vai como o intervalo de 1 mm que a contém. Sobre uma faixa mais larga, um LIBERADA ou um VETADA continua valendo sobre a exata; só INDEFINIDA pode crescer. O build confere isso contra as decisões exatas desta página a cada dia e recusa se falhar. As unidades emprestam a faixa e o α do local medido mais perto, a até ' + borrowKm + ' km; mais longe, dizem SEM DADOS.')
     + C.pRaw('<b>A mesma conta, na sua aba.</b> A grade acima é decidida de novo no seu navegador pelos mesmos módulos que geraram o registro: ' + N.mods.map((m) => C.m(m.rel) + ' <span class="jn-pin">sha256 ' + esc(m.sha) + '</span>').join(' · ') + '. <span id="jn-sha" class="jn-pin">Com scripts desligados, a grade mostra o registro publicado.</span>')
     + C.pRaw('<b>A bateria.</b> ' + esc(battery.checks + ' verificações e ' + battery.reds + ' controles vermelhos a cada build') + ' — limites inclusivos e estritos na borda exata, a testemunha de um VETADA, o limiar de um INDEFINIDA, e recusas para unidade trocada, número em ponto flutuante, variável desconhecida e janela vazia.')
     + '<h3>Os limites honestos</h3>' + C.plainList(boundaries)
@@ -1017,7 +1120,7 @@ function build(N, B, git, battery) {
     + C.code('node instruments/window/battery.js\nnode apps/janela/battery.js\nnode apps/janela/build.js\nnode apps/janela/build-today.js') + '</div>'
     + '</section>');
 
-  const data = { def, sel: defSel, custom, ctx, sites: sitesOut, ops: opsOut, groupOf, work };
+  const data = { def, sel: defSel, custom, ctx, sites: sitesOut, ops: opsOut, groupOf, work, ink: INK };
   const dataJson = JSON.stringify(data).replace(/</g, '\\u003c');
   const script = '<script type="application/json" id="jn-mods">' + B.json + '</script>\n'
     + '<script type="application/json" id="jn-data">' + dataJson + '</script>\n'

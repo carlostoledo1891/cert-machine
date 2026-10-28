@@ -21,6 +21,13 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const OUT = path.join(ROOT, 'site', 'eleicoes2026');
 const FIG = require(path.join(__dirname, 'figures.js'));
 const GEO = require(path.join(__dirname, 'geo.js'));
+/* WARRANT (design/WARRANT.md, v2.1): a value that is a float or a model's fit is computed (underlined dashed); a line
+   computed in floating point is dashed by its standing, never to tell one series from another (identity is the
+   series' token); a number that rests on a model or on chosen inputs names them (the mood, and the premise chain).
+   The words are Portuguese (playground/warrant-pt.js), the marks are warrant.js's. */
+const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
+const WP = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
+const cv = (t, why) => WR.value(C.esc(t), WR.COMPUTED, { title: 'computado: ' + why });
 const die = (m) => { console.error('ELEICOES2026 PAGE REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const sha = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
@@ -138,7 +145,7 @@ B.push(C.section({
     + C.pRaw('<b>Município por município, 1º turno.</b> Somando os boletins de urna de cada município: Lula à frente de Flávio em ' + n(lulaMun) + ' municípios, Flávio à frente em ' + n(flavioMun) + '. '
       + 'O mapa do 2º turno por município entra quando o TSE publicar os boletins do 2º turno em lote.')
     + C.figure({ svgRaw: GEO.choropleth({ level: 'mun', w: 900, value: munShare, alt: 'Mapa do 1º turno por município: parcela de Lula entre os dois finalistas', legendRaw: rampLegend(900) }),
-      caption: '1º turno, 5.570 municípios: a parcela de Lula entre Lula e Flávio, somada dos boletins de urna (§3). Passe o cursor para ver cada município.' })
+      caption: '1º turno, ' + n(Object.keys(MUN).length) + ' municípios: a parcela de Lula entre Lula e Flávio, somada dos boletins de urna (§3). Passe o cursor para ver cada município.' })
 }));
 
 /* §3 round 1 */
@@ -185,11 +192,11 @@ B.push(C.section({
       + ', comparecimento ' + n(W2.turnout) + ' de ' + n(W2.registered) + ' aptos, ' + n(W2.sections) + ' seções. As contas do próprio arquivo fecham, e os 27 estados mais o exterior somam exatamente o Brasil.')
     + C.pRaw('Para inverter o vencedor seria preciso trocar de lado ' + n(W2.swing_to_reverse) + ' votos (um voto que sai de Lula e vai para Flávio muda a diferença em dois), ou anular ' + n(W2.removal_to_reverse) + ' votos de Lula.')
     + C.figure({ svgRaw: elect, caption: 'Todo o eleitorado das seções que funcionaram, em cada turno: quem votou em quem, quem votou branco ou nulo e quem não foi votar. Entre os turnos, a abstenção caiu de '
-      + fmt1(100 * R1S.abstention / R1S.registered_functioning) + '% para ' + fmt1(100 * W2.abstention / W2.registered_functioning) + '%; os outros dez candidatos do 1º turno deixaram de ser opção no 2º.' })
+      + fmt1(100 * R1S.abstention / R1S.registered_functioning) + '% para ' + fmt1(100 * W2.abstention / W2.registered_functioning) + '%; os outros ' + n(Object.keys(r1c).length - 2) + ' candidatos do 1º turno deixaram de ser opção no 2º.' })
     + C.figure({ svgRaw: FIG.balance({ others: r1Other, blankDrop: bnDrop, abstDrop, lulaGain, flavioGain }),
       caption: 'Entre os turnos abriram-se ' + n(pool) + ' votos para os finalistas: os ' + n(r1Other) + ' que tinham ido a outros candidatos, ' + n(bnDrop) + ' brancos e nulos a menos e ' + n(abstDrop)
         + ' eleitores a mais. Lula ficou com ' + n(lulaGain) + ' (' + pct(lulaGain, pool, 1) + '%), Flávio com ' + n(flavioGain) + '. As duas barras têm o mesmo total: é uma identidade exata, porque o eleitorado é o mesmo nos dois turnos.' })
-    + C.pRaw('<b>Uma virada espalhada, não concentrada.</b> Entre os dois finalistas, a parcela de Lula cresceu ' + (grewAll ? 'em todos os 27 estados e no exterior' : 'na maioria dos estados')
+    + C.pRaw('<b>Uma virada espalhada, não concentrada.</b> Entre os dois finalistas, a parcela de Lula cresceu ' + (grewAll ? 'em todos os ' + n(Object.keys(W2.per_uf).filter((uf) => uf !== 'ZZ').length) + ' estados' + (W2.per_uf.ZZ ? ' e no exterior' : '') : 'na maioria dos estados')
       + ', de +' + fmt1(swMin[1]) + ' p.p. (' + (UF_NAMES[swMin[0]] || swMin[0]) + ') a +' + fmt1(swMax[1]) + ' p.p. (' + (UF_NAMES[swMax[0]] || swMax[0]) + '). '
       + 'Mudanças parecidas em todo o país são o que se espera quando eleitores de outros candidatos e quem não tinha votado escolhem um lado; os dois mapas da §2 mostram cada estado, e a §7 olha esse padrão de perto.')
 }));
@@ -241,7 +248,10 @@ B.push(C.section({
     keys: [{ token: 'var(--el-lula)', t: 'trocar ' + n(MU.swing_needed) + ' votos de lado: ' + n(MU.urns_if_every_voter_swapped) + ' urnas' }, { token: 'var(--el-flavio)', t: 'anular ' + n(MU.removal_needed) + ' votos: ' + n(MU.urns_if_every_voter_removed) + ' urnas' }] });
 
   /* the three audits as curves over the winner's share, every point from the same formulas the ledger certifies at 2026's margin */
-  const ballots = W2.turnout, two = W2.valid, alpha = 0.01, g = 1.03905;
+  /* the chosen inputs, read from the ledger (the curves used to type them): the risk limit and the super-simple gamma */
+  if (!/^1\/\d+$/.test(RL.risk || '') || !/60-digit/.test(RL.arithmetic || '') || !/1e-40/.test(RL.arithmetic || '')) die('the RLA record lost its risk or its arithmetic note');
+  const alpha = 1 / Number(RL.risk.split('/')[1]), riskPct = n(100 * alpha), g = Number(RL.comparison_gamma);
+  const ballots = W2.turnout, two = W2.valid;
   const asn = (sh) => (Math.log(1 / alpha) + 0.5 * Math.log(2 * sh)) / (sh * Math.log(2 * sh) + (1 - sh) * Math.log(2 - 2 * sh)) * ballots / two;
   const mu = (sh) => (2 * sh - 1) * two / ballots;
   const cmp = (sh) => 2 * g * Math.log(1 / alpha) / mu(sh);
@@ -252,12 +262,15 @@ B.push(C.section({
     x0: 50, x1: 60.5, y0: 30, y1: 1e6, logY: true, padL: 96,
     xTicks: [50, 52, 54, 56, 58, 60].map((v) => ({ v, t: v + '%' })), yTicks: [100, 1e3, 1e4, 1e5, 1e6].map((v) => ({ v, t: n(v) })),
     xLabel: 'parcela do vencedor entre os dois finalistas', yLabel: 'amostra necessária (risco de 1%)',
-    curves: [{ pts: grid.map((v) => [v, asn(v / 100)]), token: CH.CAT[0], k: '' }, { pts: grid.map((v) => [v, cmp(v / 100)]), token: CH.CAT[1], k: '' }, { pts: grid.map((v) => [v, bat(v / 100)]), token: CH.CAT[2], dashed: true, k: '' }],
+    /* the curves are the formulas in JavaScript floating point at every share: computed, so dashed, all three (the third
+       used to be the only dashed one, to tell it from the second: dash for identity, WARRANT rule 4). Only the three points
+       on the 2026 line are the ledger's certified numbers. */
+    curves: [{ pts: grid.map((v) => [v, asn(v / 100)]), token: CH.CAT[0], dashed: true, k: '' }, { pts: grid.map((v) => [v, cmp(v / 100)]), token: CH.CAT[1], dashed: true, k: '' }, { pts: grid.map((v) => [v, bat(v / 100)]), token: CH.CAT[2], dashed: true, k: '' }],
     vlines: [{ x: s26, token: 'var(--el-lula)', t: '2026: ' + s26.toFixed(2).replace('.', ',') + '%' }],
     pts: [{ x: s26, y: RL.polling_ballots, token: CH.CAT[0], k: 'por sorteio de votos', v: n(RL.polling_ballots) + ' votos' },
       { x: s26, y: RL.comparison_ballots, token: CH.CAT[1], k: 'por comparação, voto a voto', v: n(RL.comparison_ballots) + ' votos' },
       { x: s26, y: RL.batch_sections, token: CH.CAT[2], k: 'por comparação, urna a urna', v: n(RL.batch_sections) + ' urnas' }],
-    keys: [{ token: CH.CAT[0], t: 'sortear votos (votos)' }, { token: CH.CAT[1], t: 'comparar votos (votos)' }, { token: CH.CAT[2], t: 'comparar urnas (urnas)' }] });
+    keys: [{ token: CH.CAT[0], t: 'sortear votos (votos)', kind: 'dash' }, { token: CH.CAT[1], t: 'comparar votos (votos)', kind: 'dash' }, { token: CH.CAT[2], t: 'comparar urnas (urnas)', kind: 'dash' }] });
 
   const mfPts = MF.rows.map((r) => ({ x: 100 * r.others_r1, y: r.logit_shift, fill: r.m2 >= 0.5 ? 'var(--el-lula)' : 'var(--el-flavio)', label: r.uf === 'ZZ' ? 'exterior' : r.uf,
     k: UF_NAMES[r.uf] || r.uf, v: 'log-chances +' + r.logit_shift.toFixed(3).replace('.', ',') + ' · outros no 1º turno ' + (100 * r.others_r1).toFixed(1).replace('.', ',') + '%' }));
@@ -277,19 +290,26 @@ B.push(C.section({
         + 'Cada uma dessas urnas imprime o seu boletim, afixa na porta da seção e o assina digitalmente.')
       + C.figure({ svgRaw: urnSvg, caption: 'A curva soma os eleitores aptos das maiores urnas: a primeira urna, as duas primeiras, e assim por diante. Ela cruza as linhas dos limiares nos números de urnas marcados. Os eleitores aptos por urna são os mesmos nos dois turnos (o cadastro é o mesmo: ' + n(W2.registered_functioning) + ' aptos nas seções que funcionaram, em ambos).' })
       + C.pRaw('<b>2. Quanto bastaria conferir por amostragem.</b> ' + stamp(RL.verdict) + ' Uma auditoria de risco limitado (o método que vários estados americanos usam) sorteia votos ou urnas e para quando a amostra confirma o vencedor com um risco de erro fixado. '
-        + 'Com esta margem e risco de 1%, sem encontrar nenhuma divergência na amostra: sortear em média <b>' + n(RL.polling_ballots) + ' votos</b>; ou comparar <b>' + n(RL.comparison_ballots) + ' votos</b> um a um com o registro digital; '
+        + 'Com esta margem e <i>dado risco de ' + riskPct + '%, sem encontrar nenhuma divergência na amostra</i>: sortear em média <b>' + n(RL.polling_ballots) + ' votos</b>; ou comparar <b>' + n(RL.comparison_ballots) + ' votos</b> um a um com o registro digital; '
         + 'ou recontar <b>' + n(RL.batch_sections) + ' urnas</b> inteiras sorteadas com probabilidade proporcional ao tamanho. Calculado com logaritmos de 60 dígitos (fórmulas de Lindeman & Stark, 2012). '
         + 'O Brasil não tem voto impresso; a amostra seria de boletins e registros digitais de voto, que são públicos.')
-      + C.figure({ svgRaw: rlaSvg, caption: 'Quanto menor a margem, maior a amostra. As curvas usam as mesmas fórmulas; os pontos sobre a linha de 2026 são os números certificados acima. A curva tracejada conta urnas e a cheia logo acima conta votos: quase coincidem (' + n(RL.batch_sections) + ' urnas, ' + n(RL.comparison_ballots) + ' votos).' })
+      + C.figure({ svgRaw: rlaSvg, caption: 'Quanto menor a margem, maior a amostra. As curvas são as mesmas fórmulas calculadas em ponto flutuante em cada margem, por isso tracejadas; só os três pontos sobre a linha de 2026 são os números certificados acima. A curva das urnas e a dos votos comparados quase coincidem (' + n(RL.batch_sections) + ' urnas, ' + n(RL.comparison_ballots) + ' votos); a cor e a legenda dizem qual é qual.' })
+      + WP.legendHtml({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] })
+      + C.pRaw('<b>Em que estes números se apoiam.</b>') + WP.premisesHtml([
+        { grade: WR.ASSUMED, label: 'As fórmulas da auditoria', evidence: 'adotadas de ' + C.esc(RL.source) + '; a conta sobre elas é exata (logaritmos decimais de 60 dígitos, cada teto recusado se o valor cair a menos de 10⁻⁴⁰ de um inteiro), e as fórmulas não são conferidas aqui.' },
+        { grade: WR.ASSUMED, label: 'O cenário', evidence: '<i>dado risco de ' + riskPct + '%, nenhuma divergência na amostra e γ = ' + C.esc(RL.comparison_gamma.replace('.', ',')) + '</i>: escolhas, não dados; com divergências, a amostra cresce.' }
+      ], { meetLine: 'A conta é exata; a premissa mais fraca fica no degrau <b>' + WP.GRADE[WR.ASSUMED] + '</b>.' })
       + C.pRaw('<b>3. De onde vieram os votos.</b> ' + stamp(TR.verdict) + ' A conta exata, sem modelo, dá para cada fluxo (por exemplo, eleitores de Flávio no 1º turno que votaram em Lula no 2º) o mínimo e o máximo compatíveis com os números de cada unidade. '
         + 'Com os dados por estado, os limites quase nada dizem: entre 0 e ' + n(TR.bounds['others->lula'][1]) + ' dos eleitores de outros candidatos podem ter ido para Lula. '
         + stamp('NEEDS DATA') + ' Com os boletins do 2º turno por seção, cada uma das ' + n(MU.sections) + ' seções vira uma unidade e os limites se estreitam; publicaremos quando o TSE publicar. O saldo nacional exato está na §5.')
       + C.pRaw('<b>4. Um olhar de campo médio (modelo, não veredicto).</b> ' + stamp('MEASURED') + ' Num modelo de campo médio da escolha entre dois candidatos (Brock e Durlauf), cada eleitor decide pela soma de um "campo" comum e da influência dos outros. '
         + 'Uma mudança no campo nacional move as log-chances de todos os estados igualmente se não há influência mútua, e mais nos estados equilibrados se há. '
-        + 'Nos dados, as log-chances de Lula subiram entre +' + MF.logit_shift_min.toFixed(3).replace('.', ',') + ' e +' + MF.logit_shift_max.toFixed(3).replace('.', ',') + ' em todos os estados; '
-        + 'a correlação com o equilíbrio do estado é ' + MF.corr_shift_vs_balance.toFixed(2).replace('.', ',') + ' (nenhuma), e com a parcela dos outros candidatos no 1º turno, ' + MF.corr_shift_vs_others.toFixed(2).replace('.', ',') + '. '
-        + 'Leitura: a virada foi um deslocamento nacional, maior onde havia mais eleitores sem candidato no 2º turno, e não um efeito de influência mútua concentrado nos estados divididos. Com 28 unidades, é uma descrição, não uma prova.')
-      + C.figure({ svgRaw: mfSvg, caption: 'Cada ponto é um estado (cor: quem venceu nele no 2º turno). Eixo vertical: quanto as log-chances de Lula entre os dois finalistas subiram do 1º para o 2º turno. A linha tracejada é o ajuste linear, só para guiar o olho.' })
+        + 'Nos dados, as log-chances de Lula subiram entre ' + cv('+' + MF.logit_shift_min.toFixed(3).replace('.', ','), 'ponto flutuante, 6 casas no registro') + ' e ' + cv('+' + MF.logit_shift_max.toFixed(3).replace('.', ','), 'ponto flutuante, 6 casas no registro') + ' em todos os estados; '
+        + 'a correlação com o equilíbrio do estado é ' + cv(MF.corr_shift_vs_balance.toFixed(2).replace('.', ','), 'correlação em ponto flutuante') + ' (nenhuma), e com a parcela dos outros candidatos no 1º turno, ' + cv(MF.corr_shift_vs_others.toFixed(2).replace('.', ','), 'correlação em ponto flutuante') + '. '
+        + 'Leitura: a virada foi um deslocamento nacional, maior onde havia mais eleitores sem candidato no 2º turno, e não um efeito de influência mútua concentrado nos estados divididos. Com ' + n(MF.rows.length) + ' unidades, é uma descrição, não uma prova.')
+      + C.figure({ svgRaw: mfSvg, caption: 'Cada ponto é um estado (cor: quem venceu nele no 2º turno). Eixo vertical: quanto as log-chances de Lula entre os dois finalistas subiram do 1º para o 2º turno. A linha tracejada é o ajuste linear, em ponto flutuante, só para guiar o olho.' })
+      + WP.premisesHtml([{ grade: WR.ASSUMED, label: 'O modelo de campo médio (Brock e Durlauf)', evidence: 'adotado da literatura para ler os dados; nada aqui o conferiu. As log-chances são contas sobre os totais assinados; a leitura delas é a do modelo.' }],
+        { meetLine: 'A leitura fica no degrau <b>' + WP.GRADE[WR.ASSUMED] + '</b>: com ' + n(MF.rows.length) + ' unidades, uma descrição, não uma prova.' })
   }));
 }
 

@@ -213,6 +213,7 @@ function load(over) {
     N.heldOut = { from: R.pairs.split, pairs: R.pairs.test, coverage: U.coverage,
       broke: U.limits['2.0'].brokeLiberada, liberada: U.limits['2.0'].liberada, eBroke: E.limits['2.0'].brokeLiberada, eLiberada: E.limits['2.0'].liberada };
   }
+  N.premises = premises(N);
   N.ledger.h2h = PLACAR.headToHead(rows);
   N.ledger.commits = N.ledger.proposers.reduce((a, p) => a + p.commits, 0);
   N.ledger.scored = N.ledger.proposers.reduce((a, p) => a + p.scored, 0);
@@ -230,6 +231,106 @@ function load(over) {
   for (const s of N.sites) need(N.groups.some((g) => g.kinds.includes(s.kind)), 'site ' + s.id + ' has a kind no picker group shows: ' + s.kind);
   N.counted = { sites: N.sites.length, byKind: N.sites.reduce((a, s) => { a[s.kind] = (a[s.kind] || 0) + 1; return a; }, {}) };
   return N;
+}
+
+/* ---- THE PREMISES (WARRANT v2.1, design/WARRANT.md "models as premises"), 2026-10-28 ----
+   A verdict here is exact arithmetic over a band; the band, the alpha and the hindcast are MODELS, and each one was
+   checked to a different rung. Every grade the app and the method page print is read here from the record that earns
+   it, and the build refuses when a record stops saying what the grade needs:
+     the Hs band at a measured site         VALIDATED  held-out satellite passes, per measured region (providers-eval-v1)
+     the wind band                          ASSUMED    calibrated on the same pairs; no held-out record, the ledger and
+                                                       decision-level-v1 grade Hs only
+     a band carried to a unit or terminal   ASSUMED    measured at another node; nothing measured it here
+     the alpha of DNV Table 4-1             ASSUMED    adopted (North Sea); its 1-in-10,000 tail is extrapolated
+     the site-alpha method                  VERIFIED   it reproduces Table 4-1 before it looks at Brazil
+     the hindcast at a planning node        VALIDATED  only where a buoy shares the node; ASSUMED elsewhere
+     the currents                           ASSUMED    shown, never decided; no comparison record yet
+   A grade is where the checking stopped, never a confidence. */
+function premises(N) {
+  const P = {};
+  const evalOf = (rel) => {
+    const R = J(rel);
+    const m = /(\d+) held-out months/.exec(R.what || '');
+    need(m, rel + ' no longer says how many held-out months it judged on');
+    const at = (o, miss) => R.results.find((x) => x.option === o && x.miss === miss);
+    const out = { file: rel, months: Number(m[1]), split: R.pairs.split, test: R.pairs.test, opt: {} };
+    for (const o of ['E', 'N', 'U(E,N)']) {
+      const x = at(o, '1/10');
+      need(x && x.limits && x.limits['2.0'], rel + ' lost ' + o + ' at 1/10');
+      need(x.n === R.pairs.test, rel + ': ' + o + ' was not judged on every test pair');
+      out.opt[o] = { coverage: x.coverage, liberada: x.limits['2.0'].liberada, broke: x.limits['2.0'].brokeLiberada };
+    }
+    /* ECMWF's band widened to about the union's coverage (miss 1/20): the like-for-like the method page names */
+    const w = at('E', '1/20');
+    need(w && w.limits && w.limits['2.0'], rel + ' lost E at 1/20');
+    out.wide = { coverage: w.coverage, liberada: w.limits['2.0'].liberada, broke: w.limits['2.0'].brokeLiberada };
+    /* a record that starts judging the wind band held out must be read into a new grade, never ignored */
+    need(!/wind/i.test(JSON.stringify(R.results)), rel + ' now judges the wind band held out: re-grade the wind premise');
+    return out;
+  };
+  P.heldOut = { main: evalOf('certs/janela-providers-eval.json') };
+  P.regionOf = {};
+  for (const r of require('./audit/bandset.js').regions()) {
+    const rel = 'certs/janela-providers-eval-' + r.name + '.json';
+    if (fs.existsSync(path.join(ROOT, rel))) P.heldOut[r.name] = evalOf(rel);
+    for (const sid of r.sites) P.regionOf[sid] = r.name;
+  }
+  /* the wind band: every ledger target is Hs, and the decision grading says it leaves the wind limit out */
+  const defs = N.ledger.defs || {};
+  const targets = Object.values(defs).filter((d) => d && d.target).map((d) => d.target);
+  need(targets.length && targets.every((t) => /^Hs \(m\)/.test(t)), 'a ledger target is no longer Hs: re-grade the wind premise');
+  const dl = Object.entries(defs).find(([k]) => /^decision-level-v1/.test(k));
+  need(dl && /wind limit is not graded/.test(dl[1].stated || ''), 'decision-level-v1 no longer says it leaves the wind limit out');
+  P.wind = { validated: false, rows: N.bands.rows };
+  /* the alpha: the method's calibration against Table 4-1, the tail it extrapolates to, and per site where the
+     estimate sits against the table */
+  const A = N.alpha;
+  if (A) {
+    const cal = A.calibration;
+    need(cal && cal.pass && cal.within && cal.of && Array.isArray(cal.cells), 'certs/janela-alpha.json lost its calibration against Table 4-1');
+    const tol = /\+-([\d.]+)/.exec(cal.gate || '');
+    need(tol, 'the alpha calibration gate lost its tolerance');
+    const inKey = (c) => Object.keys(c).find((k) => /^within/.test(k));
+    need(cal.cells.filter((c) => c[inKey(c)]).length === cal.within, 'the alpha calibration count does not match its cells');
+    need(A.method && A.method.P && (A.method.caveats || []).some((c) => /cannot be observed/.test(c)), 'certs/janela-alpha.json lost its tail probability or the caveat that the tail is extrapolated');
+    const bySite = {};
+    for (const [sid, s] of Object.entries(A.sites)) {
+      const est = s.cells.filter((c) => c.verdict === 'ESTIMATED');
+      bySite[sid] = { est: est.length, above: est.filter((c) => /ABOVE/.test(c.reading || '')).length, below: est.filter((c) => /BELOW/.test(c.reading || '')).length,
+        maxHs: est.length ? Math.max(...est.map((c) => c.designHs)) : null, pairs: s.pairs };
+    }
+    P.alpha = { within: cal.within, of: cal.of, tol: tol[1], P: A.method.P, oneIn: Math.round(1 / A.method.P), minPairs: A.method.minPairs,
+      missed: cal.cells.filter((c) => !c[inKey(c)]).map((c) => ({ hs: c.designHs, T: c.TPOP })), bySite };
+  }
+  /* the hindcast the planner counts on, against the Navy's moored buoys (certs/janela-pnboia-check.json) */
+  const PB = 'certs/janela-pnboia-check.json';
+  if (fs.existsSync(path.join(ROOT, PB))) {
+    const R = J(PB);
+    const dep = R.buoys.filter((b) => b.pairs > 0 && b.pointwise && b.pointwise['2.0m']);
+    need(dep.length >= 5, PB + ': too few buoy deployments compared');
+    let n = 0, b20 = 0, h20 = 0;
+    for (const b of dep) { const c = b.pointwise['2.0m']; n += c.both + c.buoyOnly + c.hindcastOnly + c.neither; b20 += c.both + c.buoyOnly; h20 += c.both + c.hindcastOnly; }
+    need(n === dep.reduce((a, b) => a + b.pairs, 0), PB + ': the pointwise counts do not add up to the pairs');
+    const nodes = new Set(dep.map((b) => b.node.join(',')));
+    const pts = J('corpus/ww3-points/points.json').points;
+    const at = {};
+    for (const sid of Object.keys(N.work.sites)) {
+      const p = pts.find((x) => x.name === sid);
+      need(p, 'the planning site ' + sid + ' has no hindcast node in corpus/ww3-points/points.json');
+      at[sid] = dep.filter((b) => b.node[0] === p.lat && b.node[1] === p.lon).map((b) => b.buoy);
+    }
+    const lo = (xs) => Math.min(...xs), hi = (xs) => Math.max(...xs);
+    P.hindcast = { deployments: dep.length, pairs: n, from: dep.map((b) => b.from).sort()[0].slice(0, 4), to: dep.map((b) => b.to).sort().slice(-1)[0].slice(0, 4),
+      bias: [lo(dep.map((b) => b.biasHindcastMinusBuoy)), hi(dep.map((b) => b.biasHindcastMinusBuoy))], rms: [lo(dep.map((b) => b.rms)), hi(dep.map((b) => b.rms))],
+      le2: { buoy: b20, hind: h20, n }, nodes: nodes.size, buoysAt: at };
+  }
+  /* the currents: shown, never decided; the truth they will be graded against (current-truth-v1) is being gathered */
+  const cur = fs.readdirSync(path.join(ROOT, 'certs')).filter((f) => /^janela-current/.test(f));
+  need(!cur.length, 'a currents record exists (' + cur.join(', ') + '): re-grade the currents premise');
+  const ct = Object.entries(defs).find(([k]) => /^current-truth-v1/.test(k));
+  need(ct, 'DEFINITIONS.json lost current-truth-v1');
+  P.currents = { compared: false, since: (/^(\d{4}-\d\d-\d\d)/.exec(ct[1].decided || '') || [])[1] || null };
+  return P;
 }
 
 /* Brazilian number words, once */
