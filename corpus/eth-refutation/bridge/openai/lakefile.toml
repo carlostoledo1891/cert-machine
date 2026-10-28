@@ -1,0 +1,19 @@
+name = "eth_bridge_openai"
+version = "0.1.0"
+defaultTargets = ["ETHBridge"]
+
+# OpenAI's own lakefile (lean/lakefile.lean at 7ef5c0cc) sets autoImplicit false; so does this one.
+[leanOptions]
+autoImplicit = false
+
+# The Mathlib of openai/math at 7ef5c0cc (corpus/eth-refutation/pins.json), for Lean v4.34.1.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+
+# ETHBridge.Generic (shared, byte-identical with ../anthropic), ETHBridge.OpenAIChallenge (the
+# pinned challenge, one declared change), ETHBridge.OpenAI (the bridge). Axioms.lean is not part of
+# the library; the workflow runs it with `lake env lean`.
+[[lean_lib]]
+name = "ETHBridge"

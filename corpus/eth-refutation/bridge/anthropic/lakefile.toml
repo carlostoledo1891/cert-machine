@@ -1,0 +1,26 @@
+name = "eth_bridge_anthropic"
+version = "0.1.0"
+defaultTargets = ["MainResults", "ETHBridge"]
+
+# The options of Anthropic's own lakefile (eth/lakefile.toml at 16a5ce41).
+[leanOptions]
+autoImplicit = false
+relaxedAutoImplicit = false
+pp.unicode.fun = true
+exponentiation.threshold = 2048
+
+# The Mathlib of anthropics/formal-math eth/ at 16a5ce41 (corpus/eth-refutation/pins.json), for
+# Lean v4.33.1.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "0df444a360eaa60ab8c11dca51a86af692955474"
+
+# The pinned trusted file, unchanged under its header comment.
+[[lean_lib]]
+name = "MainResults"
+
+# ETHBridge.Generic (shared, byte-identical with ../openai) and ETHBridge.Anthropic (the bridge).
+# Axioms.lean is not part of the library; the workflow runs it with `lake env lean`.
+[[lean_lib]]
+name = "ETHBridge"
