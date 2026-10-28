@@ -41,6 +41,14 @@ const LAM = require(path.join(ROOT, 'instruments', 'trigmin', 'lambda.js'));
 const Q = require(path.join(ROOT, 'instruments', 'interval', 'rational.js'));
 
 const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
+/* WARRANT (design/WARRANT.md): every number this page prints is decided at this build and prints plain, except what the
+   outside audit printed (COMPUTED: a number someone printed, read here); the lemmas the proof rests on are premises, each
+   graded in §5 */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+/* a positive exact rational {n, d} as a decimal at k places, rounded down or up — never a double's toFixed */
+const ratDir = (r, k, up) => { if (r.n < 0n || r.d <= 0n) throw new Error('ratDir: a positive rational only');
+  const num = r.n * 10n ** BigInt(k); let t = num / r.d; if (up && t * r.d !== num) t += 1n;
+  const u = t.toString().padStart(k + 1, '0'); return u.slice(0, -k) + '.' + u.slice(-k); };
 
 const die = (m) => { console.error('LAMBDA4 REPORT REFUSED: ' + m); process.exit(1); };
 const gitrev = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -116,7 +124,30 @@ for (const A of SAMPLE) {
 }
 
 /* ---- the page ------------------------------------------------------------- */
-const lamStr = '1.5195578816428';
+/* λ(4) ≈ … at 13 places: printed only because both ends of the certified enclosure round to it (it was typed) */
+const nearestQ = (r, k) => { const t = (2n * r.n * 10n ** BigInt(k) + r.d) / (2n * r.d); const u = t.toString().padStart(k + 1, '0'); return u.slice(0, -k) + '.' + u.slice(-k); };
+const lamStr = (() => { const ra = nearestQ(lamLo, 13), rb = nearestQ(lamHi, 13);
+  if (ra !== rb || ra !== '1.5195578816428') die('λ(4) ≈ 1.5195578816428 is no longer the rounding of both ends of the enclosure (' + ra + ', ' + rb + ')'); return ra; })();
+/* the enclosure printed OUTWARD at 15 places: it was printed [1.519557881642848, 1.519557881642848], both ends a double's
+   toFixed, the upper end 1.51955788164284830… rounded down, so the printed interval was one point and need not contain λ(4) */
+const lamEnc = '[' + ratDir(lamLo, 15, false) + ', ' + ratDir(lamHi, 15, true) + ']';
+/* typed facts, gated (WARRANT rule 8) */
+{
+  const esc4 = rec.lambda4generic && rec.lambda4generic.extremizerEscape;
+  if (!esc4 || esc4.active.length !== 4 || esc4.deltaSum !== '3') die('"{1,2,3,4} activates four conditions whose deltas sum to +3" no longer holds');
+  if (skips.length !== 6) die('"the extremizer is skipped six times" no longer holds: ' + skips.length);
+  const th = rec.lambda3.families.map((f) => f.closure.tailMember + ' ≥ ' + f.closure.N0).join(', ');
+  if (th !== 'a ≥ 3, b ≥ 3, b ≥ 33') die('Mercer\'s thresholds as the calibration derives them moved: ' + th);
+  let box2b = 0; (function w(o) { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(w); if (o.enumerated !== undefined && o.undecided !== undefined) box2b = Math.max(box2b, o.enumerated); Object.values(o).forEach(w); })(fams['d = 2b']);
+  if (box2b !== 1090) die('the d = 2b route\'s "1090-set finite box" moved: ' + box2b);
+  const nX = (fs.readFileSync(path.join(ROOT, 'instruments', 'lambda4', 'battery.js'), 'utf8').match(/^red\('X\d+ /gm) || []).length;
+  if (nX !== 8) die('the battery holds ' + nX + ' falsifiers; the page says 8');
+  const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'paper', 'INDEX.json'), 'utf8')); const pl = (P.papers || P).find((x) => x.name === 'lambda4-proof');
+  if (!pl || !/^draft v0\.9\b/.test(pl.status)) die('§6 names the write-up "draft v0.9"; paper/INDEX.json says ' + (pl && pl.status));
+}
+/* the nearest rival, from this build's own certificate (it was typed from the audit's sweep, −1.774) */
+const rival = (() => { const r = LAM.certifyLambda([2, 3, 4, 6], { tol: 1e-10 }); const a = r.minEnclosure[0].toFixed(3), b = r.minEnclosure[1].toFixed(3);
+  if (a !== b || a !== '-1.774') die('{2,3,4,6}\'s minimum no longer rounds to −1.774 at both ends: ' + r.minEnclosure); return a.replace('-', '−'); })();
 const B = [];
 
 B.push(C.header({
@@ -184,7 +215,7 @@ B.push(C.section({
     C.eq('λ(4) = −L(1,2,3,4), where L(1,2,3,4) = min<sub>θ</sub> [cos θ + cos 2θ + cos 3θ + cos 4θ]'),
     C.pRaw('Substituting c = cos θ, the sum is ' + C.m('8c⁴ + 4c³ − 6c² − 2c') + ' and its minimum over [−1,1] is '
       + 'an algebraic number: the exact resultant against the derivative gives the minimal cubic, so'),
-    C.eq('512·λ(4)³ − 1227·λ(4)² + 600·λ(4) + 125 = 0,&nbsp;&nbsp; λ(4) ∈ [' + Q.toDouble(lamLo).toFixed(15) + ', ' + Q.toDouble(lamHi).toFixed(15) + ']'),
+    C.eq('512·λ(4)³ − 1227·λ(4)² + 600·λ(4) + 125 = 0,&nbsp;&nbsp; λ(4) ∈ ' + lamEnc),
     C.pRaw('Both facts are re-proved at this build: the enclosure by the certified minimum instrument '
       + '(BigInt Sturm isolation + interval Newton), and the cubic by exact rational evaluation at the enclosure '
       + 'endpoints — it changes sign inside. So far as this lab has read, the closed form had not been printed anywhere.'),
@@ -281,7 +312,18 @@ B.push(C.section({
         + 'checked onto over a box, and each exception condition\'s points are checked into its subfamily\'s cones. '
         + 'This gate caught two real defects during the campaign — a mistranslated condition list, and a coverage '
         + 'scope error at the extremizer\'s boundary — before either could ship.' }
-    ])
+    ]),
+    /* WARRANT v2.1 rule 11, and the 2026-10-28 ruling on read steps: a lemma that was proved on paper and read, by a person
+       or a model, and run by no machine here, is graded assumed — the rung where the machine's checking stopped */
+    C.pRaw('<b>How far each was checked.</b> Every finite part, threshold, exception list and certificate above is decided '
+      + 'in exact arithmetic at this build. The lemmas that turn those decisions into the theorem are premises, and in the order '
+      + 'the proof travels through them each carries the rung its checking reached:'),
+    W.premisesHtml([
+      { grade: W.ASSUMED, label: 'The dot-product calculus', evidence: 'the average of cos(kθ) over an equispaced set, elementary; read, not machine-checked — the engine applies it in exact rationals' },
+      { grade: W.ASSUMED, label: 'Lemma 3.1 and Lemma 3.4 (Mercer)', evidence: 'published (INTEGERS 19, 2019) and read; their hypotheses — coprime orders, a weight that does not vanish on the set — are certified by the engine on every use' },
+      { grade: W.ASSUMED, label: 'The cosine bounds at the anchors', evidence: 'elementary inequalities, cos(π/2 ± ε) ≤ ε the one this campaign added; read here, and by hand by the outside audit' + (auditWords ? ' (its stated caveat: “I only checked Lemmas A–F by hand”)' : '') },
+      { grade: W.VERIFIED, label: 'The engine that applies them', evidence: 'before it touches λ(4) it re-derives Mercer\'s published λ(2) and λ(3) proofs end to end — the exception families discovered, his thresholds a ≥ 3, b ≥ 3, b ≥ 33 derived — and 8 falsifiers must fire (instruments/<wbr>lambda4/<wbr>battery.js); an outside audit with no shared code re-derived the computational steps with its own code (§6)' },
+    ], { meetLine: 'The arithmetic is exact and the engine is verified against Mercer\'s own results; the weakest premise is <b>assumed</b>: the lemmas were read, and no machine here checked them. So λ(4) = −L(1,2,3,4) holds <i>given the calculus and the lemmas, read</i>; a formal proof is where that would close (§6).' })
   ].join('\n')
 }));
 
@@ -313,7 +355,7 @@ B.push(C.section({
     C.pRaw('<strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and '
       + 'the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> '
       + '(all versions: doi:10.5281/zenodo.22225860); the release tag is ' + C.m('lambda4-v1.0.1') + '. '
-      + '<strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, AI-assisted by its own account, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="' + (auditWords ? auditWords.url : 'https://github.com/teorth/erdosproblems/issues/392') + '">teorth/erdosproblems #392</a>; the thread is pinned in ' + C.m('corpus/sources/lambda4') + '), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about &minus;1.774). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.')
+      + '<strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, AI-assisted by its own account, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="' + (auditWords ? auditWords.url : 'https://github.com/teorth/erdosproblems/issues/392') + '">teorth/erdosproblems #392</a>; the thread is pinned in ' + C.m('corpus/sources/lambda4') + '), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about ' + rival + ', which this build\'s own certificate of that set confirms). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.')
   ].join('\n')
 }));
 

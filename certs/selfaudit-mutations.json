@@ -13,11 +13,11 @@
  "seconds": 1015.7,
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0"
+  "sha256": "a18f716304485a65c26f4befb59a3f885509d987197bf293ad8bd405249760f2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
+  "sha256": "cca2434d24c8dcc64c9ee94a5c2db7fdf23e8fd25d984f351a8393f0abc61288"
  },
  "inputs": {
   "register": {
@@ -29666,6 +29666,20 @@
    "after": {
     "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
     "inventory": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
+   }
+  },
+  {
+   "at": "2026-10-28T21:04:20.494Z",
+   "git": "4ae2ad96",
+   "why": "2026-10-28 amendment: the ecbench expectations' printed decimals directed; the ecbench row was never mutated; no mutant or decision touched",
+   "before": {
+    "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
+    "inventory": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19",
+    "recordsMoved": []
+   },
+   "after": {
+    "preregistration": "a18f716304485a65c26f4befb59a3f885509d987197bf293ad8bd405249760f2",
+    "inventory": "cca2434d24c8dcc64c9ee94a5c2db7fdf23e8fd25d984f351a8393f0abc61288"
    }
   }
  ]

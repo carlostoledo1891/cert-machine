@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>λ(4), settled · cert-machine</title>
+<title>Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved · Carlos Toledo</title>
 <meta name="description" content="lambda(4) = -L(1,2,3,4): the third exact value of Chowla&#39;s cosine dip (Erdős #510, finite front), proved by executing and completing the reduction Mercer published in 2019. Machine-derived, exact-rational throughout, re-proved at every build; not peer-reviewed.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/lambda4.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/lambda4.html">
-<meta property="og:title" content="λ(4), settled · cert-machine">
+<meta property="og:title" content="Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved · Carlos Toledo">
 <meta property="og:description" content="lambda(4) = -L(1,2,3,4): the third exact value of Chowla&#39;s cosine dip (Erdős #510, finite front), proved by executing and completing the reduction Mercer published in 2019. Machine-derived, exact-rational throughout, re-proved at every build; not peer-reviewed.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="λ(4), settled · cert-machine">
+<meta name="twitter:title" content="Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved · Carlos Toledo">
 <meta name="twitter:description" content="lambda(4) = -L(1,2,3,4): the third exact value of Chowla&#39;s cosine dip (Erdős #510, finite front), proved by executing and completing the reduction Mercer published in 2019. Machine-derived, exact-rational throughout, re-proved at every build; not peer-reviewed.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"λ(4), settled · cert-machine","description":"lambda(4) = -L(1,2,3,4): the third exact value of Chowla's cosine dip (Erdős #510, finite front), proved by executing and completing the reduction Mercer published in 2019. Machine-derived, exact-rational throughout, re-proved at every build; not peer-reviewed.","url":"https://carlostoledo.co/reports/lambda4.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved","description":"lambda(4) = -L(1,2,3,4): the third exact value of Chowla's cosine dip (Erdős #510, finite front), proved by executing and completing the reduction Mercer published in 2019. Machine-derived, exact-rational throughout, re-proved at every build; not peer-reviewed.","url":"https://carlostoledo.co/reports/lambda4.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -583,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -673,13 +756,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">erdős #510 · chowla&#39;s cosine problem · the finite front</div>
-  <h1>λ(4), settled</h1>
+  <h1>Chowla's cosine problem: λ(4) = −L(1,2,3,4), proved</h1>
+<p class="standfirst">λ(4), settled</p>
   <p class="deck">In 2019 Idris Mercer proved the first two exact values of Chowla&#39;s cosine dip, conjectured the third, wrote &quot;the current author is unaware of how to evaluate λ(4)&quot;, and left a strategy. This machine executed the strategy and finished it: every one of the nine remaining families is closed, and λ(4) = −L(1,2,3,4).</p>
 </header>
 
@@ -716,7 +800,7 @@ ul.plain b{color:var(--ink);font-weight:480}
   </div>
 <div class="eq">λ(4) = −L(1,2,3,4), where L(1,2,3,4) = min<sub>θ</sub> [cos θ + cos 2θ + cos 3θ + cos 4θ]</div>
 <p>Substituting c = cos θ, the sum is <span class="m">8c⁴ + 4c³ − 6c² − 2c</span> and its minimum over [−1,1] is an algebraic number: the exact resultant against the derivative gives the minimal cubic, so</p>
-<div class="eq">512·λ(4)³ − 1227·λ(4)² + 600·λ(4) + 125 = 0,&nbsp;&nbsp; λ(4) ∈ [1.519557881642848, 1.519557881642848]</div>
+<div class="eq">512·λ(4)³ − 1227·λ(4)² + 600·λ(4) + 125 = 0,&nbsp;&nbsp; λ(4) ∈ [1.519557881642848, 1.519557881642849]</div>
 <p>Both facts are re-proved at this build: the enclosure by the certified minimum instrument (BigInt Sturm isolation + interval Newton), and the cubic by exact rational evaluation at the enclosure endpoints — it changes sign inside. So far as this lab has read, the closed form had not been printed anywhere.</p>
 <div class="note">
   <span class="lab">what the theorem says</span>
@@ -749,6 +833,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>Three lemmas, one calculus, two enforced hypotheses</h2>
   </div>
 <ul class="plain"><li><b>The dot-product calculus.</b> On an equispaced set of order m, the average of cos(kθ) is cos(t·ξ) if k = t·m and 0 otherwise. With anchors at rational multiples of π (π, 2π/3, π/3, π/2, 4π/3, π/6, 0), every average is an exact rational, and for a family of integer sets the whole inner product is a piecewise rational function over finitely many linear collision conditions.</li><li><b>Lemma 3.1 (Mercer).</b> Equispaced sets of coprime orders m₁, m₂ contain points within π/(m₁m₂) of each other. Coprimality is certified, never assumed: every member of the gcd-reduced set is exhibited as an integer combination of the two orders.</li><li><b>Cosine bounds at anchors.</b> cos(π+ε) ≤ −1 + ε²/2 (globally); cos(2π/3 ± ε) ≤ −1/2 + (3/π)ε for ε ≤ π/6 — the validity range is carried as a floor on every threshold; and cos(π/2 ± ε) ≤ ε (globally), the one new lemma this campaign added.</li><li><b>Enforced hypothesis 1.</b> Lemma 3.4 (a nonnegative weight with nonpositive average forces the target below zero somewhere) is FALSE for a weight vanishing identically on the set. The engine checks positivity of the weight&#39;s average on EVERY closed branch — the worst case over all collision subsets.</li><li><b>Enforced hypothesis 2.</b> Cone coverage is proved point-by-point: each family&#39;s triangulation is checked onto over a box, and each exception condition&#39;s points are checked into its subfamily&#39;s cones. This gate caught two real defects during the campaign — a mistranslated condition list, and a coverage scope error at the extremizer&#39;s boundary — before either could ship.</li></ul>
+<p><b>How far each was checked.</b> Every finite part, threshold, exception list and certificate above is decided in exact arithmetic at this build. The lemmas that turn those decisions into the theorem are premises, and in the order the proof travels through them each carries the rung its checking reached:</p>
+<ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The dot-product calculus</b> <span class="ev">the average of cos(kθ) over an equispaced set, elementary; read, not machine-checked — the engine applies it in exact rationals</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Lemma 3.1 and Lemma 3.4 (Mercer)</b> <span class="ev">published (INTEGERS 19, 2019) and read; their hypotheses — coprime orders, a weight that does not vanish on the set — are certified by the engine on every use</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The cosine bounds at the anchors</b> <span class="ev">elementary inequalities, cos(π/2 ± ε) ≤ ε the one this campaign added; read here, and by hand by the outside audit (its stated caveat: “I only checked Lemmas A–F by hand”)</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The engine that applies them</b> <span class="ev">before it touches λ(4) it re-derives Mercer's published λ(2) and λ(3) proofs end to end — the exception families discovered, his thresholds a ≥ 3, b ≥ 3, b ≥ 33 derived — and 8 falsifiers must fire (instruments/<wbr>lambda4/<wbr>battery.js); an outside audit with no shared code re-derived the computational steps with its own code (§6)</span></div></li></ol><p class="w-meet">The arithmetic is exact and the engine is verified against Mercer's own results; the weakest premise is <b>assumed</b>: the lemmas were read, and no machine here checked them. So λ(4) = −L(1,2,3,4) holds <i>given the calculus and the lemmas, read</i>; a formal proof is where that would close (§6).</p>
 </section>
 
 <section class="col">
@@ -759,12 +845,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 <p><strong>Checked, at every build:</strong> the target enclosure and the cubic; the generic case with its 14/9 exception structure; the campaign record (nine families CLOSED, every finite part fully decided, only the extremizer skipped); a sample of finite certificates. <strong>Checked, at every test run:</strong> the engine re-derives Mercer's published λ(2) and λ(3) proofs end to end — exception families discovered, his thresholds (a ≥ 3, b ≥ 3, b ≥ 33) derived — before it is allowed to touch λ(4); 8 red controls must fire.</p>
 <p><strong>Independently walked:</strong> an adversarial audit sharing no code with the engine — inner products by direct trigonometric summation, membership by plain arithmetic, thresholds read from the record, finite-clause sets re-certified fresh — covered every gcd-reduced 4-set with max element ≤ 30: <span class="m">25819</span> sets, every one reached by an explicit clause of the proof, <span class="m">423</span> fresh certificates, zero holes; the full sweep found zero refuters. The prose write-up is <span class="m">paper/lambda4-proof.md</span> (draft v0.9, every constant interpolated from the record).</p>
 <p><strong>Not yet:</strong> peer review, and a formal proof — the outside audit checked Lemmas A–F by hand, its stated caveat, and a Lean formalization is where that caveat would close. Until those happen the honest status of the theorem-level sentence is exactly what the scope line at the top of this page says. The full machine record is <span class="m">certs/lambda4-campaign.json</span>; the statement and strategy are Mercer's, and the paper is the first thing to read: arXiv:1709.06612.</p>
-<p><strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> (all versions: doi:10.5281/zenodo.22225860); the release tag is <span class="m">lambda4-v1.0.1</span>. <strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, AI-assisted by its own account, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="https://github.com/teorth/erdosproblems/issues/392#issuecomment-5919470721">teorth/erdosproblems #392</a>; the thread is pinned in <span class="m">corpus/sources/lambda4</span>), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about &minus;1.774). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.</p>
+<p><strong>Cite this work:</strong> the repository snapshot carrying the proof, the record, the audit and the write-up is archived at <a href="https://doi.org/10.5281/zenodo.22225861">doi:10.5281/zenodo.22225861</a> (all versions: doi:10.5281/zenodo.22225860); the release tag is <span class="m">lambda4-v1.0.1</span>. <strong>Independent audit (2026-09-30):</strong> an outside audit with no shared code, AI-assisted by its own account, <a href="https://github.com/rainrzk/erdos510-lambda4-audit">rainrzk/erdos510-lambda4-audit</a> (posted on <a href="https://github.com/teorth/erdosproblems/issues/392#issuecomment-5919470721">teorth/erdosproblems #392</a>; the thread is pinned in <span class="m">corpus/sources/lambda4</span>), re-derived the cubic, the 14 generic collisions and the nine families from the write-up, re-certified all finite cases with interval arithmetic, and swept every gcd-reduced 4-set with largest element &le; 80 as a proof-independent control ({1,2,3,4} deepest; the nearest rival {2,3,4,6} at about −1.774, which this build's own certificate of that set confirms). Its three documentation findings are folded into the write-up: the extremizer is skipped six times (once per finite part it lies on), the cone listing of family 2d = 2c+b now includes cone ii, and the cubic has three real roots, &lambda;(4) the largest.</p>
 </section>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-lambda4.js — every derivation on this page re-executed at build. Rebuild: node tools/build-report-lambda4.js</p><p>git 054078d · statement and strategy: I. Mercer, INTEGERS 19 (2019) #A4 (arXiv:1709.06612)</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-lambda4.js — every derivation on this page re-executed at build. Rebuild: node tools/build-report-lambda4.js</p><p>git 4ae2ad96 · statement and strategy: I. Mercer, INTEGERS 19 (2019) #A4 (arXiv:1709.06612)</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

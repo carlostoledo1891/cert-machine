@@ -57,6 +57,17 @@
 > toward zero in their 49th decimal, dated at the pin). The inventory is regenerated and the run and mutations records
 > re-pinned with this amendment as the reason.
 
+> **Amendment 2026-10-28 (the ecbench expectations' printed decimals directed; no definition moved).** The site pass
+> found the environmental-contour ledger's expected numbers printed toward zero or to nearest: instruments/ecbench/
+> expected.js cut each exact rational by integer division (36524/36525 = 0.99997… read "0.9999", 18503/35064 read
+> "0.5276", 18262/36525 read "0.4999") and printed the IFORM and β enclosures with toFixed at both ends, so each collapsed
+> to one point and none contained its own value (the 20-year IFORM [11.524, 11.524] over E = 11.5238…). Each rational now carries lo and
+> hi (rounded down and up) and nearest, each enclosure its ends rounded outward (design/outward.js), and the writer, the
+> battery and the report refuse a cut string. Only certs/ecbench-ledger.json's `expected` and `retainedExpected` move (and
+> its stamps); its rows, comparisons and every count are identical, and the ecbench row was never mutated (an aggregate
+> row), so no mutant or decision moves. The inventory is regenerated and the run and mutations records re-pinned with
+> this amendment as the reason.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

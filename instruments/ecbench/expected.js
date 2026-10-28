@@ -23,6 +23,11 @@ const path = require('path');
 const IV = require(path.join(__dirname, '..', 'interval', 'interval.js'));
 const TR = require(path.join(__dirname, '..', 'interval', 'transcendental.js'));
 const Q = require(path.join(__dirname, '..', 'interval', 'rational.js'));
+/* every decimal this file prints is DIRECTED (design/outward.js, the one copy of the rule): a lower end down, an upper end
+   up, from the exact value. Until 2026-10-28 dec() cut a rational with integer division and the enclosures went through
+   toFixed / toExponential, so the ledger carried 36524/36525 as "0.9999" (it is 0.99997…), 18503/35064 as "0.5276"
+   (0.52769…), 18262/36525 as "0.4999" (0.49998…), and every IFORM and β enclosure with both ends rounded to nearest. */
+const O = require(path.join(__dirname, '..', '..', 'design', 'outward.js'));
 
 const sqrtIv = (a) => { if (a[0] < 0) throw new Error('sqrt of a negative interval'); return [IV.nextDown(Math.sqrt(a[0])), IV.nextUp(Math.sqrt(a[1]))]; };
 const SQRT_PI = sqrtIv(TR.PI), SQRT2 = sqrtIv(IV.iv(2));
@@ -64,12 +69,22 @@ function betaBracket(alpha) {
   return [lo, hi];
 }
 
-const dec = (r, d) => { /* rational -> fixed decimal string, truncated */
-  const neg = Q.sign(r) < 0; const a = Q.abs(r);
-  const scale = 10n ** BigInt(d); const t = (a.n * scale) / a.d;
-  const s = t.toString().padStart(d + 1, '0');
-  return (neg ? '-' : '') + s.slice(0, -d) + (d ? '.' + s.slice(-d) : '');
-};
+/* an exact rational at d decimals, three ways and never cut: lo = toward −∞, hi = toward +∞, nearest = half away
+   from zero (for a reader that prints "≈"). lo === hi exactly when the rational is that decimal. */
+function decQ(r, d) {
+  const scale = 10n ** BigInt(d), num = r.n * scale, den = r.d;          /* den > 0 (rational.js normalises the sign) */
+  const fl = num >= 0n ? num / den : -((-num + den - 1n) / den);         /* floor */
+  const exact = fl * den === num, ce = exact ? fl : fl + 1n;
+  const twice = 2n * (num - fl * den);                                    /* 2 × the remainder, in [0, 2·den) */
+  const nr = exact ? fl : (num >= 0n ? (twice >= den ? ce : fl) : (twice > den ? ce : fl));
+  const str = (t) => { const neg = t < 0n, s = (neg ? -t : t).toString().padStart(d + 1, '0');
+    return (neg ? '-' : '') + (d ? s.slice(0, -d) + '.' + s.slice(-d) : s); };
+  return { lo: str(fl), hi: str(ce), nearest: str(nr) };
+}
+/* an interval of doubles at d decimals, outward */
+const ivOut = (iv, d) => ({ lo: O.down(iv[0], d), hi: O.up(iv[1], d) });
+/* k significant digits, outward, in fixed notation */
+const ivSig = (iv, k) => ({ lo: O.sig(iv[0], k, false), hi: O.sig(iv[1], k, true) });
 
 /* the expected numbers for n hourly observations and a T-year contour */
 function expectedOutside(n, T) {
@@ -83,13 +98,42 @@ function expectedOutside(n, T) {
   const beta = [bLoEnd[0], bHiEnd[1]];
   const alphaT = TR.exp(IV.neg(IV.div(IV.sqr(beta), IV.iv(2))));   /* exp(−β²/2), monotone: the interval does it */
   const E = IV.mul(IV.iv(n), alphaT);
-  return {
-    alpha: { exact: Q.toString(alphaQ), decimal: dec(alphaQ, 12) },
-    total: { exact: Q.toString(totalQ), decimal: dec(totalQ, 4) },
-    beta: { lo: beta[0].toFixed(10), hi: beta[1].toFixed(10) },
-    alphaT: { lo: alphaT[0].toExponential(8), hi: alphaT[1].toExponential(8) },
-    iform: { lo: E[0].toFixed(3), hi: E[1].toFixed(3) },
+  const out = {
+    alpha: Object.assign({ exact: Q.toString(alphaQ) }, decQ(alphaQ, 12)),
+    total: Object.assign({ exact: Q.toString(totalQ) }, decQ(totalQ, 4)),
+    beta: ivOut(beta, 10),
+    alphaT: ivSig(alphaT, 9),
+    iform: ivOut(E, 3),
   };
+  const fault = directedFault(out);
+  if (fault) throw new Error('expected.expectedOutside(' + n + ', ' + T + '): ' + fault);
+  return out;
 }
 
-module.exports = { erfc, convergent, betaBracket, expectedOutside, tailMinusAlpha };
+/* THE REFUSAL, for the writer and every reader of the ledger (one copy): a printed pair must enclose what it prints. A
+   rational's lo and hi must bracket its exact value within one unit of the last digit, its nearest must be one of them,
+   and no `decimal` key may survive (that name held the cut strings). An enclosure's lo must not exceed its hi. Returns
+   the first fault in words, or null. */
+const lit = (t) => { const m = /^(-?)(\d+)(?:\.(\d+))?$/.exec(String(t)); if (!m) return null;
+  const f = m[3] || ''; return { n: BigInt(m[1] + m[2] + f), d: 10n ** BigInt(f.length), k: f.length }; };
+function directedFault(e) {
+  for (const key of ['alpha', 'total']) {
+    const v = e[key]; if (!v) continue;
+    if ('decimal' in v) return key + ' carries a "decimal" string (the cut form this file no longer writes)';
+    const [p, q = '1'] = String(v.exact).split('/'); const N = BigInt(p), D = BigInt(q);
+    const lo = lit(v.lo), hi = lit(v.hi), nr = lit(v.nearest);
+    if (!lo || !hi || !nr || lo.k !== hi.k) return key + ' has no directed pair at one precision';
+    if (lo.n * D > N * lo.d) return key + '.lo ' + v.lo + ' is above ' + v.exact;
+    if (hi.n * D < N * hi.d) return key + '.hi ' + v.hi + ' is below ' + v.exact;
+    if (hi.n - lo.n > 1n) return key + ' is wider than one unit of its last digit';
+    if (v.nearest !== v.lo && v.nearest !== v.hi) return key + '.nearest is neither end';
+  }
+  for (const key of ['beta', 'iform']) {
+    const v = e[key]; if (!v) continue;
+    const lo = lit(v.lo), hi = lit(v.hi);
+    if (!lo || !hi || lo.k !== hi.k || lo.n > hi.n) return key + ' is not an outward pair at one precision';
+  }
+  return null;
+}
+
+module.exports = { erfc, convergent, betaBracket, expectedOutside, tailMinusAlpha, decQ, directedFault };

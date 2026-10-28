@@ -6,11 +6,11 @@
  "git": "ccd5c190",
  "preregistration": {
   "path": "notes/selfaudit-preregistration-2026-10-20.md",
-  "sha256": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0"
+  "sha256": "a18f716304485a65c26f4befb59a3f885509d987197bf293ad8bd405249760f2"
  },
  "inventory": {
   "path": "certs/selfaudit-inventory.json",
-  "sha256": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
+  "sha256": "cca2434d24c8dcc64c9ee94a5c2db7fdf23e8fd25d984f351a8393f0abc61288"
  },
  "inputs": {
   "register": {
@@ -30,7 +30,7 @@
    "ledger.json": "4b666d3d922357659b588cf625e2ec9f8d79bef398db1d690394a2b9760a0acd",
    "certs/strassen-certificate.json": "0e400efeb8a4bba99fba620dd77c6e6d4aa6eff9b8016834f0c4aa9071f8b008",
    "certs/easota-ledger.json": "57f46876a7c79b0c6f7f236f0cb133e0ce896f9773cc85b36cf9d8e7fa3f627b",
-   "certs/ecbench-ledger.json": "cdecac8aae53d79c5803184cd12d63431a4838582950f3d833d8e520256897c8",
+   "certs/ecbench-ledger.json": "8b1230e4fb6f91d999ba353cf9ae8c749fc3c9903376150c3789538d6b5cd150",
    "certs/gsm8k-ledger.json": "7fbcda606b601c9c2867cc6305c39906ef21e7e0a7dcd6a11285125cca8e9248",
    "certs/horizon-ledger.json": "fa5b0bac0539bf9694e6c7044a6acf0325635f18474e387d4bf56bcf49bb2315",
    "certs/hseva-ledger.json": "23aa58c1078c357ab77ff00337ba73667c389101b6c3192eb604b7171291bf73",
@@ -8521,6 +8521,26 @@
    "after": {
     "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
     "inventory": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19"
+   }
+  },
+  {
+   "at": "2026-10-28T21:04:20.387Z",
+   "git": "4ae2ad96",
+   "why": "2026-10-28 amendment: the ecbench expectations' printed decimals directed (instruments/ecbench/expected.js); certs/ecbench-ledger.json's expected and retainedExpected move, its rows and comparisons identical; no measurement touched",
+   "before": {
+    "preregistration": "96de682e07dc92c61fd705ba980aeee668238b9f5e9cf832bea667ab9b6faec0",
+    "inventory": "49aefc400aa88d75670d77c0223a8158a3792a8c3d91331f16161a24d40f7e19",
+    "recordsMoved": [
+     {
+      "record": "certs/ecbench-ledger.json",
+      "from": "cdecac8aae53d79c5803184cd12d63431a4838582950f3d833d8e520256897c8",
+      "to": "8b1230e4fb6f91d999ba353cf9ae8c749fc3c9903376150c3789538d6b5cd150"
+     }
+    ]
+   },
+   "after": {
+    "preregistration": "a18f716304485a65c26f4befb59a3f885509d987197bf293ad8bd405249760f2",
+    "inventory": "cca2434d24c8dcc64c9ee94a5c2db7fdf23e8fd25d984f351a8393f0abc61288"
    }
   }
  ]
