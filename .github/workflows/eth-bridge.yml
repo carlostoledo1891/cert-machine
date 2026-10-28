@@ -1,0 +1,100 @@
+# The ETH bridge — corpus/eth-refutation/bridge. Two Lake projects, one per claim, each on the claim's
+# own Lean and Mathlib: openai/ (Lean v4.34.1, Mathlib d13f23b7, OpenAI's challenge statement copied
+# with one declared change) and anthropic/ (Lean v4.33.1, Mathlib 0df444a3, Anthropic's MainResults.lean
+# unchanged). Both build the same generic ETH file (ETHBridge/Generic.lean, byte-identical) and prove,
+# in Lean, that each claim's own statement implies the textbook ETH is false in that claim's model.
+#
+# Each job: the source gates (tools/eth-bridge-gates.js sources: the copies against the sha256 pins of
+# corpus/eth-refutation/pins.json, the generic file identical, no sorry/axiom/native_decide), elan,
+# lake update, lake exe cache get, lake build, #print axioms (Axioms.lean), the log gates, and an
+# artifact eth-bridge-<project> with every log. tools/record-eth-bridge.js downloads a green run and
+# writes certs/eth-bridge.json. Nothing here pushes.
+name: eth-bridge
+on:
+  push:
+    branches: [eth-bridge]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [openai, anthropic]
+    env:
+      PROJECT: ${{ matrix.project }}
+      OUT: ${{ github.workspace }}/out
+    defaults:
+      run:
+        working-directory: corpus/eth-refutation/bridge/${{ matrix.project }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: free disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h / | tail -1
+          mkdir -p "$OUT"
+      - name: source gates (the copies against the pins, the generic file identical, nothing forbidden)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" sources | tee "$OUT/sources-gate.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: dependencies and the Mathlib cache
+        run: |
+          set -euo pipefail
+          WANT_TC=$(cat lean-toolchain)
+          lake update 2>&1 | tail -20
+          test "$(cat lean-toolchain)" = "$WANT_TC"   # lake update must not move the toolchain
+          WANT=$(sed -n 's/^rev = "\([0-9a-f]\{40\}\)"$/\1/p' lakefile.toml)
+          GOT=$(cd .lake/packages/mathlib && git rev-parse HEAD)
+          echo "mathlib wanted $WANT, checked out $GOT"
+          test "$WANT" = "$GOT"
+          lake exe cache get 2>&1 | tail -5
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          df -h / | tail -1
+      - name: build
+        run: |
+          set +e
+          {
+            echo "project: $PROJECT"
+            echo "commit: $GITHUB_SHA"
+            echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+            echo "toolchain: $(cat lean-toolchain)"
+            lean --version; lake --version
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "runner: $RUNNER_OS $RUNNER_ARCH $(uname -r)"
+          } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+          start=$(date +%s)
+          lake build 2>&1 | tee "$OUT/build.log"
+          echo "${PIPESTATUS[0]}" > "$OUT/build-exit.txt"
+          echo $(( $(date +%s) - start )) > "$OUT/build-seconds.txt"
+          exit 0
+      - name: axioms
+        run: |
+          set +e
+          lake env lean Axioms.lean 2>&1 | tee "$OUT/axioms.log"
+          echo "${PIPESTATUS[0]}" > "$OUT/axioms-exit.txt"
+          exit 0
+      - name: hashes of every source the build read
+        if: always()
+        run: |
+          find . -path ./.lake -prune -o -type f \( -name '*.lean' -o -name 'lakefile.toml' -o -name 'lean-toolchain' \) -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          cat "$OUT/sources.sha256"
+      - name: log gates (exit codes, no sorry, no error, only the three standard axioms)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" logs "$PROJECT" "$OUT" | tee "$OUT/logs-gate.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-bridge-${{ matrix.project }}
+          path: ${{ github.workspace }}/out
+          retention-days: 90
