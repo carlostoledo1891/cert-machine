@@ -7,8 +7,11 @@
      · DECIDED   — an exact rational inequality in h, re-decided in the reader's tab
                    in integer arithmetic (no floats anywhere near the verdict), or
      · COMPUTED  — a quadrature or an ODE integration, with its residual on the page, or
-     · DRAWN     — a shape chosen to be legible, obeying the paper's scalings and
-                   incompressibility exactly, and claiming nothing else.
+     · CHOSEN    — a shape picked to be legible, obeying the paper's scalings and
+                   incompressibility, and claiming nothing else. This kind was called DRAWN
+                   until WARRANT v2 (2026-10-28), a fifth word for the grammar's CHOSEN; and
+                   the incompressibility was not true of the field the page drew until
+                   field.js solved the radial speed from continuity (see that file).
    This file fixes the first kind and carries the provenance for the rest. It reads the
    audit's own records so the instrument and the report cannot drift apart.
 
@@ -141,10 +144,10 @@ const MECHANISM = {
 /* ---- what backs each panel ---------------------------------------------- */
 const BACKING = {
   criteria: { kind: 'DECIDED', how: 'every row is a rational inequality in h with integer numerators; the tab decides it with BigInt, and the boundary cases (h = 0, h = 1/6) are decided as equalities rather than approached' },
-  core: { kind: 'DRAWN', how: 'the exponents and incompressibility are the paper’s and are exact; the radial profile shapes are chosen to be legible and claim nothing. No fluid is integrated anywhere on this page' },
+  core: { kind: 'CHOSEN', how: 'one core out of those with the paper’s scalings, its profile shapes picked to be legible, so every contour, streamline and wave is dotted. The exponents are the paper’s and exact; the radial speed is solved from continuity in closed form, so the drawn flow is divergence-free and |u_r| scales as τ^{−1/2}, as the table says, which the build checks before it writes the page. No fluid is integrated anywhere on this page' },
   exterior: { kind: 'COMPUTED', how: 'H(Z) = Γ(1+h)⁻¹∫₀^∞ e^{−v} v^h (1+Zv)^{−h} dv by Simpson in the tab; the residual of its differential equation (A.37) is printed beside it, and the battery checks the same integral to 25 digits' },
   pulse: { kind: 'COMPUTED', how: 'the WKB amplitude equation integrated by fourth-order Runge–Kutta in the tab: the wavevector is carried by the background shear, the amplitude grows on the shear and is damped by ν|ξ|², and the shortening radial wavelength is what ends the growth' },
-  mechanism: { kind: 'DECIDED', how: 'the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is drawn' },
+  mechanism: { kind: 'DECIDED', how: 'the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is chosen, so each verdict on it holds given it' },
   profile: { kind: 'COMPUTED', how: 'the axis initial-value problem (4.13)+(4.7) of Appendix B, solved by instruments/navierstokes/probes/axis_profile.py at representative data and read from its record' },
 };
 

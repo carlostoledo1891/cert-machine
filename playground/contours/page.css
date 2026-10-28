@@ -32,8 +32,11 @@
 .ec-tbl th, .ec-tbl td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
 .ec-tbl th { color: var(--ink-5); font-weight: 400; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .ec-tbl td:first-child, .ec-tbl th:first-child { text-align: left; }
-.ec-tbl tr.sel td { color: var(--ink); background: var(--surface); }
-.ec-tbl td.dim { color: var(--ink-4); }
+/* td.sel: build.js inlines app.js with its row selector rewritten to cells, so the class lands on the <td>; the
+   tr rule alone never matched, and the selected cell was never shown (found 2026-10-28) */
+.ec-tbl tr.sel td, .ec-tbl td.sel { color: var(--ink); background: var(--surface); }
+/* .ec-tbl td.dim is gone (WARRANT v2, 2026-10-28): it gave the decided count of a self-crossing contour the voice of
+   a refused one; the † carries the fact about the file */
 .ec-poly { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linejoin: round; }
 .ec-on { fill: none; stroke: var(--ink); stroke-width: 1.4; }
 .ec-pick { fill: var(--ink); }

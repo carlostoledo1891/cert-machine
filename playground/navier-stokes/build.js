@@ -15,7 +15,16 @@
    links as an overlay so a reader can still leave, and nothing else.
 
    Reads playground/navier-stokes/out/scene.json (node scene.js), written from the audit's own
-   records. Nothing here is retyped from the report. */
+   records. Nothing here is retyped from the report.
+
+   WARRANT v2 (2026-10-28). The drawn core is CHOSEN — one flow with the paper's scalings, its
+   shapes picked to be legible — and the page called that standing DRAWN and drew it solid. It is
+   dotted now, and so is everything resting on the drawn stress path; the cones and the core box
+   stay solid (decided), the rulers keep GUIDE, the float readouts are underlined dashed, and every
+   verdict that rests on a chosen input or a cited theorem names it in italic. The pick was also
+   not a member of the set it was said to be picked from — its meridional flow was not
+   divergence-free — so field.js now solves it from continuity and this file checks that before it
+   writes a byte. Nothing here is red: no claim is refuted by an exhibited object on this page. */
 'use strict';
 const fs = require('fs'), path = require('path');
 const HERE = __dirname;
@@ -23,6 +32,30 @@ const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { esc, page } = require(path.join(PG, 'design', 'shell.js'));
 const GRAMMAR = require(path.join(ROOT, 'design', 'grammar.js'));
+const W = require(path.join(PG, 'warrant.js'));
+const NSF = require(path.join(HERE, 'field.js'));
+const FIELD = fs.readFileSync(path.join(HERE, 'field.js'), 'utf8');
+
+/* THE PICK IS A MEMBER, OR NO PAGE (WARRANT v2, 2026-10-28). The drawn core is CHOSEN — one flow out of those with
+   the paper's scalings — and a pick has to be in the set it is picked from. field.js solves the radial speed from
+   continuity in closed form; this checks the identity in physical (r, z) at every h the slider reaches past both
+   window edges and across the thirteen decades of τ the page plays, and refuses the build if the flow it draws is not
+   divergence-free. The field it replaced read about 1.2 here, everywhere. */
+{
+  let worst = 0;
+  for (const hn of [0, 10, 60, 167, 300]) for (const t of [1e-1, 1e-6, 1e-13])
+    for (const [X, eta] of [[0.3, 0.3], [0.8, -0.4], [1.5, 0.6], [3.0, 0.85], [0.05, -0.9]]) worst = Math.max(worst, NSF.divergence(X, eta, t, hn / 1000));
+  if (!(worst < 1e-6)) throw new Error('navier-stokes: the drawn flow is not divergence-free (|div u| / max term = ' + worst.toExponential(2) + '); the page says it is');
+  /* the red control: the radial speed the page used to draw — continuity solved as if q did not depend on z, at the
+     axial exponent — must fail the same check, or the check is decoration */
+  const planted = (r, z, t, h) => {
+    const Q = NSF.q(z, t, h), X = r * r / (2 * Q), eta = z / Math.pow(Q, 0.5 - h), e = Math.exp(-X);
+    const V = Math.abs(eta) < 1 ? -2.4 * (1 - 3 * eta * eta) * (1 - e) : 0;
+    return { ur: Math.pow(Q, -0.5 - h) * (X > 0 ? V / Math.sqrt(2 * X) : 0), uz: Math.pow(Q, -0.5 - h) * NSF.U(X, eta) };
+  };
+  const red = Math.max(...[[0.3, 0.3], [0.8, -0.4], [1.5, 0.6], [3.0, 0.85]].map(([X, eta]) => NSF.divergence(X, eta, 1e-6, 0.01, planted)));
+  if (!(red > 0.5)) throw new Error('navier-stokes: the divergence check passed the planted field (' + red.toFixed(3) + '); it cannot fail');
+}
 
 const SCENE = path.join(HERE, 'out', 'scene.json');
 if (!fs.existsSync(SCENE)) { console.error('navier-stokes: no scene.json — run node playground/navier-stokes/scene.js'); process.exit(1); }
@@ -108,6 +141,10 @@ body.ov-panel-hidden .ov-chips{right:clamp(1rem,3vw,2.5rem);}
 .ov-mech .cap{margin-top:5px;min-height:27px;font-family:var(--font-mono);font-size:9px;line-height:1.5;color:var(--ink-4);}
 .ov-mech .cap b{color:var(--ink-2);font-weight:500;}
 ${GRAMMAR.css('.ov-mech')}
+${GRAMMAR.css('.spk')}
+/* the standing legend, in the panel's one column (WARRANT v2, 2026-10-28): the balanced grid would set three entries
+   side by side in a 330px panel, so here they stack */
+.ov-panel .w-legend[data-n]{grid-template-columns:minmax(0,1fr);}
 /* it needs its own column and 300px of height; below either it hides rather than collide */
 @media (max-width:1180px),(max-height:790px){.ov-mech{display:none;}}
 @media (max-width:820px){
@@ -122,13 +159,19 @@ ${GRAMMAR.css('.ov-mech')}
 `;
 
 const D = S.dichotomy;
+/* the label of each backing note is its record's standing, in the grammar's four words — the page used to hand-write
+   them, and wrote a fifth ("Drawn") that is not one of them (WARRANT v2, 2026-10-28) */
+const KIND = (b) => {
+  if (!W.NAME.includes(b.kind)) throw new Error('navier-stokes: backing kind ' + b.kind + ' is not a standing (' + W.NAME.join(', ') + ')');
+  return b.kind.charAt(0) + b.kind.slice(1).toLowerCase();
+};
 const html = page({
   title: 'Turn the singularity — cert-machine',
   desc: 'The object OpenAI\u2019s Navier\u2013Stokes proof constructs, drawn at full size and turned: iso-speed contours of a self-similar vortex core collapsing in real time, with every verdict about the parameter it hangs on decided in your tab in exact integer arithmetic.',
   path: '/instruments/navier-stokes/',
   css: CSS,
   foot: null,
-  body: `<canvas id="stage" aria-label="Iso-speed contours of a self-similar vortex core collapsing toward a point, with the meridional streamlines, the core's box and the dotted pulse annulus, all shrinking as the time remaining falls."></canvas>
+  body: `<canvas id="stage" aria-label="Iso-speed contours of a self-similar vortex core collapsing toward a point, with the meridional streamlines, the core's box and the ruled edges of the pulse annulus, all shrinking as the time remaining falls."></canvas>
 
 <div class="ov ov-title">
   <div class="eyebrow">cert-machine / instruments &nbsp;·&nbsp; the object a Millennium proof constructs</div>
@@ -144,9 +187,9 @@ const html = page({
 <div class="ov ov-mech" id="mech">
   <div class="hd"><span class="eyebrow">what the pulses are for</span><span class="tagx" id="mech-verdict">—</span></div>
   <div class="fig" id="mech-cone"></div>
-  <div class="key">hatched: the cone (4.22) &nbsp;·&nbsp; faint rim: what the waves reach</div>
+  <div class="key">hatched: the cone (4.22) &nbsp;·&nbsp; faint rim: what the waves reach &nbsp;·&nbsp; dotted: the drawn stress</div>
   <div class="fig" id="mech-supply"></div>
-  <div class="key">curve: the stress needed &nbsp;·&nbsp; bands: the two shares</div>
+  <div class="key">dotted curve: the stress needed, as drawn &nbsp;·&nbsp; bands: the two shares</div>
   <div class="cap" id="mech-line"></div>
 </div>
 
@@ -154,8 +197,8 @@ const html = page({
   <div class="rd">
     <div class="item"><span class="k">time left</span><span class="v" id="h-tau">—</span></div>
     <div class="item"><span class="k">zoom</span><span class="v" id="h-zoom">—</span></div>
-    <div class="item"><span class="k">speed |u|</span><span class="v" id="h-u">—</span></div>
-    <div class="item"><span class="k">ℓz / ℓr</span><span class="v" id="h-asp">—</span></div>
+    <div class="item"><span class="k">speed |u|</span><span class="v w-val w-computed" id="h-u" title="computed — τ to an exact power, evaluated in float">—</span></div>
+    <div class="item"><span class="k">ℓz / ℓr</span><span class="v w-val w-computed" id="h-asp" title="computed — τ to an exact power, evaluated in float">—</span></div>
   </div>
   <div class="rd">
     <div class="item"><span class="k">h</span><span class="v" id="h-h">—</span></div>
@@ -217,7 +260,9 @@ const html = page({
     determinant 1 + ts², so it cannot fold it). The outer, faint wedge is what two real amplitudes
     reach; the gap to the hatched one is the margin η<sub>c</sub> = ${esc(S.mechanism.etaC.n + '/' + S.mechanism.etaC.d)} of Proposition 7.5's
     proof, which absorbs the errors of (7.28). <b>Decided</b> in integers. The stress path itself is
-    drawn: a bump vanishing at both annular edges with a direction that turns across them.
+    chosen: a bump vanishing at both annular edges with a direction that turns across them, standing in
+    for the paper's T₀ — so it is dotted, so is everything drawn from it, and every verdict on it holds
+    <em>given</em> it.
     <a href="../../reports/navier-stokes.html">The audit is next door.</a></div>
   </div>
   <hr class="hr-thin">
@@ -258,8 +303,9 @@ const html = page({
   <div class="grp">
     <span class="eyebrow">every scale, exactly</span>
     <div id="exact-body"></div>
-    <div class="note-sm">Rational exponents of τ in h, evaluated at the τ on screen. Decided with
-    BigInt, so h = 0 and h = 1/6 are equalities rather than limits.</div>
+    <div class="note-sm">Rational exponents of τ in h, decided with BigInt, so h = 0 and h = 1/6 are
+    equalities rather than limits. The values beside them are those powers at the τ on screen, in
+    float: computed, underlined dashed.</div>
   </div>
   <hr class="hr-thin">
 
@@ -267,22 +313,25 @@ const html = page({
     <span class="eyebrow">computed here</span>
     <svg class="spk" id="sp-ext" role="img" aria-label="The exterior swirl profile falling with Z."></svg>
     <div class="note-sm">H(Z), the one closed form in the construction: the exterior solves the
-    radial heat equation exactly. Residual of (A.37) at Z = 1: <b id="ext-res">—</b>.</div>
+    radial heat equation exactly; Simpson's rule evaluates it here, so the curve is dashed.
+    Residual of (A.37) at Z = 1: <b class="w-val w-computed" id="ext-res" title="computed — float quadrature and differences">—</b>.</div>
     <svg class="spk" id="sp-pulse" role="img" aria-label="The pulse amplitude rising then falling."></svg>
     <div class="note-sm">The shear feeds the oscillation, then shortens its wavelength until
-    viscosity wins. Peak amplification <b id="pulse-pk">—</b>.</div>
+    viscosity wins. Peak amplification <b class="w-val w-chosen" id="pulse-pk" title="chosen — at parameters this page picked">—</b>,
+    <em id="pulse-given"></em>: dotted.</div>
   </div>
   <hr class="hr-thin">
 
   <div class="grp">
     <span class="eyebrow">what backs each mark</span>
-    <div class="note-sm"><b>Decided.</b> ${esc(S.backing.criteria.how)}</div>
-    <div class="note-sm"><b>Decided.</b> ${esc(S.backing.mechanism.how)}. Every formula is re-derived
+    ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+    <div class="note-sm"><b>${KIND(S.backing.criteria)}.</b> ${esc(S.backing.criteria.how)}</div>
+    <div class="note-sm"><b>${KIND(S.backing.mechanism)}.</b> ${esc(S.backing.mechanism.how)}. Every formula is re-derived
     from the paper by <code>instruments/navierstokes/probes/stress_cone.py</code>, which carries six red
     controls — among them that a stress just outside the cone forces a negative squared amplitude, and
     that at angular mode zero the averages of Proposition 7.5 Step 1 both fail.</div>
-    <div class="note-sm"><b>Computed.</b> ${esc(S.backing.exterior.how)}</div>
-    <div class="note-sm"><b>Drawn.</b> ${esc(S.backing.core.how)}</div>
+    <div class="note-sm"><b>${KIND(S.backing.exterior)}.</b> ${esc(S.backing.exterior.how)}</div>
+    <div class="note-sm"><b>${KIND(S.backing.core)}.</b> ${esc(S.backing.core.how)}</div>
     <div class="note-sm">The construction is OpenAI's, <i>Finite time blowup for Navier–Stokes</i>,
     ${nf(S.paper.pages)} pages, sha256 ${esc(S.paper.sha256.slice(0, 12))}…. The audit next door built its
     ${nf(S.build.modules)}-module Lean proof on one laptop in ${nf(S.build.minutes)} minutes and had
@@ -291,8 +340,9 @@ const html = page({
   </div>
 </aside>
 `,
-  script: `<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, none: GRAMMAR.dash.none })}</script>
+  script: `<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, pickSm: GRAMMAR.dash.pickSm, none: GRAMMAR.dash.none })}</script>
 <script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
+<script>${FIELD}</script>
 <script>${APP}</script>`,
 });
 

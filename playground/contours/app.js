@@ -73,10 +73,17 @@
     out.push('<line class="ec-axis" x1="' + ML + '" y1="' + (MT + PH) + '" x2="' + (ML + PW) + '" y2="' + (MT + PH) + '"/>');
     out.push('<text class="ec-lab" x="' + (ML + PW / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + (kind === 'tz' ? 'zero-up-crossing period Tz (s)' : 'wind speed u₁₀ (m/s)') + '</text>');
     out.push('<text class="ec-lab" transform="rotate(-90 14 ' + (MT + PH / 2) + ')" x="14" y="' + (MT + PH / 2) + '" text-anchor="middle">significant wave height Hs (m)</text>');
-    /* the contour: the file's polygon, closed from last to first as the benchmark closed it */
+    /* the contour: the file's polygon, closed from last to first as the benchmark closed it. WARRANT v2 (2026-10-28):
+       where the file does not repeat its first vertex, that closing edge is the test's default and not the author's,
+       so it is drawn apart from the listed edges, dotted (CHOSEN) — S.marks.closing, from the grammar */
     if (poly) {
-      const d = poly.pts.map((p, i) => (i ? 'L' : 'M') + px(p.u.v).toFixed(1) + ' ' + py(p.h.v).toFixed(1)).join(' ') + ' Z';
-      out.push('<path class="ec-poly" d="' + d + '"/>');
+      const d = poly.pts.map((p, i) => (i ? 'L' : 'M') + px(p.u.v).toFixed(1) + ' ' + py(p.h.v).toFixed(1)).join(' ');
+      if (row.polygon.closed) out.push('<path class="ec-poly" d="' + d + ' Z"/>');
+      else {
+        const a = poly.pts[poly.pts.length - 1], b = poly.pts[0];
+        out.push('<path class="ec-poly" d="' + d + '"/>');
+        out.push('<path ' + S.marks.closing + ' d="M' + px(a.u.v).toFixed(1) + ' ' + py(a.h.v).toFixed(1) + ' L' + px(b.u.v).toFixed(1) + ' ' + py(b.h.v).toFixed(1) + '"/>');
+      }
       /* crossings: their NUMBER is decided; their positions are drawn in float, so the mark is dashed */
       for (const c of (row.crossings || [])) { const x = px(c[0]), y = py(c[1]); out.push('<path ' + S.marks.cross + ' d="M' + x + ' ' + (y - 6) + ' L' + (x + 6) + ' ' + y + ' L' + x + ' ' + (y + 6) + ' L' + (x - 6) + ' ' + y + ' Z"/>'); }
       for (const o of (row.on || [])) { out.push('<circle class="ec-on" cx="' + px(Number(o.u)) + '" cy="' + py(Number(o.h)) + '" r="6"/>'); }
@@ -104,14 +111,19 @@
     const c = row.counts, d = S.datasets[row.dataset];
     const pr = row.printed;
     $('r-out').textContent = fmt(c.full.out);
-    $('r-out-note').textContent = c.full.on ? '+ ' + c.full.on + ' exactly on the contour' : 'none on the contour';
+    /* WARRANT v2 (2026-10-28): a count on a file the test had to close holds given that closing edge, and says so */
+    $('r-out-note').innerHTML = (c.full.on ? '+ ' + c.full.on + ' exactly on the contour' : 'none on the contour') + (row.polygon.closed ? '' : ' · <em>given the closing edge</em>');
     $('r-printed').textContent = pr ? fmt(pr.value) : '—';
+    /* the printed number is the organizers' float64 point-in-polygon count: COMPUTED, also where it agrees — the
+       agreement is the verdict, in the words beneath it */
+    $('r-printed').className = 'v' + (pr ? ' w-val w-computed' : '');
+    $('r-printed').title = pr ? 'computed — the paper’s count, by a float64 point-in-polygon test' : '';
     $('r-printed-note').textContent = pr ? (pr.kind === 'mean' ? 'the paper prints only a three-dataset mean for 1-yr contours' : pr.agrees ? 'agrees with the exact count' : 'is not the count of this file') : 'the paper prints no count for this file';
     $('r-above').textContent = fmt(c.full.outAboveThreshold);
     $('r-ret').textContent = fmt(c.retained.out) + ' / ' + fmt(c.provided.out);
-    $('r-ret-note').textContent = 'expected ' + (row.class === 'total' ? d.retainedExpected.total : '≈ ' + d.retainedExpected.iform) + ' in the retained years for this class';
+    $('r-ret-note').textContent = 'expected ' + (row.class === 'total' ? d.retainedExpected.total : d.retainedExpected.iform) + ' in the retained years for this class';
     $('r-poly').textContent = row.polygon.simple ? 'simple' : row.polygon.selfCrossings + ' self-crossing' + (row.polygon.selfCrossings === 1 ? '' : 's');
-    $('r-poly-note').textContent = fmt(row.polygon.distinctVertices) + ' distinct vertices · ' + (row.polygon.closed ? 'closed in the file' : 'closed by the test, ' + row.polygon.closingEdgeLength.replace(/0+$/, '') + ' m') + (row.polygon.duplicates ? ' · ' + row.polygon.duplicates + ' duplicate vertices' : '');
+    $('r-poly-note').textContent = fmt(row.polygon.distinctVertices) + ' distinct vertices · ' + (row.polygon.closed ? 'closed in the file' : 'closed by the test: ' + row.polygon.closingEdgeLength.replace(/0+$/, '') + ' m, dotted') + (row.polygon.duplicates ? ' · ' + row.polygon.duplicates + ' duplicate vertices' : '');
     $('r-max').textContent = Number(row.polygon.maxHs).toFixed(2) + ' m';
     $('r-max-note').textContent = 'observed maximum ' + d.maxHs + ' m' + (row.maxHsAboveObserved ? ' — below the contour' : ' — above the contour');
   }
@@ -132,7 +144,8 @@
     const name = kind === 'tz' ? 'Tz = ' + v.u + ' s' : 'u₁₀ = ' + v.u + ' m/s';
     const word = v.where === 'IN' ? 'INSIDE' : v.where === 'OUT' ? 'OUTSIDE' : 'ON THE CONTOUR';
     el.innerHTML = '<div class="word' + (v.where === 'ON' ? ' on' : '') + ' w-decided">' + word + '</div>'
-      + '<div class="why">Hs = ' + v.h + ' m, ' + name + ' — decided by the even-odd crossing count in exact arithmetic' + (v.where === 'ON' ? ': the point lies on an edge or a vertex, an answer the float test does not have' : v.winding !== null && v.winding !== undefined ? ' (winding number ' + v.winding + ')' : '') + '.</div>';
+      + '<div class="why">Hs = ' + v.h + ' m, ' + name + ' — decided by the even-odd crossing count in exact arithmetic' + (v.where === 'ON' ? ': the point lies on an edge or a vertex, an answer the float test does not have' : v.winding !== null && v.winding !== undefined ? ' (winding number ' + v.winding + ')' : '') + '.'
+      + (row.polygon.closed ? '' : ' <em>Given the closing edge the test draws, which the file does not list.</em>') + '</div>';
   }
 
   svg.addEventListener('click', (ev) => {

@@ -7,11 +7,15 @@
    makes several thousand tracers possible at sixty frames a second, and it is also the
    mathematics: the whole construction is one profile and a scaling.
 
-   THREE KINDS OF MARK, and the readout says which:
-     DECIDED   every verdict about h — exact rational inequalities decided with BigInt.
-     COMPUTED  the exterior integral and the pulse equation, residual shown.
-     DRAWN     the tracers and the glow: the paper's scalings and exact incompressibility,
-               profile shapes chosen to be legible. No fluid is integrated here. */
+   THREE STANDINGS, in the grammar's words (WARRANT v2, 2026-10-28 — this list used to name a
+   fourth, DRAWN, which is CHOSEN under another name):
+     DECIDED   every verdict about h and the cone test — exact rationals, BigInt. Solid.
+     COMPUTED  the exterior integral, the scale values beside the exact exponents, the speeds
+               in the readout: float, nothing decided them. Dashed, underlined dashed.
+     CHOSEN    the core itself: the paper's scalings, a divergence-free meridional flow
+               (field.js), profile shapes picked to be legible — one member of the flows
+               with these scalings, so every contour, streamline and wave is dotted; and the
+               drawn stress path, with everything that rests on it. No fluid is integrated. */
 (function () {
   'use strict';
   const S = JSON.parse(document.getElementById('ns-scene').textContent);
@@ -57,21 +61,20 @@
   /* ------------------------------------------------------------------ the profile, once per h */
   const GN = 150, GM = 112, GX = 2.0, GY = 1.25;
   let F = null, Fh = -1;
-  const Eprof = (X, hh) => Math.sqrt(2 * X) / Math.pow(1 + X, 1 + hh);
-  const Uprof = (X, eta) => 2.4 * Math.exp(-X) * eta * Math.max(0, 1 - eta * eta);
+  /* the profiles live in field.js (window.NSFIELD), which build.js also requires and checks: u_z = q^{−A}·U,
+     u_θ ∝ q^{−A}·E, and u_r = q^{−1/2}·G with G solved from continuity in closed form. This used to accumulate
+     u_r here in the profile coordinates as though q did not depend on z, and was not divergence-free (field.js) */
+  const NF = window.NSFIELD;
   function buildField() {
     const hh = h();
     const fr = new Float32Array(GN * GM), fz = new Float32Array(GN * GM), fs = new Float32Array(GN * GM);
     for (let j = 0; j < GM; j++) {
-      const eta = -GY + 2 * GY * j / (GM - 1), de = 2 * GY / (GM - 1);
-      let acc = 0, Xprev = 0;
+      const eta = -GY + 2 * GY * j / (GM - 1);
       for (let i = 0; i < GN; i++) {
         const sx = GX * i / (GN - 1), X = sx * sx, k = j * GN + i;
-        fz[k] = Uprof(X, eta);
-        fs[k] = Eprof(X, hh);
-        const dU = (Uprof(X, Math.min(GY, eta + de)) - Uprof(X, Math.max(-GY, eta - de))) / (2 * de);
-        acc += -dU * (X - Xprev); Xprev = X;
-        fr[k] = X > 1e-9 ? acc / Math.sqrt(2 * X) : 0;   /* u_r = V0/r, incompressibility exactly */
+        fz[k] = NF.U(X, eta);
+        fs[k] = NF.E(X, hh);
+        fr[k] = NF.G(X, eta, hh);
       }
     }
     F = { fr, fz, fs }; Fh = hh;
@@ -129,10 +132,11 @@
         const sx = -CXMAX + 2 * CXMAX * i / (CN - 1), X = sx * sx;
         const a1 = sample(F.fs, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
         const a2 = sample(F.fz, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
-        const a3 = sample(F.fr, Math.min(GX, Math.abs(sx)), Math.max(-GY, Math.min(GY, eta)));
-        /* the physical speed at (X, η) is τ^{−A}(1−η²)^A·|F|, so the SHAPE of every contour
-           is the shape of G = (1−η²)^A|F| — one field, every τ, no per-frame marching. */
-        const v = Math.pow(Math.max(1e-9, 1 - eta * eta), 0.5 + hh) * Math.sqrt(a1 * a1 + a2 * a2 + a3 * a3);
+        /* the LEADING speed |(u_θ, u_z)| at (X, η) is τ^{−A}(1−η²)^A·|(E, U)|, so the SHAPE of every
+           contour is the shape of (1−η²)^A|(E, U)| — one field, every τ, no per-frame marching. The
+           radial speed is left out because it is lower order: q^{−1/2}, smaller by τ^h, so a speed that
+           included it would change shape with τ (it used to be included at the axial exponent). */
+        const v = Math.pow(Math.max(1e-9, 1 - eta * eta), 0.5 + hh) * Math.sqrt(a1 * a1 + a2 * a2);
         g[j * CN + i] = v; if (v > vmax) vmax = v;
       }
     }
@@ -163,8 +167,9 @@
         const q = qOf(z, TREF, hh, DD);
         const sxa = r / Math.sqrt(2 * q), et = z / Math.pow(q, DD);
         if (!(sxa <= GX) || !(Math.abs(et) <= GY)) break;
-        const qA = Math.pow(q, -AA);
-        const ur = qA * sample(F.fr, sxa, et), uz = qA * sample(F.fz, sxa, et);
+        /* u_r = q^{−1/2}·G and u_z = q^{−A}·U (field.js): the exponents the table states, which is also
+           what makes this curve, stored in (√X, η), the streamline at every τ */
+        const ur = Math.pow(q, -0.5) * sample(F.fr, sxa, et), uz = Math.pow(q, -AA) * sample(F.fz, sxa, et);
         const nn = Math.hypot(ur, uz) || 1e-30;
         r += dir * ur / nn * STEP; z += dir * uz / nn * STEP;
         if (!(r > lrRef * 0.002)) break;
@@ -256,6 +261,7 @@
   /* ------------------------------------------------------------------ the frame */
   let last = 0, fps = 60, frames = 0, fpsT = 0, hudT = 0, phase = 0;
   const PULSES = 9;
+  const STREAM_A = 0.45;   /* the streamlines' opacity, dotted (it was 0.28 solid); the legend reads the same constant */
   const pulseCount = (t) => Math.max(3, Math.min(190, Math.round(Math.SQRT2 * (Math.sqrt(Xb) - Math.sqrt(Xa)) * Math.pow(t, -h() / 2) * PULSES)));
 
   function draw(ts) {
@@ -285,6 +291,12 @@
     /* in the stress mode the flow field steps back to a ghost so the mechanism has the page:
        the contours are still there, still exact, just no longer the subject */
     const dim = st.mode === 'stress' ? 0.30 : 1;
+    /* WARRANT v2 (2026-10-28): the core is one member of the flows with the paper's scalings, its shapes picked to
+       be legible — CHOSEN — so its contours and streamlines are dotted (design/grammar.js PICK_SM, a 1px line),
+       as the interferometer dots the contours of its mean of picks */
+    /* round caps, as the grammar's PICK is drawn; and the streamlines go from 0.28 to STREAM_A, because a dotted
+       hairline carries about half the ink of a solid one and at 0.28 they were not there */
+    ctx.setLineDash(GR.pickSm); ctx.lineCap = 'round';
     if (st.mode === 'contour' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
       for (const c of geo.contours) {
@@ -303,7 +315,7 @@
 
     if (st.mode === 'stream' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(246,246,248,' + (0.28 * dim).toFixed(3) + ')';
+      ctx.strokeStyle = 'rgba(246,246,248,' + (STREAM_A * dim).toFixed(3) + ')';
       ctx.beginPath();
       for (const L of geo.lines) {
         let started = false;
@@ -329,6 +341,8 @@
       }
     }
 
+    ctx.setLineDash(GR.none); ctx.lineCap = 'butt';   /* the pick's dots end here: what follows sets its own */
+
     if (st.mode === 'stipple') {
       ctx.fillStyle = 'rgba(246,246,248,0.5)';
       const dd = geo.dots;
@@ -339,8 +353,9 @@
       }
     }
 
-    /* the references. The axis and the annulus are dotted because they are rulers; the core
-       box is solid because its two edges are exactly what the exponents fix. */
+    /* the references. The axis and the annulus edges are rulers, so they take GUIDE; the core
+       box is solid — DECIDED — because it shrinks at exactly the rates the exponents fix. (The
+       canvas legend used to file the box under the rulers' pattern; it has its own row now.) */
     ctx.save();
     /* the axis is a ruler, so it takes GUIDE like the annulus edges — it had been drawn with
        the PICK pattern, which means "one member of a set the data admits" and is not what an
@@ -376,7 +391,9 @@
      so with a broken rule where its curve would have been rather than drawing a wave that
      does not exist. The radial phase is 2πN·log(X/Xa)/log(Xb/Xa), which is the paper's own
      N log X modulation (Appendix C), so the pulses crowd where the paper says they crowd.
-     The two families are told apart by line style and phase, never by colour alone. */
+     The two families are told apart by weight, opacity and phase, never by colour alone — and
+     never by dash: both are dotted (WARRANT v2, 2026-10-28), because the envelope is decided
+     from the DRAWN stress path, and a mark is only as strong as the weakest thing it rests on. */
   function drawPulses(cx, cy, scale, e, t) {
     const md = mechData(), rows = md.rows;
     const n = pulseCount(t);
@@ -395,7 +412,7 @@
     }
     for (const fam of [{ sig: 1, id: GR.identity[0], k: emph ? 1 : 0.56, ph: 0 },
                        { sig: -1, id: GR.identity[1], k: emph ? 1 : 0.56, ph: Math.PI / 2 }]) {
-      ctx.setLineDash(GR.none);
+      ctx.setLineDash(GR.pickSm); ctx.lineCap = 'round';   /* the caller's save()/restore() puts the cap back */
       ctx.strokeStyle = 'rgba(246,246,248,' + (fam.id.opacity * 0.78 * fam.k).toFixed(3) + ')';
       ctx.lineWidth = fam.id.weight * 0.8;
       for (const sg of [1, -1]) {
@@ -414,8 +431,10 @@
       }
     }
     ctx.setLineDash([]);
-    /* where a squared amplitude is negative there is no wave to draw: mark the radius */
+    /* where a squared amplitude is negative there is no wave to draw: mark the radius — dotted
+       too, since where it falls is decided from the drawn stress */
     if (md.outWave > 0) {
+      ctx.setLineDash(GR.pickSm);
       ctx.strokeStyle = 'rgba(246,246,248,0.5)'; ctx.lineWidth = 1;
       ctx.beginPath();
       for (const r of rows) {
@@ -428,6 +447,7 @@
         }
       }
       ctx.stroke();
+      ctx.setLineDash(GR.none);
     }
   }
 
@@ -485,10 +505,13 @@
   function legend(bar) {
     if (W < 980 || !bar) return;
     const md = mechData();
+    /* WARRANT v2 (2026-10-28): the kinds are 'pick' (dotted: the chosen core, and the waves on the drawn stress),
+       'guide' (the rulers) and 'solid' (the core box, decided); the box used to share the rulers' row and pattern */
     const rows = [
-      ['contour', 'a level of |u| · ×' + RATIO + ' a step, ' + st.levels + ' of them', 'solid', 0.62],
-      ['stream', 'a meridional streamline (r, z)', 'solid', 0.28],
-      ['ref', 'axis · annulus edges · core box', 'dot', 0.3],
+      ['contour', 'a level of the leading speed |(uθ, uz)| · ×' + RATIO + ' a step, ' + st.levels + ' · chosen', 'pick', 0.62],
+      ['stream', 'a meridional streamline (r, z) · chosen', 'pick', STREAM_A],
+      ['ref', 'axis · annulus edges · rulers', 'guide', 0.3],
+      ['box', 'core box · τ^1/2 × τ^' + fmtExp(0.5 - h()) + ' · decided', 'solid', 0.3],
     ];
     if (!st.axisym) {
       rows.push(['wave', 'pulse family + · envelope √y₊', 'wave', GR.identity[0].opacity * 0.78]);
@@ -504,7 +527,8 @@
       ctx.textAlign = 'left';
       ctx.strokeStyle = 'rgba(246,246,248,' + al + ')';
       ctx.lineWidth = kind === 'wave' ? (al > 0.5 ? GR.identity[0].weight : GR.identity[1].weight) * 0.8 : 1;
-      ctx.setLineDash(kind === 'dot' ? GR.guide : GR.none);
+      ctx.setLineDash(kind === 'guide' ? GR.guide : kind === 'solid' ? GR.none : GR.pickSm);
+      ctx.lineCap = kind === 'guide' || kind === 'solid' ? 'butt' : 'round';
       ctx.beginPath();
       if (kind === 'wave') {
         for (let i = 0; i <= 26; i++) {
@@ -512,7 +536,7 @@
           if (i) ctx.lineTo(x, y - zz); else ctx.moveTo(x, y - zz);
         }
       } else { ctx.moveTo(right - sw, y); ctx.lineTo(right, y); }
-      ctx.stroke(); ctx.setLineDash([]);
+      ctx.stroke(); ctx.setLineDash([]); ctx.lineCap = 'butt';
       y += 15;
     }
   }
@@ -527,6 +551,9 @@
   }
 
   /* ------------------------------------------------------------------ verdicts, decided */
+  /* the exponents are decided; the exclusions they are read against are classical theorems this page cites and does
+     not prove (S.dichotomy.hypotheses), so the verdict says it holds given them, in the conditional mood */
+  const GIVEN_THM = '<em>Given the cited theorems, which are classical and not proved here.</em>';
   function decide() {
     const chips = $('chips'); chips.innerHTML = '';
     let met = 0;
@@ -556,13 +583,15 @@
     else {
       v.className = 'ov ov-verdict on';
       v.innerHTML = st.hn === 0n
-        ? '<span class="tag">type I</span><p>h = 0 — the swirl stays bounded and the maximum principle is satisfied. And |u| ≍ τ<sup>−1/2</sup> is exactly type I, which the axisymmetric Liouville theorems exclude.</p>'
-        : '<span class="tag">swirl unbounded</span><p>h = ' + esc(qtext(Q(st.hn, HD))) + ' — type II, so those theorems do not reach it. And Γ = r·u<sub>θ</sub> ≍ τ<sup>−' + esc(qtext(Q(st.hn, HD))) + '</sup> diverges, which the maximum principle forbids for an axisymmetric flow driven from rest by a bounded force.</p>';
+        ? '<span class="tag">type I</span><p>h = 0 — the swirl stays bounded and the maximum principle is satisfied. And |u| ≍ τ<sup>−1/2</sup> is exactly type I, which the axisymmetric Liouville theorems exclude. ' + GIVEN_THM + '</p>'
+        : '<span class="tag">swirl unbounded</span><p>h = ' + esc(qtext(Q(st.hn, HD))) + ' — type II, so those theorems do not reach it. And Γ = r·u<sub>θ</sub> ≍ τ<sup>−' + esc(qtext(Q(st.hn, HD))) + '</sup> diverges, which the maximum principle forbids for an axisymmetric flow driven from rest by a bounded force. ' + GIVEN_THM + '</p>';
     }
     mechRender();
     $('h-met').textContent = met + '/' + S.criteria.length;
     $('h-h').textContent = qtext(Q(st.hn, HD));
-    $('h-10').textContent = st.hn === 0n ? 'never' : '10^−' + Math.round(1 / h());
+    /* τ^{−h} = 10 at τ = 10^{−1/h}, and 1/h is a rational: printed exactly. It was Math.round(1/h), so h = 3/50
+       read 10^−17 where the decided value is 10^−50/3 (WARRANT v2, 2026-10-28) */
+    $('h-10').textContent = st.hn === 0n ? 'never' : '10^−' + qtext(Q(HD, st.hn));
     exactTable();
   }
   function exactTable() {
@@ -570,8 +599,9 @@
     for (const x of S.exponents) {
       const q = at(x.e, st.hn), row = document.createElement('div');
       row.className = 'erow';
+      /* the exponent is decided; its value at the τ on screen is a float power: computed, underlined dashed */
       row.innerHTML = '<span class="s">' + esc(x.sym) + '</span><span class="e">τ<sup>' + esc(qtext(q)) + '</sup></span>'
-        + '<span class="v">' + esc(fmtE(Math.pow(10, qnum(q) * st.logTau))) + '</span>';
+        + '<span class="v w-val w-computed" title="computed — a float power of the exact exponent">' + esc(fmtE(Math.pow(10, qnum(q) * st.logTau))) + '</span>';
       row.title = x.what;
       box.appendChild(row);
     }
@@ -583,23 +613,28 @@
     const gam = (x) => { const g = 7, c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7]; if (x < 0.5) return Math.PI / (Math.sin(Math.PI * x) * gam(1 - x)); x -= 1; let a = c[0]; const t = x + g + 0.5; for (let i = 1; i < g + 2; i++) a += c[i] / (x + i); return Math.sqrt(2 * Math.PI) * Math.pow(t, x + 0.5) * Math.exp(-t) * a; };
     const Hf = (Z) => { const f = (w) => { const v = w * w; return 2 * w * Math.exp(-v) * Math.pow(v, hh) * Math.pow(1 + Z * v, -hh); }; const b = Math.sqrt(60), n = 600, dw = b / n; let s = f(0) + f(b); for (let i = 1; i < n; i++) s += f(i * dw) * (i % 2 ? 4 : 2); return (s * dw / 3) / gam(1 + hh); };
     const pts = []; for (let i = 0; i <= 60; i++) { const lz = -3 + 7 * i / 60; pts.push([lz, Hf(Math.pow(10, lz))]); }
-    spark('sp-ext', pts, -3, 4, 0, 1.05);
+    /* WARRANT v2 (2026-10-28): H(Z) is Simpson's rule on an exact closed form — COMPUTED, so dashed; the pulse is
+       Runge–Kutta at a wavenumber, shear and viscosity this page picked to show the shape — CHOSEN, so dotted, and its
+       peak is named with what it is given. The two lines used to be solid. */
+    spark('sp-ext', pts, -3, 4, 0, 1.05, 'ink-assumed');
     const Z = 1, ep = 1e-4, H0 = Hf(Z), H1 = (Hf(Z + ep) - Hf(Z - ep)) / (2 * ep), H2 = (Hf(Z + ep) - 2 * H0 + Hf(Z - ep)) / (ep * ep);
     $('ext-res').textContent = (Z * Z * H2 + (1 + 2 * (1 + hh) * Z) * H1 + hh * (1 + hh) * H0).toExponential(1);
-    const k0 = 26, sig = 1, N = 420, T1 = 3.4, dt = T1 / N;
+    const k0 = 26, sig = 1, NU = 1e-3, N = 420, T1 = 3.4, dt = T1 / N;
     const k2 = (s) => k0 * k0 * (1 + (sig * s) * (sig * s)), lam = (s) => 2 * sig / (1 + (sig * s) * (sig * s));
-    const f2 = (s, y) => (lam(s) - k2(s) * 1e-3) * y;
+    const f2 = (s, y) => (lam(s) - k2(s) * NU) * y;
     let y = 1, pk = 1; const cur = [[0, 1]];
     for (let i = 0; i < N; i++) { const s = i * dt, a = f2(s, y), b = f2(s + dt / 2, y + dt / 2 * a), c = f2(s + dt / 2, y + dt / 2 * b), d = f2(s + dt, y + dt * c); y += dt / 6 * (a + 2 * b + 2 * c + d); if (y > pk) pk = y; cur.push([s + dt, y]); }
-    spark('sp-pulse', cur, 0, T1, 0, pk * 1.1);
+    spark('sp-pulse', cur, 0, T1, 0, pk * 1.1, 'ink-chosen');
     $('pulse-pk').textContent = '×' + pk.toFixed(2);
+    $('pulse-given').textContent = 'given k₀ = ' + k0 + ', shear σ = ' + sig + ', viscosity ν = ' + NU + ', all chosen';
   }
-  function spark(id, pts, x0, x1, y0, y1) {
+  /* `ink` is a design/grammar.js class (build.js emits GRAMMAR.css('.spk')), at 1.5 so the full-size pattern */
+  function spark(id, pts, x0, x1, y0, y1, ink) {
     const el = $(id); if (!el) return;
     const w = 190, hh2 = 46; el.setAttribute('viewBox', '0 0 ' + w + ' ' + hh2);
     let d = '';
     for (const [x, y] of pts) d += (d ? 'L' : 'M') + (3 + (x - x0) / (x1 - x0) * (w - 6)).toFixed(1) + ' ' + (hh2 - 3 - (y - y0) / (y1 - y0) * (hh2 - 6)).toFixed(1);
-    el.innerHTML = '<path d="' + d + '" fill="none" stroke="rgba(246,246,248,0.8)" stroke-width="1.4"/>';
+    el.innerHTML = '<path d="' + d + '" class="' + ink + '" fill="none" stroke="rgba(246,246,248,0.8)" stroke-width="1.5"/>';
   }
 
   /* ------------------------------------------------------- the mechanism, decided
@@ -709,13 +744,17 @@
     o.push('<svg viewBox="0 0 ' + BW + ' ' + BH + '" role="img" aria-label="The stress plane: the admissible cone of (4.22), the wider cone the two wave families can reach, the stress path across the annulus, and the two positive contributions closing head to tail on it.">');
     o.push('<defs><pattern id="hatchC" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
       + '<line x1="0" y1="0" x2="0" y2="4" stroke="rgba(246,246,248,0.30)" stroke-width="0.7"/></pattern></defs>');
-    /* what two real amplitudes reach — dotted rim, no fill, so it cannot be confused with the cone inside it */
+    /* what two real amplitudes reach — a faint rim, no fill, so it cannot be confused with the cone inside it. Both
+       wedges are exact functions of the dials, so both are solid (DECIDED); this comment used to call the rim dotted,
+       which it had stopped being when the dash for "the second cone" was taken off as identity */
     o.push('<path d="' + sector(rimW) + '" fill="none" stroke="rgba(246,246,248,' + GR.identity[2].opacity * 0.55 + ')" stroke-width="' + GR.identity[2].weight + '"/>');
     /* the admissible cone (4.22), strictly inside it; the gap between the two IS the margin ηc */
     o.push('<path d="' + sector(rimA) + '" fill="url(#hatchC)" fill-opacity="0.55" stroke="rgba(246,246,248,' + GR.identity[0].opacity * 0.72 + ')" stroke-width="' + GR.identity[0].weight + '"/>');
-    /* the stress path: T0(X) as X runs across the annulus, vanishing at both edges */
+    /* the stress path: T0(X) as X runs across the annulus, vanishing at both edges. It is DRAWN — a bump this page
+       picked, standing in for the paper's T0 — so CHOSEN, dotted (WARRANT v2, 2026-10-28), and so is everything below
+       that rests on it: the decomposition, the demand curve and the y+ edge */
     o.push('<path d="M' + O.join(',') + rows.map((r) => 'L' + px(r.Tth, r.Tz).join(',')).join('') + 'L' + O.join(',')
-      + '" fill="none" stroke="rgba(246,246,248,0.9)" stroke-width="1.2"/>');
+      + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.9)" stroke-width="1.2"/>');
     /* a radius whose stress has left the wave cone has no real amplitude: cross it out. AT MOST
        FIVE, evenly spaced — one mark per radius is a white blob the moment the whole annulus
        fails, and a mark that hides the thing it marks is not a mark. */
@@ -730,8 +769,8 @@
     const pk = rows[md.peak];
     const h1 = toT(pk.yp, pk.yp * M), h2 = toT(pk.ym, -pk.ym * M);
     const A1 = px(h1[0], h1[1]), A2 = px(h1[0] + h2[0], h1[1] + h2[1]);
-    o.push('<line x1="' + O[0] + '" y1="' + O[1] + '" x2="' + A1[0] + '" y2="' + A1[1] + '" stroke="rgba(246,246,248,' + GR.identity[0].opacity + ')" stroke-width="' + (GR.identity[0].weight * 1.4).toFixed(2) + '"/>');
-    o.push('<line x1="' + A1[0] + '" y1="' + A1[1] + '" x2="' + A2[0] + '" y2="' + A2[1] + '" stroke="rgba(246,246,248,' + GR.identity[1].opacity + ')" stroke-width="' + (GR.identity[1].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<line class="ink-chosen" x1="' + O[0] + '" y1="' + O[1] + '" x2="' + A1[0] + '" y2="' + A1[1] + '" stroke="rgba(246,246,248,' + GR.identity[0].opacity + ')" stroke-width="' + (GR.identity[0].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<line class="ink-chosen" x1="' + A1[0] + '" y1="' + A1[1] + '" x2="' + A2[0] + '" y2="' + A2[1] + '" stroke="rgba(246,246,248,' + GR.identity[1].opacity + ')" stroke-width="' + (GR.identity[1].weight * 1.4).toFixed(2) + '"/>');
     o.push('<circle cx="' + A2[0] + '" cy="' + A2[1] + '" r="2.6" fill="#f6f6f8"/>');
     o.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="1.7" fill="rgba(246,246,248,0.75)"/>');
     /* THE ARITHMETIC THAT DECIDED IT, beside the picture of it. The stress direction s and the
@@ -781,13 +820,13 @@
     /* the first family: 0 up to y+ */
     o.push('<path d="' + poly((r) => r.yp) + 'L' + px(rows[rows.length - 1], 0)[0].toFixed(1) + ',' + zero
       + 'L' + px(rows[0], 0)[0].toFixed(1) + ',' + zero + 'Z" fill="rgba(246,246,248,0.10)"/>');
-    o.push('<path d="' + poly((r) => r.yp) + '" fill="none" stroke="rgba(246,246,248,0.55)" stroke-width="1"/>');
+    o.push('<path d="' + poly((r) => r.yp) + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.55)" stroke-width="1"/>');
     /* the second family: y+ up to y+ + y− = A — hatched, and it goes the other way when y− < 0 */
     const up = poly((r) => r.yp + r.ym);
     const down = rows.slice().reverse().map((r, i) => (i ? 'L' : 'L') + px(r, r.yp).map((v) => v.toFixed(1)).join(',')).join('');
     o.push('<path d="' + up + down + 'Z" fill="url(#hatchS)" fill-opacity="0.75"/>');
     /* the demand: the stress the core needs at this radius */
-    o.push('<path d="' + poly((r) => r.A) + '" fill="none" stroke="rgba(246,246,248,0.92)" stroke-width="1.4"/>');
+    o.push('<path d="' + poly((r) => r.A) + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.92)" stroke-width="1.4"/>');
     o.push('<line x1="' + x0 + '" y1="' + zero + '" x2="' + x1 + '" y2="' + zero + '" class="ink-guide" stroke="rgba(246,246,248,0.35)" stroke-width="1"/>');
     const bad = rows.filter((r) => !r.inWave);
     for (let k = 0; k < bad.length; k += Math.max(1, Math.ceil(bad.length / 12))) {
@@ -824,6 +863,8 @@
           ? '<b>' + md.outCone + ' of ' + md.n + '</b> outside the cone (4.22) (|s| ≥ ' + esc(lo)
             + '): reachable, but the margin η<sub>c</sub> of (7.28) is gone.'
           : 'All ' + md.n + ' radii inside the cone (4.22): two <b>positive</b> amplitudes, summing to exactly what the core needs.';
+      /* the test is exact; the stress it is applied to is the drawn one, so the verdict holds given it */
+      $('mech-line').innerHTML += ' <em>Given the drawn stress.</em>';
     }
     $('m-vs').textContent = qtext(mechData().vs);
     $('m-slope').textContent = qtext(mechData().m);

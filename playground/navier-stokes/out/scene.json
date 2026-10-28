@@ -358,8 +358,8 @@
    "how": "every row is a rational inequality in h with integer numerators; the tab decides it with BigInt, and the boundary cases (h = 0, h = 1/6) are decided as equalities rather than approached"
   },
   "core": {
-   "kind": "DRAWN",
-   "how": "the exponents and incompressibility are the paper’s and are exact; the radial profile shapes are chosen to be legible and claim nothing. No fluid is integrated anywhere on this page"
+   "kind": "CHOSEN",
+   "how": "one core out of those with the paper’s scalings, its profile shapes picked to be legible, so every contour, streamline and wave is dotted. The exponents are the paper’s and exact; the radial speed is solved from continuity in closed form, so the drawn flow is divergence-free and |u_r| scales as τ^{−1/2}, as the table says, which the build checks before it writes the page. No fluid is integrated anywhere on this page"
   },
   "exterior": {
    "kind": "COMPUTED",
@@ -371,7 +371,7 @@
   },
   "mechanism": {
    "kind": "DECIDED",
-   "how": "the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is drawn"
+   "how": "the cone test (4.22)/(4.23) and the two squared amplitudes of Proposition 7.5 are exact rational arithmetic in the tab — the wedge is parametrised by its slope m so that vs = 2 + 2/m² stays rational, and both cone crossings are equalities rather than limits. The stress path they are applied to is chosen, so each verdict on it holds given it"
   },
   "profile": {
    "kind": "COMPUTED",
@@ -884,5 +884,5 @@
   ],
   "comparator": 2
  },
- "recorded": "2026-09-10"
+ "recorded": "2026-10-28"
 }
