@@ -25,8 +25,11 @@ NEXT SESSION, IN ORDER:
   ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN. Read this entry first.
      SESSION CLOSE ~20:50 UTC (the operator is away): everything is committed and pushed; Machinidae is live in the
      new grammar; the landing's asterisk count now shows its four rounds and the October register stops counting the
-     queued row (d34983c7). THE ONLY THING RUNNING IS THE ETH POD (below) — OpenAI's claim, in Comparator since 19:08Z;
-     at ~US$3.6 spent. Start there.
+     queued row (d34983c7). ETH POD DELETED ~20:05Z after OpenAI's kernels came back: BOTH CLAIMS CERTIFIED — Comparator
+     exit 0 on each claim's own challenge, Lean's kernel and nanoda both accept, only propext/Classical.choice/Quot.sound
+     (certs/eth-kernel.json; OpenAI's Comparator took 3,076 s). leanchecker --fresh (optional third replay) NOT run —
+     rerun it on a pod later if wanted (SKIP nothing; CLAIMS=anthropic first: same-version kernel for the v4.33.1 export).
+     Pod uptime 4,300 s ≈ US$2.10. Nothing is running or billing now. NEXT on ETH: the bridge, the algorithms, the report.
      ── FRONT 1: THE ETH CHECK (the operator: "dig on the subject and rise with as much information and verification we
      could"; cap US$50 approved). A RUNPOD POD IS BILLING: x8ifbbj2vbolyj (cpu3m 32 vCPU / 256 GB, EU-RO-1, US$1.76/h,
      created 2026-10-28T18:47:48Z; ~US$1.30 by 19:32Z). It runs tools/runpod-eth.sh at 00340f97 (branch eth-kernel-lane).

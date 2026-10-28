@@ -15,16 +15,124 @@
  ],
  "trustBase": "the two kernels (Lean's, inside Comparator; nanoda), leanchecker, lean4export, Comparator's comparison code, landrun's Landlock sandbox (Comparator calls it with --best-effort; the pod's LSM list is in each row's env), the Mathlib cache fetched by lake exe cache get, the claimants' lakefiles (OpenAI's applies dependency patches at lake update; none touches Mathlib, census.json), and RunPod's machine",
  "counts": {
-  "decided": 1,
+  "decided": 2,
   "of": 2,
   "words": {
-   "CERTIFIED": 1
+   "CERTIFIED": 2
   }
  },
- "notRunYet": [
-  "openai"
- ],
+ "notRunYet": [],
  "rows": [
+  {
+   "claim": "openai",
+   "label": "OpenAI, openai/math family 378 (SubexponentialSAT)",
+   "repository": "https://github.com/openai/math",
+   "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "toolchain": "leanprover/lean4:v4.34.1",
+   "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+   "pinnedFiles": 3991,
+   "pinnedListSha256": "b6618ea8169d5ac2577d7dc5218539857f9ddc626087ad1f2341999be737909e",
+   "config": {
+    "challenge_module": "ComparatorChallenges.SubexponentialSAT",
+    "solution_module": "OAI.Algorithms.SubexponentialSAT.Main",
+    "theorem_names": [
+     "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "enable_nanoda": false
+   },
+   "configSha256": "debbfdc9c01104d2369be80da5180978275106df8b685f693fba7ce7da7c5b19",
+   "theorems": [
+    "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN",
+   "stage": null,
+   "axiomsPrinted": [
+    {
+     "theorem": "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    }
+   ],
+   "kernels": [
+    "Lean default kernel accepts the solution",
+    "nanoda kernel accepts the solution"
+   ],
+   "leanchecker": {
+    "word": "NOT RUN",
+    "why": "leanchecker --fresh was not run (or not yet)",
+    "command": null
+   },
+   "steps": {
+    "prepare": {
+     "exit": 0,
+     "seconds": 440,
+     "timedOut": false,
+     "maxRssKB": 1956400,
+     "containerPeakKB": 32813888
+    },
+    "comparator": {
+     "exit": 0,
+     "seconds": 3076,
+     "timedOut": false,
+     "maxRssKB": 18183524,
+     "containerPeakKB": 84398248
+    },
+    "build": {
+     "exit": 0,
+     "seconds": 15,
+     "timedOut": false,
+     "maxRssKB": 1945048,
+     "containerPeakKB": 53705856
+    },
+    "axioms": {
+     "exit": 0,
+     "seconds": 19,
+     "timedOut": false,
+     "maxRssKB": 8305292,
+     "containerPeakKB": 53700324
+    }
+   },
+   "env": [
+    "claim: openai",
+    "toolchain: leanprover/lean4:v4.34.1",
+    "kernel: 6.8.0-138-generic",
+    "landlock: ",
+    "lean: Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+    "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.34.1",
+    "comparator: d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+    "lean4export: /tools/v4.34.1/lean4export (076e8e57707e813375e8f9da8bf989799ace9680)",
+    "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g",
+    "landrun: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4",
+    "leanchecker: leanchecker",
+    "vm.max_map_count: 65530",
+    "cgroup memory.max: 256000000000",
+    "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+   ],
+   "run": "runpod-x8ifbbj2vbolyj",
+   "auditSha": "00340f97a03a55df68696002a11fc59b7b9d66e7",
+   "at": "2026-10-28T19:59:50Z",
+   "host": "RunPod CPU pod x8ifbbj2vbolyj: 32 vCPU; cgroup memory.max 256000000000 bytes; host shows 755 GB; 200G free; vm.max_map_count 65530; landlock: unreadable; kernel 6.8.0-138-generic",
+   "nanodaBuild": "issue44-stack1g",
+   "runs": [
+    {
+     "run": "runpod-x8ifbbj2vbolyj",
+     "at": "2026-10-28T19:59:50Z",
+     "word": "CERTIFIED",
+     "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN"
+    }
+   ],
+   "prior": "certs/openai-math-kernel-7ef5c0cc.json row SubexponentialSAT: REFUSED, the hosted runner (4 vCPU, 16 GB) terminated the job, exit 143, run 40520726442, 2026-10-27"
+  },
   {
    "claim": "anthropic",
    "label": "Anthropic, anthropics/formal-math eth/ (MainResults)",
@@ -132,13 +240,13 @@
    ],
    "run": "runpod-x8ifbbj2vbolyj",
    "auditSha": "00340f97a03a55df68696002a11fc59b7b9d66e7",
-   "at": "2026-10-28T19:00:40Z",
+   "at": "2026-10-28T19:59:50Z",
    "host": "RunPod CPU pod x8ifbbj2vbolyj: 32 vCPU; cgroup memory.max 256000000000 bytes; host shows 755 GB; 200G free; vm.max_map_count 65530; landlock: unreadable; kernel 6.8.0-138-generic",
    "nanodaBuild": "issue44-stack1g",
    "runs": [
     {
      "run": "runpod-x8ifbbj2vbolyj",
-     "at": "2026-10-28T19:00:40Z",
+     "at": "2026-10-28T19:59:50Z",
      "word": "CERTIFIED",
      "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN"
     }

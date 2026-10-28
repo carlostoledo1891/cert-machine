@@ -17,3 +17,10 @@ facts      https://x8ifbbj2vbolyj-8000.proxy.runpod.net/ (read-only, port 8000)
 import     node tools/import-runpod-eth.js x8ifbbj2vbolyj [--partial]
 budget     operator cap US$50; the lane stops and reports at US$40 (about 22.7 h at this price)
 delete     delete-pod x8ifbbj2vbolyj, then confirm get-pod -> 404
+
+DELETED 2026-10-28 ~20:05Z (delete-pod → 204; get-pod → 404 "pod not found"), from the cert-machine session, after
+`node tools/import-runpod-eth.js x8ifbbj2vbolyj --partial` imported both claims' deciding facts: OpenAI CERTIFIED
+(Comparator exit 0 in 3,076 s; Lean's kernel and nanoda accept; exact_count_and_sat: propext, Classical.choice,
+Quot.sound) and Anthropic CERTIFIED. leanchecker --fresh (the optional third replay) had just started on Anthropic's
+claim and was NOT completed: the operator was away and an unattended pod bills until deleted. Uptime 4,300 s at
+US$1.76/h ≈ US$2.10 at the read before deletion (get-pod runtime.uptime); the cap was US$50.
