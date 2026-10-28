@@ -1,0 +1,28 @@
+ETHBridge.s_eq_zero_of_forall_inTime: propext, Classical.choice, Quot.sound
+ETHBridge.not_eth_iff: propext, Classical.choice, Quot.sound
+ETHBridge.not_eth_of_forall_inTime: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.count_pos_iff: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.monitor_config: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.locatedStep_config: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.trace_config: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.frame_length: propext, Quot.sound
+ETHBridge.OpenAI.encodeNat_length: propext
+ETHBridge.OpenAI.encodeList_length_le: propext, Quot.sound
+ETHBridge.OpenAI.literalCode_lt: propext, Quot.sound
+ETHBridge.OpenAI.clauseNumbers_length_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.lt_of_mem_clauseNumbers: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.clauseWord_length_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.cnfNumbers_length_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.formulaBitLength_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.card_literal: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.clauseCount_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.bitLength_succ_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.tendsto_logsq_div_sqrt: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.tendsto_ratio: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.tendsto_log_div: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.eventually_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.bound_le: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.inTime_of_claim: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.s_eq_zero_of_claim: propext, Classical.choice, Quot.sound
+ETHBridge.OpenAI.not_eth_of_claim: propext, Classical.choice, Quot.sound
+all gates pass

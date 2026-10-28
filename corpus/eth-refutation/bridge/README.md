@@ -17,9 +17,13 @@ is then instantiated with each claimant's **own** machine model and input encodi
 claim, the Lean proof shows that the claim's own statement implies the textbook ETH is false in
 that model.
 
-**Status:** see `certs/eth-bridge.json`. `tools/record-eth-bridge.js` writes that ledger from a
-green run only, after it has re-run every gate on the run's logs. A theorem counts as proved only
-when the ledger lists it.
+**Status: PROVED, 34 theorems.** Three are generic and are built in both projects; 24 are
+OpenAI's instantiation and 7 are Anthropic's. They were proved in run
+[40772430556](https://github.com/carlostoledo1891/cert-machine/actions/runs/40772430556) at
+commit `3220a433`, and every theorem's axioms are among propext, Classical.choice and Quot.sound.
+The run is recorded in `certs/eth-bridge.json` and its logs are in `runs/40772430556/`.
+`tools/record-eth-bridge.js` writes that ledger from a green run only, after it has re-run every
+gate on the run's logs. A theorem counts as proved only when the ledger lists it.
 
 ## The textbook hypothesis, stated once (`ETHBridge/Generic.lean`)
 
