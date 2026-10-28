@@ -7,7 +7,8 @@ const path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
-const { plate, mapPlate, mapGeometry, mstUnique } = require('./plate.js');
+const { plate, mapPlate, mapGeometry } = require('./plate.js');
+const { mstUnique } = require(path.join(PG, 'mst.js'));          /* one uniqueness test for every tree drawn */
 const W = require(path.join(PG, 'warrant.js'));                   /* the grammar's words (WARRANT v2, 2026-10-28) */
 const GR = require(path.join(PG, '..', 'design', 'grammar.js'));   /* the ink-* classes the ring and the tied trees wear */
 

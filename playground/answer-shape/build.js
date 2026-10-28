@@ -21,7 +21,7 @@ const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
 const W = require(path.join(PG, 'warrant.js'));                    /* the grammar's words (WARRANT v2, 2026-10-28) */
 const GR = require(path.join(PG, '..', 'design', 'grammar.js'));    /* the ink-* classes, and IDENTITY for the overlay */
-const { mstUnique } = require(path.join(PG, 'neural-geometry', 'plate.js'));   /* one uniqueness test for every tree drawn */
+const { mstUnique } = require(path.join(PG, 'mst.js'));   /* one uniqueness test for every tree drawn */
 
 /* WARRANT v2 (2026-10-28) — THE TREES. page.js and plate.js are crossed byte for byte (PROVENANCE.json), so the
    grammar is applied here, in the shell, and they stay untouched. Where a subject has no order each plate draws the
