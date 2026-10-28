@@ -22,7 +22,67 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN. Read this entry first.
+  ★★★ 2026-10-28 ~23:45 UTC — HANDOFF, on "follow the recommended path or send me the questions … Proceed". Read first.
+     DONE AND PUSHED: (1) the landing's outside cards go to a report or GitHub, never /about/; an external card opens in
+     a new tab (design/components.js cards(): any http(s) href gets target=_blank rel=noopener); build-site.js refuses an
+     outside card elsewhere (4ae2ad96). (2) The orphaned Chrome (pid 24457) killed. (3) WARRANT's late rulings
+     (design/WARRANT.md last section, 4b126f47): a reading gets NO rung (the assumed gloss names it: "adopted from a
+     source, chosen, or read; no machine here checked it"; optconst/optq's private READ_GLOSS gone); computed's gloss
+     covers printed numbers; Swell keeps the rule-16 flag; Machinidae's three rulings (tied champions CHOSEN, role in
+     words, no darker grey) — relayed in notes/machinidae-warrant-brief-2026-10-28.md (no Machinidae session was live);
+     the strip and a shorter H1 deferred. (4) ETH: THE LEAN BRIDGE PROVED — certs/eth-bridge.json (GitHub run
+     40772430556, branch eth-bridge merged at deb713df): one textbook ETH (Impagliazzo–Paturi, s_k as an infimum, ETH =
+     s_k > 0 ∀k≥3) in corpus/eth-refutation/bridge/*/ETHBridge/Generic.lean (byte-identical in both projects), and
+     not_eth_of_claim (OpenAI's challenge statement → ¬ETH for PrimitiveMachines on encodeCNF; the readers' three
+     hand steps are lemmas: bitLength_succ_le, count_pos_iff, bound_le) and not_eth_of_ethIsFalse (Anthropic; s_eq by
+     rfl). 34 theorems, only propext/Classical.choice/Quot.sound, ONE kernel (Lean's, lake build). Checked here: the
+     OpenAI copy differs from the pinned bytes only in the declared theorem→def (diffed against raw GitHub), the model
+     instance is not vacuous (HaltsWithin = an exact Trace to state inl b). Open by design: the cross-model and encoding
+     steps (prose for both labs); the converse eth_of_eth; no second kernel on the bridge. (5) /eth/ LIVE UNLISTED
+     (apps/eth/build.js; noindex, in no index or sitemap): decided / what it rests on / read / compared / the bridge /
+     open / prior art; every quoted reading phrase checked against the reading's bytes; Anthropic's eq. (12) re-run each
+     build (0 of 4,096; control 256). (6) THE GRAMMAR BATCH, six lanes in worktrees, merged and gated here: G1 hseva,
+     breaking, regatlas, harbor-proof, water-value; G2 price, pu, skyaudit, glide-band, evtol-energy; G3 horizonmath,
+     erdos290, ember, erdos1038-sup, erdos1; G4 rerun, envs, lambda4, ecbench, delta3 (+ the ecbench ledger's printed
+     decimals directed, design/outward.js; the self-audit re-pinned with a dated amendment); hubs: about, oracle,
+     papers, apps + the landing's quotations (<blockquote> in cards), "this page refuses to build if…" (LANDING_GUARDS,
+     21), the refusals stat (9 PARTIAL · 2 NEEDS DATA), a share card (site/og-landing.png, tools/build-og-landing.js);
+     housekeeping: nine playground files' in-place edits declared and re-pinned (playground/pins.js, in make drift),
+     playground/mst.js shared, affect's two tied trees dotted, the 390 fixes (blind-spot, rewire, /graph), Swell's
+     header (the feed dispatched by hand, run 40773584579, day on swell-field built from c9c61690; refresh a desk day
+     with `git show origin/swell-field:today.json > site/swell/data/today.json`). Every lane found false or inward-
+     rounded printed numbers on our own pages; each fixed at its builder and gated; NO verdict word changed.
+     OPEN FOR THE OPERATOR (decisions): (a) do read steps cap a verdict at PARTIAL everywhere (16a/70a CERTIFIED vs C₁₆
+     upper PARTIAL; G3: every headline there crosses read steps)? recommended: no cap, chains show the reads; (b)
+     --v-refu vs --witness, one red two meanings — recommended: fold --v-refu into --witness (a colour change: needs the
+     word); (c) the maximusrufus thank-you on #246 (text in the 10-28 late chat); (d) the TCS community form: answers
+     drafted, notes/tcs-form-answers-2026-10-28.md (LOCAL, untracked) — the operator submits; tell the session after, to
+     record the send; the ethdiscussion.blog / Drive post is a separate send; (e) default /og.png is an old landing
+     screenshot — point every page at the new card? (f) records the lanes would not rewrite (pinned or posted):
+     horizonmath's decider prints "0.26292279 <= e^-U(1)" (false as printed) and cuts c's upper end with str()[:22]
+     (certs/horizonmath-ledger.json is in the Zenodo tag); erdos1's N/2^n rounded to nearest (posted, tadamcz/erdos1#2);
+     delta3 ledger boundDecimal nearest; stage-corner.js "worst c₂ 13.04"; price-band.json says "halves" (−24%) and
+     "1e−14" (1.04e−14); (g) verdict words the lanes questioned, unchanged: water-value "REFUTED" where the record says
+     "NOT supported" (z = −1.19) and "certified" on float checks; glide-band's sphere upper radius is SHORT of WGS84 at
+     2,168 of 5,120 pairs (up to 0.141%) and 13 of 21,748 REACHABLE verdicts do not survive the ellipsoid — recommended:
+     widen R_EARTH's upper end (~6387 km); harbor-proof's spike ratio fits GWP 28/265, not the pinned 25/298 (an
+     inference); evtol's energy.js final step in float (the build refuses |margin| < 1e−9 kWh; smallest 0.0059);
+     horizonmath's red × is borderline under rule 5; (h) the next `make papers` moves ~six method-paper macros
+     (ecbench: 0.4999 → 0.5000, β/IFORM print both ends) and "both ends agreeing to the digits shown" needs the
+     operator's rewrite; (i) unsent drafts outreach/ember-verification-invites.md and formal-conjectures-hotspots-issue.md
+     say mu_2 >= 13.90774 — fix to 13.90773 before any send.
+     FOUND, NOT FIXED: sin-mfg is NOT on disk at ~/Projects/sin-mfg (all 137 LIFT.json sources read SOURCE GONE; tools/
+     lift.js --check now still reports local edits when a source is gone) — six kernel files instruments/interval/
+     {certificate,interval,radii,transcendental}.js + tests/test-eqcert.js, test-interval.js were edited after the lift
+     (15126278, 839899e2: the co-author's soundness fixes) and are NOT declared as patches in LIFT.json. Also: contours
+     prints the floored closingEdgeLength as the value; erdos852's "12th significant digit" (its 11th) on four pages and
+     design/titles.json; reports/refusals.html lists none of the register's PARTIAL/NEEDS DATA rows; the register's
+     newest row is 2026-10-05; time-horizon's caption says "Amber points"; /graph's editor draws small on phones;
+     cert-unit stays dashed for an LLM answer (WARRANT v2 says so; the old OPEN item was wrong).
+     NEXT: ETH — the report is the operator's to read at carlostoledo.co/eth/; then the blog/Drive draft; optional: a
+     second kernel on the bridge, leanchecker --fresh, each paper's algorithm against brute force. Grammar — Tier 2 as
+     pages are next edited; the PARTIAL ruling (a) decides how the chains end.
+  ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN.
      SESSION CLOSE ~20:50 UTC (the operator is away): everything is committed and pushed; Machinidae is live in the
      new grammar; the landing's asterisk count now shows its four rounds and the October register stops counting the
      queued row (d34983c7). ETH POD DELETED ~20:05Z after OpenAI's kernels came back: BOTH CLAIMS CERTIFIED — Comparator

@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SkyAudit: one day of New York helicopter traffic, decided flight by flight · Carlos Toledo</title>
-<meta name="description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta name="description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; public numbers under the FAA reserve rule — every flight decided or honestly refused.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/skyaudit.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/skyaudit.html">
 <meta property="og:title" content="SkyAudit: one day of New York helicopter traffic, decided flight by flight · Carlos Toledo">
-<meta property="og:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta property="og:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; public numbers under the FAA reserve rule — every flight decided or honestly refused.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -20,9 +20,9 @@
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SkyAudit: one day of New York helicopter traffic, decided flight by flight · Carlos Toledo">
-<meta name="twitter:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; own published numbers under the FAA reserve rule — every flight decided or honestly refused.">
+<meta name="twitter:description" content="SkyAudit&#39;s citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs&#39; public numbers under the FAA reserve rule — every flight decided or honestly refused.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"SkyAudit: one day of New York helicopter traffic, decided flight by flight","description":"SkyAudit's citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs' own published numbers under the FAA reserve rule — every flight decided or honestly refused.","url":"https://carlostoledo.co/reports/skyaudit.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"SkyAudit: one day of New York helicopter traffic, decided flight by flight","description":"SkyAudit's citable methodology: one pinned day of New York helicopter traffic re-flown on paper by four eVTOLs' public numbers under the FAA reserve rule — every flight decided or honestly refused.","url":"https://carlostoledo.co/reports/skyaudit.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -464,6 +468,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -583,6 +593,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +623,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -680,23 +769,23 @@ ul.plain b{color:var(--ink);font-weight:480}
 <header class="col">
   <div class="eyebrow">cert-machine · applied front · the app&#39;s battery + this page&#39;s cross-checks re-run at every build</div>
   <h1>SkyAudit: one day of New York helicopter traffic, decided flight by flight</h1>
-  <p class="deck">On 2026-08-26, New York&#39;s helicopters flew 382 flights — 47,028 km, 1.2× around the Earth. The UAM industry says electric aircraft will replace exactly this traffic. SkyAudit re-flies every one of those flights on paper with each of four eVTOLs&#39; own published numbers, under the FAA&#39;s reserve rule, and DECIDES each case by interval arithmetic: E-FLYABLE for every parameter point in the boxes, BEYOND RANGE with an exact falsifying witness, or NEEDS DATA where the public numbers cannot say. This page is the citable methodology behind the app — the interface lives at /apps/skyaudit/. Mathematically certified enclosures; no airworthiness meaning anywhere on either page.</p>
+  <p class="deck">On 2026-08-26, New York&#39;s helicopters flew 382 flights — 47,028 km, 1.2× around the Earth. The UAM industry says electric aircraft will replace exactly this traffic. SkyAudit re-flies every one of those flights on paper with each of four eVTOLs&#39; public numbers — the makers&#39; own where they publish them, flagged trade estimates and assumptions where they do not — under the FAA&#39;s reserve rule, and DECIDES each case by interval arithmetic: E-FLYABLE for every parameter point in the boxes, BEYOND RANGE with an exact falsifying witness, or NEEDS DATA where the public numbers cannot say. This page is the citable methodology behind the app — the interface lives at /apps/skyaudit/. Mathematically certified enclosures; no airworthiness meaning anywhere on either page.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> Of 382 real flights, exactly 100 (26%) are PROVABLY flyable electric today — all by Beta's ALIA-250, the maker that publishes the most decidable numbers — and those 100 flights need EXACTLY 10 aircraft (both directions proved). Joby, Archer and Eve: zero provable flights each, not because their aircraft fail but because their public numbers cannot decide — measured opacity. The provable subset's electricity costs $290–2,056 against $3,966–9,902 of Jet-A for the same flights — disjoint intervals.</li><li><b>The mechanism.</b> Each flight's observed distance meets each maker's published parameter BOXES (mass, battery, speed, disk loading — quality-flagged) through a momentum-theory power model with outward-rounded interval arithmetic. A universal verdict needs one comparison each way: worst corner clears — E-FLYABLE; best corner fails — BEYOND RANGE, with the most favorable corner re-proved negative in exact rationals as the witness; a straddle — NEEDS DATA, never averaged. An independent stdlib-Python verifier re-proves the ledger with zero dependencies.</li><li><b>Check it.</b> <span class="m">node apps/skyaudit/build.js</span> from a clone — 10 gates, battery 33 checks; this page recounted all 4,456 certificate rows (both pinned days) from the ledgers at its own build.</li></ul>
+<ul class="plain"><li><b>The finding.</b> Of 382 real flights, exactly 100 (26%) are PROVABLY flyable electric today — all by Beta's ALIA-250, whose public numbers are the most decidable of the four — and those 100 flights need EXACTLY 10 aircraft (both directions proved). Joby, Archer and Eve: zero provable flights each. Their own public numbers prove 25 (Joby), 129 (Archer) and 35 (Eve) of the day's flights BEYOND RANGE and cannot decide the rest (357, 253 and 347 flights of NEEDS DATA) — measured opacity. The provable subset's electricity costs $290–2,056 against $3,966–9,902 of Jet-A for the same flights — disjoint intervals, <em>given the price and burn boxes of §5</em>.</li><li><b>The mechanism.</b> Each flight's observed distance meets each aircraft's parameter BOXES (mass, battery, speed, disk loading — each flagged manufacturer, trade, estimate or assumption) through a momentum-theory power model with outward-rounded interval arithmetic. A universal verdict needs one comparison each way: worst corner clears — E-FLYABLE; best corner fails — BEYOND RANGE, with the most favorable corner re-proved negative in exact rationals as the witness; a straddle — NEEDS DATA, never averaged. An independent stdlib-Python verifier re-proves the ledger with zero dependencies. What a verdict rests on, and how far each premise was checked, is at the end of §2.</li><li><b>Check it.</b> <span class="m">node apps/skyaudit/build.js</span> from a clone — 11 gates, battery 33 checks; this page recounted all 4,456 certificate rows (both pinned days) from the ledgers at its own build.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="7">
     <div class="stat"><div class="k">the day of record</div><div class="v">2026-08-26 · NYC</div><div class="n">82 unique aircraft · 382 flights · 3,056 certificate rows (4 aircraft × 2 rules per flight) — São Paulo runs as pack #2: 148 flights, 1,184 rows</div></div>
-    <div class="stat"><div class="k">provably electric</div><div class="v">100 flights (26%)</div><div class="n">Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over the maker&#39;s own boxes</div></div>
+    <div class="stat"><div class="k">provably electric</div><div class="v">100 flights (26%)</div><div class="n">Beta ALIA-250 under the FAA 20-minute VFR reserve — every certificate a worst-corner proof over its parameter boxes</div></div>
     <div class="stat"><div class="k">minimum fleet, proved</div><div class="v">exactly 10 aircraft</div><div class="n">9 REFUTED by pigeonhole at a witnessed instant (18:11:44 ET); 10 CERTIFIED by an exactly-verified schedule</div></div>
-    <div class="stat"><div class="k">the opacity finding</div><div class="v">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
+    <div class="stat"><div class="k">the opacity finding</div><div class="v">Joby · Archer · Eve: 0 provable</div><div class="n">NEEDS DATA dominates their ledgers (357, 253 and 347 of 382 flights under the FAA rule; 25, 129 and 35 proved BEYOND RANGE) — the audit measures what public specs cannot decide, and says so instead of guessing</div></div>
     <div class="stat"><div class="k">authoritative identity</div><div class="v">125/156 + 150/196 joined</div><div class="n">FAA Releasable Aircraft DB + ANAC RAB, sha-pinned; registry-first typing changed corpus membership NOWHERE — the numbers stand on authority, unmatched aircraft listed one by one</div></div>
     <div class="stat"><div class="k">day-stability, measured</div><div class="v">21.7% – 32.0% across 7 days</div><div class="n">the audit was run over 7 consecutive days; the STRUCTURE holds on every one — only Beta provable, the others zero — while the provable share moves by more than ten points, so the headline is a property of its day; §7 shows the whole series</div></div>
-    <div class="stat"><div class="k">what this is not</div><div class="v">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about published boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
+    <div class="stat"><div class="k">what this is not</div><div class="v">no airworthiness claim</div><div class="n">&quot;certified&quot; is a mathematical statement about stated boxes and exact arithmetic — never a regulatory status, an endorsement, or a judgment of any operator&#39;s mission</div></div>
   </div>
 </div>
 
@@ -705,10 +794,11 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§0 · the price of the rule</div>
     <h2>What a reserve minute actually costs</h2>
   </div>
-<div class="col"><p>The reserve is the regulator's dial, so the honest way to show an energy audit is to sweep it. Every point is a re-decision of the whole day at that reserve — exact-corner proofs over each maker's own published boxes, not one model re-scaled.</p></div><div class="wide"><figure>
+<div class="col"><p>The reserve is the regulator's dial, so the honest way to show an energy audit is to sweep it. Every point is a re-decision of the whole day at that reserve — exact-corner proofs over each aircraft's parameter boxes, not one model re-scaled.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 320" role="img" aria-label="Certified flights against the reserve held back, from 5 to 30 minutes. Beta ALIA-250 falls from 215 at 5 minutes through 100 at the FAA&#39;s 20 minutes to 0 at 30. Joby, Archer and Eve are already at or near zero by 10 minutes and flat on zero after that.">
-    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
+  <svg viewBox="0 0 900 320" role="img" aria-label="Certified flights against the reserve held back, decided at 5, 10, 15, 20, 25 and 30 minutes. Beta ALIA-250 falls from 215 at 5 minutes through 100 at the FAA&#39;s 20 minutes to 0 at 30. Joby, Archer and Eve are at 21, 0 and 0 by 10 minutes and on zero after that. The dots are decided; the dotted lines between them only join them.">
+    <rect x="532.0" y="18" width="39.2" height="209" fill="var(--c-grid)"/>
+    <text x="578.2" y="31.0" text-anchor="start" class="t-note">the rule</text>
     <line x1="62" y1="227.0" x2="878" y2="227.0" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="53.0" y="231.0" text-anchor="end" class="t-ax">0</text>
     <line x1="62" y1="175.4" x2="878" y2="175.4" stroke="var(--c-grid)" stroke-width="1"/>
@@ -734,53 +824,47 @@ ul.plain b{color:var(--ink);font-weight:480}
     <line x1="62" y1="227" x2="878" y2="227" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="269.0" text-anchor="middle" class="t-note">energy reserve held back at cruise power  (the FAA VFR rule sits at 20 minutes)</text>
     <text x="13" y="122.5" class="t-note" transform="rotate(-90 13 122.5)" text-anchor="middle">flights PROVABLY flyable</text>
-    <rect x="532.0" y="18" width="39.2" height="209" fill="var(--c-grid)"/>
-    <text x="578.2" y="31.0" text-anchor="start" class="t-note">the rule</text>
     <line x1="62" y1="29.8" x2="878" y2="29.8" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="874.0" y="23.8" text-anchor="end" class="t-note">all 382 flights in the day</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="227" stroke="var(--c-axis)" stroke-width="1"/>
-    <path d="M62.00 172.80 L225.20 216.16 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="227.00" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
-    <circle cx="62.00" cy="172.80" r="12" fill="transparent" data-cmx="62.00" data-cm="Joby S4 · reserve 5 min" data-cmv="105 flights certified" tabindex="0"/>
-    <circle cx="225.20" cy="216.16" r="12" fill="transparent" data-cmx="225.20" data-cm="Joby S4 · reserve 10 min" data-cmv="21 flights certified" tabindex="0"/>
-    <circle cx="388.40" cy="227.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Joby S4 · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="551.60" cy="227.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Joby S4 · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="714.80" cy="227.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Joby S4 · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="878.00" cy="227.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Joby S4 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
-    <path d="M62.00 213.58 L225.20 227.00 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="227.00" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
-    <circle cx="62.00" cy="213.58" r="12" fill="transparent" data-cmx="62.00" data-cm="Archer Midnight · reserve 5 min" data-cmv="26 flights certified" tabindex="0"/>
-    <circle cx="225.20" cy="227.00" r="12" fill="transparent" data-cmx="225.20" data-cm="Archer Midnight · reserve 10 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="388.40" cy="227.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Archer Midnight · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="551.60" cy="227.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Archer Midnight · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="714.80" cy="227.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Archer Midnight · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="878.00" cy="227.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Archer Midnight · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
-    <path d="M62.00 225.97 L225.20 227.00 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="227.00" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
-    <circle cx="62.00" cy="225.97" r="12" fill="transparent" data-cmx="62.00" data-cm="Eve 100 · reserve 5 min" data-cmv="2 flights certified" tabindex="0"/>
-    <circle cx="225.20" cy="227.00" r="12" fill="transparent" data-cmx="225.20" data-cm="Eve 100 · reserve 10 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="388.40" cy="227.00" r="12" fill="transparent" data-cmx="388.40" data-cm="Eve 100 · reserve 15 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="551.60" cy="227.00" r="12" fill="transparent" data-cmx="551.60" data-cm="Eve 100 · reserve 20 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="714.80" cy="227.00" r="12" fill="transparent" data-cmx="714.80" data-cm="Eve 100 · reserve 25 min" data-cmv="0 flights certified" tabindex="0"/>
-    <circle cx="878.00" cy="227.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Eve 100 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
-    <path d="M62.00 116.03 L225.20 126.35 L388.40 148.03 L551.60 175.38 L714.80 219.77 L878.00 227.00 L878.00 227 L62.00 227 Z" fill="var(--c-1)" opacity="0.10"/>
-    <path d="M62.00 116.03 L225.20 126.35 L388.40 148.03 L551.60 175.38 L714.80 219.77 L878.00 227.00" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="227.00" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
+    <path d="M62.00 172.80 L225.20 216.16 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" class="w-chosen" fill="none" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.42" stroke-linejoin="round"/>
+    <circle cx="62.00" cy="172.80" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 5 min" data-cmv="105 flights certified — decided" tabindex="0"/>
+    <circle cx="225.20" cy="216.16" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 10 min" data-cmv="21 flights certified — decided" tabindex="0"/>
+    <circle cx="388.40" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 15 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="551.60" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 20 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="714.80" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 25 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="878.00" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Joby S4 · reserve 30 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <path d="M62.00 213.58 L225.20 227.00 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" class="w-chosen" fill="none" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.42" stroke-linejoin="round"/>
+    <circle cx="62.00" cy="213.58" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 5 min" data-cmv="26 flights certified — decided" tabindex="0"/>
+    <circle cx="225.20" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 10 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="388.40" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 15 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="551.60" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 20 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="714.80" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 25 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="878.00" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Archer Midnight · reserve 30 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <path d="M62.00 225.97 L225.20 227.00 L388.40 227.00 L551.60 227.00 L714.80 227.00 L878.00 227.00" class="w-chosen" fill="none" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.42" stroke-linejoin="round"/>
+    <circle cx="62.00" cy="225.97" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 5 min" data-cmv="2 flights certified — decided" tabindex="0"/>
+    <circle cx="225.20" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 10 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="388.40" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 15 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="551.60" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 20 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="714.80" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 25 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <circle cx="878.00" cy="227.00" r="3" fill="var(--c-ctx)" data-cm="Eve 100 · reserve 30 min" data-cmv="0 flights certified — decided" tabindex="0"/>
+    <path d="M62.00 116.03 L225.20 126.35 L388.40 148.03 L551.60 175.38 L714.80 219.77 L878.00 227.00" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.95" stroke-linejoin="round"/>
+    <circle cx="62.00" cy="116.03" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 5 min" data-cmv="215 flights certified — decided" tabindex="0"/>
+    <circle cx="225.20" cy="126.35" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 10 min" data-cmv="195 flights certified — decided" tabindex="0"/>
+    <circle cx="388.40" cy="148.03" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 15 min" data-cmv="153 flights certified — decided" tabindex="0"/>
+    <circle cx="551.60" cy="175.38" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 20 min" data-cmv="100 flights certified — decided" tabindex="0"/>
+    <circle cx="714.80" cy="219.77" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 25 min" data-cmv="14 flights certified — decided" tabindex="0"/>
+    <circle cx="878.00" cy="227.00" r="4.5" fill="var(--c-1)" data-cm="Beta ALIA-250 · reserve 30 min" data-cmv="0 flights certified — decided" tabindex="0"/>
     <text x="868.0" y="215.0" text-anchor="end" class="t-lab">0</text>
-    <circle cx="62.00" cy="116.03" r="12" fill="transparent" data-cmx="62.00" data-cm="Beta ALIA-250 · reserve 5 min" data-cmv="215 flights certified" tabindex="0"/>
-    <circle cx="225.20" cy="126.35" r="12" fill="transparent" data-cmx="225.20" data-cm="Beta ALIA-250 · reserve 10 min" data-cmv="195 flights certified" tabindex="0"/>
-    <circle cx="388.40" cy="148.03" r="12" fill="transparent" data-cmx="388.40" data-cm="Beta ALIA-250 · reserve 15 min" data-cmv="153 flights certified" tabindex="0"/>
-    <circle cx="551.60" cy="175.38" r="12" fill="transparent" data-cmx="551.60" data-cm="Beta ALIA-250 · reserve 20 min" data-cmv="100 flights certified" tabindex="0"/>
-    <circle cx="714.80" cy="219.77" r="12" fill="transparent" data-cmx="714.80" data-cm="Beta ALIA-250 · reserve 25 min" data-cmv="14 flights certified" tabindex="0"/>
-    <circle cx="878.00" cy="227.00" r="12" fill="transparent" data-cmx="878.00" data-cm="Beta ALIA-250 · reserve 30 min" data-cmv="0 flights certified" tabindex="0"/>
-    <line x1="62" y1="290" x2="76" y2="290" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
-    <text x="81.0" y="294.0" text-anchor="start" class="t-note">Beta ALIA-250 — the only aircraft provable past 10 minutes</text>
-    <line x1="62" y1="309" x2="76" y2="309" stroke="var(--c-ctx)" stroke-width="2" stroke-linecap="round"/>
-    <text x="81.0" y="313.0" text-anchor="start" class="t-note">Joby S4 · Archer Midnight · Eve 100 — zero from 15 minutes on</text>
+    <line x1="62" y1="290" x2="84" y2="290" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.95"/>
+    <circle cx="73" cy="290" r="4.5" fill="var(--c-1)"/>
+    <text x="92.0" y="294.0" text-anchor="start" class="t-note">Beta ALIA-250 — the only aircraft provable past 10 minutes</text>
+    <line x1="62" y1="309" x2="84" y2="309" class="w-chosen" fill="none" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round" opacity="0.42"/>
+    <circle cx="73" cy="309" r="3" fill="var(--c-ctx)"/>
+    <text x="92.0" y="313.0" text-anchor="start" class="t-note">Joby S4 · Archer Midnight · Eve 100 — zero from 15 minutes on</text>
   </svg>
   </div>
-  <figcaption>Beta ALIA-250 covers 215 of the day&#39;s 382 flights with a 5-minute reserve, 100 at the FAA&#39;s 20 minutes, 14 at 25, and 0 at 30 — the rule as written is close to the edge of what today&#39;s published specs can prove. The other three publish too little to certify a single flight past 10 minutes, which is a statement about DISCLOSURE, not about their aircraft: the verdict is what their own numbers can be made to prove.</figcaption>
-</figure></div>
+  <figcaption>Beta ALIA-250 covers 215 of the day&#39;s 382 flights with a 5-minute reserve, 100 at the FAA&#39;s 20 minutes, 14 at 25, and 0 at 30 — the rule as written is close to the edge of what today&#39;s public specs can prove. The other three publish too little to certify a single flight past 10 minutes, which is a statement about DISCLOSURE, not about their aircraft: the verdict is what their own numbers can be made to prove. The dots are decided, one whole-day re-decision each; the dotted lines only join them, because no reserve between two dots was decided.</figcaption>
+</figure></div><div class="col"><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div></div>
 </section>
 
 <section class="col">
@@ -797,8 +881,9 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§2 · the counterfactual</div>
     <h2>Precisely what question each certificate answers</h2>
   </div>
-<p>Each certificate decides: &quot;if THIS observed flight — its distance box, with stated pads — were flown by THAT eVTOL, flying its own published speed box, does the energy used plus the rule&#39;s reserve fit inside usable battery, for EVERY parameter point in the boxes?&quot; The eVTOL flies its own speeds over the helicopter&#39;s route; it is not asked to imitate a helicopter. Power comes from the momentum-theory model of Kasliwal et al. 2019 (Nature Communications), calibrated in the battery against that paper&#39;s own worked examples; physics unknowns (efficiencies, air density, hover budget) are stated boxes, padded outward.</p>
-<p>The spec packs are the makers&#39; own published numbers, each quality-flagged at the field level — measured, stated, or assumed. Eve publishes least, so Eve&#39;s pack is nearly all assumption and its ledger is nearly all NEEDS DATA: the audit measures ignorance rather than papering over it. Two reserve rules run side by side: the FAA powered-lift SFAR&#39;s 20-minute VFR tier, and EASA&#39;s 5-minute final reserve — the latter honestly labeled a NECESSARY condition only, since the full EASA energy-management package is not reducible to one number. The São Paulo city pack decides under Brazil&#39;s own rule instead: ANAC RBAC 91.151(b) — 20 minutes at normal cruise consumption, quoted from ANAC&#39;s pinned text — arithmetically the FAA tier, separately cited, because the jurisdiction is the point.</p>
+<p>Each certificate decides: &quot;if THIS observed flight — its distance box, with stated pads — were flown by THAT eVTOL, flying its own speed box, does the energy used plus the rule&#39;s reserve fit inside usable battery, for EVERY parameter point in the boxes?&quot; The eVTOL flies its own speeds over the helicopter&#39;s route; it is not asked to imitate a helicopter. Power comes from the momentum-theory model of Kasliwal et al. 2019 (Nature Communications), calibrated in the battery against that paper&#39;s own worked examples; physics unknowns (efficiencies, air density, hover budget) are stated boxes, padded outward.</p>
+<p>The spec packs carry each aircraft&#39;s public numbers, each box flagged at the field level by where it comes from — the manufacturer, trade press attributing the manufacturer, an estimate, or an assumption where nothing is published. No maker in the set publishes its battery&#39;s capacity: every battery box is an estimate or an assumption. Eve publishes least, so Eve&#39;s pack is nearly all assumption and its ledger is nearly all NEEDS DATA: the audit measures ignorance rather than papering over it. Two reserve rules run side by side: the FAA powered-lift SFAR&#39;s 20-minute VFR tier, and EASA&#39;s 5-minute final reserve — the latter honestly labeled a NECESSARY condition only, since the full EASA energy-management package is not reducible to one number. The São Paulo city pack decides under Brazil&#39;s own rule instead: ANAC RBAC 91.151(b) — 20 minutes at normal cruise consumption, quoted from ANAC&#39;s pinned text — arithmetically the FAA tier, separately cited, because the jurisdiction is the point.</p>
+<div class="col"><p>Every verdict is exact about its boxes. What it says about an aircraft flying that route rests on premises the arithmetic cannot reach. In the order a verdict travels through them, each with the rung its checking reached — <b>validated</b> (against the thing itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> (the code against an exact solution of its own equations) or <b>assumed</b> (adopted; nothing here checked it):</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The route, as the receivers saw it</b> <span class="ev">adsb.lol's pinned day, segmented by the battery-checked rules above (a 900 s gap splits, 60 s on the ground closes a flight; checks 1–5 of apps/<wbr>skyaudit/<wbr>battery.js), each flight's distance a box with stated pads. The code is checked; the trace against the aircraft's real path is not, and gaps are flagged rather than filled.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The counterfactual</b> <span class="ev">the eVTOL flies the helicopter's route at its own cruise-speed box. That this is the mission an operator would fly is the question's premise, not a finding.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The aircraft, as boxes</b> <span class="ev">of the 20 boxes in the four spec packs, 8 assumptions, 4 estimates, 4 manufacturer figures widened by estimate, 3 from trade press attributing the maker and 1 from the manufacturer (apps/<wbr>skyaudit/<wbr>scenario/<wbr>specs). Taken as stated; nothing here measured an aircraft.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Momentum theory as these aircraft's physics</b> <span class="ev">hover and cruise power from Kasliwal et al. 2019 with its efficiency, lift-to-drag and air-density boxes (apps/<wbr>skyaudit/<wbr>scenario/<wbr>physics/<wbr>kasliwal-2019.json). Whether it describes Joby's, Archer's, Beta's or Eve's aircraft has not been held against a measured flight.</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The power model's code</b> <span class="ev">it reproduces the paper's own worked examples (hover and cruise power, and the cruise energy over its example distance), and the instrument bridge reproduces three hand-computed dyadic verdicts exactly (apps/<wbr>skyaudit/<wbr>battery.js, 33 checks, run at this build). An independent Python verifier re-proves the ledger in exact fractions.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The reserve rule</b> <span class="ev">the SFAR's 20-minute tier is granted only where the flight manual shows a vertical landing is possible along the whole route; the audit assumes that condition is met for every flight and states it (apps/<wbr>skyaudit/<wbr>scenario/<wbr>rules/<wbr>faa-sfar-vfr.json). EASA's 5-minute final reserve is a necessary condition only.</span></div></li></ol><p class="w-meet">The arithmetic is verified; the weakest premise is <b>assumed</b>. A verdict here is exact <em>given the route, the boxes, momentum theory and the rule</em>: E-FLYABLE means the stated boxes prove it, BEYOND RANGE that they refute it, and neither is a statement about an aircraft that has flown the route.</p></div>
 </section>
 
 <section class="">
@@ -814,8 +899,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§4 · the fleet, the thresholds</div>
     <h2>Answers with proofs on both sides</h2>
   </div>
-<p>RE-FLY THE DAY: holding the 100 provable departures fixed and modeling charge occupancy from worst-corner depth against the published charge box, the minimum fleet is EXACT: 9 aircraft are REFUTED by pigeonhole at a witnessed instant, 10 are CERTIFIED by a greedy schedule verified exactly. Zero randomness; the timeline hashes into the record.</p>
-<p>The certified thresholds, each proved on both sides of the flip: battery floors for half-day coverage — Joby needs 267 kWh nameplate against a published 130–180, Archer 309 against 120–142, Beta 318 (the only one close to its own number), Eve 304 — the gap between trade-press narrative and provable coverage, priced in kWh. The charge lever, read straight from the certified curve: 6 aircraft at 0–4 min to full, 7 aircraft at 5–22 min to full, 8 aircraft at 23–32 min to full, 9 aircraft at 33–40 min to full, 10 aircraft at 41+ min to full — faster chargers are provably worth 4 aircraft across the published charge box. And the reserve price: Beta&#39;s provable legs at 5/10/15/20/25/30 minutes of reserve are 215/195/153/100/14/0 — at a 30-minute reserve NOTHING on this day is provable. That is the FAA docket fight, priced flight by flight.</p>
+<p>RE-FLY THE DAY: holding the 100 provable departures fixed and modeling charge occupancy from worst-corner depth against the charge box, the minimum fleet is EXACT: 9 aircraft are REFUTED by pigeonhole at a witnessed instant, 10 are CERTIFIED by a greedy schedule verified exactly. Zero randomness; the timeline hashes into the record.</p>
+<p>The certified thresholds, each proved on both sides of the flip: battery floors for half-day coverage — Joby needs 267 kWh nameplate against an estimated 130–180, Archer 309 against an estimated 120–142, Beta 318 against an estimated 250–325 (the only floor inside its own box), Eve 304 against an assumed 90–160 — none of them a number its maker publishes; the gap between trade-press narrative and provable coverage, priced in kWh. The charge lever, read straight from the certified curve: 6 aircraft at 0–4 min to full, 7 aircraft at 5–22 min to full, 8 aircraft at 23–32 min to full, 9 aircraft at 33–40 min to full, 10 aircraft at 41+ min to full — faster chargers are provably worth 4 aircraft across the charge box. And the reserve price: Beta&#39;s provable legs at 5/10/15/20/25/30 minutes of reserve are 215/195/153/100/14/0 — at a 30-minute reserve NOTHING on this day is provable. That is the FAA docket fight, priced flight by flight.</p>
 </section>
 
 <section class="col">
@@ -823,7 +908,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§5 · the economics</div>
     <h2>The electric bill, decided where it can be</h2>
   </div>
-<p>The day&#39;s helicopters burned 56,579–78,610 liters of Jet-A ($73,552–165,081, 141.4–200.5 tonnes CO₂) — from per-type class burn boxes, flagged as estimates. The 100 provable flights are different arithmetic: their energy is the certified used-enclosure sum — decided, not projected — and costs $290–2,056 of electricity against $3,966–9,902 of fuel for the SAME flights. The intervals are disjoint, and the page only says so because the comparison is computed at build — the sentence disappears if the data stops supporting it.</p>
+<p>The day's helicopters burned 56,579–78,610 liters of Jet-A ($73,552–165,081, 141.4–200.5 tonnes CO₂) — from per-type class burn boxes, flagged as estimates. The 100 provable flights are different arithmetic: their energy is the certified used-enclosure sum — decided, not projected — and costs $290–2,056 of electricity against $3,966–9,902 of fuel for the SAME flights. The intervals are disjoint, and the page only says so because the comparison is computed at build — the sentence disappears if the data stops supporting it. Both bills are exact sums over boxes taken as given — the burn boxes per helicopter class and the price boxes for fuel and electricity (apps/skyaudit/scenario/fuel-rates.json, every number a public class estimate) — so each holds <em>given those boxes</em>.</p>
 </section>
 
 <section class="col">
@@ -831,8 +916,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§6 · honest boundaries</div>
     <h2>Methodology v2, and what it still does not claim</h2>
   </div>
-<p>METHODOLOGY V2 (2026-08-27) — the recorded v1 conservatisms were resolved together, in one disclosed move, exactly as promised. What changed: (1) cruise energy is now evaluated V-FREE — at every parameter point t·P(V) = m·g·D/((L/D)·η) and the speed cancels exactly, so v1&#39;s independent enclosure of power and time was a sound over-enclosure (up to 34% at the widest cruise box); removing it is a tightness theorem, not a relaxed assumption, and the independent Python verifier re-proves the same identity. (2) Mission mass became an operating-mass box [published empty weight + pilot, MTOW] — Joby publishes empty weight, Archer and Beta publish payload; the strict MTOW corner still decides E-FLYABLE, so the floor only weakens refutations honestly. What was REVIEWED AND REFUSED BY THE DATA: reserve power at &quot;normal cruising speed&quot; — no audited maker publishes a normal cruise (only &quot;up to&quot; maxima), so the reserve keeps the full cruise-speed box; and per-aircraft disk loading — rotor geometry is unpublished for all four (only VoloCity, outside this set, has an official datasheet), so the class boxes stand. THE DELTA, quoted as history (git a07be1f): v1 certified 46 of these 382 flights (12%); v2 decides 100 (26%) — the interval slack was hiding half the provable day, and this paragraph is the disclosure.</p>
-<p>One Wednesday is one Wednesday — which is why §7 runs the same audit over 7 consecutive days instead of assuming stability. The corpus is what the receiver network saw — coverage gaps are flagged per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are heuristics, labeled INFERRED, and judge nobody&#39;s mission. Names come from the registries and mean what the registries mean: the FAA publishes the REGISTRANT (&quot;registered to&quot; — often an LLC, not necessarily who operates), ANAC publishes the operador. And nothing here carries airworthiness meaning: every &quot;certified&quot; is a statement about interval arithmetic over published boxes.</p>
+<p>METHODOLOGY V2 (2026-08-27) — the recorded v1 conservatisms were resolved together, in one disclosed move, exactly as promised. What changed: (1) cruise energy is now evaluated V-FREE — at every parameter point t·P(V) = m·g·D/((L/D)·η) and the speed cancels exactly, so v1&#39;s independent enclosure of power and time was a sound over-enclosure (up to 61% at the widest cruise box); removing it is a tightness theorem, not a relaxed assumption, and the independent Python verifier re-proves the same identity. (2) Mission mass became an operating-mass box [published empty weight + pilot, MTOW] — Joby publishes empty weight, Archer and Beta publish payload; the strict MTOW corner still decides E-FLYABLE, so the floor only weakens refutations honestly. What was REVIEWED AND REFUSED BY THE DATA: reserve power at &quot;normal cruising speed&quot; — no audited maker publishes a normal cruise (only &quot;up to&quot; maxima), so the reserve keeps the full cruise-speed box; and per-aircraft disk loading — rotor geometry is unpublished for all four (only VoloCity, outside this set, has an official datasheet), so the class boxes stand. THE DELTA, quoted as history (git a07be1f): v1 certified 46 of these 382 flights (12%); v2 decides 100 (26%) — the interval slack was hiding half the provable day, and this paragraph is the disclosure.</p>
+<p>One Wednesday is one Wednesday — which is why §7 runs the same audit over 7 consecutive days instead of assuming stability. The corpus is what the receiver network saw — coverage gaps are flagged per flight, never interpolated. Operation-type labels in the app (tour loop, patrol, shuttle) are heuristics, labeled INFERRED, and judge nobody&#39;s mission. Names come from the registries and mean what the registries mean: the FAA publishes the REGISTRANT (&quot;registered to&quot; — often an LLC, not necessarily who operates), ANAC publishes the operador. And nothing here carries airworthiness meaning: every &quot;certified&quot; is a statement about interval arithmetic over the stated boxes.</p>
 </section>
 
 <section class="">
@@ -888,7 +973,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§7b · the controlled pair</div>
     <h2>One variable isolated: the same week, a Sunday</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th></th><th>Wednesday 2026-08-26 (record)</th><th>Sunday 2026-08-23 (contrast)</th></tr></thead><tbody><tr><td>unique aircraft (audited)</td><td class="n">82 (79)</td><td class="n">51 (51)</td></tr><tr><td>flights · certificate rows</td><td class="n">382 · 3,056</td><td class="n">175 · 1,400</td></tr><tr><td>km flown (audited paths)</td><td class="n">47,028</td><td class="n">30,239</td></tr><tr><td>E-FLYABLE (Beta ALIA, FAA 20-min)</td><td class="n">100 (26.2%)</td><td class="n">38 (21.7%)</td></tr><tr><td>minimum fleet, proved both directions</td><td class="n">exactly 10</td><td class="n">exactly 6</td></tr><tr><td>Joby / Archer / Eve provable flights</td><td class="n">0 / 0 / 0</td><td class="n">0 / 0 / 0</td></tr></tbody></table></div></div><div class="col"><p>The contrast day was chosen to isolate one variable: a Sunday in the SAME week, season and receiver network as the Wednesday of record. What holds across both days is the STRUCTURE: only Beta's published numbers prove anything; Joby, Archer and Eve decide zero flights on either day; Archer's refutation pattern and Eve's NEEDS-DATA wall repeat. What moves with the day is the magnitude: Sunday flies less than half the Wednesday (175 vs 382 flights) and its provable share is 21.7% against 26.2% — the 26% headline is a property of the pinned Wednesday, not a universal constant, and this page will not pretend otherwise. The comparison is derived only from the two committed summaries and re-derived at every build. A bonus finding from the contrast day: the feed's type database called N339LL a SOCATA TBM-700 turboprop; the FAA registry says Robinson R44 II — and its measured day (median 87 kt, ceiling 1,175 ft) agrees with the registry, so the authoritative filter admitted a real helicopter the feeder typing would have dropped.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th></th><th>Wednesday 2026-08-26 (record)</th><th>Sunday 2026-08-23 (contrast)</th></tr></thead><tbody><tr><td>unique aircraft (audited)</td><td class="n">82 (79)</td><td class="n">51 (51)</td></tr><tr><td>flights · certificate rows</td><td class="n">382 · 3,056</td><td class="n">175 · 1,400</td></tr><tr><td>km flown (audited paths)</td><td class="n">47,028</td><td class="n">30,239</td></tr><tr><td>E-FLYABLE (Beta ALIA, FAA 20-min)</td><td class="n">100 (26.2%)</td><td class="n">38 (21.7%)</td></tr><tr><td>minimum fleet, proved both directions</td><td class="n">exactly 10</td><td class="n">exactly 6</td></tr><tr><td>Joby / Archer / Eve provable flights</td><td class="n">0 / 0 / 0</td><td class="n">0 / 0 / 0</td></tr></tbody></table></div></div><div class="col"><p>The contrast day was chosen to isolate one variable: a Sunday in the SAME week, season and receiver network as the Wednesday of record. What holds across both days is the STRUCTURE: only Beta's public numbers prove anything; Joby, Archer and Eve decide zero flights on either day; Archer's refutation pattern and Eve's NEEDS-DATA wall repeat. What moves with the day is the magnitude: Sunday flies less than half the Wednesday (175 vs 382 flights) and its provable share is 21.7% against 26.2% — the 26% headline is a property of the pinned Wednesday, not a universal constant, and this page will not pretend otherwise. The comparison is derived only from the two committed summaries and re-derived at every build. A bonus finding from the contrast day: the feed's type database called N339LL a SOCATA TBM-700A/B/C turboprop; the FAA registry says Robinson R44 II — and its measured day (median 87 kt ground speed, highest report 1,175 ft) agrees with the registry, so the authoritative filter admitted a real helicopter the feeder typing would have dropped.</p></div>
 </section>
 
 <section class="">
@@ -896,7 +981,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§8 · sources and rerun</div>
     <h2>Every dataset pinned, every gate rerunnable</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>dataset</th><th>license</th><th>pinned</th><th>sha256 (prefix)</th></tr></thead><tbody><tr><td>adsb.lol globe history 2026-08-26 (4 release assets)</td><td>ODbL-1.0</td><td>day-2026-08-26/PINS.json</td><td>af9fed4c7a62… (+3)</td></tr><tr><td>adsb.lol globe history 2026-08-23 — the contrast day (3 assets)</td><td>ODbL-1.0</td><td>day-2026-08-23/PINS.json</td><td>2a5ee98bd91a… (+2)</td></tr><tr><td>FAA Releasable Aircraft Database</td><td>public domain</td><td>registry/REGISTRY-PINS.json · acquired 2026-08-27</td><td>93b2b9110e99…</td></tr><tr><td>ANAC RAB dados_aeronaves.csv</td><td>ANAC dados abertos</td><td>registry/REGISTRY-PINS.json · dataset 2026-08-27</td><td>5aa6fe1e61a3…</td></tr><tr><td>12 rule/spec/physics source PDFs (FAA SFAR, SC-VTOL + MOCs, Kasliwal 2019, ANAC criteria, …)</td><td>cited</td><td>sources/SOURCES-PINS.json</td><td>per-file</td></tr></tbody></table></div></div><div class="col"><p>Licenses stay separated: code MIT, traffic corpora ODbL, FAA data public domain, ANAC open data — pins beside every dataset. Rerun: <span class="m">node apps/skyaudit/build.js</span> runs all 10 gates (battery incl. red controls that must fire, day re-certified and compared, fleet frontier re-derived, thresholds re-proved, economics recomputed, stories re-told, planner re-planned, tiles and registry extracts hash-checked). The independent verifier <span class="m">python3 apps/skyaudit/audit/verify_skyaudit.py</span> re-proves the ledger in exact fractions with zero dependencies. The app: <a href="/apps/skyaudit/">carlostoledo.co/apps/skyaudit</a>.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>dataset</th><th>license</th><th>pinned</th><th>sha256 (prefix)</th></tr></thead><tbody><tr><td>adsb.lol globe history 2026-08-26 (4 release assets)</td><td>ODbL-1.0</td><td>day-2026-08-26/PINS.json</td><td>af9fed4c7a62… (+3)</td></tr><tr><td>adsb.lol globe history 2026-08-23 — the contrast day (3 assets)</td><td>ODbL-1.0</td><td>day-2026-08-23/PINS.json</td><td>2a5ee98bd91a… (+2)</td></tr><tr><td>FAA Releasable Aircraft Database</td><td>public domain</td><td>registry/REGISTRY-PINS.json · acquired 2026-08-27</td><td>93b2b9110e99…</td></tr><tr><td>ANAC RAB dados_aeronaves.csv</td><td>ANAC dados abertos</td><td>registry/REGISTRY-PINS.json · dataset 2026-08-27</td><td>5aa6fe1e61a3…</td></tr><tr><td>12 rule/spec/physics source PDFs (FAA SFAR, SC-VTOL + MOCs, Kasliwal 2019, ANAC criteria, …)</td><td>cited</td><td>sources/SOURCES-PINS.json</td><td>per-file</td></tr></tbody></table></div></div><div class="col"><p>Licenses stay separated: code MIT, traffic corpora ODbL, FAA data public domain, ANAC open data — pins beside every dataset. Rerun: <span class="m">node apps/skyaudit/build.js</span> runs all 11 gates (battery incl. red controls that must fire, day re-certified and compared, fleet frontier re-derived, thresholds re-proved, economics recomputed, stories re-told, planner re-planned, tiles and registry extracts hash-checked, the forecast ledger recounted). The independent verifier <span class="m">python3 apps/skyaudit/audit/verify_skyaudit.py</span> re-proves the ledger in exact fractions with zero dependencies. The app: <a href="/apps/skyaudit/">carlostoledo.co/apps/skyaudit</a>.</p></div>
 </section><script>
 (function(){
   var tip=null;
@@ -927,7 +1012,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-skyaudit.js @ git 4ba347a. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from every day's own ledger (7 days), verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-skyaudit.js @ git 15ed225b. Gates at this build: the app battery (33 checks, red controls fired), all 3,056 + 1,400 certificate rows recounted from every day's own ledger (7 days), verdict tallies re-derived, the day-stability comparison re-derived from the committed summaries, cross-record consistency (economics = refly = reserve-price at 20 min = the certified count) and registry closure re-verified — the build refuses on any deviation. App: apps/skyaudit · live at /apps/skyaudit/.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
