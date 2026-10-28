@@ -1,0 +1,665 @@
+{
+ "what": "The ETH bridge: Lean proofs, written here, that each claimed refutation of the Exponential Time Hypothesis, taken as its OWN Lean statement, implies that the textbook ETH (Impagliazzo–Paturi: s_k > 0 for every k ≥ 3, s_k the infimum of the δ for which k-SAT has an O(2^{δn}) algorithm) is false, stated once over an abstract model and instantiated with each claimant's own machine model and input encoding. It does NOT re-prove either claim (certs/eth-kernel.json certifies that each claimant proved its own statement); it closes the step from that statement to the textbook hypothesis that each claimant left to prose (corpus/eth-refutation/readings/first.md §I.4, §II.4).",
+ "campaign": "eth-refutation; the bridge lane agreed with the operator 2026-10-28 (HANDOFF)",
+ "words": {
+  "PROVED": "lake build exit 0 on the claim's own Lean and Mathlib; #print axioms names only propext, Classical.choice, Quot.sound (or nothing); no Lean file of the project contains sorry, admit, native_decide, an axiom declaration, implemented_by, extern, unsafe or debug.skipKernelTC. One kernel (Lean's, in lake build)"
+ },
+ "run": {
+  "id": 40772430556,
+  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/40772430556",
+  "commit": "3220a43340b0bf931d20a56ed5584601983ec803",
+  "branch": "eth-bridge",
+  "createdAt": "2026-10-28T21:29:57Z",
+  "conclusion": "success"
+ },
+ "gates": "tools/eth-bridge-gates.js (sources: copies against pins.json, generic file identical, nothing forbidden, every theorem printed; logs: exit codes, no sorry, no error, standard axioms only)",
+ "copies": {
+  "openai": {
+   "source": "openai/math@7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a lean/ComparatorChallenges/SubexponentialSAT.lean",
+   "copy": "corpus/eth-refutation/bridge/openai/ETHBridge/OpenAIChallenge.lean",
+   "pinnedSha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "rebuiltSha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "change": "ONE declared change: the closing theorem exact_count_and_sat, whose proof the challenge leaves open, becomes `def OpenAIClaim : Prop := ∀ (k : ℕ) (hk : 2 ≤ k), <its 23 statement lines unchanged>`; undoing it gives the pinned bytes (tools/eth-bridge-gates.js)"
+  },
+  "anthropic": {
+   "source": "anthropics/formal-math@16a5ce41304fcdaea4e0be7c132e1c361dc26da5 eth/MainResults.lean",
+   "copy": "corpus/eth-refutation/bridge/anthropic/MainResults.lean",
+   "pinnedSha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "rebuiltSha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "change": "none (a header comment above the unchanged bytes)"
+  }
+ },
+ "generic": {
+  "file": "ETHBridge/Generic.lean (byte-identical in both projects)",
+  "sha256": "78554f883f6c03e52ace72935ea4db5b55928d7a7e2f77da465f426848289826"
+ },
+ "bridges": {
+  "openai": {
+   "theorem": {
+    "name": "ETHBridge.OpenAI.not_eth_of_claim",
+    "word": "PROVED",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "doc": "**The bridge, OpenAI.** If OpenAI's challenge statement `exact_count_and_sat` holds, then the Exponential Time Hypothesis, in the textbook form `ETHBridge.ETH` (s_k > 0 for every k ≥ 3), is false in OpenAI's own model of computation and encoding.",
+    "statement": "theorem not_eth_of_claim (h : SqrtLogSpace.OpenAIClaim) : ¬ ETHBridge.ETH model",
+    "file": "openai/ETHBridge/OpenAI.lean",
+    "line": 412
+   },
+   "reads": "If OpenAI's challenge statement exact_count_and_sat holds, then ETH (s_k > 0 for every k ≥ 3) is false for PrimitiveMachines on encodeCNF; indeed s_k = 0 for every k ≥ 2 (s_eq_zero_of_claim)."
+  },
+  "anthropic": {
+   "theorem": {
+    "name": "ETHBridge.Anthropic.not_eth_of_ethIsFalse",
+    "word": "PROVED",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ],
+    "doc": "**The bridge, Anthropic.** Anthropic's `ETHIsFalse` implies that the Exponential Time Hypothesis, in the textbook form `ETHBridge.ETH` (s_k > 0 for every k ≥ 3), is false in Anthropic's own model of computation and encoding.",
+    "statement": "theorem not_eth_of_ethIsFalse (h : MainResults.ETHIsFalse) : ¬ ETHBridge.ETH model",
+    "file": "anthropic/ETHBridge/Anthropic.lean",
+    "line": 65
+   },
+   "reads": "Anthropic's ETHIsFalse implies that ETH (s_k > 0 for every k ≥ 3) is false for FinTM2 machines on encClauses; the generic DecidesKSat, InTime and s ARE Anthropic's, by definition (decidesKSat_iff, inTime_iff, s_eq)."
+  }
+ },
+ "notProved": [
+  "The cross-model bridges stay prose for both claimants and here: that a PrimitiveMachine (OpenAI) or a FinTM2 machine (Anthropic) is simulated by a word RAM or a multitape Turing machine with polynomial overhead (first.md B1, B1′), and that a textbook 3-CNF is rewritten into encodeCNF / encClauses in time polynomial in its length (B2, B2′). ETH is proved false here in each claimant's own model, not in a model-free sense.",
+  "MainResults.ETH → ETHBridge.ETH (the converse of eth_of_eth) is not proved: it needs s_3 ≤ s_k for k ≥ 3, and Anthropic's encoding depends on k (k slots per clause), so a machine for 3-SAT does not run on a k-SAT word without a re-encoding machine. It is not needed for the bridge.",
+  "Nothing here re-checks either claimant's proof: certs/eth-kernel.json is that lane."
+ ],
+ "projects": {
+  "openai": {
+   "toolchain": "leanprover/lean4:v4.34.1",
+   "leanVersion": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+   "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+   "packages": [
+    {
+     "name": "mathlib",
+     "rev": "d13f23b723b8a846827a245b89c10fc7d3f11612"
+    },
+    {
+     "name": "plausible",
+     "rev": "118aa17ee84656b8bd727fef7c458ee8c833385c"
+    },
+    {
+     "name": "LeanSearchClient",
+     "rev": "ddf04cf3949fa556442341e87d47f9f6e6074707"
+    },
+    {
+     "name": "importGraph",
+     "rev": "e928b72544873815af278d38681b31c0293588e3"
+    },
+    {
+     "name": "proofwidgets",
+     "rev": "106ff4fafc74ef4ac99d81dbf3ab399118f497a5"
+    },
+    {
+     "name": "aesop",
+     "rev": "355695d523e41d0554926416cba2a2b3544fbbc9"
+    },
+    {
+     "name": "Qq",
+     "rev": "6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259"
+    },
+    {
+     "name": "batteries",
+     "rev": "f2effa3d803fda822b1f97b806c47cf2adfbcbc2"
+    },
+    {
+     "name": "Cli",
+     "rev": "e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204"
+    }
+   ],
+   "buildSeconds": 18,
+   "files": {
+    "Axioms.lean": "b7d45dc2a80799df5449640690e8c21c394f99365241a9313cc12f0e43537b31",
+    "ETHBridge.lean": "8616380d6a846ab783d6f33f95e401deaec26d8904313a4ad061fb2b79514f65",
+    "ETHBridge/Generic.lean": "78554f883f6c03e52ace72935ea4db5b55928d7a7e2f77da465f426848289826",
+    "ETHBridge/OpenAI.lean": "f0bd1f0e7f42cac97db48ecbd9bbb391a46cb71df153d8ae86d5e7511aef6b61",
+    "ETHBridge/OpenAIChallenge.lean": "8496d1c997658184b23a5e2cbabce063c759eb307ad9be325c56c21cb01b7a7a",
+    "lakefile.toml": "d126cd6f828895f109c1a0677da3956a5e157600207b5de712566193ab761946",
+    "lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+   },
+   "theorems": [
+    {
+     "name": "ETHBridge.s_eq_zero_of_forall_inTime",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If k-SAT has an O(2^{δn}) algorithm for every δ > 0, then s_k = 0.",
+     "statement": "theorem s_eq_zero_of_forall_inTime (k : ℕ) (h : ∀ δ : ℝ≥0, 0 < δ → InTime Mo k δ) :\n    s Mo k = 0",
+     "file": "openai/ETHBridge/Generic.lean",
+     "line": 71
+    },
+    {
+     "name": "ETHBridge.not_eth_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "ETH fails exactly when s_k = 0 for some k ≥ 3.",
+     "statement": "theorem not_eth_iff : ¬ ETH Mo ↔ ∃ k : ℕ, 3 ≤ k ∧ s Mo k = 0",
+     "file": "openai/ETHBridge/Generic.lean",
+     "line": 80
+    },
+    {
+     "name": "ETHBridge.not_eth_of_forall_inTime",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If, for one k ≥ 3, k-SAT has an O(2^{δn}) algorithm for every δ > 0, then ETH is false.",
+     "statement": "theorem not_eth_of_forall_inTime (k : ℕ) (hk : 3 ≤ k)\n    (h : ∀ δ : ℝ≥0, 0 < δ → InTime Mo k δ) : ¬ ETH Mo",
+     "file": "openai/ETHBridge/Generic.lean",
+     "line": 92
+    },
+    {
+     "name": "ETHBridge.OpenAI.count_pos_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The number of satisfying assignments is positive exactly when the formula is satisfiable.",
+     "statement": "theorem count_pos_iff {n : ℕ} (F : SAT.CNF (Fin n)) : 0 < SAT.count F ↔ IsSatisfiable F",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 61
+    },
+    {
+     "name": "ETHBridge.OpenAI.monitor_config",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "Monitoring the head positions never changes the configuration.",
+     "statement": "theorem monitor_config (M : Computation.PrimitiveMachine) (c : SqrtLogSpace.LocatedCfg M)\n    (cfg : M.Cfg) : (c.monitor cfg).config = cfg",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 68
+    },
+    {
+     "name": "ETHBridge.OpenAI.locatedStep_config",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "One located step is one step of the machine.",
+     "statement": "theorem locatedStep_config {M : Computation.PrimitiveMachine} {c c' : SqrtLogSpace.LocatedCfg M}\n    (h : SqrtLogSpace.locatedStep M c = some c') : M.step c.config = some c'.config",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 89
+    },
+    {
+     "name": "ETHBridge.OpenAI.trace_config",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "A located trace projects to a trace of the machine, step for step.",
+     "statement": "theorem trace_config {M : Computation.PrimitiveMachine} :\n    ∀ {t : ℕ} {a b : SqrtLogSpace.LocatedCfg M},\n      Computation.Trace (SqrtLogSpace.locatedStep M) t a b →\n        Computation.Trace M.step t a.config b.config",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 104
+    },
+    {
+     "name": "ETHBridge.OpenAI.frame_length",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem frame_length (bits : List Bool) :\n    (Encoding.frame bits).length = 2 * bits.length + 1",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 115
+    },
+    {
+     "name": "ETHBridge.OpenAI.encodeNat_length",
+     "word": "PROVED",
+     "axioms": [
+      "propext"
+     ],
+     "doc": null,
+     "statement": "theorem encodeNat_length (c : ℕ) : (Encoding.encodeNat c).length = c + 1",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 124
+    },
+    {
+     "name": "ETHBridge.OpenAI.encodeList_length_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem encodeList_length_le {α : Type*} (enc : α → List Bool) (B : ℕ) :\n    ∀ xs : List α, (∀ x ∈ xs, (enc x).length ≤ B) →\n      (Encoding.encodeList enc xs).length ≤ 1 + xs.length * (2 * B + 2)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 127
+    },
+    {
+     "name": "ETHBridge.OpenAI.literalCode_lt",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem literalCode_lt {n : ℕ} (l : SAT.Literal (Fin n)) : Encoding.literalCode l < 2 * n",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 142
+    },
+    {
+     "name": "ETHBridge.OpenAI.clauseNumbers_length_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem clauseNumbers_length_le {n : ℕ} (C : SAT.Clause (Fin n)) :\n    (Encoding.clauseNumbers C).length ≤ C.card",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 147
+    },
+    {
+     "name": "ETHBridge.OpenAI.lt_of_mem_clauseNumbers",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem lt_of_mem_clauseNumbers {n : ℕ} {C : SAT.Clause (Fin n)} {c : ℕ}\n    (h : c ∈ Encoding.clauseNumbers C) : c < 2 * n",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 153
+    },
+    {
+     "name": "ETHBridge.OpenAI.clauseWord_length_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The word of one clause of at most k literals has at most 1 + k(4n+2) bits.",
+     "statement": "theorem clauseWord_length_le {n k : ℕ} (C : SAT.Clause (Fin n)) (hC : C.card ≤ k) :\n    (Encoding.encodeList Encoding.encodeNat (Encoding.clauseNumbers C)).length\n      ≤ 1 + k * (4 * n + 2)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 161
+    },
+    {
+     "name": "ETHBridge.OpenAI.cnfNumbers_length_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem cnfNumbers_length_le {n : ℕ} (F : SAT.CNF (Fin n)) :\n    (Encoding.cnfNumbers F).length ≤ F.card",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 174
+    },
+    {
+     "name": "ETHBridge.OpenAI.formulaBitLength_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The input word of a formula with m clauses of at most k literals each has at most n + 2 + m·(2(1 + k(4n+2)) + 2) bits.",
+     "statement": "theorem formulaBitLength_le {n k : ℕ} (F : SAT.CNF (Fin n)) (hF : SAT.WidthAtMost k F) :\n    Encoding.formulaBitLength F ≤ n + 2 + F.card * (2 * (1 + k * (4 * n + 2)) + 2)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 182
+    },
+    {
+     "name": "ETHBridge.OpenAI.card_literal",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem card_literal (n : ℕ) : Fintype.card (SAT.Literal (Fin n)) = 2 * n",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 210
+    },
+    {
+     "name": "ETHBridge.OpenAI.clauseCount_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "A formula whose clauses have at most k literals has at most (k+1)(2n+1)^k clauses: they are distinct subsets of the 2n literals.",
+     "statement": "theorem clauseCount_le {n k : ℕ} (F : SAT.CNF (Fin n)) (hF : SAT.WidthAtMost k F) :\n    F.card ≤ (k + 1) * (2 * n + 1) ^ k",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 216
+    },
+    {
+     "name": "ETHBridge.OpenAI.bitLength_succ_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "(i) For a formula whose clauses have at most k literals, L + 1 ≤ K·(n+1)^{k+1}, where L is the length of its input word and K = 3 + (k+1)·2^k·(4+8k).",
+     "statement": "theorem bitLength_succ_le {n k : ℕ} (F : SAT.CNF (Fin n)) (hF : SAT.WidthAtMost k F) :\n    Encoding.formulaBitLength F + 1 ≤ (3 + (k + 1) * 2 ^ k * (4 + 8 * k)) * (n + 1) ^ (k + 1)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 244
+    },
+    {
+     "name": "ETHBridge.OpenAI.tendsto_logsq_div_sqrt",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": null,
+     "statement": "theorem tendsto_logsq_div_sqrt :\n    Tendsto (fun u : ℝ => Real.log u ^ 2 / Real.sqrt u) atTop (𝓝 0)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 265
+    },
+    {
+     "name": "ETHBridge.OpenAI.tendsto_ratio",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "(ln ln(n+16))²/√ln(n+16) → 0.",
+     "statement": "theorem tendsto_ratio : Tendsto (fun n : ℕ => (Real.log (Real.log ((n : ℝ) + 16))) ^ 2 /\n    Real.sqrt (Real.log ((n : ℝ) + 16))) atTop (𝓝 0)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 274
+    },
+    {
+     "name": "ETHBridge.OpenAI.tendsto_log_div",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "ln(n+1)/n → 0.",
+     "statement": "theorem tendsto_log_div : Tendsto (fun n : ℕ => Real.log ((n : ℝ) + 1) / n) atTop (𝓝 0)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 280
+    },
+    {
+     "name": "ETHBridge.OpenAI.eventually_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "For every δ > 0, from some n on, (n+1)^p·2^{A·n(ln ln(n+16))²/√ln(n+16)} ≤ 2^{δn}.",
+     "statement": "theorem eventually_le (A : ℝ) (p : ℕ) {δ : ℝ} (hδ : 0 < δ) :\n    ∃ N : ℕ, ∀ n : ℕ, N ≤ n →\n      ((n : ℝ) + 1) ^ p * (2 : ℝ) ^ (A * SqrtLog.Statement.runtimeScale n)\n        ≤ (2 : ℝ) ^ (δ * n)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 288
+    },
+    {
+     "name": "ETHBridge.OpenAI.bound_le",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "(iii) For every δ > 0 there is c ∈ ℕ with B·(n+1)^p·2^{A·n(ln ln(n+16))²/√ln(n+16)} ≤ c·2^{δn} for EVERY n: for n past the threshold of `eventually_le`, c ≥ |B| suffices, and c also exceeds the finitely many values below it.",
+     "statement": "theorem bound_le (B A : ℝ) (p : ℕ) {δ : ℝ} (hδ : 0 < δ) :\n    ∃ c : ℕ, ∀ n : ℕ, B * ((n : ℝ) + 1) ^ p * (2 : ℝ) ^ (A * SqrtLog.Statement.runtimeScale n)\n      ≤ c * (2 : ℝ) ^ (δ * n)",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 330
+    },
+    {
+     "name": "ETHBridge.OpenAI.inTime_of_claim",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If OpenAI's challenge statement holds, then for every k ≥ 2 and every δ > 0, k-SAT has an O(2^{δn}) algorithm in OpenAI's model: the challenge's machine for k, with a constant c ∈ ℕ.",
+     "statement": "theorem inTime_of_claim (h : SqrtLogSpace.OpenAIClaim) (k : ℕ) (hk : 2 ≤ k) (δ : ℝ≥0)\n    (hδ : 0 < δ) : ETHBridge.InTime model k δ",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 374
+    },
+    {
+     "name": "ETHBridge.OpenAI.s_eq_zero_of_claim",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If OpenAI's challenge statement holds, then s_k = 0 in OpenAI's model, for every k ≥ 2.",
+     "statement": "theorem s_eq_zero_of_claim (h : SqrtLogSpace.OpenAIClaim) (k : ℕ) (hk : 2 ≤ k) :\n    ETHBridge.s model k = 0",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 405
+    },
+    {
+     "name": "ETHBridge.OpenAI.not_eth_of_claim",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "**The bridge, OpenAI.** If OpenAI's challenge statement `exact_count_and_sat` holds, then the Exponential Time Hypothesis, in the textbook form `ETHBridge.ETH` (s_k > 0 for every k ≥ 3), is false in OpenAI's own model of computation and encoding.",
+     "statement": "theorem not_eth_of_claim (h : SqrtLogSpace.OpenAIClaim) : ¬ ETHBridge.ETH model",
+     "file": "openai/ETHBridge/OpenAI.lean",
+     "line": 412
+    }
+   ],
+   "logs": "corpus/eth-refutation/bridge/runs/40772430556/openai"
+  },
+  "anthropic": {
+   "toolchain": "leanprover/lean4:v4.33.1",
+   "leanVersion": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+   "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+   "packages": [
+    {
+     "name": "mathlib",
+     "rev": "0df444a360eaa60ab8c11dca51a86af692955474"
+    },
+    {
+     "name": "plausible",
+     "rev": "b7eb3304aeae834b12dda98993a37f6a41f6f0bb"
+    },
+    {
+     "name": "LeanSearchClient",
+     "rev": "5f4d51b81cbd3f6b32b156bfad9056621a040404"
+    },
+    {
+     "name": "importGraph",
+     "rev": "16f02aa7642864af59f1ff0e384a015994db9118"
+    },
+    {
+     "name": "proofwidgets",
+     "rev": "4be2e3d5087eeb272cf5a8853b8f9dd025ef5957"
+    },
+    {
+     "name": "aesop",
+     "rev": "3448c0bcc5ce01b2d1546e483ec3620e32df3d0e"
+    },
+    {
+     "name": "Qq",
+     "rev": "92c15be17b7caf78c2ad767ec40f89052d908d81"
+    },
+    {
+     "name": "batteries",
+     "rev": "4488d40d070b9700d4d5a6aa342f0d40c31b2a2d"
+    },
+    {
+     "name": "Cli",
+     "rev": "6130a47896ce867c6a4a55373441e59e565bad0f"
+    }
+   ],
+   "buildSeconds": 15,
+   "files": {
+    "Axioms.lean": "58f678d8670180d9389286509deca2aa5d8f80d2ff6790ec5af40509b7173498",
+    "ETHBridge.lean": "a323c73834eb3b61048bc941879c18f4d94e4dc1a656bd41fd7937402b8c7a12",
+    "ETHBridge/Anthropic.lean": "43cfa9a8a548c1acaee9ebcc5ec4a005b3ee111f7837525ef41f8da623886225",
+    "ETHBridge/Generic.lean": "78554f883f6c03e52ace72935ea4db5b55928d7a7e2f77da465f426848289826",
+    "MainResults.lean": "c7939643eb6b9105bf38d60470e187e0b3e78ae61dbd879802564bca24f06f77",
+    "lakefile.toml": "44d38b2e9527046c3c766a4557dbdd30219418c43f245a8114b81a7be7db3552",
+    "lean-toolchain": "3aac669c7a910ec2389f4e4f921b605adf6ebf2d1e0c9b9cd0be4d33f3f5db71"
+   },
+   "theorems": [
+    {
+     "name": "ETHBridge.s_eq_zero_of_forall_inTime",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If k-SAT has an O(2^{δn}) algorithm for every δ > 0, then s_k = 0.",
+     "statement": "theorem s_eq_zero_of_forall_inTime (k : ℕ) (h : ∀ δ : ℝ≥0, 0 < δ → InTime Mo k δ) :\n    s Mo k = 0",
+     "file": "anthropic/ETHBridge/Generic.lean",
+     "line": 71
+    },
+    {
+     "name": "ETHBridge.not_eth_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "ETH fails exactly when s_k = 0 for some k ≥ 3.",
+     "statement": "theorem not_eth_iff : ¬ ETH Mo ↔ ∃ k : ℕ, 3 ≤ k ∧ s Mo k = 0",
+     "file": "anthropic/ETHBridge/Generic.lean",
+     "line": 80
+    },
+    {
+     "name": "ETHBridge.not_eth_of_forall_inTime",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "If, for one k ≥ 3, k-SAT has an O(2^{δn}) algorithm for every δ > 0, then ETH is false.",
+     "statement": "theorem not_eth_of_forall_inTime (k : ℕ) (hk : 3 ≤ k)\n    (h : ∀ δ : ℝ≥0, 0 < δ → InTime Mo k δ) : ¬ ETH Mo",
+     "file": "anthropic/ETHBridge/Generic.lean",
+     "line": 92
+    },
+    {
+     "name": "ETHBridge.Anthropic.decidesKSat_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The generic `DecidesKSat` in this model is Anthropic's, by definition.",
+     "statement": "theorem decidesKSat_iff (k : ℕ) (M : Turing.TM2ComputableAux Bool Bool) (t : ℕ → ℕ) :\n    ETHBridge.DecidesKSat model k M t ↔ MainResults.DecidesKSat k M t",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 41
+    },
+    {
+     "name": "ETHBridge.Anthropic.inTime_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The generic `InTime` in this model is Anthropic's, by definition.",
+     "statement": "theorem inTime_iff (k : ℕ) (δ : ℝ≥0) :\n    ETHBridge.InTime model k δ ↔ MainResults.InTime k δ",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 45
+    },
+    {
+     "name": "ETHBridge.Anthropic.s_eq",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The generic s_k in this model is Anthropic's s_k, by definition.",
+     "statement": "theorem s_eq (k : ℕ) : ETHBridge.s model k = MainResults.s k",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 49
+    },
+    {
+     "name": "ETHBridge.Anthropic.eth_three_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "Anthropic's `ETH` is the k = 3 instance of the textbook quantifier.",
+     "statement": "theorem eth_three_iff : MainResults.ETH ↔ 0 < ETHBridge.s model 3",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 52
+    },
+    {
+     "name": "ETHBridge.Anthropic.ethIsFalse_iff",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "Anthropic's `ETHIsFalse` says exactly s₃ = 0.",
+     "statement": "theorem ethIsFalse_iff : MainResults.ETHIsFalse ↔ ETHBridge.s model 3 = 0",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 55
+    },
+    {
+     "name": "ETHBridge.Anthropic.eth_of_eth",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "The textbook ETH (every k ≥ 3) implies Anthropic's (k = 3).",
+     "statement": "theorem eth_of_eth : ETHBridge.ETH model → MainResults.ETH",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 60
+    },
+    {
+     "name": "ETHBridge.Anthropic.not_eth_of_ethIsFalse",
+     "word": "PROVED",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ],
+     "doc": "**The bridge, Anthropic.** Anthropic's `ETHIsFalse` implies that the Exponential Time Hypothesis, in the textbook form `ETHBridge.ETH` (s_k > 0 for every k ≥ 3), is false in Anthropic's own model of computation and encoding.",
+     "statement": "theorem not_eth_of_ethIsFalse (h : MainResults.ETHIsFalse) : ¬ ETHBridge.ETH model",
+     "file": "anthropic/ETHBridge/Anthropic.lean",
+     "line": 65
+    }
+   ],
+   "logs": "corpus/eth-refutation/bridge/runs/40772430556/anthropic"
+  }
+ }
+}
