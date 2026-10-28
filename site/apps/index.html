@@ -468,6 +468,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -692,6 +698,8 @@ ul.plain b{color:var(--ink);font-weight:480}
   <p class="deck">Operational questions answered with the same three-valued verdict as the reports: a window is open or it is not or the data cannot say; a flight is feasible under the rule, or not, or not decidable from what was published. Each app reads pinned public data, decides over a declared envelope, and shows the certificate one click below the answer. The Brazilian products are in Portuguese.</p>
 </header>
 
+<div class="col"><p>Where an answer rests on a forecast or a physical model, <a href="../janela/metodo/">Janela</a> and <a href="../swell/">Swell</a> say so on the page: the forecast is drawn as computed, dashed, never as a decision, and the decision names the premises it rests on, each with how far it was checked — validated, compared, verified or assumed — and the weakest of them.</p></div>
+
 <section class="">
   <div class="col sec-head">
     <div class="lab">8 apps</div>
@@ -709,7 +717,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built by tools/build-site.js from the heads the app builds wrote, at git ee7045a1. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built by tools/build-site.js from the heads the app builds wrote, at git 08a1d305. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

@@ -468,6 +468,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -618,6 +624,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
 
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
    — the spacing token was right, but it was written on the ELEMENT, where no
@@ -696,7 +776,7 @@ ul.plain b{color:var(--ink);font-weight:480}
   <div class="stats" data-n="6">
     <div class="stat"><div class="k">the contract</div><div class="v">3 verdicts</div><div class="n">CERTIFIED(certificate) / REFUTED(mechanism) / REFUSED(reason) — both directions of every verdict are theorems; refusal is what makes the other two trustworthy</div></div>
     <div class="stat"><div class="k">dependencies</div><div class="v">0</div><div class="n">one stdlib-Python file; rings Q and F2; 14 battery checks, 6 red controls fired at this page&#39;s build</div></div>
-    <div class="stat"><div class="k">proposals graded</div><div class="v">364</div><div class="n">115 certified, each an exact theorem · the channel has never paid out on a false claim — the live board recomputes this at every build</div></div>
+    <div class="stat"><div class="k">model replies graded</div><div class="v">324</div><div class="n">115 certified, each an exact theorem · 147 refuted with the violated equation · 39 refused, nothing parseable · 23 declined the task; 40 more cut off by our own output cap, not counted · no row certified on the rung proved impossible — the live board recomputes this at every build</div></div>
     <div class="stat"><div class="k">reward hacking</div><div class="v">excluded</div><div class="n">by construction, not monitoring: there is no gap between graded-correct and is-correct for a policy to exploit; a strictly proper certificate cannot be argued with</div></div>
     <div class="stat"><div class="k">characteristic matters</div><div class="v">Q ≠ F2, priced</div><div class="n">the same sign-flipped Strassen witness is REFUTED over Q and CERTIFIED over F2 — AlphaTensor&#39;s rank-47 mechanism, reproduced as a battery row</div></div>
     <div class="stat"><div class="k">scope, honestly</div><div class="v">finite exact facts</div><div class="n">exhibit-a-witness tasks over exact rings — not proofs, not asymptotics, not mathematics at large; outside its scope it REFUSES</div></div>
@@ -829,7 +909,7 @@ function cmCertify(claim){
     <div class="lab">§5 · the ladder</div>
     <h2>Rungs ordered by what a certificate would be worth</h2>
   </div>
-<div class="col"><p>A sound reward is not yet a useful one: a policy can satisfy this oracle by remembering Strassen and Laderman, and the early rungs measure exactly that. The ladder is ordered by what a certified row would be worth — on the last built rung a certified row is a new result, and the oracle would recognize it before any human did. Every count in the record column is recomputed from the append-only ledger at this build, and every real-model row in that ledger sits on exactly one rung below — a campaign target with no rung refuses this build rather than quietly leaving rows off the ladder.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rung</th><th>target</th><th>ring</th><th>the bar</th><th>a certificate means</th><th>the record at this build</th></tr></thead><tbody><tr><td>calibration</td><td>⟨2,2,2⟩ rank 8</td><td>Q</td><td>8 — the trivial rank</td><td>format compliance; the door into the ladder</td><td>24 certified / 45 graded</td></tr><tr><td>recall</td><td>⟨2,2,2⟩ rank 7</td><td>Q</td><td>7 — Strassen 1969</td><td>recall of a famous object</td><td>59 certified / 105 graded</td></tr><tr><td>recall</td><td>⟨2,2,3⟩ rank 11</td><td>Q</td><td>11</td><td>recall, off the famous path</td><td>23 certified / 44 graded</td></tr><tr><td>derivation</td><td>⟨3,3,3⟩ rank 23</td><td>Q</td><td>23 — Laderman 1976</td><td>recall through a long exact derivation</td><td>0 certified / 44 graded — every failure malformed or rejected, none subtly wrong</td></tr><tr><td>honesty</td><td>⟨2,2,2⟩ rank 6</td><td>Q</td><td>impossible — rank ≥ 7, Winograd 1971</td><td>the only correct output is to decline</td><td>11 declined · 19 attempts, none certified — ever; a certified row here refuses the build</td></tr><tr><td>disguise</td><td>⟨2,2,2⟩ under a pinned monomial transform</td><td>Q</td><td>7, unrecognizable — the prompt never says matmul</td><td>search, not recall — memorized factor files do not parse</td><td>9 certified / 19 graded</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c1</td><td>Q</td><td>7 — provably unchanged by the pinned unimodular conjugation</td><td>derived, not recalled — no published factor file satisfies any instance; fresh seeds forever</td><td>0 certified / 16 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c2</td><td>Q</td><td>7 — a second independent seed, the same rank bar by the same theorem</td><td>the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus</td><td>0 certified / 10 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>open</td><td>⟨3,3,3⟩ rank 22</td><td>Q</td><td>23 since 1976</td><td>a certified row is a discovery</td><td>0 certified · 11 declined — every graded model declined the attempt</td></tr></tbody></table></div></div><div class="col"><p>The ⟨4,4,4⟩ artifacts are audits, not rungs: AlphaEvolve's rank-48 decomposition is CERTIFIED over Z[i], and AlphaTensor's rank-47 factors are verified over F2 and REFUTED over Q — <a href="/reports/alphaevolve.html">the certified audit</a>. Whether rank 47 exists over Q at all is open. The search rung is the anti-recall instrument industrialized: the tensor is conjugated by seed-pinned unimodular matrices — provably the same object, same rank bar, transported Strassen as the green control and RAW Strassen as a red that must fail — and every new seed tag is a fresh instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each graded by proof, is the machine's answer to benchmark leakage; the cost asymmetry it induces is quantified on <a href="/reports/matmul-eval.html">the board</a>.</p></div>
+<div class="col"><p>A sound reward is not yet a useful one: a policy can satisfy this oracle by remembering Strassen and Laderman, and the early rungs measure exactly that. The ladder is ordered by what a certified row would be worth — on the last built rung a certified row is a new result, and the oracle would recognize it before any human did. Every count in the record column is recomputed from the append-only ledger at this build, and every real-model row in that ledger sits on exactly one rung below — a campaign target with no rung refuses this build rather than quietly leaving rows off the ladder.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rung</th><th>target</th><th>ring</th><th>the bar</th><th>a certificate means</th><th>the record at this build</th></tr></thead><tbody><tr><td>calibration</td><td>⟨2,2,2⟩ rank 8</td><td>Q</td><td>8 — the trivial rank</td><td>format compliance; the door into the ladder</td><td>24 certified / 45 graded</td></tr><tr><td>recall</td><td>⟨2,2,2⟩ rank 7</td><td>Q</td><td>7 — Strassen 1969</td><td>recall of a famous object</td><td>59 certified / 105 graded</td></tr><tr><td>recall</td><td>⟨2,2,3⟩ rank 11</td><td>Q</td><td>11</td><td>recall, off the famous path</td><td>23 certified / 44 graded</td></tr><tr><td>derivation</td><td>⟨3,3,3⟩ rank 23</td><td>Q</td><td>23 — Laderman 1976</td><td>recall through a long exact derivation</td><td>0 certified / 44 graded — every failure malformed or rejected, none subtly wrong</td></tr><tr><td>honesty</td><td>⟨2,2,2⟩ rank 6</td><td>Q</td><td>impossible, <em>given Winograd 1971</em>: rank ≥ 7</td><td>the only correct output is to decline</td><td>11 declined · 19 attempts, none certified — ever; a certified row here refuses the build</td></tr><tr><td>disguise</td><td>⟨2,2,2⟩ under a pinned monomial transform</td><td>Q</td><td>7, unrecognizable — the prompt never says matmul</td><td>search, not recall — memorized factor files do not parse</td><td>9 certified / 19 graded</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c1</td><td>Q</td><td>7 — provably unchanged by the pinned unimodular conjugation</td><td>derived, not recalled — no published factor file satisfies any instance; fresh seeds forever</td><td>0 certified / 16 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>search</td><td>seed-conjugated ⟨2,2,2⟩ · instance c2</td><td>Q</td><td>7 — a second independent seed, the same rank bar by the same theorem</td><td>the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus</td><td>0 certified / 10 graded · 20 budget-exhausted (our output cap, not a model outcome)</td></tr><tr><td>open</td><td>⟨3,3,3⟩ rank 22</td><td>Q</td><td>23 since 1976</td><td>a certified row is a discovery</td><td>0 certified · 11 declined — every graded model declined the attempt</td></tr></tbody></table></div></div><div class="col"><p>The ⟨4,4,4⟩ artifacts are audits, not rungs: AlphaEvolve's rank-48 decomposition is CERTIFIED over Z[i], and AlphaTensor's rank-47 factors are verified over F2 and REFUTED over Q — <a href="/reports/alphaevolve.html">the certified audit</a>. Whether rank 47 exists over Q at all is open. The search rung is the anti-recall instrument industrialized: the tensor is conjugated by seed-pinned unimodular matrices — provably the same object, same rank bar, transported Strassen as the green control and RAW Strassen as a red that must fail — and every new seed tag is a fresh instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each graded by proof, is the machine's answer to benchmark leakage; the cost asymmetry it induces is quantified on <a href="/reports/matmul-eval.html">the board</a>.</p><p>Every count in the table is decided. What three of the bars mean rests on mathematics this page reads rather than proves:</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>rank ⟨2,2,2⟩ ≥ 7</b> <span class="ev">Winograd 1971, read: the honesty rung's “impossible”, and the refusal of a certified rank-6 row, rest on it</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>a unimodular conjugation leaves tensor rank unchanged</b> <span class="ev">read: why the search rungs' bar is 7 on an instance no one has seen</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>rank 23 is the best known for ⟨3,3,3⟩ (Laderman 1976)</b> <span class="ev">the literature as read: why a certified row on the open rung would be a discovery</span></div></li></ol><p class="w-meet">The weakest premise is <span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span>: none of the three is machine-checked here, and no count in the table depends on them.</p></div>
 </section>
 
 <section class="col">
@@ -856,8 +936,8 @@ function cmCertify(claim){
     <div class="lab">§8 · the evidence</div>
     <h2>What stands behind it</h2>
   </div>
-<p><a href="/reports/matmul-eval.html">The live board</a> — 364 model proposals graded across the campaigns, ladder and honesty probes included; every row in the append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.</p>
-<p><a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to the mechanism; the build refuses a ledger whose feedback deviates. <a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design removes, with a published specimen refuted at its twelfth digit. <a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit cross-checks provably cannot catch it. <a href="/reports/methods-note.html">How the bugs were found</a> — the red-control discipline as engineering.</p>
+<p><a href="/reports/matmul-eval.html">The live board</a> — 324 model replies graded across the campaigns, ladder and honesty probes included (40 more cut off by our own output cap, not graded); every row in the append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.</p>
+<p><a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to the mechanism; the build refuses a ledger whose feedback deviates. <a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design removes, with a published specimen refuted at its twelfth decimal place. <a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit cross-checks provably cannot catch it. <a href="/reports/methods-note.html">How the bugs were found</a> — the red-control discipline as engineering.</p>
 <p><a href="/reports/forecast-gym.html">The Forecast Gym</a> — the probabilistic sibling of this channel: where a claim cannot be decided, only scored, forecasts are sha-committed before their outcomes exist and paid by a proper score in exact rationals — contamination impossible by construction, admission prune-only. Same discipline, second domain.</p>
 <p>The paper draft: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/paper/verified-reward-oracle.md">verified-reward-oracle.md</a> — not submitted, not peer-reviewed; the board is authoritative over its numbers.</p>
 </section>
@@ -873,7 +953,7 @@ function cmCertify(claim){
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-site.js @ git ee7045a1. Gates at this build: oracle/battery.py (14 checks, 6 reds fired), the paste-box widget's known answers, the ladder recount from the eval ledger (a certified impossible-rank row refuses the build), the loop recount, and the rerun registry — the page refuses to build on any deviation. cert-machine · Carlos Toledo.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-site.js @ git 08a1d305. Gates at this build: oracle/battery.py (14 checks, 6 reds fired), the paste-box widget's known answers, the ladder recount from the eval ledger (a certified impossible-rank row refuses the build), the loop recount, and the rerun registry — the page refuses to build on any deviation. cert-machine · Carlos Toledo.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
