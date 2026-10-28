@@ -732,7 +732,7 @@ body { padding-top: 0; }
       <span class="eyebrow">run it</span>
       <div class="row-btns"><button id="playBtn">play</button></div>
       <div class="ctrl mt3"><label for="cT">step</label><output id="cTOut"></output><input type="range" id="cT" min="0" max="1" step="1"></div>
-      <div class="note-sm">LLL on the real dimension-40 challenge basis, 20,154 steps and 10,219 swaps in 0.2 s. Every quantity is an integer: floating-point Gram&ndash;Schmidt does not survive a 121-digit modulus sitting beside unit entries, so there is none here. The lattice is checked unchanged at the end &mdash; det² = q², exactly.</div>
+      <div class="note-sm">LLL on the real dimension-40 challenge basis, 20,154 steps and 10,219 swaps in 0.2 s. Every quantity is an integer: floating-point Gram&ndash;Schmidt does not survive a 121-digit modulus sitting beside unit entries, so there is none here. The lattice is checked unchanged at the end &mdash; det² = q², exactly.<br><br>The basis is seed 0&rsquo;s, whose own published record is norm 1702 (<span class="w-val w-computed" title="the published six-figure float, with no error bound">1.02768</span> &times; GH). The 1273 the closing caption names is the dimension&rsquo;s best, found on seed 75601&rsquo;s lattice &mdash; another lattice, so it is not this run&rsquo;s comparison; against its own record LLL still falls short.</div>
     </div>
     <hr class="hr-thin">
     <div class="grp">
@@ -741,7 +741,7 @@ body { padding-top: 0; }
         <button data-flag="gsa">the heuristic</button>
         <button data-flag="ghost">where it started</button>
       </div>
-      <div class="note-sm">The geometric series assumption says a reduced profile is a straight line with root-Hermite factor 1.0219. It is an empirical claim about random lattices, asserted everywhere and proved nowhere, so it is drawn dashed. Against this basis it misses the measured profile by 0.15 decades and misses worst at the ends.</div>
+      <div class="note-sm">The geometric series assumption says a reduced profile is a straight line with root-Hermite factor <span class="w-val w-computed" title="the textbook figure for LLL, measured on random lattices; asserted, never proved">1.0219</span>. It is an empirical claim about random lattices, asserted everywhere and proved nowhere, so it is drawn dashed, and so is its number. Against this basis it misses the measured profile by <span class="w-val w-computed" title="root mean square over the 40 positions, in floating point">0.15</span> decades root mean square, and worst at the head of the basis, by <span class="w-val w-computed" title="at position 5 of 40, in floating point">0.28</span>.</div>
     </div>
   </div>
 
@@ -752,18 +752,24 @@ body { padding-top: 0; }
         <button data-flag="wall">the wall</button>
         <button data-flag="decided">decided exactly</button>
       </div>
-      <div class="note-sm">926 published records. Each prints ‖v‖/GH to six figures as a float with no error bound, and none exceeds 1.04985 &mdash; so 1.05 is a hard wall and the table is pressed against it.</div>
+      <div class="note-sm">926 published records. Each prints ‖v‖/GH to six figures as a float with no error bound, and none exceeds <span class="w-val w-computed" title="the largest published six-figure float, with no error bound">1.04985</span> &mdash; so 1.05 is a hard wall and the table is pressed against it.</div>
     </div>
     <hr class="hr-thin">
     <div class="grp">
       <span class="eyebrow">what was checked</span>
-      <div class="note-sm">37 records decided in exact rational arithmetic against 14 determinants, dimensions 40&ndash;210. <b>All 37 published ratios are consistent; none is wrong.</b><br><br>The bar on a decided record is every ratio consistent with a true norm that prints as the integer printed. Comparing against the ratio at the rounded norm instead &mdash; the obvious thing to do &mdash; reports 32 of 37 as disagreeing, and that is an artefact of the rounding rather than a finding. Half a unit of norm is worth 1.7&times;10⁻⁴ here, which is the size of every apparent discrepancy.</div>
+      <div class="note-sm">37 records decided in exact rational arithmetic against 14 determinants, dimensions 40&ndash;210. <b>All 37 published ratios are consistent; none is wrong.</b><br><br>The bar on a decided record is every ratio consistent with a true norm that prints as the integer printed. Comparing against the ratio at the rounded norm instead &mdash; the obvious thing to do &mdash; reports 32 of 37 as disagreeing, and that is an artefact of the rounding rather than a finding. Half a unit of norm is worth 1.4&ndash;3.0&times;10⁻⁴ of ratio across these records, and every apparent discrepancy (0.13&ndash;2.8&times;10⁻⁴) lies inside its own record&rsquo;s half unit.</div>
     </div>
   </div>
   <hr class="hr-thin">
 
   <div class="grp">
     <div class="note-sm"><b>The one open row.</b> Dimension 119, seed 0, norm 2904: admissible if the norm is exactly 2904, refused if it is half a unit more. Its window straddles the wall, so it cannot be decided from what is published &mdash; it needs the vector, and the vectors are not published.</div>
+  </div>
+  <hr class="hr-thin">
+  <div class="grp">
+    <span class="eyebrow">the ink</span>
+    <div class="note-sm">One pattern per standing, on the canvas and under the numbers in this panel alike.</div>
+    <div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div></div>
   </div>
   <hr class="hr-thin">
   <div class="grp">

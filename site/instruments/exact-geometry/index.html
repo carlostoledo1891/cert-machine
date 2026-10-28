@@ -600,7 +600,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 svg.plate { width: 100%; height: auto; display:block; border-radius: var(--radius-s); }
 svg.plate .ch { stroke: #f6f6f8; }
 svg.plate .ord { fill:none; stroke:#f6f6f8; stroke-opacity:.85; stroke-width:1.6; }
-svg.plate .clo { fill:none; stroke:#f6f6f8; stroke-opacity:.9; stroke-width:1.6; stroke-dasharray:5 4; }
+svg.plate .clo { fill:none; stroke:#f6f6f8; stroke-opacity:.45; stroke-width:1.6; }
 svg.plate .mst { fill:none; stroke:#f6f6f8; stroke-opacity:.6; stroke-width:1.3; }
 svg.plate .pt { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.3; }
 svg.plate .pt.first { fill:#f6f6f8; }
@@ -615,6 +615,13 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
 .pred { font-family:var(--font-mono); font-size:var(--text-eyebrow); line-height:1.7; color:var(--ink-4); background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-s); padding:var(--s-4); margin-top:var(--s-4); }
 .pred b { color:var(--ink-2); font-weight:500; }
 .scoreline { display:flex; gap:var(--s-6); flex-wrap:wrap; font-family:var(--font-mono); font-size:var(--text-eyebrow); color:var(--ink-4); margin-top:var(--s-5); }
+
+ .ink-decided  { stroke-dasharray: none; }
+ .ink-assumed  { stroke-dasharray: 5 4; }
+ .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+ .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+ .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+ .ink-guide    { stroke-dasharray: 2 3; }
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -691,8 +698,9 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
   <p class="lede mt6">Every other geometry page here asks a model for a table of dissimilarities and decides what shape its answers have. <b>This one asks nothing.</b> Each set below is points whose shape is fixed by construction, and the same exact instrument is pointed at them. If it does not return the shape that is there, every number on every other page is worthless — so this page is built first and its result is supposed to be dull.</p>
   <div class="hero-meta">
     <span class="item"><span class="k">sets</span><span class="v">8</span></span>
-    <span class="item"><span class="k">prediction held</span><span class="v">8 of 8</span></span>
-    <span class="item"><span class="k">exactly euclidean</span><span class="v">6</span></span>
+    <span class="item"><span class="k">prediction held</span><span class="v"><span class="w-val w-chosen" title="chosen — graded by a rule with tolerances; read literally, 6 of 8">8 of 8</span></span></span>
+    <span class="item"><span class="k">exactly euclidean</span><span class="v">1</span></span>
+    <span class="item"><span class="k">within 1% negative mass</span><span class="v"><span class="w-val w-chosen" title="chosen — negative mass under 1%, a tolerance, on a float spectrum">6</span></span></span>
     <span class="item"><span class="k">refused at the gate</span><span class="v">1</span></span>
     <span class="item"><span class="k">model calls</span><span class="v">none</span></span>
   </div>
@@ -704,7 +712,9 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
   <div class="prose mt5">
     <p>Each card states the shape the construction guarantees, then the shape the instrument decided from the integer table alone, then whether they matched. <b>The prediction is written first</b>, in <code>sets.js</code>, and it is not edited afterwards — which is the only thing that makes "agreed" mean anything.</p>
     <p>Two of the readings are deliberately awkward and are kept that way. Quantising a projection to integers guarantees the exact signature will <em>not</em> come back clean, so the signature is printed beside the effective rank rather than instead of it. And a set that violates the metric gate is <b>refused</b> rather than scored: the arithmetic downstream assumes a metric, and running it anyway would produce a plausible number from a broken input.</p>
+    <p><b>And &ldquo;agreed&rdquo; is a verdict with tolerances in it.</b> The prediction is prose; the rule that grades it reads a float spectrum against chosen thresholds — negative mass under 1% counts as none, an effective rank is counted at 99% of the spectrum&rsquo;s mass, a closing ratio within 0.05 of one is one. So every <em>yes</em> below holds <em>given the rule&rsquo;s tolerances</em>, and each card says so. Two predictions use the word <em>exactly</em> (array-a, hex-chord), and read literally they do not hold: the exact signatures of those integer tables carry 1 negative direction and 2 negative directions. That is the quantisation of the paragraph above, not a fault in the geometry — the points those tables round are exactly planar and exactly on a circle — but read literally the count is 6 of 8, and the hero prints both. Only 1 of the 8 tables is exactly Euclidean, by its signature; 6 are within 1% by their float spectrum. The exact signature and the closing ratio are decided; the effective rank and the negative mass beside them are not, and wear their standing.</p>
   </div>
+  <div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
 </div></section><section class="section">
   <div class="container narrow">
     <div class="prose reveal">
@@ -733,16 +743,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">At one instant every baseline is a projection onto the same plane, so these stations are points in ℝ² by construction and there is no room for argument. This is the positive control for the whole page: if the effective rank does not come back 2 with nothing negative, the arithmetic below is broken and every other number on the page is worthless. The exact triple will NOT be (2,0,·) — quantising the projections to integers guarantees that — which is exactly why the spectrum is printed beside it.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">2</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(3, 1, 1)</div></div>
           
           <div><div class="k">δ / diameter</div><div class="v">0.049</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  exactly a plane — effective rank 2 and no negative mass
-<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (3,1,1)
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span>, exact signature (3,1,1)
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em> &mdash; read literally, no: the exact signature has 1 negative direction
 <b>distances</b>  1000 × projected separation in Gλ, one instant, reference station at the origin
         </div>
       </div>
@@ -761,16 +771,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">THE PAIRED EXPERIMENT, and the pair is a rotation rather than a reframing. 2.1 hours later the Earth has turned and the same rigid arrangement of dishes casts its shadow on a different plane. The rank must be 2 again — it is still one projection — but the shape inside that plane is not the same shape: not one of the ten distances survives unchanged. Two flat pictures of one solid object, and the fact that neither is three-dimensional is the whole reason interferometry needs a whole night rather than an instant.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">2</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(2, 2, 1)</div></div>
           
           <div><div class="k">δ / diameter</div><div class="v">0.072</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  a plane again — but a different one, and a different shape in it
-<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (2,2,1)
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span>, exact signature (2,2,1)
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em>
 <b>distances</b>  1000 × projected separation in Gλ, one instant, reference station at the origin
         </div>
       </div>
@@ -789,16 +799,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">A regular hexagon in the plane. Straight-line distances between its vertices, which is the only cycle on this page whose squared distances are integers — the twelve-tone version has 2 − √3 in its table and there is no honest integer for that. The closing step is one more side, so the ratio is one. This is the positive control: if it does not come back exactly rank 2 with nothing negative, the arithmetic below is wrong.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">2</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(3, 2, 1)</div></div>
           <div><div class="k">closure ratio</div><div class="v">1.00×</div></div>
           <div><div class="k">δ / diameter</div><div class="v">0.250</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  a circle, and exactly Euclidean: rank 2, no negative directions
-<b>decided</b>    effective rank 2, negative mass 0.00%, exact signature (3,2,1), closure 1.00×
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span>, exact signature (3,2,1), closure 1.00×
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em> &mdash; read literally, no: the exact signature has 2 negative directions
 <b>distances</b>  1000 × chord length, unit circumradius
         </div>
       </div>
@@ -817,16 +827,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">THE POINT OF THE PAIR. Same six items, same cyclic order, same closing step of one — and a different fact. Walking round the rim instead of cutting across it gives the graph metric of a 6-cycle, and a cycle metric is famously not Euclidean: no set of points in any ℝᵈ has these distances. The closure ratio cannot tell the two apart, because both close in one step. Only the signature can. A page that reported "circle" for both would be hiding the more interesting half of what happened.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">5</div></div>
-          <div><div class="k">negative mass</div><div class="v">22.86%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">5</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">22.86%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(3, 2, 1)</div></div>
           <div><div class="k">closure ratio</div><div class="v">1.00×</div></div>
           <div><div class="k">δ / diameter</div><div class="v">0.333</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  still a cycle — but NOT Euclidean: negative directions must appear
-<b>decided</b>    effective rank 5, negative mass 22.86%, exact signature (3,2,1), closure 1.00×
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">5</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">22.86%</span>, exact signature (3,2,1), closure 1.00×
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em>
 <b>distances</b>  1000 × steps around the rim
         </div>
       </div>
@@ -845,16 +855,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">Every cell of this theorem was closed by the same three numbers: a defect, a contraction and a curvature. Those three are the certificate’s own coordinates, and the cells are indexed by a single physical parameter, so they should trace a CURVE through that space and nothing more — rank one, and a closing step that is the whole journey home. If a circle appeared here it would mean the certificate returns to a state it has already been in, which nobody claimed and nobody wants.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">2</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.05%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.05%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(6, 5, 1)</div></div>
           <div><div class="k">closure ratio</div><div class="v">4.34×</div></div>
           <div><div class="k">δ / diameter</div><div class="v">0.202</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  a line — one parameter, so one dimension
-<b>decided</b>    effective rank 2, negative mass 0.05%, exact signature (6,5,1), closure 4.34×
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.05%</span>, exact signature (6,5,1), closure 4.34×
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em>
 <b>distances</b>  1000 × Euclidean distance in normalised (log Y₀, Z₁, log Z₂)
         </div>
       </div>
@@ -873,16 +883,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">The same question asked of a proof rather than a theorem. Each of these is a slab of the covering that forced an Erdős bound, described by how much margin its tightest box had, how wide it is, and how many teeth its linear programme reached for. A subdivision driven by one sweeping parameter should also be a curve — but a proof changes strategy where the difficulty changes, and a strategy change is a kink. The quantity to watch is not the closure ratio, it is the hyperbolicity: a curve that bends sharply is still a curve, and the four-point condition can tell that from a tree.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">3</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.04%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">3</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.04%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(8, 3, 1)</div></div>
           <div><div class="k">closure ratio</div><div class="v">11.67×</div></div>
           <div><div class="k">δ / diameter</div><div class="v">0.081</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  a line, but a rougher one than the band
-<b>decided</b>    effective rank 3, negative mass 0.04%, exact signature (8,3,1), closure 11.67×
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">3</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.04%</span>, exact signature (8,3,1), closure 11.67×
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em>
 <b>distances</b>  1000 × Euclidean distance in normalised (log worst margin, log width, mean teeth used)
         </div>
       </div>
@@ -901,16 +911,16 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <div>
         <p class="lede body-3">The floor everything else has to clear. These points have no structure beyond being points, so their distances should need every dimension available and no shape should survive. A method that finds a tidy circle here is drawing its own assumptions, which is the reference instruments shelf’s warning and it applies unchanged.</p>
         <div class="nums">
-          <div><div class="k">effective rank</div><div class="v">6</div></div>
-          <div><div class="k">negative mass</div><div class="v">0.00%</div></div>
+          <div><div class="k">effective rank</div><div class="v"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">6</span></div></div>
+          <div><div class="k">negative mass</div><div class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span></div></div>
           <div><div class="k">exact signature</div><div class="v">(8, 0, 1)</div></div>
           
           <div><div class="k">δ / diameter</div><div class="v">0.200</div></div>
         </div>
         <div class="pred">
 <b>predicted</b>  no low dimension and no cycle — effective rank near the ceiling
-<b>decided</b>    effective rank 6, negative mass 0.00%, exact signature (8,0,1)
-<b>agreed</b>     yes
+<b>returned</b>   effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">6</span>, negative mass <span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span>, exact signature (8,0,1)
+<b>agreed</b>     yes, <em>given the rule&rsquo;s tolerances</em>
 <b>distances</b>  1000 × Euclidean distance in ℝ⁷, fixed seed
         </div>
       </div>
@@ -951,11 +961,11 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
     </div>
     <div class="tw reveal mt5">
       <table><thead><tr><th>subject</th><th></th><th>effective rank</th><th>negative mass</th><th>closure</th><th>δ / diam</th><th>asymmetry</th></tr></thead><tbody>
-      <tr><td class="mono" rowspan="2">hex-chord</td><td class="mono dim">model</td><td class="mono">2</td><td class="mono">0.45%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">2</td><td class="mono">0.00%</td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono dim">—</td></tr><tr><td class="mono" rowspan="2">hex-cycle</td><td class="mono dim">model</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono">5</td><td class="mono">22.86%</td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono dim">—</td></tr>
+      <tr><td class="mono" rowspan="2">hex-chord</td><td class="mono dim">model</td><td class="mono"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></td><td class="mono"><span class="w-val w-computed" title="computed — float; nothing decided it">0.45%</span></td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span></td><td class="mono"><span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span></td><td class="mono">1.00×</td><td class="mono">0.250</td><td class="mono dim">—</td></tr><tr><td class="mono" rowspan="2">hex-cycle</td><td class="mono dim">model</td><td class="mono"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">5</span></td><td class="mono"><span class="w-val w-computed" title="computed — float; nothing decided it">22.86%</span></td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono">0 max over 15 pairs</td></tr><tr><td class="mono dim">exact</td><td class="mono"><span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">5</span></td><td class="mono"><span class="w-val w-computed" title="computed — float; nothing decided it">22.86%</span></td><td class="mono">1.00×</td><td class="mono">0.333</td><td class="mono dim">—</td></tr>
       </tbody></table>
     </div>
     <div class="prose reveal mt6">
-      <p><strong>It reproduces both, to the digit.</strong> The straight-line hexagon comes back effective rank 2 with essentially nothing negative; the rim metric comes back with 22.86% negative mass, which is the exact figure the arithmetic gives and the exact statement that no arrangement of points in any Euclidean space has those distances. Every pair was answered identically in both orders, in calls that could not see each other.</p>
+      <p><strong>It reproduces the rim to the digit, and the hexagon in shape.</strong> The straight-line hexagon comes back effective rank <span class="w-val w-chosen" title="chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats">2</span>, closing in one step, as the exact table does &mdash; but with <span class="w-val w-computed" title="computed — float; nothing decided it">0.45%</span> negative mass against <span class="w-val w-computed" title="computed — float; nothing decided it">0.00%</span> and the exact signature (4,1,1) against (3,2,1), because its chords are rounded on its own scale (87 for 50&radic;3). The rim metric comes back with 22.86% negative mass, the figure the arithmetic gives on the exact table: the model&rsquo;s integers are the exact ones, scaled. That figure is a float; the exact statement that no arrangement of points in any Euclidean space has those distances is the signature&rsquo;s, (3,2,1). Every pair was answered identically in both orders, in calls that could not see each other.</p>
       <p>What makes that worth writing down is where the fact lives. It is in none of the thirty answers. &ldquo;Vertex 0 and vertex 2 are 66 apart&rdquo; says nothing about embeddability; the non-Euclidean fact only exists in all thirty at once, and it survived being split into thirty independent questions and reassembled by a procedure the model never saw.</p>
       <p><strong>The first attempt failed, and the failure is the better half.</strong> Asked on a 0&ndash;100 scale, the model gave 33, 67 and 100 for one, two and three steps round the rim &mdash; which is correct to the nearest integer and <em>is not a distance</em>: 33 + 33 = 66 &lt; 67, so the triangle inequality fails by one unit and the gate refused the table before any geometry was computed. Nothing was wrong with the answers. The scale was wrong: a rim of six points contains the ratios 1 : 2 : 3, and 100 is not divisible by 3. On 0&ndash;99 the same question gives 33, 66, 99 and the table is a metric. The reference instruments shelf asks for integers on a fixed scale in exactly this way, so this is a property of the method rather than of this run &mdash; and without the gate it would have become a plate with a confident number under it.</p>
     </div>
@@ -966,7 +976,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
   <div class="container narrow">
     <div class="prose reveal">
       <h2 class="t2">The pair that matters</h2>
-      <p>Six points on a circle, measured two ways. Straight through the middle they are a hexagon; round the rim they are the graph metric of a six-cycle. The two tables have the <em>same</em> closing ratio, because both close in a single step. They have the <em>same</em> exact signature, because quantisation gives both of them the same full-rank triple. And they are not remotely the same object: one carries no negative mass at all and the other carries 22.9% of it, which is the exact statement that no arrangement of points in any Euclidean space has those distances.</p>
+      <p>Six points on a circle, measured two ways. Straight through the middle they are a hexagon; round the rim they are the graph metric of a six-cycle. The two tables have the <em>same</em> closing ratio, because both close in a single step. They have the <em>same</em> exact signature, because quantisation gives both of them the same full-rank triple. And they are not remotely the same object: one carries <span class="w-val w-computed" title="computed — float; nothing decided it">0.003%</span> of its mass in negative directions &mdash; rounding, nothing more &mdash; and the other <span class="w-val w-computed" title="computed — float; nothing decided it">22.9%</span>. Exactly, both integer tables are non-Euclidean: the signature says so of each, which is why it cannot tell them apart. The negative mass says how much, and that is a float, not a decision.</p>
       <p>That is the argument for reporting three numbers instead of one. A page that printed only the closure ratio would have called them identical. A page that printed only the exact signature would have called them identical too. The reference instruments shelf prints the ratio and the triple; the negative mass is what this pass adds, and it is the only thing on the page that could tell the two apart.</p>
       <p>The rest went as written, with one thing that was not predicted at all. Two snapshots of the same five dishes, 2.1 hours apart, come back exactly planar both times — one rigid object, two flat shadows — and not one of their ten distances survives the rotation unchanged. But the cheapest tree through them is the <em>same tree</em> both times. Nobody asked for that: it says the array's nearest-neighbour structure is more robust than its geometry, which is a fact about the dishes rather than about the night. A certified band traces a curve and does not close. A proof&rsquo;s covering traces a rougher curve. Nine points thrown into seven dimensions refuse to be low-dimensional, and a table that is not a distance is refused before it can be drawn.</p>
     </div>

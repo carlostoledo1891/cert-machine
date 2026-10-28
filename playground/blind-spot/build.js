@@ -371,7 +371,7 @@ const SCRIPT = `
     if (!inBox) {
       verdict = 'REFUSED';
       why = 'a coordinate is -4, which is outside the declared box. The design refuses rather than ' +
-            'deciding — and this is the region no valid input exercises, where the blind spots live.';
+            'deciding — the branch only an invalid input drives, where most of the blind spots live.';
     } else if (p <= 0) {
       verdict = 'CERTIFIED';
       why = 'p = u·v = ' + p + ' ≤ 0, so the trivial branch certifies without the comparator.';
@@ -432,7 +432,7 @@ const body = `
 <b>read the shapes, not the shade</b> a filled dot is a mutation two or more testbenches catch; a ring or a
 square is one only one constructed family catches; a cross is one a proof says changes nothing. The blind spots
 are not scattered &mdash; ${IN_BOX_CHECK} of the ${ONLY.length} sit in the <span class="mono">box check</span>, the part of
-the design no <em>valid</em> input exercises, which is precisely where a corpus of valid inputs cannot go.
+the design that only an <em>invalid</em> input drives to refuse, which is where a corpus of valid inputs does not reach.
 <b>a filled dot is not the corpus</b> MCY tags a mutation COVERED when two or more of its four testbenches kill it,
 and ${COVERED_MISS.length} of the ${POOL.by_class.COVERED} dots get past the corpus sample, caught by the constructed
 families alone &mdash; ${CORPUS_MISS.length} misses in all, with the ${ONLY.length} rings and squares.

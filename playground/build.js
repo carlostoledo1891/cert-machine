@@ -437,7 +437,7 @@ const body = `
     </figure>
     <div class="card-body">
       <h2>An attention row is a point. Nobody draws it that way.</h2>
-      <p class="sub">Attention weights are nonnegative and sum to one, which makes a row a point in a simplex &mdash; and a bar chart throws that away. Focus is distance from the centre; concentration has contours; temperature is a path. One real row from a tiny GPT, in the room it actually lives in, with the one claim about it that is decided rather than drawn: sharpening must move the point toward a vertex, proved in exact rational arithmetic because consecutive values differ in the fourteenth decimal.</p>
+      <p class="sub">Attention weights are nonnegative and sum to one, which makes a row a point in a simplex &mdash; and a bar chart throws that away. Focus is distance from the centre; concentration has contours; temperature is a path. One real row from a tiny GPT, in the room it actually lives in, with the one claim about it that is decided rather than drawn: under the rational kernel (1 + &beta;s)<sup>${SIMPLEX.M.p}</sup>, sharpening moves the point toward a vertex at every step, decided in exact arithmetic &mdash; a proof, not a float that happens to be right.</p>
       <span class="go">open the instrument <span class="arw">&rarr;</span></span>
     </div>
   </a>

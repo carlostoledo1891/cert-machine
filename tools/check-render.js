@@ -22,7 +22,7 @@
      · TWO CELLS READING "null" in a published table, from String(null).
      · Literal backticks in a table cell, from a markdown habit in a JS string.
 
-   FOUR CHECKS, and they are deliberately about rendering rather than source:
+   FIVE CHECKS, and they are deliberately about rendering rather than source:
 
      1 MARKERS — the strings that mean a builder leaked: a template literal
        that never interpolated, "undefined", "NaN", "[object Object]", a cell
@@ -38,6 +38,15 @@
        price it, so this RATCHETS: the list may shrink, never grow.
      4 INK — every figure box is screenshotted and its non-ground pixels are
        counted. A figure under the floor is a blank box, whatever the DOM says.
+     5 SCRIPTS — no page may throw an uncaught error while it loads. Added
+       2026-10-28, when applying WARRANT v2 found /instruments/rewire drawing
+       NO graph and the /instruments/graph editor mounting nothing since
+       2026-09-15: the inlined cert-unit bundle threw `ART is not defined` at
+       load, and every check here stayed green, because none of them asked
+       whether the page's own script ran. Exact, no threshold, hard fail; a
+       planted throwing page proves it fires. Collected by a listener installed
+       before any page script runs; a rejected promise is not counted (a page
+       read as file:// may refuse a fetch it would make on the web).
 
    Ink is a RATCHET against design/render-baseline.json, not a fixed bar: a
    sparse figure is a legitimate drawing and only the AUTHOR can say whether
@@ -233,8 +242,15 @@ async function main() {
 
   const now = {};
   const unmeasured = [];
+  const thrown = [];
   await withChrome(async (send) => {
     await send('Page.enable');
+    /* check 5: the listener goes in before any page script, on every document this tab opens */
+    await send('Page.addScriptToEvaluateOnNewDocument', { source: 'window.__renderErrs = []; addEventListener("error", function (e) { if (e && e.message) window.__renderErrs.push(String(e.message).slice(0, 160)); });' });
+    const errsNow = async () => JSON.parse((await send('Runtime.evaluate', { expression: 'JSON.stringify(window.__renderErrs || [])', returnByValue: true })).result.value);
+    await send('Page.navigate', { url: 'data:text/html,' + encodeURIComponent('<body><script>undefinedThing.call();</script></body>') });
+    await settle(250);
+    red('a planted page whose script throws at load IS caught', (await errsNow()).length > 0);
     await send('Emulation.setDeviceMetricsOverride', { width: 1440, height: 1000, deviceScaleFactor: 1, mobile: false });
 
     /* A PLANTED PAGE, so the dead-mark check is provably able to fire in the
@@ -258,6 +274,7 @@ async function main() {
       await send('Page.navigate', { url: 'file://' + path.join(ROOT, rel) });
       await send('Runtime.evaluate', { expression: 'document.fonts ? document.fonts.ready.then(()=>1) : 1', awaitPromise: true, timeout: 8000 });
       await settle(500);
+      for (const m of await errsNow()) thrown.push(rel.replace('site/', '') + ': ' + m);
       const inv = JSON.parse((await send('Runtime.evaluate', { expression: INVISIBLE, returnByValue: true })).result.value);
       const boxes = JSON.parse((await send('Runtime.evaluate', { expression: FIGURES, returnByValue: true })).result.value);
       const figs = {};
@@ -296,6 +313,10 @@ async function main() {
      JUDGEMENT — a recessive grid is a legitimate drawing and only the author
      can say whether 1.12:1 is exact or invisible. So faintness RATCHETS, the
      same way ink does and for the same reason. */
+  console.log('-- scripts');
+  if (thrown.length) bad('no built page throws while it loads', thrown.length + ':\n        ' + thrown.slice(0, 10).join('\n        '));
+  else ok('no built page throws while it loads', '[' + list.length + ' pages]');
+
   console.log('-- invisible marks');
   const dead = [], faint = [];
   for (const rel of list) {

@@ -22,6 +22,49 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-28 ~09:00 UTC — WARRANT v2 ON THE LAST THIRTEEN INSTRUMENTS, on "Speed up the process, batch the instruments to
+     the new visual grammar": four agents in worktrees (geometry: simplex, neural-geometry, answer-shape, exact-geometry ·
+     affect, graph, rewire · verifiers: blind-spot, lattice-claims, pqc · science: contours, plates, navier-stokes), one brief
+     with the rules (a pick is a member of its set; red only on an exhibited object against a claim about that object's own
+     record; standing ≠ verdict; "given …" for a chosen input; ∅ for an empty set; test our own reading of prose; a legend
+     wherever a w-* mark is), lifted files untouched (every change in the page shells, through anchored replacements that
+     refuse when page.js renders differently); merged and gated once here. SHARED FIRST: the witness red declared once
+     (components.js .wx, warrant.js witness()); a compact legend (.w-legend.compact) for the ruler's spines.
+     FINDINGS, each fixed at the source and gated: REWIRE drew NO graph and the GRAPH editor mounted nothing since 2026-09-15
+     (a2424347: the inlined cert-unit bundle threw `ART is not defined`; bundle.js inlines the default import and refuses a
+     bundle that does not set window.CERTUNIT) — and tools/check-render.js gained check 5, NO PAGE THROWS WHILE IT LOADS (a
+     planted throwing page proves it; run on the old site it named exactly rewire and graph). NAVIER-STOKES: the drawn core was
+     not incompressible (|div u| ≈ 1.2× its larger term; u_r with the axial exponent, against the page's own exponent table) —
+     field.js solves u_r from continuity in closed form, the build refuses |div u| ≥ 1e-6 (worst 4e-10; the old field a red
+     control at 1.5); the core is CHOSEN (the record's "DRAWN" was a fifth standing word), drawn dotted — THE HERO PICTURE
+     VISIBLY CHANGED (the saddle loops came from the wrong u_r; the figure's ink 6.77% → 6.37%, accepted in
+     design/render-baseline.json as the honest drawing). AFFECT: a hidden 2.5× margin made two sentences false (the control's
+     shift is above every model's floor; Sonnet 13.0% vs 11.0%), float called exact, the exact (7,4,1) signature printed
+     nowhere, a typed "6 of 12" baseline (the page's own statistic: mean 8.6), a post-hoc 1-in-1,700 (1 in 170 by the page's
+     test). BLIND-SPOT: the headline "Fourteen million certified verdicts could not see this mutant" had no record (MCY's corpus
+     test is a 4,000-pair sample; no full-corpus run) → "Four thousand…" (design/titles.json), the card "46 no valid input can
+     see" was false for 11 (minted and aligned inputs are valid) → "98 the corpus test misses"; COVERED ≠ "the corpus sees it"
+     (52 of 302); "96.8%" was frontier's column (79 of 348 here); RED × on two models' EQUIVALENT claims refuted by the mutant's
+     own SAT witness. PQC: the lifted app's caption quotes record 1273 (seed 75601's lattice; seed 0's is 1702) — said beside it,
+     pqc-app.js untouched; "half a unit is 1.7×10⁻⁴" false (1.4–3.0). LATTICE-CLAIMS: a truncated margin (1.487 printed 1.4).
+     SIMPLEX: the float trail was drawn decided; "differ in the fourteenth decimal" false (smallest gap 0.0038; the card fixed
+     too). NEURAL-GEOMETRY: 9 of 15 spanning trees are tie-breaks (dotted; mstUnique exact); "the controls sit alone" false
+     (Haiku's planets inside their ring); the keypad is above the median shuffle; "seven wheels" are eight. ANSWER-SHAPE: 5 of 6
+     trees tie; dash used for identity (closing edge, model chips) → opacity; "64% of the whole scale" is 60%. EXACT-GEOMETRY:
+     "exactly euclidean 6" is 1 by the exact signature; every "agreed" rests on four tolerances (named); 6 of 8 literally vs 8 of
+     8 graded. CONTOURS: 49 of 150 files close implicitly (that edge dotted, "given the closing edge"); printed counts are float
+     (dashed); 11.994 printed "11.9" and 6 printed "5.99" (truncations, now rounded exactly and gated). PLATES: Plate V's lid
+     and witness were solid but are float-checked (dashed), its caption described a dash removed on 09-05.
+     GATES: `make page R=playground` green (style; render with the new script check, 134 pages, after accepting navier-stokes'
+     thinner figure; the ruler, its 6 improvements locked by --accept); `make control` 172/172; check-wiring and the dash census
+     (507) green; each lane drove its pages in Chrome at 1440/768/390 and ran its batteries (ecbench 218 + 14/14, pqc, wiring).
+     OPEN, THE OPERATOR'S: (1) embedding views (plates on geometry pages place points by a float eigensolver, their paths drawn
+     solid, said in words) — a house rule; (2) PROVENANCE drift, pre-existing: answer-shape page.js/plate.js, exact-geometry
+     page.js/plate.js and plates.js no longer hash to their PROVENANCE.json entries (edited in place on 09-05/09-15/10-27
+     without declared patches) — declare or re-pin; (3) cert-unit draws an LLM answer dashed (COMPUTED) where v2 says CHOSEN;
+     (4) the ecbench ledger's .decimal and iform.lo strings are truncated (any other reader prints them low); (5) affect's
+     spanning trees are probably tied too (unchecked); (6) mstUnique should move to a shared module; (7) pre-existing mobile
+     issues: blind-spot's model grid at 390, the rewire graph tiny at 390, /graph's refused banner adds a spine after a click.
   ★ 2026-10-28 ~04:30 UTC — WARRANT v2 ON SIX MORE PAGES, on "Continue applying the new grammar on more pages". Four
      findings on our own pages, each fixed at the source. CENSUS (FINDING): the drawn totals, the unconstrained least-squares
      repair of Table I, moved two edges by up to 21/37 — outside the ½ a rounded integer allows, which the page and engine.js

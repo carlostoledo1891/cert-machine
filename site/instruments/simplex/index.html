@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Attention rows as points of a simplex · Carlos Toledo</title>
-<meta name="description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.">
+<meta name="description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives; that sharpening concentrates it is decided in exact arithmetic for a rational kernel, and drawn in float for softmax.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/instruments/simplex/">
 <meta property="og:url" content="https://carlostoledo.co/instruments/simplex/">
 <meta property="og:title" content="Attention rows as points of a simplex · Carlos Toledo">
-<meta property="og:description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.">
+<meta property="og:description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives; that sharpening concentrates it is decided in exact arithmetic for a rational kernel, and drawn in float for softmax.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Attention rows as points of a simplex · Carlos Toledo">
-<meta name="twitter:description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives, with its concentration decided in exact arithmetic.">
+<meta name="twitter:description" content="Attention weights sum to one, so a row is a point in a simplex. One real row from a tiny GPT, drawn where it lives; that sharpening concentrates it is decided in exact arithmetic for a rational kernel, and drawn in float for softmax.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -556,10 +556,11 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sx-iso { fill: none; stroke: var(--border-strong); stroke-width: 1; opacity: 0.85; }
 .sx-isolab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-5); }
 .sx-trail { fill: none; stroke-width: 2; stroke-linecap: round; }
+/* WARRANT v2 (2026-10-28): the whole trail is softmax in float, so both parts take the claim pattern
+   (.ink-assumed, design/grammar.js); what separates the β range of the decided grid from the tail past it is
+   identity, weight and opacity, never dash. .sx-trail.cert used to stay solid and drew a float as decided. */
 .sx-trail.cert { stroke: var(--ink); opacity: 0.95; }
-/* the extrapolated tail past the certified cut: assumed, so it takes the
-   claim pattern from design/grammar.js. .sx-trail.cert stays solid. */
-.sx-trail.ext { stroke: var(--ink-4); stroke-dasharray: 5 4; }
+.sx-trail.ext { stroke: var(--ink-4); }
 .sx-dot { fill: var(--ink); stroke: var(--bg); stroke-width: 2; }
 .sx-edge { fill: none; stroke: var(--ink-3); stroke-width: 1.5; }
 .sx-grid { stroke: var(--chart-grid); stroke-width: 1; }
@@ -567,10 +568,13 @@ svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sx-lab.real { fill: var(--ink-2); }
 .sx-lab.mut { fill: var(--ink-5); }
 .sx-real { fill: none; stroke: var(--ink); stroke-width: 2; }
-/* the two mutant models. Assumed, not decided — and under 1.5px, so the
-   grammar's small claim pattern rather than the full one. */
-.sx-mut { fill: none; stroke: var(--ink-5); stroke-width: 1.4; stroke-dasharray: 1.5 2; }
+/* the two mutant models. They were dashed as "assumed, not decided", and they are neither: their PR values are exact
+   rationals from the same kernel code, and their failure to descend is decided exactly. A mutant that fails is a
+   DECIDED mark carrying a false claim (WARRANT v2, 2026-10-28), so its knots are solid; it is told from the row by
+   weight and opacity (design/grammar.js IDENTITY), and its joins are dotted like the row's (.ink-chosen-sm). */
+.sx-mut { fill: none; stroke: var(--ink-4); stroke-width: 1.1; opacity: 0.8; }
 .sx-knot { fill: var(--ink); }
+.sx-knot.mut { fill: var(--ink-4); }
 
 /* the control and the readout */
 .ctl { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-4); margin-top: var(--s-5); }
@@ -614,6 +618,13 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
 .sheet .close { position: fixed; top: var(--s-5); right: var(--gutter); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 
+
+ .ink-decided  { stroke-dasharray: none; }
+ .ink-assumed  { stroke-dasharray: 5 4; }
+ .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+ .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+ .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+ .ink-guide    { stroke-dasharray: 2 3; }
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -688,14 +699,14 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
     <div class="eyebrow">instruments · attention geometry · 31 positions</div>
     <h1>Attention rows as points of a simplex</h1>
 <p class="standfirst">An attention row is a point. Nobody draws it that way</p>
-    <p>Attention weights are nonnegative and sum to one, so a row is <b>a point in a simplex</b> — and a bar chart throws that away. Here is one real row from a tiny GPT, drawn where it actually lives, with the one thing about it that is <b>decided rather than drawn</b>: sharpening the temperature must move the point toward a vertex, and that is proved in exact arithmetic.</p>
+    <p>Attention weights are nonnegative and sum to one, so a row is <b>a point in a simplex</b> — and a bar chart throws that away. Here is one real row from a tiny GPT, drawn where it actually lives, with the one thing about it that is <b>decided rather than drawn</b>: sharpening the temperature moves the point toward a vertex. That is decided in exact arithmetic for the rational kernel (1&nbsp;+&nbsp;βs)<sup>2</sup> at the 9 temperatures of its grid; the softmax path drawn here is floating point, and dashed.</p>
   </div>
 
   <div>
     <div class="panel">
       <span class="eyebrow">the whole simplex, affinely</span>
       <svg id="fan" viewBox="0 0 1000 1000" role="img" aria-label="The attention row plotted as a point in a 31-gon standing for the simplex, with its temperature path."></svg>
-      <p class="cap"><b>The 31 vertices of the simplex, placed on a regular 31-gon.</b> The point is Σ pᵢvᵢ — a linear map, so the uniform row lands dead centre and a row that attends to one position lands on that position. The solid trail is the part of the temperature sweep the decision covers; the dashed part is drawn only. Two different rows can project to the same dot and no contour drawn here would be true, so nothing is drawn here but the point, its trail, and the vertices it is heading for.</p>
+      <p class="cap"><b>The 31 vertices of the simplex, placed on a regular 31-gon.</b> The point is Σ pᵢvᵢ — a linear map, so the uniform row lands dead centre and a row that attends to one position lands on that position. The trail is the softmax row in floating point, dashed along its whole length because nothing decided it: brighter up to β 8, where the grid the rational kernel is decided on ends, fainter past it. Two different rows can project to the same dot and no contour drawn here would be true, so nothing is drawn here but the point, its trail, and the vertices it is heading for.</p>
       <div class="ctl">
         <label for="cBeta">inverse temperature</label>
         <input type="range" id="cBeta">
@@ -703,11 +714,12 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
       </div>
       <div class="rd">
         <span><span class="k">β</span><span class="v" id="rBeta">—</span></span>
-        <span><span class="k">effective positions (PR)</span><span class="v" id="rPR">—</span></span>
-        <span><span class="k">largest weight</span><span class="v" id="rMax">—</span></span>
-        <span><span class="k">entropy</span><span class="v" id="rH">—</span></span>
+        <span><span class="k">effective positions (PR)</span><span class="v w-val w-computed" id="rPR" title="computed — float; nothing decided it (softmax, float)">—</span></span>
+        <span><span class="k">largest weight</span><span class="v w-val w-computed" id="rMax" title="computed — float; nothing decided it (softmax, float)">—</span></span>
+        <span><span class="k">entropy</span><span class="v w-val w-computed" id="rH" title="computed — float; nothing decided it (softmax, float)">—</span></span>
       </div>
       <div class="state" id="rState">—</div>
+      <div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
     </div>
   </div>
 
@@ -721,8 +733,8 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
     <div class="panel">
       <span class="eyebrow">the decision, and the two that must fail</span>
       <svg id="ladder" viewBox="0 0 620 320" role="img" aria-label="Participation ratio against inverse temperature: the real row descending, and two planted mutants failing to."></svg>
-      <p class="cap"><b>PR against β on the decided grid.</b> The row descends strictly; the flat mutant sits at 31 forever and the (β−3)²·s mutant turns around, because its factor passes through zero. An instrument that cannot go red on those two is theatre.</p>
-      <div class="checks"><span class="chk ok">✓ fixture sha256 matches the published pin</span><span class="chk ok">✓ rational-kernel PR strictly decreases over 9 betas (p=2)</span><span class="chk ok">✓ the dual Σpᵢ² strictly increases</span><span class="chk ok">✓ p = 1 decreases as well</span><span class="chk ok">✓ mutant "mutant · flat scores" fails strict decrease</span><span class="chk ok">✓ mutant "mutant · (β−3)²·s" fails strict decrease</span><span class="chk ok">✓ flat scores give PR = n exactly</span><span class="chk ok">✓ our softmax reproduces the fixture’s stored rows</span><span class="chk ok">✓ softmax PR decreases too (float view)</span></div>
+      <p class="cap"><b>PR against β on the decided grid.</b> The row descends strictly; the flat mutant sits at 31 forever and the (β−3)²·s mutant turns around, because its factor passes through zero. An instrument that cannot go red on those two is theatre. Every knot is an exact value and is drawn solid, the mutants&rsquo; as well: they are decided, and they fail. The straight joins between knots are one curve of many through the same points, so they are dotted.</p>
+      <div class="checks"><span class="chk ok">✓ fixture sha256 matches the published pin</span><span class="chk ok">✓ rational-kernel PR strictly decreases over 9 betas (p=2)</span><span class="chk ok">✓ the dual Σpᵢ² strictly increases</span><span class="chk ok">✓ p = 1 decreases as well</span><span class="chk ok">✓ mutant "mutant · flat scores" fails strict decrease</span><span class="chk ok">✓ mutant "mutant · (β−3)²·s" fails strict decrease</span><span class="chk ok">✓ flat scores give PR = n exactly</span><span class="chk ok">✓ <span class="w-val w-computed" title="computed — a float comparison; nothing decided it">our softmax reproduces the fixture’s stored rows</span></span><span class="chk ok">✓ <span class="w-val w-computed" title="computed — a float comparison; nothing decided it">softmax PR decreases too (float view)</span></span></div>
       <div class="mt5"><button class="btn" id="sheetOpen">what is decided here</button></div>
     </div>
   </div>
@@ -738,7 +750,7 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
     <p>The weights are nonnegative and sum to one. That is the definition of the standard simplex Δ<sup>30</sup>, and it means every question about the row is a question about position: “this head is focused” means <em>far from the barycentre</em>, “it spreads” means <em>near it</em>, and “it sharpened” means <em>it moved toward a vertex</em>. Participation ratio, PR = 1/Σpᵢ², is the number of positions the row effectively attends to — 31 at the centre, 1 at a corner — and its level sets are spheres cut by the simplex, so concentration is a landscape rather than a statistic.</p>
 
     <h3>The decision</h3>
-    <p>For the rational kernel w ∝ (1 + βs)<sup>2</sup>, PR strictly decreases across the grid, decided in exact arithmetic on BigInt fractions. That matters here and is not pedantry: consecutive values on this row differ in the fourteenth decimal place, and a float comparison of them decides nothing at all.</p>
+    <p>For the rational kernel w ∝ (1 + βs)<sup>2</sup>, PR strictly decreases across the grid, decided in exact arithmetic on BigInt fractions. Consecutive values differ by at least 0.0038 (β 0.25 → 0.5), far above floating-point error, so a float comparison would very likely have put them in the same order. What the exact arithmetic adds is not a closer number: it is that the order is <em>decided</em> rather than computed — a proof, not a float that happens to be right.</p>
     <table><thead><tr><th>β</th><th>PR (effective positions)</th><th>Σpᵢ² (the dual)</th></tr></thead><tbody><tr><td>0.25</td><td>30.998727743</td><td>0.032259388</td></tr><tr><td>0.5</td><td>30.994916043</td><td>0.032263356</td></tr><tr><td>1</td><td>30.979711562</td><td>0.032279190</td></tr><tr><td>1.5</td><td>30.954477885</td><td>0.032305504</td></tr><tr><td>2</td><td>30.919332701</td><td>0.032342225</td></tr><tr><td>3</td><td>30.819904622</td><td>0.032446564</td></tr><tr><td>4</td><td>30.682856946</td><td>0.032591489</td></tr><tr><td>6</td><td>30.303311868</td><td>0.032999693</td></tr><tr><td>8</td><td>29.798199871</td><td>0.033559074</td></tr></tbody></table>
     <p>Every IEEE double is exactly a dyadic rational, so turning the frozen scores into fractions loses nothing — it is a change of representation, not a rounding.</p>
 
@@ -747,7 +759,7 @@ body.sheet-open .sheet { opacity: 1; pointer-events: auto; }
 
     <h3>What is drawn and not decided</h3>
     <p>Softmax is transcendental. Its curve here is ordinary floating point, calibrated against the source pack's own stored rows to worst Δ 1.42e-14 — close enough to trust for a picture and not close enough to call a proof. The sound interval enclosure of the softmax story exists in the lab this fixture came from and is not restated here as though we had re-derived it.</p>
-    <p><b>And the honest proportion:</b> the decided grid runs to β = 8, where the row still has 29.80 effective positions out of 31. The dashed trail runs to β = 400, where it reaches 1.08 — a point essentially at a vertex. Almost the whole journey you can see is the part that is only drawn. The page says so with a dashed line rather than a footnote.</p>
+    <p><b>And the honest proportion:</b> the decided grid runs to β = 8, where the rational kernel&rsquo;s row still has 29.80 effective positions out of 31 (softmax there, in float: <span class="w-val w-computed" title="computed — float; nothing decided it">30.67</span>). The softmax trail runs on to β = 400, where it reaches <span class="w-val w-computed" title="computed — float; nothing decided it">1.08</span> — a point essentially at a vertex. The whole journey you can see is softmax in floating point, and the page says so with a dashed line rather than a footnote; what is decided is the rational kernel&rsquo;s 9 values, the solid knots on the ladder.</p>
 
     <h3>Provenance</h3>
     <p>The fixture is <code>fixtures/frozen_attn_scores.json</code> from the attention-geometry pack in this operator's own research tree, carried here with its sha256 — <code>4f15743ea33e7972fb91ed4df412c6cd…</code> — checked at every run, and <em>re-derived</em> rather than quoted: the softmax rows on this page are recomputed and then compared against the stored ones, which is the only version of “agrees with the source” worth anything. The concentration phenomenon itself is classical (majorization; Mattei &amp; Loureiro, Dabah &amp; Tirer). Nothing here claims otherwise. What is contributed is the room the row is drawn in, and the exact decision underneath it.</p>
@@ -782,6 +794,18 @@ node playground/build.js            # the pages</pre>
 
    THE LADDER is the decision. PR against β, the row against its two planted
    mutants. The mutants must fail to descend, or the instrument is theatre.
+
+   WARRANT v2 (2026-10-28): what each mark stands on. The trail in the fan and
+   the face is SOFTMAX IN FLOAT along its whole length, so it is dashed along its
+   whole length: the exact decision is about a different kernel, the rational
+   (1+βs)^p, and never touched softmax. Until today the trail was solid up to β 8
+   and called "the part the decision covers", which drew a float as decided. The
+   β-8 split survives as identity (weight and opacity), never as dash. On the
+   ladder every knot is an exact rational, the mutants' included — a mutant is
+   decided and FAILS, and failing does not demote its standing (it was dashed as
+   "assumed"); the straight joins between knots are one curve of many through
+   the same points, so they are dotted, as the occultation page dots its joined
+   dots. The readouts are softmax, float: computed.
 */
 'use strict';
 (function () {
@@ -824,12 +848,12 @@ node playground/build.js            # the pages</pre>
       t.textContent = i;
       g.appendChild(t);
     }
-    /* the trail: solid where the claim is decided, dashed where it is only drawn */
+    /* the trail: softmax in float, dashed throughout; brighter inside the β range of the decided grid, fainter past it */
     const pts = D.view.map((v) => project(v.w));
     const cut = D.view.findIndex((v) => !v.certified);
     const path = (a, b) => pts.slice(a, b).map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
-    g.appendChild(el('path', { d: path(0, cut < 0 ? pts.length : cut + 1), class: 'sx-trail cert' }));
-    if (cut >= 0) g.appendChild(el('path', { d: path(cut, pts.length), class: 'sx-trail ext' }));
+    g.appendChild(el('path', { d: path(0, cut < 0 ? pts.length : cut + 1), class: 'sx-trail cert ink-assumed' }));
+    if (cut >= 0) g.appendChild(el('path', { d: path(cut, pts.length), class: 'sx-trail ext ink-assumed' }));
     /* the barycentre, named, because it is the whole reference */
     g.appendChild(el('circle', { cx: FAN.size / 2, cy: FAN.size / 2, r: 2.5, class: 'sx-bary' }));
     const bt = el('text', { x: FAN.size / 2, y: FAN.size / 2 - 12, class: 'sx-vlab', 'text-anchor': 'middle' });
@@ -839,7 +863,7 @@ node playground/build.js            # the pages</pre>
       const e = pts[cut];
       g.appendChild(el('circle', { cx: e[0], cy: e[1], r: 4, class: 'sx-edge' }));
       const t = el('text', { x: e[0] + 10, y: e[1] + 4, class: 'sx-vlab' });
-      t.textContent = 'β ' + fmt(D.exact[D.exact.length - 1].beta, 0) + ' — the decision ends here';
+      t.textContent = 'β ' + fmt(D.exact[D.exact.length - 1].beta, 0) + ' — the decided grid ends here';
       g.appendChild(t);
     }
     g.appendChild(el('circle', { id: 'fanDot', r: 8, class: 'sx-dot' }));
@@ -882,8 +906,8 @@ node playground/build.js            # the pages</pre>
     const trail = D.view.map((v) => triPt(faceOf(v.w)));
     const cut = D.view.findIndex((v) => !v.certified);
     const seg = (a, b) => trail.slice(a, b).map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
-    g.appendChild(el('path', { d: seg(0, cut < 0 ? trail.length : cut + 1), class: 'sx-trail cert' }));
-    if (cut >= 0) g.appendChild(el('path', { d: seg(cut, trail.length), class: 'sx-trail ext' }));
+    g.appendChild(el('path', { d: seg(0, cut < 0 ? trail.length : cut + 1), class: 'sx-trail cert ink-assumed' }));
+    if (cut >= 0) g.appendChild(el('path', { d: seg(cut, trail.length), class: 'sx-trail ext ink-assumed' }));
     if (cut > 0) g.appendChild(el('circle', { cx: trail[cut][0], cy: trail[cut][1], r: 4, class: 'sx-edge' }));
     g.appendChild(el('circle', { id: 'faceDot', r: 7, class: 'sx-dot' }));
   }
@@ -909,9 +933,11 @@ node playground/build.js            # the pages</pre>
     const line = (pts, cls) => g.appendChild(el('path', {
       d: pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1)).join(''), class: cls,
     }));
-    line(bs.map((b, i) => [b, D.mutants.flat.PR[i]]), 'sx-mut');
-    line(bs.map((b, i) => [b, D.mutants.quadratic.PR[i]]), 'sx-mut');
-    line(D.exact.map((r) => [r.beta, r.PR]), 'sx-real');
+    /* the joins are a pick (dotted); the knots are exact (solid), for the mutants as for the row */
+    line(bs.map((b, i) => [b, D.mutants.flat.PR[i]]), 'sx-mut ink-chosen-sm');
+    line(bs.map((b, i) => [b, D.mutants.quadratic.PR[i]]), 'sx-mut ink-chosen-sm');
+    line(D.exact.map((r) => [r.beta, r.PR]), 'sx-real ink-chosen');
+    for (const k of ['flat', 'quadratic']) bs.forEach((b, i) => g.appendChild(el('circle', { cx: X(b), cy: Y(D.mutants[k].PR[i]), r: 2, class: 'sx-knot mut' })));
     D.exact.forEach((r) => g.appendChild(el('circle', { cx: X(r.beta), cy: Y(r.PR), r: 3, class: 'sx-knot' })));
     for (const [b, lab] of [[bs[0], 'β ' + bs[0]], [bs[bs.length - 1], 'β ' + bs[bs.length - 1]]]) {
       const t = el('text', { x: X(b), y: LAD.h - 12, class: 'sx-ax', 'text-anchor': 'middle' });
@@ -939,13 +965,14 @@ node playground/build.js            # the pages</pre>
     $('faceDot').setAttribute('cx', f[0]); $('faceDot').setAttribute('cy', f[1]);
     const g = $('ladder');
     const b = Math.min(Math.max(v.beta, D.exact[0].beta), D.exact[D.exact.length - 1].beta);
+    /* the dot sits ON the nearest exact knot: it used to take x from the slider and y from the knot, a point on no curve */
     const near = D.exact.reduce((a, r) => (Math.abs(r.beta - b) < Math.abs(a.beta - b) ? r : a));
-    $('ladDot').setAttribute('cx', g._X(b)); $('ladDot').setAttribute('cy', g._Y(near.PR));
+    $('ladDot').setAttribute('cx', g._X(near.beta)); $('ladDot').setAttribute('cy', g._Y(near.PR));
     $('rBeta').textContent = fmt(v.beta, v.beta < 10 ? 2 : 0);
     $('rPR').textContent = fmt(v.PR, 3);
     $('rMax').textContent = fmt(Math.max(...v.w), 4);
     $('rH').textContent = fmt(v.H, 4);
-    $('rState').textContent = v.certified ? 'inside the decided grid' : 'drawn, not decided';
+    $('rState').textContent = v.certified ? 'softmax, float · inside the β range of the decided grid' : 'softmax, float · past the decided grid';
     document.body.classList.toggle('beyond', !v.certified);
     $('cBeta').value = vi; $('cBetaOut').textContent = 'β ' + fmt(v.beta, v.beta < 10 ? 2 : 0);
   }

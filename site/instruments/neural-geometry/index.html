@@ -600,8 +600,9 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 .mg { stroke: var(--chart-grid); stroke-width: 1; }
 .max { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
 .max.ax { font-size: 12px; fill: var(--ink-4); letter-spacing: 0.06em; }
-/* a fitted blob boundary: assumed, and under 1.5px, so the small claim. */
-.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 1.5 2; }
+/* the controls' ring. It was dashed here as "a fitted blob boundary: assumed"; it is no fit, it is a padded circle
+   round a centroid, a CHOSEN picture, so it takes .ink-chosen-sm from design/grammar.js (WARRANT v2, 2026-10-28) */
+.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; }
 .ml.ctl { fill: var(--ink-2); }
 .mp { fill: var(--ink-3); }
 .mp.k-cycle { fill: var(--ink); }
@@ -627,8 +628,17 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 @media (min-width: 1120px) { .fplates { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .pl .fq { margin: var(--s-2) 0 var(--s-3); font-family: var(--font-mono); font-size: 10.5px;
   color: var(--ink-5); line-height: 1.5; min-height: 3.1em; }
-.pl .nums .v.miss { color: var(--ink-5); text-decoration: line-through; text-decoration-thickness: 1px; }
+/* a failed verdict is said in its word, never by striking the number through: a fit that misses its bar is still
+   the fit (WARRANT v2, 2026-10-28 — the line-through demoted a computed number for the verdict it carried) */
+.pl .nums .v.miss { color: var(--ink-4); }
 
+
+ .ink-decided  { stroke-dasharray: none; }
+ .ink-assumed  { stroke-dasharray: 5 4; }
+ .ink-assumed-sm { stroke-dasharray: 1.5 2; }
+ .ink-chosen   { stroke-dasharray: 1 5; stroke-linecap: round; }
+ .ink-chosen-sm { stroke-dasharray: 1 3; stroke-linecap: round; }
+ .ink-guide    { stroke-dasharray: 2 3; }
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -712,13 +722,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
   </div>
   <div>
     <h3><span class="big">5.48× → 0.97×</span>The frame moves the geometry.</h3>
-    <p>The same numerals, asked under different frames. As <b>digits</b> they lie on a line; named as <b>hours on a clock face</b> or as <b>residues modulo ten</b> they close into a ring. Nothing about the tokens changed, only what they are for. But the frame is bounded: asked as <b>keypad keys</b> the models do not produce the keypad's layout at all, and fail <em>below</em> a shuffled null. The frame bends a structure the model has. It does not create one it lacks.</p>
+    <p>The same numerals, asked under different frames. As <b>digits</b> they lie on a line; named as <b>hours on a clock face</b> or as <b>residues modulo ten</b> they close into a ring. Nothing about the tokens changed, only what they are for. But the frame is bounded: asked as <b>keypad keys</b> the models do not produce the keypad's layout, and do not clear a shuffled null. The frame bends a structure the model has. It does not create one it lacks.</p>
   </div>
   <div>
     <h3><span class="big">Earth</span>The asymmetry knows the reference.</h3>
-    <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to Earth than Earth is to them, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the seven wheels it points at nothing — ρ ≈ 0.11 — which is exactly right, because a circle has no privileged point.</p>
+    <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to Earth than Earth is to them — every one of the 7, pair by pair, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the 8 wheels it points at nothing — ρ ≈ <span class="w-val w-chosen" title="chosen — Spearman's ρ over ranks with 12 ties on the wheels, broken by item order, then averaged in float">0.11</span> — which is exactly right, because a circle has no privileged point.</p>
   </div>
 </div>
+<div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
 </div></div></section>
 
 <section class="mapsec"><div class="wrap">
@@ -727,11 +738,11 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">every set, every model, two numbers</div>
       <h2>The map</h2>
     </div>
-    <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit alone in the corner where both are zero</b>, and nothing else is near them.</p>
+    <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit in the corner where curvature is zero</b>, and they are not alone there: planets as haiku 4.5 answered it has no negative direction either, and sits inside their ring — a line, which a flat space can hold. So the corner is where flat answers go, not only where the controls go.</p>
   </div>
-  <svg viewBox="0 0 1000 1000" class="map" role="img" aria-label="Every set and model placed by two exact numbers: Gromov delta over diameter on the horizontal, share of negative Gram directions on the vertical. The controls sit alone in the corner where both are zero.">
+  <svg viewBox="0 0 1000 1000" class="map" role="img" aria-label="Every set and model placed by two exact numbers: Gromov delta over diameter on the horizontal, share of negative Gram directions on the vertical. The controls sit in the corner where curvature is zero, with 1 structured cell inside their ring.">
 <g class="grids"><line x1="92.0" y1="908.0" x2="92.0" y2="92.0" class="mg"/><line x1="92.0" y1="908.0" x2="908.0" y2="908.0" class="mg"/><text x="92.0" y="928.0" class="max" text-anchor="middle">0.00</text><text x="82.0" y="912.0" class="max" text-anchor="end">0.00</text><line x1="296.0" y1="908.0" x2="296.0" y2="92.0" class="mg"/><line x1="92.0" y1="704.0" x2="908.0" y2="704.0" class="mg"/><text x="296.0" y="928.0" class="max" text-anchor="middle">0.14</text><text x="82.0" y="708.0" class="max" text-anchor="end">0.15</text><line x1="500.0" y1="908.0" x2="500.0" y2="92.0" class="mg"/><line x1="92.0" y1="500.0" x2="908.0" y2="500.0" class="mg"/><text x="500.0" y="928.0" class="max" text-anchor="middle">0.27</text><text x="82.0" y="504.0" class="max" text-anchor="end">0.29</text><line x1="704.0" y1="908.0" x2="704.0" y2="92.0" class="mg"/><line x1="92.0" y1="296.0" x2="908.0" y2="296.0" class="mg"/><text x="704.0" y="928.0" class="max" text-anchor="middle">0.41</text><text x="82.0" y="300.0" class="max" text-anchor="end">0.44</text><line x1="908.0" y1="908.0" x2="908.0" y2="92.0" class="mg"/><line x1="92.0" y1="92.0" x2="908.0" y2="92.0" class="mg"/><text x="908.0" y="928.0" class="max" text-anchor="middle">0.54</text><text x="82.0" y="96.0" class="max" text-anchor="end">0.58</text></g>
-<circle cx="186.3" cy="908.0" r="63.2" class="mb k-none"/><text x="259.5" y="912.0" class="ml ctl">the controls</text><circle cx="485.2" cy="441.4" r="5" class="mp k-cycle"><title>weekdays · opus-5 — δ/diam 0.261, curvature 0.33</title></circle><circle cx="301.6" cy="674.7" r="5" class="mp k-cycle"><title>weekdays · sonnet-5 — δ/diam 0.139, curvature 0.17</title></circle><circle cx="434.9" cy="441.4" r="5" class="mp k-cycle"><title>weekdays · haiku-4-5 — δ/diam 0.227, curvature 0.33</title></circle><circle cx="532.1" cy="144.6" r="5" class="mp k-cycle"><title>months · opus-5 — δ/diam 0.292, curvature 0.55</title></circle><circle cx="685.5" cy="271.8" r="5" class="mp k-cycle"><title>months · sonnet-5 — δ/diam 0.393, curvature 0.45</title></circle><circle cx="662.7" cy="271.8" r="5" class="mp k-cycle"><title>months · haiku-4-5 — δ/diam 0.378, curvature 0.45</title></circle><circle cx="650.3" cy="271.8" r="5" class="mp k-cycle"><title>hues · opus-5 — δ/diam 0.370, curvature 0.45</title></circle><circle cx="553.0" cy="399.0" r="5" class="mp k-cycle"><title>hues · sonnet-5 — δ/diam 0.306, curvature 0.36</title></circle><circle cx="646.7" cy="271.8" r="5" class="mp k-cycle"><title>hues · haiku-4-5 — δ/diam 0.368, curvature 0.45</title></circle><circle cx="808.7" cy="308.1" r="5" class="mp k-cycle"><title>compass · opus-5 — δ/diam 0.475, curvature 0.43</title></circle><circle cx="601.2" cy="308.1" r="5" class="mp k-cycle"><title>compass · sonnet-5 — δ/diam 0.338, curvature 0.43</title></circle><circle cx="657.8" cy="308.1" r="5" class="mp k-cycle"><title>compass · haiku-4-5 — δ/diam 0.375, curvature 0.43</title></circle><circle cx="846.4" cy="271.8" r="5" class="mp k-cycle"><title>chromatic · opus-5 — δ/diam 0.500, curvature 0.45</title></circle><circle cx="642.7" cy="399.0" r="5" class="mp k-cycle"><title>chromatic · sonnet-5 — δ/diam 0.365, curvature 0.36</title></circle><circle cx="697.1" cy="271.8" r="5" class="mp k-cycle"><title>chromatic · haiku-4-5 — δ/diam 0.401, curvature 0.45</title></circle><circle cx="846.4" cy="271.8" r="5" class="mp k-cycle"><title>clockhours · opus-5 — δ/diam 0.500, curvature 0.45</title></circle><circle cx="695.6" cy="271.8" r="5" class="mp k-cycle"><title>clockhours · sonnet-5 — δ/diam 0.400, curvature 0.45</title></circle><circle cx="667.3" cy="399.0" r="5" class="mp k-cycle"><title>clockhours · haiku-4-5 — δ/diam 0.381, curvature 0.36</title></circle><circle cx="667.8" cy="708.0" r="5" class="mp k-cycle"><title>emotions · opus-5 — δ/diam 0.382, curvature 0.14</title></circle><circle cx="329.1" cy="708.0" r="5" class="mp k-cycle"><title>emotions · sonnet-5 — δ/diam 0.157, curvature 0.14</title></circle><circle cx="393.8" cy="708.0" r="5" class="mp k-cycle"><title>emotions · haiku-4-5 — δ/diam 0.200, curvature 0.14</title></circle><circle cx="337.2" cy="441.4" r="5" class="mp k-line"><title>digits · opus-5 — δ/diam 0.163, curvature 0.33</title></circle><circle cx="289.3" cy="285.9" r="5" class="mp k-line"><title>digits · sonnet-5 — δ/diam 0.131, curvature 0.44</title></circle><circle cx="457.3" cy="441.4" r="5" class="mp k-line"><title>digits · haiku-4-5 — δ/diam 0.242, curvature 0.33</title></circle><circle cx="307.0" cy="780.8" r="5" class="mp k-line"><title>scales · opus-5 — δ/diam 0.142, curvature 0.09</title></circle><circle cx="314.6" cy="780.8" r="5" class="mp k-line"><title>scales · sonnet-5 — δ/diam 0.147, curvature 0.09</title></circle><circle cx="350.1" cy="780.8" r="5" class="mp k-line"><title>scales · haiku-4-5 — δ/diam 0.171, curvature 0.09</title></circle><circle cx="228.7" cy="708.0" r="5" class="mp k-line"><title>planets · opus-5 — δ/diam 0.091, curvature 0.14</title></circle><circle cx="206.2" cy="708.0" r="5" class="mp k-line"><title>planets · sonnet-5 — δ/diam 0.076, curvature 0.14</title></circle><circle cx="190.8" cy="908.0" r="5" class="mp k-line"><title>planets · haiku-4-5 — δ/diam 0.065, curvature 0.00</title></circle><circle cx="385.4" cy="308.1" r="5" class="mp k-line"><title>alphabet · opus-5 — δ/diam 0.194, curvature 0.43</title></circle><circle cx="247.1" cy="508.1" r="5" class="mp k-line"><title>alphabet · sonnet-5 — δ/diam 0.103, curvature 0.29</title></circle><circle cx="563.5" cy="508.1" r="5" class="mp k-line"><title>alphabet · haiku-4-5 — δ/diam 0.313, curvature 0.29</title></circle><circle cx="356.7" cy="752.5" r="5" class="mp k-grid"><title>keypad · opus-5 — δ/diam 0.175, curvature 0.11</title></circle><circle cx="348.5" cy="441.4" r="5" class="mp k-grid"><title>keypad · sonnet-5 — δ/diam 0.170, curvature 0.33</title></circle><circle cx="841.9" cy="285.9" r="5" class="mp k-grid"><title>keypad · haiku-4-5 — δ/diam 0.497, curvature 0.44</title></circle><circle cx="714.4" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · opus-5 — δ/diam 0.412, curvature 0.44</title></circle><circle cx="657.8" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · sonnet-5 — δ/diam 0.375, curvature 0.44</title></circle><circle cx="777.9" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · haiku-4-5 — δ/diam 0.455, curvature 0.44</title></circle><circle cx="299.5" cy="441.4" r="5" class="mp k-line"><title>floors · opus-5 — δ/diam 0.138, curvature 0.33</title></circle><circle cx="167.4" cy="285.9" r="5" class="mp k-line"><title>floors · sonnet-5 — δ/diam 0.050, curvature 0.44</title></circle><circle cx="349.8" cy="597.0" r="5" class="mp k-line"><title>floors · haiku-4-5 — δ/diam 0.171, curvature 0.22</title></circle><circle cx="379.6" cy="597.0" r="5" class="mp k-tree"><title>carnivores · opus-5 — δ/diam 0.191, curvature 0.22</title></circle><circle cx="318.3" cy="752.5" r="5" class="mp k-tree"><title>carnivores · sonnet-5 — δ/diam 0.150, curvature 0.11</title></circle><circle cx="403.8" cy="441.4" r="5" class="mp k-tree"><title>carnivores · haiku-4-5 — δ/diam 0.207, curvature 0.33</title></circle><circle cx="515.0" cy="271.8" r="5" class="mp k-grid"><title>kinship · opus-5 — δ/diam 0.280, curvature 0.45</title></circle><circle cx="550.1" cy="271.8" r="5" class="mp k-grid"><title>kinship · sonnet-5 — δ/diam 0.304, curvature 0.45</title></circle><circle cx="508.2" cy="399.0" r="5" class="mp k-grid"><title>kinship · haiku-4-5 — δ/diam 0.276, curvature 0.36</title></circle><circle cx="180.8" cy="908.0" r="5" class="mp k-none"><title>unrelated · opus-5 — δ/diam 0.059, curvature 0.00</title></circle><circle cx="165.9" cy="908.0" r="5" class="mp k-none"><title>unrelated · sonnet-5 — δ/diam 0.049, curvature 0.00</title></circle><circle cx="225.6" cy="908.0" r="5" class="mp k-none"><title>unrelated · haiku-4-5 — δ/diam 0.089, curvature 0.00</title></circle><circle cx="235.5" cy="908.0" r="5" class="mp k-none"><title>nonsense · opus-5 — δ/diam 0.095, curvature 0.00</title></circle><circle cx="138.1" cy="908.0" r="5" class="mp k-none"><title>nonsense · sonnet-5 — δ/diam 0.031, curvature 0.00</title></circle><circle cx="171.9" cy="908.0" r="5" class="mp k-none"><title>nonsense · haiku-4-5 — δ/diam 0.053, curvature 0.00</title></circle><text x="626.8" y="216.4" class="ml" text-anchor="middle">months</text><text x="716.7" y="272.9" class="ml" text-anchor="middle">mod10</text><text x="689.3" y="295.1" class="ml" text-anchor="middle">compass</text><text x="736.4" y="312.1" class="ml" text-anchor="middle">clockhours</text><text x="524.4" y="301.2" class="ml" text-anchor="middle">kinship</text><text x="616.7" y="318.2" class="ml" text-anchor="middle">hues</text><text x="728.8" y="329.1" class="ml" text-anchor="middle">chromatic</text><text x="361.3" y="376.6" class="ml" text-anchor="middle">digits</text><text x="398.7" y="428.4" class="ml" text-anchor="middle">alphabet</text><text x="272.2" y="428.4" class="ml" text-anchor="middle">floors</text><text x="515.7" y="480.3" class="ml" text-anchor="middle">keypad</text><text x="407.2" y="506.2" class="ml" text-anchor="middle">weekdays</text><text x="367.3" y="584.0" class="ml" text-anchor="middle">carnivores</text><text x="463.5" y="695.0" class="ml" text-anchor="middle">emotions</text><text x="208.6" y="761.7" class="ml" text-anchor="middle">planets</text><text x="323.9" y="767.8" class="ml" text-anchor="middle">scales</text>
+<circle cx="186.3" cy="908.0" r="63.2" class="mb k-none ink-chosen-sm"/><text x="259.5" y="912.0" class="ml ctl">the controls<tspan class="ml"> — and planets, haiku 4.5</tspan></text><circle cx="180.8" cy="908.0" r="5" class="mp k-none"><title>unrelated · opus-5 — δ/diam 0.059, curvature 0.00</title></circle><circle cx="165.9" cy="908.0" r="5" class="mp k-none"><title>unrelated · sonnet-5 — δ/diam 0.049, curvature 0.00</title></circle><circle cx="225.6" cy="908.0" r="5" class="mp k-none"><title>unrelated · haiku-4-5 — δ/diam 0.089, curvature 0.00</title></circle><circle cx="235.5" cy="908.0" r="5" class="mp k-none"><title>nonsense · opus-5 — δ/diam 0.095, curvature 0.00</title></circle><circle cx="138.1" cy="908.0" r="5" class="mp k-none"><title>nonsense · sonnet-5 — δ/diam 0.031, curvature 0.00</title></circle><circle cx="171.9" cy="908.0" r="5" class="mp k-none"><title>nonsense · haiku-4-5 — δ/diam 0.053, curvature 0.00</title></circle><circle cx="485.2" cy="441.4" r="5" class="mp k-cycle"><title>weekdays · opus-5 — δ/diam 0.261, curvature 0.33</title></circle><circle cx="301.6" cy="674.7" r="5" class="mp k-cycle"><title>weekdays · sonnet-5 — δ/diam 0.139, curvature 0.17</title></circle><circle cx="434.9" cy="441.4" r="5" class="mp k-cycle"><title>weekdays · haiku-4-5 — δ/diam 0.227, curvature 0.33</title></circle><circle cx="532.1" cy="144.6" r="5" class="mp k-cycle"><title>months · opus-5 — δ/diam 0.292, curvature 0.55</title></circle><circle cx="685.5" cy="271.8" r="5" class="mp k-cycle"><title>months · sonnet-5 — δ/diam 0.393, curvature 0.45</title></circle><circle cx="662.7" cy="271.8" r="5" class="mp k-cycle"><title>months · haiku-4-5 — δ/diam 0.378, curvature 0.45</title></circle><circle cx="650.3" cy="271.8" r="5" class="mp k-cycle"><title>hues · opus-5 — δ/diam 0.370, curvature 0.45</title></circle><circle cx="553.0" cy="399.0" r="5" class="mp k-cycle"><title>hues · sonnet-5 — δ/diam 0.306, curvature 0.36</title></circle><circle cx="646.7" cy="271.8" r="5" class="mp k-cycle"><title>hues · haiku-4-5 — δ/diam 0.368, curvature 0.45</title></circle><circle cx="808.7" cy="308.1" r="5" class="mp k-cycle"><title>compass · opus-5 — δ/diam 0.475, curvature 0.43</title></circle><circle cx="601.2" cy="308.1" r="5" class="mp k-cycle"><title>compass · sonnet-5 — δ/diam 0.338, curvature 0.43</title></circle><circle cx="657.8" cy="308.1" r="5" class="mp k-cycle"><title>compass · haiku-4-5 — δ/diam 0.375, curvature 0.43</title></circle><circle cx="846.4" cy="271.8" r="5" class="mp k-cycle"><title>chromatic · opus-5 — δ/diam 0.500, curvature 0.45</title></circle><circle cx="642.7" cy="399.0" r="5" class="mp k-cycle"><title>chromatic · sonnet-5 — δ/diam 0.365, curvature 0.36</title></circle><circle cx="697.1" cy="271.8" r="5" class="mp k-cycle"><title>chromatic · haiku-4-5 — δ/diam 0.401, curvature 0.45</title></circle><circle cx="846.4" cy="271.8" r="5" class="mp k-cycle"><title>clockhours · opus-5 — δ/diam 0.500, curvature 0.45</title></circle><circle cx="695.6" cy="271.8" r="5" class="mp k-cycle"><title>clockhours · sonnet-5 — δ/diam 0.400, curvature 0.45</title></circle><circle cx="667.3" cy="399.0" r="5" class="mp k-cycle"><title>clockhours · haiku-4-5 — δ/diam 0.381, curvature 0.36</title></circle><circle cx="667.8" cy="708.0" r="5" class="mp k-cycle"><title>emotions · opus-5 — δ/diam 0.382, curvature 0.14</title></circle><circle cx="329.1" cy="708.0" r="5" class="mp k-cycle"><title>emotions · sonnet-5 — δ/diam 0.157, curvature 0.14</title></circle><circle cx="393.8" cy="708.0" r="5" class="mp k-cycle"><title>emotions · haiku-4-5 — δ/diam 0.200, curvature 0.14</title></circle><circle cx="337.2" cy="441.4" r="5" class="mp k-line"><title>digits · opus-5 — δ/diam 0.163, curvature 0.33</title></circle><circle cx="289.3" cy="285.9" r="5" class="mp k-line"><title>digits · sonnet-5 — δ/diam 0.131, curvature 0.44</title></circle><circle cx="457.3" cy="441.4" r="5" class="mp k-line"><title>digits · haiku-4-5 — δ/diam 0.242, curvature 0.33</title></circle><circle cx="307.0" cy="780.8" r="5" class="mp k-line"><title>scales · opus-5 — δ/diam 0.142, curvature 0.09</title></circle><circle cx="314.6" cy="780.8" r="5" class="mp k-line"><title>scales · sonnet-5 — δ/diam 0.147, curvature 0.09</title></circle><circle cx="350.1" cy="780.8" r="5" class="mp k-line"><title>scales · haiku-4-5 — δ/diam 0.171, curvature 0.09</title></circle><circle cx="228.7" cy="708.0" r="5" class="mp k-line"><title>planets · opus-5 — δ/diam 0.091, curvature 0.14</title></circle><circle cx="206.2" cy="708.0" r="5" class="mp k-line"><title>planets · sonnet-5 — δ/diam 0.076, curvature 0.14</title></circle><circle cx="190.8" cy="908.0" r="5" class="mp k-line"><title>planets · haiku-4-5 — δ/diam 0.065, curvature 0.00</title></circle><circle cx="385.4" cy="308.1" r="5" class="mp k-line"><title>alphabet · opus-5 — δ/diam 0.194, curvature 0.43</title></circle><circle cx="247.1" cy="508.1" r="5" class="mp k-line"><title>alphabet · sonnet-5 — δ/diam 0.103, curvature 0.29</title></circle><circle cx="563.5" cy="508.1" r="5" class="mp k-line"><title>alphabet · haiku-4-5 — δ/diam 0.313, curvature 0.29</title></circle><circle cx="356.7" cy="752.5" r="5" class="mp k-grid"><title>keypad · opus-5 — δ/diam 0.175, curvature 0.11</title></circle><circle cx="348.5" cy="441.4" r="5" class="mp k-grid"><title>keypad · sonnet-5 — δ/diam 0.170, curvature 0.33</title></circle><circle cx="841.9" cy="285.9" r="5" class="mp k-grid"><title>keypad · haiku-4-5 — δ/diam 0.497, curvature 0.44</title></circle><circle cx="714.4" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · opus-5 — δ/diam 0.412, curvature 0.44</title></circle><circle cx="657.8" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · sonnet-5 — δ/diam 0.375, curvature 0.44</title></circle><circle cx="777.9" cy="285.9" r="5" class="mp k-cycle"><title>mod10 · haiku-4-5 — δ/diam 0.455, curvature 0.44</title></circle><circle cx="299.5" cy="441.4" r="5" class="mp k-line"><title>floors · opus-5 — δ/diam 0.138, curvature 0.33</title></circle><circle cx="167.4" cy="285.9" r="5" class="mp k-line"><title>floors · sonnet-5 — δ/diam 0.050, curvature 0.44</title></circle><circle cx="349.8" cy="597.0" r="5" class="mp k-line"><title>floors · haiku-4-5 — δ/diam 0.171, curvature 0.22</title></circle><circle cx="379.6" cy="597.0" r="5" class="mp k-tree"><title>carnivores · opus-5 — δ/diam 0.191, curvature 0.22</title></circle><circle cx="318.3" cy="752.5" r="5" class="mp k-tree"><title>carnivores · sonnet-5 — δ/diam 0.150, curvature 0.11</title></circle><circle cx="403.8" cy="441.4" r="5" class="mp k-tree"><title>carnivores · haiku-4-5 — δ/diam 0.207, curvature 0.33</title></circle><circle cx="515.0" cy="271.8" r="5" class="mp k-grid"><title>kinship · opus-5 — δ/diam 0.280, curvature 0.45</title></circle><circle cx="550.1" cy="271.8" r="5" class="mp k-grid"><title>kinship · sonnet-5 — δ/diam 0.304, curvature 0.45</title></circle><circle cx="508.2" cy="399.0" r="5" class="mp k-grid"><title>kinship · haiku-4-5 — δ/diam 0.276, curvature 0.36</title></circle><text x="626.8" y="216.4" class="ml" text-anchor="middle">months</text><text x="716.7" y="272.9" class="ml" text-anchor="middle">mod10</text><text x="689.3" y="295.1" class="ml" text-anchor="middle">compass</text><text x="736.4" y="312.1" class="ml" text-anchor="middle">clockhours</text><text x="524.4" y="301.2" class="ml" text-anchor="middle">kinship</text><text x="616.7" y="318.2" class="ml" text-anchor="middle">hues</text><text x="728.8" y="329.1" class="ml" text-anchor="middle">chromatic</text><text x="361.3" y="376.6" class="ml" text-anchor="middle">digits</text><text x="398.7" y="428.4" class="ml" text-anchor="middle">alphabet</text><text x="272.2" y="428.4" class="ml" text-anchor="middle">floors</text><text x="515.7" y="480.3" class="ml" text-anchor="middle">keypad</text><text x="407.2" y="506.2" class="ml" text-anchor="middle">weekdays</text><text x="367.3" y="584.0" class="ml" text-anchor="middle">carnivores</text><text x="463.5" y="695.0" class="ml" text-anchor="middle">emotions</text><text x="208.6" y="761.7" class="ml" text-anchor="middle">planets</text><text x="323.9" y="767.8" class="ml" text-anchor="middle">scales</text>
 <text x="500.0" y="978.0" class="max ax" text-anchor="middle">δ / diameter  —  how far from a tree, how close to a cycle</text>
 <text class="max ax" text-anchor="middle" transform="translate(48.0,500.0) rotate(-90)">curvature — share of the signature that is negative</text>
 </svg>
@@ -750,7 +761,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">the same ten tokens, four times</div>
       <h2>The frame is the parameter.</h2>
     </div>
-    <p class="why">Ten numerals, unchanged. What changes is one sentence in front of the question, naming what they are <em>for</em> — and never what shape they make. Each plate below is the same model answering about the same items under a different frame, with its distance to the layout that frame implies, against the fit a <b>shuffled</b> configuration would reach.</p>
+    <p class="why">Ten numerals, unchanged. What changes is one sentence in front of the question, naming what they are <em>for</em> — and never what shape they make. Each plate below is the same model answering about the same items under a different frame, with its distance to the layout that frame implies, against the 95th percentile of what 1,000 <b>shuffled</b> configurations reach; each verdict holds or fails <em>given that bar</em>, and both numbers it compares are float.</p>
   </div>
   <div class="fplates"><div class="pl">
       <div class="who"><span class="m">as bare digits</span><span class="c">opus 5</span></div>
@@ -764,9 +775,9 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <p class="fq">no frame — the items alone</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">a line</span></span>
-        <span><span class="k">fit</span><span class="v hit">0.856</span></span>
-        <span><span class="k">shuffled null</span><span class="v">0.648</span></span>
-        <span><span class="k">verdict</span><span class="v hit">holds</span></span>
+        <span><span class="k">fit</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.856</span></span></span>
+        <span><span class="k">shuffled null</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.648</span></span></span>
+        <span><span class="k">verdict</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">holds</span></span></span>
       </div>
     </div><div class="pl">
       <div class="who"><span class="m">as keypad keys</span><span class="c">opus 5</span></div>
@@ -774,15 +785,15 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="373.6" y1="494.0" x2="487.9" y2="131.1" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="458.9" y2="105.8" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="373.6" y1="494.0" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.053" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="458.9" y2="105.8" class="ch" stroke-opacity="0.359" stroke-width="1.52"/><line x1="487.9" y1="131.1" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="487.9" y1="131.1" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="487.9" y1="131.1" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.079" stroke-width="0.73"/><line x1="487.9" y1="131.1" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="487.9" y1="131.1" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="458.9" y1="105.8" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.391" stroke-width="1.64"/><line x1="458.9" y1="105.8" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.205" stroke-width="1.02"/><line x1="458.9" y1="105.8" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.119" stroke-width="0.81"/><line x1="458.9" y1="105.8" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="458.9" y1="105.8" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="458.9" y1="105.8" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="458.9" y1="105.8" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.053" stroke-width="0.70"/><line x1="385.7" y1="88.0" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="385.7" y1="88.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.149" stroke-width="0.87"/><line x1="385.7" y1="88.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.095" stroke-width="0.76"/><line x1="385.7" y1="88.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="385.7" y1="88.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.095" stroke-width="0.76"/><line x1="385.7" y1="88.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="262.6" y1="66.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.424" stroke-width="1.76"/><line x1="262.6" y1="66.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="262.6" y1="66.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.184" stroke-width="0.96"/><line x1="262.6" y1="66.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="262.6" y1="66.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.106" stroke-width="0.78"/><line x1="201.9" y1="80.9" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.329" stroke-width="1.41"/><line x1="201.9" y1="80.9" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="201.9" y1="80.9" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="201.9" y1="80.9" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="143.5" y1="129.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="143.5" y1="129.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="143.5" y1="129.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="81.9" y1="167.4" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.391" stroke-width="1.64"/><line x1="81.9" y1="167.4" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.301" stroke-width="1.32"/><line x1="95.5" y1="187.6" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.459" stroke-width="1.90"/></g>
 
 
-<path d="M373.6,494.0L458.9,105.8M458.9,105.8L385.7,88.0M458.9,105.8L487.9,131.1M458.9,105.8L262.6,66.0M262.6,66.0L201.9,80.9M201.9,80.9L143.5,129.0M201.9,80.9L95.5,187.6M95.5,187.6L72.1,234.4M95.5,187.6L81.9,167.4" class="mst"/>
+<path d="M373.6,494.0L458.9,105.8M458.9,105.8L385.7,88.0M458.9,105.8L487.9,131.1M458.9,105.8L262.6,66.0M262.6,66.0L201.9,80.9M201.9,80.9L143.5,129.0M201.9,80.9L95.5,187.6M95.5,187.6L72.1,234.4M95.5,187.6L81.9,167.4" class="mst ink-chosen"/>
 <circle cx="373.6" cy="494.0" r="3.4" class="pt"/><text x="380.9" y="515.1" class="lb" text-anchor="start">0</text><circle cx="487.9" cy="131.1" r="3.4" class="pt"/><text x="502.5" y="125.2" class="lb" text-anchor="start">1</text><circle cx="458.9" cy="105.8" r="3.4" class="pt"/><text x="471.8" y="97.8" class="lb" text-anchor="start">2</text><circle cx="385.7" cy="88.0" r="3.4" class="pt"/><text x="394.4" y="76.9" class="lb" text-anchor="start">3</text><circle cx="262.6" cy="66.0" r="3.4" class="pt"/><text x="261.1" y="52.7" class="lb" text-anchor="middle">4</text><circle cx="201.9" cy="80.9" r="3.4" class="pt"/><text x="195.3" y="68.7" class="lb" text-anchor="end">5</text><circle cx="143.5" cy="129.0" r="3.4" class="pt"/><text x="131.5" y="120.3" class="lb" text-anchor="end">6</text><circle cx="81.9" cy="167.4" r="3.4" class="pt"/><text x="66.3" y="163.1" class="lb" text-anchor="end">7</text><circle cx="95.5" cy="187.6" r="3.4" class="pt"/><text x="79.4" y="184.1" class="lb" text-anchor="end">8</text><circle cx="72.1" cy="234.4" r="3.4" class="pt"/><text x="54.5" y="235.1" class="lb" text-anchor="end">9</text>
 </svg>
       <p class="fq">&ldquo;These are the digit keys on a standard telephone keypad.&rdquo;</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">a 3 × 3 grid with zero underneath</span></span>
-        <span><span class="k">fit</span><span class="v miss">0.549</span></span>
-        <span><span class="k">shuffled null</span><span class="v">0.619</span></span>
-        <span><span class="k">verdict</span><span class="v miss">fails</span></span>
+        <span><span class="k">fit</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.549</span></span></span>
+        <span><span class="k">shuffled null</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.619</span></span></span>
+        <span><span class="k">verdict</span><span class="v miss"><span class="w-val w-computed" title="computed — float; nothing decided it">fails</span></span></span>
       </div>
     </div><div class="pl">
       <div class="who"><span class="m">as residues mod 10</span><span class="c">opus 5</span></div>
@@ -796,9 +807,9 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <p class="fq">&ldquo;These are the residues in arithmetic modulo 10.&rdquo;</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">a circle</span></span>
-        <span><span class="k">fit</span><span class="v hit">0.949</span></span>
-        <span><span class="k">shuffled null</span><span class="v">0.636</span></span>
-        <span><span class="k">verdict</span><span class="v hit">holds</span></span>
+        <span><span class="k">fit</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.949</span></span></span>
+        <span><span class="k">shuffled null</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.636</span></span></span>
+        <span><span class="k">verdict</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">holds</span></span></span>
       </div>
     </div><div class="pl">
       <div class="who"><span class="m">as floors of a building</span><span class="c">opus 5</span></div>
@@ -812,16 +823,16 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <p class="fq">&ldquo;These are floor numbers in an office building.&rdquo;</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">a line</span></span>
-        <span><span class="k">fit</span><span class="v hit">0.898</span></span>
-        <span><span class="k">shuffled null</span><span class="v">0.648</span></span>
-        <span><span class="k">verdict</span><span class="v hit">holds</span></span>
+        <span><span class="k">fit</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.898</span></span></span>
+        <span><span class="k">shuffled null</span><span class="v"><span class="w-val w-computed" title="computed — float; nothing decided it">0.648</span></span></span>
+        <span><span class="k">verdict</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">holds</span></span></span>
       </div>
     </div></div>
   <p class="why mt6 rd">
-    <b>Two of these work, one correctly does nothing, and one fails below chance.</b>
+    <b>Two of these work, one correctly does nothing, and one does not clear chance.</b>
     Named as <b>residues modulo ten</b> the line closes into a ring — 1.46× against 5.48× for the bare digits, and a fit of 0.949 to the true circle where shuffling reaches 0.636. Nothing in the frame mentions that nine and zero are neighbours; the model brought that.
     Named as <b>floors of a building</b> — as concrete a frame as the others, and one that should change nothing — nothing changes: 5.57× against 5.48×. That is the control inside the experiment and it behaves.
-    And named as <b>keys on a telephone keypad</b>, the layout does not appear at all: 0.549 against a shuffled null of 0.619 — <b>worse than permuting the labels</b>. The models have the keypad as a thing; they do not have it as a place.
+    And named as <b>keys on a telephone keypad</b>, the layout does not clear the bar: <span class="w-val w-computed" title="computed — float; nothing decided it">0.549</span> against <span class="w-val w-computed" title="computed — float; nothing decided it">0.619</span>. It is not worse than permuting the labels — the median shuffle reaches only <span class="w-val w-computed" title="computed — float; nothing decided it">0.391</span> — but at least 50 of the 1,000 shuffles do better, so it is nothing a lucky permutation could not do. The models have the keypad as a thing; they do not have it as a place.
   </p>
   <p class="why mt4 rd">
     So the frame is a real parameter and a bounded one. It moves the geometry along an axis the model already carries — an order can be bent into a cycle — and it cannot conjure one the model does not have. Asking for a grid does not produce a grid.
@@ -835,10 +846,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">weekdays · predicted: a circle</div>
       <h2>the days of the week</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 3.41 · 2.31 · 3.57<br>
-      <span class="tag">cyclic order</span> kept · kept · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · broken</span><br>
       <span class="tag">δ / diameter</span> 0.261 · 0.139 · 0.227<br>
       <span class="tag">curved directions</span> 2 · 1 · 2 of 6<br>
-      <span class="tag">models agree</span> 0.938</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.938</span></div>
     </div>
     <p class="why">Monday follows Sunday. A model that only knows an ordering lays them on a line; one that knows the WEEK closes the loop.</p>
   </div>
@@ -856,7 +867,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">3.41×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.261</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">93%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">93%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -872,7 +883,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.31×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.139</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">84%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">84%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -888,7 +899,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">3.57×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.227</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">97%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">97%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -898,10 +909,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">months · predicted: a circle</div>
       <h2>the months</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 1.41 · 1.80 · 0.83<br>
-      <span class="tag">cyclic order</span> kept · kept · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · broken</span><br>
       <span class="tag">δ / diameter</span> 0.292 · 0.393 · 0.378<br>
       <span class="tag">curved directions</span> 6 · 5 · 5 of 11<br>
-      <span class="tag">models agree</span> 0.764</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.764</span></div>
     </div>
     <p class="why">The same test with twelve points and a longer way round. January next to December is the year as a cycle rather than as a list.</p>
   </div>
@@ -919,7 +930,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.41×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.292</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">6</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">92%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">92%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -935,7 +946,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">1.80×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.393</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">90%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">90%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -951,7 +962,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.83×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.378</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v ">78%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">78%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -961,10 +972,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">hues · predicted: a circle</div>
       <h2>the hue wheel</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 1.09 · 1.57 · 1.17<br>
-      <span class="tag">cyclic order</span> kept · kept · kept<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · kept</span><br>
       <span class="tag">δ / diameter</span> 0.370 · 0.306 · 0.368<br>
       <span class="tag">curved directions</span> 5 · 4 · 5 of 11<br>
-      <span class="tag">models agree</span> 0.973<br><span class="tag">fit to the known layout</span> 0.985 <span class="tag">against a shuffled null of 0.572</span></div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.973</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.985</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.572</span></div>
     </div>
     <p class="why">The one cycle that is not a convention: red really is adjacent to violet in the spectrum-as-wheel. A model that puts them at opposite ends has learned a list of colour words rather than a colour space.</p>
   </div>
@@ -982,7 +993,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.09×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.370</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.995</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.995</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -998,7 +1009,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.57×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.306</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.985</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.985</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1014,7 +1025,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.17×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.368</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.975</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.975</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1024,10 +1035,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">compass · predicted: a circle</div>
       <h2>the compass</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 0.83 · 0.85 · 0.67<br>
-      <span class="tag">cyclic order</span> kept · kept · kept<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · kept</span><br>
       <span class="tag">δ / diameter</span> 0.475 · 0.338 · 0.375<br>
       <span class="tag">curved directions</span> 3 · 3 · 3 of 7<br>
-      <span class="tag">models agree</span> 0.979<br><span class="tag">fit to the known layout</span> 0.987 <span class="tag">against a shuffled null of 0.730</span></div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.979</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.987</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.730</span></div>
     </div>
     <p class="why">Eight directions with no cultural argument about their order and no ambiguity about the closing step. If any cycle is clean, this one is.</p>
   </div>
@@ -1045,7 +1056,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.83×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.475</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">1.000</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">1.000</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1061,7 +1072,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.85×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.338</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.981</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.981</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1077,7 +1088,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.67×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.375</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.979</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.979</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1087,10 +1098,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">chromatic · predicted: a circle</div>
       <h2>the chromatic scale</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 2.14 · 5.00 · 2.68<br>
-      <span class="tag">cyclic order</span> kept · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.500 · 0.365 · 0.401<br>
       <span class="tag">curved directions</span> 5 · 4 · 5 of 11<br>
-      <span class="tag">models agree</span> 0.653<br><span class="tag">reference item</span> A · G · D sharp</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.653</span><br><span class="tag">reference item</span> A · G · D sharp</div>
     </div>
     <p class="why">Octave equivalence is the sharpest version of this question: B is one semitone from C, but they are at opposite ends of the alphabet and of the scale as it is usually written. A model with pitch CLASS closes; a model with pitch NAMES does not.</p>
   </div>
@@ -1108,7 +1119,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.14×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.500</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v ">60%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">60%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1124,7 +1135,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">5.00×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.365</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">2D holds</span><span class="v ">67%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">67%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1140,7 +1151,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.68×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.401</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v ">57%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">57%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1150,10 +1161,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">clockhours · predicted: a circle</div>
       <h2>the hours on a clock face</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 1.00 · 1.48 · 0.44<br>
-      <span class="tag">cyclic order</span> kept · kept · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · broken</span><br>
       <span class="tag">δ / diameter</span> 0.500 · 0.400 · 0.381<br>
       <span class="tag">curved directions</span> 5 · 5 · 4 of 11<br>
-      <span class="tag">models agree</span> 0.940<br><span class="tag">fit to the known layout</span> 0.970 <span class="tag">against a shuffled null of 0.572</span></div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.940</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.970</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.572</span></div>
     </div>
     <p class="why">THE PAIRED EXPERIMENT. Same numerals as the digits below, different frame. Twelve o’clock follows eleven and precedes one; nine does not follow zero. If the frame moves the geometry, the model is not storing numerals, it is storing what the numerals are FOR.</p>
   </div>
@@ -1171,7 +1182,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.00×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.500</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.996</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.996</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1187,7 +1198,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.48×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.400</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.972</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.972</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1203,7 +1214,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.44×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.381</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.942</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.942</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1213,10 +1224,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">emotions · predicted: a circle</div>
       <h2>the wheel of emotions</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 0.83 · 1.00 · 0.70<br>
-      <span class="tag">cyclic order</span> broken · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">broken · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.382 · 0.157 · 0.200<br>
       <span class="tag">curved directions</span> 1 · 1 · 1 of 7<br>
-      <span class="tag">models agree</span> 0.807<br><span class="tag">reference item</span> fear · anticipation · trust</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.807</span><br><span class="tag">reference item</span> fear · anticipation · trust</div>
     </div>
     <p class="why">Plutchik’s wheel puts joy opposite sadness and anger opposite fear, with each adjacent pair blending. It is a psychologist’s model, not a fact about the world — so this measures whether the model absorbed the model.</p>
   </div>
@@ -1234,7 +1245,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.83×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.382</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">2D holds</span><span class="v ">70%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">70%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1250,7 +1261,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.00×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.157</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">2D holds</span><span class="v ">74%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">74%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1266,7 +1277,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.70×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.200</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">2D holds</span><span class="v ">74%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">74%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1276,10 +1287,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">mod10 · predicted: a circle</div>
       <h2>the same ten, modulo ten</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 1.00 · 1.38 · 2.00<br>
-      <span class="tag">cyclic order</span> kept · kept · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · broken</span><br>
       <span class="tag">δ / diameter</span> 0.412 · 0.375 · 0.455<br>
       <span class="tag">curved directions</span> 4 · 4 · 4 of 9<br>
-      <span class="tag">models agree</span> 0.891<br><span class="tag">fit to the known layout</span> 0.949 <span class="tag">against a shuffled null of 0.636</span><br><span class="tag">reference item</span> 4 · 9</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.891</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.949</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.636</span><br><span class="tag">reference item</span> 4 · 9</div>
     </div>
     <p class="why">The frame names the context and says nothing about adjacency — no hint that nine and zero are neighbours. If the ring appears, the model brought it.</p>
   </div>
@@ -1297,7 +1308,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.00×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.412</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">1.000</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">1.000</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1313,7 +1324,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.38×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.375</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.975</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.975</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1329,7 +1340,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.00×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.455</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.872</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.872</span></span></span>
     </div>
   </div></div>
 </div></section><div class="band"><div class="wrap"><span class="eyebrow">the lines</span></div></div>
@@ -1339,10 +1350,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">digits · predicted: a line</div>
       <h2>the digits</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 5.71 · 6.50 · 4.22<br>
-      <span class="tag">cyclic order</span> kept · kept · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · kept · broken</span><br>
       <span class="tag">δ / diameter</span> 0.163 · 0.131 · 0.242<br>
       <span class="tag">curved directions</span> 3 · 4 · 3 of 9<br>
-      <span class="tag">models agree</span> 0.930<br><span class="tag">fit to the known layout</span> 0.856 <span class="tag">against a shuffled null of 0.648</span><br><span class="tag">reference item</span> 4 · 5 · 3</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.930</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.856</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.648</span><br><span class="tag">reference item</span> 4 · 5 · 3</div>
     </div>
     <p class="why">The control that must NOT close. Nine is not adjacent to zero. If a circle appears here the method is finding cycles in everything and none of the others mean anything.</p>
   </div>
@@ -1360,7 +1371,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">5.71×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.163</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.862</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.862</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1376,7 +1387,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">6.50×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.131</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.916</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.916</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1392,7 +1403,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">4.22×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.242</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.790</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.790</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1402,10 +1413,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">scales · predicted: a line, and a long one</div>
       <h2>scales of size</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 2.35 · 2.50 · 2.71<br>
-      <span class="tag">cyclic order</span> broken · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">broken · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.142 · 0.147 · 0.171<br>
       <span class="tag">curved directions</span> 1 · 1 · 1 of 11<br>
-      <span class="tag">models agree</span> 0.963<br><span class="tag">fit to the known layout</span> 0.766 <span class="tag">against a shuffled null of 0.583</span><br><span class="tag">reference item</span> an ant · a person</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.963</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.766</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.583</span><br><span class="tag">reference item</span> an ant · a person</div>
     </div>
     <p class="why">Twelve orders of magnitude at every step. If the model has any sense of scale at all this should be the most one-dimensional thing on the page — and the closing step, atom back to galaxy, the longest.</p>
   </div>
@@ -1423,7 +1434,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.35×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.142</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.781</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.781</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1439,7 +1450,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.50×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.147</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.763</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.763</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1455,7 +1466,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.71×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.171</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.755</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.755</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1465,10 +1476,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">planets · predicted: a line</div>
       <h2>the planets outward</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 2.76 · 2.80 · 2.58<br>
-      <span class="tag">cyclic order</span> broken · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">broken · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.091 · 0.076 · 0.065<br>
       <span class="tag">curved directions</span> 1 · 1 · 0 of 7<br>
-      <span class="tag">models agree</span> 0.907<br><span class="tag">fit to the known layout</span> 0.874 <span class="tag">against a shuffled null of 0.752</span><br><span class="tag">reference item</span> Earth <span class="tag">(all three)</span></div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.907</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.874</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.752</span><br><span class="tag">reference item</span> Earth <span class="tag">(all three)</span></div>
     </div>
     <p class="why">An ordering with real physical content behind it. Neptune is not adjacent to Mercury and no amount of the word "planet" should make it so.</p>
   </div>
@@ -1486,7 +1497,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.76×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.091</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.880</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.880</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1502,7 +1513,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.80×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.076</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.874</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.874</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1518,7 +1529,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.58×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.065</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.866</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.866</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1528,10 +1539,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">alphabet · predicted: a line</div>
       <h2>eight letters</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 4.50 · 1.37 · 0.33<br>
-      <span class="tag">cyclic order</span> broken · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">broken · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.194 · 0.103 · 0.313<br>
       <span class="tag">curved directions</span> 3 · 2 · 2 of 7<br>
-      <span class="tag">models agree</span> 0.393</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.393</span></div>
     </div>
     <p class="why">Pure sequence with no meaning attached — the alphabet is a list and nothing else. Whatever geometry appears here is the geometry of ordering itself, with the semantics subtracted.</p>
   </div>
@@ -1549,7 +1560,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">4.50×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.194</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">89%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">89%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1565,7 +1576,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">1.37×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.103</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">2D holds</span><span class="v ">68%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">68%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1581,7 +1592,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v hit">0.33×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.313</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">2D holds</span><span class="v hit">83%</span></span>
+      <span><span class="k">2D holds</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">83%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1591,10 +1602,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="eyebrow">floors · predicted: a line</div>
       <h2>the same ten, as floors</h2>
       <div class="verdict"><span class="tag">closure ratio</span> 5.71 · 8.33 · 2.65<br>
-      <span class="tag">cyclic order</span> kept · broken · broken<br>
+      <span class="tag">cyclic order</span> <span class="w-val w-computed" title="computed — float; nothing decided it">kept · broken · broken</span><br>
       <span class="tag">δ / diameter</span> 0.138 · 0.050 · 0.171<br>
       <span class="tag">curved directions</span> 3 · 4 · 2 of 9<br>
-      <span class="tag">models agree</span> 0.912<br><span class="tag">fit to the known layout</span> 0.898 <span class="tag">against a shuffled null of 0.648</span><br><span class="tag">reference item</span> 4 · 2</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.912</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.898</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.648</span><br><span class="tag">reference item</span> 4 · 2</div>
     </div>
     <p class="why">The control inside the experiment. This frame is as concrete as the keypad and as ordinary as the clock, and it should change nothing: floors are a line, exactly as bare digits are.</p>
   </div>
@@ -1612,7 +1623,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">5.71×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.138</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.890</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.890</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1628,7 +1639,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">8.33×</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.050</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.973</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.973</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1644,7 +1655,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">closure</span><span class="v ">2.65×</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.171</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">fit to truth</span><span class="v hit">0.831</span></span>
+      <span><span class="k">fit to truth</span><span class="v hit"><span class="w-val w-computed" title="computed — float; nothing decided it">0.831</span></span></span>
     </div>
   </div></div>
 </div></section><div class="band"><div class="wrap"><span class="eyebrow">the branching one</span></div></div>
@@ -1656,7 +1667,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="verdict">
       <span class="tag">δ / diameter</span> 0.191 · 0.150 · 0.207<br>
       <span class="tag">curved directions</span> 2 · 1 · 3 of 9<br>
-      <span class="tag">models agree</span> 0.957<br><span class="tag">reference item</span> red fox · domestic cat · domestic dog</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.957</span><br><span class="tag">spanning tree</span> unique · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span> · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span><br><span class="tag">reference item</span> red fox · domestic cat · domestic dog</div>
     </div>
     <p class="why">THE TEST THAT SEPARATES KINDS OF STRUCTURE. A taxonomy is a tree: cats nested inside cats, dogs inside dogs, no way round. If curvature only says "structured", this looks like the cycles. If the four-point condition works, this is where it shows.</p>
   </div>
@@ -1674,7 +1685,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.191</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">2</span></span>
-      <span><span class="k">2D holds</span><span class="v ">75%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">75%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1683,14 +1694,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="397.6" y1="428.9" x2="494.0" y2="205.9" class="ch" stroke-opacity="0.094" stroke-width="0.76"/><line x1="397.6" y1="428.9" x2="487.1" y2="217.9" class="ch" stroke-opacity="0.121" stroke-width="0.81"/><line x1="397.6" y1="428.9" x2="473.8" y2="229.4" class="ch" stroke-opacity="0.112" stroke-width="0.79"/><line x1="397.6" y1="428.9" x2="218.3" y2="392.7" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="397.6" y1="428.9" x2="189.3" y2="485.3" class="ch" stroke-opacity="0.094" stroke-width="0.76"/><line x1="397.6" y1="428.9" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="397.6" y1="428.9" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="494.0" y1="205.9" x2="487.1" y2="217.9" class="ch" stroke-opacity="0.415" stroke-width="1.73"/><line x1="494.0" y1="205.9" x2="473.8" y2="229.4" class="ch" stroke-opacity="0.343" stroke-width="1.46"/><line x1="494.0" y1="205.9" x2="218.3" y2="392.7" class="ch" stroke-opacity="0.094" stroke-width="0.76"/><line x1="494.0" y1="205.9" x2="189.3" y2="485.3" class="ch" stroke-opacity="0.060" stroke-width="0.71"/><line x1="494.0" y1="205.9" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="494.0" y1="205.9" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.062" stroke-width="0.71"/><line x1="494.0" y1="205.9" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="487.1" y1="217.9" x2="473.8" y2="229.4" class="ch" stroke-opacity="0.378" stroke-width="1.59"/><line x1="487.1" y1="217.9" x2="218.3" y2="392.7" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="487.1" y1="217.9" x2="189.3" y2="485.3" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="487.1" y1="217.9" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.070" stroke-width="0.72"/><line x1="487.1" y1="217.9" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="487.1" y1="217.9" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.057" stroke-width="0.70"/><line x1="487.1" y1="217.9" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="473.8" y1="229.4" x2="218.3" y2="392.7" class="ch" stroke-opacity="0.099" stroke-width="0.77"/><line x1="473.8" y1="229.4" x2="189.3" y2="485.3" class="ch" stroke-opacity="0.062" stroke-width="0.71"/><line x1="473.8" y1="229.4" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.081" stroke-width="0.73"/><line x1="473.8" y1="229.4" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="473.8" y1="229.4" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="473.8" y1="229.4" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="218.3" y1="392.7" x2="189.3" y2="485.3" class="ch" stroke-opacity="0.310" stroke-width="1.35"/><line x1="218.3" y1="392.7" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.343" stroke-width="1.46"/><line x1="218.3" y1="392.7" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.107" stroke-width="0.78"/><line x1="218.3" y1="392.7" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.079" stroke-width="0.73"/><line x1="218.3" y1="392.7" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="189.3" y1="485.3" x2="202.2" y2="467.4" class="ch" stroke-opacity="0.200" stroke-width="1.00"/><line x1="189.3" y1="485.3" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="189.3" y1="485.3" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="189.3" y1="485.3" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.094" stroke-width="0.76"/><line x1="202.2" y1="467.4" x2="76.7" y2="110.8" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="202.2" y1="467.4" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.062" stroke-width="0.71"/><line x1="202.2" y1="467.4" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.121" stroke-width="0.81"/><line x1="76.7" y1="110.8" x2="80.8" y2="74.7" class="ch" stroke-opacity="0.415" stroke-width="1.73"/><line x1="76.7" y1="110.8" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.138" stroke-width="0.85"/><line x1="80.8" y1="74.7" x2="66.0" y2="355.1" class="ch" stroke-opacity="0.070" stroke-width="0.72"/></g>
 
 
-<path d="M397.6,428.9L487.1,217.9M487.1,217.9L494.0,205.9M487.1,217.9L473.8,229.4M397.6,428.9L202.2,467.4M202.2,467.4L218.3,392.7M218.3,392.7L189.3,485.3M202.2,467.4L66.0,355.1M66.0,355.1L76.7,110.8M76.7,110.8L80.8,74.7" class="mst"/>
+<path d="M397.6,428.9L487.1,217.9M487.1,217.9L494.0,205.9M487.1,217.9L473.8,229.4M397.6,428.9L202.2,467.4M202.2,467.4L218.3,392.7M218.3,392.7L189.3,485.3M202.2,467.4L66.0,355.1M66.0,355.1L76.7,110.8M76.7,110.8L80.8,74.7" class="mst ink-chosen"/>
 <circle cx="397.6" cy="428.9" r="3.4" class="pt"/><text x="408.8" y="447.6" class="lb" text-anchor="start">domestic ·</text><circle cx="494.0" cy="205.9" r="3.4" class="pt"/><text x="511.0" y="204.6" class="lb" text-anchor="start">lion</text><circle cx="487.1" cy="217.9" r="3.4" class="pt"/><text x="504.4" y="217.3" class="lb" text-anchor="start">tiger</text><circle cx="473.8" cy="229.4" r="3.4" class="pt"/><text x="491.2" y="229.4" class="lb" text-anchor="start">leopard</text><circle cx="218.3" cy="392.7" r="3.4" class="pt"/><text x="209.6" y="413.1" class="lb" text-anchor="end">wolf</text><circle cx="189.3" cy="485.3" r="3.4" class="pt"/><text x="182.1" y="506.4" class="lb" text-anchor="end">domestic ·</text><circle cx="202.2" cy="467.4" r="3.4" class="pt"/><text x="195.3" y="488.7" class="lb" text-anchor="end">red fox</text><circle cx="76.7" cy="110.8" r="3.4" class="pt"/><text x="62.9" y="103.8" class="lb" text-anchor="end">grizzly b·</text><circle cx="80.8" cy="74.7" r="3.4" class="pt"/><text x="68.2" y="66.3" class="lb" text-anchor="end">polar bear</text><circle cx="66.0" cy="355.1" r="3.4" class="pt"/><text x="49.0" y="365.6" class="lb" text-anchor="end">raccoon</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.150</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">2D holds</span><span class="v ">68%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">68%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1699,14 +1710,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="494.0" y1="321.4" x2="395.1" y2="407.0" class="ch" stroke-opacity="0.310" stroke-width="1.35"/><line x1="494.0" y1="321.4" x2="384.1" y2="429.6" class="ch" stroke-opacity="0.291" stroke-width="1.29"/><line x1="494.0" y1="321.4" x2="382.6" y2="364.8" class="ch" stroke-opacity="0.400" stroke-width="1.67"/><line x1="494.0" y1="321.4" x2="423.2" y2="265.2" class="ch" stroke-opacity="0.145" stroke-width="0.86"/><line x1="494.0" y1="321.4" x2="459.5" y2="157.0" class="ch" stroke-opacity="0.214" stroke-width="1.05"/><line x1="494.0" y1="321.4" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.157" stroke-width="0.89"/><line x1="494.0" y1="321.4" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="494.0" y1="321.4" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.112" stroke-width="0.79"/><line x1="395.1" y1="407.0" x2="384.1" y2="429.6" class="ch" stroke-opacity="0.540" stroke-width="2.24"/><line x1="395.1" y1="407.0" x2="382.6" y2="364.8" class="ch" stroke-opacity="0.558" stroke-width="2.31"/><line x1="395.1" y1="407.0" x2="423.2" y2="265.2" class="ch" stroke-opacity="0.310" stroke-width="1.35"/><line x1="395.1" y1="407.0" x2="459.5" y2="157.0" class="ch" stroke-opacity="0.138" stroke-width="0.85"/><line x1="395.1" y1="407.0" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.138" stroke-width="0.85"/><line x1="395.1" y1="407.0" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.121" stroke-width="0.81"/><line x1="395.1" y1="407.0" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="395.1" y1="407.0" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.083" stroke-width="0.74"/><line x1="384.1" y1="429.6" x2="382.6" y2="364.8" class="ch" stroke-opacity="0.540" stroke-width="2.24"/><line x1="384.1" y1="429.6" x2="423.2" y2="265.2" class="ch" stroke-opacity="0.262" stroke-width="1.19"/><line x1="384.1" y1="429.6" x2="459.5" y2="157.0" class="ch" stroke-opacity="0.112" stroke-width="0.79"/><line x1="384.1" y1="429.6" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.107" stroke-width="0.78"/><line x1="384.1" y1="429.6" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.112" stroke-width="0.79"/><line x1="384.1" y1="429.6" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.060" stroke-width="0.71"/><line x1="384.1" y1="429.6" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="382.6" y1="364.8" x2="423.2" y2="265.2" class="ch" stroke-opacity="0.279" stroke-width="1.25"/><line x1="382.6" y1="364.8" x2="459.5" y2="157.0" class="ch" stroke-opacity="0.125" stroke-width="0.82"/><line x1="382.6" y1="364.8" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.209" stroke-width="1.03"/><line x1="382.6" y1="364.8" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.121" stroke-width="0.81"/><line x1="382.6" y1="364.8" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="382.6" y1="364.8" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.135" stroke-width="0.84"/><line x1="423.2" y1="265.2" x2="459.5" y2="157.0" class="ch" stroke-opacity="0.540" stroke-width="2.24"/><line x1="423.2" y1="265.2" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.251" stroke-width="1.16"/><line x1="423.2" y1="265.2" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="423.2" y1="265.2" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="423.2" y1="265.2" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.083" stroke-width="0.74"/><line x1="459.5" y1="157.0" x2="472.4" y2="156.5" class="ch" stroke-opacity="0.357" stroke-width="1.51"/><line x1="459.5" y1="157.0" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="459.5" y1="157.0" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.055" stroke-width="0.70"/><line x1="459.5" y1="157.0" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.094" stroke-width="0.76"/><line x1="472.4" y1="156.5" x2="86.8" y2="337.9" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="472.4" y1="156.5" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="472.4" y1="156.5" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.112" stroke-width="0.79"/><line x1="86.8" y1="337.9" x2="66.0" y2="213.3" class="ch" stroke-opacity="0.540" stroke-width="2.24"/><line x1="86.8" y1="337.9" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="66.0" y1="213.3" x2="306.9" y2="130.4" class="ch" stroke-opacity="0.087" stroke-width="0.75"/></g>
 
 
-<path d="M494.0,321.4L382.6,364.8M382.6,364.8L395.1,407.0M382.6,364.8L384.1,429.6M395.1,407.0L423.2,265.2M423.2,265.2L459.5,157.0M459.5,157.0L472.4,156.5M382.6,364.8L306.9,130.4M382.6,364.8L86.8,337.9M86.8,337.9L66.0,213.3" class="mst"/>
+<path d="M494.0,321.4L382.6,364.8M382.6,364.8L395.1,407.0M382.6,364.8L384.1,429.6M395.1,407.0L423.2,265.2M423.2,265.2L459.5,157.0M459.5,157.0L472.4,156.5M382.6,364.8L306.9,130.4M382.6,364.8L86.8,337.9M86.8,337.9L66.0,213.3" class="mst ink-chosen"/>
 <circle cx="494.0" cy="321.4" r="3.4" class="pt"/><text x="511.7" y="329.4" class="lb" text-anchor="start">domestic ·</text><circle cx="395.1" cy="407.0" r="3.4" class="pt"/><text x="407.2" y="424.9" class="lb" text-anchor="start">lion</text><circle cx="384.1" cy="429.6" r="3.4" class="pt"/><text x="394.3" y="449.0" class="lb" text-anchor="start">tiger</text><circle cx="382.6" cy="364.8" r="3.4" class="pt"/><text x="396.5" y="380.8" class="lb" text-anchor="start">leopard</text><circle cx="423.2" cy="265.2" r="3.4" class="pt"/><text x="441.1" y="267.9" class="lb" text-anchor="start">wolf</text><circle cx="459.5" cy="157.0" r="3.4" class="pt"/><text x="474.4" y="151.5" class="lb" text-anchor="start">domestic ·</text><circle cx="472.4" cy="156.5" r="3.4" class="pt"/><text x="487.6" y="151.4" class="lb" text-anchor="start">red fox</text><circle cx="86.8" cy="337.9" r="3.4" class="pt"/><text x="69.6" y="347.6" class="lb" text-anchor="end">grizzly b·</text><circle cx="66.0" cy="213.3" r="3.4" class="pt"/><text x="48.8" y="212.5" class="lb" text-anchor="end">polar bear</text><circle cx="306.9" cy="130.4" r="3.4" class="pt"/><text x="310.1" y="117.3" class="lb" text-anchor="middle">raccoon</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v ">8</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.207</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">2D holds</span><span class="v ">73%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">73%</span></span></span>
     </div>
   </div></div>
 </div></section><div class="band"><div class="wrap"><span class="eyebrow">the two-axis one</span></div></div>
@@ -1718,7 +1729,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="verdict">
       <span class="tag">δ / diameter</span> 0.175 · 0.170 · 0.497<br>
       <span class="tag">curved directions</span> 1 · 3 · 4 of 9<br>
-      <span class="tag">models agree</span> 0.912<br><span class="tag">fit to the known layout</span> 0.549 <span class="tag">against a shuffled null of 0.619</span><br><span class="tag">reference item</span> 6 · 3 · 4</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.912</span><br><span class="tag">fit to the known layout</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.549</span> <span class="tag">against a shuffled null of</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.619</span><br><span class="tag">spanning tree</span> <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span> · unique · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span><br><span class="tag">reference item</span> 6 · 3 · 4</div>
     </div>
     <p class="why">The keypad is two-dimensional and its layout is not a matter of opinion: 1-2-3 across the top, 0 alone at the bottom. If the frame can turn a line into a grid, it can turn a line into anything.</p>
   </div>
@@ -1729,14 +1740,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="373.6" y1="494.0" x2="487.9" y2="131.1" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="458.9" y2="105.8" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="373.6" y1="494.0" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.053" stroke-width="0.70"/><line x1="373.6" y1="494.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="458.9" y2="105.8" class="ch" stroke-opacity="0.359" stroke-width="1.52"/><line x1="487.9" y1="131.1" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="487.9" y1="131.1" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="487.9" y1="131.1" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.079" stroke-width="0.73"/><line x1="487.9" y1="131.1" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="487.9" y1="131.1" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="487.9" y1="131.1" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="458.9" y1="105.8" x2="385.7" y2="88.0" class="ch" stroke-opacity="0.391" stroke-width="1.64"/><line x1="458.9" y1="105.8" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.205" stroke-width="1.02"/><line x1="458.9" y1="105.8" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.119" stroke-width="0.81"/><line x1="458.9" y1="105.8" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="458.9" y1="105.8" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="458.9" y1="105.8" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="458.9" y1="105.8" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.053" stroke-width="0.70"/><line x1="385.7" y1="88.0" x2="262.6" y2="66.0" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="385.7" y1="88.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.149" stroke-width="0.87"/><line x1="385.7" y1="88.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.095" stroke-width="0.76"/><line x1="385.7" y1="88.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="385.7" y1="88.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.095" stroke-width="0.76"/><line x1="385.7" y1="88.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.073" stroke-width="0.72"/><line x1="262.6" y1="66.0" x2="201.9" y2="80.9" class="ch" stroke-opacity="0.424" stroke-width="1.76"/><line x1="262.6" y1="66.0" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="262.6" y1="66.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.184" stroke-width="0.96"/><line x1="262.6" y1="66.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="262.6" y1="66.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.106" stroke-width="0.78"/><line x1="201.9" y1="80.9" x2="143.5" y2="129.0" class="ch" stroke-opacity="0.329" stroke-width="1.41"/><line x1="201.9" y1="80.9" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="201.9" y1="80.9" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="201.9" y1="80.9" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="143.5" y1="129.0" x2="81.9" y2="167.4" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="143.5" y1="129.0" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.250" stroke-width="1.15"/><line x1="143.5" y1="129.0" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.166" stroke-width="0.91"/><line x1="81.9" y1="167.4" x2="95.5" y2="187.6" class="ch" stroke-opacity="0.391" stroke-width="1.64"/><line x1="81.9" y1="167.4" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.301" stroke-width="1.32"/><line x1="95.5" y1="187.6" x2="72.1" y2="234.4" class="ch" stroke-opacity="0.459" stroke-width="1.90"/></g>
 
 
-<path d="M373.6,494.0L458.9,105.8M458.9,105.8L385.7,88.0M458.9,105.8L487.9,131.1M458.9,105.8L262.6,66.0M262.6,66.0L201.9,80.9M201.9,80.9L143.5,129.0M201.9,80.9L95.5,187.6M95.5,187.6L72.1,234.4M95.5,187.6L81.9,167.4" class="mst"/>
+<path d="M373.6,494.0L458.9,105.8M458.9,105.8L385.7,88.0M458.9,105.8L487.9,131.1M458.9,105.8L262.6,66.0M262.6,66.0L201.9,80.9M201.9,80.9L143.5,129.0M201.9,80.9L95.5,187.6M95.5,187.6L72.1,234.4M95.5,187.6L81.9,167.4" class="mst ink-chosen"/>
 <circle cx="373.6" cy="494.0" r="3.4" class="pt"/><text x="380.9" y="515.1" class="lb" text-anchor="start">0</text><circle cx="487.9" cy="131.1" r="3.4" class="pt"/><text x="502.5" y="125.2" class="lb" text-anchor="start">1</text><circle cx="458.9" cy="105.8" r="3.4" class="pt"/><text x="471.8" y="97.8" class="lb" text-anchor="start">2</text><circle cx="385.7" cy="88.0" r="3.4" class="pt"/><text x="394.4" y="76.9" class="lb" text-anchor="start">3</text><circle cx="262.6" cy="66.0" r="3.4" class="pt"/><text x="261.1" y="52.7" class="lb" text-anchor="middle">4</text><circle cx="201.9" cy="80.9" r="3.4" class="pt"/><text x="195.3" y="68.7" class="lb" text-anchor="end">5</text><circle cx="143.5" cy="129.0" r="3.4" class="pt"/><text x="131.5" y="120.3" class="lb" text-anchor="end">6</text><circle cx="81.9" cy="167.4" r="3.4" class="pt"/><text x="66.3" y="163.1" class="lb" text-anchor="end">7</text><circle cx="95.5" cy="187.6" r="3.4" class="pt"/><text x="79.4" y="184.1" class="lb" text-anchor="end">8</text><circle cx="72.1" cy="234.4" r="3.4" class="pt"/><text x="54.5" y="235.1" class="lb" text-anchor="end">9</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.175</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">1</span></span>
-      <span><span class="k">fit to truth</span><span class="v ">0.570</span></span>
+      <span><span class="k">fit to truth</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">0.570</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1752,7 +1763,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v ">38</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.170</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">3</span></span>
-      <span><span class="k">fit to truth</span><span class="v ">0.583</span></span>
+      <span><span class="k">fit to truth</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">0.583</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1761,14 +1772,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="378.6" y1="433.8" x2="494.0" y2="148.4" class="ch" stroke-opacity="0.384" stroke-width="1.61"/><line x1="378.6" y1="433.8" x2="348.8" y2="197.9" class="ch" stroke-opacity="0.268" stroke-width="1.21"/><line x1="378.6" y1="433.8" x2="243.5" y2="170.8" class="ch" stroke-opacity="0.159" stroke-width="0.90"/><line x1="378.6" y1="433.8" x2="92.1" y2="129.0" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="378.6" y1="433.8" x2="193.1" y2="126.2" class="ch" stroke-opacity="0.090" stroke-width="0.75"/><line x1="378.6" y1="433.8" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.178" stroke-width="0.95"/><line x1="378.6" y1="433.8" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.113" stroke-width="0.79"/><line x1="378.6" y1="433.8" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.323" stroke-width="1.39"/><line x1="378.6" y1="433.8" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.384" stroke-width="1.61"/><line x1="494.0" y1="148.4" x2="348.8" y2="197.9" class="ch" stroke-opacity="0.569" stroke-width="2.36"/><line x1="494.0" y1="148.4" x2="243.5" y2="170.8" class="ch" stroke-opacity="0.453" stroke-width="1.88"/><line x1="494.0" y1="148.4" x2="92.1" y2="129.0" class="ch" stroke-opacity="0.080" stroke-width="0.73"/><line x1="494.0" y1="148.4" x2="193.1" y2="126.2" class="ch" stroke-opacity="0.268" stroke-width="1.21"/><line x1="494.0" y1="148.4" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.178" stroke-width="0.95"/><line x1="494.0" y1="148.4" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.142" stroke-width="0.86"/><line x1="494.0" y1="148.4" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.142" stroke-width="0.86"/><line x1="348.8" y1="197.9" x2="243.5" y2="170.8" class="ch" stroke-opacity="0.629" stroke-width="2.63"/><line x1="348.8" y1="197.9" x2="92.1" y2="129.0" class="ch" stroke-opacity="0.159" stroke-width="0.90"/><line x1="348.8" y1="197.9" x2="193.1" y2="126.2" class="ch" stroke-opacity="0.453" stroke-width="1.88"/><line x1="348.8" y1="197.9" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.323" stroke-width="1.39"/><line x1="348.8" y1="197.9" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.268" stroke-width="1.21"/><line x1="348.8" y1="197.9" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.384" stroke-width="1.61"/><line x1="348.8" y1="197.9" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.156" stroke-width="0.89"/><line x1="243.5" y1="170.8" x2="92.1" y2="129.0" class="ch" stroke-opacity="0.629" stroke-width="2.63"/><line x1="243.5" y1="170.8" x2="193.1" y2="126.2" class="ch" stroke-opacity="0.490" stroke-width="2.03"/><line x1="243.5" y1="170.8" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.353" stroke-width="1.50"/><line x1="243.5" y1="170.8" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.418" stroke-width="1.74"/><line x1="243.5" y1="170.8" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.569" stroke-width="2.36"/><line x1="243.5" y1="170.8" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.446" stroke-width="1.85"/><line x1="92.1" y1="129.0" x2="193.1" y2="126.2" class="ch" stroke-opacity="0.611" stroke-width="2.55"/><line x1="92.1" y1="129.0" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.323" stroke-width="1.39"/><line x1="92.1" y1="129.0" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.353" stroke-width="1.50"/><line x1="92.1" y1="129.0" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.294" stroke-width="1.30"/><line x1="92.1" y1="129.0" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.371" stroke-width="1.57"/><line x1="193.1" y1="126.2" x2="202.5" y2="217.3" class="ch" stroke-opacity="0.611" stroke-width="2.55"/><line x1="193.1" y1="126.2" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.453" stroke-width="1.88"/><line x1="193.1" y1="126.2" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.529" stroke-width="2.19"/><line x1="193.1" y1="126.2" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.397" stroke-width="1.66"/><line x1="202.5" y1="217.3" x2="157.2" y2="204.6" class="ch" stroke-opacity="0.490" stroke-width="2.03"/><line x1="202.5" y1="217.3" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.453" stroke-width="1.88"/><line x1="202.5" y1="217.3" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.384" stroke-width="1.61"/><line x1="157.2" y1="204.6" x2="199.4" y2="284.8" class="ch" stroke-opacity="0.611" stroke-width="2.55"/><line x1="157.2" y1="204.6" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.561" stroke-width="2.33"/><line x1="199.4" y1="284.8" x2="66.0" y2="367.5" class="ch" stroke-opacity="0.692" stroke-width="2.92"/></g>
 
 
-<path d="M378.6,433.8L494.0,148.4M494.0,148.4L348.8,197.9M348.8,197.9L243.5,170.8M243.5,170.8L92.1,129.0M92.1,129.0L193.1,126.2M193.1,126.2L202.5,217.3M243.5,170.8L199.4,284.8M199.4,284.8L66.0,367.5M199.4,284.8L157.2,204.6" class="mst"/>
+<path d="M378.6,433.8L494.0,148.4M494.0,148.4L348.8,197.9M348.8,197.9L243.5,170.8M243.5,170.8L92.1,129.0M92.1,129.0L193.1,126.2M193.1,126.2L202.5,217.3M243.5,170.8L199.4,284.8M199.4,284.8L66.0,367.5M199.4,284.8L157.2,204.6" class="mst ink-chosen"/>
 <circle cx="378.6" cy="433.8" r="3.4" class="pt"/><text x="388.3" y="453.5" class="lb" text-anchor="start">0</text><circle cx="494.0" cy="148.4" r="3.4" class="pt"/><text x="509.3" y="143.5" class="lb" text-anchor="start">1</text><circle cx="348.8" cy="197.9" r="3.4" class="pt"/><text x="360.4" y="188.7" class="lb" text-anchor="start">2</text><circle cx="243.5" cy="170.8" r="3.4" class="pt"/><text x="237.8" y="158.3" class="lb" text-anchor="middle">3</text><circle cx="92.1" cy="129.0" r="3.4" class="pt"/><text x="78.1" y="122.4" class="lb" text-anchor="end">4</text><circle cx="193.1" cy="126.2" r="3.4" class="pt"/><text x="184.2" y="115.1" class="lb" text-anchor="end">5</text><circle cx="202.5" cy="217.3" r="3.4" class="pt"/><text x="188.5" y="210.6" class="lb" text-anchor="end">6</text><circle cx="157.2" cy="204.6" r="3.4" class="pt"/><text x="141.8" y="199.8" class="lb" text-anchor="end">7</text><circle cx="199.4" cy="284.8" r="3.4" class="pt"/><text x="181.4" y="290.5" class="lb" text-anchor="end">8</text><circle cx="66.0" cy="367.5" r="3.4" class="pt"/><text x="49.3" y="378.9" class="lb" text-anchor="end">9</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v ">68</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.497</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">fit to truth</span><span class="v ">0.495</span></span>
+      <span><span class="k">fit to truth</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">0.495</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1780,7 +1791,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="verdict">
       <span class="tag">δ / diameter</span> 0.280 · 0.304 · 0.276<br>
       <span class="tag">curved directions</span> 5 · 5 · 4 of 11<br>
-      <span class="tag">models agree</span> 0.783</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.783</span><br><span class="tag">spanning tree</span> <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span> · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span> · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span></div>
     </div>
     <p class="why">Two independent axes and nothing cyclic about either. Mother and father differ in one coordinate; mother and daughter in the other. A model holding both should need two dimensions and use them at right angles.</p>
   </div>
@@ -1791,14 +1802,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="494.0" y1="392.3" x2="482.3" y2="186.3" class="ch" stroke-opacity="0.428" stroke-width="1.78"/><line x1="494.0" y1="392.3" x2="408.8" y2="414.2" class="ch" stroke-opacity="0.334" stroke-width="1.43"/><line x1="494.0" y1="392.3" x2="360.8" y2="155.1" class="ch" stroke-opacity="0.109" stroke-width="0.79"/><line x1="494.0" y1="392.3" x2="470.0" y2="347.1" class="ch" stroke-opacity="0.209" stroke-width="1.03"/><line x1="494.0" y1="392.3" x2="466.2" y2="120.9" class="ch" stroke-opacity="0.098" stroke-width="0.76"/><line x1="494.0" y1="392.3" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.109" stroke-width="0.79"/><line x1="494.0" y1="392.3" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="494.0" y1="392.3" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.079" stroke-width="0.73"/><line x1="494.0" y1="392.3" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="494.0" y1="392.3" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="494.0" y1="392.3" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="482.3" y1="186.3" x2="408.8" y2="414.2" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="482.3" y1="186.3" x2="360.8" y2="155.1" class="ch" stroke-opacity="0.254" stroke-width="1.17"/><line x1="482.3" y1="186.3" x2="470.0" y2="347.1" class="ch" stroke-opacity="0.087" stroke-width="0.75"/><line x1="482.3" y1="186.3" x2="466.2" y2="120.9" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="482.3" y1="186.3" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="482.3" y1="186.3" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.065" stroke-width="0.71"/><line x1="482.3" y1="186.3" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="482.3" y1="186.3" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.065" stroke-width="0.71"/><line x1="482.3" y1="186.3" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="408.8" y1="414.2" x2="360.8" y2="155.1" class="ch" stroke-opacity="0.254" stroke-width="1.17"/><line x1="408.8" y1="414.2" x2="470.0" y2="347.1" class="ch" stroke-opacity="0.209" stroke-width="1.03"/><line x1="408.8" y1="414.2" x2="466.2" y2="120.9" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="408.8" y1="414.2" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.189" stroke-width="0.97"/><line x1="408.8" y1="414.2" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.065" stroke-width="0.71"/><line x1="408.8" y1="414.2" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.170" stroke-width="0.93"/><line x1="408.8" y1="414.2" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="408.8" y1="414.2" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="408.8" y1="414.2" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="360.8" y1="155.1" x2="470.0" y2="347.1" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="360.8" y1="155.1" x2="466.2" y2="120.9" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="360.8" y1="155.1" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.098" stroke-width="0.76"/><line x1="360.8" y1="155.1" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.122" stroke-width="0.81"/><line x1="360.8" y1="155.1" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.087" stroke-width="0.75"/><line x1="360.8" y1="155.1" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.153" stroke-width="0.88"/><line x1="360.8" y1="155.1" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.065" stroke-width="0.71"/><line x1="360.8" y1="155.1" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="470.0" y1="347.1" x2="466.2" y2="120.9" class="ch" stroke-opacity="0.499" stroke-width="2.06"/><line x1="470.0" y1="347.1" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.170" stroke-width="0.93"/><line x1="470.0" y1="347.1" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="470.0" y1="347.1" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.098" stroke-width="0.76"/><line x1="470.0" y1="347.1" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="470.0" y1="347.1" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.087" stroke-width="0.75"/><line x1="466.2" y1="120.9" x2="230.5" y2="340.7" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="466.2" y1="120.9" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.093" stroke-width="0.76"/><line x1="466.2" y1="120.9" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="466.2" y1="120.9" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.067" stroke-width="0.72"/><line x1="466.2" y1="120.9" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="466.2" y1="120.9" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="230.5" y1="340.7" x2="194.2" y2="121.7" class="ch" stroke-opacity="0.428" stroke-width="1.78"/><line x1="230.5" y1="340.7" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.254" stroke-width="1.17"/><line x1="230.5" y1="340.7" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.131" stroke-width="0.83"/><line x1="230.5" y1="340.7" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.170" stroke-width="0.93"/><line x1="230.5" y1="340.7" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.075" stroke-width="0.73"/><line x1="194.2" y1="121.7" x2="123.1" y2="411.7" class="ch" stroke-opacity="0.091" stroke-width="0.75"/><line x1="194.2" y1="121.7" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.231" stroke-width="1.09"/><line x1="194.2" y1="121.7" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.071" stroke-width="0.72"/><line x1="194.2" y1="121.7" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.098" stroke-width="0.76"/><line x1="123.1" y1="411.7" x2="86.2" y2="169.2" class="ch" stroke-opacity="0.395" stroke-width="1.65"/><line x1="123.1" y1="411.7" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.334" stroke-width="1.43"/><line x1="123.1" y1="411.7" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.146" stroke-width="0.87"/><line x1="86.2" y1="169.2" x2="157.8" y2="439.1" class="ch" stroke-opacity="0.104" stroke-width="0.78"/><line x1="86.2" y1="169.2" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.279" stroke-width="1.25"/><line x1="157.8" y1="439.1" x2="66.0" y2="223.7" class="ch" stroke-opacity="0.462" stroke-width="1.92"/></g>
 
 
-<path d="M494.0,392.3L482.3,186.3M494.0,392.3L408.8,414.2M482.3,186.3L360.8,155.1M494.0,392.3L470.0,347.1M470.0,347.1L466.2,120.9M408.8,414.2L230.5,340.7M230.5,340.7L194.2,121.7M230.5,340.7L123.1,411.7M123.1,411.7L86.2,169.2M123.1,411.7L157.8,439.1M157.8,439.1L66.0,223.7" class="mst"/>
+<path d="M494.0,392.3L482.3,186.3M494.0,392.3L408.8,414.2M482.3,186.3L360.8,155.1M494.0,392.3L470.0,347.1M470.0,347.1L466.2,120.9M408.8,414.2L230.5,340.7M230.5,340.7L194.2,121.7M230.5,340.7L123.1,411.7M123.1,411.7L86.2,169.2M123.1,411.7L157.8,439.1M157.8,439.1L66.0,223.7" class="mst ink-chosen"/>
 <circle cx="494.0" cy="392.3" r="3.4" class="pt"/><text x="509.9" y="405.3" class="lb" text-anchor="start">grandmoth·</text><circle cx="482.3" cy="186.3" r="3.4" class="pt"/><text x="498.6" y="183.4" class="lb" text-anchor="start">grandfath·</text><circle cx="408.8" cy="414.2" r="3.4" class="pt"/><text x="421.3" y="431.8" class="lb" text-anchor="start">mother</text><circle cx="360.8" cy="155.1" r="3.4" class="pt"/><text x="370.5" y="144.6" class="lb" text-anchor="start">father</text><circle cx="470.0" cy="347.1" r="3.4" class="pt"/><text x="487.0" y="357.7" class="lb" text-anchor="start">aunt</text><circle cx="466.2" cy="120.9" r="3.4" class="pt"/><text x="479.9" y="113.8" class="lb" text-anchor="start">uncle</text><circle cx="230.5" cy="340.7" r="3.4" class="pt"/><text x="219.2" y="359.2" class="lb" text-anchor="end">sister</text><circle cx="194.2" cy="121.7" r="3.4" class="pt"/><text x="185.6" y="110.5" class="lb" text-anchor="end">brother</text><circle cx="123.1" cy="411.7" r="3.4" class="pt"/><text x="109.4" y="427.8" class="lb" text-anchor="end">daughter</text><circle cx="86.2" cy="169.2" r="3.4" class="pt"/><text x="70.5" y="164.9" class="lb" text-anchor="end">son</text><circle cx="157.8" cy="439.1" r="3.4" class="pt"/><text x="146.9" y="457.9" class="lb" text-anchor="end">granddaug·</text><circle cx="66.0" cy="223.7" r="3.4" class="pt"/><text x="48.6" y="223.8" class="lb" text-anchor="end">grandson</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v ">10</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.280</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v ">58%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">58%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1807,14 +1818,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="431.7" y1="87.8" x2="439.1" y2="101.2" class="ch" stroke-opacity="0.475" stroke-width="1.97"/><line x1="431.7" y1="87.8" x2="340.5" y2="285.7" class="ch" stroke-opacity="0.253" stroke-width="1.16"/><line x1="431.7" y1="87.8" x2="416.1" y2="281.7" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="431.7" y1="87.8" x2="477.6" y2="410.5" class="ch" stroke-opacity="0.152" stroke-width="0.88"/><line x1="431.7" y1="87.8" x2="494.0" y2="449.5" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="431.7" y1="87.8" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="431.7" y1="87.8" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="431.7" y1="87.8" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="431.7" y1="87.8" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.198" stroke-width="1.00"/><line x1="431.7" y1="87.8" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.116" stroke-width="0.80"/><line x1="439.1" y1="101.2" x2="340.5" y2="285.7" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="439.1" y1="101.2" x2="416.1" y2="281.7" class="ch" stroke-opacity="0.253" stroke-width="1.16"/><line x1="439.1" y1="101.2" x2="477.6" y2="410.5" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="439.1" y1="101.2" x2="494.0" y2="449.5" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="439.1" y1="101.2" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="439.1" y1="101.2" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="439.1" y1="101.2" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="439.1" y1="101.2" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="439.1" y1="101.2" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="439.1" y1="101.2" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.198" stroke-width="1.00"/><line x1="340.5" y1="285.7" x2="416.1" y2="281.7" class="ch" stroke-opacity="0.152" stroke-width="0.88"/><line x1="340.5" y1="285.7" x2="477.6" y2="410.5" class="ch" stroke-opacity="0.174" stroke-width="0.94"/><line x1="340.5" y1="285.7" x2="494.0" y2="449.5" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="340.5" y1="285.7" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.224" stroke-width="1.07"/><line x1="340.5" y1="285.7" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="340.5" y1="285.7" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.198" stroke-width="1.00"/><line x1="340.5" y1="285.7" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="340.5" y1="285.7" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="340.5" y1="285.7" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="416.1" y1="281.7" x2="477.6" y2="410.5" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="416.1" y1="281.7" x2="494.0" y2="449.5" class="ch" stroke-opacity="0.088" stroke-width="0.75"/><line x1="416.1" y1="281.7" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="416.1" y1="281.7" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.088" stroke-width="0.75"/><line x1="416.1" y1="281.7" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="416.1" y1="281.7" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="416.1" y1="281.7" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="416.1" y1="281.7" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="477.6" y1="410.5" x2="494.0" y2="449.5" class="ch" stroke-opacity="0.521" stroke-width="2.16"/><line x1="477.6" y1="410.5" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.174" stroke-width="0.94"/><line x1="477.6" y1="410.5" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="477.6" y1="410.5" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.077" stroke-width="0.73"/><line x1="477.6" y1="410.5" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="477.6" y1="410.5" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="477.6" y1="410.5" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="494.0" y1="449.5" x2="173.5" y2="401.9" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="494.0" y1="449.5" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.152" stroke-width="0.88"/><line x1="494.0" y1="449.5" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="494.0" y1="449.5" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="494.0" y1="449.5" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.056" stroke-width="0.70"/><line x1="173.5" y1="401.9" x2="191.5" y2="472.2" class="ch" stroke-opacity="0.521" stroke-width="2.16"/><line x1="173.5" y1="401.9" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.353" stroke-width="1.50"/><line x1="173.5" y1="401.9" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="173.5" y1="401.9" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="173.5" y1="401.9" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.088" stroke-width="0.75"/><line x1="191.5" y1="472.2" x2="90.5" y2="291.3" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="191.5" y1="472.2" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.353" stroke-width="1.50"/><line x1="191.5" y1="472.2" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="191.5" y1="472.2" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.133" stroke-width="0.84"/><line x1="90.5" y1="291.3" x2="66.0" y2="362.1" class="ch" stroke-opacity="0.253" stroke-width="1.16"/><line x1="90.5" y1="291.3" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.317" stroke-width="1.37"/><line x1="90.5" y1="291.3" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.198" stroke-width="1.00"/><line x1="66.0" y1="362.1" x2="156.6" y2="93.0" class="ch" stroke-opacity="0.101" stroke-width="0.77"/><line x1="66.0" y1="362.1" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.521" stroke-width="2.16"/><line x1="156.6" y1="93.0" x2="120.7" y2="144.3" class="ch" stroke-opacity="0.521" stroke-width="2.16"/></g>
 
 
-<path d="M431.7,87.8L439.1,101.2M431.7,87.8L340.5,285.7M439.1,101.2L416.1,281.7M340.5,285.7L173.5,401.9M173.5,401.9L191.5,472.2M173.5,401.9L90.5,291.3M191.5,472.2L66.0,362.1M66.0,362.1L120.7,144.3M120.7,144.3L156.6,93.0M340.5,285.7L477.6,410.5M477.6,410.5L494.0,449.5" class="mst"/>
+<path d="M431.7,87.8L439.1,101.2M431.7,87.8L340.5,285.7M439.1,101.2L416.1,281.7M340.5,285.7L173.5,401.9M173.5,401.9L191.5,472.2M173.5,401.9L90.5,291.3M191.5,472.2L66.0,362.1M66.0,362.1L120.7,144.3M120.7,144.3L156.6,93.0M340.5,285.7L477.6,410.5M477.6,410.5L494.0,449.5" class="mst ink-chosen"/>
 <circle cx="431.7" cy="87.8" r="3.4" class="pt"/><text x="442.8" y="78.3" class="lb" text-anchor="start">grandmoth·</text><circle cx="439.1" cy="101.2" r="3.4" class="pt"/><text x="451.0" y="92.4" class="lb" text-anchor="start">grandfath·</text><circle cx="340.5" cy="285.7" r="3.4" class="pt"/><text x="358.4" y="292.1" class="lb" text-anchor="start">mother</text><circle cx="416.1" cy="281.7" r="3.4" class="pt"/><text x="434.1" y="286.6" class="lb" text-anchor="start">father</text><circle cx="477.6" cy="410.5" r="3.4" class="pt"/><text x="492.6" y="425.0" class="lb" text-anchor="start">aunt</text><circle cx="494.0" cy="449.5" r="3.4" class="pt"/><text x="508.1" y="465.3" class="lb" text-anchor="start">uncle</text><circle cx="173.5" cy="401.9" r="3.4" class="pt"/><text x="161.7" y="420.1" class="lb" text-anchor="end">sister</text><circle cx="191.5" cy="472.2" r="3.4" class="pt"/><text x="184.0" y="493.1" class="lb" text-anchor="end">brother</text><circle cx="90.5" cy="291.3" r="3.4" class="pt"/><text x="72.5" y="297.0" class="lb" text-anchor="end">daughter</text><circle cx="66.0" cy="362.1" r="3.4" class="pt"/><text x="49.2" y="373.2" class="lb" text-anchor="end">son</text><circle cx="156.6" cy="93.0" r="3.4" class="pt"/><text x="146.7" y="82.6" class="lb" text-anchor="end">granddaug·</text><circle cx="120.7" cy="144.3" r="3.4" class="pt"/><text x="107.0" y="137.2" class="lb" text-anchor="end">grandson</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v ">20</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.304</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">5</span></span>
-      <span><span class="k">2D holds</span><span class="v ">59%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">59%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1823,14 +1834,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="490.9" y1="190.5" x2="453.8" y2="186.6" class="ch" stroke-opacity="0.530" stroke-width="2.20"/><line x1="490.9" y1="190.5" x2="301.2" y2="143.8" class="ch" stroke-opacity="0.366" stroke-width="1.54"/><line x1="490.9" y1="190.5" x2="346.2" y2="192.9" class="ch" stroke-opacity="0.097" stroke-width="0.76"/><line x1="490.9" y1="190.5" x2="375.2" y2="354.0" class="ch" stroke-opacity="0.330" stroke-width="1.42"/><line x1="490.9" y1="190.5" x2="262.0" y2="494.0" class="ch" stroke-opacity="0.067" stroke-width="0.72"/><line x1="490.9" y1="190.5" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="490.9" y1="190.5" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.055" stroke-width="0.70"/><line x1="490.9" y1="190.5" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.127" stroke-width="0.82"/><line x1="490.9" y1="190.5" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.578" stroke-width="2.40"/><line x1="490.9" y1="190.5" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.157" stroke-width="0.89"/><line x1="453.8" y1="186.6" x2="301.2" y2="143.8" class="ch" stroke-opacity="0.297" stroke-width="1.30"/><line x1="453.8" y1="186.6" x2="346.2" y2="192.9" class="ch" stroke-opacity="0.330" stroke-width="1.42"/><line x1="453.8" y1="186.6" x2="375.2" y2="354.0" class="ch" stroke-opacity="0.211" stroke-width="1.04"/><line x1="453.8" y1="186.6" x2="262.0" y2="494.0" class="ch" stroke-opacity="0.067" stroke-width="0.72"/><line x1="453.8" y1="186.6" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.145" stroke-width="0.86"/><line x1="453.8" y1="186.6" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.075" stroke-width="0.73"/><line x1="453.8" y1="186.6" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="453.8" y1="186.6" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="453.8" y1="186.6" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.403" stroke-width="1.68"/><line x1="453.8" y1="186.6" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.127" stroke-width="0.82"/><line x1="301.2" y1="143.8" x2="346.2" y2="192.9" class="ch" stroke-opacity="0.145" stroke-width="0.86"/><line x1="301.2" y1="143.8" x2="375.2" y2="354.0" class="ch" stroke-opacity="0.330" stroke-width="1.42"/><line x1="301.2" y1="143.8" x2="262.0" y2="494.0" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="301.2" y1="143.8" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.403" stroke-width="1.68"/><line x1="301.2" y1="143.8" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.187" stroke-width="0.97"/><line x1="301.2" y1="143.8" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.486" stroke-width="2.01"/><line x1="301.2" y1="143.8" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.178" stroke-width="0.95"/><line x1="301.2" y1="143.8" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.366" stroke-width="1.54"/><line x1="301.2" y1="143.8" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.211" stroke-width="1.04"/><line x1="346.2" y1="192.9" x2="375.2" y2="354.0" class="ch" stroke-opacity="0.145" stroke-width="0.86"/><line x1="346.2" y1="192.9" x2="262.0" y2="494.0" class="ch" stroke-opacity="0.055" stroke-width="0.70"/><line x1="346.2" y1="192.9" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="346.2" y1="192.9" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="346.2" y1="192.9" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="346.2" y1="192.9" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.052" stroke-width="0.70"/><line x1="346.2" y1="192.9" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="346.2" y1="192.9" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.238" stroke-width="1.12"/><line x1="375.2" y1="354.0" x2="262.0" y2="494.0" class="ch" stroke-opacity="0.530" stroke-width="2.20"/><line x1="375.2" y1="354.0" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="375.2" y1="354.0" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.075" stroke-width="0.73"/><line x1="375.2" y1="354.0" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.127" stroke-width="0.82"/><line x1="375.2" y1="354.0" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.060" stroke-width="0.71"/><line x1="375.2" y1="354.0" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="375.2" y1="354.0" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="262.0" y1="494.0" x2="188.0" y2="178.6" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="262.0" y1="494.0" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.075" stroke-width="0.73"/><line x1="262.0" y1="494.0" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.055" stroke-width="0.70"/><line x1="262.0" y1="494.0" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="262.0" y1="494.0" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="188.0" y1="178.6" x2="76.4" y2="209.8" class="ch" stroke-opacity="0.530" stroke-width="2.20"/><line x1="188.0" y1="178.6" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.330" stroke-width="1.42"/><line x1="188.0" y1="178.6" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="188.0" y1="178.6" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="188.0" y1="178.6" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="76.4" y1="209.8" x2="238.3" y2="84.4" class="ch" stroke-opacity="0.145" stroke-width="0.86"/><line x1="76.4" y1="209.8" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.187" stroke-width="0.97"/><line x1="76.4" y1="209.8" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="76.4" y1="209.8" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.067" stroke-width="0.72"/><line x1="238.3" y1="84.4" x2="69.1" y2="86.2" class="ch" stroke-opacity="0.165" stroke-width="0.91"/><line x1="238.3" y1="84.4" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.297" stroke-width="1.30"/><line x1="238.3" y1="84.4" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.111" stroke-width="0.79"/><line x1="69.1" y1="86.2" x2="448.5" y2="66.0" class="ch" stroke-opacity="0.085" stroke-width="0.74"/><line x1="69.1" y1="86.2" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.060" stroke-width="0.71"/><line x1="448.5" y1="66.0" x2="387.2" y2="82.6" class="ch" stroke-opacity="0.187" stroke-width="0.97"/></g>
 
 
-<path d="M490.9,190.5L448.5,66.0M490.9,190.5L453.8,186.6M490.9,190.5L301.2,143.8M301.2,143.8L238.3,84.4M301.2,143.8L188.0,178.6M188.0,178.6L76.4,209.8M490.9,190.5L375.2,354.0M375.2,354.0L262.0,494.0M453.8,186.6L346.2,192.9M346.2,192.9L387.2,82.6M76.4,209.8L69.1,86.2" class="mst"/>
+<path d="M490.9,190.5L448.5,66.0M490.9,190.5L453.8,186.6M490.9,190.5L301.2,143.8M301.2,143.8L238.3,84.4M301.2,143.8L188.0,178.6M188.0,178.6L76.4,209.8M490.9,190.5L375.2,354.0M375.2,354.0L262.0,494.0M453.8,186.6L346.2,192.9M346.2,192.9L387.2,82.6M76.4,209.8L69.1,86.2" class="mst ink-chosen"/>
 <circle cx="490.9" cy="190.5" r="3.4" class="pt"/><text x="507.5" y="188.0" class="lb" text-anchor="start">grandmoth·</text><circle cx="453.8" cy="186.6" r="3.4" class="pt"/><text x="469.6" y="182.6" class="lb" text-anchor="start">grandfath·</text><circle cx="301.2" cy="143.8" r="3.4" class="pt"/><text x="304.0" y="130.6" class="lb" text-anchor="middle">mother</text><circle cx="346.2" cy="192.9" r="3.4" class="pt"/><text x="357.1" y="183.2" class="lb" text-anchor="start">father</text><circle cx="375.2" cy="354.0" r="3.4" class="pt"/><text x="389.4" y="369.6" class="lb" text-anchor="start">aunt</text><circle cx="262.0" cy="494.0" r="3.4" class="pt"/><text x="260.5" y="516.5" class="lb" text-anchor="middle">uncle</text><circle cx="188.0" cy="178.6" r="3.4" class="pt"/><text x="175.9" y="169.9" class="lb" text-anchor="end">sister</text><circle cx="76.4" cy="209.8" r="3.4" class="pt"/><text x="59.4" y="208.6" class="lb" text-anchor="end">brother</text><circle cx="238.3" cy="84.4" r="3.4" class="pt"/><text x="234.5" y="71.4" class="lb" text-anchor="middle">daughter</text><circle cx="69.1" cy="86.2" r="3.4" class="pt"/><text x="55.8" y="78.6" class="lb" text-anchor="end">son</text><circle cx="448.5" cy="66.0" r="3.4" class="pt"/><text x="459.6" y="56.5" class="lb" text-anchor="start">granddaug·</text><circle cx="387.2" cy="82.6" r="3.4" class="pt"/><text x="395.8" y="71.4" class="lb" text-anchor="start">grandson</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v ">44</span></span>
       <span><span class="k">δ / diam</span><span class="v ">0.276</span></span>
       <span><span class="k">curved dirs</span><span class="v hit">4</span></span>
-      <span><span class="k">2D holds</span><span class="v ">63%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">63%</span></span></span>
     </div>
   </div></div>
 </div></section><div class="band"><div class="wrap"><span class="eyebrow">the controls</span></div></div>
@@ -1842,7 +1853,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="verdict">
       <span class="tag">δ / diameter</span> 0.059 · 0.049 · 0.089<br>
       <span class="tag">curved directions</span> 0 · 0 · 0 of 6<br>
-      <span class="tag">models agree</span> 0.737</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.737</span><br><span class="tag">spanning tree</span> unique · unique · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span></div>
     </div>
     <p class="why">These words share no structure, so their dissimilarities should need most of the available dimensions and no clean shape should survive. A method that draws a tidy circle here is drawing its own assumptions.</p>
   </div>
@@ -1860,7 +1871,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.059</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">54%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">54%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1876,7 +1887,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.049</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">51%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">51%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1885,14 +1896,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="471.3" y1="225.2" x2="88.6" y2="249.9" class="ch" stroke-opacity="0.050" stroke-width="0.70"/><line x1="471.3" y1="225.2" x2="152.4" y2="196.9" class="ch" stroke-opacity="0.061" stroke-width="0.71"/><line x1="471.3" y1="225.2" x2="471.4" y2="238.7" class="ch" stroke-opacity="0.368" stroke-width="1.55"/><line x1="471.3" y1="225.2" x2="98.5" y2="66.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="88.6" y1="249.9" x2="119.1" y2="494.0" class="ch" stroke-opacity="0.057" stroke-width="0.70"/><line x1="88.6" y1="249.9" x2="152.4" y2="196.9" class="ch" stroke-opacity="0.081" stroke-width="0.74"/><line x1="88.6" y1="249.9" x2="138.4" y2="155.2" class="ch" stroke-opacity="0.057" stroke-width="0.70"/><line x1="88.6" y1="249.9" x2="98.5" y2="66.0" class="ch" stroke-opacity="0.064" stroke-width="0.71"/><line x1="119.1" y1="494.0" x2="152.4" y2="196.9" class="ch" stroke-opacity="0.057" stroke-width="0.70"/><line x1="119.1" y1="494.0" x2="138.4" y2="155.2" class="ch" stroke-opacity="0.055" stroke-width="0.70"/><line x1="119.1" y1="494.0" x2="98.5" y2="66.0" class="ch" stroke-opacity="0.051" stroke-width="0.70"/><line x1="152.4" y1="196.9" x2="138.4" y2="155.2" class="ch" stroke-opacity="0.063" stroke-width="0.71"/><line x1="152.4" y1="196.9" x2="471.4" y2="238.7" class="ch" stroke-opacity="0.054" stroke-width="0.70"/><line x1="152.4" y1="196.9" x2="98.5" y2="66.0" class="ch" stroke-opacity="0.076" stroke-width="0.73"/><line x1="138.4" y1="155.2" x2="471.4" y2="238.7" class="ch" stroke-opacity="0.059" stroke-width="0.71"/><line x1="138.4" y1="155.2" x2="98.5" y2="66.0" class="ch" stroke-opacity="0.078" stroke-width="0.73"/></g>
 
 
-<path d="M471.3,225.2L471.4,238.7M471.3,225.2L152.4,196.9M152.4,196.9L88.6,249.9M152.4,196.9L98.5,66.0M98.5,66.0L138.4,155.2M152.4,196.9L119.1,494.0" class="mst"/>
+<path d="M471.3,225.2L471.4,238.7M471.3,225.2L152.4,196.9M152.4,196.9L88.6,249.9M152.4,196.9L98.5,66.0M98.5,66.0L138.4,155.2M152.4,196.9L119.1,494.0" class="mst ink-chosen"/>
 <circle cx="471.3" cy="225.2" r="3.4" class="pt"/><text x="488.6" y="224.9" class="lb" text-anchor="start">piano</text><circle cx="88.6" cy="249.9" r="3.4" class="pt"/><text x="70.8" y="251.7" class="lb" text-anchor="end">granite</text><circle cx="119.1" cy="494.0" r="3.4" class="pt"/><text x="108.2" y="513.0" class="lb" text-anchor="end">hurricane</text><circle cx="152.4" cy="196.9" r="3.4" class="pt"/><text x="137.4" y="191.6" class="lb" text-anchor="end">ledger</text><circle cx="138.4" cy="155.2" r="3.4" class="pt"/><text x="124.9" y="147.9" class="lb" text-anchor="end">mackerel</text><circle cx="471.4" cy="238.7" r="3.4" class="pt"/><text x="489.0" y="239.5" class="lb" text-anchor="start">trombone</text><circle cx="98.5" cy="66.0" r="3.4" class="pt"/><text x="86.9" y="56.9" class="lb" text-anchor="end">vinegar</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.089</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">56%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">56%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1904,7 +1915,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <div class="verdict">
       <span class="tag">δ / diameter</span> 0.095 · 0.031 · 0.053<br>
       <span class="tag">curved directions</span> 0 · 0 · 0 of 6<br>
-      <span class="tag">models agree</span> 0.660</div>
+      <span class="tag">models agree</span> <span class="w-val w-computed" title="computed — float; nothing decided it">0.660</span><br><span class="tag">spanning tree</span> unique · <span class="w-val w-chosen" title="chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted">one of several</span> · unique</div>
     </div>
     <p class="why">The harder control. These are not words, so there is no meaning to have a shape. Anything the model reports here is orthography, keyboard distance or invention — and whatever it is, it is the floor everything above must clear.</p>
   </div>
@@ -1922,7 +1933,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.095</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">58%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">58%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1931,14 +1942,14 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 <g class="chords"><line x1="277.6" y1="406.8" x2="66.0" y2="149.1" class="ch" stroke-opacity="0.058" stroke-width="0.71"/><line x1="277.6" y1="406.8" x2="278.0" y2="378.8" class="ch" stroke-opacity="0.121" stroke-width="0.81"/><line x1="277.6" y1="406.8" x2="259.8" y2="366.1" class="ch" stroke-opacity="0.114" stroke-width="0.80"/><line x1="277.6" y1="406.8" x2="268.6" y2="365.0" class="ch" stroke-opacity="0.119" stroke-width="0.81"/><line x1="277.6" y1="406.8" x2="250.5" y2="410.9" class="ch" stroke-opacity="0.076" stroke-width="0.73"/><line x1="277.6" y1="406.8" x2="494.0" y2="169.6" class="ch" stroke-opacity="0.059" stroke-width="0.71"/><line x1="66.0" y1="149.1" x2="278.0" y2="378.8" class="ch" stroke-opacity="0.066" stroke-width="0.71"/><line x1="66.0" y1="149.1" x2="259.8" y2="366.1" class="ch" stroke-opacity="0.067" stroke-width="0.72"/><line x1="66.0" y1="149.1" x2="268.6" y2="365.0" class="ch" stroke-opacity="0.069" stroke-width="0.72"/><line x1="66.0" y1="149.1" x2="250.5" y2="410.9" class="ch" stroke-opacity="0.057" stroke-width="0.70"/><line x1="278.0" y1="378.8" x2="259.8" y2="366.1" class="ch" stroke-opacity="0.132" stroke-width="0.83"/><line x1="278.0" y1="378.8" x2="268.6" y2="365.0" class="ch" stroke-opacity="0.135" stroke-width="0.84"/><line x1="278.0" y1="378.8" x2="250.5" y2="410.9" class="ch" stroke-opacity="0.104" stroke-width="0.78"/><line x1="278.0" y1="378.8" x2="494.0" y2="169.6" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="259.8" y1="366.1" x2="268.6" y2="365.0" class="ch" stroke-opacity="0.124" stroke-width="0.82"/><line x1="259.8" y1="366.1" x2="250.5" y2="410.9" class="ch" stroke-opacity="0.084" stroke-width="0.74"/><line x1="259.8" y1="366.1" x2="494.0" y2="169.6" class="ch" stroke-opacity="0.062" stroke-width="0.71"/><line x1="268.6" y1="365.0" x2="250.5" y2="410.9" class="ch" stroke-opacity="0.107" stroke-width="0.78"/><line x1="268.6" y1="365.0" x2="494.0" y2="169.6" class="ch" stroke-opacity="0.068" stroke-width="0.72"/><line x1="250.5" y1="410.9" x2="494.0" y2="169.6" class="ch" stroke-opacity="0.054" stroke-width="0.70"/></g>
 
 
-<path d="M277.6,406.8L278.0,378.8M278.0,378.8L268.6,365.0M278.0,378.8L259.8,366.1M268.6,365.0L250.5,410.9M268.6,365.0L66.0,149.1M278.0,378.8L494.0,169.6" class="mst"/>
+<path d="M277.6,406.8L278.0,378.8M278.0,378.8L268.6,365.0M278.0,378.8L259.8,366.1M268.6,365.0L250.5,410.9M268.6,365.0L66.0,149.1M278.0,378.8L494.0,169.6" class="mst ink-chosen"/>
 <circle cx="277.6" cy="406.8" r="3.4" class="pt"/><text x="277.3" y="429.4" class="lb" text-anchor="middle">flarn</text><circle cx="66.0" cy="149.1" r="3.4" class="pt"/><text x="50.6" y="144.3" class="lb" text-anchor="end">zubik</text><circle cx="278.0" cy="378.8" r="3.4" class="pt"/><text x="277.6" y="401.4" class="lb" text-anchor="middle">quolm</text><circle cx="259.8" cy="366.1" r="3.4" class="pt"/><text x="255.6" y="388.2" class="lb" text-anchor="middle">drapt</text><circle cx="268.6" cy="365.0" r="3.4" class="pt"/><text x="266.2" y="387.4" class="lb" text-anchor="middle">vessig</text><circle cx="250.5" cy="410.9" r="3.4" class="pt"/><text x="246.6" y="433.0" class="lb" text-anchor="middle">krondo</text><circle cx="494.0" cy="169.6" r="3.4" class="pt"/><text x="510.0" y="166.0" class="lb" text-anchor="start">themu</text>
 </svg>
     <div class="nums">
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.031</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">49%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">49%</span></span></span>
     </div>
   </div>
   <div class="pl">
@@ -1954,7 +1965,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
       <span><span class="k">tri viol</span><span class="v hit">0</span></span>
       <span><span class="k">δ / diam</span><span class="v hit">0.053</span></span>
       <span><span class="k">curved dirs</span><span class="v ">0</span></span>
-      <span><span class="k">2D holds</span><span class="v ">42%</span></span>
+      <span><span class="k">2D holds</span><span class="v "><span class="w-val w-computed" title="computed — float; nothing decided it">42%</span></span></span>
     </div>
   </div></div>
 </div></section>
@@ -1963,7 +1974,7 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
   <div class="eyebrow">the method</div>
   <h2 class="mt4">How the answers were taken, and what was decided</h2>
 
-  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement opus 5 65, sonnet 5 75, haiku 4.5 90 on a 0–100 scale, and the model least consistent with itself is also the only one that never keeps a cyclic order (opus 5 9/18, sonnet 5 7/18, haiku 4.5 2/18).</p>
+  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement opus 5 65, sonnet 5 75, haiku 4.5 90 on a 0–100 scale, and the model least consistent with itself is also the one that keeps a cyclic order least often (opus 5 <span class="w-val w-computed" title="computed — float; nothing decided it">9/13</span>, sonnet 5 <span class="w-val w-computed" title="computed — float; nothing decided it">7/13</span>, haiku 4.5 <span class="w-val w-computed" title="computed — float; nothing decided it">2/13</span> of the ordered sets, read off the float coordinates).</p>
 
   <h3>Every answer is a whole number</h3>
   <p>The scale is 0–100 integers, so the matrix is exact rational data and nothing downstream is a threshold on a float. The symmetrised distances are integers over two; the Gram matrix is exact; and its signature is computed by exact symmetric congruence, where Sylvester's law makes the count basis-independent and rationals make each sign a decision instead of a comparison.</p>
@@ -1975,10 +1986,10 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
   <p>Nothing forces a model's numbers to be a metric. It answers one pair at a time and owes nothing to any third point, so the first question about "distance" is whether it is one. Every triple was checked exactly: the controls violate the triangle inequality <b>0 times out of 1260</b>, and so do the physical orderings — planets and scales of size never violate it once. The wheels do, and the smallest model does it most: its worst set breaks the inequality in 156 triples. A model whose own differences are not a metric is not holding a space.</p>
 
   <h3>What is decided and what is drawn</h3>
-  <p>Decided, exactly: the asymmetry, the closure ratio, and the signature. Drawn, in floating point and labelled as such: the two-dimensional coordinates, which come from an eigendecomposition of the same Gram matrix and are honest only to the degree the “2D holds” column reports — 57–99% of the structure for the structured sets against 42–58% for the control. The chords are the raw judgements, so what you are looking at is the matrix and not a summary of it.</p>
+  <p>Decided, exactly: the asymmetry, the closure ratio, the signature, the triangle counts and δ — and the minimum spanning tree, where it is unique. Where two edges tie, the tree drawn is one of several and a tie-break chose it, so it is dotted: 9 of the 15 trees on this page. Drawn, in floating point and labelled as such: the two-dimensional coordinates, which come from an eigendecomposition of the same Gram matrix and are honest only to the degree the “2D holds” column reports — 57–99% of the structure for the structured sets against 42–58% for the control. The chords are the raw judgements, so what you are looking at is the matrix and not a summary of it. Everything read off those coordinates — the fits to a known layout, the models&rsquo; agreement, the cyclic-order test, and so the frame verdicts — is computed too, and carries the dashed underline.</p>
 
   <h3>What this is not</h3>
-  <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on five small sets, with two of them present only to fail. Five sets is not a survey; the sets were chosen before the calls were made and all five are on the page, including the one whose prediction was wrong.</p>
+  <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on 18 small sets, with 2 of them present only to fail. 18 sets is not a survey; the sets were chosen before the calls were made and all 18 are on the page, including the keypad, whose prediction was wrong.</p>
 
   <div class="tw"><table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing step</th><th>δ/diam</th><th>triangle</th><th>signature</th><th>2D</th><th>asym</th></tr></thead><tbody><tr><td>weekdays</td><td>opus 5</td><td>3.41</td><td>72.5</td><td>0.261</td><td>8/210</td><td>4+ 2− 1z</td><td>93%</td><td>18</td></tr><tr><td>weekdays</td><td>sonnet 5</td><td>2.31</td><td>37.5</td><td>0.139</td><td>0/210</td><td>5+ 1− 1z</td><td>84%</td><td>20</td></tr><tr><td>weekdays</td><td>haiku 4.5</td><td>3.57</td><td>50.0</td><td>0.227</td><td>12/210</td><td>4+ 2− 1z</td><td>97%</td><td>72</td></tr><tr><td>months</td><td>opus 5</td><td>1.41</td><td>22.5</td><td>0.292</td><td>44/1320</td><td>5+ 6− 1z</td><td>92%</td><td>45</td></tr><tr><td>months</td><td>sonnet 5</td><td>1.80</td><td>22.5</td><td>0.393</td><td>58/1320</td><td>6+ 5− 1z</td><td>90%</td><td>40</td></tr><tr><td>months</td><td>haiku 4.5</td><td>0.83</td><td>7.5</td><td>0.378</td><td>140/1320</td><td>6+ 5− 1z</td><td>78%</td><td>65</td></tr><tr><td>hues</td><td>opus 5</td><td>1.09</td><td>17.5</td><td>0.370</td><td>70/1320</td><td>6+ 5− 1z</td><td>92%</td><td>30</td></tr><tr><td>hues</td><td>sonnet 5</td><td>1.57</td><td>27.5</td><td>0.306</td><td>30/1320</td><td>7+ 4− 1z</td><td>93%</td><td>45</td></tr><tr><td>hues</td><td>haiku 4.5</td><td>1.17</td><td>17.5</td><td>0.368</td><td>50/1320</td><td>6+ 5− 1z</td><td>87%</td><td>60</td></tr><tr><td>compass</td><td>opus 5</td><td>0.83</td><td>25.0</td><td>0.475</td><td>16/336</td><td>4+ 3− 1z</td><td>91%</td><td>15</td></tr><tr><td>compass</td><td>sonnet 5</td><td>0.85</td><td>27.5</td><td>0.338</td><td>10/336</td><td>4+ 3− 1z</td><td>88%</td><td>40</td></tr><tr><td>compass</td><td>haiku 4.5</td><td>0.67</td><td>25.0</td><td>0.375</td><td>14/336</td><td>4+ 3− 1z</td><td>86%</td><td>50</td></tr><tr><td>chromatic</td><td>opus 5</td><td>2.14</td><td>45.0</td><td>0.500</td><td>56/1320</td><td>6+ 5− 1z</td><td>60%</td><td>65</td></tr><tr><td>chromatic</td><td>sonnet 5</td><td>5.00</td><td>87.5</td><td>0.365</td><td>46/1320</td><td>7+ 4− 1z</td><td>67%</td><td>68</td></tr><tr><td>chromatic</td><td>haiku 4.5</td><td>2.68</td><td>29.5</td><td>0.401</td><td>156/1320</td><td>6+ 5− 1z</td><td>57%</td><td>66</td></tr><tr><td>clockhours</td><td>opus 5</td><td>1.00</td><td>17.0</td><td>0.500</td><td>86/1320</td><td>6+ 5− 1z</td><td>85%</td><td>35</td></tr><tr><td>clockhours</td><td>sonnet 5</td><td>1.48</td><td>18.5</td><td>0.400</td><td>118/1320</td><td>6+ 5− 1z</td><td>87%</td><td>48</td></tr><tr><td>clockhours</td><td>haiku 4.5</td><td>0.44</td><td>5.5</td><td>0.381</td><td>134/1320</td><td>7+ 4− 1z</td><td>85%</td><td>83</td></tr><tr><td>emotions</td><td>opus 5</td><td>0.83</td><td>47.5</td><td>0.382</td><td>0/336</td><td>6+ 1− 1z</td><td>70%</td><td>45</td></tr><tr><td>emotions</td><td>sonnet 5</td><td>1.00</td><td>42.5</td><td>0.157</td><td>0/336</td><td>6+ 1− 1z</td><td>74%</td><td>23</td></tr><tr><td>emotions</td><td>haiku 4.5</td><td>0.70</td><td>35.0</td><td>0.200</td><td>2/336</td><td>6+ 1− 1z</td><td>74%</td><td>30</td></tr><tr><td>digits</td><td>opus 5</td><td>5.71</td><td>100.0</td><td>0.163</td><td>20/720</td><td>6+ 3− 1z</td><td>89%</td><td>40</td></tr><tr><td>digits</td><td>sonnet 5</td><td>6.50</td><td>97.5</td><td>0.131</td><td>88/720</td><td>5+ 4− 1z</td><td>98%</td><td>45</td></tr><tr><td>digits</td><td>haiku 4.5</td><td>4.22</td><td>95.0</td><td>0.242</td><td>16/720</td><td>6+ 3− 1z</td><td>73%</td><td>89</td></tr><tr><td>scales</td><td>opus 5</td><td>2.35</td><td>100.0</td><td>0.142</td><td>0/1320</td><td>10+ 1− 1z</td><td>66%</td><td>33</td></tr><tr><td>scales</td><td>sonnet 5</td><td>2.50</td><td>100.0</td><td>0.147</td><td>0/1320</td><td>10+ 1− 1z</td><td>63%</td><td>45</td></tr><tr><td>scales</td><td>haiku 4.5</td><td>2.71</td><td>95.0</td><td>0.171</td><td>0/1320</td><td>10+ 1− 1z</td><td>69%</td><td>55</td></tr><tr><td>planets</td><td>opus 5</td><td>2.76</td><td>76.0</td><td>0.091</td><td>0/336</td><td>6+ 1− 1z</td><td>85%</td><td>17</td></tr><tr><td>planets</td><td>sonnet 5</td><td>2.80</td><td>70.0</td><td>0.076</td><td>0/336</td><td>6+ 1− 1z</td><td>86%</td><td>50</td></tr><tr><td>planets</td><td>haiku 4.5</td><td>2.58</td><td>77.5</td><td>0.065</td><td>0/336</td><td>7+ 0− 1z</td><td>84%</td><td>55</td></tr><tr><td>alphabet</td><td>opus 5</td><td>4.50</td><td>90.0</td><td>0.194</td><td>10/336</td><td>4+ 3− 1z</td><td>89%</td><td>35</td></tr><tr><td>alphabet</td><td>sonnet 5</td><td>1.37</td><td>65.0</td><td>0.103</td><td>18/336</td><td>5+ 2− 1z</td><td>68%</td><td>75</td></tr><tr><td>alphabet</td><td>haiku 4.5</td><td>0.33</td><td>3.5</td><td>0.313</td><td>78/336</td><td>5+ 2− 1z</td><td>83%</td><td>42</td></tr><tr><td>keypad</td><td>opus 5</td><td>—</td><td>—</td><td>0.175</td><td>0/720</td><td>8+ 1− 1z</td><td>71%</td><td>30</td></tr><tr><td>keypad</td><td>sonnet 5</td><td>—</td><td>—</td><td>0.170</td><td>38/720</td><td>6+ 3− 1z</td><td>81%</td><td>65</td></tr><tr><td>keypad</td><td>haiku 4.5</td><td>—</td><td>—</td><td>0.497</td><td>68/720</td><td>5+ 4− 1z</td><td>86%</td><td>60</td></tr><tr><td>mod10</td><td>opus 5</td><td>1.00</td><td>20.0</td><td>0.412</td><td>6/720</td><td>5+ 4− 1z</td><td>83%</td><td>5</td></tr><tr><td>mod10</td><td>sonnet 5</td><td>1.38</td><td>27.5</td><td>0.375</td><td>36/720</td><td>5+ 4− 1z</td><td>87%</td><td>60</td></tr><tr><td>mod10</td><td>haiku 4.5</td><td>2.00</td><td>30.0</td><td>0.455</td><td>34/720</td><td>5+ 4− 1z</td><td>74%</td><td>90</td></tr><tr><td>floors</td><td>opus 5</td><td>5.71</td><td>100.0</td><td>0.138</td><td>22/720</td><td>6+ 3− 1z</td><td>96%</td><td>37</td></tr><tr><td>floors</td><td>sonnet 5</td><td>8.33</td><td>100.0</td><td>0.050</td><td>116/720</td><td>5+ 4− 1z</td><td>99%</td><td>22</td></tr><tr><td>floors</td><td>haiku 4.5</td><td>2.65</td><td>99.5</td><td>0.171</td><td>0/720</td><td>7+ 2− 1z</td><td>72%</td><td>89</td></tr><tr><td>carnivores</td><td>opus 5</td><td>—</td><td>—</td><td>0.191</td><td>0/720</td><td>7+ 2− 1z</td><td>75%</td><td>20</td></tr><tr><td>carnivores</td><td>sonnet 5</td><td>—</td><td>—</td><td>0.150</td><td>0/720</td><td>8+ 1− 1z</td><td>68%</td><td>20</td></tr><tr><td>carnivores</td><td>haiku 4.5</td><td>—</td><td>—</td><td>0.207</td><td>8/720</td><td>6+ 3− 1z</td><td>73%</td><td>35</td></tr><tr><td>kinship</td><td>opus 5</td><td>—</td><td>—</td><td>0.280</td><td>10/1320</td><td>6+ 5− 1z</td><td>58%</td><td>25</td></tr><tr><td>kinship</td><td>sonnet 5</td><td>—</td><td>—</td><td>0.304</td><td>20/1320</td><td>6+ 5− 1z</td><td>59%</td><td>25</td></tr><tr><td>kinship</td><td>haiku 4.5</td><td>—</td><td>—</td><td>0.276</td><td>44/1320</td><td>7+ 4− 1z</td><td>63%</td><td>63</td></tr><tr><td>unrelated</td><td>opus 5</td><td>—</td><td>—</td><td>0.059</td><td>0/210</td><td>6+ 0− 1z</td><td>54%</td><td>10</td></tr><tr><td>unrelated</td><td>sonnet 5</td><td>—</td><td>—</td><td>0.049</td><td>0/210</td><td>6+ 0− 1z</td><td>51%</td><td>15</td></tr><tr><td>unrelated</td><td>haiku 4.5</td><td>—</td><td>—</td><td>0.089</td><td>0/210</td><td>6+ 0− 1z</td><td>56%</td><td>16</td></tr><tr><td>nonsense</td><td>opus 5</td><td>—</td><td>—</td><td>0.095</td><td>0/210</td><td>6+ 0− 1z</td><td>58%</td><td>33</td></tr><tr><td>nonsense</td><td>sonnet 5</td><td>—</td><td>—</td><td>0.031</td><td>0/210</td><td>6+ 0− 1z</td><td>49%</td><td>30</td></tr><tr><td>nonsense</td><td>haiku 4.5</td><td>—</td><td>—</td><td>0.053</td><td>0/210</td><td>6+ 0− 1z</td><td>42%</td><td>43</td></tr></tbody></table></div>
 
