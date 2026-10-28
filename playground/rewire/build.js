@@ -108,10 +108,16 @@ function readout() {
   return fired;
 }
 
+/* PHONES (2026-10-28). Below 820 px the panel opened over the page and left the stage min(330px, 88vw) short: 60 px
+   wide at 390, the whole graph drawn there at 7% scale. As on /instruments/navier-stokes, the panel starts hidden
+   on a narrow screen (the controls button opens it), and the graph drops the 300-unit offset that keeps it clear of
+   the title on a desk, so its own width fills the phone's. */
+const NARROW = window.innerWidth < 820;
+if (NARROW) document.body.classList.add('panel-hidden');
 let view, keep = null;
 function draw(msg, bad) {
   view = mount($('stage'), g, {
-    fired: readout, minSpan: 860, offsetX: 300, positions: keep,
+    fired: readout, minSpan: NARROW ? 0 : 860, offsetX: NARROW ? 0 : 300, positions: keep,
     /* a status message must NOT re-mount: doing so replaces the element the
        pointer is captured on and the drag dies on its first move. */
     onChange: (m, b) => { note(m, b); readout(); view.repaint(); },
@@ -244,6 +250,17 @@ body { padding-top: 0; }
    percentage width beats the right inset, so the canvas ran under the panel */
 #stage{position:absolute;top:0;bottom:0;left:0;right:min(330px,88vw);width:auto;height:auto;transition:right var(--dur-med) var(--ease-out);}
 body.panel-hidden #stage{right:0;}
+/* THE PANEL HIDES WITHOUT LEAVING THE PAGE (2026-10-28, as on /instruments/navier-stokes). It now starts hidden on a
+   phone, and instrument.css slides it out with translateX(100%): a translated box outside the viewport widens <main>
+   (the ruler read 720 px of scroll width in a 390 px main). So it fades out where it stands instead. */
+body.panel-hidden .panel{transform:none;opacity:0;visibility:hidden;pointer-events:none;}
+/* on a phone the controls button sits at the foot's right edge: the source line keeps clear of it; an opened panel
+   covers the graph rather than squeezing it into the strip beside it, and its button stays on the screen */
+@media (max-width: 760px) {
+  .ov-foot .src{padding-right:7.5rem;}
+  #stage{right:0;}
+  body:not(.panel-hidden) .pt{right:auto;left:var(--s-2);margin-right:0;}
+}
 #stage svg{width:100%;height:100%;}
 .cap.bad{color:var(--ink);}
 .note-sm b{color:var(--ink-2);font-weight:500;}`,
