@@ -153,7 +153,10 @@ ground. Its two main arm colours read ΔE 0.4 apart to a deuteranope. The law th
 | #9fd0bb · #5f9a83 · #335e4e | order | how far a birth got: lived · died · stillborn | Machinidae | 2026-10-28 |
 | `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined | the apps (design/app-shell.js) | 2026-10-28 |
 
-Retired on the same day: Machinidae's ochre and amber (rule 6). Its "changed" becomes the blue ring, "live" becomes ink
+Retired the same day: the Eleições page's party reds and blues. On the operator's ruling ("use between the ones the grammar
+have"), its finalists are the categorical greys --c-1 and --c-3, and its maps are one ordered grey scale mixed between
+--rule-strong and --ink. Its RLA 2026 points keep the word certified ("use certified"). Also retired: Machinidae's ochre
+and amber (rule 6). Its "changed" becomes the blue ring, "live" becomes ink
 weight, and the reference line becomes the guide pattern (2 3) in ink. The aleator arm and "the AI alone" lose their
 hue and keep their diamond. Rose is retired; "stillborn" takes the ramp's darkest step.
 
