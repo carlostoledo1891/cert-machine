@@ -1,0 +1,1903 @@
+{
+ "what": "A static scan of the two ETH-refutation proof trees (tools/census-eth-refutation.js) for every construct that can weaken a Lean proof or widen the trust base, with comments and strings blanked. HITS, NEVER VERDICTS: \"in the solution closure\" means the file can reach a main theorem through imports, not that the theorem depends on it; that is decided on the pod by the axiom print and by Comparator, and recorded in certs/eth-kernel.json.",
+ "scannedAt": "2026-10-28",
+ "patterns": {
+  "axiom": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*axiom\\s+(\\S+)/gm",
+   "hazard": true,
+   "what": "an axiom declaration: anything it asserts is assumed, not proved"
+  },
+  "sorry": {
+   "regex": "/\\bsorry\\b/g",
+   "hazard": true,
+   "what": "sorry (sorryAx)"
+  },
+  "admit": {
+   "regex": "/\\badmit\\b/g",
+   "hazard": true,
+   "what": "admit (sorryAx)"
+  },
+  "sorryAx": {
+   "regex": "/\\bsorryAx\\b/g",
+   "hazard": true,
+   "what": "sorryAx named directly"
+  },
+  "decreasingBySorry": {
+   "regex": "/decreasing_by\\s+sorry\\b/g",
+   "hazard": true,
+   "what": "decreasing_by sorry: termination assumed"
+  },
+  "native_decide": {
+   "regex": "/\\bnative_decide\\b/g",
+   "hazard": true,
+   "what": "native_decide: the compiler is trusted (Lean.ofReduceBool)"
+  },
+  "decideNative": {
+   "regex": "/\\bdecide\\s*\\+\\s*native\\b/g",
+   "hazard": true,
+   "what": "decide +native: as native_decide"
+  },
+  "bv_decide": {
+   "regex": "/\\bbv_decide\\b/g",
+   "hazard": true,
+   "what": "bv_decide: its reflection step trusts the compiler (Lean.ofReduceBool)"
+  },
+  "ofReduceBool": {
+   "regex": "/\\b(?:Lean\\.)?(?:ofReduceBool|ofReduceNat|reduceBool|reduceNat)\\b/g",
+   "hazard": true,
+   "what": "Lean.ofReduceBool / reduceBool named directly"
+  },
+  "trustCompiler": {
+   "regex": "/\\b(?:Lean\\.)?trustCompiler\\b/g",
+   "hazard": true,
+   "what": "Lean.trustCompiler"
+  },
+  "implemented_by": {
+   "regex": "/\\bimplemented_by\\b/g",
+   "hazard": true,
+   "what": "@[implemented_by]: the compiled code differs from the kernel's definition"
+  },
+  "extern": {
+   "regex": "/@\\[[^\\]]*\\bextern\\b/g",
+   "hazard": true,
+   "what": "@[extern]: the compiled code is foreign"
+  },
+  "unsafe": {
+   "regex": "/\\bunsafe\\b/g",
+   "hazard": true,
+   "what": "unsafe: definitions the kernel never checks"
+  },
+  "opaque": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*opaque\\s+(\\S+)/gm",
+   "hazard": true,
+   "what": "opaque: a constant whose value the kernel cannot unfold (with an implementation, the compiler runs it)"
+  },
+  "skipKernelTC": {
+   "regex": "/\\bdebug\\.skipKernelTC\\b/g",
+   "hazard": true,
+   "what": "set_option debug.skipKernelTC: declarations added without the kernel"
+  },
+  "partialDef": {
+   "regex": "/\\bpartial\\s+def\\b/g",
+   "hazard": true,
+   "what": "partial def: an opaque constant, unfoldable by nothing"
+  },
+  "csimp": {
+   "regex": "/@\\[[^\\]]*\\bcsimp\\b/g",
+   "hazard": true,
+   "what": "@[csimp]: a compiler substitution (matters only where the compiler is trusted)"
+  },
+  "envTouch": {
+   "regex": "/\\b(?:addDecl|addDeclCore|addDeclWithoutChecking|modifyEnv|setEnv|unsafeCast|unsafeIO|unsafeBaseIO|unsafeEIO|ofKernelEnv|replayConsts)\\b/g",
+   "hazard": true,
+   "what": "a meta-level call that adds to or replaces the environment, or leaves the type system"
+  },
+  "prelude": {
+   "regex": "/^\\s*prelude\\b/gm",
+   "hazard": true,
+   "what": "prelude: the file does not import Lean's own Init"
+  },
+  "run_cmd": {
+   "regex": "/\\b(?:run_cmd|run_elab|run_meta)\\b/g",
+   "hazard": false,
+   "what": "run_cmd / run_elab / run_meta: code run while the file is elaborated"
+  },
+  "eval": {
+   "regex": "/#eval\\b/g",
+   "hazard": false,
+   "what": "#eval: code run while the file is elaborated (a CommandElabM can change the environment)"
+  },
+  "elab": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*(?:elab|elab_rules)\\b/gm",
+   "hazard": false,
+   "what": "a custom elaborator"
+  },
+  "macro": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*(?:macro|macro_rules)\\b/gm",
+   "hazard": false,
+   "what": "a macro"
+  },
+  "syntax": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*(?:syntax|declare_syntax_cat)\\b/gm",
+   "hazard": false,
+   "what": "new syntax"
+  },
+  "notation": {
+   "regex": "/^\\s*(?:@\\[[^\\]]*\\]\\s*)*(?:(?:private|protected|noncomputable|unsafe|partial|public|nonrec|local|scoped)\\s+)*(?:notation|infix|infixl|infixr|prefix|postfix)\\b/gm",
+   "hazard": false,
+   "what": "notation"
+  },
+  "initialize": {
+   "regex": "/^\\s*(?:builtin_)?initialize\\b/gm",
+   "hazard": false,
+   "what": "initialize: code run when the module is loaded"
+  },
+  "elabAttribute": {
+   "regex": "/@\\[[^\\]]*\\b(?:command_elab|term_elab|tactic|macro|simproc|dsimproc|builtin_\\w+)\\b/g",
+   "hazard": false,
+   "what": "an elaborator / tactic / simproc attribute"
+  },
+  "namespaceLean": {
+   "regex": "/^\\s*namespace\\s+Lean\\b/gm",
+   "hazard": false,
+   "what": "declarations added under namespace Lean"
+  },
+  "importLean": {
+   "regex": "/^\\s*(?:public\\s+|private\\s+)?(?:meta\\s+)?import\\s+(?:all\\s+)?Lean\\b/gm",
+   "hazard": false,
+   "what": "imports Lean's meta-level library"
+  }
+ },
+ "claims": {
+  "openai": {
+   "commit": "7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a",
+   "theorems": [
+    "OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat"
+   ],
+   "notes": [
+    "lean/lakefile.lean is configuration, not proof: its run_cmd (with unsafe evalConstCheck) runs when Lake elaborates the configuration and applies OpenAI's compatibility patches to dependencies before resolution (the post_update hook lane K runs `lake update` for). The patch folder lean/patches at the pin (GitHub tree ffc4b0d5) names 23 dependencies, none of them mathlib; the solution closure imports only Mathlib and Lean, so no patched dependency is in it."
+   ],
+   "roots": {
+    "statement": [
+     "ComparatorChallenges.SubexponentialSAT"
+    ],
+    "solution": [
+     "OAI.Algorithms.SubexponentialSAT.Main"
+    ],
+    "other": []
+   },
+   "leanFiles": 3980,
+   "closure": {
+    "statement": 1,
+    "solution": 3091,
+    "otherOnly": 0,
+    "outsideEveryRoot": 888,
+    "solutionImportsByLibrary": {
+     "Lean": 2,
+     "Mathlib": 73
+    }
+   },
+   "hazardsReachingTheorems": [
+    {
+     "pattern": "opaque",
+     "files": 8,
+     "occurrences": 9
+    }
+   ],
+   "hazardsInStatementFiles": [
+    {
+     "pattern": "sorry",
+     "files": 1,
+     "occurrences": 1,
+     "where": [
+      "lean/ComparatorChallenges/SubexponentialSAT.lean:218"
+     ]
+    }
+   ],
+   "statementFiles": [
+    {
+     "path": "lean/ComparatorChallenges/SubexponentialSAT.lean",
+     "sha256": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+     "imports": [
+      "Mathlib"
+     ],
+     "declarationKeywords": {
+      "namespace": 7,
+      "def": 27,
+      "end": 8,
+      "universe": 2,
+      "abbrev": 3,
+      "structure": 4,
+      "deriving": 1,
+      "variable": 2,
+      "section": 1,
+      "inductive": 1,
+      "open": 1,
+      "theorem": 1
+     }
+    }
+   ],
+   "setOptionsInSolutionClosure": {
+    "quotPrecheck": 2
+   },
+   "hits": {
+    "axiom": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "sorry": {
+     "files": 1,
+     "occurrences": 1,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 1,
+      "occurrences": 1
+     },
+     "byFile": [
+      {
+       "path": "lean/ComparatorChallenges/SubexponentialSAT.lean",
+       "n": 1,
+       "lines": [
+        218
+       ],
+       "statementClosure": true,
+       "solutionClosure": false
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "admit": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "sorryAx": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "decreasingBySorry": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "native_decide": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "decideNative": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "bv_decide": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "ofReduceBool": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "trustCompiler": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "implemented_by": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "extern": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "unsafe": {
+     "files": 1,
+     "occurrences": 1,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "lean/lakefile.lean",
+       "n": 1,
+       "lines": [
+        296
+       ],
+       "statementClosure": false,
+       "solutionClosure": false,
+       "buildConfiguration": true
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "opaque": {
+     "files": 8,
+     "occurrences": 9,
+     "solutionClosure": {
+      "files": 8,
+      "occurrences": 9
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramPreparedRecoveryQuery.lean",
+       "n": 1,
+       "lines": [
+        59
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramPreparedRecoveryWitness.lean",
+       "n": 2,
+       "lines": [
+        178,
+        198
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true,
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramQueryCleanup.lean",
+       "n": 1,
+       "lines": [
+        22
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseDFSProgram.lean",
+       "n": 1,
+       "lines": [
+        76
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HashMarkedReturn.lean",
+       "n": 1,
+       "lines": [
+        14
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HeadSumAssembly.lean",
+       "n": 1,
+       "lines": [
+        24
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/NativeCode.lean",
+       "n": 1,
+       "lines": [
+        51
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/NativeProgram.lean",
+       "n": 1,
+       "lines": [
+        106
+       ],
+       "statementClosure": false,
+       "solutionClosure": true,
+       "explicitValue": [
+        true
+       ]
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "skipKernelTC": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "partialDef": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "csimp": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "envTouch": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "prelude": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "run_cmd": {
+     "files": 1,
+     "occurrences": 1,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "lean/lakefile.lean",
+       "n": 1,
+       "lines": [
+        290
+       ],
+       "statementClosure": false,
+       "solutionClosure": false,
+       "buildConfiguration": true
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "eval": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "elab": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "macro": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "syntax": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "notation": {
+     "files": 169,
+     "occurrences": 598,
+     "solutionClosure": {
+      "files": 80,
+      "occurrences": 199
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMainNodeProvenance.lean",
+       "n": 33,
+       "lines": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMainNodeExecution.lean",
+       "n": 29,
+       "lines": [
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerBoundedExecution.lean",
+       "n": 18,
+       "lines": [
+        43,
+        44,
+        45,
+        46,
+        48,
+        50,
+        51,
+        52
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerMasterBound.lean",
+       "n": 18,
+       "lines": [
+        78,
+        79,
+        80,
+        81,
+        83,
+        85,
+        86,
+        87
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerNumericalBound.lean",
+       "n": 18,
+       "lines": [
+        77,
+        78,
+        80,
+        81,
+        82,
+        83,
+        84,
+        86
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerEvidence.lean",
+       "n": 16,
+       "lines": [
+        36,
+        37,
+        39,
+        41,
+        42,
+        43,
+        45,
+        47
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerExecution.lean",
+       "n": 16,
+       "lines": [
+        65,
+        66,
+        68,
+        70,
+        71,
+        72,
+        74,
+        76
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMainScheduledJet.lean",
+       "n": 14,
+       "lines": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpOrderedRawScheduledJet.lean",
+       "n": 14,
+       "lines": [
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramPreparedRecoveryQuery.lean",
+       "n": 10,
+       "lines": [
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/NativeHashQueries.lean",
+       "n": 10,
+       "lines": [
+        216,
+        245,
+        246,
+        248,
+        250,
+        310,
+        327,
+        328
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMainLayoutEnumeration.lean",
+       "n": 10,
+       "lines": [
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112,
+        113
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HighQueryCorrect.lean",
+       "n": 9,
+       "lines": [
+        53,
+        171,
+        172,
+        173,
+        187,
+        191,
+        193,
+        195
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryAddressedTarget.lean",
+       "n": 9,
+       "lines": [
+        17,
+        23,
+        32,
+        43,
+        45,
+        46,
+        47,
+        48
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMainScheduledCollector.lean",
+       "n": 9,
+       "lines": [
+        33,
+        34,
+        36,
+        37,
+        38,
+        39,
+        69,
+        70
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeWorkerProvenance.lean",
+       "n": 9,
+       "lines": [
+        37,
+        39,
+        40,
+        41,
+        43,
+        45,
+        46,
+        47
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpOrderedRawScheduledCollector.lean",
+       "n": 9,
+       "lines": [
+        33,
+        34,
+        36,
+        37,
+        38,
+        39,
+        69,
+        70
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryHeadSourceCoverage.lean",
+       "n": 8,
+       "lines": [
+        14,
+        20,
+        29,
+        40,
+        42,
+        43,
+        44,
+        45
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryHeadSourceFacts.lean",
+       "n": 8,
+       "lines": [
+        17,
+        23,
+        59,
+        77,
+        79,
+        80,
+        81,
+        82
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryHeadSourceSlots.lean",
+       "n": 8,
+       "lines": [
+        14,
+        20,
+        29,
+        40,
+        42,
+        43,
+        44,
+        45
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryNodeEvaluation.lean",
+       "n": 8,
+       "lines": [
+        344,
+        802,
+        823,
+        879,
+        881,
+        882,
+        884,
+        886
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/SignatureTupleSourceAlignment.lean",
+       "n": 8,
+       "lines": [
+        49,
+        55,
+        56,
+        57,
+        58,
+        59,
+        276,
+        278
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpCountExecution.lean",
+       "n": 8,
+       "lines": [
+        445,
+        446,
+        447,
+        448,
+        449,
+        450,
+        451,
+        454
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeJetSemantics.lean",
+       "n": 8,
+       "lines": [
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeTemplateMoment.lean",
+       "n": 8,
+       "lines": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLog/LeafProgramPreparedRecoveryWitness.lean",
+       "n": 7,
+       "lines": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpCountSource.lean",
+       "n": 7,
+       "lines": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        37
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpMomentCostBounds.lean",
+       "n": 7,
+       "lines": [
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeBlueprintEvidence.lean",
+       "n": 7,
+       "lines": [
+        33,
+        34,
+        36,
+        38,
+        39,
+        40,
+        42
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeBlueprintExecution.lean",
+       "n": 7,
+       "lines": [
+        52,
+        53,
+        55,
+        57,
+        58,
+        59,
+        61
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/HighQueryCount.lean",
+       "n": 6,
+       "lines": [
+        261,
+        263,
+        327,
+        329,
+        330,
+        331
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryTargetMetadata.lean",
+       "n": 6,
+       "lines": [
+        34,
+        115,
+        116,
+        117,
+        118,
+        141
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/Subexp/ComputedBankBundle.lean",
+       "n": 6,
+       "lines": [
+        41,
+        42,
+        43,
+        44,
+        52,
+        54
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeJobsMoment.lean",
+       "n": 6,
+       "lines": [
+        96,
+        97,
+        98,
+        99,
+        100,
+        101
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodeJobsMomentEvidence.lean",
+       "n": 6,
+       "lines": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SubexpNodePreparedMoment.lean",
+       "n": 6,
+       "lines": [
+        34,
+        35,
+        36,
+        37,
+        38,
+        39
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryStreamCorrect.lean",
+       "n": 5,
+       "lines": [
+        246,
+        247,
+        248,
+        249,
+        250
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/Subexp/OrderedComputedSource.lean",
+       "n": 5,
+       "lines": [
+        57,
+        58,
+        59,
+        60,
+        61
+       ],
+       "statementClosure": false,
+       "solutionClosure": false
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryFactorKeptFrame.lean",
+       "n": 4,
+       "lines": [
+        13,
+        66,
+        146,
+        147
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/QueryNodeSourceBounds.lean",
+       "n": 4,
+       "lines": [
+        87,
+        98,
+        99,
+        135
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      }
+     ],
+     "byFileTruncated": true
+    },
+    "initialize": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "elabAttribute": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "namespaceLean": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "importLean": {
+     "files": 2,
+     "occurrences": 2,
+     "solutionClosure": {
+      "files": 2,
+      "occurrences": 2
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/DisjointReuse/SparseCharging.lean",
+       "n": 1,
+       "lines": [
+        5
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "lean/OAI/Algorithms/SubexponentialSAT/SqrtLogSpace/FiniteFallback.lean",
+       "n": 1,
+       "lines": [
+        14
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      }
+     ],
+     "byFileTruncated": false
+    }
+   }
+  },
+  "anthropic": {
+   "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+   "theorems": [
+    "MainResults.ethIsFalse",
+    "MainResults.mainTheorem"
+   ],
+   "notes": [],
+   "roots": {
+    "statement": [
+     "MainResults",
+     "Challenge"
+    ],
+    "solution": [
+     "Solution"
+    ],
+    "other": [
+     "PaperIndex"
+    ]
+   },
+   "leanFiles": 1052,
+   "closure": {
+    "statement": 2,
+    "solution": 810,
+    "otherOnly": 239,
+    "outsideEveryRoot": 2,
+    "solutionImportsByLibrary": {
+     "Batteries": 2,
+     "Mathlib": 1000
+    }
+   },
+   "hazardsReachingTheorems": [],
+   "hazardsInStatementFiles": [
+    {
+     "pattern": "sorry",
+     "files": 1,
+     "occurrences": 2,
+     "where": [
+      "eth/Challenge.lean:13,17"
+     ]
+    }
+   ],
+   "statementFiles": [
+    {
+     "path": "eth/Challenge.lean",
+     "sha256": "63f54edafad0b4d1a4184c6279dc2fea4d8b3a6ef39fa04ab7fa72e86bfbb39e",
+     "imports": [
+      "MainResults"
+     ],
+     "declarationKeywords": {
+      "theorem": 2
+     }
+    },
+    {
+     "path": "eth/MainResults.lean",
+     "sha256": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+     "imports": [
+      "Mathlib"
+     ],
+     "declarationKeywords": {
+      "namespace": 1,
+      "open": 2,
+      "abbrev": 2,
+      "def": 19,
+      "end": 1
+     }
+    }
+   ],
+   "setOptionsInSolutionClosure": {},
+   "hits": {
+    "axiom": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "sorry": {
+     "files": 1,
+     "occurrences": 2,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 1,
+      "occurrences": 2
+     },
+     "byFile": [
+      {
+       "path": "eth/Challenge.lean",
+       "n": 2,
+       "lines": [
+        13,
+        17
+       ],
+       "statementClosure": true,
+       "solutionClosure": false
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "admit": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "sorryAx": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "decreasingBySorry": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "native_decide": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "decideNative": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "bv_decide": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "ofReduceBool": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "trustCompiler": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "implemented_by": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "extern": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "unsafe": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "opaque": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "skipKernelTC": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "partialDef": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "csimp": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "envTouch": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "prelude": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "run_cmd": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "eval": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "elab": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "macro": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "syntax": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "notation": {
+     "files": 2,
+     "occurrences": 5,
+     "solutionClosure": {
+      "files": 2,
+      "occurrences": 5
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [
+      {
+       "path": "eth/proof/networks/Groundwork/Net/Colouring.lean",
+       "n": 3,
+       "lines": [
+        46,
+        47,
+        49
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      },
+      {
+       "path": "eth/proof/networks/Paper/SecCrossing_Crossing.lean",
+       "n": 2,
+       "lines": [
+        39,
+        40
+       ],
+       "statementClosure": false,
+       "solutionClosure": true
+      }
+     ],
+     "byFileTruncated": false
+    },
+    "initialize": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "elabAttribute": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "namespaceLean": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    },
+    "importLean": {
+     "files": 0,
+     "occurrences": 0,
+     "solutionClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "statementClosure": {
+      "files": 0,
+      "occurrences": 0
+     },
+     "byFile": [],
+     "byFileTruncated": false
+    }
+   }
+  }
+ }
+}
