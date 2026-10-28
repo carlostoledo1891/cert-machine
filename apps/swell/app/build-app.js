@@ -42,12 +42,37 @@ function pinned() {
   return { P, at };
 }
 
-function words(calib) {
+function words(calib, premises) {
   const R = S.RULES, pct = (x) => (100 * x).toFixed(1).replace('.', ',');
   const b24 = calib.bins[0], H = calib.heldOut;
   const rules = (lang) => '<table><thead><tr><th>' + (lang === 'pt' ? 'Atividade' : 'Activity') + '</th><th>' + (lang === 'pt' ? 'A regra' : 'The rule') + '</th></tr></thead><tbody>' +
     S.ACT_ORDER.map((a) => '<tr><td>' + { pt: { surf: 'Surfe', kite: 'Kite', sup: 'SUP', swim: 'Banho', fish: 'Pesca', boat: 'Barco' }, en: { surf: 'Surf', kite: 'Kite', sup: 'SUP', swim: 'Swim', fish: 'Fish', boat: 'Boat' } }[lang][a] +
       '</td><td>' + R[a].text[lang] + '</td></tr>').join('') + '</tbody></table>';
+  /* WHAT EACH NUMBER RESTS ON (WARRANT v2.1): the generic chain, its grades and the comparison's numbers, read from the
+     records (premises, above) — the card draws the same chain for its own beach */
+  const WR = require('../../../playground/warrant.js');
+  const I = premises.island, PB = premises.band, nf = (x, d, lang) => (lang === 'pt' ? x.toFixed(d).replace('.', ',') : x.toFixed(d));
+  const low = Object.entries(I.byBeach).filter(([, v]) => v.medianRatio < 1).sort((a, b) => a[1].medianRatio - b[1].medianRatio);
+  const hiR = Math.max(...Object.values(I.byBeach).map((v) => v.medianRatio)), loR = Math.min(...Object.values(I.byBeach).map((v) => v.medianRatio));
+  const chain = (lang) => {
+    const pt = lang === 'pt', G = pt ? ['suposto', 'verificado', 'comparado', 'validado'] : WR.GRADE;
+    const items = [
+      { grade: WR.VALIDATED, label: pt ? 'O mar aberto e sua faixa' : 'The open sea and its band',
+        evidence: pt ? `cobriu ${nf(100 * PB.coverage, 1, lang)}% de ${PB.n.toLocaleString('pt-BR')} passagens de satélite que não tinha visto; promete 9 em 10.`
+          : `covered ${nf(100 * PB.coverage, 1, lang)}% of ${PB.n.toLocaleString('en')} satellite passes it had not seen; it claims 9 in 10.` },
+      { grade: WR.COMPARED, label: pt ? 'O modelo da ilha' : 'The island model',
+        evidence: pt ? `ao lado de um modelo de Boussinesq (Celeris; Madsen e Sørensen) em ${I.beaches} praias, ${I.all.n} casos de 1 m de ondulação: r ${nf(I.all.r, 2, lang)}, a ilha ${nf(I.all.bias, 2, lang)} m acima em média; em ondulações de 11 s ou mais, ${nf(I.long.medianRatio, 2, lang)} vez o valor dele (mediana), de ${nf(loR, 2, lang)} a ${nf(hiR, 2, lang)} conforme a praia. Comparado nessas ${I.beaches}; suposto nas outras.`
+          : `beside a Boussinesq model (Celeris; Madsen & Sørensen) at ${I.beaches} beaches, ${I.all.n} cases of a 1 m swell: r ${nf(I.all.r, 2, lang)}, the island ${nf(I.all.bias, 2, lang)} m higher on average; on swells of 11 s and longer, ${nf(I.long.medianRatio, 2, lang)} times its value (median), from ${nf(loR, 2, lang)} to ${nf(hiR, 2, lang)} by beach. Compared at those ${I.beaches}; assumed at the others.` },
+      { grade: WR.ASSUMED, label: pt ? 'A arrebentação' : 'Breaking',
+        evidence: pt ? `a onda quebra a ${nf(premises.gamma, 2, lang)} vez a profundidade (Thornton e Guza, 1982); sem bancos de areia; até 10 m o perfil segue a linha de 10 m da carta.`
+          : `the wave breaks at ${nf(premises.gamma, 2, lang)} times the depth (Thornton & Guza, 1982); no sandbars; inside 10 m the profile follows the chart's 10 m line.` },
+    ];
+    const lows = low.map(([k, v]) => `${k} (${nf(v.medianRatio, 2, lang)})`);
+    const lowTxt = lows.length > 1 ? lows.slice(0, -1).join(', ') + (pt ? ' e ' : ' and ') + lows[lows.length - 1] : lows.join('');
+    return WR.premisesHtml(items, { words: G, meetLine: pt
+      ? `A conta é exata; a premissa mais fraca é <b>suposta</b>. ${low.length ? `Onde a ilha lê menos que o modelo de Boussinesq — ${lowTxt} — "abaixo do limite" pede mais cautela do que a conta mostra.` : ''}`
+      : `The arithmetic is exact; the weakest premise is <b>assumed</b>. ${low.length ? `Where the island reads less than the Boussinesq model — ${lowTxt} — "under the limit" calls for more caution than the arithmetic shows.` : ''}` });
+  };
   const pt = `
 <h3>O que é</h3>
 <p>Para 34 praias de Florianópolis, o mar de cada uma no horário que você escolhe — a onda na beira e o vento — e, em seis ícones, o que esse mar quer dizer para surfar, velejar, remar, nadar, pescar e sair de barco; separado, o que está <b>decidido</b> e o que é só <b>previsão</b>. Escolher uma atividade só destaca as praias boas para ela: o horário, as ondas e o vento continuam os mesmos. Swell parte do mar aberto na borda leste da ilha: a previsão do ECMWF e da NOAA, lida uma vez por dia (rodada das 00 UTC, de 3 em 3 horas), com o <b>erro medido por satélite</b>. Um modelo das ondas da ilha inteira, sobre o fundo do mar da carta náutica 1902 da Marinha, leva cada ondulação até cada praia: dobra nas pontas, cresce no raso, perde força atrás das pontas e quebra.</p>
@@ -60,6 +85,9 @@ ${rules('pt')}
 <p><b>Medido, nem previsão nem decisão</b>: quanto cada praia costuma quebrar, visto do espaço — em 190 passagens sem nuvens do Sentinel-2 (2022–2026), a parte da zona de arrebentação que estava branca de espuma. Diz como a praia é (larga e rasa espuma mais com o mesmo mar), não como o dia vai ser.</p>
 <h3>O modelo das praias</h3>
 <p>64 casos (16 direções × 4 períodos, 6 a 15 s) sobre uma grade de 30 m da ilha inteira: refração, empinamento e abrigo, linear. Em cada praia a altura é lida em sondas de 1 a 9–13 m de fundo; a onda quebra onde chega a ${S.C.GAMMA.toLocaleString('pt-BR')} vez a profundidade, marchando do fundo para a beira (e o maior valor de uma sonda da zona de arrebentação, quando um trecho da praia concentra a ondulação). No Swell original as sondas paravam em 4,5–6,5 m e 14 das 21 praias de mar aberto nunca passavam de 2,5 m, qualquer que fosse o mar; agora o limite é de 4,9 a 7,2 m.</p>
+<h3>Em que cada número se apoia</h3>
+<p>A conta é exata, e cada número se apoia em premissas conferidas até degraus diferentes: <b>validado</b> (contra o próprio mar, fora da calibração), <b>comparado</b> (contra um modelo que guarda mais da física), <b>verificado</b> (o código contra uma solução exata) e <b>suposto</b> (adotado de uma fonte). Uma conclusão vale o degrau da sua premissa mais fraca.</p>
+${chain('pt')}
 <h3>Limites</h3>
 <p>O erro do próprio modelo da ilha na beira <b>não foi medido</b> (falta uma medida na praia: uma boia ou uma câmera). Os bancos de areia de hoje não estão no fundo do mar; até 10 m de fundo o perfil é ajustado à linha de 10 m da carta. <b>Guarda do Embaú</b> fica a 0,6 km da borda do modelo e é <b>recusada</b>: ali a onda que entra pela borda ainda não dobrou no fundo. O mar de vento mais curto que 6 s é lido como o caso de 6 s; uma ondulação mais longa que 15 s é lida como 15 s e avisada no cartão da praia. Só contam as horas de luz. Não serve para navegação.</p>
 <h3>Fontes</h3>
@@ -76,6 +104,9 @@ ${rules('en')}
 <p><b>Measured, neither forecast nor decision</b>: how much each beach usually breaks, seen from space — in 190 cloud-free Sentinel-2 passes (2022–2026), the share of its surf zone that was white with foam. It says what the beach is like (wide and shallow foams more for the same sea), not what the day will be.</p>
 <h3>The beach model</h3>
 <p>64 cases (16 directions × 4 periods, 6 to 15 s) on a 30 m grid of the whole island: refraction, shoaling and shelter, linear. At each beach the height is read at probes from 1 to 9–13 m deep; the wave breaks where it reaches ${S.C.GAMMA} times the depth, marching in from deep water (and the largest value at a surf-zone probe, where one stretch of the beach focuses the swell). In the original Swell the probes stopped at 4.5–6.5 m and 14 of the 21 open-sea beaches could never read more than 2.5 m whatever the sea did; the limit is now 4.9 to 7.2 m.</p>
+<h3>What each number rests on</h3>
+<p>The arithmetic is exact, and every number rests on premises checked to different rungs: <b>validated</b> (against the sea itself, held out of the calibration), <b>compared</b> (against a model that keeps more of the physics), <b>verified</b> (the code against an exact solution) and <b>assumed</b> (adopted from a source). A conclusion is as checked as its weakest premise.</p>
+${chain('en')}
 <h3>Limits</h3>
 <p>The island model's own error at the shore <b>has not been measured</b> (a measurement at the beach is missing: a buoy or a camera). Today's sandbars are not in the seafloor; inside 10 m the profile is fitted to the chart's 10 m line. <b>Guarda do Embaú</b> lies 0.6 km from the model's edge and is <b>refused</b>: there the wave entering through the edge has not yet bent over the seafloor. A wind sea shorter than 6 s is read as the 6 s case; a swell longer than 15 s is read as 15 s and flagged on the beach's card. Only daylight hours count. Not for navigation.</p>
 <h3>Sources</h3>
@@ -171,6 +202,8 @@ function emit(git, opts) {
   const FOAM = J('apps/swell/data/foam.json');
   const mods = { src: {}, pins: {} };
   for (const rel of DAY.MODULES) { const t = fs.readFileSync(path.join(ROOT, rel), 'utf8'); mods.src[path.basename(rel)] = t; mods.pins[path.basename(rel)] = { rel, sha: sha(t) }; }
+  /* the grammar's own renderer, for the premise chain the tab writes (not a deciding module: no pin, no day check) */
+  for (const rel of ['design/grammar.js', 'playground/warrant.js']) mods.src[path.basename(rel)] = fs.readFileSync(path.join(ROOT, rel), 'utf8');
   const MODEL = 'Object.assign(window.SWELL,' + JSON.stringify({ beaches: BEACHES, pois: POIS, foam: FOAM, modules: mods }).replace(/</g, '\\u003c') + ');\n';
   fs.writeFileSync(path.join(SITE, 'model.js'), MODEL);
   const APPJS = fs.readFileSync(path.join(__dirname, 'client.js'));
@@ -191,7 +224,17 @@ function emit(git, opts) {
     const U = EV.results.find((x) => x.option === 'U(E,N)' && x.miss === '1/10');
     return { bins: [{ lead: 24, ecmwf: c(B, '24'), noaa: c(N, '24') }], heldOut: { n: U.n, coverage: U.coverage } };
   })();
-  const W = words(calib);
+  /* WARRANT v2.1, models as premises (design/WARRANT.md): what each premise of a beach's number rests on, read from
+     the records that hold it — the band's held-out test above, the island model against the Boussinesq model
+     (certs/swell-island-boussinesq.json, re-derived by the battery), the breaking ratio from model/surf.js */
+  const premises = (() => {
+    const R = J('certs/swell-island-boussinesq.json').readings.swell;
+    const keep = (x) => ({ n: x.n, r: x.r, bias: x.bias, medianRatio: x.medianRatio });
+    return { band: calib.heldOut, gamma: S.C.GAMMA,
+      island: { all: keep(R.all), long: keep(R.longSwells), beaches: Object.keys(R.byBeach).length,
+        byBeach: Object.fromEntries(Object.entries(R.byBeachLong).map(([k, v]) => [k, keep(v)])) } };
+  })();
+  const W = words(calib, premises);
   const dataBase = REPO + at + '/apps/swell/data/';
   const cfg = {
     v: 1, git, data: { today: [FIELD + 'today.json', 'data/today.json'] },
@@ -200,7 +243,7 @@ function emit(git, opts) {
     tiles: { url: dataBase + 'tiles/floripa.pmtiles', local: 'tiles/floripa.pmtiles', sha256: P.files['tiles/floripa.pmtiles'].sha256,
       attribution: '<a href="https://openstreetmap.org/copyright">© OpenStreetMap</a> · <a href="https://protomaps.com">Protomaps</a>' },
     credit: 'ECMWF open data (CC BY 4.0) · NOAA · E.U. Copernicus Marine Service Information · carta DHN 1902 (não comercial, não serve para navegação)',
-    dataAt: at, how: W.how, boardIntro: W.boardIntro, boardFoot: W.boardFoot,
+    dataAt: at, how: W.how, boardIntro: W.boardIntro, boardFoot: W.boardFoot, premises,
     shas: { 'app.js': sha(APPJS), 'model.js': sha(MODEL), 'early.js': sha(EARLY) },
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');
@@ -215,7 +258,7 @@ function emit(git, opts) {
     mapAria: 'Mapa da ilha de Santa Catarina: as praias marcadas com a condição da atividade escolhida no horário escolhido; as ondas desenhadas como cristas, o vento como setas sobre a água',
     styles: ['vendor/maplibre-gl.css'],
     cssRaw: require('./style.js')(),
-    noDock: true, noLeft: true,
+    noDock: true, noLeft: true, warrant: true,
     panelHtml: panel(),
     extraHtml: extra(),
     configGlobal: 'SWELL', configJson: json,

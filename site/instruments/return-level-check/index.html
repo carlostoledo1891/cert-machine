@@ -401,33 +401,81 @@ a { color: inherit; }
 .cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 .cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 
-/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
-   rule about when the channel is free. A REFUSED mark has no stroke at all —
-   the void is a hatched field, never a line. ---- */
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-3); }
 .w-chosen { stroke: var(--ink-2); }
-/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
-   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
-   value is underlined dashed exactly as a computed curve is dashed, a chosen
-   value dotted. Decided carries no mark: it is the voice the rest of the site
-   is written in, and marking it would make the exception the rule.
-
-   The underline does the work and brightness only supports it, because
-   dimness alone reads as low confidence and standing is not confidence — the
-   page that defines the grammar says so in as many words. */
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
 .w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
 .w-decided { color: var(--ink); }
 .w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
-/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
-   instead is the reason, and this is the voice it says it in. */
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
-
-/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
-   <pattern>, and a pattern is addressed by an id that lives in the figure that
-   defines it. A shared rule would point every page at one page's id. */
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
 
 /* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
    The unit graph and the contact sheet are drawn by instruments/cert-unit, and
@@ -471,59 +519,6 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
 .pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
 
-/* ---- the standing legend. Rendered by warrant.js, laid out by
-   design/grid.js: the column count is derived from data-n, not declared. ---- */
-/* align-items:start on the ROW, so every label sits on one line even when a
-   gloss wraps to two — the swatches were floating to the middle of whichever
-   item happened to be tallest. */
-.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
-  grid-template-columns: minmax(0, 1fr); align-items: start; }
-.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
-  gap: var(--s-3); align-items: center; }
-.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
-.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
-.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
-/* THE ONE ACCENT (WARRANT v2, design/tokens.js --witness): the red of an EXHIBITED COUNTEREXAMPLE, only ever on a ×
-   glyph beside words, never on a word, a region or a deduction. Declared once here (2026-10-28); six pages had each
-   carried their own copy. warrant.js witness() writes the glyph. */
-.wx { color: var(--witness); font-weight: var(--weight-strong); }
-/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
-   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
-   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
-   phone, two in 34rem from 700px) */
-.w-legend.compact { max-width: 17rem; }
-@media (min-width: 700px) {
-.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
-.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
-.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
-.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
-.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
-.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
-.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
-.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
-.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
-.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
-.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
-.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
-.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
-.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
-.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
-.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
-.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
-.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
-.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
-.w-legend.compact { max-width: 34rem; }
-}
 
 /* return-level-check — the panel and the results; the grammar classes are the shared layer's */
 /* one track that may shrink below its content: a wide results table scrolls inside .tw instead of widening the page */

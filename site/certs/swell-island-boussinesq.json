@@ -1,0 +1,323 @@
+{
+ "what": "The island model (Swell, apps/swell/model/surf.js) against the Boussinesq model (frontier-apps, Celeris solver), surf-zone Hs for a 1 m swell, case by case at the beaches both cover. A COMPARISON in the grammar of design/WARRANT.md: a check of the island model's simplifications against fuller physics, neither a code verification nor a validation against the sea.",
+ "made": "node apps/swell/sim/compare.js",
+ "inputs": {
+  "apps/swell/data/boussinesq/transfer-campeche.json": "a78d950b0f342fd8f401f3b66c0c842749c4efb1d06844f9b9b8748b4a480166",
+  "apps/swell/data/boussinesq/transfer-joaquina.json": "6b178c1b0edb8b1b5e2e25066f5588f3cf5aa9ec43769fd9082b4eea0a2d17d0",
+  "apps/swell/data/boussinesq/transfer-joaquina5.json": "04c53fafd4efac08773313e523b09462792640d60b8ca08d79c63cfe0dc45017",
+  "apps/swell/data/boussinesq/transfer-lagoinha.json": "b81175d18ffdec0fd66dd429317ea57b12f8b81e897aa478cf44622b34e132ce",
+  "apps/swell/data/boussinesq/transfer-santinho.json": "10e96dbc423bb954af098510e7e8508fe67e323a3751939e89596edf25e906bc",
+  "apps/swell/data/beaches.json": "456a7fb26851ae4446386d402ffe1438fab7cea86e735316bb1e2e5d1cf8dc54",
+  "apps/swell/model/surf.js": "be7976882c5ee09ffc17b4a9996101aac9c55da4a6c3d8d28aa5923ba9321ba7"
+ },
+ "pairs": 556,
+ "beaches": 12,
+ "readings": {
+  "swell": {
+   "all": {
+    "n": 556,
+    "r": 0.438,
+    "bias": 0.272,
+    "rmse": 0.508,
+    "medianRatio": 1.617,
+    "meanBous": 0.445,
+    "meanIsland": 0.717
+   },
+   "longSwells": {
+    "n": 300,
+    "r": 0.481,
+    "bias": 0.162,
+    "rmse": 0.466,
+    "medianRatio": 1.188,
+    "meanBous": 0.623,
+    "meanIsland": 0.785
+   },
+   "byPeriod": {
+    "5": {
+     "n": 14,
+     "r": 0.769,
+     "bias": 0.631,
+     "rmse": 0.687,
+     "medianRatio": 8.75,
+     "meanBous": 0.075,
+     "meanIsland": 0.707
+    },
+    "6": {
+     "n": 14,
+     "r": 0.826,
+     "bias": 0.462,
+     "rmse": 0.511,
+     "medianRatio": 2.764,
+     "meanBous": 0.245,
+     "meanIsland": 0.707
+    },
+    "7": {
+     "n": 114,
+     "r": 0.266,
+     "bias": 0.48,
+     "rmse": 0.596,
+     "medianRatio": 6.543,
+     "meanBous": 0.123,
+     "meanIsland": 0.603
+    },
+    "9": {
+     "n": 114,
+     "r": 0.331,
+     "bias": 0.288,
+     "rmse": 0.489,
+     "medianRatio": 1.895,
+     "meanBous": 0.367,
+     "meanIsland": 0.655
+    },
+    "11": {
+     "n": 100,
+     "r": 0.444,
+     "bias": 0.23,
+     "rmse": 0.458,
+     "medianRatio": 1.422,
+     "meanBous": 0.485,
+     "meanIsland": 0.715
+    },
+    "13": {
+     "n": 100,
+     "r": 0.464,
+     "bias": 0.158,
+     "rmse": 0.461,
+     "medianRatio": 1.104,
+     "meanBous": 0.629,
+     "meanIsland": 0.787
+    },
+    "16": {
+     "n": 100,
+     "r": 0.499,
+     "bias": 0.097,
+     "rmse": 0.479,
+     "medianRatio": 1.028,
+     "meanBous": 0.754,
+     "meanIsland": 0.852
+    }
+   },
+   "byBeach": {
+    "Armação": {
+     "n": 55,
+     "r": 0.563,
+     "bias": 0.309,
+     "rmse": 0.499,
+     "medianRatio": 1.676,
+     "meanBous": 0.302,
+     "meanIsland": 0.611
+    },
+    "Campeche": {
+     "n": 35,
+     "r": 0.435,
+     "bias": 0.409,
+     "rmse": 0.556,
+     "medianRatio": 1.753,
+     "meanBous": 0.589,
+     "meanIsland": 0.998
+    },
+    "Galheta": {
+     "n": 35,
+     "r": 0.575,
+     "bias": 0.183,
+     "rmse": 0.375,
+     "medianRatio": 1.397,
+     "meanBous": 0.59,
+     "meanIsland": 0.774
+    },
+    "Ilha do Campeche": {
+     "n": 35,
+     "r": 0.097,
+     "bias": 0.766,
+     "rmse": 0.861,
+     "medianRatio": 4.525,
+     "meanBous": 0.255,
+     "meanIsland": 1.021
+    },
+    "Ingleses": {
+     "n": 35,
+     "r": 0.515,
+     "bias": -0.084,
+     "rmse": 0.438,
+     "medianRatio": 0.931,
+     "meanBous": 0.635,
+     "meanIsland": 0.551
+    },
+    "Joaquina": {
+     "n": 63,
+     "r": 0.345,
+     "bias": 0.274,
+     "rmse": 0.519,
+     "medianRatio": 1.648,
+     "meanBous": 0.535,
+     "meanIsland": 0.809
+    },
+    "Lagoinha do Leste": {
+     "n": 55,
+     "r": 0.671,
+     "bias": 0.514,
+     "rmse": 0.629,
+     "medianRatio": 2.526,
+     "meanBous": 0.299,
+     "meanIsland": 0.813
+    },
+    "Matadeiro": {
+     "n": 55,
+     "r": 0.758,
+     "bias": 0.173,
+     "rmse": 0.348,
+     "medianRatio": 1.258,
+     "meanBous": 0.357,
+     "meanIsland": 0.53
+    },
+    "Mole": {
+     "n": 63,
+     "r": 0.551,
+     "bias": 0.375,
+     "rmse": 0.473,
+     "medianRatio": 1.971,
+     "meanBous": 0.432,
+     "meanIsland": 0.807
+    },
+    "Morro das Pedras": {
+     "n": 35,
+     "r": 0.355,
+     "bias": 0.122,
+     "rmse": 0.456,
+     "medianRatio": 1.165,
+     "meanBous": 0.706,
+     "meanIsland": 0.828
+    },
+    "Pântano do Sul": {
+     "n": 55,
+     "r": 0.159,
+     "bias": -0.109,
+     "rmse": 0.324,
+     "medianRatio": 0.479,
+     "meanBous": 0.301,
+     "meanIsland": 0.192
+    },
+    "Santinho": {
+     "n": 35,
+     "r": 0.478,
+     "bias": 0.369,
+     "rmse": 0.497,
+     "medianRatio": 1.692,
+     "meanBous": 0.568,
+     "meanIsland": 0.938
+    }
+   },
+   "byBeachLong": {
+    "Armação": {
+     "n": 33,
+     "r": 0.601,
+     "bias": 0.261,
+     "rmse": 0.471,
+     "medianRatio": 1.414,
+     "meanBous": 0.421,
+     "meanIsland": 0.683
+    },
+    "Campeche": {
+     "n": 21,
+     "r": 0.29,
+     "bias": 0.315,
+     "rmse": 0.491,
+     "medianRatio": 1.511,
+     "meanBous": 0.803,
+     "meanIsland": 1.118
+    },
+    "Galheta": {
+     "n": 21,
+     "r": 0.345,
+     "bias": 0.007,
+     "rmse": 0.282,
+     "medianRatio": 0.992,
+     "meanBous": 0.842,
+     "meanIsland": 0.849
+    },
+    "Ilha do Campeche": {
+     "n": 21,
+     "r": -0.202,
+     "bias": 0.749,
+     "rmse": 0.88,
+     "medianRatio": 3.337,
+     "meanBous": 0.357,
+     "meanIsland": 1.106
+    },
+    "Ingleses": {
+     "n": 21,
+     "r": 0.723,
+     "bias": -0.266,
+     "rmse": 0.444,
+     "medianRatio": 0.43,
+     "meanBous": 0.846,
+     "meanIsland": 0.58
+    },
+    "Joaquina": {
+     "n": 21,
+     "r": 0.269,
+     "bias": 0.049,
+     "rmse": 0.434,
+     "medianRatio": 1.078,
+     "meanBous": 0.858,
+     "meanIsland": 0.907
+    },
+    "Lagoinha do Leste": {
+     "n": 33,
+     "r": 0.779,
+     "bias": 0.495,
+     "rmse": 0.608,
+     "medianRatio": 1.984,
+     "meanBous": 0.436,
+     "meanIsland": 0.931
+    },
+    "Matadeiro": {
+     "n": 33,
+     "r": 0.888,
+     "bias": 0.083,
+     "rmse": 0.252,
+     "medianRatio": 1.08,
+     "meanBous": 0.5,
+     "meanIsland": 0.583
+    },
+    "Mole": {
+     "n": 21,
+     "r": 0.554,
+     "bias": 0.29,
+     "rmse": 0.402,
+     "medianRatio": 1.554,
+     "meanBous": 0.68,
+     "meanIsland": 0.97
+    },
+    "Morro das Pedras": {
+     "n": 21,
+     "r": 0.496,
+     "bias": -0.08,
+     "rmse": 0.351,
+     "medianRatio": 1.016,
+     "meanBous": 0.959,
+     "meanIsland": 0.879
+    },
+    "Pântano do Sul": {
+     "n": 33,
+     "r": 0.309,
+     "bias": -0.194,
+     "rmse": 0.341,
+     "medianRatio": 0.388,
+     "meanBous": 0.394,
+     "meanIsland": 0.201
+    },
+    "Santinho": {
+     "n": 21,
+     "r": 0.463,
+     "bias": 0.233,
+     "rmse": 0.354,
+     "medianRatio": 1.216,
+     "meanBous": 0.799,
+     "meanIsland": 1.032
+    }
+   }
+  }
+ },
+ "note": "Swells of 11 s and longer are where both models resolve the waves: the 10 m Boussinesq grids drop components under about 6.8 s, so its short-period cases read low (frontier README). bias = island minus Boussinesq; medianRatio = island / max(Boussinesq, 0.05)."
+}

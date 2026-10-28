@@ -480,8 +480,12 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
      it, and order is half of how it does (playground/design/components.js
      says the other half). 2026-09-15. */
   const UTIL = require('../playground/design/components.js').utilCss();
+  /* the grammar's stylesheet (playground/warrant.js css(), 2026-10-28) on a report that uses a w-* class or the witness
+     glyph; the instruments' base layer ('own' sheet, cssRaw) already carries it */
+  const W = require('../playground/warrant.js');
+  const WCSS = sheet === 'report' && W.usesGrammar(bodyRaw + scriptRaw) ? '\n' + W.css() : '';
   const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss())
-    + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
+    + WCSS + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
   const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
   const html = `<!doctype html>
 <html lang="${lang}">

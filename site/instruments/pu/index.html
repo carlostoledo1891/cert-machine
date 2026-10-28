@@ -401,33 +401,81 @@ a { color: inherit; }
 .cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 .cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 
-/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
-   rule about when the channel is free. A REFUSED mark has no stroke at all —
-   the void is a hatched field, never a line. ---- */
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-3); }
 .w-chosen { stroke: var(--ink-2); }
-/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
-   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
-   value is underlined dashed exactly as a computed curve is dashed, a chosen
-   value dotted. Decided carries no mark: it is the voice the rest of the site
-   is written in, and marking it would make the exception the rule.
-
-   The underline does the work and brightness only supports it, because
-   dimness alone reads as low confidence and standing is not confidence — the
-   page that defines the grammar says so in as many words. */
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
 .w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
 .w-decided { color: var(--ink); }
 .w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
-/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
-   instead is the reason, and this is the voice it says it in. */
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
-
-/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
-   <pattern>, and a pattern is addressed by an id that lives in the figure that
-   defines it. A shared rule would point every page at one page's id. */
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
 
 /* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
    The unit graph and the contact sheet are drawn by instruments/cert-unit, and
@@ -471,59 +519,6 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
 .pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
 
-/* ---- the standing legend. Rendered by warrant.js, laid out by
-   design/grid.js: the column count is derived from data-n, not declared. ---- */
-/* align-items:start on the ROW, so every label sits on one line even when a
-   gloss wraps to two — the swatches were floating to the middle of whichever
-   item happened to be tallest. */
-.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
-  grid-template-columns: minmax(0, 1fr); align-items: start; }
-.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
-  gap: var(--s-3); align-items: center; }
-.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
-.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
-.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
-/* THE ONE ACCENT (WARRANT v2, design/tokens.js --witness): the red of an EXHIBITED COUNTEREXAMPLE, only ever on a ×
-   glyph beside words, never on a word, a region or a deduction. Declared once here (2026-10-28); six pages had each
-   carried their own copy. warrant.js witness() writes the glyph. */
-.wx { color: var(--witness); font-weight: var(--weight-strong); }
-/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
-   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
-   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
-   phone, two in 34rem from 700px) */
-.w-legend.compact { max-width: 17rem; }
-@media (min-width: 700px) {
-.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
-.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
-.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
-.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
-.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
-.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
-.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
-.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
-.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
-.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
-.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
-.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
-.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
-.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
-.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
-.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
-.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
-.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
-.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
-.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
-.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
-.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
-.w-legend.compact { max-width: 34rem; }
-}
 
 /* page.css — PU Verificado, the instrument. Tokens only. */
 .panel{margin-top:var(--s-7)}
@@ -655,7 +650,7 @@ td em,.note em{color:var(--ink-3)}
 <section class="wrap panel" id="trust">
   <div class="eyebrow">why you can trust this</div>
   <ul class="plain">
-    <li><b>The same bytes.</b> <span class="m">instruments/pu/decide.js</span> is inlined here unchanged (sha256 <span class="m">ba82874dad297218&hellip;</span>); it is the decider of <span class="m">certs/pu-ledger.json</span> (145,439 prices, 132,362 reproduced, last day 2026-10-15).</li>
+    <li><b>The same bytes.</b> <span class="m">instruments/pu/decide.js</span> is inlined here unchanged (sha256 <span class="m">ba82874dad297218&hellip;</span>); it is the decider of <span class="m">certs/pu-ledger.json</span> (145,679 prices, 132,538 reproduced, last day 2026-10-27).</li>
     <li><b>The calendar is pinned.</b> ANBIMA&rsquo;s national holidays, read once from the xls whose sha256 is <span class="m">e3070152bfbdd733&hellip;</span>. It is today&rsquo;s calendar: a price published before 2023-12-21 for a title maturing after 2024 was priced without the 20 November holiday — the report explains, and the toggle below re-decides under the calendar as of the quotation.</li>
     <li><b>The Selic index is pinned.</b> SGS 11 (the daily rate, 2000-07-03 to 2026-10-15, 6,603 days) and SGS 432 (the target, which projects the VNA to a settlement after the quotation), read from the files whose sha256s <span class="m">corpus/pu/PINS.json</span> records; compacted for this page and decoded back against the pinned series before the page was written. The VNA accumulates the daily factor at 16 decimals, rounded half up, and truncates at 6 (Tabela 3).</li>
     <li><b>One rule for a row.</b> A pasted row runs through <span class="m">instruments/pu/rows.js</span> (sha256 <span class="m">aca113d7fbef945a&hellip;</span>), the same function the ledger calls on each of its rows, so the tab and the report cannot disagree on a verdict.</li>
@@ -666,7 +661,7 @@ td em,.note em{color:var(--ink-3)}
 </section>
 
 <footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
-<script id="pu-spec" type="application/json">{"decideSha256":"ba82874dad297218a1667b926105b294cdf745a71342341a29d112a2616d3d1c","rowsSha256":"aca113d7fbef945a106c5c015329dbd8518ea74d64844db122f05eb6123ad350","holidaysSha256":"26975831cbfc4fe4dd24c86be66418c8ca377d6fa95c9c71ab72c6a346ebf525","holidaysSource":"e3070152bfbdd733a27977adc82b799e973d3ea003d2aa25b0e7e5bdae63aa17","selic":{"first":"2000-07-03","last":"2026-10-15","days":6603},"meta":{"first":"2000-07-01","last":"2026-11-04"},"ledger":{"generated":"2026-10-17T18:53:59.986Z","pairs":145439,"reproduced":132362,"off":237,"lastDate":"2026-10-15"}}</script>
+<script id="pu-spec" type="application/json">{"decideSha256":"ba82874dad297218a1667b926105b294cdf745a71342341a29d112a2616d3d1c","rowsSha256":"aca113d7fbef945a106c5c015329dbd8518ea74d64844db122f05eb6123ad350","holidaysSha256":"26975831cbfc4fe4dd24c86be66418c8ca377d6fa95c9c71ab72c6a346ebf525","holidaysSource":"e3070152bfbdd733a27977adc82b799e973d3ea003d2aa25b0e7e5bdae63aa17","selic":{"first":"2000-07-03","last":"2026-10-15","days":6603},"meta":{"first":"2000-07-01","last":"2026-11-04"},"ledger":{"generated":"2026-10-28T12:10:05.250Z","pairs":145679,"reproduced":132538,"off":289,"lastDate":"2026-10-27"}}</script>
 <script id="pu-holidays" type="application/json">{
  "what": "ANBIMA national holidays (feriados_nacionais.xls) as ISO dates, derived once by LibreOffice (soffice --headless --convert-to csv) from the pinned xls; the xls is the source, this file is its reading",
  "source": "corpus/pu/sources/feriados_nacionais.xls",

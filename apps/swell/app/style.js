@@ -258,10 +258,14 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
 .sw-tlb{display:flex;gap:2px;margin:var(--s-2) 0 0;align-items:center}
 .sw-tlb .sp{flex:1}
 .sw-legend{display:grid;grid-template-columns:auto 1fr;gap:6px 10px;align-items:center;margin:14px 0 0;font:12px/1.4 var(--f-sans);color:var(--ink-3)}
-.sw-legend i{display:block;width:22px;height:0;border-top:2px solid var(--ink)}
-.sw-legend i.wv{border-top:6px solid color-mix(in srgb,var(--c-2) 35%,transparent)}
-.sw-legend i.bd{border-top:6px solid var(--band-fill);box-shadow:inset 0 1px 0 var(--ink-3)}
-.sw-legend i.td{border-top:1px solid var(--ink-4)}
+/* the timeline's legend, drawn with the grammar's own dashes (WARRANT, design/WARRANT.md): a forecast line dashed, the
+   band a solid extent, and at a beach its halo, the island model's own error, which has not been measured */
+.sw-legend svg{display:block;width:24px;height:10px;overflow:visible}
+.sw-legend svg line{fill:none}
+.sw-legend svg.wv line{stroke:var(--c-2)}
+.sw-legend svg.wd line{stroke:var(--ink)}
+.sw-legend svg.td line{stroke:var(--ink-4)}
+.sw-legend svg.bd rect{fill:color-mix(in srgb,var(--c-2) 22%,transparent);filter:drop-shadow(0 0 3px color-mix(in srgb,var(--c-2) 60%,transparent))}
 
 /* the map tab */
 .sw-lay{display:grid;grid-template-columns:18px 1fr;gap:var(--s-1) 10px;align-items:center;padding:10px 0;cursor:pointer;border-bottom:1px solid var(--rule)}

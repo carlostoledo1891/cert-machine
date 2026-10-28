@@ -250,8 +250,115 @@ const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; re
    object that broke a claim someone made about that object's own record — and nothing else: never a verdict word, a
    region, a refutation reached by deduction, a scalar comparison (a box clearing a box has no witness point), or an
    object from another record than the claim's. Always a × beside words, so a greyscale copy loses nothing. The colour
-   is components.js .wx (design/tokens.js --witness). */
+   is the .wx rule in css() below (design/tokens.js --witness). */
 const witness = (label = 'an exhibited counterexample') => `<span class="wx" aria-label="${String(label).replace(/"/g, '&quot;')}">&times;</span>`;
 
+/* ------------------------------------------------- MODELS AS PREMISES ------
+   WARRANT v2.1, 2026-10-28 (design/WARRANT.md). Standing answers ONE question: how was this number computed, and
+   what decided it? A physical model asks a second one that standing cannot carry: the arithmetic can be exact while
+   the equations it was exact about have never met the thing they describe. /swell/ decides every wave limit in exact
+   arithmetic over a measured band, and the band reaches the beach through a linear island model whose own error at
+   the shore has never been measured. Calling that DECIDED is true. Without the second axis it misleads.
+
+   So a mark that rests on a model names its PREMISES, and each premise carries a GRADE: how far the checking of it
+   reached. The ladder is the verification-and-validation ladder of the modelling literature (Roache 1998; Oberkampf
+   & Roy 2010; ASME V&V 20), cut to four rungs a reader can tell apart:
+
+     ASSUMED     adopted from a source or chosen; nothing here checked it (a breaking ratio from Thornton & Guza,
+                 the absence of sandbars)
+     VERIFIED    the code reproduces an exact solution of its own equations; whether the equations hold here is
+                 not measured (code verification)
+     COMPARED    checked against a model that keeps more of the physics, with the number; not against the thing
+                 itself (code-to-code comparison: the island model against a Boussinesq model)
+     VALIDATED   checked against observations of the thing itself, held out, with the number (the open sea's band
+                 against 21,259 satellite passes it never saw)
+
+   The composition rule is the same as standing's: a conclusion's grade is its WEAKEST premise, and the page says so.
+   A grade is never a probability and never a confidence; it is where the checking stopped. It is carried by a word
+   first, a three-step ladder glyph second (filled to the rung reached), never by colour: the ladder adds no hue.  */
+const ASSUMED = 0, VERIFIED = 1, COMPARED = 2, VALIDATED = 3;
+const GRADE = ['assumed', 'verified', 'compared', 'validated'];
+const GRADE_GLOSS = [
+  'adopted from a source or chosen; nothing here checked it',
+  'the code reproduces an exact solution of its own equations; not measured against the thing itself',
+  'checked against a model that keeps more of the physics, with the number; not against the thing itself',
+  'checked against observations of the thing itself, held out, with the number',
+];
+const weakest = (...g) => g.reduce((a, b) => (b < a ? b : a), VALIDATED);
+/* the grade as a word with its ladder; `words` and `gloss` let a page speak its own language (Swell is pt-BR first) */
+function grade(g, { words = GRADE, gloss = GRADE_GLOSS } = {}) {
+  const bars = [0, 1, 2].map((k) => `<rect x="${k * 5}" y="${6 - 3 * k}" width="3" height="${3 + 3 * k}" rx="0.5"`
+    + (k < g ? ' class="on"' : ' class="off"') + '/>').join('');
+  return `<span class="w-grade g${g}" title="${String(words[g] + ' — ' + gloss[g]).replace(/"/g, '&quot;')}">`
+    + `<svg viewBox="0 0 13 9" aria-hidden="true">${bars}</svg>${words[g]}</span>`;
+}
+/* a chain of premises, in the order the number travelled through them, and the line that names the weakest */
+function premisesHtml(items, { words, gloss, meetLine } = {}) {
+  return `<ol class="w-premises">` + items.map((it) => `<li>${grade(it.grade, { words, gloss })}`
+    + `<div><b>${it.label}</b>${it.evidence ? ' <span class="ev">' + it.evidence + '</span>' : ''}</div></li>`).join('')
+    + `</ol>` + (meetLine ? `<p class="w-meet">${meetLine}</p>` : '');
+}
+
+/* ------------------------------------------------------------ THE CSS ----
+   ONE STYLESHEET FOR THE GRAMMAR, 2026-10-28. It lived in playground/design/components.js and so reached the
+   instruments only; the site pass puts the same marks on reports and apps. design/template.js and design/app-shell.js
+   include it on any page that uses a w-* class or the witness glyph; the instruments' base layer includes it always.
+   Tokens only: the three literals the legend carried (a 2px rule gap, 1.4 leading, 0.1em tracking) are the nearest
+   tokens now. Called in Node only: curveset inlines this file in the browser with a shim that knows grammar.js and
+   nothing else, so grid.js is required here, inside the call. */
+function css() {
+  const { balancedGrid } = require('../design/grid.js');
+  return `
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+${balancedGrid('.w-legend', '.item')}
+.w-legend.compact { max-width: 34rem; }
+}
+`;
+}
+/* does this page use the grammar? the two shells ask before they include css() */
+const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend|premises|grade)\b|class="wx"/.test(String(html || ''));
+
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
-  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness };
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness,
+  ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, weakest, grade, premisesHtml, css, usesGrammar };

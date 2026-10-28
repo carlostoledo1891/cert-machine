@@ -144,34 +144,9 @@ a { color: inherit; }
 .cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 .cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
 
-/* ---- THE GRAMMAR. Stroke pattern carries standing; see ../warrant.js for the
-   rule about when the channel is free. A REFUSED mark has no stroke at all —
-   the void is a hatched field, never a line. ---- */
-.w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
-/* THE SAME CLASSES IN HTML. In an <svg> these set a stroke; on a word they set
-   a voice, and the voice uses THE SAME DASH PATTERN as the line — a computed
-   value is underlined dashed exactly as a computed curve is dashed, a chosen
-   value dotted. Decided carries no mark: it is the voice the rest of the site
-   is written in, and marking it would make the exception the rule.
-
-   The underline does the work and brightness only supports it, because
-   dimness alone reads as low confidence and standing is not confidence — the
-   page that defines the grammar says so in as many words. */
-.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
-.w-decided { color: var(--ink); }
-.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
-.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
-.w-refused { color: var(--ink-4); font-style: normal; }
-/* a REFUSED value is not printed dim — it is NOT PRINTED. What the page shows
-   instead is the reason, and this is the voice it says it in. */
-span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
-
-/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG
-   <pattern>, and a pattern is addressed by an id that lives in the figure that
-   defines it. A shared rule would point every page at one page's id. */
-
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+${require('../warrant.js').css()}
 /* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
    The unit graph and the contact sheet are drawn by instruments/cert-unit, and
    FOUR pages inline them: /instruments/graph, /instruments/rewire,
@@ -188,32 +163,6 @@ ${require('../../instruments/cert-unit/art-css.js').CONTACT_CSS}
 .pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
 .pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
 
-/* ---- the standing legend. Rendered by warrant.js, laid out by
-   design/grid.js: the column count is derived from data-n, not declared. ---- */
-/* align-items:start on the ROW, so every label sits on one line even when a
-   gloss wraps to two — the swatches were floating to the middle of whichever
-   item happened to be tallest. */
-.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
-  grid-template-columns: minmax(0, 1fr); align-items: start; }
-.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
-  gap: var(--s-3); align-items: center; }
-.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
-.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
-  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
-.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
-/* THE ONE ACCENT (WARRANT v2, design/tokens.js --witness): the red of an EXHIBITED COUNTEREXAMPLE, only ever on a ×
-   glyph beside words, never on a word, a region or a deduction. Declared once here (2026-10-28); six pages had each
-   carried their own copy. warrant.js witness() writes the glyph. */
-.wx { color: var(--witness); font-weight: var(--weight-strong); }
-/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
-   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
-   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
-   phone, two in 34rem from 700px) */
-.w-legend.compact { max-width: 17rem; }
-@media (min-width: 700px) {
-${balancedGrid('.w-legend', '.item')}
-.w-legend.compact { max-width: 34rem; }
-}
 `;
 }
 

@@ -22,6 +22,24 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-28 ~19:00 UTC — FAST BUILDS, WARRANT v2 FROZEN, v2.1 (MODELS AS PREMISES) ON SWELL, on "keep building the
+     pages on the new grammar but also fix the endless builds" and "On Swell, see how to use the physical models inside
+     Warrant … Don't just remove". BUILDS (d3c4bcad): make page drives only the pages that moved since the gates last
+     passed (246 s → 8 s idle, ~90 s for 37 pages); make control runs its batteries side by side (913 s against ~35
+     min), with a clock per battery and a second run for any red (named RACE). RULEBOOK: design/WARRANT.md, v2 frozen,
+     rules 1–10; v2.1 adds rules 11–16 and the premise ladder assumed < verified < compared < validated (V&V), a halo
+     for an extent a model carries where it is not validated, forecast lines dashed on canvas too. The grammar's CSS
+     lives once in playground/warrant.js css(), included by template.js and app-shell.js wherever a w-* class is used.
+     SWELL: certs/swell-island-boussinesq.json (apps/swell/sim/compare.js; calibrated by reproducing frontier's
+     VALIDATION-ISLAND.md exactly): the island model reads 1.19× a Boussinesq model on long swells, 0.39× at Pântano do
+     Sul and 0.43× at Ingleses, where "under the limit" is now flagged; each card has "Em que isso se apoia" (the chain
+     with grades) beside the certificate; the method panel has the same chain. OPEN FOR THE OPERATOR: (1) the apps'
+     verdict colours (--v-cert/--v-refu/--v-refd) — keep as a product-face register or fold into ink (WARRANT.md v2.1;
+     no colour added); (2) whether "abaixo do limite" should be refused where the island reads low; (3) /machinidae/ in
+     site/sitemap.xml. QUEUED: Tier 1 of the site pass (home, Method, Janela, explained, Uirapuru, eleições, eight
+     GitHub-linked reports) with v2.1 in the brief; Machinidae onto WARRANT (notes/machinidae-warrant-brief-2026-10-28.md,
+     coordinate with its session, no colour without approval); model/surf.js's header still names sim/island.py, which
+     was never lifted (fix with a day build).
   ★ 2026-10-28 ~12:00 UTC — GITHUB, read on "New comments on github, maybe some troll profile". (1) frintroper ("TONE", repos
      "lean-proof-that-rh-is-trivial", "…-n-eq-np") pasted one identical licence rant into eleven anthropics/formal-math
      threads in five minutes, our #8 and #30 among them: a crank blast, not aimed at us — never reply; the sweep will count it

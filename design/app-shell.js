@@ -361,13 +361,19 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
 }`;
 }
 
+/* THE GRAMMAR'S STYLESHEET (2026-10-28): playground/warrant.js css(), on an app that uses a w-* class in its markup or
+   says it draws them at run time (o.warrant: Swell writes its premise chain in the tab) */
+function warrantCss(o) {
+  const W = require('../playground/warrant.js');
+  return o.warrant || W.usesGrammar((o.panelHtml || '') + (o.extraHtml || '') + (o.topHtml || '')) ? '\n' + W.css() : '';
+}
 function renderApp(o) {
   const cfg = o.configJson ? '<script>window.' + (o.configGlobal || 'SKYAUDIT') + ' = ' + o.configJson + ';</script>' : '';
   return `<!doctype html>
 <html lang="${o.lang || 'en'}"><head>
 ${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path, og: o.og })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
-<style>${T.rootCss()}${appCss()}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
+<style>${T.rootCss()}${appCss()}${warrantCss(o)}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
 <script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
 (function(){var t=new URLSearchParams(location.search).get('theme');
 if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>

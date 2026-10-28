@@ -43,7 +43,8 @@ exactly is solid, and the line interpolated between two such knots is dotted.
    - a refutation reached by deduction;
    - an object taken from another record.
 
-   When in doubt, use ink. Nothing else on the site is coloured.
+   When in doubt, use ink. Nothing else on the site is coloured, except the apps' verdict register (below), whose
+   place in the grammar waits on the operator's ruling.
 6. **Mood.** A verdict that holds given a chosen input names that input in italic: *given h = 3/50*. A hypothesis
    that was read but not machine-checked is named the same way.
 7. **An empty set is ∅.** It gets ∅ and a word, never a zero-height bar or a zero.
@@ -77,6 +78,62 @@ exactly is solid, and the line interpolated between two such knots is dotted.
    - Run `make control` once per batch; its batteries now run side by side.
 5. When a figure honestly got thinner or a spine honestly fell, accept it with `check-render`/`check-measure
    --accept` and say why in the commit.
+
+## v2.1: models as premises (2026-10-28)
+
+The operator directed that physical models be carried inside the grammar, starting with Swell, keeping "the academic
+view on how it works". Swell decides every wave limit in exact arithmetic over a measured band. The band reaches the
+beach through a linear island model whose own error at the shore has never been measured. Calling the result
+DECIDED is true, but read alone it misleads. So v2.1 gives the grammar a second axis.
+
+- **Standing**, carried by the stroke, says how a number was computed.
+- **Premises** say what the number rests on and how far each was checked.
+
+**The premise ladder** is the verification-and-validation ladder of the modelling literature (Roache 1998; Oberkampf
+& Roy 2010; ASME V&V 20-2009), cut to four rungs:
+
+| grade | what was checked | on Swell |
+|---|---|---|
+| validated | the premise against observations of the thing itself, held out | the open sea's band: it covered 96.5% of 21,259 satellite passes it had not seen |
+| compared | the premise against a model that keeps more of the physics, with the number | the island model against a Boussinesq model at 12 beaches (certs/swell-island-boussinesq.json) |
+| verified | the code against an exact solution of its own equations | none yet: the island solver was never lifted here |
+| assumed | nothing; adopted from a source or chosen | breaking at 0.55 h (Thornton & Guza 1982), no sandbars, the profile inside 10 m |
+
+A conclusion is as checked as its weakest premise (`W.weakest`). A grade is where the checking stopped: never a
+probability, never a confidence. It is carried by a word first and a three-step ladder glyph second (`W.grade`,
+`W.premisesHtml`). It never uses colour.
+
+11. **A number that rests on a model names its premises.** List them in the order the number travelled through them,
+    each with its grade and the record behind it, and end with a line that names the weakest. Put the chain where
+    trust is explained: beside the certificate, and on the method page.
+12. **A grade comes from a record, and a comparison is calibrated first.** The builder re-derives the comparison
+    and gates it. Before it was trusted, Swell's comparison had to reproduce frontier's published one, and it did
+    exactly: N 556, r 0.49, bias +0.25 m.
+13. **The halo.** An extent carried to a place by a model that is not validated there keeps its crisp edges, because
+    the decision is made on them given the model. It gains a halo outside them: the model's own error there has no
+    edge to draw. A validated extent has no halo. Blur is the most readily understood sign of uncertainty
+    (MacEachren et al. 2012).
+14. **A forecast line is COMPUTED and dashed**, on canvas too: `setLineDash` takes `G.claim(width)`. Swell's
+    forecast lines were drawn solid until 2026-10-28.
+15. **A field drawn from a model is a picture of the model.** For crests or streamlines, the legend says so once.
+16. **Where a comparison says the model reads low at a place,** any "under the limit" there is flagged as calling
+    for more caution than the arithmetic shows. On Swell this applies to Pântano do Sul (0.39×), Ingleses (0.43×)
+    and Galheta (0.99×), on swells of 11 s and longer.
+
+**The apps' verdict register, waiting on the operator.** The apps (`design/app-shell.js`, the app doctrine of
+2026-08-27) colour their decided states with three verdict colours: `--v-cert` green, `--v-refu` red and `--v-refd`
+violet. On Swell, red marks danger decided and violet marks a band straddling a limit. Each colour always comes with
+a shape and a word, and only on a decided state; forecast states are ink. These colours predate v2. The site pass
+neither added them nor removed them.
+
+Rule 5 says nothing else is coloured, and `--v-refu` (#E06B62) and `--witness` (#e0574e) are nearly one red
+carrying two meanings. Two rulings are possible:
+- keep the three as the grammar's product-face register, for an operator reading a safety verdict at a glance
+  (IEC 60073 and ISO 3864 reserve red for danger);
+- fold them into ink and shape.
+
+Until the operator rules, they stay as they are, and no new colour enters anywhere (operator, 2026-10-28).
+
 
 ## The site pass (2026-10-28)
 

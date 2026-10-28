@@ -32,6 +32,12 @@ function req(name) {
   return m.exports;
 }
 var S = req('surf.js');
+/* WARRANT (design/WARRANT.md): the grammar's renderer and its closed dash set, shipped beside the deciding modules.
+   A forecast line is COMPUTED and dashed by grammar.js; a decided band is a solid extent; a band carried to a beach by
+   the island model keeps its edges (the decision is made on them) and gains a halo, the model's unmeasured error. */
+var W = req('warrant.js'), G = req('grammar.js');
+var dashOf = function (w) { return G.claim(w).split(' ').map(Number); };
+var HALO = 9;   /* px of blur: an unmeasured error has no edge to draw */
 var KN = S.C.KN_PER_MS;
 var ACTS = S.ACT_ORDER;
 var clamp = function (x, a, b) { return Math.min(b, Math.max(a, x)); };
@@ -96,10 +102,17 @@ var STR = {
     refusedNo: 'Fora do modelo: sem sondas na zona de arrebentação.',
     cert: 'Certificado', certDl: 'Baixar certificado .json', rechk: 'Conferido no seu navegador: {n} linhas, as mesmas alturas e decisões publicadas ({ms} ms).', rechkBad: 'ATENÇÃO: o seu navegador NÃO reproduziu o dia publicado ({why}).',
     tlIsland: 'mar aberto', tlShore: 'na beira', tlScopeIsland: 'o mar aberto · abra uma praia para ver a dela',
-    lg_waves: 'ondas: na beira da praia (ou o mar aberto)', lg_band: 'faixa medida', lg_wind: 'vento em nós (previsão); a linha fina são as rajadas', lg_tide: 'maré (Copernicus)',
+    lg_waves: 'ondas na beira da praia (ou o mar aberto): a previsão, tracejada', lg_band: 'faixa medida; numa praia, levada pelo modelo da ilha, e o halo é o erro do próprio modelo, que não foi medido', lg_wind: 'vento em nós (previsão, tracejado); a linha fina são as rajadas', lg_tide: 'maré (previsão Copernicus, tracejada)',
+    restsH: 'Em que isso se apoia', g_words: ['suposto', 'verificado', 'comparado', 'validado'],
+    g_gloss: ['adotado de uma fonte ou escolhido; nada aqui o conferiu', 'o código reproduz uma solução exata das próprias equações; não conferido contra o mar', 'conferido contra um modelo que guarda mais da física, com o número; não contra o mar', 'conferido contra observações do próprio mar, guardadas fora da calibração, com o número'],
+    pr_sea: 'O mar aberto e sua faixa', pr_seaEv: 'a faixa (ECMWF ∪ NOAA) cobriu {cov} de {n} passagens de satélite que não tinha visto; ela promete 9 em 10.',
+    pr_isl: 'O modelo da ilha', pr_islCmp: 'ao lado de um modelo de Boussinesq nesta praia, em ondulações de 11 s ou mais ({n} casos): a ilha lê {x} vez o valor dele (mediana).', pr_islNot: 'não comparado nesta praia; nas {k} praias em que foi, em ondulações de 11 s ou mais, lê {x} vez um modelo de Boussinesq (mediana).',
+    pr_brk: 'A arrebentação', pr_brkEv: 'a onda quebra a {g} vez a profundidade (Thornton e Guza, 1982, mediram 0,59 noutra praia); sem bancos de areia; até 10 m o perfil segue a linha de 10 m da carta.',
+    pr_meet: 'A conta é exata; a premissa mais fraca fica no degrau <b>{g}</b>. O erro do próprio modelo na beira não foi medido.',
+    pr_low: 'Nesta praia a ilha lê menos que o modelo de Boussinesq: um “abaixo do limite” aqui pede mais cautela do que a conta mostra.',
     gridH: 'Quando cada atividade está boa', gridIsland: 'na melhor praia de cada horário; noite em branco · toque num horário para ir até ele', gridBeach: 'em {beach}; noite em branco · toque num horário para ir até ele',
     layers: 'Camadas', L_waves: 'Ondas', L_wind: 'Vento', L_currents: 'Correntes', L_pois: 'Serviços',
-    legend_waves: 'cada linha é uma crista; mais clara e mais grossa, mais alta a onda (m)', legend_wind: 'setas sobre a água, para onde o vento sopra; mais longas e claras, mais forte (nós)', legend_currents: 'corrente ao longo da praia; mais longa, mais rápida (m/s); um anel = risco de retorno',
+    legend_waves: 'cada linha é uma crista; mais clara e mais grossa, mais alta a onda (m). As cristas são um retrato do modelo da ilha, não uma medida', legend_wind: 'setas sobre a água, para onde o vento sopra; mais longas e claras, mais forte (nós)', legend_currents: 'corrente ao longo da praia; mais longa, mais rápida (m/s); um anel = risco de retorno',
     mapNoteFast: 'As cristas se movem {x}× mais rápido que o real neste zoom, para o movimento ser visível; aproximando, voltam ao período de verdade.', mapNoteReal: 'Neste zoom as cristas se movem no período real.',
     sosTitle: 'Em caso de emergência', sosNote: 'Ligações gratuitas, de qualquer telefone.',
     n193: 'Bombeiros e guarda-vidas', n190: 'Polícia Militar', n192: 'SAMU (ambulância)', n185: 'Marinha — salvamento no mar', n199: 'Defesa Civil',
@@ -159,10 +172,17 @@ var STR = {
     refusedNo: 'Outside the model: no probes in the surf zone.',
     cert: 'Certificate', certDl: 'Download certificate .json', rechk: 'Re-checked in your browser: {n} lines, the same heights and decisions as published ({ms} ms).', rechkBad: 'WARNING: your browser did NOT reproduce the published day ({why}).',
     tlIsland: 'open sea', tlShore: 'at the shore', tlScopeIsland: 'the open sea · open a beach to see its own',
-    lg_waves: 'waves: at the shore (or the open sea)', lg_band: 'measured band', lg_wind: 'wind in knots (forecast); the thin line is the gusts', lg_tide: 'tide (Copernicus)',
+    lg_waves: 'waves at the shore (or the open sea): the forecast, dashed', lg_band: 'measured band; at a beach it is carried by the island model, and the halo is the model\'s own error, which has not been measured', lg_wind: 'wind in knots (forecast, dashed); the thin line is the gusts', lg_tide: 'tide (Copernicus forecast, dashed)',
+    restsH: 'What this rests on', g_words: ['assumed', 'verified', 'compared', 'validated'],
+    g_gloss: ['adopted from a source or chosen; nothing here checked it', 'the code reproduces an exact solution of its own equations; not checked against the sea', 'checked against a model that keeps more of the physics, with the number; not against the sea', 'checked against observations of the sea itself, held out of the calibration, with the number'],
+    pr_sea: 'The open sea and its band', pr_seaEv: 'the band (ECMWF ∪ NOAA) covered {cov} of {n} satellite passes it had not seen; it claims 9 in 10.',
+    pr_isl: 'The island model', pr_islCmp: 'beside a Boussinesq model at this beach, on swells of 11 s and longer ({n} cases): the island reads {x} times its value (median).', pr_islNot: 'not compared at this beach; at the {k} beaches where it was, on swells of 11 s and longer, it reads {x} times a Boussinesq model (median).',
+    pr_brk: 'Breaking', pr_brkEv: 'the wave breaks at {g} times the depth (Thornton & Guza, 1982, measured 0.59 on another beach); no sandbars; inside 10 m the profile follows the chart\'s 10 m line.',
+    pr_meet: 'The arithmetic is exact; the weakest premise is <b>{g}</b>. The model\'s own error at the shore has not been measured.',
+    pr_low: 'At this beach the island reads less than the Boussinesq model: an “under the limit” here calls for more caution than the arithmetic shows.',
     gridH: 'When each activity is good', gridIsland: 'at the best beach for each hour; night left blank · tap an hour to go there', gridBeach: 'at {beach}; night left blank · tap an hour to go there',
     layers: 'Layers', L_waves: 'Waves', L_wind: 'Wind', L_currents: 'Currents', L_pois: 'Services',
-    legend_waves: 'each line is a crest; lighter and heavier, the higher the wave (m)', legend_wind: 'arrows on the water, pointing where the wind blows; longer and lighter, the stronger (knots)', legend_currents: 'longshore current; longer, faster (m/s); a ring = rip risk',
+    legend_waves: 'each line is a crest; lighter and heavier, the higher the wave (m). The crests are a picture of the island model, not a measurement', legend_wind: 'arrows on the water, pointing where the wind blows; longer and lighter, the stronger (knots)', legend_currents: 'longshore current; longer, faster (m/s); a ring = rip risk',
     mapNoteFast: 'At this zoom the crests move {x}× faster than real time so the motion can be seen; zoom in and they return to the true period.', mapNoteReal: 'At this zoom the crests move at the real period.',
     sosTitle: 'In an emergency', sosNote: 'Free calls from any phone.',
     n193: 'Fire brigade and lifeguards', n190: 'Military Police', n192: 'SAMU (ambulance)', n185: 'Navy — rescue at sea', n199: 'Civil Defence',
@@ -422,7 +442,7 @@ function drawDayStrip() {
     for (var k = n - 1; k >= 0; k--) g.lineTo(X(k), Y(sea[k].lo));
     g.closePath(); g.fillStyle = rgba(COL.ink3, 0.16); g.fill();
   }
-  g.beginPath(); sea.forEach(function (s, k) { if (k) g.lineTo(X(k), Y(s.size || 0)); else g.moveTo(X(k), Y(s.size || 0)); }); g.strokeStyle = COL.ink3; g.lineWidth = 1.2; g.stroke();
+  g.beginPath(); sea.forEach(function (s, k) { if (k) g.lineTo(X(k), Y(s.size || 0)); else g.moveTo(X(k), Y(s.size || 0)); }); g.strokeStyle = COL.ink3; g.lineWidth = 1.2; g.setLineDash(dashOf(1.2)); g.stroke(); g.setLineDash([]);
   g.fillStyle = COL.ink5; idx.forEach(function (i, k) { g.fillRect(Math.round(X(k)) - 0.5, H - 3, 1, 3); });
   var j = idx.indexOf(A.hour); if (j >= 0) { g.fillStyle = COL.ink; g.beginPath(); g.arc(X(j), Y(sea[j].size || 0), 3, 0, 7); g.fill(); }
 }
@@ -469,7 +489,7 @@ function drawSparks() {
     var vals = idx.map(function (i) { var c = b.rows[i].c; return c.hb == null ? 0 : c.hb; });
     g.beginPath(); g.moveTo(X(0), H); vals.forEach(function (v, j) { g.lineTo(X(j), Y(v)); }); g.lineTo(X(idx.length - 1), H); g.closePath();
     g.fillStyle = rgba(COL.ink2, 0.14); g.fill();
-    g.beginPath(); vals.forEach(function (v, j) { j ? g.lineTo(X(j), Y(v)) : g.moveTo(X(j), Y(v)); }); g.strokeStyle = COL.ink3; g.lineWidth = 1; g.stroke();
+    g.beginPath(); vals.forEach(function (v, j) { j ? g.lineTo(X(j), Y(v)) : g.moveTo(X(j), Y(v)); }); g.strokeStyle = COL.ink3; g.lineWidth = 1; g.setLineDash(dashOf(1)); g.stroke(); g.setLineDash([]);
     var j0 = idx.indexOf(A.hour); if (j0 >= 0) { g.fillStyle = COL.ink; g.beginPath(); g.arc(X(j0), Y(vals[j0]), 2, 0, 7); g.fill(); }
   });
 }
@@ -609,6 +629,7 @@ function renderCard() {
     '<p class="sw-guard">' + svgIcon('lifeguard', 14) + '<span>' + t('nearestGuard') + ': ' + guard + '</span></p>' +
     '<p class="sw-guard">' + svgIcon('info', 14) + '<span>' + t('cbmsc') + '</span></p>' +
     '<button class="sw-btn sw-sosline" data-sos>' + svgIcon('sos', 15) + '<span>' + t('sos') + ': 193 · 190 · 192 · 185</span></button>' +
+    (w.refused ? '' : restsOn(b)) +
     '<h2 class="sw-sec">' + t('cert') + '</h2>' + certBlock(b, i) +
     '<div class="actions"><button class="sw-btn" id="sw-card-cert">' + svgIcon('dl', 14) + t('certDl') + '</button></div>';
   $('#sw-card-back').onclick = closeCard;
@@ -619,6 +640,24 @@ function renderCard() {
   el.querySelector('[data-sos]').onclick = openSOS;
   el.querySelectorAll('.sw-arow:not(.na) .sw-ahead').forEach(function (x) { x.onclick = function () { var a = x.parentNode.dataset.act; A.open = A.open === a ? null : a; renderCard(); }; });
   requestAnimationFrame(function () { drawWeek(el.querySelector('canvas.week'), b); drawGrid(el.querySelector('canvas.grid'), b, true, 34, 0); });
+}
+/* WHAT THIS RESTS ON (WARRANT v2.1, models as premises — design/WARRANT.md). The card's numbers are decided in exact
+   arithmetic, and that is true; they are decided OVER premises, and each premise is checked to a different rung: the
+   open sea's band against satellites it never saw (validated), the island model against a Boussinesq model where one
+   was run (compared), the breaking ratio and the seafloor inside 10 m adopted (assumed). The chain names them in the
+   order the number travelled, every figure read from its record through CFG.premises, and the last line names the
+   weakest, because a conclusion is as checked as its least-checked premise. */
+function restsOn(b) {
+  var P = CFG.premises; if (!P || b.kind === 'lagoon') return '';
+  var I = P.island, cmp = I.byBeach[b.name];
+  var items = [
+    { label: t('pr_sea'), grade: W.VALIDATED, evidence: t('pr_seaEv', { cov: num(100 * P.band.coverage, 1) + '%', n: P.band.n.toLocaleString(LANG.cur === 'pt' ? 'pt-BR' : 'en') }) },
+    cmp ? { label: t('pr_isl'), grade: W.COMPARED, evidence: t('pr_islCmp', { n: cmp.n, x: num(cmp.medianRatio, 2) }) }
+      : { label: t('pr_isl'), grade: W.ASSUMED, evidence: t('pr_islNot', { k: I.beaches, x: num(I.long.medianRatio, 2) }) },
+    { label: t('pr_brk'), grade: W.ASSUMED, evidence: t('pr_brkEv', { g: num(P.gamma, 2) }) },
+  ];
+  var words = t('g_words'), weakest = W.weakest.apply(null, items.map(function (x) { return x.grade; }));
+  return '<h2 class="sw-sec">' + t('restsH') + '</h2>' + W.premisesHtml(items, { words: words, gloss: t('g_gloss'), meetLine: t('pr_meet', { g: words[weakest] }) + (cmp && cmp.medianRatio < 1 ? ' ' + t('pr_low') : '') });
 }
 /* the beach's measured trait (apps/swell/sim/foam.py): how much it usually breaks, as the satellites saw it */
 function foamRow(b) {
@@ -678,8 +717,8 @@ function drawWeek(cv, b) {
   g.beginPath(); var started = false;
   bands.forEach(function (bd, k) { if (!bd) return; var y = Y(bd[1] / 100); if (started) g.lineTo(X(k), y); else { g.moveTo(X(k), y); started = true; } });
   for (var k2 = N - 1; k2 >= 0; k2--) if (bands[k2]) g.lineTo(X(k2), Y(bands[k2][0] / 100));
-  if (started) { g.closePath(); g.fillStyle = rgba(COL.ink2, 0.18); g.fill(); }
-  g.beginPath(); vals.forEach(function (v, k) { if (k) g.lineTo(X(k), Y(v)); else g.moveTo(X(k), Y(v)); }); g.strokeStyle = COL.ink2; g.lineWidth = 1.4; g.stroke();
+  if (started) { g.closePath(); g.save(); g.shadowColor = rgba(COL.ink2, 0.55); g.shadowBlur = HALO; g.fillStyle = rgba(COL.ink2, 0.18); g.fill(); g.restore(); }
+  g.beginPath(); vals.forEach(function (v, k) { if (k) g.lineTo(X(k), Y(v)); else g.moveTo(X(k), Y(v)); }); g.strokeStyle = COL.ink2; g.lineWidth = 1.5; g.setLineDash(dashOf(1.5)); g.stroke(); g.setLineDash([]);
   g.strokeStyle = rgba(COL.ink3, 0.8); g.setLineDash([2, 3]); g.beginPath(); g.moveTo(X(A.fc.now), top - 2); g.lineTo(X(A.fc.now), bot); g.stroke(); g.setLineDash([]);
   g.fillStyle = COL.ink; g.fillRect(Math.round(X(A.hour)) - 0.75, top - 4, 1.5, bot - top + 4);
   g.font = '9.5px ' + ff; g.fillStyle = COL.ink3; g.textAlign = 'right'; g.fillText(metres(ymax / 1.1), W - 2, top + 8); g.textAlign = 'left';
@@ -839,7 +878,9 @@ function renderLayq() {
 }
 function mapNote() { var el = $('#sw-map-note'); if (!el) return; var s = WV.speed || 1; el.textContent = s > 1.5 ? t('mapNoteFast', { x: Math.round(s) }) : t('mapNoteReal'); }
 function renderLegend() {
-  $('#sw-tl-legend').innerHTML = [['wv', 'lg_waves'], ['bd', 'lg_band'], ['', 'lg_wind'], ['td', 'lg_tide']].map(function (x) { return '<i class="' + x[0] + '"></i><span>' + t(x[1]) + '</span>'; }).join('');
+  $('#sw-tl-legend').innerHTML = [['wv', 'lg_waves', 1.5], ['bd', 'lg_band', 0], ['wd', 'lg_wind', 1.5], ['td', 'lg_tide', 1]].map(function (x) {
+    var sw = x[2] ? '<line x1="1" y1="5" x2="23" y2="5" stroke-width="' + x[2] + '" stroke-dasharray="' + G.claim(x[2]) + '"/>' : '<rect x="3" y="1" width="18" height="8" rx="1"/>';
+    return '<svg class="' + x[0] + '" viewBox="0 0 24 10" aria-hidden="true">' + sw + '</svg><span>' + t(x[1]) + '</span>'; }).join('');
 }
 function applyStrings() {
   document.documentElement.lang = LANG.cur === 'pt' ? 'pt-BR' : 'en';
@@ -928,15 +969,16 @@ function drawTimeline() {
   g.beginPath(); var st = false;
   Sr.band.forEach(function (b, j) { if (!b) return; if (st) g.lineTo(X(j), Yh(b[1])); else { g.moveTo(X(j), Yh(b[1])); st = true; } });
   for (var j3 = N - 1; j3 >= 0; j3--) if (Sr.band[j3]) g.lineTo(X(j3), Yh(Sr.band[j3][0]));
-  if (st) { g.closePath(); g.fillStyle = rgba(COL.c2, 0.22); g.fill(); }
-  g.beginPath(); Sr.waves.forEach(function (v, j) { if (j) g.lineTo(X(j), Yh(v)); else g.moveTo(X(j), Yh(v)); }); g.strokeStyle = rgba(COL.c2, 0.95); g.lineWidth = 1.3; g.stroke();
-  g.beginPath(); Sr.gust.forEach(function (v, j) { if (j) g.lineTo(X(j), Yu(v)); else g.moveTo(X(j), Yu(v)); }); g.strokeStyle = rgba(COL.ink, 0.28); g.lineWidth = 0.8; g.stroke();
-  g.beginPath(); Sr.wind.forEach(function (v, j) { if (j) g.lineTo(X(j), Yu(v)); else g.moveTo(X(j), Yu(v)); }); g.strokeStyle = COL.ink; g.lineWidth = 1.5; g.stroke();
+  if (st) { g.closePath(); g.save(); if (Sr.b) { g.shadowColor = rgba(COL.c2, 0.6); g.shadowBlur = HALO; } g.fillStyle = rgba(COL.c2, 0.22); g.fill(); g.restore(); }
+  var line = function (vals, Y, col, w) { g.beginPath(); vals.forEach(function (v, j) { if (j) g.lineTo(X(j), Y(v)); else g.moveTo(X(j), Y(v)); }); g.strokeStyle = col; g.lineWidth = w; g.setLineDash(dashOf(w)); g.stroke(); g.setLineDash([]); };
+  line(Sr.waves, Yh, rgba(COL.c2, 0.95), 1.5);
+  line(Sr.gust, Yu, rgba(COL.ink, 0.28), 0.8);
+  line(Sr.wind, Yu, COL.ink, 1.5);
   var tv = Sr.tide.filter(function (v) { return v != null; });
   if (tv.length) {
     var lo = Math.min.apply(null, tv), hi = Math.max.apply(null, tv), y0 = bot - tideH;
     g.beginPath(); var st2 = false; Sr.tide.forEach(function (v, j) { if (v == null) return; var y = y0 + tideH - tideH * (v - lo) / Math.max(0.2, hi - lo); if (st2) g.lineTo(X(j), y); else { g.moveTo(X(j), y); st2 = true; } });
-    g.strokeStyle = COL.ink4; g.lineWidth = 1; g.stroke();
+    g.strokeStyle = COL.ink4; g.lineWidth = 1; g.setLineDash(dashOf(1)); g.stroke(); g.setLineDash([]);
   }
   g.strokeStyle = rgba(COL.ink3, 0.9); g.setLineDash([2, 3]); g.lineWidth = 1; g.beginPath(); g.moveTo(X(A.fc.now), top - 2); g.lineTo(X(A.fc.now), bot); g.stroke(); g.setLineDash([]);
   g.fillStyle = COL.ink; g.fillRect(Math.round(X(A.hour)) - 1, top - 4, 2, bot - top + 6);
