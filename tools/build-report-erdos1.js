@@ -27,6 +27,14 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('ERDOS1 REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.2 (design/WARRANT.md), 2026-10-28. Every number on this page is exact unless it is marked: a buffer ratio
+   measured in floats or a timing is COMPUTED, a sample picked by a seed is CHOSEN. The sets rest on lemmas the verifier
+   does not recompute at full size; §6 names them, each graded (a proof read and not run is assumed, rule 11). A printed
+   bound moves OUTWARD (design/outward.js): §7's f ≤ 1.7e-10 was an upper bound printed below its value 1.707…e-10. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const OUT = require(path.join(ROOT, 'design', 'outward.js'));
+const measured = (t, title) => W.value(t, W.COMPUTED, { title });
+const sampled = (t, title) => W.value(t, W.CHOSEN, { title });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const fmt = (n) => Number(n).toLocaleString('en-US');
 
@@ -71,6 +79,61 @@ const pending = L.unverified.filter((u) => u.why !== 'skipped by --k');
 const pendingFiles = [...new Set(pending.map((u) => u.file))];
 const siegelDims = Object.keys(L.siegel).sort((a, b) => a - b);
 const siegelBest = siegelDims.reduce((m, d) => (!m || Number(L.siegel[d].bound) > Number(L.siegel[m].bound) ? d : m), null);
+
+/* ---- THE TYPED NUMBERS (WARRANT rule 8), each read from a record or a run of this build ----------------------------
+   Found 2026-10-28, against the records: §3 said the brute-force cross-check reaches b ≤ 9 (the battery's reaches b ≤ 7);
+   that 11/20's "operator norm ‖EH⁻¹‖ is 3.5" (3.5 is the largest row sum of H⁻¹ in its build log; ‖EH⁻¹‖ = K/D is 6.05);
+   that the two-level buffers run 1.03–1.13·d (the scan's smallest is 1.023·d, at b = 5); and that k = ⌈log₂(rK)⌉ + 6 puts
+   every ratio within one percent of its limit (four instances in the ledger are between 1.2 and 1.5 percent over). */
+const batCube = /cube admissibility of Λ_1 by exhaustive search, d ≤ (\d+): no lattice vector in the open cube/.exec(bout);
+const batStrip = /brute-force CUBE\+STRIP and the structured strip decision agree and admit, b ≤ (\d+)/.exec(bout);
+if (!batCube || !batStrip) die('the battery no longer reports its exhaustive cube check or its brute-force strip cross-check');
+const cubeD = Number(batCube[1]), stripB = Number(batStrip[1]);
+/* the buffer scan, K/d per (b, s) at α = 1/2 (a float measurement), with the two three-level certificates beside it */
+const KSCAN = fs.readFileSync(path.join(ROOT, 'certs', 'erdos1', 'logs', 'kscan-levels-certmachine.log'), 'utf8');
+const scan = [...KSCAN.matchAll(/^b=\s*(\d+) s=(\d+) d=\s*\d+: .*?K\/d=\s*([0-9.]+)/gm)].map((m) => ({ b: Number(m[1]), s: Number(m[2]), kd: Number(m[3]) }));
+for (const c of L.certificates.filter((c) => c.alpha === '1/2' && c.s === 3 && !scan.some((x) => x.b === c.b && x.s === 3))) scan.push({ b: c.b, s: 3, kd: c.Kfloat / c.d });
+const kdRange = (s) => { const v = scan.filter((x) => x.s === s && x.b >= 5); return { lo: Math.min(...v.map((x) => x.kd)), hi: Math.max(...v.map((x) => x.kd)), bs: v.map((x) => x.b) }; };
+const KD2 = kdRange(2), KD3 = kdRange(3);
+if (!(KD2.bs.length >= 4 && KD3.bs.length >= 4)) die('the buffer scan no longer covers b = 5.. at two and three levels');
+const kdTxt = (r) => measured(OUT.down(r.lo, 2) + '–' + OUT.up(r.hi, 2), 'K/d as the buffer scan measured it (certs/erdos1/logs/kscan-levels-certmachine.log, and the certificates), printed to three digits in floats; this range rounded outward');
+const bRange = (r) => 'b = ' + Math.min(...r.bs) + ' to ' + Math.max(...r.bs);
+/* 11/20 at d = 2,197: K/d and the operator norm K/D, from the certificate's exact K */
+const C1120 = L.certificates.find((c) => c.alpha === '11/20' && c.d === 2197) || die('the 11/20 certificate at d = 2,197 is gone');
+const kd1120 = C1120.Kfloat / C1120.d, norm1120 = C1120.Kfloat / C1120.D;
+/* how close k = ⌈log₂(rK)⌉ + 6 brings the ratio to Δ_s/2, over every verified instance at or past that k (floats) */
+const excess = (() => {
+  let mx = 0, n = 0;
+  for (const c of L.certificates) {
+    const thr = Math.ceil(Math.log2(c.r * c.Kfloat)) + 6;
+    for (const I of inst.filter((I) => I.file === c.file && I.k >= thr)) { n++; mx = Math.max(mx, I.ratioFloat / c.deltaHalf - 1); }
+  }
+  if (!n) die('no verified instance reaches k = ⌈log₂(rK)⌉ + 6');
+  return { pct: Math.ceil(1000 * mx) / 10, n };
+})();
+/* Δ_s(α, b) for α = 13/20, b = 21, s = 3, exactly: (1 + α^b)^((b^s − 1)/(b − 1)) / (1 + α)^s */
+const delta065 = (() => {
+  const p = 13n, q = 20n, b = 21n, s = 3n, e = (b ** s - 1n) / (b - 1n);
+  const num = (q ** b + p ** b) ** e * q ** s, den = (q ** b) ** e * (p + q) ** s;
+  const m = num * 1000n / den;
+  return '0.' + m.toString().padStart(3, '0');
+})();
+if (delta065 !== '0.235') die('Δ_3(0.65, 21) no longer begins 0.235');
+/* the falsification probe at d = 729, run here: the cube property's full-size check is a sample, picked by a seed */
+const PROBE = (() => {
+  const py = path.join(ROOT, 'instruments', 'erdos1', '.venv', 'bin', 'python');
+  const r = cp.spawnSync(fs.existsSync(py) ? py : 'python3', [path.join(ROOT, 'instruments', 'erdos1', 'probe.py'), '9', '3'], { cwd: ROOT, encoding: 'utf8' });
+  const m = /probe b=9 s=3 d=729: (\d+) lattice vectors tested, (\d+) inside the open cube/.exec(String(r.stdout));
+  if (r.status !== 0 || !m || m[2] !== '0') die('the d = 729 probe did not run clean:\n' + String(r.stdout).slice(-300) + String(r.stderr).slice(-300));
+  return Number(m[1]);
+})();
+const probeTxt = sampled(fmt(PROBE), 'a sample, run at this build: every basis vector, sums and differences of neighbouring pairs, and 2,000 random combinations from seed 1 (instruments/erdos1/probe.py); each vector decided exactly, the sample chosen');
+/* the effective-rate record: c₀, the 48 decided (b, s), Bohman's Siegel value */
+const ER = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1', 'effective-rate.json'), 'utf8'));
+const BSR = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1', 'buffer-structure.json'), 'utf8'));
+if (!(/^ln\(3\/2\)\/2 = 0\.2027/.test(ER.c0) && BSR.cases === 48 && BSR.rows.length === 48)) die('c₀ = 0.2027… or the 48 (b, s) of buffer-structure.json moved');
+const bohmanSiegel = (() => { const m = 100000n * 10000n / (2n * 22002n); return (m / 10000n) + '.' + String(m % 10000n).padStart(4, '0'); })();   /* 1/(2·0.22002), floored */
+if (Number(L.bohman) !== 0.22002 || bohmanSiegel !== '2.2725') die('Bohman\'s constant or 1/0.44004 moved');
 
 /* ---- the figure: every verified instance, N/2^n against n ------------------- */
 const pts = inst.map((I) => ({
@@ -135,10 +198,17 @@ O.push(C.stats([
   { k: 'verified instances', v: String(L.counts.verified), n: L.counts.verifiedBelowBohman + ' below Bohman · ' + L.counts.certificates + ' certificates · ' + fmt(passLines) + ' verifier checks passed on this machine' }
 ]));
 
+/* the marks, said once (WARRANT rule 9) */
+O.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is exact unless it is marked. '
+  + 'N/2<sup>n</sup> is printed to six decimals, rounded to nearest: a value, not a bound; whether a set is below Bohman\'s 0.22002 is decided exactly, and the percentage below it is rounded down. '
+  + 'Underlined dashed: a buffer ratio measured in floats, or a timing. Underlined dotted: a sample picked by a seed. '
+  + 'The sets rest on lemmas the verifier does not recompute at full size; §6 lists them with how far each was checked.')
+  + W.legendHtml({ exclude: [W.REFUSED], compact: true }) }) + '</div>');
+
 O.push(C.scope('Local working document, machine-derived, not peer-reviewed. The sets are theorems: every step of the chain '
   + 'is a finite exact computation the verifier repeats, and the two structural lemmas it does not recompute at full '
   + 'size (the cube property of the base lattice, for Bloom\'s gadget and for every tilt) are proved in the theorem note, '
-  + 'checked exhaustively for d ≤ 9 at every build, and probed at full size. The construction is the one in the Astra '
+  + 'checked exhaustively for d ≤ ' + cubeD + ' at every build, and probed at full size (§6 grades each). The construction is the one in the Astra '
   + 'proof as read by Bloom; what is new here is the effective transfer, the tilt lemmas, the Siegel numbers and the '
   + 'sets themselves. Nothing here is a Lean proof.'));
 
@@ -180,7 +250,8 @@ O.push(C.section({
     + C.note({ lab: 'the best instance', bodyRaw: C.pRaw('b = ' + best.b + ', s = ' + best.s + ', α = ' + best.alpha + ': d = ' + fmt(best.d)
       + ', D = ' + fmt(bestC.D) + ', Δ<sub>s</sub> = ' + bestC.delta.toFixed(6) + ', K = ' + fmt(bestC.Kfloat.toFixed(1)) + ' (about '
       + (bestC.Kfloat / best.d).toFixed(1) + '·d), k = ' + best.k + ', t = ' + fmt(best.t) + '. The ' + fmt(best.d) + ' base weights differ from each '
-      + 'other by at most ' + (100 * inst.find((I) => I.file === best.file && I.k === best.k).spread).toExponential(2) + '%: the set is '
+      /* "at most": the ledger keeps the spread rounded to 12 decimals, so half a unit there is added before it rounds UP */
+      + 'other by at most ' + OUT.sci(100 * (inst.find((I) => I.file === best.file && I.k === best.k).spread + 5e-13), 1, true) + '%: the set is '
       + fmt(best.d) + ' integers of about ' + fmt(best.Ndigits - best.k + 1) + ' digits, each times the first ' + best.k + ' powers of two.') })
 }));
 
@@ -205,7 +276,7 @@ O.push(C.section({
         + 'z<sub>i</sub> = −z<sub>i</sub>. <strong>The strip property is decided exactly per (α, b)</strong> by a finite search '
         + 'that a structure lemma makes small: the largest integer coordinate has modulus below 1/(1−α) and sits at the last '
         + 'index, so one enumerates the integer chains backwards and intersects the two constraints on the real coordinate — '
-        + 'milliseconds at b = 31, and cross-validated against a brute-force decision of both properties for b ≤ 9. Larger '
+        + measured('milliseconds', 'a timing from the theorem note, not measured at this build') + ' at b = 31, and cross-validated against a brute-force decision of both properties for b ≤ ' + stripB + ' at every build. Larger '
         + 'tilts pay in covolume and gain in height, so the best tilt depends on the dimension budget, and it beats 1/2 at '
         + 'every budget: at d = 81 the tilt 3/5 already crosses Bohman where Bloom\'s gadget needs d = 729, and at d = 441 the '
         + 'tilt 3/4 reaches ' + (d441 ? d441.ratio6 : '—') + ' where the 729-dimensional Bloom lattice reaches ' + (d729 ? d729.ratio6 : '—')
@@ -214,15 +285,17 @@ O.push(C.section({
         cols: [{ h: 'b' }, { h: 's' }, { h: 'α' }, { h: 'd', cls: 'n' }, { h: 'D', cls: 'n' }, { h: 'Δ_s', cls: 'n' }, { h: 'Δ_s / 2 (the limit)', cls: 'n' }, { h: 'buffer K', cls: 'n' }, { h: 'K / d', cls: 'n' }, { h: 'best verified N/2^n', cls: 'n' }],
         rows
       })
-      + '<div class="col">' + C.pRaw('The buffer is the number the proof never computed, and it is small: 1.03–1.13·d for the two-level Bloom '
-        + 'lattices and 1.6–2.35·d for the three-level ones. Measured level by level at fixed b, its operator norm grows by about '
+      + '<div class="col">' + C.pRaw('The buffer is the number the proof never computed, and it is small: ' + kdTxt(KD2) + '·d for the two-level Bloom '
+        + 'lattices (' + bRange(KD2) + ') and ' + kdTxt(KD3) + '·d for the three-level ones (' + bRange(KD3) + '). Measured level by level at fixed b, its operator norm grows by about '
         + 'b/2 from the first level to the second and by about b from the second to the third — the dimension times a slowly '
         + 'growing function of the level, polynomial in d — more than the effective theorem needs, since a crude bound already gives it (§7) — '
         + '(the scan is certs/erdos1/logs/kscan-levels-certmachine.log; in every case the longest row of H⁻¹ is the '
         + 'first, the dual vector of the last projected coordinate). A tilt with denominator q '
-        + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = 2,197 carries K ≈ 22·d while its operator norm '
-        + '‖EH<sup>−1</sup>‖ is 3.5; small denominators are the lever. A bound on K as a function of (b, s) is exactly '
-        + 'what the effective asymptotic theorem still needs (§7).') + '</div>'
+        + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = ' + fmt(C1120.d) + ' carries K ≈ ' + measured(kd1120.toFixed(0), 'K/d, the exact K divided in floats') + '·d while its operator norm '
+        + '‖EH<sup>−1</sup>‖ = K/D is only about ' + measured(norm1120.toFixed(0), 'K/D = ' + norm1120.toFixed(3) + ', the exact K divided in floats') + ' (D = ' + fmt(C1120.D) + '); small denominators are the lever. A structural bound on K as a function of (b, s) '
+        + 'is no longer what the effective asymptotic theorem needs, a crude one gives it; a structural one would double its constant (§7). '
+        /* until 2026-10-28 this sentence still said the effective theorem needs such a bound, which §7 retracts */
+        + '') + '</div>'
   }));
 }
 
@@ -249,7 +322,7 @@ O.push(C.section({
       })
       + '<div class="col">' + C.pRaw('At finite k the ratio exceeds Δ<sub>s</sub>/2 by roughly the factor (1 + (K + D)/2<sup>k</sup>)<sup>r</sup> from the '
         + 'rounding of t, plus the lower-order terms of the recurrence, all of which the certificate carries exactly; '
-        + 'k = ⌈log<sub>2</sub>(rK)⌉ + 6 already puts the ratio within one percent of the limit. Three-level lattices with Bloom\'s '
+        + 'k = ⌈log<sub>2</sub>(rK)⌉ + 6 already puts the ratio within ' + measured(excess.pct + ' percent', 'the largest excess of N/2^n over Δ_s/2 among the ' + excess.n + ' verified instances at or past that k, in floats, rounded up; until 2026-10-28 this read "one percent", which four of them exceed') + ' of the limit, in every verified instance here. Three-level lattices with Bloom\'s '
         + 'gadget need b ≥ 9 to cross Bohman (d = 729); the tilted two-level lattices cross at d = 81.')
       + (pending.length ? C.pRaw('<strong>Not on this page:</strong> ' + pending.length + ' instance' + (pending.length > 1 ? 's' : '') + ' in '
         + pendingFiles.length + ' certificate' + (pendingFiles.length > 1 ? 's' : '') + ' (' + pendingFiles.map((f) => f.replace(/^cert-/, '').replace(/\.json(\.gz)?$/, '')).join(', ')
@@ -291,11 +364,19 @@ O.push(C.section({
     + C.pRaw('The inputs the verifier does not recompute at full size are the cube property of the base lattice — Bloom\'s '
       + 'Lemma 1 for α = 1/2, formalised in Lean for the identical gadget, and Lemma 1′ for every tilt, proved in the theorem '
       + 'note — and the strip property, decided per (α, b) by the structured search. At every build the battery checks Δ<sub>s</sub> '
-      + 'against an exact determinant on small lattices, the cube property exhaustively for d ≤ 9, the structured strip decision '
-      + 'against a brute-force one for b ≤ 7, and every (α, b) in the ledger; the instrument\'s probes test thousands of lattice '
-      + 'vectors at full dimension (18,612 at d = 729, none inside the cube). The battery also plants forgeries the verifier must '
+      + 'against an exact determinant on small lattices, the cube property exhaustively for d ≤ ' + cubeD + ', the structured strip decision '
+      + 'against a brute-force one for b ≤ ' + stripB + ', and every (α, b) in the ledger; the instrument\'s probe tests ' + probeTxt + ' lattice '
+      + 'vectors at d = 729, none inside the cube, at this build. The battery also plants forgeries the verifier must '
       + 'refuse — a base weight off by one, a halved buffer, a Hermite entry off by one, a gadget that violates the cube '
       + 'condition, a verifier log that did not end green — ' + nReds + ' of ' + nReds + ' fired at this build, ' + nChecks + ' checks green.')
+    /* WHAT THE SETS REST ON (WARRANT v2.1, rule 11): the lemmas between the verifier's finite checks and "all 2^n subset
+       sums are distinct", each graded from what a machine here ran; a proof read and not run is assumed (2026-10-28) */
+    + C.pRaw('<b>What the sets rest on</b>, beyond the finite checks V0–V7, in the order the argument uses them:') + W.premisesHtml([
+      { grade: W.ASSUMED, label: 'The cube property of the base lattice, α = 1/2', evidence: 'Bloom\'s Lemma 1, formalised in Lean for the identical gadget (' + C.m('composeMatrix_admissible') + ', tadamcz/erdos1 at 0e395153, pinned in the corpus) but not run here; checked exhaustively for d ≤ ' + cubeD + ' and probed at d = 729' },
+      { grade: W.ASSUMED, label: 'The cube property for every tilt α', evidence: 'Lemma 1′, the three-line argument of §3 and the theorem note: read; checked exhaustively for d ≤ ' + cubeD + ' at every build' },
+      { grade: W.ASSUMED, label: 'The structure lemma that makes the strip search finite', evidence: 'read in the theorem note; the structured decision agrees with a brute-force one for b ≤ ' + stripB + ', and is decided exactly for every (α, b) a certificate uses' },
+      { grade: W.ASSUMED, label: 'From V0–V7 to all 2^n subset sums distinct', evidence: 'saturation, the buffer inequality and the binary-block lemma (§2; ' + C.m('exists_binary_block_set') + ' in the same Lean resolution): read; every finite hypothesis they need is decided per certificate by the verifier' }
+    ], { meetLine: 'Every finite condition is decided exactly on this machine; the weakest premise is <b>assumed</b>: the lemmas that carry those conditions to a sum-distinct set are proved in the theorem note or in a Lean file this machine does not run, and read here.' })
     + C.pRaw('The verifier needs FLINT (python-flint), so it is not a standard-library verifier like the three on the landing '
       + 'page; it is detached all the same — one file, no code shared with the builder beyond the definition of the lattice, '
       + 'which it must share to rebuild it.')
@@ -312,7 +393,7 @@ O.push(C.section({
       + '(checked entry by entry on ' + ER.lemma5.length + ' cached forms). That gives, for every odd b and s, f(n) ≤ e·Δ<sub>s</sub> for all '
       + 'n ≥ d(d + ⌈log<sub>2</sub> d⌉ + s), and with b chosen against s, f(n) ≤ n<sup>−(c₀ − o(1))/ln ln n</sup> with c₀ = ½ ln(3/2) = 0.2027… — '
       + 'the effective statement Bloom expects, every constant explicit (the theorem note\'s §3a; tabulated for s = 1..' + last.s + ' in '
-      + '<a href="/certs/erdos1/effective-rate.json">effective-rate.json</a>: at s = ' + last.s + ', b = ' + last.b + ', f ≤ ' + C.esc(Number(last.fBoundUpper).toPrecision(2)) + '). '
+      + '<a href="/certs/erdos1/effective-rate.json">effective-rate.json</a>: at s = ' + last.s + ', b = ' + last.b + ', f ≤ ' + C.esc(OUT.sci(Number(last.fBoundUpper), 1, true)) + '). '
       + 'Earlier versions of this page said a structural bound on K was needed; it is not. A structural bound — such as the b-independent '
       + 'sparsity of H stated in a note of 2026-10-18 and decided on 48 (b, s) in <a href="/certs/erdos1/buffer-structure.json">buffer-structure.json</a>, '
       + 'not yet proved — would double c₀. ')

@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The supremum side of Erdős #1038 · cert-machine</title>
+<title>Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo</title>
 <meta name="description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos1038-sup.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos1038-sup.html">
-<meta property="og:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta property="og:title" content="Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo">
 <meta property="og:description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The supremum side of Erdős #1038 · cert-machine">
+<meta name="twitter:title" content="Erdős #1038, supremum side: Tao's theorem re-decided degree by degree · Carlos Toledo">
 <meta name="twitter:description" content="Erdős #1038, supremum side: Tao&#39;s theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The supremum side of Erdős #1038 · cert-machine","description":"Erdős #1038, supremum side: Tao's theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.","url":"https://carlostoledo.co/reports/erdos1038-sup.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038, supremum side: Tao's theorem re-decided degree by degree","description":"Erdős #1038, supremum side: Tao's theorem sup = 2√2 (December 2025) re-decided degree by degree in exact arithmetic — odd degrees 3, 5 and 7 below 2.82; even degrees 4, 6 and 8 placed in [2√2, 2.82845] with the two-atom witness at the left end. Independent re-decisions of a known theorem, not progress; machine-derived, not peer-reviewed.","url":"https://carlostoledo.co/reports/erdos1038-sup.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -583,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -673,13 +756,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">erdős #1038 · the supremum side · teorth/erdosproblems #179</div>
-  <h1>How shallow can a lemniscate stay?</h1>
+  <h1>Erdős #1038, supremum side: Tao's theorem re-decided degree by degree</h1>
+<p class="standfirst">How shallow can a lemniscate stay?</p>
   <p class="deck">On 16 December 2025 Tao reformulated Erdős #1038 over discrete probability measures, asked for the supremum of |{U_μ &lt; 0}|, and conjectured 2√2 — “this may be hard to prove completely.” Within the week the problem&#39;s forum had a proof, written up by Tao with its equality case. For rational weights the question is about root-constrained polynomials, decidable degree by degree; this machine re-decided degrees 3 to 8 in exact arithmetic, sharing no idea and no code with the proof: the odd ones stay below 2.82, and the even ones are placed in [2√2, 2.82845]. Re-decisions of a known theorem, not progress on it.</p>
 </header>
 
@@ -687,17 +771,22 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> For every monic polynomial of degree <b>3, 5 or 7</b> with all roots in [−1,1]: <span class="m">|{|q|&lt;1}| &lt; 2.82 &lt; 2√2</span> — an explicit margin under the supremum. That each odd degree falls strictly below 2√2 already follows from Tao's equality clause; the 2.82 is what the certificates add. For degrees <b>4, 6 and 8</b>: the degree supremum lies in <span class="m">[2√2, 2.82845]</span>, the left end attained by (x²−1)^{N/2} — 2.3×10⁻⁵ weaker than the theorem, which gives exactly 2√2.</li><li><b>The mechanism.</b> Rational weights with denominator N make <span class="m">U_μ &lt; 0</span> exactly <span class="m">|q(x)| &lt; 1</span> for a monic degree-N polynomial with roots in [−1,1]. Sublevel measures are certified by BigInt Sturm isolation of the boundary roots; a branch-and-bound over root boxes prunes with the pointwise bound <span class="m">|q_r(x)| ≥ Π dist(x, I_i)</span>, whose own sublevel measure is computed the same way and equals the true measure on thin boxes.</li><li><b>Check it.</b> <span class="m">node tools/run-sublevel-campaign.js</span> re-derives everything; <span class="m">node instruments/sublevel/battery.js</span> re-proves the degree-3 theorem and the degree-4 localization at every run, in under a second, plus 3 red controls.</li></ul>
+<ul class="plain"><li><b>The finding.</b> For every monic polynomial of degree <b>3, 5 or 7</b> with all roots in [−1,1]: <span class="m">|{|q|&lt;1}| &lt; 2.82 &lt; 2√2</span> — an explicit margin under the supremum. That each odd degree falls strictly below 2√2 already follows from Tao's equality clause; the 2.82 is what the certificates add. For degrees <b>4, 6 and 8</b>: the degree supremum lies in <span class="m">[2√2, 2.82845]</span>, the left end attained by (x²−1)^{N/2} — 2.3×10⁻⁵ weaker than the theorem, which gives exactly 2√2 (<i>given Tao's Theorem 2.1, read and not machine-checked here</i>; the certificates never use it).</li><li><b>The mechanism.</b> Rational weights with denominator N make <span class="m">U_μ &lt; 0</span> exactly <span class="m">|q(x)| &lt; 1</span> for a monic degree-N polynomial with roots in [−1,1]. Sublevel measures are certified by BigInt Sturm isolation of the boundary roots; a branch-and-bound over root boxes prunes with the pointwise bound <span class="m">|q_r(x)| ≥ Π dist(x, I_i)</span>, whose own sublevel measure is computed the same way and equals the true measure on thin boxes.</li><li><b>Check it.</b> <span class="m">node tools/run-sublevel-campaign.js</span> re-derives everything; <span class="m">node instruments/sublevel/battery.js</span> re-proves the degree-3 theorem and the degree-4 localization at every run — 6 checks and 3 red controls, <span class="w-val w-computed" title="a wall-clock time, measured: not decided">in under a second</span> at this build.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="4">
     <div class="stat"><div class="k">per-degree theorems</div><div class="v">6</div><div class="n">Degrees 3, 4, 5, 6, 7, 8 — each a branch-and-bound certificate tree over all root configurations.</div></div>
-    <div class="stat"><div class="k">the witness</div><div class="v">2√2</div><div class="n">x²−1: certified [2.8284271247, 2.8284271247] — the two-atom measure, the only maximizer by Tao&#39;s theorem.</div></div>
+    <div class="stat"><div class="k">the witness</div><div class="v">2√2</div><div class="n">x²−1: certified [2.8284271247, 2.8284271248] — the two-atom measure, the only maximizer by Tao&#39;s theorem.</div></div>
     <div class="stat"><div class="k">box certificates</div><div class="v">66,676</div><div class="n">Across all theorems; the cubic needed 127 boxes, the heaviest even degree carries the rest.</div></div>
     <div class="stat"><div class="k">configurations swept</div><div class="v">838</div><div class="n">Certified grid champions behind the landscape story, before any theorem was attempted.</div></div>
   </div>
 </div>
+
+<div class="col"><div class="note">
+  <span class="lab">how to read the marks</span>
+<p>Every number on this page is a certified enclosure or an exact rational, printed outward, unless it is marked. Underlined dashed: a time on a clock. ∅: the degree the budget could not close (§4). In the figure each dot is decided and the dotted line between dots is a picture of them. Tao's theorem is named in italic where the page leans on it; the certificates themselves never do.</p><div class="w-legend compact" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+</div></div>
 
 <section class="col">
   <div class="sec-head">
@@ -716,7 +805,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>Sublevel measures, certified</h2>
   </div>
 <div class="col"><p>The boundary of {|q| &lt; 1} consists of roots of the integer polynomials A ∓ dᴺ (A the root-scaled form of q). Those are isolated and refined by the BigInt Sturm machinery of the trigmin instrument — the code calibrated on Mercer's closed forms in the λ(4) campaign — and each gap between boundary roots is decided by one exact rational comparison. The measure is summed outward: a true enclosure, never a float.</p></div>
-<div class="wide"><div class="tw"><table><thead><tr><th>polynomial</th><th>certified measure of {|q|&lt;1}</th><th>exact value</th></tr></thead><tbody><tr><td>x² − 1</td><td class="v">[2.828427124746, 2.828427124747]</td><td>2√2 = 2.8284271247…</td></tr><tr><td>x²</td><td class="v">[1.999999999999, 2.000000000000]</td><td>2</td></tr><tr><td>x</td><td class="v">[2.000000000000, 2.000000000001]</td><td>2</td></tr><tr><td>(x−1)²</td><td class="v">[2.000000000000, 2.000000000001]</td><td>2</td></tr><tr><td>(x²−1)²</td><td class="v">[2.828427124745, 2.828427124746]</td><td>2√2 again — even powers of the witness keep it</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>polynomial</th><th>certified measure of {|q|&lt;1}</th><th>exact value</th></tr></thead><tbody><tr><td>x² − 1</td><td class="v">[2.828427124745, 2.828427124747]</td><td>2√2 = 2.8284271247…</td></tr><tr><td>x²</td><td class="v">[1.999999999999, 2.000000000001]</td><td>2</td></tr><tr><td>x</td><td class="v">[1.999999999999, 2.000000000001]</td><td>2</td></tr><tr><td>(x−1)²</td><td class="v">[1.999999999999, 2.000000000001]</td><td>2</td></tr><tr><td>(x²−1)²</td><td class="v">[2.828427124745, 2.828427124747]</td><td>2√2 again — even powers of the witness keep it</td></tr></tbody></table></div></div>
 <div class="col"><p>The last row is why even degrees are different: powers of the witness keep its measure, so (x²−1)^{N/2} attains 2√2 at every even degree, and no even degree can fall strictly below 2√2 the way the odd ones do.</p></div>
 </section>
 
@@ -727,183 +816,181 @@ ul.plain b{color:var(--ink);font-weight:480}
   </div>
 <div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 380" role="img" aria-label="Two certified curves of sublevel measure against the free root r. The cubic family (x²−1)(x−r) rises to an interior maximum near r = 0.785 at about 2.754 and falls as r reaches 1. The quintic family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then descends steeply — the sublevel set splits into two intervals. A dashed rule marks 2√2, above both curves.">
-    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
-    <line x1="62" y1="279.8" x2="878" y2="279.8" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="283.8" text-anchor="end" class="t-ax">2.4</text>
-    <line x1="62" y1="227.5" x2="878" y2="227.5" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="231.5" text-anchor="end" class="t-ax">2.5</text>
-    <line x1="62" y1="175.1" x2="878" y2="175.1" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="179.1" text-anchor="end" class="t-ax">2.6</text>
-    <line x1="62" y1="122.7" x2="878" y2="122.7" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="126.7" text-anchor="end" class="t-ax">2.7</text>
-    <line x1="62" y1="70.4" x2="878" y2="70.4" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="74.4" text-anchor="end" class="t-ax">2.8</text>
-    <line x1="62" y1="55.5" x2="878" y2="55.5" stroke="var(--c-grid)" stroke-width="1"/>
-    <text x="53.0" y="59.5" text-anchor="end" class="t-ax">2√2</text>
-    <line x1="62.0" y1="306" x2="62.0" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="62.0" y="326.0" text-anchor="middle" class="t-ax">0.5</text>
-    <line x1="225.2" y1="306" x2="225.2" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="225.2" y="326.0" text-anchor="middle" class="t-ax">0.6</text>
-    <line x1="388.4" y1="306" x2="388.4" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="388.4" y="326.0" text-anchor="middle" class="t-ax">0.7</text>
-    <line x1="551.6" y1="306" x2="551.6" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="551.6" y="326.0" text-anchor="middle" class="t-ax">0.8</text>
-    <line x1="714.8" y1="306" x2="714.8" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="714.8" y="326.0" text-anchor="middle" class="t-ax">0.9</text>
-    <line x1="878.0" y1="306" x2="878.0" y2="311" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="878.0" y="326.0" text-anchor="middle" class="t-ax">1.0</text>
-    <line x1="62" y1="306" x2="878" y2="306" stroke="var(--c-axis)" stroke-width="1"/>
-    <text x="470.0" y="348.0" text-anchor="middle" class="t-note">the free root r (remaining roots pinned at ±1; quintic pins them double)</text>
-    <line x1="62" y1="55.5" x2="878" y2="55.5" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="1.5 2"/>
-    <text x="874.0" y="49.5" text-anchor="end" class="t-note">2√2 — the supremum (Tao, December 2025)</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="306" stroke="var(--c-axis)" stroke-width="1"/>
-    <path d="M62.00 127.59 L74.75 126.89 L87.50 126.18 L100.25 125.46 L113.00 124.73 L125.75 123.99 L138.50 123.24 L151.25 122.47 L164.00 121.69 L176.75 120.90 L189.50 120.10 L202.25 119.29 L215.00 118.46 L227.75 117.62 L240.50 116.77 L253.25 115.91 L266.00 115.04 L278.75 114.15 L291.50 113.25 L304.25 112.34 L317.00 111.42 L329.75 110.48 L342.50 109.53 L355.25 108.57 L368.00 107.60 L380.75 106.61 L393.50 105.61 L406.25 104.60 L419.00 103.58 L431.75 102.54 L444.50 101.49 L457.25 100.43 L470.00 99.36 L482.75 98.27 L495.50 97.17 L508.25 96.05 L521.00 94.93 L533.75 108.79 L546.50 156.72 L559.25 180.86 L572.00 199.26 L584.75 214.63 L597.50 228.05 L610.25 240.06 L623.00 251.01 L635.75 261.11 L648.50 270.51 L661.25 279.32 L674.00 287.62 L686.75 295.49 L699.50 302.96 L712.25 310.09 L725.00 316.90 L737.75 323.43 L750.50 329.70 L763.25 335.74 L776.00 341.55 L788.75 347.15 L801.50 352.57 L814.25 357.81 L827.00 362.87 L839.75 367.78 L852.50 372.54 L865.25 377.15 L878.00 381.63" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="381.63" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
-    <circle cx="62.00" cy="127.59" r="12" fill="transparent" data-cmx="62.00" data-cm="cubic (x²−1)(x−r) · 0.5" data-cmv="2.69" tabindex="0"/>
-    <circle cx="74.75" cy="126.89" r="12" fill="transparent" data-cmx="74.75" data-cm="cubic (x²−1)(x−r) · 0.51" data-cmv="2.69" tabindex="0"/>
-    <circle cx="87.50" cy="126.18" r="12" fill="transparent" data-cmx="87.50" data-cm="cubic (x²−1)(x−r) · 0.52" data-cmv="2.69" tabindex="0"/>
-    <circle cx="100.25" cy="125.46" r="12" fill="transparent" data-cmx="100.25" data-cm="cubic (x²−1)(x−r) · 0.52" data-cmv="2.69" tabindex="0"/>
-    <circle cx="113.00" cy="124.73" r="12" fill="transparent" data-cmx="113.00" data-cm="cubic (x²−1)(x−r) · 0.53" data-cmv="2.70" tabindex="0"/>
-    <circle cx="125.75" cy="123.99" r="12" fill="transparent" data-cmx="125.75" data-cm="cubic (x²−1)(x−r) · 0.54" data-cmv="2.70" tabindex="0"/>
-    <circle cx="138.50" cy="123.24" r="12" fill="transparent" data-cmx="138.50" data-cm="cubic (x²−1)(x−r) · 0.55" data-cmv="2.70" tabindex="0"/>
-    <circle cx="151.25" cy="122.47" r="12" fill="transparent" data-cmx="151.25" data-cm="cubic (x²−1)(x−r) · 0.55" data-cmv="2.70" tabindex="0"/>
-    <circle cx="164.00" cy="121.69" r="12" fill="transparent" data-cmx="164.00" data-cm="cubic (x²−1)(x−r) · 0.56" data-cmv="2.70" tabindex="0"/>
-    <circle cx="176.75" cy="120.90" r="12" fill="transparent" data-cmx="176.75" data-cm="cubic (x²−1)(x−r) · 0.57" data-cmv="2.70" tabindex="0"/>
-    <circle cx="189.50" cy="120.10" r="12" fill="transparent" data-cmx="189.50" data-cm="cubic (x²−1)(x−r) · 0.58" data-cmv="2.71" tabindex="0"/>
-    <circle cx="202.25" cy="119.29" r="12" fill="transparent" data-cmx="202.25" data-cm="cubic (x²−1)(x−r) · 0.59" data-cmv="2.71" tabindex="0"/>
-    <circle cx="215.00" cy="118.46" r="12" fill="transparent" data-cmx="215.00" data-cm="cubic (x²−1)(x−r) · 0.59" data-cmv="2.71" tabindex="0"/>
-    <circle cx="227.75" cy="117.62" r="12" fill="transparent" data-cmx="227.75" data-cm="cubic (x²−1)(x−r) · 0.6" data-cmv="2.71" tabindex="0"/>
-    <circle cx="240.50" cy="116.77" r="12" fill="transparent" data-cmx="240.50" data-cm="cubic (x²−1)(x−r) · 0.61" data-cmv="2.71" tabindex="0"/>
-    <circle cx="253.25" cy="115.91" r="12" fill="transparent" data-cmx="253.25" data-cm="cubic (x²−1)(x−r) · 0.62" data-cmv="2.71" tabindex="0"/>
-    <circle cx="266.00" cy="115.04" r="12" fill="transparent" data-cmx="266.00" data-cm="cubic (x²−1)(x−r) · 0.63" data-cmv="2.71" tabindex="0"/>
-    <circle cx="278.75" cy="114.15" r="12" fill="transparent" data-cmx="278.75" data-cm="cubic (x²−1)(x−r) · 0.63" data-cmv="2.72" tabindex="0"/>
-    <circle cx="291.50" cy="113.25" r="12" fill="transparent" data-cmx="291.50" data-cm="cubic (x²−1)(x−r) · 0.64" data-cmv="2.72" tabindex="0"/>
-    <circle cx="304.25" cy="112.34" r="12" fill="transparent" data-cmx="304.25" data-cm="cubic (x²−1)(x−r) · 0.65" data-cmv="2.72" tabindex="0"/>
-    <circle cx="317.00" cy="111.42" r="12" fill="transparent" data-cmx="317.00" data-cm="cubic (x²−1)(x−r) · 0.66" data-cmv="2.72" tabindex="0"/>
-    <circle cx="329.75" cy="110.48" r="12" fill="transparent" data-cmx="329.75" data-cm="cubic (x²−1)(x−r) · 0.66" data-cmv="2.72" tabindex="0"/>
-    <circle cx="342.50" cy="109.53" r="12" fill="transparent" data-cmx="342.50" data-cm="cubic (x²−1)(x−r) · 0.67" data-cmv="2.73" tabindex="0"/>
-    <circle cx="355.25" cy="108.57" r="12" fill="transparent" data-cmx="355.25" data-cm="cubic (x²−1)(x−r) · 0.68" data-cmv="2.73" tabindex="0"/>
-    <circle cx="368.00" cy="107.60" r="12" fill="transparent" data-cmx="368.00" data-cm="cubic (x²−1)(x−r) · 0.69" data-cmv="2.73" tabindex="0"/>
-    <circle cx="380.75" cy="106.61" r="12" fill="transparent" data-cmx="380.75" data-cm="cubic (x²−1)(x−r) · 0.7" data-cmv="2.73" tabindex="0"/>
-    <circle cx="393.50" cy="105.61" r="12" fill="transparent" data-cmx="393.50" data-cm="cubic (x²−1)(x−r) · 0.7" data-cmv="2.73" tabindex="0"/>
-    <circle cx="406.25" cy="104.60" r="12" fill="transparent" data-cmx="406.25" data-cm="cubic (x²−1)(x−r) · 0.71" data-cmv="2.73" tabindex="0"/>
-    <circle cx="419.00" cy="103.58" r="12" fill="transparent" data-cmx="419.00" data-cm="cubic (x²−1)(x−r) · 0.72" data-cmv="2.74" tabindex="0"/>
-    <circle cx="431.75" cy="102.54" r="12" fill="transparent" data-cmx="431.75" data-cm="cubic (x²−1)(x−r) · 0.73" data-cmv="2.74" tabindex="0"/>
-    <circle cx="444.50" cy="101.49" r="12" fill="transparent" data-cmx="444.50" data-cm="cubic (x²−1)(x−r) · 0.73" data-cmv="2.74" tabindex="0"/>
-    <circle cx="457.25" cy="100.43" r="12" fill="transparent" data-cmx="457.25" data-cm="cubic (x²−1)(x−r) · 0.74" data-cmv="2.74" tabindex="0"/>
-    <circle cx="470.00" cy="99.36" r="12" fill="transparent" data-cmx="470.00" data-cm="cubic (x²−1)(x−r) · 0.75" data-cmv="2.74" tabindex="0"/>
-    <circle cx="482.75" cy="98.27" r="12" fill="transparent" data-cmx="482.75" data-cm="cubic (x²−1)(x−r) · 0.76" data-cmv="2.75" tabindex="0"/>
-    <circle cx="495.50" cy="97.17" r="12" fill="transparent" data-cmx="495.50" data-cm="cubic (x²−1)(x−r) · 0.77" data-cmv="2.75" tabindex="0"/>
-    <circle cx="508.25" cy="96.05" r="12" fill="transparent" data-cmx="508.25" data-cm="cubic (x²−1)(x−r) · 0.77" data-cmv="2.75" tabindex="0"/>
-    <circle cx="521.00" cy="94.93" r="12" fill="transparent" data-cmx="521.00" data-cm="cubic (x²−1)(x−r) · 0.78" data-cmv="2.75" tabindex="0"/>
-    <circle cx="533.75" cy="108.79" r="12" fill="transparent" data-cmx="533.75" data-cm="cubic (x²−1)(x−r) · 0.79" data-cmv="2.73" tabindex="0"/>
-    <circle cx="546.50" cy="156.72" r="12" fill="transparent" data-cmx="546.50" data-cm="cubic (x²−1)(x−r) · 0.8" data-cmv="2.64" tabindex="0"/>
-    <circle cx="559.25" cy="180.86" r="12" fill="transparent" data-cmx="559.25" data-cm="cubic (x²−1)(x−r) · 0.8" data-cmv="2.59" tabindex="0"/>
-    <circle cx="572.00" cy="199.26" r="12" fill="transparent" data-cmx="572.00" data-cm="cubic (x²−1)(x−r) · 0.81" data-cmv="2.55" tabindex="0"/>
-    <circle cx="584.75" cy="214.63" r="12" fill="transparent" data-cmx="584.75" data-cm="cubic (x²−1)(x−r) · 0.82" data-cmv="2.52" tabindex="0"/>
-    <circle cx="597.50" cy="228.05" r="12" fill="transparent" data-cmx="597.50" data-cm="cubic (x²−1)(x−r) · 0.83" data-cmv="2.50" tabindex="0"/>
-    <circle cx="610.25" cy="240.06" r="12" fill="transparent" data-cmx="610.25" data-cm="cubic (x²−1)(x−r) · 0.84" data-cmv="2.48" tabindex="0"/>
-    <circle cx="623.00" cy="251.01" r="12" fill="transparent" data-cmx="623.00" data-cm="cubic (x²−1)(x−r) · 0.84" data-cmv="2.46" tabindex="0"/>
-    <circle cx="635.75" cy="261.11" r="12" fill="transparent" data-cmx="635.75" data-cm="cubic (x²−1)(x−r) · 0.85" data-cmv="2.44" tabindex="0"/>
-    <circle cx="648.50" cy="270.51" r="12" fill="transparent" data-cmx="648.50" data-cm="cubic (x²−1)(x−r) · 0.86" data-cmv="2.42" tabindex="0"/>
-    <circle cx="661.25" cy="279.32" r="12" fill="transparent" data-cmx="661.25" data-cm="cubic (x²−1)(x−r) · 0.87" data-cmv="2.40" tabindex="0"/>
-    <circle cx="674.00" cy="287.62" r="12" fill="transparent" data-cmx="674.00" data-cm="cubic (x²−1)(x−r) · 0.88" data-cmv="2.39" tabindex="0"/>
-    <circle cx="686.75" cy="295.49" r="12" fill="transparent" data-cmx="686.75" data-cm="cubic (x²−1)(x−r) · 0.88" data-cmv="2.37" tabindex="0"/>
-    <circle cx="699.50" cy="302.96" r="12" fill="transparent" data-cmx="699.50" data-cm="cubic (x²−1)(x−r) · 0.89" data-cmv="2.36" tabindex="0"/>
-    <circle cx="712.25" cy="310.09" r="12" fill="transparent" data-cmx="712.25" data-cm="cubic (x²−1)(x−r) · 0.9" data-cmv="2.34" tabindex="0"/>
-    <circle cx="725.00" cy="316.90" r="12" fill="transparent" data-cmx="725.00" data-cm="cubic (x²−1)(x−r) · 0.91" data-cmv="2.33" tabindex="0"/>
-    <circle cx="737.75" cy="323.43" r="12" fill="transparent" data-cmx="737.75" data-cm="cubic (x²−1)(x−r) · 0.91" data-cmv="2.32" tabindex="0"/>
-    <circle cx="750.50" cy="329.70" r="12" fill="transparent" data-cmx="750.50" data-cm="cubic (x²−1)(x−r) · 0.92" data-cmv="2.30" tabindex="0"/>
-    <circle cx="763.25" cy="335.74" r="12" fill="transparent" data-cmx="763.25" data-cm="cubic (x²−1)(x−r) · 0.93" data-cmv="2.29" tabindex="0"/>
-    <circle cx="776.00" cy="341.55" r="12" fill="transparent" data-cmx="776.00" data-cm="cubic (x²−1)(x−r) · 0.94" data-cmv="2.28" tabindex="0"/>
-    <circle cx="788.75" cy="347.15" r="12" fill="transparent" data-cmx="788.75" data-cm="cubic (x²−1)(x−r) · 0.95" data-cmv="2.27" tabindex="0"/>
-    <circle cx="801.50" cy="352.57" r="12" fill="transparent" data-cmx="801.50" data-cm="cubic (x²−1)(x−r) · 0.95" data-cmv="2.26" tabindex="0"/>
-    <circle cx="814.25" cy="357.81" r="12" fill="transparent" data-cmx="814.25" data-cm="cubic (x²−1)(x−r) · 0.96" data-cmv="2.25" tabindex="0"/>
-    <circle cx="827.00" cy="362.87" r="12" fill="transparent" data-cmx="827.00" data-cm="cubic (x²−1)(x−r) · 0.97" data-cmv="2.24" tabindex="0"/>
-    <circle cx="839.75" cy="367.78" r="12" fill="transparent" data-cmx="839.75" data-cm="cubic (x²−1)(x−r) · 0.98" data-cmv="2.23" tabindex="0"/>
-    <circle cx="852.50" cy="372.54" r="12" fill="transparent" data-cmx="852.50" data-cm="cubic (x²−1)(x−r) · 0.98" data-cmv="2.22" tabindex="0"/>
-    <circle cx="865.25" cy="377.15" r="12" fill="transparent" data-cmx="865.25" data-cm="cubic (x²−1)(x−r) · 0.99" data-cmv="2.21" tabindex="0"/>
-    <circle cx="878.00" cy="381.63" r="12" fill="transparent" data-cmx="878.00" data-cm="cubic (x²−1)(x−r) · 1" data-cmv="2.21" tabindex="0"/>
-    <path d="M62.00 97.98 L74.75 97.59 L87.50 97.21 L100.25 96.81 L113.00 96.41 L125.75 96.00 L138.50 95.59 L151.25 95.16 L164.00 94.73 L176.75 94.29 L189.50 93.85 L202.25 93.39 L215.00 92.93 L227.75 92.47 L240.50 91.99 L253.25 91.51 L266.00 91.01 L278.75 90.52 L291.50 90.01 L304.25 89.49 L317.00 88.97 L329.75 88.44 L342.50 87.90 L355.25 87.35 L368.00 86.79 L380.75 86.23 L393.50 85.65 L406.25 85.07 L419.00 84.48 L431.75 83.88 L444.50 83.27 L457.25 82.65 L470.00 82.03 L482.75 81.39 L495.50 80.75 L508.25 80.09 L521.00 79.43 L533.75 78.75 L546.50 78.07 L559.25 77.38 L572.00 76.68 L584.75 75.96 L597.50 75.24 L610.25 74.51 L623.00 73.76 L635.75 73.01 L648.50 72.25 L661.25 71.47 L674.00 70.69 L686.75 69.89 L686.75 69.89 L689.94 83.13 L693.13 99.43 L696.31 109.44 L699.50 117.32 L699.50 117.32 L712.25 140.25 L725.00 157.05 L737.75 170.86 L750.50 182.81 L763.25 193.44 L776.00 203.09 L788.75 211.96 L801.50 220.19 L814.25 227.88 L827.00 235.12 L839.75 241.95 L852.50 248.43 L865.25 254.60 L878.00 260.48" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="878.00" cy="260.48" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
-    <circle cx="62.00" cy="97.98" r="12" fill="transparent" data-cmx="62.00" data-cm="quintic (x²−1)²(x−r) · 0.5" data-cmv="2.75" tabindex="0"/>
-    <circle cx="74.75" cy="97.59" r="12" fill="transparent" data-cmx="74.75" data-cm="quintic (x²−1)²(x−r) · 0.51" data-cmv="2.75" tabindex="0"/>
-    <circle cx="87.50" cy="97.21" r="12" fill="transparent" data-cmx="87.50" data-cm="quintic (x²−1)²(x−r) · 0.52" data-cmv="2.75" tabindex="0"/>
-    <circle cx="100.25" cy="96.81" r="12" fill="transparent" data-cmx="100.25" data-cm="quintic (x²−1)²(x−r) · 0.52" data-cmv="2.75" tabindex="0"/>
-    <circle cx="113.00" cy="96.41" r="12" fill="transparent" data-cmx="113.00" data-cm="quintic (x²−1)²(x−r) · 0.53" data-cmv="2.75" tabindex="0"/>
-    <circle cx="125.75" cy="96.00" r="12" fill="transparent" data-cmx="125.75" data-cm="quintic (x²−1)²(x−r) · 0.54" data-cmv="2.75" tabindex="0"/>
-    <circle cx="138.50" cy="95.59" r="12" fill="transparent" data-cmx="138.50" data-cm="quintic (x²−1)²(x−r) · 0.55" data-cmv="2.75" tabindex="0"/>
-    <circle cx="151.25" cy="95.16" r="12" fill="transparent" data-cmx="151.25" data-cm="quintic (x²−1)²(x−r) · 0.55" data-cmv="2.75" tabindex="0"/>
-    <circle cx="164.00" cy="94.73" r="12" fill="transparent" data-cmx="164.00" data-cm="quintic (x²−1)²(x−r) · 0.56" data-cmv="2.75" tabindex="0"/>
-    <circle cx="176.75" cy="94.29" r="12" fill="transparent" data-cmx="176.75" data-cm="quintic (x²−1)²(x−r) · 0.57" data-cmv="2.75" tabindex="0"/>
-    <circle cx="189.50" cy="93.85" r="12" fill="transparent" data-cmx="189.50" data-cm="quintic (x²−1)²(x−r) · 0.58" data-cmv="2.76" tabindex="0"/>
-    <circle cx="202.25" cy="93.39" r="12" fill="transparent" data-cmx="202.25" data-cm="quintic (x²−1)²(x−r) · 0.59" data-cmv="2.76" tabindex="0"/>
-    <circle cx="215.00" cy="92.93" r="12" fill="transparent" data-cmx="215.00" data-cm="quintic (x²−1)²(x−r) · 0.59" data-cmv="2.76" tabindex="0"/>
-    <circle cx="227.75" cy="92.47" r="12" fill="transparent" data-cmx="227.75" data-cm="quintic (x²−1)²(x−r) · 0.6" data-cmv="2.76" tabindex="0"/>
-    <circle cx="240.50" cy="91.99" r="12" fill="transparent" data-cmx="240.50" data-cm="quintic (x²−1)²(x−r) · 0.61" data-cmv="2.76" tabindex="0"/>
-    <circle cx="253.25" cy="91.51" r="12" fill="transparent" data-cmx="253.25" data-cm="quintic (x²−1)²(x−r) · 0.62" data-cmv="2.76" tabindex="0"/>
-    <circle cx="266.00" cy="91.01" r="12" fill="transparent" data-cmx="266.00" data-cm="quintic (x²−1)²(x−r) · 0.63" data-cmv="2.76" tabindex="0"/>
-    <circle cx="278.75" cy="90.52" r="12" fill="transparent" data-cmx="278.75" data-cm="quintic (x²−1)²(x−r) · 0.63" data-cmv="2.76" tabindex="0"/>
-    <circle cx="291.50" cy="90.01" r="12" fill="transparent" data-cmx="291.50" data-cm="quintic (x²−1)²(x−r) · 0.64" data-cmv="2.76" tabindex="0"/>
-    <circle cx="304.25" cy="89.49" r="12" fill="transparent" data-cmx="304.25" data-cm="quintic (x²−1)²(x−r) · 0.65" data-cmv="2.76" tabindex="0"/>
-    <circle cx="317.00" cy="88.97" r="12" fill="transparent" data-cmx="317.00" data-cm="quintic (x²−1)²(x−r) · 0.66" data-cmv="2.76" tabindex="0"/>
-    <circle cx="329.75" cy="88.44" r="12" fill="transparent" data-cmx="329.75" data-cm="quintic (x²−1)²(x−r) · 0.66" data-cmv="2.77" tabindex="0"/>
-    <circle cx="342.50" cy="87.90" r="12" fill="transparent" data-cmx="342.50" data-cm="quintic (x²−1)²(x−r) · 0.67" data-cmv="2.77" tabindex="0"/>
-    <circle cx="355.25" cy="87.35" r="12" fill="transparent" data-cmx="355.25" data-cm="quintic (x²−1)²(x−r) · 0.68" data-cmv="2.77" tabindex="0"/>
-    <circle cx="368.00" cy="86.79" r="12" fill="transparent" data-cmx="368.00" data-cm="quintic (x²−1)²(x−r) · 0.69" data-cmv="2.77" tabindex="0"/>
-    <circle cx="380.75" cy="86.23" r="12" fill="transparent" data-cmx="380.75" data-cm="quintic (x²−1)²(x−r) · 0.7" data-cmv="2.77" tabindex="0"/>
-    <circle cx="393.50" cy="85.65" r="12" fill="transparent" data-cmx="393.50" data-cm="quintic (x²−1)²(x−r) · 0.7" data-cmv="2.77" tabindex="0"/>
-    <circle cx="406.25" cy="85.07" r="12" fill="transparent" data-cmx="406.25" data-cm="quintic (x²−1)²(x−r) · 0.71" data-cmv="2.77" tabindex="0"/>
-    <circle cx="419.00" cy="84.48" r="12" fill="transparent" data-cmx="419.00" data-cm="quintic (x²−1)²(x−r) · 0.72" data-cmv="2.77" tabindex="0"/>
-    <circle cx="431.75" cy="83.88" r="12" fill="transparent" data-cmx="431.75" data-cm="quintic (x²−1)²(x−r) · 0.73" data-cmv="2.77" tabindex="0"/>
-    <circle cx="444.50" cy="83.27" r="12" fill="transparent" data-cmx="444.50" data-cm="quintic (x²−1)²(x−r) · 0.73" data-cmv="2.78" tabindex="0"/>
-    <circle cx="457.25" cy="82.65" r="12" fill="transparent" data-cmx="457.25" data-cm="quintic (x²−1)²(x−r) · 0.74" data-cmv="2.78" tabindex="0"/>
-    <circle cx="470.00" cy="82.03" r="12" fill="transparent" data-cmx="470.00" data-cm="quintic (x²−1)²(x−r) · 0.75" data-cmv="2.78" tabindex="0"/>
-    <circle cx="482.75" cy="81.39" r="12" fill="transparent" data-cmx="482.75" data-cm="quintic (x²−1)²(x−r) · 0.76" data-cmv="2.78" tabindex="0"/>
-    <circle cx="495.50" cy="80.75" r="12" fill="transparent" data-cmx="495.50" data-cm="quintic (x²−1)²(x−r) · 0.77" data-cmv="2.78" tabindex="0"/>
-    <circle cx="508.25" cy="80.09" r="12" fill="transparent" data-cmx="508.25" data-cm="quintic (x²−1)²(x−r) · 0.77" data-cmv="2.78" tabindex="0"/>
-    <circle cx="521.00" cy="79.43" r="12" fill="transparent" data-cmx="521.00" data-cm="quintic (x²−1)²(x−r) · 0.78" data-cmv="2.78" tabindex="0"/>
-    <circle cx="533.75" cy="78.75" r="12" fill="transparent" data-cmx="533.75" data-cm="quintic (x²−1)²(x−r) · 0.79" data-cmv="2.78" tabindex="0"/>
-    <circle cx="546.50" cy="78.07" r="12" fill="transparent" data-cmx="546.50" data-cm="quintic (x²−1)²(x−r) · 0.8" data-cmv="2.79" tabindex="0"/>
-    <circle cx="559.25" cy="77.38" r="12" fill="transparent" data-cmx="559.25" data-cm="quintic (x²−1)²(x−r) · 0.8" data-cmv="2.79" tabindex="0"/>
-    <circle cx="572.00" cy="76.68" r="12" fill="transparent" data-cmx="572.00" data-cm="quintic (x²−1)²(x−r) · 0.81" data-cmv="2.79" tabindex="0"/>
-    <circle cx="584.75" cy="75.96" r="12" fill="transparent" data-cmx="584.75" data-cm="quintic (x²−1)²(x−r) · 0.82" data-cmv="2.79" tabindex="0"/>
-    <circle cx="597.50" cy="75.24" r="12" fill="transparent" data-cmx="597.50" data-cm="quintic (x²−1)²(x−r) · 0.83" data-cmv="2.79" tabindex="0"/>
-    <circle cx="610.25" cy="74.51" r="12" fill="transparent" data-cmx="610.25" data-cm="quintic (x²−1)²(x−r) · 0.84" data-cmv="2.79" tabindex="0"/>
-    <circle cx="623.00" cy="73.76" r="12" fill="transparent" data-cmx="623.00" data-cm="quintic (x²−1)²(x−r) · 0.84" data-cmv="2.79" tabindex="0"/>
-    <circle cx="635.75" cy="73.01" r="12" fill="transparent" data-cmx="635.75" data-cm="quintic (x²−1)²(x−r) · 0.85" data-cmv="2.79" tabindex="0"/>
-    <circle cx="648.50" cy="72.25" r="12" fill="transparent" data-cmx="648.50" data-cm="quintic (x²−1)²(x−r) · 0.86" data-cmv="2.80" tabindex="0"/>
-    <circle cx="661.25" cy="71.47" r="12" fill="transparent" data-cmx="661.25" data-cm="quintic (x²−1)²(x−r) · 0.87" data-cmv="2.80" tabindex="0"/>
-    <circle cx="674.00" cy="70.69" r="12" fill="transparent" data-cmx="674.00" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
-    <circle cx="686.75" cy="69.89" r="12" fill="transparent" data-cmx="686.75" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
-    <circle cx="686.75" cy="69.89" r="12" fill="transparent" data-cmx="686.75" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.80" tabindex="0"/>
-    <circle cx="689.94" cy="83.13" r="12" fill="transparent" data-cmx="689.94" data-cm="quintic (x²−1)²(x−r) · 0.88" data-cmv="2.78" tabindex="0"/>
-    <circle cx="693.13" cy="99.43" r="12" fill="transparent" data-cmx="693.13" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.74" tabindex="0"/>
-    <circle cx="696.31" cy="109.44" r="12" fill="transparent" data-cmx="696.31" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.73" tabindex="0"/>
-    <circle cx="699.50" cy="117.32" r="12" fill="transparent" data-cmx="699.50" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.71" tabindex="0"/>
-    <circle cx="699.50" cy="117.32" r="12" fill="transparent" data-cmx="699.50" data-cm="quintic (x²−1)²(x−r) · 0.89" data-cmv="2.71" tabindex="0"/>
-    <circle cx="712.25" cy="140.25" r="12" fill="transparent" data-cmx="712.25" data-cm="quintic (x²−1)²(x−r) · 0.9" data-cmv="2.67" tabindex="0"/>
-    <circle cx="725.00" cy="157.05" r="12" fill="transparent" data-cmx="725.00" data-cm="quintic (x²−1)²(x−r) · 0.91" data-cmv="2.63" tabindex="0"/>
-    <circle cx="737.75" cy="170.86" r="12" fill="transparent" data-cmx="737.75" data-cm="quintic (x²−1)²(x−r) · 0.91" data-cmv="2.61" tabindex="0"/>
-    <circle cx="750.50" cy="182.81" r="12" fill="transparent" data-cmx="750.50" data-cm="quintic (x²−1)²(x−r) · 0.92" data-cmv="2.59" tabindex="0"/>
-    <circle cx="763.25" cy="193.44" r="12" fill="transparent" data-cmx="763.25" data-cm="quintic (x²−1)²(x−r) · 0.93" data-cmv="2.56" tabindex="0"/>
-    <circle cx="776.00" cy="203.09" r="12" fill="transparent" data-cmx="776.00" data-cm="quintic (x²−1)²(x−r) · 0.94" data-cmv="2.55" tabindex="0"/>
-    <circle cx="788.75" cy="211.96" r="12" fill="transparent" data-cmx="788.75" data-cm="quintic (x²−1)²(x−r) · 0.95" data-cmv="2.53" tabindex="0"/>
-    <circle cx="801.50" cy="220.19" r="12" fill="transparent" data-cmx="801.50" data-cm="quintic (x²−1)²(x−r) · 0.95" data-cmv="2.51" tabindex="0"/>
-    <circle cx="814.25" cy="227.88" r="12" fill="transparent" data-cmx="814.25" data-cm="quintic (x²−1)²(x−r) · 0.96" data-cmv="2.50" tabindex="0"/>
-    <circle cx="827.00" cy="235.12" r="12" fill="transparent" data-cmx="827.00" data-cm="quintic (x²−1)²(x−r) · 0.97" data-cmv="2.49" tabindex="0"/>
-    <circle cx="839.75" cy="241.95" r="12" fill="transparent" data-cmx="839.75" data-cm="quintic (x²−1)²(x−r) · 0.98" data-cmv="2.47" tabindex="0"/>
-    <circle cx="852.50" cy="248.43" r="12" fill="transparent" data-cmx="852.50" data-cm="quintic (x²−1)²(x−r) · 0.98" data-cmv="2.46" tabindex="0"/>
-    <circle cx="865.25" cy="254.60" r="12" fill="transparent" data-cmx="865.25" data-cm="quintic (x²−1)²(x−r) · 0.99" data-cmv="2.45" tabindex="0"/>
-    <circle cx="878.00" cy="260.48" r="12" fill="transparent" data-cmx="878.00" data-cm="quintic (x²−1)²(x−r) · 1" data-cmv="2.44" tabindex="0"/>
-    <line x1="62" y1="369" x2="76" y2="369" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
-    <text x="81.0" y="373.0" text-anchor="start" class="t-note">cubic (x²−1)(x−r)</text>
-    <line x1="225" y1="369" x2="239" y2="369" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
-    <text x="244.0" y="373.0" text-anchor="start" class="t-note">quintic (x²−1)²(x−r)</text>
+  <svg viewBox="0 0 900 400" role="img" aria-label="Two families of certified sublevel measures against the free root r, one dot per certified knot, joined by dotted lines. The cubic family (x²−1)(x−r) rises to an interior maximum near r = 0.785 at about 2.754 and falls as r reaches 1. The quintic family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then descends steeply — the sublevel set splits into two intervals. A solid rule marks 2√2, above both families.">
+    <line x1="62" y1="264.4" x2="878" y2="264.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="268.4" text-anchor="end" class="t-ax">2.3</text>
+    <line x1="62" y1="223.3" x2="878" y2="223.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="227.3" text-anchor="end" class="t-ax">2.4</text>
+    <line x1="62" y1="182.3" x2="878" y2="182.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="186.3" text-anchor="end" class="t-ax">2.5</text>
+    <line x1="62" y1="141.2" x2="878" y2="141.2" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="145.2" text-anchor="end" class="t-ax">2.6</text>
+    <line x1="62" y1="100.1" x2="878" y2="100.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="104.1" text-anchor="end" class="t-ax">2.7</text>
+    <line x1="62" y1="59.1" x2="878" y2="59.1" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="63.1" text-anchor="end" class="t-ax">2.8</text>
+    <line x1="62" y1="47.4" x2="878" y2="47.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="53.0" y="51.4" text-anchor="end" class="t-ax">2√2</text>
+    <line x1="62.0" y1="326" x2="62.0" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="62.0" y="346.0" text-anchor="middle" class="t-ax">0.5</text>
+    <line x1="225.2" y1="326" x2="225.2" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="225.2" y="346.0" text-anchor="middle" class="t-ax">0.6</text>
+    <line x1="388.4" y1="326" x2="388.4" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="388.4" y="346.0" text-anchor="middle" class="t-ax">0.7</text>
+    <line x1="551.6" y1="326" x2="551.6" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="551.6" y="346.0" text-anchor="middle" class="t-ax">0.8</text>
+    <line x1="714.8" y1="326" x2="714.8" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="714.8" y="346.0" text-anchor="middle" class="t-ax">0.9</text>
+    <line x1="878.0" y1="326" x2="878.0" y2="331" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="878.0" y="346.0" text-anchor="middle" class="t-ax">1.0</text>
+    <line x1="62" y1="326" x2="878" y2="326" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="470.0" y="368.0" text-anchor="middle" class="t-note">the free root r (remaining roots pinned at ±1; quintic pins them double)</text>
+    <line x1="62" y1="47.4" x2="878" y2="47.4" stroke="var(--c-ctx)" stroke-width="1.5"/>
+    <text x="872.0" y="41.4" text-anchor="end" class="t-lab">2√2 — the supremum (Tao, December 2025)</text>
+    <path d="M62.0 103.9 L74.8 103.4 L87.5 102.8 L100.3 102.3 L113.0 101.7 L125.8 101.1 L138.5 100.5 L151.3 99.9 L164.0 99.3 L176.8 98.7 L189.5 98.1 L202.3 97.4 L215.0 96.8 L227.8 96.1 L240.5 95.5 L253.3 94.8 L266.0 94.1 L278.8 93.4 L291.5 92.7 L304.3 92.0 L317.0 91.3 L329.8 90.5 L342.5 89.8 L355.3 89.0 L368.0 88.3 L380.8 87.5 L393.5 86.7 L406.3 85.9 L419.0 85.1 L431.8 84.3 L444.5 83.5 L457.3 82.6 L470.0 81.8 L482.8 81.0 L495.5 80.1 L508.3 79.2 L521.0 78.3 L533.8 89.2 L546.5 126.8 L559.3 145.7 L572.0 160.2 L584.8 172.2 L597.5 182.7 L610.3 192.2 L623.0 200.7 L635.8 208.7 L648.5 216.0 L661.3 222.9 L674.0 229.5 L686.8 235.6 L699.5 241.5 L712.3 247.1 L725.0 252.4 L737.8 257.5 L750.5 262.5 L763.3 267.2 L776.0 271.7 L788.8 276.1 L801.5 280.4 L814.3 284.5 L827.0 288.5 L839.8 292.3 L852.5 296.0 L865.3 299.7 L878.0 303.2" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62.0 80.7 L74.8 80.4 L87.5 80.1 L100.3 79.8 L113.0 79.5 L125.8 79.2 L138.5 78.8 L151.3 78.5 L164.0 78.2 L176.8 77.8 L189.5 77.5 L202.3 77.1 L215.0 76.8 L227.8 76.4 L240.5 76.0 L253.3 75.6 L266.0 75.3 L278.8 74.9 L291.5 74.5 L304.3 74.1 L317.0 73.7 L329.8 73.2 L342.5 72.8 L355.3 72.4 L368.0 72.0 L380.8 71.5 L393.5 71.1 L406.3 70.6 L419.0 70.1 L431.8 69.7 L444.5 69.2 L457.3 68.7 L470.0 68.2 L482.8 67.7 L495.5 67.2 L508.3 66.7 L521.0 66.2 L533.8 65.6 L546.5 65.1 L559.3 64.6 L572.0 64.0 L584.8 63.5 L597.5 62.9 L610.3 62.3 L623.0 61.7 L635.8 61.1 L648.5 60.5 L661.3 59.9 L674.0 59.3 L686.8 58.7 L686.8 58.7 L689.9 69.1 L693.1 81.9 L696.3 89.7 L699.5 95.9 L699.5 95.9 L712.3 113.9 L725.0 127.0 L737.8 137.9 L750.5 147.3 L763.3 155.6 L776.0 163.2 L788.8 170.1 L801.5 176.6 L814.3 182.6 L827.0 188.3 L839.8 193.6 L852.5 198.7 L865.3 203.6 L878.0 208.2" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="62.0" cy="103.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5" data-cmv="measure ≤ 2.690721 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="74.8" cy="103.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5078125" data-cmv="measure ≤ 2.692050 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="87.5" cy="102.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.515625" data-cmv="measure ≤ 2.693400 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="100.3" cy="102.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5234375" data-cmv="measure ≤ 2.694773 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="113.0" cy="101.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.53125" data-cmv="measure ≤ 2.696169 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="125.8" cy="101.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5390625" data-cmv="measure ≤ 2.697586 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="138.5" cy="100.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.546875" data-cmv="measure ≤ 2.699027 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="151.3" cy="99.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5546875" data-cmv="measure ≤ 2.700490 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="164.0" cy="99.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5625" data-cmv="measure ≤ 2.701976 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="176.8" cy="98.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5703125" data-cmv="measure ≤ 2.703484 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="189.5" cy="98.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.578125" data-cmv="measure ≤ 2.705015 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="202.3" cy="97.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.5859375" data-cmv="measure ≤ 2.706570 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="215.0" cy="96.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.59375" data-cmv="measure ≤ 2.708147 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="227.8" cy="96.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6015625" data-cmv="measure ≤ 2.709747 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="240.5" cy="95.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.609375" data-cmv="measure ≤ 2.711371 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="253.3" cy="94.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6171875" data-cmv="measure ≤ 2.713017 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="266.0" cy="94.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.625" data-cmv="measure ≤ 2.714687 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="278.8" cy="93.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6328125" data-cmv="measure ≤ 2.716380 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="291.5" cy="92.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.640625" data-cmv="measure ≤ 2.718097 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="304.3" cy="92.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6484375" data-cmv="measure ≤ 2.719837 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="317.0" cy="91.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.65625" data-cmv="measure ≤ 2.721601 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="329.8" cy="90.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6640625" data-cmv="measure ≤ 2.723389 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="342.5" cy="89.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.671875" data-cmv="measure ≤ 2.725200 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="355.3" cy="89.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6796875" data-cmv="measure ≤ 2.727035 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="368.0" cy="88.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6875" data-cmv="measure ≤ 2.728894 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="380.8" cy="87.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.6953125" data-cmv="measure ≤ 2.730777 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="393.5" cy="86.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.703125" data-cmv="measure ≤ 2.732684 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="406.3" cy="85.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7109375" data-cmv="measure ≤ 2.734614 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="419.0" cy="85.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.71875" data-cmv="measure ≤ 2.736570 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="431.8" cy="84.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7265625" data-cmv="measure ≤ 2.738549 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="444.5" cy="83.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.734375" data-cmv="measure ≤ 2.740553 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="457.3" cy="82.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7421875" data-cmv="measure ≤ 2.742581 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="470.0" cy="81.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.75" data-cmv="measure ≤ 2.744633 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="482.8" cy="81.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7578125" data-cmv="measure ≤ 2.746710 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="495.5" cy="80.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.765625" data-cmv="measure ≤ 2.748812 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="508.3" cy="79.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7734375" data-cmv="measure ≤ 2.750938 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="521.0" cy="78.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.78125" data-cmv="measure ≤ 2.753089 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="533.8" cy="89.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.7890625" data-cmv="measure ≤ 2.726610 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="546.5" cy="126.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.796875" data-cmv="measure ≤ 2.635082 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="559.3" cy="145.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8046875" data-cmv="measure ≤ 2.588991 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="572.0" cy="160.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8125" data-cmv="measure ≤ 2.553849 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="584.8" cy="172.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8203125" data-cmv="measure ≤ 2.524491 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="597.5" cy="182.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.828125" data-cmv="measure ≤ 2.498868 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="610.3" cy="192.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8359375" data-cmv="measure ≤ 2.475919 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="623.0" cy="200.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.84375" data-cmv="measure ≤ 2.455010 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="635.8" cy="208.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8515625" data-cmv="measure ≤ 2.435725 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="648.5" cy="216.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.859375" data-cmv="measure ≤ 2.417776 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="661.3" cy="222.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8671875" data-cmv="measure ≤ 2.400952 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="674.0" cy="229.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.875" data-cmv="measure ≤ 2.385093 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="686.8" cy="235.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8828125" data-cmv="measure ≤ 2.370076 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="699.5" cy="241.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.890625" data-cmv="measure ≤ 2.355802 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="712.3" cy="247.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.8984375" data-cmv="measure ≤ 2.342191 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="725.0" cy="252.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.90625" data-cmv="measure ≤ 2.329178 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="737.8" cy="257.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9140625" data-cmv="measure ≤ 2.316706 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="750.5" cy="262.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.921875" data-cmv="measure ≤ 2.304731 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="763.3" cy="267.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9296875" data-cmv="measure ≤ 2.293211 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="776.0" cy="271.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9375" data-cmv="measure ≤ 2.282113 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="788.8" cy="276.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9453125" data-cmv="measure ≤ 2.271406 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="801.5" cy="280.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.953125" data-cmv="measure ≤ 2.261065 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="814.3" cy="284.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9609375" data-cmv="measure ≤ 2.251067 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="827.0" cy="288.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.96875" data-cmv="measure ≤ 2.241390 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="839.8" cy="292.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9765625" data-cmv="measure ≤ 2.232018 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="852.5" cy="296.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.984375" data-cmv="measure ≤ 2.222934 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="865.3" cy="299.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 0.9921875" data-cmv="measure ≤ 2.214122 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="878.0" cy="303.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="cubic · r = 1" data-cmv="measure ≤ 2.205570 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="62.0" cy="80.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5" data-cmv="measure ≤ 2.747269 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="74.8" cy="80.4" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5078125" data-cmv="measure ≤ 2.747996 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="87.5" cy="80.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.515625" data-cmv="measure ≤ 2.748737 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="100.3" cy="79.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5234375" data-cmv="measure ≤ 2.749490 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="113.0" cy="79.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.53125" data-cmv="measure ≤ 2.750258 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="125.8" cy="79.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5390625" data-cmv="measure ≤ 2.751039 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="138.5" cy="78.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.546875" data-cmv="measure ≤ 2.751833 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="151.3" cy="78.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5546875" data-cmv="measure ≤ 2.752642 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="164.0" cy="78.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5625" data-cmv="measure ≤ 2.753465 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="176.8" cy="77.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5703125" data-cmv="measure ≤ 2.754301 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="189.5" cy="77.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.578125" data-cmv="measure ≤ 2.755152 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="202.3" cy="77.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.5859375" data-cmv="measure ≤ 2.756017 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="215.0" cy="76.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.59375" data-cmv="measure ≤ 2.756897 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="227.8" cy="76.4" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6015625" data-cmv="measure ≤ 2.757791 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="240.5" cy="76.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.609375" data-cmv="measure ≤ 2.758700 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="253.3" cy="75.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6171875" data-cmv="measure ≤ 2.759624 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="266.0" cy="75.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.625" data-cmv="measure ≤ 2.760562 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="278.8" cy="74.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6328125" data-cmv="measure ≤ 2.761516 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="291.5" cy="74.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.640625" data-cmv="measure ≤ 2.762485 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="304.3" cy="74.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6484375" data-cmv="measure ≤ 2.763469 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="317.0" cy="73.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.65625" data-cmv="measure ≤ 2.764469 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="329.8" cy="73.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6640625" data-cmv="measure ≤ 2.765484 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="342.5" cy="72.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.671875" data-cmv="measure ≤ 2.766515 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="355.3" cy="72.4" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6796875" data-cmv="measure ≤ 2.767562 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="368.0" cy="72.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6875" data-cmv="measure ≤ 2.768625 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="380.8" cy="71.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.6953125" data-cmv="measure ≤ 2.769704 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="393.5" cy="71.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.703125" data-cmv="measure ≤ 2.770800 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="406.3" cy="70.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7109375" data-cmv="measure ≤ 2.771912 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="419.0" cy="70.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.71875" data-cmv="measure ≤ 2.773040 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="431.8" cy="69.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7265625" data-cmv="measure ≤ 2.774186 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="444.5" cy="69.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.734375" data-cmv="measure ≤ 2.775349 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="457.3" cy="68.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7421875" data-cmv="measure ≤ 2.776528 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="470.0" cy="68.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.75" data-cmv="measure ≤ 2.777725 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="482.8" cy="67.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7578125" data-cmv="measure ≤ 2.778940 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="495.5" cy="67.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.765625" data-cmv="measure ≤ 2.780172 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="508.3" cy="66.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7734375" data-cmv="measure ≤ 2.781422 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="521.0" cy="66.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.78125" data-cmv="measure ≤ 2.782690 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="533.8" cy="65.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.7890625" data-cmv="measure ≤ 2.783976 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="546.5" cy="65.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.796875" data-cmv="measure ≤ 2.785281 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="559.3" cy="64.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8046875" data-cmv="measure ≤ 2.786604 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="572.0" cy="64.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8125" data-cmv="measure ≤ 2.787946 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="584.8" cy="63.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8203125" data-cmv="measure ≤ 2.789307 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="597.5" cy="62.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.828125" data-cmv="measure ≤ 2.790687 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="610.3" cy="62.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8359375" data-cmv="measure ≤ 2.792086 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="623.0" cy="61.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.84375" data-cmv="measure ≤ 2.793505 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="635.8" cy="61.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8515625" data-cmv="measure ≤ 2.794944 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="648.5" cy="60.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.859375" data-cmv="measure ≤ 2.796402 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="661.3" cy="59.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8671875" data-cmv="measure ≤ 2.797881 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="674.0" cy="59.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.875" data-cmv="measure ≤ 2.799380 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="686.8" cy="58.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8828125" data-cmv="measure ≤ 2.800900 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="686.8" cy="58.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8828125" data-cmv="measure ≤ 2.800900 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="689.9" cy="69.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.884765625" data-cmv="measure ≤ 2.775617 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="693.1" cy="81.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.88671875" data-cmv="measure ≤ 2.744488 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="696.3" cy="89.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.888671875" data-cmv="measure ≤ 2.725382 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="699.5" cy="95.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.890625" data-cmv="measure ≤ 2.710321 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="699.5" cy="95.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.890625" data-cmv="measure ≤ 2.710321 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="712.3" cy="113.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.8984375" data-cmv="measure ≤ 2.666529 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="725.0" cy="127.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.90625" data-cmv="measure ≤ 2.634457 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="737.8" cy="137.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9140625" data-cmv="measure ≤ 2.608083 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="750.5" cy="147.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.921875" data-cmv="measure ≤ 2.585268 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="763.3" cy="155.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9296875" data-cmv="measure ≤ 2.564953 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="776.0" cy="163.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9375" data-cmv="measure ≤ 2.546525 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="788.8" cy="170.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9453125" data-cmv="measure ≤ 2.529588 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="801.5" cy="176.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.953125" data-cmv="measure ≤ 2.513872 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="814.3" cy="182.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9609375" data-cmv="measure ≤ 2.499180 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="827.0" cy="188.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.96875" data-cmv="measure ≤ 2.485365 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="839.8" cy="193.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9765625" data-cmv="measure ≤ 2.472314 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="852.5" cy="198.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.984375" data-cmv="measure ≤ 2.459937 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="865.3" cy="203.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 0.9921875" data-cmv="measure ≤ 2.448160 (upper end of the enclosure)" tabindex="0"/>
+    <circle cx="878.0" cy="208.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="quintic · r = 1" data-cmv="measure ≤ 2.436924 (upper end of the enclosure)" tabindex="0"/>
+    <rect x="62" y="383" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="81.0" y="393.0" text-anchor="start" class="t-note">cubic (x²−1)(x−r): a certified knot</text>
+    <rect x="349" y="383" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="368.0" y="393.0" text-anchor="start" class="t-note">quintic (x²−1)²(x−r): a certified knot</text>
   </svg>
   </div>
-  <figcaption>Both curves are certified enclosures recomputed at this build (the plotted value is the upper endpoint; widths are below picture resolution). The cubic family&#39;s best certified value is at an INTERIOR root — 2.754173 at r = 201/256 — not at a lattice point. The quintic family peaks at 2.801091 near r = 905/1024 and then descends steeply but continuously (for fixed degree the measure is continuous in the roots): a local maximum of |q| inside the sublevel interval crosses 1, a gap opens and widens, and {|q|&lt;1} becomes two intervals. Until 2026-10-05 this caption called the descent a discontinuous drop where two components merge; both were wrong. The odd-degree families climb toward 2√2 without reaching it, as Tao&#39;s equality clause requires.</figcaption>
+  <figcaption>Each dot is a certified enclosure recomputed at this build (the plotted value is the upper endpoint; widths are below picture resolution); the dotted line between two dots is drawn, not decided. The cubic family&#39;s best certified value is at an INTERIOR root — at least 2.754173 at r = 201/256 — not at a lattice point. The quintic family peaks near r = 905/1024, where it is at least 2.801090, and then descends steeply but continuously (for fixed degree the measure is continuous in the roots): a local maximum of |q| inside the sublevel interval crosses 1, a gap opens and widens, and {|q|&lt;1} becomes two intervals. Until 2026-10-05 this caption called the descent a discontinuous drop where two components merge; both were wrong. The odd-degree families climb toward 2√2 without reaching it, as Tao&#39;s equality clause requires.</figcaption>
 </figure></div>
 </section>
 
@@ -912,7 +999,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§4 · the certificates</div>
     <h2>Six degrees, re-decided</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>degree</th><th>certified statement</th><th>boxes</th><th>depth</th><th>time</th><th></th></tr></thead><tbody><tr><td><span class="m">N = 3</span></td><td>every degree-3 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">127</span></td><td class="v"><span class="m">16</span></td><td class="v"><span class="m">0.0 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 4</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^2 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">549</span></td><td class="v"><span class="m">59</span></td><td class="v"><span class="m">0.1 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 5</span></td><td>every degree-5 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">1,583</span></td><td class="v"><span class="m">37</span></td><td class="v"><span class="m">0.2 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 6</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^3 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">4,219</span></td><td class="v"><span class="m">89</span></td><td class="v"><span class="m">0.6 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 7</span></td><td>every degree-7 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">28,773</span></td><td class="v"><span class="m">63</span></td><td class="v"><span class="m">8.8 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 8</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^4 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">31,425</span></td><td class="v"><span class="m">118</span></td><td class="v"><span class="m">5.7 s</span></td><td><span class="tag cert">localized</span></td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>degree</th><th>certified statement</th><th>boxes</th><th>depth</th><th>time</th><th></th></tr></thead><tbody><tr><td><span class="m">N = 3</span></td><td>every degree-3 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">127</span></td><td class="v"><span class="m">16</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">0.0 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 4</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^2 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">549</span></td><td class="v"><span class="m">59</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">0.1 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 5</span></td><td>every degree-5 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">1,583</span></td><td class="v"><span class="m">37</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">0.2 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 6</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^3 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">4,219</span></td><td class="v"><span class="m">89</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">0.6 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 7</span></td><td>every degree-7 polynomial stays below 2.82 &lt; 2√2 — an explicit margin under the supremum</td><td class="v"><span class="m">28,773</span></td><td class="v"><span class="m">63</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">8.8 s</span></td><td><span class="tag held">strict</span></td></tr><tr><td><span class="m">N = 8</span></td><td>the degree supremum lies in [2√2, 2.82845]; (x²−1)^4 attains the left end (the theorem gives exactly 2√2)</td><td class="v"><span class="m">31,425</span></td><td class="v"><span class="m">118</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">5.7 s</span></td><td><span class="tag cert">localized</span></td></tr><tr><td><span class="m">N = 9</span></td><td><span class="w-val w-refused" title="refused: bnb: box budget exhausted">not decided</span> — bnb: box budget exhausted</td><td class="v"><span class="w-val w-refused" title="the record keeps no box count for a refused run">none</span></td><td class="v"><span class="w-val w-refused" title="the record keeps no depth for a refused run">none</span></td><td class="v"><span class="w-val w-computed" title="a wall-clock time, measured: not decided">2871 s</span></td><td><span class="tag open">refused</span></td></tr></tbody></table></div></div>
 <div class="col"><p>Each row quantifies over EVERY root configuration in [−1,1]ᴺ — collisions and multiplicities included — through the ordered-and-mirrored branch-and-bound: a box is closed when the certified measure of {Π dist(x, Iᵢ) &lt; 1} falls below the threshold, and that bound equals the true measure on thin boxes (a battery check). In measure language: every discrete probability measure on [−1,1] whose weights have denominator 3, 5 or 7 satisfies |{U_μ &lt; 0}| &lt; 2.82; for denominators 4, 6 and 8, the certified upper end is within 2.3×10⁻⁵ of 2√2 — weaker than Tao's theorem, which gives exactly 2√2 there, reached by an unrelated route.</p><div class="note">
   <span class="lab">not decided</span>
 <p><span class="m">deg9</span>: bnb: box budget exhausted — recorded as attempted and refused, not silently dropped. Its answer is known from the theorem; the refusal is the instrument's budget, not an open question.</p>
@@ -924,7 +1011,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§5 · what this is</div>
     <h2>The honest boundary</h2>
   </div>
-<ul class="plain"><li><b>The theorem is Tao&#39;s, and it is settled.</b> sup |{U_μ &lt; 0}| = 2√2 over all probability measures on [−1,1], with the two-atom measure the only case of equality, is Theorem 2.1 of his notes of December 2025, completed on the forum on 21 December 2025. These certificates neither use nor replace it: they are independent re-decisions of a known theorem, not progress on it. Until 2026-10-05 this page said the conjecture remained open; the write-up, <span class="m">paper/tex/erdos1038-sup.tex</span>, had already corrected that framing.</li><li><b>What the certificates add.</b> An explicit margin at odd degrees (below 2.82, about 0.0084 under 2√2) that the theorem does not state; certified landscape data for the families that approach the witness; and a refusal at the first degree the budget could not close. That each odd degree falls strictly below 2√2 is already a consequence of the theorem&#39;s equality clause.</li><li><b>The even-degree equality case is the theorem&#39;s, not ours.</b> The certificates place the even-degree supremum in [2√2, 2.82845]; Tao&#39;s theorem gives exactly 2√2, with the witness the only maximizer. A certificate of this kind cannot reach 2√2 itself, because the witness attains it.</li><li><b>Higher degrees are compute, not new ideas.</b> The branch-and-bound certificates grow with dimension but nothing structural changes — a statement about the instrument, not a certified one.</li><li><b>Machine-derived, not peer-reviewed.</b> Every claim re-derives in one command; the record is certs/sublevel-tao179.json; the sources this framing rests on are pinned in corpus/sources/erdos1038; refutations are invited.</li></ul>
+<ul class="plain"><li><b>The theorem is Tao&#39;s, and it is settled.</b> sup |{U_μ &lt; 0}| = 2√2 over all probability measures on [−1,1], with the two-atom measure the only case of equality, is Theorem 2.1 of his notes of December 2025, completed on the forum on 21 December 2025. These certificates neither use nor replace it: they are independent re-decisions of a known theorem, not progress on it. Until 2026-10-05 this page said the conjecture remained open; the write-up, <span class="m">paper/tex/erdos1038-sup.tex</span>, had already corrected that framing.</li><li><b>What the certificates add.</b> An explicit margin at odd degrees (below 2.82, at least 0.0084 under 2√2) that the theorem does not state; certified landscape data for the families that approach the witness; and a refusal at the first degree the budget could not close. That each odd degree falls strictly below 2√2 is already a consequence of the theorem&#39;s equality clause.</li><li><b>The even-degree equality case is the theorem&#39;s, not ours.</b> The certificates place the even-degree supremum in [2√2, 2.82845]; Tao&#39;s theorem gives exactly 2√2, with the witness the only maximizer. A certificate of this kind cannot reach 2√2 itself, because the witness attains it.</li><li><b>Higher degrees are compute, not new ideas.</b> The branch-and-bound certificates grow with dimension but nothing structural changes — a statement about the instrument, not a certified one.</li><li><b>Machine-derived, not peer-reviewed.</b> Every claim re-derives in one command; the record is certs/sublevel-tao179.json; the sources this framing rests on are pinned in corpus/sources/erdos1038; refutations are invited.</li></ul>
 </section><script>
 (function(){
   var tip=null;
@@ -955,7 +1042,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-erdos1038-sup.js — witness, calibrations and both family curves re-certified at build; theorem table read from the campaign record; the five framing sources re-hashed against corpus/sources/PINS.json.</p><p>git 054078d · the theorem: T. Tao, forum thread 1038 (21 Dec 2025) and notes of 22 and 27 Dec 2025, Theorem 2.1 · framing: teorth/erdosproblems#179 · the infimum side: three claimed proofs, the Darvas–Peng–Tao computational fragment verified at reports/verify-lemniscate.html</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-erdos1038-sup.js — witness, calibrations and both family curves re-certified at build; theorem table read from the campaign record; the five framing sources re-hashed against corpus/sources/PINS.json.</p><p>git 4ae2ad96 · the theorem: T. Tao, forum thread 1038 (21 Dec 2025) and notes of 22 and 27 Dec 2025, Theorem 2.1 · framing: teorth/erdosproblems#179 · the infimum side: three claimed proofs, the Darvas–Peng–Tao computational fragment verified at reports/verify-lemniscate.html</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
