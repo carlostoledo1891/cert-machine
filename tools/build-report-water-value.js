@@ -30,6 +30,15 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('WATER-VALUE REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28. The solver is IEEE doubles, and every number this build measures on
+   its 120 trees — the duality gap, the martingale residual, the margin to the refusal threshold — is a float residual:
+   COMPUTED, underlined dashed, and the histogram's bars count float gaps. The tl;dr called the residual "exact to
+   9.7e-13" and the gap "zero"; a float residual is neither, and the sentences now say what was measured. The PLD
+   numbers are the unit's, quoted: a number someone printed, COMPUTED, and read from its findings file. The theorem's
+   own premises — the model, a proof that was read, a seeded sample, an empirical layer behind a wall — are named with
+   their grades (rule 11). No verdict word changed: PROVED stays, said to rest on a proof read on paper. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const fv = (x, title) => W.value(x.toExponential(1), W.COMPUTED, { title: title || 'a float residual on the 120 trees — computed, nothing decided it' });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
 const UNIT = path.join(ROOT, 'legacy', 'research', 'stock-constraint');
@@ -67,7 +76,7 @@ for (const k of ['buildTree', 'solveTree']) if (typeof WV[k] !== 'function') die
 const mulberry32 = (s) => () => { s |= 0; s = s + 0x6D2B79F5 | 0; let t = Math.imul(s ^ s >>> 15, 1 | s); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 let maxGap = 0, maxMart = 0, nBinding = 0, nSpill = 0, nPure = 0;
 const GAPS = [], MARTS = [];      /* kept for the figure: 120 trees, every gap */
-for (let seed = 1; seed <= 120; seed++) {
+for (let seed = 1; seed <= 120; seed++) {   /* NTREES below states this count; the two must agree */
   const rng = mulberry32(seed);
   const depth = 3 + (seed % 3), branch = 2 + (seed % 2);
   const nodes = WV.buildTree(depth, branch, (n) => ({
@@ -95,6 +104,31 @@ if (maxMart > 1e-10) die('off-binding martingale residual too large: ' + maxMart
 if (!nBinding || !nSpill || !nPure) die('the suite did not exercise binding AND spill AND pure-martingale trees ('
   + nBinding + '/' + nSpill + '/' + nPure + ') — a certificate class went untested');
 
+/* ---- the PLD layer, read from the unit's findings (lifted, never edited) ---- */
+const FINDINGS = fs.readFileSync(path.join(UNIT, 'docs', 'FINDINGS_SIN.md'), 'utf8');
+const pldRows = [...FINDINGS.matchAll(/^\| (20\d\d) \| [\d.]+ \| \**[\d.]+%\** \| \**[\d.]+%\** \| \d+ \| \**×([\d.]+)\** \|/gm)].map((m) => ({ y: Number(m[1]), x: m[2] }));
+if (pldRows.length !== 5) die('the PLD table in FINDINGS_SIN.md is not five years: ' + pldRows.length);
+const pldMax = pldRows.reduce((a, b) => (Number(b.x) > Number(a.x) ? b : a));
+const pldSpan = pldRows[0].y + '–' + pldRows[pldRows.length - 1].y;
+if (!(pldSpan === '2021–2025' && /SUDESTE/.test(FINDINGS) && /DESCRIPTIVE CONSISTENCY/.test(FINDINGS))) die('the PLD layer is not Sudeste 2021–2025, downgraded to descriptive consistency');
+/* the seasonal refinement is "wet flatter than dry", by SEASON, not by year: the page said "wet years flatter" */
+if (!/"wet flatter than dry" — is NOT supported|"wet flatter than dry"/.test(FINDINGS.replace(/\s+/g, ' '))) die('the seasonal refinement is not "wet flatter than dry"');
+const pv = (t) => W.value(t, W.COMPUTED, { title: 'the unit\'s number, quoted from docs/FINDINGS_SIN.md — printed, not re-run here' });
+const NTREES = 120;
+if (GAPS.length !== NTREES) die('the suite ran ' + GAPS.length + ' trees; the page says ' + NTREES);
+
+/* WHAT THE THEOREM RESTS ON (WARRANT v2.1, rule 11; a reading gets no rung, 2026-10-28) */
+const PREMISES = [
+  { grade: W.ASSUMED, label: 'The model',
+    evidence: 'one operator, a price it takes as given at each node, a hard stock box and revenue linear in the release: the unit\'s LP. A grid\'s price is formed by its own dispatch; that coupling is open (OP-1).' },
+  { grade: W.ASSUMED, label: 'The proof',
+    evidence: 'LP duality on a finite tree and the KKT system read off it, written in the unit and read; no proof assistant here checked it.' },
+  { grade: W.ASSUMED, label: 'The suite\'s trees',
+    evidence: NTREES + ' trees from seeds 1–' + NTREES + ', depths 3–5, branching 2–3: a sample, chosen. The float checks are instances of the theorem on these trees, not a proof of it.' },
+  { grade: W.ASSUMED, label: 'The empirical layer',
+    evidence: 'Brazil\'s hourly PLD, Sudeste, ' + pldSpan + ', quoted from the unit; its data sit behind CCEE\'s access wall and are not re-run here, and the unit\'s own review calls it descriptive consistency.' },
+];
+
 /* ---- the page ------------------------------------------------------------ */
 const fmtE = (x) => x.toExponential(1);
 const B = [];
@@ -112,8 +146,9 @@ B.push(C.header({
 
 B.push(C.tldr({
   findingRaw: 'The stochastic water value on scenario trees is a certified theorem, not a heuristic: '
-    + 'w = E[w(child)] at every interior-stock node, exact to ' + fmtE(maxMart) + ' across this build\'s 120-tree '
-    + 'suite, with zero duality gap (worst relative gap ' + fmtE(maxGap) + ') and zero trichotomy violations. '
+    + 'w = E[w(child)] at every interior-stock node, proved by LP duality; on this build\'s ' + NTREES + '-tree suite the '
+    + 'published solver agrees in float, its residual at most ' + fv(maxMart) + ' and its relative duality gap at most '
+    + fv(maxGap, 'the worst relative duality gap on the 120 trees, in float — computed; strong duality makes it zero in exact arithmetic') + ' (zero in exact arithmetic, by strong duality), with no trichotomy violation. '
     + 'The deterministic case is proved outright; the continuum limit is honestly OPEN.',
   mechanismRaw: 'The dispatch problem is a finite LP; the water value is its balance multiplier. Weak duality '
     + 'makes the gap one-signed — a negative gap is structurally impossible and the build dies on it rather '
@@ -125,9 +160,9 @@ B.push(C.tldr({
 }));
 
 B.push(C.stats([
-  { k: 'the theorem', v: 'PROVED (discrete)', role: 'held', n: 'deterministic: LP duality, no constraint qualification needed · scenario trees: w = E[w child] off-binding — the discrete content of dw = Z dB + dL⁰ − dL̄' },
-  { k: 'duality gap', v: fmtE(maxGap), role: 'held', n: 'worst RELATIVE gap across 120 seeded random trees, re-solved this build; the sign is checked separately — a negative gap dies, never rounds' },
-  { k: 'martingale residual', v: fmtE(maxMart), role: 'held', n: 'max |w − E[w child]| over every interior-stock node in the suite' },
+  { k: 'the theorem', v: 'PROVED (discrete)', role: 'held', n: 'on paper, read; deterministic: LP duality, no constraint qualification needed · scenario trees: w = E[w child] off-binding — the discrete content of dw = Z dB + dL⁰ − dL̄' },
+  { k: 'duality gap', v: fmtE(maxGap), vRaw: fv(maxGap), role: 'held', n: 'worst RELATIVE gap across 120 seeded random trees, re-solved this build in float; the sign is checked separately — a negative gap dies, never rounds' },
+  { k: 'martingale residual', v: fmtE(maxMart), vRaw: fv(maxMart), role: 'held', n: 'max |w − E[w child]| over every interior-stock node in the suite, in float' },
   { k: 'unit batteries', v: sinPasses + ' checks green', role: 'held', n: 'the lifted unit\'s own gates re-run: kernel extracted from the artifact bytes; ' + trCaught + ' adjoint mutants CAUGHT (the reds fired)' },
   { k: 'tree classes', v: nBinding + ' · ' + nSpill + ' · ' + nPure, n: 'trees with binding stock events · with spill · pure-martingale — all three certificate classes exercised or the build refuses' },
   { k: 'continuum limit', v: 'OPEN', role: 'warn', n: 'the reflected-FBSDE well-posedness (OP-1) and the reflecting-boundary duality (OP-2) are stated, not claimed' }
@@ -158,7 +193,7 @@ B.push(C.stats([
     xLabel: 'relative duality gap  (log scale)',
     yLabel: 'trees',
     marks: [{ x: Math.log10(GATE), t: '←  the suite REFUSES beyond here', token: 'var(--c-3)', anchor: 'end' },
-            { x: Math.log10(maxGap), t: 'worst tree ' + maxGap.toExponential(1), token: 'var(--c-1)', row: 1 }],
+            { x: Math.log10(maxGap), t: 'worst tree ' + maxGap.toExponential(1), token: 'var(--c-1)', row: 1, dashed: true }],   /* a float value: COMPUTED, dashed */
     alt: pos.length + ' certified trees binned by relative duality gap on a log scale. The whole population sits '
       + 'between ' + Math.min.apply(null, pos).toExponential(1) + ' and ' + maxGap.toExponential(1) + ', around '
       + 'three orders of magnitude below the 1e-11 threshold at which the suite refuses.'
@@ -171,15 +206,21 @@ B.push(C.stats([
         + 'distribution: every one of the 120 seeded trees, binned by the relative gap between its primal '
         + 'revenue and its dual certificate. The gate the suite enforces is drawn where it actually sits.')
       + '</div>'
-      + C.figure({ svgRaw: fig, caption: '120 trees'
-        + (zero ? ', of which ' + zero + ' close the gap EXACTLY and cannot be drawn on a log axis — they are '
+      /* the caption is escaped text (design/components.js), so the computed numbers live in the paragraph below it,
+         where they can carry their standing */
+      + C.figure({ svgRaw: fig, caption: NTREES + ' trees binned by relative duality gap on a log axis. Every bar counts '
+        + 'float gaps, so every bar is computed; the ' + NB + ' log-spaced bins are a chosen layout. The dashed mark is '
+        + 'the worst tree, a float value; the solid one is the threshold at which the suite refuses, a constant.' })
+      + '<div class="col">' + C.pRaw('Of the ' + NTREES + ' trees'
+        + (zero ? ', ' + zero + ' return a float gap of exactly 0 and cannot be drawn on a log axis — they are '
           + 'counted here and left off the plot rather than clamped to its floor' : '')
         + '. Across the ' + pos.length + ' with a non-zero gap it runs from '
-        + Math.min.apply(null, pos).toExponential(1) + ' to ' + maxGap.toExponential(1) + ' — the worst tree in '
-        + 'the suite is a factor of ' + Math.round(1e-11 / maxGap).toLocaleString('en-US') + ' inside the '
-        + 'refusal threshold, and the off-binding martingale residual is bounded by '
-        + maxMart.toExponential(1) + ' across the same trees. The population sits where floating-point '
-        + 'accumulation puts it, not where a tolerance was tuned to put it.' })
+        + fv(Math.min.apply(null, pos)) + ' to ' + fv(maxGap) + ' — the worst tree in '
+        + 'the suite is a factor of ' + W.value(Math.round(1e-11 / maxGap).toLocaleString('en-US'), W.COMPUTED, { title: 'the threshold over the worst float gap — computed' }) + ' inside the '
+        + 'refusal threshold, and the off-binding martingale residual is at most '
+        + fv(maxMart) + ' across the same trees. The population sits where floating-point '
+        + 'accumulation puts it, not where a tolerance was tuned to put it.')
+      + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }) + '</div>'
   }));
 }
 
@@ -222,19 +263,29 @@ B.push(C.section({
 B.push(C.section({
   lab: '§3 · the empirical layer', title: 'Five years of PLD, quoted as history — with its own downgrade',
   bodyRaw: [
-    C.p('The unit tested the theorem\'s signature against Brazil\'s hourly spot price (PLD, submarket Sudeste, '
-      + '2021–2025): between jumps the price should be flat where hydro is marginal. The record shows interior '
-      + 'windows with flatness shrinkage up to 75× against a permutation null, and the flattest year is 2021 — '
+    C.pRaw('The unit tested the theorem\'s signature against Brazil\'s hourly spot price (PLD, submarket Sudeste, '
+      + pldSpan + '): between jumps the price should be flat where hydro is marginal. The record shows interior '
+      + 'windows with flatness shrinkage up to ' + pv('×' + pldMax.x) + ' against a permutation null, and the flattest year is ' + pldMax.y + ' — '
       + 'the water crisis, when scarcity kept hydro marginal nearly year-round. The naive seasonal reading '
-      + '("wet years flatter") is REFUTED by the same data: flatness tracks the hydro-marginal regime, not the '
+      + '("the wet season flatter than the dry") is REFUTED by the same data: flatness tracks the hydro-marginal regime, not the '
       + 'calendar.'),
     C.p('The unit\'s own adversarial review downgraded this layer from "confirmed" to DESCRIPTIVE CONSISTENCY, '
       + 'and this page keeps the downgrade: PLD is an administered price built from a model that already moves '
       + 'its water value slowly, the permutation null measures persistence rather than pinning, and the window '
       + 'selection is partly circular. These numbers are quoted as history because their data sits behind '
       + 'CCEE\'s access wall — the recipe to re-run them ships with the unit ('
-      + 'docs/pld-data-run.md), and nothing in §2\'s certificates depends on them.')
+      + 'docs/pld-data-run.md), and nothing in §2\'s certificates depends on them.'),
+    '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }) + '</div>'
   ].join('\n')
+}));
+
+B.push(C.section({
+  lab: '§3b · the premises', title: 'What the theorem rests on, and how far each premise was checked',
+  bodyRaw: '<div class="col">' + C.pRaw('The checks this page runs are float, and they are computed; the theorem they are instances of rests on '
+    + 'premises no float check reaches. In the order the statement travels through them, each with the rung its checking reached — '
+    + '<b>validated</b> (against the grid itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> '
+    + '(the code against an exact solution of its own equations) or <b>assumed</b> (adopted, chosen or read; no machine here checked it):')
+    + W.premisesHtml(PREMISES, { meetLine: 'The weakest premise is <b>' + W.GRADE[W.weakest(...PREMISES.map((q) => q.grade))] + '</b>: PROVED here means <em>proved on paper and read</em>, and this build checks, in float, that the published solver agrees with it on ' + NTREES + ' trees.' }) + '</div>',
 }));
 
 B.push(C.section({
