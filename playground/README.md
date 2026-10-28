@@ -223,9 +223,12 @@ privileged point.
 `plates/`, `exact-geometry/`, `answer-shape/` and `affect/` came over from the
 operator's own bench with `PROVENANCE.json` recording the sha256 of every file at
 both ends. **Science, drawing code and records crossed byte-for-byte; every page
-was rebuilt here.** The one patched file in each folder is `page.js` — require
+was rebuilt here.** Each folder's `page.js` was patched at the lift — require
 paths repointed and the bench's page-writing tail replaced by an export — and
-that patch is declared in the provenance so it can never be mistaken for drift.
+every later edit to a crossed file (tokens, the shared label placer, classes for
+inline styles) is declared in that folder's provenance too, so none can be
+mistaken for drift. `pins.js` re-hashes every pin before the build reads a file
+and refuses an undeclared edit; `make drift` prints the same report.
 No bench CSS, no bench HTML, no ECharts. The structural class names those bodies
 carry are re-declared once, in our tokens, in `design/bench.css`.
 

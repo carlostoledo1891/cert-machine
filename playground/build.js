@@ -19,6 +19,8 @@ const cp = require('child_process');
 const HERE = __dirname;
 const ROOT = path.join(HERE, '..');
 const OUT = path.join(ROOT, 'site', 'instruments');
+/* every crossed file still hashes to its PROVENANCE.json pin, before any builder reads one (playground/pins.js) */
+require(path.join(HERE, 'pins.js')).refuse();
 const { page } = require(path.join(HERE, 'design', 'shell.js'));
 const { uvSVG } = require(path.join(HERE, 'uv-art.js'));
 const SIMPLEX = require(path.join(HERE, 'simplex', 'build.js'));

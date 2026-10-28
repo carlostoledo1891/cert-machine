@@ -84,10 +84,12 @@ if (CHECK) {
   if (prov.source_commit) { const now = sourceCommit(); console.log('source commit at lift ' + prov.source_commit.slice(0, 12) + (now === prov.source_commit ? ', unchanged' : ', now ' + (now ? now.slice(0, 12) : 'not a git tree'))); }
   for (const f of prov.files) {
     const s = path.join(SRC, f.src), d = path.join(ROOT, f.dst);
-    if (!fs.existsSync(s)) { console.log('SOURCE GONE   ' + f.src); gone++; continue; }
-    const nowSrc = sha(s);
+    /* a gone source still leaves our copy to check: until 2026-10-28 this line `continue`d, so with the source lab
+       off the disk every local edit went unreported (six kernel files were edited and the report said 0) */
+    const nowSrc = fs.existsSync(s) ? sha(s) : null;
     const nowDst = fs.existsSync(d) ? sha(d) : null;
-    if (nowSrc !== f.src_sha256) { console.log('SOURCE MOVED  ' + f.src + '  (' + f.src_sha256.slice(0, 12) + ' -> ' + nowSrc.slice(0, 12) + ')'); moved++; }
+    if (nowSrc === null) { console.log('SOURCE GONE   ' + f.src); gone++; }
+    else if (nowSrc !== f.src_sha256) { console.log('SOURCE MOVED  ' + f.src + '  (' + f.src_sha256.slice(0, 12) + ' -> ' + nowSrc.slice(0, 12) + ')'); moved++; }
     if (nowDst !== f.local_sha256) { console.log('LOCAL EDITED  ' + f.dst + (f.patched ? '  [was patched at lift]' : '')); edited++; }
     if (nowSrc === f.src_sha256 && nowDst === f.local_sha256) ok++;
   }
