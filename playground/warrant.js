@@ -232,7 +232,7 @@ function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
     ? `<defs><pattern id="${HATCH}" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">`
       + `<line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs>`
       + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
-      + ` stroke="var(--border-strong)" stroke-width="1"/>`
+      + ` stroke="var(--rule-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
   return `<div class="w-legend${compact ? ' compact' : ''}" data-n="${items.length}">`
     + items.map((L) => `<div class="item">`
