@@ -19,11 +19,13 @@
 
    machinidae/ (2026-10-27, the operator's go): Clade Code renamed Machinidae, its repository moved to ~/Projects/machinidae;
    the same contract, `make web` → web/dist/. clade-code/ was taken down by publish-zone --remove the same day, once
-   /machinidae/ was live (no redirect: the operator's word). */
+   /machinidae/ was live (no redirect: the operator's word). 2026-10-28: its pages became indexable (noindex lifted in its
+   repository) and, on the operator's word ("add machinidae to the site map, no links yet"), the zone's pages are listed
+   in site/sitemap.xml (`sitemap: true`, read by tools/build-site.js); still linked from no page here. */
 'use strict';
 
 const FOREIGN = [
-  { dir: 'machinidae/', owner: '~/Projects/machinidae', build: 'make web → web/dist/', src: '~/Projects/machinidae/web/dist' },
+  { dir: 'machinidae/', owner: '~/Projects/machinidae', build: 'make web → web/dist/', src: '~/Projects/machinidae/web/dist', sitemap: true },
 ];
 
 /* rel: a path relative to site/, '/'-separated (a directory may end in '/' or not) */

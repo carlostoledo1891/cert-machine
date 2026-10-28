@@ -1784,6 +1784,16 @@ for (const e of fs.readdirSync(ALIEN, { recursive: true })) {
     const rel = String(e).split(path.sep).join('/');
     if (rel.endsWith('index.html')) urls.push('/instruments/' + rel.slice(0, -'index.html'.length));
   }
+  /* a foreign zone the operator listed (design/zones.js `sitemap: true`): its pages, read from the zone's published copy,
+     never written here; listed, linked from no page (2026-10-28) */
+  for (const z of require(path.join(ROOT, 'design', 'zones.js')).FOREIGN.filter((x) => x.sitemap)) {
+    const zdir = path.join(SITE, z.dir);
+    for (const f of (() => { try { return fs.readdirSync(zdir, { recursive: true }); } catch (e) { return []; } })()) {
+      const rel = String(f).split(path.sep).join('/');
+      if (!rel.endsWith('.html')) continue;
+      urls.push('/' + z.dir + (rel === 'index.html' ? '' : rel.endsWith('/index.html') ? rel.slice(0, -'index.html'.length) : rel));
+    }
+  }
   for (const rel of desired.keys()) {
     if (rel === 'index.html') continue;
     if (rel.endsWith('/index.html') && !rel.startsWith('research/')) urls.push('/' + rel.slice(0, -'index.html'.length));
