@@ -10,8 +10,8 @@ Interval enclosures and exact rational decisions — a REFUTED here is proved.
 
 ```
 make engine    generate → screen → certify; writes ledger.json   (~4 min)
-make control   rebuild index.html from the ledger                (~40 s, runs batteries)
-make page R=x  one page: its builder, the sync, the page gates   (~4 min; MEASURE=0 ~2; no batteries)
+make control   rebuild index.html from the ledger                (~15–18 min, batteries side by side)
+make page R=x  one page: its builder, the sync, the page gates   (gates drive only the pages that moved; ALL=1 every page)
 make test      every battery
 make drift     re-hash the lift against the source lab
 ```
@@ -22,6 +22,57 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN. Read this entry first.
+     ── FRONT 1: THE ETH CHECK (the operator: "dig on the subject and rise with as much information and verification we
+     could"; cap US$50 approved). A RUNPOD POD IS BILLING: x8ifbbj2vbolyj (cpu3m 32 vCPU / 256 GB, EU-RO-1, US$1.76/h,
+     created 2026-10-28T18:47:48Z; ~US$1.30 by 19:32Z). It runs tools/runpod-eth.sh at 00340f97 (branch eth-kernel-lane).
+       FIRST THING: `curl -fsS https://x8ifbbj2vbolyj-8000.proxy.runpod.net/_status.json` (phases: openai comparator →
+       build → axioms → "kernels done" → leanchecker → _phase complete). When the OpenAI kernels are done:
+       `node tools/import-runpod-eth.js x8ifbbj2vbolyj --partial` (or without --partial once _phase=complete), commit
+       certs/eth-kernel.json + corpus/eth-refutation/runs/; then delete-pod x8ifbbj2vbolyj via the RunPod MCP (read the
+       runpod-mcp guide first), confirm get-pod → 404, write the deletion into corpus/eth-refutation/POD.txt. Stop at
+       US$40 (~2026-10-29 17:30Z) whatever the state. leanchecker --fresh can take hours: it is the THIRD replay and
+       optional — if the budget or time says so, import --partial and delete.
+       DONE: pins + census (no sorry/axiom/native_decide/implemented_by/unsafe in either closure), two independent
+       statement READINGS (corpus/eth-refutation/readings/first.md, second.md — agree: no loophole; OpenAI's Lean proves
+       the paper's weaker Prop 6.4 and defines no ETH, the bridge is prose; Anthropic's ETHIsFalse is s₃ = 0 on Mathlib's
+       FinTM2; both "ETH false if the proofs check", ~0.9–0.95), and ANTHROPIC CERTIFIED (Comparator exit 0, Lean kernel +
+       nanoda accept, only propext/Classical.choice/Quot.sound; certs/eth-kernel.json, shelved). 
+       NEXT (the plan given to the operator): (4) a Lean BRIDGE — write the textbook ETH (Impagliazzo–Paturi) in Lean and
+       prove each lab's statement implies ¬ETH (on a pod; no Lean on this Mac); (5) implement each paper's algorithm
+       independently and check counts against brute force on all small formulas; compute the n where the bound beats
+       1.307ⁿ; (6) the side-by-side + prior-art (both readings list leads); (7) a report page in WARRANT v2.1 (premise chain:
+       kernels CERTIFIED → statement READ/bridged → computed checks). Disclose: our tools are built with Claude and one
+       claim is Anthropic's. NO OUTREACH (the community form/blog/Drive, issues) without the operator's per-item word —
+       a draft form answer was given in chat. targets.json row eth-refutation-2026-10 to update to BUILT.
+     ── FRONT 2: THE GRAMMAR (WARRANT v2.2, design/WARRANT.md; the operator: "keep the pace"). LIVE in v2.1: all 23
+       instruments, Swell (models as premises: certs/swell-island-boussinesq.json), the landing (rebuilt in the operator's
+       new approach — no CV/hire, the record speaks), Method, explained (+v1), Uirapuru, Janela (+método), eleições (party
+       colours retired into the greys), and 8 reports (optconst-queue, optimization-constants, kissing, openai-math,
+       gsm8k-audit, alphaevolve-community, time-horizon, curve-seeds). Reports B (03f49d88) is MERGED LOCALLY; its gate
+       `make page R="gsm8k aerp horizon curveseeds"` was running at handoff — if origin/main lacks 03f49d88, re-run that
+       gate (aerp takes 10–15 min) and push.
+       MACHINIDAE: an agent was migrating ~/Projects/machinidae/web (branch m0-m2) onto the approved palette (lineage
+       #79b9d6, rules #6744c5, aleator ink+diamond, outcome greens, the one red #e0574e only on a shown overlap; ochre,
+       amber, rose retired). Check ~/Projects/machinidae `git log -3` and `git status`: if its commit is there and `make
+       test` (25 min) is green, message the Machinidae session (clade-code-9f) that the migration is done; publishing
+       (publish-zone.js machinidae) is the operator's word. If the agent left work uncommitted, finish it there.
+       NEXT BATCH (agreed): the model-based reports — hseva, breaking, regatlas, harbor-proof, water-value, price/pu,
+       skyaudit, glide-band, evtol-energy — and the next most-linked: horizonmath, erdos290, ember, erdos1038-sup, rerun,
+       erdos1, envs, lambda4, ecbench, delta3; then about, oracle, papers index, apps index. Lanes in worktrees with the
+       brief at the scratchpad's tier1-brief.md pattern (read design/WARRANT.md; no new colour; translate, never remove;
+       gate with make page). KEPT OUT on the operator's word: Contraprova, Decidível, Abatimento (submitted).
+     ── THE BUILD: make page drives only pages that moved since the gates last passed (.gated-pages.json); make control
+       runs batteries side by side (tools/run-batteries.js: a clock per battery, a red re-run alone, RACE named) —
+       172/172 in ~15–18 min; design/cdp.js never attaches to a Chrome it did not start (an orphaned Chrome 155, pid
+       24457, held port 9233 for two days; still running — harmless now, the operator may kill it).
+     ── OPEN FOR THE OPERATOR: (a) a live "now deciding" strip on the landing (e.g. the ETH kernels) — needs the word;
+       (b) a shorter H1 with D1 verbatim under it; (c) read-only proof steps: 16a/70a CERTIFIED vs C₁₆ upper PARTIAL —
+       should READ steps cap a verdict at PARTIAL everywhere? (d) a "read" rung on the premise ladder (lanes graded
+       read steps "assumed"); (e) the computed legend gloss "float; nothing decided it" under-describes printed numbers;
+       (f) --v-refu vs --witness, one red to the eye with two meanings; (g) Swell: refuse "abaixo do limite" where the
+       island reads low (Pântano do Sul 0.39×, Ingleses 0.43×)? Improvements proposed for the landing (worked C₁d
+       figure, quotes as blockquotes, "this page refuses to build if…", refusals stat, a share image) await the word.
   ★ 2026-10-28 ~19:00 UTC — FAST BUILDS, WARRANT v2 FROZEN, v2.1 (MODELS AS PREMISES) ON SWELL, on "keep building the
      pages on the new grammar but also fix the endless builds" and "On Swell, see how to use the physical models inside
      Warrant … Don't just remove". BUILDS (d3c4bcad): make page drives only the pages that moved since the gates last
