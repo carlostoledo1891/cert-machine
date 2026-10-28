@@ -55,9 +55,9 @@ NEXT SESSION, IN ORDER:
      OPEN FOR THE OPERATOR (decisions): (a) do read steps cap a verdict at PARTIAL everywhere (16a/70a CERTIFIED vs C₁₆
      upper PARTIAL; G3: every headline there crosses read steps)? recommended: no cap, chains show the reads; (b)
      --v-refu vs --witness, one red two meanings — recommended: fold --v-refu into --witness (a colour change: needs the
-     word); (c) the maximusrufus thank-you on #246 (text in the 10-28 late chat); (d) the TCS community form: answers
-     drafted, notes/tcs-form-answers-2026-10-28.md (LOCAL, untracked) — the operator submits; tell the session after, to
-     record the send; the ethdiscussion.blog / Drive post is a separate send; (e) default /og.png is an old landing
+     word); (c) the maximusrufus thank-you on #246 (text in the 10-28 late chat); (d) the TCS community form: SUBMITTED by
+     the operator 2026-10-28 ~23:20 UTC (corpus/outreach.json tcs-eth-form-2026-10-28; the answers as sent in
+     notes/tcs-form-answers-2026-10-28.md, local); the ethdiscussion.blog comment is drafted there, NOT posted; (e) default /og.png is an old landing
      screenshot — point every page at the new card? (f) records the lanes would not rewrite (pinned or posted):
      horizonmath's decider prints "0.26292279 <= e^-U(1)" (false as printed) and cuts c's upper end with str()[:22]
      (certs/horizonmath-ledger.json is in the Zenodo tag); erdos1's N/2^n rounded to nearest (posted, tadamcz/erdos1#2);
