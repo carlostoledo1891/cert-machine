@@ -826,7 +826,6 @@ const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const NUMWORD = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty'];
 const numword = (k) => NUMWORD[k] || String(k);
 const gatesRec = (() => { const p = path.join(ROOT, 'batteries.json'); return fs.existsSync(p) ? JSON.parse(fs.readFileSync(p, 'utf8')) : null; })();
-const gatesCount = gatesRec && gatesRec.ran !== undefined ? { ran: gatesRec.ran, green: gatesRec.green } : null;
 
 /* OpenAI's math release (reports/openai-math.html), featured on the landing on the operator's word 2026-10-12: the header
    and the lead card read these, and each refuses on a number that stops closing */
@@ -909,6 +908,39 @@ const cong604 = (() => {
   return row.congruence['station-604-1'];
 })();
 const woett = outreach.rows.find((r) => /issue 164/.test(r.where || '') && /2609\.00104/.test(r.note || ''));
+/* HOW an outside rerun was done, said in its heading (WARRANT site pass, 2026-10-28). Every row was headed "Independently
+   re-derived, no shared code", and two of the seven ran OUR tools (kind full-rederive: "the record re-derived with the tool
+   that writes it"). The closed vocabulary is tools/build-report-rerun.js's; a kind this map does not know refuses the page. */
+const RERUN_HEAD = { 'own-code': 'Independently re-derived, no shared code', 'full-rederive': 'Re-run by a third party with the tools that wrote the record' };
+for (const r of externalReruns) if (!RERUN_HEAD[r.kind]) fail('an outside rerun of kind "' + r.kind + '" has no heading; corpus/external-reruns.json moved');
+const rerunsOwn = externalReruns.filter((r) => r.kind === 'own-code').length, rerunsTools = externalReruns.length - rerunsOwn;
+/* the registry's asterisks removed on our replays, counted in the three pinned snapshots of its README (the landing said
+   "four", the count after 2026-10-18; the round of 2026-10-26 removed six more) */
+const asterisksOff = (() => {
+  const snap = (d) => JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'optconst-queue', d, 'record.json'), 'utf8')).facts;
+  const R1 = snap('registry-2026-10-18'), R2 = snap('registry-2026-10-18b'), R3 = snap('registry-2026-10-26');
+  const first = ['71', '3b'].filter((k) => R1.replay.asterisksNow[k] === false && R2.firstReplayHolds[k] === true).length;
+  const second = ['rowJ2026', 'rowL2026'].filter((k) => R2.secondReplay[k].star === false).length;
+  const third = R3.marksRemovedOnReplays;
+  const rows3 = Object.values(R3.stepFunctions.rows).concat(Object.values(R3.autocorr.rows)).filter((x) => x.star === false).length;
+  if (first !== 2 || second !== 2 || third !== rows3) fail('the registry snapshots no longer count the asterisks the landing states');
+  return first + second + third;
+})();
+/* the rerun kit, as it is: a one-line re-derivation for most records, a standard-library verifier for some (the landing said
+   it "re-derives any decided claim with the standard library") */
+const KIT = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'rerun-kit.json'), 'utf8')).entries;
+const kitN = KIT.length, kitRederive = KIT.filter((e) => e.rederive).length, kitVerifier = KIT.filter((e) => e.verifier).length;
+if (!(kitVerifier >= 1 && kitVerifier < kitRederive && kitRederive <= kitN)) fail('the rerun kit no longer has the shape the landing describes');
+/* the batteries are run by the control build, not by this sync: the record names the commit it ran at */
+if (!gatesRec || !(gatesRec.ran > 0) || !/^[0-9a-f]{7,}$/.test(String(gatesRec.git || ''))) fail('batteries.json is missing or names no commit; the method page states the last control build\'s count');
+/* the register's first month, read rather than typed ("since August 2026") */
+const registerSince = (() => { const d = claimsLedger.rows.map((r) => String(r.recordedOn)).filter((x) => /^\d{4}-\d{2}-\d{2}$/.test(x)).sort()[0];
+  if (!d) fail('the register has no dated row'); return MONTHS[Number(d.slice(5, 7)) - 1] + ' ' + d.slice(0, 4); })();
+/* the wave's GPU rows (the method page said "10¹⁵ pairs ... on a GPU"; the seven GPU rows hold 9.72 × 10¹⁵) */
+const kwGpuPairs = (() => { const W = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'kissing-wave.json'), 'utf8')).rows
+  .filter((r) => r.claimant === 'qiushi' && (r.engine.families || []).some((f) => /tensor cores/.test(f.path || '')));
+  if (!W.length) fail('the wave has no GPU rows'); return W.reduce((a, r) => a + r.engine.pairs, 0); })();
+const sci15 = (n) => { const e = Math.floor(Math.log10(n)); return (n / 10 ** e).toFixed(2) + ' × 10' + String(e).replace(/\d/g, (c) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[c]); };
 const paperStatus = (() => {
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'paper', 'INDEX.json'), 'utf8'));
   const p = M.papers.find((x) => x.name === 'cert-machine-method');
@@ -927,7 +959,7 @@ B.push(C.header({
 }));
 B.push(C.stats([
   { k: 'kissing bounds of an autonomous discovery system', v: KW.rows + ' of ' + KW.rows,
-    n: 'every pair decided exactly · ' + (KW.pairs / 1e15).toFixed(2) + ' × 10¹⁵ pairs · the claimant published its points at the system’s request' },
+    n: 'every pair decided exactly · ' + sci15(KW.pairs) + ' pairs · ' + KW.atRequest.length + ' of the ' + KW.rows + ' point sets published at our request' },
   { k: 'a Lean certificate for Navier–Stokes blowup', v: 'certified', sm: true,
     n: 'partial at the announced commit, certified at the next · every hypothesis read against the statement' },
   { k: 'tolerance graders against provably wrong answers', v: tolPct,
@@ -940,7 +972,7 @@ B.push(C.section({
   bodyRaw: C.cards([
     { href: 'reports/index.html#audits', k: seriesCount('audits') + ' reports', title: TITLES.SERIES.audits.title,
       desc: 'Releases, registries, manuscripts and announced records from AI systems and autonomous platforms, re-decided from their published bytes by programs that share no code with the claimant.',
-      n: 'leads: the optimization-constants registry, four asterisks removed on our replays · the Qiushi Engine’s kissing bounds, credited by the claimants · OpenAI’s math release under two kernels' },
+      n: 'leads: the optimization-constants registry, ' + numword(asterisksOff) + ' asterisks removed on our replays · the Qiushi Engine’s kissing bounds, credited by the claimants · OpenAI’s math release under two kernels' },
     { href: 'reports/index.html#evaluation', k: seriesCount('evaluation') + ' reports', title: TITLES.SERIES.evaluation.title,
       desc: 'Graders measured against answers that are provably wrong, published answer keys re-decided step by step, and environments and benchmarks in which a certificate replaces the answer key.',
       n: 'leads: METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
@@ -957,7 +989,7 @@ B.push(C.section({
     rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '\u2011'),
       { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
       String(r.claimant).replace(/\s*\(.*$/, ''), r.verdict])
-  }) + '<div class="col after-fig">' + C.pRaw(fmt(claimsLedger.decided) + ' published claims decided since August 2026, each with its verdict and the record that decided it. '
+  }) + '<div class="col after-fig">' + C.pRaw(fmt(claimsLedger.decided) + ' published claims decided since ' + registerSince + ', each with its verdict and the record that decided it. '
     + 'The monthly registers: <a href="reports/decided-2026-09.html">September</a>, <a href="reports/decided-2026-10.html">October</a>. '
     + '<a href="reports/refusals.html">What was refused, by kind.</a>') + '</div>'
 }));
@@ -967,9 +999,9 @@ B.push(C.section({
   bodyRaw: C.plainList([
     ...outside.credits.filter((r) => r.landing).map((r) => ({ b: OUTSIDE.KINDS[r.kind] + ' — ' + longDate(r.date) + '.',
       raw: C.esc(OUTSIDE.cap(r.who)) + ': ' + C.esc(r.what) + ' In their words: “' + C.esc(OUTSIDE.plain(r.quote)) + '” (<a href="' + C.escAttr(r.url) + '">the source</a>, pinned).' })),
-    ...externalReruns.map((r) => ({ b: 'Independently re-derived, no shared code — ' + longDate(r.date) + '.',
+    ...externalReruns.map((r) => ({ b: RERUN_HEAD[r.kind] + ' — ' + longDate(r.date) + '.',
       raw: C.esc(r.who) + ': ' + C.esc(r.what.split(';').slice(0, 2).join(';')) + '. Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' })),
-    { b: 'Data published at the system’s request — from ' + longDate(KW.publishedOn) + '.',
+    { b: 'Data published at our request — from ' + longDate(KW.publishedOn) + '.',
       raw: 'The Qiushi Engine (Oxelra-AI) released the point sets behind ' + KW.atRequest.length + ' of its ' + KW.rows + ' announced kissing bounds (dimensions ' + KW.ranges + ') after the audit asked for them; every bound was then witnessed, every pair decided '
         + '(<a href="reports/kissing.html">the kissing page</a> · <a href="' + C.escAttr(KW.source) + '">the release</a>).' },
     { b: 'Two announcements, one configuration.',
@@ -984,9 +1016,11 @@ B.push(C.section({
   bodyRaw: C.p('A claim is read as a predicate over a declared box of inputs and decided in exact rational arithmetic or in '
       + 'outward-rounded interval arithmetic; the claimant’s program is never run in the trust path. The verdict is one '
       + 'of three words — CERTIFIED, REFUTED with the falsifying object, REFUSED with the reason — and NEEDS DATA where '
-      + 'the claimant published no bytes. Every battery carries red controls, deliberately wrong inputs that must be '
-      + 'rejected before a page is published, and every record is pinned by path and SHA-256. The method paper describes '
-      + 'the arithmetic, the certifiers and the discipline; the rerun kit re-derives any decided claim with the standard library.')
+      + 'the claimant published no bytes. A red control, a deliberately wrong input, must be rejected before its check '
+      + 'counts, and the control build refuses on any red battery; every record is pinned by path and SHA-256. The '
+      + 'method paper describes the arithmetic, the certifiers and the discipline; the rerun kit gives the command that '
+      + 're-derives each record of the register (' + kitRederive + ' of ' + kitN + ' in one line, ' + kitVerifier + ' with a verifier in the '
+      + 'standard library alone).')
     + C.plainList([
       { raw: '<a href="paper/cert-machine-method.pdf">The method paper</a> (' + C.esc(paperStatus) + '; not peer-reviewed) · <a href="papers/index.html">all papers</a>' },
       { raw: '<a href="machine/index.html">How a claim becomes a certificate</a> — the machine, its batteries and its errata' },
@@ -1442,7 +1476,7 @@ const aboutBody = [
     bodyRaw: [
       C.p('Credited elsewhere: what registries, claimants and curated lists have published about this work, each quoted from a snapshot pinned by sha256 (corpus/recognition.json).'),
       C.plainList(OUTSIDE.items(C, { credits: outside.credits, reruns: [] })),
-      C.plainList(externalReruns.map((r) => ({ b: 'Independently re-derived, no shared code — ' + longDate(r.date) + '.', raw: C.esc(r.who) + ': ' + C.esc(r.what) + ' Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' }))),
+      C.plainList(externalReruns.map((r) => ({ b: RERUN_HEAD[r.kind] + ' — ' + longDate(r.date) + '.', raw: C.esc(r.who) + ': ' + C.esc(r.what) + ' Outcome: ' + C.esc(r.outcome) + ' (<a href="' + C.escAttr(r.where) + '">the audit</a> · <a href="' + C.escAttr(r.posted) + '">the thread</a>).' }))),
       C.p('Everything here is self-published and self-checked, so the honest question is what happens when it '
         + 'leaves. The record, with the status words meant exactly: first what has come back (' + outreachBack.length + ' of '
         + outreach.rows.length + '), then everything else, newest first.'),
@@ -1533,8 +1567,8 @@ const methodBody = [
   }),
   C.stats([
     { k: 'published claims decided', v: fmt(claimsLedger.decided), n: 'in the register, each with its verdict and the record that decided it' },
-    { k: 'batteries at this build', v: gatesRec ? gatesRec.green + ' of ' + gatesRec.ran : '—', n: 'run, not remembered; a red one refuses the control build' },
-    { k: 'third-party re-derivations', v: String(externalReruns.length), n: 'results re-derived by someone else with no shared code' },
+    { k: 'batteries at the last control build', v: gatesRec.green + ' of ' + gatesRec.ran, n: 'run at git ' + gatesRec.git + ', not remembered; a red one refuses the control build' },
+    { k: 'third-party re-derivations', v: String(rerunsOwn), n: 'results re-derived by someone else with no code of ours' + (rerunsTools ? '; ' + numword(rerunsTools) + ' more re-ran our own tools' : '') },
     { k: 'reports', v: fmt(REPORT_COUNT), n: 'in five series, each recomputing its numbers from its records' }
   ]),
   C.section({
@@ -1573,7 +1607,7 @@ const methodBody = [
         + 'reports a singular matrix rather than a small pivot. Exact integers in floating-point hardware where the data '
         + 'are integer vectors: a product is exact as long as no partial sum can leave the range the format holds '
         + 'exactly, a bound checked against the data before anything runs and written into the record — which is what '
-        + 'lets 10¹⁵ pairs of integer points be decided exactly on a GPU.')
+        + 'lets ' + sci15(kwGpuPairs) + ' pairs of integer points be decided exactly on one GPU.')
       + C.p('Outward-rounded intervals on doubles where the quantity is transcendental or the data are long: each '
         + 'computed endpoint is stepped one unit in the last place outward, so the true value lies inside, on the '
         + 'strength of the correctly rounded operations IEEE-754 mandates. No library function is trusted: elementary and '
@@ -1618,7 +1652,18 @@ const methodBody = [
       { b: 'Register.', text: 'The public ledger of published claims decided here, one row per claim, each derived from a record.' },
       { b: 'Pinned bytes.', text: 'A file named by path and SHA-256 at decision time; a changed digest refuses the page that cites it.' },
       { b: 'Refusal.', text: 'A verdict, not an absence of one: the instrument did not reach a decision, and says why. NEEDS DATA is the refusal whose cause lies with the claimant.' },
-      { b: 'Independent.', text: 'From the claimant: no code shared with the party whose claim is decided, and every certificate re-runnable with no engine present.' }
+      { b: 'Independent.', text: 'From the claimant: no code shared with the party whose claim is decided, and every certificate re-runnable with no engine present.' },
+      /* the house grammar's two axes, defined here once because this page says every term used on the site is (WARRANT v2
+         and v2.1, design/WARRANT.md; the words and glyphs are warrant.js's own, so the definition cannot drift from the marks) */
+      { b: 'Standing.', raw: 'What a mark in a figure, or a number in text, rests on, drawn in its stroke or its underline: '
+          + W.value('decided', W.DECIDED) + ' (an exact decision backs it; solid, or plain in text), ' + W.value('computed', W.COMPUTED)
+          + ' (float, a fit, a forecast, a number someone printed; dashed), ' + W.value('chosen', W.CHOSEN) + ' (one member of a set the '
+          + 'data admit, picked by something that is not the data; dotted), and refused (no mark at all: ' + W.value('the void', W.REFUSED)
+          + '). A mark takes the weakest standing on its path. Standing is not a verdict: a refutation proved here is drawn solid.'
+          + W.legendHtml({ compact: true }) },
+      { b: 'Premise grade.', raw: 'Where the checking of a model that a number rests on stopped, strongest first. '
+          + [W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g) + ' ' + C.esc(W.GRADE_GLOSS[g]) + '.').join(' ')
+          + ' A conclusion is as checked as its weakest premise, and the page that states it names that premise. A grade is never a probability.' }
     ])
   }),
   C.section({

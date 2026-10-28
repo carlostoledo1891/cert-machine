@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Who checks the machine's mathematics? The easy read · Carlos Toledo</title>
-<meta name="description" content="Machines now produce mathematics faster than anyone can referee it. Six acts and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
+<meta name="description" content="Machines now produce mathematics faster than anyone can referee it. Five acts, an epilogue and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/explained/">
 <meta property="og:url" content="https://carlostoledo.co/explained/">
 <meta property="og:title" content="Who checks the machine&#39;s mathematics? The easy read">
-<meta property="og:description" content="Machines now produce mathematics faster than anyone can referee it. Six acts and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
+<meta property="og:description" content="Machines now produce mathematics faster than anyone can referee it. Five acts, an epilogue and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -20,7 +20,7 @@
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Who checks the machine&#39;s mathematics? The easy read">
-<meta name="twitter:description" content="Machines now produce mathematics faster than anyone can referee it. Six acts and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
+<meta name="twitter:description" content="Machines now produce mathematics faster than anyone can referee it. Five acts, an epilogue and five instruments explain how cert-machine decides such claims exactly: three words, one string of digits read two ways, 572 planted errors, exact arithmetic on a GPU, and the finite layer of a famous proof. Every number is read from a record.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -586,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -611,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 /* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
    No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
 body.easy{overflow-x:hidden}
@@ -762,6 +842,9 @@ body.easy{overflow-x:hidden}
 .easy .mt18{margin-top:18px}
 .easy .h3s{font-size:1rem}
 .easy .read{max-width:82ch}
+/* WARRANT v2 (2026-10-28): the compact standing legend beside an instrument or under the stats strip — held off the caption below it */
+.easy .panel .w-legend{margin:var(--s-4) 0 var(--s-3)}
+.easy .toykey .w-legend{margin-bottom:var(--s-3)}
 
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -838,7 +921,7 @@ body.easy{overflow-x:hidden}
 <header class="col cold" id="top">
   <div class="eyebrow">The easy read · cert-machine, the method paper, as a story</div>
   <h1>A machine says it found new mathematics. Who checks?</h1>
-  <p class="deck">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This is how an independent machine decides such claims exactly: six acts, five instruments you can touch, every number read from a public record when the page was built.</p>
+  <p class="deck">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This is how an independent machine decides such claims exactly: five acts and an epilogue, five instruments you can touch, every number read from a public record when the page was built.</p>
   <div class="stage" aria-hidden="true">
     <div class="sl l">claims, as published</div><div class="sl r">words, with witnesses</div>
     <div class="fly" style="--y:18%;--d:0s"><i class="pub">γ₂ ≤ 0.824120</i><i class="vd c"><b>certified</b>γ₂ ≤ 0.824120</i></div>
@@ -849,17 +932,18 @@ body.easy{overflow-x:hidden}
     <div class="fly" style="--y:88%;--d:8s"><i class="pub">|256·S(j) − j| ≤ 3·10⁻⁴⁰</i><i class="vd c"><b>certified</b>|256·S(j) − j| ≤ 3·10⁻⁴⁰</i></div>
     <div class="decide">decide</div>
   </div>
+  <p class="cap">Claims from the records, each with the word its record gives it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-27  this page built from the records at f7b2017a7411"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-28  this page built from the records at 4a1d50b8632b"></div>
   </div>
 </header>
 
 <div class="wide"><div class="stats" data-n="4">
-  <div class="stat"><div class="k">claims that hold</div><div class="v" data-count="107">107</div><div class="n">of 132 decided, 59 claimants</div></div>
+  <div class="stat"><div class="k">claims that hold</div><div class="v" data-count="107">107</div><div class="n">of 131 decided, 59 claimants</div></div>
   <div class="stat"><div class="k">defects on record</div><div class="v" data-count="24">24</div><div class="n">each with its witness</div></div>
   <div class="stat"><div class="k">planted errors</div><div class="v" data-count="572">572</div><div class="n">0 false certifications</div></div>
-  <div class="stat"><div class="k">guesses</div><div class="v">0</div><div class="n">a probability is never a verdict</div></div>
+  <div class="stat"><div class="k">guesses</div><div class="v">∅</div><div class="n">none, by construction: a probability is never a verdict</div></div>
 </div></div>
 
 <section class="col" id="act1">
@@ -886,7 +970,7 @@ body.easy{overflow-x:hidden}
   </div>
   <div class="rv d1 mt18"><div class="wide"><figure class="mach">
   <div class="figbox">
-    <div class="mach-ro"><div class="k" data-ro-k>The route of a claim</div><div class="d" data-ro-d>Click a station to read what happens there. The dashed lines move while the page is open; nothing else on this figure is simulated.</div></div>
+    <div class="mach-ro"><div class="k" data-ro-k>The route of a claim</div><div class="d" data-ro-d>Click a station to read what happens there. A station&#39;s outline is what the station is: the claimant&#39;s sentence dashed, the reading dotted, the exact steps solid. The dots travelling the arrows are a picture of the flow; nothing else on this figure moves.</div></div>
     <div class="flow-scroll"><svg viewBox="0 0 920 120" role="img" aria-label="the route of a claim: sentence, grammar, object, bytes, decide, word">
       <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
       <path class="ed" d="M144 60 L168 60" marker-end="url(#mfa)"/>
@@ -899,38 +983,38 @@ body.easy{overflow-x:hidden}
       <path class="ed-f" d="M588 60 L612 60"/>
       <path class="ed" d="M736 60 L760 60" marker-end="url(#mfa)"/>
       <path class="ed-f" d="M736 60 L760 60"/>
-      <g class="nd" tabindex="0" role="button" aria-label="The sentence, as the source prints it" data-t="The sentence, as the source prints it" data-d="A claim is read at the head of its sentence or not at all: the bar as the exact rational its digits mean, the relation, the quantity. A hedge, a leading quantifier or a number nobody printed is refused with the rule.">
-        <rect class="nd-box" x="20" y="34" width="124" height="52" rx="5"/>
+      <g class="nd" tabindex="0" role="button" aria-label="The sentence, as the source prints it" data-t="The sentence, as the source prints it" data-d="A claim is read at the head of its sentence or not at all: the bar as the exact rational its digits mean, the relation, the quantity. A hedge, a leading quantifier or a number nobody printed is refused with the rule. Until it is decided it is a claim someone made.">
+        <rect class="nd-box w-computed" stroke-dasharray="1.5 2" x="20" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-dep" x="20" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="34" y="52">sentence</text>
         <text class="nd-v" x="34" y="75">as printed</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="A closed grammar of claim shapes" data-t="A closed grammar of claim shapes" data-d="A bound, an absolute bound with a finite range, a value printed to its digits and cut off, a constant published rounded, an exact identity, a kissing count, a tensor decomposition. Nothing else; no model, no guess.">
-        <rect class="nd-box" x="168" y="34" width="124" height="52" rx="5"/>
+      <g class="nd" tabindex="0" role="button" aria-label="A closed grammar of claim shapes" data-t="A closed grammar of claim shapes" data-d="A bound, an absolute bound with a finite range, a value printed to its digits and cut off, a constant published rounded, an exact identity, a kissing count, a tensor decomposition. Nothing else; no model, no guess. A sentence matches a shape or is refused.">
+        <rect class="nd-box w-decided" x="168" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-dep" x="168" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="182" y="52">grammar</text>
         <text class="nd-v" x="182" y="75">closed list</text>
       </g>
-      <g class="nd" tabindex="0" role="button" aria-label="The object: the reading written down" data-t="The object: the reading written down" data-d="The line of the source that prints the claim and the file&#39;s digest; the pin of the bytes and how they were decoded; the predicate; the hypotheses under which the predicate is the claim; the shape a witness against it would take.">
-        <rect class="nd-box" x="316" y="34" width="124" height="52" rx="5"/>
+      <g class="nd" tabindex="0" role="button" aria-label="The object: the reading written down" data-t="The object: the reading written down" data-d="The line of the source that prints the claim and the file&#39;s digest; the pin of the bytes and how they were decoded; the predicate; the hypotheses under which the predicate is the claim; the shape a witness against it would take. The reading is one of those the bytes admit, chosen and named, so the verdict says which.">
+        <rect class="nd-box w-chosen" stroke-dasharray="1 3" stroke-linecap="round" x="316" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-sig" x="316" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="330" y="52">object</text>
         <text class="nd-v" x="330" y="75">the reading</text>
       </g>
       <g class="nd" tabindex="0" role="button" aria-label="The claimant&#39;s bytes, pinned by sha256" data-t="The claimant&#39;s bytes, pinned by sha256" data-d="The data the claim is about, as the claimant published it, held to its digest. A file that does not match is refused before it is read. The reading of the bytes is part of the verdict.">
-        <rect class="nd-box" x="464" y="34" width="124" height="52" rx="5"/>
+        <rect class="nd-box w-decided" x="464" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-dep" x="464" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="478" y="52">bytes</text>
         <text class="nd-v" x="478" y="75">pinned</text>
       </g>
       <g class="nd" tabindex="0" role="button" aria-label="Decided over exact rationals" data-t="Decided over exact rationals" data-d="The predicate is evaluated over the bytes in exact arithmetic, or in outward-rounded intervals with explicit tail bounds. Two checkers that share no code decide every object; a floating-point comparison is a screen, never an authority.">
-        <rect class="nd-box" x="612" y="34" width="124" height="52" rx="5"/>
+        <rect class="nd-box w-decided" x="612" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-held" x="612" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="626" y="52">decide</text>
         <text class="nd-v" x="626" y="75">exact</text>
       </g>
       <g class="nd" tabindex="0" role="button" aria-label="One of three words, with what justifies it" data-t="One of three words, with what justifies it" data-d="Certified with the certificate and its falsifier; refuted with the violating input; refused with the reason and, where there is one, the threshold that would change the word.">
-        <rect class="nd-box" x="760" y="34" width="124" height="52" rx="5"/>
+        <rect class="nd-box w-decided" x="760" y="34" width="124" height="52" rx="5"/>
         <rect class="acc-held" x="760" y="34" width="3" height="52" rx="1.5"/>
         <text class="nd-k" x="774" y="52">word</text>
         <text class="nd-v" x="774" y="75">with witness</text>
@@ -938,6 +1022,7 @@ body.easy{overflow-x:hidden}
     </svg></div>
   </div>
   <figcaption>The claim-machine translates; cert-machine decides. Every station leaves a record.</figcaption>
+  <div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
 </figure></div>
 <script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script></div>
 </section>
@@ -953,7 +1038,7 @@ body.easy{overflow-x:hidden}
       <div class="ctl"><label>digits printed k <span class="num" id="w2k">16</span></label><input type="range" id="w2s" min="3" max="17" value="16" aria-label="digits printed"></div>
       <pre class="out" id="w2out"></pre>
       <div class="scene mt18"><svg id="w2svg" viewBox="0 0 320 98" role="img" aria-label="a microscope on the gap between each reading and the square root of three over two, on a log scale"></svg></div>
-      <p class="cap">The test is the one the machine uses for kissing configurations: with p the inner product and A, B the squared norms, the angle is at least sixty degrees if and only if p ≤ 0 or 4p² ≤ AB. Here that is the sign of 3/4 − y², decided over exact rationals. The microscope below the readout places each reading by its distance from √3/2 on a log scale; the shape of a mark is its verdict.</p>
+      <p class="cap">The test is the one the machine uses for kissing configurations: with p the inner product and A, B the squared norms, the angle is at least sixty degrees if and only if p ≤ 0 or 4p² ≤ AB. Here that is the sign of 3/4 − y², decided over exact rationals. The microscope below the readout places each reading by its distance from √3/2 on a log scale; that placement is a float of the exact gap, a picture. The side and the shape are decided: ◇ fails the sixty-degree test, ○ passes it apart, ● passes it touching.</p>
     </div>
     <div class="prose rv d2">
       <p>In 2026 a public arena published a 605-point candidate for the kissing number in dimension eleven, its points printed to fifteen digits. Read as printed digits, <span class="num">9,510</span> of its <span class="num">182,710</span> pairs are closer than sixty degrees. Read as the doubles those digits denote, <span class="num">9,480</span>. Both readings refute the record; the counts differ because the reading is part of the verdict.</p>
@@ -1002,7 +1087,7 @@ body.easy{overflow-x:hidden}
         <button class="ctrl" data-m="nudge">nudge by 10⁻⁹</button><button class="ctrl" data-m="dup">add a point twice</button><button class="ctrl" data-m="perm">swap two coordinates</button><button class="ctrl" data-m="drop">drop a point</button><button class="ctrl" data-m="scale">multiply by 3</button><button class="ctrl" data-m="reset">reset</button>
       </div>
       <pre class="out" id="w3out"></pre>
-      <p class="cap">The last two buttons are controls: a change that is not an error must leave the word alone, and a change that only looks harmless must not.</p>
+      <p class="cap">Two buttons are controls. Multiplying by 3 is not an error and must leave the word alone; swapping two coordinates only looks harmless, makes one point a copy of another, and must not. The ring is a picture: the points are spaced around it, not placed in space, and every line on it is a contact decided exactly.</p>
     </div>
   </div>
 </section>
@@ -1016,10 +1101,11 @@ body.easy{overflow-x:hidden}
       <div class="wide"><div class="stats" data-n="3">
         <div class="stat"><div class="k">pairs decided</div><div class="v">9.75·10¹⁵</div><div class="n">9,752,282,639,769,360 exactly; 6,716,665,650,099 at sixty degrees, none closer</div></div>
         <div class="stat"><div class="k">the bill</div><div class="v">$8.15</div><div class="n">one NVIDIA L40S at $1.09 an hour, 6.8 GPU-hours for the 7 largest</div></div>
-        <div class="stat"><div class="k">spent on rigour</div><div class="v">$0</div><div class="n">one inequality per path, checked once against the data</div></div>
+        <div class="stat"><div class="k">the bill for rigour</div><div class="v">∅</div><div class="n">no line of it: one inequality per path, checked once against the data before the run</div></div>
       </div></div>
       <p>A seeded sample of every configuration was decided again in plain integers by a program that shares no code with the bulk path, and the two agreed on every count.</p>
       <div class="scene mt18"><canvas id="w4c" width="960" height="220" aria-hidden="true"></canvas></div>
+      <p class="cap">A picture of the run, not a replay: the tiles and the counter are drawn; the total they count towards, 9,752,282,639,769,360, is the record's.</p>
     </div>
     <div class="panel rv d2">
       <div class="pk">Instrument 4 · <b>which arithmetic is exact?</b></div>
@@ -1028,7 +1114,7 @@ body.easy{overflow-x:hidden}
       <div class="ctl"><label>largest squared norm <span class="num" id="w4n">192</span></label><input type="range" id="w4s" min="0" max="400" value="23" aria-label="largest squared norm, log scale"></div>
       <div class="scene"><svg id="w4svg" viewBox="0 0 320 120" role="img" aria-label="a logarithmic ruler of squared norms with the three exact paths"></svg></div>
       <pre class="out" id="w4out"></pre>
-      <p class="cap">The GPU rows have squared norms up to 192 and coordinates up to 12 in size; the laptop rows up to 4,608; one configuration in dimension 38 has rows of squared norm 3.95× 10<sup>35</sup>, decided in arbitrary-precision integers and nothing else.</p>
+      <p class="cap">The GPU rows have squared norms up to 192 and coordinates up to 12 in size; the laptop rows up to 4,608; one configuration in dimension 38 has rows of squared norm about 3.95&thinsp;×&thinsp;10<sup>35</sup> (the readout prints it to the last digit), decided in arbitrary-precision integers and nothing else.</p>
     </div>
   </div>
 </section>
@@ -1053,7 +1139,8 @@ body.easy{overflow-x:hidden}
       <div class="ctl"><label>c₂ <span class="num" id="w5c2">-0.280</span></label><input type="range" id="w5s2" min="-1200" max="0" value="-280" aria-label="c2"><label>c₄ <span class="num" id="w5c4">-4.080</span></label><input type="range" id="w5s4" min="-6000" max="0" value="-4080" aria-label="c4"></div>
       <div class="ctrls"><button class="ctrl" id="w5paper">the paper's quartic</button><button class="ctrl" id="w5best">near the best quartic</button></div>
       <pre class="out" id="w5out"></pre>
-      <p class="cap">Exact rational arithmetic over the 3×3 matrix of the quadratic form, computed at build time from the definitions. The best quartic reaches 0.8686414007; the paper's gives 0.8686405151 at fifteen terms; degree six, out of this slider's reach, gives 0.86864150.</p>
+      <div class="w-legend compact" data-n="1"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
+      <p class="cap">The curve is your window, a pick and not a result, so it is dotted; it is drawn in float. P is decided: exact rational arithmetic over the 3×3 matrix of the quadratic form, computed at build time from the definitions. The best quartic reaches 0.8686414007; the paper's gives 0.8686405151 at fifteen terms; degree six, out of this slider's reach, gives 0.86864150.</p>
     </div>
   </div>
 </section>
@@ -1068,12 +1155,12 @@ body.easy{overflow-x:hidden}
   <p class="closing rv d1">Refusal is a verdict.</p>
   <p class="rv d1 read">The register this page is read from holds <span class="num">132</span> claims from <span class="num">59</span> claimants across <span class="num">25</span> sources: <span class="num">107</span> hold, <span class="num">24</span> carry a defect on record, and every row carries the object that justifies its word. The machine has never improved a theorem. It has moved an asterisk, counted a wrong digit, published the threshold that would turn a refusal green, and once, when the arithmetic allowed it, raised a constant by a unit of the sixth digit with a certificate attached. That is the job.</p>
   <div class="credits rv d2">
-    <span><b>the method paper</b> paper/cert-machine-method.pdf · v0.8</span>
+    <span><b>the method paper</b> paper/cert-machine-method.pdf · v0.9</span>
     <span><b>the self-audit</b> 572 mutants, 0 false certifications · reports/selfaudit.html</span>
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-27 from the records at commit f7b2017a7411</span>
+    <span><b>built</b> 2026-10-28 from the records at commit 4a1d50b8632b</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1083,7 +1170,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit f7b2017a7411 on 2026-10-27: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit 4a1d50b8632b on 2026-10-28: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
@@ -1129,11 +1216,13 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
 /* ---------------- Instrument 2: print √3/2 to k digits ---------------- */
 {const S32='0.86602540378443864676372317075294';const three4=new Q(3n,4n);const dbl=qdouble(Math.sqrt(3)/2);
  const roundTo=k=>{const digits=S32.slice(2,2+k+1);let q=BigInt(digits.slice(0,k));if(Number(digits[k])>=5)q+=1n;return new Q(q,10n**BigInt(k))};
- const judge=y=>{const g=three4.sub(y.mul(y));const s=g.sign();return {g,word:s>0?W('r','too close')+K(' angle below sixty'):s<0?W('f','apart')+K(' angle above sixty'):W('c','touching')+K(' exactly sixty')}};
+ const judge=y=>{const g=three4.sub(y.mul(y));const s=g.sign();return {g,word:s>0?W('r','too close')+K(' angle below sixty'):s<0?W('c','apart')+K(' angle above sixty'):W('c','touching')+K(' exactly sixty')}};
  const render=()=>{const k=Number($('w2s').value);$('w2k').textContent=String(k);const y=roundTo(k);const a=judge(y),b=judge(dbl);
   $('w2out').innerHTML=K('the printed string, k = '+k)+'\n  y = '+V(y.dec(k))+'\n  read as the decimal it is   '+a.word+'\n  3/4 − y² = '+a.g.sci(3)+'\n\n'+K('the double nearest to √3/2')+'\n  y = '+V('0.86602540378443859659…')+'\n  read as the number it denotes   '+b.word+'\n  3/4 − y² = '+b.g.sci(3)+'\n\n'+K('the point as it was meant')+'\n  y = '+V('√3/2')+'\n  read as an algebraic number   '+W('c','touching')+K(' 3/4 − y² = 0, exactly');};
  /* the microscope: each reading placed by its distance from √3/2 on a log scale, the verdict as the shape of the mark; the
-    placement is a float of an exact quantity, the sign and the word are the exact judge's */
+    placement is a float of an exact quantity (a picture), the sign and the word are the exact judge's, so every mark is
+    solid: ◆ too close (fails the sixty-degree test), ○ apart and ● touching (both pass). WARRANT v2, 2026-10-28: the
+    apart mark was a triangle dashed 1.5 2 — the computed pattern on a decided sign — and wore the refused chip */
  const sup=e=>String(e).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
  const off=d=>{const t=Math.min(18,Math.max(1,-Math.log10(Math.abs(d))));return 10+(18-t)*7.2};
  const svg=$('w2svg');let base='<text x="14" y="12" font-size="7.5" fill="var(--ink-4)" letter-spacing=".1em">← APART</text><text x="306" y="12" text-anchor="end" font-size="7.5" fill="var(--ink-4)" letter-spacing=".1em">TOO CLOSE →</text>';
@@ -1141,7 +1230,7 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
  for(const e of [15,10,5])for(const sg of [-1,1]){const x=160+sg*off(Math.pow(10,-e));base+='<line x1="'+x+'" y1="47" x2="'+x+'" y2="53" stroke="var(--rule-strong)"/><text x="'+x+'" y="93" text-anchor="middle" font-size="7" fill="var(--ink-4)">10'+sup(-e)+'</text>';}
  base+='<line x1="160" y1="45" x2="160" y2="55" stroke="var(--ink)" stroke-width="1"/><circle cx="160" cy="50" r="3.5" fill="var(--ink)"/><text x="160" y="93" text-anchor="middle" font-size="7" fill="var(--ink)">√3/2</text>';
  base+='<g class="mk" id="w2mp"></g><g class="mk" id="w2md"></g>';svg.innerHTML=base;
- const mark=(g,word,lab,dy,x)=>{const shape=word>0?'<rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':word<0?'<path d="M0 -5 L5 4 L-5 4 Z" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="1.5 2"/>':'<circle r="4" fill="var(--ink)"/>';
+ const mark=(g,word,lab,dy,x)=>{const shape=word>0?'<rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':word<0?'<circle r="4" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':'<circle r="4" fill="var(--ink)"/>';
   const anc=x>250?'end':x<70?'start':'middle';g.innerHTML=shape+'<text y="'+dy+'" text-anchor="'+anc+'" font-size="7" fill="var(--ink-3)">'+lab+'</text>';};
  const place=(g,s,cy)=>{const d=Number(s.g.n)/Number(s.g.d)/1.7320508;const x=s.g.sign()===0?160:160+(s.g.sign()>0?1:-1)*off(d);g.style.transform='translate('+x+'px,'+cy+'px)';return x;};
  const render2=()=>{const k=Number($('w2s').value);const y=roundTo(k);const a=judge(y),b=judge(dbl);
@@ -1172,13 +1261,13 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
   else if(m==='scale'){pts=pts.map(p=>p.map(x=>x.mul(new Q(3n))));last='every coordinate multiplied by 3';}
   render();}));render();}
 /* ---------------- Instrument 4: which arithmetic is exact ---------------- */
-{const marks=[{n:192n,t:'the GPU rows, dimensions 49–55'},{n:BigInt('4608'),t:'the laptop rows'},{n:395n*10n**33n,t:'dimension 38, the axis rows'}];
+{const marks=[{n:BigInt('192'),t:'the GPU rows, dimensions 49–55'},{n:BigInt('4608'),t:'the laptop rows'},{n:BigInt('394674026743945636732262714818942096'),t:'dimension 38, the axis rows'}];
  const paths=[{t:'half precision on tensor cores',lim:2048n,x:3.31},{t:'single precision BLAS',lim:16777216n,x:7.22},{t:'exact integers (BigInt)',lim:null}];
  const svg=$('w4svg');let N=192n;const X=l=>12+l/40*296;
  const render=()=>{const t=Number($('w4s').value)/10;N=BigInt(Math.round(Math.pow(10,t)));$('w4n').textContent=group(N.toString());const first=paths.find(p=>p.lim===null||N<p.lim);
   let s='<line x1="12" y1="70" x2="308" y2="70" stroke="var(--c-axis)"/>';for(let e=0;e<=40;e+=5)s+='<line x1="'+X(e)+'" y1="66" x2="'+X(e)+'" y2="74" stroke="var(--c-axis)"/><text x="'+X(e)+'" y="90" text-anchor="middle" fill="var(--ink-4)" font-size="8">10'+String(e).replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d])+'</text>';
   s+='<rect x="12" y="34" width="'+(X(3.31)-12)+'" height="8" fill="var(--c-s4)"/><rect x="'+X(3.31)+'" y="34" width="'+(X(7.22)-X(3.31))+'" height="8" fill="var(--c-s3)"/><rect x="'+X(7.22)+'" y="34" width="'+(308-X(7.22))+'" height="8" fill="var(--c-s1)"/>';
-  s+='<text x="12" y="28" fill="var(--ink-3)" font-size="8">half</text><text x="'+X(3.31)+'" y="28" fill="var(--ink-3)" font-size="8">single</text><text x="'+X(7.22)+'" y="28" fill="var(--ink-3)" font-size="8">exact integers only</text>';
+  s+='<text x="12" y="28" fill="var(--ink-3)" font-size="8">half</text><text x="'+X(3.31)+'" y="28" fill="var(--ink-3)" font-size="8">single</text><text x="308" y="28" text-anchor="end" fill="var(--ink-3)" font-size="8">exact integers only</text>';
   for(const m of marks){const l=m.n.toString().length-1+Math.log10(Number(m.n.toString().slice(0,3))/100);s+='<line x1="'+X(l)+'" y1="48" x2="'+X(l)+'" y2="62" stroke="var(--c-s4)"/>';}
   s+='<path d="M'+X(t)+' 52 l-5 -9 h10 z" fill="var(--ink)"/><text x="'+X(t)+'" y="110" text-anchor="middle" fill="var(--ink)" font-size="9">'+group(N.toString())+'</text>';svg.innerHTML=s;
   const near=marks.map((m,i)=>({i,d:Math.abs(m.n.toString().length-1-t)})).sort((a,b)=>a.d-b.d)[0];
@@ -1186,9 +1275,12 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
  $('w4s').addEventListener('input',render);render();
  const canvas=$('w4c'),ctx=canvas.getContext('2d');let frame=0,pairs=0n;const per=97522826397693n,total=9752282639769360n;let vis=false;const ioc=new IntersectionObserver(es=>{vis=es[0].isIntersecting},{threshold:.2});ioc.observe(canvas);
  const ramp=['#4a4a55','#6e6e7a','#8b8b97','#a9a9b4','#f6f6f8'];
- const tick=()=>{if(vis&&!reduced){frame++;const w=canvas.width,h=canvas.height;ctx.fillStyle='#101014';ctx.fillRect(0,0,w,h);const cols=40,rows=7,cw=w/cols,ch=(h-44)/rows;const n=(frame*9)%(cols*rows);
+ /* a picture of the run (the caption says so): animated, or, with reduced motion, drawn once, every tile lit and the record's total */
+ const paint=(n,shown)=>{const w=canvas.width,h=canvas.height;ctx.fillStyle='#101014';ctx.fillRect(0,0,w,h);const cols=40,rows=7,cw=w/cols,ch=(h-44)/rows;
    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const i=r*cols+c;const on=i<n;ctx.fillStyle=on?ramp[(i*7)%5]:'#1c1c22';ctx.fillRect(c*cw+1.5,r*ch+1.5,cw-3,ch-3);}
-   pairs=(pairs+per)%total;ctx.fillStyle='#c9c9d2';ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillText('pairs decided  '+group(pairs.toString()),12,h-14);ctx.fillStyle='#6e6e7a';ctx.font='12px "JetBrains Mono",monospace';ctx.fillText('each tile = one 128×128 block on the tensor cores',w-392,h-14);}
+   ctx.fillStyle='#c9c9d2';ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillText('a picture of the count  '+group(shown.toString()),12,h-14);ctx.fillStyle='#6e6e7a';ctx.font='12px "JetBrains Mono",monospace';ctx.fillText('each tile = one 128×128 block on the tensor cores',w-392,h-14);};
+ if(reduced){paint(280,total);}
+ const tick=()=>{if(vis&&!reduced){frame++;pairs=(pairs+per)%total;paint((frame*9)%280,pairs);}
   requestAnimationFrame(tick);};tick();}
 /* ---------------- the sorter ---------------- */
 {const box=$('sorter');const bins=[{k:'read',n:10,c:'var(--c-1)'},{k:'prose',n:43,c:'var(--c-s2)'},{k:'no number',n:6,c:'var(--c-s2)'},{k:'ambiguous',n:3,c:'var(--c-s2)'},{k:'asymptotic',n:2,c:'var(--c-s2)'},{k:'≈',n:1,c:'var(--c-s2)'}];
@@ -1204,7 +1296,7 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
   const vhalf=new Q(1n).add(c2.div(new Q(4n))).add(c4.div(new Q(16n)));const ok=vhalf.sign()>0;const X=t=>160+t*280,Y=v=>142-v*112;
   let s='<line x1="'+X(-.5)+'" y1="'+Y(0)+'" x2="'+X(.5)+'" y2="'+Y(0)+'" stroke="var(--c-axis)"/><line x1="'+X(-.5)+'" y1="'+Y(1)+'" x2="'+X(.5)+'" y2="'+Y(1)+'" stroke="var(--c-grid)" stroke-dasharray="2 3"/>';
   let d='';for(let i=0;i<=60;i++){const t=-.5+i/60;const v=1+Number(c2.n)/Number(c2.d)*t*t+Number(c4.n)/Number(c4.d)*t*t*t*t;d+=(i?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
-  s+='<path d="'+d+'" fill="none" stroke="'+(ok?'var(--c-1)':'var(--ink-4)')+'" stroke-width="2"'+(ok?'':' stroke-dasharray="5 4"')+'/><text x="'+(X(.5)+3)+'" y="'+(Y(1)+3)+'" fill="var(--ink-4)" font-size="9">1</text><text x="'+X(-.5)+'" y="160" fill="var(--ink-4)" font-size="9">−½</text><text x="'+(X(.5)-9)+'" y="160" fill="var(--ink-4)" font-size="9">½</text>';
+  s+='<path d="'+d+'" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"/><text x="'+(X(.5)+3)+'" y="'+(Y(1)+3)+'" fill="var(--ink-4)" font-size="9">1</text><text x="'+X(-.5)+'" y="160" fill="var(--ink-4)" font-size="9">−½</text><text x="'+(X(.5)-9)+'" y="160" fill="var(--ink-4)" font-size="9">½</text>';
   svg.innerHTML=s;const p=P(c);const pq=qdec(Wn.pquartic),ps=qdec(Wn.pstar);let out;
   if(!ok)out=W('f','refused')+' v(½) = '+vhalf.dec(4)+' ≤ 0: the window must be positive on the interval\n'+K('the paper\'s hypotheses: even, positive on [−½, ½], at most 1 — the last holds because c₂, c₄ ≤ 0');
   else{const cmp=p.cmp(pq);out='P = '+V(p.dec(10))+K('  simple and on the line')+'\n'+K('the paper\'s quartic   ')+pq.dec(10)+(cmp>0?'  '+W('c','beaten')+K(' by '+p.sub(pq).sci(2)):cmp<0?K('  ahead by '+pq.sub(p).sci(2)):K('  equal'))+'\n'+K('the best quartic      ')+ps.dec(10)+K('  gap '+ps.sub(p).sci(2))+'\n'+K('D = ')+V(new Q(1n).add(p).div(new Q(2n)).dec(10))+K('  distinct zeros, (1 + P)/2; ε₁₅ = '+eps.sci(2));}

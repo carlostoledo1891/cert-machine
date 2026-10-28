@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -586,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -611,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 /* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
    No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
 body.easy{overflow-x:hidden}
@@ -762,6 +842,9 @@ body.easy{overflow-x:hidden}
 .easy .mt18{margin-top:18px}
 .easy .h3s{font-size:1rem}
 .easy .read{max-width:82ch}
+/* WARRANT v2 (2026-10-28): the compact standing legend beside an instrument or under the stats strip — held off the caption below it */
+.easy .panel .w-legend{margin:var(--s-4) 0 var(--s-3)}
+.easy .toykey .w-legend{margin-bottom:var(--s-3)}
 
 /* the Uirapuru story — the easy read's sheet (apps/explained/page.css) plus the forest grids and the asking list */
 .easy .forest{padding:12px 12px 8px}
@@ -860,18 +943,20 @@ body.easy{overflow-x:hidden}
     <div class="fly" style="--y:88%;--d:8s"><i class="pub">no Uirapuru will ever be bluer than 100</i><i class="vd f"><b>refused</b>no Uirapuru will ever be bluer than 100</i></div>
     <div class="decide">decide</div>
   </div>
+  <p class="cap">Claims about the toy forest, each with the word the machine would give it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at f7b2017a7411"></div>
+    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at 4a1d50b8632b"></div>
   </div>
 </header>
 
 <div class="wide"><div class="stats" data-n="4">
-  <div class="stat"><div class="k">claims decided, for real</div><div class="v" data-count="132">132</div><div class="n">107 hold, 24 carry a defect, 59 claimants</div></div>
+  <div class="stat"><div class="k">claims decided, for real</div><div class="v" data-count="131">131</div><div class="n">107 hold, 24 carry a defect, 59 claimants</div></div>
   <div class="stat"><div class="k">planted errors, for real</div><div class="v" data-count="572">572</div><div class="n">0 false certifications</div></div>
-  <div class="stat"><div class="k">birds in patch 7</div><div class="v" data-count="144">144</div><div class="n">a seeded toy; 35 of them blue</div></div>
-  <div class="stat"><div class="k">toucans called</div><div class="v">0</div><div class="n">it never could, and says so</div></div>
+  <div class="stat"><div class="k">birds in patch 7</div><div class="v"><span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">144</span></div><div class="n">a seeded toy; <span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">35</span> of them blue</div></div>
+  <div class="stat"><div class="k">toucans called</div><div class="v">∅</div><div class="n">none: it never could, and says so</div></div>
 </div></div>
+<div class="col toykey"><div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div><p class="cap">Plain numbers are the machine's, read from its records. Dotted ones are the toy's: decided exactly, but over one seeded forest, one of all the forests a seed could have drawn. A hatched tree holds a toy, and a toy has no number, so nothing is decided there.</p></div>
 
 <section class="col" id="act1">
   <div class="sec-head"><div class="act">Act I · <b>the three words a forest can give</b></div><h2>A claim about birds is a sentence the machine can act on.</h2></div>
@@ -912,7 +997,7 @@ body.easy{overflow-x:hidden}
       <div class="ctl"><label>printed position, metres <span class="num" id="f2kv">0.3</span></label><input type="range" id="f2s" min="1" max="9" value="3" aria-label="the printed position, in tenths of a metre"></div>
       <div class="scene"><svg id="f2svg" viewBox="0 0 320 84" role="img" aria-label="a row of trees; the printed reading on a tree, the double reading a hair before it, exaggerated"></svg></div>
       <pre class="out" id="f2out"></pre>
-      <p class="cap">The decimal 0.3 is exactly three tenths. The double nearest 0.3 is a hair less, so under that reading the bird is a hair before the tree. Only 0.5 is the same number both ways. The gap in the drawing is exaggerated by a factor of ten to the seventeenth; the arithmetic is exact.</p>
+      <p class="cap">The decimal 0.3 is exactly three tenths. The double nearest 0.3 is a hair less, so under that reading the bird is a hair before the tree. Only 0.5 is the same number both ways. The gap in the drawing is not to scale: it is drawn at one fixed width for every position, a picture, while the real gap runs from 5.5·10⁻¹⁸ m to 4.5·10⁻¹⁷ m and the readout prints it. Which side the double falls on is decided.</p>
     </div>
     <div class="prose rv d2">
       <p>That is not a curiosity. On one real record, 605 points claimed in dimension eleven, the printed digits put <span class="num">9,510</span> pairs of points too close together and the doubles those digits denote put <span class="num">9,480</span>. Both readings refuted the record; the counts differ because the reading is part of the verdict.</p>
@@ -927,14 +1012,14 @@ body.easy{overflow-x:hidden}
   <div class="grid2">
     <div class="prose rv d1">
       <p>The real machine was tried this way <span class="num">572</span> times on <span class="num">97</span> published objects, with the plan registered before the paper was written and a kill switch declared in advance. It said <span class="tag cert">certified</span> to a false claim <span class="num">0</span> times and <span class="tag dep w-ref">refuted</span> to a true one <span class="num">0</span> times. It found two defects of its own on the way, both fixed on the record.</p>
-      <p>The toy on the right is the same idea in a patch of 36 trees. A painted bird must flip the word. A swap must not. A toy in a tree and a missing tree must refuse, because nothing is decided until the patch is the one the claim is about. In the toy the judge and the witness share one arithmetic; in the real audit they do not, which is the point of the audit.</p>
+      <p>The toy on the right is the same idea in a patch of <span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">36</span> trees. A painted bird must flip the word. A swap must not. A toy in a tree and a missing tree must refuse, because nothing is decided until the patch is the one the claim is about. In the toy the judge and the witness share one arithmetic; in the real audit they do not, which is the point of the audit.</p>
     </div>
     <div class="panel rv d2">
       <div class="pk">Instrument 3 · <b>plant a bird</b></div>
-      <h3>Patch 3, 36 trees. The claim: every bird is at most 70 blue.</h3>
+      <h3>Patch 3, <span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">36</span> trees. The claim: every bird is at most <span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">70</span> blue.</h3>
       <p>As seeded, the claim holds. Change the forest and watch the word.</p>
       <div class="ctrls"><button class="ctrl" data-m="paint">paint tree 14 blue 95</button><button class="ctrl" data-m="swap">swap trees 5 and 22</button><button class="ctrl" data-m="toy">a toy in tree 20</button><button class="ctrl" data-m="drop">cut the last tree down</button><button class="ctrl" data-m="reset">reset</button></div>
-      <div class="scene forest"><svg id="f3svg" viewBox="0 0 320 320" role="img" aria-label="patch 3: six by six trees; a dashed square is a toy; the ringed tree is the bird the verdict names"></svg></div>
+      <div class="scene forest"><svg id="f3svg" viewBox="0 0 320 320" role="img" aria-label="patch 3: six by six trees; a hatched square is a toy; the ringed tree is the bird the verdict names"></svg></div>
       <pre class="out" id="f3out"></pre>
       <p class="cap">The counter is the toy's. The real count, 572 tries and 0 false certifications, is in the self-audit, linked at the end.</p>
     </div>
@@ -942,8 +1027,8 @@ body.easy{overflow-x:hidden}
 </section>
 
 <section class="col" id="act4">
-  <div class="sec-head"><div class="act">Act IV · <b>ten quadrillion calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
-  <p class="thesis rv">In the real machine, one wave of <b>19 record claims</b> meant 9.75·10¹⁵ pairs of points to call. It took a rented graphics card 6.8 hours and $8.15, and every call was exact.</p>
+  <div class="sec-head"><div class="act">Act IV · <b>nearly ten quadrillion calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
+  <p class="thesis rv">In the real machine, one wave of <b>19 record claims</b> meant 9.75·10¹⁵ pairs of points to call. The seven largest took a rented graphics card 6.8 hours and $8.15, the other twelve ran on a laptop, and every call was exact.</p>
   <div class="grid2">
     <div class="prose rv d1">
       <p>The trick is old. A bird's blueness is a whole number, and whole numbers add exactly as long as the sum stays on the page of the ledger you are writing in. A half-precision ledger holds whole numbers below 2,048; a single-precision one below 16,777,216. Check, before the run, that no flock in the patch can run off the page, write that check into the code, and a card built for guessing becomes an engine for counting. The slowest ledger, arbitrary precision, is kept for the flocks that need it.</p>
@@ -951,8 +1036,8 @@ body.easy{overflow-x:hidden}
     </div>
     <div class="wide rv d2"><div class="stats" data-n="3">
       <div class="stat"><div class="k">pairs called</div><div class="v">9.75·10¹⁵</div><div class="n">9,752,282,639,769,360 exactly; 6,716,665,650,099 at exactly sixty degrees</div></div>
-      <div class="stat"><div class="k">the bill</div><div class="v">$8.15</div><div class="n">one NVIDIA L40S at $1.09 an hour</div></div>
-      <div class="stat"><div class="k">guesses</div><div class="v">0</div><div class="n">one inequality per path, checked against the data first</div></div>
+      <div class="stat"><div class="k">the bill</div><div class="v">$8.15</div><div class="n">one NVIDIA L40S at $1.09 an hour, for the seven largest</div></div>
+      <div class="stat"><div class="k">guesses</div><div class="v">∅</div><div class="n">none: one inequality per path, checked against the data first</div></div>
     </div></div>
   </div>
 </section>
@@ -962,7 +1047,7 @@ body.easy{overflow-x:hidden}
   <p class="thesis rv">The machine can call Uirapurus. It cannot see, hear or call a toucan. It cannot call every bird in the Amazon, nor any bird forever. And it cannot judge a song from a recording it was not given. <b>When it cannot, it says so, and says what would let it.</b></p>
   <div class="grid2">
     <div class="prose rv d1">
-      <p>In 2026 a language model wrote a proof about all the zeros of a famous function, a statement about infinitely many birds at once. Two mathematicians checked it; a proof assistant checked it. Most of it is toucan territory for this machine: <span class="num">65</span> sentences, of which <span class="num">10</span> are claims about a finite patch. Those it decided. One rests on a recording the paper calls "available from the authors". The word there is refused, and the ask is the file.</p>
+      <p>In 2026 a language model wrote a proof about all the zeros of a famous function, a statement about infinitely many birds at once. Two mathematicians checked it; a proof assistant checked it. Most of it is toucan territory for this machine: <span class="num">65</span> sentences, of which <span class="num">10</span> are claims about a finite patch. Those it read, decided each one the published bytes could settle, and said which it could not. One rests on a recording the paper calls "available from the authors". The word there is refused, and the ask is the file.</p>
       <p>A refusal is not a shrug. It names the rule that stopped the call, and where a number would change the word, it prints the number. The machine has never found a bird. It has looked at every bird someone claimed, and said which claims hold, which do not, and which it cannot judge, with the tree, the list of calls or the reason attached.</p>
     </div>
     <div class="panel rv d2">
@@ -971,7 +1056,7 @@ body.easy{overflow-x:hidden}
       <p>Each sentence is asked of patch 7 by the same call as Instrument 1, or refused with the rule.</p>
       <div class="ask" id="ask"></div>
       <div class="ctrls"><button class="ctrl" id="askall">ask all ten</button></div>
-      <p class="cap">Four refusals, each with its reason and, where there is one, the number that would change the word; the rest decided over patch 7 as seeded.</p>
+      <p class="cap">Five refusals, each with its reason and, where there is one, the number that would change the word; the rest decided over patch 7 as seeded, or over the two readings of a printed position.</p>
     </div>
   </div>
 </section>
@@ -992,7 +1077,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit f7b2017a7411 on 2026-10-27, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit 4a1d50b8632b on 2026-10-28, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
@@ -1039,10 +1124,11 @@ addEventListener('scroll',()=>{const h=document.documentElement;prog.style.width
    Every decision here is a loop over whole numbers; the forest is seeded (forest.js), the birds invented. */
 const {forest}=window.FOREST;
 const BLUE=70;
-/* one square per tree, darker is bluer; a toy is a dashed square; a missing tree is not drawn; the ringed tree is the bird the word rests on */
-const drawPatch=(svg,b,wit,slots)=>{const n=slots||b.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=320/cols;svg.setAttribute('viewBox','0 0 320 '+(rows*cell).toFixed(1));let s='';
+/* one square per tree, darker is bluer; a toy holds no number and is drawn as the void, hatched (WARRANT v2: it was a square
+   in the guide pattern 2 3, which says nothing); a missing tree is not drawn; the ringed tree is the bird the word rests on */
+const drawPatch=(svg,b,wit,slots)=>{const n=slots||b.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=320/cols;svg.setAttribute('viewBox','0 0 320 '+(rows*cell).toFixed(1));const vid=svg.id+'-void';let s='<defs><pattern id="'+vid+'" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs>';
  for(let i=0;i<b.length;i++){const x=(i%cols)*cell,y=Math.floor(i/cols)*cell,g=cell*.14,w=cell-2*g,r=(cell*.12).toFixed(2);
-  if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="none" stroke="var(--ink-4)" stroke-dasharray="2 3"/>';
+  if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" class="w-void" fill="url(#'+vid+')" stroke="var(--border-strong)" stroke-width="1"/>';
   else s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="var(--ink)" fill-opacity="'+(0.06+0.9*b[i]/100).toFixed(3)+'"/>';}
  if(wit>=0&&wit<b.length){const cx=(wit%cols)*cell+cell/2,cy=Math.floor(wit/cols)*cell+cell/2,rr=cell*.58;s+='<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--paper)" stroke-width="3.5"/><circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';}
  svg.innerHTML=s;};
@@ -1076,8 +1162,8 @@ const WORD={c:'CERTIFIED',r:'REFUTED',f:'REFUSED'};
  const render=()=>{const k=Number($('f2s').value);$('f2kv').textContent='0.'+k;const exact=new Q(BigInt(k),10n);const dbl=qdouble(k/10);const diff=dbl.sub(exact);const s=diff.sign();
   let g='<line x1="14" y1="58" x2="306" y2="58" stroke="var(--rule-strong)"/>';
   for(let i=0;i<=10;i++){const x=16+i*28.8;g+='<path d="M'+x+' 44 L'+(x+5)+' 58 L'+(x-5)+' 58 Z" fill="var(--ink-4)"/><text x="'+x+'" y="74" text-anchor="middle" font-size="7" fill="var(--ink-4)">'+(i/10).toFixed(1)+'</text>';}
-  const x=16+k*28.8;g+='<circle cx="'+x+'" cy="30" r="4" fill="var(--ink)"/><text x="'+(x+8)+'" y="20" text-anchor="start" font-size="7" fill="var(--ink-3)">printed, 0.'+k+'</text>';
-  if(s!==0){const xd=x+(s<0?-10:10);g+='<rect x="-4" y="-4" width="8" height="8" transform="translate('+xd+' 30) rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/><line x1="'+x+'" y1="40" x2="'+xd+'" y2="40" stroke="var(--ink-3)" stroke-dasharray="2 3"/><text x="'+(xd-8)+'" y="20" text-anchor="end" font-size="6.5" fill="var(--ink-3)">the double, gap ×10¹⁷</text>';}
+  const x=16+k*28.8;g+='<circle cx="'+x+'" cy="30" r="4" fill="var(--ink)"/><text x="'+(x>250?x-8:x+8)+'" y="20" text-anchor="'+(x>250?'end':'start')+'" font-size="7" fill="var(--ink-3)">printed, 0.'+k+'</text>';
+  if(s!==0){const xd=x+(s<0?-10:10);g+='<rect x="-4" y="-4" width="8" height="8" transform="translate('+xd+' 30) rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/><line x1="'+x+'" y1="40" x2="'+xd+'" y2="40" stroke="var(--ink-3)" stroke-dasharray="2 3"/><text x="'+Math.min(268,Math.max(52,xd))+'" y="10" text-anchor="middle" font-size="6.5" fill="var(--ink-3)">the double, not to scale</text>';}
   svg.innerHTML=g;
   out.innerHTML=K('printed                      ')+V('0.'+k+' m')+'\n'+K('read as the decimal it is    ')+exact.n+'/'+exact.d+' m, exactly  '+W('c','on tree '+k)+'\n'+K('read as the double it denotes  ')+dbl.dec(20)+'… m  '+(s===0?W('c','on tree '+k)+K(' the same number both ways'):(s<0?W('r','before tree '+k):W('r','past tree '+k))+K(' by '+diff.abs().sci(2)+' m'))+'\n'+K('the claim "the bird is on tree '+k+'"   ')+(s===0?'holds under both readings':'holds under one reading and fails under the other; the machine writes down which it used');};
  $('f2s').addEventListener('input',render);render();}

@@ -336,14 +336,36 @@ function legend({ items, x, y, gap }) {
             lab, lx, ly, anchor: optional tiny label}]
    readout: {k, d} — the default narration, and the no-script fallback.
 
+   STANDING (WARRANT v2, 2026-10-28). A node may carry `standing` (a constant of
+   playground/warrant.js): a drawing of the machine draws what a step IS, not a
+   number. A float screen that may prune and never admit is COMPUTED, its
+   outline dashed; a pick among what the data admit (a reading, a prior) is
+   CHOSEN, dotted; an exact decision is DECIDED, solid; a refusal is the void,
+   hatched, no outline. The patterns come from design/grammar.js through
+   warrant.js and nowhere else, and a figure that carries any standing prints
+   the compact legend under itself (check-wiring refuses the page otherwise).
+   A node with no `standing` is structure and is drawn as before.
+
    The script is the ONE scripted element the design system ships: activation
    swaps the readout text, nothing more. Scripts off: hover still highlights,
    the default narration stands, the caption still explains. */
 function flow({ w, h, alt, readout, nodes, edges, caption }) {
+  const W = require('../playground/warrant.js');
+  const standings = [...new Set(nodes.filter((n) => n.standing !== undefined).map((n) => n.standing))];
   const parts = [];
   parts.push('    <svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + escAttr(alt) + '">');
   parts.push('      <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">'
-    + '<path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>');
+    + '<path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker>'
+    + (standings.includes(W.REFUSED) ? '<pattern id="mach-void" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
+      + '<line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern>' : '')
+    + '</defs>');
+  /* the box outline per standing: a class and, for computed and chosen, the grammar's pattern at the box's 1px width */
+  const boxAttrs = (n) => {
+    if (n.standing === undefined) return 'class="nd-box"';
+    if (n.standing === W.REFUSED) return 'class="nd-box nd-void w-void"';
+    const s = W.stroke(n.standing, { width: 1 });
+    return 'class="nd-box ' + s.class + '"' + (s.dash ? ' stroke-dasharray="' + s.dash + '"' : '') + (s.cap ? ' stroke-linecap="' + s.cap + '"' : '');
+  };
   for (const e of edges) {
     parts.push('      <path class="ed" d="' + escAttr(e.d) + '" marker-end="url(#mfa)"/>');
     if (e.flow !== false) parts.push('      <path class="ed-f" d="' + escAttr(e.d) + '"/>');
@@ -351,7 +373,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
   for (const n of nodes) {
     parts.push('      <g class="nd" tabindex="0" role="button" aria-label="' + escAttr(n.t) + '"'
       + ' data-t="' + escAttr(n.t) + '" data-d="' + escAttr(n.d) + '">');
-    parts.push('        <rect class="nd-box" x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="5"/>');
+    parts.push('        <rect ' + boxAttrs(n) + ' x="' + n.x + '" y="' + n.y + '" width="' + n.w + '" height="' + n.h + '" rx="5"/>');
     const acc = ['sig', 'held', 'warn', 'dep'].indexOf(n.role) >= 0 ? n.role : 'dep';
     parts.push('        <rect class="acc-' + acc + '" x="' + n.x + '" y="' + n.y + '" width="3" height="' + n.h + '" rx="1.5"/>');
     parts.push('        <text class="nd-k" x="' + (n.x + 14) + '" y="' + (n.y + 18) + '">' + esc(n.k) + '</text>');
@@ -382,6 +404,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
     + '<div class="d" data-ro-d>' + esc(readout.d) + '</div></div>\n'
     + parts.join('\n') + '\n  </div>\n'
     + (caption ? '  <figcaption>' + esc(caption) + '</figcaption>\n' : '')
+    + (standings.length ? '  ' + W.legendHtml({ compact: true, exclude: [W.DECIDED, W.COMPUTED, W.CHOSEN, W.REFUSED].filter((s) => !standings.includes(s)) }) + '\n' : '')
     + '</figure></div>\n' + script;
 }
 

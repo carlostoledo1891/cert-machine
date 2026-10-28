@@ -255,6 +255,11 @@ for (const d of ['site/about', 'site/machine', 'site/oracle']) {
   if (fs.existsSync(path.join(ROOT, d))) walk(d);
 }
 if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.html');
+/* THE STORY PAGES (2026-10-28, the WARRANT site pass). The easy read and the Uirapuru story draw the grammar — a station's
+   outline, a dotted window, the toy's dotted numbers, a hatched toy — and were in no walk, so their legend and palette
+   were checked by nobody. The round-one easy read (site/explained/v1/) is kept in its own palette beside them for
+   comparison, a second language on purpose, and is not walked. */
+for (const f of ['site/explained/index.html', 'site/uirapuru/index.html']) if (fs.existsSync(path.join(ROOT, f))) pages.push(f);
 /* AND /instruments (2026-09-15). The walk below used to be added only after
    check 4 had run, so the type check covered 69 pages and the palette check
    90 — and four instruments pages carried a literal ui-monospace stack in

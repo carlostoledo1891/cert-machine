@@ -29,6 +29,12 @@
 
 const path = require('path');
 const C = require(path.join(__dirname, '..', 'design', 'components.js'));
+/* WARRANT v2 (2026-10-28): a drawing of the machine draws what a step IS, not a number. The float screen may prune and
+   never admit, so it is COMPUTED by nature (dashed); the instruments, the certifier and the decided outcomes are DECIDED
+   (solid); a refusal is the void (hatched, no outline); a closed form that survives inside its enclosure is one member of
+   the set the enclosure admits, picked by smallness, which is a prior and not the data, so it is CHOSEN (dotted). Every
+   other box is structure. components.flow() draws the patterns from design/grammar.js and prints the legend. */
+const WR = require(path.join(__dirname, '..', 'playground', 'warrant.js'));   /* not W: the drawings name their design width W */
 
 const commas = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
@@ -81,7 +87,7 @@ function machineFlow(ledger, { gates }) {
       d: 'Interval branch-and-bound over the phase plane: a certified a priori bound confines every periodic point, tube iteration excludes, Krawczyk-as-contraction resolves each remainder to exactly one point. It can refuse; it can never return a wrong count.' },
     { k: 'SOS · RATIONAL', v: 'lower bounds', t: 'instrument · sum-of-squares',
       d: 'Exact rational sum-of-squares decompositions — a tight global lower bound whose checker goes red on a corrupted certificate. Python, stdlib fractions only.' }
-  ].map((n, r) => ({ ...n, x: iX[r], y: iY, w: iW, h: iH, role: 'dep' }));
+  ].map((n, r) => ({ ...n, x: iX[r], y: iY, w: iW, h: iH, role: 'dep', standing: WR.DECIDED }));
 
   /* the outcome row, then the ledger column down to the page nodes */
   const oY = certB + 40, oH = 50, oW = 250, oX = [8, 274, 540], oB = oY + oH;
@@ -97,11 +103,11 @@ function machineFlow(ledger, { gates }) {
   const gatesNode = {
     k: 'THE GATES', v: gates.green + '/' + gates.ran + ' batteries',
     t: 'the gates — batteries and red controls',
-    d: 'Every battery is executed at every control build, never remembered: ' + gates.green + '/' + gates.ran + ' green at this ledger\'s build. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has found was found by a control, none by reading code.'
+    d: 'Every battery is executed at every control build, never remembered: ' + gates.green + '/' + gates.ran + ' green at this ledger\'s build. Red controls are deliberate forgeries the instruments must catch — a control that cannot fire is decoration. Every real bug this project has shipped and then found is catalogued with what caught it at /reports/methods-note.html: most by a control, a calibration, an impossible number or a byte pin, and the rest by an adversarial read of the code, counted apart.'
   };
 
   const selfNode = {
-    k: 'THE CONTROL PAGE', v: '/machine/',
+    k: 'THE CONTROL PAGE', v: '/machine/log.html',
     t: 'the control page',
     d: 'The live dashboard this schematic feeds: every family, every battery, the full ledger decomposition, drift status. Generated from the ledger alone — editing it by hand is a change to nothing; the next build overwrites it, which is the point.'
   };
@@ -110,19 +116,19 @@ function machineFlow(ledger, { gates }) {
     { x: sx, y: enumY, w: sw, h: bandH, role: 'sig', k: 'ENUMERATE', v: commas(T.generated || 0) + ' objects',
       t: 'enumerate — deterministic and indexed',
       d: 'Every family enumerates by integer index, deterministically: a run of any size resumes and reproduces, and two runs at the same limit produce identical hits. ' + commas(T.generated || 0) + ' objects this build.' },
-    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
+    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', standing: WR.COMPUTED, k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
       t: 'screen — float, and it may only prune',
       d: 'A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: nothing it passes is believed, and everything it passes goes to the certifier. Duplicates fold by canonical key on the way.' },
-    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
+    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', standing: WR.DECIDED, k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
       t: 'certify — the only authority',
       d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment for uniqueness. The engine never decides mathematics — it counts, dedupes, and hands the certifier what survived. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'CERTIFIED', v: commas(hits),
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', standing: WR.DECIDED, k: 'CERTIFIED', v: commas(hits),
       t: 'CERTIFIED — a certificate exists',
       d: 'A CERTIFIED object ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REFUTED · PROVED', v: commas(rejects),
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', standing: WR.DECIDED, k: 'REFUTED · PROVED', v: commas(rejects),
       t: 'REFUTED — the statement proved false for the object',
       d: 'The certifier examined the candidate and proved the family\'s statement false for it: the enclosure lies wholly on the wrong side of the bar, or an exact fact (a record, a rank) decides it. A REFUTED here is a theorem about the object, not a failed search; an enclosure that straddles the bar is REFUSED and never counted here. ' + commas(rejects) + ' this build.' },
-    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', standing: WR.REFUSED, k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide — a singular preconditioner, an exhausted budget, a containment that would not close. Absence of proof is never evidence of absence, and a refusal is never converted into a verdict. ' + commas(refused) + ' of ' + commas(T.certified || 0) + ' decisions this build. THIS COUNTER IS THE LOOP\'S OWN: the lab\'s other refusals — NEEDS DATA where a claimant published no bytes, campaigns recorded unfinished, the undecided cells of the sweeps, the grader\'s refusal rate on submitted claims — are counted by kind at /reports/refusals.html, never merged with this one.' },
     { x: lx, y: ledgerY, w: lw, h: bandH, role: 'sig', k: 'LEDGER', v: 'ledger.json',
@@ -131,12 +137,12 @@ function machineFlow(ledger, { gates }) {
     { x: lx, y: huntY, w: lw, h: bandH, role: 'sig', k: 'CLOSED-FORM HUNT', v: commas(T.closedFormTested || 0) + ' tested',
       t: 'the closed-form hunt',
       d: 'Every certified enclosure is interrogated for small closed forms — rationals, square roots, multiples and powers of the standard constants. The enclosure decides: outside means refuted exactly, inside means a surviving candidate. Nothing is accepted on digits agreeing.' },
-    { x: rX[0], y: rY, w: rW, h: rH, role: 'held', k: 'REFUTED EXACTLY', v: commas(T.closedFormRefuted || 0),
+    { x: rX[0], y: rY, w: rW, h: rH, role: 'held', standing: WR.DECIDED, k: 'REFUTED EXACTLY', v: commas(T.closedFormRefuted || 0),
       t: 'refuted exactly',
       d: commas(T.closedFormRefuted || 0) + ' candidate closed forms proved wrong: the value provably lies outside a certified enclosure. The Ramanujan Machine matches truncated decimals and argues from collision probability; this decides.' },
-    { x: rX[1], y: rY, w: rW, h: rH, role: 'warn', k: 'SURVIVORS · OPEN', v: commas(T.closedFormCandidates || 0) + ' candidates',
+    { x: rX[1], y: rY, w: rW, h: rH, role: 'warn', ...(T.closedFormCandidates ? { standing: WR.CHOSEN } : {}), k: 'SURVIVORS · OPEN', v: T.closedFormCandidates ? commas(T.closedFormCandidates) + ' candidates' : '∅ none open',   /* an empty set is ∅, and nothing in it was chosen (WARRANT rule 7) */
       t: 'the survivors',
-      d: commas(T.closedFormCandidates || 0) + ' forms remain inside their enclosures — candidates, not results. They stay open until a tighter enclosure refutes them or an exact argument confirms them.' },
+      d: commas(T.closedFormCandidates || 0) + ' forms remain inside their enclosures — candidates, not results: each is one member of the set its enclosure admits, picked for being small, which is a prior and not the data. They stay open until a tighter enclosure refutes them or an exact argument confirms them.' },
     { x: rX[0], y: gY, w: rW, h: rH, role: 'held', ...gatesNode },
     { x: rX[1], y: gY, w: rW, h: rH, role: 'dep', ...selfNode }
   ], instr);
@@ -182,7 +188,7 @@ function machineFlow(ledger, { gates }) {
       d: 'Generate at scale, screen in float, certify the survivors exactly. Select any node for what it does — every count is read off ledger.json at build time.'
     },
     nodes, edges,
-    caption: 'The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REJECT and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and every page is rebuilt from the ledger alone.'
+    caption: 'The loop this repository runs. Families supply objects and mathematics; the engine supplies scale and bookkeeping; the instruments alone decide. REFUTED and REFUSED are terminal by design — only a certificate reaches the ledger, the gates run on every build, and every page is rebuilt from the ledger alone. A step\'s outline is what the step is: the float screen dashed, the exact steps solid, ' + (T.closedFormCandidates ? 'the open survivors dotted, ' : '') + 'a refusal the void.'
   });
 }
 
@@ -212,24 +218,24 @@ function machineFlowCompact(ledger, { gates }) {
       d: F.length + ' families, one file and six functions each; every one enumerates by integer index, '
         + 'deterministically, so a run of any size resumes and reproduces. ' + commas(T.generated || 0)
         + ' objects this build. The full family table is on the control page.' },
-    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
+    { x: sx, y: screenY, w: sw, h: bandH, role: 'sig', standing: WR.COMPUTED, k: 'SCREEN · FLOAT', v: commas(screened) + ' pass',
       t: 'screen — float, and it may only prune',
       d: 'A fast float estimate decides only what is WORTH certifying. The screen may prune, never admit: '
         + 'nothing it passes is believed, and everything it passes goes to the certifier.' },
-    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
+    { x: sx, y: certY, w: sw, h: bandH, role: 'sig', standing: WR.DECIDED, k: 'CERTIFY · EXACT', v: commas(T.certified || 0) + ' decided',
       t: 'certify — the only authority',
       d: 'The instruments decide: interval enclosures, exact rational arithmetic, strict interior containment '
         + 'for uniqueness. The engine never decides mathematics. ' + commas(T.certified || 0) + ' decisions this build.' },
-    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', k: 'CERTIFIED', v: commas(hits),
+    { x: oX[0], y: oY, w: oW, h: oH, role: 'held', standing: WR.DECIDED, k: 'CERTIFIED', v: commas(hits),
       t: 'CERTIFIED — a certificate exists',
       d: 'A CERTIFIED object ships with its certificate: an explicit enclosure, an exact count, or an existence-and-uniqueness '
         + 'box, plus the falsifier the certificate must survive. ' + commas(hits) + ' this build.' },
-    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', k: 'REFUTED · PROVED', v: commas(rejects),
+    { x: oX[1], y: oY, w: oW, h: oH, role: 'sig', standing: WR.DECIDED, k: 'REFUTED · PROVED', v: commas(rejects),
       t: 'REFUTED — the statement proved false for the object',
       d: 'The certifier examined the candidate and proved the family\'s statement false for it: the enclosure lies '
         + 'wholly on the wrong side of the bar, or an exact fact decides it. A REFUTED here is a theorem about the '
         + 'object, not a failed search; a straddling enclosure is REFUSED, never counted here. ' + commas(rejects) + ' this build.' },
-    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', k: 'REFUSED · IN THE LOOP', v: commas(refused),
+    { x: oX[2], y: oY, w: oW, h: oH, role: 'warn', standing: WR.REFUSED, k: 'REFUSED · IN THE LOOP', v: commas(refused),
       t: 'REFUSED — absence of proof',
       d: 'The instrument declined to decide. Absence of proof is never evidence of absence, and a refusal is '
         + 'never converted into a verdict. ' + commas(refused) + ' of ' + commas(T.certified || 0)
@@ -264,8 +270,8 @@ function machineFlowCompact(ledger, { gates }) {
     },
     nodes, edges,
     caption: 'The loop, in five stops. The screen may only prune; the instruments alone decide; REFUTED and '
-      + 'REFUSED are terminal by design. The full drawing — every family, every instrument, the closed-form '
-      + 'hunt — is on the control page.'
+      + 'REFUSED are terminal by design; the float screen is dashed, the exact steps solid, a refusal the void. The full '
+      + 'drawing — every family, every instrument, the closed-form hunt — is on the control page.'
   });
 }
 

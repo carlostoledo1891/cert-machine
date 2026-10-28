@@ -56,8 +56,8 @@ const W = J('certs/kissing-wave.json'); const kw = W.rows.filter((r) => r.claima
 need(kw.length === 19 && kw.every((r) => r.verdict === 'WITNESSED' && r.engine.violations === 0), 'the nineteen Qiushi rows are not all WITNESSED');
 V.KW_ROWS = String(kw.length); V.KW_PAIRS = fmtInt(kw.reduce((s, r) => s + r.engine.pairs, 0)); V.KW_CONTACTS = fmtInt(kw.reduce((s, r) => s + r.engine.contacts, 0));
 V.KW_PAIRS_SCI = get(MT, 'MtKwPairsSci').replace(/\\times/, '×').replace(/\^\{(-?\d+)\}/, '<sup>$1</sup>').replace(/\s+/g, '&thinsp;'); V.KW_GPU_ROWS = get(MT, 'MtKwGpuRows'); V.KW_GPU_HOURS = get(MT, 'MtKwGpuHours'); V.KW_GPU_COST = get(MT, 'MtKwGpuCost'); V.KW_GPU_NAME = get(MT, 'MtKwGpuName'); V.KW_GPU_PRICE = get(MT, 'MtKwGpuPrice');
-V.KW_GPU_MAXNORM = get(MT, 'MtKwGpuMaxNorm'); V.KW_DESK_MAXNORM = get(MT, 'MtKwDeskMaxNorm'); V.KW_AXIS_NORM = get(MT, 'MtKwAxisNormSci').replace(/\\times/, '×').replace(/\^\{(-?\d+)\}/, '<sup>$1</sup>'); V.KW_GPU_MAXCOORD = get(QK, 'QkGpuMaxCoord');
-V.KW_GPU_PAIRS_EACH = get(MT, 'MtKwGpuPairsEachSci').replace(/\\times/, '×').replace(/\^\{(-?\d+)\}/, '<sup>$1</sup>'); V.KW_MAXDIM = get(MT, 'MtKwMaxDim'); V.KW_DIMS = get(MT, 'MtKwDims').replace(/--/g, '–');
+V.KW_GPU_MAXNORM = get(MT, 'MtKwGpuMaxNorm'); V.KW_DESK_MAXNORM = get(MT, 'MtKwDeskMaxNorm'); V.KW_AXIS_NORM = get(MT, 'MtKwAxisNormSci').replace(/\s*\\times\s*/, '&thinsp;×&thinsp;').replace(/\^\{(-?\d+)\}/, '<sup>$1</sup>'); V.KW_GPU_MAXCOORD = get(QK, 'QkGpuMaxCoord');
+V.KW_GPU_PAIRS_EACH = get(MT, 'MtKwGpuPairsEachSci').replace(/\s*\\times\s*/, '&thinsp;×&thinsp;').replace(/\^\{(-?\d+)\}/, '<sup>$1</sup>'); V.KW_MAXDIM = get(MT, 'MtKwMaxDim'); V.KW_DIMS = get(MT, 'MtKwDims').replace(/--/g, '–');
 /* the 605 record: two readings of one byte string */
 const KL = J('certs/kissing-ledger.json'); const r605 = (KL.openRungs || []).find((r) => r.slug === 'kissing-number-d11-605'); need(r605 && r605.measured, 'the 605 rung is not in the kissing ledger');
 V.SIX_N = String(r605.measured.n); V.SIX_PAIRS = fmtInt(r605.measured.pairs); V.SIX_VIOL_DIGITS = fmtInt(r605.measured.violations); V.SIX_WORST_DEG = Number(r605.measured.worstAngleDeg).toFixed(2);
@@ -93,9 +93,39 @@ const pairsTotal = kw.reduce((s, r) => s + r.engine.pairs, 0); V.KW_PAIRS_BIG = 
 const sciPlain = get(MT, 'MtKwPairsSci').match(/^([\d.]+)\s*\\times\s*10\^\{(\d+)\}$/); need(sciPlain, 'the pairs macro is not m×10^e'); V.KW_PAIRS_SCI_PLAIN = sciPlain[1] + '·10' + sciPlain[2].replace(/\d/g, (d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
 V.KW_DESK_MAXNORM_PLAIN = V.KW_DESK_MAXNORM.replace(/,/g, ''); need(/^\d+$/.test(V.KW_DESK_MAXNORM_PLAIN), 'the laptop norm is not an integer');
 
+/* ---- WARRANT v2.1 site pass, 2026-10-28: every count a story page used to type, read here instead ---- */
+const NUMWORD = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const numword = (n) => { need(Number.isInteger(n) && n >= 0 && n < NUMWORD.length, 'no word for ' + n); return NUMWORD[n]; };
+/* the register: 132 rows, ONE of them QUEUED — "of 132 decided" was false on three pages; holds + defects = decided, and
+   the macro file is held to the live ledger so a stale macro cannot reach a page */
+V.REG_DECIDED = get(REG, 'RegDecided');
+need(intOf(V.REG_HOLDS) + intOf(V.REG_DEFECTS) === intOf(V.REG_DECIDED), 'the register\'s holds and defects do not sum to its decided rows');
+{ const CL = J('certs/claims-ledger.json'); need(CL.decided === intOf(V.REG_DECIDED) && CL.count === intOf(V.REG_ROWS), 'paper/tex/register-numbers.tex is behind certs/claims-ledger.json (' + V.REG_DECIDED + '/' + V.REG_ROWS + ' against ' + CL.decided + '/' + CL.count + ') — rebuild the paper numbers'); }
+/* the self-audit's own defects ("two, both fixed on the record") and the malformed mutant read silently ("one") */
+V.SA_FIXES_WORD = numword(SA.fixes.length); V.SA_MALFORMED_NOT_REFUSED_WORD = numword(A.malformedNotRefused);
+need(SA.fixes.length >= 1 && A.malformedNotRefused >= 1, 'the self-audit no longer records the defects and the silent read the pages describe');
+/* the Riemann layer's finite claims, as a word ("the ten sentences a machine can check") */
+V.RF_SHAPED_WORD = numword(intOf(V.RfShaped));
+/* the wave as a number word: 9.75·10¹⁵ is NEARLY ten quadrillion, never "ten quadrillion" */
+need(pairsTotal >= 9e15 && pairsTotal < 1e16, 'the wave is no longer between nine and ten quadrillion pairs; the words "nearly ten quadrillion" are false');
+V.KW_PAIRS_WORDS = 'nearly ten quadrillion';
+/* the ruler's marks, from the wave (they were typed: 192n, 395n·10³³ and "dimensions 49–55"). The dimension-38 axis rows'
+   squared norm is 394,674,026,743,945,636,732,262,714,818,942,096 exactly; the page printed 395 followed by 33 zeros as if exact */
+{ const gpu = kw.filter((r) => (r.engine.families || []).some((f) => /tensor cores/.test(f.path || '')));
+  need(gpu.length === intOf(V.KW_GPU_ROWS), 'the GPU rows of the wave are not the ' + V.KW_GPU_ROWS + ' the paper counts');
+  const dims = gpu.map((r) => r.dim).sort((a, b) => a - b); need(dims[dims.length - 1] - dims[0] === dims.length - 1, 'the GPU dimensions are not one run');
+  V.KW_GPU_DIMS = dims[0] + '–' + dims[dims.length - 1]; V.KW_GPU_MAXNORM_PLAIN = String(Math.max(...gpu.map((r) => Number(r.engine.norm[0]))));
+  need(V.KW_GPU_MAXNORM_PLAIN === V.KW_GPU_MAXNORM, 'the GPU rows\' largest squared norm differs between the wave and the paper');
+  const d38 = kw.find((r) => r.dim === 38); const ax = d38 && /\/\s*(\d{30,})/.exec(d38.engine.normShow || ''); need(ax, 'the dimension-38 axis norm is not in the wave record');
+  V.KW_AXIS_NORM_EXACT = ax[1]; const lead = Number(ax[1].slice(0, 4)) / 1000; need(lead.toFixed(2) + '\\times10^{' + (ax[1].length - 1) + '}' === get(MT, 'MtKwAxisNormSci').replace(/\s+/g, ''), 'the paper\'s axis norm is not the wave\'s, rounded');
+  V.KW_DESK_ROWS = get(MT, 'MtKwDeskRows'); need(intOf(V.KW_DESK_ROWS) + gpu.length === kw.length, 'the laptop and GPU rows do not make the wave'); }
+/* the method paper's version, from the papers index (the easy read's credits typed v0.8 while the paper was at v0.9) */
+{ const PI = J('paper/INDEX.json'); const p = PI.papers.find((x) => x.name === 'cert-machine-method'); need(p && /\bv\d+\.\d+/.test(String(p.status)), 'paper/INDEX.json has no version for the method paper');
+  V.PAPER_VERSION = /\bv\d+\.\d+/.exec(String(p.status))[0]; }
+
 /* ---- the placeholders: {{KEY}} in a page's parts, filled from the numbers; a key the build did not compute refuses ---- */
 const flatten = () => { const flat = {}; for (const k in V) if (typeof V[k] === 'string') flat[k] = V[k];
   for (const tau of ['1e-6', '1e-9', '1e-12']) for (const f in V.FL[tau]) flat['FL_' + tau.replace('1e-', 'E') + '_' + f] = String(V.FL[tau][f]);
   return flat; };   /* read at fill time: a builder adds its own numbers to V before it fills */
 const fill = (txt, what) => { const flat = flatten(); const out = txt.replace(/\{\{([A-Za-z0-9_]+)\}\}/g, (all, k) => { need(k in flat, what + ' asks for {{' + k + '}}, which the build did not compute'); return flat[k]; }); need(!/\{\{[A-Za-z0-9_]+\}\}/.test(out), 'an unfilled placeholder survived in ' + what); return out; };
-module.exports = { ROOT, V, flatten, fill, need, die, git, J, T, macros, get, intOf, fmtInt, sci, sciHtml, MT, REG, RF, QK };
+module.exports = { ROOT, V, flatten, fill, need, die, git, J, T, macros, get, intOf, fmtInt, sci, sciHtml, numword, MT, REG, RF, QK };

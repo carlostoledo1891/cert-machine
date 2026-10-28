@@ -587,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -612,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -690,8 +769,8 @@ ul.plain b{color:var(--ink);font-weight:480}
 <div class="wide">
   <div class="stats" data-n="4">
     <div class="stat"><div class="k">published claims decided</div><div class="v">131</div><div class="n">in the register, each with its verdict and the record that decided it</div></div>
-    <div class="stat"><div class="k">batteries at this build</div><div class="v">172 of 172</div><div class="n">run, not remembered; a red one refuses the control build</div></div>
-    <div class="stat"><div class="k">third-party re-derivations</div><div class="v">7</div><div class="n">results re-derived by someone else with no shared code</div></div>
+    <div class="stat"><div class="k">batteries at the last control build</div><div class="v">172 of 172</div><div class="n">run at git cd0a155a, not remembered; a red one refuses the control build</div></div>
+    <div class="stat"><div class="k">third-party re-derivations</div><div class="v">5</div><div class="n">results re-derived by someone else with no code of ours; two more re-ran our own tools</div></div>
     <div class="stat"><div class="k">reports</div><div class="v">90</div><div class="n">in five series, each recomputing its numbers from its records</div></div>
   </div>
 </div>
@@ -717,7 +796,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§3 · the arithmetic</div>
     <h2>What secures the inclusion property</h2>
   </div>
-<p>Exact rationals where a tie must be decided or the object is rational: reduced fractions of arbitrary-precision integers, doubles converted losslessly, linear systems solved by exact elimination that reports a singular matrix rather than a small pivot. Exact integers in floating-point hardware where the data are integer vectors: a product is exact as long as no partial sum can leave the range the format holds exactly, a bound checked against the data before anything runs and written into the record — which is what lets 10¹⁵ pairs of integer points be decided exactly on a GPU.</p><p>Outward-rounded intervals on doubles where the quantity is transcendental or the data are long: each computed endpoint is stepped one unit in the last place outward, so the true value lies inside, on the strength of the correctly rounded operations IEEE-754 mandates. No library function is trusted: elementary and special functions are truncated series with their remainders enclosed; long sums use compensated summation with an outward error bound; derivatives come from forward differentiation over the same arithmetic, so the derivative a proof uses is an extension of the function the proof is about. A malformed operand or an indeterminate result is refused by exception, never decided.</p>
+<p>Exact rationals where a tie must be decided or the object is rational: reduced fractions of arbitrary-precision integers, doubles converted losslessly, linear systems solved by exact elimination that reports a singular matrix rather than a small pivot. Exact integers in floating-point hardware where the data are integer vectors: a product is exact as long as no partial sum can leave the range the format holds exactly, a bound checked against the data before anything runs and written into the record — which is what lets 9.72 × 10¹⁵ pairs of integer points be decided exactly on one GPU.</p><p>Outward-rounded intervals on doubles where the quantity is transcendental or the data are long: each computed endpoint is stepped one unit in the last place outward, so the true value lies inside, on the strength of the correctly rounded operations IEEE-754 mandates. No library function is trusted: elementary and special functions are truncated series with their remainders enclosed; long sums use compensated summation with an outward error bound; derivatives come from forward differentiation over the same arithmetic, so the derivative a proof uses is an extension of the function the proof is about. A malformed operand or an indeterminate result is refused by exception, never decided.</p>
 </section>
 
 <section class="col">
@@ -741,7 +820,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">glossary</div>
     <h2>The words, defined once</h2>
   </div>
-<ul class="plain"><li><b>Certificate.</b> What a CERTIFIED verdict carries: the inputs pinned by digest, the cover, the enclosures, and a statement of what would make it fail. It re-runs without the engine.</li><li><b>Enclosure.</b> An interval proved to contain the true value, by exact arithmetic or outward rounding; never a point and never an estimate.</li><li><b>Verdict.</b> One of three words — CERTIFIED, REFUTED, REFUSED — each with its witness; the register’s composed words (PARTIAL, NEEDS DATA, MIXED, REPAIRED) say what they are made of.</li><li><b>Witness.</b> The object that justifies a verdict: a certificate, a falsifying point or equation, the two points of a split refusal.</li><li><b>Red control.</b> A deliberately wrong input that a check must reject before the check counts.</li><li><b>Battery.</b> A program of checks with its red controls that exits non-zero when any fails; the control build runs every battery and refuses on a red one.</li><li><b>Register.</b> The public ledger of published claims decided here, one row per claim, each derived from a record.</li><li><b>Pinned bytes.</b> A file named by path and SHA-256 at decision time; a changed digest refuses the page that cites it.</li><li><b>Refusal.</b> A verdict, not an absence of one: the instrument did not reach a decision, and says why. NEEDS DATA is the refusal whose cause lies with the claimant.</li><li><b>Independent.</b> From the claimant: no code shared with the party whose claim is decided, and every certificate re-runnable with no engine present.</li></ul>
+<ul class="plain"><li><b>Certificate.</b> What a CERTIFIED verdict carries: the inputs pinned by digest, the cover, the enclosures, and a statement of what would make it fail. It re-runs without the engine.</li><li><b>Enclosure.</b> An interval proved to contain the true value, by exact arithmetic or outward rounding; never a point and never an estimate.</li><li><b>Verdict.</b> One of three words — CERTIFIED, REFUTED, REFUSED — each with its witness; the register’s composed words (PARTIAL, NEEDS DATA, MIXED, REPAIRED) say what they are made of.</li><li><b>Witness.</b> The object that justifies a verdict: a certificate, a falsifying point or equation, the two points of a split refusal.</li><li><b>Red control.</b> A deliberately wrong input that a check must reject before the check counts.</li><li><b>Battery.</b> A program of checks with its red controls that exits non-zero when any fails; the control build runs every battery and refuses on a red one.</li><li><b>Register.</b> The public ledger of published claims decided here, one row per claim, each derived from a record.</li><li><b>Pinned bytes.</b> A file named by path and SHA-256 at decision time; a changed digest refuses the page that cites it.</li><li><b>Refusal.</b> A verdict, not an absence of one: the instrument did not reach a decision, and says why. NEEDS DATA is the refusal whose cause lies with the claimant.</li><li><b>Independent.</b> From the claimant: no code shared with the party whose claim is decided, and every certificate re-runnable with no engine present.</li><li><b>Standing.</b> What a mark in a figure, or a number in text, rests on, drawn in its stroke or its underline: <span class="w-val w-decided" title="decided — exact arithmetic backs it">decided</span> (an exact decision backs it; solid, or plain in text), <span class="w-val w-computed" title="computed — float; nothing decided it">computed</span> (float, a fit, a forecast, a number someone printed; dashed), <span class="w-val w-chosen" title="chosen — one member of a set the data admits">chosen</span> (one member of a set the data admit, picked by something that is not the data; dotted), and refused (no mark at all: <span class="w-val w-refused" title="refused — no mark — the void is drawn">the void</span>). A mark takes the weakest standing on its path. Standing is not a verdict: a refutation proved here is drawn solid.<div class="w-legend compact" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div></li><li><b>Premise grade.</b> Where the checking of a model that a number rests on stopped, strongest first. <span class="w-grade g3" title="validated — checked against observations of the thing itself, held out, with the number"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="on"/></svg>validated</span> checked against observations of the thing itself, held out, with the number. <span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span> checked against a model that keeps more of the physics, with the number; not against the thing itself. <span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span> the code reproduces an exact solution of its own equations; not measured against the thing itself. <span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span> adopted from a source or chosen; nothing here checked it. A conclusion is as checked as its weakest premise, and the page that states it names that premise. A grade is never a probability.</li></ul>
 </section>
 
 <section class="col" id="errata">
@@ -762,7 +841,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from the records at git e33057d9 by tools/build-site.js. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from the records at git 4a1d50b8 by tools/build-site.js. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

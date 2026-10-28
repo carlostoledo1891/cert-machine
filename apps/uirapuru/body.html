@@ -15,6 +15,7 @@
     <div class="fly" style="--y:88%;--d:8s"><i class="pub">no Uirapuru will ever be bluer than 100</i><i class="vd f"><b>refused</b>no Uirapuru will ever be bluer than 100</i></div>
     <div class="decide">decide</div>
   </div>
+  <p class="cap">Claims about the toy forest, each with the word the machine would give it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
     <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: {{F7_N}} answer|day 2  {{F7_COUNT}} are blue; the bluest at tree {{F7_BLUEST_TREE}}, {{F7_BLUEST}} on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at {{GIT}}"></div>
@@ -22,11 +23,12 @@
 </header>
 
 <div class="wide"><div class="stats" data-n="4">
-  <div class="stat"><div class="k">claims decided, for real</div><div class="v" data-count="{{REG_ROWS}}">{{REG_ROWS}}</div><div class="n">{{REG_HOLDS}} hold, {{REG_DEFECTS}} carry a defect, {{REG_CLAIMANTS}} claimants</div></div>
+  <div class="stat"><div class="k">claims decided, for real</div><div class="v" data-count="{{REG_DECIDED}}">{{REG_DECIDED}}</div><div class="n">{{REG_HOLDS}} hold, {{REG_DEFECTS}} carry a defect, {{REG_CLAIMANTS}} claimants</div></div>
   <div class="stat"><div class="k">planted errors, for real</div><div class="v" data-count="{{SA_MUTANTS}}">{{SA_MUTANTS}}</div><div class="n">{{SA_FALSE_CERT}} false certifications</div></div>
-  <div class="stat"><div class="k">birds in patch 7</div><div class="v" data-count="{{F7_N}}">{{F7_N}}</div><div class="n">a seeded toy; {{F7_COUNT}} of them blue</div></div>
-  <div class="stat"><div class="k">toucans called</div><div class="v">0</div><div class="n">it never could, and says so</div></div>
+  <div class="stat"><div class="k">birds in patch 7</div><div class="v">{{F7_N_C}}</div><div class="n">a seeded toy; {{F7_COUNT_C}} of them blue</div></div>
+  <div class="stat"><div class="k">toucans called</div><div class="v">∅</div><div class="n">none: it never could, and says so</div></div>
 </div></div>
+<div class="col toykey">{{TOY_LEGEND}}<p class="cap">Plain numbers are the machine's, read from its records. Dotted ones are the toy's: decided exactly, but over one seeded forest, one of all the forests a seed could have drawn. A hatched tree holds a toy, and a toy has no number, so nothing is decided there.</p></div>
 
 <section class="col" id="act1">
   <div class="sec-head"><div class="act">Act I · <b>the three words a forest can give</b></div><h2>A claim about birds is a sentence the machine can act on.</h2></div>
@@ -67,7 +69,7 @@
       <div class="ctl"><label>printed position, metres <span class="num" id="f2kv">0.3</span></label><input type="range" id="f2s" min="1" max="9" value="3" aria-label="the printed position, in tenths of a metre"></div>
       <div class="scene"><svg id="f2svg" viewBox="0 0 320 84" role="img" aria-label="a row of trees; the printed reading on a tree, the double reading a hair before it, exaggerated"></svg></div>
       <pre class="out" id="f2out"></pre>
-      <p class="cap">The decimal 0.3 is exactly three tenths. The double nearest 0.3 is a hair less, so under that reading the bird is a hair before the tree. Only 0.5 is the same number both ways. The gap in the drawing is exaggerated by a factor of ten to the seventeenth; the arithmetic is exact.</p>
+      <p class="cap">The decimal 0.3 is exactly three tenths. The double nearest 0.3 is a hair less, so under that reading the bird is a hair before the tree. Only 0.5 is the same number both ways. The gap in the drawing is not to scale: it is drawn at one fixed width for every position, a picture, while the real gap runs from {{F2_GAP_LO}} m to {{F2_GAP_HI}} m and the readout prints it. Which side the double falls on is decided.</p>
     </div>
     <div class="prose rv d2">
       <p>That is not a curiosity. On one real record, {{SIX_N}} points claimed in dimension eleven, the printed digits put <span class="num">{{SIX_VIOL_DIGITS}}</span> pairs of points too close together and the doubles those digits denote put <span class="num">{{SIX_VIOL_DOUBLES}}</span>. Both readings refuted the record; the counts differ because the reading is part of the verdict.</p>
@@ -82,14 +84,14 @@
   <div class="grid2">
     <div class="prose rv d1">
       <p>The real machine was tried this way <span class="num">{{SA_MUTANTS}}</span> times on <span class="num">{{SA_OBJECTS}}</span> published objects, with the plan registered before the paper was written and a kill switch declared in advance. It said <span class="tag cert">certified</span> to a false claim <span class="num">{{SA_FALSE_CERT}}</span> times and <span class="tag dep w-ref">refuted</span> to a true one <span class="num">{{SA_FALSE_REF}}</span> times. It found two defects of its own on the way, both fixed on the record.</p>
-      <p>The toy on the right is the same idea in a patch of 36 trees. A painted bird must flip the word. A swap must not. A toy in a tree and a missing tree must refuse, because nothing is decided until the patch is the one the claim is about. In the toy the judge and the witness share one arithmetic; in the real audit they do not, which is the point of the audit.</p>
+      <p>The toy on the right is the same idea in a patch of {{F3_N_C}} trees. A painted bird must flip the word. A swap must not. A toy in a tree and a missing tree must refuse, because nothing is decided until the patch is the one the claim is about. In the toy the judge and the witness share one arithmetic; in the real audit they do not, which is the point of the audit.</p>
     </div>
     <div class="panel rv d2">
       <div class="pk">Instrument 3 · <b>plant a bird</b></div>
-      <h3>Patch 3, 36 trees. The claim: every bird is at most 70 blue.</h3>
+      <h3>Patch 3, {{F3_N_C}} trees. The claim: every bird is at most {{F3_MAX_C}} blue.</h3>
       <p>As seeded, the claim holds. Change the forest and watch the word.</p>
       <div class="ctrls"><button class="ctrl" data-m="paint">paint tree 14 blue 95</button><button class="ctrl" data-m="swap">swap trees 5 and 22</button><button class="ctrl" data-m="toy">a toy in tree 20</button><button class="ctrl" data-m="drop">cut the last tree down</button><button class="ctrl" data-m="reset">reset</button></div>
-      <div class="scene forest"><svg id="f3svg" viewBox="0 0 320 320" role="img" aria-label="patch 3: six by six trees; a dashed square is a toy; the ringed tree is the bird the verdict names"></svg></div>
+      <div class="scene forest"><svg id="f3svg" viewBox="0 0 320 320" role="img" aria-label="patch 3: six by six trees; a hatched square is a toy; the ringed tree is the bird the verdict names"></svg></div>
       <pre class="out" id="f3out"></pre>
       <p class="cap">The counter is the toy's. The real count, {{SA_MUTANTS}} tries and {{SA_FALSE_CERT}} false certifications, is in the self-audit, linked at the end.</p>
     </div>
@@ -97,8 +99,8 @@
 </section>
 
 <section class="col" id="act4">
-  <div class="sec-head"><div class="act">Act IV · <b>ten quadrillion calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
-  <p class="thesis rv">In the real machine, one wave of <b>{{KW_ROWS}} record claims</b> meant {{KW_PAIRS_SCI_PLAIN}} pairs of points to call. It took a rented graphics card {{KW_GPU_HOURS}} hours and ${{KW_GPU_COST}}, and every call was exact.</p>
+  <div class="sec-head"><div class="act">Act IV · <b>{{KW_PAIRS_WORDS}} calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
+  <p class="thesis rv">In the real machine, one wave of <b>{{KW_ROWS}} record claims</b> meant {{KW_PAIRS_SCI_PLAIN}} pairs of points to call. The {{KW_GPU_ROWS_WORD}} largest took a rented graphics card {{KW_GPU_HOURS}} hours and ${{KW_GPU_COST}}, the other {{KW_DESK_ROWS_WORD}} ran on a laptop, and every call was exact.</p>
   <div class="grid2">
     <div class="prose rv d1">
       <p>The trick is old. A bird's blueness is a whole number, and whole numbers add exactly as long as the sum stays on the page of the ledger you are writing in. A half-precision ledger holds whole numbers below 2,048; a single-precision one below 16,777,216. Check, before the run, that no flock in the patch can run off the page, write that check into the code, and a card built for guessing becomes an engine for counting. The slowest ledger, arbitrary precision, is kept for the flocks that need it.</p>
@@ -106,8 +108,8 @@
     </div>
     <div class="wide rv d2"><div class="stats" data-n="3">
       <div class="stat"><div class="k">pairs called</div><div class="v">{{KW_PAIRS_SCI_PLAIN}}</div><div class="n">{{KW_PAIRS}} exactly; {{KW_CONTACTS}} at exactly sixty degrees</div></div>
-      <div class="stat"><div class="k">the bill</div><div class="v">${{KW_GPU_COST}}</div><div class="n">one {{KW_GPU_NAME}} at ${{KW_GPU_PRICE}} an hour</div></div>
-      <div class="stat"><div class="k">guesses</div><div class="v">0</div><div class="n">one inequality per path, checked against the data first</div></div>
+      <div class="stat"><div class="k">the bill</div><div class="v">${{KW_GPU_COST}}</div><div class="n">one {{KW_GPU_NAME}} at ${{KW_GPU_PRICE}} an hour, for the {{KW_GPU_ROWS_WORD}} largest</div></div>
+      <div class="stat"><div class="k">guesses</div><div class="v">∅</div><div class="n">none: one inequality per path, checked against the data first</div></div>
     </div></div>
   </div>
 </section>
@@ -117,16 +119,16 @@
   <p class="thesis rv">The machine can call Uirapurus. It cannot see, hear or call a toucan. It cannot call every bird in the Amazon, nor any bird forever. And it cannot judge a song from a recording it was not given. <b>When it cannot, it says so, and says what would let it.</b></p>
   <div class="grid2">
     <div class="prose rv d1">
-      <p>In 2026 a language model wrote a proof about all the zeros of a famous function, a statement about infinitely many birds at once. Two mathematicians checked it; a proof assistant checked it. Most of it is toucan territory for this machine: <span class="num">{{RfSentences}}</span> sentences, of which <span class="num">{{RfShaped}}</span> are claims about a finite patch. Those it decided. One rests on a recording the paper calls "available from the authors". The word there is refused, and the ask is the file.</p>
+      <p>In 2026 a language model wrote a proof about all the zeros of a famous function, a statement about infinitely many birds at once. Two mathematicians checked it; a proof assistant checked it. Most of it is toucan territory for this machine: <span class="num">{{RfSentences}}</span> sentences, of which <span class="num">{{RfShaped}}</span> are claims about a finite patch. Those it read, decided each one the published bytes could settle, and said which it could not. One rests on a recording the paper calls "available from the authors". The word there is refused, and the ask is the file.</p>
       <p>A refusal is not a shrug. It names the rule that stopped the call, and where a number would change the word, it prints the number. The machine has never found a bird. It has looked at every bird someone claimed, and said which claims hold, which do not, and which it cannot judge, with the tree, the list of calls or the reason attached.</p>
     </div>
     <div class="panel rv d2">
       <div class="pk">Instrument 4 · <b>ask the machine</b></div>
-      <h3>Ten sentences. Which can it act on?</h3>
+      <h3>{{ASK_N_WORD_CAP}} sentences. Which can it act on?</h3>
       <p>Each sentence is asked of patch 7 by the same call as Instrument 1, or refused with the rule.</p>
       <div class="ask" id="ask"></div>
-      <div class="ctrls"><button class="ctrl" id="askall">ask all ten</button></div>
-      <p class="cap">Four refusals, each with its reason and, where there is one, the number that would change the word; the rest decided over patch 7 as seeded.</p>
+      <div class="ctrls"><button class="ctrl" id="askall">ask all {{ASK_N_WORD}}</button></div>
+      <p class="cap">{{ASK_REFUSED_WORD}} refusals, each with its reason and, where there is one, the number that would change the word; the rest decided over patch 7 as seeded, or over the two readings of a printed position.</p>
     </div>
   </div>
 </section>

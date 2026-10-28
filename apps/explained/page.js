@@ -10,11 +10,13 @@
 /* ---------------- Instrument 2: print √3/2 to k digits ---------------- */
 {const S32='0.86602540378443864676372317075294';const three4=new Q(3n,4n);const dbl=qdouble(Math.sqrt(3)/2);
  const roundTo=k=>{const digits=S32.slice(2,2+k+1);let q=BigInt(digits.slice(0,k));if(Number(digits[k])>=5)q+=1n;return new Q(q,10n**BigInt(k))};
- const judge=y=>{const g=three4.sub(y.mul(y));const s=g.sign();return {g,word:s>0?W('r','too close')+K(' angle below sixty'):s<0?W('f','apart')+K(' angle above sixty'):W('c','touching')+K(' exactly sixty')}};
+ const judge=y=>{const g=three4.sub(y.mul(y));const s=g.sign();return {g,word:s>0?W('r','too close')+K(' angle below sixty'):s<0?W('c','apart')+K(' angle above sixty'):W('c','touching')+K(' exactly sixty')}};
  const render=()=>{const k=Number($('w2s').value);$('w2k').textContent=String(k);const y=roundTo(k);const a=judge(y),b=judge(dbl);
   $('w2out').innerHTML=K('the printed string, k = '+k)+'\n  y = '+V(y.dec(k))+'\n  read as the decimal it is   '+a.word+'\n  3/4 − y² = '+a.g.sci(3)+'\n\n'+K('the double nearest to √3/2')+'\n  y = '+V('0.86602540378443859659…')+'\n  read as the number it denotes   '+b.word+'\n  3/4 − y² = '+b.g.sci(3)+'\n\n'+K('the point as it was meant')+'\n  y = '+V('√3/2')+'\n  read as an algebraic number   '+W('c','touching')+K(' 3/4 − y² = 0, exactly');};
  /* the microscope: each reading placed by its distance from √3/2 on a log scale, the verdict as the shape of the mark; the
-    placement is a float of an exact quantity, the sign and the word are the exact judge's */
+    placement is a float of an exact quantity (a picture), the sign and the word are the exact judge's, so every mark is
+    solid: ◆ too close (fails the sixty-degree test), ○ apart and ● touching (both pass). WARRANT v2, 2026-10-28: the
+    apart mark was a triangle dashed 1.5 2 — the computed pattern on a decided sign — and wore the refused chip */
  const sup=e=>String(e).replace(/-/g,'⁻').replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);
  const off=d=>{const t=Math.min(18,Math.max(1,-Math.log10(Math.abs(d))));return 10+(18-t)*7.2};
  const svg=$('w2svg');let base='<text x="14" y="12" font-size="7.5" fill="var(--ink-4)" letter-spacing=".1em">← APART</text><text x="306" y="12" text-anchor="end" font-size="7.5" fill="var(--ink-4)" letter-spacing=".1em">TOO CLOSE →</text>';
@@ -22,7 +24,7 @@
  for(const e of [15,10,5])for(const sg of [-1,1]){const x=160+sg*off(Math.pow(10,-e));base+='<line x1="'+x+'" y1="47" x2="'+x+'" y2="53" stroke="var(--rule-strong)"/><text x="'+x+'" y="93" text-anchor="middle" font-size="7" fill="var(--ink-4)">10'+sup(-e)+'</text>';}
  base+='<line x1="160" y1="45" x2="160" y2="55" stroke="var(--ink)" stroke-width="1"/><circle cx="160" cy="50" r="3.5" fill="var(--ink)"/><text x="160" y="93" text-anchor="middle" font-size="7" fill="var(--ink)">√3/2</text>';
  base+='<g class="mk" id="w2mp"></g><g class="mk" id="w2md"></g>';svg.innerHTML=base;
- const mark=(g,word,lab,dy,x)=>{const shape=word>0?'<rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':word<0?'<path d="M0 -5 L5 4 L-5 4 Z" fill="none" stroke="var(--ink-3)" stroke-width="1" stroke-dasharray="1.5 2"/>':'<circle r="4" fill="var(--ink)"/>';
+ const mark=(g,word,lab,dy,x)=>{const shape=word>0?'<rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':word<0?'<circle r="4" fill="var(--sunk)" stroke="var(--ink)" stroke-width="1.2"/>':'<circle r="4" fill="var(--ink)"/>';
   const anc=x>250?'end':x<70?'start':'middle';g.innerHTML=shape+'<text y="'+dy+'" text-anchor="'+anc+'" font-size="7" fill="var(--ink-3)">'+lab+'</text>';};
  const place=(g,s,cy)=>{const d=Number(s.g.n)/Number(s.g.d)/1.7320508;const x=s.g.sign()===0?160:160+(s.g.sign()>0?1:-1)*off(d);g.style.transform='translate('+x+'px,'+cy+'px)';return x;};
  const render2=()=>{const k=Number($('w2s').value);const y=roundTo(k);const a=judge(y),b=judge(dbl);
@@ -53,13 +55,13 @@
   else if(m==='scale'){pts=pts.map(p=>p.map(x=>x.mul(new Q(3n))));last='every coordinate multiplied by 3';}
   render();}));render();}
 /* ---------------- Instrument 4: which arithmetic is exact ---------------- */
-{const marks=[{n:192n,t:'the GPU rows, dimensions 49–55'},{n:BigInt('{{KW_DESK_MAXNORM_PLAIN}}'),t:'the laptop rows'},{n:395n*10n**33n,t:'dimension 38, the axis rows'}];
+{const marks=[{n:BigInt('{{KW_GPU_MAXNORM_PLAIN}}'),t:'the GPU rows, dimensions {{KW_GPU_DIMS}}'},{n:BigInt('{{KW_DESK_MAXNORM_PLAIN}}'),t:'the laptop rows'},{n:BigInt('{{KW_AXIS_NORM_EXACT}}'),t:'dimension 38, the axis rows'}];
  const paths=[{t:'half precision on tensor cores',lim:2048n,x:3.31},{t:'single precision BLAS',lim:16777216n,x:7.22},{t:'exact integers (BigInt)',lim:null}];
  const svg=$('w4svg');let N=192n;const X=l=>12+l/40*296;
  const render=()=>{const t=Number($('w4s').value)/10;N=BigInt(Math.round(Math.pow(10,t)));$('w4n').textContent=group(N.toString());const first=paths.find(p=>p.lim===null||N<p.lim);
   let s='<line x1="12" y1="70" x2="308" y2="70" stroke="var(--c-axis)"/>';for(let e=0;e<=40;e+=5)s+='<line x1="'+X(e)+'" y1="66" x2="'+X(e)+'" y2="74" stroke="var(--c-axis)"/><text x="'+X(e)+'" y="90" text-anchor="middle" fill="var(--ink-4)" font-size="8">10'+String(e).replace(/\d/g,d=>'⁰¹²³⁴⁵⁶⁷⁸⁹'[d])+'</text>';
   s+='<rect x="12" y="34" width="'+(X(3.31)-12)+'" height="8" fill="var(--c-s4)"/><rect x="'+X(3.31)+'" y="34" width="'+(X(7.22)-X(3.31))+'" height="8" fill="var(--c-s3)"/><rect x="'+X(7.22)+'" y="34" width="'+(308-X(7.22))+'" height="8" fill="var(--c-s1)"/>';
-  s+='<text x="12" y="28" fill="var(--ink-3)" font-size="8">half</text><text x="'+X(3.31)+'" y="28" fill="var(--ink-3)" font-size="8">single</text><text x="'+X(7.22)+'" y="28" fill="var(--ink-3)" font-size="8">exact integers only</text>';
+  s+='<text x="12" y="28" fill="var(--ink-3)" font-size="8">half</text><text x="'+X(3.31)+'" y="28" fill="var(--ink-3)" font-size="8">single</text><text x="308" y="28" text-anchor="end" fill="var(--ink-3)" font-size="8">exact integers only</text>';
   for(const m of marks){const l=m.n.toString().length-1+Math.log10(Number(m.n.toString().slice(0,3))/100);s+='<line x1="'+X(l)+'" y1="48" x2="'+X(l)+'" y2="62" stroke="var(--c-s4)"/>';}
   s+='<path d="M'+X(t)+' 52 l-5 -9 h10 z" fill="var(--ink)"/><text x="'+X(t)+'" y="110" text-anchor="middle" fill="var(--ink)" font-size="9">'+group(N.toString())+'</text>';svg.innerHTML=s;
   const near=marks.map((m,i)=>({i,d:Math.abs(m.n.toString().length-1-t)})).sort((a,b)=>a.d-b.d)[0];
@@ -67,9 +69,12 @@
  $('w4s').addEventListener('input',render);render();
  const canvas=$('w4c'),ctx=canvas.getContext('2d');let frame=0,pairs=0n;const per={{KW_PAIRS_PER_FRAME}}n,total={{KW_PAIRS_BIG}}n;let vis=false;const ioc=new IntersectionObserver(es=>{vis=es[0].isIntersecting},{threshold:.2});ioc.observe(canvas);
  const ramp=['#4a4a55','#6e6e7a','#8b8b97','#a9a9b4','#f6f6f8'];
- const tick=()=>{if(vis&&!reduced){frame++;const w=canvas.width,h=canvas.height;ctx.fillStyle='#101014';ctx.fillRect(0,0,w,h);const cols=40,rows=7,cw=w/cols,ch=(h-44)/rows;const n=(frame*9)%(cols*rows);
+ /* a picture of the run (the caption says so): animated, or, with reduced motion, drawn once, every tile lit and the record's total */
+ const paint=(n,shown)=>{const w=canvas.width,h=canvas.height;ctx.fillStyle='#101014';ctx.fillRect(0,0,w,h);const cols=40,rows=7,cw=w/cols,ch=(h-44)/rows;
    for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){const i=r*cols+c;const on=i<n;ctx.fillStyle=on?ramp[(i*7)%5]:'#1c1c22';ctx.fillRect(c*cw+1.5,r*ch+1.5,cw-3,ch-3);}
-   pairs=(pairs+per)%total;ctx.fillStyle='#c9c9d2';ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillText('pairs decided  '+group(pairs.toString()),12,h-14);ctx.fillStyle='#6e6e7a';ctx.font='12px "JetBrains Mono",monospace';ctx.fillText('each tile = one 128×128 block on the tensor cores',w-392,h-14);}
+   ctx.fillStyle='#c9c9d2';ctx.font='500 15px "JetBrains Mono",monospace';ctx.fillText('a picture of the count  '+group(shown.toString()),12,h-14);ctx.fillStyle='#6e6e7a';ctx.font='12px "JetBrains Mono",monospace';ctx.fillText('each tile = one 128×128 block on the tensor cores',w-392,h-14);};
+ if(reduced){paint(280,total);}
+ const tick=()=>{if(vis&&!reduced){frame++;pairs=(pairs+per)%total;paint((frame*9)%280,pairs);}
   requestAnimationFrame(tick);};tick();}
 /* ---------------- the sorter ---------------- */
 {const box=$('sorter');const bins=[{k:'read',n:{{RfShaped}},c:'var(--c-1)'},{k:'prose',n:{{RfRefProse}},c:'var(--c-s2)'},{k:'no number',n:{{RfRefNoQuantity}},c:'var(--c-s2)'},{k:'ambiguous',n:{{RfRefAmbiguous}},c:'var(--c-s2)'},{k:'asymptotic',n:{{RfRefAsymptotic}},c:'var(--c-s2)'},{k:'≈',n:{{RfRefApproximate}},c:'var(--c-s2)'}];
@@ -85,7 +90,7 @@
   const vhalf=new Q(1n).add(c2.div(new Q(4n))).add(c4.div(new Q(16n)));const ok=vhalf.sign()>0;const X=t=>160+t*280,Y=v=>142-v*112;
   let s='<line x1="'+X(-.5)+'" y1="'+Y(0)+'" x2="'+X(.5)+'" y2="'+Y(0)+'" stroke="var(--c-axis)"/><line x1="'+X(-.5)+'" y1="'+Y(1)+'" x2="'+X(.5)+'" y2="'+Y(1)+'" stroke="var(--c-grid)" stroke-dasharray="2 3"/>';
   let d='';for(let i=0;i<=60;i++){const t=-.5+i/60;const v=1+Number(c2.n)/Number(c2.d)*t*t+Number(c4.n)/Number(c4.d)*t*t*t*t;d+=(i?'L':'M')+X(t).toFixed(1)+','+Y(v).toFixed(1);}
-  s+='<path d="'+d+'" fill="none" stroke="'+(ok?'var(--c-1)':'var(--ink-4)')+'" stroke-width="2"'+(ok?'':' stroke-dasharray="5 4"')+'/><text x="'+(X(.5)+3)+'" y="'+(Y(1)+3)+'" fill="var(--ink-4)" font-size="9">1</text><text x="'+X(-.5)+'" y="160" fill="var(--ink-4)" font-size="9">−½</text><text x="'+(X(.5)-9)+'" y="160" fill="var(--ink-4)" font-size="9">½</text>';
+  s+='<path d="'+d+'" {{CHOSEN_ATTRS}}/><text x="'+(X(.5)+3)+'" y="'+(Y(1)+3)+'" fill="var(--ink-4)" font-size="9">1</text><text x="'+X(-.5)+'" y="160" fill="var(--ink-4)" font-size="9">−½</text><text x="'+(X(.5)-9)+'" y="160" fill="var(--ink-4)" font-size="9">½</text>';
   svg.innerHTML=s;const p=P(c);const pq=qdec(Wn.pquartic),ps=qdec(Wn.pstar);let out;
   if(!ok)out=W('f','refused')+' v(½) = '+vhalf.dec(4)+' ≤ 0: the window must be positive on the interval\n'+K('the paper\'s hypotheses: even, positive on [−½, ½], at most 1 — the last holds because c₂, c₄ ≤ 0');
   else{const cmp=p.cmp(pq);out='P = '+V(p.dec(10))+K('  simple and on the line')+'\n'+K('the paper\'s quartic   ')+pq.dec(10)+(cmp>0?'  '+W('c','beaten')+K(' by '+p.sub(pq).sci(2)):cmp<0?K('  ahead by '+pq.sub(p).sci(2)):K('  equal'))+'\n'+K('the best quartic      ')+ps.dec(10)+K('  gap '+ps.sub(p).sci(2))+'\n'+K('D = ')+V(new Q(1n).add(p).div(new Q(2n)).dec(10))+K('  distinct zeros, (1 + P)/2; ε₁₅ = '+eps.sci(2));}

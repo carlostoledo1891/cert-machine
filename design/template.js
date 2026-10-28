@@ -337,6 +337,11 @@ ${FOOT.footerCss()}
 .mach-ro .d{font-size:${SCALE.small};line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
