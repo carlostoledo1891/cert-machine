@@ -43,8 +43,7 @@ exactly is solid, and the line interpolated between two such knots is dotted.
    - a refutation reached by deduction;
    - an object taken from another record.
 
-   When in doubt, use ink. Nothing else on the site is coloured, except the apps' verdict register (below), whose
-   place in the grammar waits on the operator's ruling.
+   When in doubt, use ink. Every other colour follows v2.2 (colour, by rule), below.
 6. **Mood.** A verdict that holds given a chosen input names that input in italic: *given h = 3/50*. A hypothesis
    that was read but not machine-checked is named the same way.
 7. **An empty set is ∅.** It gets ∅ and a word, never a zero-height bar or a zero.
@@ -120,20 +119,46 @@ probability, never a confidence. It is carried by a word first and a three-step 
     for more caution than the arithmetic shows. On Swell this applies to Pântano do Sul (0.39×), Ingleses (0.43×)
     and Galheta (0.99×), on swells of 11 s and longer.
 
-**The apps' verdict register, waiting on the operator.** The apps (`design/app-shell.js`, the app doctrine of
-2026-08-27) colour their decided states with three verdict colours: `--v-cert` green, `--v-refu` red and `--v-refd`
-violet. On Swell, red marks danger decided and violet marks a band straddling a limit. Each colour always comes with
-a shape and a word, and only on a decided state; forecast states are ink. These colours predate v2. The site pass
-neither added them nor removed them.
+**The apps' verdict register** (`--v-cert`, `--v-refu`, `--v-refd`, design/app-shell.js) is the status kind of
+v2.2: decided states only, always with a shape and a word; forecast states stay in ink. It was ruled with the colour law
+on 2026-10-28, below.
 
-Rule 5 says nothing else is coloured, and `--v-refu` (#E06B62) and `--witness` (#e0574e) are nearly one red
-carrying two meanings. Two rulings are possible:
-- keep the three as the grammar's product-face register, for an operator reading a safety verdict at a glance
-  (IEC 60073 and ISO 3864 reserve red for danger);
-- fold them into ink and shape.
+## v2.2: colour, by rule (approved 2026-10-28)
 
-Until the operator rules, they stay as they are, and no new colour enters anywhere (operator, 2026-10-28).
+The operator's approval ("approved all", 2026-10-28) came after Machinidae's palette was run through the dataviz
+validator: OKLab ΔE×100 with the Machado colour-vision model, every pair that shares a figure, on the figure's own
+ground. Its two main arm colours read ΔE 0.4 apart to a deuteranope. The law that came out of that:
 
+1. **Ink first.** Every figure reads completely in greyscale; a colour always comes with a shape and a word.
+2. **One colour, one meaning, in every project built on WARRANT.** Each colour is registered below with its meaning
+   and the date the operator approved it.
+3. **Colour never carries standing** (the stroke does), and it never stands in for a verdict word.
+4. **Four kinds of colour only:**
+   - the witness: one red, for a shown counterexample;
+   - identity: at most three hues for series compared in one figure, each with its own shape;
+   - order: one hue in lightness steps, for an ordered scale;
+   - status: the apps' decided states, always with an icon and a word.
+5. **Every set of colours that shares a figure passes the validator on every pair**: CVD ΔE ≥ 8 and normal vision
+   ≥ 15, not only neighbours in a list.
+6. **No yellow and no orange** (operator, 2026-10-28).
+7. **A new colour enters only with the validator's report and the operator's approval**, recorded here.
+
+**Registered colours**
+
+| colour | kind | meaning | where | approved |
+|---|---|---|---|---|
+| `--witness` #e0574e | witness | a shown counterexample; the only red on the site and in Machinidae (rose retired) | every project | 2026-10-27, as the only red 2026-10-28 |
+| #79b9d6 | identity | lineage (the arm, and the accent: not in the founder; filled = new, ringed = changed) | Machinidae | 2026-10-28 |
+| #6744c5 | identity | the rules arm (re-stepped from #9070c8; ΔE 28 against the blue for a deuteranope) | Machinidae | 2026-10-28 |
+| #9fd0bb · #5f9a83 · #335e4e | order | how far a birth got: lived · died · stillborn | Machinidae | 2026-10-28 |
+| `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined | the apps (design/app-shell.js) | 2026-10-28 |
+
+Retired on the same day: Machinidae's ochre and amber (rule 6). Its "changed" becomes the blue ring, "live" becomes ink
+weight, and the reference line becomes the guide pattern (2 3) in ink. The aleator arm and "the AI alone" lose their
+hue and keep their diamond. Rose is retired; "stillborn" takes the ramp's darkest step.
+
+**Open:** `--v-refu` (#E06B62) and `--witness` (#e0574e) are one red to the eye (ΔE ~4) with two meanings, against
+rule 2. Until the operator rules, they never share a figure.
 
 ## The site pass (2026-10-28)
 
