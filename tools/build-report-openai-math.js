@@ -21,6 +21,13 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('OPENAI-MATH REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28. Lane K's and lane F's words are decisions (two kernels; exact deciders).
+   Lane S's words and the gaps found by reading are READINGS made by AI agents, second-read the same way: a reading is a
+   claim, not a verdict, so it carries the COMPUTED mark (a model's answer, WARRANT's decision of 2026-10-28), never the
+   verdict chip. A row with nothing recorded is ∅. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const READ_S = 'a reading by AI agents, second-read the same way where the first found a gap: a claim, not a certificate';
+const reading = (t) => W.value(t, W.COMPUTED, { title: READ_S });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const J = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
 const opt = (p) => (fs.existsSync(path.join(ROOT, p)) ? J(p) : null);
@@ -75,7 +82,8 @@ const S_WORDS = ['MATCHES', 'NARROWER — DECLARED', 'NARROWER — UNLINKED', 'N
 const short = (s, k) => (s.length > k ? s.slice(0, k - 1).replace(/\s+\S*$/, '') + '…' : s);
 /* the clauses a family's Lean does not state, from the deciding reading */
 const missing = (r) => (r.clauses || []).filter((c) => c.status && c.status !== 'stated').map((c) => c.clause);
-const wordTag = (w) => C.tag(w, w === 'MATCHES' ? 'held' : w === 'NARROWER — DECLARED' || w === 'SUPPORT-ONLY' ? 'cert' : w === 'NARROWER — UNLINKED' ? 'open' : 'dep');
+/* lane S's words were verdict chips until 2026-10-28 (MATCHES wore the filled chip CERTIFIED wears); a reading is not a verdict */
+const wordTag = (w) => reading(C.esc(w));
 const holes = R.challenges.filter((c) => c.definitionNames.length);
 const holeRows = K.rows.filter((r) => r.definitionHoles);
 const sGap = cnt(sw, 'DIFFERENT') + cnt(sw, 'NARROWER — UNDECLARED');
@@ -131,6 +139,18 @@ const refOk = (ref, id) => {
   else die(id + ': unknown lane ' + ref.lane);
 };
 const gaps = G.findings.slice().sort((a, b) => a.severity - b.severity);
+/* A STRICT RUN THAT COMPARED NOTHING (2026-10-28). A config that names no theorem, run with its holes emptied, leaves
+   Comparator nothing to compare, so its SAME BODIES is vacuous — the correction the since-section has made since
+   2026-10-27 for ElementaryPositivity. Until 2026-10-28 the stat strip and §3 still counted that row as settled. */
+const vacuous = holes.filter((c) => { const k = K.rows.find((r) => r.challenge === c.name);
+  return !c.theoremNames.length && k && k.strict && k.strict.word === 'SAME BODIES' && !(k.transfer && k.transfer.word === 'TRANSFERS'); }).map((c) => c.name);
+const isVacuous = (name) => vacuous.includes(name);
+const settled = holes.filter((c) => { const k = K.rows.find((r) => r.challenge === c.name); return k && k.displayed && k.displayed.word === 'PROVED' && !isVacuous(c.name); }).length;
+if (vacuous.length) {
+  const g = gaps.find((x) => x.id === 'definition-holes') || die('the definition-holes gap is gone — rewrite the vacuity correction');
+  g.since = (g.since || []).concat([{ date: '2026-10-28', text: 'A correction to the count above: ' + vacuous.join(', ') + '\'s settlement was vacuous — its config named no theorem, so the strict run with the hole emptied compared nothing (the correction in the since-section). '
+    + settled + ' of the ' + holes.length + ' are settled here.' }]);
+}
 
 /* ---- since the pin (2026-10-27): openai/math moved to 7ef5c0cc on 2026-10-26. Its census (release-7ef5c0cc.json, with
    the diff against this pin), lane K's second ledger (amendment 17: the ADDED and CHANGED challenges only, the same
@@ -199,9 +219,9 @@ B.push(C.scope('The release: github.com/openai/math at commit ' + pin8 + ' (Apac
   + 'Issues and discussions are disabled on the repository. A gap is not an error, a reading is not a certificate, and this page keeps the three apart.'));
 
 B.push(C.tldr({
-  findingRaw: '<b>' + gaps.length + ' gaps, found ' + G.found + ' at ' + pin8 + '.</b> ' + sev1.length + ' headlines are carried by no machine-checked statement — '
-    + sev1.map((g) => C.esc(g.headline)).join('; ') + '. Across the release, <b>' + sGap + ' of ' + S.rows.length + ' formalized families state a different theorem from their headline (' + cnt(sw, 'DIFFERENT') + ') or less than a manuscript their own scope note links (' + cnt(sw, 'NARROWER — UNDECLARED') + '), with nothing saying so</b>, and '
-    + cnt(sw, 'NARROWER — UNLINKED') + ' more headlines lead with results no challenge links. Comparator was configured to compare ' + R.counted.definitionHoles.displayedWithBody
+  findingRaw: '<b>' + gaps.length + ' gaps, found ' + G.found + ' at ' + pin8 + '.</b> ' + reading(sev1.length + ' headlines') + ' are carried by no machine-checked statement — '
+    + sev1.map((g) => C.esc(g.headline)).join('; ') + '. Across the release, <b>' + reading(sGap + ' of ' + S.rows.length) + ' formalized families state a different theorem from their headline (' + cnt(sw, 'DIFFERENT') + ') or less than a manuscript their own scope note links (' + cnt(sw, 'NARROWER — UNDECLARED') + '), with nothing saying so</b>, and '
+    + reading(cnt(sw, 'NARROWER — UNLINKED') + ' more headlines') + ' lead with results no challenge links. Comparator was configured to compare ' + R.counted.definitionHoles.displayedWithBody
     + ' displayed definitions by type alone; the independent kernel was switched on for ' + cnt(R.counted.enableNanoda, 'true') + ' of ' + n(R.counted.challenges) + ' challenges; '
     + fNeeds.length + ' headline witnesses are asserted and not published. <b>Nothing was found false:</b> '
     + (kDecided ? n(kCert) + ' of the ' + n(kDecided) + ' proofs' + soFar + ' are accepted by two kernels and ' + (kRejected ? n(kRejected) + ' rejected' : 'none rejected') + (kAll && kRefused.length ? ' (the other ' + kRefused.length + ' exceeded the runners\' memory or time)' : '') + '; ' : '')
@@ -215,11 +235,16 @@ B.push(C.tldr({
     + ' · ' + C.m('gh workflow run openai-math-kernel.yml -f challenges="…"') + ' — the pre-registration is ' + C.m('corpus/openai-math/preregistration.json') + ', the gap list ' + C.m('corpus/openai-math/findings.json') + '.'
 }));
 B.push(C.stats([
-  { k: 'statements short of the claim', v: sGap + ' / ' + S.rows.length, n: 'Formalized families whose Lean states a different theorem from the headline, or less than a manuscript its scope note links — with nothing saying so. ' + cnt(sw, 'NARROWER — UNLINKED') + ' more lead with unlinked results.' },
-  { k: 'definitions not compared', v: R.counted.definitionHoles.displayedWithBody + ' / ' + R.counted.definitionHoles.declared, n: 'Definition holes displayed with a body Comparator never compares. Settled here for ' + cnt(K.counts.displayed, 'PROVED') + ' of ' + holes.length + ' challenges.' },
+  { k: 'statements short of the claim', vRaw: reading(sGap + ' / ' + S.rows.length), n: 'Formalized families whose Lean states a different theorem from the headline, or less than a manuscript its scope note links — with nothing saying so. ' + cnt(sw, 'NARROWER — UNLINKED') + ' more lead with unlinked results.' },
+  { k: 'definitions not compared', v: R.counted.definitionHoles.displayedWithBody + ' / ' + R.counted.definitionHoles.declared, n: 'Definition holes displayed with a body Comparator never compares. Settled here for ' + settled + ' of ' + holes.length + ' challenges' + (vacuous.length ? ' (a strict run for ' + vacuous.join(', ') + ' compared nothing)' : '') + '.' },
   { k: 'second kernel switched on', v: cnt(R.counted.enableNanoda, 'true') + ' / ' + n(R.counted.challenges), n: 'In the release. Here it is on for all: ' + n(kCert) + ' of ' + n(kDecided) + soFar + ' accepted by both kernels.' },
   { k: 'witnesses not published', v: String(fNeeds.length), n: 'Headline objects asserted with no checkable instance; ' + (fRefuted.length ? fRefuted.length : 'no') + ' finite claim refuted, ' + fCert.length + ' certified.' }
 ]));
+/* the marks, said once (WARRANT rule 9) */
+B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('A kernel\'s CERTIFIED and a finite decider\'s word are decisions, drawn plain. '
+  + 'Underlined dashed: a reading — lane S\'s words, and the gaps that rest on them, were made by AI agents and second-read the same way; they are claims, quoted to the line, not certificates. '
+  + '∅: nothing decided — a run not yet recorded, or one that compared nothing.')
+  + W.legendHtml({ exclude: [W.CHOSEN], compact: true }) }) + '</div>');
 
 /* since the pin — the release moved (2026-10-26); the gaps found at the new pin lead */
 if (since.R2) {
@@ -261,7 +286,7 @@ if (since.R2) {
       /* a list, not a table: the ruler counts a table that scrolls inside its box on a phone as clipped */
       C.plainList(d.toRun.map((name) => {
         const a = added.find((x) => x.name === name), c = d.changed.find((x) => x.name === name), s = d.definitionNamesShrank.find((x) => x.name === name), r = k2of(name);
-        return { raw: (r ? C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'REFUSED' ? 'open' : 'dep') : C.tag('NOT YET RECORDED', 'open')) + ' ' + C.m(name) + ' — '
+        return { raw: (r ? C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'REFUSED' ? 'open' : 'dep') : W.value('not yet recorded', W.REFUSED, { title: 'no job recorded yet: nothing decided' })) + ' ' + C.m(name) + ' — '
           + C.esc(a ? 'added, ' + a.theorems + ' theorem' + (a.theorems > 1 ? 's' : '') : 'changed: ' + c.why.join(', ')) + (s ? C.esc('; definition_names ' + s.before + ' → ' + s.after) : '')
           + (r && r.word !== 'CERTIFIED' ? C.esc(' — ' + short(r.why || '', 140)) : '') };
       })),
@@ -278,14 +303,15 @@ if (since.R2) {
   }));
 }
 
-/* §1 — the gaps, ranked */
+/* §1 — the gaps, ranked. A gap whose finding rests on a statement reading (lane S, or a scope note read) carries the reading's mark */
+const byReading = (g) => g.category === 'statement' || g.category === 'scope-note' || g.refs.some((r) => r.lane === 'S');
 B.push(C.section({
   lab: '§1 · the gaps', title: 'What the release claims beyond what it checks, ranked',
   bodyRaw: [
     C.pRaw('A gap is a place where what is checked is less than what is claimed, where a check the release presents does not do what a reader would assume, or where the means to check a claim are not published. Most of the claims behind these gaps may well be true; a gap says only that the release does not yet show it. Ranked: '
       + Object.entries(sevLabel).map(([k, v]) => '<b>' + k + '</b> ' + C.esc(v)).join(' · ') + '. Each gap names what would close it, and the page refuses to build if a ledger row it rests on changes its word.'),
     ...gaps.map((g, i) => C.note({ lab: 'G' + (i + 1) + ' · ' + sevLabel[String(g.severity)].split(' — ')[0] + ' · found ' + (g.found || G.found),
-      bodyRaw: C.pRaw('<b>' + C.esc(fill(g.title, g.id)) + '</b>') + C.p(fill(g.detail, g.id))
+      bodyRaw: C.pRaw(byReading(g) ? reading('<b>' + C.esc(fill(g.title, g.id)) + '</b>') : '<b>' + C.esc(fill(g.title, g.id)) + '</b>') + C.p(fill(g.detail, g.id))
         + C.pRaw('<b>What would close it.</b> ' + C.esc(fill(g.ask, g.id)))
         + (g.evidence.length ? C.pRaw('<b>Evidence.</b> ' + g.evidence.map(evidenceLink).join(' · ')) : '')
         + (g.since || []).map((u) => C.pRaw('<b>Since the pin (' + u.date + ').</b> ' + C.esc(u.text)
@@ -306,11 +332,11 @@ B.push(C.section({
       + ' of them only because the first readers did not yet have the UNLINKED word).'
       + (S.counts.flagReadings ? ' Every vacuity, junk-value, quantifier and definition flag a first reader marked with a question in the other families was read again: '
         + Object.entries(S.counts.flagDecisions || {}).map(([d, c]) => c + ' ' + d.replace(/-/g, ' ')).join(', ') + '.' : '')),
-    C.table({ cols: [{ h: 'word' }, { h: 'families' }], rows: S_WORDS.filter((w) => cnt(sw, w))
+    C.table({ cols: [{ h: 'word', cls: 'k' }, { h: 'families' }], rows: S_WORDS.filter((w) => cnt(sw, w))
       .map((w) => [{ raw: wordTag(w) }, { raw: C.m(String(cnt(sw, w))) }]) }),
     C.pRaw('<b>The ' + sNotable.length + ' DIFFERENT and NARROWER — UNDECLARED families.</b> Each line names what the headline or a linked manuscript claims and no challenge states. '
       + 'Every such row quotes both texts, with file and line, in ' + C.m('certs/openai-math-statements.json') + '.'),
-    C.table({ cols: [{ h: 'word' }, { h: 'family' }, { h: 'claimed, not stated in Lean' }],
+    C.table({ cols: [{ h: 'word', cls: 'k' }, { h: 'family' }, { h: 'claimed, not stated in Lean' }],
       rows: sNotable.map((r) => [{ raw: wordTag(r.word) }, { raw: C.esc(r.family + ' · ' + short(plain(r.title), 70)) }, { raw: C.esc(short(plain(missing(r).join(' · ') || (r.gap || '')), 260)) }]) }),
     C.pRaw('<b>The ' + sUnlinked.length + ' NARROWER — UNLINKED families.</b> The headline leads with a result from a manuscript the scope note does not link, so no challenge was ever meant to carry it — but a reader of the headline is not told that.'),
     C.table({ cols: [{ h: 'family' }, { h: 'headline result no challenge states' }],
@@ -331,16 +357,17 @@ B.push(C.section({
       + 'strict run with the holes emptied, which compares every body constant by constant, and a transfer check in Lean.'),
     C.table({ cols: [{ h: 'challenge' }, { h: 'holes (displayed)' }, { h: 'bodies, decided' }, { h: 'transfer' }, { h: 'displayed statement' }],
       rows: holes.map((c) => { const k = K.rows.find((r) => r.challenge === c.name); return [{ raw: C.m(c.name) }, { raw: C.m(c.definitionNames.length + ' (' + c.holeBodies.filter((h) => h.displayed).length + ')') },
-        { raw: k && k.strict ? C.tag(k.strict.word, k.strict.word === 'SAME BODIES' ? 'held' : 'dep') + (k.strict.constants ? ' ' + C.esc(k.strict.constants.join(', ')) : '') : C.esc('not yet run') },
+        { raw: k && k.strict ? (isVacuous(c.name) ? W.value(C.esc(k.strict.word) + ', vacuous', W.REFUSED, { title: 'the config names no theorem: with the hole emptied the strict run compared nothing' })
+          : C.tag(k.strict.word, k.strict.word === 'SAME BODIES' ? 'held' : 'dep')) + (k.strict.constants ? ' ' + C.esc(k.strict.constants.join(', ')) : '') : C.esc('not yet run') },
         { raw: k && k.transfer ? C.tag(k.transfer.word, k.transfer.word === 'TRANSFERS' ? 'held' : k.transfer.word === 'NOT DECIDED' ? 'open' : 'dep') : C.esc('not yet run') },
-        { raw: k && k.displayed ? C.tag(k.displayed.word, k.displayed.word === 'PROVED' ? 'held' : 'open') : C.esc('—') }]; }) }),
+        { raw: k && k.displayed ? (isVacuous(c.name) ? W.value('not settled', W.REFUSED, { title: 'drawn from a strict run that compared nothing, and the transfer did not decide' }) : C.tag(k.displayed.word, k.displayed.word === 'PROVED' ? 'held' : 'open')) : C.esc('—') }]; }) }),
     C.pRaw('The transfer column (pre-registration amendment 9) asks Lean itself whether each theorem proves the statement the file displays. The '
       + 'challenge file\'s skeleton is kept; its holes, and every declaration tied to them, are copied under new names; every other name resolves to '
       + 'the solution\'s constant, which Comparator has already matched to the challenge\'s. A guard computed in Lean refuses the check if a copy '
       + 'reaches an original hole or a constant Comparator never compared, and each solution theorem is then offered as a proof of the copied '
       + 'statement. TRANSFERS needs Lean\'s kernel to accept it AND a red control — one displayed body forged — to be rejected. A NOT '
       + 'DEFINITIONAL or a guard refusal can be the method\'s limit rather than a difference, so the last column counts a statement as proved when the strict run '
-      + 'found the same bodies OR the transfer holds, and leaves it open otherwise.'),
+      + 'found the same bodies OR the transfer holds, and leaves it open otherwise; a strict run that compared nothing counts as neither' + (vacuous.length ? ' (' + vacuous.join(', ') + ')' : '') + '.'),
     diff.length ? C.pRaw('Where the strict run names a constant whose bodies differ (' + diff.map((r) => C.m(r.strict.constants.join(', '))).join(', ') + '), '
       + 'the source text reads the same in the challenge and the solution; the kernel terms differ through elaboration. '
       + diff.map((r) => C.m(r.challenge) + ': ' + (r.transfer ? (r.transfer.word === 'TRANSFERS' ? 'the transfer check settles it — the theorem proves the displayed statement' : 'the transfer check did not settle it (' + C.esc(r.transfer.word) + ')') : 'the transfer check is still running')).join('; ') + '.') : ''

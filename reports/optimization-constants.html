@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -612,6 +613,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
 
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
    — the spacing token was right, but it was written on the ELEMENT, where no
@@ -691,7 +766,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as 1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; 0.6906536951…, and on an asymptotic argument in prose (§5). And C3b &ge; 1.77898884 and C3c &ge; 1.6747338950414058 are CERTIFIED from the certificates the registry cites: the ratios are <span class="m">1.7789888414206935498051…</span> and <span class="m">1.6747338950414058700631…</span>, each enclosed to 40 digits. The 147-point certificate's own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, 2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for <span class="m">C3c &gt;= 1.6747338950414059</span>, which is false</b>: it encloses the ratio at 100 digits, then compares in doubles.</li><li><b>The mechanism.</b> A law on Z&sup2; with rational weights gives C &ge; H(X&minus;Y) / max of the entropies of the other forms. The pushforwards are exact; each entropy term is an interval whose logarithm is rounded outward. Two implementations share no code with each other or with the claimants: instruments/sumdiff (JavaScript, BigInt and dyadic intervals at 128–1024 bits) and tools/verify_sumdiff.py (the Python standard library, decimal at 120 digits).</li><li><b>Check it.</b> <span class="m">python3 tools/verify_sumdiff.py</span> — standard library only, four CERTIFIED and one red control. <span class="m">node instruments/sumdiff/battery.js</span> — 22 checks, 7 red controls.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table, <i>given the amplification rule, cited</i> (§3); C84b &le; 1.999281 holds only as 1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; 0.6906536951…, and on an asymptotic argument in prose (§5). And C3b &ge; 1.77898884 and C3c &ge; 1.6747338950414058 are CERTIFIED from the certificates the registry cites: the ratios are <span class="m">1.7789888414206935498051…</span> and <span class="m">1.6747338950414058700631…</span>, each enclosed to 40 digits. The 147-point certificate's own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, 2.06 &times; 10<sup>&minus;11</sup>, is the rounding of the certified gap. <b>And the checker published with the 147-point certificate prints OK for <span class="m">C3c &gt;= 1.6747338950414059</span>, which is false</b>: it encloses the ratio at 100 digits, then compares in doubles.</li><li><b>The mechanism.</b> A law on Z&sup2; with rational weights gives C &ge; H(X&minus;Y) / max of the entropies of the other forms. The pushforwards are exact; each entropy term is an interval whose logarithm is rounded outward. Two implementations share no code with each other or with the claimants: instruments/sumdiff (JavaScript, BigInt and dyadic intervals at 128–1024 bits) and tools/verify_sumdiff.py (the Python standard library, decimal at 120 digits).</li><li><b>Check it.</b> <span class="m">python3 tools/verify_sumdiff.py</span> — standard library only, four CERTIFIED and one red control. <span class="m">node instruments/sumdiff/battery.js</span> — 22 checks, 7 red controls.</li></ul>
 </div></div>
 
 <div class="col"><div class="note">
@@ -708,6 +783,11 @@ ul.plain b{color:var(--ink);font-weight:480}
   </div>
 </div>
 
+<div class="col"><div class="note">
+  <span class="lab">how to read the marks</span>
+<p>Every number on this page is decided by exact arithmetic unless it is marked. Underlined dashed: nothing here decided it — what a claimant's checker printed is its claim, and so is a proof read rather than computed. A verdict that holds given a published theorem names it in italic; C42, whose limit is decided and whose passage to it is an argument in prose, lists what it rests on and how far each step was checked (§5).</p><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div></div>
+</div></div>
+
 <section class="">
   <div class="col sec-head">
     <div class="lab">§1 · the claims</div>
@@ -722,7 +802,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>What a checker&#39;s last line proves</h2>
   </div>
 <p>The 147-point certificate ships a checker (check_cert.py, pinned here by sha256 and not copied). It computes the ratio in interval arithmetic at 100 digits, which is right, and then decides the claim with <span class="m">mpmath.mpf(lo_str) &gt;= mpmath.mpf(claimed)</span> in mpmath's default context — 53 bits, a double. Every decimal within a double of the true bound compares equal to it. Run on the pinned script with claims written here:</p>
-<div class="wide"><div class="tw"><table><thead><tr><th>claimed</th><th>the checker printed</th><th>decided here</th></tr></thead><tbody><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811828</span></td><td>OK</td><td>CERTIFIED here (the certificate&#39;s own bound)</td></tr><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811900</span></td><td>OK</td><td>not certified here: above the certified lower end at the 58th decimal</td></tr><tr><td><span class="mono">1.6747338950414058800</span></td><td>OK</td><td>REFUTED here: above the ratio at the 17th significant digit</td></tr><tr><td><span class="mono">1.67473389504140590</span></td><td>OK</td><td>REFUTED here</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claimed</th><th>the checker printed</th><th>decided here</th></tr></thead><tbody><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811828</span></td><td><span class="w-val w-computed" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>CERTIFIED here (the certificate&#39;s own bound)</td></tr><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811900</span></td><td><span class="w-val w-computed" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>not certified here: above the certified lower end at the 58th decimal</td></tr><tr><td><span class="mono">1.6747338950414058800</span></td><td><span class="w-val w-computed" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>REFUTED here: above the ratio at the 17th significant digit</td></tr><tr><td><span class="mono">1.67473389504140590</span></td><td><span class="w-val w-computed" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>REFUTED here</td></tr></tbody></table></div></div>
 <p>The bound the registry prints is true, and it is decided above without that checker. The point is the checker: <span class="m">C3c &gt;= 1.6747338950414059</span> is false at the seventeenth significant digit, is the same double as the true 60-digit bound, and prints OK. A verifier's last comparison has to be as exact as its enclosure, or the enclosure proves nothing the output line says. The Mosaic Intelligence checkers set the working precision to 80 digits before comparing and do not have this weakness. And one of our own two implementations had its mirror image while this page was built: Python's unary minus on a Decimal rounds to the default context's 28 digits, which moved the first draft's ratio at the 28th digit until the two implementations were compared.</p>
 </section>
 
@@ -731,7 +811,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§3 · the third asterisk</div>
     <h2>C71: a Boolean function on 18 variables</h2>
   </div>
-<p>The Fourier entropy–influence constant is the least C with H[f] ≤ C·I[f] for every Boolean f, where H is the entropy of the Fourier weights (base 2) and I the total influence. For a balanced g the amplification rule of O'Donnell–Tan (2013) and Hod (2017, Prop. 1.2), cited and not re-proved here, gives C71 ≥ H[g]/(I[g] − 1). The registry's asterisked <span class="m">C71 &gt; 6.521845710923046575</span> cites a truth table on 18 variables published by Numaro (numaro.tech, &quot;AI Autoresearch&quot;), Zenodo 10.5281/zenodo.21497769.</p>
+<p>The Fourier entropy–influence constant is the least C with H[f] ≤ C·I[f] for every Boolean f, where H is the entropy of the Fourier weights (base 2) and I the total influence. For a balanced g, <i>given the amplification rule of O'Donnell–Tan (2013) and Hod (2017, Prop. 1.2), cited and not re-proved here</i>, C71 ≥ H[g]/(I[g] − 1). The registry's asterisked <span class="m">C71 &gt; 6.521845710923046575</span> cites a truth table on 18 variables published by Numaro (numaro.tech, &quot;AI Autoresearch&quot;), Zenodo 10.5281/zenodo.21497769.</p>
 <ul class="plain"><li><b>Decided.</b> The table read from its hex and bound by its published sha256; the integer Walsh–Hadamard transform of all 262,144 entries; balance, Parseval, I = 261/128 exactly; H from 10 distinct weight sizes over 2,770 nonzero coefficients, each logarithm in an outward-rounded Decimal interval. The ratio is 6.5218457109230465756581439729…, above the registry&#39;s number, and above the record it replaced. The function is also logic-monotone, as claimed.</li><li><b>Not decided.</b> The amplification rule itself, which is a published theorem; the claimant&#39;s checker (mpmath intervals), pinned and not run.</li></ul>
 </section>
 
@@ -741,7 +821,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>C84b: a suggested constant, quoted as a bound</h2>
   </div>
 <p>The registry's asterisked row for the real sum–product exponent reads <span class="m">C84b ≤ 1.999281</span>: "a ChatGPT 5.5 long-thinking optimization of the explicit constant of [BSSZ2026, §5] giving c ≥ 0.000719. Unverified." The note it cites states its theorem with 0.0007 and adds: "The optimized value suggested by the same calculation is about 0.000719, but 0.0007 is the safer quoted constant."</p>
-<ul class="plain"><li><b>What the note proves holds.</b> Its chain, decided in intervals: the regulator estimate at s = 1.371966384 is 101.95607583… ≤ 103; at Y = 1415 and X = ⌊e¹⁴²³⌋ the product factor 515/Y &lt; 0.364, the additive factor 0.1352394770… &lt; 0.136, log|A|/d &lt; 1432, and −log 0.364 &gt; 0.0007 · 1432. So C84b ≤ 1.9993, given BSSZ2026 §5, the note&#39;s lattice-doubling lemma and the regulator bound.</li><li><b>What the registry quotes is out of its reach.</b> For every s &gt; 1 and every X and Y the same chain gives c ≤ 0.0007150508: the regulator estimate is at least 101.9 for every s (a sweep of s with ζ by Euler–Maclaurin and Γ by Stirling, each with its remainder), the additive factor forces log X &gt; Y + log M₁ − 2 log Y, and the product factor caps the gain at log(Y/5R). 0.000719 is not reached; at the note&#39;s own choice the chain gives 0.0007062455…</li><li><b>Verdict: REPAIRED.</b> The row holds as C84b ≤ 1.9993, which is what its source proves.</li></ul>
+<ul class="plain"><li><b>What the note proves holds.</b> Its chain, decided in intervals: the regulator estimate at s = 1.371966384 is 101.95607583… ≤ 103; at Y = 1415 and X = ⌊e¹⁴²³⌋ the product factor 515/Y &lt; 0.364, the additive factor 0.1352394770… &lt; 0.136, log|A|/d &lt; 1432, and −log 0.364 &gt; 0.0007 · 1432. So C84b ≤ 1.9993, <i>given BSSZ2026 §5, the note&#39;s lattice-doubling lemma and the regulator bound</i>.</li><li><b>What the registry quotes is out of its reach.</b> For every s &gt; 1 and every X and Y the same chain gives c ≤ 0.0007150508: the regulator estimate is at least 101.9 for every s (a sweep of s with ζ by Euler–Maclaurin and Γ by Stirling, each with its remainder), the additive factor forces log X &gt; Y + log M₁ − 2 log Y, and the product factor caps the gain at log(Y/5R). 0.000719 is not reached; at the note&#39;s own choice the chain gives 0.0007062455…</li><li><b>Verdict: REPAIRED.</b> The row holds as C84b ≤ 1.9993, which is what its source proves.</li></ul>
 </section>
 
 <section class="col">
@@ -751,6 +831,7 @@ ul.plain b{color:var(--ink);font-weight:480}
   </div>
 <p>Turán's pure power-sum constant is the limsup of R_n, the least possible max over k ≤ n of |Σ z_iᵏ| when max |z_i| = 1. The registry's asterisked <span class="m">C42 ≤ 0.6906538</span> cites S. Griego's certificate: power sums set to s = 1 − α on the first τn indices, to η in the middle, and to values on the last block that force b_n = 0, so the numbers built from them have every power sum at most C in modulus — for all large n, by an asymptotic argument that reduces everything to four exact facts.</p>
 <ul class="plain"><li><b>Decided.</b> The four facts, in Decimal intervals: |1 − α| &lt; C and |η| &lt; C exactly, τ &gt; 1/3, and the limiting inequality |Y| &lt; C·D, with K, A₁, A₂ and D as convergent series in a complex exponent, each summed with its tail bound (the note&#39;s, checked). |Y|/D ≤ 0.690653695151…, below 0.6906538; every enclosure the certificate prints meets the one computed here. Written apart from the claimant&#39;s verifier, which is pinned and not run.</li><li><b>Not decided.</b> The passage from the limit to every large n — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — which the note argues in prose and for which it gives no finite threshold. Verdict: PARTIAL.</li><li><b>And the pull request after it.</b> An open pull request to the registry (#184, A. Röhrig with Codex) replaces the single middle value by eight and claims C42 ≤ 0.688983. The same decider, written for step profiles and checked to reproduce Griego&#39;s number with one block, decides its limiting inequality: |Y|/D ≤ 0.688982098504… &lt; 0.688983, every block inside C. PARTIAL for the same reason: the limit is decided, the passage to it is prose.</li></ul>
+<p><b>What both rows rest on</b>, in the order the bound travels through it:</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — cited, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The passage from the limit to every large n</b> <span class="ev">the note's argument in prose — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — with no finite threshold; read here, not decided (<span class="m">certs/turan-ledger.json</span>: “the asymptotic reduction … is the note's prose”)</span></div></li></ol><p class="w-meet">Each limiting inequality is decided exactly; the weakest premise is <b>assumed</b>, the argument that carries it to every large n. Hence PARTIAL, for Griego's 0.6906538 and for #184's 0.688983 alike.</p>
 </section>
 
 <section class="col">
@@ -771,7 +852,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-10-06), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json, certs/sumproduct-ledger.json and certs/turan-ledger.json re-derived, their batteries 13 + 8 + 16 checks, 7 + 4 + 9 red controls.</p><p>git aae61990</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-optconst.js from certs/sumdiff-ledger.json (2026-10-06), re-derived at build; battery 22 checks, 7 red controls; tools/verify_sumdiff.py re-run at build; certs/fei-ledger.json, certs/sumproduct-ledger.json and certs/turan-ledger.json re-derived, their batteries 13 + 8 + 16 checks, 7 + 4 + 9 red controls.</p><p>git 4a1d50b8</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

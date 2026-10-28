@@ -26,6 +26,14 @@ const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('KISSING REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28. Every bound, count and contact on this page is decided in exact arithmetic
+   unless it is marked: a timing, a degree read off a float arccos, a platform's float score and a float search are
+   COMPUTED; a seeded sample and a rebuild that fixes what a claimant's text leaves free are CHOSEN; a row with no bytes
+   is ∅. The seven GPU rows rest on one premise the arithmetic cannot carry, and name it (rule 11). */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const D = require(path.join(ROOT, 'design', 'outward.js'));
+const timed = (t) => W.value(t, W.COMPUTED, { title: 'a wall-clock time: measured, not decided' });
+const degrees = (t, cos) => W.value(t, W.COMPUTED, { title: (cos ? 'the cosine ' + cos + ' is exact; ' : '') + 'the degrees are its float arccos, rounded: computed, not decided' });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
 /* ---- gate 1: the ledger, recomputed live ---- */
@@ -106,10 +114,11 @@ const gz = row('ganzhinov-592');
 for (const r of [sh, gz, ae, ea, ea604, s1]) if (!r.date) die('the timeline needs a date on ' + r.id);
 const decYear = (iso) => { const d = new Date(iso + 'T00:00:00Z'); const y = d.getUTCFullYear();
   return y + (Date.UTC(y, d.getUTCMonth(), d.getUTCDate()) - Date.UTC(y, 0, 1)) / (365.25 * 86400000); };
+const contactsWord = (n) => (n ? fmt(n) + ' exact contacts' : '∅ — no pair at exactly 60°');
 const EV = [
   { id: sh.id, y: 582, x: decYear(sh.date), t: '582 · Best 1980', v: 'CERTIFIED · ' + fmt(sh.contacts) + ' exact contacts', tok: 'var(--c-1)' },
   { id: gz.id, y: 592, x: decYear(gz.date), t: '592 · Ganzhinov 2022 (queued)', v: 'QUEUED — bytes not yet pulled; drawn dashed', tok: CH.CTX, queued: true },
-  { id: ae.id, y: 593, x: decYear(ae.date), t: '593 · AlphaEvolve', v: 'CERTIFIED · ' + fmt(ae.contacts) + ' exact contacts', tok: 'var(--c-1)' },
+  { id: ae.id, y: 593, x: decYear(ae.date), t: '593 · AlphaEvolve', v: 'CERTIFIED · ' + contactsWord(ae.contacts), tok: 'var(--c-1)' },
   { id: ea.id, y: 594, x: decYear(ea.date), t: '594 · EinsteinArena rung', v: 'CERTIFIED · ' + fmt(ea.contacts) + ' exact contacts', tok: 'var(--c-1)' },
   { id: ea604.id, y: 604, x: decYear(ea604.date), t: '604 · EinsteinArena', v: 'CERTIFIED · ' + fmt(ea604.contacts) + ' exact contacts · file public ' + ea604.date, tok: 'var(--c-1)' },
   { id: s1.id, y: 604, x: decYear(s1.date), t: '604 ×3 · the Station', v: 'CERTIFIED ×3 · configuration 1 is the EinsteinArena 604 in another frame', tok: 'var(--c-1)' },
@@ -122,8 +131,10 @@ function timelinePanel(o) {
   const inside = EV.filter((e) => e.x >= o.x0 && e.x <= o.x1);
   let level = 0, levelQueued = false, lx = o.x0;
   for (const e of EV) if (e.x < o.x0 && e.y > level) { level = e.y; levelQueued = !!e.queued; }
+  /* a level held by a CERTIFIED row is DECIDED and solid; a level held by the QUEUED row is a bound printed by its claimant and
+     not decided here, so COMPUTED and dashed — both through playground/warrant.js (the dash was hand-written until 2026-10-28) */
   const seg = (x0, x1, y, dashed) => '    <line x1="' + f.px(x0).toFixed(1) + '" y1="' + f.py(y).toFixed(1) + '" x2="' + f.px(x1).toFixed(1)
-    + '" y2="' + f.py(y).toFixed(1) + '" stroke="' + (dashed ? CH.CTX : 'var(--c-1)') + '" stroke-width="2" stroke-linecap="round"' + (dashed ? ' stroke-dasharray="5 4"' : '') + '/>';
+    + '" y2="' + f.py(y).toFixed(1) + '" ' + W.attrs(dashed ? W.COMPUTED : W.DECIDED, { width: 2 }) + '/>';
   for (const e of inside) {
     if (e.y > level) {
       if (level) out.push(seg(lx, e.x, level, levelQueued));
@@ -151,7 +162,7 @@ const FIG_TIMELINE = [
   timelinePanel(Object.assign({ w: 900, h: 300, padL: 62 + 300 + 78, padR: 22, padT: 34, padB: 62, x0: 2025.0, x1: 2026.95,
     xTicks: [{ v: 2025.0, t: '2025' }, { v: 2025.5, t: 'Jul' }, { v: 2026.0, t: '2026' }, { v: 2026.5, t: 'Jul' }], title: 'the eighteen months: 2025 – 2026, three machines',
     labels: { [ae.id]: { dx: 10, dy: -12 }, [ea.id]: { dx: -10, dy: 20, anchor: 'end' }, [ea604.id]: { dx: -10, dy: -14, anchor: 'end' }, [s1.id]: { dx: -10, dy: -32, anchor: 'end' } } }, TL_Y)),
-  CH.legend([{ kind: 'line', token: 'var(--c-1)', t: 'record held by a configuration CERTIFIED here' }, { kind: 'dash', token: CH.CTX, t: 'held by a row still QUEUED (bytes not yet pulled)' }], 62, 293, undefined, 816),
+  CH.legend([{ kind: 'line', token: 'var(--ink)', t: 'record held by a configuration CERTIFIED here (decided)' }, { kind: 'dash', token: 'var(--ink-3)', t: 'held by a bound QUEUED here: its claimant\'s, not decided' }], 62, 293, undefined, 816),
   CH.close,
 ].join('\n');
 
@@ -191,7 +202,7 @@ const FIG_SPECTRA_SVG = FIG_SPECTRA.join('\n');
 const MX = (() => {
   const cell = 24, gap = 2, L = 190, TOP = 44, n = Tm.length;
   const w = 900, h = TOP + n * (cell + gap) + 48;
-  const out = [CH.open({ w, h, alt: 'The 11 by 11 matrix T of the congruence certificate drawn as a grid: exactly one filled cell per row and per column, ten of them marked minus one and one plus one — a signed permutation of the coordinates.' }), CH.HATCH_DEF];
+  const out = [CH.open({ w, h, alt: 'The 11 by 11 matrix T of the congruence certificate drawn as a grid: exactly one filled cell per row and per column, ten of them marked minus one and one plus one — a signed permutation of the coordinates.' })];
   out.push(CH.txt(L + (n * (cell + gap)) / 2, 14, 'coordinate of the EinsteinArena vector (doubled)', 't-note', 'middle'));
   for (let c = 0; c < n; c++) out.push(CH.txt(L + c * (cell + gap) + cell / 2, TOP - 8, String(c + 1), 't-ax', 'middle'));
   for (let r = 0; r < n; r++) {
@@ -200,11 +211,13 @@ const MX = (() => {
       const e = Tm[r][c]; const p = e[0]; const x = L + c * (cell + gap), y = TOP + r * (cell + gap);
       if (p === '0') { out.push('    <rect x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="3" fill="none" stroke="' + CH.GRID + '" stroke-width="1"/>'); continue; }
       const neg = p.startsWith('-');
-      out.push('    <rect ' + CH.hit('x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="3" fill="' + (neg ? 'url(#cmHatch)' : 'var(--c-1)') + '"' + (neg ? ' stroke="var(--c-3)" stroke-width="1"' : ''),
+      /* −1 was a hatch until 2026-10-28; the hatch is the grammar's void ("nothing was enclosed here"), and a −1 is decided */
+      out.push('    <rect ' + CH.hit('x="' + x + '" y="' + y + '" width="' + cell + '" height="' + cell + '" rx="3" fill="' + (neg ? 'var(--c-3)' : 'var(--c-1)') + '"',
         'T[' + (r + 1) + ',' + (c + 1) + '] = ' + (neg ? '−1' : '+1'), 'Station coordinate ' + (r + 1) + ' = ' + (neg ? '− ' : '') + '2 × EinsteinArena coordinate ' + (c + 1)) + '/>');
+      if (neg) out.push('    <text x="' + (x + cell / 2) + '" y="' + (y + cell / 2 + 4) + '" text-anchor="middle" class="t-lab" aria-hidden="true" pointer-events="none">−</text>');
     }
   }
-  out.push(CH.legend([{ token: 'var(--c-1)', t: '+1' }, { kind: 'hatch', t: '−1' }, { token: CH.SURFACE, t: '0 (outlined)' }], L, h - 7, undefined, 900 - L - 22));
+  out.push(CH.legend([{ token: 'var(--c-1)', t: '+1' }, { token: 'var(--c-3)', t: '−1 (marked −)' }, { token: CH.SURFACE, t: '0 (outlined)' }], L, h - 7, undefined, 900 - L - 22));
   out.push(CH.close);
   return out.join('\n');
 })();
@@ -217,7 +230,7 @@ const FIG_LINEAGE = CH.segments({
   rows: [
     { k: '594 rung winner · ' + ea.date, segs: [
       { x0: 0, x1: ea.n - n594dec, token: 'var(--c-2)', k: '594 winner · integer vectors', v: fmt(ea.n - n594dec) },
-      { x0: ea.n - n594dec, x1: ea.n, hatch: true, token: 'var(--c-3)', k: '594 winner · decimal-valued vectors', v: fmt(n594dec) }] },
+      { x0: ea.n - n594dec, x1: ea.n, token: 'var(--c-3)', k: '594 winner · decimal-valued vectors', v: fmt(n594dec) }] },
     { k: '604 · ' + ea604.date, segs: [
       { x0: 0, x1: ea604.sharedDirectionsWith['ea-594-winner'], token: 'var(--c-2)', k: '604 · the winner\'s integer vectors, kept', v: fmt(ea604.sharedDirectionsWith['ea-594-winner']) },
       { x0: ea604.sharedDirectionsWith['ea-594-winner'], x1: ea604.n, token: 'var(--c-1)', k: '604 · new vectors with a √2 part', v: fmt(n604new) }] },
@@ -225,7 +238,7 @@ const FIG_LINEAGE = CH.segments({
       { x0: 0, x1: ea604.sharedDirectionsWith['station-shell-582'], token: 'var(--c-2)', k: '582 shell · directions also in the 604', v: fmt(ea604.sharedDirectionsWith['station-shell-582']) },
       { x0: ea604.sharedDirectionsWith['station-shell-582'], x1: sh.n, token: CH.CTX, k: '582 shell · directions not in the 604', v: fmt(sh.n - ea604.sharedDirectionsWith['station-shell-582']) }] },
   ],
-  keys: [{ token: 'var(--c-2)', t: 'integer vectors' }, { kind: 'hatch', t: 'decimal-valued vectors' }, { token: 'var(--c-1)', t: 'vectors with a √2 part' }, { token: CH.CTX, t: 'not in the 604' }],
+  keys: [{ token: 'var(--c-2)', t: 'integer vectors' }, { token: 'var(--c-3)', t: 'decimal-valued vectors' }, { token: 'var(--c-1)', t: 'vectors with a √2 part' }, { token: CH.CTX, t: 'not in the 604' }],
 });
 
 const B = [];
@@ -262,14 +275,32 @@ B.push(C.tldr({
     + C.m('node tools/run-kissing-ledger.js') + ' rebuilds every verdict from the pinned corpus bytes.'
 }));
 
+/* THE TYPED NUMBERS (WARRANT rule 8, 2026-10-28): the upper end of the interval is H. Cohn's table, pinned and read here (it
+   was typed as "868" until 2026-10-28); the E8 calibration and the 594's decimal entries are read from their bytes */
+const COHN11 = (() => { const f = 'kissing/cohn-table-extract_2026-10-11.json', v = PINV(f); if (!v.ok) die('pinned source ' + f + ': ' + v.why);
+  const t = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', f), 'utf8')); return { readAt: t.readAt, row: t.rows[11] || t.rows['11'] }; })();
+if (!COHN11.row || COHN11.row.lower !== s1.n || !(COHN11.row.upper > s1.n)) die('Cohn\'s table no longer reads ' + s1.n + ' ≤ K(11) ≤ upper');
+const e8 = row('cal-e8-240');
+if (e8.verdict !== 'CERTIFIED' || e8.n !== 240 || e8.contacts !== 240 * 56 / 2) die('the E8 calibration is no longer 240 vectors and 240·56/2 contacts');
+if (!/~8\.7e12/.test(ae.form)) die('the AlphaEvolve entries are no longer recorded as up to ~8.7e12');
+const ea594 = (() => { const v = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'kissing', 'ea-d11-594-winner.json'), 'utf8')).vectors.flat();
+  return { entries: v.length, decimals: v.filter((x) => String(x).includes('.')).length }; })();
+if (ea594.entries !== ea.n * ea.dim) die('the 594 winner\'s entry count is not n × 11');
+const UPPER = W.value(String(COHN11.row.upper), W.COMPUTED, { title: 'the upper bound in H. Cohn\'s table (read ' + COHN11.readAt + '): semidefinite-programming literature, not audited here' });
 B.push(C.stats([
   { k: 'the record, certified here', v: 'K(11) ≥ 604', role: 'held', n: 'four published 604-point configurations — the Station\'s three and EinsteinArena\'s headline — each independently re-decided from sha-pinned bytes' },
-  { k: 'the interval, today', v: '604 ≤ K(11) ≤ 868', role: 'open', n: 'upper bound: literature (SDP), NOT audited here — this page touches lower-bound witnesses only' },
+  { k: 'the interval, today', vRaw: s1.n + ' ≤ K(11) ≤ ' + UPPER, role: 'open', n: 'upper bound: literature (SDP), NOT audited here — this page touches lower-bound witnesses only' },
   { k: 'ladder rows certified', v: certified + ' of ' + L.rows.length, role: 'held', n: '582 · 593 · 594 · 604×4 · a D12 lift · two classical calibrations — every verdict recomputed at this build' },
-  { k: 'the two platforms\' 604s', v: 'one configuration', role: 'held', n: 'EinsteinArena\'s 604 and the Station\'s configuration 1 are congruent — a signed coordinate permutation, decided in ' + fmt(cg['station-604-1'].ms) + ' ms and certified exactly; configurations 2 and 3 are not' },
-  { k: 'needs data → certified', v: daysToBytes + ' days', role: 'held', n: 'EinsteinArena\'s headline 604: NEEDS DATA on ' + ea604.needsDataFrom + ', coordinates published on request ' + ea604.bytesPublished + ', decided the same day in ' + ea604.ms + ' ms' },
-  { k: 'calibration', v: 'E8: 6,720 contacts', role: 'held', n: '240·56/2 — the textbook count of 60° pairs in the E8 root system, re-derived from generated bytes every run' },
+  { k: 'the two platforms\' 604s', v: 'one configuration', role: 'held', nRaw: 'EinsteinArena\'s 604 and the Station\'s configuration 1 are congruent — a signed coordinate permutation, decided in ' + timed(fmt(cg['station-604-1'].ms) + ' ms') + ' and certified exactly; configurations 2 and 3 are not' },
+  { k: 'needs data → certified', v: daysToBytes + ' days', role: 'held', nRaw: 'EinsteinArena\'s headline 604: NEEDS DATA on ' + ea604.needsDataFrom + ', coordinates published on request ' + ea604.bytesPublished + ', decided the same day in ' + timed(ea604.ms + ' ms') },
+  { k: 'calibration', v: 'E8: ' + fmt(e8.contacts) + ' contacts', role: 'held', n: '240·56/2 — the textbook count of 60° pairs in the E8 root system, re-derived from generated bytes every run' },
 ]));
+/* the marks, said once (WARRANT rule 9) */
+B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every bound, count and contact on this page is decided in exact arithmetic unless it is marked. '
+  + 'Underlined dashed: computed, nothing here decided it — a timing, a degree read off a float arccos, a platform\'s float score, a float search, a bound taken from the literature. '
+  + 'Underlined dotted: chosen — a seeded sample, or one rebuild among those a claimant\'s text admits. ∅: no bytes, nothing decided. '
+  + 'The configurations decided on a GPU rest on one premise the arithmetic does not carry; §4 names it and how far it was checked.')
+  + W.legendHtml({ compact: true }) }) + '</div>');
 
 B.push(C.section({
   lab: '§1 · the ladder', title: 'Thirty years at 582. Then eighteen months.',
@@ -279,8 +310,8 @@ B.push(C.section({
     cols: [{ h: 'bound' }, { h: 'who, when' }, { h: 'the bytes' }, { h: 'verdict here', cls: 'n' }, { h: 'exact contacts', cls: 'n' }],
     rows: [
       ['582', 'classical shell (Best 1977 class); bytes from the Station bundle', 'integer vectors, norm² 4', { raw: C.tag('CERTIFIED', 'cert') }, fmt(sh.contacts)],
-      ['592', 'Ganzhinov 2022 (arXiv:2207.08266) — the last pre-AI record', 'not yet pulled', { raw: C.tag('QUEUED', 'dep') }, '—'],
-      ['593', 'AlphaEvolve (DeepMind), May 2025', 'integer vectors, entries up to ~8.7·10¹²', { raw: C.tag('CERTIFIED', 'cert') }, fmt(ae.contacts)],
+      [{ raw: W.value('592', W.COMPUTED, { title: 'Ganzhinov\'s published bound: not decided here, the bytes are queued' }) }, 'Ganzhinov 2022 (arXiv:2207.08266) — the last pre-AI record', 'not yet pulled', { raw: C.tag('QUEUED', 'dep') }, { raw: W.value('no bytes', W.REFUSED, { title: 'nothing decided: the bytes are not pulled yet' }) }],
+      ['593', 'AlphaEvolve (DeepMind), May 2025', 'integer vectors, entries up to ' + ae.form.split('up to ')[1].replace(/e(\d+)$/, (m, e) => '·10' + e.split('').map((d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]).join('')), { raw: C.tag('CERTIFIED', 'cert') }, ae.contacts ? fmt(ae.contacts) : '∅ none'],
       ['594', 'EinsteinArena agents — the solved public rung, score-0 winner', 'decimal literals, read as exact rationals', { raw: C.tag('CERTIFIED', 'cert') }, fmt(ea.contacts)],
       ['604 ×3', 'The Station agents (dualverse-ai), 2026', '(a+b√2)/6 entries, shell norm exactly 4', { raw: C.tag('CERTIFIED', 'cert') }, fmt(s1.contacts) + ' · ' + fmt(s2.contacts) + ' · ' + fmt(s3.contacts)],
       ['604', 'EinsteinArena (arXiv:2606.10402) — the paper\'s headline, credited by Cohn\'s table; coordinates published on request ' + ea604.bytesPublished, 'p + q√2 integer pairs, shell norm exactly 36', { raw: C.tag('CERTIFIED', 'cert') }, fmt(ea604.contacts)],
@@ -291,7 +322,7 @@ B.push(C.section({
     + 'proof of that maximum, which is why every deeper record needs a richer alphabet: AlphaEvolve went to '
     + 'enormous integers, the 604s live in Q(&radic;2). Ganzhinov\'s 592 (2022) was the last human record; '
     + 'AlphaEvolve took 593 in May 2025; the two agent platforms then pushed to 604 within a year. The upper '
-    + 'bound 868 is semidefinite-programming literature and is not audited by this page.')
+    + 'bound ' + UPPER + ' is semidefinite-programming literature and is not audited by this page.')
   + C.pRaw('The distinct contact counts are doing quiet work in that table: congruent configurations have equal '
     + 'contact counts, so ' + fmt(s1.contacts) + ' &ne; ' + fmt(s2.contacts) + ' &ne; ' + fmt(s3.contacts)
     + ' certifies that the three Station 604s are pairwise non-congruent — three genuinely different ways to reach '
@@ -310,14 +341,14 @@ B.push(C.section({
     + '<strong>not</strong> congruent to it: the same search exhausts at its first node (their contact counts already '
     + 'said so; the search says it independently and would have said it without the counts).')
   + C.figure({ wide: false, svgRaw: FIG_SPECTRA_SVG, caption: 'The angle spectrum of each distinct 604-point configuration: how many of the 182,106 pairs sit at each angle, on a log scale, every angle decided exactly in Z[√2]. The EinsteinArena 604 and Station configuration 1 share the top panel because their spectra are identical (read from the ledger, gated); configurations 2 and 3 have 14 and 15 distinct angles instead of 22. A spectrum is a fingerprint an isometry cannot change — necessary for congruence; the certificate below is what makes it sufficient.' })
-  + C.figure({ wide: false, svgRaw: MX, caption: 'The certificate, drawn. T is the 11 × 11 matrix with T · 2aᵢ = b_π(i) for every i, read from certs/kissing-congruence.json: one filled cell per row and per column, so it is a permutation of the coordinates with signs — the hatched cells are −1. The matrix is verified exactly at every build; hover a cell for the coordinate it maps.' })
+  + C.figure({ wide: false, svgRaw: MX, caption: 'The certificate, drawn. T is the 11 × 11 matrix with T · 2aᵢ = b_π(i) for every i, read from certs/kissing-congruence.json: one filled cell per row and per column, so it is a permutation of the coordinates with signs — the cells marked − are −1. The matrix is verified exactly at every build; hover a cell for the coordinate it maps.' })
   + C.pRaw('Where the 604 came from is also in the bytes. ' + fmt(ea604.sharedDirectionsWith['ea-594-winner'])
     + ' of its directions are the EinsteinArena 594 rung winner\'s — exactly its ' + fmt(ea604.integerVectors)
     + ' integer vectors — and the 594\'s ' + fmt(n594dec) + ' decimal-valued vectors were replaced by '
     + fmt(n604new) + ' vectors with a &radic;2 part: the record was reached by keeping the integer skeleton and '
     + 'rebuilding the rest in Z[&radic;2]. ' + fmt(ea604.sharedDirectionsWith['station-shell-582']) + ' of the 604 directions '
     + 'are the classical 582 shell\'s. Its slack is small: ' + fmt(ea604.nearestNonContact.count) + ' pairs sit at '
-    + ea604.nearestNonContact.angleDeg.toFixed(2) + '&deg;, under a degree from contact.')
+    + degrees(ea604.nearestNonContact.angleDeg.toFixed(2) + '&deg;', '(' + ea604.nearestNonContact.key.replace(/^(\d+),(\d+)\/(\d+)$/, '$1+$2√2)/$3')) + ', under a degree from contact.')
   + C.figure({ wide: false, svgRaw: FIG_LINEAGE, caption: 'What each configuration is made of, counted exactly by primitive direction: the 594 rung winner (' + ea.date + ') is 496 integer vectors and 98 decimal-valued ones; the 604 (' + ea604.date + ', two days later) keeps those 496 integer vectors and replaces the rest with 108 vectors carrying √2; 176 of its directions are also the classical 582 shell\'s.' })
   + C.pRaw('As data, for whoever needs it: the EinsteinArena file entered a public repository on 2026-04-12 (its paper, '
     + 'arXiv:2606.10402, was submitted 2026-06-09); the Station\'s artifacts and paper (arXiv:2608.23691) are dated '
@@ -331,9 +362,9 @@ B.push(C.section({
   bodyRaw: '<div class="col">'
   + C.pRaw('EinsteinArena scores submissions with Python <code>decimal.Decimal</code> at 30–80 significant '
     + 'digits, and switches to exact integer arithmetic only for integer-valued submissions. Fixed-precision '
-    + 'decimal is high-precision float, not proof — and the winning 594 bytes are NOT integers (982 of their '
-    + '6,534 entries are decimals). Read as the exact rationals those literals denote, the winner turns out to '
-    + 'be a genuine exact witness: 17,088 pairs sit at exactly 60&deg; and every other pair clears it. To our '
+    + 'decimal is high-precision float, not proof — and the winning 594 bytes are NOT integers (' + fmt(ea594.decimals) + ' of their '
+    + fmt(ea594.entries) + ' entries are decimals). Read as the exact rationals those literals denote, the winner turns out to '
+    + 'be a genuine exact witness: ' + fmt(ea.contacts) + ' pairs sit at exactly 60&deg; and every other pair clears it. To our '
     + 'knowledge this page is the first exact reading of those bytes.')
   + C.pRaw('The Station agents did verify their 604s exactly — a sympy notebook pinned to the same npz this '
     + 'page consumes, plus Lean 4 formalizations of spotlight sub-theorems (the 582 shell maximum among them). '
@@ -346,7 +377,7 @@ B.push(C.section({
     + 'read NEEDS DATA with one sentence attached: publish the vectors in any exact or decimal form and this row '
     + 'decides in minutes. The ledger asked (vinid/einstein-arena#64); on ' + ea604.bytesPublished + ' the '
     + 'maintainer answered with the repository holding the file — 604 rows of 22 integers, p + q&radic;2 per '
-    + 'coordinate at shell norm 36, the same field as the Station\'s. It decided in ' + ea604.ms + ' ms. The '
+    + 'coordinate at shell norm 36, the same field as the Station\'s. It decided in ' + timed(ea604.ms + ' ms') + '. The '
     + 'sentence was the price, exactly.') + '</div>'
 }));
 
@@ -358,8 +389,9 @@ B.push(C.section({
     rows: OR.map((r) => [
       r.title.replace('Kissing Number in ', '') + (r === r841 ? ' · closed 2026-06-30' : ''),
       '#' + r.best.id + ' · ' + r.best.agent + ' · ' + String(r.best.createdAt).slice(0, 10),
-      String(r.best.score).slice(0, 10), fmt(r.measured.violations),
-      r.measured.worstAngleDeg === null ? '—' : r.measured.worstAngleDeg.toFixed(2) + '°', fmt(r === r841 ? distinct841 : r.measured.contacts),
+      /* the score was cut with slice(0, 10) until 2026-10-28: a float printed short is rounded, and marked as the platform's */
+      { raw: Number.isInteger(r.best.score) ? String(r.best.score) : W.value(r.best.score.toPrecision(8), W.COMPUTED, { title: 'the platform\'s float score as served: ' + r.best.score + ' (not decided here)' }) }, fmt(r.measured.violations),
+      { raw: r.measured.worstAngleDeg === null ? '∅ none' : degrees(r.measured.worstAngleDeg.toFixed(2) + '°') }, fmt(r === r841 ? distinct841 : r.measured.contacts),
       r.measured.coincident ? (r.measured.n - r.measured.coincident) + ' distinct directions and ' + r.measured.coincident + ' repeated — an ' + (r.measured.n - r.measured.coincident) + '-point configuration, not an ' + r.measured.n
         + (r === r841 ? '; the contacts are those of the ' + (r.measured.n - r.measured.coincident) + ' distinct directions (' + fmt(r.measured.contacts) + ' with the repeat, whose contacts count twice)' : '')
         : (fmt(r.measured.violations) + ' pairs inside 60°; ' + (r.measured.worstAngleDeg < 50 ? 'far from a witness' : 'the closest of the three to a witness')),
@@ -465,6 +497,36 @@ const COHN_F = 'kissing/cohn-table-extract_2026-10-11.json';
 { const v = PIN.verify(COHN_F); if (!v.ok) die('pinned source ' + COHN_F + ': ' + v.why); }
 const COHN = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', COHN_F), 'utf8'));
 const qMoved = q25 && q25.families ? q25.families.find((f) => f.name === 'moved') : null;
+const floatRead = (t) => W.value(t, W.COMPUTED, { title: 'read off float64 arrays: computed, not decided' });
+const seeded = (t) => W.value(t, W.CHOSEN, { title: 'from a seeded float search (random directions, a descent, an LP polish): another seed or budget could find another cap; nothing here decided it' });
+/* THE GPU ROWS AND WHAT THEY REST ON (WARRANT v2.1, rule 11; the method paper states the same premise in its threats to
+   validity). Until 2026-10-28 this page said their exactness "rests on the same bound" and stopped there: the bound makes
+   every product and partial sum a small integer, and that is exact only if the tensor cores accumulate as documented,
+   which is characterised for earlier generations than the one rented and was checked here by a calibration, not proved.
+   Every number below is read from the pod's records (corpus/kissing/wave/qiushi-gpu-2026-10-12/) and gated. */
+function isGpu(r) { return !!(r.families && r.families.some((f) => /tensor cores/.test(f.path || ''))); }
+const GPU = wDecided.filter(isGpu).sort((a, b) => a.dim - b.dim);
+const GPUDIR = path.join(ROOT, 'corpus', 'kissing', 'wave', 'qiushi-gpu-2026-10-12');
+const GPUPOD = GPU.length ? JSON.parse(fs.readFileSync(path.join(GPUDIR, 'pod.json'), 'utf8')) : null;
+const GPUCAL = GPU.length ? [32, 39].map((d) => ({ d, c: JSON.parse(fs.readFileSync(path.join(GPUDIR, '_cal-' + d + '.json'), 'utf8')), desk: WR.find((r) => r.id === 'qiushi-' + d) })) : [];
+const GPUFILES = GPU.map((r) => JSON.parse(fs.readFileSync(path.join(GPUDIR, r.dim + '.json'), 'utf8')));
+const GPUBOUND = GPUFILES.length ? Math.max(...GPUFILES.map((f) => f.facts.partialSumBound)) : 0;
+if (GPU.length) {
+  if (GPUCAL.some(({ c, desk }) => !desk || isGpu(desk) || !/tensor cores/.test(c.bulk.path) || c.bulk.contacts !== desk.contacts || c.bulk.pairs !== desk.pairs || c.bulk.violations !== 0))
+    die('the GPU calibration no longer reproduces the laptop\'s exact contacts on dimensions 32 and 39');
+  if (GPUFILES.some((f, i) => f.d !== GPU[i].dim || f.bulk.contacts !== GPU[i].contacts || f.bulk.pairs !== GPU[i].pairs || !(f.facts.partialSumBound < 2048) || !/tensor cores/.test(f.bulk.path))
+    || GPUBOUND !== 192 || GPU.some((r) => Number(r.pairs).toPrecision(2) !== '1.4e+15') || !/L40S/.test(GPUPOD.gpu))
+    die('a GPU row no longer matches its pod record, its bound or the sentence that types it (192, about 1.4 × 10¹⁵ pairs, the L40S)');
+}
+const GPUCHAIN = GPU.length ? C.pRaw('<b>What the ' + GPU.length + ' GPU rows rest on</b> (dimensions ' + span(GPU.map((r) => r.dim)) + '), in the order each count travels through it:')
+  + W.premisesHtml([
+    { grade: W.ASSUMED, label: 'The products and their sums in the tensor cores', evidence: 'fp16 inputs, fp32 accumulation; every product and partial sum here is an integer of size at most ' + GPUBOUND
+      + ' (asserted on the data before the run), and fp16 holds every integer below 2¹¹ — provided the hardware accumulates as documented. That behaviour is documented and was measured on the Volta, Turing and Ampere generations (Fasi et al. 2021); the '
+      + C.esc(GPUPOD.gpu.split(' (')[0]) + ' rented here is a later one, and nothing here proved it for that device (the method paper states the same premise among its threats to validity).' },
+    { grade: W.VERIFIED, label: 'The kernel, end to end on that device', evidence: 'run first on dimensions ' + GPUCAL.map((x) => x.d).join(' and ') + ': ' + GPUCAL.map((x) => fmt(x.c.bulk.contacts)).join(' and ')
+      + ' contacts over ' + GPUCAL.map((x) => fmt(x.c.bulk.pairs)).join(' and ') + ' pairs, the laptop\'s exact counts to the pair. A check, not a proof: a fault only on inputs the calibration did not exercise would pass it. Each row\'s seeded sample was also re-decided in plain integers.' },
+  ], { meetLine: 'Each pair test is exact integer arithmetic given its products; the weakest premise is <b>assumed</b>: how the device accumulates them. Re-deciding dimensions ' + span(GPU.map((r) => r.dim)) + ' with integer matrix multiplication, or characterising the device, would close it; neither has been done.' })
+  : '';
 B.push(C.section({
   lab: '§4 · the September wave', title: 'Three claimants, ' + dimsDecided.length + ' dimensions, every pair decided',
   wide: true,
@@ -483,14 +545,15 @@ B.push(C.section({
     + 'checked bound that makes every partial sum an exact integer (2<sup>24</sup> or 2<sup>53</sup>), and every sign is '
     + 'decided in the tower Q(&radic;2)(&radic;3). Dimension 18 was decided twice, in Python and again live in '
     + 'JavaScript by a separate implementation, ' + fmt(live18.pairs) + ' pairs each, the same ' + fmt(live18.contacts)
-    + ' contacts; and every other row had a seeded sample of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
+    + ' contacts; and every other row had ' + W.value('a seeded sample', W.CHOSEN, { title: 'one sample of each row\'s vectors, picked by a seed the row records: the two implementations agree on it, not on every vector' }) + ' of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
     + fmt(Math.max(...wDecided.map((r) => r.jsCheck.n))) + ' of its vectors decided whole by both implementations, agreeing on every contact count'
     + (wDecided.some((r) => r.jsCheck.excludedFamilies.length) ? ' (the 10<sup>19</sup>-denominator rational heads and the two irrationally normalised Qiushi points sit outside the JavaScript guard and are decided by the Python digit and integer paths only)' : '') + '.')
   + C.plainList(wDecided.slice().sort((x, y) => x.dim - y.dim || y.claimed - x.claimed).map((r) => ({
     b: 'K(' + r.dim + ') ≥ ' + fmt(r.claimed),
     raw: esc(WHO[r.claimant] + (r.ours ? ' (ours)' : '')) + (r.previous ? ' · over their stated previous ' + fmt(r.previous) + ' by +' + fmt(r.claimed - r.previous) : '')
       + ' · ' + C.tag(r.verdict, r.verdict === 'WITNESSED' ? 'cert' : 'held') + ' · ' + C.m(fmt(r.pairs)) + ' pairs, ' + C.m(fmt(r.contacts)) + ' exact contacts'
-      + (r.nearestNonContactCos ? ', nearest non-contact ' + C.m(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + Math.round(r.seconds) + ' s' + (r.wallNote ? ' (' + esc(r.wallNote) + ')' : ''),
+      + (r.nearestNonContactCos ? ', nearest non-contact ' + degrees(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + timed(Math.round(r.seconds) + ' s') + (r.wallNote ? ' (' + esc(r.wallNote) + ')' : '')
+      + (isGpu(r) ? ' · <i>given the tensor-core premise below</i>' : ''),
   })))
   + '</div>'
   + '<div class="col">'
@@ -499,7 +562,7 @@ B.push(C.section({
     + 'WITNESSED means the published integers, rationals and printed closed forms are already the exact configuration. '
     + 'REPAIRED means some coordinates were published only as binary64 floats of irrational numbers and the exact point '
     + 'had to be decoded from them by the claimant\'s own formula. Each decoded point, rounded back to binary64, is the published '
-    + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + C.m(r.delta.toExponential(1)))).join(', ') + ': '
+    + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + W.value(D.sci(r.delta, 1, true), W.COMPUTED, { title: 'a float-to-exact distance, measured in floating point and rounded up' }))).join(', ') + ': '
     + 'a decode, not a correction. '
     + 'A slip in a witness would not have refuted any bound, and none occurred.')
   + (QSEC.length ? C.pRaw('<strong>The Qiushi Engine\'s dimensions 43 and 45.</strong> Their counts came from spherical-design moment identities '
@@ -521,10 +584,11 @@ B.push(C.section({
     + '(squared norms 32 and 39 in dimension 39; 48 and a 36-digit norm in dimension 38; 144, 192 and 48 in 49–55), so every row is normalised by its own '
     + 'length and each pair is decided by the exact test p ≤ 0 or 4p² ≤ AB, which also catches a repeated or parallel row. '
     + QREST.map((r) => 'K(' + r.dim + ') ≥ ' + fmt(r.claimed) + ' is ' + r.verdict + ' (' + fmt(r.pairs) + ' pairs, ' + fmt(r.contacts) + ' touching)').join('; ') + '. '
-    + (QREST.some((r) => r.dim >= 49) ? 'Dimensions 49–55, about 1.4 × 10¹⁵ pairs each, were decided on one rented GPU by a kernel that never writes a product to memory, '
-      + 'calibrated first against the desk on dimensions 32 and 39 (the same contact counts); exactness there rests on the same bound — every partial sum of '
-      + 'products is at most the largest squared norm, 192, far inside what half precision holds exactly. ' : '')
-    + (QALL.length >= 19 && QALL.every((r) => r.verdict === 'WITNESSED') ? 'With these, every one of the ' + QALL.length + ' bounds in the Qiushi Engine\'s paper is decided here, pair by pair, and every one holds.' : ''))
+    + (GPU.length ? 'Dimensions ' + span(GPU.map((r) => r.dim)) + ', about 1.4 × 10¹⁵ pairs each, were decided on one rented GPU by a kernel that never writes a product to memory, '
+      + 'calibrated first against the desk on dimensions ' + GPUCAL.map((c) => c.d).join(' and ') + ' (the same contact counts); exactness there rests on the same bound — every partial sum of '
+      + 'products is an integer at most the largest squared norm, ' + GPUBOUND + ', inside what half precision holds exactly — and on one premise the bound cannot carry: that the tensor cores accumulate those integers as documented. ' : '')
+    + (QALL.length >= 19 && QALL.every((r) => r.verdict === 'WITNESSED') ? 'With these, every one of the ' + QALL.length + ' bounds in the Qiushi Engine\'s paper is decided here, pair by pair, and every one holds' + (GPU.length ? ', ' + GPU.length + ' of them <i>given that premise</i>.' : '.') : ''))
+    + GPUCHAIN
     : '')
   + C.pRaw('<strong>The current table.</strong> &ldquo;Decided here&rdquo; is not &ldquo;the record&rdquo;: H. Cohn\'s table of kissing bounds, read '
     + COHN.readAt + ', lists ' + [25, 26, 27, 28, 29, 30, 31].filter((d) => COHN.rows[d] && best.find((r) => r.dim === d) && COHN.rows[d].lower > best.find((r) => r.dim === d).claimed)
@@ -548,7 +612,7 @@ B.push(C.section({
   + C.pRaw(fmt(wChoice.length) + ' rebuilds (' + wChoice.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ') + ') had to fix something '
     + 'the claimant\'s text leaves free, and the ledger row says what: which hexagon triangle or which zero-sum triangle of the '
     + 'cuboctahedron or of the D₄ roots carries which side or class, and about which coordinate axis the dimension-27 axis is turned. '
-    + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on the one chosen. The Leech shell itself '
+    + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on ' + W.value('the one chosen', W.CHOSEN, { title: 'one member of the set the claimant\'s text admits, fixed here (the ledger row says which); the bound is decided on that one' }) + '. The Leech shell itself '
     + 'is built here, from the Golay code spanned by the claimants\' own published owner vectors.')
   + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: ' + WHO.kravatsky + '\'s dimensions '
     + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim))
@@ -560,16 +624,16 @@ B.push(C.section({
       + 'an exact witness needs that rotation as an exactly orthogonal matrix (their paper bounds the polar factor instead). '
       + 'Their dimension 25 needs no rotation and is decided above. ' : '') + WHO.kravatsky + '\'s 38 and 39 ship rebuildable data and wait their turn.'
     + (ty31 && ty31.addedPoints ? ' One fact about those bytes is already measured: the four points added in dimension 31 are stored as '
-      + '(±' + ty31.addedPoints.horizontalCoefficient.toFixed(6) + ' u<sub>j</sub>, ' + ty31.addedPoints.verticalCoefficient.toFixed(6) + ' v<sub>j</sub>) '
-      + '(to ' + ty31.addedPoints.residual.toExponential(0) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
+      + '(±' + floatRead(ty31.addedPoints.horizontalCoefficient.toFixed(6)) + ' u<sub>j</sub>, ' + floatRead(ty31.addedPoints.verticalCoefficient.toFixed(6)) + ' v<sub>j</sub>) '
+      + '(to ' + floatRead(D.sci(ty31.addedPoints.residual, 0, true)) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
       + 'so the array and the text describe two configurations. Which one the paper certifies is theirs to say; neither is refuted here.' : '')) : '')
-  + (hunt ? C.pRaw('<strong>The hunt.</strong> On every configuration decided here the deepest empty cap was searched in floating point '
+  + (hunt ? C.pRaw('<strong>The hunt.</strong> On ' + (huntIds.length === wDecided.length ? 'every configuration decided here' : huntIds.length + ' of the ' + wDecided.length + ' configurations decided here (dimensions ' + span([...new Set(huntIds.map((k) => WR.find((r) => r.id === k).dim))].sort((a, b) => a - b)) + '; the other ' + (wDecided.length - huntIds.length) + ' were not searched)') + ' the deepest empty cap was searched in floating point '
     + '(random directions, a smoothed-max descent, an LP polish to a facet normal) — floats propose, nothing more. '
     + (huntProposals.length ? huntProposals.length + ' configurations returned a candidate with a cap of 60° or more; see the rows marked ours.'
       : 'None returned a cap of 60° or more: no insertion is proposed in any of the ' + huntIds.length + ' configurations, the widest cap found being '
-        + huntDeepest.a.toFixed(3) + '° (' + WHO[WR.find((r) => r.id === huntDeepest.id).claimant] + '\'s K(' + WR.find((r) => r.id === huntDeepest.id).dim + ')) and the gap to 60° '
-        + Math.min(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '° to ' + Math.max(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '°, after '
-        + fmt(Math.min(...huntIds.map((k) => hunt[k].samples_total || hunt[k].samples))) + ' random directions or more per configuration. That is a search result, not a proof that no hole exists; '
+        + seeded(huntDeepest.a.toFixed(3) + '°') + ' (' + WHO[WR.find((r) => r.id === huntDeepest.id).claimant] + '\'s K(' + WR.find((r) => r.id === huntDeepest.id).dim + ')) and the gap to 60° '
+        + seeded(Math.min(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '° to ' + Math.max(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '°') + ', after '
+        + seeded(fmt(Math.min(...huntIds.map((k) => hunt[k].samples_total || hunt[k].samples))) + ' random directions or more') + ' per configuration. That is a search result, not a proof that no hole exists; '
         + (qMoved ? 'the Qiushi Engine\'s +1 in dimension 25 needed ' + fmt(qMoved.n) + ' points MOVED first, which an insertion search does not try.' : '')) ) : '')
   + '</div>',
 }));

@@ -12,6 +12,12 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const die = (m) => { console.error('OPTCONST REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28: a number on this page is decided by exact arithmetic unless it is marked; what
+   a claimant's checker printed is its claim (COMPUTED); a verdict that holds given a theorem cited names it in italic; the
+   one bound that rests on an argument read rather than computed (C42) names its premises. Enclosures print outward. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const D = require(path.join(ROOT, 'design', 'outward.js'));
+const READ_GLOSS = ['cited, or read; no machine here checked it'].concat(W.GRADE_GLOSS.slice(1));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const run = (args) => cp.execFileSync(process.execPath, args, { cwd: ROOT, encoding: 'utf8' });
 
@@ -43,6 +49,15 @@ if ((py.match(/^CERTIFIED/gm) || []).length !== 4 || !/fired\s+RED control/.test
 const R = (id) => L.rows.find((r) => r.id === id), A = (claim) => L.also.find((a) => a.claim === claim);
 const falseClaim = L.also.find((a) => /FALSE/.test(a.what));
 const shortRho = (r, k) => r.rho[0].slice(0, k) + '…';
+/* THE TYPED NUMBERS (WARRANT rule 8, 2026-10-28): each number the prose types by hand, read from its record; the page
+   refuses when a record stops saying it */
+{
+  const typed = [[FE.claim, /^C71 > 6\.521845710923046575$/], [SP.claim, /^C84b <= 1\.999281 \(c >= 0\.000719\)$/], [SP.repairedTo, /^C84b <= 1\.9993 \(c >= 0\.0007, /],
+    [TU.claim, /^C42 <= 0\.6906538$/], [PR.claim, /^C42 <= 0\.688983 /], [L.improvement.printed, /^2\.06e-11$/], [SP.checks[5].name, />= 101\.9 /], [SP.checks[0].name, /^f\(1\.371966384\) <= 103 /]];
+  for (const [v, re] of typed) if (!re.test(String(v))) die('a number the prose types is no longer in its record: ' + re + ' against "' + String(v).slice(0, 80) + '"');
+  if (L.rows.some((r) => r.rho.some((x) => x.split('.')[1].length !== 40)) || A('1.674733895041405870063135756722213999136383713818148696811828').bits !== 256
+    || FE.n !== 18 || !L.improvement.rounds) die('the 40-digit enclosures, the 256-bit decision, the 18 variables or the improvement\'s rounding moved');
+}
 
 const B = [];
 B.push(C.header({
@@ -58,7 +73,7 @@ B.push(C.scope('Decided: that the law each cited certificate writes down gives t
   + 'never its value. Not decided: the upper bounds, the constants themselves, and the registry\'s other asterisked rows. The asterisk is the '
   + 'maintainers\' to keep or remove; this page is evidence. The 147-point checker\'s 53-bit comparison was reported to its author on 2026-10-05 (a comment on gist CoolRmal/5368357c); the replay was proposed to the registry as teorth/optimizationproblems PR #216 the same day.'));
 B.push(C.tldr({
-  findingRaw: '<b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table (§3); C84b &le; 1.999281 holds only as '
+  findingRaw: '<b>Three hold as printed, one partly, one is repaired.</b> C71 &gt; 6.521845710923046575 is CERTIFIED from its truth table, <i>given the amplification rule, cited</i> (§3); C84b &le; 1.999281 holds only as '
     + '1.9993, what its source proves (§4); C42 &le; 0.6906538 rests on a limiting inequality that holds, |Y|/D &le; ' + TU.ratioUpper.slice(0, 12) + '…, and on an asymptotic argument in prose (§5). And C3b &ge; ' + R('3b').claim.split('>= ')[1] + ' and C3c &ge; ' + R('3c').claim.split('>= ')[1] + ' are CERTIFIED from the '
     + 'certificates the registry cites: the ratios are ' + C.m(shortRho(R('3b'), 24)) + ' and ' + C.m(shortRho(R('3c'), 24)) + ', each enclosed to 40 digits. '
     + 'The 147-point certificate\'s own 60-digit bound holds, so does the 95-point bound it superseded, and the improvement the registry prints, '
@@ -88,6 +103,11 @@ B.push(C.stats([
   { k: 'implementations', v: '2', n: 'JavaScript over BigInt and dyadic intervals; Python over the standard library. They agree to every digit shown.' },
   { k: 'false bounds the checker accepts', v: String(L.observed.runs.filter((r) => /REFUTED/.test(r.truth)).length), n: 'Observed, run on the pinned script: its last comparison is at 53 bits. Both are refuted here.' }
 ]));
+/* the marks, said once (WARRANT rule 9) */
+B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is decided by exact arithmetic unless it is marked. '
+  + 'Underlined dashed: nothing here decided it — what a claimant\'s checker printed is its claim, and so is a proof read rather than computed. '
+  + 'A verdict that holds given a published theorem names it in italic; C42, whose limit is decided and whose passage to it is an argument in prose, lists what it rests on and how far each step was checked (§5).')
+  + W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true }) }) + '</div>');
 B.push(C.section({
   lab: '§1 · the claims', title: 'What the registry prints, and what the certificates give', wide: true,
   bodyRaw: C.table({
@@ -97,7 +117,7 @@ B.push(C.section({
       { raw: C.esc(r.claimant) },
       { raw: C.esc(r.certificate.points + ' points, denominator of ' + r.certificate.denominatorDigits + ' digits') + '<br><span class="mono">' + C.esc(r.certificate.sha256.slice(0, 12)) + '…</span>' },
       { raw: C.tag(r.verdict, 'held') },
-      { raw: '<span class="mono">' + C.esc(r.rho[0].slice(0, 42)) + '<br>' + C.esc(r.rho[1].slice(0, 42)) + '</span>' }
+      { raw: '<span class="mono">' + C.esc(D.down(r.rho[0], 40)) + '<br>' + C.esc(D.up(r.rho[1], 40)) + '</span>' }
     ])
   }) + C.pRaw('Also decided from the same certificates: the 13-point certificate\'s printed "true value" ' + C.m(A('1.778988841420693549').claim) + ' is a truncation of the ratio '
     + '(it is CERTIFIED and the next value up is REFUTED); the 95-point certificate\'s 39-digit bound and the 147-point certificate\'s 60-digit bound are CERTIFIED; '
@@ -111,7 +131,7 @@ B.push(C.section({
       + 'context — 53 bits, a double. Every decimal within a double of the true bound compares equal to it. Run on the pinned script with claims written here:'),
     C.table({
       cols: [{ h: 'claimed' }, { h: 'the checker printed' }, { h: 'decided here' }],
-      rows: L.observed.runs.map((r) => [{ raw: '<span class="mono">' + C.esc(r.claimed) + '</span>' }, { raw: C.esc(r.printed) }, { raw: C.esc(r.truth) }])
+      rows: L.observed.runs.map((r) => [{ raw: '<span class="mono">' + C.esc(r.claimed) + '</span>' }, { raw: W.value(C.esc(r.printed), W.COMPUTED, { title: 'what the claimant\'s checker printed: its claim, compared in doubles; not a decision' }) }, { raw: C.esc(r.truth) }])
     }),
     C.pRaw('The bound the registry prints is true, and it is decided above without that checker. The point is the checker: ' + C.m('C3c >= 1.6747338950414059') + ' is false '
       + 'at the seventeenth significant digit, is the same double as the true 60-digit bound, and prints OK. A verifier\'s last comparison has to be as exact as its '
@@ -124,7 +144,7 @@ B.push(C.section({
   lab: '§3 · the third asterisk', title: 'C71: a Boolean function on 18 variables',
   bodyRaw: [
     C.pRaw('The Fourier entropy–influence constant is the least C with H[f] ≤ C·I[f] for every Boolean f, where H is the entropy of the Fourier weights (base 2) and '
-      + 'I the total influence. For a balanced g the amplification rule of O\'Donnell–Tan (2013) and Hod (2017, Prop. 1.2), cited and not re-proved here, gives '
+      + 'I the total influence. For a balanced g, <i>given the amplification rule of O\'Donnell–Tan (2013) and Hod (2017, Prop. 1.2), cited and not re-proved here</i>, '
       + 'C71 ≥ H[g]/(I[g] − 1). The registry\'s asterisked ' + C.m('C71 > 6.521845710923046575') + ' cites a truth table on 18 variables published by ' + C.esc(FE.claimant) + '.'),
     C.plainList([
       { b: 'Decided.', text: 'The table read from its hex and bound by its published sha256; the integer Walsh–Hadamard transform of all 262,144 entries; balance, Parseval, I = ' + FE.I + ' exactly; H from ' + FE.distinctWeights + ' distinct weight sizes over ' + FE.nonzero.toLocaleString('en-US') + ' nonzero coefficients, each logarithm in an outward-rounded Decimal interval. The ratio is ' + FE.ratio[0].slice(0, 30) + '…, above the registry\'s number, and above the record it replaced. The function is also logic-monotone, as claimed.' },
@@ -139,7 +159,7 @@ B.push(C.section({
       + 'constant of [BSSZ2026, §5] giving c ≥ 0.000719. Unverified." The note it cites states its theorem with 0.0007 and adds: "The optimized value suggested by '
       + 'the same calculation is about 0.000719, but 0.0007 is the safer quoted constant."'),
     C.plainList([
-      { b: 'What the note proves holds.', text: 'Its chain, decided in intervals: the regulator estimate at s = 1.371966384 is ' + (SP.checks[0].detail || '').slice(1, 13) + '… ≤ 103; at Y = 1415 and X = ⌊e¹⁴²³⌋ the product factor 515/Y < 0.364, the additive factor ' + (SP.checks[2].detail || '') + '… < 0.136, log|A|/d < 1432, and −log 0.364 > 0.0007 · 1432. So C84b ≤ 1.9993, given BSSZ2026 §5, the note\'s lattice-doubling lemma and the regulator bound.' },
+      { b: 'What the note proves holds.', raw: C.esc('Its chain, decided in intervals: the regulator estimate at s = 1.371966384 is ' + (SP.checks[0].detail || '').slice(1, 13) + '… ≤ 103; at Y = 1415 and X = ⌊e¹⁴²³⌋ the product factor 515/Y < 0.364, the additive factor ' + (SP.checks[2].detail || '') + '… < 0.136, log|A|/d < 1432, and −log 0.364 > 0.0007 · 1432. So C84b ≤ 1.9993, ') + '<i>' + C.esc('given BSSZ2026 §5, the note\'s lattice-doubling lemma and the regulator bound') + '</i>.' },
       { b: 'What the registry quotes is out of its reach.', text: 'For every s > 1 and every X and Y the same chain gives c ≤ ' + SP.ceiling + ': the regulator estimate is at least 101.9 for every s (a sweep of s with ζ by Euler–Maclaurin and Γ by Stirling, each with its remainder), the additive factor forces log X > Y + log M₁ − 2 log Y, and the product factor caps the gain at log(Y/5R). 0.000719 is not reached; at the note\'s own choice the chain gives ' + SP.cAtNoteChoice[0] + '…' },
       { b: 'Verdict: REPAIRED.', text: 'The row holds as C84b ≤ 1.9993, which is what its source proves.' }
     ])
@@ -156,7 +176,15 @@ B.push(C.section({
       { b: 'Decided.', text: 'The four facts, in Decimal intervals: |1 − α| < C and |η| < C exactly, τ > 1/3, and the limiting inequality |Y| < C·D, with K, A₁, A₂ and D as convergent series in a complex exponent, each summed with its tail bound (the note\'s, checked). |Y|/D ≤ ' + TU.ratioUpper.slice(0, 14) + '…, below 0.6906538; every enclosure the certificate prints meets the one computed here. Written apart from the claimant\'s verifier, which is pinned and not run.' },
       { b: 'Not decided.', text: 'The passage from the limit to every large n — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — which the note argues in prose and for which it gives no finite threshold. Verdict: PARTIAL.' },
       { b: 'And the pull request after it.', text: 'An open pull request to the registry (#184, A. Röhrig with Codex) replaces the single middle value by eight and claims C42 ≤ 0.688983. The same decider, written for step profiles and checked to reproduce Griego\'s number with one block, decides its limiting inequality: |Y|/D ≤ ' + PR.ratioUpper.slice(0, 14) + '… < 0.688983, every block inside C. PARTIAL for the same reason: the limit is decided, the passage to it is prose.' }
-    ])
+    ]),
+    /* WHAT BOTH C42 ROWS REST ON (WARRANT v2.1, rule 11), graded from certs/turan-ledger.json's own scope lines */
+    (() => {
+      if (!/the asymptotic reduction to it, with no finite threshold, is the note's prose/.test(TU.scope) || !/the asymptotic reduction is the note's prose/.test(PR.scope) || PR.verdict !== 'PARTIAL')
+        die('the C42 rows no longer say their passage to the limit is prose — rewrite the premise chain');
+      return C.pRaw('<b>What both rows rest on</b>, in the order the bound travels through it:') + W.premisesHtml([
+        { grade: W.ASSUMED, label: 'The passage from the limit to every large n', evidence: 'the note\'s argument in prose — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — with no finite threshold; read here, not decided (' + C.m('certs/turan-ledger.json') + ': “the asymptotic reduction … is the note\'s prose”)' }],
+      { gloss: READ_GLOSS, meetLine: 'Each limiting inequality is decided exactly; the weakest premise is <b>assumed</b>, the argument that carries it to every large n. Hence PARTIAL, for Griego\'s ' + C.esc(TU.bound) + ' and for #184\'s ' + C.esc(PR.bound) + ' alike.' });
+    })()
   ].join('\n')
 }));
 B.push(C.section({

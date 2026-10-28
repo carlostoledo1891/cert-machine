@@ -81,7 +81,9 @@ function header({ eyebrow, title, deck }) {
    The big number is ALWAYS the signature pink (operator ruling 2026-08-31: the
    value in a stat grid never wears a verdict colour — verdicts belong to tags
    and prose). A `role` field is still accepted from older builders and ignored,
-   so no class ships without a rule. */
+   so no class ships without a rule. `vRaw` and `nRaw` (2026-10-28) carry markup
+   this file or playground/warrant.js produced — a value's standing (W.value) in
+   the number or its note. */
 function stats(items) {
   /* FULL-ROW RULE: the grid is balanced per count via data-n (template.js
      statsGridRules); the design battery refuses any built page whose
