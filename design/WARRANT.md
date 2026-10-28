@@ -141,4 +141,5 @@ Until the operator rules, they stay as they are, and no new colour enters anywhe
   dossier; and the eight reports most linked from GitHub (optconst-queue, optimization-constants, kissing,
   openai-math, gsm8k-audit, alphaevolve-community, time-horizon, curve-seeds).
 - **Tier 2:** every other report, converted when it is next edited for another reason, never in a sweep.
-- **Not without the operator's word:** the submitted Petrobras material (Contraprova, Decidível, Abatimento).
+- **Kept out (operator, 2026-10-28):** the submitted Petrobras material (Contraprova, Decidível, Abatimento). It
+  stays exactly as submitted.

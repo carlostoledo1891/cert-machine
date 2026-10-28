@@ -107,3 +107,28 @@ only on the operator's word. Since 2026-10-28 every page is indexable (noindex l
 4. Give one shared mark to synthetic, trial, pilot and not-yet-in.
 5. Then the canvas figures. Keep the `CladeDraw` API (`fit`, `packing`, `form`, `C`, `onTheme`), because `museum.js`
    and `lab.js` draw with it.
+
+---
+
+## The colour proposal, measured (cert-machine session, 2026-10-28; awaiting the operator's approval)
+
+The operator's answer to Machinidae's colours: "the color from machinidae are good, the yellow not so much. Based on
+clear rules i could agree." Each measurement below is by the dataviz validator (OKLab ΔE×100, Machado CVD model) on
+Machinidae's plate #101014, over every pair that shares a figure. The target is 8 for colour-blind separation and 15
+for normal vision.
+
+- **Today's arms pass only in adjacent order.** Lineage #3d8ac8 against rules #9070c8, the pair a scatter or dot lane
+  shows side by side, reads ΔE 0.4 for a deuteranope (the same colour) and 11.4 for normal vision. The amber aleator
+  (#b87a20) sat between them in the validator's order and hid it.
+- **The proposed set:**
+  - lineage (the arm and the accent): one blue, #79b9d6;
+  - rules: violet re-stepped to #6744c5, which reads ΔE 28 against the blue for a deuteranope;
+  - aleator and "the AI alone": no hue, ink with its diamond;
+  - the controls: greys, as today;
+  - the outcome ramp: its three greens, as today;
+  - one red, the house witness #e0574e, for a refuted packing whose overlapping pair is shown;
+  - "stillborn": the ramp's darkest step;
+  - ochre: retired. "Changed from the founder" becomes a blue ring (new stays a blue fill), "live" becomes ink
+    weight, and the reference line becomes the grammar's guide pattern (2 3) in ink.
+- **Two reds would fail.** Rose #e57e98 beside the witness #e0574e reads ΔE 10.7 for normal vision. One red only:
+  the operator picks which.
