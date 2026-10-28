@@ -1,0 +1,65 @@
+{
+ "machine": {
+  "platform": "linux-x64",
+  "os": "6.8.0-1070-azure",
+  "cpu": "AMD EPYC 7763 64-Core Processor",
+  "cpus": 4,
+  "node": "v20.20.2",
+  "loadAverage": [
+   1.09,
+   0.55,
+   0.22
+  ]
+ },
+ "unit": "milliseconds, median of 9 runs (a tiny check repeated 1000 times per run)",
+ "receipts": {
+  "ia-mais-4-2": 19.097754,
+  "ia-ajustada": 6.412882,
+  "parametro": 6.377306,
+  "massa": 6.535732,
+  "instabilidade": 6.419755,
+  "contorno": 6.367817,
+  "unidade": 6.372036,
+  "alucinada": 6.365824,
+  "dominio": 0.007835
+ },
+ "claims": {
+  "flowline/energia/Pd206-claim352": 0.00042236,
+  "flowline/dominio/Q7000": 0.000426638,
+  "flowline/velocidade/Q7000-max5": 0.000221053,
+  "flowline/modelo/Q7000-Pd206-claim352": 4.461383,
+  "flowline/enclosure/Q7000-Pd206": 4.375462,
+  "flowline/limite/Q7000-Pd206-max360": 1.889383,
+  "flowline/energia/Pd200-claim346": 0.000387545,
+  "flowline/modelo/Q7000-Pd200-claim346": 4.4327,
+  "flowline/enclosure/Q7000-Pd200": 4.419595,
+  "flowline/limite/Q7000-Pd200-max360": 1.924339,
+  "flowline/energia/Pd180-claim350.9": 0.00010750999999999999,
+  "flowline/dominio/Q6000": 0.00019195899999999998,
+  "flowline/velocidade/Q6000-max5": 0.000193191,
+  "flowline/modelo/Q6000-Pd180-claim350.9": 4.416619,
+  "flowline/enclosure/Q6000-Pd180": 4.404567,
+  "flowline/limite/Q6000-Pd180-max360": 1.927815,
+  "flowline/massa/H12000-W6000+6400": 0.002812259,
+  "flowline/energia/Pd180-claim344": 0.000213259,
+  "flowline/modelo/Q6000-Pd180-claim344": 4.462154,
+  "flowline/energia/Pd180-claim358.9": 0.000109164,
+  "flowline/colebrook/Q6000-f0.0110": 0.02813276,
+  "flowline/modelo/Q6000-Pd180-claim358.9": 4.408855,
+  "flowline/energia/Pd180-claim395": 0.000107361,
+  "flowline/modelo/Q6000-Pd180-claim395": 4.429944,
+  "flowline/energia/Pd180-claim4989": 0.000107521,
+  "flowline/modelo/Q6000-Pd180-claim4989": 4.419545,
+  "flowline/cinematica/Q6000-v2.9": 0.000193161,
+  "flowline/energia/Pd180-claim391": 0.000106779,
+  "flowline/dominio/Q40": 0.000191848,
+  "flowline/velocidade/Q40-max5": 0.00019261000000000001,
+  "flowline/bracket/Q6000": 0.043030128,
+  "flowline/bracket/Q7000": 0.043009669
+ },
+ "limiteWords": {
+  "flowline/limite/Q7000-Pd206-max360": "RECUSADO",
+  "flowline/limite/Q7000-Pd200-max360": "PROVADO",
+  "flowline/limite/Q6000-Pd180-max360": "PROVADO"
+ }
+}
