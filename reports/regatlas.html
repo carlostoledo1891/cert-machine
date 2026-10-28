@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The regularization, measured · cert-machine</title>
+<title>The p-Laplacian regularization of a first-order MFG, measured · Carlos Toledo</title>
 <meta name="description" content="The p-Laplacian regularization of Ferreira–Gomes–Üçer measured on the one-dimensional first-order mean-field game: every regularized equilibrium and the unregularized one enclosed across an atlas, the distance between them decided.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/regatlas.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/regatlas.html">
-<meta property="og:title" content="The regularization, measured · cert-machine">
+<meta property="og:title" content="The p-Laplacian regularization of a first-order MFG, measured · Carlos Toledo">
 <meta property="og:description" content="The p-Laplacian regularization of Ferreira–Gomes–Üçer measured on the one-dimensional first-order mean-field game: every regularized equilibrium and the unregularized one enclosed across an atlas, the distance between them decided.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The regularization, measured · cert-machine">
+<meta name="twitter:title" content="The p-Laplacian regularization of a first-order MFG, measured · Carlos Toledo">
 <meta name="twitter:description" content="The p-Laplacian regularization of Ferreira–Gomes–Üçer measured on the one-dimensional first-order mean-field game: every regularized equilibrium and the unregularized one enclosed across an atlas, the distance between them decided.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The regularization, measured · cert-machine","description":"The p-Laplacian regularization of Ferreira–Gomes–Üçer measured on the one-dimensional first-order mean-field game: every regularized equilibrium and the unregularized one enclosed across an atlas, the distance between them decided.","url":"https://carlostoledo.co/reports/regatlas.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The p-Laplacian regularization of a first-order MFG, measured","description":"The p-Laplacian regularization of Ferreira–Gomes–Üçer measured on the one-dimensional first-order mean-field game: every regularized equilibrium and the unregularized one enclosed across an atlas, the distance between them decided.","url":"https://carlostoledo.co/reports/regatlas.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -583,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -673,19 +756,19 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · a new kernel, re-derived at every build</div>
-  <h1>The regularization, measured</h1>
+  <h1>The p-Laplacian regularization of a first-order MFG, measured</h1>
   <p class="deck">Ferreira, Gomes and Üçer prove that stationary first-order mean-field games have solutions by casting the system as a monotone operator on a Banach space and adding a small p-Laplacian to make it coercive; the regularization is then sent to zero. The proof needs the ε. Does the solution? On the one-dimensional game with a quadratic Hamiltonian and a cosine potential this page encloses every regularized equilibrium and the unregularized one, cell by cell across an atlas in the potential&#39;s amplitude and the regularization&#39;s strength, and decides the distance between them. The unregularized game certifies as readily as any regularized one and further than the strongly regularized ones, because after the density is eliminated the game is a second-order elliptic equation for the value function wherever the density is positive. The regularization was for the proof.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> 34 of 50 cells PROVED, each a unique classical even solution with density bounded away from zero; 16 refused by name. Along the amplitude every row is proved then refused: ε = 0 reaches A = 0.7, ε = 1 only A = 0.4. Where both are proved, ‖u_ε − u_0‖_2 is decided to the two radii: 1.043 ε at ε = 0.01 and A = 0.4, sublinear beyond.</li><li><b>The mechanism.</b> Eliminating m = u + u′²/2 − V turns the transport equation into F_ε(u) = m − (m u′ + ε u′³)′ + ε u³ − 1 = 0, whose linearization is −(c h′)′ + e h with c = m + (1 + 3ε) u′² ≥ m. A radii polynomial in the derivative-weighted ℓ¹ space X_2 (explicit columns to six times the truncation, an analytic tail beyond, the algebra property for the nonlinear term) closes a ball about a Galerkin candidate.</li><li><b>Check it.</b> <span class="m">node instruments/regatlas/battery.js</span> (17 checks, 5 red controls, about 25 s) re-derives the atlas, holds the constant solution at A = 0 against the cubic it must solve, and an independent finite-difference solve against three certified cells.</li></ul>
+<ul class="plain"><li><b>The finding.</b> 34 of 50 cells PROVED, each a unique classical even solution with density bounded away from zero; 16 refused by name. Along the amplitude every row is proved then refused: ε = 0 reaches A = 0.7, ε = 1 only A = 0.4. Where both are proved, ‖u_ε − u_0‖_2 is decided to the two radii: 1.043 ε at ε = 0.01 and A = 0.4, sublinear beyond.</li><li><b>The mechanism.</b> Eliminating m = u + u′²/2 − V turns the transport equation into F_ε(u) = m − (m u′ + ε u′³)′ + ε u³ − 1 = 0, whose linearization is −(c h′)′ + e h with c = m + (1 + 3ε) u′² ≥ m. A radii polynomial in the derivative-weighted ℓ¹ space X_2 (explicit columns to six times the truncation, an analytic tail beyond, the algebra property for the nonlinear term) closes a ball about a Galerkin candidate.</li><li><b>Check it.</b> <span class="m">node instruments/regatlas/battery.js</span> (17 checks, 5 red controls, <span class="w-val w-computed" title="a wall-clock on the machine that built this page — a measurement, nothing decided it">about half a minute</span>) re-derives the atlas, holds the constant solution at A = 0 against the cubic it must solve, and an independent finite-difference solve against three certified cells.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -718,29 +801,29 @@ ul.plain b{color:var(--ink);font-weight:480}
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
     <text x="62.0" y="57.0" text-anchor="end" class="t-lab">ε = 0</text>
     <rect x="70" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.72" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="107.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.00</text>
-    <rect x="70" y="30" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0, N = 24" data-cmv="PROVED · r = 9.3e-16 · κ = 0.000 · min m ≥ 1.000" tabindex="0"/>
+    <text x="107.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.01</text>
+    <rect x="70" y="30" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0, N = 24" data-cmv="PROVED · r = 9.4e-16 · κ ≤ 0.001 · min m ≥ 0.999" tabindex="0"/>
     <rect x="148" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.66" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="185.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.10</text>
-    <rect x="148" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ = 0.101 · min m ≥ 0.902" tabindex="0"/>
+    <text x="185.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.11</text>
+    <rect x="148" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0, N = 24" data-cmv="PROVED · r = 1.2e-15 · κ ≤ 0.102 · min m ≥ 0.902" tabindex="0"/>
     <rect x="226" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.60" stroke="var(--c-1)" stroke-width="1"/>
     <text x="263.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.21</text>
-    <rect x="226" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ = 0.206 · min m ≥ 0.805" tabindex="0"/>
+    <rect x="226" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ ≤ 0.206 · min m ≥ 0.805" tabindex="0"/>
     <rect x="304" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.53" stroke="var(--c-1)" stroke-width="1"/>
     <text x="341.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.32</text>
-    <rect x="304" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0, N = 24" data-cmv="PROVED · r = 1.8e-15 · κ = 0.319 · min m ≥ 0.708" tabindex="0"/>
+    <rect x="304" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0, N = 24" data-cmv="PROVED · r = 1.9e-15 · κ ≤ 0.320 · min m ≥ 0.707" tabindex="0"/>
     <rect x="382" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.45" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="419.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.44</text>
-    <rect x="382" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0, N = 24" data-cmv="PROVED · r = 1.3e-14 · κ = 0.443 · min m ≥ 0.610" tabindex="0"/>
+    <text x="419.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.45</text>
+    <rect x="382" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0, N = 24" data-cmv="PROVED · r = 1.3e-14 · κ ≤ 0.443 · min m ≥ 0.610" tabindex="0"/>
     <rect x="460" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.37" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="497.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.58</text>
-    <rect x="460" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0, N = 32" data-cmv="PROVED · r = 9.3e-15 · κ = 0.582 · min m ≥ 0.513" tabindex="0"/>
+    <text x="497.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.59</text>
+    <rect x="460" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0, N = 32" data-cmv="PROVED · r = 9.4e-15 · κ ≤ 0.583 · min m ≥ 0.513" tabindex="0"/>
     <rect x="538" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.27" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="575.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.74</text>
-    <rect x="538" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0, N = 32" data-cmv="PROVED · r = 9.9e-12 · κ = 0.744 · min m ≥ 0.417" tabindex="0"/>
+    <text x="575.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.75</text>
+    <rect x="538" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0, N = 32" data-cmv="PROVED · r = 9.9e-12 · κ ≤ 0.745 · min m ≥ 0.416" tabindex="0"/>
     <rect x="616" y="30" width="75" height="43" fill="var(--c-1)" opacity="0.15" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="653.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.94</text>
-    <rect x="616" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.7, ε = 0, N = 32" data-cmv="PROVED · r = 3.0e-8 · κ = 0.944 · min m ≥ 0.320" tabindex="0"/>
+    <text x="653.5" y="57" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.95</text>
+    <rect x="616" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.7, ε = 0, N = 32" data-cmv="PROVED · r = 3.0e-8 · κ ≤ 0.945 · min m ≥ 0.320" tabindex="0"/>
     <rect x="694" y="30" width="75" height="43" fill="url(#hatch)" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="731.5" y="57.0" text-anchor="middle" class="t-note">Z1 1.22</text>
     <rect x="694" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.8, ε = 0, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
@@ -749,29 +832,29 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="772" y="30" width="75" height="43" fill="transparent" data-cm="A = 0.9, ε = 0, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
     <text x="62.0" y="103.0" text-anchor="end" class="t-lab">ε = 0.01</text>
     <rect x="70" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.72" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="107.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.00</text>
-    <rect x="70" y="76" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.01, N = 24" data-cmv="PROVED · r = 9.1e-16 · κ = 0.000 · min m ≥ 0.990" tabindex="0"/>
+    <text x="107.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.01</text>
+    <rect x="70" y="76" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.01, N = 24" data-cmv="PROVED · r = 9.1e-16 · κ ≤ 0.001 · min m ≥ 0.990" tabindex="0"/>
     <rect x="148" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.66" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="185.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.10</text>
-    <rect x="148" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ = 0.102 · min m ≥ 0.893" tabindex="0"/>
+    <text x="185.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.11</text>
+    <rect x="148" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ ≤ 0.103 · min m ≥ 0.892" tabindex="0"/>
     <rect x="226" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.60" stroke="var(--c-1)" stroke-width="1"/>
     <text x="263.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.21</text>
-    <rect x="226" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.0e-15 · κ = 0.208 · min m ≥ 0.795" tabindex="0"/>
+    <rect x="226" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ ≤ 0.208 · min m ≥ 0.795" tabindex="0"/>
     <rect x="304" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.53" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="341.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.32</text>
-    <rect x="304" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.5e-15 · κ = 0.322 · min m ≥ 0.698" tabindex="0"/>
+    <text x="341.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.33</text>
+    <rect x="304" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.5e-15 · κ ≤ 0.323 · min m ≥ 0.697" tabindex="0"/>
     <rect x="382" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.45" stroke="var(--c-1)" stroke-width="1"/>
     <text x="419.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.45</text>
-    <rect x="382" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.7e-14 · κ = 0.448 · min m ≥ 0.601" tabindex="0"/>
+    <rect x="382" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.01, N = 24" data-cmv="PROVED · r = 1.8e-14 · κ ≤ 0.448 · min m ≥ 0.600" tabindex="0"/>
     <rect x="460" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.37" stroke="var(--c-1)" stroke-width="1"/>
     <text x="497.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.59</text>
-    <rect x="460" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.01, N = 32" data-cmv="PROVED · r = 1.2e-14 · κ = 0.590 · min m ≥ 0.504" tabindex="0"/>
+    <rect x="460" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.01, N = 32" data-cmv="PROVED · r = 1.3e-14 · κ ≤ 0.590 · min m ≥ 0.503" tabindex="0"/>
     <rect x="538" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.27" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="575.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.75</text>
-    <rect x="538" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0.01, N = 32" data-cmv="PROVED · r = 1.7e-11 · κ = 0.755 · min m ≥ 0.407" tabindex="0"/>
+    <text x="575.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.76</text>
+    <rect x="538" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0.01, N = 32" data-cmv="PROVED · r = 1.7e-11 · κ ≤ 0.755 · min m ≥ 0.407" tabindex="0"/>
     <rect x="616" y="76" width="75" height="43" fill="var(--c-1)" opacity="0.14" stroke="var(--c-1)" stroke-width="1"/>
     <text x="653.5" y="103" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.96</text>
-    <rect x="616" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.7, ε = 0.01, N = 32" data-cmv="PROVED · r = 6.8e-8 · κ = 0.960 · min m ≥ 0.311" tabindex="0"/>
+    <rect x="616" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.7, ε = 0.01, N = 32" data-cmv="PROVED · r = 6.8e-8 · κ ≤ 0.960 · min m ≥ 0.311" tabindex="0"/>
     <rect x="694" y="76" width="75" height="43" fill="url(#hatch)" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="731.5" y="103.0" text-anchor="middle" class="t-note">Z1 1.24</text>
     <rect x="694" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.8, ε = 0.01, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
@@ -780,26 +863,26 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="772" y="76" width="75" height="43" fill="transparent" data-cm="A = 0.9, ε = 0.01, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
     <text x="62.0" y="149.0" text-anchor="end" class="t-lab">ε = 0.1</text>
     <rect x="70" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.72" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="107.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.00</text>
-    <rect x="70" y="122" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.1e-15 · κ = 0.000 · min m ≥ 0.922" tabindex="0"/>
+    <text x="107.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.01</text>
+    <rect x="70" y="122" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.2e-15 · κ ≤ 0.001 · min m ≥ 0.921" tabindex="0"/>
     <rect x="148" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.65" stroke="var(--c-1)" stroke-width="1"/>
     <text x="185.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.11</text>
-    <rect x="148" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.3e-15 · κ = 0.110 · min m ≥ 0.824" tabindex="0"/>
+    <rect x="148" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.4e-15 · κ ≤ 0.110 · min m ≥ 0.824" tabindex="0"/>
     <rect x="226" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.59" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="263.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.22</text>
-    <rect x="226" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.7e-15 · κ = 0.224 · min m ≥ 0.727" tabindex="0"/>
+    <text x="263.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.23</text>
+    <rect x="226" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.1, N = 24" data-cmv="PROVED · r = 1.7e-15 · κ ≤ 0.225 · min m ≥ 0.727" tabindex="0"/>
     <rect x="304" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.51" stroke="var(--c-1)" stroke-width="1"/>
     <text x="341.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.35</text>
-    <rect x="304" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.1, N = 24" data-cmv="PROVED · r = 2.3e-15 · κ = 0.349 · min m ≥ 0.630" tabindex="0"/>
+    <rect x="304" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.1, N = 24" data-cmv="PROVED · r = 2.4e-15 · κ ≤ 0.350 · min m ≥ 0.630" tabindex="0"/>
     <rect x="382" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.43" stroke="var(--c-1)" stroke-width="1"/>
     <text x="419.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.49</text>
-    <rect x="382" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.1, N = 24" data-cmv="PROVED · r = 2.1e-13 · κ = 0.487 · min m ≥ 0.533" tabindex="0"/>
+    <rect x="382" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.1, N = 24" data-cmv="PROVED · r = 2.1e-13 · κ ≤ 0.488 · min m ≥ 0.533" tabindex="0"/>
     <rect x="460" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.33" stroke="var(--c-1)" stroke-width="1"/>
     <text x="497.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.65</text>
-    <rect x="460" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.1, N = 32" data-cmv="PROVED · r = 3.0e-13 · κ = 0.647 · min m ≥ 0.437" tabindex="0"/>
+    <rect x="460" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.1, N = 32" data-cmv="PROVED · r = 3.0e-13 · κ ≤ 0.648 · min m ≥ 0.436" tabindex="0"/>
     <rect x="538" y="122" width="75" height="43" fill="var(--c-1)" opacity="0.22" stroke="var(--c-1)" stroke-width="1"/>
     <text x="575.5" y="149" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.84</text>
-    <rect x="538" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0.1, N = 32" data-cmv="PROVED · r = 9.4e-10 · κ = 0.839 · min m ≥ 0.341" tabindex="0"/>
+    <rect x="538" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0.1, N = 32" data-cmv="PROVED · r = 9.5e-10 · κ ≤ 0.839 · min m ≥ 0.340" tabindex="0"/>
     <rect x="616" y="122" width="75" height="43" fill="url(#hatch)" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="653.5" y="149.0" text-anchor="middle" class="t-note">Z1 1.09</text>
     <rect x="616" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.7, ε = 0.1, N = 32" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
@@ -811,23 +894,23 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="772" y="122" width="75" height="43" fill="transparent" data-cm="A = 0.9, ε = 0.1, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
     <text x="62.0" y="195.0" text-anchor="end" class="t-lab">ε = 0.3</text>
     <rect x="70" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.72" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="107.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.00</text>
-    <rect x="70" y="168" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.4e-15 · κ = 0.000 · min m ≥ 0.829" tabindex="0"/>
+    <text x="107.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.01</text>
+    <rect x="70" y="168" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.5e-15 · κ ≤ 0.001 · min m ≥ 0.829" tabindex="0"/>
     <rect x="148" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.65" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="185.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.12</text>
-    <rect x="148" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.7e-15 · κ = 0.122 · min m ≥ 0.732" tabindex="0"/>
+    <text x="185.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.13</text>
+    <rect x="148" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.8e-15 · κ ≤ 0.122 · min m ≥ 0.732" tabindex="0"/>
     <rect x="226" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.57" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="263.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.25</text>
-    <rect x="226" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.3, N = 24" data-cmv="PROVED · r = 2.4e-15 · κ = 0.251 · min m ≥ 0.635" tabindex="0"/>
+    <text x="263.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.26</text>
+    <rect x="226" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 0.3, N = 24" data-cmv="PROVED · r = 2.5e-15 · κ ≤ 0.252 · min m ≥ 0.635" tabindex="0"/>
     <rect x="304" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.48" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="341.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.39</text>
-    <rect x="304" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.3, N = 24" data-cmv="PROVED · r = 6.8e-15 · κ = 0.394 · min m ≥ 0.538" tabindex="0"/>
+    <text x="341.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.40</text>
+    <rect x="304" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 0.3, N = 24" data-cmv="PROVED · r = 6.9e-15 · κ ≤ 0.394 · min m ≥ 0.538" tabindex="0"/>
     <rect x="382" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.39" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="419.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.55</text>
-    <rect x="382" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.2e-11 · κ = 0.555 · min m ≥ 0.442" tabindex="0"/>
+    <text x="419.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.56</text>
+    <rect x="382" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 0.3, N = 24" data-cmv="PROVED · r = 1.2e-11 · κ ≤ 0.555 · min m ≥ 0.442" tabindex="0"/>
     <rect x="460" y="168" width="75" height="43" fill="var(--c-1)" opacity="0.27" stroke="var(--c-1)" stroke-width="1"/>
     <text x="497.5" y="195" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.75</text>
-    <rect x="460" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.3, N = 32" data-cmv="PROVED · r = 9.3e-11 · κ = 0.750 · min m ≥ 0.346" tabindex="0"/>
+    <rect x="460" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 0.3, N = 32" data-cmv="PROVED · r = 9.3e-11 · κ ≤ 0.750 · min m ≥ 0.346" tabindex="0"/>
     <rect x="538" y="168" width="75" height="43" fill="url(#hatch)" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="575.5" y="195.0" text-anchor="middle" class="t-note">Z1 ≈ 1</text>
     <rect x="538" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.6, ε = 0.3, N = 32" data-cmv="REFUSED · discriminant &lt;= 0 — the defect is too large for the contract" tabindex="0"/>
@@ -842,20 +925,20 @@ ul.plain b{color:var(--ink);font-weight:480}
     <rect x="772" y="168" width="75" height="43" fill="transparent" data-cm="A = 0.9, ε = 0.3, N = 40" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
     <text x="62.0" y="241.0" text-anchor="end" class="t-lab">ε = 1</text>
     <rect x="70" y="214" width="75" height="43" fill="var(--c-1)" opacity="0.72" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="107.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.00</text>
-    <rect x="70" y="214" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 1, N = 24" data-cmv="PROVED · r = 1.5e-15 · κ = 0.000 · min m ≥ 0.682" tabindex="0"/>
+    <text x="107.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.01</text>
+    <rect x="70" y="214" width="75" height="43" fill="transparent" data-cm="A = 0, ε = 1, N = 24" data-cmv="PROVED · r = 1.5e-15 · κ ≤ 0.001 · min m ≥ 0.682" tabindex="0"/>
     <rect x="148" y="214" width="75" height="43" fill="var(--c-1)" opacity="0.63" stroke="var(--c-1)" stroke-width="1"/>
     <text x="185.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.15</text>
-    <rect x="148" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 1, N = 24" data-cmv="PROVED · r = 1.7e-15 · κ = 0.148 · min m ≥ 0.586" tabindex="0"/>
+    <rect x="148" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.1, ε = 1, N = 24" data-cmv="PROVED · r = 1.8e-15 · κ ≤ 0.149 · min m ≥ 0.585" tabindex="0"/>
     <rect x="226" y="214" width="75" height="43" fill="var(--c-1)" opacity="0.53" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="263.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.31</text>
-    <rect x="226" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 1, N = 24" data-cmv="PROVED · r = 2.6e-15 · κ = 0.312 · min m ≥ 0.490" tabindex="0"/>
+    <text x="263.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.32</text>
+    <rect x="226" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.2, ε = 1, N = 24" data-cmv="PROVED · r = 2.6e-15 · κ ≤ 0.312 · min m ≥ 0.489" tabindex="0"/>
     <rect x="304" y="214" width="75" height="43" fill="var(--c-1)" opacity="0.42" stroke="var(--c-1)" stroke-width="1"/>
     <text x="341.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--sunk)">κ 0.50</text>
-    <rect x="304" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 1, N = 24" data-cmv="PROVED · r = 8.6e-12 · κ = 0.499 · min m ≥ 0.394" tabindex="0"/>
+    <rect x="304" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.3, ε = 1, N = 24" data-cmv="PROVED · r = 8.6e-12 · κ ≤ 0.499 · min m ≥ 0.393" tabindex="0"/>
     <rect x="382" y="214" width="75" height="43" fill="var(--c-1)" opacity="0.29" stroke="var(--c-1)" stroke-width="1"/>
-    <text x="419.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.72</text>
-    <rect x="382" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 1, N = 24" data-cmv="PROVED · r = 4.4e-8 · κ = 0.725 · min m ≥ 0.299" tabindex="0"/>
+    <text x="419.5" y="241" text-anchor="middle" font-family="var(--f-mono)" font-size="11" fill="var(--c-1)">κ 0.73</text>
+    <rect x="382" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.4, ε = 1, N = 24" data-cmv="PROVED · r = 4.5e-8 · κ ≤ 0.725 · min m ≥ 0.298" tabindex="0"/>
     <rect x="460" y="214" width="75" height="43" fill="url(#hatch)" stroke="var(--c-ctx)" stroke-width="1"/>
     <text x="497.5" y="241.0" text-anchor="middle" class="t-note">Z1 1.03</text>
     <rect x="460" y="214" width="75" height="43" fill="transparent" data-cm="A = 0.5, ε = 1, N = 32" data-cmv="REFUSED · Z1 &gt;= 1 — the approximate inverse is not one; no contraction" tabindex="0"/>
@@ -885,10 +968,9 @@ ul.plain b{color:var(--ink);font-weight:480}
   </svg>
   </div>
   <figcaption>Figure 1 · The atlas. Solid: PROVED, the shade darkening as the contraction factor κ falls; hatched: REFUSED, with the Z1 that refused it. Every row is proved then refused as A grows, and the proved region shrinks as ε grows.</figcaption>
-</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>ε</th><th>proved to A =</th><th>refused from A =</th><th>the first refusal, by name</th><th>m floor, last proved (certified)</th><th>min m, first refused (float)</th></tr></thead><tbody><tr><td>0</td><td class="v">0.7</td><td class="v">0.8</td><td>Z1 = 1.219 ≥ 1 (worst explicit column; tail 0.807)</td><td class="v">0.320</td><td class="v">0.225</td></tr><tr><td>0.01</td><td class="v">0.7</td><td class="v">0.8</td><td>Z1 = 1.244 ≥ 1 (worst explicit column; tail 0.815)</td><td class="v">0.311</td><td class="v">0.216</td></tr><tr><td>0.1</td><td class="v">0.6</td><td class="v">0.7</td><td>Z1 = 1.089 ≥ 1 (worst explicit column; tail 0.767)</td><td class="v">0.341</td><td class="v">0.245</td></tr><tr><td>0.3</td><td class="v">0.5</td><td class="v">0.6</td><td>Z1 = 0.997, so near 1 that no radius closes</td><td class="v">0.346</td><td class="v">0.251</td></tr><tr><td>1</td><td class="v">0.4</td><td class="v">0.5</td><td>Z1 = 1.030 ≥ 1 (worst explicit column; tail 0.748)</td><td class="v">0.299</td><td class="v">0.204</td></tr></tbody></table></div></div><div class="col"><p>Every refusal is the same refusal: Z1, the norm of I − A·DF(ū), reaches 1. It is the tail's doing. A diagonal approximate inverse beyond N is right when the principal coefficient c is nearly constant and wrong in proportion to its variation, and c = m + (1 + 3ε)u′² varies more as A grows (m follows −V) and as ε grows (the 4-Laplacian weights u′² three times more). So the frontier moves left with ε: the regularization that gives the paper its coercivity takes contraction from the certificate. The density is nowhere near zero at the frontier — the certified floor at the last proved cell of ε = 0 is 0.320, and the float candidate at the first refused cell still has min m = 0.225. The void of this atlas is the certificate's boundary, not the equation's; the two would only coincide where m reaches zero, which is where the paper's strong solutions stop being classical, and that is beyond the map.</p></div><div class="wide"><figure>
+</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>ε</th><th>proved to A =</th><th>refused from A =</th><th>the first refusal, by name</th><th>m floor, last proved (certified)</th><th>min m, first refused (float)</th></tr></thead><tbody><tr><td>0</td><td class="v">0.7</td><td class="v">0.8</td><td>Z1 = 1.219 ≥ 1 (worst explicit column; tail 0.807)</td><td class="v">0.320</td><td class="v"><span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.225</span></td></tr><tr><td>0.01</td><td class="v">0.7</td><td class="v">0.8</td><td>Z1 = 1.244 ≥ 1 (worst explicit column; tail 0.815)</td><td class="v">0.311</td><td class="v"><span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.216</span></td></tr><tr><td>0.1</td><td class="v">0.6</td><td class="v">0.7</td><td>Z1 = 1.089 ≥ 1 (worst explicit column; tail 0.767)</td><td class="v">0.340</td><td class="v"><span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.245</span></td></tr><tr><td>0.3</td><td class="v">0.5</td><td class="v">0.6</td><td>Z1 = 0.997, so near 1 that no radius closes</td><td class="v">0.346</td><td class="v"><span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.251</span></td></tr><tr><td>1</td><td class="v">0.4</td><td class="v">0.5</td><td>Z1 = 1.030 ≥ 1 (worst explicit column; tail 0.748)</td><td class="v">0.298</td><td class="v"><span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.204</span></td></tr></tbody></table></div></div><div class="col"><div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div></div><div class="col"><p>Every refusal is the same refusal: Z1, the norm of I − A·DF(ū), reaches 1. It is the tail's doing. A diagonal approximate inverse beyond N is right when the principal coefficient c is nearly constant and wrong in proportion to its variation, and c = m + (1 + 3ε)u′² varies more as A grows (m follows −V) and as ε grows (the 4-Laplacian weights u′² three times more). So the frontier moves left with ε: the regularization that gives the paper its coercivity takes contraction from the certificate. The density is nowhere near zero at the frontier — the certified floor at the last proved cell of ε = 0 is 0.320, and the float candidate at the first refused cell still has min m = <span class="w-val w-computed" title="the float candidate sampled at 512 points — computed, nothing decided it">0.225</span>. The void of this atlas is the certificate's boundary, not the equation's; the two would only coincide where m reaches zero, which is where the paper's strong solutions stop being classical, and that is beyond the map.</p></div><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 300" role="img" aria-label="Three rising curves of the contraction factor against amplitude, reaching one soonest for the strongest regularization.">
-    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
     <line x1="62" y1="188.0" x2="878" y2="188.0" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="53.0" y="192.0" text-anchor="end" class="t-ax">0</text>
     <line x1="62" y1="107.0" x2="878" y2="107.0" stroke="var(--c-grid)" stroke-width="1"/>
@@ -918,24 +1000,40 @@ ul.plain b{color:var(--ink);font-weight:480}
     <line x1="62" y1="188" x2="878" y2="188" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="230.0" text-anchor="middle" class="t-note">A, the amplitude of the potential</text>
     <text x="13" y="103" class="t-note" transform="rotate(-90 13 103)" text-anchor="middle">κ = Z1 + Z2 r</text>
-    <line x1="62" y1="26.1" x2="878" y2="26.1" stroke="var(--c-ctx)" stroke-width="1"/>
-    <text x="874.0" y="20.1" text-anchor="end" class="t-note">κ = 1: no contraction</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="188" stroke="var(--c-axis)" stroke-width="1"/>
-    <path d="M62.00 188.00 L147.89 171.63 L233.79 154.67 L319.68 136.35 L405.58 116.35 L491.47 93.71 L577.37 67.49 L663.26 35.15" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="663.26" cy="35.15" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
-    <path d="M62.00 188.00 L147.89 170.26 L233.79 151.70 L319.68 131.49 L405.58 109.13 L491.47 83.22 L577.37 52.18" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="577.37" cy="52.18" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
-    <path d="M62.00 188.00 L147.89 164.02 L233.79 137.54 L319.68 107.26 L405.58 70.67" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="405.58" cy="70.67" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
-    <line x1="62" y1="251" x2="76" y2="251" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <line x1="62" y1="26.1" x2="878" y2="26.1" stroke="var(--c-ctx)" stroke-width="1.5"/>
+    <text x="872.0" y="20.1" text-anchor="end" class="t-lab">κ = 1: no contraction</text>
+    <path d="M62.0 188.0 L147.9 171.6 L233.8 154.7 L319.7 136.3 L405.6 116.4 L491.5 93.7 L577.4 67.5 L663.3 35.2" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62.0 188.0 L147.9 170.3 L233.8 151.7 L319.7 131.5 L405.6 109.1 L491.5 83.2 L577.4 52.2" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M62.0 188.0 L147.9 164.0 L233.8 137.5 L319.7 107.3 L405.6 70.7" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="62.0" cy="188.0" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0" data-cmv="κ ≤ 0.001, decided" tabindex="0"/>
+    <circle cx="147.9" cy="171.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.1" data-cmv="κ ≤ 0.102, decided" tabindex="0"/>
+    <circle cx="233.8" cy="154.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.2" data-cmv="κ ≤ 0.206, decided" tabindex="0"/>
+    <circle cx="319.7" cy="136.3" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.3" data-cmv="κ ≤ 0.320, decided" tabindex="0"/>
+    <circle cx="405.6" cy="116.4" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.4" data-cmv="κ ≤ 0.443, decided" tabindex="0"/>
+    <circle cx="491.5" cy="93.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.5" data-cmv="κ ≤ 0.583, decided" tabindex="0"/>
+    <circle cx="577.4" cy="67.5" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.6" data-cmv="κ ≤ 0.745, decided" tabindex="0"/>
+    <circle cx="663.3" cy="35.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0, A = 0.7" data-cmv="κ ≤ 0.945, decided" tabindex="0"/>
+    <circle cx="62.0" cy="188.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0" data-cmv="κ ≤ 0.001, decided" tabindex="0"/>
+    <circle cx="147.9" cy="170.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.1" data-cmv="κ ≤ 0.110, decided" tabindex="0"/>
+    <circle cx="233.8" cy="151.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.2" data-cmv="κ ≤ 0.225, decided" tabindex="0"/>
+    <circle cx="319.7" cy="131.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.3" data-cmv="κ ≤ 0.350, decided" tabindex="0"/>
+    <circle cx="405.6" cy="109.1" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.4" data-cmv="κ ≤ 0.488, decided" tabindex="0"/>
+    <circle cx="491.5" cy="83.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.5" data-cmv="κ ≤ 0.648, decided" tabindex="0"/>
+    <circle cx="577.4" cy="52.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 0.1, A = 0.6" data-cmv="κ ≤ 0.839, decided" tabindex="0"/>
+    <circle cx="62.0" cy="188.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 1, A = 0" data-cmv="κ ≤ 0.001, decided" tabindex="0"/>
+    <circle cx="147.9" cy="164.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 1, A = 0.1" data-cmv="κ ≤ 0.149, decided" tabindex="0"/>
+    <circle cx="233.8" cy="137.5" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 1, A = 0.2" data-cmv="κ ≤ 0.312, decided" tabindex="0"/>
+    <circle cx="319.7" cy="107.3" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 1, A = 0.3" data-cmv="κ ≤ 0.499, decided" tabindex="0"/>
+    <circle cx="405.6" cy="70.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="ε = 1, A = 0.4" data-cmv="κ ≤ 0.725, decided" tabindex="0"/>
+    <rect x="62" y="245" width="11" height="10" rx="2" fill="var(--c-1)"/>
     <text x="81.0" y="255.0" text-anchor="start" class="t-note">ε = 0 — proved cells only; the row stops where the certificate refuses</text>
-    <line x1="62" y1="270" x2="76" y2="270" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="62" y="264" width="11" height="10" rx="2" fill="var(--c-2)"/>
     <text x="81.0" y="274.0" text-anchor="start" class="t-note">ε = 0.1 — proved cells only; the row stops where the certificate refuses</text>
-    <line x1="62" y1="289" x2="76" y2="289" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="62" y="283" width="11" height="10" rx="2" fill="var(--c-3)"/>
     <text x="81.0" y="293.0" text-anchor="start" class="t-note">ε = 1 — proved cells only; the row stops where the certificate refuses</text>
   </svg>
   </div>
-  <figcaption>Figure 2 · The contraction factor along the amplitude for three regularization strengths, on the proved cells. Each curve rises toward 1 and stops at its frontier; the strongly regularized one first.</figcaption>
+  <figcaption>Figure 2 · The contraction factor along the amplitude for three regularization strengths, on the proved cells. Each dot is a proved cell&#39;s κ, decided; the dotted segments between them are a chosen picture, because nothing computed κ between two amplitudes. Each row rises toward 1 and stops at its frontier; the strongly regularized one first.</figcaption>
 </figure></div>
 </section>
 
@@ -947,7 +1045,6 @@ ul.plain b{color:var(--ink);font-weight:480}
 <div class="col"><p>Where a regularized cell and its unregularized neighbour are both proved, the distance ‖u_ε − u_0‖_2 is decided: the norm of the difference of the two candidates, exactly, plus or minus the two radii. At A = 0 the solutions are constants — u_ε is the real root of εu³ + u = 1 — and the distance is 1 − u_ε, which the battery holds against the cubic. At every amplitude the distance grows with ε, equals about ε at ε = 0.01, and is a third of ε at ε = 1: the regularized game is a first-order perturbation of the unregularized one in this norm, and the perturbation saturates because the cubic term is bounded. The paper passes ε → 0 by compactness; here the limit is watched.</p></div><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 320" role="img" aria-label="On logarithmic axes the distance between the regularized and unregularized solutions rises with epsilon along the diagonal at small epsilon and bends below it toward epsilon equal one, for three amplitudes that lie nearly on top of one another.">
-    <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
     <line x1="62" y1="215.7" x2="878" y2="215.7" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="53.0" y="219.7" text-anchor="end" class="t-ax">0.01</text>
     <line x1="62" y1="99.3" x2="878" y2="99.3" stroke="var(--c-grid)" stroke-width="1"/>
@@ -965,27 +1062,33 @@ ul.plain b{color:var(--ink);font-weight:480}
     <line x1="62" y1="227" x2="878" y2="227" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="470.0" y="269.0" text-anchor="middle" class="t-note">ε, logarithmic</text>
     <text x="13" y="122.5" class="t-note" transform="rotate(-90 13 122.5)" text-anchor="middle">distance, log</text>
-    <line class="cm-cross" x1="0" y1="18" x2="0" y2="227" stroke="var(--c-axis)" stroke-width="1"/>
-    <path d="M97.77 217.20 L466.86 111.71 L642.96 72.24 L835.94 40.93" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="835.94" cy="40.93" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="2"/>
-    <path d="M97.77 214.99 L466.86 109.31 L642.96 69.54 L835.94 37.57" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="835.94" cy="37.57" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="2"/>
-    <path d="M97.77 207.73 L466.86 100.87" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    <circle cx="466.86" cy="100.87" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="2"/>
-    <path d="M97.77 215.72 L835.94 -17.03" fill="none" stroke="var(--c-ctx)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="5 4"/>
-    <circle cx="835.94" cy="-17.03" r="4.5" fill="var(--c-ctx)" stroke="var(--sunk)" stroke-width="2"/>
-    <line x1="62" y1="290" x2="76" y2="290" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M97.8 217.2 L466.9 111.7 L643.0 72.2 L835.9 40.9" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M97.8 215.0 L466.9 109.3 L643.0 69.5 L835.9 37.6" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M97.8 207.7 L466.9 100.9" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M97.8 215.7 L835.9 -17.0" fill="none" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="2 3" stroke-linejoin="round"/>
+    <text x="842.9" y="-13.0" text-anchor="start" class="t-lab">= ε</text>
+    <circle cx="97.8" cy="217.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0, ε = 0.01" data-cmv="‖u_ε − u_0‖_2 ≤ 9.7115e-3, decided to the two radii" tabindex="0"/>
+    <circle cx="466.9" cy="111.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0, ε = 0.1" data-cmv="‖u_ε − u_0‖_2 ≤ 7.8301e-2, decided to the two radii" tabindex="0"/>
+    <circle cx="643.0" cy="72.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0, ε = 0.3" data-cmv="‖u_ε − u_0‖_2 ≤ 1.7095e-1, decided to the two radii" tabindex="0"/>
+    <circle cx="835.9" cy="40.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0, ε = 1" data-cmv="‖u_ε − u_0‖_2 ≤ 3.1767e-1, decided to the two radii" tabindex="0"/>
+    <circle cx="97.8" cy="215.0" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.3, ε = 0.01" data-cmv="‖u_ε − u_0‖_2 ≤ 1.0146e-2, decided to the two radii" tabindex="0"/>
+    <circle cx="466.9" cy="109.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.3, ε = 0.1" data-cmv="‖u_ε − u_0‖_2 ≤ 8.2107e-2, decided to the two radii" tabindex="0"/>
+    <circle cx="643.0" cy="69.5" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.3, ε = 0.3" data-cmv="‖u_ε − u_0‖_2 ≤ 1.8034e-1, decided to the two radii" tabindex="0"/>
+    <circle cx="835.9" cy="37.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.3, ε = 1" data-cmv="‖u_ε − u_0‖_2 ≤ 3.3950e-1, decided to the two radii" tabindex="0"/>
+    <circle cx="97.8" cy="207.7" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.6, ε = 0.01" data-cmv="‖u_ε − u_0‖_2 ≤ 1.1713e-2, decided to the two radii" tabindex="0"/>
+    <circle cx="466.9" cy="100.9" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="A = 0.6, ε = 0.1" data-cmv="‖u_ε − u_0‖_2 ≤ 9.7017e-2, decided to the two radii" tabindex="0"/>
+    <rect x="62" y="284" width="11" height="10" rx="2" fill="var(--c-1)"/>
     <text x="81.0" y="294.0" text-anchor="start" class="t-note">A = 0: ‖u_ε − u_0‖_2, decided to the two radii</text>
-    <line x1="425" y1="290" x2="439" y2="290" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="425" y="284" width="11" height="10" rx="2" fill="var(--c-2)"/>
     <text x="444.0" y="294.0" text-anchor="start" class="t-note">A = 0.3: ‖u_ε − u_0‖_2, decided to the two radii</text>
-    <line x1="62" y1="309" x2="76" y2="309" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <rect x="62" y="303" width="11" height="10" rx="2" fill="var(--c-3)"/>
     <text x="81.0" y="313.0" text-anchor="start" class="t-note">A = 0.6: ‖u_ε − u_0‖_2, decided to the two radii</text>
-    <line x1="439" y1="309" x2="453" y2="309" stroke="var(--c-ctx)" stroke-width="2" stroke-dasharray="5 4"/>
+    <line x1="439" y1="309" x2="453" y2="309" stroke="var(--c-ctx)" stroke-width="1" stroke-dasharray="2 3"/>
     <text x="458.0" y="313.0" text-anchor="start" class="t-note">the line ‖u_ε − u_0‖ = ε (a guide)</text>
   </svg>
   </div>
-  <figcaption>Figure 3 · The decided distance ‖u_ε − u_0‖_2 against ε for three amplitudes, on logarithmic axes; the brackets are narrower than the stroke. The dashed guide is the diagonal.</figcaption>
-</figure></div><div class="wide"><div class="tw"><table><thead><tr><th>A</th><th>ε = 0.01</th><th>ε = 0.1</th><th>ε = 0.3</th><th>ε = 1</th></tr></thead><tbody><tr><td>0</td><td class="v"><span class="m">[9.7115e-3, 9.7115e-3]</span></td><td class="v"><span class="m">[7.8301e-2, 7.8301e-2]</span></td><td class="v"><span class="m">[1.7095e-1, 1.7095e-1]</span></td><td class="v"><span class="m">[3.1767e-1, 3.1767e-1]</span></td></tr><tr><td>0.1</td><td class="v"><span class="m">[9.8152e-3, 9.8152e-3]</span></td><td class="v"><span class="m">[7.9193e-2, 7.9193e-2]</span></td><td class="v"><span class="m">[1.7308e-1, 1.7308e-1]</span></td><td class="v"><span class="m">[3.2231e-1, 3.2231e-1]</span></td></tr><tr><td>0.2</td><td class="v"><span class="m">[9.9527e-3, 9.9527e-3]</span></td><td class="v"><span class="m">[8.0393e-2, 8.0393e-2]</span></td><td class="v"><span class="m">[1.7602e-1, 1.7602e-1]</span></td><td class="v"><span class="m">[3.2900e-1, 3.2900e-1]</span></td></tr><tr><td>0.3</td><td class="v"><span class="m">[1.0146e-2, 1.0146e-2]</span></td><td class="v"><span class="m">[8.2107e-2, 8.2107e-2]</span></td><td class="v"><span class="m">[1.8034e-1, 1.8034e-1]</span></td><td class="v"><span class="m">[3.3950e-1, 3.3950e-1]</span></td></tr><tr><td>0.4</td><td class="v"><span class="m">[1.0434e-2, 1.0434e-2]</span></td><td class="v"><span class="m">[8.4723e-2, 8.4723e-2]</span></td><td class="v"><span class="m">[1.8719e-1, 1.8719e-1]</span></td><td class="v"><span class="m">[3.5779e-1, 3.5779e-1]</span></td></tr><tr><td>0.5</td><td class="v"><span class="m">[1.0896e-2, 1.0896e-2]</span></td><td class="v"><span class="m">[8.9049e-2, 8.9049e-2]</span></td><td class="v"><span class="m">[1.9914e-1, 1.9914e-1]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.6</td><td class="v"><span class="m">[1.1713e-2, 1.1713e-2]</span></td><td class="v"><span class="m">[9.7017e-2, 9.7017e-2]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.7</td><td class="v"><span class="m">[1.3368e-2, 1.3368e-2]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.8</td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.9</td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr></tbody></table></div></div><div class="wide"><figure>
+  <figcaption>Figure 3 · The decided distance ‖u_ε − u_0‖_2 against ε for three amplitudes, on logarithmic axes. Each dot is decided, its bracket narrower than the dot; the dotted segments between them are chosen, since only four ε were computed. The fine-dashed guide is the diagonal, ‖u_ε − u_0‖ = ε.</figcaption>
+</figure></div><div class="col"><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div></div><div class="wide"><div class="tw"><table><thead><tr><th>A</th><th>ε = 0.01</th><th>ε = 0.1</th><th>ε = 0.3</th><th>ε = 1</th></tr></thead><tbody><tr><td>0</td><td class="v"><span class="m">[9.7115e-3, 9.7115e-3]</span></td><td class="v"><span class="m">[7.8301e-2, 7.8301e-2]</span></td><td class="v"><span class="m">[1.7095e-1, 1.7095e-1]</span></td><td class="v"><span class="m">[3.1767e-1, 3.1767e-1]</span></td></tr><tr><td>0.1</td><td class="v"><span class="m">[9.8152e-3, 9.8152e-3]</span></td><td class="v"><span class="m">[7.9193e-2, 7.9193e-2]</span></td><td class="v"><span class="m">[1.7308e-1, 1.7308e-1]</span></td><td class="v"><span class="m">[3.2231e-1, 3.2231e-1]</span></td></tr><tr><td>0.2</td><td class="v"><span class="m">[9.9527e-3, 9.9527e-3]</span></td><td class="v"><span class="m">[8.0393e-2, 8.0393e-2]</span></td><td class="v"><span class="m">[1.7602e-1, 1.7602e-1]</span></td><td class="v"><span class="m">[3.2900e-1, 3.2900e-1]</span></td></tr><tr><td>0.3</td><td class="v"><span class="m">[1.0146e-2, 1.0146e-2]</span></td><td class="v"><span class="m">[8.2107e-2, 8.2107e-2]</span></td><td class="v"><span class="m">[1.8034e-1, 1.8034e-1]</span></td><td class="v"><span class="m">[3.3950e-1, 3.3950e-1]</span></td></tr><tr><td>0.4</td><td class="v"><span class="m">[1.0434e-2, 1.0434e-2]</span></td><td class="v"><span class="m">[8.4723e-2, 8.4723e-2]</span></td><td class="v"><span class="m">[1.8719e-1, 1.8719e-1]</span></td><td class="v"><span class="m">[3.5779e-1, 3.5779e-1]</span></td></tr><tr><td>0.5</td><td class="v"><span class="m">[1.0896e-2, 1.0896e-2]</span></td><td class="v"><span class="m">[8.9049e-2, 8.9049e-2]</span></td><td class="v"><span class="m">[1.9914e-1, 1.9914e-1]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.6</td><td class="v"><span class="m">[1.1713e-2, 1.1713e-2]</span></td><td class="v"><span class="m">[9.7017e-2, 9.7017e-2]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.7</td><td class="v"><span class="m">[1.3368e-2, 1.3368e-2]</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.8</td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr><tr><td>0.9</td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td><td class="v"><span class="tag dep">UNDECIDED</span></td></tr></tbody></table></div></div><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 320" role="img" aria-label="Three nearly coincident density profiles over the torus, low near x = 0 where the potential peaks and high near x = one half, the regularized ones slightly flatter.">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
@@ -1027,7 +1130,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <text x="565.0" y="313.0" text-anchor="start" class="t-note">ε = 0.1 (PROVED, r = 9.4e-10)</text>
   </svg>
   </div>
-  <figcaption>Figure 4 · The density at A = 0.6 for the proved regularization strengths. All three are certified to radii below 1e−9; the regularized densities are slightly flatter and, through the cubic term, carry slightly less mass where u is large.</figcaption>
+  <figcaption>Figure 4 · The density at A = 0.6 for the proved regularization strengths, each the certified candidate sampled at 129 points and drawn solid: the solution lies within its radius, below 1e−9, far inside the stroke; the regularized densities are slightly flatter and, through the cubic term, carry slightly less mass where u is large.</figcaption>
 </figure></div><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 900 300" role="img" aria-label="Three value-function profiles, nearly flat, the regularized ones lower by about epsilon.">
@@ -1073,7 +1176,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§4 · the honest boundary</div>
     <h2>What is claimed, and what is not</h2>
   </div>
-<div class="col"><ul class="plain"><li><b>Proved, cell by cell.</b> A unique zero of F_ε in a ball of X_2 about the candidate, in the even subspace; classical; density positive on the ball. Each certificate carries five falsifiers, and the battery fires them.</li><li><b>Decided.</b> The distances between doubly-proved cells; the ellipticity of the linearization (c₀ &gt; 0, e₀ ≥ 0) on every proved cell; the constant solution&#39;s cubic at A = 0.</li><li><b>Not claimed.</b> Uniqueness outside the ball or outside the even subspace; anything on a refused cell — existence there is neither asserted nor denied; the paper&#39;s d-dimensional theorems; the singular-congestion and weak-growth cases (Theorems 1.5, 1.6). The one-dimensional quadratic game with a single cosine mode is the instance, and it is the instance because its regularization is polynomial.</li><li><b>The frontier is the certificate&#39;s.</b> Every refusal is Z1 ≥ 1 from a diagonal tail against a varying coefficient. A banded tail inverse would move it; the density would not. The page says so rather than drawing a boundary it does not have.</li><li><b>A new kernel.</b> The radii-polynomial bounds for this quasilinear problem are written out in kernel.js and are this machine&#39;s, not lifted. They are checked here by a finite-difference solve on a different discretization and by the constant solution; they have not been reviewed by anyone else.</li></ul></div>
+<div class="col"><ul class="plain"><li><b>Proved, cell by cell.</b> A unique zero of F_ε in a ball of X_2 about the candidate, in the even subspace; classical; density positive on the ball. Each certificate carries five falsifiers; the battery fires four of them as red controls (the shift, the wrong sign, the candidate on no branch, the dip below zero) and one of its own (a refused cell re-certified with a wider ν). The third, a principal coefficient forced negative, has no red control yet.</li><li><b>Decided.</b> The distances between doubly-proved cells; the ellipticity of the linearization (c₀ &gt; 0, e₀ ≥ 0) on every proved cell; the constant solution&#39;s cubic at A = 0.</li><li><b>Not claimed.</b> Uniqueness outside the ball or outside the even subspace; anything on a refused cell — existence there is neither asserted nor denied; the paper&#39;s d-dimensional theorems; the singular-congestion and weak-growth cases (Theorems 1.5, 1.6). The one-dimensional quadratic game with a single cosine mode is the instance, and it is the instance because its regularization is polynomial.</li><li><b>The frontier is the certificate&#39;s.</b> Every refusal is Z1 ≥ 1 from a diagonal tail against a varying coefficient. A banded tail inverse would move it; the density would not. The page says so rather than drawing a boundary it does not have.</li><li><b>A new kernel.</b> The radii-polynomial bounds for this quasilinear problem are written out in kernel.js and are this machine&#39;s, not lifted. They are checked here by a finite-difference solve on a different discretization and by the constant solution; they have not been reviewed by anyone else.</li></ul><p><strong>What PROVED rests on.</strong> The arithmetic of every cell is exact over its intervals. What it evaluates are bounds, and the bounds rest on premises the arithmetic cannot reach. In the order a cell travels through them, each with the rung its checking reached — <b>validated</b> (against the thing itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> (the code against an exact solution of its own equations) or <b>assumed</b> (adopted, chosen or read; no machine here checked it):</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The bounds</b> <span class="ev">Y0 and the first six times N columns of Z1 are computed in interval arithmetic; the tail of Z1 beyond them and Z2 (from the algebra property of the weighted norm) are estimates derived by hand for this quasilinear problem and written out in kernel.js, and every certificate names them as its assumption. Read, not machine-checked, and not reviewed by anyone else.</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The code that evaluates them</b> <span class="ev">at A = 0 the solution is the constant root of εu³ + u = 1, and at every ε the battery holds the certified ball against that cubic, which must change sign across it: the code reproduces an exact solution of its own equations. A second-order finite-difference solve on 96 points, a different discretization, agrees with the candidate to 1e−3 at three proved cells.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The instance</b> <span class="ev">the one-dimensional game, quadratic Hamiltonian, one cosine mode in the potential, the even subspace: chosen because its regularization is polynomial. Nothing here speaks for the paper's d-dimensional theorems.</span></div></li></ol><p class="w-meet">The arithmetic is exact; the weakest premise is <b>assumed</b>: each cell is PROVED <em>given the bounds of kernel.js</em>, derived by hand and read, and checked by a machine only where an exact solution was there to check them against.</p></div>
 </section>
 
 <section class="col">
@@ -1121,7 +1224,7 @@ node instruments/regatlas/run.js --check  # the record, re-derived and compared 
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-regatlas.js @ git 4ba347a — certs/regatlas.json re-derived during this build (50 certificates) and compared byte for byte (identical, or no page). Kernel sha256 9ac81dc6ac3b69c6…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-regatlas.js @ git 4b126f47 — certs/regatlas.json re-derived during this build (50 certificates) and compared byte for byte (identical, or no page). Kernel sha256 9ac81dc6ac3b69c6…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

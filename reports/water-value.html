@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The water value, certified</title>
+<title>The water value in a hydro grid: a martingale, proved by LP duality · Carlos Toledo</title>
 <meta name="description" content="The shadow price of stored water in a hydro grid is a martingale between stock-binding events — proved by LP duality on scenario trees, at every build.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/water-value.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/water-value.html">
-<meta property="og:title" content="The water value, certified">
+<meta property="og:title" content="The water value in a hydro grid: a martingale, proved by LP duality · Carlos Toledo">
 <meta property="og:description" content="The shadow price of stored water in a hydro grid is a martingale between stock-binding events — proved by LP duality on scenario trees, at every build.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The water value, certified">
+<meta name="twitter:title" content="The water value in a hydro grid: a martingale, proved by LP duality · Carlos Toledo">
 <meta name="twitter:description" content="The shadow price of stored water in a hydro grid is a martingale between stock-binding events — proved by LP duality on scenario trees, at every build.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The water value, certified","description":"The shadow price of stored water in a hydro grid is a martingale between stock-binding events — proved by LP duality on scenario trees, at every build.","url":"https://carlostoledo.co/reports/water-value.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The water value in a hydro grid: a martingale, proved by LP duality","description":"The shadow price of stored water in a hydro grid is a martingale between stock-binding events — proved by LP duality on scenario trees, at every build.","url":"https://carlostoledo.co/reports/water-value.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -583,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -673,26 +756,27 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · certified audit · energy — re-proved at every build</div>
-  <h1>The water value, certified</h1>
+  <h1>The water value in a hydro grid: a martingale, proved by LP duality</h1>
+<p class="standfirst">The water value, certified</p>
   <p class="deck">In a hydro-dominated grid the marginal value of stored water is the shadow price that sets the whole dispatch — and it obeys a theorem: between the events where the reservoir hits full or empty, the water value is a MARTINGALE, stepping down across full-reservoir events and up across empty ones. On finite scenario trees that statement is proved by LP duality with no constraint qualification, and this page re-proves it at every build: the solver is extracted from the published artifact&#39;s own bytes, run on 120 random trees, and every certificate re-checked — duality gap, martingale residual, Hotelling trichotomy.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> The stochastic water value on scenario trees is a certified theorem, not a heuristic: w = E[w(child)] at every interior-stock node, exact to 9.7e-13 across this build's 120-tree suite, with zero duality gap (worst relative gap 5.7e-14) and zero trichotomy violations. The deterministic case is proved outright; the continuum limit is honestly OPEN.</li><li><b>The mechanism.</b> The dispatch problem is a finite LP; the water value is its balance multiplier. Weak duality makes the gap one-signed — a negative gap is structurally impossible and the build dies on it rather than reporting a magnitude. The solver ships VERBATIM inside the published page; this build extracts it from those bytes (sha-pinned), so the thing certified is the thing published.</li><li><b>Check it.</b> <span class="m">node legacy/research/stock-constraint/tests/test-sin.js</span> from a clone — the unit's own battery, 50 checks; the extracted solver ships beside this page as <span class="m">reports/water_value_tree.extracted.js</span> and self-demos under node.</li></ul>
+<ul class="plain"><li><b>The finding.</b> The stochastic water value on scenario trees is a certified theorem, not a heuristic: w = E[w(child)] at every interior-stock node, proved by LP duality; on this build's 120-tree suite the published solver agrees in float, its residual at most <span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">9.7e-13</span> and its relative duality gap at most <span class="w-val w-computed" title="the worst relative duality gap on the 120 trees, in float — computed; strong duality makes it zero in exact arithmetic">5.7e-14</span> (zero in exact arithmetic, by strong duality), with no trichotomy violation. The deterministic case is proved outright; the continuum limit is honestly OPEN.</li><li><b>The mechanism.</b> The dispatch problem is a finite LP; the water value is its balance multiplier. Weak duality makes the gap one-signed — a negative gap is structurally impossible and the build dies on it rather than reporting a magnitude. The solver ships VERBATIM inside the published page; this build extracts it from those bytes (sha-pinned), so the thing certified is the thing published.</li><li><b>Check it.</b> <span class="m">node legacy/research/stock-constraint/tests/test-sin.js</span> from a clone — the unit's own battery, 50 checks; the extracted solver ships beside this page as <span class="m">reports/water_value_tree.extracted.js</span> and self-demos under node.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="6">
-    <div class="stat"><div class="k">the theorem</div><div class="v">PROVED (discrete)</div><div class="n">deterministic: LP duality, no constraint qualification needed · scenario trees: w = E[w child] off-binding — the discrete content of dw = Z dB + dL⁰ − dL̄</div></div>
-    <div class="stat"><div class="k">duality gap</div><div class="v">5.7e-14</div><div class="n">worst RELATIVE gap across 120 seeded random trees, re-solved this build; the sign is checked separately — a negative gap dies, never rounds</div></div>
-    <div class="stat"><div class="k">martingale residual</div><div class="v">9.7e-13</div><div class="n">max |w − E[w child]| over every interior-stock node in the suite</div></div>
+    <div class="stat"><div class="k">the theorem</div><div class="v">PROVED (discrete)</div><div class="n">on paper, read; deterministic: LP duality, no constraint qualification needed · scenario trees: w = E[w child] off-binding — the discrete content of dw = Z dB + dL⁰ − dL̄</div></div>
+    <div class="stat"><div class="k">duality gap</div><div class="v"><span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">5.7e-14</span></div><div class="n">worst RELATIVE gap across 120 seeded random trees, re-solved this build in float; the sign is checked separately — a negative gap dies, never rounds</div></div>
+    <div class="stat"><div class="k">martingale residual</div><div class="v"><span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">9.7e-13</span></div><div class="n">max |w − E[w child]| over every interior-stock node in the suite, in float</div></div>
     <div class="stat"><div class="k">unit batteries</div><div class="v">50 checks green</div><div class="n">the lifted unit&#39;s own gates re-run: kernel extracted from the artifact bytes; 2 adjoint mutants CAUGHT (the reds fired)</div></div>
     <div class="stat"><div class="k">tree classes</div><div class="v">116 · 67 · 4</div><div class="n">trees with binding stock events · with spill · pure-martingale — all three certificate classes exercised or the build refuses</div></div>
     <div class="stat"><div class="k">continuum limit</div><div class="v">OPEN</div><div class="n">the reflected-FBSDE well-posedness (OP-1) and the reflecting-boundary duality (OP-2) are stated, not claimed</div></div>
@@ -746,12 +830,12 @@ ul.plain b{color:var(--ink);font-weight:480}
     <path d="M490.40 240 V207.00 a4 4 0 0 1 4 -4 h10.40 a4 4 0 0 1 4 4 V240 Z" fill="var(--c-s4)" data-cm="1e-13.3–1e-13.2" data-cmv="2 trees" tabindex="0"/>
     <line x1="812.1" y1="14" x2="812.1" y2="240" stroke="var(--c-3)" stroke-width="2"/>
     <text x="805.1" y="27.0" text-anchor="end" class="t-lab">←  the suite REFUSES beyond here</text>
-    <line x1="501.7" y1="14" x2="501.7" y2="240" stroke="var(--c-1)" stroke-width="2"/>
+    <line x1="501.7" y1="14" x2="501.7" y2="240" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="508.7" y="44.0" text-anchor="start" class="t-lab">worst tree 5.7e-14</text>
   </svg>
   </div>
-  <figcaption>120 trees, of which 2 close the gap EXACTLY and cannot be drawn on a log axis — they are counted here and left off the plot rather than clamped to its floor. Across the 118 with a non-zero gap it runs from 1.1e-16 to 5.7e-14 — the worst tree in the suite is a factor of 177 inside the refusal threshold, and the off-binding martingale residual is bounded by 9.7e-13 across the same trees. The population sits where floating-point accumulation puts it, not where a tolerance was tuned to put it.</figcaption>
-</figure></div>
+  <figcaption>120 trees binned by relative duality gap on a log axis. Every bar counts float gaps, so every bar is computed; the 40 log-spaced bins are a chosen layout. The dashed mark is the worst tree, a float value; the solid one is the threshold at which the suite refuses, a constant.</figcaption>
+</figure></div><div class="col"><p>Of the 120 trees, 2 return a float gap of exactly 0 and cannot be drawn on a log axis — they are counted here and left off the plot rather than clamped to its floor. Across the 118 with a non-zero gap it runs from <span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">1.1e-16</span> to <span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">5.7e-14</span> — the worst tree in the suite is a factor of <span class="w-val w-computed" title="the threshold over the worst float gap — computed">177</span> inside the refusal threshold, and the off-binding martingale residual is at most <span class="w-val w-computed" title="a float residual on the 120 trees — computed, nothing decided it">9.7e-13</span> across the same trees. The population sits where floating-point accumulation puts it, not where a tolerance was tuned to put it.</p><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div></div>
 </section>
 
 <section class="col">
@@ -777,8 +861,17 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§3 · the empirical layer</div>
     <h2>Five years of PLD, quoted as history — with its own downgrade</h2>
   </div>
-<p>The unit tested the theorem&#39;s signature against Brazil&#39;s hourly spot price (PLD, submarket Sudeste, 2021–2025): between jumps the price should be flat where hydro is marginal. The record shows interior windows with flatness shrinkage up to 75× against a permutation null, and the flattest year is 2021 — the water crisis, when scarcity kept hydro marginal nearly year-round. The naive seasonal reading (&quot;wet years flatter&quot;) is REFUTED by the same data: flatness tracks the hydro-marginal regime, not the calendar.</p>
+<p>The unit tested the theorem's signature against Brazil's hourly spot price (PLD, submarket Sudeste, 2021–2025): between jumps the price should be flat where hydro is marginal. The record shows interior windows with flatness shrinkage up to <span class="w-val w-computed" title="the unit's number, quoted from docs/FINDINGS_SIN.md — printed, not re-run here">×75.3</span> against a permutation null, and the flattest year is 2021 — the water crisis, when scarcity kept hydro marginal nearly year-round. The naive seasonal reading ("the wet season flatter than the dry") is REFUTED by the same data: flatness tracks the hydro-marginal regime, not the calendar.</p>
 <p>The unit&#39;s own adversarial review downgraded this layer from &quot;confirmed&quot; to DESCRIPTIVE CONSISTENCY, and this page keeps the downgrade: PLD is an administered price built from a model that already moves its water value slowly, the permutation null measures persistence rather than pinning, and the window selection is partly circular. These numbers are quoted as history because their data sits behind CCEE&#39;s access wall — the recipe to re-run them ships with the unit (docs/pld-data-run.md), and nothing in §2&#39;s certificates depends on them.</p>
+<div class="col"><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div></div>
+</section>
+
+<section class="col">
+  <div class="sec-head">
+    <div class="lab">§3b · the premises</div>
+    <h2>What the theorem rests on, and how far each premise was checked</h2>
+  </div>
+<div class="col"><p>The checks this page runs are float, and they are computed; the theorem they are instances of rests on premises no float check reaches. In the order the statement travels through them, each with the rung its checking reached — <b>validated</b> (against the grid itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> (the code against an exact solution of its own equations) or <b>assumed</b> (adopted, chosen or read; no machine here checked it):</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The model</b> <span class="ev">one operator, a price it takes as given at each node, a hard stock box and revenue linear in the release: the unit's LP. A grid's price is formed by its own dispatch; that coupling is open (OP-1).</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The proof</b> <span class="ev">LP duality on a finite tree and the KKT system read off it, written in the unit and read; no proof assistant here checked it.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The suite's trees</b> <span class="ev">120 trees from seeds 1–120, depths 3–5, branching 2–3: a sample, chosen. The float checks are instances of the theorem on these trees, not a proof of it.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The empirical layer</b> <span class="ev">Brazil's hourly PLD, Sudeste, 2021–2025, quoted from the unit; its data sit behind CCEE's access wall and are not re-run here, and the unit's own review calls it descriptive consistency.</span></div></li></ol><p class="w-meet">The weakest premise is <b>assumed</b>: PROVED here means <em>proved on paper and read</em>, and this build checks, in float, that the published solver agrees with it on 120 trees.</p></div>
 </section>
 
 <section class="col">
@@ -825,7 +918,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-water-value.js @ git 4ba347a. The unit's own batteries re-ran as gates (50 checks; 2 mutants caught), the solver was re-extracted from the published bytes against its sha pin, and 120 random trees re-certified — the build refuses on any deviation. Source unit files: legacy/research/stock-constraint/ in this repository · extracted solver: reports/water_value_tree.extracted.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-water-value.js @ git 4b126f47. The unit's own batteries re-ran as gates (50 checks; 2 mutants caught), the solver was re-extracted from the published bytes against its sha pin, and 120 random trees re-certified — the build refuses on any deviation. Source unit files: legacy/research/stock-constraint/ in this repository · extracted solver: reports/water_value_tree.extracted.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
