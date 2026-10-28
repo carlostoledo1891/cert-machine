@@ -305,9 +305,13 @@ async function runReds(send, dir) {
 
 /* ------------------------------------------------------------------ main -- */
 async function main() {
-  const list = pages();
+  /* GATE_PAGES (from make page, 2026-10-28): measure only the pages whose bytes moved; a baseline row with no page
+     behind it is still looked for over every page. --accept and --report always measure every page */
+  const all = pages();
+  const scoped = MODE === 'gate' && process.env.GATE_PAGES !== undefined ? new Set(process.env.GATE_PAGES.split(/\s+/).filter(Boolean)) : null;
+  const list = scoped ? all.filter((p) => scoped.has(p)) : all;
   console.log('measure battery — ' + list.length + ' built pages at ' + VIEWPORTS.join(' / ') + 'px'
-    + (MODE === 'gate' ? '' : '   [' + MODE + ']'));
+    + (scoped ? ' (the ones that moved)' : '') + (MODE === 'gate' ? '' : '   [' + MODE + ']'));
 
   redRatchet();
   const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'measure-red-'));
@@ -327,7 +331,9 @@ async function main() {
   fs.rmdirSync(tmp);
 
   const base = fs.existsSync(BASELINE) ? JSON.parse(fs.readFileSync(BASELINE, 'utf8')) : { pages: {} };
-  const { worse, better, missing, stale } = diff(list, now, base.pages);
+  const d = diff(list, now, base.pages);
+  const { worse, better, missing } = d;
+  const stale = scoped ? Object.keys(base.pages).filter((r) => !all.includes(r)) : d.stale;
 
   if (MODE === 'report') {
     const rows = list.map((r) => [r, now[r][1440], now[r][390]])

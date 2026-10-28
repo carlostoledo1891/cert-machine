@@ -219,8 +219,11 @@ function pages() {
 }
 
 async function main() {
-  const list = pages();
-  console.log('render battery — ' + list.length + ' built pages' + (MODE === 'gate' ? '' : '   [' + MODE + ']'));
+  /* GATE_PAGES (from make page, 2026-10-28): drive only the pages whose bytes moved; the ratchets compare those pages'
+     rows. --accept and --report always drive every page */
+  const scoped = MODE === 'gate' && process.env.GATE_PAGES !== undefined ? new Set(process.env.GATE_PAGES.split(/\s+/).filter(Boolean)) : null;
+  const list = scoped ? pages().filter((p) => scoped.has(p)) : pages();
+  console.log('render battery — ' + list.length + ' built pages' + (scoped ? ' (the ones that moved)' : '') + (MODE === 'gate' ? '' : '   [' + MODE + ']'));
 
   /* the marker check runs without a browser, so its red controls do too */
   console.log('-- markers');
@@ -329,7 +332,8 @@ async function main() {
     dead.length + ' kind(s):\n        ' + dead.slice(0, 10).join('\n        '));
   else ok('no mark points at a paint that is not there', '[' + list.length + ' pages]');
 
-  const fbase = (fs.existsSync(BASELINE) ? JSON.parse(fs.readFileSync(BASELINE, 'utf8')) : {}).faint || null;
+  const fall = (fs.existsSync(BASELINE) ? JSON.parse(fs.readFileSync(BASELINE, 'utf8')) : {}).faint || null;
+  const fbase = fall && scoped ? fall.filter((r) => list.some((p) => r.startsWith(p.replace('site/', '') + ': '))) : fall;
   if (MODE === 'report') {
     console.log('   faint marks (under ' + CONTRAST_FLOOR + ':1 against their own ground) — a ratchet, not a bar');
     for (const r of faint) console.log('     ' + r);

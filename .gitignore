@@ -100,3 +100,8 @@ corpus/bandeira/.cache/
 outreach/*/resume.private.md
 outreach/*/resume.pdf
 corpus/eleicoes2026/raw/
+
+# the control build's clock per battery (tools/run-batteries.js orders the pool by it): this machine, not a record
+.battery-times.json
+# make page's memory of the site bytes its two Chrome gates last saw green (tools/make-page.js): this checkout, not a record
+.gated-pages.json

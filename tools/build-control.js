@@ -281,20 +281,32 @@ const PY = [
    the one time a row came back RED on a control build — wiring concord, once,
    green on the next ten runs — there was nothing to read. A failing battery's
    last lines are printed now; a green one stays silent. */
-function bat(name, argv, py) {
-  if (!runBatteries) return null;
-  const file = argv.find((a) => /\.(m?js|py)$/.test(a)) || '';
-  if (py ? /\.m?js$/.test(file) : /\.py$/.test(file))
-    die('battery "' + name + '" is filed under the wrong interpreter: ' + file + (py ? ' would be run by python3' : ' would be run by node'));
-  const r = cp.spawnSync(py ? 'python3' : process.execPath, argv, { cwd: ROOT, stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8' });
-  if (r.status !== 0) {
-    const tail = ((r.stdout || '') + (r.stderr || '')).trim().split('\n').slice(-8).join('\n      ');
-    console.error('  RED  ' + name + '  (exit ' + r.status + (r.error ? ', ' + r.error.message : '') + ')\n      ' + tail);
-  }
-  return r.status === 0;
+/* SIDE BY SIDE (2026-10-28). The rows ran one after another, ~35 minutes; tools/run-batteries.js runs them in a pool
+   (CONTROL_JOBS=1 is the old row), the Chrome gates alone after it, and a red from the pool again alone. A battery
+   red in the pool and green alone is printed here by name: it shares state with another battery. */
+const rows = BATTERIES.map(([n, c, note]) => ({ n, note, argv: c, py: false })).concat(PY.map(([n, c, note]) => ({ n, note, argv: c, py: true })));
+for (const b of rows) {
+  const file = b.argv.find((a) => /\.(m?js|py)$/.test(a)) || '';
+  if (b.py ? /\.m?js$/.test(file) : /\.py$/.test(file))
+    die('battery "' + b.n + '" is filed under the wrong interpreter: ' + file + (b.py ? ' would be run by python3' : ' would be run by node'));
 }
-const bats = BATTERIES.map(([n, c, note]) => ({ n, note, ok: bat(n, c, false) }))
-  .concat(PY.map(([n, c, note]) => ({ n, note, ok: bat(n, c, true) })));
+const runAll = () => {
+  const t = Date.now(), tmp = path.join(require('os').tmpdir(), 'control-batteries-' + process.pid + '.json');
+  fs.writeFileSync(tmp, JSON.stringify(rows.map(({ n, argv, py }) => ({ n, argv, py }))));
+  const r = cp.spawnSync(process.execPath, [path.join(__dirname, 'run-batteries.js'), tmp], { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  fs.unlinkSync(tmp);
+  if (r.status !== 0) die('the battery runner itself failed: ' + String(r.stderr || r.error).slice(-400));
+  const res = JSON.parse(r.stdout);
+  res.forEach((x, i) => {
+    if (!x.ok) console.error('  RED  ' + rows[i].n + '  (exit ' + x.status + ')\n      ' + x.tail);
+    else if (x.raced) console.error('  RACE ' + rows[i].n + ' — red once, green on a run alone (the verdict): it shares state with another battery, or measures a page that had not settled');
+  });
+  const slow = res.map((x, i) => [x.secs, rows[i].n]).sort((a, b) => b[0] - a[0]).slice(0, 5);
+  console.log('  batteries: ' + res.length + ' in ' + ((Date.now() - t) / 1000).toFixed(0) + ' s · slowest ' + slow.map(([s, n]) => n + ' ' + s.toFixed(0) + ' s').join(', '));
+  return res;
+};
+const results = runBatteries ? runAll() : null;
+const bats = rows.map((b, i) => ({ n: b.n, note: b.note, ok: results ? results[i].ok : null }));
 const green = bats.filter(b => b.ok === true).length, ran = bats.filter(b => b.ok !== null).length;
 /* A RED BATTERY REFUSES THE PAGE (2026-10-09). Until this date the page was written with the
    red row shown — a page that says "every battery it reports green was executed during this
