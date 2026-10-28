@@ -194,9 +194,12 @@ need(Math.round(Number(e1.iform.lo)) === Number(P1.abc_1yr_marginal) && Math.rou
 need(Math.abs(Number(e20.iform.lo) - Number(P1.abc_20yr_marginal)) < 0.05 && Math.abs(Number(e20.iform.hi) - Number(P1.abc_20yr_marginal)) < 0.05, '11.5 is not the rounding of the twenty-year IFORM enclosure');
 need(Math.round(Number(d1.iform.lo)) === Number(P1.def_1yr_marginal) && Math.round(Number(d50.iform.lo)) === Number(P1.def_50yr_marginal), '492 / 12 are not the roundings of the wind-wave IFORM enclosures');
 need(e1.total.exact === P1.abc_1yr_total && e20.total.exact === P1.abc_20yr_total, 'the sea-state total-exceedance expectations are no longer exactly the printed 20 and 1');
-need(Math.round(Number(d1.total.decimal)) === Number(P1.def_1yr_total) && Math.round(Number(d50.total.decimal)) === Number(P1.def_50yr_total), 'the wind-wave total-exceedance expectations do not round to the printed 50 and 1');
+need(Math.round(Number(d1.total.nearest)) === Number(P1.def_1yr_total) && Math.round(Number(d50.total.nearest)) === Number(P1.def_50yr_total), 'the wind-wave total-exceedance expectations do not round to the printed 50 and 1');
 def('EExpAlphaOne', '1/' + e1.alpha.exact.split('/')[1]); def('EExpAlphaTwenty', '1/' + e20.alpha.exact.split('/')[1]); def('EExpAlphaFifty', '1/' + d50.alpha.exact.split('/')[1]);
-def('EExpTotalOne', e1.total.exact); def('EExpTotalTwenty', e20.total.exact); def('EExpTotalDOne', d1.total.exact); def('EExpTotalDOneDec', d1.total.decimal); def('EExpTotalDFifty', d50.total.exact); def('EExpTotalDFiftyDec', d50.total.decimal);
+/* 2026-10-28: the ledger no longer carries total.decimal (a cut string: 36524/36525 read "0.9999"); a rational now has
+   lo / hi (directed) and nearest. The manuscript's sentences set these as "= x", a rounding of a point, so they read nearest.
+   The IFORM and β pairs are outward now, so showIv prints both ends where they differ. */
+def('EExpTotalOne', e1.total.exact); def('EExpTotalTwenty', e20.total.exact); def('EExpTotalDOne', d1.total.exact); def('EExpTotalDOneDec', d1.total.nearest); def('EExpTotalDFifty', d50.total.exact); def('EExpTotalDFiftyDec', d50.total.nearest);
 def('EExpBetaOne', showIv(e1.beta)); def('EExpBetaTwenty', showIv(e20.beta)); def('EExpBetaFifty', showIv(d50.beta));
 def('EExpIformOne', showIv(e1.iform)); def('EExpIformTwenty', showIv(e20.iform)); def('EExpIformDOne', showIv(d1.iform)); def('EExpIformDFifty', showIv(d50.iform));
 def('EPrintedIformOne', P1.abc_1yr_marginal); def('EPrintedIformTwenty', P1.abc_20yr_marginal); def('EPrintedIformDOne', P1.def_1yr_marginal); def('EPrintedIformDFifty', P1.def_50yr_marginal);
@@ -205,20 +208,20 @@ const frac = (s) => (s.includes('/') ? '$' + s.replace(/^(\d+)\/(\d+)$/, '\\frac
 rows('EExpectedRows', [
   ['A, B, C', '1', int(e1.n), frac(e1.alpha.exact), e1.total.exact, P1.abc_1yr_total, showIv(e1.beta), showIv(e1.iform), P1.abc_1yr_marginal],
   ['A, B, C', '20', int(e20.n), frac(e20.alpha.exact), e20.total.exact, P1.abc_20yr_total, showIv(e20.beta), showIv(e20.iform), P1.abc_20yr_marginal],
-  ['D, E, F', '1', int(d1.n), frac(d1.alpha.exact), frac(d1.total.exact) + ' = ' + d1.total.decimal, P1.def_1yr_total, showIv(d1.beta), showIv(d1.iform), P1.def_1yr_marginal],
-  ['D, E, F', '50', int(d50.n), frac(d50.alpha.exact), frac(d50.total.exact) + ' = ' + d50.total.decimal, P1.def_50yr_total, showIv(d50.beta), showIv(d50.iform), P1.def_50yr_marginal],
+  ['D, E, F', '1', int(d1.n), frac(d1.alpha.exact), frac(d1.total.exact) + ' = ' + d1.total.nearest, P1.def_1yr_total, showIv(d1.beta), showIv(d1.iform), P1.def_1yr_marginal],
+  ['D, E, F', '50', int(d50.n), frac(d50.alpha.exact), frac(d50.total.exact) + ' = ' + d50.total.nearest, P1.def_50yr_total, showIv(d50.beta), showIv(d50.iform), P1.def_50yr_marginal],
 ]);
 /* the out-of-sample expectation on the retained years */
 const R = L.retainedExpected;
-for (const ds of DS) def('ERetTotal' + ds, R[ds].total.decimal);
+for (const ds of DS) def('ERetTotal' + ds, R[ds].total.nearest);
 def('ERetTotalDExact', R.D.total.exact.replace(/^(\d+)\/(\d+)$/, '\\frac{$1}{$2}'));   /* raw: the manuscript sets it inside its own $...$ */ def('ERetIformA', R.A.iform.lo); def('ERetIformD', R.D.iform.lo);
-need(DS.slice(3).every((ds) => R[ds].total.decimal === R.D.total.decimal && R[ds].iform.lo === R.D.iform.lo), 'the wind-wave out-of-sample expectations differ between D, E and F');
+need(DS.slice(3).every((ds) => R[ds].total.nearest === R.D.total.nearest && R[ds].iform.lo === R.D.iform.lo), 'the wind-wave out-of-sample expectations differ between D, E and F');
 def('ERetIformRange', Math.min(...DS.map((ds) => Number(R[ds].iform.lo))).toFixed(2) + '--' + Math.max(...DS.map((ds) => Number(R[ds].iform.hi))).toFixed(2));
 rows('ERetainedRows', ORDER.map((k) => { const c = CL.contributions.find((x) => x.key === k); return [tex(k) + ' ' + tex(c.method) + ' (' + (c.class === 'total' ? 'T' : 'M') + ')'].concat(DS.map((ds) => { const r = row(k, ds, longT(ds)); return int(r.counts.retained.out) + (r.counts.retained.on ? '+' + r.counts.retained.on : ''); })); })
-  .concat([['expected, total exceedance'].concat(DS.map((ds) => R[ds].total.decimal)), ['expected, IFORM'].concat(DS.map((ds) => showIv(R[ds].iform)))]));
+  .concat([['expected, total exceedance'].concat(DS.map((ds) => R[ds].total.nearest)), ['expected, IFORM'].concat(DS.map((ds) => showIv(R[ds].iform)))]));
 const retOf = (k) => DS.map((ds) => row(k, ds, longT(ds)).counts.retained.out);
 def('ERetHD', list(retOf('4').map(int))); def('ERetISORM', list(retOf('1').map(int))); def('ERetIDSCM', list(retOf('3').map(int)));
-def('ERetHDSum', int(retOf('4').reduce((a, b) => a + b, 0))); def('ERetExpectedSumTotal', dec(DS.reduce((a, ds) => a + Number(R[ds].total.decimal), 0), 2));
+def('ERetHDSum', int(retOf('4').reduce((a, b) => a + b, 0))); def('ERetExpectedSumTotal', dec(DS.reduce((a, ds) => a + Number(R[ds].total.nearest), 0), 2));
 const retProvided = (k) => DS.map((ds) => row(k, ds, longT(ds)).counts.provided.out);
 def('EProvHD', list(retProvided('4').map(int)));
 

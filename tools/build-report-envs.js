@@ -19,6 +19,12 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
+/* WARRANT (design/WARRANT.md). A rate here is an exact count over the suite and prints plain — given the suite, whose
+   tolerances and minted submissions are the designers' choice (rule 6: the page names that input). A number someone
+   printed (the thread's published value) is COMPUTED; a ratio drawn for one chosen tolerance and the corpus's median
+   certificate is CHOSEN; a line joining rates measured at nine tolerances is a picture between them, CHOSEN (dotted). */
+const WR = require(path.join(ROOT, 'playground', 'warrant.js'));   /* WR, not W: the band figure below names its width W */
+const OW = require(path.join(ROOT, 'design', 'outward.js'));
 
 const die = (m) => { console.error('ENVS REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
@@ -40,6 +46,28 @@ if (!R.corpus.length || R.corpus.some(f => f.record && !f.sha256)) die('a fact n
 const pubFact = R.corpus.find(f => f.publishedWrong !== null);
 if (!pubFact) die('the corpus carries no published-wrong fact — the one non-synthetic canary is gone');
 const pinned = R.corpus.filter(f => f.sha256).length;
+/* the published value's distance to the certificate, in exact decimals and rounded DOWN (a "by more than" is a lower bound) */
+const pubGap = (() => {
+  const below = pubFact.publishedWrong < pubFact.lo, a = OW.exact(below ? pubFact.lo : pubFact.publishedWrong), b = OW.exact(below ? pubFact.publishedWrong : pubFact.hi);
+  const k = Math.max((a.split('.')[1] || '').length, (b.split('.')[1] || '').length);
+  const big = (x) => BigInt(x.replace('.', '') + '0'.repeat(k - (x.split('.')[1] || '').length));
+  const d = big(a) - big(b); if (d <= 0n) die('the published value is no longer outside the certificate');
+  const u = d.toString().padStart(k + 1, '0'); return OW.sci(u.slice(0, -k) + '.' + u.slice(-k), 2, false);
+})();
+/* typed counts, gated (WARRANT rule 8) */
+if (R.graders.length !== 4) die('"four graders" / "four reference shapes" no longer holds: ' + R.graders.length);
+/* §6 said "two of the four rungs cannot be broken … fails half the ladder" while the record's ladder holds seven rungs,
+   three of them unbreakable, each for its own reason; the sentence is now read from the rungs and refuses if they move */
+const UNBREAKABLE = R.attacker.rungs.filter(r => !r.attackable).map(r => r.id).join(',');
+if (UNBREAKABLE !== 'c2,c3,c6') die('§6 names c2, c3 and c6 as the rungs that cannot be broken; the record says ' + UNBREAKABLE);
+const NUMW = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+if (R.tolerancesProbed.length !== 9) die('"the suite\'s nine tolerances" no longer holds');
+const tolSpan = Math.round(Math.log10(Math.max(...R.tolerancesProbed) / Math.min(...R.tolerancesProbed)));
+const ORDERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen'][tolSpan];
+if (!ORDERS) die('the probed tolerances span ' + tolSpan + ' orders; the page has no word for it');
+const SUPS = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
+const tolWord = (t) => '10' + String(Math.round(Math.log10(t))).split('').map((c) => SUPS[c]).join('');
+const GIVEN = '<i>given the suite: its ' + R.tolerancesProbed.length + ' tolerances, ' + tolWord(Math.max(...R.tolerancesProbed)) + ' to ' + tolWord(Math.min(...R.tolerancesProbed)) + ', and the submissions minted at each</i>';
 
 /* ---- page -------------------------------------------------------------------- */
 const B = [];
@@ -64,7 +92,7 @@ B.push(C.tldr({
     + 'outside a certified enclosure — an absolute-tolerance grader accepts <b>' + pct(absT.falseAccept)
     + '</b> of them. A grader that compares against the certificate instead of a decimal accepts '
     + '<b>' + pct(encl.falseAccept) + '</b>, and rejects none of the ' + num(R.provablyRight)
-    + ' submissions that are provably right. The tolerance <em>is</em> the vulnerability.',
+    + ' submissions that are provably right (' + GIVEN + '). The tolerance <em>is</em> the vulnerability.',
   mechanismRaw: 'A certified enclosure is a generator. If a quantity is pinned to width w and a grader '
     + 'accepts anything within tol of its stored decimal, then every value in the band of width '
     + C.m('tol − w') + ' outside the enclosure is at once provably not the quantity and guaranteed to '
@@ -119,20 +147,21 @@ B.push(C.stats([
   g.push(t(px(-0.55), midY + 4, 'ACCEPTED · PROVABLY WRONG', 't-lab', 'middle'));
   g.push(t(px(0.55), midY + 4, 'ACCEPTED · PROVABLY WRONG', 't-lab', 'middle'));
   g.push(t(px(0) + encW / 2 + 8, midY + 62, 'the certificate — floored to ' + (encW).toFixed(0) + ' px so it is visible; its true width is 1/' + num(Math.round(2 * TOL / wmed)) + ' of this window', 't-note', 'start'));
+  const chosen = (x) => WR.value(x, WR.CHOSEN, { title: 'for one chosen tolerance, 1e-9, and the corpus\'s median certificate width: a member of the set, not the set' });
   g.push('  </svg>');
   B.push(C.section({
     lab: '§1 · the picture', title: 'What a tolerance grader accepts', wide: true,
     bodyRaw: [
       C.figure({ svgRaw: g.join('\n'), caption: 'Drawn to scale in units of the tolerance. The certified enclosure '
         + 'is the narrow bar at the centre — at a routine tolerance of 1e-9 against a typical certificate here '
-        + '(width ' + wmed.toExponential(0) + ') it is 1/' + num(Math.round(2 * TOL / wmed)) + ' of the accepted '
-        + 'window, floored to one pixel so it is visible at all. Everything shaded is accepted by the grader and '
+        + '(the median width, ' + wmed.toExponential(0) + ') it is 1/' + num(Math.round(2 * TOL / wmed)) + ' of the accepted '
+        + 'window, floored to one pixel so it is visible at all; both are one member of the corpus, chosen to draw. Everything shaded is accepted by the grader and '
         + 'refuted by the certificate.' }),
       '<div class="col">' + C.pRaw('The accepted-but-wrong region has width ' + C.m('2·tol − w') + ' and is empty '
         + 'only when ' + C.m('tol ≤ w/2') + ' — at which point the grader accepts a sub-interval of the certificate '
         + 'and has become a certificate grader with gratuitous rejections. The ratio of band to certificate, '
-        + C.m('ρ = 2·tol/w − 1') + ', is ' + C.m(num(Math.round(rho))) + ' here: the grader will accept a band '
-        + num(Math.round(rho)) + ' times wider than the proof.') + '</div>'
+        + C.m('ρ = 2·tol/w − 1') + ', is ' + chosen(num(Math.round(rho))) + ' here: the grader will accept a band '
+        + chosen(num(Math.round(rho))) + ' times wider than the proof — for that tolerance and that certificate; every fact in §4 has its own.') + '</div>'
     ].join('\n')
   }));
 }
@@ -142,15 +171,21 @@ B.push(C.stats([
   const tols = R.tolerancesProbed.slice().sort((a, b) => a - b);
   const ser = [['absolute-tolerance', absT, 'var(--c-1)'], ['relative-tolerance', R.graders.find(g => /relative/.test(g.name)), 'var(--c-2)'],
     ['exact-match', R.graders.find(g => /exact/.test(g.name)), 'var(--c-3)']].filter(x => x[1]);
-  const svg = CH.lines({
-    w: 900, h: 340, logX: true, x0: tols[0] * 0.7, x1: tols[tols.length - 1] * 1.4, y0: 0, y1: 100,
-    xLabel: 'tolerance', yLabel: 'false-accept rate (%)',
-    yTicks: [0, 25, 50, 75, 100],
-    alt: 'False-accept rate against tolerance for four grader shapes. The tolerance graders decline as the tolerance tightens but do not reach zero; the certificate grader is flat at zero everywhere.',
-    series: ser.map(([n, g, tok]) => ({ name: n, token: tok, pts: tols.map(t => [t, 100 * (g.falseAcceptByTolerance[String(t)] || 0)]) })),
-    keys: ser.map(([n, , tok]) => ({ token: tok, t: n, kind: 'line' }))
-      .concat([{ token: 'var(--c-ctx)', t: 'certificate-grounded (flat at 0)', kind: 'line' }]),
-    rules: [{ v: 0, token: 'var(--c-ctx)', t: 'certificate-grounded: 0% at every tolerance' }]
+  /* WARRANT (2026-10-28): the rates were joined by a solid line, the grammar's mark for a decided curve, though nothing
+     was measured between two probed tolerances. Each rate is now a dot (an exact count over the suite at that tolerance)
+     and the joins are dotted, a picture between knots; the certificate grader's zero is the one solid line, decided at
+     every tolerance because it never reads one. The log axis had no tick labels; it has them now. */
+  const svg = CH.scatter({
+    w: 900, h: 340, logX: true, x0: tols[0] * 0.5, x1: tols[tols.length - 1] * 2, y0: 0, y1: 100,
+    xLabel: 'tolerance (log scale)', yLabel: 'false-accept rate (%)',
+    yTicks: [0, 25, 50, 75, 100].map((v) => ({ v, t: String(v) })),
+    xTicks: [1e-15, 1e-12, 1e-9, 1e-6, 1e-3].map((v) => ({ v, t: tolWord(v) })),
+    alt: 'False-accept rate against tolerance on a log axis, measured at the ' + tols.length + ' probed tolerances for three grader shapes and joined by dotted lines. The two tolerance graders decline as the tolerance tightens but do not reach zero; exact match and the certificate grader sit at zero, the certificate grader drawn as a solid line because it does not read a tolerance at all.',
+    hlines: [{ y: 0, token: 'var(--ink)', t: 'certificate-grounded: 0% at every tolerance' }],
+    curves: ser.map(([n, g]) => ({ pts: tols.map(t => [t, 100 * (g.falseAcceptByTolerance[String(t)] || 0)]), standing: WR.CHOSEN })),
+    pts: [].concat(...ser.map(([n, g, tok]) => tols.map(t => ({ x: t, y: 100 * (g.falseAcceptByTolerance[String(t)] || 0), token: tok,
+      k: n + ' · tolerance ' + t.toExponential(0), v: pct(g.falseAcceptByTolerance[String(t)] || 0) + ' of the provably-wrong submissions minted at that tolerance' })))),
+    keys: ser.map(([n, , tok]) => ({ token: tok, t: n }))
   });
   B.push(C.section({
     lab: '§2 · the curve', title: 'Tightening the tolerance does not close the hole', wide: true,
@@ -158,10 +193,11 @@ B.push(C.stats([
       C.figure({ svgRaw: svg, caption: 'False-accept rate against tolerance, over ' + num(R.provablyWrong)
         + ' provably-wrong submissions. The band closes fact by fact, as the tolerance drops below half that '
         + 'fact\'s certificate width — so the aggregate falls and reaches zero only when the tolerance is under '
-        + 'half the width of every certificate in the corpus.' }),
+        + 'half the width of every certificate in the corpus. Each dot is an exact count at one probed tolerance; the dotted joins are a picture between them.' }),
+      '<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.REFUSED] }) + '</div>',
       '<div class="col">' + C.pRaw('This is the figure that answers the standard remedy. A published bug taxonomy '
         + 'for reward verifiers lists exactly this failure — a loose numeric tolerance accepting a nearby wrong '
-        + 'value — and prescribes tightening the tolerance. Four orders of magnitude of tightening take the '
+        + 'value — and prescribes tightening the tolerance. ' + ORDERS[0].toUpperCase() + ORDERS.slice(1) + ' orders of magnitude of tightening take the '
         + 'absolute-tolerance grader from ' + pct(absT.falseAcceptByTolerance[String(tols[tols.length - 1])])
         + ' to ' + pct(absT.falseAcceptByTolerance[String(tols[0])]) + ', and the only tolerance that reaches zero '
         + 'is one that has stopped being a tolerance.') + '</div>'
@@ -211,9 +247,8 @@ B.push(C.stats([
       C.table({ cols: [{ h: 'fact' }, { h: 'quantity' }, { h: 'width', cls: 'v' }, { h: 'read from' }], rows }),
       '<div class="col">' + C.pRaw('<strong>One of these is not like the others.</strong> '
         + C.m(pubFact.id) + ' carries the value a real problem thread actually published for the quantity: '
-        + C.m(String(pubFact.publishedWrong)) + ', which sits outside our certificate by '
-        + C.m(Math.abs(pubFact.publishedWrong < pubFact.lo ? pubFact.lo - pubFact.publishedWrong : pubFact.publishedWrong - pubFact.hi).toExponential(2))
-        + ' and inside any ordinary tolerance of it. Every other canary in the suite is constructed. That one '
+        + WR.value(C.m(String(pubFact.publishedWrong)), WR.COMPUTED, { title: 'printed in the problem thread; refuted here by the certificate, never decided by it' }) + ', which sits outside our certificate by more than '
+        + C.m(pubGap) + ' and inside any ordinary tolerance of it. Every other canary in the suite is constructed. That one '
         + 'is a reproduction — <a href="/reports/erdos852.html">the refutation is here</a>.') + '</div>'
     ].join('\n')
   }));
@@ -270,12 +305,13 @@ B.push(C.stats([
           { h: '"no attack" scores', cls: 'v' }, { h: 'a minted attack scores', cls: 'v' }],
         rows
       }),
-      '<div class="col">' + C.pRaw('<strong>Two of the four rungs cannot be broken</strong>, for two different '
-        + 'reasons: on one the tolerance is NARROWER than the enclosure, so the band of accepted-but-wrong values '
-        + 'is empty as arithmetic; on the other the grader compares against the certificate itself, so no such '
-        + 'value exists at all. The correct answer there is ' + C.m('NO_ATTACK') + ', and claiming a break that '
+      '<div class="col">' + C.pRaw('<strong>' + NUMW[3][0].toUpperCase() + NUMW[3].slice(1) + ' of the ' + NUMW[R.attacker.rungs.length] + ' rungs cannot be broken</strong>, each for its own '
+        + 'reason: on ' + C.m('c2') + ' the tolerance is NARROWER than the enclosure, so the band of accepted-but-wrong values '
+        + 'is empty as arithmetic; on ' + C.m('c3') + ' the grader compares against the certificate itself, so no such '
+        + 'value exists at all; on ' + C.m('c6') + ' the band is there in the reals and empty in the machine — an exact-integer '
+        + 'certificate under a tolerance finer than the gap between neighbouring doubles. The correct answer on all three is ' + C.m('NO_ATTACK') + ', and claiming a break that '
         + 'does not verify scores worse than saying there is none. A model that has learned "attack whatever you '
-        + 'are shown" fails half the ladder — which is the behaviour worth measuring, because an auditor that '
+        + 'are shown" fails those three — which is the behaviour worth measuring, because an auditor that '
         + 'always finds something is exactly as useless as one that never does.') + '</div>'
     ].join('\n')
   }));

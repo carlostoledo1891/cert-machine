@@ -107,6 +107,10 @@ ok(D.orient(l('0'), l('0'), l('1'), l('0'), l('0.5'), l('1e-20')) > 0 && D.orien
   red(!(Number(e.iform.lo) <= 195 && 195 <= Number(e.iform.hi)), '195 is outside the IFORM enclosure');
   const e50 = X.expectedOutside(438288, 50);
   ok(e50.total.exact === '36524/36525' && Number(e50.iform.lo) <= 12.0 && Number(e50.iform.hi) >= 11.99, 'D–F: 438,288 hours over 50 × 8766 is 36524/36525, and the IFORM expectation encloses 11.99');
+  /* the printed decimals are directed (2026-10-28): 36524/36525 = 0.99997… was carried as the cut "0.9999" */
+  ok(e50.total.lo === '0.9999' && e50.total.hi === '1.0000' && e50.total.nearest === '1.0000' && X.directedFault(e50) === null, '36524/36525 prints as [0.9999, 1.0000], nearest 1.0000 — never the cut 0.9999 alone');
+  red(X.directedFault({ total: { exact: '36524/36525', lo: '0.9999', hi: '0.9999', nearest: '0.9999' } }) !== null, 'the cut string 0.9999 as both ends of 36524/36525 is refused');
+  red(X.directedFault({ total: { exact: '18503/35064', decimal: '0.5276' } }) !== null, 'a record carrying the old "decimal" key is refused');
 }
 
 /* ---- the shipped ledger ---- */
@@ -130,6 +134,7 @@ ok(D.orient(l('0'), l('0'), l('1'), l('0'), l('0.5'), l('1e-20')) > 0 && D.orien
   ok(led.summary.rulesDisagreeTotal === 0, 'no observation changes side between even-odd and nonzero winding');
   ok(led.summary.boundaryPointsTotal === 2 && led.summary.withBoundaryPoints === 2, 'exactly two observations lie ON a submitted contour');
   ok(led.summary.notSimple === 30, '30 of 150 submitted contours are not simple polygons');
+  ok(led.expected.concat(Object.values(led.retainedExpected)).every((e) => X.directedFault(e) === null), 'every printed decimal of the shipped expectations is a directed pair that encloses its value');
   /* live re-decision: three rows of different kinds, from the bytes */
   if (absent === 0) {
     const data = {};

@@ -14,7 +14,7 @@
    put on either side — and a printed mean agrees when it is the mean of the
    three exact counts to the digit printed.
 
-   usage: node tools/run-ecbench-ledger.js            (about a minute)
+   usage: node tools/run-ecbench-ledger.js            (about ten seconds on the M-series laptop, 2026-10-28)
           node tools/run-ecbench-ledger.js --check    re-derive and compare with the shipped ledger, write nothing */
 'use strict';
 const fs = require('fs');
@@ -140,11 +140,14 @@ for (const [tab, letters, Tl] of [['table5', ['A', 'B', 'C'], 20], ['table6', ['
     }
   }
 }
-for (const e of expected) console.log('  expected outside ' + e.dataset + ' ' + e.returnPeriod + '-yr on n=' + e.n + ': total ' + e.total.decimal + ' · IFORM [' + e.iform.lo + ', ' + e.iform.hi + '] (β ∈ [' + e.beta.lo + ', ' + e.beta.hi + '])');
+for (const e of expected) console.log('  expected outside ' + e.dataset + ' ' + e.returnPeriod + '-yr on n=' + e.n + ': total ' + e.total.exact + ' ∈ [' + e.total.lo + ', ' + e.total.hi + '] · IFORM [' + e.iform.lo + ', ' + e.iform.hi + '] (β ∈ [' + e.beta.lo + ', ' + e.beta.hi + '])');
 
 /* the out-of-sample expectation: n_retained × α for the long return period, exactly */
 const retainedExpected = {};
 for (const ch of LETTERS) { const T = 'ABC'.includes(ch) ? 20 : 50; const e = X.expectedOutside(data[ch].retained.n, T); retainedExpected[ch] = { returnPeriod: T, n: data[ch].retained.n, total: e.total, iform: e.iform }; }
+/* every printed decimal in the record is directed (2026-10-28): a pair that does not enclose what it prints, or a cut
+   "decimal" string, refuses the record — instruments/ecbench/expected.js directedFault, the one copy of the check */
+for (const e of expected.concat(Object.values(retainedExpected))) { const f = X.directedFault(e); if (f) die('expected ' + (e.dataset || '') + ' ' + e.returnPeriod + '-yr: ' + f); }
 
 const ledger = {
   what: 'The environmental-contour benchmark (Haselsteiner et al. 2021), Exercise 1, re-decided exactly: every submitted contour as a polygon, every hourly observation classified INSIDE / OUTSIDE / ON in exact arithmetic under the even-odd rule the benchmark used, the preprint\'s printed counts read against the exact ones, and Table 1\'s expected numbers certified.',
@@ -161,7 +164,7 @@ const ledger = {
 
 if (CHECK) {
   const old = JSON.parse(fs.readFileSync(OUT, 'utf8'));
-  const strip = (l) => JSON.stringify({ rows: l.rows, comparisons: l.comparisons, expected: l.expected });
+  const strip = (l) => JSON.stringify({ rows: l.rows, comparisons: l.comparisons, expected: l.expected, retainedExpected: l.retainedExpected });   /* retainedExpected joined the check 2026-10-28: it was written but never compared */
   if (strip(old) !== strip(ledger)) die('the re-derived ledger differs from certs/ecbench-ledger.json');
   console.log('  --check: the shipped ledger re-derives identically');
 } else {

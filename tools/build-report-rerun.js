@@ -32,6 +32,9 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+/* WARRANT (design/WARRANT.md): counts and hashes are decided here and print plain; a runtime is a measurement on one
+   machine on one day, COMPUTED, and carries the dashed underline; what the page trusts is a premise chain (§6) */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const die = (m) => { console.error('RERUN KIT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const J = (p) => { const f = path.join(ROOT, p); if (!fs.existsSync(f)) die('missing ' + p); return JSON.parse(fs.readFileSync(f, 'utf8')); };
@@ -65,6 +68,16 @@ if (regRecords.join('|') !== kitRecords.join('|'))
     + '\n  kit only: ' + kitRecords.filter((x) => !regRecords.includes(x)));
 if (new Set(kitRecords).size !== kitRecords.length) die('a record appears twice in the kit');
 const PATHISH = /(?:^|\s)((?:tools|certs|corpus|instruments|oracle|playground|apps)\/[\w./-]+)/g;
+const DURATION = /\b\d+(?:\.\d+)?\s?(?:s|sec|seconds?|min|minutes?|h|hours?)\b|\b(?:a|an|one|two|three|four|five|six|seven|eight|nine|ten|several|a few)\s+(?:seconds|minutes?|hours?)\b/i;
+/* the kit's typed durations, each taken out by an anchored replacement that refuses when its anchor is gone */
+const NEEDS_SHOWN = [
+  ['node; about four minutes', 'node'],
+  ['node; about a minute', 'node'],
+  ['node; several minutes with workers in parallel', 'node; workers in parallel'],
+  ['node (about 90 s: the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate)', 'node (the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate the run)'],
+];
+for (const [from] of NEEDS_SHOWN) if (!KIT.entries.some((e) => e.needs === from)) die('the needs text "' + from + '" is no longer in the kit; drop its replacement');
+const needsShown = (t) => { const m = NEEDS_SHOWN.find(([from]) => from === t); return m ? m[1] : t; };
 for (const e of KIT.entries) {
   if (!fs.existsSync(path.join(ROOT, e.record))) die('record not on disk: ' + e.record);
   for (const cmd of [e.rederive, e.verifier, e.second]) {
@@ -72,6 +85,11 @@ for (const e of KIT.entries) {
     for (const m of cmd.matchAll(PATHISH)) if (!fs.existsSync(path.join(ROOT, m[1]))) die('command names a missing file: ' + m[1] + ' in "' + cmd + '"');
   }
   if (!e.needs || !e.note) die('kit entry for ' + e.record + ' lacks needs/note');
+  /* the runtime columns print what was MEASURED, and a duration typed into `needs` sat beside them and disagreed
+     (2026-10-28: "about a minute" beside 6.1 s, "about four minutes" beside 344 s, "about 90 s" beside 46.6 s). The kit
+     cannot move without moving the self-audit's Phase 1 pin on it, so the page prints needs with the typed duration
+     taken out (needsShown, anchored below) and refuses any other needs text that types one. */
+  if (DURATION.test(needsShown(e.needs))) die('kit entry for ' + e.record + ' types a duration in needs ("' + e.needs + '"); the measured runtime is the only one this page prints — add its anchored replacement to NEEDS_SHOWN');
 }
 const rowIds = new Set(R.rows.map((r) => r.id));
 for (const x of EXT) {
@@ -159,7 +177,9 @@ if (RUNREC) {
   if (RUNREC.failed.length) die('the run record holds failed commands (' + RUNREC.failed.join(', ') + '); re-run or repair before publishing');
 }
 const timed = (rec, kind) => { if (!RUNREC) return null; const r = RUNREC.runs.find((x) => x.record === rec && x.kind === kind); return r ? r.seconds : null; };
-const secs = (s) => s === null ? 'not yet timed' : s < 1 ? '< 1 s' : s < 90 ? s + ' s' : Math.round(s / 6) / 10 + ' min';
+const secs0 = (s) => s === null ? 'not yet timed' : s < 1 ? '< 1 s' : s < 90 ? s + ' s' : Math.round(s / 6) / 10 + ' min';
+/* the page's runtimes are measurements (COMPUTED); RERUN.md keeps plain text */
+const secs = (s) => s === null ? secs0(s) : W.value(secs0(s), W.COMPUTED, { title: 'measured wall clock, ' + (RUNREC ? RUNREC.date + ' on ' + RUNREC.machine.cpu : 'one run') + '; not decided' });
 
 /* ---- the counts, all derived ---------------------------------------------------- */
 const N = {
@@ -176,8 +196,17 @@ const N = {
   corpusParties: Object.keys(CORPUS.parties).length,
   corpusPartiesDone: partiesDone.size,
   corpusRowsRerun: CORPUS.rows.filter((c) => rerunsOf(c.id).length).length,
-  timed: RUNREC ? RUNREC.runs.length : 0
+  timed: RUNREC ? RUNREC.runs.length : 0,
+  /* who outside has re-run anything, and which register rows their reruns name (read, never typed) */
+  parties: new Set(EXT.map((x) => x.who)).size,
+  rowsRerun: new Set([].concat(...EXT.map((x) => x.rows || []))).size
 };
+/* "All N commands were executed": only when the run record covers every command of the kit, unpartial */
+if (RUNREC) {
+  const cmds = [].concat(...KIT.entries.map((e) => ['rederive', 'verifier', 'second'].filter((k) => e[k]).map((k) => e.record + '|' + k)));
+  const ran = new Set(RUNREC.runs.map((r) => r.record + '|' + r.kind));
+  if (RUNREC.partial || cmds.length !== ran.size || cmds.some((c) => !ran.has(c))) die('the run record does not cover every command of the kit (' + cmds.filter((c) => !ran.has(c)).join(', ') + '); "all N commands were executed" would be false');
+}
 const verifierHref = (cmd) => { const m = /tools\/(verify_[\w]+\.py)/.exec(cmd); return m ? '/verify/' + m[1] : null; };
 
 /* ---- the page ------------------------------------------------------------------ */
@@ -191,8 +220,8 @@ B.push(C.header({
     + 'who outside has re-run what, which is the only number here that measures the independence this machine claims.'
 }));
 B.push(C.scope('Published, not peer-reviewed. ' + N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ' recorded at this build, '
-  + N.externalOwnCode + ' with no code of ours. Until that number is larger than the number of operators (one), the verdicts here rest on one '
-  + 'machine and one person, and this page says so rather than implying otherwise.'));
+  + 'by ' + N.parties + ' outside part' + (N.parties === 1 ? 'y' : 'ies') + ', ' + N.externalOwnCode + ' with no code of ours; they name ' + N.rowsRerun + ' of the ' + N.decided + ' register rows. '
+  + 'Every other verdict here rests on one machine and one person, and this page says so rather than implying otherwise.'));
 B.push(C.tldr({
   findingRaw: '<b>' + N.records + ' records decide ' + N.decided + ' register rows.</b> ' + N.withRederive + ' of the ' + N.records + ' re-derive with one command, '
     + N.withVerifier + ' carry a verifier in the Python standard library with no engine code, ' + N.withSecond + ' carry a second implementation in another '
@@ -212,7 +241,7 @@ B.push(C.stats([
   { k: 'stdlib verifiers', v: String(N.withVerifier), n: 'Python standard library only, zero code shared with the engine; each must refute a forgery before it exits green.' },
   { k: 'second implementations', v: String(N.withSecond), n: 'The same decision in another arithmetic or by another program.' },
   { k: 'independent reruns', v: String(N.external), role: 'held', n: 'Recorded from corpus/external-reruns.json. ' + N.externalOwnCode + ' with no code of ours.' },
-  { k: 'the milestone', v: N.corpusPartiesDone + ' of ' + N.corpusParties, role: 'held', n: 'Parties who re-ran a row of the corpus in §3 (' + N.corpusRowsRerun + ' of its ' + N.corpusRows + ' rows re-run). Read from the registry, never declared. One operator, one machine until this moves.' }
+  { k: 'the milestone', v: N.corpusPartiesDone + ' of ' + N.corpusParties, role: 'held', n: 'Parties who re-ran a row of the corpus in §3 (' + N.corpusRowsRerun + ' of its ' + N.corpusRows + ' rows re-run). Read from the registry, never declared.' + (N.corpusPartiesDone ? '' : ' One operator, one machine until this moves.') }
 ]));
 
 B.push(C.section({
@@ -229,13 +258,13 @@ const kitRows = KIT.entries.map((e) => {
   const rows = rowsOf(e.record);
   const vh = e.verifier ? verifierHref(e.verifier) : null;
   const cmdCell = (cmd, kind) => cmd
-    ? { raw: '<span class="m">' + C.esc(cmd) + '</span><br><small>' + C.esc(secs(timed(e.record, kind))) + '</small>' }
+    ? { raw: '<span class="m">' + C.esc(cmd) + '</span><br><small>' + secs(timed(e.record, kind)) + '</small>' }
     : { raw: '<small>—</small>' };
   return [
-    { raw: '<span class="m">' + C.esc(e.record) + '</span><br><small>' + C.esc(e.needs) + '</small>' },
+    { raw: '<span class="m">' + C.esc(e.record) + '</span><br><small>' + C.esc(needsShown(e.needs)) + '</small>' },
     { raw: '<a href="' + C.escAttr(rows[0].page) + '">' + rows.length + ' row' + (rows.length === 1 ? '' : 's') + '</a><br><small>' + C.esc(verdictSummary(rows)) + '</small>' },
     cmdCell(e.rederive, 'rederive'),
-    e.verifier ? { raw: (vh ? '<a href="' + vh + '"><span class="m">' + C.esc(e.verifier) + '</span></a>' : '<span class="m">' + C.esc(e.verifier) + '</span>') + '<br><small>' + C.esc(secs(timed(e.record, 'verifier'))) + '</small>' } : { raw: '<small>—</small>' },
+    e.verifier ? { raw: (vh ? '<a href="' + vh + '"><span class="m">' + C.esc(e.verifier) + '</span></a>' : '<span class="m">' + C.esc(e.verifier) + '</span>') + '<br><small>' + secs(timed(e.record, 'verifier')) + '</small>' } : { raw: '<small>—</small>' },
     cmdCell(e.second, 'second'),
     { raw: '<span class="m">' + sha(e.record).slice(0, 16) + '…</span>' }
   ];
@@ -246,7 +275,8 @@ B.push(C.section({
     cols: [{ h: 'record · what it needs' }, { h: 'rows it decides' }, { h: 're-derive' }, { h: 'stdlib verifier' }, { h: 'second implementation' }, { h: 'sha256 at this build' }],
     rows: kitRows
   })
-    + '<div class="col">' + C.pRaw('Runtimes are ' + (RUNREC ? 'measured: every command executed on ' + C.esc(RUNREC.date) + ' on ' + C.esc(RUNREC.machine.cpu) + ' (' + C.esc(RUNREC.machine.os) + ', ' + C.esc(RUNREC.machine.node) + ', ' + C.esc(RUNREC.machine.python) + '), the register\'s rows compared before and after'
+    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
+    + C.pRaw('Runtimes are ' + (RUNREC ? 'measured — so they carry the dashed underline: one machine, one day, nothing decided them — every command executed on ' + C.esc(RUNREC.date) + ' on ' + C.esc(RUNREC.machine.cpu) + ' (' + C.esc(RUNREC.machine.os) + ', ' + C.esc(RUNREC.machine.node) + ', ' + C.esc(RUNREC.machine.python) + '), the register\'s rows compared before and after'
       : 'not yet measured from this page') + '. The hash is of the record as this page was built; a clone at another commit may differ, and the report form asks for the hash you have.')
     + C.pRaw('<b>The debts.</b> ' + KIT.entries.filter((e) => !e.rederive).map((e) => '<span class="m">' + C.esc(e.record) + '</span>: ' + C.esc(e.note)).join(' ') + ' These are the records a reader cannot re-derive with one line yet; the page counts them rather than hiding them.')
     + '</div>'
@@ -304,6 +334,16 @@ B.push(C.section({
     + 'named external theorems consumed and cross-checked, never machine-proved; the operating system\'s hashing; and one operator on one machine. '
     + 'Each item on that list is shrunk by a different thing: the verifiers shrink the engine, the second implementations shrink the verifiers, and '
     + 'only the registry above shrinks the last item.')
+    /* WARRANT v2.1 (rule 11): the same list as premises, each with the rung its checking reached in a record. Nothing here
+       checks the platform a decision runs on, so those rungs are assumed; the registry is the only measurement of the last. */
+    + C.pRaw('The same list as premises, in the order a verdict travels through them, each with the rung its checking reached:')
+    + W.premisesHtml([
+      { grade: W.ASSUMED, label: 'The engine\'s arithmetic: V8\'s BigInt and IEEE-754 directed rounding', evidence: 'adopted; the batteries\' red controls test the instruments built on it, never the platform itself' },
+      { grade: W.ASSUMED, label: 'The detached verifiers\' arithmetic: Python\'s fractions and decimal', evidence: 'adopted from the standard library; ' + N.withVerifier + ' of the ' + N.records + ' records carry such a verifier' },
+      { grade: W.ASSUMED, label: 'The named external theorems', evidence: 'consumed and cross-checked, never machine-proved: read, on each record\'s page' },
+      { grade: W.ASSUMED, label: 'The operating system\'s hashing', evidence: 'every sha256 on this page is computed by it and checked by nothing else' },
+      { grade: W.ASSUMED, label: 'One operator on one machine', evidence: 'shrunk only by the registry of §5: ' + N.external + ' outside reruns by ' + N.parties + ' parties, naming ' + N.rowsRerun + ' of the ' + N.decided + ' rows' },
+    ], { meetLine: 'Every decision is exact given these; the weakest premise is <b>assumed</b>, and on most rows it is the last one. An outside rerun with its own code is the one thing that moves it, which is why §5 counts them and never declares them.' })
 }));
 
 /* what has come back from outside: the credits that name this page, from design/outside.js (the re-runs are §5 above) */
@@ -339,8 +379,8 @@ md.push('| record | needs | rows | re-derive | stdlib verifier | second implemen
 md.push('|---|---|---|---|---|---|---|');
 for (const e of KIT.entries) {
   const rows = rowsOf(e.record);
-  const c = (cmd, kind) => cmd ? '`' + cmd + '` (' + secs(timed(e.record, kind)) + ')' : '—';
-  md.push('| `' + e.record + '` | ' + e.needs + ' | ' + rows.length + ' (' + verdictSummary(rows) + ') | ' + c(e.rederive, 'rederive') + ' | ' + c(e.verifier, 'verifier') + ' | ' + c(e.second, 'second') + ' | `' + sha(e.record).slice(0, 16) + '…` |');
+  const c = (cmd, kind) => cmd ? '`' + cmd + '` (' + secs0(timed(e.record, kind)) + ')' : '—';
+  md.push('| `' + e.record + '` | ' + needsShown(e.needs) + ' | ' + rows.length + ' (' + verdictSummary(rows) + ') | ' + c(e.rederive, 'rederive') + ' | ' + c(e.verifier, 'verifier') + ' | ' + c(e.second, 'second') + ' | `' + sha(e.record).slice(0, 16) + '…` |');
 }
 md.push('');
 md.push(RUNREC ? 'Runtimes measured ' + RUNREC.date + ' on ' + RUNREC.machine.cpu + ' (' + RUNREC.machine.os + ', ' + RUNREC.machine.node + ', ' + RUNREC.machine.python + '); the register\'s ' + RUNREC.registerRows + ' rows compared before and after, none moved.' : 'Runtimes not yet measured from this kit.');

@@ -25,6 +25,17 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+/* WARRANT (design/WARRANT.md): what this page decided prints plain and draws solid; a number someone else printed — the
+   claimant's ladder, the 2008 bound — and a measured runtime are COMPUTED (dashed); a line joining knots that were each
+   computed at one L is a picture between them, CHOSEN (dotted) */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const OW = require(path.join(ROOT, 'design', 'outward.js'));
+const measured = (t) => W.value(t, W.COMPUTED, { title: 'measured wall clock on the machine that wrote the record; not decided' });
+const printedBy = (t, who) => W.value(t, W.COMPUTED, { title: 'printed by ' + who + '; read here, not re-decided' });
+/* a positive exact rational p/q as a plain decimal string rounded DOWN at k places, for a lower bound to be printed outward */
+const ratDown = (s, k) => { const [p, q = '1'] = String(s).split('/'); const t = (BigInt(p) * 10n ** BigInt(k)) / BigInt(q);
+  if (BigInt(p) < 0n) throw new Error('ratDown: a positive rational only'); const u = t.toString().padStart(k + 1, '0'); return u.slice(0, -k) + '.' + u.slice(-k); };
+const boundSci = (c, d) => OW.sci(ratDown(c.bound, 40), d, false);   /* a certified lower bound, printed DOWN at d mantissa digits */
 const die = (m) => { console.error('DELTA3 REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const J = (rel) => { const f = path.join(ROOT, rel); if (!fs.existsSync(f)) die('missing record ' + rel); return JSON.parse(fs.readFileSync(f, 'utf8')); };
@@ -85,6 +96,15 @@ function floor8(n, d) { const s = (n * 100000000n) / d; const t = s.toString().p
 const CEIL = J('certs/delta3/frontier/s34/ceilings.json');
 for (const r of LADDER) { if (!CEIL[r.L]) die('no ceiling for L = ' + r.L); r.ceil = CEIL[r.L].delta; }
 const TRUE = 117 / 2192;
+/* typed numbers, gated (WARRANT rule 8): the title's factor, §1's two roundings, §6's matrix sizes, the paper's version */
+if ((TRUE / (1675 / 32768)).toFixed(3) !== '1.044' || TRUE.toFixed(6) !== '0.053376' || (1675 / 32768).toFixed(6) !== '0.051117' || !String(TRUE).startsWith('0.0533759'))
+  die('a typed rounding of 117/2192, 1675/32768 or their ratio no longer holds');
+{
+  const dims = L.certificates.filter((c) => c.kind === 'slab').map((c) => c.n + 1);   /* v = (1, y): the residual matrix is (n + 1)-square */
+  if (Math.min(...dims) !== 131 || Math.max(...dims) !== 147) die('§6\'s "131- to 147-dimensional" no longer matches the slabs: ' + dims.join(', '));
+  const P = J('paper/INDEX.json'); const pd = (P.papers || P).find((x) => x.name === 'delta3');
+  if (!pd || !/^draft v0\.2\b/.test(pd.status)) die('§6 names the paper "draft v0.2"; paper/INDEX.json says ' + (pd && pd.status));
+}
 /* the archive that holds these files: the deposit record's latest version */
 const ZEN = J('corpus/zenodo.json');
 const DEP = ZEN.versions.find((v) => v.version === ZEN.latest);
@@ -108,19 +128,27 @@ const FIG_H = CH.lines({
   alt: 'A nonnegative zigzag over the unit interval, rising to about 0.10 inside the long middle blocks and touching zero exactly at the eleven block edges, symmetric about one half. Shaded bands mark the six blocks coloured +1.'
 });
 
-/* ---- figure: the ladder against the answer ---------------------------------- */
-const FIG_LADDER = CH.lines({
+/* ---- figure: the ladder against the answer ----------------------------------
+   WARRANT (2026-10-28). Until now the claimant's certified bounds were drawn as a SOLID line, the grammar's mark for what
+   is decided here, though this page never re-decided them (§5 says so); and both series joined their five knots with a
+   continuous line, though nothing was computed between two values of L. Now each knot is a dot, the joins are dotted
+   (a picture between knots, chosen), and the standings are the legend's: 117/2192 solid (decided here), the 2008 bound
+   and every knot computed (printed by someone else). */
+const lastL = LADDER[LADDER.length - 1];
+const lowerOf = (r) => (r.lowerDown !== null ? r.lowerDown : String(r.lower));
+const FIG_LADDER = CH.scatter({
   w: 900, h: 330, x0: 0, x1: 270, y0: 0.0498, y1: 0.0538,
   xTicks: [32, 64, 128, 192, 256].map((v) => ({ v, t: String(v) })),
   yTicks: [0.050, 0.051, 0.052, 0.053].map((v) => ({ v, t: v.toFixed(3) })),
-  xLabel: 'L, the number of equal cells', yLabel: 'δ₃ ≥ …', hover: true,
-  rules: [{ v: TRUE, t: '117/2192 = 0.0533759…, the answer (proved, §2)' }, { v: 1675 / 32768, t: 'PRS 2008: 1675/32768', dashed: true }],
-  series: [
-    { name: 'the cell model\'s own minimum, by local search (float, the claimant\'s)', pts: LADDER.map((r) => [r.L, r.ceil]), token: 'var(--c-ctx)', dashed: true },
-    { name: 'certified lower bound in that model (exact; the claimant\'s verifier)', pts: LADDER.map((r) => [r.L, r.lower]) }
-  ],
-  alt: 'Two rising curves against the number of cells from 32 to 256. The certified lower bound climbs from 0.0502 to 0.05325; the dashed model minimum climbs from 0.0520 to 0.05335. Both flatten below the horizontal line at 117/2192 = 0.05338: refining the grid cannot reach the answer.'
+  xLabel: 'L, the number of equal cells', yLabel: 'δ₃ ≥ …',
+  hlines: [{ y: TRUE, token: 'var(--ink)', t: '117/2192 = 0.0533759…, the answer (proved, §2)' }, { y: 1675 / 32768, t: 'PRS 2008: 1675/32768', dashed: true }],
+  curves: [{ pts: LADDER.map((r) => [r.L, r.ceil]), standing: W.CHOSEN }, { pts: LADDER.map((r) => [r.L, r.lower]), standing: W.CHOSEN }],
+  pts: LADDER.map((r) => ({ x: r.L, y: r.ceil, token: 'var(--c-ctx)', k: 'L = ' + r.L + ' · the model\'s minimum by local search', v: r.ceil.toFixed(5) + ' (float, the claimant\'s; an upper bound on what the model can certify)' }))
+    .concat(LADDER.map((r) => ({ x: r.L, y: r.lower, token: 'var(--c-1)', k: 'L = ' + r.L + ' · certified lower bound in the model', v: 'δ₃ ≥ ' + lowerOf(r) + ' (the claimant\'s verifier' + (r.exact ? ', ' + r.exact + ' rounded down' : '') + '; not re-decided here)' }))),
+  keys: [{ token: 'var(--c-1)', t: 'certified lower bound in the L-cell model (the claimant\'s verifier)' }, { token: 'var(--c-ctx)', t: 'the model\'s own minimum, by local search (float)' }],
+  alt: 'Two rows of five dots against the number of cells from 32 to 256, each joined by a dotted line. The certified lower bounds climb from ' + OW.down(LADDER[0].lower, 4) + ' to ' + OW.down(lowerOf(lastL), 5) + '; the model minima climb from ' + LADDER[0].ceil.toFixed(4) + ' to ' + lastL.ceil.toFixed(5) + '. Both stay below the solid horizontal line at 117/2192 = 0.05338; the dashed line marks the 2008 bound, 1675/32768: refining the grid cannot reach the answer.'
 });
+if (!LADDER.every((r) => r.ceil < TRUE && r.lower < TRUE && r.lower <= r.ceil)) die('the ladder no longer stays below the answer, or a certified bound sits above its model\'s minimum');
 
 /* ---- the page ---------------------------------------------------------------- */
 const O = [];
@@ -145,17 +173,17 @@ O.push(C.tldr({
     + 'h ≥ 0 that vanishes exactly at the eleven block edges; a discretisation built on h loses nothing to first order, which is '
     + 'what every earlier relaxation could not avoid. The space is then cut into five regions by the distance from the optimum, '
     + 'and each is closed by an exact rational certificate: zero gap near the optimum, a margin of at least '
-    + minSlab.boundDecimal + ' away from it.',
-  checkRaw: C.m('node instruments/delta3/verify.js') + ' — ' + secs(L.seconds) + ' s, Node only, no dependencies. It derives '
+    + boundSci(minSlab, 7) + ' away from it.',
+  checkRaw: C.m('node instruments/delta3/verify.js') + ' — ' + measured(secs(L.seconds) + ' s') + ', Node only, no dependencies. It derives '
     + 'the colouring, h, every cell area and every bathtub constant from the mathematics, rebuilds each certificate\'s residual '
     + 'matrix exactly, proves it semidefinite exactly, and checks the cover. The battery\'s ' + nRed + ' planted forgeries are '
     + 'all refused (' + nPass + ' checks green).'
 }));
 
 O.push(C.stats([
-  { k: 'δ₃', v: '117/2192', n: '= 0.0533759… · was known to lie in [0.05112, 0.05338] since 2008' },
+  { k: 'δ₃', v: '117/2192', n: '= 0.0533759… · was known to lie in [' + OW.down(ratDown('1675/32768', 20), 5) + ', ' + OW.up(117 / 2192, 5) + '] since 2008' },
   { k: 'certificates', v: String(certs.length), n: 'one inner (zero gap) and four slabs, each accepted by two verifiers that share no code' },
-  { k: 'smallest margin', v: Number(minSlab.boundDecimal).toExponential(2), n: 'on E = (Q − Q*)/4, slab [' + frac(minSlab.region.lo) + ', ' + frac(minSlab.region.hi) + ']; exact value in the ledger' },
+  { k: 'smallest margin', v: boundSci(minSlab, 2), n: 'on E = (Q − Q*)/4, slab [' + frac(minSlab.region.lo) + ', ' + frac(minSlab.region.hi) + ']; exact value in the ledger' },
   { k: 'forgeries refused', v: nRed + ' / ' + nRed, n: 'mutated certificates, each refused by the rule it breaks · ' + MU.counts.caught + ' of ' + MU.counts.mutants + ' verifier mutations caught' },
   { k: 'status', v: 'proved', sm: true, n: 'machine-verified twice · read line by line by the author · not refereed · not formalised' }
 ]));
@@ -173,7 +201,7 @@ O.push(C.section({
     + 'in 1999. Parrilo, Robertson and Saracino (2008) disproved the folklore guess β = 1/16 with a colouring in twelve blocks of '
     + 'relative lengths')
     + C.eq('28, 6, 28, 37, 59, 116, 116, 59, 37, 28, 6, 28 &nbsp; (out of 548), alternating in colour,')
-    + C.pRaw('which gives 117/2192 ≈ 0.053376, and proved β ≥ 1675/32768 ≈ 0.051117 by a semidefinite relaxation. Butler, Costello '
+    + C.pRaw('which gives 117/2192 ≈ 0.053376, and proved β ≥ ' + printedBy('1675/32768 ≈ 0.051117', 'Parrilo, Robertson and Saracino (2008), proved there') + ' by a semidefinite relaxation. Butler, Costello '
       + 'and Graham (2010) recovered the twelve blocks by experiment, crediting the 2008 paper; Greenwood, Kariv and Williams (2023) '
       + 'proved them optimal among antisymmetric colourings with at most twelve blocks. On erdosproblems.com the question is '
       + 'problem #1186, for every k — open as of the snapshot pinned here (5 October 2026).')
@@ -207,7 +235,7 @@ O.push(C.section({
       + 'functions, lemmas.js and verify.js, on 2026-10-20; on the g8·4·0 grid L = (8t + 3t²)/18769). The bathtub is exact only along its own '
       + 'minimiser, the sublevel set {h &lt; v}. The theorem never used the stronger sentence: the certificates prove L ≥ 0 (or &gt; 0) over '
       + 'each region, and E ≥ L with L(0) = 0 is the lemma tested in lemmas.js. No verdict moved.')
-    + C.figure({ svgRaw: FIG_H, caption: 'The first-order term h. Flipping the colouring on a set costs ∫h over it to first order; h vanishes exactly at the eleven edges, where moving an edge is free to first order and the certificates must see the second-order cost.' })
+    + C.figure({ svgRaw: FIG_H, caption: 'The first-order term h. Flipping the colouring on a set costs ∫h over it to first order; h vanishes exactly at the eleven edges, where moving an edge is free to first order and the certificates must see the second-order cost. Its ' + HN.length + ' node values are exact, and h is linear between nodes, so the line drawn is h itself: solid, decided.' })
 }));
 
 /* §3 */
@@ -215,8 +243,8 @@ O.push(C.section({
   const rows = certs.map((c) => [
     '[' + frac(c.region.lo) + ', ' + frac(c.region.hi) + ']', c.kind === 'inner' ? 'inner · zero gap' : 'slab',
     String(c.n), fmt(c.counts.forms), c.counts.triangles ? fmt(c.counts.triangles) : '—',
-    { raw: c.kind === 'inner' ? 'E ≥ 0, equality only at σ = 0' : '<strong>E ≥ ' + Number(c.boundDecimal).toExponential(6) + '</strong>' },
-    secs(c.seconds) + ' s', { raw: C.tag('verified', 'held') }
+    { raw: c.kind === 'inner' ? 'E ≥ 0, equality only at σ = 0' : '<strong>E ≥ ' + boundSci(c, 6) + '</strong>' },
+    { raw: measured(secs(c.seconds) + ' s') }, { raw: C.tag('verified', 'held') }
   ]);
   O.push(C.section({
     lab: '§3 · the certificates', title: 'Five regions, five exact identities', wide: true,
@@ -233,7 +261,7 @@ O.push(C.section({
       + '<div class="col">' + C.pRaw('Together the regions cover m ∈ [0, ½], so E ≥ 0 for every σ and Q ≥ −5/137 for every φ. '
         + 'A corollary worth stating: φ* minimises Q on the whole L¹-ball of radius ' + frac(inner.region.hi) + ' × 2 around it, '
         + 'fractional colourings included, and anything at least that far from both ±φ* has Q ≥ −5/137 + 4 × '
-        + Number(minSlab.boundDecimal).toExponential(2) + '.') + '</div>'
+        + boundSci(minSlab, 2) + '. Every printed bound here is rounded down from the exact fraction in the ledger.') + '</div>'
   }));
 }
 
@@ -245,7 +273,7 @@ O.push(C.section({
     lab: '§4 · why you can trust this', title: 'Two verifiers, one clean-room rule, and forgeries that must fail',
     bodyRaw: C.pRaw('<strong>The claimant\'s check.</strong> The generators and a verifier were written in the sandbox in one '
       + 'session, by one AI agent, separately from each other. That verifier, kept here as an exhibit and re-run from the pinned bytes, '
-      + 'accepts the five files (' + rr[1] + ' s on this machine). It leaves the gap the claimant named itself: a misreading shared by '
+      + 'accepts the five files (' + measured(rr[1] + ' s') + ' on this machine). It leaves the gap the claimant named itself: a misreading shared by '
       + 'generator and verifier would not be caught.')
       + C.pRaw('<strong>The second verifier.</strong> ' + C.m('instruments/delta3/verify.js') + ' was written afterwards, in JavaScript, '
         + 'by an agent given the mathematics and a field-by-field description of the files — not the generators, not the claimant\'s '
@@ -253,7 +281,7 @@ O.push(C.section({
         + 'proof force itself, in BigInt rationals: the colouring, h and its zeros, every cell area by two exact routes that must agree '
         + 'pair by pair (the trapezoid rule on the section length, and polygon clipping), the bathtub constants, the cut bounds, the '
         + 'residual matrices. It refuses any form it cannot show nonnegative and any multiplier of the wrong sign, and proves '
-        + 'semidefiniteness exactly or refuses. It accepts all five in ' + secs(L.seconds) + ' s, and its exact bounds equal the files\' claims.')
+        + 'semidefiniteness exactly or refuses. It accepts all five in ' + measured(secs(L.seconds) + ' s') + ', and its exact bounds equal the files\' claims.')
       + C.note({ lab: 'what the second reading found', bodyRaw: C.plainList([
         { b: 'the bathtub constant', text: 'The proof text writes b = (w²/2)/max m′ without saying that m′ sums over every piece of h at a level. Read as the largest single piece, b is too large and the inequality is false — ' + fmt(sp.violations) + ' exact violations in ' + fmt(sp.cases) + ' tests. The certificates were built with the summed reading and verify under it; the paper now says so.' },
         { b: 'ε is load-bearing', text: 'In every slab the residual S alone is not semidefinite (exact negative witnesses); S + εI is, and the bound B − ε(1 + n) accounts for it. Correct, and worth stating.' },
@@ -272,6 +300,13 @@ O.push(C.section({
         + 'are also tested exactly on step functions finer than the grids, adversarial ones included: ' + fmt(LM.identity.cases)
         + ' cases of the identity, all equal; ' + fmt(LM.discretisation.cases) + ' cases of the lemma, all satisfied, the gap exactly 0 '
         + 'on breakpoint flips and single cells — the bound is sharp there. Tests, not proofs.')
+      + C.pRaw('<b>What the theorem rests on</b>, in the order the proof travels through it. The five certificates and their cover of '
+        + 'm ∈ [0, ½] are decided exactly, twice; these are the steps between them and δ₃, each with the rung its checking reached:')
+      + W.premisesHtml([
+        { grade: W.ASSUMED, label: 'The reduction: V(n)/n² ≥ 1/16 + Q*/4 − O(1/n), uniformly over colourings', evidence: 'proved on paper (§2, step 1) and read line by line by the author on 5 October 2026; no machine checked it, and nothing tests it' },
+        { grade: W.ASSUMED, label: 'The expansion: E(σ) = ∫hσ + Q(φ*σ) for every σ', evidence: 'proved on paper; tested exactly on ' + fmt(LM.identity.cases) + ' step functions, all equal (certs/delta3-lemmas.json) — tests on finitely many σ, not a proof for every σ' },
+        { grade: W.ASSUMED, label: 'The discretisation: E ≥ L with L(0) = 0, the bathtub constant summed over every piece of h at a level', evidence: 'proved on paper; tested exactly on ' + fmt(LM.discretisation.cases) + ' cases, all satisfied. Read with the largest single piece instead, it is false (' + fmt(sp.violations) + ' exact violations in ' + fmt(sp.cases) + ' tests); the certificates use the summed reading' },
+      ], { meetLine: 'Every finite step is decided; the weakest premise is <b>assumed</b>: three steps proved on paper and read, which no machine here checked. So δ₃ = 117/2192 holds <i>given the reduction and the two lemmas, read</i> — the status line at the top says the same in words, and a formal proof of the analytic part (§6) is what would lift them.' })
       + C.pRaw('<strong>The upper bound, counted.</strong> The exact number of monochromatic progressions of the twelve-block colouring '
         + 'itself. For n a multiple of 1096 it is exactly 117n²/2192 − n/2:')
       + C.table({ cols: [{ h: 'n', cls: 'n' }, { h: 'monochromatic progressions', cls: 'n' }, { h: 'V/n²', cls: 'n' }, { h: 'n·(V/n² − 117/2192)', cls: 'n' }], rows: vrows })
@@ -283,13 +318,14 @@ O.push(C.section({
   lab: '§5 · the measurement that led here', title: 'Why the obvious discretisation cannot reach the answer',
   bodyRaw: C.pRaw('A day earlier the same sandbox certified lower bounds the classical way — φ discretised on L equal cells, '
     + 'a Shor relaxation with triangle cuts, exact rational multipliers. Its verifier accepted δ₃ ≥ '
-    + (LADDER[LADDER.length - 1].lowerDown || LADDER[LADDER.length - 1].lower) + ' at L = 256 — the exact fraction '
-    + (LADDER[LADDER.length - 1].exact || '').replace('/', ' / ') + ', printed here rounded down; the claimant\'s log prints it as ' + LADDER[LADDER.length - 1].logPrint
+    + printedBy(lowerOf(lastL), 'the claimant\'s verifier (rounded down here from its exact fraction)') + ' at L = 256 — the exact fraction '
+    + (lastL.exact || '').replace('/', ' / ') + ', printed here rounded down; the claimant\'s log prints it as ' + printedBy(lastL.logPrint, 'the claimant\'s log, rounded to nearest')
     + ', rounded to nearest, which an outside audit noted on 2026-10-20 (these were not re-decided here; the logs are kept as the claimant\'s; the certificate itself is certs/delta3/frontier/s34/cert-L256.json). '
     + 'But the model\'s own minimum, found by local search, also stays below the answer at every L: every cell pair the boundary '
     + 'crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof '
     + 'into the coordinates σ.')
-    + C.figure({ svgRaw: FIG_LADDER, caption: 'The superseded ladder. Solid: certified lower bounds in the L-cell model (exact; the claimant\'s verifier). Dashed: the model\'s minimum by local search (floating point, an upper bound on what the model can certify). Both flatten under 117/2192.' })
+    + C.figure({ svgRaw: FIG_LADDER, caption: 'The superseded ladder. Darker dots: certified lower bounds in the L-cell model (exact, by the claimant\'s verifier; not re-decided here, so computed on this page). Lighter dots: the model\'s minimum by local search (floating point, an upper bound on what the model can certify). Each series was computed at five values of L only; the dotted joins are a picture between them. Solid: 117/2192, decided here. Dashed: the 2008 bound, proved by its authors and read here. Both series flatten under 117/2192.' })
+    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.REFUSED] }) + '</div>'
 }));
 
 /* §6 */
