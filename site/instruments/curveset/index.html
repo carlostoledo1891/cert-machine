@@ -484,6 +484,10 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* THE ONE ACCENT (WARRANT v2, design/tokens.js --witness): the red of an EXHIBITED COUNTEREXAMPLE, only ever on a ×
+   glyph beside words, never on a word, a region or a deduction. Declared once here (2026-10-28); six pages had each
+   carried their own copy. warrant.js witness() writes the glyph. */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
 /* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
    column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
    it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
@@ -1162,8 +1166,15 @@ function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
    cannot say different things */
 const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; return o; }, {});
 
+/* THE WITNESS GLYPH (WARRANT v2, 2026-10-28). The house's one accent marks an EXHIBITED COUNTEREXAMPLE — a specific
+   object that broke a claim someone made about that object's own record — and nothing else: never a verdict word, a
+   region, a refutation reached by deduction, a scalar comparison (a box clearing a box has no witness point), or an
+   object from another record than the claim's. Always a × beside words, so a greyscale copy loses nothing. The colour
+   is components.js .wx (design/tokens.js --witness). */
+const witness = (label = 'an exhibited counterexample') => `<span class="wx" aria-label="${String(label).replace(/"/g, '&quot;')}">&times;</span>`;
+
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
-  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS };
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness };
 
 return module.exports;})();
 __M["./envelope.js"]=(function(){const module={exports:{}};const exports=module.exports;

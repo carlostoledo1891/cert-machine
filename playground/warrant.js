@@ -246,5 +246,12 @@ function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
    cannot say different things */
 const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; return o; }, {});
 
+/* THE WITNESS GLYPH (WARRANT v2, 2026-10-28). The house's one accent marks an EXHIBITED COUNTEREXAMPLE — a specific
+   object that broke a claim someone made about that object's own record — and nothing else: never a verdict word, a
+   region, a refutation reached by deduction, a scalar comparison (a box clearing a box has no witness point), or an
+   object from another record than the claim's. Always a × beside words, so a greyscale copy loses nothing. The colour
+   is components.js .wx (design/tokens.js --witness). */
+const witness = (label = 'an exhibited counterexample') => `<span class="wx" aria-label="${String(label).replace(/"/g, '&quot;')}">&times;</span>`;
+
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
-  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS };
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness };

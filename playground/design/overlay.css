@@ -121,7 +121,7 @@ body.sheet-open .sheet { opacity: 1; visibility: visible; }
 }
 
 /* THE GRAMMAR PANEL (WARRANT v2, 2026-10-28): the hypothesis dial and the checks under it. Read by the interferometer;
-   tokens only. .wx is the one accent, the red of an exhibited counterexample, and it only ever sits on a × glyph. */
+   tokens only. The red × it shows is .wx, declared once in components.js. */
 .w-h { display: grid; grid-template-columns: auto 1fr; gap: var(--s-2) var(--s-3); align-items: center; margin: var(--s-3) 0; }
 .w-h label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .w-h select { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink); background: transparent; border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: var(--s-1); }
@@ -129,4 +129,3 @@ body.sheet-open .sheet { opacity: 1; visibility: visible; }
 .w-read b { color: var(--ink); font-weight: var(--weight-mono); margin-right: var(--s-1); }
 .w-read em { color: var(--ink-4); }
 .w-note { display: block; margin-top: var(--s-2); }
-.wx { color: var(--witness); font-weight: var(--weight-strong); }
