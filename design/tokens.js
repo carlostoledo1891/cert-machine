@@ -71,6 +71,11 @@ const DARKONLY = {
   '--warn-soft':    '#141419',
 
   '--mark':         '#32323c',   /* inert marks in figures */
+  /* THE ONE ACCENT (2026-10-28, the operator: field-guide v3, "the only accent was the red one"). It marks an
+     EXHIBITED COUNTEREXAMPLE and nothing else: the object that broke a claim, always on a shape (×, ring) with a
+     word, so a greyscale copy loses nothing. Never a verdict word, a region, or a refutation reached by deduction.
+     5.3:1 on --paper. Not a categorical or sequential mark, so the battery's grey-chart checks do not see it. */
+  '--witness':      '#e0574e',
   '--band-fill':    'rgba(246,246,248,0.07)',  /* interval bands, area fills */
 
   /* ---- chart marks — frontier's validated categorical GRAYS ----
@@ -298,7 +303,7 @@ function rootCss() {
    — the page battery checks figures against this list. */
 const FIGURE_TOKENS = ['--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5',
   '--sig', '--sig-2', '--sig-soft',
-  '--held', '--held-soft', '--warn', '--warn-soft', '--mark', '--band-fill',
+  '--held', '--held-soft', '--warn', '--warn-soft', '--mark', '--band-fill', '--witness',
   '--rule', '--rule-soft', '--rule-strong',
   '--surface', '--surface2', '--sunk', '--paper',
   '--c-1', '--c-2', '--c-3', '--c-ctx', '--c-grid', '--c-axis',

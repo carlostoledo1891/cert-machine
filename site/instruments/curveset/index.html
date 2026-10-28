@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -595,6 +596,9 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 .cs-uline { border-bottom: 1px solid var(--border-strong); }
 .cs-uline.pad { padding-top: var(--s-5); }
 
+/* the one accent (WARRANT v2): where the published curve leaves the set, a red × and nothing else red */
+.cs-exit { stroke: var(--witness); stroke-width: 2.6; stroke-linecap: round; fill: none; }
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -712,7 +716,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
     </div>
     <div class="readout">
       <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="pontius"><span class="w-val w-computed" title="computed — float; nothing decided it">1,500,000 – 1,650,000</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">1,580,781 ± 568.3</span></div><div class="rn">NIST certified quadratic. One member of the set on the left, chosen by a fitting criterion.</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">1,580,781 ± 568.3</span></div><div class="rn">NIST certified quadratic. One member of the set on the left, chosen by a fitting criterion. It stays inside the set at all 9 assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="pontius"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">132.0×</span></div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>
@@ -743,7 +747,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
     </div>
     <div class="readout">
       <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="il6"><span class="w-val w-computed" title="computed — float; nothing decided it">12.50 – 25.00</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">18.37 ± 0.7966</span></div><div class="rn">four-parameter logistic. One member of the set on the left, chosen by a fitting criterion.</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">18.37 ± 0.7966</span></div><div class="rn">four-parameter logistic. One member of the set on the left, chosen by a fitting criterion. It stays inside the set at all 9 assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="il6"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">7.8×</span></div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>
@@ -1482,6 +1486,23 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
     fitPts.push([S.Xu(ux), S.Y(S.clampY(evalF(x)))]);
   }
   const fitPath = `<path d="${fitPts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('')}" ${W.attrs(W.CHOSEN, { width: 2.6 })}/>`;
+  /* WHERE THE PUBLISHED CURVE LEAVES THE SET (WARRANT v2, 2026-10-28). Under the assumption on this rung every curve
+     outside the envelope is inadmissible, so where the published curve is furthest outside is the exhibited object
+     that says so: the page's one red mark, a × on the curve. Floating point, like the envelope, so a relative margin
+     keeps rounding from drawing it; no mark when the curve stays inside. */
+  let exit = null;
+  band.u.forEach((p, k) => {
+    const x = LOG ? Math.pow(10, p.ux) : p.ux;
+    if (x <= 0) return;
+    const hi = Math.max(p.v, band.l[k].v), lo = Math.min(p.v, band.l[k].v), f = evalF(x);
+    const d = f > hi ? f - hi : f < lo ? lo - f : 0, tol = 1e-9 * Math.max(1, Math.abs(f));
+    if (d > tol && (!exit || d > exit.d)) exit = { ux: p.ux, f, d };
+  });
+  const exitMark = exit ? (() => {
+    const cx = S.Xu(exit.ux), cy = S.Y(S.clampY(exit.f)), q = (a, b) => a.toFixed(1) + ',' + b.toFixed(1);
+    return `<path d="M${q(cx - 6, cy - 6)}L${q(cx + 6, cy + 6)}M${q(cx + 6, cy - 6)}L${q(cx - 6, cy + 6)}" class="cs-exit"/>`
+      + `<text x="${(cx + 10).toFixed(1)}" y="${(cy - 9).toFixed(1)}" class="cs-void-lab">the published curve leaves the set here</text>`;
+  })() : '';
 
   /* the standards: measured, with the error budget the page states */
   const pts = set.x.map((x, i) => {
@@ -1537,7 +1558,7 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
 ${fill}
 <path d="${pathU}" ${W.attrs(BAND, { width: 2 })}/>
 <path d="${pathL}" ${W.attrs(BAND, { width: 2 })}/>
-${fitPath}${askLine}${pts}${readMark}${repMark}
+${fitPath}${exitMark}${askLine}${pts}${readMark}${repMark}
 <text x="${(w - PAD.r).toFixed(1)}" y="${h - 6}" class="cs-axname tx">${esc(set.xName)}${set.xUnit ? ' (' + esc(set.xUnit) + ')' : ''}${S.LOG ? ', log scale' : ''}</text>
 <text x="${PAD.l - 10}" y="${PAD.t - 6}" class="cs-axname ty">${esc(set.yName)}${set.yUnit ? ' (' + esc(set.yUnit) + ')' : ''}</text>
 </svg>`;

@@ -48,6 +48,7 @@
     phase: 1, extremes: 0, chiMax: 200, mode: 'contour',
     gamma: 1.1, black: 0.45, levels: 11, density: 1.0, spreadGain: 1.0, beam: 5,
     zoom: 1, ring: 1, uv: 1, grid: 0, invert: 0, register: 1, fluxMax: D.meta.F,
+    grammar: 1, lid: 1, witness: 0, where: 0, hModel: 'station', hSig: 3, hOut: 0,   /* the grammar panel (WARRANT v2) */
     stOn: M.stations.map(() => true),
   };
 
@@ -229,6 +230,8 @@
 
   function drawContour() {
     const L = st.levels;
+    /* the mean of picks is itself a pick: CHOSEN, dotted while the grammar is on (design/grammar.js PICK_SM, a 1px line) */
+    if (st.grammar) ctx.setLineDash([1, 3]);
     for (let l = 1; l <= L; l++) {
       const lv = Math.pow(l / (L + 1), 1 / Math.max(0.2, st.gamma)) * (1 - st.black) + st.black;
       const segs = contoursAt(lv);
@@ -245,6 +248,7 @@
         }
       }
     }
+    ctx.setLineDash([]);
   }
 
   let rnd = 12345; const rand = () => { rnd = (rnd * 1103515245 + 12345) & 0x7fffffff; return rnd / 0x7fffffff; };
@@ -317,6 +321,7 @@
     ctx.textAlign = 'right';
     ctx.fillText('20 µas', bx - 8, by + 4);
     ctx.textAlign = 'left';
+    if (st.grammar) drawGrammar(c, scale);
     if (st.uv) drawUV();
   }
 
@@ -334,10 +339,149 @@
     }
     ctx.fillStyle = ink(0.4); ctx.font = '9px ui-monospace, monospace';
     ctx.fillText('u–v coverage', x0, y0 - 4);
+    /* a row a drawn sky breaks is the datum that refutes it: exhibited, so red */
+    if (st.grammar && G.broken.length) {
+      ctx.strokeStyle = RED; ctx.lineWidth = 1.2;
+      for (const k of G.broken) for (const s of [1, -1]) {
+        const X = c[0] + s * D.vis.u[k] * sc, Y = c[1] - s * D.vis.v[k] * sc;
+        ctx.beginPath(); ctx.moveTo(X - 2.5, Y - 2.5); ctx.lineTo(X + 2.5, Y + 2.5); ctx.moveTo(X + 2.5, Y - 2.5); ctx.lineTo(X - 2.5, Y + 2.5); ctx.stroke();
+      }
+    }
     ctx.restore();
   }
 
+  /* ---------- the grammar (WARRANT v2, 2026-10-28) ----------
+     The contours of the mean of picks are dotted: a pick of picks. The lid — the dual certificate's ceiling on the flux
+     any allowed sky can hold inside r — is dashed: COMPUTED, its inequality checked on a grid in floating point. The
+     witness is red: an exhibited sky that keeps the ceilings it was built against and holds 0.140 Jy inside 6 µas, so
+     the amplitudes alone do not force a dark centre. Where is VOID: neither the amplitudes nor the closure phases can
+     locate the source. And every drawn sky is checked here against all the one-sided ceilings under the hypothesis on
+     the dial; a row it breaks is drawn red on the u–v plane. The red is the house's one accent (design/tokens.js
+     --witness) and sits only on an exhibited object. */
+  const UAS = 4.84813681109536e-12, KV = D.vis.u.length, ST = M.stations;
+  const DELTA = { AA: 0.05, AX: 0.055, MG: 0.035, MM: 0.07, LM: 0.26, SW: 0.075, PV: 0.05, GL: 0.10 };   /* cert-cp.js: the per-station amplitude uncertainties */
+  const RED = getComputedStyle(document.documentElement).getPropertyValue('--witness').trim() || ink(0.9);
+  const G = { V: null, broken: [], picks: 0, bad: 0, worst: null, wj: null, lid: null, hn: '' };
+  /* an 8-bit record is an enclosure: every pixel within peak/510 of the sky it rounds, so every |V| within E */
+  const jy = (x) => { const b = atob(x.b64), w = new Float64Array(NP); for (let i = 0; i < NP; i++) w[i] = (b.charCodeAt(i) / 255) * x.peak; return { w, E: (NP * x.peak) / 510 }; };
+  const JY = D.members.map(jy).concat(D.ceiling.map(jy));                 /* the order of ALL */
+  const WI = D.members.length + D.ceiling.findIndex((x) => x.r0 === 6), WIT = D.ceiling.find((x) => x.r0 === 6);
+  /* |V_k| = |Σ w exp(−2πi(u l + v m))| on the record's own grid, separable in l and m */
+  function visAll() {
+    const RF = M.fov * UAS, co = Float64Array.from({ length: N }, (_, i) => -RF + (2 * RF * i) / (N - 1));
+    const Eu = new Float64Array(KV * N * 2), Ev = new Float64Array(KV * N * 2);
+    for (let k = 0; k < KV; k++) for (let i = 0; i < N; i++) {
+      const a = -2 * Math.PI * D.vis.u[k] * co[i], b = -2 * Math.PI * D.vis.v[k] * co[i], o = (k * N + i) * 2;
+      Eu[o] = Math.cos(a); Eu[o + 1] = Math.sin(a); Ev[o] = Math.cos(b); Ev[o + 1] = Math.sin(b);
+    }
+    return JY.map(({ w }) => {
+      const nz = []; for (let j = 0; j < N; j++) { const l = []; for (let i = 0; i < N; i++) if (w[j * N + i]) l.push(i); nz.push(l); }
+      const V = new Float64Array(KV);
+      for (let k = 0; k < KV; k++) {
+        let re = 0, im = 0; const ok = k * N * 2;
+        for (let j = 0; j < N; j++) {
+          const l = nz[j]; if (!l.length) continue; let sr = 0, si = 0;
+          for (const i of l) { const v = w[j * N + i]; sr += v * Eu[ok + 2 * i]; si += v * Eu[ok + 2 * i + 1]; }
+          const cc = Ev[ok + 2 * j], ss = Ev[ok + 2 * j + 1]; re += sr * cc - si * ss; im += sr * ss + si * cc;
+        }
+        V[k] = Math.hypot(re, im);
+      }
+      return V;
+    });
+  }
+  const hNow = () => ({ model: st.hModel, nsig: +st.hSig, out: +st.hOut });
+  function Avec(h) {
+    const A = new Float64Array(KV);
+    for (let k = 0; k < KV; k++) {
+      const amp = D.vis.amp[k], num = amp + h.nsig * D.vis.sig[k];
+      A[k] = h.model === 'add' ? num + M.gain * amp : num / ((1 - DELTA[ST[D.vis.s1[k]]]) * (1 - DELTA[ST[D.vis.s2[k]]]));
+    }
+    return A;
+  }
+  /* ∀ rows: broken only where the rounding of the record cannot save it; open where it might */
+  function judge(V, E, A, out) {
+    const br = []; let und = 0, worst = 0, wk = 0;
+    for (let k = 0; k < KV; k++) { const r = V[k] / A[k]; if (r > worst) { worst = r; wk = k; } if (V[k] - E > A[k]) br.push(k); else if (V[k] + E > A[k]) und++; }
+    return { v: br.length > out ? 'R' : br.length + und <= out ? 'C' : 'X', br, worst, wk };
+  }
+  /* each lid holds under the hypothesis it was solved for, and under any hypothesis stricter on every row */
+  const LIDS = [
+    { h: { model: 'station', nsig: 3 }, hi: (D.sweep || []).map((r) => r.ceiling) },
+    { h: { model: 'add', nsig: M.nsig }, hi: D.ceiling.map((x) => x.upper) },
+  ].filter((L) => L.hi.length === 4);
+  LIDS.forEach((L) => { L.A = Avec(L.h); });
+  function lidFor(h) {
+    if (h.out > 0) return null;
+    const A = Avec(h), ok = LIDS.filter((L) => { for (let k = 0; k < KV; k++) if (A[k] > L.A[k]) return false; return true; });
+    return ok.length ? [0, 1, 2, 3].map((n) => Math.min(...ok.map((L) => L.hi[n]))) : null;
+  }
+  const GHOST = document.createElement('canvas'); GHOST.width = GHOST.height = N;
+  { const g = GHOST.getContext('2d'), img = g.createImageData(N, N), w = JY[WI].w; let pk = 0; for (const v of w) if (v > pk) pk = v;
+    const rgb = /^#[0-9a-f]{6}$/i.test(RED) ? [1, 3, 5].map((i) => parseInt(RED.slice(i, i + 2), 16)) : [246, 246, 248];
+    for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
+      const p = ((N - 1 - j) * N + i) * 4, a = Math.max(0, (w[j * N + i] / pk - 0.35) / 0.65);   /* only its bright structure: red is scarce */
+      img.data[p] = rgb[0]; img.data[p + 1] = rgb[1]; img.data[p + 2] = rgb[2]; img.data[p + 3] = Math.round(230 * Math.sqrt(a));
+    }
+    g.putImageData(img, 0, 0); }
+  function check() {
+    const h = hNow();
+    G.hn = (h.model === 'station' ? 'per-station gains' : 'additive ' + (100 * M.gain).toFixed(0) + '% gains') + ' · ' + h.nsig + 'σ · ' + (h.out ? 'up to ' + h.out + ' rows may break' : 'every row');
+    G.lid = lidFor(h); G.broken = []; G.picks = 0; G.bad = 0; G.worst = null; G.wj = null;
+    if (!G.V) return;
+    const A = Avec(h), set = new Set();
+    ALL.forEach((m, i) => {
+      if (m.phase < 0 || weightOf(m) <= 0.02) return;
+      G.picks++; const J = judge(G.V[i], JY[i].E, A, h.out);
+      if (J.v === 'R') { G.bad++; J.br.forEach((k) => set.add(k)); if (!G.worst || J.worst > G.worst.worst) G.worst = J; }
+    });
+    G.broken = [...set]; G.wj = judge(G.V[WI], JY[WI].E, A, h.out);
+  }
+  function drawGrammar(c, scale) {
+    ctx.save();
+    if (st.witness) {
+      ctx.imageSmoothingEnabled = true; ctx.globalAlpha = 0.9; ctx.drawImage(GHOST, OX, OY, SQ, SQ); ctx.globalAlpha = 1;
+      ctx.strokeStyle = RED; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);   /* design/grammar.js CLAIM: checked in floating point */
+      ctx.beginPath(); ctx.arc(c[0], c[1], 6 * scale, 0, 7); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = ink(0.8); ctx.font = '11px ui-monospace, monospace';   /* the words stay ink: red only marks */
+      ctx.fillText('witness: ' + WIT.value.toFixed(3) + ' Jy inside 6 µas', c[0] + 6 * scale + 8, c[1] + 4);
+    }
+    if (st.lid) {
+      ctx.lineWidth = 1; ctx.setLineDash([5, 4]);                            /* design/grammar.js CLAIM: the lid is COMPUTED */
+      [6, 12, 20, 28].forEach((r, n) => {
+        ctx.strokeStyle = ink(G.lid ? 0.55 : 0.18); ctx.beginPath(); ctx.arc(c[0], c[1], r * scale, 0, 7); ctx.stroke();
+        if (G.lid) { ctx.fillStyle = ink(0.62); ctx.font = 'italic 10px ui-monospace, monospace'; const a = -Math.PI / 4 - n * 0.16;
+          ctx.fillText('≤ ' + G.lid[n].toFixed(3) + ' Jy', c[0] + Math.cos(a) * r * scale + 5, c[1] + Math.sin(a) * r * scale); }
+      });
+      ctx.setLineDash([]);
+    }
+    if (st.where) {
+      const R = 7 * scale;
+      ctx.save(); ctx.beginPath(); ctx.arc(c[0], c[1], R, 0, 7); ctx.clip(); ctx.strokeStyle = ink(0.45); ctx.lineWidth = 1;
+      for (let x = -2 * R; x < 2 * R; x += 6) { ctx.beginPath(); ctx.moveTo(c[0] + x, c[1] - R); ctx.lineTo(c[0] + x + 2 * R, c[1] + R); ctx.stroke(); }
+      ctx.restore(); ctx.strokeStyle = ink(0.5); ctx.beginPath(); ctx.arc(c[0], c[1], R, 0, 7); ctx.stroke();
+      ctx.fillStyle = ink(0.7); ctx.font = '11px ui-monospace, monospace'; ctx.fillText('where: VOID', c[0] + R + 8, c[1] - R);
+    }
+    ctx.fillStyle = ink(0.5); ctx.font = '10px ui-monospace, monospace'; ctx.textAlign = 'right';
+    ctx.fillText('the mean of ' + nLive + ' skies · CHOSEN, so dotted', OX + SQ, OY - 8); ctx.textAlign = 'left';
+    ctx.restore();
+  }
+  function grammarRead() {
+    const el = $('wRead'), note = $('wNote'); if (!el) return;
+    if (!st.grammar) { el.innerHTML = '<div>off: the instrument as it was drawn before the grammar</div>'; if (note) note.innerHTML = ''; return; }
+    let html = `<div><b>drawn</b> the mean of ${nLive} skies: CHOSEN, a pick of picks</div>`;
+    html += `<div><b>the lid</b> COMPUTED, its inequality checked on a grid in floating point · <em>given ${G.hn}</em>${G.lid ? '' : ' · no lid holds under this hypothesis: re-solve the dual'}</div>`;
+    if (!G.V) html += '<div>checking every drawn sky against the ceilings…</div>';
+    else {
+      html += `<div><b>checked here</b> ${G.bad ? '<span class="wx">×</span> ' : ''}${G.bad} of ${G.picks} drawn picks break the one-sided ceilings${G.bad ? `, worst ×${G.worst.worst.toFixed(2)} on ${ST[D.vis.s1[G.worst.wk]]}–${ST[D.vis.s2[G.worst.wk]]}, the red × on the u–v plane` : ''} · <em>given ${G.hn}</em></div>`;
+      html += `<div><b>the witness</b> <span class="wx">×</span> refutes “the amplitudes force a dark centre”; ${G.wj.v === 'R' ? 'it breaks this hypothesis' : 'it breaks no row beyond the rounding of its 8-bit copy'}</div>`;
+    }
+    html += '<div><b>where</b> VOID: neither the amplitudes nor the closure phases can locate the source</div>';
+    el.innerHTML = html;
+    if (note) note.innerHTML = G.V && G.bad ? ` <span class="wx">×</span> Against the one-sided ceilings, ${G.bad} of these ${G.picks} break some rows.` : '';
+  }
+
   function draw() {
+    check();
     ctx.clearRect(0, 0, W, H);
     if (st.invert) { ctx.fillStyle = '#f6f6f8'; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'difference'; }
     if (st.mode === 'field') drawField();
@@ -347,6 +491,7 @@
     drawOverlays();
     ctx.globalCompositeOperation = 'source-over';
     readout();
+    grammarRead();
   }
 
   function readout() {
@@ -456,6 +601,15 @@
   }
   window.addEventListener('hashchange', () => { applyHash(); reduce(); resize(); });
 
+  /* the hypothesis dial: its state lives in st, so the #set= hook drives it like any other control */
+  for (const key of ['hModel', 'hSig', 'hOut']) {
+    const e = $(key); if (!e) continue;
+    e.value = String(st[key]);
+    e.addEventListener('change', () => { st[key] = key === 'hModel' ? e.value : +e.value; draw(); });
+  }
+
   applyHash();
   reduce(); resize();
+  /* every record's 838 visibilities, once, after the first paint */
+  setTimeout(() => { G.V = visAll(); draw(); }, 60);
 })();

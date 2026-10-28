@@ -30,10 +30,20 @@ NEXT SESSION, IN ORDER:
      holds); one line per claim says whether the verdict survives. FINDING: 9 of 10 survive; gg-south-america-daily is DOES
      NOT HOLD for our box (gen. gamma 9 vs exp. Weibull 12 of 22) but HOLDS if the north edge moves 4° south or the east edge
      4° west. P1 (paper/tex/p1-return-levels.tex §claims) says "the two that do not hold" — still true for the boxes as drawn;
-     a robustness clause is the co-authors' call at P1's next revision. NOT DONE: WARRANT v2 stays OUT of the method paper
-     (operator); the accepted colour is ONE red accent, only on an exhibited counterexample (field-guide v3) — not yet on any
-     live page; the interferometer finding (§16–17: the 18-member ensemble breaks the one-sided amplitude ceilings though the
-     page calls every drawn sky "allowed") is OPEN. Next pages: the operator's choice (interferometer first recommended).
+     a robustness clause is the co-authors' call at P1's next revision. THEN, on "yes, do all planned next pages": the ONE
+     ACCENT entered the house — design/tokens.js --witness #e0574e, only ever on a mark of an exhibited counterexample (×,
+     ring), never a word — and four more instruments went v2: INTERFEROMETER (a grammar panel: contours of the mean of picks
+     dotted, the lid dashed with italic ceilings named by hypothesis, the r=6 witness's bright centre red, where = VOID, and a
+     hypothesis dial — gains, σ, rows allowed to break — under which every drawn sky is checked live against all 838
+     one-sided ceilings, broken rows red × on the u–v box; the standfirst no longer says the drawn skies are "allowed": at
+     3σ every drawn pick breaks some rows, e.g. 5 of 5 at full phase weight, worst ×1.84 AA–MG, per-station); RETURN-LEVEL
+     CHECK (a red × before a printed-fit verdict that rests on an exhibited object; printed.js untouched, pinned by
+     certs/design-table-audit.json); CURVESET (a red × where the published curve leaves the set — it leaves it nowhere, at all
+     9 assumptions on both calibrations, and the page now says so); SHAPE-HUNT (the one-null count CHOSEN, the both-null
+     count COMPUTED, a red × on the 5 nonsense controls that clear the configuration null alone). Gates, the palette and
+     printed-fit batteries, the dash census (469) and check-links green. WARRANT v2 stays OUT of the method paper (operator).
+     Next: census, stereo-reach, pu (mostly marking chosen inputs); the atlas's printed panel could carry the same × as the
+     check (one EXHIBITED set, today in the check's app.js).
   ★ HANDOFF 2026-10-27 ~17:30 UTC — "We can proceed all improvements from your list, including the paid ones. Need to finish and
      advance as much as possible today. After the work, update papers and website. 10. Are the companions needed? … 11. Zenodo ok.
      Do not have arxiv." Then "Can we delete unused download data … to free disk space?" → "if safe, do it all".

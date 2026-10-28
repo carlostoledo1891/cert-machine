@@ -47,3 +47,6 @@ section p + p, section p + ul, section p + ol, section p + figure,
 section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
 section h2, section h3 { margin-top: var(--s-7); }
 section h2 + *, section h3 + * { margin-top: var(--s-4); }
+
+/* the one accent (WARRANT v2): the red of an exhibited counterexample, only ever on a × glyph */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }

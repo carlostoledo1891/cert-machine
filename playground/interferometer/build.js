@@ -51,7 +51,7 @@ const body = `
 <div class="ov ov-title">
   <div class="eyebrow">M87 &middot; ${M.date} &middot; ${M.freqGHz.toFixed(0)} GHz</div>
   <h1 class="mt3">Not the picture.<br>The set of pictures.</h1>
-  <p>Every sky drawn here is one the Event Horizon Telescope&rsquo;s released data allow. What they agree on is ink. What they disagree on is texture.</p>
+  <p>Every sky drawn here was fitted to the Event Horizon Telescope&rsquo;s released data. What they agree on is ink. What they disagree on is texture.<span class="w-note" id="wNote"></span></p>
 </div>
 
 <div class="ov ov-foot">
@@ -72,6 +72,23 @@ const body = `
     <span class="eyebrow">the one control that matters</span>
     ${slider('cPhase', 'phase information', 0, 1, 0.01)}
     <div class="note-sm">At zero, only the visibility <em>amplitudes</em> are used &mdash; and amplitudes cannot see position, so the ring dissolves. Slide right to bring in the closure phases, the only phase information in these files that survives calibration.</div>
+  </div>
+  <hr class="hr-thin">
+
+  <div class="grp">
+    <span class="eyebrow">the grammar</span>
+    <div class="row-btns">
+      <button data-flag="grammar">grammar</button>
+      <button data-flag="lid">the lid</button>
+      <button data-flag="witness">the witness</button>
+      <button data-flag="where">where</button>
+    </div>
+    <div class="w-h">
+      <label for="hModel">gains</label><select id="hModel"><option value="station">per station</option><option value="add">additive ${(100 * M.gain).toFixed(0)}%</option></select>
+      <label for="hSig">ceiling</label><select id="hSig"><option value="2">2&sigma;</option><option value="3">3&sigma;</option><option value="4">4&sigma;</option><option value="5">5&sigma;</option></select>
+      <label for="hOut">rows may break</label><select id="hOut"><option value="0">none</option><option value="2">2</option><option value="5">5</option><option value="10">10</option></select>
+    </div>
+    <div class="w-read" id="wRead"></div>
   </div>
   <hr class="hr-thin">
 
@@ -159,12 +176,12 @@ const body = `
     ${(SWEEP.opts.perstation && !M.perstation) ? `<p><b>One table on this page is older than that correction.</b> The amplitude extremes above &mdash; the skies the render draws when you switch them on &mdash; come from a run made before the per-station form became the default, so they sit under the additive allowance and are looser as constraints and tighter as numbers than they should be. They are kept because they are what the render is actually drawing; they will move when the ensemble is rebuilt. This paragraph disappears on its own when it is.</p>` : ''}` : ''}
 
     <h3>What is not here</h3>
-    <p>Nothing on this page is certified in the bench&rsquo;s sense. The pointwise inequality is checked on a fine grid with a Lipschitz margin covering the gaps between samples &mdash; a float safeguard, not a proof &mdash; ${cpWorst ? `and the enclosure is loose by ${((cpWorst - 1) * 100).toFixed(0)}% at worst, which is a statement about the search for good multipliers and not about the mathematics` : 'and the ceilings are loose, because the search for good multipliers is'}. The ensemble is an ensemble, not a posterior: it says these skies are allowed, never how likely they are. Everything was computed on one laptop from the public release; nothing has been sent anywhere.</p>
+    <p>Nothing on this page is certified in the bench&rsquo;s sense. The pointwise inequality is checked on a fine grid with a Lipschitz margin covering the gaps between samples &mdash; a float safeguard, not a proof &mdash; ${cpWorst ? `and the enclosure is loose by ${((cpWorst - 1) * 100).toFixed(0)}% at worst, which is a statement about the search for good multipliers and not about the mathematics` : 'and the ceilings are loose, because the search for good multipliers is'}. The ensemble is an ensemble, not a posterior: it says these skies fit, by a two-sided fit, never how likely they are &mdash; and fitting is not keeping every ceiling: the grammar panel checks each drawn sky against the one-sided ceilings the lid is solved under, row by row, in your tab, and draws every row a sky breaks in red on the u&ndash;v plane. Everything was computed on one laptop from the public release; nothing has been sent anywhere.</p>
     <p><strong>Stated hypotheses, in full:</strong> ${/^[aeiou8]/i.test(String(2 * M.fov)) ? 'an' : 'a'} ${2 * M.fov} µas field of view, nonnegativity, a total flux ceiling of ${M.F} Jy inside it, baselines above ${M.bcut} Gλ only, and amplitude ceilings at ${M.nsig}&sigma; plus ${(100 * M.gain).toFixed(0)}% gain. Nothing else is assumed and nothing else is used.${(SWEEP && SWEEP.opts.perstation && !M.perstation) ? ` That last clause describes the ENSEMBLE and the extremes; the bracket table above uses the corrected per-station form, in which the allowance divides rather than adds. Two objects, two error models, and saying so is cheaper than the confusion.` : ''}</p>
   </div>
 </div>
 
-<script id="ifm-data" type="application/json">${JSON.stringify(D).replace(/</g, '\\u003c')}</script>`;
+<script id="ifm-data" type="application/json">${JSON.stringify(Object.assign({}, D, { sweep: SWEEP ? SWEEP.rows.map(r => ({ r0: r.r0, ceiling: r.ceiling, witness: r.witness })) : [] })).replace(/</g, '\\u003c')}</script>`;
 
 function build(OUT) {
   const html = page({

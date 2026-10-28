@@ -103,3 +103,6 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 .sec table, .sec pre, .sec .grid3, .sec .two, .sec .three, .sec .words, .sec .cert { max-width: none; }
 
 .rule-5 { border-left-color: var(--ink-5); }   /* one quieter rule on one block (2026-09-15) */
+
+/* the one accent (WARRANT v2): the red of an exhibited counterexample, only ever on a × glyph */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }

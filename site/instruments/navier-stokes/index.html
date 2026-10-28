@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -635,6 +636,17 @@ body.sheet-open .sheet { opacity: 1; visibility: visible; }
   .ov-title p { display: none; }
   .ov-foot .cap { display: none; }
 }
+
+/* THE GRAMMAR PANEL (WARRANT v2, 2026-10-28): the hypothesis dial and the checks under it. Read by the interferometer;
+   tokens only. .wx is the one accent, the red of an exhibited counterexample, and it only ever sits on a × glyph. */
+.w-h { display: grid; grid-template-columns: auto 1fr; gap: var(--s-2) var(--s-3); align-items: center; margin: var(--s-3) 0; }
+.w-h label { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.w-h select { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink); background: transparent; border: 1px solid var(--border-strong); border-radius: var(--radius-s); padding: var(--s-1); }
+.w-read { display: flex; flex-direction: column; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow); line-height: var(--leading-body); color: var(--ink-3); }
+.w-read b { color: var(--ink); font-weight: var(--weight-mono); margin-right: var(--s-1); }
+.w-read em { color: var(--ink-4); }
+.w-note { display: block; margin-top: var(--s-2); }
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
 
 html,body{height:100%;overflow:hidden;}
 /* THE PANEL HIDES WITHOUT LEAVING THE PAGE. The shared grammar slides it out with

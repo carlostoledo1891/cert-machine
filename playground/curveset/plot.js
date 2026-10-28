@@ -109,6 +109,23 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
     fitPts.push([S.Xu(ux), S.Y(S.clampY(evalF(x)))]);
   }
   const fitPath = `<path d="${fitPts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('')}" ${W.attrs(W.CHOSEN, { width: 2.6 })}/>`;
+  /* WHERE THE PUBLISHED CURVE LEAVES THE SET (WARRANT v2, 2026-10-28). Under the assumption on this rung every curve
+     outside the envelope is inadmissible, so where the published curve is furthest outside is the exhibited object
+     that says so: the page's one red mark, a × on the curve. Floating point, like the envelope, so a relative margin
+     keeps rounding from drawing it; no mark when the curve stays inside. */
+  let exit = null;
+  band.u.forEach((p, k) => {
+    const x = LOG ? Math.pow(10, p.ux) : p.ux;
+    if (x <= 0) return;
+    const hi = Math.max(p.v, band.l[k].v), lo = Math.min(p.v, band.l[k].v), f = evalF(x);
+    const d = f > hi ? f - hi : f < lo ? lo - f : 0, tol = 1e-9 * Math.max(1, Math.abs(f));
+    if (d > tol && (!exit || d > exit.d)) exit = { ux: p.ux, f, d };
+  });
+  const exitMark = exit ? (() => {
+    const cx = S.Xu(exit.ux), cy = S.Y(S.clampY(exit.f)), q = (a, b) => a.toFixed(1) + ',' + b.toFixed(1);
+    return `<path d="M${q(cx - 6, cy - 6)}L${q(cx + 6, cy + 6)}M${q(cx + 6, cy - 6)}L${q(cx - 6, cy + 6)}" class="cs-exit"/>`
+      + `<text x="${(cx + 10).toFixed(1)}" y="${(cy - 9).toFixed(1)}" class="cs-void-lab">the published curve leaves the set here</text>`;
+  })() : '';
 
   /* the standards: measured, with the error budget the page states */
   const pts = set.x.map((x, i) => {
@@ -164,7 +181,7 @@ function calibrationPlot(E, set, ri, { w = 900, h = 460 } = {}) {
 ${fill}
 <path d="${pathU}" ${W.attrs(BAND, { width: 2 })}/>
 <path d="${pathL}" ${W.attrs(BAND, { width: 2 })}/>
-${fitPath}${askLine}${pts}${readMark}${repMark}
+${fitPath}${exitMark}${askLine}${pts}${readMark}${repMark}
 <text x="${(w - PAD.r).toFixed(1)}" y="${h - 6}" class="cs-axname tx">${esc(set.xName)}${set.xUnit ? ' (' + esc(set.xUnit) + ')' : ''}${S.LOG ? ', log scale' : ''}</text>
 <text x="${PAD.l - 10}" y="${PAD.t - 6}" class="cs-axname ty">${esc(set.yName)}${set.yUnit ? ' (' + esc(set.yUnit) + ')' : ''}</text>
 </svg>`;

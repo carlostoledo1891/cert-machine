@@ -43,6 +43,9 @@ const monoR = (s) => ratio(s, 0), dotsR = (s) => ratio(s, lastIdx(s));
    the page never draws is the decoration the grammar exists to avoid. */
 const legend = W.legendHtml({ exclude: [W.DECIDED] });
 
+/* WARRANT v2: does the published curve stay inside the set at every rung? measured on the figure plot.js draws, so the
+   sentence and the red × can never disagree */
+const insideAll = (s) => s.rungs.every((r, i) => !/class="cs-exit"/.test(PLOT.calibrationPlot(E, s, i)));
 const panel = (s) => {
   const start = 0;                       /* open on bare monotonicity — the widest true answer */
   return `<div class="panel" data-set="${s.id}">
@@ -60,7 +63,7 @@ const panel = (s) => {
     </div>
     <div class="readout">
       <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${W.value(s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded', BAND)}</div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN)}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion.</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN)}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion. ${insideAll(s) ? `It stays inside the set at all ${s.rungs.length} assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.` : `Where it leaves the set, a red × marks the place: there the published curve is not admissible under that assumption.`}</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${W.value(monoR(s) ? n(monoR(s)) + '×' : '∞', W.meet(BAND, W.CHOSEN))}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>

@@ -78,3 +78,6 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 .cs-hang { padding-left: 1.1em; }
 .cs-uline { border-bottom: 1px solid var(--border-strong); }
 .cs-uline.pad { padding-top: var(--s-5); }
+
+/* the one accent (WARRANT v2): where the published curve leaves the set, a red × and nothing else red */
+.cs-exit { stroke: var(--witness); stroke-width: 2.6; stroke-linecap: round; fill: none; }
