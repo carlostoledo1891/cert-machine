@@ -52,11 +52,17 @@ NEXT SESSION, IN ORDER:
        gsm8k-audit, alphaevolve-community, time-horizon, curve-seeds). Reports B (03f49d88) is MERGED LOCALLY; its gate
        `make page R="gsm8k aerp horizon curveseeds"` was running at handoff — if origin/main lacks 03f49d88, re-run that
        gate (aerp takes 10–15 min) and push.
-       MACHINIDAE: an agent was migrating ~/Projects/machinidae/web (branch m0-m2) onto the approved palette (lineage
-       #79b9d6, rules #6744c5, aleator ink+diamond, outcome greens, the one red #e0574e only on a shown overlap; ochre,
-       amber, rose retired). Check ~/Projects/machinidae `git log -3` and `git status`: if its commit is there and `make
-       test` (25 min) is green, message the Machinidae session (clade-code-9f) that the migration is done; publishing
-       (publish-zone.js machinidae) is the operator's word. If the agent left work uncommitted, finish it there.
+       MACHINIDAE: DONE 2026-10-28 ~20:30 UTC — 40c0b0392a on m0-m2 in ~/Projects/machinidae (web/ only, 20 files):
+       the approved palette (lineage #79b9d6, rules #6744c5, aleator/AI-alone ink + diamond, outcome greens, the one red
+       #e0574e only as a ring at a shown overlap or escape; ochre/blue/rose retired), REFUTED solid, REFUSED the void,
+       only the five dashes (engine.py's document() now refuses others, CSS dashed/dotted and retired colours), arm
+       identity by weight/opacity/shape. make test ALL GREEN (25 batteries; web 71 checks, 14 reds); dist 9.41 MB < 10.
+       NOT PUBLISHED: the zone on carlostoledo.co still shows the old palette until `make web` → `make publish` (dry run)
+       → `node tools/publish-zone.js machinidae --push` — the operator's word. The Machinidae session (clade-code-9f)
+       had ended before the done-message could be sent: tell its next session (CladeDraw.C lost ochre/blue/rose, gained
+       witness/lineage; D, stroke, solid added). Rulings it raised: tied champions CHOSEN? (209 of 236 confirmatory
+       champions share the best training score); a words-only channel for inferential role (pilot, confirmatory,
+       synthetic, trial); an optional darker grey for the blind-tree control (a colour change: needs approval).
        NEXT BATCH (agreed): the model-based reports — hseva, breaking, regatlas, harbor-proof, water-value, price/pu,
        skyaudit, glide-band, evtol-energy — and the next most-linked: horizonmath, erdos290, ember, erdos1038-sup, rerun,
        erdos1, envs, lambda4, ecbench, delta3; then about, oracle, papers index, apps index. Lanes in worktrees with the
