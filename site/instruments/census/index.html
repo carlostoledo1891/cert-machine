@@ -484,6 +484,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 .w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
 .w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
@@ -513,6 +518,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
 }
 
 /* the grammar's stroke and voice classes are the shared layer's
@@ -532,6 +538,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .ce-read .k { color: var(--ink-3); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
 .ce-read .v { font-size: 22px; line-height: 1.1; }
 .ce-read .v.w-decided { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ce-read .full { grid-column: 1 / -1; color: var(--ink-2); font-size: var(--text-eyebrow); line-height: var(--leading-snug); }
 .ce-note { color: var(--ink-2); font-size: 12px; line-height: 1.45; }
 .ce-sl { display: grid; gap: 2px; }
 .ce-sl .r { display: flex; justify-content: space-between; color: var(--ink-3); font-size: 10.5px; }
@@ -553,6 +560,9 @@ section p + p, section p + ul, section p + ol, section p + figure,
 section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
 section h2, section h3 { margin-top: var(--s-7); }
 section h2 + *, section h3 + * { margin-top: var(--s-4); }
+
+/* the one accent (WARRANT v2): the red of an exhibited counterexample, only ever on a × glyph */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
 
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -715,18 +725,29 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
   failing instances, the paper&rsquo;s network).</p>
   <p><b>The totals are chosen.</b> Table I of the paper prints rounded integers, and rounded
   integers are not a flow: at nodes 3 (-1), 4 (+2), 5 (+1), 6 (-1), 7 (-1)
-  the printed outflow does not equal the inflow. The totals drawn are the nearest conserving
-  flow to Table I in the least-squares sense, solved exactly &mdash; no edge moves by more than
-  21/37 (0.568), inside the rounding. That is one member of
-  the rounding box, so it is drawn dotted. The totals themselves are reproduced within their
+  the printed outflow does not equal the inflow. Read as roundings to the nearest integer, its
+  numbers allow each total &frac12; either way. The totals drawn are the nearest conserving flow to
+  Table I inside that box, in the least-squares sense, solved exactly over &#8474; with its optimality
+  conditions checked: no edge moves by more than &frac12;, and 3 edges sit on the bound.
+  Until 2026-10-28 this page drew the nearest conserving flow with no box, and that one moved
+  2 edges by up to 21/37 (0.568) &mdash; outside the
+  rounding this sentence said it was inside. A pick has to be a member of the set the data admits,
+  so it is no longer drawn. The one drawn is one member of the rounding box, so it is dotted. The totals themselves are reproduced within their
   rounding and proved on <a href="../../reports/wardrop-repro.html">the Wardrop page</a>; this
   page does not re-prove them.</p>
   <p><b>The split is chosen.</b> Population a&rsquo;s share of each shared edge is one point of the
   face, found by exact max-flow and centred so that no flow sits at zero (smallest slack
-  3/2). The sliders move it along the 6 directions of the null space;
+  <span class="w-val w-chosen" title="chosen — one member of a set the data admits">3/2</span>). The sliders move it along the 6 directions of the null space;
   the ranges are where a flow would turn negative. Nothing decides which point the players
   actually chose &mdash; the paper&rsquo;s own scenario S1 has unique totals and a split that
   moves across re-seeds, which is exactly the non-uniqueness this face measures.</p>
+  <p><b>In the grammar&rsquo;s words.</b> Three questions, three shapes of answer. <em>What is k?</em> The face&rsquo;s
+  dimension, decided over &#8474;: its readout is solid, as are z and the shortcut, which are exact counts.
+  <em>Is there a conserving flow inside Table I&rsquo;s rounding?</em> Yes, and the yes is decided the way an
+  existence is: by exhibiting one. The exhibited flow is still only one of many, so the drawing of it is
+  dotted &mdash; a chosen witness to a decided existence, which is the difference between a mark&rsquo;s
+  standing and a question&rsquo;s verdict. <em>Whose flow is it?</em> Not decidable from the totals: the
+  split is one point of a 6-dimensional face, dotted, and the sliders are the rest of the face.</p>
 </section>
 
 <section class="wrap">
@@ -737,12 +758,14 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
   3,925 random networks the theorem was tested on
   (seed 5320260901), the shortcut failed 571 times and
   z was positive 571 times &mdash; the same 571
-  networks. Three of them, from the record, and the constructed family that forces it:</p>
+  networks. Three of them, from the record, and the constructed family that forces it, each marked with the
+  house&rsquo;s one accent, a red <span class="wx">&times;</span>: the shortcut is a claim about every network,
+  and a network it gets wrong is the exhibited object that refutes it. The page draws nothing else red.</p>
   <div class="ce-gal">
-    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="21.755046147272353" y1="105.57646537694201" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><line x1="120.37186173822907" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink)" stroke-width="2.2"/><line x1="59.628138261770935" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#1 &middot; k = 1, shortcut 0, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
-<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="21.063457289145433" y1="77.8446275633149" x2="158.93654271085455" y2="77.84462756331487" stroke="var(--ink)" stroke-width="2.2"/><line x1="134.99513267805776" y1="36.37688898167154" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="113.94141003279682" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="29.378221735089305" y1="125.00000000000003" x2="45.004867321942235" y2="36.37688898167155" stroke="var(--ink-3)" stroke-width="1"/><line x1="150.62177826491072" y1="124.99999999999999" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="134.99513267805776" y2="36.37688898167154" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="134.99513267805776" cy="36.37688898167154" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.93654271085455" cy="77.84462756331487" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="150.62177826491072" cy="124.99999999999999" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="113.94141003279682" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="66.05858996720319" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="29.378221735089305" cy="125.00000000000003" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.063457289145433" cy="77.8446275633149" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="45.004867321942235" cy="36.37688898167155" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#2 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
-<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="20" y1="90.00000000000001" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink)" stroke-width="2.2"/><line x1="139.49747468305833" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink)" stroke-width="2.2"/><line x1="40.502525316941664" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.502525316941664" y1="40.50252531694168" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.50252531694168" y1="139.49747468305833" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="40.50252531694168" stroke="var(--ink)" stroke-width="2.2"/><line x1="90" y1="20" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="40.50252531694168" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="160" cy="90" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="139.49747468305833" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="90" cy="160" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.50252531694168" cy="139.49747468305833" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="20" cy="90.00000000000001" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.502525316941664" cy="40.50252531694168" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>#3 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
-    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="21.755046147272353" y2="105.57646537694201" stroke="var(--ink)" stroke-width="2.2"/><line x1="21.755046147272353" y1="105.57646537694201" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink)" stroke-width="2.2"/><line x1="35.27179622723791" y1="46.35571386988866" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption>the shared 3-cycle with no exit &middot; k = 1, shortcut 0, z = 1; the same for every cycle length from 3 to 8.</figcaption></figure>
+    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="21.755046147272353" y1="105.57646537694201" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><line x1="120.37186173822907" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink)" stroke-width="2.2"/><line x1="59.628138261770935" y1="153.06782075316934" x2="144.72820377276207" y2="46.35571386988865" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption><span class="wx" aria-label="an exhibited counterexample to the shortcut">&times;</span> #1 &middot; k = 1, shortcut 0, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="21.063457289145433" y1="77.8446275633149" x2="158.93654271085455" y2="77.84462756331487" stroke="var(--ink)" stroke-width="2.2"/><line x1="134.99513267805776" y1="36.37688898167154" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="113.94141003279682" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="29.378221735089305" y1="125.00000000000003" x2="45.004867321942235" y2="36.37688898167155" stroke="var(--ink-3)" stroke-width="1"/><line x1="150.62177826491072" y1="124.99999999999999" x2="66.05858996720319" y2="155.7784834550136" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="150.62177826491072" y2="124.99999999999999" stroke="var(--ink-3)" stroke-width="1"/><line x1="134.99513267805776" y1="36.37688898167154" x2="21.063457289145433" y2="77.8446275633149" stroke="var(--ink-3)" stroke-width="1"/><line x1="45.004867321942235" y1="36.37688898167155" x2="134.99513267805776" y2="36.37688898167154" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="134.99513267805776" cy="36.37688898167154" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.93654271085455" cy="77.84462756331487" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="150.62177826491072" cy="124.99999999999999" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="113.94141003279682" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="66.05858996720319" cy="155.7784834550136" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="29.378221735089305" cy="125.00000000000003" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.063457289145433" cy="77.8446275633149" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="45.004867321942235" cy="36.37688898167155" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption><span class="wx" aria-label="an exhibited counterexample to the shortcut">&times;</span> #2 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+<figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="20" y1="90.00000000000001" x2="90" y2="20" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink)" stroke-width="2.2"/><line x1="139.49747468305833" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink)" stroke-width="2.2"/><line x1="40.502525316941664" y1="40.50252531694168" x2="160" y2="90" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.502525316941664" y1="40.50252531694168" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><line x1="40.50252531694168" y1="139.49747468305833" x2="139.49747468305833" y2="139.49747468305833" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="160" x2="139.49747468305833" y2="40.50252531694168" stroke="var(--ink)" stroke-width="2.2"/><line x1="90" y1="20" x2="90" y2="160" stroke="var(--ink-3)" stroke-width="1"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="40.50252531694168" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="160" cy="90" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="139.49747468305833" cy="139.49747468305833" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="90" cy="160" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.50252531694168" cy="139.49747468305833" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="20" cy="90.00000000000001" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="40.502525316941664" cy="40.50252531694168" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption><span class="wx" aria-label="an exhibited counterexample to the shortcut">&times;</span> #3 &middot; k = 0, shortcut -1, z = 1. The heavy edges are the exit-free shared component.</figcaption></figure>
+    <figure><svg viewBox="0 0 180 180" role="img" aria-label="a small directed network"><line x1="90" y1="20" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="90" y1="20" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="144.72820377276207" y1="46.35571386988865" x2="158.24495385272763" y2="105.57646537694201" stroke="var(--ink-3)" stroke-width="1"/><line x1="158.24495385272763" y1="105.57646537694201" x2="120.37186173822907" y2="153.06782075316934" stroke="var(--ink-3)" stroke-width="1"/><line x1="59.628138261770935" y1="153.06782075316934" x2="21.755046147272353" y2="105.57646537694201" stroke="var(--ink)" stroke-width="2.2"/><line x1="21.755046147272353" y1="105.57646537694201" x2="35.27179622723791" y2="46.35571386988866" stroke="var(--ink)" stroke-width="2.2"/><line x1="35.27179622723791" y1="46.35571386988866" x2="59.628138261770935" y2="153.06782075316934" stroke="var(--ink)" stroke-width="2.2"/><circle cx="90" cy="20" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="144.72820377276207" cy="46.35571386988865" r="7" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="158.24495385272763" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="120.37186173822907" cy="153.06782075316934" r="5" fill="var(--ink)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="59.628138261770935" cy="153.06782075316934" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="21.755046147272353" cy="105.57646537694201" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/><circle cx="35.27179622723791" cy="46.35571386988866" r="5" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.2"/></svg><figcaption><span class="wx" aria-label="an exhibited counterexample to the shortcut">&times;</span> the shared 3-cycle with no exit &middot; k = 1, shortcut 0, z = 1; the same for every cycle length from 3 to 8.</figcaption></figure>
   </div>
   <p class="note">Every network in the gallery is a preset above. The engine that decided them
   is <span class="mono">playground/census/engine.js</span>, written fresh in JavaScript with
@@ -751,7 +774,7 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
 </section>
 
 <footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
-<script id="ce-spec" type="application/json">{"paper":{"edges":[[1,2],[2,3],[9,3],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[3,7],[4,7],[5,7],[6,7],[7,8],[7,10]],"exits":[8,10],"ea":1,"eb":9,"table1":[100,38,100,62,24,37,12,22,10,76,54,40,31,100,100],"pos":{"1":[0.05,0.35],"2":[0.22,0.35],"3":[0.4,0.62],"4":[0.4,0.22],"5":[0.58,0.55],"6":[0.58,0.22],"7":[0.76,0.42],"8":[0.94,0.28],"9":[0.05,0.78],"10":[0.94,0.58]},"q1":100,"q2":100,"face":{"k":6,"shortcut":6,"z":0,"cons":5,"shared":[4,5,6,7,8,9,10,11,12,13,14],"rank":5,"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]]},"repair":{"T":["100","1397/37","100","2303/37","906/37","6907/185","2192/185","793/37","1773/185","14048/185","9888/185","198/5","5738/185","100","100"],"Tnum":[100,37.75675675675676,100,62.24324324324324,24.486486486486488,37.33513513513513,11.848648648648648,21.43243243243243,9.583783783783783,75.93513513513514,53.44864864864865,39.6,31.016216216216215,100,100],"correction":["0","-9/37","0","9/37","18/37","62/185","-28/185","-21/37","-77/185","-12/185","-102/185","-2/5","3/185","0","0"],"residualBefore":["0","0","-1","2","1","-1","-1","0"],"rows":[1,2,3,4,5,6,7,9],"maxDev":"21/37","maxDevNum":0.5675675675675675},"split":{"base":["100","1397/37","0","2303/37","3/2","3/2","22451/2220","3733/2220","3/2","1286/37","19221/370","22451/2220","7063/2220","175/3","125/3"],"baseNum":[100,37.75675675675676,0,62.24324324324324,1.5,1.5,10.113063063063063,1.6815315315315316,1.5,34.75675675675676,51.94864864864865,10.113063063063063,3.1815315315315313,58.333333333333336,41.666666666666664],"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]],"shared":[4,5,6,7,8,9,10,11,12,13,14],"ranges":[{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"65461/2220","loNum":-1.5,"hiNum":29.486936936936935},{"lo":"-3/2","hi":"43847/2220","loNum":-1.5,"hiNum":19.750900900900902},{"lo":"-125/3","hi":"175/3","loNum":-41.666666666666664,"hiNum":58.333333333333336}],"minSlack":"3/2","minSlackNum":1.5}},"cycle":[{"L":3,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,100]],"exits":[4],"ea":1,"eb":2},{"L":4,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,100]],"exits":[4],"ea":1,"eb":2},{"L":5,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,100]],"exits":[4],"ea":1,"eb":2},{"L":6,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,100]],"exits":[4],"ea":1,"eb":2},{"L":7,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,100]],"exits":[4],"ea":1,"eb":2},{"L":8,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,107],[107,100]],"exits":[4],"ea":1,"eb":2}],"failing":[{"edges":[[7,6],[6,8],[3,1],[2,4],[4,2],[6,2],[1,4]],"exits":[3],"ea":1,"eb":4,"k":1,"shortcut":0,"z":1,"components":[[2,4]]},{"edges":[[2,9],[9,4],[3,7],[10,6],[3,5],[8,10],[5,7],[2,5],[3,9],[10,3]],"exits":[2],"ea":10,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[4,9]]},{"edges":[[8,1],[5,4],[2,3],[9,3],[9,5],[6,4],[5,2],[1,5]],"exits":[6],"ea":1,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[2,3,4,5]]}],"census":{"origin":{"seed":20260901,"draws":4000,"tested":3933,"shortcutFailures":572,"zPositive":572,"note":"the frontier bench generator replayed call-for-call — its published count is re-derived here, not quoted"},"fresh":{"seed":5320260901,"draws":4000,"tested":3925,"shortcutFailures":571,"zPositive":571},"failingTotal":572},"record":"certs/facelaw-theorem.json","checks":{"paperK":true,"cycleFamily":6,"failingInstances":3},"generatedBy":"node playground/census/make-facts.mjs"}</script>
+<script id="ce-spec" type="application/json">{"paper":{"edges":[[1,2],[2,3],[9,3],[2,4],[3,4],[3,5],[4,5],[4,6],[5,6],[3,7],[4,7],[5,7],[6,7],[7,8],[7,10]],"exits":[8,10],"ea":1,"eb":9,"table1":[100,38,100,62,24,37,12,22,10,76,54,40,31,100,100],"pos":{"1":[0.05,0.35],"2":[0.22,0.35],"3":[0.4,0.62],"4":[0.4,0.22],"5":[0.58,0.55],"6":[0.58,0.22],"7":[0.76,0.42],"8":[0.94,0.28],"9":[0.05,0.78],"10":[0.94,0.58]},"q1":100,"q2":100,"face":{"k":6,"shortcut":6,"z":0,"cons":5,"shared":[4,5,6,7,8,9,10,11,12,13,14],"rank":5,"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]]},"repair":{"T":["100","1094/29","100","1806/29","49/2","2165/58","683/58","43/2","553/58","2201/29","107/2","2295/58","900/29","100","100"],"Tnum":[100,37.724137931034484,100,62.275862068965516,24.5,37.327586206896555,11.775862068965518,21.5,9.53448275862069,75.89655172413794,53.5,39.56896551724138,31.03448275862069,100,100],"correction":["0","-8/29","0","8/29","1/2","19/58","-13/58","-1/2","-27/58","-3/29","-1/2","-25/58","1/29","0","0"],"residualBefore":["0","0","-1","2","1","-1","-1","0"],"rows":[1,2,3,4,5,6,7,9],"maxDev":"1/2","maxDevNum":0.5,"half":"1/2","atBound":[4,7,10],"free":{"maxDev":"21/37","maxDevNum":0.5675675675675675,"outside":[{"edge":[4,6],"by":"-21/37"},{"edge":[4,7],"by":"-102/185"}]}},"split":{"base":["100","1094/29","0","1806/29","3/2","3/2","3515/348","583/348","3/2","1007/29","52","3515/348","1105/348","175/3","125/3"],"baseNum":[100,37.724137931034484,0,62.275862068965516,1.5,1.5,10.100574712643677,1.6752873563218391,1.5,34.724137931034484,52,10.100574712643677,3.175287356321839,58.333333333333336,41.666666666666664],"basis":[["1","-1","1","0","0","0","0","0","0","0","0"],["-1","1","0","-1","1","0","0","0","0","0","0"],["1","0","0","0","0","-1","1","0","0","0","0"],["0","1","0","0","0","-1","0","1","0","0","0"],["1","0","0","1","0","-1","0","0","1","0","0"],["0","0","0","0","0","0","0","0","0","-1","1"]],"shared":[4,5,6,7,8,9,10,11,12,13,14],"ranges":[{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"3/2","loNum":-1.5,"hiNum":1.5},{"lo":"-3/2","hi":"10255/348","loNum":-1.5,"hiNum":29.4683908045977},{"lo":"-3/2","hi":"6899/348","loNum":-1.5,"hiNum":19.82471264367816},{"lo":"-125/3","hi":"175/3","loNum":-41.666666666666664,"hiNum":58.333333333333336}],"minSlack":"3/2","minSlackNum":1.5}},"cycle":[{"L":3,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,100]],"exits":[4],"ea":1,"eb":2},{"L":4,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,100]],"exits":[4],"ea":1,"eb":2},{"L":5,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,100]],"exits":[4],"ea":1,"eb":2},{"L":6,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,100]],"exits":[4],"ea":1,"eb":2},{"L":7,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,100]],"exits":[4],"ea":1,"eb":2},{"L":8,"k":1,"shortcut":0,"z":1,"edges":[[1,100],[2,100],[1,3],[2,3],[3,4],[100,101],[101,102],[102,103],[103,104],[104,105],[105,106],[106,107],[107,100]],"exits":[4],"ea":1,"eb":2}],"failing":[{"edges":[[7,6],[6,8],[3,1],[2,4],[4,2],[6,2],[1,4]],"exits":[3],"ea":1,"eb":4,"k":1,"shortcut":0,"z":1,"components":[[2,4]]},{"edges":[[2,9],[9,4],[3,7],[10,6],[3,5],[8,10],[5,7],[2,5],[3,9],[10,3]],"exits":[2],"ea":10,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[4,9]]},{"edges":[[8,1],[5,4],[2,3],[9,3],[9,5],[6,4],[5,2],[1,5]],"exits":[6],"ea":1,"eb":9,"k":0,"shortcut":-1,"z":1,"components":[[2,3,4,5]]}],"census":{"origin":{"seed":20260901,"draws":4000,"tested":3933,"shortcutFailures":572,"zPositive":572,"note":"the frontier bench generator replayed call-for-call — its published count is re-derived here, not quoted"},"fresh":{"seed":5320260901,"draws":4000,"tested":3925,"shortcutFailures":571,"zPositive":571},"failingTotal":572},"record":"certs/facelaw-theorem.json","checks":{"paperK":true,"cycleFamily":6,"failingInstances":3},"generatedBy":"node playground/census/make-facts.mjs"}</script>
 <script>/* engine.js — the network census, in exact rationals, for Node and the browser.
    playground/census/ · cert-machine · 2026-09-07
 
@@ -1096,29 +1119,61 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
      several nodes. The nearest conserving totals in the least-squares sense are
      T′ = T + Kᵀ y with (K Kᵀ) y = −(K T − b), solved exactly over Q on the total
      network (every edge active, inflows at both entrances). The result is one
-     conserving flow inside the rounding box — CHOSEN, and drawn as such. */
+     conserving flow — CHOSEN, and drawn as such.
+
+     INSIDE THE ROUNDING BOX, 2026-10-28 (WARRANT v2). This comment used to end
+     "one conserving flow inside the rounding box", and on the paper's network it
+     is not: the unconstrained solution moves one edge by 21/37, and a printed
+     integer that is the rounding of a flow allows ½. A pick has to be a member of
+     the set the data admits, so with `half` the same criterion is solved inside
+     the box |T′ − T| ≤ half: an active set over Q (the worst violator is fixed at
+     its bound and the rest re-solved; a bound whose multiplier has the wrong sign
+     is released), and the KKT conditions are checked exactly before anything is
+     returned. The objective is strictly convex, so what comes back is THE nearest
+     conserving flow inside the box, or null when there is none to be found. */
   function solveSquare(A, b) {
     const n = b.length;
     const { rank, A: R } = rref(A.map((row, r) => row.concat([b[r]])), n);
     if (rank < n) return null;
     return R.map(row => row[n]);
   }
-  function repairTotals(edges, exitsArr, inflows, totals) {
+  function repairTotals(edges, exitsArr, inflows, totals, half) {
     const exits = new Set(exitsArr);
     const all = edges.map((_, i) => i);
     const K = kirchhoff(edges, all, exits);
     const T = totals.map(fromNum);
     const b = K.rows.map(node => (inflows[node] !== undefined ? fromNum(inflows[node]) : q0));
     const r = K.K.map((row, i) => sub(row.reduce((acc, kij, j) => add(acc, mul(kij, T[j])), q0), b[i]));
-    const KKt = K.K.map(ri => K.K.map(rj => ri.reduce((acc, v, j) => add(acc, mul(v, rj[j])), q0)));
-    const y = solveSquare(KKt, r.map(neg));
-    if (!y) return null;
-    const corr = all.map(j => K.K.reduce((acc, row, i) => add(acc, mul(row[j], y[i])), q0));
+    const h = half === undefined ? null : half;
+    const abs = (a) => (cmp(a, q0) < 0 ? neg(a) : a);
+    const fixed = new Map();                  /* edge → +1 at T + half, −1 at T − half */
+    let corr = null, done = h === null;
+    for (let it = 0; it < 4 * edges.length + 4; it++) {
+      const free = all.filter(j => !fixed.has(j));
+      const at = (j) => (fixed.get(j) > 0 ? h : neg(h));
+      /* K corr = −r, with corr = Kᵀy on the free edges and ±half on the fixed ones */
+      const rhs = K.K.map((row, i) => { let v = neg(r[i]); fixed.forEach((_, j) => { v = sub(v, mul(row[j], at(j))); }); return v; });
+      const M = K.K.map(ri => K.K.map(rj => free.reduce((acc, j) => add(acc, mul(ri[j], rj[j])), q0)));
+      const y = solveSquare(M, rhs);
+      if (!y) return null;
+      const kty = all.map(j => K.K.reduce((acc, row, i) => add(acc, mul(row[j], y[i])), q0));
+      corr = all.map(j => (fixed.has(j) ? at(j) : kty[j]));
+      if (h === null) break;
+      /* KKT: a bound holds only where the free step would push further out */
+      let release = -1;
+      fixed.forEach((sg, j) => { if (release < 0 && (sg > 0 ? cmp(kty[j], h) < 0 : cmp(kty[j], neg(h)) > 0)) release = j; });
+      if (release >= 0) { fixed.delete(release); continue; }
+      let worst = -1;
+      free.forEach(j => { if (cmp(abs(corr[j]), h) > 0 && (worst < 0 || cmp(abs(corr[j]), abs(corr[worst])) > 0)) worst = j; });
+      if (worst < 0) { done = true; break; }
+      fixed.set(worst, cmp(corr[worst], q0) > 0 ? 1 : -1);
+    }
+    if (!done) return null;
     const Tp = T.map((t, j) => add(t, corr[j]));
     const residual = r.map(str);
     let maxDev = q0;
-    corr.forEach(c => { const a = cmp(c, q0) < 0 ? neg(c) : c; if (cmp(a, maxDev) > 0) maxDev = a; });
-    return { T: Tp, correction: corr, residualBefore: residual, maxDev, rows: K.rows };
+    corr.forEach(c => { if (cmp(abs(c), maxDev) > 0) maxDev = abs(c); });
+    return { T: Tp, correction: corr, residualBefore: residual, maxDev, rows: K.rows, half: h, atBound: [...fixed.keys()].sort((a, c) => a - c) };
   }
 
   return { Q, q0, q1, add, sub, mul, div, neg, cmp, isZero, toNum, str, fromNum,
@@ -1134,7 +1189,13 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
    IT DECIDES NOTHING ITSELF. Every k, z and split comes from CENSUS (engine.js);
    the app only draws what it returns. Standings: k is DECIDED (exact over Q, the
    readout is underlined solid); the flows are CHOSEN (one member of the face,
-   dotted) — the same strokes the static page carries. */
+   dotted) — the same strokes the static page carries.
+
+   WARRANT v2 (2026-10-28): the shortcut's readout is DECIDED on every network —
+   |shared| − cons is exact arithmetic. It used to drop to the chosen underline
+   when it disagreed with k, which put a verdict in the standing channel. The
+   disagreement is now said where it belongs: a red × (the house's one accent),
+   because a network the shortcut gets wrong is an exhibited counterexample. */
 (function () {
   'use strict';
   var E = window.CENSUS;
@@ -1173,7 +1234,7 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
     st.face = face;
     st.family = null;
     if (st.preset.totals && st.active.every(Boolean)) {
-      var rp = E.repairTotals(edges, st.preset.exits, (function () { var o = {}; o[st.preset.ea] = F.paper.q1; o[st.preset.eb] = F.paper.q2; return o; })(), F.paper.table1);
+      var rp = E.repairTotals(edges, st.preset.exits, (function () { var o = {}; o[st.preset.ea] = F.paper.q1; o[st.preset.eb] = F.paper.q2; return o; })(), F.paper.table1, E.Q(1, 2));   /* inside the rounding box, as make-facts.mjs */
       var fam = E.splitFamily(edges, st.preset.exits, st.preset.ea, st.preset.eb, rp.T, F.paper.q1);
       if (fam && fam.feasible) { st.family = fam; st.t = fam.basis.map(function () { return E.q0; }); }
     }
@@ -1286,9 +1347,10 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
     draw();
     var f = st.face;
     read.innerHTML = '<div><div class="k">k, exact over Q</div><div class="v w-decided">' + f.k + '</div></div>'
-      + '<div><div class="k">shortcut |shared| − cons</div><div class="v ' + (f.agree ? 'w-decided' : 'w-chosen') + '">' + f.shortcut + '</div></div>'
+      + '<div><div class="k">shortcut |shared| − cons</div><div class="v w-decided">' + f.shortcut + '</div></div>'
       + '<div><div class="k">z, exit-free shared components</div><div class="v w-decided">' + f.z + '</div></div>'
-      + '<div><div class="k">|shared| · cons</div><div class="v">' + f.shared.length + ' · ' + f.cons + '</div></div>';
+      + '<div><div class="k">|shared| · cons</div><div class="v">' + f.shared.length + ' · ' + f.cons + '</div></div>'
+      + (f.agree ? '' : '<div class="full"><span class="wx" aria-label="an exhibited counterexample">×</span> this network breaks the shortcut: k = ' + f.k + ', not ' + f.shortcut + '. The shortcut is exact arithmetic either way; what this network refutes is the claim that it is k.</div>');
     buildSliders();
     if (st.family) {
       note.textContent = 'Every band is one member of the face, drawn as such: its width is the flow, population a the brighter side, population b the darker, and the dotted outline says it was chosen, not decided. A slider moves the split along one direction while every total holds and both populations conserve; the range is how far that direction goes before a flow would turn negative. Rationals throughout. Click an edge to drop it.';

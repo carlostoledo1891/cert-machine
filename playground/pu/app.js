@@ -72,6 +72,7 @@
             const hit = c === PU.trunc2(r.pu6) ? 'TRUNC-2' : c === PU.round2(r.pu6) ? 'ROUND-2' : null;
             html += hit ? '<p class="verdict rep">REPRODUCED under ' + hit + ' — the printed ' + esc(dec2(c)) + ' is the rule’s value to the centavo.</p>'
               : '<p class="verdict off">OFF — printed ' + esc(dec2(c)) + ', the rule’s value ' + esc(pu6) + ' (truncated ' + esc(t2) + '); difference ' + esc((c - PU.trunc2(r.pu6)).toString()) + ' centavos. A pasted row is also tried under the other settlements and the rate’s half-unit box.</p>';
+            html += '<p class="note"><em>given settlement on ' + esc(settle) + (kind === 'LFT' ? ', the Selic index of ' + esc(quote) : '') + ' and ' + ($('precal').checked ? 'the calendar as of the quotation' : 'today’s pinned ANBIMA calendar') + '</em> — the inputs above, chosen by you.</p>';
           }
         }
       }
@@ -84,6 +85,15 @@
   const toIso = (dmy) => { const [d, m, y] = dmy.split('/'); return `${y}-${m}-${d}`; };
   const cents = (s) => { const t = s.trim().replace('.', '').replace(',', '.'); const m = /^(\d+)\.(\d{2})$/.exec(t) || /^(\d+)$/.exec(t); if (!m) return null; return BigInt(m[1]) * 100n + BigInt(m[2] || '0'); };
   const CLS = { REPRODUCED: 'rep', CONSISTENT: 'rep', OFF: 'off', REFUSED: 'refused', 'NEEDS DATA': 'refused' };
+  /* WARRANT v2 (2026-10-28): every verdict here holds under a named hypothesis — a settlement convention, a calendar —
+     so the hypothesis is said in words, in the conditional mood (italic), and the ledger's code stays in the title.
+     An OFF row carries the house's one accent, a red ×: the row is an object the file printed, and under every
+     registered hypothesis it is not the rule's value at any rate its digits allow. A price typed by hand is a
+     comparison of two numbers, with nothing to exhibit, and is never red. */
+  const SETTLE = { D0: 'settling D+0', D1: 'settling D+1', D1x: 'settling D+1, skipping 24 and 31 December', D1b3: 'settling on B3’s next trading day', D0b3: 'settling on B3’s day' };
+  const hypWords = (code) => { const p = code.split('/'); return SETTLE[p[0]] + (p.includes('pre') ? ', the calendar as of the quotation' : '') + (p.includes('r') ? ', across a day B3’s rules imply' : '') + (p.includes('T') ? ', truncated' : p.includes('R') ? ', rounded' : ''); };
+  const given = (code, all) => '<em title="' + esc((all || [code]).join(' ')) + '">given ' + esc(hypWords(code)) + '</em>';
+  const WX = '<span class="wx" aria-label="an exhibited counterexample">×</span> ';
 
   function rows() {
     const lines = $('paste').value.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
@@ -97,10 +107,10 @@
       for (const x of DR.decideRow(row)) {
         tally[x.verdict] = (tally[x.verdict] || 0) + 1;
         const prim = x.hyp ? x.hyp[DR.PRIMARY[x.side]] : null;
-        let cell = '<span class="verdict ' + CLS[x.verdict] + '">' + esc(x.verdict) + '</span>';
-        if (x.verdict === 'REPRODUCED') { const h = x.hyp[x.codes[0].replace(/\/[TR]$/, '')]; cell += ' <span class="m">' + esc(h.pu6) + '</span> · ' + esc(x.codes.join(' ')); }
-        else if (x.verdict === 'CONSISTENT') cell += ' under ' + esc(x.consistent.under) + ' · rate box [' + esc(x.consistent.rateBox[0]) + ', ' + esc(x.consistent.rateBox[1]) + '] · <span class="m">' + esc(x.consistent.puRange[0]) + ' – ' + esc(x.consistent.puRange[1]) + '</span>';
-        else if (x.verdict === 'OFF') cell += ' <span class="m">' + esc(prim.pu6) + '</span> · ' + esc(x.diffCents) + ' ¢ under ' + esc(DR.PRIMARY[x.side]);
+        let cell = (x.verdict === 'OFF' ? WX : '') + '<span class="verdict ' + CLS[x.verdict] + '">' + esc(x.verdict) + '</span>';
+        if (x.verdict === 'REPRODUCED') { const h = x.hyp[x.codes[0].replace(/\/[TR]$/, '')]; cell += ' <span class="m">' + esc(h.pu6) + '</span> · ' + given(x.codes[0], x.codes) + (x.codes.length > 1 ? ' (and ' + (x.codes.length - 1) + ' more)' : ''); }
+        else if (x.verdict === 'CONSISTENT') cell += ' ' + given(x.consistent.under, x.consistent.codes) + ' · rate box [' + esc(x.consistent.rateBox[0]) + ', ' + esc(x.consistent.rateBox[1]) + '] · <span class="m">' + esc(x.consistent.puRange[0]) + ' – ' + esc(x.consistent.puRange[1]) + '</span>';
+        else if (x.verdict === 'OFF') cell += ' <span class="m">' + esc(prim.pu6) + '</span> · ' + esc(x.diffCents) + ' ¢ ' + given(DR.PRIMARY[x.side]) + ' (off under all ' + Object.keys(x.hyp).length + ')';
         else if (x.why) cell += ' — ' + esc(x.why);
         /* the settlement of the hypothesis that holds (REPRODUCED, CONSISTENT), the primary's otherwise */
         const held = x.verdict === 'REPRODUCED' ? x.hyp[x.codes[0].replace(/\/[TR]$/, '')] : x.verdict === 'CONSISTENT' ? x.hyp[x.consistent.under] : prim;

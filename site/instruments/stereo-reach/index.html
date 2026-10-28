@@ -484,6 +484,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 .w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
 .w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
@@ -513,6 +518,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
 }
 
 /* the grammar's stroke and voice classes are the shared layer's
@@ -684,7 +690,7 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
     <div class="c"><div class="k">observed, Table 1</div><div class="v">10.0 cm &middot; 12.0 cm &middot; 12.0 cm &middot; 10.0 cm</div><div class="n">RMSE of the surface elevation against the pressure gauge over four 19-minute records; biases -4 cm, -5 cm, -6 cm, -1 cm</div></div>
     <div class="c"><div class="k">quoted z-quantization</div><div class="v">1.1 mm</div><div class="n">&sect;4: "0.9 mm, 9.9 mm, and 1.1 mm for the x, y and z-axes"; the range it holds at is not stated. The best-case cell at the near edge (10 m) is 8.8 mm.</div></div>
   </div>
-  <p class="sr-note">Read together: every observed RMSE lies between the best and worst corners of the budget, so the geometry with the paper's own numbers accounts for the deviation from the gauge without invoking anything else &mdash; and the disparity at the gauge is only 43&ndash;95 pixels, which is why a pixel of matching error is 32.7 cm of elevation there. The quoted quantization of 1.1 mm is below what this model gives for any corner of the box at any range in the imaged area; the paper takes it from a formula in its reference [42] that we do not hold, so this is a number we could not reproduce, not one we refute.</p>
+  <p class="sr-note">Read together: every observed RMSE lies between the best and worst corners of the budget, so the geometry with the paper's own numbers accounts for the deviation from the gauge without invoking anything else &mdash; and the disparity at the gauge is only 43&ndash;95 pixels, which is why a pixel of matching error is 32.7 cm of elevation there. The quoted quantization of 1.1 mm is below what this model gives for any corner of the box at any range in the imaged area; the paper takes it from a formula in its reference [42] that we do not hold, so this is a number we could not reproduce, not one we refute. Two readings of its words, as a verdict that rests on reading prose should survive: as the cell&rsquo;s height (the cards above), at least 1.9 mm at any range, even directly below the cameras; and as what &ldquo;root mean square quantization error&rdquo; names, the RMS of a value uniform in the cell, its height/&radic;12 &mdash; 2.5 mm at the near edge (10 m), printing 1.1 mm only 3.38&ndash;3.87 m from the cameras (best corner, a 1 cm grid), nearer than any surf imaged. Neither reading reproduces it where the rig looked. The range it holds at is what the paper does not state, so this is a hole with its threshold, not a witness against the paper, and nothing on this page is red.</p>
 </section>
 
 <section class="wrap">
@@ -695,7 +701,7 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
     <div class="c"><div class="k">certified cell, best corner, 20&ndash;40 m</div><div class="v w-decided">3.9 cm &ndash; 7.7 cm</div><div class="n">pitch 3 &micro;m, &delta;d 0.25 px, perfect sync; the standard deviation of a value uniform in the far cell is 2.2 cm</div></div>
     <div class="c"><div class="k">bound, worst corner of the box, 20&ndash;40 m</div><div class="v w-chosen">35.9 cm &ndash; 53.0 cm</div><div class="n">pitch 3.7 &micro;m, &delta;d 1 px, half a frame of lag with 1 m/s of texture (chosen); the uniform standard deviation of the far bound is 15.3 cm</div></div>
     <div class="c"><div class="k">noise that would make the area Hs, Table 2</div><div class="v">5.8 cm &ndash; 10.2 cm</div><div class="n">per record, &radic;(Hs&sup2;<sub>area</sub> &minus; Hs&sup2;<sub>point</sub>)/4 on the printed literals: CC I-1 5.8 cm &middot; CC I-2 7.0 cm &middot; CC I-3 7.4 cm &middot; CC I-4 10.2 cm &middot; CC II-1 9.0 cm &middot; CC II-2 9.2 cm</div></div>
-    <div class="c"><div class="k">quoted z-quantisation</div><div class="v">2.1 mm</div><div class="n">&sect;5.3: "1.9 mm, 17.5 mm, and 2.1 mm for the x, y and z-axes"; the best-case cell at the near edge (20 m) is 3.9 cm &mdash; not reproduced under this model, as at Leme.</div></div>
+    <div class="c"><div class="k">quoted z-quantisation</div><div class="v">2.1 mm</div><div class="n">&sect;5.3: "1.9 mm, 17.5 mm, and 2.1 mm for the x, y and z-axes"; the best-case cell at the near edge (20 m) is 3.9 cm &mdash; not reproduced under this model, as at Leme. Read as an RMS, height/&radic;12: 1.1 cm there, and 2.1 mm only 2.03&ndash;2.30 m from the cameras.</div></div>
   </div>
   <p class="sr-note">Read together: the per-point noise that would lift the point Hs to the area Hs in every one of the six records &mdash; 5.8 cm to 10.2 cm &mdash; lies between the best corner (2.2 cm) and the worst corner (15.3 cm) of what this rig's own quantisation cell contributes at 40 m. So the 27&ndash;55 % is inside what the geometry with the paper's own numbers can produce on its own, and it is not evidence about the sea until the rig's cell has been subtracted from the area variance. The paper attributes the excess to the area capturing the highest spatio-temporal elevations (Forristall 2006); that argument is about a <em>maximum</em> over an area, which does exceed a maximum at a point, and it does not bear on Hs, which is a variance. Point and area maxima (H<sub>max</sub>, &zeta;<sub>max</sub>) are the paper's other two columns and are not decided here. The disparity at 30 m is only 41&ndash;51 pixels, which is why a pixel of matching error is 44.3 cm of elevation there. The paper's own validation &mdash; an Hs RMSE of 9.0 cm against the pressure gauge at the point &mdash; also lies inside the best&ndash;worst span.</p>
 </section>
@@ -1173,6 +1179,14 @@ else if (typeof window !== 'undefined') window.STEREO_PRESETS = API;
     return o;
   }
   const standingOf = (deps) => (deps.some((k) => standing[k] === 'chosen') ? 'chosen' : 'decided');
+  /* WARRANT v2 (2026-10-28): a verdict over a chosen input is conditional on it, so the inputs are NAMED, in the
+     conditional mood (italic), as the interferometer names its hypothesis; the line itself stays dotted */
+  const valueOf = (k) => { const hi = $('sr-' + k + '-hi'); return $('sr-' + k).value + (hi ? '–' + hi.value : '') + ' ' + UNITS[k][1]; };
+  function given() {
+    const ks = FIELDS.filter((k) => standing[k] === 'chosen');
+    if (ks.length === FIELDS.length) return '<em>Given every input: a scenario, each number chosen.</em> Dotted.';
+    return '<em>Given ' + ks.map((k) => UNITS[k][0] + ' ' + valueOf(k)).join(' · ') + '</em>: chosen, not read from a source, so the line is dotted and the verdict holds under them.';
+  }
   const attrs = (st) => S.marks[st];
 
   function render() {
@@ -1239,7 +1253,7 @@ else if (typeof window !== 'undefined') window.STEREO_PRESETS = API;
       $('r-vel').textContent = cm(cR.terms.velocity); $('r-vel').className = st(ALL_DEPS);
       $('r-total').textContent = cm(cR.total[1]); $('r-total').className = st(ALL_DEPS);
       const ok = cR.total[1] <= limit[0];
-      $('sr-verdict').innerHTML = '<div class="word ' + (standingOf(ALL_DEPS) === 'chosen' ? 'w-chosen' : 'w-decided') + '">' + (ok ? 'WITHIN TOLERANCE' : 'BEYOND TOLERANCE') + '</div><div class="why">At ' + fmtN(R, 0) + ' m the bound on the elevation error is ' + cm(cR.total[1]) + ' against ' + cm(limit[0]) + ' (' + (tol * 100) + '% of H). ' + (rr.reach !== null ? 'The reach at this tolerance is ' + fmtN(rr.reach, 0) + ' m: the last range on a 4% grid from the near edge before the bound first exceeds it' + (rr.firstFailure ? ' (it does at ' + fmtN(rr.firstFailure, 0) + ' m)' : '') + '.' : 'No range from the near edge is within tolerance.') + (standingOf(ALL_DEPS) === 'chosen' ? ' Dotted: at least one input is a choice, not a literal from a source.' : '') + '</div>';
+      $('sr-verdict').innerHTML = '<div class="word ' + (standingOf(ALL_DEPS) === 'chosen' ? 'w-chosen' : 'w-decided') + '">' + (ok ? 'WITHIN TOLERANCE' : 'BEYOND TOLERANCE') + '</div><div class="why">At ' + fmtN(R, 0) + ' m the bound on the elevation error is ' + cm(cR.total[1]) + ' against ' + cm(limit[0]) + ' (' + (tol * 100) + '% of H). ' + (rr.reach !== null ? 'The reach at this tolerance is ' + fmtN(rr.reach, 0) + ' m: the last range on a 4% grid from the near edge before the bound first exceeds it' + (rr.firstFailure ? ' (it does at ' + fmtN(rr.firstFailure, 0) + ' m)' : '') + '.' : 'No range from the near edge is within tolerance.') + (standingOf(ALL_DEPS) === 'chosen' ? ' ' + given() : '') + '</div>';
     } else {
       $('sr-verdict').innerHTML = '<div class="word">REFUSED</div><div class="why">' + (cR && cR.refused ? cR.refused : 'no cell at this range') + '</div>';
       for (const id of ['r-cell', 'r-sync', 'r-slope', 'r-vel', 'r-total']) $(id).textContent = '—';

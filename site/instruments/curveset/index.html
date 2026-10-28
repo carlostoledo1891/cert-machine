@@ -484,6 +484,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 .w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
 .w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
@@ -513,6 +518,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
 }
 
 /* the base typography — h1/h2/h3, p and a — is the shared layer's
@@ -1120,7 +1126,7 @@ const LEGEND = [
    A page that does not use REFUSED passes `exclude: [REFUSED]` rather than
    drawing a void it has no marks for — plates does exactly that, and saying so
    in the call is better than a filter copied into the page.                 */
-function legendHtml({ exclude = [], width = 2.4 } = {}) {
+function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
   const items = LEGEND.filter((L) => !exclude.includes(L.s));
 
   /* THE SWATCH PAINTS ITSELF, 2026-09-05. It used to emit a bare
@@ -1144,7 +1150,7 @@ function legendHtml({ exclude = [], width = 2.4 } = {}) {
       + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
       + ` stroke="var(--border-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
-  return `<div class="w-legend" data-n="${items.length}">`
+  return `<div class="w-legend${compact ? ' compact' : ''}" data-n="${items.length}">`
     + items.map((L) => `<div class="item">`
       + `<svg viewBox="0 0 46 14" aria-hidden="true">${swatch(L.s)}</svg>`
       + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div>`

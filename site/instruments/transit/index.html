@@ -484,6 +484,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 .w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
 .w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
@@ -513,6 +518,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
 }
 
 /* bench.css — the structural shim for every page crossed from the bench.
@@ -776,7 +782,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.1194 · light: 0.1971</span></figcaption></figure>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for TrES-2 b">
-    <line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.9" x2="240.9" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.6" x2="239.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="241.5" x2="241.5" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
+    <line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.9" x2="240.9" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="241.6" x2="241.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.6" x2="239.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.6" x2="240.6" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="241.5" x2="241.5" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="239.3" x2="239.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="240.2" x2="240.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
     <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
     <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="225.6" y="230" text-anchor="middle" class="ax">0.1</text><text x="283.2" y="230" text-anchor="middle" class="ax">0.2</text><text x="340.8" y="230" text-anchor="middle" class="ax">0.3</text><text x="398.4" y="230" text-anchor="middle" class="ax">0.4</text><text x="456.0" y="230" text-anchor="middle" class="ax">0.5</text><text x="513.6" y="230" text-anchor="middle" class="ax">0.6</text><text x="628.8" y="230" text-anchor="middle" class="ax">0.8</text><text x="744.0" y="230" text-anchor="middle" class="ax">1</text>
     <text x="158" y="24" text-anchor="end" class="lb">assuming</text>
@@ -808,7 +814,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
     </g>
   </svg>
       <figcaption class="figcap"><span class="k">what each assumption buys</span>
-      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the 19 published values</span></figcaption></figure>
+      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine dotted ticks: the 19 published values, each one member of the set, chosen by a limb-darkening law</span></figcaption></figure>
 
     <div class="note reveal">
       <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
@@ -817,6 +823,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       Adding <em>the star does not brighten outward</em> pulls the ceiling to 0.3260.
       The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
       Two scales for it. The 19 papers already disagree with each other by <b>25×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>55×</b> wider again than that disagreement, and it contains every one of them.
+      In the grammar&rsquo;s words, each published value is a pick &mdash; one member of the set, chosen by the limb-darkening law its paper fitted &mdash; so it and its &plusmn; are drawn dotted; none falls outside the interval, so none is refuted, and nothing here is red.
     </div>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
@@ -855,61 +862,61 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 363" class="fg" role="img" aria-label="published radius ratios for TrES-2 b"><rect x="250.0" y="18" width="420.0" height="329" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
-      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.7" x2="352.4" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="30" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="33" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Q1-Q17 DR24 KOI Table</text>
-      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.7" x2="352.4" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="47" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="50" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="67" text-anchor="end" class="lb">Q1-Q12 KOI Table</text>
-      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.7" x2="352.4" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="64" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="67" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="84" text-anchor="end" class="lb">Morton et al. 2016</text>
-      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.7" x2="352.4" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="81" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="84" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="101" text-anchor="end" class="lb">Fulton &amp;amp; Petigura 2018</text>
-      <line class="ink-assumed-sm" x1="349.7" x2="352.4" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.7" x2="352.4" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="351.0" cy="98" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="101" class="ax">0.12385 ± 0.00003</text></g><g><text x="240" y="118" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
-      <line class="ink-assumed-sm" x1="349.3" x2="354.9" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="349.3" x2="354.9" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="352.1" cy="115" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="118" class="ax">0.12387 ± 0.00005</text></g><g><text x="240" y="135" text-anchor="end" class="lb">Q1-Q8 KOI Table</text>
-      <line class="ink-assumed-sm" x1="374.9" x2="383.6" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="374.9" x2="383.6" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="379.2" cy="132" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="135" class="ax">0.12437 ± 0.00008</text></g><g><text x="240" y="152" text-anchor="end" class="lb">Holman et al. 2007</text>
-      <line class="ink-assumed-sm" x1="375.4" x2="484.2" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="375.4" x2="484.2" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="429.8" cy="149" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="152" class="ax">0.12530 ± 0.00100</text></g><g><text x="240" y="169" text-anchor="end" class="lb">Torres et al. 2008</text>
-      <line class="ink-assumed-sm" x1="375.4" x2="484.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="375.4" x2="484.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="429.8" cy="166" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="169" class="ax">0.12530 ± 0.00100</text></g><g><text x="240" y="186" text-anchor="end" class="lb">Turner et al. 2016</text>
-      <line class="ink-assumed-sm" x1="431.9" x2="434.0" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="431.9" x2="434.0" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="433.0" cy="183" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="186" class="ax">0.12536 ± 0.00002</text></g><g><text x="240" y="203" text-anchor="end" class="lb">Barclay et al. 2012</text>
-      <line class="ink-assumed-sm" x1="431.9" x2="434.0" y1="200" y2="200" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="431.9" x2="434.0" y1="200" y2="200" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="433.0" cy="200" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="203" class="ax">0.12536 ± 0.00002</text></g><g><text x="240" y="220" text-anchor="end" class="lb">Esteves et al. 2015</text>
-      <line class="ink-assumed-sm" x1="408.1" x2="461.4" y1="217" y2="217" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="408.1" x2="461.4" y1="217" y2="217" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="434.7" cy="217" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="220" class="ax">0.12539 ± 0.00049</text></g><g><text x="240" y="237" text-anchor="end" class="lb">Kokori et al. 2023</text>
-      <line class="ink-assumed-sm" x1="408.1" x2="462.4" y1="234" y2="234" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="408.1" x2="462.4" y1="234" y2="234" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="435.3" cy="234" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="237" class="ax">0.12540 ± 0.00050</text></g><g><text x="240" y="254" text-anchor="end" class="lb">Rabus et al. 2009</text>
-      <line class="ink-assumed-sm" x1="467.8" x2="467.9" y1="251" y2="251" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="467.8" x2="467.9" y1="251" y2="251" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="467.9" cy="251" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="254" class="ax">0.12600 ± —</text></g><g><text x="240" y="271" text-anchor="end" class="lb">&amp;Ouml;zt&amp;uuml;rk &amp;amp; Erdem 2019</text>
-      <line class="ink-assumed-sm" x1="304.7" x2="631.0" y1="268" y2="268" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="304.7" x2="631.0" y1="268" y2="268" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="467.9" cy="268" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="271" class="ax">0.12600 ± 0.00300</text></g><g><text x="240" y="288" text-anchor="end" class="lb">Raetz et al. 2014</text>
-      <line class="ink-assumed-sm" x1="490.2" x2="506.5" y1="285" y2="285" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="490.2" x2="506.5" y1="285" y2="285" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="498.3" cy="285" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="288" class="ax">0.12656 ± 0.00015</text></g><g><text x="240" y="305" text-anchor="end" class="lb">Schr&amp;ouml;ter et al. 2012</text>
-      <line class="ink-assumed-sm" x1="552.7" x2="556.0" y1="302" y2="302" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="552.7" x2="556.0" y1="302" y2="302" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="554.3" cy="302" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="305" class="ax">0.12759 ± 0.00003</text></g><g><text x="240" y="322" text-anchor="end" class="lb">Christiansen et al. 2011</text>
-      <line class="ink-assumed-sm" x1="54.6" x2="1076.9" y1="319" y2="319" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="54.6" x2="1076.9" y1="319" y2="319" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="565.8" cy="319" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="322" class="ax">0.12780 ± 0.00940</text></g><g><text x="240" y="339" text-anchor="end" class="lb">Kipping &amp;amp; Bakos 2011</text>
-      <line class="ink-assumed-sm" x1="408.1" x2="723.5" y1="336" y2="336" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="408.1" x2="723.5" y1="336" y2="336" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="565.8" cy="336" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="339" class="ax">0.12780 ± 0.00290</text></g></svg>
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>
@@ -947,7 +954,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <span class="v">heavy: R<sub>p</sub>/R<sub>*</sub> = 0.0755 · light: 0.1979</span></figcaption></figure>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 238" class="fg" role="img" aria-label="certified intervals for Kepler-7 b">
-    <line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="235.7" x2="235.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.1" x2="236.1" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="233.7" x2="233.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-assumed-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
+    <line class="ink-chosen-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="235.7" x2="235.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="236.1" x2="236.1" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="236.2" x2="236.2" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="233.7" x2="233.7" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/><line class="ink-chosen-sm" x1="234.3" x2="234.3" y1="34" y2="216" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>
     <line class="ink-guide" x1="168" x2="744" y1="218" y2="218" stroke="var(--chart-axis)" stroke-width="1"/>
     <text x="168.0" y="230" text-anchor="middle" class="ax">0</text><text x="250.2" y="230" text-anchor="middle" class="ax">0.1</text><text x="332.3" y="230" text-anchor="middle" class="ax">0.2</text><text x="414.5" y="230" text-anchor="middle" class="ax">0.3</text><text x="496.7" y="230" text-anchor="middle" class="ax">0.4</text><text x="578.9" y="230" text-anchor="middle" class="ax">0.5</text><text x="661.0" y="230" text-anchor="middle" class="ax">0.6</text>
     <text x="158" y="24" text-anchor="end" class="lb">assuming</text>
@@ -979,7 +986,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
     </g>
   </svg>
       <figcaption class="figcap"><span class="k">what each assumption buys</span>
-      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the 10 published values</span></figcaption></figure>
+      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine dotted ticks: the 10 published values, each one member of the set, chosen by a limb-darkening law</span></figcaption></figure>
 
     <div class="note reveal">
       <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
@@ -988,6 +995,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       Adding <em>the star does not brighten outward</em> pulls the ceiling to 0.2424.
       The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
       Two scales for it. The 10 papers already disagree with each other by <b>28×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>56×</b> wider again than that disagreement, and it contains every one of them.
+      In the grammar&rsquo;s words, each published value is a pick &mdash; one member of the set, chosen by the limb-darkening law its paper fitted &mdash; so it and its &plusmn; are drawn dotted; none falls outside the interval, so none is refuted, and nothing here is red.
     </div>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 300" class="fg" role="img" aria-label="the region of the star the planet never occults">
@@ -1026,34 +1034,34 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
       <figcaption class="figcap"><span class="k">the two witnesses, as light enclosed inside radius r</span><span class="v">both are exhibited measures, re-checked bin by bin</span></figcaption></figure>
 
     <figure class="reveal mt6"><svg viewBox="0 0 760 210" class="fg" role="img" aria-label="published radius ratios for Kepler-7 b"><rect x="250.0" y="18" width="420.0" height="176" fill="var(--band-fill)"/><g><text x="240" y="33" text-anchor="end" class="lb">Q1-Q17 DR25 KOI Table</text>
-      <line class="ink-assumed-sm" x1="334.6" x2="349.0" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="334.6" x2="349.0" y1="30" y2="30" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="341.8" cy="30" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="33" class="ax">0.07990 ± 0.00009</text></g><g><text x="240" y="50" text-anchor="end" class="lb">Fulton &amp;amp; Petigura 2018</text>
-      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="397.4" x2="405.6" y1="47" y2="47" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="401.5" cy="47" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="50" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="67" text-anchor="end" class="lb">Morton et al. 2016</text>
-      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="397.4" x2="405.6" y1="64" y2="64" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="401.5" cy="64" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="67" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="84" text-anchor="end" class="lb">Q1-Q12 KOI Table</text>
-      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="397.4" x2="405.6" y1="81" y2="81" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="401.5" cy="81" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="84" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="101" text-anchor="end" class="lb">Q1-Q17 DR24 KOI Table</text>
-      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="397.4" x2="405.6" y1="98" y2="98" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="401.5" cy="98" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="101" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="118" text-anchor="end" class="lb">Q1-Q16 KOI Table</text>
-      <line class="ink-assumed-sm" x1="397.4" x2="405.6" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="397.4" x2="405.6" y1="115" y2="115" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="401.5" cy="115" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="118" class="ax">0.08068 ± 0.00005</text></g><g><text x="240" y="135" text-anchor="end" class="lb">Latham et al. 2010</text>
-      <line class="ink-assumed-sm" x1="511.2" x2="557.1" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="511.2" x2="557.1" y1="132" y2="132" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="534.1" cy="132" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="135" class="ax">0.08241 ± 0.00030</text></g><g><text x="240" y="152" text-anchor="end" class="lb">Q1-Q8 KOI Table</text>
-      <line class="ink-assumed-sm" x1="564.8" x2="569.4" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="564.8" x2="569.4" y1="149" y2="149" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="567.1" cy="149" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="152" class="ax">0.08284 ± 0.00003</text></g><g><text x="240" y="169" text-anchor="end" class="lb">Esteves et al. 2015</text>
-      <line class="ink-assumed-sm" x1="566.3" x2="583.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="566.3" x2="583.2" y1="166" y2="166" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="574.7" cy="166" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="169" class="ax">0.08294 ± 0.00011</text></g><g><text x="240" y="186" text-anchor="end" class="lb">Kokori et al. 2023</text>
-      <line class="ink-assumed-sm" x1="566.3" x2="583.2" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="566.3" x2="583.2" y1="183" y2="183" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="574.7" cy="183" r="2.1" fill="var(--ink-2)"/>
       <text x="678" y="186" class="ax">0.08294 ± 0.00011</text></g></svg>
       <figcaption class="figcap"><span class="k">the published values, on their own error bars</span><span class="v">shaded: the certified interval</span></figcaption></figure>

@@ -50,6 +50,14 @@
     return o;
   }
   const standingOf = (deps) => (deps.some((k) => standing[k] === 'chosen') ? 'chosen' : 'decided');
+  /* WARRANT v2 (2026-10-28): a verdict over a chosen input is conditional on it, so the inputs are NAMED, in the
+     conditional mood (italic), as the interferometer names its hypothesis; the line itself stays dotted */
+  const valueOf = (k) => { const hi = $('sr-' + k + '-hi'); return $('sr-' + k).value + (hi ? '–' + hi.value : '') + ' ' + UNITS[k][1]; };
+  function given() {
+    const ks = FIELDS.filter((k) => standing[k] === 'chosen');
+    if (ks.length === FIELDS.length) return '<em>Given every input: a scenario, each number chosen.</em> Dotted.';
+    return '<em>Given ' + ks.map((k) => UNITS[k][0] + ' ' + valueOf(k)).join(' · ') + '</em>: chosen, not read from a source, so the line is dotted and the verdict holds under them.';
+  }
   const attrs = (st) => S.marks[st];
 
   function render() {
@@ -116,7 +124,7 @@
       $('r-vel').textContent = cm(cR.terms.velocity); $('r-vel').className = st(ALL_DEPS);
       $('r-total').textContent = cm(cR.total[1]); $('r-total').className = st(ALL_DEPS);
       const ok = cR.total[1] <= limit[0];
-      $('sr-verdict').innerHTML = '<div class="word ' + (standingOf(ALL_DEPS) === 'chosen' ? 'w-chosen' : 'w-decided') + '">' + (ok ? 'WITHIN TOLERANCE' : 'BEYOND TOLERANCE') + '</div><div class="why">At ' + fmtN(R, 0) + ' m the bound on the elevation error is ' + cm(cR.total[1]) + ' against ' + cm(limit[0]) + ' (' + (tol * 100) + '% of H). ' + (rr.reach !== null ? 'The reach at this tolerance is ' + fmtN(rr.reach, 0) + ' m: the last range on a 4% grid from the near edge before the bound first exceeds it' + (rr.firstFailure ? ' (it does at ' + fmtN(rr.firstFailure, 0) + ' m)' : '') + '.' : 'No range from the near edge is within tolerance.') + (standingOf(ALL_DEPS) === 'chosen' ? ' Dotted: at least one input is a choice, not a literal from a source.' : '') + '</div>';
+      $('sr-verdict').innerHTML = '<div class="word ' + (standingOf(ALL_DEPS) === 'chosen' ? 'w-chosen' : 'w-decided') + '">' + (ok ? 'WITHIN TOLERANCE' : 'BEYOND TOLERANCE') + '</div><div class="why">At ' + fmtN(R, 0) + ' m the bound on the elevation error is ' + cm(cR.total[1]) + ' against ' + cm(limit[0]) + ' (' + (tol * 100) + '% of H). ' + (rr.reach !== null ? 'The reach at this tolerance is ' + fmtN(rr.reach, 0) + ' m: the last range on a 4% grid from the near edge before the bound first exceeds it' + (rr.firstFailure ? ' (it does at ' + fmtN(rr.firstFailure, 0) + ' m)' : '') + '.' : 'No range from the near edge is within tolerance.') + (standingOf(ALL_DEPS) === 'chosen' ? ' ' + given() : '') + '</div>';
     } else {
       $('sr-verdict').innerHTML = '<div class="word">REFUSED</div><div class="why">' + (cR && cR.refused ? cR.refused : 'no cell at this range') + '</div>';
       for (const id of ['r-cell', 'r-sync', 'r-slope', 'r-vel', 'r-total']) $(id).textContent = '—';

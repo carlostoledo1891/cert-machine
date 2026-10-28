@@ -28,6 +28,7 @@ const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
 const PARSE = fs.readFileSync(path.join(HERE, 'parse.js'), 'utf8');       /* THE parse rule, shared with the atlas's own-site pin */
 const PRINTED = fs.readFileSync(path.join(HERE, 'printed.js'), 'utf8');   /* THE decision of a printed fit, shared with the atlas */
+const EXHIBITED = fs.readFileSync(path.join(HERE, 'exhibited.js'), 'utf8');   /* which of its decisions carry the red × (WARRANT v2), shared with the atlas */
 const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.js'));
 const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
 
@@ -41,6 +42,7 @@ modules['playground/return-level-check/app.js'] = sha(APP);
 modules['playground/return-level-check/worker.js'] = sha(WORKER);
 modules['playground/return-level-check/parse.js'] = sha(PARSE);
 modules['playground/return-level-check/printed.js'] = sha(PRINTED);
+modules['playground/return-level-check/exhibited.js'] = sha(EXHIBITED);
 Object.assign(modules, B.modules);
 
 /* the preset: the Campos Basin node of the paper's own hindcast, if the extraction is complete and contiguous */
@@ -93,7 +95,7 @@ function build(OUTDIR) {
 
 <section class="wrap">
   <h2 class="t2">Decide a fit someone printed</h2>
-  <p class="lede">A report, a colleague or a pipeline printed a fitted distribution. Type its parameters as printed; they are decided against the series and block above, over every value the printed digits allow &mdash; <b>REPRODUCED</b> when the digits are the rounding of the certified maximum-likelihood fit; <b>CONSISTENT</b> when they carry more digits than the certified box resolves and lie inside it; <b>OFF THE MAXIMUM</b> when its likelihood is provably lower; <b>NOT THE CERTIFIED FIT</b> when the digits exclude the maximum but cannot separate the likelihoods; <b>BELOW ITS LIMIT</b> when the family peaks at its lognormal limit and the printed point is provably less likely than that limit; <b>OUTSIDE ITS SUPPORT</b> when a location leaves observed values with zero density; <b>NOT DECIDED</b> when the digits are too few to say. A red <span class="wx">&times;</span> marks a verdict that rests on an object you can point to &mdash; observed values outside the printed support, a certified fit of the same family with a higher likelihood, a parameter value the digits allow outside the family &mdash; and nothing else is ever red.</p>
+  <p class="lede">A report, a colleague or a pipeline printed a fitted distribution. Type its parameters as printed; they are decided against the series and block above, over every value the printed digits allow &mdash; <b>REPRODUCED</b> when the digits are the rounding of the certified maximum-likelihood fit; <b>CONSISTENT</b> when they carry more digits than the certified box resolves and lie inside it; <b>OFF THE MAXIMUM</b> when its likelihood is provably lower; <b>NOT THE CERTIFIED FIT</b> when the digits exclude the maximum but cannot separate the likelihoods; <b>BELOW ITS LIMIT</b> when the family peaks at its lognormal limit and the printed point is provably less likely than that limit; <b>OUTSIDE ITS SUPPORT</b> when a location leaves observed values with zero density; <b>NOT DECIDED</b> when the digits are too few to say. A red <span class="wx">&times;</span> marks a verdict that rests on an object you can point to &mdash; observed values outside the printed support, a certified fit of the same family with a higher likelihood, a parameter value the digits allow outside the family &mdash; and nothing else is ever red: NOT THE CERTIFIED FIT is a certified box lying outside the printed one, a refutation with no point in it, so it stays ink.</p>
   <div class="rc-check">
     <div><label for="rc-cf">family</label><select id="rc-cf">${PAPER_SIX.map((f) => '<option value="' + f + '">' + FW[f] + '</option>').join('')}</select></div>
     <div class="rc-cp" id="rc-cp"></div>
@@ -123,7 +125,7 @@ function build(OUTDIR) {
     path: '/instruments/return-level-check/',
     css: CSS,
     body: `<main>${body}</main>`,
-    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${APP}</script>`,
+    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, preset: !!P, modules: Object.keys(modules).length };

@@ -32,10 +32,22 @@ if (face.k !== REC.originInstance.k) die('k on the paper network is ' + face.k +
 if (face.z !== REC.originInstance.z) die('z on the paper network disagrees with the record');
 if (face.k !== face.theoremK) die('null space and theorem disagree on the paper network');
 
-const repair = E.repairTotals(EDGES, EXITS, { 1: Q1, 9: Q2 }, TABLE1);
-if (!repair) die('the totals could not be repaired');
+/* THE ROUNDING BOX is ½: Table I prints integers, and a printed integer that is the rounding of a total allows ½ either
+   way. Until 2026-10-28 this gate allowed a whole unit, so the unconstrained least-squares flow passed it while moving
+   one edge by 21/37 — outside the box the page said it was inside. Both are computed now: the free one, kept for the
+   sentence that says why it is no longer drawn, and the one drawn, the same criterion solved inside the box. */
+const HALF = E.Q(1, 2);
+const free = E.repairTotals(EDGES, EXITS, { 1: Q1, 9: Q2 }, TABLE1);
+const repair = E.repairTotals(EDGES, EXITS, { 1: Q1, 9: Q2 }, TABLE1, HALF);
+if (!free || !repair) die('the totals could not be repaired');
 if (repair.residualBefore.every(r => r === '0')) die('Table I conserves exactly — the page says it does not');
-if (E.cmp(repair.maxDev, E.Q(1)) >= 0) die('the repair moved a total by a whole unit or more: outside the rounding box');
+if (E.cmp(repair.maxDev, HALF) > 0) die('the repair moved a total by more than ½: outside the rounding box');
+if (repair.T.some(t => E.cmp(t, E.q0) < 0)) die('the repair made a total negative');
+/* conservation, re-checked on the returned flow rather than trusted from the solve */
+{ const nodes = new Set(EDGES.flat()), inflow = { 1: Q1, 9: Q2 };
+  for (const n of nodes) { if (EXITS.includes(n)) continue; let net = inflow[n] !== undefined ? E.Q(inflow[n]) : E.q0;
+    EDGES.forEach(([u, v], i) => { if (v === n) net = E.add(net, repair.T[i]); if (u === n) net = E.sub(net, repair.T[i]); });
+    if (!E.isZero(net)) die('the repaired totals do not conserve at node ' + n); } }
 const split = E.splitFamily(EDGES, EXITS, EA, EB, repair.T, Q1);
 if (!split || !split.feasible) die('no feasible split on the repaired totals: ' + (split && split.why));
 if (split.basis.length !== face.k) die('the split family has ' + split.basis.length + ' directions, k is ' + face.k);
@@ -61,7 +73,8 @@ const facts = {
     edges: EDGES, exits: EXITS, ea: EA, eb: EB, table1: TABLE1, pos: POS, q1: Q1, q2: Q2,
     face: { k: face.k, shortcut: face.shortcut, z: face.z, cons: face.cons, shared: face.shared, rank: face.rank,
       basis: face.basis.map(v => v.map(qs)) },
-    repair: { T: repair.T.map(qs), Tnum: repair.T.map(qn), correction: repair.correction.map(qs), residualBefore: repair.residualBefore, rows: repair.rows, maxDev: qs(repair.maxDev), maxDevNum: qn(repair.maxDev) },
+    repair: { T: repair.T.map(qs), Tnum: repair.T.map(qn), correction: repair.correction.map(qs), residualBefore: repair.residualBefore, rows: repair.rows, maxDev: qs(repair.maxDev), maxDevNum: qn(repair.maxDev),
+      half: qs(HALF), atBound: repair.atBound, free: { maxDev: qs(free.maxDev), maxDevNum: qn(free.maxDev), outside: free.correction.map((c, i) => [i, c]).filter(([, c]) => E.cmp(c, HALF) > 0 || E.cmp(c, E.neg(HALF)) < 0).map(([i, c]) => ({ edge: EDGES[i], by: qs(c) })) } },
     split: { base: split.baseFull.map(qs), baseNum: split.baseFull.map(qn), basis: split.basis.map(v => v.map(qs)), shared: split.shared,
       ranges: split.ranges.map(r => ({ lo: qs(r.lo), hi: qs(r.hi), loNum: qn(r.lo), hiNum: qn(r.hi) })), minSlack: qs(split.minSlack), minSlackNum: qn(split.minSlack) }
   },
@@ -94,4 +107,4 @@ function cardSVG() {
   return out.join('\n');
 }
 fs.writeFileSync(path.join(HERE, 'out', 'card.svg'), cardSVG());
-console.log('census facts: k = ' + face.k + ' (record ' + REC.originInstance.k + '), z = ' + face.z + ', ' + cycle.length + ' cycle rows and ' + failing.length + ' failing instances agree with the record; Table I residuals ' + repair.residualBefore.join(' ') + ', repair ≤ ' + qs(repair.maxDev) + '; split base slack ' + qs(split.minSlack));
+console.log('census facts: k = ' + face.k + ' (record ' + REC.originInstance.k + '), z = ' + face.z + ', ' + cycle.length + ' cycle rows and ' + failing.length + ' failing instances agree with the record; Table I residuals ' + repair.residualBefore.join(' ') + ', repair ≤ ' + qs(repair.maxDev) + ' inside ½ (free least squares ' + qs(free.maxDev) + '); split base slack ' + qs(split.minSlack));

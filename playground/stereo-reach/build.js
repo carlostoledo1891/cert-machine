@@ -42,6 +42,32 @@ if (!L.observed.rmse.every((x) => x >= F.bestAtGauge && x <= F.worstAtGauge)) th
 if (!(F.bestAtNear > L.quoted.zQuantization)) throw new Error('stereo-reach: the quoted quantization is not below the best-case near cell; the sentence would be false');
 if (!(FC.noiseMin > FC.bestCellStdFar && FC.noiseMax < FC.worstStdFar && FC.bestCellNear > CP.quoted.zQuantization)) throw new Error('stereo-reach: the Caparica facts moved; rewrite the prose');
 
+/* TWO READINGS OF "QUANTIZATION ERROR" (WARRANT v2, 2026-10-28). The quoted cards compare the paper's number with the
+   cell's HEIGHT. The paper's words are "root mean square quantization errors", and the RMS of a value uniform in a cell
+   of height c is c/√12 — the closer reading, and a gentler one. A verdict of ours that rests on reading prose has to
+   survive the nearby readings, so both are decided here at the best corner of the box: the cell's height at any range
+   (its least value, directly below the cameras), and the RMS reading at the near edge of the imaged area, with the
+   ranges on a 1 cm grid where the RMS reading prints the quoted digits — the printed 1.1 mm is [1.05, 1.15] mm. That
+   range is the input the paper does not state: a hole with its threshold, not a witness, so nothing here is red. */
+function readings(P) {
+  const inp = PR.toIntervals(P, Bd, TR.PI), best = Object.assign({}, inp, { p: Bd.lit(P.best.p), dd: Bd.lit(P.best.dd), dt: Bd.lit('0') });
+  const sqrt12 = Bd.sqrtIv(IV.iv(12)), q = P.quoted.zQuantization, qlo = q - 0.00005, qhi = q + 0.00005;
+  const cellAt = (R) => Bd.cell(best, Bd.lit(String(R))).terms.cell, rmsAt = (R) => IV.div(IV.iv(cellAt(R)), sqrt12);
+  const prints = []; let prev = 0;
+  for (let k = 1; k <= Number(P.rangeLo) * 100; k++) {
+    const R = k / 100, r = rmsAt(R);
+    if (r[0] < prev) throw new Error('stereo-reach: the RMS reading is not increasing on the grid at ' + R + ' m; the sentence would be false');
+    prev = r[0];
+    if (r[0] >= qlo && r[1] <= qhi) prints.push(R);
+  }
+  const floor = cellAt(0.01), near = rmsAt(Number(P.rangeLo));
+  if (!(floor > qhi)) throw new Error('stereo-reach: the cell-height reading reaches the quoted number; rewrite the prose');
+  if (!(near[0] > qhi && prints.length && prints[prints.length - 1] < Number(P.rangeLo))) throw new Error('stereo-reach: the RMS reading reproduces the quoted number in the imaged area; rewrite the prose');
+  return { floor, near: near[1], from: prints[0], to: prints[prints.length - 1] };
+}
+const RL = readings(L), RC = readings(CP);
+const readingNote = (P, R) => `Two readings of its words, as a verdict that rests on reading prose should survive: as the cell&rsquo;s height (the cards above), at least ${cm(R.floor)} at any range, even directly below the cameras; and as what &ldquo;root mean square quantization error&rdquo; names, the RMS of a value uniform in the cell, its height/&radic;12 &mdash; ${cm(R.near)} at the near edge (${P.rangeLo} m), printing ${cm(P.quoted.zQuantization)} only ${R.from.toFixed(2)}&ndash;${R.to.toFixed(2)} m from the cameras (best corner, a 1 cm grid), nearer than any surf imaged. Neither reading reproduces it where the rig looked. The range it holds at is what the paper does not state, so this is a hole with its threshold, not a witness against the paper, and nothing on this page is red.`;
+
 /* Table 2 of the 2025 paper as a picture: the point Hs and the area Hs of each record on one
    axis, joined; the implied noise at the right; the rig's own cell standard deviations as two
    vertical rules. Drawn at build from the same literals the facts use. */
@@ -110,7 +136,7 @@ const body = `
     <div class="c"><div class="k">observed, Table 1</div><div class="v">${L.observed.rmse.map((x) => cm(x)).join(' &middot; ')}</div><div class="n">RMSE of the surface elevation against the pressure gauge over four 19-minute records; biases ${L.observed.bias.map((x) => (x * 100).toFixed(0) + ' cm').join(', ')}</div></div>
     <div class="c"><div class="k">quoted z-quantization</div><div class="v">${cm(L.quoted.zQuantization)}</div><div class="n">&sect;4: "0.9 mm, 9.9 mm, and 1.1 mm for the x, y and z-axes"; the range it holds at is not stated. The best-case cell at the near edge (${L.rangeLo} m) is ${cm(F.bestAtNear)}.</div></div>
   </div>
-  <p class="sr-note">Read together: every observed RMSE lies between the best and worst corners of the budget, so the geometry with the paper's own numbers accounts for the deviation from the gauge without invoking anything else &mdash; and the disparity at the gauge is only ${nf(F.disparityAtGauge[0], 0)}&ndash;${nf(F.disparityAtGauge[1], 0)} pixels, which is why a pixel of matching error is ${cm(F.worstAtGauge)} of elevation there. The quoted quantization of ${cm(L.quoted.zQuantization)} is below what this model gives for any corner of the box at any range in the imaged area; the paper takes it from a formula in its reference [42] that we do not hold, so this is a number we could not reproduce, not one we refute.</p>
+  <p class="sr-note">Read together: every observed RMSE lies between the best and worst corners of the budget, so the geometry with the paper's own numbers accounts for the deviation from the gauge without invoking anything else &mdash; and the disparity at the gauge is only ${nf(F.disparityAtGauge[0], 0)}&ndash;${nf(F.disparityAtGauge[1], 0)} pixels, which is why a pixel of matching error is ${cm(F.worstAtGauge)} of elevation there. The quoted quantization of ${cm(L.quoted.zQuantization)} is below what this model gives for any corner of the box at any range in the imaged area; the paper takes it from a formula in its reference [42] that we do not hold, so this is a number we could not reproduce, not one we refute. ${readingNote(L, RL)}</p>
 </section>
 
 <section class="wrap">
@@ -121,7 +147,7 @@ const body = `
     <div class="c"><div class="k">certified cell, best corner, ${CP.rangeLo}&ndash;${CP.rangeHi} m</div><div class="v w-decided">${cm(FC.bestCellNear)} &ndash; ${cm(FC.bestCellFar)}</div><div class="n">pitch ${nf(Number(CP.best.p) * 1e6, 1)} &micro;m, &delta;d ${CP.best.dd} px, perfect sync; the standard deviation of a value uniform in the far cell is ${cm(FC.bestCellStdFar)}</div></div>
     <div class="c"><div class="k">bound, worst corner of the box, ${CP.rangeLo}&ndash;${CP.rangeHi} m</div><div class="v w-chosen">${cm(FC.worstNear)} &ndash; ${cm(FC.worstFar)}</div><div class="n">pitch ${nf(Number(CP.worst.p) * 1e6, 1)} &micro;m, &delta;d ${CP.worst.dd} px, half a frame of lag with ${CP.utex.v} m/s of texture (chosen); the uniform standard deviation of the far bound is ${cm(FC.worstStdFar)}</div></div>
     <div class="c"><div class="k">noise that would make the area Hs, Table 2</div><div class="v">${cm(FC.noiseMin)} &ndash; ${cm(FC.noiseMax)}</div><div class="n">per record, &radic;(Hs&sup2;<sub>area</sub> &minus; Hs&sup2;<sub>point</sub>)/4 on the printed literals: ${FC.noise.map((r) => r.id + ' ' + cm(r.noise[1])).join(' &middot; ')}</div></div>
-    <div class="c"><div class="k">quoted z-quantisation</div><div class="v">${cm(CP.quoted.zQuantization)}</div><div class="n">&sect;5.3: "1.9 mm, 17.5 mm, and 2.1 mm for the x, y and z-axes"; the best-case cell at the near edge (${CP.rangeLo} m) is ${cm(FC.bestCellNear)} &mdash; not reproduced under this model, as at Leme.</div></div>
+    <div class="c"><div class="k">quoted z-quantisation</div><div class="v">${cm(CP.quoted.zQuantization)}</div><div class="n">&sect;5.3: "1.9 mm, 17.5 mm, and 2.1 mm for the x, y and z-axes"; the best-case cell at the near edge (${CP.rangeLo} m) is ${cm(FC.bestCellNear)} &mdash; not reproduced under this model, as at Leme. Read as an RMS, height/&radic;12: ${cm(RC.near)} there, and ${cm(CP.quoted.zQuantization)} only ${RC.from.toFixed(2)}&ndash;${RC.to.toFixed(2)} m from the cameras.</div></div>
   </div>
   <p class="sr-note">Read together: the per-point noise that would lift the point Hs to the area Hs in every one of the six records &mdash; ${cm(FC.noiseMin)} to ${cm(FC.noiseMax)} &mdash; lies between the best corner (${cm(FC.bestCellStdFar)}) and the worst corner (${cm(FC.worstStdFar)}) of what this rig's own quantisation cell contributes at 40 m. So the 27&ndash;55 % is inside what the geometry with the paper's own numbers can produce on its own, and it is not evidence about the sea until the rig's cell has been subtracted from the area variance. The paper attributes the excess to the area capturing the highest spatio-temporal elevations (Forristall 2006); that argument is about a <em>maximum</em> over an area, which does exceed a maximum at a point, and it does not bear on Hs, which is a variance. Point and area maxima (H<sub>max</sub>, &zeta;<sub>max</sub>) are the paper's other two columns and are not decided here. The disparity at 30 m is only ${nf(FC.disparityAtGauge[0], 0)}&ndash;${nf(FC.disparityAtGauge[1], 0)} pixels, which is why a pixel of matching error is ${cm(FC.worstAtGauge)} of elevation there. The paper's own validation &mdash; an Hs RMSE of ${cm(CP.observed.hsRmse)} against the pressure gauge at the point &mdash; also lies inside the best&ndash;worst span.</p>
 </section>

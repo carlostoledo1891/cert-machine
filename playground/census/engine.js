@@ -342,29 +342,61 @@
      several nodes. The nearest conserving totals in the least-squares sense are
      T′ = T + Kᵀ y with (K Kᵀ) y = −(K T − b), solved exactly over Q on the total
      network (every edge active, inflows at both entrances). The result is one
-     conserving flow inside the rounding box — CHOSEN, and drawn as such. */
+     conserving flow — CHOSEN, and drawn as such.
+
+     INSIDE THE ROUNDING BOX, 2026-10-28 (WARRANT v2). This comment used to end
+     "one conserving flow inside the rounding box", and on the paper's network it
+     is not: the unconstrained solution moves one edge by 21/37, and a printed
+     integer that is the rounding of a flow allows ½. A pick has to be a member of
+     the set the data admits, so with `half` the same criterion is solved inside
+     the box |T′ − T| ≤ half: an active set over Q (the worst violator is fixed at
+     its bound and the rest re-solved; a bound whose multiplier has the wrong sign
+     is released), and the KKT conditions are checked exactly before anything is
+     returned. The objective is strictly convex, so what comes back is THE nearest
+     conserving flow inside the box, or null when there is none to be found. */
   function solveSquare(A, b) {
     const n = b.length;
     const { rank, A: R } = rref(A.map((row, r) => row.concat([b[r]])), n);
     if (rank < n) return null;
     return R.map(row => row[n]);
   }
-  function repairTotals(edges, exitsArr, inflows, totals) {
+  function repairTotals(edges, exitsArr, inflows, totals, half) {
     const exits = new Set(exitsArr);
     const all = edges.map((_, i) => i);
     const K = kirchhoff(edges, all, exits);
     const T = totals.map(fromNum);
     const b = K.rows.map(node => (inflows[node] !== undefined ? fromNum(inflows[node]) : q0));
     const r = K.K.map((row, i) => sub(row.reduce((acc, kij, j) => add(acc, mul(kij, T[j])), q0), b[i]));
-    const KKt = K.K.map(ri => K.K.map(rj => ri.reduce((acc, v, j) => add(acc, mul(v, rj[j])), q0)));
-    const y = solveSquare(KKt, r.map(neg));
-    if (!y) return null;
-    const corr = all.map(j => K.K.reduce((acc, row, i) => add(acc, mul(row[j], y[i])), q0));
+    const h = half === undefined ? null : half;
+    const abs = (a) => (cmp(a, q0) < 0 ? neg(a) : a);
+    const fixed = new Map();                  /* edge → +1 at T + half, −1 at T − half */
+    let corr = null, done = h === null;
+    for (let it = 0; it < 4 * edges.length + 4; it++) {
+      const free = all.filter(j => !fixed.has(j));
+      const at = (j) => (fixed.get(j) > 0 ? h : neg(h));
+      /* K corr = −r, with corr = Kᵀy on the free edges and ±half on the fixed ones */
+      const rhs = K.K.map((row, i) => { let v = neg(r[i]); fixed.forEach((_, j) => { v = sub(v, mul(row[j], at(j))); }); return v; });
+      const M = K.K.map(ri => K.K.map(rj => free.reduce((acc, j) => add(acc, mul(ri[j], rj[j])), q0)));
+      const y = solveSquare(M, rhs);
+      if (!y) return null;
+      const kty = all.map(j => K.K.reduce((acc, row, i) => add(acc, mul(row[j], y[i])), q0));
+      corr = all.map(j => (fixed.has(j) ? at(j) : kty[j]));
+      if (h === null) break;
+      /* KKT: a bound holds only where the free step would push further out */
+      let release = -1;
+      fixed.forEach((sg, j) => { if (release < 0 && (sg > 0 ? cmp(kty[j], h) < 0 : cmp(kty[j], neg(h)) > 0)) release = j; });
+      if (release >= 0) { fixed.delete(release); continue; }
+      let worst = -1;
+      free.forEach(j => { if (cmp(abs(corr[j]), h) > 0 && (worst < 0 || cmp(abs(corr[j]), abs(corr[worst])) > 0)) worst = j; });
+      if (worst < 0) { done = true; break; }
+      fixed.set(worst, cmp(corr[worst], q0) > 0 ? 1 : -1);
+    }
+    if (!done) return null;
     const Tp = T.map((t, j) => add(t, corr[j]));
     const residual = r.map(str);
     let maxDev = q0;
-    corr.forEach(c => { const a = cmp(c, q0) < 0 ? neg(c) : c; if (cmp(a, maxDev) > 0) maxDev = a; });
-    return { T: Tp, correction: corr, residualBefore: residual, maxDev, rows: K.rows };
+    corr.forEach(c => { if (cmp(abs(c), maxDev) > 0) maxDev = abs(c); });
+    return { T: Tp, correction: corr, residualBefore: residual, maxDev, rows: K.rows, half: h, atBound: [...fixed.keys()].sort((a, c) => a - c) };
   }
 
   return { Q, q0, q1, add, sub, mul, div, neg, cmp, isZero, toNum, str, fromNum,

@@ -201,8 +201,14 @@ ${require('../../instruments/cert-unit/art-css.js').CONTACT_CSS}
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 ${balancedGrid('.w-legend', '.item')}
+.w-legend.compact { max-width: 34rem; }
 }
 `;
 }

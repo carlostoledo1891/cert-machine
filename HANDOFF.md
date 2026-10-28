@@ -22,6 +22,42 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-28 ~04:30 UTC — WARRANT v2 ON SIX MORE PAGES, on "Continue applying the new grammar on more pages". Four
+     findings on our own pages, each fixed at the source. CENSUS (FINDING): the drawn totals, the unconstrained least-squares
+     repair of Table I, moved two edges by up to 21/37 — outside the ½ a rounded integer allows, which the page and engine.js
+     said they were inside (make-facts gated < 1). engine.js repairTotals(…, half) now solves the same criterion inside
+     |T′ − T| ≤ ½ (an exact active set over Q, KKT checked before returning; 3 edges on the bound; an independent Python check
+     in exact fractions agreed); make-facts gates ≤ ½ and re-checks conservation; the page says what changed and why. The
+     shortcut readout is DECIDED on every network (it dropped to the chosen underline when it disagreed with k — a verdict in
+     the standing channel); a red × marks each network that breaks the shortcut (the gallery's four, and live in the readout);
+     the totals' and the split's numbers CHOSEN; a "grammar's words" paragraph (an ∃ decided by exhibiting a dotted witness).
+     STEREO-REACH (FINDING): the quoted-quantization cards compared the papers' "root mean square quantization errors" with the
+     cell's HEIGHT; the RMS reading (height/√12) is the closer one and the verdict survives it — Leme 2.5 mm at the near edge
+     (it prints 1.1 mm only 3.38–3.87 m from the cameras), Caparica 11 mm (2.1 mm only at 2.03–2.30 m); a DATA hole with its
+     threshold, nothing red, gated in build.js. The verdict names its chosen inputs in the conditional mood (italic "Given sync
+     lag … · texture speed …"). PU (FINDING): the paste box's sample row was no row of the file — pasted, it read OFF by R$ 27,
+     which with the red × would be a witness against the publisher for a row it never printed; now a line of the pinned CSV,
+     gated. Every row verdict names its hypothesis in italic (the ledger's code in the title); an OFF row carries the red × (the
+     row is the exhibited object, off under every registered hypothesis); a price typed by hand is never red (a scalar
+     comparison). RETURN-LEVEL CHECK + ATLAS: the red × list is ONE module, playground/return-level-check/exhibited.js (the
+     check's app.js held it); NOT THE CERTIFIED FIT is off it (a box clearing a box, no witness point — it was red at 957711a5);
+     the record's objects (a value outside the support, a more likely fit) are red only on the record the fit was made from:
+     on an atlas cell they stay ink — the design table's 40 cell decisions (36 OFF THE MAXIMUM, made from another hindcast)
+     would otherwise have carried 37 red ×, against a table the page itself says did not err; the digits' own object (NOT A
+     MEMBER OF THE FAMILY) is red on any record. Both cases verified live in Chrome. The printed-fit battery gained 3 checks and
+     2 reds (every code printed.js returns is placed). OCCULTATION (FINDING): the joined dots are not concave (the record's
+     dotsConcave is false at every rung), so they are no member of the set; drawn PICK now with a caption that says so, and the
+     published ellipse PICK (both were CLAIM-dashed); the face-value row drew a bar for an EMPTY set — now ∅ in words; 206 ± 15
+     and the radiometric 237 ± 8 marked CHOSEN ("two picks inside one decided interval"); nothing red (an ∃ refuted for every
+     body at once). TRANSIT: the 29 published values and their ± drawn PICK; "nothing red: none outside". SHAPE-HUNT: its legend
+     (957711a5 put grammar marks on it without one, and `make control` refused at the wiring battery — found here).
+     GATES: `make page R=playground` green (style, render, the ruler — the new legends added spines on occultation and
+     shape-hunt; met by a compact legend, design/components.js `.w-legend.compact` via warrant.js legendHtml({ compact }), not
+     accepted); `make control` 172/172 (its first run refused at the wiring battery on 957711a5's legendless shape-hunt);
+     check-links PASS; the dash census 472; the printed-fit battery 20 pass, 8/8 reds; stereo 37 + 11/11; pu ALL PASS.
+     NEXT: the dash-only instruments (simplex, neural-geometry, graph, rewire, blind-spot, pqc, lattice-claims, answer-shape,
+     affect), then contours, plates, navier-stokes, exact-geometry; contours has nothing red (its 3 unreproduced printed counts
+     are scalars, its 30 self-crossings a fact about files nobody claimed simple).
   ★ 2026-10-28 ~00:30 UTC — THE VISUAL GRAMMAR (WARRANT v2), FIRST LIVE PAGE: the return-level atlas. Brainstorm and tests in
      notes/visual-grammar-2026-10-27.md (untracked; §§10–18) and three private artifacts; the operator: "We can apply in any
      page, no blocker, return level should go live as well." Live change (playground/return-level-atlas build.js, app.js,

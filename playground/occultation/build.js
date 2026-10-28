@@ -18,6 +18,7 @@ const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { page, esc } = require(path.join(PG, 'design', 'shell.js'));
 const G = require(path.join(ROOT, 'design', 'grammar.js'));
+const W = require(path.join(PG, 'warrant.js'));   /* the grammar's words for a number (WARRANT v2, 2026-10-28) */
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/occultation/out/page.json'), 'utf8'));
 const REPORT = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/report.css'), 'utf8');
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
@@ -69,7 +70,7 @@ function figEnvelope() {
     ${grid.join('')}${xt.join('')}
     <polyline points="${poly(R1.polyHi)}" fill="none" stroke="var(--ink-3)" stroke-width="1.5" class="ink-decided"/>
     <polyline points="${poly(R1.polyLo)}" fill="none" stroke="var(--ink-3)" stroke-width="1.5" class="ink-decided"/>
-    <polyline points="${poly(R1.polyDots)}" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-assumed" opacity="0.85"/>
+    <polyline points="${poly(R1.polyDots)}" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-chosen-sm" opacity="0.85"/>
     ${negMarks}${bars}
     <text x="14" y="${mt + 8}" class="ax">chord, km</text>
     <text x="${w - mr}" y="${h - 2}" text-anchor="end" class="ax">cross-track position on the sky plane, km</text>
@@ -87,7 +88,7 @@ function figSilhouettes() {
     return top.concat(bot).join(' ');
   };
   const ell = (cx, a, b, pa) =>
-    `<ellipse cx="${cx}" cy="${cy}" rx="${f(a * s)}" ry="${f(b * s)}" transform="rotate(${-(pa - 90)} ${cx} ${cy})" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-assumed"/>`;
+    `<ellipse cx="${cx}" cy="${cy}" rx="${f(a * s)}" ry="${f(b * s)}" transform="rotate(${-(pa - 90)} ${cx} ${cy})" fill="none" stroke="var(--ink-4)" stroke-width="1.2" class="ink-chosen-sm"/>`;
   return `<svg viewBox="0 0 ${w} ${h}" class="fg" role="img" aria-label="the smallest and largest silhouettes the chords allow">
     <polygon points="${shape(R1.polyLo, cx1)}" fill="var(--band-fill)" stroke="var(--ink-2)" stroke-width="1.4" class="ink-decided"/>
     ${ell(cx1, E0.aKm, E0.bKm, E0.posAngleDeg)}
@@ -95,7 +96,7 @@ function figSilhouettes() {
     ${ell(cx2, E0.aKm, E0.bKm, E0.posAngleDeg)}
     <text x="${cx1}" y="${h - 40}" text-anchor="middle" class="lb">the smallest allowed — ${f(R1.DeqLo)} km</text>
     <text x="${cx2}" y="${h - 40}" text-anchor="middle" class="lb">the largest allowed — ${f(R1.DeqHi)} km</text>
-    <text x="${w / 2}" y="${h - 16}" text-anchor="middle" class="lb">dashed: the published ellipse, ${f(E0.DeqKm, 0)} ± ${f(E0.DeqErrKm, 0)} km · drawn centred, because chords fix widths and not offsets</text>
+    <text x="${w / 2}" y="${h - 16}" text-anchor="middle" class="lb">dotted: the published ellipse, ${f(E0.DeqKm, 0)} ± ${f(E0.DeqErrKm, 0)} km, one shape the chords admit, chosen by a fit · drawn centred, because chords fix widths and not offsets</text>
   </svg>`;
 }
 
@@ -111,15 +112,14 @@ function figLadder() {
     const bad = !r.feasible.ok;
     return `<g>
       <text x="${ml - 10}" y="${y + 12}" text-anchor="end" class="lb">${r.nsig === 0 ? 'as published' : r.nsig + 'σ of chord error'}</text>
-      <rect x="${f(X(r.DeqLo))}" y="${y + 3}" width="${f(Math.max(1, X(r.DeqHi) - X(r.DeqLo)))}" height="13" fill="var(--band-fill)" stroke="${bad ? 'var(--verdict-refuted-ink)' : 'var(--border-strong)'}" stroke-width="1" class="${bad ? 'ink-assumed' : 'ink-decided'}"/>
+      ${bad ? `<text x="${f(X(lo)) + 8}" y="${y + 13}" class="lb">&empty; &middot; no convex body fits</text>` : `<rect x="${f(X(r.DeqLo))}" y="${y + 3}" width="${f(Math.max(1, X(r.DeqHi) - X(r.DeqLo)))}" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
       <text x="${f(X(r.DeqLo)) - 6}" y="${y + 13}" text-anchor="end" class="ax">${f(r.DeqLo)}</text>
-      <text x="${f(X(r.DeqHi)) + 6}" y="${y + 13}" class="ax">${f(r.DeqHi)}</text>
-      ${bad ? `<text x="${f(X(r.DeqHi)) + 46}" y="${y + 13}" class="lb">no convex body fits</text>` : ''}
+      <text x="${f(X(r.DeqHi)) + 6}" y="${y + 13}" class="ax">${f(r.DeqHi)}</text>`}
     </g>`;
   }).join('');
   return `<svg viewBox="0 0 ${w} ${h}" class="fg" role="img" aria-label="certified equivalent diameter against the error budget">
-    ${tick(E0.DeqKm, 'ellipse ' + E0.DeqKm, 'ink-assumed-sm')}
-    ${tick(rad.DKm, 'radiometric ' + rad.DKm, 'ink-assumed-sm')}
+    ${tick(E0.DeqKm, 'ellipse ' + E0.DeqKm, 'ink-chosen-sm')}
+    ${tick(rad.DKm, 'radiometric ' + rad.DKm, 'ink-chosen-sm')}
     ${bars}
     <line class="ink-guide" x1="${ml}" x2="${w - mr}" y1="${h - 24}" y2="${h - 24}" stroke="var(--chart-axis)" stroke-width="1"/>
     ${[150, 200, 250, 300].map(v => `<text x="${f(X(v))}" y="${h - 10}" text-anchor="middle" class="ax">${v}</text>`).join('')}
@@ -139,7 +139,7 @@ const body = `
     </p>
     <div class="stats reveal mt6">
       <div class="stat"><div class="num">${f(R1.DeqLo, 0)}–${f(R1.DeqHi, 0)}</div><div class="dim">km, certified from convexity</div></div>
-      <div class="stat"><div class="num">${E0.DeqKm} ± ${E0.DeqErrKm}</div><div class="dim">km, the published ellipse</div></div>
+      <div class="stat"><div class="num">${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN)}</div><div class="dim">km, the published ellipse</div></div>
       <div class="stat"><div class="num">${f(NN.DeqHi - R1.DeqHi, 0)}</div><div class="dim">km of ceiling bought by the misses</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">optimisers; every area is exact</div></div>
     </div>
@@ -171,7 +171,8 @@ const body = `
 
     <figure class="reveal mt6">${figEnvelope()}
       <figcaption class="figcap"><span class="k">the chords, and every concave function that fits them</span>
-      <span class="v">solid: the certified floor and ceiling · dashed: joining the dots, which is an assumption, not a bound</span></figcaption></figure>
+      <span class="v">solid: the certified floor and ceiling · dotted: joining the dots, a chosen picture and not a bound${R1.dotsConcave ? '' : ' &mdash; nor a member of the set: it is not concave, so no convex body has it'}</span></figcaption></figure>
+    ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED], compact: true })}
 
     <figure class="reveal mt6">${figSilhouettes()}
       <figcaption class="figcap"><span class="k">two silhouettes the same five chords allow</span>
@@ -184,16 +185,19 @@ const body = `
     <div class="note reveal">
       <b>At face value the chords are not consistent with any convex silhouette.</b> Taken with zero error, the concave hull of the
       measured lengths runs ${f(R0.feasible.overKm)} km above ${esc(R0.feasible.at.replace(/ Observatory.*/, ''))}'s own chord — no convex body passes through all five.
-      About half of one stated error bar is enough to admit one, which is why the row above is drawn open. The published analysis meets the
+      About half of one stated error bar is enough to admit one. So the top row above has no bar: at face value the set of convex
+      silhouettes is empty, and an empty set has no extent to draw. Nothing on this page is red, either: &ldquo;some convex body fits&rdquo;
+      is refuted for every body at once by the hull, with no single object to exhibit. The published analysis meets the
       same fact from the other side: its fit to the chords as timed scores χ² = ${E0.chi2}, and only after shifting three chords in time does it
       reach ${E1.chi2}. <em>This page does not take a side in that debate: a timing shift slides a chord along its own line and does not change how
       long it is, so nothing here depends on which fit one prefers.</em>
     </div>
 
     <div class="note reveal">
-      <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of ${E0.DeqKm} ± ${E0.DeqErrKm} km and notes that its
-      mean 3-D estimate is <em>not in agreement</em> with the radiometric ${rad.DKm} ± ${rad.errKm} km from Herschel, Spitzer and ALMA. Both numbers sit
-      inside [${f(R1.DeqLo)}, ${f(R1.DeqHi)}] km. The tension is between two models, not between two measurements.
+      <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of ${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN)} km and notes that its
+      mean 3-D estimate is <em>not in agreement</em> with the radiometric ${W.value(rad.DKm + ' ± ' + rad.errKm, W.CHOSEN)} km from Herschel, Spitzer and ALMA. Both numbers sit
+      inside [${f(R1.DeqLo)}, ${f(R1.DeqHi)}] km. The tension is between two models, not between two measurements &mdash; in the grammar&rsquo;s
+      words, two picks (dotted: an ellipse chosen by a fit, a thermal model chosen by another) inside one decided interval.
     </div>
 
     <div class="grid reveal g-lead4w">

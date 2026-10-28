@@ -484,6 +484,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.4; margin-top: 2px; }
+/* the COMPACT legend (2026-10-28): a two-entry legend set below prose would spread its two items across the full
+   column and put four new left edges on the page, which the layout ruler counts as spines; held to a short measure,
+   it reads as one key, and the items stay narrower than anything the ruler measures (one column of 17rem on a
+   phone, two in 34rem from 700px) */
+.w-legend.compact { max-width: 17rem; }
 @media (min-width: 700px) {
 .w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
 .w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
@@ -513,6 +518,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
 .w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
 .w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
 }
 
 /* page.css — PU Verificado, the instrument. Tokens only. */
@@ -544,6 +550,10 @@ button:hover{border-color:var(--ink-3)}
 ul.plain{list-style:none;padding:0;margin:var(--s-3) 0 0}
 ul.plain li{padding:var(--s-2) 0;border-top:1px solid var(--rule);color:var(--ink-2)}
 ul.plain li b{color:var(--ink)}
+
+/* the one accent (WARRANT v2): the red of an exhibited counterexample, only ever on a × glyph */
+.wx{color:var(--witness);font-weight:var(--weight-strong)}
+td em,.note em{color:var(--ink-3)}
 
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -634,8 +644,8 @@ ul.plain li b{color:var(--ink)}
 
 <section class="wrap panel" id="rows">
   <div class="eyebrow">rows of the published file</div>
-  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided by <span class="m">instruments/pu/rows.js</span>, the module the ledger calls, under every hypothesis it pre-registered: the primary settlement (a purchase on the next business day, a sale on the quotation day), D+1, D+1 skipping 24 and 31 December, B3&rsquo;s settlement calendar and the calendar as of the quotation; REPRODUCED names the hypothesis that holds, CONSISTENT the one under which the printed centavos lie inside the price interval the printed rate&rsquo;s own precision allows. LTN, NTN-F and LFT; other titles are refused by name.</p>
-  <textarea id="paste" rows="5" spellcheck="false" placeholder="Tesouro Prefixado;01/01/2027;15/10/2026;14,32;14,44;945,46;942,02;942,02"></textarea>
+  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided by <span class="m">instruments/pu/rows.js</span>, the module the ledger calls, under every hypothesis it pre-registered: the primary settlement (a purchase on the next business day, a sale on the quotation day), D+1, D+1 skipping 24 and 31 December, B3&rsquo;s settlement calendar and the calendar as of the quotation; REPRODUCED names the hypothesis that holds, CONSISTENT the one under which the printed centavos lie inside the price interval the printed rate&rsquo;s own precision allows. LTN, NTN-F and LFT; other titles are refused by name. Each verdict names, in italic, the hypothesis it holds under. An OFF row carries the house&rsquo;s one accent, a red <span class="wx">&times;</span>: the row is an object the file printed, and under every registered hypothesis it is not the rule&rsquo;s value at any rate its digits allow. A price typed above is a comparison of two numbers, with nothing to exhibit, so it is never red.</p>
+  <textarea id="paste" rows="5" spellcheck="false" placeholder="Tesouro Prefixado;01/01/2027;15/10/2026;13,37;13,49;974,43;973,73;973,73"></textarea>
   <div class="row"><button id="decide" type="button">Decide the rows</button><span id="rowsNote" class="note"></span></div>
   <div id="table" class="out"></div>
 </section>
@@ -4553,6 +4563,7 @@ else if (typeof globalThis !== 'undefined') globalThis.PU_ROWS = PU_ROWS;
             const hit = c === PU.trunc2(r.pu6) ? 'TRUNC-2' : c === PU.round2(r.pu6) ? 'ROUND-2' : null;
             html += hit ? '<p class="verdict rep">REPRODUCED under ' + hit + ' — the printed ' + esc(dec2(c)) + ' is the rule’s value to the centavo.</p>'
               : '<p class="verdict off">OFF — printed ' + esc(dec2(c)) + ', the rule’s value ' + esc(pu6) + ' (truncated ' + esc(t2) + '); difference ' + esc((c - PU.trunc2(r.pu6)).toString()) + ' centavos. A pasted row is also tried under the other settlements and the rate’s half-unit box.</p>';
+            html += '<p class="note"><em>given settlement on ' + esc(settle) + (kind === 'LFT' ? ', the Selic index of ' + esc(quote) : '') + ' and ' + ($('precal').checked ? 'the calendar as of the quotation' : 'today’s pinned ANBIMA calendar') + '</em> — the inputs above, chosen by you.</p>';
           }
         }
       }
@@ -4565,6 +4576,15 @@ else if (typeof globalThis !== 'undefined') globalThis.PU_ROWS = PU_ROWS;
   const toIso = (dmy) => { const [d, m, y] = dmy.split('/'); return `${y}-${m}-${d}`; };
   const cents = (s) => { const t = s.trim().replace('.', '').replace(',', '.'); const m = /^(\d+)\.(\d{2})$/.exec(t) || /^(\d+)$/.exec(t); if (!m) return null; return BigInt(m[1]) * 100n + BigInt(m[2] || '0'); };
   const CLS = { REPRODUCED: 'rep', CONSISTENT: 'rep', OFF: 'off', REFUSED: 'refused', 'NEEDS DATA': 'refused' };
+  /* WARRANT v2 (2026-10-28): every verdict here holds under a named hypothesis — a settlement convention, a calendar —
+     so the hypothesis is said in words, in the conditional mood (italic), and the ledger's code stays in the title.
+     An OFF row carries the house's one accent, a red ×: the row is an object the file printed, and under every
+     registered hypothesis it is not the rule's value at any rate its digits allow. A price typed by hand is a
+     comparison of two numbers, with nothing to exhibit, and is never red. */
+  const SETTLE = { D0: 'settling D+0', D1: 'settling D+1', D1x: 'settling D+1, skipping 24 and 31 December', D1b3: 'settling on B3’s next trading day', D0b3: 'settling on B3’s day' };
+  const hypWords = (code) => { const p = code.split('/'); return SETTLE[p[0]] + (p.includes('pre') ? ', the calendar as of the quotation' : '') + (p.includes('r') ? ', across a day B3’s rules imply' : '') + (p.includes('T') ? ', truncated' : p.includes('R') ? ', rounded' : ''); };
+  const given = (code, all) => '<em title="' + esc((all || [code]).join(' ')) + '">given ' + esc(hypWords(code)) + '</em>';
+  const WX = '<span class="wx" aria-label="an exhibited counterexample">×</span> ';
 
   function rows() {
     const lines = $('paste').value.split(/\r?\n/).map((s) => s.trim()).filter(Boolean);
@@ -4578,10 +4598,10 @@ else if (typeof globalThis !== 'undefined') globalThis.PU_ROWS = PU_ROWS;
       for (const x of DR.decideRow(row)) {
         tally[x.verdict] = (tally[x.verdict] || 0) + 1;
         const prim = x.hyp ? x.hyp[DR.PRIMARY[x.side]] : null;
-        let cell = '<span class="verdict ' + CLS[x.verdict] + '">' + esc(x.verdict) + '</span>';
-        if (x.verdict === 'REPRODUCED') { const h = x.hyp[x.codes[0].replace(/\/[TR]$/, '')]; cell += ' <span class="m">' + esc(h.pu6) + '</span> · ' + esc(x.codes.join(' ')); }
-        else if (x.verdict === 'CONSISTENT') cell += ' under ' + esc(x.consistent.under) + ' · rate box [' + esc(x.consistent.rateBox[0]) + ', ' + esc(x.consistent.rateBox[1]) + '] · <span class="m">' + esc(x.consistent.puRange[0]) + ' – ' + esc(x.consistent.puRange[1]) + '</span>';
-        else if (x.verdict === 'OFF') cell += ' <span class="m">' + esc(prim.pu6) + '</span> · ' + esc(x.diffCents) + ' ¢ under ' + esc(DR.PRIMARY[x.side]);
+        let cell = (x.verdict === 'OFF' ? WX : '') + '<span class="verdict ' + CLS[x.verdict] + '">' + esc(x.verdict) + '</span>';
+        if (x.verdict === 'REPRODUCED') { const h = x.hyp[x.codes[0].replace(/\/[TR]$/, '')]; cell += ' <span class="m">' + esc(h.pu6) + '</span> · ' + given(x.codes[0], x.codes) + (x.codes.length > 1 ? ' (and ' + (x.codes.length - 1) + ' more)' : ''); }
+        else if (x.verdict === 'CONSISTENT') cell += ' ' + given(x.consistent.under, x.consistent.codes) + ' · rate box [' + esc(x.consistent.rateBox[0]) + ', ' + esc(x.consistent.rateBox[1]) + '] · <span class="m">' + esc(x.consistent.puRange[0]) + ' – ' + esc(x.consistent.puRange[1]) + '</span>';
+        else if (x.verdict === 'OFF') cell += ' <span class="m">' + esc(prim.pu6) + '</span> · ' + esc(x.diffCents) + ' ¢ ' + given(DR.PRIMARY[x.side]) + ' (off under all ' + Object.keys(x.hyp).length + ')';
         else if (x.why) cell += ' — ' + esc(x.why);
         /* the settlement of the hypothesis that holds (REPRODUCED, CONSISTENT), the primary's otherwise */
         const held = x.verdict === 'REPRODUCED' ? x.hyp[x.codes[0].replace(/\/[TR]$/, '')] : x.verdict === 'CONSISTENT' ? x.hyp[x.consistent.under] : prim;

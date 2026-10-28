@@ -66,5 +66,17 @@ const appC = read('playground', 'return-level-check', 'app.js'), appA = read('pl
 ok(![appC, appA].some((a) => /OFF THE MAXIMUM —|NOT THE CERTIFIED FIT —|function relation/.test(a)) && /printed\.js/.test(read('playground', 'return-level-check', 'build.js')) && /printed\.js/.test(read('playground', 'return-level-atlas', 'build.js')),
   'the decision lives in printed.js alone: neither page\'s app.js holds a ladder of its own, both builds inline the module');
 
+/* the red × (WARRANT v2): which decisions rest on an exhibited object is exhibited.js's alone, every code printed.js can
+   return is placed by it or named here as resting on none, and the atlas's cells keep the record's objects in ink */
+const X = require(path.join(ROOT, 'playground', 'return-level-check', 'exhibited.js'));
+const NONE = ['REPRODUCED', 'CONSISTENT', 'NOT DECIDED', 'UNDECIDED AT THE PRINTED PRECISION', 'A DIFFERENT MODEL', 'NOT THE CERTIFIED FIT'];
+const codes = [...new Set([...read('playground', 'return-level-check', 'printed.js').matchAll(/code\s*[:=]\s*'([A-Z ]+)'/g)].map((m) => m[1]))];
+ok(codes.length >= 10 && codes.every((c) => X.DIGITS.has(c) || X.RECORD.has(c) || NONE.includes(c)), 'every code printed.js returns (' + codes.length + ') is placed: an object in the digits, one in the record, or none');
+ok(![appC, appA].some((a) => /new Set\(\['NOT A MEMBER|'OFF THE MAXIMUM', '/.test(a)) && /exhibited\.js/.test(read('playground', 'return-level-check', 'build.js')) && /exhibited\.js/.test(read('playground', 'return-level-atlas', 'build.js')),
+  'the red × list lives in exhibited.js alone: neither app.js holds one, both builds inline it');
+ok(X.mark('OFF THE MAXIMUM', true) !== '' && X.mark('NOT A MEMBER OF THE FAMILY', false) !== '', 'a more likely fit on its own record, and digits outside the family on any record, carry the ×');
+red(X.mark('OFF THE MAXIMUM', false) === '' && X.mark('OUTSIDE ITS SUPPORT', false) === '', 'on an atlas cell (another record) the record\'s objects stay ink: no false witness against a table made elsewhere');
+red(X.mark('NOT THE CERTIFIED FIT', true) === '', 'NOT THE CERTIFIED FIT, a box clearing a box, is never red: a scalar refutation has no witness point');
+
 console.log('printed-fit battery: ' + pass + ' pass, ' + fail + ' fail, ' + redsFired + '/' + reds + ' red controls fired');
 process.exit(fail ? 1 : 0);

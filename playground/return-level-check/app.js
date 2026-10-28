@@ -201,13 +201,12 @@
         pending: R ? null : 'Certify this series on this block first (step 3): the printed fit is decided against that certificate.',
         fit: R ? R.fits[f] || null : null, lognormal: R ? R.fits.lognormal || null : null,
       });
-      out.innerHTML = D.lines.map((l, i) => '<div>' + (i === 0 ? exhibited(D.code) : '') + l + '</div>').join('');
+      out.innerHTML = D.lines.map((l, i) => '<div>' + (i === 0 ? window.HS_EXHIBITED.mark(D.code, true) : '') + l + '</div>').join('');
     } catch (e) { out.innerHTML = 'REFUSED: ' + esc(e.message); }
   }
-  /* WARRANT v2 (2026-10-28): the verdicts that rest on an exhibited object carry the house's one accent, a red ×,
-     in front of the decision's own words (printed.js stays byte-identical: certs/design-table-audit.json pins it) */
-  const EXHIBITED = new Set(['NOT A MEMBER OF THE FAMILY', 'OUTSIDE ITS SUPPORT', 'OFF THE MAXIMUM', 'NOT THE CERTIFIED FIT', 'BELOW ITS LIMIT', 'BELOW A MEMBER OF ITS OWN FAMILY']);
-  const exhibited = (code) => (EXHIBITED.has(code) ? '<span class="wx" aria-label="refuted by an exhibited object">&times;</span> ' : '');
+  /* WARRANT v2 (2026-10-28): a verdict that rests on an exhibited object carries the house's one accent, a red ×, in
+     front of the decision's own words. Which ones is exhibited.js's, shared with the atlas; here the series is the one
+     the fit was printed for, so the record's objects count too (printed.js stays byte-identical). */
 
   /* ---- wiring ---- */
   $('rc-file').addEventListener('change', (e) => { const file = e.target.files[0]; e.target.value = ''; if (file) readFile(file); });

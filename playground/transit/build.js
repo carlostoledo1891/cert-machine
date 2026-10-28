@@ -83,7 +83,7 @@ function figLadder(t) {
   const kmax = Math.min(1, Math.max(...rows.map(r => Math.min(r.outer[1], 1)), t.fit.k * 3) * 1.06);
   const kmin = 0;
   const X = v => ml + (v - kmin) / (kmax - kmin) * (w - ml - mr);
-  const pubTicks = t.published.map(p => `<line class="ink-assumed-sm" x1="${f(X(p.k), 1)}" x2="${f(X(p.k), 1)}" y1="34" y2="${h - 22}" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>`).join('');
+  const pubTicks = t.published.map(p => `<line class="ink-chosen-sm" x1="${f(X(p.k), 1)}" x2="${f(X(p.k), 1)}" y1="34" y2="${h - 22}" stroke="var(--ink-5)" stroke-width="1" opacity="0.55"/>`).join('');
   const bars = rows.map((r, i) => {
     const y = 40 + i * rowH;
     const ob = [Math.max(kmin, r.outer[0]), Math.min(kmax, r.outer[1])];
@@ -117,7 +117,7 @@ function figPublished(t) {
     const y = 30 + i * 17;
     const e = Math.max(p.kerr, 1e-6);
     return `<g><text x="${ml - 10}" y="${y + 3}" text-anchor="end" class="lb">${esc(p.ref)}</text>
-      <line class="ink-assumed-sm" x1="${f(X(p.k - e), 1)}" x2="${f(X(p.k + e), 1)}" y1="${y}" y2="${y}" stroke="var(--ink-3)" stroke-width="1.2"/>
+      <line class="ink-chosen-sm" x1="${f(X(p.k - e), 1)}" x2="${f(X(p.k + e), 1)}" y1="${y}" y2="${y}" stroke="var(--ink-3)" stroke-width="1.2"/>
       <circle cx="${f(X(p.k), 1)}" cy="${y}" r="2.1" fill="var(--ink-2)"/>
       <text x="${w - mr + 8}" y="${y + 3}" class="ax">${f(p.k, 5)} ± ${p.kerr ? f(p.kerr, 5) : '—'}</text></g>`;
   }).join('');
@@ -207,7 +207,7 @@ function section(t) {
 
     <figure class="reveal mt6">${figLadder(t)}
       <figcaption class="figcap"><span class="k">what each assumption buys</span>
-      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine ticks: the ${t.published.length} published values</span></figcaption></figure>
+      <span class="v">outer bar: every value outside carries a verified refutation · inner: a verified witness exists · fine dotted ticks: the ${t.published.length} published values, each one member of the set, chosen by a limb-darkening law</span></figcaption></figure>
 
     <div class="note reveal">
       <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
@@ -216,6 +216,7 @@ function section(t) {
       Adding <em>the star does not brighten outward</em> pulls the ceiling to ${ex && ex.ok ? f(ex.outer[1], 4) : '—'}.
       The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
       ${widen ? `Two scales for it. The ${t.published.length} papers already disagree with each other by <b>${overconf.toFixed(0)}×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>${widen.toFixed(0)}×</b> wider again than that disagreement, and it contains every one of them.` : ''}
+      ${ex && ex.ok && t.published.every((p) => p.k >= ex.outer[0] && p.k <= ex.outer[1]) ? `In the grammar&rsquo;s words, each published value is a pick &mdash; one member of the set, chosen by the limb-darkening law its paper fitted &mdash; so it and its &plusmn; are drawn dotted; none falls outside the interval, so none is refuted, and nothing here is red.` : ''}
     </div>
 
     <figure class="reveal mt6">${figCore(t)}

@@ -28,6 +28,12 @@ const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 if (!F.checks.paperK) throw new Error('census: the engine did not agree with the record — no page');
 
 const P = F.paper;
+const HALF = P.repair.half === '1/2' ? '&frac12;' : P.repair.half;
+if (!(P.repair.maxDevNum <= 0.5 && P.repair.free.outside.length)) throw new Error('census: the repair facts moved; rewrite the totals paragraph');
+/* WARRANT v2 (2026-10-28): a network the shortcut gets wrong is an exhibited counterexample to a claim about every
+   network, so it carries the house's one accent (design/tokens.js --witness) on a × glyph, and nothing else is red */
+const X = '<span class="wx" aria-label="an exhibited counterexample to the shortcut">&times;</span> ';
+if (F.failing.some((f) => f.k === f.shortcut) || F.cycle.some((c) => c.k === c.shortcut)) throw new Error('census: a gallery network does not break the shortcut — it cannot carry the ×');
 const nz = P.repair.residualBefore.map((r, i) => [P.repair.rows[i], r]).filter(([, r]) => r !== '0');
 
 /* a small static drawing of a network for the gallery */
@@ -89,18 +95,29 @@ const body = `
   failing instances, the paper&rsquo;s network).</p>
   <p><b>The totals are chosen.</b> Table I of the paper prints rounded integers, and rounded
   integers are not a flow: at node${nz.length > 1 ? 's' : ''} ${nz.map(([n, r]) => `${n} (${r > 0 ? '+' : ''}${r})`).join(', ')}
-  the printed outflow does not equal the inflow. The totals drawn are the nearest conserving
-  flow to Table I in the least-squares sense, solved exactly &mdash; no edge moves by more than
-  ${P.repair.maxDev} (${P.repair.maxDevNum.toFixed(3)}), inside the rounding. That is one member of
-  the rounding box, so it is drawn dotted. The totals themselves are reproduced within their
+  the printed outflow does not equal the inflow. Read as roundings to the nearest integer, its
+  numbers allow each total ${HALF} either way. The totals drawn are the nearest conserving flow to
+  Table I inside that box, in the least-squares sense, solved exactly over &#8474; with its optimality
+  conditions checked: no edge moves by more than ${HALF}, and ${P.repair.atBound.length} edges sit on the bound.
+  Until 2026-10-28 this page drew the nearest conserving flow with no box, and that one moved
+  ${P.repair.free.outside.length === 1 ? 'an edge' : P.repair.free.outside.length + ' edges'} by up to ${P.repair.free.maxDev} (${P.repair.free.maxDevNum.toFixed(3)}) &mdash; outside the
+  rounding this sentence said it was inside. A pick has to be a member of the set the data admits,
+  so it is no longer drawn. The one drawn is one member of the rounding box, so it is dotted. The totals themselves are reproduced within their
   rounding and proved on <a href="../../reports/wardrop-repro.html">the Wardrop page</a>; this
   page does not re-prove them.</p>
   <p><b>The split is chosen.</b> Population a&rsquo;s share of each shared edge is one point of the
   face, found by exact max-flow and centred so that no flow sits at zero (smallest slack
-  ${P.split.minSlack}). The sliders move it along the ${P.face.k} directions of the null space;
+  ${W.value(P.split.minSlack, W.CHOSEN)}). The sliders move it along the ${P.face.k} directions of the null space;
   the ranges are where a flow would turn negative. Nothing decides which point the players
   actually chose &mdash; the paper&rsquo;s own scenario S1 has unique totals and a split that
   moves across re-seeds, which is exactly the non-uniqueness this face measures.</p>
+  <p><b>In the grammar&rsquo;s words.</b> Three questions, three shapes of answer. <em>What is k?</em> The face&rsquo;s
+  dimension, decided over &#8474;: its readout is solid, as are z and the shortcut, which are exact counts.
+  <em>Is there a conserving flow inside Table I&rsquo;s rounding?</em> Yes, and the yes is decided the way an
+  existence is: by exhibiting one. The exhibited flow is still only one of many, so the drawing of it is
+  dotted &mdash; a chosen witness to a decided existence, which is the difference between a mark&rsquo;s
+  standing and a question&rsquo;s verdict. <em>Whose flow is it?</em> Not decidable from the totals: the
+  split is one point of a ${P.face.k}-dimensional face, dotted, and the sliders are the rest of the face.</p>
 </section>
 
 <section class="wrap">
@@ -111,10 +128,12 @@ const body = `
   ${F.census.fresh.tested.toLocaleString('en-US')} random networks the theorem was tested on
   (seed ${F.census.fresh.seed}), the shortcut failed ${F.census.fresh.shortcutFailures} times and
   z was positive ${F.census.fresh.zPositive} times &mdash; the same ${F.census.fresh.shortcutFailures}
-  networks. Three of them, from the record, and the constructed family that forces it:</p>
+  networks. Three of them, from the record, and the constructed family that forces it, each marked with the
+  house&rsquo;s one accent, a red <span class="wx">&times;</span>: the shortcut is a claim about every network,
+  and a network it gets wrong is the exhibited object that refutes it. The page draws nothing else red.</p>
   <div class="ce-gal">
-    ${F.failing.map((f, i) => `<figure>${mini(f.edges, f.exits, f.ea, f.eb, f.components)}<figcaption>#${i + 1} &middot; k = ${f.k}, shortcut ${f.shortcut}, z = ${f.z}. The heavy edges are the exit-free shared component.</figcaption></figure>`).join('\n')}
-    ${F.cycle.slice(0, 1).map(c => `<figure>${mini(c.edges, c.exits, c.ea, c.eb, [[100, 101, 102]])}<figcaption>the shared ${c.L}-cycle with no exit &middot; k = ${c.k}, shortcut ${c.shortcut}, z = ${c.z}; the same for every cycle length from 3 to 8.</figcaption></figure>`).join('\n')}
+    ${F.failing.map((f, i) => `<figure>${mini(f.edges, f.exits, f.ea, f.eb, f.components)}<figcaption>${X}#${i + 1} &middot; k = ${f.k}, shortcut ${f.shortcut}, z = ${f.z}. The heavy edges are the exit-free shared component.</figcaption></figure>`).join('\n')}
+    ${F.cycle.slice(0, 1).map(c => `<figure>${mini(c.edges, c.exits, c.ea, c.eb, [[100, 101, 102]])}<figcaption>${X}the shared ${c.L}-cycle with no exit &middot; k = ${c.k}, shortcut ${c.shortcut}, z = ${c.z}; the same for every cycle length from 3 to 8.</figcaption></figure>`).join('\n')}
   </div>
   <p class="note">Every network in the gallery is a preset above. The engine that decided them
   is <span class="mono">playground/census/engine.js</span>, written fresh in JavaScript with

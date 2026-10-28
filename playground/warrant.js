@@ -210,7 +210,7 @@ const LEGEND = [
    A page that does not use REFUSED passes `exclude: [REFUSED]` rather than
    drawing a void it has no marks for — plates does exactly that, and saying so
    in the call is better than a filter copied into the page.                 */
-function legendHtml({ exclude = [], width = 2.4 } = {}) {
+function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
   const items = LEGEND.filter((L) => !exclude.includes(L.s));
 
   /* THE SWATCH PAINTS ITSELF, 2026-09-05. It used to emit a bare
@@ -234,7 +234,7 @@ function legendHtml({ exclude = [], width = 2.4 } = {}) {
       + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
       + ` stroke="var(--border-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
-  return `<div class="w-legend" data-n="${items.length}">`
+  return `<div class="w-legend${compact ? ' compact' : ''}" data-n="${items.length}">`
     + items.map((L) => `<div class="item">`
       + `<svg viewBox="0 0 46 14" aria-hidden="true">${swatch(L.s)}</svg>`
       + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div>`

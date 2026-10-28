@@ -184,3 +184,6 @@ html, body { height: 100%; overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .ra-app, .ra-panel, .ra-legend { transition: none; }
 }
+
+/* the one accent (WARRANT v2): the red of an exhibited counterexample, only ever on a × glyph */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }

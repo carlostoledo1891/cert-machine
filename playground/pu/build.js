@@ -63,6 +63,13 @@ const SELIC_PACK = packSelic(SELIC), META_PACK = packMeta(META_ROWS);
   for (const r of SELIC) if (at(full, r.iso) !== at(cp, r.iso)) throw new Error('pu instrument: the meta change points disagree with SGS 432 on ' + r.iso);
 }
 
+/* THE SAMPLE ROW in the paste box is a line of the pinned file, never typed (2026-10-28: the one typed here before was
+   no row of the file, and pasted it read OFF by R$ 27 — a red × against the publisher for a row it never printed) */
+const SAMPLE = 'Tesouro Prefixado;01/01/2027;15/10/2026;13,37;13,49;974,43;973,73;973,73';
+{ const csv = fs.readFileSync(path.join(ROOT, 'corpus', 'pu', 'sources', 'precotaxatesourodireto.csv'));
+  if (sha(csv) !== PINS.files['precotaxatesourodireto.csv'].sha256) throw new Error('pu instrument: precotaxatesourodireto.csv is not the pinned file');
+  if (!csv.toString('latin1').split(/\r?\n/).includes(SAMPLE)) throw new Error('pu instrument: the sample row is not a line of the pinned file'); }
+
 function build(OUT) {
   const holSha = sha(HOL), decSha = sha(DECIDE_SRC), rowsSha = sha(ROWS_SRC);
   if (JSON.parse(HOL).sourceSha256 !== PINS.files['feriados_nacionais.xls'].sha256) throw new Error('pu instrument: holidays.json is not read from the pinned xls');
@@ -91,8 +98,8 @@ function build(OUT) {
 
 <section class="wrap panel" id="rows">
   <div class="eyebrow">rows of the published file</div>
-  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided by <span class="m">instruments/pu/rows.js</span>, the module the ledger calls, under every hypothesis it pre-registered: the primary settlement (a purchase on the next business day, a sale on the quotation day), D+1, D+1 skipping 24 and 31 December, B3&rsquo;s settlement calendar and the calendar as of the quotation; REPRODUCED names the hypothesis that holds, CONSISTENT the one under which the printed centavos lie inside the price interval the printed rate&rsquo;s own precision allows. LTN, NTN-F and LFT; other titles are refused by name.</p>
-  <textarea id="paste" rows="5" spellcheck="false" placeholder="Tesouro Prefixado;01/01/2027;15/10/2026;14,32;14,44;945,46;942,02;942,02"></textarea>
+  <p class="sub">Paste lines of <span class="m">precotaxatesourodireto.csv</span> (Tipo Titulo;Data Vencimento;Data Base;Taxa Compra;Taxa Venda;PU Compra;PU Venda;PU Base). Each side is decided by <span class="m">instruments/pu/rows.js</span>, the module the ledger calls, under every hypothesis it pre-registered: the primary settlement (a purchase on the next business day, a sale on the quotation day), D+1, D+1 skipping 24 and 31 December, B3&rsquo;s settlement calendar and the calendar as of the quotation; REPRODUCED names the hypothesis that holds, CONSISTENT the one under which the printed centavos lie inside the price interval the printed rate&rsquo;s own precision allows. LTN, NTN-F and LFT; other titles are refused by name. Each verdict names, in italic, the hypothesis it holds under. An OFF row carries the house&rsquo;s one accent, a red <span class="wx">&times;</span>: the row is an object the file printed, and under every registered hypothesis it is not the rule&rsquo;s value at any rate its digits allow. A price typed above is a comparison of two numbers, with nothing to exhibit, so it is never red.</p>
+  <textarea id="paste" rows="5" spellcheck="false" placeholder="${esc(SAMPLE)}"></textarea>
   <div class="row"><button id="decide" type="button">Decide the rows</button><span id="rowsNote" class="note"></span></div>
   <div id="table" class="out"></div>
 </section>

@@ -7,7 +7,13 @@
    IT DECIDES NOTHING ITSELF. Every k, z and split comes from CENSUS (engine.js);
    the app only draws what it returns. Standings: k is DECIDED (exact over Q, the
    readout is underlined solid); the flows are CHOSEN (one member of the face,
-   dotted) — the same strokes the static page carries. */
+   dotted) — the same strokes the static page carries.
+
+   WARRANT v2 (2026-10-28): the shortcut's readout is DECIDED on every network —
+   |shared| − cons is exact arithmetic. It used to drop to the chosen underline
+   when it disagreed with k, which put a verdict in the standing channel. The
+   disagreement is now said where it belongs: a red × (the house's one accent),
+   because a network the shortcut gets wrong is an exhibited counterexample. */
 (function () {
   'use strict';
   var E = window.CENSUS;
@@ -46,7 +52,7 @@
     st.face = face;
     st.family = null;
     if (st.preset.totals && st.active.every(Boolean)) {
-      var rp = E.repairTotals(edges, st.preset.exits, (function () { var o = {}; o[st.preset.ea] = F.paper.q1; o[st.preset.eb] = F.paper.q2; return o; })(), F.paper.table1);
+      var rp = E.repairTotals(edges, st.preset.exits, (function () { var o = {}; o[st.preset.ea] = F.paper.q1; o[st.preset.eb] = F.paper.q2; return o; })(), F.paper.table1, E.Q(1, 2));   /* inside the rounding box, as make-facts.mjs */
       var fam = E.splitFamily(edges, st.preset.exits, st.preset.ea, st.preset.eb, rp.T, F.paper.q1);
       if (fam && fam.feasible) { st.family = fam; st.t = fam.basis.map(function () { return E.q0; }); }
     }
@@ -159,9 +165,10 @@
     draw();
     var f = st.face;
     read.innerHTML = '<div><div class="k">k, exact over Q</div><div class="v w-decided">' + f.k + '</div></div>'
-      + '<div><div class="k">shortcut |shared| − cons</div><div class="v ' + (f.agree ? 'w-decided' : 'w-chosen') + '">' + f.shortcut + '</div></div>'
+      + '<div><div class="k">shortcut |shared| − cons</div><div class="v w-decided">' + f.shortcut + '</div></div>'
       + '<div><div class="k">z, exit-free shared components</div><div class="v w-decided">' + f.z + '</div></div>'
-      + '<div><div class="k">|shared| · cons</div><div class="v">' + f.shared.length + ' · ' + f.cons + '</div></div>';
+      + '<div><div class="k">|shared| · cons</div><div class="v">' + f.shared.length + ' · ' + f.cons + '</div></div>'
+      + (f.agree ? '' : '<div class="full"><span class="wx" aria-label="an exhibited counterexample">×</span> this network breaks the shortcut: k = ' + f.k + ', not ' + f.shortcut + '. The shortcut is exact arithmetic either way; what this network refutes is the claim that it is k.</div>');
     buildSliders();
     if (st.family) {
       note.textContent = 'Every band is one member of the face, drawn as such: its width is the flow, population a the brighter side, population b the darker, and the dotted outline says it was chosen, not decided. A slider moves the split along one direction while every total holds and both populations conserve; the range is how far that direction goes before a flow would turn negative. Rationals throughout. Click an edge to drop it.';
