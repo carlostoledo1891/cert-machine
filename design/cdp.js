@@ -100,9 +100,22 @@ function releaseLock() {
   try { if (fs.readFileSync(LOCK, 'utf8') === String(process.pid)) fs.unlinkSync(LOCK); } catch (e) { /* not ours, or gone */ }
 }
 
+/* NEVER A CHROME WE DID NOT START, 2026-10-28. The gates asked for fixed ports (the ruler 9233, render 9291), and a
+   headless Chrome orphaned by an interrupted run 46 hours earlier still held 127.0.0.1:9233: every later ruler run, in
+   every worktree, launched its own Chrome (which bound [::1]:9233 instead), then talked to the orphan over 127.0.0.1 and
+   measured with a two-day-old browser until its probe's own red controls failed. A requested port that already answers
+   is skipped for a free one the system hands out, and the run says so. */
+function portAnswers(port) {
+  return new Promise((res) => { const s = net.connect(port, '127.0.0.1'); s.once('connect', () => { s.destroy(); res(true); }); s.once('error', () => res(false)); });
+}
+function freePort() {
+  return new Promise((res, rej) => { const srv = net.createServer(); srv.once('error', rej); srv.listen(0, '127.0.0.1', () => { const p = srv.address().port; srv.close(() => res(p)); }); });
+}
+
 async function withChrome(fn, opts) {
   const o = opts || {};
-  const port = o.port || (9300 + (process.pid % 200));
+  let port = o.port || (9300 + (process.pid % 200));
+  if (await portAnswers(port)) { const was = port; port = await freePort(); console.log('  [cdp] port ' + was + ' is held by a process this run did not start; using ' + port); }
   const callTimeout = o.callTimeout || 30000;
   const held = await acquireLock(o.lockWait || 180000);
   const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'cdp-'));
