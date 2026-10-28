@@ -30,6 +30,28 @@ function pdfPages(file) {
 }
 const kb = (n) => (n >= 1024 * 1024 ? (n / 1024 / 1024).toFixed(1) + ' MB' : Math.round(n / 1024) + ' KB');
 
+/* A DESCRIPTION SAYS ONLY WHAT ITS MANUSCRIPT PRINTS (WARRANT rule 8, 2026-10-28). The manuscripts' numbers are macros
+   from the records; the one-paragraph descriptions on this page were typed into paper/INDEX.json, and seven of their
+   numbers were not in the PDF they describe: a version the PDF had left ("v0.8" beside "draft v0.9"), two ratios
+   rounded to three places (0.218, 0.137 for 0.217967, 0.136855), an upper bound rounded (1.8344305 for
+   1.8344304971959906), a claimant's constant rounded where the paper prints 3.6960…, 8.9·10⁻⁷ for the 8.85·10⁻⁷ the
+   paper prints, and 204 for 204.0. So every number in a description must be a number its PDF prints, token for token
+   (thousands separators aside; identifiers after "Erdős", "issue", "#", "Theorem" and the like are names, not
+   quantities), and a version it names must be the status line's. The PDF's text is read by poppler's pdftotext. */
+const numTokens = (s) => String(s).normalize('NFKC').replace(/(\d)[,    ](?=\d{3}(?!\d))/g, '$1');
+const NUM_RE = /(?<![\w.])\d+(?:\.\d+)?(?![\w])/g;
+const IDENT = /(Erdős|Erdos|problem|Problem|issue|#|arXiv:?|Theorem|Section|Remark|Table|Appendix|Lemma|Proposition|Corollary|Definition|Figure|PR|pull request)\s*$/;
+function descNumbersInPdf(p, file) {
+  const r = cp.spawnSync('pdftotext', ['-q', file, '-']);
+  if (r.status !== 0) die('pdftotext (poppler) is needed to read ' + path.basename(file) + ': ' + String(r.stderr || r.error || '').slice(0, 200));
+  const printed = new Set(numTokens(r.stdout).match(NUM_RE) || []);
+  const d = numTokens(p.desc), bad = [];
+  for (const m of d.matchAll(NUM_RE)) if (!IDENT.test(d.slice(0, m.index)) && !printed.has(m[0])) bad.push(m[0]);
+  const v = /\bv(\d+\.\d+)\b/.exec(p.desc);
+  if (v && !String(p.status).includes('v' + v[1])) bad.push('v' + v[1] + ' (the status says ' + p.status.split('·')[0].trim() + ')');
+  if (bad.length) die(p.name + ': its description in paper/INDEX.json states ' + bad.join(', ') + ', which ' + path.basename(file) + ' does not print');
+}
+
 function load() {
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'paper', 'INDEX.json'), 'utf8'));
   const listed = new Set();
@@ -40,6 +62,7 @@ function load() {
     if (!fs.existsSync(file)) die(p.name + ' is listed but paper/' + p.name + '.pdf does not exist');
     p.pdf = { href: '/paper/' + p.name + '.pdf', bytes: fs.statSync(file).size, pages: pdfPages(file), mtime: fs.statSync(file).mtime.toISOString().slice(0, 10) };
     if (!(p.pdf.pages > 0)) die(p.name + '.pdf has no readable page objects');
+    descNumbersInPdf(p, file);
     listed.add(p.name + '.pdf');
   }
   for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) if (f.endsWith('.pdf') && !listed.has(f)) die('paper/' + f + ' is on the shelf but not in paper/INDEX.json');
@@ -53,16 +76,23 @@ function html() {
   const pages = withPdf.reduce((s, p) => s + p.pdf.pages, 0);
   const records = new Set(M.papers.flatMap((p) => p.records || []));
   const B = [];
+  /* "submitted: 0" was typed; it is read now from the status lines the manifest gives, and a status that says a paper went
+     to a venue, is under review or was accepted makes it move. The deck said EACH manuscript's numbers are interpolated:
+     the markdown drafts below are kept as written, so the sentence names the PDFs. */
+  const submitted = M.papers.filter((p) => /\b(submitted to|under review|accepted (by|at|in))\b/i.test(p.status) || (/\bsubmitted\b/i.test(p.status) && !/\bnot submitted\b/i.test(p.status))).length;
+  const md = M.papers.length - withPdf.length;
   B.push(C.header({
     eyebrow: 'Carlos Toledo · papers',
     title: 'Papers',
-    deck: 'Review drafts, built from the records: each number in each manuscript is interpolated at build time from a certificate or ledger in the public repository, and the build refuses when a record no longer supports a sentence. Author lists and roles are to be agreed with the reviewing group; nothing on this shelf has been submitted anywhere.'
+    deck: 'Review drafts, built from the records: each number in each PDF manuscript is interpolated at build time from a certificate or ledger in the public repository, and the build refuses when a record no longer supports a sentence'
+      + (md ? '; the ' + (md === 2 ? 'two' : md) + ' earlier markdown draft' + (md === 1 ? ' is' : 's are') + ' kept as written' : '') + '. Author lists and roles are to be agreed with the reviewing group; '
+      + (submitted ? submitted + ' of these ha' + (submitted === 1 ? 's' : 've') + ' been submitted.' : 'nothing on this shelf has been submitted anywhere.')
   }));
   B.push(C.stats([
-    { k: 'papers', v: String(withPdf.length), n: 'PDFs served beside this page; ' + (M.papers.length - withPdf.length) + ' earlier markdown drafts listed below' },
+    { k: 'papers', v: String(withPdf.length), n: 'PDFs served beside this page; ' + md + ' earlier markdown drafts listed below' },
     { k: 'pages', v: pages.toLocaleString('en-US'), n: 'counted from the PDF files at this build' },
     { k: 'records cited', v: String(records.size), n: 'certificates and ledgers the manuscripts read their numbers from' },
-    { k: 'submitted', v: '0', n: 'every manuscript is a draft; authors to be agreed; nothing has been sent to a venue' }
+    { k: 'submitted', v: String(submitted), n: submitted ? 'read from the status lines below' : 'every manuscript is a draft; authors to be agreed; no status line below says a paper went to a venue' }
   ]));
   B.push(C.section({
     lab: 'how to read this page', title: 'What a draft is here, and what it is not',

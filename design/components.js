@@ -169,7 +169,9 @@ function table({ cols, rows }) {
 /* A grid of link cards — the whole card is the anchor. Two columns on a
    desk, one on a phone; the template owns the breakpoint. A card that leaves
    the site opens in a new tab (the operator, 2026-10-28).
-   items: [{href, k: mono kicker, title, desc, n: mono footer line}] */
+   items: [{href, k: mono kicker, title, desc, n: mono footer line, quote: {text, cite}}]
+   `quote` (2026-10-28, additive): someone else's words at the card's foot, set as a real quotation by quote() below
+   rather than as a mono line in quotation marks; `n` stays the footer line for our own words. */
 function cards(items) {
   return '<div class="wide"><div class="cards">' + items.map(it =>
     '<a class="card" href="' + escAttr(it.href) + '"' + (/^https?:\/\//.test(it.href) ? ' target="_blank" rel="noopener"' : '') + '>'
@@ -177,6 +179,7 @@ function cards(items) {
     + '<span class="card-t">' + esc(it.title) + '</span>'
     + (it.desc ? '<span class="card-d">' + esc(it.desc) + '</span>' : '')
     + (it.n ? '<span class="card-n">' + esc(it.n) + '</span>' : '')
+    + (it.quote ? quote(it.quote) : '')
     + '</a>'
   ).join('\n') + '</div></div>';
 }
