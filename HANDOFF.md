@@ -23,6 +23,10 @@ updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
   ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN. Read this entry first.
+     SESSION CLOSE ~20:50 UTC (the operator is away): everything is committed and pushed; Machinidae is live in the
+     new grammar; the landing's asterisk count now shows its four rounds and the October register stops counting the
+     queued row (d34983c7). THE ONLY THING RUNNING IS THE ETH POD (below) — OpenAI's claim, in Comparator since 19:08Z;
+     at ~US$3.6 spent. Start there.
      ── FRONT 1: THE ETH CHECK (the operator: "dig on the subject and rise with as much information and verification we
      could"; cap US$50 approved). A RUNPOD POD IS BILLING: x8ifbbj2vbolyj (cpu3m 32 vCPU / 256 GB, EU-RO-1, US$1.76/h,
      created 2026-10-28T18:47:48Z; ~US$1.30 by 19:32Z). It runs tools/runpod-eth.sh at 00340f97 (branch eth-kernel-lane).
@@ -57,8 +61,9 @@ NEXT SESSION, IN ORDER:
        #e0574e only as a ring at a shown overlap or escape; ochre/blue/rose retired), REFUTED solid, REFUSED the void,
        only the five dashes (engine.py's document() now refuses others, CSS dashed/dotted and retired colours), arm
        identity by weight/opacity/shape. make test ALL GREEN (25 batteries; web 71 checks, 14 reds); dist 9.41 MB < 10.
-       NOT PUBLISHED: the zone on carlostoledo.co still shows the old palette until `make web` → `make publish` (dry run)
-       → `node tools/publish-zone.js machinidae --push` — the operator's word. The Machinidae session (clade-code-9f)
+       PUBLISHED on the operator's word ("send machinidae live"): `make web` there (clean tree), the dry run, then
+       `node tools/publish-zone.js machinidae --push` → 774c88dc on origin/main (79 files, 9,413,419 bytes, pinned at
+       machinidae 40c0b039); live checked: the new red present, the old ochre gone; `publish-zone.js --check` ok. The Machinidae session (clade-code-9f)
        had ended before the done-message could be sent: tell its next session (CladeDraw.C lost ochre/blue/rose, gained
        witness/lineage; D, stroke, solid added). Rulings it raised: tied champions CHOSEN? (209 of 236 confirmatory
        champions share the best training score); a words-only channel for inferential role (pilot, confirmatory,
