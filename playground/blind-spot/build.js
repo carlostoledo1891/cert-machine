@@ -21,6 +21,7 @@ const GRAMMAR = require(path.join(ROOT, 'design', 'grammar.js'));
 const P = JSON.parse(fs.readFileSync(path.join(ROOT, 'environments/blind_spot/eval/page.json'), 'utf8'));
 const REPORT = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/report.css'), 'utf8');
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
+const W = require(path.join(PG, 'warrant.js'));   /* the grammar's words for the drawn counts (WARRANT v2) */
 
 const BASE_EXTRA = `
 .g-mut { grid-template-columns: 250px repeat(var(--cols), minmax(0,1fr)) 90px 90px; }
@@ -54,6 +55,80 @@ const gradedRows = (m) => RES.filter((r) => r.model === m && !(r.stop === 'refus
 
 const KILLS = RES.filter((r) => r.in_box_kill !== null && r.in_box_kill !== undefined);
 const OUTBOX_KILLS = KILLS.filter((r) => r.in_box_kill === false).length;
+
+/* ------------------------------------------- WARRANT v2 (2026-10-28): what the record says
+   FOUR SENTENCES OF THIS PAGE WERE NOT THE RECORD'S, and they are read from it now.
+
+   1. "COVERED — the 14.95M-pair corpus sees it." MCY's own tag rule (config.mcy, the coverage run this pool imports)
+      gives COVERED to a killable mutation that TWO OR MORE of its four testbenches kill — the else branch after the
+      four ONLY classes — and the corpus testbench is not the corpus: it is a stratified 4,000-pair sample of it
+      (families.py). 52 of the 302 COVERED marks get past that sample, so 98 killable mutations do, not 46. The 46
+      are the ones exactly one constructed family sees, which is what the rings and squares are.
+   2. "A test corpus of 14.95 million pairs … reports full coverage … and for 46 of those mutations every one of
+      those pairs returns the same answer." No record here holds a coverage report or a run of the full corpus
+      against these 400 mutants; the record holds MCY's run, so the lede says what that run decided.
+   3. "The out-of-box family kills 96.8% of these mutants." The figure is the source lab's table (CERTIFIER.md,
+      337 of 348), whose kill column is COVERED plus the family's own ONLY class — as if every COVERED mutation fell
+      to every family. In MCY's results the out-of-box family kills 79 of the 348. "About one in ten of the family"
+      is read off the pinned family file below: 8–10 in a hundred, by coordinate.
+   4. "It declined all twelve of them, plus three located tasks." Opus declined one blind task too: sixteen, which
+      the table's own declined column already printed.
+   And one word: the comparator does not decide whether one vector is longer than another; it decides the kissing
+   predicate, u·v ≤ 0 or 4(u·v)² ≤ (u·u)(v·v) — whether the two are at least 60° apart (design.py).
+
+   STANDING. Every class, witness and grade on this page is decided — a simulation of the netlist or a SAT proof. A
+   score is a different object when what it counts was DRAWN: eight random pairs per task, seeded by the task (the
+   shotgun rows), or a model's replies (an LLM's draw). Those counts are CHOSEN, dotted: one member of the scores
+   the same policy would get on other draws. abstain, never and sat draw nothing, and the false-claim column does
+   not depend on the draw, so they carry no mark.
+
+   RED. A model that answers EQUIVALENT claims that no valid pair tells this mutant from the design — universal,
+   and about that mutant. Where the mutant is killable, its SAT witness is an object that refutes it, and it is on
+   the mutant's own card: the one place on this page that earns the ×. A kill declared on a design the miter proved
+   unchanged is refuted by proof, with no pair to show, and carries none. */
+const FAMS = ['corpus', 'mint', 'outbox', 'aligned'];
+const KILLABLE = MUT.filter((m) => !m.equivalent);
+const seenBy = (m) => FAMS.filter((f) => m.profile[f]);
+const ONLY_CLASSES = ['MINT_ONLY', 'OUTBOX_ONLY', 'ALIGNED_ONLY'];
+const ONLY = MUT.filter((m) => ONLY_CLASSES.includes(m.klass));
+if (!MUT.filter((m) => m.klass === 'COVERED').every((m) => !m.equivalent && seenBy(m).length >= 2)
+  || !KILLABLE.every((m) => (seenBy(m).length >= 2) === (m.klass === 'COVERED'))
+  || !ONLY.every((m) => seenBy(m).length === 1 && seenBy(m)[0] === m.klass.replace('_ONLY', '').toLowerCase()))
+  throw new Error('blind-spot: COVERED is no longer "two or more testbenches", or an ONLY class no longer one; rewrite the legend');
+const CORPUS_MISS = KILLABLE.filter((m) => !m.profile.corpus);
+const COVERED_MISS = CORPUS_MISS.filter((m) => m.klass === 'COVERED');
+if (CORPUS_MISS.length !== COVERED_MISS.length + ONLY.length) throw new Error('blind-spot: a corpus-sample miss is neither COVERED nor an ONLY class; rewrite the map note');
+const OUTBOX_ALL = KILLABLE.filter((m) => m.profile.outbox).length;
+const IN_BOX_CHECK = ONLY.filter((m) => m.region === 'box check').length;
+/* the four testbench files MCY ran, as pinned in corpus/blindspot/mut: their size, and how much of the out-of-box
+   family spoils any one coordinate (a record is 68 bits: u0..u10, v0..v10 at 3 bits, then 2 verdict bits) */
+const HEX = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'blindspot', 'mut', f + '.hex'), 'utf8').split(/\r?\n/).filter(Boolean);
+const FAM_N = HEX('corpus').length;
+if (!FAMS.every((f) => HEX(f).length === FAM_N)) throw new Error('blind-spot: the four testbench files are not one size; rewrite the lede');
+const SPOIL = (() => {
+  const L = HEX('outbox'), n = new Array(22).fill(0);
+  for (const h of L) {
+    const b = BigInt('0x' + h) >> 2n;
+    for (let k = 0; k < 22; k++) { let x = Number((b >> BigInt((21 - k) * 3)) & 7n); if (x >= 4) x -= 8; if (x === -4) n[k]++; }
+  }
+  return [Math.min(...n) / L.length, Math.max(...n) / L.length];
+})();
+if (!(SPOIL[0] > 0.05 && SPOIL[1] < 0.15)) throw new Error('blind-spot: the out-of-box family no longer spoils a coordinate about one time in ten; rewrite the note');
+const pct = (x) => (100 * x).toFixed(1);
+/* the pairs a policy draws at random (policies.py: a random.Random seeded by task id and policy) */
+const SHOTGUN = new Set(['random8', 'corpus8', 'mint8', 'outbox8', 'aligned8', 'union8', 'profile']);
+const drawn = (p, h) => (SHOTGUN.has(p) ? W.value(h, W.CHOSEN, { title: 'one seeded draw of eight pairs per task; another draw scores otherwise' }) : h);
+const sample = (h) => W.value(h, W.CHOSEN, { title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
+/* the model answers that declared a gap closed on a killable mutant, and the ones that declared a kill on a design
+   proved unchanged: the first are refuted by the mutant's own witness, the second by proof */
+const GAPS = RES.filter((r) => r.reward < 0 && r.verdict === 'EQUIVALENT' && r.truth === 'KILL');
+const ALARMS = RES.filter((r) => r.reward < 0 && r.verdict === 'KILL' && r.truth === 'EQUIVALENT');
+if (GAPS.length + ALARMS.length !== RES.filter((r) => r.reward < 0).length) throw new Error('blind-spot: a wrong answer is neither kind; rewrite the note');
+if (!GAPS.every((r) => { const m = MUT.find((x) => x.id === r.mutant); return m && m.witness; })) throw new Error('blind-spot: a refuted EQUIVALENT has no witness on its card; the × would point at nothing');
+const OPUS_DECLINED = P.rungs.map((g) => [g, refusedRows('Opus 5').filter((r) => r.rung === g).length, RES.filter((r) => r.model === 'Opus 5' && r.rung === g).length]);
+if (!OPUS_DECLINED.some(([g, a, b]) => g === 'profile' && a === b)) throw new Error('blind-spot: Opus no longer declines the whole profile rung; rewrite the note');
+const nw = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const word = (n) => nw[n] || String(n);
 
 /* ------------------------------------------------------- the map: 400 mutants
    One row per region of the netlist, mutants ordered by the line their cell was
@@ -102,7 +177,7 @@ function blindMap() {
 
 function mapLegend() {
   const items = [
-    ['COVERED', 'the 14.95M-pair corpus sees it'],
+    ['COVERED', 'two or more testbenches see it'],
     ['MINT_ONLY', 'only the minted family sees it'],
     ['OUTBOX_ONLY', 'only out-of-box inputs see it'],
     ['ALIGNED_ONLY', 'only aligned inputs see it'],
@@ -314,11 +389,15 @@ const body = `
     <div class="prose reveal rd">
       <div class="eyebrow">environment &middot; mutation blind spots</div>
       <h1 class="t1">Fourteen million certified verdicts could not see this mutant.</h1>
-      <p>A hardware comparator decides whether one integer vector is longer than another. A test
-      corpus of <strong>14.95&nbsp;million pairs</strong> exercises it and reports full coverage. Then MCY
-      mutates the netlist ${nf(POOL.mutations)} ways, and for ${nf(POOL.by_class.MINT_ONLY + POOL.by_class.OUTBOX_ONLY + POOL.by_class.ALIGNED_ONLY)} of those
-      mutations <em>every one of those pairs returns the same answer as the unmutated design.</em>
-      The task is to name a pair that does not.</p>
+      <p>A hardware comparator decides whether two integer vectors are at least 60&deg; apart &mdash;
+      <span class="mono">u&middot;v &le; 0</span> or <span class="mono">4(u&middot;v)&sup2; &le; (u&middot;u)(v&middot;v)</span>,
+      eleven 3-bit coordinates a side. A corpus of <strong>14.95&nbsp;million pairs</strong> from finished,
+      certified mathematics is the testbench anyone would reach for first. Then MCY mutates the netlist
+      ${nf(POOL.mutations)} ways and runs four testbenches of ${nf(FAM_N)} pairs against every mutant: a stratified
+      sample of that corpus, and three families built to look where it cannot. The corpus sample misses
+      ${nf(CORPUS_MISS.length)} of the ${nf(POOL.killable)} mutations some pair can kill, and for ${nf(ONLY.length)} of them
+      <em>only one of the three families sees anything at all.</em>
+      The task is to name a pair that tells the mutant from the design.</p>
       <p>There is no answer key, no judge and no tolerance. A kill is checked by
       <strong>simulating the actual netlist under the actual mutation</strong>; EQUIVALENT is checked
       against a <strong>SAT proof</strong> on a hand-written miter. ${nf(POOL.killable)} mutations carry a
@@ -339,10 +418,13 @@ const body = `
     </div>
     <div class="reveal card2" id="card" hidden></div>
     <div class="note reveal rd">
-<b>read the shapes, not the shade</b> a filled dot is a mutation the corpus catches; a ring is one only
-another family catches; a cross is one a proof says changes nothing. The blind spots are not scattered
-&mdash; they sit in the <span class="mono">box check</span>, the part of the design no <em>valid</em> input
-exercises, which is precisely where a corpus of valid inputs cannot go.
+<b>read the shapes, not the shade</b> a filled dot is a mutation two or more testbenches catch; a ring or a
+square is one only one constructed family catches; a cross is one a proof says changes nothing. The blind spots
+are not scattered &mdash; ${IN_BOX_CHECK} of the ${ONLY.length} sit in the <span class="mono">box check</span>, the part of
+the design no <em>valid</em> input exercises, which is precisely where a corpus of valid inputs cannot go.
+<b>a filled dot is not the corpus</b> MCY tags a mutation COVERED when two or more of its four testbenches kill it,
+and ${COVERED_MISS.length} of the ${POOL.by_class.COVERED} dots get past the corpus sample, caught by the constructed
+families alone &mdash; ${CORPUS_MISS.length} misses in all, with the ${ONLY.length} rings and squares.
     </div>
   </div>
 </section>
@@ -375,19 +457,24 @@ recorded kill used.
     <div class="reveal"><div class="gr g-six" style="--cols:${CLASSES.length}">
       <div class="h">eight pairs from &hellip;</div>${CLASSES.map((k) => `<div class="h">${k.toLowerCase().replace(/_/g, ' ')}</div>`).join('')}
       ${['corpus8', 'mint8', 'outbox8', 'aligned8', 'union8', 'sat'].map((p) => {
-        const cells = CLASSES.map((k) => { const [a, b] = perClass(p, k); return `<div class="c" style="--f:${(b ? a / b : 0).toFixed(2)}"><b>${a}</b>/${b}</div>`; }).join('');
+        const cells = CLASSES.map((k) => { const [a, b] = perClass(p, k); return `<div class="c" style="--f:${(b ? a / b : 0).toFixed(2)}">${drawn(p, `<b>${a}</b>/${b}`)}</div>`; }).join('');
         return `<div class="ml">${p}</div>${cells}`;
       }).join('')}
     </div></div>
     <div class="note reveal rd">
-<b>the out-of-box family kills 96.8% of these mutants</b> as a family of 4,000 pairs. Eight random members
-of it kill <strong>${perClass('outbox8', 'OUTBOX_ONLY')[0]} of ${perClass('outbox8', 'OUTBOX_ONLY')[1]}</strong> of the mutants only it can see, and every eight-pair
-shotgun kills <strong>0 of ${perClass('corpus8', 'ALIGNED_ONLY')[1]}</strong> of the aligned-only ones. A mutant on the box check of ONE
-coordinate is killed only by pairs that spoil THAT coordinate &mdash; about one in ten of the family.
+<b>the out-of-box family sees all ${POOL.by_class.OUTBOX_ONLY} of its own mutants</b> as a family of ${nf(FAM_N)} pairs &mdash; that is
+what the class means &mdash; and ${OUTBOX_ALL} of the ${POOL.killable} killable ones overall. Eight random members
+of it kill <strong>${drawn('outbox8', perClass('outbox8', 'OUTBOX_ONLY')[0] + ' of ' + perClass('outbox8', 'OUTBOX_ONLY')[1])}</strong> of the mutants only it can see, and every eight-pair
+shotgun kills <strong>${drawn('corpus8', Math.max(...[...SHOTGUN].map((p) => perClass(p, 'ALIGNED_ONLY')[0])) + ' of ' + perClass('corpus8', 'ALIGNED_ONLY')[1])}</strong> of the aligned-only ones. A mutant on the box check of ONE
+coordinate is killed only by pairs that spoil THAT coordinate &mdash; ${pct(SPOIL[0])}&ndash;${pct(SPOIL[1])} in a hundred of the family,
+depending on the coordinate.
+<b>dotted</b> eight random pairs are one draw of the many a policy could make, seeded by the task; another draw kills
+other mutants, so every shotgun count is chosen. <span class="mono">sat</span> draws nothing, and its row is decided.
 <b>so the class names the family and the defect names the member</b> and only the member is a kill. That is
 the whole environment: the <span class="mono">profile</span> rung hands the model the family and watches
 what it does with it.
     </div>
+    ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED], compact: true })}
   </div>
 </section>
 
@@ -397,9 +484,9 @@ what it does with it.
     <div class="reveal"><div class="gr g-mut" style="--cols:${P.rungs.length + 1}">
       <div class="h">policy</div>${P.rungs.map((r) => `<div class="h">${r}</div>`).join('')}<div class="h">all</div><div class="h">solved</div><div class="h">false claims</div>
       ${REF_ROWS.map((r) => `<div class="ml">${r.p} <span class="dim">&middot; ${esc(POLICY_NOTE[r.p] || '')}</span></div>`
-        + r.rungs.map((v) => `<div class="c" style="--f:${((v + 1) / 2).toFixed(2)}">${sgn(v)}</div>`).join('')
-        + `<div class="c ${r.all >= 1 ? 'win' : ''}" style="--f:${((r.all + 1) / 2).toFixed(2)}"><b>${sgn(r.all)}</b></div>`
-        + `<div class="c">${r.solved}/${r.n}</div><div class="c">${r.fc}</div>`).join('')}
+        + r.rungs.map((v) => `<div class="c" style="--f:${((v + 1) / 2).toFixed(2)}">${drawn(r.p, sgn(v))}</div>`).join('')
+        + `<div class="c ${r.all >= 1 ? 'win' : ''}" style="--f:${((r.all + 1) / 2).toFixed(2)}">${drawn(r.p, `<b>${sgn(r.all)}</b>`)}</div>`
+        + `<div class="c">${drawn(r.p, `${r.solved}/${r.n}`)}</div><div class="c">${r.fc}</div>`).join('')}
     </div></div>
     <div class="note reveal rd">
 <b>+1</b> a pair that flips a pin, or EQUIVALENT on a design the miter proved unchanged. <b>0</b> a miss, an
@@ -407,6 +494,8 @@ UNDECIDED, or a reply that could not be read. <b>&minus;1</b> a false claim eith
 a design that cannot change, or a gap declared closed on one that can.
 <b>the ceiling is published</b> <span class="mono">sat</span> scores ${sgn(REF_ROWS.find((r) => r.p === 'sat').all)} on every rung, because the environment
 knows the answer it will not tell you.
+<b>dotted</b> the rows that draw their pairs at random. The false-claim column does not depend on the draw &mdash; a
+shotgun claims a kill on every task, so it is wrong on every equivalent one &mdash; and carries no mark.
     </div>
   </div>
 </section>
@@ -420,22 +509,30 @@ knows the answer it will not tell you.
         const g = gradedRows(m), ref = refusedRows(m);
         const cells = P.rungs.map((r) => {
           const xs = g.filter((x) => x.rung === r);
-          return xs.length ? `<div class="c" style="--f:${((mean(xs) + 1) / 2).toFixed(2)}">${sgn(mean(xs))}</div>`
-                           : '<div class="c dim">&mdash;</div>';
+          return xs.length ? `<div class="c" style="--f:${((mean(xs) + 1) / 2).toFixed(2)}">${sample(sgn(mean(xs)))}</div>`
+                           : '<div class="c dim" title="no graded call: every one was declined">&empty;</div>';
         }).join('');
         return `<div class="ml">${esc(m)}</div>${cells}`
-          + `<div class="c" style="--f:${((mean(g) + 1) / 2).toFixed(2)}"><b>${sgn(mean(g))}</b></div>`
-          + `<div class="c">${solvedOf(g)}</div><div class="c">${g.filter((x) => x.reward < 0).length}</div>`
-          + `<div class="c ${ref.length ? '' : 'dim'}">${ref.length || 0}</div>`;
+          + `<div class="c" style="--f:${((mean(g) + 1) / 2).toFixed(2)}">${sample(`<b>${sgn(mean(g))}</b>`)}</div>`
+          + `<div class="c">${sample(solvedOf(g))}</div><div class="c">${sample(g.filter((x) => x.reward < 0).length)}</div>`
+          + `<div class="c ${ref.length ? '' : 'dim'}">${sample(ref.length || 0)}</div>`;
       }).join('')}
     </div></div>
     <div class="note reveal rd">
-<b>the profile rung cannot evaluate Opus as written</b> it declined all twelve of them on a content policy,
-plus three <span class="mono">located</span> tasks. That is recorded as a fact and the prompt was not
+<b>the profile rung cannot evaluate Opus as written</b> it declined all ${word(OPUS_DECLINED.find(([g]) => g === 'profile')[1])} of them on a content policy,
+plus ${OPUS_DECLINED.filter(([g, a]) => g !== 'profile' && a).map(([g, a]) => `${word(a)} <span class="mono">${g}</span> task${a === 1 ? '' : 's'}`).join(' and ')} &mdash;
+${refusedRows('Opus 5').length} in all, the declined column &mdash; so its <span class="mono">profile</span> cell is &empty;: there is no
+mean of nothing. That is recorded as a fact and the prompt was not
 reworded to get past the classifier &mdash; a rung that only scores the models willing to answer it is not
 measuring what it claims to.
-<b>half of every kill went outside the box</b> ${OUTBOX_KILLS} of the ${KILLS.length} kills used a &minus;4 coordinate, which the
+<b>${OUTBOX_KILLS * 2 === KILLS.length ? 'half of every kill' : 'kills'} went outside the box</b> ${sample(OUTBOX_KILLS + ' of the ' + KILLS.length)} kills used a &minus;4 coordinate, which the
 declared input box excludes. The thesis, showing up as a diagnostic rather than as a score.
+<b>dotted</b> every model number is one sample of that model&rsquo;s replies: each reply is graded exactly, but the
+replies are a draw, and a rerun draws others.
+<b>${word(GAPS.length)} gap${GAPS.length === 1 ? '' : 's'} declared closed</b> ${W.witness('a model’s EQUIVALENT, refuted by the mutant’s own witness')} ${GAPS.map((r) => `${esc(r.model)} called mutation ${r.mutant} EQUIVALENT`).join(', and ')}.
+EQUIVALENT says no valid pair tells that mutant from the design, and the SAT witness on its card above is such a
+pair &mdash; an object you can load, which is why these alone are marked. The other ${ALARMS.length} wrong answers
+declared a kill on a design the miter proved unchanged: refuted by proof, with no pair to exhibit.
     </div>
   </div>
 </section>
@@ -453,9 +550,9 @@ declared input box excludes. The thesis, showing up as a diagnostic rather than 
         + `<div class="ml dim tl">${esc(c.note)}</div>`).join('')}
     </div></div>
     <div class="note reveal rd">
-<b>what each one pins</b> the grade shown is what the control actually graded; every one matched, and
-three of the eleven deliberately pin only the outcome and leave the reward to follow from it.
-<b>three of them must SCORE</b> and that is the half people leave out. A simulator that is not live scores
+<b>what each one pins</b> the grade shown is what the control actually graded; ${P.controls_failed.length ? `${P.controls_failed.length} did not match` : 'every one matched'}, and
+${word(P.controls.filter((c) => !('reward' in c.expect)).length)} of the ${word(P.controls.length)} deliberately pin only the outcome and leave the reward to follow from it.
+<b>${word(P.controls.filter((c) => c.expect.outcome === 'SOLVED').length)} of them must SCORE</b> and that is the half people leave out. A simulator that is not live scores
 every submission as a miss and reports perfect refusal discipline; a suite that fails everything reports
 perfect coverage. Those are the same mistake, and it is the one this environment is named for.
     </div>

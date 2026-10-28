@@ -26,6 +26,10 @@ const CONTACT = embedArt(fs.readFileSync(path.join(ROOT, 'instruments/cert-unit/
 const REFUT = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/cert-unit/out/refutations.json'), 'utf8'));
 const REPORT = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/report.css'), 'utf8');
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
+const W = require(path.join(PG, 'warrant.js'));   /* the grammar's words for the model numbers (WARRANT v2) */
+/* the real published records the lede and "one dial" quote — the SVP-challenge audit — are /instruments/pqc's, and
+   their two numbers are read from its builder, which reads them from instruments/pqc/out/audit.json */
+const PQ = require(path.join(PG, 'pqc', 'build.js')).facts;
 /* two structural rules the body uses that neither the shell nor bench.css
    declares; they are frontier base.css's, copied rather than approximated */
 const BASE_EXTRA = `
@@ -45,6 +49,28 @@ const overall = m => { const s = R.filter(x => x.model === m); return [s.reduce(
 const wf = m => { const s = R.filter(x => x.model === m && x.rung !== 'underspecified'); return [s.reduce((t, x) => t + x.wf, 0), s.length]; };
 const straddle = m => { const s = R.filter(x => x.model === m && x.truth === 'STRADDLES'); return [s.reduce((t, x) => t + x.cert, 0), s.length]; };
 const pc = ([a, b]) => b ? a / b : 0;
+
+/* WARRANT v2 (2026-10-28). STANDING, ON THIS PAGE. A model's number is a count of grades over ONE SAMPLE of its
+   replies: each grade is decided exactly, the sample is an LLM's draw, and the weakest standing on the path is the
+   draw's — CHOSEN, dotted. The four reference policies are deterministic on the same tasks, so their counts are
+   decided and carry no mark. The ruler's window width is float arithmetic on the record's drawing floats (the verdicts
+   at N ± ½ are Fractions), so it is COMPUTED. Nothing is red: no forgery was accepted, and every refutation drawn
+   here is a scalar against a wall or a quantity that is absent — a deduction, with no witness point to exhibit.
+   The contact sheet's dashed underline (instruments/cert-unit, untouched) is read as a standing too: nothing decided
+   that answer against the reference the task stated, right or wrong — so the prose says so, and no longer says its
+   ink "is not chosen", a word that now names a standing on this page.
+
+   TWO LITERALS DID NOT SURVIVE BEING READ (same day). "The tightest margin in that table is 1.4×10⁻⁴": the margin is
+   1.487×10⁻⁴ (dimension 119, 1.05 − 1.049851339…), so the digit printed was a truncation and the rounding is 1.5;
+   it is now read from the pqc audit, as is the lede's 32 of 37. And "22 models had correctly answered" — three
+   models answered here; the 22 are replies (the count itself is the first run's, which this record does not hold). */
+const sample = (h) => W.value(h, W.CHOSEN, { title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
+{ const A = P.decidable, B = P.straddle;
+  for (const e of [A, B]) if (!(e.ratio_lo <= e.ratio_exact && e.ratio_exact <= e.ratio_hi)) throw new Error('lattice-claims: the dot is outside its bar; the ruler note would be false');
+  if (!(A.verdict_lo === 'ADMISSIBLE' && A.verdict_hi === 'ADMISSIBLE' && B.verdict_lo !== B.verdict_hi)) throw new Error('lattice-claims: the two ruler instances changed verdicts; rewrite the note');
+  const below = P.canary.find((c) => c.label === 'below the cliff'), above = P.canary.find((c) => c.label === 'above it');
+  if (!(Math.max(...below.dims) < 102 && 102 < Math.min(...above.dims) && above.naive === above.n && below.naive === 0)) throw new Error('lattice-claims: the canary no longer brackets dimension ~102; rewrite the note'); }
+const dotSide = P.straddle.ratio_exact <= 1.05 ? 'admissible' : 'refused';
 
 /* the mark that explains the environment: two printed norms, one decidable */
 function ruler() {
@@ -82,8 +108,8 @@ const grid = () => `<div class="gr" style="--cols:${RUNGS.length + 1}">
   <div class="h"></div>${RUNGS.map(r => `<div class="h">${r}</div>`).join('')}<div class="h">overall</div>
   ${MODELS.map(m => `<div class="h ml">${m}</div>` + RUNGS.map(r => {
   const c = cell(m, r);
-  return `<div class="c" style="--f:${pc(c).toFixed(2)}"><b>${c[0]}</b>/${c[1]}</div>`;
-}).join('') + (() => { const o = overall(m); return `<div class="c tot" style="--f:${pc(o).toFixed(2)}"><b>${o[0]}</b>/${o[1]}</div>`; })()).join('')}
+  return `<div class="c" style="--f:${pc(c).toFixed(2)}">${sample(`<b>${c[0]}</b>/${c[1]}`)}</div>`;
+}).join('') + (() => { const o = overall(m); return `<div class="c tot" style="--f:${pc(o).toFixed(2)}">${sample(`<b>${o[0]}</b>/${o[1]}`)}</div>`; })()).join('')}
 </div>`;
 
 const confusion = () => {
@@ -95,7 +121,7 @@ const confusion = () => {
       .sort((a, b) => b[1] - a[1]).slice(0, 3);
     const say = g => (g === 'null' || g === 'undefined') ? 'nothing parseable' : g;
     return `<div class="h ml">${m}</div><div class="c2">${worst.map(([k, v]) =>
-      `<span class="mis"><b>${v}&times;</b> ${say(k.split('|')[1]) === 'nothing parseable' ? 'returned nothing parseable' : 'said ' + k.split('|')[1]} when it was ${k.split('|')[0]}</span>`).join('')}</div>`;
+      `<span class="mis">${sample(`<b>${v}&times;</b>`)} ${say(k.split('|')[1]) === 'nothing parseable' ? 'returned nothing parseable' : 'said ' + k.split('|')[1]} when it was ${k.split('|')[0]}</span>`).join('')}</div>`;
   }).join('');
   return `<div class="gr g-lead">${rows}</div>`;
 };
@@ -132,7 +158,7 @@ const body = `
   <div class="container">
     <div class="eyebrow reveal">environment &middot; lattice-claims</div>
     <h1 class="display reveal mt5 ti">Decide it, or say what is missing</h1>
-    <p class="lede reveal mt6 rd">An environment built out of a mistake. Auditing published lattice records, our grader called 32 of 37 wrong &mdash; while being exact to the last bit. It had compared against a quantity the claims were not about. So this asks a model to decide a claim exactly <em>and</em> to declare what it decided against, because a right answer from the wrong reference is not a right answer.</p>
+    <p class="lede reveal mt6 rd">An environment built out of a mistake. Auditing published lattice records, our grader called ${PQ.atRounded} of ${PQ.decided} wrong &mdash; while being exact to the last bit. It had compared against a quantity the claims were not about. So this asks a model to decide a claim exactly <em>and</em> to declare what it decided against, because a right answer from the wrong reference is not a right answer.</p>
     <div class="hero-meta reveal">
       <span class="item"><span class="k">models</span><span class="v">${MODELS.length}</span></span>
       <span class="item"><span class="k">tasks</span><span class="v">${R.length / MODELS.length} each</span></span>
@@ -146,7 +172,7 @@ const body = `
   <div class="container narrow">
     <div class="prose reveal">
       <h2 class="t2">One dial, three rungs</h2>
-      <p>The axis is not exact-versus-float. We measured that and it is the weaker one: a careful float grader agrees with the exact decision on every real published record we checked, 37 of 37, because the tightest margin in that table is 1.4&times;10&minus;&#8308; against a double&rsquo;s 10&minus;&#185;&#8310;. Precision is not where this domain breaks.</p>
+      <p>The axis is not exact-versus-float. We measured that and it is the weaker one: a careful float grader agrees with the exact decision on every real published record we checked, ${PQ.decided} of ${PQ.decided}, because the tightest margin in that table is ${PQ.e4(PQ.tightest)}&times;10&minus;&#8308; against a double&rsquo;s 10&minus;&#185;&#8310;. Precision is not where this domain breaks.</p>
       <p>The dial is <strong>how much of the reference is stated</strong>. <span class="mono">declared</span> gives every quantity exactly. <span class="mono">printed</span> gives the norm as a whole number, the way published tables give it. <span class="mono">underspecified</span> omits a required quantity, and the only correct answer is to refuse and name it. Nothing labels which rung a task belongs to &mdash; noticing is the test.</p>
     </div>
   </div>
@@ -161,7 +187,8 @@ const body = `
     <div class="reveal mt5">${ruler()}</div>
     <div class="note reveal rd">
 <b>decidable</b>  printed ${P.decidable.printed} &rarr; every consistent norm gives the same verdict. ADMISSIBLE, and that is a proof.
-<b>straddling</b> printed ${P.straddle.printed} &rarr; at N&minus;&frac12; it is ${P.straddle.verdict_lo}, at N+&frac12; it is ${P.straddle.verdict_hi}. The window is ${((P.straddle.ratio_hi - P.straddle.ratio_lo) * 1e4).toFixed(1)}&times;10&minus;&#8308; wide and the wall runs through it.
+<b>straddling</b> printed ${P.straddle.printed} &rarr; at N&minus;&frac12; it is ${P.straddle.verdict_lo}, at N+&frac12; it is ${P.straddle.verdict_hi}. The window is ${W.value(((P.straddle.ratio_hi - P.straddle.ratio_lo) * 1e4).toFixed(1) + '&times;10&minus;&#8308;', W.COMPUTED, { title: 'float arithmetic on the record’s drawing floats; the verdicts at N ± ½ are exact' })} wide and the wall runs through it.
+<b>the dot</b>    is the vector each task was built from, inside its bar both times. For the straddling one it sits on the ${dotSide} side &mdash; a fact the printed integer does not carry, so it decides nothing, and STRADDLES stays the right answer.
 <b>so</b>         STRADDLES is not a hedge, it is the correct answer &mdash; and there is a record in the real hall of fame in exactly this position.
     </div>
   </div>
@@ -183,9 +210,11 @@ const body = `
 <b>careful</b>    is the row to read the models against &mdash; a float grader right on every real record, with no way to say STRADDLES or NEEDS_DATA. Its printed cell is the four straddling instances; its refusal cell is the cost of a grader that cannot abstain.
     </div>` : ''}
     <div class="note reveal rd">
-<b>the split</b>   the <span class="mono">printed</span> rung separates the models threefold. On the straddling instances alone: ${MODELS.map(m => `${m} ${straddle(m)[0]}/${straddle(m)[1]}`).join(', ')}.
-<b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${wf(m)[0]}/${wf(m)[1]}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
+<b>the split</b>   the <span class="mono">printed</span> rung separates the models threefold. On the straddling instances alone: ${MODELS.map(m => `${m} ${sample(straddle(m)[0] + '/' + straddle(m)[1])}`).join(', ')}.
+<b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${sample(wf(m)[0] + '/' + wf(m)[1])}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
+<b>dotted</b>     every model number on this page is one sample of that model&rsquo;s replies: each reply is graded exactly, but the replies are a draw, and a rerun draws others. The four policies above are deterministic on the same tasks, so their counts are decided and carry no mark.
     </div>
+    ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
     <div class="reveal mt6">
       <div class="eyebrow">where the verdicts went</div>
       ${confusion()}
@@ -201,7 +230,7 @@ const body = `
     <div class="section-head reveal"><h2 class="t1">All of it, as one picture</h2><span class="eyebrow">${R.length} rollouts, nine rows</span></div>
     <div class="prose reveal rd">
       <p>Every rollout reduced to the topology that matters: the verdicts an instrument can fire, with the one the model chose filled and the one that was true ringed. Fill inside a ring is right. A fill with no ring is a wrong answer. A ring with nothing in it is the answer it missed, and you can see which row it went to instead.</p>
-      <p>The underline is the reference, and its ink is not chosen &mdash; solid when the rollout declared what it actually decided against, dashed when it slipped. A run of dashed underlines beneath correct verdicts is a model right for a reason it did not state.</p>
+      <p>The underline is the reference, and its ink is read off the grade, never picked &mdash; solid when the rollout declared what it actually decided against, dashed when it slipped. The dash is a standing, not a verdict: it says nothing decided that answer against what the task stated, whether or not the answer is right. A run of dashed underlines beneath correct verdicts is a model right for a reason it did not state.</p>
     </div>
     <div class="reveal sheet mt5">${CONTACT}</div>
     <div class="note reveal rd">
@@ -215,7 +244,7 @@ const body = `
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">A refutation is a picture</h2><span class="eyebrow">four real failures, drawn</span></div>
     <div class="prose reveal rd">
-      <p>&ldquo;Verdict ADMISSIBLE, decided REFUSED&rdquo; is a fact without a reason. The smallest graph that refutes a rollout carries the reason, and carries it in the same grammar as everything else: what was <em>derived</em> arrives on a solid wire, and what was merely <em>asserted</em> arrives dashed, because the node holding the model&rsquo;s answer emits a float and nothing here chooses ink.</p>
+      <p>&ldquo;Verdict ADMISSIBLE, decided REFUSED&rdquo; is a fact without a reason. The smallest graph that refutes a rollout carries the reason, and carries it in the same grammar as everything else: what was <em>derived</em> arrives on a solid wire, and what was merely <em>asserted</em> arrives dashed, because the node holding the model&rsquo;s answer emits a float and nothing here picks the ink.</p>
       <p>Each of these is a rollout that actually happened, rebuilt from the same seed the eval ran.</p>
     </div>
     <div class="refs reveal">${REFUT.map((r) => `<figure>
@@ -235,7 +264,7 @@ const body = `
     <div class="prose reveal">
       <h2 class="t2">The first run measured the grader, not the models</h2>
       <p>It scored Opus <span class="mono">${P.first_run.certified['Opus 5']}/${P.first_run.of_certified}</span> and the reference reward <span class="mono">0/${P.first_run.of_well_formed}</span> for <em>every</em> model. The uniformity of that zero is what gave it away.</p>
-      <p>Models were declaring their reference correctly, using the keys <span class="mono">squared_norm</span> and <span class="mono">acceptance_factor</span>; the grader demanded <span class="mono">norm_squared</span> and <span class="mono">factor</span> and failed right answers on spelling. The prompt had never stated the schema, so there was nothing to fail against. On the refusal rung, 22 models had correctly answered <span class="mono">NEEDS_DATA</span> and scored zero for naming the absent quantity <span class="mono">q</span> rather than the grader&rsquo;s internal path <span class="mono">lattice.q</span>.</p>
+      <p>Models were declaring their reference correctly, using the keys <span class="mono">squared_norm</span> and <span class="mono">acceptance_factor</span>; the grader demanded <span class="mono">norm_squared</span> and <span class="mono">factor</span> and failed right answers on spelling. The prompt had never stated the schema, so there was nothing to fail against. On the refusal rung, 22 replies had correctly answered <span class="mono">NEEDS_DATA</span> and scored zero for naming the absent quantity <span class="mono">q</span> rather than the grader&rsquo;s internal path <span class="mono">lattice.q</span>.</p>
       <p><strong>A zero that uniform is a bug, not a result.</strong> Fixed on both sides &mdash; the prompt states the schema, and the grader accepts any reasonable spelling. It is the third time in one sitting that comparing against the wrong reference produced a confident wrong answer: once on the real published audit, once inside our own exact predicate where a planted forgery caught it, and once here. The environment is named for that error and it still caught us.</p>
     </div>
   </div>
