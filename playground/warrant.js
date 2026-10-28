@@ -189,7 +189,7 @@ function value(text, standing, { title } = {}) {
    decoration. */
 const LEGEND = [
   { s: DECIDED, label: 'decided', gloss: 'exact arithmetic backs it' },
-  { s: COMPUTED, label: 'computed', gloss: 'float; nothing decided it' },
+  { s: COMPUTED, label: 'computed', gloss: 'float, or a number someone printed; nothing decided it' },
   { s: CHOSEN, label: 'chosen', gloss: 'one member of a set the data admits' },
   { s: REFUSED, label: 'refused', gloss: 'no mark — the void is drawn' },
 ];
@@ -264,8 +264,9 @@ const witness = (label = 'an exhibited counterexample') => `<span class="wx" ari
    reached. The ladder is the verification-and-validation ladder of the modelling literature (Roache 1998; Oberkampf
    & Roy 2010; ASME V&V 20), cut to four rungs a reader can tell apart:
 
-     ASSUMED     adopted from a source or chosen; nothing here checked it (a breaking ratio from Thornton & Guza,
-                 the absence of sandbars)
+     ASSUMED     adopted from a source, chosen, or read; no machine here checked it (a breaking ratio from Thornton &
+                 Guza, the absence of sandbars, a proof step read and re-derived by hand: 2026-10-28, a reading gets no
+                 rung of its own, because a reading is where the machine's checking stopped)
      VERIFIED    the code reproduces an exact solution of its own equations; whether the equations hold here is
                  not measured (code verification)
      COMPARED    checked against a model that keeps more of the physics, with the number; not against the thing
@@ -279,7 +280,7 @@ const witness = (label = 'an exhibited counterexample') => `<span class="wx" ari
 const ASSUMED = 0, VERIFIED = 1, COMPARED = 2, VALIDATED = 3;
 const GRADE = ['assumed', 'verified', 'compared', 'validated'];
 const GRADE_GLOSS = [
-  'adopted from a source or chosen; nothing here checked it',
+  'adopted from a source, chosen, or read; no machine here checked it',
   'the code reproduces an exact solution of its own equations; not measured against the thing itself',
   'checked against a model that keeps more of the physics, with the number; not against the thing itself',
   'checked against observations of the thing itself, held out, with the number',

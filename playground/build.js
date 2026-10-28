@@ -179,7 +179,7 @@ const body = `
   <!-- IT IS A GRID CHILD, SO IT MUST SAY SO, 2026-09-05. This block carried
        class="wrap" and sat between two <a class="card"> inside <div
        class="cards">, so it became a GRID ITEM in one card column: three
-       legend items crushed into ~150px, "float; nothing decided it" wrapping
+       legend items crushed into ~150px, "float; nothing decided it" (the gloss then) wrapping
        to three lines. And .wrap adds its own gutter on top of the grid's, so
        its left edge landed at x=216 while every other thing on the site sits
        at x=168. That is the "text block lost on the page". It spans the grid

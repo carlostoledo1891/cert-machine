@@ -132,3 +132,13 @@ for normal vision.
     weight, and the reference line becomes the grammar's guide pattern (2 3) in ink.
 - **Two reds would fail.** Rose #e57e98 beside the witness #e0574e reads ΔE 10.7 for normal vision. One red only:
   the operator picks which.
+
+## Relay for Machinidae's next session (cert-machine, 2026-10-28 late; its session had ended before the done-message)
+
+- Published: 40c0b0392a went live as cert-machine 774c88dc (79 files, 9,413,419 bytes; `publish-zone.js --check` ok).
+- CladeDraw.C lost ochre, blue and rose; it gained witness and lineage. D, stroke and solid were added.
+- The three rulings it raised (design/WARRANT.md, "Rulings, 2026-10-28 (late)"):
+  1. A champion tied on the best training score is CHOSEN, drawn dotted, with "one of several" (rule 3). 209 of 236
+     confirmatory champions are tied.
+  2. Inferential role (pilot, confirmatory, synthetic, trial) is carried by words only.
+  3. There is no darker grey for the blind-tree control. Shape and weight tell it apart.

@@ -17,7 +17,6 @@ const die = (m) => { console.error('OPTCONST REPORT REFUSED: ' + m); process.exi
    one bound that rests on an argument read rather than computed (C42) names its premises. Enclosures print outward. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const D = require(path.join(ROOT, 'design', 'outward.js'));
-const READ_GLOSS = ['cited, or read; no machine here checked it'].concat(W.GRADE_GLOSS.slice(1));
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const run = (args) => cp.execFileSync(process.execPath, args, { cwd: ROOT, encoding: 'utf8' });
 
@@ -183,7 +182,7 @@ B.push(C.section({
         die('the C42 rows no longer say their passage to the limit is prose — rewrite the premise chain');
       return C.pRaw('<b>What both rows rest on</b>, in the order the bound travels through it:') + W.premisesHtml([
         { grade: W.ASSUMED, label: 'The passage from the limit to every large n', evidence: 'the note\'s argument in prose — the uniform asymptotics of the binomial coefficients, the boundary terms, the double sum — with no finite threshold; read here, not decided (' + C.m('certs/turan-ledger.json') + ': “the asymptotic reduction … is the note\'s prose”)' }],
-      { gloss: READ_GLOSS, meetLine: 'Each limiting inequality is decided exactly; the weakest premise is <b>assumed</b>, the argument that carries it to every large n. Hence PARTIAL, for Griego\'s ' + C.esc(TU.bound) + ' and for #184\'s ' + C.esc(PR.bound) + ' alike.' });
+      { meetLine: 'Each limiting inequality is decided exactly; the weakest premise is <b>assumed</b>, the argument that carries it to every large n. Hence PARTIAL, for Griego\'s ' + C.esc(TU.bound) + ' and for #184\'s ' + C.esc(PR.bound) + ' alike.' });
     })()
   ].join('\n')
 }));

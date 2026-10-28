@@ -12,14 +12,14 @@ const W = require('./warrant.js');
 /* the standing legend's eight strings (warrant.js LEGEND), label and gloss */
 const LEGEND = {
   decided: 'decidido', 'exact arithmetic backs it': 'conta exata',
-  computed: 'computado', 'float; nothing decided it': 'ponto flutuante; nada o decidiu',
+  computed: 'computado', 'float, or a number someone printed; nothing decided it': 'ponto flutuante, ou um número que alguém imprimiu; nada o decidiu',
   chosen: 'escolhido', 'one member of a set the data admits': 'um membro do conjunto que os dados admitem',
   refused: 'recusado', 'no mark — the void is drawn': 'sem marca: o vazio é desenhado',
 };
 /* the premise ladder (warrant.js GRADE, weakest first), and what each rung means, in the voice Swell's pages use */
 const GRADE = ['suposto', 'verificado', 'comparado', 'validado'];
 const GRADE_GLOSS = [
-  'adotado de uma fonte ou escolhido; nada aqui o conferiu',
+  'adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu',
   'o código reproduz uma solução de referência das próprias equações; não conferido contra a coisa em si',
   'conferido contra um modelo que guarda mais da física, com o número; não contra a coisa em si',
   'conferido contra observações da própria coisa, guardadas fora da calibração, com o número',

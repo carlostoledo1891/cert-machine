@@ -24,7 +24,6 @@ const theirs = (t) => W.value(t, W.COMPUTED, { title: CLAIMANT });
 const timed = (t) => W.value(t, W.COMPUTED, { title: TIMED });
 /* the premise ladder's glosses in this page's words: a mathematical premise here is a theorem cited or a proof read, so the
    bottom rung says so (the four words and the ladder stay the grammar's, playground/warrant.js) */
-const READ_GLOSS = ['cited, or read and re-derived by hand; no machine here checked it'].concat(W.GRADE_GLOSS.slice(1));
 const die = (m) => { console.error('OPTQ REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const py = (args) => cp.execFileSync('python3', ['-I'].concat(args), { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
@@ -373,7 +372,7 @@ B.push(C.section({
   if (usedReads.join(',') !== Object.keys(C16_STEPS).join(',')) die('the C_16 record\'s analytic steps moved (' + usedReads.join(', ') + ') — rewrite the premise chain');
   const c16chain = W.premisesHtml(usedReads.map((k) => ({ grade: W.ASSUMED, label: C.esc(C16_STEPS[k]),
     evidence: C.esc(Q.readings[k].reason.replace(/\.$/, '')) + '; no machine checked it (' + C.m('claims.json') + ', ' + k + ')' })),
-  { gloss: READ_GLOSS, meetLine: 'The finite core under them is exact, in two implementations; the weakest premise is <b>assumed</b>: on this ladder a proof read and re-derived by hand is where the checking stopped, since no machine checked it. That is why this end is PARTIAL, and why the lower end, which crosses none of these steps, is CERTIFIED.' });
+  { meetLine: 'The finite core under them is exact, in two implementations; the weakest premise is <b>assumed</b>: on this ladder a proof read and re-derived by hand is where the checking stopped, since no machine checked it. That is why this end is PARTIAL, and why the lower end, which crosses none of these steps, is CERTIFIED.' });
   B.push(C.section({
     lab: '§11 · C₁₆', title: 'An enclosure from ' + UJ.UF1.boxes + ' boxes: the lower end certified, the upper end\'s finite core certified', id: 'c16',
     bodyRaw: C.pRaw('<b>Decided 2026-10-27, as the second party.</b> maximusrufus, who re-ran three of our records, filed the enclosure ' + C.m(Q.printed.lower + ' ≤ C₁₆ ≤ ' + Q.printed.upper) + ' (<a href="https://github.com/teorth/optimizationproblems/pull/246">#246</a>, merged asterisked on 2026-10-26): a lower certificate from one trial polynomial, and an upper certificate of ' + UJ.UF1.boxes + ' boxes in δ with a tail bound, a convexity argument and numpy checkers. Under the registry\'s rule a mark comes off only on a second party\'s confirmation; nothing of theirs had been re-decided by anyone.')

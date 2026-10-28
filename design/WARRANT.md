@@ -171,3 +171,23 @@ rule 2. Until the operator rules, they never share a figure.
 - **Tier 2:** every other report, converted when it is next edited for another reason, never in a sweep.
 - **Kept out (operator, 2026-10-28):** the submitted Petrobras material (Contraprova, Decidível, Abatimento). It
   stays exactly as submitted.
+
+## Rulings, 2026-10-28 (late): the open questions, on "follow the recommended path"
+
+- **A reading gets no rung.** Lanes graded proof steps that were read, not run, as `assumed`, and two reports
+  (optconst, optq) carried a private gloss to say so. The ladder stays at four rungs, because a reading is where the
+  machine's checking stopped. The `assumed` gloss now names it ("adopted from a source, chosen, or read; no machine
+  here checked it"), and the private glosses are gone. Whether a verdict that crosses a read step must be PARTIAL
+  everywhere (16a and 70a are CERTIFIED, C₁₆'s upper end is PARTIAL) is open for the operator; it would move a
+  posted verdict.
+- **The computed gloss covers printed numbers:** "float, or a number someone printed; nothing decided it".
+- **Swell keeps the flag, not a refusal,** where the island model reads low (rule 16). A refusal would remove an
+  exact statement; the flag says that it calls for more caution than the arithmetic shows.
+- **Machinidae (relayed to its session):** a champion tied on the best training score is CHOSEN (rule 3; 209 of 236
+  confirmatory champions are tied); inferential role (pilot, confirmatory, synthetic, trial) is carried by words
+  only, never stroke or colour (rules 3 and 4 of v2.2); no darker grey for the blind-tree control: it is told apart by
+  shape and weight (ink first, rule 1 of v2.2).
+- **Deferred, not refused:** a live "now deciding" strip on the landing (a strip on a static build goes stale between
+  builds) and a shorter H1 (D1 is not paraphrased).
+- **Still open:** `--v-refu` and `--witness` (one red to the eye, two meanings). Until the operator rules, they never
+  share a figure.
