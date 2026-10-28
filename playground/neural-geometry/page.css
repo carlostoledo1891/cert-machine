@@ -73,8 +73,9 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 .mg { stroke: var(--chart-grid); stroke-width: 1; }
 .max { font-family: var(--font-mono); font-size: 12px; fill: var(--ink-5); }
 .max.ax { font-size: 12px; fill: var(--ink-4); letter-spacing: 0.06em; }
-/* a fitted blob boundary: assumed, and under 1.5px, so the small claim. */
-.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; stroke-dasharray: 1.5 2; }
+/* the controls' ring. It was dashed here as "a fitted blob boundary: assumed"; it is no fit, it is a padded circle
+   round a centroid, a CHOSEN picture, so it takes .ink-chosen-sm from design/grammar.js (WARRANT v2, 2026-10-28) */
+.mb { fill: none; stroke: var(--ink-3); stroke-width: 1.2; }
 .ml.ctl { fill: var(--ink-2); }
 .mp { fill: var(--ink-3); }
 .mp.k-cycle { fill: var(--ink); }
@@ -100,4 +101,6 @@ svg.map { display: block; width: 100%; max-width: 860px; margin: var(--s-6) auto
 @media (min-width: 1120px) { .fplates { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .pl .fq { margin: var(--s-2) 0 var(--s-3); font-family: var(--font-mono); font-size: 10.5px;
   color: var(--ink-5); line-height: 1.5; min-height: 3.1em; }
-.pl .nums .v.miss { color: var(--ink-5); text-decoration: line-through; text-decoration-thickness: 1px; }
+/* a failed verdict is said in its word, never by striking the number through: a fit that misses its bar is still
+   the fit (WARRANT v2, 2026-10-28 — the line-through demoted a computed number for the verdict it carried) */
+.pl .nums .v.miss { color: var(--ink-4); }

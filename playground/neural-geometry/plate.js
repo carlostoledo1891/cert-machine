@@ -13,6 +13,29 @@
 */
 'use strict';
 
+/* IS THE MINIMUM SPANNING TREE UNIQUE? (WARRANT v2, 2026-10-28). decide.js builds it with a strict "<", so where two
+   edges tie the first one found wins — a tie-break, and a tree picked by a tie-break is ONE MEMBER of the set of
+   minimum spanning trees the numbers admit: CHOSEN, drawn dotted, never solid. The test is the textbook one and it is
+   exact on these numbers (integers over two): the tree is unique iff every edge outside it is strictly longer than the
+   longest edge on the tree path between its ends. On 2026-10-28 nine of the fifteen trees drawn on this page tie. */
+function mstUnique(D, mst) {
+  const n = D.length, adj = Array.from({ length: n }, () => []), inTree = new Set();
+  for (const [a, b] of mst) { adj[a].push(b); adj[b].push(a); inTree.add(Math.min(a, b) + '-' + Math.max(a, b)); }
+  const pathMax = (s, t) => {
+    const stack = [[s, -Infinity]], seen = new Set([s]);
+    while (stack.length) {
+      const [u, m] = stack.pop();
+      if (u === t) return m;
+      for (const v of adj[u]) if (!seen.has(v)) { seen.add(v); stack.push([v, Math.max(m, D[u][v])]); }
+    }
+    return Infinity;
+  };
+  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
+    if (!inTree.has(i + '-' + j) && !(D[i][j] > pathMax(i, j))) return false;
+  }
+  return true;
+}
+
 function plate(m, items, { size = 560, pad = 66, hasOrder = true } = {}) {
   const n = m.n;
   const xs = m.pts.map((p) => p[0]), ys = m.pts.map((p) => p[1]);
@@ -62,7 +85,7 @@ function plate(m, items, { size = 560, pad = 66, hasOrder = true } = {}) {
 <g class="chords">${chords.join('')}</g>
 ${pathD ? `<path d="${pathD}" class="ord"/>` : ''}
 ${closeD ? `<path d="${closeD}" class="clo"/>` : ''}
-${treeD ? `<path d="${treeD}" class="mst"/>` : ''}
+${treeD ? `<path d="${treeD}" class="mst${mstUnique(m.D, m.mst) ? '' : ' ink-chosen'}"/>` : ''}
 ${dots}
 </svg>`;
 }
@@ -74,18 +97,34 @@ module.exports = { plate };
    Curvature (how much of the available signature is negative) against closure
    (Gromov's δ over the diameter). Neither number knows what the set was; the
    grouping is what the answers do on their own. The controls land in the corner
-   where both are zero, and nothing else does.
+   where curvature is zero — and, since 2026-10-28 the page says so, not alone.
 */
-function mapPlate(sets, { size = 1000, pad = 92 } = {}) {
+/* the map's geometry, once: the cells, the two scales and the controls' ring. mapPlate draws it and build.js reads
+   inRing for its sentence, so the words about the ring and the ring itself are one computation. */
+function mapGeometry(sets, { size = 1000, pad = 92 } = {}) {
   const cells = [];
   for (const s of sets) for (const m of s.models) {
     if (m.incomplete) continue;
-    cells.push({ set: s.id, shape: s.shape, model: m.id, x: m.hyp.norm, y: m.signature.q / (m.n - 1) });
+    cells.push({ set: s.id, shape: s.shape, model: m.id, x: m.hyp.norm, y: m.signature.q / (m.n - 1), q: m.signature.q });
   }
   const x1 = Math.max(0.52, ...cells.map((c) => c.x)) * 1.04;
   const y1 = Math.max(0.55, ...cells.map((c) => c.y)) * 1.06;
   const X = (v) => pad + (v / x1) * (size - 2 * pad);
   const Y = (v) => size - pad - (v / y1) * (size - 2 * pad);
+  const ctl = cells.filter((c) => c.shape === 'none').map((c) => [X(c.x), Y(c.y)]);
+  let ring = null;
+  const inRing = [];
+  if (ctl.length >= 3) {
+    const cx = ctl.reduce((a, q) => a + q[0], 0) / ctl.length, cy = ctl.reduce((a, q) => a + q[1], 0) / ctl.length;
+    const r = Math.max(20, ...ctl.map((q) => Math.hypot(q[0] - cx, q[1] - cy))) + 14;
+    ring = { cx, cy, r };
+    for (const c of cells) if (c.shape !== 'none' && Math.hypot(X(c.x) - cx, Y(c.y) - cy) <= r) inRing.push(c);
+  }
+  return { cells, x1, y1, X, Y, ring, inRing };
+}
+
+function mapPlate(sets, { size = 1000, pad = 92 } = {}) {
+  const { cells, x1, y1, X, Y, ring, inRing } = mapGeometry(sets, { size, pad });
 
   const grid = [];
   for (let k = 0; k <= 4; k++) {
@@ -98,16 +137,25 @@ function mapPlate(sets, { size = 1000, pad = 92 } = {}) {
 
   /* ONE hull, and only one: the controls. Drawing an envelope round every kind
      produced five overlapping polygons that asserted a tidiness the points do
-     not have. The controls are the claim — both numbers at zero, alone — so
-     they get the ring and everything else is left as marks. */
-  const ctl = cells.filter((c) => c.shape === 'none').map((c) => [X(c.x), Y(c.y)]);
+     not have. The controls get the ring and everything else is left as marks.
+
+     WARRANT v2 (2026-10-28). The ring is a CHOSEN picture — a circle round the
+     controls' centroid, padded by 14 px — not a fit, so it is dotted (it was
+     dashed as "a fitted blob boundary"). And it is not the controls' alone:
+     planets as Haiku 4.5 answered it has no negative direction either (a line,
+     which a flat space holds) and sits inside the ring, where the page said
+     "nothing else is near them". So the label names every cell inside the
+     ring, and the controls are drawn FIRST, so that cell is no longer painted
+     over by the ones it sits among. */
   let blobs = '';
-  if (ctl.length >= 3) {
-    const cx = ctl.reduce((a, q) => a + q[0], 0) / ctl.length, cy = ctl.reduce((a, q) => a + q[1], 0) / ctl.length;
-    const r = Math.max(20, ...ctl.map((q) => Math.hypot(q[0] - cx, q[1] - cy))) + 14;
-    blobs = `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" class="mb k-none"/>`
-      + `<text x="${(cx + r + 10).toFixed(1)}" y="${(cy + 4).toFixed(1)}" class="ml ctl">the controls</text>`;
+  if (ring) {
+    const { cx, cy, r } = ring;
+    const also = inRing.map((c) => `${c.set}, ${c.model.replace('claude-', '').replace(/-(\d)-(\d)$/, ' $1.$2').replace(/-(\d)$/, ' $1')}`);
+    blobs = `<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="${r.toFixed(1)}" class="mb k-none ink-chosen-sm"/>`
+      /* one line: below it sit the δ axis's tick labels, and a second line above read as if it came first */
+      + `<text x="${(cx + r + 10).toFixed(1)}" y="${(cy + 4).toFixed(1)}" class="ml ctl">the controls${also.map((a) => `<tspan class="ml"> — and ${a}</tspan>`).join('')}</text>`;
   }
+  cells.sort((a, b) => (a.shape === 'none' ? 0 : 1) - (b.shape === 'none' ? 0 : 1));
 
   const marks = cells.map((c) =>
     `<circle cx="${X(c.x).toFixed(1)}" cy="${Y(c.y).toFixed(1)}" r="5" class="mp k-${c.shape}"><title>${c.set} · ${c.model.replace('claude-', '')} — δ/diam ${c.x.toFixed(3)}, curvature ${c.y.toFixed(2)}</title></circle>`).join('');
@@ -130,7 +178,7 @@ function mapPlate(sets, { size = 1000, pad = 92 } = {}) {
   }
   const labels = labs.map((l) => `<text x="${l.x.toFixed(1)}" y="${l.y.toFixed(1)}" class="ml" text-anchor="middle">${l.id}</text>`).join('');
 
-  return `<svg viewBox="0 0 ${size} ${size}" class="map" role="img" aria-label="Every set and model placed by two exact numbers: Gromov delta over diameter on the horizontal, share of negative Gram directions on the vertical. The controls sit alone in the corner where both are zero.">
+  return `<svg viewBox="0 0 ${size} ${size}" class="map" role="img" aria-label="Every set and model placed by two exact numbers: Gromov delta over diameter on the horizontal, share of negative Gram directions on the vertical. The controls sit in the corner where curvature is zero${inRing.length ? ', with ' + inRing.length + ' structured cell' + (inRing.length > 1 ? 's' : '') + ' inside their ring' : ''}.">
 <g class="grids">${grid.join('')}</g>
 ${blobs}${marks}${labels}
 <text x="${(size / 2).toFixed(1)}" y="${(size - 22).toFixed(1)}" class="max ax" text-anchor="middle">δ / diameter  —  how far from a tree, how close to a cycle</text>
@@ -139,3 +187,5 @@ ${blobs}${marks}${labels}
 }
 
 module.exports.mapPlate = mapPlate;
+module.exports.mapGeometry = mapGeometry;
+module.exports.mstUnique = mstUnique;

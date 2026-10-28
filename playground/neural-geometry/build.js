@@ -7,7 +7,9 @@ const path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
-const { plate, mapPlate } = require('./plate.js');
+const { plate, mapPlate, mapGeometry, mstUnique } = require('./plate.js');
+const W = require(path.join(PG, 'warrant.js'));                   /* the grammar's words (WARRANT v2, 2026-10-28) */
+const GR = require(path.join(PG, '..', 'design', 'grammar.js'));   /* the ink-* classes the ring and the tied trees wear */
 
 const G = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'geometry.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
@@ -32,7 +34,9 @@ const capStructured = structured.flatMap((s) => done(s).map((m) => m.captured));
 const capControl = controls.flatMap((s) => done(s).map((m) => m.captured));
 const triCtl = controls.flatMap((s) => done(s).map((m) => m.tri.violations));
 const asymBy = IDS.map((id) => ({ id, worst: Math.max(...sets.map((s) => byId(s, id).asym.max)) }));
-const cyclicBy = IDS.map((id) => ({ id, hits: sets.filter((s) => byId(s, id).cyclic).length }));
+/* the cyclic-order test only means something on a set that HAS an order; the denominator used to be every set */
+const ordered = sets.filter((s) => s.order);
+const cyclicBy = IDS.map((id) => ({ id, hits: ordered.filter((s) => byId(s, id).cyclic).length }));
 const hues = sets.find((s) => s.id === 'hues');
 const digits = sets.find((s) => s.id === 'digits');
 const weekdays = sets.find((s) => s.id === 'weekdays');
@@ -46,6 +50,62 @@ const family = sets.filter((s) => s.family === 'ten');
 const beats = (s) => s.fitNull && meanFit(s) !== null && meanFit(s) > s.fitNull.p95;
 const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
 
+/* WARRANT v2 (2026-10-28) — what each mark on this page stands on, and seven sentences it had to give back.
+
+   DECIDED (exact rationals on integer answers): the asymmetry, the closure ratio, the signature, the triangle counts,
+   δ/diameter, the pull and the reference item — and the minimum spanning tree where it is unique.
+   CHOSEN: the minimum spanning tree where two edges tie (decide.js keeps the first found: a tie-break; 9 of the 15
+   trees drawn here), and Spearman's ρ of the pull, whose rank ties are broken by item order.
+   COMPUTED (float): the 2D coordinates, "2D holds", every Procrustes fit, the models' agreement, the shuffled null,
+   the cyclic-order test that reads the coordinates, and so the frame verdicts, which compare two of those floats.
+
+   Given back, each gated below so it cannot come back: "0 of N" was a typed zero; "the seven wheels" are eight; "Earth"
+   was typed; the map's controls are not alone in their corner (planets as Haiku 4.5 answered it sits inside their
+   ring); the keypad fit was "worse than permuting the labels" and is not — it lies above the median shuffle and below
+   the 95th percentile; and the least self-consistent model was "the only one that never keeps a cyclic order" while
+   keeping two; and "five small sets" are eighteen. The frame verdict struck its fit through when it failed; a number is
+   not demoted by its verdict. */
+const ctlCurved = qControl.filter((q) => q > 0).length;
+if (ctlCurved !== 0) throw new Error('neural-geometry: a control cell has a negative direction; the first finding is false — rewrite it');
+const wheels = byShape('cycle');
+const pullTies = wheels.reduce((a, s) => a + done(s).reduce((b, m) => b + (m.pull.length - new Set(m.pull).size), 0), 0);
+const wheelRho = W.value(n(mean(wheels.map((x) => x.pullRho)), 2), pullTies ? W.CHOSEN : W.COMPUTED,
+  pullTies ? { title: `chosen — Spearman's ρ over ranks with ${pullTies} ties on the wheels, broken by item order, then averaged in float` } : {});
+/* the reference item: read from the record, unanimous, a unique argmax in every model — and the nearby universal
+   reading checked pair by pair on the raw answers, which is what the sentence now says */
+const PROBE = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'probe.json'), 'utf8'));
+const refSet = setOf('planets');
+const REF = refSet.anchor.reference[0];
+if (!(refSet.anchor.unanimous && refSet.anchor.reference.length === 1)) throw new Error('neural-geometry: the planets reference item is no longer unanimous; the third finding is false');
+for (const m of done(refSet)) if (m.pull.filter((x) => x === Math.max(...m.pull)).length !== 1) throw new Error('neural-geometry: the planets pull ties at the top for ' + m.id + '; the reference is a tie-break');
+{
+  const ei = refSet.items.indexOf(REF);
+  for (const M of PROBE.models) {
+    const raw = M.sets.planets.raw;
+    for (let j = 0; j < raw.length; j++) if (j !== ei && !(raw[j][ei] < raw[ei][j])) throw new Error('neural-geometry: ' + M.id + ' does not judge ' + refSet.items[j] + ' closer to ' + REF + ' than the reverse; "every one" would be false');
+  }
+}
+/* the map: who else sits in the controls' corner — one computation with the ring mapPlate draws */
+const { inRing } = mapGeometry(sets);
+const flatStructured = structured.flatMap((s) => done(s).filter((m) => m.signature.q === 0).map((m) => ({ s, m })));
+if (flatStructured.some(({ s }) => s.shape !== 'line')) throw new Error('neural-geometry: a flat structured cell is not a line; the map sentence would be false');
+if (inRing.length !== flatStructured.length || inRing.some((c) => !flatStructured.find(({ s, m }) => s.id === c.set && m.id === c.model))) throw new Error('neural-geometry: the cells inside the controls\' ring are not the flat structured cells; rewrite the map sentence');
+const flatList = flatStructured.map(({ s, m }) => `${s.id} as ${short(m.id)} answered it`).join(', ');
+/* the trees */
+const trees = sets.filter((s) => !s.order).flatMap((s) => done(s).filter((m) => m.mst).map((m) => ({ s, m, unique: mstUnique(m.D, m.mst) })));
+const tied = trees.filter((t) => !t.unique).length;
+const treeWord = (m) => (mstUnique(m.D, m.mst) ? 'unique' : W.value('one of several', W.CHOSEN, { title: 'chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted' }));
+/* the keypad: below the 95th percentile of the shuffles, above their median */
+const kp = setOf('keypad'), kpFit = meanFit(kp);
+if (!(kpFit < kp.fitNull.p95 && kpFit > kp.fitNull.p50)) throw new Error('neural-geometry: the keypad fit is no longer between the median and the 95th percentile of its null; rewrite the frames paragraph');
+const kpBetter = kp.fitNull.trials - Math.floor(0.95 * kp.fitNull.trials);   /* the shuffles at or above p95, so above the fit */
+/* the cyclic order: the least self-consistent model keeps it least often, alone */
+const worstAsym = asymBy.reduce((a, b) => (b.worst > a.worst ? b : a)), fewest = cyclicBy.reduce((a, b) => (b.hits < a.hits ? b : a));
+if (worstAsym.id !== fewest.id || cyclicBy.filter((c) => c.hits === fewest.hits).length !== 1) throw new Error('neural-geometry: the least self-consistent model is not alone in keeping a cyclic order least often; rewrite the method sentence');
+for (const id of ['planets', 'scales']) if (done(setOf(id)).some((m) => m.tri.violations > 0)) throw new Error('neural-geometry: ' + id + ' violates the triangle inequality; the method sentence is false');
+if (IDS.length !== 3 || beats(setOf('keypad'))) throw new Error('neural-geometry: the prose says three models and a keypad prediction that failed; rewrite it');
+const C = (x) => W.value(x, W.COMPUTED);
+
 const plateBlock = (s, m) => `
   <div class="pl">
     <div class="who"><span class="m">${short(m.id)}</span><span class="c">${m.n} items · ${(m.n * (m.n - 1)) / 2} pairs</span></div>
@@ -54,7 +114,7 @@ const plateBlock = (s, m) => `
       <span><span class="k">${s.order ? 'closure' : 'tri viol'}</span><span class="v ${s.order ? (m.closure.ratio < 1.6 ? 'hit' : '') : (m.tri.violations === 0 ? 'hit' : '')}">${s.order ? n(m.closure.ratio) + '×' : m.tri.violations}</span></span>
       <span><span class="k">δ / diam</span><span class="v ${m.hyp.norm !== null && m.hyp.norm < 0.14 ? 'hit' : ''}">${m.hyp.norm === null ? '—' : n(m.hyp.norm, 3)}</span></span>
       <span><span class="k">curved dirs</span><span class="v ${m.signature.q > 0 ? 'hit' : ''}">${m.signature.q}</span></span>
-      <span><span class="k">${m.fit === null ? '2D holds' : 'fit to truth'}</span><span class="v ${m.fit === null ? (m.captured > 0.8 ? 'hit' : '') : (s.fitNull && m.fit > s.fitNull.p95 ? 'hit' : '')}">${m.fit === null ? (100 * m.captured).toFixed(0) + '%' : n(m.fit, 3)}</span></span>
+      <span><span class="k">${m.fit === null ? '2D holds' : 'fit to truth'}</span><span class="v ${m.fit === null ? (m.captured > 0.8 ? 'hit' : '') : (s.fitNull && m.fit > s.fitNull.p95 ? 'hit' : '')}">${C(m.fit === null ? (100 * m.captured).toFixed(0) + '%' : n(m.fit, 3))}</span></span>
     </div>
   </div>`;
 
@@ -65,10 +125,10 @@ const setBlock = (s) => `
       <div class="eyebrow">${s.id} · predicted: ${s.predict}</div>
       <h2>${s.title}</h2>
       <div class="verdict">${s.order ? `<span class="tag">closure ratio</span> ${closeOf(s).map((c) => n(c)).join(' · ')}<br>
-      <span class="tag">cyclic order</span> ${s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · ')}<br>` : ''}
+      <span class="tag">cyclic order</span> ${C(s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · '))}<br>` : ''}
       <span class="tag">δ / diameter</span> ${s.models.map((m) => n(m.hyp.norm, 3)).join(' · ')}<br>
       <span class="tag">curved directions</span> ${done(s).map((m) => m.signature.q).join(' · ')} of ${s.models[0].n - 1}<br>
-      <span class="tag">models agree</span> ${n(s.agree, 3)}${s.fitNull ? `<br><span class="tag">fit to the known layout</span> ${n(meanFit(s), 3)} <span class="tag">against a shuffled null of ${n(s.fitNull.p95, 3)}</span>` : ''}${s.anchor && s.pullRho > 0.25 ? `<br><span class="tag">reference item</span> ${s.anchor.reference.join(' · ')}${s.anchor.unanimous ? ' <span class="tag">(all three)</span>' : ''}` : ''}</div>
+      <span class="tag">models agree</span> ${C(n(s.agree, 3))}${s.fitNull ? `<br><span class="tag">fit to the known layout</span> ${C(n(meanFit(s), 3))} <span class="tag">against a shuffled null of</span> ${C(n(s.fitNull.p95, 3))}` : ''}${!s.order ? `<br><span class="tag">spanning tree</span> ${s.models.map((m) => (m.incomplete ? '—' : treeWord(m))).join(' · ')}` : ''}${s.anchor && s.pullRho > 0.25 ? `<br><span class="tag">reference item</span> ${s.anchor.reference.join(' · ')}${s.anchor.unanimous ? ' <span class="tag">(all three)</span>' : ''}` : ''}</div>
     </div>
     <p class="why">${s.why}</p>
   </div>
@@ -97,18 +157,19 @@ const body = `
 
 <section class="finding"><div class="wrap"><div class="grid">
   <div>
-    <h3><span class="big">0 of ${ctlCells}</span>Structure is curvature.</h3>
+    <h3><span class="big">${ctlCurved} of ${ctlCells}</span>Structure is curvature.</h3>
     <p>The Gram matrix of a set of distances is positive semidefinite exactly when those distances are Euclidean. Every one of the ${ctlCells} control cells is: <b>zero negative directions</b>, for unrelated nouns and for nonsense strings alike, in all three models. ${qPos} of the ${strCells} structured cells are not. Squeezing a cycle, a tree or a grid into pairwise numbers cannot be done flatly, and the failure to be flat is the fingerprint.</p>
   </div>
   <div>
     <h3><span class="big">${n(mean(closeOf(setOf('digits'))))}× → ${n(mean(closeOf(setOf('clockhours'))))}×</span>The frame moves the geometry.</h3>
-    <p>The same numerals, asked under different frames. As <b>digits</b> they lie on a line; named as <b>hours on a clock face</b> or as <b>residues modulo ten</b> they close into a ring. Nothing about the tokens changed, only what they are for. But the frame is bounded: asked as <b>keypad keys</b> the models do not produce the keypad's layout at all, and fail <em>below</em> a shuffled null. The frame bends a structure the model has. It does not create one it lacks.</p>
+    <p>The same numerals, asked under different frames. As <b>digits</b> they lie on a line; named as <b>hours on a clock face</b> or as <b>residues modulo ten</b> they close into a ring. Nothing about the tokens changed, only what they are for. But the frame is bounded: asked as <b>keypad keys</b> the models do not produce the keypad's layout, and do not clear a shuffled null. The frame bends a structure the model has. It does not create one it lacks.</p>
   </div>
   <div>
-    <h3><span class="big">Earth</span>The asymmetry knows the reference.</h3>
-    <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to Earth than Earth is to them, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the seven wheels it points at nothing — ρ ≈ ${n(mean(byShape('cycle').map((x) => x.pullRho)), 2)} — which is exactly right, because a circle has no privileged point.</p>
+    <h3><span class="big">${REF}</span>The asymmetry knows the reference.</h3>
+    <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to ${REF} than ${REF} is to them — every one of the ${refSet.items.length - 1}, pair by pair, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the ${wheels.length} wheels it points at nothing — ρ ≈ ${wheelRho} — which is exactly right, because a circle has no privileged point.</p>
   </div>
 </div>
+${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
 </div></div></section>
 
 <section class="mapsec"><div class="wrap">
@@ -117,7 +178,7 @@ const body = `
       <div class="eyebrow">every set, every model, two numbers</div>
       <h2>The map</h2>
     </div>
-    <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit alone in the corner where both are zero</b>, and nothing else is near them.</p>
+    <p class="why">Curvature against closure: the share of the signature that is negative, against Gromov's δ over the diameter. Neither number knows what the set was — the grouping is what the answers do on their own. <b>The controls sit in the corner where curvature is zero</b>${flatStructured.length ? `, and they are not alone there: ${flatList} has no negative direction either, and sits inside their ring — a line, which a flat space can hold. So the corner is where flat answers go, not only where the controls go.` : ', and nothing else is near them.'}</p>
   </div>
   ${mapPlate(sets)}
   <div class="swatches">
@@ -135,7 +196,7 @@ const body = `
       <div class="eyebrow">the same ten tokens, four times</div>
       <h2>The frame is the parameter.</h2>
     </div>
-    <p class="why">Ten numerals, unchanged. What changes is one sentence in front of the question, naming what they are <em>for</em> — and never what shape they make. Each plate below is the same model answering about the same items under a different frame, with its distance to the layout that frame implies, against the fit a <b>shuffled</b> configuration would reach.</p>
+    <p class="why">Ten numerals, unchanged. What changes is one sentence in front of the question, naming what they are <em>for</em> — and never what shape they make. Each plate below is the same model answering about the same items under a different frame, with its distance to the layout that frame implies, against the 95th percentile of what ${kp.fitNull.trials.toLocaleString('en-US')} <b>shuffled</b> configurations reach; each verdict holds or fails <em>given that bar</em>, and both numbers it compares are float.</p>
   </div>
   <div class="fplates">${family.map((s) => {
     const m = done(s)[0];
@@ -146,17 +207,17 @@ const body = `
       <p class="fq">${s.frame ? `&ldquo;${s.frame}&rdquo;` : 'no frame — the items alone'}</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">${s.predict}</span></span>
-        <span><span class="k">fit</span><span class="v ${good ? 'hit' : 'miss'}">${n(meanFit(s), 3)}</span></span>
-        <span><span class="k">shuffled null</span><span class="v">${n(s.fitNull.p95, 3)}</span></span>
-        <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${good ? 'holds' : 'fails'}</span></span>
+        <span><span class="k">fit</span><span class="v">${C(n(meanFit(s), 3))}</span></span>
+        <span><span class="k">shuffled null</span><span class="v">${C(n(s.fitNull.p95, 3))}</span></span>
+        <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${C(good ? 'holds' : 'fails')}</span></span>
       </div>
     </div>`;
   }).join('')}</div>
   <p class="why mt6 rd">
-    <b>Two of these work, one correctly does nothing, and one fails below chance.</b>
+    <b>Two of these work, one correctly does nothing, and one does not clear chance.</b>
     Named as <b>residues modulo ten</b> the line closes into a ring — ${n(mean(closeOf(setOf('mod10'))))}× against ${n(mean(closeOf(setOf('digits'))))}× for the bare digits, and a fit of ${n(meanFit(setOf('mod10')), 3)} to the true circle where shuffling reaches ${n(setOf('mod10').fitNull.p95, 3)}. Nothing in the frame mentions that nine and zero are neighbours; the model brought that.
     Named as <b>floors of a building</b> — as concrete a frame as the others, and one that should change nothing — nothing changes: ${n(mean(closeOf(setOf('floors'))))}× against ${n(mean(closeOf(setOf('digits'))))}×. That is the control inside the experiment and it behaves.
-    And named as <b>keys on a telephone keypad</b>, the layout does not appear at all: ${n(meanFit(setOf('keypad')), 3)} against a shuffled null of ${n(setOf('keypad').fitNull.p95, 3)} — <b>worse than permuting the labels</b>. The models have the keypad as a thing; they do not have it as a place.
+    And named as <b>keys on a telephone keypad</b>, the layout does not clear the bar: ${C(n(kpFit, 3))} against ${C(n(kp.fitNull.p95, 3))}. It is not worse than permuting the labels — the median shuffle reaches only ${C(n(kp.fitNull.p50, 3))} — but at least ${kpBetter} of the ${kp.fitNull.trials.toLocaleString('en-US')} shuffles do better, so it is nothing a lucky permutation could not do. The models have the keypad as a thing; they do not have it as a place.
   </p>
   <p class="why mt4 rd">
     So the frame is a real parameter and a bounded one. It moves the geometry along an axis the model already carries — an order can be bent into a cycle — and it cannot conjure one the model does not have. Asking for a grid does not produce a grid.
@@ -172,7 +233,7 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
   <div class="eyebrow">the method</div>
   <h2 class="mt4">How the answers were taken, and what was decided</h2>
 
-  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement ${asymBy.map((a) => short(a.id) + ' ' + a.worst).join(', ')} on a 0–100 scale, and the model least consistent with itself is also the only one that never keeps a cyclic order (${cyclicBy.map((c) => short(c.id) + ' ' + c.hits + '/' + sets.length).join(', ')}).</p>
+  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement ${asymBy.map((a) => short(a.id) + ' ' + a.worst).join(', ')} on a 0–100 scale, and the model least consistent with itself is also the one that keeps a cyclic order least often (${cyclicBy.map((c) => short(c.id) + ' ' + C(c.hits + '/' + ordered.length)).join(', ')} of the ordered sets, read off the float coordinates).</p>
 
   <h3>Every answer is a whole number</h3>
   <p>The scale is 0–100 integers, so the matrix is exact rational data and nothing downstream is a threshold on a float. The symmetrised distances are integers over two; the Gram matrix is exact; and its signature is computed by exact symmetric congruence, where Sylvester's law makes the count basis-independent and rationals make each sign a decision instead of a comparison.</p>
@@ -184,10 +245,10 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
   <p>Nothing forces a model's numbers to be a metric. It answers one pair at a time and owes nothing to any third point, so the first question about "distance" is whether it is one. Every triple was checked exactly: the controls violate the triangle inequality <b>${triCtl.reduce((a, x) => a + x, 0)} times out of ${controls.flatMap((x) => done(x).map((m) => m.tri.tested)).reduce((a, x) => a + x, 0)}</b>, and so do the physical orderings — planets and scales of size never violate it once. The wheels do, and the smallest model does it most: its worst set breaks the inequality in ${Math.max(...sets.flatMap((x) => done(x).filter((m) => m.id === 'claude-haiku-4-5').map((m) => m.tri.violations)))} triples. A model whose own differences are not a metric is not holding a space.</p>
 
   <h3>What is decided and what is drawn</h3>
-  <p>Decided, exactly: the asymmetry, the closure ratio, and the signature. Drawn, in floating point and labelled as such: the two-dimensional coordinates, which come from an eigendecomposition of the same Gram matrix and are honest only to the degree the “2D holds” column reports — ${(100 * Math.min(...capStructured)).toFixed(0)}–${(100 * Math.max(...capStructured)).toFixed(0)}% of the structure for the structured sets against ${(100 * Math.min(...capControl)).toFixed(0)}–${(100 * Math.max(...capControl)).toFixed(0)}% for the control. The chords are the raw judgements, so what you are looking at is the matrix and not a summary of it.</p>
+  <p>Decided, exactly: the asymmetry, the closure ratio, the signature, the triangle counts and δ — and the minimum spanning tree, where it is unique. Where two edges tie, the tree drawn is one of several and a tie-break chose it, so it is dotted: ${tied} of the ${trees.length} trees on this page. Drawn, in floating point and labelled as such: the two-dimensional coordinates, which come from an eigendecomposition of the same Gram matrix and are honest only to the degree the “2D holds” column reports — ${(100 * Math.min(...capStructured)).toFixed(0)}–${(100 * Math.max(...capStructured)).toFixed(0)}% of the structure for the structured sets against ${(100 * Math.min(...capControl)).toFixed(0)}–${(100 * Math.max(...capControl)).toFixed(0)}% for the control. The chords are the raw judgements, so what you are looking at is the matrix and not a summary of it. Everything read off those coordinates — the fits to a known layout, the models&rsquo; agreement, the cyclic-order test, and so the frame verdicts — is computed too, and carries the dashed underline.</p>
 
   <h3>What this is not</h3>
-  <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on five small sets, with two of them present only to fail. Five sets is not a survey; the sets were chosen before the calls were made and all five are on the page, including the one whose prediction was wrong.</p>
+  <p>It is not interpretability. Nothing here says how the model computes anything, and nothing here opens it. It is a measurement of what its <em>answers</em> are shaped like, on ${sets.length} small sets, with ${controls.length} of them present only to fail. ${sets.length} sets is not a survey; the sets were chosen before the calls were made and all ${sets.length} are on the page, including the keypad, whose prediction was wrong.</p>
 
   <div class="tw"><table><thead><tr><th>set</th><th>model</th><th>closure</th><th>closing step</th><th>δ/diam</th><th>triangle</th><th>signature</th><th>2D</th><th>asym</th></tr></thead><tbody>${rows}</tbody></table></div>
 
@@ -205,7 +266,7 @@ function build(OUT) {
     title: 'The shapes a model will admit to from the outside · instruments',
     desc: 'Neural geometry without the weights: elicit every pairwise dissimilarity from three working models, then decide exactly what those answers can be. The hue wheel closes, the digits do not, and the week is bent but open.',
     path: '/instruments/neural-geometry/', body,
-    css: `${CSS}`,
+    css: `${CSS}\n${GR.css()}`,
   });
   const dir = path.join(OUT, 'neural-geometry');
   fs.mkdirSync(dir, { recursive: true });

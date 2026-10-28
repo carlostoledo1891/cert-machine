@@ -14,9 +14,11 @@
 
    THE DECISION. Sharpening the temperature must move the point toward a vertex:
    PR strictly decreases in β. For the RATIONAL kernel w ∝ (1+βs)^p this is
-   decided here in exact arithmetic on BigInt fractions, because consecutive PRs
-   on this row differ in the fourteenth decimal and a float comparison of them
-   decides nothing. Softmax is transcendental and is drawn in float on this page,
+   decided here in exact arithmetic on BigInt fractions, so the order is a
+   decision rather than a float comparison. (Corrected 2026-10-28: this note
+   said consecutive PRs "differ in the fourteenth decimal"; on the frozen row
+   they differ by at least 0.0038 — the 1e-14 is the softmax calibration
+   error. build.js gates the smallest gap.) Softmax is transcendental and is drawn in float on this page,
    labelled as a view; its sound interval enclosure lives in the source lab and
    is not restated here as though we had re-derived it.
 

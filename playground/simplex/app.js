@@ -19,6 +19,18 @@
 
    THE LADDER is the decision. PR against β, the row against its two planted
    mutants. The mutants must fail to descend, or the instrument is theatre.
+
+   WARRANT v2 (2026-10-28): what each mark stands on. The trail in the fan and
+   the face is SOFTMAX IN FLOAT along its whole length, so it is dashed along its
+   whole length: the exact decision is about a different kernel, the rational
+   (1+βs)^p, and never touched softmax. Until today the trail was solid up to β 8
+   and called "the part the decision covers", which drew a float as decided. The
+   β-8 split survives as identity (weight and opacity), never as dash. On the
+   ladder every knot is an exact rational, the mutants' included — a mutant is
+   decided and FAILS, and failing does not demote its standing (it was dashed as
+   "assumed"); the straight joins between knots are one curve of many through
+   the same points, so they are dotted, as the occultation page dots its joined
+   dots. The readouts are softmax, float: computed.
 */
 'use strict';
 (function () {
@@ -61,12 +73,12 @@
       t.textContent = i;
       g.appendChild(t);
     }
-    /* the trail: solid where the claim is decided, dashed where it is only drawn */
+    /* the trail: softmax in float, dashed throughout; brighter inside the β range of the decided grid, fainter past it */
     const pts = D.view.map((v) => project(v.w));
     const cut = D.view.findIndex((v) => !v.certified);
     const path = (a, b) => pts.slice(a, b).map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
-    g.appendChild(el('path', { d: path(0, cut < 0 ? pts.length : cut + 1), class: 'sx-trail cert' }));
-    if (cut >= 0) g.appendChild(el('path', { d: path(cut, pts.length), class: 'sx-trail ext' }));
+    g.appendChild(el('path', { d: path(0, cut < 0 ? pts.length : cut + 1), class: 'sx-trail cert ink-assumed' }));
+    if (cut >= 0) g.appendChild(el('path', { d: path(cut, pts.length), class: 'sx-trail ext ink-assumed' }));
     /* the barycentre, named, because it is the whole reference */
     g.appendChild(el('circle', { cx: FAN.size / 2, cy: FAN.size / 2, r: 2.5, class: 'sx-bary' }));
     const bt = el('text', { x: FAN.size / 2, y: FAN.size / 2 - 12, class: 'sx-vlab', 'text-anchor': 'middle' });
@@ -76,7 +88,7 @@
       const e = pts[cut];
       g.appendChild(el('circle', { cx: e[0], cy: e[1], r: 4, class: 'sx-edge' }));
       const t = el('text', { x: e[0] + 10, y: e[1] + 4, class: 'sx-vlab' });
-      t.textContent = 'β ' + fmt(D.exact[D.exact.length - 1].beta, 0) + ' — the decision ends here';
+      t.textContent = 'β ' + fmt(D.exact[D.exact.length - 1].beta, 0) + ' — the decided grid ends here';
       g.appendChild(t);
     }
     g.appendChild(el('circle', { id: 'fanDot', r: 8, class: 'sx-dot' }));
@@ -119,8 +131,8 @@
     const trail = D.view.map((v) => triPt(faceOf(v.w)));
     const cut = D.view.findIndex((v) => !v.certified);
     const seg = (a, b) => trail.slice(a, b).map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('');
-    g.appendChild(el('path', { d: seg(0, cut < 0 ? trail.length : cut + 1), class: 'sx-trail cert' }));
-    if (cut >= 0) g.appendChild(el('path', { d: seg(cut, trail.length), class: 'sx-trail ext' }));
+    g.appendChild(el('path', { d: seg(0, cut < 0 ? trail.length : cut + 1), class: 'sx-trail cert ink-assumed' }));
+    if (cut >= 0) g.appendChild(el('path', { d: seg(cut, trail.length), class: 'sx-trail ext ink-assumed' }));
     if (cut > 0) g.appendChild(el('circle', { cx: trail[cut][0], cy: trail[cut][1], r: 4, class: 'sx-edge' }));
     g.appendChild(el('circle', { id: 'faceDot', r: 7, class: 'sx-dot' }));
   }
@@ -146,9 +158,11 @@
     const line = (pts, cls) => g.appendChild(el('path', {
       d: pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]).toFixed(1) + ',' + Y(p[1]).toFixed(1)).join(''), class: cls,
     }));
-    line(bs.map((b, i) => [b, D.mutants.flat.PR[i]]), 'sx-mut');
-    line(bs.map((b, i) => [b, D.mutants.quadratic.PR[i]]), 'sx-mut');
-    line(D.exact.map((r) => [r.beta, r.PR]), 'sx-real');
+    /* the joins are a pick (dotted); the knots are exact (solid), for the mutants as for the row */
+    line(bs.map((b, i) => [b, D.mutants.flat.PR[i]]), 'sx-mut ink-chosen-sm');
+    line(bs.map((b, i) => [b, D.mutants.quadratic.PR[i]]), 'sx-mut ink-chosen-sm');
+    line(D.exact.map((r) => [r.beta, r.PR]), 'sx-real ink-chosen');
+    for (const k of ['flat', 'quadratic']) bs.forEach((b, i) => g.appendChild(el('circle', { cx: X(b), cy: Y(D.mutants[k].PR[i]), r: 2, class: 'sx-knot mut' })));
     D.exact.forEach((r) => g.appendChild(el('circle', { cx: X(r.beta), cy: Y(r.PR), r: 3, class: 'sx-knot' })));
     for (const [b, lab] of [[bs[0], 'β ' + bs[0]], [bs[bs.length - 1], 'β ' + bs[bs.length - 1]]]) {
       const t = el('text', { x: X(b), y: LAD.h - 12, class: 'sx-ax', 'text-anchor': 'middle' });
@@ -176,13 +190,14 @@
     $('faceDot').setAttribute('cx', f[0]); $('faceDot').setAttribute('cy', f[1]);
     const g = $('ladder');
     const b = Math.min(Math.max(v.beta, D.exact[0].beta), D.exact[D.exact.length - 1].beta);
+    /* the dot sits ON the nearest exact knot: it used to take x from the slider and y from the knot, a point on no curve */
     const near = D.exact.reduce((a, r) => (Math.abs(r.beta - b) < Math.abs(a.beta - b) ? r : a));
-    $('ladDot').setAttribute('cx', g._X(b)); $('ladDot').setAttribute('cy', g._Y(near.PR));
+    $('ladDot').setAttribute('cx', g._X(near.beta)); $('ladDot').setAttribute('cy', g._Y(near.PR));
     $('rBeta').textContent = fmt(v.beta, v.beta < 10 ? 2 : 0);
     $('rPR').textContent = fmt(v.PR, 3);
     $('rMax').textContent = fmt(Math.max(...v.w), 4);
     $('rH').textContent = fmt(v.H, 4);
-    $('rState').textContent = v.certified ? 'inside the decided grid' : 'drawn, not decided';
+    $('rState').textContent = v.certified ? 'softmax, float · inside the β range of the decided grid' : 'softmax, float · past the decided grid';
     document.body.classList.toggle('beyond', !v.certified);
     $('cBeta').value = vi; $('cBetaOut').textContent = 'β ' + fmt(v.beta, v.beta < 10 ? 2 : 0);
   }
