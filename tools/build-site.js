@@ -29,6 +29,19 @@ const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cw
 const fail = (m) => { throw new Error('build-site REFUSES: ' + m); };
 const fmt = (n) => n.toLocaleString('en-US');
 
+/* D1, THE ONE DESCRIPTION (CLAUDE.md, adopted 2026-09-03, held for a year, never paraphrased), read from its one home —
+   the first quoted line of CLAUDE.md — and checked against the title corpus/zenodo.json says the archive must carry
+   (tools/check-wiring.js reads the same). The landing's H1 is its head, /about/ opens with it, the landing's share card
+   carries it whole: three places that used to type it. The reader is the share card's tool's, so the two cannot differ. */
+const D1 = (() => { try { return require('./build-og-landing.js').readD1(); } catch (e) { fail(e.message); } })();
+
+/* THIS PAGE REFUSES TO BUILD IF … (2026-10-28). The landing prints the conditions that guard its own sentences, and
+   the list it prints IS this array: each guard() call checks its condition and records its plain words in the same
+   statement, so the block can neither claim a check the build does not run nor leave out one it does. `plain`
+   completes the sentence "This page refuses to build if …"; `msg` is the refusal's own detail. */
+const LANDING_GUARDS = [];
+const guard = (plain, ok, msg) => { if (!LANDING_GUARDS.includes(plain)) LANDING_GUARDS.push(plain); if (!ok) fail((msg ? msg + ' — ' : '') + 'the landing refuses to build if ' + plain); };
+
 /* ---- the numbers, recomputed and self-checked ---------------------------- */
 const ledger = JSON.parse(fs.readFileSync(path.join(ROOT, 'ledger.json'), 'utf8'));
 const T = ledger.totals;
@@ -99,8 +112,14 @@ if (l5audit.refuters !== 0) fail('the lambda(5) audit records refuters — no ca
 const evalMalformed = evalReal.filter((r) => r.outcome === 'malformed').length;
 const evalClaims = evalReal.filter((r) => ['certified', 'rejected', 'refuted', 'malformed'].includes(r.outcome)).length;
 if (!evalClaims) fail('the eval ledger holds no submitted claims — the refusal rate would have no denominator');
-const evalRefusalRate = (100 * evalMalformed / evalClaims).toFixed(0) + '%';
-const evalRefuted = evalReal.filter((r) => r.outcome === 'refuted').length;
+/* the eval board's counts, ONE definition for /oracle/ and the /reports/ card (2026-10-28): a reply cut off by our own
+   output cap is no model outcome and is never graded (the ladder below already said so); the ledger writes a
+   refutation as "rejected", never "refuted"; every outcome the ledger holds must be one of these six */
+const evalOut = (o) => evalReal.filter((r) => r.outcome === o).length;
+const evalRejected = evalOut('rejected'), evalDeclined = evalOut('declined'), evalBudget = evalOut('budget-exhausted');
+const evalGraded = evalReal.length - evalBudget;
+if (evalCert + evalRejected + evalMalformed + evalDeclined + evalBudget !== evalReal.length || evalOut('refuted'))
+  fail('the eval ledger holds an outcome outside certified/rejected/malformed/declined/budget-exhausted — /oracle/ and the /reports/ card would misstate it');
 
 const census16 = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'census-high-periods.json'), 'utf8')).find((r) => r.p === 16);
 if (!census16 || !census16.ok || !census16.recheck.ok || census16.points !== 1696) fail('the period-16 census record moved');
@@ -166,6 +185,13 @@ const frac = (s) => { const i = String(s).indexOf('.'); if (i < 0) fail('not a d
 const firstDiff = (a, b) => { for (let i = 0; i < Math.min(a.length, b.length); i++) if (a[i] !== b[i]) return i + 1; return 0; };
 const csWrongAt = firstDiff(frac(csPub), frac(csLo));
 if (!csWrongAt) fail('the published C* agrees with the certified enclosure on every printed digit — the landing story is not true');
+/* DECIMAL PLACE IS NOT SIGNIFICANT DIGIT (2026-10-28). The /reports/ card said "refuted at its 12th significant digit":
+   0.0752403861777 first differs from the enclosure at its 12th DECIMAL place, and its leading zero is not significant,
+   so that is its 11th significant digit. Both are counted here from the two strings and printed by name. */
+const ORDINAL = ['zeroth', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh',
+  'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth', 'seventeenth', 'eighteenth', 'nineteenth', 'twentieth'];
+const csWrongSig = csWrongAt - /^0*/.exec(frac(csPub))[0].length;
+if (!ORDINAL[csWrongAt] || !(csWrongSig > 0)) fail('the C* divergence is past the ordinals this builder names');
 const csPubDigits = frac(csPub).length;
 /* how much of the correction is settled: the digits the enclosure's two edges share */
 const csSettled = firstDiff(frac(csLo), frac(csHi)) - 1;
@@ -246,12 +272,34 @@ const zhs = (v) => (v > 0 ? '+' : '−') + Math.abs(v).toFixed(2);
    preserves this order, so a lane is always ranked like the shelf. */
 /* PU Verificado (2026-10-16): the shelf card reads the ledger the page reads */
 const PU = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'pu-ledger.json'), 'utf8'));
+/* METR's time horizon: read once for the /reports/ card and /about/#work (2026-10-28). The card said the doubling time
+   "re-derives as 128.74 days to the printed digit"; METR printed 128.744 and the enclosure is [128.74034, 128.74035],
+   so the two differ at the printed digit. Every number below is read and gated. */
+const HZ = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'horizon-ledger.json'), 'utf8'));
+if (HZ.counts.certified !== HZ.counts.fits) fail('/about/#work and the /reports/ card would state every horizon fit is certified while the ledger says otherwise');
+const hzLive = Object.values(HZ.agents).filter((a) => a.live && a.live.certified && a.site);
+const hzRepro = hzLive.filter((a) => a.live.coefficientsVerdict === 'REPRODUCED').length;
+const hzDbl = HZ.trend.certified.from_2023_on.doublingDays[0], hzPrinted = HZ.trend.printed.from_2023_on.point_estimate;
+if (!(Math.abs(hzDbl - hzPrinted) / hzPrinted < 1e-4)) fail('/about/#work would state the doubling time re-derives near the printed value');
+const hzBox = Math.max(...Object.values(HZ.agents).flatMap((a) => [a.runsFile, a.live]).filter((f) => f && f.certified && f.box).map((f) => 2 * f.box.maxRad));
+if (!(hzBox < 1e-12)) fail('/about/#work and the /reports/ card say every horizon fit\'s box is narrower than a trillionth; the widest certified box is ' + hzBox);
+const hzDbl3 = (() => { const [lo, hi] = HZ.trend.certified.from_2023_on.doublingDays;
+  if (Math.round(lo * 1000) !== Math.round(hi * 1000)) fail('the doubling time is printed to three decimals; the enclosure\'s ends differ there'); return (Math.round(lo * 1000) / 1000).toFixed(3); })();
+/* printed bounds on the /reports/ cards, from their records and rounded outward (2026-10-28): the cards said
+   "inf ≤ 1.83443" (the certified upper end is 1.834430497…, so that truncation is below it, and below the value the
+   manuscripts claim), "h_top ≥ 0.3017" (the certified lower bound is 0.301680…), and printed δ₃'s smallest margin and
+   ember's μ₁ lower end rounded to nearest. A lower end goes down, an upper end goes up. */
+const roundDown = (x, d) => (Math.floor(x * 10 ** d) / 10 ** d).toFixed(d), roundUp = (x, d) => (Math.ceil(x * 10 ** d) / 10 ** d).toFixed(d);
+const e1038inf = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos1038-inf.json'), 'utf8')).bracket;
+const hLB = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'entropy-henon.json'), 'utf8')).hLB;
+if (!(e1038inf.lower > 1.8 && e1038inf.upper > e1038inf.lower && hLB > 0.3)) fail('the /reports/ cards quote the #1038 bracket and the Hénon entropy bound; their records moved');
+const expDown = (x, sig) => { const e = Math.floor(Math.log10(x)); const m = Math.floor(x / 10 ** e * 10 ** (sig - 1)) / 10 ** (sig - 1); return m.toFixed(sig - 1) + 'e' + e; };
 const REPORTS = [
   /* group 'ai': the AI-verification shelf — the audience-facing work */
   { g: 'ai', f: 'matmul-eval.html', k: 'the eval · live board',
     title: 'The matmul eval: ground truth is a proof',
     desc: 'Frontier models are asked for exact rank-R matmul tensor decompositions; every proposal is certified or refuted in exact rational arithmetic. No judge, no rubric, no answer key to contaminate — a proof either exists or it does not.',
-    n: fmt(evalReal.length) + ' proposals graded · zero subtly-wrong survivors' },
+    n: fmt(evalGraded) + ' model replies graded · zero subtly-wrong survivors' },
   { g: 'ai', f: 'alphaevolve.html', k: 'audit · AI-discovered algorithms',
     title: 'The AI-discovered algorithms, certified',
     desc: 'AlphaEvolve’s rank-48 ⟨4,4,4⟩ certified over Z[i]; AlphaTensor’s rank-47 verified over F2 and REFUTED over Q — the speedup provably requires characteristic 2. Both decided from commit-pinned bytes at every build.',
@@ -259,7 +307,7 @@ const REPORTS = [
   { g: 'erdos', f: 'delta3.html', k: 'erdős #1186, k = 3 · a theorem',
     title: 'Graham’s $100 question: the twelve blocks are optimal',
     desc: 'How few monochromatic progressions a, a+d, a+2d can a red–blue colouring of 1, …, n have? Since 2008 the answer was known to lie between 0.05112·n² and 0.05338·n², the upper end a colouring in twelve blocks conjectured optimal. It is: δ₃ = 117/2192. Two pages of mathematics and five exact certificates, made in a sandbox and re-decided here by a second verifier that shares no code with the first. Not refereed, not formalised; k ≥ 4 untouched.',
-    n: d3.certificates.length + ' certificates verified twice · smallest margin ' + Number(d3.certificates.filter((c) => c.kind === 'slab').reduce((m, c) => Math.min(m, Number(c.boundDecimal)), 1)).toExponential(2) + ' · ' + d3.cover.intervals.length + ' regions cover [0, ½]' },
+    n: d3.certificates.length + ' certificates verified twice · smallest margin ' + expDown(d3.certificates.filter((c) => c.kind === 'slab').reduce((m, c) => Math.min(m, Number(c.boundDecimal)), 1), 3) + ' · ' + d3.cover.intervals.length + ' regions cover [0, ½]' },
   { g: 'erdos', f: 'erdos1.html', k: 'erdős #1 · the disproof made effective',
     title: 'The swarm proved the set exists. Here is the set.',
     desc: 'GPT-6 Astra disproved Erdős’s first problem in Lean — for every ε there are sum-distinct sets with N ≤ ε·2^n — but the proof is ineffective at one step and no set below Bohman’s 1998 record was known. That step made explicit (a Hermite basis, a chain perturbation, one computed buffer), the sets shipped with certificates, every one re-decided here in exact arithmetic; the base gadget shown not special, and the first explicit Siegel-lemma bounds above Bohman’s.',
@@ -267,10 +315,10 @@ const REPORTS = [
   { g: 'erdos', f: 'erdos1038-inf.html', k: 'erdős #1038 · the infimum, bracketed',
     title: 'A certified bracket for the Erdős–Herzog–Piranian infimum',
     desc: 'How small can the set where a monic polynomial stays below 1 be? The infimum is bracketed here in certified interval arithmetic, both ends unconditional — the lower end by a forcing argument needing no tail estimate and no assumed minimizer — and Tao’s model Problem 4.1 is answered affirmatively for every ε. Three AI-assisted proofs of the exact value are currently claimed and none independently examined, so nothing here assumes any of them.',
-    n: '1.828 ≤ inf ≤ 1.83443 · both ends certified here' },
+    n: roundDown(e1038inf.lower, 3) + ' ≤ inf ≤ ' + roundUp(e1038inf.upper, 7) + ' · both ends certified here' },
   { g: 'ai', f: 'time-horizon.html', k: 'audit \u00b7 the time horizon',
     title: 'METR\u2019s time horizon, certified to the last bit',
-    desc: 'The headline number of frontier-AI forecasting \u2014 the length of task a model completes half the time \u2014 is a logistic fit read at one half. Here every such fit on METR\u2019s own Time Horizon 1.1 evidence is proved to hold exactly one optimum in a box narrower than a trillionth, the horizon is an enclosure over that box, METR\u2019s printed coefficients are its rounding for 22 of 23 models, its point estimates sit within a solver\u2019s tolerance of it, and the post-2023 doubling time re-derives as 128.74 days to the printed digit. The instrument built to decide a time horizon on tasks with no judge in the loop, calibrated on the one that exists.' },
+    desc: 'The headline number of frontier-AI forecasting \u2014 the length of task a model completes half the time \u2014 is a logistic fit read at one half. Here every such fit on METR\u2019s own Time Horizon 1.1 evidence is proved to hold exactly one optimum in a box narrower than a trillionth, the horizon is an enclosure over that box, METR\u2019s printed coefficients are its rounding for ' + hzRepro + ' of ' + hzLive.length + ' models, its point estimates sit within a solver\u2019s tolerance of it, and the post-2023 doubling time re-derives as ' + hzDbl3 + ' days against the ' + hzPrinted + ' METR printed. The instrument built to decide a time horizon on tasks with no judge in the loop, calibrated on the one that exists.' },
   { g: 'ai', f: 'gsm8k-audit.html', k: 'audit \u00b7 the answer key',
     title: 'GSM8K\u2019s answer key, re-decided to the last step',
     desc: 'The grade-school math benchmark every harness scores against a stored answer line: all 4,282 calculator annotations of the test set and 23,716 of the train set evaluated exactly from the expression they print, every readable prose equation with them, each item classed by whether its own arithmetic reaches its own answer, and the whole read against GSM8K-Platinum\u2019s human revision. The arithmetic is clean where the humans looked and slips where no model disagreed; the ten relabelled answers are readings, not sums.' },
@@ -281,7 +329,7 @@ const REPORTS = [
   { g: 'ai', f: 'navier-stokes.html', k: 'audit · the Millennium claim',
     title: 'Their theorem, read to the last hypothesis',
     desc: 'OpenAI’s 2026-09-08 proof that a smooth force drives a viscous fluid from rest to infinite speed in finite time — Clay’s breakdown alternatives (C) and (D) — audited without trust and without the priority dispute: the formal statement read against Clay’s wording and Mathlib’s definitions hypothesis by hypothesis, the Lean proof built on a laptop and its axioms asked of the kernel, the paper mapped onto the certificate, the writeup dissected by six readers, every printed identity re-run.',
-    n: 'statement faithful · built here · one clause of Theorem 1.1 not formal' },
+    n: 'statement faithful · built here · the energy clause of Theorem 1.1 formal one commit after the announced one' },
   { g: 'ai', f: 'kissing.html', k: 'audit · the AI-held record',
     title: 'The kissing ledger: dimension eleven, decided',
     desc: 'K(11)’s record moved three times in eighteen months — every mover an AI, each validated by its producer’s own verifier. The whole ladder (AlphaEvolve 593, EinsteinArena 594, the Station’s three exact 604s, and EinsteinArena’s headline 604 — NEEDS DATA until its coordinates were published on request, four days after the ledger asked) re-decided here in exact Z[√2] arithmetic from published bytes — and the two platforms’ 604s decided congruent, with a certificate. Since 2026-10-05 also the September wave in dimensions 18 and 25–31: every pair of every published configuration decided exactly.',
@@ -314,7 +362,7 @@ const REPORTS = [
       + 'there. Eight machine-checked records, a cell partition decided in exact rationals, corner coefficients '
       + 'certified at two independent annuli, and red controls that fire. One domain, one theorem, one corollary; '
       + 'the quadrilateral conjecture itself stays open.',
-    n: 'μ₁ ∈ [' + emberMu1[0].toFixed(7) + ', ' + (Math.ceil(emberMu1[1] * 1e7) / 1e7).toFixed(7) + '], simple · the chain re-runs in ~2 min' },
+    n: 'μ₁ ∈ [' + roundDown(emberMu1[0], 7) + ', ' + roundUp(emberMu1[1], 7) + '], simple · the chain re-runs in ~2 min' },
   { g: 'ground', f: 'terra.html', k: 'certified theorems · MFG splitting',
     title: 'The crowd splits — MFG beyond the uniqueness wall',
     desc: 'A congestion-averse crowd in a single-well cost landscape provably settles into TWO density peaks — or '
@@ -335,8 +383,8 @@ const REPORTS = [
     n: 'per-degree theorems · the conjecture itself stays open · not peer-reviewed' },
   { g: 'erdos', f: 'erdos852.html', k: 'erdős #852 · refutation',
     title: 'The constant that was a rounding error',
-    desc: 'A GPT-published constant on Erdős #852, refuted at its 12th significant digit and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
-    n: 'refuted at digit 12 · correction certified' },
+    desc: 'A GPT-published constant on Erdős #852, refuted at its ' + ORDINAL[csWrongAt] + ' decimal place (its ' + ORDINAL[csWrongSig] + ' significant digit) and shown to BE the naive IEEE-754 float product, digit for digit — with the certified correction, and the failure taxonomy for eval builders.',
+    n: 'refuted at decimal place ' + csWrongAt + ' · correction certified' },
   { g: 'ai', f: 'verifier-loop.html', k: 'verified reward · demo',
     title: 'The verifier in the loop',
     desc: 'The reward channel in closed loop: a model proposes, the grader answers every failure with its own refutation mechanism — the exact violated equation, nothing more — and the model retries. Every trajectory rendered from the append-only ledger.',
@@ -680,7 +728,7 @@ const REPORTS = [
   { g: 'ground', f: 'entropy.html', k: 'certified invariant',
     title: 'Entropy, with a certificate',
     desc: 'A certified lower bound on the topological entropy of the classical Hénon map — covering relations composed to an exact integer spectral argument, calibrated at the full horseshoe.',
-    n: 'h_top ≥ 0.3017, a theorem' },
+    n: 'h_top ≥ ' + roundDown(hLB, 5) + ', a theorem' },
   { g: 'erdos', f: 'verify-lemniscate.html', k: 'erdős #1038 · verification',
     title: 'Erdős #1038: thirty decimals verified',
     desc: 'The computational fragment of the Darvas–Peng–Tao manuscript re-verified by an independent route — Krawczyk rather than bisection — with the 30th digit read correctly.',
@@ -838,9 +886,9 @@ const oai = (() => {
   const out = { manuscripts: R.counted.manuscriptLinks, challenges: R.counted.challenges, decided: K.counts.decided,
     certified: w.CERTIFIED || 0, refused: w.REFUSED || 0, rejected: w.REJECTED || 0, gaps: F.findings.length,
     short: (S.counts.words.DIFFERENT || 0) + (S.counts.words['NARROWER — UNDECLARED'] || 0), families: S.rows.length };
-  if (out.decided !== out.challenges || out.certified + out.refused + out.rejected !== out.challenges)
-    fail('the OpenAI kernel record does not account for every challenge — the landing would misstate it');
-  if (out.rejected) fail('the landing says no OpenAI challenge was rejected; the kernel record holds ' + out.rejected);
+  guard('the kernel record of OpenAI\'s math release stops deciding every challenge under its two kernels (Lean\'s and nanoda), or holds one rejected',
+    out.decided === out.challenges && out.certified + out.refused + out.rejected === out.challenges && !out.rejected
+      && /\bnanoda/.test(K.decider) && /\bthe two kernels\b/.test(K.trustBase), out.decided + ' of ' + out.challenges + ', ' + out.rejected + ' rejected');
   return out;
 })();
 /* ---- THE LANDING (rebuilt 2026-10-16; notes/positioning-plan-2026-10-16.md §3.2) -----------------------
@@ -857,8 +905,8 @@ const seriesCount = (id) => TITLES.entries().filter((r) => r.series === id).leng
 const KW = (() => {
   const W = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'kissing-wave.json'), 'utf8'));
   const rows = W.rows.filter((r) => r.claimant === 'qiushi');
-  if (!rows.length || !rows.every((r) => r.verdict === 'WITNESSED' && r.engine && r.engine.violations === 0 && r.engine.pairs === r.engine.n * (r.engine.n - 1) / 2))
-    fail('the landing says every Qiushi bound is witnessed pair by pair; certs/kissing-wave.json disagrees');
+  guard('a Qiushi Engine kissing bound in certs/kissing-wave.json is not witnessed on every one of its pairs, with no violation',
+    rows.length > 0 && rows.every((r) => r.verdict === 'WITNESSED' && r.engine && r.engine.violations === 0 && r.engine.pairs === r.engine.n * (r.engine.n - 1) / 2));
   const atRequest = rows.filter((r) => /at our request/.test(r.detail || ''));
   const dims = atRequest.map((r) => r.dim).sort((a, b) => a - b);
   const ranges = dims.reduce((acc, d) => { const last = acc[acc.length - 1]; if (last && last[1] === d - 1) last[1] = d; else acc.push([d, d]); return acc; }, [])
@@ -866,20 +914,35 @@ const KW = (() => {
   return { rows: rows.length, pairs: rows.reduce((a, r) => a + r.engine.pairs, 0), atRequest, dims, ranges,
     source: atRequest.length ? atRequest[0].source : null, publishedOn: atRequest.length ? atRequest.map((r) => r.decidedAt.slice(0, 10)).sort()[0] : null };
 })();
-/* the second: the Navier–Stokes Lean certificate, partial at the announced commit and certified at the next */
+/* the Navier–Stokes Lean certificate, partial at the announced commit and certified at the next: the /reports/ card
+   says so (it said "one clause of Theorem 1.1 not formal" after the register had moved to CERTIFIED at the next commit) */
 const NS = (() => {
   const dir = path.join(ROOT, 'corpus', 'navier-stokes');
   const f = fs.readdirSync(dir).find((x) => /^upstream-[0-9a-f]+\.json$/.test(x));
-  if (!f) fail('no corpus/navier-stokes/upstream-*.json — the landing cannot state the Navier–Stokes outcome');
+  if (!f) fail('no corpus/navier-stokes/upstream-*.json — the /reports/ card cannot state the Navier–Stokes outcome');
   const U = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
   if (!(U.decided && U.decided.atPin && U.decided.atPin.formal === false && U.decided.atHead && U.decided.atHead.formal === true))
-    fail('the landing says the Navier–Stokes energy clause was formal only at the next commit; the upstream record disagrees');
+    fail('the /reports/ card says the Navier–Stokes energy clause was formal only at the next commit; the upstream record disagrees');
   return U;
 })();
-/* the third: the graders (certs/envs-record.json, loaded above as envsRec) */
+/* the graders (certs/envs-record.json, loaded above as envsRec) */
 const gEnc = envsRec.graders.find((g) => /^enclosure/.test(g.name));
-if (!gEnc || gEnc.falseAccept !== 0 || gEnc.falseReject !== 0) fail('the landing says the certificate grader admits no wrong answer and rejects no right one; the record disagrees');
-const tolPct = (100 * envsTol.falseAccept).toFixed(1) + '%';
+guard('the certificate grader in certs/envs-record.json admits one provably wrong answer or rejects one right answer',
+  !!gEnc && gEnc.falseAccept === 0 && gEnc.falseReject === 0);
+/* THE TOLERANCE STAT, AS IT STANDS (WARRANT, 2026-10-28). It printed "89.5%": the float 100 × 0.8955 is 89.549…, so
+   toFixed(1) cut an exact 3,582 of 4,000 down. It is printed exact now, from the count. And it is CHOSEN, not decided:
+   the count is exact, but over a sample whose mix of canary families and nine tolerances was picked here, so another
+   mix gives another rate — one member of a set the record admits (rule 3's "a sample"). */
+const tolAdmit = (() => {
+  const n = envsTol.wrongSubmissions, k = Math.round(envsTol.falseAccept * n);
+  guard('the tolerance grader\'s rate is not an exact count over the provably wrong answers it was shown',
+    Number.isInteger(n) && n > 0 && k / n === envsTol.falseAccept && (k * 10000) % n === 0, k + ' / ' + n);
+  const bp = k * 10000 / n;                                   /* basis points, exact by the guard above */
+  return { k, n, pct: Math.floor(bp / 100) + (bp % 100 ? '.' + String(bp % 100).padStart(2, '0').replace(/0$/, '') : '') + '%',
+    families: Object.keys(envsRec.canaryFamilies).filter((f) => f !== 'control').length, tolerances: envsRec.tolerancesProbed.length };
+})();
+const tolPct = W.value(tolAdmit.pct, W.CHOSEN, { title: 'chosen — exact over ' + fmt(tolAdmit.n) + ' provably wrong answers whose mix of '
+  + tolAdmit.families + ' canary families and ' + tolAdmit.tolerances + ' tolerances was picked here; another mix gives another rate' });
 /* the register's latest decisions: the five most recent distinct pages */
 /* a register row's label on the landing: the report's formal title where the row points at a report, otherwise
    the claim's first clause — the register's own sentences are written for the register page */
@@ -900,19 +963,23 @@ const recent = (() => {
    both through design/outside.js (pinned quotes, checked once); the 604 congruence (certs/kissing-ledger.json) */
 const externalReruns = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'external-reruns.json'), 'utf8'));
 const OUTSIDE = require(path.join(ROOT, 'design', 'outside.js'));
-const outside = OUTSIDE.load();
+/* load() is the check: it refuses a credit whose quote is not in its pinned snapshot, or whose pin has moved */
+const outside = (() => {
+  const plain = 'a quotation from outside is not found word for word in its pinned snapshot, or the snapshot\'s SHA-256 has changed';
+  try { const o = OUTSIDE.load(); guard(plain, true); return o; } catch (e) { guard(plain, false, e.message); }
+})();
 const cong604 = (() => {
   const K = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'kissing-ledger.json'), 'utf8'));
   const row = K.rows.find((r) => r.congruence && r.congruence['station-604-1']);
-  if (!row || row.congruence['station-604-1'].verdict !== 'CONGRUENT') fail('the landing says the two 604s are one configuration; certs/kissing-ledger.json disagrees');
+  if (!row || row.congruence['station-604-1'].verdict !== 'CONGRUENT') fail('the /reports/ kissing card says the two platforms\' 604s are one configuration; certs/kissing-ledger.json disagrees');
   return row.congruence['station-604-1'];
 })();
-const woett = outreach.rows.find((r) => /issue 164/.test(r.where || '') && /2609\.00104/.test(r.note || ''));
 /* HOW an outside rerun was done, said in its heading (WARRANT site pass, 2026-10-28). Every row was headed "Independently
    re-derived, no shared code", and two of the seven ran OUR tools (kind full-rederive: "the record re-derived with the tool
    that writes it"). The closed vocabulary is tools/build-report-rerun.js's; a kind this map does not know refuses the page. */
 const RERUN_HEAD = { 'own-code': 'Independently re-derived, no shared code', 'full-rederive': 'Re-run by a third party with the tools that wrote the record' };
-for (const r of externalReruns) if (!RERUN_HEAD[r.kind]) fail('an outside rerun of kind "' + r.kind + '" has no heading; corpus/external-reruns.json moved');
+guard('an outside re-derivation in corpus/external-reruns.json is of a kind this page has no words for (its own code, or the tools that wrote the record)',
+  externalReruns.every((r) => RERUN_HEAD[r.kind]), externalReruns.filter((r) => !RERUN_HEAD[r.kind]).map((r) => r.kind).join(', '));
 const rerunsOwn = externalReruns.filter((r) => r.kind === 'own-code').length, rerunsTools = externalReruns.length - rerunsOwn;
 /* the registry's asterisks removed on our replays, counted in the three pinned snapshots of its README (the landing said
    "four", the count after 2026-10-18; the round of 2026-10-26 removed six more) */
@@ -923,14 +990,16 @@ const asterisksOff = (() => {
   const second = ['rowJ2026', 'rowL2026'].filter((k) => R2.secondReplay[k].star === false).length;
   const third = R3.marksRemovedOnReplays;
   const rows3 = Object.values(R3.stepFunctions.rows).concat(Object.values(R3.autocorr.rows)).filter((x) => x.star === false).length;
-  if (first !== 2 || second !== 2 || third !== rows3) fail('the registry snapshots no longer count the asterisks the landing states');
+  guard('the three pinned snapshots of the optimization-constants registry stop counting the asterisks removed on our replays the same way',
+    first === 2 && second === 2 && third === rows3, first + ', ' + second + ', ' + third + ' vs ' + rows3);
   return first + second + third;
 })();
 /* the rerun kit, as it is: a one-line re-derivation for most records, a standard-library verifier for some (the landing said
    it "re-derives any decided claim with the standard library") */
 const KIT = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'rerun-kit.json'), 'utf8')).entries;
 const kitN = KIT.length, kitRederive = KIT.filter((e) => e.rederive).length, kitVerifier = KIT.filter((e) => e.verifier).length;
-if (!(kitVerifier >= 1 && kitVerifier < kitRederive && kitRederive <= kitN)) fail('the rerun kit no longer has the shape the landing describes');
+guard('the rerun kit stops giving a one-line re-derivation for most of its records and a standard-library verifier for some',
+  kitVerifier >= 1 && kitVerifier < kitRederive && kitRederive <= kitN);
 /* the batteries are run by the control build, not by this sync: the record names the commit it ran at */
 if (!gatesRec || !(gatesRec.ran > 0) || !/^[0-9a-f]{7,}$/.test(String(gatesRec.git || ''))) fail('batteries.json is missing or names no commit; the method page states the last control build\'s count');
 /* the register's first month, read rather than typed ("since August 2026") */
@@ -944,7 +1013,7 @@ const sci15 = (n) => { const e = Math.floor(Math.log10(n)); return (n / 10 ** e)
 const paperStatus = (() => {
   const M = JSON.parse(fs.readFileSync(path.join(ROOT, 'paper', 'INDEX.json'), 'utf8'));
   const p = M.papers.find((x) => x.name === 'cert-machine-method');
-  if (!p || !fs.existsSync(path.join(ROOT, 'paper', 'cert-machine-method.pdf'))) fail('the landing links the method paper; paper/INDEX.json or the PDF is missing');
+  guard('the method paper\'s PDF or its row in paper/INDEX.json is missing', !!p && fs.existsSync(path.join(ROOT, 'paper', 'cert-machine-method.pdf')));
   return String(p.status).split('·')[0].trim();
 })();
 
@@ -954,16 +1023,17 @@ const paperStatus = (() => {
    register, and documents with an address. No role-seeking prose and no CV link. Colours: the grammar's only (WARRANT
    v2.2; the mock's amber is rule 6's "no yellow"). */
 const regCited = outside.credits.filter((r) => r.kind === 'registry' && /^\[T2026b?\]/.test(OUTSIDE.plain(r.quote)));
-if (!regCited.length) fail('the landing says the registry cites our replays as [T2026]; corpus/recognition.json holds no such quote');
-const regCorrection = outside.credits.find((r) => r.kind === 'registry' && /corrected on our check/.test(r.what));
-if (!regCorrection) fail('the landing says the registry corrected a row on our check; corpus/recognition.json holds no such credit');
+const regCorrection = outside.credits.find((r) => r.kind === 'registry' && /^\S+ corrected on our check/.test(r.what));
+guard('the pinned credits stop holding a registry page that cites our replays as [T2026], or the row the registry corrected on our check',
+  regCited.length > 0 && !!regCorrection);
+const regCorrected = /^(\S+) corrected on our check/.exec(regCorrection.what)[1];
 const regQuote = outside.credits.find((r) => r.kind === 'registry' && /no code shared/.test(OUTSIDE.plain(r.quote)));
 const qiushi = outside.credits.find((r) => r.kind === 'credit' && r.landing);
 const peer = outside.credits.find((r) => r.kind === 'peer' && r.landing);
 const listing = outside.credits.find((r) => r.kind === 'listing' && r.landing);
-if (!regQuote || !qiushi || !peer || !listing) fail('the landing quotes four outside voices; corpus/recognition.json no longer holds one of them');
+guard('one of the four outside voices quoted on this page is no longer in the pinned credits (corpus/recognition.json)', !!(regQuote && qiushi && peer && listing));
 const rerunParties = [...new Set(externalReruns.map((r) => r.who.replace(/\s*\(.*$/, '')))];
-if (!externalReruns.every((r) => /same verdict|identical/.test(r.outcome))) fail('the landing says every outside re-derivation agreed; corpus/external-reruns.json holds a disagreement');
+guard('an outside re-derivation on record came back with a verdict other than ours', externalReruns.every((r) => /same verdict|identical/.test(r.outcome)));
 const firstDate = (rows) => rows.map((r) => r.date).sort()[0], lastDate = (rows) => rows.map((r) => r.date).sort().slice(-1)[0];
 /* WHERE THE ASTERISKS CAME OFF (2026-10-28, the operator: "the link on the homepage '10 constants' are '5 constants' in
    the report copy"). The landing's ten was right and its one link was not: reports/optimization-constants.html replays
@@ -976,15 +1046,38 @@ const asterRounds = outside.credits.filter((r) => r.kind === 'registry' && /aste
   if (!n || !pr) fail('a registry credit names asterisks removed without a count word and a pull request: ' + r.what.slice(0, 80));
   return { n, pr, date: r.date };
 }).sort((a, b) => a.date.localeCompare(b.date) || Number(a.pr) - Number(b.pr));
-if (asterRounds.reduce((a, r) => a + r.n, 0) !== asterisksOff)
-  fail('the registry credits remove ' + asterRounds.reduce((a, r) => a + r.n, 0) + ' asterisks; the snapshots count ' + asterisksOff);
+guard('the asterisk removals in the registry\'s pinned credits, pull request by pull request, do not add up to the count in its snapshots',
+  asterRounds.reduce((a, r) => a + r.n, 0) === asterisksOff, 'credits ' + asterRounds.reduce((a, r) => a + r.n, 0) + ', snapshots ' + asterisksOff);
+/* THE REFUSALS STAT (2026-10-28, on "follow the recommended path"). The register holds no row whose verdict is the bare
+   word REFUSED: a refusal reaches it inside the composed words, whole (NEEDS DATA: refused, the cause with the claimant)
+   or in part (PARTIAL: a fragment certified, the rest refused). Which words carry a refusal is read from REGISTER_WORDS,
+   the method page's one table of the register's words, and the kinds are printed side by side, never summed (the
+   method page's rule; reports/refusals.html prints no total for the same reason). */
+const REGISTER_WORDS = [
+  ['CERTIFIED', '—', 'a certificate with its falsifier; re-runs without the engine'],
+  ['REFUTED', '—', 'the falsifying object, printed'],
+  ['REFUSED', '—', 'the reason; for a split refusal, two witnesses and the thresholds'],
+  ['PARTIAL', 'certified + refused', 'which fragment certified and which core was not reached'],
+  ['NEEDS DATA', 'refused, cause with the claimant', 'the bytes that would decide the row, named'],
+  ['MIXED', 'certified + refuted, one record', 'the counts of both, and the items refuted'],
+  ['REPAIRED', 'refuted + certified', 'the object as printed refuted; the object beside it certified'],
+  ['QUEUED', 'not a verdict', 'nothing; the row is not counted as decided']
+];
+const regDecided = claimsLedger.rows.filter((r) => r.verdict !== 'QUEUED');
+guard('the register\'s count of decided claims is not its number of rows that are not queued, or a decided row names no record that decided it',
+  claimsLedger.decided === regDecided.length && regDecided.every((r) => r.decidedFrom), claimsLedger.decided + ' vs ' + regDecided.length);
+guard('a register row carries a verdict word the method page does not define',
+  claimsLedger.rows.every((r) => REGISTER_WORDS.some(([w]) => w === r.verdict)), [...new Set(claimsLedger.rows.map((r) => r.verdict))].join(', '));
+const refusalKinds = REGISTER_WORDS.filter(([w, of]) => w === 'REFUSED' || /\brefused\b/.test(of))
+  .map(([w, of]) => ({ w, of: w === 'REFUSED' ? 'the whole claim declined by the instrument' : of, n: regDecided.filter((r) => r.verdict === w).length }));
+const refusalShown = refusalKinds.filter((k) => k.n > 0);
 const asterNote = asterRounds.map((r) => r.n).join(' + ') + ' in ' + numword(asterRounds.length) + ' merged pull requests ('
   + asterRounds.map((r) => '#' + r.pr).join(', ') + ')';
 
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · independent certification',
-  title: 'Independent exact certification of machine-generated mathematics',
+  title: D1.head,
   deck: 'AI systems now announce records, constants and proofs faster than anyone reads them, and most checks compare '
     + 'decimals. Each claim here is re-decided from its published bytes in exact arithmetic, without running the '
     + 'claimant’s code, and comes back as one of three words: CERTIFIED, REFUTED with the object that breaks it, or '
@@ -999,8 +1092,13 @@ B.push(C.stats([
   { k: 'asterisks removed from a registry', v: String(asterisksOff),
     nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays: ' + asterNote + ', cited as [T2026] · '
       + '<a href="reports/optimization-constants.html">the first round</a> · <a href="reports/optconst-queue.html">the later rounds</a>' },
-  { k: 'provably wrong answers a tolerance grader admits', v: tolPct,
-    nRaw: 'an absolute-tolerance grader; a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' }
+  { k: 'provably wrong answers a tolerance grader admits', vRaw: tolPct,
+    nRaw: 'an absolute-tolerance grader: ' + fmt(tolAdmit.k) + ' of ' + fmt(tolAdmit.n) + ' answers minted wrong from certificates, in a mix '
+      + 'picked here (dotted: chosen); a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' },
+  { k: 'claims refused, whole or in part, by kind', v: refusalShown.length ? refusalShown.map((k) => fmt(k.n)).join(' · ') : '0',
+    nRaw: 'of ' + fmt(regDecided.length) + ' decided: ' + refusalShown.map((k) => fmt(k.n) + ' ' + k.w + ' (' + C.esc(k.of) + ')').join(' · ')
+      + refusalKinds.filter((k) => !k.n).map((k) => ' · none ' + k.w + (k.w === 'REFUSED' ? ' outright' : '')).join('')
+      + '; never summed · <a href="reports/claims.html">every claim, with its verdict</a>' }
 ]));
 
 /* WHERE A CARD GOES (2026-10-28, the operator: "always send to report and/or external link (github). If external, open
@@ -1009,23 +1107,25 @@ B.push(C.stats([
 const outsideCards = [
   { href: regQuote.url, k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
     title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
-    desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
-    n: '“' + OUTSIDE.plain(regQuote.quote) + '”' },
+    desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (' + regCorrected + '); constant pages cite the replays as [T2026].',
+    quote: { text: '“' + OUTSIDE.plain(regQuote.quote) + '”' } },
   { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
     title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',
     desc: 'The authors published the point sets behind ' + KW.atRequest.length + ' of ' + KW.rows + ' bounds at the audit’s request; every pair of ' + sci15(KW.pairs) + ' was then decided exactly.',
-    n: '“' + OUTSIDE.plain(qiushi.quote) + '”' },
+    quote: { text: '“' + OUTSIDE.plain(qiushi.quote) + '”' } },
   { href: 'reports/rerun.html#reruns', k: 'outside re-derivations · ' + longDate(firstDate(externalReruns)) + ' – ' + longDate(lastDate(externalReruns)),
     title: numword(rerunParties.length).replace(/^./, (c) => c.toUpperCase()) + ' outside replayers, ' + numword(externalReruns.length) + ' re-derivations, no disagreement',
     desc: rerunsOwn + ' with their own code, ' + rerunsTools + ' with the tools that wrote the record; the same verdict on every row. ' + rerunParties.join(', ') + '.',
-    n: '“' + OUTSIDE.plain(peer.quote) + '” — ' + peer.who.replace(/,.*$/, '') },
+    quote: { text: '“' + OUTSIDE.plain(peer.quote) + '”', cite: peer.who.replace(/,.*$/, '') } },
   { href: listing.url, k: 'listed · ' + longDate(listing.date),
     title: OUTSIDE.cap(listing.who),
     desc: listing.what,
-    n: '“' + OUTSIDE.plain(listing.quote) + '”' }
+    quote: { text: '“' + OUTSIDE.plain(listing.quote) + '”' } }
 ];
-for (const c of outsideCards) if (!/^https:\/\/github\.com\/|^reports\/[\w.-]+\.html(#[\w-]+)?$/.test(c.href))
-  fail('an outside card goes somewhere other than a report or GitHub: ' + c.href);
+/* the quotations are the pinned quotes themselves (design/outside.js), set as quotations (components.cards `quote`) */
+guard('an outside card would send a reader anywhere but a report on this site or GitHub',
+  outsideCards.every((c) => /^https:\/\/github\.com\/|^reports\/[\w.-]+\.html(#[\w-]+)?$/.test(c.href) && c.quote && /^“.+”$/.test(c.quote.text)),
+  outsideCards.map((c) => c.href).join(' '));
 B.push(C.section({
   lab: 'outside the building', title: 'What has come back, in their words', wide: true, id: 'outside',
   bodyRaw: C.cards(outsideCards) + '<div class="col after-fig">' + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
@@ -1055,9 +1155,11 @@ B.push(C.section({
       n: 'METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
     { href: 'reports/index.html#theorems', k: (seriesCount('theorems') + seriesCount('decisions')) + ' reports', title: 'Certified decisions: theorems, exact values, operations',
       desc: 'Results proved here in exact or interval arithmetic — the calibration of the instruments and some values that were not known — and operational numbers decided over declared envelopes for energy, maritime, aviation and ocean statistics.',
-      n: 'δ₃ = 117/2192 · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
+      n: 'δ₃ = ' + d3.theorem.delta3LowerBound + ' · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
   ])
 }));
+guard('the δ₃ ledger stops verifying the theorem δ₃ = 117/2192 with all of its certificates',
+  d3.theorem.verdict === 'VERIFIED' && d3.theorem.delta3LowerBound === '117/2192' && d3.cover.complete && d3.certificates.every((c) => c.verdict === 'VERIFIED'));
 
 B.push(C.section({
   lab: 'the register', title: 'Decided recently', wide: true,
@@ -1066,7 +1168,10 @@ B.push(C.section({
     rows: recent.map((r) => [String(r.recordedOn).replace(/-/g, '‑'),
       { raw: r.page ? '<a href="' + C.escAttr(r.page.startsWith('/') ? r.page.slice(1) : r.page) + '">' + C.esc(claimLabel(r)) + '</a>' : C.esc(claimLabel(r)) },
       String(r.claimant).replace(/\s*\(.*$/, ''), r.verdict])
-  }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: <a href="reports/decided-2026-09.html">September</a>, <a href="reports/decided-2026-10.html">October</a>. '
+  }) + '<div class="col after-fig">' + C.pRaw('The monthly registers: '
+    /* every month on disk, read rather than typed (it listed September and October by hand) */
+    + fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => /^decided-\d{4}-\d{2}\.html$/.test(f)).sort()
+      .map((f) => '<a href="reports/' + f + '">' + MONTHS[Number(f.slice(13, 15)) - 1] + (f.slice(8, 12) === registerSince.slice(-4) ? '' : ' ' + f.slice(8, 12)) + '</a>').join(', ') + '. '
     + '<a href="reports/refusals.html">What was refused, by kind.</a>') + '</div>'
 }));
 
@@ -1082,6 +1187,9 @@ B.push(C.section({
       { raw: '<a href="reports/rerun.html">The rerun kit</a> · <a href="reports/refusals.html">refusals, by kind</a> · <a href="reports/methods-note.html">how the bugs were found</a>' }
     ])
 }));
+/* the guard block's place; it is written last, from LANDING_GUARDS, once every guard below has run (see put('index.html')) */
+const GUARD_SLOT = '<!-- the conditions this page refuses on -->';
+B.push(GUARD_SLOT);
 
 B.push(C.section({
   lab: 'documents', title: 'Documents and address', id: 'about',
@@ -1125,9 +1233,8 @@ const seriesCards = (id) => C.cards(seriesRows(id).map((r) => {
   return { href: r.file, k: (cur.k || id) + (born ? ' · ' + born.slice(0, 7) : ''), title: r.title, desc: cur.desc || reportDesc(r.file), n: cur.n };
 }));
 const REPORT_COUNT = TITLES.entries().length;
-if (REPORT_COUNT !== fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => f.endsWith('.html')).length) {
-  fail('the title registry and reports/ disagree on the page count — add the new page to design/titles.json');
-}
+guard('the title registry (design/titles.json) and the report pages on disk disagree on how many reports there are, so a series count would be wrong',
+  REPORT_COUNT === fs.readdirSync(path.join(ROOT, 'reports')).filter((f) => f.endsWith('.html')).length, 'add the new page to design/titles.json');
 const reportsIndexBody = [
   C.header({
     eyebrow: 'Carlos Toledo · reports',
@@ -1200,6 +1307,11 @@ if (LAD.imp.cert > 0) fail('a rank-6 ⟨2,2,2⟩ row is CERTIFIED in the eval le
   const onLadder = Object.values(LAD).reduce((a, t) => a + t.rows, 0);
   if (onLadder !== evalReal.length) fail('the ladder rungs sum to ' + onLadder + ' rows but the eval ledger holds '
     + evalReal.length + ' real-model rows — a target is double-counted');
+  /* the stat's "model replies graded" is the ladder's "graded" column summed, or the two say different things */
+  if (Object.values(LAD).reduce((a, t) => a + t.rows - t.bud, 0) !== evalGraded) fail('/oracle/: the ladder\'s graded column does not sum to the replies-graded stat');
+  /* two rung cells state a universal over their failures: gated, not typed */
+  if (LAD.r23.cert === 0 && LAD.r23.dec) fail('/oracle/ says every failure on the ⟨3,3,3⟩ rank-23 rung was malformed or rejected; the ledger holds ' + LAD.r23.dec + ' declined');
+  if (LAD.open22.cert === 0 && LAD.open22.rows - LAD.open22.bud !== LAD.open22.dec) fail('/oracle/ says every graded model declined the rank-22 attempt; the ledger disagrees');
 }
 /* budget-exhausted replies are harness artifacts (our output cap), never a
    model outcome — the board excludes them from every rate, so the ladder
@@ -1240,7 +1352,12 @@ const oracleBody = [
   C.stats([
     { k: 'the contract', v: '3 verdicts', role: 'held', n: 'CERTIFIED(certificate) / REFUTED(mechanism) / REFUSED(reason) — both directions of every verdict are theorems; refusal is what makes the other two trustworthy' },
     { k: 'dependencies', v: '0', role: 'held', n: 'one stdlib-Python file; rings Q and F2; ' + oracleChecks + ' battery checks, ' + oracleReds + ' red controls fired at this page\'s build' },
-    { k: 'proposals graded', v: fmt(evalReal.length), role: 'held', n: evalCert + ' certified, each an exact theorem · ' + (evalRefuted === 0 ? 'the channel has never paid out on a false claim' : evalRefuted + ' refuted exactly') + ' — the live board recomputes this at every build' },
+    /* it said "364 proposals graded" (every real-model reply, the 40 cut off by our own output cap among them, which this
+       page's own ladder excludes as no model outcome) and "the channel has never paid out on a false claim" on the test
+       evalRefuted === 0 — an outcome the ledger never writes (its refutations are "rejected"), so the test could not fail */
+    { k: 'model replies graded', v: fmt(evalGraded), role: 'held', n: evalCert + ' certified, each an exact theorem · ' + evalRejected + ' refuted with the violated equation · '
+      + evalMalformed + ' refused, nothing parseable · ' + evalDeclined + ' declined the task; ' + evalBudget + ' more cut off by our own output cap, not counted · '
+      + 'no row certified on the rung proved impossible — the live board recomputes this at every build' },
     { k: 'reward hacking', v: 'excluded', n: 'by construction, not monitoring: there is no gap between graded-correct and is-correct for a policy to exploit; a strictly proper certificate cannot be argued with' },
     { k: 'characteristic matters', v: 'Q ≠ F2, priced', n: 'the same sign-flipped Strassen witness is REFUTED over Q and CERTIFIED over F2 — AlphaTensor\'s rank-47 mechanism, reproduced as a battery row' },
     { k: 'scope, honestly', v: 'finite exact facts', role: 'warn', n: 'exhibit-a-witness tasks over exact rings — not proofs, not asymptotics, not mathematics at large; outside its scope it REFUSES' }
@@ -1258,7 +1375,7 @@ const oracleBody = [
       '               \'ring\': \'Q\', \'witness\': STRASSEN7}))"',
       '# -> CERTIFIED: all 64 equations hold exactly; certificate carries the witness sha256',
       '',
-      '# 3 — run the full battery (14 checks, 6 reds that must fire)',
+      '# 3 — run the full battery (' + oracleChecks + ' checks, ' + oracleReds + ' reds that must fire)',
       'curl -sO https://raw.githubusercontent.com/carlostoledo1891/cert-machine/main/oracle/battery.py',
       'python3 battery.py'
     ].join('\n'))
@@ -1332,7 +1449,8 @@ const oracleBody = [
           ['recall', '⟨2,2,2⟩ rank 7', 'Q', '7 — Strassen 1969', 'recall of a famous object', rec(LAD.r7)],
           ['recall', '⟨2,2,3⟩ rank 11', 'Q', '11', 'recall, off the famous path', rec(LAD.r11)],
           ['derivation', '⟨3,3,3⟩ rank 23', 'Q', '23 — Laderman 1976', 'recall through a long exact derivation', rec(LAD.r23) + (LAD.r23.cert === 0 ? ' — every failure malformed or rejected, none subtly wrong' : '')],
-          ['honesty', '⟨2,2,2⟩ rank 6', 'Q', 'impossible — rank ≥ 7, Winograd 1971', 'the only correct output is to decline', LAD.imp.dec + ' declined · ' + (LAD.imp.rej + LAD.imp.mal) + ' attempts, none certified — ever; a certified row here refuses the build'],
+          /* WARRANT rule 6 (2026-10-28): the rung's "impossible" holds given a theorem read, not proved here; it is named in that mood */
+          ['honesty', '⟨2,2,2⟩ rank 6', 'Q', { raw: 'impossible, <em>given Winograd 1971</em>: rank ≥ 7' }, 'the only correct output is to decline', LAD.imp.dec + ' declined · ' + (LAD.imp.rej + LAD.imp.mal) + ' attempts, none certified — ever; a certified row here refuses the build'],
           ['disguise', '⟨2,2,2⟩ under a pinned monomial transform', 'Q', '7, unrecognizable — the prompt never says matmul', 'search, not recall — memorized factor files do not parse', rec(LAD.dis)],
           ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c1', 'Q', '7 — provably unchanged by the pinned unimodular conjugation', 'derived, not recalled — no published factor file satisfies any instance; fresh seeds forever', rec(LAD.conj) + (LAD.conj.rows ? '' : ' — the rung is built; its first campaign is pending')],
           ['search', 'seed-conjugated ⟨2,2,2⟩ · instance c2', 'Q', '7 — a second independent seed, the same rank bar by the same theorem', 'the rung minted twice: an instance that did not exist before its campaign cannot be in any training corpus', rec(LAD.conj2) + (LAD.conj2.rows ? '' : ' — the rung is built; its first campaign is pending')],
@@ -1349,6 +1467,16 @@ const oracleBody = [
         + 'instance no training corpus can contain. An eval that can mint unlimited uncontaminated rungs, each '
         + 'graded by proof, is the machine\'s answer to benchmark leakage; the cost asymmetry it induces is '
         + 'quantified on <a href="/reports/matmul-eval.html">the board</a>.')
+      /* WHAT THE RUNGS MEAN RESTS ON (WARRANT v2.1 rule 11 and the late ruling of 2026-10-28: a step read and not run by
+         a machine is graded assumed). Every count in the table is decided; three of the bars are facts of the literature,
+         consumed here as §9 says, and the chain names them where the ladder is read. */
+      + C.pRaw('Every count in the table is decided. What three of the bars mean rests on mathematics this page reads rather than proves:')
+      + ((prem) => W.premisesHtml(prem, { meetLine: 'The weakest premise is ' + W.grade(W.weakest(...prem.map((p) => p.grade)))
+          + ': none of the three is machine-checked here, and no count in the table depends on them.' }))([
+        { grade: W.ASSUMED, label: 'rank ⟨2,2,2⟩ ≥ 7', evidence: 'Winograd 1971, read: the honesty rung\'s “impossible”, and the refusal of a certified rank-6 row, rest on it' },
+        { grade: W.ASSUMED, label: 'a unimodular conjugation leaves tensor rank unchanged', evidence: 'read: why the search rungs\' bar is 7 on an instance no one has seen' },
+        { grade: W.ASSUMED, label: 'rank 23 is the best known for ⟨3,3,3⟩ (Laderman 1976)', evidence: 'the literature as read: why a certified row on the open rung would be a discovery' }
+      ])
       + '</div>'
   }),
   C.section({
@@ -1395,13 +1523,14 @@ const oracleBody = [
   C.section({
     lab: '§8 · the evidence', title: 'What stands behind it',
     bodyRaw: [
-      C.pRaw('<a href="/reports/matmul-eval.html">The live board</a> — ' + fmt(evalReal.length) + ' model '
-        + 'proposals graded across the campaigns, ladder and honesty probes included; every row in the '
+      C.pRaw('<a href="/reports/matmul-eval.html">The live board</a> — ' + fmt(evalGraded) + ' model '
+        + 'replies graded across the campaigns, ladder and honesty probes included (' + evalBudget + ' more cut off by our own '
+        + 'output cap, not graded); every row in the '
         + 'append-only ledger <a href="/certs/matmul-eval-ledger.jsonl">certs/matmul-eval-ledger.jsonl</a>.'),
       C.pRaw('<a href="/reports/verifier-loop.html">The verifier in the loop</a> — feedback template-locked to '
         + 'the mechanism; the build refuses a ledger whose feedback deviates. '
         + '<a href="/reports/erdos852.html">The failure taxonomy</a> — the answer-key failure class this design '
-        + 'removes, with a published specimen refuted at its twelfth digit. '
+        + 'removes, with a published specimen refuted at its ' + ORDINAL[csWrongAt] + ' decimal place. '
         + '<a href="/reports/answer-key.html">When the answer key is wrong</a> — why reruns and digit '
         + 'cross-checks provably cannot catch it. '
         + '<a href="/reports/methods-note.html">How the bugs were found</a> — the red-control discipline as '
@@ -1450,13 +1579,8 @@ const oracleFoot = '<p>Generated by tools/build-site.js @ git ' + git + '. Gates
    a ledger. They were /portfolio/ until 2026-10-16; the page is folded into /about/#work (301 in vercel.json)
    because a hub nobody linked was a hub nobody found. The gates stay: a number that stops holding refuses /about/. */
 const rj = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
-const HZ = rj('certs/horizon-ledger.json'), GK = rj('certs/gsm8k-ledger.json'), BSI = rj('certs/blind-spot-inspect-ledger.json');
+const GK = rj('certs/gsm8k-ledger.json'), BSI = rj('certs/blind-spot-inspect-ledger.json');
 const bsiRec = rj('corpus/blindspot/inspect-record.json'), batteriesRec = rj('batteries.json');
-if (HZ.counts.certified !== HZ.counts.fits) fail('/about/#work would state every horizon fit is certified while the ledger says otherwise');
-const hzLive = Object.values(HZ.agents).filter((a) => a.live && a.live.certified && a.site);
-const hzRepro = hzLive.filter((a) => a.live.coefficientsVerdict === 'REPRODUCED').length;
-const hzDbl = HZ.trend.certified.from_2023_on.doublingDays[0], hzPrinted = HZ.trend.printed.from_2023_on.point_estimate;
-if (!(Math.abs(hzDbl - hzPrinted) / hzPrinted < 1e-4)) fail('/about/#work would state the doubling time re-derives to the printed digit');
 if (GK.test.annotations.EXACT !== GK.test.annotationsTotal) fail('/about/#work would state every GSM8K test annotation is exact');
 if (bsiRec.disagreements !== 0 || bsiRec.verdict !== 'PASS') fail('/about/#work would state the two blind-spot scorers agree');
 /* the frontier ladder on blind-spot, read from the Inspect ledger: Sonnet 5 on the located rung across three efforts */
@@ -1471,19 +1595,26 @@ if (bsiFrontier.length !== 3 || bsiDis !== 0) fail('/about/#work would state thr
 const opusProfile = ((bsiLadder['claude-opus-5@low'] || {}).rungs || {}).profile;
 if (!opusProfile || opusProfile.unreadable < 6) fail('/about/#work would state Opus declines the profile rung');
 
+/* WARRANT on /about/#work (2026-10-28). Three sentences were not what the records say: the blind-spot line printed
+   "undefined pooled mutants" (it read BSI.ladder.mutations, a field the ledger never had; the count is the Inspect
+   record's `mutants`); the doubling time was printed to two decimals from the enclosure's lower end beside METR's three
+   (it is printed now to the three METR printed, where both ends of the enclosure agree); and "the repository runs N
+   batteries at every control build" was one control build's count stated as a rule (it is that build's count, at its
+   commit, green of run). METR's 128.744 is a number someone printed: COMPUTED, dashed, with the legend beside. The
+   horizon ledger's numbers (HZ, hzBox, hzDbl3, hzRepro) are read once, above the /reports/ card that quotes them too. */
+if (!(Number.isInteger(bsiRec.mutants) && bsiRec.mutants > 0 && Number.isInteger(bsiRec.submissionsScoredThreeWays))) fail('/about/#work quotes the blind-spot mutant count; corpus/blindspot/inspect-record.json holds none');
 const workArtifacts = C.plainList([
-  { b: 'METR’s time horizon, re-derived as certificates.', raw: HZ.counts.certified + ' of ' + HZ.counts.fits + ' fits with the optimum proved unique in a box below 10⁻¹⁰ on METR’s own files; the printed coefficients are the box’s rounding for ' + hzRepro + ' of ' + hzLive.length + ' models; the post-2023 doubling time re-derives as ' + hzDbl.toFixed(2) + ' days against the printed ' + hzPrinted + '. <a href="/reports/time-horizon.html">The page</a>.' },
-  { b: 'blind-spot, an RTL mutation task under Inspect and verifiers.', raw: BSI.ladder.mutations + ' pooled mutants scored three ways with ' + bsiRec.disagreements + ' disagreements; ' + bsiFrontier.length + ' frontier models, ' + fmt(bsiRollouts) + ' rollouts, every one re-scored offline with ' + bsiDis + ' disagreements. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.' },
+  { b: 'METR’s time horizon, re-derived as certificates.', raw: HZ.counts.certified + ' of ' + HZ.counts.fits + ' fits with the optimum proved unique in a box below 10⁻¹⁰ on METR’s own files; the printed coefficients are the box’s rounding for ' + hzRepro + ' of ' + hzLive.length + ' models; the post-2023 doubling time re-derives as ' + hzDbl3 + ' days against the printed ' + W.value(String(hzPrinted), W.COMPUTED, { title: 'computed — the doubling time METR printed; nothing here decided it' }) + '. <a href="/reports/time-horizon.html">The page</a>.' },
+  { b: 'blind-spot, an RTL mutation task under Inspect and verifiers.', raw: fmt(bsiRec.mutants) + ' pooled mutants, ' + fmt(bsiRec.submissionsScoredThreeWays) + ' submissions scored three ways with ' + bsiRec.disagreements + ' disagreements; ' + bsiFrontier.length + ' frontier models, ' + fmt(bsiRollouts) + ' rollouts, every one re-scored offline with ' + bsiDis + ' disagreements. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.' },
   { b: 'GSM8K’s answer key, re-decided.', raw: fmt(GK.test.annotationsTotal) + ' test and ' + fmt(GK.train.annotationsTotal) + ' train calculator annotations evaluated from the expressions they print; ' + GK.findings.printedStepWrongTest + ' test and ' + GK.findings.printedStepWrongTrain + ' train keys print a step that does not hold as printed. <a href="/reports/gsm8k-audit.html">The page</a>.' },
-  { b: 'Three verifier-graded environments on the Prime Intellect hub.', raw: '<span class="m">blind-spot</span>, <span class="m">break-the-grader</span> and <span class="m">lattice-claims</span>, no answer key in any of them: a kill is simulated, a lattice claim is decided exactly, a grader is broken or is not. The repository runs ' + fmt(batteriesRec.ran) + ' batteries at every control build. <a href="/reports/gym.html">break-the-grader</a> · <a href="' + GITHUB + '">the repository</a>.' }
-]);
+  { b: 'Three verifier-graded environments on the Prime Intellect hub.', raw: '<span class="m">blind-spot</span>, <span class="m">break-the-grader</span> and <span class="m">lattice-claims</span>, no answer key in any of them: a kill is simulated, a lattice claim is decided exactly, a grader is broken or is not. At its last control build (git ' + C.esc(batteriesRec.git) + ') the repository ran ' + fmt(batteriesRec.ran) + ' batteries, ' + fmt(batteriesRec.green) + ' of them green. <a href="/reports/gym.html">break-the-grader</a> · <a href="' + GITHUB + '">the repository</a>.' }
+]) + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] });
 
 const aboutBody = [
   C.header({
     eyebrow: 'Carlos Toledo · about',
     title: 'About',
-    deck: 'Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared '
-      + 'with the claimant, refusal as a verdict. You can disagree with a result on this site by running '
+    deck: D1.text + ' You can disagree with a result on this site by running '
       + 'something, and the disagreement is then about the mathematics rather than about which of us is more '
       + 'credible.'
   }),
@@ -1522,7 +1653,12 @@ const aboutBody = [
         + 'against a case with a known answer before it decides anything new.' },
       { b: 'The errors, dated, in public.', text: 'Refuted claims are published with their generating mechanism '
         + 'named, and the machine’s own defects are recorded the same way. Every real bug this project has found '
-        + 'was caught by a control, a calibration, an impossible number — or, since 2026-10-09, by an adversarial read of the code, counted apart; the erratum of that date is on the machine page.' }
+        + 'was caught by a control, a calibration, an impossible number or a byte pin — or, since 2026-10-09, by an adversarial read of the code, counted apart; the erratum of that date is on the machine page.'
+        /* the sentence closed the list of routes while corpus/external-reruns.json held defects found by an outside
+           rerun's reading (2026-10-24: three in instruments/turan/c42.py); the route is named now, read from that record */
+        + (() => { const d = externalReruns.filter((r) => /\bfound (\w+) defects?\b/.test(r.what) && /none moving a verdict/.test(r.what)).sort((a, b) => a.date.localeCompare(b.date));
+          return d.length ? ' Since ' + d[0].date + ', outside reruns have found defects too — ' + d.map((r) => /\bfound (\w+) defects?\b/.exec(r.what)[1] + ' in one reading by ' + r.who.replace(/\s*\(.*$/, '')).join(', ')
+            + ', none moving a verdict (below).' : ''; })() }
     ])
       + C.note({
         lab: 'what that does and does not buy',
@@ -1544,13 +1680,16 @@ const aboutBody = [
       C.pRaw('Status words mean exactly what they say and nothing more: '
         + Object.entries(outreach.statusWords).map(([k, v]) => '<em>' + C.esc(k) + '</em> — ' + C.esc(v)).join(' · ')
         + '. Last checked ' + C.esc(longDate(outreach.lastChecked)) + '.'),
-      C.pRaw('<strong>Filed is not accepted; posted is not replied.</strong> ' + (externalReruns.length === 1 ? 'One result' : externalReruns.length + ' results') + ' on this site '
-        + (externalReruns.length === 1 ? 'has' : 'have') + ' been independently re-derived by a third party sharing no code (above); none has been peer-reviewed. '
+      /* it said "7 results … independently re-derived by a third party sharing no code": two of the seven re-derivations ran
+         OUR tools (kind full-rederive), so the count sharing no code is the own-code kind's, read from the same record */
+      C.pRaw('<strong>Filed is not accepted; posted is not replied.</strong> Third parties have re-derived results on this site '
+        + numword(externalReruns.length) + ' times (above): ' + numword(rerunsOwn) + ' with code of their own, sharing none with ours, and '
+        + numword(rerunsTools) + ' with the tools that wrote the record; none of it has been peer-reviewed. '
         + 'That is the plain state of it, and it is why the pages ship their own falsifiers rather than asking for trust.'),
       C.pRaw('Traffic in the other direction has somewhere to go now: <a href="/reports/claims.html">the claims '
         + 'desk</a> takes a claim and answers it in public, whichever way it falls. '
-        + fmt(claimsLedger.decided) + ' have been decided so far and ' + claimsLedger.submitted + ' of those was '
-        + 'sent by somebody else — a number this site publishes while it is still zero.')
+        + fmt(claimsLedger.decided) + ' claims have been decided so far, and ' + (claimsLedger.submitted === 1 ? 'one was' : numword(claimsLedger.submitted) + ' were')
+        + ' sent by somebody else' + (claimsLedger.submitted ? '.' : ' — a number this site publishes while it is still zero.'))
     ].join('\n')
   }),
   C.section({
@@ -1606,16 +1745,7 @@ const cite = (() => {
   if (!out.title || !out.doi || !out.version) fail('CITATION.cff lost its title, version or DOI — the method page cannot print a citation');
   return out;
 })();
-const REGISTER_WORDS = [
-  ['CERTIFIED', '—', 'a certificate with its falsifier; re-runs without the engine'],
-  ['REFUTED', '—', 'the falsifying object, printed'],
-  ['REFUSED', '—', 'the reason; for a split refusal, two witnesses and the thresholds'],
-  ['PARTIAL', 'certified + refused', 'which fragment certified and which core was not reached'],
-  ['NEEDS DATA', 'refused, cause with the claimant', 'the bytes that would decide the row, named'],
-  ['MIXED', 'certified + refuted, one record', 'the counts of both, and the items refuted'],
-  ['REPAIRED', 'refuted + certified', 'the object as printed refuted; the object beside it certified'],
-  ['QUEUED', 'not a verdict', 'nothing; the row is not counted as decided']
-];
+/* REGISTER_WORDS is defined once, above the landing, which reads it for its refusals stat */
 const methodBody = [
   C.header({
     eyebrow: 'Carlos Toledo · method',
@@ -1769,8 +1899,12 @@ const appCards = APP_ZONES.map((z) => {
   const h = fs.readFileSync(f, 'utf8');
   const t = /<title>([^<]*)<\/title>/.exec(h), d = /name="description" content="([^"]*)"/.exec(h), l = /<html[^>]*lang="([^"]*)"/.exec(h);
   if (!t || !d) fail('/apps/: ' + z.dir + ' has no title or description to index');
-  return { href: '../' + z.dir, k: z.k + ' · ' + (LANG_WORD[l ? l[1] : 'en'] || l[1]), title: unescHtml(t[1]).replace(/\s*[·—-]\s*Carlos Toledo\s*$/, ''), desc: unescHtml(d[1]) };
+  return { href: '../' + z.dir, k: z.k + ' · ' + (LANG_WORD[l ? l[1] : 'en'] || l[1]), title: unescHtml(t[1]).replace(/\s*[·—-]\s*Carlos Toledo\s*$/, ''), desc: unescHtml(d[1]),
+    /* WARRANT v2.1 (2026-10-28): which apps carry a model's premises with their grades, and draw a forecast as computed —
+       read from the app's own built page, so the deck names exactly the apps that do */
+    premises: /class=\\?"w-premises\\?"/.test(h) && /class=\\?"w-meet\\?"/.test(h) && /\bw-computed\b/.test(h) ? unescHtml(t[1]).replace(/\s*[·—-].*$/, '') : null };
 }).filter(Boolean);
+const appsWithPremises = [...new Map(appCards.filter((a) => a.premises).map((a) => [a.premises, a])).values()];
 const appsBody = [
   C.header({
     eyebrow: 'Carlos Toledo · apps',
@@ -1780,6 +1914,12 @@ const appsBody = [
       + 'published. Each app reads pinned public data, decides over a declared envelope, and shows the certificate one '
       + 'click below the answer. The Brazilian products are in Portuguese.'
   }),
+  /* a decision over a modelled envelope is exact given the model; the apps whose pages carry the model's premises say
+     how far each was checked, and those are named here from their own built pages (WARRANT v2.1, rule 11) */
+  ...(appsWithPremises.length ? ['<div class="col">' + C.pRaw('Where an answer rests on a forecast or a physical model, '
+    + appsWithPremises.map((a) => '<a href="' + C.escAttr(a.href) + '">' + C.esc(a.premises) + '</a>').join(' and ')
+    + ' say' + (appsWithPremises.length === 1 ? 's' : '') + ' so on the page: the forecast is drawn as computed, dashed, never as a decision, and the decision '
+    + 'names the premises it rests on, each with how far it was checked — validated, compared, verified or assumed — and the weakest of them.') + '</div>'] : []),
   C.section({ lab: appCards.length + ' apps', title: 'Built on the certified decisions', wide: true, bodyRaw: C.cards(appCards) })
 ].join('\n\n');
 const appsFoot = '<p>Built by tools/build-site.js from the heads the app builds wrote, at git ' + git + '. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
@@ -1798,12 +1938,41 @@ const put = (rel, buf) => desired.set(rel, buf);
   /* the landing's own claim gate: any "first ..." on this page must travel
      with its qualifier (the fence lists live on the report pages) */
   const joined = B.join('\n\n');
-  if (/\bfirst (certified |validated[- ])?[a-z-]* ?(hot-spots|enclosure|domain)/i.test(joined) && !/to\s+our knowledge/i.test(joined)) {
-    fail('a priority claim reached the landing without its qualifier');
-  }
+  guard('a priority claim ("the first …") reaches this page without "to our knowledge"',
+    !(/\bfirst (certified |validated[- ])?[a-z-]* ?(hot-spots|enclosure|domain)/i.test(joined) && !/to\s+our knowledge/i.test(joined)));
 }
-put('index.html', Buffer.from(TPL.render({ title: 'Carlos Toledo · independent exact certification of machine-generated mathematics', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
-  desc: 'Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict. Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
+/* THE SHARE CARD (2026-10-28): the landing's link preview, rendered from this page in Chrome by tools/build-og-landing.js
+   — the title and D1 whole, in the page's own type and ink, no number on it (a card is not rebuilt with the page, so it
+   carries nothing that can go stale but the one description, which is held for a year). The tool writes the card and a
+   receipt of the words it set; the page refuses a card whose words are not this page's, whose bytes are not the ones the
+   receipt names, or that is not a 1200 × 630 PNG under 300 KB. Only the landing takes it (template.js `og`); every other
+   page keeps the site card, byte for byte. */
+const OG_LANDING = (() => {
+  const png = path.join(ROOT, 'design', 'assets', 'og-landing.png'), rec = path.join(ROOT, 'design', 'assets', 'og-landing.json');
+  const ok = fs.existsSync(png) && fs.existsSync(rec);
+  const buf = ok ? fs.readFileSync(png) : Buffer.alloc(0), R = ok ? JSON.parse(fs.readFileSync(rec, 'utf8')) : {};
+  const isPng = buf.length > 24 && buf.toString('latin1', 1, 4) === 'PNG' && buf.toString('latin1', 12, 16) === 'IHDR';
+  const w = isPng ? buf.readUInt32BE(16) : 0, h = isPng ? buf.readUInt32BE(20) : 0;
+  const sha = require('crypto').createHash('sha256').update(buf).digest('hex');
+  guard('its share card is missing, is not a 1200 × 630 PNG under 300 KB, is not the image its receipt names, or sets words other than this page\'s title and the one description',
+    ok && w === 1200 && h === 630 && buf.length < 300 * 1024 && R.sha256 === sha && R.title === D1.head && R.description === D1.text,
+    'design/assets/og-landing.png: ' + w + ' × ' + h + ', ' + buf.length + ' bytes; run node tools/build-og-landing.js');
+  return buf;
+})();
+put('og-landing.png', OG_LANDING);
+guard('its title is not the head of the one description in CLAUDE.md, word for word', D1.text.startsWith(D1.head + ' — ') && B[0].includes('<h1>' + C.esc(D1.head) + '</h1>'));
+/* the guard block, written now that every guard on this page has run: the list is LANDING_GUARDS itself */
+B[B.indexOf(GUARD_SLOT)] = C.section({
+  lab: 'what stops this page', title: 'This page refuses to build if …', id: 'refuses',
+  bodyRaw: C.p('Every number and quotation above is read from a record when the page is built, and the build checks that the '
+      + 'record still says it. Below are the ' + numword(LANDING_GUARDS.length) + ' conditions it refuses on, written out by the checks '
+      + 'that test them; if any one becomes true, nothing is written and the last good page stays up.')
+    + '<details class="more"><summary>The ' + numword(LANDING_GUARDS.length) + ' conditions</summary>'
+    + C.plainList(LANDING_GUARDS.map((g) => ({ text: '… ' + g + '.' }))) + '</details>'
+});
+put('index.html', Buffer.from(TPL.render({ title: 'Carlos Toledo · ' + D1.head.charAt(0).toLowerCase() + D1.head.slice(1), bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
+  og: { image: '/og-landing.png', alt: D1.text },
+  desc: D1.text + ' Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
   desc: 'Every report in five series — audits of machine-generated mathematics, evaluation whose ground truth is a proof, theorems and exact values, certified decisions for operations, the record — each title naming the object and what was decided.' })));
 put('about/index.html', Buffer.from(TPL.render({ title: 'About · Carlos Toledo', bodyRaw: aboutBody, footRaw: aboutFoot, path: '/about/',
