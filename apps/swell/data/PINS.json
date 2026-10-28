@@ -6,11 +6,13 @@
   "tiles/floripa.pmtiles": "© OpenStreetMap contributors (ODbL), tiles by Protomaps — extract of build.protomaps.com 2026-10-05, bbox -48.75,-27.95,-48.25,-27.25, z<=15 (go-pmtiles v1.31.2)",
   "pois.json": "© OpenStreetMap contributors (ODbL), Overpass snapshot 2026-10-05; may be incomplete",
   "code (everything else in apps/swell)": "MIT",
-  "foam.json": "Contains modified Copernicus Sentinel data 2022-2026 (free and open) — sim/foam.py over frontier's 232 Sentinel-2 pass records (manifest sha256 inside the file)"
+  "foam.json": "Contains modified Copernicus Sentinel data 2022-2026 (free and open) — sim/foam.py over frontier's 232 Sentinel-2 pass records (manifest sha256 inside the file)",
+  "boussinesq/*.json": "derived from the same DHN chart and GMRT bathymetry: NON-COMMERCIAL, NOT FOR NAVIGATION — LICENSE-DHN.md"
  },
  "sources": {
-  "island model cases": "frontier-apps experiments/swell/island/cases/K-<dir>-<T>.npz (64 files, 945 MB, not lifted) and depth.npz — their sha256 are in beaches.json sources.sha256; rebuilt by frontier island.py in ~13 min (sim/island.py here is the same solver, with its battery)",
-  "beaches.json": "apps/swell/sim/probes.py over those cases (2026-10-08): reproduces frontier site/swell/data/island-beaches.json probe for probe, K for all 64 cases, seaward and fetch at all 33 beaches with probes, plus the two deeper probe targets"
+  "island model cases": "frontier-apps experiments/swell/island/cases/K-<dir>-<T>.npz (64 files, 945 MB, not lifted) and depth.npz — their sha256 are in beaches.json sources.sha256; rebuilt by frontier island.py in ~13 min (the solver, frontier's island.py, is NOT lifted: the cases are pinned, not re-solved here)",
+  "beaches.json": "apps/swell/sim/probes.py over those cases (2026-10-08): reproduces frontier site/swell/data/island-beaches.json probe for probe, K for all 64 cases, seaward and fetch at all 33 beaches with probes, plus the two deeper probe targets",
+  "boussinesq/*.json": "frontier-apps's Boussinesq transfer tables (Celeris solver, Madsen & Sørensen; 10 m and 5 m grids of four stretches of coast; surf-zone Hs at each beach for a 1 m swell), lifted 2026-10-28 by frontier's own rule: the v3 grid (OpenStreetMap shoreline) where it holds at least as many cases, else v2. Read by sim/compare.js, which compares the island model with them (certs/swell-island-boussinesq.json)."
  },
  "files": {
   "beaches.json": {
@@ -359,6 +361,31 @@
    "sha256": "9a3018af839f515ce9bbd274d0716c2de0ea8b9a48cb5a67a1531bd8c702c6db",
    "bytes": 9594122,
    "frontier": "site/swell/tiles/floripa.pmtiles"
+  },
+  "boussinesq/transfer-campeche.json": {
+   "sha256": "a78d950b0f342fd8f401f3b66c0c842749c4efb1d06844f9b9b8748b4a480166",
+   "bytes": 4882,
+   "frontier": "experiments/swell/tables-v3-osm/transfer-campeche.json"
+  },
+  "boussinesq/transfer-joaquina.json": {
+   "sha256": "6b178c1b0edb8b1b5e2e25066f5588f3cf5aa9ec43769fd9082b4eea0a2d17d0",
+   "bytes": 4078,
+   "frontier": "experiments/swell/tables-v3-osm/transfer-joaquina.json"
+  },
+  "boussinesq/transfer-joaquina5.json": {
+   "sha256": "04c53fafd4efac08773313e523b09462792640d60b8ca08d79c63cfe0dc45017",
+   "bytes": 2845,
+   "frontier": "experiments/swell/data-v2-chart/transfer-joaquina5.json"
+  },
+  "boussinesq/transfer-lagoinha.json": {
+   "sha256": "b81175d18ffdec0fd66dd429317ea57b12f8b81e897aa478cf44622b34e132ce",
+   "bytes": 8581,
+   "frontier": "experiments/swell/data-v2-chart/transfer-lagoinha.json"
+  },
+  "boussinesq/transfer-santinho.json": {
+   "sha256": "10e96dbc423bb954af098510e7e8508fe67e323a3751939e89596edf25e906bc",
+   "bytes": 3742,
+   "frontier": "experiments/swell/data-v2-chart/transfer-santinho.json"
   }
  }
 }

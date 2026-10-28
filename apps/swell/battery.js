@@ -165,4 +165,23 @@ if (fs.existsSync(DD)) {
   });
 }
 
+/* ---- the island model's premise grade (WARRANT v2.1): the comparison with the Boussinesq model is a record, and it
+   re-derives from the pinned tables, the beaches and surf.js itself ---- */
+{
+  const CMP = require('./sim/compare.js');
+  const OUT = path.join(ROOT, 'certs', 'swell-island-boussinesq.json');
+  ok('premises: certs/swell-island-boussinesq.json re-derives identical from the pinned tables and surf.js', () => {
+    assert.strictEqual(JSON.stringify(CMP.derive(), null, 1) + '\n', fs.readFileSync(OUT, 'utf8'));
+  });
+  ok('premises: the comparison covers the 12 beaches frontier ran, 556 cases', () => {
+    const R = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    assert.strictEqual(R.beaches, 12); assert.strictEqual(R.pairs, 556);
+  });
+  red('RED: a breaking ratio moved in surf.js moves the comparison (the record follows the model it grades)', () => {
+    const g0 = S.C.GAMMA; S.C.GAMMA = 0.78;
+    try { assert.notStrictEqual(JSON.stringify(CMP.derive().readings), JSON.stringify(JSON.parse(fs.readFileSync(OUT, 'utf8')).readings)); }
+    finally { S.C.GAMMA = g0; }
+  });
+}
+
 console.log('swell battery: ' + n + ' pass, 0 fail, ' + reds + '/' + reds + ' red controls fired');
