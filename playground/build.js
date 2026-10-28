@@ -129,7 +129,9 @@ const MANIFEST = [
   { id: 'exact-geometry', title: 'Point it at something whose shape is already known.', blurb: 'The prediction is written first, in the source, and never edited: the control the other geometry pages are measured against.', backing: 'exact', art: () => XG.cardArt(), scale: `${XG.n} sets` },
   { id: 'graph', title: 'The rule is a wire you cannot draw.', blurb: 'A verifier\'s rules as conditions on a connection: a float has no wire into a port that decides. Break the rule and the engine refuses.', backing: 'exact', art: () => UG.cardArt(), scale: `${UG.facts.reDerivedIdentically} cells re-derived` },
   { id: 'lattice-claims', title: 'Decide it, or say what is missing.', blurb: 'An environment built out of a grader bug: three models, one dial for how much of the reference is stated, an exact grader that says what is missing.', backing: 'exact', art: () => LC.cardArt(), scale: `${LC.facts.rollouts} rollouts` },
-  { id: 'blind-spot', title: 'Fourteen million verdicts could not see it.', blurb: 'One mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none \u2014 kills verified by simulating the netlist, equivalence by SAT, no answer key.', backing: 'exact', art: () => BS.cardArt(), scale: `${BS.facts.blind} of ${BS.facts.mutations} unseen` },
+  /* blind-spot (2026-10-28): its headline and counts are read from its record (blind-spot/build.js facts) — no record
+     runs the fourteen-million corpus against the mutants; MCY ran a 4,000-pair sample of it, and that is what is named */
+  { id: 'blind-spot', title: `${BS.facts.famWords} verdicts could not see it.`, blurb: 'One mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none \u2014 kills verified by simulating the netlist, equivalence by SAT, no answer key.', backing: 'exact', art: () => BS.cardArt(), scale: `${BS.facts.corpusMiss} of ${BS.facts.killable} unseen` },
   { id: 'rewire', title: 'Rewire it yourself.', blurb: 'Lattice claims with exact answers and three graders; only one may reach the socket that decides. Drag the wrong one there and the engine refuses.', backing: 'exact', art: () => RW.cardArt(), scale: `${RW.facts.instances} instances` },
   { id: 'pqc', title: 'Solid where it was proved.', blurb: 'The SVP challenge\'s records as six-figure floats with no error bound, re-decided in exact arithmetic from the published vectors.', backing: 'exact', art: () => PQ.cardArt(), scale: `${PQ.facts.records} records` },
   { id: 'occultation', title: 'The occultation, without the ellipse.', blurb: 'Chords across a silhouette and stations that saw nothing: what they force on the size of a small body, assuming only convexity.', backing: 'exact', art: () => OC.cardArt(), scale: `${OC.facts.chords} chords · ${OC.facts.misses} misses` },
@@ -300,10 +302,10 @@ const body = `
 
   <a class="card" href="blind-spot/index.html">
     <figure class="card-art">
-      ${plate(BS.cardArt(), `${BS.facts.mutations} mutations &middot; ${BS.facts.blind} no valid input can see`)}
+      ${plate(BS.cardArt(), `${BS.facts.mutations} mutations &middot; ${BS.facts.corpusMiss} the corpus test misses`)}
     </figure>
     <div class="card-body">
-      <h2>Fourteen million verdicts could not see it.</h2>
+      <h2>${BS.facts.famWords} verdicts could not see it.</h2>
       <p>One mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none &mdash; kills verified by simulating the netlist, equivalence by SAT, no answer key.</p>
     </div>
   </a>

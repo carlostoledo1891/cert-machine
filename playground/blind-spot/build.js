@@ -105,6 +105,17 @@ const IN_BOX_CHECK = ONLY.filter((m) => m.region === 'box check').length;
 const HEX = (f) => fs.readFileSync(path.join(ROOT, 'corpus', 'blindspot', 'mut', f + '.hex'), 'utf8').split(/\r?\n/).filter(Boolean);
 const FAM_N = HEX('corpus').length;
 if (!FAMS.every((f) => HEX(f).length === FAM_N)) throw new Error('blind-spot: the four testbench files are not one size; rewrite the lede');
+/* THE HEADLINE, READ FROM THE SAME RECORD (2026-10-28, a follow-up to the lede). "Fourteen million certified verdicts
+   could not see this mutant" has no record behind it for any of the 400: MCY ran a 4,000-pair stratified sample of
+   that corpus against them, the SAT miter is over every input (out-of-box ones included), and no in-box-only proof
+   exists per mutant — so even the box-check mutants are unseen by the sample, not proved unseeable by the corpus.
+   The headline now names what was run, from the file's own length. And the card's "46 no valid input can see" was
+   false for 11 of them: the minted and aligned families are in-box, valid inputs, every pair of them (read below), and
+   they are what sees the 8 MINT_ONLY and 3 ALIGNED_ONLY mutants. The cards now count what the corpus test misses. */
+const FAM_WORDS = { 4000: 'Four thousand' }[FAM_N];
+if (!FAM_WORDS) throw new Error('blind-spot: the corpus test is no longer 4,000 pairs; rewrite the headline');
+const inBoxAll = (f) => HEX(f).every((h) => { const b = BigInt('0x' + h) >> 2n; for (let k = 0; k < 22; k++) if (((b >> BigInt((21 - k) * 3)) & 7n) === 4n) return false; return true; });
+if (!['corpus', 'mint', 'aligned'].every(inBoxAll)) throw new Error('blind-spot: a corpus, minted or aligned pair is out of the box; the headline note would be false');
 const SPOIL = (() => {
   const L = HEX('outbox'), n = new Array(22).fill(0);
   for (const h of L) {
@@ -388,7 +399,7 @@ const body = `
   <div class="container">
     <div class="prose reveal rd">
       <div class="eyebrow">environment &middot; mutation blind spots</div>
-      <h1 class="t1">Fourteen million certified verdicts could not see this mutant.</h1>
+      <h1 class="t1">${FAM_WORDS} certified verdicts could not see this mutant.</h1>
       <p>A hardware comparator decides whether two integer vectors are at least 60&deg; apart &mdash;
       <span class="mono">u&middot;v &le; 0</span> or <span class="mono">4(u&middot;v)&sup2; &le; (u&middot;u)(v&middot;v)</span>,
       eleven 3-bit coordinates a side. A corpus of <strong>14.95&nbsp;million pairs</strong> from finished,
@@ -592,7 +603,7 @@ function build(OUTDIR) {
   const dir = path.join(OUTDIR, 'blind-spot');
   fs.mkdirSync(dir, { recursive: true });
   const html = page({
-    title: 'Fourteen million verdicts could not see this mutant — cert-machine',
+    title: `${FAM_WORDS} certified verdicts could not see this mutant — cert-machine`,
     desc: 'A chip-task environment: one mutant of a comparator, or the unmutated design. Name the input pair whose pins differ, or prove there is none. Kills verified by simulating the netlist, equivalence by SAT, and no answer key anywhere.',
     path: '/instruments/blind-spot/',
     css: `${BENCHCSS}\n${BASE_EXTRA}\n${REPORT}\n${CSS}`,
@@ -610,7 +621,7 @@ function build(OUTDIR) {
 /* the card on the gathering page: the map itself, cropped to the regions that
    carry the blind spots — the drawing IS the finding. */
 function cardArt() {
-  const W = 560, H = 560, out = [`<svg viewBox="0 0 ${W} ${H}" class="shape" role="img" aria-label="The 400 mutations of the comparator arranged by region; the rings are the ones no valid input can see.">`];
+  const W = 560, H = 560, out = [`<svg viewBox="0 0 ${W} ${H}" class="shape" role="img" aria-label="The ${POOL.mutations} mutations of the comparator arranged by region; the rings and squares are the ones only one constructed testbench sees.">`];
   const cols = 20, step = W / (cols + 1);
   MUT.slice().sort((a, b) => a.vline - b.vline || a.id - b.id).forEach((m, i) => {
     const x = step * (1 + (i % cols)), y = step * (1 + Math.floor(i / cols));
@@ -620,4 +631,8 @@ function cardArt() {
   return out.join('');
 }
 
-module.exports = { build, cardArt, facts: { mutations: POOL.mutations, killable: POOL.killable, equivalent: POOL.equivalent, blind: POOL.by_class.MINT_ONLY + POOL.by_class.OUTBOX_ONLY + POOL.by_class.ALIGNED_ONLY } };
+/* corpusMiss and famWords are what the gathering card prints (playground/build.js): the killable mutants the corpus
+   test misses, and the size of that test in words; `blind` (seen by exactly one constructed family) is kept for any
+   other reader */
+module.exports = { build, cardArt, facts: { mutations: POOL.mutations, killable: POOL.killable, equivalent: POOL.equivalent, blind: POOL.by_class.MINT_ONLY + POOL.by_class.OUTBOX_ONLY + POOL.by_class.ALIGNED_ONLY,
+  corpusMiss: CORPUS_MISS.length, famWords: FAM_WORDS } };
