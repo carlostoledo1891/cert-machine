@@ -537,8 +537,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
    colour alone here either: a refusal gets a rule down its left edge as well. */
 .ug-say { font-family: var(--font-mono); font-size: var(--text-small);
   color: var(--ink-4); line-height: 1.5; }
-.ug-say.refused { color: var(--ink-2); border-left: 2px solid var(--border-strong);
-  padding-left: var(--s-3); }
+/* the rule HANGS in the margin (2026-10-28): drawn as a border with padding, it pushed the refusal's text 12 px in
+   from every other left edge on the page, so the first click on a phone added a spine the ruler had never seen */
+.ug-say.refused { color: var(--ink-2); position: relative; }
+.ug-say.refused::before { content: ''; position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--s-3));
+  width: 2px; background: var(--border-strong); }
 .ug-say.ok { color: var(--ink-4); }
 .refusal { white-space: pre-wrap; }
 
@@ -551,7 +554,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
    now; the rhythm that has to come with that reset is here, in the section's
    own spacing scale. Same values bench.css uses for a crossed body. */
 section p + p, section p + ul, section p + ol, section p + figure,
-section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }
+section ul + p, section ol + p, section figure + p, section .ug-wrap + p { margin-top: var(--s-4); }
 section h2, section h3 { margin-top: var(--s-7); }
 section h2 + *, section h3 + * { margin-top: var(--s-4); }
 

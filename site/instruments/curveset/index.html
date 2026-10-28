@@ -691,7 +691,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
   <h2>Every mark says what it is standing on.</h2>
   <p class="why">The envelope is <b>computed</b>: the formula is closed form — no optimiser, no sampling — but it is <em>evaluated</em> in floating point, and the backwards read is a bisection. The grammar's first rule is that a float step takes decided to computed automatically, and it applies to this page as readily as to anybody else's, so the envelope is drawn dashed. The published curve is <b>chosen</b> — an <code>argmin</code> of a fitting criterion over a family nobody derived from the data — and it is drawn dotted. Where a reading is over range and no admissible curve bounds it, there is <b>no mark at all</b> and the void is drawn, because "over range" is a fact about the ladder rather than a number to interpolate.</p>
   <p class="why mt4"><b>There is no solid line anywhere on this page, and that is the finding.</b> It was drawn solid for a week: the formula looks decided, and the page said so. The grammar disagreed with the page it is defined on, which is the most useful thing it has done. The route to earning solid back is not large and is written down in <code>envelope.js</code> — the standards are half-integers and both envelopes are a min/max of <em>linear</em> functions, so the bisection can be replaced by one exact solve on one piece. <code>ARITHMETIC = 'exact'</code> then re-promotes every mark here and this legend with it, because nothing on this page names a standing by hand.</p>
-  <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+  <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--border-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
   <p class="why mt4"><b>Lines carry the pattern; extents do not.</b> A bar, a bracket and a band show a <em>quantity in their length</em>, so their bodies stay solid — a seven-pixel bar chopped into dashes is not a computed bar, it is a row of dashes. In the ladder below, every body is computed and the rungs with no admissible answer are hatched voids instead, so shape carries the difference and the pattern channel is left alone. This rule was found by applying the grammar to this page and watching it break the figure.</p>
   <p class="why mt6"><b>Standing is not confidence.</b> A dotted line here is not less precise — it is often far more precise, which is exactly the problem. It is precise <em>because</em> something other than the data chose it. Width is drawn separately, as an extent, so the two never collapse into one channel.</p>
 </div></section>
@@ -720,7 +720,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
       <span class="state" data-state="pontius">monotone only</span>
     </div>
     <div class="readout">
-      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="pontius"><span class="w-val w-computed" title="computed — float; nothing decided it">1,500,000 – 1,650,000</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
+      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="pontius"><span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">1,500,000 – 1,650,000</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
       <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">1,580,781 ± 568.3</span></div><div class="rn">NIST certified quadratic. One member of the set on the left, chosen by a fitting criterion. It stays inside the set at all 9 assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="pontius"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">132.0×</span></div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
@@ -751,7 +751,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
       <span class="state" data-state="il6">monotone only</span>
     </div>
     <div class="readout">
-      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="il6"><span class="w-val w-computed" title="computed — float; nothing decided it">12.50 – 25.00</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
+      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="il6"><span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">12.50 – 25.00</span></div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
       <div class="r"><div class="rk">what was reported</div><div class="rv"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">18.37 ± 0.7966</span></div><div class="rn">four-parameter logistic. One member of the set on the left, chosen by a fitting criterion. It stays inside the set at all 9 assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="il6"><span class="w-val w-chosen" title="chosen — one member of a set the data admits">7.8×</span></div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
@@ -783,7 +783,7 @@ pre { margin-top: var(--s-5); padding: var(--s-4); background: var(--bg-raised);
 L(x) = max&#8202;<sub>i</sub> [ lo&#8202;<sub>i</sub> + (x ≥ x&#8202;<sub>i</sub> ?  m(x − x&#8202;<sub>i</sub>) : −M(x&#8202;<sub>i</sub> − x)) ]</pre>
   <p class="why mt4">Both are nondecreasing, so reading backwards is a bisection rather than a search, and it is exact to machine precision. No linear program, no sampling, nothing to tune.</p>
   <p class="why mt4"><b>A global slope band is the wrong assertion for a curve that bends.</b> On the assay the secants between adjacent standards already span sixteen-fold, so "the slope lies between the smallest and largest secant" constrains nothing and tightening it changes nothing. The claim people actually make is <em>local</em>: between two adjacent standards the response does not wander far from the line joining them. At <code>t = 0</code> that is linear interpolation. The bound used is an <b>outer</b> one — each endpoint taken with its own error bar independently — so it is conservative, wider than the truth and never narrower, which is the direction an argument like this has to err in.</p>
-  <p class="why mt4"><b>The page runs the file the tests run.</b> <code>envelope.js</code> is inlined verbatim behind a four-line require shim, so the curve the slider draws comes out of the same 8399 bytes that 24 tests exercise, and out of the same function that rendered this page on disk.</p>
+  <p class="why mt4"><b>The page runs the file the tests run.</b> <code>envelope.js</code> is inlined verbatim behind a four-line require shim, so the curve the slider draws comes out of the same 9790 bytes that 24 tests exercise, and out of the same function that rendered this page on disk.</p>
 
   <div class="mt7">
     <div class="eyebrow">what this does not claim</div>
@@ -1104,7 +1104,7 @@ function value(text, standing, { title } = {}) {
    decoration. */
 const LEGEND = [
   { s: DECIDED, label: 'decided', gloss: 'exact arithmetic backs it' },
-  { s: COMPUTED, label: 'computed', gloss: 'float; nothing decided it' },
+  { s: COMPUTED, label: 'computed', gloss: 'float, or a number someone printed; nothing decided it' },
   { s: CHOSEN, label: 'chosen', gloss: 'one member of a set the data admits' },
   { s: REFUSED, label: 'refused', gloss: 'no mark — the void is drawn' },
 ];
@@ -1179,8 +1179,9 @@ const witness = (label = 'an exhibited counterexample') => `<span class="wx" ari
    reached. The ladder is the verification-and-validation ladder of the modelling literature (Roache 1998; Oberkampf
    & Roy 2010; ASME V&V 20), cut to four rungs a reader can tell apart:
 
-     ASSUMED     adopted from a source or chosen; nothing here checked it (a breaking ratio from Thornton & Guza,
-                 the absence of sandbars)
+     ASSUMED     adopted from a source, chosen, or read; no machine here checked it (a breaking ratio from Thornton &
+                 Guza, the absence of sandbars, a proof step read and re-derived by hand: 2026-10-28, a reading gets no
+                 rung of its own, because a reading is where the machine's checking stopped)
      VERIFIED    the code reproduces an exact solution of its own equations; whether the equations hold here is
                  not measured (code verification)
      COMPARED    checked against a model that keeps more of the physics, with the number; not against the thing
@@ -1194,7 +1195,7 @@ const witness = (label = 'an exhibited counterexample') => `<span class="wx" ari
 const ASSUMED = 0, VERIFIED = 1, COMPARED = 2, VALIDATED = 3;
 const GRADE = ['assumed', 'verified', 'compared', 'validated'];
 const GRADE_GLOSS = [
-  'adopted from a source or chosen; nothing here checked it',
+  'adopted from a source, chosen, or read; no machine here checked it',
   'the code reproduces an exact solution of its own equations; not measured against the thing itself',
   'checked against a model that keeps more of the physics, with the number; not against the thing itself',
   'checked against observations of the thing itself, held out, with the number',

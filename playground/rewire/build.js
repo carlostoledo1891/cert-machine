@@ -257,7 +257,7 @@ body.panel-hidden .panel{transform:none;opacity:0;visibility:hidden;pointer-even
 /* on a phone the controls button sits at the foot's right edge: the source line keeps clear of it; an opened panel
    covers the graph rather than squeezing it into the strip beside it, and its button stays on the screen */
 @media (max-width: 760px) {
-  .ov-foot .src{padding-right:7.5rem;}
+  .ov-foot .src{padding-right:var(--s-10);}
   #stage{right:0;}
   body:not(.panel-hidden) .pt{right:auto;left:var(--s-2);margin-right:0;}
 }
