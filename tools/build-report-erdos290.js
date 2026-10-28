@@ -40,6 +40,13 @@ const TAIL = require(path.join(ROOT, 'machine', 'erdos290', 'tail.js'));
 
 const sh = (c, cwd) => cp.execSync(c, { cwd: cwd || ROOT, stdio: ['ignore', 'pipe', 'pipe'] }).toString();
 const die = (m) => { console.error('ERDOS290 REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.2 (design/WARRANT.md), 2026-10-28: every number on this page is exact rational arithmetic unless it is
+   marked; the squeeze's line between exact knots is a picture of them (CHOSEN, dotted); the headline names what it rests
+   on, each premise graded from what this build actually ran (rule 11). A printed end of a bracket moves OUTWARD
+   (design/outward.js, the kernel's floor/ceil): until this pass the stat strip printed both brackets' LOWER ends at nine
+   decimals rounded up (0.829113768 for 0.829113767875, 0.830416408 for 0.830416407911). */
+const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
+const OUT = require(path.join(ROOT, 'design', 'outward.js'));
 
 /* ---- 0 · the sources the page's framing rests on, re-hashed --------------
    corpus/sources/erdos290 (PINS.json): the abstract of arXiv:2609.00104, a note
@@ -83,6 +90,21 @@ const theoremSecs = Math.round((Date.now() - theoremT0) / 1000);   /* timed, not
 if (!/ALL PASS/.test(theoremOut)) die('theorem.js did not reach ALL PASS');
 const falsifiers = (theoremOut.match(/ok\s+FALSIFIER/g) || []).length;
 if (falsifiers < 3) die('expected the planted falsifiers to fire, saw ' + falsifiers);
+/* how far theorem.js checks the proof's lines as exact integer identities, read off its own output (§1's premise) */
+const thmEvenMax = Number((/at every even d <= (\d+)/.exec(theoremOut) || die('theorem.js no longer says up to which even d it checks the lines'))[1]);
+
+/* ---- 1b · the closed-form class sums, gated against the enumeration ---------
+   The page's mechanism line says the closed forms replace an enumeration; the battery that checks them is RUN here
+   (0.5 s), so "checked equal for every l <= 12" is this build's fact and not a remembered one. Until 2026-10-28 the line
+   said "proved equal to it on every degree both can reach", which the battery does not check: it checks l <= 12. */
+let lbat = ''; try { lbat = sh('node tools/erdos290-lean-battery.js'); } catch (e) { die('tools/erdos290-lean-battery.js did not pass:\n' + (e.stdout || e.message)); }
+const lbm = /(\d+) pass, 0 fail/.exec(lbat), lbEnum = /closed form == enumerated, all five candidates, l = 1\.\.(\d+) \(exact rationals\)/.exec(lbat);
+if (!lbm || !lbEnum || !/^ok\s+RED: the broken signed EGF/m.test(lbat)) die('the closed-form battery did not pass whole, or no longer checks against the enumeration');
+const enumMax = Number(lbEnum[1]);
+/* p(87), the partition count of the enumeration the closed forms replaced (tools/galois-exceptions-lean.js: the array that
+   ran out of heap), by Euler's pentagonal recurrence in BigInt */
+const P87 = (() => { const p = [1n]; for (let n = 1; n <= 87; n++) { let s = 0n; for (let k = 1; ; k++) { const g1 = k * (3 * k - 1) / 2, g2 = k * (3 * k + 1) / 2; if (g1 > n) break; const sg = (k % 2) ? 1n : -1n; s += sg * p[n - g1]; if (g2 <= n) s += sg * p[n - g2]; } p.push(s); } return p[87]; })();
+if (P87 !== 38887673n) die('p(87) is not 38,887,673');
 
 /* ---- 2 · the narrowing record, reproduced byte-identically ---------------- */
 try { sh('node narrowing.js', SCR); } catch (e) { die('narrowing.js failed:\n' + (e.stdout || e.message)); }
@@ -170,6 +192,14 @@ const B60 = { lo: P60.lo, hi: P60.hi, width: P60.width };
 const BX = bracket(Lmax);
 const bxLo = dec(BX.lo, 12, false), bxHi = dec(BX.hi, 12, true);
 const bxWidth = Q.toDouble(sub(BX.hi, BX.lo));
+/* the brackets at nine decimals, OUTWARD: the cited one from its record's twelve-decimal ends (themselves outward), this
+   build's from the exact rationals; a width prints UP (the bracket is at most that wide) */
+const b60_9 = '[' + OUT.down(P60.lo, 9) + ', ' + OUT.up(P60.hi, 9) + ']';
+const bx_9 = '[' + K.decimals(BX.lo, 9, 'floor') + ', ' + K.decimals(BX.hi, 9, 'ceil') + ']';
+const widthUp = (rat, d) => OUT.sci(K.decimals(rat, 40, 'ceil'), d, true);
+const bxW2 = widthUp(sub(BX.hi, BX.lo), 2), bxW3 = widthUp(sub(BX.hi, BX.lo), 3);
+/* "N% tighter" floors: the claim is that the bracket shrank by at least that much */
+const tighterPct = (a, b) => Math.floor(100 * (1 - a / b)) + '%';
 
 /* ---- 1/(1+c): the value the sequencing question actually asks for --------
    c is the object the sum defines; 1/(1+c) is what an OEIS entry would carry,
@@ -235,6 +265,8 @@ if (cond34.lo !== NARROW.conditionalEnclosure34.lo || cond34.hi !== NARROW.condi
 const inv = (x) => R(x.d, x.n);
 const invLo = inv(add(ONE, CS.hi)), invHi = inv(add(ONE, CS.lo));
 const inv18 = { lo: K.decimals(invLo, 18, 'floor'), hi: K.decimals(invHi, 18, 'ceil') };
+/* the page prints inv18.lo with a trailing "…" as the value's leading digits: true only if both ends floor alike */
+if (K.decimals(invHi, 18, 'floor') !== inv18.lo || cond34.lo.slice(0, 16) !== cond34.hi.slice(0, 16)) die('1/(1+c*) or c* no longer agrees across its enclosure in the digits the page prints');
 
 /* WHICH degrees that enclosure assumes is read off the enclosure itself. Its entire
    width is the sum of the index-2 allowances 1/(2^l·l!) times their weights over the
@@ -263,8 +295,39 @@ const condAllow = Q.toDouble(allowW(condFirstL));
 const condCap = Math.floor(-Math.log10(Q.toDouble(sub(CS.hi, CS.lo))));
 const condExactD = [...new Map(K.EXACT_DELTAS).keys()].sort((a, b) => a - b).map((l) => 2 * l);
 
+/* ---- what the page types, gated (WARRANT rule 8) ----------------------------
+   log 2's share of c, floored from BOTH ends of the bracket (the two floors must agree); the survivors §3 and §4 lean
+   on; and which squeeze implementation closed which degrees, read off the runners themselves: the extension record's
+   own method line names only the lifted file, while both runners require the lean fork (from l = 87, where the lifted
+   enumeration ran out of heap) */
+const log2Share = (() => {
+  const lo = Math.floor(Q.toDouble(div(mul(R(100n, 1n), L2.lo), BX.hi))), hi = Math.floor(Q.toDouble(div(mul(R(100n, 1n), L2.hi), BX.lo)));
+  if (lo !== hi) die('log 2\'s share of c is not one whole percent across the bracket: ' + lo + '..' + hi);
+  return lo;
+})();
+const survivors = new Set(Object.values(EXT.deltas).map((v) => v.name));
+if ([...survivors].some((n) => n !== 'B' && n !== 'ES0')) die('a closed degree survived as something other than S_l⁺ (B) or its even-weight subgroup (ES0): ' + [...survivors].join(', '));
+const LEAN_FROM = 87;
+const TAILD = JSON.parse(fs.readFileSync(path.join(LEG, 'tail-deltas.json'), 'utf8'));
+const citedTailFrom = Math.min(...Object.keys(TAILD.deltas).map(Number));
+if (!(Math.max(...Object.keys(TAILD.deltas).map(Number)) === citedL && TAILD.open.length === 0 && /five-candidate squeeze/.test(TAILD.method)
+  && JSON.stringify(K.EXACT_DELTAS.map((x) => x[0])) === '[4,12,24]')) die('the cited page\'s squeezed degrees or exceptional densities moved — rewrite the premise chain');
+for (const r of ['tools/run-erdos290-tail-ext.js', 'tools/run-erdos290-tail-shard.js'])
+  if (!/require\(path\.join\(ROOT, 'tools', 'galois-exceptions-lean\.js'\)\)/.test(fs.readFileSync(path.join(ROOT, r), 'utf8'))) die(r + ' no longer runs the lean fork — rewrite §3\'s sentence on which squeeze closed which degree');
+if (!/p\(87\) = 38\.9M did not/.test(fs.readFileSync(path.join(ROOT, 'tools', 'galois-exceptions-lean.js'), 'utf8'))) die('the lean fork no longer records that the lifted enumeration stopped at l = ' + (LEAN_FROM - 1));
+
+/* WHAT THE HEADLINE RESTS ON (WARRANT v2.1, rule 11): each premise graded from what this build ran. A result read and
+   not run here is assumed (2026-10-28: a reading gets no rung); the closed forms are verified, against an exact
+   enumeration, by the battery this build runs. */
+const PREMISES = C.pRaw('<b>What the headline rests on</b>, in the order the number travels through it; every step between these is exact rational arithmetic — the bracket re-assembled at this build, the squeeze\'s closed degrees read from their record:')
+  + WR.premisesHtml([
+    { grade: WR.ASSUMED, label: 'The Galois groups at every even d ≤ 60 but 8, 24 and 48', evidence: 'van Doorn\'s Lemma 32, a Magma computation (arXiv:2411.03073, pinned by sha256): cited, not re-run; this build re-certifies its irreducibility half, not its group half' },
+    { grade: WR.ASSUMED, label: 'The reduction to five candidate groups, at each degree the squeeze closed (l = 12, 24 and ' + citedTailFrom + '..' + Lmax + ')', evidence: 'the group theory in galois-exceptions.js\'s header (the S_l-submodules of F₂^l, Jordan\'s theorem, Frobenius cycle types): read; every certificate it then asks for, a discriminant, a kernel vector, a p-cycle, was decided when its degree closed (the cited page\'s tail-deltas.json to l = ' + citedL + ', ' + C.m('certs/erdos290-tail-ext.json') + ' past it; not re-run here)' },
+    { grade: WR.VERIFIED, label: 'The candidate densities from the cycle-index closed forms, used from l = ' + LEAN_FROM, evidence: 'checked equal to an independent enumeration for every l ≤ ' + enumMax + ' at this build (' + C.m('tools/erdos290-lean-battery.js') + ', ' + lbm[1] + ' checks, its broken-EGF red control fired)' },
+    { grade: WR.ASSUMED, label: 'liminf (b(a) − a)/log a = 1/(1+c)', evidence: 'van Doorn\'s Theorem 1 (arXiv:2609.00104, pinned): read, not machine-checked; without it the bracket is a bracket for c alone' }
+  ], { meetLine: 'The bracket is exact rational arithmetic over these premises; the weakest is <b>assumed</b>: two published results and one reduction are read here, and no machine here checked them.' });
+
 /* ---- the page ------------------------------------------------------------- */
-const fmtPct = (a, b) => (100 * (1 - a / b)).toFixed(0) + '%';
 const O = [];
 
 O.push(C.header({
@@ -285,32 +348,36 @@ O.push(C.tldr({
     + 'constant an OEIS entry would carry, proved — not estimated, not sampled. The one input taken as given is '
     + C.esc(LEMMA32) + '; this build re-certifies its irreducibility half, not its group half. The previous horizon held only ' + C.esc(dec(INV60.lo, 12, false).toFixed(12).slice(0, 2 + inv60Agreed))
     + '…, so the third digit is new here, and it is the digit the #290 issue guessed. Underneath it: the '
-    + '4k(k+1) square-discriminant law proved as exact integer identities, the bracket for c tightened to width '
-    + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter than the cited page — and every '
+    + '4k(k+1) square-discriminant law, every line of its proof checked as an exact integer identity at each even d ≤ ' + thmEvenMax + ' (<i>given the published composition law</i>, §1), the bracket for c tightened to width '
+    + bxW2 + ' — ' + tighterPct(bxWidth, B60.width) + ' tighter than the cited page — and every '
     + 'even degree pinned exactly through l = ' + Lpin + ' (d = ' + 2 * Lpin + ')'
     + (excClosed.length
       ? ', the ' + excClosed.length + ' exceptional degrees past the cited horizon (d = ' + andList(excClosed.map((e) => String(e.d))) + ') among them.'
       : '.')
     + ' Since 2026-08-31 the liminf is a THEOREM, not an interval: van Doorn (<a href="https://arxiv.org/abs/2609.00104">arXiv:2609.00104</a>, Theorem 1) proved it equals '
     + '1/(1+c) exactly, so this bracket is now the certified numeric value of that constant rather than one end '
-    + 'of a range — and the two-sided reading below (1/(2c) ≤ ' + twoCHi.toFixed(6) + ') is superseded, §3b.',
-  mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace a 38.9-million-object '
-    + 'enumeration (proved equal to it on every degree both can reach); planted falsifiers must fire at every '
-    + 'build.',
-  checkRaw: C.m('node tools/erdos290-lean-battery.js') + ' — closed forms equal enumeration exactly for l ≤ 12, '
-    + 'the broken-EGF red control must fire.'
+    + 'of a range — and the two-sided reading below (1/(2c) ≤ ' + OUT.up(twoCHi, 6) + ') is superseded, §3b. What the headline rests on, and how far each premise was checked, is listed in §2.',
+  mechanismRaw: 'Closed-form Galois class sums from the cycle-index EGF replace an enumeration of every partition of l, '
+    + (Number(P87) / 1e6).toFixed(1) + ' million objects at l = 87, where it ran out of memory; the two are checked equal exactly for every l ≤ ' + enumMax
+    + ' at this build. Planted falsifiers must fire at every build.',
+  checkRaw: C.m('node tools/erdos290-lean-battery.js') + ' — closed forms equal enumeration exactly for l ≤ ' + enumMax + ', '
+    + 'the broken-EGF red control must fire (' + lbm[1] + ' checks, run at this build).'
 }));
 
 O.push(C.stats([
   { k: '1/(1+c), no tail assumption', v: C.esc(invPrefix) + '…', role: 'held', n: 'the liminf itself (arXiv:2609.00104, Theorem 1), proved with no assumption about the tail; ' + LEMMA32 + ' taken as given — [' + uncLo.toFixed(12) + ', ' + uncHi.toFixed(12) + '], derived by exact rational division of the bracket. ' + invAgreed + ' digits agreed, against ' + inv60Agreed + ' at the cited horizon' },
-  { k: 'the 4k(k+1) law', v: 'RE-PROVED', role: 'held', n: 'exact integer identities; ' + falsifiers + ' planted falsifiers fired during this build' },
-  { k: 'cited bracket (K=' + citedL + ')', v: '[' + B60.lo.toFixed(9) + ', ' + B60.hi.toFixed(9) + ']', sm: true, n: 'reproduced byte-identically from the lifted narrowing pipeline' },
-  { k: 'this build\'s bracket', v: '[' + bxLo.toFixed(9) + ', ' + bxHi.toFixed(9) + ']', sm: true, role: 'held', n: 'width ' + bxWidth.toExponential(2) + ' — ' + fmtPct(bxWidth, B60.width) + ' tighter; densities pinned through l = ' + Lpin },
+  { k: 'the 4k(k+1) law', v: 'RE-PROVED', role: 'held', n: 'every line of the proof an exact integer identity at each even d ≤ ' + thmEvenMax + ', given the published composition law (§1); ' + falsifiers + ' planted falsifiers fired during this build' },
+  { k: 'cited bracket (K=' + citedL + ')', v: b60_9, sm: true, n: 'reproduced byte-identically from the lifted narrowing pipeline; printed outward' },
+  { k: 'this build\'s bracket', v: bx_9, sm: true, role: 'held', n: 'width ' + bxW2 + ' — ' + tighterPct(bxWidth, B60.width) + ' tighter; densities pinned through l = ' + Lpin + '; printed outward' },
   { k: 'degrees pinned', v: 'l ≤ ' + Lpin, n: (extLs.length ? extLs.length + ' new degrees closed by the five-candidate squeeze (l = ' + (citedL + 1) + '..' + Lmax + ')' + (EXT.open.length ? '; ' + EXT.open.length + ' left honestly open' : ', none left open') : 'the cited page\'s horizon') },
   { k: 'exceptional degrees', v: excClosed.length + ' closed', role: excStillOpen.length ? null : 'held', n: (excClosed.length ? 'd = 4k(k+1) past the cited d ≤ ' + citedD + ': ' + excDList(excClosed) + (excStillOpen.length ? '; still open: ' + excDList(excStillOpen) : ' — every one in range') : 'none past the cited horizon yet') },
   { k: 'conditional c*', v: cond34.lo.slice(0, 16) + '…', sm: true, n: condDigits + ' certified digits under ONE labeled group-theory assumption — re-derived this build' },
   { k: '1/(1+c*)', v: inv18.lo.slice(0, 16) + '…', sm: true, n: 'the OEIS-shaped constant, exact rational division of the conditional enclosure' }
 ]));
+/* the marks, said once (WARRANT rule 9); the legend sits beside the figure (§2b) */
+O.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is exact rational arithmetic, and every printed end of an interval is rounded outward. '
+  + 'The one mark is in §2b: a dotted line joins the squeeze\'s exact widths, because between two of them nothing was computed. '
+  + 'Where a number rests on a published result read here, or on a hypothesis, the page says so in italic, and §2 and §4 list each premise with how far it was checked.') }) + '</div>');
 
 O.push(C.section({
   lab: '§1 · the theorem', title: 'disc(f_d) is a square exactly at d = 4k(k+1)',
@@ -323,8 +390,8 @@ O.push(C.section({
     + C.eq(C.esc('disc(f_d) = (d+1) · ( 2^l · l! · disc(h) )²'))
     + C.pRaw('so disc(f_d) is a perfect square exactly when d+1 is — that is, exactly at d = 4k(k+1). '
       + '(Odd d are out of scope and need to be: there d/2 is a rational root, δ = 1, and that is where the log 2 '
-      + 'that carries ' + (100 * Q.toDouble(L2.lo) / bxHi).toFixed(0) + '% of c comes from.) '
-      + 'The build re-checks every line as an exact integer identity and '
+      + 'that carries ' + log2Share + '% of c comes from.) '
+      + '<i>Given the published composition law</i>, cited and not machine-checked for every d, the build re-checks every line as an exact integer identity at each even d ≤ ' + thmEvenMax + ' and '
       + 'requires the planted falsifiers — an index-from-1 misdefinition, a dropped non-monic factor — to FAIL. '
       + 'Until 2026-08-03 the source lab stated this law as a conjecture with 24 controls; it is a theorem.')
     + '</div>'
@@ -344,6 +411,7 @@ O.push(C.section({
     + C.pRaw('This build first REPRODUCES the cited page\'s pipeline byte-for-byte: the lifted narrowing program '
       + 'is re-run and must emit the identical record (it did: same bytes, sha-checked), landing on the cited '
       + '[' + B60.lo.toFixed(12).replace(/0+$/, '') + ', ' + B60.hi.toFixed(12).replace(/0+$/, '') + '] at knowledge horizon l = ' + citedL + '.')
+    + PREMISES
     + '</div>'
 }));
 
@@ -353,37 +421,43 @@ O.push(C.section({
    curve is the certificate's own history, not a sketch of it. */
 const SQ_X0 = 20;
 const SQUEEZE = (() => {
-  /* the sampling step follows the horizon, so a campaign that keeps extending it
-     cannot quietly turn this build into a long one; the curve is monotone either way */
-  const step = Math.max(2, 2 * Math.round((Lmax - SQ_X0) / 160));
+  /* the sampling step follows the horizon, so a campaign that keeps extending it cannot quietly turn this build into a
+     long one. Each knot is a width decided in exact rationals; between knots nothing is computed (WARRANT: the line
+     between two decided knots is a pick, drawn dotted), so knots are kept few enough to read as knots */
+  const step = Math.max(10, 10 * Math.round((Lmax - SQ_X0) / 300));
   const pts = [];
-  for (let L = SQ_X0; L <= Lmax; L += (L < citedL ? Math.max(4, step) : step)) {
-    const b = bracket(L);
-    pts.push([L, Q.toDouble(sub(b.hi, b.lo))]);
-  }
-  if (pts[pts.length - 1][0] !== Lmax) { const b = bracket(Lmax); pts.push([Lmax, Q.toDouble(sub(b.hi, b.lo))]); }
+  const at = (L) => { const b = bracket(L), wq = sub(b.hi, b.lo); return [L, Q.toDouble(wq), wq]; };
+  for (let L = SQ_X0; L <= Lmax; L += step) pts.push(at(L));
+  if (!pts.some((p) => p[0] === citedL)) die('the squeeze no longer samples the cited horizon l = ' + citedL);
+  if (pts[pts.length - 1][0] !== Lmax) pts.push(at(Lmax));
+  for (let i = 1; i < pts.length; i++) if (!(Q.cmp(pts[i][2], pts[i - 1][2]) < 0)) die('the certified width did not fall from l = ' + pts[i - 1][0] + ' to ' + pts[i][0]);
   return pts;
 })();
 {
-  const w0 = SQUEEZE[0][1], w1 = SQUEEZE[SQUEEZE.length - 1][1];
-  const at60 = SQUEEZE.reduce((a, p) => (Math.abs(p[0] - citedL) < Math.abs(a[0] - citedL) ? p : a), SQUEEZE[0]);
+  const K0 = SQUEEZE[0], K1 = SQUEEZE[SQUEEZE.length - 1], at60 = SQUEEZE.find((p) => p[0] === citedL);
+  const w0 = K0[1], w1 = K1[1];
   const xt = [SQ_X0, citedL, Lmax];
   for (let i = 1; i <= 3; i++) xt.push(Math.round((citedL + (i / 4) * (Lmax - citedL)) / 10) * 10);
-  const fig = CH.lines({
-    w: 900, h: 300, x0: SQ_X0, x1: Lmax, y0: w1 * 0.75, y1: w0 * 1.15, logY: true,
+  const wTxt = (p) => widthUp(p[2], 2);
+  /* drawn here rather than by charts.lines, which has no stroke for a pick: the knots are solid dots (decided), the
+     line through them is WR.attrs(CHOSEN), and the cited page's horizon keeps its shaded band */
+  const o = { w: 900, h: 300, x0: SQ_X0, x1: Lmax, y0: w1 * 0.75, y1: w0 * 1.15, logY: true, padB: 28 + 22,
     xTicks: [...new Set(xt)].filter((v) => v >= SQ_X0 && v <= Lmax).sort((a, b) => a - b).map(v => ({ v, t: String(v) })),
     yTicks: CH.decades(w1 * 0.75, w0 * 1.15, 6),
     xLabel: 'knowledge horizon  l  (densities pinned exactly for every even d = 2l up to here)',
-    yLabel: 'certified width of c',
-    bands: [{ x0: SQ_X0, x1: citedL, token: 'var(--c-grid)', t: 'the cited page stops here' }],
-    series: [{ name: 'width of the certified bracket', pts: SQUEEZE, area: true,
-               endLabel: w1.toExponential(2) }],
-    xOf: v => 'l = ' + v,
-    vOf: v => 'width ' + v.toExponential(3),
-    alt: 'The certified width of the constant c falls from ' + w0.toExponential(2) + ' at l = ' + SQ_X0 + ' to '
-      + w1.toExponential(2) + ' at l = ' + Lmax + ' on a logarithmic scale, a smooth decay with no jumps; '
-      + 'the region left of l = ' + citedL + ', where the cited page stops, is shaded.'
-  });
+    yLabel: 'certified width of c' };
+  const f = CH.frame(o);
+  const fig = [CH.open({ w: f.w, h: f.h, alt: 'The certified width of the constant c, one dot per sampled horizon, falls from ' + wTxt(K0) + ' at l = ' + SQ_X0 + ' to '
+      + wTxt(K1) + ' at l = ' + Lmax + ' on a logarithmic scale; each dot is decided exactly, and a dotted line joins them. '
+      + 'The region left of l = ' + citedL + ', where the cited page stops, is shaded.' }),
+    CH.axes(f, o),
+    '    <rect x="' + f.px(SQ_X0).toFixed(1) + '" y="' + f.T + '" width="' + (f.px(citedL) - f.px(SQ_X0)).toFixed(1) + '" height="' + f.ph + '" fill="var(--c-grid)"/>',
+    /* the caption sits just right of the band, as charts.lines sets a caption that does not fit inside it */
+    CH.txt(f.px(citedL) + 7, f.T + 13, '← the cited page stops here', 't-note', 'start'),
+    '    <path d="' + SQUEEZE.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(2) + ' ' + f.py(p[1]).toFixed(2)).join(' ') + '" ' + WR.attrs(WR.CHOSEN, { width: 2 }) + ' stroke-linejoin="round"/>']
+    .concat(SQUEEZE.map((p) => '    <circle ' + CH.hit('cx="' + f.px(p[0]).toFixed(2) + '" cy="' + f.py(p[1]).toFixed(2) + '" r="3.5" fill="var(--c-1)" stroke="' + CH.SURFACE + '" stroke-width="1.5"',
+      'l = ' + p[0], 'width ≤ ' + widthUp(p[2], 3) + ', exact') + '/>'))
+    .concat([CH.txt(f.px(Lmax) - 10, f.py(w1) - 12, wTxt(K1), 't-lab', 'end'), CH.close]).join('\n');
   O.push(C.section({
     lab: '§2b · the squeeze', title: 'The interval, closing',
     wide: true,
@@ -391,13 +465,15 @@ const SQUEEZE = (() => {
       + C.pRaw('Each pinned degree removes its own weight from the unknown tail, so the bracket can only '
         + 'shrink — and this is what that looks like when every point is recomputed in exact rationals at '
         + 'build time. Left of the shaded edge is the cited page\'s horizon; everything right of it is this '
-        + 'repository running the same lifted instrument further.')
+        + 'repository running the same instrument further (§3 says which bytes ran where).')
       + '</div>'
       + C.figure({ svgRaw: fig, caption: 'Certified width of the bracket for c against the knowledge horizon l, '
-        + 'log scale. ' + w0.toExponential(2) + ' at l = ' + SQ_X0 + ' · ' + at60[1].toExponential(2) + ' at the cited l = ' + citedL + ' · '
-        + w1.toExponential(2) + ' at l = ' + Lmax + ', a factor of ' + (w0 / w1).toFixed(0) + ' across the sweep and '
-        + fmtPct(w1, at60[1]) + ' tighter than the cited page. The curve is smooth because the width is the '
+        + 'log scale, every ' + (SQUEEZE[1][0] - SQUEEZE[0][0]) + ' degrees: each dot is a width decided in exact rationals at this build; the dotted line between dots is drawn, not decided. '
+        + wTxt(K0) + ' at l = ' + SQ_X0 + ' · ' + wTxt(at60) + ' at the cited l = ' + citedL + ' · '
+        + wTxt(K1) + ' at l = ' + Lmax + ', a factor of more than ' + Math.floor(w0 / w1) + ' across the sweep and '
+        + tighterPct(w1, at60[1]) + ' tighter than the cited page. The dots fall smoothly because the width is the '
         + 'unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.' })
+      + '<div class="col">' + WR.legendHtml({ exclude: [WR.COMPUTED, WR.REFUSED], compact: true }) + '</div>'
   }));
 }
 
@@ -406,14 +482,14 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('The entire remaining width at l = ' + citedL + ' is the unpinned tail Σ_{l>' + citedL + '} 1/(2l(2l+1)). '
       + 'This repository ran the cited page\'s own five-candidate squeeze — the lifted galois-exceptions.js, '
-      + 'byte-identical' + (extPrimes ? ', nPrimes = ' + extPrimes : '') + ', early exit — over '
+      + 'byte-identical through l = ' + (LEAN_FROM - 1) + ' and, from l = ' + LEAN_FROM + ' on, with its candidate densities replaced by the closed forms of the tl;dr (tools/galois-exceptions-lean.js: the lifted bytes otherwise, refused unless they hash to the lift)' + (extPrimes ? ', nPrimes = ' + extPrimes : '') + ', early exit — over '
       + (extLs.length ? 'l = ' + (citedL + 1) + '..' + Lmax : 'nothing yet') + '. '
       + (extLs.length
         ? extLs.length + ' degrees closed to a unique certified survivor' + (EXT.open.length ? '; ' + EXT.open.length + ' did not close and keep their honest [0,1]' : ' — none refused')
           + (extAbovePin ? '; the run is contiguous to l = ' + Lpin + ', with ' + extAbovePin + ' further degrees already closed above the first gap' : '')
           + '. Result:'
         : 'Run tools/run-erdos290-tail-ext.js to extend.'))
-    + C.eq(C.esc('c ∈ [' + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + ']   (width ' + bxWidth.toExponential(3) + ', ' + fmtPct(bxWidth, B60.width) + ' tighter than the cited page)'))
+    + C.eq(C.esc('c ∈ [' + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + ']   (width ≤ ' + bxW3 + ', ' + tighterPct(bxWidth, B60.width) + ' tighter than the cited page)'))
     + C.pRaw('Each closed degree also extends the evidence base of §4\'s assumption: every one is a new even '
       + 'degree at which the group is verified to be one of the two allowed candidates. The extension record '
       + 'is <a href="/certs/erdos290-tail-ext.json"><span class="m">certs/erdos290-tail-ext.json</span></a>; '
@@ -462,7 +538,7 @@ O.push(C.section({
       + 'bracket the other way, with outward rounding:')
     + C.eq(C.esc('liminf (b(a)−a)/log a ≤ 1/(2c) ≤ ' + twoCHi.toFixed(12) + '   (published: ' + VD.hi + ')'))
     + C.pRaw('Setting the two together, Theorem 8 becomes ' + C.m(uncLo.toFixed(12) + ' < liminf < ' + twoCHi.toFixed(12))
-      + ' — the published interval narrowing from width ' + vdWidth.toFixed(2) + ' to ' + newWidth.toFixed(4) + '. '
+      + ' — the published interval narrowing from width ' + vdWidth.toFixed(2) + ' to at most ' + OUT.up(newWidth, 4) + '. '
       + 'Honesty about where that comes from: most of the upper-endpoint gain was already available at the cited '
       + 'horizon, which gives ' + twoC60Hi.toFixed(12) + '; the continuation of §3 moves it the rest of the way. '
       + 'The published 0.61 is conservative mainly because 0.82 is a conservative reading of c, not because the '
@@ -476,8 +552,8 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('Below d = ' + 2 * condFirstL + ' the lifted kernel needs no assumption: it carries the paper\'s '
       + 'hyperoctahedral range and the exceptional densities at d = ' + andList(condExactD.map(String)) + ' as exact '
-      + 'rationals. Under one assumption about everything above it — for every even d ≥ ' + 2 * condFirstL + ', '
-      + 'Gal(f_d) is either S_l⁺ or its index-2 subgroup, which is true at every degree where the group has been '
+      + 'rationals. Under one assumption about everything above it — <i>given that for every even d ≥ ' + 2 * condFirstL + ', '
+      + 'Gal(f_d) is either S_l⁺ or its index-2 subgroup</i>, which is true at every degree where the group has been '
       + 'determined — the tail telescopes with two explicitly-carried error terms (the index-2 allowance '
       + '1/(2^l l!) and the alternating-series deviation), and c is pinned to ' + condDigits + ' digits, '
       + 're-derived during this build:')
@@ -490,6 +566,13 @@ O.push(C.section({
       + 'degrees; it is certified only through the pinned horizon. The statement with no assumption about the tail '
       + 'remains the bracket of §3, which takes as given only ' + LEMMA32 + ', as everywhere on this page — the two '
       + 'are never conflated.')
+    /* WHAT c* RESTS ON (WARRANT rule 11): the hypothesis, graded, with the evidence the extension record holds for it */
+    + (() => {
+      const nm = (n) => Object.values(EXT.deltas).filter((v) => v.name === n).length;
+      return C.pRaw('<b>What c* rests on</b>, beyond the premises of §2:') + WR.premisesHtml([
+        { grade: WR.ASSUMED, label: 'For every even d ≥ ' + 2 * condFirstL + ', Gal(f_d) is S_l⁺ or its index-2 subgroup', evidence: 'a hypothesis, adopted: it holds at each of the ' + extLs.length + ' degrees the squeeze closed past the cited horizon (S_l⁺ at ' + nm('B') + ', the even-weight subgroup at ' + nm('ES0') + ', ' + C.m('certs/erdos290-tail-ext.json') + ') and is checked nowhere beyond l = ' + Lmax }
+      ], { meetLine: 'The ' + condDigits + ' digits are exact given it; the hypothesis is the weakest premise, <b>assumed</b>, and no finite computation can check it.' });
+    })()
     + C.pRaw('The same telescoping run against THIS build\'s horizon instead of the cited kernel\'s — '
       + C.m('node tools/erdos290-cstar-precision.js') + ' — starts its assumption at d = ' + (2 * Lpin + 2)
       + ' rather than d = ' + 2 * condFirstL + ', and the enclosure lengthens accordingly; that tool carries its '
@@ -504,7 +587,8 @@ O.push(C.section({
       + 'and its programs are preserved BYTE-IDENTICALLY, hash-pinned through this repository\'s lift provenance, '
       + 'in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/legacy/research/challenges/erdos290.html">the repository</a> (the citation paths 301 here). Its self-contained programs — the theorem checker with its '
       + 'planted falsifiers, the narrowing pipeline, the five-candidate squeeze, the vendored exact-rational '
-      + 'arithmetic — live beside it in the repository and are exactly what this build re-ran. To repeat it yourself: '
+      + 'arithmetic — live beside it in the repository. This build re-runs the theorem checker and the narrowing pipeline; the squeeze\'s '
+      + extLs.length + ' closed degrees are read from their record, ' + C.m('certs/erdos290-tail-ext.json') + ', and are not re-run here. To repeat it yourself: '
       + '<span class="m">node theorem.js</span> (the proof), '
       + '<span class="m">node narrowing.js</span> '
       + '(the bracket), <span class="m">node tools/run-erdos290-tail-ext.js</span> or, sharded across cores, '
@@ -522,4 +606,4 @@ fs.writeFileSync(path.join(ROOT, 'reports', 'erdos290.html'),
   TPL.render({ title: 'Erdős #290: the 4k(k+1) theorem · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos290.html',
     desc: 'Erdős #290: the 4k(k+1) square-discriminant law proved as exact integer identities, and a certified bracket for the Galois-density constant c — and so for the liminf, which arXiv:2609.00104 proves equals 1/(1+c) (the 1/(2c) endpoint superseded) — with no tail assumption, tightened past the cited page, every number recomputed at build.' }));
 console.log('reports/erdos290.html written: theorem RE-PROVED (' + falsifiers + ' falsifiers), narrowing reproduced, bracket ['
-  + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + fmtPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);
+  + bxLo.toFixed(12) + ', ' + bxHi.toFixed(12) + '] (' + tighterPct(bxWidth, B60.width) + ' tighter, l <= ' + Lmax + ') @ git ' + gitrev);

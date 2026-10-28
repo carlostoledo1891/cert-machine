@@ -40,6 +40,24 @@ const Q = require(path.join(ROOT, 'instruments', 'interval', 'rational.js'));
 const PIN = require(path.join(ROOT, 'instruments', 'pin.js'));
 
 const die = (m) => { console.error('ERDOS1038-SUP REPORT REFUSED: ' + m); process.exit(1); };
+/* WARRANT v2.2 (design/WARRANT.md), 2026-10-28. Every number on this page is a certified enclosure or an exact rational
+   unless it is marked; a timing is COMPUTED; the degree the budget could not close is REFUSED and gets ∅; the family
+   curves join exact knots, and a line between two decided knots is a pick (CHOSEN, dotted). Enclosures print OUTWARD
+   from the exact rationals (ratDec below): until this pass they printed the doubles to nearest, and the witness's
+   "certified [2.8284271247, 2.8284271247]" had an upper end below 2√2 itself, the value it encloses. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const OUT = require(path.join(ROOT, 'design', 'outward.js'));
+/* an exact rational {n, d} (instruments/interval/rational.js) at k decimals, floor or ceiling, in BigInt */
+const ratDec = (a, k, up) => {
+  const neg = a.n < 0n, n = neg ? -a.n : a.n, sc = 10n ** BigInt(k);
+  let q = n * sc / a.d; const r = n * sc % a.d;
+  if (r !== 0n && up !== neg) q += 1n;
+  const s = q.toString().padStart(k + 1, '0');
+  return (neg && q !== 0n ? '-' : '') + s.slice(0, -k) + '.' + s.slice(-k);
+};
+const encOut = (m, k) => '[' + ratDec(m.lo, k, false) + ', ' + ratDec(m.hi, k, true) + ']';
+const fromStr = (s) => { const [n, d] = String(s).split('/'); return { n: BigInt(n), d: BigInt(d || '1') }; };
+const timed = (t) => W.value(t, W.COMPUTED, { title: 'a wall-clock time, measured: not decided' });
 
 /* ---- the sources the framing rests on, re-hashed: the page states a theorem of the literature, so the bytes
    that state it must still be the bytes read on 2026-10-05 (the problem page's sup = 2√2, formal-conjectures'
@@ -83,16 +101,42 @@ const span = degs.length && degs[degs.length - 1] - degs[0] + 1 === degs.length 
 const wit = M.sublevelMeasure([{ n: 1n, m: 1 }, { n: -1n, m: 1 }], 1n);
 const s8 = M.twoSqrtTwo(60);
 if (!(Q.cmp(wit.lo, s8.lo) <= 0 && Q.cmp(s8.hi, wit.hi) <= 0)) die('the witness no longer encloses 2*sqrt(2)');
+/* the calibration rows, printed OUTWARD from the exact rationals; the build refuses unless each certified enclosure
+   contains the exact value its row names (2, or 2√2 through the 60-bit enclosure s8) */
+const TWO = { n: 2n, d: 1n };
+const contains2 = (r) => Q.cmp(r.lo, TWO) <= 0 && Q.cmp(TWO, r.hi) <= 0;
+const containsS8 = (r) => Q.cmp(r.lo, s8.lo) <= 0 && Q.cmp(s8.hi, r.hi) <= 0;
 const CAL = [
-  ['x² − 1', [{ n: 1n, m: 1 }, { n: -1n, m: 1 }], '2√2 = 2.8284271247…'],
-  ['x²', [{ n: 0n, m: 2 }], '2'],
-  ['x', [{ n: 0n, m: 1 }], '2'],
-  ['(x−1)²', [{ n: 1n, m: 2 }], '2'],
-  ['(x²−1)²', [{ n: 1n, m: 2 }, { n: -1n, m: 2 }], '2√2 again — even powers of the witness keep it']
-].map(([nm, roots, expect]) => {
+  ['x² − 1', [{ n: 1n, m: 1 }, { n: -1n, m: 1 }], '2√2 = 2.8284271247…', containsS8],
+  ['x²', [{ n: 0n, m: 2 }], '2', contains2],
+  ['x', [{ n: 0n, m: 1 }], '2', contains2],
+  ['(x−1)²', [{ n: 1n, m: 2 }], '2', contains2],
+  ['(x²−1)²', [{ n: 1n, m: 2 }, { n: -1n, m: 2 }], '2√2 again — even powers of the witness keep it', containsS8]
+].map(([nm, roots, expect, holds]) => {
   const r = M.sublevelMeasure(roots, 1n);
-  return [nm, '[' + r.loD.toFixed(12) + ', ' + r.hiD.toFixed(12) + ']', expect];
+  if (!holds(r)) die('the certified measure of ' + nm + ' no longer contains its exact value ' + expect);
+  return [nm, encOut(r, 12), expect];
 });
+if (ratDec(s8.lo, 10, false) !== '2.8284271247') die('2√2 no longer begins 2.8284271247');
+
+/* THE TYPED NUMBERS (WARRANT rule 8): the thresholds, the even gap, the cubic's box count and the two family
+   champions, read from the record; the battery the tl;dr names, run here */
+const thrOf = (n) => thmRows.find(([, v]) => v.n === n)[1].T;
+if (!(oddD.every((n) => thrOf(n) === '141/50') && evenD.every((n) => thrOf(n) === '56569/20000'))) die('the odd or even thresholds moved in the record');
+const TODD = ratDec(fromStr('141/50'), 2, false), TEVEN = ratDec(fromStr('56569/20000'), 5, false);
+const evenGap = OUT.sci(ratDec(Q.sub(Q.R(56569n, 20000n), s8.lo), 30, true), 1, true);   /* T − 2√2, rounded UP: "within" */
+if (!(TODD === '2.82' && TEVEN === '2.82845' && evenGap === '2.3 × 10⁻⁵')) die('2.82, 2.82845 or the 2.3 × 10⁻⁵ gap the prose types moved');
+const deg3 = thmRows.find(([, v]) => v.n === 3)[1];
+if (deg3.explored !== 127) die('the cubic no longer needed 127 boxes');
+const cubR = (/^\(-1, (\d+)\/(\d+), 1\)$/.exec(rec.cubicChampion.config) || die('the cubic champion\'s configuration moved')).slice(1).map(Number);
+const quiR = (/^\(-1 dbl, (\d+)\/(\d+), 1 dbl\)$/.exec(rec.quinticPeak.config) || die('the quintic peak\'s configuration moved')).slice(1).map(Number);
+/* each champion is a lower bound on its degree's supremum, so it prints DOWN from its certified lower end */
+const cubLo = ratDec(fromStr(rec.cubicChampion.measure.lo), 6, false), quiLo = ratDec(fromStr(rec.quinticPeak.measure.lo), 6, false);
+const bt0 = Date.now();
+let sbat = ''; try { sbat = cp.execFileSync(process.execPath, [path.join(ROOT, 'instruments', 'sublevel', 'battery.js')], { cwd: ROOT, encoding: 'utf8' }); } catch (e) { die('the sublevel battery did not pass:\n' + (e.stdout || e.message)); }
+const batMs = Date.now() - bt0;
+const sbm = /ALL PASS\s+\((\d+) checks, (\d+)\/(\d+) falsifiers\)/.exec(sbat);
+if (!sbm || sbm[2] !== sbm[3]) die('the sublevel battery did not fire all its falsifiers');
 
 /* the two family curves, recomputed as certified enclosures at every build */
 const cubicPts = [], quinticPts = [];
@@ -108,6 +152,7 @@ for (let k = 904; k <= 912; k += 2) {
   quinticPts.push([k / 1024, r5.hiD]);
 }
 quinticPts.sort((a, b) => a[0] - b[0]);
+const Y0 = Math.min(2.35, Math.floor((Math.min(...cubicPts.concat(quinticPts).map((p) => p[1])) - 0.03) * 20) / 20);
 const cubicMax = Math.max(...cubicPts.map(p => p[1]));
 const quinticMax = Math.max(...quinticPts.map(p => p[1]));
 if (!(cubicMax < S2 && quinticMax < S2)) die('a family point reached 2*sqrt(2) — that would be a discovery, look at it');
@@ -136,7 +181,8 @@ B.push(C.tldr({
     + C.m('|{|q|<1}| < 2.82 < 2√2') + ' — an explicit margin under the supremum. That each odd degree falls '
     + 'strictly below 2√2 already follows from Tao\'s equality clause; the 2.82 is what the certificates add. '
     + 'For degrees <b>' + list(evenD, 'and') + '</b>: the degree supremum lies in ' + C.m('[2√2, 2.82845]')
-    + ', the left end attained by (x²−1)^{N/2} — 2.3×10⁻⁵ weaker than the theorem, which gives exactly 2√2.',
+    + ', the left end attained by (x²−1)^{N/2} — 2.3×10⁻⁵ weaker than the theorem, which gives exactly 2√2 '
+    + '(<i>given Tao\'s Theorem 2.1, read and not machine-checked here</i>; the certificates never use it).',
   mechanismRaw: 'Rational weights with denominator N make ' + C.m('U_μ < 0') + ' exactly ' + C.m('|q(x)| < 1')
     + ' for a monic degree-N polynomial with roots in [−1,1]. Sublevel measures are certified by BigInt Sturm '
     + 'isolation of the boundary roots; a branch-and-bound over root boxes prunes with the pointwise bound '
@@ -144,15 +190,20 @@ B.push(C.tldr({
     + 'true measure on thin boxes.',
   checkRaw: C.m('node tools/run-sublevel-campaign.js') + ' re-derives everything; '
     + C.m('node instruments/sublevel/battery.js') + ' re-proves the degree-3 theorem and the degree-4 '
-    + 'localization at every run, in under a second, plus 3 red controls.'
+    + 'localization at every run — ' + sbm[1] + ' checks and ' + sbm[3] + ' red controls, ' + timed(batMs < 1000 ? 'in under a second' : 'in ' + Math.ceil(batMs / 1000) + ' seconds') + ' at this build.'
 }));
 
 B.push(C.stats([
   { k: 'per-degree theorems', v: String(thmRows.length), n: 'Degrees ' + thmRows.map(([, v]) => v.n).sort().join(', ') + ' — each a branch-and-bound certificate tree over all root configurations.' },
-  { k: 'the witness', v: '2√2', vRaw: '2√2', n: 'x²−1: certified [' + wit.loD.toFixed(10) + ', ' + wit.hiD.toFixed(10) + '] — the two-atom measure, the only maximizer by Tao\'s theorem.' },
-  { k: 'box certificates', v: totalBoxes.toLocaleString('en-US'), n: 'Across all theorems; the cubic needed 127 boxes, the heaviest even degree carries the rest.' },
+  { k: 'the witness', v: '2√2', vRaw: '2√2', n: 'x²−1: certified ' + encOut(wit, 10) + ' — the two-atom measure, the only maximizer by Tao\'s theorem.' },
+  { k: 'box certificates', v: totalBoxes.toLocaleString('en-US'), n: 'Across all theorems; the cubic needed ' + deg3.explored + ' boxes, the heaviest even degree carries the rest.' },
   { k: 'configurations swept', v: Object.values(rec.sweeps).reduce((s, v) => s + v.configs, 0).toLocaleString('en-US'), n: 'Certified grid champions behind the landscape story, before any theorem was attempted.' }
 ]));
+/* the marks, said once (WARRANT rule 9) */
+B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is a certified enclosure or an exact rational, printed outward, unless it is marked. '
+  + 'Underlined dashed: a time on a clock. ∅: the degree the budget could not close (§4). In the figure each dot is decided and the dotted line between dots is a picture of them. '
+  + 'Tao\'s theorem is named in italic where the page leans on it; the certificates themselves never do.')
+  + W.legendHtml({ compact: true }) }) + '</div>');
 
 B.push(C.section({
   lab: '§1 · the problem', title: 'The other end of #1038',
@@ -206,26 +257,31 @@ B.push(C.section({
 B.push(C.section({
   lab: '§3 · the landscape', title: 'An interior champion, and a cliff', wide: true,
   bodyRaw: [
+    /* WARRANT (2026-10-28): each knot is a certified enclosure, so it is a solid dot; the line between two knots was
+       drawn solid by charts.lines and is a pick (nothing between two knots is computed), so it is now dotted through
+       playground/warrant.js; and 2√2, an exact value that was drawn dashed (computed), is a solid rule. charts.scatter
+       carries all three without a hand-written stroke; the two families keep their greys on the knots */
     C.figure({
-      svgRaw: CH.lines({
-        w: 900, h: 380, x0: 0.5, x1: 1.0, y0: 2.35, y1: 2.9,
+      /* the floor follows the knots: drawn as dots, the cubic's last knots fell below a fixed 2.35 and onto the axis */
+      svgRaw: CH.scatter({
+        w: 900, h: 400, x0: 0.5, x1: 1.0, y0: Y0, y1: 2.9, padL: 62,
         xTicks: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0].map(v => ({ v, t: v.toFixed(1) })),
-        yTicks: [2.4, 2.5, 2.6, 2.7, 2.8, S2].map(v => ({ v, t: v === S2 ? '2√2' : v.toFixed(1) })),
+        yTicks: [2.3, 2.4, 2.5, 2.6, 2.7, 2.8, S2].filter((v) => v >= Y0).map(v => ({ v, t: v === S2 ? '2√2' : v.toFixed(1) })),
         xLabel: 'the free root r (remaining roots pinned at ±1; quintic pins them double)',
-        alt: 'Two certified curves of sublevel measure against the free root r. The cubic family (x²−1)(x−r) '
-          + 'rises to an interior maximum near r = 0.785 at about 2.754 and falls as r reaches 1. The quintic '
-          + 'family (x²−1)²(x−r) climbs higher, to about 2.801 near r = 0.884, then descends steeply — the '
-          + 'sublevel set splits into two intervals. A dashed rule marks 2√2, above both curves.',
-        series: [
-          { name: 'cubic (x²−1)(x−r)', pts: cubicPts },
-          { name: 'quintic (x²−1)²(x−r)', pts: quinticPts }
-        ],
-        rules: [{ v: S2, t: '2√2 — the supremum (Tao, December 2025)', dashed: true }]
+        alt: 'Two families of certified sublevel measures against the free root r, one dot per certified knot, joined by dotted lines. The cubic family (x²−1)(x−r) '
+          + 'rises to an interior maximum near r = ' + (cubR[0] / cubR[1]).toFixed(3) + ' at about ' + cubLo.slice(0, 5) + ' and falls as r reaches 1. The quintic '
+          + 'family (x²−1)²(x−r) climbs higher, to about ' + quiLo.slice(0, 5) + ' near r = ' + (quiR[0] / quiR[1]).toFixed(3) + ', then descends steeply — the '
+          + 'sublevel set splits into two intervals. A solid rule marks 2√2, above both families.',
+        pts: cubicPts.map((p) => ({ x: p[0], y: p[1], token: 'var(--c-1)', k: 'cubic · r = ' + p[0], v: 'measure ≤ ' + OUT.up(p[1], 6) + ' (upper end of the enclosure)' }))
+          .concat(quinticPts.map((p) => ({ x: p[0], y: p[1], token: 'var(--c-2)', k: 'quintic · r = ' + p[0], v: 'measure ≤ ' + OUT.up(p[1], 6) + ' (upper end of the enclosure)' }))),
+        curves: [{ pts: cubicPts, standing: W.CHOSEN }, { pts: quinticPts, standing: W.CHOSEN }],
+        hlines: [{ y: S2, t: '2√2 — the supremum (Tao, December 2025)' }],
+        keys: [{ token: 'var(--c-1)', t: 'cubic (x²−1)(x−r): a certified knot' }, { token: 'var(--c-2)', t: 'quintic (x²−1)²(x−r): a certified knot' }]
       }),
-      caption: 'Both curves are certified enclosures recomputed at this build (the plotted value is the upper '
-        + 'endpoint; widths are below picture resolution). The cubic family\'s best certified value is at an '
-        + 'INTERIOR root — ' + rec.cubicChampion.measure.hiD.toFixed(6) + ' at r = 201/256 — not at a lattice '
-        + 'point. The quintic family peaks at ' + rec.quinticPeak.measure.hiD.toFixed(6) + ' near r = 905/1024 '
+      caption: 'Each dot is a certified enclosure recomputed at this build (the plotted value is the upper '
+        + 'endpoint; widths are below picture resolution); the dotted line between two dots is drawn, not decided. The cubic family\'s best certified value is at an '
+        + 'INTERIOR root — at least ' + cubLo + ' at r = ' + cubR[0] + '/' + cubR[1] + ' — not at a lattice '
+        + 'point. The quintic family peaks near r = ' + quiR[0] + '/' + quiR[1] + ', where it is at least ' + quiLo + ', '
         + 'and then descends steeply but continuously (for fixed degree the measure is continuous in the roots): '
         + 'a local maximum of |q| inside the sublevel interval crosses 1, a gap opens and widens, and {|q|<1} '
         + 'becomes two intervals. Until 2026-10-05 this caption called the descent a discontinuous drop where two '
@@ -245,9 +301,18 @@ B.push(C.section({
         : C.esc('the degree supremum lies in [2√2, 2.82845]; (x²−1)^' + (v.n / 2) + ' attains the left end (the theorem gives exactly 2√2)') },
       { raw: C.m(v.explored.toLocaleString('en-US')) },
       { raw: C.m(v.maxDepth + '') },
-      { raw: C.m((v.ms / 1000).toFixed(v.ms > 10000 ? 0 : 1) + ' s') },
+      { raw: timed((v.ms / 1000).toFixed(v.ms > 10000 ? 0 : 1) + ' s') },
       { raw: v.n % 2 === 1 ? C.tag('strict', 'held') : C.tag('localized', 'cert') }
     ]);
+  /* the degree the budget could not close keeps its row (WARRANT rule 7: ∅ and a word, never a blank or a zero) */
+  for (const [, v] of failedRows.sort((a, b) => a[1].n - b[1].n)) rows.push([
+    { raw: C.m('N = ' + v.n) },
+    { raw: W.value('not decided', W.REFUSED, { title: 'refused: ' + v.failed }) + ' — ' + C.esc(String(v.failed)) },
+    { raw: W.value('none', W.REFUSED, { title: 'the record keeps no box count for a refused run' }) },
+    { raw: W.value('none', W.REFUSED, { title: 'the record keeps no depth for a refused run' }) },
+    { raw: timed((v.ms / 1000).toFixed(0) + ' s') },
+    { raw: C.tag('refused', 'open') }
+  ]);
   B.push(C.section({
     lab: '§4 · the certificates', title: nWord + ' degrees, re-decided', wide: true,
     bodyRaw: [
@@ -278,7 +343,7 @@ B.push(C.section({
         + 'independent re-decisions of a known theorem, not progress on it. Until 2026-10-05 this page said the '
         + 'conjecture remained open; the write-up, ') + C.m('paper/tex/erdos1038-sup.tex') + C.esc(', had already '
         + 'corrected that framing.') },
-      { b: 'What the certificates add.', text: 'An explicit margin at odd degrees (below 2.82, about ' + (S2 - 2.82).toFixed(4) + ' under '
+      { b: 'What the certificates add.', text: 'An explicit margin at odd degrees (below 2.82, at least ' + ratDec(Q.sub(s8.lo, Q.R(141n, 50n)), 4, false) + ' under '
         + '2√2) that the theorem does not state; certified landscape data for the families that approach the '
         + 'witness; and a refusal at the first degree the budget could not close. That each odd degree falls '
         + 'strictly below 2√2 is already a consequence of the theorem\'s equality clause.' },
