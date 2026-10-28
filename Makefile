@@ -37,6 +37,7 @@ site: playground control
 	@$(NODE) apps/swell/build.js
 	@$(NODE) apps/explained/build.js
 	@$(NODE) apps/eleicoes2026/build.js
+	@$(NODE) apps/eth/build.js
 	@$(NODE) apps/explained-v1/build.js
 	@$(NODE) apps/uirapuru/build.js
 
