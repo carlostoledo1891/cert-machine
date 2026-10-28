@@ -21,7 +21,34 @@ const { bundle } = require(path.join(PG, 'graph', 'bundle.js'));
 const { embedArt } = require(path.join(PG, 'design', 'components.js'));
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/wiring/eval/rewire.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8');
-const pct = (a, b) => `${Math.round(100 * a / b)}%`;
+const W = require(path.join(PG, 'warrant.js'));
+
+/* WARRANT v2 (2026-10-28). Two standings on this page, and the graph already draws them: a wire out of a node that
+   emits a deciding kind is solid, a wire out of a float grader dashed (instruments/cert-unit/render.mjs inkOf, the
+   grammar's CLAIM pattern). The numbers now say the same thing. A count of a float grader's verdicts is exact
+   arithmetic on a column of float decisions, and a mark's standing is the weakest on its path, so the tolerance
+   grader's 17, the careful float's 12 and Python's 5 are COMPUTED and underlined dashed, here and in the live
+   readout; only the exact predicate's count is DECIDED. The careful float is the case the grammar exists for: it
+   agrees with the exact predicate on every instance and is still dashed — agreement is its verdict, the dash is
+   what the number stands on. Nothing is red: the five instances the tolerance grader admits wrongly are a count
+   on this page, never drawn one by one, and a count is not an exhibited object.
+
+   The panel's sentences are universal claims about the record, so they are gated here: if rewire.json moves and
+   one of them would be false, there is no page. */
+const I = D.instances, over = (i) => i.n > D.cliff;
+const tally = (k) => I.filter((i) => i[k] === 'ADMISSIBLE').length;
+if (!I.every((i) => i.overflows === over(i))) throw new Error('rewire: the overflow flags do not sit exactly past the cliff');
+if (tally('exact') !== D.exactAdmits || tally('naiveJS') !== D.naiveJSAdmits || tally('careful') !== D.carefulAdmits || tally('naive') !== D.naiveAdmits)
+  throw new Error('rewire: the record\'s totals disagree with its own instances');
+if (!I.every((i) => i.careful === i.exact)) throw new Error('rewire: the careful float no longer agrees with the exact predicate on every instance');
+if (!I.filter(over).every((i) => i.naiveJS === 'ADMISSIBLE' && i.naive === 'OVERFLOW')) throw new Error('rewire: past the cliff, JS no longer admits every claim or Python no longer refuses every one');
+if (!I.filter((i) => !over(i)).every((i) => i.naiveJS === i.exact && i.naive === i.exact)) throw new Error('rewire: below the cliff a naive grader disagrees with the exact predicate; the cliff is not the whole story');
+const falseAdmit = (k) => I.filter((i) => i[k] === 'ADMISSIBLE' && i.exact !== 'ADMISSIBLE').length;
+const falseRefuse = (k) => I.filter((i) => i[k] !== 'ADMISSIBLE' && i.exact === 'ADMISSIBLE').length;
+if (!(falseAdmit('naiveJS') > 0 && falseRefuse('naiveJS') === 0 && falseRefuse('naive') > 0 && falseAdmit('naive') === 0))
+  throw new Error('rewire: the two naive graders are no longer wrong in opposite directions');
+const C = (t) => W.value(String(t), W.COMPUTED);
+const LEGEND = W.legendHtml({ exclude: [W.REFUSED, W.CHOSEN], compact: true });
 
 /* the runtime the bundle exposes, in the names the app was written against */
 const PRELUDE = `var CU = window.CERTUNIT; var graph = CU.graph, node = CU.node, mount = CU.mount, GEOM = CU.GEOM,
@@ -61,6 +88,9 @@ const sourceInto = (port) => {
   return ws.length ? ws[ws.length - 1].fromId : null;
 };
 
+/* WARRANT v2: what came through a float grader is COMPUTED, whatever it agrees with */
+const STAND = { exact: '', tol: ' w-val w-computed', careful: ' w-val w-computed' };
+const mark = (el, src) => { el.className = 'v' + (src ? STAND[src] : ''); if (src && STAND[src]) el.title = D.computedGloss; else el.removeAttribute('title'); };
 function readout() {
   const v = sourceInto('verdict'), r = sourceInto('report');
   const N = D.instances.length;
@@ -72,6 +102,7 @@ function readout() {
     ? \`\${admits(shown) - base > 0 ? '+' : ''}\${admits(shown) - base} against the exact predicate\`
     : (v === 'exact' ? 'this is the exact answer' : '—');
   $('rWho').textContent = v ? ({ exact: 'exact predicate', careful: 'careful float', tol: 'tolerance grader' })[v] : '—';
+  mark($('rV'), v); mark($('rR'), r); mark($('rDelta'), shown && shown !== 'exact' ? shown : null);
   const fired = new Map();
   if (v) fired.set(v, v === 'exact' ? 'certified' : 'verdict');
   return fired;
@@ -167,14 +198,15 @@ const body = `
     <span class="eyebrow">what the numbers are</span>
     <div class="note-sm">
       <b>exact predicate</b> admits ${D.exactAdmits} of ${D.instances.length}. Integers and a certified &pi; bracket; no floating point anywhere.<br><br>
-      <b>tolerance grader</b> admits ${D.naiveJSAdmits}. It converts the determinant to a double first, and past dimension ${D.cliff} that is <span class="mono">Infinity</span> &mdash; so the Gaussian heuristic is infinite and every claim clears it.<br><br>
-      <b>careful float</b> admits ${D.carefulAdmits}. Log domain, never converts the determinant, and it agrees with the exact predicate on every one of these. <b>Precision was never the vulnerability here.</b>
+      <b>tolerance grader</b> admits ${C(D.naiveJSAdmits)}. It converts the determinant to a double first, and past dimension ${D.cliff} that is <span class="mono">Infinity</span> &mdash; so the Gaussian heuristic is infinite and every claim clears it.<br><br>
+      <b>careful float</b> admits ${C(D.carefulAdmits)}. Log domain, never converts the determinant, and it agrees with the exact predicate on every one of these. <b>Precision was never the vulnerability here.</b> Its ${C(D.carefulAdmits)} is underlined dashed all the same: it is right on all ${D.instances.length}, and nothing decided that. Agreement is its verdict; the dash is what the number stands on, as the dashed wire out of it is.
     </div>
+    ${LEGEND}
   </div>
   <hr class="hr-thin">
   <div class="grp">
     <span class="eyebrow">the same bug, two languages</span>
-    <div class="note-sm">In JavaScript <span class="mono">Number(q)</span> is <span class="mono">Infinity</span> and the grader admits everything. In Python <span class="mono">float(q)</span> <em>raises</em>, and the same grader admits ${D.naiveAdmits} instead &mdash; it refuses everything above the cliff. Both are wrong, in opposite directions, and only the crash gets noticed.</div>
+    <div class="note-sm">In JavaScript <span class="mono">Number(q)</span> is <span class="mono">Infinity</span> and the grader admits everything. In Python <span class="mono">float(q)</span> <em>raises</em>, and the same grader admits ${C(D.naiveAdmits)} instead &mdash; it refuses everything above the cliff. Both are wrong, in opposite directions, and only the crash gets noticed.</div>
   </div>
   <hr class="hr-thin">
   <div class="grp">
@@ -182,7 +214,7 @@ const body = `
   </div>
 </aside>
 
-<script id="rw-data" type="application/json">${JSON.stringify(D).replace(/</g, '\\u003c')}</script>
+<script id="rw-data" type="application/json">${JSON.stringify(Object.assign({}, D, { computedGloss: W.GLOSS[W.COMPUTED] })).replace(/</g, '\\u003c')}</script>
 <script>${bundle()}</script>
 <script>(function(){ 'use strict';
 ${PRELUDE}

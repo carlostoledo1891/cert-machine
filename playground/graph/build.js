@@ -29,6 +29,14 @@ const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 
 if (F.disagreed !== 0) throw new Error('graph: the replay disagreed — refusing to build a page on it');
 if (!F.refusal) throw new Error('graph: no refusal captured — refusing to build a page on it');
+/* WARRANT v2 (2026-10-28): the page calls the replay "identical, not within tolerance", but replay.mjs counts a cell
+   as re-derived identically when its relative difference is under 1e-12 — a tolerance. The sentence is true only
+   while the worst difference is exactly zero, so that is what it rests on now. Every number on this page is
+   DECIDED (interval-verified radii, exact equality of the replayed doubles, counts), so it prints no legend; the
+   figure's two inks are the grammar's own (solid decided, dashed float) and its caption says so. Nothing is red: the
+   refused wire is a refusal by type, not a counterexample to anyone's claim. */
+if (Number(F.worstRelativeDifference) !== 0 || F.reDerivedIdentically !== F.cellsCertified)
+  throw new Error('graph: the replay is no longer identical on every cell; the "not within tolerance — identical" line would be false');
 
 const firstLine = F.refusal.split('\n')[0];
 
