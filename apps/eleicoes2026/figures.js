@@ -1,8 +1,8 @@
 /* figures.js — the Eleições 2026 page's own figures, the ones design/charts.js has no form for. Pure functions: numbers
    in, SVG out, every colour a token from design/tokens.js FIGURE_TOKENS and every mark carrying a word beside it (colour is
-   never the only channel). These figures are monochrome on purpose; the page's party tokens (build.js, --el-*) colour only
-   its maps and the dots of §7, always beside a word (this note used to say no party colour appeared anywhere on the page,
-   which the maps had made false).
+   never the only channel). These figures are monochrome on purpose, and since 2026-10-28 so is the whole page: the party
+   tokens (build.js, --el-*) are the grammar's greys, the finalists two categorical greys beside their names and the maps
+   one ordered grey scale of Lula's share (design/WARRANT.md v2.2; the operator's ruling).
 
      electorate(r1, r2)      the whole electorate of each round as one bar: Lula, Flávio, other candidates, blank and null,
                              abstention, as shares of the voters registered in the sections that functioned

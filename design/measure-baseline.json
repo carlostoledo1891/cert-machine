@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
   "recorded": "2026-10-28",
-  "browser": "Chrome/155.0.8059.86",
+  "browser": "Chrome/156.0.8078.48",
   "viewports": [
     1440,
     768,
@@ -54,7 +54,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "9a8083528aadf35fdbd5089728ef363c5872d7b5b43e3e7b37a75e947f8b338a"
+      "sha": "ab0f2dd13c1132504f99149ab5041de7c7efaddd671bf9e655605154d8e01a44"
     },
     "site/apps/index.html": {
       "390": {
@@ -75,7 +75,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e5e0aeff0f418ceb5bd7042cca5bd37f7f688a825902905f89d0c0e629e9410e"
+      "sha": "3af141e6e4ecaea2459d9db8f88a8e69dc16ba7f07a045991855335252479739"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -180,7 +180,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c02506f52f7ba472b649444d512c3278e1e4379df5e5304e73155c91444d9615"
+      "sha": "5ab3069cf18dc0910dc4ca0a371a9b95c35c1c08680e8d4099f160f520e2b4d5"
     },
     "site/explained/index.html": {
       "390": {
@@ -190,18 +190,18 @@
         "clipped": 1
       },
       "768": {
-        "spines": 12,
+        "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
       "1440": {
-        "spines": 22,
+        "spines": 23,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "4b2e202020060a6aea8adb42334db230f0484ebdad5cbc8a899a7157e1caf34a"
+      "sha": "f7ea6825b3475d3d2c13b61a489005afafc684b7740ff9a20311def62475fc6e"
     },
     "site/explained/v1/index.html": {
       "390": {
@@ -222,7 +222,7 @@
         "escapes": 0,
         "clipped": 4
       },
-      "sha": "63fcb1a84ac91bf5ce534712f9ebe8f8b26e8f28c9820cf466de1a72384791e3"
+      "sha": "5f2596aafa536cc0ef5736fd8f09fab0732260877b20e109a57c746139f25a36"
     },
     "site/index.html": {
       "390": {
@@ -243,7 +243,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a581460ef383b0c145d17f33b9693bdeb09a0060463d69d4f20d7a455f2c2508"
+      "sha": "56327d965ccd4ca57d4205c85563ec2f4bb3ca36491da0369e2917ed7d9c10e2"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -264,7 +264,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "8b3e3c701066b780e466bdfad7c50eb4012041ab07d9bb0e643417ddf2bd5df6"
+      "sha": "a0b80859dd73dd64c440e3e563d8883b9231507e4b8e2923345de1c0733ad015"
     },
     "site/instruments/answer-shape/index.html": {
       "390": {
@@ -285,7 +285,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2476819fbf91d5ca3ea2cde37e0e6c1b1fb496de132e3a0c665221896e7a4a77"
+      "sha": "ddf3d2ef0f4e6b62fa81290d8f140e47e659f18c52d7590f40f69d738ad246f5"
     },
     "site/instruments/blind-spot/index.html": {
       "390": {
@@ -306,7 +306,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "c9874a4e034809edc88fe2c241cdea49430a236119de3dcdc7c542af34a6bff1"
+      "sha": "c893d6d0a3a8d856c6409ac7a7a645095fc0c4573f36975f5cdc85bc8a7c9a37"
     },
     "site/instruments/census/index.html": {
       "390": {
@@ -327,7 +327,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "d518645806bb67396ec548d0433e93bba3f79f669ff4601197aba73933b6d4ce"
+      "sha": "dafb2f2252d1a094f59e564e869b628b73201ea14730f3cce1aba3c0e0b5e857"
     },
     "site/instruments/contours/index.html": {
       "390": {
@@ -348,7 +348,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "10247ba8a0b5f1ee77c1838238b2b28a396a48cd7c69eec4adfd53c0524d00a2"
+      "sha": "92981093e616b2c5604fde6f21d3545d3d84c1a2576ed8c510293b085a1764d9"
     },
     "site/instruments/curveset/index.html": {
       "390": {
@@ -369,7 +369,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "52cf87b8035f57bbd0fe99a9c0093d435933ade102931cb17550e5929d591c1a"
+      "sha": "1dd275d81af602a5dd704a95159644dbcb694d644d224047d2b5e11b63208227"
     },
     "site/instruments/exact-geometry/index.html": {
       "390": {
@@ -390,7 +390,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "aad06aca69b7fcb0c4d1fd7361e59f3462c395842f1866584f17cc61e4815654"
+      "sha": "8218dceac4b5ffbcd3bd65489a477f74f58ff46e563216ad798a2256b5675b41"
     },
     "site/instruments/graph/index.html": {
       "390": {
@@ -411,7 +411,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "5958f0bc226bd8125c01a73a2ae0cde316900a9420d818fba93f9f305e25da37"
+      "sha": "1f906fdecda32556428add00b48b2be3469d1f9aecc6b1806c304129f44cb4a4"
     },
     "site/instruments/index.html": {
       "390": {
@@ -432,7 +432,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "66a1a4e620255e4b04381bf53ee87504813555009b22508ca91ad1c10206f403"
+      "sha": "cd05524592bc8212a1b47f28d8ec90c637bb94d63b52441123a004608213e9bc"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
@@ -453,7 +453,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e44069b2215280352216d07866609d66f8d74df1329b660b2a73864b6c3eae06"
+      "sha": "e5793c31f8361d916a1c7f080cbb38503cadb1873509668fae17d71c09ee7ec7"
     },
     "site/instruments/lattice-claims/index.html": {
       "390": {
@@ -474,7 +474,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ac58ac4ff68074b273edd8df1a70aeb19fcc7ba7245ab0b32ee8658e97c75c10"
+      "sha": "c3f8468e0926b1913387e3f2a54034fdb247cee0cc8e3cebbcdbdbfa3165680d"
     },
     "site/instruments/navier-stokes/index.html": {
       "390": {
@@ -495,7 +495,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f3ebcd5b381ab392111803f2757d541276f0e90e6e8d41d5998825d3eee496eb"
+      "sha": "78ab4919b98bf58c77c026fe5a42baf1a79cc413a1e04dc151b4fb690699a886"
     },
     "site/instruments/neural-geometry/index.html": {
       "390": {
@@ -516,7 +516,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "98b900b6f051ee0adaa6a8e43c2b5d9d75f2e49bb83d8aee8345f530e5abb192"
+      "sha": "9326b5e3d84bb66c8f3ab6c3cf25b3ae7e470818f10cbe828d6480a067879aff"
     },
     "site/instruments/occultation/index.html": {
       "390": {
@@ -537,7 +537,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a636719e212ff07b4e4c4a0211809420f798f4f83b8ff63545535ff5d05f2a0e"
+      "sha": "05aabc425f2c65b9008e6a2d1961075e9bcb1b51763fd0ae4451af3363854133"
     },
     "site/instruments/plates/index.html": {
       "390": {
@@ -558,7 +558,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "eaceadf71fc2684899a60240ba7177d175bb61570fe12a404ece8d0822f4d82e"
+      "sha": "cee3bbae076f95aee6518dcc1ddd0dfbe0b5e99e92d53d9a729bdeeb8454cb99"
     },
     "site/instruments/pqc/index.html": {
       "390": {
@@ -579,7 +579,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "3ea4e97f8cae0c16bc19e695d9fca36f6f334815fcff87b2be0769562b5d95f4"
+      "sha": "679bb8e1eced785df9f8bb9eeac59c43550448b374005559ade929d4cac3a135"
     },
     "site/instruments/pu/index.html": {
       "390": {
@@ -600,7 +600,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ae9b1195769c72c8f48232288076cdd63d82105c954afdbca400d8d6daaf7744"
+      "sha": "937f1de588cc70b7dcd82a6b6016d52fd45a694bed4ce7648c60dfa7c2ef82c9"
     },
     "site/instruments/return-level-atlas/index.html": {
       "390": {
@@ -621,7 +621,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "54d4e068ac872239e37ad3f49faccc10ec2113fc9f738468670d457459dd2d2a"
+      "sha": "ca6eeca4d6eadb5075e8e35fd69c7fa9917aa39b8f91cb7635e4006cc9a96e94"
     },
     "site/instruments/return-level-check/index.html": {
       "390": {
@@ -642,7 +642,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a264740d762c3dce1c7633ca1ca273399c05bdc832d6b28068acab58f45805fa"
+      "sha": "5a4059c8e850a021c92ebf329f649ef4e6b327b6c920c0082882ba2b80f0eda2"
     },
     "site/instruments/rewire/index.html": {
       "390": {
@@ -663,7 +663,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "f555522774a0f4b6c3a660fdb4d143159e1ef7afa9cd55a89a7a81a4e95281a7"
+      "sha": "ed3926f97de84307b4aee07e60318ec102c1e1a6df397c2d786497e0d2058111"
     },
     "site/instruments/shape-hunt/index.html": {
       "390": {
@@ -684,7 +684,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "9a17c906fdc04bbc6b2d469cccd426ba2ec4f5f2d7170c93b7576e66c9f2525d"
+      "sha": "d990d853d786aed6991162bba313fe9721be18f5329aedce8e8cefb7ac28f4f9"
     },
     "site/instruments/simplex/index.html": {
       "390": {
@@ -705,7 +705,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "dcf60f2cf11aeebeb0e13c5785a01d704a430c4b254279d04aa2cb38e949f4b9"
+      "sha": "57a74e64848dc3269c8ddb33b6a54802504980f909c8f39d6537e0fa0e94cb1e"
     },
     "site/instruments/stereo-reach/index.html": {
       "390": {
@@ -726,7 +726,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "ab132f3a68affaa7f08ae6b026a39c82e2e6504612c447dacb45ab248a540bcb"
+      "sha": "0e070d4fc57bb4983929d3b7a4b876b549dc8ff68b542a3c5d963cdcf9a36290"
     },
     "site/instruments/transit/index.html": {
       "390": {
@@ -747,7 +747,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "41ba99ab39b780488b737a267cd000fa6c4461cd24ff39a291058ac342e9ccab"
+      "sha": "c947d6c4cd693b44f14e850553a779dd641ea41a83a9feb1710b9fb871366617"
     },
     "site/janela/index.html": {
       "390": {
@@ -768,7 +768,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "53a2c08192bb03da75a75a28798d339380aa032efb87326ce340afc80f59da53"
+      "sha": "151f2117e9d390510ef1c15241facb841dd0992d93029aa35d2591b9de5dc944"
     },
     "site/janela/metodo/index.html": {
       "390": {
@@ -789,7 +789,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "c37c779490ea472a1e76070d890ac00225bae41d58079ee9ecfceb9ed53f3752"
+      "sha": "dec8ae36e17ee7586a8caea21913f58a1382938df5cfe82d90cecac55be25610"
     },
     "site/machine/index.html": {
       "390": {
@@ -810,7 +810,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "e9df243a7c7f3963bdb50e64c3a80c52cb883e7b1260df179a5f377f3b0f052b"
+      "sha": "9440900f0994ed894fa7bc2352402f3ad8463c299d9439eff4687b16e8072c98"
     },
     "site/machine/log.html": {
       "390": {
@@ -831,7 +831,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "be336a34c70f7c267902be70ea774374c9f078332bb39da07e83bf00a987b79c"
+      "sha": "7b5081ff6218c8e2d0e738c0030bf9a71d9c1c8030a78fcdae53591b7a2c493b"
     },
     "site/oracle/index.html": {
       "390": {
@@ -852,7 +852,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "b26ec31fb50809e17a8ae3c0937558e5d2116adbf22c02469de81abb6db4950f"
+      "sha": "b237429a21bafb28f2d0d7845a8b2892c3a0c509f08c49dc3ac9bd460377c99b"
     },
     "site/papers/index.html": {
       "390": {
@@ -873,7 +873,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "601f3cb2aeb06c586684de7591aaccb0f61eb455c3cfced16260ca3d67b91296"
+      "sha": "9ea8d807678a36f1c653919929be22341daeca2c0328d31e0e8084edb86b98bb"
     },
     "site/reports/aag.html": {
       "390": {
@@ -1881,7 +1881,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "2e593f9d7b3d2f82444fdc15cd24c75ee2f1182e8bb9be73bd3cc11c4c5eeb40"
+      "sha": "aadc4c78322897311398f8dd332af067aa9fb3fe1624aa6abfedab6292de154f"
     },
     "site/reports/keller.html": {
       "390": {
@@ -2385,7 +2385,7 @@
         "escapes": 0,
         "clipped": 1
       },
-      "sha": "55ad9df9acf7d1c8e31705fbb666c5167f2c6fc701b6ecb9780ef9a7c1a6aeee"
+      "sha": "0aff1b738b03ad433056115028a12ee6c9e33f15449a981abe51673226518910"
     },
     "site/reports/ramsey-graphs.html": {
       "390": {
@@ -2826,7 +2826,7 @@
         "escapes": 0,
         "clipped": 0
       },
-      "sha": "a89fab94b42fc2bd5c41d8dd7ae3994244690e090a0c3453c00585d57972541a"
+      "sha": "e9114f97ba7c250b36668d8a99d1c817743da4b08c1e8dc2a6ab2c76c5c46c02"
     }
   }
 }

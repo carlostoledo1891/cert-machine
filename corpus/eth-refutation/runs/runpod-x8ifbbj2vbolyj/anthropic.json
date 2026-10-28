@@ -1,0 +1,214 @@
+{
+ "claim": "anthropic",
+ "env": [
+  "claim: anthropic",
+  "toolchain: leanprover/lean4:v4.33.1",
+  "kernel: 6.8.0-138-generic",
+  "landlock: ",
+  "lean: Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.33.1",
+  "comparator: d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+  "lean4export: /tools/v4.33.1/lean4export (15f6055e299ad5b89345e533cc2192f4cc00f659)",
+  "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g",
+  "landrun: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4",
+  "leanchecker: leanchecker",
+  "vm.max_map_count: 65530",
+  "cgroup memory.max: 256000000000",
+  "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+ ],
+ "verify": {
+  "claim": "anthropic",
+  "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+  "checked": 1066,
+  "mismatches": [],
+  "unpinned": [],
+  "ok": true
+ },
+ "steps": {
+  "prepare": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 79,
+   "running": false,
+   "maxRssKB": 1006472,
+   "containerPeakKB": 17416316,
+   "logTail": [
+    "Downloaded: 7722 file(s) [attempted 7722/8690 = 88%, 367 KB/s], Decompressed: 7638",
+    "Downloaded: 7759 file(s) [attempted 7759/8690 = 89%, 49 KB/s], Decompressed: 7673",
+    "Downloaded: 7794 file(s) [attempted 7794/8690 = 89%, 140 KB/s], Decompressed: 7724",
+    "Downloaded: 7834 file(s) [attempted 7834/8690 = 90%, 172 KB/s], Decompressed: 7771",
+    "Downloaded: 7864 file(s) [attempted 7864/8690 = 90%, 191 KB/s], Decompressed: 7815",
+    "Downloaded: 7906 file(s) [attempted 7906/8690 = 90%, 94 KB/s], Decompressed: 7855",
+    "Downloaded: 7946 file(s) [attempted 7946/8690 = 91%, 91 KB/s], Decompressed: 7899",
+    "Downloaded: 7981 file(s) [attempted 7981/8690 = 91%, 89 KB/s], Decompressed: 7899",
+    "Downloaded: 8016 file(s) [attempted 8016/8690 = 92%, 36 KB/s], Decompressed: 7946",
+    "Downloaded: 8054 file(s) [attempted 8054/8690 = 92%, 255 KB/s], Decompressed: 7988",
+    "Downloaded: 8093 file(s) [attempted 8093/8690 = 93%, 71 KB/s], Decompressed: 8035",
+    "Downloaded: 8126 file(s) [attempted 8126/8690 = 93%, 671 KB/s], Decompressed: 8072",
+    "Downloaded: 8161 file(s) [attempted 8161/8690 = 93%, 909 KB/s], Decompressed: 8107",
+    "Downloaded: 8201 file(s) [attempted 8201/8690 = 94%, 1587 KB/s], Decompressed: 8149",
+    "Downloaded: 8243 file(s) [attempted 8243/8690 = 94%, 568 KB/s], Decompressed: 8192",
+    "Downloaded: 8273 file(s) [attempted 8273/8690 = 95%, 73 KB/s], Decompressed: 8224",
+    "Downloaded: 8311 file(s) [attempted 8311/8690 = 95%, 100 KB/s], Decompressed: 8259",
+    "Downloaded: 8350 file(s) [attempted 8350/8690 = 96%, 676 KB/s], Decompressed: 8299",
+    "Downloaded: 8383 file(s) [attempted 8383/8690 = 96%, 579 KB/s], Decompressed: 8299",
+    "Downloaded: 8416 file(s) [attempted 8416/8690 = 96%, 333 KB/s], Decompressed: 8348",
+    "Downloaded: 8456 file(s) [attempted 8456/8690 = 97%, 118 KB/s], Decompressed: 8395",
+    "Downloaded: 8495 file(s) [attempted 8495/8690 = 97%, 110 KB/s], Decompressed: 8425",
+    "Downloaded: 8530 file(s) [attempted 8530/8690 = 98%, 59 KB/s], Decompressed: 8463",
+    "Downloaded: 8565 file(s) [attempted 8565/8690 = 98%, 186 KB/s], Decompressed: 8505",
+    "Downloaded: 8603 file(s) [attempted 8603/8690 = 98%, 729 KB/s], Decompressed: 8505",
+    "Downloaded: 8638 file(s) [attempted 8638/8690 = 99%, 97 KB/s], Decompressed: 8551",
+    "Downloaded: 8671 file(s) [attempted 8671/8690 = 99%, 531 KB/s], Decompressed: 8605",
+    "Downloaded: 8690 file(s) [attempted 8690/8690 = 100%, 531 KB/s], Decompressed: 8650",
+    "Decompressed 8690 file(s)",
+    "Already decompressed 8690 file(s)"
+   ],
+   "errTail": []
+  },
+  "comparator": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 388,
+   "running": false,
+   "maxRssKB": 7229920,
+   "containerPeakKB": 24721676,
+   "logTail": [
+    "✔ [9493/9516] Built MainRoute.General (2.1s)",
+    "✔ [9494/9516] Built ExplicitCost.GroupingSearch (2.5s)",
+    "✔ [9495/9516] Built RecursionToBound.Cert.Top (1.9s)",
+    "✔ [9496/9516] Built SparsifyThenCount.CertBoth (3.5s)",
+    "✔ [9497/9516] Built CountedRecursion.PolyAll (1.9s)",
+    "✔ [9498/9516] Built ExplicitCost.GroupingCall (2.5s)",
+    "✔ [9499/9516] Built SparsifyThenCount.Main (1.8s)",
+    "✔ [9500/9516] Built CountedRecursion.Main (1.8s)",
+    "✔ [9501/9516] Built SparsifyThenCount.PlanUsed (2.5s)",
+    "✔ [9502/9516] Built PiecesCounted.Half (8.7s)",
+    "✔ [9503/9516] Built RecursionToBound.Exponent (7.2s)",
+    "✔ [9504/9516] Built RecursionWithPieces.Main (1.0s)",
+    "✔ [9505/9516] Built CountedInstance.Main (1.9s)",
+    "✔ [9506/9516] Built RecursionToBound.Correct (2.4s)",
+    "✔ [9507/9516] Built MainRoute.EveryMachine (3.2s)",
+    "✔ [9508/9516] Built RecursionToBound.End (4.6s)",
+    "✔ [9509/9516] Built RecursionToBound.Main (1.8s)",
+    "✔ [9510/9516] Built MainRoute.GeneralInM (3.3s)",
+    "✔ [9511/9516] Built MainRoute.GeneralMain (1.8s)",
+    "✔ [9512/9516] Built NamesInOrder.Chain (2.5s)",
+    "✔ [9513/9516] Built NamesInOrder.Main (1.8s)",
+    "✔ [9514/9516] Built CountedRoute.Main (2.2s)",
+    "✔ [9515/9516] Built Solution (4.4s)",
+    "Build completed successfully (9516 jobs).",
+    "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, MainResults.ethIsFalse, MainResults.mainTheorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution",
+    "Running nanoda kernel on solution",
+    "nanoda kernel accepts the solution",
+    "Running Lean default kernel on solution.",
+    "Lean default kernel accepts the solution",
+    "Your solution is okay!"
+   ],
+   "errTail": []
+  },
+  "build": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 87,
+   "running": false,
+   "maxRssKB": 7196824,
+   "containerPeakKB": 26065056,
+   "logTail": [
+    "✔ [9737/9768] Built SplitCount.Main (1.6s)",
+    "✔ [9738/9768] Built SplitSat.Reader (1.5s)",
+    "✔ [9739/9768] Built FreeCode.Brute (2.2s)",
+    "✔ [9740/9768] Built Sat3Graph.Dominating (3.3s)",
+    "✔ [9741/9768] Built PrintedOrder.Counting (1.9s)",
+    "✔ [9742/9768] Built FromPrinted.Count (2.0s)",
+    "✔ [9743/9768] Built SplitSat.Main (1.9s)",
+    "✔ [9744/9768] Built SizeCircuit.Cert (9.1s)",
+    "✔ [9745/9768] Built PrintedOrder.Deciding (1.8s)",
+    "✔ [9746/9768] Built FreeCode.Tied (1.9s)",
+    "✔ [9747/9768] Built FromPrinted.SplitSat (1.0s)",
+    "✔ [9748/9768] Built Sat3Graph.Main (1.7s)",
+    "✔ [9749/9768] Built SizeCircuit.Main (1.8s)",
+    "✔ [9750/9768] Built FreeCode.Main (1.8s)",
+    "✔ [9751/9768] Built FromPrinted.Verifier (1.8s)",
+    "✔ [9752/9768] Built Consequences.Sets (1.6s)",
+    "✔ [9753/9768] Built FromPrinted.Sat3Graph (2.3s)",
+    "✔ [9754/9768] Built FromPrinted.FreeCode (1.0s)",
+    "✔ [9755/9768] Built FromPrinted.Sets (1.9s)",
+    "✔ [9756/9768] Built Consequences.Dom (2.9s)",
+    "✔ [9757/9768] Built FromPrinted.Dom (2.3s)",
+    "✔ [9758/9768] Built CircuitLowerBound.Circ.Clause (60s)",
+    "✔ [9759/9768] Built CircuitLowerBound.Closed (1.3s)",
+    "✔ [9760/9768] Built CircuitLowerBound.Inf (1.8s)",
+    "✔ [9761/9768] Built Eight.Cor.ENP (1.7s)",
+    "✔ [9762/9768] Built Eight.ViaGrouping.CorENP (1.7s)",
+    "✔ [9764/9768] Built Consequences.Main (1.6s)",
+    "✔ [9765/9768] Built FromPrinted.Circuits (1.0s)",
+    "✔ [9767/9768] Built PaperIndex (5.3s)",
+    "Build completed successfully (9768 jobs)."
+   ],
+   "errTail": []
+  },
+  "axioms": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 5,
+   "running": false,
+   "maxRssKB": 7048776,
+   "containerPeakKB": 19531672,
+   "logTail": [
+    "'MainResults.ethIsFalse' depends on axioms: [propext, Classical.choice, Quot.sound]",
+    "'MainResults.mainTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]"
+   ],
+   "errTail": []
+  },
+  "leanchecker": null
+ },
+ "comparator": {
+  "okay": true,
+  "kernels": [
+   "Lean default kernel accepts the solution",
+   "nanoda kernel accepts the solution"
+  ],
+  "stages": [
+   "Building Challenge",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, MainResults.ethIsFalse, MainResults.mainTheorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Challenge",
+   "Building Solution",
+   "Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, MainResults.ethIsFalse, MainResults.mainTheorem, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Solution",
+   "Running nanoda kernel on solution",
+   "Running Lean default kernel on solution."
+  ],
+  "exit": 0
+ },
+ "axioms": {
+  "printed": [
+   {
+    "theorem": "MainResults.ethIsFalse",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   },
+   {
+    "theorem": "MainResults.mainTheorem",
+    "axioms": [
+     "propext",
+     "Classical.choice",
+     "Quot.sound"
+    ]
+   }
+  ],
+  "file": "import Solution\n#print axioms MainResults.ethIsFalse\n#print axioms MainResults.mainTheorem\n"
+ },
+ "leanchecker": {
+  "command": null,
+  "errorLines": []
+ },
+ "phaseOrder": [
+  "prepare",
+  "comparator",
+  "build",
+  "axioms"
+ ],
+ "podState": "kernels done (comparator exit 0)"
+}

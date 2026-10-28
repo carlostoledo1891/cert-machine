@@ -1,0 +1,149 @@
+{
+ "what": "The kernel lane of the check of the two claimed refutations of the Exponential Time Hypothesis (OpenAI openai/math family 378; Anthropic formal-math eth/), decided by tools/record-eth-kernel.js from the facts a RunPod pod served (tools/runpod-eth.sh, imported by tools/import-runpod-eth.js). CERTIFIED here means each Lean theorem states exactly the claim's OWN challenge statement, uses only propext, Classical.choice and Quot.sound, and two independently written kernels accept the proof. It does NOT mean that the Lean statement is the paper's theorem, nor that ETH is false: no machine checks that, and both claimants say so (Anthropic's README; OpenAI's scope note lean/docs/378.md states a weaker bound than its manuscript).",
+ "campaign": "eth-refutation, operator's go 2026-10-28 (budget cap US$50 of rented compute); the pins (corpus/eth-refutation/pins.json) and the static census (corpus/eth-refutation/census.json) were recorded before any run",
+ "words": {
+  "CERTIFIED": "Comparator exit 0 with \"Your solution is okay!\", Lean's kernel and nanoda both accept, and #print axioms (our file) names only propext, Classical.choice, Quot.sound for every main theorem",
+  "REFUTED": "a kernel rejects the solution; stated nowhere until a second run reproduces it",
+  "REFUSED": "no decision, with the exact reason (resources, a tool that cannot read the toolchain, a build failure, bytes differing from the pins, Comparator stopping on the claim's own check, or kernels disagreeing)"
+ },
+ "decider": "Comparator leanprover/comparator d03acab1 (tag v4.34.0, lane K's pin) built with Lean v4.34.1, for BOTH claims; lean4export of each claim's toolchain (076e8e57 = v4.34.0 built with v4.34.1; 15f6055e = v4.33.0 built with v4.33.1); landrun 811cfff5; nanoda ammkrn/nanoda_lib 3a240721 with lane K's build (issue44 patch, 1 GiB stack); leanchecker of each claim's own toolchain; on one RunPod CPU pod, the claims one at a time, the bytes checked against the pins before anything ran",
+ "declaredChanges": [
+  "enable_nanoda: true on each claim's own Comparator config (OpenAI ships false; Anthropic ships true); nothing else in either config changes",
+  "GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 for every Lean step of both claims (each row's env says so): the workaround OpenAI's own lean/README.md prescribes when vm.max_map_count is too low (the pod's is 65,530), which lane K needed on RunPod (amendments 15 and 16). A malloc setting: it changes how Lean allocates memory, never what it checks",
+  "nanoda as lane K builds it: the ammkrn/nanoda_lib#44 patch (src/tc.rs) and the worker stack raised to 1 GiB (src/lib.rs); the diff is kept with the run (_nanoda.patch)",
+  "for Anthropic (Lean v4.33.1): Comparator v4.34.0 built with v4.34.1, so Comparator's Lean kernel is v4.34.1 replaying a v4.33.1 export (the v4.33.0 tag lacks the quotient post-check and the issue-68 fix, which v4.34.0 has); the export is made by lean4export v4.33.0 built with the claim's own v4.33.1, whose format differs from v4.34.0's only in omitting partial definitions (neither tree has one: census.json); leanchecker --fresh replays with the claim's own v4.33.1 kernel. Anthropic's own CI uses Comparator 57567492 and robsimmons/nanoda_lib 68d5ca9d; neither is used here"
+ ],
+ "trustBase": "the two kernels (Lean's, inside Comparator; nanoda), leanchecker, lean4export, Comparator's comparison code, landrun's Landlock sandbox (Comparator calls it with --best-effort; the pod's LSM list is in each row's env), the Mathlib cache fetched by lake exe cache get, the claimants' lakefiles (OpenAI's applies dependency patches at lake update; none touches Mathlib, census.json), and RunPod's machine",
+ "counts": {
+  "decided": 1,
+  "of": 2,
+  "words": {
+   "CERTIFIED": 1
+  }
+ },
+ "notRunYet": [
+  "openai"
+ ],
+ "rows": [
+  {
+   "claim": "anthropic",
+   "label": "Anthropic, anthropics/formal-math eth/ (MainResults)",
+   "repository": "https://github.com/anthropics/formal-math",
+   "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+   "toolchain": "leanprover/lean4:v4.33.1",
+   "mathlib": "0df444a360eaa60ab8c11dca51a86af692955474",
+   "pinnedFiles": 1066,
+   "pinnedListSha256": "cbcb2af926dd0afa74e02a6b39580b21d353bc503e03afa621cc3fba2e70e406",
+   "config": {
+    "challenge_module": "Challenge",
+    "solution_module": "Solution",
+    "theorem_names": [
+     "MainResults.ethIsFalse",
+     "MainResults.mainTheorem"
+    ],
+    "definition_names": [],
+    "permitted_axioms": [
+     "propext",
+     "Quot.sound",
+     "Classical.choice"
+    ],
+    "enable_nanoda": true
+   },
+   "configSha256": "757e5537ccf47d1946521b0b5fb91a230cdcfd8933dc9ab047710709c15ffa7e",
+   "theorems": [
+    "MainResults.ethIsFalse",
+    "MainResults.mainTheorem"
+   ],
+   "word": "CERTIFIED",
+   "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN",
+   "stage": null,
+   "axiomsPrinted": [
+    {
+     "theorem": "MainResults.ethIsFalse",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    },
+    {
+     "theorem": "MainResults.mainTheorem",
+     "axioms": [
+      "propext",
+      "Classical.choice",
+      "Quot.sound"
+     ]
+    }
+   ],
+   "kernels": [
+    "Lean default kernel accepts the solution",
+    "nanoda kernel accepts the solution"
+   ],
+   "leanchecker": {
+    "word": "NOT RUN",
+    "why": "leanchecker --fresh was not run (or not yet)",
+    "command": null
+   },
+   "steps": {
+    "prepare": {
+     "exit": 0,
+     "seconds": 79,
+     "timedOut": false,
+     "maxRssKB": 1006472,
+     "containerPeakKB": 17416316
+    },
+    "comparator": {
+     "exit": 0,
+     "seconds": 388,
+     "timedOut": false,
+     "maxRssKB": 7229920,
+     "containerPeakKB": 24721676
+    },
+    "build": {
+     "exit": 0,
+     "seconds": 87,
+     "timedOut": false,
+     "maxRssKB": 7196824,
+     "containerPeakKB": 26065056
+    },
+    "axioms": {
+     "exit": 0,
+     "seconds": 5,
+     "timedOut": false,
+     "maxRssKB": 7048776,
+     "containerPeakKB": 19531672
+    }
+   },
+   "env": [
+    "claim: anthropic",
+    "toolchain: leanprover/lean4:v4.33.1",
+    "kernel: 6.8.0-138-generic",
+    "landlock: ",
+    "lean: Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+    "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.33.1",
+    "comparator: d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+    "lean4export: /tools/v4.33.1/lean4export (15f6055e299ad5b89345e533cc2192f4cc00f659)",
+    "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g",
+    "landrun: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4",
+    "leanchecker: leanchecker",
+    "vm.max_map_count: 65530",
+    "cgroup memory.max: 256000000000",
+    "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+   ],
+   "run": "runpod-x8ifbbj2vbolyj",
+   "auditSha": "00340f97a03a55df68696002a11fc59b7b9d66e7",
+   "at": "2026-10-28T19:00:40Z",
+   "host": "RunPod CPU pod x8ifbbj2vbolyj: 32 vCPU; cgroup memory.max 256000000000 bytes; host shows 755 GB; 200G free; vm.max_map_count 65530; landlock: unreadable; kernel 6.8.0-138-generic",
+   "nanodaBuild": "issue44-stack1g",
+   "runs": [
+    {
+     "run": "runpod-x8ifbbj2vbolyj",
+     "at": "2026-10-28T19:00:40Z",
+     "word": "CERTIFIED",
+     "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN"
+    }
+   ],
+   "prior": null
+  }
+ ]
+}

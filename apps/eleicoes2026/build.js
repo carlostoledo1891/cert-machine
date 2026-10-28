@@ -138,7 +138,7 @@ const munShare = (code) => {
 const lulaMun = Object.values(MUN).filter((u) => u.lula > u.flavio).length, flavioMun = Object.values(MUN).filter((u) => u.flavio > u.lula).length;
 B.push(C.section({
   lab: '§2 · o mapa', title: 'O país em dois mapas: o 1º e o 2º turno, estado por estado', wide: true,
-  bodyRaw: C.pRaw('A cor de cada estado é a parcela de Lula entre os dois finalistas: vermelho onde Lula teve mais votos que Flávio, azul onde Flávio teve mais, e mais forte quanto maior a vantagem. '
+  bodyRaw: C.pRaw('O tom de cada estado é a parcela de Lula entre os dois finalistas, numa só escala de cinza: mais claro onde Lula teve mais votos que Flávio, mais escuro onde Flávio teve mais, e mais extremo quanto maior a vantagem; a fronteira de 50% fica entre a quarta e a quinta faixa da legenda. '
       + 'Os números vêm dos resultados assinados do TSE (§4); as fronteiras, da malha oficial do IBGE.')
     + '<div class="el-pair">' + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(1), alt: 'Mapa do 1º turno por estado', legendRaw: rampLegend(440) }), caption: '1º turno (4/10).' })
     + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(2), alt: 'Mapa do 2º turno por estado', legendRaw: rampLegend(440) }), caption: '2º turno (25/10).' }) + '</div>'
@@ -399,8 +399,13 @@ B.push(C.section({
 
 const foot = '<p>' + C.esc('Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 ' + sha('corpus/eleicoes2026/ledger.json').slice(0, 16)
   + '…), refeito na construção por tools/eleicoes2026/ledger.py --check.') + '</p><p>' + C.esc('git ' + git) + '</p>';
+/* NO PARTY HUE (the operator, 2026-10-28: "colors: use between the ones the grammar have"; design/WARRANT.md v2.2). The two
+   finalists are the grammar's categorical greys (--c-1 Lula, --c-3 Flávio), always beside their names; the maps are ONE
+   ordered scale of Lula's share between the two finalists, eight steps mixed between two of the grammar's tokens
+   (--rule-strong to --ink): lighter is more Lula, darker more Flávio, the 50% boundary between the fourth and fifth steps.
+   The party reds and blues it replaced are retired. */
 let html = TPL.render({ title: 'Eleições 2026: o que os números permitem decidir · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
-  cssRaw: ':root{--el-lula:#e5484d;--el-flavio:#3d84f6;--el-l1:#4a2326;--el-l2:#7d2b30;--el-l3:#b4343a;--el-l4:#ee5a60;--el-f1:#1d2a45;--el-f2:#24427c;--el-f3:#2f63c0;--el-f4:#6aa0fb}'
+  cssRaw: ':root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}'
     + '.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}'
     + '.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}', scriptRaw: CH.script(),
   desc: 'A eleição presidencial de 2026 nos dois turnos, decidida em conta exata a partir dos arquivos do TSE: boletins de urna, resultados assinados, registros das urnas e as alegações do lado derrotado.',

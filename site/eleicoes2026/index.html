@@ -587,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -686,7 +691,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend.compact { max-width: 34rem; }
 }
 
-:root{--el-lula:#e5484d;--el-flavio:#3d84f6;--el-l1:#4a2326;--el-l2:#7d2b30;--el-l3:#b4343a;--el-l4:#ee5a60;--el-f1:#1d2a45;--el-f2:#24427c;--el-f3:#2f63c0;--el-f4:#6aa0fb}.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}
+:root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -809,7 +814,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <div class="lab">§2 · o mapa</div>
     <h2>O país em dois mapas: o 1º e o 2º turno, estado por estado</h2>
   </div>
-<p>A cor de cada estado é a parcela de Lula entre os dois finalistas: vermelho onde Lula teve mais votos que Flávio, azul onde Flávio teve mais, e mais forte quanto maior a vantagem. Os números vêm dos resultados assinados do TSE (§4); as fronteiras, da malha oficial do IBGE.</p><div class="el-pair"><figure>
+<p>O tom de cada estado é a parcela de Lula entre os dois finalistas, numa só escala de cinza: mais claro onde Lula teve mais votos que Flávio, mais escuro onde Flávio teve mais, e mais extremo quanto maior a vantagem; a fronteira de 50% fica entre a quarta e a quinta faixa da legenda. Os números vêm dos resultados assinados do TSE (§4); as fronteiras, da malha oficial do IBGE.</p><div class="el-pair"><figure>
   <div class="figbox">
   <svg viewBox="0 0 440 437" role="img" aria-label="Mapa do 1º turno por estado">
     <path d="M113.5 185L115 185.5L115.5 185L116.5 185.5L116.5 186.5L119 188L119.5 189L122 189L123 189.5L125 189L125.5 189L127.5 189L128 189.5L128.5 190L130 190.5L131 189.5L133.5 188.5L133.5 187L134 186.5L134.5 184.5L135 183.5L136 183.5L136.5 180L137.5 180L139 177L138 176.5L138 175L137 174L137 173L136 172.5L136 169.5L137.5 168L138 167L137 166L137 165L133 165L132.5 163.5L127.5 163.5L123 163.5L122 163.5L123 161.5L123 158L122 157L121.5 154.5L122 154L122.5 152.5L122 151L123 150L122 148.5L121.5 147L121.5 146.5L122.5 146.5L122 145L123 143L121.5 142L120.5 140.5L119.5 141L118.5 142.5L118 142.5L117.5 142L116.5 142L116 140L115 139.5L115 140L114 139L114 138L113 137.5L112.5 137.5L112.5 136.5L111.5 136L111 135L109.5 133.5L102 133.5L102 134L101 136L100.5 137L99.5 136.5L99 137L98.5 138.5L99 139.5L98 141L97 141.5L97 143.5L95.5 144L95.5 143L93 143.5L92.5 144L90.5 143.5L89.5 145L89.5 146L88.5 148L87.5 148.5L86.5 146.5L86 146.5L85 147L84.5 147L84.5 148.5L83 148L82 148.5L81.5 149.5L81 149L79.5 148L77.5 148L75 148L75.5 149L74.5 150L73 150.5L71.5 152L73 153L77 152L77.5 151.5L79.5 152L80 151.5L82 151.5L83.5 152L84.5 150.5L85.5 151L86 152.5L85.5 153.5L86 156L85 157.5L85 158L84.5 158.5L85 160L85.5 161L85.5 162L86 162.5L86.5 163.5L85.5 165.5L86 169L86.5 169L87 171.5L88 171L88.5 174L90.5 174L91.5 175L91.5 175.5L92.5 176L93.5 176L93.5 177.5L94.5 178.5L96 178.5L99 179L99.5 178.5L101.5 178.5L104 179.5L105 180.5L107 180L108 182L109 182.5L110 184L111.5 183.5L112 184L113.5 185Z" fill="var(--el-f4)" stroke="var(--paper)" stroke-width="1" data-cm="Rondônia · 1º turno" data-cmv="Lula 27,7% · Flávio 72,3% (entre os dois)" tabindex="0"/>
@@ -7265,7 +7270,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git 4a1d50b8</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git ad3973cb</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
   var tip=null;
