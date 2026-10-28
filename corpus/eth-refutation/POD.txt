@@ -7,6 +7,12 @@ price      US$1.76/h (create-pod read: cost 1.76; catalog read: cpu3m 0.055 per 
 created    2026-10-28T18:47:48Z
 image      ubuntu:24.04, start command fetches tools/runpod-eth.sh at 00340f97a03a55df68696002a11fc59b7b9d66e7
 env        AUDIT_SHA=00340f97a03a55df68696002a11fc59b7b9d66e7 CLAIMS="anthropic openai" NANODA_BUILD=issue44-stack1g
+           LEAN_GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 (added 18:49Z: the pod reports
+           vm.max_map_count 65530; OpenAI's lean/README.md workaround, lane K amendments 15-16)
+restarts   18:48:04Z (update-pod ports 8000/http recreates the container) and 18:49:47Z (update-pod env); the script
+           restarted from nothing both times, before any claim step
+machine    32 vCPU; cgroup memory.max 256,000,000,000 bytes (the host shows 755 GB); 200 GB free; landlock unreadable
+           inside the container (landrun runs --best-effort); kernel 6.8.0-138-generic
 facts      https://x8ifbbj2vbolyj-8000.proxy.runpod.net/ (read-only, port 8000)
 import     node tools/import-runpod-eth.js x8ifbbj2vbolyj [--partial]
 budget     operator cap US$50; the lane stops and reports at US$40 (about 22.7 h at this price)
