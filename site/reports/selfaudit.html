@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -586,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -690,7 +696,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <b>572 mutants on 97 of the 119 mutable rows: 0 false certifications, 0 false refutations</b> — after the campaign found 77 defects (28 printed values moved past the bytes still certified; 49 malformed inputs refuted instead of refused), both fixed and kept on the record with the commit each was found at. 94 of 119 rows carry a witnessed false mutant (the kill switch's bar was 60). 91 comparisons between two or more implementations, 0 disagreements. The conventional check accepts 27.8 % of the witnessed false claims at 10⁻⁶ and confirms only 72 of the 97 true originals at 10⁻¹².</li><li><b>The mechanism.</b> Five measurements, defined before counting (M1–M5 of the <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/notes/selfaudit-preregistration-2026-10-20.md">pre-registration</a>, sha256 <span class="m">96de682e07dc…</span>): soundness under mutation — a FALSE mutant needs a <em>witness</em>, a violated condition computed and printed by a standard-library script that shares no code with the decider; a TRUE one an invariance; a MALFORMED one a shape; concordance of second implementations; coverage and refusal; cost and reproducibility under a portable profile (a 60 s wall enforced) and an extended one; and a double-precision checker at three tolerances on the same mutants. A false certification found is a defect: fixed, recorded beside the mutant, the mutant kept, the count reported — never deleted.</li><li><b>Check it.</b> The five records are on the <a href="/machine/log.html#certificates">certificate shelf</a> — <a href="/certs/selfaudit-inventory.json"><span class="m">selfaudit-inventory.json</span></a>, <a href="/certs/selfaudit-run.json"><span class="m">selfaudit-run.json</span></a>, <a href="/certs/selfaudit-mutations.json"><span class="m">selfaudit-mutations.json</span></a>, <a href="/certs/selfaudit-concord.json"><span class="m">selfaudit-concord.json</span></a> — and each has a <span class="m">--check</span> in <span class="m">make test</span> that re-derives its totals from its rows and refuses when an input left its pin. The mutants are regenerable from the pinned records by their class; the witness scripts are in <span class="m">instruments/selfaudit/</span>.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <b>572 mutants on 97 of the 119 mutable rows: 0 false certifications, 0 false refutations</b> — after the campaign found 77 defects (28 printed values moved past the bytes still certified; 49 malformed inputs refuted instead of refused), both fixed and kept on the record with the commit each was found at. 94 of 119 rows carry a witnessed false mutant (the kill switch's bar was 60). 91 comparisons between two or more implementations, 0 disagreements. The conventional check accepts 27.8 % of the witnessed false claims at 10⁻⁶ and confirms only 72 of the 97 true originals at 10⁻¹².</li><li><b>The mechanism.</b> Five measurements, defined before counting (M1–M5 of the <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/notes/selfaudit-preregistration-2026-10-20.md">pre-registration</a>, sha256 <span class="m">a18f71630448…</span>): soundness under mutation — a FALSE mutant needs a <em>witness</em>, a violated condition computed and printed by a standard-library script that shares no code with the decider; a TRUE one an invariance; a MALFORMED one a shape; concordance of second implementations; coverage and refusal; cost and reproducibility under a portable profile (a 60 s wall enforced) and an extended one; and a double-precision checker at three tolerances on the same mutants. A false certification found is a defect: fixed, recorded beside the mutant, the mutant kept, the count reported — never deleted.</li><li><b>Check it.</b> The five records are on the <a href="/machine/log.html#certificates">certificate shelf</a> — <a href="/certs/selfaudit-inventory.json"><span class="m">selfaudit-inventory.json</span></a>, <a href="/certs/selfaudit-run.json"><span class="m">selfaudit-run.json</span></a>, <a href="/certs/selfaudit-mutations.json"><span class="m">selfaudit-mutations.json</span></a>, <a href="/certs/selfaudit-concord.json"><span class="m">selfaudit-concord.json</span></a> — and each has a <span class="m">--check</span> in <span class="m">make test</span> that re-derives its totals from its rows and refuses when an input left its pin. The mutants are regenerable from the pinned records by their class; the witness scripts are in <span class="m">instruments/selfaudit/</span>.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -762,7 +768,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-selfaudit.js from the five records of the self-audit, every count derived at build; the records pin the pre-registration by sha256 (96de682e07dc…) and refuse when it moves. Record digests at this build: inventory 49aefc400aa8…, run f1b7b1ff296c…, mutations b9f9e75c84e5…, concordance fc3c4e600461…. Rebuild: node tools/build-report-selfaudit.js.</p><p>git 47341984</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-selfaudit.js from the five records of the self-audit, every count derived at build; the records pin the pre-registration by sha256 (a18f71630448…) and refuse when it moves. Record digests at this build: inventory cca2434d24c8…, run 606841d803ce…, mutations 4908c541aada…, concordance 75f7661073ab…. Rebuild: node tools/build-report-selfaudit.js.</p><p>git 239ea9f8</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
