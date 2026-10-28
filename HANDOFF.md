@@ -22,6 +22,18 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★ 2026-10-28 ~00:30 UTC — THE VISUAL GRAMMAR (WARRANT v2), FIRST LIVE PAGE: the return-level atlas. Brainstorm and tests in
+     notes/visual-grammar-2026-10-27.md (untracked; §§10–18) and three private artifacts; the operator: "We can apply in any
+     page, no blocker, return level should go live as well." Live change (playground/return-level-atlas build.js, app.js,
+     page.css): each claim box is OUR READING of the paper's prose, so it is drawn PICK-dotted and the claim is re-decided
+     with every edge moved one 4° cell in/out by the ledger's own rules (instruments/hseva untouched, so SERVED.json still
+     holds); one line per claim says whether the verdict survives. FINDING: 9 of 10 survive; gg-south-america-daily is DOES
+     NOT HOLD for our box (gen. gamma 9 vs exp. Weibull 12 of 22) but HOLDS if the north edge moves 4° south or the east edge
+     4° west. P1 (paper/tex/p1-return-levels.tex §claims) says "the two that do not hold" — still true for the boxes as drawn;
+     a robustness clause is the co-authors' call at P1's next revision. NOT DONE: WARRANT v2 stays OUT of the method paper
+     (operator); the accepted colour is ONE red accent, only on an exhibited counterexample (field-guide v3) — not yet on any
+     live page; the interferometer finding (§16–17: the 18-member ensemble breaks the one-sided amplitude ceilings though the
+     page calls every drawn sky "allowed") is OPEN. Next pages: the operator's choice (interferometer first recommended).
   ★ HANDOFF 2026-10-27 ~17:30 UTC — "We can proceed all improvements from your list, including the paid ones. Need to finish and
      advance as much as possible today. After the work, update papers and website. 10. Are the companions needed? … 11. Zenodo ok.
      Do not have arxiv." Then "Can we delete unused download data … to free disk space?" → "if safe, do it all".

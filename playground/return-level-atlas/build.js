@@ -189,6 +189,23 @@ function build(OUTDIR) {
   const S = served(M);
   const claims = AC.evaluate(cells.filter((c) => c.status === 'sea'));
   for (const k of claims) if (!k.cells && !process.env.ATLAS_DEV) die('claim ' + k.id + ' covers no certified cell');
+  /* THE READINGS (WARRANT v2, 2026-10-27). Each box is our reading of the paper's prose ("the coastal region south of
+     South America"), so each claim is decided again with every edge of its box moved one 4° cell in and one out, by
+     the same rule code. A verdict that moves with the box turns on our reading, and the page says so beside it; a
+     lattice-wide claim has no box to read. The rules stay in instruments/hseva/atlas-claims.js: only the boxes are
+     made here, which also keeps instruments/hseva byte-identical to the served commit. */
+  const seaCells = cells.filter((c) => c.status === 'sea');
+  for (const k of claims) {
+    const K = AC.CLAIMS.find((q) => q.id === k.id), B = K.box, reads = [];
+    const edges = B.lon ? [['lat', 0, 'south'], ['lat', 1, 'north'], ['lon', 0, 'west'], ['lon', 1, 'east']] : B.lat[0] > -90 ? [['lat', 0, 'south'], ['lat', 1, 'north']] : [];
+    for (const [ax, i, edge] of edges) for (const d of [-4, 4]) {
+      const box = JSON.parse(JSON.stringify(B)); box[ax][i] += d;
+      if (box.lat[0] >= box.lat[1]) continue;
+      const R = { cells: seaCells.filter((c) => c.sets.includes(K.set) && AC.inBox(c, box)) };
+      reads.push({ edge, move: d > 0 ? (ax === 'lat' ? 'north' : 'east') : (ax === 'lat' ? 'south' : 'west'), box, verdict: R.cells.length ? K.decide(R).verdict : 'UNDECIDED' });
+    }
+    k.reads = reads; k.robust = reads.every((r) => r.verdict === k.verdict);
+  }
   const sea = cells.filter((c) => c.status === 'sea'), ice = cells.filter((c) => c.status === 'ice');
   const facts = {
     sea: sea.length, ice: ice.length, global4: sea.filter((c) => c.sets.includes('global4')).length, brazil1: sea.filter((c) => c.sets.includes('brazil1')).length,
@@ -254,7 +271,7 @@ function build(OUTDIR) {
     }
   }
   const data = JSON.stringify({ fam: PAPER_SIX, blocks: ['daily', 'weekly', 'monthly'], generated: L.generated, days: M.days, first: M.first, last: M.last,
-    served: S, native: N, printed: PT, cells: cells.map(row), claims: claims.map((k) => ({ id: k.id, where: k.where, quote: k.quote, cite: k.cite, rule: k.rule, blocks: k.blocks, box: k.box, cells: k.cells, verdict: k.verdict, counts: k.counts })) });
+    served: S, native: N, printed: PT, cells: cells.map(row), claims: claims.map((k) => ({ id: k.id, where: k.where, quote: k.quote, cite: k.cite, rule: k.rule, blocks: k.blocks, box: k.box, cells: k.cells, verdict: k.verdict, counts: k.counts, reads: k.reads.map((r) => ({ box: r.box, verdict: r.verdict })), robust: k.robust })) });
 
   const B = bundle([['atlas.js', 'instruments/hseva/atlas.js']], { AT: 'atlas.js' });
   /* the page re-derives cells with these bytes and says "the ledger's own code": so they must be the code the ledger recorded */
@@ -286,8 +303,13 @@ function build(OUTDIR) {
   const FS = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exp. Weibull', gengamma: 'gen. gamma', gumbel: 'Gumbel' };
   const cnt = (k) => k.counts.map((q) => (q.against !== undefined ? q.block + ': ' + q.relation + ' at ' + q.decided + ', not ' + q.relation + ' at ' + q.against + ', not decided at ' + q.refused + ' of ' + q.n
     : (q.family ? FS[q.family] + ', ' : '') + q.block + ': ' + q.decided + ' decided, ' + q.refused + ' refused of ' + q.n)).join(' · ');
-  const claimRows = claims.map((k) => `<li class="ra-claim" data-claim="${k.id}" tabindex="0" role="button" aria-label="show on the map: ${esc(k.where)}"><div class="ra-cv ra-v-${V[k.verdict].replace(/ /g, '-')}">${k.verdict}</div><div><div class="ra-cq">&ldquo;${esc(k.quote)}&rdquo; <span class="ra-cite">${esc(k.cite)}</span></div><div class="ra-cr">${esc(k.where)} &middot; ${esc(k.rule)}</div><div class="ra-cn mono">${esc(cnt(k))}</div></div></li>`).join('');
+  const lc = (v) => V[v];
+  const readLine = (k) => (!k.reads.length ? '<div class="ra-cw">no box to read: the claim speaks of the whole lattice</div>'
+    : k.robust ? `<div class="ra-cw">the same verdict with every edge of the box moved one 4&deg; cell in or out (${k.reads.length} readings)</div>`
+    : `<div class="ra-cw"><b>turns on the box</b>: ${lc(k.verdict)} for this one, ${[...new Set(k.reads.filter((r) => r.verdict !== k.verdict).map((r) => lc(r.verdict)))].join(' or ')} when ${k.reads.filter((r) => r.verdict !== k.verdict).map((r) => 'the ' + r.edge + ' edge moves ' + r.move).join(', or ')} by 4&deg;. The paper&rsquo;s words do not fix the box, so this verdict is a reading of ours.</div>`);
+  const claimRows = claims.map((k) => `<li class="ra-claim" data-claim="${k.id}" tabindex="0" role="button" aria-label="show on the map: ${esc(k.where)}"><div class="ra-cv ra-v-${V[k.verdict].replace(/ /g, '-')}">${k.verdict}</div><div><div class="ra-cq">&ldquo;${esc(k.quote)}&rdquo; <span class="ra-cite">${esc(k.cite)}</span></div><div class="ra-cr">${esc(k.where)} &middot; ${esc(k.rule)}</div><div class="ra-cn mono">${esc(cnt(k))}</div>${readLine(k)}</div></li>`).join('');
   const nV = (v) => claims.filter((k) => k.verdict === v).length;
+  const turns = claims.filter((k) => !k.robust).length;
 
   const where = (c) => Math.abs(c.lat) + '&deg; ' + (c.lat < 0 ? 'S' : 'N') + ' ' + Math.abs(c.lon) + '&deg; ' + (c.lon < 0 ? 'W' : 'E');
   const pct = (x) => (100 * x).toFixed(0) + '%';
@@ -330,7 +352,7 @@ function build(OUTDIR) {
   <header class="ra-head">
     <div class="ra-eyebrow">instruments &middot; return-level atlas</div>
     <div class="ra-titlerow"><h1>Every cell a certificate.</h1><button type="button" class="ra-close" id="ra-close" aria-controls="ra-panel" aria-expanded="true">hide</button></div>
-    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the ${sea.length.toLocaleString('en-US')} open-sea cells of the paper's own hindcast certified, and its regional claims decided: ${nV('HOLDS')} hold, ${nV('DOES NOT HOLD')} do not, ${nV('UNDECIDED')} the refusals leave open.${has7 ? ' Beside the six, a seventh family &mdash; the GEV &mdash; and, drawn apart as statistical, the width another 32 years of the same sea could give each number.' : ''}</p>
+    <p class="ra-lede">The global map of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026) &mdash; which of six families fits significant wave height best, and the 100- and 1000-year wave &mdash; with each of the ${sea.length.toLocaleString('en-US')} open-sea cells of the paper's own hindcast certified, and its regional claims decided: ${nV('HOLDS')} hold, ${nV('DOES NOT HOLD')} do not, ${nV('UNDECIDED')} the refusals leave open. Read again with every edge of each box moved one cell in or out, ${claims.length - turns} keep their verdict${turns ? ' and ' + turns + (turns === 1 ? ' turns' : ' turn') + ' on how the box is drawn' : ''}.${has7 ? ' Beside the six, a seventh family &mdash; the GEV &mdash; and, drawn apart as statistical, the width another 32 years of the same sea could give each number.' : ''}</p>
   </header>
   <div class="ra-tabs" role="tablist" aria-label="the panel">
     <button type="button" role="tab" id="ra-t-claims" aria-controls="ra-p-claims" aria-selected="true" tabindex="0">claims &middot; ${claims.length}</button>

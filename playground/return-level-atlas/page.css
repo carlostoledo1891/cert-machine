@@ -127,6 +127,8 @@ html, body { height: 100%; overflow: hidden; }
 .ra-cite { font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-4); }
 .ra-cr { color: var(--ink-3); }
 .ra-cn { color: var(--ink-4); font-size: var(--text-eyebrow); overflow-wrap: anywhere; }
+.ra-cw { margin-top: var(--s-1); font-family: var(--font-mono); font-size: var(--text-eyebrow); color: var(--ink-3); line-height: var(--leading-snug); }
+.ra-cw b { color: var(--ink); font-weight: var(--weight-mono); }
 
 .ra-prose h2 { font-size: var(--text-3); line-height: var(--leading-snug); color: var(--ink); font-weight: var(--weight-title); margin: var(--s-5) 0 var(--s-2); }
 .ra-prose h2:first-child { margin-top: 0; }

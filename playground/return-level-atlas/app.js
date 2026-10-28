@@ -174,7 +174,7 @@
       center: GO[0][2].center, zoom: GO[0][2].zoom - ($('ra-map').clientWidth < 600 ? 0.75 : 0), minZoom: 0.6, maxZoom: 7,
       style: {
         version: 8, projection: { type: 'globe' },
-        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) }, site: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } },
+        sources: { land: { type: 'geojson', data: land }, grat: { type: 'geojson', data: graticule() }, cells: { type: 'geojson', data: features() }, box: { type: 'geojson', data: boxGeo(null) }, reads: { type: 'geojson', data: boxGeo(null) }, site: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } } },
         layers: [
           { id: 'ocean', type: 'background', paint: { 'background-color': C.sunk } },
           { id: 'grat', type: 'line', source: 'grat', paint: { 'line-color': C.ruleSoft, 'line-width': 0.6 } },
@@ -187,7 +187,8 @@
           { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': C.surface2 } },
           { id: 'coast', type: 'line', source: 'land', paint: { 'line-color': C.ruleStrong, 'line-width': 0.7 } },
           { id: 'rep', type: 'line', source: 'cells', filter: ['==', ['get', 'rep'], 1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
-          { id: 'box', type: 'line', source: 'box', paint: { 'line-color': C.ink, 'line-width': 1.6, 'line-dasharray': [2, 3] } },   /* design/grammar.js GUIDE */
+          { id: 'reads', type: 'line', source: 'reads', layout: { 'line-cap': 'round' }, paint: { 'line-color': C.ink4, 'line-width': 1.1, 'line-dasharray': [1, 5] } },   /* the box's nearby readings, one cell in or out: choices too */
+          { id: 'box', type: 'line', source: 'box', layout: { 'line-cap': 'round' }, paint: { 'line-color': C.ink, 'line-width': 1.6, 'line-dasharray': [1, 5] } },   /* design/grammar.js PICK: a region read from the paper's words is a reading of ours, a choice (WARRANT v2) */
           { id: 'hov', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink2, 'line-width': 1.4 } },
           { id: 'sel', type: 'line', source: 'cells', filter: ['==', ['get', 'i'], -1], paint: { 'line-color': C.ink, 'line-width': 2.4 } },
           { id: 'site', type: 'circle', source: 'site', paint: { 'circle-radius': 6, 'circle-color': C.paper, 'circle-stroke-color': C.ink, 'circle-stroke-width': 2.4 } },   /* a reader's own site */
@@ -425,6 +426,9 @@
       g.fillRect(x - s / 2, y - s / 2, s, s);
     }
   }
+  /* a claim's box and its nearby readings (build.js): the readings drawn faintly beside it, so the globe shows what
+     drawing the box chose; a reader's own region has none */
+  function setReads(k) { if (map && map.getSource('reads')) map.getSource('reads').setData({ type: 'FeatureCollection', features: ((k && k.reads) || []).flatMap((r) => boxGeo(r.box).features) }); }
   function claimClick(id) {
     const k = A.claims.find((q) => q.id === id); if (!k) return;
     claimOn = id; MY.on = false;
@@ -436,6 +440,7 @@
     if (sheetMode()) setSheet('peek');                              /* on a phone the claim is read on the globe: the sheet steps aside */
     controls(); refresh();
     if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(k.box));
+    setReads(k);
     if (k.box && k.box.lon) {
       const [w, e] = k.box.lon, E = e < w ? e + 360 : e;
       fly({ bounds: [[w, k.box.lat[0]], [E, k.box.lat[1]]] });           /* east past 180 across the antimeridian: the whole box */
@@ -1142,6 +1147,7 @@
     if (lvl) { state.mode = 'blocks'; state.T = MY.T; } else { state.mode = 'family'; state.fam = MY.fam; state.crit = crit; }
     controls(); refresh();
     if (map && map.getSource('box')) map.getSource('box').setData(boxGeo(MY.box));
+    setReads(null);
     if (andFly && MY.box && MY.box.lon) { const [w, e] = MY.box.lon, E = e < w ? e + 360 : e; if (sheetMode()) setSheet('peek'); later(() => fly({ bounds: [[w, MY.box.lat[0]], [E, MY.box.lat[1]]] })); }
     writeHash();
   }
@@ -1149,6 +1155,7 @@
   let drawing = false, d0 = null, drew = 0;
   function startDraw() {
     if (!map) return;
+    setReads(null);
     drawing = true; map.dragPan.disable(); map.touchZoomRotate.disable(); map.getCanvas().style.cursor = 'crosshair';
     const hint = $('ra-hint'); hint.textContent = 'press and drag across the region · Esc to stop'; hint.classList.add('on');
     if (sheetMode()) setSheet('peek');
@@ -1283,7 +1290,7 @@
         if (H.at) map.jumpTo({ center: [H.at[1], H.at[0]], zoom: H.at[2] }); else map.jumpTo({ zoom: globeZoom() });
         if (sel && map.getLayer('sel')) map.setFilter('sel', ['==', ['get', 'i'], cells.indexOf(sel)]);
         if (MY.on && MY.box) map.getSource('box').setData(boxGeo(MY.box));
-        else if (claimOn) { const k = A.claims.find((q) => q.id === claimOn); if (k) map.getSource('box').setData(boxGeo(k.box)); }
+        else if (claimOn) { const k = A.claims.find((q) => q.id === claimOn); if (k) { map.getSource('box').setData(boxGeo(k.box)); setReads(k); } }
         ready = true; writeHash();
         map.on('moveend', () => writeHash());
       });
