@@ -1,0 +1,13 @@
+RunPod pod of the ETH-refutation kernel lane (tools/runpod-eth.sh). A pod BILLS UNTIL TERMINATED.
+
+pod id     x8ifbbj2vbolyj
+name       eth-kernel-lane
+shape      cpu3m (Memory-Optimized), 32 vCPU, 256 GB RAM, 200 GB container disk, SECURE cloud, data center EU-RO-1
+price      US$1.76/h (create-pod read: cost 1.76; catalog read: cpu3m 0.055 per vCPU-hour)
+created    2026-10-28T18:47:48Z
+image      ubuntu:24.04, start command fetches tools/runpod-eth.sh at 00340f97a03a55df68696002a11fc59b7b9d66e7
+env        AUDIT_SHA=00340f97a03a55df68696002a11fc59b7b9d66e7 CLAIMS="anthropic openai" NANODA_BUILD=issue44-stack1g
+facts      https://x8ifbbj2vbolyj-8000.proxy.runpod.net/ (read-only, port 8000)
+import     node tools/import-runpod-eth.js x8ifbbj2vbolyj [--partial]
+budget     operator cap US$50; the lane stops and reports at US$40 (about 22.7 h at this price)
+delete     delete-pod x8ifbbj2vbolyj, then confirm get-pod -> 404
