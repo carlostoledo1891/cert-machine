@@ -57,7 +57,8 @@ NEXT SESSION, IN ORDER:
      --v-refu vs --witness, one red two meanings — recommended: fold --v-refu into --witness (a colour change: needs the
      word); (c) the maximusrufus thank-you on #246 (text in the 10-28 late chat); (d) the TCS community form: SUBMITTED by
      the operator 2026-10-28 ~23:20 UTC (corpus/outreach.json tcs-eth-form-2026-10-28; the answers as sent in
-     notes/tcs-form-answers-2026-10-28.md, local); the ethdiscussion.blog comment is drafted there, NOT posted; (e) default /og.png is an old landing
+     notes/tcs-form-answers-2026-10-28.md, local); the ethdiscussion.blog comment POSTED by the operator ~23:30 UTC, awaiting moderation (outreach row
+     ethdiscussion-blog-2026-10-28: check it appears, then 'live, no reply'); (e) default /og.png is an old landing
      screenshot — point every page at the new card? (f) records the lanes would not rewrite (pinned or posted):
      horizonmath's decider prints "0.26292279 <= e^-U(1)" (false as printed) and cuts c's upper end with str()[:22]
      (certs/horizonmath-ledger.json is in the Zenodo tag); erdos1's N/2^n rounded to nearest (posted, tadamcz/erdos1#2);
