@@ -30,6 +30,16 @@ NEXT SESSION, IN ORDER:
      (certs/eth-kernel.json; OpenAI's Comparator took 3,076 s). leanchecker --fresh (optional third replay) NOT run —
      rerun it on a pod later if wanted (SKIP nothing; CLAIMS=anthropic first: same-version kernel for the v4.33.1 export).
      Pod uptime 4,300 s ≈ US$2.10. Nothing is running or billing now. NEXT on ETH: the bridge, the algorithms, the report.
+     ETH PLAN AGREED WITH THE OPERATOR (~20:20Z), in this order: (1) THE LEAN BRIDGE — the textbook ETH
+     (Impagliazzo–Paturi) written in Lean by us, and a proof that each lab's statement implies ¬ETH (OpenAI's defines no
+     ETH: this closes the one gap the readings found); one pod run, a few dollars, under the remaining US$50 cap
+     (~US$2.10 spent); (2) THE REPORT PAGE, UNLISTED until the operator reads it — decided (both kernels, two
+     checkers, standard axioms), read (OpenAI's Lean = the paper's weaker Prop 6.4, no ETH in Lean; Anthropic's
+     ETHIsFalse = s₃ = 0 on FinTM2), compared (side by side), open — in WARRANT v2.1 with a premise chain; (3) TWO
+     DRAFTS for the operator's approval: the community form (the draft given in chat 10-28) and one short post to the
+     ETH_Repository Drive / ethdiscussion.blog with the report link and the disclosures (our tools built with Claude;
+     one claim is Anthropic's; independent of both labs). NO standalone paper (later, maybe one exercise in the method
+     paper, with Pedro). NO GitHub issues on either lab's repository unless the bridge finds a real gap.
      ── FRONT 1: THE ETH CHECK (the operator: "dig on the subject and rise with as much information and verification we
      could"; cap US$50 approved). A RUNPOD POD IS BILLING: x8ifbbj2vbolyj (cpu3m 32 vCPU / 256 GB, EU-RO-1, US$1.76/h,
      created 2026-10-28T18:47:48Z; ~US$1.30 by 19:32Z). It runs tools/runpod-eth.sh at 00340f97 (branch eth-kernel-lane).
