@@ -6,29 +6,36 @@
   "rule": "Science, drawing code and records crossed byte-for-byte. The PAGE is rebuilt in this repository’s design system — no bench CSS, no bench HTML, no ECharts. Patches declared here so they can never be mistaken for drift.",
   "patches": [
     "page.js: require paths repointed at this folder and at playground/png.js; the bench page-writing tail replaced by module.exports. The content functions are untouched.",
-    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time."
+    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time.",
+    "page.js, plate.js and sentiment-plate.js: edited IN PLACE by this repository’s own sessions after the lift, and declared only on 2026-10-28, when the crossed files were first re-hashed (playground/pins.js, which now refuses the build on an undeclared edit). Presentation and plumbing only: no number, record, rule or decision moved, and every edit is in git. page.js (f7fec939 2026-09-04; 4ba347a1, ddbafb4a 2026-09-15): the bench’s hex greys became design tokens (--ink-3, --ink-4, --surface-2), and every inline style attribute became a class (mt4, mt5, rd, ti, ink-4, small) or a custom property carrying only the datum (--w, --x, --cols, --c1), the grid track shapes moving into the stylesheet; table()’s third argument is now the first column’s width. plate.js (4f2d44c4, a57afcd5 2026-09-04; e3981951 2026-09-05): the full-bleed ground rect each plate painted inside its card removed, so the card’s own surface shows through; label() moved out to playground/design/marklabel.js (it was byte-identical in both neural-geometry plates, and its clamp held the anchor inside the frame while the glyphs ran out of it), the labels now placed once every position is known so overlapping pairs are pushed apart; and the chord array joined with the empty string (it was interpolated whole, which left a comma between every <line>). sentiment-plate.js (the same three commits): the same ground rect removed from all three drawings, and ring() returns a placement spec for the same label placer instead of a string (“astonished” and “excited” printed through one another on the affect card). Re-pinned 2026-10-28 at the bytes in git; the pins taken at the lift are kept as sha256AtLift."
   ],
   "files": [
     {
       "file": "page.js",
       "sourcePath": "tools/build-sentiment.js",
-      "sha256": "cf66999e3f85e82c81d47d94e8fe8421c401863eace04d71ab171095728cbe98",
+      "sha256": "3b50300413208e462cbe10d433442b55aa8175dbb56663cffa78ed818515d6ae",
+      "sha256AtLift": "cf66999e3f85e82c81d47d94e8fe8421c401863eace04d71ab171095728cbe98",
       "sourceSha256": "2a30c1cbfb7b0afe0cadcffd5f210a597d86451606d4ddb6b6f18560084ef40c",
-      "bytes": 32820
+      "bytes": 32329,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "sentiment-plate.js",
       "sourcePath": "experiments/neural-geometry/sentiment-plate.js",
-      "sha256": "d110fe164ff6179e21facb2d17372afe25ba43ceeb9879efce23aa6e9726c5bf",
+      "sha256": "446b50b24e17c5ab60e5f0abb3aa6533304736259606c6a0767b1dc26eead7f8",
+      "sha256AtLift": "d110fe164ff6179e21facb2d17372afe25ba43ceeb9879efce23aa6e9726c5bf",
       "sourceSha256": "d110fe164ff6179e21facb2d17372afe25ba43ceeb9879efce23aa6e9726c5bf",
-      "bytes": 5562
+      "bytes": 6071,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "plate.js",
       "sourcePath": "experiments/neural-geometry/plate.js",
-      "sha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "sha256": "cf2dc3e987e00a99acd5d76c27e43f6870ae9fad6a093c309299fa3a9d9dbde1",
+      "sha256AtLift": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
       "sourceSha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
-      "bytes": 9150
+      "bytes": 8982,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "affect.js",

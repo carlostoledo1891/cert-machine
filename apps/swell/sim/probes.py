@@ -2,8 +2,8 @@
 
 apps/swell/sim · cert-machine
 
-WHAT IT DOES. The island model (sim/island.py; the 64 cases were solved in frontier-apps on 2026-10-06 and are
-pinned by sha256 in data/PINS.json, see `sources` there) gives, for a unit swell from each of 16 directions at each
+WHAT IT DOES. The island model (frontier-apps experiments/swell/island/island.py, never lifted here; its 64 cases
+were solved there on 2026-10-06 and are pinned by sha256 in data/PINS.json, see `sources` there) gives, for a unit swell from each of 16 directions at each
 of 4 periods, K = Hs here / Hs offshore on a 30 m grid of the whole island. This script reads, for every beach of
 scenario/beaches.json:
   · the anchor: the nearest sea cell to the beach's OpenStreetMap centre (or its hand-placed point);

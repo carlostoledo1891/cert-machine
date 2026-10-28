@@ -8,7 +8,8 @@
     "page.js: kept for reference and superseded by build.js, which renders the same content in this repository's design system.",
     "page.js and sets.js: prose references to \"the reference playground\" — this repository's own section, as the bench knew it — updated to \"the reference instruments shelf\" when the section moved from /playground to /instruments on 2026-09-04. Prose only; no number, no rule and no decision was touched. The same phrase survives untouched in decide.js and probe.js, which are comments and are never rendered.",
     "decide.js: the exact-rational require repointed from the bench's lib/eqcert/rational.js to instruments/interval/rational.js, which is this repository's copy of the same library. Without it the folder crosses but does not run, and a record that cannot be regenerated is a record nobody can check.",
-    "sets.js: the four record paths repointed at THIS repository — playground/interferometer/out/page-data.json and vis.js, playground/plates/data/band-sigma-*.json, and certs/erdos1038-forcing-1.828.json, which is OUR forcing certificate (86 a-boxes, 1,350 b-boxes) rather than the bench's (332 and 40,000). The proof-walk set is therefore drawn from our own covering and its numbers differ from the bench's by design."
+    "sets.js: the four record paths repointed at THIS repository — playground/interferometer/out/page-data.json and vis.js, playground/plates/data/band-sigma-*.json, and certs/erdos1038-forcing-1.828.json, which is OUR forcing certificate (86 a-boxes, 1,350 b-boxes) rather than the bench's (332 and 40,000). The proof-walk set is therefore drawn from our own covering and its numbers differ from the bench's by design.",
+    "page.js and plate.js: edited IN PLACE by this repository’s own sessions after the lift, and declared only on 2026-10-28, when the crossed files were first re-hashed (playground/pins.js, which now refuses the build on an undeclared edit). Presentation and plumbing only: no number, record, rule or decision moved, and every edit is in git. page.js (a2b73a59 2026-09-04; 4ba347a1, ddbafb4a 2026-09-15; after the prose patch above): inline styles to classes (mt2, mt5, mt6, ti, body-3, ink, ink-2) and .table-wrap renamed .tw; it stays superseded by build.js. plate.js (4f2d44c4, a57afcd5 2026-09-04): the full-bleed ground rect removed from both drawings, and the chord array joined with the empty string (it was interpolated whole, which left a comma between every <line>). Re-pinned 2026-10-28 at the bytes in git; the pins taken earlier are kept as sha256AtLift."
   ],
   "files": [
     {
@@ -46,10 +47,11 @@
     {
       "file": "plate.js",
       "sourcePath": "experiments/exact-geometry/plate.js",
-      "sha256": "108e804ae19c1ff3fb661f02813cddf81504a6f07edac526accf2c8bcb922c4f",
+      "sha256": "cb37b889c532dd0833b9b570025c1cb34c878842cdbc99fee05701fb91ac9889",
+      "sha256AtLift": "108e804ae19c1ff3fb661f02813cddf81504a6f07edac526accf2c8bcb922c4f",
       "sourceSha256": "108e804ae19c1ff3fb661f02813cddf81504a6f07edac526accf2c8bcb922c4f",
-      "bytes": 3895,
-      "state": "crossed byte-for-byte"
+      "bytes": 3794,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "out/geometry.json",
@@ -70,10 +72,11 @@
     {
       "file": "page.js",
       "sourcePath": "tools/build-exact-geometry.js",
-      "sha256": "919f6f958bf0fd6ccd9cfc32af6f244844e970e27b8c1bf11694afccf2f37c26",
+      "sha256": "dbcc07320ef9b3ee9f85ac38ccdd7d4cee3162416817d29249107edb94eb6a42",
+      "sha256AtLift": "919f6f958bf0fd6ccd9cfc32af6f244844e970e27b8c1bf11694afccf2f37c26",
       "sourceSha256": "7e8ca709a128fbe3592fa3c9b650b31073e80c5741166d952cc8dc01130005da",
-      "bytes": 16140,
-      "state": "patched, declared above"
+      "bytes": 15875,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     }
   ],
   "crossed": "4 of 8 byte-for-byte; the rest carry declared patches",

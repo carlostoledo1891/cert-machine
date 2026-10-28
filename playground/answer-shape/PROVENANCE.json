@@ -6,22 +6,27 @@
   "rule": "Science, drawing code and records crossed byte-for-byte. The PAGE is rebuilt in this repository’s design system — no bench CSS, no bench HTML, no ECharts. Patches declared here so they can never be mistaken for drift.",
   "patches": [
     "page.js: require paths repointed at this folder and at playground/png.js; the bench page-writing tail replaced by module.exports. The content functions are untouched.",
-    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time."
+    "The records carry model calls already paid for on the bench. Nothing here re-spends, and no page in this repository issues a call at build time.",
+    "page.js and plate.js: edited IN PLACE by this repository’s own sessions after the lift, and declared only on 2026-10-28, when the crossed files were first re-hashed (playground/pins.js, which now refuses the build on an undeclared edit). Presentation and plumbing only: no number, record, rule or decision moved, and every edit is in git. page.js (f7fec939, a2b73a59, c08bc34d 2026-09-04; 36b10f33 2026-09-05; 4ba347a1, ddbafb4a 2026-09-15): hex greys to design tokens; the overlay’s second and third model lines lost their dash (identity rides weight and opacity, dash is for standing only; the legend chips kept theirs, which the shell strips, build.js); the legend’s class renamed .mchips; the overlay section is one column below 880 px (a 480 px track pushed a 390 px phone 78 px sideways); inline styles to classes and custom properties (--w). plate.js (4f2d44c4, a57afcd5 2026-09-04; e3981951 2026-09-05): the full-bleed ground rect each plate painted inside its card removed, so the card’s own surface shows through; label() moved out to playground/design/marklabel.js (it was byte-identical in both neural-geometry plates, and its clamp held the anchor inside the frame while the glyphs ran out of it), the labels now placed once every position is known so overlapping pairs are pushed apart; and the chord array joined with the empty string (it was interpolated whole, which left a comma between every <line>). It is byte-identical to affect/plate.js. Re-pinned 2026-10-28 at the bytes in git; the pins taken at the lift are kept as sha256AtLift."
   ],
   "files": [
     {
       "file": "page.js",
       "sourcePath": "tools/build-neural-geometry.js",
-      "sha256": "d05df37d5ca63ffbb7ed8b3aec8fbe45f94f0e586605e9107cb54190678711aa",
+      "sha256": "3a2dad6706505c68b243aa64e9972ea1a84ff0a39937b8b3e8ada9b82ae9b0d3",
+      "sha256AtLift": "d05df37d5ca63ffbb7ed8b3aec8fbe45f94f0e586605e9107cb54190678711aa",
       "sourceSha256": "418e07bf4e13432340d8b030f8c40ec9ef8f5962cf6857d61b6fbfd2847de9a0",
-      "bytes": 25102
+      "bytes": 24962,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "plate.js",
       "sourcePath": "experiments/neural-geometry/plate.js",
-      "sha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
+      "sha256": "cf2dc3e987e00a99acd5d76c27e43f6870ae9fad6a093c309299fa3a9d9dbde1",
+      "sha256AtLift": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
       "sourceSha256": "8615d91e6d9e39cfa52b2401da302816810b90a6721fbc64def9a5b8b0e26985",
-      "bytes": 9150
+      "bytes": 8982,
+      "state": "patched, declared above (re-pinned 2026-10-28)"
     },
     {
       "file": "sets.js",

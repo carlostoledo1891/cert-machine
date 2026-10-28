@@ -13,28 +13,10 @@
 */
 'use strict';
 
-/* IS THE MINIMUM SPANNING TREE UNIQUE? (WARRANT v2, 2026-10-28). decide.js builds it with a strict "<", so where two
-   edges tie the first one found wins — a tie-break, and a tree picked by a tie-break is ONE MEMBER of the set of
-   minimum spanning trees the numbers admit: CHOSEN, drawn dotted, never solid. The test is the textbook one and it is
-   exact on these numbers (integers over two): the tree is unique iff every edge outside it is strictly longer than the
-   longest edge on the tree path between its ends. On 2026-10-28 nine of the fifteen trees drawn on this page tie. */
-function mstUnique(D, mst) {
-  const n = D.length, adj = Array.from({ length: n }, () => []), inTree = new Set();
-  for (const [a, b] of mst) { adj[a].push(b); adj[b].push(a); inTree.add(Math.min(a, b) + '-' + Math.max(a, b)); }
-  const pathMax = (s, t) => {
-    const stack = [[s, -Infinity]], seen = new Set([s]);
-    while (stack.length) {
-      const [u, m] = stack.pop();
-      if (u === t) return m;
-      for (const v of adj[u]) if (!seen.has(v)) { seen.add(v); stack.push([v, Math.max(m, D[u][v])]); }
-    }
-    return Infinity;
-  };
-  for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) {
-    if (!inTree.has(i + '-' + j) && !(D[i][j] > pathMax(i, j))) return false;
-  }
-  return true;
-}
+/* IS THE MINIMUM SPANNING TREE UNIQUE? (WARRANT v2, 2026-10-28). The test lives once, in playground/mst.js, for
+   every page that draws a tree; a tree picked by a tie-break is ONE MEMBER of the set of minimum spanning trees the
+   numbers admit: CHOSEN, drawn dotted, never solid. On 2026-10-28 nine of the fifteen trees drawn on this page tie. */
+const { mstUnique } = require('../mst.js');
 
 function plate(m, items, { size = 560, pad = 66, hasOrder = true } = {}) {
   const n = m.n;
@@ -188,4 +170,3 @@ ${blobs}${marks}${labels}
 
 module.exports.mapPlate = mapPlate;
 module.exports.mapGeometry = mapGeometry;
-module.exports.mstUnique = mstUnique;

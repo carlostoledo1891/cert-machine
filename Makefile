@@ -268,6 +268,7 @@ drift:
 	@$(NODE) tools/lift.js --check
 	@$(NODE) tools/lift.js --check --manifest LIFT-claimbox.json
 	@$(NODE) tools/lift.js --check --manifest LIFT-cryptids.json
+	@$(NODE) playground/pins.js
 
 lift:
 	@$(NODE) tools/lift.js

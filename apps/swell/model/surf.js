@@ -10,8 +10,10 @@
         total Hs from ECMWF with the MEASURED BAND around it (Janela's calibrated bands at this site, ECMWF ∪ NOAA,
         apps/janela/audit/today.js — the same definition Janela decides with). The partitions give the sea's
         SHAPE; the total sets its SIZE: central = ECMWF's deterministic Hs, band = [lo, hi].
-     2. The island model (sim/island.py; data/beaches.json): K = Hs at a probe / Hs offshore, bilinear in
-        direction (22.5° cases) and period (6, 9, 12, 15 s; outside that range read at the nearest end and FLAGGED).
+     2. The island model (data/beaches.json, which sim/probes.py reads out of the 64 cases frontier-apps solved with
+        its experiments/swell/island/island.py; that solver was never lifted here, the cases are pinned by sha256 in
+        data/PINS.json): K = Hs at a probe / Hs offshore, bilinear in direction (22.5° cases) and period (6, 9, 12,
+        15 s; outside that range read at the nearest end and FLAGGED).
         At each probe the partitions add as energy: H = sqrt(Σ (K_i H_i)²).
      3. BREAKING — the port's fix. Two readings, and the beach's breaking height Hb is the larger:
           (a) the CROSSING: marching in from the deepest probe (8.8 m or deeper at every ocean beach), the waves

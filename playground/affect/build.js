@@ -18,6 +18,27 @@ const path = require('path');
 const HERE = __dirname;
 const PG = path.join(HERE, '..');
 const { page } = require(path.join(PG, 'design', 'shell.js'));
+const GR = require(path.join(PG, '..', 'design', 'grammar.js'));    /* the ink-* classes the tied trees wear */
+const { mstUnique } = require(path.join(PG, 'mst.js'));            /* one uniqueness test for every tree drawn */
+/* WARRANT v2 rule 3 (2026-10-28) — THE TREES. The record's cells carry no order, so the lifted plate draws the clock
+   control's minimum spanning tree; decide-mood.js builds it with a strict "<", and where two edges tie a tie-break
+   picked it: one of several, CHOSEN, dotted. plate.js is crossed byte for byte (PROVENANCE.json), so plate() is
+   wrapped here BEFORE page.js reads it (it destructures it at load); the wrapper only adds a class to the tree it was
+   handed, and the counts are gated against the record below. */
+const PLATE = require('./plate.js');
+const trees = { drawn: 0, tied: 0, cls: GR.pick(1.2) === GR.PICK ? 'ink-chosen' : 'ink-chosen-sm' };   /* .mst is 1.2 px (page.js) */
+{
+  const plate0 = PLATE.plate;
+  PLATE.plate = (rec, opts) => {
+    const svg = plate0(rec, opts);
+    if (!(rec && rec.pts && !rec.order && rec.mst)) return svg;
+    trees.drawn++;
+    if (mstUnique(rec.D, rec.mst)) return svg;
+    trees.tied++;
+    if (svg.split('class="mst"').length !== 2) throw new Error('affect: the lifted plate no longer draws one class="mst" path; re-read plate.js');
+    return svg.replace('class="mst"', `class="mst ${trees.cls}"`);
+  };
+}
 const A = require('./page.js');
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
@@ -194,6 +215,26 @@ sections = patch(sections, 'Three models landing on rank one is about a one-in-1
   `Three models landing on rank one is about a ${CH('one-in-1,700')} coincidence &mdash; for this mood, at this end of the ranking, a reading picked after looking. The page&rsquo;s own test is either end, and ${WORD(moodsRun.length)} moods were asked: the chance that some mood lands all ${WORD(MODELS.length)} models at one end is about one in ${sig2(eitherEnd)}.`,
   'the salience note');
 
+/* 5: the trees (rule 3). The control plates are the only plates here that draw a tree, one per model; each tied
+   tree is dotted by the wrapper above and its caption says "one of several", and the counts are gated against the
+   record so a re-run that breaks or creates a tie re-words the page or stops the build. */
+{
+  const clockCells = MODELS.map((m) => M.cells[`neutral|clock|${m.id}`]);
+  const tied = MODELS.filter((m, i) => !mstUnique(clockCells[i].D, clockCells[i].mst));
+  if (trees.drawn !== MODELS.length || trees.tied !== tied.length) throw new Error(`affect: ${MODELS.length} control trees and ${tied.length} ties in the record, but the plates drew ${trees.drawn} and dotted ${trees.tied}`);
+  const ONE = W.value('one of several', W.CHOSEN, { title: 'chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted' });
+  for (const m of MODELS) {
+    const re = new RegExp(`(<span class="mname">${m.label.replace(/[.]/g, '\\.')}</span><span class="fit">cycle <span class="w-val w-computed"[^>]*>[^<]*</span>)(</span>)`, 'g');
+    const k = (sections.match(re) || []).length;
+    if (k !== 1) throw new Error(`affect: expected one control caption for ${m.label}, found ${k}`);
+    sections = sections.replace(re, (_, a, b) => `${a} · tree ${tied.includes(m) ? ONE : 'unique'}${b}`);
+  }
+  const both = tied.length === MODELS.length ? 'every one' : tied.length ? `${WORD(tied.length)} of the ${WORD(MODELS.length)}, ${tied.map((m) => m.label).join(' and ')}` : 'none';
+  sections = patch(sections, 'Nothing was carried over between the two runs but the question.</p>',
+    `Nothing was carried over between the two runs but the question. The line on each plate is the cheapest tree the model&rsquo;s own numbers admit, its minimum spanning tree; where two of its edges tie, a tie-break picked it and it is ${ONE}, drawn dotted &mdash; ${both} here.</p>`,
+    'the control trees');
+}
+
 function build(OUT) {
   const foot = `<p><a href="../answer-shape/index.html">the same instrument, seven other subjects</a> · <a href="../exact-geometry/index.html">the control it is judged against</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
@@ -202,7 +243,7 @@ function build(OUT) {
     desc: 'Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.',
     /* the foot line rode in the body as well as in the page foot until 2026-10-28, so it printed twice */
     path: '/instruments/affect/', body: head + sections,
-    css: `${BENCHCSS}\n${A.CSS}`,
+    css: `${BENCHCSS}\n${A.CSS}\n${GR.css()}`,
   });
   const dir = path.join(OUT, 'affect');
   fs.mkdirSync(dir, { recursive: true });

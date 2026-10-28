@@ -29,6 +29,21 @@ const BASE_EXTRA = `
 .g-six { grid-template-columns: 190px repeat(var(--cols), minmax(0,1fr)); }
 .g-run { grid-template-columns: 150px repeat(var(--cols), minmax(0,1fr)) 80px 80px 90px; }
 .tl { text-align: left; }   /* a left-aligned cell in a numeric grid (2026-09-15) */
+/* PHONES (2026-10-28). Each grid's fixed tracks add up past a 390 px phone's 350 px container (g-run 150+80+80+90,
+   g-mut 250+90+90, g-pair 250+110), so its minmax(0,1fr) tracks collapsed to nothing: the three models' rung means
+   printed on top of one another, the reference table's numbers too, and g-pair's third column was cut off whole.
+   Below 720 px the three numeric grids keep real columns at their natural width and scroll inside their own box
+   (.gx; the house rule: a component wider than the container scrolls inside it), and g-pair sheds a column: the
+   reason each control is there becomes a full-width row under its name and grade. Nothing changes above 720 px. */
+@media (max-width: 720px) {
+  .gx { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .gx > .gr { width: max-content; min-width: 100%; }
+  .g-six { grid-template-columns: 120px repeat(var(--cols), 84px); }
+  .g-mut { grid-template-columns: 200px repeat(var(--cols), 76px) 76px 84px; }
+  .g-run { grid-template-columns: 110px repeat(var(--cols), 76px) 76px 76px 84px; }
+  .g-pair { grid-template-columns: minmax(0,1fr) 120px; }
+  .g-pair > div:nth-child(3n) { grid-column: 1 / -1; }
+}
 .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-4); flex-wrap:wrap; margin-bottom:var(--s-4); }
 .mono { font-family:var(--font-mono); font-size:0.92em; color:var(--ink-2); }
 .t1 { font-size:clamp(1.5rem,1rem+1.6vw,2.1rem); } .t2 { font-size:clamp(1.25rem,1rem+1vw,1.6rem); }
@@ -465,7 +480,7 @@ recorded kill used.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Knowing the family is not the pair</h2><span class="eyebrow">the reference policies, by class</span></div>
-    <div class="reveal"><div class="gr g-six" style="--cols:${CLASSES.length}">
+    <div class="reveal gx"><div class="gr g-six" style="--cols:${CLASSES.length}">
       <div class="h">eight pairs from &hellip;</div>${CLASSES.map((k) => `<div class="h">${k.toLowerCase().replace(/_/g, ' ')}</div>`).join('')}
       ${['corpus8', 'mint8', 'outbox8', 'aligned8', 'union8', 'sat'].map((p) => {
         const cells = CLASSES.map((k) => { const [a, b] = perClass(p, k); return `<div class="c" style="--f:${(b ? a / b : 0).toFixed(2)}">${drawn(p, `<b>${a}</b>/${b}`)}</div>`; }).join('');
@@ -492,7 +507,7 @@ what it does with it.
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">The reference table</h2><span class="eyebrow">${P.baseline.n_per_rung} tasks per rung, seed ${P.baseline.seed}, no API key</span></div>
-    <div class="reveal"><div class="gr g-mut" style="--cols:${P.rungs.length + 1}">
+    <div class="reveal gx"><div class="gr g-mut" style="--cols:${P.rungs.length + 1}">
       <div class="h">policy</div>${P.rungs.map((r) => `<div class="h">${r}</div>`).join('')}<div class="h">all</div><div class="h">solved</div><div class="h">false claims</div>
       ${REF_ROWS.map((r) => `<div class="ml">${r.p} <span class="dim">&middot; ${esc(POLICY_NOTE[r.p] || '')}</span></div>`
         + r.rungs.map((v) => `<div class="c" style="--f:${((v + 1) / 2).toFixed(2)}">${drawn(r.p, sgn(v))}</div>`).join('')
@@ -514,7 +529,7 @@ shotgun claims a kill on every task, so it is wrong on every equivalent one &mda
 <section class="section">
   <div class="container">
     <div class="section-head reveal"><h2 class="t1">Three models</h2><span class="eyebrow">${RES.length} calls &middot; refusals counted apart, never reworded</span></div>
-    <div class="reveal"><div class="gr g-run" style="--cols:${P.rungs.length + 1}">
+    <div class="reveal gx"><div class="gr g-run" style="--cols:${P.rungs.length + 1}">
       <div class="h">model</div>${P.rungs.map((r) => `<div class="h">${r}</div>`).join('')}<div class="h">all</div><div class="h">solved</div><div class="h">wrong</div><div class="h">declined</div>
       ${MODELS.map((m) => {
         const g = gradedRows(m), ref = refusedRows(m);
