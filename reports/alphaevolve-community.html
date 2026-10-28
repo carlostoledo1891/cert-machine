@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The AlphaEvolve repository&#39;s community certificates, decided · cert-machine</title>
+<title>The AlphaEvolve repository's community certificates, decided · Carlos Toledo</title>
 <meta name="description" content="Eight unanswered issues on DeepMind&#39;s AlphaEvolve repository of problems — sphere-free grids to n = 40, 58-point isosceles-free sets, ring loading at 9/8, a sum-difference set past the literature — decided in exact arithmetic from the notebooks&#39; definitions.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
@@ -22,7 +22,7 @@
 <meta name="twitter:title" content="The AlphaEvolve repository&#39;s community certificates, decided · cert-machine">
 <meta name="twitter:description" content="Eight unanswered issues on DeepMind&#39;s AlphaEvolve repository of problems — sphere-free grids to n = 40, 58-point isosceles-free sets, ring loading at 9/8, a sum-difference set past the literature — decided in exact arithmetic from the notebooks&#39; definitions.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The AlphaEvolve repository's community certificates, decided · cert-machine","description":"Eight unanswered issues on DeepMind's AlphaEvolve repository of problems — sphere-free grids to n = 40, 58-point isosceles-free sets, ring loading at 9/8, a sum-difference set past the literature — decided in exact arithmetic from the notebooks' definitions.","url":"https://carlostoledo.co/reports/alphaevolve-community.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The AlphaEvolve repository's community certificates, decided","description":"Eight unanswered issues on DeepMind's AlphaEvolve repository of problems — sphere-free grids to n = 40, 58-point isosceles-free sets, ring loading at 9/8, a sum-difference set past the literature — decided in exact arithmetic from the notebooks' definitions.","url":"https://carlostoledo.co/reports/alphaevolve-community.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -609,6 +613,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
 
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
    — the spacing token was right, but it was written on the ELEMENT, where no
@@ -673,7 +751,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
@@ -687,24 +765,26 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> <b>Every finite claim holds.</b> No five on a sphere: 61 point sets from four contributors, n = 13 to 40, 68,326,809 quadruples keyed by their exact hyperplane and no two alike — the best certified sizes run from 36 at n = 13 to 104 at n = 40 where the repository stops at n = 12 with 33. No isosceles triangles: both 58-point sets at n = 32 are clean over all 30,856 triples and maximal; the literature's "f(32) = 56, SAT-optimal" (PatternBoost) is contradicted by an explicit object. Ring loading: 47/42 holds under either reading of the problem; <b>9/8 holds under the thread's reading (k = 1..m) and, as the notebook writes the problem (k = 1..m−1), only once padded with two zero pairs or in the m = 17 instance of the zip</b> — the notebook's own text and its code agree with each other and differ from the thread's. Sums and differences: the far-block set rebuilt from its rule has g = 1.16334 > 1.163, above Penman–Wells' 1.12594 and the repository's 1.12194; the 23,646-integer set violates the strong inequality by exactly 89.</li><li><b>The mechanism.</b> Integers only: squared distances for triangles; for spheres, the 4-subset hyperplane key (a primitive integer 5-vector) whose duplicates are exactly the zero 5 × 5 determinants, cross-checked against every 5-subset's determinant on the smaller sets; for ring loading every 2ᵐ sign pattern on lcm-scaled integers; for sumsets a bitset, with g > 1.163 decided as an integer inequality. The repository's own constructions decide as its notebooks report (9 controls).</li><li><b>Check it.</b> <span class="m">python3 -I tools/run-aerp-ledger.py</span> · <span class="m">python3 -I instruments/aerp/battery.py</span> — 22 checks, 9 red controls.</li></ul>
+<ul class="plain"><li><b>The finding.</b> <b>Every finite claim holds.</b> No five on a sphere: 61 point sets from four contributors, n = 13 to 40, 68,326,809 quadruples keyed by their exact hyperplane and no two alike — the best certified sizes run from 36 at n = 13 to 104 at n = 40 where the repository stops at n = 12 with 33. No isosceles triangles: both 58-point sets at n = 32 are clean over all 30,856 triples and maximal, so under the notebook's definition the literature's "f(32) = <span class="w-val w-computed" title="printed by PatternBoost (arXiv:2411.00566 §4.1) and repeated by the AlphaEvolve paper — a claim, not decided here">56</span>, SAT-optimal" (PatternBoost) is not the maximum; whether the SAT work used another definition is the open question (§2). Ring loading: 47/42 holds under either reading of the problem; <b>9/8 holds <em>given the thread's reading, k = 1..m</em>, and <em>given the notebook's, k = 1..m−1</em>, only once padded with two zero pairs or in the m = 17 instance of the zip</b> — the notebook's own text and its code agree with each other and differ from the thread's. Sums and differences: the far-block set rebuilt from its rule has g = <span class="w-val w-computed" title="g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality">1.16334</span> > 1.163, above Penman–Wells' <span class="w-val w-computed" title="printed by someone else — a claim, not decided here">1.12594</span> and the repository's <span class="w-val w-computed" title="the repository's best_list in float; its sums and differences are re-counted exactly here">1.12194</span>; the 23,646-integer set violates the strong inequality by exactly 89.</li><li><b>The mechanism.</b> Integers only: squared distances for triangles; for spheres, the 4-subset hyperplane key (a primitive integer 5-vector) whose duplicates are exactly the zero 5 × 5 determinants, cross-checked against every 5-subset's determinant on the smaller sets; for ring loading every 2ᵐ sign pattern on lcm-scaled integers; for sumsets a bitset, with g > 1.163 decided as an integer inequality. The repository's own constructions decide as its notebooks report (9 controls).</li><li><b>Check it.</b> <span class="m">python3 -I tools/run-aerp-ledger.py</span> · <span class="m">python3 -I instruments/aerp/battery.py</span> — 22 checks, 9 red controls.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="4">
-    <div class="stat"><div class="k">claims decided</div><div class="v">70</div><div class="n">0 refuted · 2 refused (no finite object). Four problems, eight issues, five contributors.</div></div>
+    <div class="stat"><div class="k">claims decided</div><div class="v">70</div><div class="n">0 refuted · 2 refused (no finite object). Four problems, eight issues, eight contributors behind the certified objects.</div></div>
     <div class="stat"><div class="k">C(40) ≥</div><div class="v">104</div><div class="n">No five on a sphere, 40 × 40 × 40; the repository records 33 at n = 12 and nothing beyond.</div></div>
-    <div class="stat"><div class="k">C(32) ≥ 58</div><div class="v">two sets</div><div class="n">No isosceles triangles; &quot;56, SAT-optimal&quot; in PatternBoost §4.1 — an explicit contradiction.</div></div>
+    <div class="stat"><div class="k">C(32) ≥ 58</div><div class="v">two sets</div><div class="n">No isosceles triangles; under the notebook's definition PatternBoost's "<span class="w-val w-computed" title="printed by PatternBoost (arXiv:2411.00566 §4.1) — a claim, not decided here">56</span>, SAT-optimal" (§4.1) is not the maximum.</div></div>
     <div class="stat"><div class="k">ring loading</div><div class="v">9/8</div><div class="n">Under k = 1..m; under the notebook&#39;s k = 1..m−1 the same bound needs the padded or the m = 17 instance.</div></div>
   </div>
 </div>
+
+<div class="col"><p>Every verdict below is an exact decision and is printed plain. A number the page did not decide — g in floating point, or a value the literature or the repository printed — is underlined dashed; a verdict that holds only under one reading of a problem names the reading in italic.</p><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float; nothing decided it</div></div></div></div></div>
 
 <section class="">
   <div class="col sec-head">
     <div class="lab">§1 · no five on a sphere</div>
     <h2>Problem 60: the frontier, n = 13 to 40</h2>
   </div>
-<p>The repository's notebook stops at n = 12 (33 points) and its verifier is floating point (np.linalg.det with isclose). The thread grew from one 36-point set at n = 13 to four contributors leapfrogging each other; the best certified size per n, every one decided here exactly:</p><div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>best certified</th><th>by</th><th>repository</th></tr></thead><tbody><tr><td>13</td><td>36</td><td>Harmenszoon</td><td>—</td></tr><tr><td>14</td><td>38</td><td>milesandmistakes</td><td>—</td></tr><tr><td>15</td><td>42</td><td>hashkanna</td><td>—</td></tr><tr><td>16</td><td>44</td><td>hashkanna</td><td>—</td></tr><tr><td>17</td><td>46</td><td>hashkanna</td><td>—</td></tr><tr><td>18</td><td>48</td><td>0thernet</td><td>—</td></tr><tr><td>19</td><td>51</td><td>hashkanna</td><td>—</td></tr><tr><td>20</td><td>54</td><td>hashkanna</td><td>—</td></tr><tr><td>21</td><td>56</td><td>hashkanna</td><td>—</td></tr><tr><td>22</td><td>59</td><td>hashkanna</td><td>—</td></tr><tr><td>23</td><td>62</td><td>hashkanna</td><td>—</td></tr><tr><td>24</td><td>64</td><td>hashkanna</td><td>—</td></tr><tr><td>25</td><td>66</td><td>hashkanna</td><td>—</td></tr><tr><td>26</td><td>70</td><td>hashkanna</td><td>—</td></tr><tr><td>27</td><td>72</td><td>hashkanna</td><td>—</td></tr><tr><td>28</td><td>74</td><td>hashkanna</td><td>—</td></tr><tr><td>29</td><td>76</td><td>hashkanna</td><td>—</td></tr><tr><td>30</td><td>80</td><td>hashkanna</td><td>—</td></tr><tr><td>31</td><td>82</td><td>hashkanna</td><td>—</td></tr><tr><td>32</td><td>85</td><td>hashkanna</td><td>—</td></tr><tr><td>33</td><td>86</td><td>hashkanna</td><td>—</td></tr><tr><td>34</td><td>90</td><td>hashkanna</td><td>—</td></tr><tr><td>35</td><td>91</td><td>hashkanna</td><td>—</td></tr><tr><td>36</td><td>94</td><td>hashkanna</td><td>—</td></tr><tr><td>37</td><td>96</td><td>hashkanna</td><td>—</td></tr><tr><td>38</td><td>99</td><td>hashkanna</td><td>—</td></tr><tr><td>39</td><td>102</td><td>hashkanna</td><td>—</td></tr><tr><td>40</td><td>104</td><td>hashkanna</td><td>—</td></tr></tbody></table></div></div><p>All 61 sets (40 of hashkanna's files including the stepping stones, 10 of milesandmistakes' RECORD files, 10 of 0thernet's, #4's one) are CERTIFIED: in the grid, distinct, no dependent quadruple, no two quadruples on one sphere or plane. Where the 5-subset determinant was also run (sets of at most 45 points) the smallest |det| is 2 throughout — the claimants' own figure, and the margin at which a float verifier is one rounding from wrong.</p>
+<p>The repository's notebook stops at n = 12 (33 points) and its verifier is floating point (np.linalg.det with isclose). The thread grew from one 36-point set at n = 13 to four contributors leapfrogging each other; the best certified size per n, every one decided here exactly:</p><div class="wide"><div class="tw"><table><thead><tr><th>n</th><th>best certified</th><th>by</th><th>repository</th></tr></thead><tbody><tr><td>13</td><td>36</td><td>Harmenszoon</td><td>—</td></tr><tr><td>14</td><td>38</td><td>milesandmistakes</td><td>—</td></tr><tr><td>15</td><td>42</td><td>hashkanna</td><td>—</td></tr><tr><td>16</td><td>44</td><td>hashkanna</td><td>—</td></tr><tr><td>17</td><td>46</td><td>hashkanna</td><td>—</td></tr><tr><td>18</td><td>48</td><td>0thernet</td><td>—</td></tr><tr><td>19</td><td>51</td><td>hashkanna</td><td>—</td></tr><tr><td>20</td><td>54</td><td>hashkanna</td><td>—</td></tr><tr><td>21</td><td>56</td><td>hashkanna</td><td>—</td></tr><tr><td>22</td><td>59</td><td>hashkanna</td><td>—</td></tr><tr><td>23</td><td>62</td><td>hashkanna</td><td>—</td></tr><tr><td>24</td><td>64</td><td>hashkanna</td><td>—</td></tr><tr><td>25</td><td>66</td><td>hashkanna</td><td>—</td></tr><tr><td>26</td><td>70</td><td>hashkanna</td><td>—</td></tr><tr><td>27</td><td>72</td><td>hashkanna</td><td>—</td></tr><tr><td>28</td><td>74</td><td>hashkanna</td><td>—</td></tr><tr><td>29</td><td>76</td><td>hashkanna</td><td>—</td></tr><tr><td>30</td><td>80</td><td>hashkanna</td><td>—</td></tr><tr><td>31</td><td>82</td><td>hashkanna</td><td>—</td></tr><tr><td>32</td><td>85</td><td>hashkanna</td><td>—</td></tr><tr><td>33</td><td>86</td><td>hashkanna</td><td>—</td></tr><tr><td>34</td><td>90</td><td>hashkanna</td><td>—</td></tr><tr><td>35</td><td>91</td><td>hashkanna</td><td>—</td></tr><tr><td>36</td><td>94</td><td>hashkanna</td><td>—</td></tr><tr><td>37</td><td>96</td><td>hashkanna</td><td>—</td></tr><tr><td>38</td><td>99</td><td>hashkanna</td><td>—</td></tr><tr><td>39</td><td>102</td><td>hashkanna</td><td>—</td></tr><tr><td>40</td><td>104</td><td>hashkanna</td><td>—</td></tr></tbody></table></div></div><p>All 61 sets (40 of hashkanna's files including the stepping stones, 10 of milesandmistakes' RECORD files, 10 of 0thernet's, #4's one) are CERTIFIED: in the grid, distinct, no dependent quadruple, no two quadruples on one sphere or plane. Where the 5-subset determinant was also run (sets of at most 45 points) the smallest |det| is 2 throughout — the claimants' own figure: every one of those sets comes within |det| = 2 of a degenerate five, which the repository's float verifier decides by a tolerance and this page decides in integers.</p>
 </section>
 
 <section class="col">
@@ -712,7 +792,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§2 · no isosceles triangles</div>
     <h2>Problem 59: 58 where 56 was called optimal</h2>
   </div>
-<p>hashkanna's two 58-point subsets of the 32 × 32 grid (#10) contain no three points with two equal distances, the collinear midpoint case included: 30,856 triples each, zero isosceles, and neither admits another grid point (maximal). The external certificate file equals set_a byte for byte in content. PatternBoost (arXiv:2411.00566 §4.1) captions "f(32) = 56" and says SAT solvers prove optimality up to n ≈ 32; the AlphaEvolve paper repeats the figure. An explicit 58-point object under the notebook's definition means one of three things — a different definition in the SAT work, a slip in the caption, or an error here — and this page can only rule out the third: the decider reproduces the notebook's own 112-point n = 64 and 164-point n = 100 constructions as admissible and catches a planted midpoint.</p>
+<p>hashkanna's two 58-point subsets of the 32 × 32 grid (#10) contain no three points with two equal distances, the collinear midpoint case included: 30,856 triples each, zero isosceles, and neither admits another grid point (maximal). The external certificate file equals set_a byte for byte in content. PatternBoost (arXiv:2411.00566 §4.1) captions "f(32) = <span class="w-val w-computed" title="printed by PatternBoost — a claim, not decided here">56</span>" and says SAT solvers prove optimality up to n ≈ 32; the AlphaEvolve paper repeats the figure. An explicit 58-point object under the notebook's definition means one of three things — a different definition in the SAT work, a slip in the caption, or an error here — and this page can only rule out the third: the decider reproduces the notebook's own 112-point n = 64 and 164-point n = 100 constructions as admissible and catches a planted midpoint.</p>
 </section>
 
 <section class="">
@@ -720,7 +800,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§3 · ring loading</div>
     <h2>Problem 61: which k the problem ranges over</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>instance</th><th>m</th><th>α, k = 1..m−1 (the notebook)</th><th>α, k = 1..m (the thread)</th><th>padded, notebook</th><th>verdict</th></tr></thead><tbody><tr><td>#11 VividhDesign, 2026-10-06</td><td>15</td><td>47/42</td><td>47/42</td><td>47/42</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23, 2026-10-08 · min98_m14_D16.txt</td><td>14</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23 · rec98_D16.txt</td><td>15</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23 · A17_exact_D560.txt</td><td>17</td><td>9/8</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 comment, karldaeubel, 2026-10-13</td><td>12</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>The notebook's prompt and its compute_alpha_exact both range k over 1..m−1; #12 ranges over 1..m, where the extra term is |Σzᵢ|, and says so. The two readings agree on padded instances, so C ≥ 9/8 holds under the notebook's reading too (m = 16 padded, or the m = 17 instance at denominator 560 without padding) — the bound stands, and which m attains it is a matter of convention. Under the strict notebook reading the m = 14 table gives 3/4. The thread's karldaeubel instance (12 pairs, two identical blocks) attains 9/8 likewise.</p>
+<div class="wide"><div class="tw"><table><thead><tr><th>instance</th><th>m</th><th>α, k = 1..m−1 (the notebook)</th><th>α, k = 1..m (the thread)</th><th>padded, notebook</th><th>verdict</th></tr></thead><tbody><tr><td>#11 VividhDesign, 2026-10-06</td><td>15</td><td>47/42</td><td>47/42</td><td>47/42</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23, 2026-10-08 · min98_m14_D16.txt</td><td>14</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23 · rec98_D16.txt</td><td>15</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 Maks23 · A17_exact_D560.txt</td><td>17</td><td>9/8</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr><tr><td>#12 comment, karldaeubel, 2026-10-13</td><td>12</td><td>3/4</td><td>9/8</td><td>9/8</td><td><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><p>The notebook's prompt and its compute_alpha_exact both range k over 1..m−1; #12 ranges over 1..m, where the extra term is |Σzᵢ|, and says so. The two readings agree on padded instances, so C ≥ 9/8 holds <em>given the notebook's reading</em> too (m = 16 padded, or the m = 17 instance at denominator 560 without padding) — the bound stands, and which m attains it is a matter of convention. Under the strict notebook reading the m = 14 table gives 3/4. The thread's karldaeubel instance (12 pairs, two identical blocks) attains 9/8 likewise.</p>
 </section>
 
 <section class="col">
@@ -728,7 +808,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§4 · sums and differences</div>
     <h2>Problem 42: the finite parts of a large claim</h2>
   </div>
-<p>#5 offers much — C = 2, a 1.6269 instance, a ceiling theorem, a conjecture — and asks to be torn apart; its author then found Lin–Li (arXiv:2607.27199) had settled C = 2 two days earlier. Two parts are finite objects and are decided: the far-block set its certificate script defines (rebuilt here from the rule, |A| = 101,478, |A+A| = 1,200,837, |A−A| = 848,817) has g = 1.163338, and g > 1.163 is decided as |A+A|¹⁰⁰⁰|A|¹⁶³ > |A−A|¹¹⁶³ in integers — above Penman–Wells' explicit 1.12594 and the repository's 1.12194 (its 309-element list re-counted: 1,367 sums, 1,163 differences). The explicit 23,646-integer set of its §5 has |A+A| = 6,924,316, |A−A| = 3,370,545, diameter 3,577,327: |A+A| + |A| exceeds |A−A| + diam + 1 by 89, as stated. The 1.6269 instance (an 86-digit modulus) is REFUSED: nothing enumerable, and its count rests on an argument its authors call machine-generated and unreviewed.</p>
+<p>#5 offers much — C = 2, a 1.6269 instance, a ceiling theorem, a conjecture — and asks to be torn apart; its author then found Lin–Li (arXiv:2607.27199) had settled C = 2 two days earlier. Two parts are finite objects and are decided: the far-block set its certificate script defines (rebuilt here from the rule, |A| = 101,478, |A+A| = 1,200,837, |A−A| = 848,817) has g = <span class="w-val w-computed" title="g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality">1.163338</span>, and g > 1.163 is decided as |A+A|¹⁰⁰⁰|A|¹⁶³ > |A−A|¹¹⁶³ in integers — above Penman–Wells' explicit <span class="w-val w-computed" title="printed by someone else — a claim, not decided here">1.12594</span> and the repository's <span class="w-val w-computed" title="the repository's best_list in float; its sums and differences are re-counted exactly here">1.12194</span> (its 309-element list re-counted: 1,367 sums, 1,163 differences). The explicit 23,646-integer set of its §5 has |A+A| = 6,924,316, |A−A| = 3,370,545, diameter 3,577,327: |A+A| + |A| exceeds |A−A| + diam + 1 by 89, as stated. The <span class="w-val w-computed" title="the claimant's printed value; REFUSED here — nothing finite to decide">1.6269</span> instance (an 86-digit modulus) is REFUSED: nothing enumerable, and its count rests on an argument its authors call machine-generated and unreviewed.</p>
 </section>
 
 <section class="col">
@@ -736,7 +816,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§5 · refused</div>
     <h2>What has no finite object to decide</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>why refused</th></tr></thead><tbody><tr><td>C &gt;= 1.6269 by the &quot;hollow bridge&quot; instance of #5 (43 gadgets, an 86-digit modulus)</td><td>the set is not enumerable (modulus ~10^86); its count rests on the write-up&#39;s own argument, which is machine-generated and unreviewed by its authors&#39; statement; nothing finite to decide here</td></tr><tr><td>a 3-D moving sofa of volume &gt;= 1.8558404 (#8; the repository records &gt;= 1.81)</td><td>the certificate is a floating-point cube count under stated position and angle tolerances (0.005, 0.05 degrees; the author&#39;s own note: 1.7701 at the quick-start tolerances); no exact object is published. To decide it an interval instrument would have to enclose every pose, prove the swept region contains each counted cube and sum a rational lower bound — not built here</td></tr></tbody></table></div></div><p>A refusal is a verdict about the evidence, not the mathematics: the sofa may well have volume 1.8558, but a cube count under a 0.05° tolerance is a measurement, and the page says so rather than lending it a certificate.</p>
+<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>why refused</th></tr></thead><tbody><tr><td>C &gt;= 1.6269 by the &quot;hollow bridge&quot; instance of #5 (43 gadgets, an 86-digit modulus)</td><td>the set is not enumerable (modulus ~10^86); its count rests on the write-up&#39;s own argument, which is machine-generated and unreviewed by its authors&#39; statement; nothing finite to decide here</td></tr><tr><td>a 3-D moving sofa of volume &gt;= 1.8558404 (#8; the repository records &gt;= 1.81)</td><td>the certificate is a floating-point cube count under stated position and angle tolerances (0.005, 0.05 degrees; the author&#39;s own note: 1.7701 at the quick-start tolerances); no exact object is published. To decide it an interval instrument would have to enclose every pose, prove the swept region contains each counted cube and sum a rational lower bound — not built here</td></tr></tbody></table></div></div><p>A refusal is a verdict about the evidence, not the mathematics: the sofa may well have volume <span class="w-val w-computed" title="the claimant's printed volume; REFUSED here — a float cube count, nothing exact to decide">1.8558</span>, but a cube count under a 0.05° tolerance is a measurement, and the page says so rather than lending it a certificate.</p>
 </section>
 
 <section class="col">
@@ -749,7 +829,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-aerp.js from certs/aerp-ledger.json (2026-10-15T20:55:07Z, 427.7 s, pure Python), re-derived at build; battery 22 checks, 9 red controls; @ git 5754683f.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-aerp.js from certs/aerp-ledger.json (2026-10-28T19:25:07Z, 624.6 s, pure Python), re-derived at build; battery 22 checks, 9 red controls; @ git 4a1d50b8.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

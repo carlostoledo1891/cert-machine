@@ -564,9 +564,14 @@ function intervals(o) {
       for (const x of [x0, x1]) out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (y - 12) + '" x2="'
         + x.toFixed(1) + '" y2="' + (y + 12) + '" stroke="' + (r.token || CAT[1]) + '" stroke-width="2"/>');
     }
+    /* r.pointStanding (WARRANT, 2026-10-28): a claimed point that is not DECIDED — a number someone printed beside
+       the enclosure — is drawn as a hollow ring in its standing's stroke, read from playground/warrant.js, so a
+       printed estimate and a proof never share a glyph. Without it the point is the filled dot it always was. */
     if (r.point !== undefined) {
-      out.push('    <circle ' + hit('cx="' + f.px(r.point).toFixed(1) + '" cy="' + y + '" r="6" fill="'
-        + (r.token || CAT[0]) + '" stroke="' + SURFACE + '" stroke-width="2"', r.k, r.v || '') + '/>');
+      const look = r.pointStanding !== undefined
+        ? require('../playground/warrant.js').attrs(r.pointStanding, { width: 1.5 })
+        : 'fill="' + (r.token || CAT[0]) + '" stroke="' + SURFACE + '" stroke-width="2"';
+      out.push('    <circle ' + hit('cx="' + f.px(r.point).toFixed(1) + '" cy="' + y + '" r="6" ' + look, r.k, r.v || '') + '/>');
     }
     if (r.note) out.push(txt(f.px(r.point !== undefined ? r.point : r.hi) + 14, y + 4, r.note, 't-lab', 'start'));
   });
@@ -670,8 +675,12 @@ function scatter(o) {
   }
   for (const c of (o.curves || [])) {
     const d = c.pts.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(1) + ' ' + f.py(p[1]).toFixed(1)).join(' ');
-    out.push('    <path d="' + d + '" fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"'
-      + (c.dashed ? ' stroke-dasharray="5 4"' : '') + ' stroke-linejoin="round"/>');
+    /* c.standing (WARRANT, 2026-10-28): the curve's stroke is READ from what it rests on (playground/warrant.js), so
+       a fit drawn past its data is dashed by the call that says it is a forecast, never by a hand-written pattern */
+    out.push('    <path d="' + d + '" ' + (c.standing !== undefined
+      ? require('../playground/warrant.js').attrs(c.standing, { width: 2 })
+      : 'fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"' + (c.dashed ? ' stroke-dasharray="5 4"' : ''))
+      + ' stroke-linejoin="round"/>');
     if (c.k) out.push(txt(f.px(c.pts[c.pts.length - 1][0]) + 7, f.py(c.pts[c.pts.length - 1][1]) + 4, c.k, 't-lab', 'start'));
   }
   /* dots under diamonds, so a proved specimen is never buried by its own cell */

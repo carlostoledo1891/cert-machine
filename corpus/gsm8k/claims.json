@@ -101,5 +101,20 @@
   ],
   "hfMirror": "openai/gsm8k on Hugging Face (revision 740312add88f781978c0658806c59bc2815b9866 at fetch, 1,319 test rows read through the datasets-server) is identical, question and answer, to the GitHub file at commit 3101c7d on all 1,319 rows",
   "note": "the two rows graded I are not forms any GSM8K key takes; they are recorded because they were observed, and the report says the key's forms are all read correctly by both harnesses"
+ },
+ "fewshot": {
+  "read": "2026-10-28, from the two harness files at the commits pinned in harnesses; both hashed to the sha256 recorded there before they were read. Kept outside harnesses so the ledger, which copies harnesses, does not change.",
+  "inspect_evals": {
+   "default": 10,
+   "split": "train",
+   "shuffled": true,
+   "where": "the system message, the examples joined",
+   "source": "gsm8k(fewshot: int = 10, fewshot_seed, shuffle_fewshot: bool = True): hf_dataset(split=\"train\", shuffle=shuffle_fewshot, seed=fewshot_seed, limit=fewshot), then system_message(\"\\n\\n\".join(sample_to_fewshot(sample) for sample in fewshots))"
+  },
+  "lm_eval": {
+   "num_fewshot": 5,
+   "split": "train",
+   "source": "fewshot_split: train; num_fewshot: 5"
+  }
  }
 }

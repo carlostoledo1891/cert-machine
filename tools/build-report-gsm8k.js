@@ -23,6 +23,14 @@ const ROOT = path.resolve(__dirname, '..');
 const C = require(path.join(ROOT, 'design', 'components.js'));
 const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const TPL = require(path.join(ROOT, 'design', 'template.js'));
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28. The page's own verdicts — every class, every exact value — are
+   DECIDED and stay plain. What the key and Platinum PRINT is a claim someone made: COMPUTED, underlined dashed, so the
+   key's "= 273" and this page's exact 91 never share a voice. A printed step that does not hold carries the house's one
+   accent, a red ×: the step is an object the key printed, and as printed it is not its own value (the PU precedent).
+   The three train rows that are notation the reader took as arithmetic are a reading the text admits, picked by the
+   reader's rule rather than by the text: CHOSEN, dotted, and no ×. */
+const W = require(path.join(ROOT, 'playground', 'warrant.js'));
+const claimed = (s, title) => W.value(C.esc(s), W.COMPUTED, { title: title || 'printed by the key — a claim, not decided here' });
 const die = (m) => { console.error('GSM8K REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
@@ -67,6 +75,43 @@ const o2125 = obs.find((o) => o.answer === 'ANSWER: 2125'), o145 = obs.find((o) 
 if (!(o2125 && o2125.graded === 'C' && o145 && o145.graded === 'C' && om3 && om3.graded === 'C')) die('the observed grader behaviour is not what the prose says');
 const trainWrong = R.rows.filter((r) => r.class === 'PRINTED_STEP_WRONG');
 if (trainWrong.length !== F.printedStepWrongTrain) die('train witnesses and the finding disagree');
+const WORD = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const word = (n) => WORD[n] || fmt(n);
+const Word = (n) => { const w = word(n); return w.charAt(0).toUpperCase() + w.slice(1); };
+/* THE THREE NOTATION ROWS (2026-10-28). The page named two ("day 1 * 2", "Weeks 1-2"); the reader's own docstring
+   names a third — "14 / 1 / 4" stays left-associative, as printed — and item 4593 is that row: "14 / 1 / 4 = 14 * 4 =
+   56 washes", where the "= 14 * 4" beside it says the writer meant 14 ÷ (1/4), under which the step holds. Each is a
+   reading the reader's rule picked among those the notation admits: CHOSEN, never a witness. */
+const NOTATION = [
+  { i: 5396, lhs: '1 * 2', rhs: '20', said: 'a day number (“day 1 * 2 = 20”)' },
+  { i: 6590, lhs: '1-2', rhs: '96 - 70', said: 'a week range (“Weeks 1-2 = 96 - 70”)' },
+  { i: 4593, lhs: '14 / 1 / 4', rhs: '14 * 4', said: '“14 / 1 / 4 = 14 * 4”, which the reader keeps left to right as printed (its rule) where the “= 14 * 4” beside it says the writer meant 14 ÷ (1/4), under which it holds' },
+];
+for (const n of NOTATION) {
+  const r = trainWrong.find((x) => x.i === n.i);
+  if (!r || r.witness.lhs !== n.lhs || r.witness.rhs !== n.rhs) die('the notation row ' + n.i + ' is not the witness the prose names');
+}
+if (!/"14 \/ 1 \/ 4" stays left-associative/.test(fs.readFileSync(path.join(ROOT, 'instruments', 'gsm8k', 'audit.py'), 'utf8'))) die('the reader no longer states its left-to-right rule for "14 / 1 / 4"');
+const notationIds = new Set(NOTATION.map((n) => n.i));
+/* the steps the prose quotes are witnesses of the record, and the one annotation it quotes is in the pinned key */
+const QUOTED = [[168, '6*2.5', '$18.00'], [7444, '14*20', '140'], [716, '100 * 0.75', '$0.75'], [3859, '5 * 3', '$15,000'], [6842, '500/ 2/5', '200']];
+for (const [i, lhs, rhs] of QUOTED) {
+  const r = trainWrong.find((x) => x.i === i);
+  if (!r || r.witness.lhs !== lhs || r.witness.rhs !== rhs) die('the quoted step of train item ' + i + ' is not its witness');
+}
+if (trainWrong.find((x) => x.i === 7444).witness.exact !== '280') die('“14*20=140” for 280: the exact value moved');
+if (!JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'gsm8k', 'train.jsonl'), 'utf8').split('\n')[168]).answer.includes('6*2.5 = $<<6*3=18.00>>')) die('item 168 no longer prints its slip beside <<6*3=18.00>>');
+/* Platinum read by hand only where a model disagreed: what "consensus" means, from its own card */
+if (!/at least one model disagreed/.test(claims.platinum.method) || claims.platinum.cleaningStatus.consensus !== 'no model disagreed') die('the Platinum method the prose states is not the transcribed one');
+/* the ten relabelled: nine REPRODUCED and one ANSWER_UNDERIVED, nothing else */
+const revC = P.crossTab.revised;
+if (Object.keys(revC).some((c) => !['REPRODUCED', 'ANSWER_UNDERIVED'].includes(c)) || (revC.REPRODUCED || 0) + (revC.ANSWER_UNDERIVED || 0) !== P.counts.revised || revC.ANSWER_UNDERIVED !== 1) die('the relabelled ten are not nine REPRODUCED and one ANSWER_UNDERIVED');
+/* the few-shot pools (claims.fewshot, read from the two pinned harness files) */
+const FS = claims.fewshot;
+if (!FS || FS.inspect_evals.split !== 'train' || FS.lm_eval.split !== 'train' || !(FS.inspect_evals.default > 0) || !(FS.lm_eval.num_fewshot > 0)) die('the few-shot sentence has no record');
+/* the ledger's own wall-clock — a measurement, so it is COMPUTED wherever it is typed */
+if (!(L.seconds > 0)) die('the ledger records no run time');
+const secs = W.value(L.seconds + ' seconds', W.COMPUTED, { title: 'the wall-clock of the run that wrote the ledger — a measurement, nothing decided it' });
 
 /* ---- figure 1: the 1,319 test items, one cell each, by this page's verdict ---- */
 const cells = T.rows.map((r) => ({
@@ -106,12 +151,22 @@ const crossTable = C.table({
 });
 const revTable = C.table({
   cols: [{ h: 'item' }, { h: 'GSM8K answer', cls: 'n' }, { h: 'Platinum answer', cls: 'n' }, { h: 'its arithmetic, here' }],
-  rows: F.revisedByPlatinum.map((r) => [String(r.i), r.gsm8k, r.platinum, r.class.toLowerCase().replace(/_/g, ' ')]),
+  rows: F.revisedByPlatinum.map((r) => [String(r.i), { raw: claimed(r.gsm8k, 'GSM8K’s answer line — a claim, not decided here') },
+    { raw: claimed(r.platinum, 'Platinum’s relabelled answer — a claim, read and not re-decided here') }, r.class.toLowerCase().replace(/_/g, ' ')]),
 });
+/* the printed step and the printed answer are the key's (COMPUTED); the exact value is this page's (DECIDED, plain); a
+   step that does not hold carries the × — except the three notation rows, which are the reader's pick (CHOSEN) */
+const witRow = (set, r) => {
+  const step = r.witness.lhs + ' = ' + r.witness.rhs;
+  const pick = set === 'train' && notationIds.has(r.i);
+  return [set + ' · ' + r.i,
+    { raw: pick ? W.value(C.esc(step), W.CHOSEN, { title: 'chosen — the reader’s rule picked this reading of the notation; the writer’s is another (§2)' })
+      : W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(step) },
+    r.witness.exact, { raw: claimed(r.answer, 'the key’s answer line — a claim, not decided here') }, r.answer_held_elsewhere ? 'yes' : 'no'];
+};
 const witTable = C.table({
   cols: [{ h: 'set · item' }, { h: 'the printed step' }, { h: 'exact', cls: 'n' }, { h: 'answer', cls: 'n' }, { h: 'answer held by another step' }],
-  rows: [w501, w1024].map((r) => ['test · ' + r.i, r.witness.lhs + ' = ' + r.witness.rhs, r.witness.exact, r.answer, r.answer_held_elsewhere ? 'yes' : 'no'])
-    .concat(trainWrong.map((r) => ['train · ' + r.i, r.witness.lhs + ' = ' + r.witness.rhs, r.witness.exact, r.answer, r.answer_held_elsewhere ? 'yes' : 'no'])),
+  rows: [w501, w1024].map((r) => witRow('test', r)).concat(trainWrong.map((r) => witRow('train', r))),
 });
 
 const B = [];
@@ -121,9 +176,9 @@ B.push(C.header({
   deck: 'Every harness that scores GSM8K compares a model’s number with the answer line of a stored solution, and the solution prints the arithmetic that reaches it: calculator annotations the authors inserted, and the prose steps between them. That arithmetic can be re-decided without a model and without a reader. This page evaluates all ' + fmt(T.annotationsTotal) + ' annotations of the test set and ' + fmt(R.annotationsTotal) + ' of the train set from the expressions they print, reads every prose equation with them in exact rational arithmetic, classes each item by whether its own steps reach its own answer, and sets the result beside GSM8K-Platinum, the human revision of the same test set.',
 }));
 B.push(C.tldr({
-  findingRaw: '<strong>The key’s arithmetic is clean where the humans looked, and slips where no model disagreed.</strong> All ' + fmt(T.annotationsTotal) + ' test-set calculator annotations evaluate exactly to the value they print — not one is wrong, not one is rounded — and so do ' + fmt(R.annotations.EXACT) + ' of the ' + fmt(R.annotationsTotal) + ' train-set ones (the other two use an operator the calculator grammar does not have and are refused, not guessed). Reading the prose steps too, ' + F.printedStepWrongTest + ' test keys and ' + F.printedStepWrongTrain + ' train keys print a step that does not hold as printed — <em>364 / 4 = 273</em>, <em>$32 − $20 = $300</em> — and both test-set slips sit in items GSM8K-Platinum classes <em>consensus</em>: no frontier model disagreed with the answer, so no human ever read them. The converse holds too: every one of Platinum’s ' + F.revisedByPlatinum.length + ' relabelled answers has arithmetic that holds to the last step, and ' + F.removedByPlatinum.classes.REPRODUCED + ' of its ' + F.removedByPlatinum.n + ' removed items are REPRODUCED here. Those errors are readings of the problem, not sums, and no re-decision of the arithmetic can find them. The two halves of a task-QA audit find different things, and the mechanical half costs three seconds.',
-  mechanismRaw: 'An annotation <<lhs=rhs>> is read as the expression its left side denotes — a hand-written parser for + − × ÷ and parentheses over stdlib fractions; nothing is ever passed to eval — and compared with the rational its right side denotes: EXACT, ROUNDED (within half a unit of the last printed place, and said so), WRONG, or REFUSED. A prose equation is a run of arithmetic characters around an “=”, read as a chain “a = b = c” pair by pair, with the notations GSM8K writers use — a spaced x as times, a dollar sign, a percent sign or the word “cents” as a unit label, “5 and 2/3” as a mixed number, “25 / 1/3” as 25 ÷ (1/3) — and anything cut off by a word, glued to a variable or otherwise unreadable is UNREAD, never a verdict. The answer line is read as the rational it denotes and compared with the last annotation’s value, then with every prose step’s. Platinum’s rows are joined to GSM8K’s by question text, exactly, and their three statuses cross-tabulated with this page’s classes.',
-  checkRaw: C.m('python3 instruments/gsm8k/battery.py') + ' — ' + nChecks + ' checks, ' + nReds + ' red controls that must fire (a planted wrong annotation, a value off by more than half a unit, division by zero, the // operator, a Python name and a power, the two named witnesses, a wrong step whose answer rests on it). ' + C.m('python3 tools/run-gsm8k-ledger.py') + ' re-hashes the three pinned files and re-decides both sets in about three seconds.',
+  findingRaw: '<strong>The key’s arithmetic is clean where the humans looked, and slips where no model disagreed.</strong> All ' + fmt(T.annotationsTotal) + ' test-set calculator annotations evaluate exactly to the value they print — not one is wrong, not one is rounded — and so do ' + fmt(R.annotations.EXACT) + ' of the ' + fmt(R.annotationsTotal) + ' train-set ones (the other two use an operator the calculator grammar does not have and are refused, not guessed). Reading the prose steps too, ' + F.printedStepWrongTest + ' test keys and ' + F.printedStepWrongTrain + ' train keys print a step that does not hold as printed (' + word(NOTATION.length) + ' of the train ones are notation the reader took as arithmetic, §2) — ' + W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(w501.witness.lhs + ' = ' + w501.witness.rhs) + ', ' + W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(w1024.witness.lhs + ' = ' + w1024.witness.rhs) + ' — and both test-set slips sit in items GSM8K-Platinum classes <em>consensus</em>: no frontier model disagreed with the answer, and Platinum read by hand only where one did, so its reviewers never opened them. The converse holds too: no printed step fails in any of Platinum’s ' + F.revisedByPlatinum.length + ' relabelled answers (' + revC.REPRODUCED + ' reach the answer by their last annotation; in ' + revC.ANSWER_UNDERIVED + ' the answer is no printed value), and ' + F.removedByPlatinum.classes.REPRODUCED + ' of its ' + F.removedByPlatinum.n + ' removed items are REPRODUCED here. Those errors are readings of the problem, not sums, and no re-decision of the arithmetic can find them. The two halves of a task-QA audit find different things, and the mechanical half costs ' + secs + ' of computing.',
+  mechanismRaw: 'An annotation ' + C.esc('<<lhs=rhs>>') + ' is read as the expression its left side denotes — a hand-written parser for + − × ÷ and parentheses over stdlib fractions; nothing is ever passed to eval — and compared with the rational its right side denotes: EXACT, ROUNDED (within half a unit of the last printed place, and said so), WRONG, or REFUSED. A prose equation is a run of arithmetic characters around an “=”, read as a chain “a = b = c” pair by pair, with the notations GSM8K writers use — a spaced x as times, a dollar sign, a percent sign or the word “cents” as a unit label, “5 and 2/3” as a mixed number, “25 / 1/3” as 25 ÷ (1/3) — and anything cut off by a word, glued to a variable or otherwise unreadable is UNREAD, never a verdict. The answer line is read as the rational it denotes and compared with the last annotation’s value, then with every prose step’s. Platinum’s rows are joined to GSM8K’s by question text, exactly, and their three statuses cross-tabulated with this page’s classes.',
+  checkRaw: C.m('python3 instruments/gsm8k/battery.py') + ' — ' + nChecks + ' checks, ' + nReds + ' red controls that must fire (a planted wrong annotation, a value off by more than half a unit, division by zero, the // operator, a Python name and a power, the two named witnesses, a wrong step whose answer rests on it). ' + C.m('python3 tools/run-gsm8k-ledger.py') + ' re-hashes the three pinned files and re-decides both sets (' + secs + ' on the run that wrote the ledger).',
 }));
 B.push(C.stats([
   { k: 'annotations exact', v: fmt(T.annotationsTotal) + ' / ' + fmt(T.annotationsTotal), role: 'held', n: 'test set; train ' + fmt(R.annotations.EXACT) + ' / ' + fmt(R.annotationsTotal) + ', two refused for an operator outside the grammar' },
@@ -134,11 +189,14 @@ B.push(C.stats([
   { k: 'answer keys in a form a harness misreads', v: '0', role: 'held', n: 'every key is an integer as printed — ' + thou + ' with thousands separators, ' + neg + ' negative — and both pinned scoring rules read those forms' },
 ]));
 
+B.push('<div class="col">' + C.pRaw('How the page marks what each value rests on: a value this page decided is plain; a value the key or Platinum printed is underlined dashed (a claim, not decided here); a reading the reader’s rule picked is dotted; and a red ' + W.witness() + ' marks a printed step that does not hold as printed.')
+  + W.legendHtml({ compact: true, exclude: [W.REFUSED] }) + '</div>');
+
 B.push(C.section({
   lab: '§1 · the two readings', title: 'Two audits of one test set, cell by cell',
   wide: true,
-  bodyRaw: C.figure({ svgRaw: FIG1, caption: 'The ' + fmt(T.items) + ' test items in file order, classed by this page: green where every printed step holds and reaches the answer, amber where no step is wrong but the answer is not any printed value, plum where a printed step does not hold. Hover for the item, its class and Platinum’s status.' })
-    + C.figure({ svgRaw: FIG2, caption: 'The same cells, classed by GSM8K-Platinum: green for the ' + fmt(P.counts.consensus) + ' items every frontier model got right (never inspected), amber for the ' + P.counts.verified + ' inspected and kept, plum for the ' + P.counts.removed + ' removed and the ' + P.counts.revised + ' relabelled.' })
+  bodyRaw: C.figure({ svgRaw: FIG1, caption: 'The ' + fmt(T.items) + ' test items in file order, classed by this page: green where every printed step holds and reaches the answer, amber where no step is wrong but the answer is not any printed value, plum where a printed step does not hold. Every cell is decided here, in exact arithmetic over the steps the reader could read. Hover for the item, its class and Platinum’s status.' })
+    + C.figure({ svgRaw: FIG2, caption: 'The same cells, classed by GSM8K-Platinum: green for the ' + fmt(P.counts.consensus) + ' items every frontier model got right (never inspected), amber for the ' + P.counts.verified + ' inspected and kept, plum for the ' + P.counts.removed + ' removed and the ' + P.counts.revised + ' relabelled. These are Platinum’s labels as it printed them: a claim, read here and not re-decided.' })
     + '<div class="col">' + C.pRaw('The two pictures do not overlap where it matters. Platinum’s plum is where models and humans disagreed with the key about what the problem means; this page’s plum is where the key disagrees with itself about what its numbers add up to. The cross-tabulation:') + '</div>'
     + crossTable
     + '<div class="col">' + C.pRaw('Of the ' + P.counts.removed + ' items Platinum removed as ambiguous or inconsistent, ' + F.removedByPlatinum.classes.REPRODUCED + ' have arithmetic that holds to the last step; so do ' + (P.crossTab.revised.REPRODUCED) + ' of the ' + P.counts.revised + ' it relabelled. The ' + F.printedStepWrongTest + ' keys that print a wrong step are both <em>consensus</em> items: every model reproduced the intended answer, so the flagging method — look only where a model disagrees — had no reason to open them. A typo no model copies is invisible to a model-flagged audit by construction.') + '</div>',
@@ -147,23 +205,23 @@ B.push(C.section({
 B.push(C.section({
   lab: '§2 · the witnesses', title: F.printedStepWrongTest + ' test keys and ' + F.printedStepWrongTrain + ' train keys print a step that does not hold',
   wide: true,
-  bodyRaw: '<div class="col">' + C.pRaw('Each row is a step exactly as the key prints it, the value its left side actually has, the key’s answer, and whether that answer is still reached by some other step of the same key that does hold. Most are typos beside a correct calculator annotation (“6*2.5” beside <<6*3=18.00>>; “14*20=140” for 280); a few are unit slips (“100 * 0.75 = $0.75”, “5 * 3 = $15,000”) or a fraction divided the way it was not written (“500/ 2/5 = 200”). Two of the train rows read a day number and a week range as arithmetic (“day 1 * 2”, “Weeks 1-2”); they are listed rather than excused, because the rule that would exclude them is not one this page can state.') + '</div>'
+  bodyRaw: '<div class="col">' + C.pRaw('Each row is a step exactly as the key prints it, the value its left side actually has, the key’s answer, and whether that answer is still reached by some other step of the same key that does hold. Most are typos beside a correct calculator annotation (“6*2.5” beside ' + C.esc('<<6*3=18.00>>') + '; “14*20=140” for 280); a few are unit slips (“100 * 0.75 = $0.75”, “5 * 3 = $15,000”) or a fraction divided the way it was not written (“500/ 2/5 = 200”). ' + Word(NOTATION.length) + ' of the train rows are notation the reader took as arithmetic, and they are drawn dotted, without the ×: ' + NOTATION.slice(0, -1).map((n) => n.said).join(', ') + ', and ' + NOTATION[NOTATION.length - 1].said + '. They are listed rather than excused, because the rule that would exclude them is not one this page can state.') + '</div>'
     + witTable
     + '<div class="col">' + C.pRaw('Nothing here changes an answer a harness grades against: in the test set the answer of item ' + w501.i + ' (' + w501.answer + ') is the calculator annotation beside the slip, and item ' + w1024.i + '’s ' + w1024.answer + ' is the number the writer meant by “$320 − $20”. These are provenance findings about the key’s text — the kind a few-shot prompt copies into a model’s context verbatim, since both harnesses draw their examples from the train set.') + '</div>',
 }));
 
 B.push(C.section({
-  lab: '§3 · the relabelled ten', title: 'Platinum’s ten corrections all have arithmetic that holds',
+  lab: '§3 · the relabelled ten', title: 'Platinum’s ten corrections: not one printed step fails',
   bodyRaw: '<div class="col">' + C.pRaw('Platinum changed the answer of ten test items after inspection. This page’s verdict on each original key:') + '</div>'
     + revTable
-    + '<div class="col">' + C.pRaw('Nine are REPRODUCED and one is ANSWER_UNDERIVED: in every case the printed steps compute what they say they compute, and the error — a rate read as linear, a quantity counted twice, a condition missed — lives in the step from the words to the first number, which no evaluation of the numbers can see. That is the precise boundary between the two halves of a task-QA audit, and this page stays on its side of it: nothing here calls a question ambiguous, and nothing here calls a relabelling right.') + '</div>',
+    + '<div class="col">' + C.pRaw(Word(revC.REPRODUCED) + ' are REPRODUCED and ' + word(revC.ANSWER_UNDERIVED) + ' is ANSWER_UNDERIVED: in every case the printed steps compute what they say they compute, and the error — a rate read as linear, a quantity counted twice, a condition missed — lives in the step from the words to the first number, which no evaluation of the numbers can see. That is the precise boundary between the two halves of a task-QA audit, and this page stays on its side of it: nothing here calls a question ambiguous, and nothing here calls a relabelling right.') + '</div>',
 }));
 
 B.push(C.section({
   lab: '§4 · the train set', title: fmt(R.items) + ' train keys, the few-shot pool of both harnesses',
   wide: true,
   bodyRaw: C.figure({ svgRaw: FIG3, caption: 'The train set by class. The shape is the test set’s: ' + fmt(holdR) + ' keys whose steps reach the answer, ' + fmt(readR) + ' for a reader, ' + fmt(faultR) + ' with a printed step that does not hold, is rounded, or is refused.' })
-    + '<div class="col">' + C.pRaw('The train set is not scored by anyone, but both harnesses draw their few-shot examples from it (' + claims.harnesses.inspect_evals.file.split('/').pop() + ': ten shuffled train items in the system message; ' + claims.harnesses.lm_eval.file.split('/').pop() + ': five). A key with a wrong printed step is then a worked example the model is shown. The ' + F.printedStepWrongTrain + ' train slips are listed in §2; ' + F.printedStepWrongTrainAnnotationBeside + ' of them stand beside a correct annotation that a calculator-using model would follow instead.') + '</div>',
+    + '<div class="col">' + C.pRaw('The train set is not scored by anyone, but both harnesses draw their few-shot examples from it (' + claims.harnesses.inspect_evals.file.split('/').pop() + ': ' + word(FS.inspect_evals.default) + (FS.inspect_evals.shuffled ? ' shuffled' : '') + ' train items in the system message; ' + claims.harnesses.lm_eval.file.split('/').pop() + ': ' + word(FS.lm_eval.num_fewshot) + '). A key with a wrong printed step is then a worked example the model is shown. The ' + F.printedStepWrongTrain + ' train slips are listed in §2; ' + F.printedStepWrongTrainAnnotationBeside + ' of them stand beside a correct annotation that a calculator-using model would follow instead.') + '</div>',
 }));
 
 B.push(C.section({
@@ -173,7 +231,7 @@ B.push(C.section({
 
 B.push(C.note({
   lab: 'what this page does NOT claim',
-  bodyRaw: C.pRaw('No answer is called wrong: a step that does not hold as printed is a fact about the key’s text, and in every test case the intended answer is recoverable from the key itself. No question is called ambiguous; that is Platinum’s reading and it is reported, not re-decided. The prose reader is conservative by design — ' + fmt(T.prose.UNREAD) + ' test and ' + fmt(R.prose.UNREAD) + ' train equations it could not read are UNREAD and counted, never guessed — and two of the train witnesses are notation it read as arithmetic; they are listed with the rest. The harness observations are of two pinned commits on one date and say nothing about other versions. GSM8K is MIT-licensed and its files are held here verbatim for verification; Platinum’s rows were read through the Hugging Face datasets-server at the revision pinned in the corpus.'),
+  bodyRaw: C.pRaw('No answer is called wrong: a step that does not hold as printed is a fact about the key’s text, and in every test case the intended answer is recoverable from the key itself. No question is called ambiguous; that is Platinum’s reading and it is reported, not re-decided. The prose reader is conservative by design — ' + fmt(T.prose.UNREAD) + ' test and ' + fmt(R.prose.UNREAD) + ' train equations it could not read are UNREAD and counted, never guessed — and ' + word(NOTATION.length) + ' of the train witnesses are notation it read as arithmetic; they are listed with the rest, dotted. The harness observations are of two pinned commits on one date and say nothing about other versions. GSM8K is MIT-licensed and its files are held here verbatim for verification; Platinum’s rows were read through the Hugging Face datasets-server at the revision pinned in the corpus.'),
 }));
 
 const foot = '<p>Generated by tools/build-report-gsm8k.js @ git ' + git + '. Gates at this build: the three corpus files re-hashed against their pins, the ledger re-derived and required unchanged, the gsm8k battery (' + nChecks + ' checks, ' + nReds + ' red controls, all fired), every sentence above gated on the ledger field it reads. A moved count, a third test-set slip, a relabelled item with an arithmetic fault, or a key in a non-integer form refuses this page.</p>';
