@@ -21,6 +21,17 @@
 
 /* the dash patterns are a closed set — see design/CONTRACT.md */
 const G = require(require('path').join(__dirname, '..', 'design', 'grammar.js'));
+/* WARRANT v2.1 (design/WARRANT.md), 2026-10-28. The two boundaries and every verdict are DECIDED given the hypotheses:
+   solid. The panel's single line is a model's answer, a claim: COMPUTED, dashed through W.attrs — the interactive map
+   drew it '9 6', a pattern outside design/grammar.js that the dash census could not see because it sat in a script's
+   object literal. The hypotheses are PREMISES with grades (rule 11, §5). The band is carried to the ground by a glide
+   model nothing here validated, so the rings keep their crisp edges and gain a halo (rule 13). And H3, the sphere,
+   is now COMPARED against the WGS84 ellipsoid at every pair this page decides: its lower end holds, its upper end
+   does not, which the page now says and the build re-derives. */
+const WR = require(require('path').join(__dirname, '..', 'playground', 'warrant.js'));   /* WR: the figures use W for a width */
+/* a premise names its record by path; at 390 px a path is one unbreakable word and pushed SkyAudit's page 63 px wide
+   (the ruler, 2026-10-28). A break opportunity after each slash, nothing else changes. */
+const PREM = (items, o) => WR.premisesHtml(items, o).replace(/([\w.-])\/(?=[\w.-])/g, '$1/<wbr>');
 const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
@@ -116,8 +127,53 @@ const withDist = AP.airports.map((a) => ({
 const relevant = withDist.map((x) => x.a).sort((a, b) => a.ident.localeCompare(b.ident));
 if (relevant.length < 20) die('only ' + relevant.length + ' airfields in play — the corridor extract is wrong');
 
+/* ---- H3 COMPARED (WARRANT rules 11–12) ------------------------------------
+   The kernel's distances assume a sphere whose radius lies in [6356.752, 6378.137] km and the page called that
+   "deliberately conservative". The earth is closer to the WGS84 ellipsoid, whose radius of curvature east–west at
+   these latitudes is the prime-vertical radius, about 6387 km — above the interval's top. So the comparison is run
+   here, against the geodesic on WGS84 by Vincenty's inverse formula, at every (cruise position, airfield) pair the
+   page decides. Calibrated first: the formula must reproduce the textbook line Flinders Peak – Buninyong on GRS80,
+   54,972.271 m (Vincenty 1975; Geoscience Australia's worked example), to the millimetre. */
+function vincenty(lat1, lon1, lat2, lon2, f) {
+  const a = 6378137, b = a * (1 - f), D = Math.PI / 180;
+  const L = (lon2 - lon1) * D, U1 = Math.atan((1 - f) * Math.tan(lat1 * D)), U2 = Math.atan((1 - f) * Math.tan(lat2 * D));
+  const sU1 = Math.sin(U1), cU1 = Math.cos(U1), sU2 = Math.sin(U2), cU2 = Math.cos(U2);
+  let lam = L, it = 0, sS, cS, sig, sA, c2A, c2SM, ok = false;
+  do {
+    const sl = Math.sin(lam), cl = Math.cos(lam);
+    sS = Math.sqrt((cU2 * sl) ** 2 + (cU1 * sU2 - sU1 * cU2 * cl) ** 2); if (sS === 0) return 0;
+    cS = sU1 * sU2 + cU1 * cU2 * cl; sig = Math.atan2(sS, cS); sA = cU1 * cU2 * sl / sS; c2A = 1 - sA * sA;
+    c2SM = c2A ? cS - 2 * sU1 * sU2 / c2A : 0; const Cc = f / 16 * c2A * (4 + f * (4 - 3 * c2A));
+    const lp = lam; lam = L + (1 - Cc) * f * sA * (sig + Cc * sS * (c2SM + Cc * cS * (-1 + 2 * c2SM * c2SM)));
+    if (Math.abs(lam - lp) < 1e-13) { ok = true; break; }
+  } while (++it < 200);
+  if (!ok) die('Vincenty did not converge for ' + [lat1, lon1, lat2, lon2].join(', '));
+  const u2 = c2A * (a * a - b * b) / (b * b), A = 1 + u2 / 16384 * (4096 + u2 * (-768 + u2 * (320 - 175 * u2)));
+  const Bv = u2 / 1024 * (256 + u2 * (-128 + u2 * (74 - 47 * u2)));
+  const dS = Bv * sS * (c2SM + Bv / 4 * (cS * (-1 + 2 * c2SM * c2SM) - Bv / 6 * c2SM * (-3 + 4 * sS * sS) * (-3 + 4 * c2SM * c2SM)));
+  return b * A * (sig - dS);
+}
+const dms = (d, m, s) => Math.sign(d) * (Math.abs(d) + m / 60 + s / 3600);
+const CALIB = vincenty(dms(-37, 57, 3.72030), dms(144, 25, 29.52440), dms(-37, 39, 10.15610), dms(143, 55, 35.38390), 1 / 298.257222101);
+if (!(Math.abs(CALIB - 54972.271) < 0.0005)) die('Vincenty is not calibrated: Flinders Peak – Buninyong gives ' + CALIB + ' m, not 54,972.271');
+if (!(K.R_EARTH[0] === 6356752 && K.R_EARTH[1] === 6378137)) die('the kernel\'s earth-radius interval moved: H3\'s text is stale');
+const WGS84_F = 1 / 298.257223563;
+const VINC = TRACK.map((p) => relevant.map((a) => vincenty(p.lat, p.lon, a.lat, a.lon, WGS84_F)));
+const GEO = { pairs: 0, outHi: 0, outLo: 0, worstHi: 0 };
+TRACK.forEach((p, ti) => relevant.forEach((a, ai) => {
+  const g = K.greatCircle(p.lat, p.lon, a.lat, a.lon).dist, v = VINC[ti][ai];
+  GEO.pairs++; if (v > g[1]) GEO.outHi++; if (v < g[0]) GEO.outLo++;
+  GEO.worstHi = Math.max(GEO.worstHi, v / g[1] - 1);
+}));
+/* the reading the page states: the lower end holds everywhere (so REFUTED, which reads it, is untouched), the upper end
+   does not. The build refuses if either half stops being true. */
+if (GEO.outLo !== 0) die('the sphere\'s lower end fails against WGS84 on ' + GEO.outLo + ' pairs: REFUTED is no longer untouched by H3');
+if (GEO.outHi === 0) die('the sphere\'s upper end now holds everywhere against WGS84: H3\'s text says it does not');
+const latLo = Math.min(...TRACK.map((p) => p.lat)), latHi = Math.max(...TRACK.map((p) => p.lat));
+
 /* ---- the sweep ----------------------------------------------------------- */
 const NB = 48;                                  /* bearings, 7.5 degrees */
+const GEO_FLIP = { all: 0, shown: 0, reach: 0, shownBy: {} };  /* REACHABLE verdicts the WGS84 distance would not support */
 const V = { REACHABLE: 'G', UNDECIDED: 'A', UNREACHABLE: 'R' };
 const scen = [];
 const key = (t, w, m, pk) => t + ':' + w + ':' + m + ':' + pk;
@@ -142,8 +198,9 @@ for (let ti = 0; ti < TRACK.length; ti++) {
        const bg = b * 360 / NB;
        const tT = K.turnSeconds(state.track, bg);
        const bd = K.band(bg, h, env, tT);
-       rlo.push(+(bd.lo / 1000).toFixed(2));
-       rhi.push(+(bd.hi / 1000).toFixed(2));
+       /* the drawn radii are bounds: the inner one rounds in, the outer one out (WARRANT rule 8) */
+       rlo.push(Math.floor(bd.lo / 10) / 100);
+       rhi.push(Math.ceil(bd.hi / 10) / 100);
        rnom.push(+(K.nominal(bg, state.alt_nom_m - refElev, nom, tT) / 1000).toFixed(2));
      }
      let vs = '', shown = '', nG = 0, nA = 0, nR = 0, nShown = 0, nFalse = 0, nDamning = 0;
@@ -154,6 +211,7 @@ for (let ti = 0; ti < TRACK.length; ti++) {
        vs += V[r.verdict];
        shown += r.shown ? 'Y' : 'n';
        if (r.verdict === K.REACHABLE) nG++; else if (r.verdict === K.UNDECIDED) nA++; else nR++;
+       if (r.verdict === K.REACHABLE) { GEO_FLIP.reach++; if (VINC[ti][ai] > r.lo) { GEO_FLIP.all++; if (r.shown) { GEO_FLIP.shown++; const sk = pi + ':' + wi + ':' + mi; GEO_FLIP.shownBy[sk] = (GEO_FLIP.shownBy[sk] || 0) + 1; } } }
        if (r.shown) {
          nShown++;
          if (r.verdict !== K.REACHABLE) {
@@ -165,11 +223,15 @@ for (let ti = 0; ti < TRACK.length; ti++) {
      }
      rows.sort((x, y) => (y.r.verdict === K.UNREACHABLE ? 1e9 : 0) + y.gap
                        - ((x.r.verdict === K.UNREACHABLE ? 1e9 : 0) + x.gap));
+     /* the table's numbers are bounds and print outward: the distance's lower end and the band's lower end down, the
+        band's upper end up, and the glide ratio you would have to know up (a larger ratio still decides it). The line's
+        own reach is a claim and prints to nearest. */
+     const dn1 = (m) => Math.floor(m / 100) / 10, up1 = (m) => Math.ceil(m / 100) / 10;
      const top = rows.slice(0, 10).map(({ ai, r }) => {
        const need = K.requiredLD(state, relevant[ai], env);
-       return [ai, +(r.D[0] / 1000).toFixed(1), +(r.lo / 1000).toFixed(1), +(r.hi / 1000).toFixed(1),
+       return [ai, dn1(r.D[0]), dn1(r.lo), up1(r.hi),
          +(r.nom / 1000).toFixed(1), r.verdict === K.UNREACHABLE ? 1 : 0,
-         need === null ? 0 : +need.toFixed(1), Math.round(r.tTurn)];
+         need === null ? 0 : Math.ceil(need * 10) / 10, Math.round(r.tTurn)];
      });
      const rec = { t: ti, w: wi, m: mi, p: pi, lat: p.lat, lon: p.lon, alt: p.alt, trk: p.trk,
                    rlo, rhi, rnom, vs, shown, c: [nG, nA, nR, nShown, nFalse, nDamning], top };
@@ -251,6 +313,14 @@ const HATCH = (id) => '<pattern id="' + id + '" width="7" height="7" patternUnit
   + 'patternTransform="rotate(45)"><rect width="7" height="7" fill="var(--warn-soft)"/>'
   + '<line x1="0" y1="0" x2="0" y2="7" stroke="' + V_A + '" stroke-width="1.3" opacity=".6"/></pattern>';
 
+/* THE HALO (WARRANT rule 13): the band is carried to the ground by a glide model (H1–H5) that nothing here validated
+   against a real glide, so the annulus keeps its crisp edges and a blur of its own fill reaches past them, inward of
+   the inner ring and outward of the outer one. The fill is the annulus token; no new colour. */
+const HALO = (id) => '<filter id="' + id + '" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="6"/></filter>';
+const haloPath = (d, id) => '<path d="' + d + '" fill-rule="evenodd" fill="' + V_A + '" opacity=".55" filter="url(#' + id + ')"/>';
+/* the panel's line is a model's answer: COMPUTED, its stroke read from playground/warrant.js */
+const LINE_ATTRS = (w) => WR.attrs(WR.COMPUTED, { width: w });
+
 /* ---------- FIGURE 1 · the idea, on real numbers -------------------------- */
 function figIdea() {
   const s = HERO;
@@ -259,13 +329,13 @@ function figIdea() {
   for (const r of s.rnom) if (r > maxR) maxR = r;
   const W = 900, H = 430, cx = 250, cy = H / 2, sc = (H * 0.42) / maxR;
   const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="One line versus three zones">'];
-  o.push('<defs>' + HATCH('h1') + '</defs>');
+  o.push('<defs>' + HATCH('h1') + HALO('gb-halo1') + '</defs>');
+  o.push(haloPath(ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc), 'gb-halo1'));
   o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc)
     + '" fill-rule="evenodd" fill="url(#h1)"/>');
   o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="2.4"/>');
   o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="2.4"/>');
-  o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
-    + '" stroke-width="2.6" stroke-dasharray="' + G.CLAIM + '"/>');
+  o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" ' + LINE_ATTRS(2.6) + '/>');
   o.push('<circle cx="' + cx + '" cy="' + cy + '" r="5.5" fill="var(--ink)"/>');
 
   /* label column on the right; each block connects to its ring at its own
@@ -290,7 +360,7 @@ function figIdea() {
       + ' L' + (CX - 12) + ' ' + b.y + '" fill="none" stroke="var(--rule)" stroke-width="1.2"/>');
     if (b.line) {
       o.push('<line x1="' + (CX - 8) + '" y1="' + (b.y - 5) + '" x2="' + (CX + 12) + '" y2="' + (b.y - 5)
-        + '" stroke="' + V_LINE + '" stroke-width="2.6" stroke-dasharray="' + G.CLAIM + '"/>');
+        + '" ' + LINE_ATTRS(2.6) + '/>');
     } else {
       o.push('<rect x="' + (CX - 8) + '" y="' + (b.y - 13) + '" width="16" height="16" ' + b.sw + '/>');
     }
@@ -380,16 +450,16 @@ function figPacks() {
   const CW = 222, CH = 214, W = 900, H = CH + 46;
   const sc = (CW * 0.40) / maxR;
   const o = ['<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Four powered scenarios at one scale">'];
-  o.push('<defs>' + HATCH('h3') + '</defs>');
+  o.push('<defs>' + HATCH('h3') + HALO('gb-halo3') + '</defs>');
   cells.forEach((s, i) => {
     const pk = PACKS[idxs[i]];
     const cx = 111 + i * CW, cy = 106;
+    o.push(haloPath(ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc), 'gb-halo3'));
     o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + ' ' + ringPath(s.rlo, cx, cy, sc)
       + '" fill-rule="evenodd" fill="url(#h3)"/>');
     o.push('<path d="' + ringPath(s.rlo, cx, cy, sc) + '" fill="var(--held-soft)" stroke="' + V_G + '" stroke-width="1.8"/>');
     o.push('<path d="' + ringPath(s.rhi, cx, cy, sc) + '" fill="none" stroke="' + V_R + '" stroke-width="1.8"/>');
-    o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" fill="none" stroke="' + V_LINE
-      + '" stroke-width="2" stroke-dasharray="' + G.CLAIM + '"/>');
+    o.push('<path d="' + ringPath(s.rnom, cx, cy, sc) + '" ' + LINE_ATTRS(2) + '/>');
     o.push('<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="var(--ink)"/>');
     const outside = pk.panelLD > pk.LD[1];
     o.push('<text x="' + cx + '" y="' + (CH - 8) + '" text-anchor="middle" font-size="13.5" font-weight="600" fill="'
@@ -459,12 +529,16 @@ B.push(C.header({
 
 B.push(C.figure({ svgRaw: figIdea(), caption: 'The same instant, computed both ways \u2014 real numbers from the '
   + 'flight below, not a schematic. The dashed line is a point estimate: one glide ratio, one forecast wind, one '
-  + 'weight. The two solid boundaries enclose every value those inputs can take. The line spends most of its '
-  + 'length inside the zone where nothing is settled.' }));
+  + 'weight \u2014 a model\u2019s answer, computed. The two solid boundaries enclose every value those inputs can take, '
+  + 'decided given the hypotheses of \u00a75; the soft halo past them is the glide model\u2019s own error, which nothing '
+  + 'here has measured. The line spends most of its length inside the zone where nothing is settled.' }));
+B.push('<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] }) + '</div>');
 
+if (WINDS[WI_MID].name !== '35 kt') die('the headline scenario is no longer the 35 kt wind the stats name');
+if (GEO_FLIP.all === 0) die('no REACHABLE verdict fails the WGS84 comparison: H3\'s text says some do');
 B.push(C.stats([
   { k: 'inside the line, not proved', v: pct(pctFalse), role: 'warn',
-    n: totFalse + ' of ' + totShown + ' claims \u2014 turboprop, propeller feathered, 35 kt, forecast right' },
+    nRaw: totFalse + ' of ' + totShown + ' claims \u2014 turboprop, propeller feathered, ' + C.esc(WINDS[WI_MID].name) + ', forecast right; <em>given the illustrative envelopes and the hypotheses of \u00a75</em>' },
   { k: 'inside the line, refutable', v: '0',
     n: 'structural, and gated at build: while the panel\u2019s configured ratio sits inside the envelope, its '
        + 'line cannot be proved wrong about anything' },
@@ -484,8 +558,8 @@ B.push(C.section({
       + 'been telling the crew if something had.')
     + '</div>'
 }));
-B.push(C.figure({ svgRaw: figRoute(), caption: 'The trace, with the cruise segment this page decides marked in '
-  + 'the signature colour. The ' + relevant.length + ' airfields in play are the grey dots. Flight data '
+B.push(C.figure({ svgRaw: figRoute(), caption: 'The trace, with the cruise segment this page decides marked as '
+  + 'the heavy line. The ' + relevant.length + ' airfields in play are the grey dots. Flight data '
   + '\u00a9 adsb.lol under ODbL, ingested and pinned by apps/skyaudit; airfields from OurAirports, public domain.' }));
 
 /* ---------------- §2 the instrument --------------------------------------- */
@@ -549,11 +623,13 @@ function draw(){
   var pat=el('pattern',{id:'gbH',width:'7',height:'7',patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
   pat.appendChild(el('rect',{width:'7',height:'7',fill:'var(--warn-soft)'}));
   pat.appendChild(el('line',{x1:'0',y1:'0',x2:'0',y2:'7',stroke:'var(--c-3)','stroke-width':'1.3',opacity:'.6'}));
-  defs.appendChild(pat); svg.appendChild(defs);
+  var hf=el('filter',{id:'gbHalo',x:'-25%',y:'-25%',width:'150%',height:'150%'}); hf.appendChild(el('feGaussianBlur',{stdDeviation:'6'}));
+  defs.appendChild(pat); defs.appendChild(hf); svg.appendChild(defs);
+  svg.appendChild(el('path',{d:ring(s.rhi)+' '+ring(s.rlo),'fill-rule':'evenodd',fill:'var(--c-3)',opacity:'.55',filter:'url(#gbHalo)'}));
   svg.appendChild(el('path',{d:ring(s.rhi)+' '+ring(s.rlo),'fill-rule':'evenodd',fill:'url(#gbH)'}));
   svg.appendChild(el('path',{d:ring(s.rlo),fill:'var(--held-soft)',stroke:'var(--c-2)','stroke-width':'2.2'}));
   svg.appendChild(el('path',{d:ring(s.rhi),fill:'none',stroke:'var(--c-1)','stroke-width':'2.2'}));
-  svg.appendChild(el('path',{d:ring(s.rnom),fill:'none',stroke:'var(--ink-2)','stroke-width':'2.6','stroke-dasharray':'9 6'}));
+  svg.appendChild(el('path',{d:ring(s.rnom),'class':'w-computed',fill:'none','stroke-width':'2.6','stroke-dasharray':'${G.claim(2.6)}'}));
   var td=''; for(i=0;i<D.track.length;i++){ var q=P(D.track[i][0],D.track[i][1]); td+=(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1); }
   svg.appendChild(el('path',{d:td,fill:'none',stroke:'var(--ink-3)','stroke-width':'1.5',opacity:'.7'}));
   var order={R:0,A:1,G:2}, idx=[]; for(i=0;i<D.airports.length;i++) idx.push(i);
@@ -592,7 +668,7 @@ function draw(){
   for(var r=0;r<s.top.length;r++){ var t=s.top[r], ap=D.airports[t[0]];
     var nm=ap[1].length>34?ap[1].slice(0,33)+'\\u2026':ap[1], tr=document.createElement('tr');
     tr.innerHTML='<td class="mono">'+ap[0]+'</td><td>'+nm+'</td><td class="n mono">'+t[1].toFixed(1)+'</td>'+
-      '<td class="n mono">'+t[2].toFixed(0)+'\\u2013'+t[3].toFixed(0)+'</td><td class="n mono">'+t[4].toFixed(0)+'</td>'+
+      '<td class="n mono">'+Math.floor(t[2])+'\\u2013'+Math.ceil(t[3])+'</td><td class="n mono">'+t[4].toFixed(0)+'</td>'+
       '<td>'+(t[5]?'<span class="v-r">REFUTED</span>':'<span class="v-a">UNDECIDED</span>')+'</td>'+
       '<td class="n mono">'+t[7]+' s</td><td class="n mono">'+(t[6]?t[6].toFixed(1):'\\u2014')+'</td>';
     tb.appendChild(tr); }
@@ -654,8 +730,8 @@ B.push(C.section({
       + pct(NOFEATHER.pctDam) + ' \u2014 are now provably unreachable for every value in the envelope. '
       + (worst ? 'The worst single row in that scenario: <span class="m">' + C.esc(AP_OF(worst.row[0]).ident)
         + '</span>, ' + C.esc(AP_OF(worst.row[0]).name) + ', at ' + Math.round(worst.s.alt).toLocaleString()
-        + ' ft. The field is ' + worst.row[1].toFixed(0) + ' km away, the line promises ' + worst.row[4].toFixed(0)
-        + ' km of reach, and the band ends at ' + worst.row[3].toFixed(0) + ' km \u2014 not close, and not a '
+        + ' ft. The field is at least ' + Math.floor(worst.row[1]) + ' km away, the line promises ' + worst.row[4].toFixed(0)
+        + ' km of reach, and the band ends at ' + Math.ceil(worst.row[3]) + ' km \u2014 not close, and not a '
         + 'judgement call.' : ''))
     + '</div>'
 }));
@@ -687,28 +763,37 @@ B.push(C.section({
     + '</div>'
 }));
 
-/* ---------------- §5 the hypotheses --------------------------------------- */
+/* ---------------- §5 the hypotheses ---------------------------------------
+   WARRANT rule 11, 2026-10-28: the table of five hypotheses became a premise chain — the same five, every sentence
+   kept, each with the rung its checking reached and the record behind it, plus the one premise the table left out (the
+   arithmetic, verified by the battery), and the weakest named. H3 is the one that moved: it said the sphere was
+   "deliberately conservative — six orders of magnitude above the double-precision error of the haversine"; compared
+   against the WGS84 ellipsoid at every pair the page decides, it is conservative at its lower end only. */
+if (!/ok\s+7\s+still air, point envelope: the band collapses onto h\*LD/.test(bout) || !/ok\s+9\s+CONTAINMENT: 4000 random draws inside the envelope land inside the band/.test(bout)) die('the battery lines the arithmetic premise cites moved');
+const geoPct = (Math.ceil(GEO.worstHi * 100 * 1000) / 1000).toFixed(3);   /* an upper bound on the shortfall: rounds up */
+const flipBase = GEO_FLIP.shownBy[PI_FEATHER + ':' + WI_MID + ':0'] || 0;
 B.push(C.section({
-  lab: '\u00a75 \u00b7 what is not claimed', title: 'Five hypotheses, on the page rather than in a footnote',
-  bodyRaw: C.table({
-    cols: [{ h: '' }, { h: 'the hypothesis' }, { h: 'which way it can be wrong' }],
-    rows: [
-      [{ raw: C.m('H1') }, 'Terrain is not modelled. The band is glide distance over ground at the field\u2019s own elevation.',
-        { raw: '<strong>Asymmetric, and it runs the safe way.</strong> Rising ground can only REMOVE reach, so REFUTED is unaffected and stays proved; PROVED REACHABLE means \u201creachable if the path is unobstructed\u201d. A terrain layer moves green fields to undecided, never the reverse.' }],
-      [{ raw: C.m('H2') }, 'Steady wind through the descent and a steady-state glide.',
-        'No pushover transient, no shear or thermal structure, and no credit for trading cruise speed back into height.'],
-      [{ raw: C.m('H3') }, 'Great circles on a sphere whose radius is enclosed by [6356.752, 6378.137] km.',
-        'Deliberately crude and deliberately conservative \u2014 six orders of magnitude above the double-precision error of the haversine, so the geodesy needs no separate error argument.'],
-      [{ raw: C.m('H4') }, 'The envelopes are illustrative classes in stated configurations \u2014 not manufacturer data.',
-        { raw: 'No published performance figure for any aircraft is asserted anywhere here, and nothing claims what any product computes internally; what is compared is the point-estimate METHOD. Move the envelope and every percentage moves. <strong>The structural finding of \u00a74 does not \u2014 it holds for any envelope wider than a point.</strong>' }],
-      [{ raw: C.m('H5') }, 'The turn: height lost turning onto each field at standard rate from the actual ADS-B ground track.',
-        'Progress during the turn counted as zero \u2014 conservative \u2014 and charged to both instruments equally.']
-    ]
-  }) + '<div class="col">'
-    + C.note({ lab: 'wording', bodyRaw: C.pRaw('\u201cCertified\u201d on this page always means a '
+  lab: '§5 · what is not claimed', title: 'Five hypotheses, on the page rather than in a footnote',
+  bodyRaw: '<div class="col">'
+    + C.pRaw('Every verdict on this page is exact about a glide model. What it says about a real glide rests on that model’s premises, in the order a verdict travels through them, each with the rung its checking reached — <b>validated</b> (against the thing itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> (the code against an exact solution of its own equations) or <b>assumed</b> (adopted; nothing here checked it):')
+    + PREM([
+      { grade: WR.ASSUMED, label: 'H4 · the envelopes are illustrative classes in stated configurations — not manufacturer data',
+        evidence: 'glide ratio and airspeed per class as typed in tools/build-report-glide-band.js, altitude ±' + ALT_PAD_FT + ' ft about the ADS-B report, forecast wind speed ±' + Math.round(WIND_REL * 100) + ' % (+4 kt) and direction ±' + WIND_DIR_PAD + '°. No published performance figure for any aircraft is asserted anywhere here, and nothing claims what any product computes internally; what is compared is the point-estimate METHOD. Move the envelope and every percentage moves. <strong>The structural finding of §4 does not — it holds for any envelope wider than a point.</strong>' },
+      { grade: WR.ASSUMED, label: 'H2 · steady wind through the descent and a steady-state glide',
+        evidence: 'no pushover transient, no shear or thermal structure, and no credit for trading cruise speed back into height. That last one can run either way for a verdict: height bought with the speed the aeroplane carries when the engine stops would add reach the model does not count, so REFUTED rests on H2 as much as REACHABLE does.' },
+      { grade: WR.ASSUMED, label: 'H5 · the turn: height lost turning onto each field at standard rate from the actual ADS-B ground track',
+        evidence: 'progress during the turn counted as zero, and charged to both instruments equally. Conservative for REACHABLE; for REFUTED it runs the other way, since ground covered while turning would add reach the model does not count.' },
+      { grade: WR.COMPARED, label: 'H3 · great circles on a sphere whose radius is enclosed by [' + (K.R_EARTH[0] / 1000).toFixed(3) + ', ' + (K.R_EARTH[1] / 1000).toFixed(3) + '] km',
+        evidence: 'compared at this build against the geodesic on the WGS84 ellipsoid (Vincenty’s inverse formula, first made to reproduce the textbook line Flinders Peak – Buninyong, 54,972.271 m, to the millimetre) at all ' + GEO.pairs.toLocaleString('en-US') + ' (cruise position, airfield) pairs decided here, latitudes ' + latLo.toFixed(1) + '° to ' + latHi.toFixed(1) + '° N. The sphere’s lower end holds at every pair, so REFUTED, which reads it, is untouched. Its upper end does not: east–west, the ellipsoid’s radius here is above the interval’s top, and the true distance exceeds the computed upper end at ' + GEO.outHi.toLocaleString('en-US') + ' pairs, by up to ' + geoPct + ' %. Of the ' + GEO_FLIP.reach.toLocaleString('en-US') + ' REACHABLE verdicts across the ' + scen.length + ' states, ' + GEO_FLIP.all + ' do not survive the ellipsoid (' + GEO_FLIP.shown + ' of them inside the panel’s line, ' + flipBase + ' in the headline scenario). They are not re-decided here: the verdicts are the kernel’s, and PROVED REACHABLE carries H3 as it carries H1.' },
+      { grade: WR.ASSUMED, label: 'H1 · terrain is not modelled: the band is glide distance over ground at the field’s own elevation',
+        evidence: '<strong>Asymmetric, and it runs the safe way.</strong> Rising ground can only REMOVE reach, so REFUTED is unaffected by it; PROVED REACHABLE means “reachable if the path is unobstructed”. A terrain layer moves green fields to undecided, never the reverse.' },
+      { grade: WR.VERIFIED, label: 'The band’s arithmetic',
+        evidence: 'outward-rounded intervals over the envelope; with a point envelope in still air the band collapses onto its exact solution h × L/D, and 4,000 random draws inside the envelope land inside the band (apps/glide-band/battery.js, ' + nChecks + ' checks with ' + nReds + ' red controls, run at this build).' },
+    ], { meetLine: 'The arithmetic is verified and the geodesy compared; the weakest premise is <b>assumed</b>. Every verdict is exact <em>given H1–H5</em>, which is what the halo on the rings draws: the glide model’s own error has never been measured here, so it has no edge.' })
+    + C.note({ lab: 'wording', bodyRaw: C.pRaw('“Certified” on this page always means a '
         + '<em>mathematically certified enclosure</em>: an interval proved to contain the true value. It carries '
         + 'no airworthiness meaning, no design assurance and no approval of any kind. The artifact says NOT FOR '
-        + 'NAVIGATION on its face and means it \u2014 this is a demonstration of a decision procedure, on a '
+        + 'NAVIGATION on its face and means it — this is a demonstration of a decision procedure, on a '
         + 'flight that had no emergency and a crew who did nothing of the sort.') })
     + '</div>'
 }));

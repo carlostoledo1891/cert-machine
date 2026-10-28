@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The reserve, provable</title>
+<title>eVTOL energy reserves: feasibility certificates under the FAA rule · Carlos Toledo</title>
 <meta name="description" content="Energy-feasibility certificates for eVTOL missions under the FAA reserve rule: CERTIFIED over whole parameter boxes, REFUTED with an exact witness, or REFUSED.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/evtol-energy.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/evtol-energy.html">
-<meta property="og:title" content="The reserve, provable">
+<meta property="og:title" content="eVTOL energy reserves: feasibility certificates under the FAA rule · Carlos Toledo">
 <meta property="og:description" content="Energy-feasibility certificates for eVTOL missions under the FAA reserve rule: CERTIFIED over whole parameter boxes, REFUTED with an exact witness, or REFUSED.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The reserve, provable">
+<meta name="twitter:title" content="eVTOL energy reserves: feasibility certificates under the FAA rule · Carlos Toledo">
 <meta name="twitter:description" content="Energy-feasibility certificates for eVTOL missions under the FAA reserve rule: CERTIFIED over whole parameter boxes, REFUTED with an exact witness, or REFUSED.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The reserve, provable","description":"Energy-feasibility certificates for eVTOL missions under the FAA reserve rule: CERTIFIED over whole parameter boxes, REFUTED with an exact witness, or REFUSED.","url":"https://carlostoledo.co/reports/evtol-energy.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"eVTOL energy reserves: feasibility certificates under the FAA rule","description":"Energy-feasibility certificates for eVTOL missions under the FAA reserve rule: CERTIFIED over whole parameter boxes, REFUTED with an exact witness, or REFUSED.","url":"https://carlostoledo.co/reports/evtol-energy.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -583,6 +587,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -608,6 +617,80 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar{width:10px;height:10px}
 ::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
 ::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -673,28 +756,29 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · aerospace front · every verdict re-proved at this build</div>
-  <h1>The reserve, provable: energy-feasibility certificates for eVTOL missions</h1>
-  <p class="deck">Battery-electric air taxis fly under a hard reserve rule — the FAA&#39;s powered-lift SFAR demands 20 minutes of reserve energy under VFR, 30 under IFR, and industry is arguing the number because reserves gate route economics. Every feasibility figure in that argument today is simulation. This page holds the other kind of statement: for a mission whose durations, powers, capacity and efficiency are known only as BOXES, the verdict &quot;every parameter point lands at or above the reserve floor&quot; is decided — CERTIFIED, REFUTED with an exact falsifying witness, or honestly REFUSED — by interval arithmetic with outward rounding. Mathematically certified enclosures; no airworthiness meaning, and the page says so.</p>
+  <h1>eVTOL energy reserves: feasibility certificates under the FAA rule</h1>
+<p class="standfirst">The reserve, provable: energy-feasibility certificates for eVTOL missions</p>
+  <p class="deck">Battery-electric air taxis fly under a hard reserve rule — the FAA&#39;s powered-lift SFAR (14 CFR Part 194, 89 FR 92296 (2024-11-21, eff. 2025-01-21)) allows a VFR reserve of 20 minutes at normal cruise only where the flight manual shows a vertical landing is possible along the whole route, and 30 minutes by day otherwise — and industry is arguing the number because reserves gate route economics. Every feasibility figure in that argument today is simulation. This page holds the other kind of statement: for a mission whose durations, powers, capacity and efficiency are known only as BOXES, the verdict &quot;every parameter point lands at or above the reserve floor&quot; is decided — CERTIFIED, REFUTED with an exact falsifying witness, or honestly REFUSED — by interval arithmetic with outward rounding. Mathematically certified enclosures; no airworthiness meaning, and the page says so.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> A provable energy-feasibility envelope for an eVTOL mission class: under representative boxes, the mathematically certified endurance frontier sits at 19 minutes of cruise under the 20-minute reserve rule and 11 under the 30-minute rule — every probe of that frontier a certified verdict, not a Monte Carlo percentile. The 10-minute rule difference costs 7 minutes of certified cruise.</li><li><b>The mechanism.</b> Used and reserve energy are enclosed over the whole parameter box (outward-rounded interval arithmetic); the universal verdict needs one one-sided comparison each way. A refutation re-proves the most favorable corner in exact BigInt rationals — if even that corner fails, all points do — and a box that straddles the floor is REFUSED, never averaged. The battery cross-proves every verdict against 256-corner exhaustive exact sweeps and fires four red controls per run.</li><li><b>Check it.</b> <span class="m">node instruments/evtol/battery.js</span> from a clone — 21 checks; the mission table below was certified during this page's build.</li></ul>
+<ul class="plain"><li><b>The finding.</b> A provable energy-feasibility envelope for an eVTOL mission class: under representative boxes, the mathematically certified endurance frontier sits at 18 min 41 s of cruise under the 20-minute reserve and 11 min 21 s under the 30-minute one — every probe of that frontier a certified verdict, not a Monte Carlo percentile. The ten extra minutes of reserve cost 7 min 20 s of certified cruise, to the second.</li><li><b>The mechanism.</b> Used and reserve energy are enclosed over the whole parameter box (outward-rounded interval arithmetic); the universal verdict needs one one-sided comparison each way. A refutation re-proves the most favorable corner in exact BigInt rationals — if even that corner fails, all points do — and a box that straddles the floor is REFUSED, never averaged. The battery checks the interval bounds against all 256 corners of three instances in exact rationals and fires 4 red controls per run. What every verdict rests on, and how far each premise was checked, is §2.</li><li><b>Check it.</b> <span class="m">node instruments/evtol/battery.js</span> from a clone — 25 checks, 4 of them red controls; the mission table below was certified during this page's build.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="6">
-    <div class="stat"><div class="k">certified endurance, 20-min rule</div><div class="v">19 min cruise</div><div class="n">the longest cruise whose mission CERTIFIES for every parameter point in the boxes — found by bisection with a certified verdict at every probe</div></div>
-    <div class="stat"><div class="k">certified endurance, 30-min rule</div><div class="v">11 min cruise</div><div class="n">the same frontier under the IFR reserve — the rule change costs 7 certified minutes</div></div>
+    <div class="stat"><div class="k">certified endurance, 20-min reserve</div><div class="v">18 min 41 s cruise</div><div class="n">the longest cruise (the low end of a two-minute cruise box) whose mission CERTIFIES for every parameter point in the boxes — found by bisection with a certified verdict at every probe</div></div>
+    <div class="stat"><div class="k">certified endurance, 30-min reserve</div><div class="v">11 min 21 s cruise</div><div class="n">the same frontier under 30 minutes, the same rule&#39;s day tier when that condition is not shown — the ten extra minutes cost 7 min 20 s of certified cruise</div></div>
     <div class="stat"><div class="k">verdicts</div><div class="v">3, all exercised</div><div class="n">CERTIFIED / REFUTED-with-witness / REFUSED — the mission ladder below shows each, live</div></div>
-    <div class="stat"><div class="k">witness arithmetic</div><div class="v">BigInt rationals</div><div class="n">every refutation carries its most-favorable corner re-proved exactly; every calibration is a dyadic closed form matched exactly</div></div>
-    <div class="stat"><div class="k">battery</div><div class="v">21 checks · 4 reds</div><div class="n">verdicts cross-proved by 256-corner exact sweeps; forged inputs must be refused at the door</div></div>
+    <div class="stat"><div class="k">witness arithmetic</div><div class="v">BigInt rationals</div><div class="n">every refutation carries its most-favorable corner re-proved exactly; the calibration instance&#39;s margin is matched exactly in rationals (40 kWh)</div></div>
+    <div class="stat"><div class="k">battery</div><div class="v">25 checks · 4 reds</div><div class="n">interval bounds checked against 256-corner exact sweeps; forged inputs must be refused at the door</div></div>
     <div class="stat"><div class="k">what this is not</div><div class="v">no airworthiness claim</div><div class="n">&quot;certified&quot; here is a mathematical statement about boxes and arithmetic — never a regulatory status</div></div>
   </div>
 </div>
@@ -704,9 +788,9 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§0 · the frontier</div>
     <h2>Where proof ends, and what sits in the gap</h2>
   </div>
-<div class="col"><p>The same mission, decided at every cruise duration under each rule. Nothing here is sampled and interpolated: each strip boundary is a change of VERDICT between two adjacent certified probes.</p></div><div class="wide"><figure>
+<div class="col"><p>The same mission, decided at every cruise duration under each rule. Both strip boundaries are located to the second by bisection, with a certified verdict on each side; a sweep every 15 seconds checks that the verdict only ever moves from CERTIFIED to REFUSED to REFUTED as the cruise grows, and the build refuses the page if it does not.</p></div><div class="wide"><figure>
   <div class="figbox">
-  <svg viewBox="0 0 900 202" role="img" aria-label="Two reserve rules swept across cruise duration. Under the FAA 20-minute reserve the mission is certified out to about 19 minutes of cruise, then a wide undecidable band, then refuted; under a 30-minute reserve the certified region ends at about 11 minutes.">
+  <svg viewBox="0 0 900 202" role="img" aria-label="Two reserve rules swept across cruise duration. Under the 20-minute reserve the mission is certified out to 18 min 41 s of cruise, undecidable from there to 50 min 21 s, then refuted; under the 30-minute reserve the certified region ends at 11 min 21 s and the refuted one starts at 42 min 10 s.">
     <defs><pattern id="cmHatch" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="var(--sunk)"/><path d="M0,6 l6,-6 M-1.5,1.5 l3,-3 M4.5,7.5 l3,-3" stroke="var(--c-ctx)" stroke-width="0.7" fill="none"/></pattern></defs>
     <line x1="176.0" y1="16" x2="176.0" y2="120" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="176.0" y="140.0" text-anchor="middle" class="t-ax">0 min</text>
@@ -722,21 +806,21 @@ ul.plain b{color:var(--ink);font-weight:480}
     <text x="712.9" y="140.0" text-anchor="middle" class="t-ax">50 min</text>
     <line x1="820.3" y1="16" x2="820.3" y2="120" stroke="var(--c-grid)" stroke-width="1"/>
     <text x="820.3" y="140.0" text-anchor="middle" class="t-ax">60 min</text>
-    <text x="164.0" y="46.0" text-anchor="end" class="t-ax">FAA 20-min reserve</text>
-    <rect x="176.00" y="32" width="199.35" height="20" rx="3" fill="var(--c-2)" data-cm="FAA 20-min reserve · 0–19 min cruise" data-cmv="CERTIFIED — every corner of the box clears the rule" tabindex="0"/>
-    <rect x="377.35" y="32" width="338.95" height="20" rx="3" fill="url(#cmHatch)" data-cm="FAA 20-min reserve · 19–51 min cruise" data-cmv="REFUSED — the published boxes decide nothing here" tabindex="0"/>
-    <rect x="377.35" y="32" width="338.95" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
-    <rect x="718.29" y="32" width="156.39" height="20" rx="3" fill="var(--c-1)" data-cm="FAA 20-min reserve · 51–65 min cruise" data-cmv="REFUTED — an exact falsifying corner exists" tabindex="0"/>
+    <text x="164.0" y="46.0" text-anchor="end" class="t-ax">20-min reserve</text>
+    <rect x="176.00" y="32" width="198.81" height="20" rx="3" fill="var(--c-2)" data-cm="20-min reserve · 0 min to 18 min 42 s of cruise" data-cmv="CERTIFIED — every corner of the box clears the rule" tabindex="0"/>
+    <rect x="376.81" y="32" width="337.87" height="20" rx="3" fill="url(#cmHatch)" data-cm="20-min reserve · 18 min 42 s to 50 min 21 s of cruise" data-cmv="REFUSED — the stated boxes decide nothing here" tabindex="0"/>
+    <rect x="376.81" y="32" width="337.87" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
+    <rect x="716.68" y="32" width="155.32" height="20" rx="3" fill="var(--c-1)" data-cm="20-min reserve · 50 min 21 s to 65 min of cruise" data-cmv="REFUTED — an exact falsifying corner exists" tabindex="0"/>
     <line x1="376.6" y1="27" x2="376.6" y2="57" stroke="var(--ink)" stroke-width="2"/>
-    <text x="383.6" y="24.0" text-anchor="start" class="t-lab">frontier 19 min</text>
+    <text x="383.6" y="24.0" text-anchor="start" class="t-lab">frontier 18 min 41 s</text>
     <text x="164.0" y="98.0" text-anchor="end" class="t-ax">30-min reserve</text>
-    <rect x="176.00" y="84" width="121.49" height="20" rx="3" fill="var(--c-2)" data-cm="30-min reserve · 0–12 min cruise" data-cmv="CERTIFIED — every corner of the box clears the rule" tabindex="0"/>
-    <rect x="299.49" y="84" width="328.21" height="20" rx="3" fill="url(#cmHatch)" data-cm="30-min reserve · 12–42 min cruise" data-cmv="REFUSED — the published boxes decide nothing here" tabindex="0"/>
-    <rect x="299.49" y="84" width="328.21" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
-    <rect x="629.70" y="84" width="244.98" height="20" rx="3" fill="var(--c-1)" data-cm="30-min reserve · 42–65 min cruise" data-cmv="REFUTED — an exact falsifying corner exists" tabindex="0"/>
+    <rect x="176.00" y="84" width="120.06" height="20" rx="3" fill="var(--c-2)" data-cm="30-min reserve · 0 min to 11 min 22 s of cruise" data-cmv="CERTIFIED — every corner of the box clears the rule" tabindex="0"/>
+    <rect x="298.06" y="84" width="328.74" height="20" rx="3" fill="url(#cmHatch)" data-cm="30-min reserve · 11 min 22 s to 42 min 10 s of cruise" data-cmv="REFUSED — the stated boxes decide nothing here" tabindex="0"/>
+    <rect x="298.06" y="84" width="328.74" height="20" rx="3" fill="none" stroke="var(--c-3)" stroke-width="1"/>
+    <rect x="628.81" y="84" width="243.19" height="20" rx="3" fill="var(--c-1)" data-cm="30-min reserve · 42 min 10 s to 65 min of cruise" data-cmv="REFUTED — an exact falsifying corner exists" tabindex="0"/>
     <line x1="297.9" y1="79" x2="297.9" y2="109" stroke="var(--ink)" stroke-width="2"/>
-    <text x="304.9" y="76.0" text-anchor="start" class="t-lab">frontier 11 min</text>
-    <text x="525.0" y="162.0" text-anchor="middle" class="t-note">cruise duration of the mission  (hover-climb and hover-land held fixed)</text>
+    <text x="304.9" y="76.0" text-anchor="start" class="t-lab">frontier 11 min 21 s</text>
+    <text x="525.0" y="162.0" text-anchor="middle" class="t-note">cruise duration of the mission, the low end of its two-minute box  (hover-climb and hover-land held fixed)</text>
     <rect x="176" y="185" width="11" height="10" rx="2" fill="var(--c-2)"/>
     <text x="195.0" y="195.0" text-anchor="start" class="t-note">CERTIFIED</text>
     <rect x="284" y="185" width="14" height="10" fill="url(#cmHatch)"/>
@@ -745,7 +829,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <text x="493.0" y="195.0" text-anchor="start" class="t-note">REFUTED</text>
   </svg>
   </div>
-  <figcaption>Under the FAA 20-minute reserve the mission certifies out to 18 min 41 s of cruise; a 30-minute reserve pulls that back to 11 min 21 s — 7 certified minutes of cruise is what the extra ten minutes of reserve costs, exactly. The hatched band between CERTIFIED and REFUTED is the honest one: there the published boxes straddle the rule and the instrument refuses rather than guessing, and its width is a measurement of the disclosure, not of the aircraft.</figcaption>
+  <figcaption>Under the 20-minute reserve the mission certifies out to 18 min 41 s of cruise; a 30-minute reserve pulls that back to 11 min 21 s — 7 min 20 s of certified cruise is what the extra ten minutes of reserve cost, to the second. The hatched band between CERTIFIED and REFUTED is the honest one: there the stated boxes straddle the rule and the instrument refuses rather than guessing, and its width is a measurement of the boxes, not of an aircraft.</figcaption>
 </figure></div>
 </section>
 
@@ -754,8 +838,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§1 · the rule and the gap</div>
     <h2>A named regulatory number, defended by simulation</h2>
   </div>
-<p>The FAA&#39;s 2024 powered-lift SFAR sets energy reserves for eVTOL operations — 20 minutes VFR, 30 IFR — and the industry pushback is public and quantitative: reserves determine which routes close. EASA&#39;s 2025 IAM package regulates energy management the same way. Yet every number in that argument — mission feasibility, deconfliction energy overhead, reserve adequacy — is produced by simulation: Monte Carlo percentiles over sampled parameters, floating-point optimizers, no statement that survives an adversarial reading of &quot;for every case in the stated envelope&quot;.</p>
-<p>The gap is not modeling sophistication — the field&#39;s power models are fine. The gap is the QUANTIFIER. &quot;Feasible in 10,000 samples&quot; and &quot;feasible for every point in the box&quot; are different claims, and only the second is the shape a reserve rule actually asserts. Interval arithmetic decides the second shape directly, and nobody in the eVTOL energy literature has published such a certificate.</p>
+<p>The FAA&#39;s 2024 powered-lift SFAR sets energy reserves for eVTOL operations — under VFR, 20 minutes at normal cruise where the flight manual shows a vertical landing is possible along the whole route, otherwise 30 minutes by day and 45 by night (the rule pack apps/skyaudit/scenario/rules/faa-sfar-vfr.json, pinned to the Federal Register text) — and the industry pushback is public and quantitative: reserves determine which routes close. EASA sets a 5-minute final reserve inside a wider energy plan that does not reduce to one number (apps/skyaudit/scenario/rules/easa-final-reserve.json). Yet every number in that argument — mission feasibility, deconfliction energy overhead, reserve adequacy — is produced by simulation: Monte Carlo percentiles over sampled parameters, floating-point optimizers, no statement that survives an adversarial reading of &quot;for every case in the stated envelope&quot;.</p>
+<p>The gap is not modeling sophistication — the field's power models are fine. The gap is the QUANTIFIER. "Feasible in 10,000 samples" and "feasible for every point in the box" are different claims, and only the second is the shape a reserve rule actually asserts. Interval arithmetic decides the second shape directly. <em>We have not found such a certificate in the eVTOL energy literature; no search record is pinned here, so that is a statement about our reading, not a survey.</em></p>
 </section>
 
 <section class="col">
@@ -764,7 +848,8 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>Three verdicts, one honest refusal</h2>
   </div>
 <p>A mission is segments (hover-climb, cruise, hover-land, …) with duration and electrical-power BOXES; the battery contributes usable-energy and efficiency boxes; the reserve rule contributes a reserve time at a reserve power. Used and required energy are enclosed over the whole box with outward rounding, and the universal verdict follows from two one-sided comparisons: worst case clears — CERTIFIED for every point; best case fails — REFUTED for every point, with the most favorable corner re-proved negative in exact BigInt rationals as the falsifying witness; anything between — REFUSED, with both margins printed. A refusal means the boxes genuinely contain passing and failing aircraft, and no honest instrument can say more until the boxes tighten.</p>
-<p>The corner-witness logic is PROVED, not assumed: the battery sweeps all 256 corners of a two-segment instance in exact rationals and requires the interval bounds to be sound AND corner-achieving (tight to rounding) on feasible, marginal and doomed instances alike. Scope, honestly: this is energy accounting — Σ duration·power/efficiency against usable capacity — not electrochemistry. Voltage sag, temperature and aging live INSIDE the boxes a user states, which is exactly why the inputs are boxes: widen them to cover what the model does not resolve, and every verdict above stays sound.</p>
+<p>The corner-witness logic is checked, not assumed: the battery sweeps all 256 corners of three two-segment instances (feasible, marginal, doomed) in exact rationals and requires the interval bounds to be sound AND corner-achieving (tight to rounding) on each. Scope, honestly: this is energy accounting — Σ duration·power/efficiency against usable capacity — not electrochemistry. Voltage sag, temperature and aging live INSIDE the boxes a user states, which is exactly why the inputs are boxes: widen them to cover what the model does not resolve, and every verdict above stays sound.</p>
+<div class="col"><p>Every verdict is exact about the boxes it was given. What it says about an aircraft rests on premises the arithmetic cannot reach. In the order a verdict travels through them, each with the rung its checking reached — <b>validated</b> (against the thing itself, held out), <b>compared</b> (against a model that keeps more), <b>verified</b> (the code against an exact solution of its own equations) or <b>assumed</b> (adopted; nothing here checked it):</p><ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The mission and the aircraft, as boxes</b> <span class="ev">hover 420–520 kW for 60–90 s each way, cruise 110–150 kW, usable 130–145 kWh, efficiency 0.88–0.94, reserve power 90–110 kW: a representative vectored-thrust class chosen for this page, not any maker's published numbers, typed in tools/<wbr>build-report-evtol-energy.js. Nothing here measured an aircraft.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Energy as bookkeeping</b> <span class="ev">used energy is Σ duration × power / efficiency against usable capacity. No voltage sag, temperature or ageing: they are meant to sit inside the boxes, and whether these boxes are wide enough to hold them is not measured here.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source or chosen; nothing here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The reserve rule</b> <span class="ev">20 minutes from the SFAR rule pack (14 CFR Part 194, 89 FR 92296 (2024-11-21, eff. 2025-01-21)), which grants it only where a vertical landing is possible along the whole route; 30 minutes is the same rule's day tier otherwise. Whether a route qualifies is not decided here. The rule asks for those minutes at normal cruising speed; this page holds them at a reserve power of 90–110 kW, at or below its own cruise box of 110–150 kW — a chosen reading of "normal cruise", not the rule's number.</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The arithmetic</b> <span class="ev">the interval bounds are checked against all 256 corners of three instances in exact rationals, sound and tight on each; the calibration instance's margin is exactly 40 kWh in rationals; every refutation is re-proved at its best corner in BigInt rationals (instruments/<wbr>evtol/<wbr>battery.js, 25 checks, run at this build). The last step, usable − used − reserve, is a round-to-nearest subtraction, so the build refuses any verdict on this page whose margin is within 1e−9 kWh of zero.</span></div></li></ol><p class="w-meet">The arithmetic is verified; the weakest premise is <b>assumed</b>. A verdict here is exact <em>given the boxes and the rule</em>: about a real aircraft it says what those boxes say, and no more.</p></div>
 </section>
 
 <section class="">
@@ -772,7 +857,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§3 · the mission ladder</div>
     <h2>Certified live at this build, under both reserve rules</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>mission</th><th>20-min reserve</th><th>margin (kWh)</th><th>30-min reserve</th><th>margin (kWh)</th></tr></thead><tbody><tr><td>short hop (10 min cruise)</td><td><span class="tag held">CERTIFIED</span></td><td class="n">27.5</td><td><span class="tag held">CERTIFIED</span></td><td class="n">6.7</td></tr><tr><td>design mission (20 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-0.9 … 61.1</td><td><span class="tag dep">REFUSED</span></td><td class="n">-21.7 … 45.2</td></tr><tr><td>stretch (35 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-43.5 … 31.9</td><td><span class="tag dep">REFUSED</span></td><td class="n">-64.3 … 15.9</td></tr><tr><td>deep stretch (55 min cruise)</td><td><span class="tag open">REFUTED</span></td><td class="n">-7.1</td><td><span class="tag open">REFUTED</span></td><td class="n">-23.1</td></tr></tbody></table></div></div><div class="col"><p>Margins are worst-case for CERTIFIED rows, best-case for REFUTED rows, and the worst…best pair for REFUSED rows — the two numbers a refusal honestly has. The parameter boxes are a representative vectored-thrust class (hover 420–520 kW, cruise 110–150 kW, usable 130–145 kWh, efficiency 0.88–0.94), stated in the page source as inputs — they are NOT any manufacturer's aircraft, and tightening or widening them re-decides every row by the same arithmetic.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>mission</th><th>20-min reserve</th><th>margin (kWh)</th><th>30-min reserve</th><th>margin (kWh)</th></tr></thead><tbody><tr><td>short hop (10 min cruise)</td><td><span class="tag held">CERTIFIED</span></td><td class="n">27.5</td><td><span class="tag held">CERTIFIED</span></td><td class="n">6.7</td></tr><tr><td>design mission (20 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-0.9 … 61.2</td><td><span class="tag dep">REFUSED</span></td><td class="n">-21.8 … 45.2</td></tr><tr><td>stretch (35 min cruise)</td><td><span class="tag dep">REFUSED</span></td><td class="n">-43.5 … 31.9</td><td><span class="tag dep">REFUSED</span></td><td class="n">-64.4 … 16.0</td></tr><tr><td>deep stretch (55 min cruise)</td><td><span class="tag open">REFUTED</span></td><td class="n">-7.1</td><td><span class="tag open">REFUTED</span></td><td class="n">-23.0</td></tr></tbody></table></div></div><div class="col"><p>Margins are worst-case for CERTIFIED rows, best-case for REFUTED rows, and the worst…best pair for REFUSED rows — the two numbers a refusal honestly has — each printed rounded outward, a worst case down and a best case up. The parameter boxes are a representative vectored-thrust class (hover 420–520 kW, cruise 110–150 kW, usable 130–145 kWh, efficiency 0.88–0.94, reserve power 90–110 kW), stated in the page source as inputs — they are NOT any manufacturer's aircraft, and tightening or widening them re-decides every row by the same arithmetic.</p></div>
 </section>
 
 <section class="col">
@@ -780,15 +865,15 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§4 · the frontier</div>
     <h2>Where the certified envelope ends</h2>
   </div>
-<p>Bisecting on cruise duration with a certified verdict at every probe puts the end of the mathematically certified envelope at 19 minutes of cruise under the 20-minute rule and 11 minutes under the 30-minute rule, for the stated boxes. That difference — 7 minutes of provable endurance — is the quantity the reserve debate is actually about, computed here as a theorem about the boxes rather than a fleet average. The same bisection run against an operator&#39;s own measured boxes is the instrument&#39;s intended use.</p>
+<p>Bisecting on cruise duration with a certified verdict at every probe puts the end of the mathematically certified envelope at 18 min 41 s of cruise under the 20-minute reserve and 11 min 21 s under the 30-minute one, for the stated boxes; each is the low end of a two-minute cruise box, so the cruise it certifies runs up to two minutes longer. That difference — 7 min 20 s of provable endurance — is the quantity the reserve debate is actually about, computed here as a theorem about the boxes rather than a fleet average. The same bisection run against an operator&#39;s own measured boxes is the instrument&#39;s intended use.</p>
 </section>
 
 <section class="col">
   <div class="sec-head">
-    <div class="lab">§5 · where this goes</div>
+    <div class="lab">§5 · where this went</div>
     <h2>The aerospace front, opened</h2>
   </div>
-<p>This is the first instrument of this site&#39;s aerospace front: the cheapest object where a certified universal statement replaces a simulation percentile in a live regulatory argument. The next two are named: an exact-rational audit of a published UAM capacity claim, and the front&#39;s flagship — a computer-assisted enclosure of an aeroelastic limit-cycle oscillation, an object with mature literatures on both sides and, as far as three independent searches can establish, no certified instance anywhere.</p>
+<p>This was the first instrument of this site's aerospace front: the cheapest object where a certified universal statement replaces a simulation percentile in a live regulatory argument. The same verdict was then run on a real day: <a href="skyaudit.html">SkyAudit</a> re-flies a pinned day of New York helicopter traffic with four eVTOLs' own published boxes under the same SFAR rule pack, and <a href="glide-band.html">the glide band</a> draws an engine-out reach as a proved inner ring, a refuted outer one and the undecided annulus between.</p>
 </section><script>
 (function(){
   var tip=null;
@@ -819,7 +904,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-evtol-energy.js @ git 4ba347a. The instrument's battery ran as this page's gate (21 checks, 4 reds fired), every mission row was certified during the build, and the endurance frontier was re-bisected — the build refuses on any deviation. Instrument: instruments/evtol/energy.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-evtol-energy.js @ git 4ae2ad96. The instrument's battery ran as this page's gate (25 checks, 4 of them red controls, all fired), every mission row was certified during the build, and both verdict boundaries were re-bisected — the build refuses on any deviation, or if a verdict it prints rests on the last float subtraction. Reserve rule: apps/skyaudit/scenario/rules/faa-sfar-vfr.json. Instrument: instruments/evtol/energy.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
