@@ -167,11 +167,12 @@ function table({ cols, rows }) {
 }
 
 /* A grid of link cards — the whole card is the anchor. Two columns on a
-   desk, one on a phone; the template owns the breakpoint.
+   desk, one on a phone; the template owns the breakpoint. A card that leaves
+   the site opens in a new tab (the operator, 2026-10-28).
    items: [{href, k: mono kicker, title, desc, n: mono footer line}] */
 function cards(items) {
   return '<div class="wide"><div class="cards">' + items.map(it =>
-    '<a class="card" href="' + escAttr(it.href) + '">'
+    '<a class="card" href="' + escAttr(it.href) + '"' + (/^https?:\/\//.test(it.href) ? ' target="_blank" rel="noopener"' : '') + '>'
     + (it.k ? '<span class="card-k">' + esc(it.k) + '</span>' : '')
     + '<span class="card-t">' + esc(it.title) + '</span>'
     + (it.desc ? '<span class="card-d">' + esc(it.desc) + '</span>' : '')

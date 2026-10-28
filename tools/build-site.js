@@ -1003,26 +1003,32 @@ B.push(C.stats([
     nRaw: 'an absolute-tolerance grader; a certificate grader admits none and rejects nothing right · <a href="reports/envs.html">the measurement</a>' }
 ]));
 
+/* WHERE A CARD GOES (2026-10-28, the operator: "always send to report and/or external link (github). If external, open
+   in a blank page"). A credit card goes to the pinned source its quote is read from; the re-derivations, which no one
+   source holds, go to the report that records them. A card that would send a reader to the about page refuses. */
+const outsideCards = [
+  { href: regQuote.url, k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
+    title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
+    desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
+    n: '“' + OUTSIDE.plain(regQuote.quote) + '”' },
+  { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
+    title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',
+    desc: 'The authors published the point sets behind ' + KW.atRequest.length + ' of ' + KW.rows + ' bounds at the audit’s request; every pair of ' + sci15(KW.pairs) + ' was then decided exactly.',
+    n: '“' + OUTSIDE.plain(qiushi.quote) + '”' },
+  { href: 'reports/rerun.html#reruns', k: 'outside re-derivations · ' + longDate(firstDate(externalReruns)) + ' – ' + longDate(lastDate(externalReruns)),
+    title: numword(rerunParties.length).replace(/^./, (c) => c.toUpperCase()) + ' outside replayers, ' + numword(externalReruns.length) + ' re-derivations, no disagreement',
+    desc: rerunsOwn + ' with their own code, ' + rerunsTools + ' with the tools that wrote the record; the same verdict on every row. ' + rerunParties.join(', ') + '.',
+    n: '“' + OUTSIDE.plain(peer.quote) + '” — ' + peer.who.replace(/,.*$/, '') },
+  { href: listing.url, k: 'listed · ' + longDate(listing.date),
+    title: OUTSIDE.cap(listing.who),
+    desc: listing.what,
+    n: '“' + OUTSIDE.plain(listing.quote) + '”' }
+];
+for (const c of outsideCards) if (!/^https:\/\/github\.com\/|^reports\/[\w.-]+\.html(#[\w-]+)?$/.test(c.href))
+  fail('an outside card goes somewhere other than a report or GitHub: ' + c.href);
 B.push(C.section({
   lab: 'outside the building', title: 'What has come back, in their words', wide: true, id: 'outside',
-  bodyRaw: C.cards([
-    { href: 'about/index.html#outside', k: 'cited by a registry · ' + longDate(firstDate(regCited.concat([regQuote]))) + ' – ' + longDate(lastDate(regCited.concat([regCorrection]))),
-      title: 'The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao)',
-      desc: numword(asterisksOff).replace(/^./, (c) => c.toUpperCase()) + ' asterisks removed on our replays — ' + asterNote + ' — and one row corrected on our check (C₈₄b); constant pages cite the replays as [T2026].',
-      n: '“' + OUTSIDE.plain(regQuote.quote) + '”' },
-    { href: qiushi.url, k: 'credited by the claimant · ' + longDate(qiushi.date),
-      title: 'The Qiushi Engine (Oxelra-AI), ' + KW.rows + ' kissing bounds',
-      desc: 'The authors published the point sets behind ' + KW.atRequest.length + ' of ' + KW.rows + ' bounds at the audit’s request; every pair of ' + sci15(KW.pairs) + ' was then decided exactly.',
-      n: '“' + OUTSIDE.plain(qiushi.quote) + '”' },
-    { href: 'about/index.html#outside', k: 'outside re-derivations · ' + longDate(firstDate(externalReruns)) + ' – ' + longDate(lastDate(externalReruns)),
-      title: numword(rerunParties.length).replace(/^./, (c) => c.toUpperCase()) + ' outside replayers, ' + numword(externalReruns.length) + ' re-derivations, no disagreement',
-      desc: rerunsOwn + ' with their own code, ' + rerunsTools + ' with the tools that wrote the record; the same verdict on every row. ' + rerunParties.join(', ') + '.',
-      n: '“' + OUTSIDE.plain(peer.quote) + '” — ' + peer.who.replace(/,.*$/, '') },
-    { href: listing.url, k: 'listed · ' + longDate(listing.date),
-      title: OUTSIDE.cap(listing.who),
-      desc: listing.what,
-      n: '“' + OUTSIDE.plain(listing.quote) + '”' }
-  ]) + '<div class="col after-fig">' + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
+  bodyRaw: C.cards(outsideCards) + '<div class="col after-fig">' + C.pRaw('Every send and its status, with the status words meant exactly, is on <a href="about/index.html#outside">the about page</a>. '
     + 'Nothing here has been peer-reviewed; the pages ship their own falsifiers rather than asking for trust.') + '</div>'
 }));
 

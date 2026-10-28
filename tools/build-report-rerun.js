@@ -286,7 +286,7 @@ B.push(C.section({
 }));
 
 B.push(C.section({
-  lab: '§5 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true,
+  lab: '§5 · the registry', title: N.external + ' independent rerun' + (N.external === 1 ? '' : 's') + ', recorded', wide: true, id: 'reruns',
   bodyRaw: (EXT.length ? C.table({
     cols: [{ h: 'who' }, { h: 'date' }, { h: 'what was rerun' }, { h: 'how' }, { h: 'obtained' }, { h: 'hash · code' }],
     rows: EXT.map((x) => [x.who, x.date, { raw: C.esc(x.what).replace(/\//g, '/<wbr>') + ((x.rows || []).length ? '<br><small>register rows: ' + x.rows.map((id) => '<span class="m">' + C.esc(id).replace(/[-_]/g, '$&<wbr>') + '</span>').join(', ') + '</small>'
