@@ -137,6 +137,32 @@ async function main() {
     return;
   }
 
+  if (cmd === 'users') {
+    /* look handles up before anyone is followed or tagged: a handle recalled from memory may be gone or someone else */
+    const names = (rest.find((a) => !a.startsWith('--')) || '').split(',').map((s) => s.trim().replace(/^@/, '')).filter(Boolean);
+    if (!names.length || names.length > 100) die('usage: node tools/x.js users handle1,handle2,… (at most 100)');
+    const r = await call(keys(), 'GET', '/users/by', { query: { usernames: names.join(','), 'user.fields': 'description,public_metrics' } });
+    for (const u of r.data || []) console.log('@' + u.username + '\t' + u.name + '\t' + (u.public_metrics ? u.public_metrics.followers_count : '?') + ' followers\t'
+      + String(u.description || '').replace(/\s+/g, ' ').slice(0, 110));
+    for (const e of r.errors || []) console.log('@' + (e.value || '?') + '\tNOT FOUND (' + (e.title || e.detail || 'error') + ')');
+    return;
+  }
+
+  if (cmd === 'follow') {
+    const names = (rest.find((a) => !a.startsWith('--')) || '').split(',').map((s) => s.trim().replace(/^@/, '')).filter(Boolean);
+    if (!names.length) die('usage: node tools/x.js follow handle1,handle2,… [--send]');
+    if (!flag('--send')) { console.log('would follow: ' + names.map((n) => '@' + n).join(' ') + '\npreview only — add --send to follow'); return; }
+    const K = keys();
+    const me = (await call(K, 'GET', '/users/me')).data;
+    const r = await call(K, 'GET', '/users/by', { query: { usernames: names.join(',') } });
+    for (const e of r.errors || []) console.log('@' + (e.value || '?') + '\tNOT FOUND, skipped');
+    for (const u of r.data || []) {
+      const f = await call(K, 'POST', '/users/' + me.id + '/following', { body: { target_user_id: u.id } });
+      console.log('@' + u.username + '\t' + (f.data && f.data.following ? 'following' : f.data && f.data.pending_follow ? 'requested' : JSON.stringify(f.data)));
+    }
+    return;
+  }
+
   if (cmd === 'mentions') {
     const K = keys();
     const me = (await call(K, 'GET', '/users/me')).data;
@@ -148,6 +174,6 @@ async function main() {
     return;
   }
 
-  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | mentions [--max N]');
+  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | users h1,h2 | follow h1,h2 [--send] | mentions [--max N]');
 }
 main().catch((e) => die(e.stack || String(e)));
