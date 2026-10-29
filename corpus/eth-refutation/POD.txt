@@ -24,3 +24,10 @@ DELETED 2026-10-28 ~20:05Z (delete-pod → 204; get-pod → 404 "pod not found")
 Quot.sound) and Anthropic CERTIFIED. leanchecker --fresh (the optional third replay) had just started on Anthropic's
 claim and was NOT completed: the operator was away and an unattended pod bills until deleted. Uptime 4,300 s at
 US$1.76/h ≈ US$2.10 at the read before deletion (get-pod runtime.uptime); the cap was US$50.
+
+── 2026-10-29: the leanchecker --fresh rerun (operator's approval, cap US$25; branch eth-leanchecker-fresh) ──
+probe      vkfjqn86lede79 (cpu3c 2 vCPU, US$0.06/h, EUR-IS-1), created 2026-10-29T19:50:12Z with only an image, to tell
+           a payload fault from a capacity fault after every 8-32 vCPU create was refused ("no instances available");
+           DELETED at once (delete-pod -> 204; get-pod -> 404 "pod not found"), well under US$0.01. It ran nothing.
+           Capacity it was: cpu3m 8, 16 and 32 vCPU, cpu5m 16, cpu3g 16 and 32 all refused with image-only or full
+           payloads, though the catalog read listed some of them.
