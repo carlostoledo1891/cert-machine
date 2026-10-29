@@ -27,7 +27,7 @@ NEXT SESSION, IN ORDER:
      known flap left at its recorded 9). The Qiushi proposal is now a PRIVATE e-mail draft (the operator: no public
      conversation for it; GitHub has no private messages): outreach/qiushi-coauthor-proposal.private.md, git-ignored
      (outreach/*.private.md), To the Oxelra org address, Cc Yihao Yang's ZJU address from CITATION.cff; NOT SENT. The
-     earlier public-comment draft is removed from the tree (it stays in history at 39066f52). CFSG: the reading step next
+     earlier public-comment draft is removed from the tree (it stays in history at 39066f52). CFSG: ON HOLD (the operator, 10-29); when resumed, the reading step first
      (see the targets row), the replay only after Axiom ships oleans.
   ★★★★★★ 2026-10-29 (late) — HANDOFF: D12 AND D14 BUILT AS SPECIMENS ON PUSHED BRANCHES, waiting on the operator's look.
      ── ON BRANCHES (pushed, NOT merged; each needs the operator's word, then `git merge` into main + `make page` + push):
