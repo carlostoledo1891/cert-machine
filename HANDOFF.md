@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★ 2026-10-29 ~03:00 UTC — ON THE OPERATOR'S WORD ("list eth and publish post 3 and 4"): /eth/ LISTED (09b3d894:
+     noindex gone and the build refuses one, eyebrow 'audit', the sitemap, the landing's way-in line + audits card, the
+     /reports/ audits lede; make page green 40 s, check-links PASS, check-wiring ALL PASS; live checked). POSTED: 03 kissing
+     (2115639941967257973) + link reply (2115640000310067648); 04 the ETH thread (2115640133357564329, …4976590026,
+     …8604720561) + the /eth/ link reply (2115640174491144320). The session then WAITS for new instructions.
   ★★★★ 2026-10-29 ~02:30 UTC — HANDOFF: THE TWO FRONTS NOW ARE THE GRAMMAR AND SOCIAL MEDIA (the operator: "we will
      continue working on grammar and social media"). Everything is committed and pushed (b5c3dbdf and this entry);
      make control was GREEN (172 in 575 s) before the grammar merges; the page gates green after each merge since.
@@ -60,7 +65,7 @@ NEXT SESSION, IN ORDER:
        (2115636294483124278) + the map link reply. FOLLOWING 23 verified accounts (AI-for-math, Lean, TCS, evals, the
        labs, Quanta); impostor/absent handles found and avoided (XenaProject gone; Tufte/Cairo/Massot handles are
        others').
-       DRAFTS (notes/x/, local): 03 kissing, 04 the ETH thread (hold until /eth/ is LISTED — still unlisted), 05 Ramsey,
+       DRAFTS (notes/x/, local; 03 and 04 POSTED 10-29 ~03:00 UTC, see above): 05 Ramsey,
        06 METR, 07 the grammar, 08 outside reruns. Each post goes with its link in the first reply.
        VIDEOS: design/video.js renders a scene frame by frame (window.frame(t) → Chrome → ffmpeg); the rule (operator):
        ENGLISH ONLY, ALWAYS A REAL DATA CHART (lines, points) IN MOTION, LOOPING, on paper, 1600×900, 15 s. The model
@@ -71,7 +76,7 @@ NEXT SESSION, IN ORDER:
        RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; UFSC/Pedro off X;
        only claimant-directed replies go in corpus/outreach.json; check a handle with `x.js users` before tagging.
      ── ETH (done for now): the TCS form SUBMITTED, the blog comment awaiting moderation, the #36 reply POSTED
-       (issuecomment-6484418376) — watch #36 and the blog; /eth/ unlisted (list it on the operator's word).
+       (issuecomment-6484418376) — watch #36 and the blog; /eth/ LISTED 2026-10-29 (09b3d894).
      ── HOUSEKEEPING: 13 agent worktrees under .claude/worktrees (all merged; their untracked copies are caches) —
        remove with git worktree remove when disk matters; sin-mfg is NOT on disk (LIFT sources all "gone"; ask where).
   ★★★ 2026-10-28 ~23:45 UTC — HANDOFF, on "follow the recommended path or send me the questions … Proceed". Read first.
