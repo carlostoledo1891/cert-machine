@@ -270,6 +270,15 @@ const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; re
    object from another record than the claim's. Always a × beside words, so a greyscale copy loses nothing. The colour
    is the .wx rule in css() below (design/tokens.js --witness). */
 const witness = (label = 'an exhibited counterexample') => `<span class="wx" aria-label="${String(label).replace(/"/g, '&quot;')}">&times;</span>`;
+/* THE WITNESS AS AN EVENT (D12, ruled 2026-10-29; the roundtable's R28). In a figure the same × is drawn where the
+   object broke the claim, at the figure's own scale: an arm of `size` either side of (x, y), at a stroke no thinner
+   than the figure's decided line. On a page with a hero it is the first × a reader meets, before any inline glyph
+   (tools/check-wiring.js reads the order and the weights from the built page). */
+const witnessMark = (x, y, { size = 6, width = 2.4 } = {}) => {
+  const f = (v) => (+v).toFixed(1);
+  return `<path class="w-wx" d="M${f(x - size)},${f(y - size)}L${f(x + size)},${f(y + size)}M${f(x - size)},${f(y + size)}L${f(x + size)},${f(y - size)}"`
+    + ` fill="none" stroke-width="${width}" stroke-linecap="round"/>`;
+};
 
 /* ------------------------------------------------- MODELS AS PREMISES ------
    WARRANT v2.1, 2026-10-28 (design/WARRANT.md). Standing answers ONE question: how was this number computed, and
@@ -391,6 +400,7 @@ span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
 /* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
 .wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
 /* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
 .w-legend.compact { max-width: 17rem; }
 /* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
@@ -415,8 +425,8 @@ ${balancedGrid('.w-legend', '.item')}
 `;
 }
 /* does this page use the grammar? the two shells ask before they include css() */
-const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend|premises|grade)\b|class="wx"/.test(String(html || ''));
+const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend|premises|grade|wx)\b|class="wx"/.test(String(html || ''));
 
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice, val,
-  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness,
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness, witnessMark,
   ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, UNVERIFIED, weakest, weakestPair, pairWord, grade, premisesHtml, css, usesGrammar };

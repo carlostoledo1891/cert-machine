@@ -179,38 +179,63 @@ function html() {
         + 'Never bridged, never drawn as zero.'),
   ];
 
-  /* the meet, with the witness */
+  /* THE HERO (D12, ruled 2026-10-29): the meet with its witness, the page's one figure drawn past the container, at its
+     own scale. Every standing on the page is in it — decided knots, the chosen segments between them, the float curve —
+     and the × is drawn where the segments break the claim to be √x, before the caption names it in words
+     (tools/check-wiring.js reads that order and the ×'s weight from the built page). Labelled directly. The window is
+     x, y in [0, 5/4], where the segments and the curve are far enough apart to be told apart from across a room; over
+     [1, 4] they run within a pixel or two of each other at any size the page can give them. */
+  /* two drawings of one figure (D12): the wide one past the container, and a phone one at a scale a phone can read,
+     swapped by the hero track's own rule (design/template.js). Same data, same marks; the labels are placed per drawing. */
+  const HERO = { w: 1000, h: 400, padL: 56, padR: 28, padT: 26, padB: 52, x0: 0, x1: 1.25, y0: 0, y1: 1.25 };
+  const HERO_N = { w: 400, h: 400, padL: 40, padR: 14, padT: 20, padB: 44, x0: 0, x1: 1.25, y0: 0, y1: 1.25 };
+  const HERO_DECIDED = 2, HERO_WX = { size: 11, width: 3.5 }, HERO_WX_N = { size: 8, width: 3 };
+  guard('the hero\'s × is drawn thinner than its decided marks (R28: a witness is an event at the figure\'s scale)', HERO_WX.width >= HERO_DECIDED && HERO_WX_N.width >= HERO_DECIDED);
+  const HX1 = fr(5, 4), inView = KNOTS.filter(([x]) => fnum(x) <= fnum(HX1)), nextK = KNOTS[inView.length];
+  /* where the last segment in view leaves the window, exactly: on the line from the last knot in view to the next */
+  const exitY = fadd(inView[inView.length - 1][1], fmul(fdiv(fsub(nextK[1], inView[inView.length - 1][1]), fsub(nextK[0], inView[inView.length - 1][0])), fsub(HX1, inView[inView.length - 1][0])));
+  guard('the hero\'s window no longer holds the witness and the knots either side of it', inView.length >= 3 && fnum(WX) < fnum(inView[2][0]) && fnum(exitY) < 1.25);
+  const WXTXT = ['x = ' + fstr(WX) + ': the segment reads ' + fstr(WY) + ',', 'and (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX)];
   const meetFig = (() => {
-    const f = CH.frame(Object.assign({ x0: 0, x1: 4 }, PANEL));
-    const seg = 'M' + KNOTS.map(([x, y]) => P(f, fnum(x), fnum(y))).join('L');
-    const wx = f.px(fnum(WX)), wy = f.py(fnum(WY));
-    const svg = CH.open({ w: PANEL.w, h: PANEL.h, alt: 'The meet: five exact knots of the square root drawn as solid points, straight dotted segments between them, the dashed float curve above the segments, and a red cross where the segment reads two thirds at x one half.' })
-      + '\n' + CH.axes(f, { yTicks: yT, xTicks: xT(0), xLabel: 'x' })
-      + '\n    <polyline points="' + flo.map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.2 }) + ' stroke-linejoin="round"/>'
-      + '\n    <path d="' + seg + '" ' + W.attrs(MEET, { width: 2.2 }) + '/>'
-      + '\n' + KNOTS.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>').join('\n')
-      + '\n    <path class="gr-wx" d="M' + (wx - 6).toFixed(1) + ',' + (wy - 6).toFixed(1) + 'l12,12M' + (wx - 6).toFixed(1) + ',' + (wy + 6).toFixed(1) + 'l12,-12" fill="none" stroke-width="2.4" stroke-linecap="round"/>'
-      + '\n' + CH.txt(wx + 12, wy + 22, 'x = ' + fstr(WX) + ': the segment reads ' + fstr(WY), 't-note', 'start')
-      + '\n' + CH.close;
-    return figure(svg, '<span class="gr-k">the meet · ' + esc(W.NAME[MEET]) + ', ' + esc(STROKE_WORD[MEET]) + '</span>'
-      + '√x is exact at x = ' + KNOTS.map(([x]) => fstr(x)).join(', ') + ' (checked by squaring): ' + numword(KNOTS.length) + ' decided knots, drawn solid. '
+    const draw = (G, wxo, r, L) => {
+      const f = CH.frame(G);
+      const seg = 'M' + inView.concat([[HX1, exitY]]).map(([x, y]) => P(f, fnum(x), fnum(y))).join('L');
+      const lab = ([x, y], t, cls, anchor) => CH.txt(f.px(x), f.py(y), t, cls, anchor);
+      const q = (v, t) => ({ v, t });
+      return CH.open({ w: G.w, h: G.h, alt: 'The meet, drawn large between x zero and five quarters: three exact knots of the square root as solid points, straight dotted segments between them, the dashed float curve above the segments, and a red cross at x one half where the segment reads two thirds, which squares to four ninths, not one half.' })
+        + '\n' + CH.axes(f, { yTicks: [q(0, '0'), q(0.5, '1/2'), q(1, '1')], xTicks: [q(0, '0'), q(0.25, '1/4'), q(0.5, '1/2'), q(0.75, '3/4'), q(1, '1'), q(1.25, '5/4')], xLabel: 'x' })
+        + '\n    <polyline points="' + flo.filter(([x]) => x <= 1.25).map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.8 }) + ' stroke-linejoin="round"/>'
+        + '\n    <path d="' + seg + '" ' + W.attrs(MEET, { width: 3 }) + '/>'
+        + '\n' + inView.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="' + r + '" class="w-decided" fill="var(--ink)" stroke-width="' + HERO_DECIDED + '"/>').join('\n')
+        + '\n' + W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo)
+        + '\n' + (L.wx2 ? lab(L.wx, WXTXT[0], 't-lab', 'start') + '\n' + lab(L.wx2, WXTXT[1], 't-lab', 'start') : lab(L.wx, WXTXT.join(' '), 't-lab', 'start'))
+        + '\n' + lab(L.dec, '√(1/4) = 1/2 · decided, solid', 't-note', 'start')
+        + '\n' + lab(L.com, 'Math.sqrt · computed, dashed', 't-note', 'end')
+        + '\n' + lab(L.cho, L.choT, 't-note', 'start')
+        + '\n' + CH.close;
+    };
+    const svg = draw(HERO, HERO_WX, 7, { wx: [0.55, 0.49], dec: [0.27, 0.38], com: [0.8, Math.sqrt(0.8) + 0.08], cho: [0.70, 0.66], choT: 'a straight segment, one curve of many · chosen, dotted' });
+    const svgN = draw(HERO_N, HERO_WX_N, 5, { wx: [0.30, 0.29], wx2: [0.30, 0.21], dec: [0.29, 0.41], com: [0.8, Math.sqrt(0.8) + 0.08], cho: [0.58, 0.62], choT: 'a segment · chosen, dotted' });
+    return C.figure({ svgRaw: svg, svgNarrowRaw: svgN, hero: true, captionRaw: '<span class="gr-k">the meet · ' + esc(W.NAME[MEET]) + ', ' + esc(STROKE_WORD[MEET]) + '</span>'
+      + '√x is exact at x = ' + KNOTS.map(([x]) => fstr(x)).join(', ') + ' (checked by squaring): ' + numword(KNOTS.length) + ' decided knots, drawn solid; the first ' + numword(inView.length) + ' are in view. '
       + 'The straight segments between them are one curve of the infinitely many through those knots, so '
       + m('W.meet(DECIDED, DECIDED, CHOSEN)') + ' is ' + esc(W.NAME[MEET]) + ': dotted. The thin dashed line is the float curve. '
       + 'Drawn solid, the segments would claim to be √x. That claim has a counterexample, exhibited and decided here: '
-      + W.witness('the exhibited counterexample') + ' at x = ' + fstr(WX) + ' the segment reads ' + fstr(WY) + ', and (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX) + '.');
+      + W.witness('the exhibited counterexample') + ' at x = ' + fstr(WX) + ' the segment reads ' + fstr(WY) + ', and (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX) + '.' });
   })();
 
   /* the halo: a key, not data. Janela and Swell draw it this way on their bands; warrant.js has no halo of its own. */
   const haloFig = (() => {
-    const L = 40, R = 360, band = (y, halo) => (halo ? '    <rect class="gr-halo" filter="url(#gr-blur)" x="' + L + '" y="' + y + '" width="' + (R - L) + '" height="30"/>\n' : '')
-      + '    <rect x="' + L + '" y="' + y + '" width="' + (R - L) + '" height="30" fill="var(--band-fill)"/>\n'
-      + '    <line x1="' + L + '" y1="' + y + '" x2="' + R + '" y2="' + y + '" ' + W.attrs(W.DECIDED, { width: 1.5 }) + '/>\n'
-      + '    <line x1="' + L + '" y1="' + (y + 30) + '" x2="' + R + '" y2="' + (y + 30) + '" ' + W.attrs(W.DECIDED, { width: 1.5 }) + '/>';
-    const svg = CH.open({ w: 400, h: 250, alt: 'The halo, as a key: two bands with the same crisp solid edges; the lower one, carried by a model not validated where it is drawn, also has a blurred halo outside its edges.' })
+    /* two bands side by side since D12 (the meet it sat beside became the hero): one strip across the track */
+    const H = 30, Y = 58, band = (L, R, halo) => (halo ? '    <rect class="gr-halo" filter="url(#gr-blur)" x="' + L + '" y="' + Y + '" width="' + (R - L) + '" height="' + H + '"/>\n' : '')
+      + '    <rect x="' + L + '" y="' + Y + '" width="' + (R - L) + '" height="' + H + '" fill="var(--band-fill)"/>\n'
+      + '    <line x1="' + L + '" y1="' + Y + '" x2="' + R + '" y2="' + Y + '" ' + W.attrs(W.DECIDED, { width: 1.5 }) + '/>\n'
+      + '    <line x1="' + L + '" y1="' + (Y + H) + '" x2="' + R + '" y2="' + (Y + H) + '" ' + W.attrs(W.DECIDED, { width: 1.5 }) + '/>';
+    const svg = CH.open({ w: 1000, h: 140, alt: 'The halo, as a key: two bands side by side with the same crisp solid edges; the right one, carried by a model not validated where it is drawn, also has a blurred halo outside its edges.' })
       + '\n    <defs><filter id="gr-blur" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="2.4"/></filter></defs>'
-      + '\n' + CH.txt(L, 44, 'validated where it is drawn', 't-lab', 'start') + '\n' + band(56, false)
-      + '\n' + CH.txt(L, 150, 'carried here by a model not validated here', 't-lab', 'start') + '\n' + band(164, true)
-      + '\n' + CH.txt(L, 226, 'the same edges; the blur is the model’s own error', 't-note', 'start')
+      + '\n' + CH.txt(40, 40, 'validated where it is drawn', 't-lab', 'start') + '\n' + band(40, 460, false)
+      + '\n' + CH.txt(540, 40, 'carried here by a model not validated here', 't-lab', 'start') + '\n' + band(540, 960, true)
+      + '\n' + CH.txt(540, 124, 'the same edges; the blur is the model’s own error', 't-note', 'start')
       + '\n' + CH.close;
     return figure(svg, '<span class="gr-k">the halo · rule 13</span>A key, not data. A band a model carries to a place where the model was not validated keeps its crisp edges, '
       + 'because the decision is made on them given the model, and gains a blur outside them: the model’s own error there has no edge to draw. '
@@ -360,7 +385,7 @@ function html() {
       f: [found('instruments/answer-shape/', 'answer-shape', 'its three models were told apart by dash patterns (' + m('6 4') + ' and ' + m('1.6 3.4') + ' among them); the first dash census found them, and the page already carried the weight-and-opacity ladder underneath.', '36b10f33'),
         found('instruments/answer-shape/', 'answer-shape', 'its closing edge and the model chips still used a dash for a role; they use opacity now.', '17eb3d7c')] },
     { n: 5, re: /^The one accent/, b: 'The one accent.',
-      t: 'The witness red marks an exhibited counterexample, a specific object that broke a claim someone made about that object’s own record, always as a × beside words (the one in the meet specimen above). It never marks a verdict word or a region, a scalar comparison (a box that clears a box has no witness point), a refutation reached by deduction, or an object taken from another record. When in doubt, ink.',
+      t: 'The witness red marks an exhibited counterexample, a specific object that broke a claim someone made about that object’s own record, always as a × beside words (the one in the figure at the top of this page). It never marks a verdict word or a region, a scalar comparison (a box that clears a box has no witness point), a refutation reached by deduction, or an object taken from another record. When in doubt, ink.',
       f: [found('instruments/return-level-check/', 'the return-level check', 'its list of × marks became one module, and “not the certified fit” came off it, because a box clearing a box has no witness point; on the atlas, the design table’s rows stay ink, because their objects belong to another record than the claim’s.', '824b1261')] },
     { n: 6, re: /^Mood/, b: 'Mood.',
       t: 'A verdict that holds given a chosen input names that input in italic — <em>given h = 3/50</em> — and a hypothesis that was read but not machine-checked is named the same way.',
@@ -425,6 +450,7 @@ function html() {
     deck: 'WARRANT is the grammar the figures, tables and numbers on this site are drawn in. The stroke of every line and the underline of every number say what it rests on: an exact decision, floating-point arithmetic, a choice, or nothing at all. A verdict is always a word. It covers the instruments and the pages read most; every other report takes it when it is next edited, and material already submitted elsewhere stays exactly as submitted. Below: the four marks, drawn live by the module; the '
       + numword(ruleNums.length) + ' rules, each with the finding on one of these pages that taught it; the colour law; the premise ladder for numbers that rest on a model; how the build enforces all of it; and how to use it in figures of your own.' }));
 
+  B_.push(meetFig);
   B_.push(C.section({ lab: 'what it is', title: 'A stroke says what the number behind it rests on', id: 'what', wide: true,
     bodyRaw: '<div class="col">' + C.p('A chart and a table both assert things, and neither usually says which of its marks the data forced and which the renderer, the solver or the tolerance chose. A fitted curve drawn solid looks exactly like a proved bound drawn solid. This grammar gives every mark one of four standings, and each standing one stroke:')
       + C.plainList([
@@ -443,7 +469,7 @@ function html() {
         + 'The exact parts are decided by this page’s builder in integer arithmetic; the float parts are Math.sqrt. If the module changes, these drawings change with it.') + '</div>'
       + '<div class="gr-spec" data-n="' + SPEC.length + '">' + SPEC.join('\n') + '</div>'
       + W.legendHtml()
-      + '<div class="gr-spec gr-two" data-n="2">' + meetFig + '\n' + haloFig + '</div>'
+      + '<div class="gr-two">' + haloFig + '</div>'
       + '<div class="col"><h3 class="gr-h3">A premise chain, with its ladder</h3>'
       + C.pRaw('A number that rests on a model names what it rests on, in the order the number travelled, each premise with its grade: '
         + [W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join(' · ') + ' (the ladder is explained below). '
@@ -477,7 +503,7 @@ function html() {
       + C.pRaw('Read from the rulebook when this page is built. No swatches: the only colour this page draws is the witness ×.')
       + C.plainList(reg.map((r) => ({ raw: '<b>' + cell(r[0]) + '</b> · ' + esc(r[1]) + ' — ' + cell(r[2]) + '. <em>Where:</em> ' + cell(r[3]) + '. <em>Approved:</em> ' + cell(r[4]) + '.' })))
       + '<h3 class="gr-h3">One red</h3>'
-      + C.pRaw('The witness red, ' + m(witnessHex) + ' (the × in the meet specimen above), marks an exhibited counterexample and nothing else. Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1])
+      + C.pRaw('The witness red, ' + m(witnessHex) + ' (the × in the figure at the top of this page), marks an exhibited counterexample and nothing else. Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1])
         + ' from the witness: one red to the eye with two meanings, against law 2. It is folded now. The apps’ refused state reads the witness token, with the witness’s meaning: a decided state shown together with the datum that breaks the rule, always with its icon and its word.') + '</div>' }));
 
   const LADDER_LIT = {
@@ -563,7 +589,7 @@ function html() {
   const head = (() => { try { return git(['rev-parse', '--short', 'HEAD']); } catch (e) { return 'unknown'; } })();
   const foot = '<p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md and the records each finding cites, at git ' + esc(head) + ', by tools/build-grammar.js. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
   const CSS = `
-/* /grammar/ (tools/build-grammar.js): the specimen grids, the finding lines, the witness × in a figure, the halo key */
+/* /grammar/ (tools/build-grammar.js): the specimen grids, the finding lines, the hero under the header, the halo key */
 .gr-spec{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-5)}
 @media (min-width:700px){.gr-spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gr-spec figure{margin:0}
@@ -573,7 +599,7 @@ function html() {
 .gr-h3{margin-top:var(--s-7)}
 .gr-f{display:block;margin-top:var(--s-2);font-size:var(--text-small);color:var(--ink-4)}
 .gr-f a.gr-c{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);white-space:nowrap}
-.gr-wx{stroke:var(--witness)}
+.page > header + .hero{margin-top:var(--s-7)}
 ul.plain .gr-pats{list-style:none;padding:0;margin:var(--s-2) 0 0}
 ul.plain .gr-pats li{padding:var(--s-1) 0;border-top:0;font-size:var(--text-small)}
 .gr-halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:4;stroke-linejoin:round;opacity:.32}

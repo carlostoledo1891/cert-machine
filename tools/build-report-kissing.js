@@ -173,6 +173,20 @@ const FIG_TIMELINE = [
   CH.close,
 ].join('\n');
 
+/* THE HERO'S PHONE DRAWING (D12, 2026-10-29): the same two panels stacked, at a scale a phone can read; the hero track
+   swaps it in under 680 px (design/template.js) */
+const FIG_TIMELINE_N = [
+  CH.open({ w: 400, h: 600, alt: 'The K(11) lower bound over time as a step function, in two stacked panels: 582 from 1980, 592 in 2022 (queued, dashed), then 593, 594 and 604 inside eighteen months of 2025 and 2026, the last reached by two platforms four months apart.' }),
+  timelinePanel(Object.assign({ w: 400, h: 600, padL: 44, padR: 16, padT: 30, padB: 600 - 30 - 170, x0: 1978, x1: 2027.6,
+    xTicks: [1980, 2000, 2020].map((v) => ({ v, t: String(v) })), title: '1980 – 2026: the whole record',
+    labels: { [sh.id]: { dx: 10, dy: -12 }, [gz.id]: { dx: -10, dy: -12, anchor: 'end' } } }, TL_Y)),
+  timelinePanel(Object.assign({ w: 400, h: 600, padL: 44, padR: 16, padT: 30 + 170 + 96, padB: 600 - 296 - 200, x0: 2025.0, x1: 2026.95,
+    xTicks: [{ v: 2025.0, t: '2025' }, { v: 2025.5, t: 'Jul' }, { v: 2026.0, t: '2026' }, { v: 2026.5, t: 'Jul' }], title: 'the eighteen months: three machines',
+    labels: { [ae.id]: { dx: 8, dy: -12 }, [ea.id]: { dx: -8, dy: 34, anchor: 'end' }, [ea604.id]: { dx: -8, dy: -14, anchor: 'end' }, [s1.id]: { dx: -8, dy: -32, anchor: 'end' } } }, TL_Y)),
+  CH.legend([{ kind: 'line', token: 'var(--ink)', t: 'held by a configuration CERTIFIED here' }, { kind: 'dash', token: 'var(--ink-3)', t: 'held by a bound QUEUED here, not decided' }], 44, 590, undefined, 340),
+  CH.close,
+].join('\n');
+
 /* the angle spectra: the four 604s as small multiples — identical panels are identical configurations' fingerprints */
 const spectrum = (r) => r.gram.multiset.split(' ').map((e) => { const [k, c] = e.split('x'); const [ab, N] = k.split('/'); const [a, b] = ab.split(',').map(Number);
   const v = (a + b * Math.SQRT2) / Number(N); return { k, c: Number(c), deg: Math.acos(Math.max(-1, Math.min(1, v))) * 180 / Math.PI, contact: k === '1,0/2' }; });
@@ -312,7 +326,7 @@ B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.p
 B.push(C.section({
   lab: '§1 · the ladder', title: 'Thirty years at 582. Then eighteen months.',
   wide: true,
-  bodyRaw: C.figure({ svgRaw: FIG_TIMELINE, caption: 'The K(11) lower bound as a step function of time, drawn twice: the whole record since 1980, and the eighteen months in which three AI systems moved it. Every level is a ledger row; a run is dashed while the record rests on the one row still queued (Ganzhinov\'s 592). The two markers at 604 are four months apart and, decided below, one configuration.' })
+  bodyRaw: C.figure({ svgRaw: FIG_TIMELINE, svgNarrowRaw: FIG_TIMELINE_N, hero: true, caption: 'The K(11) lower bound as a step function of time, drawn twice: the whole record since 1980, and the eighteen months in which three AI systems moved it. Every level is a ledger row; a run is dashed while the record rests on the one row still queued (Ganzhinov\'s 592). The two markers at 604 are four months apart and, decided below, one configuration.' })
   + C.table({
     cols: [{ h: 'bound' }, { h: 'who, when' }, { h: 'the bytes' }, { h: 'verdict here', cls: 'n' }, { h: 'exact contacts', cls: 'n' }],
     rows: [

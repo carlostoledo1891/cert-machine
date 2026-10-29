@@ -234,11 +234,17 @@ function plainList(items) {
 
 /* A figure: an <svg> string this file's fig helpers produced, plus a caption.
    `alt` is REQUIRED — a figure with no text alternative is a figure that does
-   not exist for some readers, and the page battery fails on a missing one. */
-function figure({ svgRaw, caption, wide }) {
-  const inner = '<figure>\n  <div class="figbox">\n' + svgRaw + '\n  </div>\n'
-    + (caption ? '  <figcaption>' + esc(caption) + '</figcaption>\n' : '')
+   not exist for some readers, and the page battery fails on a missing one.
+   `captionRaw` carries markup this file or playground/warrant.js produced. */
+function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero }) {
+  /* a hero may carry a second drawing for a phone (`svgNarrowRaw`): the two swap by design/template.js's hero rule */
+  const art = hero && svgNarrowRaw ? '<div class="hv-w">\n' + svgRaw + '\n</div><div class="hv-n">\n' + svgNarrowRaw + '\n</div>' : svgRaw;
+  const inner = '<figure>\n  <div class="figbox">\n' + art + '\n  </div>\n'
+    + (caption || captionRaw ? '  <figcaption>' + (caption ? esc(caption) : captionRaw) + '</figcaption>\n' : '')
     + '</figure>';
+  /* `hero` (D12, 2026-10-29): the one figure per page that may draw past the container (design/tokens.js LAYOUT.hero);
+     tools/check-wiring.js refuses a second one on a page */
+  if (hero) return '<div class="wide hero" data-hero>' + inner + '</div>';
   return wide === false ? inner : '<div class="wide">' + inner + '</div>';
 }
 
