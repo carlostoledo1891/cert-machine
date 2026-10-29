@@ -308,6 +308,12 @@ function html() {
   const exempt = Object.keys(J('design/grammar-baseline.json').exempt || {}).length;
   guard('the dash census (tools/check-grammar.js --report) cannot be read, or counts a pattern outside the five',
     !!ctot && G.PERMITTED.every((p) => p in uses) && Number(ctot[3]) === 0, ctot ? ctot[0] : census.slice(-200));
+  /* D10 (2026-10-29): the pointed numbers, re-read; and the ones that still carry no address, counted */
+  const marksOut = run(['tools/check-marks.js']);
+  const mk = /check-marks: PASS — (\d+) pointed mark\(s\) on (\d+) page\(s\), 0 refused · (\d+)\/(\d+) red controls fired/.exec(marksOut);
+  const unp = /unpointed: (\d+)/.exec(census);
+  guard('the marks gate (tools/check-marks.js) did not pass with every red control fired, or the census stopped counting the values without an address',
+    !!mk && mk[3] === mk[4] && !!unp, mk ? mk[0] : marksOut.slice(-200));
   const wiring = run(['tools/check-wiring.js']);
   const leg = /^\s+(ok|FAIL)\s+\d+\s+every page that draws the grammar prints its legend\s+\[(\d+) of (\d+) pages draw it\]/m.exec(wiring);
   guard('the legend check (tools/check-wiring.js) cannot be read, or finds a page that draws the grammar without its legend', !!leg && leg[1] === 'ok', leg ? leg[0] : wiring.slice(-300));
@@ -503,6 +509,11 @@ function html() {
             + numword(exempt) + ' uses of a dash array that are not lines (an arc length, a draw-on animation, and a retired pattern that survives only in the three submitted Petrobras pages, kept as submitted) are declared by name, each with its reason. '
             + 'The first census, on 5 September, counted twenty-five patterns: the dash had been derived from the stroke width, so every width minted a pattern of its own, one of them carrying a float artefact (' + m('1.04 5.460000000000001') + ') into published HTML. At the last sync, ' + fmt(Number(ctot[2])) + ' conforming uses and ' + fmt(Number(ctot[3])) + ' outside the ' + numword(G.PERMITTED.length) + ':'
             + '<ul class="gr-pats">' + G.PERMITTED.map((p) => '<li>' + m(p) + ' ' + esc(STAND[p]) + ' — ' + fmt(uses[p]) + ' uses</li>').join('') + '</ul>' },
+        { raw: '<b>' + a(blob('tools/check-marks.js'), 'tools/check-marks.js') + ' — a printed number is re-read from its record.</b> A value written through ' + m('W.val') + ' carries the address of its record cell ('
+            + m('data-rec') + ': a file under certs/ or corpus/ and a pointer) and the format it was printed by; at every build this gate follows each address from the built page back into the record, prints the datum again by the same rule ('
+            + a(blob('design/record.js'), 'design/record.js') + '), and refuses a page whose text differs, whose pointer no longer resolves, or whose decided value was cut to nearest where an end was needed. At the last check, '
+            + fmt(Number(mk[1])) + ' numbers on ' + fmt(Number(mk[2])) + ' pages were re-read this way, and ' + fmt(Number(unp[1])) + ' values still carry no address: that count is recorded and may only shrink. '
+            + 'Four planted marks — a dangling pointer, an upper end rounded inward, a wrong digit, a decided value cut short — are refused on every run.' },
         { raw: '<b>' + a(blob('tools/check-wiring.js'), 'tools/check-wiring.js') + ' — a legend wherever a mark is.</b> A page with a mark of the grammar and no legend is refused. At the last check, ' + fmt(Number(leg[2])) + ' of the ' + fmt(Number(leg[3])) + ' pages it walks draw the grammar, and every one prints its legend. Its red control plants a computed line with no legend, and must catch it.' },
         { raw: '<b>' + a(blob('tools/check-render.js'), 'tools/check-render.js') + ' — what a page shows.</b> No text a builder leaked (a template that never filled, a cell reading undefined or NaN, a stray backtick); no mark whose paint does not resolve; no figure thinner in ink than its record (' + fmt(Object.keys(RBL.figures).length) + ' figures recorded); no new mark too faint to see; no script error while the page loads. '
             + 'Its paint check was made strict when the legend’s void swatch fell through to SVG’s default fill, black on a near-black ground, and had passed every run, because black is a paint.' },
