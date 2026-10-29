@@ -124,6 +124,7 @@
   --container:1200px;
   --read:82ch;
   --title:28ch;
+  --hero:1440px;
   --radius-s:6px;
   --radius-m:10px;
   --radius-l:16px;
@@ -360,6 +361,16 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* THE HERO (D12, ruled 2026-10-29; design/tokens.js LAYOUT.hero): the one figure a page declares draws its box past
+   the container into the room beside it, up to --hero wide and never past the gutter; its caption stays on the spine.
+   On a phone the box runs edge to edge, its drawing sits on the spine, and a builder may give it a second drawing at
+   a phone's scale (.hv-n, swapped for .hv-w). tools/check-measure.js counts none of the hero's own edges and ratchets
+   its width up instead. */
+.hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
+  margin-inline:calc(-1 * var(--bleed))}
+.hero .hv-n{display:none}
+@media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
+  border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -654,6 +665,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
 /* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
 .wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
 /* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
 .w-legend.compact { max-width: 17rem; }
 /* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
@@ -855,7 +867,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from the records at git 0547f7fb by tools/build-site.js; a record that stops supporting a sentence refuses the page. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="index.html">home</a><a href="papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from the records at git 39066f52 by tools/build-site.js; a record that stops supporting a sentence refuses the page. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="index.html">home</a><a href="papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

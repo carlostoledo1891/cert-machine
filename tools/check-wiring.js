@@ -421,6 +421,40 @@ red('a page drawing a grammar mark with no legend is caught',
 red('a page that only DECLARES the CSS is not flagged',
   grammarOffences('<style>.w-computed { stroke: var(--ink-3); }</style>', 'planted').length === 0);
 
+/* THE HERO AND ITS WITNESS (D12, ruled 2026-10-29; the roundtable's R28). One figure per page may be the hero
+   (design/components.js figure({ hero: true })), and on a page that has one, a witness is an event before it is a
+   word: the first × a reader meets is the hero's own mark (W.witnessMark, class w-wx), drawn no thinner than the
+   hero's decided line, before any inline glyph. A page with no × passes; a page with no hero is not read here. */
+function heroOffences(html, label) {
+  const tags = [...html.matchAll(/<[a-z]+\s[^>]*\bdata-hero[\s>]/g)];
+  if (tags.length > 1) return [label + ': ' + tags.length + ' heroes, and a page has one'];
+  if (!tags.length) return [];
+  const start = tags[0].index, end = html.indexOf('</figure>', start);
+  const first = /class="(?:wx|w-wx)"/.exec(html);
+  if (!first) return [];
+  if (!(first.index > start && first.index < end && first[0] === 'class="w-wx"')) return [label + ': the first × a reader meets is not drawn in the hero'];
+  const hero = html.slice(start, end);
+  const width = (tag) => Number((/stroke-width="([\d.]+)"/.exec(tag) || [0, 0])[1]);
+  const wx = width(/<path class="w-wx"[^>]*>/.exec(hero)[0]);
+  const line = Math.max(0, ...[...hero.matchAll(/<[a-z]+\s[^>]*class="[^"]*\bw-decided\b[^>]*>/g)].map((m) => width(m[0])));
+  return wx >= line ? [] : [label + ': the hero\'s × is drawn at ' + wx + ', thinner than its decided line at ' + line];
+}
+const heroBad = [];
+for (const p of pages) heroBad.push(...heroOffences(read(p), p));
+const heroed = pages.filter((p) => /<[a-z]+\s[^>]*\bdata-hero[\s>]/.test(read(p)));
+if (heroBad.length) bad('one hero per page, and its × is the first a reader meets', heroBad.join('\n        '));
+else ok('one hero per page, and its × is the first a reader meets', '[' + heroed.length + ' pages declare a hero]');
+
+const HFIG = (inner) => '<div class="wide hero" data-hero><figure><div class="figbox"><svg>' + inner + '</svg></div><figcaption>c</figcaption></figure></div>';
+const HX = (w) => '<path class="w-wx" d="M0,0L1,1" fill="none" stroke-width="' + w + '"/>';
+red('a second hero on a page is caught', heroOffences(HFIG('') + HFIG(''), 'planted').length === 1);
+red('an inline × before the hero\'s own is caught',
+  heroOffences('<p><span class="wx">&times;</span></p>' + HFIG(HX(3)), 'planted').length === 1);
+red('a hero × thinner than its decided line is caught',
+  heroOffences(HFIG('<circle class="w-decided" stroke-width="3"/>' + HX(2)), 'planted').length === 1);
+red('a hero whose × comes first, at weight, is NOT flagged',
+  heroOffences(HFIG('<circle class="w-decided" stroke-width="1.5"/>' + HX(3)) + '<p><span class="wx">&times;</span></p>', 'planted').length === 0);
+
 /* ---------------------------------------------------------------- 7 -----
    THE ARCHIVE AND THE CITATION AGREE, and the one description is one.
 

@@ -280,3 +280,24 @@ both. Applied first to Swell's chain and the grammar page's specimen (the band a
 /eth/'s premises are readings and proofs, no code to verify, so they declare no bit. The specimen the operator
 approved ("follow the recommended path") is in the 10-29 chat. The stylesheet's site part is now re-baked at sync
 (design/sheet.js, markers in every page's <style>), so this and every later grammar stylesheet change is one sync.
+
+## D12 applied (2026-10-29): the hero
+
+One figure per page may be the **hero**: its builder declares it (`C.figure({ hero: true })`), and its box draws past
+the container into the room beside it, up to `LAYOUT.hero` (1440 px) wide and never past the gutter
+(design/tokens.js, design/template.js). Its caption stays on the spine. On a phone the box runs edge to edge, and the
+builder may give it a second drawing at a phone's scale (`svgNarrowRaw`), swapped in under 680 px: a 1000-unit drawing
+read at 350 px is type at a third of its size. It is the one exception to "one container, two tracks, no breakouts",
+and it is one box wide:
+
+- **The ruler ratchets it up.** tools/check-measure.js does not count the hero's own edges as spines; it records the
+  hero's width per viewport and refuses a hero that got narrower. Escapes and sideways scroll still count for it, and
+  an ancestor that hides overflow and cuts the bleed counts as clipping (a red control each).
+- **A witness is an event before it is a word.** On a page with a hero, the first × a reader meets is the hero's own
+  mark (`W.witnessMark`, class `w-wx`), drawn no thinner than the hero's decided line, before any inline glyph.
+  tools/check-wiring.js reads the order and the weights from the built page and refuses a second hero.
+
+Applied first to the kissing ladder (the two panels, stacked on a phone) and to /grammar/, where the meet with its
+witness became the hero under the title, drawn on x, y in [0, 5/4], the window where the chosen segments and the
+float curve can be told apart; the halo key became one strip across the track. The rest of R28 (a refused cell keeps
+the area its value would have had, with the hole's kind) is not built.

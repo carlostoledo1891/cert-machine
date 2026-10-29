@@ -80,6 +80,14 @@ const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
    the relation. Two widths do not bracket a layout; they bracket its ends. */
 const VIEWPORTS = [1440, 768, 390];
 const METRICS = ['spines', 'pageOverflow', 'escapes', 'clipped'];
+/* THE HERO (D12, ruled 2026-10-29 at the WARRANT roundtable: "check-measure may ratchet up for the declared hero
+   only"). One figure per page may be declared the hero (design/components.js figure({ hero: true })); its box may
+   draw past the container (design/tokens.js LAYOUT.hero). Its own edges are not spines — the probe skips them — and
+   its WIDTH is recorded instead and ratchets the other way: a hero that got narrower is the regression, so the one
+   figure a page chose to make large cannot quietly shrink back into a stamp. A page with no hero records 0, and a
+   row recorded before this existed reads as 0. Escapes and sideways scroll still count for the hero like any box. */
+const UP = ['hero'];
+const cellOf = (b, m) => (b[m] === undefined && UP.includes(m) ? 0 : b[m]);
 
 const MODE = process.argv.includes('--accept') ? 'accept'
   : process.argv.includes('--report') ? 'report' : 'gate';
@@ -106,6 +114,25 @@ const PROBE = `(() => {
   const vw = window.innerWidth;
   const lefts = new Set();
   let escapes = 0, clipped = 0;
+  /* THE HERO FIRST (D12), as the reader sees it: its width, whether it leaves the viewport, whether any ancestor that
+     clips cuts it, and the page's sideways scroll with the bleed in place. Then its bleed is laid back into the column
+     for the walk below, because a box drawn past its ancestors on purpose makes every ancestor's scrollWidth exceed
+     its clientWidth — overflow nobody hides, which "clipped" does not mean — and is restored before returning. */
+  const heroes = document.querySelectorAll('[data-hero]');
+  const box = heroes.length ? heroes[0].querySelector('.figbox') : null;
+  let hero = 0;
+  if (box) {
+    const hb = box.getBoundingClientRect();
+    hero = Math.round(hb.width);
+    if (hb.left < -1 || hb.right > vw + 1) escapes++;
+    for (let n = box.parentElement; n; n = n.parentElement) {
+      if (getComputedStyle(n).overflowX === 'visible') continue;
+      const nb = n.getBoundingClientRect();
+      if (hb.left < nb.left - 1 || hb.right > nb.right + 1) clipped++;
+    }
+  }
+  const pageOverflow = Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  if (box) box.style.marginInline = '0px';
   const scrolls = (el) => {
     for (let n = el.parentElement; n; n = n.parentElement) {
       const ox = getComputedStyle(n).overflowX;
@@ -136,12 +163,12 @@ const PROBE = `(() => {
     if (el.scrollWidth - el.clientWidth >= 8) clipped++;
     if ((r.left < -1 || r.right > vw + 1) && !scrolls(el)) escapes++;
     if (r.width >= vw - 1) continue;                 /* full-bleed is the ground, not the spine */
+    if (el.closest('[data-hero] .figbox')) continue; /* the hero's own edges (D12): measured as its width, below */
     lefts.add(Math.round(r.left + parseFloat(cs.paddingLeft || 0)));
   }
+  if (box) box.style.marginInline = '';
   return JSON.stringify({
-    spines: lefts.size,
-    pageOverflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth),
-    escapes, clipped,
+    spines: lefts.size, pageOverflow, escapes, clipped, heroes: heroes.length, hero,
     edges: [...lefts].sort((a, b) => a - b)
   });
 })()`;
@@ -197,6 +224,19 @@ const FIXTURES = {
     '<style>body{margin:0}main{max-width:1200px;margin:0 auto;padding:0 20px}'
     + 'p,h1,table{margin:0;width:100%}table{display:block;height:200px;background:#222}</style>'
     + '<main><h1>one</h1><p>spine</p><table>t</table></main>',
+  /* the hero (D12): a box drawn 100px past the container each side (main's content box is 1200, so the hero is 1400),
+     its drawing padded inside it; one spine still, and its ancestors are not "clipped" by a bleed nobody hides */
+  'green-hero.html':
+    '<style>body{margin:0}main{max-width:1200px;margin:0 auto;padding:0 20px}'
+    + 'p,h1{margin:0;width:100%}.figbox{margin:0 -100px;padding:0 24px;height:200px;background:#222}'
+    + '.figbox div{height:200px}</style>'
+    + '<main><h1>one</h1><p>spine</p><div class="wide hero" data-hero><figure style="margin:0"><div class="figbox"><div>drawing</div></div>'
+    + '<p>the caption, on the spine</p></figure></div></main>',
+  /* the same hero inside a column that hides its overflow: the bleed is cut, and that IS clipping */
+  'red-hero-cut.html':
+    '<style>body{margin:0}main{max-width:1200px;margin:0 auto;padding:0 20px;overflow-x:hidden}'
+    + '.figbox{margin:0 -100px;height:200px;background:#222}</style>'
+    + '<main><p>spine</p><div class="wide hero" data-hero><figure style="margin:0"><div class="figbox"></div></figure></div></main>',
 };
 
 /* ------------------------------------------------------------ the ratchet --
@@ -210,11 +250,12 @@ function diff(list, now, base) {
     if (!base[rel]) { missing.push(rel); continue; }
     for (const vw of VIEWPORTS) {
       const b = base[rel][vw] || {};
-      for (const m of METRICS) {
-        const c = now[rel][vw][m], p = b[m];
+      for (const m of METRICS.concat(UP)) {
+        const c = now[rel][vw][m], p = cellOf(b, m);
         if (p === undefined) { missing.push(rel + ' @' + vw + '.' + m); continue; }
-        if (c > p) worse.push(rel + ' @' + vw + '  ' + m + ' ' + p + ' -> ' + c);
-        else if (c < p) better.push(rel + ' @' + vw + '  ' + m + ' ' + p + ' -> ' + c);
+        const up = UP.includes(m);
+        if (up ? c < p : c > p) worse.push(rel + ' @' + vw + '  ' + m + ' ' + p + ' -> ' + c);
+        else if (up ? c > p : c < p) better.push(rel + ' @' + vw + '  ' + m + ' ' + p + ' -> ' + c);
       }
     }
   }
@@ -233,7 +274,7 @@ function diff(list, now, base) {
 function acceptMerge(list, now, base, shas, allowBetter) {
   const pages = {}, kept = [];
   for (const rel of list) {
-    const fresh = Object.fromEntries(VIEWPORTS.map((v) => [v, Object.fromEntries(METRICS.map((m) => [m, now[rel][v][m]]))]));
+    const fresh = Object.fromEntries(VIEWPORTS.map((v) => [v, Object.fromEntries(METRICS.concat(UP).map((m) => [m, now[rel][v][m] || 0]))]));
     const old = base[rel];
     const unchanged = old && old.sha && shas[rel] === old.sha;
     const lower = old && VIEWPORTS.some((v) => METRICS.some((m) => old[v] && old[v][m] !== undefined && fresh[v][m] < old[v][m]));
@@ -273,6 +314,16 @@ function redRatchet() {
   const r3 = acceptMerge(['a.html'], { 'a.html': page(2) }, withSha, { 'a.html': 'x' }, true);
   if (r3.kept.length === 0 && r3.pages['a.html'][1440].spines === 2) ok('--accept-better records it after the author looked');
   else bad('--accept-better records it after the author looked', JSON.stringify(r3));
+  /* the hero ratchets the other way (D12): narrower is the regression, wider is not, and a row from before reads 0 */
+  const hero = (v, h) => Object.fromEntries(VIEWPORTS.map((w) => [w, Object.assign(cell(v), { hero: h })]));
+  red('a hero that got narrower is caught',
+    diff(['a.html'], { 'a.html': hero(3, 1104) }, { 'a.html': hero(3, 1344) }).worse.length === VIEWPORTS.length);
+  const wider = diff(['a.html'], { 'a.html': hero(3, 1344) }, { 'a.html': hero(3, 1104) });
+  if (!wider.worse.length && wider.better.length === VIEWPORTS.length) ok('a hero that got wider is not a regression');
+  else bad('a hero that got wider is not a regression', JSON.stringify(wider));
+  const before = diff(['a.html'], { 'a.html': hero(3, 0) }, clean);
+  if (!before.worse.length && !before.missing.length) ok('a page with no hero passes against a row recorded before heroes existed');
+  else bad('a page with no hero passes against a row recorded before heroes existed', JSON.stringify(before));
 }
 
 async function runReds(send, dir) {
@@ -293,6 +344,14 @@ async function runReds(send, dir) {
   red('a viewport breakout is an escape', got['red-escape.html'][1440].escapes >= 1);
   red('a table scrolling inside its own box is clipped, not an escape',
     got['red-clip.html'][1440].clipped >= 1 && got['red-clip.html'][1440].escapes === 0);
+
+  red('a hero cut by a column that hides its overflow is clipped', got['red-hero-cut.html'][1440].clipped >= 1);
+  const gh = got['green-hero.html'][1440];
+  if (gh.spines === 1 && gh.escapes === 0 && gh.pageOverflow === 0 && gh.clipped === 0 && gh.hero === 1400) {
+    ok('a hero drawn past the container is measured as its width, not as spines', '[1 spine · hero ' + gh.hero + ' px]');
+  } else {
+    bad('a hero drawn past the container is measured as its width, not as spines', 'got ' + JSON.stringify(gh));
+  }
 
   const g = got['green.html'][1440];
   if (g.spines === 1 && g.pageOverflow === 0 && g.escapes === 0 && g.clipped === 0) {
