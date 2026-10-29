@@ -19,6 +19,9 @@
   const WORKER = document.getElementById('ra-worker').textContent;
   const WURL = URL.createObjectURL(new Blob([BUNDLE + '\n' + WORKER], { type: 'text/javascript' }));
   const $ = (id) => document.getElementById(id);
+  /* the rules the globe shares with the flat map (shared.js, inlined before this file): the row's decoding, a cell's
+     square, the design wave's ramp and the refusal of a level — one definition for both views */
+  const SH = window.RLA_SHARED;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const fmt = (x) => Number(x).toLocaleString('en-US');
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -48,57 +51,45 @@
   const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull', tab: 'claims' };
   let A = null, cells = [], byId = new Map(), map = null, sel = null, worker = null, hover = null, claimOn = null, lastCert = null, run = null;
 
-  /* ---- the ledger's compact view ---- */
-  function decode(r) {
-    if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nativeOf(r[5]) };
-    const blocks = {};
-    /* after the paper's fields, the seventh family and the statistical layer (undefined in a ledger older than them) */
-    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11],
-      seven: q[12], g7: q[13], xi: q[14], xiCI: [q[15], q[16]], g100: q[17], s100: [q[18], q[19]], s1000: [q[20], q[21]] }; });
-    const ei = r[12] ? { theta: r[12][0], u: r[12][1], r: r[12][2] } : null;
-    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]), ei };
-  }
+  /* ---- the ledger's compact view, read by shared.js ---- */
+  const decode = (r) => SH.decode(r, nativeOf);
   /* a report node's unfiltered 3-hourly block: the report ledger's record (build.js nativeOf), shown beside the atlas's own */
   function nativeOf(name) {
     const q = name && A.native && A.native.nodes[name];
     return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12],
       seven: q[13], g7: q[14], xi: q[15], s100: [q[16], q[17]], s1000: [q[18], q[19]] } : null;
   }
-  const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
-  function square(c) {
-    const h = sizeOf(c) * 0.46;
-    return [[[c.lon - h, c.lat - h], [c.lon + h, c.lat - h], [c.lon + h, c.lat + h], [c.lon - h, c.lat + h], [c.lon - h, c.lat - h]]];
-  }
+  const sizeOf = SH.sizeOf, square = SH.square;
 
   /* ---- what a cell shows: a colour and a kind (D decided, R refused, I ice) ---- */
-  const rampK = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return Math.min(4, Math.max(0, k - 1)); };
+  const rampK = SH.rampK;
   const ramp = (v, br) => C.s[rampK(v, br)];
-  const WAVE_BR = [0, 4, 8, 12, 16];
+  const WAVE_BR = SH.WAVE_BR;
   const XI_BR = [-Infinity, -0.2, -0.05, 0.05, 0.2];                /* the GEV's ξ: a finite upper end below 0, a Fréchet tail above */
   const UNC_BR = [0, 0.1, 0.2, 0.4, 0.8];                           /* a statistical interval's width ÷ the level */
   const BLOCK_BR = [1, 1.05, 1.15, 1.3, 1.5];
   const REC_BR = [0, 1, 1.25, 1.6, 2.2];
   /* a refused cell says why in the words of the view it is refused in */
-  const noLevel = (b) => (b.ad === 6 ? 'no family decided by Anderson–Darling' : 'the decided family\'s ' + state.T + '-year level could not be enclosed');
+  const noLevel = (b) => (SH.levelCode(b, state.T) === 'nofam' ? 'no family decided by Anderson–Darling' : 'the decided family\'s ' + state.T + '-year level could not be enclosed');
   function look(c) {
     if (c.ice) return { k: 'I', col: C.rule };
     const b = c.blocks[state.block];
     const lv = state.T === 100 ? b.l100 : b.l1000;
     switch (state.mode) {
-      case 'wave': return b.ad === 6 || lv[1] === null ? { k: 'R', why: noLevel(b) } : { k: 'D', col: ramp(lv[1], WAVE_BR), v: lv[1] };
+      case 'wave': { const L = SH.waveLook(c, state.block, state.T); return L.k === 'R' ? { k: 'R', why: noLevel(b) } : { k: 'D', col: C.s[L.K], v: L.v }; }
       case 'family': {
         const r = b[state.crit];
         return r === 6 ? { k: 'R', why: 'no family decided by ' + CW[state.crit] } : { k: 'D', col: FAM[r] === state.fam ? C.ink : C.s[0], v: FAM[r] };
       }
       case 'blocks': {
-        const miss = BLK.filter((x) => c.blocks[x].ad === 6 || (state.T === 100 ? c.blocks[x].l100 : c.blocks[x].l1000)[1] === null);
+        const miss = BLK.filter((x) => SH.levelCode(c.blocks[x], state.T));
         if (miss.length) return { k: 'R', why: 'no ' + state.T + '-year level decided for the ' + miss.map((x) => BW[x]).join(' and ') };
         const ls = BLK.map((x) => (state.T === 100 ? c.blocks[x].l100 : c.blocks[x].l1000)[1]);
         const f = Math.max(...ls) / Math.min(...ls);
         return { k: 'D', col: ramp(f, BLOCK_BR), v: f };
       }
       case 'record': {
-        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        if (SH.levelCode(b, state.T)) return { k: 'R', why: noLevel(b) };
         const f = lv[1] / c.max;
         return { k: 'D', col: ramp(f, REC_BR), v: f, below: lv[1] < c.max };
       }
@@ -125,7 +116,7 @@
         return { k: 'D', col: ramp(b.xi, XI_BR), v: b.xi, st0: b.xiCI[0] !== null && b.xiCI[0] !== undefined && b.xiCI[0] <= 0 && b.xiCI[1] >= 0 };
       /* STATISTICAL throughout: screened, never a solid fill */
       case 'unc': {
-        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        if (SH.levelCode(b, state.T)) return { k: 'R', why: noLevel(b) };
         const q = state.T === 100 ? b.s100 : b.s1000;
         if (!q || q[0] === null || q[0] === undefined) return { k: 'R', why: 'no statistical interval here (the observed information is not positive definite at the fit)' };
         const f = (q[1] - q[0]) / lv[1];
@@ -1205,6 +1196,9 @@
       if (MY.on) q.set('my', mySpec());
       if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }
       history.replaceState(null, '', '#' + q.toString());
+      /* the flat map opens on the same question and the same cell */
+      const ml = $('ra-to-map');
+      if (ml) { const m = new URLSearchParams(); m.set('b', state.block); m.set('T', state.T); if (sel && !sel.site) m.set('c', sel.id); ml.setAttribute('href', 'map/#' + m.toString()); }
     };
     clearTimeout(hashTimer);
     if (now) go(); else hashTimer = setTimeout(go, 250);
