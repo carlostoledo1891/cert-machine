@@ -55,6 +55,13 @@ const TS = fs.existsSync(path.join(ROOT, TS_REL)) ? J(TS_REL) : null;
 if (TS && TS.word === 'CERTIFIED' && !TS.axiomsPrinted.every((a) => a.axioms.every((x) => STD.includes(x)))) fail(TS_REL + ' is CERTIFIED with an axiom outside the three standard ones');
 const thm = (proj, short) => BR.projects[proj].theorems.find((t) => t.name.endsWith('.' + short)) || fail('the bridge record has no theorem ' + short);
 const bridgeThms = bridgeDone ? new Set(['openai', 'anthropic'].flatMap((k) => BR.projects[k].theorems.map((t) => t.name))).size : 0;
+/* the bridge's kernels, per theorem (2026-10-29: lake build, Lean's kernel in Comparator, nanoda); the page says "three checks"
+   only when every theorem carries all three */
+const KALL = ['lean-build', 'lean-comparator', 'nanoda'];
+const bridgeAll3 = bridgeDone && ['openai', 'anthropic'].every((k) => BR.projects[k].theorems.every((t) => Array.isArray(t.kernels) && KALL.every((x) => t.kernels.includes(x))));
+const SH = bridgeDone && BR.sharpBridges ? BR.sharpBridges : null;
+if (SH) for (const k of ['openai', 'anthropic']) { const t = SH[k] && SH[k].theorem; if (!t || t.word !== 'PROVED' || t.axioms.some((x) => !STD.includes(x))) fail('the #ETH bridge for ' + k + ' is not PROVED on the three standard axioms'); }
+const sharpLimit = SH ? (BR.notProved.find((n) => /^Anthropic’s #ETH|^Anthropic's #ETH/.test(n)) || fail('the record no longer states the limit of Anthropic’s #ETH')) : null;
 
 /* a reading is quoted only from its own bytes: whitespace is collapsed on both sides, nothing else is forgiven */
 const READ = { first: 'corpus/eth-refutation/readings/first.md', second: 'corpus/eth-refutation/readings/second.md' };
@@ -106,9 +113,9 @@ const FIVE = [
   { b: 'Replayed.', raw: 'Both labs’ Lean proofs, from their pinned bytes: OpenAI’s ' + C.m('SubexponentialSAT') + ' challenge at ' + C.m(OAI.commit.slice(0, 8)) + ' and Anthropic’s ' + C.m('eth/') + ' at ' + C.m(ANT.commit.slice(0, 8))
     + (TS && TS.word === 'CERTIFIED' ? ', and a third party’s Lean join of the two.' : '.') },
   { b: 'Checked by.', raw: 'Comparator, the Lean FRO’s judge, with Lean’s own kernel, and nanoda, a kernel written independently of Lean’s. Both accept both proofs, using only ' + STD.map(C.m).join(', ') + '.' },
-  { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model (read here; its Lean proof is running).' : 'Being built.' },
+  { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model' + (SH ? ', also proved in Lean (Anthropic’s on the formulas its theorem speaks of)' : ' (read here; its Lean proof is running)') + '.' + (bridgeAll3 ? ' Every bridge theorem passes three checks: Lean’s kernel at build, Lean’s kernel again in Comparator, and nanoda.' : '') : 'Being built.' },
   { b: 'Still prose.', raw: 'Two things no kernel can check: that each lab’s machine and input encoding match the textbook’s (a constant cost per step and a polynomial-time encoding, harmless in front of 2^{o(n)}), and that our Lean ETH is the textbook ETH, which is a reading and always will be.' },
-  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), the bridge under the second kernel, and a check that OpenAI’s statement means the same term in the third party’s join, where it is re-elaborated on another Lean and Mathlib. The last two are running; the fresh replay is scripted and waits for a large enough rented machine.' },
+  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), scripted and waiting for a large enough rented machine, and a check, running now, that OpenAI’s statement means the same term in the third party’s join, where it is re-elaborated on another Lean and Mathlib.' },
 ];
 B.push('<section class="col eth-five">' + C.plainList(FIVE) + C.pRaw('<b>Disclosure.</b> This repository’s tools are written with Claude, Anthropic’s model, and one of the two claims is Anthropic’s. Here independence means who decides, not who typed: nothing on this page was decided by Claude or by either lab’s code. The deciders are Comparator, Lean’s kernel and nanoda; the readings are ours, and say so.') + '</section>');
 B.push(C.stats([
@@ -117,7 +124,7 @@ B.push(C.stats([
   { k: 'kernels that accept each', v: String(OAI.kernels.length), n: 'Lean’s, inside Comparator, and nanoda' },
   { k: 'Comparator, OpenAI', vRaw: secs(OAI), n: 'peak ' + Math.round(OAI.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' },
   { k: 'Comparator, Anthropic', vRaw: secs(ANT), n: 'peak ' + Math.round(ANT.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' }
-].concat(bridgeDone ? [{ k: 'bridge theorems, ours', v: String(bridgeThms), n: 'proved in Lean, one kernel; §5' }] : [])));
+].concat(bridgeDone ? [{ k: 'bridge theorems, ours', v: String(bridgeThms), n: 'proved in Lean' + (bridgeAll3 ? '; each passes Lean’s kernel twice and nanoda' : ', one kernel') + '; §5' }] : [])));
 
 /* §1 decided */
 const claimRow = (r) => [
@@ -162,7 +169,7 @@ const premises = [
 B.push(C.section({
   lab: '§2 · what it rests on', title: 'From “the proofs check” to “ETH is false”', id: 'premises',
   bodyRaw: C.pRaw(bridgeDone
-      ? 'The proofs are decided by two kernels, and the step from each statement to “ETH is false in that lab’s own model” is proved in Lean here (§5, one kernel). What still stands between them and the sentence “ETH is false” is a premise, listed in the order the claim travels through it, each with where its checking stopped:'
+      ? 'The proofs are decided by two kernels, and the step from each statement to “ETH is false in that lab’s own model” is proved in Lean here (§5). What still stands between them and the sentence “ETH is false” is a premise, listed in the order the claim travels through it, each with where its checking stopped:'
       : 'The proofs are decided. Everything between them and the sentence “ETH is false” is a premise, listed in the order the claim travels through it, each with where its checking stopped:')
     + W.premisesHtml(premises.map((p) => Object.assign({}, p, { label: C.esc(p.label) + (p.worry ? ' <span class="eth-w">How much it should worry you: ' + C.esc(p.worry) + '.</span>' : '') })), {
       meetLine: bridgeDone
@@ -219,7 +226,14 @@ function bridgeBody() {
     + C.pRaw('<b>OpenAI.</b> ' + C.esc(BR.bridges.openai.reads) + ' The three steps both readers did by hand are Lean lemmas now: the input word is polynomial in n, ' + leanM(L1.statement.replace(/^theorem\s+/, '')) + '; the halting answer decides satisfiability, ' + leanM(L2.statement.replace(/^theorem\s+/, '')) + '; and the running-time bound is at most c·2^{δn} for every n, ' + leanM(L3.statement.replace(/^theorem\s+/, '')) + '.')
     + C.pRaw('<b>Anthropic.</b> ' + C.esc(BR.bridges.anthropic.reads) + ' In Lean: ' + leanM(LS.statement.replace(/^theorem\s+/, '')) + '.')
     + C.pRaw('<b>How the statements were copied.</b> OpenAI’s challenge file is carried with one declared change: its open theorem ' + C.m('exact_count_and_sat') + ' becomes the proposition ' + C.m('OpenAIClaim') + ', and undoing that change gives back the pinned sha256 ' + C.esc(BR.copies.openai.rebuiltSha256.slice(0, 12)) + '…. Anthropic’s ' + C.m('MainResults.lean') + ' is carried unchanged (' + C.esc(BR.copies.anthropic.rebuiltSha256.slice(0, 12)) + '…). §1 decided that OpenAI’s proof proves exactly that statement, so the two together give ¬ETH in OpenAI’s model. The join is the identity of the statement’s bytes, not one Lean term: the bridge does not import OpenAI’s proof.')
-    + C.pRaw('<b>Checked by one kernel.</b> Lean’s, inside ' + C.m('lake build') + ' on GitHub’s runners (<a href="' + C.escAttr(BR.run.url) + '">run ' + BR.run.id + '</a>); no ' + C.m('sorry') + ', no axiom declared, no ' + C.m('native_decide') + ' (' + ln(BRIDGE_REL) + ', ' + ln('corpus/eth-refutation/bridge/README.md', 'the README') + '). No second kernel has replayed the bridge.')
+    + (SH ? C.pRaw('<b>#ETH, the counting hypothesis, too.</b> Both statements count the satisfying assignments, not only decide them, so the counting form of ETH (Dell, Husfeldt, Marx, Taslaman, Wahlén) falls as well. It is written once in the same file, ' + leanM('def SharpETH : Prop := ∀ k : ℕ, 3 ≤ k → 0 < sharpS Co k') + ', with s#_k the infimum of the δ for which some admissible machine writes the number of satisfying assignments of every k-CNF within ⌊c·2^{δn}⌋ steps, and proved false in each lab’s own counting model:')
+        + C.plainList([{ b: 'OpenAI.', raw: leanM(SH.openai.theorem.statement) + ' — the count on the count tape, binary, lowest digit first, as ' + C.m('exact_count_and_sat') + ' writes it.' },
+          { b: 'Anthropic.', raw: leanM(SH.anthropic.theorem.statement) + ' — the count in ' + C.m('binary n') + ', n + 1 bits, lowest first. ' + C.esc(sharpLimit) }])
+        + C.pRaw('ETH and #ETH are proved separately here; neither refutation is derived from the other.') : '')
+    + C.pRaw('<b>Checked ' + (bridgeAll3 ? 'three times' : 'by one kernel') + '.</b> ' + (bridgeAll3
+        ? 'Every one of the ' + bridgeThms + ' bridge theorems passes Lean’s kernel inside ' + C.m('lake build') + ', Lean’s kernel again inside Comparator on a fresh runner that never built the bridge, and nanoda, a kernel written independently of Lean’s (<a href="' + C.escAttr(BR.run.url) + '">run ' + BR.run.id + '</a>). Comparator’s statement check here compares our own text against itself; the labs’ statements enter through their pinned copies.'
+        : 'Lean’s, inside ' + C.m('lake build') + ' on GitHub’s runners (<a href="' + C.escAttr(BR.run.url) + '">run ' + BR.run.id + '</a>). No second kernel has replayed the bridge.')
+      + ' No ' + C.m('sorry') + ', no axiom declared, no ' + C.m('native_decide') + ' (' + ln(BRIDGE_REL) + ', ' + ln('corpus/eth-refutation/bridge/README.md', 'the README') + ').')
     + C.pRaw('<b>Not proved, and said so:</b>')
     + C.plainList(BR.notProved.map((t) => ({ b: '', text: t })))
     + (TS ? tsavoBody() : '')
