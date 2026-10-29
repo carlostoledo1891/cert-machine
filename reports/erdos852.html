@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Erdős #852: a published constant refuted at its twelfth digit · Carlos Toledo</title>
-<meta name="description" content="A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
+<title>Erdős #852: a published constant refuted at its eleventh significant digit · Carlos Toledo</title>
+<meta name="description" content="A GPT-published constant on Erdős #852, refuted at its 11th significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos852.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos852.html">
-<meta property="og:title" content="Erdős #852: a published constant refuted at its twelfth digit · Carlos Toledo">
-<meta property="og:description" content="A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
+<meta property="og:title" content="Erdős #852: a published constant refuted at its eleventh significant digit · Carlos Toledo">
+<meta property="og:description" content="A GPT-published constant on Erdős #852, refuted at its 11th significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
 <meta property="og:image" content="https://carlostoledo.co/og.png">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Erdős #852: a published constant refuted at its twelfth digit · Carlos Toledo">
-<meta name="twitter:description" content="A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
+<meta name="twitter:title" content="Erdős #852: a published constant refuted at its eleventh significant digit · Carlos Toledo">
+<meta name="twitter:description" content="A GPT-published constant on Erdős #852, refuted at its 11th significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #852: a published constant refuted at its twelfth digit","description":"A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.","url":"https://carlostoledo.co/reports/erdos852.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #852: a published constant refuted at its eleventh significant digit","description":"A GPT-published constant on Erdős #852, refuted at its 11th significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.","url":"https://carlostoledo.co/reports/erdos852.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -698,14 +698,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · generated from the records</div>
-  <h1>Erdős #852: a published constant refuted at its twelfth digit</h1>
+  <h1>Erdős #852: a published constant refuted at its eleventh significant digit</h1>
 <p class="standfirst">The constant that was a rounding error</p>
-  <p class="deck">Erdős problem #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its discussion thread conjectures h(x) ~ c0 · log x, held up by two constants produced by GPT models and published as bare decimals. This page replaces both with certified interval enclosures. One survives — as a rounding. The other is refuted at its 12th significant digit, and the wrong digits are not near the truth by accident: they are EXACTLY what an IEEE-754 double-precision product emits, because 87% of its factors round to 1.0 and silently vanish. The published constant is the bug, printed — the type specimen of a failure taxonomy this page names in §5, with a second specimen from the Ramanujan Machine&#39;s own sheets and a note in §6 for people who build evaluations on mathematical ground truth.</p>
+  <p class="deck">Erdős problem #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its discussion thread conjectures h(x) ~ c0 · log x, held up by two constants produced by GPT models and published as bare decimals. This page replaces both with certified interval enclosures. One survives — as a rounding. The other is refuted at its 11th significant digit (its 12th decimal place), and the wrong digits are not near the truth by accident: they are EXACTLY what an IEEE-754 double-precision product emits, because 87% of its factors round to 1.0 and silently vanish. The published constant is the bug, printed — the type specimen of a failure taxonomy this page names in §5, with a second specimen from the Ramanujan Machine&#39;s own sheets and a note in §6 for people who build evaluations on mathematical ground truth.</p>
 </header>
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> A GPT-published constant on Erdős #852 is wrong from its 12th significant digit, and the published digits are EXACTLY what a naive IEEE-754 double product emits — the constant is the bug, printed. The certified correction ships with the page.</li><li><b>The mechanism.</b> 87.5% of the Euler-product factors round to 1.0 in double precision and silently vanish; the partial product in exact integers is already a strict lower bound above the printed value, no tail bound needed. If a reference value in an eval answer key came from a float pipeline, this failure class lives inside the key — §6 is addressed to evaluation builders.</li><li><b>Check it.</b> <span class="m">python3 verify/verify_erdos852.py certs/erdos852-certificate.json</span> — stdlib Python, about a second, and it must refute a forged value before it exits green.</li></ul>
+<ul class="plain"><li><b>The finding.</b> A GPT-published constant on Erdős #852 is wrong from its 11th significant digit, and the published digits are EXACTLY what a naive IEEE-754 double product emits — the constant is the bug, printed. The certified correction ships with the page.</li><li><b>The mechanism.</b> 87.5% of the Euler-product factors round to 1.0 in double precision and silently vanish; the partial product in exact integers is already a strict lower bound above the printed value, no tail bound needed. If a reference value in an eval answer key came from a float pipeline, this failure class lives inside the key — §6 is addressed to evaluation builders.</li><li><b>Check it.</b> <span class="m">python3 verify/verify_erdos852.py certs/erdos852-certificate.json</span> — stdlib Python, about a second, and it must refute a forged value before it exits green.</li></ul>
 </div></div>
 
 <div class="wide">
@@ -846,7 +846,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git e9141192 · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-erdos852.js — all four certificates re-derived, the naive float product re-run, sources re-hashed at build time; the build fails if any of it does not hold.</p><p>git 0547f7fb · cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

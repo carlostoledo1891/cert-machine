@@ -111,8 +111,8 @@ battery run to date.
 ## 6. The failure taxonomy nothing else catches
 
 Two audited specimens motivate the design. (i) A model-published constant
-for an Erdős-problem bound, printed to thirteen digits, is refuted at its
-twelfth significant digit — and shown to BE the naive IEEE-754 float
+for an Erdős-problem bound, printed to thirteen decimal places, is refuted at
+its eleventh significant digit — and shown to BE the naive IEEE-754 float
 product, digit for digit: the answer key was the artifact
 (reports/erdos852.html; the certified correction is now public in the
 problem's discussion thread). (ii) A published result table's row fails

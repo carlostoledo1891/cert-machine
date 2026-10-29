@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* build-report-erdos852.js — generate reports/erdos852.html: the two GPT
    constants on Erdős #852, certified — one survives as a rounding, one is
-   refuted at its 12th significant digit and turns out to BE the float bug
+   refuted at its 11th significant digit (its 12th decimal place) and turns out to BE the float bug
    that computed it.
 
    Nothing on the page is remembered: the family re-certifies all four
@@ -44,6 +44,16 @@ const c0digits = c0enc.cert.extra.certifiedDigits;
 const csdigits = csenc.cert.extra.certifiedDigits;
 if (!c0digits.startsWith('1.3232282768639494')) die('c0 digits moved: ' + c0digits);
 if (!csdigits.startsWith('0.075240386178309')) die('C* digits moved: ' + csdigits);
+/* WHICH DIGIT IS WRONG, counted from the certificate's strings (design/outward.js sigAgree; 2026-10-29: this page said
+   "its 12th significant digit", which is the 12th DECIMAL place of 0.0752403861777 and its 11th significant digit) */
+const OWD = require(path.join(ROOT, 'design', 'outward.js'));
+const CSC = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos852-certificate.json'), 'utf8')).cstar;
+const AG = OWD.sigAgree(CSC.published.value, CSC.enclosure.lo, CSC.enclosure.hi);
+const nth = (n) => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th', 'st', 'nd', 'rd'][n % 10] || 'th');
+if (!AG || !AG.wrong || CSC.published.value !== '0.0752403861777') die('the certificate no longer decides which digit of the published C* is wrong');
+{ const T = JSON.parse(fs.readFileSync(path.join(ROOT, 'design', 'titles.json'), 'utf8')).pages['erdos852.html'];
+  const W = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth'][AG.wrong];
+  if (!T || !W || !T.title.includes(W + ' significant digit')) die('design/titles.json names another digit than the certificate decides (the ' + W + ' significant digit)'); }
 
 /* ---- the mechanism, re-run live ------------------------------------------ */
 const LIM = 2000000;
@@ -87,7 +97,7 @@ O.push(C.header({
   deck: 'Erdős problem #852 asks how long a run of consecutive prime gaps can stay pairwise distinct. Its '
     + 'discussion thread conjectures h(x) ~ c0 · log x, held up by two constants produced by GPT models and '
     + 'published as bare decimals. This page replaces both with certified interval enclosures. One survives — '
-    + 'as a rounding. The other is refuted at its 12th significant digit, and the wrong digits are not near '
+    + 'as a rounding. The other is refuted at its ' + nth(AG.wrong) + ' significant digit (its ' + nth(AG.place) + ' decimal place), and the wrong digits are not near '
     + 'the truth by accident: they are EXACTLY what an IEEE-754 double-precision product emits, because 87% '
     + 'of its factors round to 1.0 and silently vanish. The published constant is the bug, printed — the type '
     + 'specimen of a failure taxonomy this page names in §5, with a second specimen from the Ramanujan Machine\'s '
@@ -95,7 +105,7 @@ O.push(C.header({
 }));
 
 O.push(C.tldr({
-  findingRaw: 'A GPT-published constant on Erdős #852 is wrong from its 12th significant digit, and the '
+  findingRaw: 'A GPT-published constant on Erdős #852 is wrong from its ' + nth(AG.wrong) + ' significant digit, and the '
     + 'published digits are EXACTLY what a naive IEEE-754 double product emits — the constant is the bug, '
     + 'printed. The certified correction ships with the page.',
   mechanismRaw: '87.5% of the Euler-product factors round to 1.0 in double precision and silently vanish; the '
@@ -377,7 +387,7 @@ const foot = ''
 fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });
 fs.writeFileSync(path.join(ROOT, 'reports', 'erdos852.html'),
   TPL.render({ title: 'The constant that was a rounding error · cert-machine', bodyRaw: O.join('\n\n') + CH.script(), footRaw: foot, path: '/reports/erdos852.html',
-    desc: 'A GPT-published constant on Erdős #852, refuted at its twelfth significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.' }));
+    desc: 'A GPT-published constant on Erdős #852, refuted at its ' + nth(AG.wrong) + ' significant digit and shown to be the naive IEEE-754 float product — with the certified correction and the failure taxonomy for eval builders.' }));
 
 console.log('reports/erdos852.html written');
 console.log('  c0  ' + c0digits.slice(0, 24) + '…  (' + c0enc.cert.extra.bisections + ' bisections, width ' + c0enc.cert.extra.width.toExponential(2) + ')');

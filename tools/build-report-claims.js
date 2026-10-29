@@ -19,6 +19,12 @@ const die = (m) => { console.error('CLAIMS REPORT REFUSED: ' + m); process.exit(
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const RP = path.join(ROOT, 'certs', 'claims-ledger.json');
 if (!fs.existsSync(RP)) die('certs/claims-ledger.json is missing — run node tools/run-claims-ledger.js');
+/* the digit at which the #852 constant was refuted, counted from its certificate (design/outward.js sigAgree; it said
+   "twelfth" until 2026-10-29, the decimal place, not the significant digit) */
+const CSC = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'erdos852-certificate.json'), 'utf8')).cstar;
+const AG852 = require(path.join(ROOT, 'design', 'outward.js')).sigAgree(CSC.published.value, CSC.enclosure.lo, CSC.enclosure.hi);
+const ORDW = ['', 'first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth'];
+if (!AG852 || !ORDW[AG852.wrong]) die('the #852 certificate no longer decides which digit of the published constant is wrong');
 const R = JSON.parse(fs.readFileSync(RP, 'utf8'));
 if (R.rows.length !== R.count) die('the ledger disagrees with its own count');
 if (R.decided + R.pending !== R.count) die('decided + pending does not equal the row count');
@@ -80,7 +86,7 @@ B.push(C.section({
     C.plainList([
       { b: 'A constant, to stated digits.', text: 'Exhibit the value; the instrument brackets the true '
         + 'quantity in exact arithmetic and compares. This is how a published constant was refuted at its '
-        + 'twelfth significant digit.' },
+        + ORDW[AG852.wrong] + ' significant digit.' },
       { b: 'An exhibited object.', text: 'A configuration, a decomposition, a construction — anything whose '
         + 'correctness is finitely many exact checks on the bytes you publish.' },
       { b: 'An identity or inequality over a finite set.', text: 'Every case decided exactly; no sampling, '

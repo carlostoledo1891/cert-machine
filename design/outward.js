@@ -75,6 +75,23 @@ function sci(x, d, upward) {
   return (neg ? '−' : '') + digits[0] + (d ? '.' + digits.slice(1) : '') + ' × 10' + String(e).split('').map((c) => SUP[c]).join('');
 }
 
+/* HOW MANY DIGITS OF A PUBLISHED DECIMAL ARE RIGHT, given an enclosure [lo, hi] of the value it names (2026-10-29: the
+   Erdős #852 pages said "refuted at its 12th significant digit" of 0.0752403861777, which parts from the value at its
+   12th DECIMAL place; a leading zero is not significant, so that is its 11th). The digits lo and hi share are the
+   value's. `right` counts the published string's leading significant digits that agree with them; `wrong` is the next
+   one when the enclosure decides it (the published digit there differs from the value's), else null; `place` is the
+   decimal place of `wrong`. Positive plain decimals, counted as written, never through a float. */
+function sigAgree(pub, lo, hi) {
+  const ds = (t) => { const b = exact(t); if (b[0] === '-') throw new Error('outward: sigAgree takes positive decimals');
+    const [ip, fp = ''] = b.split('.'); return { d: (ip + fp).replace(/^0+/, ''), e: expOf(b) }; };
+  const P = ds(pub), L = ds(lo), H = ds(hi);
+  if (P.e !== L.e || L.e !== H.e) return null;
+  let m = 0; while (m < L.d.length && m < H.d.length && L.d[m] === H.d[m]) m++;
+  let r = 0; while (r < m && r < P.d.length && P.d[r] === L.d[r]) r++;
+  const wrong = r < m && r < P.d.length ? r + 1 : null;
+  return { right: r, wrong, place: wrong === null ? null : wrong - 1 - P.e };
+}
+
 /* red controls, run at every require: a check that cannot fail is decoration */
 if (up('1.502743486709583379743219592078', 8) !== '1.50274349' || down('1.502743486709583379743219592078', 8) !== '1.50274348'
   || enc(['1.674894211307116228764343737060', '1.674894211307116228764343737061'], 20) !== '[1.67489421130711622876, 1.67489421130711622877]'
@@ -82,5 +99,8 @@ if (up('1.502743486709583379743219592078', 8) !== '1.50274349' || down('1.502743
   || sig(0.2534446875145076, 13, true) !== '0.2534446875146' || sci(0.00009999999540211134, 3, false) !== '9.999 × 10⁻⁵'
   || sci(4.996003610813206e-16, 1, true) !== '5.0 × 10⁻¹⁶' || up('-0.5', 0) !== '0' || down('-0.5', 0) !== '-1' || up('2', 3) !== '2.000')
   throw new Error('design/outward.js: a red control did not fire as it must');
+{ const a = sigAgree('0.0752403861777', '0.0752403861783092455893', '0.0752403861783095651674'), b = sigAgree('1.25', '1.2', '1.3');
+  if (!a || a.right !== 10 || a.wrong !== 11 || a.place !== 12 || b.wrong !== null || b.right !== 1)
+    throw new Error('design/outward.js: sigAgree counts a decimal place as a significant digit, or decides what the enclosure leaves open'); }
 
-module.exports = { exact, fixed, down, up, enc, sig, sci, expOf };
+module.exports = { exact, fixed, down, up, enc, sig, sci, expOf, sigAgree };
