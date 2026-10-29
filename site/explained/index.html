@@ -124,6 +124,7 @@
   --container:1200px;
   --read:82ch;
   --title:28ch;
+  --hero:1440px;
   --radius-s:6px;
   --radius-m:10px;
   --radius-l:16px;
@@ -360,6 +361,16 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* THE HERO (D12, ruled 2026-10-29; design/tokens.js LAYOUT.hero): the one figure a page declares draws its box past
+   the container into the room beside it, up to --hero wide and never past the gutter; its caption stays on the spine.
+   On a phone the box runs edge to edge, its drawing sits on the spine, and a builder may give it a second drawing at
+   a phone's scale (.hv-n, swapped for .hv-w). tools/check-measure.js counts none of the hero's own edges and ratchets
+   its width up instead. */
+.hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
+  margin-inline:calc(-1 * var(--bleed))}
+.hero .hv-n{display:none}
+@media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
+  border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -654,6 +665,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
 /* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
 .wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
 /* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
 .w-legend.compact { max-width: 17rem; }
 /* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
@@ -950,7 +962,7 @@ body.easy{overflow-x:hidden}
   <p class="cap">Claims from the records, each with the word its record gives it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-29  this page built from the records at e91411928074"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-29  this page built from the records at ed3bce4eca90"></div>
   </div>
 </header>
 
@@ -1170,12 +1182,12 @@ body.easy{overflow-x:hidden}
   <p class="closing rv d1">Refusal is a verdict.</p>
   <p class="rv d1 read">The register this page is read from holds <span class="num">132</span> claims from <span class="num">59</span> claimants across <span class="num">25</span> sources: <span class="num">107</span> hold, <span class="num">24</span> carry a defect on record, and every row carries the object that justifies its word. The machine has never improved a theorem. It has moved an asterisk, counted a wrong digit, published the threshold that would turn a refusal green, and once, when the arithmetic allowed it, raised a constant by a unit of the sixth digit with a certificate attached. That is the job.</p>
   <div class="credits rv d2">
-    <span><b>the method paper</b> paper/cert-machine-method.pdf · v0.9</span>
+    <span><b>the method paper</b> paper/cert-machine-method.pdf · v0.10</span>
     <span><b>the self-audit</b> 572 mutants, 0 false certifications · reports/selfaudit.html</span>
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-29 from the records at commit e91411928074</span>
+    <span><b>built</b> 2026-10-29 from the records at commit ed3bce4eca90</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1185,7 +1197,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit e91411928074 on 2026-10-29: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit ed3bce4eca90 on 2026-10-29: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
