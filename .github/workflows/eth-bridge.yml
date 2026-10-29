@@ -319,6 +319,11 @@ jobs:
       - name: kernel gates (the files as built from the checkout, both kernels accept, every theorem exported)
         run: |
           set -o pipefail
+          # the checkout as it was before the challenge step, so the gate compares the run's kept copies
+          # against what the checkout builds (and the sources gate sees no generated file)
+          git checkout -- lakefile.toml
+          rm -f BridgeChallenge.lean comparator-bridge.json
+          test -z "$(git status --porcelain --untracked-files=no -- .)"
           node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" kernels "$PROJECT" "$OUT" | tee "$OUT/kernels-gate.txt"
       - uses: actions/upload-artifact@v4
         if: always()
