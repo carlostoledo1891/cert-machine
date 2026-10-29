@@ -78,5 +78,21 @@ ok(X.mark('OFF THE MAXIMUM', true) !== '' && X.mark('NOT A MEMBER OF THE FAMILY'
 red(X.mark('OFF THE MAXIMUM', false) === '' && X.mark('OUTSIDE ITS SUPPORT', false) === '', 'on an atlas cell (another record) the record\'s objects stay ink: no false witness against a table made elsewhere');
 red(X.mark('NOT THE CERTIFIED FIT', true) === '', 'NOT THE CERTIFIED FIT, a box clearing a box, is never red: a scalar refutation has no witness point');
 
+/* THE DESIGN HEIGHT (design.js; D14, 2026-10-29): the claim "the T-year wave is at most H", H in whole centimetres,
+   decided exactly against a certified enclosure; the flips are where its word changes */
+{
+  const D = require(path.join(__dirname, 'design.js'));
+  const q = W.returnLevel[100], fl = D.flips(q);
+  ok(fl && D.verdict(fl.holdsFrom, q) === 'HOLDS' && D.verdict(fl.holdsFrom - 1, q) !== 'HOLDS' && D.verdict(fl.failsTo, q) === 'DOES NOT HOLD' && D.verdict(fl.failsTo + 1, q) !== 'DOES NOT HOLD',
+    'the Weibull\'s 100-year wave on the Campos monthly maxima: the claim HOLDS from ' + D.cmText(fl.holdsFrom) + ' m and DOES NOT HOLD to ' + D.cmText(fl.failsTo) + ' m, the word changing exactly at each');
+  red(Math.ceil(100 * 0.1) === 10 && D.flips([0.1, 0.1]).holdsFrom === 11 && D.verdict(10, [0.1, 0.1]) === 'DOES NOT HOLD',
+    'a flip read as Math.ceil(100 · hi) is a centimetre low where the double lies above its decimal: 0.10 m is below the double 0.1, and the exact rule says DOES NOT HOLD');
+  red(D.verdict(1025, [10.2, 10.3]) === 'UNDECIDED', 'a height inside the enclosure is UNDECIDED, never rounded to a side');
+  let thr = false; try { D.verdict(10.5, [1, 2]); } catch (e) { thr = /whole centimetres/.test(e.message); }
+  red(thr, 'a height that is not a whole number of centimetres is refused');
+  ok(/design\.js/.test(read('playground', 'return-level-check', 'build.js')) && !/function ceilCm|holdsFrom:/.test(appC),
+    'the design-height rule lives in design.js alone: the build inlines it, app.js holds no copy');
+}
+
 console.log('printed-fit battery: ' + pass + ' pass, ' + fail + ' fail, ' + redsFired + '/' + reds + ' red controls fired');
 process.exit(fail ? 1 : 0);

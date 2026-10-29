@@ -69,7 +69,7 @@
     $('rc-data').innerHTML = html;
   }
   function endRun() { if (worker) { worker.terminate(); worker = null; } $('rc-run').disabled = !series; }
-  function clearResults() { $('rc-results').innerHTML = ''; $('rc-verdict').innerHTML = ''; $('rc-download').disabled = true; $('rc-check-out').innerHTML = ''; }
+  function clearResults() { $('rc-results').innerHTML = ''; $('rc-verdict').innerHTML = ''; $('rc-download').disabled = true; $('rc-check-out').innerHTML = ''; drawDesign(null); }
   function setSeries(s) {
     const stopped = !!worker;
     series = s; last = null; endRun(); clearResults(); describe();
@@ -163,6 +163,7 @@
     } else head = '<div class="word">no decided choice</div><div class="why">Anderson–Darling does not decide a family on this block: ' + esc(ad.why || '') + '. No level is named.</div>';
     $('rc-verdict').innerHTML = head + lines.join('');
     $('rc-download').disabled = false;
+    drawDesign(R);
   }
   function certificate() {
     const R = last, s = R.series;
@@ -208,6 +209,109 @@
      front of the decision's own words. Which ones is exhibited.js's, shared with the atlas; here the series is the one
      the fit was printed for, so the record's objects count too (printed.js stays byte-identical). */
 
+  /* ---- a design height (D14, 2026-10-29; WARRANT's R26): the claim "the T-year wave is at most H", H the reader's
+     choice, decided by design.js (window.HS_DESIGN) against each certified family's enclosure of the level. H is a
+     handle: typed in its italic field or dragged on its own ruler, in whole centimetres. The ruler is drawn at the
+     panel's own width once per run (and per T, per resize) with each family's flip value as a solid tick; a drag
+     moves only the chosen line, the handle and the words, never a decided mark (drive.js beside this file asserts it
+     in Chrome). Before a run the handle is hollow and the panel says NEEDS DATA. ---- */
+  const DZ = window.HS_DESIGN, MK = S.marks;
+  const DH = { R: null, T: S.T[0], cm: null, max: 10, rows: [], g: null };
+  const DV = DZ.VERDICTS;
+  function dGeom() {
+    /* narrow (a phone): the name and the word share a line above each row's lane, so the ruler takes the full width */
+    const w = Math.max(300, Math.round($('rc-ruler').clientWidth || 640)), narrow = w < 560;
+    return narrow ? { w, L: 12, R: 12, top: 34, row: 50, narrow } : { w, L: 160, R: 150, top: 34, row: 30, narrow };
+  }
+  const dX = (m) => DH.g.L + (m / DH.max) * (DH.g.w - DH.g.L - DH.g.R);
+  function drawDesign(R) {
+    DH.R = R;
+    const G = DH.g = dGeom(), T = DH.T;
+    DH.rows = (R ? R.families : []).map((f) => {
+      const F = R.fits[f], q = F && F.certified && F.returnLevel ? F.returnLevel[T] : null, fl = q ? DZ.flips(q) : null;
+      return { f, q: fl ? q : null, fl };
+    });
+    const ends = DH.rows.filter((r) => r.fl).map((r) => r.q[1]);
+    DH.max = ends.length ? Math.max(1, Math.ceil(Math.max.apply(null, ends) * 1.25)) : 10;
+    DH.best = R && R.rankings.ad.verdict === 'DECIDED' ? R.rankings.ad.best : null;
+    if (R && DH.cm === null) { const b = DH.rows.find((r) => r.f === DH.best && r.fl) || DH.rows.find((r) => r.fl); DH.cm = b ? b.fl.holdsFrom : null; }
+    if (!R) DH.cm = null;
+    const H = G.top + Math.max(1, DH.rows.length) * G.row + 16, x1 = G.w - G.R;
+    const step = DH.max <= 6 ? 1 : DH.max <= 15 ? 2 : DH.max <= 40 ? 5 : 10;
+    const o = ['<svg id="rc-rsvg" viewBox="0 0 ' + G.w + ' ' + H + '" role="group" aria-label="The design height H on a ruler of metres, with each certified family\'s flip value as a solid tick">'];
+    o.push('<line x1="' + G.L + '" y1="' + (G.top - 12) + '" x2="' + x1 + '" y2="' + (G.top - 12) + '" class="rc-ax"/>');
+    for (let m = 0; m <= DH.max; m += step) {
+      const x = dX(m).toFixed(1);
+      o.push('<line x1="' + x + '" y1="' + (G.top - 16) + '" x2="' + x + '" y2="' + (G.top - 8) + '" class="rc-ax"/><text x="' + x + '" y="' + (G.top - 20) + '" text-anchor="middle" class="rc-t">' + m + ' m</text>');
+    }
+    DH.rows.forEach((r, i) => {
+      const y = G.top + i * G.row + (G.narrow ? 32 : G.row / 2), ty = G.narrow ? y - 16 : y + 4;
+      o.push('<text x="' + (G.narrow ? G.L : G.L - 12) + '" y="' + ty + '"' + (G.narrow ? '' : ' text-anchor="end"') + ' class="rc-fl' + (r.f === DH.best ? ' best' : '') + '">' + esc(FAMW[r.f]) + (r.f === DH.best ? ' · A²' : '') + '</text>');
+      if (!r.fl) { o.push('<text x="' + G.L + '" y="' + (G.narrow ? y + 4 : y + 4) + '" class="rc-t">∅ refused: no enclosure of this level</text>'); return; }
+      /* the flip, decided: the enclosure's upper end (and its lower end, where the two are a pixel apart) */
+      const xh = dX(r.q[1]), xl = dX(r.q[0]);
+      if (xh - xl >= 1) o.push('<line x1="' + xl.toFixed(1) + '" y1="' + (y - 9) + '" x2="' + xl.toFixed(1) + '" y2="' + (y + 9) + '" ' + MK.decided + '/>');
+      o.push('<line x1="' + xh.toFixed(1) + '" y1="' + (y - 9) + '" x2="' + xh.toFixed(1) + '" y2="' + (y + 9) + '" ' + MK.decided + '/>');
+      o.push('<text x="' + (xh + 6).toFixed(1) + '" y="' + (y - 4) + '" class="rc-t" data-row="' + i + '" data-flip="' + r.fl.holdsFrom + '">' + DZ.cmText(r.fl.holdsFrom) + '</text>');
+      o.push('<text x="' + (G.narrow ? x1 : x1 + 14) + '" y="' + ty + '"' + (G.narrow ? ' text-anchor="end"' : '') + ' class="rc-dw" data-row="' + i + '"></text>');
+    });
+    const hx = DH.cm === null ? dX(0) : dX(DH.cm / 100);
+    o.push('<line id="rc-hl" x1="' + hx.toFixed(1) + '" y1="' + (G.top - 12) + '" x2="' + hx.toFixed(1) + '" y2="' + (H - 6) + '" ' + MK.chosen + '/>');
+    o.push('<circle id="rc-hk" cx="' + hx.toFixed(1) + '" cy="' + (G.top - 12) + '" r="8" class="rc-knob' + (DH.cm === null ? ' hollow' : '') + '" tabindex="' + (DH.cm === null ? -1 : 0) + '" role="slider" aria-label="H, the design height, in centimetres" aria-valuemin="0" aria-valuemax="' + DH.max * 100 + '" aria-valuenow="' + (DH.cm || 0) + '"/>');
+    o.push('</svg>');
+    $('rc-ruler').innerHTML = o.join('');
+    $('rc-h').disabled = DH.cm === null;
+    dUpdate(true);
+  }
+  function dUpdate(typedToo) {
+    const cm = DH.cm;
+    if (cm === null) {
+      $('rc-dv').innerHTML = '<b>NEEDS DATA</b> — certify a series above (step 3); each family that comes back certified puts its tick on this ruler.';
+      return;
+    }
+    const x = dX(cm / 100).toFixed(1), hl = $('rc-hl'), hk = $('rc-hk');
+    hl.setAttribute('x1', x); hl.setAttribute('x2', x); hk.setAttribute('cx', x); hk.setAttribute('aria-valuenow', cm);
+    hk.setAttribute('aria-valuetext', DZ.cmText(cm) + ' m');
+    if (typedToo) $('rc-h').value = DZ.cmText(cm);
+    const words = DH.rows.map((r) => (r.fl ? DZ.verdict(cm, r.q) : null));
+    document.querySelectorAll('#rc-ruler .rc-dw').forEach((t) => { t.textContent = words[+t.dataset.row]; });
+    const n = (v) => words.filter((w) => w === v).length, cert = words.filter(Boolean).length;
+    const giv = '<i>H = ' + DZ.cmText(cm) + ' m</i>';
+    const across = 'Across the ' + plural(cert, 'certified family', 'certified families') + ': ' + [DV.H, DV.N, DV.U].filter((v) => n(v)).map((v) => v + ' under ' + n(v)).join(', ') + '.';
+    const b = DH.rows.find((r) => r.f === DH.best && r.fl);
+    $('rc-dv').innerHTML = b
+      ? '<div class="word">' + DZ.verdict(cm, b.q) + '</div><div>Under the family Anderson–Darling decides, the ' + esc(FAMW[b.f]) + ', the claim that its ' + DH.T + '-year wave is at most ' + giv + ': it holds from <b>' + DZ.cmText(b.fl.holdsFrom) + ' m</b> up and does not hold at <b>' + DZ.cmText(b.fl.failsTo) + ' m</b> or below'
+        + (b.fl.holdsFrom - b.fl.failsTo > 1 ? '; between them the enclosure decides neither' : '') + '. ' + across + '</div>'
+      : '<div class="word">no decided family</div><div>Anderson–Darling decides no family on this block, so the claim at ' + giv + ' has no single answer. ' + across + '</div>';
+  }
+  function dSet(cm, typedToo) {
+    if (DH.cm === null) return;
+    DH.cm = Math.max(0, Math.min(DH.max * 100, Math.round(cm)));
+    dUpdate(typedToo);
+  }
+  /* typed: read as a decimal string, never through a float times 100 */
+  $('rc-h').addEventListener('input', () => {
+    const m = /^\s*(\d{1,4})(?:[.,](\d{0,2}))?\s*$/.exec($('rc-h').value);
+    if (m) dSet(Number(m[1]) * 100 + Number((m[2] || '').padEnd(2, '0')), false);
+  });
+  $('rc-h').addEventListener('change', () => dUpdate(true));
+  $('rc-dT').addEventListener('change', () => { DH.T = Number($('rc-dT').value); drawDesign(DH.R); });
+  /* dragged: on the ruler, anywhere along it */
+  const ruler = $('rc-ruler');
+  const fromX = (ev) => { const r = $('rc-rsvg').getBoundingClientRect(), x = (ev.clientX - r.left) * (DH.g.w / r.width); return (x - DH.g.L) / (DH.g.w - DH.g.L - DH.g.R) * DH.max * 100; };
+  ruler.addEventListener('pointerdown', (ev) => { if (DH.cm === null || !$('rc-rsvg')) return; ruler.setPointerCapture(ev.pointerId); ruler.classList.add('drag'); dSet(fromX(ev), true); ev.preventDefault(); });
+  ruler.addEventListener('pointermove', (ev) => { if (ruler.classList.contains('drag')) dSet(fromX(ev), true); });
+  const endDrag = () => ruler.classList.remove('drag');
+  ruler.addEventListener('pointerup', endDrag); ruler.addEventListener('pointercancel', endDrag);
+  ruler.addEventListener('keydown', (ev) => {
+    if (ev.target.id !== 'rc-hk' || DH.cm === null) return;
+    const k = { ArrowRight: 1, ArrowUp: 1, ArrowLeft: -1, ArrowDown: -1, PageUp: 100, PageDown: -100 }[ev.key];
+    if (k) { dSet(DH.cm + k * (ev.shiftKey && Math.abs(k) === 1 ? 10 : 1), true); ev.preventDefault(); }
+    else if (ev.key === 'Home') { dSet(0, true); ev.preventDefault(); } else if (ev.key === 'End') { dSet(DH.max * 100, true); ev.preventDefault(); }
+  });
+  let rz = 0;
+  window.addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { if ($('rc-ruler').clientWidth && DH.g && Math.abs($('rc-ruler').clientWidth - DH.g.w) > 4) drawDesign(DH.R); }, 120); });
+
   /* ---- wiring ---- */
   $('rc-file').addEventListener('change', (e) => { const file = e.target.files[0]; e.target.value = ''; if (file) readFile(file); });
   const drop = $('rc-drop');
@@ -221,4 +325,5 @@
   $('rc-cf').addEventListener('change', fillParams);
   $('rc-check').addEventListener('click', check);
   fillParams();
+  drawDesign(null);
 })();

@@ -301,3 +301,24 @@ Applied first to the kissing ladder (the two panels, stacked on a phone) and to 
 witness became the hero under the title, drawn on x, y in [0, 5/4], the window where the chosen segments and the
 float curve can be told apart; the halo key became one strip across the track. The rest of R28 (a refused cell keeps
 the area its value would have had, with the hole's kind) is not built.
+
+## D14 applied (2026-10-29): the first handle
+
+The return-level check (/instruments/return-level-check/) gains a fourth step, **a design height**: the claim "the
+T-year wave is at most *H*", for an H the reader chooses. H is the page's first handle. It is named in italic (rule
+6), typed in its field or dragged along its own ruler, and moves in whole centimetres.
+
+- **The flip values are decided marks.** Each certified family's enclosure of the level puts a solid tick on H's
+  ruler, at the centimetre where the claim's word changes: HOLDS at or past the enclosure's upper end, DOES NOT HOLD
+  below its lower end, UNDECIDED inside it (the atlas's three words). The comparison is exact: c / 100 against the
+  double's own dyadic value, in BigInt (`playground/return-level-check/design.js`; the double nearest 0.1 lies above
+  0.1, so `Math.ceil(100 * hi)` would call 0.10 m enough, a red control).
+- **Under a drag only CHOSEN marks move.** The ticks are drawn once per run, per T, per width; a drag redraws the
+  dotted line at H, the handle and the words, and nothing else. `playground/return-level-check/drive.js` types,
+  drags and steps H in Chrome on the certified Campos preset and refuses if any decided mark moved by a hundredth of
+  a pixel (a red control moves one by hand). It runs in `make test` and the control build.
+- **NEEDS DATA is a hollow handle.** Before a run the ruler carries no tick and the handle is hollow and inert.
+
+The headline names the family Anderson–Darling decides and prints both flips ("holds from 5.85 m up and does not hold
+at 5.84 m or below"): the incentive form of the app doctrine's "at X you turn green". On a phone the family's name and
+its word share a line above each lane, so the ruler takes the full width.

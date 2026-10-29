@@ -42,6 +42,29 @@
 .rc-out { margin-top: var(--s-4); display: grid; gap: 6px; font-size: 13.5px; line-height: 1.5; color: var(--ink-2); }
 .rc-out b { color: var(--ink); font-weight: var(--weight-mono); letter-spacing: .02em; }
 
+/* 4 · a design height (D14, 2026-10-29): H is CHOSEN, a handle on its own ruler; the flip values are DECIDED, solid ticks
+   the drag never moves; the words are the atlas's (HOLDS, DOES NOT HOLD, UNDECIDED); no colour */
+.rc-design { display: grid; gap: var(--s-3); border-top: 1px solid var(--border); padding-top: var(--s-4); }
+.rc-design .k { font-family: var(--font-mono); color: var(--ink-3); letter-spacing: var(--track-loose); text-transform: uppercase; font-size: var(--text-eyebrow); }
+.rc-claim { margin: 0; font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.rc-claim select { font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-s); }
+.rc-claim i { color: var(--ink); }
+.rc-claim input { width: 5ch; font: inherit; font-style: italic; color: var(--ink); background: transparent; border: 0; border-bottom: 1px dotted var(--ink-3); padding: 0; text-align: center; }
+.rc-ruler { touch-action: none; cursor: ew-resize; user-select: none; }
+.rc-ruler svg { display: block; width: 100%; height: auto; overflow: visible; }
+.rc-ruler .rc-ax { stroke: var(--border-strong); stroke-width: 1; }
+.rc-ruler .rc-t { font-family: var(--font-mono); font-size: var(--text-eyebrow); fill: var(--ink-3); }
+.rc-ruler .rc-fl { font-family: var(--font-mono); font-size: var(--text-eyebrow); fill: var(--ink-2); }
+.rc-ruler .rc-fl.best { fill: var(--ink); font-weight: var(--weight-strong); }
+.rc-ruler .rc-dw { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-slight); fill: var(--ink); }
+.rc-ruler .rc-knob { fill: var(--ink); stroke: var(--surface); stroke-width: 2; cursor: grab; }
+.rc-ruler .rc-knob.hollow { fill: none; stroke: var(--ink-3); stroke-width: 1.5; cursor: default; }
+.rc-ruler .rc-knob:focus-visible { outline: none; stroke: var(--ink); stroke-width: 3; }
+.rc-ruler.drag .rc-knob { cursor: grabbing; }
+.rc-dv { display: grid; gap: var(--s-1); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.rc-dv .word { font-family: var(--font-mono); font-size: var(--text-3); color: var(--ink); letter-spacing: var(--track-slight); }
+.rc-dv b { color: var(--ink); font-weight: var(--weight-mono); }
+
 /* the prose rhythm, as the other instrument pages carry it */
 section p + p, section p + ul, section p + ol, section p + figure,
 section ul + p, section ol + p, section figure + p { margin-top: var(--s-4); }

@@ -29,6 +29,8 @@ const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
 const PARSE = fs.readFileSync(path.join(HERE, 'parse.js'), 'utf8');       /* THE parse rule, shared with the atlas's own-site pin */
 const PRINTED = fs.readFileSync(path.join(HERE, 'printed.js'), 'utf8');   /* THE decision of a printed fit, shared with the atlas */
 const EXHIBITED = fs.readFileSync(path.join(HERE, 'exhibited.js'), 'utf8');   /* which of its decisions carry the red × (WARRANT v2), shared with the atlas */
+const DESIGN = fs.readFileSync(path.join(HERE, 'design.js'), 'utf8');   /* THE design-height decision and its flip values (D14, 2026-10-29) */
+const W = require(path.join(PG, 'warrant.js'));
 const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.js'));
 const sha = (t) => crypto.createHash('sha256').update(t).digest('hex');
 
@@ -43,6 +45,7 @@ modules['playground/return-level-check/worker.js'] = sha(WORKER);
 modules['playground/return-level-check/parse.js'] = sha(PARSE);
 modules['playground/return-level-check/printed.js'] = sha(PRINTED);
 modules['playground/return-level-check/exhibited.js'] = sha(EXHIBITED);
+modules['playground/return-level-check/design.js'] = sha(DESIGN);
 Object.assign(modules, B.modules);
 
 /* the preset: the Campos Basin node of the paper's own hindcast, if the extraction is complete and contiguous */
@@ -62,7 +65,9 @@ function preset() {
 
 function build(OUTDIR) {
   const P = preset();
-  const SPEC = { families: PAPER_SIX, T: [100, 1000], modules, preset: P };
+  /* the strokes the design-height ruler draws (WARRANT): a flip value is DECIDED, the reader's H is CHOSEN */
+  const marks = { decided: W.attrs(W.DECIDED, { width: 2 }), chosen: W.attrs(W.CHOSEN, { width: 2 }) };
+  const SPEC = { families: PAPER_SIX, T: [100, 1000], modules, preset: P, marks };
   const blockOpts = [['native', 'the series itself (unfiltered)'], ['daily', 'daily maxima'], ['weekly', 'weekly maxima (ISO weeks)'], ['monthly', 'monthly maxima'], ['annual', 'annual maxima']];
   const FW = { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exponentiated Weibull', gengamma: 'generalized gamma', gumbel: 'Gumbel' };
   const ORD = ['1st', '2nd', '3rd'].concat(Array.from({ length: 17 }, (_, i) => (i + 4) + 'th'));
@@ -89,6 +94,12 @@ function build(OUTDIR) {
       <div class="rc-progress" id="rc-progress"></div>
       <div class="rc-verdict" id="rc-verdict"></div>
       <div id="rc-results"></div>
+      <div class="rc-design" id="rc-design">
+        <div class="k">4 &middot; a design height</div>
+        <p class="rc-claim">The claim: the <select id="rc-dT" aria-label="the return period">${SPEC.T.map((T) => '<option value="' + T + '">' + T + '</option>').join('')}</select>-year wave is at most <i>H = <input id="rc-h" type="text" inputmode="decimal" aria-label="H, the design height, in metres" disabled> m</i>, a height you choose: type it, or drag its handle along the ruler. Each certified family decides the claim against its enclosure of the level. The solid ticks are where the answer changes, decided once per run; a drag moves only H and the words.</p>
+        <div class="rc-ruler" id="rc-ruler"></div>
+        <div class="rc-dv" id="rc-dv" aria-live="polite"></div>
+      </div>
     </div>
   </div>
 </section>
@@ -125,7 +136,7 @@ function build(OUTDIR) {
     path: '/instruments/return-level-check/',
     css: CSS,
     body: `<main>${body}</main>`,
-    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${APP}</script>`,
+    script: `<script id="rc-spec" type="application/json">${json}</script>\n<script id="rc-bundle" type="text/plain">${BUNDLE}</script>\n<script id="rc-worker" type="text/plain">${WORKER}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${DESIGN}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, preset: !!P, modules: Object.keys(modules).length };
