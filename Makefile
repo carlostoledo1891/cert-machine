@@ -116,6 +116,7 @@ test:
 	@printf "%-30s " "breaking (Black Sea waves)"; $(NODE) instruments/breaking/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "hseva (certified return levels)"; $(NODE) instruments/hseva/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "printed fits (one decision)"; $(NODE) playground/return-level-check/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "design-height handle"; $(NODE) playground/return-level-check/drive.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "sumdiff (registry asterisks)"; $(NODE) instruments/sumdiff/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "lemniscate (erdős 1038 inf)"; $(NODE) instruments/lemniscate/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "covering (the shared module)"; $(NODE) instruments/covering/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
