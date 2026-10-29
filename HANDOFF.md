@@ -151,8 +151,8 @@ NEXT SESSION, IN ORDER:
      ── 2026-10-29 ~13:30 UTC, ON THE OPERATOR'S WORD: the pu-feed and swell-feed workflows DELETED (PU Verificado and
        the Swell app no longer refresh from CI; each page keeps its last pinned day; a desk refresh of Swell is
        `git show origin/swell-field:today.json > site/swell/data/today.json` — the branch stays). The unsolicited PR #2
-       (frintroper: a licence rewrite and a README replacement, "RIPL v1.0") CLOSED without a word and the account
-       BLOCKED (`gh api -X PUT user/blocks/frintroper`; reversible). Audit: no workflow runs on pull_request, so a fork's
+       (frintroper: a licence rewrite and a README replacement, "RIPL v1.0") CLOSED without a word; the account is NOT blocked (an account-level change the session may not make: the operator
+       can block it at github.com/settings/blocked_users, or `gh api -X PUT user/blocks/frintroper`). Audit: no workflow runs on pull_request, so a fork's
        PR never runs our workflows or sees secrets; only the owner has write; Vercel asks a team member before deploying
        a fork's commit; nothing of theirs reached main or the site. Never engage the account; the sweep counts its
        #8/#30/#36 blasts once.
