@@ -22,6 +22,57 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★★★★★★ 2026-10-29 ~23:30 UTC — HANDOFF: THE DAY CLOSED. Everything below is committed and pushed (main b50d81dc and
+     this entry); nothing is billing (RunPod list-pods empty; every pod in corpus/eth-refutation/POD.txt deleted, 404).
+     ── DONE TODAY, AFTER THE ROUNDTABLE DAY (each live on carlostoledo.co):
+       GRAMMAR: D12 the hero (kissing, /grammar/), D14 the first handle (the return-level check's design height + drive.js),
+       D15 /grammar/roundtable/ (the law drawn where the site broke it, ten findings counted then/now by one census, fifteen
+       rules with build-decided status), heroes on Tier 1: batch 1 (gsm8k-audit with its two faulty keys × on their cells,
+       time-horizon) and batch 2 (every Tier 1 page a hero or a reason in design/heroes.json: 4 heroes, 11 none, 0 pending;
+       the ELEIÇÕES change LEFT OUT on the operator's word — the dossier stays paused; its scoreboard hero is on branch
+       heroes-tier1-batch2 as a proposal). Fixes: the globe prints certified ends outward (design/outward.js inlined); Erdős
+       #852 is wrong from its 11th significant digit (outward.js sigAgree; four pages + the title).
+       ETH (/eth/, on an outside reading): five plain lines at the top, the disclosure up, premises ranked by worry,
+       independence = who decides; #ETH proved in Lean from both labs' statements (Anthropic's on MainTheorem's formula class);
+       all 51 bridge theorems pass Lean's kernel at build, Lean's kernel in Comparator, and nanoda (certs/eth-bridge.json, run
+       40947192141); the version seam in TSavo's join MEASURED: DIFFERENT (certs/eth-seam.json: same statement term up to a
+       binder name, ℝ's arithmetic differs between the two Mathlibs); Anthropic's claim replayed by leanchecker --fresh (exit
+       0, 3,011 s, 4-vCPU pod, ~US$0.35); the #36 follow-up POSTED (issuecomment-6507840689, Generic.lean offered as a shared
+       target + the seam).
+       PAPER: the method paper v0.10 live (Prop. 4 completeness up to tightness, Blum–Kannan, independence by who decides,
+       seven outside re-derivations by three parties in the abstract; the sentence "The contribution is the system and its
+       semantics." was dropped — the operator tells Pedro).
+       OPENAI-MATH: the Hodge sentence corrected from a record (certs/openai-math-hodge-statement.json, READ: the challenge and
+       the solution state the theorem with different definitions, closures 259 / 33,170 share no module, so Comparator's
+       statement check cannot pass); lane K's Hodge row stays REFUSED (resources); a new gap on 032.md's "Comparator statement".
+       An outside replayer (Neal McBurnett, by e-mail) found the same by running Comparator; the operator REPLIED 10-29 (draft
+       outreach/neal-mcburnett-reply.private.md, git-ignored); credit on the page ONLY once he agrees.
+       OUTREACH: Qiushi's lead e-mailed privately 10-29 (joint companion paper + checking their next results; fallback
+       2026-11-05: a private-repo invite to Cherish0925); Ricardo de Lima Ribeiro hooked (memory coauthor-outreach).
+     ── NEXT, IN ORDER:
+       1. RUNPOD CEILING: the account refuses every pod > ~US$0.22/h although the balance is US$25.12 (not the balance: a
+          spend limit or account restriction; the operator asks RunPod support with the quote in POD.txt). Once lifted:
+          OpenAI's leanchecker --fresh (tools/runpod-eth.sh FRESH_ONLY=1 CLAIMS=openai, cpu3m 16 vCPU, AUDIT_SHA d61b2007),
+          and a second-party Comparator run on OpenAI's Hodge challenge (so lane K's row can become REFUTED by the
+          pre-registered rule). Then re-record eth-bridge / eth-tsavo, whose notProved/gaps lines still say leanchecker was
+          "not run" in the kernel lane (true now for OpenAI only).
+       2. Neal's answer: if he agrees, credit him on the openai-math page (his RUNS.md, nanoda #61 / PR #71) and in
+          corpus/external-reruns.json (an outside party: nanoda over all 416 + 20, ours two kernels on 398 + 18); our 18
+          refused lane-K rows overlap his nanoda stack issue — a Lean-kernel replay of those from us gives them two kernels by
+          two parties. Watch #36 for replies (never engage frintroper).
+       3. GRAMMAR: the three hero proposals (the landing's decided-claims strip with × on refuted cells; /explained/'s stage
+          redrawn as a figure under D13; /uirapuru/ patch 7); a ruling on app-shell maps as heroes; R28's "a void has a size";
+          the cheap rules R22 (reasons as visible text), R23 (captions name their record), R30 (the sentence that would stop
+          a figure), R20 (legends derived, 55 exclude: calls); D10/D11 continuation (1,540 unpointed values; the print kit's
+          grade glyph). Each visible step: specimen → the operator → merge.
+       4. Qiushi: on 2026-11-05 with no reply, the private fallback on the operator's word.
+     ── TRAPS LEARNED TODAY: the session's permission classifier blocks external writes (a GitHub comment) until the operator
+       allows the command; a `cd` into an agent's worktree moves the session's primary directory (use absolute paths / git -C);
+       the copy census counts internal words in outreach.json notes (the About page renders them: never write "operator" there);
+       new certs/ files must be registered in tools/certs-shelf.js or the sync refuses; Swell @1440 flaps 9/10 spines on
+       unchanged bytes (time of day) — not a regression. 19 agent worktrees sit under .claude/worktrees (all merged or
+       superseded; remove with `git worktree remove` when disk matters); merged branches: d12-hero, d14-handle, d15-companion,
+       eth-bridge, eth-seam, eth-leanchecker-fresh(-2,-3), heroes-tier1-batch1/2, openai-hodge-statement, paper-v-next-2026-10-29.
   ★★★★★★★★★ 2026-10-29 (late night) — STATE AT THIS ENTRY. LIVE: /eth/ with five plain lines, the disclosure up, premises
      ranked; #ETH proved in Lean for both labs and all 51 bridge theorems passing Lean's kernel ×2 + nanoda (certs/eth-bridge.json);
      the version seam in TSavo's join MEASURED: DIFFERENT (certs/eth-seam.json: statement same kernel term up to a binder
