@@ -91,3 +91,18 @@ DELETED 2026-10-29 ~22:19Z (delete-pod 204; get-pod 404 "pod not found"; list-po
            session, after the import. Uptime 5,690 s at the read before deletion = US$0.35 at US$0.22/h (the
            list-pod-billing read just after showed US$0.13, still accruing); the cap was US$6. The day's probe pods
            add a few cents.
+
+── 2026-10-29 ~23:18Z: OPENAI's leanchecker --fresh, after the operator topped the balance up to US$35 ("try again");
+   cap US$15. A POD BILLS UNTIL TERMINATED. ──
+pod id     69d9t7dxjffo6n
+name       eth-leanchecker-openai
+shape      cpu3m (Memory-Optimized), 16 vCPU, 128 GB RAM, 160 GB container disk, SECURE cloud, data center EU-CZ-1
+price      US$0.88/h (create-pod read: cost 0.88; catalog read: cpu3m 0.055 per vCPU-hour, 16 vCPU HIGH)
+created    2026-10-29T23:18:49Z — placed at once: the ceiling that refused every pod >= US$0.24/h earlier today is gone
+image      ubuntu:24.04, start command fetches tools/runpod-eth.sh at d61b2007dc4f1adeda882bd01b6a292d4764d039
+env        AUDIT_SHA=d61b2007 CLAIMS=openai FRESH_ONLY=1 FRESH_PARALLEL=1 FRESH_TIMEOUT=72000
+           LEAN_GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 (ports 8000/http at create)
+facts      https://69d9t7dxjffo6n-8000.proxy.runpod.net/ (read-only, port 8000)
+import     node tools/import-runpod-eth.js 69d9t7dxjffo6n [--partial]
+budget     cap US$15; deleted at US$14 whatever the state (~16 h at this price)
+delete     delete-pod 69d9t7dxjffo6n, then confirm get-pod -> 404

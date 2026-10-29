@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ A POD IS BILLING (2026-10-29 23:18Z): 69d9t7dxjffo6n (cpu3m 16 vCPU / 128 GB, EU-CZ-1, US$0.88/h, cap US$15) runs
+     OpenAI's leanchecker --fresh (FRESH_ONLY=1 CLAIMS=openai at d61b2007). The ceiling is GONE: it placed at once after
+     the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
+     "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
+     both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
   ★★★★★★★★★★ 2026-10-29 ~23:30 UTC — HANDOFF: THE DAY CLOSED. Everything below is committed and pushed (main b50d81dc and
      this entry); nothing is billing (RunPod list-pods empty; every pod in corpus/eth-refutation/POD.txt deleted, 404).
      ── DONE TODAY, AFTER THE ROUNDTABLE DAY (each live on carlostoledo.co):
