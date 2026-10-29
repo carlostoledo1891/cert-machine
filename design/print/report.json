@@ -1,0 +1,864 @@
+{
+ "what": "WARRANT print register (design/print/tokens.js) judged by WARRANT v2.2's colour law with design/colour.js (the code design/battery.js runs): OKLab ΔE×100, Machado 2009 CVD simulation at severity 1.0, WCAG 2 contrast, and two greyscale conversions (CIE Y; Rec. 601 luma). A PROPOSAL: nothing here is served or applied.",
+ "generated": "2026-10-29",
+ "floors": {
+  "normal": 15,
+  "cvd": 8,
+  "text": 4.5,
+  "mark": 3,
+  "hairline": 1.2,
+  "rampStep": 0.06,
+  "chroma": 0.03
+ },
+ "forbiddenHue": [
+  35,
+  115
+ ],
+ "inputs": {
+  "design/print/tokens.js": "8cb79f13201593d99b4577449cc4fb786490118d9ccded3210f3ddd9cbe4b89f",
+  "design/colour.js": "3788b5df23222a5ffc4a09222b86abf541dd410f740eaa1e1a77aea93461971c",
+  "design/grammar.js": "45d0f6bd48b93ef27e1c419d3bcfd86187933036590df989e1df88e36c41ef26",
+  "design/tokens.js": "2a85d67fc6cb5db08a056ad5bad9c74eb5a484197f18c954c4a74f0960e91518",
+  "playground/warrant.js": "72cd96cba2e6a4085ce761da0e06aafc4bad09ce721cb6dba66879fd5d96fb4a"
+ },
+ "verdict": "PASS",
+ "checks": [
+  {
+   "id": "P1",
+   "name": "every WARRANT role has a print value",
+   "pass": true,
+   "detail": "7 role tokens, 5 ramp steps, 3 identity series, 4 standings"
+  },
+  {
+   "id": "P2",
+   "name": "each standing wears the screen's class and token",
+   "pass": true,
+   "detail": "decided --ink · computed --ink-3 · chosen --ink-2, classes and dashes at 6 widths"
+  },
+  {
+   "id": "P3",
+   "name": "the stroke grammar does not change",
+   "pass": true,
+   "detail": "emits \"1.5 2\" \"5 4\" \"1 3\" \"1 5\" \"2 3\" and solid; all in grammar.js PERMITTED"
+  },
+  {
+   "id": "P4",
+   "name": "the witness is the screen's one red",
+   "pass": true,
+   "detail": "#e0574e = design/tokens.js --witness"
+  },
+  {
+   "id": "P5",
+   "name": "no yellow, no orange",
+   "pass": true,
+   "detail": "chromatic: --witness 27°, --id-2 260° (forbidden 35°–115°)"
+  },
+  {
+   "id": "P6",
+   "name": "contrast on paper (text 4.5:1, marks 3:1, hairline 1.2:1)",
+   "pass": true,
+   "detail": "--ink 21.00 · --ink-2 15.13 · --ink-3 8.45 · --guide 3.45 · --grid 1.37 · --witness 3.72 · --id-2 5.40"
+  },
+  {
+   "id": "P7",
+   "name": "every pair that can share a figure: normal ≥ 15, protan/deutan/tritan ≥ 8",
+   "pass": true,
+   "detail": "7 colours, 21 pairs · worst normal 15.2 (--ink-2↔--ink-3) · worst CVD 9.3 (--guide↔--witness, deutan)"
+  },
+  {
+   "id": "P8",
+   "name": "the order ramp (neutral, darker with magnitude, ΔL ≥ 0.06, colour and greyscale)",
+   "pass": true,
+   "detail": "L 0.934→0.873→0.811→0.751→0.689 · min ΔL 0.060 · light end 1.21:1 · ink over every step ≥ 7.56:1"
+  },
+  {
+   "id": "P9",
+   "name": "greyscale: grades kept, colour never alone, one marker per series",
+   "pass": true,
+   "detail": "text and marks keep their grade in both conversions; every chromatic value carries a shape (--witness ×, --id-2 ■); identity markers o s ^"
+  }
+ ],
+ "redControls": [
+  {
+   "id": "X1",
+   "attacks": "P7",
+   "what": "a near-identical grey planted beside --ink-3 (#4f4f4f against #4d4d4d)",
+   "refused": true,
+   "detail": "--ink-3↔--planted normal 0.7; --ink-3↔--planted protan 0.7; --ink-3↔--planted deutan 0.7; --ink-3↔--planted tritan 0.7"
+  },
+  {
+   "id": "X2",
+   "attacks": "P7",
+   "what": "a green identity that clears normal vision against the witness but not a deuteranope (#6f9a3a)",
+   "refused": true,
+   "detail": "--guide↔--id-2 normal 13.4; --guide↔--id-2 tritan 4.3; --witness↔--id-2 deutan 1.2"
+  },
+  {
+   "id": "X3",
+   "attacks": "P5",
+   "what": "an orange identity (#eb6834, the dataviz default's slot 2)",
+   "refused": true,
+   "detail": "yellow/orange: --id-2 #eb6834 at 41°"
+  },
+  {
+   "id": "X4",
+   "attacks": "P5",
+   "what": "a yellow identity (#eda100)",
+   "refused": true,
+   "detail": "yellow/orange: --id-2 #eda100 at 75°"
+  },
+  {
+   "id": "X5",
+   "attacks": "P6",
+   "what": "a light grey as the caption ink (#999999, 2.85:1)",
+   "refused": true,
+   "detail": "--ink-3 #999999 2.85:1 < 4.5 (text)"
+  },
+  {
+   "id": "X6",
+   "attacks": "P8",
+   "what": "two ramp steps swapped (not darker with magnitude)",
+   "refused": true,
+   "detail": "colour: step 3 is not darker than step 2; monoY: step 3 is not darker than step 2; mono601: step 3 is not darker than step 2"
+  },
+  {
+   "id": "X7",
+   "attacks": "P8",
+   "what": "a ramp step 0.03 lighter than its neighbour (#a5a5a5 for #aeaeae)",
+   "refused": true,
+   "detail": "colour: ΔL 0.032 between steps 4 and 5; monoY: ΔL 0.032 between steps 4 and 5; mono601: ΔL 0.032 between steps 4 and 5"
+  },
+  {
+   "id": "X8",
+   "attacks": "P8",
+   "what": "a blue-tinted ramp step (#cfe0f5)",
+   "refused": true,
+   "detail": "colour: ΔL 0.034 between steps 1 and 2; monoY: ΔL 0.033 between steps 1 and 2; mono601: ΔL 0.036 between steps 1 and 2; not neutral: --o-2"
+  },
+  {
+   "id": "X9",
+   "attacks": "P3",
+   "what": "a computed stroke given the width-derived pattern \"6 4\" (the one frontier's contract records)",
+   "refused": true,
+   "detail": "not in grammar.js: COMPUTED \"6 4\""
+  },
+  {
+   "id": "X10",
+   "attacks": "P4",
+   "what": "a second red as the witness (#E06B62, the retired --v-refu)",
+   "refused": true,
+   "detail": "#E06B62 ≠ design/tokens.js --witness #e0574e"
+  },
+  {
+   "id": "X11",
+   "attacks": "P9",
+   "what": "a chromatic identity with no shape",
+   "refused": true,
+   "detail": "--id-2 is a colour with no shape"
+  },
+  {
+   "id": "X12",
+   "attacks": "P2",
+   "what": "the computed stroke re-mapped to --ink-2 (not the screen's token)",
+   "refused": true,
+   "detail": "COMPUTED strokes in --ink-2, the screen in --ink-3"
+  },
+  {
+   "id": "X13",
+   "attacks": "P9",
+   "what": "two identity series sharing the circle",
+   "refused": true,
+   "detail": "two identity series share a marker"
+  }
+ ],
+ "tokens": [
+  {
+   "name": "--paper",
+   "hex": "#ffffff",
+   "kind": "ground",
+   "grade": "ground",
+   "status": "neutral",
+   "screen": "--paper",
+   "shape": null,
+   "role": "the page and every figure ground: white paper",
+   "L": 1,
+   "C": 0,
+   "hue": null,
+   "contrast": null,
+   "monoY": "#ffffff",
+   "mono601": "#ffffff",
+   "contrastMonoY": null,
+   "contrastMono601": null
+  },
+  {
+   "name": "--ink",
+   "hex": "#000000",
+   "kind": "ink",
+   "grade": "text",
+   "status": "neutral",
+   "screen": "--ink",
+   "shape": null,
+   "role": "text and values; DECIDED strokes (solid); the first series compared (identity 1, ●)",
+   "L": 0,
+   "C": 0,
+   "hue": null,
+   "contrast": 21,
+   "monoY": "#000000",
+   "mono601": "#000000",
+   "contrastMonoY": 21,
+   "contrastMono601": 21
+  },
+  {
+   "name": "--ink-2",
+   "hex": "#262626",
+   "kind": "ink",
+   "grade": "text",
+   "status": "neutral",
+   "screen": "--ink-2",
+   "shape": null,
+   "role": "CHOSEN strokes (dotted 1 5, round caps); a second text voice",
+   "L": 0.2686,
+   "C": 0,
+   "hue": null,
+   "contrast": 15.134,
+   "monoY": "#262626",
+   "mono601": "#262626",
+   "contrastMonoY": 15.134,
+   "contrastMono601": 15.134
+  },
+  {
+   "name": "--ink-3",
+   "hex": "#4d4d4d",
+   "kind": "ink",
+   "grade": "text",
+   "status": "neutral",
+   "screen": "--ink-3",
+   "shape": null,
+   "role": "COMPUTED strokes (dashed 5 4); axes, ticks, axis labels, captions, glosses; the third series (identity 3, ▲)",
+   "L": 0.4202,
+   "C": 0,
+   "hue": null,
+   "contrast": 8.453,
+   "monoY": "#4d4d4d",
+   "mono601": "#4d4d4d",
+   "contrastMonoY": 8.453,
+   "contrastMono601": 8.453
+  },
+  {
+   "name": "--guide",
+   "hex": "#8a8a8a",
+   "kind": "structure",
+   "grade": "mark",
+   "status": "neutral",
+   "screen": "--ink-5",
+   "shape": null,
+   "role": "the guide pattern (2 3): rulers, reference ghosts; the void's hatch and edge. Never text, never a datum",
+   "L": 0.6334,
+   "C": 0,
+   "hue": null,
+   "contrast": 3.452,
+   "monoY": "#8a8a8a",
+   "mono601": "#8a8a8a",
+   "contrastMonoY": 3.452,
+   "contrastMono601": 3.452
+  },
+  {
+   "name": "--grid",
+   "hex": "#dcdcdc",
+   "kind": "structure",
+   "grade": "hairline",
+   "status": "neutral",
+   "screen": "--c-grid",
+   "shape": null,
+   "role": "hairline grid and table rules, drawn under everything; never a mark",
+   "L": 0.8945,
+   "C": 0,
+   "hue": null,
+   "contrast": 1.371,
+   "monoY": "#dcdcdc",
+   "mono601": "#dcdcdc",
+   "contrastMonoY": 1.371,
+   "contrastMono601": 1.371
+  },
+  {
+   "name": "--witness",
+   "hex": "#e0574e",
+   "kind": "witness",
+   "grade": "mark",
+   "status": "registered",
+   "screen": "--witness",
+   "shape": "×",
+   "role": "an exhibited counterexample, only ever on the × glyph beside words (WARRANT rule 5); the same red as the site",
+   "L": 0.6349,
+   "C": 0.173,
+   "hue": 26.9,
+   "contrast": 3.722,
+   "monoY": "#848484",
+   "mono601": "#7f7f7f",
+   "contrastMonoY": 3.74,
+   "contrastMono601": 4.004
+  },
+  {
+   "name": "--id-2",
+   "hex": "#3368c1",
+   "kind": "identity",
+   "grade": "text",
+   "status": "proposed",
+   "screen": null,
+   "shape": "■",
+   "role": "the second series compared in one figure, always with its own marker (■) and a word; never standing, never a verdict",
+   "L": 0.529,
+   "C": 0.1506,
+   "hue": 260.1,
+   "contrast": 5.397,
+   "monoY": "#6a6a6a",
+   "mono601": "#626262",
+   "contrastMonoY": 5.409,
+   "contrastMono601": 6.1
+  },
+  {
+   "name": "--o-1",
+   "hex": "#e9e9e9",
+   "kind": "order",
+   "grade": "field",
+   "status": "neutral",
+   "screen": "--c-s1",
+   "shape": null,
+   "role": "order ramp, step 1 (least)",
+   "L": 0.934,
+   "C": 0,
+   "hue": null,
+   "contrast": 1.214,
+   "monoY": "#e9e9e9",
+   "mono601": "#e9e9e9",
+   "contrastMonoY": 1.214,
+   "contrastMono601": 1.214
+  },
+  {
+   "name": "--o-2",
+   "hex": "#d5d5d5",
+   "kind": "order",
+   "grade": "field",
+   "status": "neutral",
+   "screen": "--c-s2",
+   "shape": null,
+   "role": "order ramp, step 2",
+   "L": 0.873,
+   "C": 0,
+   "hue": null,
+   "contrast": 1.468,
+   "monoY": "#d5d5d5",
+   "mono601": "#d5d5d5",
+   "contrastMonoY": 1.468,
+   "contrastMono601": 1.468
+  },
+  {
+   "name": "--o-3",
+   "hex": "#c1c1c1",
+   "kind": "order",
+   "grade": "field",
+   "status": "neutral",
+   "screen": "--c-s3",
+   "shape": null,
+   "role": "order ramp, step 3",
+   "L": 0.8109,
+   "C": 0,
+   "hue": null,
+   "contrast": 1.8,
+   "monoY": "#c1c1c1",
+   "mono601": "#c1c1c1",
+   "contrastMonoY": 1.8,
+   "contrastMono601": 1.8
+  },
+  {
+   "name": "--o-4",
+   "hex": "#aeaeae",
+   "kind": "order",
+   "grade": "field",
+   "status": "neutral",
+   "screen": "--c-s4",
+   "shape": null,
+   "role": "order ramp, step 4",
+   "L": 0.7508,
+   "C": 0,
+   "hue": null,
+   "contrast": 2.219,
+   "monoY": "#aeaeae",
+   "mono601": "#aeaeae",
+   "contrastMonoY": 2.219,
+   "contrastMono601": 2.219
+  },
+  {
+   "name": "--o-5",
+   "hex": "#9b9b9b",
+   "kind": "order",
+   "grade": "field",
+   "status": "neutral",
+   "screen": "--c-s5",
+   "shape": null,
+   "role": "order ramp, step 5 (most)",
+   "L": 0.6895,
+   "C": 0,
+   "hue": null,
+   "contrast": 2.779,
+   "monoY": "#9b9b9b",
+   "mono601": "#9b9b9b",
+   "contrastMonoY": 2.779,
+   "contrastMono601": 2.779
+  }
+ ],
+ "worstPairPerToken": {
+  "--ink": {
+   "normal": 26.86,
+   "protan": 26.86,
+   "deutan": 26.86,
+   "tritan": 26.86,
+   "normalWith": "--ink-2",
+   "protanWith": "--ink-2",
+   "deutanWith": "--ink-2",
+   "tritanWith": "--ink-2"
+  },
+  "--ink-2": {
+   "normal": 15.16,
+   "protan": 15.16,
+   "deutan": 15.16,
+   "tritan": 15.16,
+   "normalWith": "--ink-3",
+   "protanWith": "--ink-3",
+   "deutanWith": "--ink-3",
+   "tritanWith": "--ink-3"
+  },
+  "--ink-3": {
+   "normal": 15.16,
+   "protan": 14.13,
+   "deutan": 15.16,
+   "tritan": 15.11,
+   "normalWith": "--ink-2",
+   "protanWith": "--witness",
+   "deutanWith": "--ink-2",
+   "tritanWith": "--id-2"
+  },
+  "--guide": {
+   "normal": 17.3,
+   "protan": 9.98,
+   "deutan": 9.27,
+   "tritan": 13.21,
+   "normalWith": "--witness",
+   "protanWith": "--witness",
+   "deutanWith": "--witness",
+   "tritanWith": "--id-2"
+  },
+  "--grid": {
+   "normal": 26.11,
+   "protan": 26.11,
+   "deutan": 26.11,
+   "tritan": 26.11,
+   "normalWith": "--guide",
+   "protanWith": "--guide",
+   "deutanWith": "--guide",
+   "tritanWith": "--guide"
+  },
+  "--witness": {
+   "normal": 17.3,
+   "protan": 9.98,
+   "deutan": 9.27,
+   "tritan": 22.13,
+   "normalWith": "--guide",
+   "protanWith": "--guide",
+   "deutanWith": "--guide",
+   "tritanWith": "--guide"
+  },
+  "--id-2": {
+   "normal": 18.33,
+   "protan": 16.32,
+   "deutan": 18.39,
+   "tritan": 13.21,
+   "normalWith": "--guide",
+   "protanWith": "--guide",
+   "deutanWith": "--ink-3",
+   "tritanWith": "--guide"
+  }
+ },
+ "pairs": [
+  {
+   "a": "--ink",
+   "b": "--ink-2",
+   "normal": 26.86,
+   "protan": 26.86,
+   "deutan": 26.86,
+   "tritan": 26.86,
+   "monoY": 26.86,
+   "mono601": 26.86,
+   "pass": true
+  },
+  {
+   "a": "--ink",
+   "b": "--ink-3",
+   "normal": 42.02,
+   "protan": 42.02,
+   "deutan": 42.02,
+   "tritan": 42.02,
+   "monoY": 42.02,
+   "mono601": 42.02,
+   "pass": true
+  },
+  {
+   "a": "--ink",
+   "b": "--guide",
+   "normal": 63.34,
+   "protan": 63.34,
+   "deutan": 63.34,
+   "tritan": 63.34,
+   "monoY": 63.34,
+   "mono601": 63.34,
+   "pass": true
+  },
+  {
+   "a": "--ink",
+   "b": "--grid",
+   "normal": 89.45,
+   "protan": 89.45,
+   "deutan": 89.45,
+   "tritan": 89.45,
+   "monoY": 89.45,
+   "mono601": 89.45,
+   "pass": true
+  },
+  {
+   "a": "--ink",
+   "b": "--witness",
+   "normal": 65.8,
+   "protan": 55.31,
+   "deutan": 65.5,
+   "tritan": 67.82,
+   "monoY": 61.33,
+   "mono601": 59.65,
+   "pass": true
+  },
+  {
+   "a": "--ink",
+   "b": "--id-2",
+   "normal": 55,
+   "protan": 57.18,
+   "deutan": 53.58,
+   "tritan": 54.74,
+   "monoY": 52.43,
+   "mono601": 49.62,
+   "pass": true
+  },
+  {
+   "a": "--ink-2",
+   "b": "--ink-3",
+   "normal": 15.16,
+   "protan": 15.16,
+   "deutan": 15.16,
+   "tritan": 15.16,
+   "monoY": 15.16,
+   "mono601": 15.16,
+   "pass": true
+  },
+  {
+   "a": "--ink-2",
+   "b": "--guide",
+   "normal": 36.48,
+   "protan": 36.48,
+   "deutan": 36.48,
+   "tritan": 36.48,
+   "monoY": 36.48,
+   "mono601": 36.48,
+   "pass": true
+  },
+  {
+   "a": "--ink-2",
+   "b": "--grid",
+   "normal": 62.59,
+   "protan": 62.59,
+   "deutan": 62.59,
+   "tritan": 62.59,
+   "monoY": 62.59,
+   "mono601": 62.59,
+   "pass": true
+  },
+  {
+   "a": "--ink-2",
+   "b": "--witness",
+   "normal": 40.5,
+   "protan": 28.71,
+   "deutan": 39.08,
+   "tritan": 43.32,
+   "monoY": 34.47,
+   "mono601": 32.79,
+   "pass": true
+  },
+  {
+   "a": "--ink-2",
+   "b": "--id-2",
+   "normal": 30.08,
+   "protan": 31.87,
+   "deutan": 29.06,
+   "tritan": 28.63,
+   "monoY": 25.57,
+   "mono601": 22.75,
+   "pass": true
+  },
+  {
+   "a": "--ink-3",
+   "b": "--guide",
+   "normal": 21.32,
+   "protan": 21.32,
+   "deutan": 21.32,
+   "tritan": 21.32,
+   "monoY": 21.32,
+   "mono601": 21.32,
+   "pass": true
+  },
+  {
+   "a": "--ink-3",
+   "b": "--grid",
+   "normal": 47.43,
+   "protan": 47.43,
+   "deutan": 47.43,
+   "tritan": 47.43,
+   "monoY": 47.43,
+   "mono601": 47.43,
+   "pass": true
+  },
+  {
+   "a": "--ink-3",
+   "b": "--witness",
+   "normal": 27.57,
+   "protan": 14.13,
+   "deutan": 24.6,
+   "tritan": 31.26,
+   "monoY": 19.31,
+   "mono601": 17.63,
+   "pass": true
+  },
+  {
+   "a": "--ink-3",
+   "b": "--id-2",
+   "normal": 18.58,
+   "protan": 19.52,
+   "deutan": 18.39,
+   "tritan": 15.11,
+   "monoY": 10.41,
+   "mono601": 7.59,
+   "pass": true
+  },
+  {
+   "a": "--guide",
+   "b": "--grid",
+   "normal": 26.11,
+   "protan": 26.11,
+   "deutan": 26.11,
+   "tritan": 26.11,
+   "monoY": 26.11,
+   "mono601": 26.11,
+   "pass": true
+  },
+  {
+   "a": "--guide",
+   "b": "--witness",
+   "normal": 17.3,
+   "protan": 9.98,
+   "deutan": 9.27,
+   "tritan": 22.13,
+   "monoY": 2.01,
+   "mono601": 3.69,
+   "pass": true
+  },
+  {
+   "a": "--guide",
+   "b": "--id-2",
+   "normal": 18.33,
+   "protan": 16.32,
+   "deutan": 20.08,
+   "tritan": 13.21,
+   "monoY": 10.91,
+   "mono601": 13.73,
+   "pass": true
+  },
+  {
+   "a": "--grid",
+   "b": "--witness",
+   "normal": 31.2,
+   "protan": 34.86,
+   "deutan": 26.23,
+   "tritan": 33.63,
+   "monoY": 28.11,
+   "mono601": 29.8,
+   "pass": true
+  },
+  {
+   "a": "--grid",
+   "b": "--id-2",
+   "normal": 39.53,
+   "protan": 36.93,
+   "deutan": 41.49,
+   "tritan": 36.69,
+   "monoY": 37.02,
+   "mono601": 39.83,
+   "pass": true
+  },
+  {
+   "a": "--witness",
+   "b": "--id-2",
+   "normal": 30.82,
+   "protan": 19.58,
+   "deutan": 28.23,
+   "tritan": 32.91,
+   "monoY": 8.9,
+   "mono601": 10.03,
+   "pass": true
+  }
+ ],
+ "overField": [
+  {
+   "name": "--ink",
+   "over": [
+    17.3,
+    14.31,
+    11.67,
+    9.47,
+    7.56
+   ],
+   "worst": 7.56,
+   "bare": true
+  },
+  {
+   "name": "--ink-2",
+   "over": [
+    12.46,
+    10.31,
+    8.41,
+    6.82,
+    5.44
+   ],
+   "worst": 5.44,
+   "bare": true
+  },
+  {
+   "name": "--ink-3",
+   "over": [
+    6.96,
+    5.76,
+    4.7,
+    3.81,
+    3.04
+   ],
+   "worst": 3.04,
+   "bare": true
+  },
+  {
+   "name": "--guide",
+   "over": [
+    2.84,
+    2.35,
+    1.92,
+    1.56,
+    1.24
+   ],
+   "worst": 1.24,
+   "bare": false
+  },
+  {
+   "name": "--witness",
+   "over": [
+    3.07,
+    2.54,
+    2.07,
+    1.68,
+    1.34
+   ],
+   "worst": 1.34,
+   "bare": false
+  },
+  {
+   "name": "--id-2",
+   "over": [
+    4.45,
+    3.68,
+    3,
+    2.43,
+    1.94
+   ],
+   "worst": 1.94,
+   "bare": false
+  }
+ ],
+ "standings": [
+  {
+   "standing": "DECIDED",
+   "class": "w-decided",
+   "token": "--ink",
+   "hex": "#000000",
+   "dash": null,
+   "dashSmall": null,
+   "cap": null,
+   "void": null
+  },
+  {
+   "standing": "COMPUTED",
+   "class": "w-computed",
+   "token": "--ink-3",
+   "hex": "#4d4d4d",
+   "dash": "5 4",
+   "dashSmall": "1.5 2",
+   "cap": null,
+   "void": null
+  },
+  {
+   "standing": "CHOSEN",
+   "class": "w-chosen",
+   "token": "--ink-2",
+   "hex": "#262626",
+   "dash": "1 5",
+   "dashSmall": "1 3",
+   "cap": "round",
+   "void": null
+  },
+  {
+   "standing": "REFUSED",
+   "class": "w-void",
+   "token": null,
+   "hex": null,
+   "dash": null,
+   "dashSmall": null,
+   "cap": null,
+   "void": {
+    "hatch": "--guide",
+    "edge": "--guide",
+    "glyph": "∅"
+   }
+  }
+ ],
+ "guide": {
+  "token": "--guide",
+  "hex": "#8a8a8a",
+  "dash": "2 3"
+ },
+ "identity": [
+  {
+   "token": "--ink",
+   "marker": "o",
+   "glyph": "●",
+   "hex": "#000000",
+   "fallbackHex": null
+  },
+  {
+   "token": "--id-2",
+   "marker": "s",
+   "glyph": "■",
+   "fallback": "--ink-2",
+   "hex": "#3368c1",
+   "fallbackHex": "#262626"
+  },
+  {
+   "token": "--ink-3",
+   "marker": "^",
+   "glyph": "▲",
+   "hex": "#4d4d4d",
+   "fallbackHex": null
+  }
+ ]
+}
