@@ -22,6 +22,46 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★ 2026-10-29 ~19:00 UTC — HANDOFF: THE ROUNDTABLE DAY. Everything is committed and pushed (08301569); make control
+     GREEN 176/176; the site live with it all. Read in this order: this entry, the ★★★★ entries below it, design/WARRANT.md's
+     last three dated sections, then notes/warrant-roundtable-2026-10-29.md (LOCAL, untracked) if the grammar is the work.
+     ── WHAT HAPPENED (in order): /eth/ LISTED and X posts 03/04 sent; THE ROUNDTABLE (eleven seats, ten verified findings,
+     fifteen candidate rules) and the operator's rulings D9–D16 (every recommendation taken except tracking the note);
+     THE FIVE FIXES + D9 (tone monotone in standing) built, approved on screenshots, pushed; D10 STEP 1 (design/record.js,
+     W.val with a record pointer, tools/check-marks.js re-reading every pointed number from the built page — 247 marks on 6
+     pages: kissing, the landing, /eth/, time-horizon, gsm8k, optimization-constants; the grammar page prints the counts);
+     D11 (the grade as a pair; declared on Swell and the grammar page's chain); THE STYLESHEET RE-BAKE AT SYNC
+     (design/sheet.js markers + design/refresh.js: a template/grammar stylesheet change is ONE SYNC now; the last
+     builder-by-builder rebuild put the markers everywhere); THE PUBLIC CV at https://carlostoledo.co/cv/ (apps/cv/, the
+     paper register, 33 figures read from records, a strip + the register's curve, experience/education from the
+     git-ignored private file; the build refuses on any placeholder); the troll account's PR closed and the account
+     BLOCKED, pu-feed and swell-feed workflows DELETED on the operator's word; the Axiom CFSG idea kept
+     (targets.json axiom-cfsg-2026-10, UNSCOUTED); seven X DROPS drafted in notes/x/drops/ (none sent).
+     ── NEXT, IN THE PLAN'S ORDER (the operator: "keep the development"):
+       1. D12 — one hero figure per page: a builder declares `hero`, the witness drawn as an event at the figure's scale
+          before any inline ×, check-measure may ratchet UP for the declared hero only (today it only turns down;
+          design/measure-baseline.json). Start on kissing (the ladder) and the grammar page; specimen → the operator → apply.
+       2. D14 — the first draggable handle on the return-level check (playground/return-level-check/): a chosen input in
+          italic becomes a handle; the exact flip value drawn as a solid tick on its ruler; under a drag only CHOSEN and
+          COMPUTED marks may move (a gate: a solid mark that moves was never DECIDED); navier-stokes is the model.
+       3. D10 continues: step 2 (a record's own standing field feeds W.val's standing; the literal census ratchets down),
+          the stat tiles of Tier 1 reports via W.val DECIDED, then the unpointed values listed in the D10 paragraph below.
+       4. D11 continues: the ~30 other chains declare `verified` as each page is next edited (Tier 2 rule); the print
+          kit's premises() and design/print/specimen.js still draw the legacy glyph.
+       5. D15 — the companion page beside /grammar/ (the roundtable, the axioms, the candidate rules, the findings as
+          before/after figures), once D12 gives it its figures.
+       6. Social: the seven drops await the operator's word per post (d01 the ETH drop as a reply in the
+          Recht/Papailiopoulos thread was proposed); drafts 05–08 remain. Videos next: the tolerance grader, the kissing
+          points in motion (turn the points, keep the minimum-angle tick still), Swell's forecast lines.
+       7. Scout (one hour) Axiom's CFSG claim before any run.
+     ── TRAPS LEARNED TODAY (each recorded where it bit): a builder that re-runs a ledger rewrites wall-clock fields the
+     self-audit pins (kissing's writer now leaves a pinned ledger alone; the others — aerp, ai-claims, bandeira, curveseeds,
+     easota, wowii, lemniscate's four — still rewrite: `git checkout` them after a full rebuild, as every commit today did);
+     the sync PRUNES any site/ folder not on build-site.js's keep list (cv/ was pruned once); the style ratchet refuses a
+     new px literal in a stylesheet (use the grid/tokens); the grammar page's guard wants zero drifting dash uses, so a
+     retired pattern needs a transient exemption until the pages that carry it rebuild; a block comment cannot contain
+     "*/" in prose; check-wiring holds make test and build-control to the same battery list; the wiring check does not
+     walk /janela/, /eleicoes2026/, /eth/, /papers/ (open). sin-mfg is NOT on disk. The Mac was caffeinated until 08:00 local.
   ★★★★ 2026-10-29 ~03:00 UTC — ON THE OPERATOR'S WORD ("list eth and publish post 3 and 4"): /eth/ LISTED (09b3d894:
      noindex gone and the build refuses one, eyebrow 'audit', the sitemap, the landing's way-in line + audits card, the
      /reports/ audits lede; make page green 40 s, check-links PASS, check-wiring ALL PASS; live checked). POSTED: 03 kissing
