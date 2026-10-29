@@ -24,6 +24,12 @@ three steps:
 * (ii) `count_pos_iff`: the halting answer `decide (0 < count F)` decides satisfiability;
 * (iii) `bound_le`: for every δ > 0, C·(L+1)^d·2^{A·n(ln ln(n+16))²/√ln(n+16)} ≤ c·2^{δn} for every
   n, with one c ∈ ℕ (it holds for all large n, and the finitely many small n go into c).
+
+`not_sharpEth_of_claim`: the same statement implies that the counting hypothesis #ETH
+(`ETHBridge.SharpETH`) fails in OpenAI's counting model (`countModel`), where the count is read as
+OpenAI writes it: on the machine's count tape, in `countWord`. The steps are (i) and (iii) again
+(`runtime_le_floor`) and `numSat_eq_count`: the generic number of satisfying assignments is
+OpenAI's `count`.
 -/
 
 namespace ETHBridge.OpenAI
@@ -412,5 +418,126 @@ false in OpenAI's own model of computation and encoding. -/
 theorem not_eth_of_claim (h : SqrtLogSpace.OpenAIClaim) : ¬ ETHBridge.ETH model :=
   ETHBridge.not_eth_of_forall_inTime model 3 le_rfl fun δ hδ =>
     inTime_of_claim h 3 (by norm_num) δ hδ
+
+/-! ### #ETH: OpenAI's counting model
+
+`exact_count_and_sat` is a counting statement before it is a decision statement: the machine writes
+the exact number of satisfying assignments, `SAT.count F`. OpenAI's convention for that output,
+followed here:
+
+* a counting machine is a `PrimitiveMachine` together with its count tape (`Counter`), chosen
+  together and before the constants and the formulas, as the statement chooses them
+  (`∃ (machine) (countTape answerTape : Fin machine.tapeCount) …`);
+* the formulas, the instances (`WidthAtMost k`) and the input word (`encodeCNF`) are those of
+  `model`, and every machine counts, as in `model`;
+* "halts within t steps with the number c written on its output" (`HaltsWithCount`): some run of
+  `PrimitiveMachine.step` from `init w` reaches, in at most t steps, a configuration in a halting
+  state `inl b`, and in it the count tape is exactly `Tape.mk₁ ((countWord c).map some)`: the binary
+  digits of c, lowest first (`Nat.bits c`; the single digit 0 when c = 0), each a `some` symbol,
+  with the head on the first of them. These are the words of the challenge's own conclusion
+  `final.config.tapes countTape = Turing.Tape.mk₁ ((countWord (SAT.count F)).map some)`.
+-/
+
+/-- A counting machine in OpenAI's convention: a `PrimitiveMachine` and the tape on which it writes
+the count. -/
+structure Counter where
+  /-- The machine. -/
+  machine : Computation.PrimitiveMachine
+  /-- The tape on which the machine writes the count. -/
+  countTape : Fin machine.tapeCount
+
+/-- `C`, started on the word `w`, halts within `t` steps with the number `c` on its count tape:
+some run of `PrimitiveMachine.step` from `init w` reaches, in at most `t` steps, a configuration in
+a halting state `inl b` whose count tape is `Tape.mk₁ ((countWord c).map some)` (the binary digits
+of c, lowest first; OpenAI's `countWord`). -/
+def HaltsWithCount (C : Counter) (w : List Bool) (c t : ℕ) : Prop :=
+  ∃ (time : ℕ) (final : C.machine.Cfg), time ≤ t ∧
+    Computation.Trace C.machine.step time (C.machine.init w) final ∧
+    (∃ b : Bool, final.state = Sum.inl b) ∧
+    final.tapes C.countTape = Turing.Tape.mk₁ ((SqrtLogSpace.countWord c).map some)
+
+/-- The assignment `a` of x₀ … x_{n−1} makes a literal of every clause of `F` true. -/
+def SatisfiedBy {n : ℕ} (F : SAT.CNF (Fin n)) (a : Fin n → Bool) : Prop :=
+  ∀ C ∈ F, ∃ l ∈ C, a l.variable = l.positive
+
+/-- OpenAI's counting model: a `PrimitiveMachine` with its count tape, `Finset` formulas of width
+at most k, `encodeCNF`, and the count written on the count tape in `countWord`. -/
+def countModel : ETHBridge.CountModel where
+  Machine := Counter
+  CNF n := SAT.CNF (Fin n)
+  IsKCNF k _ F := SAT.WidthAtMost k F
+  Satisfies _ F a := SatisfiedBy F a
+  encode _ _ F := Encoding.encodeCNF F
+  Admissible _ := True
+  OutputsCountInTime C _ w c t := HaltsWithCount C w c t
+
+/-- In OpenAI's counting model the number of satisfying assignments is OpenAI's own `count`. -/
+theorem numSat_eq_count {n : ℕ} (F : SAT.CNF (Fin n)) :
+    ETHBridge.numSat countModel n F = SAT.count F := by
+  classical
+  have h : ∀ a : Fin n → Bool, SatisfiedBy F a ↔ SAT.CNF.eval a F = true := by
+    intro a
+    simp [SatisfiedBy, SAT.CNF.eval, SAT.Clause.eval, SAT.Literal.eval]
+  unfold ETHBridge.numSat SAT.count SAT.satisfyingAssignments
+  rw [Nat.card_eq_fintype_card, Fintype.card_subtype]
+  exact congrArg Finset.card (Finset.filter_congr fun a _ => h a)
+
+/-- (i) and (iii) together, for the claim's constants C > 0, A and d: for every δ > 0 there is one
+c ∈ ℕ such that a run on a width-k formula on n variables that keeps the claimed time bound takes at
+most ⌊c·2^{δn}⌋ steps. -/
+theorem runtime_le_floor (k d : ℕ) {C : ℝ} (A : ℝ) (hC : 0 < C) {δ : ℝ≥0} (hδ : 0 < δ) :
+    ∃ c : ℕ, ∀ (n : ℕ) (F : SAT.CNF (Fin n)), SAT.WidthAtMost k F → ∀ time : ℕ,
+      (time : ℝ) ≤ SqrtLog.Statement.runtimeBound C A d (Encoding.formulaBitLength F) n →
+        time ≤ ⌊(c : ℝ) * (2 : ℝ) ^ ((δ : ℝ) * n)⌋₊ := by
+  have hδ' : (0 : ℝ) < (δ : ℝ) := by exact_mod_cast hδ
+  obtain ⟨c, hc⟩ := bound_le (C * ((3 + (k + 1) * 2 ^ k * (4 + 8 * k) : ℕ) : ℝ) ^ d) A
+    ((k + 1) * d) hδ'
+  refine ⟨c, fun n F hF time htime => ?_⟩
+  apply Nat.le_floor
+  have hL : ((Encoding.formulaBitLength F : ℕ) : ℝ) + 1
+      ≤ ((3 + (k + 1) * 2 ^ k * (4 + 8 * k) : ℕ) : ℝ) * ((n : ℝ) + 1) ^ (k + 1) := by
+    exact_mod_cast bitLength_succ_le F hF
+  calc (time : ℝ)
+      ≤ SqrtLog.Statement.runtimeBound C A d (Encoding.formulaBitLength F) n := htime
+    _ = C * ((Encoding.formulaBitLength F : ℝ) + 1) ^ d *
+          (2 : ℝ) ^ (A * SqrtLog.Statement.runtimeScale n) := rfl
+    _ ≤ C * (((3 + (k + 1) * 2 ^ k * (4 + 8 * k) : ℕ) : ℝ) * ((n : ℝ) + 1) ^ (k + 1)) ^ d *
+          (2 : ℝ) ^ (A * SqrtLog.Statement.runtimeScale n) := by
+        refine mul_le_mul_of_nonneg_right ?_ (by positivity)
+        refine mul_le_mul_of_nonneg_left ?_ hC.le
+        exact pow_le_pow_left₀ (by positivity) hL d
+    _ = C * ((3 + (k + 1) * 2 ^ k * (4 + 8 * k) : ℕ) : ℝ) ^ d * ((n : ℝ) + 1) ^ ((k + 1) * d) *
+          (2 : ℝ) ^ (A * SqrtLog.Statement.runtimeScale n) := by
+        rw [mul_pow, ← pow_mul]
+        ring
+    _ ≤ c * (2 : ℝ) ^ ((δ : ℝ) * n) := hc n
+
+/-- If OpenAI's challenge statement holds, then for every k ≥ 2 and every δ > 0, #k-SAT has an
+O(2^{δn}) algorithm in OpenAI's counting model: the challenge's machine for k with its count tape,
+and a constant c ∈ ℕ. -/
+theorem countInTime_of_claim (h : SqrtLogSpace.OpenAIClaim) (k : ℕ) (hk : 2 ≤ k) (δ : ℝ≥0)
+    (hδ : 0 < δ) : ETHBridge.CountInTime countModel k δ := by
+  obtain ⟨M, countTape, answerTape, C, A, S, d, e, hC, hA, hS, hd, he, hrun⟩ := h k hk
+  obtain ⟨c, hc⟩ := runtime_le_floor k d A hC hδ
+  refine ⟨⟨M, countTape⟩, c, trivial, fun n (F : SAT.CNF (Fin n)) (hF : SAT.WidthAtMost k F) => ?_⟩
+  obtain ⟨time, final, htrace, hcount, -, hstate, -, -, htime, -⟩ := hrun n F hF
+  rw [numSat_eq_count F]
+  exact ⟨time, final.config, hc n F hF time htime, trace_config htrace, ⟨_, hstate⟩, hcount⟩
+
+/-- If OpenAI's challenge statement holds, then s#_k = 0 in OpenAI's counting model, for every
+k ≥ 2. -/
+theorem sharpS_eq_zero_of_claim (h : SqrtLogSpace.OpenAIClaim) (k : ℕ) (hk : 2 ≤ k) :
+    ETHBridge.sharpS countModel k = 0 :=
+  ETHBridge.sharpS_eq_zero_of_forall_countInTime countModel k fun δ hδ =>
+    countInTime_of_claim h k hk δ hδ
+
+/-- **The #ETH bridge, OpenAI.** If OpenAI's challenge statement `exact_count_and_sat` holds, then
+the counting Exponential Time Hypothesis `ETHBridge.SharpETH` (s#_k > 0 for every k ≥ 3) is false in
+OpenAI's own counting model: `PrimitiveMachine`s on `encodeCNF`, the count written on the count
+tape in `countWord` (binary, lowest digit first). -/
+theorem not_sharpEth_of_claim (h : SqrtLogSpace.OpenAIClaim) :
+    ¬ ETHBridge.SharpETH countModel :=
+  ETHBridge.not_sharpEth_of_forall_countInTime countModel 3 le_rfl fun δ hδ =>
+    countInTime_of_claim h 3 (by norm_num) δ hδ
 
 end ETHBridge.OpenAI

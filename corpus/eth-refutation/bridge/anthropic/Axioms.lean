@@ -7,6 +7,9 @@ import ETHBridge
 #print axioms ETHBridge.s_eq_zero_of_forall_inTime
 #print axioms ETHBridge.not_eth_iff
 #print axioms ETHBridge.not_eth_of_forall_inTime
+#print axioms ETHBridge.sharpS_eq_zero_of_forall_countInTime
+#print axioms ETHBridge.not_sharpEth_iff
+#print axioms ETHBridge.not_sharpEth_of_forall_countInTime
 #print axioms ETHBridge.Anthropic.decidesKSat_iff
 #print axioms ETHBridge.Anthropic.inTime_iff
 #print axioms ETHBridge.Anthropic.s_eq
@@ -14,3 +17,12 @@ import ETHBridge
 #print axioms ETHBridge.Anthropic.ethIsFalse_iff
 #print axioms ETHBridge.Anthropic.eth_of_eth
 #print axioms ETHBridge.Anthropic.not_eth_of_ethIsFalse
+#print axioms ETHBridge.Anthropic.numSat_eq
+#print axioms ETHBridge.Anthropic.countsKSat_iff
+#print axioms ETHBridge.Anthropic.tendsto_lg_div_sqrt
+#print axioms ETHBridge.Anthropic.tendsto_lg_ratio
+#print axioms ETHBridge.Anthropic.eventually_expN_le
+#print axioms ETHBridge.Anthropic.bound_le
+#print axioms ETHBridge.Anthropic.countInTime_of_mainTheorem
+#print axioms ETHBridge.Anthropic.sharpS_eq_zero_of_mainTheorem
+#print axioms ETHBridge.Anthropic.not_sharpEth_of_mainTheorem
