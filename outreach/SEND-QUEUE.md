@@ -426,3 +426,4 @@ Adversarial ask ("try to break it"), co-authorship only as the natural
 close if engagement warrants. Each needs the operator's three opening
 sentences, recipient choice, and a yes/no on the closing line. Every
 claim in both letters is already on the released pages with its fences.
+- 2026-10-29 · anthropics/formal-math#36 · the Generic.lean offer + the measured version seam (v2) · POSTED issuecomment-6507840689 · outreach/gh-formal-math-36-generic.md

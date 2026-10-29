@@ -1,4 +1,4 @@
-# Comment on anthropics/formal-math#36 — DRAFT v2, 2026-10-29, NOT SENT
+# Comment on anthropics/formal-math#36 — v2 POSTED 2026-10-29 on the operator's word: https://github.com/anthropics/formal-math/issues/36#issuecomment-6507840689
 
 v1 was approved ('post') but the post was blocked by the session's permission classifier (external system write). v2
 adds the version-seam paragraph (certs/eth-seam.json, run 40947568989), which bears on the join this thread is about.
