@@ -33,7 +33,9 @@
 #
 # env: AUDIT_SHA (this repository's commit; required), CLAIMS (default "anthropic openai"), NANODA_BUILD (stack1g |
 #      issue44 | issue44-stack1g; default issue44-stack1g), COMPARATOR_TIMEOUT (s, default 43200), FRESH_TIMEOUT (s,
-#      default 21600), SKIP_FRESH (1 = no leanchecker), LEAN_GLIBC_TUNABLES (optional: exported as GLIBC_TUNABLES for
+#      default 21600), SKIP_FRESH (1 = no leanchecker), FRESH_PARALLEL (default 1: the claims' replays run at the same
+#      time, each single-threaded, so the wall clock is the longer one, not the sum; 0 = one after the other; the
+#      container-peak figure of each is then the container's, both replays included), LEAN_GLIBC_TUNABLES (optional: exported as GLIBC_TUNABLES for
 #      every Lean step — lane K's amendment 15, the release README's workaround for exit 139)
 set -uo pipefail
 : "${AUDIT_SHA:?}"
@@ -42,6 +44,7 @@ NANODA_BUILD="${NANODA_BUILD:-issue44-stack1g}"
 COMPARATOR_TIMEOUT="${COMPARATOR_TIMEOUT:-43200}"
 FRESH_TIMEOUT="${FRESH_TIMEOUT:-21600}"
 SKIP_FRESH="${SKIP_FRESH:-0}"
+FRESH_PARALLEL="${FRESH_PARALLEL:-1}"
 OAI_REPO=https://github.com/openai/math.git
 OAI_PIN=7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
 OAI_TOOLCHAIN=leanprover/lean4:v4.34.1
@@ -248,10 +251,17 @@ for c in "${LIST[@]}"; do
   else facts "$c"; status "$c" "done (prepare failed: see prepare.log)"; fi
 done
 if [ "$SKIP_FRESH" != 1 ]; then
+  todo=(); pids=()
   for c in "${LIST[@]}"; do
-    case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in "kernels done"*) ;; *) continue ;; esac
-    status _phase "leanchecker --fresh: $c"; fresh "$c"
+    case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in "kernels done"*) todo+=("$c") ;; esac
   done
+  status _freshParallel "$FRESH_PARALLEL"
+  for c in "${todo[@]}"; do
+    if [ "$FRESH_PARALLEL" = 1 ]; then status _phase "leanchecker --fresh: ${todo[*]}"; fresh "$c" & pids+=($!)
+    else status _phase "leanchecker --fresh: $c"; fresh "$c"; fi
+  done
+  # wait for the replays only (a bare `wait` would also wait for the memory sampler, which never ends)
+  if [ ${#pids[@]} -gt 0 ]; then wait "${pids[@]}"; fi
 fi
 for c in "${LIST[@]}"; do
   case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in
