@@ -14,7 +14,7 @@
    usage:
      node tools/x.js selftest                        the signer against X's documented example (no network)
      node tools/x.js whoami                          checks the keys: prints the account's @handle
-     node tools/x.js post FILE [--reply-to ID|URL] [--send]
+     node tools/x.js post FILE [--media FILE] [--reply-to ID|URL] [--send]
                                                      FILE holds one post, or a thread with posts separated by a line
                                                      "---"; previews each with its weighted length (≤ 280), and
                                                      publishes only with --send
@@ -61,16 +61,41 @@ function keys() {
   return K;
 }
 
-async function call(K, method, pathname, { query = {}, body } = {}) {
+async function call(K, method, pathname, { query = {}, body, form } = {}) {
   const url = API + pathname;
   const qs = Object.keys(query).length ? '?' + Object.keys(query).map((k) => enc(k) + '=' + enc(query[k])).join('&') : '';
+  /* a multipart body (a media chunk) is not signed either; fetch writes its boundary */
   const res = await fetch(url + qs, { method, headers: Object.assign({ Authorization: authHeader(K, method, url, query) },
-    body ? { 'Content-Type': 'application/json' } : {}), body: body ? JSON.stringify(body) : undefined });
+    body ? { 'Content-Type': 'application/json' } : {}), body: form || (body ? JSON.stringify(body) : undefined) });
   const text = await res.text();
   let json; try { json = JSON.parse(text); } catch (e) { json = { raw: text.slice(0, 400) }; }
   if (!res.ok) die(method + ' ' + pathname + ' → HTTP ' + res.status + ': ' + JSON.stringify(json).slice(0, 600)
     + (res.status === 403 ? '\n  (a 403 on posting usually means the access token was generated before the app had Read and Write)' : ''));
   return json;
+}
+
+/* ---- a video or an image, uploaded in chunks (X API v2: initialize, append, finalize, then status until processed) ---- */
+async function upload(K, file) {
+  const buf = fs.readFileSync(file), ext = path.extname(file).toLowerCase();
+  const type = { '.mp4': 'video/mp4', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif' }[ext];
+  if (!type) die('a media file must be .mp4, .png, .jpg or .gif: ' + file);
+  const category = type === 'video/mp4' ? 'tweet_video' : type === 'image/gif' ? 'tweet_gif' : 'tweet_image';
+  const id = (await call(K, 'POST', '/media/upload/initialize', { body: { media_type: type, total_bytes: buf.length, media_category: category } })).data.id;
+  const CH = 4 * 1024 * 1024;
+  for (let i = 0, k = 0; i < buf.length; i += CH, k++) {
+    const fd = new FormData();
+    fd.append('segment_index', String(k));
+    fd.append('media', new Blob([buf.subarray(i, i + CH)], { type: 'application/octet-stream' }), path.basename(file));
+    await call(K, 'POST', '/media/upload/' + id + '/append', { form: fd });
+  }
+  let info = ((await call(K, 'POST', '/media/upload/' + id + '/finalize')).data || {}).processing_info;
+  for (let n = 0; info && info.state !== 'succeeded'; n++) {
+    if (info.state === 'failed' || n > 60) die('X could not process ' + file + ': ' + JSON.stringify(info));
+    await new Promise((r) => setTimeout(r, 1000 * Math.max(1, info.check_after_secs || 2)));
+    info = ((await call(K, 'GET', '/media/upload', { query: { command: 'STATUS', media_id: id } })).data || {}).processing_info;
+  }
+  console.log('uploaded ' + path.basename(file) + ' (' + buf.length + ' bytes) as media ' + id);
+  return id;
 }
 
 /* ---- the weighted length X counts: a URL is 23; code points in X's light ranges weigh 1, the rest (CJK, emoji) 2 ---- */
@@ -113,8 +138,9 @@ async function main() {
   }
 
   if (cmd === 'post') {
-    const file = rest.find((a) => !a.startsWith('--') && a !== opt('--reply-to'));
-    if (!file || !fs.existsSync(file)) die('usage: node tools/x.js post FILE [--reply-to ID|URL] [--send]');
+    const file = rest.find((a) => !a.startsWith('--') && a !== opt('--reply-to') && a !== opt('--media'));
+    if (!file || !fs.existsSync(file)) die('usage: node tools/x.js post FILE [--media FILE] [--reply-to ID|URL] [--send]');
+    if (opt('--media') && !fs.existsSync(opt('--media'))) die('no media file at ' + opt('--media'));
     const posts = fs.readFileSync(file, 'utf8').split(/^\s*---\s*$/m).map((s) => s.trim()).filter(Boolean);
     if (!posts.length) die(file + ' holds no post');
     let over = 0;
@@ -123,12 +149,15 @@ async function main() {
       console.log('\n[' + (i + 1) + '/' + posts.length + '] ' + n + '/280' + (n > 280 ? '  TOO LONG' : '') + '\n' + t);
     });
     if (over) die(over + ' post(s) over 280: nothing sent');
+    if (opt('--media')) console.log('\nmedia on the first post: ' + opt('--media') + ' (' + fs.statSync(opt('--media')).size + ' bytes)');
     if (!flag('--send')) { console.log('\npreview only — add --send to publish' + (opt('--reply-to') ? ' (as a reply to ' + idOf(opt('--reply-to')) + ')' : '')); return; }
     const K = keys();
     const me = (await call(K, 'GET', '/users/me')).data;
     let prev = opt('--reply-to') ? idOf(opt('--reply-to')) : null;
+    let media = opt('--media') ? await upload(K, opt('--media')) : null;
     for (const t of posts) {
-      const r = await call(K, 'POST', '/tweets', { body: Object.assign({ text: t }, prev ? { reply: { in_reply_to_tweet_id: prev } } : {}) });
+      const r = await call(K, 'POST', '/tweets', { body: Object.assign({ text: t }, prev ? { reply: { in_reply_to_tweet_id: prev } } : {}, media ? { media: { media_ids: [media] } } : {}) });
+      media = null;
       prev = r.data.id;
       const url = 'https://x.com/' + me.username + '/status/' + prev;
       fs.appendFileSync(LOG, JSON.stringify({ id: prev, url, text: t, at: new Date().toISOString() }) + '\n');
