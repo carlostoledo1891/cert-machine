@@ -41,6 +41,8 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # the grammar page checks that every commit it cites as a fix is in the history (tools/build-grammar.js); a shallow clone made the hourly feed refuse from 2026-10-29
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
