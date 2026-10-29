@@ -59,6 +59,9 @@ function marksIn(html) {
   while ((m = re.exec(html))) {
     const attrs = m[2], at = (k) => { const a = new RegExp('\\b' + k + '="([^"]*)"').exec(attrs); return a ? unesc(a[1]) : undefined; };
     const item = { tag: m[1], rec: at('data-rec'), fmt: at('data-fmt'), w: at('data-w'), text: undefined, pos: m.index };
+    /* an instrument that inlines playground/warrant.js as source text (curveset) carries val()'s template literal in its
+       HTML; a mark whose address was never interpolated is source, not a mark (check-grammar skips the same way) */
+    if (!item.rec || item.rec.includes('${')) continue;
     if (m[1] === 'span') {
       const close = html.indexOf('</span>', re.lastIndex);
       item.text = html.slice(re.lastIndex, close).replace(/<[^>]+>/g, '');

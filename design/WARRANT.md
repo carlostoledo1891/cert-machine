@@ -267,3 +267,16 @@ mark's reason is visible text at first use, never only a `title`; a figure's cap
 page's standing is computed by the builder; a frame is a page (standing never tweens; a value appears or its
 enclosure narrows, it never travels; a CHOSEN mark may cycle through its set one member per frame). These enter
 as rules 17–31 when their gates exist; until then they bind new work.
+
+## D11 applied (2026-10-29)
+
+The grade is a pair. Verification (the code solves its own equations: a bit) and validation (how far the equations
+were checked against the world: the rung assumed < compared < validated) are orthogonal in Roache and ASME V&V 20,
+and the four-rung chain could not say "validated but never verified", which is Swell's open-sea band. A premise may
+declare `verified: true | false`; left out, it draws as before and nothing is said about the bit. Declared, the glyph's
+first bar is the bit and the next two the rung, and the word gains *unverified* on a second line where the bit is off
+(`W.grade`, `W.pairWord`, `W.weakestPair`; the legacy rung VERIFIED is the pair (on, assumed)). The meet line names
+both. Applied first to Swell's chain and the grammar page's specimen (the band and the island model: unverified);
+/eth/'s premises are readings and proofs, no code to verify, so they declare no bit. The specimen the operator
+approved ("follow the recommended path") is in the 10-29 chat. The stylesheet's site part is now re-baked at sync
+(design/sheet.js, markers in every page's <style>), so this and every later grammar stylesheet change is one sync.

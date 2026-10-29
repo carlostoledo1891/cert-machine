@@ -304,16 +304,50 @@ const GRADE_GLOSS = [
   'checked against observations of the thing itself, held out, with the number',
 ];
 const weakest = (...g) => g.reduce((a, b) => (b < a ? b : a), VALIDATED);
+
+/* THE GRADE IS A PAIR (D11, ruled 2026-10-29 on the roundtable's finding): verification (the code solves its own
+   equations: a bit) and validation (how far the equations were checked against the world: a rung, assumed <
+   compared < validated) are orthogonal in Roache and ASME V&V 20, and the four-rung chain above could not say
+   "validated but never verified", which is Swell's open-sea band. A premise item may now carry `verified: true |
+   false`; left out, the item draws as the chain always did (the bit unknown, nothing printed about it). Declared, the
+   glyph's first bar is the bit and the next two the rung, and the word gains ", unverified" where the bit is off.
+   The legacy rung VERIFIED is the pair (bit on, rung assumed). `weakestPair` is the componentwise minimum. */
+const UNVERIFIED = 'unverified';
+const pair = (it) => (it.grade === VERIFIED ? { rung: ASSUMED, verified: true } : { rung: it.grade, verified: it.verified });
+function weakestPair(items) {
+  const ps = items.map(pair);
+  const rung = ps.reduce((a, p) => (p.rung < a ? p.rung : a), VALIDATED);
+  const verified = ps.some((p) => p.verified === false) ? false : ps.some((p) => p.verified === undefined) ? undefined : true;
+  return { rung, verified };
+}
+/* the pair as a word: 'assumed' · 'verified' · 'compared' · 'compared, unverified' · 'validated' · … */
+function pairWord({ rung, verified }, { words = GRADE, unverifiedWord = UNVERIFIED } = {}) {
+  if (verified === undefined) return words[rung];
+  if (rung === ASSUMED) return verified ? words[VERIFIED] : words[ASSUMED];
+  return words[rung] + (verified ? '' : ', ' + unverifiedWord);
+}
 /* the grade as a word with its ladder; `words` and `gloss` let a page speak its own language (Swell is pt-BR first) */
-function grade(g, { words = GRADE, gloss = GRADE_GLOSS } = {}) {
+function grade(g, { words = GRADE, gloss = GRADE_GLOSS, verified, unverifiedWord = UNVERIFIED } = {}) {
+  if (verified === undefined || g === VERIFIED) {
+    const bars = [0, 1, 2].map((k) => `<rect x="${k * 5}" y="${6 - 3 * k}" width="3" height="${3 + 3 * k}" rx="0.5"`
+      + (k < g ? ' class="on"' : ' class="off"') + '/>').join('');
+    return `<span class="w-grade g${g}" title="${String(words[g] + ' — ' + gloss[g]).replace(/"/g, '&quot;')}">`
+      + `<svg viewBox="0 0 13 9" aria-hidden="true">${bars}</svg>${words[g]}</span>`;
+  }
+  const p = { rung: g, verified };
+  const on = [!!verified, g >= COMPARED, g >= VALIDATED];
   const bars = [0, 1, 2].map((k) => `<rect x="${k * 5}" y="${6 - 3 * k}" width="3" height="${3 + 3 * k}" rx="0.5"`
-    + (k < g ? ' class="on"' : ' class="off"') + '/>').join('');
-  return `<span class="w-grade g${g}" title="${String(words[g] + ' — ' + gloss[g]).replace(/"/g, '&quot;')}">`
-    + `<svg viewBox="0 0 13 9" aria-hidden="true">${bars}</svg>${words[g]}</span>`;
+    + (on[k] ? ' class="on"' : ' class="off"') + '/>').join('');
+  const word = pairWord(p, { words, unverifiedWord });
+  const t = gloss[g] + (verified ? '; ' + gloss[VERIFIED].split(';')[0] : '; the code was not checked against an exact solution of its own equations');
+  /* the bit's word sits on its own line under the rung's word, past the glyph, so the grade column keeps its width */
+  const shown = verified || g === ASSUMED ? word : words[g] + `<span class="bit">${unverifiedWord}</span>`;
+  return `<span class="w-grade g${g}${verified ? ' v1' : ' v0'}" title="${String(word + ' — ' + t).replace(/"/g, '&quot;')}">`
+    + `<svg viewBox="0 0 13 9" aria-hidden="true">${bars}</svg>${shown}</span>`;
 }
 /* a chain of premises, in the order the number travelled through them, and the line that names the weakest */
-function premisesHtml(items, { words, gloss, meetLine } = {}) {
-  return `<ol class="w-premises">` + items.map((it) => `<li>${grade(it.grade, { words, gloss })}`
+function premisesHtml(items, { words, gloss, meetLine, unverifiedWord } = {}) {
+  return `<ol class="w-premises">` + items.map((it) => `<li>${grade(it.grade, { words, gloss, verified: it.verified, unverifiedWord })}`
     + `<div><b>${it.label}</b>${it.evidence ? ' <span class="ev">' + it.evidence + '</span>' : ''}</div></li>`).join('')
     + `</ol>` + (meetLine ? `<p class="w-meet">${meetLine}</p>` : '');
 }
@@ -366,6 +400,9 @@ span.w-refused::before { content: "\\2205\\00a0"; color: var(--ink-5); }
 .w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
 .w-grade rect.on { fill: currentColor; }
 .w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
 .w-grade.g3 { color: var(--ink); }
@@ -382,4 +419,4 @@ const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend
 
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice, val,
   refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness,
-  ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, weakest, grade, premisesHtml, css, usesGrammar };
+  ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, UNVERIFIED, weakest, weakestPair, pairWord, grade, premisesHtml, css, usesGrammar };

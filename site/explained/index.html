@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
+/* @site-css sheet=report grammar=1 */
 :root{
   color-scheme:dark;
   --paper:#0a0a0c;
@@ -662,6 +663,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
 .w-grade rect.on { fill: currentColor; }
 .w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
 .w-grade.g3 { color: var(--ink); }
@@ -699,6 +703,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend.compact { max-width: 34rem; }
 }
 
+/* @/site-css */
 /* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
    No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
 body.easy{overflow-x:hidden}
@@ -854,6 +859,7 @@ body.easy{overflow-x:hidden}
 .easy .panel .w-legend{margin:var(--s-4) 0 var(--s-3)}
 .easy .toykey .w-legend{margin-bottom:var(--s-3)}
 
+/* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -916,6 +922,7 @@ body.easy{overflow-x:hidden}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+/* @/site-util */
 </style>
 </head>
 <body class="easy">
@@ -943,7 +950,7 @@ body.easy{overflow-x:hidden}
   <p class="cap">Claims from the records, each with the word its record gives it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-29  this page built from the records at 7eb367ced48a"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-29  this page built from the records at e91411928074"></div>
   </div>
 </header>
 
@@ -1168,7 +1175,7 @@ body.easy{overflow-x:hidden}
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-29 from the records at commit 7eb367ced48a</span>
+    <span><b>built</b> 2026-10-29 from the records at commit e91411928074</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1178,7 +1185,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit 7eb367ced48a on 2026-10-29: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit e91411928074 on 2026-10-29: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';

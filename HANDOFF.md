@@ -56,6 +56,18 @@ NEXT SESSION, IN ORDER:
        agtable, afg, frontier, instruments index/plates… — Tier 2), dashedBorders 35 (14 the submitted Petrobras pages;
        the apps' forecast cards (.as-dash) carry standing legitimately; explained/uirapuru/atlas/glide-band to classify),
        chipClash 0. The screenshots the operator approved are in the 10-29 chat.
+       D11 APPLIED + THE STYLESHEET RE-BAKE, 2026-10-29 ~15:30 UTC (on "follow the recommended path"): design/sheet.js
+       composes the site's part of every page's <style> between markers (@site-css sheet= grammar=; @site-util) and
+       design/refresh.js re-bakes it at sync, so a grammar/template stylesheet change is ONE SYNC from now on (the
+       self-test `node design/sheet.js --selftest` is in make test; a page built before the markers passes through
+       until its builder runs — this session's last builder-by-builder rebuild put the markers everywhere). D11: the
+       grade is a pair (W.grade takes `verified`, W.pairWord, W.weakestPair; the legacy rung VERIFIED = (on, assumed);
+       "unverified" on a second line under the rung's word, grid-aligned past the glyph — the first attempt used a
+       13px literal and the style ratchet refused it); declared on the grammar page's chain and Swell's (server and
+       browser, PT 'não verificado'); /eth/'s premises are readings, no bit. WARRANT.md: the dated section "D11
+       applied". The specimen the operator approved is in the 10-29 chat. REMAINING for D11: the ~30 other chains
+       declare their bits as each page is next edited (Tier 2 rule); the print kit's premises() and
+       design/print/specimen.js draw the legacy glyph only.
        D10 STARTED 2026-10-29 ~07:30 UTC: design/record.js (a pointer /rows[id=x]/field into certs/ or corpus/, one
        printer: raw · int · fixed:n · sig:n · lo:n · hi:n; a DECIDED value cut to nearest is refused), W.val({rec,
        standing, fmt, why}) in playground/warrant.js (data-rec + data-fmt on the span; W.attrs takes rec too),
@@ -148,6 +160,19 @@ NEXT SESSION, IN ORDER:
        restore the ledger after any kissing rebuild (afafba7c did the same on 10-28), or the four selfaudit batteries go red.
        Also: the two TSavo batteries were filed under PY in tools/build-control.js (8dbd5d2e); make control refused on its
        first line until they moved to the node list.
+     ── THE PUBLIC CV (the operator, 2026-10-29 ~16:00 UTC: "a small CV/Resume builder, based on the grammar light
+       version, fits my strongest paths to get hired, always updated and published at the same website link"):
+       apps/cv/build.js renders apps/cv/cv.md (the tracked public source, {{figure}} tokens) in WARRANT's paper
+       register through outreach/resume-lib.js (the parser/page/print shared with the outreach variants since this
+       day; `compact`) to site/cv/carlos-toledo-cv.pdf; https://carlostoledo.co/cv/ redirects to it (vercel.json, 302,
+       so an HTML page can take the URL later). Every figure (33) is read from a record by design/record.js at build:
+       the register count, OpenAI's kernels and statements, the graders, METR, GSM8K, the Qiushi rows and pairs,
+       K(18)'s pairs, the registry's asterisks (from corpus/recognition.json), optq/aerp/wowii, PU's counts; the build
+       REFUSES on a token with no figure, a figure with no record, an unused figure, an unfilled mark, or a phone number.
+       Experience and education come from the git-ignored outreach/resume/resume.private.md (@@ blocks): the build works
+       only where that file exists (this Mac), by design. Rebuilt by make site (Makefile) and make page R=apps/cv. NOT
+       linked from the landing (the 10-28 ruling: no CV/hire links); the link is for sends. Keep cv.md in step with
+       resume.md v3 when the outreach variant changes. The grammar's print register has no colour, so links are ink.
      ── 2026-10-29 ~13:30 UTC, ON THE OPERATOR'S WORD: the pu-feed and swell-feed workflows DELETED (PU Verificado and
        the Swell app no longer refresh from CI; each page keeps its last pinned day; a desk refresh of Swell is
        `git show origin/swell-field:today.json > site/swell/data/today.json` — the branch stays). The unsolicited PR #2

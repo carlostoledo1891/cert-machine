@@ -40,6 +40,7 @@ site: playground control
 	@$(NODE) apps/eth/build.js
 	@$(NODE) apps/explained-v1/build.js
 	@$(NODE) apps/uirapuru/build.js
+	@$(NODE) apps/cv/build.js
 
 playground:
 	@$(NODE) playground/build.js
@@ -233,6 +234,7 @@ test:
 	@printf "%-30s " "measure (layout ruler)"; $(NODE) tools/check-measure.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "grammar (the dash census)"; $(NODE) tools/check-grammar.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "marks (pointed numbers)"; $(NODE) tools/check-marks.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "stylesheet re-bake at sync"; $(NODE) design/sheet.js --selftest >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "style (the stylesheet gate)"; $(NODE) tools/check-style.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "cert-unit port + wiring"; $(NODE) instruments/cert-unit/test.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "cert-unit reds (6 declared)"; $(NODE) instruments/cert-unit/reds.mjs >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

@@ -490,13 +490,12 @@ function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', sc
      takes this step" has to beat the component rule that would otherwise set
      it, and order is half of how it does (playground/design/components.js
      says the other half). 2026-09-15. */
-  const UTIL = require('../playground/design/components.js').utilCss();
   /* the grammar's stylesheet (playground/warrant.js css(), 2026-10-28) on a report that uses a w-* class or the witness
-     glyph; the instruments' base layer ('own' sheet, cssRaw) already carries it */
+     glyph; the instruments' base layer ('own' sheet, cssRaw) already carries it. SINCE 2026-10-29 the site's part of
+     the block (tokens, sheet, grammar) and the utility layer are composed by design/sheet.js between markers, so
+     design/refresh.js re-bakes them into a committed page at sync: a stylesheet change is one sync, not eighty builds. */
   const W = require('../playground/warrant.js');
-  const WCSS = sheet === 'report' && W.usesGrammar(bodyRaw + scriptRaw) ? '\n' + W.css() : '';
-  const style = T.rootCss() + '\n\n' + (sheet === 'report' ? css() : FOOT.footerCss())
-    + WCSS + (cssRaw ? '\n' + cssRaw : '') + '\n' + UTIL;
+  const style = require('./sheet.js').compose({ sheet, grammar: sheet === 'report' && W.usesGrammar(bodyRaw + scriptRaw), cssRaw });
   const body = sheet === 'report' ? '<div class="page">\n\n' + bodyRaw + '\n\n</div>' : bodyRaw;
   const html = `<!doctype html>
 <html lang="${lang}">

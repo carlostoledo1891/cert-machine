@@ -103,7 +103,7 @@ var STR = {
     cert: 'Certificado', certDl: 'Baixar certificado .json', rechk: 'Conferido no seu navegador: {n} linhas, as mesmas alturas e decisões publicadas ({ms} ms).', rechkBad: 'ATENÇÃO: o seu navegador NÃO reproduziu o dia publicado ({why}).',
     tlIsland: 'mar aberto', tlShore: 'na beira', tlScopeIsland: 'o mar aberto · abra uma praia para ver a dela',
     lg_waves: 'ondas na beira da praia (ou o mar aberto): a previsão, tracejada', lg_band: 'faixa medida; numa praia, levada pelo modelo da ilha, e o halo é o erro do próprio modelo, que não foi medido', lg_wind: 'vento em nós (previsão, tracejado); a linha fina são as rajadas', lg_tide: 'maré (previsão Copernicus, tracejada)',
-    restsH: 'Em que isso se apoia', g_words: ['suposto', 'verificado', 'comparado', 'validado'],
+    restsH: 'Em que isso se apoia', g_words: ['suposto', 'verificado', 'comparado', 'validado'], g_unverified: 'não verificado',
     g_gloss: ['adotado de uma fonte ou escolhido; nada aqui o conferiu', 'o código reproduz uma solução exata das próprias equações; não conferido contra o mar', 'conferido contra um modelo que guarda mais da física, com o número; não contra o mar', 'conferido contra observações do próprio mar, guardadas fora da calibração, com o número'],
     pr_sea: 'O mar aberto e sua faixa', pr_seaEv: 'a faixa (ECMWF ∪ NOAA) cobriu {cov} de {n} passagens de satélite que não tinha visto; ela promete 9 em 10.',
     pr_isl: 'O modelo da ilha', pr_islCmp: 'ao lado de um modelo de Boussinesq nesta praia, em ondulações de 11 s ou mais ({n} casos): a ilha lê {x} vez o valor dele (mediana).', pr_islNot: 'não comparado nesta praia; nas {k} praias em que foi, em ondulações de 11 s ou mais, lê {x} vez um modelo de Boussinesq (mediana).',
@@ -173,7 +173,7 @@ var STR = {
     cert: 'Certificate', certDl: 'Download certificate .json', rechk: 'Re-checked in your browser: {n} lines, the same heights and decisions as published ({ms} ms).', rechkBad: 'WARNING: your browser did NOT reproduce the published day ({why}).',
     tlIsland: 'open sea', tlShore: 'at the shore', tlScopeIsland: 'the open sea · open a beach to see its own',
     lg_waves: 'waves at the shore (or the open sea): the forecast, dashed', lg_band: 'measured band; at a beach it is carried by the island model, and the halo is the model\'s own error, which has not been measured', lg_wind: 'wind in knots (forecast, dashed); the thin line is the gusts', lg_tide: 'tide (Copernicus forecast, dashed)',
-    restsH: 'What this rests on', g_words: ['assumed', 'verified', 'compared', 'validated'],
+    restsH: 'What this rests on', g_words: ['assumed', 'verified', 'compared', 'validated'], g_unverified: 'unverified',
     g_gloss: ['adopted from a source or chosen; nothing here checked it', 'the code reproduces an exact solution of its own equations; not checked against the sea', 'checked against a model that keeps more of the physics, with the number; not against the sea', 'checked against observations of the sea itself, held out of the calibration, with the number'],
     pr_sea: 'The open sea and its band', pr_seaEv: 'the band (ECMWF ∪ NOAA) covered {cov} of {n} satellite passes it had not seen; it claims 9 in 10.',
     pr_isl: 'The island model', pr_islCmp: 'beside a Boussinesq model at this beach, on swells of 11 s and longer ({n} cases): the island reads {x} times its value (median).', pr_islNot: 'not compared at this beach; at the {k} beaches where it was, on swells of 11 s and longer, it reads {x} times a Boussinesq model (median).',
@@ -651,13 +651,13 @@ function restsOn(b) {
   var P = CFG.premises; if (!P || b.kind === 'lagoon') return '';
   var I = P.island, cmp = I.byBeach[b.name];
   var items = [
-    { label: t('pr_sea'), grade: W.VALIDATED, evidence: t('pr_seaEv', { cov: num(100 * P.band.coverage, 1) + '%', n: P.band.n.toLocaleString(LANG.cur === 'pt' ? 'pt-BR' : 'en') }) },
-    cmp ? { label: t('pr_isl'), grade: W.COMPARED, evidence: t('pr_islCmp', { n: cmp.n, x: num(cmp.medianRatio, 2) }) }
+    { label: t('pr_sea'), grade: W.VALIDATED, verified: false, evidence: t('pr_seaEv', { cov: num(100 * P.band.coverage, 1) + '%', n: P.band.n.toLocaleString(LANG.cur === 'pt' ? 'pt-BR' : 'en') }) },
+    cmp ? { label: t('pr_isl'), grade: W.COMPARED, verified: false, evidence: t('pr_islCmp', { n: cmp.n, x: num(cmp.medianRatio, 2) }) }
       : { label: t('pr_isl'), grade: W.ASSUMED, evidence: t('pr_islNot', { k: I.beaches, x: num(I.long.medianRatio, 2) }) },
     { label: t('pr_brk'), grade: W.ASSUMED, evidence: t('pr_brkEv', { g: num(P.gamma, 2) }) },
   ];
   var words = t('g_words'), weakest = W.weakest.apply(null, items.map(function (x) { return x.grade; }));
-  return '<h2 class="sw-sec">' + t('restsH') + '</h2>' + W.premisesHtml(items, { words: words, gloss: t('g_gloss'), meetLine: t('pr_meet', { g: words[weakest] }) + (cmp && cmp.medianRatio < 1 ? ' ' + t('pr_low') : '') });
+  return '<h2 class="sw-sec">' + t('restsH') + '</h2>' + W.premisesHtml(items, { words: words, gloss: t('g_gloss'), unverifiedWord: t('g_unverified'), meetLine: t('pr_meet', { g: words[weakest] }) + (cmp && cmp.medianRatio < 1 ? ' ' + t('pr_low') : '') });
 }
 /* the beach's measured trait (apps/swell/sim/foam.py): how much it usually breaks, as the satellites saw it */
 function foamRow(b) {

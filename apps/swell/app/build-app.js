@@ -57,10 +57,10 @@ function words(calib, premises) {
   const chain = (lang) => {
     const pt = lang === 'pt', G = pt ? ['suposto', 'verificado', 'comparado', 'validado'] : WR.GRADE;
     const items = [
-      { grade: WR.VALIDATED, label: pt ? 'O mar aberto e sua faixa' : 'The open sea and its band',
+      { grade: WR.VALIDATED, verified: false, label: pt ? 'O mar aberto e sua faixa' : 'The open sea and its band',
         evidence: pt ? `cobriu ${nf(100 * PB.coverage, 1, lang)}% de ${PB.n.toLocaleString('pt-BR')} passagens de satélite que não tinha visto; promete 9 em 10.`
           : `covered ${nf(100 * PB.coverage, 1, lang)}% of ${PB.n.toLocaleString('en')} satellite passes it had not seen; it claims 9 in 10.` },
-      { grade: WR.COMPARED, label: pt ? 'O modelo da ilha' : 'The island model',
+      { grade: WR.COMPARED, verified: false, label: pt ? 'O modelo da ilha' : 'The island model',
         evidence: pt ? `ao lado de um modelo de Boussinesq (Celeris; Madsen e Sørensen) em ${I.beaches} praias, ${I.all.n} casos de 1 m de ondulação: r ${nf(I.all.r, 2, lang)}, a ilha ${nf(I.all.bias, 2, lang)} m acima em média; em ondulações de 11 s ou mais, ${nf(I.long.medianRatio, 2, lang)} vez o valor dele (mediana), de ${nf(loR, 2, lang)} a ${nf(hiR, 2, lang)} conforme a praia. Comparado nessas ${I.beaches}; suposto nas outras.`
           : `beside a Boussinesq model (Celeris; Madsen & Sørensen) at ${I.beaches} beaches, ${I.all.n} cases of a 1 m swell: r ${nf(I.all.r, 2, lang)}, the island ${nf(I.all.bias, 2, lang)} m higher on average; on swells of 11 s and longer, ${nf(I.long.medianRatio, 2, lang)} times its value (median), from ${nf(loR, 2, lang)} to ${nf(hiR, 2, lang)} by beach. Compared at those ${I.beaches}; assumed at the others.` },
       { grade: WR.ASSUMED, label: pt ? 'A arrebentação' : 'Breaking',
@@ -69,9 +69,9 @@ function words(calib, premises) {
     ];
     const lows = low.map(([k, v]) => `${k} (${nf(v.medianRatio, 2, lang)})`);
     const lowTxt = lows.length > 1 ? lows.slice(0, -1).join(', ') + (pt ? ' e ' : ' and ') + lows[lows.length - 1] : lows.join('');
-    return WR.premisesHtml(items, { words: G, meetLine: pt
-      ? `A conta é exata; a premissa mais fraca é <b>suposta</b>. ${low.length ? `Onde a ilha lê menos que o modelo de Boussinesq — ${lowTxt} — "abaixo do limite" pede mais cautela do que a conta mostra.` : ''}`
-      : `The arithmetic is exact; the weakest premise is <b>assumed</b>. ${low.length ? `Where the island reads less than the Boussinesq model — ${lowTxt} — "under the limit" calls for more caution than the arithmetic shows.` : ''}` });
+    return WR.premisesHtml(items, { words: G, unverifiedWord: pt ? 'não verificado' : 'unverified', meetLine: pt
+      ? `A conta é exata; a premissa mais fraca é <b>suposta</b>, e nenhum dos dois modelos foi verificado contra uma solução exata das próprias equações. ${low.length ? `Onde a ilha lê menos que o modelo de Boussinesq — ${lowTxt} — "abaixo do limite" pede mais cautela do que a conta mostra.` : ''}`
+      : `The arithmetic is exact; the weakest premise is <b>assumed</b>, and neither model was verified against an exact solution of its own equations. ${low.length ? `Where the island reads less than the Boussinesq model — ${lowTxt} — "under the limit" calls for more caution than the arithmetic shows.` : ''}` });
   };
   const pt = `
 <h3>O que é</h3>

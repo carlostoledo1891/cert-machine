@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
+/* @site-css sheet=report grammar=1 */
 :root{
   color-scheme:dark;
   --paper:#0a0a0c;
@@ -662,6 +663,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
 .w-grade rect.on { fill: currentColor; }
 .w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
 .w-grade.g3 { color: var(--ink); }
@@ -699,7 +703,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend.compact { max-width: 34rem; }
 }
 
+/* @/site-css */
 :root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}
+/* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -762,6 +768,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+/* @/site-util */
 </style>
 </head>
 <body>
@@ -7278,7 +7285,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git 7eb367ce</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git e9141192</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
   var tip=null;

@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
+/* @site-css sheet=own grammar=0 */
 :root{
   color-scheme:dark;
   --paper:#0a0a0c;
@@ -149,6 +150,7 @@
 .foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
 .foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
 
+/* @/site-css */
 
 *,*::before,*::after{box-sizing:border-box}
 html{color-scheme:dark;-webkit-text-size-adjust:100%}
@@ -442,6 +444,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
 .w-grade rect.on { fill: currentColor; }
 .w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
 .w-grade.g3 { color: var(--ink); }
@@ -629,6 +634,7 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
 .rule-5 { border-left-color: var(--ink-5); }   /* one quieter rule on one block (2026-09-15) */
 
 
+/* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -691,6 +697,7 @@ svg.chart { display: block; width: 100%; height: auto; margin-top: var(--s-6); o
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+/* @/site-util */
 .standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 </style>
 </head>

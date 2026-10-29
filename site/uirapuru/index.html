@@ -29,6 +29,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
+/* @site-css sheet=report grammar=1 */
 :root{
   color-scheme:dark;
   --paper:#0a0a0c;
@@ -662,6 +663,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
   letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
 .w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
 .w-grade rect.on { fill: currentColor; }
 .w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
 .w-grade.g3 { color: var(--ink); }
@@ -699,6 +703,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend.compact { max-width: 34rem; }
 }
 
+/* @/site-css */
 /* the easy read — the house grammar (tokens, sheet) extended for a scrolling story: scenes, motion, five instruments.
    No hue: verdicts by weight and shape (certified FILL, refuted OUTLINE, refused DIM + DASH), as the chips rule says. */
 body.easy{overflow-x:hidden}
@@ -865,6 +870,7 @@ body.easy{overflow-x:hidden}
 .easy .ask .q.on .ctrl{opacity:.45;pointer-events:none}
 .easy .tblwrap{overflow-x:auto;margin:24px 0 0}
 
+/* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
    135 elements across nineteen builders carried a margin-top style attribute
@@ -927,6 +933,7 @@ body.easy{overflow-x:hidden}
    place on the site that asks for one (2026-09-15) */
 .lead.lead.lead { line-height: 1.7; }
 
+/* @/site-util */
 </style>
 </head>
 <body class="easy">
@@ -954,7 +961,7 @@ body.easy{overflow-x:hidden}
   <p class="cap">Claims about the toy forest, each with the word the machine would give it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at 7eb367ced48a"></div>
+    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at e91411928074"></div>
   </div>
 </header>
 
@@ -1085,7 +1092,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit 7eb367ced48a on 2026-10-29, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit e91411928074 on 2026-10-29, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';

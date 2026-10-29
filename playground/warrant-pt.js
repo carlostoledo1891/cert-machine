@@ -38,6 +38,7 @@ function legendHtml(opts) {
   return h;
 }
 /* W.premisesHtml with the Portuguese ladder */
-const premisesHtml = (items, opts) => W.premisesHtml(items, Object.assign({ words: GRADE, gloss: GRADE_GLOSS }, opts || {}));
+const UNVERIFIED = 'não verificado';   /* D11: the verification bit's word when it is off */
+const premisesHtml = (items, opts) => W.premisesHtml(items, Object.assign({ words: GRADE, gloss: GRADE_GLOSS, unverifiedWord: UNVERIFIED }, opts || {}));
 
 module.exports = { LEGEND, GRADE, GRADE_GLOSS, legendHtml, premisesHtml };

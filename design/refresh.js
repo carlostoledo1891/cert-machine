@@ -33,7 +33,11 @@ function refresh(html, pagePath) {
   /* the footer's site line (byline · home · papers · source · doi); the builder's own paragraphs above it stay */
   const line = FOOT.footerHtml({ innerRaw: '', root }).replace(/^[\s\S]*?(<div class="foot-line">)/, '$1');
   out = out.replace(/<div class="foot-line">[\s\S]*?<\/div><\/div><\/footer>/, () => line);
-  return out;
+  /* the stylesheet's site part and the utility layer (design/sheet.js markers, 2026-10-29); a page built before the
+     markers passes through, and picks them up when its builder next runs */
+  const rb = require('./sheet.js').rebake(out);
+  if (rb.rebaked) refresh.rebaked = (refresh.rebaked || 0) + 1;
+  return rb.html;
 }
 
 module.exports = { refresh, rootOf, sectionOf };
