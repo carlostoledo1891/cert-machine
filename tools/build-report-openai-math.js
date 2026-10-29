@@ -10,7 +10,9 @@
    ledgers disagree with the census, when a finding names a ledger row that no longer carries the word it depends
    on, when a placeholder is unknown, or — with the pinned clone on disk — when an evidence line does not exist.
    Lane K runs for a day on GitHub's runners, so the page says how many of the 416 challenges it has decided and
-   never extrapolates.
+   never extrapolates. The since-section also reads certs/openai-math-hodge-statement.json (2026-10-29), a READING of
+   the Hodge challenge's two statements written by tools/record-openai-hodge-statement.js, and gates every sentence
+   that rests on it.
 
    usage: node tools/build-report-openai-math.js */
 'use strict';
@@ -258,9 +260,42 @@ if (since.R2) {
   const big = added.slice().sort((a, b) => b.solutionClosureModules - a.solutionClosureModules)[0];
   const kDone = k2.length, kOf = d.toRun.length;
   const kNot = k2.filter((r) => r.word !== 'CERTIFIED');
+  /* THE HODGE STATEMENT READING (2026-10-29). Until this date the page said the largest addition "states its theorem over
+     N modules … and proves it through M modules", which reads as if the two sides connect; they do not. Every sentence
+     below that rests on certs/openai-math-hodge-statement.json (READ: the sources parsed and hashed at the pin, nothing
+     built, written by tools/record-openai-hodge-statement.js) is gated here, and the page refuses when the record, the
+     census, lane K's row or the pre-registered word stops supporting it. */
+  const H = opt('certs/openai-math-hodge-statement.json') || die('certs/openai-math-hodge-statement.json is missing (node tools/record-openai-hodge-statement.js)');
+  if (H.word !== 'READ' || H.release.commit !== N2.commit) die('the Hodge statement record is not a reading at ' + p2);
+  if (big.name !== H.challenge) die('the largest addition is ' + big.name + ', not ' + H.challenge + ', which the Hodge reading covers — rewrite the sentence');
+  if (H.closures.challenge.modules !== big.statementClosureModules || H.closures.solution.modules !== big.solutionClosureModules) die('the Hodge reading\'s closures disagree with the census');
+  if (H.closures.challenge.outsideChallengeDirectory !== 0) die('the Hodge challenge\'s closure leaves its challenge directory: "its own definitions" no longer holds');
+  if (H.closures.sharedModules !== 0 || H.closures.oaiScan.importingTheChallengeClosure !== 0) die('the Hodge reading no longer finds the two closures disjoint');
+  if (!H.constantPairs.length || H.constantPairs.some((q) => q.challenge.name === q.solution.name || !q.solution.name.startsWith('OAI.') || q.challenge.name.startsWith('OAI.'))) die('the Hodge reading no longer pairs the challenge\'s own constants with the release\'s OAI copies');
+  if (H.consequence.statementComparisonCanPass !== false) die('the Hodge reading no longer says the statement comparison cannot pass');
+  if (!P.lanes.K.decider.includes('comparator ' + H.comparator.commit.slice(0, 8))) die('the Hodge reading read Comparator at ' + H.comparator.commit.slice(0, 8) + ', not lane K\'s pin');
+  if (require('crypto').createHash('sha256').update(fs.readFileSync(path.join(ROOT, H.comparator.compare.copy))).digest('hex') !== H.comparator.compare.sha256) die('the Comparator copy is not the Compare.lean the Hodge reading pinned');
+  if (!/statement do not match/.test(H.comparator.compare.statementRule.text.join(' '))) die('the Hodge reading\'s Comparator rule is not the statement comparison');
+  const hNote = N2.scopeNotes.find((s) => s.path === H.scopeNote.path) || die('the Hodge reading\'s scope note is not in the census');
+  if (hNote.sha256 !== H.scopeNote.sha256 || !/\| Comparator statement \|/.test(H.scopeNote.header) || !H.scopeNote.row.includes('/' + H.challenge + '/Challenge.lean)')) die('the scope note no longer presents Challenge.lean as the "Comparator statement"');
+  const hK = k2of(H.challenge);
+  if (!hK || hK.word !== 'REFUSED' || H.laneK.word !== hK.word || String(hK.runs[hK.runs.length - 1].run) !== String(H.laneK.run)) die('lane K\'s ' + H.challenge + ' row is no longer the REFUSED run the Hodge reading names — re-record the reading');
+  if (!/statement mismatch/.test(P.lanes.K.words.REFUTED) || !/reproduced by a second run/.test(P.lanes.K.words.REFUTED)) die('the pre-registered REFUTED no longer asks a second run to reproduce a statement mismatch');
+  if (!H.notChecked.some((t) => /^Whether the release's copies are faithful/.test(t)) || !H.notChecked.some((t) => /^That any run reached the comparison/.test(t))) die('the Hodge reading no longer lists what it did not check');
+  const hName = (q) => C.m(q.challenge.name.split('.').pop());
+  const hByName = H.constantPairs.filter((q) => q.via === 'name'), hByNotation = H.constantPairs.filter((q) => q.via !== 'name');
+  const hCopies = hByName.map(hName).join(', ') + hByNotation.map((q) => ' and, behind the ' + C.m(q.via.replace(/^notation /, '')) + ' notation, ' + hName(q)).join('');
+  const hodgeSentence = 'The largest addition, ' + C.m(big.name) + ', states its theorem twice. The challenge states it with its own definitions, ' + n(H.closures.challenge.modules)
+    + ' modules in its challenge directory; the solution states it with the release\'s own copies of them (' + hCopies + ', each under an ' + C.m('OAI.') + ' name) and proves it through '
+    + n(H.closures.solution.modules) + ' modules of the release\'s library. The two import closures share no module, so Comparator\'s statement comparison cannot pass: a reading of the sources at '
+    + p2 + ', nothing built (' + C.m('certs/openai-math-hodge-statement.json') + ').';
+  const hodgeRowSentence = 'The reading above shows the statement comparison would reject it; under the pre-registered rule that is REFUTED only once a run rejects it and a second run reproduces the rejection.';
   const gapsAt = [
     '<b>The second kernel is still off.</b> nanoda is switched on in ' + cnt(nan2, 'true') + ' of ' + N2.counted.challenges + ' configs at ' + p2 + '; the ' + added.length
       + ' challenges added — ' + added.map((a) => C.m(a.name) + ' (' + C.esc(String(a.enableNanoda)) + ')').join(', ') + ', the last the formal statement behind "The Exponential Time Hypothesis is False" — leave it off. Here it is on for every challenge run.',
+    '<b>The "Comparator statement" OpenAI links for the Hodge result is not the statement its solution proves.</b> ' + C.m(H.scopeNote.path) + ' presents ' + C.m('Challenge.lean')
+      + ' as the "Comparator statement" for ' + C.m(H.challenge) + ', but the solution\'s statement is a different one: it names the release\'s own copies of the ' + H.constantPairs.length
+      + ' definitions the challenge names, and the two sides import no module in common (a reading of the sources at ' + p2 + ', nothing built; below).',
     M6 ? '<b>N(6) = 3: the bookkeeping is now checkable; the run\'s archive still is not.</b> The saved run published with this commit lets anyone check the records\' consistency and coverage, '
       + 'and a reader written here does (below). The manuscript still cites an execution archive (' + C.m('verification/computation/README.md') + ', ' + C.m('full-run-01/') + ': raw command and stream records, binaries, '
       + 'validation records) that is not shipped, and the release says of its own check that it is "not an authentication of the historical archive, a proof of the C++ implementation, or a verification of compiler and hardware behavior".' : '',
@@ -282,13 +317,14 @@ if (since.R2) {
         + (d.dependenciesMoved.length ? ', dependencies moved: ' + C.esc(d.dependenciesMoved.join(', ')) : ' and all ' + N2.dependencies.length + ' dependency revisions unchanged') + '. The unchanged ones are not re-run. '
         + 'In ' + d.definitionNamesShrank.length + ' configs ' + C.m('definition_names') + ' was emptied — a name dropped from that list is no longer a hole, so Comparator compares that definition body and all, the check this audit\'s strict run made. '
         + (axBefore.length && !axAfter.length ? C.esc(axBefore.join(', ')) + '\'s challenge no longer declares an axiom (it is a ' + C.m('sorry') + ' now). ' : '')
-        + 'The largest addition, ' + C.m(big.name) + ', states its theorem over ' + n(big.statementClosureModules) + ' modules of definitions in its challenge directory and proves it through ' + n(big.solutionClosureModules) + ' modules of the release\'s library.'),
+        + hodgeSentence),
       /* a list, not a table: the ruler counts a table that scrolls inside its box on a phone as clipped */
       C.plainList(d.toRun.map((name) => {
         const a = added.find((x) => x.name === name), c = d.changed.find((x) => x.name === name), s = d.definitionNamesShrank.find((x) => x.name === name), r = k2of(name);
         return { raw: (r ? C.tag(r.word, r.word === 'CERTIFIED' ? 'held' : r.word === 'REFUSED' ? 'open' : 'dep') : W.value('not yet recorded', W.REFUSED, { title: 'no job recorded yet: nothing decided' })) + ' ' + C.m(name) + ' — '
           + C.esc(a ? 'added, ' + a.theorems + ' theorem' + (a.theorems > 1 ? 's' : '') : 'changed: ' + c.why.join(', ')) + (s ? C.esc('; definition_names ' + s.before + ' → ' + s.after) : '')
-          + (r && r.word !== 'CERTIFIED' ? C.esc(' — ' + short(r.why || '', 140)) : '') };
+          + (r && r.word !== 'CERTIFIED' ? C.esc(' — ' + short(r.why || '', 140)) : '')
+          + (name === H.challenge ? C.esc(' ' + hodgeRowSentence) : '') };
       })),
       C.pRaw('<b>Lane K at ' + p2 + '.</b> ' + (kDone ? n(cnt(k2w, 'CERTIFIED')) + ' of ' + n(kDone) + ' recorded CERTIFIED by Lean\'s kernel and nanoda' + (kDone < kOf ? ' (' + (kOf - kDone) + ' of the ' + kOf + ' still running)' : ', of the ' + kOf + ' re-run')
         + (cnt(k2w, 'REFUSED') ? ', ' + cnt(k2w, 'REFUSED') + ' REFUSED for the runner\'s resources' : '') + (cnt(k2w, 'REFUTED') + cnt(k2w, 'REFUTED — TO REPRODUCE') ? ', ' + (cnt(k2w, 'REFUTED') + cnt(k2w, 'REFUTED — TO REPRODUCE')) + ' rejected' : ', none rejected') + '. '
