@@ -50,6 +50,10 @@ const bridgeDone = !!BR && BR.run.conclusion === 'success'
   && ['openai', 'anthropic'].every((k) => BR.bridges[k].theorem.word === 'PROVED' && BR.bridges[k].theorem.axioms.every((a) => STD.includes(a)));
 if (BR && !bridgeDone) fail(BRIDGE_REL + ' is present but its run is not green or a bridge theorem is not PROVED on the standard axioms');
 /* a third party's join of the two models (TSavo/eth-bridge), replayed here; its gaps lead, as every audit here does */
+const SEAM_REL = 'certs/eth-seam.json';
+const SEAM = fs.existsSync(path.join(ROOT, SEAM_REL)) ? J(SEAM_REL) : null;
+const SEAMH = SEAM ? SEAM.headline : null;
+if (SEAM && !(SEAMH.statementTerm && typeof SEAMH.statementTerm.kernelEqual === 'boolean' && SEAMH.vocabulary && Array.isArray(SEAMH.vocabulary.namedDiffering))) fail('certs/eth-seam.json lacks the fields the page reads');
 const TS_REL = 'certs/eth-tsavo-bridge.json';
 const TS = fs.existsSync(path.join(ROOT, TS_REL)) ? J(TS_REL) : null;
 if (TS && TS.word === 'CERTIFIED' && !TS.axiomsPrinted.every((a) => a.axioms.every((x) => STD.includes(x)))) fail(TS_REL + ' is CERTIFIED with an axiom outside the three standard ones');
@@ -111,11 +115,11 @@ B.push(C.header({
    sat in §6. Every line is read from the records below it. */
 const FIVE = [
   { b: 'Replayed.', raw: 'Both labs’ Lean proofs, from their pinned bytes: OpenAI’s ' + C.m('SubexponentialSAT') + ' challenge at ' + C.m(OAI.commit.slice(0, 8)) + ' and Anthropic’s ' + C.m('eth/') + ' at ' + C.m(ANT.commit.slice(0, 8))
-    + (TS && TS.word === 'CERTIFIED' ? ', and a third party’s Lean join of the two.' : '.') },
+    + (TS && TS.word === 'CERTIFIED' ? ', and a third party’s Lean join of the two' + (SEAM ? ', whose copy of OpenAI’s statement is the same Lean term as OpenAI’s own' + (SEAMH.statementTerm.kernelEqual ? '' : ' (it is not)') + ' but rests on real-number arithmetic that differs between the two Mathlib versions it spans (§5)' : '') + '.' : '.') },
   { b: 'Checked by.', raw: 'Comparator, the Lean FRO’s judge, with Lean’s own kernel, and nanoda, a kernel written independently of Lean’s. Both accept both proofs, using only ' + STD.map(C.m).join(', ') + '.' },
   { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model' + (SH ? ', also proved in Lean (Anthropic’s on the formulas its theorem speaks of)' : ' (read here; its Lean proof is running)') + '.' + (bridgeAll3 ? ' Every bridge theorem passes three checks: Lean’s kernel at build, Lean’s kernel again in Comparator, and nanoda.' : '') : 'Being built.' },
   { b: 'Still prose.', raw: 'Two things no kernel can check: that each lab’s machine and input encoding match the textbook’s (a constant cost per step and a polynomial-time encoding, harmless in front of 2^{o(n)}), and that our Lean ETH is the textbook ETH, which is a reading and always will be.' },
-  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), scripted and waiting for a large enough rented machine, and a check, running now, that OpenAI’s statement means the same term in the third party’s join, where it is re-elaborated on another Lean and Mathlib.' },
+  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), on a rented machine' + (SEAM ? '' : ', and a check that OpenAI’s statement means the same term in the third party’s join') + '.' },
 ];
 B.push('<section class="col eth-five">' + C.plainList(FIVE) + C.pRaw('<b>Disclosure.</b> This repository’s tools are written with Claude, Anthropic’s model, and one of the two claims is Anthropic’s. Here independence means who decides, not who typed: nothing on this page was decided by Claude or by either lab’s code. The deciders are Comparator, Lean’s kernel and nanoda; the readings are ours, and say so.') + '</section>');
 B.push(C.stats([
@@ -247,7 +251,20 @@ function tsavoBody() {
       + 'OpenAI’s machine compiled into Anthropic’s, and OpenAI’s input word produced from Anthropic’s, so OpenAI’s statement refutes ETH in Anthropic’s FinTM2 model too. '
       + 'Replayed on GitHub’s runners (<a href="' + C.escAttr(TS.run.url) + '">run ' + TS.run.id + '</a>): ' + C.esc(TS.why).replace(/`([^`]+)`/g, '<span class="m">$1</span>') + ' (' + ln(TS_REL) + ').')
     + C.pRaw('<b>Its gaps, first:</b>')
-    + C.plainList(TS.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })));
+    + C.plainList(TS.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })))
+    + (SEAM ? seamBody() : '');
+}
+/* THE VERSION SEAM, measured (certs/eth-seam.json, 2026-10-29): TSavo's join re-elaborates OpenAI's statement on Anthropic's
+   Lean and Mathlib; each side's statement and its whole definitional closure exported as kernel terms and compared */
+function seamBody() {
+  const H = SEAMH, nd = H.vocabulary.namedDiffering, cl = H.closure;
+  const WORD = { 'Monoid.toNPow': 'natural power', 'Real.instAdd': '+', 'Real.instMul': '×', 'Real.instLE': '≤', 'Real.instLT': '<', 'Real.instZero': '0', 'Real.instOne': '1', 'Real.instDivInvMonoid': 'inverse' };
+  return C.pRaw('<b>The version seam, measured' + (SEAM.verdict ? ': ' + C.esc(SEAM.verdict) : '') + '.</b> The join reads OpenAI’s statement on Anthropic’s Lean and Mathlib, while OpenAI’s proof lives on its own. '
+      + 'Both statements, and every definition they reach, were exported from both environments as kernel terms and compared (<a href="' + C.escAttr(SEAM.run.url) + '">run ' + SEAM.run.id + '</a>, ' + ln(SEAM_REL) + '). '
+      + (H.statementTerm.kernelEqual ? 'The statement itself is the same kernel term on both sides, apart from one binder’s name, and all ' + H.vocabulary.oaiDefinitions + ' of OpenAI’s own definitions are identical. ' : 'The statement itself is a different kernel term on the two sides. ')
+      + 'Underneath, the two Mathlibs build the real numbers differently: of ' + fmt(cl.constants.common) + ' constants in both closures, ' + fmt(cl.kernelDiffer) + ' differ and ' + fmt(cl.presentOnly.anthropic + cl.presentOnly.openai) + ' exist on one side only, mostly from a reworked monoid hierarchy and from files that moved. '
+      + 'Of the ' + H.vocabulary.named + ' constants the statement names directly, ' + nd.length + ' differ: ' + C.esc(nd.map((x) => WORD[x.name] || x.name).join(', ')) + ' on ℝ. '
+      + 'Lean’s kernel cannot match those terms across the two environments, so no single kernel has checked that the two statements are one proposition. It is almost certainly the same mathematics; the record says only that the terms differ, and where.');
 }
 B.push(C.section({
   lab: '§5 · the bridge', title: 'One textbook ETH in Lean, and each statement against it', id: 'bridge',
