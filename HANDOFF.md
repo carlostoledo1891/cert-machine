@@ -228,7 +228,9 @@ NEXT SESSION, IN ORDER:
        toolchain? builds on a runner?) before any run. Not before the grammar rulings are built.
        RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; UFSC/Pedro off X;
        only claimant-directed replies go in corpus/outreach.json; check a handle with `x.js users` before tagging.
-     ── ETH (done for now): the TCS form SUBMITTED, the blog comment awaiting moderation, the #36 reply POSTED
+     ── ETH (done for now): the TCS form SUBMITTED, the blog comment LIVE (ethdiscussion.blog, comment 3 of 3, 10-28 4:22 pm
+       PT; the others: a3nm = Antoine Amarilli, and soltrinox = Frank Dylan Rosario, an unevidenced provenance claim against
+       OpenAI's paper — never engage), the #36 reply POSTED
        (issuecomment-6484418376) — watch #36 and the blog; /eth/ LISTED 2026-10-29 (09b3d894).
      ── LEARNED 2026-10-29 (the fixes' rebuild): a TEMPLATE CSS CHANGE DOES NOT PROPAGATE BY SYNC. design/refresh.js
        re-bakes only the title, the nav and the footer into a committed page; the stylesheet is baked by each builder at
