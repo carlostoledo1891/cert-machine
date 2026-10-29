@@ -26,7 +26,10 @@ NEXT SESSION, IN ORDER:
      0ec761f4; the hubs re-synced, WARRANT.md keeps both sections, drive.js 16/16, wiring/grammar green; Swell @1440's
      known flap left at its recorded 9). The Qiushi proposal is now a PRIVATE e-mail draft (the operator: no public
      conversation for it; GitHub has no private messages): outreach/qiushi-coauthor-proposal.private.md, git-ignored
-     (outreach/*.private.md), To the Oxelra org address, Cc Yihao Yang's ZJU address from CITATION.cff; NOT SENT. The
+     (outreach/*.private.md), To the Oxelra org address, Cc Yihao Yang's ZJU address from CITATION.cff; SENT by the
+     operator 2026-10-29 18:42 UTC. ON 2026-11-05, IF NO REPLY: the private fallback, a private-repository invitation to Cherish0925
+     holding the companion's draft with the proposal as its first issue (on the operator's word). If they say yes: scout
+     the F2 matmul Lean replay first (targets oxelra-matmul-f2-rank21), and re-word the method paper's "exchange" line. The
      earlier public-comment draft is removed from the tree (it stays in history at 39066f52). CFSG: ON HOLD (the operator, 10-29); when resumed, the reading step first
      (see the targets row), the replay only after Axiom ships oleans.
   ★★★★★★ 2026-10-29 (late) — HANDOFF: D12 AND D14 BUILT AS SPECIMENS ON PUSHED BRANCHES, waiting on the operator's look.
