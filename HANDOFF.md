@@ -67,8 +67,13 @@ NEXT SESSION, IN ORDER:
        (the self-audit stays green through a kissing rebuild). NEXT in D10: the other Tier 1 builders' W.value sites
        (optq 5, optconst 1, openai-math 4, gsm8k 3, aerp 2, horizon 5, curveseeds 2 — most are claimant strings; point
        the ones that are record cells, e.g. horizon's printed23 and L.seconds), the stat tiles of the Tier 1 reports,
-       then step 2 (a record's own standing field feeds W.val). The grammar page should print the pointed/unpointed
-       census (R-5 of the agenda).
+       then step 2 (a record's own standing field feeds W.val). DONE ~08:00 UTC: /grammar/ prints the pointed/unpointed
+       counts (1f9d3f73; 53 re-read on 6 pages, 1,672 without an address). Where the unpointed values on Tier 1 sit:
+       time-horizon 95 (printed(a.site.p50.estimate) per agent row → /agents[alias=…]/site/p50/estimate; the post's
+       th11 triples), gsm8k 74 (claimed(r.gsm8k), claimed(r.platinum), the key's steps — per-row cells of
+       certs/gsm8k-ledger.json findings), openai-math 54 (reading(): counts derived from gaps, not cells — leave),
+       curve-seeds 43 (lane 'yes' strings), optq 31 (claimant text), kissing 24 (degrees from a cosine the record holds
+       as cos, not deg — leave or add the degrees to the ledger), alphaevolve-community 11 (gFloat per row).
        RULED 2026-10-29 ~05:00 UTC (every recommendation taken except tracking): D9 tone monotone in standing; D10
        the typed value, Tier 1 now; D11 the grade as a pair; D12 one hero figure, ruler may ratchet up for it; D13 the
        landing flow as translated points; D14 the first handle on the return-level check; D15 the companion page after
