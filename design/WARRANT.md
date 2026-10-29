@@ -357,3 +357,39 @@ and nothing new is drawn for it. A specimen on branch `heroes-tier1-batch1`, for
   batch 2). tools/check-wiring.js reads the Tier 1 line of "The site pass" above, so a page added there and not
   registered refuses, as do a row with no reason, a stale row, and a `pending` report (seven red controls).
 - `.page > header + .hero` (the room under the title) moved into design/template.js from the two grammar pages' CSS.
+
+## D12, batch 2 (2026-10-29): the landing and the apps
+
+The same ruling as batch 1, existing figures only, applied to the six pages that waited: the landing and the five apps. A
+specimen on branch `heroes-tier1-batch2`, for the operator's look. **Merged 2026-10-29 without the eleições change** (the
+operator: "merge everything except the Eleições change and keep that page as it was"): the dossier stays paused and as
+submitted to readers, and its row is `none` with that reason; the scoreboard hero stays on the branch as a proposal. The decisions were written down before any change:
+one hero, five `none` with a reason, and three proposals for a later batch. No row in `design/heroes.json` is `pending`
+now.
+
+- **The eleições dossier:** the 2º turno scoreboard is the hero (the signed result, Lula against Flávio Bolsonaro, the
+  50 % tick and the margin). It is the first figure a reader meets, under the header and its scope line, and a strip
+  that gains from the width. The other candidate was the municipal map (§2), which at the container's width is already
+  taller than a 1440 × 900 screen and would only grow past it. The phone drawing is the same scoreboard at 360 units:
+  at 350 px the 900-unit drawing set its labels near 4 px, and the margin's note now takes its own line under the tick,
+  where it would otherwise run into the two vote counts. The scope's rule ran into the scoreboard's top edge (gap 0, in
+  the page before this batch too); the page gives a hero after the header's scope line the room the template gives one
+  right under the title (`.page > header + .scope + .hero`, page-local while one page needs it). The page draws no ×, so
+  no witness has to come first.
+- **The landing:** `none`. It draws no figure: the one description, the register's four stats, the cards from outside.
+  Proposed: the register's decided claims as cells by verdict (the gsm8k strip's form), each refuted claim's witness a ×
+  on its own cell, which would make the landing's first × an event.
+- **Janela and Swell:** `none`, and the hero rule stays out of `design/app-shell.js`. An app-shell page is its map: a
+  surface 100 % × 100dvh with the map fixed under every panel, no container for a box to draw past, no `.figbox`, and
+  drawings that are canvases over a basemap. A `.hero` rule there would change nothing a reader sees, and the ruler's
+  hero width would read the viewport.
+- **/explained/ and /uirapuru/:** `none`. Each page's natural hero is its cold open's stage, the claims flying through
+  DECIDE, which is HTML and CSS motion labelled as only a picture, not an SVG in `.figbox`. /explained/'s one `.figbox`
+  figure, the route of a claim, is a schematic held to 800 px (`.mach`), which a wider box would not widen; /uirapuru/
+  has no `.figbox` figure, and its forests are drawn by the instruments in the browser, inside their panels. Proposed:
+  the stage redrawn as a figure, its flight under D13's rule (points translated, never a dash), and on /uirapuru/ patch
+  7 as a figure with the ringed bird as its event.
+
+The ruler records the eleições hero at 1344 / 707 / 390 px. Swell @1440 read 10 spines against its recorded 9 again, the
+known time-of-day flap on bytes this branch does not change; its recorded row is kept as it was, as is /eth/'s (out of
+scope).
