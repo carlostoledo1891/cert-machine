@@ -148,6 +148,14 @@ NEXT SESSION, IN ORDER:
        restore the ledger after any kissing rebuild (afafba7c did the same on 10-28), or the four selfaudit batteries go red.
        Also: the two TSavo batteries were filed under PY in tools/build-control.js (8dbd5d2e); make control refused on its
        first line until they moved to the node list.
+     ── 2026-10-29 ~13:30 UTC, ON THE OPERATOR'S WORD: the pu-feed and swell-feed workflows DELETED (PU Verificado and
+       the Swell app no longer refresh from CI; each page keeps its last pinned day; a desk refresh of Swell is
+       `git show origin/swell-field:today.json > site/swell/data/today.json` — the branch stays). The unsolicited PR #2
+       (frintroper: a licence rewrite and a README replacement, "RIPL v1.0") CLOSED without a word and the account
+       BLOCKED (`gh api -X PUT user/blocks/frintroper`; reversible). Audit: no workflow runs on pull_request, so a fork's
+       PR never runs our workflows or sees secrets; only the owner has write; Vercel asks a team member before deploying
+       a fork's commit; nothing of theirs reached main or the site. Never engage the account; the sweep counts its
+       #8/#30/#36 blasts once.
      ── HOUSEKEEPING: 13 agent worktrees under .claude/worktrees (all merged; their untracked copies are caches) —
        remove with git worktree remove when disk matters; sin-mfg is NOT on disk (LIFT sources all "gone"; ask where).
   ★★★ 2026-10-28 ~23:45 UTC — HANDOFF, on "follow the recommended path or send me the questions … Proceed". Read first.
