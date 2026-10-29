@@ -27,6 +27,18 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ RULED 2026-10-29 ~23:40 UTC (the operator, four questions, every recommendation taken):
+     (1) X drop d01 (notes/x/drops/d01-*) WAITS for OpenAI's replay: then reword it to three checks for both claims and
+         post it as a reply in the Recht/Papailiopoulos thread on the operator's word.
+     (2) NO "now deciding" strip on the landing (old open item (a)): the site is static, a live strip goes stale between
+         builds and is empty most days; the landing's decided-claims hero strip (grammar list, item 3) is the place.
+     (3) ETH's brute-force step CLOSED (corpus/targets.json, /eth/ §6 "The algorithms were not run."): the kernels
+         decide the formalized algorithms; no small-n run speaks to a subexponential bound.
+     (4) check-wiring now walks /eth/, /papers/, /eleicoes2026/, /janela/ (+ metodo) and /swell/ (/cv/ is a redirect to a
+         PDF, nothing to walk). It found two: /eth/ drew decided/computed marks with no legend once the bridge landed
+         (the legend now sits under the tiles), and Swell's 20 container radii off the shape scale (apps/swell/app/style.js
+         on var(--radius-s/m/l): 9/11/12 → 10 px, 14/18/20 → 16 px). Wiring ALL PASS. The ruler's one RED is Swell @1440
+         spines 9 → 10, the known flap: the OLD bytes measured 10 the same way, twice (left at its recorded 9).
   ★★★★★★★★★★ 2026-10-29 ~23:30 UTC — HANDOFF: THE DAY CLOSED. Everything below is committed and pushed (main b50d81dc and
      this entry); nothing is billing (RunPod list-pods empty; every pod in corpus/eth-refutation/POD.txt deleted, 404).
      ── DONE TODAY, AFTER THE ROUNDTABLE DAY (each live on carlostoledo.co):

@@ -137,6 +137,9 @@ B.push(C.stats([
   { k: 'Comparator, OpenAI', vRaw: secs(OAI), n: 'peak ' + Math.round(OAI.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' },
   { k: 'Comparator, Anthropic', vRaw: secs(ANT), n: 'peak ' + Math.round(ANT.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' }
 ].concat(bridgeDone ? [{ k: 'bridge theorems, ours', v: String(bridgeThms), n: 'proved in Lean' + (bridgeAll3 ? '; each passes Lean’s kernel twice and nanoda' : ', one kernel') + '; §5' }] : [])));
+/* the legend once, under the tiles that first draw the grammar (it used to print only in §5's not-yet-run branch, so the
+   page drew decided and computed marks with no legend once the bridge landed; check-wiring found it 2026-10-29) */
+B.push('<div class="col">' + W.legendHtml({ compact: true, exclude: bridgeDone ? [W.CHOSEN, W.REFUSED] : [W.CHOSEN] }) + '</div>');
 
 /* §1 decided */
 const claimRow = (r) => [
@@ -279,7 +282,6 @@ B.push(C.section({
   bodyRaw: bridgeDone
     ? bridgeBody()
     : C.pRaw(W.value('not yet run', W.REFUSED) + '. The gap both readers found is OpenAI’s: its Lean has no ETH. The bridge is the textbook definition (s_k as an infimum, ETH as s_k > 0 for k ≥ 3), written once in Lean and instantiated in each lab’s own machine and encoding, with a proof that OpenAI’s theorem implies its negation there, and that Anthropic’s ETHIsFalse does. It is being built on GitHub’s runners. The steps between machine models and encodings, §2’s third and fourth premises, stay prose for both labs.')
-      + W.legendHtml({ compact: true, exclude: [W.COMPUTED, W.CHOSEN] })
 }));
 
 /* §6 open, and who wrote this */
@@ -290,6 +292,7 @@ B.push(C.section({
       ? 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and reads the model and encoding steps that remain.'
       : 'It decides that two proofs check against their own statements, and it reports two readings of what those statements mean.' },
     { b: 'The papers are not checked.', text: 'OpenAI’s Lean statement is its paper’s weaker Proposition 6.4, not the headline Theorem 1.1, and neither paper’s arguments outside Lean were read here for correctness.' },
+    { b: 'The algorithms were not run.', text: 'Neither paper’s algorithm was run here against brute force on small formulas: Lean’s kernels already decide the formalized algorithms correct, and no run on small inputs can speak to a subexponential bound, which is the part in dispute.' },
     ...(freshOpen.length ? [{ b: 'A third replay is outstanding' + (freshDone.length ? ' for one claim.' : '.'), raw: freshWords() + '.' }] : []),
     { b: 'Who wrote this.', text: 'As the disclosure at the top says: tools written with Claude, one claim Anthropic’s, the deciders Comparator, Lean’s kernel and nanoda. Nothing here was shared with, run by or reviewed by either lab.' }
   ])

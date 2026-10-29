@@ -260,6 +260,11 @@ if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.ht
    were checked by nobody. The round-one easy read (site/explained/v1/) is kept in its own palette beside them for
    comparison, a second language on purpose, and is not walked. */
 for (const f of ['site/explained/index.html', 'site/uirapuru/index.html']) if (fs.existsSync(path.join(ROOT, f))) pages.push(f);
+/* AND THE PAGES WHOSE BUILDERS WRITE STRAIGHT INTO site/ (2026-10-29, found by the roundtable day's pass, walked on the
+   operator's word): /eth/, /papers/, /eleicoes2026/, and the two apps /janela/ (with /janela/metodo/) and /swell/. Each
+   builder writes its page in place, so what is read here is current when the batteries run. /cv/ is not a page — the
+   URL redirects to site/cv/carlos-toledo-cv.pdf — so there is nothing of it to walk. */
+for (const d of ['site/eth', 'site/papers', 'site/eleicoes2026', 'site/janela', 'site/swell']) walk(d);
 /* AND /instruments (2026-09-15). The walk below used to be added only after
    check 4 had run, so the type check covered 69 pages and the palette check
    90 — and four instruments pages carried a literal ui-monospace stack in
