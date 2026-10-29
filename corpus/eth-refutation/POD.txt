@@ -80,3 +80,14 @@ facts      https://ijw7890hq4ed9x-8000.proxy.runpod.net/ (read-only, port 8000)
 import     node tools/import-runpod-eth.js ijw7890hq4ed9x [--partial]
 budget     cap US$6; deleted at US$5.5 whatever the state (~25 h at this price)
 delete     delete-pod ijw7890hq4ed9x, then confirm get-pod -> 404
+run        prepare exit 0 in 141 s (1,066 pinned files matched, 16a5ce41); lake build exit 0 in 2,475 s (9,768 jobs,
+           largest process 7.2 GB, container peak 26.6 GB with page cache); lake env leanchecker --fresh Solution
+           (Lean v4.33.1, the claim's own toolchain) EXIT 0 in 3,011 s, started 21:27:29Z, no output, largest process
+           10.5 GB, container peak 18.2 GB; cgroup memory.peak 27,518,984,192 bytes. _phase complete 22:17:38Z.
+import     node tools/import-runpod-eth.js ijw7890hq4ed9x (complete) into corpus/eth-refutation/runs/runpod-ijw7890hq4ed9x/;
+           certs/eth-kernel.json re-recorded: Anthropic's leanchecker REPLAYED (row CERTIFIED as before); OpenAI's row
+           unchanged (leanchecker NOT RUN: it waits for the account's pod ceiling to lift; not tried on this box)
+DELETED 2026-10-29 ~22:19Z (delete-pod 204; get-pod 404 "pod not found"; list-pods empty), from the cert-machine
+           session, after the import. Uptime 5,690 s at the read before deletion = US$0.35 at US$0.22/h (the
+           list-pod-billing read just after showed US$0.13, still accruing); the cap was US$6. The day's probe pods
+           add a few cents.

@@ -1,0 +1,139 @@
+{
+ "claim": "anthropic",
+ "env": [
+  "claim: anthropic",
+  "toolchain: leanprover/lean4:v4.33.1",
+  "kernel: 6.8.0-147-generic",
+  "lean: Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
+  "lean prefix: /root/.elan/toolchains/leanprover--lean4---v4.33.1",
+  "mode: fresh-only (no Comparator, lean4export, nanoda or axiom print in this run)",
+  "leanchecker: leanchecker",
+  "vm.max_map_count: 1048576",
+  "cgroup memory.max: 32000000000",
+  "GLIBC_TUNABLES: glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1"
+ ],
+ "verify": {
+  "claim": "anthropic",
+  "commit": "16a5ce41304fcdaea4e0be7c132e1c361dc26da5",
+  "checked": 1066,
+  "mismatches": [],
+  "unpinned": [],
+  "ok": true
+ },
+ "steps": {
+  "prepare": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 141,
+   "running": false,
+   "maxRssKB": 1020004,
+   "containerPeakKB": 11425492,
+   "logTail": [
+    "Downloaded: 5921 file(s) [attempted 5921/8690 = 68%, 205 KB/s], Decompressed: 458",
+    "Downloaded: 6048 file(s) [attempted 6048/8690 = 69%, 2928 KB/s], Decompressed: 458",
+    "Downloaded: 6183 file(s) [attempted 6183/8690 = 71%, 618 KB/s], Decompressed: 458",
+    "Downloaded: 6301 file(s) [attempted 6301/8690 = 72%, 469 KB/s], Decompressed: 458",
+    "Downloaded: 6415 file(s) [attempted 6415/8690 = 73%, 8581 KB/s], Decompressed: 458",
+    "Downloaded: 6522 file(s) [attempted 6522/8690 = 75%, 204 KB/s], Decompressed: 458",
+    "Downloaded: 6627 file(s) [attempted 6627/8690 = 76%, 1152 KB/s], Decompressed: 458",
+    "Downloaded: 6749 file(s) [attempted 6749/8690 = 77%, 2282 KB/s], Decompressed: 458",
+    "Downloaded: 6863 file(s) [attempted 6863/8690 = 78%, 1394 KB/s], Decompressed: 458",
+    "Downloaded: 6936 file(s) [attempted 6936/8690 = 79%, 228 KB/s], Decompressed: 458",
+    "Downloaded: 7034 file(s) [attempted 7034/8690 = 80%, 598 KB/s], Decompressed: 458",
+    "Downloaded: 7137 file(s) [attempted 7137/8690 = 82%, 109 KB/s], Decompressed: 458",
+    "Downloaded: 7235 file(s) [attempted 7235/8690 = 83%, 203 KB/s], Decompressed: 458",
+    "Downloaded: 7343 file(s) [attempted 7343/8690 = 84%, 438 KB/s], Decompressed: 458",
+    "Downloaded: 7441 file(s) [attempted 7441/8690 = 85%, 480 KB/s], Decompressed: 458",
+    "Downloaded: 7530 file(s) [attempted 7530/8690 = 86%, 579 KB/s], Decompressed: 458",
+    "Downloaded: 7626 file(s) [attempted 7626/8690 = 87%, 1956 KB/s], Decompressed: 458",
+    "Downloaded: 7712 file(s) [attempted 7712/8690 = 88%, 2078 KB/s], Decompressed: 458",
+    "Downloaded: 7803 file(s) [attempted 7803/8690 = 89%, 204 KB/s], Decompressed: 458",
+    "Downloaded: 7899 file(s) [attempted 7899/8690 = 90%, 3238 KB/s], Decompressed: 458",
+    "Downloaded: 7997 file(s) [attempted 7997/8690 = 92%, 503 KB/s], Decompressed: 458",
+    "Downloaded: 8100 file(s) [attempted 8100/8690 = 93%, 322 KB/s], Decompressed: 458",
+    "Downloaded: 8198 file(s) [attempted 8198/8690 = 94%, 382 KB/s], Decompressed: 458",
+    "Downloaded: 8308 file(s) [attempted 8308/8690 = 95%, 1331 KB/s], Decompressed: 458",
+    "Downloaded: 8427 file(s) [attempted 8427/8690 = 96%, 5879 KB/s], Decompressed: 458",
+    "Downloaded: 8552 file(s) [attempted 8552/8690 = 98%, 742 KB/s], Decompressed: 458",
+    "Downloaded: 8633 file(s) [attempted 8633/8690 = 99%, 918 KB/s], Decompressed: 458",
+    "Downloaded: 8690 file(s) [attempted 8690/8690 = 100%, 918 KB/s], Decompressed: 458",
+    "Decompressed 8690 file(s)",
+    "Already decompressed 8690 file(s)"
+   ],
+   "errTail": []
+  },
+  "comparator": null,
+  "build": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 2475,
+   "running": false,
+   "maxRssKB": 7194312,
+   "containerPeakKB": 26619048,
+   "logTail": [
+    "✔ [9734/9768] Built FixedWidthSteps.Choice (12s)",
+    "✔ [9735/9768] Built FromPrinted.Circuits (10s)",
+    "✔ [9736/9768] Built ExplicitCost.GroupingCall (19s)",
+    "✔ [9737/9768] Built SparsifyThenCount.Main (7.5s)",
+    "✔ [9738/9768] Built ExplicitCost.GroupingPoly (137s)",
+    "✔ [9739/9768] Built ExplicitCost.GroupingLemma (7.7s)",
+    "✔ [9740/9768] Built SparsifyThenCount.PlanUsed (7.0s)",
+    "✔ [9741/9768] Built RecursionToBound.Exponent (46s)",
+    "✔ [9742/9768] Built CountedRecursion.PolyAll (5.6s)",
+    "✔ [9743/9768] Built RecursionWithPieces.Main (4.4s)",
+    "✔ [9744/9768] Built CountedRecursion.Main (5.7s)",
+    "✔ [9745/9768] Built RecursionWithPieces.Forms (4.1s)",
+    "✔ [9746/9768] Built PiecesCounted.Half (66s)",
+    "✔ [9748/9768] Built PrintedOrder.Close (3.0s)",
+    "✔ [9749/9768] Built MainRoute.EveryMachine (9.1s)",
+    "✔ [9750/9768] Built ThmCount.Remark (7.8s)",
+    "✔ [9752/9768] Built CountedInstance.Main (6.8s)",
+    "✔ [9753/9768] Built RecursionToBound.Correct (12s)",
+    "✔ [9754/9768] Built RecursionToBound.End (18s)",
+    "✔ [9755/9768] Built MainRoute.GeneralInM (6.5s)",
+    "✔ [9756/9768] Built RecursionToBound.Main (2.9s)",
+    "✔ [9757/9768] Built MainRoute.GeneralMain (2.0s)",
+    "✔ [9758/9768] Built FixedWidthSteps.Main (3.9s)",
+    "✔ [9759/9768] Built ThmVariables.Main (3.0s)",
+    "✔ [9761/9768] Built NamesInOrder.Chain (5.1s)",
+    "✔ [9762/9768] Built NamesInOrder.Main (2.9s)",
+    "✔ [9763/9768] Built CountedRoute.Main (3.9s)",
+    "✔ [9765/9768] Built Solution (6.7s)",
+    "✔ [9767/9768] Built PaperIndex (8.3s)",
+    "Build completed successfully (9768 jobs)."
+   ],
+   "errTail": []
+  },
+  "axioms": null,
+  "leanchecker": {
+   "exit": 0,
+   "timedOut": false,
+   "seconds": 3011,
+   "running": false,
+   "maxRssKB": 10486808,
+   "containerPeakKB": 18182364,
+   "logTail": [],
+   "errTail": []
+  }
+ },
+ "comparator": {
+  "okay": false,
+  "kernels": [],
+  "stages": [],
+  "exit": null
+ },
+ "axioms": {
+  "printed": [],
+  "file": null
+ },
+ "leanchecker": {
+  "command": "lake env leanchecker --fresh Solution",
+  "errorLines": []
+ },
+ "phaseOrder": [
+  "prepare",
+  "build",
+  "leanchecker"
+ ],
+ "podState": "done (fresh-only: leanchecker exit 0)"
+}
