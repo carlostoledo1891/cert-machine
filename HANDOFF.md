@@ -22,6 +22,21 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★★★★★ 2026-10-29 (late night) — STATE AT THIS ENTRY. LIVE: /eth/ with five plain lines, the disclosure up, premises
+     ranked; #ETH proved in Lean for both labs and all 51 bridge theorems passing Lean's kernel ×2 + nanoda (certs/eth-bridge.json);
+     the version seam in TSavo's join MEASURED: DIFFERENT (certs/eth-seam.json: statement same kernel term up to a binder
+     name, 74 OAI definitions identical, ℝ's +,×,≤,<,0,1,inverse,npow differ between Mathlibs — no single kernel checked
+     the two are one proposition); the #36 follow-up POSTED (issuecomment-6507840689); the method paper v0.10 (Prop. 4
+     completeness up to tightness, Blum–Kannan, independence by who decides, seven outside re-derivations by three parties
+     — the abstract dropped "The contribution is the system and its semantics.": tell Pedro); D15 /grammar/roundtable/;
+     Tier 1 heroes batch 1 (gsm8k-audit, time-horizon; design/heroes.json + check). RUNNING (agents, branches): Anthropic's
+     leanchecker --fresh on a 4-vCPU pod ijw7890hq4ed9x (cap US$6; POD.txt on eth-leanchecker-fresh-3); the Hodge statement
+     record + openai-math sentence fix (branch openai-hodge-statement); heroes batch 2, the landing + apps (heroes-tier1-batch2).
+     BLOCKED: RunPod refuses any pod > ~US$0.22/h even after the top-up (balance US$25.47): the operator checks the account's
+     spend limit / support; OpenAI's fresh replay and a Hodge second-party Comparator run wait on it. PENDING THE OPERATOR:
+     Neal McBurnett's reply (outreach/neal-mcburnett-reply.private.md, git-ignored; he found Comparator rejects OpenAI's Hodge
+     challenge by statement mismatch, confirmed from sources here; his nanoda work and issues #61/#71 overlap our 18 refused
+     lane-K rows; he is an RLA/election-audit expert); credit him on the page only with his permission.
   ★★★★★★★★ 2026-10-29 (night) — D15 LIVE: /grammar/roundtable/ (approved specimen merged, then the full page: who sat and
      what a seat was, the five agreements, six axioms, the ten findings each counted then (the site's HTML at e310e071^,
      extracted at build) and now by the same marks census, the fifteen candidate rules with a status the build decides
