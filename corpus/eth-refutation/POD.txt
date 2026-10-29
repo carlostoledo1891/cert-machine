@@ -51,3 +51,12 @@ outcome    NO RUN. Nothing billing (list-pods empty, 20:08Z). The probes cost a 
            balance allows a US$0.88-1.76/h pod: tools/runpod-eth.sh at d61b2007 with FRESH_ONLY=1 (prepare, build,
            leanchecker --fresh; the Comparator facts are already recorded), FRESH_PARALLEL=1, FRESH_TIMEOUT=64800,
            LEAN_GLIBC_TUNABLES as before, on cpu3m 16 or 32 vCPU, disk 160-200 GB, ports 8000/http.
+
+── 2026-10-29 ~20:35Z: second attempt, after the operator reported a balance of US$25.47 (cap US$15; branch
+   eth-leanchecker-fresh-2) ──
+refused    cpu3m 16 vCPU / 160 GB disk / ports 8000/http, US$0.88/h, FRESH_ONLY=1 at d61b2007 ("no instances
+           available"; the catalog read listed cpu3m 16 LOW in EU-CZ-1, EUR-IS-1, US-NE-1); cpu3c 8 image-only,
+           US$0.24/h, refused again
+probe      6mcxjebqxaeix3 (cpu3m 4 vCPU / 32 GB, US$0.22/h, EU-SE-1), image-only, created 20:35:30Z, DELETED at
+           20:35:35Z (204; get-pod -> 404). The ceiling sits where it was before the top-up, between US$0.22 and
+           US$0.24 per hour; same account (audit log: carlos@carlostoledo.co for every pod since 10-28).
