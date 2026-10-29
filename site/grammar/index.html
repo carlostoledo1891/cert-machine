@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The visual grammar · Carlos Toledo</title>
+<meta name="description" content="The visual grammar of this site: a mark’s stroke says what it rests on, decided, computed, chosen or refused, with sixteen rules, each from a finding on one of its own pages.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/grammar/">
+<meta property="og:url" content="https://carlostoledo.co/grammar/">
+<meta property="og:title" content="The visual grammar · Carlos Toledo">
+<meta property="og:description" content="The visual grammar of this site: a mark’s stroke says what it rests on, decided, computed, chosen or refused, with sixteen rules, each from a finding on one of its own pages.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The visual grammar · Carlos Toledo">
+<meta name="twitter:description" content="The visual grammar of this site: a mark’s stroke says what it rests on, decided, computed, chosen or refused, with sixteen rules, each from a finding on one of its own pages.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+.page{max-width:1200px;margin:0 auto;padding:clamp(28px,5vw,60px) clamp(1.25rem,4vw,3rem) 0}
+
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 clamp(1.25rem,4vw,3rem);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px clamp(1.25rem,4vw,3rem) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+
+/* ---- THE TWO TRACKS, and there are only two (2026-09-04, phase 2) ----
+   '.col' USED TO BE A CENTRED 68ch BOX inside a centred 900px figure track,
+   which put the prose at x=398 and every table at x=270 — a figure standing
+   128px proud of the paragraph above it on both sides, and a left edge that
+   moved depending on what an element was. The ruler counted three such spines
+   across the site and the front page shared none of them with /instruments.
+
+   The fix is the one playground/design/shell.css already found: THE COLUMN
+   DOES NOT CAP THE WIDTH, IT CAPS THE TEXT. '.col' runs the full container so
+   whatever comes next — a table, a card grid, a figure — already has the
+   track, and only the reading elements inside it take the measure. There is
+   nothing left for a breakout to break out OF, so '.col .wide' is a no-op and
+   the translateX trick that produced the 1849px table is gone. */
+.col,.wide{max-width:none;margin-left:0;margin-right:0}
+.col > p,.col > ul,.col > ol,.col > blockquote,.col > .deck,.col > .scope,
+.col > h1,.col > h2,.col > h3,.col > h4{max-width:82ch}
+.col .wide{position:static;left:auto;transform:none;width:auto}
+
+h1,h2,h3{font-family:var(--f-display);color:var(--ink);text-wrap:balance}
+h1{font-size:clamp(2.75rem,1.2rem + 6vw,5.5rem);line-height:1.04;margin:16px 0 0;letter-spacing:-.035em;font-weight:550}
+h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;letter-spacing:-.02em;font-weight:530}
+h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
+.deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
+  max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+p{margin:0 0 18px}
+a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
+a:hover{border-bottom-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+strong{color:var(--ink);font-weight:480}
+em{font-style:italic}
+.m{font-family:var(--f-mono);font-size:.85em;background:var(--surface2);border:1px solid var(--rule);
+  border-radius:4px;padding:.08em .38em;color:var(--ink-2)}
+
+section{margin:clamp(5rem,12vh,9rem) 0 0}
+.sec-head{display:flex;flex-direction:column;gap:9px;margin-bottom:32px}
+.sec-head .lab{color:var(--ink-4)}
+
+/* stat tiles — the fused grid: 1px gaps painted by the border colour.
+   FULL-ROW RULE: mobile-first 2 columns with the odd last cell spanning
+   both; the balanced per-count desktop layouts (see statsGridRules) live
+   in the min-width query below, keyed on data-n. */
+.stats{margin:48px 0 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.stats .stat:last-child:nth-child(odd){grid-column:1/-1}
+/* 681px WAS TOO EAGER, 2026-09-05. The balanced desktop layouts put six tiles
+   in three columns, and at 768 that is about 235px of cell for a headline
+   number — so "604 <= K(11) <= 868" broke across two lines in the middle of the
+   relation, and half the labels wrapped. No page had ever been looked at between
+   390 and 1440, which is why a breakpoint sitting in the middle of that gap went
+   unexamined. Three columns need roughly 280px each to hold these numbers, so
+   the balanced layouts start where that is true and 768 keeps the mobile
+   two-column grid, which reads correctly. */
+@media (min-width:901px){
+.stats[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.stats[data-n="1"] .stat:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.stats[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.stats[data-n="2"] .stat:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.stats[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="3"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.stats[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="4"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.stats[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.stats[data-n="5"] .stat:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.stats[data-n="5"] .stat:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.stats[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="6"] .stat:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.stats[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="7"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="7"] .stat:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.stats[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="8"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.stats[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.stats[data-n="9"] .stat:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.stats[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="10"] .stat:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.stats[data-n="10"] .stat:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.stats[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.stats[data-n="11"] .stat:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.stats[data-n="11"] .stat:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.stats[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats[data-n="12"] .stat:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+}
+.stat{background:var(--sunk);padding:24px;display:flex;flex-direction:column;gap:8px}
+.stat .k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.stat .v{font-family:var(--f-display);font-weight:530;font-size:clamp(1.4rem,1.05rem + 1.1vw,2rem);
+  line-height:1.1;color:var(--ink);letter-spacing:-.02em;font-variant-numeric:tabular-nums;min-width:0}
+.stat .v.sm{font-size:.875rem;font-family:var(--f-mono);font-weight:500;letter-spacing:-.01em;white-space:nowrap;line-height:1.45}
+.stat .n{font-size:0.6875rem;font-family:var(--f-mono);line-height:1.5;color:var(--ink-4)}
+
+/* DISCLOSURE — a long table folded after its first rows. Script-free: a reader
+   who wants the rest opens it, and one who does not is not made to scroll past
+   it. The summary carries the count, so the fold says what it is hiding rather
+   than just saying "more". */
+details.more{margin-top:24px}
+.wide details.more .wide{position:static;left:auto;transform:none;width:auto;max-width:none}
+details.more > summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);border:1px solid var(--rule-strong);border-radius:var(--radius-pill);padding:7px 16px;
+  transition:color .15s ease,border-color .15s ease}
+details.more > summary::-webkit-details-marker{display:none}
+details.more > summary::after{content:'+';font-size:14px;line-height:1;color:var(--ink-4)}
+details.more[open] > summary::after{content:'−'}
+details.more > summary:hover{color:var(--ink);border-color:var(--ink-3)}
+details.more > summary:focus-visible{outline:2px solid var(--ink-3);outline-offset:3px}
+details.more[open] > summary{margin-bottom:24px}
+.scope{margin:24px 0 0;max-width:82ch;border-left:2px solid var(--rule-strong);padding-left:18px;
+  color:var(--ink-3);font-size:0.8125rem;line-height:1.6}
+
+figure{margin:0}
+.figbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:1.5rem;overflow-x:auto}
+.figbox svg{display:block;width:100%;height:auto}
+figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+.figbox svg text{font-family:var(--f-mono)}
+.t-ax{font-size:12px;fill:var(--ink-3)}
+.t-lab{font-size:13px;fill:var(--ink)}
+.t-key{font-size:12.5px;fill:var(--ink);font-weight:500}
+.t-held{font-size:12.5px;fill:var(--ink);font-weight:600}
+.t-warn{font-size:12.5px;fill:var(--ink-3);font-weight:500}
+.t-note{font-size:11.5px;fill:var(--ink-4)}
+
+/* --- the chart kit (design/charts.js) ---
+   The hover readout is the second scripted element this design system ships,
+   after the machine schematic. It ENHANCES: every value a chart shows is also
+   in a direct label, an axis tick, or the prose beside it, so with scripts off
+   nothing is gated — the charts simply stop following the pointer. */
+.cm-tip{position:absolute;z-index:60;display:none;pointer-events:none;
+  background:var(--surface);border:1px solid var(--rule-strong);border-radius:var(--radius-s);
+  padding:7px 10px;font-family:var(--f-mono);font-size:12px;line-height:1.45;
+  color:var(--ink);box-shadow:var(--shadow);max-width:280px}
+.cm-tip b{display:block;font-weight:600;color:var(--ink)}
+.cm-tip span{display:block;color:var(--ink-3)}
+.figbox [data-cm]{cursor:crosshair}
+/* the crosshair starts hidden. It used to say so on every one of the 34 lines
+   that draw it, in a style attribute; the hover script still sets opacity on
+   the element, which is a DATUM (is the pointer here) and not a design
+   decision. 2026-09-15. */
+.cm-cross{opacity:0}
+
+/* ---- the certify() widget (tools/oracle-widget.js), on /oracle and
+   /reports/mfg-observatory. Its five elements carried their whole appearance
+   in style attributes — a second stylesheet on two published pages, written
+   where no restyle could reach it (2026-09-15). ---- */
+.cmw-in{width:100%;min-height:150px;font-family:var(--f-mono);font-size:var(--text-small);
+  background:var(--sunk);color:var(--ink);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3)}
+.cmw-row{margin:var(--s-2) 0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+.cmw-btn{font:inherit;padding:var(--s-2) var(--s-4);cursor:pointer;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-s)}
+.cmw-btn.go{background:var(--sig);color:var(--paper);border:none}
+.cmw-out{white-space:pre-wrap;background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-s);padding:var(--s-3);font-size:var(--text-small);
+  min-height:1.5em;overflow-x:auto}
+.figbox [data-cm]:focus{outline:2px solid var(--ink);outline-offset:1px}
+.figbox [data-cm]:focus:not(:focus-visible){outline:none}
+svg.cm-spark{display:inline-block;width:132px;height:30px;vertical-align:middle}
+@media (prefers-reduced-motion:no-preference){.figbox [data-cm]{transition:opacity .12s}}
+
+.pull{font-family:var(--f-display);font-weight:530;font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  line-height:1.25;letter-spacing:-.02em;margin:32px 0;text-wrap:balance;color:var(--ink-2)}
+.pull b{color:var(--ink);font-weight:550}
+
+.eq{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;text-align:center;
+  font-family:var(--f-mono);font-size:.875rem;line-height:1.8;color:var(--ink);overflow-x:auto}
+
+pre.code{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 22px;margin:22px 0;
+  font-family:var(--f-mono);font-size:.75rem;line-height:1.7;color:var(--ink-2);overflow-x:auto}
+
+.after-fig{margin-top:26px}
+/* the two measures, named — the same pair /instruments takes (2026-09-15) */
+.rd{max-width:82ch}
+.ti{max-width:28ch}
+
+.note{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:20px 24px;margin:24px 0;font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+.note .lab{display:block;margin-bottom:8px;color:var(--ink-4)}
+.note p:last-child{margin-bottom:0}
+
+blockquote{margin:22px 0;padding-left:20px;border-left:2px solid var(--rule-strong);
+  font-size:1.125rem;line-height:1.55;color:var(--ink)}
+blockquote cite{display:block;margin-top:10px;font-style:normal;font-size:0.6875rem;
+  font-family:var(--f-mono);color:var(--ink-4);letter-spacing:.06em;line-height:1.5}
+
+table{border-collapse:collapse;width:100%;min-width:560px;
+  font-family:var(--f-mono);font-size:0.8125rem;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-4);font-weight:500;text-align:left;padding:12px 16px;border-bottom:1px solid var(--rule-strong);white-space:nowrap}
+td{padding:12px 16px;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-2)}
+tbody tr{transition:background .16s}
+tbody tr:hover{background:var(--surface)}
+tr:last-child td{border-bottom:0}
+td.k{color:var(--ink);font-weight:500;white-space:nowrap}
+td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
+td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
+
+/* verdict chips — WEIGHT + SHAPE, never colour-alone:
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+.tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
+  font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
+  border-radius:var(--radius-pill);white-space:nowrap}
+.tag.held{background:var(--ink);color:var(--paper)}
+.tag.cert{background:var(--ink);color:var(--paper)}
+.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
+
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
+.cards>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE: an odd last card fills its row */
+@media (max-width:680px){.cards{grid-template-columns:1fr}}
+a.card{display:flex;flex-direction:column;gap:10px;background:var(--surface);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:24px;
+  color:inherit;text-decoration:none;
+  transition:border-color .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1),background .28s}
+a.card:hover{border-color:var(--rule-strong);background:var(--surface2);transform:translateY(-3px)}
+a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.card-k{font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-4)}
+.card-t{font-family:var(--f-display);font-weight:530;font-size:1.2rem;line-height:1.25;
+  letter-spacing:-.015em;color:var(--ink);text-wrap:balance}
+.card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
+  font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
+
+/* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
+   the panels are siblings. Same device as the nav drawer: no script, so it
+   works in a reader that runs none, and the radios keep arrow-key semantics
+   for free. The nth-of-type pairs are generated below. */
+.picker{margin:8px 0 0}
+.pk-r{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+.pk-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.pk-t{display:flex;flex-direction:column;gap:3px;cursor:pointer;padding:10px 14px;
+  border:1px solid var(--rule);border-radius:var(--radius-m);background:var(--surface);
+  transition:border-color .16s ease,background .16s ease}
+.pk-t:hover{border-color:var(--rule-strong)}
+.pk-t .pk-k{font-family:var(--f-mono);font-size:.625rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-4)}
+.pk-t .pk-n{font-family:var(--f-display);font-weight:530;font-size:.9375rem;color:var(--ink-3);line-height:1.2}
+.pk-p{display:none}
+.pk-p .pk-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin-bottom:6px}
+.pk-p h3{font-family:var(--f-display);font-weight:530;font-size:1.3rem;letter-spacing:-.015em;
+  color:var(--ink);margin:0}
+.pk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px}
+.pk-grid>:last-child:nth-child(odd){grid-column:1/-1} /* FULL-ROW RULE */
+@media (max-width:680px){.pk-grid{grid-template-columns:1fr}}
+.pk-box{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:18px 20px}
+.pk-box .lab{display:block;margin-bottom:8px;font-family:var(--f-mono);font-size:.625rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.pk-box.warn .lab{color:var(--ink-3)}
+.pk-box p{margin:0;font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(1):checked ~ .pk-tabs > .pk-t:nth-child(1) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(1):focus-visible ~ .pk-tabs > .pk-t:nth-child(1){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(1):checked ~ .pk-panes > .pk-p:nth-child(1){display:block}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(2):checked ~ .pk-tabs > .pk-t:nth-child(2) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(2):focus-visible ~ .pk-tabs > .pk-t:nth-child(2){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(2):checked ~ .pk-panes > .pk-p:nth-child(2){display:block}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(3):checked ~ .pk-tabs > .pk-t:nth-child(3) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(3):focus-visible ~ .pk-tabs > .pk-t:nth-child(3){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(3):checked ~ .pk-panes > .pk-p:nth-child(3){display:block}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(4):checked ~ .pk-tabs > .pk-t:nth-child(4) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(4):focus-visible ~ .pk-tabs > .pk-t:nth-child(4){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(4):checked ~ .pk-panes > .pk-p:nth-child(4){display:block}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(5):checked ~ .pk-tabs > .pk-t:nth-child(5) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(5):focus-visible ~ .pk-tabs > .pk-t:nth-child(5){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(5):checked ~ .pk-panes > .pk-p:nth-child(5){display:block}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(6):checked ~ .pk-tabs > .pk-t:nth-child(6) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(6):focus-visible ~ .pk-tabs > .pk-t:nth-child(6){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(6):checked ~ .pk-panes > .pk-p:nth-child(6){display:block}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(7):checked ~ .pk-tabs > .pk-t:nth-child(7) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(7):focus-visible ~ .pk-tabs > .pk-t:nth-child(7){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(7):checked ~ .pk-panes > .pk-p:nth-child(7){display:block}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(8):checked ~ .pk-tabs > .pk-t:nth-child(8) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(8):focus-visible ~ .pk-tabs > .pk-t:nth-child(8){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(8):checked ~ .pk-panes > .pk-p:nth-child(8){display:block}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(9):checked ~ .pk-tabs > .pk-t:nth-child(9) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(9):focus-visible ~ .pk-tabs > .pk-t:nth-child(9){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(9):checked ~ .pk-panes > .pk-p:nth-child(9){display:block}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(10):checked ~ .pk-tabs > .pk-t:nth-child(10) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(10):focus-visible ~ .pk-tabs > .pk-t:nth-child(10){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(10):checked ~ .pk-panes > .pk-p:nth-child(10){display:block}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(11):checked ~ .pk-tabs > .pk-t:nth-child(11) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(11):focus-visible ~ .pk-tabs > .pk-t:nth-child(11){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(11):checked ~ .pk-panes > .pk-p:nth-child(11){display:block}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12){border-color:var(--ink-3);background:var(--surface2)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-n{color:var(--ink)}
+.pk-r:nth-of-type(12):checked ~ .pk-tabs > .pk-t:nth-child(12) .pk-k{color:var(--ink-2)}
+.pk-r:nth-of-type(12):focus-visible ~ .pk-tabs > .pk-t:nth-child(12){outline:2px solid var(--ink);outline-offset:3px}
+.pk-r:nth-of-type(12):checked ~ .pk-panes > .pk-p:nth-child(12){display:block}
+
+ul.plain{list-style:none;padding:0;margin:0}
+ul.plain li{padding:16px 0;border-top:1px solid var(--rule);font-size:0.9375rem;line-height:1.6;color:var(--ink-3)}
+ul.plain li:first-child{border-top:0}
+ul.plain b{color:var(--ink);font-weight:480}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+
+/* ---- the machine schematic (components.flow) ----
+   Nodes are keyboard-focusable buttons; the readout above the drawing narrates
+   whichever node is active. Without scripts the readout keeps its default text
+   and hover still highlights — the figure degrades, it does not vanish. */
+.mach .figbox{padding-top:18px}
+/* the schematic is drawn vertical at 800 design units; cap the rendered width
+   at that same 800 so desktop renders near 1:1 and never inflates the type */
+.mach svg{max-width:800px;margin:0 auto}
+.mach-ro{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;align-items:baseline;
+  border-bottom:1px solid var(--rule);padding-bottom:14px;margin-bottom:10px}
+.mach-ro .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-4);white-space:nowrap}
+.mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
+.mach svg .nd{cursor:pointer;outline:none}
+.mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
+.mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
+.mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
+.mach svg .acc-sig{fill:var(--ink)}
+.mach svg .acc-held{fill:var(--ink-2)}
+.mach svg .acc-warn{fill:var(--ink-4)}
+.mach svg .acc-dep{fill:var(--mark)}
+.mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
+.mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
+.mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
+.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
+@media (prefers-reduced-motion:no-preference){
+  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+}
+@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
+
+@media (prefers-reduced-motion:no-preference){
+  h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
+  .deck{animation-delay:.05s}.stats{animation-delay:.1s}
+}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--rule-strong);border-radius:5px;border:2px solid var(--paper)}
+::-webkit-scrollbar-track{background:transparent}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+
+/* /grammar/ (tools/build-grammar.js): the specimen grids, the finding lines, the witness × in a figure, the halo key */
+.gr-spec{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-5)}
+@media (min-width:700px){.gr-spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gr-spec figure{margin:0}
+.gr-spec figcaption{margin-bottom:0}
+.gr-two{margin-top:var(--s-7)}
+.gr-k{display:block;margin-bottom:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-2)}
+.gr-h3{margin-top:var(--s-7)}
+.gr-f{display:block;margin-top:var(--s-2);font-size:var(--text-small);color:var(--ink-4)}
+.gr-f a.gr-c{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);white-space:nowrap}
+.gr-wx{stroke:var(--witness)}
+ul.plain .gr-pats{list-style:none;padding:0;margin:var(--s-2) 0 0}
+ul.plain .gr-pats li{padding:var(--s-1) 0;border-top:0;font-size:var(--text-small)}
+.gr-halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:4;stroke-linejoin:round;opacity:.32}
+
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html" aria-current="page">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+
+<div class="page">
+
+<header class="col">
+  <div class="eyebrow">Carlos Toledo · the visual grammar</div>
+  <h1>The visual grammar: what each mark rests on</h1>
+  <p class="deck">WARRANT is the grammar the figures, tables and numbers on this site are drawn in. The stroke of every line and the underline of every number say what it rests on: an exact decision, floating-point arithmetic, a choice, or nothing at all. A verdict is always a word. It covers the instruments and the pages read most; every other report takes it when it is next edited, and material already submitted elsewhere stays exactly as submitted. Below: the four marks, drawn live by the module; the sixteen rules, each with the finding on one of these pages that taught it; the colour law; the premise ladder for numbers that rest on a model; how the build enforces all of it; and how to use it in figures of your own.</p>
+</header>
+
+<section class="" id="what">
+  <div class="col sec-head">
+    <div class="lab">what it is</div>
+    <h2>A stroke says what the number behind it rests on</h2>
+  </div>
+<div class="col"><p>A chart and a table both assert things, and neither usually says which of its marks the data forced and which the renderer, the solver or the tolerance chose. A fitted curve drawn solid looks exactly like a proved bound drawn solid. This grammar gives every mark one of four standings, and each standing one stroke:</p><ul class="plain"><li><b>DECIDED</b> — solid; in text, plain. An exact decision backs it: an interval enclosure, an exact rational comparison, a proof.</li><li><b>COMPUTED</b> — dashed, <span class="m">5 4</span>; in text, <span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">a dashed underline</span>. Floating-point arithmetic, a solver stopped at a tolerance, a fit, a forecast, or a number someone printed: it may well be right, and nothing decided it.</li><li><b>CHOSEN</b> — dotted, <span class="m">1 5</span> with round caps; in text, <span class="w-val w-chosen" title="chosen — one member of a set the data admits">a dotted underline</span>. One member of a set the data admit, picked by something that is not the data: a tie-break, a default, a seed, a prior, an interpolation.</li><li><b>REFUSED</b> — no mark at all. The instrument declined, or the input is missing; the void is drawn, hatched, and in text it reads <span class="w-val w-refused" title="refused — no mark — the void is drawn">refused</span>. It is never interpolated across, never averaged, never a zero.</li></ul><p>A mark takes the <b>weakest</b> standing on its path to the pixel: a knot computed exactly is solid, and the line drawn between two such knots is dotted, because a straight line is one curve of many through them. Standing is not a verdict. CERTIFIED, REFUTED and REFUSED are what an instrument concluded about a claim; they are said in words and chips, never in a stroke, and a refutation proved here is drawn solid. Nor is standing a confidence: a value known to many decimals can still be undecided, and a decided value can have a wide bracket, which is drawn as its own extent.</p></div><div class="w-legend" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+</section>
+
+<section class="" id="specimens">
+  <div class="col sec-head">
+    <div class="lab">live specimens</div>
+    <h2>Drawn by the module when this page is built</h2>
+  </div>
+<div class="col"><p>Every mark below is drawn by <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/playground/warrant.js">playground/warrant.js</a> as this page is built, on one curve: y = √x for x from −1 to 4. The exact parts are decided by this page’s builder in integer arithmetic; the float parts are Math.sqrt. If the module changes, these drawings change with it.</p></div><div class="gr-spec" data-n="4"><figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="Specimen, decided: two solid staircases enclose the curve y equals the square root of x on 0 to 4, in eight steps of one half.">
+    <line x1="40" y1="204.0" x2="384" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="208.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="120.4" x2="384" y2="120.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="124.4" text-anchor="end" class="t-ax">1</text>
+    <line x1="40" y1="36.9" x2="384" y2="36.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="40.9" text-anchor="end" class="t-ax">2</text>
+    <line x1="40.0" y1="204" x2="40.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="224.0" text-anchor="middle" class="t-ax">−1</text>
+    <line x1="108.8" y1="204" x2="108.8" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="108.8" y="224.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="177.6" y1="204" x2="177.6" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="177.6" y="224.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="246.4" y1="204" x2="246.4" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="246.4" y="224.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="315.2" y1="204" x2="315.2" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="315.2" y="224.0" text-anchor="middle" class="t-ax">3</text>
+    <line x1="384.0" y1="204" x2="384.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="384.0" y="224.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="40" y1="204" x2="384" y2="204" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="246.0" text-anchor="middle" class="t-note">x</text>
+    <path d="M108.8,143.9H143.2V120.4H177.6V100.9H212.0V85.2H246.4V70.8H280.8V59.1H315.2V47.3H349.6V36.9H384.0" class="w-decided" fill="none" stroke-width="1.8"/>
+    <path d="M108.8,204.0H143.2V145.3H177.6V120.4H212.0V102.2H246.4V86.5H280.8V72.1H315.2V60.4H349.6V48.6H384.0" class="w-decided" fill="none" stroke-width="1.8"/>
+  </svg>
+</div><figcaption><span class="gr-k">DECIDED · solid</span>An enclosure. On each of the eight steps of width 1/2, √x lies between the two lines for every x: each step is an integer square root over 64, checked by squaring when this page is built.</figcaption></figure>
+<figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="Specimen, computed: the float curve of Math.sqrt, dashed.">
+    <line x1="40" y1="204.0" x2="384" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="208.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="120.4" x2="384" y2="120.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="124.4" text-anchor="end" class="t-ax">1</text>
+    <line x1="40" y1="36.9" x2="384" y2="36.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="40.9" text-anchor="end" class="t-ax">2</text>
+    <line x1="40.0" y1="204" x2="40.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="224.0" text-anchor="middle" class="t-ax">−1</text>
+    <line x1="108.8" y1="204" x2="108.8" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="108.8" y="224.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="177.6" y1="204" x2="177.6" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="177.6" y="224.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="246.4" y1="204" x2="246.4" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="246.4" y="224.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="315.2" y1="204" x2="315.2" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="315.2" y="224.0" text-anchor="middle" class="t-ax">3</text>
+    <line x1="384.0" y1="204" x2="384.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="384.0" y="224.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="40" y1="204" x2="384" y2="204" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="246.0" text-anchor="middle" class="t-note">x</text>
+    <polyline points="108.8,204.0 109.5,195.6 110.2,192.2 110.9,189.5 111.6,187.3 112.2,185.3 112.9,183.5 113.6,181.9 114.3,180.4 115.0,178.9 115.7,177.6 116.4,176.3 117.1,175.1 117.7,173.9 118.4,172.7 119.1,171.6 119.8,170.6 120.5,169.5 121.2,168.6 121.9,167.6 122.6,166.6 123.2,165.7 123.9,164.8 124.6,163.9 125.3,163.1 126.0,162.2 126.7,161.4 127.4,160.6 128.1,159.8 128.8,159.0 129.4,158.2 130.1,157.5 130.8,156.7 131.5,156.0 132.2,155.3 132.9,154.6 133.6,153.9 134.3,153.2 134.9,152.5 135.6,151.8 136.3,151.2 137.0,150.5 137.7,149.8 138.4,149.2 139.1,148.6 139.8,147.9 140.4,147.3 141.1,146.7 141.8,146.1 142.5,145.5 143.2,144.9 143.9,144.3 144.6,143.7 145.3,143.2 146.0,142.6 146.6,142.0 147.3,141.5 148.0,140.9 148.7,140.4 149.4,139.8 150.1,139.3 150.8,138.7 151.5,138.2 152.1,137.7 152.8,137.2 153.5,136.6 154.2,136.1 154.9,135.6 155.6,135.1 156.3,134.6 157.0,134.1 157.6,133.6 158.3,133.1 159.0,132.6 159.7,132.1 160.4,131.6 161.1,131.2 161.8,130.7 162.5,130.2 163.2,129.7 163.8,129.3 164.5,128.8 165.2,128.3 165.9,127.9 166.6,127.4 167.3,127.0 168.0,126.5 168.7,126.1 169.3,125.6 170.0,125.2 170.7,124.7 171.4,124.3 172.1,123.9 172.8,123.4 173.5,123.0 174.2,122.6 174.8,122.1 175.5,121.7 176.2,121.3 176.9,120.9 177.6,120.4 178.3,120.0 179.0,119.6 179.7,119.2 180.4,118.8 181.0,118.4 181.7,118.0 182.4,117.6 183.1,117.2 183.8,116.8 184.5,116.4 185.2,116.0 185.9,115.6 186.5,115.2 187.2,114.8 187.9,114.4 188.6,114.0 189.3,113.6 190.0,113.2 190.7,112.9 191.4,112.5 192.0,112.1 192.7,111.7 193.4,111.3 194.1,111.0 194.8,110.6 195.5,110.2 196.2,109.8 196.9,109.5 197.6,109.1 198.2,108.7 198.9,108.4 199.6,108.0 200.3,107.6 201.0,107.3 201.7,106.9 202.4,106.6 203.1,106.2 203.7,105.8 204.4,105.5 205.1,105.1 205.8,104.8 206.5,104.4 207.2,104.1 207.9,103.7 208.6,103.4 209.2,103.0 209.9,102.7 210.6,102.4 211.3,102.0 212.0,101.7 212.7,101.3 213.4,101.0 214.1,100.6 214.8,100.3 215.4,100.0 216.1,99.6 216.8,99.3 217.5,99.0 218.2,98.6 218.9,98.3 219.6,98.0 220.3,97.7 220.9,97.3 221.6,97.0 222.3,96.7 223.0,96.3 223.7,96.0 224.4,95.7 225.1,95.4 225.8,95.1 226.4,94.7 227.1,94.4 227.8,94.1 228.5,93.8 229.2,93.5 229.9,93.2 230.6,92.8 231.3,92.5 232.0,92.2 232.6,91.9 233.3,91.6 234.0,91.3 234.7,91.0 235.4,90.7 236.1,90.4 236.8,90.0 237.5,89.7 238.1,89.4 238.8,89.1 239.5,88.8 240.2,88.5 240.9,88.2 241.6,87.9 242.3,87.6 243.0,87.3 243.6,87.0 244.3,86.7 245.0,86.4 245.7,86.1 246.4,85.8 247.1,85.5 247.8,85.2 248.5,85.0 249.2,84.7 249.8,84.4 250.5,84.1 251.2,83.8 251.9,83.5 252.6,83.2 253.3,82.9 254.0,82.6 254.7,82.3 255.3,82.1 256.0,81.8 256.7,81.5 257.4,81.2 258.1,80.9 258.8,80.6 259.5,80.3 260.2,80.1 260.8,79.8 261.5,79.5 262.2,79.2 262.9,78.9 263.6,78.7 264.3,78.4 265.0,78.1 265.7,77.8 266.4,77.6 267.0,77.3 267.7,77.0 268.4,76.7 269.1,76.5 269.8,76.2 270.5,75.9 271.2,75.6 271.9,75.4 272.5,75.1 273.2,74.8 273.9,74.6 274.6,74.3 275.3,74.0 276.0,73.7 276.7,73.5 277.4,73.2 278.0,72.9 278.7,72.7 279.4,72.4 280.1,72.2 280.8,71.9 281.5,71.6 282.2,71.4 282.9,71.1 283.6,70.8 284.2,70.6 284.9,70.3 285.6,70.1 286.3,69.8 287.0,69.5 287.7,69.3 288.4,69.0 289.1,68.8 289.7,68.5 290.4,68.2 291.1,68.0 291.8,67.7 292.5,67.5 293.2,67.2 293.9,67.0 294.6,66.7 295.2,66.5 295.9,66.2 296.6,65.9 297.3,65.7 298.0,65.4 298.7,65.2 299.4,64.9 300.1,64.7 300.8,64.4 301.4,64.2 302.1,63.9 302.8,63.7 303.5,63.4 304.2,63.2 304.9,62.9 305.6,62.7 306.3,62.4 306.9,62.2 307.6,62.0 308.3,61.7 309.0,61.5 309.7,61.2 310.4,61.0 311.1,60.7 311.8,60.5 312.4,60.2 313.1,60.0 313.8,59.8 314.5,59.5 315.2,59.3 315.9,59.0 316.6,58.8 317.3,58.6 318.0,58.3 318.6,58.1 319.3,57.8 320.0,57.6 320.7,57.4 321.4,57.1 322.1,56.9 322.8,56.6 323.5,56.4 324.1,56.2 324.8,55.9 325.5,55.7 326.2,55.5 326.9,55.2 327.6,55.0 328.3,54.8 329.0,54.5 329.6,54.3 330.3,54.1 331.0,53.8 331.7,53.6 332.4,53.4 333.1,53.1 333.8,52.9 334.5,52.7 335.2,52.4 335.8,52.2 336.5,52.0 337.2,51.8 337.9,51.5 338.6,51.3 339.3,51.1 340.0,50.8 340.7,50.6 341.3,50.4 342.0,50.2 342.7,49.9 343.4,49.7 344.1,49.5 344.8,49.3 345.5,49.0 346.2,48.8 346.8,48.6 347.5,48.4 348.2,48.1 348.9,47.9 349.6,47.7 350.3,47.5 351.0,47.2 351.7,47.0 352.4,46.8 353.0,46.6 353.7,46.3 354.4,46.1 355.1,45.9 355.8,45.7 356.5,45.5 357.2,45.2 357.9,45.0 358.5,44.8 359.2,44.6 359.9,44.4 360.6,44.1 361.3,43.9 362.0,43.7 362.7,43.5 363.4,43.3 364.0,43.1 364.7,42.8 365.4,42.6 366.1,42.4 366.8,42.2 367.5,42.0 368.2,41.8 368.9,41.5 369.6,41.3 370.2,41.1 370.9,40.9 371.6,40.7 372.3,40.5 373.0,40.3 373.7,40.1 374.4,39.8 375.1,39.6 375.7,39.4 376.4,39.2 377.1,39.0 377.8,38.8 378.5,38.6 379.2,38.4 379.9,38.1 380.6,37.9 381.2,37.7 381.9,37.5 382.6,37.3 383.3,37.1 384.0,36.9" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4" stroke-linejoin="round"/>
+  </svg>
+</div><figcaption><span class="gr-k">COMPUTED · dashed</span>Math.sqrt at 401 points, closer together than a pixel, joined. Floating point: it may well be right, and nothing decided it. (All 401 values do lie inside the enclosure; comparing two doubles is exact.)</figcaption></figure>
+<figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="Specimen, chosen: the midpoint of the enclosure on each step, dotted.">
+    <line x1="40" y1="204.0" x2="384" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="208.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="120.4" x2="384" y2="120.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="124.4" text-anchor="end" class="t-ax">1</text>
+    <line x1="40" y1="36.9" x2="384" y2="36.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="40.9" text-anchor="end" class="t-ax">2</text>
+    <line x1="40.0" y1="204" x2="40.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="224.0" text-anchor="middle" class="t-ax">−1</text>
+    <line x1="108.8" y1="204" x2="108.8" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="108.8" y="224.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="177.6" y1="204" x2="177.6" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="177.6" y="224.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="246.4" y1="204" x2="246.4" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="246.4" y="224.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="315.2" y1="204" x2="315.2" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="315.2" y="224.0" text-anchor="middle" class="t-ax">3</text>
+    <line x1="384.0" y1="204" x2="384.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="384.0" y="224.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="40" y1="204" x2="384" y2="204" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="246.0" text-anchor="middle" class="t-note">x</text>
+    <path d="M108.8,174.0H143.2V132.8H177.6V110.7H212.0V93.7H246.4V78.7H280.8V65.6H315.2V53.9H349.6V42.8H384.0" class="w-chosen" fill="none" stroke-width="2.2" stroke-dasharray="1 5" stroke-linecap="round"/>
+  </svg>
+</div><figcaption><span class="gr-k">CHOSEN · dotted</span>The midpoint of the enclosure on each step: one member of the set the enclosure admits, picked by a rule that is not the data. It is the number a table usually prints.</figcaption></figure>
+<figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="Specimen, refused: for x below zero there is no mark, only a hatched void and the empty-set sign.">
+    <line x1="40" y1="204.0" x2="384" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="208.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="120.4" x2="384" y2="120.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="124.4" text-anchor="end" class="t-ax">1</text>
+    <line x1="40" y1="36.9" x2="384" y2="36.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="40.9" text-anchor="end" class="t-ax">2</text>
+    <line x1="40.0" y1="204" x2="40.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="224.0" text-anchor="middle" class="t-ax">−1</text>
+    <line x1="108.8" y1="204" x2="108.8" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="108.8" y="224.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="177.6" y1="204" x2="177.6" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="177.6" y="224.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="246.4" y1="204" x2="246.4" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="246.4" y="224.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="315.2" y1="204" x2="315.2" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="315.2" y="224.0" text-anchor="middle" class="t-ax">3</text>
+    <line x1="384.0" y1="204" x2="384.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="384.0" y="224.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="40" y1="204" x2="384" y2="204" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="246.0" text-anchor="middle" class="t-note">x</text>
+    <rect x="40.0" y="16.0" width="68.8" height="188.0" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/>
+    <text x="74.4" y="106.0" text-anchor="middle" class="t-lab">∅</text>
+    <text x="74.4" y="124.0" text-anchor="middle" class="t-note">x &lt; 0</text>
+  </svg>
+</div><figcaption><span class="gr-k">REFUSED · the void</span>For x below 0 the real square root does not exist, and the instrument declines: no stroke, a hatched void, and a word. Never bridged, never drawn as zero.</figcaption></figure></div><div class="w-legend" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div><div class="gr-spec gr-two" data-n="2"><figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="The meet: five exact knots of the square root drawn as solid points, straight dotted segments between them, the dashed float curve above the segments, and a red cross where the segment reads two thirds at x one half.">
+    <line x1="40" y1="204.0" x2="384" y2="204.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="208.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="40" y1="120.4" x2="384" y2="120.4" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="124.4" text-anchor="end" class="t-ax">1</text>
+    <line x1="40" y1="36.9" x2="384" y2="36.9" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="31.0" y="40.9" text-anchor="end" class="t-ax">2</text>
+    <line x1="40.0" y1="204" x2="40.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="40.0" y="224.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="126.0" y1="204" x2="126.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="126.0" y="224.0" text-anchor="middle" class="t-ax">1</text>
+    <line x1="212.0" y1="204" x2="212.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="224.0" text-anchor="middle" class="t-ax">2</text>
+    <line x1="298.0" y1="204" x2="298.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="298.0" y="224.0" text-anchor="middle" class="t-ax">3</text>
+    <line x1="384.0" y1="204" x2="384.0" y2="209" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="384.0" y="224.0" text-anchor="middle" class="t-ax">4</text>
+    <line x1="40" y1="204" x2="384" y2="204" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="212.0" y="246.0" text-anchor="middle" class="t-note">x</text>
+    <polyline points="40.0,204.0 40.9,195.6 41.7,192.2 42.6,189.5 43.4,187.3 44.3,185.3 45.2,183.5 46.0,181.9 46.9,180.4 47.7,178.9 48.6,177.6 49.5,176.3 50.3,175.1 51.2,173.9 52.0,172.7 52.9,171.6 53.8,170.6 54.6,169.5 55.5,168.6 56.3,167.6 57.2,166.6 58.1,165.7 58.9,164.8 59.8,163.9 60.6,163.1 61.5,162.2 62.4,161.4 63.2,160.6 64.1,159.8 64.9,159.0 65.8,158.2 66.7,157.5 67.5,156.7 68.4,156.0 69.2,155.3 70.1,154.6 71.0,153.9 71.8,153.2 72.7,152.5 73.5,151.8 74.4,151.2 75.3,150.5 76.1,149.8 77.0,149.2 77.8,148.6 78.7,147.9 79.6,147.3 80.4,146.7 81.3,146.1 82.1,145.5 83.0,144.9 83.9,144.3 84.7,143.7 85.6,143.2 86.4,142.6 87.3,142.0 88.2,141.5 89.0,140.9 89.9,140.4 90.7,139.8 91.6,139.3 92.5,138.7 93.3,138.2 94.2,137.7 95.0,137.2 95.9,136.6 96.8,136.1 97.6,135.6 98.5,135.1 99.3,134.6 100.2,134.1 101.1,133.6 101.9,133.1 102.8,132.6 103.6,132.1 104.5,131.6 105.4,131.2 106.2,130.7 107.1,130.2 107.9,129.7 108.8,129.3 109.7,128.8 110.5,128.3 111.4,127.9 112.2,127.4 113.1,127.0 114.0,126.5 114.8,126.1 115.7,125.6 116.5,125.2 117.4,124.7 118.3,124.3 119.1,123.9 120.0,123.4 120.8,123.0 121.7,122.6 122.6,122.1 123.4,121.7 124.3,121.3 125.1,120.9 126.0,120.4 126.9,120.0 127.7,119.6 128.6,119.2 129.4,118.8 130.3,118.4 131.2,118.0 132.0,117.6 132.9,117.2 133.7,116.8 134.6,116.4 135.5,116.0 136.3,115.6 137.2,115.2 138.0,114.8 138.9,114.4 139.8,114.0 140.6,113.6 141.5,113.2 142.3,112.9 143.2,112.5 144.1,112.1 144.9,111.7 145.8,111.3 146.6,111.0 147.5,110.6 148.4,110.2 149.2,109.8 150.1,109.5 150.9,109.1 151.8,108.7 152.7,108.4 153.5,108.0 154.4,107.6 155.2,107.3 156.1,106.9 157.0,106.6 157.8,106.2 158.7,105.8 159.5,105.5 160.4,105.1 161.3,104.8 162.1,104.4 163.0,104.1 163.8,103.7 164.7,103.4 165.6,103.0 166.4,102.7 167.3,102.4 168.1,102.0 169.0,101.7 169.9,101.3 170.7,101.0 171.6,100.6 172.4,100.3 173.3,100.0 174.2,99.6 175.0,99.3 175.9,99.0 176.7,98.6 177.6,98.3 178.5,98.0 179.3,97.7 180.2,97.3 181.0,97.0 181.9,96.7 182.8,96.3 183.6,96.0 184.5,95.7 185.3,95.4 186.2,95.1 187.1,94.7 187.9,94.4 188.8,94.1 189.6,93.8 190.5,93.5 191.4,93.2 192.2,92.8 193.1,92.5 193.9,92.2 194.8,91.9 195.7,91.6 196.5,91.3 197.4,91.0 198.2,90.7 199.1,90.4 200.0,90.0 200.8,89.7 201.7,89.4 202.5,89.1 203.4,88.8 204.3,88.5 205.1,88.2 206.0,87.9 206.8,87.6 207.7,87.3 208.6,87.0 209.4,86.7 210.3,86.4 211.1,86.1 212.0,85.8 212.9,85.5 213.7,85.2 214.6,85.0 215.4,84.7 216.3,84.4 217.2,84.1 218.0,83.8 218.9,83.5 219.7,83.2 220.6,82.9 221.5,82.6 222.3,82.3 223.2,82.1 224.0,81.8 224.9,81.5 225.8,81.2 226.6,80.9 227.5,80.6 228.3,80.3 229.2,80.1 230.1,79.8 230.9,79.5 231.8,79.2 232.6,78.9 233.5,78.7 234.4,78.4 235.2,78.1 236.1,77.8 236.9,77.6 237.8,77.3 238.7,77.0 239.5,76.7 240.4,76.5 241.2,76.2 242.1,75.9 243.0,75.6 243.8,75.4 244.7,75.1 245.5,74.8 246.4,74.6 247.3,74.3 248.1,74.0 249.0,73.7 249.8,73.5 250.7,73.2 251.6,72.9 252.4,72.7 253.3,72.4 254.1,72.2 255.0,71.9 255.9,71.6 256.7,71.4 257.6,71.1 258.4,70.8 259.3,70.6 260.2,70.3 261.0,70.1 261.9,69.8 262.7,69.5 263.6,69.3 264.5,69.0 265.3,68.8 266.2,68.5 267.0,68.2 267.9,68.0 268.8,67.7 269.6,67.5 270.5,67.2 271.3,67.0 272.2,66.7 273.1,66.5 273.9,66.2 274.8,65.9 275.6,65.7 276.5,65.4 277.4,65.2 278.2,64.9 279.1,64.7 279.9,64.4 280.8,64.2 281.7,63.9 282.5,63.7 283.4,63.4 284.2,63.2 285.1,62.9 286.0,62.7 286.8,62.4 287.7,62.2 288.5,62.0 289.4,61.7 290.3,61.5 291.1,61.2 292.0,61.0 292.8,60.7 293.7,60.5 294.6,60.2 295.4,60.0 296.3,59.8 297.1,59.5 298.0,59.3 298.9,59.0 299.7,58.8 300.6,58.6 301.4,58.3 302.3,58.1 303.2,57.8 304.0,57.6 304.9,57.4 305.7,57.1 306.6,56.9 307.5,56.6 308.3,56.4 309.2,56.2 310.0,55.9 310.9,55.7 311.8,55.5 312.6,55.2 313.5,55.0 314.3,54.8 315.2,54.5 316.1,54.3 316.9,54.1 317.8,53.8 318.6,53.6 319.5,53.4 320.4,53.1 321.2,52.9 322.1,52.7 322.9,52.4 323.8,52.2 324.7,52.0 325.5,51.8 326.4,51.5 327.2,51.3 328.1,51.1 329.0,50.8 329.8,50.6 330.7,50.4 331.5,50.2 332.4,49.9 333.3,49.7 334.1,49.5 335.0,49.3 335.8,49.0 336.7,48.8 337.6,48.6 338.4,48.4 339.3,48.1 340.1,47.9 341.0,47.7 341.9,47.5 342.7,47.2 343.6,47.0 344.4,46.8 345.3,46.6 346.2,46.3 347.0,46.1 347.9,45.9 348.7,45.7 349.6,45.5 350.5,45.2 351.3,45.0 352.2,44.8 353.0,44.6 353.9,44.4 354.8,44.1 355.6,43.9 356.5,43.7 357.3,43.5 358.2,43.3 359.1,43.1 359.9,42.8 360.8,42.6 361.6,42.4 362.5,42.2 363.4,42.0 364.2,41.8 365.1,41.5 365.9,41.3 366.8,41.1 367.7,40.9 368.5,40.7 369.4,40.5 370.2,40.3 371.1,40.1 372.0,39.8 372.8,39.6 373.7,39.4 374.5,39.2 375.4,39.0 376.3,38.8 377.1,38.6 378.0,38.4 378.8,38.1 379.7,37.9 380.6,37.7 381.4,37.5 382.3,37.3 383.1,37.1 384.0,36.9" class="w-computed" fill="none" stroke-width="1.2" stroke-dasharray="1.5 2" stroke-linejoin="round"/>
+    <path d="M40.0,204.0L61.5,162.2L126.0,120.4L233.5,78.7L384.0,36.9" class="w-chosen" fill="none" stroke-width="2.2" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <circle cx="40.0" cy="204.0" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>
+    <circle cx="61.5" cy="162.2" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>
+    <circle cx="126.0" cy="120.4" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>
+    <circle cx="233.5" cy="78.7" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>
+    <circle cx="384.0" cy="36.9" r="4.5" class="w-decided" fill="var(--ink)" stroke-width="1.5"/>
+    <path class="gr-wx" d="M77.0,142.3l12,12M77.0,154.3l12,-12" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+    <text x="95.0" y="170.3" text-anchor="start" class="t-note">x = 1/2: the segment reads 2/3</text>
+  </svg>
+</div><figcaption><span class="gr-k">the meet · CHOSEN, dotted</span>√x is exact at x = 0, 1/4, 1, 9/4, 4 (checked by squaring): five decided knots, drawn solid. The straight segments between them are one curve of the infinitely many through those knots, so <span class="m">W.meet(DECIDED, DECIDED, CHOSEN)</span> is CHOSEN: dotted. The thin dashed line is the float curve. Drawn solid, the segments would claim to be √x. That claim has a counterexample, exhibited and decided here: <span class="wx" aria-label="the exhibited counterexample">&times;</span> at x = 1/2 the segment reads 2/3, and (2/3)² = 4/9, not 1/2.</figcaption></figure>
+<figure><div class="figbox">
+  <svg viewBox="0 0 400 250" role="img" aria-label="The halo, as a key: two bands with the same crisp solid edges; the lower one, carried by a model not validated where it is drawn, also has a blurred halo outside its edges.">
+    <defs><filter id="gr-blur" x="-20%" y="-60%" width="140%" height="220%"><feGaussianBlur stdDeviation="2.4"/></filter></defs>
+    <text x="40.0" y="44.0" text-anchor="start" class="t-lab">validated where it is drawn</text>
+    <rect x="40" y="56" width="320" height="30" fill="var(--band-fill)"/>
+    <line x1="40" y1="56" x2="360" y2="56" class="w-decided" fill="none" stroke-width="1.5"/>
+    <line x1="40" y1="86" x2="360" y2="86" class="w-decided" fill="none" stroke-width="1.5"/>
+    <text x="40.0" y="150.0" text-anchor="start" class="t-lab">carried here by a model not validated here</text>
+    <rect class="gr-halo" filter="url(#gr-blur)" x="40" y="164" width="320" height="30"/>
+    <rect x="40" y="164" width="320" height="30" fill="var(--band-fill)"/>
+    <line x1="40" y1="164" x2="360" y2="164" class="w-decided" fill="none" stroke-width="1.5"/>
+    <line x1="40" y1="194" x2="360" y2="194" class="w-decided" fill="none" stroke-width="1.5"/>
+    <text x="40.0" y="226.0" text-anchor="start" class="t-note">the same edges; the blur is the model’s own error</text>
+  </svg>
+</div><figcaption><span class="gr-k">the halo · rule 13</span>A key, not data. A band a model carries to a place where the model was not validated keeps its crisp edges, because the decision is made on them given the model, and gains a blur outside them: the model’s own error there has no edge to draw. A validated band has no halo. The edges are drawn by warrant.js; the blur by this page, the way <a href="../janela/">Janela</a> draws it (<a href="../swell/">Swell</a> draws the same on a canvas).</figcaption></figure></div><div class="col"><h3 class="gr-h3">A premise chain, with its ladder</h3><p>A number that rests on a model names what it rests on, in the order the number travelled, each premise with its grade: <span class="w-grade g3" title="validated — checked against observations of the thing itself, held out, with the number"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="on"/></svg>validated</span> · <span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span> · <span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span> · <span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span> (the ladder is explained below). This is the chain behind a wave limit at a beach on <a href="../swell/">Swell</a>, built here from the records Swell reads:</p></div><div class="col"><div class="rd"><ol class="w-premises"><li><span class="w-grade g3" title="validated — checked against observations of the thing itself, held out, with the number"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="on"/></svg>validated</span><div><b>The open sea and its band</b> <span class="ev">covered 96.5% of 21,259 satellite passes it had not seen; it claims 9 in 10.</span></div></li><li><span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span><div><b>The island model</b> <span class="ev">beside a Boussinesq model at twelve beaches, 556 cases of a 1 m swell: r 0.44, the island 0.27 m higher on average. Compared at those beaches; assumed at the others.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Breaking</b> <span class="ev">the wave breaks at 0.55 times the depth (Thornton & Guza, 1982); no sandbars; the shallow profile taken from the nautical chart.</span></div></li></ol><p class="w-meet">The arithmetic is exact; the weakest premise is <b>assumed</b>. Where the island reads less than the Boussinesq model — Pântano do Sul (0.39×), Ingleses (0.43×) and Galheta (0.99×) — “under the limit” calls for more caution than the arithmetic shows.</p></div></div>
+</section>
+
+<section class="" id="rules">
+  <div class="col sec-head">
+    <div class="lab">the rules</div>
+    <h2>Sixteen rules, each learned on a page of this site</h2>
+  </div>
+<div class="col"><p>The rulebook is <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/WARRANT.md">design/WARRANT.md</a> (v2, frozen 28 October 2026, with dated rulings since). Each rule below was found on a page here that broke it. Each names the page, what was wrong, and the change that fixed it; the fix is checked by that page’s own build, which refuses when its record stops supporting its sentence.</p><h3 class="gr-h3">Marks</h3><ul class="plain"><li><b>1. Standing is not a verdict.</b> What an instrument concluded about a claim — CERTIFIED, REFUTED, REFUSED — is said in words and chips; what a mark rests on is said by its stroke or its underline. The two never share a channel, so a refutation proved here is drawn solid.<span class="gr-f">Found on <a href="../instruments/neural-geometry/index.html">neural-geometry</a>: a frame verdict that failed was shown by striking its fitted number through, a line through a computed value carrying a verdict. The verdict is a word now, and the number keeps its dashed underline. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></li><li><b>2. A pick must be a member of the set it was picked from, and the build checks that it is.</b> When a figure draws one member of a set the data admit, it must really be a member, and the page’s build verifies the membership exactly.<span class="gr-f">Found on <a href="../instruments/census/index.html">census</a>: the totals it drew (Table I’s least-squares repair) moved two edges outside the ±½ a rounded integer allows, while the page said they were inside. The repair is now a fit held inside the box, with its optimality (KKT) conditions checked exactly. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span><span class="gr-f">Found on <a href="../instruments/occultation/index.html">occultation</a>: the curve joining the measured chords is not concave, so no convex body has it: it was never a member of the set of silhouettes the chords admit. It is drawn dotted, as a chosen picture, and says so. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span><span class="gr-f">Found on <a href="../instruments/navier-stokes/index.html">navier-stokes</a>: the drawn core was not incompressible: the field it replaced read |div u| about 1.2 times its larger term. The field is now solved from continuity in closed form, and the build refuses the page unless |div u| stays below 10<sup>−6</sup> of it over the drawn range. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/3a0725483faedf8b61f88dbde22c1ca780a7ab45">fixed 28 October · 3a072548</a></span></li><li><b>3. A tie is chosen.</b> When the optimum is not unique, the one drawn was picked by a tie-break: it is drawn dotted and said to be <span class="w-val w-chosen" title="chosen — one member of a set the data admits">one of several</span>.<span class="gr-f">Found on <a href="../instruments/neural-geometry/index.html">neural-geometry</a>: nine of the fifteen minimum spanning trees it draws tie (two edges of one length), so a tie-break picked them; they are dotted and named one of several. Recounted here from its record, by the same exact test. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></li><li><b>4. Dash is for standing only.</b> Which series or which model a line belongs to is carried by weight and opacity, never by a dash, in every figure on the site: a licence that held in one figure and not the next could not be read off the mark.<span class="gr-f">Found on <a href="../instruments/answer-shape/index.html">answer-shape</a>: its three models were told apart by dash patterns (<span class="m">6 4</span> and <span class="m">1.6 3.4</span> among them); the first dash census found them, and the page already carried the weight-and-opacity ladder underneath. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/36b10f334ce01094abe72e2bdd85fc4b96e94244">fixed 5 September · 36b10f33</a></span><span class="gr-f">Found on <a href="../instruments/answer-shape/index.html">answer-shape</a>: its closing edge and the model chips still used a dash for a role; they use opacity now. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></li><li><b>5. The one accent.</b> The witness red marks an exhibited counterexample, a specific object that broke a claim someone made about that object’s own record, always as a × beside words (the one in the meet specimen above). It never marks a verdict word or a region, a scalar comparison (a box that clears a box has no witness point), a refutation reached by deduction, or an object taken from another record. When in doubt, ink.<span class="gr-f">Found on <a href="../instruments/return-level-check/index.html">the return-level check</a>: its list of × marks became one module, and “not the certified fit” came off it, because a box clearing a box has no witness point; on the atlas, the design table’s rows stay ink, because their objects belong to another record than the claim’s. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span></li><li><b>6. Mood.</b> A verdict that holds given a chosen input names that input in italic — <em>given h = 3/50</em> — and a hypothesis that was read but not machine-checked is named the same way.<span class="gr-f">Found on <a href="../instruments/navier-stokes/index.html">navier-stokes</a>: its verdicts now name, in italic, the drawn stress and the theorems they cite. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/3a0725483faedf8b61f88dbde22c1ca780a7ab45">fixed 28 October · 3a072548</a></span><span class="gr-f">Found on <a href="../instruments/stereo-reach/index.html">stereo-reach</a>: the verdict now names its chosen inputs in italic. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span><span class="gr-f">Found on <a href="../instruments/return-level-atlas/index.html">the return-level atlas</a>: each claim’s box is a reading of the paper’s words, so it is drawn dotted, with the readings one 4° cell in or out beside it, and every claim is decided again on each. Of its ten claims, one turns on the reading: the claim for south of South America (40–58° S, 80–56° W) does not hold for the box as drawn, and holds with the north edge moved 4° south, or the east edge moved 4° west. The page says that verdict is a reading. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/16a2f42e59d9394508251fe1c27f5b8653f8d650">fixed 27 October · 16a2f42e</a></span></li><li><b>7. An empty set is ∅.</b> It gets ∅ and a word, never a zero-height bar or a zero.<span class="gr-f">Found on <a href="../instruments/occultation/index.html">occultation</a>: at face value (no error at all) the set of convex silhouettes the chords admit is empty; its row now prints ∅ and the words instead of a bar. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span></li><li><b>8. Read the site’s own prose against the record.</b> Every number typed on a page comes from a record and is checked by that page’s build, so the build refuses when the record no longer supports the sentence. A headline with no record behind it is the failure this rule exists for. A printed bound is rounded outward, never truncated.<span class="gr-f">Found on <a href="../instruments/blind-spot/index.html">blind-spot</a>: the headline read “Fourteen million certified verdicts could not see this mutant.” No record runs that corpus against the mutants; what the page rests on is a 4,000-pair sample of it, and the headline now counts the sample, read from the file. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4ad79bd371a4bbd6552636f05ea88b2e96021805">fixed 28 October · 4ad79bd3</a></span><span class="gr-f">Found on <a href="../instruments/contours/index.html">contours</a>: two expected counts were printed by cutting digits: 18262/36525 as 0.4999, where rounding gives 0.5000 (both computed here, exactly). They are rounded from the exact values now. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/3a0725483faedf8b61f88dbde22c1ca780a7ab45">fixed 28 October · 3a072548</a></span></li><li><b>9. A legend wherever a mark is.</b> Every page that uses a stroke or an underline of the grammar prints its legend, compact beside a figure; <span class="m">tools/check-wiring.js</span> refuses a page that has the marks without it.<span class="gr-f">Found on <a href="../instruments/shape-hunt/index.html">shape-hunt</a>: its marks were committed without a legend, and the build refused at that check until the legend was added. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span></li><li><b>10. A page copied in is never edited.</b> A page copied byte for byte from another source changes only through its wrapper, by anchored replacements that each refuse unless their anchor occurs exactly once, or through a patch declared beside the copy.<span class="gr-f">Found on <a href="../instruments/affect/index.html">affect</a>: its page script is a copy and stays untouched; every change on the page is a named passage the wrapper replaces, each refusing unless its anchor occurs exactly once. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4fbb5ad3d8e6558542d40d17008b4a0e9011ad98">fixed 28 October · 4fbb5ad3</a></span></li></ul><h3 class="gr-h3">Two rulings of 28 October</h3><ul class="plain"><li><b>A layout placed by a float solver is a chosen picture.</b> An embedding or an eigenvector map says so once, in its caption; each mark on it keeps the standing of what it asserts, so an edge that exists is solid.<span class="gr-f">Found on <a href="../instruments/neural-geometry/index.html">neural-geometry</a>: its map’s coordinates come from an eigendecomposition; the ring around the controls is dotted as a chosen picture, and the map’s sentence was corrected (one structured set sits inside the ring the page said the controls held alone). <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></li><li><b>A model’s answer is a claim someone made.</b> It is <span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">computed</span>, dashed, like a number someone printed.  The typed graph behind <a href="../instruments/graph/index.html">the wiring instruments</a> already drew it so: the node holding a model’s answer emits a float, and its wire is dashed.</li></ul><h3 class="gr-h3">Numbers that rest on a model</h3><ul class="plain"><li><b>11. A number that rests on a model names its premises.</b> In the order the number travelled through them, each with its grade and the record behind it, ending with a line that names the weakest — beside the certificate, and on the method page.<span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: every wave limit is decided exactly over a measured band, and the band reaches each beach through an island model whose own error at the shore has never been measured: true, and misleading read alone. Every beach card now says what its number rests on (the chain above). <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></li><li><b>12. A grade comes from a record, and a comparison is calibrated first.</b> The build re-derives the comparison; before it is trusted, it must reproduce the published comparison it stands in for.<span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: its island model against a Boussinesq model first reproduced the published comparison, with the same probes and tables. On the current tables its record reads N 556, r 0.44, bias +0.27 m, re-derived by the app’s battery. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></li><li><b>13. The halo.</b> An extent carried to a place by a model that is not validated there keeps its crisp edges, because the decision is made on them given the model, and gains a halo outside them. A validated extent has no halo (the key above).<span class="gr-f">Found on <a href="../janela/index.html">Janela</a>: a band borrowed from the nearest measured site, and the wind band, validated nowhere, gained the halo. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/bea04b72610309408dca71b2e9df01f221352530">fixed 28 October · bea04b72</a></span></li><li><b>14. A forecast line is computed and dashed, on canvas too.</b> A canvas takes the same patterns: <span class="m">setLineDash</span> is given <span class="m">G.claim(width)</span> from design/grammar.js.<span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: its forecast lines were drawn solid until 28 October; every one (waves, wind, gusts, tide, the open sea) is dashed now. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></li><li><b>15. A field drawn from a model is a picture of the model.</b> For crests or streamlines, the legend says so once.<span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: its legend says the crests are a picture of the island model, not a measurement. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></li><li><b>16. Where the model reads low, “under the limit” is flagged.</b> Where a comparison says the model reads low at a place, any “under the limit” there is flagged as calling for more caution than the arithmetic shows: a flag, not a refusal, because a refusal would remove an exact statement.<span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: Pântano do Sul (0.39×), Ingleses (0.43×) and Galheta (0.99×) read below the Boussinesq model on swells of 11 s and longer (the median ratio), and their cards say so. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></li></ul></div>
+</section>
+
+<section class="" id="colour">
+  <div class="col sec-head">
+    <div class="lab">the colour law</div>
+    <h2>Ink first, and one red</h2>
+  </div>
+<div class="col"><p>Ink comes first: a figure must read completely in greyscale, and a colour always arrives with a shape and a word. The law came from a measurement: run through the validator, the palette of Machinidae, a sibling project built on this grammar, showed its two main series colours ΔE 0.4 apart to a deuteranope. To that reader they were one colour.</p><ul class="plain"><li><b>1. Ink first.</b> Every figure reads completely in greyscale; a colour always comes with a shape and a word.</li><li><b>2. One colour, one meaning,</b> in every project built on the grammar. Each colour is registered, below, with its meaning and the date it was approved.</li><li><b>3. Colour never carries standing</b> (the stroke does), and it never stands in for a verdict word.</li><li><b>4. Four kinds of colour only:</b> the witness, one red, for a shown counterexample; identity, at most three hues for the series compared in one figure, each with its own shape; order, one hue in lightness steps, for an ordered scale; status, an app’s decided states, always with an icon and a word.</li><li><b>5. Every pair passes the validator.</b> Every set of colours that shares a figure is compared pair by pair, on the figure’s own ground, in OKLab (ΔE × 100) under the colour-vision model of Machado, Oliveira and Fernandes (2009): ΔE ≥ 8 for each simulated colour-vision deficiency and ≥ 15 for normal vision, every pair and not only neighbours in a list.</li><li><b>6. No yellow and no orange.</b> </li><li><b>7. A new colour enters only with the validator’s report and an approval,</b> recorded in the rulebook.</li></ul><h3 class="gr-h3">The registered colours</h3><p>Read from the rulebook when this page is built. No swatches: the only colour this page draws is the witness ×.</p><ul class="plain"><li><b><span class="m">--witness</span> #e0574e</b> · witness — a shown counterexample; the only red on the site and in Machinidae (rose retired). <em>Where:</em> every project. <em>Approved:</em> 2026-10-27, as the only red 2026-10-28.</li><li><b>#79b9d6</b> · identity — lineage (the arm, and the accent: not in the founder; filled = new, ringed = changed). <em>Where:</em> Machinidae. <em>Approved:</em> 2026-10-28.</li><li><b>#6744c5</b> · identity — the rules arm (re-stepped from #9070c8; ΔE 28 against the blue for a deuteranope). <em>Where:</em> Machinidae. <em>Approved:</em> 2026-10-28.</li><li><b>#9fd0bb · #5f9a83 · #335e4e</b> · order — how far a birth got: lived · died · stillborn. <em>Where:</em> Machinidae. <em>Approved:</em> 2026-10-28.</li><li><b><span class="m">--v-cert</span> · <span class="m">--v-refu</span> · <span class="m">--v-refd</span></b> · status — an app&#39;s decided state: allowed · refused by the rule · undetermined; <span class="m">--v-refu</span> IS <span class="m">--witness</span> since 2026-10-29. <em>Where:</em> the apps (design/app-shell.js). <em>Approved:</em> 2026-10-28; the red folded 2026-10-29.</li></ul><h3 class="gr-h3">One red</h3><p>The witness red, <span class="m">#e0574e</span> (the × in the meet specimen above), marks an exhibited counterexample and nothing else. Until 29 October the apps carried a second red for a refused state, ΔE about 4 from the witness: one red to the eye with two meanings, against law 2. It is folded now. The apps’ refused state reads the witness token, with the witness’s meaning: a decided state shown together with the datum that breaks the rule, always with its icon and its word.</p></div>
+</section>
+
+<section class="" id="ladder">
+  <div class="col sec-head">
+    <div class="lab">the premise ladder</div>
+    <h2>How far a premise was checked</h2>
+  </div>
+<div class="col"><p>Standing says how a number was computed. A number that rests on a physical model needs a second answer that standing cannot give: the arithmetic can be exact while the equations it was exact about have never met the thing they describe. So each premise carries a grade, which says where the checking of it stopped. Strongest first:</p><ul class="plain"><li><span class="w-grade g3" title="validated — checked against observations of the thing itself, held out, with the number"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="on"/></svg>validated</span> — checked against observations of the thing itself, held out, with the number. <em>In the literature:</em> validation. <em>On Swell:</em> the open sea’s band, against satellite passes it had not seen.</li><li><span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span> — checked against a model that keeps more of the physics, with the number; not against the thing itself. <em>In the literature:</em> code-to-code comparison. <em>On Swell:</em> the island model, against a Boussinesq model at twelve beaches.</li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span> — the code reproduces an exact solution of its own equations; not measured against the thing itself. <em>In the literature:</em> code verification. <em>On Swell:</em> none yet.</li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span> — adopted from a source, chosen, or read; no machine here checked it. <em>In the literature:</em> an adopted assumption. <em>On Swell:</em> breaking at 0.55 times the depth (Thornton &amp; Guza, 1982), and no sandbars.</li></ul><p>The ladder is the verification-and-validation ladder of the modelling literature — Roache (1998), Oberkampf and Roy (2010), the ASME V&amp;V 20 standard (2009) — cut to four grades a reader can tell apart. A conclusion is as checked as its weakest premise (<span class="m">W.weakest</span>), and the page that states it names that premise. A grade is never a probability and never a confidence. It is carried by a word first and a three-step glyph second, never by colour.</p><p><b>A read step (ruled 29 October).</b> A proof step that was read and not run by a machine gets no grade of its own: it is <span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span>, and the gloss says so. It does not cap a verdict. CERTIFIED, PARTIAL, REFUTED and REFUSED keep the meaning their certificate gives them; every read step is listed, graded assumed, in the page’s “what it rests on”, and the chain’s last line names it. A reader always sees where the machine stopped; the verdict word never hides a reading, and a reading never demotes a decision it does not touch. <a href="../reports/delta3.html">δ₃ = 117/2192</a> is an example: a decided finite core, and three steps proved on paper and read, listed as assumed.</p><p>Where a model carries an extent, the same idea is drawn as the halo (rule 13, the key above): blur is the sign of uncertainty readers understand most readily (MacEachren et al. 2012).</p><details class="more"><summary>References</summary><ul class="plain"><li>Roache, P. J. (1998). Verification and Validation in Computational Science and Engineering. Hermosa Publishers.</li><li>Oberkampf, W. L., &amp; Roy, C. J. (2010). Verification and Validation in Scientific Computing. Cambridge University Press.</li><li>ASME V&amp;V 20-2009. Standard for Verification and Validation in Computational Fluid Dynamics and Heat Transfer. The American Society of Mechanical Engineers.</li><li>MacEachren, A. M., Roth, R. E., O’Brien, J., Li, B., Swingley, D., &amp; Gahegan, M. (2012). Visual semiotics &amp; uncertainty visualization: an empirical study. IEEE Transactions on Visualization and Computer Graphics, 18(12), 2496–2505.</li><li>Machado, G. M., Oliveira, M. M., &amp; Fernandes, L. A. F. (2009). A physiologically-based model for simulation of color vision deficiency. IEEE Transactions on Visualization and Computer Graphics, 15(6), 1291–1298.</li><li>Thornton, E. B., &amp; Guza, R. T. (1982). Energy saturation and phase speeds measured on a natural beach. Journal of Geophysical Research, 87(C12), 9499–9508.</li></ul></details></div>
+</section>
+
+<section class="" id="enforced">
+  <div class="col sec-head">
+    <div class="lab">how it is enforced</div>
+    <h2>The checks that refuse a page</h2>
+  </div>
+<div class="col"><p>A grammar that no build checks is a suggestion. Four programs read every built page and refuse the site when a page breaks the grammar or its layout gets worse. Each carries red controls, planted violations it must catch, so a check that cannot fail is caught too. The numbers below are read from their output and their records as this page is built.</p><ul class="plain"><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-grammar.js">tools/check-grammar.js</a> — the dash census.</b> Only the five patterns of <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/grammar.js">design/grammar.js</a> may appear in a built page; three uses of a dash array that are not lines (an arc length, a moving dot, a draw-on animation) are declared by name, each with its reason. The first census, on 5 September, counted twenty-five patterns: the dash had been derived from the stroke width, so every width minted a pattern of its own, one of them carrying a float artefact (<span class="m">1.04 5.460000000000001</span>) into published HTML. At the last sync, 637 conforming uses and 0 outside the five:<ul class="gr-pats"><li><span class="m">5 4</span> computed, the line pattern — 247 uses</li><li><span class="m">1.5 2</span> computed, under 1.5 px of stroke — 51 uses</li><li><span class="m">1 5</span> chosen, round caps — 91 uses</li><li><span class="m">1 3</span> chosen, under 1.5 px — 53 uses</li><li><span class="m">2 3</span> a guide: an axis, a ruler, a ghost; it says nothing — 84 uses</li></ul></li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-wiring.js">tools/check-wiring.js</a> — a legend wherever a mark is.</b> A page with a mark of the grammar and no legend is refused. At the last check, 51 of the 126 pages it walks draw the grammar, and every one prints its legend. Its red control plants a computed line with no legend, and must catch it.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-render.js">tools/check-render.js</a> — what a page shows.</b> No text a builder leaked (a template that never filled, a cell reading undefined or NaN, a stray backtick); no mark whose paint does not resolve; no figure thinner in ink than its record (100 figures recorded); no new mark too faint to see; no script error while the page loads. Its paint check was made strict when the legend’s void swatch fell through to SVG’s default fill, black on a near-black ground, and had passed every run, because black is a paint.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-measure.js">tools/check-measure.js</a> — the layout ruler.</b> Every built page driven in Chrome at 1440, 768, 390 px; the number of left edges, sideways overflow, blocks escaping the screen and clipped elements may only go down (136 pages recorded).</li></ul><p>This page is held to the same standard by its own builder, tools/build-grammar.js, which reads every number above from its record and refuses to build when one stops saying what the page says.</p><details class="more"><summary>This page refuses to build if …</summary><ul class="plain"><li>… the rulebook (design/WARRANT.md) is not a frozen version with a date on its first line.</li><li>… warrant.js draws a standing with a stroke other than the one this page describes.</li><li>… the standing legend no longer defines its own hatch for the void (the specimens below paint the void with it).</li><li>… playground/warrant-pt.js lacks a Portuguese word for a legend or ladder word on this page.</li><li>… a step of the decided enclosure of √x fails its own exact check (squaring the bounds).</li><li>… a float value of Math.sqrt lies outside the decided enclosure (the caption says every one is inside).</li><li>… a knot of the meet specimen is not an exact square root (y² = x, checked in rationals).</li><li>… the witness specimen stops breaking its claim (the segment&#39;s value at x = 1/2 squares to 1/2).</li><li>… neural-geometry&#39;s record no longer holds a tied minimum spanning tree (rule 3&#39;s finding would be false).</li><li>… blind-spot&#39;s builder no longer records the headline it retired, or its live headline no longer counts the corpus sample it is built from.</li><li>… the atlas no longer holds exactly one claim whose verdict turns on the reading of its box.</li><li>… the atlas claim that turns on its box no longer turns by moving one edge.</li><li>… navier-stokes&#39; build no longer refuses a drawn field that is not divergence-free, or its page lost the italic &quot;given&quot; and h = 3/50.</li><li>… navier-stokes&#39; threshold is no longer a power of ten.</li><li>… contours&#39; builder no longer records the expected count it printed truncated.</li><li>… the truncated count is not what cutting its digits gives, or rounding gives the same.</li><li>… occultation no longer says its joined dots are not a member of the set, or no longer prints the empty face-value set as ∅.</li><li>… design/grammar.js no longer records the first census it was written after (twenty-five patterns, one with a float artefact).</li><li>… Swell&#39;s comparison or its held-out band record no longer says what the chain on this page prints.</li><li>… no beach reads low any more (rule 16&#39;s finding would be false).</li><li>… Swell&#39;s legend no longer says its crests are a picture of the island model.</li><li>… the δ₃ report no longer lists its read steps as assumed premises.</li><li>… the rulebook&#39;s registered colours disagree with the tokens, or the apps&#39; refused state is a second red again.</li><li>… the rulebook no longer states the validator&#39;s thresholds, or the two measurements the colour law came from.</li><li>… the dash census (tools/check-grammar.js --report) cannot be read, or counts a pattern outside the five.</li><li>… the legend check (tools/check-wiring.js) cannot be read, or finds a page that draws the grammar without its legend.</li><li>… the layout ruler&#39;s or the render check&#39;s record is missing its viewports, pages or figures.</li><li>… a page a finding links to is not in the built site.</li><li>… a commit it cites as a fix is not in this repository&#39;s history.</li><li>… the rulebook holds a rule this page does not explain, or has lost one it does (rules 1–16, by number and title).</li><li>… the rulebook&#39;s colour law no longer has seven rules.</li><li>… the code sample shows a call whose output is not what the module returns.</li></ul></details></div>
+</section>
+
+<section class="" id="use">
+  <div class="col sec-head">
+    <div class="lab">use it</div>
+    <h2>In figures of your own</h2>
+  </div>
+<div class="col"><p>The module is one file, <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/playground/warrant.js">playground/warrant.js</a>, MIT-licensed, with the five patterns in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/grammar.js">design/grammar.js</a> beside it; it needs no library. In Node, with what each call returns as this page was built:</p><pre class="code">const W = require(&#39;./playground/warrant.js&#39;);
+
+// a line: its standing picks the stroke
+W.attrs(W.COMPUTED)
+  → class=&quot;w-computed&quot; fill=&quot;none&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;5 4&quot;
+W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 })
+  → class=&quot;w-chosen&quot; fill=&quot;none&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;1 3&quot; stroke-linecap=&quot;round&quot;
+
+// a number in text
+W.value(&#39;3.1416&#39;, W.COMPUTED)
+  → &lt;span class=&quot;w-val w-computed&quot; title=&quot;computed — float, or a number someone printed; nothing decided it&quot;&gt;3.1416&lt;/span&gt;
+
+// the legend, compact beside a figure, and the stylesheet, once per page
+W.legendHtml({ compact: true })
+W.css()
+
+// a chain of premises, in the order the number travelled through them
+W.premisesHtml([
+  { grade: W.VALIDATED, label: &#39;The open sea and its band&#39;, evidence: &#39;...&#39; },
+  { grade: W.ASSUMED, label: &#39;Breaking&#39;, evidence: &#39;...&#39; },
+], { meetLine: &#39;The weakest premise is assumed.&#39; })</pre><p>On a canvas, <span class="m">setLineDash</span> takes the same patterns from grammar.js: <span class="m">G.dash.claim</span> is <span class="m">[5, 4]</span> and <span class="m">G.dash.pick</span> is <span class="m">[1, 5]</span>. The legend and the ladder in Portuguese — <em>suposto</em>, <em>verificado</em>, <em>comparado</em>, <em>validado</em> — are in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/playground/warrant-pt.js">playground/warrant-pt.js</a>. The rules are in <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/WARRANT.md">design/WARRANT.md</a>.</p><p>A print version and a Python kit for matplotlib are in preparation.</p></div>
+</section>
+
+</div>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md and the records each finding cites, at git dbd8319b, by tools/build-grammar.js. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+
+</body>
+</html>

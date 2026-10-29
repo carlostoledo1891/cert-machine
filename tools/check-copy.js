@@ -24,7 +24,7 @@ const BASE = path.join(ROOT, 'design', 'copy-baseline.json');
 const WORDS = ['shelf', 'drift', 'lift', 'lifted', 'funnel', 'rung', 'rungs', 'operator', 'handoff', 'make test',
   'control page', 'faces', 'power system', 'the desk', 'the board', 'provenance', 'refuse a deploy', 'refuse to ship',
   'refuses to ship', 'a build that drifts'];
-const HUBS = ['index.html', 'reports/index.html', 'about/index.html', 'instruments/index.html', 'papers/index.html', 'machine/index.html'];
+const HUBS = ['index.html', 'reports/index.html', 'about/index.html', 'instruments/index.html', 'papers/index.html', 'machine/index.html', 'grammar/index.html'];
 
 const text = (html) => html.replace(/<(script|style|svg)[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<[^>]+>/g, ' ')
   .replace(/&[a-z#0-9]+;/g, ' ').replace(/\s+/g, ' ').toLowerCase();

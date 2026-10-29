@@ -1142,6 +1142,7 @@ B.push(C.section({
     + '<div class="col">' + C.pRaw([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join(' · ')
       + ' — a conclusion is as checked as its weakest premise (<a href="swell/">Swell</a> and <a href="janela/">Janela</a> show the chain; '
       + 'the same arithmetic runs in the browser on <a href="instruments/index.html">the instruments</a>).') + '</div>'
+    + '<div class="col after-fig">' + C.pRaw('<a href="grammar/index.html">The visual grammar in full</a>: the marks drawn live, the rules with the finding on one of these pages that taught each, the colour law, and how to use it in figures of your own.') + '</div>'
 }));
 
 B.push(C.section({
@@ -1848,7 +1849,8 @@ const methodBody = [
           + W.value('decided', W.DECIDED) + ' (an exact decision backs it; solid, or plain in text), ' + W.value('computed', W.COMPUTED)
           + ' (float, a fit, a forecast, a number someone printed; dashed), ' + W.value('chosen', W.CHOSEN) + ' (one member of a set the '
           + 'data admit, picked by something that is not the data; dotted), and refused (no mark at all: ' + W.value('the void', W.REFUSED)
-          + '). A mark takes the weakest standing on its path. Standing is not a verdict: a refutation proved here is drawn solid.'
+          + '). A mark takes the weakest standing on its path. Standing is not a verdict: a refutation proved here is drawn solid. '
+          + 'The rules, each with the finding that taught it: <a href="../grammar/index.html">the visual grammar</a>.'
           + W.legendHtml({ compact: true }) },
       { b: 'Premise grade.', raw: 'Where the checking of a model that a number rests on stopped, strongest first. '
           + [W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g) + ' ' + C.esc(W.GRADE_GLOSS[g]) + '.').join(' ')
@@ -1873,6 +1875,7 @@ const methodBody = [
       { raw: '<a href="log.html">The build log</a>: every family, instrument, battery and certificate at this commit — the record under this page.' },
       { raw: '<a href="../reports/rerun.html">The rerun kit</a>: the command that re-derives each record of the register, with the standard-library verifier where one exists.' },
       { raw: '<a href="../instruments/index.html">The instruments</a>: the same arithmetic in the browser, each page saying what decides its headline number.' },
+      { raw: '<a href="../grammar/index.html">The visual grammar</a>: how every mark on these pages says what it rests on, the rules and the findings behind them, and the module to draw them.' },
       { raw: 'Cite: Toledo, C. (' + C.esc(String(cite.date).slice(0, 4)) + '). <em>' + C.esc(cite.title) + '</em>, ' + C.esc(cite.version)
           + '. <a href="https://doi.org/' + C.escAttr(cite.doi) + '">doi:' + C.esc(cite.doi) + '</a> (concept DOI <a href="https://doi.org/10.5281/zenodo.22225860">10.5281/zenodo.22225860</a>).' }
     ])
@@ -1991,6 +1994,9 @@ for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) {
 /* the index of the pre-papers, for the reviewing group: rendered from paper/INDEX.json and the PDFs
    themselves (page counts and sizes read from the files); refuses when the shelf and the manifest differ */
 put('papers/index.html', Buffer.from(require(path.join(__dirname, 'build-papers-index.js')).html()));
+/* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
+   (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
+put('grammar/index.html', Buffer.from(require(path.join(__dirname, 'build-grammar.js')).html()));
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
