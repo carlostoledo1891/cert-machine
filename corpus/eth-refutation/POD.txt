@@ -60,3 +60,8 @@ refused    cpu3m 16 vCPU / 160 GB disk / ports 8000/http, US$0.88/h, FRESH_ONLY=
 probe      6mcxjebqxaeix3 (cpu3m 4 vCPU / 32 GB, US$0.22/h, EU-SE-1), image-only, created 20:35:30Z, DELETED at
            20:35:35Z (204; get-pod -> 404). The ceiling sits where it was before the top-up, between US$0.22 and
            US$0.24 per hour; same account (audit log: carlos@carlostoledo.co for every pod since 10-28).
+retry      ~20:41Z, five minutes later: cpu3m 16 (US$0.88/h) and cpu3m 32 (US$1.76/h, disk 200) refused again with the
+           same message. outcome: NO RUN, no pod billing (list-pods empty). The gate is not the reported balance, or
+           not only it: the operator's next step is the RunPod console (Billing: the balance as RunPod holds it; any
+           spend limit) or RunPod support, quoting a 400 "There are no longer any instances available" on every CPU
+           create at or over US$0.24/h since 2026-10-29 19:4xZ while the same creates under US$0.22/h place at once.
