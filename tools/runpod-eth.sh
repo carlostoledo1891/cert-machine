@@ -33,7 +33,12 @@
 #
 # env: AUDIT_SHA (this repository's commit; required), CLAIMS (default "anthropic openai"), NANODA_BUILD (stack1g |
 #      issue44 | issue44-stack1g; default issue44-stack1g), COMPARATOR_TIMEOUT (s, default 43200), FRESH_TIMEOUT (s,
-#      default 21600), SKIP_FRESH (1 = no leanchecker), LEAN_GLIBC_TUNABLES (optional: exported as GLIBC_TUNABLES for
+#      default 21600), SKIP_FRESH (1 = no leanchecker), FRESH_PARALLEL (default 1: the claims' replays run at the same
+#      time, each single-threaded, so the wall clock is the longer one, not the sum; 0 = one after the other; the
+#      container-peak figure of each is then the container's, both replays included), FRESH_ONLY (1 = the third replay
+#      alone, for claims whose Comparator, kernels and axioms an earlier run already recorded: prepare, the claimant's
+#      build, leanchecker --fresh; no tools are built, no Comparator, no export, no nanoda — the desk keeps those facts
+#      from the earlier run and takes the leanchecker facts from this one), LEAN_GLIBC_TUNABLES (optional: exported as GLIBC_TUNABLES for
 #      every Lean step — lane K's amendment 15, the release README's workaround for exit 139)
 set -uo pipefail
 : "${AUDIT_SHA:?}"
@@ -42,6 +47,8 @@ NANODA_BUILD="${NANODA_BUILD:-issue44-stack1g}"
 COMPARATOR_TIMEOUT="${COMPARATOR_TIMEOUT:-43200}"
 FRESH_TIMEOUT="${FRESH_TIMEOUT:-21600}"
 SKIP_FRESH="${SKIP_FRESH:-0}"
+FRESH_PARALLEL="${FRESH_PARALLEL:-1}"
+FRESH_ONLY="${FRESH_ONLY:-0}"
 OAI_REPO=https://github.com/openai/math.git
 OAI_PIN=7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
 OAI_TOOLCHAIN=leanprover/lean4:v4.34.1
@@ -77,6 +84,7 @@ cgmax() { cat /sys/fs/cgroup/memory.max 2>/dev/null || cat /sys/fs/cgroup/memory
 cgcur() { cat /sys/fs/cgroup/memory.current 2>/dev/null || cat /sys/fs/cgroup/memory/memory.usage_in_bytes 2>/dev/null || echo 0; }
 # the sampler: epoch seconds, container memory (kB) — the facts take each step's peak from its window
 ( while true; do echo "$(date +%s) $(( $(cgcur) / 1024 ))" >> $R/_mem.tsv; sleep 15; done ) &
+if [ "$FRESH_ONLY" = 1 ]; then NANODA_BUILD="none (fresh-only)"; status _mode "fresh-only"; else status _mode "full"; fi
 status _audit "$AUDIT_SHA"; status _nanodaBuild "$NANODA_BUILD"; status _started "$(date -u +%Y-%m-%dT%H:%M:%SZ)"; status _claims "$CLAIMS"
 status _machine "$(nproc) vCPU; cgroup memory.max $(cgmax) bytes; host shows $(free -g | awk '/Mem:/{print $2}') GB; $(df -h / | awk 'NR==2{print $4}') free; vm.max_map_count $(cat /proc/sys/vm/max_map_count 2>/dev/null); landlock: $(cat /sys/kernel/security/lsm 2>/dev/null || echo unreadable); kernel $(uname -r)"
 status _phase "fetching the lane's files at $AUDIT_SHA"
@@ -124,7 +132,9 @@ cat > /tmp/tools.sh <<'BLOCK'
   echo "$NANODA_BUILD" > /tools/nanoda.build
   echo $(( $(date +%s) - start )) > /results/_tools-seconds.txt
 BLOCK
-bash -euo pipefail /tmp/tools.sh < /dev/null || { status _phase "FAILED: building the tools (see _tools-*.log)"; sleep infinity; }
+if [ "$FRESH_ONLY" != 1 ]; then
+  bash -euo pipefail /tmp/tools.sh < /dev/null || { status _phase "FAILED: building the tools (see _tools-*.log)"; sleep infinity; }
+fi
 
 # retry: anonymous clones from a datacenter address are sometimes refused by GitHub for a while
 cat > /tmp/retry.sh <<'BLOCK'
@@ -232,6 +242,25 @@ EOF
   facts "$c"
 }
 
+buildonly() {  # $1 claim, FRESH_ONLY: the claimant's own build (the same command kernels() runs), nothing else
+  local c=$1 out=$R/$1 d; d=$(dir_of "$1")
+  {
+    echo "claim: $c"; echo "toolchain: $(tc_of "$c")"; echo "kernel: $(uname -r)"
+    echo "lean: $(cd "$d" && lean --version)"; echo "lean prefix: $(cd "$d" && lean --print-prefix)"
+    echo "mode: fresh-only (no Comparator, lean4export, nanoda or axiom print in this run)"
+    echo "leanchecker: $(cd "$d" && ls "$(lean --print-prefix)/bin/" | grep -x leanchecker || echo absent)"
+    echo "vm.max_map_count: $(cat /proc/sys/vm/max_map_count 2>/dev/null)"; echo "cgroup memory.max: $(cgmax)"
+    echo "GLIBC_TUNABLES: ${LEAN_GLIBC_TUNABLES:-unset}"
+  } > "$out/env.txt" 2>&1
+  status "$c" "build"
+  case $c in
+    anthropic) timed "$c" build 21600 lake build ;;
+    openai) timed "$c" build 43200 lake build OAI.Algorithms.SubexponentialSAT.Main ComparatorChallenges.SubexponentialSAT ;;
+  esac
+  facts "$c"
+  test "$(cat "$out/build.exit")" = 0
+}
+
 fresh() {  # $1 claim: leanchecker --fresh on the solution module, with the claim's own toolchain
   local c=$1 out=$R/$1
   echo "lake env leanchecker --fresh $(mod_of "$c")" > "$out/leanchecker.cmd"
@@ -243,19 +272,36 @@ fresh() {  # $1 claim: leanchecker --fresh on the solution module, with the clai
 read -r -a LIST <<< "$CLAIMS"
 for c in "${LIST[@]}"; do mkdir -p "$R/$c"; status "$c" queued; done
 for c in "${LIST[@]}"; do
-  status _phase "kernels: $c"; status "$c" "prepare"
+  if [ "$FRESH_ONLY" = 1 ]; then status _phase "prepare + build: $c"; else status _phase "kernels: $c"; fi
+  status "$c" "prepare"
+  if [ "$FRESH_ONLY" = 1 ]; then
+    if prepare "$c"; then
+      if buildonly "$c"; then status "$c" "built"; else status "$c" "done (build failed: see build.err)"; fi
+    else facts "$c"; status "$c" "done (prepare failed: see prepare.log)"; fi
+    continue
+  fi
   if prepare "$c"; then kernels "$c"; status "$c" "kernels done (comparator exit $(cat "$R/$c/comparator.exit" 2>/dev/null))"
   else facts "$c"; status "$c" "done (prepare failed: see prepare.log)"; fi
 done
 if [ "$SKIP_FRESH" != 1 ]; then
+  todo=(); pids=()
   for c in "${LIST[@]}"; do
-    case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in "kernels done"*) ;; *) continue ;; esac
-    status _phase "leanchecker --fresh: $c"; fresh "$c"
+    case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in "kernels done"*|built) todo+=("$c") ;; esac
   done
+  status _freshParallel "$FRESH_PARALLEL"
+  for c in "${todo[@]}"; do
+    if [ "$FRESH_PARALLEL" = 1 ]; then status _phase "leanchecker --fresh: ${todo[*]}"; fresh "$c" & pids+=($!)
+    else status _phase "leanchecker --fresh: $c"; fresh "$c"; fi
+  done
+  # wait for the replays only (a bare `wait` would also wait for the memory sampler, which never ends)
+  if [ ${#pids[@]} -gt 0 ]; then wait "${pids[@]}"; fi
 fi
 for c in "${LIST[@]}"; do
   case "$(python3 -c 'import json,sys; print(json.load(open("/results/_status.json"))[sys.argv[1]])' "$c")" in
-    "kernels done"*|leanchecker) status "$c" "done (comparator exit $(cat "$R/$c/comparator.exit" 2>/dev/null), leanchecker exit $(cat "$R/$c/leanchecker.exit" 2>/dev/null || echo skipped))" ;;
+    built) status "$c" "done (fresh-only: leanchecker skipped)" ;;
+    leanchecker) if [ "$FRESH_ONLY" = 1 ]; then status "$c" "done (fresh-only: leanchecker exit $(cat "$R/$c/leanchecker.exit" 2>/dev/null))"
+      else status "$c" "done (comparator exit $(cat "$R/$c/comparator.exit" 2>/dev/null), leanchecker exit $(cat "$R/$c/leanchecker.exit" 2>/dev/null))"; fi ;;
+    "kernels done"*) status "$c" "done (comparator exit $(cat "$R/$c/comparator.exit" 2>/dev/null), leanchecker exit $(cat "$R/$c/leanchecker.exit" 2>/dev/null || echo skipped))" ;;
   esac
 done
 status _memoryPeak "cgroup memory.peak $(cat /sys/fs/cgroup/memory.peak 2>/dev/null || cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes 2>/dev/null || echo unreadable) bytes"

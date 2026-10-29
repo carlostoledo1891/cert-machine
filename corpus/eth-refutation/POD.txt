@@ -24,3 +24,30 @@ DELETED 2026-10-28 ~20:05Z (delete-pod → 204; get-pod → 404 "pod not found")
 Quot.sound) and Anthropic CERTIFIED. leanchecker --fresh (the optional third replay) had just started on Anthropic's
 claim and was NOT completed: the operator was away and an unattended pod bills until deleted. Uptime 4,300 s at
 US$1.76/h ≈ US$2.10 at the read before deletion (get-pod runtime.uptime); the cap was US$50.
+
+── 2026-10-29: the leanchecker --fresh rerun (operator's approval, cap US$25; branch eth-leanchecker-fresh) ──
+probe      vkfjqn86lede79 (cpu3c 2 vCPU, US$0.06/h, EUR-IS-1), created 2026-10-29T19:50:12Z with only an image, to tell
+           a payload fault from a capacity fault after every 8-32 vCPU create was refused ("no instances available");
+           DELETED at once (delete-pod -> 204; get-pod -> 404 "pod not found"), well under US$0.01. It ran nothing.
+           Capacity it was: cpu3m 8, 16 and 32 vCPU, cpu5m 16, cpu3g 16 and 32 all refused with image-only or full
+           payloads, though the catalog read listed some of them.
+probe      oowugrjrmhmkj2 (cpu3c 2 vCPU + ports 8000/http, US$0.06/h, EUR-IS-1), created 2026-10-29T19:57:40Z to test
+           whether `ports` at create filters hosts (it does not); DELETED at once (204; get-pod -> 404). It ran nothing.
+probes     to find what refuses the creates, image-only, each DELETED within a minute of creation (delete-pod -> 204,
+           get-pod -> 404), none ran anything:
+             og9bc91dfrq32i  cpu3c 4 vCPU /  8 GB  US$0.12/h  EU-SE-1   20:06:00Z
+             iozdk3ovdvjptr  cpu3m 2 vCPU / 16 GB  US$0.11/h  US-CA-2   20:06:18Z
+             e4v0d14siy8h19  cpu3g 4 vCPU / 16 GB  US$0.16/h  EU-SE-1   20:06:26Z
+             326nq6p8hkp82c  cpu3m 4 vCPU / 32 GB  US$0.22/h  EU-RO-1   20:06:40Z
+             9iw4baltp4nbi2  cpu5c 4 vCPU /  8 GB  US$0.14/h  EUR-IS-1  20:06:56Z
+             3cmhxjktlbyk01  cpu5m 2 vCPU / 16 GB  US$0.13/h  EUR-IS-1  20:07:48Z
+           REFUSED ("There are no longer any instances available"), image-only or full payload: cpu3c 8 (US$0.24/h),
+           cpu5m 4 (US$0.26/h), cpu3m 8/16/32, cpu5m 16, cpu3g 16/32, cpu5g 16, cpu3c 32, in every data center the
+           catalog listed. Every pod at or under US$0.22/h placed and every pod at or over US$0.24/h was refused,
+           whatever the flavor, vCPU count or memory (cpu5m has stock at 2 vCPU, yet 4 vCPU was refused): an account
+           ceiling on the hourly price, most likely the prepaid balance (RunPod gates a deploy on it; REST v2 has no
+           balance route, the console's Billing page shows it). 10-day spend read 2026-10-29 (list-billing): US$119.81.
+outcome    NO RUN. Nothing billing (list-pods empty, 20:08Z). The probes cost a few cents at most. Ready to go once the
+           balance allows a US$0.88-1.76/h pod: tools/runpod-eth.sh at d61b2007 with FRESH_ONLY=1 (prepare, build,
+           leanchecker --fresh; the Comparator facts are already recorded), FRESH_PARALLEL=1, FRESH_TIMEOUT=64800,
+           LEAN_GLIBC_TUNABLES as before, on cpu3m 16 or 32 vCPU, disk 160-200 GB, ports 8000/http.
