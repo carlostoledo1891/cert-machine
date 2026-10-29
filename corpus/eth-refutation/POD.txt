@@ -65,3 +65,18 @@ retry      ~20:41Z, five minutes later: cpu3m 16 (US$0.88/h) and cpu3m 32 (US$1.
            not only it: the operator's next step is the RunPod console (Billing: the balance as RunPod holds it; any
            spend limit) or RunPod support, quoting a 400 "There are no longer any instances available" on every CPU
            create at or over US$0.24/h since 2026-10-29 19:4xZ while the same creates under US$0.22/h place at once.
+
+── 2026-10-29: the small-box fallback, ANTHROPIC ONLY (operator's approval; cap US$6; branch eth-leanchecker-fresh-3).
+   OpenAI's claim waits for the account limit to lift. A POD BILLS UNTIL TERMINATED. ──
+pod id     ijw7890hq4ed9x
+name       eth-leanchecker-anthropic
+shape      cpu3m (Memory-Optimized), 4 vCPU, 32 GB RAM, 40 GB container disk, SECURE cloud, data center US-MO-1
+price      US$0.22/h (create-pod read: cost 0.22; catalog read: cpu3m 0.055 per vCPU-hour)
+created    2026-10-29T20:43:14Z
+image      ubuntu:24.04, start command fetches tools/runpod-eth.sh at d61b2007dc4f1adeda882bd01b6a292d4764d039
+env        AUDIT_SHA=d61b2007 CLAIMS=anthropic FRESH_ONLY=1 FRESH_PARALLEL=1 FRESH_TIMEOUT=72000
+           LEAN_GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 (ports 8000/http at create)
+facts      https://ijw7890hq4ed9x-8000.proxy.runpod.net/ (read-only, port 8000)
+import     node tools/import-runpod-eth.js ijw7890hq4ed9x [--partial]
+budget     cap US$6; deleted at US$5.5 whatever the state (~25 h at this price)
+delete     delete-pod ijw7890hq4ed9x, then confirm get-pod -> 404
