@@ -111,7 +111,7 @@ const FS = claims.fewshot;
 if (!FS || FS.inspect_evals.split !== 'train' || FS.lm_eval.split !== 'train' || !(FS.inspect_evals.default > 0) || !(FS.lm_eval.num_fewshot > 0)) die('the few-shot sentence has no record');
 /* the ledger's own wall-clock — a measurement, so it is COMPUTED wherever it is typed */
 if (!(L.seconds > 0)) die('the ledger records no run time');
-const secs = W.value(L.seconds + ' seconds', W.COMPUTED, { title: 'the wall-clock of the run that wrote the ledger — a measurement, nothing decided it' });
+const secs = W.val({ rec: { path: 'certs/gsm8k-ledger.json', ptr: '/seconds' }, standing: W.COMPUTED, fmt: 'raw', why: 'the wall-clock of the run that wrote the ledger — a measurement, nothing decided it' }) + ' seconds';
 
 /* ---- figure 1: the 1,319 test items, one cell each, by this page's verdict ---- */
 const cells = T.rows.map((r) => ({

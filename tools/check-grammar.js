@@ -96,11 +96,13 @@ function census() {
                     `dashed: true`)
      dashedBorders  a `dashed` border in a page's CSS: a dash is a standing, and a chip is not a line (finding F5)
      chipClash      a verdict word wearing more than one chip kind across the site, or a kind other than the one
-                    design/components.js VERDICT_KIND gives it: word → shape is a function */
+                    design/components.js VERDICT_KIND gives it: word → shape is a function
+     unpointed      a w-val span with no data-rec (D10, 2026-10-29): a printed number no gate can follow back to
+                    its record; tools/check-marks.js re-reads the pointed ones */
 function marksCensus() {
   const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
   const guide = norm(G.GUIDE);
-  const unstanding = [], borders = [], chips = new Map();
+  const unstanding = [], borders = [], chips = new Map(), unpointed = [];
   for (const file of walk(SITE)) {
     const src = fs.readFileSync(file, 'utf8');
     const rel = path.relative(SITE, file);
@@ -111,6 +113,8 @@ function marksCensus() {
       if (p === guide || p.includes('${') || p.includes('var(')) continue;
       if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
     }
+    const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
+    while ((m = rv.exec(src))) if (!/\bdata-rec="/.test(m[0])) unpointed.push(rel);
     const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
     while ((m = rb.exec(src))) borders.push(rel);
     const rc = /class="tag ([a-z]+)">([^<]+)</g;
@@ -124,8 +128,8 @@ function marksCensus() {
   const clash = [];
   for (const [word, kinds] of chips) for (const [k, n] of kinds) if (k !== VERDICT_KIND[word]) clash.push(word + ' as ' + k + ' ×' + n);
   const count = (arr) => { const per = {}; for (const r of arr) per[r] = (per[r] || 0) + 1; return per; };
-  return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length,
-    where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash } };
+  return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length, unpointed: unpointed.length,
+    where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash, unpointed: count(unpointed) } };
 }
 
 function loadBaseline() {
@@ -160,7 +164,7 @@ function main() {
       drift[p] = e.count;
     }
     const mc = marksCensus();
-    const out = { exempt: base.exempt || {}, drift, ratchet: { unstanding: mc.unstanding, dashedBorders: mc.dashedBorders, chipClash: mc.chipClash } };
+    const out = { exempt: base.exempt || {}, drift, ratchet: { unstanding: mc.unstanding, dashedBorders: mc.dashedBorders, chipClash: mc.chipClash, unpointed: mc.unpointed } };
     fs.writeFileSync(BASELINE, JSON.stringify(out, null, 2) + '\n');
     console.log(`blessed: ${Object.keys(drift).length} drifting pattern(s) recorded; marks ratchet ${JSON.stringify(out.ratchet)}`);
     return 0;
@@ -204,7 +208,7 @@ function main() {
   /* the marks ratchet: each count may only shrink */
   const mc = marksCensus(), rat = base.ratchet || {};
   let marksBad = 0;
-  for (const k of ['unstanding', 'dashedBorders', 'chipClash']) {
+  for (const k of ['unstanding', 'dashedBorders', 'chipClash', 'unpointed']) {
     const allowed = rat[k] === undefined ? 0 : rat[k];
     if (mc[k] > allowed) {
       marksBad++;
@@ -215,7 +219,7 @@ function main() {
   const bad = news.length + grown.length + marksBad;
   const recorded = Object.keys(base.drift || {}).length;
   if (bad === 0) {
-    console.log(`marks: ${mc.unstanding} dashed without a standing · ${mc.dashedBorders} dashed border(s) · ${mc.chipClash} chip clash(es) (baseline ${JSON.stringify(rat)})`);
+    console.log(`marks: ${mc.unstanding} dashed without a standing · ${mc.dashedBorders} dashed border(s) · ${mc.chipClash} chip clash(es) · ${mc.unpointed} value(s) without a record pointer (baseline ${JSON.stringify(rat)})`);
     console.log(`grammar gate: ${rows.length} pattern(s) · ${okCount} conforming · ${driftCount} declared drift across ${recorded} pattern(s) — the ratchet holds`);
     return 0;
   }

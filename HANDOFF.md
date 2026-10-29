@@ -55,8 +55,20 @@ NEXT SESSION, IN ORDER:
        in 560 s. The marks census ratchet (grammar-baseline.json): unstanding 36 (hand-written dashes in monoflow,
        agtable, afg, frontier, instruments index/plates… — Tier 2), dashedBorders 35 (14 the submitted Petrobras pages;
        the apps' forecast cards (.as-dash) carry standing legitimately; explained/uirapuru/atlas/glide-band to classify),
-       chipClash 0. The screenshots the operator approved are in the 10-29 chat. NEXT: D10 (design in the session's
-       scratchpad d10-design.md: W.val with a record pointer, data-rec, tools/check-marks.js, Tier 1 first).
+       chipClash 0. The screenshots the operator approved are in the 10-29 chat.
+       D10 STARTED 2026-10-29 ~07:30 UTC: design/record.js (a pointer /rows[id=x]/field into certs/ or corpus/, one
+       printer: raw · int · fixed:n · sig:n · lo:n · hi:n; a DECIDED value cut to nearest is refused), W.val({rec,
+       standing, fmt, why}) in playground/warrant.js (data-rec + data-fmt on the span; W.attrs takes rec too),
+       tools/check-marks.js (re-reads every pointed mark from the built page; 4 red controls; a page gate in make page,
+       a battery in make control and make test). POINTED SO FAR: kissing (39 marks: the Cohn upper bound, the
+       congruence and row timings, angles, the rungs' scores, the wave rows' seconds), the landing's register count,
+       /eth/'s four tiles. The census ratchet gained `unpointed` (w-val spans with no address): 1,680 site-wide,
+       shrinking. tools/run-kissing-ledger.js now leaves the pinned ledger untouched when only wall-clock fields moved
+       (the self-audit stays green through a kissing rebuild). NEXT in D10: the other Tier 1 builders' W.value sites
+       (optq 5, optconst 1, openai-math 4, gsm8k 3, aerp 2, horizon 5, curveseeds 2 — most are claimant strings; point
+       the ones that are record cells, e.g. horizon's printed23 and L.seconds), the stat tiles of the Tier 1 reports,
+       then step 2 (a record's own standing field feeds W.val). The grammar page should print the pointed/unpointed
+       census (R-5 of the agenda).
        RULED 2026-10-29 ~05:00 UTC (every recommendation taken except tracking): D9 tone monotone in standing; D10
        the typed value, Tier 1 now; D11 the grade as a pair; D12 one hero figure, ruler may ratchet up for it; D13 the
        landing flow as translated points; D14 the first handle on the return-level check; D15 the companion page after

@@ -66,8 +66,10 @@ exactly is solid, and the line interpolated between two such knots is dotted.
 ## Applying it to a page
 
 1. Read the page's records and every one of its sentences. For each mark and each number, write down what it rests on.
-2. Mark the page through `W = require('playground/warrant.js')`, using `W.attrs` for strokes, `W.value` for numbers
-   in text, `W.witness` and `W.legendHtml`. Reports and apps use the same calls as the instruments.
+2. Mark the page through `W = require('playground/warrant.js')`, using `W.attrs` for strokes, `W.val` for a number
+   read from its record (the address and the format go into the span; `tools/check-marks.js` re-reads it from the
+   built page — D10, 2026-10-29; `W.value` is the older unpointed form, counted by the census), `W.witness` and
+   `W.legendHtml`. Reports and apps use the same calls as the instruments.
 3. Fix whatever is false at its source, and gate the fix in the builder, so the build refuses when the record no
    longer supports the sentence.
 4. **The loop:**

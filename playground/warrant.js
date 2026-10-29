@@ -118,10 +118,28 @@ function stroke(standing, { width = 2 } = {}) {
 /* the SVG attribute string, so no call site hand-writes a dasharray */
 function attrs(standing, opts) {
   const s = stroke(standing, opts);
-  if (!s) return 'class="w-void" fill="none"';
+  const rec = opts && opts.rec ? ` data-rec="${String(opts.rec.path + '#' + opts.rec.ptr).replace(/"/g, '&quot;')}"` : '';
+  if (!s) return 'class="w-void" fill="none"' + rec;
   return `class="${s.class}" fill="none" stroke-width="${s.width}"`
     + (s.dash ? ` stroke-dasharray="${s.dash}"` : '')
-    + (s.cap ? ` stroke-linecap="${s.cap}"` : '');
+    + (s.cap ? ` stroke-linecap="${s.cap}"` : '') + rec;
+}
+
+/* A NUMBER READ FROM ITS RECORD (D10, 2026-10-29). `value()` above takes a string the author already formatted; this
+   takes the ADDRESS of the datum — a file under certs/ or corpus/ and a pointer (design/record.js: RFC 6901 plus
+   `[id=…]` on arrays) — reads it, prints it by one of record.js's formats, and writes the address and the format into
+   the span so tools/check-marks.js can read the built page, follow the address and print the datum again. The
+   standing is still named by the builder (step 2 reads it from the record where the record carries one). A prefix
+   or a unit goes outside the span. */
+function val({ rec, standing, fmt = 'raw', why }) {
+  const R = require('../design/record.js');
+  if (!rec || !rec.path || !rec.ptr) throw new Error('warrant.val: a value names its record {path, ptr}');
+  const datum = R.read(rec.path, rec.ptr);
+  const word = NAME[standing] ? NAME[standing].toLowerCase() : null;
+  if (!word) throw new Error('warrant.val: not a standing: ' + standing);
+  const text = R.print(datum, fmt, word);
+  const t = why || GLOSS[standing];
+  return `<span class="w-val ${textClass(standing)}" data-w="${word}" data-rec="${String(rec.path + '#' + rec.ptr).replace(/"/g, '&quot;')}" data-fmt="${fmt}" title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }
 
 /* ------------------------------------------------- LINES AND EXTENTS ------
@@ -362,6 +380,6 @@ ${balancedGrid('.w-legend', '.item')}
 /* does this page use the grammar? the two shells ask before they include css() */
 const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend|premises|grade)\b|class="wx"/.test(String(html || ''));
 
-module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice,
+module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice, val,
   refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness,
   ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, weakest, grade, premisesHtml, css, usesGrammar };

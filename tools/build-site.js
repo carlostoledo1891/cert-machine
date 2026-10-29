@@ -1088,7 +1088,8 @@ B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href
   + '<a href="eth/">The two claimed refutations of ETH, decided and read →</a> · '
   + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));
 B.push(C.stats([
-  { k: 'machine-generated claims decided', v: fmt(claimsLedger.decided),
+  /* D10 (2026-10-29): the count is READ from the register through its address and re-read by tools/check-marks.js */
+  { k: 'machine-generated claims decided', vRaw: W.val({ rec: { path: 'certs/claims-ledger.json', ptr: '/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the register\'s count of decided rows, read from certs/claims-ledger.json' }),
     nRaw: 'since ' + C.esc(registerSince) + ', each with its verdict and the record that decided it · <a href="certs/claims-ledger.json">the register</a>' },
   { k: 'asterisks removed from a registry', v: String(asterisksOff),
     nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), on our replays: ' + asterNote + ', cited as [T2026] · '

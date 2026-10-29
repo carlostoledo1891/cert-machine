@@ -249,8 +249,17 @@ const out = {
   openRungs,
   wave,
 };
-fs.writeFileSync(path.join(ROOT, 'certs', 'kissing-ledger.json'), JSON.stringify(out, null, 1) + '\n');
-console.log('wrote certs/kissing-ledger.json — ' + rows.length + ' rows, '
+/* THE LEDGER IS A PINNED RECORD (the self-audit's inventory holds its sha256; 2026-10-29). A rebuild that re-decides
+   every row identically must not rewrite it with new wall-clock fields: strip the timing fields (ms, generated, git)
+   from both and compare; write only when a verdict, a count or a pin moved. Until today every kissing rebuild
+   rewrote the file and the self-audit went red (afafba7c, 2026-10-28, restored it by hand). */
+const LEDGER = path.join(ROOT, 'certs', 'kissing-ledger.json');
+const strip = (v) => Array.isArray(v) ? v.map(strip) : (v && typeof v === 'object')
+  ? Object.fromEntries(Object.entries(v).filter(([k]) => !['ms', 'generated', 'git', 'seconds', 'jsMs', 'elapsedMs'].includes(k)).map(([k, x]) => [k, strip(x)])) : v;
+const same = fs.existsSync(LEDGER) && JSON.stringify(strip(JSON.parse(fs.readFileSync(LEDGER, 'utf8')))) === JSON.stringify(strip(out));
+if (same) console.log('certs/kissing-ledger.json unchanged beyond its wall-clock fields: left as pinned');
+else fs.writeFileSync(LEDGER, JSON.stringify(out, null, 1) + '\n');
+console.log((same ? 'kept' : 'wrote') + ' certs/kissing-ledger.json — ' + rows.length + ' rows, '
   + rows.filter((r) => r.verdict === 'CERTIFIED').length + ' certified, '
   + rows.filter((r) => r.verdict === 'NEEDS DATA').length + ' needs-data, '
   + rows.filter((r) => r.verdict === 'QUEUED').length + ' queued');

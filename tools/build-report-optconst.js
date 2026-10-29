@@ -130,7 +130,7 @@ B.push(C.section({
       + 'context — 53 bits, a double. Every decimal within a double of the true bound compares equal to it. Run on the pinned script with claims written here:'),
     C.table({
       cols: [{ h: 'claimed' }, { h: 'the checker printed' }, { h: 'decided here' }],
-      rows: L.observed.runs.map((r) => [{ raw: '<span class="mono">' + C.esc(r.claimed) + '</span>' }, { raw: W.value(C.esc(r.printed), W.COMPUTED, { title: 'what the claimant\'s checker printed: its claim, compared in doubles; not a decision' }) }, { raw: C.esc(r.truth) }])
+      rows: L.observed.runs.map((r) => [{ raw: '<span class="mono">' + C.esc(r.claimed) + '</span>' }, { raw: W.val({ rec: { path: 'certs/sumdiff-ledger.json', ptr: '/observed/runs[claimed=' + r.claimed + ']/printed' }, standing: W.COMPUTED, fmt: 'raw', why: 'what the claimant\'s checker printed: its claim, compared in doubles; not a decision' }) }, { raw: C.esc(r.truth) }])
     }),
     C.pRaw('The bound the registry prints is true, and it is decided above without that checker. The point is the checker: ' + C.m('C3c >= 1.6747338950414059') + ' is false '
       + 'at the seventeenth significant digit, is the same double as the true 60-digit bound, and prints OK. A verifier\'s last comparison has to be as exact as its '

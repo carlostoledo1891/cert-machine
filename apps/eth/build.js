@@ -88,7 +88,9 @@ said('first', 'The control with k < k′ fails at 256 of them');
 
 /* ---- the page ---- */
 const B = [];
-const secs = (r) => fmt(r.steps.comparator.seconds) + ' s';
+/* D10 (2026-10-29): a printed number read through its address (playground/warrant.js W.val) and re-read from the built page */
+const KPATH = 'certs/eth-kernel.json';
+const secs = (r) => W.val({ rec: { path: KPATH, ptr: '/rows[claim=' + r.claim + ']/steps/comparator/seconds' }, standing: W.COMPUTED, fmt: 'int', why: 'a wall-clock time on the rented machine: measured, not decided' }) + ' s';
 B.push(C.header({
   eyebrow: 'Carlos Toledo · cert-machine · audit',
   title: 'Two claimed refutations of the Exponential Time Hypothesis: what was decided, and what was only read',
@@ -112,10 +114,10 @@ B.push(C.tldr({
 }));
 B.push(C.stats([
   { k: '“ETH is false”', v: 'not decided here', n: 'read against the textbook ETH (§2), bridged in each lab’s own machine model (§5); the step between models is prose (§6)' },
-  { k: 'proofs decided', v: K.counts.decided + ' of ' + K.counts.of, n: 'CERTIFIED, each against its own statement' },
+  { k: 'proofs decided', vRaw: W.val({ rec: { path: KPATH, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of decided claims' }) + ' of ' + W.val({ rec: { path: KPATH, ptr: '/counts/of' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of claims' }), n: 'CERTIFIED, each against its own statement' },
   { k: 'kernels that accept each', v: String(OAI.kernels.length), n: 'Lean’s, inside Comparator, and nanoda' },
-  { k: 'Comparator, OpenAI', v: secs(OAI), n: 'peak ' + Math.round(OAI.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' },
-  { k: 'Comparator, Anthropic', v: secs(ANT), n: 'peak ' + Math.round(ANT.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' }
+  { k: 'Comparator, OpenAI', vRaw: secs(OAI), n: 'peak ' + Math.round(OAI.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' },
+  { k: 'Comparator, Anthropic', vRaw: secs(ANT), n: 'peak ' + Math.round(ANT.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' }
 ].concat(bridgeDone ? [{ k: 'bridge theorems, ours', v: String(bridgeThms), n: 'proved in Lean, one kernel; §5' }] : [])));
 
 /* §1 decided */
