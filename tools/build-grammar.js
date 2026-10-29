@@ -58,6 +58,39 @@ const git = (args) => cp.execFileSync('git', ['-C', ROOT].concat(args), { encodi
 const MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const day = (iso) => Number(iso.slice(8, 10)) + ' ' + MONTH[Number(iso.slice(5, 7)) - 1];
 
+/* THE SPECIMENS' EXACT NUMBERS, at module level since 2026-10-29 so /grammar/roundtable/ (tools/build-grammar-roundtable.js)
+   draws the same enclosure rather than a second copy of it: y = √x, decided in BigInt. */
+const B = (x) => BigInt(x);
+const gcd = (x, y) => { x = x < 0n ? -x : x; y = y < 0n ? -y : y; while (y) [x, y] = [y, x % y]; return x; };
+const fr = (n, d = 1n) => { n = B(n); d = B(d); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; return [n / g, d / g]; };
+const fsub = (p, q) => fr(p[0] * q[1] - q[0] * p[1], p[1] * q[1]);
+const fadd = (p, q) => fr(p[0] * q[1] + q[0] * p[1], p[1] * q[1]);
+const fmul = (p, q) => fr(p[0] * q[0], p[1] * q[1]);
+const fdiv = (p, q) => fr(p[0] * q[1], p[1] * q[0]);
+const feq = (p, q) => p[0] * q[1] === q[0] * p[1];
+const fnum = (p) => Number(p[0]) / Number(p[1]);
+const fstr = (p) => (p[1] === 1n ? String(p[0]) : p[0] + '/' + p[1]);
+const isqrt = (n) => { if (n < 2n) return n; let x = B(Math.floor(Math.sqrt(Number(n)))); while (x * x > n) x--; while ((x + 1n) * (x + 1n) <= n) x++; return x; };
+
+/* DECIDED: an enclosure of √x on [0, 4] in eight steps of width 1/2. √ is increasing, so on [k/2, (k+1)/2] it lies
+   between √(k/2) and √((k+1)/2); each is bracketed by an integer square root over 64 and checked by squaring. */
+const Q = 64n, STEPS = 8, cells = [];
+for (let k = 0; k < STEPS; k++) {
+  const lo = isqrt(B(k) * Q * Q / 2n), m2 = B(k + 1) * Q * Q / 2n, s = isqrt(m2), hi = s * s === m2 ? s : s + 1n;
+  cells.push({ x0: fr(k, 2), x1: fr(k + 1, 2), lo: fr(lo, Q), hi: fr(hi, Q),
+    ok: lo * lo * 2n <= B(k) * Q * Q && hi * hi * 2n >= B(k + 1) * Q * Q });
+}
+
+/* RULE 8 IN PIXELS, at module level since 2026-10-29 so /grammar/roundtable/ draws the staircase by the same rule:
+   an enclosure's edges round AWAY from the curve, at a tenth of a pixel (the roundtable's finding F4) */
+const RES = 10;
+const away = (v, dir) => ((dir > 0 ? Math.ceil(v * RES) : Math.floor(v * RES)) / RES).toFixed(1);
+const stair = (f, key) => { const dir = key === 'hi' ? -1 : 1;
+  return 'M' + cells.map((c, i) => (i ? 'V' + away(f.py(fnum(c[key])), dir) : away(f.px(fnum(c.x0)), -1) + ',' + away(f.py(fnum(c[key])), dir)) + 'H' + away(f.px(fnum(c.x1)), 1)).join(''); };
+
+/* the specimen panel's frame (x0 is set per panel) */
+const PANEL = { w: 400, h: 250, padL: 40, padR: 16, padT: 16, padB: 46, y0: 0, y1: 2.25 };
+
 function html() {
   /* ======================================================== the rulebook ==
      design/WARRANT.md, read now. Its numbered rules are listed by section, and the page explains every one of them:
@@ -92,26 +125,6 @@ function html() {
 
   /* =============================================== the specimens' numbers ==
      y = √x on [−1, 4]. Everything exact is decided here in BigInt; everything float is Math.sqrt. */
-  const B = (x) => BigInt(x);
-  const gcd = (x, y) => { x = x < 0n ? -x : x; y = y < 0n ? -y : y; while (y) [x, y] = [y, x % y]; return x; };
-  const fr = (n, d = 1n) => { n = B(n); d = B(d); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; return [n / g, d / g]; };
-  const fsub = (p, q) => fr(p[0] * q[1] - q[0] * p[1], p[1] * q[1]);
-  const fadd = (p, q) => fr(p[0] * q[1] + q[0] * p[1], p[1] * q[1]);
-  const fmul = (p, q) => fr(p[0] * q[0], p[1] * q[1]);
-  const fdiv = (p, q) => fr(p[0] * q[1], p[1] * q[0]);
-  const feq = (p, q) => p[0] * q[1] === q[0] * p[1];
-  const fnum = (p) => Number(p[0]) / Number(p[1]);
-  const fstr = (p) => (p[1] === 1n ? String(p[0]) : p[0] + '/' + p[1]);
-  const isqrt = (n) => { if (n < 2n) return n; let x = B(Math.floor(Math.sqrt(Number(n)))); while (x * x > n) x--; while ((x + 1n) * (x + 1n) <= n) x++; return x; };
-
-  /* DECIDED: an enclosure of √x on [0, 4] in eight steps of width 1/2. √ is increasing, so on [k/2, (k+1)/2] it lies
-     between √(k/2) and √((k+1)/2); each is bracketed by an integer square root over 64 and checked by squaring. */
-  const Q = 64n, STEPS = 8, cells = [];
-  for (let k = 0; k < STEPS; k++) {
-    const lo = isqrt(B(k) * Q * Q / 2n), m2 = B(k + 1) * Q * Q / 2n, s = isqrt(m2), hi = s * s === m2 ? s : s + 1n;
-    cells.push({ x0: fr(k, 2), x1: fr(k + 1, 2), lo: fr(lo, Q), hi: fr(hi, Q),
-      ok: lo * lo * 2n <= B(k) * Q * Q && hi * hi * 2n >= B(k + 1) * Q * Q });
-  }
   guard('a step of the decided enclosure of √x fails its own exact check (squaring the bounds)', cells.every((c) => c.ok));
   /* COMPUTED: Math.sqrt at 401 points. Whether each double lies inside the enclosure is an exact comparison of two
      doubles (a bound over 64 is a double exactly), so that much is decided; the values themselves are not. */
@@ -130,7 +143,6 @@ function html() {
   const MEET = W.meet(W.DECIDED, W.DECIDED, W.CHOSEN);
 
   /* ------------------------------------------------------------ drawing -- */
-  const PANEL = { w: 400, h: 250, padL: 40, padR: 16, padT: 16, padB: 46, y0: 0, y1: 2.25 };
   const yT = [0, 1, 2].map((v) => ({ v, t: String(v) }));
   const xT = (lo) => [-1, 0, 1, 2, 3, 4].filter((v) => v >= lo).map((v) => ({ v, t: v < 0 ? '−' + Math.abs(v) : String(v) }));
   const P = (f, x, y) => f.px(x).toFixed(1) + ',' + f.py(y).toFixed(1);
@@ -138,10 +150,6 @@ function html() {
      so an upper edge could sit inside the record by up to half the written resolution). An enclosure's edges round
      AWAY from the curve: py grows downward, so the upper edge floors and the lower edge ceils; x0 floors, x1 ceils.
      The resolution the paths are written at is a tenth of a pixel, and the caption prints what one pixel is worth. */
-  const RES = 10;
-  const away = (v, dir) => ((dir > 0 ? Math.ceil(v * RES) : Math.floor(v * RES)) / RES).toFixed(1);
-  const stair = (f, key) => { const dir = key === 'hi' ? -1 : 1;
-    return 'M' + cells.map((c, i) => (i ? 'V' + away(f.py(fnum(c[key])), dir) : away(f.px(fnum(c.x0)), -1) + ',' + away(f.py(fnum(c[key])), dir)) + 'H' + away(f.px(fnum(c.x1)), 1)).join(''); };
   { const f = CH.frame(Object.assign({ x0: -1, x1: 4 }, PANEL));
     guard('an edge of the decided specimen is drawn inside its enclosure (the paths round outward to a tenth of a pixel)',
       cells.every((c) => Number(away(f.py(fnum(c.hi)), -1)) <= f.py(fnum(c.hi)) && Number(away(f.py(fnum(c.lo)), 1)) >= f.py(fnum(c.lo))
@@ -615,4 +623,4 @@ if (require.main === module) {
   fs.writeFileSync(path.join(ROOT, 'site', 'grammar', 'index.html'), out);
   console.log('site/grammar/index.html written (' + out.length + ' bytes)');
 }
-module.exports = { html };
+module.exports = { html, cells, PANEL, RES, away, stair, fr, fsub, fadd, fmul, fdiv, feq, fnum, fstr, Q, STEPS };
