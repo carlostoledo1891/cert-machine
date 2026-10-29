@@ -22,6 +22,36 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★★ 2026-10-29 (late) — HANDOFF: D12 AND D14 BUILT AS SPECIMENS ON PUSHED BRANCHES, waiting on the operator's look.
+     ── ON BRANCHES (pushed, NOT merged; each needs the operator's word, then `git merge` into main + `make page` + push):
+       d12-hero (30f7dec0) — THE HERO. design/tokens.js LAYOUT.hero 1440px; template.js .hero: the declared figure's box
+         bleeds past the container (never past the gutter), caption on the spine, edge to edge on a phone with an optional
+         phone drawing (C.figure({ hero, svgNarrowRaw, captionRaw })); W.witnessMark (class w-wx); check-measure: the
+         hero's edges are not spines, its width is recorded and ratchets UP (the bleed laid back for the clipped walk, a
+         cut-hero red); check-wiring: one hero per page and its × is the first a reader meets, at least as heavy as its
+         decided line (4 reds). Applied: the kissing ladder (stacked on a phone) and /grammar/ (the meet + witness as the
+         hero under the title, zoomed to [0, 5/4]; the halo key one strip). WARRANT.md "D12 applied". Screens shown in
+         the 10-29 late chat (1440 + 390 for both). Its WARRANT.md section and d14's both append at the end: merge by hand.
+       d14-handle (ebdf321c) — THE FIRST HANDLE: step 4 of the return-level check, "the T-year wave is at most H", H in
+         italic, typed/dragged/keyed in whole cm; playground/return-level-check/design.js decides HOLDS / DOES NOT HOLD /
+         UNDECIDED exactly (BigInt on the double's dyadic value; red: Math.ceil(100·0.1) says HOLDS at 0.10 m); each family's
+         flip a solid tick drawn once per run; drive.js (Chrome, in make test + the control build) drags H on the certified
+         Campos preset and refuses if a decided mark moves (one red). WARRANT.md "D14 applied".
+       Known flap seen while gating d12: site/swell/index.html @1440 measures 10 spines alone, 9 in a full run, on bytes
+       unchanged since main (time-of-day data); not caused by either branch.
+     ── ON MAIN (pushed; make control GREEN 176/176 in 599 s at the end): the globe prints certified ends outward via design/outward.js (0547f7fb); the Erdős #852 digit
+       corrected to the 11th significant (12th decimal place) on erdos852/answer-key/claims/About + the paper draft, counted
+       by the new outward.js sigAgree, the title guarded (721993f3); corpus/targets.json: axiom-cfsg-2026-10 SCOUTED (OPEN,
+       facts + order: read the TauCeti statement layer first, replay only after oleans ship) and oxelra-matmul-f2-rank21
+       (UNSCOUTED); outreach/qiushi-coauthor-proposal.md (DRAFT, not sent: a comment on Qiushi kissing #1 inviting a joint
+       companion paper + a certify-before-you-announce offer + their F2 matmul Lean replay; two decisions flagged inside).
+     ── CO-AUTHOR OUTREACH (Pedro's suggestion; memory coauthor-outreach): Ricardo de Lima Ribeiro messaged by the operator
+       10-29, hooked; Qiushi next (the draft above). Oxelra never answered our Bandeira issue (#1 there, 10-15).
+     ── STILL OPEN from the ★★★★★ list: D10 continues (step 2, Tier 1 stat tiles, the unpointed values), D11 continues (the
+       print kit's premises() and design/print/specimen.js still draw the legacy glyph), D15 after D12 merges, the social
+       drops, the globe's hashchange (later hash edits ignored), WARRANT.md's stale list (rule 12's calibration numbers live
+       in a compare.js comment, the record says r 0.438 / bias +0.272; the three declared dash exemptions unstated), and
+       check-wiring's walk missing /janela/, /eleicoes2026/, /eth/, /papers/, /swell/, /cv/ (found, not changed).
   ★★★★★ 2026-10-29 ~19:00 UTC — HANDOFF: THE ROUNDTABLE DAY. Everything is committed and pushed (08301569); make control
      GREEN 176/176; the site live with it all. Read in this order: this entry, the ★★★★ entries below it, design/WARRANT.md's
      last three dated sections, then notes/warrant-roundtable-2026-10-29.md (LOCAL, untracked) if the grammar is the work.
