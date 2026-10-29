@@ -131,20 +131,24 @@ function tilemap(perUf) {
 }
 
 /* ---- the headline: the scoreboard every election night shows ------------------------------------------------------- */
-function scoreboard({ lula, flavio, margin }) {
-  const W = 900, H = 190, X0 = 10, BW = W - 20, Y = 100, BH = 40;
+/* the page's hero (D12 batch 2, 2026-10-29). `narrow` is its phone drawing: the same numbers and marks at 360 units, so a
+   phone reads the labels at their own size (the 900-unit drawing at 350 px set them near 4 px); the margin's note takes
+   its own line under the tick, because at that width it would run into the two vote counts */
+function scoreboard({ lula, flavio, margin, narrow }) {
+  const W = narrow ? 360 : 900, H = narrow ? 164 : 190, X0 = 10, BW = W - 20, Y = narrow ? 74 : 100, BH = narrow ? 30 : 40;
+  const yScore = narrow ? 60 : 84, yNote = narrow ? Y + BH + 48 : Y + BH + 24;
   const tot = lula + flavio, xl = BW * lula / tot;
   const out = [open(W, H, 'Placar do 2º turno: Lula ' + pc(lula / tot, 2) + '% e Flávio Bolsonaro ' + pc(flavio / tot, 2) + '% dos votos válidos')];
   out.push(text(X0, 18, 'LULA', 't-kick', 'start'));
-  out.push(text(X0, 84, pc(lula / tot, 2) + '%', 't-score', 'start'));
+  out.push(text(X0, yScore, pc(lula / tot, 2) + '%', 't-score', 'start'));
   out.push(text(X0 + BW, 18, 'FLÁVIO BOLSONARO', 't-kick', 'end'));
-  out.push(text(X0 + BW, 84, pc(flavio / tot, 2) + '%', 't-score', 'end'));
+  out.push(text(X0 + BW, yScore, pc(flavio / tot, 2) + '%', 't-score', 'end'));
   out.push('    <rect x="' + X0 + '" y="' + Y + '" width="' + (xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-lula)"' + hit('Lula', nBR(lula) + ' votos') + '/>');
   out.push('    <rect x="' + (X0 + xl + 1).toFixed(1) + '" y="' + Y + '" width="' + (BW - xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-flavio)"' + hit('Flávio Bolsonaro', nBR(flavio) + ' votos') + '/>');
   out.push('    <line x1="' + (X0 + BW / 2) + '" y1="' + (Y - 8) + '" x2="' + (X0 + BW / 2) + '" y2="' + (Y + BH + 8) + '" stroke="var(--ink)" stroke-width="2"/>');
   out.push(text(X0, Y + BH + 24, nBR(lula) + ' votos', 't-lab', 'start'));
   out.push(text(X0 + BW, Y + BH + 24, nBR(flavio) + ' votos', 't-lab', 'end'));
-  out.push(text(X0 + BW / 2, Y + BH + 24, '50% · diferença de ' + nBR(margin) + ' votos', 't-note', 'middle'));
+  out.push(text(X0 + BW / 2, yNote, '50% · diferença de ' + nBR(margin) + ' votos', 't-note', 'middle'));
   out.push('  </svg>');
   return out.join('\n');
 }

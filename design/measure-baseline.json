@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
   "recorded": "2026-10-29",
-  "browser": "Chrome/156.0.8078.48",
+  "browser": "Chrome/156.0.8078.74",
   "viewports": [
     1440,
     768,
@@ -60,7 +60,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "8ad22293145777f3e30d15da5b6c04c76484e40bdbff52ecd7ea0630b02def5a"
+      "sha": "23610eeec33d1b5bb2ec8556ca325f0eaf19f2a804f2ad62feb57e4b598b69ac"
     },
     "site/apps/index.html": {
       "390": {
@@ -84,7 +84,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "5855076be5619d21f36c455d186766bf377102ed3538a7e0f9af3edea43203b7"
+      "sha": "5f38757293cb28ad3d0f5f51745fc83f029386fa7259efb57e01ee3d97bfeedc"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
@@ -188,23 +188,23 @@
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 5,
-        "hero": 0
+        "hero": 390
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 1,
-        "hero": 0
+        "hero": 707
       },
       "1440": {
         "spines": 17,
         "pageOverflow": 0,
         "escapes": 0,
         "clipped": 0,
-        "hero": 0
+        "hero": 1344
       },
-      "sha": "5b3ff45f2d8a98b260daedd8a1a212019e26e62c3226a5877c8d92fcfd7e50da"
+      "sha": "a369a73cc1a96839e60584049b6d24c6502c8ec7fcc3f80054964eeb2700cf0b"
     },
     "site/eth/index.html": {
       "390": {
@@ -252,7 +252,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "10f7aba52f25d8bbc3c46d8017ec018e494e7502269995d75fe0031ea8ec89e0"
+      "sha": "f784eb629102dbd7552f510bb0cf421e058d512e56a1578723bfd06325c66abc"
     },
     "site/explained/v1/index.html": {
       "390": {
@@ -300,7 +300,7 @@
         "clipped": 0,
         "hero": 1344
       },
-      "sha": "5e9e6fd023fa57ecbd767c0679f178d82b6bdca391172c156269c8c421a60c19"
+      "sha": "857120902329b9f1e173cdc9b5fdfe398e161f2d7b58a9f1c8740dfa4b25ff0f"
     },
     "site/grammar/roundtable/index.html": {
       "390": {
@@ -324,7 +324,7 @@
         "clipped": 0,
         "hero": 1344
       },
-      "sha": "95b9b8bf04c78d471a5e1211888add1b8e9f785dcd13ee7c95d0384aabceb388"
+      "sha": "18e3648f8564db2d5c5c44a094e8819747db61b7178b38240f261effc9b970f3"
     },
     "site/index.html": {
       "390": {
@@ -348,7 +348,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "f30a17965fe91d5821bb38e39a2358970b64d369d0e95c5b619ed07d11f891ae"
+      "sha": "df61f6631c74bde638974bf07d7bbb8fe1e431f4001d4a751a138cdd972f54af"
     },
     "site/instruments/affect/index.html": {
       "390": {
@@ -1020,7 +1020,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "c9cd8927198c0f0f5f2d3d572a0f37e2f034865121c5a65c6118ad0124247e05"
+      "sha": "81e6068e172bc43c1559e5fb2c570506952d865ea489e659a2aed466820701ad"
     },
     "site/machine/log.html": {
       "390": {
@@ -1068,7 +1068,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "927512ef54f5204a989a692616b6ca86530a99f6d31d9ef272be3ca0746486e1"
+      "sha": "084e28bfae73af33920e886beb2c800ecfa07bce84601c5bbef19b38479cd518"
     },
     "site/papers/index.html": {
       "390": {
@@ -1092,7 +1092,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "15565941860cd5c2e455aa76d46968bddde6bbfb4c014cebe3e07177dcfcefe2"
+      "sha": "2df3c915384d348804ae0092cec443de88d8c856a52a67092055606fead5110d"
     },
     "site/reports/aag.html": {
       "390": {
@@ -2100,7 +2100,7 @@
         "clipped": 0,
         "hero": 1344
       },
-      "sha": "5cc7ecbca80245145f33ce18634fca55be078994354421ead1ddde54a5c2107c"
+      "sha": "c01b60c3ebbbced8654880a6bb91879c3c010c387eaba801100fad2a0de14feb"
     },
     "site/reports/gym.html": {
       "390": {
@@ -2244,7 +2244,7 @@
         "clipped": 0,
         "hero": 0
       },
-      "sha": "6e89dd89977b6536160773159ea4ea44311db79f910abe15d0631da323163882"
+      "sha": "7ca12597e8e89ad544d65c6878f130289a48166ba23dec185ec9be82d038f951"
     },
     "site/reports/keller.html": {
       "390": {
@@ -3084,7 +3084,7 @@
         "clipped": 0,
         "hero": 1344
       },
-      "sha": "7e35537f51b00017fa3b71a01f35c80b51ca2155c4540d0061268c5aa7cc0967"
+      "sha": "2b2ab0f136bba3140960b9728b13b1836f642dbb720416c93ce266856c327e20"
     },
     "site/reports/verifier-loop.html": {
       "390": {

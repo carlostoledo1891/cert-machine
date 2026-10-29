@@ -70,7 +70,11 @@ B.push(C.header({
 B.push(C.scope('Publicado, não revisado por pares, não auditado de forma independente. Os dados são do TSE, lidos dos seus arquivos públicos e lacrados por sha256 '
   + '(e por sha512, onde o TSE publica o seu). Nenhuma linha deste trabalho vem do TSE, de partido ou de campanha; nenhuma conclusão sobre pessoas, intenções ou a legalidade de decisões judiciais é tirada aqui.'));
 
-B.push(C.figure({ svgRaw: FIG.scoreboard({ lula: W2.lula, flavio: W2.flavio, margin: W2.margin }), caption: '2º turno, 25 de outubro de 2026: votos válidos no resultado assinado pelo TSE (' + W2.sections.toLocaleString('pt-BR') + ' seções totalizadas).' }));
+/* the page's hero (D12 batch 2, design/heroes.json): the signed result is the figure a reader meets first, a strip that
+   gains from the width; the municipal map (§2) would be the other candidate, and at the container's width it is already
+   taller than the screen. The page draws no ×, so no witness has to come first. */
+const SCORE = { lula: W2.lula, flavio: W2.flavio, margin: W2.margin };
+B.push(C.figure({ svgRaw: FIG.scoreboard(SCORE), svgNarrowRaw: FIG.scoreboard(Object.assign({ narrow: true }, SCORE)), hero: true, caption:'2º turno, 25 de outubro de 2026: votos válidos no resultado assinado pelo TSE (' + W2.sections.toLocaleString('pt-BR') + ' seções totalizadas).' }));
 
 B.push(C.tldr({
   findingRaw: '<b>Os números publicados fecham, e a margem é grande demais para a prorrogação.</b> '
@@ -407,7 +411,10 @@ const foot = '<p>' + C.esc('Gerado por apps/eleicoes2026/build.js a partir de co
 let html = TPL.render({ title: 'Eleições 2026: o que os números permitem decidir · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
   cssRaw: ':root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}'
     + '.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}'
-    + '.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}', scriptRaw: CH.script(),
+    + '.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}'
+    /* the hero after the header's scope line gets the room design/template.js gives a hero right under the title; the
+       scope's rule ran into the scoreboard's top edge (D12 batch 2) */
+    + '.page > header + .scope + .hero{margin-top:var(--s-7)}', scriptRaw: CH.script(),
   desc: 'A eleição presidencial de 2026 nos dois turnos, decidida em conta exata a partir dos arquivos do TSE: boletins de urna, resultados assinados, registros das urnas e as alegações do lado derrotado.',
   path: '/eleicoes2026/' });
 html = html.replace('<span class="lab">tl;dr</span>', '<span class="lab">em resumo</span>').replace('<b>The finding.</b>', '<b>O resultado.</b>')

@@ -124,6 +124,7 @@
   --container:1200px;
   --read:82ch;
   --title:28ch;
+  --hero:1440px;
   --radius-s:6px;
   --radius-m:10px;
   --radius-l:16px;
@@ -360,6 +361,19 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* THE HERO (D12, ruled 2026-10-29; design/tokens.js LAYOUT.hero): the one figure a page declares draws its box past
+   the container into the room beside it, up to --hero wide and never past the gutter; its caption stays on the spine.
+   On a phone the box runs edge to edge, its drawing sits on the spine, and a builder may give it a second drawing at
+   a phone's scale (.hv-n, swapped for .hv-w). tools/check-measure.js counts none of the hero's own edges and ratchets
+   its width up instead. */
+.hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
+  margin-inline:calc(-1 * var(--bleed))}
+.hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
+  border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -654,6 +668,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
 /* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
 .wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
 /* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
 .w-legend.compact { max-width: 17rem; }
 /* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
@@ -704,7 +719,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 }
 
 /* @/site-css */
-:root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}
+:root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}.page > header + .scope + .hero{margin-top:var(--s-7)}
 /* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -784,8 +799,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 <p class="scope">Publicado, não revisado por pares, não auditado de forma independente. Os dados são do TSE, lidos dos seus arquivos públicos e lacrados por sha256 (e por sha512, onde o TSE publica o seu). Nenhuma linha deste trabalho vem do TSE, de partido ou de campanha; nenhuma conclusão sobre pessoas, intenções ou a legalidade de decisões judiciais é tirada aqui.</p>
 
-<div class="wide"><figure>
+<div class="wide hero" data-hero><figure>
   <div class="figbox">
+<div class="hv-w">
   <svg viewBox="0 0 900 190" role="img" aria-label="Placar do 2º turno: Lula 51,79% e Flávio Bolsonaro 48,21% dos votos válidos">
     <text x="10.0" y="18.0" text-anchor="start" class="t-kick">LULA</text>
     <text x="10.0" y="84.0" text-anchor="start" class="t-score">51,79%</text>
@@ -798,6 +814,20 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <text x="890.0" y="164.0" text-anchor="end" class="t-lab">59.826.041 votos</text>
     <text x="450.0" y="164.0" text-anchor="middle" class="t-note">50% · diferença de 4.430.191 votos</text>
   </svg>
+</div><div class="hv-n">
+  <svg viewBox="0 0 360 164" role="img" aria-label="Placar do 2º turno: Lula 51,79% e Flávio Bolsonaro 48,21% dos votos válidos">
+    <text x="10.0" y="18.0" text-anchor="start" class="t-kick">LULA</text>
+    <text x="10.0" y="60.0" text-anchor="start" class="t-score">51,79%</text>
+    <text x="350.0" y="18.0" text-anchor="end" class="t-kick">FLÁVIO BOLSONARO</text>
+    <text x="350.0" y="60.0" text-anchor="end" class="t-score">48,21%</text>
+    <rect x="10" y="74" width="175.1" height="30" fill="var(--el-lula)" data-cm="Lula" data-cmv="64.256.232 votos" tabindex="0"/>
+    <rect x="187.1" y="74" width="162.9" height="30" fill="var(--el-flavio)" data-cm="Flávio Bolsonaro" data-cmv="59.826.041 votos" tabindex="0"/>
+    <line x1="180" y1="66" x2="180" y2="112" stroke="var(--ink)" stroke-width="2"/>
+    <text x="10.0" y="128.0" text-anchor="start" class="t-lab">64.256.232 votos</text>
+    <text x="350.0" y="128.0" text-anchor="end" class="t-lab">59.826.041 votos</text>
+    <text x="180.0" y="152.0" text-anchor="middle" class="t-note">50% · diferença de 4.430.191 votos</text>
+  </svg>
+</div>
   </div>
   <figcaption>2º turno, 25 de outubro de 2026: votos válidos no resultado assinado pelo TSE (499.248 seções totalizadas).</figcaption>
 </figure></div>
@@ -7285,7 +7315,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git e9141192</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git 625b739e</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
   var tip=null;
