@@ -11,7 +11,8 @@
   "enable_nanoda: true on each claim's own Comparator config (OpenAI ships false; Anthropic ships true); nothing else in either config changes",
   "GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 for every Lean step of both claims (each row's env says so): the workaround OpenAI's own lean/README.md prescribes when vm.max_map_count is too low (the pod's is 65,530), which lane K needed on RunPod (amendments 15 and 16). A malloc setting: it changes how Lean allocates memory, never what it checks",
   "nanoda as lane K builds it: the ammkrn/nanoda_lib#44 patch (src/tc.rs) and the worker stack raised to 1 GiB (src/lib.rs); the diff is kept with the run (_nanoda.patch)",
-  "for Anthropic (Lean v4.33.1): Comparator v4.34.0 built with v4.34.1, so Comparator's Lean kernel is v4.34.1 replaying a v4.33.1 export (the v4.33.0 tag lacks the quotient post-check and the issue-68 fix, which v4.34.0 has); the export is made by lean4export v4.33.0 built with the claim's own v4.33.1, whose format differs from v4.34.0's only in omitting partial definitions (neither tree has one: census.json); leanchecker --fresh replays with the claim's own v4.33.1 kernel. Anthropic's own CI uses Comparator 57567492 and robsimmons/nanoda_lib 68d5ca9d; neither is used here"
+  "for Anthropic (Lean v4.33.1): Comparator v4.34.0 built with v4.34.1, so Comparator's Lean kernel is v4.34.1 replaying a v4.33.1 export (the v4.33.0 tag lacks the quotient post-check and the issue-68 fix, which v4.34.0 has); the export is made by lean4export v4.33.0 built with the claim's own v4.33.1, whose format differs from v4.34.0's only in omitting partial definitions (neither tree has one: census.json); leanchecker --fresh replays with the claim's own v4.33.1 kernel. Anthropic's own CI uses Comparator 57567492 and robsimmons/nanoda_lib 68d5ca9d; neither is used here",
+  "leanchecker --fresh ran on a later pod in fresh-only mode (runpod-ijw7890hq4ed9x; tools/runpod-eth.sh FRESH_ONLY=1) for anthropic: cloned again and checked against the same pins, prepared as before (lake exe cache get), built with the claimant's own build command outside any sandbox, then replayed. No Comparator, export or nanoda ran on that pod: the row's Comparator, kernel and axiom facts are its decided run's (run, at), and its leanchecker facts are that pod's (leanchecker.run, leanchecker.at)"
  ],
  "trustBase": "the two kernels (Lean's, inside Comparator; nanoda), leanchecker, lean4export, Comparator's comparison code, landrun's Landlock sandbox (Comparator calls it with --best-effort; the pod's LSM list is in each row's env), the Mathlib cache fetched by lake exe cache get, the claimants' lakefiles (OpenAI's applies dependency patches at lake update; none touches Mathlib, census.json), and RunPod's machine",
  "counts": {
@@ -174,7 +175,7 @@
     "MainResults.mainTheorem"
    ],
    "word": "CERTIFIED",
-   "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN",
+   "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: REPLAYED",
    "stage": null,
    "axiomsPrinted": [
     {
@@ -199,20 +200,37 @@
     "nanoda kernel accepts the solution"
    ],
    "leanchecker": {
-    "word": "NOT RUN",
-    "why": "leanchecker --fresh was not run (or not yet)",
-    "command": null,
-    "module": null,
-    "toolchain": null,
-    "lean": null,
+    "word": "REPLAYED",
+    "why": "leanchecker --fresh exit 0: the toolchain's kernel replayed, into an empty environment, every constant the solution module imports or declares",
+    "exit": 0,
+    "seconds": 3011,
+    "timedOut": false,
+    "maxRssKB": 10486808,
+    "containerPeakKB": 18182364,
+    "command": "lake env leanchecker --fresh Solution",
+    "module": "Solution",
+    "toolchain": "leanprover/lean4:v4.33.1",
+    "lean": "Lean (version 4.33.1, x86_64-unknown-linux-gnu, commit 819816b2e0a3bf405af45ae5c7af2491d8f5bee6, Release)",
     "output": [],
-    "run": null,
-    "mode": null,
-    "at": null,
-    "host": null,
-    "auditSha": null,
-    "build": null,
-    "prepare": null
+    "run": "runpod-ijw7890hq4ed9x",
+    "mode": "fresh-only",
+    "at": "2026-10-29T22:17:38Z",
+    "host": "RunPod CPU pod ijw7890hq4ed9x: 4 vCPU; cgroup memory.max 32000000000 bytes; host shows 995 GB; 40G free; vm.max_map_count 1048576; landlock: unreadable; kernel 6.8.0-147-generic",
+    "auditSha": "d61b2007dc4f1adeda882bd01b6a292d4764d039",
+    "build": {
+     "exit": 0,
+     "seconds": 2475,
+     "timedOut": false,
+     "maxRssKB": 7194312,
+     "containerPeakKB": 26619048
+    },
+    "prepare": {
+     "exit": 0,
+     "seconds": 141,
+     "timedOut": false,
+     "maxRssKB": 1020004,
+     "containerPeakKB": 11425492
+    }
    },
    "steps": {
     "prepare": {
@@ -271,6 +289,13 @@
      "at": "2026-10-28T19:59:50Z",
      "word": "CERTIFIED",
      "why": "Comparator exit 0; Lean's kernel and nanoda both accept; every main theorem's axioms are among propext, Classical.choice, Quot.sound; leanchecker --fresh: NOT RUN"
+    },
+    {
+     "run": "runpod-ijw7890hq4ed9x",
+     "at": "2026-10-29T22:17:38Z",
+     "mode": "fresh-only",
+     "word": "LEANCHECKER REPLAYED",
+     "why": "leanchecker --fresh exit 0: the toolchain's kernel replayed, into an empty environment, every constant the solution module imports or declares"
     }
    ],
    "prior": null

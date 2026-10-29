@@ -51,3 +51,43 @@ outcome    NO RUN. Nothing billing (list-pods empty, 20:08Z). The probes cost a 
            balance allows a US$0.88-1.76/h pod: tools/runpod-eth.sh at d61b2007 with FRESH_ONLY=1 (prepare, build,
            leanchecker --fresh; the Comparator facts are already recorded), FRESH_PARALLEL=1, FRESH_TIMEOUT=64800,
            LEAN_GLIBC_TUNABLES as before, on cpu3m 16 or 32 vCPU, disk 160-200 GB, ports 8000/http.
+
+── 2026-10-29 ~20:35Z: second attempt, after the operator reported a balance of US$25.47 (cap US$15; branch
+   eth-leanchecker-fresh-2) ──
+refused    cpu3m 16 vCPU / 160 GB disk / ports 8000/http, US$0.88/h, FRESH_ONLY=1 at d61b2007 ("no instances
+           available"; the catalog read listed cpu3m 16 LOW in EU-CZ-1, EUR-IS-1, US-NE-1); cpu3c 8 image-only,
+           US$0.24/h, refused again
+probe      6mcxjebqxaeix3 (cpu3m 4 vCPU / 32 GB, US$0.22/h, EU-SE-1), image-only, created 20:35:30Z, DELETED at
+           20:35:35Z (204; get-pod -> 404). The ceiling sits where it was before the top-up, between US$0.22 and
+           US$0.24 per hour; same account (audit log: carlos@carlostoledo.co for every pod since 10-28).
+retry      ~20:41Z, five minutes later: cpu3m 16 (US$0.88/h) and cpu3m 32 (US$1.76/h, disk 200) refused again with the
+           same message. outcome: NO RUN, no pod billing (list-pods empty). The gate is not the reported balance, or
+           not only it: the operator's next step is the RunPod console (Billing: the balance as RunPod holds it; any
+           spend limit) or RunPod support, quoting a 400 "There are no longer any instances available" on every CPU
+           create at or over US$0.24/h since 2026-10-29 19:4xZ while the same creates under US$0.22/h place at once.
+
+── 2026-10-29: the small-box fallback, ANTHROPIC ONLY (operator's approval; cap US$6; branch eth-leanchecker-fresh-3).
+   OpenAI's claim waits for the account limit to lift. A POD BILLS UNTIL TERMINATED. ──
+pod id     ijw7890hq4ed9x
+name       eth-leanchecker-anthropic
+shape      cpu3m (Memory-Optimized), 4 vCPU, 32 GB RAM, 40 GB container disk, SECURE cloud, data center US-MO-1
+price      US$0.22/h (create-pod read: cost 0.22; catalog read: cpu3m 0.055 per vCPU-hour)
+created    2026-10-29T20:43:14Z
+image      ubuntu:24.04, start command fetches tools/runpod-eth.sh at d61b2007dc4f1adeda882bd01b6a292d4764d039
+env        AUDIT_SHA=d61b2007 CLAIMS=anthropic FRESH_ONLY=1 FRESH_PARALLEL=1 FRESH_TIMEOUT=72000
+           LEAN_GLIBC_TUNABLES=glibc.malloc.mmap_max=0:glibc.malloc.arena_max=1 (ports 8000/http at create)
+facts      https://ijw7890hq4ed9x-8000.proxy.runpod.net/ (read-only, port 8000)
+import     node tools/import-runpod-eth.js ijw7890hq4ed9x [--partial]
+budget     cap US$6; deleted at US$5.5 whatever the state (~25 h at this price)
+delete     delete-pod ijw7890hq4ed9x, then confirm get-pod -> 404
+run        prepare exit 0 in 141 s (1,066 pinned files matched, 16a5ce41); lake build exit 0 in 2,475 s (9,768 jobs,
+           largest process 7.2 GB, container peak 26.6 GB with page cache); lake env leanchecker --fresh Solution
+           (Lean v4.33.1, the claim's own toolchain) EXIT 0 in 3,011 s, started 21:27:29Z, no output, largest process
+           10.5 GB, container peak 18.2 GB; cgroup memory.peak 27,518,984,192 bytes. _phase complete 22:17:38Z.
+import     node tools/import-runpod-eth.js ijw7890hq4ed9x (complete) into corpus/eth-refutation/runs/runpod-ijw7890hq4ed9x/;
+           certs/eth-kernel.json re-recorded: Anthropic's leanchecker REPLAYED (row CERTIFIED as before); OpenAI's row
+           unchanged (leanchecker NOT RUN: it waits for the account's pod ceiling to lift; not tried on this box)
+DELETED 2026-10-29 ~22:19Z (delete-pod 204; get-pod 404 "pod not found"; list-pods empty), from the cert-machine
+           session, after the import. Uptime 5,690 s at the read before deletion = US$0.35 at US$0.22/h (the
+           list-pod-billing read just after showed US$0.13, still accruing); the cap was US$6. The day's probe pods
+           add a few cents.
