@@ -2,7 +2,7 @@ SHELL := /bin/bash
 PY    ?= python3
 NODE  ?= node
 
-.PHONY: help engine control test drift lift clean reports site page papers playground materialize erdos1-venv zetahankel-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas
+.PHONY: help engine control test drift lift clean reports site page papers playground materialize erdos1-venv zetahankel-venv blind-spot-venv hseva-venv hseva-scipy ww3-points ww3-grid atlas warrant-mpl-venv
 
 help:
 	@echo "cert-machine — the conjecture engine"
@@ -68,6 +68,11 @@ zetahankel-venv:
 # claimant whose printed numbers the ledger decides). The certificates themselves are Node, stdlib only.
 hseva-venv:
 	@/opt/homebrew/bin/python3.12 -m venv instruments/hseva/.venv && instruments/hseva/.venv/bin/pip install -q -r instruments/hseva/requirements.txt && echo "instruments/hseva/.venv ready"
+
+# kits/warrant-mpl (WARRANT's print register for matplotlib, a proposal: design/print/PROPOSAL.md) needs matplotlib and
+# numpy, pinned in its requirements.txt; its test is kits/warrant-mpl/.venv/bin/python kits/warrant-mpl/tests/test_kit.py
+warrant-mpl-venv:
+	@/opt/homebrew/bin/python3.12 -m venv kits/warrant-mpl/.venv && kits/warrant-mpl/.venv/bin/pip install -q -r kits/warrant-mpl/requirements.txt && echo "kits/warrant-mpl/.venv ready"
 
 hseva-scipy:
 	@instruments/hseva/.venv/bin/python tools/run-hseva-scipy.py
