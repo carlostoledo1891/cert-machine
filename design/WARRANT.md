@@ -152,6 +152,7 @@ ground. Its two main arm colours read ΔE 0.4 apart to a deuteranope. The law th
 | #6744c5 | identity | the rules arm (re-stepped from #9070c8; ΔE 28 against the blue for a deuteranope) | Machinidae | 2026-10-28 |
 | #9fd0bb · #5f9a83 · #335e4e | order | how far a birth got: lived · died · stillborn | Machinidae | 2026-10-28 |
 | `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined; `--v-refu` IS `--witness` since 2026-10-29 | the apps (design/app-shell.js) | 2026-10-28; the red folded 2026-10-29 |
+| #3368c1 (print) | identity | the second series compared in a print figure, always with ■ | print only (design/print/tokens.js, kits/warrant-mpl) | 2026-10-29 |
 
 Retired the same day: the Eleições page's party reds and blues. On the operator's ruling ("use between the ones the grammar
 have"), its finalists are the categorical greys --c-1 and --c-3, and its maps are one ordered grey scale mixed between
@@ -198,3 +199,28 @@ meanings, against rule 2; `--v-refu` is now the witness (see the last section).
     design/tokens.js). Its meaning in an app is the witness's: a decided state shown together with the datum that
     breaks the rule, always with its icon and its word. The submitted Petrobras pages (Contraprova, Decidível,
     Abatimento) never used it and are unchanged.
+
+## v2.3: on paper (approved 2026-10-29)
+
+Reports read on white paper and printed in greyscale take the print register (`design/print/tokens.js`); the site
+stays dark (battery T3b). The stroke grammar does not change: the five patterns of design/grammar.js, each standing
+in the class and the tone role it has on screen. On paper the anchor flips: the strongest mark is the darkest, ink is
+#000000, and each weaker standing is a step lighter (chosen #262626, computed #4d4d4d); the dash carries the standing.
+
+1. **Ink first, again.** Every print figure reads in greyscale as a mono laser prints it: each series has its own
+   marker, the witness is a ×, a refusal is a hatch and ∅ in words.
+2. **Identity on paper is a colour and a marker**, at one weight and full opacity: ● ink, ■ the print blue
+   #3368c1, ▲ #4d4d4d. Never opacity: on paper it is a colour nobody validated.
+3. **The witness is the one red, #e0574e**, a mark on white (3.72:1): only ever the × glyph beside words.
+4. **The order ramp runs light to dark** with magnitude, neutral, five steps; ink reads on every step. A coloured
+   mark over a field is drawn on a paper casing.
+5. **A print figure is checked** by design/print/check-svg.js: grammar.js's dashes and the register's colours, no
+   translucency, no raster. The kit for matplotlib is kits/warrant-mpl; its register is generated, never typed.
+
+**Registered colours (paper)** · #3368c1 · identity · the second series compared in a print figure, with ■ · print ·
+2026-10-29.
+
+The operator approved all four of the proposal's decisions on 2026-10-29 ("all four approved"): the neutral register
+as WARRANT on paper; the one red kept on paper (#e0574e, a mark, never text); the print blue #3368c1 for a second
+series, print only; the paper casing under a coloured mark on a ramp field. Social cards and videos take this
+register too ("Light for X", the same day); the site stays dark.

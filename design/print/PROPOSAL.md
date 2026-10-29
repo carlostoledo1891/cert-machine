@@ -1,4 +1,4 @@
-# WARRANT on paper: the print register (proposal, 2026-10-29)
+# WARRANT on paper: the print register (proposal, 2026-10-29; APPROVED in full the same day, applied to design/WARRANT.md v2.3)
 
 **Status: for the operator's approval. Nothing is applied, served or wired.** WARRANT.md is unchanged; design/battery.js
 T3b (no light theme on the site) stays as it is; the site's pages and gates are untouched. The register lives in
