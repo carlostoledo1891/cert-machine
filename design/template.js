@@ -48,7 +48,7 @@ function rootOf(p) {
 
 /* which nav link is the current one, from the page's own path */
 function sectionOf(p) {
-  const m = /^\/(reports|instruments|machine|about)\b/.exec(p || '');
+  const m = /^\/(reports|instruments|machine|grammar|about)\b/.exec(p || '');
   return m ? m[1] : '';
 }
 

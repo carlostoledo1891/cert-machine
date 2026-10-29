@@ -251,7 +251,7 @@ if (fs.existsSync(path.join(ROOT, 'index.html'))) pages.push('index.html');
 /* the four standing sections were in no walk, so the palette and shape checks
    below were running over an incomplete set — the same defect this file exists
    to name, and the same one it caught in make test on 2026-09-05. */
-for (const d of ['site/about', 'site/machine', 'site/oracle']) {
+for (const d of ['site/about', 'site/machine', 'site/oracle', 'site/grammar']) {
   if (fs.existsSync(path.join(ROOT, d))) walk(d);
 }
 if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.html');

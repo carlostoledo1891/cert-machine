@@ -16,7 +16,8 @@
 
    So: one module. The order is REPORTS · INSTRUMENTS · MACHINE · ABOUT —
    the audits first, the things you can touch second, the engine third, the
-   person last.
+   person last. (2026-10-29: GRAMMAR joins after the method — how to read the
+   marks the method makes.)
 
    THE CSS IS HERE TOO, and that is the point. A shared markup with a
    per-shell stylesheet is the same defect one level down; playground/design/
@@ -36,6 +37,7 @@ const LINKS = [
   { t: 'Reports', to: 'reports/', here: 'reports' },
   { t: 'Instruments', to: 'instruments/', here: 'instruments' },
   { t: 'Method', to: 'machine/', here: 'machine' },   /* 2026-10-16: /machine/ is the method; the control page is /machine/log.html */
+  { t: 'Grammar', to: 'grammar/', here: 'grammar' }, /* 2026-10-29: the visual grammar, how to read every mark, beside the method */
   { t: 'About', to: 'about/', here: 'about' },
 ];
 

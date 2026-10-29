@@ -19,7 +19,7 @@ function rootOf(p) {
   return '../'.repeat(depth);
 }
 function sectionOf(p) {
-  const m = /^\/(reports|instruments|machine|about)\b/.exec(p || '');
+  const m = /^\/(reports|instruments|machine|grammar|about)\b/.exec(p || '');
   return m ? m[1] : '';
 }
 
