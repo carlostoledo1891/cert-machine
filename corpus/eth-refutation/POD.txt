@@ -31,3 +31,5 @@ probe      vkfjqn86lede79 (cpu3c 2 vCPU, US$0.06/h, EUR-IS-1), created 2026-10-2
            DELETED at once (delete-pod -> 204; get-pod -> 404 "pod not found"), well under US$0.01. It ran nothing.
            Capacity it was: cpu3m 8, 16 and 32 vCPU, cpu5m 16, cpu3g 16 and 32 all refused with image-only or full
            payloads, though the catalog read listed some of them.
+probe      oowugrjrmhmkj2 (cpu3c 2 vCPU + ports 8000/http, US$0.06/h, EUR-IS-1), created 2026-10-29T19:57:40Z to test
+           whether `ports` at create filters hosts (it does not); DELETED at once (204; get-pod -> 404). It ran nothing.
