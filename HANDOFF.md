@@ -31,6 +31,22 @@ NEXT SESSION, IN ORDER:
      continue working on grammar and social media"). Everything is committed and pushed (b5c3dbdf and this entry);
      make control was GREEN (172 in 575 s) before the grammar merges; the page gates green after each merge since.
      ── THE GRAMMAR (WARRANT, design/WARRANT.md — read its last three sections first):
+       THE ROUNDTABLE (2026-10-29 ~04:30 UTC, on "I want to create a roundtable … bring the foundations of the Warrant
+       Grammar to life"): eleven seats (Tufte, Wilkinson, Bertin, Victor, Sanderson, Bostock, Norman, Maeda, Sagmeister, a
+       Chief Scientist, a CTO), each an agent briefed with the rulebook and five built pages; the synthesis is
+       notes/warrant-roundtable-2026-10-29.md (LOCAL, untracked; the eleven positions beside it in
+       notes/warrant-roundtable-2026-10-29/). Six axioms (A1 soundness as a Galois connection … A6 a frame is a page),
+       fifteen candidate rules R17–R31, ten VERIFIED findings on the built site — F1 the tone channel runs AGAINST the
+       lattice (warrant.js css(): chosen --ink-2 brighter than computed --ink-3; v2.3 inverted the same way on paper);
+       F2 99 dashed non-guide SVG marks on 24 pages carry no w-* class (charts.js's `dashed: true`); F3 at the legend's
+       2.4 px the dotted line inks MORE than the dashed (0.57 vs 0.56); F4 build-grammar.js rounds pixels to nearest
+       (toFixed); F5 .tag.open wears a dashed border and chip shape is not a function of the verdict word; F6 27 of
+       144 W.attrs/W.value calls pass a typed standing literal; F7 reasons live only in tooltips; F8 /eth/'s first
+       screen reads "CERTIFIED" and never says the verdict is absent; F9 Machinidae retyped the five constants;
+       F10 video-campos slid a DECIDED tick. NOTHING APPLIED: WARRANT.md unchanged; rulings D9–D16 wait on the
+       operator (§8 of the note); fixes F2/F4/F5/F8/F10 are one session once the word is given; the CTO's plan ~15
+       sessions. The table refused "the system IS the math" as a slogan and kept it as the law: the display is a
+       sound map of the record, and the build decides it.
        RULED 10-29 ("follow the recommendations"): a read step never caps a verdict (listed, graded assumed, in what
        the page rests on); ONE RED — the apps' --v-refu IS --witness (design/app-shell.js reads it from tokens.js;
        SkyAudit, Janela, Swell rebuilt). v2.3 ON PAPER APPROVED in full ("all four approved"): design/print/ (tokens,
