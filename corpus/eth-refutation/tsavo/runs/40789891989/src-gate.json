@@ -1,0 +1,130 @@
+{
+ "ok": true,
+ "fails": [],
+ "facts": {
+  "tree": {
+   "files": 12,
+   "pinned": 12,
+   "ok": true
+  },
+  "statement": {
+   "pinned": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "rebuilt": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "statementLines": 23,
+   "hkMentioned": false,
+   "hkLines": [],
+   "tacticBlockInStatement": false,
+   "reads": "Claim = ∀ k : ℕ, 2 ≤ k → ClaimAt k, ClaimAt k = the 23 statement lines of exact_count_and_sat; the 23 lines never name hk, so ∀ (k) (hk : 2 ≤ k), S k and ∀ k, 2 ≤ k → ClaimAt k are the same proposition up to unfolding ClaimAt"
+  },
+  "challenge": {
+   "text": "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry",
+   "expected": "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry",
+   "ok": true
+  },
+  "config": {
+   "challenge_module": "BridgeChallenge",
+   "solution_module": "Bridge.Main",
+   "theorem_names": [
+    "Bridge.ethIsFalse_of_claim"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": true
+  },
+  "census": {
+   "leanFiles": [
+    "bridge/Bridge/BitLength.lean",
+    "bridge/Bridge/FrontEnd.lean",
+    "bridge/Bridge/Joint.lean",
+    "bridge/Bridge/Main.lean",
+    "bridge/Bridge/OpenAIStatement.lean",
+    "bridge/BridgeChallenge.lean"
+   ],
+   "forbidden": [],
+   "challengeHole": [
+    {
+     "file": "bridge/BridgeChallenge.lean",
+     "line": 12,
+     "what": "sorry"
+    }
+   ],
+   "mentionsInComments": [
+    {
+     "file": "bridge/Bridge/Main.lean",
+     "what": "sorry",
+     "count": 1
+    },
+    {
+     "file": "bridge/BridgeChallenge.lean",
+     "what": "sorry",
+     "count": 1
+    }
+   ],
+   "imports": {
+    "bridge/Bridge/BitLength.lean": [
+     "Bridge.OpenAIStatement"
+    ],
+    "bridge/Bridge/FrontEnd.lean": [
+     "MainResults",
+     "ThreeSatRateStatement",
+     "ToTuring.Machine.Host",
+     "ToTuring.Closure.Basic",
+     "ToTuring.Closure.Cases",
+     "ToTuring.Closure.Fold",
+     "ToTuring.Lib.Bool",
+     "ToTuring.Lib.Nat1",
+     "ToTuring.Lib.Nat1b",
+     "ToTuring.Lib.Nat2",
+     "ToTuring.Lib.Int",
+     "ToTuring.Lib.List1",
+     "ToTuring.Lib.List1b",
+     "ToTuring.Lib.List2",
+     "ToTuring.Lib.List3",
+     "ToTuring.Lib.Table",
+     "ToTuring.Lib.Unary",
+     "ToTuring.Poly.Decode",
+     "ToTuring.Poly.Sat",
+     "Bridge.OpenAIStatement"
+    ],
+    "bridge/Bridge/Joint.lean": [
+     "Solution",
+     "Bridge.Main"
+    ],
+    "bridge/Bridge/Main.lean": [
+     "MainResults",
+     "ThreeSatRateStatement",
+     "WidthThree.Rates",
+     "ToTuring.Machine.Host",
+     "ToTuring.Closure.Basic",
+     "ToTuring.Closure.Cases",
+     "ToTuring.Closure.Fold",
+     "ToTuring.Lib.Bool",
+     "ToTuring.Lib.Nat1",
+     "ToTuring.Lib.Nat1b",
+     "ToTuring.Lib.Nat2",
+     "ToTuring.Lib.Int",
+     "ToTuring.Lib.List1",
+     "ToTuring.Lib.List1b",
+     "ToTuring.Lib.List2",
+     "ToTuring.Lib.List3",
+     "ToTuring.Lib.Table",
+     "ToTuring.Lib.Unary",
+     "Bridge.OpenAIStatement",
+     "Bridge.BitLength",
+     "Bridge.FrontEnd"
+    ],
+    "bridge/Bridge/OpenAIStatement.lean": [
+     "Mathlib"
+    ],
+    "bridge/BridgeChallenge.lean": [
+     "MainResults",
+     "Bridge.OpenAIStatement"
+    ]
+   }
+  }
+ }
+}
