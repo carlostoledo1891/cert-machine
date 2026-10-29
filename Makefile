@@ -30,9 +30,9 @@ control:
 site: playground control
 	@$(NODE) tools/build-site.js
 	@$(NODE) apps/skyaudit/build.js
-	@$(NODE) apps/contraprova/build.js
-	@$(NODE) apps/decidivel/build.js
-	@$(NODE) apps/abatimento/build.js
+	@# Contraprova, Decidível and Abatimento are NOT rebuilt here: submitted to Petrobras, they stay exactly as submitted
+	@# (operator, 2026-10-28); a rebuild would re-bake the shared nav and template into them (the Grammar link, 2026-10-29).
+	@# Their built bytes in site/ are kept as they are; run their build.js by hand only on the operator's word.
 	@$(NODE) apps/janela/build.js
 	@$(NODE) apps/swell/build.js
 	@$(NODE) apps/explained/build.js
