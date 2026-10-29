@@ -1,21 +1,70 @@
 # The ETH bridge — corpus/eth-refutation/bridge. Two Lake projects, one per claim, each on the claim's
 # own Lean and Mathlib: openai/ (Lean v4.34.1, Mathlib d13f23b7, OpenAI's challenge statement copied
 # with one declared change) and anthropic/ (Lean v4.33.1, Mathlib 0df444a3, Anthropic's MainResults.lean
-# unchanged). Both build the same generic ETH file (ETHBridge/Generic.lean, byte-identical) and prove,
-# in Lean, that each claim's own statement implies the textbook ETH is false in that claim's model.
+# unchanged). Both build the same generic file (ETHBridge/Generic.lean, byte-identical), which states
+# ETH and the counting hypothesis #ETH once, and prove, in Lean, that each claim's own statement implies
+# that ETH and #ETH are false in that claim's model.
 #
-# Each job: the source gates (tools/eth-bridge-gates.js sources: the copies against the sha256 pins of
-# corpus/eth-refutation/pins.json, the generic file identical, no sorry/axiom/native_decide), elan,
-# lake update, lake exe cache get, lake build, #print axioms (Axioms.lean), the log gates, and an
-# artifact eth-bridge-<project> with every log. tools/record-eth-bridge.js downloads a green run and
-# writes certs/eth-bridge.json. Nothing here pushes.
+# bridge (one job per project): the source gates (tools/eth-bridge-gates.js sources: the copies against
+# the sha256 pins of corpus/eth-refutation/pins.json, the generic file identical, no sorry/axiom/
+# native_decide), elan, lake update, lake exe cache get, lake build, #print axioms (Axioms.lean), the log
+# gates, and an artifact eth-bridge-<project> with every log. Lean's kernel, inside lake build.
+#
+# tools + kernels: the SECOND kernel. Every theorem of the bridge replayed by Comparator, in Lean's kernel
+# and in nanoda, on a fresh runner on which nothing has built the bridge before Comparator does (its
+# README's second assumption), with the tools of the eth-kernel and eth-tsavo lanes at their pins:
+#   Comparator leanprover/comparator d03acab1 (tag v4.34.0) built with Lean v4.34.1; lean4export 076e8e57
+#   (comparator's manifest) built with v4.34.1 for openai/, and lean4export 15f6055e (tag v4.33.0) built
+#   with v4.33.1 for anthropic/; landrun 811cfff5; nanoda ammkrn/nanoda_lib 3a240721.
+# Declared BEFORE the first run, every configuration that differs from the tools' defaults:
+#   1. Comparator's lean-toolchain raised from v4.34.0 to v4.34.1, and lean4export v4.33.0 built with
+#      v4.33.1 (as in the eth-kernel and eth-tsavo lanes); so for anthropic/, Comparator's Lean kernel is
+#      v4.34.1 replaying a v4.33.1 export, as in those lanes' Anthropic rows.
+#   2. nanoda as lane K builds it: the corpus/openai-math/nanoda/issue44.patch (src/tc.rs) and the worker
+#      stack raised to 1 GiB (src/lib.rs); the diff is kept with the run (nanoda.patch).
+#   3. The Comparator config (written by tools/eth-bridge-gates.js challenge): enable_nanoda true,
+#      permitted_axioms the three standard ones, theorem_names EVERY theorem of the bridge files (the
+#      sources gate's list), no definition holes. Comparator then passes nanoda its own fixed config
+#      (4 threads, nat and string extensions, unpermitted axioms a hard error); none of that is changed.
+#   4. The challenge is GENERATED, not written: BridgeChallenge.lean is the project's two bridge files as
+#      one module with every theorem's proof replaced by `sorry` (statements, definitions, comments byte
+#      for byte), and ONE block is appended to the project's lakefile.toml, [[lean_lib]] name =
+#      "BridgeChallenge", so that Lake can build it. The solution module is the project's own ETHBridge.
+#      The challenge comes from our own text, so Comparator's statement match is a consistency check of
+#      that text; the claimants' statements enter through the pinned copies, as in the bridge job.
+#   5. Comparator runs as `lake env comparator <config>` with the project's toolchain first on PATH, the
+#      tool paths in COMPARATOR_LANDRUN / COMPARATOR_LEAN4EXPORT / COMPARATOR_NANODA; without the README's
+#      systemd-run wrapper (as in the eth-kernel and eth-tsavo lanes): the solution is our own code.
+#   6. The timed step runs under `ulimit -s unlimited` and RUST_MIN_STACK=1 GiB (as the eth-tsavo lane);
+#      GLIBC_TUNABLES is NOT set (default), unlike those lanes (their RunPod pod had vm.max_map_count
+#      65530; the runner's value is recorded in machine.txt); workflow_dispatch can set it, and a run that
+#      does so says it in env.txt.
+# Then the kernel gates (tools/eth-bridge-gates.js kernels) and an artifact eth-bridge-kernels-<project>.
+# tools/record-eth-bridge.js downloads a green run and writes certs/eth-bridge.json, the kernels per
+# theorem included. Nothing here pushes.
 name: eth-bridge
 on:
   push:
     branches: [eth-bridge]
   workflow_dispatch:
+    inputs:
+      glibc_tunables:
+        description: 'GLIBC_TUNABLES for the Comparator step ("none" = unset, the default)'
+        required: false
+        default: 'none'
 permissions:
   contents: read
+env:
+  COMPARATOR_PIN: d03acab154d269c06e60e4de7e4cc85deebff94b   # tag v4.34.0; its toolchain raised to v4.34.1
+  COMPARATOR_TOOLCHAIN: leanprover/lean4:v4.34.1
+  LEAN4EXPORT_434: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest, built with v4.34.1
+  LEAN4EXPORT_433: 15f6055e299ad5b89345e533cc2192f4cc00f659  # tag v4.33.0, built with v4.33.1
+  ANT_TOOLCHAIN: leanprover/lean4:v4.33.1
+  LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+  NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7
+  NANODA_BUILD: issue44-stack1g
+  ISSUE44_SHA256: 3939d228619a28d7437bad82c1d41fe1fd4597a7ea55b849840c0f7caa7d0ee5
+  LEAN_GLIBC_TUNABLES: ${{ inputs.glibc_tunables || 'none' }}
 jobs:
   bridge:
     runs-on: ubuntu-latest
@@ -96,5 +145,184 @@ jobs:
         if: always()
         with:
           name: eth-bridge-${{ matrix.project }}
+          path: ${{ github.workspace }}/out
+          retention-days: 90
+
+  tools:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: corpus/openai-math/nanoda/issue44.patch
+          sparse-checkout-cone-mode: false
+          path: audit
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/kernel-tools
+          key: eth-bridge-tools-${{ env.COMPARATOR_PIN }}-${{ env.COMPARATOR_TOOLCHAIN }}-${{ env.LEAN4EXPORT_434 }}-${{ env.LEAN4EXPORT_433 }}-${{ env.ANT_TOOLCHAIN }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-${{ env.NANODA_BUILD }}-${{ env.ISSUE44_SHA256 }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: build comparator, lean4export (v4.34.1 and v4.33.1), landrun, nanoda at their pins
+        run: |
+          set -euo pipefail
+          start=$(date +%s)
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          mkdir -p ~/kernel-tools/bin ~/kernel-tools/v4.34.1 ~/kernel-tools/v4.33.1 ~/src && cd ~/src
+          git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
+          echo "$COMPARATOR_TOOLCHAIN" > lean-toolchain
+          sed -i 's/"rev": "[0-9a-f]\{40\}"/"rev": "'"$LEAN4EXPORT_434"'"/' lake-manifest.json
+          lake build lean4export comparator
+          test "$(cd .lake/packages/lean4export && git rev-parse HEAD)" = "$LEAN4EXPORT_434"
+          cp .lake/build/bin/comparator ~/kernel-tools/bin/
+          cp .lake/packages/lean4export/.lake/build/bin/lean4export ~/kernel-tools/v4.34.1/lean4export
+          echo "lean4export $LEAN4EXPORT_434 (comparator's manifest), built with $COMPARATOR_TOOLCHAIN" > ~/kernel-tools/v4.34.1/lean4export.txt
+          cd ~/src && git clone -q https://github.com/leanprover/lean4export.git lean4export-433 && cd lean4export-433 && git checkout -q "$LEAN4EXPORT_433"
+          echo "lean4export $LEAN4EXPORT_433 ships toolchain $(cat lean-toolchain); built with $ANT_TOOLCHAIN" > ~/kernel-tools/v4.33.1/lean4export.txt
+          echo "$ANT_TOOLCHAIN" > lean-toolchain
+          lake build lean4export
+          cp .lake/build/bin/lean4export ~/kernel-tools/v4.33.1/lean4export
+          cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
+          go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
+          cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+          test "$(git diff --numstat src/lib.rs | awk '{print $1+$2}')" = "2"
+          P="$GITHUB_WORKSPACE/audit/corpus/openai-math/nanoda/issue44.patch"
+          test "$(sha256sum "$P" | cut -d' ' -f1)" = "$ISSUE44_SHA256"
+          git apply "$P"
+          test -z "$(git diff --name-only | grep -v -x -e src/lib.rs -e src/tc.rs)"
+          git diff > ~/kernel-tools/nanoda.patch
+          cargo build --release -q
+          cp target/release/nanoda_bin ~/kernel-tools/bin/
+          echo "$NANODA_BUILD" > ~/kernel-tools/nanoda.build
+          { echo "go: $(go version)"; echo "cargo: $(cargo --version)"; echo "rustc: $(rustc --version)"; } > ~/kernel-tools/builders.txt
+          echo $(( $(date +%s) - start )) > ~/kernel-tools/tools-seconds.txt
+          ls -la ~/kernel-tools/bin ~/kernel-tools/v4.34.1 ~/kernel-tools/v4.33.1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kernel-tools-bridge
+          path: ~/kernel-tools
+          retention-days: 3
+
+  kernels:
+    needs: tools
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [openai, anthropic]
+    env:
+      PROJECT: ${{ matrix.project }}
+      OUT: ${{ github.workspace }}/out
+    defaults:
+      run:
+        working-directory: corpus/eth-refutation/bridge/${{ matrix.project }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: kernel-tools-bridge
+          path: ~/kernel-tools
+      - name: free disk, the memory sampler, the machine
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT"
+          chmod +x ~/kernel-tools/bin/* ~/kernel-tools/v4.34.1/lean4export ~/kernel-tools/v4.33.1/lean4export
+          # the runner's used memory (MemTotal - MemAvailable, kB) every 15 s; background processes live until the job ends
+          nohup bash -c 'while true; do echo "$(date +%s) $(awk "/^MemTotal:/{t=\$2} /^MemAvailable:/{a=\$2} END{print t-a}" /proc/meminfo)" >> "$OUT/mem.tsv"; sleep 15; done' > /dev/null 2>&1 &
+          {
+            echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"
+            echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo
+            echo "vm.max_map_count: $(cat /proc/sys/vm/max_map_count)"
+            echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null || echo unreadable)"
+            df -h / | tail -1
+          } | tee "$OUT/machine.txt"
+          cp ~/kernel-tools/nanoda.patch "$OUT/nanoda.patch"
+          cp ~/kernel-tools/builders.txt "$OUT/" 2>/dev/null || true
+          cat > "$RUNNER_TEMP/timed.sh" <<'EOF'
+          # one timed step: $1 name, $2 timeout (s), the rest the command; files <name>.{log,err,exit,start,end} in $OUT
+          timed() {
+            local s=$1 to=$2 rc; shift 2
+            date +%s > "$OUT/$s.start"
+            ( ulimit -s unlimited 2>/dev/null || true; export RUST_MIN_STACK=1073741824
+              if [ -n "${LEAN_GLIBC_TUNABLES:-}" ] && [ "$LEAN_GLIBC_TUNABLES" != none ]; then export GLIBC_TUNABLES="$LEAN_GLIBC_TUNABLES"; fi
+              exec /usr/bin/time -v timeout "$to" "$@" > "$OUT/$s.log" 2> "$OUT/$s.err" ) && rc=0 || rc=$?
+            echo "$rc" > "$OUT/$s.exit"
+            date +%s > "$OUT/$s.end"
+            echo "$s: exit $rc, $(( $(cat "$OUT/$s.end") - $(cat "$OUT/$s.start") )) s"
+          }
+          EOF
+      - name: source gates (the copies against the pins, the generic file identical, nothing forbidden)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" sources | tee "$OUT/sources-gate.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: dependencies and the Mathlib cache (as the bridge job)
+        run: |
+          set -euo pipefail
+          WANT_TC=$(cat lean-toolchain)
+          lake update 2>&1 | tail -20
+          test "$(cat lean-toolchain)" = "$WANT_TC"
+          WANT=$(sed -n 's/^rev = "\([0-9a-f]\{40\}\)"$/\1/p' lakefile.toml)
+          GOT=$(cd .lake/packages/mathlib && git rev-parse HEAD)
+          echo "mathlib wanted $WANT, checked out $GOT"
+          test "$WANT" = "$GOT"
+          lake exe cache get 2>&1 | tail -5
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          # nothing of the bridge is built before Comparator builds it
+          test -z "$(find .lake/build -name '*.olean' 2>/dev/null)"
+          df -h / | tail -1
+      - name: the challenge (every proof replaced by sorry), the config, the one lakefile block
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" challenge "$PROJECT" . | tee "$OUT/challenge-step.txt"
+          cp BridgeChallenge.lean comparator-bridge.json lakefile.toml "$OUT/"
+          find . -path ./.lake -prune -o -type f \( -name '*.lean' -o -name 'lakefile.toml' -o -name 'lean-toolchain' \) -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          cat "$OUT/sources.sha256"
+          V="${{ matrix.project == 'openai' && 'v4.34.1' || 'v4.33.1' }}"
+          test "leanprover/lean4:$V" = "$(cat lean-toolchain)"
+          {
+            echo "project: $PROJECT"
+            echo "commit: $GITHUB_SHA"
+            echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+            echo "toolchain: $(cat lean-toolchain)"
+            lean --version; lake --version
+            echo "lean prefix: $(lean --print-prefix)"
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "comparator: $COMPARATOR_PIN built with $COMPARATOR_TOOLCHAIN"
+            cat ~/kernel-tools/$V/lean4export.txt
+            echo "nanoda: $NANODA_PIN, build $(cat ~/kernel-tools/nanoda.build)"
+            echo "landrun: $LANDRUN_PIN"
+            echo "GLIBC_TUNABLES: $LEAN_GLIBC_TUNABLES"
+            cat "$OUT/machine.txt"
+          } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+      - name: Comparator on every theorem of the bridge, Lean's kernel and nanoda
+        run: |
+          set +e
+          . "$RUNNER_TEMP/timed.sh"
+          V="${{ matrix.project == 'openai' && 'v4.34.1' || 'v4.33.1' }}"
+          LP="$(lean --print-prefix)/bin"
+          timed comparator 10800 env PATH="$LP:$PATH" COMPARATOR_LANDRUN="$HOME/kernel-tools/bin/landrun" \
+            COMPARATOR_LEAN4EXPORT="$HOME/kernel-tools/$V/lean4export" COMPARATOR_NANODA="$HOME/kernel-tools/bin/nanoda_bin" \
+            lake env "$HOME/kernel-tools/bin/comparator" comparator-bridge.json
+          grep -v '^Exporting' "$OUT/comparator.log" | tail -40
+          tail -40 "$OUT/comparator.err"
+          free -k > "$OUT/free-end.txt"; df -h / >> "$OUT/free-end.txt"
+          exit 0
+      - name: kernel gates (the files as built from the checkout, both kernels accept, every theorem exported)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/eth-bridge-gates.js" kernels "$PROJECT" "$OUT" | tee "$OUT/kernels-gate.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-bridge-kernels-${{ matrix.project }}
           path: ${{ github.workspace }}/out
           retention-days: 90
