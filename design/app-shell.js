@@ -50,7 +50,11 @@ const T = require('./tokens.js');
    states an operator must not confuse. They stay, in one set, and severity is
    never colour alone — the chips carry a word too (the Garmin grammar in
    CLAUDE.md's app doctrine). */
-const APP_DARK = { '--v-cert': '#79C79B', '--v-refu': '#E06B62', '--v-refd': '#8E8499',
+/* ONE RED (operator, 2026-10-29, "follow the recommendations"; design/WARRANT.md): the apps' "refused by the rule" was
+   #E06B62, ΔE ~4 from the house witness #e0574e — one red to the eye with two meanings. It is the witness now, read
+   from design/tokens.js, and its meaning is the witness's: a decided state shown with the datum that breaks the rule,
+   always with its icon and its word. */
+const APP_DARK = { '--v-cert': '#79C79B', '--v-refu': T.DARKONLY['--witness'], '--v-refd': '#8E8499',
   '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29' };
 /* --shadow is NOT redeclared here: design/tokens.js emits it, once, for the
    whole site. This file used to carry two more. */

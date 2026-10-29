@@ -151,7 +151,7 @@ ground. Its two main arm colours read ΔE 0.4 apart to a deuteranope. The law th
 | #79b9d6 | identity | lineage (the arm, and the accent: not in the founder; filled = new, ringed = changed) | Machinidae | 2026-10-28 |
 | #6744c5 | identity | the rules arm (re-stepped from #9070c8; ΔE 28 against the blue for a deuteranope) | Machinidae | 2026-10-28 |
 | #9fd0bb · #5f9a83 · #335e4e | order | how far a birth got: lived · died · stillborn | Machinidae | 2026-10-28 |
-| `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined | the apps (design/app-shell.js) | 2026-10-28 |
+| `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined; `--v-refu` IS `--witness` since 2026-10-29 | the apps (design/app-shell.js) | 2026-10-28; the red folded 2026-10-29 |
 
 Retired the same day: the Eleições page's party reds and blues. On the operator's ruling ("use between the ones the grammar
 have"), its finalists are the categorical greys --c-1 and --c-3, and its maps are one ordered grey scale mixed between
@@ -160,8 +160,8 @@ and amber (rule 6). Its "changed" becomes the blue ring, "live" becomes ink
 weight, and the reference line becomes the guide pattern (2 3) in ink. The aleator arm and "the AI alone" lose their
 hue and keep their diamond. Rose is retired; "stillborn" takes the ramp's darkest step.
 
-**Open:** `--v-refu` (#E06B62) and `--witness` (#e0574e) are one red to the eye (ΔE ~4) with two meanings, against
-rule 2. Until the operator rules, they never share a figure.
+**Resolved 2026-10-29:** `--v-refu` (#E06B62) and `--witness` (#e0574e) were one red to the eye (ΔE ~4) with two
+meanings, against rule 2; `--v-refu` is now the witness (see the last section).
 
 ## The site pass (2026-10-28)
 
@@ -189,5 +189,12 @@ rule 2. Until the operator rules, they never share a figure.
   shape and weight (ink first, rule 1 of v2.2).
 - **Deferred, not refused:** a live "now deciding" strip on the landing (a strip on a static build goes stale between
   builds) and a shorter H1 (D1 is not paraphrased).
-- **Still open:** `--v-refu` and `--witness` (one red to the eye, two meanings). Until the operator rules, they never
-  share a figure.
+- **Ruled 2026-10-29** (the operator: "follow the recommendations"):
+  - **A read step does not cap a verdict.** CERTIFIED, PARTIAL, REFUTED and REFUSED keep the meaning their certificate
+    gives them. Every proof step that was read and not run is listed, graded `assumed`, in the page's "what it rests
+    on", and the chain's last line names it. A reader always sees where the machine stopped; the verdict word never
+    hides a reading, and a reading never demotes a decision it does not touch.
+  - **One red.** The apps' `--v-refu` is the witness red now (design/app-shell.js reads `--witness` from
+    design/tokens.js). Its meaning in an app is the witness's: a decided state shown together with the datum that
+    breaks the rule, always with its icon and its word. The submitted Petrobras pages (Contraprova, Decidível,
+    Abatimento) never used it and are unchanged.
