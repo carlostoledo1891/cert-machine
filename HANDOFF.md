@@ -170,7 +170,8 @@ NEXT SESSION, IN ORDER:
        K(18)'s pairs, the registry's asterisks (from corpus/recognition.json), optq/aerp/wowii, PU's counts; the build
        REFUSES on a token with no figure, a figure with no record, an unused figure, an unfilled mark, or a phone number.
        Experience and education come from the git-ignored outreach/resume/resume.private.md (@@ blocks): the build works
-       only where that file exists (this Mac), by design. Rebuilt by make site (Makefile) and make page R=apps/cv. NOT
+       only where that file exists (this Mac), by design. Rebuilt by make site (Makefile) and make page R=apps/cv; site/cv/ is in build-site.js's never-prune list (the first
+       sync after the build had removed it). LIVE 2026-10-29 ~18:30 UTC: https://carlostoledo.co/cv/ → 302 → the PDF. NOT
        linked from the landing (the 10-28 ruling: no CV/hire links); the link is for sends. Keep cv.md in step with
        resume.md v3 when the outreach variant changes. The grammar's print register has no colour, so links are ink.
      ── 2026-10-29 ~13:30 UTC, ON THE OPERATOR'S WORD: the pu-feed and swell-feed workflows DELETED (PU Verificado and
