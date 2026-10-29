@@ -1,0 +1,20 @@
+{
+  "about": "D12 (design/WARRANT.md, ruled 2026-10-29): one hero figure per page. This registry covers the Tier 1 pages of WARRANT.md's site pass (2026-10-28), keyed by their path under site/. Each row is exactly one of: \"hero\": true (the built page declares it, data-hero); \"none\": why the page has no hero; \"pending\": why it waits, allowed for an app only (the landing and apps/<name>/). `name` is the page as WARRANT.md's Tier 1 line names it. tools/check-wiring.js reads this file against that line and against the built pages: a Tier 1 page with no row, a row with no reason, a stale row, or a pending report refuses.",
+  "pages": {
+    "index.html": { "name": "the home page", "pending": "an app (the landing): D12 batch 2, after the operator's look at batch 1 (existing figures)" },
+    "machine/index.html": { "name": "Method", "none": "no figure: how a claim becomes a certificate is told in prose and a table; batch 1 declares existing figures only, and a hero here would have to be drawn first" },
+    "janela/index.html": { "name": "Janela", "pending": "an app: D12 batch 2, after the operator's look at batch 1" },
+    "swell/index.html": { "name": "Swell", "pending": "an app: D12 batch 2, after the operator's look at batch 1" },
+    "explained/index.html": { "name": "explained", "pending": "an app (the easy read): D12 batch 2, after the operator's look at batch 1" },
+    "uirapuru/index.html": { "name": "Uirapuru", "pending": "an app (the Uirapuru story): D12 batch 2, after the operator's look at batch 1" },
+    "eleicoes2026/index.html": { "name": "the eleições dossier", "pending": "an app (the eleições 2026 dossier): D12 batch 2, after the operator's look at batch 1" },
+    "reports/optconst-queue.html": { "name": "optconst-queue", "none": "no figure: five pull requests to the constants registry, read as a table of rows with their verdicts" },
+    "reports/optimization-constants.html": { "name": "optimization-constants", "none": "no figure: the five asterisked bounds replayed are read in tables" },
+    "reports/kissing.html": { "name": "kissing", "hero": true, "figure": "the K(11) ladder: the lower bound as a step function of time, two panels side by side, stacked on a phone" },
+    "reports/openai-math.html": { "name": "openai-math", "none": "no figure: what the release claims beyond what it checks is read in tables" },
+    "reports/gsm8k-audit.html": { "name": "gsm8k-audit", "hero": true, "figure": "the 1,319 test items as cells, classed by this page, the two printed-step faults marked with the witness × on their own cells; under the header, before the tl;dr's inline ×" },
+    "reports/alphaevolve-community.html": { "name": "alphaevolve-community", "none": "no figure: the repository's community certificates, decided, are read in tables" },
+    "reports/time-horizon.html": { "name": "time-horizon", "hero": true, "figure": "certified 50 % horizons against release date with the exact least-squares line (§2)" },
+    "reports/curve-seeds.html": { "name": "curve-seeds", "none": "no figure: the seeds' origin, re-decided from the standards, is read in tables" }
+  }
+}

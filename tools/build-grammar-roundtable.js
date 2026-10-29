@@ -322,10 +322,9 @@ function html() {
   const head = (() => { try { return git(['rev-parse', '--short', 'HEAD']).trim(); } catch (e) { return 'unknown'; } })();
   const foot = '<p>Built from playground/warrant.js, design/tokens.js, design/grammar.js, the grammar page, the marks census (tools/check-grammar.js) run on the site now and as git holds it at ' + FIX + '^, at git ' + esc(head) + ', by tools/build-grammar-roundtable.js. MIT.</p>';
   const CSS = `
-/* /grammar/roundtable/ (tools/build-grammar-roundtable.js): the caption key, the hero under the header, F1's old tones,
+/* /grammar/roundtable/ (tools/build-grammar-roundtable.js): the caption key (the hero under the header is design/template.js), F1's old tones,
    the findings' headings, the rules' status */
 .rt-k{display:block;margin-bottom:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-2)}
-.page > header + .hero{margin-top:var(--s-7)}
 .rt-before .w-computed{stroke:var(${TB[1].tok})}
 .rt-before .w-chosen{stroke:var(${TB[2].tok})}
 .rt-f{margin-top:var(--s-7)}

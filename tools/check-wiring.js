@@ -455,6 +455,69 @@ red('a hero × thinner than its decided line is caught',
 red('a hero whose × comes first, at weight, is NOT flagged',
   heroOffences(HFIG('<circle class="w-decided" stroke-width="1.5"/>' + HX(3)) + '<p><span class="wx">&times;</span></p>', 'planted').length === 0);
 
+/* THE TIER 1 HEROES (D12 batch 1, 2026-10-29). WARRANT.md's site pass names the Tier 1 pages, and each one either
+   declares a hero in its HTML, or design/heroes.json says why it has none, or, for an app only, why it waits for batch
+   2. The list is read from WARRANT.md's own Tier 1 line, so a page added there and not in the registry refuses; a row
+   that says hero over a page that lost it, or none over a page that grew one, is stale and refuses. An app is the
+   landing or a page built by apps/<name>/build.js: a fact of the tree, never a word in the registry. */
+function tier1Names(md) {
+  const m = /\*\*Tier 1, the pages people land on:\*\*([\s\S]*?)\n- \*\*/.exec(md);
+  if (!m) return null;
+  const t = m[1].replace(/\s+/g, ' ').trim();
+  const par = /\(([^)]*)\)/.exec(t);
+  const reports = par ? par[1].split(/,\s*/).map((s) => s.trim()).filter(Boolean) : [];
+  const groups = (par ? t.slice(0, par.index) : t).split(';').map((g) => g.trim()).filter((g) => g && !/\breports\b/.test(g));
+  return groups.flatMap((g) => g.split(/,\s*|\s+and\s+/)).map((s) => s.replace(/^and\s+/, '').trim()).filter(Boolean).concat(reports);
+}
+const isApp = (key) => key === 'index.html' || fs.existsSync(path.join(ROOT, 'apps', key.split('/')[0], 'build.js'));
+const HERO_TAG = /<[a-z]+\s[^>]*\bdata-hero[\s>]/;
+function tierOffences(names, reg, htmlOf, appOf) {
+  if (!names || !names.length) return ['design/WARRANT.md: no Tier 1 line to read'];
+  const out = [], rows = Object.entries((reg && reg.pages) || {});
+  for (const n of names) if (!rows.some(([, r]) => r.name === n)) out.push(n + ': a Tier 1 page in WARRANT.md with no row in design/heroes.json');
+  for (const [key, r] of rows) {
+    if (!names.includes(r.name)) out.push(key + ': registered as "' + r.name + '", which WARRANT.md\'s Tier 1 line does not name');
+    const kinds = ['hero', 'none', 'pending'].filter((k) => r[k] !== undefined);
+    if (kinds.length !== 1) { out.push(key + ': declares ' + (kinds.join(' and ') || 'nothing') + '; a row is exactly one of hero, none, pending'); continue; }
+    const html = htmlOf(key);
+    if (html === null) { out.push(key + ': no built page at this path'); continue; }
+    const has = HERO_TAG.test(html);
+    if (kinds[0] === 'hero') { if (r.hero !== true || !has) out.push(key + ': the registry says hero, and the page declares none'); continue; }
+    if (typeof r[kinds[0]] !== 'string' || r[kinds[0]].trim().length < 12) out.push(key + ': ' + kinds[0] + ' with no reason given');
+    if (has) out.push(key + ': the page declares a hero, and the registry still says ' + kinds[0]);
+    if (kinds[0] === 'pending' && !appOf(key)) out.push(key + ': pending is for an app (batch 2), and this page is not one');
+  }
+  return out;
+}
+{
+  const HEROES = JSON.parse(read('design/heroes.json'));
+  const t1 = tier1Names(read('design/WARRANT.md'));
+  /* a report is read where its builder writes it (the control build runs this before the sync); the rest from site/ */
+  const htmlOf = (k) => { const p = k.startsWith('reports/') ? k : 'site/' + k; return fs.existsSync(path.join(ROOT, p)) ? read(p) : null; };
+  const tierBad = tierOffences(t1, HEROES, htmlOf, isApp);
+  const count = (k) => Object.values(HEROES.pages).filter((r) => r[k] !== undefined).length;
+  if (tierBad.length) bad('every Tier 1 page declares a hero, or the registry says why not', tierBad.join('\n        '));
+  else ok('every Tier 1 page declares a hero, or the registry says why not', '[' + t1.length + ' Tier 1 pages: '
+    + count('hero') + ' heroes, ' + count('none') + ' with none and a reason, ' + count('pending') + ' apps pending]');
+
+  const NAMES = ['the home page', 'Method', 'gsm8k-audit'];
+  const REG = { pages: { 'index.html': { name: 'the home page', pending: 'an app: batch 2 of D12' },
+    'machine/index.html': { name: 'Method', none: 'no figure: prose and one table' }, 'reports/gsm8k-audit.html': { name: 'gsm8k-audit', hero: true } } };
+  const HTML = { 'index.html': '<p>the landing</p>', 'machine/index.html': '<p>the method</p>', 'reports/gsm8k-audit.html': HFIG('') };
+  const at = (over) => (k) => (over && k in over ? over[k] : k in HTML ? HTML[k] : null);
+  const app = (k) => k === 'index.html';
+  const edit = (f) => { const r = JSON.parse(JSON.stringify(REG)); f(r.pages); return r; };
+  red('a Tier 1 registry that holds is NOT flagged', tierOffences(NAMES, REG, at(), app).length === 0);
+  red('a page added to WARRANT.md\'s Tier 1 line is read from it',
+    (tier1Names('- **Tier 1, the pages people land on:** the home page and Method; and the two reports (gsm8k-audit, new-one).\n- **Tier 2:** x') || []).join() === 'the home page,Method,gsm8k-audit,new-one');
+  red('a Tier 1 page with no registry row is caught', tierOffences(NAMES.concat(['new-one']), REG, at(), app).length === 1);
+  red('a page with no hero and no reason is caught', tierOffences(NAMES, edit((p) => { p['machine/index.html'].none = ''; }), at(), app).length === 1);
+  red('pending on a page that is not an app is caught',
+    tierOffences(NAMES, edit((p) => { delete p['machine/index.html'].none; p['machine/index.html'].pending = 'batch 2 of D12, later'; }), at(), app).length === 1);
+  red('a hero row over a page with no hero is caught', tierOffences(NAMES, REG, at({ 'reports/gsm8k-audit.html': '<p>no figure</p>' }), app).length === 1);
+  red('a none row over a page that declares a hero is caught', tierOffences(NAMES, REG, at({ 'machine/index.html': HFIG('') }), app).length === 1);
+}
+
 /* ---------------------------------------------------------------- 7 -----
    THE ARCHIVE AND THE CITATION AGREE, and the one description is one.
 
