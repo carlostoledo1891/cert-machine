@@ -47,6 +47,16 @@ NEXT SESSION, IN ORDER:
        operator (§8 of the note); fixes F2/F4/F5/F8/F10 are one session once the word is given; the CTO's plan ~15
        sessions. The table refused "the system IS the math" as a slogan and kept it as the law: the display is a
        sound map of the record, and the build decides it.
+       DONE 2026-10-29 ~06:30 UTC (e310e071 + 7bc7bfb7, pushed, live): THE FIVE FIXES AND D9. Tone monotone in standing on
+       screen and paper (battery W1 + red control X14); every chart-kit dash carries data-w; no chip wears a dash and
+       word → chip shape is a function (cryptids' swapped tag arguments found and fixed: its chips read 'cert'); the
+       grammar page's decided specimen drawn outward with the first resolution line; /eth/'s first tile; the machine
+       strip's flow a translated point. Every report/instrument/app page rebuilt (~80 builders); make control 174/174
+       in 560 s. The marks census ratchet (grammar-baseline.json): unstanding 36 (hand-written dashes in monoflow,
+       agtable, afg, frontier, instruments index/plates… — Tier 2), dashedBorders 35 (14 the submitted Petrobras pages;
+       the apps' forecast cards (.as-dash) carry standing legitimately; explained/uirapuru/atlas/glide-band to classify),
+       chipClash 0. The screenshots the operator approved are in the 10-29 chat. NEXT: D10 (design in the session's
+       scratchpad d10-design.md: W.val with a record pointer, data-rec, tools/check-marks.js, Tier 1 first).
        RULED 2026-10-29 ~05:00 UTC (every recommendation taken except tracking): D9 tone monotone in standing; D10
        the typed value, Tier 1 now; D11 the grade as a pair; D12 one hero figure, ruler may ratchet up for it; D13 the
        landing flow as translated points; D14 the first handle on the return-level check; D15 the companion page after
