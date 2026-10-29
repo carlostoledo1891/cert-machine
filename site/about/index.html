@@ -444,13 +444,14 @@ td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
-   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
-.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
@@ -607,12 +608,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
 .mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
 .mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
-.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
 .mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
 @media (prefers-reduced-motion:no-preference){
-  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+  .mach svg .ed-f{visibility:visible}
 }
-@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
@@ -625,10 +625,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 ::-webkit-scrollbar-track{background:transparent}
 
 /* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
-   void is a hatched field, never a line. ---- */
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger; the roundtable's finding F1):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
 .w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
 /* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
    carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
    only supports it, because dimness alone reads as low confidence and standing is not confidence. */
@@ -822,7 +824,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <div class="lab">working together</div>
     <h2>What a collaboration or a hiring process can check</h2>
   </div>
-<p>Open to collaboration — an independent audit of a release or a registry, a benchmark review, a certified decision product for an operation with a number to defend — and to roles in evaluation and verification. The four artifacts below were built to be re-run rather than read; every number in them is taken from a ledger at build time, and a number that stops holding refuses this page. The conventional CV is available on request.</p><ul class="plain"><li><b>METR’s time horizon, re-derived as certificates.</b> 44 of 44 fits with the optimum proved unique in a box below 10⁻¹⁰ on METR’s own files; the printed coefficients are the box’s rounding for 22 of 23 models; the post-2023 doubling time re-derives as 128.740 days against the printed <span class="w-val w-computed" title="computed — the doubling time METR printed; nothing here decided it">128.744</span>. <a href="/reports/time-horizon.html">The page</a>.</li><li><b>blind-spot, an RTL mutation task under Inspect and verifiers.</b> 400 pooled mutants, 892 submissions scored three ways with 0 disagreements; 3 frontier models, 180 rollouts, every one re-scored offline with 0 disagreements. <a href="/instruments/blind-spot">The instrument</a> · <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/environments/blind_spot/inspect">the Inspect task</a>.</li><li><b>GSM8K’s answer key, re-decided.</b> 4,282 test and 23,716 train calculator annotations evaluated from the expressions they print; 2 test and 24 train keys print a step that does not hold as printed. <a href="/reports/gsm8k-audit.html">The page</a>.</li><li><b>Three verifier-graded environments on the Prime Intellect hub.</b> <span class="m">blind-spot</span>, <span class="m">break-the-grader</span> and <span class="m">lattice-claims</span>, no answer key in any of them: a kill is simulated, a lattice claim is decided exactly, a grader is broken or is not. At its last control build (git afafba7c) the repository ran 172 batteries, 172 of them green. <a href="/reports/gym.html">break-the-grader</a> · <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</li></ul><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div>
+<p>Open to collaboration — an independent audit of a release or a registry, a benchmark review, a certified decision product for an operation with a number to defend — and to roles in evaluation and verification. The four artifacts below were built to be re-run rather than read; every number in them is taken from a ledger at build time, and a number that stops holding refuses this page. The conventional CV is available on request.</p><ul class="plain"><li><b>METR’s time horizon, re-derived as certificates.</b> 44 of 44 fits with the optimum proved unique in a box below 10⁻¹⁰ on METR’s own files; the printed coefficients are the box’s rounding for 22 of 23 models; the post-2023 doubling time re-derives as 128.740 days against the printed <span class="w-val w-computed" title="computed — the doubling time METR printed; nothing here decided it">128.744</span>. <a href="/reports/time-horizon.html">The page</a>.</li><li><b>blind-spot, an RTL mutation task under Inspect and verifiers.</b> 400 pooled mutants, 892 submissions scored three ways with 0 disagreements; 3 frontier models, 180 rollouts, every one re-scored offline with 0 disagreements. <a href="/instruments/blind-spot">The instrument</a> · <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/environments/blind_spot/inspect">the Inspect task</a>.</li><li><b>GSM8K’s answer key, re-decided.</b> 4,282 test and 23,716 train calculator annotations evaluated from the expressions they print; 2 test and 24 train keys print a step that does not hold as printed. <a href="/reports/gsm8k-audit.html">The page</a>.</li><li><b>Three verifier-graded environments on the Prime Intellect hub.</b> <span class="m">blind-spot</span>, <span class="m">break-the-grader</span> and <span class="m">lattice-claims</span>, no answer key in any of them: a kill is simulated, a lattice claim is decided exactly, a grader is broken or is not. At its last control build (git 7eb367ce) the repository ran 174 batteries, 174 of them green. <a href="/reports/gym.html">break-the-grader</a> · <a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>.</li></ul><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div>
 </section>
 
 <section class="col">

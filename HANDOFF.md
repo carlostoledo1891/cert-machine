@@ -95,10 +95,24 @@ NEXT SESSION, IN ORDER:
        tools/video-campos.js ("Six families, six answers") is the rejected text-led first test — do not post it.
        NEXT VIDEOS proposed: the tolerance grader as data, the kissing points in motion, Swell's forecast lines, the
        ETH proof chain (only once /eth/ is listed). Ideas also: per-page share cards; a square 1:1 cut.
+       IDEA KEPT (the operator, 2026-10-29): Axiom's CFSG auto-formalization (x.com/axiommathai/status/2115089794867040584):
+       the Lean replay lane's shape (two kernels, axiom census, the machine-written statement READ against the textbook
+       classification); corpus/targets.json row axiom-cfsg-2026-10 UNSCOUTED; scout one hour at the next pause (public? size?
+       toolchain? builds on a runner?) before any run. Not before the grammar rulings are built.
        RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; UFSC/Pedro off X;
        only claimant-directed replies go in corpus/outreach.json; check a handle with `x.js users` before tagging.
      ── ETH (done for now): the TCS form SUBMITTED, the blog comment awaiting moderation, the #36 reply POSTED
        (issuecomment-6484418376) — watch #36 and the blog; /eth/ LISTED 2026-10-29 (09b3d894).
+     ── LEARNED 2026-10-29 (the fixes' rebuild): a TEMPLATE CSS CHANGE DOES NOT PROPAGATE BY SYNC. design/refresh.js
+       re-bakes only the title, the nav and the footer into a committed page; the stylesheet is baked by each builder at
+       its own run (83 pages, 76 builders). The chip border and the flow dot therefore needed every stale builder re-run
+       (~70, by make page R="…"); until then the census ratchets (dashedBorders, "5 90") record the stale pages. PROPOSED,
+       not built: markers around the template's part of the <style> block and refresh.js re-baking it (W.usesGrammar
+       decides the grammar sheet), so the next template change is one sync. Also: tools/build-report-kissing.js re-runs
+       run-kissing-ledger.js and rewrites certs/kissing-ledger.json's wall-clock fields, which the self-audit pins —
+       restore the ledger after any kissing rebuild (afafba7c did the same on 10-28), or the four selfaudit batteries go red.
+       Also: the two TSavo batteries were filed under PY in tools/build-control.js (8dbd5d2e); make control refused on its
+       first line until they moved to the node list.
      ── HOUSEKEEPING: 13 agent worktrees under .claude/worktrees (all merged; their untracked copies are caches) —
        remove with git worktree remove when disk matters; sin-mfg is NOT on disk (LIFT sources all "gone"; ask where).
   ★★★ 2026-10-28 ~23:45 UTC — HANDOFF, on "follow the recommended path or send me the questions … Proceed". Read first.

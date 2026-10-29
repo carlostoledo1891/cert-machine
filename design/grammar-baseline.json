@@ -1,8 +1,13 @@
 {
   "exempt": {
-    "5 90": "not the grammar: an animated flow dot travelling a path (.mach svg .ed-f in design/template.js, visibility:hidden until it runs). A 5-on/90-off pattern is one dot, not a dashed line.",
+    "600": "not the grammar: a draw-on animation — one dash as long as the path, its offset run to zero as the figure enters view (.easy .draw in apps/explained/page.css); the line ends solid.",
     "141.4": "not the grammar: an arc-length trick — a single value is a circumference, used to draw a partial ring in apps/skyaudit.",
-    "600": "not the grammar: a draw-on animation — one dash as long as the path, its offset run to zero as the figure enters view (.easy .draw in apps/explained/page.css); the line ends solid."
+    "5 90": "RETIRED 2026-10-29 (the flow dot is a translated point now, design/components.js). It remains only in the three submitted Petrobras pages (contraprova, decidivel, abatimento), kept exactly as submitted (operator, 2026-10-28) and never rebuilt; 3 uses."
   },
-  "drift": {}
+  "drift": {},
+  "ratchet": {
+    "unstanding": 36,
+    "dashedBorders": 35,
+    "chipClash": 0
+  }
 }

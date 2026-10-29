@@ -89,6 +89,45 @@ function census() {
   return seen;
 }
 
+/* THE MARKS CENSUS (ruled 2026-10-29, the roundtable): three more facts about the built pages, each ratcheted in the
+   baseline's `ratchet` block (a count may only shrink; --bless records reality).
+     unstanding     a dashed, non-guide SVG mark that carries no standing (neither a w-* class nor data-w): the dash
+                    then says nothing a reader can decode (finding F2: 99 on 24 pages, from design/charts.js's
+                    `dashed: true`)
+     dashedBorders  a `dashed` border in a page's CSS: a dash is a standing, and a chip is not a line (finding F5)
+     chipClash      a verdict word wearing more than one chip kind across the site, or a kind other than the one
+                    design/components.js VERDICT_KIND gives it: word → shape is a function */
+function marksCensus() {
+  const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
+  const guide = norm(G.GUIDE);
+  const unstanding = [], borders = [], chips = new Map();
+  for (const file of walk(SITE)) {
+    const src = fs.readFileSync(file, 'utf8');
+    const rel = path.relative(SITE, file);
+    const re = /<(?:line|path|polyline|polygon|rect|circle|ellipse)\b[^>]*stroke-dasharray="([^"]+)"[^>]*>/g;
+    let m;
+    while ((m = re.exec(src))) {
+      const p = norm(m[1]);
+      if (p === guide || p.includes('${') || p.includes('var(')) continue;
+      if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
+    }
+    const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
+    while ((m = rb.exec(src))) borders.push(rel);
+    const rc = /class="tag ([a-z]+)">([^<]+)</g;
+    while ((m = rc.exec(src))) {
+      const word = m[2].trim();   /* the register's words, as written in caps; a lowercase 'certified' in a story page is a word, not a verdict chip */
+      if (!VERDICT_KIND[word]) continue;
+      if (!chips.has(word)) chips.set(word, new Map());
+      const k = chips.get(word); k.set(m[1], (k.get(m[1]) || 0) + 1);
+    }
+  }
+  const clash = [];
+  for (const [word, kinds] of chips) for (const [k, n] of kinds) if (k !== VERDICT_KIND[word]) clash.push(word + ' as ' + k + ' ×' + n);
+  const count = (arr) => { const per = {}; for (const r of arr) per[r] = (per[r] || 0) + 1; return per; };
+  return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length,
+    where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash } };
+}
+
 function loadBaseline() {
   if (!fs.existsSync(BASELINE)) return { exempt: {}, drift: {} };
   return JSON.parse(fs.readFileSync(BASELINE, 'utf8'));
@@ -120,9 +159,10 @@ function main() {
       if (permitted.has(p) || exempt.has(p)) continue;
       drift[p] = e.count;
     }
-    const out = { exempt: base.exempt || {}, drift };
+    const mc = marksCensus();
+    const out = { exempt: base.exempt || {}, drift, ratchet: { unstanding: mc.unstanding, dashedBorders: mc.dashedBorders, chipClash: mc.chipClash } };
     fs.writeFileSync(BASELINE, JSON.stringify(out, null, 2) + '\n');
-    console.log(`blessed: ${Object.keys(drift).length} drifting pattern(s) recorded`);
+    console.log(`blessed: ${Object.keys(drift).length} drifting pattern(s) recorded; marks ratchet ${JSON.stringify(out.ratchet)}`);
     return 0;
   }
 
@@ -143,6 +183,12 @@ function main() {
       const files = [...e.files].slice(0, 3).join(', ');
       console.log(`  !!  ${JSON.stringify(p).padEnd(24)} ${String(e.count).padStart(3)}  ${files}${e.files.size > 3 ? ` +${e.files.size - 3}` : ''}`);
     }
+    const mc = marksCensus();
+    console.log('-- MARKS: dashed without a standing / dashed borders / verdict-chip clashes');
+    for (const [k, per] of Object.entries(mc.where)) {
+      const rows2 = Array.isArray(per) ? per : Object.entries(per).sort((a, b) => b[1] - a[1]).map(([f, n]) => f + ' ' + n);
+      console.log(`  ${k}: ${Array.isArray(per) ? per.length : mc[k]}${rows2.length ? '  ' + rows2.slice(0, 6).join(', ') + (rows2.length > 6 ? ' +' + (rows2.length - 6) : '') : ''}`);
+    }
     console.log(`\n${rows.length} distinct pattern(s) · ${okCount} conforming use(s) · ${driftCount} drifting use(s)`);
     return 0;
   }
@@ -155,9 +201,21 @@ function main() {
   for (const [p, e, allowed] of grown) {
     console.log(`  FAIL  ${JSON.stringify(p)} used ${e.count}x, baseline allows ${allowed}`);
   }
-  const bad = news.length + grown.length;
+  /* the marks ratchet: each count may only shrink */
+  const mc = marksCensus(), rat = base.ratchet || {};
+  let marksBad = 0;
+  for (const k of ['unstanding', 'dashedBorders', 'chipClash']) {
+    const allowed = rat[k] === undefined ? 0 : rat[k];
+    if (mc[k] > allowed) {
+      marksBad++;
+      const per = mc.where[k];
+      console.log(`  FAIL  ${k}: ${mc[k]}, baseline allows ${allowed}  ${Array.isArray(per) ? per.slice(0, 4).join('; ') : Object.entries(per).sort((a, b) => b[1] - a[1]).slice(0, 4).map(([f, n]) => f + ' ' + n).join(', ')}`);
+    }
+  }
+  const bad = news.length + grown.length + marksBad;
   const recorded = Object.keys(base.drift || {}).length;
   if (bad === 0) {
+    console.log(`marks: ${mc.unstanding} dashed without a standing · ${mc.dashedBorders} dashed border(s) · ${mc.chipClash} chip clash(es) (baseline ${JSON.stringify(rat)})`);
     console.log(`grammar gate: ${rows.length} pattern(s) · ${okCount} conforming · ${driftCount} declared drift across ${recorded} pattern(s) — the ratchet holds`);
     return 0;
   }

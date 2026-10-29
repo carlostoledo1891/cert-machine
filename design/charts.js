@@ -201,6 +201,22 @@ function legendLines(items, avail, gap) {
   }
   return lines;
 }
+/* WARRANT in the kit (ruled 2026-10-29; the roundtable's finding F2: 99 dashed marks on 24 pages carried no standing,
+   because these helpers took a two-valued `dashed` flag and wrote a literal pattern). A dashed mark carries its
+   standing in the markup: `standing` (a playground/warrant.js constant) is the typed form, `dashed: true` the older
+   flag and means COMPUTED. The pattern is read from the grammar at the mark's width, never typed. The w-* class is NOT
+   set here: an identity token colours the line, and the class would overrule it with the standing tone. The census in
+   tools/check-grammar.js counts dashed marks without a standing and ratchets them down. */
+function standingAttrs(m, width, capSet) {
+  const W = require('../playground/warrant.js');
+  const s = m.standing !== undefined ? m.standing : (m.dashed ? W.COMPUTED : undefined);
+  if (s === undefined) return '';
+  if (s === W.DECIDED) return ' data-w="decided"';
+  const st = W.stroke(s, { width });
+  if (!st) return ' data-w="refused"';
+  return ' data-w="' + W.NAME[s].toLowerCase() + '" stroke-dasharray="' + st.dash + '"'
+    + (st.cap && !capSet ? ' stroke-linecap="' + st.cap + '"' : '');
+}
 const LEGEND_LINE = 19;
 function legend(items, x, y, gap, avail) {
   const out = [];
@@ -214,7 +230,14 @@ function legend(items, x, y, gap, avail) {
     const y2 = cy;
     if (it.kind === 'dash') {
       out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
-        + '" stroke="' + it.token + '" stroke-width="2" stroke-dasharray="' + G.CLAIM + '"/>');
+        + '" stroke="' + it.token + '" stroke-width="2" data-w="computed" stroke-dasharray="' + G.CLAIM + '"/>');
+    } else if (it.kind === 'guide') {
+      /* a guide says nothing (design/grammar.js 2 3): a hairline, no standing */
+      out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
+        + '" stroke="' + it.token + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>');
+    } else if (it.kind === 'dot') {
+      out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
+        + '" stroke="' + it.token + '" stroke-width="2" data-w="chosen" stroke-dasharray="' + G.PICK + '" stroke-linecap="round"/>');
     } else if (it.kind === 'line') {
       out.push('    <line x1="' + cx + '" y1="' + (y2 - 4) + '" x2="' + (cx + 14) + '" y2="' + (y2 - 4)
         + '" stroke="' + it.token + '" stroke-width="2" stroke-linecap="round"/>');
@@ -309,14 +332,14 @@ function lines(o) {
   for (const r of (o.rules || [])) {
     const y = f.py(r.v);
     out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
-      + '" stroke="' + (r.token || CTX) + '" stroke-width="1"' + (r.dashed ? ' stroke-dasharray="' + G.claim(1) + '"' : '') + '/>');
+      + '" stroke="' + (r.token || CTX) + '" stroke-width="1"' + standingAttrs(r, 1) + '/>');
     if (r.t) out.push(txt(f.L + f.pw - 4, y - 6, r.t, 't-note', 'end'));
   }
   /* vertical callouts: a named x, the way `rules` names a y. m.row stacks them. */
   for (const m of (o.vmarks || [])) {
     const x = f.px(m.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
-      + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"' + (m.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+      + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"' + standingAttrs(m, 2) + '/>');
     if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T + 13 + (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
   }
   out.push('    <line class="cm-cross" x1="0" y1="' + f.T + '" x2="0" y2="' + (f.T + f.ph)
@@ -332,7 +355,7 @@ function lines(o) {
     }
     out.push('    <path d="' + d + '" fill="none" stroke="' + tok + '" stroke-width="2" '
       + 'stroke-linejoin="round" stroke-linecap="round"'
-      + (s.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+      + standingAttrs(s, 2, true) + '/>');
     const last = pts[pts.length - 1];
     out.push('    <circle cx="' + f.px(last[0]).toFixed(2) + '" cy="' + f.py(last[1]).toFixed(2)
       + '" r="4.5" fill="' + tok + '" stroke="' + SURFACE + '" stroke-width="2"/>');
@@ -346,7 +369,7 @@ function lines(o) {
   });
   const keys = o.keys || (S.length > 1
     ? S.map((s, i) => ({ token: s.token || CAT[S.slice(0, i).filter(x => !x.token).length], t: s.name,
-                         kind: s.dashed ? 'dash' : 'line' }))
+                         kind: s.standing === require('../playground/warrant.js').CHOSEN ? 'dot' : (s.dashed || s.standing === require('../playground/warrant.js').COMPUTED) ? 'dash' : 'line' }))
     : null);
   if (keys) out.push(legend(keys, f.L, f.h - 7, o.legendGap, f.pw));
   out.push(close);
@@ -414,7 +437,7 @@ function bars(o) {
     const x = X(m.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (f.T - 3) + '" x2="' + x.toFixed(1) + '" y2="'
       + (f.T + rows.length * rowH + 3) + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"'
-      + (m.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+      + standingAttrs(m, 2) + '/>');
     /* the callout sits ABOVE the bars, in the headroom padT reserved for it —
        inside the plot it would land on the first bar */
     if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T - 8 - (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
@@ -466,7 +489,7 @@ function dist(o) {
   for (const m of (o.marks || [])) {
     const x = f.px(m.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + (f.T - 4) + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
-      + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"' + (m.dashed ? ' stroke-dasharray="5 4"' : '') + '/>');
+      + '" stroke="' + (m.token || CAT[2]) + '" stroke-width="2"' + standingAttrs(m, 2) + '/>');
     out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T + 9 + (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
   }
   out.push(close);
@@ -664,22 +687,25 @@ function scatter(o) {
   for (const l of (o.vlines || [])) {
     const x = f.px(l.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
-      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="' + G.claim(1.5) + '"' : '') + '/>');
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + standingAttrs(l, 1.5) + '/>');
     if (l.t) out.push(txt(x + 6, f.T + 13, l.t, 't-lab', 'start'));
   }
   for (const l of (o.hlines || [])) {
     const y = f.py(l.y);
     out.push('    <line x1="' + f.L + '" y1="' + y.toFixed(1) + '" x2="' + (f.L + f.pw) + '" y2="' + y.toFixed(1)
-      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + (l.dashed ? ' stroke-dasharray="' + G.claim(1.5) + '"' : '') + '/>');
+      + '" stroke="' + (l.token || CTX) + '" stroke-width="1.5"' + standingAttrs(l, 1.5) + '/>');
     if (l.t) out.push(txt(f.L + f.pw - 6, y - 6, l.t, 't-lab', 'end'));
   }
   for (const c of (o.curves || [])) {
     const d = c.pts.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(1) + ' ' + f.py(p[1]).toFixed(1)).join(' ');
     /* c.standing (WARRANT, 2026-10-28): the curve's stroke is READ from what it rests on (playground/warrant.js), so
        a fit drawn past its data is dashed by the call that says it is a forecast, never by a hand-written pattern */
-    out.push('    <path d="' + d + '" ' + (c.standing !== undefined
+    /* c.guide (2026-10-29): a reference line that says nothing — the diagonal, an identity — drawn as a hairline in the
+       guide pattern, never in a standing's dash (regatlas re-patterned it by string surgery until then) */
+    out.push('    <path d="' + d + '" ' + (c.guide ? 'fill="none" stroke="' + (c.token || CTX) + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"'
+      : c.standing !== undefined
       ? require('../playground/warrant.js').attrs(c.standing, { width: 2 })
-      : 'fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"' + (c.dashed ? ' stroke-dasharray="5 4"' : ''))
+      : 'fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"' + standingAttrs(c, 2))
       + ' stroke-linejoin="round"/>');
     if (c.k) out.push(txt(f.px(c.pts[c.pts.length - 1][0]) + 7, f.py(c.pts[c.pts.length - 1][1]) + 4, c.k, 't-lab', 'start'));
   }
@@ -743,7 +769,7 @@ function lines2(o) {
   const path = (pts, py) => pts.map((p, i) => (i ? 'L' : 'M') + f.px(p[0]).toFixed(1) + ' ' + py(p[1]).toFixed(1)).join(' ');
   for (const s of o.right.series) {
     out.push('    <path d="' + path(s.pts, pyR) + '" fill="none" stroke="' + (s.token || CTX) + '" stroke-width="2"'
-      + (s.dashed ? ' stroke-dasharray="5 4"' : '') + ' stroke-linejoin="round"/>');
+      + standingAttrs(s, 2) + ' stroke-linejoin="round"/>');
   }
   for (const s of o.left.series) {
     out.push('    <path d="' + path(s.pts, f.py) + '" fill="none" stroke="' + (s.token || CAT[0])

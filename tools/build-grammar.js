@@ -134,7 +134,19 @@ function html() {
   const yT = [0, 1, 2].map((v) => ({ v, t: String(v) }));
   const xT = (lo) => [-1, 0, 1, 2, 3, 4].filter((v) => v >= lo).map((v) => ({ v, t: v < 0 ? '−' + Math.abs(v) : String(v) }));
   const P = (f, x, y) => f.px(x).toFixed(1) + ',' + f.py(y).toFixed(1);
-  const stair = (f, key) => 'M' + cells.map((c, i) => (i ? 'V' + f.py(fnum(c[key])).toFixed(1) : P(f, fnum(c.x0), fnum(c[key]))) + 'H' + f.px(fnum(c.x1)).toFixed(1)).join('');
+  /* RULE 8 IN PIXELS (ruled 2026-10-29; the roundtable's finding F4: these paths were written with toFixed, nearest,
+     so an upper edge could sit inside the record by up to half the written resolution). An enclosure's edges round
+     AWAY from the curve: py grows downward, so the upper edge floors and the lower edge ceils; x0 floors, x1 ceils.
+     The resolution the paths are written at is a tenth of a pixel, and the caption prints what one pixel is worth. */
+  const RES = 10;
+  const away = (v, dir) => ((dir > 0 ? Math.ceil(v * RES) : Math.floor(v * RES)) / RES).toFixed(1);
+  const stair = (f, key) => { const dir = key === 'hi' ? -1 : 1;
+    return 'M' + cells.map((c, i) => (i ? 'V' + away(f.py(fnum(c[key])), dir) : away(f.px(fnum(c.x0)), -1) + ',' + away(f.py(fnum(c[key])), dir)) + 'H' + away(f.px(fnum(c.x1)), 1)).join(''); };
+  { const f = CH.frame(Object.assign({ x0: -1, x1: 4 }, PANEL));
+    guard('an edge of the decided specimen is drawn inside its enclosure (the paths round outward to a tenth of a pixel)',
+      cells.every((c) => Number(away(f.py(fnum(c.hi)), -1)) <= f.py(fnum(c.hi)) && Number(away(f.py(fnum(c.lo)), 1)) >= f.py(fnum(c.lo))
+        && Number(away(f.px(fnum(c.x0)), -1)) <= f.px(fnum(c.x0)) && Number(away(f.px(fnum(c.x1)), 1)) >= f.px(fnum(c.x1)))); }
+  const RESOLUTION = (() => { const f = CH.frame(Object.assign({ x0: -1, x1: 4 }, PANEL)); return { x: 5 / f.pw, y: (PANEL.y1 - PANEL.y0) / f.ph }; })();
   const panel = (alt, x0, inner) => {
     const f = CH.frame(Object.assign({ x0, x1: 4 }, PANEL));
     return CH.open({ w: PANEL.w, h: PANEL.h, alt }) + '\n' + CH.axes(f, { yTicks: yT, xTicks: xT(x0), xLabel: 'x' }) + '\n' + inner(f) + '\n' + CH.close;
@@ -148,7 +160,7 @@ function html() {
     figure(panel('Specimen, decided: two solid staircases enclose the curve y equals the square root of x on 0 to 4, in eight steps of one half.', -1, (f) =>
       '    <path d="' + stair(f, 'hi') + '" ' + W.attrs(W.DECIDED, { width: 1.8 }) + '/>\n    <path d="' + stair(f, 'lo') + '" ' + W.attrs(W.DECIDED, { width: 1.8 }) + '/>'),
       key(W.DECIDED) + 'An enclosure. On each of the ' + numword(STEPS) + ' steps of width 1/2, √x lies between the two lines for every x: '
-        + 'each step is an integer square root over ' + Q + ', checked by squaring when this page is built.'),
+        + 'each step is an integer square root over ' + Q + ', checked by squaring when this page is built. Drawn outward: every edge is moved away from the curve to the next tenth of a pixel, never toward it. One pixel of this panel is ' + RESOLUTION.x.toPrecision(3) + ' in x and ' + RESOLUTION.y.toPrecision(3) + ' in y; a gap narrower than that is not shown.'),
     figure(panel('Specimen, computed: the float curve of Math.sqrt, dashed.', -1, (f) =>
       '    <polyline points="' + flo.map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 2 }) + ' stroke-linejoin="round"/>'),
       key(W.COMPUTED) + 'Math.sqrt at ' + fmt(NPTS) + ' points, closer together than a pixel, joined. Floating point: it may well be right, and nothing decided it. '
@@ -488,7 +500,7 @@ function html() {
   const STAND = { [G.CLAIM]: 'computed, the line pattern', [G.CLAIM_SM]: 'computed, under ' + G.SMALL_BELOW + ' px of stroke', [G.PICK]: 'chosen, round caps', [G.PICK_SM]: 'chosen, under ' + G.SMALL_BELOW + ' px', [G.GUIDE]: 'a guide: an axis, a ruler, a ghost; it says nothing' };
   const CHECKS = [
         { raw: '<b>' + a(blob('tools/check-grammar.js'), 'tools/check-grammar.js') + ' — the dash census.</b> Only the ' + numword(G.PERMITTED.length) + ' patterns of ' + a(blob('design/grammar.js'), 'design/grammar.js') + ' may appear in a built page; '
-            + numword(exempt) + ' uses of a dash array that are not lines (an arc length, a moving dot, a draw-on animation) are declared by name, each with its reason. '
+            + numword(exempt) + ' uses of a dash array that are not lines (an arc length, a draw-on animation, and a retired pattern that survives only in the three submitted Petrobras pages, kept as submitted) are declared by name, each with its reason. '
             + 'The first census, on 5 September, counted twenty-five patterns: the dash had been derived from the stroke width, so every width minted a pattern of its own, one of them carrying a float artefact (' + m('1.04 5.460000000000001') + ') into published HTML. At the last sync, ' + fmt(Number(ctot[2])) + ' conforming uses and ' + fmt(Number(ctot[3])) + ' outside the ' + numword(G.PERMITTED.length) + ':'
             + '<ul class="gr-pats">' + G.PERMITTED.map((p) => '<li>' + m(p) + ' ' + esc(STAND[p]) + ' — ' + fmt(uses[p]) + ' uses</li>').join('') + '</ul>' },
         { raw: '<b>' + a(blob('tools/check-wiring.js'), 'tools/check-wiring.js') + ' — a legend wherever a mark is.</b> A page with a mark of the grammar and no legend is refused. At the last check, ' + fmt(Number(leg[2])) + ' of the ' + fmt(Number(leg[3])) + ' pages it walks draw the grammar, and every one prints its legend. Its red control plants a computed line with no legend, and must catch it.' },

@@ -311,10 +311,12 @@ function css() {
   const { balancedGrid } = require('../design/grid.js');
   return `
 /* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
-   void is a hatched field, never a line. ---- */
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger; the roundtable's finding F1):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
 .w-decided { stroke: var(--ink); }
-.w-computed { stroke: var(--ink-3); }
-.w-chosen { stroke: var(--ink-2); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
 /* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
    carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
    only supports it, because dimness alone reads as low confidence and standing is not confidence. */

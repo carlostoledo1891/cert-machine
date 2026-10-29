@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>What the machine would not decide · cert-machine</title>
+<title>Refusals on record, by kind · Carlos Toledo</title>
 <meta name="description" content="Every refusal cert-machine has on record, by kind, each with its own denominator: the grader&#39;s refusal rate on submitted claims, the generation loop&#39;s own refusals, NEEDS DATA where a claimant published no bytes, campaigns recorded as unfinished, and the undecided cells of two exhaustive sweeps. No total — the kinds are not commensurable.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/refusals.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/refusals.html">
-<meta property="og:title" content="What the machine would not decide · cert-machine">
+<meta property="og:title" content="Refusals on record, by kind · Carlos Toledo">
 <meta property="og:description" content="Every refusal cert-machine has on record, by kind, each with its own denominator: the grader&#39;s refusal rate on submitted claims, the generation loop&#39;s own refusals, NEEDS DATA where a claimant published no bytes, campaigns recorded as unfinished, and the undecided cells of two exhaustive sweeps. No total — the kinds are not commensurable.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="What the machine would not decide · cert-machine">
+<meta name="twitter:title" content="Refusals on record, by kind · Carlos Toledo">
 <meta name="twitter:description" content="Every refusal cert-machine has on record, by kind, each with its own denominator: the grader&#39;s refusal rate on submitted claims, the generation loop&#39;s own refusals, NEEDS DATA where a claimant published no bytes, campaigns recorded as unfinished, and the undecided cells of two exhaustive sweeps. No total — the kinds are not commensurable.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"What the machine would not decide · cert-machine","description":"Every refusal cert-machine has on record, by kind, each with its own denominator: the grader's refusal rate on submitted claims, the generation loop's own refusals, NEEDS DATA where a claimant published no bytes, campaigns recorded as unfinished, and the undecided cells of two exhaustive sweeps. No total — the kinds are not commensurable.","url":"https://carlostoledo.co/reports/refusals.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Refusals on record, by kind","description":"Every refusal cert-machine has on record, by kind, each with its own denominator: the grader's refusal rate on submitted claims, the generation loop's own refusals, NEEDS DATA where a claimant published no bytes, campaigns recorded as unfinished, and the undecided cells of two exhaustive sweeps. No total — the kinds are not commensurable.","url":"https://carlostoledo.co/reports/refusals.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -440,13 +444,14 @@ td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
-   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
-.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
@@ -464,6 +469,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -583,6 +594,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -592,12 +608,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
 .mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
 .mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
-.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
 .mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
 @media (prefers-reduced-motion:no-preference){
-  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+  .mach svg .ed-f{visibility:visible}
 }
-@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
@@ -673,13 +688,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · the third verdict</div>
-  <h1>What the machine would not decide</h1>
+  <h1>Refusals on record, by kind</h1>
+<p class="standfirst">What the machine would not decide</p>
   <p class="deck">A verifier that only ever passes or fails is a scorer. The third verdict — this instrument cannot decide, and here is why — is the one a motivated party would never build, so it is the one worth counting. Here is every refusal on record, by kind, each with the denominator it belongs to.</p>
 </header>
 
@@ -687,13 +703,13 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 <div class="col"><div class="note">
   <span class="lab">tl;dr</span>
-<ul class="plain"><li><b>The finding.</b> On submitted claims, the grader's refusal rate is <b>13.0%</b> (39 of 301 claims carried nothing parseable to decide). Inside the generation loop it is <b>1 of 16,943</b> — a different rate for a different thing, and the two are never added. The largest refusal population in the lab is neither: it is <b>18,001 swept cells</b> that did not close.</li><li><b>The mechanism.</b> Every instrument here returns one of three things and never converts between them. A refusal is terminal: it is not retried at lower rigour, not downgraded to a probability, and not quietly dropped from the record. Absence of proof is never evidence of absence — the sentence that costs the most and is worth the most.</li><li><b>Check it.</b> <span class="m">node tools/build-report-refusals.js</span> rebuilds this page from the records; every number is read from the file named in its row, and the build refuses a row that cannot name its own denominator.</li></ul>
+<ul class="plain"><li><b>The finding.</b> On submitted claims, the grader's refusal rate is <b>13.0%</b> (39 of 301 claims carried nothing parseable to decide). Inside the generation loop it is <b>73 of 16,951</b> — a different rate for a different thing, and the two are never added. The largest refusal population in the lab is neither: it is <b>18,001 swept cells</b> that did not close.</li><li><b>The mechanism.</b> Every instrument here returns one of three things and never converts between them. A refusal is terminal: it is not retried at lower rigour, not downgraded to a probability, and not quietly dropped from the record. Absence of proof is never evidence of absence — the sentence that costs the most and is worth the most.</li><li><b>Check it.</b> <span class="m">node tools/build-report-refusals.js</span> rebuilds this page from the records; every number is read from the file named in its row, and the build refuses a row that cannot name its own denominator.</li></ul>
 </div></div>
 
 <div class="wide">
   <div class="stats" data-n="4">
     <div class="stat"><div class="k">refusal rate, submitted claims</div><div class="v">13.0%</div><div class="n">39 of 301 claims on the matmul eval board carried no parseable proposal. 262 were decided: 115 certified, 147 refuted.</div></div>
-    <div class="stat"><div class="k">refusals in the loop</div><div class="v">1 / 16,943</div><div class="n">The generation loop&#39;s own rate, across 11 families. Narrow by construction — the loop only meets objects it enumerated itself.</div></div>
+    <div class="stat"><div class="k">refusals in the loop</div><div class="v">73 / 16,951</div><div class="n">The generation loop&#39;s own rate, across 11 families. Narrow by construction — the loop only meets objects it enumerated itself.</div></div>
     <div class="stat"><div class="k">undecided cells</div><div class="v">18,001</div><div class="n">Of 41,367 cells across the two regime maps. Published as holes in the map rather than filled in by interpolation.</div></div>
     <div class="stat"><div class="k">kinds, never merged</div><div class="v">5</div><div class="n">REFUSED · NEEDS DATA · OPEN · UNDECIDED · SCOPE. Each carries its own denominator; the page has no total on purpose.</div></div>
   </div>
@@ -704,7 +720,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§1 · the ledger</div>
     <h2>Every refusal on record, by kind</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>kind</th><th>where</th><th>count</th><th>out of</th><th>record</th></tr></thead><tbody><tr><td><span class="tag open">REFUSED</span></td><td>the engine loop (keller-fibers)</td><td class="v"><span class="m">1 / 16,943</span></td><td>objects certified this build</td><td class="v"><span class="m">ledger.json</span></td></tr><tr><td><span class="tag open">REFUSED</span></td><td>the matmul eval board</td><td class="v"><span class="m">39 / 301</span></td><td>claims submitted</td><td class="v"><span class="m">certs/matmul-eval-ledger.jsonl</span></td></tr><tr><td><span class="tag dep">NEEDS DATA</span></td><td>the kissing ledger, dimension 11</td><td class="v"><span class="m">0 / 11</span></td><td>ledger rows</td><td class="v"><span class="m">certs/kissing-ledger.json</span></td></tr><tr><td><span class="tag dep">OPEN</span></td><td>the Erdős #1038 supremum campaign</td><td class="v"><span class="m">1 / 7</span></td><td>degrees attempted</td><td class="v"><span class="m">certs/sublevel-tao179.json</span></td></tr><tr><td><span class="tag dep">OPEN</span></td><td>the λ(6) campaign</td><td class="v"><span class="m">1 / 10</span></td><td>families in the worklist</td><td class="v"><span class="m">certs/lambda56-campaign.json</span></td></tr><tr><td><span class="tag dep">UNDECIDED</span></td><td>the two-population regime map</td><td class="v"><span class="m">9,915 / 21,567</span></td><td>cells swept</td><td class="v"><span class="m">certs/mfg2p-regime-map.json</span></td></tr><tr><td><span class="tag dep">UNDECIDED</span></td><td>the MFG regime map</td><td class="v"><span class="m">8,086 / 19,800</span></td><td>cells swept</td><td class="v"><span class="m">certs/mfg-regime-map.json</span></td></tr><tr><td><span class="tag held">SCOPE</span></td><td>the six-claim AI audit</td><td class="v"><span class="m">6 / 6</span></td><td>lanes audited</td><td class="v"><span class="m">certs/ai-claims-summary.json</span></td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>kind</th><th>where</th><th>count</th><th>out of</th><th>record</th></tr></thead><tbody><tr><td><span class="tag open">REFUSED</span></td><td>the engine loop (chowla-cosine, keller-fibers)</td><td class="v"><span class="m">73 / 16,951</span></td><td>objects certified this build</td><td class="v"><span class="m">ledger.json</span></td></tr><tr><td><span class="tag open">REFUSED</span></td><td>the matmul eval board</td><td class="v"><span class="m">39 / 301</span></td><td>claims submitted</td><td class="v"><span class="m">certs/matmul-eval-ledger.jsonl</span></td></tr><tr><td><span class="tag open">NEEDS DATA</span></td><td>the kissing ledger, dimension 11</td><td class="v"><span class="m">0 / 11</span></td><td>ledger rows</td><td class="v"><span class="m">certs/kissing-ledger.json</span></td></tr><tr><td><span class="tag dep">OPEN</span></td><td>the Erdős #1038 supremum campaign</td><td class="v"><span class="m">1 / 7</span></td><td>degrees attempted</td><td class="v"><span class="m">certs/sublevel-tao179.json</span></td></tr><tr><td><span class="tag dep">OPEN</span></td><td>the λ(6) campaign</td><td class="v"><span class="m">1 / 10</span></td><td>families in the worklist</td><td class="v"><span class="m">certs/lambda56-campaign.json</span></td></tr><tr><td><span class="tag dep">UNDECIDED</span></td><td>the two-population regime map</td><td class="v"><span class="m">9,915 / 21,567</span></td><td>cells swept</td><td class="v"><span class="m">certs/mfg2p-regime-map.json</span></td></tr><tr><td><span class="tag dep">UNDECIDED</span></td><td>the MFG regime map</td><td class="v"><span class="m">8,086 / 19,800</span></td><td>cells swept</td><td class="v"><span class="m">certs/mfg-regime-map.json</span></td></tr><tr><td><span class="tag held">SCOPE</span></td><td>the six-claim AI audit</td><td class="v"><span class="m">6 / 6</span></td><td>lanes audited</td><td class="v"><span class="m">certs/ai-claims-summary.json</span></td></tr></tbody></table></div></div>
 <div class="col"><p>Reading down the kind column is the point. These are five different behaviours that a single "refusals" counter would flatten into one: an instrument declining, a claimant publishing nothing, a budget running out, a sweep cell staying open, and an audit stating its reach. Only the first is a statement about the instrument.</p></div>
 </section>
 
@@ -727,7 +743,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <h2>The audits, and exactly how far each one reached</h2>
   </div>
 <div class="col"><p>The sharpest refusal in the lab is not a verdict at all — it is the sentence that says which part of a claim was checked. All 6 lanes of the six-claim AI audit carry one, and 1 of them ends at PARTIAL. A reader who takes "CONFIRMED" off this table without its scope column has been told something the record does not say.</p></div>
-<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>verdict</th><th>what was actually checked</th><th>named checks</th></tr></thead><tbody><tr><td>Maxwell&#39;s point-charge bound</td><td><span class="tag held">CONFIRMED</span></td><td>at ε = 1/6 only</td><td class="v"><span class="m">17</span></td></tr><tr><td>The Korenblum constant</td><td><span class="tag held">CONFIRMED</span></td><td>the numerical criterion</td><td class="v"><span class="m">15</span></td></tr><tr><td>Erdős Problem #1038</td><td><span class="tag held">CONFIRMED</span></td><td>the computational fragment</td><td class="v"><span class="m">22</span></td></tr><tr><td>Ran–Teng Conjecture 20</td><td><span class="tag open">PARTIAL</span></td><td>machine-checkable fragment only</td><td class="v"><span class="m">38</span></td></tr><tr><td>The Mathieu property for Lie groups</td><td><span class="tag held">CONFIRMED</span></td><td>supporting identities only</td><td class="v">—</td></tr><tr><td>The rank-two Poisson conjecture</td><td><span class="tag held">CONFIRMED</span></td><td>the explicit counterexample</td><td class="v">—</td></tr></tbody></table></div></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>verdict</th><th>what was actually checked</th><th>named checks</th></tr></thead><tbody><tr><td>Maxwell&#39;s point-charge bound</td><td><span class="tag held">CONFIRMED</span></td><td>at ε = 1/6 only</td><td class="v"><span class="m">17</span></td></tr><tr><td>The Korenblum constant</td><td><span class="tag held">CONFIRMED</span></td><td>the numerical criterion</td><td class="v"><span class="m">15</span></td></tr><tr><td>Erdős Problem #1038</td><td><span class="tag held">CONFIRMED</span></td><td>the computational fragment</td><td class="v"><span class="m">22</span></td></tr><tr><td>Ran–Teng Conjecture 20</td><td><span class="tag dep">PARTIAL</span></td><td>machine-checkable fragment only</td><td class="v"><span class="m">38</span></td></tr><tr><td>The Mathieu property for Lie groups</td><td><span class="tag held">CONFIRMED</span></td><td>supporting identities only</td><td class="v">—</td></tr><tr><td>The rank-two Poisson conjecture</td><td><span class="tag held">CONFIRMED</span></td><td>the explicit counterexample</td><td class="v">—</td></tr></tbody></table></div></div>
 </section>
 
 <section class="col">
@@ -749,7 +765,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-refusals.js — every count recomputed from the records named in the table. Rebuild: node tools/build-report-refusals.js</p><p>git c56ab5f</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-refusals.js — every count recomputed from the records named in the table. Rebuild: node tools/build-report-refusals.js</p><p>git 7eb367ce</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

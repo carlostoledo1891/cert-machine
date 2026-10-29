@@ -8,8 +8,9 @@
 
    WHAT CHANGES ON PAPER AND WHAT DOES NOT.
      · The stroke grammar does not change. Every dash pattern below is READ from design/grammar.js and the role each
-       standing takes is the one playground/warrant.js css() gives it on screen (.w-decided → --ink, .w-chosen →
-       --ink-2, .w-computed → --ink-3); design/print/validate.js checks both, so this file cannot drift from them.
+       standing takes is the one playground/warrant.js css() gives it on screen (.w-decided → --ink, .w-computed →
+       --ink-2, .w-chosen → --ink-3: tone monotone in standing, D9 of 2026-10-29); design/print/validate.js checks
+       both, so this file cannot drift from them.
      · The anchor flips. On a dark ground the strongest mark is the brightest; on paper it is the darkest. So --ink is
        black (#000000: the one value a mono laser lays as solid toner, never a halftone screen), and each weaker
        standing's tone is a step lighter, exactly as each is a step dimmer on screen. The tone only supports; the dash
@@ -47,9 +48,9 @@ const REGISTER = [
   { name: '--ink', hex: '#000000', kind: 'ink', grade: 'text', screen: '--ink', status: 'neutral',
     role: 'text and values; DECIDED strokes (solid); the first series compared (identity 1, ●)' },
   { name: '--ink-2', hex: '#262626', kind: 'ink', grade: 'text', screen: '--ink-2', status: 'neutral',
-    role: 'CHOSEN strokes (dotted 1 5, round caps); a second text voice' },
+    role: 'COMPUTED strokes (dashed 5 4); a second text voice' },
   { name: '--ink-3', hex: '#4d4d4d', kind: 'ink', grade: 'text', screen: '--ink-3', status: 'neutral',
-    role: 'COMPUTED strokes (dashed 5 4); axes, ticks, axis labels, captions, glosses; the third series (identity 3, ▲)' },
+    role: 'CHOSEN strokes (dotted 1 5, round caps); axes, ticks, axis labels, captions, glosses; the third series (identity 3, ▲)' },
   { name: '--guide', hex: '#8a8a8a', kind: 'structure', grade: 'mark', screen: '--ink-5', status: 'neutral',
     role: 'the guide pattern (2 3): rulers, reference ghosts; the void\'s hatch and edge. Never text, never a datum' },
   { name: '--grid', hex: '#dcdcdc', kind: 'structure', grade: 'hairline', screen: '--c-grid', status: 'neutral',
@@ -75,8 +76,8 @@ const RAMP = REGISTER.filter((t) => t.kind === 'order').map((t) => t.name);
    and refuses a difference. REFUSED has no stroke: the void is a hatch in --guide with an edge in --guide, and ∅. */
 const STANDINGS = [
   { standing: 'DECIDED', cls: 'w-decided', token: '--ink', dash: (w) => G.SOLID, cap: null },
-  { standing: 'COMPUTED', cls: 'w-computed', token: '--ink-3', dash: (w) => G.claim(w), cap: null },
-  { standing: 'CHOSEN', cls: 'w-chosen', token: '--ink-2', dash: (w) => G.pick(w), cap: 'round' },
+  { standing: 'COMPUTED', cls: 'w-computed', token: '--ink-2', dash: (w) => G.claim(w), cap: null },
+  { standing: 'CHOSEN', cls: 'w-chosen', token: '--ink-3', dash: (w) => G.pick(w), cap: 'round' },
   { standing: 'REFUSED', cls: 'w-void', token: null, dash: null, cap: null, void: { hatch: '--guide', edge: '--guide', glyph: '∅' } },
 ];
 /* the guide is not a standing ("says nothing") and has its own pattern */

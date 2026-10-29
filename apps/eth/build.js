@@ -111,6 +111,7 @@ B.push(C.tldr({
     + ln(READ.second, 'the second reading') + ', and the pod script ' + C.m('tools/runpod-eth.sh') + ' to run it again.'
 }));
 B.push(C.stats([
+  { k: '“ETH is false”', v: 'not decided here', n: 'read against the textbook ETH (§2), bridged in each lab’s own machine model (§5); the step between models is prose (§6)' },
   { k: 'proofs decided', v: K.counts.decided + ' of ' + K.counts.of, n: 'CERTIFIED, each against its own statement' },
   { k: 'kernels that accept each', v: String(OAI.kernels.length), n: 'Lean’s, inside Comparator, and nanoda' },
   { k: 'Comparator, OpenAI', v: secs(OAI), n: 'peak ' + Math.round(OAI.steps.comparator.containerPeakKB / 1048576) + ' GiB in the container' },

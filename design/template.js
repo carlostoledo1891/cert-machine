@@ -18,7 +18,7 @@
    THE SKIN (operator instruction, 2026-09-01): these rules reproduce the
    frontier design system — design/frontier-ref/{tokens,base}.css, the terra
    atlas look — on the house component classes. Dark-only, grayscale-only;
-   verdicts by WEIGHT + SHAPE (filled / outlined / dashed), never colour-alone;
+   verdicts by WEIGHT + SHAPE (filled / outlined / dim and square), never colour-alone;
    Inter for prose and display, JetBrains Mono for every number. The selectors
    are unchanged from the previous skin, so no component or builder moved.
 
@@ -253,13 +253,14 @@ td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
-   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
-.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
@@ -357,12 +358,11 @@ ${FOOT.footerCss()}
 .mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
 .mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
 .mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
-.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
 .mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
 @media (prefers-reduced-motion:no-preference){
-  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+  .mach svg .ed-f{visibility:visible}
 }
-@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}

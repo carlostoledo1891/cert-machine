@@ -109,15 +109,16 @@ function distFig() {
     w: 900, h: 320, x0: LG(0.008), x1: LG(1.3), y0: LG(0.008), y1: LG(0.5), xLabel: 'ε, logarithmic', yLabel: 'distance, log',
     xTicks: [0.01, 0.1, 0.3, 1].map(v => ({ v: LG(v), t: String(v) })), yTicks: [0.01, 0.1, 0.3].map(v => ({ v: LG(v), t: String(v) })),
     pts: [].concat(...knots.map((ks, i) => ks.map(([x, y]) => ({ x, y, token: CAT[i], k: 'A = ' + As[i] + ', ε = ' + +(10 ** x).toPrecision(2), v: '‖u_ε − u_0‖_2 ≤ ' + (10 ** y).toExponential(4) + ', decided to the two radii' })))),
-    curves: knots.map((ks) => ({ pts: ks, standing: WR.CHOSEN })).concat([{ pts: [[LG(0.01), LG(0.01)], [LG(1), LG(1)]], token: CTX, dashed: true, k: '= ε' }]),
-    keys: As.map((A, i) => ({ token: CAT[i], t: 'A = ' + A + ': ‖u_ε − u_0‖_2, decided to the two radii' })).concat([{ token: CTX, kind: 'dash', t: 'the line ‖u_ε − u_0‖ = ε (a guide)' }]),
+    curves: knots.map((ks) => ({ pts: ks, standing: WR.CHOSEN })).concat([{ pts: [[LG(0.01), LG(0.01)], [LG(1), LG(1)]], token: CTX, guide: true, k: '= ε' }]),
+    keys: As.map((A, i) => ({ token: CAT[i], t: 'A = ' + A + ': ‖u_ε − u_0‖_2, decided to the two radii' })).concat([{ token: CTX, kind: 'guide', t: 'the line ‖u_ε − u_0‖ = ε (a guide)' }]),
     alt: 'On logarithmic axes the distance between the regularized and unregularized solutions rises with epsilon along the diagonal at small epsilon and bends below it toward epsilon equal one, for three amplitudes that lie nearly on top of one another.'
   });
-  /* the diagonal is a GUIDE (design/grammar.js, 2 3), and charts.js draws a dashed curve and its swatch in the COMPUTED
-     pattern; both are re-patterned here, anchored: exactly two, or no page */
-  const GUIDE_FROM = 'stroke="' + CTX + '" stroke-width="2" stroke-dasharray="' + G.CLAIM + '"';
-  if (svg.split(GUIDE_FROM).length - 1 !== 2) die('the distance figure\'s guide is not one curve and one swatch');
-  return svg.split(GUIDE_FROM).join('stroke="' + CTX + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"');
+  /* the diagonal is a GUIDE (design/grammar.js, 2 3): charts.js draws it and its swatch as hairlines in the guide
+     pattern by option (`guide: true`, kind 'guide', 2026-10-29; until then both were re-patterned here by string
+     surgery on the COMPUTED pattern). Anchored: exactly two, the curve and the swatch, or no page */
+  const GUIDE_AS = 'stroke="' + CTX + '" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"';
+  if (svg.split(GUIDE_AS).length - 1 !== 2) die('the distance figure\'s guide is not one curve and one swatch');
+  return svg;
 }
 
 /* ---- figure 3: the density at A = 0.6 for the proved ε ---- */

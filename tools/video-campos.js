@@ -81,7 +81,8 @@ window.frame = function (t) {
     s += '<line x1="' + xr + '" x2="' + xr + '" y1="' + yTop + '" y2="686" stroke="' + C.guide + '" stroke-width="1.5" stroke-dasharray="2 3"/>';
     s += '<text class="m" x="' + (xr + 10) + '" y="250" font-size="18" opacity="' + ar + '">the hindcast’s largest day: ' + D.rec.toFixed(3) + ' m</text>';
   }
-  /* the six rows: a decided level is a solid tick that slides from the record to its place; a refusal is the void */
+  /* the six rows: a decided level APPEARS at its place (ruled 2026-10-29: a value never travels; it appears or its
+     enclosure narrows onto it — it used to slide from the record, twenty frames at levels nobody decided); a refusal is the void */
   D.fams.forEach((F, i) => {
     const y = ROW0 + i * DY, t0 = 2.0 + i * 0.75, u = ease(a(t0, 0.7));
     if (u <= 0) return;
@@ -93,8 +94,8 @@ window.frame = function (t) {
       s += '<text class="m" x="' + (X0 + 80) + '" y="' + (y + 6) + '" font-size="18" opacity="' + u + '">∅ refused: ' + F.refused + '</text>';
       return;
     }
-    const xTo = (xc(F.lo) + xc(F.hi)) / 2, x = xm(D.rec) + (xTo - xm(D.rec)) * u, w = isD && picked ? 7 : 3.5;
-    s += '<line x1="' + x + '" x2="' + x + '" y1="' + (y - 20) + '" y2="' + (y + 20) + '" stroke="' + C.ink + '" stroke-width="' + w + '" stroke-linecap="butt"/>';
+    const x = (xc(F.lo) + xc(F.hi)) / 2, w = isD && picked ? 7 : 3.5;
+    s += '<line x1="' + x + '" x2="' + x + '" y1="' + (y - 20) + '" y2="' + (y + 20) + '" stroke="' + C.ink + '" stroke-width="' + w + '" stroke-linecap="butt" opacity="' + u + '"/>';
     const lab = a(t0 + 0.6, 0.4);
     if (lab > 0) s += '<text class="m" x="' + (x + 14) + '" y="' + (y + 6) + '" font-size="19" opacity="' + lab + '" style="fill:' + (isD && picked ? C.ink : C.ink3) + '">' + m2(F.lo) + '–' + m2(F.hi) + ' m</text>';
   });

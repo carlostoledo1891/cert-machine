@@ -34,8 +34,14 @@ const m = (s) => '<span class="m">' + esc(s) + '</span>';
 
 /* a status tag. `kind` is a ROLE, not a colour: held | cert | open | dep */
 const TAG_KINDS = ['held', 'cert', 'open', 'dep'];
+/* RULED 2026-10-29 (the roundtable; Norman's finding F5): a verdict word has ONE chip shape site-wide, so word → shape
+   is a function. A builder's kind is honoured only for a word that is not a verdict. The mapping is the shape each word
+   wore most often before the ruling (CERTIFIED filled 403 of 417; REFUTED outlined 66 of 73; REFUSED dim 23 of 37). */
+const VERDICT_KIND = { CERTIFIED: 'held', WITNESSED: 'held', REPAIRED: 'held', REFUTED: 'dep', PARTIAL: 'dep', MIXED: 'dep',
+  REFUSED: 'open', 'NEEDS DATA': 'open', QUEUED: 'open' };
 function tag(text, kind) {
-  const k = TAG_KINDS.indexOf(kind) >= 0 ? kind : 'dep';
+  const v = VERDICT_KIND[String(text).trim().toUpperCase()];
+  const k = v || (TAG_KINDS.indexOf(kind) >= 0 ? kind : 'dep');
   return '<span class="tag ' + k + '">' + esc(text) + '</span>';
 }
 
@@ -374,7 +380,9 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
   };
   for (const e of edges) {
     parts.push('      <path class="ed" d="' + escAttr(e.d) + '" marker-end="url(#mfa)"/>');
-    if (e.flow !== false) parts.push('      <path class="ed-f" d="' + escAttr(e.d) + '"/>');
+    /* the flow: a POINT translated along the edge (ruled 2026-10-29, D13); it was a 5 90 dash offset, decoration in
+       the standing channel. The CSS shows it only when motion is not reduced. */
+    if (e.flow !== false) parts.push('      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="' + escAttr(e.d) + '"/></circle>');
   }
   for (const n of nodes) {
     parts.push('      <g class="nd" tabindex="0" role="button" aria-label="' + escAttr(n.t) + '"'
@@ -415,6 +423,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
 }
 
 module.exports = {
+  VERDICT_KIND,
   esc, escAttr, m, tag, TAG_KINDS, categoryChart, legend,
   nav, header, stats, scope, section, p, pRaw, pull, eq, code, note, tldr, quote,
   table, plainList, cards, picker, figure, flow,

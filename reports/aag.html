@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>The empty region, painted by standing · cert-machine</title>
+<title>A first-order mean-field game with entry and exit: the empty region decided · Carlos Toledo</title>
 <meta name="description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/aag.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/aag.html">
-<meta property="og:title" content="The empty region, painted by standing · cert-machine">
+<meta property="og:title" content="A first-order mean-field game with entry and exit: the empty region decided · Carlos Toledo">
 <meta property="og:description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The empty region, painted by standing · cert-machine">
+<meta name="twitter:title" content="A first-order mean-field game with entry and exit: the empty region decided · Carlos Toledo">
 <meta name="twitter:description" content="A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"The empty region, painted by standing · cert-machine","description":"A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.","url":"https://carlostoledo.co/reports/aag.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"A first-order mean-field game with entry and exit: the empty region decided","description":"A first-order mean-field game with an entry and an exit, its empty region decided cell by cell and refused where the budget cannot decide, its two value functions enclosed, and contact without exit evaluated as an interval.","url":"https://carlostoledo.co/reports/aag.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -440,13 +444,14 @@ td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
-   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
-.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
@@ -464,6 +469,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -583,6 +594,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -592,12 +608,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
 .mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
 .mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
-.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
 .mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
 @media (prefers-reduced-motion:no-preference){
-  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+  .mach svg .ed-f{visibility:visible}
 }
-@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
@@ -673,13 +688,14 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · report · the record is re-derived at every build</div>
-  <h1>The empty region, painted by standing</h1>
+  <h1>A first-order mean-field game with entry and exit: the empty region decided</h1>
+<p class="standfirst">The empty region, painted by standing</p>
   <p class="deck">A first-order mean-field game on an interval with an entry at one end and an exit at the other, from Alharbi, Ashrafyan and Gomes (Applied Mathematics &amp; Optimization, 2026). Where the potential is negative the density vanishes: an empty region, and inside it the value function is not unique. This page takes the paper&#39;s own explicit solutions and decides them cell by cell: occupied, empty, or refused where the cell holds the free boundary at the budget chosen. The refused cells are drawn as refused. The two value functions are drawn as two members of a set. And the sentence from the paper&#39;s abstract, that contact with the exit does not imply exit, is evaluated as an interval, twice.</p>
 </header>
 
@@ -1140,7 +1156,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <path d="M62.00 225.19 L65.19 225.19 L68.38 225.19 L71.56 225.19 L74.75 225.19 L77.94 225.19 L81.13 225.19 L84.31 225.19 L87.50 225.19 L90.69 225.19 L93.88 225.19 L97.06 225.19 L100.25 225.19 L103.44 225.19 L106.63 225.19 L109.81 225.19 L113.00 225.19 L116.19 225.19 L119.38 225.19 L122.56 225.19 L125.75 225.19 L128.94 225.19 L132.13 225.19 L135.31 225.07 L138.50 224.87 L141.69 224.61 L144.88 224.32 L148.06 223.98 L151.25 223.62 L154.44 223.22 L157.63 222.80 L160.81 222.34 L164.00 221.87 L167.19 221.37 L170.38 220.85 L173.56 220.31 L176.75 219.75 L179.94 219.17 L183.13 218.58 L186.31 217.96 L189.50 217.34 L192.69 216.69 L195.88 216.04 L199.06 215.37 L202.25 214.69 L205.44 213.99 L208.63 213.29 L211.81 212.57 L215.00 211.85 L218.19 211.11 L221.38 210.37 L224.56 209.62 L227.75 208.86 L230.94 208.09 L234.13 207.32 L237.31 206.54 L240.50 205.75 L243.69 204.97 L246.88 204.17 L250.06 203.38 L253.25 202.58 L256.44 201.78 L259.63 200.97 L262.81 200.17 L266.00 199.36 L269.19 198.56 L272.38 197.75 L275.56 196.95 L278.75 196.15 L281.94 195.35 L285.13 194.55 L288.31 193.76 L291.50 192.97 L294.69 192.18 L297.88 191.41 L301.06 190.63 L304.25 189.87 L307.44 189.11 L310.63 188.36 L313.81 187.61 L317.00 186.88 L320.19 186.15 L323.38 185.44 L326.56 184.73 L329.75 184.04 L332.94 183.35 L336.13 182.68 L339.31 182.03 L342.50 181.39 L345.69 180.76 L348.88 180.15 L352.06 179.55 L355.25 178.97 L358.44 178.41 L361.63 177.87 L364.81 177.35 L368.00 176.86 L371.19 176.38 L374.38 175.93 L377.56 175.50 L380.75 175.11 L383.94 174.74 L387.13 174.41 L390.31 174.11 L393.50 173.86 L396.69 173.66 L399.88 173.53 L403.06 173.53 L406.25 173.53 L409.44 173.53 L412.63 173.53 L415.81 173.53 L419.00 173.53 L422.19 173.53 L425.38 173.53 L428.56 173.53 L431.75 173.53 L434.94 173.53 L438.13 173.53 L441.31 173.53 L444.50 173.53 L447.69 173.53 L450.88 173.53 L454.06 173.53 L457.25 173.53 L460.44 173.53 L463.63 173.53 L466.81 173.53 L470.00 173.53 L473.19 173.53 L476.38 173.53 L479.56 173.53 L482.75 173.53 L485.94 173.53 L489.13 173.53 L492.31 173.53 L495.50 173.53 L498.69 173.53 L501.88 173.53 L505.06 173.53 L508.25 173.53 L511.44 173.53 L514.63 173.53 L517.81 173.53 L521.00 173.53 L524.19 173.53 L527.38 173.53 L530.56 173.53 L533.75 173.53 L536.94 173.53 L540.13 173.53 L543.31 173.53 L546.50 173.53 L549.69 173.53 L552.88 173.53 L556.06 173.53 L559.25 173.53 L562.44 173.53 L565.63 173.53 L568.81 173.53 L572.00 173.53 L575.19 173.53 L578.38 173.53 L581.56 173.53 L584.75 173.53 L587.94 173.53 L591.13 173.53 L594.31 173.53 L597.50 173.53 L600.69 173.53 L603.88 173.53 L607.06 173.53 L610.25 173.53 L613.44 173.53 L616.63 173.53 L619.81 173.53 L623.00 173.53 L626.19 173.53 L629.38 173.53 L632.56 173.53 L635.75 173.53 L638.94 173.53 L642.13 173.53 L645.31 173.53 L648.50 173.53 L651.69 173.53 L654.88 173.53 L658.06 173.53 L661.25 173.53 L664.44 173.53 L667.63 173.53 L670.81 173.53 L674.00 173.53 L677.19 173.53 L680.38 173.38 L683.56 173.16 L686.75 172.89 L689.94 172.58 L693.13 172.24 L696.31 171.86 L699.50 171.45 L702.69 171.02 L705.88 170.56 L709.06 170.07 L712.25 169.57 L715.44 169.04 L718.63 168.49 L721.81 167.93 L725.00 167.34 L728.19 166.74 L731.38 166.13 L734.56 165.49 L737.75 164.85 L740.94 164.19 L744.13 163.51 L747.31 162.83 L750.50 162.13 L753.69 161.42 L756.88 160.70 L760.06 159.97 L763.25 159.23 L766.44 158.49 L769.63 157.73 L772.81 156.97 L776.00 156.20 L779.19 155.43 L782.38 154.65 L785.56 153.86 L788.75 153.07 L791.94 152.28 L795.13 151.48 L798.31 150.68 L801.50 149.88 L804.69 149.07 L807.88 148.27 L811.06 147.46 L814.25 146.66 L817.44 145.85 L820.63 145.05 L823.81 144.25 L827.00 143.45 L830.19 142.66 L833.38 141.86 L836.56 141.08 L839.75 140.29 L842.94 139.52 L846.13 138.75 L849.31 137.98 L852.50 137.23 L855.69 136.48 L858.88 135.74 L862.06 135.00 L865.25 134.28 L868.44 133.57 L871.63 132.87 L874.81 132.18 L878.00 131.50 L878.00 131.50 L874.81 132.19 L871.63 132.89 L868.44 133.60 L865.25 134.33 L862.06 135.06 L858.88 135.80 L855.69 136.55 L852.50 137.31 L849.31 138.07 L846.13 138.84 L842.94 139.62 L839.75 140.40 L836.56 141.19 L833.38 141.98 L830.19 142.77 L827.00 143.57 L823.81 144.37 L820.63 145.18 L817.44 145.98 L814.25 146.79 L811.06 147.59 L807.88 148.40 L804.69 149.20 L801.50 150.01 L798.31 150.81 L795.13 151.62 L791.94 152.42 L788.75 153.21 L785.56 154.01 L782.38 154.80 L779.19 155.58 L776.00 156.36 L772.81 157.14 L769.63 157.91 L766.44 158.67 L763.25 159.42 L760.06 160.17 L756.88 160.91 L753.69 161.64 L750.50 162.36 L747.31 163.06 L744.13 163.76 L740.94 164.45 L737.75 165.12 L734.56 165.78 L731.38 166.43 L728.19 167.06 L725.00 167.68 L721.81 168.28 L718.63 168.86 L715.44 169.43 L712.25 169.98 L709.06 170.50 L705.88 171.01 L702.69 171.49 L699.50 171.95 L696.31 172.39 L693.13 172.79 L689.94 173.17 L686.75 173.52 L683.56 173.82 L680.38 174.09 L677.19 174.31 L674.00 174.47 L670.81 174.47 L667.63 174.47 L664.44 174.47 L661.25 174.47 L658.06 174.47 L654.88 174.47 L651.69 174.47 L648.50 174.47 L645.31 174.47 L642.13 174.47 L638.94 174.47 L635.75 174.47 L632.56 174.47 L629.38 174.47 L626.19 174.47 L623.00 174.47 L619.81 174.47 L616.63 174.47 L613.44 174.47 L610.25 174.47 L607.06 174.47 L603.88 174.47 L600.69 174.47 L597.50 174.47 L594.31 174.47 L591.13 174.47 L587.94 174.47 L584.75 174.47 L581.56 174.47 L578.38 174.47 L575.19 174.47 L572.00 174.47 L568.81 174.47 L565.63 174.47 L562.44 174.47 L559.25 174.47 L556.06 174.47 L552.88 174.47 L549.69 174.47 L546.50 174.47 L543.31 174.47 L540.13 174.47 L536.94 174.47 L533.75 174.47 L530.56 174.47 L527.38 174.47 L524.19 174.47 L521.00 174.47 L517.81 174.47 L514.63 174.47 L511.44 174.47 L508.25 174.47 L505.06 174.47 L501.88 174.47 L498.69 174.47 L495.50 174.47 L492.31 174.47 L489.13 174.47 L485.94 174.47 L482.75 174.47 L479.56 174.47 L476.38 174.47 L473.19 174.47 L470.00 174.47 L466.81 174.47 L463.63 174.47 L460.44 174.47 L457.25 174.47 L454.06 174.47 L450.88 174.47 L447.69 174.47 L444.50 174.47 L441.31 174.47 L438.13 174.47 L434.94 174.47 L431.75 174.47 L428.56 174.47 L425.38 174.47 L422.19 174.47 L419.00 174.47 L415.81 174.47 L412.63 174.47 L409.44 174.47 L406.25 174.47 L403.06 174.47 L399.88 174.59 L396.69 174.79 L393.50 175.04 L390.31 175.34 L387.13 175.67 L383.94 176.04 L380.75 176.44 L377.56 176.86 L374.38 177.31 L371.19 177.79 L368.00 178.29 L364.81 178.81 L361.63 179.35 L358.44 179.91 L355.25 180.49 L352.06 181.08 L348.88 181.69 L345.69 182.32 L342.50 182.96 L339.31 183.62 L336.13 184.29 L332.94 184.97 L329.75 185.66 L326.56 186.37 L323.38 187.09 L320.19 187.81 L317.00 188.55 L313.81 189.29 L310.63 190.04 L307.44 190.80 L304.25 191.57 L301.06 192.34 L297.88 193.12 L294.69 193.90 L291.50 194.69 L288.31 195.48 L285.13 196.28 L281.94 197.08 L278.75 197.88 L275.56 198.69 L272.38 199.49 L269.19 200.30 L266.00 201.10 L262.81 201.91 L259.63 202.71 L256.44 203.52 L253.25 204.32 L250.06 205.12 L246.88 205.92 L243.69 206.72 L240.50 207.51 L237.31 208.30 L234.13 209.09 L230.94 209.86 L227.75 210.64 L224.56 211.40 L221.38 212.16 L218.19 212.91 L215.00 213.66 L211.81 214.39 L208.63 215.12 L205.44 215.83 L202.25 216.54 L199.06 217.23 L195.88 217.92 L192.69 218.59 L189.50 219.24 L186.31 219.88 L183.13 220.51 L179.94 221.12 L176.75 221.72 L173.56 222.30 L170.38 222.86 L167.19 223.40 L164.00 223.92 L160.81 224.41 L157.63 224.89 L154.44 225.34 L151.25 225.77 L148.06 226.16 L144.88 226.53 L141.69 226.86 L138.50 227.16 L135.31 227.41 L132.13 227.61 L128.94 227.74 L125.75 227.74 L122.56 227.74 L119.38 227.74 L116.19 227.74 L113.00 227.74 L109.81 227.74 L106.63 227.74 L103.44 227.74 L100.25 227.74 L97.06 227.74 L93.88 227.74 L90.69 227.74 L87.50 227.74 L84.31 227.74 L81.13 227.74 L77.94 227.74 L74.75 227.74 L71.56 227.74 L68.38 227.74 L65.19 227.74 L62.00 227.74 Z" fill="var(--c-1)" opacity="0.14"/>
     <path d="M62.00 226.47 L65.19 226.47 L68.38 226.47 L71.56 226.47 L74.75 226.47 L77.94 226.47 L81.13 226.47 L84.31 226.47 L87.50 226.47 L90.69 226.47 L93.88 226.47 L97.06 226.47 L100.25 226.47 L103.44 226.47 L106.63 226.47 L109.81 226.47 L113.00 226.47 L116.19 226.47 L119.38 226.47 L122.56 226.47 L125.75 226.47 L128.94 226.47 L132.13 226.40 L135.31 226.24 L138.50 226.01 L141.69 225.74 L144.88 225.42 L148.06 225.07 L151.25 224.69 L154.44 224.28 L157.63 223.84 L160.81 223.38 L164.00 222.89 L167.19 222.38 L170.38 221.85 L173.56 221.30 L176.75 220.73 L179.94 220.15 L183.13 219.54 L186.31 218.92 L189.50 218.29 L192.69 217.64 L195.88 216.98 L199.06 216.30 L202.25 215.61 L205.44 214.91 L208.63 214.20 L211.81 213.48 L215.00 212.75 L218.19 212.01 L221.38 211.27 L224.56 210.51 L227.75 209.75 L230.94 208.98 L234.13 208.20 L237.31 207.42 L240.50 206.63 L243.69 205.84 L246.88 205.05 L250.06 204.25 L253.25 203.45 L256.44 202.65 L259.63 201.84 L262.81 201.04 L266.00 200.23 L269.19 199.43 L272.38 198.62 L275.56 197.82 L278.75 197.01 L281.94 196.21 L285.13 195.42 L288.31 194.62 L291.50 193.83 L294.69 193.04 L297.88 192.26 L301.06 191.49 L304.25 190.72 L307.44 189.95 L310.63 189.20 L313.81 188.45 L317.00 187.71 L320.19 186.98 L323.38 186.26 L326.56 185.55 L329.75 184.85 L332.94 184.16 L336.13 183.49 L339.31 182.82 L342.50 182.17 L345.69 181.54 L348.88 180.92 L352.06 180.32 L355.25 179.73 L358.44 179.16 L361.63 178.61 L364.81 178.08 L368.00 177.57 L371.19 177.08 L374.38 176.62 L377.56 176.18 L380.75 175.77 L383.94 175.39 L387.13 175.04 L390.31 174.72 L393.50 174.45 L396.69 174.22 L399.88 174.06 L403.06 174.00 L406.25 174.00 L409.44 174.00 L412.63 174.00 L415.81 174.00 L419.00 174.00 L422.19 174.00 L425.38 174.00 L428.56 174.00 L431.75 174.00 L434.94 174.00 L438.13 174.00 L441.31 174.00 L444.50 174.00 L447.69 174.00 L450.88 174.00 L454.06 174.00 L457.25 174.00 L460.44 174.00 L463.63 174.00 L466.81 174.00 L470.00 174.00 L473.19 174.00 L476.38 174.00 L479.56 174.00 L482.75 174.00 L485.94 174.00 L489.13 174.00 L492.31 174.00 L495.50 174.00 L498.69 174.00 L501.88 174.00 L505.06 174.00 L508.25 174.00 L511.44 174.00 L514.63 174.00 L517.81 174.00 L521.00 174.00 L524.19 174.00 L527.38 174.00 L530.56 174.00 L533.75 174.00 L536.94 174.00 L540.13 174.00 L543.31 174.00 L546.50 174.00 L549.69 174.00 L552.88 174.00 L556.06 174.00 L559.25 174.00 L562.44 174.00 L565.63 174.00 L568.81 174.00 L572.00 174.00 L575.19 174.00 L578.38 174.00 L581.56 174.00 L584.75 174.00 L587.94 174.00 L591.13 174.00 L594.31 174.00 L597.50 174.00 L600.69 174.00 L603.88 174.00 L607.06 174.00 L610.25 174.00 L613.44 174.00 L616.63 174.00 L619.81 174.00 L623.00 174.00 L626.19 174.00 L629.38 174.00 L632.56 174.00 L635.75 174.00 L638.94 174.00 L642.13 174.00 L645.31 174.00 L648.50 174.00 L651.69 174.00 L654.88 174.00 L658.06 174.00 L661.25 174.00 L664.44 174.00 L667.63 174.00 L670.81 174.00 L674.00 174.00 L677.19 173.92 L680.38 173.73 L683.56 173.49 L686.75 173.20 L689.94 172.88 L693.13 172.52 L696.31 172.12 L699.50 171.70 L702.69 171.26 L705.88 170.78 L709.06 170.29 L712.25 169.77 L715.44 169.24 L718.63 168.68 L721.81 168.10 L725.00 167.51 L728.19 166.90 L731.38 166.28 L734.56 165.64 L737.75 164.98 L740.94 164.32 L744.13 163.64 L747.31 162.95 L750.50 162.24 L753.69 161.53 L756.88 160.80 L760.06 160.07 L763.25 159.33 L766.44 158.58 L769.63 157.82 L772.81 157.05 L776.00 156.28 L779.19 155.51 L782.38 154.72 L785.56 153.93 L788.75 153.14 L791.94 152.35 L795.13 151.55 L798.31 150.75 L801.50 149.94 L804.69 149.14 L807.88 148.33 L811.06 147.53 L814.25 146.72 L817.44 145.92 L820.63 145.11 L823.81 144.31 L827.00 143.51 L830.19 142.71 L833.38 141.92 L836.56 141.13 L839.75 140.35 L842.94 139.57 L846.13 138.79 L849.31 138.03 L852.50 137.27 L855.69 136.51 L858.88 135.77 L862.06 135.03 L865.25 134.30 L868.44 133.59 L871.63 132.88 L874.81 132.18 L878.00 131.50" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 5"/>
     <text x="108.3" y="218.5" text-anchor="start" class="t-lab">u₋</text>
-    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" stroke-dasharray="5 4"/>
+    <line x1="62" y1="308" x2="76" y2="308" stroke="var(--c-1)" stroke-width="2" data-w="computed" stroke-dasharray="5 4"/>
     <text x="81.0" y="312.0" text-anchor="start" class="t-note">u₊ and u₋: each one member of the solution set (CHOSEN) — the fill is its enclosure</text>
     <line x1="62" y1="327" x2="76" y2="327" stroke="var(--c-grid)" stroke-width="2" stroke-linecap="round"/>
     <text x="81.0" y="331.0" text-anchor="start" class="t-note">the empty region, where u is not unique</text>
@@ -1259,7 +1275,7 @@ node instruments/aag/run.js --check  # the record, re-derived and compared byte 
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-aag.js @ git 4ba347a — certs/aag-empty-region.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 0448eb66afae8091…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-aag.js @ git 7eb367ce — certs/aag-empty-region.json re-derived during this build and compared byte for byte (identical, or no page). Code sha256 0448eb66afae8091…</p><p>cert-machine · Carlos Toledo</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

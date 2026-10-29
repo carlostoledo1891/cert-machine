@@ -190,8 +190,8 @@ const REDS = [
     plant: (P) => { P.standings.find((s) => s.standing === 'COMPUTED').dash = () => '6 4'; return P; } },
   { id: 'X10', attacks: 'P4', what: 'a second red as the witness (#E06B62, the retired --v-refu)', plant: (P) => setHex(P, '--witness', '#E06B62') },
   { id: 'X11', attacks: 'P9', what: 'a chromatic identity with no shape', plant: (P) => { delete tok(P.reg, '--id-2').shape; return P; } },
-  { id: 'X12', attacks: 'P2', what: 'the computed stroke re-mapped to --ink-2 (not the screen\'s token)',
-    plant: (P) => { P.standings.find((s) => s.standing === 'COMPUTED').token = '--ink-2'; return P; } },
+  { id: 'X12', attacks: 'P2', what: 'the computed stroke re-mapped to --ink-3 (not the screen\'s token; it was, until D9 of 2026-10-29)',
+    plant: (P) => { P.standings.find((s) => s.standing === 'COMPUTED').token = '--ink-3'; return P; } },
   { id: 'X13', attacks: 'P9', what: 'two identity series sharing the circle', plant: (P) => { P.identity[1].marker = 'o'; return P; } },
 ];
 

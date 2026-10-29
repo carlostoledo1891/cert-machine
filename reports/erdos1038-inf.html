@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Erdős #1038: the infimum, bracketed</title>
+<title>Erdős #1038: a certified unconditional bracket for the infimum · Carlos Toledo</title>
 <meta name="description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta name="author" content="Carlos Toledo">
 <meta name="theme-color" content="#0a0a0c">
 <meta name="robots" content="max-image-preview:large">
 <link rel="canonical" href="https://carlostoledo.co/reports/erdos1038-inf.html">
 <meta property="og:url" content="https://carlostoledo.co/reports/erdos1038-inf.html">
-<meta property="og:title" content="Erdős #1038: the infimum, bracketed">
+<meta property="og:title" content="Erdős #1038: a certified unconditional bracket for the infimum · Carlos Toledo">
 <meta property="og:description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="cert-machine · Carlos Toledo">
@@ -19,10 +19,10 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Erdős #1038: the infimum, bracketed">
+<meta name="twitter:title" content="Erdős #1038: a certified unconditional bracket for the infimum · Carlos Toledo">
 <meta name="twitter:description" content="A certified unconditional bracket 1.828 &lt;= inf &lt;= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao&#39;s model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.">
 <meta name="twitter:image" content="https://carlostoledo.co/og.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038: the infimum, bracketed","description":"A certified unconditional bracket 1.828 \u003c= inf \u003c= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao's model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.","url":"https://carlostoledo.co/reports/erdos1038-inf.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ScholarlyArticle","headline":"Erdős #1038: a certified unconditional bracket for the infimum","description":"A certified unconditional bracket 1.828 \u003c= inf \u003c= 1.8344305 for the Erdős-Herzog-Piranian infimum (Erdős #1038), with Tao's model Problem 4.1 answered for every epsilon — assuming none of the three currently claimed proofs of the exact value.","url":"https://carlostoledo.co/reports/erdos1038-inf.html","image":"https://carlostoledo.co/og.png","author":{"@type":"Person","name":"Carlos Toledo","url":"https://carlostoledo.co/about/","sameAs":["https://github.com/carlostoledo1891","https://github.com/carlostoledo1891/cert-machine"]},"isPartOf":{"@type":"WebSite","name":"cert-machine","url":"https://carlostoledo.co"},"isBasedOn":"https://github.com/carlostoledo1891/cert-machine"}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,6 +51,7 @@
   --warn:#9a9aa6;
   --warn-soft:#141419;
   --mark:#32323c;
+  --witness:#e0574e;
   --band-fill:rgba(246,246,248,0.07);
   --c-1:#f6f6f8;
   --c-2:#a9a9b4;
@@ -266,6 +267,9 @@ h2{font-size:clamp(1.9rem,1.2rem + 2.4vw,3rem);line-height:1.12;margin:0 0 8px;l
 h3{font-size:clamp(1.35rem,1.1rem + 1vw,1.75rem);line-height:1.25;margin:0 0 6px;letter-spacing:-.02em;font-weight:530}
 .deck{font-size:1.125rem;line-height:1.55;color:var(--ink-3);font-weight:400;margin:24px 0 0;
   max-width:82ch;text-wrap:pretty}
+/* the standfirst: the page's former editorial title, demoted under the formal
+   H1 by design/titles.js (2026-10-16); the rule is that module's, once */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
 p{margin:0 0 18px}
 a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--sig-2);transition:border-color .16s}
 a:hover{border-bottom-color:var(--ink)}
@@ -440,13 +444,14 @@ td.v{font-size:.75rem;color:var(--ink);word-break:break-all}
 td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
-   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM + DASH. */
+   certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
+   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
 .tag.held{background:var(--ink);color:var(--paper)}
 .tag.cert{background:var(--ink);color:var(--paper)}
-.tag.open{border:1px dashed var(--ink-4);color:var(--ink-3);background:transparent}
+.tag.open{border:1px solid var(--ink-4);border-radius:4px;color:var(--ink-3);background:transparent}
 .tag.dep{border:1px solid var(--rule-strong);color:var(--ink-3);background:transparent}
 
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin:8px 0 0}
@@ -464,6 +469,12 @@ a.card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 .card-d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3)}
 .card-n{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule);
   font-family:var(--f-mono);font-size:0.6875rem;letter-spacing:.05em;color:var(--ink-5)}
+/* a quotation at a card's foot (components.cards `quote`, 2026-10-28): someone else's words in italic, under the
+   footer's rule and flush with the card's own text (an indent would add a left edge the layout ruler counts), held to
+   the card's type size so they read as theirs and not as our mono footer */
+a.card blockquote{margin:auto 0 0;padding:var(--s-3) 0 0;border-left:0;border-top:1px solid var(--rule);
+  font-size:var(--text-small);line-height:var(--leading-snug);font-style:italic;color:var(--ink-2);overflow-wrap:anywhere}
+a.card blockquote cite{margin-top:var(--s-2)}
 
 /* PICKER — CSS-state tabs. Radios carry the state, labels are the controls,
    the panels are siblings. Same device as the nav drawer: no script, so it
@@ -583,6 +594,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach-ro .d{font-size:0.8125rem;line-height:1.55;color:var(--ink-3);min-height:3em}
 .mach svg .nd{cursor:pointer;outline:none}
 .mach svg .nd-box{fill:var(--surface);stroke:var(--rule);stroke-width:1;transition:stroke .16s ease}
+/* a node that carries a standing (WARRANT v2): its outline is drawn a step brighter so the grammar's pattern reads at
+   1px; the void has no outline and no surface, only the hatch (components.flow defines #mach-void) */
+.mach svg .nd-box.w-decided,.mach svg .nd-box.w-computed,.mach svg .nd-box.w-chosen{stroke:var(--ink-4)}
+.mach svg .nd-box.nd-void{fill:url(#mach-void);stroke:none}
+.mach .w-legend{margin-top:var(--s-4)}
 .mach svg .nd:hover .nd-box,.mach svg .nd:focus-visible .nd-box{stroke:var(--ink-3);stroke-width:1.5}
 .mach svg .nd.on .nd-box{stroke:var(--ink);stroke-width:1.6}
 .mach svg .acc-sig{fill:var(--ink)}
@@ -592,12 +608,11 @@ ul.plain b{color:var(--ink);font-weight:480}
 .mach svg .nd-k{font-size:10px;letter-spacing:.1em;fill:var(--ink-4)}
 .mach svg .nd-v{font-size:12.5px;fill:var(--ink);font-weight:500}
 .mach svg .ed{fill:none;stroke:var(--rule-strong);stroke-width:1.5}
-.mach svg .ed-f{fill:none;stroke:var(--ink-3);stroke-width:1.5;stroke-dasharray:5 90;visibility:hidden}
+.mach svg .ed-f{fill:var(--ink-3);visibility:hidden} /* a point travelling the edge (SMIL animateMotion), ruled 2026-10-29: the dash channel carries standing only */
 .mach svg .ed-lab{font-size:11px;fill:var(--ink-4)}
 @media (prefers-reduced-motion:no-preference){
-  .mach svg .ed-f{visibility:visible;animation:machflow 3.4s linear infinite}
+  .mach svg .ed-f{visibility:visible}
 }
-@keyframes machflow{from{stroke-dashoffset:0}to{stroke-dashoffset:-95}}
 
 @media (prefers-reduced-motion:no-preference){
   h1,.deck,.stats{animation:up .52s cubic-bezier(.22,1,.36,1) both}
@@ -673,13 +688,13 @@ ul.plain b{color:var(--ink);font-weight:480}
 </style>
 </head>
 <body>
-<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Machine</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../reports/index.html" aria-current="page">Reports</a><a href="../instruments/index.html">Instruments</a><a href="../machine/index.html">Method</a><a href="../grammar/index.html">Grammar</a><a href="../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav>
 
 <div class="page">
 
 <header class="col">
   <div class="eyebrow">cert-machine · erdős #1038 · the infimum side · every number rebuilt at this build</div>
-  <h1>A certified bracket for the Erdős–Herzog–Piranian infimum</h1>
+  <h1>Erdős #1038: a certified unconditional bracket for the infimum</h1>
   <p class="deck">Erdős, Herzog and Piranian asked in 1958 how small the set where a monic polynomial stays below 1 can be. This page brackets the infimum in certified interval arithmetic, both ends unconditional, and answers a model problem from Tao’s notes for every ε. Three AI-assisted proofs of the exact value are currently claimed and none has been independently examined, so nothing here assumes any of them.</p>
 </header>
 
@@ -708,7 +723,7 @@ ul.plain b{color:var(--ink);font-weight:480}
     <div class="lab">§1 · the claim landscape</div>
     <h2>What is claimed, by whom, and what has actually been checked</h2>
   </div>
-<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>who, when</th><th>AI used</th><th>examined by anyone?</th><th>checked here</th></tr></thead><tbody><tr><td>inf = D exactly</td><td>Darvas, Peng, Runzhou Tao — 2026-07-15</td><td>GPT-5.5 Pro (prover–verifier)</td><td>no</td><td class="n"><span class="tag cert">APPENDIX CONFIRMED</span></td></tr><tr><td>inf = D exactly</td><td>Shouqiao Wang</td><td>GPT-5.6 Sol</td><td>no</td><td class="n"><span class="tag open">NOT AUDITED</span></td></tr><tr><td>inf = D exactly</td><td>Cristian Budala — 2026-08-24</td><td>GPT-5.6 Sol</td><td>no</td><td class="n"><span class="tag open">NOT AUDITED</span></td></tr><tr><td>inf ≥ 1.828</td><td>this page</td><td>none — interval arithmetic</td><td>certified + independently re-verified</td><td class="n"><span class="tag cert">CERTIFIED</span></td></tr><tr><td>inf ≤ 1.8344304971959906</td><td>this page</td><td>none — interval arithmetic</td><td>certified</td><td class="n"><span class="tag cert">CERTIFIED</span></td></tr></tbody></table></div></div><div class="col"><p>The forum's own words, on the page that lists all three: appearing there <em>"is no guarantee of proof correctness, and does not mean that anyone associated with this site has examined any part of the proof."</em> Three independent AI-assisted arguments agreeing on D&nbsp;=&nbsp;1.83443047576266171109… is genuine evidence about the number. It is not a proof anyone has read.</p><p><strong>To our knowledge no independent verification of any part of any of the three has been published</strong> — the forum says as much, and we would be glad to be shown otherwise. This repository has done one such check, and it is narrower than it sounds: we <a href="/reports/claim-lemniscate.html">re-verified the computational appendix</a> of the Darvas–Peng–Tao manuscript — the extremal triple exists, is unique in a certified box, and all thirty printed decimals of D are correct. That says nothing about the analytic core, which we did not audit and which is where a proof of this problem actually lives. It is, so far as we can establish, the only part of any of the three claims that anyone outside the authors has checked. The supremum side of the same problem is a separate program: <a href="/reports/erdos1038-sup.html">the certified per-degree theorems</a> on Tao's conjecture that sup = 2√2.</p></div>
+<div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>who, when</th><th>AI used</th><th>examined by anyone?</th><th>checked here</th></tr></thead><tbody><tr><td>inf = D exactly</td><td>Darvas, Peng, Runzhou Tao — 2026-07-15</td><td>GPT-5.5 Pro (prover–verifier)</td><td>no</td><td class="n"><span class="tag cert">APPENDIX CONFIRMED</span></td></tr><tr><td>inf = D exactly</td><td>Shouqiao Wang</td><td>GPT-5.6 Sol</td><td>no</td><td class="n"><span class="tag open">NOT AUDITED</span></td></tr><tr><td>inf = D exactly</td><td>Cristian Budala — 2026-08-24</td><td>GPT-5.6 Sol</td><td>no</td><td class="n"><span class="tag open">NOT AUDITED</span></td></tr><tr><td>inf ≥ 1.828</td><td>this page</td><td>none — interval arithmetic</td><td>certified + independently re-verified</td><td class="n"><span class="tag held">CERTIFIED</span></td></tr><tr><td>inf ≤ 1.8344304971959906</td><td>this page</td><td>none — interval arithmetic</td><td>certified</td><td class="n"><span class="tag held">CERTIFIED</span></td></tr></tbody></table></div></div><div class="col"><p>The forum's own words, on the page that lists all three: appearing there <em>"is no guarantee of proof correctness, and does not mean that anyone associated with this site has examined any part of the proof."</em> Three independent AI-assisted arguments agreeing on D&nbsp;=&nbsp;1.83443047576266171109… is genuine evidence about the number. It is not a proof anyone has read.</p><p><strong>To our knowledge no independent verification of any part of any of the three has been published</strong> — the forum says as much, and we would be glad to be shown otherwise. This repository has done one such check, and it is narrower than it sounds: we <a href="/reports/claim-lemniscate.html">re-verified the computational appendix</a> of the Darvas–Peng–Tao manuscript — the extremal triple exists, is unique in a certified box, and all thirty printed decimals of D are correct. That says nothing about the analytic core, which we did not audit and which is where a proof of this problem actually lives. It is, so far as we can establish, the only part of any of the three claims that anyone outside the authors has checked. The supremum side of the same problem is a separate program: <a href="/reports/erdos1038-sup.html">the certified per-degree theorems</a> on Tao's conjecture that sup = 2√2.</p></div>
 </section>
 
 <section class="col">
@@ -768,7 +783,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-lemniscate-inf.js @ git 4ba347a. Gates: the whole program re-run live (T1–T3 recomputed, the T4 record re-verified by an independent checker), the battery (27 checks, 10 red controls, all fired), the bracket ordered, and the claim fence present by name. Certificates: certs/erdos1038-inf.json and certs/erdos1038-forcing-1.828.json. The certifier is instruments/interval — the same one behind the ember and terra theorems. Published, not peer-reviewed, not independently rerun.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-lemniscate-inf.js @ git 7eb367ce. Gates: the whole program re-run live (T1–T3 recomputed, the T4 record re-verified by an independent checker), the battery (27 checks, 10 red controls, all fired), the bracket ordered, and the claim fence present by name. Certificates: certs/erdos1038-inf.json and certs/erdos1038-forcing-1.828.json. The certifier is instruments/interval — the same one behind the ember and terra theorems. Published, not peer-reviewed, not independently rerun.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

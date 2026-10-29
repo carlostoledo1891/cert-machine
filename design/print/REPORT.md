@@ -12,7 +12,7 @@ Every pair and every token, with all of its numbers, is in `design/print/report.
 |  | check | result | numbers |
 | --- | --- | --- | --- |
 | P1 | every WARRANT role has a print value | PASS | 7 role tokens, 5 ramp steps, 3 identity series, 4 standings |
-| P2 | each standing wears the screen's class and token | PASS | decided --ink · computed --ink-3 · chosen --ink-2, classes and dashes at 6 widths |
+| P2 | each standing wears the screen's class and token | PASS | decided --ink · computed --ink-2 · chosen --ink-3, classes and dashes at 6 widths |
 | P3 | the stroke grammar does not change | PASS | emits "1.5 2" "5 4" "1 3" "1 5" "2 3" and solid; all in grammar.js PERMITTED |
 | P4 | the witness is the screen's one red | PASS | #e0574e = design/tokens.js --witness |
 | P5 | no yellow, no orange | PASS | chromatic: --witness 27°, --id-2 260° (forbidden 35°–115°) |
@@ -29,8 +29,8 @@ L and C are OKLCH. Contrast is against `--paper` (#ffffff). The two greyscale co
 | --- | --- | --- | --- | --- | ---: | ---: | ---: | ---: | --- | --- |
 | `--paper` | `#ffffff` | ground | neutral | the page and every figure ground: white paper | 1.000 | 0.000 | — | — | `#ffffff` | `#ffffff` |
 | `--ink` | `#000000` | ink | neutral | text and values; DECIDED strokes (solid); the first series compared (identity 1, ●) | 0.000 | 0.000 | — | 21.00:1 | `#000000` | `#000000` |
-| `--ink-2` | `#262626` | ink | neutral | CHOSEN strokes (dotted 1 5, round caps); a second text voice | 0.269 | 0.000 | — | 15.13:1 | `#262626` | `#262626` |
-| `--ink-3` | `#4d4d4d` | ink | neutral | COMPUTED strokes (dashed 5 4); axes, ticks, axis labels, captions, glosses; the third series (identity 3, ▲) | 0.420 | 0.000 | — | 8.45:1 | `#4d4d4d` | `#4d4d4d` |
+| `--ink-2` | `#262626` | ink | neutral | COMPUTED strokes (dashed 5 4); a second text voice | 0.269 | 0.000 | — | 15.13:1 | `#262626` | `#262626` |
+| `--ink-3` | `#4d4d4d` | ink | neutral | CHOSEN strokes (dotted 1 5, round caps); axes, ticks, axis labels, captions, glosses; the third series (identity 3, ▲) | 0.420 | 0.000 | — | 8.45:1 | `#4d4d4d` | `#4d4d4d` |
 | `--guide` | `#8a8a8a` | structure | neutral | the guide pattern (2 3): rulers, reference ghosts; the void's hatch and edge. Never text, never a datum | 0.633 | 0.000 | — | 3.45:1 | `#8a8a8a` | `#8a8a8a` |
 | `--grid` | `#dcdcdc` | structure | neutral | hairline grid and table rules, drawn under everything; never a mark | 0.894 | 0.000 | — | 1.37:1 | `#dcdcdc` | `#dcdcdc` |
 | `--witness` | `#e0574e` | witness | registered | an exhibited counterexample, only ever on the × glyph beside words (WARRANT rule 5); the same red as the site | 0.635 | 0.173 | 27° | 3.72:1 | `#848484` | `#7f7f7f` |
@@ -104,8 +104,8 @@ Contrast of each text and mark colour drawn directly on each ramp step. Ink stay
 | standing | class (screen) | token | value | dash at 1.5 pt | dash under 1.5 pt | cap |
 | --- | --- | --- | --- | --- | --- | --- |
 | DECIDED | `w-decided` | `--ink` | `#000000` | solid | solid | butt |
-| COMPUTED | `w-computed` | `--ink-3` | `#4d4d4d` | `5 4` | `1.5 2` | butt |
-| CHOSEN | `w-chosen` | `--ink-2` | `#262626` | `1 5` | `1 3` | round |
+| COMPUTED | `w-computed` | `--ink-2` | `#262626` | `5 4` | `1.5 2` | butt |
+| CHOSEN | `w-chosen` | `--ink-3` | `#4d4d4d` | `1 5` | `1 3` | round |
 | REFUSED | `w-void` | — (no stroke) | hatch `--guide`, ∅ | — | — | butt |
 | guide (says nothing) | — | `--guide` | `#8a8a8a` | `2 3` | `2 3` | butt |
 
@@ -128,13 +128,13 @@ Each plants one defect in a copy of the register and runs the same check on it. 
 | X9 | a computed stroke given the width-derived pattern "6 4" (the one frontier's contract records) | P3 | yes | not in grammar.js: COMPUTED "6 4" |
 | X10 | a second red as the witness (#E06B62, the retired --v-refu) | P4 | yes | #E06B62 ≠ design/tokens.js --witness #e0574e |
 | X11 | a chromatic identity with no shape | P9 | yes | --id-2 is a colour with no shape |
-| X12 | the computed stroke re-mapped to --ink-2 (not the screen's token) | P2 | yes | COMPUTED strokes in --ink-2, the screen in --ink-3 |
+| X12 | the computed stroke re-mapped to --ink-3 (not the screen's token; it was, until D9 of 2026-10-29) | P2 | yes | COMPUTED strokes in --ink-3, the screen in --ink-2 |
 | X13 | two identity series sharing the circle | P9 | yes | two identity series share a marker |
 
 ## Inputs
 
-- `design/print/tokens.js` sha256 `8cb79f13201593d99b4577449cc4fb786490118d9ccded3210f3ddd9cbe4b89f`
+- `design/print/tokens.js` sha256 `9f7b3ebddbedc7e074f659939f55b56b3b31704896d963decb7f9a78bc48f259`
 - `design/colour.js` sha256 `3788b5df23222a5ffc4a09222b86abf541dd410f740eaa1e1a77aea93461971c`
 - `design/grammar.js` sha256 `45d0f6bd48b93ef27e1c419d3bcfd86187933036590df989e1df88e36c41ef26`
 - `design/tokens.js` sha256 `2a85d67fc6cb5db08a056ad5bad9c74eb5a484197f18c954c4a74f0960e91518`
-- `playground/warrant.js` sha256 `72cd96cba2e6a4085ce761da0e06aafc4bad09ce721cb6dba66879fd5d96fb4a`
+- `playground/warrant.js` sha256 `77804cc6d295e24a3af651addd04706f4d5d5cdc876f9e6a42046d1267a75c32`

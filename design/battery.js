@@ -147,6 +147,30 @@ const CHART_SURFACE = PAL['--sunk'];
     'L ' + Ls.map(v => v.toFixed(2)).join('→') + ' · min ΔL ' + Math.min.apply(null, gaps).toFixed(3));
   check('P6 the ramp\'s dim end still clears 2:1 on the chart surface',
     contrast(seq[0], CHART_SURFACE) >= 2, seq[0] + ' at ' + contrast(seq[0], CHART_SURFACE).toFixed(2) + ':1');
+  /* W1 — TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29; the roundtable's finding F1: chosen was --ink-2, brighter
+     than computed's --ink-3, so the weaker standing read stronger). The class → token mapping is READ from
+     playground/warrant.js css(), never retyped; on screen L(decided) ≥ L(computed) ≥ L(chosen); on paper
+     (design/print/tokens.js) the order reverses with the ground. */
+  global.__toneOrder = (map, pal, paper) => {
+    const L = (k) => oklch(pal[k])[0];
+    const d = L(map['w-decided']), c = L(map['w-computed']), h = L(map['w-chosen']);
+    return paper ? (d <= c && c <= h) : (d >= c && c >= h);
+  };
+  {
+    const css = require(path.join(ROOT, 'playground', 'warrant.js')).css();
+    const map = {};
+    for (const cls of ['w-decided', 'w-computed', 'w-chosen']) {
+      const m = new RegExp('\\.' + cls + '\\s*\\{\\s*stroke:\\s*var\\((--[a-z0-9-]+)\\)').exec(css);
+      map[cls] = m ? m[1] : null;
+    }
+    const PR = require(path.join(ROOT, 'design', 'print', 'tokens.js'));
+    const pmap = {}, ppal = {};
+    for (const s of PR.STANDINGS) if (s.token) { pmap[s.cls] = s.token; ppal[s.token] = PR.hex(s.token); }
+    check('W1 stroke tone is monotone in standing: screen L(decided) ≥ L(computed) ≥ L(chosen), paper the reverse (read from warrant.js css() and the print register)',
+      Object.values(map).every(Boolean) && global.__toneOrder(map, PAL, false) && global.__toneOrder(pmap, ppal, true),
+      'screen ' + ['w-decided', 'w-computed', 'w-chosen'].map((k) => map[k] + ' L ' + (map[k] ? oklch(PAL[map[k]])[0].toFixed(2) : '?')).join(' · ')
+        + ' | paper ' + ['w-decided', 'w-computed', 'w-chosen'].map((k) => pmap[k] + ' L ' + oklch(ppal[pmap[k]])[0].toFixed(2)).join(' · '));
+  }
   check('P7 verdict separation is weight+shape, not colour: the chip grammar\'s two inks clear 4.5:1 text contrast',
     contrast(PAL['--ink'], PAL['--paper']) >= 4.5 && contrast(PAL['--ink-3'], PAL['--paper']) >= 4.5,
     contrast(PAL['--ink'], PAL['--paper']).toFixed(1) + ':1 · ' + contrast(PAL['--ink-3'], PAL['--paper']).toFixed(1) + ':1');
@@ -315,7 +339,7 @@ function statsGridViolations(html, file) {
 
 /* ================= X · falsifiers ======================================== */
 console.log('\n    executing falsifiers');
-let reds = 0; const redTotal = 14;
+let reds = 0; const redTotal = 15;
 {
   /* the grayscale palette gate has teeth: a planted near-identical gray pair
      must fail the ΔE-15 separation the real trio passes */
@@ -431,6 +455,14 @@ let reds = 0; const redTotal = 14;
     && !L('select.as-sel{color-scheme:dark}');
   if (caught) { reds++; console.log('       RED ok  X13 a planted light-dark select and a light media query are caught, a dark one is not'); }
   else console.log('       RED FAIL  X13 the light-theme gate cannot see a leak');
+}
+{
+  /* X14 — W1 must be able to see the inversion it was written for: the mapping as it stood until 2026-10-29
+     (chosen --ink-2, computed --ink-3) planted into the same predicate W1 runs. */
+  const inv = global.__toneOrder({ 'w-decided': '--ink', 'w-computed': '--ink-3', 'w-chosen': '--ink-2' }, PAL, false);
+  const ok = global.__toneOrder({ 'w-decided': '--ink', 'w-computed': '--ink-2', 'w-chosen': '--ink-3' }, PAL, false);
+  if (!inv && ok) { reds++; console.log('       RED ok  X14 the pre-D9 tone mapping (chosen brighter than computed) is caught by W1\'s predicate'); }
+  else console.log('       RED FAIL  X14 W1 cannot see an inverted tone order');
 }
 console.log('    every falsifier turned its target red   [' + reds + '/' + redTotal + ']');
 if (reds !== redTotal) fails++;

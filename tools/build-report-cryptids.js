@@ -66,7 +66,7 @@ OUT.push(C.section({
   bodyRaw: C.pRaw('The producer\'s checker is a careful piece of work: it pins five upstream sources and their derived tables by sha256, re-derives each table from its source in three formats, checks that the Lean definitions load the right files, and replays bootstraps and lockstep checkpoints. '
     + 'What follows is what it does not do, read before any run and confirmed by running; each row names the claims here that decide the matter.')
     + C.table({ cols: [{ h: 'gap' }, { h: 'status' }, { h: 'decided by' }],
-      rows: B.M8.map((g) => [plain(g.gap), plain(g.status), { raw: g.rows.map((id, i) => m(id) + (g.words[i] ? ' ' + C.tag(g.words[i] === 'CERTIFIED' ? 'cert' : g.words[i] === 'REFUTED' ? 'dep' : 'open', g.words[i].toLowerCase()) : '')).join('<br>') }]) })
+      rows: B.M8.map((g) => [plain(g.gap), plain(g.status), { raw: g.rows.map((id, i) => m(id) + (g.words[i] ? ' ' + C.tag(g.words[i], g.words[i] === 'CERTIFIED' ? 'held' : g.words[i] === 'REFUTED' ? 'dep' : 'open') : '')).join('<br>') }]) })
     + C.pRaw('<b>The asks.</b> Publish the selection rule that makes a root entry a "checkpoint", and the four candidate rows and five reference rows of the riemann_104 table become decidable from the bytes. '
       + 'Say which state of riemann_120 is "main.0" and the reference bootstrap length, 89,775,610 steps, can be decided too (the machine runs that far without halting; what it is in at that step is recorded). '
       + 'Pin the proof files\' digests, or drop the lines that record them. Use one convention for "non-halting transitions". Run riemann_120 in the check that says it does.')

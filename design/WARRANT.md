@@ -205,7 +205,8 @@ meanings, against rule 2; `--v-refu` is now the witness (see the last section).
 Reports read on white paper and printed in greyscale take the print register (`design/print/tokens.js`); the site
 stays dark (battery T3b). The stroke grammar does not change: the five patterns of design/grammar.js, each standing
 in the class and the tone role it has on screen. On paper the anchor flips: the strongest mark is the darkest, ink is
-#000000, and each weaker standing is a step lighter (chosen #262626, computed #4d4d4d); the dash carries the standing.
+#000000, and each weaker standing is a step lighter (computed #262626, chosen #4d4d4d, since D9 of 2026-10-29; before it the two
+were the other way round, against the order); the dash carries the standing.
 
 1. **Ink first, again.** Every print figure reads in greyscale as a mono laser prints it: each series has its own
    marker, the witness is a ×, a refusal is a hatch and ∅ in words.
