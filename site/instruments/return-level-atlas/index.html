@@ -546,6 +546,12 @@ html, body { height: 100%; overflow: hidden; }
 .ra-sub { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); min-width: 0; }
 .ra-sub:empty { display: none; }
 .ra-goto { margin-left: auto; display: flex; align-items: center; gap: var(--s-2); min-width: 0; }
+/* the two views of one ledger: the globe and the flat map, each linking to the other */
+.ra-switch { flex: none; display: flex; border-radius: var(--radius-s); box-shadow: inset 0 0 0 1px var(--rule-strong); overflow: hidden; }
+.ra-switch a { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-3); text-decoration: none; padding: var(--s-1) var(--s-2); }
+.ra-switch a:hover { color: var(--ink); }
+.ra-switch a[aria-current="page"] { color: var(--paper); background: var(--ink); }
+.ra-switch a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 .ra-lab { font-family: var(--font-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
 .ra-select { font-family: var(--font-mono); font-size: var(--text-mono); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); min-width: 0; }
 .ra-seg { display: flex; flex-wrap: wrap; gap: var(--s-1); }
@@ -668,6 +674,7 @@ html, body { height: 100%; overflow: hidden; }
   .ra-view { display: flex; order: 1; flex: 1 1 11rem; }
   .ra-view .ra-select, .ra-goto .ra-select, .ra-sub .ra-select { flex: 1 1 auto; }
   .ra-goto { order: 2; flex: 1 1 8rem; margin-left: 0; }
+  .ra-switch { order: 0; }
   .ra-goto .ra-lab { display: none; }
   .ra-blocks { order: 3; }
   .ra-sub { order: 4; flex: 0 1 auto; flex-wrap: nowrap; }
@@ -785,6 +792,7 @@ html, body { height: 100%; overflow: hidden; }
     <div class="ra-seg ra-blocks" id="ra-block" role="radiogroup" aria-label="block"></div>
     <div class="ra-sub" id="ra-sub"></div>
     <div class="ra-goto"><label class="ra-lab" for="ra-go">go to</label><select id="ra-go" class="ra-select"></select></div>
+    <nav class="ra-switch" aria-label="the atlas as a globe or as a flat map"><a href="./" aria-current="page">globe</a><a href="map/" id="ra-to-map">map</a></nav>
   </div>
   <div class="ra-legend" id="ra-legend" aria-live="polite"></div>
   <div class="ra-tip" id="ra-tip" aria-hidden="true"></div>
@@ -827,7 +835,7 @@ html, body { height: 100%; overflow: hidden; }
       <div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
       <h2>What this opens</h2>
       <p>The map answers where the paper's selection is a decision and where it is not, and two of the six families needed other coordinates to be decided at all. Where the exponentiated Weibull's climb runs past &alpha; = 10<sup>4</sup>, write &theta; = &lambda;<sup>k</sup> and &beta; = &theta; ln &alpha;: the family reads F = exp(e<sup>&beta;/&theta;</sup> ln(1 &minus; e<sup>&minus;x<sup>k</sup>/&theta;</sup>)), a Gumbel law of H<sub>s</sub><sup>k</sup> with location &beta; and scale &theta; once e<sup>&minus;x<sup>k</sup>/&theta;</sup> is small over the data. The runaway &alpha; is a regime the (&alpha;, k, &lambda;) coordinates place in the millions or beyond, not an edge: in (k, &theta;, &beta;) the family's maximum is an ordinary point, certified here at 219 cell-blocks. At 53 more the family is still refused, 45 of them because the climb runs on even there, toward k &rarr; 0 &mdash; a Gumbel law of ln H<sub>s</sub>, the Fr&eacute;chet tail the family reaches only in a double limit: there the seventh family below, the GEV, finds a Fr&eacute;chet tail; the extended generalized Pareto of Naveau et al. (Water Resources Research, 2016) &mdash; the exponentiated Weibull&rsquo;s own construction, a power of a distribution function, on a Pareto base &mdash; is the other candidate. The exp. Weibull view maps where each coordinate system holds. The generalized gamma's maximum sits beside its lognormal limit (&alpha; above 500) at 444 cell-blocks and is certified there, in Prentice's coordinates; its likelihood is proved to peak at the limit itself at 5,751. A fitter that stops at a threshold and calls it the limit names another family, or none, at 544 cell-blocks. And the choice the statistic makes is not a sanity check: the decided family&rsquo;s 100-year wave reaches 18.7&times; the largest day on record (the exponentiated Weibull, 128.5 m against 6.87 m, 15&deg; N 62&deg; E, daily). The other way round proves less: the 100-year wave lies below the record at 2,607 of the 7,663 decided cell-blocks with a level (34%), and a 32-year record exceeds even a correct 100-year level with probability 1 &minus; e<sup>&minus;0.32</sup> &asymp; 27%. A standard for marginal fits can be read off this map &mdash; which choices it must fix, and where a certificate, not an optimiser, has to say what the fit is.</p>
-      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> 3c9f369ac599 &middot; <span class="mono">playground/return-level-atlas/worker.js</span> c2d98e753808 &middot; <span class="mono">playground/return-level-check/parse.js</span> 7bf7c1eed533 &middot; <span class="mono">playground/return-level-check/printed.js</span> 8f54767742da &middot; <span class="mono">playground/return-level-check/exhibited.js</span> 0c5e56ef3fbc &middot; <span class="mono">instruments/interval/interval.js</span> 9891280d08e5 &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 7d62c491ab6e &middot; <span class="mono">instruments/interval/radii.js</span> 2d89926b8ee9 &middot; <span class="mono">instruments/hseva/special.js</span> be98f1c495ad &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 703d26d8f29d &middot; <span class="mono">instruments/hseva/fit.js</span> 032e9b039b6e &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">839899e2e15a</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/839899e2e15a9fc8ad3d1087d58749a494b01caa/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
+      <p>The code in your tab: <span class="mono">playground/return-level-atlas/app.js</span> b71269dbfd0e &middot; <span class="mono">playground/return-level-atlas/shared.js</span> 84b94c2614ee &middot; <span class="mono">playground/return-level-atlas/worker.js</span> c2d98e753808 &middot; <span class="mono">playground/return-level-check/parse.js</span> 7bf7c1eed533 &middot; <span class="mono">playground/return-level-check/printed.js</span> 8f54767742da &middot; <span class="mono">playground/return-level-check/exhibited.js</span> 0c5e56ef3fbc &middot; <span class="mono">instruments/interval/interval.js</span> 9891280d08e5 &middot; <span class="mono">instruments/interval/rational.js</span> 59e97fc40328 &middot; <span class="mono">instruments/interval/transcendental.js</span> 7d62c491ab6e &middot; <span class="mono">instruments/interval/radii.js</span> 2d89926b8ee9 &middot; <span class="mono">instruments/hseva/special.js</span> be98f1c495ad &middot; <span class="mono">instruments/hseva/ad2.js</span> 39e88af94e66 &middot; <span class="mono">instruments/hseva/families.js</span> 703d26d8f29d &middot; <span class="mono">instruments/hseva/fit.js</span> 032e9b039b6e &middot; <span class="mono">instruments/hseva/blockrule.js</span> 375250f46ae1 &middot; <span class="mono">instruments/hseva/atlas.js</span> 113d8ce95d13 &middot; <span class="mono">instruments/hseva/atlas-claims.js</span> 6159360b8170. Cell files served from the public repository at commit <span class="mono">839899e2e15a</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/carlostoledo1891/cert-machine/blob/839899e2e15a9fc8ad3d1087d58749a494b01caa/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.</p>
       <p class="mono ra-cmd">instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py<br>instruments/hseva/.venv/bin/python3 tools/fetch-ww3-grid.py --ice<br>instruments/hseva/.venv/bin/python3 tools/build-ww3-atlas-corpus.py<br>node tools/run-hseva-atlas.js<br>node instruments/hseva/battery.js<br>node tools/run-design-table-audit.js<br>node playground/return-level-check/battery.js</p>
       <p class="n">nothing here is gated · every number came out of the record beside the page</p>
     </section>
@@ -836,7 +844,7 @@ html, body { height: 100%; overflow: hidden; }
 </main>
 
 
-<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"3c9f369ac599fc0b3c7379f7523a3b66783e49468fa50609412979b2c1d34fdc","playground/return-level-atlas/worker.js":"c2d98e753808f926562b59a55ef114371227d658d7500235060db1b2ed4b55ec","playground/return-level-check/parse.js":"7bf7c1eed53368e27e6da939de4eff03fd4ee4e5468d6b2c98f82dad521fcd85","playground/return-level-check/printed.js":"8f54767742da0ea2f4cad12ea35ae78666b52a7f00828de22d8d4a9dfe28adb4","playground/return-level-check/exhibited.js":"0c5e56ef3fbcea6a71de8dd2464e76dccae1d6c4f073347dcef5f0074b54909c","instruments/interval/interval.js":"9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79","instruments/interval/radii.js":"2d89926b8ee9e655a555d0cb9d4a9422a2c60fdcbed074a53d27ae769e428669","instruments/hseva/special.js":"be98f1c495adcca04b3624bef64f1b52d81318976a7e7f5622ac08f8d75b624b","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"703d26d8f29d651522ebc7aa15ae157d3e9a475c625f9c75ec9f83dd1252f039","instruments/hseva/fit.js":"032e9b039b6e44cee2b7f977e68f4f2379ed6b84c5718ebb7927adae084a2b75","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/839899e2e15a9fc8ad3d1087d58749a494b01caa/corpus/ww3-grid/"}</script>
+<script id="ra-spec" type="application/json">{"modules":{"playground/return-level-atlas/app.js":"b71269dbfd0eb90dbbb0e66a65308dd189c7a1d757c4b68419355dca486485c3","playground/return-level-atlas/shared.js":"84b94c2614eeec212f5978507edbd26b1cf3a7be676d133f0b2428b857f06c45","playground/return-level-atlas/worker.js":"c2d98e753808f926562b59a55ef114371227d658d7500235060db1b2ed4b55ec","playground/return-level-check/parse.js":"7bf7c1eed53368e27e6da939de4eff03fd4ee4e5468d6b2c98f82dad521fcd85","playground/return-level-check/printed.js":"8f54767742da0ea2f4cad12ea35ae78666b52a7f00828de22d8d4a9dfe28adb4","playground/return-level-check/exhibited.js":"0c5e56ef3fbcea6a71de8dd2464e76dccae1d6c4f073347dcef5f0074b54909c","instruments/interval/interval.js":"9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd","instruments/interval/rational.js":"59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920","instruments/interval/transcendental.js":"7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79","instruments/interval/radii.js":"2d89926b8ee9e655a555d0cb9d4a9422a2c60fdcbed074a53d27ae769e428669","instruments/hseva/special.js":"be98f1c495adcca04b3624bef64f1b52d81318976a7e7f5622ac08f8d75b624b","instruments/hseva/ad2.js":"39e88af94e66bd414b99a26ec6d78e9bb1258776cb1b48912e5b2fe33a7cc7f2","instruments/hseva/families.js":"703d26d8f29d651522ebc7aa15ae157d3e9a475c625f9c75ec9f83dd1252f039","instruments/hseva/fit.js":"032e9b039b6e44cee2b7f977e68f4f2379ed6b84c5718ebb7927adae084a2b75","instruments/hseva/blockrule.js":"375250f46ae100b6f5413000a33220254da23a88b922fc88dd57c429c208e5cc","instruments/hseva/atlas.js":"113d8ce95d13907ba7b4a067e3f2a2e6a14b2c12d927c76793af0cf0692f72c5","instruments/hseva/atlas-claims.js":"6159360b817021d76fcdb8f6c7a5a8ff383615081dd49d54fb4194bf2d414da3"},"served":"https://raw.githubusercontent.com/carlostoledo1891/cert-machine/839899e2e15a9fc8ad3d1087d58749a494b01caa/corpus/ww3-grid/"}</script>
 <script id="ra-bundle" type="text/plain">(function (root) {
 "use strict";
 var SRC = {
@@ -4295,6 +4303,80 @@ window.ATLAS_RULES = R; })();</script>
   if (typeof module !== 'undefined' && module.exports) module.exports = API; else root.HS_EXHIBITED = API;
 })(typeof self !== 'undefined' ? self : this);
 </script>
+<script>/* shared.js — what the globe and the flat map of the return-level atlas both draw by, once.
+   playground/return-level-atlas/ · cert-machine · 2026-10-29
+
+   The flat map (map.js, /instruments/return-level-atlas/map/) is a second view of the same ledger, and every rule the
+   two views share lives here and nowhere else (the corpus.js lesson: a rule defined twice WILL diverge):
+
+     · decode      the page's compact row of a cell (build.js row()) read back into a cell;
+     · square      the square a cell is drawn as, by its lattice (1°, 4°, or a report node's half degree);
+     · levelCode   THE rule that refuses a cell in every level view: Anderson–Darling decides no family, or the decided
+                   family's level has no enclosure;
+     · WAVE_BR     the design wave's ramp, five steps of the order greys, and rampK, the step a level falls in;
+     · cmOut       an enclosure rounded OUTWARD to the centimetre (WARRANT rule 8): the lower end down, the upper end
+                   up, in whole centimetres. The map prints every level this way; the builder applies it.
+
+   The globe inlines this file before app.js (window.RLA_SHARED); the map requires it as a module; both builders
+   require it in Node. No colour, no word and no request here.                                                  MIT */
+(function (root) {
+  'use strict';
+  const BLK = ['daily', 'weekly', 'monthly'];
+
+  /* the compact row (build.js row()) back into a cell; nativeOf(name) gives a report node's 3-hourly block or null */
+  function decode(r, nativeOf) {
+    const nat = nativeOf || (() => null);
+    if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nat(r[5]) };
+    const blocks = {};
+    /* after the paper's fields, the seventh family and the statistical layer (undefined in a ledger older than them) */
+    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11],
+      seven: q[12], g7: q[13], xi: q[14], xiCI: [q[15], q[16]], g100: q[17], s100: [q[18], q[19]], s1000: [q[20], q[21]] }; });
+    const ei = r[12] ? { theta: r[12][0], u: r[12][1], r: r[12][2] } : null;
+    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nat(r[5]), ei };
+  }
+
+  /* a cell's drawn square: the 1° Brazilian lattice, the 4° globe, or a report node's half degree; 0.92 of the spacing,
+     so neighbours stay apart */
+  const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
+  function square(c) {
+    const h = sizeOf(c) * 0.46;
+    return [[[c.lon - h, c.lat - h], [c.lon + h, c.lat - h], [c.lon + h, c.lat + h], [c.lon - h, c.lat + h], [c.lon - h, c.lat - h]]];
+  }
+
+  /* THE REFUSAL OF A LEVEL: null where the T-year level of the family Anderson–Darling decides is enclosed; 'nofam' where
+     no family is decided (6 in the compact row); 'nolevel' where one is, and its level could not be enclosed */
+  function levelCode(b, T) {
+    if (b.ad === 6) return 'nofam';
+    const lv = b['l' + T];
+    return !lv || lv[1] === null || lv[1] === undefined ? 'nolevel' : null;
+  }
+
+  /* the design wave's ramp: the order greys in five steps, by the level's upper end */
+  const WAVE_BR = [0, 4, 8, 12, 16];
+  const rampK = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return Math.min(4, Math.max(0, k - 1)); };
+
+  /* the design-wave view of a cell: I (sea ice, shown, not certified), R (refused, with its code), or D with the level's
+     upper end and its ramp step */
+  function waveLook(c, block, T) {
+    if (c.ice) return { k: 'I' };
+    const b = c.blocks[block], code = levelCode(b, T);
+    if (code) return { k: 'R', code };
+    const v = b['l' + T][1];
+    return { k: 'D', v, K: rampK(v, WAVE_BR) };
+  }
+
+  /* an enclosure [lo, hi] in metres, rounded outward to whole centimetres: [⌊100 lo⌋, ⌈100 hi⌉], or null without two
+     finite ends. A float product can only push an end further out, never in. */
+  function cmOut(q) {
+    if (!Array.isArray(q) || q.length !== 2 || !q.every((x) => typeof x === 'number' && Number.isFinite(x)) || q[0] > q[1]) return null;
+    return [Math.floor(q[0] * 100), Math.ceil(q[1] * 100)];
+  }
+
+  const API = { BLK, decode, sizeOf, square, levelCode, WAVE_BR, rampK, waveLook, cmOut };
+  if (typeof module !== 'undefined' && module.exports) module.exports = API;
+  else root.RLA_SHARED = API;
+})(typeof self !== 'undefined' ? self : this);
+</script>
 <script>/* app.js — the return-level atlas, in the tab.
    playground/return-level-atlas/ · cert-machine
 
@@ -4316,6 +4398,9 @@ window.ATLAS_RULES = R; })();</script>
   const WORKER = document.getElementById('ra-worker').textContent;
   const WURL = URL.createObjectURL(new Blob([BUNDLE + '\n' + WORKER], { type: 'text/javascript' }));
   const $ = (id) => document.getElementById(id);
+  /* the rules the globe shares with the flat map (shared.js, inlined before this file): the row's decoding, a cell's
+     square, the design wave's ramp and the refusal of a level — one definition for both views */
+  const SH = window.RLA_SHARED;
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const fmt = (x) => Number(x).toLocaleString('en-US');
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -4345,57 +4430,45 @@ window.ATLAS_RULES = R; })();</script>
   const state = { mode: 'wave', block: 'daily', crit: 'ad', T: 100, fam: 'expweibull', tab: 'claims' };
   let A = null, cells = [], byId = new Map(), map = null, sel = null, worker = null, hover = null, claimOn = null, lastCert = null, run = null;
 
-  /* ---- the ledger's compact view ---- */
-  function decode(r) {
-    if (r[4] === 1) return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: true, report: r[5], iceSteps: r[6], iceMonths: r[7], iceMax: r[8], fillDays: r[9], fillSteps: r[10], native: nativeOf(r[5]) };
-    const blocks = {};
-    /* after the paper's fields, the seventh family and the statistical layer (undefined in a ledger older than them) */
-    BLK.forEach((b, k) => { const q = r[9 + k]; blocks[b] = { ad: q[0], ks: q[1], mse: q[2], chi2: q[3], naive: q[4], gg: q[5], ew: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], below: q[11],
-      seven: q[12], g7: q[13], xi: q[14], xiCI: [q[15], q[16]], g100: q[17], s100: [q[18], q[19]], s1000: [q[20], q[21]] }; });
-    const ei = r[12] ? { theta: r[12][0], u: r[12][1], r: r[12][2] } : null;
-    return { id: r[0], lat: r[1], lon: r[2], sets: r[3], ice: false, report: r[5], sha: r[6], recSha: r[7], max: r[8], blocks, native: nativeOf(r[5]), ei };
-  }
+  /* ---- the ledger's compact view, read by shared.js ---- */
+  const decode = (r) => SH.decode(r, nativeOf);
   /* a report node's unfiltered 3-hourly block: the report ledger's record (build.js nativeOf), shown beside the atlas's own */
   function nativeOf(name) {
     const q = name && A.native && A.native.nodes[name];
     return q ? { n: q[0], max: q[1], hours: q[2], ad: q[3], ks: q[4], mse: q[5], chi2: q[6], l100: [q[7], q[8]], l1000: [q[9], q[10]], gg: q[11], ew: q[12],
       seven: q[13], g7: q[14], xi: q[15], s100: [q[16], q[17]], s1000: [q[18], q[19]] } : null;
   }
-  const sizeOf = (c) => ((c.sets & 2) ? 1 : (c.sets & 1) ? 4 : 0.5);
-  function square(c) {
-    const h = sizeOf(c) * 0.46;
-    return [[[c.lon - h, c.lat - h], [c.lon + h, c.lat - h], [c.lon + h, c.lat + h], [c.lon - h, c.lat + h], [c.lon - h, c.lat - h]]];
-  }
+  const sizeOf = SH.sizeOf, square = SH.square;
 
   /* ---- what a cell shows: a colour and a kind (D decided, R refused, I ice) ---- */
-  const rampK = (v, br) => { let k = 0; while (k < br.length && v >= br[k]) k++; return Math.min(4, Math.max(0, k - 1)); };
+  const rampK = SH.rampK;
   const ramp = (v, br) => C.s[rampK(v, br)];
-  const WAVE_BR = [0, 4, 8, 12, 16];
+  const WAVE_BR = SH.WAVE_BR;
   const XI_BR = [-Infinity, -0.2, -0.05, 0.05, 0.2];                /* the GEV's ξ: a finite upper end below 0, a Fréchet tail above */
   const UNC_BR = [0, 0.1, 0.2, 0.4, 0.8];                           /* a statistical interval's width ÷ the level */
   const BLOCK_BR = [1, 1.05, 1.15, 1.3, 1.5];
   const REC_BR = [0, 1, 1.25, 1.6, 2.2];
   /* a refused cell says why in the words of the view it is refused in */
-  const noLevel = (b) => (b.ad === 6 ? 'no family decided by Anderson–Darling' : 'the decided family\'s ' + state.T + '-year level could not be enclosed');
+  const noLevel = (b) => (SH.levelCode(b, state.T) === 'nofam' ? 'no family decided by Anderson–Darling' : 'the decided family\'s ' + state.T + '-year level could not be enclosed');
   function look(c) {
     if (c.ice) return { k: 'I', col: C.rule };
     const b = c.blocks[state.block];
     const lv = state.T === 100 ? b.l100 : b.l1000;
     switch (state.mode) {
-      case 'wave': return b.ad === 6 || lv[1] === null ? { k: 'R', why: noLevel(b) } : { k: 'D', col: ramp(lv[1], WAVE_BR), v: lv[1] };
+      case 'wave': { const L = SH.waveLook(c, state.block, state.T); return L.k === 'R' ? { k: 'R', why: noLevel(b) } : { k: 'D', col: C.s[L.K], v: L.v }; }
       case 'family': {
         const r = b[state.crit];
         return r === 6 ? { k: 'R', why: 'no family decided by ' + CW[state.crit] } : { k: 'D', col: FAM[r] === state.fam ? C.ink : C.s[0], v: FAM[r] };
       }
       case 'blocks': {
-        const miss = BLK.filter((x) => c.blocks[x].ad === 6 || (state.T === 100 ? c.blocks[x].l100 : c.blocks[x].l1000)[1] === null);
+        const miss = BLK.filter((x) => SH.levelCode(c.blocks[x], state.T));
         if (miss.length) return { k: 'R', why: 'no ' + state.T + '-year level decided for the ' + miss.map((x) => BW[x]).join(' and ') };
         const ls = BLK.map((x) => (state.T === 100 ? c.blocks[x].l100 : c.blocks[x].l1000)[1]);
         const f = Math.max(...ls) / Math.min(...ls);
         return { k: 'D', col: ramp(f, BLOCK_BR), v: f };
       }
       case 'record': {
-        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        if (SH.levelCode(b, state.T)) return { k: 'R', why: noLevel(b) };
         const f = lv[1] / c.max;
         return { k: 'D', col: ramp(f, REC_BR), v: f, below: lv[1] < c.max };
       }
@@ -4422,7 +4495,7 @@ window.ATLAS_RULES = R; })();</script>
         return { k: 'D', col: ramp(b.xi, XI_BR), v: b.xi, st0: b.xiCI[0] !== null && b.xiCI[0] !== undefined && b.xiCI[0] <= 0 && b.xiCI[1] >= 0 };
       /* STATISTICAL throughout: screened, never a solid fill */
       case 'unc': {
-        if (b.ad === 6 || lv[1] === null) return { k: 'R', why: noLevel(b) };
+        if (SH.levelCode(b, state.T)) return { k: 'R', why: noLevel(b) };
         const q = state.T === 100 ? b.s100 : b.s1000;
         if (!q || q[0] === null || q[0] === undefined) return { k: 'R', why: 'no statistical interval here (the observed information is not positive definite at the fit)' };
         const f = (q[1] - q[0]) / lv[1];
@@ -5502,6 +5575,9 @@ window.ATLAS_RULES = R; })();</script>
       if (MY.on) q.set('my', mySpec());
       if (map) { const c = map.getCenter(); q.set('at', [c.lat.toFixed(2), c.lng.toFixed(2), map.getZoom().toFixed(2)].join(',')); }
       history.replaceState(null, '', '#' + q.toString());
+      /* the flat map opens on the same question and the same cell */
+      const ml = $('ra-to-map');
+      if (ml) { const m = new URLSearchParams(); m.set('b', state.block); m.set('T', state.T); if (sel && !sel.site) m.set('c', sel.id); ml.setAttribute('href', 'map/#' + m.toString()); }
     };
     clearTimeout(hashTimer);
     if (now) go(); else hashTimer = setTimeout(go, 250);

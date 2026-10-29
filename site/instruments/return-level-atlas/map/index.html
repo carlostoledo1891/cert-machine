@@ -1,0 +1,767 @@
+<!doctype html>
+<html lang="pt-BR"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Onda de projeto — o atlas de níveis de retorno, em mapa plano</title>
+<meta name="description" content="A onda de projeto de 100 e 1000 anos em cada célula do hindcast de Reis, Guimarães et al. (Ocean Engineering 2026), num mapa de áreas iguais: decidida onde o registro decide, recusada com o motivo onde não decide, as seis famílias lado a lado e a largura estatística à parte.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/return-level-atlas/map/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/return-level-atlas/map/">
+<meta property="og:title" content="Onda de projeto — o atlas de níveis de retorno, em mapa plano">
+<meta property="og:description" content="A onda de projeto de 100 e 1000 anos em cada célula do hindcast de Reis, Guimarães et al. (Ocean Engineering 2026), num mapa de áreas iguais: decidida onde o registro decide, recusada com o motivo onde não decide, as seis famílias lado a lado e a largura estatística à parte.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Onda de projeto — o atlas de níveis de retorno, em mapa plano">
+<meta name="twitter:description" content="A onda de projeto de 100 e 1000 anos em cada célula do hindcast de Reis, Guimarães et al. (Ocean Engineering 2026), num mapa de áreas iguais: decidida onde o registro decide, recusada com o motivo onde não decide, as seis famílias lado a lado e a largura estatística à parte.">
+<meta name="twitter:image" content="https://carlostoledo.co/og.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+
+<style>:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root{--v-cert:#79C79B;--v-refu:#e0574e;--v-refd:#8E8499;--v-cert-soft:#16281E;--v-refu-soft:#2E1917;--v-refd-soft:#211C29}   /* --f-sans/--f-display/--f-mono and --shadow come from T.rootCss(), emitted just above */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
+body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:inherit}
+.as-map{position:fixed;inset:0}
+.as-map canvas{outline:none}
+
+/* ---- top bar ---- */
+.as-top{position:fixed;top:0;left:0;right:0;height:56px;z-index:30;display:flex;align-items:center;
+  gap:14px;padding:0 20px;background:var(--paper);border-bottom:1px solid var(--rule)}
+.as-top .brand{font-family:var(--f-mono);font-weight:600;font-size:11px;letter-spacing:.14em;
+  color:var(--ink);text-decoration:none;white-space:nowrap}
+.as-top .sep{width:1px;height:20px;background:var(--rule)}
+.as-top .appname{font-family:var(--f-display);font-weight:700;letter-spacing:-.01em;font-size:14px;letter-spacing:.01em;color:var(--ink)}
+.as-top .meta{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;color:var(--ink-3);
+  border:1px solid var(--rule);border-radius:var(--radius-pill);padding:3px 10px;white-space:nowrap}
+.as-top .spacer{flex:1}
+/* the mono cell, and the mono cell at book weight. Forty elements in the app's
+   templates carried these two declarations inline; they are the app's type
+   contract and belong where a restyle can reach them (2026-09-15). */
+/* ---- THE APP'S SPACING AND FLOW, NAMED (2026-09-15) ----------------------
+   Fifty elements in the two app pages carried their spacing inline — the
+   product's own rhythm written where no restyle could reach it. Where the
+   value is on design/tokens.js's SPACE scale it takes the token; where it is
+   the app's own mark (2, 6, 10, 14px) it keeps the number, but in ONE place.
+   The app is still a second BODY layout (DEBT.md row 4); it is no longer a
+   second stylesheet. ---- */
+.as-mt1{margin-top:var(--s-1)}
+.as-mt2{margin-top:var(--s-2)}
+.as-mt3{margin-top:var(--s-3)}
+.as-mt4{margin-top:var(--s-4)}
+.as-mt6{margin-top:6px}
+.as-mt10{margin-top:10px}
+.as-mt14{margin-top:14px}
+.as-mb1{margin-bottom:var(--s-1)}
+.as-mb2{margin-bottom:var(--s-2)}
+.as-mb10{margin-bottom:10px}
+.as-ml2{margin-left:var(--s-2)}
+.as-my{margin:6px 0 4px}
+.as-full{width:100%}
+.as-grow{flex:1}
+.as-row{display:flex;align-items:center;gap:var(--s-2)}
+.as-row-wide{display:flex;align-items:center;gap:var(--s-4);margin-bottom:var(--s-2)}
+.as-track{width:100%;height:54px;display:block;background:var(--sunk);
+  border:1px solid var(--rule-soft);border-radius:var(--radius-m);margin:10px 0 2px}
+.as-spark{width:100%;height:38px;display:block;margin-bottom:2px}
+.as-tracked{letter-spacing:.12em}
+.as-cert{color:var(--v-cert)}
+.as-refd{color:var(--v-refd)}
+.as-refu{color:var(--v-refu)}
+.as-ink3{color:var(--ink-3)}
+.as-ink3-400{color:var(--ink-3);font-weight:var(--weight-body)}
+.as-dash{border-style:dashed;border-color:var(--ink-3)}
+.as-mono{font-family:var(--f-mono)}
+.as-mono-400{font-family:var(--f-mono);font-weight:var(--weight-body)}
+.as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
+.as-top a.navx:hover{color:var(--sig)}
+
+/* ---- panels: right = tabbed workspace; left = the selected flight ---- */
+.as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
+  display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left{position:fixed;top:68px;left:12px;bottom:92px;width:372px;z-index:21;overflow-y:auto;
+  display:none;flex-direction:column;gap:10px;scrollbar-width:thin}
+.as-left.open{display:flex}
+.as-left.min{bottom:auto}
+.as-left.min .as-card > *:not(.as-lhead){display:none}
+.as-lhead{display:flex;align-items:center;gap:8px;margin:-2px 0 8px}
+.as-left.min .as-lhead{margin:0}
+.as-lhead .t{font-family:var(--f-mono);font-weight:600;font-size:12px;letter-spacing:.06em;flex:1}
+.as-lhead button{width:24px;height:24px;border-radius:var(--radius-s);border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink-2);cursor:pointer;font-size:12px;line-height:1;padding:0}
+.as-lhead button:hover{border-color:var(--sig);color:var(--sig)}
+
+/* ---- tab bar (right panel) ---- */
+.as-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--rule);
+  border-radius:var(--radius-m);padding:4px;box-shadow:var(--shadow);flex:none}
+.as-tabs button{flex:1;border:0;background:transparent;font-family:var(--f-mono);font-weight:600;
+  font-size:11px;letter-spacing:.12em;color:var(--ink-3);padding:8px 0;border-radius:var(--radius-m);
+  cursor:pointer;transition:all .15s}
+.as-tabs button:hover{color:var(--sig)}
+.as-tabs button[data-on="1"]{background:var(--sig-soft);color:var(--sig)}
+.as-tabbody{display:none;flex-direction:column;gap:10px}
+.as-tabbody.on{display:flex}
+
+/* ---- annunciators (cockpit lozenge: binary states) ---- */
+.as-ann{display:inline-flex;align-items:center;justify-content:center;min-width:64px;
+  font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
+  padding:5px 10px;border-radius:var(--radius-s);border:1px solid}
+.as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
+.as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
+.as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
+
+/* ---- arc gauge ---- */
+.as-gauge{display:block;margin:0 auto}
+.as-gauge .bg{stroke:var(--sunk);stroke-width:9;fill:none}
+.as-gauge .fg{stroke:var(--v-cert);stroke-width:9;fill:none;stroke-linecap:round;
+  transition:stroke-dashoffset .45s cubic-bezier(.4,0,.2,1)}
+.as-gauge text{font-family:var(--f-mono);fill:var(--ink)}
+.as-gaugelbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.12em;color:var(--ink-3);
+  text-transform:uppercase;text-align:center;margin-top:2px}
+
+/* ---- fleet silhouettes ---- */
+.as-fleet{display:flex;gap:6px;flex-wrap:wrap;align-items:center;min-height:30px}
+.as-fleet svg{width:30px;height:30px;transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.as-fleet svg.on{color:var(--sig)}
+.as-fleet svg.off{color:var(--rule);transform:scale(.82)}
+
+/* ---- battery pictogram ---- */
+.as-batt{display:flex;align-items:center;gap:10px}
+.as-batt .shell{position:relative;width:64px;height:26px;border:2px solid var(--rule);
+  border-radius:5px;flex:none}
+.as-batt .shell:after{content:'';position:absolute;right:-6px;top:7px;width:4px;height:8px;
+  background:var(--rule);border-radius:0 2px 2px 0}
+.as-batt .fill{position:absolute;inset:2px;border-radius:2px;background:var(--v-cert);
+  transform-origin:left;transition:transform .3s,background .3s}
+.as-routebadge{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;color:var(--ink-3)}
+
+/* ---- live mission ---- */
+.as-dispatch{font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.12em;
+  color:var(--sig);border:1px solid var(--sig);background:var(--sig-soft);border-radius:var(--radius-s);
+  padding:5px 12px;cursor:pointer;transition:all .15s}
+.as-dispatch:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.as-dispatch[disabled]{opacity:.35;cursor:not-allowed;transform:none}
+.as-datablocks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}
+/* FULL-ROW RULE (design/template.js): the last row fills its tracks at any count.
+   remainder 1 -> the last block spans 4; remainder 2 -> both span 2;
+   remainder 3 -> the first of the three spans 2. */
+.as-datablocks>:last-child:nth-child(4n+1){grid-column:span 4}
+.as-datablocks>:nth-last-child(2):nth-child(4n+1),
+.as-datablocks>:last-child:nth-child(4n+2),
+.as-datablocks>:nth-last-child(3):nth-child(4n+1){grid-column:span 2}
+.as-db{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);padding:7px 9px}
+.as-db span{display:block;font-family:var(--f-mono);font-size:8.5px;letter-spacing:.14em;
+  color:var(--ink-3);text-transform:uppercase}
+.as-db b{font-family:var(--f-mono);font-weight:600;font-size:15px;color:var(--ink);white-space:nowrap}
+.as-db.live b{color:var(--sig)}
+.as-journey{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-weight:600;
+  font-size:12px;margin:6px 0 2px}
+.as-journey .bar{flex:1;height:5px;border-radius:3px;background:var(--sunk);overflow:hidden;
+  border:1px solid var(--rule-soft)}
+.as-journey .bar i{display:block;height:100%;background:var(--sig);border-radius:3px;
+  transition:width .3s linear}
+.as-missions{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;color:var(--sig)}
+.as-card{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);
+  padding:14px 16px;box-shadow:var(--shadow)}
+.as-h{font-family:var(--f-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-3);margin:0 0 10px}
+.as-note{font-size:12px;color:var(--ink-2);line-height:1.55}
+.as-note b{color:var(--ink);font-weight:600}
+.as-fine{font-size:11px;color:var(--ink-3);line-height:1.5}
+details.as-more summary{cursor:pointer;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:10px}
+details.as-more summary:hover{color:var(--sig)}
+details.as-more[open] summary{margin-bottom:6px}
+
+/* ---- the aircraft x rule matrix ---- */
+.as-mx{display:grid;grid-template-columns:1fr auto auto;gap:7px 8px;align-items:center}
+.as-mx .name{font-weight:500;font-size:12.5px;color:var(--ink)}
+.as-cell{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;padding:5px 10px;
+  border-radius:var(--radius-s);border:1px solid var(--rule);background:var(--sunk);color:var(--ink-2);
+  cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:6px}
+.as-cell:hover{border-color:var(--sig-2);color:var(--sig)}
+.as-cell[data-on="1"]{border-color:var(--sig);background:var(--sig-soft);color:var(--sig);font-weight:600}
+.as-dot{width:7px;height:7px;border-radius:50%;flex:none}
+
+.as-score{grid-column:1/-1;font-family:var(--f-mono);font-weight:600;font-size:22px;color:var(--ink);
+  padding-bottom:2px}
+.as-score span{font-family:var(--f-sans);font-weight:400;font-size:11.5px;color:var(--ink-3);margin-left:6px}
+/* ---- stat tiles ---- */
+.as-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+/* FULL-ROW RULE: remainder 1 -> last tile spans 3; remainder 2 -> first of the two spans 2 */
+.as-stats>:last-child:nth-child(3n+1){grid-column:span 3}
+.as-stats>:nth-last-child(2):nth-child(3n+1){grid-column:span 2}
+.as-stat{background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-m);
+  padding:9px 11px;border-left-width:3px}
+/* the big number is always the signature pink (operator ruling 2026-08-31);
+   the verdict stays on the tile's left border, never on the number */
+.as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--sig)}
+.as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
+.as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
+
+/* ---- frontier rows ---- */
+.as-frow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:7px 0;
+  border-top:1px solid var(--rule-soft)}
+.as-frow:first-of-type{border-top:0;padding-top:0}
+.as-frow .name{font-weight:500;font-size:12.5px}
+.as-frow .val{font-family:var(--f-mono);font-weight:600;font-size:13px;white-space:nowrap}
+.as-frow .val.zero{color:var(--ink-3);font-weight:400}
+.as-frow .sub{display:block;font-size:10.5px;color:var(--ink-3);margin-top:1px}
+
+/* ---- selected flight ---- */
+.as-kv{display:grid;grid-template-columns:auto 1fr;gap:3px 14px;font-size:12px;color:var(--ink-3)}
+.as-kv b{color:var(--ink);font-weight:600;font-family:var(--f-mono);font-size:12px}
+.as-verdict{border-left:3px solid var(--rule);background:var(--sunk);border-radius:var(--radius-m);
+  padding:10px 13px;margin:12px 0 10px}
+.as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
+.as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
+.as-verdict.C{border-left-color:var(--v-cert);background:var(--v-cert-soft)} .as-verdict.C .w{color:var(--v-cert)}
+.as-verdict.R{border-left-color:var(--v-refu);background:var(--v-refu-soft)} .as-verdict.R .w{color:var(--v-refu)}
+.as-verdict.F{border-left-color:var(--v-refd);background:var(--v-refd-soft)} .as-verdict.F .w{color:var(--v-refd)}
+
+/* ---- enclosure viz ---- */
+.as-enc{margin:10px 0 4px}
+.as-encrow{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;margin:5px 0}
+.as-encrow .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;text-align:right}
+.as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-s)}
+.as-encrow .band{position:absolute;top:1px;bottom:1px;border-radius:5px;min-width:4px}
+.as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--v-refu)}
+.as-encscale{display:grid;grid-template-columns:64px 1fr;gap:8px;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3)}
+.as-encscale div{display:flex;justify-content:space-between}
+.as-encvals{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-2);margin-top:6px;line-height:1.6}
+
+/* ---- buttons + segmented ---- */
+button{font-family:inherit}
+.as-btn{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;background:var(--sunk);
+  color:var(--ink);border:1px solid var(--rule);border-radius:var(--radius-m);padding:7px 12px;cursor:pointer;transition:all .12s}
+.as-btn:hover{border-color:var(--sig);color:var(--sig)}
+.as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
+select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:6px 8px;color-scheme:dark;max-width:100%}
+/* This select said color-scheme:light dark until 2026-09-05, and it was the last of the
+   light theme still breathing. It tells the browser this <select> supports
+   BOTH schemes, so on a light-OS machine the native dropdown POPUP — the part
+   the page cannot style — rendered light inside a dark app. The palette above
+   it was deleted on 2026-09-04; this line survived because design/battery.js's
+   one-theme check only reads tokens.js's :root block and never saw this file. */
+select.as-sel:hover{border-color:var(--sig)}
+.as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:2px;gap:2px}
+.as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
+  letter-spacing:.04em;color:var(--ink-2);padding:5px 10px;border-radius:var(--radius-s);cursor:pointer;transition:all .12s}
+.as-seg button:hover{color:var(--sig)}
+.as-seg button[data-on="1"]{background:var(--sig-soft);color:var(--sig);font-weight:600}
+
+/* ---- dock ---- */
+.as-dock{position:fixed;left:0;right:0;bottom:0;height:76px;z-index:30;display:flex;align-items:center;
+  gap:16px;padding:0 20px;background:var(--paper);border-top:1px solid var(--rule)}
+.as-play{width:42px;height:42px;flex:none;border-radius:50%;border:1px solid var(--rule);
+  background:var(--sunk);color:var(--ink);font-size:13px;cursor:pointer;transition:all .12s;
+  display:flex;align-items:center;justify-content:center}
+.as-play:hover{border-color:var(--sig);color:var(--sig)}
+.as-clock{font-family:var(--f-mono);font-weight:600;font-size:14px;color:var(--ink);min-width:96px;text-align:center}
+.as-dock .attr{margin-left:auto;font-size:9.5px;color:var(--ink-3);text-align:right;line-height:1.4;max-width:220px}
+.as-dock .attr a{color:var(--ink-3)}
+
+/* ---- the scrubber ---- */
+input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance:none;height:26px;background:transparent;cursor:pointer}
+.as-scrub::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--sig);margin-top:-5px;border:2px solid var(--paper);box-shadow:0 1px 4px rgba(0,0,0,.35)}
+.as-scrub::-moz-range-track{height:4px;border-radius:2px;background:var(--rule)}
+.as-scrub::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--sig);border:2px solid var(--paper)}
+
+.maplibregl-ctrl-attrib{font-size:10px}
+/* THE MAP CONTROLS WERE THE LAST WHITE THING IN A DARK APP (2026-09-05).
+   src/app.js adds a NavigationControl at top-left, and maplibre styles its own
+   controls for a light page: the ctrl-group background is hard-coded white in
+   the vendored stylesheet, with dark glyphs to sit on it. Nothing here
+   ever overrode it, so a white rounded box with a dark compass needle sat on the
+   dark map — the defect logged as D-1 in VISUAL-REVIEW-2026-09-05.md, which I
+   had guessed was a stray element and which turns out to be third-party CSS
+   assuming a light ground.
+
+   The group takes app tokens; the glyphs are inverted rather than re-encoded,
+   because both of maplibre's icon sets are dark-on-transparent (the default
+   fills a dark grey, the light-scheme branch fills black by omission).
+   Inverting either gives a light glyph, so the control is dark on every OS.
+   The only residue is a shade of glyph brightness by system — both correct for
+   a dark app, and not worth forking a vendor file over.
+
+   AND NO LITERAL COLOURS IN HERE: this comment ships INTO the page, because it
+   sits inside a template literal, and check-wiring reads built pages for hex
+   outside the palette. It caught this comment on its first run. */
+.maplibregl-ctrl-group{background:var(--sunk);border:1px solid var(--rule);
+  border-radius:var(--radius-m);box-shadow:none;overflow:hidden}
+.maplibregl-ctrl-group button{background:transparent}
+.maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
+.maplibregl-ctrl-group button:hover{background:var(--surface)}
+.maplibregl-ctrl-group button:not(:disabled) .maplibregl-ctrl-icon{filter:invert(1) opacity(.78)}
+.maplibregl-ctrl-group button:disabled .maplibregl-ctrl-icon{filter:invert(1) opacity(.3)}
+.as-panel::-webkit-scrollbar{width:6px}
+.as-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+
+@media (max-width:720px){
+  .as-top{height:48px;padding:0 12px;gap:10px}
+  .as-top .appname{font-size:12.5px}
+  .as-top .meta,.as-top .navx{display:none}
+  .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
+  .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
+  .as-card{padding:12px 13px;border-radius:var(--radius-m)}
+  .as-dock{gap:9px;padding:0 10px;height:64px}
+  .as-play{width:36px;height:36px}
+  .as-clock{min-width:78px;font-size:12.5px}
+  .as-dock .attr{display:none}
+  #speed{display:none}
+  .as-seg button{padding:5px 8px;font-size:10px}
+}
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-3); }
+.w-chosen { stroke: var(--ink-2); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* map.css — the flat map's own rules, appended to the app shell's one <style> block (design/app-shell.js).
+   playground/return-level-atlas/ · cert-machine · 2026-10-29
+
+   Swell's layout (a rail on the right on a desk, a bottom sheet with three heights on a phone, a card per place), on
+   the house tokens: no literal colour, every type size, weight, leading, tracking, space, radius and duration a
+   var(--…) of design/tokens.js. The fills on the map are the order greys (--c-s1 … --c-s5), the refused void the
+   globe's hatch, sea ice its dots; no hue anywhere. The grammar's marks are playground/warrant.js's CSS. */
+:root { --rm-rail: 420px; --rm-gap: var(--s-4); --rm-top: 56px; --rm-peek: 13rem; --rm-panel: color-mix(in srgb, var(--paper) 93%, transparent);
+  --sw: var(--sunk); --x: 0%; }   /* the two data the tab sets on an element: a ramp swatch's step, an axis tick's place */
+@media (max-width: 720px) { :root { --rm-top: 48px; } }
+[data-l][hidden], #rm-card[hidden], #rm-list[hidden], .rm-trustp[hidden], #rm-tip[hidden] { display: none !important; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
+
+/* ---- the map ---- */
+#rm-cv { display: block; touch-action: none; cursor: grab; }
+#rm-cv:active { cursor: grabbing; }
+.rm-ctl { position: fixed; z-index: 5; top: calc(var(--rm-top) + var(--s-3)); left: var(--rm-gap); display: flex; gap: var(--s-1); padding: var(--s-1);
+  background: color-mix(in srgb, var(--surface) 86%, transparent); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--rule); border-radius: var(--radius-m); box-shadow: var(--shadow); }
+.rm-ctl button { all: unset; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; min-width: 28px; height: 28px; padding: 0 var(--s-3);
+  border-radius: var(--radius-s); font-family: var(--f-sans); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--ink-3); }
+.rm-ctl button:hover { color: var(--ink); background: var(--surface2); }
+.rm-ctl button:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.rm-ctl #rm-zin, .rm-ctl #rm-zout { padding: 0; font-family: var(--f-mono); }
+#rm-tip { position: fixed; z-index: 50; max-width: 18rem; padding: var(--s-2) var(--s-3); border-radius: var(--radius-s); background: var(--surface); border: 1px solid var(--rule-strong);
+  box-shadow: var(--shadow); font-size: var(--text-small); line-height: var(--leading-snug); color: var(--ink-2); pointer-events: none; display: grid; gap: var(--s-1); }
+#rm-tip b { color: var(--ink); font-weight: var(--weight-strong); }
+#rm-tip span { color: var(--ink-3); }
+#rm-tip .v { color: var(--ink); font-family: var(--f-mono); }
+
+/* ---- the top bar (the shell's): the two views and the language ---- */
+.rm-top { display: flex; align-items: center; gap: var(--s-2); margin-left: var(--s-2); }
+.rm-views, .rm-lang { display: flex; border-radius: var(--radius-s); overflow: hidden; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.rm-views a, .rm-lang button { all: unset; cursor: pointer; font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: var(--weight-strong); letter-spacing: var(--track-slight);
+  padding: var(--s-2) var(--s-3); color: var(--ink-4); text-decoration: none; }
+.rm-views a:hover, .rm-lang button:hover { color: var(--ink); }
+.rm-views a[aria-current="page"], .rm-lang button.on { color: var(--paper); background: var(--ink); }
+.rm-views a:focus-visible, .rm-lang button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+
+/* ---- the panel: a rail on a desk, a sheet on a phone (overrides the shell's .as-panel) ---- */
+#panel.as-panel { position: fixed; z-index: 25; background: var(--rm-panel); backdrop-filter: blur(18px) saturate(1.1); -webkit-backdrop-filter: blur(18px) saturate(1.1);
+  border: 1px solid var(--rule); display: flex; flex-direction: column; box-shadow: var(--shadow); padding: 0; gap: 0; overflow: hidden; max-height: none; }
+.rm-grab { display: none; }
+.rm-phead { padding: var(--s-4) var(--s-4) var(--s-2); flex: none; }
+.rm-eyebrow { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); }
+.rm-q { margin: var(--s-2) 0 var(--s-3); font-size: var(--text-2); line-height: var(--leading-tight); letter-spacing: var(--track-title); font-weight: var(--weight-title); color: var(--ink); }
+.rm-lede { margin: calc(-1 * var(--s-1)) 0 var(--s-3); font-size: var(--text-small); line-height: var(--leading-snug); color: var(--ink-3); }
+.rm-qrow { display: flex; flex-wrap: wrap; gap: var(--s-2); margin: 0 0 var(--s-3); }
+.rm-seg { display: flex; border-radius: var(--radius-s); overflow: hidden; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.rm-seg button { all: unset; cursor: pointer; font-family: var(--f-sans); font-size: var(--text-small); font-weight: var(--weight-medium); padding: var(--s-2); color: var(--ink-3); white-space: nowrap; }
+.rm-seg button:hover { color: var(--ink); background: var(--surface2); }
+.rm-seg button[aria-checked="true"] { color: var(--paper); background: var(--ink); }
+.rm-seg button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+/* the legend of states: the ramp, the void, the ice, and how many cells each */
+.rm-kt { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin-bottom: var(--s-2); }
+.rm-ramp { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--s-1); }
+.rm-ramp span { display: grid; gap: var(--s-1); }
+.rm-ramp i { display: block; height: 10px; background: var(--sw); border-radius: 1px; }
+.rm-ramp em { font-style: normal; font-family: var(--f-mono); font-size: var(--text-eyebrow); color: var(--ink-3); white-space: nowrap; }
+.rm-kx { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); margin-top: var(--s-2); font-size: var(--text-small); color: var(--ink-3); }
+.rm-kx span { display: inline-flex; align-items: center; gap: var(--s-2); }
+.rm-sw { display: inline-block; width: 14px; height: 14px; border-radius: 2px; border: 1px solid var(--rule-strong); }
+.rm-sw.hatch, .rm-void { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); }
+.rm-sw.ice, .rm-void.ice { background: radial-gradient(circle, var(--ink-5) 1px, var(--sunk) 1.5px); background-size: 4px 4px; }
+.rm-kn { margin: var(--s-2) 0 0; font-size: var(--text-eyebrow); line-height: var(--leading-snug); color: var(--ink-4); }
+.rm-tabs { display: flex; gap: var(--s-1); padding: 0 var(--s-3); border-bottom: 1px solid var(--rule); flex: none; }
+.rm-tab { all: unset; cursor: pointer; padding: var(--s-3) var(--s-2) var(--s-2); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--ink-4); border-bottom: 2px solid transparent; }
+.rm-tab:hover { color: var(--ink-2); }
+.rm-tab.on { color: var(--ink); border-bottom-color: var(--ink); }
+.rm-tab:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.rm-scroll { overflow-y: auto; overscroll-behavior: contain; padding: var(--s-1) var(--s-4) var(--s-5); flex: 1; scrollbar-width: thin; scrollbar-color: var(--rule-strong) transparent; }
+.rm-pane { display: none; }
+.rm-pane.on { display: block; }
+h2.rm-sec { font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: var(--weight-strong); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4);
+  margin: var(--s-5) 0 var(--s-2); display: flex; align-items: center; gap: var(--s-3); }
+h2.rm-sec::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+.rm-note { margin: var(--s-2) 0; font-size: var(--text-small); line-height: var(--leading-snug); color: var(--ink-4); }
+
+/* the places: the report's nodes, the same question */
+.rm-places { list-style: none; margin: 0; padding: 0; }
+.rm-places button { all: unset; cursor: pointer; box-sizing: border-box; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s-3); align-items: baseline;
+  padding: var(--s-2); border-radius: var(--radius-m); }
+.rm-places button:hover { background: var(--surface2); }
+.rm-places button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.rm-places .b { font-size: var(--text-body); font-weight: var(--weight-medium); line-height: var(--leading-snug); color: var(--ink); }
+.rm-places .b small { display: block; font-size: var(--text-eyebrow); font-weight: var(--weight-body); color: var(--ink-4); margin-top: var(--s-1); }
+.rm-places .h { font-family: var(--f-mono); font-size: var(--text-small); font-weight: var(--weight-strong); color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rm-places .h.r { color: var(--ink-4); font-weight: var(--weight-body); }
+.rm-find { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-4); }
+.rm-find label { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); white-space: nowrap; }
+.rm-find input { flex: 1 1 auto; min-width: 0; font-family: var(--f-mono); font-size: var(--text-small); color: var(--ink-2); background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-s); padding: var(--s-1) var(--s-2); }
+
+/* ---- a cell ---- */
+.rm-cbar { display: flex; align-items: center; gap: var(--s-1); margin: var(--s-2) 0 0; }
+.rm-cbar .sp { flex: 1; }
+.rm-btn { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: var(--s-1); font-size: var(--text-small); font-weight: var(--weight-medium); color: var(--ink-3); padding: var(--s-1) var(--s-2);
+  border-radius: var(--radius-s); white-space: nowrap; text-decoration: none; }
+.rm-btn:hover { color: var(--ink); background: var(--surface2); }
+.rm-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.rm-btn.rm-go { margin-top: var(--s-2); color: var(--ink); box-shadow: inset 0 0 0 1px var(--rule-strong); padding: var(--s-2) var(--s-3); }
+#rm-card h1 { font-size: var(--text-2); font-weight: var(--weight-title); line-height: var(--leading-tight); letter-spacing: var(--track-title); margin: var(--s-2) 0 var(--s-1); color: var(--ink); }
+.rm-where { font-size: var(--text-small); color: var(--ink-4); }
+.rm-hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--s-2); margin: var(--s-4) 0 var(--s-2); }
+.rm-hero > div { display: grid; align-content: start; gap: var(--s-1); padding: var(--s-3); border-radius: var(--radius-m); background: var(--sunk); border: 1px solid var(--rule); }
+.rm-hero b { font-family: var(--f-mono); font-size: var(--text-2); font-weight: var(--weight-strong); line-height: var(--leading-tight); letter-spacing: var(--track-title); color: var(--ink);
+  white-space: nowrap; font-variant-numeric: tabular-nums; }
+.rm-hero b small { font-size: var(--text-small); letter-spacing: 0; color: var(--ink-3); }
+.rm-hero span { font-size: var(--text-eyebrow); line-height: var(--leading-snug); color: var(--ink-3); }
+.rm-hero .rc b { color: var(--ink-2); }
+/* the refused void: the map's hatch, the word, the reason — no number, no bar */
+.rm-hero > div.rm-void { background: repeating-linear-gradient(45deg, var(--ink-4) 0 1px, var(--sunk) 1px 4px); border-color: var(--rule-strong); gap: var(--s-2); }
+.rm-void b { display: inline-block; justify-self: start; font-family: var(--f-mono); font-size: var(--text-small); font-weight: var(--weight-strong); letter-spacing: var(--track-loose); text-transform: uppercase;
+  background: var(--sunk); padding: var(--s-1) var(--s-2); border-radius: var(--radius-s); }
+.rm-void span { display: block; color: var(--ink-2); background: var(--sunk); padding: var(--s-2); border-radius: var(--radius-s); font-size: var(--text-small); }
+.rm-void.ice { display: grid; gap: var(--s-2); padding: var(--s-3); margin: var(--s-4) 0; border-radius: var(--radius-m); border: 1px solid var(--rule-strong); }
+.rm-fam, .rm-stat, .rm-sum { margin: var(--s-2) 0; font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.rm-fam b { color: var(--ink); font-weight: var(--weight-strong); }
+.rm-stat { color: var(--ink-3); }
+.rm-sum { color: var(--ink); }
+/* six families side by side, one metre axis */
+.rm-strip { display: grid; gap: 0; margin: var(--s-3) 0 var(--s-1); }
+.rm-fr, .rm-fax { display: grid; grid-template-columns: 6.6rem minmax(0, 1fr) 6.4rem; gap: var(--s-2); align-items: center; }
+.rm-fr .nm { font-size: var(--text-small); color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rm-fr.on .nm { color: var(--ink); font-weight: var(--weight-strong); }
+.rm-fr svg.tr { display: block; width: 100%; height: 22px; overflow: visible; }
+.rm-fr .v { font-family: var(--f-mono); font-size: var(--text-eyebrow); color: var(--ink-2); text-align: right; white-space: nowrap; }
+.rm-fr.on .v { color: var(--ink); font-weight: var(--weight-strong); }
+.rm-fr .w { grid-column: 2 / 4; font-size: var(--text-eyebrow); line-height: var(--leading-snug); color: var(--ink-4); margin: calc(-1 * var(--s-1)) 0 var(--s-1); }
+.rm-guide { stroke: var(--ink-4); fill: none; }
+.rm-fax .ax { position: relative; height: 1.2rem; border-top: 1px solid var(--rule); }
+.rm-fax .ax span { position: absolute; left: var(--x); top: var(--s-1); transform: translateX(-50%); font-family: var(--f-mono); font-size: var(--text-eyebrow); color: var(--ink-4); }
+.rm-fax .nm { font-family: var(--f-mono); font-size: var(--text-eyebrow); color: var(--ink-4); text-align: right; }
+/* does it hold: a mark and a word each, never a colour */
+.rm-svrow { display: grid; gap: var(--s-1); margin: var(--s-2) 0 var(--s-3); }
+.rm-svrow .k { font-size: var(--text-eyebrow); color: var(--ink-4); }
+.rm-svrow .cs { display: flex; flex-wrap: wrap; gap: var(--s-1); }
+.rm-sv { font-family: var(--f-mono); font-size: var(--text-eyebrow); padding: var(--s-1) var(--s-2); border-radius: var(--radius-s); white-space: nowrap; }
+.rm-sv.ok { color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink-3); }
+.rm-sv.no { color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--rule-strong); background: var(--surface2); }
+.rm-sv.r { color: var(--ink-4); box-shadow: inset 0 0 0 1px var(--rule); }
+/* the rigour, one click down */
+.rm-trustb { all: unset; cursor: pointer; box-sizing: border-box; width: 100%; display: flex; align-items: center; justify-content: space-between; margin-top: var(--s-4); padding: var(--s-3);
+  border-radius: var(--radius-m); font-size: var(--text-small); font-weight: var(--weight-strong); color: var(--ink); box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.rm-trustb:hover { background: var(--surface2); }
+.rm-trustb:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
+.rm-trustb .chev { color: var(--ink-4); transition: transform var(--dur-fast) var(--ease-out); }
+.rm-trustb[aria-expanded="true"] .chev { transform: rotate(90deg); }
+.rm-trustp { padding: var(--s-1) var(--s-1) var(--s-2); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.rm-trustp h3, .rm-how h3 { font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: var(--weight-strong); letter-spacing: var(--track-eyebrow); text-transform: uppercase; color: var(--ink-4); margin: var(--s-5) 0 var(--s-2); }
+.rm-trustp p { margin: 0 0 var(--s-2); }
+.rm-trustp .w-premises, .rm-how .w-premises { font-size: var(--text-small); line-height: var(--leading-snug); }
+.rm-trustp .w-premises li, .rm-how .w-premises li { grid-template-columns: 7rem minmax(0, 1fr); }
+.rm-trustp .w-meet, .rm-how .w-meet { font-size: var(--text-small); line-height: var(--leading-snug); }
+#rm-card .w-legend.compact { margin-top: var(--s-3); }
+/* a card open: the question stays, the words that introduce the map step aside */
+body.rm-open .rm-lede, body.rm-open .rm-kn { display: none; }
+#rm-card .w-legend .g { font-size: var(--text-eyebrow); }
+/* how to read */
+.rm-how p { margin: 0 0 var(--s-3); font-size: var(--text-small); line-height: var(--leading-body); color: var(--ink-2); }
+.rm-how b { color: var(--ink); font-weight: var(--weight-strong); }
+.rm-how a, .rm-trustp a:not(.rm-btn) { color: var(--ink); }
+.rm-how .w-legend { margin: var(--s-3) 0 var(--s-4); }
+
+/* ---- a desk: the rail on the right ---- */
+@media (min-width: 900px) {
+  #panel.as-panel { right: var(--rm-gap); top: calc(var(--rm-top) + var(--s-2)); bottom: var(--rm-gap); width: var(--rm-rail); border-radius: var(--radius-l); left: auto; }
+}
+/* ---- a phone: the sheet, three heights ---- */
+@media (max-width: 899px) {
+  #panel.as-panel { left: 0; right: 0; bottom: 0; top: auto; width: auto; height: 90vh; height: 90dvh; border-radius: var(--radius-l) var(--radius-l) 0 0; border-bottom: 0;
+    transform: translateY(calc(90dvh - var(--rm-peek))); transition: transform var(--dur-med) var(--ease-out); }
+  #panel.as-panel.half { transform: translateY(40dvh); }
+  #panel.as-panel.full { transform: translateY(0); }
+  #panel.as-panel.dragging { transition: none; }
+  #panel:not(.full):not(.half) .rm-scroll { overflow: hidden; }
+  .rm-grab { display: block; padding: var(--s-2) 0 0; cursor: grab; flex: none; touch-action: none; }
+  .rm-grab::before { content: ''; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--rule-strong); margin: 0 auto; }
+  .rm-phead { padding: var(--s-1) var(--s-4) var(--s-1); }
+  .rm-eyebrow, .rm-lede { display: none; }
+  .rm-q { font-size: var(--text-3); margin: var(--s-1) 0 var(--s-2); }
+  .rm-qrow { margin-bottom: var(--s-2); }
+  .rm-seg button { padding: var(--s-1) var(--s-2); font-size: var(--text-eyebrow); }
+  .rm-kn, .rm-kt { display: none; }
+  body.rm-open #rm-key { display: none; }
+  .rm-scroll { padding: var(--s-1) var(--s-4) calc(var(--s-5) + env(safe-area-inset-bottom)); }
+  .rm-ctl { left: var(--s-2); top: calc(var(--rm-top) + var(--s-2)); }
+  .rm-ctl button { padding: 0 var(--s-2); }
+  #rm-tip { display: none !important; }
+}
+@media (max-width: 560px) {
+  .as-top .appname, .as-top .sep, .as-top a.navx { display: none; }
+  .rm-top { margin-left: auto; }
+  .rm-fr, .rm-fax { grid-template-columns: 5.6rem minmax(0, 1fr) 5.8rem; }
+}
+</style>
+<script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
+(function(){var t=new URLSearchParams(location.search).get('theme');
+if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>
+</head><body>
+<div id="map" class="as-map" aria-label="Mapa-múndi de áreas iguais (Equal Earth) dividido em células, cada uma sombreada pela onda de projeto; células recusadas hachuradas, células com gelo marinho pontilhadas"></div>
+<header class="as-top">
+  <a class="brand" href="/">CERT-MACHINE</a>
+  <span class="sep"></span>
+  <span class="appname"><span data-l="pt">Atlas de níveis de retorno</span><span data-l="en" hidden>Return-level atlas</span></span>
+  <div class="rm-top"><nav class="rm-views" aria-label="globo ou mapa"><a href="../" id="rm-to-globe"><span data-l="pt">Globo</span><span data-l="en" hidden>Globe</span></a><a aria-current="page" href="./"><span data-l="pt">Mapa</span><span data-l="en" hidden>Map</span></a></nav><div class="rm-lang" role="group" aria-label="idioma / language"><button type="button" data-lang="pt">PT</button><button type="button" data-lang="en">EN</button></div></div>
+  <span class="spacer"></span>
+  <a class="navx" href="/instruments/"><span data-l="pt">instrumentos</span><span data-l="en" hidden>instruments</span></a>
+</header>
+<aside class="as-panel" id="panel">
+<div class="rm-grab" aria-hidden="true"></div>
+<div class="rm-phead">
+  <div class="rm-eyebrow"><span data-l="pt">instrumentos &middot; atlas de níveis de retorno</span><span data-l="en" hidden>instruments &middot; return-level atlas</span></div>
+  <h1 class="rm-q"><span data-l="pt">Onda de projeto</span><span data-l="en" hidden>Design wave</span></h1>
+  <p class="rm-lede" data-l="pt">A onda que uma estrutura deve aguentar, célula por célula: decidida onde o registro decide, recusada &mdash; com o porquê &mdash; onde não decide.</p><p class="rm-lede" data-l="en" hidden>The wave a structure must stand, cell by cell: decided where the record decides, refused &mdash; with the reason &mdash; where it does not.</p>
+  <div class="rm-qrow"><div class="rm-seg" id="rm-T" role="radiogroup"></div><div class="rm-seg" id="rm-B" role="radiogroup"></div></div>
+  <div id="rm-key" aria-live="polite"></div>
+</div>
+<nav class="rm-tabs" role="tablist"><button type="button" class="rm-tab on" data-tab="places" role="tab" aria-selected="true"><span data-l="pt">Lugares</span><span data-l="en" hidden>Places</span></button><button type="button" class="rm-tab" data-tab="how" role="tab" aria-selected="false"><span data-l="pt">Como ler</span><span data-l="en" hidden>How to read</span></button></nav>
+<div class="rm-scroll" id="rm-scroll">
+  <section class="rm-pane on" data-pane="places"><div id="rm-list"><p class="rm-note" id="rm-wait"><span data-l="pt">Lendo o registro do atlas&hellip;</span><span data-l="en" hidden>Reading the atlas&rsquo;s record&hellip;</span></p></div><section id="rm-card" hidden></section></section>
+  <section class="rm-pane rm-how" data-pane="how"><div class="rm-howl" data-l="pt"><h3>O que o mapa mostra</h3>
+<p>Cada célula é um nó do hindcast do artigo de Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026): 2.589 de mar aberto, num reticulado de 4&deg; do globo, num de 1&deg; da margem brasileira e nos 13 nós do relatório. A cor é a <b>onda de projeto</b>: a altura significativa de onda (H<sub>s</sub>) do nível de retorno de 100 ou de 1000 anos, na família que Anderson&ndash;Darling decide entre seis, nos máximos diários, semanais ou mensais de 1993 a 2024. Uma célula <b>recusada</b> fica hachurada: ali nenhuma família é decidida, ou o nível dela não se fecha num intervalo exato, e o cartão diz por quê. As 679 que o gelo marinho do próprio hindcast toca em algum momento aparecem pontilhadas: mostradas, não certificadas.</p>
+<h3>Cada célula na sua área verdadeira</h3>
+<p>O mapa usa a projeção Equal Earth (Šavrič, Patterson e Jenny, 2018), de áreas iguais: cada célula ocupa no mapa uma área proporcional à que ocupa no oceano, e uma célula de 4&deg; perto do polo não parece maior do que é. Arraste para mover, use a roda ou dois dedos para aproximar; &ldquo;Margem brasileira&rdquo; enquadra o reticulado de 1&deg;.</p>
+<h3>Como ler cada número</h3>
+<p>Um número <b>decidido</b> é um intervalo exato, arredondado para fora ao centímetro: a ponta de baixo para baixo, a de cima para cima. A largura que outros 32 anos do mesmo mar poderiam dar (95%, método delta) é <b>estatística</b>, sublinhada tracejada: computada, não decidida. Uma <b>recusa</b> não tem marca: &empty; e o motivo.</p>
+<div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decidido</div><div class="g">conta exata</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computado</div><div class="g">ponto flutuante, ou um número que alguém imprimiu; nada o decidiu</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">recusado</div><div class="g">sem marca: o vazio é desenhado</div></div></div></div>
+<h3>Em que cada número se apoia</h3>
+<p>A conta é exata, e cada número se apoia em premissas conferidas até degraus diferentes; uma conclusão vale o degrau da sua premissa mais fraca. O cartão de cada célula repete esta cadeia com os números dela.</p>
+<ol class="w-premises"><li><span class="w-grade g0" title="suposto — adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>suposto</span><div><b>O hindcast</b> <span class="ev">GLOBMULTI_ERA5_GLOBCUR_01 (Ifremer WAVEWATCH III), a saída de um modelo de ondas; contra as boias PNBOIA da Marinha, em 9 nós da margem brasileira (25.215 pares, 2009&ndash;2018), o viés foi de <span class="w-val w-computed" title="computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)">&minus;0,65 a +0,22 m</span> e o RMS de <span class="w-val w-computed" title="computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)">0,34 a 2,18 m</span> (certs/janela-pnboia-check.json): em todos os estados de mar. Os extremos, que a onda de projeto lê, nunca foram conferidos.</span></div></li><li><span class="w-grade g0" title="suposto — adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>suposto</span><div><b>Máximos independentes, de um clima que não muda</b> <span class="ev">os máximos de cada bloco são tomados como independentes e de uma mesma lei, e 32 anos de um clima valem por 100 ou 1000; os máximos diários vêm em tempestades (o cartão de cada célula diz o quanto).</span></div></li><li><span class="w-grade g1" title="verificado — o código reproduz uma solução de referência das próprias equações; não conferido contra a coisa em si"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verificado</span><div><b>Os ajustes</b> <span class="ev">cada família, por máxima verossimilhança, é uma caixa que o operador de Krawczyk prova conter o único máximo da verossimilhança ali, com a hessiana provada negativa definida: decidido. O código reproduz formas fechadas e valores de 50 dígitos (instruments/hseva/battery.js).</span></div></li><li><span class="w-grade g0" title="suposto — adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>suposto</span><div><b>O melhor máximo de cada família</b> <span class="ev">que nenhum máximo melhor exista em outro ponto da família é afirmação da busca, como em qualquer otimizador.</span></div></li><li><span class="w-grade g0" title="suposto — adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>suposto</span><div><b>A família escolhida na mesma amostra</b> <span class="ev">Anderson&ndash;Darling escolhe entre as seis nos mesmos máximos aos quais elas foram ajustadas; nenhuma amostra guardada fora decide entre famílias.</span></div></li></ol><p class="w-meet">A conta é exata; a premissa mais fraca é <b>suposto</b>: o hindcast, a independência, a busca e a escolha da família.</p>
+<h3>O globo</h3>
+<p>No <a href="../">globo</a> ficam as afirmações regionais do artigo, decididas como caixas, as outras vistas (qual família, os critérios, a sétima família, a incerteza) e, em cada célula, o certificado: ela pode ser certificada de novo no seu navegador, com o código do próprio registro, a partir dos dados fixados por sha256.</p>
+<h3>Fontes</h3>
+<p>Ondas: Ifremer WAVEWATCH III GLOBMULTI_ERA5_GLOBCUR_01 (<a href="https://doi.org/10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b">doi</a>), CC BY-SA 4.0. Terra: Natural Earth, domínio público. O registro: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/hseva-atlas.json">certs/hseva-atlas.json</a>. Código (MIT): <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/playground/return-level-atlas">playground/return-level-atlas</a>.</p></div><div class="rm-howl" data-l="en" hidden><h3>What the map shows</h3>
+<p>Each cell is a node of the hindcast of Reis, Guimar&atilde;es et al. (Ocean Engineering, 2026): 2,589 in the open sea, on a 4&deg; lattice of the globe, a 1&deg; lattice of the Brazilian margin and the report's 13 nodes. The colour is the <b>design wave</b>: the significant wave height (H<sub>s</sub>) of the 100- or 1000-year return level, in the family Anderson&ndash;Darling decides among six, on the daily, weekly or monthly maxima of 1993 to 2024. A <b>refused</b> cell is hatched: there no family is decided, or its level does not close into an exact interval, and the card says why. The 679 that the hindcast's own sea ice touches at some step are dotted: shown, not certified.</p>
+<h3>Every cell at its true area</h3>
+<p>The map uses the Equal Earth projection (Šavrič, Patterson and Jenny, 2018), which keeps areas: each cell takes a share of the map in proportion to its share of the ocean, and a 4&deg; cell near the pole looks no bigger than it is. Drag to move, use the wheel or two fingers to zoom; &ldquo;Brazilian margin&rdquo; frames the 1&deg; lattice.</p>
+<h3>How to read each number</h3>
+<p>A <b>decided</b> number is an exact interval, rounded outward to the centimetre: the lower end down, the upper end up. The width another 32 years of the same sea could give (95%, the delta method) is <b>statistical</b>, dash-underlined: computed, not decided. A <b>refusal</b> has no mark: &empty; and the reason.</p>
+<div class="w-legend" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+<h3>What each number rests on</h3>
+<p>The arithmetic is exact, and each number rests on premises checked to different rungs; a conclusion is as checked as its weakest premise. Each cell's card repeats this chain with its own figures.</p>
+<ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The hindcast</b> <span class="ev">GLOBMULTI_ERA5_GLOBCUR_01 (Ifremer WAVEWATCH III), a wave model's output; against the Navy's PNBOIA buoys, at 9 nodes of the Brazilian margin (25,215 pairs, 2009&ndash;2018), its bias ran <span class="w-val w-computed" title="computed: a float statistic (certs/janela-pnboia-check.json)">&minus;0.65 to +0.22 m</span> and its RMS <span class="w-val w-computed" title="computed: a float statistic (certs/janela-pnboia-check.json)">0.34 to 2.18 m</span> (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Independent maxima, from a climate that does not change</b> <span class="ev">each block's maxima are taken as independent and from one law, and 32 years of one climate stand for 100 or 1000; daily maxima come in storms (each cell's card says how much).</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The fits</b> <span class="ev">each family, by maximum likelihood, is a box the Krawczyk operator proves holds the likelihood's one maximum there, the Hessian proved negative definite: decided. The code reproduces closed forms and 50-digit values (instruments/hseva/battery.js).</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>Each family's best maximum</b> <span class="ev">that no better maximum lies elsewhere in the family is the search's claim, as it is any optimiser's.</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The family chosen on the same sample</b> <span class="ev">Anderson&ndash;Darling chooses among the six on the same maxima they were fitted to; no held-out sample decides between families.</span></div></li></ol><p class="w-meet">The arithmetic is exact; the weakest premise is <b>assumed</b>: the hindcast, the independence, the search and the choice of family.</p>
+<h3>The globe</h3>
+<p>On the <a href="../">globe</a> are the paper's regional claims, decided as boxes, the other views (which family, the criteria, the seventh family, the uncertainty) and, in each cell, the certificate: it can be certified again in your browser, with the record's own code, from the data pinned by sha256.</p>
+<h3>Sources</h3>
+<p>Waves: Ifremer WAVEWATCH III GLOBMULTI_ERA5_GLOBCUR_01 (<a href="https://doi.org/10.12770/857a3337-f59a-481a-bf98-5561e8b61e7b">doi</a>), CC BY-SA 4.0. Land: Natural Earth, public domain. The record: <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/certs/hseva-atlas.json">certs/hseva-atlas.json</a>. Code (MIT): <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/playground/return-level-atlas">playground/return-level-atlas</a>.</p></div></section>
+</div></aside>
+<div class="rm-ctl" id="rm-ctl" role="group" aria-label="enquadrar"><button type="button" id="rm-world"><span data-l="pt">Mundo</span><span data-l="en" hidden>World</span></button><button type="button" id="rm-brazil"><span data-l="pt">Margem brasileira</span><span data-l="en" hidden>Brazilian margin</span></button><button type="button" id="rm-zin" aria-label="+">+</button><button type="button" id="rm-zout" aria-label="&minus;">&minus;</button></div>
+<div id="rm-tip" role="tooltip" hidden></div>
+<script>window.RLA_MAP = {"periods":[100,1000],"blocks":["daily","weekly","monthly"],"fam":["normal","lognormal","weibull","expweibull","gengamma","gumbel"],"nBlock":{"daily":11688,"weekly":1671,"monthly":384},"years":{"first":"1993","last":"2024","n":32},"stat":{"level":95},"places":[{"id":"4_-49","name":"foz-amazonas","pt":"Margem equatorial · Foz do Amazonas","en":"Equatorial margin · Foz do Amazonas","margin":true},{"id":"-4_-36.5","name":"potiguar","pt":"Margem equatorial · Potiguar","en":"Equatorial margin · Potiguar","margin":true},{"id":"-20_-38.5","name":"espirito-santo","pt":"Bacia do Espírito Santo","en":"Espírito Santo Basin","margin":true},{"id":"-22.5_-40","name":"campos","pt":"Bacia de Campos","en":"Campos Basin","margin":true},{"id":"-25.5_-43","name":"santos","pt":"Bacia de Santos","en":"Santos Basin","margin":true},{"id":"-32_-49","name":"pelotas","pt":"Bacia de Pelotas","en":"Pelotas Basin","margin":true},{"id":"55_-20","name":"north-atlantic","pt":"Atlântico Norte","en":"North Atlantic","margin":false},{"id":"30_135","name":"south-of-japan","pt":"Sul do Japão","en":"South of Japan","margin":false},{"id":"15_62","name":"arabian-sea","pt":"Mar da Arábia","en":"Arabian Sea","margin":false},{"id":"-42_20","name":"subantarctic-north","pt":"Norte subantártico","en":"Northern sub-Antarctic","margin":false},{"id":"-50_90","name":"acc-central","pt":"Corrente Circumpolar Antártica","en":"Antarctic Circumpolar Current","margin":false},{"id":"-56_120","name":"southern-high","pt":"Altas latitudes do sul","en":"Higher southern latitudes","margin":false},{"id":"-57_-65","name":"drake","pt":"Passagem de Drake","en":"Drake Passage","margin":false}],"frame":{"brazil":[[-56.5,-36.5],[-25.5,6.5]]},"pnb":{"at":{"-23_-42":[{"buoy":"Cabo Frio","pairs":1003,"from":"2009-10-13","to":"2013-09-04","bias":0.094,"rms":1.258}],"-16_-38":[{"buoy":"Porto Seguro","pairs":902,"from":"2012-07-16","to":"2017-01-26","bias":-0.648,"rms":2.178}]}},"dataset":"GLOBMULTI_ERA5_GLOBCUR_01","prem":{"pt":{"items":[{"grade":0,"label":"O hindcast","evidence":"GLOBMULTI_ERA5_GLOBCUR_01 (Ifremer WAVEWATCH III), a saída de um modelo de ondas; contra as boias PNBOIA da Marinha, em 9 nós da margem brasileira (25.215 pares, 2009&ndash;2018), o viés foi de \u003cspan class=\"w-val w-computed\" title=\"computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)\">&minus;0,65 a +0,22 m\u003c/span> e o RMS de \u003cspan class=\"w-val w-computed\" title=\"computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)\">0,34 a 2,18 m\u003c/span> (certs/janela-pnboia-check.json): em todos os estados de mar. Os extremos, que a onda de projeto lê, nunca foram conferidos."},{"grade":0,"label":"Máximos independentes, de um clima que não muda","evidence":"os máximos de cada bloco são tomados como independentes e de uma mesma lei, e 32 anos de um clima valem por 100 ou 1000; os máximos diários vêm em tempestades (o cartão de cada célula diz o quanto)."},{"grade":1,"label":"Os ajustes","evidence":"cada família, por máxima verossimilhança, é uma caixa que o operador de Krawczyk prova conter o único máximo da verossimilhança ali, com a hessiana provada negativa definida: decidido. O código reproduz formas fechadas e valores de 50 dígitos (instruments/hseva/battery.js)."},{"grade":0,"label":"O melhor máximo de cada família","evidence":"que nenhum máximo melhor exista em outro ponto da família é afirmação da busca, como em qualquer otimizador."},{"grade":0,"label":"A família escolhida na mesma amostra","evidence":"Anderson&ndash;Darling escolhe entre as seis nos mesmos máximos aos quais elas foram ajustadas; nenhuma amostra guardada fora decide entre famílias."}],"meet":"A conta é exata; a premissa mais fraca é \u003cb>suposto\u003c/b>: o hindcast, a independência, a busca e a escolha da família."},"en":{"items":[{"grade":0,"label":"The hindcast","evidence":"GLOBMULTI_ERA5_GLOBCUR_01 (Ifremer WAVEWATCH III), a wave model's output; against the Navy's PNBOIA buoys, at 9 nodes of the Brazilian margin (25,215 pairs, 2009&ndash;2018), its bias ran \u003cspan class=\"w-val w-computed\" title=\"computed: a float statistic (certs/janela-pnboia-check.json)\">&minus;0.65 to +0.22 m\u003c/span> and its RMS \u003cspan class=\"w-val w-computed\" title=\"computed: a float statistic (certs/janela-pnboia-check.json)\">0.34 to 2.18 m\u003c/span> (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked."},{"grade":0,"label":"Independent maxima, from a climate that does not change","evidence":"each block's maxima are taken as independent and from one law, and 32 years of one climate stand for 100 or 1000; daily maxima come in storms (each cell's card says how much)."},{"grade":1,"label":"The fits","evidence":"each family, by maximum likelihood, is a box the Krawczyk operator proves holds the likelihood's one maximum there, the Hessian proved negative definite: decided. The code reproduces closed forms and 50-digit values (instruments/hseva/battery.js)."},{"grade":0,"label":"Each family's best maximum","evidence":"that no better maximum lies elsewhere in the family is the search's claim, as it is any optimiser's."},{"grade":0,"label":"The family chosen on the same sample","evidence":"Anderson&ndash;Darling chooses among the six on the same maxima they were fitted to; no held-out sample decides between families."}],"meet":"The arithmetic is exact; the weakest premise is \u003cb>assumed\u003c/b>: the hindcast, the independence, the search and the choice of family."}},"shas":{"app.js":"ec9bd9040e85cfac8aeb340d6fc7cd0232533c639032177635323a66ef716385","mods.js":"87fe7aae4bc4f2b18a1fa73c3a1eed7115399a83bd2f1cead9799dcf801f8312","cells.json":"c5333a58b3c029ff340e1e26474cde17afe445171576871e60b93a80a6878858","shared.js":"84b94c2614eeec212f5978507edbd26b1cf3a7be676d133f0b2428b857f06c45"}};</script>
+<script src="mods.js"></script>
+<script src="app.js"></script>
+</body></html>
