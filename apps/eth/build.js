@@ -49,6 +49,10 @@ const BR = fs.existsSync(path.join(ROOT, BRIDGE_REL)) ? J(BRIDGE_REL) : null;
 const bridgeDone = !!BR && BR.run.conclusion === 'success'
   && ['openai', 'anthropic'].every((k) => BR.bridges[k].theorem.word === 'PROVED' && BR.bridges[k].theorem.axioms.every((a) => STD.includes(a)));
 if (BR && !bridgeDone) fail(BRIDGE_REL + ' is present but its run is not green or a bridge theorem is not PROVED on the standard axioms');
+/* a third party's join of the two models (TSavo/eth-bridge), replayed here; its gaps lead, as every audit here does */
+const TS_REL = 'certs/eth-tsavo-bridge.json';
+const TS = fs.existsSync(path.join(ROOT, TS_REL)) ? J(TS_REL) : null;
+if (TS && TS.word === 'CERTIFIED' && !TS.axiomsPrinted.every((a) => a.axioms.every((x) => STD.includes(x)))) fail(TS_REL + ' is CERTIFIED with an axiom outside the three standard ones');
 const thm = (proj, short) => BR.projects[proj].theorems.find((t) => t.name.endsWith('.' + short)) || fail('the bridge record has no theorem ' + short);
 const bridgeThms = bridgeDone ? new Set(['openai', 'anthropic'].flatMap((k) => BR.projects[k].theorems.map((t) => t.name))).size : 0;
 
@@ -98,7 +102,8 @@ B.push(C.tldr({
     + 'both accept, and only ' + STD.map(C.m).join(', ') + ' are used. Anthropic’s statement is ETH’s negation itself, '
     + 's₃ = 0 for Mathlib’s Turing machines. OpenAI’s statement is a running-time bound, the paper’s weaker Proposition 6.4: '
     + 'it defines no ETH, and the step from it to “ETH is false” is prose.'
-    + (bridgeDone ? ' Our Lean bridge closes that gap: the textbook ETH written once, and a proof that each lab’s statement refutes it in that lab’s own machine model.' : ''),
+    + (bridgeDone ? ' Our Lean bridge closes that gap: the textbook ETH written once, and a proof that each lab’s statement refutes it in that lab’s own machine model.' : '')
+    + (TS && TS.word === 'CERTIFIED' ? ' A third party’s Lean join of the two models (OpenAI’s statement implies Anthropic’s ETHIsFalse), replayed here by both kernels, checks too.' : ''),
   mechanismRaw: 'Every file pinned by sha256 before any run (' + fmt(OAI.pinnedFiles) + ' and ' + fmt(ANT.pinnedFiles) + '); '
     + 'Comparator, the Lean FRO’s judge, on one rented CPU machine; nanoda, a second kernel written independently of Lean’s, '
     + 'switched on for both. Two readings of the statements against the papers, each written without the other.',
@@ -214,7 +219,18 @@ function bridgeBody() {
     + C.pRaw('<b>Checked by one kernel.</b> Lean’s, inside ' + C.m('lake build') + ' on GitHub’s runners (<a href="' + C.escAttr(BR.run.url) + '">run ' + BR.run.id + '</a>); no ' + C.m('sorry') + ', no axiom declared, no ' + C.m('native_decide') + ' (' + ln(BRIDGE_REL) + ', ' + ln('corpus/eth-refutation/bridge/README.md', 'the README') + '). No second kernel has replayed the bridge.')
     + C.pRaw('<b>Not proved, and said so:</b>')
     + C.plainList(BR.notProved.map((t) => ({ b: '', text: t })))
+    + (TS ? tsavoBody() : '')
     + '</div>';
+}
+function tsavoBody() {
+  const short = TS.claim.repository.replace('https://github.com/', '') + ' @ ' + TS.claim.commit.slice(0, 8);
+  return C.pRaw('<b>The step between the two models, joined by someone else, and replayed here: ' + C.esc(TS.word) + '.</b> '
+      + '<a href="' + C.escAttr(TS.claim.repository + '/tree/' + TS.claim.commit) + '" target="_blank" rel="noopener">' + C.esc(short) + '</a> '
+      + '(TSavo; written with Claude, per its README) proves ' + leanM('Bridge.ethIsFalse_of_claim : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim → MainResults.ETHIsFalse') + ': '
+      + 'OpenAI’s machine compiled into Anthropic’s, and OpenAI’s input word produced from Anthropic’s, so OpenAI’s statement refutes ETH in Anthropic’s FinTM2 model too. '
+      + 'Replayed on GitHub’s runners (<a href="' + C.escAttr(TS.run.url) + '">run ' + TS.run.id + '</a>): ' + C.esc(TS.why).replace(/`([^`]+)`/g, '<span class="m">$1</span>') + ' (' + ln(TS_REL) + ').')
+    + C.pRaw('<b>Its gaps, first:</b>')
+    + C.plainList(TS.gaps.map((g) => ({ b: '', raw: brk(C.esc(g)).replace(/`([^`]+)`/g, '<span class="m">$1</span>') })));
 }
 B.push(C.section({
   lab: '§5 · the bridge', title: 'One textbook ETH in Lean, and each statement against it', id: 'bridge',

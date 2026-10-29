@@ -80,8 +80,22 @@ NEXT SESSION, IN ORDER:
      design/titles.json; reports/refusals.html lists none of the register's PARTIAL/NEEDS DATA rows; the register's
      newest row is 2026-10-05; time-horizon's caption says "Amber points"; /graph's editor draws small on phones;
      cert-unit stays dashed for an LLM answer (WARRANT v2 says so; the old OPEN item was wrong).
-     NEXT: ETH — the report is the operator's to read at carlostoledo.co/eth/; then the blog/Drive draft; optional: a
-     second kernel on the bridge, leanchecker --fresh, each paper's algorithm against brute force. Grammar — Tier 2 as
+     LATER THE SAME NIGHT (~00:30 UTC 10-29): THE TSAVO BRIDGE REPLAYED — anthropics/formal-math#36 (TSavo, written with
+     Claude) asks someone to check that MainResults means ETH; their github.com/TSavo/eth-bridge @ 34f9ca20 proves
+     OpenAI's Claim → MainResults.ETHIsFalse (OpenAI's machine compiled into Anthropic's; the encoding converted).
+     Replayed on GitHub runners (run 40789891989): CERTIFIED — statement checks (OpenAI's challenge rebuilt byte for byte,
+     hk unused), Comparator exit 0 on TSavo's config, Lean kernel + nanoda accept, standard axioms
+     (certs/eth-tsavo-bridge.json; batteries 'ETH TSavo statement checks' and 'ETH TSavo record'). GAPS, leading the
+     record: the README's lakefile cannot run Comparator (unknown target BridgeChallenge; ONE declared amendment, a
+     [[lean_lib]] BridgeChallenge); OpenAI's statement re-elaborated on v4.33.1 vs OpenAI's proof on v4.34.1 (compose by
+     reading); two_proofs_one_statement one kernel only; a stale "sorry" comment; leanchecker not run. /eth/ §5 shows it.
+     THE #36 REPLY is drafted (the 10-29 chat): the readings' answer to their question + our s_eq/not_eth_of_ethIsFalse
+     + the replay with its gaps — NOT POSTED, the operator's word. Also tonight: the dReal comparison re-run on the
+     regenerated claims (run 40784075442; same totals; the method paper's MtDr* macros still name 40522733573);
+     the TCS form SUBMITTED and the ethdiscussion.blog comment posted (awaiting moderation); make control GREEN, 172 in
+     575 s (c2c3ee4f).
+     NEXT: ETH — post the #36 reply on the operator's word; optional: a second kernel on our bridge, leanchecker --fresh,
+     each paper's algorithm against brute force. Grammar — Tier 2 as
      pages are next edited; the PARTIAL ruling (a) decides how the chains end.
   ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN.
      SESSION CLOSE ~20:50 UTC (the operator is away): everything is committed and pushed; Machinidae is live in the
