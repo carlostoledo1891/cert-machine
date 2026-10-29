@@ -274,10 +274,14 @@ const witness = (label = 'an exhibited counterexample') => `<span class="wx" ari
    object broke the claim, at the figure's own scale: an arm of `size` either side of (x, y), at a stroke no thinner
    than the figure's decided line. On a page with a hero it is the first × a reader meets, before any inline glyph
    (tools/check-wiring.js reads the order and the weights from the built page). */
-const witnessMark = (x, y, { size = 6, width = 2.4 } = {}) => {
+/* `casing` (2026-10-29, the gsm8k hero): a paint drawn under the × a little wider, so the mark reads over a field of
+   cells whose grey is close to the red in lightness (v2.3's casing under a coloured mark over a field, on screen). The
+   casing carries no class: it is the ground, never a mark, and the × after it is the one tools/check-wiring.js weighs. */
+const witnessMark = (x, y, { size = 6, width = 2.4, casing } = {}) => {
   const f = (v) => (+v).toFixed(1);
-  return `<path class="w-wx" d="M${f(x - size)},${f(y - size)}L${f(x + size)},${f(y + size)}M${f(x - size)},${f(y + size)}L${f(x + size)},${f(y - size)}"`
-    + ` fill="none" stroke-width="${width}" stroke-linecap="round"/>`;
+  const d = `M${f(x - size)},${f(y - size)}L${f(x + size)},${f(y + size)}M${f(x - size)},${f(y + size)}L${f(x + size)},${f(y - size)}`;
+  return (casing ? `<path d="${d}" fill="none" stroke="${casing}" stroke-width="${f(width + 3)}" stroke-linecap="round"/>` : '')
+    + `<path class="w-wx" d="${d}" fill="none" stroke-width="${width}" stroke-linecap="round"/>`;
 };
 
 /* ------------------------------------------------- MODELS AS PREMISES ------

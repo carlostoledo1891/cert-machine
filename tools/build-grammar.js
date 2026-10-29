@@ -598,7 +598,7 @@ function html() {
   const head = (() => { try { return git(['rev-parse', '--short', 'HEAD']); } catch (e) { return 'unknown'; } })();
   const foot = '<p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md and the records each finding cites, at git ' + esc(head) + ', by tools/build-grammar.js. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
   const CSS = `
-/* /grammar/ (tools/build-grammar.js): the specimen grids, the finding lines, the hero under the header, the halo key */
+/* /grammar/ (tools/build-grammar.js): the specimen grids, the finding lines, the halo key (the hero under the header is design/template.js) */
 .gr-spec{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-5)}
 @media (min-width:700px){.gr-spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gr-spec figure{margin:0}
@@ -608,7 +608,6 @@ function html() {
 .gr-h3{margin-top:var(--s-7)}
 .gr-f{display:block;margin-top:var(--s-2);font-size:var(--text-small);color:var(--ink-4)}
 .gr-f a.gr-c{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);white-space:nowrap}
-.page > header + .hero{margin-top:var(--s-7)}
 ul.plain .gr-pats{list-style:none;padding:0;margin:var(--s-2) 0 0}
 ul.plain .gr-pats li{padding:var(--s-1) 0;border-top:0;font-size:var(--text-small)}
 .gr-halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:4;stroke-linejoin:round;opacity:.32}

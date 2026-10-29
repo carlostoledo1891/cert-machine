@@ -243,6 +243,12 @@ function legend(items, x, y, gap, avail) {
         + '" stroke="' + it.token + '" stroke-width="2" stroke-linecap="round"/>');
     } else if (it.kind === 'hatch') {
       out.push('    <rect x="' + cx + '" y="' + (y2 - 10) + '" width="14" height="10" fill="url(#cmHatch)"/>');
+    } else if (it.kind === 'wx') {
+      /* a cell carrying the witness × (strip's `marks`, 2026-10-29): the swatch is drawn as the figure draws it, the
+         × at the figure's own width (`it.wx`), so the key shows what the reader sees on the cell */
+      const k = it.wx || { size: 5, width: 2.4 };
+      out.push('    <rect x="' + cx + '" y="' + (y2 - 10) + '" width="11" height="10" rx="2" fill="' + it.token + '"/>');
+      out.push('    ' + require('../playground/warrant.js').witnessMark(cx + 5.5, y2 - 5, { size: Math.min(k.size, 6), width: k.width, casing: SURFACE }).replace(/\/>/g, ' pointer-events="none"/>'));
     } else {
       out.push('    <rect x="' + cx + '" y="' + (y2 - 10) + '" width="11" height="10" rx="2" fill="' + it.token + '"/>');
     }
@@ -534,24 +540,72 @@ function dumbbell(o) {
 
 /* STRIP — one cell per item, coloured by VERDICT. This is the form for "every
    row of a published table, decided": it shows the population and the
-   exceptions at once, and the exceptions are labelled, never colour-only. */
+   exceptions at once, and the exceptions are labelled, never colour-only.
+
+   THE WITNESS ON A CELL (D12 / R28, 2026-10-29). `marks: [{ index, label }]` draws the house's × (playground/warrant.js
+   witnessMark, class w-wx) on the cells named, at the figure's own scale, so on a page whose hero is a strip the
+   counterexample is an event before it is a word. `mark: { size, width }` sizes it; the strip's decided marks are its
+   cells, and the kit draws its decided lines at 2 px, so a × under 2 px is refused. It sits on a casing of the figure's
+   surface, because the witness red is close in lightness to the mid grey of a neighbouring cell. A mark's `label` (one
+   line, or an array of lines) is written in a band opened under its row, with a hairline from the × to the words: no
+   cell is covered, and the words are beside the event. Marks are drawn after every cell, so they are never under one.
+
+   THE LEGEND'S ROOM (2026-10-29). legend() grows UPWARD from its baseline, and the strip reserved one line for it, so
+   a key that wrapped to two or three lines was drawn over the last rows of cells (gsm8k's 1,319 cells, seen at the
+   hero's width). The strip now reserves every line the legend takes; a one-line legend keeps the height it had. */
 function strip(o) {
   const items = o.items, per = o.perRow || Math.min(items.length, 60);
   const rows = Math.ceil(items.length / per);
   const cell = o.cell || 14, gapw = 2;                 /* the 2px surface gap */
   const w = o.w || 900;
   const L = o.padL === undefined ? 4 : o.padL;
-  const h = rows * (cell + gapw) + 44;
+  const pitch = (w - L - 4) / per, cw = pitch - gapw;
+  const marks = (o.marks || []).slice().sort((a, b) => a.index - b.index);
+  for (const m of marks) {
+    if (!(Number.isInteger(m.index) && m.index >= 0 && m.index < items.length)) throw new Error('charts.strip: a mark names no cell (' + m.index + ')');
+  }
+  const mk = Object.assign({ size: Math.max(5, cell * 0.6), width: 2.4 }, o.mark);
+  if (marks.length && !(mk.width >= 2)) throw new Error('charts.strip: a witness mark at ' + mk.width + ' px is thinner than the kit\'s 2 px decided line (R28)');
+  const LBL = 17;                                      /* one label line in a band */
+  const lines = (m) => (m.label === undefined ? [] : [].concat(m.label));
+  const byRow = {};
+  for (const m of marks) (byRow[Math.floor(m.index / per)] = byRow[Math.floor(m.index / per)] || []).push(m);
+  const bandH = (r) => { const n = (byRow[r] || []).reduce((s, m) => s + lines(m).length, 0); return n ? 8 + n * LBL : 0; };
+  const top = [];
+  let yy = 6;
+  for (let r = 0; r < rows; r++) { top.push(yy); yy += cell + gapw + bandH(r); }
+  const nLeg = legendLines(o.keys, w - L - 4, o.legendGap);
+  const h = yy + 38 + Math.max(0, nLeg - 1) * LEGEND_LINE;
   const out = [open({ w, h, alt: o.alt })];
   out.push(HATCH_DEF);
   items.forEach((it, i) => {
     const r = Math.floor(i / per), c = i % per;
-    const x = L + c * ((w - L - 4) / per), y = 6 + r * (cell + gapw);
-    const cw = (w - L - 4) / per - gapw;
+    const x = L + c * pitch, y = top[r];
     out.push('    <rect ' + hit('x="' + x.toFixed(2) + '" y="' + y + '" width="' + Math.max(1, cw).toFixed(2)
       + '" height="' + cell + '" rx="2" fill="' + it.token + '"', it.k, it.v || '') + '/>');
   });
-  out.push(legend(o.keys, L, h - 8, o.legendGap, w - L - 4));
+  if (marks.length) {
+    const W = require('../playground/warrant.js');
+    for (const r of Object.keys(byRow).map(Number)) {
+      let ly = top[r] + cell + gapw + 4;               /* the band's first text line starts here */
+      for (const m of byRow[r]) {
+        const cx = L + (m.index % per) * pitch + cw / 2, cy = top[r] + cell / 2;
+        /* the × lets a pointer through to its cell, whose hover names the item (the attribute goes last: check-wiring
+           reads the mark as `<path class="w-wx"`) */
+        out.push('    ' + W.witnessMark(cx, cy, { size: mk.size, width: mk.width, casing: SURFACE }).replace(/\/>/g, ' pointer-events="none"/>'));
+        const ls = lines(m);
+        if (!ls.length) continue;
+        /* the words run away from the near edge: right of the × in the left half, left of it in the right half */
+        const right = cx < w / 2, tx = right ? cx + 9 : cx - 9, base = ly + LBL - 5;
+        out.push('    <path d="M' + cx.toFixed(1) + ',' + (cy + mk.size + 2).toFixed(1) + 'V' + (base - 4).toFixed(1) + 'H' + (right ? tx - 3 : tx + 3).toFixed(1)
+          + '" fill="none" stroke="' + AXIS + '" stroke-width="1"/>');
+        ls.forEach((s, k) => out.push(txt(tx, base + k * LBL, s, k ? 't-note' : 't-lab', right ? 'start' : 'end')));
+        ly += ls.length * LBL;
+      }
+    }
+  }
+  /* a key of kind 'wx' is the marked cells' key: its × is drawn at the marks' own width */
+  out.push(legend((o.keys || []).map((k) => (k.kind === 'wx' ? Object.assign({ wx: mk }, k) : k)), L, h - 8, o.legendGap, w - L - 4));
   out.push(close);
   return out.join('\n');
 }
@@ -684,6 +738,9 @@ function scatter(o) {
   const f = frame(Object.assign({}, o, { padB: o.padB || (28 + (o.xLabel ? 22 : 0) + (nLeg ? 5 + nLeg * LEGEND_LINE : 0)) }));
   const out = [open({ w: f.w, h: f.h, alt: o.alt, cls: o.cls })];
   out.push(axes(f, o));
+  /* o.yTitle (2026-10-29, a hero's phone drawing): the y axis's caption written above the frame, flush with the tick
+     column, where a drawing is too narrow for the rotated one beside the ticks (it collided with "15 min") */
+  if (o.yTitle) out.push(txt(4, f.T - 12, o.yTitle, 't-note', 'start'));
   for (const l of (o.vlines || [])) {
     const x = f.px(l.x);
     out.push('    <line x1="' + x.toFixed(1) + '" y1="' + f.T + '" x2="' + x.toFixed(1) + '" y2="' + (f.T + f.ph)
@@ -707,7 +764,10 @@ function scatter(o) {
       ? require('../playground/warrant.js').attrs(c.standing, { width: 2 })
       : 'fill="none" stroke="' + (c.token || CTX) + '" stroke-width="2"' + standingAttrs(c, 2))
       + ' stroke-linejoin="round"/>');
-    if (c.k) out.push(txt(f.px(c.pts[c.pts.length - 1][0]) + 7, f.py(c.pts[c.pts.length - 1][1]) + 4, c.k, 't-lab', 'start'));
+    /* c.kAt (2026-10-29, a hero's phone drawing): [x, y, anchor] in data units puts the curve's label where the
+       drawing has room; left out, it rides the curve's last point as before */
+    if (c.k && c.kAt) out.push(txt(f.px(c.kAt[0]), f.py(c.kAt[1]), c.k, 't-lab', c.kAt[2] || 'start'));
+    else if (c.k) out.push(txt(f.px(c.pts[c.pts.length - 1][0]) + 7, f.py(c.pts[c.pts.length - 1][1]) + 4, c.k, 't-lab', 'start'));
   }
   /* dots under diamonds, so a proved specimen is never buried by its own cell */
   for (const p of P.filter(p => !p.diamond)) {

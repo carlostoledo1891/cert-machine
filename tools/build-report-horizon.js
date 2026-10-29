@@ -158,18 +158,36 @@ const xa = Math.min(...tp.map((p) => p.x)), xb = Math.max(...tp.map((p) => p.x))
 if (!(x0 < xa && xb < x1)) die('the trend\'s fitted span is not inside the drawn axis');
 const yAt = (x) => ybar + slope * (x - xbar);
 const lastFitted = live.filter((a) => trendSet.has(a.alias)).map((a) => a.site.release_date).sort().pop();
-const FIG2 = CH.scatter({
-  /* padR holds the line's label: at the default 22 px it was cut to "do" at the frame's edge (seen 2026-10-28) */
-  w: 900, h: 420, x0, x1, y0: lg(1), y1: lg(4000), padL: 62, padR: 176,
+/* THE HERO (D12, 2026-10-29; the operator's batch 1, "existing figures"): this figure, the trend the page exists for,
+   is the page's one hero. Two drawings of one figure, every point, line and standing the same: the wide one past the
+   container, and a phone one at a scale a phone can read (design/template.js swaps them under 680 px). The page has no
+   witness ×, so R28's order does not bind here. The wide drawing's padL clears the rotated axis caption: at 62 it
+   ran through "15 min" (seen 2026-10-29); the phone drawing writes that caption above the frame instead. */
+const FIG2_TICKS = {
   xTicks: ['2023-01-01', '2024-01-01', '2025-01-01', '2026-01-01'].map((d) => ({ v: days(d), t: d.slice(0, 4) })),
   yTicks: tickMin.map((m) => ({ v: lg(m), t: m < 60 ? m + ' min' : (m / 60) + ' h' })),
+};
+const dblWord = 'doubles in ' + dbl23[0].toFixed(1) + ' d';
+const trendCurves = (kAt) => [{ pts: [[x0, yAt(x0)], [xa, yAt(xa)]], standing: W.COMPUTED },
+  { pts: [[xa, yAt(xa)], [xb, yAt(xb)]], standing: W.DECIDED },
+  { pts: [[xb, yAt(xb)], [x1, yAt(x1)]], standing: W.COMPUTED, k: dblWord, kAt }];
+const FIG2_ALT = 'Scatter of certified 50 % horizons on a log axis against release date from 2023 to 2026, with a straight trend line through the state-of-the-art models rising by one doubling every ' + dbl23[0].toFixed(1) + ' days: solid across the releases it was fitted to, dashed before and after them, where it is a forecast.';
+const FIG2 = CH.scatter(Object.assign({
+  /* padR holds the line's label: at the default 22 px it was cut to "do" at the frame's edge (seen 2026-10-28) */
+  w: 1100, h: 460, x0, x1, y0: lg(1), y1: lg(4000), padL: 84, padR: 176,
   xLabel: 'release date', yLabel: '50 % horizon (log scale)',
-  pts, curves: [{ pts: [[x0, yAt(x0)], [xa, yAt(xa)]], standing: W.COMPUTED },
-    { pts: [[xa, yAt(xa)], [xb, yAt(xb)]], standing: W.DECIDED },
-    { pts: [[xb, yAt(xb)], [x1, yAt(x1)]], standing: W.COMPUTED, k: 'doubles in ' + dbl23[0].toFixed(1) + ' d' }],
+  pts, curves: trendCurves(),
   keys: [{ token: 'var(--c-2)', t: 'state of the art at release, in the trend (' + T.from_2023_on.n + ')' }, { token: 'var(--c-3)', t: 'not in the trend: not state of the art, or above 16 hours' }],
-  alt: 'Scatter of certified 50 % horizons on a log axis against release date from 2023 to 2026, with a straight trend line through the state-of-the-art models rising by one doubling every ' + dbl23[0].toFixed(1) + ' days: solid across the releases it was fitted to, dashed before and after them, where it is a forecast.',
-});
+  alt: FIG2_ALT,
+}, FIG2_TICKS));
+/* the phone drawing: the line's label sits in the empty top-left corner (at the line's end it would leave the frame) */
+const FIG2_N = CH.scatter(Object.assign({
+  w: 360, h: 430, x0, x1, y0: lg(1), y1: lg(4000), padL: 54, padR: 14, padT: 34,
+  xLabel: 'release date', yTitle: '50 % horizon, log scale',
+  pts, curves: trendCurves([days('2023-02-01'), lg(1500), 'start']),
+  keys: [{ token: 'var(--c-2)', t: 'in the trend: state of the art (' + T.from_2023_on.n + ')' }, { token: 'var(--c-3)', t: 'not in the trend' }],
+  alt: FIG2_ALT,
+}, FIG2_TICKS));
 
 /* ---- tables ---- */
 const tbl = C.table({
@@ -224,7 +242,7 @@ B.push(C.section({
 B.push(C.section({
   lab: '§2 · the trend', title: 'The doubling time, as an interval: ' + dbl23[0].toFixed(2) + ' days since 2023',
   wide: true,
-  bodyRaw: C.figure({ svgRaw: FIG2, caption: 'Certified 50 % horizons against release date. The line is the exact least-squares fit through the ' + T.from_2023_on.n + ' models the site flags as state of the art at release with a horizon under 16 hours; its slope is an enclosure ' + outE(T.from_2023_on.slopeBitsPerDay[1] - T.from_2023_on.slopeBitsPerDay[0], true) + ' bits per day wide. It is solid across the releases it was fitted to and dashed before the first and after the last (' + lastFitted + '), where the same line is a forecast. Amber points are on the chart and not in the trend.' })
+  bodyRaw: C.figure({ svgRaw: FIG2, svgNarrowRaw: FIG2_N, hero: true, caption: 'Certified 50 % horizons against release date. The line is the exact least-squares fit through the ' + T.from_2023_on.n + ' models the site flags as state of the art at release with a horizon under 16 hours; its slope is an enclosure ' + outE(T.from_2023_on.slopeBitsPerDay[1] - T.from_2023_on.slopeBitsPerDay[0], true) + ' bits per day wide. It is solid across the releases it was fitted to and dashed before the first and after the last (' + lastFitted + '), where the same line is a forecast. The darker points are on the chart and not in the trend.' })
     + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
     + C.pRaw('The site prints ' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/point_estimate' }, standing: W.COMPUTED, fmt: 'raw', why: 'printed by METR — a claim, not decided here' }) + ' days with a bootstrap interval [' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/ci_low' }, standing: W.COMPUTED, fmt: 'raw', why: BOOT }) + ', ' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/ci_high' }, standing: W.COMPUTED, fmt: 'raw', why: BOOT }) + ']' + '; the certified line re-derives ' + dbl23[0].toFixed(3) + ' from the same model set, which says the site’s trend is computed on exactly the numbers its chart shows and by exactly the rule its file states (state of the art at release; central estimate under 16 hours, which leaves ' + mythos.alias + ' at ' + mythos.live.horizons['0.5'].minutes[0].toFixed(0) + ' minutes out and ' + opus46.alias.replace(' (Inspect)', '') + ' at ' + opus46.live.horizons['0.5'].minutes[0].toFixed(0) + ' in). From 2024 on the same rule gives ' + dbl24[0].toFixed(1) + ' days over ' + T.from_2024_on.n + ' models; the January post printed ' + printed(claims.post.doublingTimeDays.from2024.th11) + ' on its smaller set, and the site does not print a 2024 figure. The line is exact; that the horizon grows by a fixed factor per day is METR’s model of the trend, and §3 grades it.') + '</div>'
     + trendTbl,

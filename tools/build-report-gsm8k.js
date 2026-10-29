@@ -116,18 +116,41 @@ if (!FS || FS.inspect_evals.split !== 'train' || FS.lm_eval.split !== 'train' ||
 if (!(L.seconds > 0)) die('the ledger records no run time');
 const secs = W.val({ rec: { path: 'certs/gsm8k-ledger.json', ptr: '/seconds' }, standing: W.COMPUTED, fmt: 'raw', why: 'the wall-clock of the run that wrote the ledger — a measurement, nothing decided it' }) + ' seconds';
 
-/* ---- figure 1: the 1,319 test items, one cell each, by this page's verdict ---- */
+/* ---- figure 1, THE HERO (D12, 2026-10-29): the 1,319 test items, one cell each, by this page's verdict ----
+   The page names its witnesses in the tl;dr, so under R28 the first × a reader meets is drawn here, on the cells of the
+   items whose key prints a step that does not hold, and the figure stands right under the header, before any inline ×
+   (tools/check-wiring.js reads that order and the ×'s weight from the built page). The marks are the record's rows with
+   a witness, read from the ledger, and the build refuses if they are not exactly the printed-step faults. Two drawings:
+   rows of 60 past the container, rows of 30 on a phone, at a scale where a cell and its × can be seen. */
+if (!T.rows.every((r, k) => r.i === k)) die('the test rows are not in file order, so a cell is not its item');
+const marked = T.rows.filter((r) => r.witness);
+if (marked.length !== F.printedStepWrongTest || marked.some((r) => r.class !== 'PRINTED_STEP_WRONG') || T.rows.filter((r) => r.class === 'PRINTED_STEP_WRONG').length !== marked.length) die('the rows with a witness are not exactly the printed-step faults');
+if (faultT !== marked.length) die('a fault cell would carry no ×: the fault group is not exactly the printed-step rows');
+if (marked.map((r) => r.i).join() !== [w501.i, w1024.i].join()) die('the hero\'s marks are not the two named witnesses');
+const stepOf = (r) => r.witness.lhs + ' = ' + r.witness.rhs;
 const cells = T.rows.map((r) => ({
   token: tokOf(r.class),
   k: 'item ' + r.i + ' · ' + r.class + ' · Platinum: ' + r.platinum,
   v: 'answer ' + r.answer + (r.witness ? ' · ' + r.witness.lhs + ' = ' + r.witness.rhs + ', exact ' + r.witness.exact : r.derived_by ? ' · by ' + r.derived_by : ''),
 }));
+const FIG1_ALT = 'One thousand three hundred and nineteen cells, one per GSM8K test item in file order: mid grey where every printed step holds and reaches the answer, dark grey where the answer is not any printed value, and white with a red cross for the two items, ' + marked.map((r) => r.i).join(' and ') + ', whose key prints a step that does not hold: ' + marked.map((r) => stepOf(r) + ', which is ' + r.witness.exact).join('; ') + '.';
 const FIG1 = CH.strip({
-  w: 900, perRow: 60, cell: 12, padL: 6, items: cells,
+  w: 1100, perRow: 60, cell: 14, padL: 6, items: cells,
+  marks: marked.map((r) => ({ index: r.i, label: 'item ' + r.i + ' · the key prints ' + stepOf(r) + '; it is ' + r.witness.exact })),
+  mark: { size: 7, width: 3 },
   keys: [{ token: 'var(--c-2)', t: fmt(holdT) + ' — the printed arithmetic holds and reaches the answer' },
     { token: 'var(--c-3)', t: fmt(readT) + ' — no fault, but the answer is no printed value (a reader decides)' },
-    { token: 'var(--c-1)', t: fmt(faultT) + ' — a printed step that does not hold as printed' }],
-  alt: 'One thousand three hundred and nineteen cells, one per GSM8K test item in file order: green where every printed step holds and reaches the answer, amber where the answer is not any printed value, plum for the two items whose key prints a step that does not hold.',
+    { token: 'var(--c-1)', kind: 'wx', t: fmt(faultT) + ' — a printed step that does not hold as printed' }],
+  alt: FIG1_ALT,
+});
+const FIG1_N = CH.strip({
+  w: 360, perRow: 30, cell: 10, padL: 6, items: cells,
+  marks: marked.map((r) => ({ index: r.i, label: ['item ' + r.i + ' · the key prints', stepOf(r) + '; it is ' + r.witness.exact] })),
+  mark: { size: 6.5, width: 2.6 },
+  keys: [{ token: 'var(--c-2)', t: fmt(holdT) + ' — the steps hold, reach the answer' },
+    { token: 'var(--c-3)', t: fmt(readT) + ' — no fault; a reader decides' },
+    { token: 'var(--c-1)', kind: 'wx', t: fmt(faultT) + ' — a printed step does not hold' }],
+  alt: FIG1_ALT,
 });
 /* ---- figure 2: the same 1,319 cells, by Platinum's verdict ---- */
 const ptok = { consensus: 'var(--c-2)', verified: 'var(--c-3)', revised: 'var(--c-1)', removed: 'var(--c-1)' };
@@ -137,7 +160,7 @@ const FIG2 = CH.strip({
   keys: [{ token: 'var(--c-2)', t: fmt(P.counts.consensus) + ' consensus — no model disagreed, never inspected' },
     { token: 'var(--c-3)', t: fmt(P.counts.verified) + ' verified — inspected, kept' },
     { token: 'var(--c-1)', t: fmt(P.counts.removed + P.counts.revised) + ' removed or relabelled' }],
-  alt: 'The same cells coloured by GSM8K-Platinum: green for the 1,100 items no model disagreed with, amber for the 99 inspected and kept, plum for the 110 removed and the 10 relabelled.',
+  alt: 'The same cells coloured by GSM8K-Platinum: mid grey for the 1,100 items no model disagreed with, dark grey for the 99 inspected and kept, white for the 110 removed and the 10 relabelled.',
 });
 /* ---- figure 3: the train set by class ---- */
 const FIG3 = CH.bars({
@@ -178,6 +201,12 @@ B.push(C.header({
   title: 'GSM8K’s answer key, re-decided to the last step.',
   deck: 'Every harness that scores GSM8K compares a model’s number with the answer line of a stored solution, and the solution prints the arithmetic that reaches it: calculator annotations the authors inserted, and the prose steps between them. That arithmetic can be re-decided without a model and without a reader. This page evaluates all ' + fmt(T.annotationsTotal) + ' annotations of the test set and ' + fmt(R.annotationsTotal) + ' of the train set from the expressions they print, reads every prose equation with them in exact rational arithmetic, classes each item by whether its own steps reach its own answer, and sets the result beside GSM8K-Platinum, the human revision of the same test set.',
 }));
+/* the hero, under the header and before the tl;dr's inline × (D12): the witness is an event before it is a word */
+B.push(C.figure({ svgRaw: FIG1, svgNarrowRaw: FIG1_N, hero: true,
+  captionRaw: 'The ' + fmt(T.items) + ' test items in file order, one cell each, classed by this page in exact arithmetic over the steps the reader could read: '
+    + fmt(holdT) + ' whose printed steps hold and reach the answer, ' + fmt(readT) + ' where no step is wrong but the answer is no printed value, and '
+    + word(faultT) + ' where the key prints a step that does not hold as printed, each marked ' + W.witness('a step the key printed that does not hold as printed')
+    + ' on its own cell: items ' + marked.map((r) => r.i).join(' and ') + ', both of which GSM8K-Platinum never opened (§1). Hover a cell for the item, its class and Platinum’s status.' }));
 B.push(C.tldr({
   findingRaw: '<strong>The key’s arithmetic is clean where the humans looked, and slips where no model disagreed.</strong> All ' + fmt(T.annotationsTotal) + ' test-set calculator annotations evaluate exactly to the value they print — not one is wrong, not one is rounded — and so do ' + fmt(R.annotations.EXACT) + ' of the ' + fmt(R.annotationsTotal) + ' train-set ones (the other two use an operator the calculator grammar does not have and are refused, not guessed). Reading the prose steps too, ' + F.printedStepWrongTest + ' test keys and ' + F.printedStepWrongTrain + ' train keys print a step that does not hold as printed (' + word(NOTATION.length) + ' of the train ones are notation the reader took as arithmetic, §2) — ' + W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(w501.witness.lhs + ' = ' + w501.witness.rhs) + ', ' + W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(w1024.witness.lhs + ' = ' + w1024.witness.rhs) + ' — and both test-set slips sit in items GSM8K-Platinum classes <em>consensus</em>: no frontier model disagreed with the answer, and Platinum read by hand only where one did, so its reviewers never opened them. The converse holds too: no printed step fails in any of Platinum’s ' + F.revisedByPlatinum.length + ' relabelled answers (' + revC.REPRODUCED + ' reach the answer by their last annotation; in ' + revC.ANSWER_UNDERIVED + ' the answer is no printed value), and ' + F.removedByPlatinum.classes.REPRODUCED + ' of its ' + F.removedByPlatinum.n + ' removed items are REPRODUCED here. Those errors are readings of the problem, not sums, and no re-decision of the arithmetic can find them. The two halves of a task-QA audit find different things, and the mechanical half costs ' + secs + ' of computing.',
   mechanismRaw: 'An annotation ' + C.esc('<<lhs=rhs>>') + ' is read as the expression its left side denotes — a hand-written parser for + − × ÷ and parentheses over stdlib fractions; nothing is ever passed to eval — and compared with the rational its right side denotes: EXACT, ROUNDED (within half a unit of the last printed place, and said so), WRONG, or REFUSED. A prose equation is a run of arithmetic characters around an “=”, read as a chain “a = b = c” pair by pair, with the notations GSM8K writers use — a spaced x as times, a dollar sign, a percent sign or the word “cents” as a unit label, “5 and 2/3” as a mixed number, “25 / 1/3” as 25 ÷ (1/3) — and anything cut off by a word, glued to a variable or otherwise unreadable is UNREAD, never a verdict. The answer line is read as the rational it denotes and compared with the last annotation’s value, then with every prose step’s. Platinum’s rows are joined to GSM8K’s by question text, exactly, and their three statuses cross-tabulated with this page’s classes.',
@@ -198,9 +227,8 @@ B.push('<div class="col">' + C.pRaw('How the page marks what each value rests on
 B.push(C.section({
   lab: '§1 · the two readings', title: 'Two audits of one test set, cell by cell',
   wide: true,
-  bodyRaw: C.figure({ svgRaw: FIG1, caption: 'The ' + fmt(T.items) + ' test items in file order, classed by this page: green where every printed step holds and reaches the answer, amber where no step is wrong but the answer is not any printed value, plum where a printed step does not hold. Every cell is decided here, in exact arithmetic over the steps the reader could read. Hover for the item, its class and Platinum’s status.' })
-    + C.figure({ svgRaw: FIG2, caption: 'The same cells, classed by GSM8K-Platinum: green for the ' + fmt(P.counts.consensus) + ' items every frontier model got right (never inspected), amber for the ' + P.counts.verified + ' inspected and kept, plum for the ' + P.counts.removed + ' removed and the ' + P.counts.revised + ' relabelled. These are Platinum’s labels as it printed them: a claim, read here and not re-decided.' })
-    + '<div class="col">' + C.pRaw('The two pictures do not overlap where it matters. Platinum’s plum is where models and humans disagreed with the key about what the problem means; this page’s plum is where the key disagrees with itself about what its numbers add up to. The cross-tabulation:') + '</div>'
+  bodyRaw: C.figure({ svgRaw: FIG2, caption: 'The same cells as at the top of the page, classed by GSM8K-Platinum: mid grey for the ' + fmt(P.counts.consensus) + ' items every frontier model got right (never inspected), dark grey for the ' + P.counts.verified + ' inspected and kept, white for the ' + P.counts.removed + ' removed and the ' + P.counts.revised + ' relabelled. These are Platinum’s labels as it printed them: a claim, read here and not re-decided.' })
+    + '<div class="col">' + C.pRaw('The two pictures, this one and the one at the top of the page, do not overlap where it matters. Platinum’s white cells are where models and humans disagreed with the key about what the problem means; this page’s are where the key disagrees with itself about what its numbers add up to. The cross-tabulation:') + '</div>'
     + crossTable
     + '<div class="col">' + C.pRaw('Of the ' + P.counts.removed + ' items Platinum removed as ambiguous or inconsistent, ' + F.removedByPlatinum.classes.REPRODUCED + ' have arithmetic that holds to the last step; so do ' + (P.crossTab.revised.REPRODUCED) + ' of the ' + P.counts.revised + ' it relabelled. The ' + F.printedStepWrongTest + ' keys that print a wrong step are both <em>consensus</em> items: every model reproduced the intended answer, so the flagging method — look only where a model disagrees — had no reason to open them. A typo no model copies is invisible to a model-flagged audit by construction.') + '</div>',
 }));

@@ -337,3 +337,23 @@ those people took part.
   measured by the same marks census that gates today's site (tools/check-grammar.js marksCensus, exported for it).
 - **The candidate rules carry a status the build decides** from the code and the census: gated, partly gated, or open.
 - **The builder refuses** when a finding it calls fixed stops reading as fixed, or when an open one stops being true.
+
+## D12, batch 1 (2026-10-29): the Tier 1 reports' existing figures
+
+The operator's ruling for the first batch was "existing figures": a hero is declared on a figure a page already draws,
+and nothing new is drawn for it. A specimen on branch `heroes-tier1-batch1`, for the operator's look.
+
+- **time-horizon:** §2's trend (certified horizons against release date, the exact least-squares line) is the hero, with
+  a phone drawing. Every point, line and standing is the record's; only the frame moved (the rotated axis caption ran
+  through "15 min" and now clears it; the phone drawing writes it above the frame). The page shows no ×.
+- **gsm8k-audit:** the 1,319 test items as cells are the hero, under the header, because the tl;dr names the witnesses
+  with inline ×s. `design/charts.js` strip() takes `marks: [{ index, label }]` and draws `W.witnessMark` on those cells,
+  at a stroke no thinner than the kit's 2 px decided line (refused below it), on a casing of the figure's surface; each
+  mark's words sit in a band opened under its row. The marks are the ledger's test rows with a witness, which the
+  builder requires to be exactly the printed-step faults: items 501 and 1024. The legend's key for them is drawn as the
+  figure draws the cell (kind `wx`). The strip's legend no longer overwrites its last rows when it wraps.
+- **The rest of Tier 1 is registered** in `design/heroes.json`: page → `hero: true`, or `none` with a reason (the five
+  table-only reports and Method), or `pending` with a reason, allowed for an app only (the landing and the five apps,
+  batch 2). tools/check-wiring.js reads the Tier 1 line of "The site pass" above, so a page added there and not
+  registered refuses, as do a row with no reason, a stale row, and a `pending` report (seven red controls).
+- `.page > header + .hero` (the room under the title) moved into design/template.js from the two grammar pages' CSS.
