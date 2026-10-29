@@ -137,6 +137,24 @@ async function main() {
     return;
   }
 
+  if (cmd === 'show') {
+    /* one post as X serves it: the text, the author, its media (type, size, the still and the video's variants), its counts */
+    const id = idOf(rest.find((a) => !a.startsWith('--')));
+    const r = await call(keys(), 'GET', '/tweets/' + id, { query: { expansions: 'author_id,attachments.media_keys',
+      'tweet.fields': 'created_at,public_metrics,note_tweet,entities', 'user.fields': 'username,name,public_metrics,description',
+      'media.fields': 'type,width,height,duration_ms,preview_image_url,url,alt_text,variants' } });
+    const t = r.data, inc = r.includes || {};
+    const u = (inc.users || [])[0] || {};
+    console.log('@' + u.username + ' (' + u.name + ', ' + (u.public_metrics || {}).followers_count + ' followers) · ' + t.created_at);
+    console.log(((t.note_tweet && t.note_tweet.text) || t.text) + '\n');
+    console.log('metrics ' + JSON.stringify(t.public_metrics));
+    for (const m of inc.media || []) console.log('media ' + m.type + ' ' + m.width + '×' + m.height + (m.duration_ms ? ' ' + (m.duration_ms / 1000).toFixed(1) + ' s' : '')
+      + '\n  still ' + (m.url || m.preview_image_url || '') + (m.alt_text ? '\n  alt ' + m.alt_text : '')
+      + ((m.variants || []).filter((v) => v.content_type === 'video/mp4').map((v) => '\n  mp4 ' + v.bit_rate + ' ' + v.url).join('')));
+    for (const x of ((t.entities || {}).urls || [])) console.log('link ' + x.expanded_url);
+    return;
+  }
+
   if (cmd === 'users') {
     /* look handles up before anyone is followed or tagged: a handle recalled from memory may be gone or someone else */
     const names = (rest.find((a) => !a.startsWith('--')) || '').split(',').map((s) => s.trim().replace(/^@/, '')).filter(Boolean);
@@ -174,6 +192,6 @@ async function main() {
     return;
   }
 
-  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | users h1,h2 | follow h1,h2 [--send] | mentions [--max N]');
+  die('usage: node tools/x.js selftest | whoami | post FILE [--reply-to ID|URL] [--send] | show URL | users h1,h2 | follow h1,h2 [--send] | mentions [--max N]');
 }
 main().catch((e) => die(e.stack || String(e)));
