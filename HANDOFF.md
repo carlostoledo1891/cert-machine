@@ -22,6 +22,58 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★ 2026-10-29 ~02:30 UTC — HANDOFF: THE TWO FRONTS NOW ARE THE GRAMMAR AND SOCIAL MEDIA (the operator: "we will
+     continue working on grammar and social media"). Everything is committed and pushed (b5c3dbdf and this entry);
+     make control was GREEN (172 in 575 s) before the grammar merges; the page gates green after each merge since.
+     ── THE GRAMMAR (WARRANT, design/WARRANT.md — read its last three sections first):
+       RULED 10-29 ("follow the recommendations"): a read step never caps a verdict (listed, graded assumed, in what
+       the page rests on); ONE RED — the apps' --v-refu IS --witness (design/app-shell.js reads it from tokens.js;
+       SkyAudit, Janela, Swell rebuilt). v2.3 ON PAPER APPROVED in full ("all four approved"): design/print/ (tokens,
+       validator REPORT.md, specimens), the print blue #3368c1 (print only, registered), the paper casing;
+       kits/warrant-mpl (matplotlib; its test in make test; venv via make warrant-mpl-venv). Social cards and videos
+       take the paper register ("Light for X"); the SITE STAYS DARK (battery T3b).
+       LIVE: /grammar/ (tools/build-grammar.js; LISTED: nav, sitemap, landing, Method; every specimen drawn by
+       warrant.js at build); the flat map /instruments/return-level-atlas/map/ (Equal Earth, Swell's shell, PT first,
+       a card per cell: design wave outward, six families side by side, does it hold, the 32-more-years width, what it
+       rests on; shared.js now holds the rules both views draw by). The submitted Petrobras pages (Contraprova,
+       Decidível, Abatimento) are NO LONGER REBUILT by make site (Makefile): the shared nav would have re-baked into
+       them.
+       OPEN (decide or do): (1) the map grades the fits "verified" on the hseva battery's text — keep or drop to
+       assumed (asked, no answer yet); (2) the globe prints upper bounds with toFixed (rule 8; the map rounds outward):
+       fix in playground/return-level-atlas/app.js; the globe also ignores later hash changes; (3) the grammar lane's
+       stale list in WARRANT.md: rule 12's Swell numbers come from a comment (the record says r 0.438, bias +0.272),
+       the 10-28 entry still says the read-step question is open, the 10-29 rulings sit as sub-bullets not a dated
+       section, check-wiring does not walk /janela/, /eleicoes2026/, /eth/, /papers/, rule 5's wording vs practice,
+       the three declared dash exemptions unstated, the halo drawn by four codes (no warrant.js function); (4) the
+       default /og.png is an old landing screenshot: per-page share cards (paper register) from each page's own figure
+       were proposed; (5) LabECO before/after: one typical report figure redrawn on paper from public data (the
+       specimens in design/print/ are a start); (6) Tier 2 reports still unconverted; the lanes' leftovers: erdos852
+       "12th significant digit" (its 11th) on four pages + titles.json, refusals.html lacks the 9 PARTIAL + 2 NEEDS
+       DATA rows, time-horizon's "Amber points", contours' floored closingEdgeLength, /graph's editor small on phones.
+     ── SOCIAL MEDIA (X, @_carlos_toledo_, opened 10-29; memory x-account and social-video-style):
+       TOOL: node tools/x.js — selftest · whoami · post FILE [--media mp4/png] [--reply-to URL] [--send] · show URL ·
+       users h1,h2 · follow h1,h2 [--send] · mentions. PREVIEW by default; --send ONLY on the operator's word per post.
+       Keys in ~/.config/cert-machine/x.env (chmod 600, never print); sent posts logged to x-sent.jsonl beside it. The
+       X API is pay-per-use (prepaid credits); the token was regenerated after Read and Write (a 403 before).
+       POSTED: the pinned intro thread (2115627840267841889; the operator pins it in the app), post 02 tolerance
+       grader (2115630435535319286) + its link reply, the VIDEO "Where the data ends, the models disagree"
+       (2115636294483124278) + the map link reply. FOLLOWING 23 verified accounts (AI-for-math, Lean, TCS, evals, the
+       labs, Quanta); impostor/absent handles found and avoided (XenaProject gone; Tufte/Cairo/Massot handles are
+       others').
+       DRAFTS (notes/x/, local): 03 kissing, 04 the ETH thread (hold until /eth/ is LISTED — still unlisted), 05 Ramsey,
+       06 METR, 07 the grammar, 08 outside reruns. Each post goes with its link in the first reply.
+       VIDEOS: design/video.js renders a scene frame by frame (window.frame(t) → Chrome → ffmpeg); the rule (operator):
+       ENGLISH ONLY, ALWAYS A REAL DATA CHART (lines, points) IN MOTION, LOOPING, on paper, 1600×900, 15 s. The model
+       is tools/video-tail.js (every number gated; float curves dashed and forced through the ledger's enclosures).
+       tools/video-campos.js ("Six families, six answers") is the rejected text-led first test — do not post it.
+       NEXT VIDEOS proposed: the tolerance grader as data, the kissing points in motion, Swell's forecast lines, the
+       ETH proof chain (only once /eth/ is listed). Ideas also: per-page share cards; a square 1:1 cut.
+       RULES: disclose Claude in any thread about an AI lab; never "ETH is false" as our claim; UFSC/Pedro off X;
+       only claimant-directed replies go in corpus/outreach.json; check a handle with `x.js users` before tagging.
+     ── ETH (done for now): the TCS form SUBMITTED, the blog comment awaiting moderation, the #36 reply POSTED
+       (issuecomment-6484418376) — watch #36 and the blog; /eth/ unlisted (list it on the operator's word).
+     ── HOUSEKEEPING: 13 agent worktrees under .claude/worktrees (all merged; their untracked copies are caches) —
+       remove with git worktree remove when disk matters; sin-mfg is NOT on disk (LIFT sources all "gone"; ask where).
   ★★★ 2026-10-28 ~23:45 UTC — HANDOFF, on "follow the recommended path or send me the questions … Proceed". Read first.
      DONE AND PUSHED: (1) the landing's outside cards go to a report or GitHub, never /about/; an external card opens in
      a new tab (design/components.js cards(): any http(s) href gets target=_blank rel=noopener); build-site.js refuses an
