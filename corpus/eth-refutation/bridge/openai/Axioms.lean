@@ -7,6 +7,9 @@ import ETHBridge
 #print axioms ETHBridge.s_eq_zero_of_forall_inTime
 #print axioms ETHBridge.not_eth_iff
 #print axioms ETHBridge.not_eth_of_forall_inTime
+#print axioms ETHBridge.sharpS_eq_zero_of_forall_countInTime
+#print axioms ETHBridge.not_sharpEth_iff
+#print axioms ETHBridge.not_sharpEth_of_forall_countInTime
 #print axioms ETHBridge.OpenAI.count_pos_iff
 #print axioms ETHBridge.OpenAI.monitor_config
 #print axioms ETHBridge.OpenAI.locatedStep_config
@@ -31,3 +34,8 @@ import ETHBridge
 #print axioms ETHBridge.OpenAI.inTime_of_claim
 #print axioms ETHBridge.OpenAI.s_eq_zero_of_claim
 #print axioms ETHBridge.OpenAI.not_eth_of_claim
+#print axioms ETHBridge.OpenAI.numSat_eq_count
+#print axioms ETHBridge.OpenAI.runtime_le_floor
+#print axioms ETHBridge.OpenAI.countInTime_of_claim
+#print axioms ETHBridge.OpenAI.sharpS_eq_zero_of_claim
+#print axioms ETHBridge.OpenAI.not_sharpEth_of_claim

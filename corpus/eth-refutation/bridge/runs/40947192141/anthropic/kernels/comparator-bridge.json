@@ -1,0 +1,35 @@
+{
+ "challenge_module": "BridgeChallenge",
+ "solution_module": "ETHBridge",
+ "theorem_names": [
+  "ETHBridge.s_eq_zero_of_forall_inTime",
+  "ETHBridge.not_eth_iff",
+  "ETHBridge.not_eth_of_forall_inTime",
+  "ETHBridge.sharpS_eq_zero_of_forall_countInTime",
+  "ETHBridge.not_sharpEth_iff",
+  "ETHBridge.not_sharpEth_of_forall_countInTime",
+  "ETHBridge.Anthropic.decidesKSat_iff",
+  "ETHBridge.Anthropic.inTime_iff",
+  "ETHBridge.Anthropic.s_eq",
+  "ETHBridge.Anthropic.eth_three_iff",
+  "ETHBridge.Anthropic.ethIsFalse_iff",
+  "ETHBridge.Anthropic.eth_of_eth",
+  "ETHBridge.Anthropic.not_eth_of_ethIsFalse",
+  "ETHBridge.Anthropic.numSat_eq",
+  "ETHBridge.Anthropic.countsKSat_iff",
+  "ETHBridge.Anthropic.tendsto_lg_div_sqrt",
+  "ETHBridge.Anthropic.tendsto_lg_ratio",
+  "ETHBridge.Anthropic.eventually_expN_le",
+  "ETHBridge.Anthropic.bound_le",
+  "ETHBridge.Anthropic.countInTime_of_mainTheorem",
+  "ETHBridge.Anthropic.sharpS_eq_zero_of_mainTheorem",
+  "ETHBridge.Anthropic.not_sharpEth_of_mainTheorem"
+ ],
+ "definition_names": [],
+ "permitted_axioms": [
+  "propext",
+  "Quot.sound",
+  "Classical.choice"
+ ],
+ "enable_nanoda": true
+}
