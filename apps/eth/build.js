@@ -50,6 +50,14 @@ const bridgeDone = !!BR && BR.run.conclusion === 'success'
   && ['openai', 'anthropic'].every((k) => BR.bridges[k].theorem.word === 'PROVED' && BR.bridges[k].theorem.axioms.every((a) => STD.includes(a)));
 if (BR && !bridgeDone) fail(BRIDGE_REL + ' is present but its run is not green or a bridge theorem is not PROVED on the standard axioms');
 /* a third party's join of the two models (TSavo/eth-bridge), replayed here; its gaps lead, as every audit here does */
+/* leanchecker --fresh per claim (the third replay): REPLAYED or NOT RUN, read from certs/eth-kernel.json */
+const FRESH = Object.fromEntries([OAI, ANT].map((r) => [r.claim, r.leanchecker && r.leanchecker.word === 'REPLAYED' ? r.leanchecker : null]));
+const freshDone = Object.keys(FRESH).filter((k) => FRESH[k]), freshOpen = Object.keys(FRESH).filter((k) => !FRESH[k]);
+const LAB = { openai: 'OpenAI’s', anthropic: 'Anthropic’s' };
+const freshWords = () => freshDone.length
+  ? freshDone.map((k) => LAB[k] + ' proof replayed by ' + C.m('leanchecker --fresh') + ' into an empty environment (exit 0, ' + fmt(FRESH[k].seconds) + ' s)').join('; ')
+    + (freshOpen.length ? '; ' + freshOpen.map((k) => LAB[k]).join(' and ') + ' not yet, waiting for a large enough rented machine' : '')
+  : C.m('leanchecker --fresh') + ' not run on either claim';
 const SEAM_REL = 'certs/eth-seam.json';
 const SEAM = fs.existsSync(path.join(ROOT, SEAM_REL)) ? J(SEAM_REL) : null;
 const SEAMH = SEAM ? SEAM.headline : null;
@@ -119,7 +127,7 @@ const FIVE = [
   { b: 'Checked by.', raw: 'Comparator, the Lean FRO’s judge, with Lean’s own kernel, and nanoda, a kernel written independently of Lean’s. Both accept both proofs, using only ' + STD.map(C.m).join(', ') + '.' },
   { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model' + (SH ? ', also proved in Lean (Anthropic’s on the formulas its theorem speaks of)' : ' (read here; its Lean proof is running)') + '.' + (bridgeAll3 ? ' Every bridge theorem passes three checks: Lean’s kernel at build, Lean’s kernel again in Comparator, and nanoda.' : '') : 'Being built.' },
   { b: 'Still prose.', raw: 'Two things no kernel can check: that each lab’s machine and input encoding match the textbook’s (a constant cost per step and a polynomial-time encoding, harmless in front of 2^{o(n)}), and that our Lean ETH is the textbook ETH, which is a reading and always will be.' },
-  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), on a rented machine' + (SEAM ? '' : ', and a check that OpenAI’s statement means the same term in the third party’s join') + '.' },
+  { b: freshOpen.length ? 'One more day.' : 'Also replayed.', raw: (freshOpen.length ? 'A third replay from a fresh environment: ' : 'A third replay from a fresh environment, for both: ') + freshWords() + '.' },
 ];
 B.push('<section class="col eth-five">' + C.plainList(FIVE) + C.pRaw('<b>Disclosure.</b> This repository’s tools are written with Claude, Anthropic’s model, and one of the two claims is Anthropic’s. Here independence means who decides, not who typed: nothing on this page was decided by Claude or by either lab’s code. The deciders are Comparator, Lean’s kernel and nanoda; the readings are ours, and say so.') + '</section>');
 B.push(C.stats([
@@ -148,7 +156,7 @@ B.push(C.section({
     + C.pRaw('<b>What CERTIFIED means here.</b> ' + C.esc(K.words.CERTIFIED) + '. It does not mean that a Lean statement is its paper’s theorem, nor that ETH is false. No machine checks that, and both claimants say so.')
     + C.pRaw('<b>What was changed, and declared before the run.</b>')
     + C.plainList(K.declaredChanges.map((d) => ({ b: '', raw: brk(C.esc(d)) })))
-    + C.pRaw('<b>Not run:</b> ' + C.m('leanchecker --fresh') + ', an optional third replay, on either claim. The machine was deleted after the two kernels had decided, because it was billing unattended (' + ln('corpus/eth-refutation/POD.txt') + ').')
+    + C.pRaw('<b>The third replay.</b> ' + freshWords() + '. leanchecker re-checks every constant the solution module imports or declares, starting from an empty environment, with the claim’s own Lean (' + ln('certs/eth-kernel.json') + ', ' + ln('corpus/eth-refutation/POD.txt') + ').')
     + '</div>'
 }));
 
@@ -282,7 +290,7 @@ B.push(C.section({
       ? 'It decides that two proofs check against their own statements, proves in Lean that each statement refutes the textbook ETH in its own lab’s machine model, and reads the model and encoding steps that remain.'
       : 'It decides that two proofs check against their own statements, and it reports two readings of what those statements mean.' },
     { b: 'The papers are not checked.', text: 'OpenAI’s Lean statement is its paper’s weaker Proposition 6.4, not the headline Theorem 1.1, and neither paper’s arguments outside Lean were read here for correctness.' },
-    { b: 'A third replay is outstanding.', text: 'leanchecker --fresh was not run on either claim.' },
+    ...(freshOpen.length ? [{ b: 'A third replay is outstanding' + (freshDone.length ? ' for one claim.' : '.'), raw: freshWords() + '.' }] : []),
     { b: 'Who wrote this.', text: 'As the disclosure at the top says: tools written with Claude, one claim Anthropic’s, the deciders Comparator, Lean’s kernel and nanoda. Nothing here was shared with, run by or reviewed by either lab.' }
   ])
 }));
