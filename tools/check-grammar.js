@@ -56,10 +56,10 @@ const RE = [
   /setLineDash\(\s*\[([^\]]*)\]\s*\)/g,
 ];
 
-function walk(dir, out = []) {
+function walk(dir, out = [], root = SITE) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     const p = path.join(dir, e.name);
-    if (e.isDirectory()) { if (!skipDir(SITE, p)) walk(p, out); }
+    if (e.isDirectory()) { if (!skipDir(root, p)) walk(p, out, root); }
     else if (e.name.endsWith('.html')) out.push(p);
   }
   return out;
@@ -99,13 +99,16 @@ function census() {
                     design/components.js VERDICT_KIND gives it: word → shape is a function
      unpointed      a w-val span with no data-rec (D10, 2026-10-29): a printed number no gate can follow back to
                     its record; tools/check-marks.js re-reads the pointed ones */
-function marksCensus() {
+/* `root` is site/ by default; /grammar/roundtable/ (tools/build-grammar-roundtable.js) runs the same census on the site as
+   git holds it at an older commit, so a finding's "before" is counted by the rule that counts its "after" */
+function marksCensus(root = SITE) {
   const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
   const guide = norm(G.GUIDE);
   const unstanding = [], borders = [], chips = new Map(), unpointed = [];
-  for (const file of walk(SITE)) {
+  let pointed = 0;
+  for (const file of walk(root, [], root)) {
     const src = fs.readFileSync(file, 'utf8');
-    const rel = path.relative(SITE, file);
+    const rel = path.relative(root, file);
     const re = /<(?:line|path|polyline|polygon|rect|circle|ellipse)\b[^>]*stroke-dasharray="([^"]+)"[^>]*>/g;
     let m;
     while ((m = re.exec(src))) {
@@ -114,7 +117,7 @@ function marksCensus() {
       if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
     }
     const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
-    while ((m = rv.exec(src))) if (!/\bdata-rec="/.test(m[0])) unpointed.push(rel);
+    while ((m = rv.exec(src))) { if (!/\bdata-rec="/.test(m[0])) unpointed.push(rel); else pointed++; }
     const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
     while ((m = rb.exec(src))) borders.push(rel);
     const rc = /class="tag ([a-z]+)">([^<]+)</g;
@@ -128,7 +131,9 @@ function marksCensus() {
   const clash = [];
   for (const [word, kinds] of chips) for (const [k, n] of kinds) if (k !== VERDICT_KIND[word]) clash.push(word + ' as ' + k + ' ×' + n);
   const count = (arr) => { const per = {}; for (const r of arr) per[r] = (per[r] || 0) + 1; return per; };
+  const multi = [...chips].filter(([, kinds]) => kinds.size > 1).map(([w, kinds]) => w + ' as ' + [...kinds.keys()].join('/'));
   return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length, unpointed: unpointed.length,
+    pointed, pages: walk(root, [], root).length, chipWordsMulti: multi,
     where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash, unpointed: count(unpointed) } };
 }
 
@@ -231,4 +236,4 @@ function main() {
    normalisation and the same three patterns this gate reads the site with, instead of a copy of them. Required, this
    file runs nothing; run, it is the gate it always was. */
 if (require.main === module) process.exit(main());
-module.exports = { norm, RE };
+module.exports = { norm, RE, marksCensus };

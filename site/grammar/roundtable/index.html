@@ -717,11 +717,18 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 /* @/site-css */
 
-/* /grammar/roundtable/ (tools/build-grammar-roundtable.js): the caption key, the hero under the header, F1's old tones */
+/* /grammar/roundtable/ (tools/build-grammar-roundtable.js): the caption key, the hero under the header, F1's old tones,
+   the findings' headings, the rules' status */
 .rt-k{display:block;margin-bottom:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-2)}
 .page > header + .hero{margin-top:var(--s-7)}
 .rt-before .w-computed{stroke:var(--ink-3)}
 .rt-before .w-chosen{stroke:var(--ink-2)}
+.rt-f{margin-top:var(--s-7)}
+.rt-h3{margin-bottom:var(--s-2)}
+.rt-n{font-family:var(--f-mono);font-size:var(--text-small);color:var(--ink-3);margin-right:var(--s-2)}
+.rt-f figure{margin-top:var(--s-4)}
+.rt-st{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink)}
+.rt-note{color:var(--ink-4);font-size:var(--text-small)}
 
 /* @site-util */
 
@@ -891,12 +898,28 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <div class="col"><p>Each seat was an AI agent (Claude, Anthropic’s model) briefed with the rulebook, the brainstorm behind it, the module that draws the marks and five built pages, and asked to judge the grammar by one discipline’s published principles. Each is named for the person whose work defines that discipline. <b>None of those people took part</b>, and nothing on this page is theirs: the seats argued from their published ideas, and every number the table reported was measured again on the built site before it was written here.</p></div><ul class="plain"><li><b>the Tufte seat</b> a display of evidence: data ink, the lie factor, sources on the graphic</li><li><b>the Wilkinson seat</b> a grammar in the strict sense: components, scales, guides, composition laws</li><li><b>the Bertin seat</b> the retinal variables, and the level of organisation each can carry</li><li><b>the Victor seat</b> an interface to a decision procedure: handles, the ladder of abstraction</li><li><b>the Sanderson seat</b> the grammar in time: what a frame is, what may move</li><li><b>the Bostock seat</b> a library and a data format: the API, the interchange object, the validator</li><li><b>the Norman seat</b> the gulf of evaluation: signifiers, knowledge in the world, the first ten seconds</li><li><b>the Maeda seat</b> computational design: generated, not drawn</li><li><b>the Sagmeister seat</b> beauty as a function: scarcity, scale, the void as an event</li><li><b>the Chief Scientist seat</b> order theory, provenance, Galois connections, theorems the house can check</li><li><b>the CTO seat</b> a platform: the portable core, the sibling projects, the build plan and its cost</li></ul>
 </section>
 
+<section class="" id="agreed">
+  <div class="col sec-head">
+    <div class="lab">what the table agreed</div>
+    <h2>Five points nobody argued against</h2>
+  </div>
+<ul class="plain"><li><b>The two axes are the invention.</b> How a number was made (the stroke) is kept apart from what a question got (the word) and from how far a model was checked (the grade). Every seat built on that separation; none asked to merge the axes.</li><li><b>Ink is read, never chosen — enforced one level too low.</b> The drawing module takes no style, but it takes a standing typed by the author. The first recommendation was to read the standing from a typed value that carries its record (R17).</li><li><b>The one red is the best decision in the house.</b> One colour, kept for an exhibited counterexample. Nobody asked for a second hue.</li><li><b>A refusal drawn as a refusal is new.</b> The empty set and a word, never a zero-height bar. The table asked for the void to be drawn larger, not smaller.</li><li><b>The display is a sound map of the record, and the build decides it.</b> “A system that is the mathematics itself” was refused as a slogan and kept as this law, drawn at the top of this page.</li></ul>
+</section>
+
+<section class="" id="axioms">
+  <div class="col sec-head">
+    <div class="lab">the foundations</div>
+    <h2>Six axioms</h2>
+  </div>
+<ul class="plain"><li><b>A1 · Soundness.</b> Drawing is a map from a record to marks; reading is the map back to the records that could have produced them. A page is sound when every record it draws is among the records its marks can be read back to: no mark stronger than its record, in standing, in extent or in verdict word.</li><li><b>A2 · Completeness.</b> Every row of the record a page draws from is a mark, or the empty set with a word.</li><li><b>A3 · Outward, in digits and in pixels.</b> A lower end rounds down and an upper end rounds up, at the resolution the figure declares.</li><li><b>A4 · Standing is a scale with a guide.</b> Four standings onto five strokes, with the legend derived from the scale; every channel the scale uses is monotone in it or constant.</li><li><b>A5 · Standing is read from a typed value.</b> The value carries its datum, its standing, its premises and its record’s address; the arithmetic demotes it and the renderer only reads it.</li><li><b>A6 · A frame is a page.</b> In motion every frame obeys A1; a standing never tweens and a value never travels: it appears, or its enclosure narrows onto it.</li></ul>
+</section>
+
 <section class="" id="findings">
   <div class="col sec-head">
     <div class="lab">the findings</div>
-    <h2>Ten findings, each before and after</h2>
+    <h2>Ten findings, each as it was and as it is</h2>
   </div>
-<div class="col"><p>Each finding is a fact about the built site on 29 October, measured again before the rulings, and each is drawn here as it was and as it is. This specimen shows the first.</p></div><div class="wide"><figure>
+<div class="col"><p>Each finding is a fact about the built site on 29 October, measured again before the rulings. Where a number moved, it is counted here twice by the same rule: on the site as git holds it at e310e071^, the commit before the first fixes, and on the site as it is built today.</p></div><div class="wide"><figure>
   <div class="figbox">
   <svg viewBox="0 0 1000 190" role="img" aria-label="The three standing strokes in the tones they had until 29 October and the tones they have now, each with its lightness: before, chosen was lighter than computed; now lightness falls with the standing.">
     <g class="rt-before">
@@ -928,12 +951,134 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   </svg>
   </div>
   <figcaption><span class="rt-k">F1 · the tone ran against the order</span>The grammar orders its standings, decided above computed above chosen, and says a mark takes the weakest on its path. The dash carried that order; the tone did not. Until 29 October a chosen stroke was drawn in --ink-2 and a computed one in --ink-3, so the weaker standing read brighter (OKLab lightness decided 0.974, computed 0.690, chosen 0.839). Since D9 lightness falls with the standing, a battery asserts it from the tokens, and on paper the order runs the other way, darker for stronger. Before: read from playground/warrant.js at e310e071^. After: read from it today.</figcaption>
-</figure></div><div class="w-legend" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F2</span> A dash with no standing</h3><p>Dashed marks in figures that carried no standing, so nothing could check what the dash meant. The chart kit took a plain “dashed” switch; now it takes a standing, and the census counts what is left, which may only shrink.</p><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 176" role="img" aria-label="Dashed marks with no standing, before the fixes and now, and the pages carrying them.">
+    <text x="0.0" y="20.0" text-anchor="start" class="t-lab">dashed marks with no standing</text>
+    <text x="70.0" y="44.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="32" width="540.0" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="628.0" y="44.0" text-anchor="start" class="t-ax">99</text>
+    <text x="70.0" y="68.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="56" width="196.4" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="284.4" y="68.0" text-anchor="start" class="t-ax">36</text>
+    <text x="0.0" y="104.0" text-anchor="start" class="t-lab">pages carrying one</text>
+    <text x="70.0" y="128.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="116" width="540.0" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="628.0" y="128.0" text-anchor="start" class="t-ax">24</text>
+    <text x="70.0" y="152.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="140" width="270.0" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="358.0" y="152.0" text-anchor="start" class="t-ax">12</text>
+  </svg>
+  </div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F3</span> The dotted line inks more than the dashed one</h3><p>At the width the legend draws its strokes, 2.4 px, the chosen pattern inks 0.567 of its length and the computed one 0.556: the weaker standing carries more ink. It crosses above at 5/7 px in the small patterns and at 7/3 px in the large ones. <b>Open.</b> Since D9 the tone carries the order (F1), and whether the density should too is a question for the reader study below.</p><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 300" role="img" aria-label="The fraction of its length each pattern inks, against stroke width from half a pixel to three: the dashed (computed) line is flat at each of its two patterns; the dotted (chosen) line rises with width and crosses above it twice.">
+    <line x1="56" y1="250.0" x2="736" y2="250.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="254.0" text-anchor="end" class="t-ax">0.3</text>
+    <line x1="56" y1="199.3" x2="736" y2="199.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="203.3" text-anchor="end" class="t-ax">0.4</text>
+    <line x1="56" y1="148.7" x2="736" y2="148.7" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="152.7" text-anchor="end" class="t-ax">0.5</text>
+    <line x1="56" y1="98.0" x2="736" y2="98.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="102.0" text-anchor="end" class="t-ax">0.6</text>
+    <line x1="56" y1="47.3" x2="736" y2="47.3" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="47.0" y="51.3" text-anchor="end" class="t-ax">0.7</text>
+    <line x1="56.0" y1="250" x2="56.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="56.0" y="270.0" text-anchor="middle" class="t-ax">0.5 px</text>
+    <line x1="192.0" y1="250" x2="192.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="192.0" y="270.0" text-anchor="middle" class="t-ax">1 px</text>
+    <line x1="328.0" y1="250" x2="328.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="328.0" y="270.0" text-anchor="middle" class="t-ax">1.5 px</text>
+    <line x1="464.0" y1="250" x2="464.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="464.0" y="270.0" text-anchor="middle" class="t-ax">2 px</text>
+    <line x1="600.0" y1="250" x2="600.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="600.0" y="270.0" text-anchor="middle" class="t-ax">2.5 px</text>
+    <line x1="736.0" y1="250" x2="736.0" y2="255" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="736.0" y="270.0" text-anchor="middle" class="t-ax">3 px</text>
+    <line x1="56" y1="250" x2="736" y2="250" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="396.0" y="292.0" text-anchor="middle" class="t-note">stroke width</text>
+    <polyline points="56.0,184.9 58.7,184.9 61.4,184.9 64.2,184.9 66.9,184.9 69.6,184.9 72.3,184.9 75.0,184.9 77.8,184.9 80.5,184.9 83.2,184.9 85.9,184.9 88.6,184.9 91.4,184.9 94.1,184.9 96.8,184.9 99.5,184.9 102.2,184.9 105.0,184.9 107.7,184.9 110.4,184.9 113.1,184.9 115.8,184.9 118.6,184.9 121.3,184.9 124.0,184.9 126.7,184.9 129.4,184.9 132.2,184.9 134.9,184.9 137.6,184.9 140.3,184.9 143.0,184.9 145.8,184.9 148.5,184.9 151.2,184.9 153.9,184.9 156.6,184.9 159.4,184.9 162.1,184.9 164.8,184.9 167.5,184.9 170.2,184.9 173.0,184.9 175.7,184.9 178.4,184.9 181.1,184.9 183.8,184.9 186.6,184.9 189.3,184.9 192.0,184.9 194.7,184.9 197.4,184.9 200.2,184.9 202.9,184.9 205.6,184.9 208.3,184.9 211.0,184.9 213.8,184.9 216.5,184.9 219.2,184.9 221.9,184.9 224.6,184.9 227.4,184.9 230.1,184.9 232.8,184.9 235.5,184.9 238.2,184.9 241.0,184.9 243.7,184.9 246.4,184.9 249.1,184.9 251.8,184.9 254.6,184.9 257.3,184.9 260.0,184.9 262.7,184.9 265.4,184.9 268.2,184.9 270.9,184.9 273.6,184.9 276.3,184.9 279.0,184.9 281.8,184.9 284.5,184.9 287.2,184.9 289.9,184.9 292.6,184.9 295.4,184.9 298.1,184.9 300.8,184.9 303.5,184.9 306.2,184.9 309.0,184.9 311.7,184.9 314.4,184.9 317.1,184.9 319.8,184.9 322.6,184.9 325.3,184.9" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/>
+    <polyline points="328.0,120.5 330.7,120.5 333.4,120.5 336.2,120.5 338.9,120.5 341.6,120.5 344.3,120.5 347.0,120.5 349.8,120.5 352.5,120.5 355.2,120.5 357.9,120.5 360.6,120.5 363.4,120.5 366.1,120.5 368.8,120.5 371.5,120.5 374.2,120.5 377.0,120.5 379.7,120.5 382.4,120.5 385.1,120.5 387.8,120.5 390.6,120.5 393.3,120.5 396.0,120.5 398.7,120.5 401.4,120.5 404.2,120.5 406.9,120.5 409.6,120.5 412.3,120.5 415.0,120.5 417.8,120.5 420.5,120.5 423.2,120.5 425.9,120.5 428.6,120.5 431.4,120.5 434.1,120.5 436.8,120.5 439.5,120.5 442.2,120.5 445.0,120.5 447.7,120.5 450.4,120.5 453.1,120.5 455.8,120.5 458.6,120.5 461.3,120.5 464.0,120.5 466.7,120.5 469.4,120.5 472.2,120.5 474.9,120.5 477.6,120.5 480.3,120.5 483.0,120.5 485.8,120.5 488.5,120.5 491.2,120.5 493.9,120.5 496.6,120.5 499.4,120.5 502.1,120.5 504.8,120.5 507.5,120.5 510.2,120.5 513.0,120.5 515.7,120.5 518.4,120.5 521.1,120.5 523.8,120.5 526.6,120.5 529.3,120.5 532.0,120.5 534.7,120.5 537.4,120.5 540.2,120.5 542.9,120.5 545.6,120.5 548.3,120.5 551.0,120.5 553.8,120.5 556.5,120.5 559.2,120.5 561.9,120.5 564.6,120.5 567.4,120.5 570.1,120.5 572.8,120.5 575.5,120.5 578.2,120.5 581.0,120.5 583.7,120.5 586.4,120.5 589.1,120.5 591.8,120.5 594.6,120.5 597.3,120.5 600.0,120.5 602.7,120.5 605.4,120.5 608.2,120.5 610.9,120.5 613.6,120.5 616.3,120.5 619.0,120.5 621.8,120.5 624.5,120.5 627.2,120.5 629.9,120.5 632.6,120.5 635.4,120.5 638.1,120.5 640.8,120.5 643.5,120.5 646.2,120.5 649.0,120.5 651.7,120.5 654.4,120.5 657.1,120.5 659.8,120.5 662.6,120.5 665.3,120.5 668.0,120.5 670.7,120.5 673.4,120.5 676.2,120.5 678.9,120.5 681.6,120.5 684.3,120.5 687.0,120.5 689.8,120.5 692.5,120.5 695.2,120.5 697.9,120.5 700.6,120.5 703.4,120.5 706.1,120.5 708.8,120.5 711.5,120.5 714.2,120.5 717.0,120.5 719.7,120.5 722.4,120.5 725.1,120.5 727.8,120.5 730.6,120.5 733.3,120.5 736.0,120.5" fill="none" stroke="var(--ink)" stroke-width="1.4" stroke-linejoin="round"/>
+    <polyline points="56.0,212.0 58.7,210.7 61.4,209.5 64.2,208.2 66.9,206.9 69.6,205.7 72.3,204.4 75.0,203.1 77.8,201.9 80.5,200.6 83.2,199.3 85.9,198.1 88.6,196.8 91.4,195.5 94.1,194.3 96.8,193.0 99.5,191.7 102.2,190.5 105.0,189.2 107.7,187.9 110.4,186.7 113.1,185.4 115.8,184.1 118.6,182.9 121.3,181.6 124.0,180.3 126.7,179.1 129.4,177.8 132.2,176.5 134.9,175.3 137.6,174.0 140.3,172.7 143.0,171.5 145.8,170.2 148.5,168.9 151.2,167.7 153.9,166.4 156.6,165.1 159.4,163.9 162.1,162.6 164.8,161.3 167.5,160.1 170.2,158.8 173.0,157.5 175.7,156.3 178.4,155.0 181.1,153.7 183.8,152.5 186.6,151.2 189.3,149.9 192.0,148.7 194.7,147.4 197.4,146.1 200.2,144.9 202.9,143.6 205.6,142.3 208.3,141.1 211.0,139.8 213.8,138.5 216.5,137.3 219.2,136.0 221.9,134.7 224.6,133.5 227.4,132.2 230.1,130.9 232.8,129.7 235.5,128.4 238.2,127.1 241.0,125.9 243.7,124.6 246.4,123.3 249.1,122.1 251.8,120.8 254.6,119.5 257.3,118.3 260.0,117.0 262.7,115.7 265.4,114.5 268.2,113.2 270.9,111.9 273.6,110.7 276.3,109.4 279.0,108.1 281.8,106.9 284.5,105.6 287.2,104.3 289.9,103.1 292.6,101.8 295.4,100.5 298.1,99.3 300.8,98.0 303.5,96.7 306.2,95.5 309.0,94.2 311.7,92.9 314.4,91.7 317.1,90.4 319.8,89.1 322.6,87.9 325.3,86.6" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
+    <polyline points="328.0,190.9 330.7,190.0 333.4,189.2 336.2,188.4 338.9,187.5 341.6,186.7 344.3,185.8 347.0,185.0 349.8,184.1 352.5,183.3 355.2,182.4 357.9,181.6 360.6,180.8 363.4,179.9 366.1,179.1 368.8,178.2 371.5,177.4 374.2,176.5 377.0,175.7 379.7,174.8 382.4,174.0 385.1,173.2 387.8,172.3 390.6,171.5 393.3,170.6 396.0,169.8 398.7,168.9 401.4,168.1 404.2,167.2 406.9,166.4 409.6,165.6 412.3,164.7 415.0,163.9 417.8,163.0 420.5,162.2 423.2,161.3 425.9,160.5 428.6,159.6 431.4,158.8 434.1,158.0 436.8,157.1 439.5,156.3 442.2,155.4 445.0,154.6 447.7,153.7 450.4,152.9 453.1,152.0 455.8,151.2 458.6,150.4 461.3,149.5 464.0,148.7 466.7,147.8 469.4,147.0 472.2,146.1 474.9,145.3 477.6,144.4 480.3,143.6 483.0,142.8 485.8,141.9 488.5,141.1 491.2,140.2 493.9,139.4 496.6,138.5 499.4,137.7 502.1,136.8 504.8,136.0 507.5,135.2 510.2,134.3 513.0,133.5 515.7,132.6 518.4,131.8 521.1,130.9 523.8,130.1 526.6,129.2 529.3,128.4 532.0,127.6 534.7,126.7 537.4,125.9 540.2,125.0 542.9,124.2 545.6,123.3 548.3,122.5 551.0,121.6 553.8,120.8 556.5,120.0 559.2,119.1 561.9,118.3 564.6,117.4 567.4,116.6 570.1,115.7 572.8,114.9 575.5,114.0 578.2,113.2 581.0,112.4 583.7,111.5 586.4,110.7 589.1,109.8 591.8,109.0 594.6,108.1 597.3,107.3 600.0,106.4 602.7,105.6 605.4,104.8 608.2,103.9 610.9,103.1 613.6,102.2 616.3,101.4 619.0,100.5 621.8,99.7 624.5,98.8 627.2,98.0 629.9,97.2 632.6,96.3 635.4,95.5 638.1,94.6 640.8,93.8 643.5,92.9 646.2,92.1 649.0,91.2 651.7,90.4 654.4,89.6 657.1,88.7 659.8,87.9 662.6,87.0 665.3,86.2 668.0,85.3 670.7,84.5 673.4,83.6 676.2,82.8 678.9,82.0 681.6,81.1 684.3,80.3 687.0,79.4 689.8,78.6 692.5,77.7 695.2,76.9 697.9,76.0 700.6,75.2 703.4,74.4 706.1,73.5 708.8,72.7 711.5,71.8 714.2,71.0 717.0,70.1 719.7,69.3 722.4,68.4 725.1,67.6 727.8,66.8 730.6,65.9 733.3,65.1 736.0,64.2" fill="none" stroke="var(--ink)" stroke-width="2.6" stroke-linejoin="round"/>
+    <line x1="328.0" y1="22" x2="328.0" y2="250" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>
+    <line x1="572.8" y1="22" x2="572.8" y2="250" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>
+    <text x="334.0" y="34.0" text-anchor="start" class="t-note">the small patterns end at 1.5 px</text>
+    <text x="578.8" y="52.0" text-anchor="start" class="t-note">the legend draws at 2.4 px</text>
+    <text x="355.2" y="206.9" text-anchor="start" class="t-lab">dotted (chosen), thick line</text>
+    <text x="355.2" y="105.6" text-anchor="start" class="t-lab">dashed (computed), thin line</text>
+  </svg>
+  </div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F4</span> Pixels rounded to the nearest, not outward</h3><p>Drawn at the top of this page: the staircase’s top on [1, 3/2] sat 7/180 of a pixel inside its record. Every edge now rounds outward and the builder refuses one drawn inside.</p></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F5</span> A verdict chip wore a dash, and its shape was not a function of its word</h3><p>A dash is a standing, so a chip border may not be dashed; and a word like CERTIFIED wore several chip shapes across the site. Before: PARTIAL as open/dep/held; CERTIFIED as held/cert; REFUTED as cert/dep/open; REFUSED as open/dep; QUEUED as open/dep; REPAIRED as cert/open/held; NEEDS DATA as open/dep. Now each word has one shape, and the census refuses a second.</p><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 176" role="img" aria-label="Dashed borders and verdict words worn in more than one chip shape, before the fixes and now.">
+    <text x="0.0" y="20.0" text-anchor="start" class="t-lab">dashed borders in page styles</text>
+    <text x="70.0" y="44.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="32" width="540.0" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="628.0" y="44.0" text-anchor="start" class="t-ax">138</text>
+    <text x="70.0" y="68.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="56" width="133.0" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="221.0" y="68.0" text-anchor="start" class="t-ax">34</text>
+    <text x="0.0" y="104.0" text-anchor="start" class="t-lab">verdict words in more than one shape</text>
+    <text x="70.0" y="128.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="116" width="540.0" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="628.0" y="128.0" text-anchor="start" class="t-ax">7</text>
+    <text x="70.0" y="152.0" text-anchor="end" class="t-ax">now</text>
+    <text x="80.0" y="152.0" text-anchor="start" class="t-ax">0</text>
+  </svg>
+  </div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F6</span> Standings typed at the call site</h3><p>A number’s standing was written by hand where it was printed. Since D10 a number can be printed from its record through an address, and a gate re-reads every addressed number from the built page. <b>Partial:</b> most values still carry no address.</p><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 176" role="img" aria-label="Printed values with and without a record address, before the fixes and now.">
+    <text x="0.0" y="20.0" text-anchor="start" class="t-lab">values with a record address</text>
+    <text x="70.0" y="44.0" text-anchor="end" class="t-ax">before</text>
+    <text x="80.0" y="44.0" text-anchor="start" class="t-ax">0</text>
+    <text x="70.0" y="68.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="56" width="540.0" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="628.0" y="68.0" text-anchor="start" class="t-ax">248</text>
+    <text x="0.0" y="104.0" text-anchor="start" class="t-lab">values without one</text>
+    <text x="70.0" y="128.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="116" width="540.0" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="628.0" y="128.0" text-anchor="start" class="t-ax">1,719</text>
+    <text x="70.0" y="152.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="140" width="483.8" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="571.8" y="152.0" text-anchor="start" class="t-ax">1,540</text>
+  </svg>
+  </div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F7</span> A reason that lives only in a tooltip</h3><p>A value’s reason (“measured, not decided”) was a hover title: invisible on a phone, a door with no handle on a desktop. <b>Open</b> (R22).</p><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 92" role="img" aria-label="Value reasons shown only as a tooltip, before the fixes and now.">
+    <text x="0.0" y="20.0" text-anchor="start" class="t-lab">reasons shown only on hover</text>
+    <text x="70.0" y="44.0" text-anchor="end" class="t-ax">before</text>
+    <rect x="80" y="32" width="519.4" height="14" fill="var(--ink)" fill-opacity="0.4"/>
+    <text x="607.4" y="44.0" text-anchor="start" class="t-ax">1,160</text>
+    <text x="70.0" y="68.0" text-anchor="end" class="t-ax">now</text>
+    <rect x="80" y="56" width="540.0" height="14" fill="var(--ink)" fill-opacity="1"/>
+    <text x="628.0" y="68.0" text-anchor="start" class="t-ax">1,206</text>
+  </svg>
+  </div>
+</figure></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F8</span> The ETH page said the opposite of its finding in ten seconds</h3><p>Its first tile read “proofs decided · 2 of 2 · CERTIFIED, each against its own statement”. A reader left believing ETH had been certified false. The first tile now reads ““ETH is false” · not decided here · read against the textbook ETH (§2), bridged in each lab’s own machine model (§5); the step between models is prose (§6)”.</p></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F9</span> The constants retyped in a sibling project</h3><p>Machinidae carried its own copy of the five dash patterns, which is how twenty-five patterns once grew on this site. <b>Open</b> (R29): one registry file, lifted by digest.</p></div><div class="rt-f"><h3 class="rt-h3"><span class="rt-n">F10</span> Motion in the standing channel</h3><p>The landing’s flow animated a dash offset (2 animation then, 0 now): decoration in the channel that carries standing. It is a translated point now, and a video that slid a decided tick was rejected.</p></div><div class="w-legend" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div>
+</section>
+
+<section class="" id="rules">
+  <div class="col sec-head">
+    <div class="lab">the candidate rules</div>
+    <h2>Fifteen rules, and which of them a build enforces</h2>
+  </div>
+<div class="col"><p>The table proposed fifteen rules. A rule enters the rulebook when a check exists that refuses a page breaking it; until then it binds new work. The status below is decided by this page’s build, from the code and the census: 1 gated, 6 partly, 8 open.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rule</th><th>what it says</th><th>the check</th><th>status</th></tr></thead><tbody><tr><td class="mono">R17</td><td>A number’s standing is read from a typed value with its record’s address, never typed at a call site.</td><td>a census of values without an address, ratcheted down; tools/check-marks.js re-reads every addressed one</td><td><span class="rt-st">partial</span><br><span class="rt-note">248 values carry an address; 1,540 still do not</span></td></tr><tr><td class="mono">R18</td><td>Every channel the standing scale uses is monotone in it, or constant.</td><td>design/battery.js asserts the tone order from the tokens, on screen and on paper</td><td><span class="rt-st">gated</span><br><span class="rt-note">tone falls with standing since D9</span></td></tr><tr><td class="mono">R19</td><td>Pixels round outward, and a figure prints the smallest difference it can show.</td><td>an edge drawn inside its record refuses the build</td><td><span class="rt-st">partial</span><br><span class="rt-note">refused on /grammar/’s staircase; not yet in design/charts.js</span></td></tr><tr><td class="mono">R20</td><td>The legend is derived from the figure, never declared.</td><td>no builder passes the legend a list of what to leave out</td><td><span class="rt-st">open</span><br><span class="rt-note">55 calls still tell the legend what to leave out</span></td></tr><tr><td class="mono">R21</td><td>A dash is a standing everywhere: on strokes, borders and in motion.</td><td>the marks census: dashes without a standing, dashed borders, a verdict word in two chip shapes</td><td><span class="rt-st">partial</span><br><span class="rt-note">36 unclassed dashes and 34 dashed borders left, ratcheted; chip shape a function of the word</span></td></tr><tr><td class="mono">R22</td><td>A mark’s reason is visible text, never only a tooltip.</td><td>a value whose reason appears nowhere on its page refuses it</td><td><span class="rt-st">open</span><br><span class="rt-note">1,206 reasons live only in a tooltip</span></td></tr><tr><td class="mono">R23</td><td>A figure names its record and its digest on itself.</td><td>a figure with standing marks and no record named in its caption refuses the page</td><td><span class="rt-st">open</span><br><span class="rt-note">no caption names its record yet</span></td></tr><tr><td class="mono">R24</td><td>A page’s standing is computed by its builder, never typed.</td><td>the printed standing equals the meet of the page’s marks</td><td><span class="rt-st">open</span><br><span class="rt-note">not built</span></td></tr><tr><td class="mono">R25</td><td>A frame is a page: standing never tweens, a value never travels.</td><td>every frame of a video passes the page checks</td><td><span class="rt-st">open</span><br><span class="rt-note">the tail video is the model; no gate yet</span></td></tr><tr><td class="mono">R26</td><td>A chosen input is a handle, and a drag is a test.</td><td>under a drag no decided mark moves (a Chrome drive)</td><td><span class="rt-st">partial</span><br><span class="rt-note">one instrument: the return-level check’s design height (D14)</span></td></tr><tr><td class="mono">R27</td><td>A premise grade is a pair: a verification bit and a validation rung.</td><td>a chain whose top rung lacks the bit prints the word “unverified”</td><td><span class="rt-st">partial</span><br><span class="rt-note">declared on Swell and on /grammar/; other chains as they are next edited (D11)</span></td></tr><tr><td class="mono">R28</td><td>A witness is an event and a void has a size.</td><td>one hero per page, its × first and at weight; a refused cell keeps its area</td><td><span class="rt-st">partial</span><br><span class="rt-note">3 pages declare a hero (D12); the void’s size is not built</span></td></tr><tr><td class="mono">R29</td><td>The registry is one machine-readable file, lifted by digest into every sibling.</td><td>make drift on both ends</td><td><span class="rt-st">open</span><br><span class="rt-note">the five patterns still live in several copies</span></td></tr><tr><td class="mono">R30</td><td>A figure carries the sentence that would stop it.</td><td>a guarded figure without its sentence refuses the page</td><td><span class="rt-st">open</span><br><span class="rt-note">not built</span></td></tr><tr><td class="mono">R31</td><td>A conformance suite, and the checks as a package.</td><td>fixtures labelled pass or refuse that every implementation agrees on</td><td><span class="rt-st">open</span><br><span class="rt-note">the red controls are its seed</span></td></tr></tbody></table></div></div>
+</section>
+
+<section class="" id="open">
+  <div class="col sec-head">
+    <div class="lab">what is open</div>
+    <h2>The research the table asked for</h2>
+  </div>
+<ul class="plain"><li><b>The soundness census.</b> Over every figure the render gate already records: how many extents are drawn from a float midpoint or rounded inward, how many dashes carry no standing. A measurement before a rule.</li><li><b>The ink-density theorem.</b> The ink each pattern carries at each width, the order checked at every width the site draws (F3).</li><li><b>The frame census.</b> Every frame of a video checked like a page (R25).</li><li><b>The reader study.</b> Pre-registered, a few hundred readers, the specimens on the grammar page, one question: which of these lines was proved? A grammar checked only by its own red controls has never left the house.</li></ul><div class="col"><p>The rulebook itself is <a href="../index.html">the grammar page</a>; the rulings that followed this table are its dated sections.</p></div>
 </section>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from playground/warrant.js, design/tokens.js, the grammar page and git history, at git 83437d27, by tools/build-grammar-roundtable.js. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from playground/warrant.js, design/tokens.js, design/grammar.js, the grammar page, the marks census (tools/check-grammar.js) run on the site now and as git holds it at e310e071^, at git 4d63b16b, by tools/build-grammar-roundtable.js. MIT.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

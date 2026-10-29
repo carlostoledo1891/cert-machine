@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★★★★ 2026-10-29 (night) — D15 LIVE: /grammar/roundtable/ (approved specimen merged, then the full page: who sat and
+     what a seat was, the five agreements, six axioms, the ten findings each counted then (the site's HTML at e310e071^,
+     extracted at build) and now by the same marks census, the fifteen candidate rules with a status the build decides
+     (1 gated, 7 partly, 7 open), the open research; linked from /grammar/; WARRANT.md "D15 applied"). The ruler records the
+     page's rules table (its column edges) with --accept-worse. NEXT, on the operator's word ("pause and run the eth updates,
+     live asap"): THE ETH UPDATES — the plain five-line top + disclosure up, the premises ranked, independence by who
+     decides, #ETH as a theorem in Generic.lean, the bridge through nanoda, the version seam diffed (TSavo's join), then
+     the leanchecker --fresh pod run (priced first, cap $25, deleted after). Then back to the grammar list below.
   ★★★★★★★ 2026-10-29 (evening) — D12 AND D14 MERGED AND PUSHED on the operator's "Screenshots approved" (51f075eb,
      0ec761f4; the hubs re-synced, WARRANT.md keeps both sections, drive.js 16/16, wiring/grammar green; Swell @1440's
      known flap left at its recorded 9). The Qiushi proposal is now a PRIVATE e-mail draft (the operator: no public

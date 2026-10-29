@@ -322,3 +322,18 @@ T-year wave is at most *H*", for an H the reader chooses. H is the page's first 
 The headline names the family Anderson–Darling decides and prints both flips ("holds from 5.85 m up and does not hold
 at 5.84 m or below"): the incentive form of the app doctrine's "at X you turn green". On a phone the family's name and
 its word share a line above each lane, so the ruler takes the full width.
+
+## D15 applied (2026-10-29): the companion page
+
+/grammar/roundtable/ (tools/build-grammar-roundtable.js, linked from /grammar/) makes the roundtable public, as D15 ruled. It
+is written from the records, the code and git history; the table's note stays local (D16). The page says what a seat was:
+an AI agent judging by one discipline's published principles, named for the person whose work defines it, and none of
+those people took part.
+
+- **The hero is the law.** Soundness is drawn at the one place the site is known to have broken it (F4). The staircase's top
+  on [1, 3/2] was written to nearest, 7/180 of a pixel inside its record, and is now outward. Both rows are read from the
+  pages (git at e310e071^, the build today) and compared in exact rationals.
+- **The findings are counted, then and now, by one rule.** The site's HTML at e310e071^ is extracted at build time and
+  measured by the same marks census that gates today's site (tools/check-grammar.js marksCensus, exported for it).
+- **The candidate rules carry a status the build decides** from the code and the census: gated, partly gated, or open.
+- **The builder refuses** when a finding it calls fixed stops reading as fixed, or when an open one stops being true.

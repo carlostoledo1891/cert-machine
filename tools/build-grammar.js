@@ -470,7 +470,8 @@ function html() {
       + C.pRaw('A mark takes the <b>weakest</b> standing on its path to the pixel: a knot computed exactly is solid, and the line drawn between two such knots is dotted, because a straight line is one curve of many through them. '
         + 'Standing is not a verdict. CERTIFIED, REFUTED and REFUSED are what an instrument concluded about a claim; they are said in words and chips, never in a stroke, and a refutation proved here is drawn solid. '
         + 'Nor is standing a confidence: a value known to many decimals can still be undecided, and a decided value can have a wide bracket, which is drawn as its own extent.') + '</div>'
-      + LEGEND_FULL }));
+      + LEGEND_FULL
+      + '<div class="col">' + C.pRaw('How this grammar was examined: <a href="roundtable/index.html">the roundtable</a>, where eleven seats judged it on 29 October 2026, the law they kept drawn where this site once broke it, ten findings each as it was and as it is, and the fifteen rules they proposed with the status a build decides.') + '</div>' }));
 
   B_.push(C.section({ lab: 'live specimens', title: 'Drawn by the module when this page is built', id: 'specimens', wide: true,
     bodyRaw: '<div class="col">' + C.pRaw('Every mark below is drawn by ' + a(blob('playground/warrant.js'), 'playground/warrant.js') + ' as this page is built, on one curve: y = √x for x from −1 to 4. '
