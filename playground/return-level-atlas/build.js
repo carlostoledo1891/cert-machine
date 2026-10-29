@@ -33,6 +33,9 @@ const { PAPER_SIX } = require(path.join(ROOT, 'instruments', 'hseva', 'families.
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
 const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
+/* the rules the globe shares with the flat map (decode, square, the ramp, the refusal of a level, outward centimetres):
+   inlined before app.js here, required by map.js — one definition for both views */
+const SHARED_REL = 'playground/return-level-atlas/shared.js', SHARED = fs.readFileSync(path.join(ROOT, SHARED_REL), 'utf8');
 /* THE parse rule of a reader's record, shared with the return-level check (a reader's own site, read the same way) */
 const PARSE_REL = 'playground/return-level-check/parse.js', PARSE = fs.readFileSync(path.join(ROOT, PARSE_REL), 'utf8');
 /* THE decision of a fit someone printed, shared with the return-level check: on the page for the form's words, and
@@ -288,7 +291,7 @@ function build(OUTDIR) {
     if (/<\/script/i.test(t)) die(rel + ' holds a closing script tag');
     return '(function () { var module = { exports: {} };\n' + t + '\nR.' + k + ' = module.exports; })();';
   }).join('\n') + '\nwindow.ATLAS_RULES = R; })();';
-  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), 'playground/return-level-atlas/worker.js': sha(WORKER), [PARSE_REL]: sha(PARSE), [PRINTED_REL]: sha(PRINTED), [EXHIBITED_REL]: sha(EXHIBITED) }, B.modules,
+  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), [SHARED_REL]: sha(SHARED), 'playground/return-level-atlas/worker.js': sha(WORKER), [PARSE_REL]: sha(PARSE), [PRINTED_REL]: sha(PRINTED), [EXHIBITED_REL]: sha(EXHIBITED) }, B.modules,
     Object.fromEntries(RULES.map(([, rel]) => [rel, sha(fs.readFileSync(path.join(ROOT, rel), 'utf8'))])));
   const vpins = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-PINS.json'), 'utf8'));
   const vsha = Object.fromEntries(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-SHA256.txt'), 'utf8').trim().split('\n').map((l) => l.trim().split(/\s+/).reverse()));
@@ -343,6 +346,7 @@ function build(OUTDIR) {
     <div class="ra-seg ra-blocks" id="ra-block" role="radiogroup" aria-label="block"></div>
     <div class="ra-sub" id="ra-sub"></div>
     <div class="ra-goto"><label class="ra-lab" for="ra-go">go to</label><select id="ra-go" class="ra-select"></select></div>
+    <nav class="ra-switch" aria-label="the atlas as a globe or as a flat map"><a href="./" aria-current="page">globe</a><a href="map/" id="ra-to-map">map</a></nav>
   </div>
   <div class="ra-legend" id="ra-legend" aria-live="polite"></div>
   <div class="ra-tip" id="ra-tip" aria-hidden="true"></div>
@@ -400,10 +404,13 @@ function build(OUTDIR) {
     css: CSS,
     body,
     foot: null,
-    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${PRINTED}\n${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${APP}</script>`,
+    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${PRINTED}\n${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${SHARED}</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
-  return { bytes: html.length, data: data.length, sea: sea.length, ice: ice.length, claims: claims.map((k) => k.id + ':' + k.verdict), served: S ? S.commit.slice(0, 12) : null, native: N ? Object.keys(N.nodes).length : 0, facts };
+  /* THE SECOND VIEW (2026-10-29): the same ledger as a flat map in the apps' product look, at map/ beside the globe,
+     which links to it and is linked from it; its own data are the six families' levels the globe's rows do not carry */
+  const MAP = require(path.join(HERE, 'map.js')).build(dir, { L, M, cells, N, served: S });
+  return { bytes: html.length, data: data.length, sea: sea.length, ice: ice.length, claims: claims.map((k) => k.id + ':' + k.verdict), served: S ? S.commit.slice(0, 12) : null, native: N ? Object.keys(N.nodes).length : 0, facts, map: MAP };
 }
 
 /* the card: a mosaic of cells on a globe's limb */
