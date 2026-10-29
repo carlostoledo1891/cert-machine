@@ -1,0 +1,230 @@
+# The version seam of the TSavo bridge replay (certs/eth-tsavo-bridge.json, gaps). TSavo's
+#   Bridge.ethIsFalse_of_claim : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim → MainResults.ETHIsFalse
+# is checked inside Anthropic's eth project (Lean v4.33.1, Mathlib 0df444a3), where OpenAI's challenge TEXT is
+# re-elaborated; OpenAI proved exact_count_and_sat on Lean v4.34.1 with Mathlib d13f23b7. The bytes are the same.
+# This asks whether the ELABORATED statements are the same term, and so is every definition they unfold to.
+#
+#   smoke      corpus/eth-refutation/seam/lean/SeamExport.lean and SeamCross.lean compiled and run on Lean core
+#              alone with each of the two toolchains: the export, then the export read back (every constant must come
+#              back the same; a definitionally equal and an unequal pair must be told apart), before any Mathlib
+#   openai     corpus/eth-refutation/seam/setup.sh openai: corpus/eth-refutation/bridge/openai (Lean v4.34.1, Mathlib
+#              d13f23b7, autoImplicit false as OpenAI's lakefile) plus OpenAI's challenge as the module
+#              ComparatorChallenges.SubexponentialSAT (its name in openai/math) and TSavo's statement file as
+#              Bridge.OpenAIStatement (its name in TSavo's tree), each checked against the sha256 pins
+#   anthropic  setup.sh anthropic: anthropics/formal-math @ 16a5ce41 eth/ as eth-tsavo.yml sets it up (the clones against
+#              the pins, the statement checks, bridge/ inside, the README block and the declared challenge-lib
+#              amendment by tools/eth-tsavo-gates.js) plus the same challenge module
+#   Each export job: SeamExport writes, for exact_count_and_sat (challenge), Claim (claim; with ClaimAt unfolded once)
+#   and, on Anthropic's side, the statement of Bridge.ethIsFalse_of_claim (bridge), the transitive closure of every
+#   constant the statement depends on as canonical node tables, and the same closure after proof erasure.
+#   cross-openai / cross-anthropic  each side reads the OTHER side's exports back (SeamCross) and, constant by
+#   constant, says same / defeq here (Lean's kernel accepts foreign = local by Eq.refl) / not-defeq / absent.
+#
+# No verdict here: tools/record-eth-seam.js downloads the four artifacts, compares, and writes certs/eth-seam.json.
+# Nothing here pushes.
+name: eth-seam
+on:
+  push:
+    branches: [eth-seam]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  OPENAI_PIN: 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
+  OPENAI_TOOLCHAIN: leanprover/lean4:v4.34.1
+  OPENAI_MATHLIB: d13f23b723b8a846827a245b89c10fc7d3f11612
+  ANT_REPO: https://github.com/anthropics/formal-math.git
+  ANT_PIN: 16a5ce41304fcdaea4e0be7c132e1c361dc26da5
+  ANT_TOOLCHAIN: leanprover/lean4:v4.33.1
+  ANT_MATHLIB: 0df444a360eaa60ab8c11dca51a86af692955474
+  TSAVO_REPO: https://github.com/TSavo/eth-bridge.git
+  TSAVO_PIN: 34f9ca204bed7fa6c595e56966773726e98dd3fd
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [v4.34.1, v4.33.1]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: corpus/eth-refutation/seam/lean/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: SeamExport and SeamCross on Lean core alone
+        run: |
+          set -euo pipefail
+          mkdir -p ~/smoke/out && cd ~/smoke
+          echo "leanprover/lean4:${{ matrix.toolchain }}" > lean-toolchain
+          cp "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/lean/SeamExport.lean" "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/lean/SeamCross.lean" .
+          printf 'name = "smoke"\n\n[[lean_lib]]\nname = "Seam"\nroots = ["SeamExport", "SeamCross"]\n' > lakefile.toml
+          cat > SeamRunSmoke.lean <<'EOF'
+          import SeamExport
+          set_option maxHeartbeats 0
+          def SmokeAt (k : Nat) : Prop := ∃ m : Fin (k + 1), m.val + k = 3 ∧ ∀ _h : k ≤ 2, k < 3
+          def SmokeAll : Prop := ∀ k : Nat, 2 ≤ k → SmokeAt k
+          def SmokeBad : Nat := 1
+          #eval SeamExport.run "smoke" #[``List.mergeSort, ``SmokeAll, ``SmokeBad] (some (``SmokeAll, ``SmokeAt)) #[``Nat.lt_irrefl]
+          EOF
+          cat > SeamCrossSmoke.lean <<'EOF'
+          import SeamCross
+          set_option maxHeartbeats 400000
+          set_option Elab.async false
+          def SmokeAt (k : Nat) : Prop := ∃ m : Fin (k + 1), m.val + k = 2 + 1 ∧ ∀ _h : k ≤ 2, k < 3
+          def SmokeAll : Prop := ∀ k : Nat, 2 ≤ k → SmokeAt k
+          def SmokeBad : Nat := 2
+          #eval SeamCross.run "smoke" (some (``SmokeAll, ``SmokeAt))
+          EOF
+          lean --version
+          lake build Seam 2>&1 | tail -30
+          SEAM_OUT="$HOME/smoke/out" lake env lean SeamRunSmoke.lean 2>&1 | tail -30
+          head -c 1500 out/smoke.jsonl; echo
+          wc -lc out/smoke.jsonl
+          SEAM_IN="$HOME/smoke/out" SEAM_OUT="$HOME/smoke/out" lake env lean SeamCrossSmoke.lean 2>&1 | tail -30
+          head -3 out/cross-smoke.jsonl
+          grep -v '"status":"same"' out/cross-smoke.jsonl | tail -n +2 || true
+          # the controls: SmokeAt (3 against 2 + 1) and the unfolded statement are definitionally equal and not the
+          # same term; SmokeBad (1 against 2) is not; everything else comes back the same
+          grep -q '"n":"SmokeAt","k":"def","status":"defeq"' out/cross-smoke.jsonl
+          grep -q '"k":"unfolded","status":"defeq"' out/cross-smoke.jsonl
+          grep -q '"n":"SmokeBad","k":"def","status":"not-defeq"' out/cross-smoke.jsonl
+          test "$(tail -n +2 out/cross-smoke.jsonl | grep -v -c -E '"status":"same"|"n":"SmokeAt"|"n":"SmokeBad"|"k":"unfolded"|"k":"typeOnly"')" = 0
+          echo "smoke controls: as expected"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-smoke-${{ matrix.toolchain }}
+          path: ~/smoke/out
+          retention-days: 7
+
+  export:
+    needs: smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        side: [openai, anthropic]
+    env:
+      OUT: ${{ github.workspace }}/out
+      W: ${{ github.workspace }}/work
+      SIDE: ${{ matrix.side }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools/eth-tsavo-gates.js
+            tools/eth-pod-facts.py
+            corpus/eth-refutation/pins.json
+            corpus/eth-refutation/tsavo/pins.json
+            corpus/eth-refutation/bridge/openai/
+            corpus/eth-refutation/seam/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: free disk, the machine, elan
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT" "$W"
+          { echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"; echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo; df -h / | tail -1; } | tee "$OUT/machine.txt"
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: the project at its pins, the Mathlib cache, the build (setup.sh)
+        run: |
+          bash "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/setup.sh" "$SIDE"
+          cat "$OUT/env.txt"
+      - name: export
+        working-directory: work/project
+        run: |
+          set +e
+          X="Challenge Claim"; [ "$SIDE" = anthropic ] && X="Challenge Claim Bridge"
+          for x in $X; do
+            start=$(date +%s)
+            SEAM_OUT="$OUT" /usr/bin/time -v lake env lean "seam/SeamRun$x.lean" > "$OUT/export-$x.log" 2>&1
+            echo $? > "$OUT/export-$x.exit"
+            echo $(( $(date +%s) - start )) > "$OUT/export-$x.seconds"
+            echo "== $x: exit $(cat "$OUT/export-$x.exit"), $(cat "$OUT/export-$x.seconds") s"; tail -30 "$OUT/export-$x.log"
+          done
+          sha256sum "$OUT"/*.jsonl | tee "$OUT/exports.sha256"
+          gzip -9 "$OUT"/*.jsonl
+          ls -la "$OUT"
+          for x in $X; do test "$(cat "$OUT/export-$x.exit")" = 0 || exit 1; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-${{ matrix.side }}
+          path: ${{ github.workspace }}/out
+          retention-days: 90
+
+  cross:
+    needs: export
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - side: openai
+            other: anthropic
+          - side: anthropic
+            other: openai
+    env:
+      OUT: ${{ github.workspace }}/out
+      W: ${{ github.workspace }}/work
+      SIDE: ${{ matrix.side }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools/eth-tsavo-gates.js
+            tools/eth-pod-facts.py
+            corpus/eth-refutation/pins.json
+            corpus/eth-refutation/tsavo/pins.json
+            corpus/eth-refutation/bridge/openai/
+            corpus/eth-refutation/seam/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - uses: actions/download-artifact@v4
+        with:
+          name: eth-seam-${{ matrix.other }}
+          path: ${{ github.workspace }}/in
+      - name: free disk, the machine, elan
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT" "$W"
+          { echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"; echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo; df -h / | tail -1; } | tee "$OUT/machine.txt"
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: the project at its pins, the Mathlib cache, the build (setup.sh)
+        run: |
+          bash "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/setup.sh" "$SIDE"
+          cat "$OUT/env.txt"
+      - name: the other side's exports, read here
+        working-directory: work/project
+        run: |
+          set +e
+          IN="$GITHUB_WORKSPACE/in"
+          gunzip -k "$IN"/challenge.jsonl.gz "$IN"/claim.jsonl.gz
+          (cd "$IN" && sha256sum challenge.jsonl claim.jsonl) | tee "$OUT/foreign.sha256"
+          for x in Challenge Claim; do
+            start=$(date +%s)
+            SEAM_IN="$IN" SEAM_OUT="$OUT" /usr/bin/time -v lake env lean "seam/SeamCross$x.lean" > "$OUT/cross-$x.log" 2>&1
+            echo $? > "$OUT/cross-$x.exit"
+            echo $(( $(date +%s) - start )) > "$OUT/cross-$x.seconds"
+            echo "== $x: exit $(cat "$OUT/cross-$x.exit"), $(cat "$OUT/cross-$x.seconds") s"; tail -20 "$OUT/cross-$x.log"
+          done
+          ls -la "$OUT"
+          for f in "$OUT"/cross-*.jsonl; do head -1 "$f"; done
+          for x in Challenge Claim; do test "$(cat "$OUT/cross-$x.exit")" = 0 || exit 1; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-cross-${{ matrix.side }}
+          path: ${{ github.workspace }}/out
+          retention-days: 90

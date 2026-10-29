@@ -1,0 +1,50 @@
+{
+ "conclusion": "success",
+ "createdAt": "2026-10-29T20:16:37Z",
+ "databaseId": 40947568989,
+ "event": "push",
+ "headBranch": "eth-seam",
+ "headSha": "787a9fd15076283880133c76f112873cdb13cd30",
+ "status": "completed",
+ "updatedAt": "2026-10-29T20:26:32Z",
+ "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/40947568989",
+ "workflowName": "eth-seam",
+ "jobs": [
+  {
+   "name": "smoke (v4.34.1)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:16:41Z",
+   "completedAt": "2026-10-29T20:17:07Z"
+  },
+  {
+   "name": "smoke (v4.33.1)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:16:40Z",
+   "completedAt": "2026-10-29T20:17:02Z"
+  },
+  {
+   "name": "export (anthropic)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:17:10Z",
+   "completedAt": "2026-10-29T20:21:06Z"
+  },
+  {
+   "name": "export (openai)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:17:10Z",
+   "completedAt": "2026-10-29T20:22:13Z"
+  },
+  {
+   "name": "cross (openai, anthropic)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:22:16Z",
+   "completedAt": "2026-10-29T20:26:31Z"
+  },
+  {
+   "name": "cross (anthropic, openai)",
+   "conclusion": "success",
+   "startedAt": "2026-10-29T20:22:16Z",
+   "completedAt": "2026-10-29T20:25:37Z"
+  }
+ ]
+}
