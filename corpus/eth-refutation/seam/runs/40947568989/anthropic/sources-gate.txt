@@ -1,0 +1,11 @@
+tree: 12 files, 12 pinned, every sha256 equal
+statement: rebuilt sha256 4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685 (pin 4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685); hk named in the 23 statement lines: no; tactic block in the statement: no
+challenge: exactly "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry"
+config: {"challenge_module":"BridgeChallenge","solution_module":"Bridge.Main","theorem_names":["Bridge.ethIsFalse_of_claim"],"definition_names":[],"permitted_axioms":["propext","Quot.sound","Classical.choice"],"enable_nanoda":true}
+census: 6 .lean files; forbidden outside comments: none; the challenge hole: 1; mentions inside comments: [{"file":"bridge/Bridge/Main.lean","what":"sorry","count":1},{"file":"bridge/BridgeChallenge.lean","what":"sorry","count":1}]
+MainResults.lean sha256 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944 (pin 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944)
+lakefile.toml sha256 3a116ef40830945191c63be8b953f621e4dbd03240398327c6d92ed4d269046b (pin 3a116ef40830945191c63be8b953f621e4dbd03240398327c6d92ed4d269046b)
+Anthropic modules imported directly: MainResults, Solution, ThreeSatRateStatement, ToTuring.Closure.Basic, ToTuring.Closure.Cases, ToTuring.Closure.Fold, ToTuring.Lib.Bool, ToTuring.Lib.Int, ToTuring.Lib.List1, ToTuring.Lib.List1b, ToTuring.Lib.List2, ToTuring.Lib.List3, ToTuring.Lib.Nat1, ToTuring.Lib.Nat1b, ToTuring.Lib.Nat2, ToTuring.Lib.Table, ToTuring.Lib.Unary, ToTuring.Machine.Host, ToTuring.Poly.Decode, ToTuring.Poly.Sat, WidthThree.Rates
+Bridge.Main reaches 76 Anthropic modules; external roots: Mathlib
+Bridge.Joint reaches 810 Anthropic modules (Solution among them); external roots: Batteries, Mathlib
+all statement checks pass
