@@ -90,11 +90,11 @@ NEXT SESSION, IN ORDER:
      [[lean_lib]] BridgeChallenge); OpenAI's statement re-elaborated on v4.33.1 vs OpenAI's proof on v4.34.1 (compose by
      reading); two_proofs_one_statement one kernel only; a stale "sorry" comment; leanchecker not run. /eth/ §5 shows it.
      THE #36 REPLY is drafted (the 10-29 chat): the readings' answer to their question + our s_eq/not_eth_of_ethIsFalse
-     + the replay with its gaps — NOT POSTED, the operator's word. Also tonight: the dReal comparison re-run on the
+     + the replay with its gaps — POSTED on the operator's word 2026-10-29 (issuecomment-6484418376; outreach row gh-formal-math-36). Also tonight: the dReal comparison re-run on the
      regenerated claims (run 40784075442; same totals; the method paper's MtDr* macros still name 40522733573);
      the TCS form SUBMITTED and the ethdiscussion.blog comment posted (awaiting moderation); make control GREEN, 172 in
      575 s (c2c3ee4f).
-     NEXT: ETH — post the #36 reply on the operator's word; optional: a second kernel on our bridge, leanchecker --fresh,
+     NEXT: ETH — watch #36 (and the blog comment's moderation); optional: a second kernel on our bridge, leanchecker --fresh,
      each paper's algorithm against brute force. Grammar — Tier 2 as
      pages are next edited; the PARTIAL ruling (a) decides how the chains end.
   ★★ 2026-10-28 ~19:45 UTC — HANDOFF, TWO FRONTS OPEN.
