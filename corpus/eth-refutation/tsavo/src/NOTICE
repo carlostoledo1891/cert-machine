@@ -1,0 +1,9 @@
+eth-bridge — Copyright (c) 2026 TSavo. Licensed under the Apache License, Version 2.0.
+
+This repository contains, verbatim or adapted, Apache-2.0-licensed material from:
+- Anthropic, "A 2^o(n) Time Algorithm for 3-SAT", https://github.com/anthropics/formal-math (eth/):
+  the trusted statement file MainResults.lean is referenced, not copied; the bridge library is built
+  inside that project and reuses its machine layer (Groundwork.Stepped, IsPolyT, exists_tm, Wrap).
+- OpenAI, "The Exponential Time Hypothesis is False", https://github.com/openai/math:
+  bridge/Bridge/OpenAIStatement.lean is lean/ComparatorChallenges/SubexponentialSAT.lean copied
+  verbatim, with its sorry'd theorem turned into the definitions `ClaimAt` and `Claim`.

@@ -1,0 +1,31 @@
+ok   accepted clean copy
+ok   refused  tree: a file changed by one byte  <- tree: sha256 differs for README.md
+ok   refused  tree: an unpinned file added  <- tree: unpinned bridge/Extra.lean
+ok   refused  tree: a pinned file removed  <- tree: missing POST.md
+ok   refused  statement: one character of the statement changed (0 < C becomes 0 ≤ C)  <- statement: the copy with the declared change undone has sha256 b02a50f3d8eb0f0c0514489e5f32bf6415169fee6bb52be41db2728cdfd587c7, the pin is 4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685
+ok   refused  statement: the statement names hk  <- statement: the statement lines name hk (lines 4 of the 23): dropping the binder changes the statement
+ok   refused  statement: a tactic block inside the statement  <- statement: a tactic block inside the statement could read hk from the context
+ok   refused  statement: Claim quantifies k ≥ 3 instead of k ≥ 2  <- statement: OpenAIStatement.lean: the appended def Claim is not exactly the declared one
+ok   refused  statement: the definition line renamed  <- statement: OpenAIStatement.lean: the line "def ClaimAt (k : ℕ) : Prop :=" is not there
+ok   refused  challenge: a third import in the challenge  <- challenge: BridgeChallenge.lean, comments removed, reads "import MainResults import Bridge.OpenAIStatement import Bridge.Main theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry", not "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry"
+ok   refused  challenge: the conclusion weakened to True  <- challenge: BridgeChallenge.lean, comments removed, reads "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : True := by sorry", not "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry"
+ok   refused  challenge: the hypothesis changed to ClaimAt 3  <- challenge: BridgeChallenge.lean, comments removed, reads "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.ClaimAt 3) : MainResults.ETHIsFalse := by sorry", not "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry"
+ok   refused  challenge: the hole filled by another proof  <- challenge: BridgeChallenge.lean, comments removed, reads "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by exact Bridge.cheat h", not "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry"
+ok   refused  config: another solution module  <- config: solution_module is "Bridge.Joint", not "Bridge.Main"
+ok   refused  config: an extra permitted axiom  <- config: permitted_axioms ["propext","Quot.sound","Classical.choice","sorryAx"] is not a subset of the three standard axioms
+ok   refused  config: nanoda off  <- config: enable_nanoda is false, not true
+ok   refused  config: an external kernel added  <- config: unexpected keys external_kernels
+ok   refused  census: a sorry in Main.lean  <- census: bridge/Bridge/Main.lean:960 contains sorry
+ok   refused  census: an axiom declaration  <- census: bridge/Bridge/BitLength.lean:4 contains an axiom declaration
+ok   refused  census: admit  <- census: bridge/Bridge/BitLength.lean:4 contains admit
+ok   refused  census: native_decide  <- census: bridge/Bridge/FrontEnd.lean:39 contains native_decide
+ok   refused  census: implemented_by  <- census: bridge/Bridge/Joint.lean:12 contains implemented_by
+ok   refused  census: extern  <- census: bridge/Bridge/Joint.lean:12 contains extern
+ok   refused  census: unsafe  <- census: bridge/Bridge/Joint.lean:12 contains unsafe
+ok   refused  census: debug.skipKernelTC  <- census: bridge/Bridge/Joint.lean:11 contains debug.skipKernelTC
+ok   refused  census: a second sorry in the challenge  <- census: BridgeChallenge.lean has 2 sorry, not the one hole
+ok   accepted mainResults: the pinned file as it is
+ok   refused  mainResults: one byte appended to MainResults.lean  <- mainResults: eth/MainResults.lean has sha256 4a1c648adcf1ae2d893d1ea3a199ff2db826795a4ae851e132556a0b9d4069ca, the pin is 47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944
+ok   accepted lakefile: the pinned file as it is
+ok   refused  lakefile: one byte appended to lakefile.toml  <- lakefile: eth/lakefile.toml has sha256 6694af303460f11ea089b28bb25d754d22077ae7b74255ddd83e8c9705bad4b0, the pin is 3a116ef40830945191c63be8b953f621e4dbd03240398327c6d92ed4d269046b (checked before the README block is appended)
+every red control refused; the clean copy passes

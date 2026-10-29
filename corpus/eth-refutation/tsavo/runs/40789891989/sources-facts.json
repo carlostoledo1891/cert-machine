@@ -1,0 +1,3741 @@
+{
+ "ok": true,
+ "fails": [],
+ "facts": {
+  "tree": {
+   "files": 12,
+   "pinned": 12,
+   "ok": true
+  },
+  "statement": {
+   "pinned": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "rebuilt": "4183b2057cff350d66848215ff7167196dfc20e1891b598fdddea59077a76685",
+   "statementLines": 23,
+   "hkMentioned": false,
+   "hkLines": [],
+   "tacticBlockInStatement": false,
+   "reads": "Claim = ∀ k : ℕ, 2 ≤ k → ClaimAt k, ClaimAt k = the 23 statement lines of exact_count_and_sat; the 23 lines never name hk, so ∀ (k) (hk : 2 ≤ k), S k and ∀ k, 2 ≤ k → ClaimAt k are the same proposition up to unfolding ClaimAt"
+  },
+  "challenge": {
+   "text": "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry",
+   "expected": "import MainResults import Bridge.OpenAIStatement theorem Bridge.ethIsFalse_of_claim (h : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim) : MainResults.ETHIsFalse := by sorry",
+   "ok": true
+  },
+  "config": {
+   "challenge_module": "BridgeChallenge",
+   "solution_module": "Bridge.Main",
+   "theorem_names": [
+    "Bridge.ethIsFalse_of_claim"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": true
+  },
+  "census": {
+   "leanFiles": [
+    "bridge/Bridge/BitLength.lean",
+    "bridge/Bridge/FrontEnd.lean",
+    "bridge/Bridge/Joint.lean",
+    "bridge/Bridge/Main.lean",
+    "bridge/Bridge/OpenAIStatement.lean",
+    "bridge/BridgeChallenge.lean"
+   ],
+   "forbidden": [],
+   "challengeHole": [
+    {
+     "file": "bridge/BridgeChallenge.lean",
+     "line": 12,
+     "what": "sorry"
+    }
+   ],
+   "mentionsInComments": [
+    {
+     "file": "bridge/Bridge/Main.lean",
+     "what": "sorry",
+     "count": 1
+    },
+    {
+     "file": "bridge/BridgeChallenge.lean",
+     "what": "sorry",
+     "count": 1
+    }
+   ],
+   "imports": {
+    "bridge/Bridge/BitLength.lean": [
+     "Bridge.OpenAIStatement"
+    ],
+    "bridge/Bridge/FrontEnd.lean": [
+     "MainResults",
+     "ThreeSatRateStatement",
+     "ToTuring.Machine.Host",
+     "ToTuring.Closure.Basic",
+     "ToTuring.Closure.Cases",
+     "ToTuring.Closure.Fold",
+     "ToTuring.Lib.Bool",
+     "ToTuring.Lib.Nat1",
+     "ToTuring.Lib.Nat1b",
+     "ToTuring.Lib.Nat2",
+     "ToTuring.Lib.Int",
+     "ToTuring.Lib.List1",
+     "ToTuring.Lib.List1b",
+     "ToTuring.Lib.List2",
+     "ToTuring.Lib.List3",
+     "ToTuring.Lib.Table",
+     "ToTuring.Lib.Unary",
+     "ToTuring.Poly.Decode",
+     "ToTuring.Poly.Sat",
+     "Bridge.OpenAIStatement"
+    ],
+    "bridge/Bridge/Joint.lean": [
+     "Solution",
+     "Bridge.Main"
+    ],
+    "bridge/Bridge/Main.lean": [
+     "MainResults",
+     "ThreeSatRateStatement",
+     "WidthThree.Rates",
+     "ToTuring.Machine.Host",
+     "ToTuring.Closure.Basic",
+     "ToTuring.Closure.Cases",
+     "ToTuring.Closure.Fold",
+     "ToTuring.Lib.Bool",
+     "ToTuring.Lib.Nat1",
+     "ToTuring.Lib.Nat1b",
+     "ToTuring.Lib.Nat2",
+     "ToTuring.Lib.Int",
+     "ToTuring.Lib.List1",
+     "ToTuring.Lib.List1b",
+     "ToTuring.Lib.List2",
+     "ToTuring.Lib.List3",
+     "ToTuring.Lib.Table",
+     "ToTuring.Lib.Unary",
+     "Bridge.OpenAIStatement",
+     "Bridge.BitLength",
+     "Bridge.FrontEnd"
+    ],
+    "bridge/Bridge/OpenAIStatement.lean": [
+     "Mathlib"
+    ],
+    "bridge/BridgeChallenge.lean": [
+     "MainResults",
+     "Bridge.OpenAIStatement"
+    ]
+   }
+  },
+  "mainResults": {
+   "pinned": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944",
+   "got": "47f78a9550d95b37d8718dd1ee16ae824da893a5e17c319f737e6d0a5ed24944"
+  },
+  "lakefile": {
+   "pinned": "3a116ef40830945191c63be8b953f621e4dbd03240398327c6d92ed4d269046b",
+   "got": "3a116ef40830945191c63be8b953f621e4dbd03240398327c6d92ed4d269046b"
+  },
+  "anthropic": {
+   "srcDirs": [
+    ".",
+    "proof",
+    "proof/statements",
+    "proof/machines",
+    "proof/networks",
+    "proof/threesat",
+    "proof/consequences",
+    "proof/sparsification",
+    "proof/rates",
+    "proof/variables",
+    "proof/maintheorem"
+   ],
+   "directAnthropicImports": [
+    "MainResults",
+    "Solution",
+    "ThreeSatRateStatement",
+    "ToTuring.Closure.Basic",
+    "ToTuring.Closure.Cases",
+    "ToTuring.Closure.Fold",
+    "ToTuring.Lib.Bool",
+    "ToTuring.Lib.Int",
+    "ToTuring.Lib.List1",
+    "ToTuring.Lib.List1b",
+    "ToTuring.Lib.List2",
+    "ToTuring.Lib.List3",
+    "ToTuring.Lib.Nat1",
+    "ToTuring.Lib.Nat1b",
+    "ToTuring.Lib.Nat2",
+    "ToTuring.Lib.Table",
+    "ToTuring.Lib.Unary",
+    "ToTuring.Machine.Host",
+    "ToTuring.Poly.Decode",
+    "ToTuring.Poly.Sat",
+    "WidthThree.Rates"
+   ],
+   "closure": {
+    "Bridge.Main": {
+     "anthropicModules": [
+      {
+       "module": "ClauseBoundStatement",
+       "file": "eth/proof/statements/ClauseBoundStatement.lean"
+      },
+      {
+       "module": "CountKSatStatement",
+       "file": "eth/proof/statements/CountKSatStatement.lean"
+      },
+      {
+       "module": "FixedWidthVariableBoundStatement",
+       "file": "eth/proof/statements/FixedWidthVariableBoundStatement.lean"
+      },
+      {
+       "module": "Groundwork.Net.Calculus",
+       "file": "eth/proof/networks/Groundwork/Net/Calculus.lean"
+      },
+      {
+       "module": "Groundwork.Net.Defs",
+       "file": "eth/proof/networks/Groundwork/Net/Defs.lean"
+      },
+      {
+       "module": "Groundwork.Net.Net",
+       "file": "eth/proof/networks/Groundwork/Net/Net.lean"
+      },
+      {
+       "module": "KSatStatement",
+       "file": "eth/proof/statements/KSatStatement.lean"
+      },
+      {
+       "module": "MainResults",
+       "file": "eth/MainResults.lean"
+      },
+      {
+       "module": "MainTheoremFormsStatement",
+       "file": "eth/proof/statements/MainTheoremFormsStatement.lean"
+      },
+      {
+       "module": "NetworkStatements",
+       "file": "eth/proof/statements/NetworkStatements.lean"
+      },
+      {
+       "module": "PaddedDescent.Params",
+       "file": "eth/proof/rates/PaddedDescent/Params.lean"
+      },
+      {
+       "module": "PaddedDescent.RateLemmas",
+       "file": "eth/proof/rates/PaddedDescent/RateLemmas.lean"
+      },
+      {
+       "module": "PaperSentencesStatement",
+       "file": "eth/proof/statements/PaperSentencesStatement.lean"
+      },
+      {
+       "module": "StepMachines.Math.Formula",
+       "file": "eth/proof/machines/StepMachines/Math/Formula.lean"
+      },
+      {
+       "module": "StepMachines.Math.SatArith",
+       "file": "eth/proof/machines/StepMachines/Math/SatArith.lean"
+      },
+      {
+       "module": "StepMachines.Math.SatNet",
+       "file": "eth/proof/machines/StepMachines/Math/SatNet.lean"
+      },
+      {
+       "module": "StepMachines.Math.Sparsify",
+       "file": "eth/proof/machines/StepMachines/Math/Sparsify.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyCount",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyCount.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyList",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyList.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyProg",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyProg.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyStep",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyStep.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyTree",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyTree.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Brute",
+       "file": "eth/proof/machines/StepMachines/Prog/Brute.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Chunks",
+       "file": "eth/proof/machines/StepMachines/Prog/Chunks.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Comb",
+       "file": "eth/proof/machines/StepMachines/Prog/Comb.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Count",
+       "file": "eth/proof/machines/StepMachines/Prog/Count.lean"
+      },
+      {
+       "module": "StepMachines.Prog.CountNet",
+       "file": "eth/proof/machines/StepMachines/Prog/CountNet.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Decode",
+       "file": "eth/proof/machines/StepMachines/Prog/Decode.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Range",
+       "file": "eth/proof/machines/StepMachines/Prog/Range.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Sat",
+       "file": "eth/proof/machines/StepMachines/Prog/Sat.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Spec",
+       "file": "eth/proof/machines/StepMachines/Prog/Spec.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Stepped",
+       "file": "eth/proof/machines/StepMachines/Prog/Stepped.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Walk",
+       "file": "eth/proof/machines/StepMachines/Prog/Walk.lean"
+      },
+      {
+       "module": "StepMachineStatements",
+       "file": "eth/proof/statements/StepMachineStatements.lean"
+      },
+      {
+       "module": "ThmEveryDeltaStatement",
+       "file": "eth/proof/statements/ThmEveryDeltaStatement.lean"
+      },
+      {
+       "module": "ThreeSatRateStatement",
+       "file": "eth/proof/statements/ThreeSatRateStatement.lean"
+      },
+      {
+       "module": "ThreeSatStatement",
+       "file": "eth/proof/statements/ThreeSatStatement.lean"
+      },
+      {
+       "module": "ToTuring.Bound",
+       "file": "eth/proof/machines/ToTuring/Bound.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Basic",
+       "file": "eth/proof/machines/ToTuring/Closure/Basic.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Cases",
+       "file": "eth/proof/machines/ToTuring/Closure/Cases.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Fold",
+       "file": "eth/proof/machines/ToTuring/Closure/Fold.lean"
+      },
+      {
+       "module": "ToTuring.Enc",
+       "file": "eth/proof/machines/ToTuring/Enc.lean"
+      },
+      {
+       "module": "ToTuring.EncLemmas",
+       "file": "eth/proof/machines/ToTuring/EncLemmas.lean"
+      },
+      {
+       "module": "ToTuring.EndLemmas",
+       "file": "eth/proof/machines/ToTuring/EndLemmas.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Bool",
+       "file": "eth/proof/machines/ToTuring/Lib/Bool.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Int",
+       "file": "eth/proof/machines/ToTuring/Lib/Int.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List1",
+       "file": "eth/proof/machines/ToTuring/Lib/List1.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List1b",
+       "file": "eth/proof/machines/ToTuring/Lib/List1b.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List2",
+       "file": "eth/proof/machines/ToTuring/Lib/List2.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List3",
+       "file": "eth/proof/machines/ToTuring/Lib/List3.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat1",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat1.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat1b",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat1b.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat2",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat2.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Table",
+       "file": "eth/proof/machines/ToTuring/Lib/Table.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Unary",
+       "file": "eth/proof/machines/ToTuring/Lib/Unary.lean"
+      },
+      {
+       "module": "ToTuring.Machine.Host",
+       "file": "eth/proof/machines/ToTuring/Machine/Host.lean"
+      },
+      {
+       "module": "ToTuring.Machine.Lift",
+       "file": "eth/proof/machines/ToTuring/Machine/Lift.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Basic",
+       "file": "eth/proof/machines/ToTuring/Poly/Basic.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Comb",
+       "file": "eth/proof/machines/ToTuring/Poly/Comb.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Decode",
+       "file": "eth/proof/machines/ToTuring/Poly/Decode.lean"
+      },
+      {
+       "module": "ToTuring.Poly.IsPoly",
+       "file": "eth/proof/machines/ToTuring/Poly/IsPoly.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Sat",
+       "file": "eth/proof/machines/ToTuring/Poly/Sat.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Sparsify",
+       "file": "eth/proof/machines/ToTuring/Poly/Sparsify.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Walk",
+       "file": "eth/proof/machines/ToTuring/Poly/Walk.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Words",
+       "file": "eth/proof/machines/ToTuring/Poly/Words.lean"
+      },
+      {
+       "module": "ToTuring.PolyT",
+       "file": "eth/proof/machines/ToTuring/PolyT.lean"
+      },
+      {
+       "module": "ToTuring.TM.Frag",
+       "file": "eth/proof/machines/ToTuring/TM/Frag.lean"
+      },
+      {
+       "module": "ToTuring.TM.Move",
+       "file": "eth/proof/machines/ToTuring/TM/Move.lean"
+      },
+      {
+       "module": "ToTuring.TM.Ops",
+       "file": "eth/proof/machines/ToTuring/TM/Ops.lean"
+      },
+      {
+       "module": "ToTuring.TM.Rename",
+       "file": "eth/proof/machines/ToTuring/TM/Rename.lean"
+      },
+      {
+       "module": "ToTuring.TM.Run",
+       "file": "eth/proof/machines/ToTuring/TM/Run.lean"
+      },
+      {
+       "module": "ToTuring.TM.Stacks",
+       "file": "eth/proof/machines/ToTuring/TM/Stacks.lean"
+      },
+      {
+       "module": "ToTuring.TM.Tree",
+       "file": "eth/proof/machines/ToTuring/TM/Tree.lean"
+      },
+      {
+       "module": "UniformInKStatement",
+       "file": "eth/proof/statements/UniformInKStatement.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Arith",
+       "file": "eth/proof/variables/VariableBound/Paper/Arith.lean"
+      },
+      {
+       "module": "WidthThree.Rates",
+       "file": "eth/proof/maintheorem/WidthThree/Rates.lean"
+      }
+     ],
+     "anthropicCount": 76,
+     "externalRoots": [
+      "Mathlib"
+     ],
+     "includesSolution": false
+    },
+    "Bridge.Joint": {
+     "anthropicModules": [
+      {
+       "module": "AppHalfPiecesStatement",
+       "file": "eth/proof/statements/AppHalfPiecesStatement.lean"
+      },
+      {
+       "module": "AppRunningTimeStatement",
+       "file": "eth/proof/statements/AppRunningTimeStatement.lean"
+      },
+      {
+       "module": "AppVariablesStatement",
+       "file": "eth/proof/statements/AppVariablesStatement.lean"
+      },
+      {
+       "module": "CircuitLowerBound.Defs",
+       "file": "eth/proof/consequences/CircuitLowerBound/Defs.lean"
+      },
+      {
+       "module": "CircuitLowerBound.Interfaces",
+       "file": "eth/proof/consequences/CircuitLowerBound/Interfaces.lean"
+      },
+      {
+       "module": "CircuitLowerBound.Tab.Frame",
+       "file": "eth/proof/consequences/CircuitLowerBound/Tab/Frame.lean"
+      },
+      {
+       "module": "CircuitLowerBound.Tab.Sound",
+       "file": "eth/proof/consequences/CircuitLowerBound/Tab/Sound.lean"
+      },
+      {
+       "module": "CircuitLowerBound.Tab.Spec",
+       "file": "eth/proof/consequences/CircuitLowerBound/Tab/Spec.lean"
+      },
+      {
+       "module": "CircuitLowerBoundStatement",
+       "file": "eth/proof/statements/CircuitLowerBoundStatement.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertCount",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertCount.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertEnum",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertEnum.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertGridG",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertGridG.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertLevel",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertLevel.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertTop",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertTop.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.CertTopNet",
+       "file": "eth/proof/rates/ClauseBound/Alg/CertTopNet.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Data",
+       "file": "eth/proof/rates/ClauseBound/Alg/Data.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Decode",
+       "file": "eth/proof/rates/ClauseBound/Alg/Decode.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Descend",
+       "file": "eth/proof/rates/ClauseBound/Alg/Descend.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.End",
+       "file": "eth/proof/rates/ClauseBound/Alg/End.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Enum",
+       "file": "eth/proof/rates/ClauseBound/Alg/Enum.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Grid",
+       "file": "eth/proof/rates/ClauseBound/Alg/Grid.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.GridNet",
+       "file": "eth/proof/rates/ClauseBound/Alg/GridNet.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.GridPresents",
+       "file": "eth/proof/rates/ClauseBound/Alg/GridPresents.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Interfaces",
+       "file": "eth/proof/rates/ClauseBound/Alg/Interfaces.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Level",
+       "file": "eth/proof/rates/ClauseBound/Alg/Level.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Need",
+       "file": "eth/proof/rates/ClauseBound/Alg/Need.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.NeedC",
+       "file": "eth/proof/rates/ClauseBound/Alg/NeedC.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Prog",
+       "file": "eth/proof/rates/ClauseBound/Alg/Prog.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.Top",
+       "file": "eth/proof/rates/ClauseBound/Alg/Top.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.TopArith",
+       "file": "eth/proof/rates/ClauseBound/Alg/TopArith.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.TopNet",
+       "file": "eth/proof/rates/ClauseBound/Alg/TopNet.lean"
+      },
+      {
+       "module": "ClauseBound.Alg.TopVal",
+       "file": "eth/proof/rates/ClauseBound/Alg/TopVal.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Basic",
+       "file": "eth/proof/rates/ClauseBound/Boson/Basic.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Defs",
+       "file": "eth/proof/rates/ClauseBound/Boson/Defs.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Defs2",
+       "file": "eth/proof/rates/ClauseBound/Boson/Defs2.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Dual",
+       "file": "eth/proof/rates/ClauseBound/Boson/Dual.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Final",
+       "file": "eth/proof/rates/ClauseBound/Boson/Final.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Half",
+       "file": "eth/proof/rates/ClauseBound/Boson/Half.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.HalfList",
+       "file": "eth/proof/rates/ClauseBound/Boson/HalfList.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.HalfSum",
+       "file": "eth/proof/rates/ClauseBound/Boson/HalfSum.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.KF",
+       "file": "eth/proof/rates/ClauseBound/Boson/KF.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Scalars",
+       "file": "eth/proof/rates/ClauseBound/Boson/Scalars.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Size",
+       "file": "eth/proof/rates/ClauseBound/Boson/Size.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.Text",
+       "file": "eth/proof/rates/ClauseBound/Boson/Text.lean"
+      },
+      {
+       "module": "ClauseBound.Boson.WickPlus",
+       "file": "eth/proof/rates/ClauseBound/Boson/WickPlus.lean"
+      },
+      {
+       "module": "ClauseBound.Both.Defs",
+       "file": "eth/proof/rates/ClauseBound/Both/Defs.lean"
+      },
+      {
+       "module": "ClauseBound.Both.End",
+       "file": "eth/proof/rates/ClauseBound/Both/End.lean"
+      },
+      {
+       "module": "ClauseBound.Both.TimeM",
+       "file": "eth/proof/rates/ClauseBound/Both/TimeM.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.Chain",
+       "file": "eth/proof/rates/ClauseBound/Gen/Chain.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.Defs",
+       "file": "eth/proof/rates/ClauseBound/Gen/Defs.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.End",
+       "file": "eth/proof/rates/ClauseBound/Gen/End.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.PartA",
+       "file": "eth/proof/rates/ClauseBound/Gen/PartA.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.Pick",
+       "file": "eth/proof/rates/ClauseBound/Gen/Pick.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.Rate",
+       "file": "eth/proof/rates/ClauseBound/Gen/Rate.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.RateAux",
+       "file": "eth/proof/rates/ClauseBound/Gen/RateAux.lean"
+      },
+      {
+       "module": "ClauseBound.Gen.Seq",
+       "file": "eth/proof/rates/ClauseBound/Gen/Seq.lean"
+      },
+      {
+       "module": "ClauseBound.Grid.Expand",
+       "file": "eth/proof/rates/ClauseBound/Grid/Expand.lean"
+      },
+      {
+       "module": "ClauseBound.Grid.Size",
+       "file": "eth/proof/rates/ClauseBound/Grid/Size.lean"
+      },
+      {
+       "module": "ClauseBound.Group.Grouping",
+       "file": "eth/proof/rates/ClauseBound/Group/Grouping.lean"
+      },
+      {
+       "module": "ClauseBound.Group.Sample",
+       "file": "eth/proof/rates/ClauseBound/Group/Sample.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.CertHalf",
+       "file": "eth/proof/rates/ClauseBound/Inst/CertHalf.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.CertHalfPart",
+       "file": "eth/proof/rates/ClauseBound/Inst/CertHalfPart.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.CertHalfSmall",
+       "file": "eth/proof/rates/ClauseBound/Inst/CertHalfSmall.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.CertHalfTab",
+       "file": "eth/proof/rates/ClauseBound/Inst/CertHalfTab.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.Half",
+       "file": "eth/proof/rates/ClauseBound/Inst/Half.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfAll",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfAll.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfEnc",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfEnc.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfEnd",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfEnd.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfFact",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfFact.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfIfc",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfIfc.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfLabs",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfLabs.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfPad",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfPad.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfPar",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfPar.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfPart",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfPart.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfSpec",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfSpec.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfTab",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfTab.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfTabBot",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfTabBot.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfTabKF",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfTabKF.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfTabSpec",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfTabSpec.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.HalfVal",
+       "file": "eth/proof/rates/ClauseBound/Inst/HalfVal.lean"
+      },
+      {
+       "module": "ClauseBound.Inst.RecArith",
+       "file": "eth/proof/rates/ClauseBound/Inst/RecArith.lean"
+      },
+      {
+       "module": "ClauseBound.MainBoth",
+       "file": "eth/proof/rates/ClauseBound/MainBoth.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Approx",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Approx.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.ArithAux",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/ArithAux.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.ArithOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/ArithOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Binom",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Binom.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Bridge",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Bridge.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.BridgeInc",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/BridgeInc.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.BudgetOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/BudgetOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.CertLib",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/CertLib.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.CertNum",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/CertNum.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.CertOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/CertOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.CertPar",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/CertPar.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.CertTopOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/CertTopOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.ChoiceByPotential",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/ChoiceByPotential.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Congr",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Congr.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Count",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Count.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Dummy",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Dummy.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.EndOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/EndOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Ev",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Ev.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Martingale",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Martingale.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.MasterOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/MasterOL.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.NetDefs",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/NetDefs.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Num",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Num.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Params",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Params.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.ProgDefs",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/ProgDefs.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Run",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Run.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.RunDefs",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/RunDefs.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.RunF",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/RunF.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Shape",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Shape.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Sizes",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Sizes.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Start",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Start.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.StepOne",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/StepOne.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.Structure",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/Structure.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.TopDefs",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/TopDefs.lean"
+      },
+      {
+       "module": "ClauseBound.ParityChecks.TopOL",
+       "file": "eth/proof/rates/ClauseBound/ParityChecks/TopOL.lean"
+      },
+      {
+       "module": "ClauseBound.Part.Bits",
+       "file": "eth/proof/rates/ClauseBound/Part/Bits.lean"
+      },
+      {
+       "module": "ClauseBound.Part.Bounds",
+       "file": "eth/proof/rates/ClauseBound/Part/Bounds.lean"
+      },
+      {
+       "module": "ClauseBound.Part.ListP",
+       "file": "eth/proof/rates/ClauseBound/Part/ListP.lean"
+      },
+      {
+       "module": "ClauseBound.Part.Lower",
+       "file": "eth/proof/rates/ClauseBound/Part/Lower.lean"
+      },
+      {
+       "module": "ClauseBound.Part.Rec",
+       "file": "eth/proof/rates/ClauseBound/Part/Rec.lean"
+      },
+      {
+       "module": "ClauseBound.Part.Upper",
+       "file": "eth/proof/rates/ClauseBound/Part/Upper.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Blocks",
+       "file": "eth/proof/rates/ClauseBound/Rec/Blocks.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.CountRow",
+       "file": "eth/proof/rates/ClauseBound/Rec/CountRow.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Defs",
+       "file": "eth/proof/rates/ClauseBound/Rec/Defs.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Few",
+       "file": "eth/proof/rates/ClauseBound/Rec/Few.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Number",
+       "file": "eth/proof/rates/ClauseBound/Rec/Number.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Tail",
+       "file": "eth/proof/rates/ClauseBound/Rec/Tail.lean"
+      },
+      {
+       "module": "ClauseBound.Rec.Window",
+       "file": "eth/proof/rates/ClauseBound/Rec/Window.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Arith",
+       "file": "eth/proof/rates/ClauseBound/TopN/Arith.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.ArithR",
+       "file": "eth/proof/rates/ClauseBound/TopN/ArithR.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Budget",
+       "file": "eth/proof/rates/ClauseBound/TopN/Budget.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Cert",
+       "file": "eth/proof/rates/ClauseBound/TopN/Cert.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Defs",
+       "file": "eth/proof/rates/ClauseBound/TopN/Defs.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.End",
+       "file": "eth/proof/rates/ClauseBound/TopN/End.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.EvalW",
+       "file": "eth/proof/rates/ClauseBound/TopN/EvalW.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Gen",
+       "file": "eth/proof/rates/ClauseBound/TopN/Gen.lean"
+      },
+      {
+       "module": "ClauseBound.TopN.Walk",
+       "file": "eth/proof/rates/ClauseBound/TopN/Walk.lean"
+      },
+      {
+       "module": "ClauseBoundStatement",
+       "file": "eth/proof/statements/ClauseBoundStatement.lean"
+      },
+      {
+       "module": "CliqueLevelsStatement",
+       "file": "eth/proof/statements/CliqueLevelsStatement.lean"
+      },
+      {
+       "module": "CountedInstance.Main",
+       "file": "eth/proof/variables/CountedInstance/Main.lean"
+      },
+      {
+       "module": "CountedInstance.Pairs",
+       "file": "eth/proof/variables/CountedInstance/Pairs.lean"
+      },
+      {
+       "module": "CountedInstanceStatement",
+       "file": "eth/proof/statements/CountedInstanceStatement.lean"
+      },
+      {
+       "module": "CountedRecursion.Answers",
+       "file": "eth/proof/rates/CountedRecursion/Answers.lean"
+      },
+      {
+       "module": "CountedRecursion.AnswersDefs",
+       "file": "eth/proof/rates/CountedRecursion/AnswersDefs.lean"
+      },
+      {
+       "module": "CountedRecursion.Base",
+       "file": "eth/proof/rates/CountedRecursion/Base.lean"
+      },
+      {
+       "module": "CountedRecursion.BothNetworks",
+       "file": "eth/proof/rates/CountedRecursion/BothNetworks.lean"
+      },
+      {
+       "module": "CountedRecursion.Brute",
+       "file": "eth/proof/rates/CountedRecursion/Brute.lean"
+      },
+      {
+       "module": "CountedRecursion.CallFacts",
+       "file": "eth/proof/rates/CountedRecursion/CallFacts.lean"
+      },
+      {
+       "module": "CountedRecursion.CallLemma",
+       "file": "eth/proof/rates/CountedRecursion/CallLemma.lean"
+      },
+      {
+       "module": "CountedRecursion.CallParts",
+       "file": "eth/proof/rates/CountedRecursion/CallParts.lean"
+      },
+      {
+       "module": "CountedRecursion.CaseTwo",
+       "file": "eth/proof/rates/CountedRecursion/CaseTwo.lean"
+      },
+      {
+       "module": "CountedRecursion.Chain",
+       "file": "eth/proof/rates/CountedRecursion/Chain.lean"
+      },
+      {
+       "module": "CountedRecursion.ChainLabel",
+       "file": "eth/proof/rates/CountedRecursion/ChainLabel.lean"
+      },
+      {
+       "module": "CountedRecursion.ChildIsGood",
+       "file": "eth/proof/rates/CountedRecursion/ChildIsGood.lean"
+      },
+      {
+       "module": "CountedRecursion.CliqueReads",
+       "file": "eth/proof/rates/CountedRecursion/CliqueReads.lean"
+      },
+      {
+       "module": "CountedRecursion.CountBase",
+       "file": "eth/proof/rates/CountedRecursion/CountBase.lean"
+      },
+      {
+       "module": "CountedRecursion.CountStep",
+       "file": "eth/proof/rates/CountedRecursion/CountStep.lean"
+      },
+      {
+       "module": "CountedRecursion.CrudeBounds",
+       "file": "eth/proof/rates/CountedRecursion/CrudeBounds.lean"
+      },
+      {
+       "module": "CountedRecursion.EndBounds",
+       "file": "eth/proof/rates/CountedRecursion/EndBounds.lean"
+      },
+      {
+       "module": "CountedRecursion.EndCounted",
+       "file": "eth/proof/rates/CountedRecursion/EndCounted.lean"
+      },
+      {
+       "module": "CountedRecursion.EndPlugged",
+       "file": "eth/proof/rates/CountedRecursion/EndPlugged.lean"
+      },
+      {
+       "module": "CountedRecursion.EndSolves",
+       "file": "eth/proof/rates/CountedRecursion/EndSolves.lean"
+      },
+      {
+       "module": "CountedRecursion.Expansion",
+       "file": "eth/proof/rates/CountedRecursion/Expansion.lean"
+      },
+      {
+       "module": "CountedRecursion.GridLemmas",
+       "file": "eth/proof/rates/CountedRecursion/GridLemmas.lean"
+      },
+      {
+       "module": "CountedRecursion.GridProcedures",
+       "file": "eth/proof/rates/CountedRecursion/GridProcedures.lean"
+      },
+      {
+       "module": "CountedRecursion.LabelCrude",
+       "file": "eth/proof/rates/CountedRecursion/LabelCrude.lean"
+      },
+      {
+       "module": "CountedRecursion.LevelBound",
+       "file": "eth/proof/rates/CountedRecursion/LevelBound.lean"
+      },
+      {
+       "module": "CountedRecursion.LevelNumbers",
+       "file": "eth/proof/rates/CountedRecursion/LevelNumbers.lean"
+      },
+      {
+       "module": "CountedRecursion.Main",
+       "file": "eth/proof/rates/CountedRecursion/Main.lean"
+      },
+      {
+       "module": "CountedRecursion.Meets",
+       "file": "eth/proof/rates/CountedRecursion/Meets.lean"
+      },
+      {
+       "module": "CountedRecursion.Numbers",
+       "file": "eth/proof/rates/CountedRecursion/Numbers.lean"
+      },
+      {
+       "module": "CountedRecursion.ParentNumbers",
+       "file": "eth/proof/rates/CountedRecursion/ParentNumbers.lean"
+      },
+      {
+       "module": "CountedRecursion.ParentSize",
+       "file": "eth/proof/rates/CountedRecursion/ParentSize.lean"
+      },
+      {
+       "module": "CountedRecursion.PartAPrinted",
+       "file": "eth/proof/rates/CountedRecursion/PartAPrinted.lean"
+      },
+      {
+       "module": "CountedRecursion.PatternIs",
+       "file": "eth/proof/rates/CountedRecursion/PatternIs.lean"
+      },
+      {
+       "module": "CountedRecursion.PatternPsi",
+       "file": "eth/proof/rates/CountedRecursion/PatternPsi.lean"
+      },
+      {
+       "module": "CountedRecursion.PatternValues",
+       "file": "eth/proof/rates/CountedRecursion/PatternValues.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyAll",
+       "file": "eth/proof/rates/CountedRecursion/PolyAll.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyEnd",
+       "file": "eth/proof/rates/CountedRecursion/PolyEnd.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyLists",
+       "file": "eth/proof/rates/CountedRecursion/PolyLists.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyProcedure",
+       "file": "eth/proof/rates/CountedRecursion/PolyProcedure.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyQueries",
+       "file": "eth/proof/rates/CountedRecursion/PolyQueries.lean"
+      },
+      {
+       "module": "CountedRecursion.PolyRules",
+       "file": "eth/proof/rates/CountedRecursion/PolyRules.lean"
+      },
+      {
+       "module": "CountedRecursion.PolySolver",
+       "file": "eth/proof/rates/CountedRecursion/PolySolver.lean"
+      },
+      {
+       "module": "CountedRecursion.PolySolverData",
+       "file": "eth/proof/rates/CountedRecursion/PolySolverData.lean"
+      },
+      {
+       "module": "CountedRecursion.ProcedureCost",
+       "file": "eth/proof/rates/CountedRecursion/ProcedureCost.lean"
+      },
+      {
+       "module": "CountedRecursion.RecursionDefs",
+       "file": "eth/proof/rates/CountedRecursion/RecursionDefs.lean"
+      },
+      {
+       "module": "CountedRecursion.RoomWithin",
+       "file": "eth/proof/rates/CountedRecursion/RoomWithin.lean"
+      },
+      {
+       "module": "CountedRecursion.RowFactorRun",
+       "file": "eth/proof/rates/CountedRecursion/RowFactorRun.lean"
+      },
+      {
+       "module": "CountedRecursion.RowPairRun",
+       "file": "eth/proof/rates/CountedRecursion/RowPairRun.lean"
+      },
+      {
+       "module": "CountedRecursion.RowWeightRun",
+       "file": "eth/proof/rates/CountedRecursion/RowWeightRun.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverCall",
+       "file": "eth/proof/rates/CountedRecursion/SolverCall.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverDefs",
+       "file": "eth/proof/rates/CountedRecursion/SolverDefs.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverPattern",
+       "file": "eth/proof/rates/CountedRecursion/SolverPattern.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverRoom",
+       "file": "eth/proof/rates/CountedRecursion/SolverRoom.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverStages",
+       "file": "eth/proof/rates/CountedRecursion/SolverStages.lean"
+      },
+      {
+       "module": "CountedRecursion.SolverStep",
+       "file": "eth/proof/rates/CountedRecursion/SolverStep.lean"
+      },
+      {
+       "module": "CountedRecursion.SquareGrid",
+       "file": "eth/proof/rates/CountedRecursion/SquareGrid.lean"
+      },
+      {
+       "module": "CountedRecursion.TotalCount",
+       "file": "eth/proof/rates/CountedRecursion/TotalCount.lean"
+      },
+      {
+       "module": "CountedRecursion.TotalRoom",
+       "file": "eth/proof/rates/CountedRecursion/TotalRoom.lean"
+      },
+      {
+       "module": "CountedRecursion.Totals",
+       "file": "eth/proof/rates/CountedRecursion/Totals.lean"
+      },
+      {
+       "module": "CountedRecursion.Within",
+       "file": "eth/proof/rates/CountedRecursion/Within.lean"
+      },
+      {
+       "module": "CountedRoute.Defs",
+       "file": "eth/proof/maintheorem/CountedRoute/Defs.lean"
+      },
+      {
+       "module": "CountedRoute.Main",
+       "file": "eth/proof/maintheorem/CountedRoute/Main.lean"
+      },
+      {
+       "module": "CountedToPadded.Compare",
+       "file": "eth/proof/rates/CountedToPadded/Compare.lean"
+      },
+      {
+       "module": "CountedToPadded.Defs",
+       "file": "eth/proof/rates/CountedToPadded/Defs.lean"
+      },
+      {
+       "module": "CountedToPadded.GenLevels",
+       "file": "eth/proof/rates/CountedToPadded/GenLevels.lean"
+      },
+      {
+       "module": "CountedToPadded.GenLevelsDefs",
+       "file": "eth/proof/rates/CountedToPadded/GenLevelsDefs.lean"
+      },
+      {
+       "module": "CountedToPadded.Levels",
+       "file": "eth/proof/rates/CountedToPadded/Levels.lean"
+      },
+      {
+       "module": "CountedToPadded.Main",
+       "file": "eth/proof/rates/CountedToPadded/Main.lean"
+      },
+      {
+       "module": "CountedToPadded.Need",
+       "file": "eth/proof/rates/CountedToPadded/Need.lean"
+      },
+      {
+       "module": "CountedToPadded.Pick",
+       "file": "eth/proof/rates/CountedToPadded/Pick.lean"
+      },
+      {
+       "module": "CountedToPadded.RunFor",
+       "file": "eth/proof/rates/CountedToPadded/RunFor.lean"
+      },
+      {
+       "module": "CountedToPadded.SolverPoly",
+       "file": "eth/proof/rates/CountedToPadded/SolverPoly.lean"
+      },
+      {
+       "module": "CountedToPadded.Tables",
+       "file": "eth/proof/rates/CountedToPadded/Tables.lean"
+      },
+      {
+       "module": "CountedToPadded.TablesValue",
+       "file": "eth/proof/rates/CountedToPadded/TablesValue.lean"
+      },
+      {
+       "module": "CountKSat.Defs",
+       "file": "eth/proof/consequences/CountKSat/Defs.lean"
+      },
+      {
+       "module": "CountKSat.Host",
+       "file": "eth/proof/consequences/CountKSat/Host.lean"
+      },
+      {
+       "module": "CountKSat.InOut",
+       "file": "eth/proof/consequences/CountKSat/InOut.lean"
+      },
+      {
+       "module": "CountKSat.Interfaces",
+       "file": "eth/proof/consequences/CountKSat/Interfaces.lean"
+      },
+      {
+       "module": "CountKSat.Poly",
+       "file": "eth/proof/consequences/CountKSat/Poly.lean"
+      },
+      {
+       "module": "CountKSat.ProgC",
+       "file": "eth/proof/consequences/CountKSat/ProgC.lean"
+      },
+      {
+       "module": "CountKSat.StepCount",
+       "file": "eth/proof/consequences/CountKSat/StepCount.lean"
+      },
+      {
+       "module": "CountKSat.Top.Count",
+       "file": "eth/proof/consequences/CountKSat/Top/Count.lean"
+      },
+      {
+       "module": "CountKSat.Value",
+       "file": "eth/proof/consequences/CountKSat/Value.lean"
+      },
+      {
+       "module": "CountKSat.Walk",
+       "file": "eth/proof/consequences/CountKSat/Walk.lean"
+      },
+      {
+       "module": "CountKSatRate.Brute",
+       "file": "eth/proof/consequences/CountKSatRate/Brute.lean"
+      },
+      {
+       "module": "CountKSatRate.Cert",
+       "file": "eth/proof/consequences/CountKSatRate/Cert.lean"
+      },
+      {
+       "module": "CountKSatRate.Defs",
+       "file": "eth/proof/consequences/CountKSatRate/Defs.lean"
+      },
+      {
+       "module": "CountKSatRate.Interfaces",
+       "file": "eth/proof/consequences/CountKSatRate/Interfaces.lean"
+      },
+      {
+       "module": "CountKSatRate.Leaf",
+       "file": "eth/proof/consequences/CountKSatRate/Leaf.lean"
+      },
+      {
+       "module": "CountKSatRate.Pad",
+       "file": "eth/proof/consequences/CountKSatRate/Pad.lean"
+      },
+      {
+       "module": "CountKSatRate.Stack",
+       "file": "eth/proof/consequences/CountKSatRate/Stack.lean"
+      },
+      {
+       "module": "CountKSatRate.Top",
+       "file": "eth/proof/consequences/CountKSatRate/Top.lean"
+      },
+      {
+       "module": "CountKSatRate.Tree",
+       "file": "eth/proof/consequences/CountKSatRate/Tree.lean"
+      },
+      {
+       "module": "CountKSatRate.Walk",
+       "file": "eth/proof/consequences/CountKSatRate/Walk.lean"
+      },
+      {
+       "module": "CountKSatStatement",
+       "file": "eth/proof/statements/CountKSatStatement.lean"
+      },
+      {
+       "module": "Eight.Level.Arith",
+       "file": "eth/proof/networks/Eight/Level/Arith.lean"
+      },
+      {
+       "module": "Eight.Level.Cert",
+       "file": "eth/proof/networks/Eight/Level/Cert.lean"
+      },
+      {
+       "module": "Eight.Level.Defs",
+       "file": "eth/proof/networks/Eight/Level/Defs.lean"
+      },
+      {
+       "module": "Eight.Level.End",
+       "file": "eth/proof/networks/Eight/Level/End.lean"
+      },
+      {
+       "module": "Eight.Level.Min",
+       "file": "eth/proof/networks/Eight/Level/Min.lean"
+      },
+      {
+       "module": "Eight.Level.Pieces",
+       "file": "eth/proof/networks/Eight/Level/Pieces.lean"
+      },
+      {
+       "module": "Eight.Level.Presents",
+       "file": "eth/proof/networks/Eight/Level/Presents.lean"
+      },
+      {
+       "module": "Eight.Level.SecPseudocode",
+       "file": "eth/proof/networks/Eight/Level/SecPseudocode.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_Blocks",
+       "file": "eth/proof/networks/Eight/SecCrossing_Blocks.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_Cert",
+       "file": "eth/proof/networks/Eight/SecCrossing_Cert.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_Chunk",
+       "file": "eth/proof/networks/Eight/SecCrossing_Chunk.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_Fact",
+       "file": "eth/proof/networks/Eight/SecCrossing_Fact.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_FactDefs",
+       "file": "eth/proof/networks/Eight/SecCrossing_FactDefs.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_Identity",
+       "file": "eth/proof/networks/Eight/SecCrossing_Identity.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_LemPieces",
+       "file": "eth/proof/networks/Eight/SecCrossing_LemPieces.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_MulOut",
+       "file": "eth/proof/networks/Eight/SecCrossing_MulOut.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_PiecesAC",
+       "file": "eth/proof/networks/Eight/SecCrossing_PiecesAC.lean"
+      },
+      {
+       "module": "Eight.SecCrossing_PolyDefs",
+       "file": "eth/proof/networks/Eight/SecCrossing_PolyDefs.lean"
+      },
+      {
+       "module": "Eight.SecLevel_EStar",
+       "file": "eth/proof/networks/Eight/SecLevel_EStar.lean"
+      },
+      {
+       "module": "Eight.SecLevel_Grid",
+       "file": "eth/proof/networks/Eight/SecLevel_Grid.lean"
+      },
+      {
+       "module": "Eight.SecLevel_GridDefs",
+       "file": "eth/proof/networks/Eight/SecLevel_GridDefs.lean"
+      },
+      {
+       "module": "Eight.SecLevel_GridWords",
+       "file": "eth/proof/networks/Eight/SecLevel_GridWords.lean"
+      },
+      {
+       "module": "Eight.SecNetworks_Clique",
+       "file": "eth/proof/networks/Eight/SecNetworks_Clique.lean"
+      },
+      {
+       "module": "Eight.SecNetworks_Defs",
+       "file": "eth/proof/networks/Eight/SecNetworks_Defs.lean"
+      },
+      {
+       "module": "Eight.SecNetworks_Grouping",
+       "file": "eth/proof/networks/Eight/SecNetworks_Grouping.lean"
+      },
+      {
+       "module": "Eight.SecNetworks_LemGrouping",
+       "file": "eth/proof/networks/Eight/SecNetworks_LemGrouping.lean"
+      },
+      {
+       "module": "Eight.SecNetworks_Tables",
+       "file": "eth/proof/networks/Eight/SecNetworks_Tables.lean"
+      },
+      {
+       "module": "Eight.SecProof_Network",
+       "file": "eth/proof/networks/Eight/SecProof_Network.lean"
+      },
+      {
+       "module": "Eight.SecProof_NetworkDefs",
+       "file": "eth/proof/networks/Eight/SecProof_NetworkDefs.lean"
+      },
+      {
+       "module": "Eight.SecProof_Proof",
+       "file": "eth/proof/networks/Eight/SecProof_Proof.lean"
+      },
+      {
+       "module": "Eight.SecPseudocode_Levels",
+       "file": "eth/proof/networks/Eight/SecPseudocode_Levels.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.AlgDefs",
+       "file": "eth/proof/networks/Eight/ViaGrouping/AlgDefs.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.Defs",
+       "file": "eth/proof/networks/Eight/ViaGrouping/Defs.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.Display",
+       "file": "eth/proof/networks/Eight/ViaGrouping/Display.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.GridPsiDefs",
+       "file": "eth/proof/networks/Eight/ViaGrouping/GridPsiDefs.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.LevelDefs",
+       "file": "eth/proof/networks/Eight/ViaGrouping/LevelDefs.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.Main",
+       "file": "eth/proof/networks/Eight/ViaGrouping/Main.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.SatPsiDefs",
+       "file": "eth/proof/networks/Eight/ViaGrouping/SatPsiDefs.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.Search",
+       "file": "eth/proof/networks/Eight/ViaGrouping/Search.lean"
+      },
+      {
+       "module": "Eight.ViaGrouping.Table",
+       "file": "eth/proof/networks/Eight/ViaGrouping/Table.lean"
+      },
+      {
+       "module": "EightSquareStatement",
+       "file": "eth/proof/statements/EightSquareStatement.lean"
+      },
+      {
+       "module": "Enumerate.Defs",
+       "file": "eth/proof/threesat/Enumerate/Defs.lean"
+      },
+      {
+       "module": "Exits.AlgDefs",
+       "file": "eth/proof/threesat/Exits/AlgDefs.lean"
+      },
+      {
+       "module": "Exits.Defs",
+       "file": "eth/proof/threesat/Exits/Defs.lean"
+      },
+      {
+       "module": "Exits.Poly",
+       "file": "eth/proof/threesat/Exits/Poly.lean"
+      },
+      {
+       "module": "Exits.Runs",
+       "file": "eth/proof/threesat/Exits/Runs.lean"
+      },
+      {
+       "module": "Exits.Tested",
+       "file": "eth/proof/threesat/Exits/Tested.lean"
+      },
+      {
+       "module": "ExplicitCost.Cost",
+       "file": "eth/proof/rates/ExplicitCost/Cost.lean"
+      },
+      {
+       "module": "ExplicitCost.EntryDefs",
+       "file": "eth/proof/rates/ExplicitCost/EntryDefs.lean"
+      },
+      {
+       "module": "ExplicitCost.GroupingCall",
+       "file": "eth/proof/rates/ExplicitCost/GroupingCall.lean"
+      },
+      {
+       "module": "ExplicitCost.GroupingDefs",
+       "file": "eth/proof/rates/ExplicitCost/GroupingDefs.lean"
+      },
+      {
+       "module": "ExplicitCost.GroupingNumbers",
+       "file": "eth/proof/rates/ExplicitCost/GroupingNumbers.lean"
+      },
+      {
+       "module": "ExplicitCost.GroupingPoly",
+       "file": "eth/proof/rates/ExplicitCost/GroupingPoly.lean"
+      },
+      {
+       "module": "ExplicitCost.GroupingSearch",
+       "file": "eth/proof/rates/ExplicitCost/GroupingSearch.lean"
+      },
+      {
+       "module": "ExplicitCost.Mirror",
+       "file": "eth/proof/rates/ExplicitCost/Mirror.lean"
+      },
+      {
+       "module": "ExplicitCost.Poly",
+       "file": "eth/proof/rates/ExplicitCost/Poly.lean"
+      },
+      {
+       "module": "ExplicitCost.SameRuns",
+       "file": "eth/proof/rates/ExplicitCost/SameRuns.lean"
+      },
+      {
+       "module": "FixedWidthVariableBoundStatement",
+       "file": "eth/proof/statements/FixedWidthVariableBoundStatement.lean"
+      },
+      {
+       "module": "GeneralPieces.DefGenPieces.Conv",
+       "file": "eth/proof/rates/GeneralPieces/DefGenPieces/Conv.lean"
+      },
+      {
+       "module": "GeneralPieces.DefGenPieces.MayAssume",
+       "file": "eth/proof/rates/GeneralPieces/DefGenPieces/MayAssume.lean"
+      },
+      {
+       "module": "GeneralPieces.DefGenPieces.Progs",
+       "file": "eth/proof/rates/GeneralPieces/DefGenPieces/Progs.lean"
+      },
+      {
+       "module": "GeneralPieces.DefGenPieces.ToPure",
+       "file": "eth/proof/rates/GeneralPieces/DefGenPieces/ToPure.lean"
+      },
+      {
+       "module": "GeneralPieces.Defs",
+       "file": "eth/proof/rates/GeneralPieces/Defs.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Assemble",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Assemble.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Borel",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Borel.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Bra",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Bra.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Coeff",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Coeff.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Commute",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Commute.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.DDComm",
+       "file": "eth/proof/rates/GeneralPieces/GenF/DDComm.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Defs",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Defs.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Exp",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Exp.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Hahn",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Hahn.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Kappa",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Kappa.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Main",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Main.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Normal",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Normal.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.NormalL",
+       "file": "eth/proof/rates/GeneralPieces/GenF/NormalL.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.PDeriv",
+       "file": "eth/proof/rates/GeneralPieces/GenF/PDeriv.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Products",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Products.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Taylor",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Taylor.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Y",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Y.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.Y2",
+       "file": "eth/proof/rates/GeneralPieces/GenF/Y2.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.YMain",
+       "file": "eth/proof/rates/GeneralPieces/GenF/YMain.lean"
+      },
+      {
+       "module": "GeneralPieces.GenF.YY",
+       "file": "eth/proof/rates/GeneralPieces/GenF/YY.lean"
+      },
+      {
+       "module": "GeneralPieces.Group.Calls",
+       "file": "eth/proof/rates/GeneralPieces/Group/Calls.lean"
+      },
+      {
+       "module": "GeneralPieces.Group.CaseI",
+       "file": "eth/proof/rates/GeneralPieces/Group/CaseI.lean"
+      },
+      {
+       "module": "GeneralPieces.Group.CaseII",
+       "file": "eth/proof/rates/GeneralPieces/Group/CaseII.lean"
+      },
+      {
+       "module": "GeneralPieces.Group.Lemma",
+       "file": "eth/proof/rates/GeneralPieces/Group/Lemma.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.Consts",
+       "file": "eth/proof/rates/GeneralPieces/Half/Consts.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.List",
+       "file": "eth/proof/rates/GeneralPieces/Half/List.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.Main",
+       "file": "eth/proof/rates/GeneralPieces/Half/Main.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.Order",
+       "file": "eth/proof/rates/GeneralPieces/Half/Order.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.Size",
+       "file": "eth/proof/rates/GeneralPieces/Half/Size.lean"
+      },
+      {
+       "module": "GeneralPieces.Half.Spec",
+       "file": "eth/proof/rates/GeneralPieces/Half/Spec.lean"
+      },
+      {
+       "module": "GeneralPieces.Main",
+       "file": "eth/proof/rates/GeneralPieces/Main.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.Asymptotic",
+       "file": "eth/proof/rates/GeneralPieces/Num/Asymptotic.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.Between",
+       "file": "eth/proof/rates/GeneralPieces/Num/Between.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.PartA",
+       "file": "eth/proof/rates/GeneralPieces/Num/PartA.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.PartAUse",
+       "file": "eth/proof/rates/GeneralPieces/Num/PartAUse.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.PartD",
+       "file": "eth/proof/rates/GeneralPieces/Num/PartD.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.Remarks",
+       "file": "eth/proof/rates/GeneralPieces/Num/Remarks.lean"
+      },
+      {
+       "module": "GeneralPieces.Num.TopDisplay",
+       "file": "eth/proof/rates/GeneralPieces/Num/TopDisplay.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Chain",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Chain.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Count",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Count.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Descend",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Descend.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Level",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Level.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.PartB",
+       "file": "eth/proof/rates/GeneralPieces/Rec/PartB.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Rate",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Rate.lean"
+      },
+      {
+       "module": "GeneralPieces.Rec.Seq",
+       "file": "eth/proof/rates/GeneralPieces/Rec/Seq.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Basic",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Basic.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Bits",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Bits.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Bridge",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Bridge.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Defs",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Defs.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Dual",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Dual.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.LemmaQ",
+       "file": "eth/proof/rates/GeneralPieces/Ring/LemmaQ.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Lex",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Lex.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Op",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Op.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.OpFacts",
+       "file": "eth/proof/rates/GeneralPieces/Ring/OpFacts.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Pieces",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Pieces.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.Sizes",
+       "file": "eth/proof/rates/GeneralPieces/Ring/Sizes.lean"
+      },
+      {
+       "module": "GeneralPieces.Ring.ThmHalfPieces",
+       "file": "eth/proof/rates/GeneralPieces/Ring/ThmHalfPieces.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.Constant",
+       "file": "eth/proof/rates/GeneralPieces/Series/Constant.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.Deriv",
+       "file": "eth/proof/rates/GeneralPieces/Series/Deriv.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.Expansion",
+       "file": "eth/proof/rates/GeneralPieces/Series/Expansion.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.LemmaQ",
+       "file": "eth/proof/rates/GeneralPieces/Series/LemmaQ.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.OneLaurent",
+       "file": "eth/proof/rates/GeneralPieces/Series/OneLaurent.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.ReadOff",
+       "file": "eth/proof/rates/GeneralPieces/Series/ReadOff.lean"
+      },
+      {
+       "module": "GeneralPieces.Series.Rings",
+       "file": "eth/proof/rates/GeneralPieces/Series/Rings.lean"
+      },
+      {
+       "module": "GeneralPieces.ThmRunningTime",
+       "file": "eth/proof/rates/GeneralPieces/ThmRunningTime.lean"
+      },
+      {
+       "module": "GeneralPieces.Tied.Bound",
+       "file": "eth/proof/rates/GeneralPieces/Tied/Bound.lean"
+      },
+      {
+       "module": "GeneralPieces.Tied.BoundDefs",
+       "file": "eth/proof/rates/GeneralPieces/Tied/BoundDefs.lean"
+      },
+      {
+       "module": "GeneralPieces.Tied.Defs",
+       "file": "eth/proof/rates/GeneralPieces/Tied/Defs.lean"
+      },
+      {
+       "module": "GeneralPieces.Top.CaseI",
+       "file": "eth/proof/rates/GeneralPieces/Top/CaseI.lean"
+      },
+      {
+       "module": "GeneralPieces.Top.EndM",
+       "file": "eth/proof/rates/GeneralPieces/Top/EndM.lean"
+      },
+      {
+       "module": "GeneralPieces.Trim.Cert",
+       "file": "eth/proof/rates/GeneralPieces/Trim/Cert.lean"
+      },
+      {
+       "module": "GeneralPieces.Trim.Prog",
+       "file": "eth/proof/rates/GeneralPieces/Trim/Prog.lean"
+      },
+      {
+       "module": "Groundwork.Cross.Bit",
+       "file": "eth/proof/networks/Groundwork/Cross/Bit.lean"
+      },
+      {
+       "module": "Groundwork.Cross.Cuts",
+       "file": "eth/proof/networks/Groundwork/Cross/Cuts.lean"
+      },
+      {
+       "module": "Groundwork.Grid.Defs",
+       "file": "eth/proof/networks/Groundwork/Grid/Defs.lean"
+      },
+      {
+       "module": "Groundwork.Grid.Expand",
+       "file": "eth/proof/networks/Groundwork/Grid/Expand.lean"
+      },
+      {
+       "module": "Groundwork.Grid.Grid",
+       "file": "eth/proof/networks/Groundwork/Grid/Grid.lean"
+      },
+      {
+       "module": "Groundwork.Grid.RowNet",
+       "file": "eth/proof/networks/Groundwork/Grid/RowNet.lean"
+      },
+      {
+       "module": "Groundwork.Grid.Size",
+       "file": "eth/proof/networks/Groundwork/Grid/Size.lean"
+      },
+      {
+       "module": "Groundwork.Net.Calculus",
+       "file": "eth/proof/networks/Groundwork/Net/Calculus.lean"
+      },
+      {
+       "module": "Groundwork.Net.Colouring",
+       "file": "eth/proof/networks/Groundwork/Net/Colouring.lean"
+      },
+      {
+       "module": "Groundwork.Net.ColouringNet",
+       "file": "eth/proof/networks/Groundwork/Net/ColouringNet.lean"
+      },
+      {
+       "module": "Groundwork.Net.Defs",
+       "file": "eth/proof/networks/Groundwork/Net/Defs.lean"
+      },
+      {
+       "module": "Groundwork.Net.Net",
+       "file": "eth/proof/networks/Groundwork/Net/Net.lean"
+      },
+      {
+       "module": "KSatStatement",
+       "file": "eth/proof/statements/KSatStatement.lean"
+      },
+      {
+       "module": "LevelsStatement",
+       "file": "eth/proof/statements/LevelsStatement.lean"
+      },
+      {
+       "module": "MainResults",
+       "file": "eth/MainResults.lean"
+      },
+      {
+       "module": "MainRoute.Defs",
+       "file": "eth/proof/maintheorem/MainRoute/Defs.lean"
+      },
+      {
+       "module": "MainRoute.EveryMachine",
+       "file": "eth/proof/maintheorem/MainRoute/EveryMachine.lean"
+      },
+      {
+       "module": "MainRoute.General",
+       "file": "eth/proof/maintheorem/MainRoute/General.lean"
+      },
+      {
+       "module": "MainRoute.GeneralDefs",
+       "file": "eth/proof/maintheorem/MainRoute/GeneralDefs.lean"
+      },
+      {
+       "module": "MainRoute.GeneralInM",
+       "file": "eth/proof/maintheorem/MainRoute/GeneralInM.lean"
+      },
+      {
+       "module": "MainRoute.GeneralMain",
+       "file": "eth/proof/maintheorem/MainRoute/GeneralMain.lean"
+      },
+      {
+       "module": "MainTheoremFormsStatement",
+       "file": "eth/proof/statements/MainTheoremFormsStatement.lean"
+      },
+      {
+       "module": "MinOfBounds.Arith",
+       "file": "eth/proof/maintheorem/MinOfBounds/Arith.lean"
+      },
+      {
+       "module": "MinOfBounds.Defs",
+       "file": "eth/proof/maintheorem/MinOfBounds/Defs.lean"
+      },
+      {
+       "module": "MinOfBounds.Main",
+       "file": "eth/proof/maintheorem/MinOfBounds/Main.lean"
+      },
+      {
+       "module": "MinOfBounds.Rename",
+       "file": "eth/proof/maintheorem/MinOfBounds/Rename.lean"
+      },
+      {
+       "module": "NamesInOrder.Arith",
+       "file": "eth/proof/maintheorem/NamesInOrder/Arith.lean"
+      },
+      {
+       "module": "NamesInOrder.Chain",
+       "file": "eth/proof/maintheorem/NamesInOrder/Chain.lean"
+      },
+      {
+       "module": "NamesInOrder.Defs",
+       "file": "eth/proof/maintheorem/NamesInOrder/Defs.lean"
+      },
+      {
+       "module": "NamesInOrder.General",
+       "file": "eth/proof/maintheorem/NamesInOrder/General.lean"
+      },
+      {
+       "module": "NamesInOrder.Main",
+       "file": "eth/proof/maintheorem/NamesInOrder/Main.lean"
+      },
+      {
+       "module": "NetworkStatements",
+       "file": "eth/proof/statements/NetworkStatements.lean"
+      },
+      {
+       "module": "PaddedDescent.BrutePad",
+       "file": "eth/proof/rates/PaddedDescent/BrutePad.lean"
+      },
+      {
+       "module": "PaddedDescent.Choice",
+       "file": "eth/proof/rates/PaddedDescent/Choice.lean"
+      },
+      {
+       "module": "PaddedDescent.Col.CertG",
+       "file": "eth/proof/rates/PaddedDescent/Col/CertG.lean"
+      },
+      {
+       "module": "PaddedDescent.Col.Colouring",
+       "file": "eth/proof/rates/PaddedDescent/Col/Colouring.lean"
+      },
+      {
+       "module": "PaddedDescent.Col.Good",
+       "file": "eth/proof/rates/PaddedDescent/Col/Good.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithA",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithA.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithCol",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithCol.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithFits",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithFits.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithGlob",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithGlob.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithInv",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithInv.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithLevel",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithLevel.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithMark",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithMark.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithSched",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithSched.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithStack",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithStack.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithTop",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithTop.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithTopInv",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithTopInv.lean"
+      },
+      {
+       "module": "PaddedDescent.F.ArithWalk",
+       "file": "eth/proof/rates/PaddedDescent/F/ArithWalk.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertA",
+       "file": "eth/proof/rates/PaddedDescent/F/CertA.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertEval",
+       "file": "eth/proof/rates/PaddedDescent/F/CertEval.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertGrid",
+       "file": "eth/proof/rates/PaddedDescent/F/CertGrid.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertMark",
+       "file": "eth/proof/rates/PaddedDescent/F/CertMark.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertNet",
+       "file": "eth/proof/rates/PaddedDescent/F/CertNet.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertSide",
+       "file": "eth/proof/rates/PaddedDescent/F/CertSide.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertSparsify",
+       "file": "eth/proof/rates/PaddedDescent/F/CertSparsify.lean"
+      },
+      {
+       "module": "PaddedDescent.F.CertTop",
+       "file": "eth/proof/rates/PaddedDescent/F/CertTop.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Data",
+       "file": "eth/proof/rates/PaddedDescent/F/Data.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Descend",
+       "file": "eth/proof/rates/PaddedDescent/F/Descend.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Eval",
+       "file": "eth/proof/rates/PaddedDescent/F/Eval.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Expand",
+       "file": "eth/proof/rates/PaddedDescent/F/Expand.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Fuel",
+       "file": "eth/proof/rates/PaddedDescent/F/Fuel.lean"
+      },
+      {
+       "module": "PaddedDescent.F.FuelCert",
+       "file": "eth/proof/rates/PaddedDescent/F/FuelCert.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Interfaces",
+       "file": "eth/proof/rates/PaddedDescent/F/Interfaces.lean"
+      },
+      {
+       "module": "PaddedDescent.F.LenList",
+       "file": "eth/proof/rates/PaddedDescent/F/LenList.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkCode",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkCode.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkDeg",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkDeg.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkLayers",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkLayers.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkMath",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkMath.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkNet",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkNet.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkPi",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkPi.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkProf",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkProf.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkSize",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkSize.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkSum",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkSum.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkSums",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkSums.lean"
+      },
+      {
+       "module": "PaddedDescent.F.MarkVal",
+       "file": "eth/proof/rates/PaddedDescent/F/MarkVal.lean"
+      },
+      {
+       "module": "PaddedDescent.F.NSat",
+       "file": "eth/proof/rates/PaddedDescent/F/NSat.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Price",
+       "file": "eth/proof/rates/PaddedDescent/F/Price.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Prog",
+       "file": "eth/proof/rates/PaddedDescent/F/Prog.lean"
+      },
+      {
+       "module": "PaddedDescent.F.RebalF",
+       "file": "eth/proof/rates/PaddedDescent/F/RebalF.lean"
+      },
+      {
+       "module": "PaddedDescent.F.RebalG",
+       "file": "eth/proof/rates/PaddedDescent/F/RebalG.lean"
+      },
+      {
+       "module": "PaddedDescent.F.SideF",
+       "file": "eth/proof/rates/PaddedDescent/F/SideF.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Table",
+       "file": "eth/proof/rates/PaddedDescent/F/Table.lean"
+      },
+      {
+       "module": "PaddedDescent.F.Top",
+       "file": "eth/proof/rates/PaddedDescent/F/Top.lean"
+      },
+      {
+       "module": "PaddedDescent.Host",
+       "file": "eth/proof/rates/PaddedDescent/Host.lean"
+      },
+      {
+       "module": "PaddedDescent.Main",
+       "file": "eth/proof/rates/PaddedDescent/Main.lean"
+      },
+      {
+       "module": "PaddedDescent.Pad",
+       "file": "eth/proof/rates/PaddedDescent/Pad.lean"
+      },
+      {
+       "module": "PaddedDescent.PadRate",
+       "file": "eth/proof/rates/PaddedDescent/PadRate.lean"
+      },
+      {
+       "module": "PaddedDescent.Params",
+       "file": "eth/proof/rates/PaddedDescent/Params.lean"
+      },
+      {
+       "module": "PaddedDescent.RateLemmas",
+       "file": "eth/proof/rates/PaddedDescent/RateLemmas.lean"
+      },
+      {
+       "module": "PaddedDescent.Reduce",
+       "file": "eth/proof/rates/PaddedDescent/Reduce.lean"
+      },
+      {
+       "module": "PaddedDescent.Seq",
+       "file": "eth/proof/rates/PaddedDescent/Seq.lean"
+      },
+      {
+       "module": "PaddedDescent.Threshold",
+       "file": "eth/proof/rates/PaddedDescent/Threshold.lean"
+      },
+      {
+       "module": "PairsToBound.Arith",
+       "file": "eth/proof/variables/PairsToBound/Arith.lean"
+      },
+      {
+       "module": "PairsToBound.Defs",
+       "file": "eth/proof/variables/PairsToBound/Defs.lean"
+      },
+      {
+       "module": "PairsToBound.Exhaust",
+       "file": "eth/proof/variables/PairsToBound/Exhaust.lean"
+      },
+      {
+       "module": "PairsToBound.FrontEnd",
+       "file": "eth/proof/variables/PairsToBound/FrontEnd.lean"
+      },
+      {
+       "module": "PairsToBound.Main",
+       "file": "eth/proof/variables/PairsToBound/Main.lean"
+      },
+      {
+       "module": "PairsToBound.Pairs",
+       "file": "eth/proof/variables/PairsToBound/Pairs.lean"
+      },
+      {
+       "module": "PairsToBound.Width",
+       "file": "eth/proof/variables/PairsToBound/Width.lean"
+      },
+      {
+       "module": "Paper.SecCrossing_Crossing",
+       "file": "eth/proof/networks/Paper/SecCrossing_Crossing.lean"
+      },
+      {
+       "module": "Paper.SecLevel_Grid",
+       "file": "eth/proof/networks/Paper/SecLevel_Grid.lean"
+      },
+      {
+       "module": "Paper.SecLevel_Recursion",
+       "file": "eth/proof/networks/Paper/SecLevel_Recursion.lean"
+      },
+      {
+       "module": "Paper.SecNetworks_DefFactor",
+       "file": "eth/proof/networks/Paper/SecNetworks_DefFactor.lean"
+      },
+      {
+       "module": "Paper.SecNetworks_Model",
+       "file": "eth/proof/networks/Paper/SecNetworks_Model.lean"
+      },
+      {
+       "module": "Paper.SecNetworks_Networks",
+       "file": "eth/proof/networks/Paper/SecNetworks_Networks.lean"
+      },
+      {
+       "module": "Paper.SecProof_Proof",
+       "file": "eth/proof/networks/Paper/SecProof_Proof.lean"
+      },
+      {
+       "module": "Paper.SecPseudocode_Algorithm",
+       "file": "eth/proof/networks/Paper/SecPseudocode_Algorithm.lean"
+      },
+      {
+       "module": "PaperSentencesStatement",
+       "file": "eth/proof/statements/PaperSentencesStatement.lean"
+      },
+      {
+       "module": "ParityChecksStatement",
+       "file": "eth/proof/statements/ParityChecksStatement.lean"
+      },
+      {
+       "module": "PartitionStatement",
+       "file": "eth/proof/statements/PartitionStatement.lean"
+      },
+      {
+       "module": "PiecesCounted.Assume",
+       "file": "eth/proof/rates/PiecesCounted/Assume.lean"
+      },
+      {
+       "module": "PiecesCounted.Basic",
+       "file": "eth/proof/rates/PiecesCounted/Basic.lean"
+      },
+      {
+       "module": "PiecesCounted.Half",
+       "file": "eth/proof/rates/PiecesCounted/Half.lean"
+      },
+      {
+       "module": "PiecesCounted.Oracle",
+       "file": "eth/proof/rates/PiecesCounted/Oracle.lean"
+      },
+      {
+       "module": "PiecesCounted.Padded",
+       "file": "eth/proof/rates/PiecesCounted/Padded.lean"
+      },
+      {
+       "module": "PiecesCounted.PaddedData",
+       "file": "eth/proof/rates/PiecesCounted/PaddedData.lean"
+      },
+      {
+       "module": "PiecesCounted.PadThen",
+       "file": "eth/proof/rates/PiecesCounted/PadThen.lean"
+      },
+      {
+       "module": "PiecesCounted.Sizes",
+       "file": "eth/proof/rates/PiecesCounted/Sizes.lean"
+      },
+      {
+       "module": "PiecesCounted.Trimmed",
+       "file": "eth/proof/rates/PiecesCounted/Trimmed.lean"
+      },
+      {
+       "module": "PiecesCountedStatement",
+       "file": "eth/proof/statements/PiecesCountedStatement.lean"
+      },
+      {
+       "module": "PiecesFromEightSquaresStatement",
+       "file": "eth/proof/statements/PiecesFromEightSquaresStatement.lean"
+      },
+      {
+       "module": "PiecesStatement",
+       "file": "eth/proof/statements/PiecesStatement.lean"
+      },
+      {
+       "module": "Printed.Absorb",
+       "file": "eth/proof/threesat/Printed/Absorb.lean"
+      },
+      {
+       "module": "Printed.Achievable",
+       "file": "eth/proof/threesat/Printed/Achievable.lean"
+      },
+      {
+       "module": "Printed.Close",
+       "file": "eth/proof/threesat/Printed/Close.lean"
+      },
+      {
+       "module": "Printed.Coding",
+       "file": "eth/proof/threesat/Printed/Coding.lean"
+      },
+      {
+       "module": "Printed.CodingDefs",
+       "file": "eth/proof/threesat/Printed/CodingDefs.lean"
+      },
+      {
+       "module": "Printed.GroupingEntry",
+       "file": "eth/proof/threesat/Printed/GroupingEntry.lean"
+      },
+      {
+       "module": "Printed.GroupingProcs",
+       "file": "eth/proof/threesat/Printed/GroupingProcs.lean"
+      },
+      {
+       "module": "Printed.GroupingRun",
+       "file": "eth/proof/threesat/Printed/GroupingRun.lean"
+      },
+      {
+       "module": "Printed.HandOver",
+       "file": "eth/proof/threesat/Printed/HandOver.lean"
+      },
+      {
+       "module": "Printed.Programs",
+       "file": "eth/proof/threesat/Printed/Programs.lean"
+      },
+      {
+       "module": "PrintedStatement",
+       "file": "eth/proof/statements/PrintedStatement.lean"
+      },
+      {
+       "module": "QueryMachines.Comb",
+       "file": "eth/proof/machines/QueryMachines/Comb.lean"
+      },
+      {
+       "module": "QueryMachines.CombDefs",
+       "file": "eth/proof/machines/QueryMachines/CombDefs.lean"
+      },
+      {
+       "module": "QueryMachines.CombRuns",
+       "file": "eth/proof/machines/QueryMachines/CombRuns.lean"
+      },
+      {
+       "module": "QueryMachines.CombRunsStatement",
+       "file": "eth/proof/machines/QueryMachines/CombRunsStatement.lean"
+      },
+      {
+       "module": "QueryMachines.Kernel",
+       "file": "eth/proof/machines/QueryMachines/Kernel.lean"
+      },
+      {
+       "module": "QueryMachines.Poly",
+       "file": "eth/proof/machines/QueryMachines/Poly.lean"
+      },
+      {
+       "module": "QueryMachines.Runs",
+       "file": "eth/proof/machines/QueryMachines/Runs.lean"
+      },
+      {
+       "module": "RecursionToBound.Cert.Exponent",
+       "file": "eth/proof/variables/RecursionToBound/Cert/Exponent.lean"
+      },
+      {
+       "module": "RecursionToBound.Cert.Numbers",
+       "file": "eth/proof/variables/RecursionToBound/Cert/Numbers.lean"
+      },
+      {
+       "module": "RecursionToBound.Cert.Thresholds",
+       "file": "eth/proof/variables/RecursionToBound/Cert/Thresholds.lean"
+      },
+      {
+       "module": "RecursionToBound.Cert.Top",
+       "file": "eth/proof/variables/RecursionToBound/Cert/Top.lean"
+      },
+      {
+       "module": "RecursionToBound.Correct",
+       "file": "eth/proof/variables/RecursionToBound/Correct.lean"
+      },
+      {
+       "module": "RecursionToBound.Defs",
+       "file": "eth/proof/variables/RecursionToBound/Defs.lean"
+      },
+      {
+       "module": "RecursionToBound.End",
+       "file": "eth/proof/variables/RecursionToBound/End.lean"
+      },
+      {
+       "module": "RecursionToBound.Exponent",
+       "file": "eth/proof/variables/RecursionToBound/Exponent.lean"
+      },
+      {
+       "module": "RecursionToBound.Guard",
+       "file": "eth/proof/variables/RecursionToBound/Guard.lean"
+      },
+      {
+       "module": "RecursionToBound.Main",
+       "file": "eth/proof/variables/RecursionToBound/Main.lean"
+      },
+      {
+       "module": "RecursionToBound.Numbers",
+       "file": "eth/proof/variables/RecursionToBound/Numbers.lean"
+      },
+      {
+       "module": "RecursionToBound.OneOutput",
+       "file": "eth/proof/variables/RecursionToBound/OneOutput.lean"
+      },
+      {
+       "module": "RecursionToBound.Tree",
+       "file": "eth/proof/variables/RecursionToBound/Tree.lean"
+      },
+      {
+       "module": "RecursionWithPieces.Defs",
+       "file": "eth/proof/variables/RecursionWithPieces/Defs.lean"
+      },
+      {
+       "module": "RecursionWithPieces.Main",
+       "file": "eth/proof/variables/RecursionWithPieces/Main.lean"
+      },
+      {
+       "module": "RecursionWithPieces.Master",
+       "file": "eth/proof/variables/RecursionWithPieces/Master.lean"
+      },
+      {
+       "module": "SingleBitPieces.Level.Arith",
+       "file": "eth/proof/networks/SingleBitPieces/Level/Arith.lean"
+      },
+      {
+       "module": "SingleBitPieces.Level.Pieces",
+       "file": "eth/proof/networks/SingleBitPieces/Level/Pieces.lean"
+      },
+      {
+       "module": "SingleBitPieces.Level.Presents",
+       "file": "eth/proof/networks/SingleBitPieces/Level/Presents.lean"
+      },
+      {
+       "module": "SingleBitPieces.SecCrossing_PolyA",
+       "file": "eth/proof/networks/SingleBitPieces/SecCrossing_PolyA.lean"
+      },
+      {
+       "module": "SingleBitPieces.SecNetworks_LemGrouping",
+       "file": "eth/proof/networks/SingleBitPieces/SecNetworks_LemGrouping.lean"
+      },
+      {
+       "module": "SingleBitPieces.SecProof_Cost",
+       "file": "eth/proof/networks/SingleBitPieces/SecProof_Cost.lean"
+      },
+      {
+       "module": "SingleBitPieces.SecPseudocode_Levels",
+       "file": "eth/proof/networks/SingleBitPieces/SecPseudocode_Levels.lean"
+      },
+      {
+       "module": "Solution",
+       "file": "eth/Solution.lean"
+      },
+      {
+       "module": "SparsificationLemma.Bound",
+       "file": "eth/proof/sparsification/SparsificationLemma/Bound.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Alpha",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Alpha.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Beta",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Beta.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Defs",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Defs.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Facts",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Facts.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Main",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Main.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Real",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Real.lean"
+      },
+      {
+       "module": "SparsificationLemma.Cal.Thr",
+       "file": "eth/proof/sparsification/SparsificationLemma/Cal/Thr.lean"
+      },
+      {
+       "module": "SparsificationLemma.Defs",
+       "file": "eth/proof/sparsification/SparsificationLemma/Defs.lean"
+      },
+      {
+       "module": "SparsificationLemma.Gen",
+       "file": "eth/proof/sparsification/SparsificationLemma/Gen.lean"
+      },
+      {
+       "module": "SparsificationLemma.Geo.Defs",
+       "file": "eth/proof/sparsification/SparsificationLemma/Geo/Defs.lean"
+      },
+      {
+       "module": "SparsificationLemma.Iface",
+       "file": "eth/proof/sparsification/SparsificationLemma/Iface.lean"
+      },
+      {
+       "module": "SparsificationLemma.Len",
+       "file": "eth/proof/sparsification/SparsificationLemma/Len.lean"
+      },
+      {
+       "module": "SparsificationLemma.Mach.Defs",
+       "file": "eth/proof/sparsification/SparsificationLemma/Mach/Defs.lean"
+      },
+      {
+       "module": "SparsificationLemma.Nodes",
+       "file": "eth/proof/sparsification/SparsificationLemma/Nodes.lean"
+      },
+      {
+       "module": "SparsificationLemma.One",
+       "file": "eth/proof/sparsification/SparsificationLemma/One.lean"
+      },
+      {
+       "module": "SparsificationLemma.Shrink",
+       "file": "eth/proof/sparsification/SparsificationLemma/Shrink.lean"
+      },
+      {
+       "module": "SparsificationLemma.Side",
+       "file": "eth/proof/sparsification/SparsificationLemma/Side.lean"
+      },
+      {
+       "module": "SparsificationLemma.StepSparsify",
+       "file": "eth/proof/sparsification/SparsificationLemma/StepSparsify.lean"
+      },
+      {
+       "module": "SparsificationLemma.StepSparsifyDefs",
+       "file": "eth/proof/sparsification/SparsificationLemma/StepSparsifyDefs.lean"
+      },
+      {
+       "module": "SparsifyThenCount.CertBoth",
+       "file": "eth/proof/variables/SparsifyThenCount/CertBoth.lean"
+      },
+      {
+       "module": "SparsifyThenCount.CertTop",
+       "file": "eth/proof/variables/SparsifyThenCount/CertTop.lean"
+      },
+      {
+       "module": "SparsifyThenCount.Correct",
+       "file": "eth/proof/variables/SparsifyThenCount/Correct.lean"
+      },
+      {
+       "module": "SparsifyThenCount.CorrectB",
+       "file": "eth/proof/variables/SparsifyThenCount/CorrectB.lean"
+      },
+      {
+       "module": "SparsifyThenCount.Defs",
+       "file": "eth/proof/variables/SparsifyThenCount/Defs.lean"
+      },
+      {
+       "module": "SparsifyThenCount.Main",
+       "file": "eth/proof/variables/SparsifyThenCount/Main.lean"
+      },
+      {
+       "module": "SparsifyThenCount.PlanUsed",
+       "file": "eth/proof/variables/SparsifyThenCount/PlanUsed.lean"
+      },
+      {
+       "module": "SparsifyThenCount.PlanUsedDefs",
+       "file": "eth/proof/variables/SparsifyThenCount/PlanUsedDefs.lean"
+      },
+      {
+       "module": "SparsifyThenCount.Tied",
+       "file": "eth/proof/variables/SparsifyThenCount/Tied.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Defs",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Defs.lean"
+      },
+      {
+       "module": "SparsifyWidthK.DefsProg",
+       "file": "eth/proof/sparsification/SparsifyWidthK/DefsProg.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Interfaces",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Interfaces.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Poly.Sparsify",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Poly/Sparsify.lean"
+      },
+      {
+       "module": "SparsifyWidthK.ProgMain",
+       "file": "eth/proof/sparsification/SparsifyWidthK/ProgMain.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Refine",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Refine.lean"
+      },
+      {
+       "module": "SparsifyWidthK.SetAlg",
+       "file": "eth/proof/sparsification/SparsifyWidthK/SetAlg.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Step",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Step.lean"
+      },
+      {
+       "module": "SparsifyWidthK.Thresholds",
+       "file": "eth/proof/sparsification/SparsifyWidthK/Thresholds.lean"
+      },
+      {
+       "module": "StepMachines.Math.Code",
+       "file": "eth/proof/machines/StepMachines/Math/Code.lean"
+      },
+      {
+       "module": "StepMachines.Math.CodeMore",
+       "file": "eth/proof/machines/StepMachines/Math/CodeMore.lean"
+      },
+      {
+       "module": "StepMachines.Math.CodeSeq",
+       "file": "eth/proof/machines/StepMachines/Math/CodeSeq.lean"
+      },
+      {
+       "module": "StepMachines.Math.CutWord",
+       "file": "eth/proof/machines/StepMachines/Math/CutWord.lean"
+      },
+      {
+       "module": "StepMachines.Math.Digits",
+       "file": "eth/proof/machines/StepMachines/Math/Digits.lean"
+      },
+      {
+       "module": "StepMachines.Math.Formula",
+       "file": "eth/proof/machines/StepMachines/Math/Formula.lean"
+      },
+      {
+       "module": "StepMachines.Math.GridArith",
+       "file": "eth/proof/machines/StepMachines/Math/GridArith.lean"
+      },
+      {
+       "module": "StepMachines.Math.Pull",
+       "file": "eth/proof/machines/StepMachines/Math/Pull.lean"
+      },
+      {
+       "module": "StepMachines.Math.RebalanceArith",
+       "file": "eth/proof/machines/StepMachines/Math/RebalanceArith.lean"
+      },
+      {
+       "module": "StepMachines.Math.SatArith",
+       "file": "eth/proof/machines/StepMachines/Math/SatArith.lean"
+      },
+      {
+       "module": "StepMachines.Math.SatNet",
+       "file": "eth/proof/machines/StepMachines/Math/SatNet.lean"
+      },
+      {
+       "module": "StepMachines.Math.SideCodes",
+       "file": "eth/proof/machines/StepMachines/Math/SideCodes.lean"
+      },
+      {
+       "module": "StepMachines.Math.SideNet",
+       "file": "eth/proof/machines/StepMachines/Math/SideNet.lean"
+      },
+      {
+       "module": "StepMachines.Math.SideX",
+       "file": "eth/proof/machines/StepMachines/Math/SideX.lean"
+      },
+      {
+       "module": "StepMachines.Math.Sparse",
+       "file": "eth/proof/machines/StepMachines/Math/Sparse.lean"
+      },
+      {
+       "module": "StepMachines.Math.Sparsify",
+       "file": "eth/proof/machines/StepMachines/Math/Sparsify.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyCount",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyCount.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyList",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyList.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyProg",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyProg.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyStep",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyStep.lean"
+      },
+      {
+       "module": "StepMachines.Math.SparsifyTree",
+       "file": "eth/proof/machines/StepMachines/Math/SparsifyTree.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Brute",
+       "file": "eth/proof/machines/StepMachines/Prog/Brute.lean"
+      },
+      {
+       "module": "StepMachines.Prog.BruteE",
+       "file": "eth/proof/machines/StepMachines/Prog/BruteE.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Chunks",
+       "file": "eth/proof/machines/StepMachines/Prog/Chunks.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Comb",
+       "file": "eth/proof/machines/StepMachines/Prog/Comb.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Count",
+       "file": "eth/proof/machines/StepMachines/Prog/Count.lean"
+      },
+      {
+       "module": "StepMachines.Prog.CountNet",
+       "file": "eth/proof/machines/StepMachines/Prog/CountNet.lean"
+      },
+      {
+       "module": "StepMachines.Prog.CutProg",
+       "file": "eth/proof/machines/StepMachines/Prog/CutProg.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Decode",
+       "file": "eth/proof/machines/StepMachines/Prog/Decode.lean"
+      },
+      {
+       "module": "StepMachines.Prog.GridCount",
+       "file": "eth/proof/machines/StepMachines/Prog/GridCount.lean"
+      },
+      {
+       "module": "StepMachines.Prog.GridDefs",
+       "file": "eth/proof/machines/StepMachines/Prog/GridDefs.lean"
+      },
+      {
+       "module": "StepMachines.Prog.GridLoop",
+       "file": "eth/proof/machines/StepMachines/Prog/GridLoop.lean"
+      },
+      {
+       "module": "StepMachines.Prog.NetProg",
+       "file": "eth/proof/machines/StepMachines/Prog/NetProg.lean"
+      },
+      {
+       "module": "StepMachines.Prog.NetRun",
+       "file": "eth/proof/machines/StepMachines/Prog/NetRun.lean"
+      },
+      {
+       "module": "StepMachines.Prog.NetVal",
+       "file": "eth/proof/machines/StepMachines/Prog/NetVal.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Range",
+       "file": "eth/proof/machines/StepMachines/Prog/Range.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Sat",
+       "file": "eth/proof/machines/StepMachines/Prog/Sat.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Side",
+       "file": "eth/proof/machines/StepMachines/Prog/Side.lean"
+      },
+      {
+       "module": "StepMachines.Prog.SideBasics",
+       "file": "eth/proof/machines/StepMachines/Prog/SideBasics.lean"
+      },
+      {
+       "module": "StepMachines.Prog.SidePresents",
+       "file": "eth/proof/machines/StepMachines/Prog/SidePresents.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Spec",
+       "file": "eth/proof/machines/StepMachines/Prog/Spec.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Stepped",
+       "file": "eth/proof/machines/StepMachines/Prog/Stepped.lean"
+      },
+      {
+       "module": "StepMachines.Prog.Walk",
+       "file": "eth/proof/machines/StepMachines/Prog/Walk.lean"
+      },
+      {
+       "module": "StepMachineStatements",
+       "file": "eth/proof/statements/StepMachineStatements.lean"
+      },
+      {
+       "module": "StepSparsify.CalLeaves",
+       "file": "eth/proof/sparsification/StepSparsify/CalLeaves.lean"
+      },
+      {
+       "module": "StepSparsify.CalNumbers",
+       "file": "eth/proof/sparsification/StepSparsify/CalNumbers.lean"
+      },
+      {
+       "module": "StepSparsify.CalServes",
+       "file": "eth/proof/sparsification/StepSparsify/CalServes.lean"
+      },
+      {
+       "module": "StepSparsify.CertThCal",
+       "file": "eth/proof/sparsification/StepSparsify/CertThCal.lean"
+      },
+      {
+       "module": "StepSparsify.CertWalk",
+       "file": "eth/proof/sparsification/StepSparsify/CertWalk.lean"
+      },
+      {
+       "module": "StepSparsify.Defs",
+       "file": "eth/proof/sparsification/StepSparsify/Defs.lean"
+      },
+      {
+       "module": "StepSparsify.Walk",
+       "file": "eth/proof/sparsification/StepSparsify/Walk.lean"
+      },
+      {
+       "module": "StepSparsify.WalkCount",
+       "file": "eth/proof/sparsification/StepSparsify/WalkCount.lean"
+      },
+      {
+       "module": "Suffices.Defs",
+       "file": "eth/proof/threesat/Suffices/Defs.lean"
+      },
+      {
+       "module": "ThmEveryDeltaStatement",
+       "file": "eth/proof/statements/ThmEveryDeltaStatement.lean"
+      },
+      {
+       "module": "ThmVariables.Bound",
+       "file": "eth/proof/variables/ThmVariables/Bound.lean"
+      },
+      {
+       "module": "ThmVariables.Defs",
+       "file": "eth/proof/variables/ThmVariables/Defs.lean"
+      },
+      {
+       "module": "ThmVariables.PartA",
+       "file": "eth/proof/variables/ThmVariables/PartA.lean"
+      },
+      {
+       "module": "ThreeSatRateStatement",
+       "file": "eth/proof/statements/ThreeSatRateStatement.lean"
+      },
+      {
+       "module": "ThreeSatStatement",
+       "file": "eth/proof/statements/ThreeSatStatement.lean"
+      },
+      {
+       "module": "ToTuring.Bound",
+       "file": "eth/proof/machines/ToTuring/Bound.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Basic",
+       "file": "eth/proof/machines/ToTuring/Closure/Basic.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Cases",
+       "file": "eth/proof/machines/ToTuring/Closure/Cases.lean"
+      },
+      {
+       "module": "ToTuring.Closure.Fold",
+       "file": "eth/proof/machines/ToTuring/Closure/Fold.lean"
+      },
+      {
+       "module": "ToTuring.Enc",
+       "file": "eth/proof/machines/ToTuring/Enc.lean"
+      },
+      {
+       "module": "ToTuring.EncLemmas",
+       "file": "eth/proof/machines/ToTuring/EncLemmas.lean"
+      },
+      {
+       "module": "ToTuring.EndLemmas",
+       "file": "eth/proof/machines/ToTuring/EndLemmas.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Bool",
+       "file": "eth/proof/machines/ToTuring/Lib/Bool.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Int",
+       "file": "eth/proof/machines/ToTuring/Lib/Int.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List1",
+       "file": "eth/proof/machines/ToTuring/Lib/List1.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List1b",
+       "file": "eth/proof/machines/ToTuring/Lib/List1b.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List2",
+       "file": "eth/proof/machines/ToTuring/Lib/List2.lean"
+      },
+      {
+       "module": "ToTuring.Lib.List3",
+       "file": "eth/proof/machines/ToTuring/Lib/List3.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat1",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat1.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat1b",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat1b.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Nat2",
+       "file": "eth/proof/machines/ToTuring/Lib/Nat2.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Table",
+       "file": "eth/proof/machines/ToTuring/Lib/Table.lean"
+      },
+      {
+       "module": "ToTuring.Lib.Unary",
+       "file": "eth/proof/machines/ToTuring/Lib/Unary.lean"
+      },
+      {
+       "module": "ToTuring.Machine.EndTM",
+       "file": "eth/proof/machines/ToTuring/Machine/EndTM.lean"
+      },
+      {
+       "module": "ToTuring.Machine.Host",
+       "file": "eth/proof/machines/ToTuring/Machine/Host.lean"
+      },
+      {
+       "module": "ToTuring.Machine.Lift",
+       "file": "eth/proof/machines/ToTuring/Machine/Lift.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Basic",
+       "file": "eth/proof/machines/ToTuring/Poly/Basic.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Brute",
+       "file": "eth/proof/machines/ToTuring/Poly/Brute.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Comb",
+       "file": "eth/proof/machines/ToTuring/Poly/Comb.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Count",
+       "file": "eth/proof/machines/ToTuring/Poly/Count.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Cut",
+       "file": "eth/proof/machines/ToTuring/Poly/Cut.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Decode",
+       "file": "eth/proof/machines/ToTuring/Poly/Decode.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Digits",
+       "file": "eth/proof/machines/ToTuring/Poly/Digits.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Grid",
+       "file": "eth/proof/machines/ToTuring/Poly/Grid.lean"
+      },
+      {
+       "module": "ToTuring.Poly.GridSide",
+       "file": "eth/proof/machines/ToTuring/Poly/GridSide.lean"
+      },
+      {
+       "module": "ToTuring.Poly.IsPoly",
+       "file": "eth/proof/machines/ToTuring/Poly/IsPoly.lean"
+      },
+      {
+       "module": "ToTuring.Poly.NetFun",
+       "file": "eth/proof/machines/ToTuring/Poly/NetFun.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Range",
+       "file": "eth/proof/machines/ToTuring/Poly/Range.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Sat",
+       "file": "eth/proof/machines/ToTuring/Poly/Sat.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Sparsify",
+       "file": "eth/proof/machines/ToTuring/Poly/Sparsify.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Spec",
+       "file": "eth/proof/machines/ToTuring/Poly/Spec.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Walk",
+       "file": "eth/proof/machines/ToTuring/Poly/Walk.lean"
+      },
+      {
+       "module": "ToTuring.Poly.Words",
+       "file": "eth/proof/machines/ToTuring/Poly/Words.lean"
+      },
+      {
+       "module": "ToTuring.PolyT",
+       "file": "eth/proof/machines/ToTuring/PolyT.lean"
+      },
+      {
+       "module": "ToTuring.TM.Frag",
+       "file": "eth/proof/machines/ToTuring/TM/Frag.lean"
+      },
+      {
+       "module": "ToTuring.TM.Move",
+       "file": "eth/proof/machines/ToTuring/TM/Move.lean"
+      },
+      {
+       "module": "ToTuring.TM.Ops",
+       "file": "eth/proof/machines/ToTuring/TM/Ops.lean"
+      },
+      {
+       "module": "ToTuring.TM.Rename",
+       "file": "eth/proof/machines/ToTuring/TM/Rename.lean"
+      },
+      {
+       "module": "ToTuring.TM.Run",
+       "file": "eth/proof/machines/ToTuring/TM/Run.lean"
+      },
+      {
+       "module": "ToTuring.TM.Stacks",
+       "file": "eth/proof/machines/ToTuring/TM/Stacks.lean"
+      },
+      {
+       "module": "ToTuring.TM.Tree",
+       "file": "eth/proof/machines/ToTuring/TM/Tree.lean"
+      },
+      {
+       "module": "Tower.Chain",
+       "file": "eth/proof/machines/Tower/Chain.lean"
+      },
+      {
+       "module": "Tower.Cost",
+       "file": "eth/proof/machines/Tower/Cost.lean"
+      },
+      {
+       "module": "Tower.Defs",
+       "file": "eth/proof/machines/Tower/Defs.lean"
+      },
+      {
+       "module": "Tower.Kernel",
+       "file": "eth/proof/machines/Tower/Kernel.lean"
+      },
+      {
+       "module": "Tower.Poly",
+       "file": "eth/proof/machines/Tower/Poly.lean"
+      },
+      {
+       "module": "Tower.PolyTower",
+       "file": "eth/proof/machines/Tower/PolyTower.lean"
+      },
+      {
+       "module": "Tower.Runs",
+       "file": "eth/proof/machines/Tower/Runs.lean"
+      },
+      {
+       "module": "Tower.TowerRuns",
+       "file": "eth/proof/machines/Tower/TowerRuns.lean"
+      },
+      {
+       "module": "TwoMachines.Defs",
+       "file": "eth/proof/machines/TwoMachines/Defs.lean"
+      },
+      {
+       "module": "TwoMachines.Main",
+       "file": "eth/proof/machines/TwoMachines/Main.lean"
+      },
+      {
+       "module": "UniformInK.Cert.Both",
+       "file": "eth/proof/sparsification/UniformInK/Cert/Both.lean"
+      },
+      {
+       "module": "UniformInK.Cert.Sparsify",
+       "file": "eth/proof/sparsification/UniformInK/Cert/Sparsify.lean"
+      },
+      {
+       "module": "UniformInK.Cert.Top",
+       "file": "eth/proof/sparsification/UniformInK/Cert/Top.lean"
+      },
+      {
+       "module": "UniformInK.Cert.Walk",
+       "file": "eth/proof/sparsification/UniformInK/Cert/Walk.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Bound",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Bound.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Defs",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Defs.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Iface",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Iface.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Main",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Main.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Step",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Step.lean"
+      },
+      {
+       "module": "UniformInK.Spars.Thresholds",
+       "file": "eth/proof/sparsification/UniformInK/Spars/Thresholds.lean"
+      },
+      {
+       "module": "UniformInK.Top.ArithDefs",
+       "file": "eth/proof/sparsification/UniformInK/Top/ArithDefs.lean"
+      },
+      {
+       "module": "UniformInK.Top.ArithMaster",
+       "file": "eth/proof/sparsification/UniformInK/Top/ArithMaster.lean"
+      },
+      {
+       "module": "UniformInK.Top.ArithNat",
+       "file": "eth/proof/sparsification/UniformInK/Top/ArithNat.lean"
+      },
+      {
+       "module": "UniformInK.Top.ArithTop",
+       "file": "eth/proof/sparsification/UniformInK/Top/ArithTop.lean"
+      },
+      {
+       "module": "UniformInK.Top.Budget",
+       "file": "eth/proof/sparsification/UniformInK/Top/Budget.lean"
+      },
+      {
+       "module": "UniformInK.Top.Correct",
+       "file": "eth/proof/sparsification/UniformInK/Top/Correct.lean"
+      },
+      {
+       "module": "UniformInK.Top.CorrectB",
+       "file": "eth/proof/sparsification/UniformInK/Top/CorrectB.lean"
+      },
+      {
+       "module": "UniformInK.Top.Defs",
+       "file": "eth/proof/sparsification/UniformInK/Top/Defs.lean"
+      },
+      {
+       "module": "UniformInK.Top.End",
+       "file": "eth/proof/sparsification/UniformInK/Top/End.lean"
+      },
+      {
+       "module": "UniformInK.Top.FallBack",
+       "file": "eth/proof/sparsification/UniformInK/Top/FallBack.lean"
+      },
+      {
+       "module": "UniformInK.Top.Leaves",
+       "file": "eth/proof/sparsification/UniformInK/Top/Leaves.lean"
+      },
+      {
+       "module": "UniformInK.Top.Time",
+       "file": "eth/proof/sparsification/UniformInK/Top/Time.lean"
+      },
+      {
+       "module": "UniformInK.Tree.Defs",
+       "file": "eth/proof/sparsification/UniformInK/Tree/Defs.lean"
+      },
+      {
+       "module": "UniformInK.Tree.Stack",
+       "file": "eth/proof/sparsification/UniformInK/Tree/Stack.lean"
+      },
+      {
+       "module": "UniformInK.Tree.Tree",
+       "file": "eth/proof/sparsification/UniformInK/Tree/Tree.lean"
+      },
+      {
+       "module": "UniformInKStatement",
+       "file": "eth/proof/statements/UniformInKStatement.lean"
+      },
+      {
+       "module": "Value.Blocks",
+       "file": "eth/proof/networks/Value/Blocks.lean"
+      },
+      {
+       "module": "Value.Clique",
+       "file": "eth/proof/networks/Value/Clique.lean"
+      },
+      {
+       "module": "Value.Defs",
+       "file": "eth/proof/networks/Value/Defs.lean"
+      },
+      {
+       "module": "Value.End",
+       "file": "eth/proof/networks/Value/End.lean"
+      },
+      {
+       "module": "Value.Joint",
+       "file": "eth/proof/networks/Value/Joint.lean"
+      },
+      {
+       "module": "Value.Sums",
+       "file": "eth/proof/networks/Value/Sums.lean"
+      },
+      {
+       "module": "Value.Words",
+       "file": "eth/proof/networks/Value/Words.lean"
+      },
+      {
+       "module": "VariableBound.Cert.Top",
+       "file": "eth/proof/variables/VariableBound/Cert/Top.lean"
+      },
+      {
+       "module": "VariableBound.Count.Cert",
+       "file": "eth/proof/variables/VariableBound/Count/Cert.lean"
+      },
+      {
+       "module": "VariableBound.Count.Correct",
+       "file": "eth/proof/variables/VariableBound/Count/Correct.lean"
+      },
+      {
+       "module": "VariableBound.Count.Defs",
+       "file": "eth/proof/variables/VariableBound/Count/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Family.Main",
+       "file": "eth/proof/variables/VariableBound/Family/Main.lean"
+      },
+      {
+       "module": "VariableBound.Family.Pairwise",
+       "file": "eth/proof/variables/VariableBound/Family/Pairwise.lean"
+      },
+      {
+       "module": "VariableBound.Family.SmallBias",
+       "file": "eth/proof/variables/VariableBound/Family/SmallBias.lean"
+      },
+      {
+       "module": "VariableBound.Field.Alg",
+       "file": "eth/proof/variables/VariableBound/Field/Alg.lean"
+      },
+      {
+       "module": "VariableBound.Field.Cert",
+       "file": "eth/proof/variables/VariableBound/Field/Cert.lean"
+      },
+      {
+       "module": "VariableBound.Field.Defs",
+       "file": "eth/proof/variables/VariableBound/Field/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Field.Family",
+       "file": "eth/proof/variables/VariableBound/Field/Family.lean"
+      },
+      {
+       "module": "VariableBound.Field.Quot",
+       "file": "eth/proof/variables/VariableBound/Field/Quot.lean"
+      },
+      {
+       "module": "VariableBound.Field.Ring",
+       "file": "eth/proof/variables/VariableBound/Field/Ring.lean"
+      },
+      {
+       "module": "VariableBound.Field.Search",
+       "file": "eth/proof/variables/VariableBound/Field/Search.lean"
+      },
+      {
+       "module": "VariableBound.Field.Transfer",
+       "file": "eth/proof/variables/VariableBound/Field/Transfer.lean"
+      },
+      {
+       "module": "VariableBound.MainPrinted",
+       "file": "eth/proof/variables/VariableBound/MainPrinted.lean"
+      },
+      {
+       "module": "VariableBound.Net.Basic",
+       "file": "eth/proof/variables/VariableBound/Net/Basic.lean"
+      },
+      {
+       "module": "VariableBound.Net.CertEv",
+       "file": "eth/proof/variables/VariableBound/Net/CertEv.lean"
+      },
+      {
+       "module": "VariableBound.Net.CertNet",
+       "file": "eth/proof/variables/VariableBound/Net/CertNet.lean"
+      },
+      {
+       "module": "VariableBound.Net.CertRank",
+       "file": "eth/proof/variables/VariableBound/Net/CertRank.lean"
+      },
+      {
+       "module": "VariableBound.Net.Defs",
+       "file": "eth/proof/variables/VariableBound/Net/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Net.Ev",
+       "file": "eth/proof/variables/VariableBound/Net/Ev.lean"
+      },
+      {
+       "module": "VariableBound.Net.Fit",
+       "file": "eth/proof/variables/VariableBound/Net/Fit.lean"
+      },
+      {
+       "module": "VariableBound.Net.Main",
+       "file": "eth/proof/variables/VariableBound/Net/Main.lean"
+      },
+      {
+       "module": "VariableBound.Net.Prof",
+       "file": "eth/proof/variables/VariableBound/Net/Prof.lean"
+      },
+      {
+       "module": "VariableBound.Net.Rank",
+       "file": "eth/proof/variables/VariableBound/Net/Rank.lean"
+      },
+      {
+       "module": "VariableBound.Net.SizeB",
+       "file": "eth/proof/variables/VariableBound/Net/SizeB.lean"
+      },
+      {
+       "module": "VariableBound.Net.SizeP",
+       "file": "eth/proof/variables/VariableBound/Net/SizeP.lean"
+      },
+      {
+       "module": "VariableBound.Net.SizeSmall",
+       "file": "eth/proof/variables/VariableBound/Net/SizeSmall.lean"
+      },
+      {
+       "module": "VariableBound.Net.SizeU",
+       "file": "eth/proof/variables/VariableBound/Net/SizeU.lean"
+      },
+      {
+       "module": "VariableBound.Net.StepCost",
+       "file": "eth/proof/variables/VariableBound/Net/StepCost.lean"
+      },
+      {
+       "module": "VariableBound.Net.Tests",
+       "file": "eth/proof/variables/VariableBound/Net/Tests.lean"
+      },
+      {
+       "module": "VariableBound.Net.Total",
+       "file": "eth/proof/variables/VariableBound/Net/Total.lean"
+      },
+      {
+       "module": "VariableBound.Net.Tuples",
+       "file": "eth/proof/variables/VariableBound/Net/Tuples.lean"
+      },
+      {
+       "module": "VariableBound.Net.Val",
+       "file": "eth/proof/variables/VariableBound/Net/Val.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Arith",
+       "file": "eth/proof/variables/VariableBound/Paper/Arith.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Decide",
+       "file": "eth/proof/variables/VariableBound/Paper/Decide.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Forms",
+       "file": "eth/proof/variables/VariableBound/Paper/Forms.lean"
+      },
+      {
+       "module": "VariableBound.Paper.MainTheorem",
+       "file": "eth/proof/variables/VariableBound/Paper/MainTheorem.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Cert",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Cert.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Code",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Code.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Compact",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Compact.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Defs",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.End",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/End.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Math",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Math.lean"
+      },
+      {
+       "module": "VariableBound.Paper.Rename.Time",
+       "file": "eth/proof/variables/VariableBound/Paper/Rename/Time.lean"
+      },
+      {
+       "module": "VariableBound.Params.Cert",
+       "file": "eth/proof/variables/VariableBound/Params/Cert.lean"
+      },
+      {
+       "module": "VariableBound.Params.Defs",
+       "file": "eth/proof/variables/VariableBound/Params/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Params.Ineq",
+       "file": "eth/proof/variables/VariableBound/Params/Ineq.lean"
+      },
+      {
+       "module": "VariableBound.Params.Spec",
+       "file": "eth/proof/variables/VariableBound/Params/Spec.lean"
+      },
+      {
+       "module": "VariableBound.Printed.ThmVariablesADefs",
+       "file": "eth/proof/variables/VariableBound/Printed/ThmVariablesADefs.lean"
+      },
+      {
+       "module": "VariableBound.Printed.Tied",
+       "file": "eth/proof/variables/VariableBound/Printed/Tied.lean"
+      },
+      {
+       "module": "VariableBound.Printed.TiedDefs",
+       "file": "eth/proof/variables/VariableBound/Printed/TiedDefs.lean"
+      },
+      {
+       "module": "VariableBound.Printed.VariablesA.Arith",
+       "file": "eth/proof/variables/VariableBound/Printed/VariablesA/Arith.lean"
+      },
+      {
+       "module": "VariableBound.Printed.VariablesA.Level",
+       "file": "eth/proof/variables/VariableBound/Printed/VariablesA/Level.lean"
+      },
+      {
+       "module": "VariableBound.Printed.VariablesA.Main",
+       "file": "eth/proof/variables/VariableBound/Printed/VariablesA/Main.lean"
+      },
+      {
+       "module": "VariableBound.Printed.VariablesA.Setting",
+       "file": "eth/proof/variables/VariableBound/Printed/VariablesA/Setting.lean"
+      },
+      {
+       "module": "VariableBound.Printed.VariablesA.StepSparsify",
+       "file": "eth/proof/variables/VariableBound/Printed/VariablesA/StepSparsify.lean"
+      },
+      {
+       "module": "VariableBound.Search.Cert",
+       "file": "eth/proof/variables/VariableBound/Search/Cert.lean"
+      },
+      {
+       "module": "VariableBound.Search.Correct",
+       "file": "eth/proof/variables/VariableBound/Search/Correct.lean"
+      },
+      {
+       "module": "VariableBound.Search.Defs",
+       "file": "eth/proof/variables/VariableBound/Search/Defs.lean"
+      },
+      {
+       "module": "VariableBound.StepChoice",
+       "file": "eth/proof/variables/VariableBound/StepChoice.lean"
+      },
+      {
+       "module": "VariableBound.StepParity",
+       "file": "eth/proof/variables/VariableBound/StepParity.lean"
+      },
+      {
+       "module": "VariableBound.Top.Arith",
+       "file": "eth/proof/variables/VariableBound/Top/Arith.lean"
+      },
+      {
+       "module": "VariableBound.Top.ArithDefs",
+       "file": "eth/proof/variables/VariableBound/Top/ArithDefs.lean"
+      },
+      {
+       "module": "VariableBound.Top.ArithNat",
+       "file": "eth/proof/variables/VariableBound/Top/ArithNat.lean"
+      },
+      {
+       "module": "VariableBound.Top.ArithNeed",
+       "file": "eth/proof/variables/VariableBound/Top/ArithNeed.lean"
+      },
+      {
+       "module": "VariableBound.Top.ArithPlan",
+       "file": "eth/proof/variables/VariableBound/Top/ArithPlan.lean"
+      },
+      {
+       "module": "VariableBound.Top.ArithTop",
+       "file": "eth/proof/variables/VariableBound/Top/ArithTop.lean"
+      },
+      {
+       "module": "VariableBound.Top.Budget",
+       "file": "eth/proof/variables/VariableBound/Top/Budget.lean"
+      },
+      {
+       "module": "VariableBound.Top.Correct",
+       "file": "eth/proof/variables/VariableBound/Top/Correct.lean"
+      },
+      {
+       "module": "VariableBound.Top.CorrectB",
+       "file": "eth/proof/variables/VariableBound/Top/CorrectB.lean"
+      },
+      {
+       "module": "VariableBound.Top.Defs",
+       "file": "eth/proof/variables/VariableBound/Top/Defs.lean"
+      },
+      {
+       "module": "VariableBound.Top.Time",
+       "file": "eth/proof/variables/VariableBound/Top/Time.lean"
+      },
+      {
+       "module": "WidthK.Decode",
+       "file": "eth/proof/consequences/WidthK/Decode.lean"
+      },
+      {
+       "module": "WidthK.Poly.Decode",
+       "file": "eth/proof/consequences/WidthK/Poly/Decode.lean"
+      },
+      {
+       "module": "WidthK.Top.Sat",
+       "file": "eth/proof/consequences/WidthK/Top/Sat.lean"
+      },
+      {
+       "module": "WidthThree.Rates",
+       "file": "eth/proof/maintheorem/WidthThree/Rates.lean"
+      },
+      {
+       "module": "Wrap.Arith",
+       "file": "eth/proof/machines/Wrap/Arith.lean"
+      },
+      {
+       "module": "Wrap.ArithRate",
+       "file": "eth/proof/machines/Wrap/ArithRate.lean"
+      },
+      {
+       "module": "Wrap.Coding",
+       "file": "eth/proof/machines/Wrap/Coding.lean"
+      },
+      {
+       "module": "Wrap.CodingExists",
+       "file": "eth/proof/machines/Wrap/CodingExists.lean"
+      },
+      {
+       "module": "Wrap.Defs",
+       "file": "eth/proof/machines/Wrap/Defs.lean"
+      },
+      {
+       "module": "Wrap.FrontEnd",
+       "file": "eth/proof/machines/Wrap/FrontEnd.lean"
+      },
+      {
+       "module": "Wrap.Main",
+       "file": "eth/proof/machines/Wrap/Main.lean"
+      },
+      {
+       "module": "Wrap.Sim",
+       "file": "eth/proof/machines/Wrap/Sim.lean"
+      }
+     ],
+     "anthropicCount": 810,
+     "externalRoots": [
+      "Batteries",
+      "Mathlib"
+     ],
+     "includesSolution": true
+    }
+   }
+  }
+ }
+}
