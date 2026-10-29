@@ -109,6 +109,15 @@ def('MtOutsideFirstDate', EXT.map((x) => x.date).sort()[0]); def('MtOutsideLastD
    tools that write the records (level 1 by the table's own definition) */
 need(EXT.every((x) => x.kind === 'own-code' || x.kind === 'full-rederive'), 'an outside rerun has a kind other than own-code / full-rederive');
 def('MtOutsideOnRowsOwn', String(EXT_ON.filter((x) => x.kind === 'own-code').length)); def('MtOutsideOnRowsTools', String(EXT_ON.filter((x) => x.kind === 'full-rederive').length));
+/* v0.10: the abstract leads with them, in words — the re-derivations, the parties, and those made with the party's own code —
+   and says they found the same verdicts, which every row's outcome must still open with */
+{ need(EXT.every((x) => /^(the same verdicts?\b|every verdict and count identical\b)/.test(x.outcome)),
+    'an outside rerun\'s outcome no longer opens with "the same verdict" — rewrite the abstract\'s sentence');
+  const WX = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+  const w = (k) => WX[k] || String(k);
+  def('MtOutsideRerunsWordCap', w(EXT.length).replace(/^./, (c) => c.toUpperCase()));
+  def('MtOutsidePartiesWord', w(new Set(EXT.map((x) => x.who)).size));
+  def('MtOutsideOwnWord', w(EXT.filter((x) => x.kind === 'own-code').length)); }
 
 /* the reciprocal second party (2026-10-27): the registry's C_89b (K5) and C_89c (K6) graphon bounds, another contributor's pull
    requests, decided twice from the pinned certificates by two implementations sharing no code (certs/graphon-replay.json) */

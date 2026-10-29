@@ -1,5 +1,5 @@
 %% =====================================================================
-%% cert-machine: the method paper's supplement, v0.9 (2026-10-27)
+%% cert-machine: the method paper's supplement, v0.10 (2026-10-29)
 %% Target: Journal of Computational Science (elsarticle, author-year).
 %% Shape: the co-author's restructure of 2026-10-21 (foundations -> mathematical
 %% formulation -> metrics and decision rules -> architecture; results; discussion),
@@ -66,7 +66,7 @@
 \begin{document}
 \begin{frontmatter}
 \title{Supplementary material to ``cert-machine: independent three-valued certification of machine-proposed numerical claims in exact and interval arithmetic''\tnoteref{t1}}
-\tnotetext[t1]{Supplement v0.9 of 2026-10-27, built from repository commit \MtCommit{} with the same macro files as the main text. S1 states and proves the function lemmas that the main text's Table A.1 cites and the Sum2 bound as implemented; S2 proves the main text's termination proposition, composition corollary and threshold proposition and gives the threshold procedures; S3 states the results the certifiers rest on and their implementation; S4 is the decision loop; S5 the reproduction table and the list of second implementations.}
+\tnotetext[t1]{Supplement v0.10 of 2026-10-29, built from repository commit \MtCommit{} with the same macro files as the main text; it differs from v0.9 only in the number of the main text's threshold proposition, moved by a proposition added before it. S1 states and proves the function lemmas that the main text's Table A.1 cites and the Sum2 bound as implemented; S2 proves the main text's termination proposition, composition corollary and threshold proposition and gives the threshold procedures; S3 states the results the certifiers rest on and their implementation; S4 is the decision loop; S5 the reproduction table and the list of second implementations.}
 \author[a]{Carlos Toledo\corref{cor1}}
 \ead{carlos@carlostoledo.co}
 \author[b]{Pedro Veras Guimar\~aes}
@@ -172,7 +172,7 @@ If every $\varphi_i$ is certified, $\varphi_i(x)$ holds on $B$ for every $i$, he
 \end{proof}
 
 
-\begin{proof}[Proof of the threshold proposition (main text, Proposition 4)]
+\begin{proof}[Proof of the threshold proposition (main text, Proposition 5)]
 Soundness gives $\Tp(m)$ in the first case and $\Fp(m)$ in the second, and the monotone-truth assumption extends them to the half-lines. In the third case the two proved witnesses show that neither $\Tp(m)$ nor $\Fp(m)$ holds; by the monotone-truth assumption, $\Tp(p)$ fails for every $p\ge m$ and $\Fp(p)$ fails for every $p\le m$, so $p_T\le m\le p_F$.
 \end{proof}
 
