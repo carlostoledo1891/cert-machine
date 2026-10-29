@@ -165,4 +165,8 @@ function main() {
   return 1;
 }
 
-process.exit(main());
+/* THE CENSUS'S TWO PIECES ARE EXPORTED (2026-10-29) so design/print/check-svg.js reads a print figure with the same
+   normalisation and the same three patterns this gate reads the site with, instead of a copy of them. Required, this
+   file runs nothing; run, it is the gate it always was. */
+if (require.main === module) process.exit(main());
+module.exports = { norm, RE };
