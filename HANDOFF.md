@@ -114,6 +114,14 @@ NEXT SESSION, IN ORDER:
        (2115636294483124278) + the map link reply. FOLLOWING 23 verified accounts (AI-for-math, Lean, TCS, evals, the
        labs, Quanta); impostor/absent handles found and avoided (XenaProject gone; Tufte/Cairo/Massot handles are
        others').
+       DROPS (the operator, 2026-10-29 ~09:00 UTC: "deeper valuable insights in small messages, drops of clarity and
+       creativity", pointing at x.com/dimitrispapail/status/2115451187801514168 on the galactic ETH constant): a DROP is
+       one fact read from a record, one turn of thought, under ~200 characters, no hashtag, no link in the body; the link
+       and the Claude disclosure go in the first reply. Seven drafted in notes/x/drops/ (d01 ETH: two kernels, neither
+       knows what ETH is — a candidate reply in the Recht/Papailiopoulos thread; d02 the dashed line; d03 nine
+       quadrillion pairs in seventeen machine-hours; d04 the string cut that rounds a bound down; d05 a refusal with a
+       price; d06 the human bound still undecided; d07 a verifier cannot give itself a second party), each checked
+       against its record before drafting; none sent.
        DRAFTS (notes/x/, local; 03 and 04 POSTED 10-29 ~03:00 UTC, see above): 05 Ramsey,
        06 METR, 07 the grammar, 08 outside reruns. Each post goes with its link in the first reply.
        VIDEOS: design/video.js renders a scene frame by frame (window.frame(t) → Chrome → ffmpeg); the rule (operator):
