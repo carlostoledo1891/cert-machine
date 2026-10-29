@@ -47,6 +47,12 @@ NEXT SESSION, IN ORDER:
        operator (§8 of the note); fixes F2/F4/F5/F8/F10 are one session once the word is given; the CTO's plan ~15
        sessions. The table refused "the system IS the math" as a slogan and kept it as the law: the display is a
        sound map of the record, and the build decides it.
+       RULED 2026-10-29 ~05:00 UTC (every recommendation taken except tracking): D9 tone monotone in standing; D10
+       the typed value, Tier 1 now; D11 the grade as a pair; D12 one hero figure, ruler may ratchet up for it; D13 the
+       landing flow as translated points; D14 the first handle on the return-level check; D15 the companion page after
+       the fixes; D16 the note stays LOCAL. Recorded as a dated section at the end of design/WARRANT.md. NEXT, in
+       order: the five fixes (F2 charts.js dashed→standing + census; F4 outward pixels; F5 chip border + word→shape;
+       F8 the /eth/ tile; F10/D13 the flow + video-campos), then D9, then D10 (~4 sessions), D11, D12, D14, D15.
        RULED 10-29 ("follow the recommendations"): a read step never caps a verdict (listed, graded assumed, in what
        the page rests on); ONE RED — the apps' --v-refu IS --witness (design/app-shell.js reads it from tokens.js;
        SkyAudit, Janela, Swell rebuilt). v2.3 ON PAPER APPROVED in full ("all four approved"): design/print/ (tokens,

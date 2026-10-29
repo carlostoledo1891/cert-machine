@@ -224,3 +224,43 @@ The operator approved all four of the proposal's decisions on 2026-10-29 ("all f
 as WARRANT on paper; the one red kept on paper (#e0574e, a mark, never text); the print blue #3368c1 for a second
 series, print only; the paper casing under a coloured mark on a ramp field. Social cards and videos take this
 register too ("Light for X", the same day); the site stays dark.
+
+## Rulings, 2026-10-29 (the roundtable)
+
+Eleven seats (Tufte, Wilkinson, Bertin, Victor, Sanderson, Bostock, Norman, Maeda, Sagmeister, a Chief Scientist, a
+CTO), each an agent briefed with this file, the brainstorm and five built pages, judged the grammar and returned
+candidate rules; the synthesis and the eleven positions are a local note (notes/warrant-roundtable-2026-10-29.md,
+untracked on the operator's word). Ten findings on the built site were verified by the convener before the rulings.
+The operator ruled on 2026-10-29 ("Ask here, also pointing your recommendation"; every recommendation taken except
+tracking):
+
+- **D9, tone is monotone in standing.** The stroke tones are re-stepped so L(decided) ≥ L(computed) ≥ L(chosen) on
+  screen and the reverse on paper (today chosen is `--ink-2`, brighter than computed's `--ink-3`; v2.3 inverted the
+  same way with chosen #262626, computed #4d4d4d). A battery asserts the order from the tokens. No new colour.
+- **D10, a standing is read from a typed value, never typed at a call site.** cert-unit's `{datum, kind, hyp}` is
+  promoted into design/ as `{datum, standing, premises, record: {path, sha256, pointer}}`; `W.attrs`/`W.value` take
+  it; the pointer goes into the markup (`data-rec`) and a `check-marks` gate re-reads every printed number from its
+  record at outward rounding. Tier 1 migrates now; the census of standing literals ratchets down.
+- **D11, a premise grade is a pair:** a verification bit and a validation rung (Roache; ASME V&V 20), `W.weakest`
+  the componentwise minimum, "unverified" printed where the bit is off; the words and the glyph stay; the ordered
+  key is printed wherever a grade appears.
+- **D12, one hero figure per page** may take the full track; its witness is drawn as an event at the figure's scale
+  before any inline ×; `check-measure` may ratchet up for the declared hero only.
+- **D13, the landing's flow animation** (`.ed-f`, a dash offset on `5 90`) is redrawn as translated points; the dash
+  channel carries standing only, on borders and in CSS motion too (no `transition`/`@keyframes` on a dash under a
+  `w-*` selector; no dashed chip border; verdict word → chip shape is a function).
+- **D14, the first handle** (a chosen input in italic that drags, the flip value drawn as a solid tick on its own
+  ruler; under a drag only CHOSEN and COMPUTED marks may move) goes on the return-level check, after navier-stokes.
+- **D15, the companion page:** the roundtable, the axioms and the candidate rules become a public page beside
+  /grammar/ once the fixes below have landed, with the findings as before/after figures.
+- **D16, the note stays local.**
+
+**The fixes ruled with them, each a finding with a gate:** 99 dashed non-guide SVG marks on 24 pages carry no `w-*`
+class (`design/charts.js` still takes `dashed: true`); pixels round to nearest in `tools/build-grammar.js`
+(`toFixed`), against rule 8 in pixels; `.tag.open` wears a dashed border; /eth/'s first screen reads "CERTIFIED"
+and never says the verdict is absent; `tools/video-campos.js` slid a DECIDED tick. Also ruled, from the table's
+agreed rules: the legend is derived from the figure (never an `exclude:` list) and drawn at the figure's widths; a
+mark's reason is visible text at first use, never only a `title`; a figure's caption names its record and sha; a
+page's standing is computed by the builder; a frame is a page (standing never tweens; a value appears or its
+enclosure narrows, it never travels; a CHOSEN mark may cycle through its set one member per frame). These enter
+as rules 17–31 when their gates exist; until then they bind new work.
