@@ -43,6 +43,8 @@ fs.writeFileSync(path.join(dir, '_run.json'), JSON.stringify({
   run: 'runpod-' + pod, auditSha: st._audit, createdAt: st._started, updatedAt: st._updated,
   status: complete ? 'completed' : 'in_progress (' + st._phase + ')', url: BASE, claims: n,
   host: 'RunPod CPU pod ' + pod + ': ' + st._machine, nanodaBuild: st._nanodaBuild,
+  // 'fresh-only' (FRESH_ONLY=1): prepare, build and leanchecker --fresh only; an older pod's status carries no _mode
+  mode: st._mode || 'full', freshParallel: st._freshParallel,
   states: Object.fromEntries(claims.map((c) => [c, st[c]])),
 }, null, 1) + '\n');
 console.log('runpod-' + pod + ': ' + n + ' claim results (' + (complete ? 'complete' : 'partial: ' + st._phase) + ')');
