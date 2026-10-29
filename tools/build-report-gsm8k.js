@@ -31,6 +31,9 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
    reader's rule rather than by the text: CHOSEN, dotted, and no ×. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const claimed = (s, title) => W.value(C.esc(s), W.COMPUTED, { title: title || 'printed by the key — a claim, not decided here' });
+/* D10 (2026-10-29): the key's printed answers and steps READ from the ledger rows through their addresses */
+const GP = 'certs/gsm8k-ledger.json';
+const cell = (ptr, why) => W.val({ rec: { path: GP, ptr }, standing: W.COMPUTED, fmt: 'raw', why: why || 'printed by the key — a claim, not decided here' });
 const die = (m) => { console.error('GSM8K REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
@@ -151,8 +154,8 @@ const crossTable = C.table({
 });
 const revTable = C.table({
   cols: [{ h: 'item' }, { h: 'GSM8K answer', cls: 'n' }, { h: 'Platinum answer', cls: 'n' }, { h: 'its arithmetic, here' }],
-  rows: F.revisedByPlatinum.map((r) => [String(r.i), { raw: claimed(r.gsm8k, 'GSM8K’s answer line — a claim, not decided here') },
-    { raw: claimed(r.platinum, 'Platinum’s relabelled answer — a claim, read and not re-decided here') }, r.class.toLowerCase().replace(/_/g, ' ')]),
+  rows: F.revisedByPlatinum.map((r) => [String(r.i), { raw: cell('/findings/revisedByPlatinum[i=' + r.i + ']/gsm8k', 'GSM8K’s answer line — a claim, not decided here') },
+    { raw: cell('/findings/revisedByPlatinum[i=' + r.i + ']/platinum', 'Platinum’s relabelled answer — a claim, read and not re-decided here') }, r.class.toLowerCase().replace(/_/g, ' ')]),
 });
 /* the printed step and the printed answer are the key's (COMPUTED); the exact value is this page's (DECIDED, plain); a
    step that does not hold carries the × — except the three notation rows, which are the reader's pick (CHOSEN) */
@@ -161,8 +164,8 @@ const witRow = (set, r) => {
   const pick = set === 'train' && notationIds.has(r.i);
   return [set + ' · ' + r.i,
     { raw: pick ? W.value(C.esc(step), W.CHOSEN, { title: 'chosen — the reader’s rule picked this reading of the notation; the writer’s is another (§2)' })
-      : W.witness('a step the key printed that does not hold as printed') + ' ' + claimed(step) },
-    r.witness.exact, { raw: claimed(r.answer, 'the key’s answer line — a claim, not decided here') }, r.answer_held_elsewhere ? 'yes' : 'no'];
+      : W.witness('a step the key printed that does not hold as printed') + ' ' + cell('/' + set + '/rows[i=' + r.i + ']/witness/lhs') + ' = ' + cell('/' + set + '/rows[i=' + r.i + ']/witness/rhs') },
+    r.witness.exact, { raw: cell('/' + set + '/rows[i=' + r.i + ']/answer', 'the key’s answer line — a claim, not decided here') }, r.answer_held_elsewhere ? 'yes' : 'no'];
 };
 const witTable = C.table({
   cols: [{ h: 'set · item' }, { h: 'the printed step' }, { h: 'exact', cls: 'n' }, { h: 'answer', cls: 'n' }, { h: 'answer held by another step' }],

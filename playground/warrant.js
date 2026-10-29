@@ -137,7 +137,7 @@ function val({ rec, standing, fmt = 'raw', why }) {
   const datum = R.read(rec.path, rec.ptr);
   const word = NAME[standing] ? NAME[standing].toLowerCase() : null;
   if (!word) throw new Error('warrant.val: not a standing: ' + standing);
-  const text = R.print(datum, fmt, word);
+  const text = R.print(datum, fmt, word).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const t = why || GLOSS[standing];
   return `<span class="w-val ${textClass(standing)}" data-w="${word}" data-rec="${String(rec.path + '#' + rec.ptr).replace(/"/g, '&quot;')}" data-fmt="${fmt}" title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }

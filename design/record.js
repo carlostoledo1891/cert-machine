@@ -105,4 +105,7 @@ function print(datum, fmt, standing) {
   return kind === 'fixed' ? v.toFixed(n) : v.toPrecision(n);
 }
 
-module.exports = { resolve, read, print, load, FMT, ROOT };
+/* a map key as one pointer step (RFC 6901: ~ → ~0, / → ~1) */
+const key = (s) => String(s).replace(/~/g, '~0').replace(/\//g, '~1');
+
+module.exports = { resolve, read, print, load, key, FMT, ROOT };

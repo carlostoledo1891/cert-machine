@@ -34,6 +34,12 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
    exact, METR's code is verified against it, and the logistic shape, the tasks and their human lengths are assumed. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const printed = (s, title) => W.value(C.esc(String(s)), W.COMPUTED, { title: title || 'printed by METR — a claim, not decided here' });
+/* D10 (2026-10-29): METR's printed numbers READ from the ledger through their addresses (agents are keyed by alias) */
+const RC = require(path.join(ROOT, 'design', 'record.js'));
+const HP = 'certs/horizon-ledger.json', WHY_METR = 'printed by METR — a claim, not decided here';
+const at = (ptr, why) => W.val({ rec: { path: HP, ptr }, standing: W.COMPUTED, fmt: 'raw', why: why || WHY_METR });
+const agentAt = (a, rest, why) => at('/agents/' + RC.key(a.alias) + rest, why);
+const postTriple = (a, why) => agentAt(a, '/post/th11/0', why) + ' [' + agentAt(a, '/post/th11/1', why) + ', ' + agentAt(a, '/post/th11/2', why) + ']';
 const BOOT = 'METR’s bootstrap interval — a random draw, read and not re-decided here';
 /* A PRINTED BOUND ROUNDS OUTWARD (WARRANT rule 8), 2026-10-28: an upper end up, a lower end down. toExponential and
    toFixed round to nearest, and three bounds on this page came out inward: "within 1.8e-4" over a largest gap of
@@ -171,19 +177,19 @@ const tbl = C.table({
   rows: live.map((a) => {
     const h = a.live.horizons['0.5'].minutes;
     const enc = h[0].toFixed(6) === h[1].toFixed(6) ? h[0].toFixed(6) : '[' + outF(h[0], false, 6) + ', ' + outF(h[1], true, 6) + ']';
-    return [a.alias.replace(' (Inspect)', ''), a.site.release_date, enc, { raw: printed(a.site.p50.estimate) },
+    return [a.alias.replace(' (Inspect)', ''), a.site.release_date, enc, { raw: agentAt(a, '/site/p50/estimate') },
       { raw: W.value(a.site.p50.relativeGap.toExponential(1), W.COMPUTED, { title: 'the printed estimate against the enclosure, in float — computed' }) },
-      { raw: printed(a.live.printed.coefficient + ' · ' + a.live.printed.intercept) }, a.live.coefficientsCertifiedRounded.coefficient + ' · ' + a.live.coefficientsCertifiedRounded.intercept, a.live.coefficientsVerdict.toLowerCase()];
+      { raw: agentAt(a, '/live/printed/coefficient') + ' · ' + agentAt(a, '/live/printed/intercept') }, a.live.coefficientsCertifiedRounded.coefficient + ' · ' + a.live.coefficientsCertifiedRounded.intercept, a.live.coefficientsVerdict.toLowerCase()];
   }),
 });
 const postTbl = C.table({
   cols: [{ h: 'model' }, { h: 'post, 29 Jan (TH1.1)', cls: 'n' }, { h: 'certified on the May file', cls: 'n' }, { h: 'site, 8 May', cls: 'n' }, { h: 'verdict' }],
-  rows: postRows.sort((a, b) => b.post.th11[0] - a.post.th11[0]).map((a) => [a.alias.replace(' (Inspect)', ''), { raw: printed(a.post.th11[0] + ' [' + a.post.th11[1] + ', ' + a.post.th11[2] + ']', 'printed in the January post, with its bootstrap interval — a claim, not decided here') }, a.live.horizons['0.5'].minutes[0].toFixed(2), { raw: printed(a.site.p50.estimate) }, a.post.verdict.toLowerCase()]),
+  rows: postRows.sort((a, b) => b.post.th11[0] - a.post.th11[0]).map((a) => [a.alias.replace(' (Inspect)', ''), { raw: postTriple(a, 'printed in the January post, with its bootstrap interval — a claim, not decided here') }, a.live.horizons['0.5'].minutes[0].toFixed(2), { raw: agentAt(a, '/site/p50/estimate') }, a.post.verdict.toLowerCase()]),
 });
 const trendTbl = C.table({
   cols: [{ h: 'trend' }, { h: 'models', cls: 'n' }, { h: 'certified doubling time, days', cls: 'n' }, { h: 'printed', cls: 'n' }],
-  rows: [['from 2023 on', String(T.from_2023_on.n), outF(dbl23[0], false, 5) + ' .. ' + outF(dbl23[1], true, 5), { raw: printed(printed23 + ' [' + L.trend.printed.from_2023_on.ci_low + ', ' + L.trend.printed.from_2023_on.ci_high + ']') + ' (site) · ' + printed(claims.post.doublingTimeDays.from2023.th11) + ' (post)' }],
-    ['from 2024 on', String(T.from_2024_on.n), outF(dbl24[0], false, 5) + ' .. ' + outF(dbl24[1], true, 5), { raw: printed(claims.post.doublingTimeDays.from2024.th11) + ' (post, January\'s model set)' }]],
+  rows: [['from 2023 on', String(T.from_2023_on.n), outF(dbl23[0], false, 5) + ' .. ' + outF(dbl23[1], true, 5), { raw: at('/trend/printed/from_2023_on/point_estimate') + ' [' + at('/trend/printed/from_2023_on/ci_low') + ', ' + at('/trend/printed/from_2023_on/ci_high') + ']' + ' (site) · ' + W.val({ rec: { path: 'corpus/metr-horizon/claims.json', ptr: '/post/doublingTimeDays/from2023/th11' }, standing: W.COMPUTED, fmt: 'raw', why: WHY_METR }) + ' (post)' }],
+    ['from 2024 on', String(T.from_2024_on.n), outF(dbl24[0], false, 5) + ' .. ' + outF(dbl24[1], true, 5), { raw: W.val({ rec: { path: 'corpus/metr-horizon/claims.json', ptr: '/post/doublingTimeDays/from2024/th11' }, standing: W.COMPUTED, fmt: 'raw', why: WHY_METR }) + ' (post, January\'s model set)' }]],
 });
 
 const B = [];
