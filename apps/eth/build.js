@@ -99,19 +99,18 @@ B.push(C.header({
     + 'say what a statement means. Whether each statement says “ETH is false” was read by two independent readers, '
     + 'and the page keeps the two kinds of check apart.'
 }));
-B.push(C.tldr({
-  findingRaw: 'Both proofs check: Comparator accepts each against its own challenge statement, Lean’s kernel and nanoda '
-    + 'both accept, and only ' + STD.map(C.m).join(', ') + ' are used. Anthropic’s statement is ETH’s negation itself, '
-    + 's₃ = 0 for Mathlib’s Turing machines. OpenAI’s statement is a running-time bound, the paper’s weaker Proposition 6.4: '
-    + 'it defines no ETH, and the step from it to “ETH is false” is prose.'
-    + (bridgeDone ? ' Our Lean bridge closes that gap: the textbook ETH written once, and a proof that each lab’s statement refutes it in that lab’s own machine model.' : '')
-    + (TS && TS.word === 'CERTIFIED' ? ' A third party’s Lean join of the two models (OpenAI’s statement implies Anthropic’s ETHIsFalse), replayed here by both kernels, checks too.' : ''),
-  mechanismRaw: 'Every file pinned by sha256 before any run (' + fmt(OAI.pinnedFiles) + ' and ' + fmt(ANT.pinnedFiles) + '); '
-    + 'Comparator, the Lean FRO’s judge, on one rented CPU machine; nanoda, a second kernel written independently of Lean’s, '
-    + 'switched on for both. Two readings of the statements against the papers, each written without the other.',
-  checkRaw: ln('certs/eth-kernel.json') + ' (the decision), ' + ln(READ.first, 'the first reading') + ', '
-    + ln(READ.second, 'the second reading') + ', and the pod script ' + C.m('tools/runpod-eth.sh') + ' to run it again.'
-}));
+/* THE PAGE IN FIVE PLAIN LINES (2026-10-29, on an outside reading: "I had to read §5 to understand the summary"): what was
+   replayed, by what, what the bridge proves, what stays prose, and what one more day closes; then the disclosure, which
+   sat in §6. Every line is read from the records below it. */
+const FIVE = [
+  { b: 'Replayed.', raw: 'Both labs’ Lean proofs, from their pinned bytes: OpenAI’s ' + C.m('SubexponentialSAT') + ' challenge at ' + C.m(OAI.commit.slice(0, 8)) + ' and Anthropic’s ' + C.m('eth/') + ' at ' + C.m(ANT.commit.slice(0, 8))
+    + (TS && TS.word === 'CERTIFIED' ? ', and a third party’s Lean join of the two.' : '.') },
+  { b: 'Checked by.', raw: 'Comparator, the Lean FRO’s judge, with Lean’s own kernel, and nanoda, a kernel written independently of Lean’s. Both accept both proofs, using only ' + STD.map(C.m).join(', ') + '.' },
+  { b: 'The bridge proves.', raw: bridgeDone ? 'One textbook ETH, written once in Lean, and a Lean proof that each lab’s statement refutes it in that lab’s own machine model. Both statements count the satisfying assignments, so the counting hypothesis #ETH falls with it in each model (read here; its Lean proof is running).' : 'Being built.' },
+  { b: 'Still prose.', raw: 'Two things no kernel can check: that each lab’s machine and input encoding match the textbook’s (a constant cost per step and a polynomial-time encoding, harmless in front of 2^{o(n)}), and that our Lean ETH is the textbook ETH, which is a reading and always will be.' },
+  { b: 'One more day.', raw: 'A third replay of both proofs from a fresh environment (leanchecker --fresh), the bridge under the second kernel, and a check that OpenAI’s statement means the same term in the third party’s join, where it is re-elaborated on another Lean and Mathlib. All three are running.' },
+];
+B.push('<section class="col eth-five">' + C.plainList(FIVE) + C.pRaw('<b>Disclosure.</b> This repository’s tools are written with Claude, Anthropic’s model, and one of the two claims is Anthropic’s. Here independence means who decides, not who typed: nothing on this page was decided by Claude or by either lab’s code. The deciders are Comparator, Lean’s kernel and nanoda; the readings are ours, and say so.') + '</section>');
 B.push(C.stats([
   { k: '“ETH is false”', v: 'not decided here', n: 'read against the textbook ETH (§2), bridged in each lab’s own machine model (§5); the step between models is prose (§6)' },
   { k: 'proofs decided', vRaw: W.val({ rec: { path: KPATH, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of decided claims' }) + ' of ' + W.val({ rec: { path: KPATH, ptr: '/counts/of' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of claims' }), n: 'CERTIFIED, each against its own statement' },
@@ -145,6 +144,7 @@ B.push(C.section({
 /* §2 the premise chain from "the proofs check" to "ETH is false" */
 const premises = [
   bridgeDone ? { grade: W.ASSUMED, label: 'Our Lean ETH says what Impagliazzo and Paturi say',
+    worry: 'this is the one that carries content',
     evidence: 'read: s_k is the infimum of the δ for which k-SAT has an O(2^{δn}) algorithm, and ETH is s_k > 0 for every k ≥ 3, transcribed from CCC 1999, p. 1. A model fixes the machine, the formulas and the input word; the four definitions then read the same in every model (' + C.m('ETHBridge/Generic.lean') + ', byte-identical in both projects).' } : null,
   bridgeDone ? null : { grade: W.ASSUMED, label: 'OpenAI’s theorem implies that ETH is false',
     evidence: 'read, not run. OpenAI’s Lean file defines no ETH; both readers carried its bound to s₃ = 0 by hand ('
@@ -152,11 +152,11 @@ const premises = [
   bridgeDone ? null : { grade: W.ASSUMED, label: 'Anthropic’s ETHIsFalse is the textbook ETH’s negation',
     evidence: 'read. It is literally s₃ = 0, the infimum taken over Mathlib’s FinTM2 machines on its own input words; both readers found no loophole ('
       + C.esc(said('first', 'Confidence ≈ 0.95, on B1′ and B2′')) + '; ' + C.esc(said('second', 'Confidence: high (≈0.95)')) + ').' },
-  { grade: W.ASSUMED, label: 'A machine step costs O(1) in the textbook’s model',
+  { grade: W.ASSUMED, label: 'A machine step costs O(1) in the textbook’s model', worry: 'low',
     evidence: 'textbook, in neither lab’s Lean: a PrimitiveMachine or FinTM2 step is a bounded number of tape or stack operations, so a word RAM or a multitape machine simulates it at constant cost per step. Both papers state it in prose.' },
-  { grade: W.ASSUMED, label: 'A textbook 3-CNF becomes each input word in polynomial time',
+  { grade: W.ASSUMED, label: 'A textbook 3-CNF becomes each input word in polynomial time', worry: 'low',
     evidence: 'textbook, in neither lab’s Lean: deduplicate, sort, pad and write the word. A polynomial factor keeps 2^{o(n)} at 2^{o(n)}.' },
-  { grade: W.ASSUMED, label: 'What the decision itself trusts',
+  { grade: W.ASSUMED, label: 'What the decision itself trusts', worry: 'low; a fault would have to fool two independent kernels the same way',
     evidence: brk(C.esc(K.trustBase)) + '. The sandbox ran best-effort: Landlock was unreadable inside the container.' }
 ].filter(Boolean);
 B.push(C.section({
@@ -164,9 +164,9 @@ B.push(C.section({
   bodyRaw: C.pRaw(bridgeDone
       ? 'The proofs are decided by two kernels, and the step from each statement to “ETH is false in that lab’s own model” is proved in Lean here (§5, one kernel). What still stands between them and the sentence “ETH is false” is a premise, listed in the order the claim travels through it, each with where its checking stopped:'
       : 'The proofs are decided. Everything between them and the sentence “ETH is false” is a premise, listed in the order the claim travels through it, each with where its checking stopped:')
-    + W.premisesHtml(premises.map((p) => Object.assign({}, p, { label: C.esc(p.label) })), {
+    + W.premisesHtml(premises.map((p) => Object.assign({}, p, { label: C.esc(p.label) + (p.worry ? ' <span class="eth-w">How much it should worry you: ' + C.esc(p.worry) + '.</span>' : '') })), {
       meetLine: bridgeDone
-        ? 'The weakest premise is <b>assumed</b>. Our Lean ETH is a transcription of the textbook’s, read, and the model and encoding steps are textbook and in no one’s Lean. So this page decides that both proofs check, proves that each statement refutes ETH in its own lab’s model, and reads, without deciding, that ETH is false in the textbook’s model-free sense.'
+        ? 'Every premise is graded <b>assumed</b>, the grammar’s word for “no machine here checked it”, but they are not the same kind of risk. Only the first carries content: a formal definition of a definition is always a reading, and no proof can close it. The model and encoding steps put a polynomial factor in front of 2^{o(n)}, which changes nothing; the trust base was checked by two kernels. So this page decides that both proofs check, proves that each statement refutes ETH in its own lab’s model, and reads, without deciding, that ETH is false in the textbook’s model-free sense.'
         : 'The weakest premise is <b>assumed</b>. That the statements mean “ETH is false” was read, by two readers who found no loophole, and the model and encoding steps are textbook and in neither lab’s Lean. So this page decides that both proofs check, and reads, without deciding, that ETH is false.' })
 }));
 
@@ -252,7 +252,7 @@ B.push(C.section({
       : 'It decides that two proofs check against their own statements, and it reports two readings of what those statements mean.' },
     { b: 'The papers are not checked.', text: 'OpenAI’s Lean statement is its paper’s weaker Proposition 6.4, not the headline Theorem 1.1, and neither paper’s arguments outside Lean were read here for correctness.' },
     { b: 'A third replay is outstanding.', text: 'leanchecker --fresh was not run on either claim.' },
-    { b: 'Who wrote this.', text: 'This repository’s tools are built with Claude, Anthropic’s model, and one of the two claims is Anthropic’s. Nothing here was shared with, run by or reviewed by either lab, and neither lab’s code decided anything on this page: the deciders are Comparator (the Lean FRO) and nanoda, and the readings are our own.' }
+    { b: 'Who wrote this.', text: 'As the disclosure at the top says: tools written with Claude, one claim Anthropic’s, the deciders Comparator, Lean’s kernel and nanoda. Nothing here was shared with, run by or reviewed by either lab.' }
   ])
 }));
 
@@ -274,7 +274,12 @@ B.push(C.section({
 
 const foot = '<p>' + C.esc('Generated by apps/eth/build.js from certs/eth-kernel.json (sha256 ' + sha('certs/eth-kernel.json').slice(0, 16)
   + '…) and the two readings (' + sha(READ.first).slice(0, 12) + '…, ' + sha(READ.second).slice(0, 12) + '…)' + (BR ? ' and ' + BRIDGE_REL : '') + ', at git ' + git + '. MIT.') + '</p>';
-let html = TPL.render({ title: 'Two claimed refutations of ETH, checked · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot,
+const CSS = `
+/* /eth/ (apps/eth/build.js): the five lines under the header, and the worry word on each premise */
+.eth-five{margin-top:var(--s-7)}
+.eth-w{display:block;color:var(--ink-3);font-weight:var(--weight-body)}
+`;
+let html = TPL.render({ title: 'Two claimed refutations of ETH, checked · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, cssRaw: CSS,
   desc: 'OpenAI’s and Anthropic’s Lean proofs that the Exponential Time Hypothesis is false, replayed by two kernels against their own statements, and the statements read against the textbook ETH.',
   path: '/eth/' });
 if (/name="robots" content="noindex/.test(html)) fail('the page is listed (2026-10-29) and must not carry noindex');
