@@ -1,0 +1,300 @@
+# The version seam of the TSavo bridge replay (certs/eth-tsavo-bridge.json, gaps). TSavo's
+#   Bridge.ethIsFalse_of_claim : OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.Claim → MainResults.ETHIsFalse
+# is checked inside Anthropic's eth project (Lean v4.33.1, Mathlib 0df444a3), where OpenAI's challenge TEXT is
+# re-elaborated; OpenAI proved exact_count_and_sat on Lean v4.34.1 with Mathlib d13f23b7. The bytes are the same.
+# This asks whether the ELABORATED statements are the same term, and so is every definition they unfold to.
+#
+#   smoke      corpus/eth-refutation/seam/lean/SeamExport.lean compiled and run on Lean core alone, with each of
+#              the two toolchains (minutes, before any Mathlib is fetched)
+#   openai     corpus/eth-refutation/bridge/openai (Lean v4.34.1, Mathlib d13f23b7, autoImplicit false as OpenAI's
+#              lakefile) plus, at their pins and checked by sha256: OpenAI's challenge as the module
+#              ComparatorChallenges.SubexponentialSAT (its name in openai/math) and TSavo's statement file as
+#              Bridge.OpenAIStatement (its name in TSavo's tree)
+#   anthropic  anthropics/formal-math @ 16a5ce41 eth/ as eth-tsavo.yml sets it up (the clones against the pins, the
+#              statement checks, bridge/ placed inside, the README block and the declared challenge-lib amendment
+#              appended by tools/eth-tsavo-gates.js), plus the same challenge module
+# In each project: lake build -v of the modules, then SeamExport writes, for exact_count_and_sat (challenge),
+# Claim (claim; with ClaimAt unfolded once) and, on Anthropic's side, the statement of Bridge.ethIsFalse_of_claim
+# (bridge), the transitive closure of every constant the statement depends on, each as a canonical node table, and
+# the same closure after proof erasure. The artifacts eth-seam-openai and eth-seam-anthropic hold the exports.
+#
+# No verdict here: tools/record-eth-seam.js downloads both artifacts, compares, and writes certs/eth-seam.json.
+# Nothing here pushes.
+name: eth-seam
+on:
+  push:
+    branches: [eth-seam]
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  OPENAI_PIN: 7ef5c0cc5ca4b0e072b7a050fca09ab24bc6fa3a
+  OPENAI_TOOLCHAIN: leanprover/lean4:v4.34.1
+  OPENAI_MATHLIB: d13f23b723b8a846827a245b89c10fc7d3f11612
+  ANT_REPO: https://github.com/anthropics/formal-math.git
+  ANT_PIN: 16a5ce41304fcdaea4e0be7c132e1c361dc26da5
+  ANT_TOOLCHAIN: leanprover/lean4:v4.33.1
+  ANT_MATHLIB: 0df444a360eaa60ab8c11dca51a86af692955474
+  TSAVO_REPO: https://github.com/TSavo/eth-bridge.git
+  TSAVO_PIN: 34f9ca204bed7fa6c595e56966773726e98dd3fd
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        toolchain: [v4.34.1, v4.33.1]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: corpus/eth-refutation/seam/lean/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: SeamExport on Lean core alone
+        run: |
+          set -euo pipefail
+          mkdir -p ~/smoke/out && cd ~/smoke
+          echo "leanprover/lean4:${{ matrix.toolchain }}" > lean-toolchain
+          cp "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/lean/SeamExport.lean" .
+          printf 'name = "smoke"\n\n[[lean_lib]]\nname = "SeamExport"\n' > lakefile.toml
+          cat > SeamRunSmoke.lean <<'EOF'
+          import SeamExport
+          set_option maxHeartbeats 0
+          def SmokeAt (k : Nat) : Prop := ∃ m : Fin (k + 1), m.val + k = 3 ∧ ∀ _h : k ≤ 2, k < 3
+          def SmokeAll : Prop := ∀ k : Nat, 2 ≤ k → SmokeAt k
+          #eval SeamExport.run "smoke" #[``List.mergeSort, ``SmokeAll] (some (``SmokeAll, ``SmokeAt)) #[``Nat.lt_irrefl]
+          EOF
+          lean --version
+          lake build SeamExport 2>&1 | tail -30
+          SEAM_OUT="$HOME/smoke/out" lake env lean SeamRunSmoke.lean 2>&1 | tail -30
+          head -c 1500 out/smoke.jsonl; echo
+          wc -lc out/smoke.jsonl
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-smoke-${{ matrix.toolchain }}
+          path: ~/smoke/out
+          retention-days: 7
+
+  openai:
+    needs: smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      OUT: ${{ github.workspace }}/out
+      W: ${{ github.workspace }}/work
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            corpus/eth-refutation/pins.json
+            corpus/eth-refutation/tsavo/pins.json
+            corpus/eth-refutation/bridge/openai/
+            corpus/eth-refutation/seam/lean/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: free disk, the machine
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT" "$W"
+          { echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"; echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo; df -h / | tail -1; } | tee "$OUT/machine.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: the two statement files at their pins, against the sha256 pins
+        run: |
+          set -euo pipefail
+          A="$GITHUB_WORKSPACE/audit/corpus/eth-refutation"
+          test "$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["claims"]["openai"]["commit"])' "$A/pins.json")" = "$OPENAI_PIN"
+          CH=$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["claims"]["openai"]["files"]["lean/ComparatorChallenges/SubexponentialSAT.lean"])' "$A/pins.json")
+          ST=$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["tsavo"]["files"]["bridge/Bridge/OpenAIStatement.lean"])' "$A/tsavo/pins.json")
+          curl -sSfL -o "$W/SubexponentialSAT.lean" "https://raw.githubusercontent.com/openai/math/$OPENAI_PIN/lean/ComparatorChallenges/SubexponentialSAT.lean"
+          test "$(sha256sum "$W/SubexponentialSAT.lean" | cut -d' ' -f1)" = "$CH"
+          git clone -q "$TSAVO_REPO" "$W/tsavo" && git -C "$W/tsavo" checkout -q "$TSAVO_PIN"
+          test "$(git -C "$W/tsavo" rev-parse HEAD)" = "$TSAVO_PIN"
+          test "$(sha256sum "$W/tsavo/bridge/Bridge/OpenAIStatement.lean" | cut -d' ' -f1)" = "$ST"
+          echo "challenge $CH; statement $ST" | tee "$OUT/pins-checked.txt"
+      - name: the project (bridge/openai), the seam modules, the Mathlib cache
+        run: |
+          set -euo pipefail
+          A="$GITHUB_WORKSPACE/audit/corpus/eth-refutation"
+          P="$W/project"
+          cp -r "$A/bridge/openai" "$P"
+          mkdir -p "$P/seam/ComparatorChallenges" "$P/bridge/Bridge"
+          cp "$W/SubexponentialSAT.lean" "$P/seam/ComparatorChallenges/SubexponentialSAT.lean"
+          cp "$W/tsavo/bridge/Bridge/OpenAIStatement.lean" "$P/bridge/Bridge/OpenAIStatement.lean"
+          cp "$A/seam/lean/"*.lean "$P/seam/"
+          cat >> "$P/lakefile.toml" <<'EOF'
+
+          # eth-seam: the export and OpenAI's challenge under its own module name; TSavo's statement file under its own
+          [[lean_lib]]
+          name = "Seam"
+          srcDir = "seam"
+          roots = ["SeamExport", "ComparatorChallenges.SubexponentialSAT"]
+
+          [[lean_lib]]
+          name = "Bridge"
+          srcDir = "bridge"
+          roots = ["Bridge.OpenAIStatement"]
+          EOF
+          cp "$P/lakefile.toml" "$OUT/lakefile.toml"
+          cd "$P"
+          test "$(cat lean-toolchain)" = "$OPENAI_TOOLCHAIN"
+          lake update 2>&1 | tail -20
+          test "$(cat lean-toolchain)" = "$OPENAI_TOOLCHAIN"
+          test "$(cd .lake/packages/mathlib && git rev-parse HEAD)" = "$OPENAI_MATHLIB"
+          lake exe cache get 2>&1 | tail -5
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          find . -path ./.lake -prune -o -type f -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          { echo "side: openai"; echo "toolchain: $(cat lean-toolchain)"; lean --version; lake --version
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "commit: $GITHUB_SHA"; echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"; cat "$OUT/machine.txt"; } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+          df -h / | tail -1
+      - name: build the modules
+        working-directory: work/project
+        run: |
+          set +e
+          lake build -v SeamExport ComparatorChallenges.SubexponentialSAT Bridge.OpenAIStatement > "$OUT/build.log" 2>&1
+          echo $? > "$OUT/build.exit"
+          grep -v -E '^(✔|info:|trace:).*(Mathlib|Batteries|Aesop|Qq|ProofWidgets|Plausible|LeanSearchClient|ImportGraph|Std\.|Lean\.|Init\.)' "$OUT/build.log" | tail -60
+          test "$(cat "$OUT/build.exit")" = 0
+      - name: export
+        working-directory: work/project
+        run: |
+          set +e
+          for x in Challenge Claim; do
+            start=$(date +%s)
+            SEAM_OUT="$OUT" /usr/bin/time -v lake env lean "seam/SeamRun$x.lean" > "$OUT/export-$x.log" 2>&1
+            echo $? > "$OUT/export-$x.exit"
+            echo $(( $(date +%s) - start )) > "$OUT/export-$x.seconds"
+            echo "== $x: exit $(cat "$OUT/export-$x.exit"), $(cat "$OUT/export-$x.seconds") s"; tail -30 "$OUT/export-$x.log"
+          done
+          ls -la "$OUT"
+          for f in "$OUT"/*.jsonl; do head -c 600 "$f"; echo; done
+          sha256sum "$OUT"/*.jsonl | tee "$OUT/exports.sha256"
+          gzip -9 "$OUT"/*.jsonl
+          ls -la "$OUT"
+          test "$(cat "$OUT/export-Challenge.exit")" = 0 && test "$(cat "$OUT/export-Claim.exit")" = 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-openai
+          path: ${{ github.workspace }}/out
+          retention-days: 90
+
+  anthropic:
+    needs: smoke
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    env:
+      OUT: ${{ github.workspace }}/out
+      W: ${{ github.workspace }}/work
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            tools/eth-tsavo-gates.js
+            tools/eth-pod-facts.py
+            corpus/eth-refutation/pins.json
+            corpus/eth-refutation/tsavo/pins.json
+            corpus/eth-refutation/seam/lean/
+          sparse-checkout-cone-mode: false
+          path: audit
+      - name: free disk, the machine
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT" "$W"
+          { echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"; echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo; df -h / | tail -1; } | tee "$OUT/machine.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: the clones at their pins, every byte against the pins, the statement checks (as eth-tsavo.yml)
+        run: |
+          set -euo pipefail
+          A="$GITHUB_WORKSPACE/audit"
+          cd "$W"
+          git clone -q "$TSAVO_REPO" tsavo && git -C tsavo checkout -q "$TSAVO_PIN"
+          test "$(git -C tsavo rev-parse HEAD)" = "$TSAVO_PIN"
+          git clone -q --filter=blob:none --no-checkout "$ANT_REPO" ant
+          git -C ant sparse-checkout set --no-cone '/eth/**' '/.github/**'
+          git -C ant checkout -q "$ANT_PIN"
+          test "$(git -C ant rev-parse HEAD)" = "$ANT_PIN"
+          python3 -I "$A/tools/eth-pod-facts.py" verify anthropic "$W/ant" "$A/corpus/eth-refutation/pins.json" eth .github > "$OUT/verify-anthropic.json"
+          test "$(cat ant/eth/lean-toolchain)" = "$ANT_TOOLCHAIN"
+          node "$A/tools/eth-tsavo-gates.js" sources "$W/tsavo" "$W/ant/eth" 2>&1 | tee "$OUT/sources-gate.txt"
+          test "$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["claims"]["openai"]["commit"])' "$A/corpus/eth-refutation/pins.json")" = "$OPENAI_PIN"
+          CH=$(python3 -I -c 'import json,sys; print(json.load(open(sys.argv[1]))["claims"]["openai"]["files"]["lean/ComparatorChallenges/SubexponentialSAT.lean"])' "$A/corpus/eth-refutation/pins.json")
+          curl -sSfL -o "$W/SubexponentialSAT.lean" "https://raw.githubusercontent.com/openai/math/$OPENAI_PIN/lean/ComparatorChallenges/SubexponentialSAT.lean"
+          test "$(sha256sum "$W/SubexponentialSAT.lean" | cut -d' ' -f1)" = "$CH"
+          echo "challenge $CH" | tee "$OUT/pins-checked.txt"
+      - name: bridge/ inside eth/, the README block and the declared amendment, the seam modules, the Mathlib cache
+        working-directory: work/ant/eth
+        run: |
+          set -euo pipefail
+          G="$GITHUB_WORKSPACE/audit/tools/eth-tsavo-gates.js"
+          cp -r "$W/tsavo/bridge" bridge
+          node "$G" lakefile "$W/tsavo" . | tee "$OUT/lakefile-step.txt"
+          node "$G" lakefile "$W/tsavo" . --challenge-lib | tee -a "$OUT/lakefile-step.txt"
+          mkdir -p seam/ComparatorChallenges
+          cp "$W/SubexponentialSAT.lean" seam/ComparatorChallenges/SubexponentialSAT.lean
+          cp "$GITHUB_WORKSPACE/audit/corpus/eth-refutation/seam/lean/"*.lean seam/
+          cat >> lakefile.toml <<'EOF'
+
+          # eth-seam: the export and OpenAI's challenge under its own module name
+          [[lean_lib]]
+          name = "Seam"
+          srcDir = "seam"
+          roots = ["SeamExport", "ComparatorChallenges.SubexponentialSAT"]
+          EOF
+          cp lakefile.toml "$OUT/lakefile.toml"
+          lake exe cache get 2>&1 | tail -5
+          test "$(cd .lake/packages/mathlib && git rev-parse HEAD)" = "$ANT_MATHLIB"
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          find . -path ./.lake -prune -o -type f -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          { echo "side: anthropic"; echo "toolchain: $(cat lean-toolchain)"; lean --version; lake --version
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "commit: $GITHUB_SHA"; echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"; cat "$OUT/machine.txt"; } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+          df -h / | tail -1
+      - name: build the modules
+        working-directory: work/ant/eth
+        run: |
+          set +e
+          lake build -v SeamExport ComparatorChallenges.SubexponentialSAT Bridge.OpenAIStatement BridgeChallenge > "$OUT/build.log" 2>&1
+          echo $? > "$OUT/build.exit"
+          grep -v -E '^(✔|info:|trace:).*(Mathlib|Batteries|Aesop|Qq|ProofWidgets|Plausible|LeanSearchClient|ImportGraph|Std\.|Lean\.|Init\.)' "$OUT/build.log" | tail -60
+          test "$(cat "$OUT/build.exit")" = 0
+      - name: export
+        working-directory: work/ant/eth
+        run: |
+          set +e
+          for x in Challenge Claim Bridge; do
+            start=$(date +%s)
+            SEAM_OUT="$OUT" /usr/bin/time -v lake env lean "seam/SeamRun$x.lean" > "$OUT/export-$x.log" 2>&1
+            echo $? > "$OUT/export-$x.exit"
+            echo $(( $(date +%s) - start )) > "$OUT/export-$x.seconds"
+            echo "== $x: exit $(cat "$OUT/export-$x.exit"), $(cat "$OUT/export-$x.seconds") s"; tail -30 "$OUT/export-$x.log"
+          done
+          ls -la "$OUT"
+          for f in "$OUT"/*.jsonl; do head -c 600 "$f"; echo; done
+          sha256sum "$OUT"/*.jsonl | tee "$OUT/exports.sha256"
+          gzip -9 "$OUT"/*.jsonl
+          ls -la "$OUT"
+          test "$(cat "$OUT/export-Challenge.exit")" = 0 && test "$(cat "$OUT/export-Claim.exit")" = 0 && test "$(cat "$OUT/export-Bridge.exit")" = 0
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: eth-seam-anthropic
+          path: ${{ github.workspace }}/out
+          retention-days: 90
