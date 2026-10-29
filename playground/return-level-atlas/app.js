@@ -14,6 +14,8 @@
    page's own data and the cell file the reader asks for. */
 (function () {
   'use strict';
+  /* a certified end is printed outward (WARRANT rule 8): OW.up for an upper end, OW.down for a lower one, OW.enc for both */
+  const OW = self.OUTWARD;
   const SPEC = JSON.parse(document.getElementById('ra-spec').textContent);
   const BUNDLE = document.getElementById('ra-bundle').textContent;
   const WORKER = document.getElementById('ra-worker').textContent;
@@ -227,7 +229,7 @@
     const b = c.blocks[state.block], L = look(c);
     if (L.k === 'R') return 'REFUSED — ' + L.why;
     switch (state.mode) {
-      case 'wave': return famOf(b.ad) ? FW[famOf(b.ad)] + ' decided; ' + state.T + '-year wave ' + L.v.toFixed(2) + ' m' : '';
+      case 'wave': return famOf(b.ad) ? FW[famOf(b.ad)] + ' decided; ' + state.T + '-year wave ' + OW.up(L.v, 2) + ' m' : '';
       case 'family': return FW[L.v] + ' decided by ' + CW[state.crit];
       case 'blocks': return 'the ' + state.T + '-year wave moves ×' + L.v.toFixed(2) + ' across the three blocks';
       case 'record': return state.T + '-year wave ' + (L.v).toFixed(2) + '× the largest day on record' + (L.below ? ' — below it' : '');
@@ -235,9 +237,9 @@
       case 'gg': return ['a maximum inside the family', 'a maximum beside its lognormal limit (α > 500)', 'its likelihood peaks at the lognormal limit (proved)'][b.gg];
       case 'ew': return EWW[b.ew];
       case 'naive': return L.v === 'differs' ? 'a threshold fitter says ' + (famOf(b.naive) ? FW[famOf(b.naive)] : 'REFUSED') + '; the certificate ' + (famOf(b.ad) ? FW[famOf(b.ad)] : 'REFUSES') : 'the threshold fitter and the certificate agree';
-      case 'seven': return FW[L.v] + ' decided among seven by Anderson–Darling' + (L.v === 'gev' && b.xi !== null ? ' (ξ = ' + b.xi.toFixed(3) + (b.g100 !== null && b.g100 !== undefined ? '; its 100-year wave ' + b.g100.toFixed(1) + ' m, the record ' + c.max.toFixed(1) + ' m' : '') + ')' : '') + (famOf(b.ad) && famOf(b.ad) !== L.v ? '; among the paper\'s six, the ' + FW[famOf(b.ad)] : '');
+      case 'seven': return FW[L.v] + ' decided among seven by Anderson–Darling' + (L.v === 'gev' && b.xi !== null ? ' (ξ = ' + b.xi.toFixed(3) + (b.g100 !== null && b.g100 !== undefined ? '; its 100-year wave ' + OW.up(b.g100, 1) + ' m, the record ' + c.max.toFixed(1) + ' m' : '') + ')' : '') + (famOf(b.ad) && famOf(b.ad) !== L.v ? '; among the paper\'s six, the ' + FW[famOf(b.ad)] : '');
       case 'xi': return 'the GEV\'s ξ = ' + b.xi.toFixed(3) + ', certified — ' + (b.xi > 0 ? 'a Fréchet-type tail' : 'a finite upper end') + (b.xiCI[0] !== null && b.xiCI[0] !== undefined ? '; its 95% interval (statistical) [' + b.xiCI[0].toFixed(3) + ', ' + b.xiCI[1].toFixed(3) + ']' + (L.st0 ? ' holds 0: the Gumbel is not ruled out' : '') : '');
-      case 'unc': { const lv = state.T === 100 ? b.l100 : b.l1000; return state.T + '-year wave ' + lv[1].toFixed(2) + ' m, certified; its 95% interval [' + L.lo.toFixed(2) + ', ' + L.hi.toFixed(2) + '] m is statistical (the delta method): ' + (100 * L.v).toFixed(0) + '% of the level'; }
+      case 'unc': { const lv = state.T === 100 ? b.l100 : b.l1000; return state.T + '-year wave ' + OW.up(lv[1], 2) + ' m, certified; its 95% interval [' + L.lo.toFixed(2) + ', ' + L.hi.toFixed(2) + '] m is statistical (the delta method): ' + (100 * L.v).toFixed(0) + '% of the level'; }
     }
     return '';
   }
@@ -468,7 +470,7 @@
   function blockRows(c) {
     const cols = (c.native ? [['3-hourly', c.native]] : []).concat(c.ice ? [] : BLK.map((b) => [b, c.blocks[b]]));
     const cell = (k) => (famOf(k) ? '<td class="b">' + esc(FS[famOf(k)]) + '</td>' : '<td class="r">REFUSED</td>');
-    const lvl = (q, T) => '<td>' + (famOf(q.ad) && q['l' + T][1] !== null ? q['l' + T][1].toFixed(2) + ' m' : '—') + '</td>';
+    const lvl = (q, T) => '<td>' + (famOf(q.ad) && q['l' + T][1] !== null ? OW.up(q['l' + T][1], 2) + ' m' : '—') + '</td>';
     const rows = CRIT.map((k) => '<tr><th>' + (k === 'chi2' ? 'χ²' : k === 'ad' ? 'A²' : k.toUpperCase()) + '</th>' + cols.map(([, q]) => cell(q[k])).join('') + '</tr>')
       .concat(['<tr><th>100-yr</th>' + cols.map(([, q]) => lvl(q, 100)).join('') + '</tr>', '<tr><th>1000-yr</th>' + cols.map(([, q]) => lvl(q, 1000)).join('') + '</tr>']);
     if (!c.ice) rows.push('<tr><th>threshold</th>' + cols.map(([b, q]) => (b === '3-hourly' ? '<td class="r">—</td>' : cell(q.naive))).join('') + '</tr>');
@@ -613,9 +615,9 @@
     const P = R.plot[state.block], B = rec.blocks[state.block];
     const best = B.rank.ad, dll = P && best !== 'R' && P.dll && P.dll[best];
     /* the upper end of the enclosure, rounded up to the centimetre: "above X with probability at most 10%" is then true of the fitted law */
-    const up = dll ? Math.ceil(dll[1] * 100 - 1e-9) / 100 : null;
+    const up = dll ? OW.up(dll[1], 2) : null;
     const dst = P && best !== 'R' && P.dllStat && P.dllStat[best];
-    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up.toFixed(2) + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in [' + dll[0].toFixed(3) + ', ' + dll[1].toFixed(3) + '] m') + '). It is the fitted law\'s number, decided. The fit\'s sampling is not in it: '
+    $('ra-life').innerHTML = dll ? '<p class="ra-life">Under the ' + esc(FW[best]) + ' decided for the ' + esc(BW[state.block]) + ', a structure standing here for 25 years meets a ' + esc(state.block === 'daily' ? 'day' : state.block === 'weekly' ? 'week' : 'month') + '\'s maximum above <b>' + up + ' m</b> with probability at most 10% — the design-life level of Rootzén and Katz, here the ' + Math.round(P.hours / (8766 * -Math.expm1(Math.log(0.9) * P.hours / (8766 * 25)))) + '-year return level (' + (dll[1] - dll[0] < 5e-4 ? 'its enclosure narrower than a millimetre' : 'enclosed in ' + OW.enc(dll, 3) + ' m') + '). It is the fitted law\'s number, decided. The fit\'s sampling is not in it: '
       + (dst ? 'another 32 years of the same sea could put it anywhere in ' + statSpan(dst[0], dst[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : 'no statistical interval could be formed here') + '. Successive ' + esc(BW[state.block]) + ' are taken as independent' + (c.ei && state.block === 'daily' ? ' (they come in storms: extremal index θ = ' + c.ei.theta.toFixed(2) + ')' : '') + ', and the climate as unchanging.</p>' : '';
     $('ra-full').innerHTML = '<div class="k">every fit, certified here</div>' + fullTable(rec);
     charts(c);
@@ -824,8 +826,8 @@
           const F = B.fits[f];
           if (!F.c) return '<tr><td>' + esc(FW[f]) + '</td><td class="r" colspan="5">' + (F.e ? 'peaks at its lognormal limit (proved, k = ' + F.k + ', Q ≤ ' + F.q1 + ')' : F.s ? (/passed k = 0\.001/.test(F.w || '') ? 'past α = 10⁴, and toward k → 0 in its Gumbel coordinates: REFUSED' : 'past α = 10⁴, not certified in its Gumbel coordinates: REFUSED — ' + esc(F.w || '')) : 'REFUSED — ' + esc(F.w || '')) + '</td></tr>';
           const best = B.rank.ad === f;
-          return '<tr><td' + (best ? ' class="b"' : '') + '>' + esc(FW[f]) + (F.p ? ' ᴾ' : '') + (F.g ? ' ᴳ' : '') + '</td><td>' + g(F.ad) + '</td><td>' + g(F.ks, 4) + '</td><td>' + (Array.isArray(F.chi2) ? g(F.chi2, 4) : F.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (F.l100 ? F.l100[1].toFixed(2) : '—') + '</td><td>' + (F.l1000 ? F.l1000[1].toFixed(2) : '—') + '</td></tr>';
-        }).join('') + (B.gev ? (B.gev.c ? '<tr><td' + (B.seven === 'gev' ? ' class="b"' : '') + '>GEV, ξ ' + B.gev.x[1].toFixed(3) + '</td><td>' + g(B.gev.ad) + '</td><td>' + g(B.gev.ks, 4) + '</td><td>' + (Array.isArray(B.gev.chi2) ? g(B.gev.chi2, 4) : B.gev.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (B.gev.l100 ? B.gev.l100[1].toFixed(2) : '—') + '</td><td>' + (B.gev.l1000 ? B.gev.l1000[1].toFixed(2) : '—') + '</td></tr>'
+          return '<tr><td' + (best ? ' class="b"' : '') + '>' + esc(FW[f]) + (F.p ? ' ᴾ' : '') + (F.g ? ' ᴳ' : '') + '</td><td>' + g(F.ad) + '</td><td>' + g(F.ks, 4) + '</td><td>' + (Array.isArray(F.chi2) ? g(F.chi2, 4) : F.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (F.l100 ? OW.up(F.l100[1], 2) : '—') + '</td><td>' + (F.l1000 ? OW.up(F.l1000[1], 2) : '—') + '</td></tr>';
+        }).join('') + (B.gev ? (B.gev.c ? '<tr><td' + (B.seven === 'gev' ? ' class="b"' : '') + '>GEV, ξ ' + B.gev.x[1].toFixed(3) + '</td><td>' + g(B.gev.ad) + '</td><td>' + g(B.gev.ks, 4) + '</td><td>' + (Array.isArray(B.gev.chi2) ? g(B.gev.chi2, 4) : B.gev.chi2 === 'U' ? 'n/d' : 'REF') + '</td><td>' + (B.gev.l100 ? OW.up(B.gev.l100[1], 2) : '—') + '</td><td>' + (B.gev.l1000 ? OW.up(B.gev.l1000[1], 2) : '—') + '</td></tr>'
           : '<tr><td>GEV</td><td class="r" colspan="5">REFUSED — ' + esc(B.gev.w || '') + '</td></tr>') : '') + '</tbody></table></div>'
         + (B.seven !== undefined ? '<p class="n">Among the seven, Anderson–Darling decides: ' + (B.seven === 'R' ? 'REFUSED' : esc(FW[B.seven])) + '.</p>' : '');
     }).join('') + '<p class="n">Each number is the upper end of its enclosure; ᴾ: certified in Prentice\'s coordinates; ᴳ: certified in the Gumbel coordinates (k, θ = λ^k, β = θ ln α); the GEV, the seventh family, is never ranked among the paper\'s six. The download carries every enclosure.</p>';
@@ -917,7 +919,7 @@
     const P0 = PRN.preset;
     if (P0 && P0.id === c.id && R.block === 'annual' && R.f === (P0.gev ? 'gev' : 'gumbel')) h += '<p class="n">' + (P0.gev ? 'The table prints the GEV as (k, σ, µ) with k = −ξ; its k was typed here as ξ with the sign changed. ' : '') + (m.code === P0.verdict ? 'The ledger, <span class="mono">certs/design-table-audit.json</span>, holds the same verdict for LA' + P0.la + ' ' + esc(P0.name) + ' here: ' + esc(P0.verdict) + '.' : '<b>Not the ledger\'s verdict</b> (' + esc(P0.verdict) + ') for LA' + P0.la + ' here — report it: this tab and the ledger disagree.') + '</p>';
     const B = m.fit && c.blocks && c.blocks[R.block];
-    if (B && famOf(B.ad) && B.l100[1] !== null) h += '<p class="n">For comparison, Anderson–Darling decides the ' + esc(FW[famOf(B.ad)]) + ' on these ' + esc(bw) + (c.site ? ' (this tab)' : ' (the ledger)') + ': its 100-year wave is ' + B.l100[1].toFixed(2) + ' m' + (has(B.s100) ? ', and another 32 years of the same sea could put it anywhere in ' + statSpan(B.s100[0], B.s100[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : '') + '.</p>';
+    if (B && famOf(B.ad) && B.l100[1] !== null) h += '<p class="n">For comparison, Anderson–Darling decides the ' + esc(FW[famOf(B.ad)]) + ' on these ' + esc(bw) + (c.site ? ' (this tab)' : ' (the ledger)') + ': its 100-year wave is ' + OW.up(B.l100[1], 2) + ' m' + (has(B.s100) ? ', and another 32 years of the same sea could put it anywhere in ' + statSpan(B.s100[0], B.s100[1]) + ' m (95%, the delta method — statistical, asserted, not decided)' : '') + '.</p>';
     if (m.fit) h += '<p class="n">' + (c.site ? 'Decided on the record itself: a fit made from this file is decided exactly.' : 'A fit made from this hindcast at this node is decided exactly. One made from another series — a buoy, another model, another node, other years — is not expected to be this series\' maximum: there NOT THE CERTIFIED FIT or OFF THE MAXIMUM says how far the two records\' fits lie apart, not that the report erred, and so it carries no red ×. To decide it on its own record, bring that record as your own site.') + '</p>';
     out.innerHTML = h;
   }
@@ -995,8 +997,8 @@
     const nb = nearest(c, 3);
     if (nb.length) {
       h += '<div class="k">the nearest cells of the atlas</div><div class="tw"><table><thead><tr><th></th>' + BLK.map((b) => '<th>' + b + '</th>').join('') + '</tr></thead><tbody>'
-        + (c.blocks ? '<tr><th>your site</th>' + BLK.map((b) => (famOf(c.blocks[b].ad) ? '<td class="b">' + esc(FS[famOf(c.blocks[b].ad)]) + (c.blocks[b].l100[1] !== null ? ' ' + c.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>' : '')
-        + nb.map(([d, q]) => '<tr><th><button type="button" class="ra-linkbtn" data-near="' + esc(q.id) + '">' + Math.round(d) + ' km</button></th>' + BLK.map((b) => (famOf(q.blocks[b].ad) ? '<td>' + esc(FS[famOf(q.blocks[b].ad)]) + (q.blocks[b].l100[1] !== null ? ' ' + q.blocks[b].l100[1].toFixed(1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>').join('')
+        + (c.blocks ? '<tr><th>your site</th>' + BLK.map((b) => (famOf(c.blocks[b].ad) ? '<td class="b">' + esc(FS[famOf(c.blocks[b].ad)]) + (c.blocks[b].l100[1] !== null ? ' ' + OW.up(c.blocks[b].l100[1], 1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>' : '')
+        + nb.map(([d, q]) => '<tr><th><button type="button" class="ra-linkbtn" data-near="' + esc(q.id) + '">' + Math.round(d) + ' km</button></th>' + BLK.map((b) => (famOf(q.blocks[b].ad) ? '<td>' + esc(FS[famOf(q.blocks[b].ad)]) + (q.blocks[b].l100[1] !== null ? ' ' + OW.up(q.blocks[b].l100[1], 1) : '') + '</td>' : '<td class="r">REFUSED</td>')).join('') + '</tr>').join('')
         + '</tbody></table></div><p class="n">The family Anderson–Darling decides and its 100-year wave in metres, block by block: your site as certified here, and the three nearest cells as the ledger holds them (a cell is a node\'s series of the paper\'s hindcast, not your instrument). A cell\'s distance opens it.</p>';
     }
     el.innerHTML = h;

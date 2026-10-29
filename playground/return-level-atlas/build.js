@@ -36,6 +36,10 @@ const WORKER = fs.readFileSync(path.join(HERE, 'worker.js'), 'utf8');
 /* the rules the globe shares with the flat map (decode, square, the ramp, the refusal of a level, outward centimetres):
    inlined before app.js here, required by map.js — one definition for both views */
 const SHARED_REL = 'playground/return-level-atlas/shared.js', SHARED = fs.readFileSync(path.join(ROOT, SHARED_REL), 'utf8');
+/* WARRANT rule 8 in the tab: every certified upper end the globe prints is rounded UP, every lower end DOWN, exactly
+   (design/outward.js, the reports' one rule; it was toFixed, to nearest, until 2026-10-29). A Node module, so it is
+   inlined inside a function that hands its exports to the page as OUTWARD. */
+const OUTWARD_REL = 'design/outward.js', OUTWARD = fs.readFileSync(path.join(ROOT, OUTWARD_REL), 'utf8');
 /* THE parse rule of a reader's record, shared with the return-level check (a reader's own site, read the same way) */
 const PARSE_REL = 'playground/return-level-check/parse.js', PARSE = fs.readFileSync(path.join(ROOT, PARSE_REL), 'utf8');
 /* THE decision of a fit someone printed, shared with the return-level check: on the page for the form's words, and
@@ -291,7 +295,7 @@ function build(OUTDIR) {
     if (/<\/script/i.test(t)) die(rel + ' holds a closing script tag');
     return '(function () { var module = { exports: {} };\n' + t + '\nR.' + k + ' = module.exports; })();';
   }).join('\n') + '\nwindow.ATLAS_RULES = R; })();';
-  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), [SHARED_REL]: sha(SHARED), 'playground/return-level-atlas/worker.js': sha(WORKER), [PARSE_REL]: sha(PARSE), [PRINTED_REL]: sha(PRINTED), [EXHIBITED_REL]: sha(EXHIBITED) }, B.modules,
+  const modules = Object.assign({ 'playground/return-level-atlas/app.js': sha(APP), [SHARED_REL]: sha(SHARED), [OUTWARD_REL]: sha(OUTWARD), 'playground/return-level-atlas/worker.js': sha(WORKER), [PARSE_REL]: sha(PARSE), [PRINTED_REL]: sha(PRINTED), [EXHIBITED_REL]: sha(EXHIBITED) }, B.modules,
     Object.fromEntries(RULES.map(([, rel]) => [rel, sha(fs.readFileSync(path.join(ROOT, rel), 'utf8'))])));
   const vpins = JSON.parse(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-PINS.json'), 'utf8'));
   const vsha = Object.fromEntries(fs.readFileSync(path.join(ROOT, 'apps', 'skyaudit', 'vendor', 'VENDOR-SHA256.txt'), 'utf8').trim().split('\n').map((l) => l.trim().split(/\s+/).reverse()));
@@ -404,7 +408,7 @@ function build(OUTDIR) {
     css: CSS,
     body,
     foot: null,
-    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${PRINTED}\n${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${SHARED}</script>\n<script>${APP}</script>`,
+    script: `<script id="ra-spec" type="application/json">${JSON.stringify(SPEC).replace(/</g, '\\u003c')}</script>\n<script id="ra-bundle" type="text/plain">${B.BUNDLE}</script>\n<script id="ra-worker" type="text/plain">${PRINTED}\n${WORKER}</script>\n<script src="vendor/maplibre-gl.js"></script>\n<script>${rulesJs}</script>\n<script>${PARSE}</script>\n<script>${PRINTED}</script>\n<script>${EXHIBITED}</script>\n<script>${SHARED}</script>\n<script>(function () { const module = { exports: {} };\n${OUTWARD}\nself.OUTWARD = module.exports; })();</script>\n<script>${APP}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   /* THE SECOND VIEW (2026-10-29): the same ledger as a flat map in the apps' product look, at map/ beside the globe,
