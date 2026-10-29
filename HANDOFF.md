@@ -22,6 +22,13 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ★★★★★★★ 2026-10-29 (evening) — D12 AND D14 MERGED AND PUSHED on the operator's "Screenshots approved" (51f075eb,
+     0ec761f4; the hubs re-synced, WARRANT.md keeps both sections, drive.js 16/16, wiring/grammar green; Swell @1440's
+     known flap left at its recorded 9). The Qiushi proposal is now a PRIVATE e-mail draft (the operator: no public
+     conversation for it; GitHub has no private messages): outreach/qiushi-coauthor-proposal.private.md, git-ignored
+     (outreach/*.private.md), To the Oxelra org address, Cc Yihao Yang's ZJU address from CITATION.cff; NOT SENT. The
+     earlier public-comment draft is removed from the tree (it stays in history at 39066f52). CFSG: the reading step next
+     (see the targets row), the replay only after Axiom ships oleans.
   ★★★★★★ 2026-10-29 (late) — HANDOFF: D12 AND D14 BUILT AS SPECIMENS ON PUSHED BRANCHES, waiting on the operator's look.
      ── ON BRANCHES (pushed, NOT merged; each needs the operator's word, then `git merge` into main + `make page` + push):
        d12-hero (30f7dec0) — THE HERO. design/tokens.js LAYOUT.hero 1440px; template.js .hero: the declared figure's box
@@ -43,7 +50,7 @@ NEXT SESSION, IN ORDER:
        corrected to the 11th significant (12th decimal place) on erdos852/answer-key/claims/About + the paper draft, counted
        by the new outward.js sigAgree, the title guarded (721993f3); corpus/targets.json: axiom-cfsg-2026-10 SCOUTED (OPEN,
        facts + order: read the TauCeti statement layer first, replay only after oleans ship) and oxelra-matmul-f2-rank21
-       (UNSCOUTED); outreach/qiushi-coauthor-proposal.md (DRAFT, not sent: a comment on Qiushi kissing #1 inviting a joint
+       (UNSCOUTED); outreach/qiushi-coauthor-proposal.md (superseded the same evening by the private e-mail draft; was: a comment on Qiushi kissing #1 inviting a joint
        companion paper + a certify-before-you-announce offer + their F2 matmul Lean replay; two decisions flagged inside).
      ── CO-AUTHOR OUTREACH (Pedro's suggestion; memory coauthor-outreach): Ricardo de Lima Ribeiro messaged by the operator
        10-29, hooked; Qiushi next (the draft above). Oxelra never answered our Bandeira issue (#1 there, 10-15).
