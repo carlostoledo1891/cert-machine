@@ -143,6 +143,24 @@ ok('rules: six activities, each with spots, a score, a pt and en text; every dec
   }
 });
 
+/* ---- the page is English only (the operator, 2026-10-30: no more pt-BR pages). The rule texts in surf.js keep their
+   pt field: surf.js is a pinned deciding module, and the page reads its en text only ---- */
+const PT_WORDS = /[çãõ]|\b(não|praia|praias|previsão|faixa|onda|ondas|vento|maré|hoje|amanhã|agora|para|decidido|atenção|perigo)\b/i;
+const PT_NAMES = /Florianópolis|Guarda do Embaú|Sørensen|CBMSC Cidadão|baía (norte|sul)|Lagoa|Praia [A-Z]|Ponta [A-Z]|\bpraia=/g;   /* proper names, the beaches' region keys and the URL's beach key (URLs stay) */
+const ptLeft = (src) => src.split('\n').filter((l) => !/^\s*(\/\*|\*|\/\/)/.test(l)).map((l) => l.replace(PT_NAMES, '')).filter((l) => PT_WORDS.test(l));
+ok('english only: the client has no Portuguese dictionary, no language switch, and no Portuguese word outside proper names; the shell is lang="en"', () => {
+  const client = fs.readFileSync(path.join(__dirname, 'app', 'client.js'), 'utf8');
+  assert.ok(!/\bpt:\s*\{/.test(client) && !/\bLANG\b|swell\.lang|sw-lang/.test(client), 'client.js still carries a language switch');
+  assert.deepStrictEqual(ptLeft(client), []);
+  const shell = fs.readFileSync(path.join(__dirname, 'app', 'build-app.js'), 'utf8');
+  assert.ok(/lang: 'en'/.test(shell) && !/lang: 'pt-BR'|data-lang=/.test(shell), 'the shell is not lang="en"');
+  assert.deepStrictEqual(ptLeft(shell), []);
+});
+red('RED: a Portuguese string slipped into the client is found', () => {
+  assert.strictEqual(ptLeft("var x = 'sem faixa medida neste horário';").length, 1);
+  assert.strictEqual(ptLeft("var x = 'no measured band at this hour';").length, 0);
+});
+
 /* ---- the day: written bytes re-derive their digest; the modules the tab runs are the ones pinned ---- */
 const DD = path.join(ROOT, 'site', 'swell', 'data', 'today.json');
 if (fs.existsSync(DD)) {

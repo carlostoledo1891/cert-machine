@@ -1,6 +1,6 @@
 # Swell — the sea of Florianópolis, beach by beach
 
-**Live:** carlostoledo.co/swell/ (unlisted; pt-BR first, EN toggle). **The day:** branch `swell-field`, rebuilt daily
+**Live:** carlostoledo.co/swell/ (unlisted; English only since 2026-10-30, the operator: no more pt-BR pages). **The day:** branch `swell-field`, rebuilt daily
 by `.github/workflows/swell-feed.yml`. **Code:** MIT. **The island model's depths:** DHN chart 1902 — non-commercial,
 not for navigation (`data/LICENSE-DHN.md`).
 
