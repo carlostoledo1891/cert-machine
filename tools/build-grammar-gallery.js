@@ -114,7 +114,8 @@ function designWave(guard) {
     return svg(PW, PH, 'In WARRANT: each family\'s certified level a decided knot, filled where Anderson–Darling picks it; the delta method\'s interval a dashed whisker, computed; the annual block a hatched void, the family choice refused; the largest hour on record a solid line.', out);
   })();
   return {
-    id: 'design-wave', title: 'A design wave', kind: 'record', record: REC, stop: STOP, usual, warrant,
+    id: 'design-wave', title: 'A design wave', form: 'levels with intervals, by category', kind: 'record',
+    rule: 'Draw each certified level as a knot, an interval from a float method as a dashed whisker, and a choice the data cannot settle as a void with its reason.', record: REC, stop: STOP, usual, warrant,
     hides: 'The usual chart draws a trend with error bars. The spread is two choices, the block and the family: the picked 100-year wave runs from ' + lowS + ' m (' + NAMES[lowP.b] + ') to ' + highS + ' m (' + NAMES[highP.b] + '). The error bars are the only float on the page, and on annual maxima one family has no certified fit, so the choice between them is refused, not drawn.',
     caption: 'Buoy A (NDBC), ' + D.years + ' years of hourly sea states: the certified 100-year significant wave height of the two families Anderson–Darling picks there, by block. Each level is an enclosure narrower than its dot; the whiskers are the delta method’s 95% interval.',
   };
@@ -156,7 +157,7 @@ function moody(guard) {
     out.push(t(f.px(4600), f.py(0.093), '∅ Re 2300–4000: no correlation holds', 't-note'));
     out.push(poly([P(f, RE0, 0.1), P(f, RE1, 64 / RE1)], W.attrs(W.DECIDED, { width: 2 })));
     out.push(t(f.px(650), f.py(0.016), '64/Re', 't-lab'), t(f.px(650), f.py(0.0132), 'exact', 't-note'));
-    for (const c of curves) out.push(poly(c.pts.map((p) => P(f, p.Re, p.f)), W.attrs(W.COMPUTED, { width: 1.4 })));
+    for (const c of curves) out.push(poly(c.pts.map((p) => P(f, p.Re, p.f)), W.attrs(W.COMPUTED, { width: 1.6 })));
     const last = (c) => c.pts[c.pts.length - 1];
     for (const c of curves.slice(1)) out.push(mood(f.L + f.pw - 2, f.py(last(c).f) - 4, 'given ε/D = ' + c.lab, 'end'));
     out.push(mood(f.L + f.pw - 2, f.py(last(curves[0]).f) - 4, 'smooth', 'end'));
@@ -164,7 +165,8 @@ function moody(guard) {
     return svg(PW, PH, 'In WARRANT: 64 over Re solid, exact; the transition from Re 2300 to 4000 a hatched void; Colebrook\'s turbulent curves dashed, computed, each named by the roughness it was drawn given, in italic.', out);
   })();
   return {
-    id: 'moody', title: 'Moody’s chart', kind: 'built', source: 'built here from 64/Re and Colebrook (1939)', stop: STOP, usual, warrant,
+    id: 'moody', title: 'Moody’s chart', form: 'a family of curves on log axes', kind: 'built',
+    rule: 'Draw an exact law solid and a fit solved in floating point dashed, name each curve by the input it was drawn given, and leave a range where no correlation holds as a void, never bridged.', source: 'built here from 64/Re and Colebrook (1939)', stop: STOP, usual, warrant,
     hides: 'The usual chart draws an exact law and a 1939 fit in one ink, and carries a pen across the transition. Here 64/Re is solid, Colebrook’s curves are dashed, each names the roughness it was drawn given, and from Re 2300 to 4000, where no correlation holds, nothing is drawn.',
     caption: 'Friction factor against Reynolds number. Laminar: 64/Re, exact arithmetic. Turbulent: Colebrook’s equation, solved for each point by iteration in floating point (every residual under 10⁻¹²); the equation itself is a fit to measured pipes, a premise ' + W.grade(W.ASSUMED) + ' here.',
   };
@@ -219,7 +221,8 @@ function leaderboard(guard) {
     return svg(PW, PH, 'In WARRANT: counts as solid bars; first and second tied, their order a dotted bracket, chosen; a self-reported score a dashed bar, a number someone printed; the missing run a hatched void, not run.', out);
   })();
   return {
-    id: 'leaderboard', title: 'A leaderboard', kind: 'illustration', stop: STOP, usual, warrant,
+    id: 'leaderboard', title: 'A leaderboard', form: 'a ranked bar chart', kind: 'illustration',
+    rule: 'Draw counts solid, a reported number dashed until it is re-counted, an order between equal values as a dotted choice, and a run that never happened as a void with NEEDS DATA, never a zero.', stop: STOP, usual, warrant,
     hides: 'The usual chart ranks six models one to six. First place is a tie broken by name; fourth is a score someone reported and nobody re-counted; the zero at the bottom is a run that never happened.',
     caption: 'Six models on 500 items, the counts invented. A count of items correct is decided by counting; an order between equal counts is chosen; a reported score is computed until it is re-counted.',
   };
@@ -270,7 +273,8 @@ function admissions(guard) {
     return svg(PW, PH, 'In WARRANT: the counts received as solid bars; the two unreported days a hatched void; the seven-day mean dotted, over complete days only, its window chosen; the last week\'s nowcast dashed, computed.', out);
   })();
   return {
-    id: 'admissions', title: 'An epidemic curve', kind: 'illustration', stop: STOP, usual, warrant,
+    id: 'admissions', title: 'An epidemic curve', form: 'counts over time with a nowcast', kind: 'illustration',
+    rule: 'Draw counts received solid, unreported days as a void, a mean whose window was picked dotted and stopped at every gap, and the days still being counted as a dashed nowcast.', stop: STOP, usual, warrant,
     hides: 'The usual chart shows a dip and a fall. The dip is two days nobody reported, drawn as zero; the fall is a week still being counted. Here the gap is a void, the mean stops where the data stop, and the last week is a nowcast, dashed.',
     caption: 'Eight weeks of daily admissions, the counts invented by a formula. The bars are counts received; the last seven days are counted so far, and the nowcast scales them by the share usually reported by then.',
   };
@@ -287,9 +291,12 @@ function reportText() {
     + '<table class="gx-mini"><thead><tr><th>return period</th><th>Hs, m</th></tr></thead><tbody><tr><td>10 years</td><td>' + V('9.80–9.83', W.DECIDED) + '</td></tr><tr><td>100 years</td><td>' + V('12.38–12.41', W.DECIDED) + '</td></tr><tr><td>1000 years</td><td>' + V('not computed', W.REFUSED) + '</td></tr></tbody></table>'
     + '<p class="gx-rests">It rests on the hindcast, ' + W.grade(W.COMPARED) + ' against the buoy’s own record, and on the GEV family, ' + W.grade(W.ASSUMED) + ', chosen by the analyst. The weakest premise is <b>assumed</b>.</p>';
   return {
-    id: 'report', title: 'A paragraph and a table', kind: 'illustration', usualRaw: usualP, warrantRaw: warrantP,
+    id: 'report', title: 'A paragraph and a table', form: 'numbers in prose and in a table', kind: 'illustration',
+    rule: 'In text, underline each number by its standing, name a chosen input in italic, give a verdict as a word, write the reason in an empty cell, and list the premises with the weakest last.', usualRaw: usualP, warrantRaw: warrantP,
     hides: 'In prose a fit, a float interval and a rounded design value look the same, and a dash in a table could mean zero, missing or not applicable. Here each number wears its underline, the chosen family is named in italic, the verdict is a word, the empty cell says why, and the premises are listed with the weakest last.',
   };
 }
 
-module.exports = { designWave, moody, leaderboard, admissions, reportText, PLAIN, PW, PH };
+/* the drawing atoms, shared with the scene modules in tools/grammar-scenes/ (one way of drawing a pair, written once) */
+module.exports = { designWave, moody, leaderboard, admissions, reportText, PLAIN, PW, PH, TOP,
+  atoms: { f1, line, poly, t, mood, eyebrow, knot, square, svg, voidWords, head, plainDot, sha, makeGuard } };

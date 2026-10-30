@@ -22,6 +22,26 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 — /GRAMMAR/ AS A CATALOGUE OF HOW TO SHOW DATA, ON BRANCH grammar-theme-switch (pushed, NOT merged), on the
+     operator's "add as many scenarios as possible … maps, physics, routes … not research but how we can show data", "keep
+     the endless page … left anchors menu by topic" and "the page must act as an AI briefing tool". Four parallel lanes
+     wrote tools/grammar-scenes/{maps,routes-time,fields,systems}.js (README there: the interface): 23 scenes from real
+     records (the atlas, Janela, the glide band, Swell, SkyAudit, the transit, PU, Navier–Stokes, the EHT image,
+     occultation, stereo, contours, curveset, the wiring, simplex, an embedding, pqc, a verdict matrix, Machinidae's lines
+     of descent), each drawn twice with its rule; with the charts and the text, 28 in all. A contents column fixed in the
+     left margin from 1420 px (topic in view marked); a plain-text brief at the page's end and /grammar/llms.txt (the sync
+     writes it; a <link rel=alternate> in the head; template.render takes headRaw). The lanes also found four live pages
+     printing an enclosure end inward or a wrong count: occultation, transit, stereo-reach, curveset — FIXED ON MAIN and live
+     (e063db62). ON THE OPERATOR'S WORD: merge the branch (it carries the switch below too).
+  ◆ 2026-10-30 — A LIGHT/DARK SWITCH ON /GRAMMAR/ ONLY, A TRIAL ON BRANCH grammar-theme-switch (the operator: "only on the
+     grammar page … a light/dark switch floating on the top right, below the navbar … if good we will apply on all pages
+     but I want to test first"). A pill under the nav, right edge at the gutter; dark is the default, the choice kept in
+     localStorage ("warrant-theme") and applied before the header paints. The light theme adds no colour: every value is
+     the approved print register's (white, #000/#262626/#4d4d4d, guide, grid, the neutral order ramp), the witness the same
+     token, the strokes ordered the paper way (darker = stronger). The "on screen" sample and the ink-ramp swatches stay
+     dark in either theme (they are pictures of the screen). Scoped in tools/build-grammar.js's own stylesheet; design/
+     tokens.js keeps its one palette. Gates green but the Swell flap. ON THE OPERATOR'S WORD: merge and push live; a
+     site-wide switch would move the light block into design/tokens.js (the "ONE THEME, DELIBERATELY" note there changes).
   ◆ 2026-10-30 — /GRAMMAR/ AS A ONE-PAGER, MERGED AND LIVE (merge 477d1575, on the operator's "approved, you can merge and
      push live"; the specimen was branch grammar-onepager, c3dfee96), on the
      operator's "Use the roundtable to perfect the construction of the Grammar page … the one pager to explain and

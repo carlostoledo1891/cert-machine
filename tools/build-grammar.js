@@ -560,12 +560,14 @@ function html() {
      then how the build holds it and the colour law. The rulebook's cards, every issue found, the foundations and the
      guards stay on this page, one click down. */
   const B_ = [];
+  /* the theme switch (a trial on this page): the stored choice is applied before the header paints; dark is the default */
+  B_.push('<script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>'
+    + '<div class="gx-theme" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>');
   B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'What each mark rests on',
     deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
   B_.push('<div class="col gx-key">' + W.legendHtml() + '</div>');
-  B_.push('<nav class="col gx-toc" aria-label="On this page">' + [['marks', 'Four strokes'], ['gallery', 'Charts you already draw'], ['ladder', 'Models'], ['outputs', 'Outputs and code'], ['enforced', 'Held by the build'], ['colour', 'Colour']]
-    .map(([id, w]) => '<a href="#' + id + '">' + esc(w) + '</a>').join('') + '</nav>');
+  B_.push('%%TOC%%');
 
   /* §1 the four strokes, built one frame at a time */
   const MARK_T = { [W.DECIDED]: 'Solid', [W.COMPUTED]: 'Dashed', [W.CHOSEN]: 'Dotted', [W.REFUSED]: 'Nothing' };
@@ -592,22 +594,34 @@ function html() {
       + PL.ladderOfStandings({ eqsOnly: true })
       + '<h3 class="gr-h3">A verdict is a word</h3>' + words }));
 
-  /* §2 the gallery */
-  const SCEN = [GAL.designWave(guard), GAL.moody(guard), GAL.leaderboard(guard), GAL.admissions(guard)];
-  const REPORT = GAL.reportText();
-  const KIND = { record: 'from a record', built: 'from the equations', illustration: 'an illustration' };
-  const sceneHead = (s, i) => '<div class="col gx-scene-h"><div class="gx-k">' + (i + 1) + ' · ' + KIND[s.kind] + '</div><h3 class="gx-h">' + esc(s.title) + '</h3><p class="gx-hides">' + esc(s.hides) + '</p></div>';
-  const pairFig = (s) => C.figure({ svgRaw: '<div class="gx-pair"><div class="gx-pane">' + s.usual + '</div><div class="gx-pane">' + s.warrant + '</div></div>',
-    record: s.kind === 'record' ? s.record : undefined, source: s.kind === 'illustration' ? 'illustration' : s.kind === 'built' ? 'built: ' + s.source : undefined,
-    stop: s.stop, captionRaw: s.caption });
-  const reportScene = sceneHead(REPORT, SCEN.length) + '<div class="wide"><div class="gx-pair gx-textpair" data-source="illustration">'
-    + '<div class="gx-pane"><div class="gx-eb">as usually written</div>' + REPORT.usualRaw + '</div>'
-    + '<div class="gx-pane"><div class="gx-eb">in warrant</div>' + REPORT.warrantRaw + '</div></div>'
-    + '<p class="gx-src">Record: ∅ — an illustration, <em>given an invented record</em>.</p></div>';
-  B_.push(C.section({ lab: 'on charts you already draw', title: 'The same numbers, with and without it', id: 'gallery', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Five things people draw every day, each twice: as a plotting library draws it, and in WARRANT. One reads a real record; one is computed from its equations as this page is built; three are illustrations, their numbers invented and said so on the figure. The arithmetic on an invention is still exact, so its ties, gaps and counts are decided given it; and no invention carries a red ×, which would be a forged counterexample.') + '</div>'
-      + SCEN.map((s, i) => '<div class="gx-scene">' + sceneHead(s, i) + pairFig(s) + '</div>').join('')
-      + '<div class="gx-scene">' + reportScene + '</div>' }));
+  /* §2 HOW TO SHOW DATA, BY TOPIC (2026-10-30, the operator: "add as many scenarios as possible … maps, physics, routes,
+     charts and visuals … the point is not to show research but how we can show data"). The charts and the text are this
+     file's gallery (tools/build-grammar-gallery.js); every other topic is a module in tools/grammar-scenes/ exporting
+     { topic, scenes } (its README is the interface). A scene is drawn twice where an ordinary version exists. */
+  const KIND = { record: 'from a record', built: 'built from its equations', illustration: 'an illustration' };
+  const SCENES_DIR = path.join(__dirname, 'grammar-scenes');
+  const MODS = ['maps', 'routes-time', 'fields', 'systems'].map((n) => path.join(SCENES_DIR, n + '.js')).filter((f) => fs.existsSync(f)).map((f) => require(f));
+  const SHORT = { maps: 'Maps', 'routes-time': 'Routes and time', fields: 'Fields and images', systems: 'Systems' };
+  const TOPICS = [{ id: 'charts', short: 'Charts', title: 'Charts you already draw', lead: 'Four charts of the kinds people draw every day, each twice: as a plotting library draws it, and in WARRANT. One reads a real record; one is computed from its equations as this page is built; two are illustrations, their numbers invented and said so on the figure. The arithmetic on an invention is still exact, so its ties, gaps and counts are decided given it; and no invention carries a red ×, which would be a forged counterexample.',
+    scenes: [GAL.designWave(guard), GAL.moody(guard), GAL.leaderboard(guard), GAL.admissions(guard)] }]
+    .concat(MODS.map((M) => ({ id: M.topic.id, short: SHORT[M.topic.id] || M.topic.short || M.topic.title, title: M.topic.title, lead: M.topic.lead || '', scenes: M.scenes.map((fn) => fn(guard)) })))
+    .concat([{ id: 'text', short: 'Text and tables', title: 'Numbers in prose and in tables', lead: 'Prose flattens standing more than any chart does: a fit, a float interval and a rounded design value read the same in a sentence.', scenes: [GAL.reportText()] }]);
+  const allScenes = TOPICS.flatMap((tp) => tp.scenes.map((sc) => Object.assign({ topic: tp }, sc)));
+  guard('two scenes share an id, or a scene lacks its form, its rule, what the usual view hides, or a stop sentence (an illustration of text excepted)',
+    new Set(allScenes.map((x) => x.id)).size === allScenes.length && allScenes.every((x) => x.form && x.rule && x.hides && (x.stop || x.usualRaw)),
+    allScenes.filter((x) => !(x.form && x.rule && x.hides)).map((x) => x.id).join(', '));
+  const srcOf = (sc) => (sc.kind === 'illustration' ? 'illustration' : sc.kind === 'built' ? (/^built: /.test(sc.source) ? sc.source : 'built: ' + sc.source) : undefined);
+  const sceneHead = (sc, i) => '<div class="col gx-scene-h"><div class="gx-k">' + (i + 1) + ' · ' + esc(sc.form) + ' · ' + KIND[sc.kind] + '</div><h3 class="gx-h">' + esc(sc.title) + '</h3><p class="gx-hides">' + esc(sc.hides) + '</p>'
+    + '<p class="gx-rule"><b>The rule:</b> ' + esc(sc.rule) + (sc.link ? ' ' + page(sc.link, 'See it live →') : '') + '</p></div>';
+  const sceneFig = (sc) => (sc.usualRaw
+    ? '<div class="wide"><div class="gx-pair gx-textpair" data-source="illustration"><div class="gx-pane"><div class="gx-eb">as usually written</div>' + sc.usualRaw + '</div>'
+      + '<div class="gx-pane"><div class="gx-eb">in warrant</div>' + sc.warrantRaw + '</div></div><p class="gx-src">Record: ∅ — an illustration, <em>given an invented record</em>.</p></div>'
+    : C.figure({ svgRaw: sc.usual ? '<div class="gx-pair"><div class="gx-pane">' + sc.usual + '</div><div class="gx-pane">' + sc.warrant + '</div></div>' : '<div class="gx-solo">' + sc.warrant + '</div>',
+      record: sc.kind === 'record' ? sc.record : undefined, source: srcOf(sc), stop: sc.stop, captionRaw: sc.caption }));
+  TOPICS.forEach((tp, ti) => B_.push(C.section({ lab: 'how to show data · ' + tp.short, title: tp.title, id: tp.id, wide: true,
+    bodyRaw: (ti === 0 ? '<div class="col">' + C.p('From here down, the ways this site shows data, by kind: charts, maps, routes and time, fields and images, systems, and text. Each is drawn from one of the instruments, twice where an ordinary version exists, and each ends with the rule that draws it, so the rule can be applied to data of your own.') + '</div>' : '')
+      + (tp.lead ? '<div class="col">' + C.p(tp.lead) + '</div>' : '')
+      + tp.scenes.map((sc, i) => '<div class="gx-scene" id="' + escAttr(sc.id) + '">' + sceneHead(sc, i) + sceneFig(sc) + '</div>').join('') })));
 
   /* §3 the premise ladder */
   const LADDER_LIT = {
@@ -683,8 +697,8 @@ function html() {
     PL.card({ k: 'a premise chain', d: W.premisesHtml([{ grade: W.COMPARED, verified: false, label: 'The island model', evidence: 'beside a Boussinesq model.' }, { grade: W.ASSUMED, label: 'Breaking', evidence: 'from the literature.' }], { meetLine: 'The weakest premise is <b>assumed</b>.' }), code: esc('W.premisesHtml([...], { meetLine })') }),
   ];
   B_.push(C.section({ lab: 'outputs and code', title: 'One figure, three registers, your own code', id: 'outputs', wide: true,
-    bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on this dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
-      + '<div class="gx-outs">' + outCard('on screen', '', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
+    bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on the site’s dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
+      + '<div class="gx-outs">' + outCard('on screen', 'gx-screen', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
       + '<div class="gx-codes"><div><div class="gx-k">python · matplotlib</div>' + C.code(PY) + '</div><div><div class="gx-k">javascript · svg and html</div>' + C.code(JS) + '</div></div>'
       + '<div class="col">' + C.pRaw('No package yet: copy one folder. ' + a(blob('kits/warrant-mpl'), 'kits/warrant-mpl') + ' for matplotlib (with the design wave, a return curve and the contours as worked examples), or ' + a(blob('playground/warrant.js'), 'warrant.js') + ' and ' + a(blob('design/grammar.js'), 'grammar.js') + ' for the web, MIT. On a canvas, ' + m('setLineDash') + ' takes the same patterns. '
         + 'The words in Portuguese — ' + WPT.GRADE.map((g) => '<em>' + esc(g) + '</em>').join(', ') + ' — are in ' + a(blob('playground/warrant-pt.js'), 'warrant-pt.js') + '.')
@@ -735,9 +749,9 @@ function html() {
     ['Colour never carries standing.', 'The stroke does; nor does it stand in for a verdict word.'], ['Four kinds only:', 'the witness, identity, order, status.'],
     ['Every pair passes the validator,', 'on the figure’s own ground, for every simulated deficiency.'], ['No yellow, no orange.', ''], ['A new colour needs the report and an approval,', 'recorded in the rulebook.']];
   B_.push(C.section({ lab: 'the colour law', title: 'Ink first, and one red', id: 'colour', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Every figure reads in greyscale first, and the strokes take lightness in order of standing. The one red, --witness ' + witnessHex + ' at ' + contrastW.toFixed(1) + ':1 on the page ground, marks an exhibited counterexample and nothing else: on this page, once, on the hero. A colour enters only with a measurement, and the law itself came from one: two series colours of a sibling project, distinct to most readers, were one colour to a deuteranope.') + '</div>'
-      + PL.grid(2, [PL.card({ k: 'the ink ramp', art: PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }), d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing.' }),
-        PL.card({ k: 'the one red', d: '<div class="gx-red">--witness ' + esc(witnessHex) + '</div><div class="gx-red-n">' + contrastW.toFixed(1) + ':1 on the page ground · an exhibited counterexample, only · on this page, the hero’s ×</div>Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
+    bodyRaw: '<div class="col">' + C.p('Every figure reads in greyscale first, and the strokes take lightness in order of standing. The one red, --witness ' + witnessHex + ' at ' + contrastW.toFixed(1) + ':1 on the dark ground, marks an exhibited counterexample and nothing else: on this page, once, on the hero. A colour enters only with a measurement, and the law itself came from one: two series colours of a sibling project, distinct to most readers, were one colour to a deuteranope.') + '</div>'
+      + PL.grid(2, [PL.card({ k: 'the ink ramp, on the dark screen', art: '<div class="gx-screen">' + PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }) + '</div>', d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing. On paper the order runs the other way, darker = stronger: #000 decided, #262626 computed, #4d4d4d chosen.' }),
+        PL.card({ k: 'the one red', d: '<div class="gx-red">--witness ' + esc(witnessHex) + '</div><div class="gx-red-n">' + contrastW.toFixed(1) + ':1 on the dark ground · an exhibited counterexample, only · on this page, the hero’s ×</div>Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
       + '<h3 class="gr-h3">Every pair passes the validator</h3>'
       + '<div class="col">' + C.p('OKLab ΔE × 100 for every pair that shares a figure, under the colour-vision model of Machado, Oliveira and Fernandes (2009), computed as this page is built:') + '</div>'
       + PL.validatorPlate({ before: VB, after: VA, threshold: cvdMin })
@@ -745,19 +759,101 @@ function html() {
       + PL.kindsOfColour({ contrast: contrastW, identity, order, status }) + '</details>'
       + '<details class="more"><summary>The registered colours</summary>' + C.plainList(reg.map((r) => ({ raw: '<b>' + cell(r[0]) + '</b> · ' + esc(r[1]) + ' — ' + cell(r[2]) + '. <em>Where:</em> ' + cell(r[3]) + '. <em>Approved:</em> ' + cell(r[4]) + '.' }))) + '</details></div>' }));
 
+  /* §7 THE PLAIN-TEXT BRIEF (2026-10-30, the operator: "the page must act as an AI briefing tool"). An assistant given
+     this page reads its text and its figures' labels, not its pictures. So the page carries the whole grammar once more
+     as plain text, built from the same objects the page is drawn from (the standings, the scenes and their rules, the
+     rulebook's rules, the colour law, the calls), at the end of the page and as /grammar/llms.txt, which the head names. */
+  const plain = (h) => String(h).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;|&rsquo;/g, '’').replace(/\s+/g, ' ').trim();
+  const altOf = (svgS) => { const x = /aria-label="([^"]*)"/.exec(svgS || ''); return x ? plain(x[1]) : ''; };
+  const SITE = 'https://carlostoledo.co/grammar/';
+  const VERDICTS = [['CERTIFIED', 'decided true by an exact check'], ['REFUTED', 'decided false, with the object that breaks the claim'], ['REFUSED', 'the instrument declined, with the reason'],
+    ['PARTIAL', 'one part certified, another refused'], ['NEEDS DATA', 'refused because the bytes that would decide it are missing; the bytes are named'],
+    ['HOLDS · DOES NOT HOLD · UNDECIDED', 'a check over an input someone chose, always said "given" that input, in italic']];
+  const BRIEF = [];
+  const bH = (lvl, t) => BRIEF.push({ h: lvl, t }), bP = (t) => BRIEF.push({ p: t }), bL = (items) => BRIEF.push({ li: items });
+  bH(1, 'WARRANT — a visual grammar in which every mark says what it rests on');
+  bP('A brief of ' + SITE + ' in plain text, generated with the page from the same objects. Use it to answer how to draw a number, a chart, a map, a route, a field or a table so that each mark says whether it was decided exactly, computed in floating point, chosen, or refused.');
+  bH(2, 'The four standings: how a number was made');
+  bL([['DECIDED', 'solid stroke; plain text', MARK_D[W.DECIDED]], ['COMPUTED', 'dashed stroke ' + G.CLAIM + ' (' + G.CLAIM_SM + ' under ' + G.SMALL_BELOW + ' px); a dashed underline in text', MARK_D[W.COMPUTED]],
+    ['CHOSEN', 'dotted stroke ' + G.PICK + ' with round caps (' + G.PICK_SM + ' under ' + G.SMALL_BELOW + ' px); a dotted underline in text', MARK_D[W.CHOSEN]], ['REFUSED', 'no stroke: a hatched void at the size the value would have had, with ∅ and a word', MARK_D[W.REFUSED]]]
+    .map(([w, how, what]) => w + ' — ' + how + '. ' + what));
+  bP('A mark takes the weakest standing on its path to the pixel: one float makes it computed, one choice makes it chosen, one refusal leaves the void. Standing is not a confidence. The stroke carries standing only; which series a line belongs to is carried by weight, opacity or a marker, never by a dash. A guide (a ruler, a leader) is dashed ' + G.GUIDE + ' and says nothing.');
+  bH(2, 'Verdicts are words, never strokes');
+  bL(VERDICTS.map(([w, d]) => w + ' — ' + d + '.'));
+  bP('An empty set is ∅ and a word, never a zero-height bar. The one red (--witness ' + witnessHex + ') marks an exhibited counterexample, on the object, beside the words that name it, and nothing else; never on invented data.');
+  bH(2, 'Numbers that rest on a model');
+  bL([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.GRADE[g].toUpperCase() + ' — ' + W.GRADE_GLOSS[g] + '.'));
+  bP('Each premise carries a grade; a conclusion is as checked as its weakest premise; verification (the code solves its equations) and validation (the equations describe the thing) are separate. A forecast is computed and dashed; a field drawn from a model is a picture of it, said once; an extent carried by a model not validated where it is drawn gains a halo.');
+  bH(2, 'How to show data: one rule per form');
+  for (const tp of TOPICS) {
+    bH(3, tp.title);
+    bL(tp.scenes.map((sc) => sc.title + ' (' + sc.form + '; ' + KIND[sc.kind] + (sc.record ? ': ' + [].concat(sc.record).join(', ') : '') + ') — ' + sc.rule + ' What the usual view hides: ' + sc.hides
+      + (sc.warrant ? ' The figure: ' + altOf(sc.warrant) : '')));
+  }
+  bH(2, 'The sixteen rules, and two rulings');
+  bL(MARK_RULES.concat(MODEL_RULES).map((r) => 'Rule ' + r.n + '. ' + r.b + ' ' + plain(r.t)).concat(RULINGS.map((r) => 'Ruling. ' + r.b + ' ' + plain(r.t))));
+  bH(2, 'Colour');
+  bL(LAWS.map(([b, tt]) => (b + ' ' + tt).trim()));
+  bH(2, 'In code');
+  bP('Python (matplotlib): copy kits/warrant-mpl from github.com/carlostoledo1891/cert-machine; then ' + PY.split('\n').filter((l) => l && !/^\s+(→|and)/.test(l)).map((l) => l.replace(/\s+#.*$/, '')).join('; ') + '. A caller cannot pass its own linestyle: the stroke is read from the standing.');
+  bP('JavaScript (SVG and HTML): playground/warrant.js and design/grammar.js. W.attrs(standing) returns the stroke attributes; W.value(text, standing) a number in text; W.legendHtml() the key. On a canvas, setLineDash takes the same patterns: ' + G.dash.claim.join(' ') + ' computed, ' + G.dash.pick.join(' ') + ' chosen.');
+  bH(2, 'How the site holds it');
+  bP('The display is a sound map of the record, and the build decides it: no mark may claim more than its record, in stroke, extent or word. ' + plain(CHECKS.map((c) => c.raw).join(' ')));
+  bP('Generated at git ' + (() => { try { return git(['rev-parse', '--short', 'HEAD']); } catch (e) { return 'unknown'; } })() + ' by tools/build-grammar.js. MIT.');
+  const briefMd = BRIEF.map((b) => (b.h ? '#'.repeat(b.h) + ' ' + b.t : b.p ? b.p : b.li.map((x) => '- ' + x).join('\n'))).join('\n\n') + '\n';
+  const briefHtml = BRIEF.slice(1).map((b) => (b.h ? '<h' + (b.h + 2) + '>' + esc(b.t) + '</h' + (b.h + 2) + '>' : b.p ? '<p>' + esc(b.p) + '</p>' : '<ul>' + b.li.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>')).join('');
+  B_.push(C.section({ lab: 'for people and AI assistants', title: 'The grammar in plain text', id: 'brief', wide: true,
+    bodyRaw: '<div class="col">' + C.pRaw('Everything above, once more as plain text, built from the same objects as the page. Give an assistant this page’s address, or ' + a('llms.txt', 'the brief as a text file') + ', and ask it how to draw your data.')
+      + '<details class="more gx-brief"><summary>Read the brief</summary>' + briefHtml + '</details></div>' }));
+
+  /* the contents: a row under the hero, and a fixed column on the left where the screen has room */
+  const TOC = [['marks', 'Four strokes']].concat(TOPICS.map((tp) => [tp.id, tp.short])).concat([['ladder', 'Models'], ['outputs', 'Outputs and code'], ['enforced', 'Held by the build'], ['colour', 'Colour'], ['brief', 'Plain-text brief']]);
+  const tocHtml = '<nav class="col gx-toc" aria-label="On this page"><span class="gx-toc-k">On this page</span>' + TOC.map(([id, w]) => '<a href="#' + id + '">' + esc(w) + '</a>').join('') + '</nav>';
+  B_[B_.indexOf('%%TOC%%')] = tocHtml;
   const body = B_.join('\n\n').replace('%%GUARDS%%', () => C.plainList(GUARDS.map((g) => ({ text: '… ' + g + '.' }))));
   const head = (() => { try { return git(['rev-parse', '--short', 'HEAD']); } catch (e) { return 'unknown'; } })();
   const foot = '<p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md, design/colour.js and the records each figure names, at git ' + esc(head) + ', by tools/build-grammar.js and its drawings, tools/build-grammar-plates.js and tools/build-grammar-gallery.js. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
   /* the print register's values are declared once in :root (the page's own tokens, where a literal belongs) and the
      paper panel re-points the screen tokens at them */
   const paperCss = Object.entries(PAPER).map(([k, v]) => { const n = '--gx-pr' + k.slice(1); VARS[n] = v; return k + ':var(' + n + ')'; }).join(';');
+  /* A LIGHT THEME, ON THIS PAGE ONLY (2026-10-30, the operator: "only on the grammar page … a light/dark switch … I want
+     to test first"). The site is one dark palette by design (design/tokens.js); this is a trial. It adds no colour: every
+     light value is the approved print register's (design/print/tokens.js: white paper, the three inks, the guide, the
+     grid, the neutral order ramp) and the witness red is the same token. The strokes keep their order the paper way,
+     darker = stronger (v2.3). A caption is text, so it takes ink-3, never the guide (which is a mark grade, 3.45:1). */
+  const LIGHT = { '--paper': prHex('--paper'), '--surface': prHex('--paper'), '--sunk': prHex('--paper'), '--surface2': prHex('--o-1'),
+    '--ink': prHex('--ink'), '--ink-2': prHex('--ink-2'), '--ink-3': prHex('--ink-3'), '--ink-4': prHex('--ink-3'), '--ink-5': prHex('--guide'),
+    '--rule': prHex('--grid'), '--rule-strong': prHex('--o-3'), '--rule-soft': prHex('--o-1'),
+    '--sig': prHex('--ink'), '--sig-2': prHex('--guide'), '--sig-soft': prHex('--o-1'), '--held': prHex('--ink'), '--held-soft': prHex('--o-1'),
+    '--warn': prHex('--ink-3'), '--warn-soft': prHex('--paper'), '--mark': prHex('--o-3'), '--band-fill': 'rgba(0,0,0,.06)',
+    '--c-1': prHex('--ink'), '--c-2': prHex('--ink-3'), '--c-3': prHex('--guide'), '--c-grid': prHex('--grid'), '--c-axis': prHex('--guide'),
+    '--c-s1': prHex('--o-1'), '--c-s2': prHex('--o-2'), '--c-s3': prHex('--o-3'), '--c-s4': prHex('--o-4'), '--c-s5': prHex('--o-5') };
+  guard('the light trial names a token the dark palette does not have, or a value outside the print register',
+    Object.keys(LIGHT).every((k) => k in T.DARKONLY) && Object.values(LIGHT).every((h) => /^rgba\(0,0,0,/.test(h) || PR.REGISTER.some((x) => x.hex === h)));
+  const lightCss = 'color-scheme:light;' + Object.entries(LIGHT).map(([k, v]) => k + ':' + v).join(';');
+  /* the "on screen" sample stays the site's dark register in either theme: it is a picture of the screen */
+  const DARK_SAMPLE = ['--paper', '--sunk', '--surface', '--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--rule', '--rule-strong', '--c-grid', '--c-axis'];
+  const screenCss = DARK_SAMPLE.map((k) => { const n = '--gx-dk' + k.slice(1); VARS[n] = T.DARKONLY[k]; return k + ':var(' + n + ')'; }).join(';');
   const CSS = `
 /* /grammar/ (tools/build-grammar.js): the frames, the gallery's pairs, the outputs, the cards (the hero is design/template.js) */
 :root{${Object.entries(VARS).map(([k, v]) => k + ':' + v).join(';')}}
 .gx-key{margin-top:var(--s-5)}
 .gx-toc{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase}
 .gx-toc a{color:var(--ink-3);text-decoration:none}
-.gx-toc a:hover{color:var(--ink)}
+.gx-toc a:hover,.gx-toc a[aria-current]{color:var(--ink)}
+.gx-toc-k{color:var(--ink-4)}
+/* where the screen has room, the contents become a column fixed in the left margin, the topic in view marked */
+@media (min-width:1420px){.gx-toc{position:fixed;top:calc(var(--nav-h) + var(--s-7));left:var(--s-4);width:calc((100vw - var(--container)) / 2 + var(--gutter) - 2 * var(--s-4));flex-direction:column;flex-wrap:nowrap;gap:var(--s-2);margin:0;padding:0;border:0;z-index:30;text-transform:none;letter-spacing:0;font-family:var(--f-sans);font-size:var(--text-small)}
+.gx-toc a{border-bottom:0;border-left:1px solid var(--rule);padding-left:var(--s-3)}
+.gx-toc a[aria-current]{border-left-color:var(--ink)}
+.gx-toc-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;margin-bottom:var(--s-2)}}
+.gx-rule{font-size:var(--text-small);color:var(--ink-2);margin-top:var(--s-3)}
+.gx-rule a{white-space:nowrap}
+.gx-solo{max-width:56rem;margin:0 auto}
+.gx-solo > svg{display:block;width:100%;height:auto}
+.gx-brief h3,.gx-brief h4,.gx-brief h5{margin-top:var(--s-6)}
+.gx-brief p,.gx-brief li{font-size:var(--text-small);color:var(--ink-2)}
+.gx-brief ul{padding-left:0;list-style-position:inside}
 .gx-frames{display:grid;gap:var(--s-5);grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s-6)}
 @media (min-width:1000px){.gx-frames{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .gx-frame{display:flex;flex-direction:column;gap:var(--s-2);min-width:0}
@@ -772,6 +868,8 @@ function html() {
 @media (min-width:900px){.gx-pair{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-pane{min-width:0}
 .gx-pane > svg{display:block;width:100%;height:auto}
+.gx-f1{fill:var(--ink)}
+.gx-f2{fill:var(--ink-2)}
 .gx-it{font-style:italic;fill:var(--ink-2);paint-order:stroke;stroke:var(--sunk);stroke-width:4;stroke-linejoin:round}
 .gx-textpair{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5);margin-top:var(--s-5)}
 .gx-textpair .gx-eb{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4);margin-bottom:var(--s-3)}
@@ -791,6 +889,13 @@ function html() {
 .gx-outbox:not(.gx-paper) svg text{font-family:var(--f-mono)}
 .gx-paper{${paperCss};background:var(--paper)}
 .gx-grey{filter:grayscale(1)}
+.gx-screen{${screenCss};background:var(--sunk)}
+:root[data-theme="light"]{${lightCss}}
+.gx-theme{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.gx-theme button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.gx-theme button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.gx-theme button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.page > header{margin-top:var(--s-7)}.gx-theme{position:absolute}}   /* on a phone it stays at the top, never over the text */
 .gx-codes{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:900px){.gx-codes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-codes > div{min-width:0}
@@ -849,14 +954,30 @@ function html() {
 .gx-before .w-computed{stroke:var(${TB[1].tok})}
 .gx-before .w-chosen{stroke:var(${TB[2].tok})}
 `;
-  return TPL.render({ title: 'The visual grammar', bodyRaw: body, footRaw: foot, path: '/grammar/', cssRaw: CSS,
+  const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".gx-theme button");'
+    + 'function set(t){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");'
+    + 'for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));'
+    + 'try{localStorage.setItem("warrant-theme",t)}catch(e){}}'
+    + 'set(r.getAttribute("data-theme")==="light"?"light":"dark");'
+    + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"))});'
+    /* the contents follow the reader: the topic in view is marked current */
+    + 'var ls=document.querySelectorAll(".gx-toc a"),m={};for(var j=0;j<ls.length;j++)m[ls[j].getAttribute("href").slice(1)]=ls[j];'
+    + 'if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&m[e.target.id]){for(var k=0;k<ls.length;k++)ls[k].removeAttribute("aria-current");m[e.target.id].setAttribute("aria-current","true")}})},{rootMargin:"-30% 0px -60% 0px"});'
+    + 'for(var id in m){var el=document.getElementById(id);if(el)io.observe(el)}}})();</script>';
+  LAST_BRIEF = briefMd;
+  return TPL.render({ title: 'The visual grammar', bodyRaw: body, footRaw: foot, path: '/grammar/', cssRaw: CSS, scriptRaw: THEME_JS,
+    headRaw: '<link rel="alternate" type="text/markdown" href="llms.txt" title="The grammar in plain text">',
     desc: 'WARRANT, a visual grammar in which every mark says what it rests on — decided, computed, chosen or refused — shown on the charts people already draw, each drawn twice, with the build that holds it.' });
 }
 
+/* the plain-text brief of the last html() call (tools/build-site.js writes it beside the page as grammar/llms.txt) */
+let LAST_BRIEF = '';
+const brief = () => LAST_BRIEF;
 if (require.main === module) {
   const out = html();
   fs.mkdirSync(path.join(ROOT, 'site', 'grammar'), { recursive: true });
   fs.writeFileSync(path.join(ROOT, 'site', 'grammar', 'index.html'), out);
-  console.log('site/grammar/index.html written (' + out.length + ' bytes)');
+  fs.writeFileSync(path.join(ROOT, 'site', 'grammar', 'llms.txt'), brief());
+  console.log('site/grammar/index.html written (' + out.length + ' bytes), and llms.txt (' + brief().length + ')');
 }
-module.exports = { html, cells, PANEL, RES, away, stair, fr, fsub, fadd, fmul, fdiv, feq, fnum, fstr, Q, STEPS };
+module.exports = { html, brief, cells, PANEL, RES, away, stair, fr, fsub, fadd, fmul, fdiv, feq, fnum, fstr, Q, STEPS };
