@@ -24,7 +24,11 @@ const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
 const WP = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
 const GW = WP.GRADE, GG = WP.GRADE_GLOSS, legendPt = WP.legendHtml;
 /* a held-out statistic is a FLOATING-POINT evaluation (the record says so): its value is computed, never decided */
-const fl = (txt, rec) => WR.value(txt, WR.COMPUTED, { title: 'computado — avaliação em ponto flutuante (' + rec + '); as decisões são exatas' });
+/* `from`: the record cells it is computed from (numbers.js N.at, D10) */
+const fl = (txt, rec, from) => WR.value(txt, WR.COMPUTED, { title: 'computado — avaliação em ponto flutuante (' + rec + '); as decisões são exatas', derived: from });
+/* a held-out row's cells: its coverage, and its LIBERADA broken over its LIBERADA at Hs <= 2 m */
+const covOf = (row) => row + '/coverage';
+const brokeOf = (row) => [row + '/limits/2.0/brokeLiberada', row + '/limits/2.0/liberada'];
 
 const RAW = 'https://raw.githubusercontent.com/carlostoledo1891/cert-machine/janela-field/';
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
@@ -114,13 +118,13 @@ const pc2 = (a, b) => (100 * a / b).toFixed(2).replace('.', ',') + '%';
    a number travels through them, each graded from its record (numbers.js premises), and the line naming the weakest.
    The card draws the same chain for one place and one criterion (client.js restsOn). */
 function trustChain(N) {
-  const P = N.premises, H = P.heldOut.main, U = H.opt['U(E,N)'], A = P.alpha, RE = H.file;
+  const P = N.premises, H = P.heldOut.main, U = H.opt['U(E,N)'], A = P.alpha, RE = H.file, Ua = N.at.eval[H.file].opt['U(E,N)'];
   const borrowKm = J('apps/janela/scenario/platforms.json').borrowKm;
   if (!(borrowKm > 0)) throw new Error('REFUSED: apps/janela/scenario/platforms.json lost borrowKm');
   const mm = H.split.slice(5, 7) + '/' + H.split.slice(0, 4);
   const items = [
     { grade: WR.VALIDATED, label: 'A faixa de Hs, nos locais medidos', evidence: 'calibrada antes de ' + mm + ' e julgada em ' + H.months + ' meses que não viu: a união ECMWF ∪ NOAA cobriu '
-      + fl(pc1(U.coverage), RE) + ' de ' + br.int(H.test) + ' passagens de satélite (promete 9 em 10); das LIBERADA com Hs ≤ 2 m, o mar rompeu ' + fl(pc2(U.broke, U.liberada), RE) + ' (' + br.int(U.broke) + ' de ' + br.int(U.liberada) + ').' },
+      + fl(pc1(U.coverage), RE, covOf(Ua)) + ' de ' + br.int(H.test) + ' passagens de satélite (promete 9 em 10); das LIBERADA com Hs ≤ 2 m, o mar rompeu ' + fl(pc2(U.broke, U.liberada), RE, brokeOf(Ua)) + ' (' + br.int(U.broke) + ' de ' + br.int(U.liberada) + ').' },
     { grade: WR.ASSUMED, label: 'A faixa do vento', evidence: 'medida nos mesmos ' + br.int(P.wind.rows) + ' pares (o vento do altímetro); promete 9 em 10 por teorema, se o próximo erro se parecer com os do arquivo. Isso não foi testado fora da calibração: o placar e a conferência das decisões só olham a Hs.' },
     { grade: WR.ASSUMED, label: 'A faixa levada a uma unidade ou a um terminal', evidence: 'cada unidade usa a faixa do local medido mais perto, a até ' + borrowKm + ' km; supõe-se que o erro da previsão lá vale aqui, e nada o mediu no nó da unidade. No gráfico do card, o halo.' },
     { grade: WR.ASSUMED, label: 'O α da Tabela 4-1 (DNV)', evidence: 'adotado da DNV-OS-H101, calibrado no Mar do Norte; a cauda de 1 em ' + br.int(A.oneIn) + ' por trás dele é extrapolada: três anos de satélite não a observam.' },
@@ -139,7 +143,7 @@ function panel(M, N) {
   const nUnits = M.places.filter((p) => p.kind === 'uep').length;
   /* THE USE CASES (apps/janela/uses.js, one definition): each one a door into the app's state, set by client.js */
   const USES = require('../uses.js').doors().map((u) => [u.door, u.label, u.sub]);
-  const RE = 'certs/janela-providers-eval.json';
+  const RE = 'certs/janela-providers-eval.json', HA = N.at.heldOut || {};
   return `
 <button type="button" class="jn-grip" id="jn-grip" aria-controls="panel" aria-label="Mostrar mais do painel"><i></i></button>
 <div class="jn-scroll" id="jn-scroll">
@@ -150,8 +154,8 @@ function panel(M, N) {
       <p class="jn-p">O mar dos próximos sete dias contra o limite da sua operação, nas ${nUnits} unidades de produção offshore do Brasil e nos terminais com regra da Capitania — sobre uma previsão cujo erro foi medido por satélite. Cada horário sai <b>LIBERADA</b>, <b>VETADA</b>, <b>INDEFINIDA</b> ou <b>SEM DADOS</b>, com o motivo e o limiar que o viraria.</p>
       ${N.heldOut ? `<div class="jn-proof" role="list">
         <div role="listitem"><b>${nUnits}</b><span>unidades offshore, mais ${M.places.length - nUnits} locais medidos e terminais</span></div>
-        <div role="listitem"><b>${fl(pc1(N.heldOut.coverage), RE)}</b><span>de cobertura da faixa em ${br.int(N.heldOut.pairs)} medições de satélite que ela não viu</span></div>
-        <div role="listitem"><b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE)}</b><span>das LIBERADA com Hs ≤ 2 m que o mar rompeu; só o ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE)}</span></div>
+        <div role="listitem"><b>${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</b><span>de cobertura da faixa em ${br.int(N.heldOut.pairs)} medições de satélite que ela não viu</span></div>
+        <div role="listitem"><b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b><span>das LIBERADA com Hs ≤ 2 m que o mar rompeu; só o ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</span></div>
       </div>` : ''}
       <div class="jn-k">o que você precisa decidir?</div>
       <div class="jn-seg jn-uses" id="jn-uses">${USES.map(([v, a, b]) => `<button type="button" data-use="${v}">${esc(a)}<small>${esc(b)}</small></button>`).join('')}</div>
@@ -207,8 +211,8 @@ function panel(M, N) {
   <div class="jn-box"><div class="jn-k">o placar · a previsão contra o satélite</div>
     <p class="jn-p">Cada faixa é comprometida antes de o mar acontecer e avaliada depois contra o que um altímetro de satélite mediu. Uma previsão errada fica no registro para sempre.</p></div>
   ${N.heldOut ? `<div class="jn-box"><div class="jn-k">o que já está medido</div>
-    <div class="jn-season"><div><div class="jn-k">cobertura da faixa que decide</div><div class="big">${fl(pc1(N.heldOut.coverage), RE)}</div><div class="s">em ${br.int(N.heldOut.pairs)} comparações com satélite que ela não viu (reivindica 90%)</div></div>
-    <div><div class="jn-k">LIBERADA que o mar rompeu</div><div class="big">${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE)}</div><div class="s">${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)} com Hs ≤ 2 m; só a faixa do ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE)}</div></div></div>
+    <div class="jn-season"><div><div class="jn-k">cobertura da faixa que decide</div><div class="big">${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</div><div class="s">em ${br.int(N.heldOut.pairs)} comparações com satélite que ela não viu (reivindica 90%)</div></div>
+    <div><div class="jn-k">LIBERADA que o mar rompeu</div><div class="big">${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</div><div class="s">${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)} com Hs ≤ 2 m; só a faixa do ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</div></div></div>
     <p class="jn-fine">Medido em retrospecto: as faixas calibradas antes de ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))} e julgadas só depois (certs/janela-providers-eval.json). Abaixo, o registro para a frente, que ninguém pode reescrever.</p></div>` : ''}
   <div id="jn-props" class="jn-pane"></div>
   <div class="jn-box"><div class="jn-k">a regra de admissão</div>
@@ -217,7 +221,7 @@ function panel(M, N) {
 <div class="jn-box jn-trust" id="jn-trust">
   <div class="jn-k">por que confiar</div>
   <p class="jn-p">O veredito é aritmética exata sobre o limite como impresso; a faixa é uma reivindicação que o placar audita em público. A faixa publicada é arredondada <b>para fora</b> (Hs a 0,001 m, vento a 0,01 nó): um LIBERADA ou VETADA sobre ela vale sobre a exata; só INDEFINIDA pode crescer. Não é aprovação de operação: é evidência que um vistoriador refaz. <a href="/janela/metodo/">O método ↗</a> · <a href="/janela/janela-apresentacao.pdf">a apresentação (PDF)</a></p>
-  ${N.heldOut ? `<p class="jn-p">Em ${br.int(N.heldOut.pairs)} comparações com satélite que nenhuma faixa viu (desde ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))}): quando a faixa que decide pôs Hs abaixo de 2 m, o mar passou do limite em <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE)}</b> das vezes (${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)}); só com a faixa do ECMWF, em ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE)}.</p>` : ''}
+  ${N.heldOut ? `<p class="jn-p">Em ${br.int(N.heldOut.pairs)} comparações com satélite que nenhuma faixa viu (desde ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))}): quando a faixa que decide pôs Hs abaixo de 2 m, o mar passou do limite em <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b> das vezes (${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)}); só com a faixa do ECMWF, em ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}.</p>` : ''}
   <div class="jn-k jn-k2">em que cada veredito se apoia</div>
   ${trustChain(N)}
   ${legendPt({ compact: true, from: [WR.DECIDED, WR.COMPUTED] })}

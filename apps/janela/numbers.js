@@ -23,6 +23,7 @@ const WK = require('../../instruments/window/workability.js');
 const TODAY = require('./audit/today.js');
 const LEDGER = require('../../instruments/forecast/ledger.js');
 const PLACAR = require('./audit/placar.js');
+const RK = require('../../design/record.js').key;
 
 /* "0.7900" -> "0.79", "1.844" stays: trailing zeros past the second decimal say nothing */
 const trim = (d) => String(d).replace(/^(-?\d+\.\d\d\d*?)0+$/, '$1');
@@ -37,6 +38,10 @@ function km(a, b) {
 function load(over) {
   over = over || {};
   const N = {};
+  /* THE ADDRESSES (D10, 2026-10-30): where each value the page and the app print as a w-val was read, as
+     <file>#<pointer> (design/record.js), made here beside the read so the address and the datum cannot drift apart.
+     Kept OUT of N.work and N.premises, which the app ships to the tab: only the pages' value spans carry them. */
+  N.at = { eval: {}, siteAlpha: {}, alpha: {}, heldOut: null, hindcast: null };
 
   /* ---- the places, the operations, the rules ---- */
   const SITES = J('apps/janela/scenario/sites.json').sites;
@@ -160,6 +165,7 @@ function load(over) {
       need(c && c.T === a.TPOP, 'siteAlpha at ' + sid + ' ' + k + ' has no workability cell with TPOP ' + a.TPOP);
       need(Q.cmp(Q.parse(a.alphaTable), Q.parse(c.a)) === 0, 'siteAlpha at ' + sid + ' ' + k + ' names a table alpha the cell does not use');
       need(a.cells.length === 13, 'siteAlpha at ' + sid + ' ' + k + ' is not 12 months + the year');
+      (N.at.siteAlpha[sid] = N.at.siteAlpha[sid] || {})[k] = 'certs/janela-workability.json#/sites/' + RK(sid) + '/siteAlpha[TR=' + a.TR + ']';
       c.s = { a: trim(WK.decimal(a.alphaSite, 2)), pt: a.alphaSitePoint, ci: a.alphaSiteCi90, wf: trim(a.opwfDec),
         c: a.cells.map((x) => [x[0], x[1], WK.decimal(x[2], 1)]), w: WK.decimal(a.cells[12][2], 1) };
     }
@@ -171,6 +177,7 @@ function load(over) {
   const AP = path.join(ROOT, 'certs', 'janela-alpha.json');
   N.alpha = over.alpha !== undefined ? over.alpha : (fs.existsSync(AP) ? require('./audit/bandset.js').alpha() : null);
   if (N.alpha) need(N.alpha.calibration && N.alpha.sites, 'certs/janela-alpha.json lost calibration/sites');
+  if (N.alpha && N.alpha.records) for (const r of N.alpha.records) for (const sid of Object.keys(J(r.file).sites)) N.at.alpha[sid] = r.file;
 
   /* ---- the forward ledger: commits, scores, admission, per proposer ---- */
   const defs = fs.existsSync(path.join(LD, 'DEFINITIONS.json')) ? JSON.parse(fs.readFileSync(path.join(LD, 'DEFINITIONS.json'), 'utf8')) : {};
@@ -210,6 +217,7 @@ function load(over) {
     const pick = (o, m) => R.results.find((x) => x.option === o && x.miss === m);
     const U = pick('U(E,N)', '1/10'), E = pick('E', '1/10');
     need(U && E, 'certs/janela-providers-eval.json lost the union or ECMWF at 1/10');
+    N.at.heldOut = { U: 'certs/janela-providers-eval.json#/results/' + R.results.indexOf(U), E: 'certs/janela-providers-eval.json#/results/' + R.results.indexOf(E) };
     N.heldOut = { from: R.pairs.split, pairs: R.pairs.test, coverage: U.coverage,
       broke: U.limits['2.0'].brokeLiberada, liberada: U.limits['2.0'].liberada, eBroke: E.limits['2.0'].brokeLiberada, eLiberada: E.limits['2.0'].liberada };
   }
@@ -259,11 +267,13 @@ function premises(N) {
       need(x && x.limits && x.limits['2.0'], rel + ' lost ' + o + ' at 1/10');
       need(x.n === R.pairs.test, rel + ': ' + o + ' was not judged on every test pair');
       out.opt[o] = { coverage: x.coverage, liberada: x.limits['2.0'].liberada, broke: x.limits['2.0'].brokeLiberada };
+      (N.at.eval[rel] = N.at.eval[rel] || { opt: {} }).opt[o] = rel + '#/results/' + R.results.indexOf(x);
     }
     /* ECMWF's band widened to about the union's coverage (miss 1/20): the like-for-like the method page names */
     const w = at('E', '1/20');
     need(w && w.limits && w.limits['2.0'], rel + ' lost E at 1/20');
     out.wide = { coverage: w.coverage, liberada: w.limits['2.0'].liberada, broke: w.limits['2.0'].brokeLiberada };
+    N.at.eval[rel].wide = rel + '#/results/' + R.results.indexOf(w);
     /* a record that starts judging the wind band held out must be read into a new grade, never ignored */
     need(!/wind/i.test(JSON.stringify(R.results)), rel + ' now judges the wind band held out: re-grade the wind premise');
     return out;
@@ -320,6 +330,7 @@ function premises(N) {
       at[sid] = dep.filter((b) => b.node[0] === p.lat && b.node[1] === p.lon).map((b) => b.buoy);
     }
     const lo = (xs) => Math.min(...xs), hi = (xs) => Math.max(...xs);
+    N.at.hindcast = { le2: dep.map((b) => PB + '#/buoys/' + R.buoys.indexOf(b) + '/pointwise/2.0m') };
     P.hindcast = { deployments: dep.length, pairs: n, from: dep.map((b) => b.from).sort()[0].slice(0, 4), to: dep.map((b) => b.to).sort().slice(-1)[0].slice(0, 4),
       bias: [lo(dep.map((b) => b.biasHindcastMinusBuoy)), hi(dep.map((b) => b.biasHindcastMinusBuoy))], rms: [lo(dep.map((b) => b.rms)), hi(dep.map((b) => b.rms))],
       le2: { buoy: b20, hind: h20, n }, nodes: nodes.size, buoysAt: at };
