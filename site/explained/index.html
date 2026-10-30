@@ -124,7 +124,6 @@
   --container:1200px;
   --read:82ch;
   --title:28ch;
-  --hero:1440px;
   --radius-s:6px;
   --radius-m:10px;
   --radius-l:16px;
@@ -361,16 +360,15 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
-/* THE HERO (D12, ruled 2026-10-29; design/tokens.js LAYOUT.hero): the one figure a page declares draws its box past
-   the container into the room beside it, up to --hero wide and never past the gutter; its caption stays on the spine.
-   On a phone the box runs edge to edge, its drawing sits on the spine, and a builder may give it a second drawing at
-   a phone's scale (.hv-n, swapped for .hv-w). tools/check-measure.js counts none of the hero's own edges and ratchets
-   its width up instead. */
-.hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
-  margin-inline:calc(-1 * var(--bleed))}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
 .hero .hv-n{display:none}
-@media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
-  border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -752,39 +750,11 @@ body.easy{overflow-x:hidden}
 .easy .film .scan{position:absolute;left:0;right:0;top:-2px;height:1px;background:var(--ink);opacity:.45;animation:scan 6s cubic-bezier(.22,1,.36,1) 1.2s 1 both}
 @keyframes scan{from{top:-2px;opacity:.5}to{top:100%;opacity:0}}
 .easy .grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(246,246,248,.025) 0 1px,transparent 1px 3px);opacity:.5}
-/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
-   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
-   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
-   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
-   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
-.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
-.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
-.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
-.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
-.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
-.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
-.easy .stage .fly i b::before{content:"● ";font-size:.8em}
-.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
-.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
-.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
-.easy .stage .fly .vd.r b::before{content:"◆ "}
-.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
-.easy .stage .fly .vd.f b::before{content:"▲ "}
-@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
-@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
-.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
-@media(max-width:960px){
-  .easy .stage{height:300px}.easy .stage .sl{display:none}
-  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
-  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
-  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
-  .easy .stage .decide{width:6.5rem;height:3.5rem}
-}
-@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
-@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
-@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
+/* the stage, a figure (the page's hero, drawn by apps/explained/build.js through playground/warrant.js): the only motion
+   is a point translated along each route (SMIL animateMotion), shown when motion is not reduced; no dash moves */
+.easy .cold .hero{margin-top:var(--s-6)}
+.easy .stg-f{fill:var(--ink-3);visibility:hidden}
+@media(prefers-reduced-motion:no-preference){.easy .stg-f{visibility:visible}}
 /* the stat strip counts up */
 .easy .stats .v[data-count]{font-variant-numeric:tabular-nums}
 /* panels: an instrument the reader touches */
@@ -949,20 +919,113 @@ body.easy{overflow-x:hidden}
   <div class="eyebrow">The easy read · cert-machine, the method paper, as a story</div>
   <h1>A machine says it found new mathematics. Who checks?</h1>
   <p class="deck">Search programs and language models now propose constants, counterexamples and record-breaking constructions faster than anyone can referee them, and each one arrives with a checker written by the same machine. This is how an independent machine decides such claims exactly: five acts and an epilogue, five instruments you can touch, every number read from a public record when the page was built.</p>
-  <div class="stage" aria-hidden="true">
-    <div class="sl l">claims, as published</div><div class="sl r">words, with witnesses</div>
-    <div class="fly" style="--y:18%;--d:0s"><i class="pub">γ₂ ≤ 0.824120</i><i class="vd c"><b>certified</b>γ₂ ≤ 0.824120</i></div>
-    <div class="fly" style="--y:32%;--d:1.6s"><i class="pub">K(11) ≥ 605</i><i class="vd r"><b>refuted</b>K(11) ≥ 605</i></div>
-    <div class="fly" style="--y:46%;--d:3.2s"><i class="pub">K(55) ≥ 53,301,140</i><i class="vd c"><b>certified</b>K(55) ≥ 53,301,140</i></div>
-    <div class="fly" style="--y:60%;--d:4.8s"><i class="pub">we checked that |D(1)| ≤ 0.82395317</i><i class="vd f"><b>refused</b>we checked that |D(1)| ≤ 0.82395317</i></div>
-    <div class="fly" style="--y:74%;--d:6.4s"><i class="pub">|D(1)| &lt; 0.82395316</i><i class="vd r"><b>refuted</b>|D(1)| &lt; 0.82395316</i></div>
-    <div class="fly" style="--y:88%;--d:8s"><i class="pub">|256·S(j) − j| ≤ 3·10⁻⁴⁰</i><i class="vd c"><b>certified</b>|256·S(j) − j| ≤ 3·10⁻⁴⁰</i></div>
-    <div class="decide">decide</div>
+  <div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+    <svg viewBox="0 0 900 248" role="img" aria-label="Six claims, as published, each drawn on a dashed route into one box labelled decide and out of it as its word: γ₂ ≤ 0.824120, certified; K(11) ≥ 605, refuted, its witness points 601 and 604, closer than 60°; K(55) ≥ 53,301,140, certified; we checked that |D(1)| ≤ 0.82395317, refused (prose); |D(1)| &lt; 0.82395316, refuted; |256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 &lt; j &lt; 256), certified.">
+      <defs><pattern id="stg-w-void" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1.2"/></pattern></defs>
+      <text x="304.0" y="20.0" text-anchor="end" font-size="10.5" letter-spacing=".12em" fill="var(--ink-4)">CLAIMS, AS PUBLISHED</text>
+      <text x="590.0" y="20.0" text-anchor="start" font-size="10.5" letter-spacing=".12em" fill="var(--ink-4)">WORDS, WITH WITNESSES</text>
+      <path d="M312.0,50.0C354.0,50.0 354.0,109.5 396.0,109.5" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/lueker-replay.json#/rows[h=10]/claim"/>
+      <path d="M508.0,109.5C549.0,109.5 549.0,50.0 590.0,50.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/lueker-replay.json#/rows[h=10]/verdict"/>
+      <path d="M312.0,84.0C354.0,84.0 354.0,119.7 396.0,119.7" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/n"/>
+      <path d="M508.0,119.7C549.0,119.7 549.0,84.0 590.0,84.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/violations"/>
+      <path d="M312.0,118.0C354.0,118.0 354.0,129.9 396.0,129.9" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/kissing-wave.json#/rows[id=qiushi-55]/claimed"/>
+      <path d="M508.0,129.9C549.0,129.9 549.0,118.0 590.0,118.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/kissing-wave.json#/rows[id=qiushi-55]/verdict"/>
+      <path d="M312.0,152.0C354.0,152.0 354.0,140.1 396.0,140.1" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-hedged]/claim"/>
+      <path d="M508.0,140.1C547.0,140.1 547.0,152.0 586.0,152.0" class="w-void" fill="none" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-hedged]/refused" stroke="url(#stg-w-void)" stroke-width="7"/>
+      <path d="M312.0,186.0C354.0,186.0 354.0,150.3 396.0,150.3" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-strict]/claim"/>
+      <path d="M508.0,150.3C549.0,150.3 549.0,186.0 590.0,186.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-strict]/certMachine"/>
+      <path d="M312.0,220.0C354.0,220.0 354.0,160.5 396.0,160.5" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-run.json#/rows[id=zeta23-rows]/claim"/>
+      <path d="M508.0,160.5C549.0,160.5 549.0,220.0 590.0,220.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="corpus/claimbox-riemann/records/riemann-run.json#/rows[id=zeta23-rows]/certMachine"/>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M312.0,50.0C354.0,50.0 354.0,109.5 396.0,109.5L508.0,109.5C549.0,109.5 549.0,50.0 590.0,50.0L635.0,50.0"/></circle>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="-8.0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.462;1" path="M312.0,84.0C354.0,84.0 354.0,119.7 396.0,119.7L508.0,119.7C549.0,119.7 549.0,84.0 590.0,84.0L635.0,84.0"/></circle>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="-6.4s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.438;1" path="M312.0,118.0C354.0,118.0 354.0,129.9 396.0,129.9L508.0,129.9C549.0,129.9 549.0,118.0 590.0,118.0L635.0,118.0"/></circle>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="-4.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.190;1" path="M312.0,152.0C354.0,152.0 354.0,140.1 396.0,140.1L452.0,140.1"/></circle>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="-3.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.462;1" path="M312.0,186.0C354.0,186.0 354.0,150.3 396.0,150.3L508.0,150.3C549.0,150.3 549.0,186.0 590.0,186.0L635.0,186.0"/></circle>
+      <circle class="stg-f" r="3"><animateMotion dur="9.6s" begin="-1.6s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M312.0,220.0C354.0,220.0 354.0,160.5 396.0,160.5L508.0,160.5C549.0,160.5 549.0,220.0 590.0,220.0L635.0,220.0"/></circle>
+      <rect x="396.0" y="93.5" width="112.0" height="83.0" rx="6" fill="var(--surface)"/>
+      <rect x="396.0" y="93.5" width="112.0" height="83.0" rx="6" class="w-decided" fill="none" stroke-width="1.5"/>
+      <text x="452.0" y="139.0" text-anchor="middle" font-size="11" font-weight="600" letter-spacing=".16em" fill="var(--ink)">DECIDE</text>
+      <text x="304.0" y="54.3" text-anchor="end" font-size="12" fill="var(--ink-2)">γ₂ ≤ 0.824120</text>
+      <rect x="590.0" y="40.0" width="90.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="635.0" y="53.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+      <text x="304.0" y="88.3" text-anchor="end" font-size="12" fill="var(--ink-2)">K(11) ≥ 605</text>
+      <rect x="590.0" y="74.0" width="90.0" height="20" rx="10" fill="var(--sunk)" stroke="var(--rule-strong)" stroke-width="1"/>
+      <text x="635.0" y="87.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUTED</text>
+      <path class="w-wx" d="M690.0,78.0L702.0,90.0M690.0,90.0L702.0,78.0" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="712.0" y="82.0" text-anchor="start" font-size="12" fill="var(--ink)">points 601 and 604</text>
+      <text x="712.0" y="97.0" text-anchor="start" font-size="11" fill="var(--ink-3)">closer than 60°</text>
+      <text x="304.0" y="122.3" text-anchor="end" font-size="12" fill="var(--ink-2)">K(55) ≥ 53,301,140</text>
+      <rect x="590.0" y="108.0" width="90.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="635.0" y="121.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+      <text x="304.0" y="156.3" text-anchor="end" font-size="12" fill="var(--ink-2)">we checked that |D(1)| ≤ 0.82395317</text>
+      <rect x="590.0" y="142.0" width="90.0" height="20" rx="4" fill="var(--sunk)" stroke="var(--ink-4)" stroke-width="1"/>
+      <text x="635.0" y="155.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUSED</text>
+      <text x="304.0" y="190.3" text-anchor="end" font-size="12" fill="var(--ink-2)">|D(1)| &lt; 0.82395316</text>
+      <rect x="590.0" y="176.0" width="90.0" height="20" rx="10" fill="var(--sunk)" stroke="var(--rule-strong)" stroke-width="1"/>
+      <text x="635.0" y="189.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUTED</text>
+      <text x="304.0" y="224.3" text-anchor="end" font-size="12" fill="var(--ink-2)">|256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 &lt; j &lt; 256)</text>
+      <rect x="590.0" y="210.0" width="90.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="635.0" y="223.6" text-anchor="middle" font-size="10" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+    </svg>
+</div><div class="hv-n">
+    <svg viewBox="0 0 320 256" role="img" aria-label="Six claims, as published, each drawn on a dashed route into one box labelled decide and out of it as its word: γ₂ ≤ 0.824120, certified; K(11) ≥ 605, refuted, its witness points 601 and 604, closer than 60°; K(55) ≥ 53,301,140, certified; we checked that |D(1)| ≤ 0.82395317, refused (prose); |D(1)| &lt; 0.82395316, refuted; |256·S(j) − j| ≤ 3·10⁻⁴⁰ (0 &lt; j &lt; 256), certified.">
+      <defs><pattern id="stg-n-void" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1.2"/></pattern></defs>
+      <text x="138.0" y="14.0" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--ink-4)">CLAIMS, AS PUBLISHED</text>
+      <text x="314.0" y="14.0" text-anchor="end" font-size="9" letter-spacing=".12em" fill="var(--ink-4)">WORDS, WITH WITNESSES</text>
+      <path d="M144.0,42.0L162.0,42.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/lueker-replay.json#/rows[h=10]/claim"/>
+      <path d="M186.0,42.0L212.0,42.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/lueker-replay.json#/rows[h=10]/verdict"/>
+      <path d="M144.0,72.0L162.0,72.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/n"/>
+      <path d="M186.0,72.0L212.0,72.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/violations"/>
+      <path d="M144.0,132.0L162.0,132.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="certs/kissing-wave.json#/rows[id=qiushi-55]/claimed"/>
+      <path d="M186.0,132.0L212.0,132.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="certs/kissing-wave.json#/rows[id=qiushi-55]/verdict"/>
+      <path d="M144.0,165.0L162.0,165.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-hedged]/claim"/>
+      <path d="M186.0,165.0L208.0,165.0" class="w-void" fill="none" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-hedged]/refused" stroke="url(#stg-n-void)" stroke-width="7"/>
+      <path d="M144.0,198.0L162.0,198.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-strict]/claim"/>
+      <path d="M186.0,198.0L212.0,198.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="corpus/claimbox-riemann/records/riemann-ai-run.json#/rows[id=ai-edge-strict]/certMachine"/>
+      <path d="M144.0,231.0L162.0,231.0" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4" data-rec="corpus/claimbox-riemann/records/riemann-run.json#/rows[id=zeta23-rows]/claim"/>
+      <path d="M186.0,231.0L212.0,231.0" class="w-decided" fill="none" stroke-width="1.5" data-rec="corpus/claimbox-riemann/records/riemann-run.json#/rows[id=zeta23-rows]/certMachine"/>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M144.0,42.0L162.0,42.0L186.0,42.0L212.0,42.0L251.0,42.0"/></circle>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="-8.0s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M144.0,72.0L162.0,72.0L186.0,72.0L212.0,72.0L251.0,72.0"/></circle>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="-6.4s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M144.0,132.0L162.0,132.0L186.0,132.0L212.0,132.0L251.0,132.0"/></circle>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="-4.8s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.140;1" path="M144.0,165.0L162.0,165.0L174.0,165.0"/></circle>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="-3.2s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M144.0,198.0L162.0,198.0L186.0,198.0L212.0,198.0L251.0,198.0"/></circle>
+      <circle class="stg-f" r="2.5"><animateMotion dur="9.6s" begin="-1.6s" repeatCount="indefinite" calcMode="linear" keyPoints="0;1;1" keyTimes="0;0.500;1" path="M144.0,231.0L162.0,231.0L186.0,231.0L212.0,231.0L251.0,231.0"/></circle>
+      <rect x="162.0" y="30.0" width="24.0" height="213.0" rx="6" fill="var(--surface)"/>
+      <rect x="162.0" y="30.0" width="24.0" height="213.0" rx="6" class="w-decided" fill="none" stroke-width="1.5"/>
+      <text x="174.0" y="139.9" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".16em" fill="var(--ink)" transform="rotate(-90 174.0 136.5)">DECIDE</text>
+      <text x="138.0" y="45.8" text-anchor="end" font-size="10.5" fill="var(--ink-2)">γ₂ ≤ 0.824120</text>
+      <rect x="212.0" y="32.0" width="78.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="251.0" y="45.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+      <text x="138.0" y="75.8" text-anchor="end" font-size="10.5" fill="var(--ink-2)">K(11) ≥ 605</text>
+      <rect x="212.0" y="62.0" width="78.0" height="20" rx="10" fill="var(--sunk)" stroke="var(--rule-strong)" stroke-width="1"/>
+      <text x="251.0" y="75.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUTED</text>
+      <path class="w-wx" d="M297.0,67.0L307.0,77.0M297.0,77.0L307.0,67.0" fill="none" stroke-width="2.4" stroke-linecap="round"/>
+      <text x="314.0" y="96.0" text-anchor="end" font-size="10.5" fill="var(--ink)">points 601 and 604</text>
+      <text x="314.0" y="109.0" text-anchor="end" font-size="9.5" fill="var(--ink-3)">closer than 60°</text>
+      <text x="138.0" y="135.8" text-anchor="end" font-size="10.5" fill="var(--ink-2)">K(55) ≥ 53,301,140</text>
+      <rect x="212.0" y="122.0" width="78.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="251.0" y="135.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+      <text x="138.0" y="162.3" text-anchor="end" font-size="10.5" fill="var(--ink-2)">we checked that</text>
+      <text x="138.0" y="175.3" text-anchor="end" font-size="10.5" fill="var(--ink-2)">|D(1)| ≤ 0.82395317</text>
+      <rect x="212.0" y="155.0" width="78.0" height="20" rx="4" fill="var(--sunk)" stroke="var(--ink-4)" stroke-width="1"/>
+      <text x="251.0" y="168.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUSED</text>
+      <text x="138.0" y="201.8" text-anchor="end" font-size="10.5" fill="var(--ink-2)">|D(1)| &lt; 0.82395316</text>
+      <rect x="212.0" y="188.0" width="78.0" height="20" rx="10" fill="var(--sunk)" stroke="var(--rule-strong)" stroke-width="1"/>
+      <text x="251.0" y="201.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--ink-3)">REFUTED</text>
+      <text x="138.0" y="228.3" text-anchor="end" font-size="10.5" fill="var(--ink-2)">|256·S(j) − j| ≤</text>
+      <text x="138.0" y="241.3" text-anchor="end" font-size="10.5" fill="var(--ink-2)">3·10⁻⁴⁰ (0 &lt; j &lt; 256)</text>
+      <rect x="212.0" y="221.0" width="78.0" height="20" rx="10" fill="var(--ink)"/>
+      <text x="251.0" y="234.4" text-anchor="middle" font-size="9.5" font-weight="600" letter-spacing=".1em" fill="var(--paper)">CERTIFIED</text>
+    </svg>
+</div>
   </div>
-  <p class="cap">Claims from the records, each with the word its record gives it; the flight through the box is only a picture.</p>
+  <figcaption>Each claim and its word read from its record: certs/lueker-replay.json, certs/kissing-ledger.json, certs/kissing-wave.json and the Riemann companion's two runs. A claim runs in dashed, as printed; what leaves the box is decided; the hedged sentence is refused by the grammar, and nothing leaves the box for it. The × is the one counterexample a claim here exhibits: points <span class="w-val w-decided" data-w="decided" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/worst/i" data-fmt="int" title="decided — exact arithmetic backs it">601</span> and <span class="w-val w-decided" data-w="decided" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/worst/j" data-fmt="int" title="decided — exact arithmetic backs it">604</span> of the <span class="w-val w-decided" data-w="decided" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/n" data-fmt="int" title="decided — exact arithmetic backs it">605</span> published, <span class="w-val w-computed" data-w="computed" data-rec="certs/kissing-ledger.json#/openRungs[slug=kissing-number-d11-605]/measured/worstAngleDeg" data-fmt="fixed:2" title="computed — float, or a number someone printed; nothing decided it">40.24</span>° apart. The cut-short bound on |D(1)| is refuted by comparing two numbers, which leaves no point to mark. The dots are a picture of the flow; nothing else moves.<div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div></figcaption>
+</figure></div>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-29  this page built from the records at ed3bce4eca90"></div>
+    <div class="log" id="log" data-lines="2026-10-06  a request on a public thread: the points of 17 kissing configurations, please|2026-10-11  the points arrive; 9.75·10¹⁵ pairs decided exactly within hours|2026-10-18  a constant's new bound merged into a public registry, marked: replayed by nobody|2026-10-22  65 sentences of a famous proof read; 10 are finite claims|2026-10-30  this page built from the records at 1eefb31d5ea6"></div>
   </div>
 </header>
 
@@ -1187,7 +1250,7 @@ body.easy{overflow-x:hidden}
     <span><b>the kissing wave</b> 19 configurations, 9,752,282,639,769,360 pairs · certs/kissing-wave.json</span>
     <span><b>the Chvátal–Sankoff replay</b> 400,253,317 states at h = 10 · certs/lueker-replay.json</span>
     <span><b>the Riemann companion</b> 65 sentences, 10 read; 99 claims by the mathematician, 81 hold · paper/riemann-finite-layer.pdf</span>
-    <span><b>built</b> 2026-10-29 from the records at commit ed3bce4eca90</span>
+    <span><b>built</b> 2026-10-30 from the records at commit 1eefb31d5ea6</span>
   </div>
   <div class="links rv d3">
     <a href="/paper/cert-machine-method.pdf">the method paper</a><a href="/paper/riemann-finite-layer.pdf">the Riemann companion</a><a href="/reports/selfaudit.html">the self-audit</a><a href="/machine/">the method, formally</a><a href="https://github.com/carlostoledo1891/cert-machine">the repository</a>
@@ -1197,7 +1260,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit ed3bce4eca90 on 2026-10-29: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Every number on this page was read at build time from the records of the cert-machine repository at commit 1eefb31d5ea6 on 2026-10-30: the method paper's, the register's and the Riemann companion's macro files, the self-audit's mutation record, the kissing wave's record and ledger, the Chvátal–Sankoff replay and the translator's pinned README. The instruments compute in your browser in exact rational arithmetic over BigInt; nothing in them is simulated except the one byte corrupted on request, which says so. The cold open's flight, the tiles of Act IV and the dots travelling the route of a claim are pictures, and each says so where it is drawn. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's. The page builder is apps/explained/build.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';
