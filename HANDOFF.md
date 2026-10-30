@@ -27,6 +27,18 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ 2026-10-30 ~08:00 UTC — RULED by the operator (every recommendation): R22/R23/R30 roll out as drawn; /explained/ and
+     /uirapuru/ figures merged; the landing strip with × on horizonmath ONLY (erdos852 no ×, rule 5), six words folded to
+     three greys; D10 policy = point cells, claim: for a claimant's number, derived: [addresses] for a built value.
+     LIVE: R22 site-wide + gated (5349d220); the two figures; the shared pieces (aaa9539c: census counts figNoRecord /
+     figNoStop, ratcheted at 78; W.value derived:/claim: → data-derived / data-claim-rec, check-marks resolves them).
+     LANES RUNNING (worktree agents, each pushes ONE branch, merges nothing; brief: scratchpad LANE-BRIEF.md, copy below):
+       fig-landing-strip (the landing strip + hub D10: index/about/machine), lane-janela, lane-affect-answer,
+       lane-instruments (the other 15 instruments), lane-reports-a (ec-benchmark, breaking-geometry, price, openai-math,
+       return-levels, curve-seeds, time-horizon, optconst-queue, rerun), lane-reports-b (kissing … + figure-only pages),
+       lane-stories-grammar (explained, uirapuru, grammar). Eleições left out (paused). At merge: rebuild, then
+       check-render --accept / check-measure --accept-worse (Swell's row kept) / check-grammar --bless only for the lanes'
+       own pages, after reading each lane's report.
   ◆ 2026-10-30 ~05:00 UTC — "BUILD EVERY OPEN RULE" (the operator chose: R20, R22, R23, R30, R28, the three main-figure
      proposals, D10), and the ETH drop to post. STATE:
      ETH: the drop (notes/x/drops/d01-eth-kernels.txt, reworded to three checks) — X's API refuses replies to posts that
