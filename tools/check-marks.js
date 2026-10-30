@@ -71,10 +71,14 @@ function marksIn(html) {
   return out;
 }
 
+/* THE RECORD ROOTS (the operator, 2026-10-30): certs/ and corpus/, and the instruments' own tracked record folders —
+   playground/<name>/out/, instruments/<name>/out/, instruments/wiring/eval/, environments/<name>/eval/. A value is
+   re-read from its file at every build wherever the file lives; only the list of allowed roots grew. */
+const ROOTS = /^(certs\/|corpus\/|playground\/[^/]+\/out\/|instruments\/[^/]+\/out\/|instruments\/wiring\/eval\/|environments\/[^/]+\/eval\/)/;
 function main() {
   const report = process.argv.includes('--report');
   const reader = (file, ptr) => {
-    if (!/^(certs|corpus)\//.test(file)) throw new Error('record: a pointer names a file outside certs/ or corpus/: ' + file);
+    if (!ROOTS.test(file)) throw new Error('record: a pointer names a file outside the record roots: ' + file);
     return R.read(file, ptr);
   };
   let pages = 0, marks = 0, bad = 0;
@@ -87,8 +91,8 @@ function main() {
     for (const m of fs.readFileSync(file, 'utf8').matchAll(/\bdata-(derived|claim-rec)="([^"]+)"/g)) for (const addr of m[2].split(/\s+/)) {
       if (addr.includes('${')) continue;   /* a template in an inlined script (warrant.js value()), not an address */
       marks++;
-      const am = /^((?:certs|corpus)\/[^#]+)#(\/.*)$/.exec(addr);
-      let why = am ? null : 'not <certs|corpus file>#<pointer>: ' + addr;
+      const am = /^([^#]+)#(\/.*)$/.exec(addr);
+      let why = am && ROOTS.test(am[1]) ? null : 'not <record file>#<pointer> under a record root: ' + addr;
       if (!why) { try { if (reader(am[1], am[2]) === undefined) why = 'resolves to nothing'; } catch (e) { why = e.message; } }
       if (why) { bad++; console.log('  FAIL  ' + rel + ': ' + m[1] + ' ' + addr + ' — ' + why); }
     }
