@@ -355,7 +355,7 @@ function emit(N, git) {
   const html = renderApp({
     title: 'Janela — every offshore unit\'s operating window, decided',
     description: 'For Brazil\'s offshore production units: the next window for offloading, PSV cargo, line laying or lifting, decided against the operation\'s limit over a forecast whose error was measured by satellite — CLEARED, BLOCKED, UNDECIDED or NEEDS DATA, with the reason.',
-    path: '/janela/', lang: 'en', appName: 'Janela', brand: 'CERT-MACHINE', homeHref: '/', og: { image: '/janela/og.png', alt: 'Janela: the map of the Brazilian margin with the offshore units and each operation\'s window, decided' },
+    path: '/janela/', lang: 'en', appName: 'Janela', brand: 'CERT-MACHINE', homeHref: '/',
     meta: '<span id="jn-run">ECMWF · —</span>',
     topHtml: '<nav class="jn-modes" id="jn-modes" role="tablist" aria-label="Mode"><button type="button" role="tab" data-mode="semana" aria-selected="true">WEEK</button><button type="button" role="tab" data-mode="mes" aria-selected="false">CAMPAIGN</button><button type="button" role="tab" data-mode="placar" aria-selected="false">SCOREBOARD</button></nav>',
     navLinks: [{ href: '/janela/metodo/', label: 'Method ↗' }, { href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela', label: 'code' }],

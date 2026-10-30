@@ -1180,7 +1180,7 @@ function build(N, B, git, battery) {
   const html = TPL.render({
     title: 'Janela — the method: the operational window, decided', lang: 'en',
     desc: 'Janela decides offshore operational windows in Brazil: the ECMWF forecast with its error measured against satellites, decided against the published limit (the Harbour Master\'s, DNV\'s or yours): CLEARED, BLOCKED, UNDECIDED or NEEDS DATA, with the reason.',
-    path: '/janela/metodo/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script, og: { image: '/janela/og.png', alt: 'Janela: the map of the Brazilian margin with the offshore units and each operation\'s window, decided' }
+    path: '/janela/metodo/', bodyRaw: out.join('\n\n'), footRaw: foot, cssRaw: css(), scriptRaw: script
   });
   return { html, checked, def, data };
 }
