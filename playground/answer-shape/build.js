@@ -94,16 +94,39 @@ const once = (s, from, to, what) => {
   if (n !== 1) throw new Error('answer-shape: expected one ' + what + ' in the crossed page, found ' + n + ' — page.js changed; re-read it');
   return s.split(from).join(to);
 };
-const wrapAll = (s, re, expect, what, f) => {
-  let n = 0;
-  const out = s.replace(re, (...m) => { n++; return f(...m); });
-  if (n !== expect) throw new Error('answer-shape: expected ' + expect + ' ' + what + ', found ' + n + ' — page.js changed; re-read it');
+/* D10, R23, R30 (2026-10-30). Every printed value carries the address of the record cell it is, or of the cells it is
+   computed from, in the record page.js reads (out/geometry.json, pinned in PROVENANCE.json); every plate names that
+   record and the check that would stop it. A cell printed as the record holds it is W.val (tools/check-marks.js re-reads
+   it); a number computed from cells (a fraction printed as a percentage, a count with its label) is derived: [its cells].
+   One kind of readout at a time, in page.js's order: the k-th match must be exactly what page.js prints from the record
+   (`from`), and becomes the same text with every number marked and addressed (`to`); the count is gated. */
+const RD = require(path.join(PG, '..', 'design', 'record.js'));
+const DC = require(path.join(PG, '..', 'design', 'components.js'));
+const REC = 'playground/answer-shape/out/geometry.json';
+const at = (ptr) => `${REC}#${ptr}`;
+const SUB = (id) => G.subjects.find((s) => s.id === id);
+const P = (s, M, rest) => `/subjects[id=${s.id}]/byModel/${RD.key(M.id)}/${rest}`;
+const seq = (s, re, list, what) => {
+  let k = 0;
+  const out = s.replace(re, (whole) => {
+    const it = list[k++];
+    if (!it || whole !== it.from) throw new Error(`answer-shape: ${what} #${k} reads ${JSON.stringify(whole)}, the record gives ${it ? JSON.stringify(it.from) : 'nothing more'} — page.js changed; re-read it`);
+    return it.to;
+  });
+  if (k !== list.length) throw new Error('answer-shape: expected ' + list.length + ' ' + what + ', found ' + k + ' — page.js changed; re-read it');
   return out;
 };
-const C = (x) => W.value(x, W.COMPUTED);
-const RANK = (x) => W.value(x, W.CHOSEN, { title: 'chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats' });
+const RANK_WHY = 'chosen — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats';
+const C = (x, ptrs) => W.value(x, W.COMPUTED, { derived: ptrs.map(at) });
+const RANK = (x, ptrs) => W.value(x, W.CHOSEN, { title: RANK_WHY, derived: ptrs.map(at) });
+/* a record cell printed by a record.js format; `was` is what page.js printed, which must be what the record prints */
+const V = (was, ptr, fmt, standing = W.COMPUTED, why) => {
+  const now = RD.print(RD.read(REC, ptr), fmt, W.NAME[standing].toLowerCase());
+  if (was !== now) throw new Error(`answer-shape: page.js printed ${JSON.stringify(was)} where ${ptr} prints ${JSON.stringify(now)} (${fmt})`);
+  return W.val({ rec: { path: REC, ptr }, standing, fmt, why });
+};
+const pct = (x, d = 0) => `${(100 * x).toFixed(d)}%`;                /* page.js's own */
 if (!fs.readFileSync(path.join(PG, 'exact-geometry', 'decide.js'), 'utf8').includes('acc / tot >= 0.99')) throw new Error('answer-shape: the effective rank is no longer cut at 99% (exact-geometry/decide.js spectrumOf); rewrite the sentences that say so');
-const ORD = G.subjects.filter((s) => s.order).length, NM = G.models.length;
 const scaleTop = 2 * G.scale;                                       /* the two directions are ADDED: 0–198 */
 const chromS = G.subjects.find((s) => s.id === 'chromatic');
 const missOf = (M) => Math.abs(chromS.byModel[M.id].gate.worstSlack || 0);
@@ -113,13 +136,52 @@ const pct0 = (x) => `${(100 * x).toFixed(0)}%`;
 let sections = sectionsRaw;
 sections = once(sections, `The worst triple in ${chromS.title} misses by ${pct0(chromS.byModel[worstRel.id].gate.relSlack)} of the whole scale.`,
   `The worst triple in ${chromS.title} misses by ${pct0(missOf(worstAbs) / scaleTop)} of the whole 0–${scaleTop} scale (${worstAbs.label}, ${missOf(worstAbs)} units), and by ${pct0(chromS.byModel[worstRel.id].gate.relSlack)} of the largest distance ${worstRel.label} named.`, 'chromatic worst-triple sentence');
-sections = wrapAll(sections, /<span class="fit">(?:(line \d+% · cycle \d+%)|(rank \d+) · (neg \d+%))<\/span>/g, 3 * (2 + 5), 'plate residual captions',
-  (m, fits, rank, neg) => `<span class="fit">${fits ? C(fits) : RANK(rank) + ' · ' + C(neg)}</span>`);
-sections = wrapAll(sections, /<span class="bv">(\d+%)<\/span>/g, 2 * NM * ORD, 'fit-bar values', (m, v) => `<span class="bv">${C(v)}</span>`);
-sections = wrapAll(sections, /(<div class="h">(effective rank|negative mass|distances, r|shape gap)<\/div>)((?:<div>[^<]*<\/div>){3})/g, 4 * 5, 'float table rows',
-  (m, h, k, cells) => h + cells.replace(/<div>([^<]*)<\/div>/g, (x, v) => `<div>${v === '—' ? v : (k === 'effective rank' ? RANK(v) : C(v))}</div>`));
-sections = wrapAll(sections, /(as a circle to |as a line to |fit a circle at )(\d+%)/g, 3, 'note residuals', (m, k, v) => k + C(v));
-sections = wrapAll(sections, /reconstructed a (\d+%)-residual circle/g, 1, 'closing residual', (m, v) => `reconstructed a ${C(v)}-residual circle`);
+/* the plates, in page.js's order: the paired clock and digits, then the five subject sections */
+const PLATES = ['clock', 'digits', 'weekdays', 'chromatic', 'hues', 'carnivores', 'nonsense'].map(SUB);
+if (PLATES.length !== G.subjects.length || PLATES.some((s) => !s)) throw new Error('answer-shape: the record\'s subjects are no longer the seven page.js draws');
+sections = seq(sections, /<span class="fit">(?:line \d+% · cycle \d+%|rank \d+ · neg \d+%)<\/span>/g, PLATES.flatMap((s) => G.models.map((M) => {
+  const r = s.byModel[M.id];
+  return r.fits
+    ? { from: `<span class="fit">line ${pct(r.fits.line.resid)} · cycle ${pct(r.fits.cycle.resid)}</span>`,
+      to: `<span class="fit">${C(`line ${pct(r.fits.line.resid)} · cycle ${pct(r.fits.cycle.resid)}`, [P(s, M, 'fits/line/resid'), P(s, M, 'fits/cycle/resid')])}</span>` }
+    : { from: `<span class="fit">rank ${r.spectrum.effRank} · neg ${pct(r.spectrum.negMass)}</span>`,
+      to: `<span class="fit">${RANK(`rank ${r.spectrum.effRank}`, [P(s, M, 'spectrum/effRank')])} · ${C(`neg ${pct(r.spectrum.negMass)}`, [P(s, M, 'spectrum/negMass')])}</span>` };
+})), 'plate residual captions');
+sections = seq(sections, /<span class="bv">\d+%<\/span>/g, G.subjects.filter((s) => s.order).flatMap((s) => G.models.flatMap((M) => ['line', 'cycle'].map((k) => {
+  const v = pct(s.byModel[M.id].fits[k].resid);
+  return { from: `<span class="bv">${v}</span>`, to: `<span class="bv">${C(v, [P(s, M, `fits/${k}/resid`)])}</span>` };
+}))), 'fit-bar values');
+/* each subject section: its stat table's two float rows, then its agreement table */
+const row = (h, cells) => `<div class="h">${h}</div>` + cells.map((c) => `<div>${c}</div>`).join('');
+sections = seq(sections, /<div class="h">(?:effective rank|negative mass|distances, r|shape gap)<\/div>(?:<div>[^<]*<\/div>){3}/g, PLATES.slice(2).flatMap((s) => {
+  const ix = (p) => s.pairs.indexOf(p);
+  return [
+    { from: row('effective rank', G.models.map((M) => s.byModel[M.id].spectrum.effRank)),
+      to: row('effective rank', G.models.map((M) => V(String(s.byModel[M.id].spectrum.effRank), P(s, M, 'spectrum/effRank'), 'int', W.CHOSEN, RANK_WHY))) },
+    { from: row('negative mass', G.models.map((M) => pct(s.byModel[M.id].spectrum.negMass, 1))),
+      to: row('negative mass', G.models.map((M) => C(pct(s.byModel[M.id].spectrum.negMass, 1), [P(s, M, 'spectrum/negMass')]))) },
+    { from: row('distances, r', s.pairs.map((p) => p.r.toFixed(2))),
+      to: row('distances, r', s.pairs.map((p) => V(p.r.toFixed(2), `/subjects[id=${s.id}]/pairs/${ix(p)}/r`, 'fixed:2'))) },
+    { from: row('shape gap', s.pairs.map((p) => (p.gap === null ? '—' : pct(p.gap)))),
+      to: row('shape gap', s.pairs.map((p) => (p.gap === null ? '—' : C(pct(p.gap), [`/subjects[id=${s.id}]/pairs/${ix(p)}/gap`])))) },
+  ];
+}), 'float table rows');
+/* the paired experiment's note and the closing paragraph: the model page.js picks (lowest clock cycle residual, lowest
+   digit line residual) is read off all three models' cells, so each value names the cells it was picked from too */
+{
+  const clock = SUB('clock'), digits = SUB('digits');
+  const bestClock = G.models.map((M) => ({ M, v: clock.byModel[M.id].fits.cycle.resid })).sort((a, b) => a.v - b.v)[0].M;
+  const bestDigit = G.models.map((M) => ({ M, v: digits.byModel[M.id].fits.line.resid })).sort((a, b) => a.v - b.v)[0].M;
+  const clockCycles = G.models.map((M) => P(clock, M, 'fits/cycle/resid')), digitLines = G.models.map((M) => P(digits, M, 'fits/line/resid'));
+  const circle = pct(clock.byModel[bestClock.id].fits.cycle.resid), circleAt = [P(clock, bestClock, 'fits/cycle/resid'), ...clockCycles.filter((p) => p !== P(clock, bestClock, 'fits/cycle/resid'))];
+  const line = pct(digits.byModel[bestClock.id].fits.line.resid), against = pct(digits.byModel[bestDigit.id].fits.cycle.resid);
+  sections = seq(sections, /(?:as a circle to |as a line to |fit a circle at )\d+%/g, [
+    { from: `as a circle to ${circle}`, to: `as a circle to ${C(circle, circleAt)}` },
+    { from: `as a line to ${line}`, to: `as a line to ${C(line, [P(digits, bestClock, 'fits/line/resid'), ...clockCycles])}` },
+    { from: `fit a circle at ${against}`, to: `fit a circle at ${C(against, [P(digits, bestDigit, 'fits/cycle/resid'), ...digitLines])}` },
+  ], 'note residuals');
+  sections = seq(sections, /reconstructed a \d+%-residual circle/g, [{ from: `reconstructed a ${circle}-residual circle`, to: `reconstructed a ${C(circle, circleAt)}-residual circle` }], 'closing residual');
+}
 sections = once(sections, 'Each has exactly one free scale, fixed in closed form, so the residuals are comparable. Shorter is better.',
   'Each has exactly one free scale, fixed in closed form, so the residuals are comparable. Shorter is better. The residuals are float arithmetic, so the bars and their numbers are computed; a bar carries its value in its length, so its body stays solid and the number beside it carries the dashed underline.', 'fit-bar prose');
 let CSS_AS = A.CSS;
@@ -130,6 +192,42 @@ CSS_AS = once(CSS_AS, '.mchips .l1 i { opacity:.62; border-top-style:dashed; } .
 const TREES = G.subjects.filter((s) => !s.order).flatMap((s) => G.models.map((M) => s.byModel[M.id]).filter((r) => r && r.mst));
 const TIED = TREES.filter((r) => !mstUnique(r.D, r.mst)).length;
 if (marked.plates !== TIED || marked.overlays !== TIED) throw new Error(`answer-shape: ${TIED} tied trees in the record, but ${marked.plates} plates and ${marked.overlays} overlay paths were dotted`);
+/* the ordered plates (R30, 2026-10-30): the paired experiment page.js's prose is built on says "the same numerals must
+   come back as a circle in one and a line in the other", and the set notes (sets.js) name the shape of each ordered set —
+   the digits a line ("nine is not adjacent to zero"), every other ordered set a cycle. Every model's table fits its own
+   set's shape better than the other one, today; a table that fits the other at least as well stops its plate. */
+const SHAPE = (s) => (s.id === 'digits' ? ['line', 'cycle'] : ['cycle', 'line']);
+const SHAPE_WORD = { line: 'a line', cycle: 'a circle' };
+for (const s of G.subjects.filter((x) => x.order)) for (const M of G.models) {
+  const f = s.byModel[M.id].fits, [own, other] = SHAPE(s);
+  if (!(f[own].resid < f[other].resid)) throw new Error(`answer-shape: ${M.label}'s table for ${s.title} fits ${SHAPE_WORD[other]} at least as well as ${SHAPE_WORD[own]}; its plate stops`);
+}
+/* R23, R30 — each of the twenty-one plates names its record and the check above that would stop it. The record line comes
+   from design/components.js figure() itself, so its shape and its sha are the house's own; the distance-table images
+   beside them draw no standing and are left as they are. */
+{
+  const tail = (stop) => {
+    const m = /<figcaption([^>]*)>([\s\S]*)<\/figcaption>/.exec(DC.figure({ svgRaw: '', captionRaw: '', record: REC, stop, wide: false }));
+    if (!m) throw new Error('answer-shape: components.figure() no longer writes a figcaption; re-read it');
+    return { attr: m[1], html: m[2] };
+  };
+  const figs = PLATES.flatMap((s) => G.models.map((M) => ({ M, s, stop: s.order
+    ? `${M.label}'s table for ${s.title} fits ${SHAPE_WORD[SHAPE(s)[1]]} at least as well as ${SHAPE_WORD[SHAPE(s)[0]]}`
+    : 'the plates and the overlays dot a different number of trees than the record holds tied' })));
+  let k = 0;
+  sections = sections.replace(/<figcaption>(<span class="mname">([^<]*)<\/span>(<span class="fit">[\s\S]*?))<\/figcaption>/g, (whole, inner, label, fit) => {
+    if (!/\bw-val\b/.test(fit)) return whole;                   /* a distance-table image: no standing drawn */
+    const f = figs[k++];
+    const lead = f && (f.s.order ? 'line ' : 'rank ');
+    if (!f || f.M.label !== label || !fit.replace(/<[^>]+>/g, '').startsWith(lead)) throw new Error(`answer-shape: plate ${k} (${label}) is not the one its record line was written for — page.js changed; re-read it`);
+    const t = tail(f.stop);
+    return `<figcaption${t.attr}>${inner}${t.html}</figcaption>`;
+  });
+  if (k !== figs.length) throw new Error('answer-shape: expected ' + figs.length + ' plates, found ' + k);
+}
+/* the record line and the stop sentence each on a line of their own under a plate's caption: design/template.js's rule,
+   which this page's own sheet does not carry; page.js sets its figcaption as one flex row, so a captioned one wraps */
+CSS_AS += '\nfigcaption[data-record] { flex-wrap:wrap; }\nfigcaption .fig-rec, figcaption .fig-stop { display:block; flex-basis:100%; margin-top:var(--s-2); font-size:var(--text-eyebrow); color:var(--ink-4); text-transform:none; letter-spacing:normal; }';
 
 function build(OUT) {
   const foot = `<p><a href="../exact-geometry/index.html">the control this is judged against</a> · <a href="../affect/index.html">the same twelve, asked under six moods</a> · <a href="../shape-hunt/index.html">and what survives a null</a> · crossed from the bench ${PROV.liftedOn}</p>`;
