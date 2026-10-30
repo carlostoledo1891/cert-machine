@@ -21,11 +21,17 @@
    the same contract, `make web` → web/dist/. clade-code/ was taken down by publish-zone --remove the same day, once
    /machinidae/ was live (no redirect: the operator's word). 2026-10-28: its pages became indexable (noindex lifted in its
    repository) and, on the operator's word ("add machinidae to the site map, no links yet"), the zone's pages are listed
-   in site/sitemap.xml (`sitemap: true`, read by tools/build-site.js); still linked from no page here. */
+   in site/sitemap.xml (`sitemap: true`, read by tools/build-site.js); still linked from no page here.
+
+   claimbox/ (2026-10-30, at claimbox's request, on the operator's word there: "I want the claimbox page live as it is now
+   first"): ~/Projects/claimbox/web/, built there by `make web` → web/dist/, one self-contained index.html gated by its own
+   `python3 -m web.build --check`; its grammar is re-expressed there (web/grammar.css), nothing imported, the cert-machine
+   files it was read from pinned in claimbox's web/PINS.json. Indexable and in the sitemap; linked from no page here. */
 'use strict';
 
 const FOREIGN = [
   { dir: 'machinidae/', owner: '~/Projects/machinidae', build: 'make web → web/dist/', src: '~/Projects/machinidae/web/dist', sitemap: true },
+  { dir: 'claimbox/', owner: '~/Projects/claimbox', build: 'make web → web/dist/', src: '~/Projects/claimbox/web/dist', sitemap: true },
 ];
 
 /* rel: a path relative to site/, '/'-separated (a directory may end in '/' or not) */
