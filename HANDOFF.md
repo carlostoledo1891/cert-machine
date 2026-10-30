@@ -32,7 +32,11 @@ NEXT SESSION, IN ORDER:
      listener). RULED: plates VI–VIII (pixel images whose captions name brightness) STAY DARK in light; answer-shape's
      four distance tables invert in light (no caption names a brightness). Left alone, already broken in dark: pqc's
      "WHY THESE NUMBERS STAND" block overlaps the title @1440; navier-stokes' mechanism card overlaps the HUD at 900 px
-     tall. lane-light-apps: a specimen, waits on the operator's look at its colours.
+     tall. APPS DONE AND LIVE (lane-light-apps merged): the pill in the app shell (design/nav.js's pieces); APP_LIGHT in
+     design/app-shell.js APPROVED by the operator ("approve all five": --v-cert #22603B, --v-refd #73687F, the three
+     washes); red WORDS in light take --witness-text #B3362C (the operator: "darker red for text in light"; marks and the
+     × keep #e0574e); Janela's empty board cells carry a --border hairline. Light maps from the same pinned data (no new
+     tiles); SkyAudit writes style-light.json (its sprite and the OpenFreeMap fallback stay the dark flavour's).
   ◆ 2026-10-30 evening — THE SEVEN RULINGS BUILT AND LIVE (five worktree lanes, merged on branch merge-1030, the operator:
      "Follow your recommendations"). /claimbox/ republished again on the operator's word from claimbox 5530c96 (fac29cbf;
      live sha256 fbd87029… checked). WHAT LANDED:
