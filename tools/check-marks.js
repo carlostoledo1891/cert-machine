@@ -81,10 +81,11 @@ function main() {
   for (const file of walk(SITE)) {
     const rel = path.relative(SITE, file);
     const items = marksIn(fs.readFileSync(file, 'utf8'));
-    if (!items.length && !/\bdata-(derived|claim-rec)="/.test(fs.readFileSync(file, 'utf8'))) continue;
+    if (!items.length && !/\bdata-(derived|claim-rec)="(?!\$\{)/.test(fs.readFileSync(file, 'utf8'))) continue;
     pages++;
     /* D10: every input address of a derived value, and a claimant's number's claim cell, must resolve */
     for (const m of fs.readFileSync(file, 'utf8').matchAll(/\bdata-(derived|claim-rec)="([^"]+)"/g)) for (const addr of m[2].split(/\s+/)) {
+      if (addr.includes('${')) continue;   /* a template in an inlined script (warrant.js value()), not an address */
       marks++;
       const am = /^((?:certs|corpus)\/[^#]+)#(\/.*)$/.exec(addr);
       let why = am ? null : 'not <certs|corpus file>#<pointer>: ' + addr;

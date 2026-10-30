@@ -1128,9 +1128,15 @@ function textClass(standing) {
 
 /* a value with its standing on it. The title is not decoration — it is the
    only affordance a reader has on a phone, where nothing hovers. */
-function value(text, standing, { title } = {}) {
+/* D10 (2026-10-30, the operator's policy): a value that is not a record cell says where it came from. `derived` lists the
+   record cells (`<file>#<pointer>`) the build computed it from; `claim` is the cell of the claim record that holds a
+   claimant's printed number. Either is an address: tools/check-marks.js resolves every one, and the census counts
+   such a value as addressed. */
+function value(text, standing, { title, derived, claim } = {}) {
   const t = title || GLOSS[standing];
-  return `<span class="w-val ${textClass(standing)}" title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
+  const from = derived ? ` data-derived="${[].concat(derived).join(' ').replace(/"/g, '&quot;')}"` : '';
+  const cl = claim ? ` data-claim-rec="${String(claim).replace(/"/g, '&quot;')}"` : '';
+  return `<span class="w-val ${textClass(standing)}"${from}${cl} title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }
 
 /* the legend, in the page's own words rather than the spec's. Every page that

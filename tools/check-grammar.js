@@ -117,7 +117,7 @@ function marksCensus(root = SITE) {
       if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
     }
     const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
-    while ((m = rv.exec(src))) { if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* D10: a derived value or a claimant's number carries its addresses */
+    while ((m = rv.exec(src))) { if (m[0].includes('${')) continue; if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* a template in an inlined script is not a value */   /* D10: a derived value or a claimant's number carries its addresses */
     /* R23, R30 (2026-10-30): a figure that draws the grammar names its record and the sentence that would stop it */
     for (const fg of src.match(/<figure>[\s\S]*?<\/figure>/g) || []) {
       if (!/class="[^"]*\bw-(decided|computed|chosen|void)\b|data-w="/.test(fg)) continue;
