@@ -19,8 +19,13 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
    and 7 skipped candidates; a claim, COMPUTED). Rows that hold only under a reading the claim chose — the halved clock,
    seven discarded draws, 26-bit limbs — name that reading in italic (rule 6). No red ×: nothing here is refuted. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
-const lane = (s) => W.value(C.esc(String(s)), W.COMPUTED, { title: 'PARI/GP point counting — one program, outside the standard library and outside the certificate: computed, not decided here' });
-const said = (s) => W.value(C.esc(String(s)), W.COMPUTED, { title: 'printed by the post — a claim, not decided here' });
+const LANE_T = 'PARI/GP point counting — one program, outside the standard library and outside the certificate: computed, not decided here';
+/* D10: a lane value names its record cell — read from it (`ptr`), computed from it (`derived`), or a word the build makes of it (`claim`) */
+const LREC = 'certs/curveseeds-ledger.json';
+const lane = (s, a) => a && a.ptr ? W.val({ rec: { path: LREC, ptr: a.ptr }, standing: W.COMPUTED, fmt: 'raw', why: LANE_T })
+  : W.value(C.esc(String(s)), W.COMPUTED, Object.assign({ title: LANE_T }, a || {}));
+/* the post's skipped counts (1, 3 and 7) are held in words by the reading R1 the ledger records from the claim */
+const said = (s) => W.value(C.esc(String(s)), W.COMPUTED, { title: 'printed by the post — a claim, not decided here', claim: LREC + '#/readings[id=R1]/what' });
 const die = (m) => { console.error('CURVESEEDS REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
@@ -138,9 +143,10 @@ B.push(C.section({
       + W.legendHtml({ compact: true })
       + C.plainList(Object.entries(scan.runs).map(([k, v]) => {
           const clock = PRE.claim.table.prime[k][0]; const siblings = new Set(Object.entries(PRE.claim.table.prime).filter(([n, [c]]) => c === clock && n !== k).map(([, [, idx]]) => idx));
-          const sk = (a) => { const own = a.filter((n) => !siblings.has(n)), other = a.filter((n) => siblings.has(n)); return lane(own.length ? own.join(', ') : 'none') + (other.length ? ' (besides ' + other.join(', ') + ', published as other curves of this run)' : ''); };
+          const run = '/scan/runs/' + k + '/';
+          const sk = (a, f) => { const own = a.filter((n) => !siblings.has(n)), other = a.filter((n) => siblings.has(n)); return lane(own.length ? own.join(', ') : 'none', { derived: [LREC + '#' + run + f, 'corpus/curveseeds/preregistration.json#/claim/table/prime'] }) + (other.length ? ' (besides ' + other.join(', ') + ', published as other curves of this run)' : ''); };
           const root = v.pMod4 === 1 ? 'the two roots give isomorphic curves' : 'the published b is the ' + (v.publishedRoot === '+' ? '+√(−27/c) = (−27/c)^((p+1)/4) root' : '−√(−27/c) root');
-          return { b: k + ' (' + clock.slice(0, 10) + '; ' + v.bits + '-bit; p ≡ ' + v.pMod4 + ' mod 4).', raw: 'Published candidate ' + v.publishedCandidate + ', prime-order: ' + lane(v.publishedIsPrimeOrder ? 'yes' : 'NO') + '; ' + lane(v.viable) + ' viable candidates below it; ' + C.esc(root) + '. Skipped prime-order candidates under the published root: ' + sk(v.skippedUnderThePublishedRoot) + '. Under either root: ' + sk(v.skippedUnderEitherRoot) + '.' };
+          return { b: k + ' (' + clock.slice(0, 10) + '; ' + v.bits + '-bit; p ≡ ' + v.pMod4 + ' mod 4).', raw: 'Published candidate ' + v.publishedCandidate + ', prime-order: ' + lane(v.publishedIsPrimeOrder ? 'yes' : 'NO', { claim: LREC + '#' + run + 'publishedIsPrimeOrder' }) + '; ' + lane(v.viable, { ptr: run + 'viable' }) + ' viable candidates below it; ' + C.esc(root) + '. Skipped prime-order candidates under the published root: ' + sk(v.skippedUnderThePublishedRoot, 'skippedUnderThePublishedRoot') + '. Under either root: ' + sk(v.skippedUnderEitherRoot, 'skippedUnderEitherRoot') + '.' };
         }))
       + C.pRaw('The published candidate of every run comes out prime-order, which is the lane\u2019s calibration against the standard. "Skipped" lists the earlier candidates of the same run that also give a prime-order curve and were not themselves published; for the X9.62 runs, which produced three curves each, the run\u2019s other published curves are set apart. The published b is the +√(−27/c) root wherever p ≡ 3 (mod 4) — the root (−27/c)^((p+1)/4) a program computes first — which is what makes "the published root" a reading of "chosen the same way". The post counts ' + said(1) + ' (P-256), ' + said(3) + ' (P-224) and ' + said(7) + ' (the two X9.62 runs together) under a criterion it does not state; where the table differs from those numbers the difference is the criterion, not the arithmetic, and the criterion is what would close it. Record: corpus/curveseeds/scan.json (tools/curveseeds-scan.py' + (scan.pod ? ', run on RunPod ' + C.esc(scan.pod.id) + ', ' + C.esc(String(scan.pod.cpus)) + ' vCPU' : '') + '); the P-384 and P-521 runs are not in the post, which scanned no further than P-224 and the X9.62 curves.')
       : C.pRaw('The point-counting lane for R1 (every candidate below the published index, under a stated root convention for b, with Schoof–Elkies–Atkin in PARI/GP) is outside the standard library and not part of this certificate; if run, its counts will appear here, counted apart.'))
