@@ -88,7 +88,8 @@ function markArt(s) {
 }
 
 /* the order and the meet, drawn: four strokes in the tones they take, then the three ways a path weakens */
-function ladderOfStandings() {
+/* `{ eqsOnly }` (2026-10-30): the page draws the strokes in its four frames and keeps only the algebra here */
+function ladderOfStandings({ eqsOnly } = {}) {
   const cells = STANDINGS.map((s, i) => {
     const art = s === W.REFUSED
       ? (() => { const h = hatch(); return svg(200, 70, 'Refused: a hatched void, the weakest standing.', h.def + '\n' + voidRect(h, 12, 18, 176, 30)); })()
@@ -102,8 +103,8 @@ function ladderOfStandings() {
       big(170, 36, '=', 'middle', 'gx-op'), m === W.REFUSED ? vd(188) : seg(188, m)].join('\n');
     return '<div class="gx-eq">' + svg(250, 56, W.NAME[a] + ' meet ' + W.NAME[b] + ' is ' + W.NAME[m] + '.', inner) + '<div class="gx-d">' + note + '</div></div>';
   };
-  return '<div class="gx-steps">' + cells.join('') + '</div>'
-    + '<div class="gx-arrow"><span>stronger</span><span>weaker</span></div>'
+  return (eqsOnly ? '' : '<div class="gx-steps">' + cells.join('') + '</div>'
+    + '<div class="gx-arrow"><span>stronger</span><span>weaker</span></div>')
     + '<div class="gx-eqs">'
     + eq(W.DECIDED, W.COMPUTED, 'A float anywhere on the path: the mark is computed.')
     + eq(W.DECIDED, W.CHOSEN, 'A choice anywhere on the path: chosen. A straight line between two exact knots is one of many.')
