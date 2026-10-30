@@ -162,13 +162,10 @@ const SCALE = {
    different component. It never breaks out, because the breakout is what
    makes the left edge move.
 
-   THE ONE EXCEPTION, THE HERO (D12, ruled 2026-10-29). One figure per page, declared by
-   its builder (components.js figure({ hero: true })), may draw past the container into the room beside it, up to
-   `hero` wide and never closer to the viewport's edge than the gutter. Its caption stays on the spine. The ruler
-   (tools/check-measure.js) does not count the hero's own edges as spines; it records the hero's width instead and
-   ratchets THAT up, so the one figure a page chose to make large can never quietly shrink. A second hero, an
-   escape or a page that scrolls sideways is refused as before: the exception is one box wide.               */
-const LAYOUT = { container: '1200px', read: '82ch', title: '28ch', hero: '1440px' };
+   NO EXCEPTION, NOT EVEN THE HERO. From 2026-10-29 one declared figure per page drew past the container; on
+   2026-10-30 the operator ruled it back ("It must have the same default width of the content below"). The hero keeps
+   its witness rules (tools/check-wiring.js) and its phone drawing, and is as wide as everything else.        */
+const LAYOUT = { container: '1200px', read: '82ch', title: '28ch' };
 
 /* MEASURE is the retired three-track scale, kept ONLY so an unmigrated
    consumer fails loudly rather than silently laying out at a stale width.
@@ -272,7 +269,7 @@ function scaleVars() {
   for (const [k, val] of Object.entries(SPACE)) v['--s-' + k] = val;
   v['--section-pad'] = SCALE.section;
   v['--gutter'] = SCALE.pagePadX;
-  v['--container'] = LAYOUT.container; v['--read'] = LAYOUT.read; v['--title'] = LAYOUT.title; v['--hero'] = LAYOUT.hero;
+  v['--container'] = LAYOUT.container; v['--read'] = LAYOUT.read; v['--title'] = LAYOUT.title;
   for (const [k, val] of Object.entries(SHAPE)) v['--radius-' + k] = val;
   v['--ease-out'] = MOTION.ease;
   v['--dur-fast'] = MOTION.fast; v['--dur-med'] = MOTION.med; v['--dur-slow'] = MOTION.slow;

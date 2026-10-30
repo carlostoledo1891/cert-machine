@@ -242,8 +242,8 @@ function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero }) {
   const inner = '<figure>\n  <div class="figbox">\n' + art + '\n  </div>\n'
     + (caption || captionRaw ? '  <figcaption>' + (caption ? esc(caption) : captionRaw) + '</figcaption>\n' : '')
     + '</figure>';
-  /* `hero` (D12, 2026-10-29): the one figure per page that may draw past the container (design/tokens.js LAYOUT.hero);
-     tools/check-wiring.js refuses a second one on a page */
+  /* `hero` (D12, 2026-10-29): the one figure per page whose witness a reader meets first, drawn at the container's width
+     like every figure (the bleed ruled out 2026-10-30); tools/check-wiring.js refuses a second one on a page */
   if (hero) return '<div class="wide hero" data-hero>' + inner + '</div>';
   return wide === false ? inner : '<div class="wide">' + inner + '</div>';
 }

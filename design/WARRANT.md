@@ -129,7 +129,7 @@ on 2026-10-28, below.
 
 The operator's approval ("approved all", 2026-10-28) came after Machinidae's palette was run through the dataviz
 validator: OKLab ΔE×100 with the Machado colour-vision model, every pair that shares a figure, on the figure's own
-ground. Its two main arm colours read ΔE 0.4 apart to a deuteranope. The law that came out of that:
+ground. Its two main arm colours, lineage #3d8ac8 and rules #9070c8, read ΔE 0.4 apart to a deuteranope. The law that came out of that:
 
 1. **Ink first.** Every figure reads completely in greyscale; a colour always comes with a shape and a word.
 2. **One colour, one meaning, in every project built on WARRANT.** Each colour is registered below with its meaning
@@ -300,6 +300,11 @@ witness became the hero under the title, drawn on x, y in [0, 5/4], the window w
 float curve can be told apart; the halo key became one strip across the track. The rest of R28 (a refused cell keeps
 the area its value would have had, with the hole's kind) is not built.
 
+
+**Ruled back 2026-10-30 (the operator: "I do not like the hero big images/charts concept. It must have the same default
+width of the content below").** The hero no longer draws past the container on any page: `LAYOUT.hero` and the bleed
+are gone from design/tokens.js and design/template.js, and check-measure's width ratchet with them. What stays is the
+witness rule (one hero per page, its × the first a reader meets, at weight) and the optional phone drawing.
 ## D14 applied (2026-10-29): the first handle
 
 The return-level check (/instruments/return-level-check/) gains a fourth step, **a design height**: the claim "the
