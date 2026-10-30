@@ -47,7 +47,8 @@ const falseAdmit = (k) => I.filter((i) => i[k] === 'ADMISSIBLE' && i.exact !== '
 const falseRefuse = (k) => I.filter((i) => i[k] !== 'ADMISSIBLE' && i.exact === 'ADMISSIBLE').length;
 if (!(falseAdmit('naiveJS') > 0 && falseRefuse('naiveJS') === 0 && falseRefuse('naive') > 0 && falseAdmit('naive') === 0))
   throw new Error('rewire: the two naive graders are no longer wrong in opposite directions');
-const C = (t) => W.value(String(t), W.COMPUTED);
+/* D10: a grader's count is read from its cell of rewire.json */
+const C = (k) => W.val({ rec: { path: 'instruments/wiring/eval/rewire.json', ptr: '/' + k }, standing: W.COMPUTED, fmt: 'int' });
 const LEGEND = W.legendHtml({ compact: true });
 
 /* the runtime the bundle exposes, in the names the app was written against */
@@ -204,15 +205,15 @@ const body = `
     <span class="eyebrow">what the numbers are</span>
     <div class="note-sm">
       <b>exact predicate</b> admits ${D.exactAdmits} of ${D.instances.length}. Integers and a certified &pi; bracket; no floating point anywhere.<br><br>
-      <b>tolerance grader</b> admits ${C(D.naiveJSAdmits)}. It converts the determinant to a double first, and past dimension ${D.cliff} that is <span class="mono">Infinity</span> &mdash; so the Gaussian heuristic is infinite and every claim clears it.<br><br>
-      <b>careful float</b> admits ${C(D.carefulAdmits)}. Log domain, never converts the determinant, and it agrees with the exact predicate on every one of these. <b>Precision was never the vulnerability here.</b> Its ${C(D.carefulAdmits)} is underlined dashed all the same: it is right on all ${D.instances.length}, and nothing decided that. Agreement is its verdict; the dash is what the number stands on, as the dashed wire out of it is.
+      <b>tolerance grader</b> admits ${C('naiveJSAdmits')}. It converts the determinant to a double first, and past dimension ${D.cliff} that is <span class="mono">Infinity</span> &mdash; so the Gaussian heuristic is infinite and every claim clears it.<br><br>
+      <b>careful float</b> admits ${C('carefulAdmits')}. Log domain, never converts the determinant, and it agrees with the exact predicate on every one of these. <b>Precision was never the vulnerability here.</b> Its ${C('carefulAdmits')} is underlined dashed all the same: it is right on all ${D.instances.length}, and nothing decided that. Agreement is its verdict; the dash is what the number stands on, as the dashed wire out of it is.
     </div>
     ${LEGEND}
   </div>
   <hr class="hr-thin">
   <div class="grp">
     <span class="eyebrow">the same bug, two languages</span>
-    <div class="note-sm">In JavaScript <span class="mono">Number(q)</span> is <span class="mono">Infinity</span> and the grader admits everything. In Python <span class="mono">float(q)</span> <em>raises</em>, and the same grader admits ${C(D.naiveAdmits)} instead &mdash; it refuses everything above the cliff. Both are wrong, in opposite directions, and only the crash gets noticed.</div>
+    <div class="note-sm">In JavaScript <span class="mono">Number(q)</span> is <span class="mono">Infinity</span> and the grader admits everything. In Python <span class="mono">float(q)</span> <em>raises</em>, and the same grader admits ${C('naiveAdmits')} instead &mdash; it refuses everything above the cliff. Both are wrong, in opposite directions, and only the crash gets noticed.</div>
   </div>
   <hr class="hr-thin">
   <div class="grp">

@@ -143,8 +143,12 @@ if (!(SPOIL[0] > 0.05 && SPOIL[1] < 0.15)) throw new Error('blind-spot: the out-
 const pct = (x) => (100 * x).toFixed(1);
 /* the pairs a policy draws at random (policies.py: a random.Random seeded by task id and policy) */
 const SHOTGUN = new Set(['random8', 'corpus8', 'mint8', 'outbox8', 'aligned8', 'union8', 'profile']);
-const drawn = (p, h) => (SHOTGUN.has(p) ? W.value(h, W.CHOSEN, { title: 'one seeded draw of eight pairs per task; another draw scores otherwise' }) : h);
-const sample = (h) => W.value(h, W.CHOSEN, { title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
+/* D10: a reference policy's score is computed over the 1,200 rows of the baseline (one address: the rows themselves); a
+   model's count names one cell of each of its replies that it is computed from */
+const BSP = 'environments/blind_spot/eval/page.json';
+const resCells = (rows, ...fields) => rows.flatMap((x) => fields.map((f) => BSP + '#/results/' + RES.indexOf(x) + '/' + f));
+const drawn = (p, h) => (SHOTGUN.has(p) ? W.value(h, W.CHOSEN, { derived: [BSP + '#/baseline/rows'], title: 'one seeded draw of eight pairs per task; another draw scores otherwise' }) : h);
+const sample = (h, derived) => W.value(h, W.CHOSEN, { derived, title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
 /* the model answers that declared a gap closed on a killable mutant, and the ones that declared a kill on a design
    proved unchanged: the first are refuted by the mutant's own witness, the second by proof */
 const GAPS = RES.filter((r) => r.reward < 0 && r.verdict === 'EQUIVALENT' && r.truth === 'KILL');
@@ -535,13 +539,13 @@ shotgun claims a kill on every task, so it is wrong on every equivalent one &mda
         const g = gradedRows(m), ref = refusedRows(m);
         const cells = P.rungs.map((r) => {
           const xs = g.filter((x) => x.rung === r);
-          return xs.length ? `<div class="c" style="--f:${((mean(xs) + 1) / 2).toFixed(2)}">${sample(sgn(mean(xs)))}</div>`
+          return xs.length ? `<div class="c" style="--f:${((mean(xs) + 1) / 2).toFixed(2)}">${sample(sgn(mean(xs)), resCells(xs, 'reward'))}</div>`
                            : '<div class="c dim" title="no graded call: every one was declined">&empty;</div>';
         }).join('');
         return `<div class="ml">${esc(m)}</div>${cells}`
-          + `<div class="c" style="--f:${((mean(g) + 1) / 2).toFixed(2)}">${sample(`<b>${sgn(mean(g))}</b>`)}</div>`
-          + `<div class="c">${sample(solvedOf(g))}</div><div class="c">${sample(g.filter((x) => x.reward < 0).length)}</div>`
-          + `<div class="c ${ref.length ? '' : 'dim'}">${sample(ref.length || 0)}</div>`;
+          + `<div class="c" style="--f:${((mean(g) + 1) / 2).toFixed(2)}">${sample(`<b>${sgn(mean(g))}</b>`, resCells(g, 'reward'))}</div>`
+          + `<div class="c">${sample(solvedOf(g), resCells(g, 'reward'))}</div><div class="c">${sample(g.filter((x) => x.reward < 0).length, resCells(g, 'reward'))}</div>`
+          + `<div class="c ${ref.length ? '' : 'dim'}">${sample(ref.length || 0, resCells(RES.filter((r) => r.model === m), 'stop', 'outcome'))}</div>`;
       }).join('')}
     </div></div>
     <div class="note reveal rd">
@@ -551,7 +555,7 @@ ${refusedRows('Opus 5').length} in all, the declined column &mdash; so its <span
 mean of nothing. That is recorded as a fact and the prompt was not
 reworded to get past the classifier &mdash; a rung that only scores the models willing to answer it is not
 measuring what it claims to.
-<b>${OUTBOX_KILLS * 2 === KILLS.length ? 'half of every kill' : 'kills'} went outside the box</b> ${sample(OUTBOX_KILLS + ' of the ' + KILLS.length)} kills used a &minus;4 coordinate, which the
+<b>${OUTBOX_KILLS * 2 === KILLS.length ? 'half of every kill' : 'kills'} went outside the box</b> ${sample(OUTBOX_KILLS + ' of the ' + KILLS.length, resCells(KILLS, 'in_box_kill'))} kills used a &minus;4 coordinate, which the
 declared input box excludes. The thesis, showing up as a diagnostic rather than as a score.
 <b>dotted</b> every model number is one sample of that model&rsquo;s replies: each reply is graded exactly, but the
 replies are a draw, and a rerun draws others.

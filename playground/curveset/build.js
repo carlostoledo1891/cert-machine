@@ -35,6 +35,8 @@ const ratio = (s, i) => (s.rungs[i].r && s.rungs[i].r.bounded ? s.rungs[i].r.wid
 const rungLabel = (g) => (g.kind === 'monotone' ? 'monotone only' : g.kind === 'interpolate' ? 'join the dots' : `wander ≤ ±${(100 * g.tol).toFixed(0)}%`);
 const lastIdx = (s) => s.rungs.length - 1;
 const monoR = (s) => ratio(s, 0), dotsR = (s) => ratio(s, lastIdx(s));
+/* D10: the address of a set's cell in out/page.json */
+const AT = (s, ptr) => 'playground/curveset/out/page.json#/sets[id=' + s.id + ']' + ptr;
 
 /* the legend is RENDERED BY warrant.js, not described here: the page cannot
    disagree with the grammar it is using, and the markup existed twice. */
@@ -62,9 +64,9 @@ const panel = (s) => {
       <span class="state" data-state="${s.id}">${rungLabel(s.rungs[start])}</span>
     </div>
     <div class="readout">
-      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${W.value(s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded', BAND)}</div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN)}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion. ${insideAll(s) ? `It stays inside the set at all ${s.rungs.length} assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.` : `Where it leaves the set, a red × marks the place: there the published curve is not admissible under that assumption.`}</div></div>
-      <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${W.value(monoR(s) ? n(monoR(s)) + '×' : '∞', W.meet(BAND, W.CHOSEN))}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
+      <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${W.value(s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded', BAND, { derived: s.rungs[start].r && s.rungs[start].r.bounded ? [AT(s, '/rungs/' + start + '/r/lo'), AT(s, '/rungs/' + start + '/r/hi')] : [AT(s, '/rungs/' + start + '/r')] })}</div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN, { claim: AT(s, '/reported') })}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion. ${insideAll(s) ? `It stays inside the set at all ${s.rungs.length} assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.` : `Where it leaves the set, a red × marks the place: there the published curve is not admissible under that assumption.`}</div></div>
+      <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${W.value(monoR(s) ? n(monoR(s)) + '×' : '∞', W.meet(BAND, W.CHOSEN), { derived: monoR(s) ? [AT(s, '/rungs/0/r/width'), AT(s, '/reported/uFit')] : [AT(s, '/rungs/0/r')] })}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>
   <div class="fig" data-ladder="${s.id}">${PLOT.ladderPlot(s, start)}</div>

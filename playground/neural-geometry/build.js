@@ -69,9 +69,17 @@ const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
 const ctlCurved = qControl.filter((q) => q > 0).length;
 if (ctlCurved !== 0) throw new Error('neural-geometry: a control cell has a negative direction; the first finding is false — rewrite it');
 const wheels = byShape('cycle');
+/* D10: every printed number names its cell of out/geometry.json; one the page computes (a mean, a percent, a word read
+   off the record) names the cells it is computed from */
+const NGP = 'playground/neural-geometry/out/geometry.json';
+const PTR = (s, m, f) => '/sets[id=' + s.id + ']' + (m ? '/models[id=' + m.id + ']' : '') + f;
+const AT = (s, m, f) => NGP + '#' + PTR(s, m, f);
+const CV = (s, m, f, d) => W.val({ rec: { path: NGP, ptr: PTR(s, m, f) }, standing: W.COMPUTED, fmt: 'fixed:' + d });
+const CD = (x, from) => W.value(x, W.COMPUTED, { derived: from });
+const FIT_FROM = (s) => done(s).filter((m) => m.fit !== null).map((m) => AT(s, m, '/fit'));
 const pullTies = wheels.reduce((a, s) => a + done(s).reduce((b, m) => b + (m.pull.length - new Set(m.pull).size), 0), 0);
 const wheelRho = W.value(n(mean(wheels.map((x) => x.pullRho)), 2), pullTies ? W.CHOSEN : W.COMPUTED,
-  pullTies ? { title: `chosen — Spearman's ρ over ranks with ${pullTies} ties on the wheels, broken by item order, then averaged in float` } : {});
+  Object.assign({ derived: wheels.map((x) => AT(x, null, '/pullRho')) }, pullTies ? { title: `chosen — Spearman's ρ over ranks with ${pullTies} ties on the wheels, broken by item order, then averaged in float` } : {}));
 /* the reference item: read from the record, unanimous, a unique argmax in every model — and the nearby universal
    reading checked pair by pair on the raw answers, which is what the sentence now says */
 const PROBE = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'probe.json'), 'utf8'));
@@ -95,7 +103,7 @@ const flatList = flatStructured.map(({ s, m }) => `${s.id} as ${short(m.id)} ans
 /* the trees */
 const trees = sets.filter((s) => !s.order).flatMap((s) => done(s).filter((m) => m.mst).map((m) => ({ s, m, unique: mstUnique(m.D, m.mst) })));
 const tied = trees.filter((t) => !t.unique).length;
-const treeWord = (m) => (mstUnique(m.D, m.mst) ? 'unique' : W.value('one of several', W.CHOSEN, { title: 'chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted' }));
+const treeWord = (s, m) => (mstUnique(m.D, m.mst) ? 'unique' : W.value('one of several', W.CHOSEN, { derived: [AT(s, m, '/D'), AT(s, m, '/mst')], title: 'chosen — two edges tie, and a tie-break picked this tree among the minimum spanning trees the numbers admit; drawn dotted' }));
 /* the keypad: below the 95th percentile of the shuffles, above their median */
 const kp = setOf('keypad'), kpFit = meanFit(kp);
 if (!(kpFit < kp.fitNull.p95 && kpFit > kp.fitNull.p50)) throw new Error('neural-geometry: the keypad fit is no longer between the median and the 95th percentile of its null; rewrite the frames paragraph');
@@ -105,7 +113,6 @@ const worstAsym = asymBy.reduce((a, b) => (b.worst > a.worst ? b : a)), fewest =
 if (worstAsym.id !== fewest.id || cyclicBy.filter((c) => c.hits === fewest.hits).length !== 1) throw new Error('neural-geometry: the least self-consistent model is not alone in keeping a cyclic order least often; rewrite the method sentence');
 for (const id of ['planets', 'scales']) if (done(setOf(id)).some((m) => m.tri.violations > 0)) throw new Error('neural-geometry: ' + id + ' violates the triangle inequality; the method sentence is false');
 if (IDS.length !== 3 || beats(setOf('keypad'))) throw new Error('neural-geometry: the prose says three models and a keypad prediction that failed; rewrite it');
-const C = (x) => W.value(x, W.COMPUTED);
 
 const plateBlock = (s, m) => `
   <div class="pl">
@@ -115,7 +122,7 @@ const plateBlock = (s, m) => `
       <span><span class="k">${s.order ? 'closure' : 'tri viol'}</span><span class="v ${s.order ? (m.closure.ratio < 1.6 ? 'hit' : '') : (m.tri.violations === 0 ? 'hit' : '')}">${s.order ? n(m.closure.ratio) + '×' : m.tri.violations}</span></span>
       <span><span class="k">δ / diam</span><span class="v ${m.hyp.norm !== null && m.hyp.norm < 0.14 ? 'hit' : ''}">${m.hyp.norm === null ? '—' : n(m.hyp.norm, 3)}</span></span>
       <span><span class="k">curved dirs</span><span class="v ${m.signature.q > 0 ? 'hit' : ''}">${m.signature.q}</span></span>
-      <span><span class="k">${m.fit === null ? '2D holds' : 'fit to truth'}</span><span class="v ${m.fit === null ? (m.captured > 0.8 ? 'hit' : '') : (s.fitNull && m.fit > s.fitNull.p95 ? 'hit' : '')}">${C(m.fit === null ? (100 * m.captured).toFixed(0) + '%' : n(m.fit, 3))}</span></span>
+      <span><span class="k">${m.fit === null ? '2D holds' : 'fit to truth'}</span><span class="v ${m.fit === null ? (m.captured > 0.8 ? 'hit' : '') : (s.fitNull && m.fit > s.fitNull.p95 ? 'hit' : '')}">${m.fit === null ? CD((100 * m.captured).toFixed(0) + '%', [AT(s, m, '/captured')]) : CV(s, m, '/fit', 3)}</span></span>
     </div>
   </div>`;
 
@@ -126,10 +133,10 @@ const setBlock = (s) => `
       <div class="eyebrow">${s.id} · predicted: ${s.predict}</div>
       <h2>${s.title}</h2>
       <div class="verdict">${s.order ? `<span class="tag">closure ratio</span> ${closeOf(s).map((c) => n(c)).join(' · ')}<br>
-      <span class="tag">cyclic order</span> ${C(s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · '))}<br>` : ''}
+      <span class="tag">cyclic order</span> ${CD(s.models.map((m) => (m.cyclic ? 'kept' : 'broken')).join(' · '), s.models.map((m) => AT(s, m, '/cyclic')))}<br>` : ''}
       <span class="tag">δ / diameter</span> ${s.models.map((m) => n(m.hyp.norm, 3)).join(' · ')}<br>
       <span class="tag">curved directions</span> ${done(s).map((m) => m.signature.q).join(' · ')} of ${s.models[0].n - 1}<br>
-      <span class="tag">models agree</span> ${C(n(s.agree, 3))}${s.fitNull ? `<br><span class="tag">fit to the known layout</span> ${C(n(meanFit(s), 3))} <span class="tag">against a shuffled null of</span> ${C(n(s.fitNull.p95, 3))}` : ''}${!s.order ? `<br><span class="tag">spanning tree</span> ${s.models.map((m) => (m.incomplete ? '—' : treeWord(m))).join(' · ')}` : ''}${s.anchor && s.pullRho > 0.25 ? `<br><span class="tag">reference item</span> ${s.anchor.reference.join(' · ')}${s.anchor.unanimous ? ' <span class="tag">(all three)</span>' : ''}` : ''}</div>
+      <span class="tag">models agree</span> ${CV(s, null, '/agree', 3)}${s.fitNull ? `<br><span class="tag">fit to the known layout</span> ${CD(n(meanFit(s), 3), FIT_FROM(s))} <span class="tag">against a shuffled null of</span> ${CV(s, null, '/fitNull/p95', 3)}` : ''}${!s.order ? `<br><span class="tag">spanning tree</span> ${s.models.map((m) => (m.incomplete ? '—' : treeWord(s, m))).join(' · ')}` : ''}${s.anchor && s.pullRho > 0.25 ? `<br><span class="tag">reference item</span> ${s.anchor.reference.join(' · ')}${s.anchor.unanimous ? ' <span class="tag">(all three)</span>' : ''}` : ''}</div>
     </div>
     <p class="why">${s.why}</p>
   </div>
@@ -208,9 +215,9 @@ ${W.legendHtml({ compact: true })}
       <p class="fq">${s.frame ? `&ldquo;${s.frame}&rdquo;` : 'no frame — the items alone'}</p>
       <div class="nums">
         <span><span class="k">predicted</span><span class="v small-78">${s.predict}</span></span>
-        <span><span class="k">fit</span><span class="v">${C(n(meanFit(s), 3))}</span></span>
-        <span><span class="k">shuffled null</span><span class="v">${C(n(s.fitNull.p95, 3))}</span></span>
-        <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${C(good ? 'holds' : 'fails')}</span></span>
+        <span><span class="k">fit</span><span class="v">${CD(n(meanFit(s), 3), FIT_FROM(s))}</span></span>
+        <span><span class="k">shuffled null</span><span class="v">${CV(s, null, '/fitNull/p95', 3)}</span></span>
+        <span><span class="k">verdict</span><span class="v ${good ? 'hit' : 'miss'}">${CD(good ? 'holds' : 'fails', FIT_FROM(s).concat([AT(s, null, '/fitNull/p95')]))}</span></span>
       </div>
     </div>`;
   }).join('')}</div>
@@ -218,7 +225,7 @@ ${W.legendHtml({ compact: true })}
     <b>Two of these work, one correctly does nothing, and one does not clear chance.</b>
     Named as <b>residues modulo ten</b> the line closes into a ring — ${n(mean(closeOf(setOf('mod10'))))}× against ${n(mean(closeOf(setOf('digits'))))}× for the bare digits, and a fit of ${n(meanFit(setOf('mod10')), 3)} to the true circle where shuffling reaches ${n(setOf('mod10').fitNull.p95, 3)}. Nothing in the frame mentions that nine and zero are neighbours; the model brought that.
     Named as <b>floors of a building</b> — as concrete a frame as the others, and one that should change nothing — nothing changes: ${n(mean(closeOf(setOf('floors'))))}× against ${n(mean(closeOf(setOf('digits'))))}×. That is the control inside the experiment and it behaves.
-    And named as <b>keys on a telephone keypad</b>, the layout does not clear the bar: ${C(n(kpFit, 3))} against ${C(n(kp.fitNull.p95, 3))}. It is not worse than permuting the labels — the median shuffle reaches only ${C(n(kp.fitNull.p50, 3))} — but at least ${kpBetter} of the ${kp.fitNull.trials.toLocaleString('en-US')} shuffles do better, so it is nothing a lucky permutation could not do. The models have the keypad as a thing; they do not have it as a place.
+    And named as <b>keys on a telephone keypad</b>, the layout does not clear the bar: ${CD(n(kpFit, 3), FIT_FROM(kp))} against ${CV(kp, null, '/fitNull/p95', 3)}. It is not worse than permuting the labels — the median shuffle reaches only ${CV(kp, null, '/fitNull/p50', 3)} — but at least ${kpBetter} of the ${kp.fitNull.trials.toLocaleString('en-US')} shuffles do better, so it is nothing a lucky permutation could not do. The models have the keypad as a thing; they do not have it as a place.
   </p>
   <p class="why mt4 rd">
     So the frame is a real parameter and a bounded one. It moves the geometry along an axis the model already carries — an order can be bent into a cycle — and it cannot conjure one the model does not have. Asking for a grid does not produce a grid.
@@ -234,7 +241,7 @@ ${[['cycle', 'the wheels'], ['line', 'the lines'], ['tree', 'the branching one']
   <div class="eyebrow">the method</div>
   <h2 class="mt4">How the answers were taken, and what was decided</h2>
 
-  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement ${asymBy.map((a) => short(a.id) + ' ' + a.worst).join(', ')} on a 0–100 scale, and the model least consistent with itself is also the one that keeps a cyclic order least often (${cyclicBy.map((c) => short(c.id) + ' ' + C(c.hits + '/' + ordered.length)).join(', ')} of the ordered sets, read off the float coordinates).</p>
+  <p><b>One row at a time, on purpose.</b> Asking for the whole matrix in one call is cheaper and worse: the model can enforce its own symmetry by reading what it just wrote. Asked row by row, the two halves of every pair come from calls that never see each other — so their agreement is a consistency test nobody requested and none of them can be given for free. It is the sharpest separator on the page: worst disagreement ${asymBy.map((a) => short(a.id) + ' ' + a.worst).join(', ')} on a 0–100 scale, and the model least consistent with itself is also the one that keeps a cyclic order least often (${cyclicBy.map((c) => short(c.id) + ' ' + CD(c.hits + '/' + ordered.length, ordered.map((s) => AT(s, byId(s, c.id), '/cyclic')))).join(', ')} of the ordered sets, read off the float coordinates).</p>
 
   <h3>Every answer is a whole number</h3>
   <p>The scale is 0–100 integers, so the matrix is exact rational data and nothing downstream is a threshold on a float. The symmetrised distances are integers over two; the Gram matrix is exact; and its signature is computed by exact symmetric congruence, where Sylvester's law makes the count basis-independent and rationals make each sign a decision instead of a comparison.</p>

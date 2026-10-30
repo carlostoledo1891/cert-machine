@@ -107,7 +107,7 @@ const body = `
   page does not re-prove them.</p>
   <p><b>The split is chosen.</b> Population a&rsquo;s share of each shared edge is one point of the
   face, found by exact max-flow and centred so that no flow sits at zero (smallest slack
-  ${W.value(P.split.minSlack, W.CHOSEN)}). The sliders move it along the ${P.face.k} directions of the null space;
+  ${W.val({ rec: { path: 'playground/census/out/facts.json', ptr: '/paper/split/minSlack' }, standing: W.CHOSEN, fmt: 'raw' })}). The sliders move it along the ${P.face.k} directions of the null space;
   the ranges are where a flow would turn negative. Nothing decides which point the players
   actually chose &mdash; the paper&rsquo;s own scenario S1 has unique totals and a split that
   moves across re-seeds, which is exactly the non-uniqueness this face measures.</p>

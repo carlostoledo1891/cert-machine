@@ -44,10 +44,13 @@ const BASE_EXTRA = `
 
 const MODELS = ['Opus 5', 'Sonnet 5', 'Haiku 4.5'];
 const R = P.results, RUNGS = P.rungs;
-const cell = (m, r) => { const s = R.filter(x => x.model === m && x.rung === r); return [s.reduce((t, x) => t + x.cert, 0), s.length]; };
-const overall = m => { const s = R.filter(x => x.model === m); return [s.reduce((t, x) => t + x.cert, 0), s.length]; };
-const wf = m => { const s = R.filter(x => x.model === m && x.rung !== 'underspecified'); return [s.reduce((t, x) => t + x.wf, 0), s.length]; };
-const straddle = m => { const s = R.filter(x => x.model === m && x.truth === 'STRADDLES'); return [s.reduce((t, x) => t + x.cert, 0), s.length]; };
+const cell = (m, r) => { const s = R.filter(x => x.model === m && x.rung === r); return [s.reduce((t, x) => t + x.cert, 0), s.length, s]; };
+const overall = m => { const s = R.filter(x => x.model === m); return [s.reduce((t, x) => t + x.cert, 0), s.length, s]; };
+const wf = m => { const s = R.filter(x => x.model === m && x.rung !== 'underspecified'); return [s.reduce((t, x) => t + x.wf, 0), s.length, s]; };
+const straddle = m => { const s = R.filter(x => x.model === m && x.truth === 'STRADDLES'); return [s.reduce((t, x) => t + x.cert, 0), s.length, s]; };
+/* D10: a model's count is computed from one cell of each reply it counts, in instruments/wiring/eval/page.json */
+const LCP = 'instruments/wiring/eval/page.json';
+const cellsOf = (rows, field) => rows.map(x => LCP + '#/results/' + R.indexOf(x) + '/' + field);
 const pc = ([a, b]) => b ? a / b : 0;
 
 /* WARRANT v2 (2026-10-28). STANDING, ON THIS PAGE. A model's number is a count of grades over ONE SAMPLE of its
@@ -64,7 +67,7 @@ const pc = ([a, b]) => b ? a / b : 0;
    1.487×10⁻⁴ (dimension 119, 1.05 − 1.049851339…), so the digit printed was a truncation and the rounding is 1.5;
    it is now read from the pqc audit, as is the lede's 32 of 37. And "22 models had correctly answered" — three
    models answered here; the 22 are replies (the count itself is the first run's, which this record does not hold). */
-const sample = (h) => W.value(h, W.CHOSEN, { title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
+const sample = (h, derived) => W.value(h, W.CHOSEN, { derived, title: 'one sample of the model’s replies — each grade decided, the sample drawn' });
 { const A = P.decidable, B = P.straddle;
   for (const e of [A, B]) if (!(e.ratio_lo <= e.ratio_exact && e.ratio_exact <= e.ratio_hi)) throw new Error('lattice-claims: the dot is outside its bar; the ruler note would be false');
   if (!(A.verdict_lo === 'ADMISSIBLE' && A.verdict_hi === 'ADMISSIBLE' && B.verdict_lo !== B.verdict_hi)) throw new Error('lattice-claims: the two ruler instances changed verdicts; rewrite the note');
@@ -108,20 +111,20 @@ const grid = () => `<div class="gr" style="--cols:${RUNGS.length + 1}">
   <div class="h"></div>${RUNGS.map(r => `<div class="h">${r}</div>`).join('')}<div class="h">overall</div>
   ${MODELS.map(m => `<div class="h ml">${m}</div>` + RUNGS.map(r => {
   const c = cell(m, r);
-  return `<div class="c" style="--f:${pc(c).toFixed(2)}">${sample(`<b>${c[0]}</b>/${c[1]}`)}</div>`;
-}).join('') + (() => { const o = overall(m); return `<div class="c tot" style="--f:${pc(o).toFixed(2)}">${sample(`<b>${o[0]}</b>/${o[1]}`)}</div>`; })()).join('')}
+  return `<div class="c" style="--f:${pc(c).toFixed(2)}">${sample(`<b>${c[0]}</b>/${c[1]}`, cellsOf(c[2], 'cert'))}</div>`;
+}).join('') + (() => { const o = overall(m); return `<div class="c tot" style="--f:${pc(o).toFixed(2)}">${sample(`<b>${o[0]}</b>/${o[1]}`, cellsOf(o[2], 'cert'))}</div>`; })()).join('')}
 </div>`;
 
 const confusion = () => {
   const rows = MODELS.map(m => {
     const mine = R.filter(x => x.model === m);
-    const seen = {};
-    for (const x of mine) { const k = `${x.truth}|${x.verdict}`; seen[k] = (seen[k] || 0) + 1; }
+    const seen = {}, seenRows = {};
+    for (const x of mine) { const k = `${x.truth}|${x.verdict}`; seen[k] = (seen[k] || 0) + 1; (seenRows[k] = seenRows[k] || []).push(x); }
     const worst = Object.entries(seen).filter(([k]) => k.split('|')[0] !== k.split('|')[1])
       .sort((a, b) => b[1] - a[1]).slice(0, 3);
     const say = g => (g === 'null' || g === 'undefined') ? 'nothing parseable' : g;
     return `<div class="h ml">${m}</div><div class="c2">${worst.map(([k, v]) =>
-      `<span class="mis">${sample(`<b>${v}&times;</b>`)} ${say(k.split('|')[1]) === 'nothing parseable' ? 'returned nothing parseable' : 'said ' + k.split('|')[1]} when it was ${k.split('|')[0]}</span>`).join('')}</div>`;
+      `<span class="mis">${sample(`<b>${v}&times;</b>`, cellsOf(seenRows[k], 'verdict'))} ${say(k.split('|')[1]) === 'nothing parseable' ? 'returned nothing parseable' : 'said ' + k.split('|')[1]} when it was ${k.split('|')[0]}</span>`).join('')}</div>`;
   }).join('');
   return `<div class="gr g-lead">${rows}</div>`;
 };
@@ -187,7 +190,7 @@ const body = `
     <div class="reveal mt5">${ruler()}</div>
     <div class="note reveal rd">
 <b>decidable</b>  printed ${P.decidable.printed} &rarr; every consistent norm gives the same verdict. ADMISSIBLE, and that is a proof.
-<b>straddling</b> printed ${P.straddle.printed} &rarr; at N&minus;&frac12; it is ${P.straddle.verdict_lo}, at N+&frac12; it is ${P.straddle.verdict_hi}. The window is ${W.value(((P.straddle.ratio_hi - P.straddle.ratio_lo) * 1e4).toFixed(1) + '&times;10&minus;&#8308;', W.COMPUTED, { title: 'float arithmetic on the record’s drawing floats; the verdicts at N ± ½ are exact' })} wide and the wall runs through it.
+<b>straddling</b> printed ${P.straddle.printed} &rarr; at N&minus;&frac12; it is ${P.straddle.verdict_lo}, at N+&frac12; it is ${P.straddle.verdict_hi}. The window is ${W.value(((P.straddle.ratio_hi - P.straddle.ratio_lo) * 1e4).toFixed(1) + '&times;10&minus;&#8308;', W.COMPUTED, { derived: [LCP + '#/straddle/ratio_hi', LCP + '#/straddle/ratio_lo'], title: 'float arithmetic on the record’s drawing floats; the verdicts at N ± ½ are exact' })} wide and the wall runs through it.
 <b>the dot</b>    is the vector each task was built from, inside its bar both times. For the straddling one it sits on the ${dotSide} side &mdash; a fact the printed integer does not carry, so it decides nothing, and STRADDLES stays the right answer.
 <b>so</b>         STRADDLES is not a hedge, it is the correct answer &mdash; and there is a record in the real hall of fame in exactly this position.
     </div>
@@ -210,8 +213,8 @@ const body = `
 <b>careful</b>    is the row to read the models against &mdash; a float grader right on every real record, with no way to say STRADDLES or NEEDS_DATA. Its printed cell is the four straddling instances; its refusal cell is the cost of a grader that cannot abstain.
     </div>` : ''}
     <div class="note reveal rd">
-<b>the split</b>   the <span class="mono">printed</span> rung separates the models threefold. On the straddling instances alone: ${MODELS.map(m => `${m} ${sample(straddle(m)[0] + '/' + straddle(m)[1])}`).join(', ')}.
-<b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${sample(wf(m)[0] + '/' + wf(m)[1])}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
+<b>the split</b>   the <span class="mono">printed</span> rung separates the models threefold. On the straddling instances alone: ${MODELS.map(m => `${m} ${sample(straddle(m)[0] + '/' + straddle(m)[1], cellsOf(straddle(m)[2], 'cert'))}`).join(', ')}.
+<b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${sample(wf(m)[0] + '/' + wf(m)[1], cellsOf(wf(m)[2], 'wf'))}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
 <b>dotted</b>     every model number on this page is one sample of that model&rsquo;s replies: each reply is graded exactly, but the replies are a draw, and a rerun draws others. The four policies above are deterministic on the same tasks, so their counts are decided and carry no mark.
     </div>
     ${W.legendHtml({ compact: true })}

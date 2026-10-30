@@ -45,6 +45,8 @@ const pos = D.sites.filter(s => s.status === 'positive');
 const neg = D.sites.filter(s => s.status === 'negative');
 const E0 = D.ellipse[0], E1 = D.ellipse[1];
 const rad = D.published.radiometric[0];
+/* D10: the paper's printed numbers are claims; each span names the entry of the record that holds it */
+const OCC = 'instruments/occultation/out/page.json';
 
 /* ---------- FIGURE 1: the chord-length function and its two envelopes ----- */
 function figEnvelope() {
@@ -139,7 +141,7 @@ const body = `
     </p>
     <div class="stats reveal mt6">
       <div class="stat"><div class="num">${f(R1.DeqLo, 0)}–${f(R1.DeqHi, 0)}</div><div class="dim">km, certified from convexity</div></div>
-      <div class="stat"><div class="num">${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN)}</div><div class="dim">km, the published ellipse</div></div>
+      <div class="stat"><div class="num">${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN, { claim: OCC + '#/ellipse/0' })}</div><div class="dim">km, the published ellipse</div></div>
       <div class="stat"><div class="num">${f(NN.DeqHi - R1.DeqHi, 0)}</div><div class="dim">km of ceiling bought by the misses</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">optimisers; every area is exact</div></div>
     </div>
@@ -194,8 +196,8 @@ const body = `
     </div>
 
     <div class="note reveal">
-      <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of ${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN)} km and notes that its
-      mean 3-D estimate is <em>not in agreement</em> with the radiometric ${W.value(rad.DKm + ' ± ' + rad.errKm, W.CHOSEN)} km from Herschel, Spitzer and ALMA. Both numbers sit
+      <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of ${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN, { claim: OCC + '#/ellipse/0' })} km and notes that its
+      mean 3-D estimate is <em>not in agreement</em> with the radiometric ${W.value(rad.DKm + ' ± ' + rad.errKm, W.CHOSEN, { claim: OCC + '#/published/radiometric/0' })} km from Herschel, Spitzer and ALMA. Both numbers sit
       inside [${f(R1.DeqLo)}, ${f(R1.DeqHi)}] km. The tension is between two models, not between two measurements &mdash; in the grammar&rsquo;s
       words, two picks (dotted: an ellipse chosen by a fit, a thermal model chosen by another) inside one decided interval.
     </div>

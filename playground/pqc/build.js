@@ -67,6 +67,9 @@ const miss = LAST.map((v, i) => v - R.gsa[i]);
 const rms = Math.sqrt(miss.reduce((t, x) => t + x * x, 0) / miss.length);
 const worstAt = miss.map(Math.abs).indexOf(Math.max(...miss.map(Math.abs)));
 const worst = Math.abs(miss[worstAt]);
+/* D10: the records the panel's numbers are read from; the GSA miss is computed from the last snapshot's profile and the GSA line */
+const REDP = 'instruments/pqc/out/reduce-40.json', HOFP = 'instruments/pqc/out/hof.json';
+const GSA_FROM = [REDP + '#/snaps/' + (R.snaps.length - 1) + '/profile', REDP + '#/gsa'];
 if (!(worstAt < R.dim / 4)) throw new Error('pqc: the GSA no longer misses worst at the head of the basis; rewrite the note');
 /* the caption's record, against the lattice the run is on */
 const own = HOF.find(r => r.n === R.dim && r.seed === R.seed);
@@ -112,7 +115,7 @@ const body = `
       <span class="eyebrow">run it</span>
       <div class="row-btns"><button id="playBtn">play</button></div>
       <div class="ctrl mt3"><label for="cT">step</label><output id="cTOut"></output><input type="range" id="cT" min="0" max="1" step="1"></div>
-      <div class="note-sm">LLL on the real dimension-${R.dim} challenge basis, ${R.steps.toLocaleString()} steps and ${R.swaps.toLocaleString()} swaps in ${(R.ms / 1000).toFixed(1)} s. Every quantity is an integer: floating-point Gram&ndash;Schmidt does not survive a ${R.qDigits}-digit modulus sitting beside unit entries, so there is none here. The lattice is checked unchanged at the end &mdash; det² = q², exactly.<br><br>The basis is seed ${R.seed}&rsquo;s, whose own published record is norm ${own.norm} (${W.value(own.ratio.toFixed(5), W.COMPUTED, { title: 'the published six-figure float, with no error bound' })} &times; GH). The ${best.norm} the closing caption names is the dimension&rsquo;s best, found on seed ${best.seed}&rsquo;s lattice &mdash; another lattice, so it is not this run&rsquo;s comparison; against its own record LLL still falls short.</div>
+      <div class="note-sm">LLL on the real dimension-${R.dim} challenge basis, ${R.steps.toLocaleString()} steps and ${R.swaps.toLocaleString()} swaps in ${(R.ms / 1000).toFixed(1)} s. Every quantity is an integer: floating-point Gram&ndash;Schmidt does not survive a ${R.qDigits}-digit modulus sitting beside unit entries, so there is none here. The lattice is checked unchanged at the end &mdash; det² = q², exactly.<br><br>The basis is seed ${R.seed}&rsquo;s, whose own published record is norm ${own.norm} (${W.value(own.ratio.toFixed(5), W.COMPUTED, { claim: HOFP + '#/' + HOF.indexOf(own) + '/ratio', title: 'the published six-figure float, with no error bound' })} &times; GH). The ${best.norm} the closing caption names is the dimension&rsquo;s best, found on seed ${best.seed}&rsquo;s lattice &mdash; another lattice, so it is not this run&rsquo;s comparison; against its own record LLL still falls short.</div>
     </div>
     <hr class="hr-thin">
     <div class="grp">
@@ -121,7 +124,7 @@ const body = `
         <button data-flag="gsa">the heuristic</button>
         <button data-flag="ghost">where it started</button>
       </div>
-      <div class="note-sm">The geometric series assumption says a reduced profile is a straight line with root-Hermite factor ${W.value(String(R.d0), W.COMPUTED, { title: 'the textbook figure for LLL, measured on random lattices; asserted, never proved' })}. It is an empirical claim about random lattices, asserted everywhere and proved nowhere, so it is drawn dashed, and so is its number. Against this basis it misses the measured profile by ${W.value(rms.toFixed(2), W.COMPUTED, { title: 'root mean square over the ' + R.dim + ' positions, in floating point' })} decades root mean square, and worst at the head of the basis, by ${W.value(worst.toFixed(2), W.COMPUTED, { title: 'at position ' + worstAt + ' of ' + R.dim + ', in floating point' })}.</div>
+      <div class="note-sm">The geometric series assumption says a reduced profile is a straight line with root-Hermite factor ${W.val({ rec: { path: REDP, ptr: '/d0' }, standing: W.COMPUTED, fmt: 'raw', why: 'the textbook figure for LLL, measured on random lattices; asserted, never proved' })}. It is an empirical claim about random lattices, asserted everywhere and proved nowhere, so it is drawn dashed, and so is its number. Against this basis it misses the measured profile by ${W.value(rms.toFixed(2), W.COMPUTED, { derived: GSA_FROM, title: 'root mean square over the ' + R.dim + ' positions, in floating point' })} decades root mean square, and worst at the head of the basis, by ${W.value(worst.toFixed(2), W.COMPUTED, { derived: GSA_FROM, title: 'at position ' + worstAt + ' of ' + R.dim + ', in floating point' })}.</div>
     </div>
   </div>
 
@@ -132,7 +135,7 @@ const body = `
         <button data-flag="wall">the wall</button>
         <button data-flag="decided">decided exactly</button>
       </div>
-      <div class="note-sm">${HOF.length} published records. Each prints ‖v‖/GH to six figures as a float with no error bound, and none exceeds ${W.value(ceiling.toFixed(5), W.COMPUTED, { title: 'the largest published six-figure float, with no error bound' })} &mdash; so 1.05 is a hard wall and the table is pressed against it.</div>
+      <div class="note-sm">${HOF.length} published records. Each prints ‖v‖/GH to six figures as a float with no error bound, and none exceeds ${W.value(ceiling.toFixed(5), W.COMPUTED, { claim: HOFP + '#/' + HOF.findIndex(r => r.ratio === ceiling) + '/ratio', title: 'the largest published six-figure float, with no error bound' })} &mdash; so 1.05 is a hard wall and the table is pressed against it.</div>
     </div>
     <hr class="hr-thin">
     <div class="grp">
