@@ -159,12 +159,15 @@ function build(dir, ctx) {
     const B = R.buoys.filter((b) => b.pairs > 0 && Number.isFinite(b.biasHindcastMinusBuoy) && Number.isFinite(b.rms));
     if (!B.length) die('certs/janela-pnboia-check.json holds no buoy with pairs');
     const bias = B.map((b) => b.biasHindcastMinusBuoy), rms = B.map((b) => b.rms);
+    /* D10: each range is computed from every kept buoy's cell; a name holds a space, so the address is by index */
+    const cellsOf = (field) => B.map((b) => 'certs/janela-pnboia-check.json#/buoys/' + R.buoys.indexOf(b) + '/' + field);
     const nodes = new Set(B.map((b) => b.node.join(','))).size;
     /* a buoy node that IS an atlas cell: the comparison at that cell itself */
     const at = {};
     for (const b of B) { const c = sea.find((q) => q.lat === b.node[0] && q.lon === b.node[1]); if (c) (at[c.id] = at[c.id] || []).push({ buoy: b.buoy, pairs: b.pairs, from: b.from, to: b.to, bias: b.biasHindcastMinusBuoy, rms: b.rms }); }
     return { buoys: B.length, nodes, pairs: B.reduce((a, b) => a + b.pairs, 0), from: B.map((b) => b.from).sort()[0].slice(0, 4), to: B.map((b) => b.to).sort().slice(-1)[0].slice(0, 4),
-      bias: [Math.floor(Math.min(...bias) * 100), Math.ceil(Math.max(...bias) * 100)], rms: [Math.floor(Math.min(...rms) * 100), Math.ceil(Math.max(...rms) * 100)], at };
+      bias: [Math.floor(Math.min(...bias) * 100), Math.ceil(Math.max(...bias) * 100)], rms: [Math.floor(Math.min(...rms) * 100), Math.ceil(Math.max(...rms) * 100)], at,
+      biasFrom: cellsOf('biasHindcastMinusBuoy'), rmsFrom: cellsOf('rms') };
   })();
 
   /* ---- the premise grades, each from its record (WARRANT v2.1 rule 12) ---- */
@@ -207,11 +210,11 @@ function build(dir, ctx) {
   const ref = () => 'Reis, Guimar&atilde;es et al. (Ocean Engineering, ' + N(paper[3]) + ')';
   const pnbTxt = (lang) => {
     if (!pnb) return lang === 'pt' ? 'nenhuma comparação com medições registrada.' : 'no comparison with measurements on record.';
-    const v = (s) => W.value(s, W.COMPUTED, { title: lang === 'pt' ? 'computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)' : 'computed: a float statistic (certs/janela-pnboia-check.json)' });
+    const v = (s, derived) => W.value(s, W.COMPUTED, { derived, title: lang === 'pt' ? 'computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)' : 'computed: a float statistic (certs/janela-pnboia-check.json)' });
     const rng = (q, signed) => (signed ? sgn(q[0]) : '') + dc(q[0], lang) + (lang === 'pt' ? ' a ' : ' to ') + (signed ? sgn(q[1]) : '') + dc(q[1], lang) + ' m';
     return lang === 'pt'
-      ? 'contra as boias PNBOIA da Marinha, em ' + pt(pnb.nodes) + ' nós da margem brasileira (' + pt(pnb.pairs) + ' pares, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), o viés foi de ' + v(rng(pnb.bias, true)) + ' e o RMS de ' + v(rng(pnb.rms)) + ' (certs/janela-pnboia-check.json): em todos os estados de mar. Os extremos, que a onda de projeto lê, nunca foram conferidos.'
-      : 'against the Navy\'s PNBOIA buoys, at ' + en(pnb.nodes) + ' nodes of the Brazilian margin (' + en(pnb.pairs) + ' pairs, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), its bias ran ' + v(rng(pnb.bias, true)) + ' and its RMS ' + v(rng(pnb.rms)) + ' (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked.';
+      ? 'contra as boias PNBOIA da Marinha, em ' + pt(pnb.nodes) + ' nós da margem brasileira (' + pt(pnb.pairs) + ' pares, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), o viés foi de ' + v(rng(pnb.bias, true), pnb.biasFrom) + ' e o RMS de ' + v(rng(pnb.rms), pnb.rmsFrom) + ' (certs/janela-pnboia-check.json): em todos os estados de mar. Os extremos, que a onda de projeto lê, nunca foram conferidos.'
+      : 'against the Navy\'s PNBOIA buoys, at ' + en(pnb.nodes) + ' nodes of the Brazilian margin (' + en(pnb.pairs) + ' pairs, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), its bias ran ' + v(rng(pnb.bias, true), pnb.biasFrom) + ' and its RMS ' + v(rng(pnb.rms), pnb.rmsFrom) + ' (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked.';
   };
   /* the chain every cell's number travels, without the cell's own figures: the card's chain is this one, with the
      cell's own figures in the second and the last premise (map-client.js restsOn) */
