@@ -33,7 +33,7 @@ const die = (m) => { console.error('ERDOS1 REPORT REFUSED: ' + m); process.exit(
    bound moves OUTWARD (design/outward.js): §7's f ≤ 1.7e-10 was an upper bound printed below its value 1.707…e-10. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const OUT = require(path.join(ROOT, 'design', 'outward.js'));
-const measured = (t, title) => W.value(t, W.COMPUTED, { title });
+const measured = (t, title, derived) => W.value(t, W.COMPUTED, { title, derived });
 const sampled = (t, title) => W.value(t, W.CHOSEN, { title });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const fmt = (n) => Number(n).toLocaleString('en-US');
@@ -101,6 +101,7 @@ const bRange = (r) => 'b = ' + Math.min(...r.bs) + ' to ' + Math.max(...r.bs);
 /* 11/20 at d = 2,197: K/d and the operator norm K/D, from the certificate's exact K */
 const C1120 = L.certificates.find((c) => c.alpha === '11/20' && c.d === 2197) || die('the 11/20 certificate at d = 2,197 is gone');
 const kd1120 = C1120.Kfloat / C1120.d, norm1120 = C1120.Kfloat / C1120.D;
+const C1120AT = (k) => 'certs/erdos1-ledger.json#/certificates[file=' + C1120.file + ']/' + k;   /* D10: the cells K/d and K/D are computed from */
 /* how close k = ⌈log₂(rK)⌉ + 6 brings the ratio to Δ_s/2, over every verified instance at or past that k (floats) */
 const excess = (() => {
   let mx = 0, n = 0;
@@ -291,8 +292,8 @@ O.push(C.section({
         + 'growing function of the level, polynomial in d — more than the effective theorem needs, since a crude bound already gives it (§7) — '
         + '(the scan is certs/erdos1/logs/kscan-levels-certmachine.log; in every case the longest row of H⁻¹ is the '
         + 'first, the dual vector of the last projected coordinate). A tilt with denominator q '
-        + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = ' + fmt(C1120.d) + ' carries K ≈ ' + measured(kd1120.toFixed(0), 'K/d, the exact K divided in floats') + '·d while its operator norm '
-        + '‖EH<sup>−1</sup>‖ = K/D is only about ' + measured(norm1120.toFixed(0), 'K/D = ' + norm1120.toFixed(3) + ', the exact K divided in floats') + ' (D = ' + fmt(C1120.D) + '); small denominators are the lever. A structural bound on K as a function of (b, s) '
+        + 'pays through D = q<sup>s</sup>, which is why 11/20 at d = ' + fmt(C1120.d) + ' carries K ≈ ' + measured(kd1120.toFixed(0), 'K/d, the exact K divided in floats', [C1120AT('Kfloat'), C1120AT('d')]) + '·d while its operator norm '
+        + '‖EH<sup>−1</sup>‖ = K/D is only about ' + measured(norm1120.toFixed(0), 'K/D = ' + norm1120.toFixed(3) + ', the exact K divided in floats', [C1120AT('Kfloat'), C1120AT('D')]) + ' (D = ' + fmt(C1120.D) + '); small denominators are the lever. A structural bound on K as a function of (b, s) '
         + 'is no longer what the effective asymptotic theorem needs, a crude one gives it; a structural one would double its constant (§7). '
         /* until 2026-10-28 this sentence still said the effective theorem needs such a bound, which §7 retracts */
         + '') + '</div>'
@@ -322,7 +323,7 @@ O.push(C.section({
       })
       + '<div class="col">' + C.pRaw('At finite k the ratio exceeds Δ<sub>s</sub>/2 by roughly the factor (1 + (K + D)/2<sup>k</sup>)<sup>r</sup> from the '
         + 'rounding of t, plus the lower-order terms of the recurrence, all of which the certificate carries exactly; '
-        + 'k = ⌈log<sub>2</sub>(rK)⌉ + 6 already puts the ratio within ' + measured(excess.pct + ' percent', 'the largest excess of N/2^n over Δ_s/2 among the ' + excess.n + ' verified instances at or past that k, in floats, rounded up; until 2026-10-28 this read "one percent", which four of them exceed') + ' of the limit, in every verified instance here. Three-level lattices with Bloom\'s '
+        + 'k = ⌈log<sub>2</sub>(rK)⌉ + 6 already puts the ratio within ' + measured(excess.pct + ' percent', 'the largest excess of N/2^n over Δ_s/2 among the ' + excess.n + ' verified instances at or past that k, in floats, rounded up; until 2026-10-28 this read "one percent", which four of them exceed', ['certs/erdos1-ledger.json#/certificates', 'certs/erdos1-ledger.json#/instances']) + ' of the limit, in every verified instance here. Three-level lattices with Bloom\'s '
         + 'gadget need b ≥ 9 to cross Bohman (d = 729); the tilted two-level lattices cross at d = 81.')
       + (pending.length ? C.pRaw('<strong>Not on this page:</strong> ' + pending.length + ' instance' + (pending.length > 1 ? 's' : '') + ' in '
         + pendingFiles.length + ' certificate' + (pendingFiles.length > 1 ? 's' : '') + ' (' + pendingFiles.map((f) => f.replace(/^cert-/, '').replace(/\.json(\.gz)?$/, '')).join(', ')

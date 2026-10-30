@@ -527,7 +527,7 @@ B.push(C.header({
     + 'inside the line, where it looks exactly like the first.'
 }));
 
-B.push(C.figure({ svgRaw: figIdea(), caption: 'The same instant, computed both ways \u2014 real numbers from the '
+B.push(C.figure({ svgRaw: figIdea(), record: ['apps/glide-band/data/flight.json', 'apps/glide-band/data/airports.json'], stop: 'a pinned data file no longer matches its sha256, or a refutation appears inside a nominal ring whose configured glide ratio lies inside its envelope', caption: 'The same instant, computed both ways \u2014 real numbers from the '
   + 'flight below, not a schematic. The dashed line is a point estimate: one glide ratio, one forecast wind, one '
   + 'weight \u2014 a model\u2019s answer, computed. The two solid boundaries enclose every value those inputs can take, '
   + 'decided given the hypotheses of \u00a75; the soft halo past them is the glide model\u2019s own error, which nothing '
@@ -713,7 +713,7 @@ B.push(C.section({
       + 'undecided annulus, nothing refuted. Watch the fourth.')
     + '</div>'
 }));
-B.push(C.figure({ svgRaw: figPacks(), caption: 'The fourth cell is the same aircraft as the third with the '
+B.push(C.figure({ svgRaw: figPacks(), record: ['apps/glide-band/data/flight.json', 'apps/glide-band/data/airports.json'], stop: 'a pinned data file no longer matches its sha256, or the unfeathered-propeller scenario produces no refutation', caption: 'The fourth cell is the same aircraft as the third with the '
   + 'propeller unfeathered. Nothing about the panel changed \u2014 it is still configured with the feathered '
   + 'ratio, because nothing tells it otherwise \u2014 so its dashed line now sits outside the boundary beyond '
   + 'which nothing is reachable at all. The glider scenario is left off this figure deliberately: its reach is '

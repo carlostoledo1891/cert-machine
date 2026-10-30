@@ -48,8 +48,8 @@ const OUT = require(path.join(ROOT, 'design', 'outward.js'));
 const ivStr = (a, dp) => OUT.enc(a, dp === undefined ? 4 : dp);
 const lo = (x, d) => OUT.down(x, d), hi = (x, d) => OUT.up(x, d);          /* a lower / an upper bound, fixed decimals */
 const sLo = (x) => OUT.sci(x, 2, false), sHi = (x) => OUT.sci(x, 2, true);   /* the same, three significant digits */
-const steer = (t) => W.value(t, W.COMPUTED, { title: 'float steering — the record says "no claim": computed, not decided' });
-const clock = (t) => W.value(t, W.COMPUTED, { title: 'a wall-clock time, measured: not decided' });
+const steer = (t, derived) => W.value(t, W.COMPUTED, { derived, title: 'float steering — the record says "no claim": computed, not decided' });
+const clock = (t, claim) => W.value(t, W.COMPUTED, { claim, title: 'a wall-clock time, measured: not decided' });
 
 const MU1 = R.eigenpair.mu1;
 const WITP = R.pointwise.witnesses.max.value;
@@ -65,6 +65,10 @@ const TIGHT = (R.spectrum.mu1[1] - R.spectrum.mu1[0]) / (MU1[1] - MU1[0]);      
 if (Math.abs((MU1[1] - MU1[0]) - R.eigenpair.mu1width) > 1e-15) die('the eigenpair record\'s width is not its enclosure\'s');
 const BM = R.pointwise.boundaryLandscape;                                                  /* float steering: "no claim" */
 const VC = [17 / 20, 9 / 10];
+/* D10: VC, and B and D in ν at C below, are the specimen's vertices as certs/ember-corner.json holds them; the printed distance and ν − 2 name those cells */
+const VX = (k) => 'certs/ember-corner.json#/specimen/vertices/' + k;
+if (R.corner.specimen.vertices.join(' ') !== '(0, 0) (1, 0) (17/20, 9/10) (1/4, 9/10)') die('the specimen\'s vertices moved in certs/ember-corner.json: VC and ν at C are typed from them');
+const BMX = 'certs/ember-pointwise.json#/boundaryLandscape/min/x';
 const dMinC = VC[0] - BM.min.x;
 if (!(BM.min.y === VC[1] && /float steering only/.test(BM.note) && /float −1\.9998 at distance 0\.0195 from C/.test(R.theorem.corollary.minimumLocation)
   && dMinC.toFixed(4) === '0.0195' && BM.min.v.toFixed(4) === '-1.9998')) die('the observed boundary minimum moved off the top edge, or from the record\'s −1.9998 at 0.0195 from C');
@@ -320,7 +324,7 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
         cols: [{ h: 'corner' }, { h: 'b₀' }, { h: 'b₁' }, { h: 'b₂' }, { h: 'value range on the tip' }, { h: 'the argument' }],
         rows,
       })
-      + C.pRaw('At corner C — where the float steering puts the boundary minimum, ' + steer(dMinC.toFixed(4)) + ' from the vertex — the '
+      + C.pRaw('At corner C — where the float steering puts the boundary minimum, ' + steer(dMinC.toFixed(4), [BMX, VX(2)]) + ' from the vertex — the '
         + 'wedge along the top edge is closed by normal monotonicity, and the second tangential derivative comes '
         + 'from the Bessel ladder:')
       + C.eq(C.esc('∂t²[J_ν(kr)cos(νθ)] = (k²/4)[ J_{ν+2}cos((ν+2)θ) + J_{ν−2}cos((ν−2)θ) − 2 J_ν cos(νθ) ]'))
@@ -329,7 +333,7 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
         + '(certified at both annuli), so it HELPS: φ̂_nn ≥ ' + lo(R.corner.tips.C.wedgeWorstC2, 2) + ' on the '
         + 'wedge from r = 0.12 down to r = 10⁻⁶, and ≥ ' + lo(R.corner.tips.C.wedgeInnerC2, 2) + ' inside r ≤ 10⁻⁶; and the exact second-order Taylor from the Neumann edge (the first-order '
         + 'term vanishes by the boundary condition) forces every interior wedge point strictly above the boundary '
-        + 'minimum. J_{ν−2} at ν − 2 ≈ ' + W.value((nuC - 2).toFixed(2).replace('-', '−'), W.COMPUTED, { title: 'π over the interior angle at C, in floats: computed, not decided' }) + ' is a NEGATIVE-ORDER Bessel evaluation — the reason the instrument '
+        + 'minimum. J_{ν−2} at ν − 2 ≈ ' + W.value((nuC - 2).toFixed(2).replace('-', '−'), W.COMPUTED, { derived: [VX(1), VX(2), VX(3)], title: 'π over the interior angle at C, in floats: computed, not decided' }) + ' is a NEGATIVE-ORDER Bessel evaluation — the reason the instrument '
         + 'layer carries fractional and negative orders with their own falsifier battery.')
       + C.note({
         lab: 'the corollary, and its open twin',
@@ -341,8 +345,8 @@ O.push(C.scope('Machine-derived; published from this repository; not peer-review
           + '. For triangles, extrema-only-at-vertices is Judge–Mondal\'s refinement; the maximum-side analogue '
           + 'now holds, certified, for this quadrilateral.')
           + C.pRaw('<b>The cold spot is an open question of enclosure width.</b> φ̂(C) = b₀(C) ∈ '
-          + ivStr(R.corner.tips.C.b0, 4) + ' overlaps the observed boundary minimum (float ' + steer(BM.min.v.toFixed(4).replace('-', '−')) + ', sitting '
-          + steer(dMinC.toFixed(4)) + ' from C along the top edge). Whether the minimum is at vertex C or strictly inside the edge '
+          + ivStr(R.corner.tips.C.b0, 4) + ' overlaps the observed boundary minimum (float ' + steer(BM.min.v.toFixed(4).replace('-', '−'), ['certs/ember-pointwise.json#/boundaryLandscape/min/v']) + ', sitting '
+          + steer(dMinC.toFixed(4), [BMX, VX(2)]) + ' from C along the top edge). Whether the minimum is at vertex C or strictly inside the edge '
           + 'is undecided; a tighter corner extraction would decide it — and an off-vertex answer would contrast '
           + 'with the triangle behaviour, where extrema occur only at vertices.'),
       }),
@@ -401,7 +405,7 @@ if (BAND) {
     /* the running time is the producer's own figure (the band record's scope, "~10 h"); the per-chunk time the page
        also typed lives in no record and is gone (WARRANT rule 8, 2026-10-28) */
     + C.pRaw('<strong>Scope, stated plainly.</strong> The six-stage chain was executed on the bench that produced '
-      + 'it, not re-executed here — ' + clock('about 10 hours') + ', on the producer\'s own figure in the band record. What '
+      + 'it, not re-executed here — ' + clock('about 10 hours', 'certs/ember-band.json#/scope') + ', on the producer\'s own figure in the band record. What '
       + 'this page adds is the independent audit: the covering ladders and every band-wide value re-derived from '
       + 'per-cell data by a checker that shares no code with the producer, over records sha-pinned in '
       + C.m('corpus/emberband') + '. That is the genre of this repository\'s '

@@ -208,7 +208,7 @@ B.push(C.stats([
       + '</div>'
       /* the caption is escaped text (design/components.js), so the computed numbers live in the paragraph below it,
          where they can carry their standing */
-      + C.figure({ svgRaw: fig, caption: NTREES + ' trees binned by relative duality gap on a log axis. Every bar counts '
+      + C.figure({ svgRaw: fig, stop: 'any of the ' + NTREES + ' trees has a relative duality gap above 1e-11 or violates weak duality', caption: NTREES + ' trees binned by relative duality gap on a log axis. Every bar counts '
         + 'float gaps, so every bar is computed; the ' + NB + ' log-spaced bins are a chosen layout. The dashed mark is '
         + 'the worst tree, a float value; the solid one is the threshold at which the suite refuses, a constant.' })
       + '<div class="col">' + C.pRaw('Of the ' + NTREES + ' trees'

@@ -355,7 +355,7 @@ B.push(C.stats([
         + 'Every point is a re-decision of the whole day at that reserve — exact-corner proofs over each '
         + 'aircraft\'s parameter boxes, not one model re-scaled.')
       + '</div>'
-      + C.figure({ svgRaw: fig, caption: 'Beta ALIA-250 covers ' + RL['beta-alia']['5'] + ' of the day\'s '
+      + C.figure({ svgRaw: fig, record: ['apps/skyaudit/data/day-2026-08-26/nyc.optimize.json', 'apps/skyaudit/data/day-2026-08-26/nyc.audit-summary.json'], stop: 'Beta is no longer provable past 10 minutes, another aircraft is no longer zero from 15 minutes on, or the ladder at 20 minutes is not the day\'s certified count', caption: 'Beta ALIA-250 covers ' + RL['beta-alia']['5'] + ' of the day\'s '
         + fmt(S.flights) + ' flights with a 5-minute reserve, ' + RL['beta-alia']['20'] + ' at the FAA\'s 20 '
         + 'minutes, ' + RL['beta-alia']['25'] + ' at 25, and ' + RL['beta-alia']['30'] + ' at 30 — the rule as '
         + 'written is close to the edge of what today\'s public specs can prove. The other three publish too '

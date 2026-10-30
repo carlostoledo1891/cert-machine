@@ -262,7 +262,7 @@ O.push(C.section({
     + '</div>'
     + C.figure({ svgRaw: FIG_M, caption: 'Figure 1 · The density of the instance b = cos² 2πx as a certified tube: on each of 256 cells, the fill is the interval every m(x) in the cell provably lies in, for every (j, H̄) in the box. Solid edges: decided. Their Figure 8 is a picture of the same hump.' })
     + C.figure({ svgRaw: FIG_U, caption: 'Figure 2 · The value function u of the instance, enclosed at 257 points with ∫u = 0. The paper\'s Figure 7 shows the same oscillation from the monotone flow; here its amplitude is ' + uMax.toFixed(4) + ' and its closure is proved.' })
-    + C.figure({ svgRaw: FIG_PLANE, caption: 'Figure 3 · The (j, H̄) plane near the solution. The two conditions are drawn from floats and dashed accordingly — asserted, not decided. Where they cross, the solid mark is the Krawczyk box, ' + box(CB.j, 7) + ' by ' + box(CB.H, 7) + ', which at this scale is a point. The crossing is transversal, which is why one round sufficed.' })
+    + C.figure({ svgRaw: FIG_PLANE, record: 'certs/afg-enclosure.json', stop: 'the live re-derivation differs from the record, or the current is not certified positive in it', caption: 'Figure 3 · The (j, H̄) plane near the solution. The two conditions are drawn from floats and dashed accordingly — asserted, not decided. Where they cross, the solid mark is the Krawczyk box, ' + box(CB.j, 7) + ' by ' + box(CB.H, 7) + ', which at this scale is a point. The crossing is transversal, which is why one round sufficed.' })
 }));
 
 O.push(C.section({
@@ -274,7 +274,7 @@ O.push(C.section({
       + C.m(box(CA.closedForm.H, 9)) + ' — inside the box. The value function is flat to 1e−9 at every plotted point. ∫e^{sin 2πx} is '
       + 'the modified Bessel value I₀(1); the enclosure of ln I₀(1) here is a by-product, not a claim.')
     + '</div>'
-    + C.figure({ svgRaw: FIG_CTRL, caption: 'Figure 4 · The control. The certified tube is the certifier\'s output for b = 0; the dashed curve is the paper\'s formula e^V/∫e^V drawn from floats. The dashed line never leaves the tube. Dash means asserted; solid means decided.' })
+    + C.figure({ svgRaw: FIG_CTRL, record: 'certs/afg-enclosure.json', stop: 'the live re-derivation differs from the record, or the paper\'s closed form is not inside the control enclosure', caption: 'Figure 4 · The control. The certified tube is the certifier\'s output for b = 0; the dashed curve is the paper\'s formula e^V/∫e^V drawn from floats. The dashed line never leaves the tube. Dash means asserted; solid means decided.' })
     + C.table({
       cols: [{ h: 'quantity' }, { h: 'A · b = 0 (the control)', cls: 'v' }, { h: 'B · b = cos² 2πx (the instance)', cls: 'v' }],
       rows: [

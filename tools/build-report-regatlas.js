@@ -70,6 +70,8 @@ const uRoot = (1 - d01.hi).toFixed(3);
 const find = (A, eps) => REC.cells.find(c => c.A === A && c.eps === eps);
 const e1 = (v) => v.toExponential(1), f2 = (v) => v.toFixed(2), f3 = (v) => v.toFixed(3);
 const f0 = REC.frontier[0], fLast = REC.frontier[REC.frontier.length - 1];
+/* D10: a refused cell's float min m is a record cell, read through its address and printed to three places (f3) */
+const mFloat = (c) => WR.val({ rec: { path: 'certs/regatlas.json', ptr: '/cells/' + REC.cells.indexOf(c) + '/mMinFloat' }, standing: WR.COMPUTED, fmt: 'fixed:3', why: 'the float candidate sampled at 512 points — computed, nothing decided it' });
 
 /* ---- figure 1: the atlas ---- */
 function atlasFig() {
@@ -149,7 +151,7 @@ const FIG_KAPPA = CH.scatter({
 /* ---- tables ---- */
 const T_FRONT = C.table({
   cols: [{ h: 'ε' }, { h: 'proved to A =', cls: 'v' }, { h: 'refused from A =', cls: 'v' }, { h: 'the first refusal, by name' }, { h: 'm floor, last proved (certified)', cls: 'v' }, { h: 'min m, first refused (float)', cls: 'v' }],
-  rows: REC.frontier.map(f => { const last = find(f.lastProved, f.eps), first = f.firstRefused !== null ? find(f.firstRefused, f.eps) : null; return [String(f.eps), String(f.lastProved), first ? String(f.firstRefused) : '—', first ? (first.why.startsWith('Z1') ? 'Z1 = ' + f3(first.Z1) + ' ≥ 1 (worst explicit column; tail ' + f3(first.Z1tail) + ')' : 'Z1 = ' + f3(first.Z1) + ', so near 1 that no radius closes') : '—', downTo(last.mLow, 3), first ? { raw: WR.value(f3(first.mMinFloat), WR.COMPUTED, { title: 'the float candidate sampled at 512 points — computed, nothing decided it' }) } : '—']; })
+  rows: REC.frontier.map(f => { const last = find(f.lastProved, f.eps), first = f.firstRefused !== null ? find(f.firstRefused, f.eps) : null; return [String(f.eps), String(f.lastProved), first ? String(f.firstRefused) : '—', first ? (first.why.startsWith('Z1') ? 'Z1 = ' + f3(first.Z1) + ' ≥ 1 (worst explicit column; tail ' + f3(first.Z1tail) + ')' : 'Z1 = ' + f3(first.Z1) + ', so near 1 that no radius closes') : '—', downTo(last.mLow, 3), first ? { raw: mFloat(first) } : '—']; })
 });
 const T_DIST = C.table({
   cols: [{ h: 'A' }].concat(REC.eps.slice(1).map(e => ({ h: 'ε = ' + e, cls: 'v' }))),
@@ -217,9 +219,9 @@ O.push(C.section({
     + T_FRONT
     + '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>'
     + '<div class="col">'
-    + C.pRaw('Every refusal is the same refusal: Z1, the norm of I − A·DF(ū), reaches 1. It is the tail\'s doing. A diagonal approximate inverse beyond N is right when the principal coefficient c is nearly constant and wrong in proportion to its variation, and c = m + (1 + 3ε)u′² varies more as A grows (m follows −V) and as ε grows (the 4-Laplacian weights u′² three times more). So the frontier moves left with ε: the regularization that gives the paper its coercivity takes contraction from the certificate. The density is nowhere near zero at the frontier — the certified floor at the last proved cell of ε = 0 is ' + downTo(find(f0.lastProved, 0).mLow, 3) + ', and the float candidate at the first refused cell still has min m = ' + WR.value(f3(find(f0.firstRefused, 0).mMinFloat), WR.COMPUTED, { title: 'the float candidate sampled at 512 points — computed, nothing decided it' }) + '. The void of this atlas is the certificate\'s boundary, not the equation\'s; the two would only coincide where m reaches zero, which is where the paper\'s strong solutions stop being classical, and that is beyond the map.')
+    + C.pRaw('Every refusal is the same refusal: Z1, the norm of I − A·DF(ū), reaches 1. It is the tail\'s doing. A diagonal approximate inverse beyond N is right when the principal coefficient c is nearly constant and wrong in proportion to its variation, and c = m + (1 + 3ε)u′² varies more as A grows (m follows −V) and as ε grows (the 4-Laplacian weights u′² three times more). So the frontier moves left with ε: the regularization that gives the paper its coercivity takes contraction from the certificate. The density is nowhere near zero at the frontier — the certified floor at the last proved cell of ε = 0 is ' + downTo(find(f0.lastProved, 0).mLow, 3) + ', and the float candidate at the first refused cell still has min m = ' + mFloat(find(f0.firstRefused, 0)) + '. The void of this atlas is the certificate\'s boundary, not the equation\'s; the two would only coincide where m reaches zero, which is where the paper\'s strong solutions stop being classical, and that is beyond the map.')
     + '</div>'
-    + C.figure({ svgRaw: FIG_KAPPA, caption: 'Figure 2 · The contraction factor along the amplitude for three regularization strengths, on the proved cells. Each dot is a proved cell\'s κ, decided; the dotted segments between them are a chosen picture, because nothing computed κ between two amplitudes. Each row rises toward 1 and stops at its frontier; the strongly regularized one first.' })
+    + C.figure({ svgRaw: FIG_KAPPA, record: 'certs/regatlas.json', stop: 'a proved cell has a contraction factor κ ≥ 1 or no density floor', caption: 'Figure 2 · The contraction factor along the amplitude for three regularization strengths, on the proved cells. Each dot is a proved cell\'s κ, decided; the dotted segments between them are a chosen picture, because nothing computed κ between two amplitudes. Each row rises toward 1 and stops at its frontier; the strongly regularized one first.' })
 }));
 
 O.push(C.section({
@@ -227,7 +229,7 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('Where a regularized cell and its unregularized neighbour are both proved, the distance ‖u_ε − u_0‖_2 is decided: the norm of the difference of the two candidates, exactly, plus or minus the two radii. At A = 0 the solutions are constants — u_ε is the real root of εu³ + u = 1 — and the distance is 1 − u_ε, which the battery holds against the cubic. At every amplitude the distance grows with ε, equals about ε at ε = 0.01, and is a third of ε at ε = 1: the regularized game is a first-order perturbation of the unregularized one in this norm, and the perturbation saturates because the cubic term is bounded. The paper passes ε → 0 by compactness; here the limit is watched.')
     + '</div>'
-    + C.figure({ svgRaw: distFig(), caption: 'Figure 3 · The decided distance ‖u_ε − u_0‖_2 against ε for three amplitudes, on logarithmic axes. Each dot is decided, its bracket narrower than the dot; the dotted segments between them are chosen, since only four ε were computed. The fine-dashed guide is the diagonal, ‖u_ε − u_0‖ = ε.' })
+    + C.figure({ svgRaw: distFig(), record: 'certs/regatlas.json', stop: 'a decided distance at ε = 0.01 falls outside 0.9ε to 1.4ε, or one at ε = 1 outside 0.3 to 0.4', caption: 'Figure 3 · The decided distance ‖u_ε − u_0‖_2 against ε for three amplitudes, on logarithmic axes. Each dot is decided, its bracket narrower than the dot; the dotted segments between them are chosen, since only four ε were computed. The fine-dashed guide is the diagonal, ‖u_ε − u_0‖ = ε.' })
     + '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>'
     + T_DIST
     + C.figure({ svgRaw: FIG_M, caption: 'Figure 4 · The density at A = 0.6 for the proved regularization strengths, each the certified candidate sampled at ' + REC.xs.length + ' points and drawn solid: the solution lies within its radius, below 1e−9, far inside the stroke; the regularized densities are slightly flatter and, through the cubic term, carry slightly less mass where u is large.' })

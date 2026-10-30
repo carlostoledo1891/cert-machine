@@ -121,7 +121,7 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('Refine the truncation order N from 14 to 20, 28 and 40 at three viscosities, holding the candidate grid fixed at 1024 points so the two cannot be confounded, and the boundary rises every time. At σ = 0.1 it rises ten percent; at σ = 0.5 and 1.2, about six. It is still rising at N = 40. A boundary measured at one N is therefore a lower bound on the frontier of this method, and a published A⋆(σ) at N = 14 would be a resolution artefact at the five-to-ten-percent level. The source note says this first, and this page repeats it before anything else.')
     + '</div>'
-    + FIGS_RISE.map((svg, k) => C.figure({ svgRaw: svg, caption: 'Figure ' + (2 + k) + ' · σ = ' + REC.ceiling[k].sigma + '. The bracket at each N is decided; the dashed line through them is a trend, not a law. The solid rule is the N-free ceiling. The number under each bracket is the ratio A⋆/A_rec.' })).join('')
+    + FIGS_RISE.map((svg, k) => C.figure({ svgRaw: svg, record: 'certs/frontier-measurement.json', stop: 'the live re-derivation differs from the record, the record is not VERIFIED, or a pinned data file has moved', caption: 'Figure ' + (2 + k) + ' · σ = ' + REC.ceiling[k].sigma + '. The bracket at each N is decided; the dashed line through them is a trend, not a law. The solid rule is the N-free ceiling. The number under each bracket is the ratio A⋆/A_rec.' })).join('')
 }));
 
 O.push(C.section({

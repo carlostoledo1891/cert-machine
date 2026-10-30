@@ -183,7 +183,7 @@ P.push(C.section({
         + 'only the factorials (2i)! of S<sub>K</sub> carry p, and they carry it in the denominator. So L<sub>p</sub> = −(2h − p − 1) < 0 and T(y) = 37/20 − y, '
         + 'which is positive. Table 5 prints −239/20 − 2y, about −14. That one row is worth ' + sg(f(O.lastRow.delta), 2) + ' in I_out. Across the '
         + 'rest of the range the table is wrong as well, by ' + sg(f(O.oneThirdToOne.R2) - f(O.oneThirdToOne.table), 2) + '.') + '</div>'
-      + C.figure({ svgRaw: FIG, caption: 'The outer integrand T(y): solid, decided from the paper\'s own formulas; dashed, the claim as printed in its Table 5. The steep vertical segments are jumps in the functions. The signed area under each line is I_out. Hover for values.' })
+      + C.figure({ svgRaw: FIG, record: 'certs/zeta7-anand-audit.json', stop: 'the outer integral from the paper\'s formulas is no longer positive, or Table 5\'s printed integral is no longer negative', caption: 'The outer integrand T(y): solid, decided from the paper\'s own formulas; dashed, the claim as printed in its Table 5. The steep vertical segments are jumps in the functions. The signed area under each line is I_out. Hover for values.' })
       + C.table({ cols: [{ h: 'Table 5 interval', cls: 'n' }, { h: 'Table 5 gives', cls: 'n' }, { h: 'formulas, reading R2', cls: 'n' }, { h: 'formulas, reading R1', cls: 'n' }], rows: rowsT })
       + '<div class="col">' + C.note({ lab: 'two readings, both decided', bodyRaw: C.pRaw('The paper defines R0 twice, inconsistently: (71) makes it the limit of −γ/K, '
         + 'while §5.3 and the proof of Proposition 5.4 say −γ = K(R0 − d) + O(1), so that R0 − d is that limit. <b>R2</b> follows the proof: the integrand '

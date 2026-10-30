@@ -34,6 +34,10 @@ if (!(BL.careful.mean - blind > 0.25))
 for (const name of ['always', 'naive'])
   if ((BL[name].byRung.impossible || [0, 0])[0] !== 0)
     die(name + ' now solves an impossible rung — the mint is admitting what it should refuse');
+/* R30 (2026-10-30): the dial the §1 figure draws is the closed form it is labelled with — band = (2τ − 1) certificate
+   widths, empty at τ = 1/2 — and nothing at τ ≤ 1/2 is reachable */
+if (!Array.isArray(R.dial) || !R.dial.length || R.dial.some(d => !(Math.abs(d.bandWidths - Math.max(0, 2 * d.tau - 1)) <= 1e-9 * Math.max(1, d.bandWidths)) || (d.tau <= 0.5 && d.reachable)))
+  die('a dial point is off the closed form band = (2τ − 1) widths, or a point at τ ≤ 1/2 is reachable');
 
 const B = [];
 B.push(C.header({
@@ -94,7 +98,7 @@ B.push(C.stats([
   B.push(C.section({
     lab: '§1 · the dial', title: 'One number moves a task from a gift to an impossibility', wide: true,
     bodyRaw: [
-      C.figure({ svgRaw: svg, caption: 'The band against τ, both axes logarithmic, measured on '
+      C.figure({ svgRaw: svg, record: 'certs/gym-record.json', stop: 'a dial point is off the closed form band = (2τ − 1) certificate widths, or a point at τ ≤ 1/2 is reachable', caption: 'The band against τ, both axes logarithmic, measured on '
         + R.dialFact.id + ' (width ' + R.dialFact.width.toExponential(1) + '). It falls linearly in τ and '
         + 'vanishes at τ = 1/2 — and stops being reachable before that, once the band is narrower than the gap '
         + 'between neighbouring doubles.' }),

@@ -195,7 +195,7 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('Where the density vanishes the Hamilton–Jacobi equation only bounds the velocity, ½u_x² ≤ −V, and the paper\'s Theorem 1.3 proves the gradient of u unique only on the support of m. So there are two value functions, u₊ and u₋, and picking one is a choice the data does not make. In this machine\'s grammar that is the CHOSEN standing, drawn dotted. Both are enclosed here by a Riemann bracket from the exit, which is rigorous and about 1/K wide, wider than the density\'s tube and said so. They differ at x = 0 by ' + (c1.uPlus[0][1] * 2).toFixed(3) + ' and meet at x = 1, where both are zero.')
     + '</div>'
-    + C.figure({ svgRaw: FIG_U, caption: 'Figure 3 · The two value functions of case 1, each dotted because it is one member of the solution set, each with its enclosure as fill. On the occupied runs u is flat (u_x = 0); on the empty runs, shaded, the two branches move apart.' })
+    + C.figure({ svgRaw: FIG_U, record: 'certs/aag-empty-region.json', stop: 'the live re-derivation differs from the record, or a case-1 certificate condition in it is false', caption: 'Figure 3 · The two value functions of case 1, each dotted because it is one member of the solution set, each with its enclosure as fill. On the occupied runs u is flat (u_x = 0); on the empty runs, shaded, the two branches move apart.' })
 }));
 
 O.push(C.section({

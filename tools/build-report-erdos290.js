@@ -467,7 +467,7 @@ const SQUEEZE = (() => {
         + 'build time. Left of the shaded edge is the cited page\'s horizon; everything right of it is this '
         + 'repository running the same instrument further (§3 says which bytes ran where).')
       + '</div>'
-      + C.figure({ svgRaw: fig, caption: 'Certified width of the bracket for c against the knowledge horizon l, '
+      + C.figure({ svgRaw: fig, record: ['certs/erdos290-tail-ext.json', 'legacy/research/challenges/erdos290/tail-deltas.json'], stop: 'the certified width fails to fall from one sampled horizon to the next, or the squeeze no longer samples the cited horizon', caption: 'Certified width of the bracket for c against the knowledge horizon l, '
         + 'log scale, every ' + (SQUEEZE[1][0] - SQUEEZE[0][0]) + ' degrees: each dot is a width decided in exact rationals at this build; the dotted line between dots is drawn, not decided. '
         + wTxt(K0) + ' at l = ' + SQ_X0 + ' · ' + wTxt(at60) + ' at the cited l = ' + citedL + ' · '
         + wTxt(K1) + ' at l = ' + Lmax + ', a factor of more than ' + Math.floor(w0 / w1) + ' across the sweep and '
