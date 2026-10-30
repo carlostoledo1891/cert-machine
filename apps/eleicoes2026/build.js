@@ -6,7 +6,9 @@
    first (--check) so a page can never show a number its inputs no longer give. The ledger reads the TSE's own files,
    pinned: the BU na Web of every section (corpus/eleicoes2026/PINS.json), the signed results of both rounds
    (SIGNED-PINS.json), the urns' logs where read, the claims as said (claims.json) and the polls as published
-   (polls.json). Written in Portuguese: the readers are Brazilian.
+   (polls.json). Written in English since 2026-10-30 (the operator: "no more pt-BR pages"); it was Portuguese until then.
+   A translation never re-derives a number: the ledger's own strings that carry a decimal comma ('51,79') are shown
+   with a decimal point (dp below), nothing else is changed in them.
 
    usage: node apps/eleicoes2026/build.js                                                                           MIT */
 'use strict';
@@ -23,11 +25,9 @@ const FIG = require(path.join(__dirname, 'figures.js'));
 const GEO = require(path.join(__dirname, 'geo.js'));
 /* WARRANT (design/WARRANT.md, v2.1): a value that is a float or a model's fit is computed (underlined dashed); a line
    computed in floating point is dashed by its standing, never to tell one series from another (identity is the
-   series' token); a number that rests on a model or on chosen inputs names them (the mood, and the premise chain).
-   The words are Portuguese (playground/warrant-pt.js), the marks are warrant.js's. */
+   series' token); a number that rests on a model or on chosen inputs names them (the mood, and the premise chain). */
 const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
-const WP = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
-const cv = (t, why) => WR.value(C.esc(t), WR.COMPUTED, { title: 'computado: ' + why });
+const cv = (t, why) => WR.value(C.esc(t), WR.COMPUTED, { title: 'computed: ' + why });
 const die = (m) => { console.error('ELEICOES2026 PAGE REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const sha = (rel) => crypto.createHash('sha256').update(fs.readFileSync(path.join(ROOT, rel))).digest('hex');
@@ -39,18 +39,38 @@ const D = L.decisions;
 const CL = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'eleicoes2026', 'claims.json'), 'utf8')).claims;
 for (const k of ['SIG', 'R1-SUM', 'R1-SEC', 'R2-ARITH', 'R2-WIN', 'R2-SUM', 'EXT', 'C6', 'MINURNS', 'RLA', 'TRANSFER', 'MEANFIELD']) if (!D[k]) die('the ledger lacks ' + k);
 
-const n = (x) => Number(x).toLocaleString('pt-BR');
-const pct = (a, b, d = 2) => (100 * a / b).toFixed(d).replace('.', ',');
+const n = (x) => Number(x).toLocaleString('en-US');
+const pct = (a, b, d = 2) => (100 * a / b).toFixed(d);
+/* a ledger string written with a decimal comma ('51,79', '3,99'), shown with a decimal point; the digits untouched */
+const dp = (s) => { const t = String(s); if (!/^-?\d+(,\d+)?$/.test(t)) die('not a ledger decimal: ' + t); return t.replace(',', '.'); };
 const m = (s) => '<span class="m">' + C.esc(s) + '</span>';
-const W = { CERTIFIED: 'CERTIFICADO', REFUTED: 'REFUTADO', REFUSED: 'RECUSADO', 'NEEDS DATA': 'FALTAM DADOS', PARTIAL: 'PARCIAL', MEASURED: 'MEDIDO' };
 /* the verdict as a house tag: filled when decided, dashed while the deciding bytes are not yet published (the stroke grammar:
-   dashed = not yet tested), outlined for a refusal or a measurement; the word always beside the form */
+   dashed = not yet tested), outlined for a refusal or a measurement; the word always beside the form. The words are the
+   house's own (the Portuguese page mapped them one to one: CERTIFICADO, REFUTADO, RECUSADO, FALTAM DADOS, PARCIAL, MEDIDO) */
 const KIND = { CERTIFIED: 'cert', REFUTED: 'held', 'NEEDS DATA': 'open', REFUSED: 'dep', MEASURED: 'dep', PARTIAL: 'dep' };
-const stamp = (v) => C.tag(W[v] || v, KIND[v] || 'dep');
+const stamp = (v) => { if (!KIND[v]) die('a verdict word this page has no form for: ' + v); return C.tag(v, KIND[v]); };
 const UF_NAMES = { AC: 'Acre', AL: 'Alagoas', AM: 'Amazonas', AP: 'Amapá', BA: 'Bahia', CE: 'Ceará', DF: 'Distrito Federal', ES: 'Espírito Santo',
   GO: 'Goiás', MA: 'Maranhão', MG: 'Minas Gerais', MS: 'Mato Grosso do Sul', MT: 'Mato Grosso', PA: 'Pará', PB: 'Paraíba', PE: 'Pernambuco',
   PI: 'Piauí', PR: 'Paraná', RJ: 'Rio de Janeiro', RN: 'Rio Grande do Norte', RO: 'Rondônia', RR: 'Roraima', RS: 'Rio Grande do Sul',
-  SC: 'Santa Catarina', SE: 'Sergipe', SP: 'São Paulo', TO: 'Tocantins', ZZ: 'Exterior' };
+  SC: 'Santa Catarina', SE: 'Sergipe', SP: 'São Paulo', TO: 'Tocantins', ZZ: 'Abroad' };
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dayMon = (iso) => { const [, mo, d] = String(iso).split('-').map(Number); return d + ' ' + MON[mo - 1]; };
+/* THE QUOTED CLAIMS IN ENGLISH. claims.json keeps each quotation in the Portuguese it was said in (said / disse); the page
+   shows our translation, and refuses to build if the original it translates is no longer the record's. */
+const QUOTE_EN = {
+  C1: ['É impossível reconhecer o resultado dessa eleição no contexto em que essas coisas aconteceram. Vamos pedir a anulação dessas eleições.',
+    'It is impossible to recognise the result of this election in the context in which these things happened. We are going to ask for these elections to be annulled.'],
+  C2: ['Eu nunca vou saber se, num estado onde as urnas não foram reabertas, quantos votos eu poderia ter.',
+    'I will never know, in a state where the voting machines were not reopened, how many votes I could have had.'],
+  C3: ['Nossos fiscais do PL foram retirados de dentro da sala-cofre a partir do momento que essa eleição foi tomada.',
+    'Our PL inspectors were removed from inside the vault room from the moment this election was taken.']
+};
+const saidEn = (c) => {
+  if (!c.quoted) return c.said + ' (paraphrase)';
+  const q = QUOTE_EN[c.id];
+  if (!q || q[0] !== c.said) die('the quotation ' + c.id + ' has no English translation of the record\'s words');
+  return '"' + q[1] + '" (our translation)';
+};
 
 const W2 = D['R2-WIN'], R1 = D['R1-SUM'], EXT = D.EXT;
 const r1c = R1.candidates;
@@ -61,55 +81,55 @@ const extVotes = extDone.reduce((a, uf) => a + EXT.logs[uf].votes_in_logs, 0);
 
 const B = [];
 B.push(C.header({
-  eyebrow: 'cert-machine · dossiê · eleição presidencial de 2026 · 1º turno (4/10) e 2º turno (25/10) · lido em ' + L.generated,
-  title: 'Eleições 2026: o que os números permitem decidir',
-  deck: 'O lado derrotado pede a anulação do segundo turno. Aqui, cada afirmação que pode ser conferida nos arquivos públicos do TSE é decidida em conta exata, '
-    + 'por programas escritos do zero e sem código do TSE; o que não pode ser conferido nesses arquivos é recusado, com o motivo. '
-    + 'A pergunta "a eleição foi justa?" não é uma conta: este dossiê responde às perguntas menores, que são contas, e diz quais ficam de fora.'
+  eyebrow: 'cert-machine · dossier · Brazil’s 2026 presidential election · round 1 (4 October) and round 2 (25 October) · read ' + L.generated,
+  title: 'Brazil’s 2026 election: what the numbers can decide',
+  deck: 'The losing side asks for the second round to be annulled. Here, every claim that can be checked in the public files of the TSE (the Superior Electoral Court) is decided in exact arithmetic, '
+    + 'by programs written from scratch with no TSE code; what cannot be checked in those files is refused, with the reason. '
+    + 'The question "was the election fair?" is not a calculation: this dossier answers the smaller questions, which are calculations, and says which ones are left out.'
 }));
-B.push(C.scope('Publicado, não revisado por pares, não auditado de forma independente. Os dados são do TSE, lidos dos seus arquivos públicos e lacrados por sha256 '
-  + '(e por sha512, onde o TSE publica o seu). Nenhuma linha deste trabalho vem do TSE, de partido ou de campanha; nenhuma conclusão sobre pessoas, intenções ou a legalidade de decisões judiciais é tirada aqui.'));
+B.push(C.scope('Published, not peer-reviewed, not independently audited. The data are the TSE’s, read from its public files and sealed by sha256 '
+  + '(and by sha512, where the TSE publishes its own). No line of this work comes from the TSE, a party or a campaign; no conclusion about people, intentions or the legality of court decisions is drawn here.'));
 
-B.push(C.figure({ svgRaw: FIG.scoreboard({ lula: W2.lula, flavio: W2.flavio, margin: W2.margin }), caption: '2º turno, 25 de outubro de 2026: votos válidos no resultado assinado pelo TSE (' + W2.sections.toLocaleString('pt-BR') + ' seções totalizadas).' }));
+B.push(C.figure({ svgRaw: FIG.scoreboard({ lula: W2.lula, flavio: W2.flavio, margin: W2.margin }), caption: 'Round 2, 25 October 2026: valid votes in the result signed by the TSE (' + n(W2.sections) + ' sections totalled; a section, seção, is one polling station’s voting machine).' }));
 
 B.push(C.tldr({
-  findingRaw: '<b>Os números publicados fecham, e a margem é grande demais para a prorrogação.</b> '
-    + 'No 1º turno, a soma dos ' + n(D['R1-SEC'].sections) + ' boletins de urna feita por dois programas independentes é igual, voto por voto, ao resultado oficial assinado do TSE, em todos os estados e no exterior. '
-    + 'No 2º turno, o resultado assinado dá a Lula ' + n(W2.lula) + ' votos e a Flávio Bolsonaro ' + n(W2.flavio) + ': diferença de ' + n(W2.margin) + '. '
-    + 'Para a prorrogação mudar o vencedor seria preciso que ao menos ' + n(W2.margin) + ' votos tivessem entrado depois das 17h, todos para Lula; o TSE informa ' + n(EXT.tse_reported_late_votes) + '. '
-    + (extDone.length ? 'Nos estados cujos registros de urna já lemos inteiros (' + extDone.join(', ') + '), foram ' + n(extLate) + ' votos depois das 17h em ' + n(extVotes) + '. ' : '')
-    + 'Ficam pendentes, até o TSE publicar os arquivos completos do 2º turno, a soma seção por seção e a contagem nacional dos votos tardios.',
-  mechanismRaw: 'Três tipos de prova. <b>Soma exata:</b> cada boletim de urna (BU) é somado em números inteiros, sem arredondar, por um programa em Python e outro em JavaScript, que não compartilham código; os dois precisam concordar e bater com o oficial. '
-    + '<b>Assinatura digital:</b> o TSE assina cada arquivo de resultado (JWS, Ed25519); a assinatura é verificada por duas implementações independentes, e um arquivo com um único dígito trocado é recusado pelas duas. '
-    + '<b>Registro da urna:</b> cada urna anota, com hora, cada voto computado; contamos os que vieram depois das 17h no relógio de cada urna.',
-  checkRaw: m('python3 tools/eleicoes2026/fetch.py bweb 1') + ' baixa os boletins e confere o sha512 publicado pelo TSE; '
-    + m('python3 tools/eleicoes2026/ledger.py --check') + ' refaz todas as decisões a partir dos arquivos lacrados.'
+  findingRaw: '<b>The published numbers add up, and the margin is too large for the extension.</b> '
+    + 'In round 1, the sum of the ' + n(D['R1-SEC'].sections) + ' polling-station reports (boletins de urna), computed by two independent programs, equals the TSE’s signed official result vote for vote, in every state and abroad. '
+    + 'In round 2, the signed result gives Lula ' + n(W2.lula) + ' votes and Flávio Bolsonaro ' + n(W2.flavio) + ': a difference of ' + n(W2.margin) + '. '
+    + 'For the extension to change the winner, at least ' + n(W2.margin) + ' votes would have had to come in after 17:00, all for Lula; the TSE reports ' + n(EXT.tse_reported_late_votes) + '. '
+    + (extDone.length ? 'In the states whose voting-machine logs we have already read in full (' + extDone.join(', ') + '), there were ' + n(extLate) + ' votes after 17:00 out of ' + n(extVotes) + '. ' : '')
+    + 'Pending until the TSE publishes the complete round-2 files: the section-by-section sum and the national count of late votes.',
+  mechanismRaw: 'Three kinds of proof. <b>Exact sum:</b> every polling-station report (BU) is added up in whole numbers, with no rounding, by one program in Python and another in JavaScript that share no code; the two must agree and match the official result. '
+    + '<b>Digital signature:</b> the TSE signs every result file (JWS, Ed25519); the signature is verified by two independent implementations, and a file with a single digit changed is refused by both. '
+    + '<b>Voting-machine log:</b> every voting machine (urna) records, with the time, each vote counted; we count those that came after 17:00 on each machine’s clock.',
+  checkRaw: m('python3 tools/eleicoes2026/fetch.py bweb 1') + ' downloads the reports and checks the sha512 the TSE publishes; '
+    + m('python3 tools/eleicoes2026/ledger.py --check') + ' re-derives every decision from the sealed files.'
 }));
 
 B.push(C.stats([
-  { k: '1º turno · boletins somados', v: n(D['R1-SEC'].sections), n: 'Seções com voto para presidente, somadas por dois programas: ' + (R1.verdict === 'CERTIFIED' ? 'iguais ao oficial' : 'DIFERENTES do oficial') + '.' },
-  { k: 'resultados assinados conferidos', v: D.SIG.verified + ' de ' + D.SIG.files, n: 'Brasil, 27 UFs e exterior, nos dois turnos. Um dígito trocado é recusado.' },
-  { k: '2º turno · diferença', v: n(W2.margin), n: 'Lula ' + n(W2.lula) + ' × Flávio ' + n(W2.flavio) + ' votos válidos (resultado assinado).' },
-  { k: 'votos após as 17h (TSE)', v: n(EXT.tse_reported_late_votes), n: (100 * EXT.tse_reported_late_votes / W2.margin).toFixed(1).replace('.', ',') + '% do necessário para inverter o resultado.' }
+  { k: 'round 1 · reports summed', v: n(D['R1-SEC'].sections), n: 'Sections with a vote for president, summed by two programs: ' + (R1.verdict === 'CERTIFIED' ? 'equal to the official result' : 'DIFFERENT from the official result') + '.' },
+  { k: 'signed results checked', v: D.SIG.verified + ' of ' + D.SIG.files, n: 'Brazil, the 27 federative units (UFs) and abroad, in both rounds. One changed digit is refused.' },
+  { k: 'round 2 · difference', v: n(W2.margin), n: 'Lula ' + n(W2.lula) + ' × Flávio ' + n(W2.flavio) + ' valid votes (signed result).' },
+  { k: 'votes after 17:00 (TSE)', v: n(EXT.tse_reported_late_votes), n: (100 * EXT.tse_reported_late_votes / W2.margin).toFixed(1) + '% of what would be needed to reverse the result.' }
 ]));
 
 /* §1 the verdicts */
 const verdictRows = [
-  ['1º turno: a soma dos boletins de urna é o resultado oficial', D['R1-SUM'].verdict, 'Iguais candidato a candidato, brancos, nulos e comparecimento, no Brasil e em cada UF.'],
-  ['1º turno: cada boletim é aritmeticamente consistente', D['R1-SEC'].verdict, n(D['R1-SEC'].sections) + ' seções: votos = comparecimento; comparecimento + abstenções = eleitores aptos.'],
-  ['Os resultados assinados do TSE são autênticos', D.SIG.verdict, D.SIG.verified + ' de ' + D.SIG.files + ' arquivos verificados por duas implementações de Ed25519.'],
-  ['2º turno: o resultado assinado fecha as próprias contas', D['R2-ARITH'].verdict, 'Válidos = Lula + Flávio; brancos e nulos; comparecimento; estados + exterior = Brasil.'],
-  ['2º turno: Lula teve mais votos válidos', W2.verdict, n(W2.lula) + ' contra ' + n(W2.flavio) + ' no resultado assinado.'],
-  ['2º turno: a soma dos boletins é o resultado oficial', D['R2-SUM'].verdict, 'O TSE ainda não publicou os boletins do 2º turno em lote; decidimos no dia em que publicar.'],
-  ['A prorrogação até as 19h decidiu o resultado', EXT.verdict === 'CERTIFIED' ? 'REFUTED' : EXT.verdict, 'Precisaria de ' + n(W2.margin) + ' votos após as 17h, todos de um lado. Contagem nacional pendente dos registros completos.'],
-  ['Inverter o 2º turno exigiria adulterar ao menos ' + n(D.MINURNS.urns_if_every_voter_swapped) + ' urnas', D.MINURNS.verdict, 'Mesmo trocando todos os votos de cada urna, das maiores para as menores (§7).'],
-  ['Uma auditoria por amostragem confirmaria o vencedor com ' + n(D.RLA.comparison_ballots) + ' votos', D.RLA.verdict, 'Comparação voto a voto, risco de 1%, sem divergências na amostra (§7).'],
-  ['"51,74%" (dito na proclamação)', D.C6.verdict, 'A fração assinada é ' + D.C6.signed_exact + ' = ' + D.C6.signed_2dp + '%. Não muda o vencedor.']
+  ['Round 1: the sum of the polling-station reports is the official result', D['R1-SUM'].verdict, 'Equal candidate by candidate, blank, null and turnout, in Brazil and in each UF.'],
+  ['Round 1: every report is arithmetically consistent', D['R1-SEC'].verdict, n(D['R1-SEC'].sections) + ' sections: votes = turnout; turnout + abstentions = registered voters.'],
+  ['The TSE’s signed results are authentic', D.SIG.verdict, D.SIG.verified + ' of ' + D.SIG.files + ' files verified by two implementations of Ed25519.'],
+  ['Round 2: the signed result balances its own accounts', D['R2-ARITH'].verdict, 'Valid = Lula + Flávio; blank and null; turnout; states + abroad = Brazil.'],
+  ['Round 2: Lula had more valid votes', W2.verdict, n(W2.lula) + ' against ' + n(W2.flavio) + ' in the signed result.'],
+  ['Round 2: the sum of the reports is the official result', D['R2-SUM'].verdict, 'The TSE has not yet published the round-2 reports in bulk; we decide on the day it does.'],
+  ['The extension to 19:00 decided the result', EXT.verdict === 'CERTIFIED' ? 'REFUTED' : EXT.verdict, 'It would take ' + n(W2.margin) + ' votes after 17:00, all on one side. National count pending the complete logs.'],
+  ['Reversing round 2 would require tampering with at least ' + n(D.MINURNS.urns_if_every_voter_swapped) + ' voting machines', D.MINURNS.verdict, 'Even swapping every vote in each machine, from the largest to the smallest (§7).'],
+  ['A sampling audit would confirm the winner with ' + n(D.RLA.comparison_ballots) + ' votes', D.RLA.verdict, 'Vote-by-vote comparison, 1% risk, no discrepancies in the sample (§7).'],
+  ['"' + dp(D.C6.said) + '%" (said at the proclamation)', D.C6.verdict, 'The signed fraction is ' + D.C6.signed_exact + ' = ' + dp(D.C6.signed_2dp) + '%. It does not change the winner.']
 ];
 B.push(C.section({
-  lab: '§1 · os veredictos', title: 'O que foi decidido', wide: true,
-  bodyRaw: C.table({ cols: [{ h: 'afirmação' }, { h: 'veredicto' }, { h: 'por quê' }], rows: verdictRows.map(([a, v, w]) => [a, { raw: stamp(v) }, w]) })
-    + C.pRaw('<b>CERTIFICADO</b>: provado com conta exata. <b>REFUTADO</b>: falso, com o número que mostra. <b>RECUSADO</b>: não dá para decidir com estes dados, e o motivo. <b>FALTAM DADOS</b>: o arquivo que decide ainda não foi publicado. <b>MEDIDO</b>: uma medida ou um modelo, não uma decisão.')
+  lab: '§1 · the verdicts', title: 'What was decided', wide: true,
+  bodyRaw: C.table({ cols: [{ h: 'claim' }, { h: 'verdict' }, { h: 'why' }], rows: verdictRows.map(([a, v, w]) => [a, { raw: stamp(v) }, w]) })
+    + C.pRaw('<b>CERTIFIED</b>: proved in exact arithmetic. <b>REFUTED</b>: false, with the number that shows it. <b>REFUSED</b>: cannot be decided with these data, and the reason. <b>NEEDS DATA</b>: the file that decides has not been published yet. <b>MEASURED</b>: a measurement or a model, not a decision.')
 }));
 
 /* §2 the maps */
@@ -126,52 +146,52 @@ const ufShare = (rnd) => (code) => {
   const u = uf && W2.per_uf[uf];
   if (!u) return null;
   const l = rnd === 1 ? u.r1_lula : u.lula, f = rnd === 1 ? u.r1_flavio : u.flavio, sh = l / (l + f);
-  return { fill: tone(sh), label: (UF_NAMES[uf] || uf) + ' · ' + rnd + 'º turno', detail: 'Lula ' + pct(l, l + f, 1) + '% · Flávio ' + pct(f, l + f, 1) + '% (entre os dois)' };
+  return { fill: tone(sh), label: (UF_NAMES[uf] || uf) + ' · round ' + rnd, detail: 'Lula ' + pct(l, l + f, 1) + '% · Flávio ' + pct(f, l + f, 1) + '% (between the two)' };
 };
 const MUN = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'eleicoes2026', 'derived', 'r1-municipios.json'), 'utf8')).municipios;
 const munShare = (code) => {
   const u = MUN[code];
   if (!u || u.lula + u.flavio === 0) return null;
   const sh = u.lula / (u.lula + u.flavio);
-  return { fill: tone(sh), label: u.name + ' (' + u.uf + ')', detail: 'Lula ' + pct(u.lula, u.lula + u.flavio, 1) + '% · Flávio ' + pct(u.flavio, u.lula + u.flavio, 1) + '% entre os dois, 1º turno' };
+  return { fill: tone(sh), label: u.name + ' (' + u.uf + ')', detail: 'Lula ' + pct(u.lula, u.lula + u.flavio, 1) + '% · Flávio ' + pct(u.flavio, u.lula + u.flavio, 1) + '% between the two, round 1' };
 };
 const lulaMun = Object.values(MUN).filter((u) => u.lula > u.flavio).length, flavioMun = Object.values(MUN).filter((u) => u.flavio > u.lula).length;
 B.push(C.section({
-  lab: '§2 · o mapa', title: 'O país em dois mapas: o 1º e o 2º turno, estado por estado', wide: true,
-  bodyRaw: C.pRaw('O tom de cada estado é a parcela de Lula entre os dois finalistas, numa só escala de cinza: mais claro onde Lula teve mais votos que Flávio, mais escuro onde Flávio teve mais, e mais extremo quanto maior a vantagem; a fronteira de 50% fica entre a quarta e a quinta faixa da legenda. '
-      + 'Os números vêm dos resultados assinados do TSE (§4); as fronteiras, da malha oficial do IBGE.')
-    + '<div class="el-pair">' + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(1), alt: 'Mapa do 1º turno por estado', legendRaw: rampLegend(440) }), caption: '1º turno (4/10).' })
-    + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(2), alt: 'Mapa do 2º turno por estado', legendRaw: rampLegend(440) }), caption: '2º turno (25/10).' }) + '</div>'
-    + C.pRaw('<b>Município por município, 1º turno.</b> Somando os boletins de urna de cada município: Lula à frente de Flávio em ' + n(lulaMun) + ' municípios, Flávio à frente em ' + n(flavioMun) + '. '
-      + 'O mapa do 2º turno por município entra quando o TSE publicar os boletins do 2º turno em lote.')
-    + C.figure({ svgRaw: GEO.choropleth({ level: 'mun', w: 900, value: munShare, alt: 'Mapa do 1º turno por município: parcela de Lula entre os dois finalistas', legendRaw: rampLegend(900) }),
-      caption: '1º turno, ' + n(Object.keys(MUN).length) + ' municípios: a parcela de Lula entre Lula e Flávio, somada dos boletins de urna (§3). Passe o cursor para ver cada município.' })
+  lab: '§2 · the map', title: 'The country in two maps: round 1 and round 2, state by state', wide: true,
+  bodyRaw: C.pRaw('The shade of each state is Lula’s share between the two finalists, on a single grey scale: lighter where Lula had more votes than Flávio, darker where Flávio had more, and more extreme the larger the lead; the 50% boundary lies between the fourth and the fifth step of the legend. '
+      + 'The numbers come from the TSE’s signed results (§4); the boundaries from the official mesh of the IBGE (the national statistics institute).')
+    + '<div class="el-pair">' + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(1), alt: 'Round 1 map by state', legendRaw: rampLegend(440) }), caption: 'Round 1 (4 October).' })
+    + C.figure({ wide: false, svgRaw: GEO.choropleth({ level: 'uf', w: 440, value: ufShare(2), alt: 'Round 2 map by state', legendRaw: rampLegend(440) }), caption: 'Round 2 (25 October).' }) + '</div>'
+    + C.pRaw('<b>Municipality by municipality, round 1.</b> Adding up the polling-station reports of each municipality: Lula ahead of Flávio in ' + n(lulaMun) + ' municipalities, Flávio ahead in ' + n(flavioMun) + '. '
+      + 'The round-2 map by municipality comes in when the TSE publishes the round-2 reports in bulk.')
+    + C.figure({ svgRaw: GEO.choropleth({ level: 'mun', w: 900, value: munShare, alt: 'Round 1 map by municipality: Lula’s share between the two finalists', legendRaw: rampLegend(900) }),
+      caption: 'Round 1, ' + n(Object.keys(MUN).length) + ' municipalities: Lula’s share between Lula and Flávio, summed from the polling-station reports (§3). Hover to see each municipality.' })
 }));
 
 /* §3 round 1 */
 const ufRows = R1.scopes.filter((s) => s.scope !== 'BR').map((s) => [UF_NAMES[s.scope] || s.scope, n(s.bu_sections_with_votes), n(s.turnout),
-  { raw: Object.values(s.equal).every(Boolean) ? '<b>igual</b>' : '<b>DIFERENTE</b>' }]);
+  { raw: Object.values(s.equal).every(Boolean) ? '<b>equal</b>' : '<b>DIFFERENT</b>' }]);
 const order = Object.entries(r1c).sort((a, b) => b[1].votes - a[1].votes);
 B.push(C.section({
-  lab: '§3 · 1º turno', title: 'Os boletins de urna somam exatamente o resultado oficial', wide: true,
-  bodyRaw: C.pRaw('O boletim de urna (BU) é o papel que cada urna imprime ao fechar e afixa na porta da seção, com os votos daquela seção. O TSE publica todos eles, em arquivo, por estado. '
-      + 'Somamos os ' + n(D['R1-SEC'].sections) + ' boletins do cargo de presidente duas vezes, por programas que não compartilham código, e comparamos com o resultado oficial assinado.')
-    + C.table({ cols: [{ h: 'candidato' }, { h: 'número' }, { h: 'votos (soma dos BUs = oficial)' }, { h: '% dos válidos' }],
+  lab: '§3 · round 1', title: 'The polling-station reports add up exactly to the official result', wide: true,
+  bodyRaw: C.pRaw('The polling-station report (boletim de urna, BU) is the sheet each voting machine prints when voting closes and that is posted on the door of the section, with that section’s votes. The TSE publishes all of them, as files, by state. '
+      + 'We summed the ' + n(D['R1-SEC'].sections) + ' reports for the office of president twice, by programs that share no code, and compared them with the signed official result.')
+    + C.table({ cols: [{ h: 'candidate' }, { h: 'number' }, { h: 'votes (sum of the BUs = official)' }, { h: '% of valid votes' }],
       rows: order.map(([k, c]) => [c.name, k, n(c.votes), pct(c.votes, r1valid)]) })
-    + C.pRaw('Brancos ' + n(R1.blank) + ' · nulos ' + n(R1.null) + ' · comparecimento ' + n(R1.turnout) + ' de ' + n(R1.registered) + ' eleitores aptos. '
-      + 'Uma seção funcionou sem nenhum voto para presidente e por isso não aparece nos boletins de presidente: são as ' + n(D['R1-SEC'].sections) + ' seções com voto contra as ' + n(R1.scopes[0].signed_sections_installed) + ' instaladas.')
-    + '<details><summary>Por estado</summary>' + C.table({ cols: [{ h: 'UF' }, { h: 'seções' }, { h: 'comparecimento' }, { h: 'soma × oficial' }], rows: ufRows }) + '</details>'
+    + C.pRaw('Blank ' + n(R1.blank) + ' · null ' + n(R1.null) + ' · turnout ' + n(R1.turnout) + ' of ' + n(R1.registered) + ' registered voters. '
+      + 'One section operated with no vote at all for president and so does not appear in the presidential reports: hence the ' + n(D['R1-SEC'].sections) + ' sections with votes against the ' + n(R1.scopes[0].signed_sections_installed) + ' installed.')
+    + '<details><summary>By state</summary>' + C.table({ cols: [{ h: 'UF' }, { h: 'sections' }, { h: 'turnout' }, { h: 'sum × official' }], rows: ufRows }) + '</details>'
 }));
 
 /* §4 the signatures */
 B.push(C.section({
-  lab: '§4 · assinaturas', title: 'Os resultados que o TSE publica são assinados, e as assinaturas conferem',
-  bodyRaw: C.pRaw('O site de resultados do TSE entrega cada resultado também em versão assinada digitalmente (formato JWS, algoritmo Ed25519). A chave pública está no próprio aplicativo do TSE. '
-      + 'Uma assinatura válida prova que o arquivo é exatamente o que o TSE assinou: mudar um voto, um dígito, invalida a assinatura.')
-    + C.pRaw('Verificamos os ' + D.SIG.files + ' arquivos (Brasil, 27 UFs e exterior, nos dois turnos) com duas implementações sem código em comum: uma escrita do zero a partir da RFC 8032, só com inteiros, e outra com a criptografia do Node. '
-      + 'Resultado: ' + D.SIG.verified + ' de ' + D.SIG.files + ' válidas, e o conteúdo assinado é o mesmo que o site mostra. '
-      + 'Controle vermelho: trocamos um único dígito de um total no arquivo nacional do 2º turno; as duas implementações recusaram a assinatura.')
-    + C.pRaw('O que isto prova e o que não prova: prova que os números são os do TSE e não foram alterados no caminho até você. Não prova, sozinho, que o TSE somou certo; isso é a §3 (1º turno) e, quando os boletins do 2º turno saírem, a mesma conta.')
+  lab: '§4 · signatures', title: 'The results the TSE publishes are signed, and the signatures check out',
+  bodyRaw: C.pRaw('The TSE’s results site also delivers every result in a digitally signed version (JWS format, Ed25519 algorithm). The public key is in the TSE’s own app. '
+      + 'A valid signature proves that the file is exactly what the TSE signed: changing one vote, one digit, invalidates the signature.')
+    + C.pRaw('We verified the ' + D.SIG.files + ' files (Brazil, the 27 UFs and abroad, in both rounds) with two implementations with no code in common: one written from scratch from RFC 8032, with integers only, and the other with Node’s cryptography. '
+      + 'Result: ' + D.SIG.verified + ' of ' + D.SIG.files + ' valid, and the signed content is the same as what the site shows. '
+      + 'Red control: we changed a single digit of one total in the national round-2 file; both implementations refused the signature.')
+    + C.pRaw('What this proves and what it does not: it proves that the numbers are the TSE’s and were not altered on their way to you. It does not prove, on its own, that the TSE added correctly; that is §3 (round 1) and, when the round-2 reports come out, the same calculation.')
 }));
 
 /* §5 round 2 */
@@ -182,70 +202,70 @@ const elect = FIG.electorate([r1c['13'].votes, r1c['22'].votes, r1Other, R1S.bla
 const grewAll = Object.values(W2.per_uf).every((u) => u.lula / (u.lula + u.flavio) > u.r1_lula / (u.r1_lula + u.r1_flavio));
 const swings = Object.entries(W2.per_uf).map(([uf, u]) => [uf, 100 * (u.lula / (u.lula + u.flavio) - u.r1_lula / (u.r1_lula + u.r1_flavio))]);
 const swMin = swings.reduce((a, b) => (b[1] < a[1] ? b : a)), swMax = swings.reduce((a, b) => (b[1] > a[1] ? b : a));
-const fmt1 = (x) => x.toFixed(1).replace('.', ',');
+const fmt1 = (x) => x.toFixed(1);
 const bnDrop = R1S.blank + R1S.null - W2.blank - W2.null, abstDrop = R1S.abstention - W2.abstention;
 const lulaGain = W2.lula - r1c['13'].votes, flavioGain = W2.flavio - r1c['22'].votes, pool = r1Other + bnDrop + abstDrop;
 if (pool !== lulaGain + flavioGain || R1S.registered_functioning !== W2.registered_functioning) die('the balance between the rounds does not close');
 B.push(C.section({
-  lab: '§5 · 2º turno', title: 'O resultado assinado: ' + n(W2.margin) + ' votos de diferença', wide: true,
-  bodyRaw: C.pRaw('Lula ' + n(W2.lula) + ' (' + W2.lula_share_2dp + '% dos válidos), Flávio Bolsonaro ' + n(W2.flavio) + '. Brancos ' + n(W2.blank) + ', nulos ' + n(W2.null)
-      + ', comparecimento ' + n(W2.turnout) + ' de ' + n(W2.registered) + ' aptos, ' + n(W2.sections) + ' seções. As contas do próprio arquivo fecham, e os 27 estados mais o exterior somam exatamente o Brasil.')
-    + C.pRaw('Para inverter o vencedor seria preciso trocar de lado ' + n(W2.swing_to_reverse) + ' votos (um voto que sai de Lula e vai para Flávio muda a diferença em dois), ou anular ' + n(W2.removal_to_reverse) + ' votos de Lula.')
-    + C.figure({ svgRaw: elect, caption: 'Todo o eleitorado das seções que funcionaram, em cada turno: quem votou em quem, quem votou branco ou nulo e quem não foi votar. Entre os turnos, a abstenção caiu de '
-      + fmt1(100 * R1S.abstention / R1S.registered_functioning) + '% para ' + fmt1(100 * W2.abstention / W2.registered_functioning) + '%; os outros ' + n(Object.keys(r1c).length - 2) + ' candidatos do 1º turno deixaram de ser opção no 2º.' })
+  lab: '§5 · round 2', title: 'The signed result: a difference of ' + n(W2.margin) + ' votes', wide: true,
+  bodyRaw: C.pRaw('Lula ' + n(W2.lula) + ' (' + dp(W2.lula_share_2dp) + '% of valid votes), Flávio Bolsonaro ' + n(W2.flavio) + '. Blank ' + n(W2.blank) + ', null ' + n(W2.null)
+      + ', turnout ' + n(W2.turnout) + ' of ' + n(W2.registered) + ' registered, ' + n(W2.sections) + ' sections. The file’s own accounts balance, and the 27 states plus abroad add up exactly to Brazil.')
+    + C.pRaw('To reverse the winner, ' + n(W2.swing_to_reverse) + ' votes would have to switch sides (a vote that leaves Lula and goes to Flávio changes the difference by two), or ' + n(W2.removal_to_reverse) + ' of Lula’s votes would have to be annulled.')
+    + C.figure({ svgRaw: elect, caption: 'The whole electorate of the sections that operated, in each round: who voted for whom, who voted blank or null and who did not vote. Between the rounds, abstention fell from '
+      + fmt1(100 * R1S.abstention / R1S.registered_functioning) + '% to ' + fmt1(100 * W2.abstention / W2.registered_functioning) + '%; the other ' + n(Object.keys(r1c).length - 2) + ' round-1 candidates were no longer an option in round 2.' })
     + C.figure({ svgRaw: FIG.balance({ others: r1Other, blankDrop: bnDrop, abstDrop, lulaGain, flavioGain }),
-      caption: 'Entre os turnos abriram-se ' + n(pool) + ' votos para os finalistas: os ' + n(r1Other) + ' que tinham ido a outros candidatos, ' + n(bnDrop) + ' brancos e nulos a menos e ' + n(abstDrop)
-        + ' eleitores a mais. Lula ficou com ' + n(lulaGain) + ' (' + pct(lulaGain, pool, 1) + '%), Flávio com ' + n(flavioGain) + '. As duas barras têm o mesmo total: é uma identidade exata, porque o eleitorado é o mesmo nos dois turnos.' })
-    + C.pRaw('<b>Uma virada espalhada, não concentrada.</b> Entre os dois finalistas, a parcela de Lula cresceu ' + (grewAll ? 'em todos os ' + n(Object.keys(W2.per_uf).filter((uf) => uf !== 'ZZ').length) + ' estados' + (W2.per_uf.ZZ ? ' e no exterior' : '') : 'na maioria dos estados')
-      + ', de +' + fmt1(swMin[1]) + ' p.p. (' + (UF_NAMES[swMin[0]] || swMin[0]) + ') a +' + fmt1(swMax[1]) + ' p.p. (' + (UF_NAMES[swMax[0]] || swMax[0]) + '). '
-      + 'Mudanças parecidas em todo o país são o que se espera quando eleitores de outros candidatos e quem não tinha votado escolhem um lado; os dois mapas da §2 mostram cada estado, e a §7 olha esse padrão de perto.')
+      caption: 'Between the rounds, ' + n(pool) + ' votes opened up for the finalists: the ' + n(r1Other) + ' that had gone to other candidates, ' + n(bnDrop) + ' fewer blank and null votes and ' + n(abstDrop)
+        + ' more voters. Lula took ' + n(lulaGain) + ' (' + pct(lulaGain, pool, 1) + '%), Flávio ' + n(flavioGain) + '. The two bars have the same total: it is an exact identity, because the electorate is the same in both rounds.' })
+    + C.pRaw('<b>A swing spread out, not concentrated.</b> Between the two finalists, Lula’s share grew ' + (grewAll ? 'in all ' + n(Object.keys(W2.per_uf).filter((uf) => uf !== 'ZZ').length) + ' states' + (W2.per_uf.ZZ ? ' and abroad' : '') : 'in most states')
+      + ', from +' + fmt1(swMin[1]) + ' pp (' + (UF_NAMES[swMin[0]] || swMin[0]) + ') to +' + fmt1(swMax[1]) + ' pp (' + (UF_NAMES[swMax[0]] || swMax[0]) + '). '
+      + 'Similar changes across the whole country are what one expects when voters for other candidates and people who had not voted choose a side; the two maps in §2 show each state, and §7 looks at this pattern closely.')
 }));
 
 /* §6 the extension */
 const scaleSvg = FIG.scale([
-  { k: 'votos de Lula que precisariam ser anulados para inverter o resultado', v: W2.removal_to_reverse, fill: 'var(--c-s1)', stroke: 'var(--ink-5)', emph: true },
-  { k: 'ou votos que precisariam trocar de lado', v: W2.swing_to_reverse, fill: 'var(--c-s2)' },
-  { k: 'votos depois das 17h no país, segundo o TSE', v: EXT.tse_reported_late_votes, fill: 'var(--c-1)', emph: true }
-].concat(extDone.map((uf) => ({ k: 'votos depois das 17h no ' + (UF_NAMES[uf] || uf) + ', contados nos registros das urnas', v: Math.max(1, EXT.logs[uf].late_votes), fill: 'var(--c-1)' }))));
+  { k: 'Lula’s votes that would have to be annulled to reverse the result', v: W2.removal_to_reverse, fill: 'var(--c-s1)', stroke: 'var(--ink-5)', emph: true },
+  { k: 'or votes that would have to switch sides', v: W2.swing_to_reverse, fill: 'var(--c-s2)' },
+  { k: 'votes after 17:00 nationwide, according to the TSE', v: EXT.tse_reported_late_votes, fill: 'var(--c-1)', emph: true }
+].concat(extDone.map((uf) => ({ k: 'votes after 17:00 in ' + (UF_NAMES[uf] || uf) + ', counted in the voting-machine logs', v: Math.max(1, EXT.logs[uf].late_votes), fill: 'var(--c-1)' }))));
 const RC = D['R1-CLOSE'];
-const closeSvg = RC ? CH.dist({ w: 900, h: 300, alt: 'Minutos depois das 17h em que cada urna fechou, no 1º turno', x0: 0, x1: 61, padL: 70,
+const closeSvg = RC ? CH.dist({ w: 900, h: 300, alt: 'Minutes after 17:00 at which each voting machine closed, in round 1', x0: 0, x1: 61, padL: 70,
   bins: Object.keys(RC.minute_histogram).sort((a, b) => a - b).map((k) => ({ k: k + ' min', n: RC.minute_histogram[k] }))
-    .concat([{ k: '60 min ou mais', n: RC.closed_60_or_more_minutes_after, token: CH.CTX }]),
+    .concat([{ k: '60 min or more', n: RC.closed_60_or_more_minutes_after, token: CH.CTX }]),
   xTicks: [0, 10, 20, 30, 40, 50, 60].map((v) => ({ v: v + 0.5, t: v === 60 ? '60+' : v + ' min' })), yTicks: [],
-  xLabel: 'minutos depois das 17h (no relógio de cada urna) em que a urna encerrou a votação',
-  marks: [{ x: RC.percentiles_minutes.p50 + 0.5, t: 'metade fechou até ' + fmt1(RC.percentiles_minutes.p50) + ' min' }], unit: 'urnas' }) : '';
-const logTable = Object.entries(EXT.logs).map(([uf, x]) => [UF_NAMES[uf] || uf, n(x.sections_read) + ' de ' + n(x.sections_installed), n(x.votes_in_logs) + ' de ' + n(x.turnout_signed),
-  n(x.late_votes), String(x.max_late_in_a_section), { raw: x.complete ? '<b>completo</b>' : 'parcial' }]);
+  xLabel: 'minutes after 17:00 (on each machine’s clock) at which the machine closed voting',
+  marks: [{ x: RC.percentiles_minutes.p50 + 0.5, t: 'half had closed by ' + fmt1(RC.percentiles_minutes.p50) + ' min' }], unit: 'voting machines' }) : '';
+const logTable = Object.entries(EXT.logs).map(([uf, x]) => [UF_NAMES[uf] || uf, n(x.sections_read) + ' of ' + n(x.sections_installed), n(x.votes_in_logs) + ' of ' + n(x.turnout_signed),
+  n(x.late_votes), String(x.max_late_in_a_section), { raw: x.complete ? '<b>complete</b>' : 'partial' }]);
 B.push(C.section({
-  lab: '§6 · a prorrogação', title: 'Para a prorrogação inverter o resultado, seriam precisos ' + n(W2.margin) + ' votos depois das 17h', wide: true,
-  bodyRaw: C.pRaw('Às 16h32 de 25 de outubro, o ministro Cristiano Zanin, do STF, estendeu a votação até as 19h nas seções ainda abertas, a pedido da coligação de Lula, por causa da redução de ônibus em algumas cidades. '
-      + 'A campanha de Flávio Bolsonaro havia pedido ao TSE extensão parecida em 17 municípios de SP, PR e SC, por causa de chuva. A legalidade da decisão é uma questão jurídica e não é decidida aqui. '
-      + 'A pergunta que é uma conta é outra: <b>os votos que só existiram por causa da prorrogação poderiam ter decidido a eleição?</b>')
-    + C.figure({ svgRaw: scaleSvg, caption: 'Quadrados de área proporcional ao número de votos, todos no mesmo canto. O quadrado de fora é o que inverteria o resultado; os pequenos, no canto, os votos dados depois das 17h.' })
-    + (RC ? C.pRaw('<b>Votar depois das 17h não é, por si, irregular.</b> Pela lei, quem está na fila às 17h vota. No 1º turno, sem prorrogação nenhuma, metade das ' + n(RC.sections)
-        + ' urnas do país encerrou até ' + fmt1(RC.percentiles_minutes.p50) + ' minutos depois das 17h, e ' + n(RC.closed_60_or_more_minutes_after) + ' encerraram uma hora ou mais depois, por causa das filas de um dia com seis votos por eleitor. '
-        + 'Parte dos votos depois das 17h do 2º turno é essa fila de sempre; o que a prorrogação acrescentou é no máximo o total tardio.')
-      + C.figure({ svgRaw: closeSvg, caption: '1º turno, sem prorrogação: quantas urnas encerraram a votação em cada minuto depois das 17h (no relógio de cada urna, exterior excluído). A última barra junta as que encerraram uma hora ou mais depois.' }) : '')
-    + C.pRaw('<b>Como contamos.</b> Cada urna grava um registro (log) com a hora de cada evento, e uma linha "O voto do eleitor foi computado" para cada voto. O relógio da urna está na hora local, então o limite é a hora em que a urna ficou "pronta para receber votos" (8h de Brasília, no fuso dela) mais 9 horas. '
-      + 'Um voto às 17h00 ou depois conta como tardio. Os registros vêm do site de resultados do TSE, seção por seção; cada arquivo é lacrado por sha256.')
-    + (logTable.length ? C.table({ cols: [{ h: 'UF' }, { h: 'seções lidas' }, { h: 'votos nos registros × comparecimento' }, { h: 'após as 17h' }, { h: 'máx. numa seção' }, { h: 'leitura' }], rows: logTable }) : '')
-    + C.pRaw('<b>O que falta.</b> A contagem nacional exige os registros das ' + n(W2.sections) + ' seções. O TSE os publica em lote no portal de dados abertos (no 1º turno, três dias depois). Até lá, o veredicto nacional é FALTAM DADOS, '
-      + 'com o limiar publicado: só um total de pelo menos ' + n(W2.margin) + ' votos tardios, todos de Lula, inverteria o resultado. O número do TSE é ' + (100 * EXT.tse_reported_late_votes / W2.margin).toFixed(2).replace('.', ',') + '% disso.')
+  lab: '§6 · the extension', title: 'For the extension to reverse the result, ' + n(W2.margin) + ' votes after 17:00 would be needed', wide: true,
+  bodyRaw: C.pRaw('At 16:32 on 25 October, Justice Cristiano Zanin of the STF (the Supreme Federal Court) extended voting to 19:00 in the sections still open, at the request of Lula’s coalition, because of reduced bus service in some cities. '
+      + 'Flávio Bolsonaro’s campaign had asked the TSE for a similar extension in 17 municipalities of SP, PR and SC, because of rain. The legality of the decision is a legal question and is not decided here. '
+      + 'The question that is a calculation is another one: <b>could the votes that existed only because of the extension have decided the election?</b>')
+    + C.figure({ svgRaw: scaleSvg, caption: 'Squares with area proportional to the number of votes, all in the same corner. The outer square is what would reverse the result; the small ones, in the corner, the votes cast after 17:00.' })
+    + (RC ? C.pRaw('<b>Voting after 17:00 is not, in itself, irregular.</b> By law, whoever is in line at 17:00 votes. In round 1, with no extension at all, half of the country’s ' + n(RC.sections)
+        + ' voting machines closed within ' + fmt1(RC.percentiles_minutes.p50) + ' minutes after 17:00, and ' + n(RC.closed_60_or_more_minutes_after) + ' closed an hour or more later, because of the queues of a day with six votes per voter. '
+        + 'Part of the round-2 votes after 17:00 is that usual queue; what the extension added is at most the late total.')
+      + C.figure({ svgRaw: closeSvg, caption: 'Round 1, no extension: how many voting machines closed voting in each minute after 17:00 (on each machine’s clock, abroad excluded). The last bar groups those that closed an hour or more later.' }) : '')
+    + C.pRaw('<b>How we count.</b> Each voting machine writes a log with the time of every event, and a line "O voto do eleitor foi computado" (the voter’s vote was counted) for every vote. The machine’s clock is on local time, so the limit is the time the machine became "ready to receive votes" (8:00 Brasília time, in its own time zone) plus 9 hours. '
+      + 'A vote at 17:00 or later counts as late. The logs come from the TSE’s results site, section by section; each file is sealed by sha256.')
+    + (logTable.length ? C.table({ cols: [{ h: 'UF' }, { h: 'sections read' }, { h: 'votes in the logs × turnout' }, { h: 'after 17:00' }, { h: 'max. in one section' }, { h: 'reading' }], rows: logTable }) : '')
+    + C.pRaw('<b>What is missing.</b> The national count needs the logs of all ' + n(W2.sections) + ' sections. The TSE publishes them in bulk on its open-data portal (in round 1, three days later). Until then, the national verdict is NEEDS DATA, '
+      + 'with the threshold published: only a total of at least ' + n(W2.margin) + ' late votes, all for Lula, would reverse the result. The TSE’s figure is ' + (100 * EXT.tse_reported_late_votes / W2.margin).toFixed(2) + '% of that.')
 }));
 
 /* §7 the mathematics of the margin */
 {
   const MU = D.MINURNS, RL = D.RLA, MF = D.MEANFIELD, TR = D.TRANSFER;
   const curvePts = Object.entries(MU.curve).map(([k, v]) => [Number(k), v]).sort((a, b) => a[0] - b[0]);
-  const urnSvg = CH.scatter({ w: 900, h: 380, alt: 'Eleitores aptos acumulados nas maiores urnas, contra o número de urnas, com os limiares que inverteriam o resultado',
+  const urnSvg = CH.scatter({ w: 900, h: 380, alt: 'Registered voters accumulated over the largest voting machines, against the number of machines, with the thresholds that would reverse the result',
     x0: 1, x1: 6e5, y0: 500, y1: 2e8, logX: true, logY: true, padL: 96,
     xTicks: [1, 10, 100, 1e3, 1e4, 1e5].map((v) => ({ v, t: n(v) })), yTicks: [1e3, 1e4, 1e5, 1e6, 1e7, 1e8].map((v) => ({ v, t: n(v) })),
-    xLabel: 'número de urnas, das maiores para as menores (escala logarítmica)', yLabel: 'eleitores aptos nessas urnas',
+    xLabel: 'number of voting machines, largest to smallest (log scale)', yLabel: 'registered voters in those machines',
     curves: [{ pts: curvePts, token: CH.CAT[1], k: '' }],
     hlines: [{ y: MU.swing_needed, token: 'var(--el-lula)' }, { y: MU.removal_needed, token: 'var(--el-flavio)' }],
-    pts: [{ x: MU.urns_if_every_voter_swapped, y: MU.swing_needed, token: 'var(--el-lula)', k: 'trocar', v: n(MU.urns_if_every_voter_swapped) + ' urnas, todo eleitor trocado' },
-      { x: MU.urns_if_every_voter_removed, y: MU.removal_needed, token: 'var(--el-flavio)', k: 'anular', v: n(MU.urns_if_every_voter_removed) + ' urnas, todo voto anulado' }],
-    keys: [{ token: 'var(--el-lula)', t: 'trocar ' + n(MU.swing_needed) + ' votos de lado: ' + n(MU.urns_if_every_voter_swapped) + ' urnas' }, { token: 'var(--el-flavio)', t: 'anular ' + n(MU.removal_needed) + ' votos: ' + n(MU.urns_if_every_voter_removed) + ' urnas' }] });
+    pts: [{ x: MU.urns_if_every_voter_swapped, y: MU.swing_needed, token: 'var(--el-lula)', k: 'swap', v: n(MU.urns_if_every_voter_swapped) + ' machines, every voter swapped' },
+      { x: MU.urns_if_every_voter_removed, y: MU.removal_needed, token: 'var(--el-flavio)', k: 'annul', v: n(MU.urns_if_every_voter_removed) + ' machines, every vote annulled' }],
+    keys: [{ token: 'var(--el-lula)', t: 'switch ' + n(MU.swing_needed) + ' votes: ' + n(MU.urns_if_every_voter_swapped) + ' machines' }, { token: 'var(--el-flavio)', t: 'annul ' + n(MU.removal_needed) + ' votes: ' + n(MU.urns_if_every_voter_removed) + ' machines' }] });
 
   /* the three audits as curves over the winner's share, every point from the same formulas the ledger certifies at 2026's margin */
   /* the chosen inputs, read from the ledger (the curves used to type them): the risk limit and the super-simple gamma */
@@ -258,58 +278,58 @@ B.push(C.section({
   const bat = (sh) => Math.log(alpha) / Math.log(1 - mu(sh) / 2);
   const grid = []; for (let v = 50.5; v <= 60.001; v += 0.25) grid.push(v);
   const s26 = 100 * W2.lula / W2.valid;
-  const rlaSvg = CH.scatter({ w: 900, h: 380, alt: 'Tamanho da amostra de uma auditoria de risco limitado, pela margem, para três métodos, com 2026 marcado',
+  const rlaSvg = CH.scatter({ w: 900, h: 380, alt: 'Sample size of a risk-limiting audit, by margin, for three methods, with 2026 marked',
     x0: 50, x1: 60.5, y0: 30, y1: 1e6, logY: true, padL: 96,
     xTicks: [50, 52, 54, 56, 58, 60].map((v) => ({ v, t: v + '%' })), yTicks: [100, 1e3, 1e4, 1e5, 1e6].map((v) => ({ v, t: n(v) })),
-    xLabel: 'parcela do vencedor entre os dois finalistas', yLabel: 'amostra necessária (risco de 1%)',
+    xLabel: 'the winner’s share between the two finalists', yLabel: 'sample needed (1% risk)',
     /* the curves are the formulas in JavaScript floating point at every share: computed, so dashed, all three (the third
        used to be the only dashed one, to tell it from the second: dash for identity, WARRANT rule 4). Only the three points
        on the 2026 line are the ledger's certified numbers. */
     curves: [{ pts: grid.map((v) => [v, asn(v / 100)]), token: CH.CAT[0], dashed: true, k: '' }, { pts: grid.map((v) => [v, cmp(v / 100)]), token: CH.CAT[1], dashed: true, k: '' }, { pts: grid.map((v) => [v, bat(v / 100)]), token: CH.CAT[2], dashed: true, k: '' }],
-    vlines: [{ x: s26, token: 'var(--el-lula)', t: '2026: ' + s26.toFixed(2).replace('.', ',') + '%' }],
-    pts: [{ x: s26, y: RL.polling_ballots, token: CH.CAT[0], k: 'por sorteio de votos', v: n(RL.polling_ballots) + ' votos' },
-      { x: s26, y: RL.comparison_ballots, token: CH.CAT[1], k: 'por comparação, voto a voto', v: n(RL.comparison_ballots) + ' votos' },
-      { x: s26, y: RL.batch_sections, token: CH.CAT[2], k: 'por comparação, urna a urna', v: n(RL.batch_sections) + ' urnas' }],
-    keys: [{ token: CH.CAT[0], t: 'sortear votos (votos)', kind: 'dash' }, { token: CH.CAT[1], t: 'comparar votos (votos)', kind: 'dash' }, { token: CH.CAT[2], t: 'comparar urnas (urnas)', kind: 'dash' }] });
+    vlines: [{ x: s26, token: 'var(--el-lula)', t: '2026: ' + s26.toFixed(2) + '%' }],
+    pts: [{ x: s26, y: RL.polling_ballots, token: CH.CAT[0], k: 'by sampling votes', v: n(RL.polling_ballots) + ' votes' },
+      { x: s26, y: RL.comparison_ballots, token: CH.CAT[1], k: 'by comparison, vote by vote', v: n(RL.comparison_ballots) + ' votes' },
+      { x: s26, y: RL.batch_sections, token: CH.CAT[2], k: 'by comparison, machine by machine', v: n(RL.batch_sections) + ' machines' }],
+    keys: [{ token: CH.CAT[0], t: 'sample votes (votes)', kind: 'dash' }, { token: CH.CAT[1], t: 'compare votes (votes)', kind: 'dash' }, { token: CH.CAT[2], t: 'compare machines (machines)', kind: 'dash' }] });
 
-  const mfPts = MF.rows.map((r) => ({ x: 100 * r.others_r1, y: r.logit_shift, fill: r.m2 >= 0.5 ? 'var(--el-lula)' : 'var(--el-flavio)', label: r.uf === 'ZZ' ? 'exterior' : r.uf,
-    k: UF_NAMES[r.uf] || r.uf, v: 'log-chances +' + r.logit_shift.toFixed(3).replace('.', ',') + ' · outros no 1º turno ' + (100 * r.others_r1).toFixed(1).replace('.', ',') + '%' }));
+  const mfPts = MF.rows.map((r) => ({ x: 100 * r.others_r1, y: r.logit_shift, fill: r.m2 >= 0.5 ? 'var(--el-lula)' : 'var(--el-flavio)', label: r.uf === 'ZZ' ? 'abroad' : r.uf,
+    k: UF_NAMES[r.uf] || r.uf, v: 'log-odds +' + r.logit_shift.toFixed(3) + ' · others in round 1 ' + (100 * r.others_r1).toFixed(1) + '%' }));
   const xs = mfPts.map((q) => q.x), ys = mfPts.map((q) => q.y), mx = xs.reduce((a, b) => a + b) / xs.length, my = ys.reduce((a, b) => a + b) / ys.length;
   const slope = xs.reduce((a, x, i) => a + (x - mx) * (ys[i] - my), 0) / xs.reduce((a, x) => a + (x - mx) ** 2, 0);
-  const mfSvg = FIG.labelled({ pts: mfPts, x0: 4, x1: 16, y0: 0.04, y1: 0.19, alt: 'Variação das log-chances de Lula entre os turnos, por estado, contra a parcela dos outros candidatos no 1º turno',
-    xTicks: [4, 6, 8, 10, 12, 14, 16].map((v) => ({ v, t: v + '%' })), yTicks: [0.05, 0.10, 0.15].map((v) => ({ v, t: '+' + v.toFixed(2).replace('.', ',') })),
-    xLabel: 'votos de outros candidatos no 1º turno (% dos válidos do estado)', yLabel: 'variação das log-chances de Lula',
+  const mfSvg = FIG.labelled({ pts: mfPts, x0: 4, x1: 16, y0: 0.04, y1: 0.19, alt: 'Change in Lula’s log-odds between the rounds, by state, against the other candidates’ share in round 1',
+    xTicks: [4, 6, 8, 10, 12, 14, 16].map((v) => ({ v, t: v + '%' })), yTicks: [0.05, 0.10, 0.15].map((v) => ({ v, t: '+' + v.toFixed(2) })),
+    xLabel: 'votes for other candidates in round 1 (% of the state’s valid votes)', yLabel: 'change in Lula’s log-odds',
     fit: [[4.5, my + slope * (4.5 - mx)], [15.5, my + slope * (15.5 - mx)]] });
 
   B.push(C.section({
-    lab: '§7 · a matemática da margem', title: 'Quatro contas sobre o tamanho desta vitória', wide: true,
-    bodyRaw: C.pRaw('<b>1. Quantas urnas teriam de ser adulteradas.</b> ' + stamp(MU.verdict) + ' Numa urna, uma adulteração mexe no máximo em tantos votos quantos eleitores ela tem. '
-        + 'Ordenando as ' + n(MU.sections) + ' urnas da maior para a menor (a maior tem ' + n(MU.largest_capacity) + ' eleitores; a do meio, ' + n(MU.median_capacity) + '), a conta exata é: '
-        + 'para trocar de lado os ' + n(MU.swing_needed) + ' votos que inverteriam o resultado, seria preciso adulterar ao menos <b>' + n(MU.urns_if_every_voter_swapped) + ' urnas</b>, '
-        + 'e isso mesmo supondo que em cada uma todo eleitor apareceu e todo voto foi trocado. Anulando votos em vez de trocar, ao menos ' + n(MU.urns_if_every_voter_removed) + '. '
-        + 'Cada uma dessas urnas imprime o seu boletim, afixa na porta da seção e o assina digitalmente.')
-      + C.figure({ svgRaw: urnSvg, caption: 'A curva soma os eleitores aptos das maiores urnas: a primeira urna, as duas primeiras, e assim por diante. Ela cruza as linhas dos limiares nos números de urnas marcados. Os eleitores aptos por urna são os mesmos nos dois turnos (o cadastro é o mesmo: ' + n(W2.registered_functioning) + ' aptos nas seções que funcionaram, em ambos).' })
-      + C.pRaw('<b>2. Quanto bastaria conferir por amostragem.</b> ' + stamp(RL.verdict) + ' Uma auditoria de risco limitado (o método que vários estados americanos usam) sorteia votos ou urnas e para quando a amostra confirma o vencedor com um risco de erro fixado. '
-        + 'Com esta margem e <i>dado risco de ' + riskPct + '%, sem encontrar nenhuma divergência na amostra</i>: sortear em média <b>' + n(RL.polling_ballots) + ' votos</b>; ou comparar <b>' + n(RL.comparison_ballots) + ' votos</b> um a um com o registro digital; '
-        + 'ou recontar <b>' + n(RL.batch_sections) + ' urnas</b> inteiras sorteadas com probabilidade proporcional ao tamanho. Calculado com logaritmos de 60 dígitos (fórmulas de Lindeman & Stark, 2012). '
-        + 'O Brasil não tem voto impresso; a amostra seria de boletins e registros digitais de voto, que são públicos.')
-      + C.figure({ svgRaw: rlaSvg, caption: 'Quanto menor a margem, maior a amostra. As curvas são as mesmas fórmulas calculadas em ponto flutuante em cada margem, por isso tracejadas; só os três pontos sobre a linha de 2026 são os números certificados acima. A curva das urnas e a dos votos comparados quase coincidem (' + n(RL.batch_sections) + ' urnas, ' + n(RL.comparison_ballots) + ' votos); a cor e a legenda dizem qual é qual.' })
-      + WP.legendHtml({ compact: true })
-      + C.pRaw('<b>Em que estes números se apoiam.</b>') + WP.premisesHtml([
-        { grade: WR.ASSUMED, label: 'As fórmulas da auditoria', evidence: 'adotadas de ' + C.esc(RL.source) + '; a conta sobre elas é exata (logaritmos decimais de 60 dígitos, cada teto recusado se o valor cair a menos de 10⁻⁴⁰ de um inteiro), e as fórmulas não são conferidas aqui.' },
-        { grade: WR.ASSUMED, label: 'O cenário', evidence: '<i>dado risco de ' + riskPct + '%, nenhuma divergência na amostra e γ = ' + C.esc(RL.comparison_gamma.replace('.', ',')) + '</i>: escolhas, não dados; com divergências, a amostra cresce.' }
-      ], { meetLine: 'A conta é exata; a premissa mais fraca fica no degrau <b>' + WP.GRADE[WR.ASSUMED] + '</b>.' })
-      + C.pRaw('<b>3. De onde vieram os votos.</b> ' + stamp(TR.verdict) + ' A conta exata, sem modelo, dá para cada fluxo (por exemplo, eleitores de Flávio no 1º turno que votaram em Lula no 2º) o mínimo e o máximo compatíveis com os números de cada unidade. '
-        + 'Com os dados por estado, os limites quase nada dizem: entre 0 e ' + n(TR.bounds['others->lula'][1]) + ' dos eleitores de outros candidatos podem ter ido para Lula. '
-        + stamp('NEEDS DATA') + ' Com os boletins do 2º turno por seção, cada uma das ' + n(MU.sections) + ' seções vira uma unidade e os limites se estreitam; publicaremos quando o TSE publicar. O saldo nacional exato está na §5.')
-      + C.pRaw('<b>4. Um olhar de campo médio (modelo, não veredicto).</b> ' + stamp('MEASURED') + ' Num modelo de campo médio da escolha entre dois candidatos (Brock e Durlauf), cada eleitor decide pela soma de um "campo" comum e da influência dos outros. '
-        + 'Uma mudança no campo nacional move as log-chances de todos os estados igualmente se não há influência mútua, e mais nos estados equilibrados se há. '
-        + 'Nos dados, as log-chances de Lula subiram entre ' + cv('+' + MF.logit_shift_min.toFixed(3).replace('.', ','), 'ponto flutuante, 6 casas no registro') + ' e ' + cv('+' + MF.logit_shift_max.toFixed(3).replace('.', ','), 'ponto flutuante, 6 casas no registro') + ' em todos os estados; '
-        + 'a correlação com o equilíbrio do estado é ' + cv(MF.corr_shift_vs_balance.toFixed(2).replace('.', ','), 'correlação em ponto flutuante') + ' (nenhuma), e com a parcela dos outros candidatos no 1º turno, ' + cv(MF.corr_shift_vs_others.toFixed(2).replace('.', ','), 'correlação em ponto flutuante') + '. '
-        + 'Leitura: a virada foi um deslocamento nacional, maior onde havia mais eleitores sem candidato no 2º turno, e não um efeito de influência mútua concentrado nos estados divididos. Com ' + n(MF.rows.length) + ' unidades, é uma descrição, não uma prova.')
-      + C.figure({ svgRaw: mfSvg, caption: 'Cada ponto é um estado (cor: quem venceu nele no 2º turno). Eixo vertical: quanto as log-chances de Lula entre os dois finalistas subiram do 1º para o 2º turno. A linha tracejada é o ajuste linear, em ponto flutuante, só para guiar o olho.' })
-      + WP.premisesHtml([{ grade: WR.ASSUMED, label: 'O modelo de campo médio (Brock e Durlauf)', evidence: 'adotado da literatura para ler os dados; nada aqui o conferiu. As log-chances são contas sobre os totais assinados; a leitura delas é a do modelo.' }],
-        { meetLine: 'A leitura fica no degrau <b>' + WP.GRADE[WR.ASSUMED] + '</b>: com ' + n(MF.rows.length) + ' unidades, uma descrição, não uma prova.' })
+    lab: '§7 · the mathematics of the margin', title: 'Four calculations on the size of this victory', wide: true,
+    bodyRaw: C.pRaw('<b>1. How many voting machines would have to be tampered with.</b> ' + stamp(MU.verdict) + ' In one machine, tampering moves at most as many votes as the machine has voters. '
+        + 'Ordering the ' + n(MU.sections) + ' machines from the largest to the smallest (the largest has ' + n(MU.largest_capacity) + ' voters; the median one, ' + n(MU.median_capacity) + '), the exact calculation is: '
+        + 'to switch the ' + n(MU.swing_needed) + ' votes that would reverse the result, at least <b>' + n(MU.urns_if_every_voter_swapped) + ' voting machines</b> would have to be tampered with, '
+        + 'and that even assuming that in each one every voter turned up and every vote was switched. Annulling votes instead of switching them, at least ' + n(MU.urns_if_every_voter_removed) + '. '
+        + 'Each of these machines prints its report, posts it on the door of the section and signs it digitally.')
+      + C.figure({ svgRaw: urnSvg, caption: 'The curve adds up the registered voters of the largest machines: the first machine, the first two, and so on. It crosses the threshold lines at the numbers of machines marked. The registered voters per machine are the same in both rounds (the register is the same: ' + n(W2.registered_functioning) + ' registered in the sections that operated, in both).' })
+      + C.pRaw('<b>2. How much a sampling check would need.</b> ' + stamp(RL.verdict) + ' A risk-limiting audit (the method several US states use) samples votes or voting machines and stops when the sample confirms the winner with a fixed risk of error. '
+        + 'With this margin and <i>given a risk of ' + riskPct + '%, finding no discrepancy in the sample</i>: sample on average <b>' + n(RL.polling_ballots) + ' votes</b>; or compare <b>' + n(RL.comparison_ballots) + ' votes</b> one by one with the digital record; '
+        + 'or recount <b>' + n(RL.batch_sections) + ' voting machines</b> in full, sampled with probability proportional to size. Computed with 60-digit logarithms (the formulas of Lindeman & Stark, 2012). '
+        + 'Brazil has no printed vote; the sample would be of the reports and the digital vote records, which are public.')
+      + C.figure({ svgRaw: rlaSvg, caption: 'The smaller the margin, the larger the sample. The curves are the same formulas computed in floating point at each margin, hence dashed; only the three points on the 2026 line are the certified numbers above. The machine curve and the compared-votes curve nearly coincide (' + n(RL.batch_sections) + ' machines, ' + n(RL.comparison_ballots) + ' votes); the colour and the legend say which is which.' })
+      + WR.legendHtml({ compact: true })
+      + C.pRaw('<b>What these numbers rest on.</b>') + WR.premisesHtml([
+        { grade: WR.ASSUMED, label: 'The audit formulas', evidence: 'adopted from ' + C.esc(RL.source) + '; the arithmetic on them is exact (60-digit decimal logarithms, each ceiling refused if its value falls within 10⁻⁴⁰ of an integer), and the formulas are not checked here.' },
+        { grade: WR.ASSUMED, label: 'The scenario', evidence: '<i>given a risk of ' + riskPct + '%, no discrepancy in the sample and γ = ' + C.esc(RL.comparison_gamma) + '</i>: choices, not data; with discrepancies, the sample grows.' }
+      ], { meetLine: 'The arithmetic is exact; the weakest premise sits on the rung <b>' + WR.GRADE[WR.ASSUMED] + '</b>.' })
+      + C.pRaw('<b>3. Where the votes came from.</b> ' + stamp(TR.verdict) + ' The exact calculation, with no model, gives for each flow (for example, Flávio’s round-1 voters who voted for Lula in round 2) the minimum and the maximum compatible with the numbers of each unit. '
+        + 'With the data by state, the bounds say almost nothing: between 0 and ' + n(TR.bounds['others->lula'][1]) + ' of the voters for other candidates may have gone to Lula. '
+        + stamp('NEEDS DATA') + ' With the round-2 reports by section, each of the ' + n(MU.sections) + ' sections becomes a unit and the bounds narrow; we will publish when the TSE publishes. The exact national balance is in §5.')
+      + C.pRaw('<b>4. A mean-field look (a model, not a verdict).</b> ' + stamp('MEASURED') + ' In a mean-field model of the choice between two candidates (Brock and Durlauf), each voter decides by the sum of a common "field" and the influence of the others. '
+        + 'A change in the national field moves every state’s log-odds equally if there is no mutual influence, and more in the balanced states if there is. '
+        + 'In the data, Lula’s log-odds rose by between ' + cv('+' + MF.logit_shift_min.toFixed(3), 'floating point, 6 decimal places in the record') + ' and ' + cv('+' + MF.logit_shift_max.toFixed(3), 'floating point, 6 decimal places in the record') + ' in every state; '
+        + 'the correlation with the state’s balance is ' + cv(MF.corr_shift_vs_balance.toFixed(2), 'a floating-point correlation') + ' (none), and with the other candidates’ share in round 1, ' + cv(MF.corr_shift_vs_others.toFixed(2), 'a floating-point correlation') + '. '
+        + 'Reading: the swing was a national shift, larger where there were more voters with no candidate in round 2, and not a mutual-influence effect concentrated in the divided states. With ' + n(MF.rows.length) + ' units, it is a description, not a proof.')
+      + C.figure({ svgRaw: mfSvg, caption: 'Each point is a state (colour: who won it in round 2). Vertical axis: how much Lula’s log-odds between the two finalists rose from round 1 to round 2. The dashed line is the linear fit, in floating point, only to guide the eye.' })
+      + WR.premisesHtml([{ grade: WR.ASSUMED, label: 'The mean-field model (Brock and Durlauf)', evidence: 'adopted from the literature to read the data; nothing here checked it. The log-odds are calculations on the signed totals; their reading is the model’s.' }],
+        { meetLine: 'The reading sits on the rung <b>' + WR.GRADE[WR.ASSUMED] + '</b>: with ' + n(MF.rows.length) + ' units, a description, not a proof.' })
   }));
 }
 
@@ -325,93 +345,91 @@ if (D.POLLS) {
     const [y, mo, d] = String(p.published).split('-').map(Number);
     const days = (Date.UTC(y, mo - 1, d) - ELEC[p.round]) / 864e5;
     const [ln, ld] = p.lead_published_flavio_minus_lula.split('/'); const lead = Number(ln) / Number(ld || 1);   /* the ledger keeps it as an exact fraction */
-    return { x: days, y: lead, token: p.round === 1 ? CH.CAT[1] : CH.CAT[0], diamond: p.round === 1, hollow: p.round === 1, k: p.pollster + ' · ' + p.round + 'º turno · ' + p.published,
-      v: 'Flávio − Lula: ' + (lead >= 0 ? '+' : '') + lead.toFixed(1).replace('.', ',') + ' p.p.' };
+    return { x: days, y: lead, token: p.round === 1 ? CH.CAT[1] : CH.CAT[0], diamond: p.round === 1, hollow: p.round === 1, k: p.pollster + ' · round ' + p.round + ' · ' + p.published,
+      v: 'Flávio − Lula: ' + (lead >= 0 ? '+' : '') + lead.toFixed(1) + ' pp' };
   });
   const below1 = leadPts.filter((q) => q.diamond && q.y < leadRes[1]).length, n1 = leadPts.filter((q) => q.diamond).length;
   const above2 = leadPts.filter((q) => !q.diamond && q.y > leadRes[2]).length, n2 = leadPts.filter((q) => !q.diamond).length;
-  const leadSvg = CH.scatter({ w: 900, h: 360, alt: 'Vantagem de Flávio sobre Lula em cada pesquisa, por dias antes da eleição, nos dois turnos, contra o resultado',
+  const leadSvg = CH.scatter({ w: 900, h: 360, alt: 'Flávio’s lead over Lula in each poll, by days before the election, in both rounds, against the result',
     x0: -9, x1: 3.2, y0: -8, y1: 8, padL: 96,
-    xTicks: [-8, -6, -4, -2, 0].map((v) => ({ v, t: v === 0 ? 'véspera' : v + ' dias' })), yTicks: [-8, -4, 0, 4, 8].map((v) => ({ v, t: (v > 0 ? '+' : '') + v + ' p.p.' })),
-    xLabel: 'dias antes da eleição', yLabel: 'Flávio − Lula, votos válidos',
+    xTicks: [-8, -6, -4, -2, 0].map((v) => ({ v, t: v === 0 ? 'eve' : v + ' days' })), yTicks: [-8, -4, 0, 4, 8].map((v) => ({ v, t: (v > 0 ? '+' : '') + v + ' pp' })),
+    xLabel: 'days before the election', yLabel: 'Flávio − Lula, valid votes',
     pts: leadPts,
-    hlines: [{ y: leadRes[1], token: CH.CAT[1], t: 'urnas, 1º turno: Flávio ' + (leadRes[1] >= 0 ? '+' : '') + leadRes[1].toFixed(2).replace('.', ',') },
-      { y: leadRes[2], token: CH.CAT[0], t: 'urnas, 2º turno: Flávio ' + leadRes[2].toFixed(2).replace('.', ',') }],
-    keys: [{ token: CH.CAT[1], t: 'pesquisas do 1º turno (losango)' }, { token: CH.CAT[0], t: 'pesquisas do 2º turno (ponto)' }] });
+    hlines: [{ y: leadRes[1], token: CH.CAT[1], t: 'result, round 1: Flávio ' + (leadRes[1] >= 0 ? '+' : '') + leadRes[1].toFixed(2) },
+      { y: leadRes[2], token: CH.CAT[0], t: 'result, round 2: Flávio ' + leadRes[2].toFixed(2) }],
+    keys: [{ token: CH.CAT[1], t: 'round-1 polls (diamond)' }, { token: CH.CAT[0], t: 'round-2 polls (dot)' }] });
   const fig = (rnd, cand, nome, lo, hi) => {
     const rows = P.filter((p) => p.round === rnd).map((p) => ({ p, c: p.cells.find((x) => x.candidate === cand) })).filter((x) => x.c)
       .sort((a, b) => (a.p.published + a.p.pollster < b.p.published + b.p.pollster ? -1 : 1));
     const ticks = []; for (let v = lo; v <= hi; v += 2) ticks.push({ v, t: v + '%' });
-    return CH.intervals({ w: 900, rowH: 22, padL: 250, alt: nome + ' nas pesquisas finais do ' + rnd + 'º turno, com a margem declarada, contra o resultado das urnas',
-      x0: lo, x1: hi, xTicks: ticks, xLabel: nome + ', % dos votos válidos · última linha: o resultado das urnas',
-      rows: rows.map(({ p, c }) => ({ k: (c.inside_margin ? '✓ ' : '') + p.pollster + ' · ' + String(p.published).slice(8, 10) + '/' + String(p.published).slice(5, 7),
+    return CH.intervals({ w: 900, rowH: 22, padL: 250, alt: nome + ' in the final polls of round ' + rnd + ', with the declared margin, against the result',
+      x0: lo, x1: hi, xTicks: ticks, xLabel: nome + ', % of valid votes · last row: the result',
+      rows: rows.map(({ p, c }) => ({ k: (c.inside_margin ? '✓ ' : '') + p.pollster + ' · ' + dayMon(p.published),
         lo: Number(c.published) - Number(p.margin), hi: Number(c.published) + Number(p.margin), point: Number(c.published), v: c.published + '% ± ' + p.margin,
         token: c.inside_margin ? (cand === '13' ? 'var(--el-lula)' : 'var(--el-flavio)') : CH.CTX }))
-        .concat([{ k: 'RESULTADO DAS URNAS', point: res[rnd][cand], note: res[rnd][cand].toFixed(2).replace('.', ',') + '%', token: 'var(--ink)' }]) });
+        .concat([{ k: 'THE RESULT', point: res[rnd][cand], note: res[rnd][cand].toFixed(2) + '%', token: 'var(--ink)' }]) });
   };
   B.push(C.section({
-    lab: '§8 · as pesquisas', title: 'As pesquisas erraram nos dois turnos, e para lados opostos', wide: true,
-    bodyRaw: C.pRaw('Lemos ' + BR['1'].polls + ' pesquisas nacionais publicadas na última semana do 1º turno e ' + BR['2'].polls + ' na do 2º, cada uma com a fonte e, quando existe, o registro no TSE '
-        + '(' + m('corpus/eleicoes2026/polls.json') + '). Comparamos com as urnas as que publicaram votos válidos e margem de erro: ' + BR['1'].compared + ' no 1º turno e ' + BR['2'].compared + ' no 2º.')
-      + C.pRaw('<b>1º turno.</b> Em média, as pesquisas deram a Flávio Bolsonaro ' + BR['1'].mean_error_pp_22 + ' ponto a menos do que ele teve: todas as ' + BR['1'].polls_below_result_22
-        + ' o subestimaram, e ' + lulaAhead1 + ' delas o puseram atrás de Lula, que ficou em segundo. <b>2º turno.</b> O erro trocou de lado: em média deram a Lula ' + BR['2'].mean_error_pp_13
-        + ' ponto a menos, e todas as ' + BR['2'].polls_below_result_13 + ' o subestimaram. Somando os dois turnos, ' + (BR['1'].inside_margin + BR['2'].inside_margin) + ' de '
-        + (BR['1'].lula_flavio_cells + BR['2'].lula_flavio_cells) + ' números (Lula ou Flávio, numa pesquisa) contêm o resultado dentro da margem declarada.')
-      + C.figure({ svgRaw: leadSvg, caption: 'Cada ponto é uma pesquisa: a vantagem de Flávio sobre Lula nos votos válidos que ela publicou, pelo número de dias antes da eleição. As linhas são o resultado das urnas em cada turno. No 1º turno, ' + below1 + ' de ' + n1 + ' pesquisas ficam abaixo da linha do seu turno; no 2º, ' + above2 + ' de ' + n2 + ' ficam acima.' })
-      + C.figure({ svgRaw: fig(1, '22', 'Flávio Bolsonaro', 36, 52), caption: '1º turno: Flávio Bolsonaro em cada pesquisa (ponto) com a margem declarada (barra), contra o resultado das urnas (última linha). Marcadas com ✓ as que contêm o resultado.' })
-      + C.figure({ svgRaw: fig(2, '13', 'Lula', 44, 56), caption: '2º turno: Lula em cada pesquisa, com a margem declarada, contra o resultado das urnas (última linha). Marcadas com ✓ as que contêm o resultado.' })
-      + C.pRaw('<b>O que um erro de pesquisa prova.</b> Uma pesquisa estima a opinião de uma amostra dias antes da eleição. A margem de erro cobre só o acaso da amostragem, não mudança de última hora, '
-        + 'comparecimento diferente do previsto ou eleitores que não respondem; e a margem impressa costuma ser a dos votos totais, mais estreita que a dos válidos. '
-        + 'Um erro grande contra um candidato num turno e contra o outro no turno seguinte é o retrato de pesquisas com dificuldade de medir o eleitorado, não de uma contagem desviada para um lado. '
-        + 'A contagem é a soma dos boletins, conferida nas §3 a §5.')
+    lab: '§8 · the polls', title: 'The polls missed in both rounds, in opposite directions', wide: true,
+    bodyRaw: C.pRaw('We read ' + BR['1'].polls + ' national polls published in the last week before round 1 and ' + BR['2'].polls + ' in the week before round 2, each with its source and, where it exists, its registration with the TSE '
+        + '(' + m('corpus/eleicoes2026/polls.json') + '). We compared with the result those that published valid votes and a margin of error: ' + BR['1'].compared + ' in round 1 and ' + BR['2'].compared + ' in round 2.')
+      + C.pRaw('<b>Round 1.</b> On average, the polls gave Flávio Bolsonaro ' + dp(BR['1'].mean_error_pp_22) + ' points less than he got: all ' + BR['1'].polls_below_result_22
+        + ' underestimated him, and ' + lulaAhead1 + ' of them put him behind Lula, who came second. <b>Round 2.</b> The error switched sides: on average they gave Lula ' + dp(BR['2'].mean_error_pp_13)
+        + ' points less, and all ' + BR['2'].polls_below_result_13 + ' underestimated him. Over both rounds, ' + (BR['1'].inside_margin + BR['2'].inside_margin) + ' of '
+        + (BR['1'].lula_flavio_cells + BR['2'].lula_flavio_cells) + ' numbers (Lula or Flávio, in one poll) contain the result within the declared margin.')
+      + C.figure({ svgRaw: leadSvg, caption: 'Each point is a poll: Flávio’s lead over Lula in valid votes as the poll published it, by the number of days before the election. The lines are the result of each round. In round 1, ' + below1 + ' of ' + n1 + ' polls lie below their round’s line; in round 2, ' + above2 + ' of ' + n2 + ' lie above it.' })
+      + C.figure({ svgRaw: fig(1, '22', 'Flávio Bolsonaro', 36, 52), caption: 'Round 1: Flávio Bolsonaro in each poll (dot) with the declared margin (bar), against the result (last row). Marked ✓: those that contain the result.' })
+      + C.figure({ svgRaw: fig(2, '13', 'Lula', 44, 56), caption: 'Round 2: Lula in each poll, with the declared margin, against the result (last row). Marked ✓: those that contain the result.' })
+      + C.pRaw('<b>What a polling error proves.</b> A poll estimates the opinion of a sample days before the election. The margin of error covers only the chance of sampling, not a late change of mind, '
+        + 'a turnout different from the one expected or voters who do not answer; and the printed margin is usually the one for total votes, narrower than the one for valid votes. '
+        + 'A large error against one candidate in one round and against the other in the next round is the picture of polls struggling to measure the electorate, not of a count skewed to one side. '
+        + 'The count is the sum of the reports, checked in §3 to §5.')
   }));
 }
 
 /* §9 the claims */
 const cw = { C1: EXT.verdict === 'CERTIFIED' ? 'REFUTED' : EXT.verdict, C2: 'REFUSED', C3: 'REFUSED', C4: EXT.verdict === 'NEEDS DATA' ? 'NEEDS DATA' : 'CERTIFIED', C5: 'CERTIFIED', C6: D.C6.verdict, C7: 'MEASURED' };
 const why = {
-  C1: 'A parte que é conta: inverter exigiria ' + n(W2.margin) + ' votos tardios de um lado só. Nacionalmente pendente dos registros completos; onde já lemos tudo, os tardios são centenas, não milhões. A parte jurídica (anular) não é conta.',
-  C2: 'Votos que não foram dados não existem em nenhum arquivo. Nenhuma conta decide um "e se".',
-  C3: 'É um fato sobre o que aconteceu numa sala do TSE, não um número publicado. O que os fiscais viriam conferir (os totais) está nas §3 a §5.',
-  C4: 'Será conferido contra os registros das urnas quando o TSE publicar todos. Onde já lemos tudo, o número por estado está na §6.',
-  C5: 'A assinatura confere e as contas do arquivo fecham. A soma seção por seção do 2º turno aguarda os boletins em lote.',
-  C6: '51,74% não é a fração de Lula nos válidos do resultado assinado (' + D.C6.signed_2dp + '%). Provável erro de leitura; não muda nada.',
-  C7: 'Medido na §8. Um erro de pesquisa não é evidência sobre a contagem.'
+  C1: 'The part that is a calculation: reversing the result would take ' + n(W2.margin) + ' late votes from one side only. Nationally pending the complete logs; where we have read everything, the late votes are in the hundreds, not the millions. The legal part (annulment) is not a calculation.',
+  C2: 'Votes that were not cast do not exist in any file. No calculation decides a "what if".',
+  C3: 'It is a fact about what happened in a room of the TSE, not a published number. What the inspectors would have come to check (the totals) is in §3 to §5.',
+  C4: 'It will be checked against the voting-machine logs when the TSE publishes them all. Where we have read everything, the number by state is in §6.',
+  C5: 'The signature checks out and the file’s accounts balance. The section-by-section sum of round 2 waits for the reports in bulk.',
+  C6: dp(D.C6.said) + '% is not Lula’s fraction of the valid votes in the signed result (' + dp(D.C6.signed_2dp) + '%). Probably a misreading; it changes nothing.',
+  C7: 'Measured in §8. A polling error is not evidence about the count.'
 };
 B.push(C.section({
-  lab: '§9 · as alegações', title: 'Cada afirmação pública, com o veredicto que os dados permitem', wide: true,
-  bodyRaw: C.table({ cols: [{ h: 'quem' }, { h: 'o que disse' }, { h: 'veredicto' }, { h: 'por quê' }],
-    rows: CL.map((c) => [c.quem, c.quoted ? '"' + c.disse + '"' : c.disse + ' (paráfrase)', { raw: stamp(cw[c.id]) }, why[c.id]]) })
-    + C.pRaw('Fontes de cada afirmação em ' + m('corpus/eleicoes2026/claims.json') + '. Citações entre aspas apenas quando a fonte foi lida inteira.')
+  lab: '§9 · the claims', title: 'Each public statement, with the verdict the data allow', wide: true,
+  bodyRaw: C.table({ cols: [{ h: 'who' }, { h: 'what was said' }, { h: 'verdict' }, { h: 'why' }],
+    rows: CL.map((c) => [c.who, saidEn(c), { raw: stamp(cw[c.id]) }, why[c.id]]) })
+    + C.pRaw('Sources for each statement in ' + m('corpus/eleicoes2026/claims.json') + '. Quotation marks only where the source was read in full; the quotations are our translation from the Portuguese, and the originals are in the same file.')
 }));
 
 /* §10 limits */
 B.push(C.section({
-  lab: '§10 · o que não foi decidido', title: 'Os limites deste dossiê',
+  lab: '§10 · what was not decided', title: 'The limits of this dossier',
   bodyRaw: C.plainList([
-    { b: '"A eleição foi justa".', text: 'Não é uma conta. Este dossiê decide as partes que são: se o total oficial é a soma dos boletins, se os resultados são autênticos, se a prorrogação poderia ter mudado o vencedor.' },
-    { b: 'O software da urna.', text: 'Não auditamos o código da urna, os testes públicos de segurança nem o teste de integridade do dia da eleição. Os boletins e registros conferem entre si e com o total, o que é uma prova sobre os números publicados, não sobre o código que os gerou.' },
-    { b: 'Questões jurídicas.', text: 'A competência e a legalidade da decisão do STF, e qualquer pedido de anulação, são do Judiciário.' },
-    { b: 'O 2º turno seção por seção.', text: 'Pendente dos boletins e registros em lote do TSE; o veredicto será publicado aqui, com a data, seja qual for.' },
-    { b: 'Independência.', text: 'Escrito com auxílio de IA (Claude, da Anthropic). Nenhuma checagem independente por terceiros ainda; os comandos para refazer tudo estão no repositório.' }
+    { b: '"The election was fair".', text: 'It is not a calculation. This dossier decides the parts that are: whether the official total is the sum of the reports, whether the results are authentic, whether the extension could have changed the winner.' },
+    { b: 'The voting machine’s software.', text: 'We did not audit the voting machine’s code, the public security tests or the election-day integrity test. The reports and the logs agree with one another and with the total, which is a proof about the published numbers, not about the code that produced them.' },
+    { b: 'Legal questions.', text: 'The jurisdiction and the legality of the STF’s decision, and any request for annulment, are for the courts.' },
+    { b: 'Round 2 section by section.', text: 'Pending the TSE’s bulk reports and logs; the verdict will be published here, with the date, whatever it is.' },
+    { b: 'Independence.', text: 'Written with AI assistance (Claude, by Anthropic). No independent check by a third party yet; the commands to redo everything are in the repository.' }
   ])
 }));
 
-const foot = '<p>' + C.esc('Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 ' + sha('corpus/eleicoes2026/ledger.json').slice(0, 16)
-  + '…), refeito na construção por tools/eleicoes2026/ledger.py --check.') + '</p><p>' + C.esc('git ' + git) + '</p>';
+const foot = '<p>' + C.esc('Generated by apps/eleicoes2026/build.js from corpus/eleicoes2026/ledger.json (sha256 ' + sha('corpus/eleicoes2026/ledger.json').slice(0, 16)
+  + '…), re-derived at build time by tools/eleicoes2026/ledger.py --check.') + '</p>';  // no commit hash on a public page (2026-10-30)
 /* NO PARTY HUE (the operator, 2026-10-28: "colors: use between the ones the grammar have"; design/WARRANT.md v2.2). The two
    finalists are the grammar's categorical greys (--c-1 Lula, --c-3 Flávio), always beside their names; the maps are ONE
    ordered scale of Lula's share between the two finalists, eight steps mixed between two of the grammar's tokens
    (--rule-strong to --ink): lighter is more Lula, darker more Flávio, the 50% boundary between the fourth and fifth steps.
    The party reds and blues it replaced are retired. */
-let html = TPL.render({ title: 'Eleições 2026: o que os números permitem decidir · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'pt-BR',
+let html = TPL.render({ title: 'Brazil’s 2026 election: what the numbers can decide · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, lang: 'en',
   cssRaw: ':root{--el-lula:var(--c-1);--el-flavio:var(--c-3);--el-f4:var(--rule-strong);--el-f3:color-mix(in oklab,var(--ink) 14%,var(--rule-strong));--el-f2:color-mix(in oklab,var(--ink) 29%,var(--rule-strong));--el-f1:color-mix(in oklab,var(--ink) 43%,var(--rule-strong));--el-l1:color-mix(in oklab,var(--ink) 57%,var(--rule-strong));--el-l2:color-mix(in oklab,var(--ink) 71%,var(--rule-strong));--el-l3:color-mix(in oklab,var(--ink) 86%,var(--rule-strong));--el-l4:var(--ink)}'
     + '.t-big{font-size:var(--text-2);font-weight:var(--weight-strong);fill:var(--ink)}.t-score{font-size:var(--text-1);font-weight:var(--weight-strong);fill:var(--ink)}'
     + '.t-kick{font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);fill:var(--ink-3)}.el-pair{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--s-4)}', scriptRaw: CH.script(),
-  desc: 'A eleição presidencial de 2026 nos dois turnos, decidida em conta exata a partir dos arquivos do TSE: boletins de urna, resultados assinados, registros das urnas e as alegações do lado derrotado.',
+  desc: 'Brazil’s 2026 presidential election in both rounds, decided in exact arithmetic from the TSE’s files: polling-station reports, signed results, voting-machine logs and the losing side’s claims.',
   path: '/eleicoes2026/' });
-html = html.replace('<span class="lab">tl;dr</span>', '<span class="lab">em resumo</span>').replace('<b>The finding.</b>', '<b>O resultado.</b>')
-  .replace('<b>The mechanism.</b>', '<b>Como foi decidido.</b>').replace('<b>Check it.</b>', '<b>Confira.</b>');
 html = html.replace(/<meta name="robots" content="[^"]*">/, '<meta name="robots" content="noindex, nofollow">');
 if (!/name="robots" content="noindex/.test(html)) html = html.replace('</head>', '<meta name="robots" content="noindex, nofollow">\n</head>');
 fs.mkdirSync(OUT, { recursive: true });

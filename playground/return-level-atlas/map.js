@@ -20,7 +20,8 @@
 
    EVERY NUMBER FROM A RECORD. Each number this builder types into the page goes through N() with the record it came
    from; afterwards every digit in the page's visible text must be one N() gave, or the build refuses (WARRANT rule 8).
-   The tab's numbers are the data's, rounded by shared.js. The words are Portuguese first, as Swell, and English.  MIT */
+   The tab's numbers are the data's, rounded by shared.js. The words are English (the operator, 2026-10-30: no more
+   pt-BR pages; the Portuguese half and its PT/EN switch were dropped).                                          MIT */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -30,7 +31,6 @@ const PG = path.join(HERE, '..');
 const ROOT = path.join(PG, '..');
 const { renderApp } = require(path.join(ROOT, 'design', 'app-shell.js'));
 const W = require(path.join(PG, 'warrant.js'));
-const WP = require(path.join(PG, 'warrant-pt.js'));
 const SH = require(path.join(HERE, 'shared.js'));
 const AT = require(path.join(ROOT, 'instruments', 'hseva', 'atlas.js'));
 const FT = require(path.join(ROOT, 'instruments', 'hseva', 'fit.js'));
@@ -43,22 +43,22 @@ const fin2 = (q) => Array.isArray(q) && q.length === 2 && q.every((x) => typeof 
 
 /* the report's thirteen nodes in product words; a node the ledger names and this list does not refuses the build */
 const PLACE = {
-  'foz-amazonas': ['Margem equatorial · Foz do Amazonas', 'Equatorial margin · Foz do Amazonas'],
-  potiguar: ['Margem equatorial · Potiguar', 'Equatorial margin · Potiguar'],
-  'espirito-santo': ['Bacia do Espírito Santo', 'Espírito Santo Basin'],
-  campos: ['Bacia de Campos', 'Campos Basin'],
-  santos: ['Bacia de Santos', 'Santos Basin'],
-  pelotas: ['Bacia de Pelotas', 'Pelotas Basin'],
-  'north-atlantic': ['Atlântico Norte', 'North Atlantic'],
-  'south-of-japan': ['Sul do Japão', 'South of Japan'],
-  'arabian-sea': ['Mar da Arábia', 'Arabian Sea'],
-  'subantarctic-north': ['Norte subantártico', 'Northern sub-Antarctic'],
-  'acc-central': ['Corrente Circumpolar Antártica', 'Antarctic Circumpolar Current'],
-  drake: ['Passagem de Drake', 'Drake Passage'],
-  'southern-high': ['Altas latitudes do sul', 'Higher southern latitudes'],
+  'foz-amazonas': 'Equatorial margin · Foz do Amazonas',
+  potiguar: 'Equatorial margin · Potiguar',
+  'espirito-santo': 'Espírito Santo Basin',
+  campos: 'Campos Basin',
+  santos: 'Santos Basin',
+  pelotas: 'Pelotas Basin',
+  'north-atlantic': 'North Atlantic',
+  'south-of-japan': 'South of Japan',
+  'arabian-sea': 'Arabian Sea',
+  'subantarctic-north': 'Northern sub-Antarctic',
+  'acc-central': 'Antarctic Circumpolar Current',
+  drake: 'Drake Passage',
+  'southern-high': 'Higher southern latitudes',
 };
 /* a count the prose writes as a word: only the counts listed here, so a ledger with another count refuses the build */
-const WORD = { pt: { 3: 'três', 4: 'quatro', 6: 'seis' }, en: { 3: 'three', 4: 'four', 6: 'six' } };
+const WORD = { 3: 'three', 4: 'four', 6: 'six' };
 
 /* ---- the six families at one cell and block, from the ledger ---- */
 /* a family's state: [lo100, hi100, lo1000, hi1000] in whole centimetres, outward (an end null where the level has no
@@ -145,7 +145,7 @@ function build(dir, ctx) {
     if (!PLACE[name]) die('the report node ' + name + ' has no words on the map');
     if (!P.some((q) => q.name === name && q.lat === c.lat && q.lon === c.lon)) die('the report node ' + name + ' is not where corpus/ww3-points puts it');
     const margin = c.lat >= ext.lat[0] && c.lat <= ext.lat[1] && c.lon >= ext.lon[0] && c.lon <= ext.lon[1];
-    return { id: c.id, name, pt: PLACE[name][0], en: PLACE[name][1], margin };
+    return { id: c.id, name, label: PLACE[name], margin };
   });
   places.sort((a, b) => (b.margin - a.margin) || (byId(b.id).lat - byId(a.id).lat));
   function byId(id) { return cells.find((c) => c.id === id); }
@@ -190,10 +190,10 @@ function build(dir, ctx) {
   /* ---- THE TYPED NUMBERS: every digit the page's own text carries comes through here, with its record ---- */
   const said = new Set();
   const N = (s) => { for (const run of String(s).match(/\d+(?:[.,]\d+)*/g) || []) said.add(run); return String(s); };
-  const pt = (n) => N(Number(n).toLocaleString('pt-BR')), en = (n) => N(Number(n).toLocaleString('en-US'));
-  const dc = (cmv, lang) => N((Math.abs(cmv) / 100).toFixed(2).replace('.', lang === 'pt' ? ',' : '.'));
+  const en = (n) => N(Number(n).toLocaleString('en-US'));
+  const dc = (cmv) => N((Math.abs(cmv) / 100).toFixed(2));
   const sgn = (cmv) => (cmv < 0 ? '&minus;' : cmv > 0 ? '+' : '');
-  const word = (n, lang) => { if (!WORD[lang][n]) die('no word for the count ' + n); return WORD[lang][n]; };
+  const word = (n) => { if (!WORD[n]) die('no word for the count ' + n); return WORD[n]; };
   const cite = (s) => N(s);                                             /* a citation's year is the citation's own */
   const name = (s) => N(s);                                             /* a name that holds a digit (sha256) is not a quantity */
   const lic = /^(CC BY-SA \d+(?:\.\d+)?)/.exec(M.dataset.license || '');
@@ -208,49 +208,27 @@ function build(dir, ctx) {
   const DS = M.dataset.name; N(DS);
   if (!/^Reis, Guimarães/.test(paper[1])) die('the ledger\'s paper is not Reis, Guimarães et al.');
   const ref = () => 'Reis, Guimar&atilde;es et al. (Ocean Engineering, ' + N(paper[3]) + ')';
-  const pnbTxt = (lang) => {
-    if (!pnb) return lang === 'pt' ? 'nenhuma comparação com medições registrada.' : 'no comparison with measurements on record.';
-    const v = (s, derived) => W.value(s, W.COMPUTED, { derived, title: lang === 'pt' ? 'computado: estatística em ponto flutuante (certs/janela-pnboia-check.json)' : 'computed: a float statistic (certs/janela-pnboia-check.json)' });
-    const rng = (q, signed) => (signed ? sgn(q[0]) : '') + dc(q[0], lang) + (lang === 'pt' ? ' a ' : ' to ') + (signed ? sgn(q[1]) : '') + dc(q[1], lang) + ' m';
-    return lang === 'pt'
-      ? 'contra as boias PNBOIA da Marinha, em ' + pt(pnb.nodes) + ' nós da margem brasileira (' + pt(pnb.pairs) + ' pares, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), o viés foi de ' + v(rng(pnb.bias, true), pnb.biasFrom) + ' e o RMS de ' + v(rng(pnb.rms), pnb.rmsFrom) + ' (certs/janela-pnboia-check.json): em todos os estados de mar. Os extremos, que a onda de projeto lê, nunca foram conferidos.'
-      : 'against the Navy\'s PNBOIA buoys, at ' + en(pnb.nodes) + ' nodes of the Brazilian margin (' + en(pnb.pairs) + ' pairs, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), its bias ran ' + v(rng(pnb.bias, true), pnb.biasFrom) + ' and its RMS ' + v(rng(pnb.rms), pnb.rmsFrom) + ' (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked.';
+  const pnbTxt = () => {
+    if (!pnb) return 'no comparison with measurements on record.';
+    const v = (s, derived) => W.value(s, W.COMPUTED, { derived, title: 'computed: a float statistic (certs/janela-pnboia-check.json)' });
+    const rng = (q, signed) => (signed ? sgn(q[0]) : '') + dc(q[0]) + ' to ' + (signed ? sgn(q[1]) : '') + dc(q[1]) + ' m';
+    return 'against the Navy\'s PNBOIA buoys, at ' + en(pnb.nodes) + ' nodes of the Brazilian margin (' + en(pnb.pairs) + ' pairs, ' + N(pnb.from) + '&ndash;' + N(pnb.to) + '), its bias ran ' + v(rng(pnb.bias, true), pnb.biasFrom) + ' and its RMS ' + v(rng(pnb.rms), pnb.rmsFrom) + ' (certs/janela-pnboia-check.json): over every sea state. Its extremes, which a design wave reads, were never checked.';
   };
   /* the chain every cell's number travels, without the cell's own figures: the card's chain is this one, with the
      cell's own figures in the second and the last premise (map-client.js restsOn) */
-  const premItems = (lang) => {
-    const p = lang === 'pt';
-    return [
-      { grade: W.ASSUMED, label: p ? 'O hindcast' : 'The hindcast', evidence: (p ? DS + ' (Ifremer WAVEWATCH III), a saída de um modelo de ondas; ' : DS + ' (Ifremer WAVEWATCH III), a wave model\'s output; ') + pnbTxt(lang) },
-      { grade: W.ASSUMED, label: p ? 'Máximos independentes, de um clima que não muda' : 'Independent maxima, from a climate that does not change', evidence: p ? 'os máximos de cada bloco são tomados como independentes e de uma mesma lei, e ' + Y.n + ' anos de um clima valem por ' + T0 + ' ou ' + T1 + '; os máximos diários vêm em tempestades (o cartão de cada célula diz o quanto).' : 'each block\'s maxima are taken as independent and from one law, and ' + Y.n + ' years of one climate stand for ' + T0 + ' or ' + T1 + '; daily maxima come in storms (each cell\'s card says how much).' },
-      { grade: W.VERIFIED, label: p ? 'Os ajustes' : 'The fits', evidence: p ? 'cada família, por máxima verossimilhança, é uma caixa que o operador de Krawczyk prova conter o único máximo da verossimilhança ali, com a hessiana provada negativa definida: decidido. O código reproduz formas fechadas e valores de ' + D50 + ' dígitos (instruments/hseva/battery.js).' : 'each family, by maximum likelihood, is a box the Krawczyk operator proves holds the likelihood\'s one maximum there, the Hessian proved negative definite: decided. The code reproduces closed forms and ' + D50 + '-digit values (instruments/hseva/battery.js).' },
-      { grade: W.ASSUMED, label: p ? 'O melhor máximo de cada família' : 'Each family\'s best maximum', evidence: p ? 'que nenhum máximo melhor exista em outro ponto da família é afirmação da busca, como em qualquer otimizador.' : 'that no better maximum lies elsewhere in the family is the search\'s claim, as it is any optimiser\'s.' },
-      { grade: W.ASSUMED, label: p ? 'A família escolhida na mesma amostra' : 'The family chosen on the same sample', evidence: p ? 'Anderson&ndash;Darling escolhe entre as ' + word(PAPER_SIX.length, 'pt') + ' nos mesmos máximos aos quais elas foram ajustadas; nenhuma amostra guardada fora decide entre famílias.' : 'Anderson&ndash;Darling chooses among the ' + word(PAPER_SIX.length, 'en') + ' on the same maxima they were fitted to; no held-out sample decides between families.' },
-    ];
-  };
+  const premItems = () => [
+    { grade: W.ASSUMED, label: 'The hindcast', evidence: DS + ' (Ifremer WAVEWATCH III), a wave model\'s output; ' + pnbTxt() },
+    { grade: W.ASSUMED, label: 'Independent maxima, from a climate that does not change', evidence: 'each block\'s maxima are taken as independent and from one law, and ' + Y.n + ' years of one climate stand for ' + T0 + ' or ' + T1 + '; daily maxima come in storms (each cell\'s card says how much).' },
+    { grade: W.VERIFIED, label: 'The fits', evidence: 'each family, by maximum likelihood, is a box the Krawczyk operator proves holds the likelihood\'s one maximum there, the Hessian proved negative definite: decided. The code reproduces closed forms and ' + D50 + '-digit values (instruments/hseva/battery.js).' },
+    { grade: W.ASSUMED, label: 'Each family\'s best maximum', evidence: 'that no better maximum lies elsewhere in the family is the search\'s claim, as it is any optimiser\'s.' },
+    { grade: W.ASSUMED, label: 'The family chosen on the same sample', evidence: 'Anderson&ndash;Darling chooses among the ' + word(PAPER_SIX.length) + ' on the same maxima they were fitted to; no held-out sample decides between families.' },
+  ];
   /* the line that names the weakest premise, by its grade (W.weakest over the chain) and by name */
-  const meetOf = (lang, items) => (lang === 'pt'
-    ? 'A conta é exata; a premissa mais fraca é <b>' + WP.GRADE[W.weakest(...items.map((x) => x.grade))] + '</b>: o hindcast, a independência, a busca e a escolha da família.'
-    : 'The arithmetic is exact; the weakest premise is <b>' + W.GRADE[W.weakest(...items.map((x) => x.grade))] + '</b>: the hindcast, the independence, the search and the choice of family.');
-  const chain = (lang) => { const items = premItems(lang); return (lang === 'pt' ? WP : W).premisesHtml(items, { meetLine: meetOf(lang, items) }); };
+  const meetOf = (items) => 'The arithmetic is exact; the weakest premise is <b>' + W.GRADE[W.weakest(...items.map((x) => x.grade))] + '</b>: the hindcast, the independence, the search and the choice of family.';
+  const chain = () => { const items = premItems(); return W.premisesHtml(items, { meetLine: meetOf(items) }); };
 
-  const how = {
-    pt: `<h3>O que o mapa mostra</h3>
-<p>Cada célula é um nó do hindcast do artigo de ${ref('pt')}: ${pt(sea.length)} de mar aberto, num reticulado de ${L4}&deg; do globo, num de ${L1}&deg; da margem brasileira e nos ${pt(nRep)} nós do relatório. A cor é a <b>onda de projeto</b>: a altura significativa de onda (H<sub>s</sub>) do nível de retorno de ${T0} ou de ${T1} anos, na família que Anderson&ndash;Darling decide entre ${word(PAPER_SIX.length, 'pt')}, nos máximos diários, semanais ou mensais de ${Y.a} a ${Y.b}. Uma célula <b>recusada</b> fica hachurada: ali nenhuma família é decidida, ou o nível dela não se fecha num intervalo exato, e o cartão diz por quê. As ${pt(ice.length)} que o gelo marinho do próprio hindcast toca em algum momento aparecem pontilhadas: mostradas, não certificadas.</p>
-<h3>Cada célula na sua área verdadeira</h3>
-<p>O mapa usa a projeção Equal Earth (${cite('Šavrič, Patterson e Jenny, 2018')}), de áreas iguais: cada célula ocupa no mapa uma área proporcional à que ocupa no oceano, e uma célula de ${L4}&deg; perto do polo não parece maior do que é. Arraste para mover, use a roda ou dois dedos para aproximar; &ldquo;Margem brasileira&rdquo; enquadra o reticulado de ${L1}&deg;.</p>
-<h3>Como ler cada número</h3>
-<p>Um número <b>decidido</b> é um intervalo exato, arredondado para fora ao centímetro: a ponta de baixo para baixo, a de cima para cima. A largura que outros ${Y.n} anos do mesmo mar poderiam dar (${LV}%, método delta) é <b>estatística</b>, sublinhada tracejada: computada, não decidida. Uma <b>recusa</b> não tem marca: &empty; e o motivo.</p>
-${WP.legendHtml({ code: fs.readFileSync(path.join(HERE, 'map-client.js'), 'utf8') })}
-<h3>Em que cada número se apoia</h3>
-<p>A conta é exata, e cada número se apoia em premissas conferidas até degraus diferentes; uma conclusão vale o degrau da sua premissa mais fraca. O cartão de cada célula repete esta cadeia com os números dela.</p>
-${chain('pt')}
-<h3>O globo</h3>
-<p>No <a href="../">globo</a> ficam as afirmações regionais do artigo, decididas como caixas, as outras vistas (qual família, os critérios, a sétima família, a incerteza) e, em cada célula, o certificado: ela pode ser certificada de novo no seu navegador, com o código do próprio registro, a partir dos dados fixados por ${SHA}.</p>
-<h3>Fontes</h3>
-<p>Ondas: Ifremer WAVEWATCH III ${DS} (<a href="https://doi.org/${M.dataset.doi}">doi</a>), ${LIC}. Terra: Natural Earth, domínio público. O registro: <a href="https://github.com/${REPO}/blob/main/certs/hseva-atlas.json">certs/hseva-atlas.json</a>. Código (MIT): <a href="https://github.com/${REPO}/tree/main/playground/return-level-atlas">playground/return-level-atlas</a>.</p>`,
-    en: `<h3>What the map shows</h3>
-<p>Each cell is a node of the hindcast of ${ref('en')}: ${en(sea.length)} in the open sea, on a ${L4}&deg; lattice of the globe, a ${L1}&deg; lattice of the Brazilian margin and the report's ${en(nRep)} nodes. The colour is the <b>design wave</b>: the significant wave height (H<sub>s</sub>) of the ${T0}- or ${T1}-year return level, in the family Anderson&ndash;Darling decides among ${word(PAPER_SIX.length, 'en')}, on the daily, weekly or monthly maxima of ${Y.a} to ${Y.b}. A <b>refused</b> cell is hatched: there no family is decided, or its level does not close into an exact interval, and the card says why. The ${en(ice.length)} that the hindcast's own sea ice touches at some step are dotted: shown, not certified.</p>
+  const how = `<h3>What the map shows</h3>
+<p>Each cell is a node of the hindcast of ${ref()}: ${en(sea.length)} in the open sea, on a ${L4}&deg; lattice of the globe, a ${L1}&deg; lattice of the Brazilian margin and the report's ${en(nRep)} nodes. The colour is the <b>design wave</b>: the significant wave height (H<sub>s</sub>) of the ${T0}- or ${T1}-year return level, in the family Anderson&ndash;Darling decides among ${word(PAPER_SIX.length)}, on the daily, weekly or monthly maxima of ${Y.a} to ${Y.b}. A <b>refused</b> cell is hatched: there no family is decided, or its level does not close into an exact interval, and the card says why. The ${en(ice.length)} that the hindcast's own sea ice touches at some step are dotted: shown, not certified.</p>
 <h3>Every cell at its true area</h3>
 <p>The map uses the Equal Earth projection (${cite('Šavrič, Patterson and Jenny, 2018')}), which keeps areas: each cell takes a share of the map in proportion to its share of the ocean, and a ${L4}&deg; cell near the pole looks no bigger than it is. Drag to move, use the wheel or two fingers to zoom; &ldquo;Brazilian margin&rdquo; frames the ${L1}&deg; lattice.</p>
 <h3>How to read each number</h3>
@@ -258,33 +236,28 @@ ${chain('pt')}
 ${W.legendHtml({ code: fs.readFileSync(path.join(HERE, 'map-client.js'), 'utf8') })}
 <h3>What each number rests on</h3>
 <p>The arithmetic is exact, and each number rests on premises checked to different rungs; a conclusion is as checked as its weakest premise. Each cell's card repeats this chain with its own figures.</p>
-${chain('en')}
+${chain()}
 <h3>The globe</h3>
 <p>On the <a href="../">globe</a> are the paper's regional claims, decided as boxes, the other views (which family, the criteria, the seventh family, the uncertainty) and, in each cell, the certificate: it can be certified again in your browser, with the record's own code, from the data pinned by ${SHA}.</p>
 <h3>Sources</h3>
-<p>Waves: Ifremer WAVEWATCH III ${DS} (<a href="https://doi.org/${M.dataset.doi}">doi</a>), ${LIC}. Land: Natural Earth, public domain. The record: <a href="https://github.com/${REPO}/blob/main/certs/hseva-atlas.json">certs/hseva-atlas.json</a>. Code (MIT): <a href="https://github.com/${REPO}/tree/main/playground/return-level-atlas">playground/return-level-atlas</a>.</p>`,
-  };
-  const lede = {
-    pt: 'A onda que uma estrutura deve aguentar, célula por célula: decidida onde o registro decide, recusada &mdash; com o porquê &mdash; onde não decide.',
-    en: 'The wave a structure must stand, cell by cell: decided where the record decides, refused &mdash; with the reason &mdash; where it does not.',
-  };
-  const bil = (k, tag, cls) => ['pt', 'en'].map((l) => `<${tag} class="${cls}" data-l="${l}"${l === 'pt' ? '' : ' hidden'}>${k[l]}</${tag}>`).join('');
+<p>Waves: Ifremer WAVEWATCH III ${DS} (<a href="https://doi.org/${M.dataset.doi}">doi</a>), ${LIC}. Land: Natural Earth, public domain. The record: <a href="https://github.com/${REPO}/blob/main/certs/hseva-atlas.json">certs/hseva-atlas.json</a>. Code (MIT): <a href="https://github.com/${REPO}/tree/main/playground/return-level-atlas">playground/return-level-atlas</a>.</p>`;
+  const lede = 'The wave a structure must stand, cell by cell: decided where the record decides, refused &mdash; with the reason &mdash; where it does not.';
   const panelHtml = `
 <div class="rm-grab" aria-hidden="true"></div>
 <div class="rm-phead">
-  <div class="rm-eyebrow"><span data-l="pt">instrumentos &middot; atlas de níveis de retorno</span><span data-l="en" hidden>instruments &middot; return-level atlas</span></div>
-  <h1 class="rm-q"><span data-l="pt">Onda de projeto</span><span data-l="en" hidden>Design wave</span></h1>
-  ${bil(lede, 'p', 'rm-lede')}
+  <div class="rm-eyebrow">instruments &middot; return-level atlas</div>
+  <h1 class="rm-q">Design wave</h1>
+  <p class="rm-lede">${lede}</p>
   <div class="rm-qrow"><div class="rm-seg" id="rm-T" role="radiogroup"></div><div class="rm-seg" id="rm-B" role="radiogroup"></div></div>
   <div id="rm-key" aria-live="polite"></div>
 </div>
-<nav class="rm-tabs" role="tablist"><button type="button" class="rm-tab on" data-tab="places" role="tab" aria-selected="true"><span data-l="pt">Lugares</span><span data-l="en" hidden>Places</span></button><button type="button" class="rm-tab" data-tab="how" role="tab" aria-selected="false"><span data-l="pt">Como ler</span><span data-l="en" hidden>How to read</span></button></nav>
+<nav class="rm-tabs" role="tablist"><button type="button" class="rm-tab on" data-tab="places" role="tab" aria-selected="true">Places</button><button type="button" class="rm-tab" data-tab="how" role="tab" aria-selected="false">How to read</button></nav>
 <div class="rm-scroll" id="rm-scroll">
-  <section class="rm-pane on" data-pane="places"><div id="rm-list"><p class="rm-note" id="rm-wait"><span data-l="pt">Lendo o registro do atlas&hellip;</span><span data-l="en" hidden>Reading the atlas&rsquo;s record&hellip;</span></p></div><section id="rm-card" hidden></section></section>
-  <section class="rm-pane rm-how" data-pane="how">${bil(how, 'div', 'rm-howl')}</section>
+  <section class="rm-pane on" data-pane="places"><div id="rm-list"><p class="rm-note" id="rm-wait">Reading the atlas&rsquo;s record&hellip;</p></div><section id="rm-card" hidden></section></section>
+  <section class="rm-pane rm-how" data-pane="how"><div class="rm-howl">${how}</div></section>
 </div>`;
-  const topHtml = `<div class="rm-top"><nav class="rm-views" aria-label="globo ou mapa"><a href="../" id="rm-to-globe"><span data-l="pt">Globo</span><span data-l="en" hidden>Globe</span></a><a aria-current="page" href="./"><span data-l="pt">Mapa</span><span data-l="en" hidden>Map</span></a></nav><div class="rm-lang" role="group" aria-label="idioma / language"><button type="button" data-lang="pt">PT</button><button type="button" data-lang="en">EN</button></div></div>`;
-  const extraHtml = `<div class="rm-ctl" id="rm-ctl" role="group" aria-label="enquadrar"><button type="button" id="rm-world"><span data-l="pt">Mundo</span><span data-l="en" hidden>World</span></button><button type="button" id="rm-brazil"><span data-l="pt">Margem brasileira</span><span data-l="en" hidden>Brazilian margin</span></button><button type="button" id="rm-zin" aria-label="+">+</button><button type="button" id="rm-zout" aria-label="&minus;">&minus;</button></div>
+  const topHtml = `<div class="rm-top"><nav class="rm-views" aria-label="globe or map"><a href="../" id="rm-to-globe">Globe</a><a aria-current="page" href="./">Map</a></nav></div>`;
+  const extraHtml = `<div class="rm-ctl" id="rm-ctl" role="group" aria-label="frame the map"><button type="button" id="rm-world">World</button><button type="button" id="rm-brazil">Brazilian margin</button><button type="button" id="rm-zin" aria-label="zoom in">+</button><button type="button" id="rm-zout" aria-label="zoom out">&minus;</button></div>
 <div id="rm-tip" role="tooltip" hidden></div>`;
   /* the page's own words carry no number a record did not give */
   for (const [where, h] of [['the panel', panelHtml], ['the top bar', topHtml], ['the map', extraHtml]]) {
@@ -293,8 +266,8 @@ ${chain('en')}
     if (bad.length) die('a number typed in ' + where + ' that no record gives: ' + bad.join(', '));
   }
 
-  /* ---- the tab's modules: the grammar's renderer in both languages and the shared rules, as text (Swell's way) ---- */
-  const MOD = [['grammar.js', 'design/grammar.js'], ['warrant.js', 'playground/warrant.js'], ['warrant-pt.js', 'playground/warrant-pt.js'], ['shared.js', 'playground/return-level-atlas/shared.js']];
+  /* ---- the tab's modules: the grammar's renderer and the shared rules, as text (Swell's way) ---- */
+  const MOD = [['grammar.js', 'design/grammar.js'], ['warrant.js', 'playground/warrant.js'], ['shared.js', 'playground/return-level-atlas/shared.js']];
   const mods = { src: {}, sha: {} };
   for (const [k, rel] of MOD) { const t = fs.readFileSync(path.join(ROOT, rel), 'utf8'); mods.src[k] = t; mods.sha[rel] = sha(t); }
   const MODS = 'window.RLA_MAP_MODS=' + JSON.stringify(mods).replace(/</g, '\\u003c') + ';\n';
@@ -304,15 +277,15 @@ ${chain('en')}
     periods, blocks: BLK, fam: PAPER_SIX, nBlock, years: { first: first.slice(0, 4), last: last.slice(0, 4), n: Math.round(years) }, stat: { level: Number(lvl[1]) },
     places, frame: { brazil: [[ext.lon[0] - 0.5, ext.lat[0] - 0.5], [ext.lon[1] + 0.5, ext.lat[1] + 0.5]] },
     pnb: pnb ? { at: pnb.at } : null, dataset: DS,
-    prem: Object.fromEntries(['pt', 'en'].map((l) => { const it = premItems(l); return [l, { items: it, meet: meetOf(l, it) }]; })),
+    prem: (() => { const it = premItems(); return { items: it, meet: meetOf(it) }; })(),
     shas: { 'app.js': sha(APPJS), 'mods.js': sha(MODS), 'cells.json': sha(cellsJson), 'shared.js': mods.sha['playground/return-level-atlas/shared.js'] },
   };
   const html = renderApp({
-    title: 'Onda de projeto — o atlas de níveis de retorno, em mapa plano',
-    description: 'A onda de projeto de 100 e 1000 anos em cada célula do hindcast de Reis, Guimarães et al. (Ocean Engineering 2026), num mapa de áreas iguais: decidida onde o registro decide, recusada com o motivo onde não decide, as seis famílias lado a lado e a largura estatística à parte.',
-    path: '/instruments/return-level-atlas/map/', lang: 'pt-BR', appName: '<span data-l="pt">Atlas de níveis de retorno</span><span data-l="en" hidden>Return-level atlas</span>', brand: 'CERT-MACHINE', homeHref: '/',
-    topHtml, navLinks: [{ href: '/instruments/', label: '<span data-l="pt">instrumentos</span><span data-l="en" hidden>instruments</span>' }],
-    mapAria: 'Mapa-múndi de áreas iguais (Equal Earth) dividido em células, cada uma sombreada pela onda de projeto; células recusadas hachuradas, células com gelo marinho pontilhadas',
+    title: 'Design wave — the return-level atlas as a flat map',
+    description: 'The 100- and 1000-year design wave in every cell of the hindcast of Reis, Guimarães et al. (Ocean Engineering 2026), on an equal-area map: decided where the record decides, refused with the reason where it does not, the six families side by side and the statistical width apart.',
+    path: '/instruments/return-level-atlas/map/', lang: 'en', appName: 'Return-level atlas', brand: 'CERT-MACHINE', homeHref: '/',
+    topHtml, navLinks: [{ href: '/instruments/', label: 'instruments' }],
+    mapAria: 'An equal-area (Equal Earth) world map divided into cells, each shaded by its design wave; refused cells hatched, cells touched by sea ice dotted',
     cssRaw: CSS, noDock: true, noLeft: true, warrant: true,
     panelHtml, extraHtml,
     configGlobal: 'RLA_MAP', configJson: JSON.stringify(cfg).replace(/</g, '\\u003c'),
