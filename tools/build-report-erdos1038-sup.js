@@ -57,7 +57,7 @@ const ratDec = (a, k, up) => {
 };
 const encOut = (m, k) => '[' + ratDec(m.lo, k, false) + ', ' + ratDec(m.hi, k, true) + ']';
 const fromStr = (s) => { const [n, d] = String(s).split('/'); return { n: BigInt(n), d: BigInt(d || '1') }; };
-const timed = (t) => W.value(t, W.COMPUTED, { title: 'a wall-clock time, measured: not decided' });
+const timed = (t, from) => W.value(t, W.COMPUTED, { derived: from, title: 'a wall-clock time, measured: not decided' });
 
 /* ---- the sources the framing rests on, re-hashed: the page states a theorem of the literature, so the bytes
    that state it must still be the bytes read on 2026-10-05 (the problem page's sup = 2√2, formal-conjectures'
@@ -262,6 +262,7 @@ B.push(C.section({
        playground/warrant.js; and 2√2, an exact value that was drawn dashed (computed), is a solid rule. charts.scatter
        carries all three without a hand-written stroke; the two families keep their greys on the knots */
     C.figure({
+      record: 'certs/sublevel-tao179.json', stop: 'a point of either family reaches 2√2',
       /* the floor follows the knots: drawn as dots, the cubic's last knots fell below a fixed 2.35 and onto the axis */
       svgRaw: CH.scatter({
         w: 900, h: 400, x0: 0.5, x1: 1.0, y0: Y0, y1: 2.9, padL: 62,
@@ -305,12 +306,15 @@ B.push(C.section({
       { raw: v.n % 2 === 1 ? C.tag('strict', 'held') : C.tag('localized', 'cert') }
     ]);
   /* the degree the budget could not close keeps its row (WARRANT rule 7: ∅ and a word, never a blank or a zero) */
-  for (const [, v] of failedRows.sort((a, b) => a[1].n - b[1].n)) rows.push([
+  /* D10: a refused row's cells, addressed by its key in the record (a key with a space cannot be: an address list is
+     split on whitespace) */
+  const thAt = (k, field) => /\s/.test(k) ? undefined : 'certs/sublevel-tao179.json#/theorems/' + k + '/' + field;
+  for (const [k, v] of failedRows.sort((a, b) => a[1].n - b[1].n)) rows.push([
     { raw: C.m('N = ' + v.n) },
-    { raw: W.value('not decided', W.REFUSED, { title: 'refused: ' + v.failed }) + ' — ' + C.esc(String(v.failed)) },
-    { raw: W.value('none', W.REFUSED, { title: 'the record keeps no box count for a refused run' }) },
-    { raw: W.value('none', W.REFUSED, { title: 'the record keeps no depth for a refused run' }) },
-    { raw: timed((v.ms / 1000).toFixed(0) + ' s') },
+    { raw: W.value('not decided', W.REFUSED, { derived: thAt(k, 'failed'), title: 'refused: ' + v.failed }) + ' — ' + C.esc(String(v.failed)) },
+    { raw: W.value('none', W.REFUSED, { derived: thAt(k, 'failed'), title: 'the record keeps no box count for a refused run' }) },
+    { raw: W.value('none', W.REFUSED, { derived: thAt(k, 'failed'), title: 'the record keeps no depth for a refused run' }) },
+    { raw: timed((v.ms / 1000).toFixed(0) + ' s', thAt(k, 'ms')) },
     { raw: C.tag('refused', 'open') }
   ]);
   B.push(C.section({

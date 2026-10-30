@@ -196,7 +196,7 @@ O.push(C.section({
       + '½(−(c + λ) ± √((c − λ)² − 4σ²λ²)), non-real exactly when λ(1 − 2σ) < c < λ(1 + 2σ). For σ = ½ that window is 0 < c < 2λ, so at c = 1 '
       + 'every mode is a non-real pair; for σ = 0.3 and c = 2 no mode is, which is why R1 comes back real and undecided.')
     + '</div>'
-    + C.figure({ svgRaw: FIG_PLANE, caption: 'Figure 1 · The complex plane. Solid marks: the five certified eigenvalues, each an interval box too small to draw, at the non-constant equilibria M1, M2 and the herding branch H1, H2, and at the control C1. Dashed hollow marks: the closed-form modes of the constant solutions at c = 1 and c = −12. Ticks on the real axis: the real eigenvalues reached on R1 and H0, floats, undecided.' })
+    + C.figure({ svgRaw: FIG_PLANE, record: 'certs/monoflow-spectrum.json', stop: 'the live re-derivation differs from the record, or the record no longer holds five decided and two undecided instances', caption: 'Figure 1 · The complex plane. Solid marks: the five certified eigenvalues, each an interval box too small to draw, at the non-constant equilibria M1, M2 and the herding branch H1, H2, and at the control C1. Dashed hollow marks: the closed-form modes of the constant solutions at c = 1 and c = −12. Ticks on the real axis: the real eigenvalues reached on R1 and H0, floats, undecided.' })
     + C.figure({ svgRaw: FIG_AXIS, caption: 'Figure 2 · Where the constant solution\'s modes go non-real, by the closed form: the window λ_k(1 − 2σ) < c < λ_k(1 + 2σ) on the coupling axis. For σ = ½ it starts at c = 0, so monotone and non-gradient coincide on the whole positive axis; for σ = 0.3 it starts at 15.8, leaving R1 at c = 2 real. The instances and the pitchfork c* are marked.' })
 }));
 

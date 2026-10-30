@@ -23,8 +23,11 @@ const py = (args) => cp.execFileSync('python3', args, { cwd: ROOT, encoding: 'ut
    0.0121266…) and §2 printed e^−U(1), the edge of the strip the rule accepts, rounded up (0.26292279 for 0.2629227864…). */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const OUT = require(path.join(ROOT, 'design', 'outward.js'));
-const said = (s, title) => W.value(C.esc(String(s)), W.COMPUTED, { title: title || 'printed by HorizonMath: a claim, not decided here' });
-const timed = (s) => W.value(C.esc(String(s)), W.COMPUTED, { title: 'a wall-clock time of their checker, measured on 2026-09-29: not decided' });
+/* D10: a claimant's number names the record cell that holds it; a timing names the cell it is read from */
+const said = (s, title, claim) => W.value(C.esc(String(s)), W.COMPUTED, { claim, title: title || 'printed by HorizonMath: a claim, not decided here' });
+const WHY_TIMED = 'a wall-clock time of their checker, measured on 2026-09-29: not decided';
+const timed = (s, from) => W.value(C.esc(String(s)), W.COMPUTED, { derived: from, title: WHY_TIMED });
+const LEDGER = 'certs/horizonmath-ledger.json', META = 'corpus/horizonmath/meta.json';
 const floated = (s, title) => W.value(C.esc(String(s)), W.COMPUTED, { title });
 
 try { py(['tools/run-horizonmath-ledger.py', '--check']); } catch (e) { die('the ledger does not re-derive: ' + (e.stdout || e.message)); }
@@ -140,7 +143,7 @@ B_.push(C.tldr({
     + bm[3] + ' red controls fired.'
 }));
 B_.push(C.stats([
-  { k: 'discoveries credited', vRaw: said('6', 'the paper\'s own count (p. 8): a claim, not decided here'), n: 'Three by GPT-5.4 Pro (reproduced by GPT-5.6 Sol Max), three more by GPT-5.6 Sol Max alone.' },
+  { k: 'discoveries credited', vRaw: said('6', 'the paper\'s own count (p. 8): a claim, not decided here', META + '#/sources/paper/read'), n: 'Three by GPT-5.4 Pro (reproduced by GPT-5.6 Sol Max), three more by GPT-5.6 Sol Max alone.' },
   { k: 'constructions printed', v: '3', n: 'Appendix A details A.1–A.3; the paper says it details all six.' },
   { k: 'certified', v: '1', n: 'The Kakeya union area, as an exact rational.' },
   { k: 'refuted', v: '1', n: 'The Ramsey certificate: its pair at λ = 1 lies outside the region its theorem needs.' }
@@ -155,11 +158,11 @@ B_.push(C.section({
   lab: '§1 · the claim', title: 'A better base for diagonal Ramsey numbers',
   bodyRaw: [
     C.pRaw('Campos, Griffiths, Morris and Sahasrabudhe proved R(k, k) ≤ (4 − ε)^k in 2023; Gupta, Ndiaye, Norin and Wei (GNNW) optimised the argument to '
-      + 'R(k, k) ≤ ' + said(gnnwBase, 'GNNW\'s published bound (arXiv:2407.19026v2): printed, not decided here') + '^(k+o(k)). Their Theorem 14 turns three conditions on functions F, M and Y of λ = ℓ/k into the bound R(k, ℓ) ≤ e^(F(ℓ/k)k + o(k)): '
+      + 'R(k, k) ≤ ' + said(gnnwBase, 'GNNW\'s published bound (arXiv:2407.19026v2): printed, not decided here', LEDGER + '#/rows[id=' + R.id + ']/claim') + '^(k+o(k)). Their Theorem 14 turns three conditions on functions F, M and Y of λ = ℓ/k into the bound R(k, ℓ) ≤ e^(F(ℓ/k)k + o(k)): '
       + 'F and F′ positive; the pair (X(λ), Y(λ)) in a region R, with X(λ) = (1 − e^−F′(λ))^(1/(1−M(λ)))·(1 − M(λ)); and F(λ) > −½(log X + λ log M + λ log Y). '
       + 'At λ = 1 the bound is the diagonal one, c = e^F(1).'),
-    C.pRaw('HorizonMath poses this as a problem and credits GPT-5.4 Pro with a certificate: GNNW\'s own cubic correction plus ' + said(quint.replace('-', '−'), 'the certificate\'s printed coefficient (Appendix A.3): its input, as printed') + ' λ⁵, and M and Y constant on '
-      + PRN.M_values.length + ' intervals of (' + Number(PRN.lambda0) + ', 1]. Its checker accepts it, with c = ' + said(theirC, 'what their checker printed, in mpmath: a claim, not decided here') + '. The rebuilt certificate reproduces that number here, enclosed: '
+    C.pRaw('HorizonMath poses this as a problem and credits GPT-5.4 Pro with a certificate: GNNW\'s own cubic correction plus ' + said(quint.replace('-', '−'), 'the certificate\'s printed coefficient (Appendix A.3): its input, as printed', 'corpus/horizonmath/ramsey-a3-printed.json#/coeffs/4') + ' λ⁵, and M and Y constant on '
+      + PRN.M_values.length + ' intervals of (' + Number(PRN.lambda0) + ', 1]. Its checker accepts it, with c = ' + said(theirC, 'what their checker printed, in mpmath: a claim, not decided here', LEDGER + '#/rows[id=' + R.id + ']/theirChecker') + '. The rebuilt certificate reproduces that number here, enclosed: '
       /* both ends, outward at 14 decimals (it printed one end cut at 16 characters until 2026-10-28) */
       + C.m('[' + OUT.down(D.cEnclosure[0], 14) + ', ' + OUT.up(D.cEnclosure[1], 14) + ']') + '.'),
     C.pRaw('The paper calls this "a verified certificate in the Gupta–Ndiaye–Norin–Wei framework", and says all six discoveries "have been verified by domain experts".')
@@ -175,7 +178,7 @@ B_.push(C.section({
       + 'R(k, ℓ) = R(ℓ, k), the pair (x, y) is accepted if either (x, y) ∈ R₀ or (y, x) ∈ R₀." Symmetry makes R symmetric; it does not turn a one-sided test into a '
       + 'two-sided one. Because U increases on (0, 1], the first line holds for every y as soon as x ≤ e^−U(1), and e^−U(1) ≥ ' + OUT.down(eU1, 8) + ' — so the rule accepts, for '
       + 'instance, (' + EX[0] + ', ' + EX[1] + '), which R cannot contain: it lies above and to the right of the λ = 1 pair, which §3 decides is outside R, and R contains every pair below and left of any of its points.'),
-    C.figure({ svgRaw: FIG, caption: 'Each dot is one of the certificate\'s pairs (X(λ), Y(λ)), at the midpoint of an interval where M and Y are constant; the diamond is λ = 1. '
+    C.figure({ svgRaw: FIG, record: LEDGER, stop: 'the pair at λ = 1 is not the one decided outside R, or the row of pairs at its Y no longer sits between X = 0.23 and 0.26', caption: 'Each dot is one of the certificate\'s pairs (X(λ), Y(λ)), at the midpoint of an interval where M and Y are constant; the diamond is λ = 1. '
       + 'Colour is repeated in the legend and in the table below. The strokes carry standing: the dashed curve is computed in floats; the solid diagonal y = 1 − x and the solid vertical at e^−U(1) are exact.' }),
     C.pRaw('The certificate sets Y "' + shrinkPct + ' below the active xy = e^−U(1) branch" on every interval — a branch Lemma 15 proves only for '
       + floated(a1.toFixed(4), LEMMA15) + ' ≤ x ≤ ' + floated(b1.toFixed(4), LEMMA15) + ', the middle stretch of the dashed curve, where it follows xy = e^−U(1).')
@@ -194,8 +197,8 @@ B_.push(C.section({
     C.pRaw('Across the certificate: ' + D.outsideR + ' of ' + D.points + ' points outside R, each with its own (e, p); ' + D.notPlacedByU + ' where one rational s shows the '
       + 'problem\'s own U does not place the pair (it may or may not lie in R by some other bound); ' + D.notRefutedHere + ' not refuted — the pairs with X near the '
       + 'window where the xy = e^−U(1) branch is legitimate.'),
-    C.pRaw('The checker, run as published at the pinned commit, accepts the certificate in ' + timed(OBS.ramseyValidator.seconds + ' s') + '. With ' + C.m('min(bu, bs)') + ' changed to ' + C.m('max(bu, bs)')
-      + ' — both orientations required — it refuses it in ' + timed(andSecs + ' s') + ', on the first interval: ' + C.esc('"R_0 check failed somewhere on [0.001, 0.0010014]"') + '.'),
+    C.pRaw('The checker, run as published at the pinned commit, accepts the certificate in ' + W.val({ rec: { path: META, ptr: '/observed/ramseyValidator/seconds' }, standing: W.COMPUTED, fmt: 'int', why: WHY_TIMED }) + ' s' + '. With ' + C.m('min(bu, bs)') + ' changed to ' + C.m('max(bu, bs)')
+      + ' — both orientations required — it refuses it in ' + timed(andSecs + ' s', META + '#/observed/ramseyValidatorWithAnd/output') + ', on the first interval: ' + C.esc('"R_0 check failed somewhere on [0.001, 0.0010014]"') + '.'),
     /* WHAT THE REFUTATION RESTS ON (WARRANT v2.1, rule 11; a step read and not run is graded assumed, 2026-10-28) */
     C.pRaw('<b>What the refutation rests on</b>, in the order the decision travels through it:') + W.premisesHtml([
       { grade: W.ASSUMED, label: 'GNNW\'s region R, and its closure under smaller x and y', evidence: 'their definition (12) and Lemma 15, read in arXiv:2407.19026v2 (pinned by sha256 in <span class="m">corpus/<wbr>horizonmath/<wbr>meta.json</span>); no machine here checked them' },
@@ -210,7 +213,7 @@ B_.push(C.section({
       + 'crossings of the 256 edge lines the union\'s cross-section has a fixed combinatorial shape, so its length is linear there; summing width times midpoint '
       + 'length over the ' + K.decided.pieces.toLocaleString('en-US') + ' pieces gives the area as a rational, with no rounding anywhere:'),
     C.eq(C.esc('Area(E) = ' + K.decided.area.num + ' / ' + K.decided.area.den + ' = ' + K.decided.area.decimal.slice(0, 22) + '…')),
-    C.pRaw('That is at least ' + OUT.down(K.decided.improvement, 8) + ' below the printed AlphaEvolve baseline ' + said(KAK.baseline, 'the AlphaEvolve baseline the problem statement prints: a claim, not decided here; the comparison with it is exact') + ', and the paper\'s ' + said(KAK.printedArea, 'the area the paper prints: a claim; decided here to be the exact area\'s ' + K.decided.printedIs.replace(/^its /, '')) + ' is ' + K.decided.printedIs
+    C.pRaw('That is at least ' + OUT.down(K.decided.improvement, 8) + ' below the printed AlphaEvolve baseline ' + said(KAK.baseline, 'the AlphaEvolve baseline the problem statement prints: a claim, not decided here; the comparison with it is exact', 'corpus/horizonmath/kakeya-a2-intercepts.json#/baseline') + ', and the paper\'s ' + said(KAK.printedArea, 'the area the paper prints: a claim; decided here to be the exact area\'s ' + K.decided.printedIs.replace(/^its /, ''), 'corpus/horizonmath/kakeya-a2-intercepts.json#/printedArea') + ' is ' + K.decided.printedIs
       + '. The benchmark\'s own checker computes the same area in floating point, to 15 digits, against Keich\'s older baseline.')
   ].join('\n')
 }));

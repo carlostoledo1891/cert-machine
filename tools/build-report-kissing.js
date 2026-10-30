@@ -40,7 +40,7 @@ const WHY_TIME = 'a wall-clock time: measured, not decided';
 const timedAt = (file, ptr, unit) => W.val({ rec: { path: file, ptr }, standing: W.COMPUTED, fmt: 'int', why: WHY_TIME }) + unit;
 const degreesAt = (file, ptr, cos, unit) => W.val({ rec: { path: file, ptr }, standing: W.COMPUTED, fmt: 'fixed:2',
   why: (cos ? 'the cosine ' + cos + ' is exact; ' : '') + 'the degrees are its float arccos, rounded: computed, not decided' }) + unit;
-const degrees = (t, cos) => W.value(t, W.COMPUTED, { title: (cos ? 'the cosine ' + cos + ' is exact; ' : '') + 'the degrees are its float arccos, rounded: computed, not decided' });
+const degrees = (t, cos, from) => W.value(t, W.COMPUTED, { derived: from, title: (cos ? 'the cosine ' + cos + ' is exact; ' : '') + 'the degrees are its float arccos, rounded: computed, not decided' });
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 
 /* ---- gate 1: the ledger, recomputed live ---- */
@@ -331,7 +331,7 @@ B.push(C.section({
     cols: [{ h: 'bound' }, { h: 'who, when' }, { h: 'the bytes' }, { h: 'verdict here', cls: 'n' }, { h: 'exact contacts', cls: 'n' }],
     rows: [
       ['582', 'classical shell (Best 1977 class); bytes from the Station bundle', 'integer vectors, norm² 4', { raw: C.tag('CERTIFIED', 'cert') }, fmt(sh.contacts)],
-      [{ raw: W.value('592', W.COMPUTED, { title: 'Ganzhinov\'s published bound: not decided here, the bytes are queued (the queued row holds no number cell to point at)' }) }, 'Ganzhinov 2022 (arXiv:2207.08266) — the last pre-AI record', 'not yet pulled', { raw: C.tag('QUEUED', 'dep') }, { raw: W.value('no bytes', W.REFUSED, { title: 'nothing decided: the bytes are not pulled yet' }) }],
+      [{ raw: W.value('592', W.COMPUTED, { claim: LEDGER + '#/rows[id=ganzhinov-592]/claim', title: 'Ganzhinov\'s published bound: not decided here, the bytes are queued (the queued row holds no number cell to point at)' }) }, 'Ganzhinov 2022 (arXiv:2207.08266) — the last pre-AI record', 'not yet pulled', { raw: C.tag('QUEUED', 'dep') }, { raw: W.value('no bytes', W.REFUSED, { derived: [LEDGER + '#/rows[id=ganzhinov-592]/source', LEDGER + '#/rows[id=ganzhinov-592]/verdict'], title: 'nothing decided: the bytes are not pulled yet' }) }],
       ['593', 'AlphaEvolve (DeepMind), May 2025', 'integer vectors, entries up to ' + ae.form.split('up to ')[1].replace(/e(\d+)$/, (m, e) => '·10' + e.split('').map((d) => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]).join('')), { raw: C.tag('CERTIFIED', 'cert') }, ae.contacts ? fmt(ae.contacts) : '∅ none'],
       ['594', 'EinsteinArena agents — the solved public rung, score-0 winner', 'decimal literals, read as exact rationals', { raw: C.tag('CERTIFIED', 'cert') }, fmt(ea.contacts)],
       ['604 ×3', 'The Station agents (dualverse-ai), 2026', '(a+b√2)/6 entries, shell norm exactly 4', { raw: C.tag('CERTIFIED', 'cert') }, fmt(s1.contacts) + ' · ' + fmt(s2.contacts) + ' · ' + fmt(s3.contacts)],
@@ -460,6 +460,9 @@ if (wDecided.some((r) => !r.jsCheck || !r.jsCheck.agree)) die('a decided wave ro
    claimant signs: "Alexey Kravatskiy" on his write-up (the page spelled it Kravatsky until 2026-10-05) */
 const WHO = { kravatsky: 'Kravatskiy', 'takhanov-yun': 'Takhanov–Yun', qiushi: 'Qiushi Engine', ours: 'this lab' };
 const deg = (c) => (Math.acos(c) * 180 / Math.PI);
+/* D10: a wave row's cell, and a hunt row's, as an address into the ledger */
+const waveAt = (id, field) => LEDGER + '#/wave/rows[id=' + id + ']/' + field;
+const huntAt = (id, field) => LEDGER + '#/wave/hunt/rows/' + id + '/' + field;
 const dimsDecided = [...new Set(wDecided.map((r) => r.dim))].sort((a, b) => a - b);
 const best = dimsDecided.map((d) => wDecided.filter((r) => r.dim === d).sort((a, b) => b.claimed - a.claimed)[0]);
 const krav = (d) => WR.find((r) => r.claimant === 'kravatsky' && r.dim === d);
@@ -518,8 +521,11 @@ const COHN_F = 'kissing/cohn-table-extract_2026-10-11.json';
 { const v = PIN.verify(COHN_F); if (!v.ok) die('pinned source ' + COHN_F + ': ' + v.why); }
 const COHN = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'sources', COHN_F), 'utf8'));
 const qMoved = q25 && q25.families ? q25.families.find((f) => f.name === 'moved') : null;
-const floatRead = (t) => W.value(t, W.COMPUTED, { title: 'read off float64 arrays: computed, not decided' });
-const seeded = (t) => W.value(t, W.CHOSEN, { title: 'from a seeded float search (random directions, a descent, an LP polish): another seed or budget could find another cap; nothing here decided it' });
+const WHY_FLOAT = 'read off float64 arrays: computed, not decided';
+const floatRead = (t, from) => W.value(t, W.COMPUTED, { derived: from, title: WHY_FLOAT });
+const floatAt = (id, field, fmt) => W.val({ rec: { path: LEDGER, ptr: '/wave/rows[id=' + id + ']/' + field }, standing: W.COMPUTED, fmt, why: WHY_FLOAT });
+const WHY_SEEDED = 'from a seeded float search (random directions, a descent, an LP polish): another seed or budget could find another cap; nothing here decided it';
+const seeded = (t, from) => W.value(t, W.CHOSEN, { derived: from, title: WHY_SEEDED });
 /* THE GPU ROWS AND WHAT THEY REST ON (WARRANT v2.1, rule 11; the method paper states the same premise in its threats to
    validity). Until 2026-10-28 this page said their exactness "rests on the same bound" and stopped there: the bound makes
    every product and partial sum a small integer, and that is exact only if the tensor cores accumulate as documented,
@@ -566,14 +572,14 @@ B.push(C.section({
     + 'checked bound that makes every partial sum an exact integer (2<sup>24</sup> or 2<sup>53</sup>), and every sign is '
     + 'decided in the tower Q(&radic;2)(&radic;3). Dimension 18 was decided twice, in Python and again live in '
     + 'JavaScript by a separate implementation, ' + fmt(live18.pairs) + ' pairs each, the same ' + fmt(live18.contacts)
-    + ' contacts; and every other row had ' + W.value('a seeded sample', W.CHOSEN, { title: 'one sample of each row\'s vectors, picked by a seed the row records: the two implementations agree on it, not on every vector' }) + ' of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
+    + ' contacts; and every other row had ' + W.value('a seeded sample', W.CHOSEN, { derived: wDecided.map((r) => waveAt(r.id, r.jsCheck.seed !== undefined ? 'jsCheck/seed' : 'jsCheck/n')), title: 'one sample of each row\'s vectors, picked by a seed the row records: the two implementations agree on it, not on every vector' }) + ' of ' + fmt(Math.min(...wDecided.map((r) => r.jsCheck.n))) + ' to '
     + fmt(Math.max(...wDecided.map((r) => r.jsCheck.n))) + ' of its vectors decided whole by both implementations, agreeing on every contact count'
     + (wDecided.some((r) => r.jsCheck.excludedFamilies.length) ? ' (the 10<sup>19</sup>-denominator rational heads and the two irrationally normalised Qiushi points sit outside the JavaScript guard and are decided by the Python digit and integer paths only)' : '') + '.')
   + C.plainList(wDecided.slice().sort((x, y) => x.dim - y.dim || y.claimed - x.claimed).map((r) => ({
     b: 'K(' + r.dim + ') ≥ ' + fmt(r.claimed),
     raw: esc(WHO[r.claimant] + (r.ours ? ' (ours)' : '')) + (r.previous ? ' · over their stated previous ' + fmt(r.previous) + ' by +' + fmt(r.claimed - r.previous) : '')
       + ' · ' + C.tag(r.verdict, r.verdict === 'WITNESSED' ? 'cert' : 'held') + ' · ' + C.m(fmt(r.pairs)) + ' pairs, ' + C.m(fmt(r.contacts)) + ' exact contacts'
-      + (r.nearestNonContactCos ? ', nearest non-contact ' + degrees(deg(r.nearestNonContactCos).toFixed(3) + '°') : '') + ' · ' + W.val({ rec: { path: 'certs/kissing-wave.json', ptr: '/rows[id=' + r.id + ']/seconds' }, standing: W.COMPUTED, fmt: 'fixed:0', why: WHY_TIME }) + ' s' + (r.wallNote ? ' (' + esc(r.wallNote) + ')' : '')
+      + (r.nearestNonContactCos ? ', nearest non-contact ' + degrees(deg(r.nearestNonContactCos).toFixed(3) + '°', null, waveAt(r.id, 'nearestNonContactCos')) : '') + ' · ' + W.val({ rec: { path: 'certs/kissing-wave.json', ptr: '/rows[id=' + r.id + ']/seconds' }, standing: W.COMPUTED, fmt: 'fixed:0', why: WHY_TIME }) + ' s' + (r.wallNote ? ' (' + esc(r.wallNote) + ')' : '')
       + (isGpu(r) ? ' · <i>given the tensor-core premise below</i>' : ''),
   })))
   + '</div>'
@@ -583,7 +589,7 @@ B.push(C.section({
     + 'WITNESSED means the published integers, rationals and printed closed forms are already the exact configuration. '
     + 'REPAIRED means some coordinates were published only as binary64 floats of irrational numbers and the exact point '
     + 'had to be decoded from them by the claimant\'s own formula. Each decoded point, rounded back to binary64, is the published '
-    + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + W.value(D.sci(r.delta, 1, true), W.COMPUTED, { title: 'a float-to-exact distance, measured in floating point and rounded up' }))).join(', ') + ': '
+    + 'float again — ' + repaired.map((r) => WHO[r.claimant] + '\'s K(' + r.dim + ') ' + (r.delta === 0 ? 'bit for bit' : 'to within ' + W.value(D.sci(r.delta, 1, true), W.COMPUTED, { derived: waveAt(r.id, 'delta'), title: 'a float-to-exact distance, measured in floating point and rounded up' }))).join(', ') + ': '
     + 'a decode, not a correction. '
     + 'A slip in a witness would not have refuted any bound, and none occurred.')
   + (QSEC.length ? C.pRaw('<strong>The Qiushi Engine\'s dimensions 43 and 45.</strong> Their counts came from spherical-design moment identities '
@@ -633,7 +639,7 @@ B.push(C.section({
   + C.pRaw(fmt(wChoice.length) + ' rebuilds (' + wChoice.map((r) => WHO[r.claimant] + ' K(' + r.dim + ')').join(', ') + ') had to fix something '
     + 'the claimant\'s text leaves free, and the ledger row says what: which hexagon triangle or which zero-sum triangle of the '
     + 'cuboctahedron or of the D₄ roots carries which side or class, and about which coordinate axis the dimension-27 axis is turned. '
-    + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on ' + W.value('the one chosen', W.CHOSEN, { title: 'one member of the set the claimant\'s text admits, fixed here (the ledger row says which); the bound is decided on that one' }) + '. The Leech shell itself '
+    + 'Each choice is a symmetry or gives the same thresholds, and the exact decision is made on ' + W.value('the one chosen', W.CHOSEN, { derived: wChoice.map((r) => waveAt(r.id, 'choices')), title: 'one member of the set the claimant\'s text admits, fixed here (the ledger row says which); the bound is decided on that one' }) + '. The Leech shell itself '
     + 'is built here, from the Golay code spanned by the claimants\' own published owner vectors.')
   + (wNeeds.length ? C.pRaw('<strong>NEEDS DATA</strong>, ' + wNeeds.length + ' rows: ' + WHO.kravatsky + '\'s dimensions '
     + span(wNeeds.filter((r) => r.claimant === 'kravatsky').map((r) => r.dim))
@@ -645,16 +651,16 @@ B.push(C.section({
       + 'an exact witness needs that rotation as an exactly orthogonal matrix (their paper bounds the polar factor instead). '
       + 'Their dimension 25 needs no rotation and is decided above. ' : '') + WHO.kravatsky + '\'s 38 and 39 ship rebuildable data and wait their turn.'
     + (ty31 && ty31.addedPoints ? ' One fact about those bytes is already measured: the four points added in dimension 31 are stored as '
-      + '(±' + floatRead(ty31.addedPoints.horizontalCoefficient.toFixed(6)) + ' u<sub>j</sub>, ' + floatRead(ty31.addedPoints.verticalCoefficient.toFixed(6)) + ' v<sub>j</sub>) '
-      + '(to ' + floatRead(D.sci(ty31.addedPoints.residual, 0, true)) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
+      + '(±' + floatAt(ty31.id, 'addedPoints/horizontalCoefficient', 'fixed:6') + ' u<sub>j</sub>, ' + floatAt(ty31.id, 'addedPoints/verticalCoefficient', 'fixed:6') + ' v<sub>j</sub>) '
+      + '(to ' + floatRead(D.sci(ty31.addedPoints.residual, 0, true), waveAt(ty31.id, 'addedPoints/residual')) + '), where the README writes (±u<sub>j</sub>/2, (&radic;3/2) v<sub>j</sub>) — another point on the same arc, '
       + 'so the array and the text describe two configurations. Which one the paper certifies is theirs to say; neither is refuted here.' : '')) : '')
   + (hunt ? C.pRaw('<strong>The hunt.</strong> On ' + (huntIds.length === wDecided.length ? 'every configuration decided here' : huntIds.length + ' of the ' + wDecided.length + ' configurations decided here (dimensions ' + span([...new Set(huntIds.map((k) => WR.find((r) => r.id === k).dim))].sort((a, b) => a - b)) + '; the other ' + (wDecided.length - huntIds.length) + ' were not searched)') + ' the deepest empty cap was searched in floating point '
     + '(random directions, a smoothed-max descent, an LP polish to a facet normal) — floats propose, nothing more. '
     + (huntProposals.length ? huntProposals.length + ' configurations returned a candidate with a cap of 60° or more; see the rows marked ours.'
       : 'None returned a cap of 60° or more: no insertion is proposed in any of the ' + huntIds.length + ' configurations, the widest cap found being '
-        + seeded(huntDeepest.a.toFixed(3) + '°') + ' (' + WHO[WR.find((r) => r.id === huntDeepest.id).claimant] + '\'s K(' + WR.find((r) => r.id === huntDeepest.id).dim + ')) and the gap to 60° '
-        + seeded(Math.min(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '° to ' + Math.max(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '°') + ', after '
-        + seeded(fmt(Math.min(...huntIds.map((k) => hunt[k].samples_total || hunt[k].samples))) + ' random directions or more') + ' per configuration. That is a search result, not a proof that no hole exists; '
+        + W.val({ rec: { path: LEDGER, ptr: '/wave/hunt/rows/' + huntDeepest.id + '/deepest_angle_deg_float' }, standing: W.CHOSEN, fmt: 'fixed:3', why: WHY_SEEDED }) + '°' + ' (' + WHO[WR.find((r) => r.id === huntDeepest.id).claimant] + '\'s K(' + WR.find((r) => r.id === huntDeepest.id).dim + ')) and the gap to 60° '
+        + seeded(Math.min(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '° to ' + Math.max(...huntIds.map((k) => -hunt[k].gap_to_60_deg_float)).toFixed(2) + '°', huntIds.map((k) => huntAt(k, 'gap_to_60_deg_float'))) + ', after '
+        + seeded(fmt(Math.min(...huntIds.map((k) => hunt[k].samples_total || hunt[k].samples))) + ' random directions or more', huntIds.map((k) => huntAt(k, hunt[k].samples_total ? 'samples_total' : 'samples'))) + ' per configuration. That is a search result, not a proof that no hole exists; '
         + (qMoved ? 'the Qiushi Engine\'s +1 in dimension 25 needed ' + fmt(qMoved.n) + ' points MOVED first, which an insertion search does not try.' : '')) ) : '')
   + '</div>',
 }));

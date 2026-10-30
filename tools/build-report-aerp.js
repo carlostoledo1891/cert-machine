@@ -19,8 +19,11 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
    about another record (PatternBoost's 56), and the strong-form set is the claimant's own exhibit, certified here
    rather than exhibited by this page. */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
-const said = (s, title) => W.value(C.esc(String(s)), W.COMPUTED, { title: title || 'printed by someone else — a claim, not decided here' });
-const gFloat = (x, d) => W.value(x.toFixed(d), W.COMPUTED, { title: 'g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality' });
+/* D10: a claimant's number names the ledger cell that holds it; g is the far-block row's own cell, printed to d decimals */
+const LEDGER = 'certs/aerp-ledger.json';
+const at = (id, field) => LEDGER + '#/rows[id=' + id + ']/' + field;
+const said = (s, title, claim) => W.value(C.esc(String(s)), W.COMPUTED, { claim, title: title || 'printed by someone else — a claim, not decided here' });
+const gFloat = (x, d) => W.val({ rec: { path: LEDGER, ptr: '/rows[id=aerp-p42-far-block-1163]/g' }, standing: W.COMPUTED, fmt: 'fixed:' + d, why: 'g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality' });
 const die = (m) => { console.error('AERP REPORT REFUSED: ' + m); process.exit(1); };
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim(); } catch (e) { return 'unknown'; } })();
 const py = (args) => cp.execFileSync('python3', ['-I'].concat(args), { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 26 });
@@ -88,10 +91,10 @@ B.push(C.scope('The claims: issues #4–#12 of github.com/google-deepmind/alphae
 B.push(C.tldr({
   findingRaw: '<b>Every finite claim holds.</b> No five on a sphere: ' + p60.length + ' point sets from ' + word(p60Who.size) + ' contributors, n = ' + nLo + ' to ' + nHi + ', ' + fmt(quads) + ' quadruples keyed by their exact hyperplane and '
     + 'no two alike — the best certified sizes run from ' + best[String(nLo)] + ' at n = ' + nLo + ' to ' + best[String(nHi)] + ' at n = ' + nHi + ' where the repository stops at n = ' + repoN + ' with ' + repoSize + '. No isosceles triangles: both ' + p59[0].size + '-point sets '
-    + 'at n = 32 are clean over all ' + fmt(p59[0].triples) + ' triples and maximal, so under the notebook\'s definition the literature\'s "f(32) = ' + said(56, 'printed by PatternBoost (arXiv:2411.00566 §4.1) and repeated by the AlphaEvolve paper — a claim, not decided here') + ', SAT-optimal" (PatternBoost) is not the maximum; whether the SAT work used another definition is the open question (§2). Ring loading: '
+    + 'at n = 32 are clean over all ' + fmt(p59[0].triples) + ' triples and maximal, so under the notebook\'s definition the literature\'s "f(32) = ' + said(56, 'printed by PatternBoost (arXiv:2411.00566 §4.1) and repeated by the AlphaEvolve paper — a claim, not decided here', at(p59[0].id, 'where')) + ', SAT-optimal" (PatternBoost) is not the maximum; whether the SAT work used another definition is the open question (§2). Ring loading: '
     + '47/42 holds under either reading of the problem; <b>9/8 holds <em>given the thread\'s reading, k = 1..m</em>, and <em>given the notebook\'s, k = 1..m−1</em>, only once padded with two zero pairs '
     + 'or in the m = 17 instance of the zip</b> — the notebook\'s own text and its code agree with each other and differ from the thread\'s. Sums and differences: the far-block set rebuilt from its '
-    + 'rule has g = ' + gFloat(far.g, 5) + ' > 1.163, above Penman–Wells\' ' + said('1.12594') + ' and the repository\'s ' + said('1.12194', 'the repository\'s best_list in float; its sums and differences are re-counted exactly here') + '; the ' + fmt(strong.size) + '-integer set violates the strong inequality by exactly ' + strong.slack + '.',
+    + 'rule has g = ' + gFloat(far.g, 5) + ' > 1.163, above Penman–Wells\' ' + said('1.12594', undefined, at(far.id, 'where')) + ' and the repository\'s ' + said('1.12194', 'the repository\'s best_list in float; its sums and differences are re-counted exactly here', at(far.id, 'where')) + '; the ' + fmt(strong.size) + '-integer set violates the strong inequality by exactly ' + strong.slack + '.',
   mechanismRaw: 'Integers only: squared distances for triangles; for spheres, the 4-subset hyperplane key (a primitive integer 5-vector) whose duplicates are exactly the zero 5 × 5 determinants, '
     + 'cross-checked against every 5-subset\'s determinant on the smaller sets; for ring loading every 2ᵐ sign pattern on lcm-scaled integers; for sumsets a bitset, with g > 1.163 decided as an '
     + 'integer inequality. The repository\'s own constructions decide as its notebooks report (' + L.controls.length + ' controls).',
@@ -100,7 +103,7 @@ B.push(C.tldr({
 B.push(C.stats([
   { k: 'claims decided', v: String(cnt.CERTIFIED), n: cnt.REFUTED + ' refuted · ' + cnt.REFUSED + ' refused (no finite object). ' + Word(problemsCert) + ' problems, ' + word(issuesHeld) + ' issues, ' + word(certWho.size) + ' contributors behind the certified objects.' },
   { k: 'C(' + nHi + ') ≥', v: String(best[String(nHi)]), n: 'No five on a sphere, ' + nHi + ' × ' + nHi + ' × ' + nHi + '; the repository records ' + repoSize + ' at n = ' + repoN + ' and nothing beyond.' },
-  { k: 'C(32) ≥ ' + p59[0].size, v: word(p59.length) + ' sets', nRaw: 'No isosceles triangles; under the notebook\'s definition PatternBoost\'s "' + said(56, 'printed by PatternBoost (arXiv:2411.00566 §4.1) — a claim, not decided here') + ', SAT-optimal" (§4.1) is not the maximum.' },
+  { k: 'C(32) ≥ ' + p59[0].size, v: word(p59.length) + ' sets', nRaw: 'No isosceles triangles; under the notebook\'s definition PatternBoost\'s "' + said(56, 'printed by PatternBoost (arXiv:2411.00566 §4.1) — a claim, not decided here', at(p59[0].id, 'where')) + ', SAT-optimal" (§4.1) is not the maximum.' },
   { k: 'ring loading', v: '9/8', n: 'Under k = 1..m; under the notebook\'s k = 1..m−1 the same bound needs the padded or the m = 17 instance.' }
 ]));
 B.push('<div class="col">' + C.pRaw('Every verdict below is an exact decision and is printed plain. A number the page did not decide — g in floating point, or a value the literature or the repository printed — is underlined dashed; a verdict that holds only under one reading of a problem names the reading in italic.')
@@ -122,7 +125,7 @@ B.push(C.section({
   lab: '§2 · no isosceles triangles', title: 'Problem 59: ' + p59[0].size + ' where 56 was called optimal',
   bodyRaw: C.pRaw('hashkanna\'s two 58-point subsets of the 32 × 32 grid (#10) contain no three points with two equal distances, the collinear midpoint case included: ' + fmt(p59[0].triples)
     + ' triples each, zero isosceles, and neither admits another grid point (maximal). The external certificate file equals set_a byte for byte in content' + (p59[0].externalFileEqualsSetA ? '' : ' — NO') + '. '
-    + 'PatternBoost (arXiv:2411.00566 §4.1) captions "f(32) = ' + said(56, 'printed by PatternBoost — a claim, not decided here') + '" and says SAT solvers prove optimality up to n ≈ 32; the AlphaEvolve paper repeats the figure. An explicit ' + p59[0].size + '-point object under the '
+    + 'PatternBoost (arXiv:2411.00566 §4.1) captions "f(32) = ' + said(56, 'printed by PatternBoost — a claim, not decided here', at(p59[0].id, 'where')) + '" and says SAT solvers prove optimality up to n ≈ 32; the AlphaEvolve paper repeats the figure. An explicit ' + p59[0].size + '-point object under the '
     + 'notebook\'s definition means one of three things — a different definition in the SAT work, a slip in the caption, or an error here — and this page can only rule out the third: the decider '
     + 'reproduces the notebook\'s own ' + c64.size + '-point n = ' + c64.n + ' and ' + c100.size + '-point n = ' + c100.n + ' constructions as admissible and catches a planted midpoint.')
 }));
@@ -139,14 +142,14 @@ B.push(C.section({
   lab: '§4 · sums and differences', title: 'Problem 42: the finite parts of a large claim',
   bodyRaw: C.pRaw('#5 offers much — C = 2, a 1.6269 instance, a ceiling theorem, a conjecture — and asks to be torn apart; its author then found Lin–Li (arXiv:2607.27199) had settled C = 2 two days earlier. '
     + 'Two parts are finite objects and are decided: the far-block set its certificate script defines (rebuilt here from the rule, |A| = ' + fmt(far.size) + ', |A+A| = ' + fmt(far.sumset) + ', |A−A| = ' + fmt(far.differenceSet)
-    + ') has g = ' + gFloat(far.g, 6) + ', and g > 1.163 is decided as |A+A|¹⁰⁰⁰|A|¹⁶³ > |A−A|¹¹⁶³ in integers — above Penman–Wells\' explicit ' + said('1.12594') + ' and the repository\'s ' + said('1.12194', 'the repository\'s best_list in float; its sums and differences are re-counted exactly here') + ' (its ' + c42.size + '-element list re-counted: ' + fmt(c42.sumset) + ' sums, ' + fmt(c42.differenceSet) + ' differences). '
+    + ') has g = ' + gFloat(far.g, 6) + ', and g > 1.163 is decided as |A+A|¹⁰⁰⁰|A|¹⁶³ > |A−A|¹¹⁶³ in integers — above Penman–Wells\' explicit ' + said('1.12594', undefined, at(far.id, 'where')) + ' and the repository\'s ' + said('1.12194', 'the repository\'s best_list in float; its sums and differences are re-counted exactly here', at(far.id, 'where')) + ' (its ' + c42.size + '-element list re-counted: ' + fmt(c42.sumset) + ' sums, ' + fmt(c42.differenceSet) + ' differences). '
     + 'The explicit ' + fmt(strong.size) + '-integer set of its §5 has |A+A| = ' + fmt(strong.sumset) + ', |A−A| = ' + fmt(strong.differenceSet) + ', diameter ' + fmt(strong.diameter) + ': |A+A| + |A| exceeds |A−A| + diam + 1 by ' + strong.slack + ', as stated. '
-    + 'The ' + said('1.6269', 'the claimant\'s printed value; REFUSED here — nothing finite to decide') + ' instance (an 86-digit modulus) is REFUSED: nothing enumerable, and its count rests on an argument its authors call machine-generated and unreviewed.')
+    + 'The ' + said('1.6269', 'the claimant\'s printed value; REFUSED here — nothing finite to decide', at(ref1.id, 'claim')) + ' instance (an 86-digit modulus) is REFUSED: nothing enumerable, and its count rests on an argument its authors call machine-generated and unreviewed.')
 }));
 B.push(C.section({
   lab: '§5 · refused', title: 'What has no finite object to decide',
   bodyRaw: C.table({ cols: [{ h: 'claim' }, { h: 'why refused' }], rows: refused.map((r) => [{ raw: C.esc(r.claim) }, { raw: C.esc(r.how) }]) })
-    + C.pRaw('A refusal is a verdict about the evidence, not the mathematics: the sofa may well have volume ' + said('1.8558', 'the claimant\'s printed volume; REFUSED here — a float cube count, nothing exact to decide') + ', but a cube count under a 0.05° tolerance is a measurement, and the page says so rather than lending it a certificate.')
+    + C.pRaw('A refusal is a verdict about the evidence, not the mathematics: the sofa may well have volume ' + said('1.8558', 'the claimant\'s printed volume; REFUSED here — a float cube count, nothing exact to decide', at('aerp-p64-sofa-1.8558', 'claim')) + ', but a cube count under a 0.05° tolerance is a measurement, and the page says so rather than lending it a certificate.')
 }));
 B.push(C.section({
   lab: '§6 · limits', title: 'What is not decided here',

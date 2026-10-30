@@ -653,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -887,7 +893,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <text x="542" y="387" font-size="13.5" fill="var(--ink-2)">through the middle zone</text>
 </svg>
   </div>
-  <figcaption>The same instant, computed both ways — real numbers from the flight below, not a schematic. The dashed line is a point estimate: one glide ratio, one forecast wind, one weight — a model’s answer, computed. The two solid boundaries enclose every value those inputs can take, decided given the hypotheses of §5; the soft halo past them is the glide model’s own error, which nothing here has measured. The line spends most of its length inside the zone where nothing is settled.</figcaption>
+  <figcaption data-record="apps/glide-band/data/flight.json@5bca0088c1d4 apps/glide-band/data/airports.json@5cf70e90638f" data-stop>The same instant, computed both ways — real numbers from the flight below, not a schematic. The dashed line is a point estimate: one glide ratio, one forecast wind, one weight — a model’s answer, computed. The two solid boundaries enclose every value those inputs can take, decided given the hypotheses of §5; the soft halo past them is the glide model’s own error, which nothing here has measured. The line spends most of its length inside the zone where nothing is settled.<span class="fig-rec">Records: <span class="m">apps/glide-band/data/flight.json</span> · sha256 5bca0088c1d4; <span class="m">apps/glide-band/data/airports.json</span> · sha256 5cf70e90638f</span><span class="fig-stop">The build refuses this figure if a pinned data file no longer matches its sha256, or a refutation appears inside a nominal ring whose configured glide ratio lies inside its envelope.</span></figcaption>
 </figure></div>
 
 <div class="col"><div class="w-legend compact" data-n="2" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div></div>
@@ -1406,7 +1412,7 @@ draw();
 <text x="777" y="242" text-anchor="middle" font-size="12" font-weight="600" fill="var(--c-1)">29 refuted</text>
 </svg>
   </div>
-  <figcaption>The fourth cell is the same aircraft as the third with the propeller unfeathered. Nothing about the panel changed — it is still configured with the feathered ratio, because nothing tells it otherwise — so its dashed line now sits outside the boundary beyond which nothing is reachable at all. The glider scenario is left off this figure deliberately: its reach is roughly four times the others and on a shared scale it collapses these four to dots. It appears in the composition chart below, where the axis is a proportion.</figcaption>
+  <figcaption data-record="apps/glide-band/data/flight.json@5bca0088c1d4 apps/glide-band/data/airports.json@5cf70e90638f" data-stop>The fourth cell is the same aircraft as the third with the propeller unfeathered. Nothing about the panel changed — it is still configured with the feathered ratio, because nothing tells it otherwise — so its dashed line now sits outside the boundary beyond which nothing is reachable at all. The glider scenario is left off this figure deliberately: its reach is roughly four times the others and on a shared scale it collapses these four to dots. It appears in the composition chart below, where the axis is a proportion.<span class="fig-rec">Records: <span class="m">apps/glide-band/data/flight.json</span> · sha256 5bca0088c1d4; <span class="m">apps/glide-band/data/airports.json</span> · sha256 5cf70e90638f</span><span class="fig-stop">The build refuses this figure if a pinned data file no longer matches its sha256, or the unfeathered-propeller scenario produces no refutation.</span></figcaption>
 </figure></div>
 
 <section class="col">
@@ -1501,7 +1507,7 @@ draw();
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-glide-band.js @ git 1eefb31d. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Generated by tools/build-report-glide-band.js @ git d049222f. The app’s battery ran as this page’s gate (20 checks, 4 reds fired), the data pins were re-hashed, and all 480 states — 16 cruise positions × 5 scenarios × 3 winds × 2 forecast modes over 320 airfields — were decided during this build. The build refuses on any deviation, and refuses if either failure scenario stops biting. Flight: N412JS, adsb.lol 2026-08-26, pinned through apps/skyaudit — ADS-B data © adsb.lol, ODbL. Airfields: OurAirports (public domain), sha256 e56b20ecaa18…. Instrument: apps/glide-band/kernel.js.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

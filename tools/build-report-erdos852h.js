@@ -183,6 +183,8 @@ B.push(C.section({
       + 'different under each reading. The data is not ambiguous about which one it belongs to.')
     + '</div>'
     + C.figure({
+      record: 'certs/erdos852-h-records.json',
+      stop: 'the record indices or start primes disagree with OEIS A078515 or A079889, or fewer than three decades contrast the two readings',
       svgRaw: CH.lines({
         w: 900, h: 340, x0: 4, x1: readings[readings.length - 1] ? Math.log10(readings[readings.length - 1].x) : 8,
         y0: 0.85, y1: Math.max(1.55, rmax + 0.05), padL: 66,

@@ -120,6 +120,8 @@ B.push(C.stats([
   const widths = R.corpus.filter(f => f.width > 0).map(f => f.width).sort((a, b) => a - b);
   if (!widths.length) die('every fact has zero width — the band figure would divide by zero');
   const wmed = widths[Math.floor(widths.length / 2)];
+  /* D10: ρ is computed from the median fact's width; the span names that cell (a fact id may hold a space, so by index) */
+  const WMED = 'certs/envs-record.json#/corpus/' + R.corpus.findIndex(f => f.width === wmed) + '/width';
   const TOL = 1e-9;
   const rho = (2 * TOL - wmed) / wmed;
   const W = 900, H = 210, L = 60, Rt = 24, midY = 96;
@@ -147,7 +149,7 @@ B.push(C.stats([
   g.push(t(px(-0.55), midY + 4, 'ACCEPTED · PROVABLY WRONG', 't-lab', 'middle'));
   g.push(t(px(0.55), midY + 4, 'ACCEPTED · PROVABLY WRONG', 't-lab', 'middle'));
   g.push(t(px(0) + encW / 2 + 8, midY + 62, 'the certificate — floored to ' + (encW).toFixed(0) + ' px so it is visible; its true width is 1/' + num(Math.round(2 * TOL / wmed)) + ' of this window', 't-note', 'start'));
-  const chosen = (x) => WR.value(x, WR.CHOSEN, { title: 'for one chosen tolerance, 1e-9, and the corpus\'s median certificate width: a member of the set, not the set' });
+  const chosen = (x) => WR.value(x, WR.CHOSEN, { derived: [WMED], title: 'for one chosen tolerance, 1e-9, and the corpus\'s median certificate width: a member of the set, not the set' });
   g.push('  </svg>');
   B.push(C.section({
     lab: '§1 · the picture', title: 'What a tolerance grader accepts', wide: true,
@@ -190,7 +192,7 @@ B.push(C.stats([
   B.push(C.section({
     lab: '§2 · the curve', title: 'Tightening the tolerance does not close the hole', wide: true,
     bodyRaw: [
-      C.figure({ svgRaw: svg, caption: 'False-accept rate against tolerance, over ' + num(R.provablyWrong)
+      C.figure({ svgRaw: svg, record: 'certs/envs-record.json', stop: 'the certificate grader false-accepts or false-rejects a submission in the record, or the absolute-tolerance grader false-accepts fewer than half of the provably-wrong ones', caption: 'False-accept rate against tolerance, over ' + num(R.provablyWrong)
         + ' provably-wrong submissions. The band closes fact by fact, as the tolerance drops below half that '
         + 'fact\'s certificate width — so the aggregate falls and reaches zero only when the tolerance is under '
         + 'half the width of every certificate in the corpus. Each dot is an exact count at one probed tolerance; the dotted joins are a picture between them.' }),
@@ -247,7 +249,7 @@ B.push(C.stats([
       C.table({ cols: [{ h: 'fact' }, { h: 'quantity' }, { h: 'width', cls: 'v' }, { h: 'read from' }], rows }),
       '<div class="col">' + C.pRaw('<strong>One of these is not like the others.</strong> '
         + C.m(pubFact.id) + ' carries the value a real problem thread actually published for the quantity: '
-        + WR.value(C.m(String(pubFact.publishedWrong)), WR.COMPUTED, { title: 'printed in the problem thread; refuted here by the certificate, never decided by it' }) + ', which sits outside our certificate by more than '
+        + WR.value(C.m(String(pubFact.publishedWrong)), WR.COMPUTED, { claim: 'certs/envs-record.json#/corpus[id=' + pubFact.id + ']/publishedWrong', title: 'printed in the problem thread; refuted here by the certificate, never decided by it' }) + ', which sits outside our certificate by more than '
         + C.m(pubGap) + ' and inside any ordinary tolerance of it. Every other canary in the suite is constructed. That one '
         + 'is a reproduction — <a href="/reports/erdos852.html">the refutation is here</a>.') + '</div>'
     ].join('\n')

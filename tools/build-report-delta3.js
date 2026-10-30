@@ -30,8 +30,11 @@ const TPL = require(path.join(ROOT, 'design', 'template.js'));
    computed at one L is a picture between them, CHOSEN (dotted) */
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const OW = require(path.join(ROOT, 'design', 'outward.js'));
-const measured = (t) => W.value(t, W.COMPUTED, { title: 'measured wall clock on the machine that wrote the record; not decided' });
-const printedBy = (t, who) => W.value(t, W.COMPUTED, { title: 'printed by ' + who + '; read here, not re-decided' });
+const WHY_CLOCK = 'measured wall clock on the machine that wrote the record; not decided';
+const measured = (t) => W.value(t, W.COMPUTED, { title: WHY_CLOCK });
+/* D10: a timing the ledger holds is read from its cell (secs() is fixed:1); the claimant's number names its claim cell */
+const measuredAt = (ptr) => W.val({ rec: { path: 'certs/delta3-ledger.json', ptr }, standing: W.COMPUTED, fmt: 'fixed:1', why: WHY_CLOCK }) + ' s';
+const printedBy = (t, who, claim) => W.value(t, W.COMPUTED, { claim, title: 'printed by ' + who + '; read here, not re-decided' });
 /* a positive exact rational p/q as a plain decimal string rounded DOWN at k places, for a lower bound to be printed outward */
 const ratDown = (s, k) => { const [p, q = '1'] = String(s).split('/'); const t = (BigInt(p) * 10n ** BigInt(k)) / BigInt(q);
   if (BigInt(p) < 0n) throw new Error('ratDown: a positive rational only'); const u = t.toString().padStart(k + 1, '0'); return u.slice(0, -k) + '.' + u.slice(-k); };
@@ -136,6 +139,8 @@ const FIG_H = CH.lines({
    and every knot computed (printed by someone else). */
 const lastL = LADDER[LADDER.length - 1];
 const lowerOf = (r) => (r.lowerDown !== null ? r.lowerDown : String(r.lower));
+/* the claimant's certificate at the last L holds the exact bound its log prints */
+const LCLAIM = 'certs/delta3/frontier/s34/cert-L' + lastL.L + '.json#/claim_delta_lower';
 const FIG_LADDER = CH.scatter({
   w: 900, h: 330, x0: 0, x1: 270, y0: 0.0498, y1: 0.0538,
   xTicks: [32, 64, 128, 192, 256].map((v) => ({ v, t: String(v) })),
@@ -174,7 +179,7 @@ O.push(C.tldr({
     + 'what every earlier relaxation could not avoid. The space is then cut into five regions by the distance from the optimum, '
     + 'and each is closed by an exact rational certificate: zero gap near the optimum, a margin of at least '
     + boundSci(minSlab, 7) + ' away from it.',
-  checkRaw: C.m('node instruments/delta3/verify.js') + ' — ' + measured(secs(L.seconds) + ' s') + ', Node only, no dependencies. It derives '
+  checkRaw: C.m('node instruments/delta3/verify.js') + ' — ' + measuredAt('/seconds') + ', Node only, no dependencies. It derives '
     + 'the colouring, h, every cell area and every bathtub constant from the mathematics, rebuilds each certificate\'s residual '
     + 'matrix exactly, proves it semidefinite exactly, and checks the cover. The battery\'s ' + nRed + ' planted forgeries are '
     + 'all refused (' + nPass + ' checks green).'
@@ -244,7 +249,7 @@ O.push(C.section({
     '[' + frac(c.region.lo) + ', ' + frac(c.region.hi) + ']', c.kind === 'inner' ? 'inner · zero gap' : 'slab',
     String(c.n), fmt(c.counts.forms), c.counts.triangles ? fmt(c.counts.triangles) : '—',
     { raw: c.kind === 'inner' ? 'E ≥ 0, equality only at σ = 0' : '<strong>E ≥ ' + boundSci(c, 6) + '</strong>' },
-    { raw: measured(secs(c.seconds) + ' s') }, { raw: C.tag('verified', 'held') }
+    { raw: measuredAt('/certificates[sha256=' + c.sha256 + ']/seconds') }, { raw: C.tag('verified', 'held') }
   ]);
   O.push(C.section({
     lab: '§3 · the certificates', title: 'Five regions, five exact identities', wide: true,
@@ -281,7 +286,7 @@ O.push(C.section({
         + 'proof force itself, in BigInt rationals: the colouring, h and its zeros, every cell area by two exact routes that must agree '
         + 'pair by pair (the trapezoid rule on the section length, and polygon clipping), the bathtub constants, the cut bounds, the '
         + 'residual matrices. It refuses any form it cannot show nonnegative and any multiplier of the wrong sign, and proves '
-        + 'semidefiniteness exactly or refuses. It accepts all five in ' + measured(secs(L.seconds) + ' s') + ', and its exact bounds equal the files\' claims.')
+        + 'semidefiniteness exactly or refuses. It accepts all five in ' + measuredAt('/seconds') + ', and its exact bounds equal the files\' claims.')
       + C.note({ lab: 'what the second reading found', bodyRaw: C.plainList([
         { b: 'the bathtub constant', text: 'The proof text writes b = (w²/2)/max m′ without saying that m′ sums over every piece of h at a level. Read as the largest single piece, b is too large and the inequality is false — ' + fmt(sp.violations) + ' exact violations in ' + fmt(sp.cases) + ' tests. The certificates were built with the summed reading and verify under it; the paper now says so.' },
         { b: 'ε is load-bearing', text: 'In every slab the residual S alone is not semidefinite (exact negative witnesses); S + εI is, and the bound B − ε(1 + n) accounts for it. Correct, and worth stating.' },
@@ -318,13 +323,13 @@ O.push(C.section({
   lab: '§5 · the measurement that led here', title: 'Why the obvious discretisation cannot reach the answer',
   bodyRaw: C.pRaw('A day earlier the same sandbox certified lower bounds the classical way — φ discretised on L equal cells, '
     + 'a Shor relaxation with triangle cuts, exact rational multipliers. Its verifier accepted δ₃ ≥ '
-    + printedBy(lowerOf(lastL), 'the claimant\'s verifier (rounded down here from its exact fraction)') + ' at L = 256 — the exact fraction '
-    + (lastL.exact || '').replace('/', ' / ') + ', printed here rounded down; the claimant\'s log prints it as ' + printedBy(lastL.logPrint, 'the claimant\'s log, rounded to nearest')
+    + printedBy(lowerOf(lastL), 'the claimant\'s verifier (rounded down here from its exact fraction)', LCLAIM) + ' at L = 256 — the exact fraction '
+    + (lastL.exact || '').replace('/', ' / ') + ', printed here rounded down; the claimant\'s log prints it as ' + printedBy(lastL.logPrint, 'the claimant\'s log, rounded to nearest', LCLAIM)
     + ', rounded to nearest, which an outside audit noted on 2026-10-20 (these were not re-decided here; the logs are kept as the claimant\'s; the certificate itself is certs/delta3/frontier/s34/cert-L256.json). '
     + 'But the model\'s own minimum, found by local search, also stays below the answer at every L: every cell pair the boundary '
     + 'crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof '
     + 'into the coordinates σ.')
-    + C.figure({ svgRaw: FIG_LADDER, caption: 'The superseded ladder. Darker dots: certified lower bounds in the L-cell model (exact, by the claimant\'s verifier; not re-decided here, so computed on this page). Lighter dots: the model\'s minimum by local search (floating point, an upper bound on what the model can certify). Each series was computed at five values of L only; the dotted joins are a picture between them. Solid: 117/2192, decided here. Dashed: the 2008 bound, proved by its authors and read here. Both series flatten under 117/2192.' })
+    + C.figure({ svgRaw: FIG_LADDER, record: ['certs/delta3/frontier/s34/ceilings.json'].concat(LADDER.map((r) => 'certs/delta3/frontier/s34/verify-L' + r.L + '.log')), stop: 'a point of the ladder reaches the answer 117/2192, or a certified bound sits above its model\'s minimum', caption: 'The superseded ladder. Darker dots: certified lower bounds in the L-cell model (exact, by the claimant\'s verifier; not re-decided here, so computed on this page). Lighter dots: the model\'s minimum by local search (floating point, an upper bound on what the model can certify). Each series was computed at five values of L only; the dotted joins are a picture between them. Solid: 117/2192, decided here. Dashed: the 2008 bound, proved by its authors and read here. Both series flatten under 117/2192.' })
     + '<div class="col">' + W.legendHtml({ compact: true }) + '</div>'
 }));
 

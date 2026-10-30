@@ -178,9 +178,9 @@ O.push(C.section({
   bodyRaw: '<div class="col">'
     + C.pRaw('At each time the shaded band is the support. Inside it the two functions are the same function. Outside it the dotted parabola is u, one admissible value function; the solid bracket is where u* lives. Early on, the bracket is wide far from the crowd: a free path from there has time to dive into the crowd, so the free value is only a lower bound and the resting path only an upper one. Near the horizon the bracket collapses and u* is the Hopf–Lax value.')
     + '</div>'
-    + C.figure({ svgRaw: FIG_P0, caption: 'Figure 2 · t ∈ [' + P0.t[0].toFixed(3) + ', ' + P0.t[1].toFixed(3) + '). The gap is largest here, and so is the bracket. The sawtooth in the vacuum is the upper bound switching between two clear paths, the resting one and a straight one, cell by cell; both are rigorous and the smaller is taken.' })
-    + C.figure({ svgRaw: FIG_P2, caption: 'Figure 3 · t ∈ [' + P2.t[0].toFixed(3) + ', ' + P2.t[1].toFixed(3) + '). The support has narrowed toward 3/2.' })
-    + C.figure({ svgRaw: FIG_P4, caption: 'Figure 4 · t ∈ [' + P4.t[0].toFixed(3) + ', ' + P4.t[1].toFixed(3) + '). Just before the horizon: u* is decided almost everywhere and meets u at the support\'s edge.' })
+    + C.figure({ svgRaw: FIG_P0, record: 'certs/maxval-cylinder.json', stop: 'the live re-derivation differs from the record, or its pair, gap or terminal flag is false', caption: 'Figure 2 · t ∈ [' + P0.t[0].toFixed(3) + ', ' + P0.t[1].toFixed(3) + '). The gap is largest here, and so is the bracket. The sawtooth in the vacuum is the upper bound switching between two clear paths, the resting one and a straight one, cell by cell; both are rigorous and the smaller is taken.' })
+    + C.figure({ svgRaw: FIG_P2, record: 'certs/maxval-cylinder.json', stop: 'the live re-derivation differs from the record, or its pair, gap or terminal flag is false', caption: 'Figure 3 · t ∈ [' + P2.t[0].toFixed(3) + ', ' + P2.t[1].toFixed(3) + '). The support has narrowed toward 3/2.' })
+    + C.figure({ svgRaw: FIG_P4, record: 'certs/maxval-cylinder.json', stop: 'the live re-derivation differs from the record, or its pair, gap or terminal flag is false', caption: 'Figure 4 · t ∈ [' + P4.t[0].toFixed(3) + ', ' + P4.t[1].toFixed(3) + '). Just before the horizon: u* is decided almost everywhere and meets u at the support\'s edge.' })
 }));
 
 O.push(C.section({

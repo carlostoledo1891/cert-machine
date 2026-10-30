@@ -146,6 +146,8 @@ O.push(C.scope('Published, not peer-reviewed, not independently rerun. Two prior
       + 'where exactly one. The T7/T8 pair straddles the boundary.') + '</div>'
       + C.figure({
         svgRaw: svg,
+        record: ['instruments/mfgcap/records/terra-phasemap.json', 'certs/terra-bracket-table.json'],
+        stop: 'the phase-map data drifted from its pin, the bracket table is not VERIFIED, or a theorem drawn as a diamond is not VERIFIED',
         caption: 'The wedge between the boundary curve and r = 1/4 (where the potential itself goes two-well) is '
           + 'where gain-weighted well-counting beats flat well-counting — the crowd re-weights the second harmonic '
           + 'the potential already contains, across the ¼ critical-point threshold. The predicted boundary meets '
@@ -191,6 +193,8 @@ function portrait(tag, title, capExtra) {
   });
   return C.figure({
     svgRaw: svg,
+    record: ['certs/terra-recert-' + tag + '.json', 'certs/terra-peakcount-' + tag + '.json'],
+    stop: 'the ' + tag.toUpperCase() + ' enclosure or its peak count is not VERIFIED',
     caption: 'σ = ' + i.sigma + ' · γ = ' + i.gamma + ' · '
       + (i.A3 ? 'A₃/A₁ = ' + (i.A3 / i.A1) + ' (third harmonic, A₂ = 0)' : 'A₂/A₁ = ' + Number((i.A2 / i.A1).toPrecision(3)))
       + ' · certified ball radius ' + e2(rc.bounds.r) + ' · min m over ball ≥ ' + rc.positivity.minM.toFixed(4)
