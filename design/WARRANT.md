@@ -121,7 +121,7 @@ probability, never a confidence. It is carried by a word first and a three-step 
     for more caution than the arithmetic shows. On Swell this applies to Pântano do Sul (0.39×), Ingleses (0.43×)
     and Galheta (0.99×), on swells of 11 s and longer.
 
-**The apps' verdict register** (`--v-cert`, `--v-refu`, `--v-refd`, design/app-shell.js) is the status kind of
+**The apps' verdict register** (`--v-cert`, `--witness`, `--v-refd`, design/app-shell.js) is the status kind of
 v2.2: decided states only, always with a shape and a word; forecast states stay in ink. It was ruled with the colour law
 on 2026-10-28, below.
 
@@ -153,7 +153,7 @@ ground. Its two main arm colours, lineage #3d8ac8 and rules #9070c8, read ΔE 0.
 | #79b9d6 | identity | lineage (the arm, and the accent: not in the founder; filled = new, ringed = changed) | Machinidae | 2026-10-28 |
 | #6744c5 | identity | the rules arm (re-stepped from #9070c8; ΔE 28 against the blue for a deuteranope) | Machinidae | 2026-10-28 |
 | #9fd0bb · #5f9a83 · #335e4e | order | how far a birth got: lived · died · stillborn | Machinidae | 2026-10-28 |
-| `--v-cert` · `--v-refu` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined; `--v-refu` IS `--witness` since 2026-10-29 | the apps (design/app-shell.js) | 2026-10-28; the red folded 2026-10-29 |
+| `--v-cert` · `--witness` · `--v-refd` | status | an app's decided state: allowed · refused by the rule · undetermined; the refused state is the witness red itself (the `--v-refu` token folded into `--witness` 2026-10-30) | the apps (design/app-shell.js) | 2026-10-28; the red folded 2026-10-29, the token 2026-10-30 |
 | #3368c1 (print) | identity | the second series compared in a print figure, always with ■ | print only (design/print/tokens.js, kits/warrant-mpl) | 2026-10-29 |
 
 Retired the same day: the Eleições page's party reds and blues. On the operator's ruling ("use between the ones the grammar
@@ -164,7 +164,8 @@ weight, and the reference line becomes the guide pattern (2 3) in ink. The aleat
 hue and keep their diamond. Rose is retired; "stillborn" takes the ramp's darkest step.
 
 **Resolved 2026-10-29:** `--v-refu` (#E06B62) and `--witness` (#e0574e) were one red to the eye (ΔE ~4) with two
-meanings, against rule 2; `--v-refu` is now the witness (see the last section).
+meanings, against rule 2; `--v-refu` is now the witness (see the last section). **2026-10-30:** the token itself is gone;
+every use is `--witness`, and its wash is `--witness-soft` (design/app-shell.js, the value `--v-refu-soft` had).
 
 ## The site pass (2026-10-28)
 
@@ -204,8 +205,9 @@ meanings, against rule 2; `--v-refu` is now the witness (see the last section).
 
 ## v2.3: on paper (approved 2026-10-29)
 
-Reports read on white paper and printed in greyscale take the print register (`design/print/tokens.js`); the site
-stays dark (battery T3b). The stroke grammar does not change: the five patterns of design/grammar.js, each standing
+Reports read on white paper and printed in greyscale take the print register (`design/print/tokens.js`). The site is
+dark by default; since 2026-10-30 a reader may switch it light, and the light theme is these same values (design/tokens.js
+LIGHT_THEME, battery T3/T3b). The stroke grammar does not change: the five patterns of design/grammar.js, each standing
 in the class and the tone role it has on screen. On paper the anchor flips: the strongest mark is the darkest, ink is
 #000000, and each weaker standing is a step lighter (computed #262626, chosen #4d4d4d, since D9 of 2026-10-29; before it the two
 were the other way round, against the order); the dash carries the standing.

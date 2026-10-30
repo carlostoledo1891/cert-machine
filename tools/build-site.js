@@ -1952,8 +1952,8 @@ const put = (rel, buf) => desired.set(rel, buf);
    — the title and D1 whole, in the page's own type and ink, no number on it (a card is not rebuilt with the page, so it
    carries nothing that can go stale but the one description, which is held for a year). The tool writes the card and a
    receipt of the words it set; the page refuses a card whose words are not this page's, whose bytes are not the ones the
-   receipt names, or that is not a 1200 × 630 PNG under 300 KB. Only the landing takes it (template.js `og`); every other
-   page keeps the site card, byte for byte. */
+   receipt names, or that is not a 1200 × 630 PNG under 300 KB. Since 2026-10-30 it is every page's default card
+   (template.js CARD); a page passing its own `og.image` keeps it. */
 const OG_LANDING = (() => {
   const png = path.join(ROOT, 'design', 'assets', 'og-landing.png'), rec = path.join(ROOT, 'design', 'assets', 'og-landing.json');
   const ok = fs.existsSync(png) && fs.existsSync(rec);
@@ -1988,6 +1988,8 @@ put('oracle/index.html', Buffer.from(TPL.render({ title: 'certify() — the rewa
   desc: 'certify() — a reward oracle for AI mathematical search: CERTIFIED, REFUTED with the exact violated equation, or REFUSED — never a guess. No float participates in any decision; red controls run at import; the ladder, the evidence, and exactly where the guarantee ends.' })));
 /* discoverability assets + crawl surface — generated, like everything else */
 put('favicon.svg', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'favicon.svg')));
+/* the retired default card, still served (2026-10-30): the frozen Petrobras pages name it in their head, and link
+   previews already shared point at it. No page built here names it any more (template.js CARD). */
 put('og.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og.png')));
 /* the write-ups: papers are generated from the same certificates as their
    report pages, and are linked from outreach, so they are served here rather

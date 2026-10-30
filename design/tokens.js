@@ -22,11 +22,23 @@
    This replaces the erdos-290 plum/green/amber house style; reverting is
    `git revert` of the restyle commit and nothing else.
 
-   ONE THEME, DELIBERATELY. Frontier is dark-first, grayscale-only ("accent
-   hues reserved for a future version"), and the operator asked for exactly
-   that. So there is ONE palette on bare `:root` with color-scheme:dark; no
-   media queries, no [data-theme] blocks, nothing undefined for anybody. The
-   three-state machinery this file used to carry is retired with it.
+   TWO THEMES: THE PALETTE AND ITS PAPER (2026-10-30, the operator's word:
+   the switch tried on /grammar/ goes on every page). Frontier is dark-first,
+   grayscale-only, and dark stays the DEFAULT: the full palette on bare `:root`
+   with color-scheme:dark. The reader may choose light with the pill under the
+   nav (design/nav.js); the choice is kept in localStorage "warrant-theme" and
+   set as data-theme="light" on <html> before the page paints. Never from the
+   OS: no prefers-color-scheme, so a reader who never touches the pill sees the
+   site as it has always been. The light theme ADDS NO COLOUR: every value in
+   LIGHT_THEME() below is the approved print register's (design/print/
+   tokens.js, v2.3 of design/WARRANT.md: white paper, the three inks, the
+   guide, the grid, the neutral order ramp), the witness keeps its one red, and
+   the strokes keep their order the paper way, darker = stronger. It is defined
+   HERE and nowhere else (design/battery.js T3/T3b): a second light block
+   anywhere is the drift a rule defined twice always becomes. Pages that draw
+   with the screen's literal inks cannot take it and stay dark, listed with
+   the reason in DARK_ONLY_PAGES below; so do the apps (design/app-shell.js),
+   whose status greens and basemaps have no paper value.
 
    IDENTITY IS NEVER COLOUR-ALONE — more load-bearing than ever in grayscale:
    the chart series are three GRAYS (validated below), so the legend rule, the
@@ -227,6 +239,51 @@ const FRONTIER = {
   '--verdict-refuted-ink': '--ink', '--verdict-refused-ink': '--ink-3',
 };
 
+/* ------------------------------------------------------- the light theme --
+   Every house name the palette has, re-pointed at a print-register value (the
+   2026-10-30 trial on /grammar/, moved here on the operator's word). --witness
+   is not re-pointed: one red in both themes. --c-ctx follows --ink-5 by its
+   var(). A caption is text, so --ink-4 takes ink-3, never the guide (a mark
+   grade, 3.45:1 on white). Read lazily: design/print/tokens.js reads the
+   witness from this file. */
+function LIGHT_THEME() {
+  const PR = require('./print/tokens.js');
+  const p = (n) => PR.hex(n);
+  const L = { '--paper': p('--paper'), '--surface': p('--paper'), '--sunk': p('--paper'), '--surface2': p('--o-1'),
+    '--ink': p('--ink'), '--ink-2': p('--ink-2'), '--ink-3': p('--ink-3'), '--ink-4': p('--ink-3'), '--ink-5': p('--guide'),
+    '--rule': p('--grid'), '--rule-strong': p('--o-3'), '--rule-soft': p('--o-1'),
+    '--sig': p('--ink'), '--sig-2': p('--guide'), '--sig-soft': p('--o-1'), '--held': p('--ink'), '--held-soft': p('--o-1'),
+    '--warn': p('--ink-3'), '--warn-soft': p('--paper'), '--mark': p('--o-3'), '--band-fill': 'rgba(0,0,0,.06)',
+    '--c-1': p('--ink'), '--c-2': p('--ink-3'), '--c-3': p('--guide'), '--c-grid': p('--grid'), '--c-axis': p('--guide'),
+    '--c-s1': p('--o-1'), '--c-s2': p('--o-2'), '--c-s3': p('--o-3'), '--c-s4': p('--o-4'), '--c-s5': p('--o-5') };
+  const bad = Object.keys(L).filter((k) => !(k in DARKONLY))
+    .concat(Object.entries(L).filter(([, v]) => !/^rgba\(0,0,0,/.test(v) && !PR.REGISTER.some((x) => x.hex === v)).map(([k]) => k));
+  if (bad.length) throw new Error('the light theme names a token the palette does not have, or a value outside the print register: ' + bad.join(' '));
+  return L;
+}
+
+/* PAGES THAT STAY DARK, AND WHY (2026-10-30). The light theme reaches a page
+   through the tokens; these pages draw with the screen's LITERAL inks
+   (rgba(246,246,248,a) strokes, #f6f6f8 fills, canvas colours written into
+   their scripts), which a token cannot re-point, so on white their figures
+   would lose marks. They get no pill and are never set light. A page leaves
+   this list when its builder draws in tokens. The apps are not listed: they
+   have their own shell (design/app-shell.js), which never sets the theme. */
+const DARK_ONLY_PAGES = {
+  /* measured 2026-10-30: each page loaded in Chrome with the light choice stored, every painted element read, and the
+     count of those still painted in a dark-palette value the tokens could not reach */
+  '/instruments/': 'the cards\' art is drawn in rgba(246,246,248,a) (226 marks)',
+  '/instruments/plates/': 'the plates are drawn in rgba(246,246,248,a) (3,812 marks)',
+  '/instruments/affect/': 'its plates stroke #f6f6f8 (1,478 marks)',
+  '/instruments/answer-shape/': 'its plates stroke #f6f6f8, its cells mix #f6f6f8 (1,588 marks)',
+  '/instruments/exact-geometry/': 'its plate strokes #f6f6f8 (383 marks)',
+  '/instruments/lattice-claims/': 'its axes stroke #f6f6f8 on a #0a0a0c rect (22 marks)',
+  '/instruments/navier-stokes/': 'its canvas and its SVG overlays are drawn in rgba(246,246,248,a)',
+  '/instruments/interferometer/': 'its canvas inks rgba(246,246,248,a); its panel is rgba(16,16,20,.86)',
+  '/instruments/pqc/': 'its canvas inks rgba(246,246,248,a); its panel is rgba(16,16,20,.86)',
+  '/instruments/rewire/': 'its floating panel is rgba(16,16,20,.86) under token-coloured text',
+};
+
 /* ------------------------------------------------------------- emitters --- */
 
 function block(vars, indent) {
@@ -287,8 +344,21 @@ function frontierVars() {
   return v;
 }
 
-/* ONE theme state: the full palette on bare :root, dark by declaration —
-   house names, frontier names, the scale, the faces. */
+/* the light theme's frontier spellings: the same table, read against LIGHT_THEME() */
+function frontierLightVars(L) {
+  const v = {};
+  for (const [frontier, house] of Object.entries(FRONTIER)) if (!(frontier in L)) v[frontier] = L[house] !== undefined ? L[house] : DARKONLY[house];
+  return v;
+}
+
+/* the light block, once: house names and frontier names, under the one selector the pill sets */
+function lightCss() {
+  const L = LIGHT_THEME();
+  return ':root[data-theme="light"]{\n  color-scheme:light;\n' + block(L) + '\n' + block(frontierLightVars(L)) + '\n}';
+}
+
+/* The palette on bare :root, dark by declaration — house names, frontier
+   names, the scale, the faces — then the one light block. */
 function rootCss() {
   return [
     ':root{',
@@ -299,7 +369,8 @@ function rootCss() {
     fontBlock(),
     '  --font-sans:var(--f-sans);',
     '  --font-mono:var(--f-mono);',
-    '}'
+    '}',
+    lightCss()
   ].join('\n');
 }
 
@@ -330,8 +401,8 @@ const CHART = {
    the one shell and the same Google Fonts request the reports make. Vendoring
    full-coverage subsets is a follow-up (DEBT.md).                          */
 
-/* Kept exports: LIGHT/DARK aliases point at the one palette so any consumer
-   still importing them keeps working while it migrates. */
-module.exports = { LIGHT: DARKONLY, DARK: DARKONLY, DARKONLY, TYPE, GOOGLE_FONTS,
+/* DARK is the default palette under its old alias. The light theme is LIGHT_THEME(), a function because it reads the
+   print register lazily; the old LIGHT alias of the one palette is retired with the one-theme rule (2026-10-30). */
+module.exports = { DARK: DARKONLY, DARKONLY, LIGHT_THEME, DARK_ONLY_PAGES, TYPE, GOOGLE_FONTS,
   SCALE, LAYOUT, MEASURE, SHADOW, RHYTHM, SPACE, SHAPE, MOTION, FRONTIER,
-  FIGURE_TOKENS, CHART, rootCss, fontBlock, scaleVars, frontierVars };
+  FIGURE_TOKENS, CHART, rootCss, lightCss, fontBlock, scaleVars, frontierVars };

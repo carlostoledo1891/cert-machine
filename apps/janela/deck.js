@@ -118,7 +118,7 @@ function css() {
 .jn-c{display:inline-flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:13px;font-weight:600;letter-spacing:.1em;padding:.4em .9em;border-radius:8px;border:1px solid;white-space:nowrap;align-self:flex-start}
 .jn-c i{display:inline-block;width:11px;height:11px;border-radius:2px}
 .jn-c.L{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}.jn-c.L i{background:var(--v-cert)}
-.jn-c.V{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}.jn-c.V i{border:1.5px solid var(--v-refu);background:linear-gradient(45deg,transparent 42%,var(--v-refu) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--v-refu) 42% 58%,transparent 58%)}
+.jn-c.V{color:var(--witness);border-color:var(--witness);background:var(--witness-soft)}.jn-c.V i{border:1.5px solid var(--witness);background:linear-gradient(45deg,transparent 42%,var(--witness) 42% 58%,transparent 58%),linear-gradient(-45deg,transparent 42%,var(--witness) 42% 58%,transparent 58%)}
 .jn-c.I{color:var(--ink-2);border-color:var(--ink-3);background:var(--surface2)}.jn-c.I i{border:1px solid var(--ink-2);background:repeating-linear-gradient(135deg,var(--ink-2) 0 1px,transparent 1px 3px)}
 .jn-c.S{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}.jn-c.S i{background:radial-gradient(circle,var(--v-refd) 1px,transparent 1.2px) 0 0/3.5px 3.5px}
 .gl{font-family:var(--f-mono);font-size:11px;color:var(--ink-3);margin-top:8px;max-width:27ch;line-height:1.4}

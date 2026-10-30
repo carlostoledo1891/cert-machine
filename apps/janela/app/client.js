@@ -1364,7 +1364,7 @@ var MAP = { map: null };
 function tok(n) { return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
 function rgba(hex, a) { var h = hex.replace('#', ''); if (h.length === 3) h = h.split('').map(function (c) { return c + c; }).join(''); var n = parseInt(h, 16); return 'rgba(' + (n >> 16 & 255) + ',' + (n >> 8 & 255) + ',' + (n & 255) + ',' + a + ')'; }
 var COL = {};
-function colors() { ['--paper', '--surface', '--surface2', '--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--rule', '--rule-strong', '--v-cert', '--v-refu', '--v-refd', '--v-cert-soft', '--v-refu-soft', '--v-refd-soft'].forEach(function (k) { COL[k] = tok(k); }); }
+function colors() { ['--paper', '--surface', '--surface2', '--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--rule', '--rule-strong', '--v-cert', '--witness', '--v-refd', '--v-cert-soft', '--witness-soft', '--v-refd-soft'].forEach(function (k) { COL[k] = tok(k); }); }
 colors();
 var MONO = tok('--f-mono');
 function viewRect() {
@@ -1424,7 +1424,7 @@ function glyph(c, x, y, r, v, square, sel) {
   c.save();
   path(); c.fillStyle = COL['--paper']; c.fill();
   if (v === 'L') { path(); c.fillStyle = COL['--v-cert']; c.fill(); }
-  else if (v === 'V') { path(); c.lineWidth = 1.6; c.strokeStyle = COL['--v-refu']; c.stroke(); var k = r * 0.55; c.beginPath(); c.moveTo(x - k, y - k); c.lineTo(x + k, y + k); c.moveTo(x + k, y - k); c.lineTo(x - k, y + k); c.stroke(); }
+  else if (v === 'V') { path(); c.lineWidth = 1.6; c.strokeStyle = COL['--witness']; c.stroke(); var k = r * 0.55; c.beginPath(); c.moveTo(x - k, y - k); c.lineTo(x + k, y + k); c.moveTo(x + k, y - k); c.lineTo(x - k, y + k); c.stroke(); }
   else if (v === 'I') { path(); c.lineWidth = 1.2; c.strokeStyle = COL['--ink-2']; c.stroke(); path(); c.clip(); c.lineWidth = 1; c.beginPath(); for (var d = -2 * r; d <= 2 * r; d += 3) { c.moveTo(x + d - r, y + r); c.lineTo(x + d + r, y - r); } c.stroke(); }
   else if (v === 'S' || v === 'R') { c.fillStyle = COL['--v-refd']; var n = Math.max(8, Math.round(r * 2.2)); for (var j = 0; j < n; j++) { var a = j / n * Math.PI * 2, px, py; if (square) { var t = j / n * 4, side = Math.floor(t), f = t - side, s2 = r * 0.92; px = side === 0 ? x - s2 + 2 * s2 * f : side === 1 ? x + s2 : side === 2 ? x + s2 - 2 * s2 * f : x - s2; py = side === 0 ? y - s2 : side === 1 ? y - s2 + 2 * s2 * f : side === 2 ? y + s2 : y + s2 - 2 * s2 * f; } else { px = x + Math.cos(a) * r; py = y + Math.sin(a) * r; } c.beginPath(); c.arc(px, py, 0.95, 0, Math.PI * 2); c.fill(); } }
   else { c.beginPath(); c.arc(x, y, Math.max(1.6, r * 0.32), 0, Math.PI * 2); c.fillStyle = COL['--ink-5']; c.fill(); }
@@ -1494,7 +1494,7 @@ function drawMarks() {
     c.save(); c.font = '600 11px ' + MONO; c.textBaseline = 'middle'; c.fillStyle = COL['--ink']; c.fillText(txt, x0 + 18, cy - 1);
     /* the mix, as a hairline bar under the count: the count is the word, the bar the gist */
     var tot = gg.m.length, bx = x0 + 4, bwid = bw - 8, by = y0 + bh - 3.5, acc = 0;
-    [['L', COL['--v-cert']], ['I', COL['--ink-2']], ['V', COL['--v-refu']], ['S', COL['--v-refd']], ['x', COL['--ink-5']]].forEach(function (s) {
+    [['L', COL['--v-cert']], ['I', COL['--ink-2']], ['V', COL['--witness']], ['S', COL['--v-refd']], ['x', COL['--ink-5']]].forEach(function (s) {
       var ww = cnt[s[0]] / tot * bwid; if (!ww) return; c.fillStyle = s[1]; c.fillRect(bx + acc, by, Math.max(1, ww - 1), 2); acc += ww; });
     c.restore();
     PLACED.push([x0, y0, x0 + bw, y0 + bh]); PILLS.push([x0, y0, x0 + bw, y0 + bh]);

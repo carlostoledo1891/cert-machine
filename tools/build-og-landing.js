@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-/* build-og-landing.js — the landing's share card: the link preview a recipient sees before the page (og:image and
-   twitter:image of / only; every other page keeps the site card, design/assets/og.png).
+/* build-og-landing.js — the site's share card: the link preview a recipient sees before the page (og:image and
+   twitter:image of every page that does not pass its own, since 2026-10-30; design/template.js CARD). The old card,
+   design/assets/og.png, is still served at /og.png for the frozen pages and the previews already shared.
 
    WHAT IT SETS, AND WHY NOTHING ELSE. The landing's title and the one description, D1 (CLAUDE.md: adopted 2026-09-03,
    held for a year, never paraphrased) — the title is D1's head, so the card reads as one sentence in two sizes: the H1,

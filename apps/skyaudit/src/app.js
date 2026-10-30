@@ -18,7 +18,7 @@ function cssRgb(name) {
 }
 let COL = {};
 function loadColors() {
-  COL = { C: cssRgb('--v-cert'), R: cssRgb('--v-refu'), F: cssRgb('--v-refd'),
+  COL = { C: cssRgb('--v-cert'), R: cssRgb('--witness'), F: cssRgb('--v-refd'),
     sig: cssRgb('--sig'), ink: cssRgb('--ink'), dim: cssRgb('--v-refd'), gold: cssRgb('--warn') };
 }
 loadColors();
@@ -431,7 +431,7 @@ function renderMission(full) {
   $('ms-alt').textContent = Math.round(m.alt);
   $('ms-batt').textContent = batt.toFixed(0);
   $('ms-mgn').textContent = projected.toFixed(1);
-  $('ms-mgn').style.color = m.breach ? 'var(--v-refu)' : 'var(--ink)';
+  $('ms-mgn').style.color = m.breach ? 'var(--witness)' : 'var(--ink)';
   $('ms-togo').textContent = toGo.toFixed(1) + ' km';
   $('ms-eta').textContent = m.done ? '—' : eta;
   $('ms-ld').textContent = ldOf(m.v).toFixed(1);
@@ -510,11 +510,11 @@ function dzRender() {
   const pct = Math.round(b[1] / total * 100);
   const arc = $('dz-arc');
   arc.style.strokeDashoffset = (ARC_LEN * (1 - b[1] / total)).toFixed(1);
-  arc.style.stroke = pct < 20 ? 'var(--v-refu)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
+  arc.style.stroke = pct < 20 ? 'var(--witness)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
   $('dz-pct').textContent = pct + '%';
   const fill = $('dz-bfill');
   fill.style.transform = 'scaleX(' + (b[0] / 700).toFixed(3) + ')';
-  fill.style.background = pct < 20 ? 'var(--v-refu)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
+  fill.style.background = pct < 20 ? 'var(--witness)' : pct < 50 ? 'var(--warn)' : 'var(--v-cert)';
   $('dz-b-out').innerHTML = `<b>${NAMES[sp]}</b> at <b>${b[0]} kWh</b> → <b>${b[1]}/${total}</b> flights provable`;
   const r = dzLookup(DZ.reserve[sp], +$('dz-r').value);
   $('dz-r-out').innerHTML = `${NAMES[sp]} under a <b>${r[0]}-minute</b> reserve → <b>${r[1]}/${total}</b> flights provable (${Math.round(r[1] / total * 100)}%)`;
@@ -581,7 +581,7 @@ function exhaustInfo(f, key) {
   return { frac, km: target, totalKm: total, lon: f.track[i][2], lat: f.track[i][1] };
 }
 function dotHtml(v) {
-  const c = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[v];
+  const c = { C: '--v-cert', R: '--witness', F: '--v-refd' }[v];
   return `<span class="as-dot" style="background:var(${c})"></span>`;
 }
 function matrixHtml(selKey, withDots) {
@@ -684,7 +684,7 @@ function renderPanel() {
     const worst = enc.u[0] - enc.e[1] - enc.r[1] * k;
     const best = enc.u[1] - enc.e[0] - enc.r[0] * k;
     const pv = worst >= 0 ? 'C' : best < 0 ? 'R' : 'F';
-    const c = { C: '--v-cert', R: '--v-refu', F: '--v-refd' }[pv];
+    const c = { C: '--v-cert', R: '--witness', F: '--v-refd' }[pv];
     $('rsvout').innerHTML = `at a <b>${t}-minute</b> reserve: ` +
       `<span style="color:var(${c});font-weight:600">${VNAME[pv]}</span>` +
       ` · margins worst ${worst.toFixed(1)} / best ${best.toFixed(1)} kWh`;

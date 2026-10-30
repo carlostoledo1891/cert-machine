@@ -48,7 +48,7 @@ var COL = {};
 function colors() {
   var cs = getComputedStyle(document.documentElement), g = function (k) { return cs.getPropertyValue(k).trim(); };
   COL = { ink: g('--ink'), ink2: g('--ink-2'), ink3: g('--ink-3'), ink4: g('--ink-4'), ink5: g('--ink-5'), paper: g('--paper'), rule: g('--rule'),
-    ruleS: g('--rule-strong'), c2: g('--c-2'), band: g('--band-fill'), refu: g('--v-refu'), refd: g('--v-refd'), mark: g('--mark'), sunk: g('--sunk') };
+    ruleS: g('--rule-strong'), c2: g('--c-2'), band: g('--band-fill'), refu: g('--witness'), refd: g('--v-refd'), mark: g('--mark'), sunk: g('--sunk') };
 }
 function rgba(hex, a) { var h = hex.replace('#', ''); if (h.length !== 6) return hex; return 'rgba(' + [0, 2, 4].map(function (k) { return parseInt(h.slice(k, k + 2), 16); }).join(',') + ',' + a + ')'; }
 

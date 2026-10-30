@@ -23,10 +23,17 @@
    noDock / noLeft (omit those regions). With none of them passed the output
    is byte-identical to before: SkyAudit's built pages were rebuilt and diffed.
 
-   App verdict tokens (--v-cert / --v-refu / --v-refd) are defined HERE, in
-   ONE palette on bare :root, matching design/tokens.js's one-theme decision;
-   WebGL clients read the computed values at runtime — no literal colour
-   leaves this block.                                                       */
+   App verdict tokens (--v-cert / --v-refd, and the witness's wash
+   --witness-soft) are defined HERE, on bare :root; the refused state is
+   --witness itself, from design/tokens.js. WebGL clients read the computed
+   values at runtime — no literal colour leaves this block.
+
+   THE APPS STAY DARK (2026-10-30). design/tokens.js carries the site's light
+   theme since today, set by the pill under the report nav. An app does not
+   take it: its status green and its washes have no value in the print
+   register the light theme is made of, and its basemaps are dark. So this
+   shell emits no pill and nothing here ever sets data-theme (the dead
+   ?theme= stamp that used to sit in the head is gone with it).             */
 'use strict';
 
 const T = require('./tokens.js');
@@ -54,8 +61,10 @@ const T = require('./tokens.js');
    #E06B62, ΔE ~4 from the house witness #e0574e — one red to the eye with two meanings. It is the witness now, read
    from design/tokens.js, and its meaning is the witness's: a decided state shown with the datum that breaks the rule,
    always with its icon and its word. */
-const APP_DARK = { '--v-cert': '#79C79B', '--v-refu': T.DARKONLY['--witness'], '--v-refd': '#8E8499',
-  '--v-cert-soft': '#16281E', '--v-refu-soft': '#2E1917', '--v-refd-soft': '#211C29' };
+/* ONE RED, ONE NAME (operator, 2026-10-30): the --v-refu alias is gone. Every use reads --witness, and the refused
+   wash is --witness-soft (the value --v-refu-soft had: no colour changes). */
+const APP_DARK = { '--v-cert': '#79C79B', '--v-refd': '#8E8499',
+  '--v-cert-soft': '#16281E', '--witness-soft': '#2E1917', '--v-refd-soft': '#211C29' };
 /* --shadow is NOT redeclared here: design/tokens.js emits it, once, for the
    whole site. This file used to carry two more. */
 
@@ -115,7 +124,7 @@ a{color:inherit}
 .as-tracked{letter-spacing:.12em}
 .as-cert{color:var(--v-cert)}
 .as-refd{color:var(--v-refd)}
-.as-refu{color:var(--v-refu)}
+.as-refu{color:var(--witness)}
 .as-ink3{color:var(--ink-3)}
 .as-ink3-400{color:var(--ink-3);font-weight:var(--weight-body)}
 .as-dash{border-style:dashed;border-color:var(--ink-3)}
@@ -156,7 +165,7 @@ a{color:inherit}
   font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
   padding:5px 10px;border-radius:var(--radius-s);border:1px solid}
 .as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
-.as-ann.no{color:var(--v-refu);border-color:var(--v-refu);background:var(--v-refu-soft)}
+.as-ann.no{color:var(--witness);border-color:var(--witness);background:var(--witness-soft)}
 .as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
 
 /* ---- arc gauge ---- */
@@ -246,7 +255,7 @@ details.as-more[open] summary{margin-bottom:6px}
    the verdict stays on the tile's left border, never on the number */
 .as-stat b{display:block;font-family:var(--f-mono);font-weight:600;font-size:20px;line-height:1.1;color:var(--sig)}
 .as-stat span{font-family:var(--f-mono);font-size:9px;letter-spacing:.12em;color:var(--ink-3);text-transform:uppercase}
-.as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--v-refu)} .as-stat.f{border-left-color:var(--v-refd)}
+.as-stat.c{border-left-color:var(--v-cert)} .as-stat.r{border-left-color:var(--witness)} .as-stat.f{border-left-color:var(--v-refd)}
 
 /* ---- frontier rows ---- */
 .as-frow{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:7px 0;
@@ -265,7 +274,7 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
 .as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
 .as-verdict.C{border-left-color:var(--v-cert);background:var(--v-cert-soft)} .as-verdict.C .w{color:var(--v-cert)}
-.as-verdict.R{border-left-color:var(--v-refu);background:var(--v-refu-soft)} .as-verdict.R .w{color:var(--v-refu)}
+.as-verdict.R{border-left-color:var(--witness);background:var(--witness-soft)} .as-verdict.R .w{color:var(--witness)}
 .as-verdict.F{border-left-color:var(--v-refd);background:var(--v-refd-soft)} .as-verdict.F .w{color:var(--v-refd)}
 
 /* ---- enclosure viz ---- */
@@ -274,7 +283,7 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-encrow .lbl{font-family:var(--f-mono);font-size:9.5px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase;text-align:right}
 .as-encrow .track{position:relative;height:12px;background:var(--sunk);border:1px solid var(--rule-soft);border-radius:var(--radius-s)}
 .as-encrow .band{position:absolute;top:1px;bottom:1px;border-radius:5px;min-width:4px}
-.as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--v-refu)}
+.as-encrow .band.u{background:var(--v-cert)} .as-encrow .band.d{background:var(--witness)}
 .as-encscale{display:grid;grid-template-columns:64px 1fr;gap:8px;font-family:var(--f-mono);font-size:9.5px;color:var(--ink-3)}
 .as-encscale div{display:flex;justify-content:space-between}
 .as-encvals{font-family:var(--f-mono);font-size:10.5px;color:var(--ink-2);margin-top:6px;line-height:1.6}
@@ -379,9 +388,6 @@ function renderApp(o) {
 ${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path, og: o.og })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}${warrantCss(o)}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
-<script>/* ?theme=light|dark stamps the explicit theme state; absent = system */
-(function(){var t=new URLSearchParams(location.search).get('theme');
-if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</script>
 </head><body>
 <div id="map" class="as-map" aria-label="${o.mapAria || 'interactive map'}"></div>
 <header class="as-top">

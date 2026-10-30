@@ -2,9 +2,9 @@
    design/print/ · cert-machine
 
    WHY. UFSC LabECO writes reports for Petrobras as PDFs and Word documents read on white paper, and printed on mono
-   laser printers. WARRANT is dark-only on the site (design/battery.js T3b refuses a light theme there, and stays as it
-   is), so it could not reach those documents. This file is the same grammar with the ink values a white page needs.
-   Nothing here is served, and nothing on the site reads it.
+   laser printers. WARRANT was dark-only on the site, so it could not reach those documents. This file is the same
+   grammar with the ink values a white page needs. Since 2026-10-30 the site's light theme is made of these values
+   (design/tokens.js LIGHT_THEME reads them from here; the operator's word), and nothing else on the site reads it.
 
    WHAT CHANGES ON PAPER AND WHAT DOES NOT.
      · The stroke grammar does not change. Every dash pattern below is READ from design/grammar.js and the role each

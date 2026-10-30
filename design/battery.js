@@ -54,17 +54,26 @@ const CHART_SURFACE = PAL['--sunk'];
     missing.length === 0, missing.length ? missing.join(', ') : T.FIGURE_TOKENS.length + ' tokens');
 }
 {
-  check('T2 the LIGHT/DARK compatibility aliases resolve to the ONE palette (no second copy to drift)',
-    T.LIGHT === PAL && T.DARK === PAL);
+  /* the light theme (2026-10-30, the operator's word) re-points palette names only, at print-register values only:
+     LIGHT_THEME() throws otherwise, and the DARK alias is still the one palette */
+  let L = null, why = '';
+  try { L = T.LIGHT_THEME(); } catch (e) { why = e.message; }
+  const PR = require(path.join(__dirname, 'print', 'tokens.js'));
+  const ok = T.DARK === PAL && !!L && Object.keys(L).every((k) => k in PAL)
+    && Object.values(L).every((v) => /^rgba\(0,0,0,/.test(v) || PR.REGISTER.some((x) => x.hex === v)) && !('--witness' in L);
+  check('T2 the light theme names only palette tokens, takes only the print register\'s values, and keeps the one red'
+    + (why ? ' — ' + why : ' — ' + (L ? Object.keys(L).length : 0) + ' names'), ok);
 }
 {
-  /* one deliberate theme state (the frontier skin is dark-only): the full
-     palette on bare :root with color-scheme:dark, and NONE of the retired
-     three-state machinery lingering to define colours nobody can reach */
+  /* TWO THEME STATES AND NO THIRD (2026-10-30): the full palette on bare :root with color-scheme:dark, the default;
+     exactly one light block under :root[data-theme="light"], set by the reader's pill and never by the OS; and none
+     of the retired three-state machinery (a prefers-color-scheme query, a data-theme="dark" block) */
   const css = T.rootCss();
-  const ok = /:root\{/.test(css) && /color-scheme:dark/.test(css)
-    && !/prefers-color-scheme/.test(css) && !/data-theme/.test(css);
-  check('T3 the cascade is ONE deliberate theme state — dark by declaration, no dead branches', ok);
+  const ok = /:root\{\n  color-scheme:dark;/.test(css)
+    && (css.match(/:root\[data-theme="light"\]\{\n  color-scheme:light;/g) || []).length === 1
+    && (css.match(/data-theme/g) || []).length === 1
+    && !/prefers-color-scheme/.test(css);
+  check('T3 the cascade is dark by declaration plus ONE light block the pill sets — no OS branch, no dead branches', ok);
 }
 {
   /* T3b — THE SAME QUESTION, ASKED OF EVERY SURFACE THAT SHIPS CSS.
@@ -87,7 +96,8 @@ const CHART_SURFACE = PAL['--sunk'];
      check-render pays to prose in a sentence. */
   const decls = (t) => String(t).replace(/\/\*[\s\S]*?\*\//g, '');
   const add = (name, fn) => { try { surfaces.push([name, decls(fn())]); } catch (e) { surfaces.push([name, 'THREW: ' + e.message]); } };
-  add('tokens.rootCss', () => T.rootCss());
+  /* tokens.rootCss is not asked here: it is the ONE place a light block may live since 2026-10-30, and T3 above
+     holds its shape. Every other surface is asked whether it declares a second one. */
   add('nav.navCss', () => require(path.join(R, 'design/nav.js')).navCss());
   add('app-shell.appCss', () => require(path.join(R, 'design/app-shell.js')).appCss());
   add('template.css', () => require(path.join(R, 'design/template.js')).css());
@@ -103,7 +113,7 @@ const CHART_SURFACE = PAL['--sunk'];
     if (/data-theme/.test(text)) leaks.push(name + ': data-theme');
     if (/color-scheme\s*:\s*(light\b|[^;}]*\blight\s+dark)/.test(text)) leaks.push(name + ': color-scheme with a light branch');
   }
-  check('T3b no CSS surface offers a light theme — ' + surfaces.length + ' surfaces'
+  check('T3b no CSS surface but design/tokens.js declares a light theme (one definition) — ' + surfaces.length + ' surfaces'
     + (leaks.length ? ' — ' + leaks.join(' · ') : ''), leaks.length === 0);
 }
 

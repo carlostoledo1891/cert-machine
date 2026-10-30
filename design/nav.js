@@ -49,6 +49,24 @@ const GH_ICON = '<svg width="17" height="17" viewBox="0 0 16 16" fill="currentCo
   + '1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 '
   + '1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>';
 
+/* THE THEME SWITCH (2026-10-30, the operator's word: the /grammar/ trial on every page). Three pieces, emitted with
+   the nav so design/refresh.js re-bakes them into every committed page with it: the stored choice applied as the
+   nav's first child, before anything on the page paints; the pill (a group of two buttons) right after the nav; the
+   few lines that wire it. Dark is the default; the choice lives in localStorage "warrant-theme". The light values are
+   design/tokens.js's (LIGHT_THEME); a page in its DARK_ONLY_PAGES takes none of the three and stays dark. */
+const THEME_KEY = 'warrant-theme';
+const THEME_PRE = '<script>try{if(localStorage.getItem("' + THEME_KEY + '")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>';
+const THEME_PILL = '<div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>';
+const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");'
+  + 'function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");'
+  + 'for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));'
+  + 'if(keep)try{localStorage.setItem("' + THEME_KEY + '",t)}catch(e){}}'
+  + 'set(r.getAttribute("data-theme")==="light"?"light":"dark",false);'
+  + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>';
+/* the whole of what navHtml emits, for design/refresh.js to replace in one match */
+const NAV_RE = /<nav class="topnav">[\s\S]*?<\/nav>(?:<div class="theme-pill"[^>]*>[\s\S]*?<\/div><script>[\s\S]*?<\/script>)?/;
+const darkOnly = (pagePath) => !!pagePath && Object.prototype.hasOwnProperty.call(require('./tokens.js').DARK_ONLY_PAGES, pagePath);
+
 /* `here` marks the current section so the nav says where you are. `root` is
    the relative prefix from this page back to the site root — '' at the top,
    '../' one level down — so the nav resolves BOTH on the served site and in a
@@ -56,10 +74,13 @@ const GH_ICON = '<svg width="17" height="17" viewBox="0 0 16 16" fill="currentCo
    dead on disk, and the site is reviewed on disk before it is pushed.
 
    A directory link needs its index.html spelled out for file://; a served host
-   would add it. Harmless on the domain, load-bearing off it. */
-function navHtml({ here = '', root = '' } = {}) {
+   would add it. Harmless on the domain, load-bearing off it. `path` is the
+   served path, read only to keep a dark-only page dark. */
+function navHtml({ here = '', root = '', path: pagePath = '' } = {}) {
   const at = (k) => (k && k === here ? ' aria-current="page"' : '');
+  const themed = !darkOnly(pagePath);
   return '<nav class="topnav">'
+    + (themed ? THEME_PRE : '')
     + '<input type="checkbox" id="navdrawer" class="nav-ck">'
     + '<div class="topnav-in">'
     + '<a class="brand" href="' + escAttr(root + 'index.html') + '">' + esc(BRAND) + '</a>'
@@ -68,7 +89,8 @@ function navHtml({ here = '', root = '' } = {}) {
     + LINKS.map((l) => '<a href="' + escAttr(root + l.to + 'index.html')
       + '"' + at(l.here) + '>' + esc(l.t) + '</a>').join('')
     + '<a class="ghbtn" href="' + escAttr(GITHUB) + '" aria-label="GitHub">' + GH_ICON + '<span class="gh-t">GitHub</span></a>'
-    + '</div></div></nav>';
+    + '</div></div></nav>'
+    + (themed ? THEME_PILL + THEME_JS : '');
 }
 
 /* `gutter` is the page's horizontal padding token — the two shells spell it
@@ -146,7 +168,17 @@ function navCss(gutter) {
   .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
 }
 [id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
 `;
 }
 
-module.exports = { navHtml, navCss, NAV_H, LINKS, BRAND, GITHUB, GH_ICON };
+module.exports = { navHtml, navCss, NAV_H, NAV_RE, THEME_KEY, LINKS, BRAND, GITHUB, GH_ICON };

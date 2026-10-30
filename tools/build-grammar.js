@@ -312,7 +312,7 @@ function html() {
   const witnessHex = T.DARKONLY['--witness'];
   guard('the rulebook\'s registered colours disagree with the tokens, or the apps\' refused state is a second red again',
     reg.length >= 5 && reg.every((r) => r.length === 5) && reg.some((r) => r[0].includes('--witness') && r[0].includes(witnessHex))
-      && APP.APP_DARK['--v-refu'] === witnessHex, reg.length + ' rows');
+      && !('--v-refu' in APP.APP_DARK) && reg.some((r) => r[1] === 'status' && r[0].includes('--witness')), reg.length + ' rows');
   const thr = /CVD ΔE ≥ (\d+) and normal vision\s+≥ (\d+)/.exec(RB);
   const de04 = /read ΔE ([0-9.]+) apart to a deuteranope/.exec(RB), de4 = /ΔE ~(\d+)\)/.exec(RB);
   guard('the rulebook no longer states the validator\'s thresholds, or the two measurements the colour law came from', !!thr && !!de04 && !!de4);
@@ -536,8 +536,8 @@ function html() {
   const order = (ordRow[0].match(/#[0-9a-f]{6}/gi)).map((h, i) => ({ v: vOf('or' + i, h), word: ordWords[i] }));
   const stWords = /allowed · refused by the rule · undetermined/.exec(reg.find((r) => r[1] === 'status')[2]);
   guard('the apps\' status row no longer names allowed, refused by the rule and undetermined', !!stWords);
-  ['--v-cert', '--v-refu', '--v-refd'].forEach((k) => { VARS[k] = APP.APP_DARK[k]; });
-  const status = [{ v: '--v-cert', icon: '✓', word: 'allowed' }, { v: '--v-refu', icon: '×', word: 'refused by the rule' }, { v: '--v-refd', icon: '?', word: 'undetermined' }];
+  ['--v-cert', '--v-refd'].forEach((k) => { VARS[k] = APP.APP_DARK[k]; });
+  const status = [{ v: '--v-cert', icon: '✓', word: 'allowed' }, { v: '--witness', icon: '×', word: 'refused by the rule' }, { v: '--v-refd', icon: '?', word: 'undetermined' }];
   /* the validator: the pair that failed and the pair that replaced it, as most see them and as a deuteranope does */
   const pairB = /lineage (#[0-9a-f]{6}) and rules (#[0-9a-f]{6}), read ΔE ([0-9.]+) apart/i.exec(RB);
   guard('the rulebook no longer names the pair that read the same to a deuteranope', !!pairB);
@@ -560,9 +560,8 @@ function html() {
      then how the build holds it and the colour law. The rulebook's cards, every issue found, the foundations and the
      guards stay on this page, one click down. */
   const B_ = [];
-  /* the theme switch (a trial on this page): the stored choice is applied before the header paints; dark is the default */
-  B_.push('<script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>'
-    + '<div class="gx-theme" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>');
+  /* the theme switch is the site's since 2026-10-30 (design/nav.js, design/tokens.js); this page keeps only its two
+     pictures of the screen dark in either theme (.gx-screen below) */
   B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'WARRANT, the visual layer of evidence',
     deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
@@ -816,21 +815,6 @@ function html() {
   /* the print register's values are declared once in :root (the page's own tokens, where a literal belongs) and the
      paper panel re-points the screen tokens at them */
   const paperCss = Object.entries(PAPER).map(([k, v]) => { const n = '--gx-pr' + k.slice(1); VARS[n] = v; return k + ':var(' + n + ')'; }).join(';');
-  /* A LIGHT THEME, ON THIS PAGE ONLY (2026-10-30, the operator: "only on the grammar page … a light/dark switch … I want
-     to test first"). The site is one dark palette by design (design/tokens.js); this is a trial. It adds no colour: every
-     light value is the approved print register's (design/print/tokens.js: white paper, the three inks, the guide, the
-     grid, the neutral order ramp) and the witness red is the same token. The strokes keep their order the paper way,
-     darker = stronger (v2.3). A caption is text, so it takes ink-3, never the guide (which is a mark grade, 3.45:1). */
-  const LIGHT = { '--paper': prHex('--paper'), '--surface': prHex('--paper'), '--sunk': prHex('--paper'), '--surface2': prHex('--o-1'),
-    '--ink': prHex('--ink'), '--ink-2': prHex('--ink-2'), '--ink-3': prHex('--ink-3'), '--ink-4': prHex('--ink-3'), '--ink-5': prHex('--guide'),
-    '--rule': prHex('--grid'), '--rule-strong': prHex('--o-3'), '--rule-soft': prHex('--o-1'),
-    '--sig': prHex('--ink'), '--sig-2': prHex('--guide'), '--sig-soft': prHex('--o-1'), '--held': prHex('--ink'), '--held-soft': prHex('--o-1'),
-    '--warn': prHex('--ink-3'), '--warn-soft': prHex('--paper'), '--mark': prHex('--o-3'), '--band-fill': 'rgba(0,0,0,.06)',
-    '--c-1': prHex('--ink'), '--c-2': prHex('--ink-3'), '--c-3': prHex('--guide'), '--c-grid': prHex('--grid'), '--c-axis': prHex('--guide'),
-    '--c-s1': prHex('--o-1'), '--c-s2': prHex('--o-2'), '--c-s3': prHex('--o-3'), '--c-s4': prHex('--o-4'), '--c-s5': prHex('--o-5') };
-  guard('the light trial names a token the dark palette does not have, or a value outside the print register',
-    Object.keys(LIGHT).every((k) => k in T.DARKONLY) && Object.values(LIGHT).every((h) => /^rgba\(0,0,0,/.test(h) || PR.REGISTER.some((x) => x.hex === h)));
-  const lightCss = 'color-scheme:light;' + Object.entries(LIGHT).map(([k, v]) => k + ':' + v).join(';');
   /* the "on screen" sample stays the site's dark register in either theme: it is a picture of the screen */
   const DARK_SAMPLE = ['--paper', '--sunk', '--surface', '--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--rule', '--rule-strong', '--c-grid', '--c-axis'];
   const screenCss = DARK_SAMPLE.map((k) => { const n = '--gx-dk' + k.slice(1); VARS[n] = T.DARKONLY[k]; return k + ':var(' + n + ')'; }).join(';');
@@ -890,12 +874,6 @@ function html() {
 .gx-paper{${paperCss};background:var(--paper)}
 .gx-grey{filter:grayscale(1)}
 .gx-screen{${screenCss};background:var(--sunk)}
-:root[data-theme="light"]{${lightCss}}
-.gx-theme{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
-.gx-theme button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
-.gx-theme button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
-.gx-theme button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-@media (max-width:680px){.page > header{margin-top:var(--s-7)}.gx-theme{position:absolute}}   /* on a phone it stays at the top, never over the text */
 .gx-codes{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:900px){.gx-codes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-codes > div{min-width:0}
@@ -954,13 +932,8 @@ function html() {
 .gx-before .w-computed{stroke:var(${TB[1].tok})}
 .gx-before .w-chosen{stroke:var(${TB[2].tok})}
 `;
-  const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".gx-theme button");'
-    + 'function set(t){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");'
-    + 'for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));'
-    + 'try{localStorage.setItem("warrant-theme",t)}catch(e){}}'
-    + 'set(r.getAttribute("data-theme")==="light"?"light":"dark");'
-    + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"))});'
-    /* the contents follow the reader: the topic in view is marked current */
+  /* the contents follow the reader: the topic in view is marked current */
+  const THEME_JS = '<script>(function(){'
     + 'var ls=document.querySelectorAll(".gx-toc a"),m={};for(var j=0;j<ls.length;j++)m[ls[j].getAttribute("href").slice(1)]=ls[j];'
     + 'if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&m[e.target.id]){for(var k=0;k<ls.length;k++)ls[k].removeAttribute("aria-current");m[e.target.id].setAttribute("aria-current","true")}})},{rootMargin:"-30% 0px -60% 0px"});'
     + 'for(var id in m){var el=document.getElementById(id);if(el)io.observe(el)}}})();</script>';

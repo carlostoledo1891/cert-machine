@@ -51,8 +51,8 @@ button{font:inherit;color:inherit}
 .sw-ai.good{background:var(--ink);color:var(--paper);box-shadow:none}
 .sw-ai.fair{color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink-2)}
 .sw-ai.poor{color:var(--ink-5);box-shadow:inset 0 0 0 1px var(--rule)}
-.sw-ai.V{color:var(--v-refu);background:var(--v-refu-soft);box-shadow:inset 0 0 0 1.5px var(--v-refu)}
-.sw-ai.V::after{content:'';position:absolute;right:-3px;top:-3px;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:7px solid var(--v-refu)}
+.sw-ai.V{color:var(--witness);background:var(--witness-soft);box-shadow:inset 0 0 0 1.5px var(--witness)}
+.sw-ai.V::after{content:'';position:absolute;right:-3px;top:-3px;border-left:4px solid transparent;border-right:4px solid transparent;border-bottom:7px solid var(--witness)}
 .sw-ai.I{color:var(--ink);background:var(--v-refd-soft);box-shadow:inset 0 0 0 1.5px var(--v-refd)}
 .sw-ai.W{color:var(--ink-2);box-shadow:none;border:1.5px dashed var(--ink-3)}
 .sw-ai.off{opacity:.35}
@@ -67,7 +67,7 @@ button{font:inherit;color:inherit}
   box-shadow:var(--shadow);font:12px/1.45 var(--f-sans);color:var(--ink-2);pointer-events:none}
 #sw-tip b{color:var(--ink)}
 #sw-tip .w{color:var(--ink-3)}
-#sw-tip .d.V{color:var(--v-refu);font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em}
+#sw-tip .d.V{color:var(--witness);font:600 11px var(--f-mono);text-transform:uppercase;letter-spacing:.05em}
 #sw-tip .d.I{color:var(--ink);font:600 11px var(--f-mono)}
 
 /* ---- the map and what is drawn over it ---- */
@@ -93,7 +93,7 @@ canvas#sw-windfx,canvas#sw-flowfx{position:fixed;inset:0;width:100vw;height:100v
 .sw-bl .ic{display:flex;gap:3px;margin-left:1px}
 .sw-bl .ic .sw-ai{width:19px;height:19px;text-shadow:none}
 .sw-bl .ic .sw-ai:not(.good){background:color-mix(in srgb,var(--paper) 88%,transparent)}
-.sw-bl .ic .sw-ai.V{background:var(--v-refu-soft)}
+.sw-bl .ic .sw-ai.V{background:var(--witness-soft)}
 .sw-bl.off{opacity:.38}
 .sw-bl.sel .nm{text-decoration:underline;text-underline-offset:3px}
 .sw-bl.sel i.dot{transform:scale(1.4);background:var(--ink)}
@@ -131,11 +131,11 @@ body.z-far .sw-poi,body.pois-off .sw-poi,body:not(.z-near) .sw-poi-police,body:n
 .sw-act .nm{font:550 11px/1 var(--f-sans)}
 .sw-act .ct{font:600 10.5px/1 var(--f-mono);color:var(--ink-3)}
 .sw-act.good .ct{color:var(--ink)}
-.sw-act .dg{position:absolute;top:4px;right:5px;font:700 9px/1 var(--f-mono);color:var(--v-refu)}
+.sw-act .dg{position:absolute;top:4px;right:5px;font:700 9px/1 var(--f-mono);color:var(--witness)}
 .sw-act.on{background:var(--surface2);box-shadow:inset 0 0 0 1.5px var(--ink)}
 #sw-focus{font:13px/1.5 var(--f-sans);color:var(--ink-2);margin:var(--s-2) 0 var(--s-1);padding:9px 11px;border-radius:var(--radius-m);background:var(--sunk);border:1px solid var(--rule)}
 #sw-focus b{color:var(--ink);font-weight:600}
-#sw-focus .dec{font:600 11px/1 var(--f-mono);color:var(--v-refu);white-space:nowrap}
+#sw-focus .dec{font:600 11px/1 var(--f-mono);color:var(--witness);white-space:nowrap}
 #sw-focus[hidden]{display:none}
 .sw-go{all:unset;cursor:pointer;font:600 11.5px/1 var(--f-sans);color:var(--ink);padding:var(--s-1) var(--s-2);border-radius:var(--radius-s);box-shadow:inset 0 0 0 1px var(--ink-3);margin-left:2px;white-space:nowrap}
 .sw-go:hover{background:var(--surface2)}
@@ -193,7 +193,7 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
 
 /* DECIDED: solid, upper-case mono, the verdict tokens */
 .sw-dec{font:650 10px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:var(--s-1) 7px;border-radius:4px;white-space:nowrap}
-.sw-dec.V{color:var(--v-refu);background:var(--v-refu-soft);box-shadow:inset 0 0 0 1.5px var(--v-refu)}
+.sw-dec.V{color:var(--witness);background:var(--witness-soft);box-shadow:inset 0 0 0 1.5px var(--witness)}
 .sw-dec.V::before{content:'▲ ';font-size:8px}
 .sw-dec.I{color:var(--ink);background:var(--v-refd-soft);box-shadow:inset 0 0 0 1.5px var(--v-refd)}
 .sw-dec.L{color:var(--v-cert);box-shadow:inset 0 0 0 1px var(--v-cert);background:transparent}
@@ -223,7 +223,7 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
 .sw-ahead .an{font:600 12.5px/1 var(--f-sans);color:var(--ink)}
 .sw-ahead .aw{font:550 11.5px/1 var(--f-sans);color:var(--ink-3);white-space:nowrap}
 .sw-ahead .aw.good{color:var(--ink)}
-.sw-ahead .aw.V{color:var(--v-refu);font:650 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em}
+.sw-ahead .aw.V{color:var(--witness);font:650 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em}
 .sw-ahead .aw.I{color:var(--ink);font:600 11px/1 var(--f-mono)}
 .sw-ahead .am{font:11.5px/1.35 var(--f-sans);color:var(--ink-4);text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sw-ahead .chev{color:var(--ink-4);transition:transform var(--dur-fast)}
@@ -248,7 +248,7 @@ h2.sw-sec::after{content:'';flex:1;height:1px;background:var(--rule)}
 .sw-cert{font:11.5px/1.55 var(--f-mono);color:var(--ink-3);background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:10px var(--s-3);margin:var(--s-2) 0;overflow-wrap:anywhere}
 .sw-cert b{color:var(--ink);font-weight:600}
 .sw-cert .ok{color:var(--v-cert)}
-.sw-cert .bad{color:var(--v-refu)}
+.sw-cert .bad{color:var(--witness)}
 
 /* the week tab */
 #sw-tl-line{display:flex;flex-wrap:wrap;gap:var(--s-1) var(--s-3);align-items:baseline;font:12.5px/1.35 var(--f-sans);color:var(--ink-3);min-height:18px;margin:14px 0 var(--s-2)}

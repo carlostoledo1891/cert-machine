@@ -392,9 +392,31 @@ ${FOOT.footerCss()}
    (page-specific when the builder passes `desc`, the positioning sentence
    otherwise), canonical + og:url when the builder passes `path` (the
    root-absolute served path — pass it for pages with one canonical home),
-   Open Graph / Twitter cards against the one build-generated og image, and
-   the favicon. The canonical host is the apex — www 301s to it. */
+   Open Graph / Twitter cards against the site's share card, and the
+   favicon. The canonical host is the apex — www 301s to it. */
 const SITE_ORIGIN = 'https://carlostoledo.co';
+/* THE SHARE CARD, EVERY PAGE'S DEFAULT (2026-10-30, the operator's word). Until today the landing alone took the new
+   card (tools/build-og-landing.js: D1's head as the title and D1 whole, rendered from the house shell) and every other
+   page an old landing screenshot at /og.png. The card is now the default; a page passing its own `og.image` keeps
+   it. Its alt is the words the card sets, read from the card's receipt, so the alt and the picture cannot disagree.
+   /og.png is still served (tools/build-site.js): the submitted Petrobras pages are frozen with it in their head, and
+   previews already shared point at it. */
+const CARD = { image: '/og-landing.png', retired: '/og.png',
+  retiredAlt: 'cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page' };
+function cardAlt() {
+  const R = JSON.parse(require('fs').readFileSync(require('path').join(__dirname, 'assets', 'og-landing.json'), 'utf8'));
+  return R.description;
+}
+/* a committed page built before 2026-10-30 names the retired card; design/refresh.js points it at the new one (the
+   og and twitter images, the JSON-LD image, and the retired card's alt), and leaves a page's own card alone */
+function recard(html) {
+  const old = SITE_ORIGIN + CARD.retired, now = SITE_ORIGIN + CARD.image;
+  if (!html.includes('<meta property="og:image" content="' + old + '">')) return html;
+  const CO = require('./components.js');
+  return html.split('content="' + old + '"').join('content="' + now + '"')
+    .split('"image":"' + old + '"').join('"image":"' + now + '"')
+    .split('<meta property="og:image:alt" content="' + CO.escAttr(CARD.retiredAlt) + '">').join('<meta property="og:image:alt" content="' + CO.escAttr(cardAlt()) + '">');
+}
 const DEFAULT_DESC = 'Verification layers under which AI-scale mathematical search produces only certified '
   + 'output — exact rational decisions, interval enclosures, red-controlled instruments, reward signals that '
   + 'cannot be hacked, and certified audits of published AI-generated mathematics. Every number recomputed at '
@@ -410,7 +432,7 @@ const PERSON = {
   '@type': 'Person', name: 'Carlos Toledo', url: SITE_ORIGIN + '/about/',
   sameAs: ['https://github.com/carlostoledo1891', GITHUB_REPO],
 };
-function ldJson(pagePath, title, d, canon) {
+function ldJson(pagePath, title, d, canon, image) {
   let obj = null;
   if (pagePath === '/') {
     obj = {
@@ -427,7 +449,7 @@ function ldJson(pagePath, title, d, canon) {
     obj = {
       '@context': 'https://schema.org', '@type': 'ScholarlyArticle',
       headline: title, description: d, url: canon,
-      image: SITE_ORIGIN + '/og.png', author: PERSON,
+      image, author: PERSON,
       isPartOf: { '@type': 'WebSite', name: 'cert-machine', url: SITE_ORIGIN },
       isBasedOn: GITHUB_REPO,
     };
@@ -447,10 +469,11 @@ function headHtml({ title, desc, path: pagePath, og }) {
   const CO = require('./components.js');
   const d = desc || DEFAULT_DESC;
   const canon = pagePath ? SITE_ORIGIN + pagePath : null;
-  /* a page's own card image (og: { image: '/served/path.png', alt }) — the link preview a recipient sees first;
-     absent, the site's card, byte-identical to before (2026-10-07, Janela's outreach links) */
-  const ogImg = og && og.image ? SITE_ORIGIN + og.image : SITE_ORIGIN + '/og.png';
-  const ogAlt = og && og.alt ? og.alt : 'cert-machine — certified mathematics by Carlos Toledo: dark control-room landing page';
+  /* a page's own card image (og: { image: '/served/path.png', alt }) — the link preview a recipient sees first
+     (2026-10-07, Janela's outreach links); absent, the site's card (CARD above, 2026-10-30) */
+  const own = !!(og && og.image);
+  const ogImg = SITE_ORIGIN + (own ? og.image : CARD.image);
+  const ogAlt = og && og.alt ? og.alt : (own ? CARD.retiredAlt : cardAlt());
   return `<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>${CO.esc(title)}</title>
@@ -471,7 +494,7 @@ ${canon ? `<link rel="canonical" href="${canon}">\n<meta property="og:url" conte
 <meta name="twitter:title" content="${CO.escAttr(title)}">
 <meta name="twitter:description" content="${CO.escAttr(d)}">
 <meta name="twitter:image" content="${ogImg}">
-${pagePath ? ldJson(pagePath, title, d, canon) : ''}
+${pagePath ? ldJson(pagePath, title, d, canon, ogImg) : ''}
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -492,7 +515,7 @@ ${pagePath ? ldJson(pagePath, title, d, canon) : ''}
    older builders keep working while they migrate. */
 function render({ title, bodyRaw, footRaw, desc, path: pagePath, cssRaw = '', scriptRaw = '', headRaw = '', sheet = 'report', bodyClass = '', lang = 'en', og }) {
   const root = rootOf(pagePath);
-  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root });
+  const NAV = NAVJS.navHtml({ here: sectionOf(pagePath), root, path: pagePath });
   /* footRaw === null: a VIEWPORT page, not a document — it carries its own
      closing line inside the viewport and a document footer under an
      overflow:hidden body would be a footer nobody can reach. One page uses
@@ -532,4 +555,4 @@ ${scriptRaw}
   return REFRESH.refresh(html, pagePath);
 }
 
-module.exports = { render, css, headHtml, DEFAULT_DESC };
+module.exports = { render, css, headHtml, recard, CARD, DEFAULT_DESC };

@@ -113,19 +113,14 @@ figure has a text alternative, and fires four falsifiers. It runs in `make test`
 
 else.
 
-### The three-state theme rule
+### The theme rule (2026-10-30)
 
-A viewer is in one of **three** states, not two:
-
-| state | what is on the root element | what applies |
-|---|---|---|
-| explicit light | `data-theme="light"` | the bare `:root` palette |
-| explicit dark | `data-theme="dark"` | the `[data-theme="dark"]` block |
-| **system (the default)** | **nothing** | `prefers-color-scheme`, guarded by `:not([data-theme="light"])` |
-
-So the dark overrides are emitted **twice** — once inside the media query and once inside
-the attribute selector. A colour whose only definition lives inside a media query is a
-colour that is undefined for somebody. Three checks in the page battery hold this.
+Dark is the default: the palette on bare `:root` with `color-scheme:dark`. A reader may switch to light with the pill
+under the nav; the choice is kept in localStorage `warrant-theme` and set as `data-theme="light"` on `<html>` before the
+page paints. Never from `prefers-color-scheme`. The light block lives once, in `design/tokens.js` (`LIGHT_THEME`), and
+every value in it is the print register's (`design/print/tokens.js`): it adds no colour. Pages that draw with literal
+screen inks stay dark (`DARK_ONLY_PAGES` in tokens.js, with the reason), and so do the apps. `design/battery.js` T3/T3b
+hold the rule. (The three-state rule that stood here was retired on 2026-09-01 with the one-palette skin.)
 
 ---
 
@@ -284,10 +279,10 @@ construction, or it carries remainder guards, and the battery learns to check it
 `design/app-shell.js` renders the design system's SECOND page view: a
 full-viewport application surface (100% × 100dvh) for `apps/` — fixed top
 bar, lateral panel, bottom dock, no prose column. Same tokens, same type
-stack, same three-state theme rule as `template.js`. It adds three app
-tokens — `--v-cert` / `--v-refu` / `--v-refd` (the three-valued verdict
-colors) — defined in both palettes inside the shell's own root block with
-the standard dark guards; clients that need them in WebGL read the computed
-custom properties at runtime, never literals. Components: `.as-top`,
+stack as `template.js`; it stays dark (it never sets the theme). It adds the
+app tokens `--v-cert` / `--v-refd` and the wash `--witness-soft`; the refused
+state is `--witness` itself (the `--v-refu` alias folded into it 2026-10-30).
+Clients that need them in WebGL read the computed custom properties at
+runtime, never literals. Components: `.as-top`,
 `.as-panel`, `.as-dock`, `.as-chip`, `.as-btn`, `.as-bar`, `.as-kv`,
 `.as-note`, `.as-h`. First consumer: apps/skyaudit.
