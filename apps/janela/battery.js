@@ -510,6 +510,40 @@ ok('use cases: every door is one client.js acts on, every card opens a state the
 red('use cases: a card linking to a preset that does not exist is refused', () => {
   assert.throws(() => usesCheck([{ who: 'x', href: '/janela/#op=mergulho&modo=semana' }]), /no preset/);
 });
+
+/* ---- the app in English (2026-10-30): the model keeps its Portuguese (its fingerprint is what a published day records),
+   the shell ships an English copy, and every reason the deciding modules write in Portuguese has its English ---- */
+/* every reason criteria.js can write, as an instance: each literal (or literal chain with values spliced in) it assigns */
+const reasonsOf = (src) => {
+  const out = [];
+  for (const line of src.split('\n')) {
+    const k = line.search(/out\.na = |why: '/);
+    if (k < 0) continue;
+    for (const m of line.slice(k).matchAll(/'(?:[^'\\]|\\.)*'(?:\s*\+\s*[\w.]+\s*\+\s*'(?:[^'\\]|\\.)*')*/g)) out.push(m[0].replace(/'\s*\+\s*[\w.]+\s*\+\s*'/g, '2.0').slice(1, -1).replace(/\\'/g, '\''));
+  }
+  return out;
+};
+ok('the app in English: every site, preset, unit type, region caveat and terminal rule has its English, every reason criteria.js or a siteWhy writes has one, and the fingerprint is still the Portuguese model\'s', () => {
+  const M = MODEL.load(), before = MODEL.fingerprint(M), A = require('./app/build-app.js');
+  const E = A.shipEnglish(M);
+  assert.strictEqual(MODEL.fingerprint(M), before, 'shipEnglish changed the model it was handed');
+  assert.ok(E.places.filter((p) => p.kind !== 'uep').every((p) => !/Bacia|Baía|Margem|águas|borda/.test(p.name)), 'a site name left in Portuguese');
+  assert.ok(E.presets.every((p) => p.name && !/[çãíõ]/.test(p.name + p.long + (p.source || '') + (p.notDecided || []).join(''))), 'a preset left in Portuguese');
+  const reasons = reasonsOf(fs.readFileSync(path.join(__dirname, 'audit', 'criteria.js'), 'utf8')).concat(M.places.map((p) => p.siteWhy).filter(Boolean));
+  assert.ok(reasons.length >= 10, 'the reasons were read (' + reasons.length + ')');
+  for (const r of reasons) assert.ok(MODEL.whyEn(r), 'no English for the reason "' + r + '" (model.js EN.why)');
+  assert.strictEqual(MODEL.whyEn('o α do local não está estimado para Hs de projeto 2.5 m e TPOP 24 h aqui (pares insuficientes); não se extrapola'),
+    'the site α is not estimated for design Hs 2.5 m and TPOP 24 h here (too few pairs); it is not extrapolated');
+  const PLc = require('./audit/placar.js');
+  assert.deepStrictEqual(Object.keys(PLc.NAMES_EN).sort(), Object.keys(PLc.NAMES_PT).sort());
+});
+red('the app in English: a reason, a site or a preset with no English is refused, never shown in Portuguese', () => {
+  assert.strictEqual(MODEL.whyEn('uma razão que ninguém traduziu'), null);
+  const M = MODEL.load(), A = require('./app/build-app.js');
+  assert.throws(() => A.shipEnglish(Object.assign({}, M, { places: [{ id: 'nova-bacia', kind: 'field', name: 'Bacia Nova' }] })), /no English name/);
+  assert.throws(() => A.shipEnglish(Object.assign({}, M, { presets: M.presets.concat([{ id: 'mergulho', name: 'Mergulho', TR: 6, limits: [] }]) })), /no English/);
+  assert.throws(() => A.shipEnglish(Object.assign({}, M, { places: [{ id: 'santos', kind: 'field', name: 'x', siteWhy: 'uma razão nova' }] })), /no English for/);
+});
 ok('the deck: every figure it states is read from a record (facts() throws on a record that lost its shape)', () => {
   const F = require('./deck.js').facts(require('./numbers.js').load());
   assert.ok(F.units === 181 || F.units > 100, 'the units');

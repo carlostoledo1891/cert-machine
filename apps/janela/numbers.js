@@ -352,4 +352,12 @@ const br = {
   hm: (iso) => iso.slice(11, 16)
 };
 
-module.exports = { load, br, Q };
+/* English number words, once (2026-10-30: the pages went English; `br` stays for the deck, which was sent and does not move) */
+const en = {
+  int: (x) => Math.round(x).toLocaleString('en'),
+  dec: (s) => String(s),
+  date: (iso) => iso.slice(0, 10),
+  hm: (iso) => iso.slice(11, 16)
+};
+
+module.exports = { load, br, en, Q };

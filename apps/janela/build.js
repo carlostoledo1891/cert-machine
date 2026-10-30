@@ -3,8 +3,8 @@
    every published decision re-decided once more by the method page's own
    function, which must agree with the record or the build refuses), then:
 
-     site/janela/metodo/index.html   the method page — the document, "por que
-                                     confiar" — through design/template.js
+     site/janela/metodo/index.html   the method page — the document, "why
+                                     trust it" — through design/template.js
      site/janela/{index.html, app.js, geo.js, vendor/}
                                      the APP shell — static: places, presets,
                                      rules, alphas, the month's exact counts and
@@ -49,12 +49,12 @@ let A;
 try { A = require('./app/build-app.js').emit(N, git); } catch (e) { die(e.message); }
 
 const c = N.counts;
-console.log('site/janela/metodo/index.html written (' + Math.round(page.html.length / 1024) + ' KB) · rodada ' + N.feed.run
-  + ' · ' + N.decisions + ' decisões: ' + c['LIBERADA'] + ' LIBERADA, ' + c['VETADA'] + ' VETADA, ' + c['INDEFINIDA'] + ' INDEFINIDA, ' + c['SEM DADOS'] + ' SEM DADOS'
-  + ' (' + page.checked + ' re-decididas pela página, iguais) · faixas ' + N.bands.okCells + '/' + N.bands.cells
-  + ' · α ' + (N.alpha ? 'presente' : 'ausente') + ' · placar ' + N.ledger.commits + ' comprometidas, ' + N.ledger.scored + ' avaliadas'
-  + ' · bateria ' + battery.checks + ' verificações, ' + battery.reds + ' vermelhos; janela ' + battery.janela.pass + ' + ' + battery.janela.reds + ' vermelhos · git ' + git);
-console.log('site/janela/index.html (o app) written (' + Math.round(A.bytes / 1024) + ' KB; geo.js ' + Math.round(A.geo / 1024) + ' KB, ' + A.fields + ' campos) · ' + A.places + ' locais');
+console.log('site/janela/metodo/index.html written (' + Math.round(page.html.length / 1024) + ' KB) · run ' + N.feed.run
+  + ' · ' + N.decisions + ' decisions: ' + c['LIBERADA'] + ' CLEARED, ' + c['VETADA'] + ' BLOCKED, ' + c['INDEFINIDA'] + ' UNDECIDED, ' + c['SEM DADOS'] + ' NEEDS DATA'
+  + ' (' + page.checked + ' re-decided by the page, equal) · bands ' + N.bands.okCells + '/' + N.bands.cells
+  + ' · α ' + (N.alpha ? 'present' : 'absent') + ' · scoreboard ' + N.ledger.commits + ' committed, ' + N.ledger.scored + ' scored'
+  + ' · battery ' + battery.checks + ' checks, ' + battery.reds + ' reds; janela ' + battery.janela.pass + ' + ' + battery.janela.reds + ' reds · git ' + git);
+console.log('site/janela/index.html (the app) written (' + Math.round(A.bytes / 1024) + ' KB; geo.js ' + Math.round(A.geo / 1024) + ' KB, ' + A.fields + ' fields) · ' + A.places + ' places');
 
 /* the local copy of the day's data, when its inputs are on this disk — gated by build-today.js itself */
 if (fs.existsSync(path.join(ROOT, 'corpus', 'janela', 'field', 'platforms-latest.json'))) {

@@ -216,4 +216,37 @@ function record(rows) {
   return per;
 }
 
-module.exports = { RULE, RULE_PT, NAMES_PT, FIRST_LOOK, BAR, LEADS, PAIRS, looks, lot, trials, admission, breakdown, record, headToHead };
+/* THE SAME WORDS IN ENGLISH (2026-10-30: the pages went English). The records and the published day keep the Portuguese
+   (RULE_PT, NAMES_PT, the PAIRS names and the LEADS labels are in the ledger's derived numbers and in the deck, which was
+   sent); a page prints these, looked up by the proposer's domain, the pair's two domains, or the lead label. */
+const RULE_EN = 'One trial per target day: a proposer\'s bands scored for the same day share the same satellite passes and are not '
+  + 'independent, so one alone decides the day, drawn by sha256(proposer|day) — the draw does not look at the result. The exact binomial tail '
+  + 'P[X ≤ k], X ~ Binomial(m, claim), is read only at m = 30, 60, 120, 240… days, against 1/40, 1/80, 1/160…: summed, 1/20 over the '
+  + 'proposer\'s whole life, not 1/20 per day. The first reading under the bar prunes this version for good; only a recalibrated version, with '
+  + 'a new record, comes back. Days are treated as independent: a declared convention, not a theorem. Covering more than it says does not prune; '
+  + 'the Winkler score, exact, charges a band that is too wide. Rule fixed on 2026-10-06, before the first scoring.';
+const NAMES_EN = {
+  'janela/hs-altimeter/ens-c40of50': 'ECMWF ensemble, the central 40 of 50',
+  'janela/hs-altimeter/calibrated-v1': 'Janela\'s measured band, v1',
+  'janela/hs-altimeter/calibrated-sergipe-v1': 'Janela\'s measured band, Sergipe-Alagoas, v1',
+  'janela/hs-altimeter/noaa-gefs-c25of31': 'NOAA ensemble (WAVEWATCH III), the central 25 of 31',
+  'janela/hs-altimeter/calibrated-noaa-v1': 'NOAA\'s measured band (WAVEWATCH III), v1',
+  'janela/hs-altimeter/union-v1': 'The deciding band: ECMWF ∪ NOAA, v1',
+  'janela/hs-altimeter/calibrated-noaa-sergipe-v1': 'NOAA\'s measured band, Sergipe-Alagoas, v1',
+  'janela/hs-altimeter/union-sergipe-v1': 'The deciding band in Sergipe-Alagoas: ECMWF ∪ NOAA, v1',
+  'janela/hs-altimeter/aifs-ens-c40of50': 'ECMWF AIFS ensemble (data-driven), the central 40 of 50',
+  'janela/hs-altimeter/calibrated-aifs-v1': 'ECMWF AIFS\'s measured band, v1'
+};
+const PAIRS_EN = {
+  'janela/hs-altimeter/ens-c40of50|janela/hs-altimeter/noaa-gefs-c25of31': 'the raw ensembles: ECMWF × NOAA',
+  'janela/hs-altimeter/calibrated-v1|janela/hs-altimeter/calibrated-noaa-v1': 'the measured bands: ECMWF × NOAA',
+  'janela/hs-altimeter/calibrated-v1|janela/hs-altimeter/union-v1': 'ECMWF\'s band × the deciding union',
+  'janela/hs-altimeter/ens-c40of50|janela/hs-altimeter/aifs-ens-c40of50': 'ECMWF\'s ensembles: physics × data-driven (AIFS)',
+  'janela/hs-altimeter/calibrated-v1|janela/hs-altimeter/calibrated-aifs-v1': 'the measured bands: ECMWF physics × AIFS'
+};
+const LEADS_EN = { '0–24 h': '0–24 h', '1–3 dias': '1–3 days', '3–7 dias': '3–7 days' };
+for (const k of Object.keys(NAMES_PT)) if (!NAMES_EN[k]) throw new Error('placar: proposer ' + k + ' has no English name');
+for (const [a, b] of PAIRS) if (!PAIRS_EN[a + '|' + b]) throw new Error('placar: the pair ' + a + ' × ' + b + ' has no English name');
+for (const L of LEADS) if (!LEADS_EN[L[2]]) throw new Error('placar: the lead range ' + L[2] + ' has no English label');
+
+module.exports = { RULE, RULE_PT, NAMES_PT, RULE_EN, NAMES_EN, PAIRS_EN, LEADS_EN, FIRST_LOOK, BAR, LEADS, PAIRS, looks, lot, trials, admission, breakdown, record, headToHead };

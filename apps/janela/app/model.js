@@ -117,6 +117,57 @@ function load() {
     dnvSource: DNVJ.source, records: Object.fromEntries(records.map((r) => [r, sha(r)])) };
 }
 
+/* THE APP'S ENGLISH (2026-10-30: the pages went English). The model above keeps its Portuguese words because the
+   model's fingerprint (below) is recorded in every published day, and a day made with another model is not compared:
+   translating the model would disown the day already published. So the English is laid over the Portuguese in the tab
+   (client.js, at load), from this one table, outside the fingerprint. Every Portuguese word the model or the deciding
+   modules can hand the tab has its English here, or the battery refuses (apps/janela/battery.js). */
+const EN = {
+  /* sites.json's names, by site id (the place names stay; the descriptive words go English) */
+  sites: {
+    santos: 'Santos Basin — pre-salt', campos: 'Campos Basin', 'campos-p25': 'Platform P-25 (Albacora)',
+    'espirito-santo': 'Espírito Santo Basin', pelotas: 'Pelotas Basin', potiguar: 'Equatorial Margin — Potiguar',
+    'foz-amazonas': 'Equatorial Margin — Foz do Amazonas', sergipe: 'Sergipe-Alagoas — shallow water',
+    floripa: 'Florianópolis — Swell\'s open edge', babitonga: 'Babitonga — São Francisco do Sul (TEFRAN, Terminal Gás Sul)',
+    'sao-sebastiao': 'São Sebastião (TEBAR)', 'ilha-grande': 'Ilha Grande Bay (TEBIG)', sepetiba: 'Sepetiba Bay (FSRU)'
+  },
+  /* the presets' words, by preset id */
+  presets: {
+    alivio: { name: 'Offloading', long: 'Offloading at an FPSO/FSO',
+      source: 'offloading criterion cited in 2010 (Tannuri, Pesce, Simos et al., OMAE2010-20147: Hs above 3.5 m and wind above 50 knots are above the offloading limits set by Petrobras\'s regulation) — confirm against the procedure in force',
+      notDecided: ['hawser tension below 100 tf', 'at least 50 m between the shuttle tanker and the unit', 'the shuttle tanker inside the green sector, +45°/−60° of the unit\'s heading'],
+      why: 'offloading is from a unit with storage (FPSO, FSO, tanker)' },
+    carga: { name: 'Cargo (PSV)', long: 'Cargo transfer with a PSV' },
+    lancamento: { name: 'Line laying', long: 'Laying of lines and risers' },
+    icamento: { name: 'Lifting', long: 'Heavy lift / decommissioning' }
+  },
+  /* ANP's unit types (platforms.json keeps ANP's words; `appliesTo` compares those) */
+  types: { 'FIXA': 'FIXED', 'FIXA (CONCRETO)': 'FIXED (CONCRETE)', 'SEMI SUBMERSÍVEL': 'SEMI-SUBMERSIBLE', 'NAVIO SONDA': 'DRILLSHIP',
+    'NAVIO TANQUE': 'TANKER', 'BOIA': 'BUOY', FPSO: 'FPSO', FSO: 'FSO', TLWP: 'TLWP', FPU: 'FPU' },
+  /* a region's caveat (regions.json caveatPt), by region id */
+  caveats: {
+    sergipe: 'Sergipe\'s band is measured against the sea the satellite sees 40–100 km off the coast, deeper and rougher than the platforms\' shallow water: it leans HIGH — conservative by construction. A wave buoy at the platforms would close that gap.'
+  },
+  /* the reasons a criterion is silent, as the model (siteWhy) and criteria.js word them: [Portuguese pattern, English] */
+  why: [
+    ['^num terminal o α do local não se aplica: a baía não tem α medido, e o nó do modelo é a aproximação$', 'at a terminal the site α does not apply: the bay has no measured α, and the model node is the approach'],
+    ['^região ainda sem medição: nenhum local medido a menos de 350 km$', 'a region not yet measured: no measured site within 350 km'],
+    ['^sem α do local estimado aqui$', 'no site α estimated here'],
+    ['^a operação não limita Hs: o α da DNV é um fator sobre o limite de onda$', 'the operation does not limit Hs: DNV\'s α is a factor on the wave limit'],
+    ['^o α da DNV reduz um limite superior de Hs$', 'DNV\'s α reduces an upper limit on Hs'],
+    ['^Hs de projeto abaixo de 1 m: a DNV diz caso a caso \\(Nota 3\\)$', 'design Hs below 1 m: DNV says case by case (Note 3)'],
+    ['^TPOP acima de 72 h: fora da Tabela 4-1$', 'TPOP above 72 h: outside Table 4-1'],
+    ['^TPOP acima de 72 h: fora da Tabela 4-6 \\(vento\\)$', 'TPOP above 72 h: outside Table 4-6 (wind)'],
+    ['^o α do local não está estimado para Hs de projeto (\\S+) m e TPOP (\\S+) h aqui \\(pares insuficientes\\); não se extrapola$', 'the site α is not estimated for design Hs $1 m and TPOP $2 h here (too few pairs); it is not extrapolated'],
+    ['^uma regra da Capitania é uma condição na hora, não uma operação marinha com TPOP: o α da DNV não se aplica a ela$', 'a Harbour Master rule is a condition at the hour, not a marine operation with a TPOP: DNV\'s α does not apply to it']
+  ]
+};
+/* the English of one reason, or null when the table has none (the battery refuses that) */
+function whyEn(s) {
+  for (const [re, en] of EN.why) { const r = new RegExp(re); if (r.test(s)) return String(s).replace(r, en); }
+  return null;
+}
+
 /* the deciding modules the tab runs, by name, as text (the require shim resolves by file name) */
 const MODULES = ['instruments/window/q.js', 'instruments/window/decide.js', 'apps/janela/audit/dnv.js', 'apps/janela/scenario/rules/dnv-alpha.json', 'apps/janela/audit/criteria.js'];
 function modules() {
@@ -141,4 +192,4 @@ function fingerprint(M) {
     alphaT: M.alphaT, wind46: M.wind46 })).digest('hex');
 }
 
-module.exports = { load, modules, ctxFor, fingerprint, PRESETS, CRITS, MODULES, siteAlphaTables };
+module.exports = { load, modules, ctxFor, fingerprint, PRESETS, CRITS, MODULES, siteAlphaTables, EN, whyEn };

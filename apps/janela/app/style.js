@@ -176,7 +176,7 @@ details.jn-src[open] summary{margin-bottom:var(--s-1)}
 .jn-introt i{flex:none;font-style:normal;color:var(--ink-4);font-family:var(--f-mono);font-size:var(--jn-fs-m)}
 .jn-introt i:before{content:'−'}
 .jn-intro.shut .jn-introt{font-size:var(--jn-fs);font-weight:var(--weight-medium);color:var(--ink-2)}
-.jn-intro.shut .jn-introt i:before{content:'casos de uso +';font-size:var(--jn-fs-xs)}
+.jn-intro.shut .jn-introt i:before{content:'use cases +';font-size:var(--jn-fs-xs)}
 .jn-intro.shut #jn-introb{display:none}
 #jn-introb .jn-p{margin:var(--s-2) 0 var(--s-3)}
 #jn-introb .jn-p b{color:var(--ink);font-weight:var(--weight-medium)}
@@ -320,7 +320,7 @@ select.jn-in{width:100%}
 .jn-three .jn-w{white-space:normal;line-height:var(--leading-snug)}
 .jn-three .e{font-size:var(--jn-fs-xs);color:var(--ink-3);line-height:var(--leading-snug);font-family:var(--f-mono)}
 .jn-why{margin:0;color:var(--ink);font-size:var(--jn-fs);line-height:var(--leading-body)}
-.jn-mx{display:grid;grid-template-columns:64px minmax(0,1fr);gap:var(--s-1) var(--s-2);align-items:center}
+.jn-mx{display:grid;grid-template-columns:max-content minmax(0,1fr);gap:var(--s-1) var(--s-2);align-items:center}
 .jn-mx .l{font-family:var(--f-sans);font-size:var(--jn-fs-xs);color:var(--ink-4);white-space:nowrap}
 .jn-mx .l.on{color:var(--ink)}
 .jn-mx .ms{display:grid;grid-template-columns:repeat(29,minmax(0,1fr));gap:1px;height:var(--jn-glyph);cursor:pointer}
