@@ -16,7 +16,7 @@
   const $ = (s) => document.querySelector(s);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-  /* ---- the modules, by name, as text (Swell's way): the grammar in both languages and the shared rules ---- */
+  /* ---- the modules, by name, as text (Swell's way): the grammar and the shared rules ---- */
   const cache = {};
   function req(name) {
     const base = String(name).split('/').pop();
@@ -26,44 +26,14 @@
     (new Function('module', 'exports', 'require', MODS.src[base]))(m, m.exports, req);
     return m.exports;
   }
-  const W = req('warrant.js'), WP = req('warrant-pt.js'), G = req('grammar.js'), SH = req('shared.js');
+  const W = req('warrant.js'), G = req('grammar.js'), SH = req('shared.js');
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const C = { paper: tok('--paper'), sunk: tok('--sunk'), surface2: tok('--surface2'), ink: tok('--ink'), ink2: tok('--ink-2'), ink4: tok('--ink-4'), ink5: tok('--ink-5'),
     rule: tok('--rule'), ruleStrong: tok('--rule-strong'), ruleSoft: tok('--rule-soft'), s: [1, 2, 3, 4, 5].map((k) => tok('--c-s' + k)) };
   const FAM = CFG.fam, BLK = CFG.blocks, PER = CFG.periods, CRIT = ['ad', 'ks', 'mse', 'chi2'];
 
-  /* ---- the words, Portuguese first ---- */
+  /* ---- the words (English only since 2026-10-30: the operator's "no more pt-BR pages") ---- */
   const STR = {
-    pt: {
-      T: '{T} anos', blk: { daily: 'diários', weekly: 'semanais', monthly: 'mensais' }, blkL: { daily: 'máximos diários', weekly: 'máximos semanais', monthly: 'máximos mensais' },
-      fam: { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'Weibull exponenciada', gengamma: 'gama generalizada', gumbel: 'Gumbel' },
-      famS: { normal: 'Normal', lognormal: 'Lognormal', weibull: 'Weibull', expweibull: 'Weibull exp.', gengamma: 'Gama gen.', gumbel: 'Gumbel' },
-      the: (f) => 'a ' + STR.pt.fam[f], of: (f) => 'da ' + STR.pt.fam[f], and: ' e ',
-      num: { 3: 'três', 4: 'quatro', 5: 'cinco', 6: 'seis' },
-      keyT: 'onda de projeto · {T} anos · {blk}', refK: 'recusada', iceK: 'gelo marinho', keyN: 'decidida em {d} de {n} células de mar aberto; recusada em {r}; {i} com gelo marinho, mostradas e não certificadas',
-      margin: 'Margem brasileira', others: 'Outros nós do relatório', placesN: 'Os nós do relatório de níveis de retorno. Toque em qualquer célula do mapa para abrir o cartão dela.',
-      go: 'ir para', goPh: 'lat, lon (ex.: -22,5, -40)', goBad: 'escreva latitude e longitude, separadas por vírgula ou espaço',
-      back: 'Lugares', onGlobe: 'No globo', link: 'Link', copied: 'link copiado',
-      lat1: 'reticulado da margem brasileira', lat4: 'reticulado do globo', rep: 'nó do relatório',
-      heroL: 'onda de projeto · {T} anos', recL: 'maior dia, {a}–{b}', iceL: 'gelo marinho',
-      famLine: 'Decidida pela <b>{fam}</b>, a família que Anderson–Darling escolhe entre {six} nos {n} {blkL}. Intervalo exato, arredondado para fora ao centímetro.',
-      statLine: 'Outros {y} anos do mesmo mar poderiam pô-la em qualquer ponto entre {v} ({lvl}%, método delta: estatístico, computado, não decidido).', statNone: 'Aqui não se pôde formar um intervalo estatístico.',
-      refH: 'recusada', whyB: 'o ajuste {of} não foi certificado, e o máximo dele poderia existir e vencer: a escolha fica recusada.',
-      whyT: 'empate: os A² {of} se sobrepõem, e os dados não separam essas famílias.', whyU: 'o A² não pôde ser cercado para {of}.', whyN: 'nenhuma família tem o A² cercado.',
-      whyL: 'Anderson–Darling decide {the}, mas o nível de {T} anos dela não se fecha num intervalo exato.',
-      iceTxt: 'O gelo marinho do próprio hindcast chega a este nó em {steps} passos de três horas, em {months} meses, com até {max}% de cobertura. Sob o gelo o modelo amortece as ondas a milímetros em vez de deixar um vazio, então a série é em parte do gelo: a célula é mostrada, não certificada.',
-      sixH: '{Six} famílias, {six} respostas', spread: 'Entre as {k} famílias certificadas aqui, a onda de projeto vai de {lo} ({flo}) a {hi} ({fhi}).', spreadWhy: ' É a escolha da família, não a conta, que move o número.',
-      spread1: 'Só uma família tem o nível certificado aqui.', noLv: 'sem nível', guide: 'Em negrito, a família decidida; tracejado, a largura estatística dela; a linha-guia vertical, o maior dia registrado ({m}).', dec: 'decidida', refW: 'recusada',
-      fr: { e: 'chega ao limite lognormal, provado: conta como a lognormal', k: 'a subida corre para k → 0, o canto de Fréchet: nada provado', s: 'a subida passou da borda das coordenadas e não se certificou nas de Gumbel: nada provado', b: 'a subida parou na borda da família: nada provado', r: 'não certificada', n: 'certificada; o nível não se fecha num intervalo exato' },
-      survH: 'Ela se mantém?', survC: 'Nos {four} critérios, {blkL}:', survB: 'Nos {three} blocos, por Anderson–Darling:', survS: '{The} se mantém em {a} de {na} critérios e em {b} de {nb} blocos.',
-      survR: 'Sem família decidida aqui, não há o que manter: cada critério e cada bloco, como o registro os decide.',
-      trust: 'Por que confiar neste número', encH: 'A conta', encTxt: 'O nível de {T} anos {of} está, provado, no intervalo [{lo}; {hi}] m, sobre os {n} {blkL}: as pontas como o registro as imprime, para fora, com oito algarismos. O cartão o mostra arredondado para fora ao centímetro.',
-      restsH: 'Em que isso se apoia', certH: 'O certificado', certTxt: 'No globo, esta célula abre com a escolha por critério em cada bloco, cada ajuste e um botão que a certifica de novo no seu navegador, com o código do próprio registro, a partir dos dados fixados por sha256.', certBtn: 'Abrir o certificado no globo',
-      iid: 'os {n} {blkL} são tomados como independentes e de uma mesma lei, e {y} anos de um clima valem por {T}.', storms: ' Os máximos diários vêm em tempestades: acima de {u} (o percentil 95 da série) o estimador de runs põe o índice extremal em {th} aqui (estatístico), tempestades de {d} dias em média.',
-      choiceD: 'Anderson–Darling escolhe {the} entre {six} nos mesmos {n} máximos aos quais elas foram ajustadas; nenhuma amostra guardada fora decide entre famílias.', choiceR: 'Anderson–Darling não escolhe aqui: {why}',
-      buoy: ' Um desses nós é esta célula: a boia {b} ({p} pares, {f}–{t}), viés {bias} e RMS {rms}.',
-      tipR: 'recusada', tipI: 'gelo marinho: mostrada, não certificada', fail: 'Os dados do atlas não puderam ser lidos aqui ({e}). Abra a página pelo site, não como arquivo.', world: 'Mundo', brazil: 'Margem brasileira',
-    },
     en: {
       T: '{T} years', blk: { daily: 'daily', weekly: 'weekly', monthly: 'monthly' }, blkL: { daily: 'daily maxima', weekly: 'weekly maxima', monthly: 'monthly maxima' },
       fam: { normal: 'normal', lognormal: 'lognormal', weibull: 'Weibull', expweibull: 'exponentiated Weibull', gengamma: 'generalized gamma', gumbel: 'Gumbel' },
@@ -95,23 +65,20 @@
       tipR: 'refused', tipI: 'sea ice: shown, not certified', fail: 'The atlas data could not be read here ({e}). Open the page from the site, not as a file.', world: 'World', brazil: 'Brazilian margin',
     },
   };
-  const LANG = { cur: 'pt' };
-  (function () { const q = (location.search.match(/lang=(pt|en)/) || [])[1]; let s = null; try { s = localStorage.getItem('rla.lang'); } catch (e) { s = null; } LANG.cur = q || (s === 'en' || s === 'pt' ? s : 'pt'); })();
-  const S = () => STR[LANG.cur];
+  const S = () => STR.en;
   const fill = (s, v) => String(s).replace(/\{(\w+)\}/g, (m, k) => (v && v[k] !== undefined && v[k] !== null ? v[k] : m));
-  const pt = () => LANG.cur === 'pt';
-  const dcm = (cmv) => (cmv / 100).toFixed(2).replace('.', pt() ? ',' : '.');                    /* centimetres, as metres */
+  const dcm = (cmv) => (cmv / 100).toFixed(2);                                                   /* centimetres, as metres */
   const rng = (q) => dcm(q[0]) + '–' + dcm(q[1]) + ' m';
-  const intf = (n) => Number(n).toLocaleString(pt() ? 'pt-BR' : 'en-US');
-  const dec = (x, d) => Number(x).toFixed(d).replace('.', pt() ? ',' : '.');
-  const exact = (x) => String(x).replace('.', pt() ? ',' : '.');                                  /* a number as the record holds it */
+  const intf = (n) => Number(n).toLocaleString('en-US');
+  const dec = (x, d) => Number(x).toFixed(d);
+  const exact = (x) => String(x);                                                                 /* a number as the record holds it */
   const wnum = (n) => S().num[n] || intf(n);
   const per = (T) => String(T);                                                                /* a return period, as the ledger names it */
   const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
-  /* a value with its standing, its tooltip in the page's language */
+  /* a value with its standing, its tooltip the legend's words */
   const LG = {}; W.LEGEND.forEach((L) => { LG[L.s] = L; });
-  const val = (text, s) => W.value(text, s, { title: pt() ? WP.LEGEND[LG[s].label] + ' — ' + WP.LEGEND[LG[s].gloss] : LG[s].label + ' — ' + LG[s].gloss });
-  const place = (c) => { const la = Math.abs(c.lat), lo = Math.abs(c.lon); return exact(la) + '° ' + (c.lat < 0 ? 'S' : 'N') + ' · ' + exact(lo) + '° ' + (c.lon < 0 ? (pt() ? 'O' : 'W') : (pt() ? 'L' : 'E')); };
+  const val = (text, s) => W.value(text, s, { title: LG[s].label + ' — ' + LG[s].gloss });
+  const place = (c) => { const la = Math.abs(c.lat), lo = Math.abs(c.lon); return exact(la) + '° ' + (c.lat < 0 ? 'S' : 'N') + ' · ' + exact(lo) + '° ' + (c.lon < 0 ? 'W' : 'E'); };
 
   /* ---- state: the question, the chosen cell, the view; the address carries all of it ---- */
   const ST = { block: BLK[0], T: PER[0], sel: null, tab: 'places', trust: false };
@@ -357,7 +324,7 @@
     const F = FD.cells[c.id][BLK.indexOf(ST.block)][0][c.blocks[ST.block].ad], k = ST.T === PER[0] ? 0 : 2;
     return rng([F[k], F[k + 1]]) + ' · ' + s.fam[FAM[c.blocks[ST.block].ad]];
   }
-  const nameOf = (c) => { const p = PLACES.find((q) => q.id === c.id); return p ? p[LANG.cur] : null; };
+  const nameOf = (c) => { const p = PLACES.find((q) => q.id === c.id); return p ? p.label : null; };
   function tipOn(c, x, y) {
     const t = $('#rm-tip'), nm = nameOf(c);
     t.innerHTML = '<b>' + esc(nm || place(c)) + '</b>' + (nm ? '<span>' + esc(place(c)) + '</span>' : '') + '<span class="v">' + esc(lookWords(c)) + '</span>';
@@ -397,7 +364,7 @@
   function list() {
     const el = $('#rm-list'); if (!el || !A) return;
     const s = S(), grp = (m) => PLACES.filter((p) => p.margin === m && byId.has(p.id));
-    const row = (p) => { const c = byId.get(p.id); return '<li><button type="button" data-id="' + esc(c.id) + '"><span class="b">' + esc(p[LANG.cur]) + '<small>' + esc(place(c)) + '</small></span>' + shortOf(c) + '</button></li>'; };
+    const row = (p) => { const c = byId.get(p.id); return '<li><button type="button" data-id="' + esc(c.id) + '"><span class="b">' + esc(p.label) + '<small>' + esc(place(c)) + '</small></span>' + shortOf(c) + '</button></li>'; };
     el.innerHTML = '<h2 class="rm-sec">' + esc(s.margin) + '</h2><ol class="rm-places">' + grp(true).map(row).join('') + '</ol>'
       + '<h2 class="rm-sec">' + esc(s.others) + '</h2><ol class="rm-places">' + grp(false).map(row).join('') + '</ol>'
       + '<p class="rm-note">' + esc(s.placesN) + '</p>'
@@ -486,14 +453,14 @@
   /* WHAT THIS RESTS ON (WARRANT v2.1): the builder's chain (CFG.prem, every figure gated there), with this cell's own
      figures in the independence of its maxima and the choice of its family, and its buoy where one was moored here */
   function restsOn(c, b, why) {
-    const s = S(), P = CFG.prem[LANG.cur], items = P.items.map((x) => Object.assign({}, x)), n = CFG.nBlock[ST.block];
+    const s = S(), P = CFG.prem, items = P.items.map((x) => Object.assign({}, x)), n = CFG.nBlock[ST.block];
     const buoys = CFG.pnb && CFG.pnb.at && CFG.pnb.at[c.id];
     if (buoys) items[0].evidence += buoys.map((q) => fill(s.buoy, { b: esc(q.buoy), p: intf(q.pairs), f: q.from.slice(0, 4), t: q.to.slice(0, 4),
       bias: val((q.bias < 0 ? '−' : '+') + dec(Math.abs(q.bias), 2) + ' m', W.COMPUTED), rms: val(dec(q.rms, 2) + ' m', W.COMPUTED) })).join('');
     items[1].evidence = esc(fill(s.iid, { n: intf(n), blkL: s.blkL[ST.block], y: intf(CFG.years.n), T: per(ST.T) }))
       + (c.ei && ST.block === BLK[0] ? fill(esc(s.storms), { u: val(dec(c.ei.u, 2) + ' m', W.COMPUTED), th: val('θ = ' + dec(c.ei.theta, 2), W.COMPUTED), d: val(dec(1 / c.ei.theta, 1), W.COMPUTED) }) : '');
     items[4].evidence = b.ad !== 6 ? esc(fill(s.choiceD, { the: s.the(FAM[b.ad]), six: wnum(FAM.length), n: intf(n) })) : esc(fill(s.choiceR, { why: whyWords(why, b.ad, b) }));
-    return '<h3>' + esc(s.restsH) + '</h3>' + (pt() ? WP : W).premisesHtml(items, { meetLine: P.meet });
+    return '<h3>' + esc(s.restsH) + '</h3>' + W.premisesHtml(items, { meetLine: P.meet });
   }
   function card() {
     const c = ST.sel, s = S(), el = $('#rm-card'); if (!c || !el) return;
@@ -529,7 +496,7 @@
       spread = '<p class="rm-sum">' + esc(t + (hi.q.v[1] - lo.q.v[0] > 2 ? s.spreadWhy : '')) + '</p>';
     } else spread = '<p class="rm-note">' + esc(s.spread1) + '</p>';
     h += '<h2 class="rm-sec">' + esc(fill(s.sixH, { Six: cap(wnum(FAM.length)), six: wnum(FAM.length) })) + '</h2>' + spread + strip(c, F, ad, Tk, code ? null : stat)
-      + (pt() ? WP : W).legendHtml({ compact: true, from: h });   /* derived from the card it closes (R20) */
+      + W.legendHtml({ compact: true, from: h });   /* derived from the card it closes (R20) */
     h += survive(c, b);
     /* the rigour, one click down */
     h += '<button type="button" class="rm-trustb" id="rm-trust" aria-expanded="' + ST.trust + '" aria-controls="rm-trustp">' + esc(s.trust) + ' <span class="chev">›</span></button><div class="rm-trustp" id="rm-trustp"' + (ST.trust ? '' : ' hidden') + '>';
@@ -552,14 +519,7 @@
     if (tb) tb.onclick = () => { ST.trust = !ST.trust; tb.setAttribute('aria-expanded', String(ST.trust)); $('#rm-trustp').hidden = !ST.trust; };
   }
 
-  /* ================================================================ language, the sheet, the start */
-  function applyLang() {
-    document.documentElement.lang = pt() ? 'pt-BR' : 'en';
-    document.querySelectorAll('[data-l]').forEach((e) => { e.hidden = e.dataset.l !== LANG.cur; });
-    document.querySelectorAll('.rm-lang button').forEach((b) => b.classList.toggle('on', b.dataset.lang === LANG.cur));
-    $('#rm-zin').setAttribute('aria-label', pt() ? 'aproximar' : 'zoom in'); $('#rm-zout').setAttribute('aria-label', pt() ? 'afastar' : 'zoom out');
-    if (A) { controls(); key(); list(); if (ST.sel) card(); }
-  }
+  /* ================================================================ the sheet, the start */
   const UI = { sheet: 'peek' };
   function setSheet(st) {
     UI.sheet = st; const p = $('#panel');
@@ -587,8 +547,7 @@
     const w = $('#rm-wait'); if (w) w.innerHTML = '<span>' + esc(fill(S().fail, { e: e && e.message ? e.message : String(e) })) + '</span>';
   }
 
-  document.querySelectorAll('.rm-lang button').forEach((b) => { b.onclick = () => { LANG.cur = b.dataset.lang; try { localStorage.setItem('rla.lang', LANG.cur); } catch (e) { /* a private window */ } applyLang(); }; });
-  applyLang(); sheetWire();
+  sheetWire();
   const get = (u) => fetch(u).then((r) => { if (!r.ok) throw new Error(u + ': HTTP ' + r.status); return r.json(); });
   Promise.all([get('../atlas.json'), get('../land.json'), get('cells.json')]).then(([a, land, fd]) => {
     A = a; FD = fd;

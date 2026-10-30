@@ -8,7 +8,7 @@
 :root { --rm-rail: 420px; --rm-gap: var(--s-4); --rm-top: 56px; --rm-peek: 13rem; --rm-panel: color-mix(in srgb, var(--paper) 93%, transparent);
   --sw: var(--sunk); --x: 0%; }   /* the two data the tab sets on an element: a ramp swatch's step, an axis tick's place */
 @media (max-width: 720px) { :root { --rm-top: 48px; } }
-[data-l][hidden], #rm-card[hidden], #rm-list[hidden], .rm-trustp[hidden], #rm-tip[hidden] { display: none !important; }
+#rm-card[hidden], #rm-list[hidden], .rm-trustp[hidden], #rm-tip[hidden] { display: none !important; }
 button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--ink-2); outline-offset: 2px; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; } }
@@ -32,12 +32,12 @@ button { font: inherit; color: inherit; }
 
 /* ---- the top bar (the shell's): the two views and the language ---- */
 .rm-top { display: flex; align-items: center; gap: var(--s-2); margin-left: var(--s-2); }
-.rm-views, .rm-lang { display: flex; border-radius: var(--radius-s); overflow: hidden; box-shadow: inset 0 0 0 1px var(--rule-strong); }
-.rm-views a, .rm-lang button { all: unset; cursor: pointer; font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: var(--weight-strong); letter-spacing: var(--track-slight);
+.rm-views { display: flex; border-radius: var(--radius-s); overflow: hidden; box-shadow: inset 0 0 0 1px var(--rule-strong); }
+.rm-views a { all: unset; cursor: pointer; font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: var(--weight-strong); letter-spacing: var(--track-slight);
   padding: var(--s-2) var(--s-3); color: var(--ink-4); text-decoration: none; }
-.rm-views a:hover, .rm-lang button:hover { color: var(--ink); }
-.rm-views a[aria-current="page"], .rm-lang button.on { color: var(--paper); background: var(--ink); }
-.rm-views a:focus-visible, .rm-lang button:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.rm-views a:hover { color: var(--ink); }
+.rm-views a[aria-current="page"] { color: var(--paper); background: var(--ink); }
+.rm-views a:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
 
 /* ---- the panel: a rail on a desk, a sheet on a phone (overrides the shell's .as-panel) ---- */
 #panel.as-panel { position: fixed; z-index: 25; background: var(--rm-panel); backdrop-filter: blur(18px) saturate(1.1); -webkit-backdrop-filter: blur(18px) saturate(1.1);

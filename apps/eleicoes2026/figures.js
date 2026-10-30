@@ -16,8 +16,8 @@ const path = require('path');
 const C = require(path.join(__dirname, '..', '..', 'design', 'components.js'));
 const WR = require(path.join(__dirname, '..', '..', 'playground', 'warrant.js'));
 const esc = C.esc, escAttr = C.escAttr;
-const nBR = (x) => Number(x).toLocaleString('pt-BR');
-const pc = (x, d = 1) => (100 * x).toFixed(d).replace('.', ',');
+const nBR = (x) => Number(x).toLocaleString('en-US');   /* the name is history: English formats since 2026-10-30 */
+const pc = (x, d = 1) => (100 * x).toFixed(d);
 const hit = (label, value) => ' data-cm="' + escAttr(label) + '" data-cmv="' + escAttr(value) + '" tabindex="0"';
 const open = (w, h, alt) => '  <svg viewBox="0 0 ' + w + ' ' + h + '" role="img" aria-label="' + escAttr(alt) + '">';
 const text = (x, y, s, cls, anchor) => '    <text x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '"' + (anchor ? ' text-anchor="' + anchor + '"' : '')
@@ -32,12 +32,12 @@ function electorate(r1, r2) {
   const parts = [
     { k: 'Lula', fill: 'var(--el-lula)' },
     { k: 'Flávio Bolsonaro', fill: 'var(--el-flavio)' },
-    { k: 'outros candidatos', fill: 'var(--c-s2)' },
-    { k: 'brancos e nulos', fill: 'var(--c-s1)' },
-    { k: 'abstenção', fill: 'url(#el-hatch)', stroke: 'var(--ink-5)' }
+    { k: 'other candidates', fill: 'var(--c-s2)' },
+    { k: 'blank and null', fill: 'var(--c-s1)' },
+    { k: 'abstention', fill: 'url(#el-hatch)', stroke: 'var(--ink-5)' }
   ];
-  const rows = [{ t: '1º turno', y: 46, v: r1 }, { t: '2º turno', y: 150, v: r2 }];
-  const out = [open(W, 268, 'O eleitorado inteiro em cada turno: votos de Lula, de Flávio Bolsonaro, de outros candidatos, brancos e nulos, e abstenção'), HATCH];
+  const rows = [{ t: 'round 1', y: 46, v: r1 }, { t: 'round 2', y: 150, v: r2 }];
+  const out = [open(W, 268, 'The whole electorate in each round: votes for Lula, for Flávio Bolsonaro, for other candidates, blank and null, and abstention'), HATCH];
   for (const r of rows) {
     const tot = r.v.reduce((a, b) => a + b, 0);
     out.push(text(L - 14, r.y + BH / 2 + 5, r.t, 't-lab', 'end'));
@@ -47,7 +47,7 @@ function electorate(r1, r2) {
       if (w <= 0) return;
       const p = parts[i];
       out.push('    <rect x="' + x.toFixed(1) + '" y="' + r.y + '" width="' + Math.max(1, w - 2).toFixed(1) + '" height="' + BH + '" rx="2" fill="' + p.fill + '"'
-        + (p.stroke ? ' stroke="' + p.stroke + '" stroke-width="1"' : '') + hit(r.t + ' · ' + p.k, nBR(v) + ' (' + pc(v / tot) + '% do eleitorado)') + '/>');
+        + (p.stroke ? ' stroke="' + p.stroke + '" stroke-width="1"' : '') + hit(r.t + ' · ' + p.k, nBR(v) + ' (' + pc(v / tot) + '% of the electorate)') + '/>');
       if (w > 78) {
         out.push(text(x + 2, r.y - 22, p.k, 't-note', 'start'));
         out.push(text(x + 2, r.y - 7, pc(v / tot) + '%', 't-lab', 'start'));
@@ -73,11 +73,11 @@ function scale(items) {
   /* items: [{k, v, fill, emph}] largest first; side ∝ √v, nested at the bottom-left corner of the largest */
   const W = 900, H = 330, X0 = 70, Y1 = 300, S = 270;
   const vmax = items[0].v;
-  const out = [open(W, H, 'Quadrados de área proporcional: votos que inverteriam o resultado contra votos dados depois das 17h')];
+  const out = [open(W, H, 'Squares of proportional area: the votes that would reverse the result against the votes cast after 17:00')];
   items.forEach((it) => {
     const s = Math.max(2.5, S * Math.sqrt(it.v / vmax));
     out.push('    <rect x="' + X0 + '" y="' + (Y1 - s).toFixed(1) + '" width="' + s.toFixed(1) + '" height="' + s.toFixed(1) + '" fill="' + it.fill + '"'
-      + (it.stroke ? ' stroke="' + it.stroke + '" stroke-width="1.5"' : '') + hit(it.k, nBR(it.v) + ' votos') + '/>');
+      + (it.stroke ? ' stroke="' + it.stroke + '" stroke-width="1.5"' : '') + hit(it.k, nBR(it.v) + ' votes') + '/>');
   });
   /* labels to the right, each joined to its square's top-right corner by a hairline */
   const LX = X0 + S + 70;
@@ -103,14 +103,14 @@ const GRID = { RR: [2, 0], AP: [4, 0], AM: [1, 1], PA: [3, 1], MA: [4, 1], CE: [
 function tilemap(perUf) {
   const T = 92, G = 6, OX = 12, OY = 16;
   const W = OX + 7 * (T + G) + 20, H = OY + 8 * (T + G) + 46;
-  const out = [open(W, H, 'Mapa em blocos: em cada estado, a parcela de Lula entre os dois finalistas no 2º turno e a variação desde o 1º')];
+  const out = [open(W, H, 'Tile map: in each state, Lula’s share between the two finalists in round 2 and its change since round 1')];
   for (const [uf, [c, r]] of Object.entries(GRID)) {
     const u = perUf[uf];
     if (!u) continue;
     const s1 = u.r1_lula / (u.r1_lula + u.r1_flavio), s2 = u.lula / (u.lula + u.flavio);
     const x = OX + c * (T + G), y = OY + r * (T + G);
     out.push('    <rect x="' + x + '" y="' + y + '" width="' + T + '" height="' + T + '" rx="4" fill="var(--sunk)" stroke="var(--rule)" stroke-width="1"'
-      + hit(uf, 'Lula ' + pc(s2) + '% · Flávio ' + pc(1 - s2) + '% · variação de Lula ' + (s2 >= s1 ? '+' : '') + pc(s2 - s1) + ' p.p.') + '/>');
+      + hit(uf, 'Lula ' + pc(s2) + '% · Flávio ' + pc(1 - s2) + '% · Lula’s change ' + (s2 >= s1 ? '+' : '') + pc(s2 - s1) + ' pp') + '/>');
     out.push(text(x + 8, y + 20, uf, 't-lab', 'start'));
     out.push(text(x + T - 8, y + 20, pc(s2) + '%', 't-ax', 'end'));
     /* the share as a horizontal bar inside the tile, with the 50% line */
@@ -118,14 +118,14 @@ function tilemap(perUf) {
     out.push('    <rect x="' + bx + '" y="' + by + '" width="' + bw + '" height="10" rx="2" fill="var(--c-3)"/>');
     out.push('    <rect x="' + bx + '" y="' + by + '" width="' + (bw * s2).toFixed(1) + '" height="10" rx="2" fill="var(--c-2)"/>');
     out.push('    <line x1="' + (bx + bw / 2) + '" y1="' + (by - 4) + '" x2="' + (bx + bw / 2) + '" y2="' + (by + 14) + '" stroke="var(--ink)" stroke-width="1.5"/>');
-    out.push(text(x + 8, y + 70, (s2 >= s1 ? '+' : '−') + pc(Math.abs(s2 - s1)) + ' p.p.', 't-lab', 'start'));
+    out.push(text(x + 8, y + 70, (s2 >= s1 ? '+' : '−') + pc(Math.abs(s2 - s1)) + ' pp', 't-lab', 'start'));
   }
   /* the key */
   const ky = OY + 8 * (T + G) + 14;
   out.push('    <rect x="' + OX + '" y="' + ky + '" width="60" height="10" rx="2" fill="var(--c-3)"/>');
   out.push('    <rect x="' + OX + '" y="' + ky + '" width="34" height="10" rx="2" fill="var(--c-2)"/>');
   out.push('    <line x1="' + (OX + 30) + '" y1="' + (ky - 4) + '" x2="' + (OX + 30) + '" y2="' + (ky + 14) + '" stroke="var(--ink)" stroke-width="1.5"/>');
-  out.push(text(OX + 70, ky + 10, 'claro: Lula · escuro: Flávio · traço: 50% · abaixo: variação de Lula desde o 1º turno', 't-note', 'start'));
+  out.push(text(OX + 70, ky + 10, 'light: Lula · dark: Flávio · line: 50% · below: Lula’s change since round 1', 't-note', 'start'));
   out.push('  </svg>');
   return out.join('\n');
 }
@@ -134,17 +134,17 @@ function tilemap(perUf) {
 function scoreboard({ lula, flavio, margin }) {
   const W = 900, H = 190, X0 = 10, BW = W - 20, Y = 100, BH = 40;
   const tot = lula + flavio, xl = BW * lula / tot;
-  const out = [open(W, H, 'Placar do 2º turno: Lula ' + pc(lula / tot, 2) + '% e Flávio Bolsonaro ' + pc(flavio / tot, 2) + '% dos votos válidos')];
+  const out = [open(W, H, 'Round 2 scoreboard: Lula ' + pc(lula / tot, 2) + '% and Flávio Bolsonaro ' + pc(flavio / tot, 2) + '% of the valid votes')];
   out.push(text(X0, 18, 'LULA', 't-kick', 'start'));
   out.push(text(X0, 84, pc(lula / tot, 2) + '%', 't-score', 'start'));
   out.push(text(X0 + BW, 18, 'FLÁVIO BOLSONARO', 't-kick', 'end'));
   out.push(text(X0 + BW, 84, pc(flavio / tot, 2) + '%', 't-score', 'end'));
-  out.push('    <rect x="' + X0 + '" y="' + Y + '" width="' + (xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-lula)"' + hit('Lula', nBR(lula) + ' votos') + '/>');
-  out.push('    <rect x="' + (X0 + xl + 1).toFixed(1) + '" y="' + Y + '" width="' + (BW - xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-flavio)"' + hit('Flávio Bolsonaro', nBR(flavio) + ' votos') + '/>');
+  out.push('    <rect x="' + X0 + '" y="' + Y + '" width="' + (xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-lula)"' + hit('Lula', nBR(lula) + ' votes') + '/>');
+  out.push('    <rect x="' + (X0 + xl + 1).toFixed(1) + '" y="' + Y + '" width="' + (BW - xl - 1).toFixed(1) + '" height="' + BH + '" fill="var(--el-flavio)"' + hit('Flávio Bolsonaro', nBR(flavio) + ' votes') + '/>');
   out.push('    <line x1="' + (X0 + BW / 2) + '" y1="' + (Y - 8) + '" x2="' + (X0 + BW / 2) + '" y2="' + (Y + BH + 8) + '" stroke="var(--ink)" stroke-width="2"/>');
-  out.push(text(X0, Y + BH + 24, nBR(lula) + ' votos', 't-lab', 'start'));
-  out.push(text(X0 + BW, Y + BH + 24, nBR(flavio) + ' votos', 't-lab', 'end'));
-  out.push(text(X0 + BW / 2, Y + BH + 24, '50% · diferença de ' + nBR(margin) + ' votos', 't-note', 'middle'));
+  out.push(text(X0, Y + BH + 24, nBR(lula) + ' votes', 't-lab', 'start'));
+  out.push(text(X0 + BW, Y + BH + 24, nBR(flavio) + ' votes', 't-lab', 'end'));
+  out.push(text(X0 + BW / 2, Y + BH + 24, '50% · a difference of ' + nBR(margin) + ' votes', 't-note', 'middle'));
   out.push('  </svg>');
   return out.join('\n');
 }
@@ -153,23 +153,23 @@ function scoreboard({ lula, flavio, margin }) {
 function balance({ others, blankDrop, abstDrop, lulaGain, flavioGain }) {
   const W = 900, L = 170, BW = W - L - 30, BH = 34;
   const pool = others + blankDrop + abstDrop;
-  const out = [open(W, 206, 'De onde vieram os votos novos dos finalistas no 2º turno, e para quem foram')];
+  const out = [open(W, 206, 'Where the finalists’ new votes in round 2 came from, and to whom they went')];
   const row = (y, title, parts) => {
     out.push(text(L - 14, y + BH / 2 + 5, title, 't-lab', 'end'));
     let x = L;
     for (const p of parts) {
       const w = BW * p.v / pool;
       out.push('    <rect x="' + x.toFixed(1) + '" y="' + y + '" width="' + Math.max(1, w - 2).toFixed(1) + '" height="' + BH + '" rx="2" fill="' + p.fill + '"'
-        + (p.stroke ? ' stroke="' + p.stroke + '" stroke-width="1"' : '') + hit(title + ' · ' + p.k, nBR(p.v) + ' votos') + '/>');
+        + (p.stroke ? ' stroke="' + p.stroke + '" stroke-width="1"' : '') + hit(title + ' · ' + p.k, nBR(p.v) + ' votes') + '/>');
       /* narrow segments: one label below the bar, one hung from the bar's right end, so neighbours never collide */
       out.push(p.at === 'below' ? text(x + 2, y + BH + 16, p.k + ' · ' + nBR(p.v), 't-note', 'start')
         : p.at === 'end' ? text(x + w - 2, y - 7, p.k + ' · ' + nBR(p.v), 't-note', 'end') : text(x + 2, y - 7, p.k + ' · ' + nBR(p.v), 't-note', 'start'));
       x += w;
     }
   };
-  row(36, 'disponíveis', [{ k: 'eram de outros candidatos', v: others, fill: 'var(--c-s3)' }, { k: 'brancos e nulos a menos', v: blankDrop, fill: 'var(--c-s2)', at: 'below' },
-    { k: 'abstenção a menos', v: abstDrop, fill: 'url(#el-hatch)', stroke: 'var(--ink-5)', at: 'end' }]);
-  row(144, 'ganhos', [{ k: 'Lula', v: lulaGain, fill: 'var(--el-lula)' }, { k: 'Flávio', v: flavioGain, fill: 'var(--el-flavio)' }]);
+  row(36, 'available', [{ k: 'had gone to other candidates', v: others, fill: 'var(--c-s3)' }, { k: 'fewer blank and null', v: blankDrop, fill: 'var(--c-s2)', at: 'below' },
+    { k: 'less abstention', v: abstDrop, fill: 'url(#el-hatch)', stroke: 'var(--ink-5)', at: 'end' }]);
+  row(144, 'gained', [{ k: 'Lula', v: lulaGain, fill: 'var(--el-lula)' }, { k: 'Flávio', v: flavioGain, fill: 'var(--el-flavio)' }]);
   out.splice(1, 0, HATCH);
   out.push('  </svg>');
   return out.join('\n');
