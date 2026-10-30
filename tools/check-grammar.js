@@ -104,7 +104,7 @@ function census() {
 function marksCensus(root = SITE) {
   const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
   const guide = norm(G.GUIDE);
-  const unstanding = [], borders = [], chips = new Map(), unpointed = [];
+  const unstanding = [], borders = [], chips = new Map(), unpointed = [], figNoRecord = [], figNoStop = [];
   let pointed = 0;
   for (const file of walk(root, [], root)) {
     const src = fs.readFileSync(file, 'utf8');
@@ -117,7 +117,13 @@ function marksCensus(root = SITE) {
       if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
     }
     const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
-    while ((m = rv.exec(src))) { if (!/\bdata-rec="/.test(m[0])) unpointed.push(rel); else pointed++; }
+    while ((m = rv.exec(src))) { if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* D10: a derived value or a claimant's number carries its addresses */
+    /* R23, R30 (2026-10-30): a figure that draws the grammar names its record and the sentence that would stop it */
+    for (const fg of src.match(/<figure>[\s\S]*?<\/figure>/g) || []) {
+      if (!/class="[^"]*\bw-(decided|computed|chosen|void)\b|data-w="/.test(fg)) continue;
+      if (!/<figcaption[^>]*\sdata-record=/.test(fg)) figNoRecord.push(rel);
+      if (!/<figcaption[^>]*\sdata-stop[\s>]/.test(fg)) figNoStop.push(rel);
+    }
     const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
     while ((m = rb.exec(src))) borders.push(rel);
     const rc = /class="tag ([a-z]+)">([^<]+)</g;
@@ -133,8 +139,10 @@ function marksCensus(root = SITE) {
   const count = (arr) => { const per = {}; for (const r of arr) per[r] = (per[r] || 0) + 1; return per; };
   const multi = [...chips].filter(([, kinds]) => kinds.size > 1).map(([w, kinds]) => w + ' as ' + [...kinds.keys()].join('/'));
   return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length, unpointed: unpointed.length,
+    figNoRecord: figNoRecord.length, figNoStop: figNoStop.length,
     pointed, pages: walk(root, [], root).length, chipWordsMulti: multi,
-    where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash, unpointed: count(unpointed) } };
+    where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash, unpointed: count(unpointed),
+      figNoRecord: count(figNoRecord), figNoStop: count(figNoStop) } };
 }
 
 function loadBaseline() {
@@ -169,7 +177,7 @@ function main() {
       drift[p] = e.count;
     }
     const mc = marksCensus();
-    const out = { exempt: base.exempt || {}, drift, ratchet: { unstanding: mc.unstanding, dashedBorders: mc.dashedBorders, chipClash: mc.chipClash, unpointed: mc.unpointed } };
+    const out = { exempt: base.exempt || {}, drift, ratchet: { figNoRecord: mc.figNoRecord, figNoStop: mc.figNoStop, unstanding: mc.unstanding, dashedBorders: mc.dashedBorders, chipClash: mc.chipClash, unpointed: mc.unpointed } };
     fs.writeFileSync(BASELINE, JSON.stringify(out, null, 2) + '\n');
     console.log(`blessed: ${Object.keys(drift).length} drifting pattern(s) recorded; marks ratchet ${JSON.stringify(out.ratchet)}`);
     return 0;
@@ -213,7 +221,7 @@ function main() {
   /* the marks ratchet: each count may only shrink */
   const mc = marksCensus(), rat = base.ratchet || {};
   let marksBad = 0;
-  for (const k of ['unstanding', 'dashedBorders', 'chipClash', 'unpointed']) {
+  for (const k of ['unstanding', 'dashedBorders', 'chipClash', 'unpointed', 'figNoRecord', 'figNoStop']) {
     const allowed = rat[k] === undefined ? 0 : rat[k];
     if (mc[k] > allowed) {
       marksBad++;

@@ -519,14 +519,14 @@ function html() {
     ['R20', 'The legend is derived from the figure, never declared.', r20 ? 'gated' : 'open', r20 ? 'every legend derived from its page, figure or drawing code; tools/check-wiring.js refuses an exclude list or an item for a standing not drawn' : excludes + ' calls still tell the legend what to leave out'],
     ['R21', 'A dash is a standing everywhere: strokes, borders, motion.', NOW.unstanding || NOW.dashedBorders ? 'partial' : 'gated', fmt(NOW.unstanding) + ' unclassed dashes and ' + fmt(NOW.dashedBorders) + ' dashed borders left'],
     ['R22', 'A mark’s reason is visible text, never only a tooltip.', hiddenNow ? 'open' : 'gated', hiddenNow ? fmt(hiddenNow) + ' reasons live only in a tooltip' : 'every reason a tooltip carried is said once in words at its section’s end; tools/check-wiring.js refuses one that is not'],
-    ['R23', 'A figure names its record and its digest on itself.', recCaptions ? 'partial' : 'open', recCaptions ? recCaptions + ' captions name their record' : 'no caption names its record yet'],
+    ['R23', 'A figure names its record and its digest on itself.', NOW.figNoRecord ? (recCaptions ? 'partial' : 'open') : 'gated', NOW.figNoRecord ? recCaptions + ' captions name their record; ' + fmt(NOW.figNoRecord) + ' figures still do not, a count that may only shrink' : 'every figure that draws the grammar names its record and its sha256'],
     ['R24', 'A page’s standing is computed by its builder, never typed.', typeof W.pageStanding === 'function' ? 'partial' : 'open', 'not built'],
     ['R25', 'A frame is a page: standing never tweens, a value never travels.', exists('tools/check-frames.js') ? 'gated' : 'open', 'no gate yet'],
     ['R26', 'A chosen input is a handle, and a drag is a test.', exists('playground/return-level-check/drive.js') ? 'partial' : 'open', 'one instrument: the return-level check’s design height'],
     ['R27', 'A premise grade is a pair: whether the code was verified, and how far it was validated.', typeof W.pairWord === 'function' ? 'partial' : 'open', 'on Swell and on this page; other chains as they are next edited'],
     ['R28', 'A witness is an event, and a void has a size.', heroPages && r28 ? 'gated' : heroPages ? 'partial' : 'open', heroPages + ' pages declare a hero, each × first; the chart kit draws a refused value as a void its own size' + (r28 ? '' : ' (not yet)')],
     ['R29', 'The registry is one machine-readable file, copied by digest into every sibling.', exists('design/warrant/registry.json') ? 'gated' : 'open', 'the five patterns still live in several copies'],
-    ['R30', 'A figure carries the sentence that would stop it.', 'open', 'not built'],
+    ['R30', 'A figure carries the sentence that would stop it.', NOW.figNoStop ? 'partial' : 'gated', NOW.figNoStop ? fmt(NOW.figNoStop) + ' figures still lack the sentence of the check that would refuse them, a count that may only shrink' : 'every figure that draws the grammar prints the sentence that would stop it'],
     ['R31', 'A conformance suite, and the checks as a package.', exists('kits/warrant-check') ? 'partial' : 'open', 'the red controls are its seed'],
   ];
   const nState = (st) => CANDIDATES.filter((r) => r[2] === st).length;
