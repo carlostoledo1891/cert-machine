@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* check-marks.js — every printed number that names its record is re-read from it.
-   tools/ · cert-machine · 2026-10-29 (D10 of the roundtable's rulings)
+   tools/ · cert-machine · 2026-10-29 (D10)
 
    THE RULE. A mark that carries data-rec="<file>#<pointer>" (playground/warrant.js W.val and W.attrs) is a projection
    of one record cell. This gate walks the built site, follows every address back into the record (design/record.js:

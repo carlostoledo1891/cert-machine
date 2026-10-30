@@ -409,7 +409,7 @@ a { color: inherit; }
 
 /* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
    void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
-   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger; the roundtable's finding F1):
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
    decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-2); }
@@ -1196,7 +1196,7 @@ const GLOSS = LEGEND.reduce((o, L) => { o[L.s] = L.label + ' — ' + L.gloss; re
    object from another record than the claim's. Always a × beside words, so a greyscale copy loses nothing. The colour
    is the .wx rule in css() below (design/tokens.js --witness). */
 const witness = (label = 'an exhibited counterexample') => `<span class="wx" aria-label="${String(label).replace(/"/g, '&quot;')}">&times;</span>`;
-/* THE WITNESS AS AN EVENT (D12, ruled 2026-10-29; the roundtable's R28). In a figure the same × is drawn where the
+/* THE WITNESS AS AN EVENT (D12, ruled 2026-10-29). In a figure the same × is drawn where the
    object broke the claim, at the figure's own scale: an arm of `size` either side of (x, y), at a stroke no thinner
    than the figure's decided line. On a page with a hero it is the first × a reader meets, before any inline glyph
    (tools/check-wiring.js reads the order and the weights from the built page). */
@@ -1240,7 +1240,7 @@ const GRADE_GLOSS = [
 ];
 const weakest = (...g) => g.reduce((a, b) => (b < a ? b : a), VALIDATED);
 
-/* THE GRADE IS A PAIR (D11, ruled 2026-10-29 on the roundtable's finding): verification (the code solves its own
+/* THE GRADE IS A PAIR (D11, ruled 2026-10-29): verification (the code solves its own
    equations: a bit) and validation (how far the equations were checked against the world: a rung, assumed <
    compared < validated) are orthogonal in Roache and ASME V&V 20, and the four-rung chain above could not say
    "validated but never verified", which is Swell's open-sea band. A premise item may now carry `verified: true |
@@ -1299,7 +1299,7 @@ function css() {
   return `
 /* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
    void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
-   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger; the roundtable's finding F1):
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
    decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-2); }

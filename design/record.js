@@ -1,5 +1,5 @@
 /* record.js — a printed number is READ from a record through a pointer, and printed by one rule.
-   design/ · cert-machine · 2026-10-29 (D10 of the roundtable's rulings)
+   design/ · cert-machine · 2026-10-29 (D10)
 
    WHY. WARRANT rule 8 says every number on a page comes from a record and is gated by its builder. Until today that
    was true per builder, by hand: `W.value(text, standing, { title })` took a string the author had already formatted

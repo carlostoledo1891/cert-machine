@@ -34,7 +34,7 @@ const m = (s) => '<span class="m">' + esc(s) + '</span>';
 
 /* a status tag. `kind` is a ROLE, not a colour: held | cert | open | dep */
 const TAG_KINDS = ['held', 'cert', 'open', 'dep'];
-/* RULED 2026-10-29 (the roundtable; Norman's finding F5): a verdict word has ONE chip shape site-wide, so word → shape
+/* RULED 2026-10-29: a verdict word has ONE chip shape site-wide, so word → shape
    is a function. A builder's kind is honoured only for a word that is not a verdict. The mapping is the shape each word
    wore most often before the ruling (CERTIFIED filled 403 of 417; REFUTED outlined 66 of 73; REFUSED dim 23 of 37). */
 const VERDICT_KIND = { CERTIFIED: 'held', WITNESSED: 'held', REPAIRED: 'held', REFUTED: 'dep', PARTIAL: 'dep', MIXED: 'dep',

@@ -147,7 +147,7 @@ const CHART_SURFACE = PAL['--sunk'];
     'L ' + Ls.map(v => v.toFixed(2)).join('→') + ' · min ΔL ' + Math.min.apply(null, gaps).toFixed(3));
   check('P6 the ramp\'s dim end still clears 2:1 on the chart surface',
     contrast(seq[0], CHART_SURFACE) >= 2, seq[0] + ' at ' + contrast(seq[0], CHART_SURFACE).toFixed(2) + ':1');
-  /* W1 — TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29; the roundtable's finding F1: chosen was --ink-2, brighter
+  /* W1 — TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: chosen was --ink-2, brighter
      than computed's --ink-3, so the weaker standing read stronger). The class → token mapping is READ from
      playground/warrant.js css(), never retyped; on screen L(decided) ≥ L(computed) ≥ L(chosen); on paper
      (design/print/tokens.js) the order reverses with the ground. */

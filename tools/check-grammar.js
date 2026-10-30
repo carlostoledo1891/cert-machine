@@ -89,7 +89,7 @@ function census() {
   return seen;
 }
 
-/* THE MARKS CENSUS (ruled 2026-10-29, the roundtable): three more facts about the built pages, each ratcheted in the
+/* THE MARKS CENSUS (ruled 2026-10-29): three more facts about the built pages, each ratcheted in the
    baseline's `ratchet` block (a count may only shrink; --bless records reality).
      unstanding     a dashed, non-guide SVG mark that carries no standing (neither a w-* class nor data-w): the dash
                     then says nothing a reader can decode (finding F2: 99 on 24 pages, from design/charts.js's
@@ -99,8 +99,8 @@ function census() {
                     design/components.js VERDICT_KIND gives it: word → shape is a function
      unpointed      a w-val span with no data-rec (D10, 2026-10-29): a printed number no gate can follow back to
                     its record; tools/check-marks.js re-reads the pointed ones */
-/* `root` is site/ by default; /grammar/roundtable/ (tools/build-grammar-roundtable.js) runs the same census on the site as
-   git holds it at an older commit, so a finding's "before" is counted by the rule that counts its "after" */
+/* `root` is site/ by default; /grammar/ (tools/build-grammar.js) runs the same census on the site as git holds it at an
+   older commit, so an issue's "before" is counted by the rule that counts its "after" */
 function marksCensus(root = SITE) {
   const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
   const guide = norm(G.GUIDE);

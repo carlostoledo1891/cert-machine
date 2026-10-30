@@ -1999,9 +1999,6 @@ put('papers/index.html', Buffer.from(require(path.join(__dirname, 'build-papers-
 /* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
    (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
 put('grammar/index.html', Buffer.from(require(path.join(__dirname, 'build-grammar.js')).html()));
-/* /grammar/roundtable/ (D15, 2026-10-29): the WARRANT roundtable as a public page, built from the records, the code and git
-   history by its own builder; SPECIMEN until the operator's word, and linked from nowhere until then */
-put('grammar/roundtable/index.html', Buffer.from(require(path.join(__dirname, 'build-grammar-roundtable.js')).html()));
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));

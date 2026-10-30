@@ -58,8 +58,7 @@ const git = (args) => cp.execFileSync('git', ['-C', ROOT].concat(args), { encodi
 const MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const day = (iso) => Number(iso.slice(8, 10)) + ' ' + MONTH[Number(iso.slice(5, 7)) - 1];
 
-/* THE SPECIMENS' EXACT NUMBERS, at module level since 2026-10-29 so /grammar/roundtable/ (tools/build-grammar-roundtable.js)
-   draws the same enclosure rather than a second copy of it: y = √x, decided in BigInt. */
+/* THE SPECIMENS' EXACT NUMBERS: y = √x, decided in BigInt. */
 const B = (x) => BigInt(x);
 const gcd = (x, y) => { x = x < 0n ? -x : x; y = y < 0n ? -y : y; while (y) [x, y] = [y, x % y]; return x; };
 const fr = (n, d = 1n) => { n = B(n); d = B(d); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; return [n / g, d / g]; };
@@ -81,8 +80,7 @@ for (let k = 0; k < STEPS; k++) {
     ok: lo * lo * 2n <= B(k) * Q * Q && hi * hi * 2n >= B(k + 1) * Q * Q });
 }
 
-/* RULE 8 IN PIXELS, at module level since 2026-10-29 so /grammar/roundtable/ draws the staircase by the same rule:
-   an enclosure's edges round AWAY from the curve, at a tenth of a pixel (the roundtable's finding F4) */
+/* RULE 8 IN PIXELS: an enclosure's edges round AWAY from the curve, at a tenth of a pixel (fixed 2026-10-29) */
 const RES = 10;
 const away = (v, dir) => ((dir > 0 ? Math.ceil(v * RES) : Math.floor(v * RES)) / RES).toFixed(1);
 const stair = (f, key) => { const dir = key === 'hi' ? -1 : 1;
@@ -146,7 +144,7 @@ function html() {
   const yT = [0, 1, 2].map((v) => ({ v, t: String(v) }));
   const xT = (lo) => [-1, 0, 1, 2, 3, 4].filter((v) => v >= lo).map((v) => ({ v, t: v < 0 ? '−' + Math.abs(v) : String(v) }));
   const P = (f, x, y) => f.px(x).toFixed(1) + ',' + f.py(y).toFixed(1);
-  /* RULE 8 IN PIXELS (ruled 2026-10-29; the roundtable's finding F4: these paths were written with toFixed, nearest,
+  /* RULE 8 IN PIXELS (ruled 2026-10-29: these paths were written with toFixed, nearest,
      so an upper edge could sit inside the record by up to half the written resolution). An enclosure's edges round
      AWAY from the curve: py grows downward, so the upper edge floors and the lower edge ceils; x0 floors, x1 ceils.
      The resolution the paths are written at is a tenth of a pixel, and the caption prints what one pixel is worth. */
@@ -470,8 +468,7 @@ function html() {
       + C.pRaw('A mark takes the <b>weakest</b> standing on its path to the pixel: a knot computed exactly is solid, and the line drawn between two such knots is dotted, because a straight line is one curve of many through them. '
         + 'Standing is not a verdict. CERTIFIED, REFUTED and REFUSED are what an instrument concluded about a claim; they are said in words and chips, never in a stroke, and a refutation proved here is drawn solid. '
         + 'Nor is standing a confidence: a value known to many decimals can still be undecided, and a decided value can have a wide bracket, which is drawn as its own extent.') + '</div>'
-      + LEGEND_FULL
-      + '<div class="col">' + C.pRaw('How this grammar was examined: <a href="roundtable/index.html">the roundtable</a>, where eleven seats judged it on 29 October 2026, the law they kept drawn where this site once broke it, ten findings each as it was and as it is, and the fifteen rules they proposed with the status a build decides.') + '</div>' }));
+      + LEGEND_FULL }));
 
   B_.push(C.section({ lab: 'live specimens', title: 'Drawn by the module when this page is built', id: 'specimens', wide: true,
     bodyRaw: '<div class="col">' + C.pRaw('Every mark below is drawn by ' + a(blob('playground/warrant.js'), 'playground/warrant.js') + ' as this page is built, on one curve: y = √x for x from −1 to 4. '

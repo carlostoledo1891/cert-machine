@@ -260,8 +260,7 @@ if (fs.existsSync(path.join(ROOT, 'site/index.html'))) pages.push('site/index.ht
    were checked by nobody. The round-one easy read (site/explained/v1/) is kept in its own palette beside them for
    comparison, a second language on purpose, and is not walked. */
 for (const f of ['site/explained/index.html', 'site/uirapuru/index.html']) if (fs.existsSync(path.join(ROOT, f))) pages.push(f);
-/* AND THE PAGES WHOSE BUILDERS WRITE STRAIGHT INTO site/ (2026-10-29, found by the roundtable day's pass, walked on the
-   operator's word): /eth/, /papers/, /eleicoes2026/, and the two apps /janela/ (with /janela/metodo/) and /swell/. Each
+/* AND THE PAGES WHOSE BUILDERS WRITE STRAIGHT INTO site/ (2026-10-29, walked on the operator's word): /eth/, /papers/, /eleicoes2026/, and the two apps /janela/ (with /janela/metodo/) and /swell/. Each
    builder writes its page in place, so what is read here is current when the batteries run. /cv/ is not a page — the
    URL redirects to site/cv/carlos-toledo-cv.pdf — so there is nothing of it to walk. */
 for (const d of ['site/eth', 'site/papers', 'site/eleicoes2026', 'site/janela', 'site/swell']) walk(d);
@@ -426,7 +425,7 @@ red('a page drawing a grammar mark with no legend is caught',
 red('a page that only DECLARES the CSS is not flagged',
   grammarOffences('<style>.w-computed { stroke: var(--ink-3); }</style>', 'planted').length === 0);
 
-/* THE HERO AND ITS WITNESS (D12, ruled 2026-10-29; the roundtable's R28). One figure per page may be the hero
+/* THE HERO AND ITS WITNESS (D12, ruled 2026-10-29). One figure per page may be the hero
    (design/components.js figure({ hero: true })), and on a page that has one, a witness is an event before it is a
    word: the first × a reader meets is the hero's own mark (W.witnessMark, class w-wx), drawn no thinner than the
    hero's decided line, before any inline glyph. A page with no × passes; a page with no hero is not read here. */

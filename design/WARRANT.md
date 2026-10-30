@@ -228,12 +228,10 @@ as WARRANT on paper; the one red kept on paper (#e0574e, a mark, never text); th
 series, print only; the paper casing under a coloured mark on a ramp field. Social cards and videos take this
 register too ("Light for X", the same day); the site stays dark.
 
-## Rulings, 2026-10-29 (the roundtable)
+## Rulings, 2026-10-29
 
-Eleven seats (Tufte, Wilkinson, Bertin, Victor, Sanderson, Bostock, Norman, Maeda, Sagmeister, a Chief Scientist, a
-CTO), each an agent briefed with this file, the brainstorm and five built pages, judged the grammar and returned
-candidate rules; the synthesis and the eleven positions are a local note (notes/warrant-roundtable-2026-10-29.md,
-untracked on the operator's word). Ten findings on the built site were verified by the convener before the rulings.
+A review of the grammar against this file and five built pages returned candidate rules; ten findings on the built
+site were verified before the rulings. The review is internal and is never cited on the site.
 The operator ruled on 2026-10-29 ("Ask here, also pointing your recommendation"; every recommendation taken except
 tracking):
 
@@ -254,14 +252,14 @@ tracking):
   `w-*` selector; no dashed chip border; verdict word → chip shape is a function).
 - **D14, the first handle** (a chosen input in italic that drags, the flip value drawn as a solid tick on its own
   ruler; under a drag only CHOSEN and COMPUTED marks may move) goes on the return-level check, after navier-stokes.
-- **D15, the companion page:** the roundtable, the axioms and the candidate rules become a public page beside
-  /grammar/ once the fixes below have landed, with the findings as before/after figures.
-- **D16, the note stays local.**
+- **D15, the companion page:** the axioms and the candidate rules become a public page beside /grammar/ once the
+  fixes below have landed, with the findings as before/after figures. (Folded into /grammar/ the same day: one page.)
+- **D16, the review's note stays local.**
 
 **The fixes ruled with them, each a finding with a gate:** 99 dashed non-guide SVG marks on 24 pages carry no `w-*`
 class (`design/charts.js` still takes `dashed: true`); pixels round to nearest in `tools/build-grammar.js`
 (`toFixed`), against rule 8 in pixels; `.tag.open` wears a dashed border; /eth/'s first screen reads "CERTIFIED"
-and never says the verdict is absent; `tools/video-campos.js` slid a DECIDED tick. Also ruled, from the table's
+and never says the verdict is absent; `tools/video-campos.js` slid a DECIDED tick. Also ruled, from the review's
 agreed rules: the legend is derived from the figure (never an `exclude:` list) and drawn at the figure's widths; a
 mark's reason is visible text at first use, never only a `title`; a figure's caption names its record and sha; a
 page's standing is computed by the builder; a frame is a page (standing never tweens; a value appears or its
@@ -323,12 +321,11 @@ The headline names the family Anderson–Darling decides and prints both flips (
 at 5.84 m or below"): the incentive form of the app doctrine's "at X you turn green". On a phone the family's name and
 its word share a line above each lane, so the ruler takes the full width.
 
-## D15 applied (2026-10-29): the companion page
+## D15 applied, then folded (2026-10-29): one grammar page
 
-/grammar/roundtable/ (tools/build-grammar-roundtable.js, linked from /grammar/) makes the roundtable public, as D15 ruled. It
-is written from the records, the code and git history; the table's note stays local (D16). The page says what a seat was:
-an AI agent judging by one discipline's published principles, named for the person whose work defines it, and none of
-those people took part.
+The companion page was built beside /grammar/ and folded into it the same day on the operator's word: the grammar has ONE
+page, and the review behind the rulings is internal, never cited on the site (its old URL redirects to /grammar/). What
+the companion drew lives on /grammar/ as issues and their fixes:
 
 - **The hero is the law.** Soundness is drawn at the one place the site is known to have broken it (F4). The staircase's top
   on [1, 3/2] was written to nearest, 7/180 of a pixel inside its record, and is now outward. Both rows are read from the

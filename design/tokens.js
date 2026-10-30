@@ -162,7 +162,7 @@ const SCALE = {
    different component. It never breaks out, because the breakout is what
    makes the left edge move.
 
-   THE ONE EXCEPTION, THE HERO (D12, ruled 2026-10-29 at the WARRANT roundtable). One figure per page, declared by
+   THE ONE EXCEPTION, THE HERO (D12, ruled 2026-10-29). One figure per page, declared by
    its builder (components.js figure({ hero: true })), may draw past the container into the room beside it, up to
    `hero` wide and never closer to the viewport's edge than the gutter. Its caption stays on the spine. The ruler
    (tools/check-measure.js) does not count the hero's own edges as spines; it records the hero's width instead and

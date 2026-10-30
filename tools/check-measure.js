@@ -80,7 +80,7 @@ const { withChrome, settle } = require(path.join(ROOT, 'design', 'cdp.js'));
    the relation. Two widths do not bracket a layout; they bracket its ends. */
 const VIEWPORTS = [1440, 768, 390];
 const METRICS = ['spines', 'pageOverflow', 'escapes', 'clipped'];
-/* THE HERO (D12, ruled 2026-10-29 at the WARRANT roundtable: "check-measure may ratchet up for the declared hero
+/* THE HERO (D12, ruled 2026-10-29: "check-measure may ratchet up for the declared hero
    only"). One figure per page may be declared the hero (design/components.js figure({ hero: true })); its box may
    draw past the container (design/tokens.js LAYOUT.hero). Its own edges are not spines — the probe skips them — and
    its WIDTH is recorded instead and ratchets the other way: a hero that got narrower is the regression, so the one

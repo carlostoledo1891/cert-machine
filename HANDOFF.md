@@ -27,6 +27,13 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ RULED 2026-10-30 ~00:30 UTC (the operator): "The grammar page and companion should [be] only one. Never citing the
+     roundtable, this is internal. You can cite issues and solutions." DONE: /grammar/roundtable/ taken down (builder and
+     page removed, 301 to /grammar/ in vercel.json, baselines' rows dropped), the link off /grammar/, and the word scrubbed
+     from every source comment that is baked into pages (template.js, warrant.js …), the rulebook (WARRANT.md: "a review",
+     internal), the control's battery text and all 91 committed reports + 34 in-place pages. NEXT (same ask): /grammar/
+     redesigned as THE visual page — components shown, rules illustrated, the colour law drawn — with the companion's
+     figures folded in as issues and their fixes.
   ◆ RULED 2026-10-29 ~23:40 UTC (the operator, four questions, every recommendation taken):
      (1) X drop d01 (notes/x/drops/d01-*) WAITS for OpenAI's replay: then reword it to three checks for both claims and
          post it as a reply in the Recht/Papailiopoulos thread on the operator's word.

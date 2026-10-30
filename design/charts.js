@@ -201,7 +201,7 @@ function legendLines(items, avail, gap) {
   }
   return lines;
 }
-/* WARRANT in the kit (ruled 2026-10-29; the roundtable's finding F2: 99 dashed marks on 24 pages carried no standing,
+/* WARRANT in the kit (ruled 2026-10-29: 99 dashed marks on 24 pages carried no standing,
    because these helpers took a two-valued `dashed` flag and wrote a literal pattern). A dashed mark carries its
    standing in the markup: `standing` (a playground/warrant.js constant) is the typed form, `dashed: true` the older
    flag and means COMPUTED. The pattern is read from the grammar at the mark's width, never typed. The w-* class is NOT

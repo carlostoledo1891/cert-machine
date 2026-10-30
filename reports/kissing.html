@@ -369,6 +369,9 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 .hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
   margin-inline:calc(-1 * var(--bleed))}
 .hero .hv-n{display:none}
+/* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
+   would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
+.page > header + .hero{margin-top:var(--s-7)}
 @media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
   border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
@@ -457,7 +460,7 @@ td.n{font-size:.75rem;color:var(--ink-2);white-space:nowrap;text-align:right}
 
 /* verdict chips — WEIGHT + SHAPE, never colour-alone:
    certified/held FILL, refuted/deprecated OUTLINE, open/refused DIM, hollow, square-cornered. No chip wears a
-   dash: a dash is a standing (WARRANT rule 4; the roundtable's finding F5, 2026-10-29). */
+   dash: a dash is a standing (WARRANT rule 4, 2026-10-29). */
 .tag{display:inline-flex;align-items:center;gap:.45em;font-family:var(--f-mono);font-size:.625rem;
   font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.35em .8em;
   border-radius:var(--radius-pill);white-space:nowrap}
@@ -638,7 +641,7 @@ ul.plain b{color:var(--ink);font-weight:480}
 
 /* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
    void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
-   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger; the roundtable's finding F1):
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
    decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
 .w-decided { stroke: var(--ink); }
 .w-computed { stroke: var(--ink-2); }
