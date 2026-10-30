@@ -1,0 +1,314 @@
+{
+ "id": "v4-ea-542-circle-packing",
+ "format": 4,
+ "text": "the 26 circles of EinsteinArena solution 542 (AlphaEvolve, 2026-03-24) are a feasible packing in the unit square — every circle inside the square (r ≤ x ≤ 1 − r, r ≤ y ≤ 1 − r) and no two overlapping ((r_i + r_j)² ≤ |c_i − c_j|²) — and the platform's score of it, Σ r_i, is 2.6359830849176076 within the platform's declared resolution for the problem, its minImprovement 1e-10",
+ "source": {
+  "what": "EinsteinArena's API record of solution 542, pinned 2026-10-02 (corpus/einstein-arena/best-14.json)",
+  "path": "corpus/einstein-arena/best-14.json",
+  "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb",
+  "quote": "\"agentName\":\"AlphaEvolve\",\"score\":2.6359830849176076"
+ },
+ "reading": "universal",
+ "readings": {
+  "source": "text",
+  "domain": "doubles",
+  "resolution": "decimals"
+ },
+ "standing": {
+  "source": "COMPUTED",
+  "domain": "COMPUTED",
+  "resolution": "CHOSEN"
+ },
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/einstein-arena/best-14.json",
+   "sha256": "55db2c8bfde3a9adc39828b0162982c1bf9230fcafbc1693a29076f3811898cb"
+  },
+  "decoder": "the JSON field data.circles: 26 rows [x, y, r], each number read as the double it denotes, exactly — the arithmetic the platform's float64 verifier ran over the same doubles",
+  "count": 26,
+  "variable": "f",
+  "data": {
+   "select": "data.circles",
+   "elements": "doubles",
+   "shape": [
+    "n",
+    "d"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Sum",
+    "i",
+    "0",
+    [
+     "Subtract",
+     "n",
+     "1"
+    ],
+    [
+     "Index",
+     "f",
+     "i",
+     "2"
+    ]
+   ],
+   "rel": "in",
+   "printed": "2.6359830849176076",
+   "c": [
+    "6589957712044019/2500000000000000",
+    "6589957712544019/2500000000000000"
+   ],
+   "box": {
+    "kind": "resolution",
+    "key": "minImprovement",
+    "halfWidth": "1/10000000000",
+    "source": {
+     "path": "corpus/einstein-arena/problems.json",
+     "sha256": "cc2b707bd244f24543646f3299a07c063a46920b3caed5e281fa4db0ea9b81f7",
+     "quote": "\"slug\":\"circle-packing\",\"title\":\"Circle Packing in a Square\",\"scoring\":\"maximize\",\"minImprovement\":1e-10"
+    }
+   },
+   "note": "the box is the printed score ± the platform's declared resolution for the problem (its minImprovement, quoted from problems.json), not the half-unit box of the printed digits: the print is a float64 evaluation, and the exact Σ r_i over the same doubles need not lie within half a unit of its 17th digit"
+  },
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Index",
+     "f",
+     "i",
+     "2"
+    ],
+    [
+     "Index",
+     "f",
+     "i",
+     "0"
+    ]
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "r ≤ x"
+  },
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     [
+      "Index",
+      "f",
+      "i",
+      "0"
+     ],
+     [
+      "Index",
+      "f",
+      "i",
+      "2"
+     ]
+    ],
+    "1"
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "x ≤ 1 − r"
+  },
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Index",
+     "f",
+     "i",
+     "2"
+    ],
+    [
+     "Index",
+     "f",
+     "i",
+     "1"
+    ]
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "r ≤ y"
+  },
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Add",
+     [
+      "Index",
+      "f",
+      "i",
+      "1"
+     ],
+     [
+      "Index",
+      "f",
+      "i",
+      "2"
+     ]
+    ],
+    "1"
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "y ≤ 1 − r"
+  },
+  {
+   "forall": [
+    [
+     "i",
+     "0",
+     [
+      "Subtract",
+      "n",
+      "2"
+     ]
+    ],
+    [
+     "j",
+     [
+      "Add",
+      "i",
+      "1"
+     ],
+     [
+      "Subtract",
+      "n",
+      "1"
+     ]
+    ]
+   ],
+   "g": [
+    "Subtract",
+    [
+     "Square",
+     [
+      "Add",
+      [
+       "Index",
+       "f",
+       "i",
+       "2"
+      ],
+      [
+       "Index",
+       "f",
+       "j",
+       "2"
+      ]
+     ]
+    ],
+    [
+     "Add",
+     [
+      "Square",
+      [
+       "Subtract",
+       [
+        "Index",
+        "f",
+        "i",
+        "0"
+       ],
+       [
+        "Index",
+        "f",
+        "j",
+        "0"
+       ]
+      ]
+     ],
+     [
+      "Square",
+      [
+       "Subtract",
+       [
+        "Index",
+        "f",
+        "i",
+        "1"
+       ],
+       [
+        "Index",
+        "f",
+        "j",
+        "1"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "c": "0",
+   "note": "(r_i + r_j)² ≤ |c_i − c_j|² over every pair"
+  }
+ ],
+ "reference": "the score is Σ r_i over the 26 pinned doubles, computed exactly by the expression; its bar is the platform's printed score 2.6359830849176076 read as the exact decimal, boxed by the platform's declared resolution for the problem (minImprovement 1e-10, quoted from the pinned problems.json) — the agreement rule tools/run-mc100-einstein.js states for the platform's scores; the feasibility constraints are the platform's, written as exact structural inequalities with the zero bar; the claim is the problem's (a feasible packing scored Σ r_i), decided from the bytes alone",
+ "hypotheses": [
+  "the platform's verifier for \"Circle Packing in a Square\" accepts a submission when every circle lies inside the unit square and no two overlap, and scores it by Σ r_i (read); those conditions are the inequalities below, exact over the doubles",
+  "the platform prints its score as a float64 evaluation of the same sum over the same doubles; the exact sum and the print agree within the platform's own resolution for the problem, its minImprovement, when they agree at all — which is what the resolution box decides"
+ ],
+ "falsifier": [
+  "the exact Σ r_i of the pinned doubles lies outside [2.6359830849176076 − 1e-10, 2.6359830849176076 + 1e-10]",
+  "some pinned circle violates r ≤ x ≤ 1 − r or r ≤ y ≤ 1 − r",
+  "some pair of pinned circles has (r_i + r_j)² > |c_i − c_j|²",
+  "the pinned file does not hash to 55db2c8b…",
+  "problems.json does not hash to cc2b707b…, or no longer prints minImprovement 1e-10 for circle-packing"
+ ],
+ "notes": [
+  "format 4: prim-ea-542-circle-packing with each input's reading and standing declared; its decisions are the primitive object's",
+  "standing: the platform's resolution is a setting the platform chose (CHOSEN), the score and the circles numbers a claimant computed (COMPUTED)"
+ ]
+}

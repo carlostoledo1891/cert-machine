@@ -14,6 +14,9 @@ code. It does not translate prose. It checks what a proposer wrote.
 instruments/claimbox/check.py      the checker: ADMITTED or REFUSED with one kind      python3 instruments/claimbox/check.py instruments/claimbox/claims/*.json
 instruments/claimbox/claims/       the ten registry-queue claims, written by hand            the claim-machine's calibration targets (nine admitted, one refused with a finding)
 instruments/claimbox/battery.py    the gate (make test "claimbox: declared claims")            the ten, the finding, the concord with verdict.js, the red controls, a green
+instruments/claimbox/check.js      the second checker (JavaScript, no shared code)          node instruments/claimbox/check.js <object.json>...
+instruments/claimbox/primitive/    objects decided from the bytes alone (version 3)
+instruments/claimbox/v4/           the format-4 calibration objects (section "Format 4" below)
 ```
 
 ## The object
@@ -158,3 +161,72 @@ reference field doing exactly what the lattice-claims lesson asked of it, on the
 **Still to do.** Collection objects for the aggregate rows; infinite box sides; deciders reading the object for the
 named class, the oracle first. The second reading and the concord experiment of 2026-10-20 were removed from this
 repository the same day (the operator: keep only what verifies the claim-machine's output); their result is in HANDOFF.
+
+## Format 4 (2026-10-30): readings, standings, the canonical form, the Lean kind
+
+Asked by claimbox's growth plan (its HANDOFF, A2 and B8; this repository's HANDOFF ◆ 2026-10-30, ruling 3). An object opts in
+with `"format": 4`. **An object without `format` is a version-3 object and is checked exactly as before**: nothing was migrated,
+the ten objects and the five primitive ones are unchanged byte for byte and decide as they did. A version-3 object that
+carries a format-4 field (`readings`, `standing`, `record.key`, a `lean` domain, `int64` elements) is refused (`schema`, `data`).
+
+```json
+{ "id": "v4-1d-cert2026", "format": 4, "text": "…", "source": { … }, "reading": "universal",
+  "readings": { "source": "text", "domain": "doubles", "record": "rationals" },
+  "standing": { "source": "COMPUTED", "domain": "COMPUTED", "record": "DECIDED" },
+  "domain": { … }, "predicate": [ … ], "reference": "…", "hypotheses": [ … ], "falsifier": [ … ], "record": { … } }
+```
+
+**The inputs.** A format-4 object's inputs are its roles, in this order: `source` (the quoted page), `domain` (a finite
+domain's pinned bytes, or a Lean project), `resolution` (the source of an `in` predicate's resolution box), `record` (the
+deciding record). A box domain has no domain input: its sides are rationals typed in the object.
+
+| field | what it is | the rule the checkers hold |
+|---|---|---|
+| `readings` | the reading of each input's bytes, one word per role: `decimals`, `doubles`, `integers`, `rationals`, `int64`, `table`, `text`, `bytes`, `lean` (claimbox's LANGUAGE.md §5) | exactly the object's roles, no default (a missing one is `readings`); `source` is `text`; a domain with a data block is read as its `elements`, a Lean domain as `lean`, pinned bytes never as `lean`; `resolution` is `decimals` (the quoted number's digits); `record` is `rationals` for an exact value, `doubles` for an enclosure of JSON numbers, `text` for no value (the record's words) |
+| `standing` | the standing of each input, one of WARRANT's four, read from `playground/warrant.js` (REFUSED, CHOSEN, COMPUTED, DECIDED) | exactly the object's roles; never stronger than the input's decision: a record whose word is REFUSED, or a Lean project its lane refused, is not DECIDED |
+| `domain.kind: "lean"` | `{kind, repository, commit, lane}`: a Lean project at a 40-hex commit, and its kernel lane's workflow on disk | the predicate is one `holds` whose `where` is the lane, with no args; a record is required, carries no value, and names its row with `record.key` |
+| `record.key` | the field that identifies the row (default `id`): a kernel lane names its rows by `challenge`, `claim`, `config` or `item` | a symbol |
+| `data.elements: "int64"` | JSON integers in [−2⁶³, 2⁶³ − 1], under int64 arithmetic | each datum in range (`data`); see below |
+
+**The certificate carries the inputs.** For an admitted format-4 object both checkers add to their result `inputs` (each
+role with its path, its sha256 as read — the record is hashed when it is read —, its reading and its standing), `meet` (the
+weakest standing among them, WARRANT's composition rule) and `canonical` (below); `check.py --record` writes them into each
+row. The meet is shown, never applied: a standing does not cap a verdict (the operator's ruling of 2026-10-30, "read steps do
+not cap a verdict").
+
+**The canonical form: one inequality per bar.** A bar the quote prints carries one inequality: the number of predicates that
+print the same digits may not exceed the number of times the quote prints them as a whole number (not inside a longer
+number) — else `canonical`. The checkers also compute the object's canonical digest: the sha256 of the decision-bearing
+projection — `format`, `reading`, `readings`, the domain (a finite domain's sha256, count, variable and data block; a box's
+sides; a Lean project's repository and commit) and the predicates (each `g`, `rel`, `c`, `forall` and resolution
+half-width), sorted by their encoding — written as JSON with sorted keys, no whitespace, UTF-8. Prose (text, reference, the
+decoder's words, hypotheses, falsifier, notes), paths and the record are left out, so two encodings of one claim have one
+digest and claimbox's concord can compare substance by one field; a different bar is a different digest. Bound-variable
+names are part of the form (no renaming is attempted).
+
+**The int64 reading.** Exact arithmetic is int64 arithmetic exactly when nothing wraps. Under `int64` the checkers
+evaluate exactly and require every value an operation produces, and every partial sum and product, to be an integer in
+int64; when one is not (it would wrap, or a division is inexact), the predicate is **not decided from the object** and a note
+says where. Wrapped values are never computed: an int64 claim is decided here only where no wrap occurs, or by its record.
+The SMT export refuses an int64 object (`readings`).
+
+**The Lean kind, decided by the kernel lanes.** No Lean runs here (there is no toolchain on this machine; the lanes run on
+hosted runners). The checkers re-decide the lane's pinned row: CERTIFIED iff the row prints both kernels accepting
+(`Lean default kernel accepts…` and `nanoda kernel accepts…`; the row's `kernels`, else its last run's), REFUTED iff a kernel
+`rejects`, REFUSED otherwise; the row's word (`word`, else `verdict`) must be that word (`record-decision-mismatch`). The
+commit the lane built (the row's `commit`, else the record's `release.commit` or `source.commit`) must be the object's
+(`record-pin-mismatch`); a record that names none is refused (`lean`).
+
+**The format-4 calibration objects** (`v4/`, held by the battery's section 7, both checkers on every one):
+
+| object | what it calibrates | outcome |
+|---|---|---|
+| v4-1d-cert2026 | prim-1d-cert2026 with readings and standings; the certificate's inputs | ADMITTED, REFUTED · repair CERTIFIED (as the primitive), meet COMPUTED |
+| v4-ea-542-circle-packing | the `resolution` input (its quoted resolution CHOSEN by the platform) | ADMITTED, the primitive's six decisions, meet CHOSEN |
+| v4-int64-sum-integers / -int64 | one pinned byte string (2⁶² and 2⁶², a synthetic fixture in `v4/data/`), two declared readings | `integers`: CERTIFIED from the object (the sum is 2⁶³); `int64`: admitted, not decided (the partial sum leaves int64) |
+| v4-lean-abhyankarsathaye | the Lean kind: openai/math's challenge at fd4aeeb2, the lane's row | ADMITTED, CERTIFIED (both kernels) |
+| v4-lean-binpackinggap | the refusing one: the lane refused this challenge (nanoda overflowed its stack; one kernel printed) | ADMITTED, REFUSED; standings REFUSED |
+| v4-mutant-lean-other-commit | a mutant that must not certify: the certified object pointed at the later release 7ef5c0cc | REFUSED, record-pin-mismatch |
+| v4-mutant-two-on-one-bar | a mutant: the C_1d bar, printed once, carrying two inequalities | REFUSED, canonical |
+
+Format 4 adds four refusal kinds: `readings`, `standing`, `canonical`, `lean`.

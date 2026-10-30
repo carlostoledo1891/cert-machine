@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""instruments/claimbox/check.py — the checker of declared claims (version 3, 2026-10-20). Standard library only.
+"""instruments/claimbox/check.py — the checker of declared claims (version 3, 2026-10-20; format 4, 2026-10-30). Standard library only.
 
 WHAT A DECLARED CLAIM IS. The method paper's Definition 2 read as a file: a domain B (a finite set of pinned
 bytes, or a box with rational sides and a source per side), a predicate — a conjunction of relations
@@ -29,6 +29,13 @@ checker refuses to run unless certs/kernel-arb-audit.json holds that operation; 
 read from instruments/verdict.js. The exact heads (Min, Max, Kronecker, Index, the four quantifiers) are
 rational arithmetic and need no kernel.
 
+FORMAT 4 (2026-10-30, SCHEMA.md "Format 4"). An object that states "format": 4 also declares, per input (the source, the
+domain's bytes or Lean project, the record, a resolution source), its READING of the bytes and its STANDING (WARRANT's four,
+read from playground/warrant.js); it must be in the CANONICAL FORM (one inequality per bar the quote prints); it may be a
+LEAN object, decided by the kernel lane's pinned record (two kernels), never by a Lean run here. The checker carries every
+input with its reading and standing into its result (the certificate) and prints the canonical digest both checkers
+compute. An object without "format" is checked exactly as in version 3.
+
 THE OUTCOME WORDS. ADMITTED or REFUSED with one kind from the closed list KINDS. ADMITTED certifies nothing
 by itself: it says the object can be handed to a decider — and, for the exact class, it carries the decision
 this program made, in the three words, with the witness.
@@ -49,6 +56,7 @@ from fractions import Fraction
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 ARB = os.path.join(ROOT, 'certs', 'kernel-arb-audit.json')
 VERDICT_JS = os.path.join(ROOT, 'instruments', 'verdict.js')
+WARRANT_JS = os.path.join(ROOT, 'playground', 'warrant.js')
 
 ADMITTED = 'ADMITTED'
 REFUSED_WORD = 'REFUSED'
@@ -71,6 +79,12 @@ READINGS = ('universal', 'epistemic')
 TOP = ('id', 'text', 'source', 'reading', 'domain', 'predicate', 'reference', 'hypotheses', 'falsifier')
 TOP_OPTIONAL = ('record', 'repair', 'notes')
 ELEMENTS = ('doubles', 'decimals', 'integers', 'rationals')   # decimals: the JSON number's printed digits as the exact rational they mean
+# format 4: the readings an input may declare (claimbox's LANGUAGE.md §5), and int64 as a data element
+READINGS4 = ('decimals', 'doubles', 'integers', 'rationals', 'int64', 'table', 'text', 'bytes', 'lean')
+ELEMENTS4 = ELEMENTS + ('int64',)
+INT64 = (-(1 << 63), (1 << 63) - 1)
+ROLES = ('source', 'domain', 'resolution', 'record')          # the inputs of a format-4 object, in the certificate's order
+KERNELS = ('Lean default kernel accepts', 'nanoda kernel accepts')   # the two acceptances a kernel lane row must print
 
 KINDS = {
     'schema': 'a field missing, unknown or of the wrong shape',
@@ -106,6 +120,10 @@ KINDS = {
     'record-value-mismatch': 'the value computed from the object is not the record\'s exact value',
     'repair': 'the repair block is malformed, or its bar re-decided does not give its verdict',
     'record-predicate': 'the record names a predicate that does not exist, a "holds" predicate while it carries a value, or leaves a predicate beside it that is neither "holds" nor decidable from the object',
+    'readings': 'format 4: an input without its declared reading (no reading is a default), a role the object does not have, a word outside the readings, or a reading the input contradicts',
+    'standing': 'format 4: an input without its standing, a word outside WARRANT\'s four, or a standing stronger than the input\'s decision (a REFUSED record or lane declared DECIDED)',
+    'canonical': 'format 4: not in the canonical form — more inequalities on a printed bar than the quote prints it as a whole number (one inequality per bar)',
+    'lean': 'format 4: a Lean object that is not one "holds" over its kernel lane\'s workflow, has no lane record, or whose lane row names no commit',
 }
 
 
@@ -123,8 +141,10 @@ def die(m):
 
 
 # ---- the vocabulary and the words, read ----------------------------------------------------------------------
-def load_vocab(arb_path=ARB, verdict_path=VERDICT_JS):
-    """refuses to run unless every kernel head's operation is in the Arb audit and the three words are in verdict.js"""
+def load_vocab(arb_path=ARB, verdict_path=VERDICT_JS, warrant_path=WARRANT_JS):
+    """refuses to run unless every kernel head's operation is in the Arb audit, the three words are in verdict.js and WARRANT's
+    four standings are in playground/warrant.js (format 4 reads them; STANDINGS, weakest first)"""
+    global STANDINGS
     if not os.path.exists(arb_path):
         die('the kernel audit ' + os.path.relpath(arb_path, ROOT) + ' is missing; the vocabulary is read from it')
     with open(arb_path, encoding='utf-8') as f:
@@ -139,10 +159,19 @@ def load_vocab(arb_path=ARB, verdict_path=VERDICT_JS):
     words = re.findall(r"^const (?:CERTIFIED|REFUTED|REFUSED) = '([A-Z]+)';", src, re.M)
     if sorted(words) != ['CERTIFIED', 'REFUSED', 'REFUTED']:
         die('verdict.js does not declare the three words where this checker reads them')
+    if not os.path.exists(warrant_path):
+        die('playground/warrant.js is missing; the four standings are read from it')
+    with open(warrant_path, encoding='utf-8') as f:
+        m = re.search(r"^const NAME = \[([^\]]*)\];", f.read(), re.M)
+    names = re.findall(r"'([A-Z]+)'", m.group(1)) if m else []
+    if len(names) != 4 or len(set(names)) != 4:
+        die('playground/warrant.js does not declare the four standings where this checker reads them')
+    STANDINGS = tuple(names)
     return tuple(words)
 
 
 WORDS = None  # set by run()
+STANDINGS = None  # set by load_vocab(): WARRANT's four, weakest first
 
 
 # ---- small readers --------------------------------------------------------------------------------------------
@@ -341,17 +370,28 @@ def exact_of(x):
     return int(f) if f.denominator == 1 else f
 
 
-def ev(e, env, data, where='g'):
-    """exact evaluation; env maps symbols to ints or Fractions; data is the decoded array (nested lists)"""
+class Wrap(Exception):
+    """format 4, int64 reading: a value the exact evaluation reaches that int64 arithmetic would not hold (it would wrap, or
+    it is not an integer). The exact value is then not the int64 program's value, so the predicate is not decided here."""
+
+
+def ev(e, env, data, where='g', lim=None):
+    """exact evaluation; env maps symbols to ints or Fractions; data is the decoded array (nested lists). With lim (format 4,
+    an int64 reading) every value an operation produces, and every partial sum or product, must be an integer in lim, or
+    Wrap is raised: exact arithmetic equals int64 arithmetic exactly when nothing wraps."""
+    def held(v, at):
+        if lim is not None and (not (isinstance(v, int) or (isinstance(v, Fraction) and v.denominator == 1)) or not lim[0] <= v <= lim[1]):
+            raise Wrap(where + ': ' + at + ' gives ' + (str(v) if len(str(v)) < 40 else str(v)[:40] + '…') + ', which int64 arithmetic does not hold')
+        return v
     if isinstance(e, str):
         if RAT.match(e):
-            return num(e)
+            return held(num(e), 'the literal ' + e)
         return env[e]
     head = e[0]
     if head == 'Index':
         cur = data
         for a in e[2:]:
-            i = as_int(ev(a, env, data, where), where + '.Index')
+            i = as_int(ev(a, env, data, where, lim), where + '.Index')
             if not isinstance(cur, list) or i < 0 or i >= len(cur):
                 raise Refuse('index', where + ': Index ' + str(i) + ' out of range')
             cur = cur[i]
@@ -359,45 +399,45 @@ def ev(e, env, data, where='g'):
             raise Refuse('index', where + ': Index does not reach a scalar')
         return cur
     if head in QUANT:
-        var, lo, hi, body = e[1], as_int(ev(e[2], env, data, where), where), as_int(ev(e[3], env, data, where), where), e[4]
+        var, lo, hi, body = e[1], as_int(ev(e[2], env, data, where, lim), where), as_int(ev(e[3], env, data, where, lim), where), e[4]
         if head in ('MaxOver', 'MinOver') and hi < lo:
             raise Refuse('empty-range', where + ': ' + head + ' over ' + str(lo) + '..' + str(hi))
         acc = 0 if head == 'Sum' else 1 if head == 'Product' else None
         env2 = dict(env)
         for k in range(lo, hi + 1):
             env2[var] = k
-            v = ev(body, env2, data, where)
+            v = ev(body, env2, data, where, lim)
             if head == 'Sum':
-                acc += v
+                acc = held(acc + v, 'a partial Sum')
             elif head == 'Product':
-                acc *= v
+                acc = held(acc * v, 'a partial Product')
             elif head == 'MaxOver':
                 acc = v if acc is None or v > acc else acc
             else:
                 acc = v if acc is None or v < acc else acc
         return acc
-    args = [ev(a, env, data, where) for a in e[1:]]
+    args = [ev(a, env, data, where, lim) for a in e[1:]]
     if head == 'Add':
-        return args[0] + args[1]
+        return held(args[0] + args[1], 'Add')
     if head == 'Subtract':
-        return args[0] - args[1]
+        return held(args[0] - args[1], 'Subtract')
     if head == 'Multiply':
-        return args[0] * args[1]
+        return held(args[0] * args[1], 'Multiply')
     if head == 'Divide':
         if args[1] == 0:
             raise Refuse('division-by-zero', where)
         q = Fraction(args[0]) / Fraction(args[1])
-        return int(q) if q.denominator == 1 else q
+        return held(int(q) if q.denominator == 1 else q, 'Divide')
     if head == 'Abs':
-        return abs(args[0])
+        return held(abs(args[0]), 'Abs')
     if head == 'Square':
-        return args[0] * args[0]
+        return held(args[0] * args[0], 'Square')
     if head == 'Power':
         n = as_int(args[1], where + '.Power')
         if args[0] == 0 and n < 0:
             raise Refuse('division-by-zero', where + '.Power')
         q = Fraction(args[0]) ** n
-        return int(q) if q.denominator == 1 else q
+        return held(int(q) if q.denominator == 1 else q, 'Power')
     if head == 'Min':
         return min(args)
     if head == 'Max':
@@ -408,11 +448,12 @@ def ev(e, env, data, where='g'):
 
 
 # ---- typed data ------------------------------------------------------------------------------------------------------
-def decode_data(spec, path, where):
-    """spec = {select, elements, shape}; returns (nested lists of Fractions, {shape symbol: size})"""
+def decode_data(spec, path, where, elements=ELEMENTS):
+    """spec = {select, elements, shape}; returns (nested lists of Fractions, {shape symbol: size}). elements: the readings the
+    object's format admits (format 4 adds int64: JSON integers in [-2^63, 2^63 - 1])"""
     need(spec, ('select', 'elements', 'shape'), (), where)
-    if spec['elements'] not in ELEMENTS:
-        raise Refuse('data', where + ': elements must be one of ' + ', '.join(ELEMENTS))
+    if spec['elements'] not in elements:
+        raise Refuse('data', where + ': elements must be one of ' + ', '.join(elements) + ('' if spec['elements'] not in ELEMENTS4 else ' (' + spec['elements'] + ' is a format-4 reading)'))
     if not isinstance(spec['shape'], list) or not spec['shape'] or any(not isinstance(s, str) or not SYM.match(s) for s in spec['shape']) or len(set(spec['shape'])) != len(spec['shape']):
         raise Refuse('data', where + ': shape must be a list of distinct symbols, one per dimension')
     class Dec(str):
@@ -448,6 +489,12 @@ def decode_data(spec, path, where):
             if spec['elements'] == 'integers':
                 if isinstance(x, bool) or not isinstance(x, int):
                     raise Refuse('data', w + ': not a JSON integer')
+                return x
+            if spec['elements'] == 'int64':
+                if isinstance(x, bool) or not isinstance(x, int):
+                    raise Refuse('data', w + ': not a JSON integer')
+                if not INT64[0] <= x <= INT64[1]:
+                    raise Refuse('data', w + ': ' + str(x) + ' is outside int64')
                 return x
             if not isinstance(x, str) or not RAT.match(x):
                 raise Refuse('data', w + ': not a rational string')
@@ -527,11 +574,12 @@ def compose(words):
 
 
 # ---- deciding from the object -----------------------------------------------------------------------------------------
-def decide_from_object(p, env0, data, where):
-    """p: a parsed predicate with exact g; returns {'word', 'witness', 'violations', 'value'}"""
+def decide_from_object(p, env0, data, where, lim=None):
+    """p: a parsed predicate with exact g; returns {'word', 'witness', 'violations', 'value'}. lim: the int64 range under an
+    int64 reading (Wrap propagates: the caller leaves the predicate undecided)"""
     C, R, F = WORDS
     if not p['forall']:
-        v = ev(p['g'], env0, data, where)
+        v = ev(p['g'], env0, data, where, lim)
         return {'word': decide(('exact', v), p['rel'], p['c']), 'witness': None, 'violations': None, 'value': v}
     violations = 0
     witness = None
@@ -540,7 +588,7 @@ def decide_from_object(p, env0, data, where):
     def loop(k):
         nonlocal violations, witness
         if k == len(p['forall']):
-            v = ev(p['g'], env, data, where)
+            v = ev(p['g'], env, data, where, lim)
             w = decide(('exact', v), p['rel'], p['c'])
             if w != C:
                 violations += 1
@@ -548,7 +596,7 @@ def decide_from_object(p, env0, data, where):
                     witness = {'at': {var: int(env[var]) for var, _, _ in p['forall']}, 'value': str(v)}
             return
         var, lo_e, hi_e = p['forall'][k]
-        lo, hi = as_int(ev(lo_e, env, data, where), where + '.forall'), as_int(ev(hi_e, env, data, where), where + '.forall')
+        lo, hi = as_int(ev(lo_e, env, data, where, lim), where + '.forall'), as_int(ev(hi_e, env, data, where, lim), where + '.forall')
         for i in range(lo, hi + 1):
             env[var] = i
             loop(k + 1)
@@ -557,13 +605,117 @@ def decide_from_object(p, env0, data, where):
     return {'word': R if violations else C, 'witness': witness, 'violations': violations, 'value': None}
 
 
+# ---- format 4: the canonical form, the readings, the standings, the certificate's inputs ----------------------------------
+def whole_count(printed, quote):
+    """how many times the quote prints these digits as a whole number (not inside a longer one)"""
+    return len(re.findall(r'(?<![0-9.])' + re.escape(printed) + r'(?![0-9]|\.[0-9])', quote))
+
+
+def canonical_form(o):
+    """the decision-bearing projection of a format-4 object: what the claim says, without its prose (text, reference, the
+    decoder's words, hypotheses, falsifier, notes), its paths or its record. Two encodings of one claim have one form."""
+    d = o['domain']
+    if d['kind'] == 'finite':
+        dom = {'kind': 'finite', 'sha256': d['pin']['sha256'], 'count': str(d['count']), 'variable': d['variable'], 'data': d.get('data')}
+    elif d['kind'] == 'box':
+        dom = {'kind': 'box', 'sides': [{'name': x['name'], 'lo': x['lo'], 'hi': x['hi']} for x in d['sides']]}
+    else:
+        dom = {'kind': 'lean', 'repository': d['repository'], 'commit': d['commit']}
+    preds = [{'g': p['g'], 'rel': p['rel'], 'c': p.get('c'), 'forall': p.get('forall'), 'halfWidth': p['box']['halfWidth'] if 'box' in p else None} for p in o['predicate']]
+    enc = lambda x: json.dumps(x, sort_keys=True, separators=(',', ':'), ensure_ascii=False)
+    return {'format': '4', 'reading': o['reading'], 'readings': o['readings'], 'domain': dom, 'predicates': sorted(preds, key=enc)}
+
+
+def canonical_digest(o):
+    return hashlib.sha256(json.dumps(canonical_form(o), sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')).hexdigest()
+
+
+def one_per_bar(o):
+    """the canonical form's rule, checked as soon as the predicates parse: one inequality per bar — a printed bar carries no
+    more inequalities than the quote prints it as a whole number"""
+    seen = {}
+    for p in o['predicate']:
+        if 'printed' in p:
+            seen[p['printed']] = seen.get(p['printed'], 0) + 1
+    for pr, n in seen.items():
+        k = whole_count(pr, o['source']['quote'])
+        if n > k:
+            raise Refuse('canonical', 'the bar ' + pr + ' carries ' + str(n) + ' inequalities; the quote prints it ' + str(k) + ' time(s) as a whole number')
+
+
+def fourth(o, d, preds, rv, value, rec_sha, lane_word, out):
+    """the format-4 rules on the inputs, applied after the version-3 ones; fills out['canonical'], out['inputs'], out['meet']"""
+    s = o['source']
+    # the inputs, in the certificate's order
+    inputs = [{'role': 'source', 'path': s['path'], 'sha256': s['sha256']}]
+    if d['kind'] == 'finite':
+        inputs.append({'role': 'domain', 'path': d['pin']['path'], 'sha256': d['pin']['sha256']})
+    elif d['kind'] == 'lean':
+        inputs.append({'role': 'domain', 'path': d['repository'] + '@' + d['commit'], 'sha256': None})
+    for p in o['predicate']:
+        if 'box' in p:
+            inputs.append({'role': 'resolution', 'path': p['box']['source']['path'], 'sha256': p['box']['source']['sha256']})
+    if 'record' in o:
+        inputs.append({'role': 'record', 'path': o['record']['path'], 'sha256': rec_sha})
+    roles = [x for x in ROLES if any(i['role'] == x for i in inputs)]
+    for field, kind in (('readings', 'readings'), ('standing', 'standing')):
+        decl = o[field]
+        if not isinstance(decl, dict):
+            raise Refuse(kind, field + ' must map each input role to its word')
+        missing = [x for x in roles if x not in decl]
+        extra = [x for x in decl if x not in roles]
+        if missing:
+            raise Refuse(kind, field + ' has no word for ' + ', '.join(missing) + ' (no ' + ('reading' if kind == 'readings' else 'standing') + ' is a default)')
+        if extra:
+            raise Refuse(kind, field + ' names ' + ', '.join(extra) + ', which this object does not have as an input')
+        vocab = READINGS4 if kind == 'readings' else STANDINGS
+        for x in roles:
+            if decl[x] not in vocab:
+                raise Refuse(kind, field + '.' + x + ' is ' + repr(decl[x]) + ', not one of ' + ', '.join(vocab))
+    rd = o['readings']
+    want = {'source': 'text', 'resolution': 'decimals'}
+    if d['kind'] == 'lean':
+        want['domain'] = 'lean'
+    elif d['kind'] == 'finite' and 'data' in d:
+        want['domain'] = d['data']['elements']
+    if 'record' in o:
+        want['record'] = 'text' if value is None else ('rationals' if value[0] == 'exact' else 'doubles')
+    for x in roles:
+        if x in want and rd[x] != want[x]:
+            raise Refuse('readings', 'readings.' + x + ' is ' + rd[x] + '; the ' + x + ' is read as ' + want[x])
+    if d['kind'] == 'finite' and 'data' not in d and rd['domain'] == 'lean':
+        raise Refuse('readings', 'readings.domain is lean; the domain is pinned bytes')
+    st = o['standing']
+    top = STANDINGS[-1]
+    if 'record' in o and st['record'] == top and rv == WORDS[2]:
+        raise Refuse('standing', 'standing.record is ' + top + ', but the record\'s word is ' + rv)
+    if d['kind'] == 'lean' and st['domain'] == top and lane_word == WORDS[2]:
+        raise Refuse('standing', 'standing.domain is ' + top + ', but the kernel lane decided nothing (' + lane_word + ')')
+    for i in inputs:
+        i['reading'] = rd[i['role']]
+        i['standing'] = st[i['role']]
+    out['inputs'] = inputs
+    out['meet'] = min((st[x] for x in roles), key=STANDINGS.index)
+    out['canonical'] = canonical_digest(o)
+
+
 # ---- the check -------------------------------------------------------------------------------------------------
 def check_obj(o, root=ROOT):
     """returns {'word': ADMITTED|REFUSED, 'kind', 'msg', 'id', 'decided': [...], 'fromObject': [...], 'notes': [...]}"""
     out = {'word': REFUSED_WORD, 'kind': None, 'msg': '', 'id': o.get('id') if isinstance(o, dict) else None, 'decided': [], 'fromObject': [], 'notes': [], 'seconds': 0.0}
     t0 = time.time()
     try:
-        need(o, TOP, TOP_OPTIONAL, 'the object')
+        v4 = isinstance(o, dict) and 'format' in o
+        if v4:
+            if isinstance(o['format'], bool) or o['format'] != 4:
+                raise Refuse('schema', 'format must be 4 (an object without "format" is a version-3 object), got ' + repr(o['format']))
+            if 'readings' not in o:
+                raise Refuse('readings', 'a format-4 object declares the reading of each input: no reading is a default')
+            if 'standing' not in o:
+                raise Refuse('standing', 'a format-4 object declares the standing of each input')
+            need(o, TOP + ('format', 'readings', 'standing'), TOP_OPTIONAL, 'the object')
+        else:
+            need(o, TOP, TOP_OPTIONAL, 'the object')
         if not isinstance(o['id'], str) or not o['id'].strip():
             raise Refuse('schema', 'id must be a non-empty string')
         if not isinstance(o['text'], str) or not o['text'].strip():
@@ -590,14 +742,25 @@ def check_obj(o, root=ROOT):
 
         # the domain
         d = o['domain']
-        if not isinstance(d, dict) or d.get('kind') not in ('finite', 'box'):
-            raise Refuse('schema', 'domain.kind must be finite or box')
+        if not isinstance(d, dict) or d.get('kind') not in (('finite', 'box', 'lean') if v4 else ('finite', 'box')):
+            raise Refuse('schema', 'domain.kind must be finite or box' + (' or lean' if v4 else ''))
         symbols = set()
         box_symbols = set()
         env0 = {}
         data = None
         data_sym = None
-        if d['kind'] == 'finite':
+        lim = None
+        if d['kind'] == 'lean':
+            # format 4: a Lean project at a commit, decided by its kernel lane's record (the workflow on disk, the record pinned
+            # by the lane); no symbols, no bytes here — nothing is built on this machine
+            need(d, ('kind', 'repository', 'commit', 'lane'), (), 'domain')
+            if not isinstance(d['repository'], str) or not d['repository'].strip():
+                raise Refuse('schema', 'domain.repository must name the Lean project')
+            if not isinstance(d['commit'], str) or not re.match(r'^[0-9a-f]{40}$', d['commit']):
+                raise Refuse('schema', 'domain.commit must be the 40-hex commit the lane built')
+            if not isinstance(d['lane'], str) or not os.path.isfile(os.path.join(root, d['lane'])):
+                raise Refuse('lean', 'domain.lane must be the kernel lane\'s workflow on disk: ' + repr(d.get('lane')))
+        elif d['kind'] == 'finite':
             need(d, ('kind', 'pin', 'decoder', 'count', 'variable'), ('data',), 'domain')
             dpath = pinned(d['pin'], 'domain.pin', root)
             if not isinstance(d['count'], int) or isinstance(d['count'], bool) or d['count'] < 1:
@@ -608,8 +771,10 @@ def check_obj(o, root=ROOT):
                 raise Refuse('schema', 'domain.variable must be a symbol')
             symbols.add(d['variable'])
             if 'data' in d:
-                data, sizes = decode_data(d['data'], dpath, 'domain.data')
+                data, sizes = decode_data(d['data'], dpath, 'domain.data', ELEMENTS4 if v4 else ELEMENTS)
                 data_sym = d['variable']
+                if d['data']['elements'] == 'int64':
+                    lim = INT64
                 first = d['data']['shape'][0]
                 if sizes.get(first) != d['count']:
                     raise Refuse('data', 'domain.count is ' + str(d['count']) + ', the decoded ' + first + ' is ' + str(sizes.get(first)))
@@ -697,6 +862,14 @@ def check_obj(o, root=ROOT):
                     raise Refuse('printed-mismatch', w + ': c = ' + p['c'] + ' is not the rational of ' + str(p.get('printed')))
                 preds.append({'rel': p['rel'], 'c': c, 'printed': p.get('printed'), 'exact': exact, 'forall': forall, 'g': p['g']})
 
+        if v4:
+            one_per_bar(o)
+        if d['kind'] == 'lean':
+            if len(preds) != 1 or preds[0]['rel'] != 'holds' or preds[0]['g'].get('where') != d['lane'] or preds[0]['g'].get('args') != []:
+                raise Refuse('lean', 'a Lean object states one "holds" over its kernel lane (where = domain.lane, no args): the kernels decide it, nothing else')
+            if 'record' not in o:
+                raise Refuse('lean', 'a Lean object is decided by its lane\'s record; nothing builds Lean here')
+
         # decisions from the object: every exact predicate over bound symbols, with its witness. A box side's symbol is
         # not a value (a box is decided by an interval cover, not evaluated at a point), so a predicate that names one
         # is admitted and left to the record.
@@ -717,15 +890,27 @@ def check_obj(o, root=ROOT):
                 continue
             if any(isinstance(x, list) and (x[0] == 'Index' or x[0] in QUANT) for x in [p['g']]) and data is None and p['forall']:
                 raise Refuse('vocabulary', 'predicate[' + str(i) + ']: a forall over indices needs a typed data block')
-            res = decide_from_object(p, env0, data, 'predicate[' + str(i) + '].g')
+            try:
+                res = decide_from_object(p, env0, data, 'predicate[' + str(i) + '].g', lim)
+            except Wrap as e:
+                from_object.append(None)
+                out['notes'].append('predicate[' + str(i) + '] not decided from the object under the int64 reading: ' + str(e))
+                continue
             res['value'] = str(res['value']) if res['value'] is not None else None
             from_object.append(res)
         out['fromObject'] = from_object
 
         # the record, read-only: the verdict word, the bar, and the value re-decided
+        rv = None
+        rec_sha = None
+        value = None
+        lane_word = None
         if 'record' in o:
             r = o['record']
-            need(r, ('path', 'row', 'value', 'verdict'), ('predicate',), 'record')
+            need(r, ('path', 'row', 'value', 'verdict'), ('predicate', 'key') if v4 else ('predicate',), 'record')
+            rkey = r.get('key', 'id')
+            if not isinstance(rkey, str) or not SYM.match(rkey):
+                raise Refuse('schema', 'record.key must name the field that identifies the row')
             ridx = r.get('predicate')
             if ridx is not None and (isinstance(ridx, bool) or not isinstance(ridx, int) or not 0 <= ridx < len(preds)):
                 raise Refuse('record-predicate', 'record.predicate must index one of the ' + str(len(preds)) + ' predicates, got ' + repr(ridx))
@@ -734,14 +919,15 @@ def check_obj(o, root=ROOT):
                 raise Refuse('record-missing', r['path'])
             with open(rp, encoding='utf-8') as f:
                 rec = json.load(f)
+            rec_sha = sha256(rp)
             if r['row'] is None:
                 row = rec
             else:
                 rows = rec.get('rows') if isinstance(rec, dict) else None
-                row = next((x for x in (rows or []) if isinstance(x, dict) and x.get('id') == r['row']), None)
+                row = next((x for x in (rows or []) if isinstance(x, dict) and x.get(rkey) == r['row']), None)
                 if row is None:
                     raise Refuse('record-row-missing', r['path'] + ' row ' + str(r['row']))
-            rv = row.get('verdict')
+            rv = row.get('word', row.get('verdict')) if d['kind'] == 'lean' else row.get('verdict')
             if rv not in WORDS:
                 raise Refuse('record-verdict-word', 'the record says ' + repr(rv))
             if r['verdict'] != rv:
@@ -749,6 +935,34 @@ def check_obj(o, root=ROOT):
             rsha = row.get('sha256')
             if isinstance(rsha, str) and re.match(r'^[0-9a-f]{64}$', rsha) and d['kind'] == 'finite' and rsha != d['pin']['sha256']:
                 raise Refuse('record-pin-mismatch', 'the record decided ' + rsha[:12] + '…, the object pins ' + d['pin']['sha256'][:12] + '…')
+            if d['kind'] == 'lean':
+                # the kernel lane's row, re-decided: CERTIFIED iff the row prints both kernels accepting, REFUTED iff a kernel
+                # rejects, REFUSED otherwise; the commit the lane built must be the object's
+                if r['value'] is not None:
+                    raise Refuse('lean', 'a Lean object\'s record carries no value: the kernels\' words are the decision')
+                commit = row.get('commit')
+                for blk in ('release', 'source'):
+                    if not isinstance(commit, str) and isinstance(rec.get(blk), dict):
+                        commit = rec[blk].get('commit')
+                if not isinstance(commit, str) and isinstance(rec.get('commit'), str):
+                    commit = rec['commit']
+                if not isinstance(commit, str):
+                    raise Refuse('lean', 'the lane record names no commit: nothing binds its kernels to the object\'s project')
+                if commit != d['commit']:
+                    raise Refuse('record-pin-mismatch', 'the lane built ' + commit[:12] + '…, the object names ' + d['commit'][:12] + '…')
+                kernels = row.get('kernels')
+                if not isinstance(kernels, list):
+                    runs = row.get('runs') if isinstance(row.get('runs'), list) else []
+                    kernels = (runs[-1].get('kernels') if runs and isinstance(runs[-1], dict) else None) or []
+                kernels = [k for k in kernels if isinstance(k, str)]
+                if all(any(k.startswith(want) for k in kernels) for want in KERNELS):
+                    lane_word = WORDS[0]
+                elif any(' rejects' in k for k in kernels):
+                    lane_word = WORDS[1]
+                else:
+                    lane_word = WORDS[2]
+                if lane_word != rv:
+                    raise Refuse('record-decision-mismatch', 'the lane row says ' + rv + ', its kernels give ' + lane_word + ' (' + (' · '.join(kernels) or 'no kernel printed') + ')')
             value = record_value(get_path(row, r['value']), 'record.value ' + str(r['value'])) if r['value'] is not None else None
             claim_str = str(row.get('claim', ''))
             m = BAR_IN_CLAIM.search(claim_str)
@@ -819,6 +1033,9 @@ def check_obj(o, root=ROOT):
             raise Refuse('repair', 'a repair needs a record')
         else:
             out['notes'].append('no record attached' + ('' if any(from_object) else ': a proposal, undecided'))
+
+        if v4:
+            fourth(o, d, preds, rv, value, rec_sha, lane_word, out)
 
         out['word'] = ADMITTED
         return out
@@ -917,6 +1134,8 @@ def to_smt(o, root=ROOT):
     if res['word'] != ADMITTED:
         raise Refuse(res['kind'], res['msg'])
     d = o['domain']
+    if d.get('kind') == 'finite' and 'data' in d and d['data'].get('elements') == 'int64':
+        raise Refuse('readings', 'the SMT export is exact arithmetic over the reals; an int64 reading is not exported')
     data, sizes = (decode_data(d['data'], os.path.join(root, d['pin']['path']), 'domain.data') if d.get('kind') == 'finite' and 'data' in d else (None, {}))
     env0 = dict(sizes)
     del SMT_DEFS[:]
@@ -966,8 +1185,12 @@ def run(argv):
         rows = []
         for p in objs:
             res = check(p)
-            rows.append({'id': res['id'], 'file': os.path.relpath(p, ROOT), 'sha256': sha256(p), 'word': res['word'], 'kind': res['kind'], 'decided': res['decided'],
-                         'fromObject': res['fromObject'], 'seconds': res['seconds'], 'notes': res['notes']})
+            row = {'id': res['id'], 'file': os.path.relpath(p, ROOT), 'sha256': sha256(p), 'word': res['word'], 'kind': res['kind'], 'decided': res['decided'],
+                   'fromObject': res['fromObject'], 'seconds': res['seconds'], 'notes': res['notes']}
+            for k in ('canonical', 'inputs', 'meet'):
+                if k in res:
+                    row[k] = res[k]
+            rows.append(row)
             print(('ADMITTED  ' if res['word'] == ADMITTED else 'REFUSED   ') + str(res['id']) + '  ' + str(res['seconds']) + ' s')
         rec = {'what': 'Decisions of claimbox objects from the bytes alone, by instruments/claimbox/check.py (Python; the exact evaluator over Fractions and ints): for each object its sha256, the checker\'s word, the decisions against the record, the decisions from the object with the first violating index tuple and the count of all, and the time. The battery re-derives the objects that decide in seconds and holds the heavy ones to their sha256 and this record; CLAIMBOX_FULL=1 re-derives all.',
                'python': sys.version.split()[0], 'rows': rows}
@@ -995,7 +1218,8 @@ def run(argv):
         if res['word'] == ADMITTED:
             fo = [x for x in res['fromObject'] if x]
             fos = ' · '.join(x['word'] + (' (witness ' + json.dumps(x['witness']['at']) + ', ' + str(x['violations']) + ' violating)' if x['witness'] else '') + (' value ' + x['value'][:30] + ('…' if len(x['value']) > 30 else '') if x['value'] else '') for x in fo)
-            print('ADMITTED  ' + str(res['id']) + '  [' + ' · '.join(res['decided']) + ']' + ('  from the object: ' + fos if fos else '') + '  ' + str(res['seconds']) + ' s' + ''.join('  note: ' + n for n in res['notes']))
+            v4s = ('  inputs: ' + ' · '.join(i['role'] + ' ' + i['reading'] + ' ' + i['standing'] for i in res['inputs']) + ' (meet ' + res['meet'] + ')  canonical ' + res['canonical'][:16]) if 'canonical' in res else ''
+            print('ADMITTED  ' + str(res['id']) + '  [' + ' · '.join(res['decided']) + ']' + ('  from the object: ' + fos if fos else '') + v4s + '  ' + str(res['seconds']) + ' s' + ''.join('  note: ' + n for n in res['notes']))
         else:
             bad += 1
             print('REFUSED   ' + str(res['id']) + '  ' + str(res['kind']) + ': ' + res['msg'])

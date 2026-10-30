@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-/* instruments/claimbox/check.js — the SECOND checker of declared claims (version 3, 2026-10-20), in JavaScript, sharing no
+/* instruments/claimbox/check.js — the SECOND checker of declared claims (version 3, 2026-10-20; format 4, 2026-10-30), in JavaScript, sharing no
    code with instruments/claimbox/check.py: the same specification (SCHEMA.md), the same refusal kinds, the same decisions
    from the object — exact rationals on BigInt here, Python's Fraction there — so that the battery can hold the two
    to each other on every object. The words are read from instruments/verdict.js and the kernel vocabulary from
    certs/kernel-arb-audit.json, as in the Python. JSON is parsed by a reader of its own that keeps every number's text,
-   so that a JSON number in an object is refused as a double and an integer datum beyond 2^53 is still exact.
+   so that a JSON number in an object is refused as a double and an integer datum beyond 2^53 is still exact. Format 4
+   (SCHEMA.md): the readings and standings per input (WARRANT's four read from playground/warrant.js), the canonical form and
+   its digest, the int64 reading, the Lean object decided by its kernel lane's record — written here again from the schema.
 
    usage: node instruments/claimbox/check.js <object.json>...     one line per object; exit 1 if any REFUSED
    MIT */
@@ -16,6 +18,7 @@ const crypto = require('crypto');
 const ROOT = path.resolve(__dirname, '..', '..');
 const ARB = path.join(ROOT, 'certs', 'kernel-arb-audit.json');
 const VERDICT_JS = path.join(ROOT, 'instruments', 'verdict.js');
+const WARRANT_JS = path.join(ROOT, 'playground', 'warrant.js');
 const ADMITTED = 'ADMITTED', REFUSED_WORD = 'REFUSED';
 
 const VOCAB = { Add: [2, 'add'], Subtract: [2, 'sub'], Multiply: [2, 'mul'], Divide: [2, 'div'], Abs: [1, 'abs'], Square: [1, 'sqr'], Power: [2, 'pow'],
@@ -29,17 +32,23 @@ const READINGS = ['universal', 'epistemic'];
 const TOP = ['id', 'text', 'source', 'reading', 'domain', 'predicate', 'reference', 'hypotheses', 'falsifier'];
 const TOP_OPTIONAL = ['record', 'repair', 'notes'];
 const ELEMENTS = ['doubles', 'decimals', 'integers', 'rationals'];
+const READINGS4 = ['decimals', 'doubles', 'integers', 'rationals', 'int64', 'table', 'text', 'bytes', 'lean'];
+const ELEMENTS4 = ELEMENTS.concat(['int64']);
+const I64_LO = -(2n ** 63n), I64_HI = 2n ** 63n - 1n;
+const ROLES = ['source', 'domain', 'resolution', 'record'];
+const LANE_KERNELS = ['Lean default kernel accepts', 'nanoda kernel accepts'];
 const KINDS = ['schema', 'json-number', 'decimal-literal', 'rational', 'box-order', 'unbounded', 'pin-unresolved', 'pin-mismatch', 'quote-not-verbatim',
   'printed-not-in-quote', 'printed-mismatch', 'vocabulary', 'arity', 'symbol', 'named', 'reading', 'falsifier', 'reference', 'data', 'index', 'empty-range',
   'division-by-zero', 'record-missing', 'record-row-missing', 'record-verdict-word', 'record-value', 'record-bar-mismatch', 'record-pin-mismatch', 'record-decision-mismatch',
-  'record-value-mismatch', 'repair', 'resolution', 'record-predicate'];
+  'record-value-mismatch', 'repair', 'resolution', 'record-predicate', 'readings', 'standing', 'canonical', 'lean'];
 
 class Refuse extends Error { constructor(kind, msg) { super(msg); if (!KINDS.includes(kind)) throw new Error('unknown kind ' + kind); this.kind = kind; this.msg = msg; } }
 const die = (m) => { process.stderr.write('CLAIMBOX CHECKER (JS) REFUSED TO RUN: ' + m + '\n'); process.exit(2); };
 
 /* ---- the words and the vocabulary, read ---------------------------------------------------------------------- */
 let WORDS = null;
-function loadVocab(arbPath = ARB, verdictPath = VERDICT_JS) {
+let STANDINGS = null; // WARRANT's four, weakest first, read from playground/warrant.js
+function loadVocab(arbPath = ARB, verdictPath = VERDICT_JS, warrantPath = WARRANT_JS) {
   if (!fs.existsSync(arbPath)) die('the kernel audit is missing; the vocabulary is read from it');
   const byOp = JSON.parse(fs.readFileSync(arbPath, 'utf8')).byOp || {};
   for (const h of Object.keys(VOCAB)) if (!(VOCAB[h][1] in byOp)) die('the vocabulary names ' + h + ' -> kernel ' + VOCAB[h][1] + ', which the Arb audit does not hold');
@@ -47,6 +56,11 @@ function loadVocab(arbPath = ARB, verdictPath = VERDICT_JS) {
   const src = fs.readFileSync(verdictPath, 'utf8');
   const words = [...src.matchAll(/^const (?:CERTIFIED|REFUTED|REFUSED) = '([A-Z]+)';/gm)].map((m) => m[1]);
   if (words.slice().sort().join() !== 'CERTIFIED,REFUSED,REFUTED') die('verdict.js does not declare the three words where this checker reads them');
+  if (!fs.existsSync(warrantPath)) die('playground/warrant.js is missing; the four standings are read from it');
+  const nm = /^const NAME = \[([^\]]*)\];/m.exec(fs.readFileSync(warrantPath, 'utf8'));
+  const names = nm ? [...nm[1].matchAll(/'([A-Z]+)'/g)].map((x) => x[1]) : [];
+  if (names.length !== 4 || new Set(names).size !== 4) die('playground/warrant.js does not declare the four standings where this checker reads them');
+  STANDINGS = names;
   return words; // [CERTIFIED, REFUTED, REFUSED] in file order
 }
 
@@ -252,13 +266,20 @@ function walk(e, symbols, where, root, dataSym, bound) {
 }
 
 /* ---- expressions: exact evaluation --------------------------------------------------------------------------------- */
-function ev(e, env, data, where) {
-  if (isStr(e)) return RAT.test(e) ? Q.fromString(e) : env.get(e);
+/* format 4, int64 reading: lim set → every value an operation produces, and every partial sum or product, must be an integer
+   in int64, or Wrap is thrown and the predicate is left undecided (exact arithmetic is int64 arithmetic only while nothing wraps) */
+class Wrap extends Error {}
+function ev(e, env, data, where, lim) {
+  const held = (v, at) => {
+    if (lim && (!v.isInt() || v.n < I64_LO || v.n > I64_HI)) { const t = v.toString(); throw new Wrap(where + ': ' + at + ' gives ' + (t.length < 40 ? t : t.slice(0, 40) + '…') + ', which int64 arithmetic does not hold'); }
+    return v;
+  };
+  if (isStr(e)) return RAT.test(e) ? held(Q.fromString(e), 'the literal ' + e) : env.get(e);
   const head = e[0];
   if (head === 'Index') {
     let cur = data;
     for (const a of e.slice(2)) {
-      const i = ev(a, env, data, where).toInt();
+      const i = ev(a, env, data, where, lim).toInt();
       if (!Array.isArray(cur) || i < 0 || i >= cur.length) throw new Refuse('index', where + ': Index ' + i + ' out of range');
       cur = cur[i];
     }
@@ -266,27 +287,27 @@ function ev(e, env, data, where) {
     return cur;
   }
   if (QUANT.includes(head)) {
-    const v = e[1], lo = ev(e[2], env, data, where).toInt(), hi = ev(e[3], env, data, where).toInt();
+    const v = e[1], lo = ev(e[2], env, data, where, lim).toInt(), hi = ev(e[3], env, data, where, lim).toInt();
     if ((head === 'MaxOver' || head === 'MinOver') && hi < lo) throw new Refuse('empty-range', where + ': ' + head + ' over ' + lo + '..' + hi);
     let acc = head === 'Sum' ? Z(0) : head === 'Product' ? Z(1) : null;
     const env2 = new Map(env);
     for (let k = lo; k <= hi; k++) {
       env2.set(v, Z(k));
-      const x = ev(e[4], env2, data, where);
-      if (head === 'Sum') acc = acc.add(x); else if (head === 'Product') acc = acc.mul(x);
+      const x = ev(e[4], env2, data, where, lim);
+      if (head === 'Sum') acc = held(acc.add(x), 'a partial Sum'); else if (head === 'Product') acc = held(acc.mul(x), 'a partial Product');
       else if (head === 'MaxOver') acc = acc === null || x.cmp(acc) > 0 ? x : acc; else acc = acc === null || x.cmp(acc) < 0 ? x : acc;
     }
     return acc;
   }
-  const a = e.slice(1).map((x) => ev(x, env, data, where));
+  const a = e.slice(1).map((x) => ev(x, env, data, where, lim));
   switch (head) {
-    case 'Add': return a[0].add(a[1]);
-    case 'Subtract': return a[0].sub(a[1]);
-    case 'Multiply': return a[0].mul(a[1]);
-    case 'Divide': if (a[1].n === 0n) throw new Refuse('division-by-zero', where); return a[0].div(a[1]);
-    case 'Abs': return a[0].abs();
-    case 'Square': return a[0].mul(a[0]);
-    case 'Power': { const n = a[1].toInt(); if (a[0].n === 0n && n < 0) throw new Refuse('division-by-zero', where + '.Power'); return a[0].pow(n); }
+    case 'Add': return held(a[0].add(a[1]), 'Add');
+    case 'Subtract': return held(a[0].sub(a[1]), 'Subtract');
+    case 'Multiply': return held(a[0].mul(a[1]), 'Multiply');
+    case 'Divide': if (a[1].n === 0n) throw new Refuse('division-by-zero', where); return held(a[0].div(a[1]), 'Divide');
+    case 'Abs': return held(a[0].abs(), 'Abs');
+    case 'Square': return held(a[0].mul(a[0]), 'Square');
+    case 'Power': { const n = a[1].toInt(); if (a[0].n === 0n && n < 0) throw new Refuse('division-by-zero', where + '.Power'); return held(a[0].pow(n), 'Power'); }
     case 'Min': return a[0].cmp(a[1]) <= 0 ? a[0] : a[1];
     case 'Max': return a[0].cmp(a[1]) >= 0 ? a[0] : a[1];
     case 'Kronecker': return Z(a[0].eq(a[1]) ? 1 : 0);
@@ -295,9 +316,9 @@ function ev(e, env, data, where) {
 }
 
 /* ---- typed data ------------------------------------------------------------------------------------------------------ */
-function decodeData(spec, p, where) {
+function decodeData(spec, p, where, elements = ELEMENTS) {
   need(spec, ['select', 'elements', 'shape'], [], where);
-  if (!ELEMENTS.includes(spec.elements)) throw new Refuse('data', where + ': elements must be one of ' + ELEMENTS.join(', '));
+  if (!elements.includes(spec.elements)) throw new Refuse('data', where + ': elements must be one of ' + elements.join(', ') + (ELEMENTS4.includes(spec.elements) ? ' (' + spec.elements + ' is a format-4 reading)' : ''));
   if (!Array.isArray(spec.shape) || !spec.shape.length || spec.shape.some((s) => !isStr(s) || !SYM.test(s)) || new Set(spec.shape).size !== spec.shape.length)
     throw new Refuse('data', where + ': shape must be a list of distinct symbols, one per dimension');
   let doc;
@@ -314,6 +335,7 @@ function decodeData(spec, p, where) {
       if (spec.elements === 'doubles') { if (!isNum(x)) throw new Refuse('data', w + ': not a JSON number'); return Q.fromDouble(Number(x.text)); }
       if (spec.elements === 'decimals') { if (!isNum(x)) throw new Refuse('data', w + ': not a JSON number'); return Q.fromDecimal(x.text); }
       if (spec.elements === 'integers') { if (!isNum(x) || !INT.test(x.text)) throw new Refuse('data', w + ': not a JSON integer'); return new Q(BigInt(x.text)); }
+      if (spec.elements === 'int64') { if (!isNum(x) || !INT.test(x.text)) throw new Refuse('data', w + ': not a JSON integer'); const b = BigInt(x.text); if (b < I64_LO || b > I64_HI) throw new Refuse('data', w + ': ' + x.text + ' is outside int64'); return new Q(b); }
       if (!isStr(x) || !RAT.test(x)) throw new Refuse('data', w + ': not a rational string'); return Q.fromString(x);
     }
     if (!Array.isArray(x)) throw new Refuse('data', w + ': expected a list at depth ' + depth);
@@ -349,19 +371,19 @@ function decide(value, rel, c) {
 }
 function compose(words) { const [C, R, F] = WORDS; if (words.includes(R)) return R; if (words.includes(F)) return F; return C; }
 
-function decideFromObject(p, env0, data, where) {
+function decideFromObject(p, env0, data, where, lim) {
   const [C, R] = WORDS;
-  if (!p.forall.length) { const v = ev(p.g, env0, data, where); return { word: decide(['exact', v], p.rel, p.c), witness: null, violations: null, value: v.toString() }; }
+  if (!p.forall.length) { const v = ev(p.g, env0, data, where, lim); return { word: decide(['exact', v], p.rel, p.c), witness: null, violations: null, value: v.toString() }; }
   let violations = 0, witness = null;
   const env = new Map(env0);
   const loop = (k) => {
     if (k === p.forall.length) {
-      const v = ev(p.g, env, data, where);
+      const v = ev(p.g, env, data, where, lim);
       if (decide(['exact', v], p.rel, p.c) !== C) { violations++; if (!witness) { const at = {}; for (const [vr] of p.forall) at[vr] = env.get(vr).toInt(); witness = { at, value: v.toString() }; } }
       return;
     }
     const [vr, loE, hiE] = p.forall[k];
-    const lo = ev(loE, env, data, where + '.forall').toInt(), hi = ev(hiE, env, data, where + '.forall').toInt();
+    const lo = ev(loE, env, data, where + '.forall', lim).toInt(), hi = ev(hiE, env, data, where + '.forall', lim).toInt();
     for (let i = lo; i <= hi; i++) { env.set(vr, Z(i)); loop(k + 1); }
     env.delete(vr);
   };
@@ -369,12 +391,77 @@ function decideFromObject(p, env0, data, where) {
   return { word: violations ? R : C, witness, violations, value: null };
 }
 
+/* ---- format 4: the canonical form, the readings, the standings, the certificate's inputs ---------------------------------- */
+const reEsc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const wholeCount = (printed, quote) => (quote.match(new RegExp('(?<![0-9.])' + reEsc(printed) + '(?![0-9]|\\.[0-9])', 'g')) || []).length;
+/* the canonical encoding: keys sorted, no whitespace, strings as JSON writes them (the same bytes as Python's json.dumps with
+   sort_keys, compact separators and ensure_ascii off) */
+function enc(v) {
+  if (v === null || v === undefined) return 'null';
+  if (isNum(v)) return v.text;
+  if (isStr(v)) return JSON.stringify(v);
+  if (Array.isArray(v)) return '[' + v.map(enc).join(',') + ']';
+  return '{' + Object.keys(v).sort().map((k) => JSON.stringify(k) + ':' + enc(v[k])).join(',') + '}';
+}
+function canonicalForm(o) {
+  const d = o.domain;
+  const dom = d.kind === 'finite' ? { kind: 'finite', sha256: d.pin.sha256, count: d.count.text, variable: d.variable, data: 'data' in d ? d.data : null }
+    : d.kind === 'box' ? { kind: 'box', sides: d.sides.map((x) => ({ name: x.name, lo: x.lo, hi: x.hi })) }
+      : { kind: 'lean', repository: d.repository, commit: d.commit };
+  const preds = o.predicate.map((p) => ({ g: p.g, rel: p.rel, c: 'c' in p ? p.c : null, forall: 'forall' in p ? p.forall : null, halfWidth: 'box' in p ? p.box.halfWidth : null }))
+    .map((p) => [enc(p), p]).sort((x, y) => (x[0] < y[0] ? -1 : x[0] > y[0] ? 1 : 0)).map((x) => x[1]);
+  return { format: '4', reading: o.reading, readings: o.readings, domain: dom, predicates: preds };
+}
+const canonicalDigest = (o) => crypto.createHash('sha256').update(Buffer.from(enc(canonicalForm(o)), 'utf8')).digest('hex');
+function onePerBar(o) {
+  const seen = new Map();
+  for (const p of o.predicate) if ('printed' in p) seen.set(p.printed, (seen.get(p.printed) || 0) + 1);
+  for (const [pr, n] of seen) { const k = wholeCount(pr, o.source.quote); if (n > k) throw new Refuse('canonical', 'the bar ' + pr + ' carries ' + n + ' inequalities; the quote prints it ' + k + ' time(s) as a whole number'); }
+}
+function fourth(o, d, rv, value, recSha, laneWord, out) {
+  const s = o.source;
+  const inputs = [{ role: 'source', path: s.path, sha256: s.sha256 }];
+  if (d.kind === 'finite') inputs.push({ role: 'domain', path: d.pin.path, sha256: d.pin.sha256 });
+  else if (d.kind === 'lean') inputs.push({ role: 'domain', path: d.repository + '@' + d.commit, sha256: null });
+  for (const p of o.predicate) if ('box' in p) inputs.push({ role: 'resolution', path: p.box.source.path, sha256: p.box.source.sha256 });
+  if ('record' in o) inputs.push({ role: 'record', path: o.record.path, sha256: recSha });
+  const roles = ROLES.filter((x) => inputs.some((i) => i.role === x));
+  for (const [field, kind] of [['readings', 'readings'], ['standing', 'standing']]) {
+    const decl = o[field];
+    if (!decl || typeof decl !== 'object' || Array.isArray(decl) || isNum(decl)) throw new Refuse(kind, field + ' must map each input role to its word');
+    const missing = roles.filter((x) => !(x in decl)), extra = Object.keys(decl).filter((x) => !roles.includes(x));
+    if (missing.length) throw new Refuse(kind, field + ' has no word for ' + missing.join(', ') + ' (no ' + (kind === 'readings' ? 'reading' : 'standing') + ' is a default)');
+    if (extra.length) throw new Refuse(kind, field + ' names ' + extra.join(', ') + ', which this object does not have as an input');
+    const vocab = kind === 'readings' ? READINGS4 : STANDINGS;
+    for (const x of roles) if (!isStr(decl[x]) || !vocab.includes(decl[x])) throw new Refuse(kind, field + '.' + x + ' is ' + (isNum(decl[x]) ? decl[x].text : JSON.stringify(decl[x])) + ', not one of ' + vocab.join(', '));
+  }
+  const rd = o.readings;
+  const want = { source: 'text', resolution: 'decimals' };
+  if (d.kind === 'lean') want.domain = 'lean'; else if (d.kind === 'finite' && 'data' in d) want.domain = d.data.elements;
+  if ('record' in o) want.record = value === null ? 'text' : value[0] === 'exact' ? 'rationals' : 'doubles';
+  for (const x of roles) if (x in want && rd[x] !== want[x]) throw new Refuse('readings', 'readings.' + x + ' is ' + rd[x] + '; the ' + x + ' is read as ' + want[x]);
+  if (d.kind === 'finite' && !('data' in d) && rd.domain === 'lean') throw new Refuse('readings', 'readings.domain is lean; the domain is pinned bytes');
+  const st = o.standing, top = STANDINGS[STANDINGS.length - 1];
+  if ('record' in o && st.record === top && rv === WORDS[2]) throw new Refuse('standing', 'standing.record is ' + top + ', but the record\'s word is ' + rv);
+  if (d.kind === 'lean' && st.domain === top && laneWord === WORDS[2]) throw new Refuse('standing', 'standing.domain is ' + top + ', but the kernel lane decided nothing (' + laneWord + ')');
+  for (const i of inputs) { i.reading = rd[i.role]; i.standing = st[i.role]; }
+  out.inputs = inputs;
+  out.meet = roles.map((x) => st[x]).reduce((a, b) => (STANDINGS.indexOf(b) < STANDINGS.indexOf(a) ? b : a));
+  out.canonical = canonicalDigest(o);
+}
+
 /* ---- the check ---------------------------------------------------------------------------------------------------------- */
 function checkObj(o, root = ROOT) {
   const out = { word: REFUSED_WORD, kind: null, msg: '', id: o && typeof o === 'object' ? o.id : null, decided: [], fromObject: [], notes: [], seconds: 0 };
   const t0 = Date.now();
   try {
-    need(o, TOP, TOP_OPTIONAL, 'the object');
+    const v4 = !!o && typeof o === 'object' && !Array.isArray(o) && 'format' in o;
+    if (v4) {
+      if (!isNum(o.format) || o.format.text !== '4') throw new Refuse('schema', 'format must be 4 (an object without "format" is a version-3 object), got ' + (isNum(o.format) ? o.format.text : JSON.stringify(o.format)));
+      if (!('readings' in o)) throw new Refuse('readings', 'a format-4 object declares the reading of each input: no reading is a default');
+      if (!('standing' in o)) throw new Refuse('standing', 'a format-4 object declares the standing of each input');
+      need(o, TOP.concat(['format', 'readings', 'standing']), TOP_OPTIONAL, 'the object');
+    } else need(o, TOP, TOP_OPTIONAL, 'the object');
     if (!isStr(o.id) || !o.id.trim()) throw new Refuse('schema', 'id must be a non-empty string');
     if (!isStr(o.text) || !o.text.trim()) throw new Refuse('schema', 'text must be a non-empty string');
     if (!READINGS.includes(o.reading)) throw new Refuse('reading', JSON.stringify(o.reading));
@@ -390,12 +477,17 @@ function checkObj(o, root = ROOT) {
     if (!fs.readFileSync(srcPath, 'utf8').includes(s.quote)) throw new Refuse('quote-not-verbatim', s.path);
 
     const d = o.domain;
-    if (!d || typeof d !== 'object' || !['finite', 'box'].includes(d.kind)) throw new Refuse('schema', 'domain.kind must be finite or box');
+    if (!d || typeof d !== 'object' || !(v4 ? ['finite', 'box', 'lean'] : ['finite', 'box']).includes(d.kind)) throw new Refuse('schema', 'domain.kind must be finite or box' + (v4 ? ' or lean' : ''));
     const symbols = new Set();
     const boxSymbols = new Set();
     const env0 = new Map();
-    let data = null, dataSym = null;
-    if (d.kind === 'finite') {
+    let data = null, dataSym = null, lim = false;
+    if (d.kind === 'lean') {
+      need(d, ['kind', 'repository', 'commit', 'lane'], [], 'domain');
+      if (!isStr(d.repository) || !d.repository.trim()) throw new Refuse('schema', 'domain.repository must name the Lean project');
+      if (!isStr(d.commit) || !/^[0-9a-f]{40}$/.test(d.commit)) throw new Refuse('schema', 'domain.commit must be the 40-hex commit the lane built');
+      if (!isStr(d.lane) || !fs.existsSync(path.join(root, d.lane)) || !fs.statSync(path.join(root, d.lane)).isFile()) throw new Refuse('lean', 'domain.lane must be the kernel lane\'s workflow on disk: ' + JSON.stringify(d.lane === undefined ? null : d.lane));
+    } else if (d.kind === 'finite') {
       need(d, ['kind', 'pin', 'decoder', 'count', 'variable'], ['data'], 'domain');
       const dpath = pinned(d.pin, 'domain.pin', root);
       const count = countOf(d.count, 'domain.count');
@@ -403,7 +495,8 @@ function checkObj(o, root = ROOT) {
       if (!isStr(d.variable) || !SYM.test(d.variable)) throw new Refuse('schema', 'domain.variable must be a symbol');
       symbols.add(d.variable);
       if ('data' in d) {
-        const [dd, sizes] = decodeData(d.data, dpath, 'domain.data');
+        const [dd, sizes] = decodeData(d.data, dpath, 'domain.data', v4 ? ELEMENTS4 : ELEMENTS);
+        if (d.data.elements === 'int64') lim = true;
         data = dd; dataSym = d.variable;
         const first = d.data.shape[0];
         if (sizes[first] !== count) throw new Refuse('data', 'domain.count is ' + count + ', the decoded ' + first + ' is ' + sizes[first]);
@@ -473,15 +566,27 @@ function checkObj(o, root = ROOT) {
     });
 
     const uses = (e, names) => isStr(e) ? names.has(e) : Array.isArray(e) ? e.slice(1).some((x) => uses(x, names)) : (e && typeof e === 'object' && Array.isArray(e.args)) ? e.args.some((x) => uses(x, names)) : false;
+    if (v4) onePerBar(o);
+    if (d.kind === 'lean') {
+      if (preds.length !== 1 || preds[0].rel !== 'holds' || preds[0].g.where !== d.lane || !Array.isArray(preds[0].g.args) || preds[0].g.args.length !== 0)
+        throw new Refuse('lean', 'a Lean object states one "holds" over its kernel lane (where = domain.lane, no args): the kernels decide it, nothing else');
+      if (!('record' in o)) throw new Refuse('lean', 'a Lean object is decided by its lane\'s record; nothing builds Lean here');
+    }
     const fromObject = preds.map((p, i) => {
       if (p.rel === 'holds' || !p.exact || uses(p.g, boxSymbols)) { if (p.rel !== 'holds') out.notes.push('predicate[' + i + '] not decided from the object: ' + (p.exact && uses(p.g, boxSymbols) ? 'a box variable (the interval decider\'s)' : 'a transcendental or named head')); return null; }
-      return decideFromObject(p, env0, data, 'predicate[' + i + '].g');
+      try { return decideFromObject(p, env0, data, 'predicate[' + i + '].g', lim); } catch (e) {
+        if (e instanceof Wrap) { out.notes.push('predicate[' + i + '] not decided from the object under the int64 reading: ' + e.message); return null; }
+        throw e;
+      }
     });
     out.fromObject = fromObject;
 
+    let rv = null, recSha = null, value = null, laneWord = null;
     if ('record' in o) {
       const r = o.record;
-      need(r, ['path', 'row', 'value', 'verdict'], ['predicate'], 'record');
+      need(r, ['path', 'row', 'value', 'verdict'], v4 ? ['predicate', 'key'] : ['predicate'], 'record');
+      const rkey = 'key' in r ? r.key : 'id';
+      if (!isStr(rkey) || !SYM.test(rkey)) throw new Refuse('schema', 'record.key must name the field that identifies the row');
       let rix = null;
       if ('predicate' in r) {
         const t = isNum(r.predicate) ? r.predicate.text : null;
@@ -491,15 +596,29 @@ function checkObj(o, root = ROOT) {
       const rp = path.join(root, r.path);
       if (!fs.existsSync(rp)) throw new Refuse('record-missing', r.path);
       const rec = parseJSON(fs.readFileSync(rp, 'utf8'));
+      recSha = sha256(rp);
       let row;
       if (r.row === null) row = rec;
-      else { row = (Array.isArray(rec.rows) ? rec.rows : []).find((x) => x && typeof x === 'object' && x.id === r.row); if (!row) throw new Refuse('record-row-missing', r.path + ' row ' + String(r.row)); }
-      const rv = row.verdict;
+      else { row = (Array.isArray(rec.rows) ? rec.rows : []).find((x) => x && typeof x === 'object' && !Array.isArray(x) && Object.prototype.hasOwnProperty.call(x, rkey) && x[rkey] === r.row); if (!row) throw new Refuse('record-row-missing', r.path + ' row ' + String(r.row)); }
+      rv = d.kind === 'lean' ? ('word' in row ? row.word : row.verdict) : row.verdict;
       if (!WORDS.includes(rv)) throw new Refuse('record-verdict-word', 'the record says ' + JSON.stringify(rv));
       if (r.verdict !== rv) throw new Refuse('record-verdict-word', 'the object declares ' + JSON.stringify(r.verdict) + ', the record says ' + rv);
       const rsha = row.sha256;
       if (isStr(rsha) && /^[0-9a-f]{64}$/.test(rsha) && d.kind === 'finite' && rsha !== d.pin.sha256) throw new Refuse('record-pin-mismatch', 'the record decided ' + rsha.slice(0, 12) + '…, the object pins ' + d.pin.sha256.slice(0, 12) + '…');
-      const value = r.value === null ? null : recordValue(getPath(row, r.value), 'record.value ' + String(r.value));
+      if (d.kind === 'lean') {
+        if (r.value !== null) throw new Refuse('lean', 'a Lean object\'s record carries no value: the kernels\' words are the decision');
+        let commit = row.commit;
+        for (const blk of ['release', 'source']) if (!isStr(commit) && rec[blk] && typeof rec[blk] === 'object' && !Array.isArray(rec[blk])) commit = rec[blk].commit;
+        if (!isStr(commit) && isStr(rec.commit)) commit = rec.commit;
+        if (!isStr(commit)) throw new Refuse('lean', 'the lane record names no commit: nothing binds its kernels to the object\'s project');
+        if (commit !== d.commit) throw new Refuse('record-pin-mismatch', 'the lane built ' + commit.slice(0, 12) + '…, the object names ' + d.commit.slice(0, 12) + '…');
+        let kernels = row.kernels;
+        if (!Array.isArray(kernels)) { const runs = Array.isArray(row.runs) ? row.runs : []; const last = runs.length ? runs[runs.length - 1] : null; kernels = (last && typeof last === 'object' && Array.isArray(last.kernels)) ? last.kernels : []; }
+        kernels = kernels.filter(isStr);
+        laneWord = LANE_KERNELS.every((want) => kernels.some((k) => k.startsWith(want))) ? WORDS[0] : kernels.some((k) => k.includes(' rejects')) ? WORDS[1] : WORDS[2];
+        if (laneWord !== rv) throw new Refuse('record-decision-mismatch', 'the lane row says ' + rv + ', its kernels give ' + laneWord + ' (' + (kernels.join(' · ') || 'no kernel printed') + ')');
+      }
+      value = r.value === null ? null : recordValue(getPath(row, r.value), 'record.value ' + String(r.value));
       const claimStr = String(row.claim || '');
       const m = BAR_IN_CLAIM.exec(claimStr), mr = REL_IN_CLAIM.exec(claimStr);
       const recBar = m ? Q.fromDecimal(m[0]) : null, recRel = mr ? REL_WORD[mr[0]] : null;
@@ -546,6 +665,8 @@ function checkObj(o, root = ROOT) {
     } else if ('repair' in o) throw new Refuse('repair', 'a repair needs a record');
     else out.notes.push('no record attached' + (fromObject.some(Boolean) ? '' : ': a proposal, undecided'));
 
+    if (v4) fourth(o, d, rv, value, recSha, laneWord, out);
+
     out.word = ADMITTED;
     return out;
   } catch (e) {
@@ -573,7 +694,8 @@ function main(argv) {
     if (res.word === ADMITTED) {
       const fo = res.fromObject.filter(Boolean);
       const fos = fo.map((x) => x.word + (x.witness ? ' (witness ' + JSON.stringify(x.witness.at) + ', ' + x.violations + ' violating)' : '') + (x.value ? ' value ' + x.value.slice(0, 30) + (x.value.length > 30 ? '…' : '') : '')).join(' · ');
-      console.log('ADMITTED  ' + res.id + '  [' + res.decided.join(' · ') + ']' + (fos ? '  from the object: ' + fos : '') + '  ' + res.seconds + ' s' + res.notes.map((n) => '  note: ' + n).join(''));
+      const v4s = 'canonical' in res ? '  inputs: ' + res.inputs.map((i) => i.role + ' ' + i.reading + ' ' + i.standing).join(' · ') + ' (meet ' + res.meet + ')  canonical ' + res.canonical.slice(0, 16) : '';
+      console.log('ADMITTED  ' + res.id + '  [' + res.decided.join(' · ') + ']' + (fos ? '  from the object: ' + fos : '') + v4s + '  ' + res.seconds + ' s' + res.notes.map((n) => '  note: ' + n).join(''));
     } else { bad++; console.log('REFUSED   ' + res.id + '  ' + res.kind + ': ' + res.msg); }
   }
   return bad ? 1 : 0;

@@ -1,0 +1,681 @@
+{
+ "what": "Search ledgers replayed exactly by instruments/ledger: each ledger decided twice — every stretch replayed (full) and a seeded sample of k stretches — each time by replay.py and replay.js alone, the joint word recorded only when the two decisions are identical. The battery re-derives every row.",
+ "seed": "2026-10-30",
+ "k": 5,
+ "rows": [
+  {
+   "ledger": "instruments/ledger/ledgers/bb4-hit.jsonl",
+   "sha256": "f495f5a9e555c1b1ee223f43832f627227a84b2fc7b524d9c619d2035c1e4ebe",
+   "id": "bb4-hit",
+   "chainHead": "4b3c24e603bf66862fcfd69e880ba4a44e4062059066f819094e329988af1f10",
+   "machine": {
+    "path": "instruments/ledger/machines/bb4.tm",
+    "sha256": "2c8e63f09baffeb210a31c831cee084975300b3a167fa68374cbb8611cccebb1"
+   },
+   "claim": {
+    "shape": "HIT",
+    "halt": 107
+   },
+   "K": 11,
+   "mode": "full",
+   "seed": null,
+   "k": 11,
+   "sample": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "stretches": [
+    {
+     "j": 0,
+     "from": 0,
+     "to": 10,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 1,
+     "from": 10,
+     "to": 20,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 2,
+     "from": 20,
+     "to": 30,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 3,
+     "from": 30,
+     "to": 40,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 4,
+     "from": 40,
+     "to": 50,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 5,
+     "from": 50,
+     "to": 60,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 6,
+     "from": 60,
+     "to": 70,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 7,
+     "from": 70,
+     "to": 80,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 8,
+     "from": 80,
+     "to": 90,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 9,
+     "from": 90,
+     "to": 100,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 10,
+     "from": 100,
+     "to": 107,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "CERTIFIED",
+   "rule": null,
+   "witness": null,
+   "detects": null,
+   "claimText": "HIT witness={\"halt\":107} certificate=sha256:4b3c24e603bf66862fcfd69e880ba4a44e4062059066f819094e329988af1f10",
+   "simulators": "agree"
+  },
+  {
+   "ledger": "instruments/ledger/ledgers/bb4-hit.jsonl",
+   "sha256": "f495f5a9e555c1b1ee223f43832f627227a84b2fc7b524d9c619d2035c1e4ebe",
+   "id": "bb4-hit",
+   "chainHead": "4b3c24e603bf66862fcfd69e880ba4a44e4062059066f819094e329988af1f10",
+   "machine": {
+    "path": "instruments/ledger/machines/bb4.tm",
+    "sha256": "2c8e63f09baffeb210a31c831cee084975300b3a167fa68374cbb8611cccebb1"
+   },
+   "claim": {
+    "shape": "HIT",
+    "halt": 107
+   },
+   "K": 11,
+   "mode": "sample",
+   "seed": "2026-10-30",
+   "k": 5,
+   "sample": [
+    1,
+    2,
+    3,
+    6,
+    10
+   ],
+   "stretches": [
+    {
+     "j": 1,
+     "from": 10,
+     "to": 20,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 2,
+     "from": 20,
+     "to": 30,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 3,
+     "from": 30,
+     "to": 40,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 6,
+     "from": 60,
+     "to": 70,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 10,
+     "from": 100,
+     "to": 107,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "REFUSED",
+   "rule": "a sample is not a proof: 5 of 11 stretches replayed exactly, none differs",
+   "witness": null,
+   "detects": {
+    "oneStretch": "5/11",
+    "f=1/100": "490099501/10000000000",
+    "f=1/10": "40951/100000"
+   },
+   "claimText": null,
+   "simulators": "agree"
+  },
+  {
+   "ledger": "instruments/ledger/ledgers/bb5-record.jsonl",
+   "sha256": "657d1843764462486a25c36cc58e9eeb1ef48178215c08a03640f928aafc839c",
+   "id": "bb5-record",
+   "chainHead": "663c9eab9b5fc706cb2684848d41d7f0c625592003082c3638eda98968631757",
+   "machine": {
+    "path": "instruments/ledger/machines/bb5.tm",
+    "sha256": "5116e794f281d575f672983c68dcdcb4e7fe8f15729c44f2ddab51ba2e08202d"
+   },
+   "claim": {
+    "shape": "RECORD",
+    "box": [
+     1,
+     200000
+    ]
+   },
+   "K": 20,
+   "mode": "full",
+   "seed": null,
+   "k": 20,
+   "sample": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "stretches": [
+    {
+     "j": 0,
+     "from": 0,
+     "to": 10000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 1,
+     "from": 10000,
+     "to": 20000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 2,
+     "from": 20000,
+     "to": 30000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 3,
+     "from": 30000,
+     "to": 40000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 4,
+     "from": 40000,
+     "to": 50000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 5,
+     "from": 50000,
+     "to": 60000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 6,
+     "from": 60000,
+     "to": 70000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 7,
+     "from": 70000,
+     "to": 80000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 8,
+     "from": 80000,
+     "to": 90000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 9,
+     "from": 90000,
+     "to": 100000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 10,
+     "from": 100000,
+     "to": 110000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 11,
+     "from": 110000,
+     "to": 120000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 12,
+     "from": 120000,
+     "to": 130000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 13,
+     "from": 130000,
+     "to": 140000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 14,
+     "from": 140000,
+     "to": 150000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 15,
+     "from": 150000,
+     "to": 160000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 16,
+     "from": 160000,
+     "to": 170000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 17,
+     "from": 170000,
+     "to": 180000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 18,
+     "from": 180000,
+     "to": 190000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 19,
+     "from": 190000,
+     "to": 200000,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "CERTIFIED",
+   "rule": null,
+   "witness": null,
+   "detects": null,
+   "claimText": "RECORD box=[steps 1..200000 of instruments/ledger/machines/bb5.tm@5116e794f281 from the blank tape] exhaustionCertificate=sha256:d9881358c06ca8d9305ad5177df98599f8d51bdddb2cb23e7563ca729d110eeb",
+   "simulators": "agree"
+  },
+  {
+   "ledger": "instruments/ledger/ledgers/bb5-record.jsonl",
+   "sha256": "657d1843764462486a25c36cc58e9eeb1ef48178215c08a03640f928aafc839c",
+   "id": "bb5-record",
+   "chainHead": "663c9eab9b5fc706cb2684848d41d7f0c625592003082c3638eda98968631757",
+   "machine": {
+    "path": "instruments/ledger/machines/bb5.tm",
+    "sha256": "5116e794f281d575f672983c68dcdcb4e7fe8f15729c44f2ddab51ba2e08202d"
+   },
+   "claim": {
+    "shape": "RECORD",
+    "box": [
+     1,
+     200000
+    ]
+   },
+   "K": 20,
+   "mode": "sample",
+   "seed": "2026-10-30",
+   "k": 5,
+   "sample": [
+    1,
+    5,
+    8,
+    10,
+    19
+   ],
+   "stretches": [
+    {
+     "j": 1,
+     "from": 10000,
+     "to": 20000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 5,
+     "from": 50000,
+     "to": 60000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 8,
+     "from": 80000,
+     "to": 90000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 10,
+     "from": 100000,
+     "to": 110000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 19,
+     "from": 190000,
+     "to": 200000,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "REFUSED",
+   "rule": "a sample is not a proof: 5 of 20 stretches replayed exactly, none differs",
+   "witness": null,
+   "detects": {
+    "oneStretch": "1/4",
+    "f=1/100": "490099501/10000000000",
+    "f=1/10": "40951/100000"
+   },
+   "claimText": "RECORD box=[steps 1..200000 of instruments/ledger/machines/bb5.tm@5116e794f281 from the blank tape] best known to this search",
+   "simulators": "agree"
+  },
+  {
+   "ledger": "instruments/ledger/ledgers/bb5-forged-row.jsonl",
+   "sha256": "a5b110d5be10cb62de710b97f7d70ca93c64e0f641bbe9269220866fb0e2ca94",
+   "id": "bb5-forged-row",
+   "chainHead": "3b59b61a8abcd07a4f607eb50c3fca2e4668c6a0cce185f61444c8a648b84e06",
+   "machine": {
+    "path": "instruments/ledger/machines/bb5.tm",
+    "sha256": "5116e794f281d575f672983c68dcdcb4e7fe8f15729c44f2ddab51ba2e08202d"
+   },
+   "claim": {
+    "shape": "RECORD",
+    "box": [
+     1,
+     200000
+    ]
+   },
+   "K": 20,
+   "mode": "full",
+   "seed": null,
+   "k": 20,
+   "sample": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "stretches": [
+    {
+     "j": 0,
+     "from": 0,
+     "to": 10000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 1,
+     "from": 10000,
+     "to": 20000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 2,
+     "from": 20000,
+     "to": 30000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 3,
+     "from": 30000,
+     "to": 40000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 4,
+     "from": 40000,
+     "to": 50000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 5,
+     "from": 50000,
+     "to": 60000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 6,
+     "from": 60000,
+     "to": 70000,
+     "word": "REFUTED"
+    },
+    {
+     "j": 7,
+     "from": 70000,
+     "to": 80000,
+     "word": "REFUTED"
+    },
+    {
+     "j": 8,
+     "from": 80000,
+     "to": 90000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 9,
+     "from": 90000,
+     "to": 100000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 10,
+     "from": 100000,
+     "to": 110000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 11,
+     "from": 110000,
+     "to": 120000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 12,
+     "from": 120000,
+     "to": 130000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 13,
+     "from": 130000,
+     "to": 140000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 14,
+     "from": 140000,
+     "to": 150000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 15,
+     "from": 150000,
+     "to": 160000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 16,
+     "from": 160000,
+     "to": 170000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 17,
+     "from": 170000,
+     "to": 180000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 18,
+     "from": 180000,
+     "to": 190000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 19,
+     "from": 190000,
+     "to": 200000,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "REFUTED",
+   "rule": null,
+   "witness": {
+    "why": "the replayed stretch does not end at the next checkpoint",
+    "stretch": 6,
+    "line": 8,
+    "claimed": {
+     "step": 70000,
+     "halted": false,
+     "state": 1,
+     "head": -280,
+     "ones": 446,
+     "digest": "fd9fefce01e0ec55"
+    },
+    "replayed": {
+     "step": 70000,
+     "halted": false,
+     "state": 1,
+     "head": -280,
+     "ones": 445,
+     "digest": "2215b612e9260837"
+    }
+   },
+   "detects": null,
+   "claimText": null,
+   "simulators": "agree"
+  },
+  {
+   "ledger": "instruments/ledger/ledgers/bb5-forged-row.jsonl",
+   "sha256": "a5b110d5be10cb62de710b97f7d70ca93c64e0f641bbe9269220866fb0e2ca94",
+   "id": "bb5-forged-row",
+   "chainHead": "3b59b61a8abcd07a4f607eb50c3fca2e4668c6a0cce185f61444c8a648b84e06",
+   "machine": {
+    "path": "instruments/ledger/machines/bb5.tm",
+    "sha256": "5116e794f281d575f672983c68dcdcb4e7fe8f15729c44f2ddab51ba2e08202d"
+   },
+   "claim": {
+    "shape": "RECORD",
+    "box": [
+     1,
+     200000
+    ]
+   },
+   "K": 20,
+   "mode": "sample",
+   "seed": "2026-10-30",
+   "k": 5,
+   "sample": [
+    0,
+    9,
+    12,
+    16,
+    17
+   ],
+   "stretches": [
+    {
+     "j": 0,
+     "from": 0,
+     "to": 10000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 9,
+     "from": 90000,
+     "to": 100000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 12,
+     "from": 120000,
+     "to": 130000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 16,
+     "from": 160000,
+     "to": 170000,
+     "word": "CERTIFIED"
+    },
+    {
+     "j": 17,
+     "from": 170000,
+     "to": 180000,
+     "word": "CERTIFIED"
+    }
+   ],
+   "word": "REFUSED",
+   "rule": "a sample is not a proof: 5 of 20 stretches replayed exactly, none differs",
+   "witness": null,
+   "detects": {
+    "oneStretch": "1/4",
+    "f=1/100": "490099501/10000000000",
+    "f=1/10": "40951/100000"
+   },
+   "claimText": "RECORD box=[steps 1..200000 of instruments/ledger/machines/bb5.tm@5116e794f281 from the blank tape] best known to this search",
+   "simulators": "agree"
+  }
+ ]
+}
