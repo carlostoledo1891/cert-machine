@@ -89,6 +89,11 @@ const CH = (t) => W.value(t, W.CHOSEN);   /* the margin page.js's REAL() fixes i
    re-reads it); a number computed from cells (a fraction printed as a percentage, a mean, a count) is derived: [its cells]. */
 const RD = require(path.join(PG, '..', 'design', 'record.js'));
 const DC = require(path.join(PG, '..', 'design', 'components.js'));
+/* REDRAWN IN TOKENS (2026-10-30, the operator: the instruments take the light theme). page.js is lifted and keeps its
+   literal screen inks (#f6f6f8 strokes, a #0a0a0c hollow point); the page, its sheet and its card go out through
+   playground/design/inks.js, which re-points each at the token holding that very value: the same pixels in the dark,
+   ink on paper in the light. */
+const INK = require(path.join(PG, 'design', 'inks.js'));
 const REC = 'playground/affect/out/mood-geometry.json';
 const K = RD.key, at = (ptr) => `${REC}#${ptr}`;
 const cellP = (mood, sub, m, rest) => `/cells/${K(`${mood}|${sub}|${m.id}`)}/${rest}`;
@@ -339,8 +344,8 @@ function build(OUT) {
     title: 'The geometry of feeling · instruments',
     desc: 'Twelve feelings placed by pairwise questions, the circumplex axes recovered from a question set with no words in common, and the same twelve asked again under six moods — with twelve clock hours as the control that has no business moving.',
     /* the foot line rode in the body as well as in the page foot until 2026-10-28, so it printed twice */
-    path: '/instruments/affect/', body: head + sections,
-    css: `${BENCHCSS}\n${A.CSS}\n${GR.css()}\n${FIGREC}`,
+    path: '/instruments/affect/', body: INK.assertNoLiterals(INK.tokenInks(head + sections), 'affect'),
+    css: INK.assertNoLiterals(INK.tokenInks(`${BENCHCSS}\n${A.CSS}\n${GR.css()}\n${FIGREC}`), 'affect\'s sheet'),
   });
   const dir = path.join(OUT, 'affect');
   fs.mkdirSync(dir, { recursive: true });
@@ -349,5 +354,5 @@ function build(OUT) {
 }
 /* the first affect map, by its class: since 2026-10-28 the standing legend's swatches are the first <svg> in the body,
    and the old "first long <svg>" match spanned from a swatch into the legend's HTML */
-function cardArt() { const m = sections.match(/<svg viewBox="[^"]*" class="pl">[\s\S]*?<\/svg>/); if (!m || !/class="ord"/.test(m[0])) throw new Error('affect: no affect map for the card'); return m[0]; }
+function cardArt() { const m = sections.match(/<svg viewBox="[^"]*" class="pl">[\s\S]*?<\/svg>/); if (!m || !/class="ord"/.test(m[0])) throw new Error('affect: no affect map for the card'); return INK.assertNoLiterals(INK.tokenInks(m[0]), 'the affect card'); }
 module.exports = { build, cardArt, M, spend, PROV };

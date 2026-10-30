@@ -35,6 +35,8 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const W = require(path.join(PG, 'warrant.js'));
 const G = require(path.join(ROOT, 'design', 'grammar.js'));
 const P = require('./plates.js');
+/* the plates' screen inks become tokens (playground/design/inks.js), so the light theme draws them as ink on paper */
+const INK = require(path.join(PG, 'design', 'inks.js'));
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
 /* the record Plate V draws, read here too so the prose below cannot drift from the plate */
@@ -67,6 +69,11 @@ lifted = inPlate(lifted, 'PLATE V', (s) => {
 lifted = inPlate(lifted, 'PLATE III', (s) => once(s, /(<line [^>]*? stroke="rgba\(246,246,248,0\.55\)")\/>/g, `$1 ${CLAIM}/>`, 1, 'Plate III threshold line'));
 /* Plate IV's zero line is a guide (design/grammar.js GUIDE); "dashed" on this page means computed */
 lifted = once(lifted, /Where a curve dips under the dashed line/g, 'Where a curve dips under the zero line', 1, 'Plate IV prose');
+/* REDRAWN IN TOKENS (2026-10-30, the operator: the instruments take the light theme). After the edits above, which match
+   the lifted literals, every rgba(246,246,248,a) becomes the ink token at the same alpha: the dark render is the same
+   pixels, and in light the plates are ink on paper. Plates VI-VIII are pixel buffers (PNG), not marks: their captions
+   say "bright" and "black", so they stay the pictures they are in both themes. */
+lifted = INK.tokenInks(lifted);
 
 /* the legend comes out of warrant.js, so the page cannot describe a grammar it
    is not using. REFUSED has no stroke and no plate here uses it; CHOSEN is said
@@ -119,8 +126,8 @@ function build(OUT) {
     title: 'Manifolds we are handed · instruments',
     desc: 'Eight plates. Interpretability pulls geometry out of a working model and asks what it means; these are stated as a rule and its parameters, then drawn — including two that are certificates rendered at their own resolution.',
     path: '/instruments/plates/',
-    body: body + foot,
-    css: `${CSS}\n${P.CSS}`,
+    body: INK.assertNoLiterals(body + foot, 'the plates'),
+    css: INK.assertNoLiterals(`${CSS}\n${P.CSS}`, 'the plates\' sheet'),
   });
   const dir = path.join(OUT, 'plates');
   fs.mkdirSync(dir, { recursive: true });
@@ -137,8 +144,8 @@ function cardArt() {
      page shipped an empty plate with only its caption pill. A builder that
      selects a figure by its exact pixel dimensions breaks on any change to the
      figure, without erroring. Width is the stable part; the height is not. */
-  const m = P.body.match(/<svg viewBox="0 0 980 \d+"[\s\S]*?<\/svg>/);
-  return m ? m[0] : '';
+  const m = lifted.match(/<svg viewBox="0 0 980 \d+"[\s\S]*?<\/svg>/);
+  return m ? INK.assertNoLiterals(m[0], 'the plates card') : '';
 }
 
 module.exports = { build, cardArt, counts: P.counts, PROV };
