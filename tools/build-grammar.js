@@ -331,7 +331,9 @@ function html() {
       COMMITS[h] = { full, date };
     }
     const c = COMMITS[h];
-    return '<a class="gr-c" href="' + escAttr(GITHUB + '/commit/' + c.full) + '">fixed ' + esc(day(c.date)) + ' · ' + esc(h) + '</a>';
+    /* the commit is checked to exist and dated from git, and only the date is printed: no link out, no hash (the
+       operator, 2026-10-30: the page cites the issue and its fix, never the commit) */
+    return '<span class="gr-c">fixed ' + esc(day(c.date)) + '</span>';
   };
   const page = (rel, name) => {
     const f = rel.endsWith('/') ? rel + 'index.html' : rel;
@@ -482,18 +484,18 @@ function html() {
   const legendW = Number((/stroke-width="([0-9.]+)"/.exec(W.legendHtml()) || [0, NaN])[1]);
   guard('at the legend\'s own width the dotted line no longer inks more than the dashed one (the open issue would be closed)', inkP(legendW) > inkC(legendW));
   const ISSUES = [
-    { k: 'fixed · ' + commit(FIX), title: 'The tone ran against the order', art: PL.tonesArt(TB, TA),
+    { k: commit(FIX), title: 'The tone ran against the order', art: PL.tonesArt(TB, TA),
       d: 'A chosen stroke was drawn brighter than a computed one, so the weaker standing read stronger. Lightness now falls with standing, asserted by a battery from the tokens.' },
-    { k: 'fixed · ' + commit(FIX), title: 'An edge drawn inside its record', art: PL.outwardArt({ rowExact: fnum(rowExact), rowOld: fnum(rowOld), rowNew: fnum(rowNew), r0: fnum(rowNew) - 0.04, r1: fnum(rowOld) + 0.04,
+    { k: commit(FIX), title: 'An edge drawn inside its record', art: PL.outwardArt({ rowExact: fnum(rowExact), rowOld: fnum(rowOld), rowNew: fnum(rowNew), r0: fnum(rowNew) - 0.04, r1: fnum(rowOld) + 0.04,
       labels: { now: 'now: ' + fstr(fsub(rowExact, rowNew)) + ' px outside', exact: 'the record', old: 'before: ' + fstr(fsub(rowOld, rowExact)) + ' px inside', foot: 'the top of the step [1, 3/2], magnified' } }),
       d: 'The staircase’s top was written to the nearest tenth of a pixel and sat ' + fstr(fsub(rowOld, rowExact)) + ' of a pixel inside its record. Every edge now rounds outward, and the build refuses one drawn inside.' },
-    { k: 'fixed · ' + commit(FIX), title: 'Dashes with no standing', art: PL.pairsArt([{ k: 'dashed marks with no standing', then: THEN.unstanding, now: NOW.unstanding }, { k: 'pages carrying one', then: pagesOf(THEN.where.unstanding), now: pagesOf(NOW.where.unstanding) }], 'Dashed marks with no standing, before the fix and now, and the pages carrying them.'),
+    { k: commit(FIX), title: 'Dashes with no standing', art: PL.pairsArt([{ k: 'dashed marks with no standing', then: THEN.unstanding, now: NOW.unstanding }, { k: 'pages carrying one', then: pagesOf(THEN.where.unstanding), now: pagesOf(NOW.where.unstanding) }], 'Dashed marks with no standing, before the fix and now, and the pages carrying them.'),
       d: 'The chart kit took a plain “dashed” switch; it takes a standing now, and the census counts what is left, which may only shrink.' },
-    { k: 'fixed · ' + commit(FIX), title: 'A verdict word in two chip shapes', art: PL.pairsArt([{ k: 'dashed chip borders', then: THEN.dashedBorders, now: NOW.dashedBorders }, { k: 'verdict words in two shapes', then: THEN.chipWordsMulti.length, now: NOW.chipWordsMulti.length }], 'Dashed borders and verdict words worn in more than one chip shape, before the fix and now.'),
+    { k: commit(FIX), title: 'A verdict word in two chip shapes', art: PL.pairsArt([{ k: 'dashed chip borders', then: THEN.dashedBorders, now: NOW.dashedBorders }, { k: 'verdict words in two shapes', then: THEN.chipWordsMulti.length, now: NOW.chipWordsMulti.length }], 'Dashed borders and verdict words worn in more than one chip shape, before the fix and now.'),
       d: 'A dash is a standing, so no chip wears one, and each verdict word has one shape site-wide.' },
-    { k: 'fixed · ' + commit(FIX), title: 'A first tile that said the opposite', art: PL.tileArt(tileOf(eth0), tileOf(eth1)),
+    { k: commit(FIX), title: 'A first tile that said the opposite', art: PL.tileArt(tileOf(eth0), tileOf(eth1)),
       d: 'The ETH report’s first tile read CERTIFIED where the page does not decide that ETH is false. It says so now.' },
-    { k: 'fixed · ' + commit(FIX), title: 'Motion in the standing channel', art: PL.pairsArt([{ k: 'dash animations on the landing', then: dashAnim(landingThen), now: dashAnim(landingNow) }], 'Dash-offset animations on the landing, before and now.'),
+    { k: commit(FIX), title: 'Motion in the standing channel', art: PL.pairsArt([{ k: 'dash animations on the landing', then: dashAnim(landingThen), now: dashAnim(landingNow) }], 'Dash-offset animations on the landing, before and now.'),
       d: 'The landing’s flow animated a dash offset: decoration in the channel that carries standing. It is a moving point now.' },
     { k: 'partly fixed', title: 'Standings typed by hand', art: PL.pairsArt([{ k: 'values with a record address', then: THEN.pointed, now: NOW.pointed }, { k: 'values without one', then: THEN.unpointed, now: NOW.unpointed }], 'Printed values with and without a record address, before and now.'),
       d: 'A number’s standing was written where it was printed. A number can now be printed from its record through an address, and a gate re-reads it from the built page; most still have none.' },
@@ -653,7 +655,7 @@ function html() {
 
   /* §6 issues and their fixes */
   B_.push(C.section({ lab: 'issues and fixes', title: 'Where the site broke its own grammar', id: 'issues', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Each issue is a fact about the built site. Where a count moved, it is counted twice by the same rule: on the site as git holds it at ' + FIX + '^, the commit before the fixes, and on the site as built now.') + '</div>'
+    bodyRaw: '<div class="col">' + C.p('Each issue is a fact about the built site. Where a count moved, it is counted twice by the same rule: on the site as it was just before the fix, and on the site as built now.') + '</div>'
       + PL.grid(3, ISSUES.map((x) => PL.card({ k: x.k, title: esc(x.title), art: x.art, d: x.d }))) }));
 
   /* §7 the law and the rules in progress */
@@ -769,7 +771,7 @@ function html() {
 .gr-h3{margin-top:var(--s-8)}
 .gr-k{display:block;margin-bottom:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-2)}
 .gr-f{display:block;margin-top:var(--s-2);font-size:var(--text-small);color:var(--ink-4)}
-.gr-f a.gr-c,.gx-k a.gr-c{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);white-space:nowrap}
+.gr-f .gr-c{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);white-space:nowrap}
 .gr-halo{fill:var(--ink-2);stroke:var(--ink-2);stroke-width:4;stroke-linejoin:round;opacity:.32}
 /* the drawings' type: mono eyebrows, the big signs, the chips, the mood */
 .gx-eb{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;fill:var(--ink-4)}
