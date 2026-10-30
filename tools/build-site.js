@@ -2000,7 +2000,9 @@ for (const f of fs.readdirSync(path.join(ROOT, 'paper'))) {
 put('papers/index.html', Buffer.from(require(path.join(__dirname, 'build-papers-index.js')).html()));
 /* /grammar/ (2026-10-29): the visual grammar, listed — built by its own builder from playground/warrant.js, the rulebook
    (design/WARRANT.md) and the records each finding cites; it refuses to build when one stops saying what it says */
-put('grammar/index.html', Buffer.from(require(path.join(__dirname, 'build-grammar.js')).html()));
+{ const GR = require(path.join(__dirname, 'build-grammar.js'));
+  put('grammar/index.html', Buffer.from(GR.html()));
+  put('grammar/llms.txt', Buffer.from(GR.brief()));   /* the page's plain-text brief, for AI assistants (2026-10-30) */ }
 put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlostoledo.co/sitemap.xml\n'));
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
