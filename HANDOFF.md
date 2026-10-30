@@ -22,6 +22,36 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 evening — THE SEVEN RULINGS BUILT AND LIVE (five worktree lanes, merged on branch merge-1030, the operator:
+     "Follow your recommendations"). /claimbox/ republished again on the operator's word from claimbox 5530c96 (fac29cbf;
+     live sha256 fbd87029… checked). WHAT LANDED:
+     (1) THE SWITCH SITE-WIDE: LIGHT_THEME in design/tokens.js (print-register values only), the pill + pre-paint script in
+         design/nav.js, re-baked by design/refresh.js. DARK-ONLY, NO PILL (design/tokens.js DARK_ONLY_PAGES, each with its
+         reason): ten /instruments pages that draw literal screen colours (the hub, plates, affect, answer-shape,
+         exact-geometry, lattice-claims, navier-stokes, interferometer, pqc, rewire) and the apps (Swell, Janela, SkyAudit,
+         the atlas map). A page leaves the list once its builder draws in tokens — the next grammar work. Canvases
+         (contours) follow the theme on reload only.
+     (2) /GRAMMAR/: the ε handle on the √x hero (tools/grammar-hero.js is the one rule; ε is the claim's tolerance, the
+         enclosure and knots never move; flips to HOLDS at exactly 1/8; ruler 0–1/4 in 1/64; drive tools/drive-grammar-eps.js
+         in the control). The contour figure: the existing ec-contours scene MOVED into the charts gallery (fifth), not
+         drawn twice.
+     (3) THE RECEIVER: format 4 in instruments/claimbox (SCHEMA.md, check.py, check.js, the decider for Lean objects;
+         instruments/claimbox/v4/ eight calibration objects; old objects unchanged; standings reported, never a cap) and
+         instruments/ledger (replay.py ∥ replay.js, a (Q,2) Turing machine, HIT/RECORD; a forged row REFUTED). CLAIMBOX
+         RUNS `make lift` NEXT (check.py, check.js, SCHEMA.md changed; the ten objects and claims-ledger unchanged).
+     (4) --v-refu is gone; every use is --witness / --witness-soft (same values). (5) recorded above, no build.
+     (6) The default share image is /og-landing.png (template + JSON-LD); Swell and Janela now take it too; /og.png is
+         still served (the frozen Petrobras pages and old shares name it).
+     (7) ENGLISH: Swell, Janela + /janela/metodo/, /eleicoes2026/, the atlas map. Swell and the atlas map lost their PT/EN
+         toggles (English only, on the operator's word). Kept in Portuguese, on purpose: verbatim regulatory quotes
+         ("as printed, in Portuguese"), place names, URL params, the record's verdict keys and the pinned deciding
+         modules the tab re-checks (mapped to English for display). The eleições footer no longer prints a git hash.
+     OPEN, FOUND ON THE WAY: apps/janela/deck.sha256 (20320b47) already disagreed with the deck's words (2c14fed4) before
+       today; the deck builder's --v-refu → --witness edit changes the words hash again, so the next build with Janela's
+       local day data re-prints janela-apresentacao.pdf (same look, new bytes) — pin first if that PDF counts as sent.
+       playground/warrant-pt.js: Janela no longer reads it; its header still names /eleicoes2026/ — likely dead now.
+       claims.json's "what" line still says quem/disse. Seven values on /janela/metodo/ have no record address (forecast
+       numbers in the gzip feed).
   ◆ 2026-10-30 — THE OPERATOR RULED THE OPEN QUESTIONS (asked in chat, every answer below is theirs). DONE: /claimbox/
      REPUBLISHED from claimbox 6320675c (39e5e6ef; the page as at 157a587, the "From prose to claims, so far" paragraph;
      --check green; claimbox-98 told). TO BUILD, each approved:
