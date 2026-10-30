@@ -277,12 +277,10 @@ const DARK_ONLY_PAGES = {
   '/instruments/affect/': 'its plates stroke #f6f6f8 (1,478 marks)',
   '/instruments/answer-shape/': 'its plates stroke #f6f6f8, its cells mix #f6f6f8 (1,588 marks)',
   '/instruments/exact-geometry/': 'its plate strokes #f6f6f8 (383 marks)',
-  '/instruments/lattice-claims/': 'its axes stroke #f6f6f8 on a #0a0a0c rect (22 marks)',
-  '/instruments/navier-stokes/': 'its canvas and its SVG overlays are drawn in rgba(246,246,248,a)',
-  '/instruments/interferometer/': 'its canvas inks rgba(246,246,248,a); its panel is rgba(16,16,20,.86)',
-  '/instruments/pqc/': 'its canvas inks rgba(246,246,248,a); its panel is rgba(16,16,20,.86)',
-  '/instruments/rewire/': 'its floating panel is rgba(16,16,20,.86) under token-coloured text',
 };
+/* LEFT THE LIST 2026-10-30, each at 0 dark marks in light: /instruments/lattice-claims, navier-stokes, interferometer,
+   pqc and rewire — their plates, canvases and floating panels draw in tokens, and the canvases repaint when the reader
+   flips the pill (playground/design/theme.js, the one reader and listener they share with /instruments/contours). */
 
 /* ------------------------------------------------------------- emitters --- */
 

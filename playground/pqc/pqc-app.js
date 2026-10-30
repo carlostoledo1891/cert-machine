@@ -22,7 +22,8 @@
     PL = Math.max(150, Math.min(avail * 0.37, 470)); PR = avail - Math.max(50, avail * 0.05);
     PT = Math.max(116, H * 0.15); PB = H - Math.max(215, H * 0.29);
   }
-  const ink = a => `rgba(246,246,248,${a})`;
+  /* every mark in the ink token, read through playground/design/theme.js, so the light theme draws ink on paper */
+  const ink = a => window.WTHEME.rgba('--ink', a);
   const MONO = '9px ui-monospace,Menlo,monospace';
 
   /* ---------- view A: the reduction ---------- */
@@ -73,7 +74,7 @@
     const l0 = Math.max(...logs), l1 = Math.min(...logs);
     const SX = i => IX + (i / (R.snaps.length - 1)) * IW;
     const SYy = v => SY + SH - (v - l1) / (l0 - l1) * SH;
-    ctx.fillStyle = 'rgba(10,10,12,0.72)'; ctx.fillRect(IX - 10, SY - 12, IW + 20, SH + 42);
+    ctx.fillStyle = window.WTHEME.rgba('--bg', 0.72); ctx.fillRect(IX - 10, SY - 12, IW + 20, SH + 42);
     ctx.strokeStyle = ink(0.12); ctx.beginPath(); ctx.moveTo(IX, SY + SH); ctx.lineTo(IX + IW, SY + SH); ctx.stroke();
     ctx.strokeStyle = ink(0.55); ctx.lineWidth = 1.2; ctx.beginPath();
     logs.forEach((v, i) => { if (i > st.t) return; i ? ctx.lineTo(SX(i), SYy(v)) : ctx.moveTo(SX(i), SYy(v)); });
@@ -189,4 +190,6 @@
   $('panelToggle').onclick = () => { document.body.classList.toggle('panel-hidden'); setTimeout(() => { layout(); draw(); }, 300); };
   addEventListener('resize', resize);
   sync(); resize();
+  /* the reader flipped the pill: paint the view again from the state held (nothing here is computed in the tab) */
+  window.WTHEME.on(draw);
 })();

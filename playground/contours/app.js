@@ -49,8 +49,7 @@
     bounds = { x0: g.x0, x1: g.x1, y0: g.y0, y1: g.y1 };
     ctx.setTransform(2, 0, 0, 2, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    const cs = getComputedStyle(document.documentElement);
-    const ink = cs.getPropertyValue('--ink').trim() || '#e8e8ec';
+    const ink = window.WTHEME.tok('--ink');   /* playground/design/theme.js: read at every paint, so a flip repaints in the new ink */
     const cw = PW / g.nx, chh = PH / g.ny;
     const lmax = Math.log1p(g.max);
     for (let j = 0; j < g.ny; j++) for (let i = 0; i < g.nx; i++) {
@@ -173,4 +172,7 @@
   selT.addEventListener('change', select);
   fill();
   select();
+  /* the reader flipped the pill: the density is the one thing painted in pixels, so it alone is painted again, from
+     the grid already held (the SVG over it follows the tokens by itself; nothing is decided again) */
+  window.WTHEME.on(() => drawDensity(row.dataset));
 })();

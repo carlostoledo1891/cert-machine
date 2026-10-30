@@ -96,7 +96,7 @@ function ruler() {
     </g>`;
   };
   return `<svg viewBox="0 0 ${W} ${H}" class="plate">
-    <rect width="${W}" height="${H}" fill="#0a0a0c"/>
+    <rect width="${W}" height="${H}" class="gnd"/>
     <line x1="${L}" y1="46" x2="${Rr}" y2="46" class="ax"/>
     ${Array.from({ length: 5 }, (_, i) => lo + (hi - lo) * (i + 0.5) / 5.6).concat([1.05]).map(v => `<line x1="${X(v)}" y1="42" x2="${X(v)}" y2="50" class="ax"/><text x="${X(v)}" y="34" class="ti" text-anchor="middle">${v.toFixed(4)}</text>`).join('')}
     <text x="${L - 12}" y="50" class="rl" text-anchor="end">‖v‖ / GH</text>
@@ -131,14 +131,16 @@ const confusion = () => {
 
 const CSS = `
 .plate { width:100%; height:auto; display:block; border:1px solid var(--border); border-radius:var(--radius-m); background:var(--bg-raised); }
-.plate .ax { stroke:#f6f6f8; stroke-opacity:.28; }
+/* the plate's inks are tokens (2026-10-30): the same values in dark, ink on paper in light */
+.plate .gnd { fill:var(--bg); }
+.plate .ax { stroke:var(--ink); stroke-opacity:.28; }
 .plate .ti { fill:var(--ink-3); font-family:var(--font-mono); font-size:10px; }
 .plate .rl { fill:var(--ink-2); font-family:var(--font-mono); font-size:11px; }
-.plate .tag { fill:#9a9aa6; font-family:var(--font-mono); font-size:10px; }
-.plate .bar { stroke:#f6f6f8; stroke-opacity:.85; stroke-width:3; }
-.plate .cap { stroke:#f6f6f8; stroke-opacity:.85; stroke-width:1.4; }
-.plate .dot { fill:#0a0a0c; stroke:#f6f6f8; stroke-width:1.4; }
-.plate .wall { stroke:#f6f6f8; stroke-opacity:.9; stroke-width:1.4; }
+.plate .tag { fill:var(--ink-3); font-family:var(--font-mono); font-size:10px; }
+.plate .bar { stroke:var(--ink); stroke-opacity:.85; stroke-width:3; }
+.plate .cap { stroke:var(--ink); stroke-opacity:.85; stroke-width:1.4; }
+.plate .dot { fill:var(--bg); stroke:var(--ink); stroke-width:1.4; }
+.plate .wall { stroke:var(--ink); stroke-opacity:.9; stroke-width:1.4; }
 .gr .tot { box-shadow: inset 1px 0 0 var(--border-strong); }
 .gr .c2 { display:flex; flex-direction:column; gap:3px; font-size:10.5px; color:var(--ink-4); }
 .gr .mis b { color:var(--ink-2); }

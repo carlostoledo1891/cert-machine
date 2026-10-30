@@ -61,7 +61,8 @@ const SCENE = path.join(HERE, 'out', 'scene.json');
 if (!fs.existsSync(SCENE)) { console.error('navier-stokes: no scene.json — run node playground/navier-stokes/scene.js'); process.exit(1); }
 const S = JSON.parse(fs.readFileSync(SCENE, 'utf8'));
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
-const OVERLAY = fs.readFileSync(path.join(PG, 'design', 'overlay.css'), 'utf8');
+const THEME = require(path.join(PG, 'design', 'theme.js'));   /* the canvas follows the pill (2026-10-30) */
+const OVERLAY = fs.readFileSync(path.join(PG, 'design', 'overlay.css'), 'utf8') + THEME.CSS;
 const nf = (x) => Number(x).toLocaleString('en-US');
 
 /* THE OVERLAY GRAMMAR IS THE INTERFEROMETER'S, and it is now shared rather than copied:
@@ -137,7 +138,7 @@ body.ov-panel-hidden .ov-chips{right:clamp(1rem,3vw,2.5rem);}
 .ov-mech .fig svg{display:block;width:100%;height:auto;}
 .ov-mech .lb,.ov-mech .lb2{paint-order:stroke;stroke:var(--bg);stroke-width:2.5px;stroke-linejoin:round;}
 .ov-mech .lb{font-family:var(--font-mono);font-size:7.5px;fill:var(--ink-3);}
-.ov-mech .lb2{font-family:var(--font-mono);font-size:9px;fill:#f6f6f8;}
+.ov-mech .lb2{font-family:var(--font-mono);font-size:9px;fill:var(--ink);}
 .ov-mech .cap{margin-top:5px;min-height:27px;font-family:var(--font-mono);font-size:9px;line-height:1.5;color:var(--ink-4);}
 .ov-mech .cap b{color:var(--ink-2);font-weight:500;}
 ${GRAMMAR.css('.ov-mech')}
@@ -344,6 +345,7 @@ const html = page({
   script: `<script type="application/json" id="ns-grammar">${JSON.stringify({ identity: GRAMMAR.IDENTITY, guide: GRAMMAR.dash.guide, pickSm: GRAMMAR.dash.pickSm, none: GRAMMAR.dash.none })}</script>
 <script type="application/json" id="ns-scene">${JSON.stringify(S).replace(/</g, '\\u003c')}</script>
 <script>${FIELD}</script>
+<script>${THEME.CLIENT}</script>
 <script>${APP}</script>`,
 });
 

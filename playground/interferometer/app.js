@@ -171,7 +171,12 @@
     SQ = Math.min(avail, H) * 0.82 * st.zoom;
     OX = (avail - SQ) / 2; OY = (H - SQ) / 2;
   }
-  const ink = a => `rgba(246,246,248,${a})`;
+  /* THE INKS ARE TOKENS (2026-10-30, playground/design/theme.js). Every mark is drawn in --ink at an alpha and the field
+     ramps from the ground to the ink, so in light the sky is ink on paper, darker = more flux. The invert control keeps
+     its meaning in both themes: the picture in the other polarity. In dark that is what it always was (an --ink fill
+     and 'difference'); in light the marks take the paper colour so that 'difference' over the ink fill shows them. */
+  const swapped = () => st.invert && window.WTHEME.light();
+  const ink = a => window.WTHEME.rgba(swapped() ? '--bg' : '--ink', a);
   const val = (g, x, y) => {                       // bilinear sample of a render grid, x,y in [0,1]
     const fx = Math.max(0, Math.min(RG - 1.001, x * (RG - 1)));
     const fy = Math.max(0, Math.min(RG - 1.001, y * (RG - 1)));
@@ -185,6 +190,8 @@
 
   function drawField() {
     const img = ctx.createImageData(RG, RG);
+    /* on paper the ramp runs the other way: the ground (g = 8) is white and full flux (g = 255) is black */
+    const paperField = window.WTHEME.light() && !st.invert;
     for (let j = 0; j < RG; j++) for (let i = 0; i < RG; i++) {
       const o = ((RG - 1 - j) * RG + i) * 4;
       const t = shape(meanR[j * RG + i]);
@@ -195,7 +202,7 @@
         if (hatch) g = Math.min(255, g + 70 * Math.min(1, s));
         else g *= (1 - 0.42 * Math.min(1, s));
       }
-      img.data[o] = img.data[o + 1] = img.data[o + 2] = g; img.data[o + 3] = 255;
+      img.data[o] = img.data[o + 1] = img.data[o + 2] = paperField ? 255 - (g - 8) * (255 / 247) : g; img.data[o + 3] = 255;
     }
     const off = document.createElement('canvas'); off.width = off.height = RG;
     off.getContext('2d').putImageData(img, 0, 0);
@@ -328,7 +335,7 @@
   function drawUV() {
     const s = Math.min(140, SQ * 0.2), x0 = OX + SQ - s, y0 = OY + SQ - s - 4;
     ctx.save();
-    ctx.fillStyle = 'rgba(10,10,12,0.72)'; ctx.fillRect(x0, y0, s, s);
+    ctx.fillStyle = window.WTHEME.rgba(swapped() ? '--ink' : '--bg', 0.72); ctx.fillRect(x0, y0, s, s);
     ctx.strokeStyle = ink(0.14); ctx.strokeRect(x0, y0, s, s);
     const c = [x0 + s / 2, y0 + s / 2], sc = (s / 2 - 3) / (M.uvMax * 1.02);
     for (let k = 0; k < D.vis.u.length; k++) {
@@ -417,7 +424,7 @@
   }
   const GHOST = document.createElement('canvas'); GHOST.width = GHOST.height = N;
   { const g = GHOST.getContext('2d'), img = g.createImageData(N, N), w = JY[WI].w; let pk = 0; for (const v of w) if (v > pk) pk = v;
-    const rgb = /^#[0-9a-f]{6}$/i.test(RED) ? [1, 3, 5].map((i) => parseInt(RED.slice(i, i + 2), 16)) : [246, 246, 248];
+    const rgb = window.WTHEME.rgb('--witness');   /* the one red, the same token in both themes */
     for (let j = 0; j < N; j++) for (let i = 0; i < N; i++) {
       const p = ((N - 1 - j) * N + i) * 4, a = Math.max(0, (w[j * N + i] / pk - 0.35) / 0.65);   /* only its bright structure: red is scarce */
       img.data[p] = rgb[0]; img.data[p + 1] = rgb[1]; img.data[p + 2] = rgb[2]; img.data[p + 3] = Math.round(230 * Math.sqrt(a));
@@ -480,18 +487,22 @@
     if (note) note.innerHTML = G.V && G.bad ? ` <span class="wx">×</span> Against the one-sided ceilings, ${G.bad} of these ${G.picks} break some rows.` : '';
   }
 
+  /* draw = judge the drawn skies, paint, read out; a flip of the pill only paints, from the judgement already held */
   function draw() {
     check();
+    paint();
+    readout();
+    grammarRead();
+  }
+  function paint() {
     ctx.clearRect(0, 0, W, H);
-    if (st.invert) { ctx.fillStyle = '#f6f6f8'; ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'difference'; }
+    if (st.invert) { ctx.fillStyle = window.WTHEME.tok('--ink'); ctx.fillRect(0, 0, W, H); ctx.globalCompositeOperation = 'difference'; }
     if (st.mode === 'field') drawField();
     else if (st.mode === 'contour') drawContour();
     else if (st.mode === 'stipple') drawStipple();
     else drawScan();
     drawOverlays();
     ctx.globalCompositeOperation = 'source-over';
-    readout();
-    grammarRead();
   }
 
   function readout() {
@@ -612,4 +623,5 @@
   reduce(); resize();
   /* every record's 838 visibilities, once, after the first paint */
   setTimeout(() => { G.V = visAll(); draw(); }, 60);
+  window.WTHEME.on(paint);
 })();
