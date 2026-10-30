@@ -27,6 +27,20 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ 2026-10-30 — THE CLAIMBOX GROWTH PLAN (the operator: "keep claimbox separated but improving as we need. I do not want to
+     change cert-machine scope"; "Yes. Update the plan and handoff"). The plan lives in claimbox's HANDOFF (0595f20, pushed):
+     A reading (one command for any input; canonical form + typed readings; concord; sorting claims bounded / Π₁ watcher / Σ₁
+     hunter / refused), B running (the consistency cryptid over check.py/check.js and tm.py/tm.js; born cryptids with planted
+     twins and a hash-chained ledger; bounded programs in two runtimes; Lean objects), C using (an agent tool, a GitHub
+     Action, versioned releases; the deference test on the operator's word; Claim Court and cert-model stay parked), D closing
+     the gaps named 2026-10-30 (prove real code — design/outward.js's outward printing in Lean first, then claimbox's
+     digits→rational parser; a small formal semantics: the Turing machine, then a while-language; a prover loop, inference only).
+     CERT-MACHINE'S PART, scope unchanged (each made in a cert-machine chat first, then `make lift` in claimbox): FORMAT v4 in
+     instruments/claimbox (canonical form: one inequality per bar; typed readings declared per claim; a Lean object kind decided
+     by the existing kernel lanes; the standing of each input carried into the certificate), both checkers and the decider
+     updated together. OPERATOR'S DECISION: `instruments/ledger` (sampled exact replay of a search ledger on two simulators,
+     the funnel's HIT/RECORD semantics) — without it the watchers return only halting witnesses, which the receiver decides
+     today. D1 reads design/outward.js read-only from claimbox: a change to it shows there as drift and must keep the proof.
   ◆ 2026-10-30 ~11:00 UTC — BOTH TRACKS CLOSED, LIVE. ETH: the X reply posted by the operator (outreach row
      x-eth-reply-2026-10-30; the reply's own id not yet recorded). GRAMMAR: R20, R22, R28 gated; R23/R30/D10 rolled out by
      seven lanes, all merged (last 6d2ffee0 and this entry): unaddressed values 1,545 → 75, figures without a record 14,
