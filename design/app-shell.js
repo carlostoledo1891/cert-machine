@@ -68,17 +68,22 @@ const N = require('./nav.js');   /* the theme switch: one switch, design/nav.js'
    wash is --witness-soft (the value --v-refu-soft had: no colour changes). */
 const APP_DARK = { '--v-cert': '#79C79B', '--v-refd': '#8E8499',
   '--v-cert-soft': '#16281E', '--witness-soft': '#2E1917', '--v-refd-soft': '#211C29',
+  /* the witness red as WORDS (BLOCKED, danger): in the dark it is the witness itself */
+  '--witness-text': T.DARKONLY['--witness'],
   /* the map controls' glyphs: maplibre's icons are dark-on-transparent, inverted to sit on a dark control */
   '--as-glyph': 'invert(1)',
   /* the floating cards' shadow: design/tokens.js's one value, named here only so the light block can soften it */
   '--shadow': T.SHADOW };
-/* THE LIGHT BLOCK FOR THE APP TOKENS (2026-10-30 late). PROPOSED, WAITING ON THE OPERATOR'S APPROVAL: these five values
+/* THE LIGHT BLOCK FOR THE APP TOKENS (2026-10-30 late). APPROVED by the operator 2026-10-30 ("approve all five"): these five values
    are new colours (none is in the print register). Each keeps its dark twin's hue (OKLab hue 154/158, 307/307) and
    clears the text grade on white paper: --v-cert 7.49:1, --v-refd 5.23:1; on its own wash 6.58:1 and 4.54:1. The three
    status colours pass the validator on every pair on white (normal ΔE ≥ 15.7, every CVD ≥ 9.0, design/colour.js). The
    witness is not re-pointed (one red, both themes); its wash is, because a dark wash on white is a dark box. */
 const APP_LIGHT = { '--v-cert': '#22603B', '--v-refd': '#73687F',
   '--v-cert-soft': '#E8F3EC', '--witness-soft': '#FCEEEC', '--v-refd-soft': '#F0EEF3',
+  /* red WORDS on paper (the operator, 2026-10-30: "darker red for text in light"): the witness #e0574e is 3.72:1 on
+     white, under the text grade; #B3362C is 6.03:1 on white and 5.34:1 on its wash. Marks and the × keep the witness. */
+  '--witness-text': '#B3362C',
   '--as-glyph': 'invert(0)',
   /* a .55 black shadow on white paper is a grey smear around every card over the map: the same shape, lighter */
   '--shadow': '0 8px 28px rgba(0,0,0,.12)' };
@@ -142,7 +147,7 @@ a{color:inherit}
 .as-tracked{letter-spacing:.12em}
 .as-cert{color:var(--v-cert)}
 .as-refd{color:var(--v-refd)}
-.as-refu{color:var(--witness)}
+.as-refu{color:var(--witness-text)}
 .as-ink3{color:var(--ink-3)}
 .as-ink3-400{color:var(--ink-3);font-weight:var(--weight-body)}
 .as-dash{border-style:dashed;border-color:var(--ink-3)}
@@ -196,7 +201,7 @@ a{color:inherit}
   font-family:var(--f-mono);font-weight:700;font-size:11px;letter-spacing:.14em;
   padding:5px 10px;border-radius:var(--radius-s);border:1px solid}
 .as-ann.go{color:var(--v-cert);border-color:var(--v-cert);background:var(--v-cert-soft)}
-.as-ann.no{color:var(--witness);border-color:var(--witness);background:var(--witness-soft)}
+.as-ann.no{color:var(--witness-text);border-color:var(--witness);background:var(--witness-soft)}
 .as-ann.na{color:var(--v-refd);border-color:var(--v-refd);background:var(--v-refd-soft)}
 
 /* ---- arc gauge ---- */
@@ -305,7 +310,7 @@ details.as-more[open] summary{margin-bottom:6px}
 .as-verdict .w{font-family:var(--f-mono);font-weight:700;font-size:14px;letter-spacing:.08em}
 .as-verdict .e{font-size:11.5px;color:var(--ink-2);margin-top:4px;line-height:1.5}
 .as-verdict.C{border-left-color:var(--v-cert);background:var(--v-cert-soft)} .as-verdict.C .w{color:var(--v-cert)}
-.as-verdict.R{border-left-color:var(--witness);background:var(--witness-soft)} .as-verdict.R .w{color:var(--witness)}
+.as-verdict.R{border-left-color:var(--witness);background:var(--witness-soft)} .as-verdict.R .w{color:var(--witness-text)}
 .as-verdict.F{border-left-color:var(--v-refd);background:var(--v-refd-soft)} .as-verdict.F .w{color:var(--v-refd)}
 
 /* ---- enclosure viz ---- */
