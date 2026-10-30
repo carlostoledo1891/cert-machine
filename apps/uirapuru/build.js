@@ -132,8 +132,10 @@ const patchFig = ({ w, cols, padL, words, wx, lw, key }) => {
 };
 const KEY = [[0, '0'], [BLUE, BLUE + ', blue from here'], [GUIDE_MAX, String(GUIDE_MAX)]];
 const WX_LINE = 'tree ' + LEAST_TREE + ' · ' + b7[least] + ' blue, below ' + BLUE;
+/* R30: the sentence of the check above that would stop the figure (the × is the bird below BLUE); R23's record line is
+   not drawn, because the forest is a seeded toy and no record holds it */
 V.F7_HERO = C.figure({
-  hero: true,
+  hero: true, stop: 'patch 7 holds no blue bird, or no bird that is not blue',
   svgRaw: patchFig({ w: 1000, cols: 36, padL: 34, lw: 1.5, wx: { size: 9, width: 3 }, key: KEY,
     words: [WX_LINE, 'the bird that breaks ' + CLAIM7] }),
   svgNarrowRaw: patchFig({ w: 320, cols: Math.ceil(Math.sqrt(N7)), padL: 30, lw: 1.5, wx: { size: 9, width: 2.6 }, key: KEY,

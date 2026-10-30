@@ -144,7 +144,11 @@ need(V.FLOW.includes('flow-scroll'), 'the flow figure did not wrap');
   /* the caption: what the marks mean, the witness's numbers read from the record (W.val: the pointer goes in the span) */
   const RP = (x) => ({ path: x.path, ptr: x.ptr });
   const legend = W.legendHtml({ compact: true, from: [...used] });   /* the standings the figure's marks use (R20) */
-  V.STAGE = C.figure({ hero: true, svgRaw: WIDE, svgNarrowRaw: NARROW, captionRaw:
+  /* R23, R30: the figure names the records its claims and words are read from (STAGE's own addresses, in order) and the
+     sentence of the check that would stop it: records.js refuses the stage when the 605's witness is not such a pair */
+  const STAGE_RECORDS = [...new Set(STAGE.flatMap((s) => [s.claimRec.path, s.rec.path].concat(s.witness ? Object.values(s.witness).map((x) => x.path) : [])))];
+  V.STAGE = C.figure({ hero: true, svgRaw: WIDE, svgNarrowRaw: NARROW, record: STAGE_RECORDS,
+    stop: 'the 605\'s worst pair is not a pair of its own points closer than sixty degrees', captionRaw:
     'Each claim and its word read from its record: certs/lueker-replay.json, certs/kissing-ledger.json, certs/kissing-wave.json and the Riemann companion\'s two runs. '
     + 'A claim runs in dashed, as printed; what leaves the box is decided; the hedged sentence is refused by the grammar, and nothing leaves the box for it. '
     + 'The × is the one counterexample a claim here exhibits: points ' + W.val({ rec: RP(WI.i), standing: W.DECIDED, fmt: 'int' }) + ' and ' + W.val({ rec: RP(WI.j), standing: W.DECIDED, fmt: 'int' })
