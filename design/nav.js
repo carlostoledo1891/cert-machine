@@ -53,14 +53,16 @@ const GH_ICON = '<svg width="17" height="17" viewBox="0 0 16 16" fill="currentCo
    the nav so design/refresh.js re-bakes them into every committed page with it: the stored choice applied as the
    nav's first child, before anything on the page paints; the pill (a group of two buttons) right after the nav; the
    few lines that wire it. Dark is the default; the choice lives in localStorage "warrant-theme". The light values are
-   design/tokens.js's (LIGHT_THEME); a page in its DARK_ONLY_PAGES takes none of the three and stays dark. */
+   design/tokens.js's (LIGHT_THEME); a page in its DARK_ONLY_PAGES takes none of the three and stays dark. A click
+   dispatches the event "warrant-theme" on document (detail: "light" | "dark"): a canvas listens and repaints from the
+   tokens (the operator, 2026-10-30: "redraw at once"); SVG and CSS follow the tokens by themselves. */
 const THEME_KEY = 'warrant-theme';
 const THEME_PRE = '<script>try{if(localStorage.getItem("' + THEME_KEY + '")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>';
 const THEME_PILL = '<div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>';
 const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");'
   + 'function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");'
   + 'for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));'
-  + 'if(keep)try{localStorage.setItem("' + THEME_KEY + '",t)}catch(e){}}'
+  + 'if(keep){try{localStorage.setItem("' + THEME_KEY + '",t)}catch(e){}document.dispatchEvent(new CustomEvent("' + THEME_KEY + '",{detail:t}))}}'
   + 'set(r.getAttribute("data-theme")==="light"?"light":"dark",false);'
   + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>';
 /* the whole of what navHtml emits, for design/refresh.js to replace in one match */
