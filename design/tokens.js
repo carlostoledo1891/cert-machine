@@ -37,8 +37,9 @@
    HERE and nowhere else (design/battery.js T3/T3b): a second light block
    anywhere is the drift a rule defined twice always becomes. Pages that draw
    with the screen's literal inks cannot take it and stay dark, listed with
-   the reason in DARK_ONLY_PAGES below; so do the apps (design/app-shell.js),
-   whose status greens and basemaps have no paper value.
+   the reason in DARK_ONLY_PAGES below. The apps (design/app-shell.js) take
+   the pill too since 2026-10-30 late; their own status tokens re-point in the
+   one app-token block there (APP_LIGHT), which T3b lets through by name.
 
    IDENTITY IS NEVER COLOUR-ALONE — more load-bearing than ever in grayscale:
    the chart series are three GRAYS (validated below), so the legend rule, the
@@ -267,8 +268,8 @@ function LIGHT_THEME() {
    (rgba(246,246,248,a) strokes, #f6f6f8 fills, canvas colours written into
    their scripts), which a token cannot re-point, so on white their figures
    would lose marks. They get no pill and are never set light. A page leaves
-   this list when its builder draws in tokens. The apps are not listed: they
-   have their own shell (design/app-shell.js), which never sets the theme. */
+   this list when its builder draws in tokens. The apps are not listed: their
+   shell (design/app-shell.js) emits the pill and draws in tokens. */
 const DARK_ONLY_PAGES = {
   /* measured 2026-10-30: each page loaded in Chrome with the light choice stored, every painted element read, and the
      count of those still painted in a dark-palette value the tokens could not reach */

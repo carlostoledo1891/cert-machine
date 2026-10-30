@@ -159,6 +159,33 @@ const CITY_TEXT = {
   },
 };
 
+/* ---- THE LIGHT BASEMAP (2026-10-30 late, the operator: "the apps take the light theme too — light basemaps") ----
+   The same pinned tiles, the same style, every grey re-pointed by its role at a print-register value
+   (design/print/tokens.js): on paper the land is the page, the water a step down, the roads and the parks a step or two
+   down from the land, the labels in the guide and ink-3 grades. No tile is fetched and no new colour is made; a grey this
+   table does not name refuses the build, so a re-vendored style cannot slip a dark value onto the light map. The sprite
+   (shields, arrows, town dots) stays the dark flavour's: a light sprite would be a new unpinned asset. */
+const LIGHT_GREY = {
+  '#141414': '--paper', '#101010': '--paper', '#111111': '--paper',                   /* the land, its halos and casings */
+  '#0a0a0a': '--o-1', '#161616': '--o-1', '#181818': '--o-1', '#191919': '--o-1',      /* buildings, parks, sand, zoo, aerodrome */
+  '#1a1a1a': '--o-1', '#1c1c1c': '--o-1', '#1d1d1d': '--o-1',                          /* wood, grass, hospital */
+  '#1f1f1f': '--grid', '#2b2b2b': '--grid', '#333333': '--grid',                       /* minor roads; the sea and the water */
+  '#292929': '--o-3', '#323232': '--o-3',                                              /* major roads, rail, runways */
+  '#3d3d3d': '--guide', '#525252': '--guide', '#5c5c5c': '--guide', '#707070': '--guide', /* labels, boundaries */
+  '#999999': '--ink-3',                                                                /* the places' names */
+};
+function lightStyle(style) {
+  const PR = require(path.join(ROOT, 'design/print/tokens.js'));
+  const out = JSON.parse(JSON.stringify(style)), bad = new Set();
+  const walk = (v) => (typeof v === 'string' && /^#[0-9a-f]{3,8}$/i.test(v)
+    ? (LIGHT_GREY[v.toLowerCase()] ? PR.hex(LIGHT_GREY[v.toLowerCase()]) : (bad.add(v), v))
+    : Array.isArray(v) ? v.map(walk) : v);
+  for (const l of out.layers) for (const k of Object.keys(l.paint || {})) if (/color/.test(k)) l.paint[k] = walk(l.paint[k]);
+  if (bad.size) throw new Error('REFUSED: the light basemap has no print-register value for ' + [...bad].join(' ') + ' (apps/skyaudit/build.js LIGHT_GREY)');
+  out.name = (out.name || 'basemap') + ' (light: print register)';
+  return out;
+}
+
 /* ---- emit both cities ---- */
 const { renderApp } = require(path.join(ROOT, 'design/app-shell.js'));
 const rootOut = path.join(ROOT, 'site/apps/skyaudit');
@@ -191,6 +218,7 @@ for (const city of ['nyc', 'sp']) {
   const style = JSON.parse(fs.readFileSync(path.join(APP, 'src/style.json'), 'utf8'));
   style.sources.protomaps.url = 'pmtiles://' + pin.served_from;
   fs.writeFileSync(path.join(outDir, 'style.json'), JSON.stringify(style));
+  fs.writeFileSync(path.join(outDir, 'style-light.json'), JSON.stringify(lightStyle(style)));
 
   const counts = after.bySpecRule['beta-alia|' + PR];
   const frontierRows = ['beta-alia', 'joby-s4', 'archer-midnight', 'eve-100'].map((s) => {
@@ -218,7 +246,7 @@ for (const city of ['nyc', 'sp']) {
       { href: 'https://github.com/carlostoledo1891/cert-machine', label: 'github' }],
     mapAria: T.mapAria,
     styles: [prefix + 'vendor/maplibre-gl.css'],
-    configJson: JSON.stringify({ style: urlBase + 'style.json',
+    configJson: JSON.stringify({ style: urlBase + 'style.json', styleLight: urlBase + 'style-light.json',
       bundle: urlBase + 'data/' + city + '.replay.json', tiles: pin.served_from,
       ambient: urlBase + 'data/' + city + '.ambient.json', designer: optimize.designer,
       primaryRule: PR, center: T.center, zoom: T.zoom, bounds: T.bounds, tz: T.tz, tzLabel: T.tzLabel,

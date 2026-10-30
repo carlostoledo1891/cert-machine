@@ -313,7 +313,7 @@ const COLOUR = /#[0-9a-fA-F]{3}\b|#[0-9a-fA-F]{6}\b|rgba?\([0-9 ,.%\/]+\)/g;
    colours, which are a real product palette and are declared in ITS block */
 const APP = require(path.join(ROOT, 'design', 'app-shell.js'));
 const declared = new Set();
-for (const src of [T.DARKONLY, APP.APP_DARK, { s: T.SHADOW }])
+for (const src of [T.DARKONLY, APP.APP_DARK, APP.APP_LIGHT, { s: T.SHADOW }])
   for (const v of Object.values(src)) for (const c of String(v).match(COLOUR) || []) {
     const r = rgbOf(c); if (r) declared.add(r);
   }

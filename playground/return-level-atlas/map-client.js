@@ -28,8 +28,17 @@
   }
   const W = req('warrant.js'), G = req('grammar.js'), SH = req('shared.js');
   const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-  const C = { paper: tok('--paper'), sunk: tok('--sunk'), surface2: tok('--surface2'), ink: tok('--ink'), ink2: tok('--ink-2'), ink4: tok('--ink-4'), ink5: tok('--ink-5'),
-    rule: tok('--rule'), ruleStrong: tok('--rule-strong'), ruleSoft: tok('--rule-soft'), s: [1, 2, 3, 4, 5].map((k) => tok('--c-s' + k)) };
+  /* the colours, read from the tokens and read AGAIN when the pill flips the theme (the "warrant-theme" event, below).
+     The land on paper is the page itself: its screen value (--surface2) is the order ramp's first step in the light
+     theme, and a land the colour of the lowest class would read as a class. */
+  const C = {};
+  function colours() {
+    const light = document.documentElement.getAttribute('data-theme') === 'light';
+    Object.assign(C, { paper: tok('--paper'), sunk: tok('--sunk'), surface2: tok('--surface2'), ink: tok('--ink'), ink2: tok('--ink-2'), ink4: tok('--ink-4'), ink5: tok('--ink-5'),
+      rule: tok('--rule'), ruleStrong: tok('--rule-strong'), ruleSoft: tok('--rule-soft'), s: [1, 2, 3, 4, 5].map((k) => tok('--c-s' + k)),
+      land: tok(light ? '--paper' : '--surface2') });
+  }
+  colours();
   const FAM = CFG.fam, BLK = CFG.blocks, PER = CFG.periods, CRIT = ['ad', 'ks', 'mse', 'chi2'];
 
   /* ---- the words (English only since 2026-10-30: the operator's "no more pt-BR pages") ---- */
@@ -232,6 +241,8 @@
     return (PAT[key] = g.createPattern(t, 'repeat'));
   }
   function redraw() { if (!raf) raf = requestAnimationFrame(draw); }
+  /* the pill flips the theme: the tokens again, the two patterns again, the same paths drawn again (nothing re-decided) */
+  document.addEventListener('warrant-theme', () => { colours(); Object.keys(PAT).forEach((k) => delete PAT[k]); redraw(); });
   function draw() {
     raf = 0;
     if (!g || !GEO) return;
@@ -248,7 +259,7 @@
       const ph = pattern('hatch'); ph.setTransform(m); g.fillStyle = ph; g.fill(PATHS.R);
       const pd = pattern('dots'); pd.setTransform(m); g.globalAlpha = 0.8; g.fillStyle = pd; g.fill(PATHS.I); g.globalAlpha = 1;
     }
-    g.fillStyle = C.surface2; g.fill(GEO.land, 'evenodd');
+    g.fillStyle = C.land; g.fill(GEO.land, 'evenodd');
     g.lineWidth = 0.7 / V.S; g.strokeStyle = C.ruleStrong; g.stroke(GEO.land);
     g.lineWidth = 1.4 / V.S; g.strokeStyle = C.ink2; g.stroke(GEO.rep);
     if (hover && hover !== ST.sel) { g.lineWidth = 1.4 / V.S; g.strokeStyle = C.ink2; g.stroke(hover.path); }

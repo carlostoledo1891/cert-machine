@@ -28,15 +28,18 @@
    --witness itself, from design/tokens.js. WebGL clients read the computed
    values at runtime — no literal colour leaves this block.
 
-   THE APPS STAY DARK (2026-10-30). design/tokens.js carries the site's light
-   theme since today, set by the pill under the report nav. An app does not
-   take it: its status green and its washes have no value in the print
-   register the light theme is made of, and its basemaps are dark. So this
-   shell emits no pill and nothing here ever sets data-theme (the dead
-   ?theme= stamp that used to sit in the head is gone with it).             */
+   THE APPS TAKE THE LIGHT THEME (2026-10-30 late, the operator: "the apps
+   take the light theme too — light basemaps and light status colours"). The
+   pill is design/nav.js's own three pieces (THEME_PRE, THEME_PILL, THEME_JS),
+   at the right end of the top bar; the site's light values come from
+   design/tokens.js as on every page, and the app's own tokens re-point in
+   ONE light block below (APP_LIGHT). Each app's map reads its colours from
+   the tokens and repaints on the "warrant-theme" event the pill dispatches;
+   no decided number is recomputed by a flip.                               */
 'use strict';
 
 const T = require('./tokens.js');
+const N = require('./nav.js');   /* the theme switch: one switch, design/nav.js's, never a second */
 
 /* ONE THEME, and it took a measurement to notice it was two. design/tokens.js
    retired the three-state light/dark machinery on 2026-09-01 — one palette on
@@ -64,9 +67,23 @@ const T = require('./tokens.js');
 /* ONE RED, ONE NAME (operator, 2026-10-30): the --v-refu alias is gone. Every use reads --witness, and the refused
    wash is --witness-soft (the value --v-refu-soft had: no colour changes). */
 const APP_DARK = { '--v-cert': '#79C79B', '--v-refd': '#8E8499',
-  '--v-cert-soft': '#16281E', '--witness-soft': '#2E1917', '--v-refd-soft': '#211C29' };
-/* --shadow is NOT redeclared here: design/tokens.js emits it, once, for the
-   whole site. This file used to carry two more. */
+  '--v-cert-soft': '#16281E', '--witness-soft': '#2E1917', '--v-refd-soft': '#211C29',
+  /* the map controls' glyphs: maplibre's icons are dark-on-transparent, inverted to sit on a dark control */
+  '--as-glyph': 'invert(1)',
+  /* the floating cards' shadow: design/tokens.js's one value, named here only so the light block can soften it */
+  '--shadow': T.SHADOW };
+/* THE LIGHT BLOCK FOR THE APP TOKENS (2026-10-30 late). PROPOSED, WAITING ON THE OPERATOR'S APPROVAL: these five values
+   are new colours (none is in the print register). Each keeps its dark twin's hue (OKLab hue 154/158, 307/307) and
+   clears the text grade on white paper: --v-cert 7.49:1, --v-refd 5.23:1; on its own wash 6.58:1 and 4.54:1. The three
+   status colours pass the validator on every pair on white (normal ΔE ≥ 15.7, every CVD ≥ 9.0, design/colour.js). The
+   witness is not re-pointed (one red, both themes); its wash is, because a dark wash on white is a dark box. */
+const APP_LIGHT = { '--v-cert': '#22603B', '--v-refd': '#73687F',
+  '--v-cert-soft': '#E8F3EC', '--witness-soft': '#FCEEEC', '--v-refd-soft': '#F0EEF3',
+  '--as-glyph': 'invert(0)',
+  /* a .55 black shadow on white paper is a grey smear around every card over the map: the same shape, lighter */
+  '--shadow': '0 8px 28px rgba(0,0,0,.12)' };
+/* --shadow keeps design/tokens.js's one value in the dark (APP_DARK names it, unchanged, only so the light block can
+   re-point it for the apps' floating cards); this file used to carry two more. */
 
 /* the head — fonts included — is design/template.js headHtml(), the same block every page takes (2026-09-15) */
 
@@ -75,6 +92,7 @@ function vars(o) { return Object.entries(o).map(([k, v]) => k + ':' + v).join(';
 function appCss() {
   return `
 :root{${vars(APP_DARK)}}   /* --f-sans/--f-display/--f-mono and --shadow come from T.rootCss(), emitted just above */
+:root[data-theme="light"]{${vars(APP_LIGHT)}}   /* the app tokens' half of the one light theme (design/battery.js T3b) */
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink)}
 body{font-family:var(--f-sans);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
@@ -133,6 +151,10 @@ a{color:inherit}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
 .as-top a.navx:hover{color:var(--sig)}
+/* the theme pill (design/nav.js THEME_CSS, emitted below) sits IN the top bar, at its right end: never over the map's
+   controls or the panel. A notch smaller than under the report nav, so it fits the bar at a phone's width. */
+.as-top .theme-pill{position:static;flex:none;padding:2px;gap:2px}
+.as-top .theme-pill button{padding:3px var(--s-2)}
 
 /* ---- panels: right = tabbed workspace; left = the selected flight ---- */
 .as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
@@ -295,13 +317,15 @@ button{font-family:inherit}
 .as-btn:hover{border-color:var(--sig);color:var(--sig)}
 .as-btn[data-on="1"]{border-color:var(--sig);color:var(--sig);background:var(--sig-soft)}
 select.as-sel{font-family:var(--f-mono);font-size:11px;background:var(--sunk);color:var(--ink);
-  border:1px solid var(--rule);border-radius:var(--radius-m);padding:6px 8px;color-scheme:dark;max-width:100%}
+  border:1px solid var(--rule);border-radius:var(--radius-m);padding:6px 8px;max-width:100%}
 /* This select said color-scheme:light dark until 2026-09-05, and it was the last of the
    light theme still breathing. It tells the browser this <select> supports
    BOTH schemes, so on a light-OS machine the native dropdown POPUP — the part
    the page cannot style — rendered light inside a dark app. The palette above
    it was deleted on 2026-09-04; this line survived because design/battery.js's
-   one-theme check only reads tokens.js's :root block and never saw this file. */
+   one-theme check only reads tokens.js's :root block and never saw this file.
+   Since the apps took the pill (2026-10-30) it declares nothing: it inherits the
+   page's scheme, dark by default and light when the reader chooses it. */
 select.as-sel:hover{border-color:var(--sig)}
 .as-seg{display:inline-flex;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:2px;gap:2px}
 .as-seg button{border:0;background:transparent;font-family:var(--f-mono);font-size:10.5px;
@@ -353,8 +377,8 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
 .maplibregl-ctrl-group button{background:transparent}
 .maplibregl-ctrl-group button+button{border-top:1px solid var(--rule)}
 .maplibregl-ctrl-group button:hover{background:var(--surface)}
-.maplibregl-ctrl-group button:not(:disabled) .maplibregl-ctrl-icon{filter:invert(1) opacity(.78)}
-.maplibregl-ctrl-group button:disabled .maplibregl-ctrl-icon{filter:invert(1) opacity(.3)}
+.maplibregl-ctrl-group button:not(:disabled) .maplibregl-ctrl-icon{filter:var(--as-glyph) opacity(.78)}
+.maplibregl-ctrl-group button:disabled .maplibregl-ctrl-icon{filter:var(--as-glyph) opacity(.3)}
 .as-panel::-webkit-scrollbar{width:6px}
 .as-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
 
@@ -362,6 +386,10 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-top{height:48px;padding:0 12px;gap:10px}
   .as-top .appname{font-size:12.5px}
   .as-top .meta,.as-top .navx{display:none}
+  /* on a phone the bar holds the app's own controls and no room for both words (measured: Swell 13 px over at 390,
+     43 at 360; Janela 8 and 38): the pill keeps its frame and shows the one button that flips, "Light" or "Dark" */
+  .as-top .theme-pill button[aria-pressed="true"]{display:none}
+  .as-top .theme-pill button{padding:3px 6px;font-size:10px;letter-spacing:.04em}
   .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
   .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
   .as-card{padding:12px 13px;border-radius:var(--radius-m)}
@@ -371,7 +399,8 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-dock .attr{display:none}
   #speed{display:none}
   .as-seg button{padding:5px 8px;font-size:10px}
-}`;
+}
+${N.THEME_CSS}`;
 }
 
 /* THE GRAMMAR'S STYLESHEET (2026-10-28): playground/warrant.js css(), on an app that uses a w-* class in its markup or
@@ -386,6 +415,7 @@ function renderApp(o) {
   return require('./reasons.js').deriveReasons(require('../playground/warrant.js').deriveLegends(`<!doctype html>
 <html lang="${o.lang || 'en'}"><head>
 ${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path, og: o.og })}
+${N.THEME_PRE}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
 <style>${T.rootCss()}${appCss()}${warrantCss(o)}${o.cssRaw ? '\n' + o.cssRaw : ''}</style>
 </head><body>
@@ -397,11 +427,13 @@ ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
   ${o.meta ? `<span class="meta">${o.meta}</span>` : ''}${o.topHtml || ''}
   <span class="spacer"></span>
   ${(o.navLinks || []).map((l) => `<a class="navx" href="${l.href}">${l.label}</a>`).join('\n  ')}
+  ${N.THEME_PILL}
 </header>
+${N.THEME_JS}
 ${o.noLeft ? '' : `<aside class="as-left" id="leftpanel">${o.leftHtml || ''}</aside>\n`}<aside class="as-panel" id="panel">${o.panelHtml || ''}</aside>
 ${o.noDock ? '' : `<footer class="as-dock" id="dock">${o.dockHtml || ''}</footer>\n`}${o.extraHtml ? o.extraHtml + '\n' : ''}${cfg}
 ${(o.scripts || []).map((s) => `<script src="${s}"></script>`).join('\n')}
 </body></html>`));
 }
 
-module.exports = { renderApp, appCss, APP_DARK };
+module.exports = { renderApp, appCss, APP_DARK, APP_LIGHT };

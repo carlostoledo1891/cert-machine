@@ -99,7 +99,19 @@ const CHART_SURFACE = PAL['--sunk'];
   /* tokens.rootCss is not asked here: it is the ONE place a light block may live since 2026-10-30, and T3 above
      holds its shape. Every other surface is asked whether it declares a second one. */
   add('nav.navCss', () => require(path.join(R, 'design/nav.js')).navCss());
-  add('app-shell.appCss', () => require(path.join(R, 'design/app-shell.js')).appCss());
+  /* THE APP TOKENS' HALF OF THE ONE LIGHT THEME (2026-10-30 late, the apps took the pill). design/app-shell.js owns
+     tokens tokens.js does not have (--v-cert, --v-refd, the washes, the glyph filter), so their light values sit in ONE
+     block there, under the same selector. It is not a second theme: it is let through only when it is exactly one
+     block, it names exactly APP_LIGHT's tokens, and APP_LIGHT re-points exactly APP_DARK's names (no new name, no
+     site token). Anything else in that file that says data-theme is still a leak. */
+  add('app-shell.appCss', () => {
+    const A = require(path.join(R, 'design/app-shell.js'));
+    const css = A.appCss(), re = /:root\[data-theme="light"\]\{([^}]*)\}/g, blocks = [...css.matchAll(re)];
+    const same = (a, b) => a.length === b.length && a.every((k) => b.includes(k));
+    const names = blocks.length === 1 ? blocks[0][1].split(';').map((d) => d.split(':')[0].trim()).filter(Boolean) : [];
+    return blocks.length === 1 && same(names, Object.keys(A.APP_LIGHT)) && same(Object.keys(A.APP_LIGHT), Object.keys(A.APP_DARK))
+      ? css.replace(re, '') : css;
+  });
   add('template.css', () => require(path.join(R, 'design/template.js')).css());
   add('components.sharedCss', () => require(path.join(R, 'playground/design/components.js')).sharedCss());
   for (const f of ['playground/design/shell.css', 'playground/design/bench.css']) {
