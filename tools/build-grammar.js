@@ -141,7 +141,8 @@ function html() {
   const WX = fr(1, 2), [k1, k2] = [KNOTS[1], KNOTS[2]];
   const WY = fadd(k1[1], fmul(fdiv(fsub(k2[1], k1[1]), fsub(k2[0], k1[0])), fsub(WX, k1[0])));
   const WY2 = fmul(WY, WY);
-  guard('the witness specimen stops breaking its claim (the segment\'s value at x = 1/2 squares to 1/2)', !feq(WY2, WX) && fnum(WX) > fnum(k1[0]) && fnum(WX) < fnum(k2[0]));
+  const WITNESS_STOP = 'the witness specimen stops breaking its claim (the segment\'s value at x = 1/2 squares to 1/2)';   /* the hero's stop sentence too (R30) */
+  guard(WITNESS_STOP, !feq(WY2, WX) && fnum(WX) > fnum(k1[0]) && fnum(WX) < fnum(k2[0]));
   const MEET = W.meet(W.DECIDED, W.DECIDED, W.CHOSEN);
 
   /* ------------------------------------------------------------ drawing -- */
@@ -208,7 +209,8 @@ function html() {
       dec: [0.27, 0.42], decT: 'a knot', dec2: [0.27, 0.36], decT2: 'decided',
       com: [0.98, 1.06], comT: 'Math.sqrt · computed',
       cho: [0.56, 0.64], choT: 'a segment · chosen' });
-    return C.figure({ svgRaw: svg, svgNarrowRaw: svgN, hero: true, captionRaw: '<span class="gr-k">the whole grammar, in one figure</span>'
+    /* R30: the guard above that would stop it; no record line (R23), since √x is decided here and no record holds it */
+    return C.figure({ svgRaw: svg, svgNarrowRaw: svgN, hero: true, stop: WITNESS_STOP, captionRaw: '<span class="gr-k">the whole grammar, in one figure</span>'
       + 'y = √x near zero. <b>Decided</b>, solid: the enclosure, ' + numword(STEPS) + ' steps of width 1/2, each an integer square root over ' + Q + ' checked by squaring, its edges moved away from the curve to the next tenth of a pixel; and the knots where √x is exact (' + KNOTS.map(([x]) => fstr(x)).join(', ') + '). '
       + '<b>Computed</b>, dashed: Math.sqrt at ' + fmt(NPTS) + ' points (all ' + fmt(inside) + ' inside the enclosure; comparing two doubles is exact). '
       + '<b>Chosen</b>, dotted: the straight segments between the knots, one curve of the infinitely many through them, so ' + m('W.meet(DECIDED, DECIDED, CHOSEN)') + ' is ' + esc(W.NAME[MEET].toLowerCase()) + '. '
