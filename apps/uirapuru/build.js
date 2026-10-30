@@ -13,12 +13,12 @@
 const fs = require('fs');
 const path = require('path');
 const { ROOT, V, flatten, fill, need, git, T } = require('../explained/records.js');   /* the one reader of the records */
-const { forest } = require('./forest.js').FOREST;
+const { forest, shade } = require('./forest.js').FOREST;
 const SITE = path.join(ROOT, 'site', 'uirapuru');
 
 /* ---- the toy's facts, from the one generator ---- */
-const N7 = 144, BLUE = 70;
-const b7 = forest(7, N7, 100);
+const N7 = 144, BLUE = 70, GUIDE_MAX = 100;   /* the guide's scale runs 0 to GUIDE_MAX */
+const b7 = forest(7, N7, GUIDE_MAX);
 let least = 0, most = 0, count = 0;
 for (let i = 0; i < N7; i++) { if (b7[i] < b7[least]) least = i; if (b7[i] > b7[most]) most = i; if (b7[i] >= BLUE) count++; }
 need(count >= 1 && b7[least] < BLUE, 'the story needs patch 7 to hold a blue bird and a bird that is not blue');
@@ -81,6 +81,67 @@ V.MAP = C.table({
     ['every bird, forever', 'a theorem', 'refused; left to proofs and proof assistants'],
     ['the recording', 'a file the public cannot read', 'refused; the ask is the file']
   ]
+});
+
+/* ---- THE HERO (D12): patch 7 as a figure, the ringed bird its event ----------------------------------------------------
+   Instrument 1 opens on patch 7 with "every bird is at least BLUE blue" and rings the bird its word rests on: the first of
+   the least blue, which breaks the claim, so the REFUTED ships with that tree. That bird is an exhibited counterexample to
+   a claim the page shows (the stage's "every Uirapuru in patch 7 is blue"), so here it is the house's × (W.witnessMark),
+   the first a reader meets, with the words of what it broke beside it. Every tree is a square in the instruments' own
+   shade (forest.js), outlined through W.attrs as CHOSEN: one seeded forest, the toy legend's dotted. The desk drawing lays
+   the trees out in rows so the patch reads across the container's width; the phone drawing is the instruments' square.
+   Both read b7, the one forest, and the facts above; nothing in them is typed. */
+const CH = require(path.join(ROOT, 'design', 'charts.js'));
+const LEAST_TREE = least + 1, CLAIM_WORDS = 'every Uirapuru in patch 7 is blue', CLAIM7 = '“' + CLAIM_WORDS + '”';
+/* an advance per character no narrower than the mono face's at each label class, so a label that would run past the drawing refuses */
+const ADV = { 't-lab': 8.1, 't-note': 7.2, 't-ax': 7.5 };
+/* a tree: its square, filled with its bird's shade; the outline is the group's, W.attrs(CHOSEN), around every tree */
+const tree = (x, y, s, b) => '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + s.toFixed(1) + '" height="' + s.toFixed(1)
+  + '" rx="' + (s / 6).toFixed(1) + '" fill="var(--ink)" fill-opacity="' + shade(b).toFixed(3) + '"/>';
+const patchFig = ({ w, cols, padL, words, wx, lw, key }) => {
+  const rows = Math.ceil(N7 / cols), pitch = (w - padL - 4) / cols, g = pitch * 0.14, sq = pitch - 2 * g;
+  need(least < cols, 'the hero writes its witness\'s words above the first row, and tree ' + LEAST_TREE + ' is not among the first ' + cols);
+  const LINE = 17, top = 10 + words.length * LINE + 12;          /* the words' band, above the trees */
+  const keyY = top + rows * pitch + 28, ks = 12;                  /* the key's row, under them */
+  const h = Math.ceil(keyY + 10);
+  const alt = 'Patch 7 of the toy forest: ' + N7 + ' trees in ' + rows + ' rows of ' + cols + ', one Uirapuru in each; the fuller a square, the bluer its bird. '
+    + 'A red cross marks tree ' + LEAST_TREE + ', whose bird is ' + b7[least] + ' blue, below ' + BLUE + ': the bird that breaks the claim that every Uirapuru in patch 7 is blue.';
+  const out = [CH.open({ w, h, alt })];
+  for (let r = 0; r < rows; r++) out.push(CH.txt(padL - 7, top + r * pitch + pitch / 2 + 4, String(r * cols + 1), 't-ax', 'end'));
+  const trees = [];
+  for (let i = 0; i < N7; i++) trees.push(tree(padL + (i % cols) * pitch + g, top + Math.floor(i / cols) * pitch + g, sq, b7[i]));
+  /* the key: the shade at the scale's two ends and at the bar the claim sets */
+  let kx = padL + g;
+  for (const [b, s] of key) {
+    trees.push(tree(kx, keyY - ks + 2, ks, b));
+    out.push(CH.txt(kx + ks + 7, keyY, s, 't-ax', 'start'));
+    kx += ks + 7 + s.length * ADV['t-ax'];
+    need(kx <= w - 2, 'the hero\'s key runs past its ' + w + '-unit drawing');
+    kx += 22;
+  }
+  out.push('    <g ' + W.attrs(W.CHOSEN, { width: lw }) + '>' + trees.join('') + '</g>');
+  /* the event: the × on the bird, a hairline up to its words */
+  const cx = padL + least * pitch + pitch / 2, cy = top + pitch / 2, tx = cx + 11, base = 10 + LINE - 4;
+  out.push('    <path d="M' + cx.toFixed(1) + ',' + (cy - wx.size - 3).toFixed(1) + 'V' + (base - 4).toFixed(1) + 'H' + (tx - 4).toFixed(1) + '" fill="none" stroke="' + CH.AXIS + '" stroke-width="1"/>');
+  words.forEach((s, k) => { const cls = k ? 't-note' : 't-lab';
+    need(tx + s.length * ADV[cls] <= w - 2, 'the hero\'s words "' + s + '" run past its ' + w + '-unit drawing');
+    out.push(CH.txt(tx, base + k * LINE, s, cls, 'start')); });
+  out.push('    ' + W.witnessMark(cx, cy, { size: wx.size, width: wx.width, casing: CH.SURFACE }));
+  out.push(CH.close);
+  return out.join('\n');
+};
+const KEY = [[0, '0'], [BLUE, BLUE + ', blue from here'], [GUIDE_MAX, String(GUIDE_MAX)]];
+const WX_LINE = 'tree ' + LEAST_TREE + ' · ' + b7[least] + ' blue, below ' + BLUE;
+V.F7_HERO = C.figure({
+  hero: true,
+  svgRaw: patchFig({ w: 1000, cols: 36, padL: 34, lw: 1.5, wx: { size: 9, width: 3 }, key: KEY,
+    words: [WX_LINE, 'the bird that breaks ' + CLAIM7] }),
+  svgNarrowRaw: patchFig({ w: 320, cols: Math.ceil(Math.sqrt(N7)), padL: 30, lw: 1.5, wx: { size: 9, width: 2.6 }, key: KEY,
+    words: [WX_LINE, 'the bird that breaks “' + CLAIM_WORDS.split(' ')[0], CLAIM_WORDS.split(' ').slice(1).join(' ') + '”'] }),
+  /* the caption prints no number: the drawing prints the witness's, the stats strip under the cold open the counts */
+  captionRaw: 'Patch 7 of the toy forest, every tree the machine calls, one Uirapuru in each: the fuller the square, the bluer the bird on the field guide\'s scale. '
+    + 'The claim ' + CLAIM7 + ' is refuted, and the × marks the bird the word ships with, so anyone can walk there and look. '
+    + 'The trees are dotted because the forest is the toy\'s, one seeded forest of all the forests a seed could have drawn.'
 });
 
 /* ---- fill the parts and render through the house template ---- */
