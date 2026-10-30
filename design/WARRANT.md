@@ -413,3 +413,17 @@ scope).
   is drawn as a hatched void across the plot; a null bar keeps the row's full width as the void, with ∅ and its word.
   No page hands the kit a refused value today (every chart user was rebuilt with a probe), so nothing redraws; two red
   controls in check-wiring hold the kit to it. With one hero per page and its × first, R28 is gated.
+
+## R22 applied, R23 and R30 approved, two main figures merged (2026-10-30)
+
+- **R22, a mark's reason is visible text.** design/reasons.js, called by design/refresh.js and design/app-shell.js on
+  every page: each reason a value carried only in its title is said once in words at its section's end ("why these
+  numbers stand as they do"), inside the section's own wrapper so the block keeps the column; values outside every
+  section join the page's last section. A reason the page already prints is not repeated. 1,206 tooltip-only reasons
+  before; none after. tools/check-wiring.js refuses a value whose reason is only its tooltip (two red controls).
+- **R23 and R30, approved as drawn on /reports/kissing.html:** `C.figure({ record, stop })` names the figure's record
+  (path and sha256 to twelve hex digits, `data-record` on the caption) and prints the sentence of the builder's own check
+  that would refuse it. Rolled out figure by figure.
+- **Main figures:** /explained/'s stage as an SVG figure (six claims from their records through DECIDE; the 605's worst
+  pair the ×) and /uirapuru/'s patch 7 (the ringed bird, tree 3 at 0, the × that breaks "every bird at least 70"), on the
+  operator's word.

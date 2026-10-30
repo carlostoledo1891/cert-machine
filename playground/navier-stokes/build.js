@@ -199,6 +199,7 @@ const html = page({
     <div class="item"><span class="k">zoom</span><span class="v" id="h-zoom">—</span></div>
     <div class="item"><span class="k">speed |u|</span><span class="v w-val w-computed" id="h-u" title="computed — τ to an exact power, evaluated in float">—</span></div>
     <div class="item"><span class="k">ℓz / ℓr</span><span class="v w-val w-computed" id="h-asp" title="computed — τ to an exact power, evaluated in float">—</span></div>
+    <div class="item"><span class="k">why dashed</span><span class="v">τ to an exact power, evaluated in float</span></div>
   </div>
   <div class="rd">
     <div class="item"><span class="k">h</span><span class="v" id="h-h">—</span></div>

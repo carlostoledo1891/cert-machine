@@ -653,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -6887,7 +6893,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   </div>
   <figcaption>Cada ponto é um estado (cor: quem venceu nele no 2º turno). Eixo vertical: quanto as log-chances de Lula entre os dois finalistas subiram do 1º para o 2º turno. A linha tracejada é o ajuste linear, em ponto flutuante, só para guiar o olho.</figcaption>
 </figure></div><ol class="w-premises"><li><span class="w-grade g0" title="suposto — adotado de uma fonte, escolhido ou lido; nenhuma máquina aqui o conferiu"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>suposto</span><div><b>O modelo de campo médio (Brock e Durlauf)</b> <span class="ev">adotado da literatura para ler os dados; nada aqui o conferiu. As log-chances são contas sobre os totais assinados; a leitura delas é a do modelo.</span></div></li></ol><p class="w-meet">A leitura fica no degrau <b>suposto</b>: com 28 unidades, uma descrição, não uma prova.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — computado: ponto flutuante, 6 casas no registro</li><li><span class="w-computed">computed</span> — computado: correlação em ponto flutuante</li></ul></div></section>
 
 <section class="">
   <div class="col sec-head">
@@ -7298,7 +7304,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git 1eefb31d</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Gerado por apps/eleicoes2026/build.js a partir de corpus/eleicoes2026/ledger.json (sha256 85bca9e67caba185…), refeito na construção por tools/eleicoes2026/ledger.py --check.</p><p>git e6e23ec3</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
   var tip=null;

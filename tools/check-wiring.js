@@ -461,6 +461,23 @@ red('a derived legend drops the item its page does not draw',
   !/data-s="chosen"/.test(Wr.deriveLegends('<span class="w-val w-computed">1</span>' + Wr.legendHtml({ compact: true }))));
 red('a hand-written exclude list is refused by the module', (() => { try { Wr.legendHtml({ exclude: [Wr.CHOSEN] }); return false; } catch (e) { return true; } })());
 
+/* A MARK'S REASON IS VISIBLE TEXT (R22, built 2026-10-30): no value on a page keeps its reason only in a tooltip.
+   design/reasons.js says each such reason once, at its section's end (or the page's), and this reads the result. */
+const RS = require(path.join(ROOT, 'design', 'reasons.js'));
+function reasonOffences(html, label) {
+  const vis = RS.visibleText(html), out = [];
+  for (const m of String(html).replace(/<script[\s\S]*?<\/script>/g, '').matchAll(/<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*\btitle="([^"]+)"/g)) {
+    const t = RS.reasonOf(m[1]).split(/ — |: /).pop().trim().slice(0, 40);
+    if (t && !vis.includes(t)) out.push(label + ': ' + t);
+  }
+  return out;
+}
+const reasonBad = pages.flatMap((p) => reasonOffences(read(p), p));
+if (reasonBad.length) bad('no value keeps its reason only in a tooltip', reasonBad.length + ':\n        ' + reasonBad.slice(0, 6).join('\n        '));
+else ok('no value keeps its reason only in a tooltip', '[' + pages.length + ' pages]');
+red('a value whose reason is only its tooltip is caught', reasonOffences('<section><span class="w-val w-computed" title="computed — measured on one machine">3</span></section>', 'planted').length === 1);
+red('the reasons pass says it in words', reasonOffences(RS.deriveReasons('<section><span class="w-val w-computed" title="computed — measured on one machine">3</span></section>'), 'planted').length === 0);
+
 /* A VOID HAS A SIZE (R28, built 2026-10-30): the chart kit never bridges a refused value. A null point breaks its line
    and its gap is drawn as a hatched void across the plot; a null bar keeps the row's full width as the void, with ∅. */
 const CHk = require(path.join(ROOT, 'design', 'charts.js'));

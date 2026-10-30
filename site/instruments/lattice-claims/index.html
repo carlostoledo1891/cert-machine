@@ -422,6 +422,12 @@ a { color: inherit; }
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -814,7 +820,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
 <b>the dot</b>    is the vector each task was built from, inside its bar both times. For the straddling one it sits on the admissible side &mdash; a fact the printed integer does not carry, so it decides nothing, and STRADDLES stays the right answer.
 <b>so</b>         STRADDLES is not a hedge, it is the correct answer &mdash; and there is a record in the real hall of fame in exactly this position.
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — float arithmetic on the record’s drawing floats; the verdicts at N ± ½ are exact</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -848,7 +854,7 @@ h1.t1, h2.t1 { font-size: clamp(1.7rem, 1.1rem + 2.2vw, 2.6rem); max-width: var(
     <div class="note reveal rd">
 <b>one failure</b> is the same for all three, and it is the one this environment exists to train against: <b>answering confidently when a quantity is absent</b>. Nothing marks those tasks; the omission has to be noticed.
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — one sample of the model’s replies — each grade decided, the sample drawn</li></ul></div></div>
 </section>
 
 <section class="section">

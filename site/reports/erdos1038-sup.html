@@ -363,11 +363,6 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 /* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
 figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
 figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
-/* R22 (2026-10-30): a section's reasons, once each, where a value's reason was only a tooltip (design/reasons.js) */
-.w-why{margin-top:var(--s-5);border-top:1px solid var(--rule);padding-top:var(--s-3)}
-.w-why .k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
-.w-why ul{list-style:none;padding:0;margin:var(--s-2) 0 0}
-.w-why li{font-size:var(--text-small);color:var(--ink-3);padding:var(--s-1) 0}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -658,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -1036,7 +1037,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <div class="col"><p>Each row quantifies over EVERY root configuration in [−1,1]ᴺ — collisions and multiplicities included — through the ordered-and-mirrored branch-and-bound: a box is closed when the certified measure of {Π dist(x, Iᵢ) &lt; 1} falls below the threshold, and that bound equals the true measure on thin boxes (a battery check). In measure language: every discrete probability measure on [−1,1] whose weights have denominator 3, 5 or 7 satisfies |{U_μ &lt; 0}| &lt; 2.82; for denominators 4, 6 and 8, the certified upper end is within 2.3×10⁻⁵ of 2√2 — weaker than Tao's theorem, which gives exactly 2√2 there, reached by an unrelated route.</p><div class="note">
   <span class="lab">not decided</span>
 <p><span class="m">deg9</span>: bnb: box budget exhausted — recorded as attempted and refused, not silently dropped. Its answer is known from the theorem; the refusal is the instrument's budget, not an open question.</p>
-</div></div>
+</div><div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-refused">refused</span> — the record keeps no box count for a refused run</li><li><span class="w-refused">refused</span> — the record keeps no depth for a refused run</li></ul></div></div>
 </section>
 
 <section class="col">

@@ -422,6 +422,12 @@ a { color: inherit; }
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -880,7 +886,7 @@ the whole environment: the <span class="mono">profile</span> rung hands the mode
 what it does with it.
     </div>
     <div class="w-legend compact" data-n="2" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="chosen"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — one seeded draw of eight pairs per task; another draw scores otherwise</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -899,7 +905,7 @@ knows the answer it will not tell you.
 <b>dotted</b> the rows that draw their pairs at random. The false-claim column does not depend on the draw &mdash; a
 shotgun claims a kill on every task, so it is wrong on every equivalent one &mdash; and carries no mark.
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — one seeded draw of eight pairs per task; another draw scores otherwise</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -925,7 +931,7 @@ EQUIVALENT says no valid pair tells that mutant from the design, and the SAT wit
 pair &mdash; an object you can load, which is why these alone are marked. The other 15 wrong answers
 declared a kill on a design the miter proved unchanged: refuted by proof, with no pair to exhibit.
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — one sample of the model’s replies — each grade decided, the sample drawn</li></ul></div></div>
 </section>
 
 <section class="section">

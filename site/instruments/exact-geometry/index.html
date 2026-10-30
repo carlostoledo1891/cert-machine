@@ -422,6 +422,12 @@ a { color: inherit; }
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -762,7 +768,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -790,7 +796,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -818,7 +824,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -846,7 +852,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -874,7 +880,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -902,7 +908,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -930,7 +936,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
         </div>
       </div>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -974,7 +980,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <p>What makes that worth writing down is where the fact lives. It is in none of the thirty answers. &ldquo;Vertex 0 and vertex 2 are 66 apart&rdquo; says nothing about embeddability; the non-Euclidean fact only exists in all thirty at once, and it survived being split into thirty independent questions and reassembled by a procedure the model never saw.</p>
       <p><strong>The first attempt failed, and the failure is the better half.</strong> Asked on a 0&ndash;100 scale, the model gave 33, 67 and 100 for one, two and three steps round the rim &mdash; which is correct to the nearest integer and <em>is not a distance</em>: 33 + 33 = 66 &lt; 67, so the triangle inequality fails by one unit and the gate refused the table before any geometry was computed. Nothing was wrong with the answers. The scale was wrong: a rim of six points contains the ratios 1 : 2 : 3, and 100 is not divisible by 3. On 0&ndash;99 the same question gives 33, 66, 99 and the table is a metric. The reference instruments shelf asks for integers on a fixed scale in exactly this way, so this is a property of the method rather than of this run &mdash; and without the gate it would have become a plate with a confident number under it.</p>
     </div>
-  </div>
+  <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — a count of the eigenvalues that reach 99% of a float spectrum: a cutoff, on floats</li></ul></div></div>
 </section>
 
 <section class="section">
@@ -985,7 +991,7 @@ svg.plate .refsub { fill:#6e6e7a; font-family:var(--font-mono); font-size:9px; }
       <p>That is the argument for reporting three numbers instead of one. A page that printed only the closure ratio would have called them identical. A page that printed only the exact signature would have called them identical too. The reference instruments shelf prints the ratio and the triple; the negative mass is what this pass adds, and it is the only thing on the page that could tell the two apart.</p>
       <p>The rest went as written, with one thing that was not predicted at all. Two snapshots of the same five dishes, 2.1 hours apart, come back exactly planar both times — one rigid object, two flat shadows — and not one of their ten distances survives the rotation unchanged. But the cheapest tree through them is the <em>same tree</em> both times. Nobody asked for that: it says the array's nearest-neighbour structure is more robust than its geometry, which is a fact about the dishes rather than about the night. A certified band traces a curve and does not close. A proof&rsquo;s covering traces a rougher curve. Nine points thrown into seven dimensions refuse to be low-dimensional, and a table that is not a distance is refused before it can be drawn.</p>
     </div>
-  </div>
+  <div class="w-why" data-page><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — graded by a rule with tolerances; read literally, 6 of 8</li><li><span class="w-chosen">chosen</span> — negative mass under 1%, a tolerance, on a float spectrum</li></ul></div></div>
 </section><p><a href="../neural-geometry/index.html">the same instrument, pointed at a model</a> · <a href="../plates/index.html">the plates</a> · crossed from the bench 2026-09-04</p>
 
 <footer class="foot"><div class="foot-in"><div class="foot-body"><p><a href="../neural-geometry/index.html">the same instrument, pointed at a model</a> · <a href="../plates/index.html">the plates</a> · crossed from the bench 2026-09-04</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>

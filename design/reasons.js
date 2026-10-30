@@ -29,14 +29,33 @@ function reasonOf(title) {
   return m ? m[2] : t;
 }
 
+/* the hidden reasons of the values in a piece of markup (scripts skipped: a template there is not a value), as rows */
+function hiddenRows(markup, seen) {
+  const rows = [], keys = new Set();
+  const src = String(markup).replace(/<script[\s\S]*?<\/script>/g, '');
+  for (const m of src.matchAll(/<span\b[^>]*\bclass="([^"]*\bw-val\b[^"]*)"[^>]*\btitle="([^"]+)"/g)) {
+    const st = STAND.find((x) => new RegExp('\\bw-' + x + '\\b').test(m[1]));
+    const why = reasonOf(m[2]);
+    if (!st || !why) continue;
+    const tail = why.split(/ — |: /).pop().trim().slice(0, 40);
+    if (tail && seen.includes(tail)) continue;
+    const key = st + '|' + why;
+    if (keys.has(key)) continue;
+    keys.add(key);
+    rows.push('<li><span class="w-' + st + '">' + st + '</span> — ' + esc(why) + '</li>');
+  }
+  return rows;
+}
+const block = (rows) => '<div class="w-why"><div class="k">why these numbers stand as they do</div><ul>' + rows.join('') + '</ul></div>';
+
 function deriveReasons(html) {
   const page = String(html);
   if (!/class="[^"]*\bw-val\b[^"]*"[^>]*\btitle="/.test(page)) return page;
   const seen = visibleText(page);
-  return page.replace(/<section\b[^>]*>[\s\S]*?<\/section>/g, (sec) => {
+  const out = page.replace(/<section\b[^>]*>[\s\S]*?<\/section>/g, (sec) => {
     if (/<div class="w-why"/.test(sec)) return sec;
     const rows = [], keys = new Set();
-    for (const m of sec.matchAll(/<span\b[^>]*\bclass="([^"]*\bw-val\b[^"]*)"[^>]*\btitle="([^"]+)"/g)) {
+    for (const m of sec.replace(/<script[\s\S]*?<\/script>/g, '').matchAll(/<span\b[^>]*\bclass="([^"]*\bw-val\b[^"]*)"[^>]*\btitle="([^"]+)"/g)) {
       const st = STAND.find((s) => new RegExp('\\bw-' + s + '\\b').test(m[1]));
       const why = reasonOf(m[2]);
       if (!st || !why) continue;
@@ -49,8 +68,29 @@ function deriveReasons(html) {
       rows.push('<li><span class="w-' + st + '">' + st + '</span> — ' + esc(why) + '</li>');   /* no w-val: the word is a key, not a value */
     }
     if (!rows.length) return sec;
-    return sec.replace(/<\/section>$/, '<div class="w-why"><div class="k">why these numbers stand as they do</div><ul>' + rows.join('') + '</ul></div></section>');
+    /* inside the section's own wrapper when it has one (the instruments' <div class="wrap">), so the block keeps the
+       column's left edge */
+    if (/^<section\b[^>]*>\s*<div class="(?:wrap|col|container)\b[^"]*"[^>]*>/.test(sec) && /<\/div>\s*<\/section>$/.test(sec))
+      return sec.replace(/<\/div>(\s*)<\/section>$/, block(rows) + '</div>$1</section>');
+    return sec.replace(/<\/section>$/, block(rows) + '</section>');
   });
+  /* the values outside every section (a header's stat tiles, a landing's numbers): their reasons once, at the end of the
+     page's main column, before the footer */
+  const outside = out.replace(/<section\b[^>]*>[\s\S]*?<\/section>/g, '');
+  if (/<div class="w-why" data-page>/.test(out)) return out;
+  const rest = hiddenRows(outside, visibleText(out));
+  if (!rest.length) return out;
+  const pb = block(rest).replace('<div class="w-why">', '<div class="w-why" data-page>');
+  /* in the page's last section, inside its wrapper, so the block keeps the column; with no section, before </main> */
+  const last = out.lastIndexOf('</section>');
+  if (last >= 0) {
+    const open = out.lastIndexOf('<section', last), sec = out.slice(open, last + 10);
+    const wrapped = /^<section\b[^>]*>\s*<div class="(?:wrap|col|container)\b[^"]*"[^>]*>/.test(sec) && /<\/div>\s*<\/section>$/.test(sec);
+    return out.slice(0, open) + (wrapped ? sec.replace(/<\/div>(\s*)<\/section>$/, pb + '</div>$1</section>') : sec.replace(/<\/section>$/, pb + '</section>')) + out.slice(last + 10);
+  }
+  const at = out.lastIndexOf('</main>') >= 0 ? out.lastIndexOf('</main>') : out.search(/<footer\b/);
+  if (at < 0) return out;
+  return out.slice(0, at) + pb + out.slice(at);
 }
 
 module.exports = { deriveReasons, reasonOf, visibleText };

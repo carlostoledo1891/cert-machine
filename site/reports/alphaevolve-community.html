@@ -363,11 +363,6 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 /* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
 figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
 figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
-/* R22 (2026-10-30): a section's reasons, once each, where a value's reason was only a tooltip (design/reasons.js) */
-.w-why{margin-top:var(--s-5);border-top:1px solid var(--rule);padding-top:var(--s-3)}
-.w-why .k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
-.w-why ul{list-style:none;padding:0;margin:var(--s-2) 0 0}
-.w-why li{font-size:var(--text-small);color:var(--ink-3);padding:var(--s-1) 0}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -658,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -831,7 +832,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <h2>Problem 59: 58 where 56 was called optimal</h2>
   </div>
 <p>hashkanna's two 58-point subsets of the 32 × 32 grid (#10) contain no three points with two equal distances, the collinear midpoint case included: 30,856 triples each, zero isosceles, and neither admits another grid point (maximal). The external certificate file equals set_a byte for byte in content. PatternBoost (arXiv:2411.00566 §4.1) captions "f(32) = <span class="w-val w-computed" title="printed by PatternBoost — a claim, not decided here">56</span>" and says SAT solvers prove optimality up to n ≈ 32; the AlphaEvolve paper repeats the figure. An explicit 58-point object under the notebook's definition means one of three things — a different definition in the SAT work, a slip in the caption, or an error here — and this page can only rule out the third: the decider reproduces the notebook's own 112-point n = 64 and 164-point n = 100 constructions as admissible and catches a planted midpoint.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — printed by PatternBoost — a claim, not decided here</li></ul></div></section>
 
 <section class="">
   <div class="col sec-head">
@@ -847,7 +848,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <h2>Problem 42: the finite parts of a large claim</h2>
   </div>
 <p>#5 offers much — C = 2, a 1.6269 instance, a ceiling theorem, a conjecture — and asks to be torn apart; its author then found Lin–Li (arXiv:2607.27199) had settled C = 2 two days earlier. Two parts are finite objects and are decided: the far-block set its certificate script defines (rebuilt here from the rule, |A| = 101,478, |A+A| = 1,200,837, |A−A| = 848,817) has g = <span class="w-val w-computed" title="g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality">1.163338</span>, and g > 1.163 is decided as |A+A|¹⁰⁰⁰|A|¹⁶³ > |A−A|¹¹⁶³ in integers — above Penman–Wells' explicit <span class="w-val w-computed" title="printed by someone else — a claim, not decided here">1.12594</span> and the repository's <span class="w-val w-computed" title="the repository's best_list in float; its sums and differences are re-counted exactly here">1.12194</span> (its 309-element list re-counted: 1,367 sums, 1,163 differences). The explicit 23,646-integer set of its §5 has |A+A| = 6,924,316, |A−A| = 3,370,545, diameter 3,577,327: |A+A| + |A| exceeds |A−A| + diam + 1 by 89, as stated. The <span class="w-val w-computed" title="the claimant's printed value; REFUSED here — nothing finite to decide">1.6269</span> instance (an 86-digit modulus) is REFUSED: nothing enumerable, and its count rests on an argument its authors call machine-generated and unreviewed.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — g in float, log(|A+A|/|A|) / log(|A−A|/|A|); what is decided is that g exceeds 1.163, an integer inequality</li><li><span class="w-computed">computed</span> — printed by someone else — a claim, not decided here</li><li><span class="w-computed">computed</span> — the repository's best_list in float; its sums and differences are re-counted exactly here</li></ul></div></section>
 
 <section class="col">
   <div class="sec-head">
@@ -855,7 +856,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <h2>What has no finite object to decide</h2>
   </div>
 <div class="wide"><div class="tw"><table><thead><tr><th>claim</th><th>why refused</th></tr></thead><tbody><tr><td>C &gt;= 1.6269 by the &quot;hollow bridge&quot; instance of #5 (43 gadgets, an 86-digit modulus)</td><td>the set is not enumerable (modulus ~10^86); its count rests on the write-up&#39;s own argument, which is machine-generated and unreviewed by its authors&#39; statement; nothing finite to decide here</td></tr><tr><td>a 3-D moving sofa of volume &gt;= 1.8558404 (#8; the repository records &gt;= 1.81)</td><td>the certificate is a floating-point cube count under stated position and angle tolerances (0.005, 0.05 degrees; the author&#39;s own note: 1.7701 at the quick-start tolerances); no exact object is published. To decide it an interval instrument would have to enclose every pose, prove the swept region contains each counted cube and sum a rational lower bound — not built here</td></tr></tbody></table></div></div><p>A refusal is a verdict about the evidence, not the mathematics: the sofa may well have volume <span class="w-val w-computed" title="the claimant's printed volume; REFUSED here — a float cube count, nothing exact to decide">1.8558</span>, but a cube count under a 0.05° tolerance is a measurement, and the page says so rather than lending it a certificate.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — the claimant's printed volume; REFUSED here — a float cube count, nothing exact to decide</li></ul></div></section>
 
 <section class="col">
   <div class="sec-head">

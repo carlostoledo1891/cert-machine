@@ -38,7 +38,8 @@ function refresh(html, pagePath) {
   const rb = require('./sheet.js').rebake(out);
   if (rb.rebaked) refresh.rebaked = (refresh.rebaked || 0) + 1;
   /* a standing legend with no \`from\` is derived from the page's own marks (R20, 2026-10-30) */
-  return require('../playground/warrant.js').deriveLegends(rb.html);
+  /* a value's reason that only a tooltip carried is said once at its section's end (R22, 2026-10-30, design/reasons.js) */
+  return require('./reasons.js').deriveReasons(require('../playground/warrant.js').deriveLegends(rb.html));
 }
 
 module.exports = { refresh, rootOf, sectionOf };

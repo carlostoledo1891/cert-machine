@@ -823,7 +823,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <p>Campos, Griffiths, Morris and Sahasrabudhe proved R(k, k) ≤ (4 − ε)^k in 2023; Gupta, Ndiaye, Norin and Wei (GNNW) optimised the argument to R(k, k) ≤ <span class="w-val w-computed" title="GNNW's published bound (arXiv:2407.19026v2): printed, not decided here">3.7992</span>^(k+o(k)). Their Theorem 14 turns three conditions on functions F, M and Y of λ = ℓ/k into the bound R(k, ℓ) ≤ e^(F(ℓ/k)k + o(k)): F and F′ positive; the pair (X(λ), Y(λ)) in a region R, with X(λ) = (1 − e^−F′(λ))^(1/(1−M(λ)))·(1 − M(λ)); and F(λ) > −½(log X + λ log M + λ log Y). At λ = 1 the bound is the diagonal one, c = e^F(1).</p>
 <p>HorizonMath poses this as a problem and credits GPT-5.4 Pro with a certificate: GNNW's own cubic correction plus <span class="w-val w-computed" title="the certificate's printed coefficient (Appendix A.3): its input, as printed">−0.0778</span> λ⁵, and M and Y constant on 200 intervals of (0.001, 1]. Its checker accepts it, with c = <span class="w-val w-computed" title="what their checker printed, in mpmath: a claim, not decided here">3.69608391263</span>. The rebuilt certificate reproduces that number here, enclosed: <span class="m">[3.69608391263329, 3.69608391263330]</span>.</p>
 <p>The paper calls this "a verified certificate in the Gupta–Ndiaye–Norin–Wei framework", and says all six discoveries "have been verified by domain experts".</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — GNNW's published bound (arXiv:2407.19026v2): printed, not decided here</li><li><span class="w-computed">computed</span> — the certificate's printed coefficient (Appendix A.3): its input, as printed</li><li><span class="w-computed">computed</span> — what their checker printed, in mpmath: a claim, not decided here</li></ul></div></section>
 
 <section class="">
   <div class="col sec-head">
@@ -1083,7 +1083,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   <figcaption>Each dot is one of the certificate&#39;s pairs (X(λ), Y(λ)), at the midpoint of an interval where M and Y are constant; the diamond is λ = 1. Colour is repeated in the legend and in the table below. The strokes carry standing: the dashed curve is computed in floats; the solid diagonal y = 1 − x and the solid vertical at e^−U(1) are exact.</figcaption>
 </figure></div>
 <p>The certificate sets Y "0.12% below the active xy = e^−U(1) branch" on every interval — a branch Lemma 15 proves only for <span class="w-val w-computed" title="computed here in floats from the problem's U: where Lemma 15 proves the xy = e^−U(1) branch. Not decided.">0.4657</span> ≤ x ≤ <span class="w-val w-computed" title="computed here in floats from the problem's U: where Lemma 15 proves the xy = e^−U(1) branch. Not decided.">0.5645</span>, the middle stretch of the dashed curve, where it follows xy = e^−U(1).</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — computed here in floats from the problem's U: where Lemma 15 proves the xy = e^−U(1) branch. Not decided.</li></ul></div></section>
 
 <section class="">
   <div class="col sec-head">
@@ -1106,7 +1106,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <p>128 thin triangles with slopes i/128, base width 1/128, and 128 intercepts the model chose — every one a multiple of 1/1024. Between two consecutive crossings of the 256 edge lines the union's cross-section has a fixed combinatorial shape, so its length is linear there; summing width times midpoint length over the 4,033 pieces gives the area as a rational, with no rounding anywhere:</p>
 <div class="eq">Area(E) = 6008623 / 55050240 = 0.10914798918224516369…</div>
 <p>That is at least 0.00566233 below the printed AlphaEvolve baseline <span class="w-val w-computed" title="the AlphaEvolve baseline the problem statement prints: a claim, not decided here; the comparison with it is exact">0.1148103258186177</span>, and the paper's <span class="w-val w-computed" title="the area the paper prints: a claim; decided here to be the exact area's rounding">0.1091479892</span> is its rounding. The benchmark's own checker computes the same area in floating point, to 15 digits, against Keich's older baseline.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — the AlphaEvolve baseline the problem statement prints: a claim, not decided here; the comparison with it is exact</li><li><span class="w-computed">computed</span> — the area the paper prints: a claim; decided here to be the exact area's rounding</li></ul></div></section>
 
 <section class="col">
   <div class="sec-head">

@@ -453,7 +453,7 @@ function html() {
   /* the site then, extracted from git and measured by the census that gates the site now */
   const walkHtml = (dir) => { const out = []; (function w(d) { for (const e of fs.readdirSync(d, { withFileTypes: true })) { const q = path.join(d, e.name); if (e.isDirectory()) { if (!/machinidae/.test(q)) w(q); } else if (e.name.endsWith('.html')) out.push(q); } })(dir); return out; };
   const tooltipOnly = (dir) => { let n = 0; for (const f of walkHtml(dir)) { const src = fs.readFileSync(f, 'utf8'); const vis = src.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '').replace(/<[^>]+>/g, ' ');
-    for (const x of src.matchAll(/<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*\btitle="([^"]+)"/g)) { const tt = x[1].replace(/&[a-z#0-9]+;/g, ' ').split(/ — |: /).pop().trim().slice(0, 40); if (tt && !vis.includes(tt)) n++; } } return n; };
+    for (const x of src.replace(/<script[\s\S]*?<\/script>/g, '').matchAll(/<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*\btitle="([^"]+)"/g)) { const tt = x[1].replace(/&[a-z#0-9]+;/g, ' ').split(/ — |: /).pop().trim().slice(0, 40); if (tt && !vis.includes(tt)) n++; } } return n; };
   const tmp = fs.mkdtempSync(path.join(require('os').tmpdir(), 'grammar-then-'));
   let THEN = null, landingThen = '', ethThen = '', hiddenThen = 0;
   try {
@@ -518,7 +518,7 @@ function html() {
     ['R19', 'Pixels round outward, and a figure prints the smallest difference it can show.', 'partial', 'refused on this page’s enclosure; not yet in the chart kit'],
     ['R20', 'The legend is derived from the figure, never declared.', r20 ? 'gated' : 'open', r20 ? 'every legend derived from its page, figure or drawing code; tools/check-wiring.js refuses an exclude list or an item for a standing not drawn' : excludes + ' calls still tell the legend what to leave out'],
     ['R21', 'A dash is a standing everywhere: strokes, borders, motion.', NOW.unstanding || NOW.dashedBorders ? 'partial' : 'gated', fmt(NOW.unstanding) + ' unclassed dashes and ' + fmt(NOW.dashedBorders) + ' dashed borders left'],
-    ['R22', 'A mark’s reason is visible text, never only a tooltip.', hiddenNow ? 'open' : 'gated', fmt(hiddenNow) + ' reasons live only in a tooltip'],
+    ['R22', 'A mark’s reason is visible text, never only a tooltip.', hiddenNow ? 'open' : 'gated', hiddenNow ? fmt(hiddenNow) + ' reasons live only in a tooltip' : 'every reason a tooltip carried is said once in words at its section’s end; tools/check-wiring.js refuses one that is not'],
     ['R23', 'A figure names its record and its digest on itself.', recCaptions ? 'partial' : 'open', recCaptions ? recCaptions + ' captions name their record' : 'no caption names its record yet'],
     ['R24', 'A page’s standing is computed by its builder, never typed.', typeof W.pageStanding === 'function' ? 'partial' : 'open', 'not built'],
     ['R25', 'A frame is a page: standing never tweens, a value never travels.', exists('tools/check-frames.js') ? 'gated' : 'open', 'no gate yet'],

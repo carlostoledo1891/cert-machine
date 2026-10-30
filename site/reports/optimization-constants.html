@@ -363,11 +363,6 @@ figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16
 /* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
 figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
 figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
-/* R22 (2026-10-30): a section's reasons, once each, where a value's reason was only a tooltip (design/reasons.js) */
-.w-why{margin-top:var(--s-5);border-top:1px solid var(--rule);padding-top:var(--s-3)}
-.w-why .k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4)}
-.w-why ul{list-style:none;padding:0;margin:var(--s-2) 0 0}
-.w-why li{font-size:var(--text-small);color:var(--ink-3);padding:var(--s-1) 0}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -658,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -842,7 +843,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <p>The 147-point certificate ships a checker (check_cert.py, pinned here by sha256 and not copied). It computes the ratio in interval arithmetic at 100 digits, which is right, and then decides the claim with <span class="m">mpmath.mpf(lo_str) &gt;= mpmath.mpf(claimed)</span> in mpmath's default context — 53 bits, a double. Every decimal within a double of the true bound compares equal to it. Run on the pinned script with claims written here:</p>
 <div class="wide"><div class="tw"><table><thead><tr><th>claimed</th><th>the checker printed</th><th>decided here</th></tr></thead><tbody><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811828</span></td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/sumdiff-ledger.json#/observed/runs[claimed=1.674733895041405870063135756722213999136383713818148696811828]/printed" data-fmt="raw" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>CERTIFIED here (the certificate&#39;s own bound)</td></tr><tr><td><span class="mono">1.674733895041405870063135756722213999136383713818148696811900</span></td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/sumdiff-ledger.json#/observed/runs[claimed=1.674733895041405870063135756722213999136383713818148696811900]/printed" data-fmt="raw" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>not certified here: above the certified lower end at the 58th decimal</td></tr><tr><td><span class="mono">1.6747338950414058800</span></td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/sumdiff-ledger.json#/observed/runs[claimed=1.6747338950414058800]/printed" data-fmt="raw" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>REFUTED here: above the ratio at the 17th significant digit</td></tr><tr><td><span class="mono">1.67473389504140590</span></td><td><span class="w-val w-computed" data-w="computed" data-rec="certs/sumdiff-ledger.json#/observed/runs[claimed=1.67473389504140590]/printed" data-fmt="raw" title="what the claimant's checker printed: its claim, compared in doubles; not a decision">OK</span></td><td>REFUTED here</td></tr></tbody></table></div></div>
 <p>The bound the registry prints is true, and it is decided above without that checker. The point is the checker: <span class="m">C3c &gt;= 1.6747338950414059</span> is false at the seventeenth significant digit, is the same double as the true 60-digit bound, and prints OK. A verifier's last comparison has to be as exact as its enclosure, or the enclosure proves nothing the output line says. The Mosaic Intelligence checkers set the working precision to 80 digits before comparing and do not have this weakness. And one of our own two implementations had its mirror image while this page was built: Python's unary minus on a Decimal rounds to the default context's 28 digits, which moved the first draft's ratio at the 28th digit until the two implementations were compared.</p>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — what the claimant's checker printed: its claim, compared in doubles; not a decision</li></ul></div></section>
 
 <section class="col">
   <div class="sec-head">

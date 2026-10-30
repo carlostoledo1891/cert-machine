@@ -360,6 +360,9 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -650,6 +653,12 @@ ul.plain b{color:var(--ink);font-weight:480}
 .w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
 .w-refused { color: var(--ink-4); font-style: normal; }
 span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
 /* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
    an id that lives in the figure that defines it. */
 /* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
@@ -750,39 +759,11 @@ body.easy{overflow-x:hidden}
 .easy .film .scan{position:absolute;left:0;right:0;top:-2px;height:1px;background:var(--ink);opacity:.45;animation:scan 6s cubic-bezier(.22,1,.36,1) 1.2s 1 both}
 @keyframes scan{from{top:-2px;opacity:.5}to{top:100%;opacity:0}}
 .easy .grain{position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(246,246,248,.025) 0 1px,transparent 1px 3px);opacity:.5}
-/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
-   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
-   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
-   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
-   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
-.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
-.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
-.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
-.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
-.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
-.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
-.easy .stage .fly i b::before{content:"● ";font-size:.8em}
-.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
-.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
-.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
-.easy .stage .fly .vd.r b::before{content:"◆ "}
-.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
-.easy .stage .fly .vd.f b::before{content:"▲ "}
-@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
-@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
-.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
-@media(max-width:960px){
-  .easy .stage{height:300px}.easy .stage .sl{display:none}
-  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
-  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
-  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
-  .easy .stage .decide{width:6.5rem;height:3.5rem}
-}
-@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
-@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
-@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
+/* the stage, a figure (the page's hero, drawn by apps/explained/build.js through playground/warrant.js): the only motion
+   is a point translated along each route (SMIL animateMotion), shown when motion is not reduced; no dash moves */
+.easy .cold .hero{margin-top:var(--s-6)}
+.easy .stg-f{fill:var(--ink-3);visibility:hidden}
+@media(prefers-reduced-motion:no-preference){.easy .stg-f{visibility:visible}}
 /* the stat strip counts up */
 .easy .stats .v[data-count]{font-variant-numeric:tabular-nums}
 /* panels: an instrument the reader touches */
@@ -870,6 +851,41 @@ body.easy{overflow-x:hidden}
 .easy .toykey .w-legend{margin-bottom:var(--s-3)}
 
 /* the Uirapuru story — the easy read's sheet (apps/explained/page.css) plus the forest grids and the asking list */
+/* the stage (moved here from apps/explained/page.css on 2026-10-30, when /explained/ redrew its own stage as a figure;
+   this page's cold open still draws it in HTML and CSS) */
+/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
+   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
+   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
+   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
+   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
+.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
+.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
+.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
+.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
+.easy .stage .fly i b::before{content:"● ";font-size:.8em}
+.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
+.easy .stage .fly .vd.r b::before{content:"◆ "}
+.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
+.easy .stage .fly .vd.f b::before{content:"▲ "}
+@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
+@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
+.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(max-width:960px){
+  .easy .stage{height:300px}.easy .stage .sl{display:none}
+  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
+  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
+  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
+  .easy .stage .decide{width:6.5rem;height:3.5rem}
+}
+@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
+@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
+@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
 .easy .forest{padding:12px 12px 8px}
 .easy .forest svg{display:block;width:100%;height:auto}
 .easy .ask{display:grid;gap:8px;margin:0 0 12px}
@@ -1018,7 +1034,7 @@ body.easy{overflow-x:hidden}
   <p class="cap">Claims about the toy forest, each with the word the machine would give it; the flight through the box is only a picture.</p>
   <div class="film" aria-hidden="true">
     <div class="scan"></div><div class="grain"></div>
-    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at 1eefb31d5ea6"></div>
+    <div class="log" id="log" data-lines="day 1  a claim arrives: a blue Uirapuru lives in patch 7. Nobody has seen one.|day 2  the machine calls every Uirapuru in patch 7: 144 answer|day 2  35 are blue; the bluest at tree 76, 99 on the guide's scale. CERTIFIED, with the bird|day 3  a toucan with a red beak, they say. The machine cannot call toucans. REFUSED, with the reason|day 4  a recording proves the song, available from the authors. REFUSED; the ask is the recording|day 5  this story built; the birds invented, the machine real, at e6e23ec3636f"></div>
   </div>
 </header>
 
@@ -1028,7 +1044,7 @@ body.easy{overflow-x:hidden}
   <div class="stat"><div class="k">birds in patch 7</div><div class="v"><span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">144</span></div><div class="n">a seeded toy; <span class="w-val w-chosen" title="chosen — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn">35</span> of them blue</div></div>
   <div class="stat"><div class="k">toucans called</div><div class="v">∅</div><div class="n">none: it never could, and says so</div></div>
 </div></div>
-<div class="col toykey"><div class="w-legend compact" data-n="3"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div><p class="cap">Plain numbers are the machine's, read from its records. Dotted ones are the toy's: decided exactly, but over one seeded forest, one of all the forests a seed could have drawn. A hatched tree holds a toy, and a toy has no number, so nothing is decided there.</p></div>
+<div class="col toykey"><div class="w-legend compact" data-n="3" data-plus="refused" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="chosen"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item" data-s="refused"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div><p class="cap">Plain numbers are the machine's, read from its records. Dotted ones are the toy's: decided exactly, but over one seeded forest, one of all the forests a seed could have drawn. A hatched tree holds a toy, and a toy has no number, so nothing is decided there.</p></div>
 
 <section class="col" id="act1">
   <div class="sec-head"><div class="act">Act I · <b>the three words a forest can give</b></div><h2>A claim about birds is a sentence the machine can act on.</h2></div>
@@ -1096,7 +1112,7 @@ body.easy{overflow-x:hidden}
       <p class="cap">The counter is the toy's. The real count, 572 tries and 0 false certifications, is in the self-audit, linked at the end.</p>
     </div>
   </div>
-</section>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — the toy's: decided exactly over one seeded forest, one of all the forests a seed could have drawn</li></ul></div></section>
 
 <section class="col" id="act4">
   <div class="sec-head"><div class="act">Act IV · <b>nearly ten quadrillion calls</b></div><h2>Calling every bird is cheap, if you count right.</h2></div>
@@ -1149,7 +1165,7 @@ body.easy{overflow-x:hidden}
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit 1eefb31d5ea6 on 2026-10-30, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>This page is a story. The forest, the birds, the patches and the notebook are invented and seeded, and the instruments decide them in your browser in plain integers; the Uirapuru (Cyphorhinus arada) is a real bird, and its colour here is a number on an invented scale. The real numbers on the page — 132 claims, 572 planted errors, 9.75·10¹⁵ pairs, 65 sentences — were read at build time from the records of the cert-machine repository at commit e6e23ec3636f on 2026-10-30, through the same reader as the easy read. Written with AI assistance (Claude) under a written brief; the verdicts quoted are the machine's.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 <script>
 (function(){
 'use strict';

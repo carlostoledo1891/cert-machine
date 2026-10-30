@@ -143,7 +143,7 @@ need(V.FLOW.includes('flow-scroll'), 'the flow figure did not wrap');
     wordsX: 314, wordsAnchor: 'end', wx: 5, wxGap: 12, witnessAt: (r) => [314, r.y + 10 + 14, 'end'] });
   /* the caption: what the marks mean, the witness's numbers read from the record (W.val: the pointer goes in the span) */
   const RP = (x) => ({ path: x.path, ptr: x.ptr });
-  const legend = W.legendHtml({ compact: true, exclude: [W.DECIDED, W.COMPUTED, W.CHOSEN, W.REFUSED].filter((s) => !used.has(s)) });
+  const legend = W.legendHtml({ compact: true, from: [...used] });   /* the standings the figure's marks use (R20) */
   V.STAGE = C.figure({ hero: true, svgRaw: WIDE, svgNarrowRaw: NARROW, captionRaw:
     'Each claim and its word read from its record: certs/lueker-replay.json, certs/kissing-ledger.json, certs/kissing-wave.json and the Riemann companion\'s two runs. '
     + 'A claim runs in dashed, as printed; what leaves the box is decided; the hedged sentence is refused by the grammar, and nothing leaves the box for it. '
