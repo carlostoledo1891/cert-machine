@@ -1,7 +1,7 @@
 {
   "note": "Recorded layout geometry per built page, with the page's sha256 at recording. tools/check-measure.js refuses any number that grows, and --accept refuses to LOWER a row whose page bytes did not change (a lower read on unchanged bytes is a page measured before it rendered) unless --accept-better. Lower these by fixing the page, never by editing this file. `browser` is the Chrome that recorded these numbers: a layout ruler is a browser measurement, and a whole-baseline shift after an upgrade is the browser, not the pages.",
-  "recorded": "2026-10-29",
-  "browser": "Chrome/156.0.8078.48",
+  "recorded": "2026-10-30",
+  "browser": "Chrome/156.0.8078.74",
   "viewports": [
     1440,
     768,
@@ -19,22 +19,19 @@
         "spines": 20,
         "pageOverflow": 237,
         "escapes": 0,
-        "clipped": 12,
-        "hero": 0
+        "clipped": 12
       },
       "768": {
         "spines": 24,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "1440": {
         "spines": 39,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "sha": "14ebc6590f6deee0721b76d9644d3172c6c4a4c19004ce4ec332a82744df3ae3"
     },
@@ -43,70 +40,61 @@
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "8ad22293145777f3e30d15da5b6c04c76484e40bdbff52ecd7ea0630b02def5a"
+      "sha": "b913eaf3334de2a5c3cf9fd56906eae75e10dfde1f462f4c384e2a02b939a01e"
     },
     "site/apps/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5855076be5619d21f36c455d186766bf377102ed3538a7e0f9af3edea43203b7"
+      "sha": "68e0c19cf64a4638c51578afe75eae04f41b94cf9d50e7e23daec23dadbd3379"
     },
     "site/apps/skyaudit/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "sha": "9d139f1f251e3bef4ce7f5c762b09bdae6b1044cc8eae04dcad4af7d7fd41574"
     },
@@ -115,22 +103,19 @@
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "sha": "503a45e4da67f8598a6eec1f5862e697eb145c4679183d12d106804cf4d6eead"
     },
@@ -139,22 +124,19 @@
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 7,
-        "hero": 0
+        "clipped": 7
       },
       "768": {
         "spines": 25,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 38,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "sha": "185ebe709366f5404071a1b7023505188742e511aa61d0c48bab381c63b1e387"
     },
@@ -163,22 +145,19 @@
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 9,
-        "hero": 0
+        "clipped": 9
       },
       "768": {
         "spines": 26,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 37,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "sha": "47195b9a4b345b6633223ba182c63d5776066c354e0c5348ba534a75b6f086cf"
     },
@@ -187,3072 +166,2688 @@
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 17,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5b3ff45f2d8a98b260daedd8a1a212019e26e62c3226a5877c8d92fcfd7e50da"
+      "sha": "3cf124f22737dc5db1f0d3159afa3d00b006c1a1aefe3a338698a67975dbd6bc"
     },
     "site/eth/index.html": {
       "390": {
-        "spines": 3,
+        "spines": 1,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
-        "spines": 8,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
-        "spines": 10,
+        "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "c279fbe11f97289daa36a3969b3aeee1f277b663c4967c1a8d370c98d0292750"
+      "sha": "02d357f426b9e21bbbd1e5533c809ddf38da8db38f1c498d3800d549cef39b8a"
     },
     "site/explained/index.html": {
       "390": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 23,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "10f7aba52f25d8bbc3c46d8017ec018e494e7502269995d75fe0031ea8ec89e0"
+      "sha": "b6e325e4519343535b49d55e7367121bae147659eb72615aaeaa0705245bba56"
     },
     "site/explained/v1/index.html": {
       "390": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "sha": "fcf27fd4e84bd1d9a53975f292b82089a9159317c7823f177813c341ffd52e68"
     },
     "site/grammar/index.html": {
       "390": {
-        "spines": 5,
+        "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 390
+        "clipped": 2
       },
       "768": {
-        "spines": 8,
+        "spines": 17,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 707
+        "clipped": 1
       },
       "1440": {
-        "spines": 8,
+        "spines": 27,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 1344
+        "clipped": 0
       },
-      "sha": "5e9e6fd023fa57ecbd767c0679f178d82b6bdca391172c156269c8c421a60c19"
+      "sha": "09bce5809cd9f0ad4060d96951609a2f2d0c372c67f2dd3ce3dd645577048164"
     },
     "site/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "f30a17965fe91d5821bb38e39a2358970b64d369d0e95c5b619ed07d11f891ae"
+      "sha": "23659a63f67f8f22502ce5c4ba528fc9aed40b2af01ea60e808d2a7c538af77a"
     },
     "site/instruments/affect/index.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 8,
-        "hero": 0
+        "clipped": 8
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "db1cdfa0cc638e42b868019fff426855f503dc775b1d92ca7eaa9d341ca09fde"
+      "sha": "addf1a35c6c622e14eeb0bc2e45eb136de26b8b6624813b1fd8bb8e992ec2bf0"
     },
     "site/instruments/answer-shape/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 18,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "50fa7cd938e59329fd1dd112680f8ec4fffa5dc8a50e72bad8ae5f8a56c99190"
+      "sha": "d5ee044dd140525ddbc39efe6390e83064c4c29f2d929d522e990cc6a655c20b"
     },
     "site/instruments/blind-spot/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a32f274e339f6c8fd6636a9722831840590b0ae09be2fc53dd455025a2485c78"
+      "sha": "103614690412d75e66d373ae55218ce678d9d5e28a367df081c7d35670401f6d"
     },
     "site/instruments/census/index.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "8f597c2c1a3b9b8143708e74a9f0399d31b22730f2372b5f8fe4261c7f6b4f3d"
+      "sha": "d7979130baa4650f2cce5a64085ab5bd90358acc4ff64e7e6c6838a21e419aed"
     },
     "site/instruments/contours/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "171ac0b55e71d14019053da124805d4ba3488a1b7a8620ae1d99a3d88675e8d8"
+      "sha": "24ab290262a079119d3b3459596b6f77529770db29f6efa033d8490e5c2cbe13"
     },
     "site/instruments/curveset/index.html": {
       "390": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b040ab3e6c2fe6e2bdafe5ae47a28c67e85acbb00a0834faa8f2aa4f7833a132"
+      "sha": "6b5a8108eb20f1962a7053b5dfc5fe66d2247a4bc0c0b43b94aa15a28d45b53f"
     },
     "site/instruments/exact-geometry/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "52c991874858f9fc4d0061b5e63638bdc59664de8dd81d43c3cc54fb425e4733"
+      "sha": "fbe243a6b86cea6ca919a12085ea31906f08ec452eb6ec20870f820a73cc4b28"
     },
     "site/instruments/graph/index.html": {
       "390": {
         "spines": 1,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "920398777923ea3e11911d9b2f259ac19a351fdda217d7123188ad1eddecc0d1"
+      "sha": "87bccc4bef38499bba4e43c6e18a62d358d9ddf6392d1b3e5c3dfaeba15d6a55"
     },
     "site/instruments/index.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "978c109b2b76f00ead6475b83130c878f81e1974bdda8700552a5d08a9cbf849"
+      "sha": "a38898d886d8b0e6108a76fd320f4da86c15dcac191fae8040e9bb6d5f51fda1"
     },
     "site/instruments/interferometer/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "9ca88e2f82095af7b4170b2e6b6f4f64fb702645589e8d975bf1d5ba18a0eeff"
+      "sha": "07af72bef948e049208b4869ab1bbe8ad1c25dbd0f155fc0fb0358339ed94e85"
     },
     "site/instruments/lattice-claims/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "408a1d308eae01af347aa3c5aa319c06256aadb880a23c4ce1e86aa78b83c6b4"
+      "sha": "df7d34035c91a3a33324e8d2a3399c20fc1225406823b7e13ac31c11381c176e"
     },
     "site/instruments/navier-stokes/index.html": {
       "390": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "ce6eeb314cad1f30ce47064becbcd125ba78ba2187f1887e14fd86be33ba2f2e"
+      "sha": "b0b4c5e92d9bfa4a95fb43a08ccf8d5ad1589f5d3864bef7322f6b123da18cd0"
     },
     "site/instruments/neural-geometry/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "dc4bd5406315a89477f17c2a15f784a2a76015b50670d4f1e27656164b2cd82b"
+      "sha": "8e5aef24fecdbb212957c4864f45860ae5478574a34769e9007bf6d483d335ce"
     },
     "site/instruments/occultation/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "aaac7f480e48cbeed48651f513309b9b8e38808dcf7095e6928542af2fcd0aa0"
+      "sha": "e30da205706a26c1093c78c2e81a839499596d9f97acf0743b99ff246a60df8e"
     },
     "site/instruments/plates/index.html": {
       "390": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b581362f39b06a09023be9446c0267fd5347b1a2c392a4699daed59d1ad1fe6c"
+      "sha": "3cf7836c0d3b14919c075ba59581c6c40232bf82cab9764a31914004c71d14b9"
     },
     "site/instruments/pqc/index.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "1793e91102bb8d97d73a78503046033b4836ecce1f9cfd463d510ebbdbbfe174"
+      "sha": "d05c9cc6733d00a169701a7508fb12b50125c085e94c99d3be0beb83289fddca"
     },
     "site/instruments/pu/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5b1bc80130bf40162176358d99093c8368ddd942f87ec2d1a4435f5290a6344e"
+      "sha": "0057006733c136e4c79d718cfe9d35abf82b17bd6400e7a0189cc77e2073efdd"
     },
     "site/instruments/return-level-atlas/index.html": {
       "390": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "e74067b6b813902c0e1d0f248fba4e7ca17bef9ff8ba1cf78d7155b92a3f49c1"
+      "sha": "ae01d48c840a9a3c7e2ddc604fae3f995d351bdf3548846b4eb2d5bfc5e6f2d4"
     },
     "site/instruments/return-level-atlas/map/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "1f4e7c0058e5d0a5376c93eb7461b71c10bf1f7f6bcb8c9236bb8c91a19e3736"
+      "sha": "1649bee2ab8c018bf32617aae9cb27a23a1b0d7606420d6b5f20729bcc734df1"
     },
     "site/instruments/return-level-check/index.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "4829447b9d5497a0c0ad734f3767ef22ef23933c1418dd11012d22bbdc72f93b"
+      "sha": "115c034563f2b03f6f205f1df2aa4dccb8946aaf3f8168034c1482486b64afa3"
     },
     "site/instruments/rewire/index.html": {
       "390": {
         "spines": 1,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b828c442600e48a8f776450a3aa2f85385225c10bac8c8fcce6d1b301ad33510"
+      "sha": "66a68d4168fde1f0867ce6c00cdc6e591caf8e43bc9cdf15830c43e8f8477e61"
     },
     "site/instruments/shape-hunt/index.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "f50e696f98d823d4a0b1e7cc676103e27d424969b1eb14496287a4169c6d3431"
+      "sha": "7c63dbf4e1550d245bfea4da4442af38cf01df1ff3628a95acdf0b289e69a8c3"
     },
     "site/instruments/simplex/index.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "20c4ddd098e428d68385c5498785e2134435a9e302c108d3ae89e69a4857f8ac"
+      "sha": "fa4d920029e586e4ea2592b5ec154f4129c8e9838e0421c9eea4a098fff91728"
     },
     "site/instruments/stereo-reach/index.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b537eda1a6b8c3eb5cb211e50b971c7da3104100fce32b51aa2a746a254da1c9"
+      "sha": "3050527394e82ea53a50e0fd741bb0f099906beaeef77d66303553384877db6e"
     },
     "site/instruments/transit/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b36bd285637c738cc3f6d5a0dc511a1de88ed0ea2d852a91f0272cede32160fd"
+      "sha": "d1511bec3fd2911455c28ecea1f437ac939fc496ff0b13bf0d08be1270797d39"
     },
     "site/janela/index.html": {
       "390": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "329a762ea46462344e3a540e44c72e4cc9ce7d2842ae6b5d6274c8477e3092c6"
+      "sha": "64fb6b8d762726575d7772183313e9b8a17e4db1db06a44771531840c1243eda"
     },
     "site/janela/metodo/index.html": {
       "390": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 27,
-        "hero": 0
+        "clipped": 27
       },
       "768": {
         "spines": 22,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 14,
-        "hero": 0
+        "clipped": 14
       },
       "1440": {
         "spines": 35,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "7c88621e631789596f0112324345779559c294aba7b19184490bf9948e15d029"
+      "sha": "254aefbd6ad72e65e006fba061a770dff43ca5a7b89482f84698e7c35cb7ce67"
     },
     "site/machine/index.html": {
       "390": {
         "spines": 2,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "c9cd8927198c0f0f5f2d3d572a0f37e2f034865121c5a65c6118ad0124247e05"
+      "sha": "455e1f00084d8e210b0599ca1ea6ee7cffc9cfb7603fd206b24d7a17a26c4240"
     },
     "site/machine/log.html": {
       "390": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 10,
-        "hero": 0
+        "clipped": 10
       },
       "768": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 21,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "916ceb5fb39aa74337022b11380ddd8251404a2539fafdd060744cf079baedb4"
+      "sha": "1d6c283f2cc1331025d3f3e7db71423359d6d7f704e6433d929a33a30396b180"
     },
     "site/oracle/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "927512ef54f5204a989a692616b6ca86530a99f6d31d9ef272be3ca0746486e1"
+      "sha": "6443646b43e6f130868598a16532f556f24fd1d30706231f0bcc44092eac0cae"
     },
     "site/papers/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 7,
-        "hero": 0
+        "clipped": 7
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "15565941860cd5c2e455aa76d46968bddde6bbfb4c014cebe3e07177dcfcefe2"
+      "sha": "e2c69b586efbf80c6ae4ab442b9b6f43de781dd2b617165b4886a139a6e28bcc"
     },
     "site/reports/aag.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "472d50ebab7763c3f91085913004277ece744d560ab36af247e5577b76740301"
+      "sha": "eb0c25ba32ad7f9059204a5bdaf9a12bcbfaea0e350c3f3df0da0f51362427eb"
     },
     "site/reports/afg.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "ee89202b04ddf6c50aa6cadbaa6a6b06b9c2eeaa47a3a3af57aa2e8fafc62bc3"
+      "sha": "865050e76790852232a9b116858043770891db42f14d09b2d635dc02c498d7e7"
     },
     "site/reports/agtable.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "497dd77460e22e467504bc9e48c70bb87a417e933f00e840c51342bc9373303c"
+      "sha": "71b0204c4cc0b9fe8ddb59284069fc2200c13e69a5715316aa47aee385960155"
     },
     "site/reports/ai-claims-audit.html": {
       "390": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "627a45f4ffdbd72f778324ca844c3090b1a99c3d5aeac4ee4e7f001a6e176548"
+      "sha": "5c99a65f5dcafb90fd81a3787772c001743a2b26246df787f4f278f2d1abf614"
     },
     "site/reports/alien-science.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "43e08f0d4a8f3dcc92867399d79e5d91511a643fb0badaeab3882c99186190af"
+      "sha": "2ba05a7da18ce5e196aaec4e55b2ce32ec82237f641c6fd2121173ac543fa5cc"
     },
     "site/reports/alphaevolve-community.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "0207aad8afd0a8b219ea9bc6d6ccadae0f3dd8963d1eb9d9fee028812603ce68"
+      "sha": "b8d2ad67a73e5ee8170a12051867332ce1b09b9d6611a9a004503cad972c3780"
     },
     "site/reports/alphaevolve.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "fa31cc1255576273db2be8f31b3667a1dc6026acc6aaf037ec821d0f24e454d1"
+      "sha": "dfec3cc1178ccc08b935f784574d337d098f1338afffdbb234d05b475e3d0fc9"
     },
     "site/reports/alphaproof-nexus.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "bcb404b7c2028afc5785070afac5b1147b323612f3339e34bbb0c8dff89af49b"
+      "sha": "2fd4f05db06a70a8f9195af207269bba7a1224add3cc61a48624fa0159a857aa"
     },
     "site/reports/answer-key.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "e16c05fca8e8472aeb88b9871f1c0f1f62ff8e659d54ca803b17161ec466ff46"
+      "sha": "d29f22e8a341f9717ed7b05fd23e4dfd72c2788561102d7a97d57a0ac40415aa"
     },
     "site/reports/bandeira.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 12,
         "escapes": 0,
-        "clipped": 7,
-        "hero": 0
+        "clipped": 7
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "05181135d5388d5c323ecedde4c75ff93ea2578393aee418e1adf2b5f6a4418b"
+      "sha": "4dbca12061e546bb8cc08b0d31bfdc2a179fa22c7352a6fdb5cdedfa85d03b18"
     },
     "site/reports/breaking-geometry.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "308e1da0b4d12ad2cd85a4beed1bcb0fc4110b6439b06381f86fe15be7c0bd9c"
+      "sha": "59c3d1a218142c20d902fc234b6540486edfeaa8fa2680b460002a9086b4ab8a"
     },
     "site/reports/chvatal-sankoff.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "8d95280304a25cc0a0d2b148e7b7a80183dc3b58c72b81cec2e4fa2931ec5c86"
+      "sha": "312ecf9d4dab26d251f7c735a8fde7db9d551d2fa471aab5261f2ff248973bc6"
     },
     "site/reports/claim-korenblum.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 10,
-        "hero": 0
+        "clipped": 10
       },
       "768": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 18,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a05dd9fff057367f6835534c5ee97761a5da98326634c675557ac530508bee51"
+      "sha": "d0d03b4e710e42cfb41053a8b09e6247ed92a168cd0af136cca55c29163dcbd8"
     },
     "site/reports/claim-lemniscate.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b161af8adee398562b6dcbbb8b43a9c00b95e534480e8d64cf4168f2cb8fbae7"
+      "sha": "f4f4f0624cdcfd82e594d8288e12fc61c4502b319c1bd96cfe6ed2a22fa4944b"
     },
     "site/reports/claim-mathieu.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "089560a7088e1ebb95c77e6649daff5c9ba272dacbd3e240c6679e63ab61b376"
+      "sha": "db5a2a095048e8ee1bf934a7b66117624c201f34ce1c0a821f0d64fba9444c29"
     },
     "site/reports/claim-maxwell.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 7,
-        "hero": 0
+        "clipped": 7
       },
       "768": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 16,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "2c3f7682e16461804c030cb957f9a45f04ec86df7302098767d73bff35fe66b0"
+      "sha": "a8a7d439e9c009ee9f9817097b1b77f91f94d6c13aad135a3a1ad0d2811e8020"
     },
     "site/reports/claim-poisson.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "654e76f25de55c17423576563a147a01e654c0fba7d297b42bf23dabad786b8a"
+      "sha": "593671b2fb7ae4419298afed960568164c2095063e8f31ac213012253aad47fc"
     },
     "site/reports/claim-ranteng.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 11,
-        "hero": 0
+        "clipped": 11
       },
       "768": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b428b3b462663b251525cdd71b8597f131a527c0929add446b8a617e78d717ac"
+      "sha": "bc2348e9e132a571dfa80ec2c99aa0459f3f841049cde33ce71fcf21f2a53994"
     },
     "site/reports/claims.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "fd9c8497342ca5ddbef89be63c2755b58ab5bcd5be2c3963e35a1c5e4321361e"
+      "sha": "62727b320464c03418997ef8893c345ea9c5888be494ef923da1b4a77b811cd2"
     },
     "site/reports/counterexample-machine.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "d641b6da3a7e5393d6c4ecc284e05564e29c87f124a7d5c9a044cda88107e28f"
+      "sha": "4732c83952f4be1f2ea7090e3e592dab34c0cbb5e3a8ac6a862d4678c5d24f7a"
     },
     "site/reports/cryptids.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "e7d5e044b8ba24ff166bf6ec5e72f8ab170f34ba55dd57bedc7ba579548059b3"
+      "sha": "46ab8b4d3f75678ab3cc5d6d7e8c14d90591726443f9e633091aa8933e164a7e"
     },
     "site/reports/curve-seeds.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b667f9a5318495f51ee61eed0e41ad7ec3ce212a35aa3d7a0024f806e06c7b63"
+      "sha": "db69ebe7cfe9cb3422c552c788862e119990deb597f7993777cd3cdc2c008670"
     },
     "site/reports/decided-2026-09.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "570fe510ca46405f984868776e4a6df99b53daa6536c2a15b6032d193d12847e"
+      "sha": "63fa10b831cef0aadfd4538d6ffcfa757de27fe27baa84a55d851e91bb5a56d6"
     },
     "site/reports/decided-2026-10.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a072998e1e34b345c14f2d0ace538fe866ad8af463409cb33a52fdd8e90c4935"
+      "sha": "de005d1d310954d12ed3f0c47d9688cd348493cefd3f2b3bfc4240d19479ce2d"
     },
     "site/reports/delta3.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "3e8535a35d32b9647d3beeb01cab6447d959a09d25cf93bf10c8e20f259ce986"
+      "sha": "bb1e4c9acb4f64d8606fd512b3270c140a62d61e116c153874e0c19c1023c0e4"
     },
     "site/reports/diagonal-ramsey.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5fcdc287c26551bdec89f040fb2bd725aa78e21624831ce6231eb8391d963400"
+      "sha": "7687f3a9df9c283d928f8347fe1c913b95950293dab23ea64faab0e8f10102ba"
     },
     "site/reports/easota.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b21b920ca550ebc2e3e11bcbbcbffc46ea42dcfbb1b8846545462b0057f6d05a"
+      "sha": "f8992cf6616251b4f99a01c6c05c45d6687a27c1c047a8be7754a9e083985e00"
     },
     "site/reports/ec-benchmark.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "2a25d9af28bed938bfd9e8eb091520e983cfb51b656111762d8f0535c2571f31"
+      "sha": "89bba5f1fb8192a3e42fe8b9cc440bedbf10f63da4f1863709298a07688f3952"
     },
     "site/reports/ember.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "280197c3d7b05c1e5161d84b95f5ca92b79892d3f92b5f90510cd13d81ddf729"
+      "sha": "6621bb9dc2e44af5f13f38947b41b7240188a8536ed6d0df00289a6a2b2df9cd"
     },
     "site/reports/entropy.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "c7d1c991aebb69a66c25cc25e8e35c892560c0b635ff59a4b4dfaf27933ed009"
+      "sha": "7919a2f6ae5158922305b5f4642d9ded8d18a7810885cb3bac6465797b97ce55"
     },
     "site/reports/envs.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "877aee9ec30ee80a6d0ce4a8d5e536b738479053a67e3c83cc42949ff08dd2ef"
+      "sha": "0bbe733d40efe37b793f0575c397cb8e078a3e0ea21efd5635d750286f32c356"
     },
     "site/reports/erdos1.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "97fa64152c72b0a5f502122d8cfb70ca18da892f18196955e5f6c49223423fc5"
+      "sha": "a6f0fb5931877fd9af652decc49e785048cd950b3f3362e0bc7aeeb5efe87eb7"
     },
     "site/reports/erdos1038-inf.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "d0383d276d2e03ad0622fdca50deaf2ab44bda6af5d56fc44fa6ba8a4e09d223"
+      "sha": "4dd0a67e26e398b27efd840e69562dcbcfde21c880473464258a301a7982f183"
     },
     "site/reports/erdos1038-sup.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "06959820908458d6c1f7c91d8c511d6d7012a0a923077ca2677f21bcbaf510d2"
+      "sha": "1aa945b2c668654522dd8a06b0b2e52bb9ed404e6f96767c5cc338753aea9c3a"
     },
     "site/reports/erdos290.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "21f21dabc43bebc5bfc317ad990713616934fc26459dfd7511a6af1393ffa9ef"
+      "sha": "219dd994c01d59703391d5960eb138cf6f803a4ef5aa0af25d0ac7d6e3ea8c80"
     },
     "site/reports/erdos852-h.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "1eadd5b19325eea42096bd03d3959bac1607b84f27a881a728ddfd0f4a7a4729"
+      "sha": "3150ee62ffbf0cfd5ad6d0c6a7bcbca4a8141943ebf13752f83665dd8a0ac405"
     },
     "site/reports/erdos852.html": {
       "390": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5e6ed5436a0d879dfb61604a9261d88ecaa0bb7a330552c941bff9406b9dc028"
+      "sha": "90b81a4aad28e34393f135fe840d73cddbcbf312c25996372b80a7a54e97025d"
     },
     "site/reports/evtol-energy.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5f98e80b8c6d102efc83a3ef127186aa538fc7e773619d97efc0d632bf67f905"
+      "sha": "f8e64862075f439094acb0b34961896c71878aa2157a2d88c7cfe5b03f3de6e9"
     },
     "site/reports/forecast-gym.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "672fdafc2cd817b95ceb256b840bdef25da7936c8246d8633796cb41362ba282"
+      "sha": "7da61803e80bf73d83089e6a8f546e4ef2645745c622e7bec3e76e8033852c96"
     },
     "site/reports/frontier.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "f2d4f1eb5f67e7c3907d5f8e842e8cce052fe1e7e16f969717d30ab29ceff9f4"
+      "sha": "98dffeec66f7357e46c6c2ad92abb278874d5af46421a1d3ee3d71b60033d6e2"
     },
     "site/reports/glide-band.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "ab194a769498dfefb39ca03553cc04b4dd865e6191208ae952522cc746009da6"
+      "sha": "74ce6ae89c01179dee43cbb244319e059521c771e2eca6c7763d2f186c0fdaaa"
     },
     "site/reports/gsm8k-audit.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 390
+        "clipped": 3
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 707
+        "clipped": 1
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 1344
+        "clipped": 0
       },
-      "sha": "5cc7ecbca80245145f33ce18634fca55be078994354421ead1ddde54a5c2107c"
+      "sha": "9e147e10fde87e533dc53ec6ead5c4dd13e33cef07e28ffb844378bd5207a9e5"
     },
     "site/reports/gym.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "9628c3d76500ed513da129b17418b476a11267e3e9b2dd340f7be46a6d13b58a"
+      "sha": "6b0f4972c03c6577a2cc055afdb8d50135c252e4128fafd4a65094eb66b42266"
     },
     "site/reports/harbor-proof.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "225830343552407612238982d066c2f8f040106b24e8aa5bc98c48967c9f9233"
+      "sha": "f0153ae3bff1a21eb9e9e5e86aafae56b5ed39ac7fe283d2ce9e1ce57eafe7c9"
     },
     "site/reports/hbar.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "2d0330c8e1fa1fed4157b875a0434f529d248f1155aba89694da289f781a978e"
+      "sha": "7102997555d5cee787c410cb9d572d31c63a534e8884881c84d9a7e0a38c27e6"
     },
     "site/reports/horizonmath.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "648c9e7f19cce54389a45316ac4ef0ce8cacb574305f0136a806f7abe942c8e6"
+      "sha": "62163de041c3739673097161ae5d94509b8aaafba06ff60b5d7d131e0fecae48"
     },
     "site/reports/impostors.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "f32f9f23fe175f8a5f1f0da56c0c784ac673cd4f81521552cb4ef693e54eceed"
+      "sha": "e54226a12ea43cfb711256280fa6d5ca0c043fd82391dd80bf3ccec1a4993c2b"
     },
     "site/reports/index.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "6e89dd89977b6536160773159ea4ea44311db79f910abe15d0631da323163882"
+      "sha": "119a03a383a52225462c0d421b1c815c2446fb23b6cae88e6cfd7f2a7437c87f"
     },
     "site/reports/keller.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "791232c4eb40f1a3f95b4e4d4e1de2fe57be2a43741ce24762c29d4c06f31683"
+      "sha": "6ff9a41f476de0f0826ba7e8259cb5ca56ee5b6ae8a275d57dfddecc91f27360"
     },
     "site/reports/kissing.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 390
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 707
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 1344
+        "clipped": 0
       },
-      "sha": "fee5b8434dee91a7ce70c9a3129693a99e5c862f5a70cf56116ea6beb6526342"
+      "sha": "e6142ac88c9da4a65227ff385729e4d9800bc99f121589d6e9090ec4ee9e1b9f"
     },
     "site/reports/lambda4.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "02bf154c6b627b33d4b0026e6d876c698424f1d4ae32887e167ff24568410a3c"
+      "sha": "ed3ad213765d7db425124ac455f6c59392f0c32101fdea6916cadc60ebe1b0cd"
     },
     "site/reports/lambda5.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "09d19daeefcde90c8bb5d4187197017297de5a6eb738b2c85d79881d88f97997"
+      "sha": "c1038cfd2f4361e2ace988902ef1d514bc9d7a7948df0071cf732507ca6f6d61"
     },
     "site/reports/mathbench.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "2b6586183fc1743b6202b8bfae04f5fafdb498c63ea9bfbb84e26e78def9870c"
+      "sha": "32fdb8e09b5a766b0b78e844a0e49607463c39d98e582579e517d59561a78bdb"
     },
     "site/reports/matmul-additions.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "481c5c734f53cd21d83787479c81ea7ebf2651a87d34f06dc4f3563879fc5427"
+      "sha": "ffde66f8b8b334d84fa776b02b4a3683052562dfdbc9eb886e18553bc606b4a8"
     },
     "site/reports/matmul-eval.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 7,
-        "hero": 0
+        "clipped": 7
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 6,
-        "hero": 0
+        "clipped": 6
       },
       "1440": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
-      "sha": "d8f932672eddbfe92caf64b56a5656eb48e92fbebd2257294e1d914c282b0b59"
+      "sha": "9b4126ca656e7c6e4001695068286673a11e4b94f78cf6cdee61bcd2d4c4af07"
     },
     "site/reports/maxval.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "bec2657ee8d75fc83863e02a55df265828f052e24d500cc428a7e48ad8b7f294"
+      "sha": "fc8d56dcf3cefa42016b4e36eb96408a2b4b9b3e188273411f3b94f0ce8ce4e3"
     },
     "site/reports/mercer-program.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "c6bb875d5da427486d85e0b8a85e285674a7101a9837e93021a7be2cdd1ca07e"
+      "sha": "9363553314b5f1e0ef4806a6ac085025c8b0b3348f1dd587ac32845ef218890a"
     },
     "site/reports/methods-note.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "6c7cd046ef8ef0b1644d663ac880f666c12b3cfe842cc27f4dc9f8b03c4bc71f"
+      "sha": "e1be916de88ba3bd19501a8ef89a5099e89c7152b5d9156490f3e51882f041d5"
     },
     "site/reports/mfg-cap.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "9c89570750dc0c9c532e6127fd370b9f853e91dab8a45cbae2ed570bd41a4a05"
+      "sha": "868fb8c3349c2952cf5aeaf573235e766eb89698adccb2f6337843884ace9119"
     },
     "site/reports/mfg-congest.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "dab10291b626c2afb21c356d989ee59ec8e26184739b8e52047498ad098f9d49"
+      "sha": "25b2971e0301a568597f6cac27cb951d659999b7df6927aa437fbb72de9eb23d"
     },
     "site/reports/mfg-lab.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "485a2f3b8631fad1c1852bb9f23f1cd5a3f3399f159e9d35db0aba027931ce7f"
+      "sha": "99ea6e4e9628a283b82172b784cf53953ddc07df6f57aeb0386d174edb4ead41"
     },
     "site/reports/mfg-observatory.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a8f959e5063321bd7ff84eee1fef28959d32d4d0797c6588a7034e414d83473f"
+      "sha": "671b8dc21352cd57e502f932cfda417d73605189e564c88e8fbc245ffe6b3c8e"
     },
     "site/reports/mfg-two-population.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "6b73cea346af9be9e349f61d4808e88efd987fe3ef326cf42e06ea78a8d20170"
+      "sha": "c46e573764963e83f28bfcaf5801c58b5c6828449023088573e461de9177553e"
     },
     "site/reports/monoflow.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "329d386f6532571a4843c450fc2853e90fb218a6fa07f6a12c9c52fcdd2479df"
+      "sha": "b2fc3881d8d4be0e811b51b8023a44791fa10dc04d8dc9c3dfb33ce73f13f4c1"
     },
     "site/reports/navier-stokes.html": {
       "390": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 10,
-        "hero": 0
+        "clipped": 10
       },
       "768": {
         "spines": 16,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "1440": {
         "spines": 19,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "ad6674c99b1942997657d82699a0b543f40422bd222c80e908630b2bedce0136"
+      "sha": "d1303361086b250b510f96ee5ea89943538845464c244e9cc1e74e28749bb6e1"
     },
     "site/reports/openai-math.html": {
       "390": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 6,
-        "hero": 0
+        "clipped": 6
       },
       "768": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "8d8c1acd2bb16ae17afe6ff4860f71eaa85b2f6da89d6880330f9936decdad58"
+      "sha": "39f65a33ed49b1dffe1cf29d33ca5b1eb9d190a5c99abbd3a690151fd3334be1"
     },
     "site/reports/optconst-queue.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 285,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "5eacce9fd1b2b10807346c04c208882ff04baa17617a12300f6b7c2dddbfc444"
+      "sha": "947062c945e4b363a6b7906e2147f72492d027650134a99e8d3f95457637c66b"
     },
     "site/reports/optimization-constants.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "7446026119ba7598008f2c286af3cad5f57e13480f1550f64a73d39c9bb07fdf"
+      "sha": "b4e93c72e5e2666c6d1ffeaab7eb64ee79673269abc1cc87c3cfd5a7b1756420"
     },
     "site/reports/polymaps.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "6c822833d27ea1a3f4e79ca688292dac0a023f28b020a7439066876935816ffa"
+      "sha": "1ed4fb4606aa4c0a24f6c824457247e8474201106282fb0426147385768d6454"
     },
     "site/reports/polynomial-multiplication.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "47c518c5233c366d2e5d72799ed40d33e994c5163ea9cc94a84b586a7f7782cb"
+      "sha": "9b428fec060d88e32487f670d8e806ec1fde80522d426136f59e671aaebe405b"
     },
     "site/reports/price.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "1571dfcfc71d19d0036923d5c6dbfaccf06266a5d8168d295b42aa5ae0885e8b"
+      "sha": "8edbc4ed9dacb5b358aaf2d7928c6bacf446612beddb7519f060db61e708e54e"
     },
     "site/reports/pu-verificado.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "27ad740d65efe4e550cda63e507154421d0ad344faef34183eba37a9ce7a1d29"
+      "sha": "644af1b8691d50e68320a145e7030108c277768d8efd6c3ce912c0bc0c7b3b1a"
     },
     "site/reports/ramsey-graphs.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "9e5e116e838cadd1ba0a255576876390a03f4e948b44d2dc2e5b21c46df0f9b3"
+      "sha": "47d7791c6d4ca4f8f0c56cf24a537c87cefb478ed8da77b4f401f93bf93b2005"
     },
     "site/reports/refusals.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "bc81d771e9c6594dc38be0be71198645b285b326c08e240e925362f8b3dbf758"
+      "sha": "077f7799a2c2600584f85f0fdae7c4e8a68a9334c2d6e3faf4f28ba42fc1ad3c"
     },
     "site/reports/regatlas.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "fee30252470101d370bdf0f110ed480a46b8f557eb4ac6de71ff4db54513bfaf"
+      "sha": "117494831ea448f2f42dcdbc97ded32a72d710df106d19fbfafc715e8ba67903"
     },
     "site/reports/rerun.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "486f4247a6f5477001e41678bcf09c9aaacecc30bd74312c1d09c5f3bde285b3"
+      "sha": "5de5a3c7013a8d467f2410bdccc740c37258d9ef84994c5b87a0fdf354d12b9d"
     },
     "site/reports/return-levels.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 8,
-        "hero": 0
+        "clipped": 8
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 5,
-        "hero": 0
+        "clipped": 5
       },
       "1440": {
         "spines": 15,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "1f4378565028e320bd69e07c464c2cc9930d8976e429f5d8ebe2aa2ab733d7d5"
+      "sha": "509ca6a47a8c9717ade9e5962d86c3757cc37b0169047bdea3c0c17826bf09a3"
     },
     "site/reports/rm-audit.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "8a36dd3555f13cecbcb4543c4199414d761b472b4984f7e51ef8d33c2fd578fe"
+      "sha": "8ea01742cb213c8a8da941ad360765d27f580d8b3c595fcee95710b72b05b25c"
     },
     "site/reports/selfaudit.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
-      "sha": "b51f99e30dcaa1702b75a329f3ad0480261065f676ca6c3f392b87418274a775"
+      "sha": "383403c53d781b8a47d85e686f3411fda97768224035a98aa142d021f906feb7"
     },
     "site/reports/skyaudit.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a738617e173a32184682df7cdccf6b94bc2a69062b020a3337306dc0bd824a96"
+      "sha": "8e08e556e80cbf4ca09ef8f37a99deee6dc0fb3a4adfa737345738d71501f91b"
     },
     "site/reports/tensor-rank-bounds.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "6accd0c38fb2f83e492ea767b5c97ee5359f89f8580023f00d637b608494d746"
+      "sha": "b3c7cdc7454eefb3cd851ea1c5793b8dea95bcd99064dcc7abdc63dbd2e6fb27"
     },
     "site/reports/terra.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "ba578defcb20753eca77be6cbd56fc10eef3440b58a26dc4a8f435680c9ec369"
+      "sha": "eb36acbefa2b4411d43e835e42beeaddf49e4cbea34b169af756b1c967a0d7b4"
     },
     "site/reports/time-horizon.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 390
+        "clipped": 3
       },
       "768": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 707
+        "clipped": 3
       },
       "1440": {
         "spines": 11,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 1344
+        "clipped": 0
       },
-      "sha": "7e35537f51b00017fa3b71a01f35c80b51ca2155c4540d0061268c5aa7cc0967"
+      "sha": "2f5ed18b3d17d228696e2a92bcc17bc0d4b9522dddb60d27e8d2c785b9ef1396"
     },
     "site/reports/verifier-loop.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 10,
-        "hero": 0
+        "clipped": 10
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 10,
-        "hero": 0
+        "clipped": 10
       },
       "1440": {
         "spines": 14,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "dbd0a5aa6c048274f3d15e8a80cca086f07387177a23a98d0d72fd4a781ad9c9"
+      "sha": "d502c6193f8a83a612632291186b102d36460cf39e29ab94ef89ed0a8e5f0e31"
     },
     "site/reports/verify-lemniscate.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "7e46c556a0bbe3f45398315579b48d02fe21d8f5b616850d57b2f9e299dcb115"
+      "sha": "8aee351c71a0b41093131d082cd4cfdb4926b3778c68a8f48dae1cab6e496b73"
     },
     "site/reports/wardrop-repro.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "4792db48951c513a9a99a643516fab9874386c659de1dd103089bdb4ab6790cf"
+      "sha": "2f59cb32af81c399efa32fef2af60c920ddd95e5d1e464c0d3ee0767ab249e45"
     },
     "site/reports/water-value.html": {
       "390": {
         "spines": 3,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "768": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "1e85abed273af3ac9c53ab81ff20c1aebb3e4a4fd3f3109da2c18c1dde1408ed"
+      "sha": "ab42f07afdb19a806d172370b4a86486da52c4744b4ec8823f226dcdc0a919ce"
     },
     "site/reports/wowii-counterexamples.html": {
       "390": {
         "spines": 4,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 8,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "89abbf0f0232c57c6c4c249f833767a098de36d653a48c3b6724408a6577e63b"
+      "sha": "ed29ebb7f7c396e23660e6208ccab775de2b520342696d7e6a1a4146b2a53c1b"
     },
     "site/reports/zeta-hankel.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 3,
-        "hero": 0
+        "clipped": 3
       },
       "768": {
         "spines": 9,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 12,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "f79e99253514dc996b215440828f2c259a26dff3ef6de59642ea58538661c508"
+      "sha": "759fd4275eb3a48bd9ac5638346c3b8f006c47aed308fca3084decd391cc9371"
     },
     "site/reports/zeta3-audit.html": {
       "390": {
         "spines": 5,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "1440": {
         "spines": 7,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "a68e536f46e95b784cf14a86de97b655b1c57cb365a4f77ebe0ca792de2178ae"
+      "sha": "e9fcdb314a957cd4d8e25d8f277cdf3656a591ba1d8c71a4067ae5d85fda2c11"
     },
     "site/reports/zeta7-anand.html": {
       "390": {
         "spines": 6,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 4,
-        "hero": 0
+        "clipped": 4
       },
       "768": {
         "spines": 10,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 2,
-        "hero": 0
+        "clipped": 2
       },
       "1440": {
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "b06386e1d3ee2ae06ba70da2a199bb88548a4dfc67a4fdd0ab17b7ce791a4953"
+      "sha": "bd8f257a22a3ffdedd8aaadfb858814e67f95120dd1e3a4abb60792354aaa663"
     },
     "site/swell/index.html": {
       "390": {
@@ -3283,24 +2878,21 @@
         "spines": 13,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 1,
-        "hero": 0
+        "clipped": 1
       },
       "768": {
         "spines": 18,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
       "1440": {
         "spines": 27,
         "pageOverflow": 0,
         "escapes": 0,
-        "clipped": 0,
-        "hero": 0
+        "clipped": 0
       },
-      "sha": "03267e2090f95680e5bccc51fb2773dab6750dbf425b7e28e7393079e97f88e4"
+      "sha": "224d54aa9ccbeff852622164d89cfc4a056d089a482199147cfe803a87ff82b2"
     }
   }
 }

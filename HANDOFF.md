@@ -22,12 +22,19 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ A POD IS BILLING (2026-10-29 23:18Z): 69d9t7dxjffo6n (cpu3m 16 vCPU / 128 GB, EU-CZ-1, US$0.88/h, cap US$15) runs
+  ◆ (DONE 2026-10-30 ~01:00Z, pod deleted) 69d9t7dxjffo6n (cpu3m 16 vCPU / 128 GB, EU-CZ-1, US$0.88/h, cap US$15) runs
      OpenAI's leanchecker --fresh (FRESH_ONLY=1 CLAIMS=openai at d61b2007). The ceiling is GONE: it placed at once after
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
-  ◆ 2026-10-30 ~01:00 UTC — THE GRAMMAR PAGE REDRAWN, A SPECIMEN ON BRANCH grammar-visual (pushed, NOT merged; 62f067fc):
+  ◆ 2026-10-30 ~01:20 UTC — MERGED AND LIVE on the operator's "Approve and merge, this is the path I was looking for. We can
+     keep going": /grammar/ as the visual page (merge d7bf86a7; the ruler recorded its card grids with --accept-worse, Swell's
+     row kept). CORRECTION the operator made: NO commit links or hashes on public cards (they pointed to commits whose
+     messages talk about the roundtable): a fix is cited by its date only, and nothing is added to a page that was not asked.
+     ETH: OpenAI's leanchecker --fresh REPLAYED (exit 0, 2,896 s) on pod 69d9t7dxjffo6n, deleted (~US$1.45); both claims now
+     carry the third replay; the TSavo/bridge records' "not run" sentences re-recorded from the kernel record; /eth/ updated.
+     NOTHING IS BILLING. Grammar next: the operator's word on what to keep going with.
+  ◆ (superseded by the entry above) THE GRAMMAR PAGE REDRAWN, A SPECIMEN ON BRANCH grammar-visual (pushed; 62f067fc):
      the operator: "the page is high on text and poor on visuals … we do not show the components? we do not illustrate the
      rules? the color laws?". /grammar/ now: the hero = the whole grammar in one figure (√x near 0: void, enclosure, float
      curve, knots, chosen segments, the ×); the four marks as cards; the meet drawn as an algebra; a gallery of the live
