@@ -27,6 +27,19 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ 2026-10-30 ~01:00 UTC — THE GRAMMAR PAGE REDRAWN, A SPECIMEN ON BRANCH grammar-visual (pushed, NOT merged; 62f067fc):
+     the operator: "the page is high on text and poor on visuals … we do not show the components? we do not illustrate the
+     rules? the color laws?". /grammar/ now: the hero = the whole grammar in one figure (√x near 0: void, enclosure, float
+     curve, knots, chosen segments, the ×); the four marks as cards; the meet drawn as an algebra; a gallery of the live
+     components with the call that draws each; all 16 rules + 2 rulings as before/after drawings with their fixes; the
+     colour law with real swatches (ink ramp, the one red, four kinds, the validator's failed pair #3d8ac8/#9070c8 vs the
+     re-stepped one, computed by design/colour.js); the premise ladder drawn; the companion's figures as "issues and
+     fixes"; axioms + rules in progress; the checks. Drawings in tools/build-grammar-plates.js (no invented data). Gates
+     green but the ruler: grammar spines 8 → 27 @1440 (the card grids) — `node tools/check-measure.js --accept --accept-worse`
+     once the operator approves, then merge into main, `make page`, push. The census was blessed for 5 specimen values.
+  ◆ 2026-10-30 ~00:50 UTC — THE HERO AT THE CONTAINER'S WIDTH, LIVE (66eeac5b, 36deefc0): the operator, "I do not like the
+     hero big images/charts concept. It must have the same default width of the content below". The bleed, LAYOUT.hero
+     and check-measure's hero-width ratchet are gone; one hero per page and its × first stay (check-wiring).
   ◆ RULED 2026-10-30 ~00:30 UTC (the operator): "The grammar page and companion should [be] only one. Never citing the
      roundtable, this is internal. You can cite issues and solutions." DONE: /grammar/roundtable/ taken down (builder and
      page removed, 301 to /grammar/ in vercel.json, baselines' rows dropped), the link off /grammar/, and the word scrubbed
