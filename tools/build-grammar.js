@@ -41,6 +41,7 @@ const { mstUnique } = require(path.join(ROOT, 'playground', 'mst.js'));
 const COL = require(path.join(ROOT, 'design', 'colour.js'));
 const CG = require(path.join(__dirname, 'check-grammar.js'));
 const PL = require(path.join(__dirname, 'build-grammar-plates.js'));
+const GAL = require(path.join(__dirname, 'build-grammar-gallery.js'));
 const GITHUB = 'https://github.com/carlostoledo1891/cert-machine';
 const esc = C.esc, escAttr = C.escAttr;
 
@@ -149,15 +150,12 @@ function html() {
   const P = (f, x, y) => f.px(x).toFixed(1) + ',' + f.py(y).toFixed(1);
   const STROKE_WORD = { [W.DECIDED]: 'solid', [W.COMPUTED]: 'dashed', [W.CHOSEN]: 'dotted', [W.REFUSED]: 'the void' };
 
-  /* THE HERO (D12): the whole grammar in one figure, the page's one figure drawn past the container. √x near zero:
-     for x < 0 there is no real root, and the void is drawn; on [0, 4] the decided enclosure, eight steps of 1/2 checked
-     by squaring, as two staircases whose edges round AWAY from the curve (rule 8 in pixels); the float curve; the exact
-     knots, and the straight segments between them, one curve of many, so their meet is chosen; and the × where the
-     segments break the claim to be √x. Every standing is in it, each labelled directly, and the × is the first a reader
-     meets, at least as heavy as the decided marks (tools/check-wiring.js reads both from the built page). */
-  const HERO = { w: 1000, h: 440, padL: 56, padR: 28, padT: 24, padB: 52, x0: -0.25, x1: 1.25, y0: 0, y1: 1.3 };
-  const HERO_N = { w: 400, h: 460, padL: 38, padR: 12, padT: 20, padB: 44, x0: -0.25, x1: 1.25, y0: 0, y1: 1.3 };
-  const HERO_DECIDED = 2, HERO_WX = { size: 11, width: 3.5 }, HERO_WX_N = { size: 8, width: 3 };
+  /* THE HERO PAIR (2026-10-30): the same numbers twice, on one frame. Left, as a plotting library draws them: every
+     line in one ink at one weight, nothing to the left of zero. Right, in WARRANT: the void, the enclosure, the float
+     curve, the exact knots and the chosen segments, each labelled, and the × where the segments break their claim to
+     be √x. The × is the first a reader meets on the page, at least as heavy as the decided marks (tools/check-wiring.js).
+     `layers` draws the WARRANT panel one standing at a time for the four frames under the hero. */
+  const HERO_DECIDED = 2, HERO_WX = { size: 11, width: 3.5 }, HERO_WX_N = { size: 9, width: 3 };
   guard('the hero\'s × is drawn thinner than its decided marks (a witness is an event at the figure\'s scale)', HERO_WX.width >= HERO_DECIDED && HERO_WX_N.width >= HERO_DECIDED);
   const HX1 = fr(5, 4), inView = KNOTS.filter(([x]) => fnum(x) <= fnum(HX1)), nextK = KNOTS[inView.length];
   /* where the last segment in view leaves the window, exactly: on the line from the last knot in view to the next */
@@ -168,56 +166,75 @@ function html() {
   guard('a step of the enclosure in the hero leaves the window it is drawn in', cellsIn.length >= 3 && fnum(cellsIn[cellsIn.length - 1].hi) < 1.3);
   const stairIn = (f, key) => { const dir = key === 'hi' ? -1 : 1;
     return 'M' + cellsIn.map((c, i) => (i ? 'V' + away(f.py(fnum(c[key])), dir) : away(f.px(fnum(c.x0)), -1) + ',' + away(f.py(fnum(c[key])), dir)) + 'H' + away(f.px(fnum(c.x1)), 1)).join(''); };
-  { const f = CH.frame(HERO);
+  const HP = { w: 500, h: 380, padL: 44, padR: 18, padT: 34, padB: 46, x0: -0.25, x1: 1.25, y0: 0, y1: 1.3 };
+  const HPN = { w: 400, h: 330, padL: 38, padR: 12, padT: 32, padB: 42, x0: -0.25, x1: 1.25, y0: 0, y1: 1.3 };
+  const FRP = { w: 300, h: 220, padL: 30, padR: 10, padT: 14, padB: 30, x0: -0.25, x1: 1.25, y0: 0, y1: 1.3 };
+  { const f = CH.frame(HP);
     guard('an edge of the hero\'s enclosure is drawn inside its record (the paths round outward to a tenth of a pixel)',
       cellsIn.every((c) => Number(away(f.py(fnum(c.hi)), -1)) <= f.py(fnum(c.hi)) && Number(away(f.py(fnum(c.lo)), 1)) >= f.py(fnum(c.lo)))); }
-  const WXTXT = ['x = ' + fstr(WX) + ': the segment reads ' + fstr(WY) + ',', 'and (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX)];
-  const heroFig = (() => {
-    const draw = (Gm, wxo, r, L) => {
-      const f = CH.frame(Gm), hh = PL.hatch();
-      const seg = 'M' + inView.concat([[HX1, exitY]]).map(([x, y]) => P(f, fnum(x), fnum(y))).join('L');
-      const lab = ([x, y], tx, cls, anchor) => CH.txt(f.px(x), f.py(y), tx, cls, anchor);
-      const q = (v, tt) => ({ v, t: tt });
-      const vx0 = f.px(-0.25), vx1 = f.px(0);
-      return CH.open({ w: Gm.w, h: Gm.h, alt: 'The whole grammar in one figure, the square root of x near zero: left of zero a hatched void, because no real root exists there; an enclosure of the root as two solid staircases; the dashed float curve; three exact knots as solid points with dotted straight segments between them; and a red cross at x one half, where the segment reads two thirds, which squares to four ninths, not one half.' })
-        + '\n' + hh.def
-        + '\n' + CH.axes(f, { yTicks: [q(0, '0'), q(0.5, '1/2'), q(1, '1')], xTicks: [q(0, '0'), q(0.25, '1/4'), q(0.5, '1/2'), q(0.75, '3/4'), q(1, '1'), q(1.25, '5/4')], xLabel: 'x' })
-        + '\n' + PL.voidRect(hh, vx0, f.T, vx1 - vx0, f.ph)
-        + '\n    <rect x="' + (vx0 + 3).toFixed(1) + '" y="' + (f.T + f.ph * 0.42 - 22).toFixed(1) + '" width="' + (vx1 - vx0 - 6).toFixed(1) + '" height="48" rx="4" fill="var(--paper)"/>'
-        + '\n' + CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42, '∅', 't-lab', 'middle')
-        + '\n' + CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42 + 18, L.voidT, 't-note', 'middle')
-        + '\n    <path d="' + stairIn(f, 'hi') + '" ' + W.attrs(W.DECIDED, { width: 1.4 }) + '/>'
-        + '\n    <path d="' + stairIn(f, 'lo') + '" ' + W.attrs(W.DECIDED, { width: 1.4 }) + '/>'
-        + '\n    <polyline points="' + flo.filter(([x]) => x <= 1.25).map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.8 }) + ' stroke-linejoin="round"/>'
-        + '\n    <path d="' + seg + '" ' + W.attrs(MEET, { width: 3 }) + '/>'
-        + '\n' + inView.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="' + r + '" class="w-decided" fill="var(--ink)" stroke-width="' + HERO_DECIDED + '"/>').join('\n')
-        + '\n' + W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo)
-        + '\n' + (L.wx2 ? lab(L.wx, WXTXT[0], 't-lab', 'start') + '\n' + lab(L.wx2, WXTXT[1], 't-lab', 'start') : lab(L.wx, WXTXT.join(' '), 't-lab', 'start'))
-        + '\n' + lab(L.enc, L.encT, 't-note', 'end')
-        + '\n' + lab(L.dec, L.decT, 't-note', 'start') + '\n' + lab(L.dec2, L.decT2, 't-note', 'start')
-        + '\n' + lab(L.com, L.comT, 't-note', 'end')
-        + '\n' + lab(L.cho, L.choT, 't-note', 'start')
-        + '\n' + CH.close;
-    };
-    const svg = draw(HERO, HERO_WX, 7, { voidT: 'x < 0 · refused', wx: [0.55, 0.47],
-      enc: [1.24, 1.262], encT: 'an enclosure: √x lies between the staircases · decided, solid',
-      dec: [0.27, 0.44], decT: '√(1/4) = 1/2', dec2: [0.27, 0.40], decT2: 'decided, solid',
-      com: [0.80, 0.955], comT: 'Math.sqrt · computed',
-      cho: [0.66, 0.635], choT: 'a straight segment, one curve of many · chosen, dotted' });
-    const svgN = draw(HERO_N, HERO_WX_N, 5, { voidT: 'x < 0', wx: [0.30, 0.25], wx2: [0.30, 0.18],
-      enc: [1.24, 1.262], encT: 'the enclosure · decided',
-      dec: [0.27, 0.42], decT: 'a knot', dec2: [0.27, 0.36], decT2: 'decided',
-      com: [0.98, 1.06], comT: 'Math.sqrt · computed',
-      cho: [0.56, 0.64], choT: 'a segment · chosen' });
-    /* R30: the guard above that would stop it; no record line (R23), since √x is decided here and no record holds it */
-    return C.figure({ svgRaw: svg, svgNarrowRaw: svgN, hero: true, stop: WITNESS_STOP, captionRaw: '<span class="gr-k">the whole grammar, in one figure</span>'
-      + 'y = √x near zero. <b>Decided</b>, solid: the enclosure, ' + numword(STEPS) + ' steps of width 1/2, each an integer square root over ' + Q + ' checked by squaring, its edges moved away from the curve to the next tenth of a pixel; and the knots where √x is exact (' + KNOTS.map(([x]) => fstr(x)).join(', ') + '). '
-      + '<b>Computed</b>, dashed: Math.sqrt at ' + fmt(NPTS) + ' points (all ' + fmt(inside) + ' inside the enclosure; comparing two doubles is exact). '
-      + '<b>Chosen</b>, dotted: the straight segments between the knots, one curve of the infinitely many through them, so ' + m('W.meet(DECIDED, DECIDED, CHOSEN)') + ' is ' + esc(W.NAME[MEET].toLowerCase()) + '. '
-      + '<b>Refused</b>: for x &lt; 0 there is no real root, and nothing is drawn but the void. '
-      + 'Drawn solid, the segments would claim to be √x, and that claim has a counterexample, exhibited and decided here: '
-      + W.witness('the exhibited counterexample') + ' at x = ' + fstr(WX) + ' the segment reads ' + fstr(WY) + ', and (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX) + '.' });
-  })();
+  const WXTXT = ['the segment at x = ' + fstr(WX), 'reads ' + fstr(WY) + ', and', '(' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX)];
+  const q = (v, tt) => ({ v, t: tt });
+  const heroAxes = (f, sparse) => CH.axes(f, { yTicks: [q(0, '0'), q(0.5, '1/2'), q(1, '1')], xTicks: (sparse ? [q(0, '0'), q(0.5, '1/2'), q(1, '1')] : [q(0, '0'), q(0.25, '1/4'), q(0.5, '1/2'), q(0.75, '3/4'), q(1, '1'), q(1.25, '5/4')]) });
+  const eb = (x, y, s) => '    <text x="' + x + '" y="' + y + '" class="gx-eb" font-size="11">' + esc(s) + '</text>';
+  /* the usual panel: the same five layers, one ink, one weight, nothing left of zero */
+  const plainPanel = (Gm) => {
+    const f = CH.frame(Gm), A = GAL.PLAIN;
+    const seg = 'M' + inView.concat([[HX1, exitY]]).map(([x, y]) => P(f, fnum(x), fnum(y))).join('L');
+    return [heroAxes(f), '    <text x="8" y="16" class="gx-eb" font-size="11">as usually drawn</text>',
+      '    <path d="' + stairIn(f, 'hi') + '" ' + A + '/>', '    <path d="' + stairIn(f, 'lo') + '" ' + A + '/>',
+      '    <polyline points="' + flo.filter(([x]) => x <= 1.25).map(([x, y]) => P(f, x, y)).join(' ') + '" ' + A + '/>',
+      '    <path d="' + seg + '" ' + A + '/>',
+      inView.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="4" fill="var(--ink-2)"/>').join('\n'),
+      CH.txt(f.px(1.24), f.py(0.06), 'five lines, one ink', 't-note', 'end')].join('\n');
+  };
+  /* the WARRANT panel; L holds the labels, `layers` the standings drawn so far (the frames), `wx` the witness */
+  const warrantPanel = (Gm, L, layers, wxo) => {
+    const f = CH.frame(Gm), hh = PL.hatch(), has = (s) => layers.includes(s);
+    const seg = 'M' + inView.concat([[HX1, exitY]]).map(([x, y]) => P(f, fnum(x), fnum(y))).join('L');
+    const lab = ([x, y], tx, cls, anchor) => (tx ? CH.txt(f.px(x), f.py(y), tx, cls, anchor) : '');
+    const vx0 = f.px(-0.25), vx1 = f.px(0), out = [hh.def, heroAxes(f, L.sparse)];
+    if (L.eb) out.push('    <text x="8" y="16" class="gx-eb" font-size="11">' + esc(L.eb) + '</text>');
+    if (has(W.REFUSED)) out.push(PL.voidRect(hh, vx0, f.T, vx1 - vx0, f.ph),
+      '    <rect x="' + (vx0 + 3).toFixed(1) + '" y="' + (f.T + f.ph * 0.42 - 22).toFixed(1) + '" width="' + (vx1 - vx0 - 6).toFixed(1) + '" height="' + (L.voidT2 ? 48 : 34) + '" rx="4" fill="var(--paper)"/>',
+      CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42, '∅', 't-lab', 'middle'), L.voidT2 ? CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42 + 18, L.voidT2, 't-note', 'middle') : '');
+    if (has(W.DECIDED)) out.push('    <path d="' + stairIn(f, 'hi') + '" ' + W.attrs(W.DECIDED, { width: 1.4 }) + '/>', '    <path d="' + stairIn(f, 'lo') + '" ' + W.attrs(W.DECIDED, { width: 1.4 }) + '/>');
+    if (has(W.COMPUTED)) out.push('    <polyline points="' + flo.filter(([x]) => x <= 1.25).map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.8 }) + ' stroke-linejoin="round"/>');
+    if (has(W.CHOSEN)) out.push('    <path d="' + seg + '" ' + W.attrs(MEET, { width: 3 }) + '/>');
+    if (has(W.DECIDED)) out.push(inView.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="' + (L.r || 5) + '" class="w-decided" fill="var(--ink)" stroke-width="' + HERO_DECIDED + '"/>').join('\n'));
+    if (wxo) out.push('    <line x1="' + (f.px(fnum(WX)) + 8).toFixed(1) + '" y1="' + (f.py(fnum(WY)) + 8).toFixed(1) + '" x2="' + (f.px(L.wx[0]) - 2).toFixed(1) + '" y2="' + (f.py(L.wx[1]) + 6).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>',
+      W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo), ...WXTXT.map((tx, i) => lab([L.wx[0], L.wx[1] - i * L.wxStep], tx, L.wxCls, 'start')));
+    if (has(W.DECIDED)) out.push(lab(L.enc, L.encT, 't-note', 'end'), lab(L.dec, L.decT, 't-note', 'start'));
+    if (has(W.COMPUTED)) out.push(lab(L.com, L.comT, 't-note', 'end'));
+    if (has(W.CHOSEN)) out.push(lab(L.cho, L.choT, 't-note', 'start'));
+    return out.filter(Boolean).join('\n');
+  };
+  const ALL = [W.DECIDED, W.COMPUTED, W.CHOSEN, W.REFUSED];
+  const LW = { eb: 'in warrant', voidT2: 'refused', wx: [0.64, 0.44], wxStep: 0.075, wxCls: 't-lab',
+    enc: [1.24, 1.255], encT: 'enclosure · decided', dec: [0, 0], decT: '',
+    com: [0.47, 0.80], comT: 'Math.sqrt · computed', cho: [0.80, 0.745], choT: 'segments · chosen' };
+  const LN = { eb: 'in warrant', voidT2: '', sparse: true, wx: [0.62, 0.44], wxStep: 0.085, wxCls: 't-note', r: 4.5,
+    enc: [1.24, 1.255], encT: 'enclosure · decided', dec: [0, 0], decT: '',
+    com: [0.47, 0.95], comT: 'float · computed', cho: [0.78, 0.70], choT: 'segment · chosen' };
+  const heroSvg = CH.open({ w: 1040, h: HP.h, alt: 'The square root of x near zero, drawn twice. Left, as a plotting library draws it: five lines in one ink, nothing to the left of zero. Right, in WARRANT: left of zero a hatched void, because no real root exists there; an enclosure of the root as two solid staircases; the dashed float curve; three exact knots as solid points with dotted straight segments between them; and a red cross at x one half, where the segment reads two thirds, which squares to four ninths, not one half.' })
+    + '\n<g>' + plainPanel(HP) + '</g>\n<g transform="translate(540,0)">' + warrantPanel(HP, LW, ALL, HERO_WX) + '</g>\n' + CH.close;
+  const heroSvgN = CH.open({ w: 400, h: 2 * HPN.h + 16, alt: 'The square root of x near zero, drawn twice, one above the other: first as a plotting library draws it, five lines in one ink; then in WARRANT, the void, the solid enclosure, the dashed float curve, the dotted segments between exact knots, and a red cross where a segment breaks its claim to be the square root.' })
+    + '\n<g>' + plainPanel(HPN) + '</g>\n<g transform="translate(0,' + (HPN.h + 16) + ')">' + warrantPanel(HPN, LN, ALL, HERO_WX_N) + '</g>\n' + CH.close;
+  /* R30: the guard above that would stop it; no record (R23): √x is decided here and no record holds it */
+  const heroFig = C.figure({ svgRaw: heroSvg, svgNarrowRaw: heroSvgN, hero: true, stop: WITNESS_STOP, source: 'built: y = √x, decided in exact rationals as this page is built', captionRaw:
+    '<span class="gr-k">the same numbers, drawn twice</span>y = √x near zero. On the left every line looks alike, and nothing says which one is the proof. On the right each says what it rests on: '
+    + 'the enclosure is <b>decided</b>, the float curve <b>computed</b>, the straight segments <b>chosen</b>, and left of zero, where no real root exists, the void is <b>refused</b>. '
+    + 'Drawn solid, the segments would claim to be √x; at x = ' + fstr(WX) + ' that claim breaks ' + W.witness('the exhibited counterexample') + ': (' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX) + '.'
+    + '<details class="gx-more"><summary>The figure in full</summary>'
+    + '<b>Decided</b>, solid: the enclosure, ' + numword(STEPS) + ' steps of width 1/2, each an integer square root over ' + Q + ' checked by squaring, its edges moved away from the curve to the next tenth of a pixel; and the knots where √x is exact (' + KNOTS.map(([x]) => fstr(x)).join(', ') + '). '
+    + '<b>Computed</b>, dashed: Math.sqrt at ' + fmt(NPTS) + ' points (all ' + fmt(inside) + ' inside the enclosure; comparing two doubles is exact). '
+    + '<b>Chosen</b>, dotted: the straight segments between the knots, one curve of the infinitely many through them, so ' + m('W.meet(DECIDED, DECIDED, CHOSEN)') + ' is ' + esc(W.NAME[MEET].toLowerCase()) + '. '
+    + '<b>Refused</b>: for x &lt; 0 there is no real root, and nothing is drawn but the void. On the left the same five layers in one ink at one weight, as a default plotting call draws them.</details>' });
+  /* THE FOUR FRAMES: the WARRANT panel built one standing at a time, each frame adding one stroke */
+  const FRAME_L = { eb: '', voidT2: '', sparse: true, r: 4, enc: [1.24, 1.255], encT: 'enclosure', dec: [0.27, 0.40], decT: 'exact knot',
+    com: [1.0, 1.08], comT: 'Math.sqrt', cho: [0.78, 0.66], choT: 'segment' };
+  const frameSvg = (k) => { const layers = ALL.slice(0, k + 1), only = (s) => (layers[k] === s ? 1 : 0);
+    const L = Object.assign({}, FRAME_L, { encT: only(W.DECIDED) ? FRAME_L.encT : '', decT: only(W.DECIDED) ? FRAME_L.decT : '', comT: only(W.COMPUTED) ? FRAME_L.comT : '', choT: only(W.CHOSEN) ? FRAME_L.choT : '' });
+    return CH.open({ w: FRP.w, h: FRP.h, alt: 'Frame ' + (k + 1) + ': the square root drawn with ' + layers.map((s) => W.NAME[s].toLowerCase()).join(', ') + ' marks.' }) + '\n' + warrantPanel(FRP, L, layers, null) + '\n' + CH.close; };
   /* ============================================ the records behind findings == */
   /* neural-geometry: the tied minimum spanning trees, recomputed from its record with the one exact test */
   const NG = J('playground/neural-geometry/out/geometry.json');
@@ -506,33 +523,6 @@ function html() {
     { k: 'open', title: 'The dotted line inks more than the dashed one', art: PL.inkArt({ inkC, inkP, small: G.SMALL_BELOW, legendW }),
       d: 'At the legend’s ' + legendW + ' px, the chosen pattern inks ' + inkP(legendW).toFixed(2) + ' of its length and the computed one ' + inkC(legendW).toFixed(2) + ': the weaker standing carries more ink. The tone carries the order since the fix above; whether density should too is open.' },
   ];
-  /* the candidate rules: what they say, the check that would enforce each, and the status this build decides */
-  const exists = (rel) => fs.existsSync(path.join(ROOT, rel));
-  const grepCount = (re, dirs) => { let n = 0; for (const d of dirs) { const walkJs = (q) => { for (const e of fs.readdirSync(q, { withFileTypes: true })) { const z = path.join(q, e.name); if (e.isDirectory()) { if (!/node_modules|\.venv|out$/.test(z)) walkJs(z); } else if (e.name.endsWith('.js')) n += (fs.readFileSync(z, 'utf8').match(re) || []).length; } }; walkJs(path.join(ROOT, d)); } return n; };
-  const heroPages = walkHtml(path.join(ROOT, 'site')).filter((f) => /\sdata-hero[\s>]/.test(fs.readFileSync(f, 'utf8'))).length;
-  const excludes = grepCount(/legendHtml\(\{[^}]*exclude/g, ['tools', 'apps', 'playground']);
-  const r20 = /^\s+ok\s+\d+\s+every legend is derived/m.test(wiring);
-  const r28 = /RED ok\s+a refused point in a line is drawn as a void/.test(wiring) && /RED ok\s+a refused bar keeps its row/.test(wiring);
-  const recCaptions = walkHtml(path.join(ROOT, 'site')).reduce((n, f) => n + (fs.readFileSync(f, 'utf8').match(/<figcaption[^>]*\sdata-record=/g) || []).length, 0);
-  const CANDIDATES = [
-    ['R17', 'A number’s standing is read from a typed value carrying its record’s address.', NOW.unpointed ? 'partial' : 'gated', fmt(NOW.pointed) + ' values carry an address; ' + fmt(NOW.unpointed) + ' do not'],
-    ['R18', 'Every channel the standing scale uses is monotone in it, or constant.', ordered(TA) ? 'gated' : 'open', 'tone falls with standing; a battery asserts it'],
-    ['R19', 'Pixels round outward, and a figure prints the smallest difference it can show.', 'partial', 'refused on this page’s enclosure; not yet in the chart kit'],
-    ['R20', 'The legend is derived from the figure, never declared.', r20 ? 'gated' : 'open', r20 ? 'every legend derived from its page, figure or drawing code; tools/check-wiring.js refuses an exclude list or an item for a standing not drawn' : excludes + ' calls still tell the legend what to leave out'],
-    ['R21', 'A dash is a standing everywhere: strokes, borders, motion.', NOW.unstanding || NOW.dashedBorders ? 'partial' : 'gated', fmt(NOW.unstanding) + ' unclassed dashes and ' + fmt(NOW.dashedBorders) + ' dashed borders left'],
-    ['R22', 'A mark’s reason is visible text, never only a tooltip.', hiddenNow ? 'open' : 'gated', hiddenNow ? fmt(hiddenNow) + ' reasons live only in a tooltip' : 'every reason a tooltip carried is said once in words at its section’s end; tools/check-wiring.js refuses one that is not'],
-    ['R23', 'A figure names its record and its digest on itself.', NOW.figNoRecord ? (recCaptions ? 'partial' : 'open') : 'gated', NOW.figNoRecord ? recCaptions + ' captions name their record; ' + fmt(NOW.figNoRecord) + ' figures still do not, a count that may only shrink' : 'every figure that draws the grammar names its record and its sha256'],
-    ['R24', 'A page’s standing is computed by its builder, never typed.', typeof W.pageStanding === 'function' ? 'partial' : 'open', 'not built'],
-    ['R25', 'A frame is a page: standing never tweens, a value never travels.', exists('tools/check-frames.js') ? 'gated' : 'open', 'no gate yet'],
-    ['R26', 'A chosen input is a handle, and a drag is a test.', exists('playground/return-level-check/drive.js') ? 'partial' : 'open', 'one instrument: the return-level check’s design height'],
-    ['R27', 'A premise grade is a pair: whether the code was verified, and how far it was validated.', typeof W.pairWord === 'function' ? 'partial' : 'open', 'on Swell and on this page; other chains as they are next edited'],
-    ['R28', 'A witness is an event, and a void has a size.', heroPages && r28 ? 'gated' : heroPages ? 'partial' : 'open', heroPages + ' pages declare a hero, each × first; the chart kit draws a refused value as a void its own size' + (r28 ? '' : ' (not yet)')],
-    ['R29', 'The registry is one machine-readable file, copied by digest into every sibling.', exists('design/warrant/registry.json') ? 'gated' : 'open', 'the five patterns still live in several copies'],
-    ['R30', 'A figure carries the sentence that would stop it.', NOW.figNoStop ? 'partial' : 'gated', NOW.figNoStop ? fmt(NOW.figNoStop) + ' figures still lack the sentence of the check that would refuse them, a count that may only shrink' : 'every figure that draws the grammar prints the sentence that would stop it'],
-    ['R31', 'A conformance suite, and the checks as a package.', exists('kits/warrant-check') ? 'partial' : 'open', 'the red controls are its seed'],
-  ];
-  const nState = (st) => CANDIDATES.filter((r) => r[2] === st).length;
-
   /* ========================================================= the colours, drawn == */
   const hexOf = (s) => (/#[0-9a-f]{6}/i.exec(s) || [null])[0];
   const regBy = (kind, where) => reg.filter((r) => r[1] === kind && (!where || where.test(r[3])));
@@ -564,105 +554,144 @@ function html() {
   const RAMP = ['--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5'].map((tok) => ({ tok, L: COL.oklch(T.DARKONLY[tok])[0] }));
   const contrastW = COL.contrast(witnessHex, T.DARKONLY['--paper']);
 
-  /* =========================================================== the page == */
+  /* =========================================================== the page ==
+     ONE PAGE, IN THE ORDER A STRANGER NEEDS IT (2026-10-30): the problem and the answer in one figure, the four strokes
+     built one at a time, the charts people already draw (each twice), models as premises, the outputs and the code,
+     then how the build holds it and the colour law. The rulebook's cards, every issue found, the foundations and the
+     guards stay on this page, one click down. */
   const B_ = [];
   B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'What each mark rests on',
-    deck: 'WARRANT is the grammar every figure, table and number on this site is drawn in. A stroke says what a mark rests on: an exact decision, floating point, a choice, or nothing. A verdict is always a word.' }));
+    deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
+  B_.push('<div class="col gx-key">' + W.legendHtml() + '</div>');
+  B_.push('<nav class="col gx-toc" aria-label="On this page">' + [['marks', 'Four strokes'], ['gallery', 'Charts you already draw'], ['ladder', 'Models'], ['outputs', 'Outputs and code'], ['enforced', 'Held by the build'], ['colour', 'Colour']]
+    .map(([id, w]) => '<a href="#' + id + '">' + esc(w) + '</a>').join('') + '</nav>');
 
-  /* §1 the four marks */
+  /* §1 the four strokes, built one frame at a time */
   const MARK_T = { [W.DECIDED]: 'Solid', [W.COMPUTED]: 'Dashed', [W.CHOSEN]: 'Dotted', [W.REFUSED]: 'Nothing' };
   const MARK_D = {
     [W.DECIDED]: 'An exact decision backs it: an interval enclosure, an exact rational comparison, a proof.',
     [W.COMPUTED]: 'Floating point, a solver stopped at a tolerance, a fit, a forecast, a number someone printed. It may be right; nothing decided it.',
-    [W.CHOSEN]: 'One member of a set the data admit, picked by something that is not the data: a tie-break, a default, a seed, an interpolation.',
+    [W.CHOSEN]: 'One member of a set the data admit, picked by something that is not the data: a tie-break, a default, a window, an interpolation.',
     [W.REFUSED]: 'The instrument declined or the input is missing. Never bridged, never averaged, never drawn as zero.' };
-  const MARK_SPEC = { [W.DECIDED]: 'stroke solid · text plain', [W.COMPUTED]: 'stroke ' + G.CLAIM + ', ' + G.CLAIM_SM + ' under ' + G.SMALL_BELOW + ' px · text dashed underline',
-    [W.CHOSEN]: 'stroke ' + G.PICK + ' round, ' + G.PICK_SM + ' under ' + G.SMALL_BELOW + ' px · text dotted underline', [W.REFUSED]: 'no stroke; a hatched void · text the word' };
   const MARK_EX = { [W.DECIDED]: '√(1/4) = ' + W.value('1/2', W.DECIDED), [W.COMPUTED]: 'Math.sqrt(2) = ' + W.value(String(Math.sqrt(2)), W.COMPUTED),
     [W.CHOSEN]: 'the segment at 1/2: ' + W.value(fstr(WY), W.CHOSEN), [W.REFUSED]: '√(−1): ' + W.value('refused', W.REFUSED) };
-  B_.push(C.section({ lab: 'the marks', title: 'Four standings, four strokes', id: 'marks', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Every mark has one standing, and each standing one stroke on a line and one underline in text. Drawn by the module as this page is built:') + '</div>'
-      + PL.grid(4, [W.DECIDED, W.COMPUTED, W.CHOSEN, W.REFUSED].map((s) => PL.card({ k: esc(W.NAME[s].toLowerCase()), title: MARK_T[s], art: PL.markArt(s), d: MARK_D[s], code: MARK_EX[s] + '<br>' + esc(MARK_SPEC[s]) })))
+  const frames = ALL.map((s, k) => '<div class="gx-frame"><div class="gx-art">' + frameSvg(k) + '</div>'
+    + '<div class="gx-k">' + (k + 1) + ' · ' + esc(W.NAME[s].toLowerCase()) + '</div><div class="gx-t">' + MARK_T[s] + '</div>'
+    + '<div class="gx-d">' + esc(MARK_D[s]) + '</div><div class="gx-code">' + MARK_EX[s] + '</div></div>').join('');
+  const words = '<div class="gx-words">'
+    + '<div><div class="gx-chips">' + ['CERTIFIED', 'REFUTED', 'REFUSED', 'PARTIAL', 'NEEDS DATA'].map((w) => C.tag(w)).join(' ') + '</div><p>A verdict is a word in one shape, everywhere. A stroke never carries a verdict, so a refutation proved here is drawn solid.</p></div>'
+    + '<div><div class="gx-mood-h">' + C.tag('HOLDS', 'held') + ' <em>given h = 3/50</em></div><p>A verdict over a chosen input names the input, in italic: it holds given that choice, and no other.</p></div>'
+    + '<div><div class="gx-empty">∅</div><p>An empty set is ∅ and a word, never a zero-height bar. The red × is kept for one thing, an exhibited counterexample beside the words that name it: on this page, the hero’s.</p></div>'
+    + '</div>';
+  B_.push(C.section({ lab: 'the marks', title: 'Four strokes, added one at a time', id: 'marks', wide: true,
+    bodyRaw: '<div class="col">' + C.p('Every mark has one standing, and each standing one stroke on a line and one underline in text. Here is the hero’s right half again, one standing per frame:') + '</div>'
+      + '<div class="gx-frames">' + frames + '</div>'
       + '<h3 class="gr-h3">The weakest on the path wins</h3>'
-      + '<div class="col">' + C.p('The standings are ordered, and a mark takes the weakest standing on its path to the pixel: one float makes it computed, one choice makes it chosen, one refusal leaves the void. Standing is not a confidence: a value known to many decimals can be undecided.') + '</div>'
-      + PL.ladderOfStandings() }));
+      + '<div class="col">' + C.p('The standings are ordered, and a mark takes the weakest standing on its way to the pixel: one float makes it computed, one choice makes it chosen, one refusal leaves the void. Standing is not a confidence: a value known to many decimals can be undecided.') + '</div>'
+      + PL.ladderOfStandings({ eqsOnly: true })
+      + '<h3 class="gr-h3">A verdict is a word</h3>' + words }));
 
-  /* §2 the components */
-  const vEx = W.val({ rec: { path: 'certs/eth-kernel.json', ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of decided claims' });
-  const chipsAll = ['CERTIFIED', 'WITNESSED', 'REFUTED', 'PARTIAL', 'REFUSED', 'NEEDS DATA'].map((w) => C.tag(w)).join(' ');
-  const wxSvg = PL.svg(260, 70, 'The witness in a figure: a red cross on the object, drawn at the figure\'s scale.', [PL.line(14, 62, 246, 30, W.attrs(W.DECIDED, { width: 2 })), W.witnessMark(120, 36, { size: 9, width: 3 }), PL.t(136, 24, 'the object that broke it', 't-ax')].join('\n'));
-  const COMPONENTS = [
-    PL.card({ k: 'a number in text', d: '<div class="gx-vals"><span>' + W.value('1/2', W.DECIDED) + '<em>decided</em></span><span>' + W.value('1.4142', W.COMPUTED) + '<em>computed</em></span><span>' + W.value('2/3', W.CHOSEN) + '<em>chosen</em></span><span>' + W.value('refused', W.REFUSED) + '<em>refused</em></span></div>', code: esc("W.value('1.4142', W.COMPUTED)") }),
-    PL.card({ k: 'a verdict word', d: '<div class="gx-chips">' + chipsAll + '</div>One shape per word, everywhere; the word carries the verdict, never a stroke.', code: esc("C.tag('REFUTED')") }),
-    PL.card({ k: 'the witness', art: wxSvg, d: 'In text, beside the words that name it ' + W.witness('the exhibited counterexample') + '; in a figure, on the object, at the figure’s scale.', code: esc('W.witnessMark(x, y, { size, width })') }),
-    PL.card({ k: 'the legend', d: W.legendHtml({ compact: true }), code: esc('W.legendHtml({ compact: true })') }),
-    PL.card({ k: 'a grade', d: '<div class="gx-grades">' + [W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join('') + '</div>How far a premise was checked: a word first, a three-step glyph second, never a colour.', code: esc('W.grade(W.COMPARED)') }),
-    PL.card({ k: 'a number with its address', d: '<div class="gx-big-v">' + vEx + ' <span class="gx-unit">of 2 ETH proofs decided</span></div>The span carries its record’s address, and ' + m('tools/check-marks.js') + ' re-reads it from the built page at every build.', code: esc('data-rec="certs/eth-kernel.json#/counts/decided"') }),
-    PL.card({ k: 'mood', d: '<div class="gx-mood-h">' + C.tag('HOLDS', 'held') + ' <em>given h = 3/50</em></div>A verdict over a chosen input names the input, in italic.', code: esc('<em>given h = 3/50</em>') }),
-    PL.card({ k: 'the empty set', d: '<div class="gx-empty">∅</div>No convex silhouette fits the chords at face value: the set is empty, and it says so.', code: esc('∅ + a word, never a bar') }),
-    PL.card({ k: 'a premise chain', d: W.premisesHtml([{ grade: W.COMPARED, verified: false, label: 'The island model', evidence: 'beside a Boussinesq model.' }, { grade: W.ASSUMED, label: 'Breaking', evidence: 'from the literature.' }], { meetLine: 'The weakest premise is <b>assumed</b>.' }), code: esc('W.premisesHtml([...], { meetLine })') }),
-  ];
-  B_.push(C.section({ lab: 'the components', title: 'The parts, as the module draws them', id: 'components', wide: true,
-    bodyRaw: '<div class="col">' + C.pRaw('Each part below is live: drawn by ' + a(blob('playground/warrant.js'), 'playground/warrant.js') + ' or ' + a(blob('design/components.js'), 'design/components.js') + ' when this page is built, with the call that draws it.') + '</div>'
-      + PL.grid(3, COMPONENTS) }));
+  /* §2 the gallery */
+  const SCEN = [GAL.designWave(guard), GAL.moody(guard), GAL.leaderboard(guard), GAL.admissions(guard)];
+  const REPORT = GAL.reportText();
+  const KIND = { record: 'from a record', built: 'from the equations', illustration: 'an illustration' };
+  const sceneHead = (s, i) => '<div class="col gx-scene-h"><div class="gx-k">' + (i + 1) + ' · ' + KIND[s.kind] + '</div><h3 class="gx-h">' + esc(s.title) + '</h3><p class="gx-hides">' + esc(s.hides) + '</p></div>';
+  const pairFig = (s) => C.figure({ svgRaw: '<div class="gx-pair"><div class="gx-pane">' + s.usual + '</div><div class="gx-pane">' + s.warrant + '</div></div>',
+    record: s.kind === 'record' ? s.record : undefined, source: s.kind === 'illustration' ? 'illustration' : s.kind === 'built' ? 'built: ' + s.source : undefined,
+    stop: s.stop, captionRaw: s.caption });
+  const reportScene = sceneHead(REPORT, SCEN.length) + '<div class="wide"><div class="gx-pair gx-textpair" data-source="illustration">'
+    + '<div class="gx-pane"><div class="gx-eb">as usually written</div>' + REPORT.usualRaw + '</div>'
+    + '<div class="gx-pane"><div class="gx-eb">in warrant</div>' + REPORT.warrantRaw + '</div></div>'
+    + '<p class="gx-src">Record: ∅ — an illustration, <em>given an invented record</em>.</p></div>';
+  B_.push(C.section({ lab: 'on charts you already draw', title: 'The same numbers, with and without it', id: 'gallery', wide: true,
+    bodyRaw: '<div class="col">' + C.p('Five things people draw every day, each twice: as a plotting library draws it, and in WARRANT. One reads a real record; one is computed from its equations as this page is built; three are illustrations, their numbers invented and said so on the figure. The arithmetic on an invention is still exact, so its ties, gaps and counts are decided given it; and no invention carries a red ×, which would be a forged counterexample.') + '</div>'
+      + SCEN.map((s, i) => '<div class="gx-scene">' + sceneHead(s, i) + pairFig(s) + '</div>').join('')
+      + '<div class="gx-scene">' + reportScene + '</div>' }));
 
-  /* §3 the rules */
-  B_.push(C.section({ lab: 'the rules', title: numword(ruleNums.length).charAt(0).toUpperCase() + numword(ruleNums.length).slice(1) + ' rules, each drawn', id: 'rules', wide: true,
-    bodyRaw: '<div class="col">' + C.pRaw('From ' + a(blob('design/WARRANT.md'), 'the rulebook') + ' (' + esc(frozen[1]) + ', frozen ' + esc(day(frozen[2])) + ' ' + esc(frozen[2].slice(0, 4)) + ', with dated rulings since). Each was learned on a page of this site that broke it; each card names the page and the fix.') + '</div>'
-      + '<h3 class="gr-h3">Marks</h3>' + PL.grid(3, MARK_RULES.map(ruleCard))
-      + '<h3 class="gr-h3">Two rulings</h3>' + PL.grid(3, RULINGS.map(ruleCard))
-      + '<h3 class="gr-h3">Numbers that rest on a model</h3>' + PL.grid(3, MODEL_RULES.map(ruleCard)) }));
-
-  /* §4 the colour law */
-  const LAWS = [['Ink first.', 'Every figure reads in greyscale; a colour comes with a shape and a word.'], ['One colour, one meaning,', 'in every project on the grammar, each registered with its date.'],
-    ['Colour never carries standing.', 'The stroke does; nor does it stand in for a verdict word.'], ['Four kinds only:', 'the witness, identity, order, status.'],
-    ['Every pair passes the validator,', 'on the figure’s own ground, for every simulated deficiency.'], ['No yellow, no orange.', ''], ['A new colour needs the report and an approval,', 'recorded in the rulebook.']];
-  B_.push(C.section({ lab: 'the colour law', title: 'Ink first, and one red', id: 'colour', wide: true,
-    bodyRaw: '<div class="col">' + C.p('The law came from a measurement: a sibling project’s two main series colours, run through the validator, were one colour to a deuteranope. Seven rules:') + '</div>'
-      + '<ol class="gx-laws">' + LAWS.map(([b, tt]) => '<li><b>' + esc(b) + '</b> ' + esc(tt) + '</li>').join('') + '</ol>'
-      + '<h3 class="gr-h3">Ink first: lightness falls with standing</h3>'
-      + PL.grid(2, [PL.card({ k: 'the ink ramp', art: PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }), d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing.' }),
-        PL.card({ k: 'the one red', art: PL.svg(340, 140, 'The witness red as a cross on a dark ground, with its contrast.', [W.witnessMark(70, 70, { size: 26, width: 7 }), PL.t(130, 62, m('').replace(/<[^>]+>/g, '') + '--witness ' + witnessHex, 't-lab'), PL.t(130, 82, contrastW.toFixed(1) + ':1 on the page ground', 't-ax'), PL.t(130, 102, 'a shown counterexample, only', 't-ax')].join('\n')),
-          d: 'Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
-      + '<h3 class="gr-h3">Four kinds of colour</h3>' + PL.kindsOfColour({ contrast: contrastW, identity, order, status })
-      + '<h3 class="gr-h3">Every pair passes the validator</h3>'
-      + '<div class="col">' + C.p('OKLab ΔE × 100, every pair that shares a figure, under the colour-vision model of Machado, Oliveira and Fernandes (2009), computed as this page is built:') + '</div>'
-      + PL.validatorPlate({ before: VB, after: VA, threshold: cvdMin })
-      + '<details class="more"><summary>The registered colours</summary>' + C.plainList(reg.map((r) => ({ raw: '<b>' + cell(r[0]) + '</b> · ' + esc(r[1]) + ' — ' + cell(r[2]) + '. <em>Where:</em> ' + cell(r[3]) + '. <em>Approved:</em> ' + cell(r[4]) + '.' }))) + '</details>' }));
-
-  /* §5 the premise ladder */
+  /* §3 the premise ladder */
   const LADDER_LIT = {
     [W.VALIDATED]: ['validation', 'the open sea’s band, against satellite passes it had not seen'],
     [W.COMPARED]: ['code-to-code comparison', 'the island model, against a Boussinesq model at ' + numword(SW.beaches) + ' beaches'],
     [W.VERIFIED]: ['code verification', 'none yet'],
     [W.ASSUMED]: ['an adopted assumption', 'breaking at ' + SURF.C.GAMMA.toFixed(2) + ' times the depth (Thornton & Guza, 1982), and no sandbars'],
   };
-  B_.push(C.section({ lab: 'the premise ladder', title: 'How far a premise was checked', id: 'ladder', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Standing says how a number was computed. A number that rests on a physical model needs a second answer: the arithmetic can be exact while its equations never met the thing they describe. Each premise carries a grade, where its checking stopped, and a conclusion is as checked as its weakest premise.') + '</div>'
-      + PL.grid(2, [PL.card({ k: 'the ladder, with a wave limit on Swell', art: PL.premiseLadder(CHAIN.concat([])), d: 'The verification-and-validation ladder of Roache (1998), Oberkampf and Roy (2010) and ASME V&amp;V 20 (2009), cut to ' + numword(W.GRADE.length) + ' grades a reader can tell apart. Never a probability, never a confidence.' }),
+  B_.push(C.section({ lab: 'models as premises', title: 'When a number rests on a model', id: 'ladder', wide: true,
+    bodyRaw: '<div class="col">' + C.p('The arithmetic can be exact while its equations never met the thing they describe. So a number that rests on a physical model names its premises, each with how far it was checked, and a conclusion is as checked as its weakest premise. Here is a wave limit on Swell, the beach app:') + '</div>'
+      + PL.grid(2, [PL.card({ k: 'the ladder', art: PL.premiseLadder(CHAIN.concat([])), d: 'The verification-and-validation ladder of Roache (1998), Oberkampf and Roy (2010) and ASME V&amp;V 20 (2009), cut to ' + numword(W.GRADE.length) + ' grades a reader can tell apart. Never a probability, never a confidence.' }),
         PL.card({ k: 'the same chain, as the page prints it', d: W.premisesHtml([
           { grade: W.VALIDATED, verified: false, label: 'The open sea and its band', evidence: 'covered ' + (100 * swU.coverage).toFixed(1) + '% of ' + fmt(swU.n) + ' satellite passes it had not seen; it claims ' + claimIn + ' in ' + missQ[1] + '.' },
           { grade: W.COMPARED, verified: false, label: 'The island model', evidence: 'beside a Boussinesq model at ' + numword(SW.beaches) + ' beaches, ' + fmt(swR.all.n) + ' cases of a ' + swH[1] + ' m swell: r ' + swR.all.r.toFixed(2) + ', the island ' + swR.all.bias.toFixed(2) + ' m higher on average.' },
           { grade: W.ASSUMED, label: 'Breaking', evidence: 'at ' + SURF.C.GAMMA.toFixed(2) + ' times the depth (Thornton & Guza, 1982); no sandbars; the shallow profile from the nautical chart.' },
         ], { meetLine: 'The arithmetic is exact; the weakest premise is <b>' + esc(W.pairWord(W.weakestPair([{ grade: W.VALIDATED, verified: false }, { grade: W.COMPARED, verified: false }, { grade: W.ASSUMED }]))) + '</b>, and neither model was verified against an exact solution of its own equations.' }) })])
-      + '<div class="col">' + C.plainList([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => ({ raw: W.grade(g) + ' — ' + esc(W.GRADE_GLOSS[g]) + '. <em>On Swell:</em> ' + esc(LADDER_LIT[g][1]) + '.' })))
-      + C.pRaw('<b>A read step</b> — a proof step read and not run by a machine — gets no grade of its own: it is ' + W.grade(W.ASSUMED) + '. It never caps a verdict; it is listed in what the page rests on. ' + page('reports/delta3.html', 'δ₃ = 117/2192') + ' is an example: a decided finite core, and three steps proved on paper and read.')
+      + '<div class="col"><details class="more"><summary>The four grades, and a read step</summary>' + C.plainList([W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => ({ raw: W.grade(g) + ' — ' + esc(W.GRADE_GLOSS[g]) + '. <em>On Swell:</em> ' + esc(LADDER_LIT[g][1]) + '.' })))
+      + C.pRaw('<b>A read step</b> — a proof step read and not run by a machine — gets no grade of its own: it is ' + W.grade(W.ASSUMED) + '. It never caps a verdict; it is listed in what the page rests on. ' + page('reports/delta3.html', 'δ₃ = 117/2192') + ' is an example: a decided finite core, and three steps proved on paper and read.') + '</details>'
       + '<details class="more"><summary>References</summary>' + C.plainList([
         { text: 'Roache, P. J. (1998). Verification and Validation in Computational Science and Engineering. Hermosa Publishers.' },
         { text: 'Oberkampf, W. L., & Roy, C. J. (2010). Verification and Validation in Scientific Computing. Cambridge University Press.' },
         { text: 'ASME V&V 20-2009. Standard for Verification and Validation in Computational Fluid Dynamics and Heat Transfer. The American Society of Mechanical Engineers.' },
+        { text: 'Colebrook, C. F. (1939). Turbulent flow in pipes, with particular reference to the transition region between the smooth and rough pipe laws. Journal of the Institution of Civil Engineers, 11(4), 133–156.' },
+        { text: 'Moody, L. F. (1944). Friction factors for pipe flow. Transactions of the ASME, 66(8), 671–684.' },
         { text: 'MacEachren, A. M., Roth, R. E., O’Brien, J., Li, B., Swingley, D., & Gahegan, M. (2012). Visual semiotics & uncertainty visualization: an empirical study. IEEE Transactions on Visualization and Computer Graphics, 18(12), 2496–2505.' },
         { text: 'Machado, G. M., Oliveira, M. M., & Fernandes, L. A. F. (2009). A physiologically-based model for simulation of color vision deficiency. IEEE Transactions on Visualization and Computer Graphics, 15(6), 1291–1298.' },
         { text: 'Thornton, E. B., & Guza, R. T. (1982). Energy saturation and phase speeds measured on a natural beach. Journal of Geophysical Research, 87(C12), 9499–9508.' },
       ]) + '</details></div>' }));
 
-  /* §6 issues and their fixes */
-  B_.push(C.section({ lab: 'issues and fixes', title: 'Where the site broke its own grammar', id: 'issues', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Each issue is a fact about the built site. Where a count moved, it is counted twice by the same rule: on the site as it was just before the fix, and on the site as built now.') + '</div>'
-      + PL.grid(3, ISSUES.map((x) => PL.card({ k: x.k, title: esc(x.title), art: x.art, d: x.d }))) }));
+  /* §4 the outputs: one figure in three registers, then the code */
+  const PR = require(path.join(ROOT, 'design', 'print', 'tokens.js'));
+  const prHex = (n) => PR.REGISTER.find((x) => x.name === n).hex;
+  /* the paper register, as the screen tokens' values inside .gx-paper: the same SVG, re-inked for white paper */
+  const PAPER = { '--ink': prHex('--ink'), '--ink-2': prHex('--ink-2'), '--ink-3': prHex('--ink-3'), '--ink-4': prHex('--ink-3'), '--ink-5': prHex('--guide'),
+    '--paper': prHex('--paper'), '--sunk': prHex('--paper'), '--rule': prHex('--grid'), '--rule-strong': prHex('--guide'), '--c-grid': prHex('--grid'), '--c-axis': prHex('--guide') };
+  guard('the print register no longer holds the tokens the paper drawing is re-inked with', Object.values(PAPER).every((h) => /^#[0-9a-f]{6}$/i.test(h)));
+  const dwScreen = GAL.designWave(guard).warrant, dwPaper = GAL.designWave(guard).warrant, dwGrey = GAL.designWave(guard).warrant;
+  const outCard = (k, cls, art, d) => '<div class="gx-out"><div class="gx-k">' + esc(k) + '</div><div class="gx-outbox ' + cls + '">' + art + '</div><div class="gx-d">' + d + '</div></div>';
+  const PY = [
+    'import warrant_mpl as wm',
+    "wm.use()               # wm.use('grey') for a mono laser",
+    '',
+    'wm.knot(ax, x, level)                   # a certified level',
+    'wm.whisker(ax, x, lo, hi, wm.COMPUTED)  # the delta method',
+    "wm.void(ax, x0, x1, words='refused')    # words required",
+    'wm.legend(ax)',
+    '',
+    "wm.line(ax, x, y, wm.COMPUTED, linestyle='-')",
+    '  → TypeError: the stroke is read from the standing',
+    '    and the series, never chosen by the caller',
+  ].join('\n');
+  const kitSrc = read('kits/warrant-mpl/warrant_mpl/__init__.py');
+  guard('the Python sample calls a function the kit no longer has, or the kit stopped refusing a caller\'s own linestyle',
+    ['def use(', 'def knot(', 'def whisker(', 'def void(', 'def legend(', 'def line('].every((d) => kitSrc.includes(d)) && /the stroke is read from the standing and the series, never chosen by the caller/.test(kitSrc));
+  const JS = [
+    "const W = require('./warrant.js');",
+    '',
+    'W.attrs(W.COMPUTED)',
+    '  → ' + W.attrs(W.COMPUTED),
+    'W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 })',
+    '  → ' + W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 }),
+    "W.value('3.1416', W.COMPUTED)      // a number in text",
+    'W.legendHtml()                     // the key beside a figure',
+  ].join('\n');
+  guard('the code sample shows a call whose output is not what the module returns', /stroke-dasharray="5 4"/.test(W.attrs(W.COMPUTED)) && /w-chosen/.test(W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 })) && /stroke-dasharray="1 3"/.test(W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 })));
+  const wxSvg = PL.svg(260, 70, 'The witness in a figure: a red cross on the object, drawn at the figure\'s scale.', [PL.line(14, 62, 246, 30, W.attrs(W.DECIDED, { width: 2 })), W.witnessMark(120, 36, { size: 9, width: 3 }), PL.t(136, 24, 'the object that broke it', 't-ax')].join('\n'));
+  const COMPONENTS = [
+    PL.card({ k: 'a number in text', d: '<div class="gx-vals"><span>' + W.value('1/2', W.DECIDED) + '<em>decided</em></span><span>' + W.value('1.4142', W.COMPUTED) + '<em>computed</em></span><span>' + W.value('2/3', W.CHOSEN) + '<em>chosen</em></span><span>' + W.value('refused', W.REFUSED) + '<em>refused</em></span></div>', code: esc("W.value('1.4142', W.COMPUTED)") }),
+    PL.card({ k: 'a verdict word', d: '<div class="gx-chips">' + ['CERTIFIED', 'WITNESSED', 'REFUTED', 'PARTIAL', 'REFUSED', 'NEEDS DATA'].map((w) => C.tag(w)).join(' ') + '</div>One shape per word, everywhere.', code: esc("C.tag('REFUTED')") }),
+    PL.card({ k: 'the witness', art: wxSvg, d: 'In text, beside the words that name it; in a figure, on the object, at the figure’s scale.', code: esc('W.witnessMark(x, y, { size, width })') }),
+    PL.card({ k: 'the legend', d: W.legendHtml({ compact: true }), code: esc('W.legendHtml({ compact: true })') }),
+    PL.card({ k: 'a grade', d: '<div class="gx-grades">' + [W.VALIDATED, W.COMPARED, W.VERIFIED, W.ASSUMED].map((g) => W.grade(g)).join('') + '</div>How far a premise was checked: a word first, a glyph second, never a colour.', code: esc('W.grade(W.COMPARED)') }),
+    PL.card({ k: 'a premise chain', d: W.premisesHtml([{ grade: W.COMPARED, verified: false, label: 'The island model', evidence: 'beside a Boussinesq model.' }, { grade: W.ASSUMED, label: 'Breaking', evidence: 'from the literature.' }], { meetLine: 'The weakest premise is <b>assumed</b>.' }), code: esc('W.premisesHtml([...], { meetLine })') }),
+  ];
+  B_.push(C.section({ lab: 'outputs and code', title: 'One figure, three registers, your own code', id: 'outputs', wide: true,
+    bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on this dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
+      + '<div class="gx-outs">' + outCard('on screen', '', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
+      + '<div class="gx-codes"><div><div class="gx-k">python · matplotlib</div>' + C.code(PY) + '</div><div><div class="gx-k">javascript · svg and html</div>' + C.code(JS) + '</div></div>'
+      + '<div class="col">' + C.pRaw('No package yet: copy one folder. ' + a(blob('kits/warrant-mpl'), 'kits/warrant-mpl') + ' for matplotlib (with the design wave, a return curve and the contours as worked examples), or ' + a(blob('playground/warrant.js'), 'warrant.js') + ' and ' + a(blob('design/grammar.js'), 'grammar.js') + ' for the web, MIT. On a canvas, ' + m('setLineDash') + ' takes the same patterns. '
+        + 'The words in Portuguese — ' + WPT.GRADE.map((g) => '<em>' + esc(g) + '</em>').join(', ') + ' — are in ' + a(blob('playground/warrant-pt.js'), 'warrant-pt.js') + '.')
+      + '<details class="more"><summary>Every part, with the call that draws it</summary>' + PL.grid(3, COMPONENTS) + '</details></div>' }));
 
-  /* §7 the law and the rules in progress */
+  /* §5 held by the build */
+  const featured = ISSUES.slice(0, 2).concat([ISSUES[4]]), others = ISSUES.filter((x) => !featured.includes(x));
   const AXIOMS = [
     ['A1', 'Soundness', 'Drawing maps a record to marks; reading maps marks back to the records that could have produced them. A page is sound when every record it draws is among them: no mark stronger than its record, in standing, extent or verdict word.'],
     ['A2', 'Completeness', 'Every row of the record a page draws from is a mark, or the empty set with a word.'],
@@ -671,70 +700,108 @@ function html() {
     ['A5', 'A typed value', 'A value carries its datum, its standing, its premises and its record’s address; the arithmetic demotes it and the renderer only reads it.'],
     ['A6', 'A frame is a page', 'In motion every frame obeys A1; a standing never tweens and a value never travels.'],
   ];
-  B_.push(C.section({ lab: 'the foundations', title: 'One law, six axioms', id: 'axioms', wide: true,
-    bodyRaw: '<div class="col">' + C.p('The display is a sound map of the record, and the build decides it.') + '</div>'
-      + PL.grid(3, AXIOMS.map(([n, tt, d]) => PL.card({ k: n, title: esc(tt), d: esc(d) })))
-      + '<h3 class="gr-h3">Rules in progress</h3>'
-      + '<div class="col">' + C.p('A rule enters the rulebook when a check exists that refuses a page breaking it; until then it binds new work. The status is decided by this page’s build: ' + nState('gated') + ' gated, ' + nState('partial') + ' partly, ' + nState('open') + ' open.') + '</div>'
-      + '<div class="wide"><div class="tw"><table><thead><tr><th>rule</th><th>what it says</th><th>status</th></tr></thead><tbody>'
-      + CANDIDATES.map(([n, say, st, note]) => '<tr><td class="mono">' + n + '</td><td>' + esc(say) + '</td><td><span class="gx-st">' + st + '</span><br><span class="gx-note">' + esc(note) + '</span></td></tr>').join('')
-      + '</tbody></table></div></div>' }));
-
-  /* §8 how it is enforced */
   const STAND = { [G.CLAIM]: 'computed', [G.CLAIM_SM]: 'computed, thin', [G.PICK]: 'chosen', [G.PICK_SM]: 'chosen, thin', [G.GUIDE]: 'a guide' };
   const CHECKS = [
     { raw: '<b>' + a(blob('tools/check-grammar.js'), 'check-grammar') + '</b> — only the ' + numword(G.PERMITTED.length) + ' patterns may appear; ' + numword(exempt) + ' uses that are not lines are declared by name, each with its reason. The first census, on 5 September, counted twenty-five: the dash had been derived from the stroke width, one carrying ' + m('1.04 5.460000000000001') + ' into published HTML.' },
-    { raw: '<b>' + a(blob('tools/check-marks.js'), 'check-marks') + '</b> — a value printed through ' + m('W.val') + ' carries its record’s address; every build follows it back and prints the datum again by the same rule (' + a(blob('design/record.js'), 'design/record.js') + '). Four planted marks are refused on every run.' },
+    { raw: '<b>' + a(blob('tools/check-marks.js'), 'check-marks') + '</b> — a value printed from a record carries its address; every build follows it back and prints the datum again by the same rule. Four planted marks are refused on every run.' },
     { raw: '<b>' + a(blob('tools/check-wiring.js'), 'check-wiring') + '</b> — a page with a mark of the grammar and no legend is refused; one hero per page, its × first and at weight.' },
-    { raw: '<b>' + a(blob('tools/check-render.js'), 'check-render') + '</b> — no leaked template text, no paint that does not resolve, no figure thinner in ink than its record, no script error. Its paint check went strict when a legend swatch fell through to black on a near-black ground and passed every run.' },
+    { raw: '<b>' + a(blob('tools/check-render.js'), 'check-render') + '</b> — no leaked template text, no paint that does not resolve, no figure thinner in ink than its record, no script error.' },
     { raw: '<b>' + a(blob('tools/check-measure.js'), 'check-measure') + '</b> — every page driven in Chrome at ' + vps.join(', ') + ' px; left edges, overflow, escapes and clipped elements may only go down.' },
   ];
-  B_.push(C.section({ lab: 'how it is enforced', title: 'A grammar no build checks is a suggestion', id: 'enforced', wide: true,
-    bodyRaw: C.stats([
-        { k: 'dash patterns', v: String(G.PERMITTED.length), n: 'twenty-five on 5 September; ' + fmt(Number(ctot[2])) + ' conforming uses, ' + fmt(Number(ctot[3])) + ' outside' },
-        { k: 'numbers re-read', v: fmt(Number(mk[1])), n: 'on ' + fmt(Number(mk[2])) + ' pages; ' + fmt(Number(unp[1])) + ' still carry no address' },
-        { k: 'pages that draw it', v: fmt(Number(leg[2])), n: 'every one prints its legend; ' + fmt(Number(leg[3])) + ' pages walked' },
-        { k: 'figures recorded', v: fmt(Object.keys(RBL.figures).length), n: 'none may get thinner in ink' },
-        { k: 'pages measured', v: fmt(Object.keys(MB.pages).length), n: 'at ' + vps.join(' and ') + ' px' },
-        { k: 'red controls', v: 'every run', n: 'planted violations each check must catch' },
+  B_.push(C.section({ lab: 'held by the build', title: 'A grammar no build checks is a suggestion', id: 'enforced', wide: true,
+    bodyRaw: '<div class="col"><p class="gx-law">The display is a sound map of the record, and the build decides it.</p>'
+      + C.p('No mark may claim more than its record: not a stronger stroke, not a wider extent, not a stronger word. Every page here is built by a program that reads its records and refuses to build when one stops supporting a sentence, and these checks run over the whole site:') + '</div>'
+      + C.stats([
+        { k: 'numbers re-read', v: fmt(Number(mk[1])), n: 'printed from a record, followed back to it at every build, on ' + fmt(Number(mk[2])) + ' pages' },
+        { k: 'dash patterns', v: String(G.PERMITTED.length), n: 'twenty-five on 5 September; ' + fmt(Number(ctot[2])) + ' uses today, ' + fmt(Number(ctot[3])) + ' outside the five' },
+        { k: 'pages that draw it', v: fmt(Number(leg[2])), n: 'each prints its legend; ' + fmt(Number(leg[3])) + ' pages walked' },
       ])
-      + PL.grid(2, [PL.card({ k: 'the dash census', art: PL.censusArt({ uses: Object.fromEntries(G.PERMITTED.map((p) => [p, uses[p]])), labels: STAND }), d: 'Uses of each permitted pattern on the built site, at the last sync.' }),
-        PL.card({ k: 'the checks', d: C.plainList(CHECKS) })])
-      + '<div class="col">' + C.p('This page is held to the same standard by its own builder, which reads every number on it from its record and refuses to build when one stops saying what the page says.')
+      + '<h3 class="gr-h3">Where the site broke its own grammar</h3>'
+      + '<div class="col">' + C.p('Each is a fact about the built site, counted before the fix and now by the rule that gates it.') + '</div>'
+      + PL.grid(3, featured.map((x) => PL.card({ k: x.k, title: esc(x.title), art: x.art, d: x.d })))
+      + '<div class="col gx-open">' + C.p('Open, and counted by the same census: ' + fmt(NOW.unpointed) + ' printed values still carry no record address, ' + fmt(NOW.figNoRecord) + ' figures name no record, ' + fmt(NOW.figNoStop) + ' print no sentence that would stop them, and ' + fmt(NOW.unstanding) + ' dashes carry no standing. Each count may only shrink.')
+      + '<details class="more"><summary>Every issue, then and now</summary>' + PL.grid(2, others.map((x) => PL.card({ k: x.k, title: esc(x.title), art: x.art, d: x.d }))) + '</details>'
+      + '<details class="more"><summary>The ' + numword(ruleNums.length) + ' rules, each drawn, and where each was learned</summary>'
+        + C.pRaw('From ' + a(blob('design/WARRANT.md'), 'the rulebook') + ' (' + esc(frozen[1]) + ', frozen ' + esc(day(frozen[2])) + ' ' + esc(frozen[2].slice(0, 4)) + ', with dated rulings since). Each was learned on a page of this site that broke it.')
+        + '<h3 class="gr-h3">Marks</h3>' + PL.grid(3, MARK_RULES.map(ruleCard))
+        + '<h3 class="gr-h3">Two rulings</h3>' + PL.grid(3, RULINGS.map(ruleCard))
+        + '<h3 class="gr-h3">Numbers that rest on a model</h3>' + PL.grid(3, MODEL_RULES.map(ruleCard)) + '</details>'
+      + '<details class="more"><summary>The foundations: one law, six axioms</summary>' + C.plainList(AXIOMS.map(([n, tt, d]) => ({ raw: '<b>' + n + ' · ' + esc(tt) + '.</b> ' + esc(d) }))) + '</details>'
+      + '<details class="more"><summary>The checks, and the dash census</summary>' + C.plainList(CHECKS) + PL.card({ k: 'the dash census', art: PL.censusArt({ uses: Object.fromEntries(G.PERMITTED.map((p) => [p, uses[p]])), labels: STAND }), d: 'Uses of each permitted pattern on the built site, at the last sync.' }) + '</details>'
       + '<details class="more"><summary>This page refuses to build if …</summary>' + '%%GUARDS%%' + '</details></div>' }));
 
-  /* §9 use it */
-  const ex1 = W.attrs(W.COMPUTED), ex2 = W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 }), ex3 = W.value('3.1416', W.COMPUTED);
-  const CODE = [
-    "const W = require('./playground/warrant.js');",
-    '',
-    '// a line: its standing picks the stroke',
-    'W.attrs(W.COMPUTED)',
-    '  → ' + ex1,
-    'W.attrs(W.meet(W.DECIDED, W.CHOSEN), { width: 1 })',
-    '  → ' + ex2,
-    '',
-    '// a number in text',
-    "W.value('3.1416', W.COMPUTED)",
-    '  → ' + ex3,
-    '',
-    '// the legend beside a figure, the stylesheet once per page',
-    'W.legendHtml({ compact: true })',
-    'W.css()',
-  ].join('\n');
-  guard('the code sample shows a call whose output is not what the module returns', /stroke-dasharray="5 4"/.test(ex1) && /w-chosen/.test(ex2) && /stroke-dasharray="1 3"/.test(ex2) && /w-computed/.test(ex3));
-  B_.push(C.section({ lab: 'use it', title: 'In figures of your own', id: 'use', wide: true,
-    bodyRaw: '<div class="col">' + C.pRaw('One file, ' + a(blob('playground/warrant.js'), 'playground/warrant.js') + ', MIT, with the ' + numword(G.PERMITTED.length) + ' patterns in ' + a(blob('design/grammar.js'), 'design/grammar.js') + '; no library. What each call returns as this page was built:')
-      + C.code(CODE)
-      + C.pRaw('On a canvas, ' + m('setLineDash') + ' takes the same patterns: ' + m('G.dash.claim') + ' is ' + m('[' + G.dash.claim.join(', ') + ']') + ' and ' + m('G.dash.pick') + ' is ' + m('[' + G.dash.pick.join(', ') + ']') + '. '
-        + 'The legend and the ladder in Portuguese — ' + WPT.GRADE.map((g) => '<em>' + esc(g) + '</em>').join(', ') + ' — are in ' + a(blob('playground/warrant-pt.js'), 'playground/warrant-pt.js') + '.') + '</div>' }));
+  /* §6 the colour law */
+  const LAWS = [['Ink first.', 'Every figure reads in greyscale; a colour comes with a shape and a word.'], ['One colour, one meaning,', 'in every project on the grammar, each registered with its date.'],
+    ['Colour never carries standing.', 'The stroke does; nor does it stand in for a verdict word.'], ['Four kinds only:', 'the witness, identity, order, status.'],
+    ['Every pair passes the validator,', 'on the figure’s own ground, for every simulated deficiency.'], ['No yellow, no orange.', ''], ['A new colour needs the report and an approval,', 'recorded in the rulebook.']];
+  B_.push(C.section({ lab: 'the colour law', title: 'Ink first, and one red', id: 'colour', wide: true,
+    bodyRaw: '<div class="col">' + C.p('Every figure reads in greyscale first, and the strokes take lightness in order of standing. The one red, --witness ' + witnessHex + ' at ' + contrastW.toFixed(1) + ':1 on the page ground, marks an exhibited counterexample and nothing else: on this page, once, on the hero. A colour enters only with a measurement, and the law itself came from one: two series colours of a sibling project, distinct to most readers, were one colour to a deuteranope.') + '</div>'
+      + PL.grid(2, [PL.card({ k: 'the ink ramp', art: PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }), d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing.' }),
+        PL.card({ k: 'the one red', d: '<div class="gx-red">--witness ' + esc(witnessHex) + '</div><div class="gx-red-n">' + contrastW.toFixed(1) + ':1 on the page ground · an exhibited counterexample, only · on this page, the hero’s ×</div>Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
+      + '<h3 class="gr-h3">Every pair passes the validator</h3>'
+      + '<div class="col">' + C.p('OKLab ΔE × 100 for every pair that shares a figure, under the colour-vision model of Machado, Oliveira and Fernandes (2009), computed as this page is built:') + '</div>'
+      + PL.validatorPlate({ before: VB, after: VA, threshold: cvdMin })
+      + '<div class="col"><details class="more"><summary>The seven rules of colour, and the four kinds</summary><ol class="gx-laws">' + LAWS.map(([b, tt]) => '<li><b>' + esc(b) + '</b> ' + esc(tt) + '</li>').join('') + '</ol>'
+      + PL.kindsOfColour({ contrast: contrastW, identity, order, status }) + '</details>'
+      + '<details class="more"><summary>The registered colours</summary>' + C.plainList(reg.map((r) => ({ raw: '<b>' + cell(r[0]) + '</b> · ' + esc(r[1]) + ' — ' + cell(r[2]) + '. <em>Where:</em> ' + cell(r[3]) + '. <em>Approved:</em> ' + cell(r[4]) + '.' }))) + '</details></div>' }));
 
   const body = B_.join('\n\n').replace('%%GUARDS%%', () => C.plainList(GUARDS.map((g) => ({ text: '… ' + g + '.' }))));
   const head = (() => { try { return git(['rev-parse', '--short', 'HEAD']); } catch (e) { return 'unknown'; } })();
-  const foot = '<p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md, design/colour.js and the records each card cites, at git ' + esc(head) + ', by tools/build-grammar.js and its drawings, tools/build-grammar-plates.js. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
+  const foot = '<p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md, design/colour.js and the records each figure names, at git ' + esc(head) + ', by tools/build-grammar.js and its drawings, tools/build-grammar-plates.js and tools/build-grammar-gallery.js. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
+  /* the print register's values are declared once in :root (the page's own tokens, where a literal belongs) and the
+     paper panel re-points the screen tokens at them */
+  const paperCss = Object.entries(PAPER).map(([k, v]) => { const n = '--gx-pr' + k.slice(1); VARS[n] = v; return k + ':var(' + n + ')'; }).join(';');
   const CSS = `
-/* /grammar/ (tools/build-grammar.js): the cards, the grids, the drawings' type (the hero under the header is design/template.js) */
+/* /grammar/ (tools/build-grammar.js): the frames, the gallery's pairs, the outputs, the cards (the hero is design/template.js) */
 :root{${Object.entries(VARS).map(([k, v]) => k + ':' + v).join(';')}}
+.gx-key{margin-top:var(--s-5)}
+.gx-toc{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-6);padding-top:var(--s-4);border-top:1px solid var(--rule);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase}
+.gx-toc a{color:var(--ink-3);text-decoration:none}
+.gx-toc a:hover{color:var(--ink)}
+.gx-frames{display:grid;gap:var(--s-5);grid-template-columns:repeat(2,minmax(0,1fr));margin-top:var(--s-6)}
+@media (min-width:1000px){.gx-frames{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.gx-frame{display:flex;flex-direction:column;gap:var(--s-2);min-width:0}
+.gx-frame .gx-art{margin-bottom:var(--s-2);padding:0}
+.gx-words{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-5)}
+@media (min-width:900px){.gx-words{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.gx-words p{font-size:var(--text-small);color:var(--ink-2);margin-top:var(--s-3)}
+.gx-scene{margin-top:var(--s-8)}
+.gx-scene-h .gx-h{margin-top:var(--s-2)}
+.gx-hides{color:var(--ink-2);margin-top:var(--s-3)}
+.gx-pair{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr)}
+@media (min-width:900px){.gx-pair{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gx-pane{min-width:0}
+.gx-pane > svg{display:block;width:100%;height:auto}
+.gx-it{font-style:italic;fill:var(--ink-2);paint-order:stroke;stroke:var(--sunk);stroke-width:4;stroke-linejoin:round}
+.gx-textpair{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5);margin-top:var(--s-5)}
+.gx-textpair .gx-eb{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4);margin-bottom:var(--s-3)}
+.gx-prose{font-size:var(--text-body);color:var(--ink);line-height:var(--leading-loose)}
+.gx-mini{margin:var(--s-4) 0 0;font-size:var(--text-small);border-collapse:collapse;width:100%;min-width:0;table-layout:fixed}
+.gx-textpair .gx-pane{min-width:0;overflow-wrap:anywhere}
+.gx-mini th,.gx-mini td{text-align:left;padding:var(--s-2) var(--s-3) var(--s-2) 0;border-bottom:1px solid var(--rule)}
+.gx-mini th{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4);font-weight:var(--weight-body)}
+.gx-why{color:var(--ink-4);font-size:var(--text-small)}
+.gx-rests{margin-top:var(--s-4);font-size:var(--text-small);color:var(--ink-2)}
+.gx-src{font-size:var(--text-eyebrow);color:var(--ink-4);margin-top:var(--s-3)}
+.gx-outs{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
+@media (min-width:900px){.gx-outs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.gx-out{display:flex;flex-direction:column;gap:var(--s-2);min-width:0}
+.gx-outbox{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5)}
+.gx-outbox svg{display:block;width:100%;height:auto}
+.gx-outbox:not(.gx-paper) svg text{font-family:var(--f-mono)}
+.gx-paper{${paperCss};background:var(--paper)}
+.gx-grey{filter:grayscale(1)}
+.gx-codes{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
+@media (min-width:900px){.gx-codes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gx-codes > div{min-width:0}
+.gx-codes .gx-k{margin-bottom:var(--s-2)}
+.gx-codes pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.gx-red{font-family:var(--f-mono);font-size:var(--text-3);color:var(--ink)}
+.gx-red-n{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);margin:var(--s-2) 0 var(--s-3)}
+.gx-open{margin-top:var(--s-5)}
+.gx-law{font-family:var(--f-display);font-size:var(--text-2);line-height:var(--leading-snug);color:var(--ink);margin-bottom:var(--s-4)}
+.gx-more{margin-top:var(--s-3)}
+.gx-more summary{cursor:pointer;color:var(--ink-3)}
 .gx-grid{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:700px){.gx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1100px){.gx-grid.c3{grid-template-columns:repeat(3,minmax(0,1fr))}.gx-grid.c4{grid-template-columns:repeat(4,minmax(0,1fr))}}
@@ -755,14 +822,8 @@ function html() {
 .gx-vals em{font-style:normal;font-size:var(--text-eyebrow);color:var(--ink-4);text-transform:uppercase;letter-spacing:var(--track-loose)}
 .gx-chips{display:flex;flex-wrap:wrap;gap:var(--s-2);margin-bottom:var(--s-3)}
 .gx-grades{display:flex;flex-direction:column;gap:var(--s-2);margin-bottom:var(--s-3)}
-.gx-big-v{font-family:var(--f-display);font-size:var(--text-3);color:var(--ink);margin-bottom:var(--s-2)}
-.gx-unit{font-size:var(--text-small);color:var(--ink-3)}
 .gx-mood-h{font-size:var(--text-body);margin-bottom:var(--s-2)}
 .gx-empty{font-family:var(--f-display);font-size:var(--text-3);color:var(--ink);margin-bottom:var(--s-1)}
-.gx-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-4);margin-top:var(--s-6)}
-@media (min-width:700px){.gx-steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.gx-step svg{display:block;width:100%;height:auto;margin-top:var(--s-2)}
-.gx-arrow{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-4);border-top:1px solid var(--rule-strong);padding-top:var(--s-2);margin-top:var(--s-3)}
 .gx-eqs{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5);margin-top:var(--s-6)}
 @media (min-width:700px){.gx-eqs{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .gx-eq svg{display:block;width:100%;height:auto;max-width:22rem}
@@ -770,8 +831,6 @@ function html() {
 @media (min-width:700px){.gx-laws{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-laws li{counter-increment:law;display:grid;grid-template-columns:var(--s-7) minmax(0,1fr);font-size:var(--text-small);color:var(--ink-2);border-top:1px solid var(--rule);padding-top:var(--s-3)}
 .gx-laws li::before{content:counter(law);font-family:var(--f-display);font-size:var(--text-3);color:var(--ink);grid-row:span 2}
-.gx-st{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink)}
-.gx-note{color:var(--ink-4);font-size:var(--text-small)}
 .gr-h3{margin-top:var(--s-8)}
 .gr-k{display:block;margin-bottom:var(--s-1);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-2)}
 .gr-f{display:block;margin-top:var(--s-2);font-size:var(--text-small);color:var(--ink-4)}
@@ -791,7 +850,7 @@ function html() {
 .gx-before .w-chosen{stroke:var(${TB[2].tok})}
 `;
   return TPL.render({ title: 'The visual grammar', bodyRaw: body, footRaw: foot, path: '/grammar/', cssRaw: CSS,
-    desc: 'The visual grammar of this site: a mark’s stroke says what it rests on — decided, computed, chosen or refused — drawn live, with ' + numword(ruleNums.length) + ' rules each illustrated, the colour law and the checks that enforce it.' });
+    desc: 'WARRANT, a visual grammar in which every mark says what it rests on — decided, computed, chosen or refused — shown on the charts people already draw, each drawn twice, with the build that holds it.' });
 }
 
 if (require.main === module) {

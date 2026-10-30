@@ -201,12 +201,17 @@ function textClass(standing) {
    record cells (`<file>#<pointer>`) the build computed it from; `claim` is the cell of the claim record that holds a
    claimant's printed number. Either is an address: tools/check-marks.js resolves every one, and the census counts
    such a value as addressed. */
-function value(text, standing, { title, derived, claim } = {}) {
+/* `illustration` (2026-10-30): a number invented to show the marks has no record to point at, and says so instead of
+   pretending to one; the census counts it apart from both the addressed values and the unaddressed ones, and a figure
+   that holds one must be declared an illustration (design/components.js figure({ source: 'illustration' })). */
+function value(text, standing, { title, derived, claim, illustration } = {}) {
   const t = title || GLOSS[standing];
+  if (illustration && (derived || claim)) throw new Error('warrant.value: an invented number has no address');
   /* addresses are listed space-separated, so a space inside one (a model's name as a key) is written %20 */
   const from = derived ? ` data-derived="${[].concat(derived).map((x) => String(x).replace(/ /g, '%20')).join(' ').replace(/"/g, '&quot;')}"` : '';
   const cl = claim ? ` data-claim-rec="${String(claim).replace(/ /g, '%20').replace(/"/g, '&quot;')}"` : '';
-  return `<span class="w-val ${textClass(standing)}"${from}${cl} title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
+  const il = illustration ? ' data-ill' : '';
+  return `<span class="w-val ${textClass(standing)}"${from}${cl}${il} title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }
 
 /* the legend, in the page's own words rather than the spec's. Every page that

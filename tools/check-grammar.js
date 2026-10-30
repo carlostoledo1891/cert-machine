@@ -105,7 +105,7 @@ function marksCensus(root = SITE) {
   const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
   const guide = norm(G.GUIDE);
   const unstanding = [], borders = [], chips = new Map(), unpointed = [], figNoRecord = [], figNoStop = [];
-  let pointed = 0;
+  let pointed = 0, illustrative = 0;   /* illustrative: a number invented to show the marks (W.value({ illustration }), data-ill), counted apart */
   for (const file of walk(root, [], root)) {
     const src = fs.readFileSync(file, 'utf8');
     const rel = path.relative(root, file);
@@ -117,11 +117,11 @@ function marksCensus(root = SITE) {
       if (!/\bclass="[^"]*\bw-/.test(m[0]) && !/\bdata-w="/.test(m[0])) unstanding.push(rel);
     }
     const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
-    while ((m = rv.exec(src))) { if (m[0].includes('${')) continue; if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* a template in an inlined script is not a value */   /* D10: a derived value or a claimant's number carries its addresses */
+    while ((m = rv.exec(src))) { if (m[0].includes('${')) continue; if (/\bdata-ill[\s>=]/.test(m[0])) { illustrative++; continue; } if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* a template in an inlined script is not a value */   /* D10: a derived value or a claimant's number carries its addresses */
     /* R23, R30 (2026-10-30): a figure that draws the grammar names its record and the sentence that would stop it */
     for (const fg of src.match(/<figure\b[^>]*>[\s\S]*?<\/figure>/g) || []) {   /* a figure with a class is a figure (found 2026-10-30 on Janela) */
       if (!/class="[^"]*\bw-(decided|computed|chosen|void)\b|data-w="/.test(fg)) continue;
-      if (!/<figcaption[^>]*\sdata-record=/.test(fg)) figNoRecord.push(rel);
+      if (!/<figcaption[^>]*\sdata-(record|source)=/.test(fg)) figNoRecord.push(rel);   /* a figure with no record says what it is instead (an illustration, or built from what it names) */
       if (!/<figcaption[^>]*\sdata-stop[\s>]/.test(fg)) figNoStop.push(rel);
     }
     const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
@@ -140,7 +140,7 @@ function marksCensus(root = SITE) {
   const multi = [...chips].filter(([, kinds]) => kinds.size > 1).map(([w, kinds]) => w + ' as ' + [...kinds.keys()].join('/'));
   return { unstanding: unstanding.length, dashedBorders: borders.length, chipClash: clash.length, unpointed: unpointed.length,
     figNoRecord: figNoRecord.length, figNoStop: figNoStop.length,
-    pointed, pages: walk(root, [], root).length, chipWordsMulti: multi,
+    pointed, illustrative, pages: walk(root, [], root).length, chipWordsMulti: multi,
     where: { unstanding: count(unstanding), dashedBorders: count(borders), chipClash: clash, unpointed: count(unpointed),
       figNoRecord: count(figNoRecord), figNoStop: count(figNoStop) } };
 }

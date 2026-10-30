@@ -253,10 +253,25 @@ function recordLine(record) {
   return { attr: ' data-record="' + escAttr(parts.map((p) => p.r + '@' + p.sha).join(' ')) + '"',
     html: '<span class="fig-rec">' + (parts.length > 1 ? 'Records' : 'Record') + ': ' + parts.map((p) => '<span class="m">' + esc(p.r) + '</span> · sha256 ' + p.sha).join('; ') + '</span>' };
 }
-function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero, record, stop }) {
+/* `source` (2026-10-30), for a figure with no record to name, in place of one and said on the figure:
+     'illustration'   invented numbers, drawn to show the marks; it may hold no record address and no witness (a red × on
+                      invented data would be a forged counterexample), and the census counts it apart
+     'built: <what>'  computed as the page is built from what it names (equations, a stated construction) */
+function sourceLine(source, art) {
+  if (!source) return { attr: '', html: '' };
+  if (source === 'illustration') {
+    if (/\bdata-(rec|derived|claim-rec)="|\bclass="w-wx"/.test(art)) throw new Error('components.figure: an illustration holds a record address or a witness ×');
+    return { attr: ' data-source="illustration"', html: '<span class="fig-rec">Record: ∅ — an illustration, <em>given an invented record</em>; the arithmetic on it is exact.</span>' };
+  }
+  const m = /^built: (.+)$/.exec(source);
+  if (!m) throw new Error('components.figure: a source is "illustration" or "built: <what>"');
+  return { attr: ' data-source="built"', html: '<span class="fig-rec">Record: none — ' + esc(m[1]) + '.</span>' };
+}
+function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero, record, stop, source }) {
   /* a hero may carry a second drawing for a phone (`svgNarrowRaw`): the two swap by design/template.js's hero rule */
   const art = hero && svgNarrowRaw ? '<div class="hv-w">\n' + svgRaw + '\n</div><div class="hv-n">\n' + svgNarrowRaw + '\n</div>' : svgRaw;
-  const rl = recordLine(record);
+  if (record && source) throw new Error('components.figure: a figure names a record or a source, not both');
+  const rl = record ? recordLine(record) : sourceLine(source, art);
   const tail = rl.html + (stop ? '<span class="fig-stop">The build refuses this figure if ' + esc(stop) + '.</span>' : '');
   const cap = caption ? esc(caption) : captionRaw;
   const inner = '<figure>\n  <div class="figbox">\n' + art + '\n  </div>\n'

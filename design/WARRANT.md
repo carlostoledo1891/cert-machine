@@ -446,3 +446,22 @@ target memory, water-value's live solver (no record yet), and Eleições (paused
 The register's decided-claims strip is off the home page on the operator's word; the home page has no hero
 (design/heroes.json says so, check-wiring reads it). The register stays a table at reports/claims.html. The census
 lost nothing it counted as debt: the strip carried its record and stop lines.
+
+## The grammar page as a one-pager, and illustrations (2026-10-30)
+
+/grammar/ redrawn for a stranger arriving cold: the hero is the same numbers drawn twice (as a plotting library draws
+them, and in WARRANT), the four strokes are added one frame at a time, and a gallery draws five things people already
+make — a design wave (a record), Moody's chart (built from its equations), a leaderboard, an epidemic curve and a report
+paragraph (illustrations) — each twice. The rules, every issue found, the foundations and the guards stay on the page
+behind disclosures. Two additions to the machinery, both said on the figure:
+
+- **A figure with no record names its source instead** (design/components.js `figure({ source })`): `illustration`
+  (invented numbers, printed "Record: ∅ — an illustration, *given an invented record*") or `built: <what>` (computed as
+  the page is built from what it names). An illustration may hold no record address and no witness ×: a red × on
+  invented data would be a forged counterexample, and the figure refuses to build with one. The census counts a figure
+  that names a source as one that says what it rests on.
+- **An invented number says so** (`W.value(text, standing, { illustration: true })`, `data-ill`): it has no address to
+  point at, and the census counts it apart from both the addressed values and the unaddressed ones.
+
+A "usual" panel beside a WARRANT one is the same data through the same frame, every mark in one ink at one weight and
+unclassed, so no check reads it as a mark of the grammar.
