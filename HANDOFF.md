@@ -22,6 +22,23 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 — THE OPERATOR RULED THE OPEN QUESTIONS (asked in chat, every answer below is theirs). DONE: /claimbox/
+     REPUBLISHED from claimbox 6320675c (39e5e6ef; the page as at 157a587, the "From prose to claims, so far" paragraph;
+     --check green; claimbox-98 told). TO BUILD, each approved:
+     (1) THE LIGHT/DARK SWITCH SITE-WIDE: the light block moves into design/tokens.js (the "ONE THEME, DELIBERATELY" note
+         changes); every page gets the pill; still no new colour (the print register's values only).
+     (2) /GRAMMAR/: a live ε handle on the √x hero, and a contour figure in the gallery.
+     (3) THE RECEIVER: instruments/ledger (growth plan B6) and FORMAT v4 in instruments/claimbox (both checkers and the
+         decider together), then `make lift` in claimbox.
+     (4) ONE RED, ONE MEANING: --v-refu folds into --witness (the colour change approved).
+     (5) READ STEPS DO NOT CAP A VERDICT: no PARTIAL cap; chains show which steps were read (old open item (a), closed).
+     (6) /og.png: every page points at the new card (old open item (e)).
+     (7) NO MORE pt-BR PAGES — translate to English: Swell, Janela + /janela/metodo/, /eleicoes2026/ (still paused for new
+         rounds; translation only), the return-level atlas map. URLs and product names stay (Janela, Swell, PU Verificado);
+         copy, units, number formats (1.234,5 → 1,234.5) and dates go English. NOT translated: the Petrobras pages
+         (/contraprova/, /decidivel/, /abatimento/, frozen) and every file already sent (notas, decks, proposta,
+         registro) stays byte-identical. This replaces the Janela pt-BR record/stop work and the pt-BR format in
+         design/record.js: both are dropped, the figures take the English record lines.
   ◆ 2026-10-30 — LIVE on the operator's "merge all, publish live": the catalogue and the switch below (merge 8fe5385b); the
      H1 now "WARRANT, the visual layer of evidence" (the operator's idea, "the visual layer of mathematics", made accurate:
      most scenes are measurements, fits and forecasts, and what the grammar draws is the standing of evidence); and
