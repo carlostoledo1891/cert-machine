@@ -25,7 +25,7 @@ require('./window.js');
 /* the window curve is the reader's pick, drawn in float: CHOSEN, dotted, whatever the verdict on P (WARRANT rule 1 — the
    curve used to turn dashed when the window was refused, a verdict carried by the standing channel) */
 { const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
-  V.CHOSEN_ATTRS = WR.attrs(WR.CHOSEN, { width: 2 }); V.WIN_LEGEND = WR.legendHtml({ compact: true, exclude: [WR.DECIDED, WR.COMPUTED, WR.REFUSED] }); }
+  V.CHOSEN_ATTRS = WR.attrs(WR.CHOSEN, { width: 2 }); V.WIN_LEGEND = WR.legendHtml({ compact: true, from: V.CHOSEN_ATTRS }); }   /* the window draws one mark, chosen (R20) */
 
 /* ---- a few more, for the cold open and the instruments ---- */
 /* the route of a claim, the house flow figure (design/components.js), read on click */

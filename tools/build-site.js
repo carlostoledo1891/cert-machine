@@ -1611,7 +1611,7 @@ const workArtifacts = C.plainList([
   { b: 'blind-spot, an RTL mutation task under Inspect and verifiers.', raw: fmt(bsiRec.mutants) + ' pooled mutants, ' + fmt(bsiRec.submissionsScoredThreeWays) + ' submissions scored three ways with ' + bsiRec.disagreements + ' disagreements; ' + bsiFrontier.length + ' frontier models, ' + fmt(bsiRollouts) + ' rollouts, every one re-scored offline with ' + bsiDis + ' disagreements. <a href="/instruments/blind-spot">The instrument</a> · <a href="' + GITHUB + '/tree/main/environments/blind_spot/inspect">the Inspect task</a>.' },
   { b: 'GSM8K’s answer key, re-decided.', raw: fmt(GK.test.annotationsTotal) + ' test and ' + fmt(GK.train.annotationsTotal) + ' train calculator annotations evaluated from the expressions they print; ' + GK.findings.printedStepWrongTest + ' test and ' + GK.findings.printedStepWrongTrain + ' train keys print a step that does not hold as printed. <a href="/reports/gsm8k-audit.html">The page</a>.' },
   { b: 'Three verifier-graded environments on the Prime Intellect hub.', raw: '<span class="m">blind-spot</span>, <span class="m">break-the-grader</span> and <span class="m">lattice-claims</span>, no answer key in any of them: a kill is simulated, a lattice claim is decided exactly, a grader is broken or is not. At its last control build (git ' + C.esc(batteriesRec.git) + ') the repository ran ' + fmt(batteriesRec.ran) + ' batteries, ' + fmt(batteriesRec.green) + ' of them green. <a href="/reports/gym.html">break-the-grader</a> · <a href="' + GITHUB + '">the repository</a>.' }
-]) + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] });
+]) + W.legendHtml({ compact: true });
 
 const aboutBody = [
   C.header({

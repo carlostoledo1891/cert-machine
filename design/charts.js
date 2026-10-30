@@ -354,10 +354,24 @@ function lines(o) {
     const tok = s.token || CAT[S.slice(0, i).filter(x => !x.token).length];
     const pts = s.pts.filter(p => p[1] !== null && p[1] !== undefined);
     if (!pts.length) return;
-    const d = pts.map((p, k) => (k ? 'L' : 'M') + f.px(p[0]).toFixed(2) + ' ' + f.py(p[1]).toFixed(2)).join(' ');
-    if (s.area) {                                   /* a wash, never a block */
-      out.push('    <path d="' + d + ' L' + f.px(pts[pts.length - 1][0]).toFixed(2) + ' ' + (f.T + f.ph)
-        + ' L' + f.px(pts[0][0]).toFixed(2) + ' ' + (f.T + f.ph) + ' Z" fill="' + tok + '" opacity="0.10"/>');
+    /* A VOID HAS A SIZE (R28, built 2026-10-30). A refused point (null) is never bridged: the line breaks there, and the
+       stretch from the last sample before it to the first after it is drawn as the void, hatched across the plot, so a
+       refusal keeps the width it took. Before this a null was filtered out and the line ran straight across it. */
+    const runs = []; let cur = [];
+    for (const p of s.pts) { if (p[1] === null || p[1] === undefined) { if (cur.length) runs.push(cur); cur = []; } else cur.push(p); }
+    if (cur.length) runs.push(cur);
+    const xs = s.pts.map(p => p[0]);
+    const gaps = [];
+    if (s.pts[0][1] === null || s.pts[0][1] === undefined) gaps.push([xs[0], runs[0][0][0]]);
+    for (let k = 1; k < runs.length; k++) gaps.push([runs[k - 1][runs[k - 1].length - 1][0], runs[k][0][0]]);
+    const lastP = s.pts[s.pts.length - 1];
+    if (lastP[1] === null || lastP[1] === undefined) gaps.push([runs[runs.length - 1][runs[runs.length - 1].length - 1][0], xs[xs.length - 1]]);
+    for (const [g0, g1] of gaps) out.push('    <rect x="' + f.px(g0).toFixed(1) + '" y="' + f.T + '" width="' + Math.max(1, f.px(g1) - f.px(g0)).toFixed(1)
+      + '" height="' + f.ph + '" class="w-void" fill="url(#cmHatch)" stroke="' + AXIS + '" stroke-width="1"/>');
+    const d = runs.map((run) => run.map((p, k) => (k ? 'L' : 'M') + f.px(p[0]).toFixed(2) + ' ' + f.py(p[1]).toFixed(2)).join(' ')).join(' ');
+    if (s.area) for (const run of runs) {           /* a wash, never a block; one per run, never across a void */
+      out.push('    <path d="' + run.map((p, k) => (k ? 'L' : 'M') + f.px(p[0]).toFixed(2) + ' ' + f.py(p[1]).toFixed(2)).join(' ') + ' L' + f.px(run[run.length - 1][0]).toFixed(2) + ' ' + (f.T + f.ph)
+        + ' L' + f.px(run[0][0]).toFixed(2) + ' ' + (f.T + f.ph) + ' Z" fill="' + tok + '" opacity="0.10"/>');
     }
     out.push('    <path d="' + d + '" fill="none" stroke="' + tok + '" stroke-width="2" '
       + 'stroke-linejoin="round" stroke-linecap="round"'
@@ -448,8 +462,16 @@ function bars(o) {
        inside the plot it would land on the first bar */
     if (m.t) out.push(txt(x + (m.anchor === 'end' ? -7 : 7), f.T - 8 - (m.row || 0) * 17, m.t, 't-lab', m.anchor || 'start'));
   }
+  if (rows.some((r) => r.v === null || r.v === undefined)) out.push(HATCH_DEF);
   rows.forEach((r, i) => {
     const y = f.T + i * rowH + (rowH - barH) / 2;
+    /* R28: a refused row is a void the width of the plot, hatched, with ∅ and its word — never a 2 px stub at zero */
+    if (r.v === null || r.v === undefined) {
+      out.push('    <rect x="' + f.L + '" y="' + y + '" width="' + f.pw.toFixed(1) + '" height="' + barH + '" class="w-void" fill="url(#cmHatch)" stroke="' + AXIS + '" stroke-width="1"/>');
+      out.push(txt(f.L - 10, y + barH / 2 + 4, r.k, 't-ax', 'end'));
+      out.push(txt(f.L + 10, y + barH / 2 + 4, '∅ ' + (r.lab || 'refused'), 't-lab', 'start'));
+      return;
+    }
     const wpx = Math.max(2, X(r.v) - f.L);
     const tok = r.token || o.token || CAT[0];
     /* 4px rounded data-end, square at the baseline */

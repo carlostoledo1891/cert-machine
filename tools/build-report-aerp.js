@@ -104,7 +104,7 @@ B.push(C.stats([
   { k: 'ring loading', v: '9/8', n: 'Under k = 1..m; under the notebook\'s k = 1..m−1 the same bound needs the padded or the m = 17 instance.' }
 ]));
 B.push('<div class="col">' + C.pRaw('Every verdict below is an exact decision and is printed plain. A number the page did not decide — g in floating point, or a value the literature or the repository printed — is underlined dashed; a verdict that holds only under one reading of a problem names the reading in italic.')
-  + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }) + '</div>');
+  + W.legendHtml({ compact: true }) + '</div>');
 B.push(C.section({
   lab: '§1 · no five on a sphere', title: 'Problem 60: the frontier, n = ' + nLo + ' to ' + nHi, wide: true,
   bodyRaw: C.pRaw('The repository\'s notebook stops at n = ' + repoN + ' (' + repoSize + ' points) and its verifier is floating point (np.linalg.det with isclose). The thread grew from one ' + first60.size + '-point set at n = ' + first60.n + ' to '

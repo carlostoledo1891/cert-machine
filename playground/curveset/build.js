@@ -41,7 +41,7 @@ const monoR = (s) => ratio(s, 0), dotsR = (s) => ratio(s, lastIdx(s));
 /* the standings this page actually uses. DECIDED is excluded because nothing
    here is decided — see the paragraph above — and a legend that teaches a mark
    the page never draws is the decoration the grammar exists to avoid. */
-const legend = W.legendHtml({ exclude: [W.DECIDED] });
+const legend = '%%WLEGEND%%';   /* derived from the body once it exists (R20): the page draws no decided mark */
 
 /* WARRANT v2: does the published curve stay inside the set at every rung? measured on the figure plot.js draws, so the
    sentence and the red × can never disagree */
@@ -192,7 +192,7 @@ function build(OUT) {
     foot,
     title: 'The line they published, and the lines that fit · instruments',
     desc: 'Two real calibrations — a NIST load cell and a rat IL-6 assay — with the whole set of curves the standards allow, computed in closed form, and the published fit drawn inside it as one member chosen by a criterion rather than by the data.',
-    path: '/instruments/curveset/', body,
+    path: '/instruments/curveset/', body: body.replace('%%WLEGEND%%', () => W.legendHtml({ from: body + runtime.replace(/<\/?script[^>]*>/g, '') })),   /* the figure and the script that redraws it, by the classes they write */
     css: `${CSS}`, script: `${runtime}`,
   });
   const dir = path.join(OUT, 'curveset');

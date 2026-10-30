@@ -373,7 +373,8 @@ function warrantCss(o) {
 }
 function renderApp(o) {
   const cfg = o.configJson ? '<script>window.' + (o.configGlobal || 'SKYAUDIT') + ' = ' + o.configJson + ';</script>' : '';
-  return `<!doctype html>
+  /* a legend with no \`from\` is derived from the page's marks (R20, playground/warrant.js deriveLegends) */
+  return require('../playground/warrant.js').deriveLegends(`<!doctype html>
 <html lang="${o.lang || 'en'}"><head>
 ${require('./template.js').headHtml({ title: o.title, desc: o.description || '', path: o.path, og: o.og })}
 ${(o.styles || []).map((h) => `<link rel="stylesheet" href="${h}">`).join('\n')}
@@ -394,7 +395,7 @@ if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;})();</scrip
 ${o.noLeft ? '' : `<aside class="as-left" id="leftpanel">${o.leftHtml || ''}</aside>\n`}<aside class="as-panel" id="panel">${o.panelHtml || ''}</aside>
 ${o.noDock ? '' : `<footer class="as-dock" id="dock">${o.dockHtml || ''}</footer>\n`}${o.extraHtml ? o.extraHtml + '\n' : ''}${cfg}
 ${(o.scripts || []).map((s) => `<script src="${s}"></script>`).join('\n')}
-</body></html>`;
+</body></html>`);
 }
 
 module.exports = { renderApp, appCss, APP_DARK };

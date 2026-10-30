@@ -532,7 +532,7 @@ B.push(C.figure({ svgRaw: figIdea(), caption: 'The same instant, computed both w
   + 'weight \u2014 a model\u2019s answer, computed. The two solid boundaries enclose every value those inputs can take, '
   + 'decided given the hypotheses of \u00a75; the soft halo past them is the glide model\u2019s own error, which nothing '
   + 'here has measured. The line spends most of its length inside the zone where nothing is settled.' }));
-B.push('<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] }) + '</div>');
+B.push('<div class="col">' + WR.legendHtml({ compact: true }) + '</div>');
 
 if (WINDS[WI_MID].name !== '35 kt') die('the headline scenario is no longer the 35 kt wind the stats name');
 if (GEO_FLIP.all === 0) die('no REACHABLE verdict fails the WGS84 comparison: H3\'s text says some do');

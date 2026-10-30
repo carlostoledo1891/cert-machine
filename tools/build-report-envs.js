@@ -194,7 +194,7 @@ B.push(C.stats([
         + ' provably-wrong submissions. The band closes fact by fact, as the tolerance drops below half that '
         + 'fact\'s certificate width — so the aggregate falls and reaches zero only when the tolerance is under '
         + 'half the width of every certificate in the corpus. Each dot is an exact count at one probed tolerance; the dotted joins are a picture between them.' }),
-      '<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.REFUSED] }) + '</div>',
+      '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>',
       '<div class="col">' + C.pRaw('This is the figure that answers the standard remedy. A published bug taxonomy '
         + 'for reward verifiers lists exactly this failure — a loose numeric tolerance accepting a nearby wrong '
         + 'value — and prescribes tightening the tolerance. ' + ORDERS[0].toUpperCase() + ORDERS.slice(1) + ' orders of magnitude of tightening take the '

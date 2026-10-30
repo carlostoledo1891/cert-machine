@@ -236,11 +236,31 @@ function plainList(items) {
    `alt` is REQUIRED — a figure with no text alternative is a figure that does
    not exist for some readers, and the page battery fails on a missing one.
    `captionRaw` carries markup this file or playground/warrant.js produced. */
-function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero }) {
+/* A FIGURE NAMES ITS RECORD AND THE SENTENCE THAT WOULD STOP IT (R23, R30; built 2026-10-30). `record` is the file
+   (or files) under certs/ or corpus/ the figure is drawn from: the caption names it, with the first twelve hex digits
+   of its sha256, and the figcaption carries data-record so a gate can read it back. `stop` is the plain sentence of
+   the builder's own check that refuses the figure ("the page refuses to build if …"), printed under the caption. */
+const crypto = require('crypto');
+function recordLine(record) {
+  const recs = [].concat(record || []);
+  if (!recs.length) return { attr: '', html: '' };
+  const fs = require('fs'), path = require('path'), ROOT = path.resolve(__dirname, '..');
+  const parts = recs.map((r) => {
+    const abs = path.join(ROOT, r);
+    if (!fs.existsSync(abs)) throw new Error('components.figure: the record ' + r + ' does not exist');
+    return { r, sha: crypto.createHash('sha256').update(fs.readFileSync(abs)).digest('hex').slice(0, 12) };
+  });
+  return { attr: ' data-record="' + escAttr(parts.map((p) => p.r + '@' + p.sha).join(' ')) + '"',
+    html: '<span class="fig-rec">' + (parts.length > 1 ? 'Records' : 'Record') + ': ' + parts.map((p) => '<span class="m">' + esc(p.r) + '</span> · sha256 ' + p.sha).join('; ') + '</span>' };
+}
+function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero, record, stop }) {
   /* a hero may carry a second drawing for a phone (`svgNarrowRaw`): the two swap by design/template.js's hero rule */
   const art = hero && svgNarrowRaw ? '<div class="hv-w">\n' + svgRaw + '\n</div><div class="hv-n">\n' + svgNarrowRaw + '\n</div>' : svgRaw;
+  const rl = recordLine(record);
+  const tail = rl.html + (stop ? '<span class="fig-stop">The build refuses this figure if ' + esc(stop) + '.</span>' : '');
+  const cap = caption ? esc(caption) : captionRaw;
   const inner = '<figure>\n  <div class="figbox">\n' + art + '\n  </div>\n'
-    + (caption || captionRaw ? '  <figcaption>' + (caption ? esc(caption) : captionRaw) + '</figcaption>\n' : '')
+    + (cap || tail ? '  <figcaption' + rl.attr + (stop ? ' data-stop' : '') + '>' + (cap || '') + tail + '</figcaption>\n' : '')
     + '</figure>';
   /* `hero` (D12, 2026-10-29): the one figure per page whose witness a reader meets first, drawn at the container's width
      like every figure (the bleed ruled out 2026-10-30); tools/check-wiring.js refuses a second one on a page */
@@ -424,7 +444,7 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
     + '<div class="d" data-ro-d>' + esc(readout.d) + '</div></div>\n'
     + parts.join('\n') + '\n  </div>\n'
     + (caption ? '  <figcaption>' + esc(caption) + '</figcaption>\n' : '')
-    + (standings.length ? '  ' + W.legendHtml({ compact: true, exclude: [W.DECIDED, W.COMPUTED, W.CHOSEN, W.REFUSED].filter((s) => !standings.includes(s)) }) + '\n' : '')
+    + (standings.length ? '  ' + W.legendHtml({ compact: true, from: standings }) + '\n' : '')
     + '</figure></div>\n' + script;
 }
 

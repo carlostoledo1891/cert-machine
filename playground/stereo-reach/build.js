@@ -107,7 +107,7 @@ const body = `
     <div>
       <div class="sr-fig"><svg id="sr-svg" viewBox="0 0 900 460" role="img" aria-label="The upper bound on the elevation error of the selected rig against horizontal range, on log axes, with its four terms, the tolerance line and the reach"></svg></div>
       <p class="sr-note">Four curves, each the UPPER end of an enclosure: the quantization cell (disparity to &plusmn;&delta;d pixels, vertical coordinate to &plusmn;&frac12; pixel; tight, because each measured quantity enters once), the cell with the synchronisation lag's texture shift added to the disparity, the slope term (a horizontal misplacement read on the steepest slope of the wave), and their total with the surface's own motion over the lag. The shaded band is the preset's imaged range; the thin vertical is the range you chose; the vertical marker is the reach at the tolerance. Solid where every input is a literal or a box from a source; dotted where any input is a choice.</p>
-      ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED] })}
+      ${W.legendHtml()}
       <p class="sr-note" id="sr-source"></p>
     </div>
     <div class="sr-panel">

@@ -238,7 +238,7 @@ function build(dir, ctx) {
 <p>O mapa usa a projeção Equal Earth (${cite('Šavrič, Patterson e Jenny, 2018')}), de áreas iguais: cada célula ocupa no mapa uma área proporcional à que ocupa no oceano, e uma célula de ${L4}&deg; perto do polo não parece maior do que é. Arraste para mover, use a roda ou dois dedos para aproximar; &ldquo;Margem brasileira&rdquo; enquadra o reticulado de ${L1}&deg;.</p>
 <h3>Como ler cada número</h3>
 <p>Um número <b>decidido</b> é um intervalo exato, arredondado para fora ao centímetro: a ponta de baixo para baixo, a de cima para cima. A largura que outros ${Y.n} anos do mesmo mar poderiam dar (${LV}%, método delta) é <b>estatística</b>, sublinhada tracejada: computada, não decidida. Uma <b>recusa</b> não tem marca: &empty; e o motivo.</p>
-${WP.legendHtml({ exclude: [W.CHOSEN] })}
+${WP.legendHtml({ code: fs.readFileSync(path.join(HERE, 'map-client.js'), 'utf8') })}
 <h3>Em que cada número se apoia</h3>
 <p>A conta é exata, e cada número se apoia em premissas conferidas até degraus diferentes; uma conclusão vale o degrau da sua premissa mais fraca. O cartão de cada célula repete esta cadeia com os números dela.</p>
 ${chain('pt')}
@@ -252,7 +252,7 @@ ${chain('pt')}
 <p>The map uses the Equal Earth projection (${cite('Šavrič, Patterson and Jenny, 2018')}), which keeps areas: each cell takes a share of the map in proportion to its share of the ocean, and a ${L4}&deg; cell near the pole looks no bigger than it is. Drag to move, use the wheel or two fingers to zoom; &ldquo;Brazilian margin&rdquo; frames the ${L1}&deg; lattice.</p>
 <h3>How to read each number</h3>
 <p>A <b>decided</b> number is an exact interval, rounded outward to the centimetre: the lower end down, the upper end up. The width another ${Y.n} years of the same sea could give (${LV}%, the delta method) is <b>statistical</b>, dash-underlined: computed, not decided. A <b>refusal</b> has no mark: &empty; and the reason.</p>
-${W.legendHtml({ exclude: [W.CHOSEN] })}
+${W.legendHtml({ code: fs.readFileSync(path.join(HERE, 'map-client.js'), 'utf8') })}
 <h3>What each number rests on</h3>
 <p>The arithmetic is exact, and each number rests on premises checked to different rungs; a conclusion is as checked as its weakest premise. Each cell's card repeats this chain with its own figures.</p>
 ${chain('en')}

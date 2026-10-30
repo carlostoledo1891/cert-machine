@@ -106,7 +106,7 @@ B.push(C.stats([
 B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is decided by exact arithmetic unless it is marked. '
   + 'Underlined dashed: nothing here decided it — what a claimant\'s checker printed is its claim, and so is a proof read rather than computed. '
   + 'A verdict that holds given a published theorem names it in italic; C42, whose limit is decided and whose passage to it is an argument in prose, lists what it rests on and how far each step was checked (§5).')
-  + W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 B.push(C.section({
   lab: '§1 · the claims', title: 'What the registry prints, and what the certificates give', wide: true,
   bodyRaw: C.table({

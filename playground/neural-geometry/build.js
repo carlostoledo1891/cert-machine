@@ -170,7 +170,7 @@ const body = `
     <p>D(i,j) and D(j,i) came from calls that never met, and the page was averaging them and calling the difference noise. Its <em>direction</em> is not noise: things are judged closer to ${REF} than ${REF} is to them — every one of the ${refSet.items.length - 1}, pair by pair, in <b>all three models independently</b>. That is Tversky's asymmetry, and it points at the prototype. On the ${wheels.length} wheels it points at nothing — ρ ≈ ${wheelRho} — which is exactly right, because a circle has no privileged point.</p>
   </div>
 </div>
-${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+${W.legendHtml({ compact: true })}
 </div></div></section>
 
 <section class="mapsec"><div class="wrap">

@@ -64,7 +64,7 @@ const head = () => `
     <span class="item"><span class="k">models</span><span class="v">${G.models.map((m) => m.label).join(' · ')}</span></span>
     <span class="item"><span class="k">decided in</span><span class="v">exact integer arithmetic</span></span>
   </div>
-  ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+  ${W.legendHtml({ compact: true })}
 </div></header>`;
 
 const foot = `

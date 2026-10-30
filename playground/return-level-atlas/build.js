@@ -390,7 +390,7 @@ function build(OUTDIR) {
       ${SEVENTH}
       ${STATW}
       ${PRINTEDW}
-      ${has7 ? W.legendHtml({ exclude: [W.CHOSEN] }) : ''}
+      ${has7 ? W.legendHtml({ code: APP }) : ''}
       <h2>What this opens</h2>
       <p>${OPENS}</p>
       <p>The code in your tab: ${Object.entries(modules).map(([rel, h]) => '<span class="mono">' + esc(rel) + '</span> ' + h.slice(0, 12)).join(' &middot; ')}. ${S ? 'Cell files served from the public repository at commit <span class="mono">' + S.commit.slice(0, 12) + '</span>, each checked against its sha256 before it is used; the whole ledger is <a href="https://github.com/' + REPO + '/blob/' + S.commit + '/certs/hseva-atlas.json">certs/hseva-atlas.json</a> at the same commit.' : 'Cell files are not yet served from a published commit; the map and the claims stand, re-certification in the tab waits for them.'}</p>

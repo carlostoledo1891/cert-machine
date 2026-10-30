@@ -246,7 +246,7 @@ B.push(C.stats([
 B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('A kernel\'s CERTIFIED and a finite decider\'s word are decisions, drawn plain. '
   + 'Underlined dashed: a reading — lane S\'s words, and the gaps that rest on them, were made by AI agents and second-read the same way; they are claims, quoted to the line, not certificates. '
   + '∅: nothing decided — a run not yet recorded, or one that compared nothing.')
-  + W.legendHtml({ exclude: [W.CHOSEN], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 
 /* since the pin — the release moved (2026-10-26); the gaps found at the new pin lead */
 if (since.R2) {

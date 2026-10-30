@@ -529,7 +529,7 @@
       spread = '<p class="rm-sum">' + esc(t + (hi.q.v[1] - lo.q.v[0] > 2 ? s.spreadWhy : '')) + '</p>';
     } else spread = '<p class="rm-note">' + esc(s.spread1) + '</p>';
     h += '<h2 class="rm-sec">' + esc(fill(s.sixH, { Six: cap(wnum(FAM.length)), six: wnum(FAM.length) })) + '</h2>' + spread + strip(c, F, ad, Tk, code ? null : stat)
-      + (pt() ? WP : W).legendHtml({ compact: true, exclude: [W.CHOSEN] });
+      + (pt() ? WP : W).legendHtml({ compact: true, from: h });   /* derived from the card it closes (R20) */
     h += survive(c, b);
     /* the rigour, one click down */
     h += '<button type="button" class="rm-trustb" id="rm-trust" aria-expanded="' + ST.trust + '" aria-controls="rm-trustp">' + esc(s.trust) + ' <span class="chev">›</span></button><div class="rm-trustp" id="rm-trustp"' + (ST.trust ? '' : ' hidden') + '>';

@@ -220,7 +220,7 @@ B.push(C.stats([
         + 'refusal threshold, and the off-binding martingale residual is at most '
         + fv(maxMart) + ' across the same trees. The population sits where floating-point '
         + 'accumulation puts it, not where a tolerance was tuned to put it.')
-      + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }) + '</div>'
+      + W.legendHtml({ compact: true }) + '</div>'
   }));
 }
 
@@ -275,7 +275,7 @@ B.push(C.section({
       + 'selection is partly circular. These numbers are quoted as history because their data sits behind '
       + 'CCEE\'s access wall — the recipe to re-run them ships with the unit ('
       + 'docs/pld-data-run.md), and nothing in §2\'s certificates depends on them.'),
-    '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }) + '</div>'
+    '<div class="col">' + W.legendHtml({ compact: true }) + '</div>'
   ].join('\n')
 }));
 

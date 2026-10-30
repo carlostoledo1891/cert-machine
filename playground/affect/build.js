@@ -153,7 +153,7 @@ sections = patch(sections, 'every decision after that is exact arithmetic on int
   'two decisions about that table are exact arithmetic on integers, as on <a href="../neural-geometry/index.html">the previous page</a>: whether it is a distance at all, triple by triple, and its signature. Everything placed, fitted or aligned after that &mdash; every map, order, axis, gap, floor and rank below &mdash; is floating point: computed, not decided, and underlined dashed where the tables and captions print it. Each integer is also one sampled answer, so what a table says about a model rests on that sample; the noise floor further down is the page&rsquo;s own measure of how far a second sample moves.',
   'the exact-arithmetic sentence');
 sections = patch(sections, 'Whether they agree is not a thing either was asked.</p>',
-  (f) => f + W.legendHtml({ exclude: [W.REFUSED], compact: true }), 'the legend anchor');
+  (f) => f + W.legendHtml({ compact: true }), 'the legend anchor');
 
 /* the readouts: every float in them COMPUTED */
 sections = markAll(sections, /(<span class="fit">)(.*?)(<\/span>)/g, 9, 'figure captions');

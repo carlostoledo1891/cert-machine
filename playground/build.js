@@ -188,7 +188,7 @@ const body = `
        now and carries no second container. -->
   <div class="mt8 span-all">
     <div class="eyebrow">what the marks below mean</div>
-    ${W.legendHtml({ exclude: [W.DECIDED] })}
+    %%WLEGEND%%
   </div>
 
   <a class="card" href="shape-hunt/index.html">
@@ -471,7 +471,7 @@ for (const id of Object.keys(REG)) if (!titled.includes('href="' + id + '/index.
 const html = page({
   title: 'Instruments',
   desc: 'The instruments of cert-machine: ' + COUNT.all + ' pages where the same exact and interval arithmetic as the reports runs in the browser, each card saying what backs its headline number — a battery, a certificate, exact arithmetic, or floats.',
-  path: '/instruments/', body: titled,
+  path: '/instruments/', body: titled.replace('%%WLEGEND%%', () => W.legendHtml({ from: titled })),   /* derived from the cards' own art (R20) */
   css: `${CSS}`,
 });
 

@@ -37,7 +37,8 @@ function refresh(html, pagePath) {
      markers passes through, and picks them up when its builder next runs */
   const rb = require('./sheet.js').rebake(out);
   if (rb.rebaked) refresh.rebaked = (refresh.rebaked || 0) + 1;
-  return rb.html;
+  /* a standing legend with no \`from\` is derived from the page's own marks (R20, 2026-10-30) */
+  return require('../playground/warrant.js').deriveLegends(rb.html);
 }
 
 module.exports = { refresh, rootOf, sectionOf };

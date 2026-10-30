@@ -509,12 +509,14 @@ function html() {
   const grepCount = (re, dirs) => { let n = 0; for (const d of dirs) { const walkJs = (q) => { for (const e of fs.readdirSync(q, { withFileTypes: true })) { const z = path.join(q, e.name); if (e.isDirectory()) { if (!/node_modules|\.venv|out$/.test(z)) walkJs(z); } else if (e.name.endsWith('.js')) n += (fs.readFileSync(z, 'utf8').match(re) || []).length; } }; walkJs(path.join(ROOT, d)); } return n; };
   const heroPages = walkHtml(path.join(ROOT, 'site')).filter((f) => /\sdata-hero[\s>]/.test(fs.readFileSync(f, 'utf8'))).length;
   const excludes = grepCount(/legendHtml\(\{[^}]*exclude/g, ['tools', 'apps', 'playground']);
+  const r20 = /^\s+ok\s+\d+\s+every legend is derived/m.test(wiring);
+  const r28 = /RED ok\s+a refused point in a line is drawn as a void/.test(wiring) && /RED ok\s+a refused bar keeps its row/.test(wiring);
   const recCaptions = walkHtml(path.join(ROOT, 'site')).reduce((n, f) => n + (fs.readFileSync(f, 'utf8').match(/<figcaption[^>]*\sdata-record=/g) || []).length, 0);
   const CANDIDATES = [
     ['R17', 'A number’s standing is read from a typed value carrying its record’s address.', NOW.unpointed ? 'partial' : 'gated', fmt(NOW.pointed) + ' values carry an address; ' + fmt(NOW.unpointed) + ' do not'],
     ['R18', 'Every channel the standing scale uses is monotone in it, or constant.', ordered(TA) ? 'gated' : 'open', 'tone falls with standing; a battery asserts it'],
     ['R19', 'Pixels round outward, and a figure prints the smallest difference it can show.', 'partial', 'refused on this page’s enclosure; not yet in the chart kit'],
-    ['R20', 'The legend is derived from the figure, never declared.', excludes ? 'open' : 'gated', excludes + ' calls still tell the legend what to leave out'],
+    ['R20', 'The legend is derived from the figure, never declared.', r20 ? 'gated' : 'open', r20 ? 'every legend derived from its page, figure or drawing code; tools/check-wiring.js refuses an exclude list or an item for a standing not drawn' : excludes + ' calls still tell the legend what to leave out'],
     ['R21', 'A dash is a standing everywhere: strokes, borders, motion.', NOW.unstanding || NOW.dashedBorders ? 'partial' : 'gated', fmt(NOW.unstanding) + ' unclassed dashes and ' + fmt(NOW.dashedBorders) + ' dashed borders left'],
     ['R22', 'A mark’s reason is visible text, never only a tooltip.', hiddenNow ? 'open' : 'gated', fmt(hiddenNow) + ' reasons live only in a tooltip'],
     ['R23', 'A figure names its record and its digest on itself.', recCaptions ? 'partial' : 'open', recCaptions ? recCaptions + ' captions name their record' : 'no caption names its record yet'],
@@ -522,7 +524,7 @@ function html() {
     ['R25', 'A frame is a page: standing never tweens, a value never travels.', exists('tools/check-frames.js') ? 'gated' : 'open', 'no gate yet'],
     ['R26', 'A chosen input is a handle, and a drag is a test.', exists('playground/return-level-check/drive.js') ? 'partial' : 'open', 'one instrument: the return-level check’s design height'],
     ['R27', 'A premise grade is a pair: whether the code was verified, and how far it was validated.', typeof W.pairWord === 'function' ? 'partial' : 'open', 'on Swell and on this page; other chains as they are next edited'],
-    ['R28', 'A witness is an event, and a void has a size.', heroPages ? 'partial' : 'open', heroPages + ' pages declare a hero; the void’s size is not built'],
+    ['R28', 'A witness is an event, and a void has a size.', heroPages && r28 ? 'gated' : heroPages ? 'partial' : 'open', heroPages + ' pages declare a hero, each × first; the chart kit draws a refused value as a void its own size' + (r28 ? '' : ' (not yet)')],
     ['R29', 'The registry is one machine-readable file, copied by digest into every sibling.', exists('design/warrant/registry.json') ? 'gated' : 'open', 'the five patterns still live in several copies'],
     ['R30', 'A figure carries the sentence that would stop it.', 'open', 'not built'],
     ['R31', 'A conformance suite, and the checks as a package.', exists('kits/warrant-check') ? 'partial' : 'open', 'the red controls are its seed'],

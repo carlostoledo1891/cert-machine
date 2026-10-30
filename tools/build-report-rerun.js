@@ -275,7 +275,7 @@ B.push(C.section({
     cols: [{ h: 'record · what it needs' }, { h: 'rows it decides' }, { h: 're-derive' }, { h: 'stdlib verifier' }, { h: 'second implementation' }, { h: 'sha256 at this build' }],
     rows: kitRows
   })
-    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
+    + '<div class="col">' + W.legendHtml({ compact: true })
     + C.pRaw('Runtimes are ' + (RUNREC ? 'measured — so they carry the dashed underline: one machine, one day, nothing decided them — every command executed on ' + C.esc(RUNREC.date) + ' on ' + C.esc(RUNREC.machine.cpu) + ' (' + C.esc(RUNREC.machine.os) + ', ' + C.esc(RUNREC.machine.node) + ', ' + C.esc(RUNREC.machine.python) + '), the register\'s rows compared before and after'
       : 'not yet measured from this page') + '. The hash is of the record as this page was built; a clone at another commit may differ, and the report form asks for the hash you have.')
     + C.pRaw('<b>The debts.</b> ' + KIT.entries.filter((e) => !e.rederive).map((e) => '<span class="m">' + C.esc(e.record) + '</span>: ' + C.esc(e.note)).join(' ') + ' These are the records a reader cannot re-derive with one line yet; the page counts them rather than hiding them.')

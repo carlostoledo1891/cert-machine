@@ -48,7 +48,7 @@ const falseRefuse = (k) => I.filter((i) => i[k] !== 'ADMISSIBLE' && i.exact === 
 if (!(falseAdmit('naiveJS') > 0 && falseRefuse('naiveJS') === 0 && falseRefuse('naive') > 0 && falseAdmit('naive') === 0))
   throw new Error('rewire: the two naive graders are no longer wrong in opposite directions');
 const C = (t) => W.value(String(t), W.COMPUTED);
-const LEGEND = W.legendHtml({ exclude: [W.REFUSED, W.CHOSEN], compact: true });
+const LEGEND = W.legendHtml({ compact: true });
 
 /* the runtime the bundle exposes, in the names the app was written against */
 const PRELUDE = `var CU = window.CERTUNIT; var graph = CU.graph, node = CU.node, mount = CU.mount, GEOM = CU.GEOM,

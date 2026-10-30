@@ -220,7 +220,7 @@ function panel(M, N) {
   ${N.heldOut ? `<p class="jn-p">Em ${br.int(N.heldOut.pairs)} comparações com satélite que nenhuma faixa viu (desde ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))}): quando a faixa que decide pôs Hs abaixo de 2 m, o mar passou do limite em <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE)}</b> das vezes (${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)}); só com a faixa do ECMWF, em ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE)}.</p>` : ''}
   <div class="jn-k jn-k2">em que cada veredito se apoia</div>
   ${trustChain(N)}
-  ${legendPt({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] })}
+  ${legendPt({ compact: true, from: [WR.DECIDED, WR.COMPUTED] })}
   <p class="jn-check" id="jn-check">—</p>
   <p class="jn-fine">Previsão ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III (domínio público) · corrente: Generated using E.U. Copernicus Marine Service Information, <a href="https://doi.org/10.48670/moi-00016">doi:10.48670/moi-00016</a> · altimetria NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · unidades, campos e pré-sal: ANP — GeoMaps · costa: Natural Earth · código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
 </div>
@@ -302,7 +302,9 @@ function emit(N, git) {
     plan: { src: CAMP.toString('utf8'), sha256: sha(CAMP), hindcast: hind, source: W.source },
     /* WARRANT v2.1: the premises each verdict rests on, every grade's numbers read from its record (numbers.js) */
     premises: Object.assign({ borrowKm: J('apps/janela/scenario/platforms.json').borrowKm, words: GW, gloss: GG,
-      legend: { dc: legendPt({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] }), dch: legendPt({ compact: true, exclude: [WR.COMPUTED, WR.REFUSED] }) } }, N.premises),
+      /* drawn at runtime (app.js): the legends name the standings those figures draw (R20) — a decided band with computed
+         lines, and a decided band with the chosen α */
+      legend: { dc: legendPt({ compact: true, from: [WR.DECIDED, WR.COMPUTED] }), dch: legendPt({ compact: true, from: [WR.DECIDED, WR.CHOSEN] }) } }, N.premises),
     shas: { 'app.js': sha(APPJS), 'geo.js': sha(geoJs), 'early.js': sha(EARLY) }
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');

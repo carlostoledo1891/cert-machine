@@ -150,7 +150,7 @@ B_.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.
   + 'Underlined dashed: nothing here decided it — a number the paper, its checker or its certificate printed, a timing, or a value computed here in floats. '
   + 'The figure uses the same patterns as strokes. ' + W.witness('a pair the certificate uses, outside R') + ' marks a pair the certificate itself uses that lies outside R, each shown with its own Erdős colouring. '
   + 'What the refutation rests on, and how far each premise was checked, is listed in §3.')
-  + W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 B_.push(C.section({
   lab: '§1 · the claim', title: 'A better base for diagonal Ramsey numbers',
   bodyRaw: [

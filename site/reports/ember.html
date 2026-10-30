@@ -360,6 +360,9 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
+/* R23, R30 (2026-10-30): a figure's record and the sentence that would stop it, each on its own line under the caption */
+figcaption .fig-rec,figcaption .fig-stop{display:block;margin-top:var(--s-2);font-size:var(--text-eyebrow);color:var(--ink-4)}
+figcaption .fig-rec .m{font-size:var(--text-eyebrow)}
 /* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
    the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
    past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
@@ -804,7 +807,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 
 <div class="col"><div class="note">
   <span class="lab">how to read the marks</span>
-<p>Every number on this page is decided by interval or exact rational arithmetic unless it is marked, and every printed bound is rounded outward. Underlined dashed: nothing decided it — where the float steering saw the boundary minimum, a float angle, a wall-clock time. The theorem holds <i>given two lemmas of Liu, cited and pinned</i>; what it rests on, and how far each premise was checked, is listed under the certificate chain.</p><div class="w-legend compact" data-n="2"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div>
+<p>Every number on this page is decided by interval or exact rational arithmetic unless it is marked, and every printed bound is rounded outward. Underlined dashed: nothing decided it — where the float steering saw the boundary minimum, a float angle, a wall-clock time. The theorem holds <i>given two lemmas of Liu, cited and pinned</i>; what it rests on, and how far each premise was checked, is listed under the certificate chain.</p><div class="w-legend compact" data-n="2" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div></div>
 </div></div>
 
 <p class="scope">Machine-derived; published from this repository; not peer-reviewed; not independently rerun. The claim is fenced: Judge–Mondal proved all triangles (Annals 2020, after partial acute-triangle results, Siudeja arXiv:1308.3005), lip domains are Atar–Burdzy, certain non-convex L-tiled polygons are Hatcher (arXiv:2405.19508), and symmetric quadrangle subcases are Deng–Gui–Jiang–Yang–Yao–Zou (arXiv:2604.19003) — this domain sits outside each class. In the other direction, in sufficiently high dimension the conjecture is FALSE for convex sets (de Dios Pont, arXiv:2412.06344), so the planar convex case is exactly where it remains expected — and where this domain lives. A validated-numerics route to acute triangles was developed in the Polymath7 project before the analytic triangle proof; it is lineage here, not a fence. The claim is ONE domain, never the quadrilateral conjecture. Race watch: arXiv, weekly. Every number on this page comes from a VERIFIED record in certs/ember-*.json; the chain re-runs in about 2 minutes (its records&#39; own timings).</p>
@@ -890,7 +893,7 @@ node instruments/ivspecial/battery.js    # the Γ/Bessel layer: 75 checks, 6 red
 make test                                # every battery in the machine</pre><p>Sources: <span class="m">instruments/hotspots/</span> + <span class="m">instruments/ivspecial/</span> · literature input pinned at <span class="m">corpus/sources/liu2018_arxiv-1808-08148.pdf</span> with its transcription beside it. Refutations and independent re-runs are invited: carlos@carlostoledo.co.</p>
 </section>
 
-<p>cert-machine · built 2026-10-29 · git e9141192 · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
+<p>cert-machine · built 2026-10-30 · git 1eefb31d · every number from a VERIFIED record · Liu pin fb867aa5ab93… · archived: <a href="https://doi.org/10.5281/zenodo.22225860">DOI 10.5281/zenodo.22225860</a></p><p><a href="/reports/">all reports</a> · <a href="/machine/">the machine</a></p>
 
 </div>
 

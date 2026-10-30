@@ -203,7 +203,7 @@ O.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.p
   + 'N/2<sup>n</sup> is printed to six decimals, rounded to nearest: a value, not a bound; whether a set is below Bohman\'s 0.22002 is decided exactly, and the percentage below it is rounded down. '
   + 'Underlined dashed: a buffer ratio measured in floats, or a timing. Underlined dotted: a sample picked by a seed. '
   + 'The sets rest on lemmas the verifier does not recompute at full size; §6 lists them with how far each was checked.')
-  + W.legendHtml({ exclude: [W.REFUSED], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 
 O.push(C.scope('Local working document, machine-derived, not peer-reviewed. The sets are theorems: every step of the chain '
   + 'is a finite exact computation the verifier repeats, and the two structural lemmas it does not recompute at full '

@@ -40,7 +40,7 @@ const W = require(path.join(ROOT, 'playground', 'warrant.js'));
 const TOY = 'chosen — the toy\'s: decided exactly over one seeded forest, one of all the forests a seed could have drawn';
 const toy = (x) => W.value(String(x), W.CHOSEN, { title: TOY });
 V.F7_N_C = toy(V.F7_N); V.F7_COUNT_C = toy(V.F7_COUNT); V.F3_N_C = toy(V.F3_N); V.F3_MAX_C = toy(V.F3_MAX);
-V.TOY_LEGEND = W.legendHtml({ compact: true, exclude: [W.COMPUTED] });
+V.TOY_LEGEND = W.legendHtml({ compact: true, code: fs.readFileSync(path.join(__dirname, 'page.js'), 'utf8') });   /* the page's values, and the void the toy draws in the browser (R20) */
 /* the real wave, said the way the records say it: the GPU ran the seven largest, a laptop the other twelve */
 const { numword } = require('../explained/records.js');
 V.KW_GPU_ROWS_WORD = numword(Number(V.KW_GPU_ROWS)); V.KW_DESK_ROWS_WORD = numword(Number(V.KW_DESK_ROWS));

@@ -362,7 +362,7 @@ B.push(C.stats([
         + 'little to certify a single flight past 10 minutes, which is a statement about DISCLOSURE, not about '
         + 'their aircraft: the verdict is what their own numbers can be made to prove. The dots are decided, one '
         + 'whole-day re-decision each; the dotted lines only join them, because no reserve between two dots was decided.' })
-      + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.COMPUTED, W.REFUSED] }) + '</div>'
+      + '<div class="col">' + W.legendHtml({ compact: true }) + '</div>'
   }));
 }
 

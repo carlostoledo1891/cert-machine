@@ -258,7 +258,7 @@ O.push(C.stats([
 /* X5 moves the box's upper edge up by 1/10 at every hour (an absolute 0.1, not a tenth of the edge) */
 if (!/const Qout = hi\.map\(h => add\(h, Rn\.R\(1n, 10n\)\)\);/.test(fs.readFileSync(path.join(ROOT, 'instruments', 'price', 'battery.js'), 'utf8'))) die('the path above the box is no longer 0.1 above its upper edge');
 if (!(REC.lab.NX === 120 && REC.lab.NT === 240 && REC.fdBox.lab.price.length === N + 1)) die('the lab\'s mesh moved');
-const LEG = W.legendHtml({ compact: true, exclude: [W.REFUSED] });
+const LEG = W.legendHtml({ compact: true });
 
 O.push(C.section({
   lab: '§1 · the model', title: 'A price that is a multiplier',

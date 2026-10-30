@@ -425,6 +425,50 @@ red('a page drawing a grammar mark with no legend is caught',
 red('a page that only DECLARES the CSS is not flagged',
   grammarOffences('<style>.w-computed { stroke: var(--ink-3); }</style>', 'planted').length === 0);
 
+/* THE LEGEND IS DERIVED, NEVER DECLARED (R20, built 2026-10-30). No builder tells a legend what to leave out (the
+   `exclude:` lists are gone, and playground/warrant.js refuses one), and on every page a legend item names a standing
+   the page draws: derived from the page or from the figure's markup, or — for a figure drawn at runtime, data-from —
+   from the standings its data draws. A legend from before the rule (no data-s on its items) is not read. */
+const Wr = require(path.join(ROOT, 'playground', 'warrant.js'));
+const LABEL_S = Object.fromEntries(Wr.LEGEND.map((L) => [L.label, L.s]));
+function legendOffences(html, label) {
+  /* the derivation's own reading: decided is the site's default voice and is never shown absent; data-plus adds what
+     the page's script draws */
+  const have = Wr.standingsIn(html), out = [];
+  have.add(Wr.DECIDED);
+  for (const m of String(html).matchAll(/<div class="w-legend[^"]*"([^>]*)>([\s\S]*?)(?=<div class="w-legend|$)/g)) {
+    if (/data-from="(data|markup)"/.test(m[1])) continue;   /* derived at build from its own figure or its data */
+    const plus = (/data-plus="([a-z ]+)"/.exec(m[1]) || [null, '']) [1].split(' ').filter(Boolean).map((w) => LABEL_S[w]);
+    for (const it of m[2].matchAll(/<div class="item" data-s="(\w+)">/g)) if (it[1] in LABEL_S && !have.has(LABEL_S[it[1]]) && !plus.includes(LABEL_S[it[1]])) out.push(label + ': ' + it[1]);
+  }
+  return out;
+}
+const srcExcludes = [];
+for (const d of ['tools', 'apps', 'playground', 'design']) (function w(dir) {
+  for (const e of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+    const rel = dir + '/' + e.name;
+    if (e.isDirectory()) { if (!/node_modules|vendor|\.venv|\/out$/.test(rel)) w(rel); }
+    else if (e.name.endsWith('.js') && !['tools/check-wiring.js', 'playground/warrant.js'].includes(rel) && /legend\w*\(\{[^}]*exclude/.test(read(rel))) srcExcludes.push(rel);
+  }
+})(d);
+const legendBad = srcExcludes.map((f) => f + ': an exclude: list').concat(pages.flatMap((p) => legendOffences(read(p), p)));
+if (legendBad.length) bad('every legend is derived: no exclude list, and no item for a standing its page does not draw',
+  legendBad.length + ':\n        ' + legendBad.slice(0, 8).join('\n        '));
+else ok('every legend is derived: no exclude list, and no item for a standing its page does not draw', '[' + pages.length + ' pages, the builders]');
+red('a legend item for a standing the page does not draw is caught',
+  legendOffences('<span class="w-val w-computed">1</span><div class="w-legend" data-n="2"><div class="item" data-s="computed"></div><div class="item" data-s="chosen"></div></div>', 'planted').length === 1);
+red('a derived legend drops the item its page does not draw',
+  !/data-s="chosen"/.test(Wr.deriveLegends('<span class="w-val w-computed">1</span>' + Wr.legendHtml({ compact: true }))));
+red('a hand-written exclude list is refused by the module', (() => { try { Wr.legendHtml({ exclude: [Wr.CHOSEN] }); return false; } catch (e) { return true; } })());
+
+/* A VOID HAS A SIZE (R28, built 2026-10-30): the chart kit never bridges a refused value. A null point breaks its line
+   and its gap is drawn as a hatched void across the plot; a null bar keeps the row's full width as the void, with ∅. */
+const CHk = require(path.join(ROOT, 'design', 'charts.js'));
+red('a refused point in a line is drawn as a void, never bridged', (() => {
+  const l = CHk.lines({ w: 400, h: 200, x0: 0, x1: 4, y0: 0, y1: 4, alt: 'planted', series: [{ name: 'a', pts: [[0, 1], [1, 2], [2, null], [3, 3]] }] });
+  return /class="w-void"/.test(l) && (/<path d="(M[^"]*)"[^>]*stroke-linejoin/.exec(l) || ['', ''])[1].split('M').length === 3; })());
+red('a refused bar keeps its row as a void with its word', /class="w-void"[^>]*width="[0-9.]+"/.test(CHk.bars({ w: 400, max: 10, alt: 'planted', rows: [{ k: 'a', v: 3 }, { k: 'b', v: null }] })));
+
 /* THE HERO AND ITS WITNESS (D12, ruled 2026-10-29). One figure per page may be the hero
    (design/components.js figure({ hero: true })), and on a page that has one, a witness is an event before it is a
    word: the first × a reader meets is the hero's own mark (W.witnessMark, class w-wx), drawn no thinner than the

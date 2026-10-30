@@ -214,7 +214,7 @@ const body = `
 <b>reference</b>  declared correctly, and correctly: ${MODELS.map(m => `${m} ${sample(wf(m)[0] + '/' + wf(m)[1])}`).join(', ')}. Diagnostic, weight zero &mdash; but it is the reward that says whether a pass was earned.
 <b>dotted</b>     every model number on this page is one sample of that model&rsquo;s replies: each reply is graded exactly, but the replies are a draw, and a rerun draws others. The four policies above are deterministic on the same tasks, so their counts are decided and carry no mark.
     </div>
-    ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+    ${W.legendHtml({ compact: true })}
     <div class="reveal mt6">
       <div class="eyebrow">where the verdicts went</div>
       ${confusion()}

@@ -395,3 +395,21 @@ now.
 The ruler records the eleições hero at 1344 / 707 / 390 px. Swell @1440 read 10 spines against its recorded 9 again, the
 known time-of-day flap on bytes this branch does not change; its recorded row is kept as it was, as is /eth/'s (out of
 scope).
+
+## R20 and R28 applied (2026-10-30, on the operator's "Build every open rule")
+
+- **R20, the legend is derived, never declared.** `W.legendHtml` refuses `exclude` (56 hand-written lists removed). With
+  no `from`, a legend is derived from its page at render (`W.deriveLegends`, called by design/refresh.js and
+  design/app-shell.js): an item stays only for a standing the page draws — a w-* class, a `data-w`, one of the five
+  patterns, a hatched void. Decided is the site's default voice and is often drawn without a class, so a page-level
+  derivation never drops it. `from: markup` derives from a figure's own markup (curveset, shape-hunt, the instruments
+  index, the easy read's window); `code:` adds what a figure's browser script draws (contours, the atlas and its map,
+  Janela, Uirapuru's toy). Compared before and after on all 55 pages with a legend: legends lost only keys for
+  standings their pages never draw (the landing's computed and refused, simplex's chosen, the instruments index's
+  refused) and gained keys for marks they drew unkeyed (eleições', contours' and regatlas' hatched voids, regatlas'
+  computed). tools/check-wiring.js refuses an `exclude:` in any builder and a legend item for a standing its page does
+  not draw (three red controls).
+- **R28, a void has a size.** design/charts.js never bridges a refused value: a null point breaks its line and the gap
+  is drawn as a hatched void across the plot; a null bar keeps the row's full width as the void, with ∅ and its word.
+  No page hands the kit a refused value today (every chart user was rebuilt with a probe), so nothing redraws; two red
+  controls in check-wiring hold the kit to it. With one hero per page and its × first, R28 is gated.

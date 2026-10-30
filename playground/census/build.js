@@ -67,7 +67,7 @@ const body = `
     <div>
       <div class="ce-fig" id="ce-host">${CARD}</div>
       <p class="ce-note" id="ce-note">Every band is one member of the face, drawn as such: its width is the flow, population a the brighter side, population b the darker, and the dotted outline says it was chosen, not decided. Filled nodes are exits; the two larger nodes are the entrances a and b. Click an edge to drop it.</p>
-      ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED] })}
+      ${W.legendHtml()}
     </div>
     <div class="ce-panel">
       <div><label for="ce-preset">network</label><select id="ce-preset"></select></div>

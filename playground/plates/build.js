@@ -72,7 +72,7 @@ lifted = once(lifted, /Where a curve dips under the dashed line/g, 'Where a curv
    is not using. REFUSED has no stroke and no plate here uses it; CHOSEN is said
    in words below, because the one chosen plate is a texture with no stroke to
    dot. Compact, so two entries read as one key rather than two new spines. */
-const legend = W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true });
+const legend = W.legendHtml({ compact: true });
 
 /* the numbers the section states, from the record Plate V draws */
 const S6 = SWEEP.rows.find((r) => r.r0 === Math.min(...SWEEP.rows.map((x) => x.r0)));

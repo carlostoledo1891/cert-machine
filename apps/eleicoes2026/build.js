@@ -294,7 +294,7 @@ B.push(C.section({
         + 'ou recontar <b>' + n(RL.batch_sections) + ' urnas</b> inteiras sorteadas com probabilidade proporcional ao tamanho. Calculado com logaritmos de 60 dígitos (fórmulas de Lindeman & Stark, 2012). '
         + 'O Brasil não tem voto impresso; a amostra seria de boletins e registros digitais de voto, que são públicos.')
       + C.figure({ svgRaw: rlaSvg, caption: 'Quanto menor a margem, maior a amostra. As curvas são as mesmas fórmulas calculadas em ponto flutuante em cada margem, por isso tracejadas; só os três pontos sobre a linha de 2026 são os números certificados acima. A curva das urnas e a dos votos comparados quase coincidem (' + n(RL.batch_sections) + ' urnas, ' + n(RL.comparison_ballots) + ' votos); a cor e a legenda dizem qual é qual.' })
-      + WP.legendHtml({ compact: true, exclude: [WR.CHOSEN, WR.REFUSED] })
+      + WP.legendHtml({ compact: true })
       + C.pRaw('<b>Em que estes números se apoiam.</b>') + WP.premisesHtml([
         { grade: WR.ASSUMED, label: 'As fórmulas da auditoria', evidence: 'adotadas de ' + C.esc(RL.source) + '; a conta sobre elas é exata (logaritmos decimais de 60 dígitos, cada teto recusado se o valor cair a menos de 10⁻⁴⁰ de um inteiro), e as fórmulas não são conferidas aqui.' },
         { grade: WR.ASSUMED, label: 'O cenário', evidence: '<i>dado risco de ' + riskPct + '%, nenhuma divergência na amostra e γ = ' + C.esc(RL.comparison_gamma.replace('.', ',')) + '</i>: escolhas, não dados; com divergências, a amostra cresce.' }

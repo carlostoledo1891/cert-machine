@@ -325,7 +325,7 @@ O.push(C.section({
     + 'crosses gives away a first-order amount, so no grid refinement closes the gap. That measurement is what moved the proof '
     + 'into the coordinates σ.')
     + C.figure({ svgRaw: FIG_LADDER, caption: 'The superseded ladder. Darker dots: certified lower bounds in the L-cell model (exact, by the claimant\'s verifier; not re-decided here, so computed on this page). Lighter dots: the model\'s minimum by local search (floating point, an upper bound on what the model can certify). Each series was computed at five values of L only; the dotted joins are a picture between them. Solid: 117/2192, decided here. Dashed: the 2008 bound, proved by its authors and read here. Both series flatten under 117/2192.' })
-    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.REFUSED] }) + '</div>'
+    + '<div class="col">' + W.legendHtml({ compact: true }) + '</div>'
 }));
 
 /* §6 */

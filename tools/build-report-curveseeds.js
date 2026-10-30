@@ -135,7 +135,7 @@ B.push(C.section({
   lab: '§4 · beyond the checkable core', title: 'What the post claims beyond what this page can decide',
   bodyRaw: C.plainList(L.readings.map((r) => ({ b: r.id + ' · ' + r.status + '.', text: r.what + ' — ' + r.why + '. What would decide it: ' + r.wouldDecide + '.' })))
     + (scan && scan.runs ? C.pRaw('<b>The optional lane, counted apart.</b> Every candidate below the published index of each run, derived by X9.62 and point-counted with PARI/GP (Schoof–Elkies–Atkin with the seadata tables) — outside the standard library, so outside the certificate above. A candidate is <em>viable</em> when its c gives a curve (c ≢ 0, 4c + 27 ≢ 0, −27/c a square mod p); it then has two curves, y² = x³ − 3x ± b, which are quadratic twists of each other when p ≡ 3 (mod 4) and isomorphic when p ≡ 1 (mod 4). The published b is one of the two roots, and the post\u2019s "parameters chosen the same way" is read as that root.')
-      + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
+      + W.legendHtml({ compact: true })
       + C.plainList(Object.entries(scan.runs).map(([k, v]) => {
           const clock = PRE.claim.table.prime[k][0]; const siblings = new Set(Object.entries(PRE.claim.table.prime).filter(([n, [c]]) => c === clock && n !== k).map(([, [, idx]]) => idx));
           const sk = (a) => { const own = a.filter((n) => !siblings.has(n)), other = a.filter((n) => siblings.has(n)); return lane(own.length ? own.join(', ') : 'none') + (other.length ? ' (besides ' + other.join(', ') + ', published as other curves of this run)' : ''); };

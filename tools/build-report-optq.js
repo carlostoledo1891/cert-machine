@@ -150,7 +150,7 @@ B.push(C.stats([
 B.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is decided by exact arithmetic unless it is marked. '
   + 'Underlined dashed: nothing here decided it — a claimant\'s or the registry\'s printed digits, a timing, a float check, or a reading (a proof read, not machine-checked, is a claim and not a verdict). '
   + '∅: refused. A verdict that holds given a theorem read or cited names it in italic; where a bound rests on analysis read rather than computed, the steps are listed with how far each was checked (§11).')
-  + W.legendHtml({ exclude: [W.CHOSEN], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 B.push(C.section({
   lab: '§1 · the queue', title: 'Each claim, its object, its verdict', wide: true,
   bodyRaw: C.table({

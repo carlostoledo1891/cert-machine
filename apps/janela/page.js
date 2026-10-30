@@ -843,7 +843,10 @@ function build(N, B, git, battery) {
     band: ext(W.DECIDED, 'jn-band', 1.5), ens: ext(W.COMPUTED, 'jn-ens', 1), swr: ext(W.COMPUTED, 'jn-swr', 1), w3: ext(W.CHOSEN, 'jn-w3', 1),
     comp: voice(W.COMPUTED, 'computado: previsão ou estimativa em ponto flutuante; nada o decidiu'),
     chosen: voice(W.CHOSEN, 'escolhido: contado exatamente sobre o α do local no limite inferior do seu intervalo de 90%, um membro do intervalo escolhido por cautela'),
-    legend: legendPt({ compact: true, exclude: [W.CHOSEN, W.REFUSED] }), legendChosen: legendPt({ compact: true, exclude: [W.COMPUTED, W.REFUSED] }) };
+    legend: '', legendChosen: '' };
+  /* each legend derived from the marks its figure draws (R20): the band with the forecast lines, the band with the chosen α */
+  INK.legend = legendPt({ compact: true, from: INK.band + INK.det });
+  INK.legendChosen = legendPt({ compact: true, from: INK.band + INK.w3 });
   const L = lib(Q, D, INK);
   const out = [];
   const claim = (() => { const [a, b] = String(N.bands.miss).split('/').map(Number); return (b - a) + '/' + b; })();

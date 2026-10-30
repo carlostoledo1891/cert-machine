@@ -215,7 +215,7 @@ O.push(C.section({
     + '</div>'
     + C.figure({ svgRaw: atlasFig(), caption: 'Figure 1 · The atlas. Solid: PROVED, the shade darkening as the contraction factor κ falls; hatched: REFUSED, with the Z1 that refused it. Every row is proved then refused as A grows, and the proved region shrinks as ε grows.' })
     + T_FRONT
-    + '<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.REFUSED] }) + '</div>'
+    + '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>'
     + '<div class="col">'
     + C.pRaw('Every refusal is the same refusal: Z1, the norm of I − A·DF(ū), reaches 1. It is the tail\'s doing. A diagonal approximate inverse beyond N is right when the principal coefficient c is nearly constant and wrong in proportion to its variation, and c = m + (1 + 3ε)u′² varies more as A grows (m follows −V) and as ε grows (the 4-Laplacian weights u′² three times more). So the frontier moves left with ε: the regularization that gives the paper its coercivity takes contraction from the certificate. The density is nowhere near zero at the frontier — the certified floor at the last proved cell of ε = 0 is ' + downTo(find(f0.lastProved, 0).mLow, 3) + ', and the float candidate at the first refused cell still has min m = ' + WR.value(f3(find(f0.firstRefused, 0).mMinFloat), WR.COMPUTED, { title: 'the float candidate sampled at 512 points — computed, nothing decided it' }) + '. The void of this atlas is the certificate\'s boundary, not the equation\'s; the two would only coincide where m reaches zero, which is where the paper\'s strong solutions stop being classical, and that is beyond the map.')
     + '</div>'
@@ -228,7 +228,7 @@ O.push(C.section({
     + C.pRaw('Where a regularized cell and its unregularized neighbour are both proved, the distance ‖u_ε − u_0‖_2 is decided: the norm of the difference of the two candidates, exactly, plus or minus the two radii. At A = 0 the solutions are constants — u_ε is the real root of εu³ + u = 1 — and the distance is 1 − u_ε, which the battery holds against the cubic. At every amplitude the distance grows with ε, equals about ε at ε = 0.01, and is a third of ε at ε = 1: the regularized game is a first-order perturbation of the unregularized one in this norm, and the perturbation saturates because the cubic term is bounded. The paper passes ε → 0 by compactness; here the limit is watched.')
     + '</div>'
     + C.figure({ svgRaw: distFig(), caption: 'Figure 3 · The decided distance ‖u_ε − u_0‖_2 against ε for three amplitudes, on logarithmic axes. Each dot is decided, its bracket narrower than the dot; the dotted segments between them are chosen, since only four ε were computed. The fine-dashed guide is the diagonal, ‖u_ε − u_0‖ = ε.' })
-    + '<div class="col">' + WR.legendHtml({ compact: true, exclude: [WR.COMPUTED, WR.REFUSED] }) + '</div>'
+    + '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>'
     + T_DIST
     + C.figure({ svgRaw: FIG_M, caption: 'Figure 4 · The density at A = 0.6 for the proved regularization strengths, each the certified candidate sampled at ' + REC.xs.length + ' points and drawn solid: the solution lies within its radius, below 1e−9, far inside the stroke; the regularized densities are slightly flatter and, through the cubic term, carry slightly less mass where u is large.' })
     + C.figure({ svgRaw: FIG_U, caption: 'Figure 5 · The value function at A = 0.6, the same cells. The regularized ones sit lower by about ε: the zero-order term εu³ acts like an added discount.' })

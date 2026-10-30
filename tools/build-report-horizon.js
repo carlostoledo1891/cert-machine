@@ -234,7 +234,7 @@ B.push(C.section({
   lab: '§1 · the fits', title: live.length + ' models, each fit proved to hold one optimum, each horizon an enclosure',
   wide: true,
   bodyRaw: C.figure({ svgRaw: FIG1, caption: 'One row per model in release order. The capsule is the certified enclosure of the 50 % horizon, decided (hairline-thin at this scale: its end caps are the only way to see it); the dashed ring is METR’s printed point estimate, a number someone printed, and it sits on the capsule at every row; the text is METR’s bootstrap interval, a random draw, not re-decided. Hover for the numbers.' })
-    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
+    + '<div class="col">' + W.legendHtml({ compact: true })
     + C.pRaw('Each enclosure holds <em>given METR’s estimator: weights 1/√k per family of k tasks and λ = 10⁻⁵</em>; what that estimator and its data rest on is §3. The table gives each model’s certified horizon, the site’s estimate, their relative gap, and the site’s printed slope and intercept against the rounding of the certified box.') + '</div>'
     + tbl,
 }));
@@ -243,7 +243,7 @@ B.push(C.section({
   lab: '§2 · the trend', title: 'The doubling time, as an interval: ' + dbl23[0].toFixed(2) + ' days since 2023',
   wide: true,
   bodyRaw: C.figure({ svgRaw: FIG2, svgNarrowRaw: FIG2_N, hero: true, caption: 'Certified 50 % horizons against release date. The line is the exact least-squares fit through the ' + T.from_2023_on.n + ' models the site flags as state of the art at release with a horizon under 16 hours; its slope is an enclosure ' + outE(T.from_2023_on.slopeBitsPerDay[1] - T.from_2023_on.slopeBitsPerDay[0], true) + ' bits per day wide. It is solid across the releases it was fitted to and dashed before the first and after the last (' + lastFitted + '), where the same line is a forecast. The darker points are on the chart and not in the trend.' })
-    + '<div class="col">' + W.legendHtml({ compact: true, exclude: [W.CHOSEN, W.REFUSED] })
+    + '<div class="col">' + W.legendHtml({ compact: true })
     + C.pRaw('The site prints ' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/point_estimate' }, standing: W.COMPUTED, fmt: 'raw', why: 'printed by METR — a claim, not decided here' }) + ' days with a bootstrap interval [' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/ci_low' }, standing: W.COMPUTED, fmt: 'raw', why: BOOT }) + ', ' + W.val({ rec: { path: 'certs/horizon-ledger.json', ptr: '/trend/printed/from_2023_on/ci_high' }, standing: W.COMPUTED, fmt: 'raw', why: BOOT }) + ']' + '; the certified line re-derives ' + dbl23[0].toFixed(3) + ' from the same model set, which says the site’s trend is computed on exactly the numbers its chart shows and by exactly the rule its file states (state of the art at release; central estimate under 16 hours, which leaves ' + mythos.alias + ' at ' + mythos.live.horizons['0.5'].minutes[0].toFixed(0) + ' minutes out and ' + opus46.alias.replace(' (Inspect)', '') + ' at ' + opus46.live.horizons['0.5'].minutes[0].toFixed(0) + ' in). From 2024 on the same rule gives ' + dbl24[0].toFixed(1) + ' days over ' + T.from_2024_on.n + ' models; the January post printed ' + printed(claims.post.doublingTimeDays.from2024.th11) + ' on its smaller set, and the site does not print a 2024 figure. The line is exact; that the horizon grows by a fixed factor per day is METR’s model of the trend, and §3 grades it.') + '</div>'
     + trendTbl,
 }));

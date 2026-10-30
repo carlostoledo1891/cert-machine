@@ -139,7 +139,7 @@ B.push(C.stats([
 ].concat(bridgeDone ? [{ k: 'bridge theorems, ours', v: String(bridgeThms), n: 'proved in Lean' + (bridgeAll3 ? '; each passes Lean’s kernel twice and nanoda' : ', one kernel') + '; §5' }] : [])));
 /* the legend once, under the tiles that first draw the grammar (it used to print only in §5's not-yet-run branch, so the
    page drew decided and computed marks with no legend once the bridge landed; check-wiring found it 2026-10-29) */
-B.push('<div class="col">' + W.legendHtml({ compact: true, exclude: bridgeDone ? [W.CHOSEN, W.REFUSED] : [W.CHOSEN] }) + '</div>');
+B.push('<div class="col">' + W.legendHtml({ compact: true }) + '</div>');
 
 /* §1 decided */
 const claimRow = (r) => [

@@ -31,7 +31,7 @@ function legendHtml(opts) {
   opts = opts || {};
   let h = W.legendHtml(opts);
   for (const L of W.LEGEND) {
-    if ((opts.exclude || []).includes(L.s)) continue;
+    if (!h.includes('>' + L.label + '<')) continue;   /* derived out of this legend (R20) */
     if (!LEGEND[L.label] || !LEGEND[L.gloss]) throw new Error('warrant-pt: the standing legend has a word with no Portuguese here: ' + L.label + ' / ' + L.gloss);
     for (const en of [L.label, L.gloss]) h = h.split('>' + en + '<').join('>' + LEGEND[en] + '<');
   }

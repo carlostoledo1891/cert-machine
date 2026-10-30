@@ -222,7 +222,7 @@ B.push(C.stats([
 ]));
 
 B.push('<div class="col">' + C.pRaw('How the page marks what each value rests on: a value this page decided is plain; a value the key or Platinum printed is underlined dashed (a claim, not decided here); a reading the reader’s rule picked is dotted; and a red ' + W.witness() + ' marks a printed step that does not hold as printed.')
-  + W.legendHtml({ compact: true, exclude: [W.REFUSED] }) + '</div>');
+  + W.legendHtml({ compact: true }) + '</div>');
 
 B.push(C.section({
   lab: '§1 · the two readings', title: 'Two audits of one test set, cell by cell',

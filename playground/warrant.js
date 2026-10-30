@@ -225,11 +225,44 @@ const LEGEND = [
    four standings lay out as one row of four, three as one row of three, and
    nothing declares a column count by hand any more.
 
-   A page that does not use REFUSED passes `exclude: [REFUSED]` rather than
-   drawing a void it has no marks for — plates does exactly that, and saying so
-   in the call is better than a filter copied into the page.                 */
-function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
-  const items = LEGEND.filter((L) => !exclude.includes(L.s));
+   THE LEGEND IS DERIVED, NEVER DECLARED (R20, built 2026-10-30). Until then a page that did not draw a standing
+   passed `exclude: [...]`, a list typed by hand, and 56 calls carried one: a list that could disagree with the
+   figure it sat beside. Now the items come from the marks. `from` is the markup the legend explains (its figure, its
+   table) or, for a figure drawn at runtime, the standings its data will draw; with no `from` the legend is derived
+   from the whole page when the page is rendered (deriveLegends below, called by design/refresh.js), counting the
+   marks outside <script> and <style>. `exclude` is refused, so a hand-written list cannot come back.          */
+const STAND_OF = { decided: DECIDED, computed: COMPUTED, chosen: CHOSEN, void: REFUSED, refused: REFUSED };
+const LEGEND_BLOCK = /<div class="w-legend[^"]*" data-n="\d+"[^>]*>(?:<div class="item" data-s="\w+">[\s\S]*?<\/svg><div><div class="k">[\s\S]*?<\/div><div class="g">[\s\S]*?<\/div><\/div><\/div>)*<\/div>/g;
+function standingsIn(markup) {
+  const s = String(markup || '').replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/g, '').replace(LEGEND_BLOCK, '');
+  const found = new Set();
+  for (const m of s.matchAll(/\bclass="[^"]*\bw-(decided|computed|chosen|void|refused)\b/g)) found.add(STAND_OF[m[1]]);
+  for (const m of s.matchAll(/\bdata-w="(decided|computed|chosen|refused)"/g)) found.add(STAND_OF[m[1]]);
+  /* the patterns themselves: only the grammar may write them (tools/check-grammar.js), so a pattern is its standing */
+  for (const m of s.matchAll(/stroke-dasharray=["]([0-9. ]+)["]/g)) {   /* ["] so the census never reads this line as a pattern */
+    if (m[1] === G.CLAIM || m[1] === G.CLAIM_SM) found.add(COMPUTED);
+    else if (m[1] === G.PICK || m[1] === G.PICK_SM) found.add(CHOSEN);
+  }
+  /* a hatched void, whatever drew it */
+  if (/fill="url\(#[^)]*[Hh]atch[^)]*\)"/.test(s)) found.add(REFUSED);
+  return found;
+}
+/* the standings a drawing's CODE names, for a figure drawn in the browser: the constants and the class names it uses */
+function standingsInCode(js) {
+  const found = new Set(), src = String(js || '');
+  for (const m of src.matchAll(/\b(DECIDED|COMPUTED|CHOSEN|REFUSED)\b/g)) found.add({ DECIDED, COMPUTED, CHOSEN, REFUSED }[m[1]]);
+  for (const m of src.matchAll(/\bw-(decided|computed|chosen|void|refused)\b/g)) found.add(STAND_OF[m[1]]);
+  return found;
+}
+function legendHtml({ exclude, width = 2.4, compact = false, from, code } = {}) {
+  if (exclude !== undefined) throw new Error('W.legendHtml: `exclude` is retired (R20): the legend is derived from `from` or from the page');
+  /* `code`: the script that draws the figure at runtime; its standings join the markup's */
+  /* with no `from`, `code` adds to what the page will be found to draw (data-plus), for a page that draws some of its
+     marks in HTML and the rest in the browser */
+  const plus = from === undefined && code !== undefined ? [...standingsInCode(code)] : [];
+  let have = from === undefined ? null : Array.isArray(from) ? new Set(from) : standingsIn(from);
+  if (code !== undefined && from !== undefined) for (const x of standingsInCode(code)) have.add(x);
+  const items = LEGEND.filter((L) => !have || have.has(L.s));
 
   /* THE SWATCH PAINTS ITSELF, 2026-09-05. It used to emit a bare
      `class="w-void"` rect and trust the page to have a `.w-void` rule behind
@@ -252,12 +285,37 @@ function legendHtml({ exclude = [], width = 2.4, compact = false } = {}) {
       + `<rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#${HATCH})"`
       + ` stroke="var(--rule-strong)" stroke-width="1"/>`
     : `<line x1="1" y1="7" x2="45" y2="7" ${attrs(s, { width })}/>`);
-  return `<div class="w-legend${compact ? ' compact' : ''}" data-n="${items.length}">`
-    + items.map((L) => `<div class="item">`
+  const mode = from === undefined ? (plus.length ? ' data-plus="' + plus.map((x) => NAME[x].toLowerCase()).join(' ') + '"' : '') + ' data-derive'
+    : Array.isArray(from) || code !== undefined ? ' data-from="data"' : ' data-from="markup"';
+  return `<div class="w-legend${compact ? ' compact' : ''}" data-n="${items.length}"${mode}>`
+    + items.map((L) => `<div class="item" data-s="${L.label}">`
       + `<svg viewBox="0 0 46 14" aria-hidden="true">${swatch(L.s)}</svg>`
       + `<div><div class="k">${L.label}</div><div class="g">${L.gloss}</div></div>`
       + `</div>`).join('')
     + `</div>`;
+}
+
+/* a page's legends with no `from`, derived from the page's own marks (R20). A legend on a page with no static mark at
+   all is left whole: its marks are drawn at runtime, its builder must pass `from`, and tools/check-wiring.js says so. */
+function deriveLegends(html) {
+  const have = standingsIn(html);
+  if (!have.size) return html;
+  /* decided is the voice the site is written in: a solid line or a plain number often carries no class, so a page
+     cannot be shown not to draw it, and the page-level derivation never drops it. A legend that must leave it out
+     derives from its own figure's markup instead (from: markup), where decided marks carry w-decided. */
+  have.add(DECIDED);
+  const byLabel = Object.fromEntries(LEGEND.map((L) => [L.label, L.s]));
+  return String(html).replace(LEGEND_BLOCK, (block) => {
+    const open = block.slice(0, block.indexOf('>') + 1);
+    if (!/ data-derive>/.test(open)) return block;
+    const plus = (/ data-plus="([a-z ]+)"/.exec(open) || [null, ''])[1].split(' ').filter(Boolean).map((w) => STAND_OF[w]);
+    const hv = new Set([...have, ...plus]);
+    let n = 0;
+    const out = block.replace(/<div class="item" data-s="(\w+)">[\s\S]*?<\/svg><div><div class="k">[\s\S]*?<\/div><div class="g">[\s\S]*?<\/div><\/div><\/div>/g,
+      (item, label) => (hv.has(byLabel[label]) || !(label in byLabel) ? (n++, item) : ''));
+    const head = out.slice(0, out.indexOf('>') + 1).replace(/ data-n="\d+"/, ' data-n="' + n + '"').replace(/ data-derive>$/, ' data-derived>');
+    return head + out.slice(out.indexOf('>') + 1);
+  });
 }
 
 /* one gloss per standing, derived from LEGEND so the tooltip and the legend
@@ -432,5 +490,5 @@ ${balancedGrid('.w-legend', '.item')}
 const usesGrammar = (html) => /\bw-(?:decided|computed|chosen|refused|val|legend|premises|grade|wx)\b|class="wx"/.test(String(html || ''));
 
 module.exports = { REFUSED, CHOSEN, COMPUTED, DECIDED, NAME, meet, throughFloat, throughChoice, val,
-  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, textClass, value, GLOSS, witness, witnessMark,
+  refuse, stroke, attrs, extentAttrs, LEGEND, legendHtml, deriveLegends, standingsIn, standingsInCode, textClass, value, GLOSS, witness, witnessMark,
   ASSUMED, VERIFIED, COMPARED, VALIDATED, GRADE, GRADE_GLOSS, UNVERIFIED, weakest, weakestPair, pairWord, grade, premisesHtml, css, usesGrammar };

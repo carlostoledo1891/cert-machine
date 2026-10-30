@@ -149,7 +149,7 @@ O.push(C.stats([
 O.push('<div class="col">' + C.note({ lab: 'how to read the marks', bodyRaw: C.pRaw('Every number on this page is decided by interval or exact rational arithmetic unless it is marked, and every printed bound is rounded outward. '
   + 'Underlined dashed: nothing decided it — where the float steering saw the boundary minimum, a float angle, a wall-clock time. '
   + 'The theorem holds <i>given two lemmas of Liu, cited and pinned</i>; what it rests on, and how far each premise was checked, is listed under the certificate chain.')
-  + W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true }) }) + '</div>');
+  + W.legendHtml({ compact: true }) }) + '</div>');
 
 O.push(C.scope('Machine-derived; published from this repository; not peer-reviewed; not independently rerun. '
   + 'The claim is fenced: Judge–Mondal proved all triangles (Annals 2020, after partial acute-triangle results, '

@@ -473,7 +473,7 @@ const SQUEEZE = (() => {
         + wTxt(K1) + ' at l = ' + Lmax + ', a factor of more than ' + Math.floor(w0 / w1) + ' across the sweep and '
         + tighterPct(w1, at60[1]) + ' tighter than the cited page. The dots fall smoothly because the width is the '
         + 'unpinned tail Σ 1/(2l(2l+1)) and nothing else: no estimate enters, so no point can move up.' })
-      + '<div class="col">' + WR.legendHtml({ exclude: [WR.COMPUTED, WR.REFUSED], compact: true }) + '</div>'
+      + '<div class="col">' + WR.legendHtml({ compact: true }) + '</div>'
   }));
 }
 

@@ -71,7 +71,7 @@ const body = `
         <span><span class="k">entropy</span>${floatReadout('rH')}</span>
       </div>
       <div class="state" id="rState">—</div>
-      ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+      ${W.legendHtml({ compact: true })}
     </div>
   </div>
 

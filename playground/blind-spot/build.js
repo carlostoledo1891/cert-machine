@@ -500,7 +500,7 @@ other mutants, so every shotgun count is chosen. <span class="mono">sat</span> d
 the whole environment: the <span class="mono">profile</span> rung hands the model the family and watches
 what it does with it.
     </div>
-    ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED], compact: true })}
+    ${W.legendHtml({ compact: true })}
   </div>
 </section>
 

@@ -324,7 +324,7 @@ const html = page({
 
   <div class="grp">
     <span class="eyebrow">what backs each mark</span>
-    ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+    ${W.legendHtml({ compact: true })}
     <div class="note-sm"><b>${KIND(S.backing.criteria)}.</b> ${esc(S.backing.criteria.how)}</div>
     <div class="note-sm"><b>${KIND(S.backing.mechanism)}.</b> ${esc(S.backing.mechanism.how)}. Every formula is re-derived
     from the paper by <code>instruments/navierstokes/probes/stress_cone.py</code>, which carries six red

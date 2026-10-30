@@ -172,7 +172,7 @@ const body = `
     <div>
       <div class="ec-fig"><div class="ec-stage"><canvas id="ec-canvas" aria-hidden="true"></canvas><svg id="ec-svg" viewBox="0 0 ${900} ${540}" role="img" aria-label="The selected contour drawn over a density of the dataset's hourly sea states; click to decide a sea state"></svg></div></div>
       <p class="ec-note">The grey field is a ${NX}&times;${NY} count of the full dataset's hours (provided and retained), darker where more hours sit; it is a drawing. The solid line is the submitted contour, vertex to vertex in the file's order. ${OPEN.length} of the ${S.contours} files do not repeat their first vertex, and for those the benchmark's test closes the path itself, from the last vertex back to the first: an edge the author never listed, the test's default rather than the file's, so it is drawn dotted &mdash; chosen &mdash; and every count and verdict on such a contour holds <em>given</em> it. It runs up to ${Number(LONGEST_CLOSE.polygon.closingEdgeLength).toFixed(2)} m, on contribution ${esc(LONGEST_CLOSE.contribution)}&rsquo;s ${LONGEST_CLOSE.returnPeriod}-year contour for dataset ${LONGEST_CLOSE.dataset}${LONGEST_CLOSE.polygon.closingEdgeIsLongest ? ', where it is the longest edge of the polygon' : ''}. A dashed diamond is a self-crossing: its number is decided, its position is drawn in float. A ring is an observation exactly on the contour. Click anywhere to decide a sea state.</p>
-      ${W.legendHtml({ exclude: [W.REFUSED], compact: true })}
+      ${W.legendHtml({ compact: true, code: APP })}
     </div>
     <div class="ec-panel">
       <div><label for="ec-ds">dataset</label><select id="ec-ds"></select></div>

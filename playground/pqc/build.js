@@ -149,7 +149,7 @@ const body = `
   <div class="grp">
     <span class="eyebrow">the ink</span>
     <div class="note-sm">One pattern per standing, on the canvas and under the numbers in this panel alike.</div>
-    ${W.legendHtml({ exclude: [W.CHOSEN, W.REFUSED], compact: true })}
+    ${W.legendHtml({ compact: true })}
   </div>
   <hr class="hr-thin">
   <div class="grp">

@@ -172,7 +172,7 @@ const body = `
     <figure class="reveal mt6">${figEnvelope()}
       <figcaption class="figcap"><span class="k">the chords, and every concave function that fits them</span>
       <span class="v">solid: the certified floor and ceiling · dotted: joining the dots, a chosen picture and not a bound${R1.dotsConcave ? '' : ' &mdash; nor a member of the set: it is not concave, so no convex body has it'}</span></figcaption></figure>
-    ${W.legendHtml({ exclude: [W.COMPUTED, W.REFUSED], compact: true })}
+    ${W.legendHtml({ compact: true })}
 
     <figure class="reveal mt6">${figSilhouettes()}
       <figcaption class="figcap"><span class="k">two silhouettes the same five chords allow</span>
