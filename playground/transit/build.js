@@ -41,6 +41,10 @@ const BASE_EXTRA = `
 `;
 
 const f = (x, n = 4) => Number(x).toFixed(n);
+/* an enclosure's ends print OUTWARD (design/outward.js, 2026-10-30): the upper end 0.32602… printed by toFixed as 0.3260,
+   inside the record; a lower end rounds down, an upper end up */
+const OUT = require(path.join(__dirname, '..', '..', 'design', 'outward.js'));
+const outLo = (x, n = 4) => OUT.down(x, n), outHi = (x, n = 4) => OUT.up(x, n);
 const pct = (x, n = 1) => (100 * x).toFixed(n) + '%';
 const ppm = x => Math.round(x * 1e6);
 const res = (t, orbit, rung) => t.results.find(r => r.orbit === orbit && r.rung === rung);
@@ -91,8 +95,8 @@ function figLadder(t) {
       <text x="${ml - 10}" y="${y + 12}" text-anchor="end" class="lb">${esc(r.orbit)} · ${r.rung === 'none' ? 'nonneg only' : 'not brightening out'}</text>
       <rect x="${f(X(ob[0]), 1)}" y="${y + 3}" width="${f(Math.max(1, X(ob[1]) - X(ob[0])), 1)}" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1"/>
       <rect x="${f(X(r.inner[0]), 1)}" y="${y + 3}" width="${f(Math.max(1, X(r.inner[1]) - X(r.inner[0])), 1)}" height="13" fill="var(--ink-5)" opacity="0.5"/>
-      <text x="${f(X(ob[0]), 1)}" y="${y + 29}" class="ax">${f(r.outer[0], 4)}</text>
-      <text x="${f(X(ob[1]), 1)}" y="${y + 29}" text-anchor="end" class="ax">${r.outer[1] >= 0.999 ? 'not closed below 1' : f(r.outer[1], 4)}</text>
+      <text x="${f(X(ob[0]), 1)}" y="${y + 29}" class="ax">${outLo(r.outer[0], 4)}</text>
+      <text x="${f(X(ob[1]), 1)}" y="${y + 29}" text-anchor="end" class="ax">${r.outer[1] >= 0.999 ? 'not closed below 1' : outHi(r.outer[1], 4)}</text>
     </g>`;
   }).join('');
   return `<svg viewBox="0 0 ${w} ${h}" class="fg" role="img" aria-label="certified intervals for ${esc(t.name)}">
@@ -197,7 +201,7 @@ function section(t) {
       <p class="lede mt4 rd body-3">
         ${t.published.length} published values of R<sub>p</sub>/R<sub>*</sub> span ${f(pubW.lo, 5)} to ${f(pubW.hi, 5)} — a spread of ${pct((pubW.hi - pubW.lo) / pubW.lo, 1)} — while a typical one quotes ±${f(pubW.err, 5)}.
         Granting the orbit exactly and assuming only that the star is nowhere negative and does not brighten outward, this light curve forces
-        R<sub>p</sub>/R<sub>*</sub> into <b>[${ex && ex.ok ? f(ex.outer[0], 4) + ', ' + (ex.outer[1] >= 0.999 ? '—' : f(ex.outer[1], 4)) : '—'}]</b>.
+        R<sub>p</sub>/R<sub>*</sub> into <b>[${ex && ex.ok ? outLo(ex.outer[0], 4) + ', ' + (ex.outer[1] >= 0.999 ? '—' : outHi(ex.outer[1], 4)) : '—'}]</b>.
       </p>
     </div>
 
@@ -211,9 +215,9 @@ function section(t) {
 
     <div class="note reveal">
       <b>The asymmetry is the result.</b> Under nonnegativity alone the lower edge is
-      ${exn && exn.ok ? f(exn.outer[0], 4) : '—'} — only ${exn && exn.ok ? pct((t.fit.k - exn.outer[0]) / t.fit.k, 0) : '—'} below the conventional fit — while the upper edge
-      ${exn && exn.ok && exn.outer[1] >= 0.999 ? 'does not close below 1 at all' : 'reaches ' + (exn && exn.ok ? f(exn.outer[1], 4) : '—')}.
-      Adding <em>the star does not brighten outward</em> pulls the ceiling to ${ex && ex.ok ? f(ex.outer[1], 4) : '—'}.
+      ${exn && exn.ok ? outLo(exn.outer[0], 4) : '—'} — only ${exn && exn.ok ? pct((t.fit.k - exn.outer[0]) / t.fit.k, 0) : '—'} below the conventional fit — while the upper edge
+      ${exn && exn.ok && exn.outer[1] >= 0.999 ? 'does not close below 1 at all' : 'reaches ' + (exn && exn.ok ? outHi(exn.outer[1], 4) : '—')}.
+      Adding <em>the star does not brighten outward</em> pulls the ceiling to ${ex && ex.ok ? outHi(ex.outer[1], 4) : '—'}.
       The whole upper bound on a planet's radius is bought by an assumption about the star's atmosphere, not by the photometry.
       ${widen ? `Two scales for it. The ${t.published.length} papers already disagree with each other by <b>${overconf.toFixed(0)}×</b> a typical quoted error bar — that needs no enclosure to see. The certified interval is <b>${widen.toFixed(0)}×</b> wider again than that disagreement, and it contains every one of them.` : ''}
       ${ex && ex.ok && t.published.every((p) => p.k >= ex.outer[0] && p.k <= ex.outer[1]) ? `In the grammar&rsquo;s words, each published value is a pick &mdash; one member of the set, chosen by the limb-darkening law its paper fitted &mdash; so it and its &plusmn; are drawn dotted; none falls outside the interval, so none is refuted, and nothing here is red.` : ''}
@@ -252,7 +256,7 @@ const body = `
       answer two questions about the harness, and never inside the enclosure.
     </p>
     <div class="stats reveal mt6">
-      ${D.targets.map(t => { const r = res(t, 'exact', 'monotone'); return `<div class="stat"><div class="num">${r && r.ok ? f(r.outer[0], 3) + '–' + (r.outer[1] >= 0.999 ? '1' : f(r.outer[1], 3)) : '—'}</div><div class="dim">${esc(t.name)}, certified</div></div>`; }).join('')}
+      ${D.targets.map(t => { const r = res(t, 'exact', 'monotone'); return `<div class="stat"><div class="num">${r && r.ok ? outLo(r.outer[0], 3) + '–' + (r.outer[1] >= 0.999 ? '1' : outHi(r.outer[1], 3)) : '—'}</div><div class="dim">${esc(t.name)}, certified</div></div>`; }).join('')}
       <div class="stat"><div class="num">${D.targets.reduce((a, t) => a + t.published.length, 0)}</div><div class="dim">published values, all inside</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">limb-darkening laws in the enclosure</div></div>
     </div>
