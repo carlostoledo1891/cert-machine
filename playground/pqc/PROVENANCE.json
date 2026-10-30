@@ -3,12 +3,16 @@
   "liftedFrom": "/Users/carlostoledo/Documents/frontier-apps/tools/pqc-app.js",
   "liftedOn": "2026-09-05",
   "rule": "Byte-for-byte; the builder beside it is the house port of tools/build-pqc.js. The records it draws are instruments/pqc/out/*.json, pinned and re-derived there.",
+  "patches": [
+    "pqc-app.js (2026-10-30, the operator's ruling that the instruments take the light theme): ink() and the strip's backing box read the --ink and --bg tokens through playground/design/theme.js (window.WTHEME) instead of the literals rgba(246,246,248,a) and rgba(10,10,12,.72), which are those tokens' dark values, so dark paints the same colours; and the view is drawn again, from the state held, when the reader flips the theme pill. Presentation only: no number, record, rule or decision moved. The pin at the lift is kept as sha256AtLift."
+  ],
   "files": [
     {
       "file": "pqc-app.js",
-      "sha256": "49d1eeb28e030fe84c6dfad3fda149b9d06fd06b279e14cbcaabbbcdef4002d5",
+      "sha256": "a4830d38336e0df24c8beb4dbe5b6da75fe9352d29071c3346204865832ff02b",
       "sourceSha256": "49d1eeb28e030fe84c6dfad3fda149b9d06fd06b279e14cbcaabbbcdef4002d5",
-      "bytes": 12265
+      "bytes": 12540,
+      "sha256AtLift": "49d1eeb28e030fe84c6dfad3fda149b9d06fd06b279e14cbcaabbbcdef4002d5"
     }
   ]
 }

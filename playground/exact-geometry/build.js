@@ -21,6 +21,11 @@ const W = require(path.join(PG, 'warrant.js'));                    /* the gramma
 const GR = require(path.join(PG, '..', 'design', 'grammar.js'));    /* the ink-* classes */
 const { mstUnique } = require(path.join(PG, 'mst.js'));   /* one uniqueness test for every tree drawn */
 const E = require('./page.js');
+/* REDRAWN IN TOKENS (2026-10-30, the operator: the instruments take the light theme). page.js is lifted and keeps its
+   literal screen inks (#f6f6f8 strokes, a #0a0a0c hollow point); the page, its sheet and its card go out through
+   playground/design/inks.js, which re-points each at the token holding that very value: the same pixels in the dark,
+   ink on paper in the light. */
+const INK = require(path.join(PG, 'design', 'inks.js'));
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const BENCHCSS = fs.readFileSync(path.join(PG, 'design', 'bench.css'), 'utf8');
 
@@ -201,8 +206,8 @@ function build(OUT) {
     title: 'Exact geometry · instruments',
     desc: 'The control page: an instrument that decides what shape a table of distances has, pointed at point sets whose shape is fixed by construction — so that its answers on the pages that ask a model mean something.',
     path: '/instruments/exact-geometry/',
-    body: head + sections + foot,
-    css: `${BENCHCSS}\n${CSS_XG}\n${GR.css()}`,
+    body: INK.assertNoLiterals(INK.tokenInks(head + sections + foot), 'exact-geometry'),
+    css: INK.assertNoLiterals(INK.tokenInks(`${BENCHCSS}\n${CSS_XG}\n${GR.css()}`), 'exact-geometry\'s sheet'),
   });
   const dir = path.join(OUT, 'exact-geometry');
   fs.mkdirSync(dir, { recursive: true });
@@ -212,7 +217,7 @@ function build(OUT) {
 
 function cardArt() {
   const m = sections.match(/<svg[^>]*class="plate"[\s\S]*?<\/svg>/);
-  return m ? m[0] : '';
+  return m ? INK.assertNoLiterals(INK.tokenInks(m[0]), 'the exact-geometry card') : '';
 }
 
 module.exports = { build, cardArt, rows, agreed, n, PROV };

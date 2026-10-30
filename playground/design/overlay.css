@@ -64,7 +64,7 @@ main { position: fixed; inset: 0; width: 100vw; height: 100vh; }
 
 /* ---- control panel ---- */
 .ov-panel { position: absolute; z-index: 20; right: 0; top: 0; bottom: 0; width: min(330px, 88vw);
-  background: rgba(16,16,20,0.86); backdrop-filter: blur(14px); border-left: 1px solid var(--border);
+  backdrop-filter: blur(14px); border-left: 1px solid var(--border);   /* its background: playground/design/theme.js */
   padding: clamp(4.5rem, 9vh, 6rem) var(--s-5) var(--s-5); overflow-y: auto; transition: transform var(--dur-med) var(--ease-out); }
 body.ov-panel-hidden .ov-panel { transform: translateX(100%); }
 .ov-panel::-webkit-scrollbar { width: 6px; }
@@ -100,7 +100,7 @@ body.ov-panel-hidden .pt { right: 0; margin-right: var(--gutter); }
 .note-sm a { color: var(--ink-3); border-bottom: 1px solid var(--border-strong); }
 
 /* ---- about sheet ---- */
-.sheet { position: absolute; z-index: 40; inset: 0; background: rgba(10,10,12,0.96); backdrop-filter: blur(18px);
+.sheet { position: absolute; z-index: 40; inset: 0; backdrop-filter: blur(18px);   /* its background: playground/design/theme.js */
   overflow-y: auto; padding: clamp(5rem, 11vh, 8rem) var(--gutter) var(--s-8); opacity: 0; visibility: hidden; transition: opacity var(--dur-med); }
 body.sheet-open .sheet { opacity: 1; visibility: visible; }
 .sheet .inner { max-width: 68ch; margin-inline: auto; }

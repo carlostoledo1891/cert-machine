@@ -102,6 +102,11 @@ const once = (s, from, to, what) => {
    (`from`), and becomes the same text with every number marked and addressed (`to`); the count is gated. */
 const RD = require(path.join(PG, '..', 'design', 'record.js'));
 const DC = require(path.join(PG, '..', 'design', 'components.js'));
+/* REDRAWN IN TOKENS (2026-10-30, the operator: the instruments take the light theme). page.js is lifted and keeps its
+   literal screen inks (#f6f6f8 strokes, a #0a0a0c hollow point); the page, its sheet and its card go out through
+   playground/design/inks.js, which re-points each at the token holding that very value: the same pixels in the dark,
+   ink on paper in the light. */
+const INK = require(path.join(PG, 'design', 'inks.js'));
 const REC = 'playground/answer-shape/out/geometry.json';
 const at = (ptr) => `${REC}#${ptr}`;
 const SUB = (id) => G.subjects.find((s) => s.id === id);
@@ -229,19 +234,26 @@ for (const s of G.subjects.filter((x) => x.order)) for (const M of G.models) {
    which this page's own sheet does not carry; page.js sets its figcaption as one flex row, so a captioned one wraps */
 CSS_AS += '\nfigcaption[data-record] { flex-wrap:wrap; }\nfigcaption .fig-rec, figcaption .fig-stop { display:block; flex-basis:100%; margin-top:var(--s-2); font-size:var(--text-eyebrow); color:var(--ink-4); text-transform:none; letter-spacing:normal; }';
 
+/* the distance tables are pixel buffers (plate.js fieldPNG: a cell's grey is its distance over the table's max, bright =
+   far, on a near-black ground) and no caption names a brightness; in the light theme each is inverted, so a far pair is
+   dark ink on paper like every other mark here. The filter takes the image's own border with it, so the border is
+   given the complement of --border, read from the token, and comes out of the inversion as --border. The dark render
+   is untouched. */
+const FIELDS_LIGHT = ':root[data-theme="light"] .fields img { filter:invert(1); border-color:rgb(from var(--border) calc(255 - r) calc(255 - g) calc(255 - b)); }';
+
 function build(OUT) {
   const foot = `<p><a href="../exact-geometry/index.html">the control this is judged against</a> · <a href="../affect/index.html">the same twelve, asked under six moods</a> · <a href="../shape-hunt/index.html">and what survives a null</a> · crossed from the bench ${PROV.liftedOn}</p>`;
   const html = page({
     foot,
     title: 'The shape of an answer · instruments',
     desc: 'Seven subjects, three models, every pair asked both ways round — and the exact decision of whether the answers are a shape at all: the exact signature and where the triangle inequality fails, with the float effective rank and negative mass beside them.',
-    path: '/instruments/answer-shape/', body: head() + sections + foot,
-    css: `${BENCHCSS}\n${CSS_AS}\n${GR.css()}`,
+    path: '/instruments/answer-shape/', body: INK.assertNoLiterals(INK.tokenInks(head() + sections + foot), 'answer-shape'),
+    css: INK.assertNoLiterals(INK.tokenInks(`${BENCHCSS}\n${CSS_AS}\n${GR.css()}\n${FIELDS_LIGHT}`), 'answer-shape\'s sheet'),
   });
   const dir = path.join(OUT, 'answer-shape');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, subjects: G.subjects.length, models: G.models.length, spend, calls };
 }
-function cardArt() { const m = sections.match(/<svg[\s\S]{200,}?<\/svg>/); return m ? m[0] : ''; }
+function cardArt() { const m = sections.match(/<svg[\s\S]{200,}?<\/svg>/); return m ? INK.assertNoLiterals(INK.tokenInks(m[0]), 'the answer-shape card') : ''; }
 module.exports = { build, cardArt, G, spend, PROV };

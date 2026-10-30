@@ -99,6 +99,10 @@
 
   /* ------------------------------------------------------------------ canvas */
   const cv = $('stage'), ctx = cv.getContext('2d', { alpha: false });
+  /* THE INKS ARE TOKENS (2026-10-30, playground/design/theme.js): the ground is --bg, every mark --ink (or --ink-3 and
+     --ink-4 for the words) at the alpha it always had, so dark paints what it painted and light is ink on paper. The
+     loop paints every frame, so a flip of the pill shows on the next one; the SVG insets follow the tokens by CSS. */
+  const cInk = (a) => window.WTHEME.rgba('--ink', a);
   let W = 0, H = 0, DPR = 1;
   function fit() {
     DPR = Math.min(2, window.devicePixelRatio || 1);
@@ -106,7 +110,7 @@
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
     cv.style.width = W + 'px'; cv.style.height = H + 'px';
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-    ctx.fillStyle = '#0a0a0c'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = window.WTHEME.rgba('--bg', 1); ctx.fillRect(0, 0, W, H);
   }
 
   /* ------------------------------------------------------------------ the drawing
@@ -286,7 +290,7 @@
     const scale = st.zoom, cx = (W - panelW) / 2 + (W < 820 ? 0 : 40), cy = H / 2;
     const M = mapper(t, scale, cx, cy);
 
-    ctx.fillStyle = '#0a0a0c'; ctx.fillRect(0, 0, W, H);
+    ctx.fillStyle = window.WTHEME.rgba('--bg', 1); ctx.fillRect(0, 0, W, H);
 
     /* in the stress mode the flow field steps back to a ghost so the mechanism has the page:
        the contours are still there, still exact, just no longer the subject */
@@ -300,7 +304,7 @@
     if (st.mode === 'contour' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
       for (const c of geo.contours) {
-        ctx.strokeStyle = 'rgba(246,246,248,' + (dim * (0.10 + 0.62 * Math.pow(c.frac, 0.42))).toFixed(3) + ')';
+        ctx.strokeStyle = cInk((dim * (0.10 + 0.62 * Math.pow(c.frac, 0.42))).toFixed(3));
         ctx.beginPath();
         const sg = c.segs;
         for (let k = 0; k < sg.length; k += 4) {
@@ -315,7 +319,7 @@
 
     if (st.mode === 'stream' || st.mode === 'both' || st.mode === 'stress') {
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(246,246,248,' + (STREAM_A * dim).toFixed(3) + ')';
+      ctx.strokeStyle = cInk((STREAM_A * dim).toFixed(3));
       ctx.beginPath();
       for (const L of geo.lines) {
         let started = false;
@@ -327,7 +331,7 @@
       }
       ctx.stroke();
       if (st.tracers) {
-        ctx.fillStyle = 'rgba(246,246,248,' + (0.9 * dim).toFixed(3) + ')';
+        ctx.fillStyle = cInk((0.9 * dim).toFixed(3));
         for (const L of geo.lines) {
           const n = L.length / 2;
           for (let m = 0; m < 3; m++) {
@@ -344,7 +348,7 @@
     ctx.setLineDash(GR.none); ctx.lineCap = 'butt';   /* the pick's dots end here: what follows sets its own */
 
     if (st.mode === 'stipple') {
-      ctx.fillStyle = 'rgba(246,246,248,0.5)';
+      ctx.fillStyle = cInk('0.5');
       const dd = geo.dots;
       for (let k = 0; k < dd.length; k += 2) {
         const p = M(dd[k], dd[k + 1]);
@@ -361,10 +365,10 @@
        the PICK pattern, which means "one member of a set the data admits" and is not what an
        axis is. Canvas dashes are not scanned by the grammar gate; the rule applies anyway. */
     ctx.setLineDash(GR.guide); ctx.lineWidth = 1;
-    ctx.strokeStyle = 'rgba(246,246,248,0.20)';
+    ctx.strokeStyle = cInk('0.20');
     ctx.beginPath(); ctx.moveTo(cx, 0); ctx.lineTo(cx, H); ctx.stroke();
     const ra = Math.sqrt(2 * Xa * t), rb = Math.sqrt(2 * Xb * t);
-    ctx.setLineDash(GR.guide); ctx.strokeStyle = 'rgba(246,246,248,0.28)';
+    ctx.setLineDash(GR.guide); ctx.strokeStyle = cInk('0.28');
     for (const sg of [1, -1]) for (const rr of [ra, rb]) {
       const x = cx + sg * rr * scale;
       if (x < -20 || x > W + 20) continue;
@@ -372,9 +376,9 @@
     }
     ctx.setLineDash([]);
     if (!st.axisym) drawPulses(cx, cy, scale, e, t);
-    ctx.strokeStyle = 'rgba(246,246,248,0.26)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = cInk('0.26'); ctx.lineWidth = 1;
     ctx.strokeRect(cx - e.lr * scale, cy - e.lz * scale, 2 * e.lr * scale, 2 * e.lz * scale);
-    ctx.fillStyle = '#f6f6f8'; ctx.beginPath(); ctx.arc(cx, cy, 1.8, 0, 6.284); ctx.fill();
+    ctx.fillStyle = cInk(1); ctx.beginPath(); ctx.arc(cx, cy, 1.8, 0, 6.284); ctx.fill();
     ctx.restore();
 
     annotate(cx, cy, scale, e, t, ra, rb);
@@ -407,13 +411,13 @@
     const rOf = (u) => Math.sqrt(2 * t * Xa * Math.exp(u * lg));
     if (emph) {
       const xa2 = cx + Math.sqrt(2 * Xa * t) * scale, xb2 = cx + Math.sqrt(2 * Xb * t) * scale;
-      ctx.fillStyle = 'rgba(246,246,248,0.028)';
+      ctx.fillStyle = cInk('0.028');
       for (const sg of [1, -1]) ctx.fillRect(cx + sg * (xa2 - cx), cy - zTop, sg * (xb2 - xa2), 2 * zTop);
     }
     for (const fam of [{ sig: 1, id: GR.identity[0], k: emph ? 1 : 0.56, ph: 0 },
                        { sig: -1, id: GR.identity[1], k: emph ? 1 : 0.56, ph: Math.PI / 2 }]) {
       ctx.setLineDash(GR.pickSm); ctx.lineCap = 'round';   /* the caller's save()/restore() puts the cap back */
-      ctx.strokeStyle = 'rgba(246,246,248,' + (fam.id.opacity * 0.78 * fam.k).toFixed(3) + ')';
+      ctx.strokeStyle = cInk((fam.id.opacity * 0.78 * fam.k).toFixed(3));
       ctx.lineWidth = fam.id.weight * 0.8;
       for (const sg of [1, -1]) {
         ctx.beginPath();
@@ -435,7 +439,7 @@
        too, since where it falls is decided from the drawn stress */
     if (md.outWave > 0) {
       ctx.setLineDash(GR.pickSm);
-      ctx.strokeStyle = 'rgba(246,246,248,0.5)'; ctx.lineWidth = 1;
+      ctx.strokeStyle = cInk('0.5'); ctx.lineWidth = 1;
       ctx.beginPath();
       for (const r of rows) {
         if (r.inWave) continue;
@@ -454,7 +458,7 @@
   function annotate(cx, cy, scale, e, t, ra, rb) {
     ctx.font = '9.5px ui-monospace,SFMono-Regular,Menlo,monospace';
     const lab = (x, y, s, anchor, col) => {
-      ctx.fillStyle = col || 'rgba(154,154,166,0.92)';
+      ctx.fillStyle = col || window.WTHEME.rgba('--ink-3', '0.92');
       ctx.textAlign = anchor || 'left'; ctx.fillText(s, x, y); ctx.textAlign = 'left';
     };
     const rp = e.lr * scale, zp = e.lz * scale;
@@ -462,7 +466,7 @@
        under it is a leader nobody can follow */
     const gutter = (W > 1180 && H > 790) ? 380 : 130;
     if (rp > 26 && cx - rp > gutter) {
-      ctx.strokeStyle = 'rgba(154,154,166,0.32)'; ctx.lineWidth = 1;
+      ctx.strokeStyle = window.WTHEME.rgba('--ink-3', '0.32'); ctx.lineWidth = 1;
       ctx.beginPath(); ctx.moveTo(cx - rp, cy + zp); ctx.lineTo(cx - rp - 16, cy + zp + 12); ctx.stroke();
       lab(cx - rp - 20, cy + zp + 15, 'the core · ℓr = τ^1/2 · ℓz = τ^' + fmtExp(0.5 - h()), 'right');
     }
@@ -472,7 +476,7 @@
       lab(xb - 8, cy + 4, st.axisym ? 'annulus · no pulses, the residual stands'
         : 'pulse annulus · ' + Xa + ' < X < ' + Xb + (md.outWave ? ' · ' + md.outWave + ' radii with no real amplitude' : ' · both amplitudes real'), 'right');
     }
-    lab(cx + 6, 16, 'axis', 'left', 'rgba(110,110,122,0.9)');
+    lab(cx + 6, 16, 'axis', 'left', window.WTHEME.rgba('--ink-4', '0.9'));
   }
   const fmtExp = (v) => String(Number(v.toFixed(4)));
 
@@ -488,13 +492,13 @@
     const wpx = world * scale;
     const x0 = W < 820 ? Math.max(14, W - 20 - wpx) : Math.max(20, W - panelW - 34 - wpx);
     const y0 = W < 820 ? H - 120 : 74;
-    ctx.strokeStyle = 'rgba(246,246,248,0.5)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = cInk('0.5'); ctx.lineWidth = 1;
     ctx.beginPath();
     ctx.moveTo(x0, y0); ctx.lineTo(x0 + wpx, y0);
     ctx.moveTo(x0, y0 - 4); ctx.lineTo(x0, y0 + 4);
     ctx.moveTo(x0 + wpx, y0 - 4); ctx.lineTo(x0 + wpx, y0 + 4);
     ctx.stroke();
-    ctx.fillStyle = 'rgba(246,246,248,0.55)'; ctx.font = '9.5px ui-monospace,SFMono-Regular,monospace';
+    ctx.fillStyle = cInk('0.55'); ctx.font = '9.5px ui-monospace,SFMono-Regular,monospace';
     ctx.textAlign = 'right'; ctx.fillText(fmtE(world) + '  ·  in units of the initial core', x0 + wpx, y0 - 8); ctx.textAlign = 'left';
     return { x: x0 + wpx, y: y0 };
   }
@@ -521,11 +525,11 @@
     const right = bar.x, sw = 26;
     let y = bar.y + 20;
     for (const [, text, kind, al] of rows) {
-      ctx.fillStyle = 'rgba(154,154,166,0.86)';
+      ctx.fillStyle = window.WTHEME.rgba('--ink-3', '0.86');
       ctx.textAlign = 'right';
       ctx.fillText(text, right - sw - 8, y + 3);
       ctx.textAlign = 'left';
-      ctx.strokeStyle = 'rgba(246,246,248,' + al + ')';
+      ctx.strokeStyle = cInk(al);
       ctx.lineWidth = kind === 'wave' ? (al > 0.5 ? GR.identity[0].weight : GR.identity[1].weight) * 0.8 : 1;
       ctx.setLineDash(kind === 'guide' ? GR.guide : kind === 'solid' ? GR.none : GR.pickSm);
       ctx.lineCap = kind === 'guide' || kind === 'solid' ? 'butt' : 'round';
@@ -634,7 +638,7 @@
     const w = 190, hh2 = 46; el.setAttribute('viewBox', '0 0 ' + w + ' ' + hh2);
     let d = '';
     for (const [x, y] of pts) d += (d ? 'L' : 'M') + (3 + (x - x0) / (x1 - x0) * (w - 6)).toFixed(1) + ' ' + (hh2 - 3 - (y - y0) / (y1 - y0) * (hh2 - 6)).toFixed(1);
-    el.innerHTML = '<path d="' + d + '" class="' + ink + '" fill="none" stroke="rgba(246,246,248,0.8)" stroke-width="1.5"/>';
+    el.innerHTML = '<path d="' + d + '" class="' + ink + '" fill="none" style="stroke:var(--ink);stroke-opacity:0.8" stroke-width="1.5"/>';
   }
 
   /* ------------------------------------------------------- the mechanism, decided
@@ -743,18 +747,18 @@
     const o = [];
     o.push('<svg viewBox="0 0 ' + BW + ' ' + BH + '" role="img" aria-label="The stress plane: the admissible cone of (4.22), the wider cone the two wave families can reach, the stress path across the annulus, and the two positive contributions closing head to tail on it.">');
     o.push('<defs><pattern id="hatchC" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
-      + '<line x1="0" y1="0" x2="0" y2="4" stroke="rgba(246,246,248,0.30)" stroke-width="0.7"/></pattern></defs>');
+      + '<line x1="0" y1="0" x2="0" y2="4" style="stroke:var(--ink);stroke-opacity:0.30" stroke-width="0.7"/></pattern></defs>');
     /* what two real amplitudes reach — a faint rim, no fill, so it cannot be confused with the cone inside it. Both
        wedges are exact functions of the dials, so both are solid (DECIDED); this comment used to call the rim dotted,
        which it had stopped being when the dash for "the second cone" was taken off as identity */
-    o.push('<path d="' + sector(rimW) + '" fill="none" stroke="rgba(246,246,248,' + GR.identity[2].opacity * 0.55 + ')" stroke-width="' + GR.identity[2].weight + '"/>');
+    o.push('<path d="' + sector(rimW) + '" fill="none" style="stroke:var(--ink);stroke-opacity:' + GR.identity[2].opacity * 0.55 + '" stroke-width="' + GR.identity[2].weight + '"/>');
     /* the admissible cone (4.22), strictly inside it; the gap between the two IS the margin ηc */
-    o.push('<path d="' + sector(rimA) + '" fill="url(#hatchC)" fill-opacity="0.55" stroke="rgba(246,246,248,' + GR.identity[0].opacity * 0.72 + ')" stroke-width="' + GR.identity[0].weight + '"/>');
+    o.push('<path d="' + sector(rimA) + '" fill="url(#hatchC)" fill-opacity="0.55" style="stroke:var(--ink);stroke-opacity:' + GR.identity[0].opacity * 0.72 + '" stroke-width="' + GR.identity[0].weight + '"/>');
     /* the stress path: T0(X) as X runs across the annulus, vanishing at both edges. It is DRAWN — a bump this page
        picked, standing in for the paper's T0 — so CHOSEN, dotted (WARRANT v2, 2026-10-28), and so is everything below
        that rests on it: the decomposition, the demand curve and the y+ edge */
     o.push('<path d="M' + O.join(',') + rows.map((r) => 'L' + px(r.Tth, r.Tz).join(',')).join('') + 'L' + O.join(',')
-      + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.9)" stroke-width="1.2"/>');
+      + '" class="ink-chosen-sm" fill="none" style="stroke:var(--ink);stroke-opacity:0.9" stroke-width="1.2"/>');
     /* a radius whose stress has left the wave cone has no real amplitude: cross it out. AT MOST
        FIVE, evenly spaced — one mark per radius is a white blob the moment the whole annulus
        fails, and a mark that hides the thing it marks is not a mark. */
@@ -762,17 +766,17 @@
     for (let k = 0; k < Math.min(5, outRows.length); k++) {
       const r = outRows[Math.round(k * (outRows.length - 1) / Math.max(1, Math.min(4, outRows.length - 1)))];
       const p = px(r.Tth, r.Tz);
-      o.push('<path d="M' + (+p[0] - 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l6,6 M' + (+p[0] + 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l-6,6" stroke="rgba(246,246,248,0.92)" stroke-width="1.1"/>');
+      o.push('<path d="M' + (+p[0] - 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l6,6 M' + (+p[0] + 3).toFixed(1) + ',' + (+p[1] - 3).toFixed(1) + ' l-6,6" style="stroke:var(--ink);stroke-opacity:0.92" stroke-width="1.1"/>');
     }
     /* THE DECOMPOSITION, head to tail, at the radius carrying the most stress: y+H+ then y−H−,
        arriving exactly at T0. That closing is the two families doing the core's work. */
     const pk = rows[md.peak];
     const h1 = toT(pk.yp, pk.yp * M), h2 = toT(pk.ym, -pk.ym * M);
     const A1 = px(h1[0], h1[1]), A2 = px(h1[0] + h2[0], h1[1] + h2[1]);
-    o.push('<line class="ink-chosen" x1="' + O[0] + '" y1="' + O[1] + '" x2="' + A1[0] + '" y2="' + A1[1] + '" stroke="rgba(246,246,248,' + GR.identity[0].opacity + ')" stroke-width="' + (GR.identity[0].weight * 1.4).toFixed(2) + '"/>');
-    o.push('<line class="ink-chosen" x1="' + A1[0] + '" y1="' + A1[1] + '" x2="' + A2[0] + '" y2="' + A2[1] + '" stroke="rgba(246,246,248,' + GR.identity[1].opacity + ')" stroke-width="' + (GR.identity[1].weight * 1.4).toFixed(2) + '"/>');
-    o.push('<circle cx="' + A2[0] + '" cy="' + A2[1] + '" r="2.6" fill="#f6f6f8"/>');
-    o.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="1.7" fill="rgba(246,246,248,0.75)"/>');
+    o.push('<line class="ink-chosen" x1="' + O[0] + '" y1="' + O[1] + '" x2="' + A1[0] + '" y2="' + A1[1] + '" style="stroke:var(--ink);stroke-opacity:' + GR.identity[0].opacity + '" stroke-width="' + (GR.identity[0].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<line class="ink-chosen" x1="' + A1[0] + '" y1="' + A1[1] + '" x2="' + A2[0] + '" y2="' + A2[1] + '" style="stroke:var(--ink);stroke-opacity:' + GR.identity[1].opacity + '" stroke-width="' + (GR.identity[1].weight * 1.4).toFixed(2) + '"/>');
+    o.push('<circle cx="' + A2[0] + '" cy="' + A2[1] + '" r="2.6" style="fill:var(--ink)"/>');
+    o.push('<circle cx="' + O[0] + '" cy="' + O[1] + '" r="1.7" style="fill:var(--ink);fill-opacity:0.75"/>');
     /* THE ARITHMETIC THAT DECIDED IT, beside the picture of it. The stress direction s and the
        two slopes are small rationals by construction, so the whole test prints exactly — this
        is the same discipline as the verdict chips, applied to the mechanism. */
@@ -816,22 +820,22 @@
     const o = [];
     o.push('<svg viewBox="0 0 ' + W0 + ' ' + H0 + '" role="img" aria-label="Across the pulse annulus: the stress the core needs, and the two wave families\' contributions stacked to exactly meet it.">');
     o.push('<defs><pattern id="hatchS" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">'
-      + '<line x1="0" y1="0" x2="0" y2="4" stroke="rgba(246,246,248,0.3)" stroke-width="0.8"/></pattern></defs>');
+      + '<line x1="0" y1="0" x2="0" y2="4" style="stroke:var(--ink);stroke-opacity:0.3" stroke-width="0.8"/></pattern></defs>');
     /* the first family: 0 up to y+ */
     o.push('<path d="' + poly((r) => r.yp) + 'L' + px(rows[rows.length - 1], 0)[0].toFixed(1) + ',' + zero
-      + 'L' + px(rows[0], 0)[0].toFixed(1) + ',' + zero + 'Z" fill="rgba(246,246,248,0.10)"/>');
-    o.push('<path d="' + poly((r) => r.yp) + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.55)" stroke-width="1"/>');
+      + 'L' + px(rows[0], 0)[0].toFixed(1) + ',' + zero + 'Z" style="fill:var(--ink);fill-opacity:0.10"/>');
+    o.push('<path d="' + poly((r) => r.yp) + '" class="ink-chosen-sm" fill="none" style="stroke:var(--ink);stroke-opacity:0.55" stroke-width="1"/>');
     /* the second family: y+ up to y+ + y− = A — hatched, and it goes the other way when y− < 0 */
     const up = poly((r) => r.yp + r.ym);
     const down = rows.slice().reverse().map((r, i) => (i ? 'L' : 'L') + px(r, r.yp).map((v) => v.toFixed(1)).join(',')).join('');
     o.push('<path d="' + up + down + 'Z" fill="url(#hatchS)" fill-opacity="0.75"/>');
     /* the demand: the stress the core needs at this radius */
-    o.push('<path d="' + poly((r) => r.A) + '" class="ink-chosen-sm" fill="none" stroke="rgba(246,246,248,0.92)" stroke-width="1.4"/>');
-    o.push('<line x1="' + x0 + '" y1="' + zero + '" x2="' + x1 + '" y2="' + zero + '" class="ink-guide" stroke="rgba(246,246,248,0.35)" stroke-width="1"/>');
+    o.push('<path d="' + poly((r) => r.A) + '" class="ink-chosen-sm" fill="none" style="stroke:var(--ink);stroke-opacity:0.92" stroke-width="1.4"/>');
+    o.push('<line x1="' + x0 + '" y1="' + zero + '" x2="' + x1 + '" y2="' + zero + '" class="ink-guide" style="stroke:var(--ink);stroke-opacity:0.35" stroke-width="1"/>');
     const bad = rows.filter((r) => !r.inWave);
     for (let k = 0; k < bad.length; k += Math.max(1, Math.ceil(bad.length / 12))) {
       const r = bad[k], p = px(r, Math.min(r.yp, r.ym));
-      o.push('<line x1="' + p[0].toFixed(1) + '" y1="' + zero + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" stroke="rgba(246,246,248,0.8)" stroke-width="1"/>');
+      o.push('<line x1="' + p[0].toFixed(1) + '" y1="' + zero + '" x2="' + p[0].toFixed(1) + '" y2="' + p[1].toFixed(1) + '" style="stroke:var(--ink);stroke-opacity:0.8" stroke-width="1"/>');
     }
     o.push('<text x="' + x0 + '" y="' + (H0 - 3) + '" class="lb">X = ' + rows[0].X.toFixed(2) + '</text>');
     o.push('<text x="' + x1 + '" y="' + (H0 - 3) + '" class="lb" text-anchor="end">' + rows[rows.length - 1].X.toFixed(2) + '</text>');

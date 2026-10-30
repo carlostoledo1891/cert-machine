@@ -20,7 +20,8 @@ const EXP = path.join(ROOT, 'instruments', 'pqc');
 const rd = f => JSON.parse(fs.readFileSync(path.join(EXP, 'out', f), 'utf8'));
 const R = rd('reduce-40.json'), HOF = rd('hof.json'), AUD = rd('audit.json');
 const APP = fs.readFileSync(path.join(HERE, 'pqc-app.js'), 'utf8');
-const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8');
+const THEME = require(path.join(PG, 'design', 'theme.js'));   /* the canvas and the panel follow the pill (2026-10-30) */
+const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8') + THEME.CSS;
 
 const W = require(path.join(PG, 'warrant.js'));   /* the grammar's words for the panel's numbers (WARRANT v2) */
 
@@ -161,6 +162,7 @@ const body = `
 </aside>
 
 <script id="pqc-data" type="application/json">${JSON.stringify(D).replace(/</g, '\\u003c')}</script>
+<script>${THEME.CLIENT}</script>
 <script>${APP}</script>`;
 
 function build(OUTDIR) {

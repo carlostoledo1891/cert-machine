@@ -25,7 +25,8 @@ const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
    readout, the right-hand panel and its toggle, the controls. The Navier–Stokes instrument
    needed the same grammar, and a rule defined twice diverges, so it moved to
    playground/design/overlay.css and both pages read it. The bytes are unchanged. */
-const CSS = fs.readFileSync(path.join(HERE, '..', 'design', 'overlay.css'), 'utf8');
+const THEME = require(path.join(PG, 'design', 'theme.js'));   /* the canvas follows the pill (2026-10-30) */
+const CSS = fs.readFileSync(path.join(HERE, '..', 'design', 'overlay.css'), 'utf8') + THEME.CSS;
 const M = D.meta;
 const n = (x, d) => Number(x).toFixed(d === undefined ? 3 : d);
 const readOut = (f) => { try { return JSON.parse(fs.readFileSync(path.join(HERE, 'out', f), 'utf8')); } catch (e) { return null; } };
@@ -194,7 +195,7 @@ function build(OUT) {
     title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     path: '/instruments/interferometer/', body,
-    css: `${CSS}`, script: `<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
+    css: `${CSS}`, script: `<script>${THEME.CLIENT}</script>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
   });
   const dir = path.join(OUT, 'interferometer');
   fs.mkdirSync(dir, { recursive: true });
