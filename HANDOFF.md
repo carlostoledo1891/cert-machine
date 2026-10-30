@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 night — /claimbox/ REPUBLISHED on the operator's word ("wait for claimbox to finish and send live") from
+     claimbox 70e3691 (c32aa22c; live sha256 ab3a82c1… checked). A RECEIVER FINDING from claimbox (not yet acted on; its
+     PLAN.md §9): the receiver took a record's word for an EinsteinArena platform score moved by 2,000,001 units of its last
+     digit (certs/mc100-einstein-arena.json, whose row carries no value) and printed CERTIFIED. Proposed: hold an object's
+     bar to the claim its record row states, or require the record's value, else refuse as record-decision-mismatch.
+     A receiver change: both checkers + the decider, then `make lift` in claimbox. Waits on the operator's word.
   ◆ 2026-10-30 late — RULED (the operator, on "some pages do not have the dark/light toggle"): the ten DARK_ONLY
      /instruments pages are REDRAWN IN TOKENS (their art becomes ink on paper in light), canvases REPAINT AT ONCE on a
      flip (design/nav.js now dispatches "warrant-theme" on document, 9820a8d3; contours gets the same fix), and THE APPS
