@@ -66,10 +66,12 @@ const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document
   + 'set(r.getAttribute("data-theme")==="light"?"light":"dark",false);'
   + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>';
 /* the pill's rules, once: navCss() emits them under the report nav, design/app-shell.js under the app's top bar (the
-   apps took the switch on 2026-10-30, the operator: "the apps take the light theme too") */
-const THEME_CSS = `/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   apps took the switch on 2026-10-30, the operator: "the apps take the light theme too"). The one parameter is the
+   offset from the top: under the report nav it is the nav's height; in an app's bar, where --nav-h is not defined,
+   the pill sits in the bar's own flow and takes none. */
+const themeCss = (top) => `/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
    away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
-.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+.theme-pill{position:fixed;top:${top};right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
   background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
 .theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
   color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
@@ -78,6 +80,7 @@ const THEME_CSS = `/* the theme pill: under the bar, its right edge at the gutte
 @media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
 @media print{.theme-pill{display:none}}
 `;
+const THEME_CSS = themeCss('calc(var(--nav-h) + var(--s-3))');
 /* the whole of what navHtml emits, for design/refresh.js to replace in one match */
 const NAV_RE = /<nav class="topnav">[\s\S]*?<\/nav>(?:<div class="theme-pill"[^>]*>[\s\S]*?<\/div><script>[\s\S]*?<\/script>)?/;
 const darkOnly = (pagePath) => !!pagePath && Object.prototype.hasOwnProperty.call(require('./tokens.js').DARK_ONLY_PAGES, pagePath);
@@ -186,4 +189,4 @@ function navCss(gutter) {
 ${THEME_CSS}`;
 }
 
-module.exports = { navHtml, navCss, NAV_H, NAV_RE, THEME_KEY, THEME_PRE, THEME_PILL, THEME_JS, THEME_CSS, LINKS, BRAND, GITHUB, GH_ICON };
+module.exports = { navHtml, navCss, NAV_H, NAV_RE, THEME_KEY, THEME_PRE, THEME_PILL, THEME_JS, THEME_CSS, themeCss, LINKS, BRAND, GITHUB, GH_ICON };

@@ -151,10 +151,19 @@ a{color:inherit}
 .as-top a.navx{color:var(--ink-2);text-decoration:none;font-family:var(--f-mono);font-size:10.5px;
   letter-spacing:.12em;text-transform:uppercase;padding:6px 2px;transition:color .12s}
 .as-top a.navx:hover{color:var(--sig)}
-/* the theme pill (design/nav.js THEME_CSS, emitted below) sits IN the top bar, at its right end: never over the map's
-   controls or the panel. A notch smaller than under the report nav, so it fits the bar at a phone's width. */
-.as-top .theme-pill{position:static;flex:none;padding:2px;gap:2px}
-.as-top .theme-pill button{padding:3px var(--s-2)}
+/* the theme pill (design/nav.js themeCss, emitted below) sits IN the top bar, at its right end: never over the map's
+   controls or the panel; the bar is its frame, so the "below the nav" offset does not apply here. */
+.as-top .theme-pill{position:static;flex:none}
+/* below 1200px the bar holds the app's own controls and no room for both words (measured with both: Janela 11 px over
+   at 1100 and 76 at 768, SkyAudit São Paulo 72 at 768; on a phone Swell 43 at 360): the pill keeps its frame and shows
+   the one button that flips, "Light" or "Dark". Just above the phone break (721-767px) Janela's and São Paulo's bars
+   were already full; their meta chip gives up the width there, ending in an ellipsis, rather than push the pill off. */
+.as-top .meta{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:1199px){
+  .as-top .theme-pill{padding:0}
+  .as-top .theme-pill button[aria-pressed="true"]{display:none}
+  .as-top .theme-pill button{padding:var(--s-1) var(--s-2);letter-spacing:var(--track-slight)}
+}
 
 /* ---- panels: right = tabbed workspace; left = the selected flight ---- */
 .as-panel{position:fixed;top:68px;right:12px;bottom:92px;width:404px;z-index:20;overflow-y:auto;
@@ -386,10 +395,6 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   .as-top{height:48px;padding:0 12px;gap:10px}
   .as-top .appname{font-size:12.5px}
   .as-top .meta,.as-top .navx{display:none}
-  /* on a phone the bar holds the app's own controls and no room for both words (measured: Swell 13 px over at 390,
-     43 at 360; Janela 8 and 38): the pill keeps its frame and shows the one button that flips, "Light" or "Dark" */
-  .as-top .theme-pill button[aria-pressed="true"]{display:none}
-  .as-top .theme-pill button{padding:3px 6px;font-size:10px;letter-spacing:.04em}
   .as-panel{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:44dvh;gap:8px}
   .as-left{left:8px;right:8px;top:auto;bottom:88px;width:auto;max-height:52dvh;z-index:24}
   .as-card{padding:12px 13px;border-radius:var(--radius-m)}
@@ -400,7 +405,7 @@ input[type=range].as-scrub{flex:1;min-width:0;-webkit-appearance:none;appearance
   #speed{display:none}
   .as-seg button{padding:5px 8px;font-size:10px}
 }
-${N.THEME_CSS}`;
+${N.themeCss('auto')}`;
 }
 
 /* THE GRAMMAR'S STYLESHEET (2026-10-28): playground/warrant.js css(), on an app that uses a w-* class in its markup or
