@@ -38,6 +38,8 @@ const RC = require(path.join(ROOT, 'design', 'record.js'));
 const HP = 'certs/horizon-ledger.json', WHY_METR = 'printed by METR — a claim, not decided here';
 const at = (ptr, why) => W.val({ rec: { path: HP, ptr }, standing: W.COMPUTED, fmt: 'raw', why: why || WHY_METR });
 const agentAt = (a, rest, why) => at('/agents/' + RC.key(a.alias) + rest, why);
+/* a model's p50 gap is printed from its ledger cell (toExponential, which no record format is), so it is addressed as derived */
+const gapAt = (a) => HP + '#/agents/' + RC.key(a.alias) + '/site/p50/relativeGap';
 const postTriple = (a, why) => agentAt(a, '/post/th11/0', why) + ' [' + agentAt(a, '/post/th11/1', why) + ', ' + agentAt(a, '/post/th11/2', why) + ']';
 const BOOT = 'METR’s bootstrap interval — a random draw, read and not re-decided here';
 /* A PRINTED BOUND ROUNDS OUTWARD (WARRANT rule 8), 2026-10-28: an upper end up, a lower end down. toExponential and
@@ -195,7 +197,7 @@ const tbl = C.table({
     const h = a.live.horizons['0.5'].minutes;
     const enc = h[0].toFixed(6) === h[1].toFixed(6) ? h[0].toFixed(6) : '[' + outF(h[0], false, 6) + ', ' + outF(h[1], true, 6) + ']';
     return [a.alias.replace(' (Inspect)', ''), a.site.release_date, enc, { raw: agentAt(a, '/site/p50/estimate') },
-      { raw: W.value(a.site.p50.relativeGap.toExponential(1), W.COMPUTED, { title: 'the printed estimate against the enclosure, in float — computed' }) },
+      { raw: W.value(a.site.p50.relativeGap.toExponential(1), W.COMPUTED, { title: 'the printed estimate against the enclosure, in float — computed', derived: [gapAt(a)] }) },
       { raw: agentAt(a, '/live/printed/coefficient') + ' · ' + agentAt(a, '/live/printed/intercept') }, a.live.coefficientsCertifiedRounded.coefficient + ' · ' + a.live.coefficientsCertifiedRounded.intercept, a.live.coefficientsVerdict.toLowerCase()];
   }),
 });
@@ -223,7 +225,7 @@ B.push(C.tldr({
 B.push(C.stats([
   { k: 'fits certified', v: L.counts.certified + ' / ' + L.counts.fits, role: 'held', n: live.length + ' models on the May file, ' + L.counts.runsFileAgents + ' aliases in the March runs; every box radius below 10⁻¹⁰' },
   { k: 'printed coefficients that are the rounding of the box', v: repro.length + ' / ' + live.length, role: 'held', nRaw: 'the site prints three decimals; ' + C.esc(differ[0].alias) + ' prints ' + agentAt(differ[0], '/live/printed/intercept') + ' where the box rounds to ' + differ[0].live.coefficientsCertifiedRounded.intercept },
-  { k: 'site p50 estimates inside their enclosure', v: '0 / ' + live.length, role: 'held', nRaw: 'all within ' + W.value(outE(gapMax, true), W.COMPUTED, { title: 'the largest gap between a printed estimate and its enclosure, in float — computed' }) + ' relative; L-BFGS stops at a tolerance, a certificate does not' },
+  { k: 'site p50 estimates inside their enclosure', v: '0 / ' + live.length, role: 'held', nRaw: 'all within ' + W.value(outE(gapMax, true), W.COMPUTED, { title: 'the largest gap between a printed estimate and its enclosure, in float — computed', derived: live.map(gapAt) }) + ' relative; L-BFGS stops at a tolerance, a certificate does not' },
   { k: 'doubling time from 2023, certified', v: dbl23[0].toFixed(2) + ' d', role: 'held', nRaw: 'an enclosure ' + outE(dbl23[1] - dbl23[0], true) + ' days wide through ' + T.from_2023_on.n + ' models; the site prints ' + at('/trend/printed/from_2023_on/point_estimate') },
   { k: 'January’s post against May’s file', v: postRepro.length + ' / ' + postRows.length, role: 'open', n: 'one printed horizon is the rounding of the certified one; six moved with the runs METR added between the two' },
   { k: 'the human alias', v: human.runsFile.horizons['0.5'].minutes[0].toFixed(0) + ' min', role: 'open', n: 'the same fit on the human-baseline runs in the March file: humans given the same budget rule succeed half the time at this task length' },
