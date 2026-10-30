@@ -22,6 +22,18 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 — /GRAMMAR/ AS A ONE-PAGER, A SPECIMEN ON BRANCH grammar-onepager (pushed, NOT merged; c3dfee96), on the
+     operator's "Use the roundtable to perfect the construction of the Grammar page … the one pager to explain and
+     impress". Four review panels (Tufte/Bertin/Wilkinson, Victor/Sanderson/Bostock, Norman/Maeda/Sagmeister, Chief
+     Scientist/CTO; brief in the session scratchpad, internal, never cited) read today's page; the specimen follows where
+     they agreed: the hero = √x drawn twice (as usually drawn | in WARRANT), four frames adding one standing each, a gallery
+     of five charts each drawn twice (buoy A's design wave from certs/hseva-ledger.json; Moody's chart built from 64/Re and
+     Colebrook; a leaderboard, an epidemic curve, a report paragraph and table as illustrations, no red × on any), models
+     as premises, one figure in three registers + the Python and JS calls, held by the build, the colour law; the rules,
+     issues, axioms and guards behind disclosures; R17–R31's table off the page. Machinery: figure({ source }) and
+     W.value({ illustration }) (WARRANT.md's dated section on the branch). 11,800 px at 1440 (was 17,200). Gates green on the
+     branch but the known Swell flap. ON APPROVAL: merge into main, `make page`, push. Left out, each a question: a live ε
+     handle on the hero (one panel wanted it, two refused it on this page), a contour figure in the gallery.
   ◆ 2026-10-30 — THE HOME PAGE'S HERO REMOVED on the operator's word ("remove the homepage hero chart. push live"): the
      register's decided-claims strip (tools/build-site.js's HERO block, its figure and CH.script()) is gone; the home page
      now opens on the header and the links; design/heroes.json marks index.html none, with the reason. Gates: sync, copy,
