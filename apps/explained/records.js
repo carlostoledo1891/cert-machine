@@ -83,6 +83,47 @@ need(/\$\|D\(1\)\| < 0\.82395316\$ & [^&]*& \\vR/.test(AI), 'the cut-short |D(1)
 need(/\|256\\cdot S\(j\) - j\| \\le  3\\cdot 10\^\{-40\}[^&]*&[^&]*&[^&]*& \\vC/.test(get(RF, 'RfRunRows')), 'the band-rows claim is not CERTIFIED in the companion\'s run rows');
 need(get(RF, 'RfEdgeBar') === '0.82395317' && get(RF, 'RfTauTex') === '3\\cdot10^{-40}', 'the companion\'s edge bar or tolerance changed; the stage chips quote them');
 V.RF_D1_SHORT = '0.82395316'; V.RF_TAU_PLAIN = '3·10⁻⁴⁰';
+/* THE STAGE AS A FIGURE (/explained/'s hero, 2026-10-30). The same six claims, each read from its record through
+   design/record.js, the resolver tools/check-marks.js re-reads the page with, so every pointer the figure prints resolves
+   or the build refuses; the word goes through the house's one verdict → chip map (design/components.js VERDICT_KIND).
+   A claimbox object's word is the receiver's line ("from the object: CERTIFIED · …"), read as the companion's numbers read
+   it: REFUTED if any predicate is. A refutation that exhibits its counterexample carries its witness: the 605's pair. */
+const STAGE = (() => {
+  const R = require(path.join(ROOT, 'design', 'record.js'));
+  const { VERDICT_KIND } = require(path.join(ROOT, 'design', 'components.js'));
+  const WORD = { held: 'certified', dep: 'refuted', open: 'refused' };
+  const word = (verdict) => { const k = VERDICT_KIND[String(verdict).toUpperCase()]; need(k && WORD[k], 'the stage has no word for the verdict ' + verdict); return WORD[k]; };
+  const at = (p, ptr) => ({ path: p, ptr, v: R.read(p, ptr) });
+  const receiver = (line) => { const m = /from the object: (.*?)\s+\d+(?:\.\d+)? s/.exec(String(line)); need(m, 'the stage cannot read the receiver line ' + line);
+    const ws = m[1].match(/\b(CERTIFIED|REFUTED)\b/g); need(ws, 'the receiver line names no word: ' + line); return ws.includes('REFUTED') ? 'REFUTED' : 'CERTIFIED'; };
+  const out = [];
+  /* the C31 bound: the record's claim up to its parenthetical (the method's name), which ends at the printed digits */
+  { const p = 'certs/lueker-replay.json', r = '/rows[h=10]'; const c = at(p, r + '/claim'), v = at(p, r + '/verdict'), pr = at(p, r + '/printed');
+    const claim = String(c.v).replace(/\s*\([^()]*\)$/, ''); need(claim.endsWith(' ' + pr.v) && pr.v === V.C31_PRINTED, 'the C31 claim does not end at its printed bound');
+    out.push({ id: 'c31', claim, word: word(v.v), claimRec: c, rec: v }); }
+  /* the 605: K(dim) ≥ n, refuted by a pair closer than sixty degrees; the worst pair is the exhibited counterexample */
+  { const p = 'certs/kissing-ledger.json', r = '/openRungs[slug=kissing-number-d11-605]/measured';
+    const n = at(p, r + '/n'), d = at(p, r + '/dim'), viol = at(p, r + '/violations'), i = at(p, r + '/worst/i'), j = at(p, r + '/worst/j'), deg = at(p, r + '/worstAngleDeg');
+    need(viol.v > 0 && String(n.v) === V.SIX_N, 'the 605 is not refuted by a pair');
+    need([i.v, j.v].every((x) => Number.isInteger(x) && x >= 0 && x < n.v) && i.v !== j.v && deg.v < 60, 'the 605\'s worst pair is not a pair of its own points closer than sixty degrees');
+    out.push({ id: 'k605', claim: 'K(' + d.v + ') ≥ ' + n.v, word: word('REFUTED'), claimRec: n, rec: viol, witness: { i, j, deg, n } }); }
+  /* the wave's largest row: K(dim) ≥ claimed, WITNESSED (every pair decided) */
+  { const top = kw.find((r) => r.dim === Number(V.KW_MAXDIM)); need(top && fmtInt(top.claimed) === V.KW_MAXPOINTS, 'the wave\'s largest row moved');
+    const p = 'certs/kissing-wave.json', r = '/rows[id=' + top.id + ']'; const c = at(p, r + '/claimed'), d = at(p, r + '/dim'), v = at(p, r + '/verdict');
+    out.push({ id: 'wave', claim: 'K(' + d.v + ') ≥ ' + fmtInt(c.v), word: word(v.v), claimRec: c, rec: v }); }
+  /* three of the Riemann companion's: the hedged sentence (refused, with its rule), the cut-short bound, the band rows */
+  { const p = 'corpus/claimbox-riemann/records/riemann-ai-run.json';
+    const hc = at(p, '/rows[id=ai-edge-hedged]/claim'), hr = at(p, '/rows[id=ai-edge-hedged]/refused');
+    need(hc.v === 'we checked that |D(1)| ≤ ' + V.RfEdgeBar && /^[a-z]+: /.test(hr.v), 'the hedged |D(1)| claim is not the refused one the stage quotes');
+    out.push({ id: 'hedged', claim: hc.v, word: word('REFUSED'), rule: hr.v.split(':')[0], claimRec: hc, rec: hr });
+    const sc = at(p, '/rows[id=ai-edge-strict]/claim'), sr = at(p, '/rows[id=ai-edge-strict]/certMachine');
+    need(sc.v === '|D(1)| < ' + V.RF_D1_SHORT, 'the cut-short |D(1)| claim moved');
+    out.push({ id: 'strict', claim: sc.v, word: word(receiver(sr.v)), claimRec: sc, rec: sr }); }
+  { const p = 'corpus/claimbox-riemann/records/riemann-run.json'; const c = at(p, '/rows[id=zeta23-rows]/claim'), v = at(p, '/rows[id=zeta23-rows]/certMachine');
+    need(String(c.v).startsWith('|256·S(j) − j| ≤ ' + V.RF_TAU_PLAIN), 'the band-rows claim moved');
+    out.push({ id: 'rows', claim: c.v, word: word(receiver(v.v)), claimRec: c, rec: v }); }
+  return out;
+})();
 
 /* ---- the cold open's dates and plain-text forms ---- */
 V.KW_REQUEST_DATE = get(MT, 'MtKwRequestDate'); V.KW_POINTS_DATE1 = get(MT, 'MtKwPointsDates').split(' ')[0]; V.KW_FROM_RELEASES = get(MT, 'MtKwFromReleases');
@@ -128,4 +169,4 @@ const flatten = () => { const flat = {}; for (const k in V) if (typeof V[k] === 
   for (const tau of ['1e-6', '1e-9', '1e-12']) for (const f in V.FL[tau]) flat['FL_' + tau.replace('1e-', 'E') + '_' + f] = String(V.FL[tau][f]);
   return flat; };   /* read at fill time: a builder adds its own numbers to V before it fills */
 const fill = (txt, what) => { const flat = flatten(); const out = txt.replace(/\{\{([A-Za-z0-9_]+)\}\}/g, (all, k) => { need(k in flat, what + ' asks for {{' + k + '}}, which the build did not compute'); return flat[k]; }); need(!/\{\{[A-Za-z0-9_]+\}\}/.test(out), 'an unfilled placeholder survived in ' + what); return out; };
-module.exports = { ROOT, V, flatten, fill, need, die, git, J, T, macros, get, intOf, fmtInt, sci, sciHtml, numword, MT, REG, RF, QK };
+module.exports = { ROOT, V, flatten, fill, need, die, git, J, T, macros, get, intOf, fmtInt, sci, sciHtml, numword, MT, REG, RF, QK, STAGE };

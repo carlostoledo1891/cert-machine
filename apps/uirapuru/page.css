@@ -1,4 +1,39 @@
 /* the Uirapuru story — the easy read's sheet (apps/explained/page.css) plus the forest grids and the asking list */
+/* the stage (moved here from apps/explained/page.css on 2026-10-30, when /explained/ redrew its own stage as a figure;
+   this page's cold open still draws it in HTML and CSS) */
+/* the stage: claims fly in as published, vanish into the box, come out as words — the verdict by weight and shape, never hue
+   (certified FILL, refuted OUTLINE, refused DIM + DASH); the cycle is 9.6 s, six claims 1.6 s apart, the box pulses as each passes.
+   No chip ever extends past the stage's right edge (the ruler would count the stage as clipped, and the count would flap with the
+   clock): a claim enters with its right edge at the stage's left edge and stops at the centre; a word leaves from the centre and
+   stops with its right edge at the stage's right edge; below 960px the stream runs top to bottom instead, the chips wrapping. */
+.easy .stage{position:relative;height:232px;margin:40px 0 0;background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);overflow:hidden}
+.easy .stage .sl{position:absolute;top:12px;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-4)}
+.easy .stage .sl.l{left:16px}.easy .stage .sl.r{right:16px}
+.easy .stage .fly{position:absolute;left:0;right:0;top:var(--y);height:0}
+.easy .stage .fly i{position:absolute;top:0;left:0;font-style:normal;font-family:var(--f-mono);font-size:var(--text-small);line-height:1.2;white-space:nowrap;padding:.45em .9em;border-radius:var(--radius-pill);border:1px solid var(--rule-strong);color:var(--ink-3);background:var(--surface);opacity:0}
+.easy .stage .fly i b{font-size:var(--text-eyebrow);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-right:.9em}
+.easy .stage .fly i b::before{content:"● ";font-size:.8em}
+.easy .stage .fly .pub{animation:flyin 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd{animation:flyout 9.6s linear infinite backwards;animation-delay:var(--d)}
+.easy .stage .fly .vd.c{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.easy .stage .fly .vd.r{border:1px solid var(--ink);color:var(--ink);background:var(--sunk)}
+.easy .stage .fly .vd.r b::before{content:"◆ "}
+.easy .stage .fly .vd.f{border:1px dashed var(--ink-4);color:var(--ink-3);background:var(--sunk)}
+.easy .stage .fly .vd.f b::before{content:"▲ "}
+@keyframes flyin{0%{left:0;transform:translate(-100%,-50%);opacity:0}5%{opacity:1}46%{opacity:1}50%{left:50%;transform:translate(-100%,-50%);opacity:0}100%{left:50%;transform:translate(-100%,-50%);opacity:0}}
+@keyframes flyout{0%,50%{left:50%;transform:translate(0,-50%);opacity:0}56%{opacity:1}96%{opacity:1}100%{left:100%;transform:translate(-100%,-50%);opacity:0}}
+.easy .stage .decide{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:7.5rem;height:4.25rem;display:flex;align-items:center;justify-content:center;font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:.16em;text-transform:uppercase;color:var(--ink);background:var(--paper);border:1px solid var(--ink);border-radius:var(--radius-s);z-index:2;animation:pulse 1.6s cubic-bezier(.22,1,.36,1) 4.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--ink-5)}30%{box-shadow:0 0 0 6px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media(max-width:960px){
+  .easy .stage{height:300px}.easy .stage .sl{display:none}
+  .easy .stage .fly{top:0;bottom:0;left:50%;right:auto;height:auto;width:0}
+  .easy .stage .fly i{font-size:var(--text-eyebrow);white-space:normal;text-align:center;width:max-content;max-width:min(80vw,22rem)}
+  .easy .stage .fly .pub{animation-name:fallin}.easy .stage .fly .vd{animation-name:fallout}
+  .easy .stage .decide{width:6.5rem;height:3.5rem}
+}
+@keyframes fallin{0%{top:0;transform:translate(-50%,-100%);opacity:0}5%{opacity:1}46%{opacity:1}50%{top:50%;transform:translate(-50%,-100%);opacity:0}100%{top:50%;transform:translate(-50%,-100%);opacity:0}}
+@keyframes fallout{0%,50%{top:50%;transform:translate(-50%,0);opacity:0}56%{opacity:1}96%{opacity:1}100%{top:100%;transform:translate(-50%,-100%);opacity:0}}
+@media(prefers-reduced-motion:reduce){.easy .stage{height:auto;display:flex;flex-wrap:wrap;gap:10px;padding:16px}.easy .stage .sl,.easy .stage .fly .pub,.easy .stage .decide{display:none}.easy .stage .fly{position:static;height:auto;width:auto}.easy .stage .fly .vd{position:static;transform:none;opacity:1;animation:none;display:inline-block}}
 .easy .forest{padding:12px 12px 8px}
 .easy .forest svg{display:block;width:100%;height:auto}
 .easy .ask{display:grid;gap:8px;margin:0 0 12px}
