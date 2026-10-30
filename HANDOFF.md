@@ -27,6 +27,16 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ 2026-10-30 ~11:00 UTC — BOTH TRACKS CLOSED, LIVE. ETH: the X reply posted by the operator (outreach row
+     x-eth-reply-2026-10-30; the reply's own id not yet recorded). GRAMMAR: R20, R22, R28 gated; R23/R30/D10 rolled out by
+     seven lanes, all merged (last 6d2ffee0 and this entry): unaddressed values 1,545 → 75, figures without a record 14,
+     without a stop 11 (the census now counts classed figures; ratcheted). The landing's decided-claims strip, /explained/'s
+     stage and /uirapuru/'s patch 7 are main figures. RESIDUE (each listed with its reason in WARRANT.md's last section):
+     Janela's three figures need record/stop lines in Portuguese (recordLine prints English; a pt form in components.js),
+     instruments/index's 4 card figures, machine/log's 1, water-value (needs a record its solver writes), the grammar's and
+     Uirapuru's (no record: √x and a seeded toy), Eleições (paused). erdos1038-sup's six spaced-key timings are now
+     addressable with the %20 fix. A pt-BR format in design/record.js would let Janela's derived values become W.val.
+     The Mac is caffeinated until 08:00 −03 (pid 72778). The operator now studies the live site and defines next steps.
   ◆ 2026-10-30 ~08:00 UTC — RULED by the operator (every recommendation): R22/R23/R30 roll out as drawn; /explained/ and
      /uirapuru/ figures merged; the landing strip with × on horizonmath ONLY (erdos852 no ×, rule 5), six words folded to
      three greys; D10 policy = point cells, claim: for a claimant's number, derived: [addresses] for a built value.

@@ -427,3 +427,16 @@ scope).
 - **Main figures:** /explained/'s stage as an SVG figure (six claims from their records through DECIDE; the 605's worst
   pair the ×) and /uirapuru/'s patch 7 (the ringed bird, tree 3 at 0, the × that breaks "every bird at least 70"), on the
   operator's word.
+
+## D10, R23 and R30 rolled out (2026-10-30, seven lanes)
+
+Every printed value carries an address under the operator's policy — a record cell (`W.val`, re-read by check-marks), a
+claimant's number (`claim:`, the claim record's cell), a value the build computes (`derived:`, every input cell). The
+record roots grew to the instruments' tracked folders (playground/*/out, instruments/*/out, instruments/wiring/eval,
+environments/*/eval); a space inside an address is written %20. Values without an address: 1,545 → 75. Figures that
+draw the grammar name their record and the sentence of the builder's own check that would refuse them; where a figure
+had no such check, one that holds today was added (gym, navier-stokes ×2, ember, affect's tethers, answer-shape's ordered
+plates). The census counts classed figures too since the same day: 14 figures without a record line, 11 without a stop
+sentence, ratcheted. What stays unaddressed, by kind: browser-filled readouts and runtime templates, the grammar's own
+specimen words and √x examples, Uirapuru's seeded toy, battery wall-clocks, values held only in logs, gzip feeds or the
+target memory, water-value's live solver (no record yet), and Eleições (paused).

@@ -119,7 +119,7 @@ function marksCensus(root = SITE) {
     const rv = /<span\b[^>]*\bclass="[^"]*\bw-val\b[^"]*"[^>]*>/g;
     while ((m = rv.exec(src))) { if (m[0].includes('${')) continue; if (!/\bdata-(rec|derived|claim-rec)="/.test(m[0])) unpointed.push(rel); else pointed++; }   /* a template in an inlined script is not a value */   /* D10: a derived value or a claimant's number carries its addresses */
     /* R23, R30 (2026-10-30): a figure that draws the grammar names its record and the sentence that would stop it */
-    for (const fg of src.match(/<figure>[\s\S]*?<\/figure>/g) || []) {
+    for (const fg of src.match(/<figure\b[^>]*>[\s\S]*?<\/figure>/g) || []) {   /* a figure with a class is a figure (found 2026-10-30 on Janela) */
       if (!/class="[^"]*\bw-(decided|computed|chosen|void)\b|data-w="/.test(fg)) continue;
       if (!/<figcaption[^>]*\sdata-record=/.test(fg)) figNoRecord.push(rel);
       if (!/<figcaption[^>]*\sdata-stop[\s>]/.test(fg)) figNoStop.push(rel);
