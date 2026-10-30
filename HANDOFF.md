@@ -37,8 +37,9 @@ NEXT SESSION, IN ORDER:
          drawn twice.
      (3) THE RECEIVER: format 4 in instruments/claimbox (SCHEMA.md, check.py, check.js, the decider for Lean objects;
          instruments/claimbox/v4/ eight calibration objects; old objects unchanged; standings reported, never a cap) and
-         instruments/ledger (replay.py ∥ replay.js, a (Q,2) Turing machine, HIT/RECORD; a forged row REFUTED). CLAIMBOX
-         RUNS `make lift` NEXT (check.py, check.js, SCHEMA.md changed; the ten objects and claims-ledger unchanged).
+         instruments/ledger (replay.py ∥ replay.js, a (Q,2) Turing machine, HIT/RECORD; a forged row REFUTED). LIFTED by
+         claimbox (acd8104: drift saw exactly check.py, check.js, SCHEMA.md; calibration 16/16; make test 466 pass). claimbox
+         still emits version-3 objects; emitting format 4 is on its own list.
      (4) --v-refu is gone; every use is --witness / --witness-soft (same values). (5) recorded above, no build.
      (6) The default share image is /og-landing.png (template + JSON-LD); Swell and Janela now take it too; /og.png is
          still served (the frozen Petrobras pages and old shares name it).
