@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>claimbox · Carlos Toledo</title>
+<meta name="description" content="claimbox is the language a claim is written in so that cert-machine can decide it: printed back in plain words, every number pinned, or refused with the reason named.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://carlostoledo.co/claimbox/">
+<meta property="og:title" content="claimbox · Carlos Toledo">
+<meta property="og:description" content="claimbox is the language a claim is written in so that cert-machine can decide it: printed back in plain words, every number pinned, or refused with the reason named.">
+<meta property="og:url" content="https://carlostoledo.co/claimbox/">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,480;0,530;0,550;0,600;1,400&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap">
+<style>
+/* web/grammar.css — claimbox's pages, drawn in WARRANT, cert-machine's house grammar (its design/WARRANT.md v2 with v2.1,
+   v2.2 and the rulings of 2026-10-29/30). claimbox is its own repository, so the grammar is re-expressed here and nothing
+   is imported, as Machinidae does; the four source files it was read from are pinned in web/PINS.json and re-hashed by
+   `python3 -m web.build --check`, so a change there is seen here.
+
+   Standing (what a mark rests on) and verdict (what cert-machine said) are two channels and never share one.
+     standing   decided   plain (w-decided): exact arithmetic or an exact count read from a record backs it
+                computed  dashed 5 4 (1.5 2 under 1.5 px): float, or a number someone printed; nothing decided it
+                chosen    dotted 1 5 (1 3), round caps: one member of a set the data admit, picked by something else
+                refused   no mark: ∅ and a word (w-refused): the input is missing or the instrument declined
+                guide     2 3: an axis, a ruler; it says nothing
+     verdict    a word and a chip whose SHAPE is a function of the word: CERTIFIED a filled pill (.tag.held), REFUTED an
+                outlined pill (.tag.dep), REFUSED a square outline, dim (.tag.open). Never a colour, never a dash.
+   Those five patterns (--dash-*) are the only ones a page may draw, and the build refuses any other, as it refuses a CSS
+   `dashed` or `dotted` line (the browser draws its own pattern).
+
+   Colour, by rule (v2.2): ink first, so the page reads completely in greyscale. One red, --witness, only on a × beside
+   words at an exhibited counterexample to a claim someone made about that object's own record; never on a verdict word,
+   a chip or a region. No other hue. One dark theme. Type: Inter for reading and headlines, JetBrains Mono for labels,
+   counts and code. One container, two tracks; prose capped at 82ch. */
+:root {
+  color-scheme: dark;
+  --paper: #0a0a0c; --sunk: #101014; --surface: #141419; --surface2: #1a1a20;
+  --ink: #f6f6f8; --ink-2: #c9c9d2; --ink-3: #9a9aa6; --ink-4: #6e6e7a; --ink-5: #4a4a55;
+  --rule: #232329; --rule-strong: #32323c; --rule-soft: #1c1c22;
+  --witness: #e0574e;
+  --dash-claim: 5 4; --dash-claim-sm: 1.5 2; --dash-pick: 1 5; --dash-pick-sm: 1 3; --dash-guide: 2 3;
+  --f-sans: "Inter", "Helvetica Neue", -apple-system, system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", "SF Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --text-display: clamp(2.5rem, 1.2rem + 5.4vw, 5rem);
+  --text-1: clamp(1.9rem, 1.2rem + 2.4vw, 3rem);
+  --text-2: clamp(1.25rem, 1.05rem + .8vw, 1.6rem);
+  --text-3: 1.125rem; --text-body: .9375rem; --text-small: .8125rem; --text-eyebrow: .6875rem;
+  --s-1: .25rem; --s-2: .5rem; --s-3: .75rem; --s-4: 1rem; --s-5: 1.5rem; --s-6: 2rem; --s-7: 3rem; --s-8: 4rem;
+  --section-pad: clamp(4.5rem, 11vh, 8rem);
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --container: 1200px; --read: 82ch; --nav-h: 60px;
+  --radius-s: 6px; --radius-m: 10px; --radius-pill: 999px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; padding-top: var(--nav-h); background: var(--paper); color: var(--ink-2); font-family: var(--f-sans);
+  font-size: var(--text-body); line-height: 1.65; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+::selection { background: var(--ink); color: var(--paper); }
+a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+a:hover { border-bottom-color: var(--ink); }
+a:focus-visible, label:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+p { margin: 0 0 var(--s-4); text-wrap: pretty; }
+code, .mono { font-family: var(--f-mono); font-size: .8125rem; }
+code { color: var(--ink); }
+.eyebrow, .lab { font-family: var(--f-mono); font-size: var(--text-eyebrow); font-weight: 500; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-4); }
+
+/* the bar: fixed and opaque; on a phone the links fold into a drawer a checkbox opens */
+.topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: var(--paper); border-bottom: 1px solid var(--rule); }
+.topnav-in { padding: 0 var(--gutter); height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.topnav .brand { font-family: var(--f-mono); font-weight: 600; font-size: .8125rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ink); border: none; }
+.navlinks { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.navlinks a { font-family: var(--f-mono); font-size: .6875rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); border: none; }
+.navlinks a:hover, .navlinks a[aria-current="page"] { color: var(--ink); }
+.nav-ck { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.nav-burger { display: none; width: 40px; height: 40px; align-items: center; justify-content: center; cursor: pointer; margin-right: -8px; }
+.nav-burger .nb, .nav-burger .nb::before, .nav-burger .nb::after { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 1px; }
+.nav-burger .nb { position: relative; }
+.nav-burger .nb::before, .nav-burger .nb::after { content: ''; position: absolute; left: 0; }
+.nav-burger .nb::before { top: -6px; }
+.nav-burger .nb::after { top: 6px; }
+.nav-ck:focus-visible ~ .topnav-in .nav-burger { outline: 2px solid var(--ink); outline-offset: 2px; }
+@media (max-width: 680px) {
+  .nav-burger { display: flex; }
+  .navlinks { display: none; position: absolute; top: var(--nav-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--paper); border-bottom: 1px solid var(--rule); padding: 6px var(--gutter) 16px; }
+  .navlinks a { padding: 13px 0; border-bottom: 1px solid var(--rule-soft); }
+  .navlinks a:last-child { border-bottom: none; }
+  .nav-ck:checked ~ .topnav-in .navlinks { display: flex; }
+}
+
+.page { max-width: var(--container); margin: 0 auto; padding: clamp(28px, 5vw, 60px) var(--gutter) 0; }
+.page > * { min-width: 0; }
+h1, h2, h3 { font-family: var(--f-sans); color: var(--ink); text-wrap: balance; margin: 0; }
+h1 { font-size: var(--text-display); line-height: 1.04; margin-top: var(--s-4); letter-spacing: -.035em; font-weight: 550; max-width: 22ch; }
+h2 { font-size: var(--text-1); line-height: 1.12; letter-spacing: -.02em; font-weight: 530; max-width: 28ch; }
+h3 { font-size: var(--text-2); line-height: 1.25; letter-spacing: -.015em; font-weight: 530; margin: var(--s-6) 0 var(--s-3); }
+.standfirst { font-size: var(--text-3); line-height: 1.35; font-style: italic; color: var(--ink-4); margin: var(--s-4) 0 0; max-width: var(--read); }
+.deck { font-size: 1.125rem; line-height: 1.6; color: var(--ink-3); margin: var(--s-5) 0 0; max-width: var(--read); }
+.scope { margin: var(--s-5) 0 0; max-width: var(--read); border-left: 2px solid var(--rule-strong); padding-left: 18px; color: var(--ink-3);
+  font-size: var(--text-small); line-height: 1.6; }
+.ctas { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin: var(--s-5) 0 0; font-size: var(--text-small); }
+.col > p, .col > ul, .col > ol, .col > .note, .col > pre { max-width: var(--read); }
+
+.note { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius-m); padding: 20px 24px; margin: var(--s-6) 0 0;
+  font-size: var(--text-body); line-height: 1.6; color: var(--ink-3); max-width: var(--read); }
+.note .lab { display: block; margin-bottom: var(--s-2); }
+.note dl { margin: 0; display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: var(--s-3) var(--s-4); }
+.note dt { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); padding-top: 3px; }
+.note dd { margin: 0; color: var(--ink-2); }
+@media (max-width: 600px) { .note dl { grid-template-columns: minmax(0, 1fr); gap: var(--s-1); } .note dd { margin-bottom: var(--s-3); } }
+
+.stats { margin: var(--s-7) 0 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule);
+  border: 1px solid var(--rule); border-radius: var(--radius-m); overflow: hidden; }
+.stat { background: var(--sunk); padding: 24px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.stat .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); }
+.stat .v { font-weight: 530; font-size: clamp(1.4rem, 1.05rem + 1.1vw, 2rem); line-height: 1.1; color: var(--ink); letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums; }
+.stat .n { font-size: var(--text-eyebrow); font-family: var(--f-mono); line-height: 1.55; color: var(--ink-4); }
+@media (max-width: 960px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .stats { grid-template-columns: minmax(0, 1fr); } }
+
+section { margin: var(--section-pad) 0 0; }
+section > p, section > h3 { max-width: var(--read); }
+.sec-head { display: flex; flex-direction: column; gap: 9px; margin-bottom: var(--s-6); }
+.sec-head p { color: var(--ink-3); max-width: var(--read); margin: var(--s-2) 0 0; font-size: 1.0625rem; line-height: 1.6; }
+
+ol.route { list-style: none; counter-reset: r; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: var(--radius-m); overflow: hidden; }
+ol.route li { counter-increment: r; background: var(--sunk); padding: 20px; font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); }
+ol.route li::before { content: counter(r); display: block; font-family: var(--f-mono); font-size: var(--text-eyebrow); color: var(--ink-4); margin-bottom: var(--s-2); }
+ol.route b { display: block; color: var(--ink); font-weight: 530; font-size: var(--text-body); margin-bottom: var(--s-1); }
+@media (max-width: 960px) { ol.route { grid-template-columns: minmax(0, 1fr); } }
+
+.claim { border: 1px solid var(--rule); border-radius: var(--radius-m); background: var(--sunk); margin: var(--s-5) 0 0; max-width: var(--read); }
+.claim dl { margin: 0; display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); }
+.claim dt, .claim dd { padding: 12px 18px; border-bottom: 1px solid var(--rule); margin: 0; min-width: 0; }
+.claim dt { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .12em; text-transform: uppercase; color: var(--ink-4); padding-top: 15px; }
+.claim dd { color: var(--ink); overflow-wrap: anywhere; }
+.claim dl > :nth-last-child(-n+2) { border-bottom: 0; }
+.claim .why { padding: 14px 18px; border-top: 1px solid var(--rule); color: var(--ink-3); font-size: var(--text-small); }
+@media (max-width: 600px) { .claim dl { grid-template-columns: minmax(0, 1fr); } .claim dt { border-bottom: 0; padding-bottom: 0; } }
+
+pre.code { background: var(--sunk); border: 1px solid var(--rule); border-radius: var(--radius-m); padding: 20px 22px; margin: var(--s-5) 0 0;
+  font-family: var(--f-mono); font-size: .75rem; line-height: 1.75; color: var(--ink-2); overflow-x: auto; }
+pre.code .c { color: var(--ink-4); }
+pre.code .kw { color: var(--ink); font-weight: 600; }
+.cap { margin: var(--s-2) 0 0; font-size: var(--text-small); font-style: italic; color: var(--ink-4); max-width: var(--read); }
+
+ul.plain { list-style: none; padding: 0; margin: 0; max-width: var(--read); }
+ul.plain li { padding: 14px 0; border-top: 1px solid var(--rule); line-height: 1.6; color: var(--ink-3); }
+ul.plain li:first-child { border-top: 0; }
+ul.plain b { color: var(--ink); font-weight: 500; }
+ol.commit { padding: 0; margin: 0; list-style: none; counter-reset: c; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-5) var(--s-7); }
+ol.commit li { counter-increment: c; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--s-3); color: var(--ink-3); line-height: 1.6; }
+ol.commit li::before { content: counter(c); font-family: var(--f-mono); font-size: var(--text-small); color: var(--ink-4); padding-top: 1px; }
+ol.commit b { color: var(--ink); font-weight: 500; }
+@media (max-width: 800px) { ol.commit { grid-template-columns: minmax(0, 1fr); } }
+
+/* a table may be wider than the page and must say that it scrolls */
+.tw { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid var(--rule); border-radius: var(--radius-m); margin: 0;
+  background: linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left, var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll, var(--sunk); }
+table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: var(--text-small); font-variant-numeric: tabular-nums; }
+th { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-4); font-weight: 500;
+  text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--rule-strong); vertical-align: bottom; }
+td { padding: 12px 16px; border-bottom: 1px solid var(--rule); vertical-align: top; color: var(--ink-2); }
+tr:last-child td { border-bottom: 0; }
+td.k { color: var(--ink); font-weight: 500; }
+td.n, th.n { text-align: right; font-family: var(--f-mono); white-space: nowrap; }
+td.st { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+td.st.built, td.st.next { color: var(--ink); }
+
+.tag { display: inline-flex; align-items: center; font-family: var(--f-mono); font-size: .625rem; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; padding: .35em .8em; border-radius: var(--radius-pill); white-space: nowrap; vertical-align: .1em; }
+.tag.held { background: var(--ink); color: var(--paper); }
+.tag.dep { border: 1px solid var(--ink-3); color: var(--ink); background: transparent; }
+.tag.open { border: 1px solid var(--ink-4); border-radius: 4px; color: var(--ink-3); background: transparent; }
+
+/* WARRANT in text: a value read from its record carries its standing as a voice; decided is the voice the page is written in */
+.w-val { text-underline-offset: .24em; }
+.w-decided { color: inherit; }
+/* computed: the 5 4 pattern drawn as the underline (a gradient of the same pattern, never the browser's own dash) */
+.w-computed { color: var(--ink-2); padding-bottom: 2px; background-image: linear-gradient(to right, var(--ink-4) 5px, transparent 5px);
+  background-size: 9px 1px; background-repeat: repeat-x; background-position: 0 100%; }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+.w-legend { display: grid; grid-template-columns: repeat(2, minmax(0, 16rem)); gap: var(--s-3) var(--s-6); margin-top: var(--s-5); }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: 1.25; margin-top: var(--s-1); }
+.w-why { margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); max-width: var(--read); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-4); }
+.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+.w-why li { font-size: var(--text-small); color: var(--ink-3); padding: var(--s-1) 0; }
+.wx { color: var(--witness); font-weight: 600; }
+@media (max-width: 600px) { .w-legend { grid-template-columns: minmax(0, 1fr); } }
+
+.refs { list-style: none; padding: 0; margin: 0; max-width: var(--read); font-size: var(--text-small); }
+.refs li { padding: 10px 0; border-top: 1px solid var(--rule); color: var(--ink-3); line-height: 1.55; }
+.refs li:first-child { border-top: 0; }
+.refs .why { display: block; color: var(--ink-4); }
+
+.foot { margin-top: var(--section-pad); border-top: 1px solid var(--rule); padding: var(--s-6) 0 var(--s-8); color: var(--ink-5); font-family: var(--f-mono);
+  font-size: var(--text-eyebrow); letter-spacing: .08em; line-height: 1.9; text-transform: uppercase; }
+.foot-in { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.foot p { margin: 0 0 var(--s-3); }
+.foot-line { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-5); margin-top: var(--s-4); }
+.foot a { color: var(--ink-3); text-transform: none; letter-spacing: .04em; }
+.foot a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<nav class="topnav"><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="./" aria-current="page">claimbox</a><a href="../reports/index.html">Reports</a><a href="../grammar/index.html">Grammar</a><a href="https://github.com/carlostoledo1891/claimbox">GitHub</a></div></div></nav>
+
+<main class="page">
+<header>
+  <div class="eyebrow">claimbox · the claim language for cert-machine</div>
+  <h1>The language for claims an exact checker can decide</h1>
+  <p class="standfirst">State a claim so that a machine can decide it, or learn exactly why it cannot.</p>
+  <p class="deck">A claim written for people is rarely precise enough for a machine: which file, which digits, which reading of the bytes, which bound. claimbox is the language that makes it precise, and cert-machine is the separate checker that decides it. The claim is printed back in plain words from the object the checker receives; every number points to a line of its source or to a pinned file; the reading of the bytes is declared; an unclear claim gets a named hole or a fork instead of a guess. claimbox never decides. Every verdict on this page is cert-machine’s: CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason.</p>
+  <p class="scope">Today claimbox reads a closed list of claim shapes with patterns; the language is built in the order of the roadmap below. Every count on this page is read from claimbox’s run records when the page is built, and the build refuses a page whose text no longer matches them.</p>
+  <div class="ctas"><a href="#measured">What is measured today →</a><a href="#roadmap">The roadmap →</a><a href="#check">Check it yourself →</a><a href="https://github.com/carlostoledo1891/claimbox">The repository →</a></div>
+</header>
+
+<div class="note" data-measured>
+  <span class="lab">in short</span>
+  <dl>
+    <dt>finding</dt><dd>On Google DeepMind’s cryptids release, <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">107</span> claims were written through claimbox and cert-machine decided <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|decided" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">106</span> of them: <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">104</span> CERTIFIED and <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span> REFUTED, the write-up’s own transition counts. Of the AI-written phrasings of the Riemann story’s claims, today’s patterns read <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-coverage.json#/aiPhrasings/shaped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">3</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-coverage.json#/aiPhrasings/sentences" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">80</span>. That gap is what the language is for.</dd>
+    <dt>mechanism</dt><dd>A claim is printed back in plain words from the object it compiles to, and cert-machine’s checker returns one of three words with what the word rests on.</dd>
+    <dt>check it</dt><dd>Every count names its record. The repository rebuilds this page and reads every count again.</dd>
+  </dl>
+</div>
+
+<div class="stats" data-n="4" data-measured>
+  <div class="stat"><div class="k">calibration</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="records/calibration.json#/agree" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">10</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/calibration.json#/of" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">10</span></div><div class="n">of cert-machine’s hand-written objects reproduced on every field that bears on the decision, each with the checker’s expected word</div></div>
+  <div class="stat"><div class="k">the cryptids release</div><div class="v"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|decided" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">106</span> of <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">107</span></div><div class="n">claims written through claimbox and decided by cert-machine: <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">104</span> CERTIFIED · <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span> REFUTED · <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|checker-refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span> refused by the checker. <span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">22</span> more were not stated, each with its rule named</div></div>
+  <div class="stat"><div class="k">planted defects caught</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="records/recall.json#/caught" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">56</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/recall.json#/plants" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">56</span></div><div class="n">a moved bar, a flipped relation, swapped bytes, an edited row. On the Riemann certificate <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-recall.json#/caught" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">782</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-recall.json#/plants" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">782</span>, with <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-recall.json#/controlsAsExpected" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">511</span> tolerated edits left alone. On the cryptids copies <span class="w-val w-decided" data-w="decided" data-rec="records/cryptids-recall.json#/caught" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">9</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/cryptids-recall.json#/of" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">11</span>, the misses listed below</div></div>
+  <div class="stat"><div class="k">AI phrasings read today</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="records/riemann-coverage.json#/aiPhrasings/shaped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">3</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-coverage.json#/aiPhrasings/sentences" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">80</span></div><div class="n">AI-written phrasings of claims of the Riemann story. The other <span class="w-val w-decided" data-w="decided" data-rec="records/riemann-coverage.json#/aiPhrasings/refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">77</span> are not stated, each with its rule named: the gap the language exists to close</div></div>
+</div>
+
+<section id="route">
+  <div class="sec-head"><span class="lab">the route of a claim, today</span><h2>From a sentence to one of three words</h2>
+    <p>claimbox states; cert-machine decides; the two share no code.</p></div>
+  <ol class="route">
+    <li><b>The sentence, the source, the bytes</b>as the claimant printed and published them.</li>
+    <li><b>claimbox reads the shape</b>or names the rule it cannot state the claim under, before anything runs.</li>
+    <li><b>The object</b>the pinned bytes, their declared reading, each bound as the exact rational its digits mean.</li>
+    <li><b>cert-machine’s checker</b>a separate program, run on the object as it is.</li>
+    <li><b>One of three words</b>CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason.</li>
+  </ol>
+
+  <h3>A claimant’s lower bound, decided from the claimant’s own bytes</h3>
+  <div class="claim" data-measured>
+    <dl>
+      <dt>as printed</dt><dd><span class="w-val w-computed" data-w="computed" data-rec="records/primitive-run.json#/rows/[id=prim-1c-rozetyp-k3072]/claim" data-fmt="raw" title="computed — a number someone printed; nothing decided it">C ≥ 0.41030211724</span></dd>
+      <dt>source</dt><dd><code><span class="w-val w-decided" data-w="decided" data-rec="records/primitive-run.json#/rows/[id=prim-1c-rozetyp-k3072]/source" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">corpus/optconst-queue/next-2026-10-18/rozetyp/README.md</span></code></dd>
+      <dt>the bar, exactly</dt><dd><span class="w-val w-decided" data-w="decided" data-rec="records/primitive-run.json#/rows/[id=prim-1c-rozetyp-k3072]/predicate/0/c" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">10257552931/25000000000</span></dd>
+      <dt>reading</dt><dd>the digits as printed, read as the exact rational they mean</dd>
+      <dt>cert-machine</dt><dd><span class="tag dep"><span class="w-val w-decided" data-w="decided" data-derived="word" data-in="records/primitive-run.json|prim-1c-rozetyp-k3072" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">REFUTED</span></span></dd>
+    </dl>
+    <div class="why">The claimant’s own certificate, read exactly, comes out below the printed bound. A lower bound whose last digit was rounded up is not a lower bound.</div>
+  </div>
+  <p class="cap">records/primitive-run.json · sha256 <span class="w-val w-decided" data-w="decided" data-derived="sha12" data-in="records/primitive-run.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">878538ead7a8</span>. The printed bound is underlined dashed: a number someone printed, which nothing decided until the checker did.</p>
+
+  <h3>One claim, two phrasings</h3>
+  <div class="claim" data-measured>
+    <dl>
+      <dt>the source’s line</dt><dd><span class="w-val w-computed" data-w="computed" data-rec="records/riemann-run.json#/rows/[id=zeta23-edge]/claim" data-fmt="raw" title="computed — a number someone printed; nothing decided it">|D(1)| ≤ 0.82395317</span></dd>
+      <dt>cert-machine</dt><dd><span class="tag held"><span class="w-val w-decided" data-w="decided" data-derived="word" data-in="records/riemann-run.json|zeta23-edge" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">CERTIFIED</span></span></dd>
+      <dt>an AI abstract</dt><dd><span class="w-val w-computed" data-w="computed" data-rec="corpus/riemann/ai-phrasings.json#/rows/1/text" data-fmt="raw" title="computed — a number someone printed; nothing decided it">We show that the edge discrepancy of the 256-periodic law&#x27;s form factor satisfies |D(1)| ≤ 0.82395317, where D(1) = T_256/256 − 1/2.</span></dd>
+      <dt>today</dt><dd>not stated, rule <span class="w-val w-refused" data-w="refused" data-rec="records/riemann-coverage.json#/aiPhrasings/rows/[id=1~1abstract~11]/refused" data-fmt="raw" title="refused — the input is missing, or the instrument declined">prose</span></dd>
+    </dl>
+    <div class="why">The same bound, decided where the certificate prints it and not even stated where an abstract wraps it in prose. In the language, the abstract’s sentence is proposed as a claim and accepted only when every number in it is found in the source, the print-back says the same thing, and a second proposal of another kind agrees, also on sources with planted changes.</div>
+  </div>
+  <p class="cap">records/riemann-run.json · sha256 <span class="w-val w-decided" data-w="decided" data-derived="sha12" data-in="records/riemann-run.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">d97286c2db9e</span> · records/riemann-coverage.json · sha256 <span class="w-val w-decided" data-w="decided" data-derived="sha12" data-in="records/riemann-coverage.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">bdccf3410a6e</span>.</p>
+</section>
+
+<section id="language">
+  <div class="sec-head"><span class="lab">the language</span><h2>What a claim will look like</h2>
+    <p>A sketch of the syntax, which is the first step of the roadmap. The claim, its pin, the fields claimbox reads from it today and cert-machine’s word are the record’s; the layout is the design.</p></div>
+<pre class="code"><span class="kw">data</span>   M = artifacts/riemann_104/machine.txt   <span class="c">-- pinned: sha256 <span class="w-val w-decided" data-w="decided" data-rec="records/cryptids-run.json#/rows/[id=riemann-104-boot]/pin" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">ac0c7e8a76679ba2a3f2c1814166b392c8301e51110a08bcd2c06624be35f25d</span></span>
+<span class="kw">read</span>   M as a (Q, 2) transition table
+<span class="kw">source</span> V = verify.py                        <span class="c">-- the producer’s own checker</span>
+
+<span class="kw">claim</span>  "<span class="w-val w-computed" data-w="computed" data-rec="records/cryptids-run.json#/rows/[id=riemann-104-boot]/claim" data-fmt="raw" title="computed — a number someone printed; nothing decided it">after 9,037 steps from the blank tape, artifacts/riemann_104/machine.txt is in state 19 with the head at -7, 19 nonzero cells</span>"
+       <span class="kw">quote</span> from V
+
+<span class="c">$ claimbox check</span>
+<span class="kw">means</span>      run M from the blank tape for <span class="w-val w-decided" data-w="decided" data-derived="shape" data-in="records/cryptids-run.json|riemann-104-boot|steps" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">9,037</span> steps: the state is <span class="w-val w-decided" data-w="decided" data-derived="shape" data-in="records/cryptids-run.json|riemann-104-boot|state" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">19</span>, the head is at <span class="w-val w-decided" data-w="decided" data-derived="shape" data-in="records/cryptids-run.json|riemann-104-boot|head" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">-7</span>, <span class="w-val w-decided" data-w="decided" data-derived="shape" data-in="records/cryptids-run.json|riemann-104-boot|nonzero" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">19</span> cells are nonzero
+<span class="kw">kind</span>       finite: decided now
+<span class="kw">word</span>       <span class="w-val w-decided" data-w="decided" data-derived="word" data-in="records/cryptids-run.json|riemann-104-boot" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">CERTIFIED</span>   <span class="c">(cert-machine)</span>
+<span class="kw">rests on</span>   machine.txt as pinned, the definition “after”, the reading “(Q, 2) table”</pre>
+  <p class="cap">records/cryptids-run.json · sha256 <span class="w-val w-decided" data-w="decided" data-derived="sha12" data-in="records/cryptids-run.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">3504f66720c7</span>.</p>
+
+  <h3>One file, two readings, both decided</h3>
+  <p class="cap" style="font-style:normal">The claim: <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/statement" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">the 605 vectors of v form a kissing configuration in dimension 11</span>, over <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/count" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">605</span> vectors pinned once.</p>
+  <div class="tw" data-measured><table>
+    <thead><tr><th>the bytes read as</th><th>cert-machine</th><th class="n">pairs that break the condition</th><th>first pair it found</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/reading" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">decimals</span>: the digits as printed</td><td><span class="tag dep"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/word" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">REFUTED</span></span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/violating" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">9,510</span></td><td>vectors <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/witness/i" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">0</span> and <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/0/witness/j" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">48</span></td></tr>
+      <tr><td class="k"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/1/reading" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">doubles</span>: the IEEE values they denote</td><td><span class="tag dep"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/1/word" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">REFUTED</span></span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/1/violating" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">9,480</span></td><td>vectors <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/1/witness/i" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">0</span> and <span class="w-val w-decided" data-w="decided" data-rec="records/fork-605.json#/claims/0/readings/1/witness/j" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">48</span></td></tr>
+    </tbody></table></div>
+  <p class="cap">records/fork-605.json · sha256 <span class="w-val w-decided" data-w="decided" data-derived="sha12" data-in="records/fork-605.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">d7df6d6bc37f</span>. The same pinned bytes, two exact answers: the reading belongs to the claim. A fork shows every reading's word; when the words differ it says split, and claimbox never merges them into one.</p>
+  <ul class="plain" style="margin-top:2rem">
+    <li><b>Printed back.</b> The “means” line is printed from the object cert-machine receives, by the grammar run backwards, never by a model. What is read is what is checked.</li>
+    <li><b>Every number has an address</b>: a line of a source or a pinned file. A number with no address is not a claim.</li>
+    <li><b>Every reading is written down</b>: decimal digits or IEEE doubles, exact or wrapping integers. The same file read two ways can give two different exact answers, so the reading belongs to the claim.</li>
+    <li><b>Holes.</b> A claim that cannot be stated exactly yet keeps a named hole: the bytes are not published, no decider exists for this quantity. A hole is not a verdict.</li>
+    <li><b>Forks.</b> An ambiguous claim is decided under every declared reading, and every word is shown; when they differ the fork is split, and said so.</li>
+    <li><b>Watchers.</b> A claim about every case is run as a watcher that halts on a counterexample, and reports “not refuted up to N”, never CERTIFIED.</li>
+    <li><b>Rests on.</b> Every word comes with the files, definitions and readings it depends on.</li>
+  </ul>
+</section>
+
+<section id="adds">
+  <div class="sec-head"><span class="lab">claimbox and cert-machine</span><h2>What claimbox adds to the checker</h2>
+    <p>The two are separate projects. cert-machine decides; claimbox makes a claim decidable and says what was decided.</p></div>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>cert-machine alone</th><th>with claimbox</th></tr></thead>
+    <tbody>
+      <tr><td class="k">who can state a claim</td><td>an expert writing the object by hand, or a script written for one audit</td><td>anyone, a person or an AI, in a readable language</td></tr>
+      <tr><td class="k">what the claim means</td><td>implicit in the object</td><td>printed in plain words from the object itself</td></tr>
+      <tr><td class="k">definitions</td><td>re-written for each audit</td><td>written once in a library and reused by name</td></tr>
+      <tr><td class="k">unclear claims</td><td>left out, or refused</td><td>a named hole, or a fork with every reading decided</td></tr>
+      <tr><td class="k">claims about every case</td><td>refused</td><td>a watcher that reports how far it searched</td></tr>
+      <tr><td class="k">numbers in a report</td><td>copied by hand</td><td>the document builds from its claims</td></tr>
+      <tr><td class="k">who decides</td><td>cert-machine</td><td>still only cert-machine</td></tr>
+    </tbody></table></div>
+</section>
+
+<section id="commitments">
+  <div class="sec-head"><span class="lab">the commitments</span><h2>What claimbox holds itself to</h2></div>
+  <ol class="commit">
+    <li><div><b>cert-machine is the only judge.</b> claimbox never prints CERTIFIED or REFUTED on its own; it shows cert-machine’s word.</div></li>
+    <li><div><b>Say what is checked.</b> The plain-words print-back comes from the object cert-machine receives, not from what was typed.</div></li>
+    <li><div><b>Every number has an address</b>: a line of a source or a pinned file.</div></li>
+    <li><div><b>Every reading is written down.</b> There is no default.</div></li>
+    <li><div><b>Anyone may propose; only checks count.</b> People, models and search may write claims; a proposal is marked as one until it is validated, and two proposals count as two only when they are of different kinds.</div></li>
+    <li><div><b>Unclear is an answer.</b> A named hole, or a fork with every reading decided.</div></li>
+    <li><div><b>Planted wrong claims in every feature,</b> every one of which must be caught, with the results, misses included, published.</div></li>
+    <li><div><b>Never say more than was checked.</b> CERTIFIED means this object, under this reading, holds on these bytes. It does not mean the sentence is true.</div></li>
+    <li><div><b>The trusted part stays small</b>: the step from a claim to the object the checker reads is short enough to read in an afternoon.</div></li>
+    <li><div><b>cert-machine stays separate.</b> claimbox sends it objects; a change there is made there first.</div></li>
+  </ol>
+</section>
+
+<section id="measured" data-measured>
+  <div class="sec-head"><span class="lab">measured so far</span><h2>Every run, as recorded</h2>
+    <p>Each row is one run record: the jobs a reader made from a source; what claimbox wrote, could not state, or skipped with the reason recorded (no sentence beside the bytes, or bytes that are not published or not readable); and the words cert-machine returned, from a record it decided or from the object itself.</p></div>
+  <div class="tw"><table><thead><tr><th>source</th><th class="n">jobs</th><th class="n">written</th><th class="n">not stated</th><th class="n">skipped</th><th class="n">certified</th><th class="n">refuted</th><th class="n">admitted, undecided</th><th class="n">refused by the checker</th></tr></thead><tbody><tr><td class="k">EinsteinArena&#x27;s best solutions</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">30</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">15</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">14</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|skipped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">5</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/einstein-arena-run.json|undecided" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">9</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/einstein-arena-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">AlphaEvolve&#x27;s results notebook</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/alphaevolve-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">17</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/alphaevolve-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">17</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/alphaevolve-run.json|refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/alphaevolve-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/alphaevolve-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">16</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/alphaevolve-run.json|refuted" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/alphaevolve-run.json|undecided" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/alphaevolve-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">The registry&#x27;s step-function constants</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/primitive-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">3</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/primitive-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">3</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/primitive-run.json|refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/primitive-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/primitive-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/primitive-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/primitive-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/primitive-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">The Qiushi Engine&#x27;s kissing release</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/qiushi-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">19</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|written" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/qiushi-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">19</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|certified" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|refuted" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/qiushi-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">The Station&#x27;s artifact folders</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/station-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">8</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/station-run.json|written" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/station-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">6</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/station-run.json|skipped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/station-run.json|certified" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/station-run.json|refuted" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/station-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/station-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">FunSearch&#x27;s construction files</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/funsearch-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">4</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|written" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/funsearch-run.json|skipped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">4</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|certified" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|refuted" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/funsearch-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">The Riemann story&#x27;s finite certificate</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">8</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">7</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-run.json|refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-run.json|skipped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">6</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-run.json|refuted" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-run.json|undecided" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">AI-written claims about that certificate</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-ai-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">15</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-ai-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">10</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-ai-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">5</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-ai-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-ai-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">4</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-ai-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">6</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-ai-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-ai-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">Claims written for the Riemann test</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-math-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">99</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-math-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">99</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-math-run.json|refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-math-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-math-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">81</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/riemann-math-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">18</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-math-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/riemann-math-run.json|checker-refused" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td></tr><tr><td class="k">Google DeepMind&#x27;s cryptids release</td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|jobs" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">129</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|written" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">107</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">22</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/cryptids-run.json|skipped" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|certified" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">104</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|refuted" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span></td><td class="n"><span class="w-val w-refused" data-w="refused" data-derived="tally" data-in="records/cryptids-run.json|undecided" data-fmt="none" title="refused — the input is missing, or the instrument declined">none</span></td><td class="n"><span class="w-val w-decided" data-w="decided" data-derived="tally" data-in="records/cryptids-run.json|checker-refused" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">1</span></td></tr></tbody></table></div>
+  <p class="cap">Columns are read from each run’s rows; a run whose own totals disagree with its rows refuses the page. ∅ marks an empty set.</p>
+  <h3>Written down before the run</h3>
+  <p>Of the AI-written claims about the Riemann certificate, <span class="w-val w-decided" data-w="decided" data-derived="expected" data-in="corpus/riemann-ai-jobs.json|records/riemann-ai-run.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">15</span> of <span class="w-val w-decided" data-w="decided" data-derived="jobs" data-in="corpus/riemann-ai-jobs.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">15</span> came out as the word written beside each before it ran; of the claims written for the Riemann test, <span class="w-val w-decided" data-w="decided" data-derived="expected" data-in="corpus/riemann-math-jobs.json|records/riemann-math-run.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">99</span> of <span class="w-val w-decided" data-w="decided" data-derived="jobs" data-in="corpus/riemann-math-jobs.json" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">99</span>. The false ones are REFUTED or not stated with their rule; the true ones are CERTIFIED.</p>
+  <h3>The register’s sentences</h3>
+  <p>Of cert-machine’s register, <span class="w-val w-decided" data-w="decided" data-rec="records/coverage.json#/shaped" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">97</span> of <span class="w-val w-decided" data-w="decided" data-rec="records/coverage.json#/sentences" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">132</span> sentences take a shape today. The rest are not stated: <span class="w-val w-decided" data-w="decided" data-rec="records/coverage.json#/byRefusal/no-quantity" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">22</span> print no quantity, <span class="w-val w-decided" data-w="decided" data-rec="records/coverage.json#/byRefusal/prose" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">11</span> are prose, <span class="w-val w-decided" data-w="decided" data-rec="records/coverage.json#/byRefusal/asymptotic" data-fmt="int" title="decided — exact arithmetic or an exact count from a record backs it">2</span> are asymptotic. A refusal is a measurement, not a failure.</p>
+  <h3>What the planted defects missed</h3>
+  <p>On the cryptids copies, two plants went through without a changed word:</p>
+  <ul class="plain"><li><b><span class="w-val w-decided" data-w="decided" data-rec="records/cryptids-recall.json#/results/9/plant" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">10-proof-file</span></b>: a proof file edited: no claim the sources print pins it.</li><li><b><span class="w-val w-decided" data-w="decided" data-rec="records/cryptids-recall.json#/results/10/plant" data-fmt="raw" title="decided — exact arithmetic or an exact count from a record backs it">11-theorem-removed</span></b>: a theorem removed from a configuration file: counting its names has no decider.</li></ul>
+  <div class="w-legend" data-n="3">
+    <div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" stroke="var(--ink)" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic, or an exact count from a record</div></div></div>
+    <div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" stroke="var(--ink-2)" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">a number someone printed; nothing decided it</div></div></div>
+    <div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark: ∅ and a word</div></div></div>
+  </div>
+  <div class="w-why"><span class="k">why these numbers stand as they do</span><ul>
+    <li>Every count is read from a record, and the page’s check reads it again from the built page.</li>
+    <li>A verdict word is cert-machine’s, from a record it decided or from the object itself.</li>
+    <li>A dashed underline marks a number someone printed. ∅ marks an empty set.</li>
+  </ul></div>
+</section>
+
+<section id="neighbours">
+  <div class="sec-head"><span class="lab">neighbours, and what is not new</span><h2>Where claimbox stands</h2>
+    <p>Read from each project’s own documents on 30 October 2026. The comparison is about how a claim is stated and who checks it.</p></div>
+  <div class="tw"><table>
+    <thead><tr><th>project</th><th>how a claim is stated</th><th>who checks it</th><th>where claimbox differs</th></tr></thead>
+    <tbody>
+      <tr><td class="k"><a href="https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails-automated-reasoning-checks.html">AWS Automated Reasoning checks</a></td><td>a natural-language policy turned into rules; at run time “multiple foundation models” translate text into logic</td><td>an automated reasoner; non-linear arithmetic may come back too complex</td><td>the statement layer is deterministic and printed back; the domain is exact numbers over pinned bytes</td></tr>
+      <tr><td class="k"><a href="https://michelenuijten.r-universe.dev/statcheck/doc/manual.html">statcheck</a></td><td>regular expressions over statistics printed in APA style</td><td>recomputation, allowing for the rounding of the printed digits</td><td>the closest in spirit; claimbox covers other shapes, pins the bytes and hands the decision to a separate checker</td></tr>
+      <tr><td class="k"><a href="https://github.com/leanprover/comparator">Lean’s comparator</a></td><td>a challenge file holds the statement, a solution file the proof</td><td>the Lean kernel; the challenge is trusted, and definition holes “can be gamed without additional oversight”</td><td>whether a statement says what was meant is left to people there; claimbox’s print-back addresses that for its own domain</td></tr>
+      <tr><td class="k"><a href="https://docs.getdbt.com/docs/build/data-tests">dbt tests</a>, <a href="https://docs.greatexpectations.io/docs/reference/learn/terms/expectation/">Great Expectations</a></td><td>tests and expectations over live tables</td><td>the engine itself; a failing row is a witness</td><td>claimbox declares how the numbers are read; a data engine inherits its own floating point</td></tr>
+      <tr><td class="k"><a href="https://www.grammaticalframework.org">Grammatical Framework</a>, <a href="https://arxiv.org/abs/cmp-lg/9603004">Attempto</a></td><td>controlled language over one abstract syntax, read back to the writer</td><td>logic reasoners</td><td>the technique claimbox’s syntax uses; neither touches data or bytes</td></tr>
+      <tr><td class="k"><a href="https://github.com/in-toto/attestation/blob/main/spec/README.md">in-toto</a>, <a href="https://nanopub.net">nanopublications</a></td><td>a subject’s digest and a predicate; an assertion with its provenance</td><td>signatures say who, not whether</td><td>pinning exists there; how the bytes are read is never declared</td></tr>
+    </tbody></table></div>
+  <p class="cap" style="margin-top:1.5rem">Not new, and said so: three verdicts, published denominators, controlled languages and hash pinning all exist elsewhere. What claimbox puts together is a deterministic statement layer, printed back from the object; every number anchored; the reading declared and forked; an exact separate checker with three words; and the refusal rate published with planted controls.</p>
+</section>
+
+<section id="limits">
+  <div class="sec-head"><span class="lab">what claimbox does not claim</span><h2>Limits, stated first</h2></div>
+  <ul class="plain">
+    <li><b>Faithfulness to an author’s intent is not established.</b> The best methods of 2026 for checking a translation still accept some wrong statements. claimbox tests its translations with planted changes and publishes how many it refuses; it does not certify them.</li>
+    <li><b>Two models agreeing is not independent confirmation.</b> Models tend to make the same mistakes, so agreement counts only between proposers of different kinds, and is tested on planted sources.</li>
+    <li><b>CERTIFIED is about an object, not a sentence.</b> It means this object, under this reading, holds on these pinned bytes.</li>
+    <li><b>“Not refuted up to N” is not evidence for every case.</b> A watcher reports exactly how far it searched.</li>
+    <li><b>Real-number identities are not decided in general.</b> Only the forms the checker admits are decided; the rest are refused with the reason.</li>
+    <li><b>A small checker can still be wrong.</b> Keeping it small and separate shrinks what must be trusted; planted controls are how it is watched.</li>
+  </ul>
+</section>
+
+<section id="roadmap">
+  <div class="sec-head"><span class="lab">the roadmap</span><h2>The plan, in order</h2>
+    <p>Read from the plan in the repository, so the page and the plan cannot disagree. Research steps run only on a decision to spend.</p></div>
+  <div class="tw"><table><thead><tr><th>#</th><th>step</th><th>what you get</th><th>how it is checked</th><th>status</th></tr></thead><tbody><tr><td class="n nonum">0</td><td class="k">Today&#x27;s translator</td><td>a closed list of claim shapes read by patterns, readers of real sources, objects cert-machine decides</td><td>the calibration objects reproduced; planted defects caught; every refusal has a red control</td><td class="st built">built</td></tr><tr><td class="n nonum">1</td><td class="k">The language, written down</td><td>LANGUAGE.md: the syntax, readings, holes, forks, the print-back, the object, and examples, each a claim already decided</td><td>every shape today&#x27;s grammar reads and every rule it refuses with has its construct (a battery check); each claim&#x27;s round trip is step 2&#x27;s</td><td class="st built">built</td></tr><tr><td class="n nonum">2</td><td class="k">Read it and print it back</td><td>a parser that rejects malformed claims with a reason, and the plain-words printer</td><td>every example round-trips; planted malformed claims are rejected</td><td class="st built">built</td></tr><tr><td class="n nonum">3</td><td class="k">Compile and check</td><td>claim, object, cert-machine&#x27;s word, and what it rests on</td><td>the same words cert-machine gives today, claim for claim</td><td class="st built">built</td></tr><tr><td class="n nonum">4</td><td class="k">The library</td><td>the definitions written once: kissing, the autocorrelation constants, the platform scores, the Riemann functionals, machine runs, each with its conventions</td><td>identical objects to today&#x27;s</td><td class="st built">built</td></tr><tr><td class="n nonum">5</td><td class="k">Holes and forks</td><td>refusals become named holes; ambiguous readings become forks, every reading decided</td><td>the decimal and double readings of one file give their two exact counts; every refusal today maps to a hole</td><td class="st built">built</td></tr><tr><td class="n nonum">6</td><td class="k">From prose to claims</td><td>anyone proposes a translation of a sentence; claimbox validates it: numbers found in the source, the print-back, two proposals of different kinds agreeing, also on planted sources</td><td>the AI phrasings and the register, measured; every planted mistranslation caught; the refusal rate published</td><td class="st next">next</td></tr><tr><td class="n nonum">7</td><td class="k">Helpers and watchers</td><td>tighten, attack, fill; watchers for &quot;for all&quot; claims that report how far they searched</td><td>every proposal is decided by cert-machine; planted twins halt where predicted</td><td class="st research">research</td></tr><tr><td class="n nonum">8</td><td class="k">Documents that build</td><td>a report whose numbers are claims: it does not build when one is refuted, and each number shows what it rests on</td><td>one existing report rebuilt this way</td><td class="st planned">planned</td></tr><tr><td class="n nonum">9</td><td class="k">Teaching models to write it</td><td>the Claim Court environment on the Hub; its first task is writing claims claimbox reads</td><td>the share of validated claims before and after training</td><td class="st research">research</td></tr><tr><td class="n nonum">10</td><td class="k">Proposal loops at scale</td><td>many model proposals, the deterministic filter, cert-machine&#x27;s word, counterexamples fed back</td><td>the target pinned first; red controls before every loop; every denominator published</td><td class="st research">research</td></tr></tbody></table></div>
+</section>
+
+<section id="check">
+  <div class="sec-head"><span class="lab">check it yourself</span><h2>The repository, the commands</h2>
+    <p>Standard-library Python. The test battery runs cert-machine’s checker as a separate program, so it needs a local copy of cert-machine.</p></div>
+<pre class="code"><span class="kw">git clone</span> https://github.com/carlostoledo1891/claimbox
+<span class="kw">cd</span> claimbox
+<span class="kw">python3 -m claimbox shape</span> "K(11) >= 593"     <span class="c"># the shape, or the rule that refuses it</span>
+<span class="kw">python3 tests/battery.py</span>                    <span class="c"># red controls, calibration, coverage, planted defects</span>
+<span class="kw">python3 -m web.build --check</span>                <span class="c"># rebuild this page and read every count again</span></pre>
+</section>
+
+<section id="references">
+  <div class="sec-head"><span class="lab">references</span><h2>What the design rests on</h2></div>
+  <ul class="refs">
+    <li>Gordon, Milner, Wadsworth (1979), <i>Edinburgh LCF</i>; Barendregt &amp; Wiedijk (2005), “The challenge of computer mathematics”. <span class="why">A small checker is the only thing that decides.</span></li>
+    <li>Pnueli, Siegel, Singerman (1998), “Translation validation”; McConnell, Mehlhorn, Näher, Schweitzer (2011), “Certifying algorithms”. <span class="why">Check each translation and each output, not the translator.</span></li>
+    <li>Knight &amp; Leveson (1986), on independently written versions failing together; Kim, Garg, Peng, Garg (2025), <a href="https://arxiv.org/abs/2506.07962">“Correlated errors in large language models”</a>. <span class="why">Agreement is not independence.</span></li>
+    <li>Fuchs, Kaljurand, Kuhn (2008), Attempto Controlled English; Ranta (2004), Grammatical Framework; Kuhn (2014), a survey of controlled natural languages. <span class="why">A readable syntax that parses one way and reads back.</span></li>
+    <li>Bos (1996), Hole Semantics; Copestake, Flickinger, Pollard, Sag (2005), Minimal Recursion Semantics; Belnap (1977), a four-valued logic. <span class="why">Holes, forks, and a split that is not a refusal.</span></li>
+    <li>Goldberg (1991), <a href="https://doi.org/10.1145/103162.103163">“What every computer scientist should know about floating-point arithmetic”</a>; <a href="https://www.rfc-editor.org/rfc/rfc8259">RFC 8259</a>, on the precision of JSON numbers. <span class="why">The reading of the bytes is part of the claim.</span></li>
+    <li>Mei &amp; Douglas (2026), <a href="https://arxiv.org/abs/2610.20573">“Beyond LLM Judge: Mechanical Verification for Agentic Autoformalization”</a>; Zhang et al. (2026), <a href="https://arxiv.org/abs/2606.31002">“Beyond Compilation”</a>; Ammanamanchi, Bhat, Biderman (2026), <a href="https://arxiv.org/abs/2606.29493">“Faults in Our Formal Benchmarking”</a>. Preprints. <span class="why">Mechanical checks over judges; compiling is not faithfulness; the statements themselves carry defects.</span></li>
+    <li>Nuijten et al. (2016), statcheck; Brown &amp; Heathers (2017), the GRIM test. <span class="why">Printed numbers recomputed: the closest precedents.</span></li>
+    <li>Stroebl, Kapoor, Narayanan (2024), <a href="https://arxiv.org/abs/2411.17501">on the limits of resampling with imperfect verifiers</a>; Georgiev, Gómez-Serrano, Tao, Wagner (2025), <a href="https://arxiv.org/abs/2511.02864">mathematical exploration at scale</a>. <span class="why">A proposal loop finds the loophole; exact checking closes it.</span></li>
+    <li>Aaronson (2020), “The Busy Beaver Frontier”; Google DeepMind, <a href="https://github.com/google-deepmind/cryptids">cryptids</a> (2026). <span class="why">Claims about every case, and small machines that encode them.</span></li>
+  </ul>
+</section>
+</main>
+
+<footer class="foot"><div class="foot-in"><p>Built from claimbox’s records by web/build.py; a record that stops matching a sentence refuses the page. MIT.</p><div class="foot-line"><span>Carlos Toledo · claimbox</span><a href="https://github.com/carlostoledo1891/claimbox">source</a><a href="https://github.com/carlostoledo1891/cert-machine">cert-machine</a><a href="../index.html">carlostoledo.co</a></div></div></footer>
+
+</body>
+</html>
