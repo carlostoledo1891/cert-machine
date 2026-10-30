@@ -20,7 +20,8 @@ const { page } = require(path.join(PG, 'design', 'shell.js'));
 const { bundle } = require(path.join(PG, 'graph', 'bundle.js'));
 const { embedArt } = require(path.join(PG, 'design', 'components.js'));
 const D = JSON.parse(fs.readFileSync(path.join(ROOT, 'instruments/wiring/eval/rewire.json'), 'utf8'));
-const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8');
+const THEME = require(path.join(PG, 'design', 'theme.js'));   /* the panel follows the pill (2026-10-30) */
+const CSS = fs.readFileSync(path.join(ROOT, 'design/frontier-ref/instrument.css'), 'utf8') + THEME.CSS;
 const W = require(path.join(PG, 'warrant.js'));
 
 /* WARRANT v2 (2026-10-28). Two standings on this page, and the graph already draws them: a wire out of a node that

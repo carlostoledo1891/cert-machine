@@ -46,6 +46,7 @@ const W = require(path.join(PG, 'warrant.js'));
 const Lb = require(path.join(ROOT, 'instruments', 'ecbench', 'lib.js'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
 const APP = fs.readFileSync(path.join(HERE, 'app.js'), 'utf8');
+const THEME = require(path.join(PG, 'design', 'theme.js'));   /* the density repaints when the reader flips the pill (2026-10-30) */
 const GEO = fs.readFileSync(path.join(ROOT, 'instruments', 'ecbench', 'geometry.js'), 'utf8');
 const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ecbench-ledger.json'), 'utf8'));
 const claims = JSON.parse(fs.readFileSync(path.join(ROOT, 'corpus', 'ec-benchmark', 'claims.json'), 'utf8'));
@@ -226,7 +227,7 @@ function build(OUTDIR) {
     path: '/instruments/contours/',
     css: `${CSS}`,
     body: `<main>${body}</main>`,
-    script: `<script id="ec-spec" type="application/json">${json}</script>\n<script>${GEO}</script>\n<script>${APP.replace(/\.ec-tbl tr\[data-id\]/g, '.ec-tbl td[data-id]')}</script>`,
+    script: `<script id="ec-spec" type="application/json">${json}</script>\n<script>${GEO}</script>\n<script>${THEME.CLIENT}</script>\n<script>${APP.replace(/\.ec-tbl tr\[data-id\]/g, '.ec-tbl td[data-id]')}</script>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   return { bytes: html.length, contours: L.rows.length, exact: S.exactlyEqual, comparisons: S.comparisons, notSimple: S.notSimple, clipped };
