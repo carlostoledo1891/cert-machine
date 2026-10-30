@@ -440,3 +440,9 @@ plates). The census counts classed figures too since the same day: 14 figures wi
 sentence, ratcheted. What stays unaddressed, by kind: browser-filled readouts and runtime templates, the grammar's own
 specimen words and √x examples, Uirapuru's seeded toy, battery wall-clocks, values held only in logs, gzip feeds or the
 target memory, water-value's live solver (no record yet), and Eleições (paused).
+
+## The home page's strip removed (2026-10-30)
+
+The register's decided-claims strip is off the home page on the operator's word; the home page has no hero
+(design/heroes.json says so, check-wiring reads it). The register stays a table at reports/claims.html. The census
+lost nothing it counted as debt: the strip carried its record and stop lines.

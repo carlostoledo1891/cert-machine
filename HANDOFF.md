@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 — THE HOME PAGE'S HERO REMOVED on the operator's word ("remove the homepage hero chart. push live"): the
+     register's decided-claims strip (tools/build-site.js's HERO block, its figure and CH.script()) is gone; the home page
+     now opens on the header and the links; design/heroes.json marks index.html none, with the reason. Gates: sync, copy,
+     style, marks, render green; check-wiring ALL PASS; check-grammar's ratchet holds (75 / 14 / 11 unchanged); the ruler's
+     one red is the known Swell @1440 9 → 10 flap (Swell's bytes did not move). Live on the push.
   ◆ 2026-10-30 ~10:00 UTC — HANDOFF: THE SESSION CLOSED. ETH and the grammar are live (the entries below); nothing on the
      site changed after them. The operator is studying the live site to define the next steps.
      IDEAS SAVED, NOT ADOPTED (the operator: "Save the ideas in the right places. I'm not sure yet."): the operator's

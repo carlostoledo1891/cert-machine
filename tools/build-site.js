@@ -1076,63 +1076,6 @@ const refusalShown = refusalKinds.filter((k) => k.n > 0);
 const asterNote = asterRounds.map((r) => r.n).join(' + ') + ' in ' + numword(asterRounds.length) + ' merged pull requests ('
   + asterRounds.map((r) => '#' + r.pr).join(', ') + ')';
 
-/* ---- THE HERO (D12; the operator's rulings of 2026-10-30): the register's decided claims, one cell each, grouped by
-   verdict in REGISTER_WORDS' order, in the gsm8k strip's form. Three greys, the kit's cap: CERTIFIED --c-2 and REFUTED
-   --c-1 as every verdict strip here draws them, the composed words --c-3 with each word's count in the key. The × goes
-   on a refuted claim only where its own decision record exhibits the object that breaks it (WARRANT rule 5), read by
-   the reader for that record below; a refuted row whose record has no reader, or does not say what its reader reads,
-   refuses the page. erdos852's record decides a printed constant against a certified enclosure, a box clearing a box,
-   so its cell carries no ×. */
-const CH = require(path.join(ROOT, 'design', 'charts.js'));
-const WITNESS_READERS = {
-  /* the pairs the certificate itself uses that the ledger places outside R, each with its own Erdős colouring */
-  'certs/horizonmath-ledger.json': (rec, row) => {
-    const x = (rec.rows || []).find((y) => y.claim === row.claim && y.verdict === 'REFUTED');
-    if (!x || !Array.isArray(x.points)) return null;
-    const out = x.points.filter((p) => p.outsideR);
-    return { n: out.length, said: fmt(out.length) + ' of the ' + fmt(x.points.length) + ' pairs its certificate uses lie outside R',
-      short: fmt(out.length) + ' of ' + fmt(x.points.length) + ' pairs outside R' };
-  },
-  /* a printed constant refuted by a certified enclosure: no object to exhibit */
-  'certs/erdos852-certificate.json': (rec) => (rec.cstar && rec.cstar.enclosure && rec.cstar.published && rec.cstar.published.verdict === 'REFUTED' ? { n: 0 } : null),
-};
-const heroWords = REGISTER_WORDS.map(([w]) => w).filter((w) => w !== 'QUEUED');
-const heroRows = heroWords.flatMap((w) => regDecided.filter((r) => r.verdict === w));
-const heroN = (w) => heroRows.filter((r) => r.verdict === w).length;
-const heroWit = heroRows.map((r, i) => ({ r, i })).filter(({ r }) => r.verdict === 'REFUTED').map(({ r, i }) => {
-  const read = WITNESS_READERS[r.decidedFrom];
-  return { r, i, w: read ? read(JSON.parse(fs.readFileSync(path.join(ROOT, r.decidedFrom), 'utf8')), r) : null };
-});
-const HERO_STOP = 'its cells do not number the register\'s decided claims verdict by verdict, or a refuted claim\'s decision record cannot be read for the object it exhibits';
-guard(HERO_STOP, heroRows.length === claimsLedger.decided && heroWords.every((w) => heroN(w) === (claimsLedger.byVerdict[w] || 0))
-  && heroWit.every((x) => x.w), heroWit.filter((x) => !x.w).map((x) => x.r.id + ' (' + x.r.decidedFrom + ')').join(', '));
-const heroMarked = heroWit.filter((x) => x.w.n > 0);
-const heroCells = heroRows.map((r) => ({
-  token: r.verdict === 'CERTIFIED' ? 'var(--c-2)' : r.verdict === 'REFUTED' ? 'var(--c-1)' : 'var(--c-3)',
-  k: r.verdict + ' · ' + claimLabel(r), v: String(r.claimant).replace(/\s*\(.*$/, '') + ' · recorded ' + r.recordedOn,
-}));
-const heroOther = heroWords.filter((w) => w !== 'CERTIFIED' && w !== 'REFUTED' && heroN(w)).map((w) => fmt(heroN(w)) + ' ' + w).join(' · ');
-const heroClaim = (r) => String(r.claim).split(', ')[0];
-const heroKeys = (short) => [
-  { token: 'var(--c-2)', t: fmt(heroN('CERTIFIED')) + ' CERTIFIED' },
-  ...(heroMarked.length ? [{ token: 'var(--c-1)', kind: 'wx', t: fmt(heroMarked.length) + ' REFUTED, ' + (short ? 'its counterexample exhibited' : 'the object that breaks it exhibited by its record') }] : []),
-  ...(heroN('REFUTED') > heroMarked.length ? [{ token: 'var(--c-1)', t: fmt(heroN('REFUTED') - heroMarked.length) + ' REFUTED, ' + (short ? 'no object to exhibit' : 'with no object to exhibit') }] : []),
-  ...(heroOther ? [{ token: 'var(--c-3)', t: heroOther }] : []),
-];
-const HERO_ALT = 'The register’s ' + numword(heroRows.length) + ' decided claims, one cell per claim, grouped by verdict: '
-  + heroWords.filter(heroN).map((w) => numword(heroN(w)) + ' ' + w).join(', ') + '. A red cross marks '
-  + heroMarked.map((x) => 'the refuted claim ' + heroClaim(x.r) + ', whose record exhibits ' + x.w.said).join('; ') + '.';
-const HERO = CH.strip({
-  w: 1100, perRow: 44, cell: 18, padL: 6, items: heroCells,
-  marks: heroMarked.map((x) => ({ index: x.i, label: [heroClaim(x.r), x.w.said] })),
-  mark: { size: 7, width: 3 }, keys: heroKeys(false), alt: HERO_ALT,
-});
-const HERO_N = CH.strip({
-  w: 360, perRow: 22, cell: 12, padL: 6, items: heroCells,
-  marks: heroMarked.map((x) => ({ index: x.i, label: [heroClaim(x.r), x.w.short] })),
-  mark: { size: 6.5, width: 2.6 }, keys: heroKeys(true), alt: HERO_ALT,
-});
-
 const B = [];
 B.push(C.header({
   eyebrow: 'Carlos Toledo · independent certification',
@@ -1143,12 +1086,6 @@ B.push(C.header({
     + 'REFUSED with the reason. Nothing asks for trust: every page is built from records that re-run, and refuses to '
     + 'build when a record stops supporting a sentence.'
 }));
-/* the hero, right under the header: the first × a reader meets is the counterexample on its own cell */
-B.push(C.figure({ svgRaw: HERO, svgNarrowRaw: HERO_N, hero: true,
-  record: ['certs/claims-ledger.json', ...new Set(heroWit.map((x) => x.r.decidedFrom))], stop: HERO_STOP,
-  captionRaw: 'The register’s ' + fmt(heroRows.length) + ' decided claims, one cell each, grouped by verdict. '
-    + W.witness('a counterexample exhibited by the claim’s own record') + ' marks, on its own cell, each refuted claim whose decision record exhibits the object that breaks it ('
-    + fmt(heroMarked.length) + ' of ' + fmt(heroN('REFUTED')) + '). Hover a cell for the claim.' }));
 B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href="reports/index.html#audits">The audits →</a> · '
   + '<a href="eth/">The two claimed refutations of ETH, decided and read →</a> · '
   + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));
@@ -2040,7 +1977,7 @@ B[B.indexOf(GUARD_SLOT)] = C.section({
     + '<details class="more"><summary>The ' + numword(LANDING_GUARDS.length) + ' conditions</summary>'
     + C.plainList(LANDING_GUARDS.map((g) => ({ text: '… ' + g + '.' }))) + '</details>'
 });
-put('index.html', Buffer.from(TPL.render({ title: 'Carlos Toledo · ' + D1.head.charAt(0).toLowerCase() + D1.head.slice(1), bodyRaw: B.join('\n\n') + CH.script(), footRaw: foot, path: '/',
+put('index.html', Buffer.from(TPL.render({ title: 'Carlos Toledo · ' + D1.head.charAt(0).toLowerCase() + D1.head.slice(1), bodyRaw: B.join('\n\n'), footRaw: foot, path: '/',
   og: { image: '/og-landing.png', alt: D1.text },
   desc: D1.text + ' Certified audits of published AI-generated mathematics, evals whose ground truth is a proof, and the theorems that calibrate the instruments.' })));
 put('reports/index.html', Buffer.from(TPL.render({ title: 'Reports', bodyRaw: reportsIndexBody, footRaw: reportsIndexFoot, path: '/reports/',
