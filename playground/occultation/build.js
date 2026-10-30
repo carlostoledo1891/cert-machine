@@ -38,6 +38,10 @@ const BASE_EXTRA = `
 `;
 
 const f = (x, n = 1) => Number(x).toFixed(n);
+/* the diameter's interval prints OUTWARD (design/outward.js, 2026-10-30): it printed 168.3–267.5 km, both ends rounded
+   inward of the decided 168.2…–267.5…; the floor rounds down, the ceiling up */
+const OUT = require(path.join(__dirname, '..', '..', 'design', 'outward.js'));
+const outLo = (x, n = 1) => OUT.down(x, n), outHi = (x, n = 1) => OUT.up(x, n);
 const R1 = D.ladder.find(r => r.nsig === 1);
 const R0 = D.ladder.find(r => r.nsig === 0);
 const NN = D.noNegatives.find(r => r.nsig === 1);
@@ -96,8 +100,8 @@ function figSilhouettes() {
     ${ell(cx1, E0.aKm, E0.bKm, E0.posAngleDeg)}
     <polygon points="${shape(R1.polyHi, cx2)}" fill="var(--band-fill)" stroke="var(--ink-2)" stroke-width="1.4" class="ink-decided"/>
     ${ell(cx2, E0.aKm, E0.bKm, E0.posAngleDeg)}
-    <text x="${cx1}" y="${h - 40}" text-anchor="middle" class="lb">the smallest allowed — ${f(R1.DeqLo)} km</text>
-    <text x="${cx2}" y="${h - 40}" text-anchor="middle" class="lb">the largest allowed — ${f(R1.DeqHi)} km</text>
+    <text x="${cx1}" y="${h - 40}" text-anchor="middle" class="lb">the smallest allowed — ${outLo(R1.DeqLo)} km</text>
+    <text x="${cx2}" y="${h - 40}" text-anchor="middle" class="lb">the largest allowed — ${outHi(R1.DeqHi)} km</text>
     <text x="${w / 2}" y="${h - 16}" text-anchor="middle" class="lb">dotted: the published ellipse, ${f(E0.DeqKm, 0)} ± ${f(E0.DeqErrKm, 0)} km, one shape the chords admit, chosen by a fit · drawn centred, because chords fix widths and not offsets</text>
   </svg>`;
 }
@@ -115,8 +119,8 @@ function figLadder() {
     return `<g>
       <text x="${ml - 10}" y="${y + 12}" text-anchor="end" class="lb">${r.nsig === 0 ? 'as published' : r.nsig + 'σ of chord error'}</text>
       ${bad ? `<text x="${f(X(lo)) + 8}" y="${y + 13}" class="lb">&empty; &middot; no convex body fits</text>` : `<rect x="${f(X(r.DeqLo))}" y="${y + 3}" width="${f(Math.max(1, X(r.DeqHi) - X(r.DeqLo)))}" height="13" fill="var(--band-fill)" stroke="var(--border-strong)" stroke-width="1" class="ink-decided"/>
-      <text x="${f(X(r.DeqLo)) - 6}" y="${y + 13}" text-anchor="end" class="ax">${f(r.DeqLo)}</text>
-      <text x="${f(X(r.DeqHi)) + 6}" y="${y + 13}" class="ax">${f(r.DeqHi)}</text>`}
+      <text x="${f(X(r.DeqLo)) - 6}" y="${y + 13}" text-anchor="end" class="ax">${outLo(r.DeqLo)}</text>
+      <text x="${f(X(r.DeqHi)) + 6}" y="${y + 13}" class="ax">${outHi(r.DeqHi)}</text>`}
     </g>`;
   }).join('');
   return `<svg viewBox="0 0 ${w} ${h}" class="fg" role="img" aria-label="certified equivalent diameter against the error budget">
@@ -140,7 +144,7 @@ const body = `
       shape at all — and the whole question turns out to be one-dimensional and closed form.
     </p>
     <div class="stats reveal mt6">
-      <div class="stat"><div class="num">${f(R1.DeqLo, 0)}–${f(R1.DeqHi, 0)}</div><div class="dim">km, certified from convexity</div></div>
+      <div class="stat"><div class="num">${outLo(R1.DeqLo, 0)}–${outHi(R1.DeqHi, 0)}</div><div class="dim">km, certified from convexity</div></div>
       <div class="stat"><div class="num">${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN, { claim: OCC + '#/ellipse/0' })}</div><div class="dim">km, the published ellipse</div></div>
       <div class="stat"><div class="num">${f(NN.DeqHi - R1.DeqHi, 0)}</div><div class="dim">km of ceiling bought by the misses</div></div>
       <div class="stat"><div class="num">0</div><div class="dim">optimisers; every area is exact</div></div>
@@ -166,8 +170,8 @@ const body = `
       <b>ceiling</b> is concavity read backwards: beyond two samples, w is capped by their extrapolated secant, taken with an upper
       value at the near sample and a lower one at the far, and that envelope is then clipped where the nearest station saw nothing.</p>
       <p><b>The asymmetry is structural.</b> The floor is bought by the chords; the ceiling is bought by the telescopes that recorded
-      nothing at all. Move this campaign's ${D.nNegative} negative stations out of reach and the ceiling goes from ${f(R1.DeqHi)} km to
-      ${f(NN.DeqHi)} km — the misses are worth ${f(NN.DeqHi - R1.DeqHi, 0)} km of upper bound, more than the object's own diameter, and
+      nothing at all. Move this campaign's ${D.nNegative} negative stations out of reach and the ceiling goes from ${outHi(R1.DeqHi)} km to
+      ${outHi(NN.DeqHi)} km — the misses are worth ${f(NN.DeqHi - R1.DeqHi, 0)} km of upper bound, more than the object's own diameter, and
       they are the part of a campaign least often published.</p>
     </div>
 
@@ -178,7 +182,7 @@ const body = `
 
     <figure class="reveal mt6">${figSilhouettes()}
       <figcaption class="figcap"><span class="k">two silhouettes the same five chords allow</span>
-      <span class="v">${f(R1.DeqLo)} km and ${f(R1.DeqHi)} km across</span></figcaption></figure>
+      <span class="v">${outLo(R1.DeqLo)} km and ${outHi(R1.DeqHi)} km across</span></figcaption></figure>
 
     <figure class="reveal mt6">${figLadder()}
       <figcaption class="figcap"><span class="k">what the error budget buys</span>
@@ -198,7 +202,7 @@ const body = `
     <div class="note reveal">
       <b>And a disagreement in the literature dissolves.</b> The paper reports an occultation diameter of ${W.value(E0.DeqKm + ' ± ' + E0.DeqErrKm, W.CHOSEN, { claim: OCC + '#/ellipse/0' })} km and notes that its
       mean 3-D estimate is <em>not in agreement</em> with the radiometric ${W.value(rad.DKm + ' ± ' + rad.errKm, W.CHOSEN, { claim: OCC + '#/published/radiometric/0' })} km from Herschel, Spitzer and ALMA. Both numbers sit
-      inside [${f(R1.DeqLo)}, ${f(R1.DeqHi)}] km. The tension is between two models, not between two measurements &mdash; in the grammar&rsquo;s
+      inside [${outLo(R1.DeqLo)}, ${outHi(R1.DeqHi)}] km. The tension is between two models, not between two measurements &mdash; in the grammar&rsquo;s
       words, two picks (dotted: an ellipse chosen by a fit, a thermal model chosen by another) inside one decided interval.
     </div>
 

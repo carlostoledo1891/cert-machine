@@ -20,6 +20,27 @@ const BAND = require('./envelope.js').ARITHMETIC === 'exact' ? W.DECIDED : W.thr
 const E = require('./envelope.js');
 
 const P = JSON.parse(fs.readFileSync(path.join(HERE, 'out', 'page.json'), 'utf8'));
+/* THE BLANK ON A LOG AXIS (2026-10-30, found while drawing this instrument for /grammar/). A log axis has no place for a
+   standard at zero, so on such a set the envelope and the 4PL fit both use only the standards above zero
+   (make-page-data.js, lifted, unchanged), while the lifted data's note says "the eight standards" and the panel head
+   counted eight. Read at zero, the 4PL gives its own p[0]; the page now says how many standards the set and the fit use,
+   and where the fit sits against the blank's own box, from these numbers. The note is corrected in the copy the page
+   embeds, never in the lifted file. */
+const blankOf = (s) => {
+  const i0 = s.x.findIndex((x) => x <= 0);
+  if (s.xScale !== 'log' || i0 < 0 || !s.reported.form || s.reported.form.form !== '4pl') return null;
+  const above = s.x.filter((x) => x > 0).length, fit0 = s.reported.form.p[0], y = s.y[i0], e = s.errs[i0];
+  return { above, fit0, y, lo: y - e, hi: y + e, outside: fit0 < y - e || fit0 > y + e };
+};
+for (const s of P.sets) {
+  const b = blankOf(s);
+  if (!b) continue;
+  const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+  if (/the eight standards/.test(s.reported.note || '')) {
+    if (!(s.x.length === 8 && b.above === 7)) throw new Error('curveset: the standards moved; rewrite the blank note');
+    s.reported.note = s.reported.note.replace('the eight standards', 'the ' + words[b.above] + ' standards above zero (a log axis has no place for the blank)');
+  }
+}
 const PROV = JSON.parse(fs.readFileSync(path.join(HERE, 'PROVENANCE.json'), 'utf8'));
 const CSS = fs.readFileSync(path.join(HERE, 'page.css'), 'utf8');
 const src = (f) => fs.readFileSync(path.join(HERE, f), 'utf8');
@@ -51,7 +72,7 @@ const insideAll = (s) => s.rungs.every((r, i) => !/class="cs-exit"/.test(PLOT.ca
 const panel = (s) => {
   const start = 0;                       /* open on bare monotonicity — the widest true answer */
   return `<div class="panel" data-set="${s.id}">
-  <div class="head"><span class="t">${s.title}</span><span class="s">${s.x.length} standards · error budget ${s.errKind} · k = ${P.k}</span></div>
+  <div class="head"><span class="t">${s.title}</span><span class="s">${s.x.length} standards${blankOf(s) ? ' (' + blankOf(s).above + ' above zero on the log axis)' : ''} · error budget ${s.errKind} · k = ${P.k}</span></div>
   <p class="src">${s.source} ${s.errKind === 'measured'
     ? `Each load was applied twice, so repeatability is <b>measured</b> rather than asserted: pooled s = ${s.sPooled.toExponential(3)}.`
     : `There are no replicates, so the error budget is an <b>assertion</b> — ${(100 * s.cv).toFixed(0)}% CV with a ${s.floor} OD floor — and it stays a control on this page rather than a constant buried in the code.`}</p>
@@ -65,7 +86,7 @@ const panel = (s) => {
     </div>
     <div class="readout">
       <div class="r"><div class="rk">what the standards allow</div><div class="rv" data-out="${s.id}">${W.value(s.rungs[start].r && s.rungs[start].r.bounded ? fmt(s.rungs[start].r.lo) + ' – ' + fmt(s.rungs[start].r.hi) : 'unbounded', BAND, { derived: s.rungs[start].r && s.rungs[start].r.bounded ? [AT(s, '/rungs/' + start + '/r/lo'), AT(s, '/rungs/' + start + '/r/hi')] : [AT(s, '/rungs/' + start + '/r')] })}</div><div class="rn">closed form from the standards and the stated assumption — no optimiser, no sampling — but evaluated in floating point, so the grammar calls it computed and underlines it dashed.</div></div>
-      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN, { claim: AT(s, '/reported') })}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion. ${insideAll(s) ? `It stays inside the set at all ${s.rungs.length} assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.` : `Where it leaves the set, a red × marks the place: there the published curve is not admissible under that assumption.`}</div></div>
+      <div class="r"><div class="rk">what was reported</div><div class="rv">${W.value(fmt(s.reported.xHat) + ' ± ' + fmt(s.reported.uFit), W.CHOSEN, { claim: AT(s, '/reported') })}</div><div class="rn">${s.reported.kind}. One member of the set on the left, chosen by a fitting criterion. ${insideAll(s) ? `It stays inside the set at all ${s.rungs.length} assumptions, so nothing here is red: the curve is admissible, and only the narrowness of its ± is a choice.` : `Where it leaves the set, a red × marks the place: there the published curve is not admissible under that assumption.`}${blankOf(s) ? ' The set and the fit use the ' + blankOf(s).above + ' standards above zero; read at zero, the fit gives ' + blankOf(s).fit0.toFixed(3) + ' OD, ' + (blankOf(s).outside ? 'outside' : 'inside') + ' the blank’s own box, ' + blankOf(s).lo.toFixed(3) + '–' + blankOf(s).hi.toFixed(3) + ' OD.' : ''}</div></div>
       <div class="r"><div class="rk">the price of the form</div><div class="rv" data-ratio="${s.id}">${W.value(monoR(s) ? n(monoR(s)) + '×' : '∞', W.meet(BAND, W.CHOSEN), { derived: monoR(s) ? [AT(s, '/rungs/0/r/width'), AT(s, '/reported/uFit')] : [AT(s, '/rungs/0/r')] })}</div><div class="rn">how much wider the honest answer is than the reported ±, at this assumption. Its standing is not typed here — it is the <em>meet</em> of the two numbers above it, which the lattice works out on its own.</div></div>
     </div>
   </div>
