@@ -253,7 +253,12 @@ function build() {
   gaps.push('The seam between the two lanes is the Lean and Mathlib version: the bridge\'s Claim is OpenAI\'s challenge text re-elaborated on Lean v4.33.1 and Anthropic\'s Mathlib 0df444a3, while OpenAI\'s proof (certs/eth-kernel.json) is of exact_count_and_sat on Lean v4.34.1 and Mathlib d13f23b7. The source text is the same byte for byte (the statement check); that the two elaborate to the same term is not checked here, so OpenAI\'s theorem and TSavo\'s implication compose by reading, not by one kernel.');
   gaps.push('Comparator decides Bridge.ethIsFalse_of_claim only (the config\'s one theorem). Bridge.two_proofs_one_statement = ⟨MainResults.ethIsFalse, ethIsFalse_of_claim⟩ is checked by one kernel (Lean\'s, in lake build) and by its axiom print.');
   if (src.census.mentionsInComments.some((m) => m.file === 'bridge/Bridge/Main.lean')) gaps.push('A stale comment: bridge/Bridge/Main.lean\'s header still says "Each `sorry` below is one of the four lemmas named in the plan"; no sorry remains outside comments (the census).');
-  gaps.push('leanchecker --fresh was not run (as in the eth-kernel lane\'s rows); the rule stands on Lean\'s kernel and nanoda inside Comparator.');
+  /* what the kernel lane ran is read from its record, never typed: leanchecker --fresh replayed the claims' own proofs
+     there (both by 2026-10-30), and never this join */
+  const kRows = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'eth-kernel.json'), 'utf8')).rows;
+  const kFresh = kRows.filter((r) => r.leanchecker && r.leanchecker.word === 'REPLAYED').map((r) => r.claim);
+  gaps.push('leanchecker --fresh was not run on this join' + (kFresh.length === kRows.length ? ' (the eth-kernel lane replayed both claims\' own proofs with it, not the join)'
+    : kFresh.length ? ' (the eth-kernel lane replayed ' + kFresh.join(', ') + '\'s own proof with it, not the join)' : ' (nor anywhere in the eth-kernel lane)') + '; the rule stands on Lean\'s kernel and nanoda inside Comparator.');
   const steps = {};
   for (const s of STEPS) if (f.steps[s]) steps[s] = brief(f.steps[s]);
   return {

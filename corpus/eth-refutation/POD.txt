@@ -106,3 +106,12 @@ facts      https://69d9t7dxjffo6n-8000.proxy.runpod.net/ (read-only, port 8000)
 import     node tools/import-runpod-eth.js 69d9t7dxjffo6n [--partial]
 budget     cap US$15; deleted at US$14 whatever the state (~16 h at this price)
 delete     delete-pod 69d9t7dxjffo6n, then confirm get-pod -> 404
+run        prepare + the solution's build, then lake env leanchecker --fresh OAI.Algorithms.SubexponentialSAT.Main (Lean
+           v4.34.1, the claim's own toolchain) EXIT 0 in 2,896 s, no output, largest process 19,654,348 kB, container peak
+           48,537,000 kB; cgroup memory.peak 75,619,688,448 bytes. _phase complete 2026-10-30T00:56:35Z.
+import     node tools/import-runpod-eth.js 69d9t7dxjffo6n (complete) into corpus/eth-refutation/runs/runpod-69d9t7dxjffo6n/;
+           certs/eth-kernel.json re-recorded: OpenAI's leanchecker REPLAYED (row CERTIFIED as before); both claims are now
+           replayed by leanchecker --fresh. certs/eth-tsavo-bridge.json and certs/eth-bridge.json re-recorded: their
+           "not run" sentence now says leanchecker replayed both claims' own proofs, not the joins.
+DELETED 2026-10-30 ~01:00Z (delete-pod 204; get-pod 404 "pod not found"; list-pods empty), from the cert-machine
+           session, after the import. Uptime 5,921 s at the read before deletion ≈ US$1.45 at US$0.88/h; the cap was US$15.
