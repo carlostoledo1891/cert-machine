@@ -1,0 +1,157 @@
+{
+ "id": "v4-1d-cert2026",
+ "format": 4,
+ "text": "C_1d <= 1.463071582607559, decided from the 300 cell values alone: 600 · max_m |Σ_{i+j=m} v_i v_j| / (Σ v_i)^2 against the printed bar",
+ "source": {
+  "what": "the optimization-constants registry (teorth/optimizationproblems) at 46dbf036, the page pinned 2026-10-18",
+  "path": "corpus/optconst-queue/next-2026-10-18/upstream/README.md",
+  "sha256": "2364c27121c08724869e42d785b113cba915c747d2592b052c9c1e785e9d3eea",
+  "quote": "$C_{1d} \\leq 1.463071582607559*$"
+ },
+ "reading": "universal",
+ "readings": {
+  "source": "text",
+  "domain": "doubles",
+  "record": "rationals"
+ },
+ "standing": {
+  "source": "COMPUTED",
+  "domain": "COMPUTED",
+  "record": "DECIDED"
+ },
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "corpus/optconst-queue/next-2026-10-18/pr-224/construction.json",
+   "sha256": "44f3f2b63b0d698dd5f279661d4be7077ca6703d62ea7ae6e2b2945e0f001e1c"
+  },
+  "decoder": "the JSON field \"values\": 300 numbers, each read as the rational the double denotes",
+  "count": 300,
+  "variable": "f",
+  "data": {
+   "select": "values",
+   "elements": "doubles",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Divide",
+    [
+     "Multiply",
+     "600",
+     [
+      "MaxOver",
+      "m",
+      "0",
+      [
+       "Subtract",
+       [
+        "Multiply",
+        "2",
+        "n"
+       ],
+       "2"
+      ],
+      [
+       "Abs",
+       [
+        "Sum",
+        "i",
+        [
+         "Max",
+         "0",
+         [
+          "Subtract",
+          "m",
+          [
+           "Subtract",
+           "n",
+           "1"
+          ]
+         ]
+        ],
+        [
+         "Min",
+         [
+          "Subtract",
+          "n",
+          "1"
+         ],
+         "m"
+        ],
+        [
+         "Multiply",
+         [
+          "Index",
+          "f",
+          "i"
+         ],
+         [
+          "Index",
+          "f",
+          [
+           "Subtract",
+           "m",
+           "i"
+          ]
+         ]
+        ]
+       ]
+      ]
+     ]
+    ],
+    [
+     "Square",
+     [
+      "Sum",
+      "i",
+      "0",
+      [
+       "Subtract",
+       "n",
+       "1"
+      ],
+      [
+       "Index",
+       "f",
+       "i"
+      ]
+     ]
+    ]
+   ],
+   "rel": "le",
+   "printed": "1.463071582607559",
+   "c": "1463071582607559/1000000000000000"
+  }
+ ],
+ "reference": "the bar is the registry's printed decimal taken exactly; the value is computed here from the pinned bytes by the expression itself — 600 · max_m |S_m| / (Σ v)^2 with S_m = Σ_{i+j=m} v_i v_j — and must equal the record's exact value digit for digit (certs/autocorr-replay.json row 1d-cert2026, js.value); as printed the claim is refuted and the bar rounded up at the next digit is certified",
+ "hypotheses": [
+  "f is the step function with cell width h = 1/600 on [-1/4, 1/4]; (f*f) is piecewise linear with knots at multiples of h, (f*f)((m+1)h) = h Σ_{i+j=m} v_i v_j, so max |f*f| is attained at a knot (the registry page's own reduction); ∫ f = h Σ v_i; the ratio is 600 · max_m |S_m| / (Σ v_i)^2",
+  "any signed step function f with ∫ f ≠ 0 gives C_1d <= its ratio (the registry's definition, read)"
+ ],
+ "falsifier": [
+  "the expression evaluated exactly on the pinned values is at most the bar (it is not: it exceeds it by 3.3e-16)",
+  "the expression's value differs from the record's exact value",
+  "the pinned block does not hash to 44f3f2b6…"
+ ],
+ "record": {
+  "path": "certs/autocorr-replay.json",
+  "row": "1d-cert2026",
+  "value": "js.value",
+  "verdict": "REFUTED"
+ },
+ "repair": {
+  "printed": "1.4630715826075594",
+  "c": "14630715826075594/10000000000000000",
+  "verdict": "CERTIFIED",
+  "how": "the exact value rounded up at 16 decimals (the record's repair)"
+ },
+ "notes": [
+  "format 4: prim-1d-cert2026 with each input's reading and standing declared; its decisions are the primitive object's",
+  "standing: the registry's print and the 300 doubles are numbers a claimant computed (COMPUTED); the record is an exact decision (DECIDED)"
+ ]
+}

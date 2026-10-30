@@ -1,0 +1,68 @@
+{
+ "id": "v4-int64-sum-int64",
+ "format": 4,
+ "text": "the sum of the two values of the fixture is 9223372036854775808, read as int64 arithmetic",
+ "source": {
+  "what": "a synthetic page, a calibration fixture of the format-4 readings",
+  "path": "instruments/claimbox/v4/data/int64-accumulator.md",
+  "sha256": "b55cdf64e237c98f962bda65416b999a1de5c1fbf8775d87489d409e44aadf6c",
+  "quote": "prints their sum: 9223372036854775808"
+ },
+ "reading": "universal",
+ "readings": {
+  "source": "text",
+  "domain": "int64"
+ },
+ "standing": {
+  "source": "COMPUTED",
+  "domain": "COMPUTED"
+ },
+ "domain": {
+  "kind": "finite",
+  "pin": {
+   "path": "instruments/claimbox/v4/data/int64-accumulator.json",
+   "sha256": "03688aa0da346b62ec3ad19c6be8613c7d01975ca58bdf25197ba61dc72dd46d"
+  },
+  "decoder": "the JSON field \"values\": two integers",
+  "count": 2,
+  "variable": "v",
+  "data": {
+   "select": "values",
+   "elements": "int64",
+   "shape": [
+    "n"
+   ]
+  }
+ },
+ "predicate": [
+  {
+   "g": [
+    "Sum",
+    "k",
+    "0",
+    [
+     "Subtract",
+     "n",
+     "1"
+    ],
+    [
+     "Index",
+     "v",
+     "k"
+    ]
+   ],
+   "rel": "eq",
+   "printed": "9223372036854775808",
+   "c": "9223372036854775808"
+  }
+ ],
+ "reference": "the bar is the page's printed integer; under the int64 reading the sum 2^62 + 2^62 wraps (2^63 is outside int64), so the exact value is not the int64 program's value and the predicate is not decided here",
+ "hypotheses": [],
+ "falsifier": [
+  "the exact sum of the pinned values is not 9223372036854775808",
+  "the pinned fixture does not hash to 03688aa0…"
+ ],
+ "notes": [
+  "a synthetic calibration object: the same bytes as v4-int64-sum-integers under the declared int64 reading — admitted, not decided (the partial Sum wraps); one reading decides, the other does not"
+ ]
+}

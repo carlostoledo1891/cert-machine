@@ -9,7 +9,10 @@ every one of 600 seeded enclosure/bar/relation cases — two implementations of 
 shared. (4) RED CONTROLS: every kind of malformed object the checker names is planted in a copy of an admitted object and
 must be REFUSED with that kind; a forged record (verdict flipped; bar moved) must be caught; the checker must refuse to run
 when the kernel audit lacks an operation of the vocabulary. (5) A GREEN control: a synthetic box-domain object with a
-printed-digits box ("in") is admitted and decided CERTIFIED.
+printed-digits box ("in") is admitted and decided CERTIFIED. (6) Version 3: the primitive objects decided from the bytes,
+check.js held to check.py, Z3. (7) FORMAT 4 (2026-10-30): the eight objects of v4/ (the readings and standings per input,
+the canonical form and its digest, int64, the Lean kind decided by a kernel lane's record, a refusing object and two
+mutants), check.js held to check.py on every one and on every format-4 red control.
 
 usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
@@ -446,6 +449,174 @@ try:
         notrun.append('the 605 doubles-reading count (CLAIMBOX_FULL=1)')
 finally:
     shutil.rmtree(tmp6, ignore_errors=True)
+
+# ---- 7 · format 4 (2026-10-30): readings, standings, the canonical form, int64, the Lean kind; both checkers held together --
+V4 = os.path.join(HERE, 'v4')
+EXPECT4 = {   # word, kind, decisions against the record, the meet of the standings
+    'v4-1d-cert2026': (B.ADMITTED, None, [R, 'repair:' + C], 'COMPUTED'),
+    'v4-ea-542-circle-packing': (B.ADMITTED, None, [], 'CHOSEN'),
+    'v4-int64-sum-integers': (B.ADMITTED, None, [], 'COMPUTED'),
+    'v4-int64-sum-int64': (B.ADMITTED, None, [], 'COMPUTED'),
+    'v4-lean-abhyankarsathaye': (B.ADMITTED, None, [C], 'COMPUTED'),
+    'v4-lean-binpackinggap': (B.ADMITTED, None, [F], 'REFUSED'),
+    'v4-mutant-lean-other-commit': (B.REFUSED_WORD, 'record-pin-mismatch', None, None),
+    'v4-mutant-two-on-one-bar': (B.REFUSED_WORD, 'canonical', None, None),
+}
+v4files = sorted(f for f in os.listdir(V4) if f.endswith('.json'))
+ok(set(os.path.splitext(f)[0] for f in v4files) == set(EXPECT4), 'the format-4 calibration objects in v4/, the eight named', str(len(v4files)))
+
+
+def js_batch(paths):
+    """check.js over many files in one node run; a list of results (None for a file node could not check)"""
+    js = ("const C=require(process.argv[1]);C.setWords(C.loadVocab());const ps=JSON.parse(require('fs').readFileSync(0,'utf8'));"
+          "console.log(JSON.stringify(ps.map(p=>{try{return C.check(p)}catch(e){return null}})))")
+    r = subprocess.run(['node', '-e', js, os.path.join(HERE, 'check.js')], input=json.dumps(paths), capture_output=True, text=True, timeout=600)
+    return json.loads(r.stdout) if r.returncode == 0 and r.stdout.strip() else [None] * len(paths)
+
+
+def shape4(res):
+    return shape(res) + (res.get('canonical'), res.get('inputs'), res.get('meet'))
+
+
+res4 = {}
+for f in v4files:
+    name = os.path.splitext(f)[0]
+    res4[name] = B.check(os.path.join(V4, f))
+    if name not in EXPECT4:
+        continue
+    word, kind, decided, meet = EXPECT4[name]
+    r = res4[name]
+    ok(r['word'] == word and r['kind'] == kind and (decided is None or r['decided'] == decided) and (meet is None or r.get('meet') == meet),
+       name + ' ' + word + (' ' + kind if kind else ' [' + ' · '.join(decided) + '], meet ' + meet),
+       r['word'] + ' ' + str(r['kind'] or '') + ' ' + r['msg'][:80] + ' ' + ' · '.join(r['decided']) + ' ' + str(r.get('meet')))
+jr4 = js_batch([os.path.join(V4, f) for f in v4files])
+for f, jr in zip(v4files, jr4):
+    name = os.path.splitext(f)[0]
+    ok(jr is not None and shape4(jr) == shape4(res4[name]), name + ': check.js gives the same word, kind, decisions, witnesses, values, canonical digest, inputs and meet',
+       'js ' + (str(jr['word']) + ' ' + str(jr['kind']) + ' ' + str(jr.get('canonical'))[:12] if jr else 'failed'))
+# the format-4 copies decide exactly as the version-3 objects they copy; the inputs carry the pins
+for v4n, v3n in (('v4-1d-cert2026', 'prim-1d-cert2026'), ('v4-ea-542-circle-packing', 'prim-ea-542-circle-packing')):
+    r3 = B.check(os.path.join(PRIM, v3n + '.json'))
+    ok(shape(res4[v4n])[1:] == shape(r3)[1:] and 'canonical' not in r3, v4n + ' decides as ' + v3n + ' (format 3, unchanged) does', ' · '.join(res4[v4n]['decided']))
+i1d = res4['v4-1d-cert2026'].get('inputs') or []
+ok([(i['role'], i['reading'], i['standing']) for i in i1d] == [('source', 'text', 'COMPUTED'), ('domain', 'doubles', 'COMPUTED'), ('record', 'rationals', 'DECIDED')]
+   and i1d[2]['sha256'] == hashlib.sha256(open(os.path.join(ROOT, 'certs', 'autocorr-replay.json'), 'rb').read()).hexdigest(),
+   'the certificate carries every input with its pin, reading and standing (the record hashed as read)', json.dumps([(i['role'], i['standing']) for i in i1d]))
+# one byte string, two declared readings: integers decides, int64 does not
+ri, r64 = res4['v4-int64-sum-integers'], res4['v4-int64-sum-int64']
+ok(ri['fromObject'][0] and ri['fromObject'][0]['word'] == C and ri['fromObject'][0]['value'] == str(2 ** 63) and r64['fromObject'] == [None]
+   and any('int64 reading' in n and 'does not hold' in n for n in r64['notes']),
+   'the same pinned integers: CERTIFIED under the integers reading (the sum is 2^63), undecided under int64 (the partial sum leaves int64)', str(r64['notes'][:1])[:100])
+# the Lean objects: decided from the kernel lane's pinned record, never by a Lean run here
+ok(res4['v4-lean-abhyankarsathaye']['inputs'][1]['path'] == 'github.com/openai/math@fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb' and res4['v4-lean-binpackinggap']['decided'] == [F],
+   'Lean: AbhyankarSathaye CERTIFIED (both kernels in the lane row), BinPackingGap REFUSED (one kernel; the lane refused) — the refusing calibration object')
+
+# the canonical form: prose, paths of nothing decision-bearing, and predicate order do not move the digest; a bar does
+base1d = json.load(open(os.path.join(V4, 'v4-1d-cert2026.json'), encoding='utf-8'))
+re1 = clone(base1d)
+re1['text'] = 'C_1d at most the printed bar (re-worded)'
+re1['reference'] = 're-worded'
+re1['hypotheses'] = ['re-worded']
+re1['falsifier'] = ['re-worded']
+re1['notes'] = []
+re1['domain']['decoder'] = 're-worded'
+re1['source']['what'] = 're-worded'
+ok(B.canonical_digest(re1) == res4['v4-1d-cert2026']['canonical'], 'canonical form: the same claim in other words has the same digest')
+base542 = json.load(open(os.path.join(V4, 'v4-ea-542-circle-packing.json'), encoding='utf-8'))
+re2 = clone(base542)
+re2['predicate'] = list(reversed(re2['predicate']))
+ok(B.canonical_digest(re2) == res4['v4-ea-542-circle-packing']['canonical'], 'canonical form: the same predicates in another order have the same digest')
+re3 = clone(base1d)
+re3['predicate'][0].update({'printed': '1.4630715826075594', 'c': '14630715826075594/10000000000000000'})
+ok(B.canonical_digest(re3) != res4['v4-1d-cert2026']['canonical'], 'canonical form: another bar is another claim (another digest)')
+
+tmp7 = tempfile.mkdtemp(prefix='claimbox-v4-')
+try:
+    reds4 = []   # (label, kind, object): each checked by check.py here and by check.js in one batch below
+
+    def r4(kind, base, mutate, label):
+        o = clone(base)
+        mutate(o)
+        reds4.append((label, kind, o))
+
+    def drop(k):
+        return lambda o: o.pop(k)
+    lean_ok = json.load(open(os.path.join(V4, 'v4-lean-abhyankarsathaye.json'), encoding='utf-8'))
+    lean_no = json.load(open(os.path.join(V4, 'v4-lean-binpackinggap.json'), encoding='utf-8'))
+    int64o = json.load(open(os.path.join(V4, 'v4-int64-sum-int64.json'), encoding='utf-8'))
+    prim1d = json.load(open(os.path.join(PRIM, 'prim-1d-cert2026.json'), encoding='utf-8'))
+    r4('schema', base1d, lambda o: o.__setitem__('format', 5), 'format 5')
+    r4('schema', base1d, lambda o: o.__setitem__('format', '4'), 'format given as a string')
+    r4('readings', base1d, drop('readings'), 'a format-4 object without readings (no reading is a default)')
+    r4('standing', base1d, drop('standing'), 'a format-4 object without standing')
+    r4('readings', base1d, lambda o: o['readings'].pop('record'), 'no reading for the record')
+    r4('readings', base1d, lambda o: o['readings'].__setitem__('resolution', 'decimals'), 'a reading for an input the object does not have')
+    r4('readings', base1d, lambda o: o['readings'].__setitem__('domain', 'decimals'), 'readings.domain decimals where the data block reads doubles')
+    r4('readings', base1d, lambda o: o['readings'].__setitem__('source', 'bytes'), 'the quoted source read as bytes')
+    r4('readings', base1d, lambda o: o['readings'].__setitem__('record', 'doubles'), 'an exact record value declared as doubles')
+    r4('readings', base1d, lambda o: o['readings'].__setitem__('domain', 'float'), 'a reading outside the list')
+    r4('readings', base542, lambda o: o['readings'].__setitem__('resolution', 'doubles'), 'the quoted resolution read as a double')
+    r4('standing', base1d, lambda o: o['standing'].__setitem__('record', 'PROVEN'), 'a standing outside WARRANT\'s four')
+    r4('standing', base1d, lambda o: o['standing'].pop('domain'), 'no standing for the domain')
+    r4('standing', lean_no, lambda o: o['standing'].__setitem__('record', 'DECIDED'), 'a REFUSED lane record declared DECIDED')
+    r4('standing', lean_no, lambda o: o['standing'].__setitem__('domain', 'DECIDED'), 'a Lean project the lane refused declared DECIDED')
+    r4('schema', prim1d, lambda o: o.__setitem__('readings', {'source': 'text'}), 'a version-3 object carrying readings (no format)')
+    r4('data', prim1d, lambda o: o['domain']['data'].__setitem__('elements', 'int64'), 'int64 in a version-3 object')
+    r4('canonical', base542, lambda o: o['predicate'].append(clone(o['predicate'][0])), 'the printed score carried by two predicates')
+    r4('lean', lean_ok, lambda o: o['predicate'][0]['g'].__setitem__('where', 'instruments/claimbox/tm.py'), 'a Lean holds over another decider')
+    r4('lean', lean_ok, lambda o: o['predicate'].append(clone(o['predicate'][0])), 'a Lean object with a second predicate')
+    r4('lean', lean_ok, drop('record'), 'a Lean object without its lane record')
+    r4('lean', lean_ok, lambda o: o['record'].__setitem__('value', 'runs'), 'a Lean record carrying a value')
+    r4('lean', lean_ok, lambda o: (o['domain'].__setitem__('lane', '.github/workflows/no-such-lane.yml'), o['predicate'][0]['g'].__setitem__('where', '.github/workflows/no-such-lane.yml')), 'a lane workflow not on disk')
+    r4('schema', lean_ok, lambda o: o['domain'].__setitem__('commit', 'fd4aeeb2'), 'a short commit')
+    r4('record-verdict-word', lean_no, lambda o: (o['record'].__setitem__('verdict', 'CERTIFIED'), o['standing'].update({'domain': 'DECIDED', 'record': 'DECIDED'})), 'the refused Lean object declaring CERTIFIED')
+    r4('record-row-missing', lean_ok, lambda o: o['record'].__setitem__('key', 'id'), 'the lane row looked up by a key it does not carry')
+    # forged lane records: a row that prints one kernel but says CERTIFIED; a record that names no commit
+    with open(os.path.join(ROOT, 'certs', 'openai-math-kernel.json'), encoding='utf-8') as fh:
+        lane_rec = json.load(fh)
+    one = clone(lane_rec)
+    for row in one['rows']:
+        if row['challenge'] == 'AbhyankarSathaye':
+            row['runs'][-1]['kernels'] = row['runs'][-1]['kernels'][:1]
+    p_one = os.path.join(tmp7, 'lane-one-kernel.json')
+    json.dump(one, open(p_one, 'w'))
+    r4('record-decision-mismatch', lean_ok, lambda o: o['record'].__setitem__('path', os.path.relpath(p_one, ROOT)), 'a forged lane row: CERTIFIED with one kernel printed')
+    nocommit = clone(lane_rec)
+    del nocommit['release']
+    p_nc = os.path.join(tmp7, 'lane-no-commit.json')
+    json.dump(nocommit, open(p_nc, 'w'))
+    r4('lean', lean_ok, lambda o: o['record'].__setitem__('path', os.path.relpath(p_nc, ROOT)), 'a lane record that names no commit')
+    # an int64 datum outside int64
+    big = os.path.join(tmp7, 'int64-big.json')
+    open(big, 'w').write('{"values": [9223372036854775808, 1]}\n')
+    r4('data', int64o, lambda o: o['domain'].__setitem__('pin', {'path': os.path.relpath(big, ROOT), 'sha256': hashlib.sha256(open(big, 'rb').read()).hexdigest()}), 'an int64 datum outside int64')
+
+    paths = []
+    for i, (label, kind, o) in enumerate(reds4):
+        res = B.check_obj(o)
+        red(res['word'] == B.REFUSED_WORD and res['kind'] == kind, 'format 4: ' + label + ' -> ' + kind, (res['kind'] or res['word']) + ': ' + res['msg'][:80])
+        pth = os.path.join(tmp7, 'red-' + str(i) + '.json')
+        json.dump(o, open(pth, 'w'))
+        paths.append(pth)
+    jreds = js_batch(paths)
+    agree = [lab for (lab, kind, _), jr in zip(reds4, jreds) if not (jr and jr['word'] == B.REFUSED_WORD and jr['kind'] == kind)]
+    ok(not agree, 'check.js refuses every format-4 red control with the same kind (' + str(len(reds4)) + ')', '; '.join(agree)[:160])
+    # the SMT export is exact arithmetic over the reals: an int64 reading is refused, not exported
+    try:
+        B.to_smt(int64o)
+        smt_refused = False
+    except B.Refuse as e:
+        smt_refused = e.kind == 'readings'
+    red(smt_refused, 'the SMT export of an int64 reading -> refused (readings)')
+    stopped = False
+    try:
+        B.load_vocab(B.ARB, B.VERDICT_JS, os.path.join(tmp7, 'no-warrant.js'))
+    except SystemExit:
+        stopped = True
+    red(stopped, 'playground/warrant.js missing -> the checker refuses to run (the standings are read from it)')
+    B.load_vocab()
+finally:
+    shutil.rmtree(tmp7, ignore_errors=True)
 
 print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

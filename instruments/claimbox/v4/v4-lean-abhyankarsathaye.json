@@ -1,0 +1,54 @@
+{
+ "id": "v4-lean-abhyankarsathaye",
+ "format": 4,
+ "text": "the openai/math release at fd4aeeb2 proves its Comparator challenge AbhyankarSathaye (main result OAI.AbhyankarSathaye.exists_noncoordinate_polynomial): the solution states the challenge's theorem, uses only the permitted axioms, and Lean's kernel and nanoda both replay it",
+ "source": {
+  "what": "github.com/openai/math lean/formalization.yaml at fd4aeeb2, pinned in corpus/openai-math/release",
+  "path": "corpus/openai-math/release/lean__formalization.yaml",
+  "sha256": "5a8a164259591208886cd018416e61552665265ec9e20cff636f9d51117c2278",
+  "quote": "    - comparator_config: ComparatorChallenges/AbhyankarSathaye.json\n      declaration: OAI.AbhyankarSathaye.exists_noncoordinate_polynomial"
+ },
+ "reading": "universal",
+ "readings": {
+  "source": "text",
+  "domain": "lean",
+  "record": "text"
+ },
+ "standing": {
+  "source": "COMPUTED",
+  "domain": "DECIDED",
+  "record": "DECIDED"
+ },
+ "domain": {
+  "kind": "lean",
+  "repository": "github.com/openai/math",
+  "commit": "fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb",
+  "lane": ".github/workflows/openai-math-kernel.yml"
+ },
+ "predicate": [
+  {
+   "g": {
+    "named": "Comparator accepts the challenge AbhyankarSathaye: the solution's theorem is the challenge's statement, only the permitted axioms, Lean's kernel and nanoda both accept",
+    "where": ".github/workflows/openai-math-kernel.yml",
+    "args": []
+   },
+   "rel": "holds"
+  }
+ ],
+ "reference": "the claim is the release's own: the Comparator challenge AbhyankarSathaye as the release ships it; the statement's fidelity to the manuscript is a reading, not decided here",
+ "hypotheses": [
+  "the challenge file states the manuscript's main result (a reading of the statement, not decided by the kernels)"
+ ],
+ "falsifier": [
+  "a kernel rejects the solution in the lane's run",
+  "the lane row prints fewer than the two kernels accepting",
+  "the lane built another commit"
+ ],
+ "record": {
+  "path": "certs/openai-math-kernel.json",
+  "row": "AbhyankarSathaye",
+  "key": "challenge",
+  "value": null,
+  "verdict": "CERTIFIED"
+ }
+}
