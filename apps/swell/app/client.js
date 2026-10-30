@@ -4,17 +4,17 @@
    ONE CLOCK, ONE SEA. The reader chooses a day and an hour; everything on the page — the map's crests and wind, every
    beach's waves and wind, the card, the week — is the sea at THAT step. Nothing else moves the clock: the activities
    are LEGENDS, never filters. Each beach carries six small icons, one per activity, whose state says what that sea means
-   for it (bom · dá pra ir · fraco · ▲ perigo decidido · atenção: a faixa cruza o limite · aviso de previsão); hovering
+   for it (good · doable · poor · ▲ danger, decided · caution: the band straddles the limit · forecast warning); hovering
    an icon tells why, tapping it opens the beach at that activity. Picking an activity above the list only HIGHLIGHTS
    the beaches good for it and says where its best window is — the reader moves the clock there, or not.
    (Operator, 2026-10-08: "the activities must be only icons that communicate the conditions to that activity, like
    legends … do not change the wind and waves, it seems like another timestamp".)
 
-   WHAT IS STORED: the highlighted activity, the language and the saved beaches stay in this browser's localStorage; the
+   WHAT IS STORED: the highlighted activity, the map's layers and the saved beaches stay in this browser's localStorage; the
    URL carries the beach, the highlight and the step. Nothing goes anywhere.
 
    Every number is computed HERE by apps/swell/model/surf.js — the bytes the day's build ran, sha256 pinned in the day —
-   and the tab re-derives the day's digest over every height and decided letter ("conferido").              MIT */
+   and the tab re-derives the day's digest over every height and decided letter ("re-checked").              MIT */
 (function () {
 'use strict';
 var CFG = window.SWELL;
@@ -52,78 +52,8 @@ function colors() {
 }
 function rgba(hex, a) { var h = hex.replace('#', ''); if (h.length !== 6) return hex; return 'rgba(' + [0, 2, 4].map(function (k) { return parseInt(h.slice(k, k + 2), 16); }).join(',') + ',' + a + ')'; }
 
-/* ================================================================ words: Portuguese first, English matched to it */
+/* ================================================================ words: English only (the operator, 2026-10-30: no more pt-BR pages) */
 var STR = {
-  pt: {
-    how: 'Como sabemos', board: 'Placar', sos: 'Emergência', close: 'Fechar',
-    today: 'hoje', tomorrow: 'amanhã', now: 'agora', wd: ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'], WD: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    mon: ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'], hourFmt: '{h}h',
-    loading: 'Buscando o dia do Swell…', fcFail: 'Não deu para buscar o dia agora. Tente de novo em alguns minutos.',
-    stale: 'Previsão da rodada de {run} — a de hoje ainda não foi publicada.', night: 'noite',
-    act_surf: 'Surfe', act_kite: 'Kite', act_sup: 'SUP', act_swim: 'Banho', act_fish: 'Pesca', act_boat: 'Barco',
-    actLong_surf: 'surfe', actLong_kite: 'kite, windsurfe e wing', actLong_sup: 'SUP, caiaque e canoa', actLong_swim: 'banho de mar', actLong_fish: 'pesca de praia e costão', actLong_boat: 'sair de barco',
-    seaLine: 'Mar aberto <b>{hs}</b> de {dir}, {tp} s · vento <b>{kn} nós</b> <span class="nw">de {wdir} {arr}</span>',
-    seaNone: 'Mar aberto: sem previsão neste horário',
-    st_good: 'bom', st_fair: 'dá pra ir', st_poor: 'fraco', st_V: 'perigo, decidido', st_I: 'atenção: a faixa cruza o limite', st_W: 'aviso de previsão', st_off: 'fora do modelo',
-    sh_good: 'bom', sh_fair: 'dá pra ir', sh_poor: 'fraco', sh_V: 'perigo', sh_I: 'atenção', sh_W: 'aviso', sh_off: 'fora do modelo',
-    capActs: 'Praias boas agora, por atividade', seaSub: 'faixa medida do mar aberto: {lo}–{hi} m (satélites, 9 em 10)',
-    legendH: 'Os ícones', legendNote: 'cada ícone é uma atividade; a forma diz como está o mar para ela neste horário',
-    nGood: '{n} bom', nGoodN: '{n} bons', noneGood: 'nenhum',
-    focusNow: '<b>{act}</b> {when}: {list}.', focusNone: '<b>{act}</b> {when}: nenhuma praia boa neste horário.', goodAt: 'bom em {x}', fairAt: 'dá pra ir em {x}', andN: ' e mais {n}',
-    focusBest: 'Melhor janela do dia: <b>{beach}</b>, {win}.', focusBestNone: 'Nada bom para {act} neste dia.', goThere: 'ir para {h}',
-    focusDanger: '▲ perigo decidido em {n} {praias}.', praia1: 'praia', praiaN: 'praias',
-    win1: 'às {a}', win2: 'das {a} às {b}', allDay: 'o dia todo',
-    wc_offshore: 'terral', 'wc_side-offshore': 'terral cruzado', 'wc_cross-shore': 'lateral', 'wc_side-onshore': 'maral cruzado', wc_onshore: 'maral',
-    calm: 'quase sem vento', s_light: 'fraco', s_mod: 'moderado', s_strong: 'forte',
-    dirs: ['norte', 'nor-nordeste', 'nordeste', 'leste-nordeste', 'leste', 'leste-sudeste', 'sudeste', 'sul-sudeste', 'sul', 'sul-sudoeste', 'sudoeste', 'oeste-sudoeste', 'oeste', 'oeste-noroeste', 'noroeste', 'nor-noroeste'],
-    dirsShort: ['N', 'NNE', 'NE', 'ENE', 'L', 'ESE', 'SE', 'SSE', 'S', 'SSO', 'SO', 'OSO', 'O', 'ONO', 'NO', 'NNO'],
-    from: 'de', knots: 'nós', gusts: 'rajadas', current: 'corrente', calmWater: 'sem correnteza', waves: 'ondas', sea: 'mar', wind: 'vento',
-    breakH: 'Ondas na beira', swellOff: 'Mar aberto', windH: 'Vento', currentH: 'Corrente', tide: 'Maré', water: 'Água', air: 'Ar', rain: 'chuva',
-    safety: 'Segurança', nearestGuard: 'Guarda-vidas mais próximo', noGuard: 'nenhum posto marcado no mapa a menos de 2 km.',
-    ripWarn: 'Ondas de mais de 0,9 m chegando de frente: correntes de retorno são prováveis (regra prática, não decidida). Nade perto de um posto, longe das faixas de água escura e calma entre as ondas.',
-    offWarn: 'Vento terral (previsão): empurra para o mar. Perigoso para kite, SUP e boias.',
-    longshore: '{v} m/s para o {dir}', week: 'Os próximos dias', onMap: 'Ver no mapa', back: 'Todas as praias',
-    yourBeaches: 'Suas praias', save: 'Salvar', saved: 'Salva', share: 'Compartilhar', copied: 'Copiado: cole no WhatsApp.',
-    cbmsc: 'Na temporada (novembro a março) o CBMSC mantém cerca de 70 postos de guarda-vidas na ilha. Os postos abertos e a bandeira do dia estão no app oficial CBMSC Cidadão.',
-    whyGet: 'Recebe {p}% da ondulação de {dir}', whyAnd: 'e {p}% da de {dir}', whyGrow: 'Recebe toda a ondulação de {dir}, que ainda cresce no raso', whyAndGrow: 'e toda a de {dir}',
-    whySheltered: 'Abrigada desta ondulação: chega só {p}%.', whyChop: 'Na baía, conta o vento: {h} de marola com {kn} nós (previsão do vento).',
-    lagoonWhy: 'Água plana da lagoa: o que conta é o vento. Nada aqui é decidido — a marola vem só da previsão do vento.',
-    tab_beaches: 'Praias', tab_week: 'Semana', tab_map: 'Mapa', conditions: 'Condições', actsH: 'As atividades', actsHint: 'toque numa atividade para ver a regra e o que está decidido',
-    bandLine: 'faixa medida <b>{lo}–{hi}</b>', bandWhat: 'o mar aberto com o erro medido por satélite, levado até a praia pelo modelo da ilha', bandNone: 'sem faixa medida neste horário: nada é decidido aqui',
-    capped: 'no limite do modelo: o mar quebra antes da sonda mais funda ({h} m) — pode ser maior',
-    extT: 'ondulação de {T} s, mais longa que os casos do modelo (até 15 s): lida como 15 s',
-    flatSea: 'sem as partições do mar (NOAA) neste horário: o mar entra como uma ondulação só (ECMWF)',
-    decV: '<b>{word}</b>: mesmo a borda baixa da faixa ({lo}) passa de {lim} — decidido.',
-    decI: 'a faixa ({lo}–{hi}) cruza o limite de {lim}: vira {word} se a borda baixa subir {up}; fica abaixo se a borda alta descer {gap}.',
-    decL: 'abaixo do limite de {lim} em toda a faixa ({lo}–{hi}) — decidido. Não quer dizer seguro.',
-    decS: 'sem faixa medida: o limite de {lim} não é decidido.',
-    na: 'não se aplica aqui', notHere: '—',
-    refusedEdge: 'Fora do modelo: a borda do modelo da ilha passa a {km} desta praia, e ali a onda que entra pela borda ainda não dobrou no fundo. Swell não calcula a altura aqui.',
-    refusedNo: 'Fora do modelo: sem sondas na zona de arrebentação.',
-    cert: 'Certificado', certDl: 'Baixar certificado .json', rechk: 'Conferido no seu navegador: {n} linhas, as mesmas alturas e decisões publicadas ({ms} ms).', rechkBad: 'ATENÇÃO: o seu navegador NÃO reproduziu o dia publicado ({why}).',
-    tlIsland: 'mar aberto', tlShore: 'na beira', tlScopeIsland: 'o mar aberto · abra uma praia para ver a dela',
-    lg_waves: 'ondas na beira da praia (ou o mar aberto): a previsão, tracejada', lg_band: 'faixa medida; numa praia, levada pelo modelo da ilha, e o halo é o erro do próprio modelo, que não foi medido', lg_wind: 'vento em nós (previsão, tracejado); a linha fina são as rajadas', lg_tide: 'maré (previsão Copernicus, tracejada)',
-    restsH: 'Em que isso se apoia', g_words: ['suposto', 'verificado', 'comparado', 'validado'], g_unverified: 'não verificado',
-    g_gloss: ['adotado de uma fonte ou escolhido; nada aqui o conferiu', 'o código reproduz uma solução exata das próprias equações; não conferido contra o mar', 'conferido contra um modelo que guarda mais da física, com o número; não contra o mar', 'conferido contra observações do próprio mar, guardadas fora da calibração, com o número'],
-    pr_sea: 'O mar aberto e sua faixa', pr_seaEv: 'a faixa (ECMWF ∪ NOAA) cobriu {cov} de {n} passagens de satélite que não tinha visto; ela promete 9 em 10.',
-    pr_isl: 'O modelo da ilha', pr_islCmp: 'ao lado de um modelo de Boussinesq nesta praia, em ondulações de 11 s ou mais ({n} casos): a ilha lê {x} vez o valor dele (mediana).', pr_islNot: 'não comparado nesta praia; nas {k} praias em que foi, em ondulações de 11 s ou mais, lê {x} vez um modelo de Boussinesq (mediana).',
-    pr_brk: 'A arrebentação', pr_brkEv: 'a onda quebra a {g} vez a profundidade (Thornton e Guza, 1982, mediram 0,59 noutra praia); sem bancos de areia; até 10 m o perfil segue a linha de 10 m da carta.',
-    pr_meet: 'A conta é exata; a premissa mais fraca fica no degrau <b>{g}</b>. O erro do próprio modelo na beira não foi medido.',
-    pr_low: 'Nesta praia a ilha lê menos que o modelo de Boussinesq: um “abaixo do limite” aqui pede mais cautela do que a conta mostra.',
-    gridH: 'Quando cada atividade está boa', gridIsland: 'na melhor praia de cada horário; noite em branco · toque num horário para ir até ele', gridBeach: 'em {beach}; noite em branco · toque num horário para ir até ele',
-    layers: 'Camadas', L_waves: 'Ondas', L_wind: 'Vento', L_currents: 'Correntes', L_pois: 'Serviços',
-    legend_waves: 'cada linha é uma crista; mais clara e mais grossa, mais alta a onda (m). As cristas são um retrato do modelo da ilha, não uma medida', legend_wind: 'setas sobre a água, para onde o vento sopra; mais longas e claras, mais forte (nós)', legend_currents: 'corrente ao longo da praia; mais longa, mais rápida (m/s); um anel = risco de retorno',
-    mapNoteFast: 'As cristas se movem {x}× mais rápido que o real neste zoom, para o movimento ser visível; aproximando, voltam ao período de verdade.', mapNoteReal: 'Neste zoom as cristas se movem no período real.',
-    sosTitle: 'Em caso de emergência', sosNote: 'Ligações gratuitas, de qualquer telefone.',
-    n193: 'Bombeiros e guarda-vidas', n190: 'Polícia Militar', n192: 'SAMU (ambulância)', n185: 'Marinha — salvamento no mar', n199: 'Defesa Civil',
-    poi_lifeguard: 'Posto de guarda-vidas', poi_police: 'Polícia', poi_fire: 'Bombeiros', poi_health: 'Saúde', poi_navy: 'Marinha — Capitania dos Portos', poi_ramp: 'Rampa de barcos', poi_marina: 'Marina',
-    route: 'Como chegar', region_norte: 'Norte', region_leste: 'Leste', region_sul: 'Sul', 'region_baía norte': 'Baía Norte', 'region_baía sul': 'Baía Sul', region_continente: 'Continente',
-    kind_ocean: 'mar aberto', kind_bay: 'baía', kind_lagoon: 'lagoa', kind_island: 'ilha',
-    runChip: 'rodada {d} 00 UTC', introSub: 'Lendo o mar aberto (ECMWF e NOAA), a faixa medida por satélite e calculando as 34 praias…',
-    texBad: 'Uma textura do modelo da ilha não bateu com o sha256 fixado: as ondas do mapa não são desenhadas.',
-    fromSpace: 'Do espaço', foamRow: 'espuma em {p}% da zona de arrebentação (mediana de {n} passagens sem nuvens do Sentinel-2, {from}–{to}){rank}', foamRank: ' · a {k}ª de {of} praias de mar aberto que mais quebra', measured: 'medido',
-    island: 'só de barco', clear: 'limpar',
-  },
   en: {
     how: 'How we know', board: 'Scoreboard', sos: 'Emergency', close: 'Close',
     today: 'today', tomorrow: 'tomorrow', now: 'now', wd: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'], WD: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
@@ -141,7 +71,7 @@ var STR = {
     nGood: '{n} good', nGoodN: '{n} good', noneGood: 'none',
     focusNow: '<b>{act}</b> {when}: {list}.', focusNone: '<b>{act}</b> {when}: no beach is good at this hour.', goodAt: 'good at {x}', fairAt: 'doable at {x}', andN: ' and {n} more',
     focusBest: 'Best window of the day: <b>{beach}</b>, {win}.', focusBestNone: 'Nothing good for {act} that day.', goThere: 'go to {h}',
-    focusDanger: '▲ decided danger at {n} {praias}.', praia1: 'beach', praiaN: 'beaches',
+    focusDanger: '▲ decided danger at {n} {beaches}.', beach1: 'beach', beachN: 'beaches',
     win1: 'at {a}', win2: 'from {a} to {b}', allDay: 'all day',
     wc_offshore: 'offshore', 'wc_side-offshore': 'side-offshore', 'wc_cross-shore': 'cross-shore', 'wc_side-onshore': 'side-onshore', wc_onshore: 'onshore',
     calm: 'barely any wind', s_light: 'light', s_mod: 'moderate', s_strong: 'strong',
@@ -195,23 +125,17 @@ var STR = {
     island: 'by boat only', clear: 'clear',
   },
 };
-var LANG = { cur: 'pt' };
-(function () {
-  var q = (location.search.match(/lang=(pt|en)/) || [])[1], saved = null;
-  try { saved = localStorage.getItem('swell.lang'); } catch (e) {}
-  LANG.cur = q || saved || 'pt';
-})();
-function setLang(l) { LANG.cur = l; try { localStorage.setItem('swell.lang', l); } catch (e) {} document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en'; }
 function t(key, vars) {
-  var s = (STR[LANG.cur] && STR[LANG.cur][key]); if (s == null) s = STR.pt[key]; if (s == null) s = key;
+  var s = STR.en[key]; if (s == null) s = key;
   if (vars && typeof s === 'string') s = s.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? vars[k] : m; });
   return s;
 }
-function num(v, d) { var s = (+v).toFixed(d == null ? 1 : d); return LANG.cur === 'pt' ? s.replace('.', ',') : s; }
+function num(v, d) { var s = (+v).toFixed(d == null ? 1 : d); return s; }
 function metres(v, d) { return num(v, d == null ? 1 : d) + ' m'; }
 function dirIndex(deg) { return Math.round(((deg % 360) + 360) % 360 / 22.5) % 16; }
 function dirWord(deg) { return t('dirs')[dirIndex(deg)]; }
 function dirShort(deg) { return t('dirsShort')[dirIndex(deg)]; }
+function runDay(run) { return +run.slice(6, 8) + ' ' + t('mon')[+run.slice(4, 6) - 1]; }   /* '2026102900' -> '29 Oct' */
 function cap(s) { return s ? s[0].toUpperCase() + s.slice(1) : s; }
 
 /* ================================================================ the icons */
@@ -292,7 +216,7 @@ function makeClock(day, all) {
   return { N: N, time: time, days: days, daylight: all.daylight, now: now, utc: day.steps.map(function (s) { return s.t; }) };
 }
 function localHour(i) { return +A.fc.time[i].slice(11, 13); }
-function hourLabelOf(i) { var h = localHour(i); return t('hourFmt', { h: LANG.cur === 'pt' ? String(h) : String(h).padStart(2, '0') }); }
+function hourLabelOf(i) { var h = localHour(i); return t('hourFmt', { h: String(h).padStart(2, '0') }); }
 function dayOf(i) { return A.fc.days.filter(function (d) { return d.idx.indexOf(i) >= 0; })[0]; }
 function todayStr() { return new Date(Date.now() - 3 * 3600e3).toISOString().slice(0, 10); }
 function dayName(day) {
@@ -308,7 +232,7 @@ function whenLong(i) {
   var head = (nm === t('today') || nm === t('tomorrow')) ? cap(nm) : t('WD')[dt.getDay()];
   return head + ', ' + dt.getDate() + ' ' + t('mon')[dt.getMonth()] + ' · ' + hourLabelOf(i);
 }
-function whenShort(i) { var d = dayOf(i), nm = dayName(d); return (nm === t('today') || nm === t('tomorrow') ? nm : nm) + ' ' + (LANG.cur === 'pt' ? 'às ' : 'at ') + hourLabelOf(i); }
+function whenShort(i) { var d = dayOf(i), nm = dayName(d); return (nm === t('today') || nm === t('tomorrow') ? nm : nm) + ' at ' + hourLabelOf(i); }
 
 /* ================================================================ the model's results, read */
 function spotsOf(act) { return S.RULES[act].spots; }
@@ -323,7 +247,7 @@ function stOf(b, i, a) {
 }
 var RANK = { good: 5, fair: 4, I: 3, W: 2, poor: 1, V: 0, off: -1 };
 function stWord(cls) { return t('st_' + cls); }
-function decWord(j) { var d = j.dec.filter(function (x) { return x.letter === 'V'; })[0]; return d ? (LANG.cur === 'pt' ? d.word : d.en) : ''; }
+function decWord(j) { var d = j.dec.filter(function (x) { return x.letter === 'V'; })[0]; return d ? d.en : ''; }
 function bandOfWaves(c) { return c.waves && c.waves.lo != null ? [c.waves.lo, c.waves.hi] : null; }
 function windWords(U, wc) { if (U < 3 || !wc) return t('calm'); return t('wc_' + wc) + ' ' + t(U < 6 ? 's_light' : U < 10 ? 's_mod' : 's_strong'); }
 /* the number that matters for an activity — for the tooltip and the card's row; the page's headline numbers never change */
@@ -385,7 +309,7 @@ function renderFocusLine() {
   if (good.length) parts.push(t('goodAt', { x: names(good) }));
   if (fair.length) parts.push(t('fairAt', { x: names(fair) }));
   var html = parts.length ? t('focusNow', { act: t('act_' + a), when: whenShort(i), list: parts.join('; ') }) : t('focusNone', { act: t('act_' + a), when: whenShort(i) });
-  if (dang) html += ' <span class="dec">' + esc(t('focusDanger', { n: dang, praias: dang === 1 ? t('praia1') : t('praiaN') })) + '</span>';
+  if (dang) html += ' <span class="dec">' + esc(t('focusDanger', { n: dang, beaches: dang === 1 ? t('beach1') : t('beachN') })) + '</span>';
   var bw = bestWindow(A.dayRef, a);
   if (bw) {
     html += ' ' + t('focusBest', { beach: esc(bw.b.name), win: winText(bw.w) });
@@ -412,7 +336,7 @@ function renderDays() {
       return '<i class="' + (best === 'good' ? 'good' : best === 'fair' ? 'fair' : '') + (A.focus === a ? ' foc' : '') + '"></i>';
     }).join('');
     var b = document.createElement('button'); b.className = d === A.dayRef ? 'on' : '';
-    var nm = dayName(d); if (LANG.cur === 'en' && nm === t('tomorrow')) { var dd0 = new Date(d.date + 'T12:00:00'); nm = t('wd')[dd0.getDay()] + ' ' + dd0.getDate(); }
+    var nm = dayName(d); if (nm === t('tomorrow')) { var dd0 = new Date(d.date + 'T12:00:00'); nm = t('wd')[dd0.getDay()] + ' ' + dd0.getDate(); }
     b.innerHTML = '<span>' + nm + '</span><em>' + marks + '</em>';
     b.title = ACTS.map(function (a) { return t('act_' + a); }).join(' · ');
     b.onclick = function () { chooseDay(d); }; box.appendChild(b);
@@ -500,8 +424,8 @@ function tipText(k, a) {
   var b = A.beaches[k], i = A.hour, st = stOf(b, i, a); if (!st) return '';
   var c = b.rows[i].c, j = st.j, out = '<b>' + t('act_' + a) + '</b> · ' + esc(st.cls === 'V' ? decWord(j) : stWord(st.cls));
   if (st.cls !== 'off') out += '<br>' + actMetric(a, c);
-  if (j && j.warn && j.warn.length) out += '<br><span class="w">' + j.warn.map(function (x) { return esc(LANG.cur === 'pt' ? x.word : x.en); }).join(' · ') + ' (' + (LANG.cur === 'pt' ? 'previsão' : 'forecast') + ')</span>';
-  if (j && j.dec) j.dec.forEach(function (d) { if (d.letter === 'V' || d.letter === 'I') out += '<br><span class="d ' + d.letter + '">' + (d.letter === 'V' ? '▲ ' : '') + esc(d.letter === 'V' ? (LANG.cur === 'pt' ? 'decidido' : 'decided') : t('st_I')) + ' · ' + metres(Number(d.limit), 1) + '</span>'; });
+  if (j && j.warn && j.warn.length) out += '<br><span class="w">' + j.warn.map(function (x) { return esc(x.en); }).join(' · ') + ' (forecast)</span>';
+  if (j && j.dec) j.dec.forEach(function (d) { if (d.letter === 'V' || d.letter === 'I') out += '<br><span class="d ' + d.letter + '">' + (d.letter === 'V' ? '▲ ' : '') + esc(d.letter === 'V' ? 'decided' : t('st_I')) + ' · ' + metres(Number(d.limit), 1) + '</span>'; });
   return out;
 }
 function setupTips() {
@@ -536,7 +460,7 @@ function closeCard() { A.sel = null; A.open = null; setHash(); renderList(); pai
 function decLines(j, c) {
   if (!j || !j.dec || !j.dec.length) return '';
   return j.dec.map(function (d) {
-    var word = LANG.cur === 'pt' ? d.word : d.en, lim = metres(Number(d.limit), 2);
+    var word = d.en, lim = metres(Number(d.limit), 2);
     var bd = d.var === 'hs' ? (c.sea && c.sea.lo != null ? [Math.round(c.sea.lo * 100), Math.round(c.sea.hi * 100)] : null) : bandOfWaves(c);
     var lo = bd ? metres(bd[0] / 100, 2) : '—', hi = bd ? metres(bd[1] / 100, 2) : '—', txt;
     if (d.letter === 'V') txt = t('decV', { word: word, lo: lo, lim: lim });
@@ -547,7 +471,7 @@ function decLines(j, c) {
       txt = t('decI', { word: word, lo: lo, hi: hi, lim: lim, gap: f ? metres(Number(f.gapDec), 2) : '—', up: up != null ? metres(up / 100, 2) : '—' });
     } else if (d.letter === 'L') txt = t('decL', { lim: lim, lo: lo, hi: hi });
     else txt = t('decS', { lim: lim });
-    return '<span class="sw-dec ' + d.letter + '">' + esc(d.letter === 'V' ? word : d.letter === 'I' ? (LANG.cur === 'pt' ? 'atenção' : 'caution') : d.letter === 'L' ? (LANG.cur === 'pt' ? 'abaixo' : 'under') : (LANG.cur === 'pt' ? 'sem dados' : 'no data')) + '</span><span>' + txt + '</span>';
+    return '<span class="sw-dec ' + d.letter + '">' + esc(d.letter === 'V' ? word : d.letter === 'I' ? 'caution' : d.letter === 'L' ? 'under' : 'no data') + '</span><span>' + txt + '</span>';
   }).join('');
 }
 /* the card's activity rows: icon, name, word, the number that matters; open one for its rule and what is decided */
@@ -558,8 +482,8 @@ function actsBlock(b, i) {
     if (!st) return '<div class="sw-arow na"><span class="ai">' + svgIcon(a, 15) + '</span><span class="an">' + t('act_' + a) + '</span><span class="aw">' + t('na') + '</span></div>';
     var open = A.open === a, j = st.j;
     var det = '<div class="sw-adet">' + (j && j.dec && j.dec.length ? '<div class="sw-decl">' + decLines(j, c) + '</div>' : '') +
-      (j && j.warn && j.warn.length ? j.warn.map(function (x) { return '<p class="sw-warn sm">' + svgIcon('sos', 13) + '<span>' + esc(LANG.cur === 'pt' ? x.word : x.en) + ' — ' + (LANG.cur === 'pt' ? 'previsão, não decidido' : 'forecast, not decided') + '</span></p>'; }).join('') : '') +
-      '<p class="sw-rule">' + R.text[LANG.cur] + '</p></div>';
+      (j && j.warn && j.warn.length ? j.warn.map(function (x) { return '<p class="sw-warn sm">' + svgIcon('sos', 13) + '<span>' + esc(x.en) + ' — forecast, not decided</span></p>'; }).join('') : '') +
+      '<p class="sw-rule">' + R.text.en + '</p></div>';
     return '<div class="sw-arow' + (open ? ' open' : '') + (A.focus === a ? ' foc' : '') + '" data-act="' + a + '"><button class="sw-ahead" aria-expanded="' + open + '">' +
       '<span class="ai sw-ai ' + st.cls + '">' + svgIcon(a, 15) + '</span><span class="an">' + t('act_' + a) + '</span>' +
       '<span class="aw ' + st.cls + '">' + esc(st.cls === 'V' ? decWord(j) : t('sh_' + st.cls)) + '</span><span class="am">' + (st.cls === 'off' ? '' : actMetric(a, c)) + '</span><span class="chev">›</span></button>' + det + '</div>';
@@ -597,7 +521,7 @@ function renderCard() {
   if (c.rip) warns.push(t('ripWarn'));
   if ((c.wc === 'offshore' || c.wc === 'side-offshore') && c.wind.U > 4) warns.push(t('offWarn'));
   var refusedHtml = '';
-  if (w.refused) { var m = /^edge:(.*)$/.exec(w.refused); refusedHtml = '<p class="sw-refused">' + (m ? t('refusedEdge', { km: m[1].replace(/^[NSW] /, '').replace('.', LANG.cur === 'pt' ? ',' : '.') }) : t('refusedNo')) + '</p>'; }
+  if (w.refused) { var m = /^edge:(.*)$/.exec(w.refused); refusedHtml = '<p class="sw-refused">' + (m ? t('refusedEdge', { km: m[1].replace(/^[NSW] /, '') }) : t('refusedNo')) + '</p>'; }
   var notes = [];
   if (w.capped) notes.push(t('capped', { h: num(b.probes[b.probes.length - 1].h, 1) }));
   if (w.ext) w.ext.filter(function (T) { return T > S.C.T_MAX; }).forEach(function (T) { notes.push(t('extT', { T: num(T, 0) })); });
@@ -651,7 +575,7 @@ function restsOn(b) {
   var P = CFG.premises; if (!P || b.kind === 'lagoon') return '';
   var I = P.island, cmp = I.byBeach[b.name];
   var items = [
-    { label: t('pr_sea'), grade: W.VALIDATED, verified: false, evidence: t('pr_seaEv', { cov: num(100 * P.band.coverage, 1) + '%', n: P.band.n.toLocaleString(LANG.cur === 'pt' ? 'pt-BR' : 'en') }) },
+    { label: t('pr_sea'), grade: W.VALIDATED, verified: false, evidence: t('pr_seaEv', { cov: num(100 * P.band.coverage, 1) + '%', n: P.band.n.toLocaleString('en') }) },
     cmp ? { label: t('pr_isl'), grade: W.COMPARED, verified: false, evidence: t('pr_islCmp', { n: cmp.n, x: num(cmp.medianRatio, 2) }) }
       : { label: t('pr_isl'), grade: W.ASSUMED, evidence: t('pr_islNot', { k: I.beaches, x: num(I.long.medianRatio, 2) }) },
     { label: t('pr_brk'), grade: W.ASSUMED, evidence: t('pr_brkEv', { g: num(P.gamma, 2) }) },
@@ -669,30 +593,30 @@ function certBlock(b, i) {
   var D = A.day, ck = A.check, st = D.steps[i];
   var lines = [];
   lines.push((ck && ck.equal ? '<span class="ok">✓</span> ' + esc(t('rechk', { n: ck.lines, ms: ck.ms })) : '<span class="bad">✗</span> ' + esc(t('rechkBad', { why: ck ? ck.why : '—' }))));
-  lines.push('<b>' + esc(b.name) + '</b> · ' + st.t + ' UTC (+' + st.lead + ' h) · ' + (LANG.cur === 'pt' ? 'rodada ECMWF/NOAA ' : 'ECMWF/NOAA run ') + D.run);
+  lines.push('<b>' + esc(b.name) + '</b> · ' + st.t + ' UTC (+' + st.lead + ' h) · ' + 'ECMWF/NOAA run ' + D.run);
   var s = D.sea[i];
-  if (s && s.lo != null) lines.push((LANG.cur === 'pt' ? 'mar aberto: ' : 'open sea: ') + s.size + ' m, ' + (LANG.cur === 'pt' ? 'faixa ' : 'band ') + s.lo + '–' + s.hi + ' m (' + (s.from || []).join(' ∪ ') + ', ' + D.band.claim + ')');
+  if (s && s.lo != null) lines.push('open sea: ' + s.size + ' m, band ' + s.lo + '–' + s.hi + ' m (' + (s.from || []).join(' ∪ ') + ', ' + D.band.claim + ')');
   lines.push('surf.js ' + D.modules['surf.js'].sha.slice(0, 12) + ' · decide.js ' + D.modules['decide.js'].sha.slice(0, 12) + ' · beaches.json ' + D.inputs['apps/swell/data/beaches.json'].slice(0, 12));
-  lines.push((LANG.cur === 'pt' ? 'digest do dia ' : 'day digest ') + D.digest.slice(0, 16) + ' · feed ' + D.feed.sha.slice(0, 12));
+  lines.push('day digest ' + D.digest.slice(0, 16) + ' · feed ' + D.feed.sha.slice(0, 12));
   return '<div class="sw-cert">' + lines.join('<br>') + '</div>';
 }
 function certDownload(b, i) {
   var D = A.day, c = b.rows[i].c, st = D.steps[i];
   var cert = {
-    praia: b.name, passo: st.t + ' UTC', antecedencia_h: st.lead, rodada: D.run,
-    altura_na_beira_cm: c.waves.refused ? null : { central: c.waves.c, faixa: c.waves.lo != null ? [c.waves.lo, c.waves.hi] : null, no_limite_do_modelo: !!c.waves.capped },
-    recusa: c.waves.refused || null, mar_aberto: D.sea[i],
-    atividades: ACTS.map(function (a) {
-      var j = b.rows[i].acts[a]; if (!j) return { atividade: a, aplica: false };
-      if (j.refused) return { atividade: a, recusa: j.refused };
-      return { atividade: a, nota_de_previsao: Math.round(j.s * 1000) / 1000, palavra: j.q,
-        decisoes: j.dec.map(function (d) { return { regra: d.id, limite_m: d.limit, veredito: d.verdict, testemunha: d.witness, limiar: d.flip }; }),
-        avisos_de_previsao: j.warn.map(function (w) { return w.id; }) };
+    beach: b.name, step: st.t + ' UTC', lead_h: st.lead, run: D.run,
+    height_at_shore_cm: c.waves.refused ? null : { central: c.waves.c, band: c.waves.lo != null ? [c.waves.lo, c.waves.hi] : null, at_model_limit: !!c.waves.capped },
+    refused: c.waves.refused || null, open_sea: D.sea[i],
+    activities: ACTS.map(function (a) {
+      var j = b.rows[i].acts[a]; if (!j) return { activity: a, applies: false };
+      if (j.refused) return { activity: a, refused: j.refused };
+      return { activity: a, forecast_score: Math.round(j.s * 1000) / 1000, word: j.q,
+        decisions: j.dec.map(function (d) { return { rule: d.id, limit_m: d.limit, verdict: d.verdict, witness: d.witness, threshold: d.flip }; }),
+        forecast_warnings: j.warn.map(function (w) { return w.id; }) };
     }),
-    modulos: D.modules, entradas: D.inputs, digest_do_dia: D.digest, feed: D.feed, codigo: D.git,
-    conferencia_no_navegador: A.check,
-    refazer: ['git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout ' + D.git, 'node apps/swell/build-day.js --feed ' + D.run.slice(0, 8)],
-    aviso: 'Decidido = a aritmética exata sobre a faixa medida do mar aberto levada à praia pelo modelo linear da ilha (o erro do próprio modelo na beira não foi medido). Não é uma garantia de segurança. Não serve para navegação.',
+    modules: D.modules, inputs: D.inputs, day_digest: D.digest, feed: D.feed, code: D.git,
+    browser_check: A.check,
+    redo: ['git clone https://github.com/carlostoledo1891/cert-machine && cd cert-machine && git checkout ' + D.git, 'node apps/swell/build-day.js --feed ' + D.run.slice(0, 8)],
+    notice: 'Decided = exact arithmetic over the measured open-sea band carried to the beach by the island\'s linear model (the model\'s own error at the shore has not been measured). Not a safety guarantee. Not for navigation.',
   };
   var blob = new Blob([JSON.stringify(cert, null, 1)], { type: 'application/json' });
   var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'swell-' + slug(b.name) + '-' + st.t.replace(/[^0-9]/g, '') + '.json'; a.click();
@@ -762,7 +686,7 @@ function tideAt(i) {
   var k = O.times.indexOf(A.day.steps[i].t); if (k < 0) return null;
   var lv = O.level[k]; if (lv == null || isNaN(lv)) return null;
   var a = O.level[Math.max(0, k - 1)], z = O.level[Math.min(O.level.length - 1, k + 1)];
-  return { level: lv, trend: z > a ? (LANG.cur === 'pt' ? 'subindo' : 'rising') : (LANG.cur === 'pt' ? 'descendo' : 'falling') };
+  return { level: lv, trend: z > a ? 'rising' : 'falling' };
 }
 function sstAt(i) { var O = A.day.ocean; if (!O || !O.sst) return null; var k = O.times.indexOf(A.day.steps[i].t); return k < 0 ? null : O.sst[k]; }
 function shareBeach(b) {
@@ -800,7 +724,7 @@ function defaultHour() {
   return i;
 }
 
-/* ================================================================ tabs, sheets, language */
+/* ================================================================ tabs, sheets */
 function setTab(name) {
   UI.tab = name;
   document.querySelectorAll('.sw-tab').forEach(function (b) { var on = b.dataset.tab === name; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
@@ -820,7 +744,7 @@ function renderSOS() {
   var nums = [['193', 'n193'], ['190', 'n190'], ['192', 'n192'], ['185', 'n185'], ['199', 'n199']];
   $('#sw-sos-body').innerHTML = '<p class="sw-note">' + t('sosNote') + '</p>' + nums.map(function (x) { return '<a class="sw-tel" href="tel:' + x[0] + '"><b>' + x[0] + '</b><span>' + t(x[1]) + '</span></a>'; }).join('');
 }
-function renderHow() { $('#sw-how-body').innerHTML = legendHTML(true) + (CFG.how[LANG.cur] || CFG.how.pt); }
+function renderHow() { $('#sw-how-body').innerHTML = legendHTML(true) + CFG.how; }
 /* the legend: the icon grammar, drawn with the icons themselves */
 function legendHTML(wide) {
   var st = ['good', 'fair', 'poor', 'V', 'I', 'W'];
@@ -828,14 +752,14 @@ function legendHTML(wide) {
     return '<span title="' + esc(t('st_' + x)) + '"><b class="sw-ai ' + x + '">' + svgIcon('surf', 12) + '</b>' + t((wide ? 'st_' : 'sh_') + x) + '</span>'; }).join('') + (wide ? '<p class="sw-note">' + t('legendNote') + '</p>' : '') + '</div>';
 }
 function renderBoard() {
-  var D = A.day, pt = LANG.cur === 'pt';
+  var D = A.day;
   var rows = (D && D.board || []).map(function (p) {
     var s = p.site, cov = s.scored ? Math.round(1000 * s.covered / s.scored) / 10 : null;
-    return '<tr><td>' + esc(p.name) + (p.decides ? (pt ? ' · <b>decide</b>' : ' · <b>decides</b>') : '') + '</td><td class="n">' + esc(p.claim) + '</td><td class="n">' + s.scored + '</td><td class="n">' + s.covered + '</td><td class="n">' + (cov == null ? '—' : num(cov, 1) + '%') + '</td></tr>';
+    return '<tr><td>' + esc(p.name) + (p.decides ? ' · <b>decides</b>' : '') + '</td><td class="n">' + esc(p.claim) + '</td><td class="n">' + s.scored + '</td><td class="n">' + s.covered + '</td><td class="n">' + (cov == null ? '—' : num(cov, 1) + '%') + '</td></tr>';
   }).join('');
-  $('#sw-board-body').innerHTML = CFG.boardIntro[LANG.cur] +
-    '<table><thead><tr><th>' + (pt ? 'Proponente' : 'Proposer') + '</th><th>' + (pt ? 'promete' : 'claims') + '</th><th>' + (pt ? 'medidas' : 'scored') + '</th><th>' + (pt ? 'cobertas' : 'covered') + '</th><th>%</th></tr></thead><tbody>' +
-    (rows || '<tr><td colspan="5">' + (pt ? 'ainda sem medidas neste ponto' : 'no scores at this point yet') + '</td></tr>') + '</tbody></table>' + CFG.boardFoot[LANG.cur];
+  $('#sw-board-body').innerHTML = CFG.boardIntro +
+    '<table><thead><tr><th>Proposer</th><th>claims</th><th>scored</th><th>covered</th><th>%</th></tr></thead><tbody>' +
+    (rows || '<tr><td colspan="5">no scores at this point yet</td></tr>') + '</tbody></table>' + CFG.boardFoot;
 }
 function legendSVG(kind) {
   var W = 300, steps = 5, g = [];
@@ -848,11 +772,11 @@ function legendSVG(kind) {
   return '<svg viewBox="0 0 ' + W + ' 22" preserveAspectRatio="none" aria-hidden="true">' + g.join('') + '</svg>';
 }
 function renderLayers() {
-  var rows = [['waves', 'L_waves', 'legend_waves', ['0', '0,5', '1', '2', '3+']], ['wind', 'L_wind', 'legend_wind', ['0', '10', '20', '30+']], ['currents', 'L_currents', 'legend_currents', ['0', '0,3', '0,6+']], ['pois', 'L_pois', null, null]];
+  var rows = [['waves', 'L_waves', 'legend_waves', ['0', '0.5', '1', '2', '3+']], ['wind', 'L_wind', 'legend_wind', ['0', '10', '20', '30+']], ['currents', 'L_currents', 'legend_currents', ['0', '0.3', '0.6+']], ['pois', 'L_pois', null, null]];
   $('#sw-layers-body').innerHTML = rows.map(function (x) {
     var k = x[0];
     return '<label class="sw-lay"><input type="checkbox" data-layer="' + k + '"' + (A.layers[k] ? ' checked' : '') + '><span class="nm">' + t(x[1]) + '</span>' +
-      (x[2] ? '<span class="lg">' + legendSVG(k) + '<em>' + x[3].map(function (s) { return '<s>' + (LANG.cur === 'en' ? s.replace(',', '.') : s) + '</s>'; }).join('') + '</em><small>' + t(x[2]) + '</small></span>'
+      (x[2] ? '<span class="lg">' + legendSVG(k) + '<em>' + x[3].map(function (s) { return '<s>' + s + '</s>'; }).join('') + '</em><small>' + t(x[2]) + '</small></span>'
         : '<span class="lg poi-row">' + ['lifeguard', 'police', 'fire', 'health', 'navy', 'ramp'].map(function (c) { return '<span class="sw-poi sw-poi-' + c + '" title="' + esc(t('poi_' + c)) + '">' + svgIcon(c, 12) + '</span>'; }).join('') + '</span>') + '</label>';
   }).join('') + legendHTML(true);
   $('#sw-layers-body').querySelectorAll('input').forEach(function (inp) { inp.onchange = function () { setLayer(inp.dataset.layer, inp.checked); }; });
@@ -883,7 +807,6 @@ function renderLegend() {
     return '<svg class="' + x[0] + '" viewBox="0 0 24 10" aria-hidden="true">' + sw + '</svg><span>' + t(x[1]) + '</span>'; }).join('');
 }
 function applyStrings() {
-  document.documentElement.lang = LANG.cur === 'pt' ? 'pt-BR' : 'en';
   $('#sw-how').innerHTML = svgIcon('info', 16) + '<span>' + t('how') + '</span>'; $('#sw-how').title = t('how');
   $('#sw-boardb').innerHTML = svgIcon('board', 16) + '<span>' + t('board') + '</span>';
   $('#sw-sos').innerHTML = svgIcon('sos', 15) + '<span>' + t('sos') + '</span>';
@@ -892,7 +815,6 @@ function applyStrings() {
   $('#sw-intro-sub').textContent = t('introSub');
   $('#sw-legend').innerHTML = legendHTML(false);
   document.querySelectorAll('[data-close]').forEach(function (el) { el.textContent = t('close'); });
-  document.querySelectorAll('.sw-lang button').forEach(function (b) { b.classList.toggle('on', b.dataset.lang === LANG.cur); });
   renderHow(); renderSOS(); renderLayers(); renderLayq(); renderLegend(); renderTabLabels(); if (A.day) renderBoard();
 }
 function toastMsg(msg, ms) { var el = $('#sw-toast'); el.textContent = msg; el.style.display = 'block'; clearTimeout(UI.toast); if (ms !== 0) UI.toast = setTimeout(function () { el.style.display = 'none'; }, ms || 4000); }
@@ -1370,7 +1292,6 @@ function boot() {
   A.map.on('move', function () { drawCurrents(); WD.clear = true; });
   A.map.on('moveend', function () { drawCurrents(); declutterLabels(); mapNote(); });
   A.map.on('click', function () { if (PL.popup) PL.popup.remove(); });
-  document.querySelectorAll('.sw-lang button').forEach(function (b) { b.onclick = function () { setLang(b.dataset.lang); applyStrings(); if (A.ready) setHour(A.hour); }; });
   var sheets = ['how', 'sos', 'board'];
   sheets.forEach(function (k) { var btn = $(k === 'board' ? '#sw-boardb' : '#sw-' + k); btn.onclick = function () { var el = $('#sw-sheet-' + k), was = el.hidden; sheets.forEach(function (o) { $('#sw-sheet-' + o).hidden = true; }); el.hidden = !was; }; });
   document.querySelectorAll('.sw-tab').forEach(function (b) { b.onclick = function () { setTab(b.dataset.tab); }; });
@@ -1398,9 +1319,9 @@ function boot() {
     A.computeMs = performance.now() - t0;
     A.beaches = A.B.beaches.map(function (b, k) { return Object.assign({}, b, { k: k, rows: A.all.beaches[k].rows, lifeguard: nearestPoi(b, 'lifeguard') }); });
     A.fc = makeClock(day, A.all);
-    $('#sw-run').textContent = t('runChip', { d: day.run.slice(6, 8) + '/' + day.run.slice(4, 6) });
+    $('#sw-run').textContent = t('runChip', { d: runDay(day.run) });
     var today = todayStr().replace(/-/g, '');
-    if (day.run.slice(0, 8) < today) toastMsg(t('stale', { run: day.run.slice(6, 8) + '/' + day.run.slice(4, 6) }), 9000);
+    if (day.run.slice(0, 8) < today) toastMsg(t('stale', { run: runDay(day.run) }), 9000);
     return recheck();
   }).then(function () {
     A.ready = true; renderBoard();

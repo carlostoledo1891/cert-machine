@@ -1,6 +1,6 @@
 /* build-app.js — /swell/: the app shell. STATIC: it carries the island model's beaches, the places, the deciding
    modules as text (q.js, decide.js, surf.js — sha256 pinned, the tab re-checks them against the day) and the words
-   of "Como sabemos" generated from the records; the DAY is fetched from the swell-field branch, the island textures
+   of "How we know" generated from the records; the DAY is fetched from the swell-field branch, the island textures
    and the basemap from the repository by the commit that holds their pinned bytes (data/PINS.json), so main does
    not grow by a day and Vercel never carries 40 MB of binaries.
 
@@ -43,62 +43,38 @@ function pinned() {
 }
 
 function words(calib, premises) {
-  const R = S.RULES, pct = (x) => (100 * x).toFixed(1).replace('.', ',');
+  const R = S.RULES;
   const b24 = calib.bins[0], H = calib.heldOut;
-  const rules = (lang) => '<table><thead><tr><th>' + (lang === 'pt' ? 'Atividade' : 'Activity') + '</th><th>' + (lang === 'pt' ? 'A regra' : 'The rule') + '</th></tr></thead><tbody>' +
-    S.ACT_ORDER.map((a) => '<tr><td>' + { pt: { surf: 'Surfe', kite: 'Kite', sup: 'SUP', swim: 'Banho', fish: 'Pesca', boat: 'Barco' }, en: { surf: 'Surf', kite: 'Kite', sup: 'SUP', swim: 'Swim', fish: 'Fish', boat: 'Boat' } }[lang][a] +
-      '</td><td>' + R[a].text[lang] + '</td></tr>').join('') + '</tbody></table>';
+  const ACT = { surf: 'Surf', kite: 'Kite', sup: 'SUP', swim: 'Swim', fish: 'Fish', boat: 'Boat' };
+  const rules = () => '<table><thead><tr><th>Activity</th><th>The rule</th></tr></thead><tbody>' +
+    S.ACT_ORDER.map((a) => '<tr><td>' + ACT[a] + '</td><td>' + R[a].text.en + '</td></tr>').join('') + '</tbody></table>';
   /* WHAT EACH NUMBER RESTS ON (WARRANT v2.1): the generic chain, its grades and the comparison's numbers, read from the
      records (premises, above) — the card draws the same chain for its own beach */
   const WR = require('../../../playground/warrant.js');
-  const I = premises.island, PB = premises.band, nf = (x, d, lang) => (lang === 'pt' ? x.toFixed(d).replace('.', ',') : x.toFixed(d));
+  const I = premises.island, PB = premises.band, nf = (x, d) => x.toFixed(d);
   const low = Object.entries(I.byBeach).filter(([, v]) => v.medianRatio < 1).sort((a, b) => a[1].medianRatio - b[1].medianRatio);
   const hiR = Math.max(...Object.values(I.byBeach).map((v) => v.medianRatio)), loR = Math.min(...Object.values(I.byBeach).map((v) => v.medianRatio));
-  const chain = (lang) => {
-    const pt = lang === 'pt', G = pt ? ['suposto', 'verificado', 'comparado', 'validado'] : WR.GRADE;
+  const chain = () => {
     const items = [
-      { grade: WR.VALIDATED, verified: false, label: pt ? 'O mar aberto e sua faixa' : 'The open sea and its band',
-        evidence: pt ? `cobriu ${nf(100 * PB.coverage, 1, lang)}% de ${PB.n.toLocaleString('pt-BR')} passagens de satélite que não tinha visto; promete 9 em 10.`
-          : `covered ${nf(100 * PB.coverage, 1, lang)}% of ${PB.n.toLocaleString('en')} satellite passes it had not seen; it claims 9 in 10.` },
-      { grade: WR.COMPARED, verified: false, label: pt ? 'O modelo da ilha' : 'The island model',
-        evidence: pt ? `ao lado de um modelo de Boussinesq (Celeris; Madsen e Sørensen) em ${I.beaches} praias, ${I.all.n} casos de 1 m de ondulação: r ${nf(I.all.r, 2, lang)}, a ilha ${nf(I.all.bias, 2, lang)} m acima em média; em ondulações de 11 s ou mais, ${nf(I.long.medianRatio, 2, lang)} vez o valor dele (mediana), de ${nf(loR, 2, lang)} a ${nf(hiR, 2, lang)} conforme a praia. Comparado nessas ${I.beaches}; suposto nas outras.`
-          : `beside a Boussinesq model (Celeris; Madsen & Sørensen) at ${I.beaches} beaches, ${I.all.n} cases of a 1 m swell: r ${nf(I.all.r, 2, lang)}, the island ${nf(I.all.bias, 2, lang)} m higher on average; on swells of 11 s and longer, ${nf(I.long.medianRatio, 2, lang)} times its value (median), from ${nf(loR, 2, lang)} to ${nf(hiR, 2, lang)} by beach. Compared at those ${I.beaches}; assumed at the others.` },
-      { grade: WR.ASSUMED, label: pt ? 'A arrebentação' : 'Breaking',
-        evidence: pt ? `a onda quebra a ${nf(premises.gamma, 2, lang)} vez a profundidade (Thornton e Guza, 1982); sem bancos de areia; até 10 m o perfil segue a linha de 10 m da carta.`
-          : `the wave breaks at ${nf(premises.gamma, 2, lang)} times the depth (Thornton & Guza, 1982); no sandbars; inside 10 m the profile follows the chart's 10 m line.` },
+      { grade: WR.VALIDATED, verified: false, label: 'The open sea and its band',
+        evidence: `covered ${nf(100 * PB.coverage, 1)}% of ${PB.n.toLocaleString('en')} satellite passes it had not seen; it claims 9 in 10.` },
+      { grade: WR.COMPARED, verified: false, label: 'The island model',
+        evidence: `beside a Boussinesq model (Celeris; Madsen & Sørensen) at ${I.beaches} beaches, ${I.all.n} cases of a 1 m swell: r ${nf(I.all.r, 2)}, the island ${nf(I.all.bias, 2)} m higher on average; on swells of 11 s and longer, ${nf(I.long.medianRatio, 2)} times its value (median), from ${nf(loR, 2)} to ${nf(hiR, 2)} by beach. Compared at those ${I.beaches}; assumed at the others.` },
+      { grade: WR.ASSUMED, label: 'Breaking',
+        evidence: `the wave breaks at ${nf(premises.gamma, 2)} times the depth (Thornton & Guza, 1982); no sandbars; inside 10 m the profile follows the chart's 10 m line.` },
     ];
-    const lows = low.map(([k, v]) => `${k} (${nf(v.medianRatio, 2, lang)})`);
-    const lowTxt = lows.length > 1 ? lows.slice(0, -1).join(', ') + (pt ? ' e ' : ' and ') + lows[lows.length - 1] : lows.join('');
-    return WR.premisesHtml(items, { words: G, unverifiedWord: pt ? 'não verificado' : 'unverified', meetLine: pt
-      ? `A conta é exata; a premissa mais fraca é <b>suposta</b>, e nenhum dos dois modelos foi verificado contra uma solução exata das próprias equações. ${low.length ? `Onde a ilha lê menos que o modelo de Boussinesq — ${lowTxt} — "abaixo do limite" pede mais cautela do que a conta mostra.` : ''}`
-      : `The arithmetic is exact; the weakest premise is <b>assumed</b>, and neither model was verified against an exact solution of its own equations. ${low.length ? `Where the island reads less than the Boussinesq model — ${lowTxt} — "under the limit" calls for more caution than the arithmetic shows.` : ''}` });
+    const lows = low.map(([k, v]) => `${k} (${nf(v.medianRatio, 2)})`);
+    const lowTxt = lows.length > 1 ? lows.slice(0, -1).join(', ') + ' and ' + lows[lows.length - 1] : lows.join('');
+    return WR.premisesHtml(items, { words: WR.GRADE, unverifiedWord: 'unverified', meetLine:
+      `The arithmetic is exact; the weakest premise is <b>assumed</b>, and neither model was verified against an exact solution of its own equations. ${low.length ? `Where the island reads less than the Boussinesq model — ${lowTxt} — "under the limit" calls for more caution than the arithmetic shows.` : ''}` });
   };
-  const pt = `
-<h3>O que é</h3>
-<p>Para 34 praias de Florianópolis, o mar de cada uma no horário que você escolhe — a onda na beira e o vento — e, em seis ícones, o que esse mar quer dizer para surfar, velejar, remar, nadar, pescar e sair de barco; separado, o que está <b>decidido</b> e o que é só <b>previsão</b>. Escolher uma atividade só destaca as praias boas para ela: o horário, as ondas e o vento continuam os mesmos. Swell parte do mar aberto na borda leste da ilha: a previsão do ECMWF e da NOAA, lida uma vez por dia (rodada das 00 UTC, de 3 em 3 horas), com o <b>erro medido por satélite</b>. Um modelo das ondas da ilha inteira, sobre o fundo do mar da carta náutica 1902 da Marinha, leva cada ondulação até cada praia: dobra nas pontas, cresce no raso, perde força atrás das pontas e quebra.</p>
-<h3>O que é decidido</h3>
-<p>Só os limites de ondas, e sempre sobre a <b>faixa medida</b>. A faixa do mar aberto vem do erro que os satélites mediram nesta borda (${b24.ecmwf.n} passagens a 24 h de antecedência, 2023–2026, a faixa promete ${b24.ecmwf.coverage.replace('/', ' de ')}); a usada é a união da faixa do ECMWF com a da NOAA, que nos ${Math.round(15)} meses de teste que nunca viu cobriu ${pct(H.coverage)}% de ${H.n.toLocaleString('pt-BR')} medições de satélite. O modelo da ilha leva as duas bordas da faixa até cada praia (a altura de quebra cresce com o mar, então a faixa da praia é exata sobre o modelo). Se mesmo a borda baixa passa do limite: <b>PERIGO</b>, decidido. Se a faixa cruza o limite: <b>ATENÇÃO</b>, com quanto falta para virar. Se a faixa toda fica abaixo: abaixo do limite — o que <b>não quer dizer seguro</b>.</p>
-<p>A conta é refeita no seu navegador com os mesmos arquivos que fizeram o dia publicado, e o resultado é comparado com ele (um sha256 sobre cada altura e cada decisão). O certificado de cada praia e horário pode ser baixado e refeito por qualquer um.</p>
-${rules('pt')}
-<h3>O que é previsão</h3>
-<p>O <b>vento</b> (ECMWF a 10 m, na grade sobre a ilha: o erro dele nas praias ainda não foi medido), a nota que dá a cada atividade o seu ícone (bom, dá pra ir, fraco), as correntes ao longo da praia (pela altura e o ângulo das ondas), o risco de corrente de retorno (regra prática), a marola das baías (do vento), a maré e a temperatura da água (Copernicus). Avisos de previsão aparecem com borda tracejada; o que é decidido, com borda cheia e em maiúsculas.</p>
-<p><b>Medido, nem previsão nem decisão</b>: quanto cada praia costuma quebrar, visto do espaço — em 190 passagens sem nuvens do Sentinel-2 (2022–2026), a parte da zona de arrebentação que estava branca de espuma. Diz como a praia é (larga e rasa espuma mais com o mesmo mar), não como o dia vai ser.</p>
-<h3>O modelo das praias</h3>
-<p>64 casos (16 direções × 4 períodos, 6 a 15 s) sobre uma grade de 30 m da ilha inteira: refração, empinamento e abrigo, linear. Em cada praia a altura é lida em sondas de 1 a 9–13 m de fundo; a onda quebra onde chega a ${S.C.GAMMA.toLocaleString('pt-BR')} vez a profundidade, marchando do fundo para a beira (e o maior valor de uma sonda da zona de arrebentação, quando um trecho da praia concentra a ondulação). No Swell original as sondas paravam em 4,5–6,5 m e 14 das 21 praias de mar aberto nunca passavam de 2,5 m, qualquer que fosse o mar; agora o limite é de 4,9 a 7,2 m.</p>
-<h3>Em que cada número se apoia</h3>
-<p>A conta é exata, e cada número se apoia em premissas conferidas até degraus diferentes: <b>validado</b> (contra o próprio mar, fora da calibração), <b>comparado</b> (contra um modelo que guarda mais da física), <b>verificado</b> (o código contra uma solução exata) e <b>suposto</b> (adotado de uma fonte). Uma conclusão vale o degrau da sua premissa mais fraca.</p>
-${chain('pt')}
-<h3>Limites</h3>
-<p>O erro do próprio modelo da ilha na beira <b>não foi medido</b> (falta uma medida na praia: uma boia ou uma câmera). Os bancos de areia de hoje não estão no fundo do mar; até 10 m de fundo o perfil é ajustado à linha de 10 m da carta. <b>Guarda do Embaú</b> fica a 0,6 km da borda do modelo e é <b>recusada</b>: ali a onda que entra pela borda ainda não dobrou no fundo. O mar de vento mais curto que 6 s é lido como o caso de 6 s; uma ondulação mais longa que 15 s é lida como 15 s e avisada no cartão da praia. Só contam as horas de luz. Não serve para navegação.</p>
-<h3>Fontes</h3>
-<p>Mar e vento: ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III / GFS-Wave (domínio público). Erro medido: satélites altímetros (NOAA RADS), as faixas calibradas do Janela no ponto da borda da ilha. Maré e temperatura da água: Generated using E.U. Copernicus Marine Service Information (doi:10.48670/moi-00016). Espuma vista do espaço: contém dados modificados do Copernicus Sentinel 2022–2026. Fundo do mar: carta náutica 1902 da Marinha do Brasil (DHN/CHM; uso não comercial, não serve para navegação) e GMRT (CC BY 4.0). Mapa e locais: © OpenStreetMap, Protomaps. Modelo da ilha: o Swell original (frontier-apps), com os mesmos 64 casos. Código (MIT): <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell">apps/swell</a>.</p>`;
   const en = `
 <h3>What it is</h3>
 <p>For 34 beaches of Florianópolis, the sea at each one at the hour you choose — the waves at the shore and the wind — and, in six icons, what that sea means for surfing, sailing, paddling, swimming, fishing and boating; kept apart, what is <b>decided</b> and what is only <b>forecast</b>. Picking an activity only highlights the beaches good for it: the hour, the waves and the wind stay the same. Swell starts from the open sea at the island's eastern edge: ECMWF's and NOAA's forecast, read once a day (the 00 UTC run, every 3 hours), with its <b>error measured by satellites</b>. A wave model of the whole island, over the seafloor of the Brazilian Navy's chart 1902, carries each swell to each beach: it bends round the headlands, grows in the shallows, fades behind them and breaks.</p>
 <h3>What is decided</h3>
 <p>Only the wave limits, and always over the <b>measured band</b>. The open sea's band comes from the error the satellites measured at this edge (${b24.ecmwf.n} passes at 24 h lead, 2023–2026, the band claims ${b24.ecmwf.coverage.replace('/', ' of ')}); the one used is the union of ECMWF's band and NOAA's, which over the 15 test months it never saw covered ${(100 * H.coverage).toFixed(1)}% of ${H.n.toLocaleString('en')} satellite measurements. The island model carries both edges of the band to each beach (the breaking height grows with the sea, so the beach's band is exact over the model). If even the low edge is over the limit: <b>DANGER</b>, decided. If the band straddles it: <b>CAUTION</b>, with how far it is from turning. If the whole band is under it: under the limit — which <b>does not mean safe</b>.</p>
 <p>The arithmetic is redone in your browser with the same files that made the published day, and compared with it (a sha256 over every height and every decision). Each beach and hour's certificate can be downloaded and redone by anyone.</p>
-${rules('en')}
+${rules()}
 <h3>What is forecast</h3>
 <p>The <b>wind</b> (ECMWF at 10 m, on the grid over the island: its error at the beaches has not been measured yet), the score that gives each activity its icon (good, doable, poor), the longshore currents (from the waves' height and angle), the rip-current risk (a rule of thumb), the bays' chop (from the wind), the tide and the water temperature (Copernicus). Forecast warnings carry a dashed border; what is decided, a solid one and capitals.</p>
 <p><b>Measured, neither forecast nor decision</b>: how much each beach usually breaks, seen from space — in 190 cloud-free Sentinel-2 passes (2022–2026), the share of its surf zone that was white with foam. It says what the beach is like (wide and shallow foams more for the same sea), not what the day will be.</p>
@@ -106,20 +82,14 @@ ${rules('en')}
 <p>64 cases (16 directions × 4 periods, 6 to 15 s) on a 30 m grid of the whole island: refraction, shoaling and shelter, linear. At each beach the height is read at probes from 1 to 9–13 m deep; the wave breaks where it reaches ${S.C.GAMMA} times the depth, marching in from deep water (and the largest value at a surf-zone probe, where one stretch of the beach focuses the swell). In the original Swell the probes stopped at 4.5–6.5 m and 14 of the 21 open-sea beaches could never read more than 2.5 m whatever the sea did; the limit is now 4.9 to 7.2 m.</p>
 <h3>What each number rests on</h3>
 <p>The arithmetic is exact, and every number rests on premises checked to different rungs: <b>validated</b> (against the sea itself, held out of the calibration), <b>compared</b> (against a model that keeps more of the physics), <b>verified</b> (the code against an exact solution) and <b>assumed</b> (adopted from a source). A conclusion is as checked as its weakest premise.</p>
-${chain('en')}
+${chain()}
 <h3>Limits</h3>
 <p>The island model's own error at the shore <b>has not been measured</b> (a measurement at the beach is missing: a buoy or a camera). Today's sandbars are not in the seafloor; inside 10 m the profile is fitted to the chart's 10 m line. <b>Guarda do Embaú</b> lies 0.6 km from the model's edge and is <b>refused</b>: there the wave entering through the edge has not yet bent over the seafloor. A wind sea shorter than 6 s is read as the 6 s case; a swell longer than 15 s is read as 15 s and flagged on the beach's card. Only daylight hours count. Not for navigation.</p>
 <h3>Sources</h3>
 <p>Sea and wind: ECMWF open data (CC BY 4.0) and NOAA WAVEWATCH III / GFS-Wave (public domain). Measured error: satellite altimeters (NOAA RADS), Janela's calibrated bands at the island-edge point. Tide and water temperature: Generated using E.U. Copernicus Marine Service Information (doi:10.48670/moi-00016). Foam seen from space: contains modified Copernicus Sentinel data 2022–2026. Seafloor: Brazilian Navy chart 1902 (DHN/CHM; non-commercial use, not for navigation) and GMRT (CC BY 4.0). Map and places: © OpenStreetMap, Protomaps. Island model: the original Swell (frontier-apps), the same 64 cases. Code (MIT): <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell">apps/swell</a>.</p>`;
-  const boardIntro = {
-    pt: `<p>O placar do mar aberto de onde o Swell parte: cada dia, antes de acontecer, a faixa de cada previsão é gravada num registro que só cresce (certs/janela-ledger), e os satélites a conferem três dias depois. Uma faixa que promete 9 de 10 e erra mais do que isso deixa de decidir.</p><p>O que já está medido: nos 15 meses de teste que nunca viu, a faixa que decide (ECMWF ∪ NOAA) cobriu <b>${(100 * H.coverage).toFixed(1).replace('.', ',')}%</b> de ${H.n.toLocaleString('pt-BR')} medições de satélite (todas as áreas medidas do Janela). Nesta borda da ilha, a faixa do ECMWF foi cortada de ${b24.ecmwf.n} pares a 24 h.</p><h3>Nesta borda da ilha, ao vivo</h3>`,
-    en: `<p>The scoreboard of the open sea Swell starts from: every day, before it happens, each forecast's band is written to an append-only record (certs/janela-ledger), and the satellites check it three days later. A band that claims 9 in 10 and misses more than that stops deciding.</p><p>What is already measured: over the 15 test months it never saw, the deciding band (ECMWF ∪ NOAA) covered <b>${(100 * H.coverage).toFixed(1)}%</b> of ${H.n.toLocaleString('en')} satellite measurements (every site Janela measures). At this island edge, ECMWF's band was cut from ${b24.ecmwf.n} pairs at 24 h.</p><h3>At this island edge, live</h3>`,
-  };
-  const boardFoot = {
-    pt: '<p class="sw-note">As primeiras medidas ao vivo chegam três dias depois de cada previsão (as primeiras em 9 de outubro de 2026). A altura na beira de cada praia ainda não tem medida: o placar é do mar aberto.</p>',
-    en: '<p class="sw-note">The first live scores arrive three days after each forecast (the first on 9 October 2026). The height at each beach has no measurement yet: the scoreboard is the open sea\'s.</p>',
-  };
-  return { how: { pt, en }, boardIntro, boardFoot };
+  const boardIntro = `<p>The scoreboard of the open sea Swell starts from: every day, before it happens, each forecast's band is written to an append-only record (certs/janela-ledger), and the satellites check it three days later. A band that claims 9 in 10 and misses more than that stops deciding.</p><p>What is already measured: over the 15 test months it never saw, the deciding band (ECMWF ∪ NOAA) covered <b>${(100 * H.coverage).toFixed(1)}%</b> of ${H.n.toLocaleString('en')} satellite measurements (every site Janela measures). At this island edge, ECMWF's band was cut from ${b24.ecmwf.n} pairs at 24 h.</p><h3>At this island edge, live</h3>`;
+  const boardFoot = '<p class="sw-note">The first live scores arrive three days after each forecast (the first on 9 October 2026). The height at each beach has no measurement yet: the scoreboard is the open sea\'s.</p>';
+  return { how: en, boardIntro, boardFoot };
 }
 
 function panel() {
@@ -127,17 +97,17 @@ function panel() {
 <div class="sw-grab" aria-hidden="true"></div>
 <div class="sw-phead">
   <div id="sw-when"></div>
-  <p id="sw-sea">O mar de Florianópolis, praia por praia: a onda e o vento em cada praia, e o que isso quer dizer para surfar, velejar, remar, nadar, pescar e sair de barco — com o perigo decidido sobre o erro medido da previsão.</p>
+  <p id="sw-sea">The sea of Florianópolis, beach by beach: the waves and the wind at each beach, and what they mean for surfing, sailing, paddling, swimming, fishing and boating — with danger decided over the forecast's measured error.</p>
   <div class="sw-cap" id="sw-cap"></div>
-  <div class="sw-acts" id="sw-acts" role="group" aria-label="atividades"></div>
+  <div class="sw-acts" id="sw-acts" role="group" aria-label="activities"></div>
   <p id="sw-focus" hidden></p>
-  <nav id="sw-days" aria-label="dia"></nav>
-  <div class="sw-hourrow"><div class="sw-scrub"><canvas id="sw-daystrip"></canvas><input id="sw-hour" type="range" min="0" max="7" step="1" aria-label="horário"></div><span id="sw-hour-v"></span><button class="sw-btn" id="sw-now">agora</button></div>
+  <nav id="sw-days" aria-label="day"></nav>
+  <div class="sw-hourrow"><div class="sw-scrub"><canvas id="sw-daystrip"></canvas><input id="sw-hour" type="range" min="0" max="7" step="1" aria-label="hour"></div><span id="sw-hour-v"></span><button class="sw-btn" id="sw-now">now</button></div>
 </div>
 <nav class="sw-tabs" role="tablist">
-  <button class="sw-tab on" data-tab="beaches" role="tab">Praias</button>
-  <button class="sw-tab" data-tab="week" role="tab">Semana</button>
-  <button class="sw-tab" data-tab="map" role="tab">Mapa</button>
+  <button class="sw-tab on" data-tab="beaches" role="tab">Beaches</button>
+  <button class="sw-tab" data-tab="week" role="tab">Week</button>
+  <button class="sw-tab" data-tab="map" role="tab">Map</button>
   <span class="ul"></span>
 </nav>
 <div class="sw-scroll">
@@ -149,7 +119,7 @@ function panel() {
   <section class="sw-pane" data-pane="week">
     <div id="sw-tl-line"></div>
     <canvas id="sw-tl-chart"></canvas>
-    <div class="sw-tlb"><button class="sw-btn" id="sw-tl-prev">−3 h</button><button class="sw-btn" id="sw-tl-now">agora</button><button class="sw-btn" id="sw-tl-next">+3 h</button><span class="sp"></span><span class="sw-note" id="sw-tl-scope"></span></div>
+    <div class="sw-tlb"><button class="sw-btn" id="sw-tl-prev">−3 h</button><button class="sw-btn" id="sw-tl-now">now</button><button class="sw-btn" id="sw-tl-next">+3 h</button><span class="sp"></span><span class="sw-note" id="sw-tl-scope"></span></div>
     <h2 class="sw-sec" id="sw-grid-h"></h2>
     <canvas id="sw-tl-grid"></canvas>
     <p class="sw-note" id="sw-grid-n"></p>
@@ -242,20 +212,20 @@ function emit(git, opts) {
       base: dataBase + 'island/', local: 'island/', pins: Object.fromEntries(Object.entries(P.files).filter(([k]) => k.startsWith('island/')).map(([k, v]) => [k.slice(7), v.sha256])) },
     tiles: { url: dataBase + 'tiles/floripa.pmtiles', local: 'tiles/floripa.pmtiles', sha256: P.files['tiles/floripa.pmtiles'].sha256,
       attribution: '<a href="https://openstreetmap.org/copyright">© OpenStreetMap</a> · <a href="https://protomaps.com">Protomaps</a>' },
-    credit: 'ECMWF open data (CC BY 4.0) · NOAA · E.U. Copernicus Marine Service Information · carta DHN 1902 (não comercial, não serve para navegação)',
+    credit: 'ECMWF open data (CC BY 4.0) · NOAA · E.U. Copernicus Marine Service Information · DHN chart 1902 (non-commercial, not for navigation)',
     dataAt: at, how: W.how, boardIntro: W.boardIntro, boardFoot: W.boardFoot, premises,
     shas: { 'app.js': sha(APPJS), 'model.js': sha(MODEL), 'early.js': sha(EARLY) },
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');
   const html = renderApp({
-    title: 'Swell — o mar de Florianópolis, praia por praia',
-    description: 'Para 34 praias de Florianópolis: onde e quando está bom para surfar, velejar, remar, nadar, pescar e sair de barco nos próximos 7 dias — com o perigo decidido sobre o erro medido da previsão, e o resto dito como previsão.',
-    path: '/swell/', lang: 'pt-BR', appName: 'Swell', brand: 'CERT-MACHINE', homeHref: '/',
-    og: fs.existsSync(path.join(SITE, 'og.png')) ? { image: '/swell/og.png', alt: 'Swell: a ilha de Santa Catarina com as cristas das ondas desenhadas pelo modelo da ilha, e a melhor praia do dia para cada atividade' } : undefined,
+    title: 'Swell — the sea of Florianópolis, beach by beach',
+    description: 'For 34 beaches of Florianópolis: where and when it is good for surfing, sailing, paddling, swimming, fishing and boating over the next 7 days — with danger decided over the forecast\'s measured error, and the rest said as forecast.',
+    path: '/swell/', lang: 'en', appName: 'Swell', brand: 'CERT-MACHINE', homeHref: '/',
+    og: fs.existsSync(path.join(SITE, 'og.png')) ? { image: '/swell/og.png', alt: 'Swell: Santa Catarina Island with the wave crests drawn by the island model, and the day\'s best beach for each activity' } : undefined,
     meta: '<span id="sw-run">—</span>',
-    topHtml: '<div class="sw-topctl"><button class="sw-btn" id="sw-how"></button><button class="sw-btn" id="sw-boardb"></button><button class="sw-btn" id="sw-sos"></button><div class="sw-lang" role="group" aria-label="idioma / language"><button data-lang="pt">PT</button><button data-lang="en">EN</button></div></div>',
-    navLinks: [{ href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell', label: 'código' }],
-    mapAria: 'Mapa da ilha de Santa Catarina: as praias marcadas com a condição da atividade escolhida no horário escolhido; as ondas desenhadas como cristas, o vento como setas sobre a água',
+    topHtml: '<div class="sw-topctl"><button class="sw-btn" id="sw-how"></button><button class="sw-btn" id="sw-boardb"></button><button class="sw-btn" id="sw-sos"></button></div>',
+    navLinks: [{ href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/swell', label: 'code' }],
+    mapAria: 'Map of Santa Catarina Island: the beaches marked with the chosen activity\'s condition at the chosen hour; the waves drawn as crests, the wind as arrows over the water',
     styles: ['vendor/maplibre-gl.css'],
     cssRaw: require('./style.js')(),
     noDock: true, noLeft: true, warrant: true,

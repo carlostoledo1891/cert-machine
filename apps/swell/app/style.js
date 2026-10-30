@@ -28,9 +28,6 @@ button{font:inherit;color:inherit}
 
 /* ---- the top bar (the shell's), Swell's controls in it ---- */
 .sw-topctl{display:flex;align-items:center;gap:6px;margin-left:var(--s-2)}
-.sw-lang{display:flex;border-radius:var(--radius-m);overflow:hidden;box-shadow:inset 0 0 0 1px var(--rule-strong)}
-.sw-lang button{all:unset;cursor:pointer;font:600 11px/1 var(--f-mono);padding:var(--s-2) 9px;color:var(--ink-4)}
-.sw-lang button.on{color:var(--paper);background:var(--ink)}
 #sw-sos{color:var(--ink);box-shadow:inset 0 0 0 1px var(--rule-strong)}
 @media (max-width:1180px){.sw-topctl .sw-btn span{display:none}.sw-topctl .sw-btn{padding:var(--s-2)}}
 

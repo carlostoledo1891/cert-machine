@@ -14,21 +14,57 @@ const ROOT = path.join(__dirname, '..', '..', '..');
 const SITE = path.join(ROOT, 'site', 'janela');
 const MODEL = require('./model.js');
 const PLACAR = require('../audit/placar.js');
-const { br } = require('../numbers.js');
+const { en } = require('../numbers.js');
 const { renderApp } = require(path.join(ROOT, 'design', 'app-shell.js'));
 const esc = require(path.join(ROOT, 'design', 'components.js')).esc;
 /* WARRANT (design/WARRANT.md, v2.1): the grammar's renderer, here for the shell's own marks and shipped to the tab beside
    the deciding modules (not a deciding module: no pin, no day check), so the card draws with the same calls */
 const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
-/* its words in Portuguese, once (playground/warrant-pt.js): the legend and the premise ladder */
-const WP = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
-const GW = WP.GRADE, GG = WP.GRADE_GLOSS, legendPt = WP.legendHtml;
+/* its own English words: the legend and the premise ladder (the app went English 2026-10-30; warrant-pt.js is not read here) */
+const GW = WR.GRADE, GG = WR.GRADE_GLOSS, legend = WR.legendHtml;
 /* a held-out statistic is a FLOATING-POINT evaluation (the record says so): its value is computed, never decided */
 /* `from`: the record cells it is computed from (numbers.js N.at, D10) */
-const fl = (txt, rec, from) => WR.value(txt, WR.COMPUTED, { title: 'computado — avaliação em ponto flutuante (' + rec + '); as decisões são exatas', derived: from });
+const fl = (txt, rec, from) => WR.value(txt, WR.COMPUTED, { title: 'computed — a floating-point evaluation (' + rec + '); the decisions are exact', derived: from });
 /* a held-out row's cells: its coverage, and its LIBERADA broken over its LIBERADA at Hs <= 2 m */
 const covOf = (row) => row + '/coverage';
 const brokeOf = (row) => [row + '/limits/2.0/brokeLiberada', row + '/limits/2.0/liberada'];
+/* THE MODEL THE TAB IS SHIPPED, IN ENGLISH (model.js EN). The fingerprint stays the Portuguese model's (it is what a
+   published day records, cfg.model below); the tab reads only names and notes from these copies, never decides on them.
+   Two Portuguese strings stay as they are: a place's siteWhy (criteria.js returns it as the reason, and the reason is
+   inside every decision's canonical line, hence the day's digest: the tab translates it for display) and a terminal
+   rule's quote (the act's own words). Anything without an English here refuses the build. */
+function shipEnglish(M) {
+  const E = MODEL.EN, C = (x) => JSON.parse(JSON.stringify(x));
+  const R = J('apps/janela/scenario/regions.json').regions, caveats = {};
+  for (const [id, r] of Object.entries(R)) {
+    if (!r.caveatPt) continue;
+    if (!E.caveats[id]) throw new Error('REFUSED: the region ' + id + ' has a caveat with no English (apps/janela/app/model.js EN.caveats)');
+    caveats[r.caveatPt] = E.caveats[id];
+  }
+  const places = C(M.places).map((p) => {
+    if (p.kind !== 'uep') { if (!E.sites[p.id]) throw new Error('REFUSED: the site ' + p.id + ' has no English name (model.js EN.sites)'); p.name = E.sites[p.id]; }
+    if (p.caveat) { if (!caveats[p.caveat]) throw new Error('REFUSED: a caveat with no English at ' + p.id); p.caveat = caveats[p.caveat]; }
+    if (p.siteWhy && !MODEL.whyEn(p.siteWhy)) throw new Error('REFUSED: no English for "' + p.siteWhy + '" (model.js EN.why)');
+    if (p.kind === 'uep' && p.type && !E.types[p.type]) throw new Error('REFUSED: the unit type ' + p.type + ' has no English (model.js EN.types)');
+    return p;
+  });
+  const presets = C(M.presets).map((p) => {
+    const e = E.presets[p.id];
+    if (!e || !e.name) throw new Error('REFUSED: the preset ' + p.id + ' has no English (model.js EN.presets)');
+    for (const k of ['name', 'long', 'source', 'notDecided']) if (p[k] !== undefined) { if (!e[k]) throw new Error('REFUSED: the preset ' + p.id + ' has no English ' + k); p[k] = e[k]; }
+    if (p.appliesTo) { if (!e.why) throw new Error('REFUSED: the preset ' + p.id + ' has no English appliesTo.why'); p.appliesTo.why = e.why; }
+    return p;
+  });
+  /* the terminal rules' names: operations.json carries each one's English beside the Portuguese */
+  const OPS = Object.fromEntries(J('apps/janela/scenario/operations.json').operations.map((o) => [o.id, o.en]));
+  const npcp = C(M.npcp).map((o) => { if (!OPS[o.id]) throw new Error('REFUSED: the terminal rule ' + o.id + ' has no English name (operations.json)'); o.name = OPS[o.id]; return o; });
+  return { places, presets, npcp };
+}
+/* the words the tab still meets in Portuguese: the reasons criteria.js and siteWhy hand it, ANP's unit types, and the
+   scoreboard's words (placar.js) a published day carries */
+function enWords() {
+  return { types: MODEL.EN.types, why: MODEL.EN.why, proposers: PLACAR.NAMES_EN, pairs: PLACAR.PAIRS_EN, leads: PLACAR.LEADS_EN };
+}
 
 const RAW = 'https://raw.githubusercontent.com/carlostoledo1891/cert-machine/janela-field/';
 const sha = (b) => crypto.createHash('sha256').update(b).digest('hex');
@@ -83,10 +119,10 @@ function geo(places) {
       geometry: { type: 'MultiPolygon', coordinates: coords } });
   }
   const ps = read('presal.geojson').features[0].geometry;
-  const presal = { type: 'Feature', properties: { n: 'polígono do pré-sal' }, geometry: { type: ps.type, coordinates: ps.type === 'Polygon' ? ps.coordinates.map((r) => ring(r, 1000))
+  const presal = { type: 'Feature', properties: { n: 'the pre-salt polygon' }, geometry: { type: ps.type, coordinates: ps.type === 'Polygon' ? ps.coordinates.map((r) => ring(r, 1000))
     : ps.coordinates.map((poly) => poly.map((r) => ring(r, 1000)).filter(Boolean)) } };
   return { land, fields: { type: 'FeatureCollection', features: fields }, presal: { type: 'FeatureCollection', features: [presal] },
-    sources: { land: 'Natural Earth 1:10m (domínio público), corpus/basemap', anp: 'ANP — GeoMaps (dados abertos), corpus/anp, ' + pins.fetched } };
+    sources: { land: 'Natural Earth 1:10m (public domain), corpus/basemap', anp: 'ANP — GeoMaps (open data), corpus/anp, ' + pins.fetched } };
 }
 
 /* ---- the vendored map library, the pinned bytes or nothing ---- */
@@ -112,8 +148,8 @@ function vendor(dir) {
     from: 'apps/skyaudit/vendor (checked at build: the upstream pin, or the upstream pin plus the patch the file declares)' }, null, 1) + '\n');
 }
 
-const pc1 = (x) => (100 * x).toFixed(1).replace('.', ',') + '%';
-const pc2 = (a, b) => (100 * a / b).toFixed(2).replace('.', ',') + '%';
+const pc1 = (x) => (100 * x).toFixed(1) + '%';
+const pc2 = (a, b) => (100 * a / b).toFixed(2) + '%';
 /* WHAT EVERY VERDICT RESTS ON (WARRANT v2.1, rule 11), once for the fleet in the trust box: the premises in the order
    a number travels through them, each graded from its record (numbers.js premises), and the line naming the weakest.
    The card draws the same chain for one place and one criterion (client.js restsOn). */
@@ -121,83 +157,84 @@ function trustChain(N) {
   const P = N.premises, H = P.heldOut.main, U = H.opt['U(E,N)'], A = P.alpha, RE = H.file, Ua = N.at.eval[H.file].opt['U(E,N)'];
   const borrowKm = J('apps/janela/scenario/platforms.json').borrowKm;
   if (!(borrowKm > 0)) throw new Error('REFUSED: apps/janela/scenario/platforms.json lost borrowKm');
-  const mm = H.split.slice(5, 7) + '/' + H.split.slice(0, 4);
+  const mm = H.split.slice(0, 7);
   const items = [
-    { grade: WR.VALIDATED, label: 'A faixa de Hs, nos locais medidos', evidence: 'calibrada antes de ' + mm + ' e julgada em ' + H.months + ' meses que não viu: a união ECMWF ∪ NOAA cobriu '
-      + fl(pc1(U.coverage), RE, covOf(Ua)) + ' de ' + br.int(H.test) + ' passagens de satélite (promete 9 em 10); das LIBERADA com Hs ≤ 2 m, o mar rompeu ' + fl(pc2(U.broke, U.liberada), RE, brokeOf(Ua)) + ' (' + br.int(U.broke) + ' de ' + br.int(U.liberada) + ').' },
-    { grade: WR.ASSUMED, label: 'A faixa do vento', evidence: 'medida nos mesmos ' + br.int(P.wind.rows) + ' pares (o vento do altímetro); promete 9 em 10 por teorema, se o próximo erro se parecer com os do arquivo. Isso não foi testado fora da calibração: o placar e a conferência das decisões só olham a Hs.' },
-    { grade: WR.ASSUMED, label: 'A faixa levada a uma unidade ou a um terminal', evidence: 'cada unidade usa a faixa do local medido mais perto, a até ' + borrowKm + ' km; supõe-se que o erro da previsão lá vale aqui, e nada o mediu no nó da unidade. No gráfico do card, o halo.' },
-    { grade: WR.ASSUMED, label: 'O α da Tabela 4-1 (DNV)', evidence: 'adotado da DNV-OS-H101, calibrado no Mar do Norte; a cauda de 1 em ' + br.int(A.oneIn) + ' por trás dele é extrapolada: três anos de satélite não a observam.' },
-    { grade: WR.VERIFIED, label: 'O método do α do local', evidence: 'refaz a Tabela 4-1 em ' + A.within + ' de ' + A.of + ' células (±' + br.dec(A.tol) + ') antes de olhar para o Brasil; o α estimado com ele leva a mesma cauda extrapolada.' }
+    { grade: WR.VALIDATED, label: 'The Hs band, at the measured sites', evidence: 'calibrated before ' + mm + ' and judged over ' + H.months + ' months it had not seen: the ECMWF ∪ NOAA union covered '
+      + fl(pc1(U.coverage), RE, covOf(Ua)) + ' of ' + en.int(H.test) + ' satellite passes (it claims 9 in 10); of the CLEARED with Hs ≤ 2 m, the sea broke ' + fl(pc2(U.broke, U.liberada), RE, brokeOf(Ua)) + ' (' + en.int(U.broke) + ' of ' + en.int(U.liberada) + ').' },
+    { grade: WR.ASSUMED, label: 'The wind band', evidence: 'measured on the same ' + en.int(P.wind.rows) + ' pairs (the altimeter\'s wind); it claims 9 in 10 by theorem, if the next error resembles the archive\'s. That was not tested outside the calibration: the scoreboard and the check of the decisions look only at Hs.' },
+    { grade: WR.ASSUMED, label: 'The band carried to a unit or a terminal', evidence: 'each unit uses the band of the nearest measured site, up to ' + borrowKm + ' km away; the forecast error there is assumed to hold here, and nothing measured it at the unit\'s node. On the card\'s chart, the halo.' },
+    { grade: WR.ASSUMED, label: 'The α of Table 4-1 (DNV)', evidence: 'adopted from DNV-OS-H101, calibrated in the North Sea; the 1-in-' + en.int(A.oneIn) + ' tail behind it is extrapolated: three years of satellite do not observe it.' },
+    { grade: WR.VERIFIED, label: 'The site α method', evidence: 'reproduces Table 4-1 in ' + A.within + ' of ' + A.of + ' cells (±' + en.dec(A.tol) + ') before looking at Brazil; the α estimated with it carries the same extrapolated tail.' }
   ];
-  return WR.premisesHtml(items, { words: GW, gloss: GG, meetLine: 'A conta é exata em todos os critérios; cada decisão vale o degrau da sua premissa mais fraca. '
-    + 'Pela faixa, num local medido e com limite só de Hs: <b>validado</b>. Com limite de vento, numa unidade, num terminal ou pelo α: <b>suposto</b>.' });
+  return WR.premisesHtml(items, { words: GW, gloss: GG, meetLine: 'The arithmetic is exact under every criterion; each decision is worth the rung of its weakest premise. '
+    + 'By the band, at a measured site and with an Hs-only limit: <b>validated</b>. With a wind limit, at a unit, at a terminal or by α: <b>assumed</b>.' });
 }
 
 /* ---- the panel's skeleton: the script fills it; with scripts off it says what the app is ---- */
 function panel(M, N) {
-  const CRIT = [['band', 'Banda medida', 'erro medido'], ['table', 'DNV Tab. 4-1', 'α da tabela'], ['site', 'DNV α local', 'α estimado']];
+  const CRIT = [['band', 'Measured band', 'measured error'], ['table', 'DNV Tab. 4-1', 'table α'], ['site', 'DNV site α', 'estimated α']];
   const seg = (attr, items) => items.map(([v, a, b], i) => `<button type="button" role="radio" ${attr}="${v}" aria-checked="${i ? 'false' : 'true'}">${esc(a)}${b ? '<small>' + esc(b) + '</small>' : ''}</button>`).join('');
   const W = N.work;
-  const MON = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const nUnits = M.places.filter((p) => p.kind === 'uep').length;
   /* THE USE CASES (apps/janela/uses.js, one definition): each one a door into the app's state, set by client.js */
-  const USES = require('../uses.js').doors().map((u) => [u.door, u.label, u.sub]);
+  const USES = require('../uses.js').doors('en').map((u) => [u.door, u.label, u.sub]);
   const RE = 'certs/janela-providers-eval.json', HA = N.at.heldOut || {};
+  const area = (k, s) => (MODEL.EN.sites[k] || s.name).replace(/^Equatorial Margin — /, '').replace(/ — .*$/, '').replace(/ Basin$/, '');
   return `
-<button type="button" class="jn-grip" id="jn-grip" aria-controls="panel" aria-label="Mostrar mais do painel"><i></i></button>
+<button type="button" class="jn-grip" id="jn-grip" aria-controls="panel" aria-label="Show more of the panel"><i></i></button>
 <div class="jn-scroll" id="jn-scroll">
-<section class="jn-pane" id="pane-semana" data-mode="semana" aria-label="A semana">
+<section class="jn-pane" id="pane-semana" data-mode="semana" aria-label="The week">
   <div class="jn-box jn-intro" id="jn-intro">
-    <button type="button" class="jn-introt" id="jn-introt" aria-expanded="true" aria-controls="jn-introb"><span>A janela de cada operação offshore, decidida.</span><i aria-hidden="true"></i></button>
+    <button type="button" class="jn-introt" id="jn-introt" aria-expanded="true" aria-controls="jn-introb"><span>Every offshore operation's window, decided.</span><i aria-hidden="true"></i></button>
     <div id="jn-introb">
-      <p class="jn-p">O mar dos próximos sete dias contra o limite da sua operação, nas ${nUnits} unidades de produção offshore do Brasil e nos terminais com regra da Capitania — sobre uma previsão cujo erro foi medido por satélite. Cada horário sai <b>LIBERADA</b>, <b>VETADA</b>, <b>INDEFINIDA</b> ou <b>SEM DADOS</b>, com o motivo e o limiar que o viraria.</p>
+      <p class="jn-p">The next seven days of sea against your operation's limit, at Brazil's ${nUnits} offshore production units and at the terminals with a rule from the Harbour Master (Capitania dos Portos) — over a forecast whose error was measured by satellite. Every hour comes out <b>CLEARED</b>, <b>BLOCKED</b>, <b>UNDECIDED</b> or <b>NEEDS DATA</b>, with the reason and the threshold that would flip it.</p>
       ${N.heldOut ? `<div class="jn-proof" role="list">
-        <div role="listitem"><b>${nUnits}</b><span>unidades offshore, mais ${M.places.length - nUnits} locais medidos e terminais</span></div>
-        <div role="listitem"><b>${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</b><span>de cobertura da faixa em ${br.int(N.heldOut.pairs)} medições de satélite que ela não viu</span></div>
-        <div role="listitem"><b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b><span>das LIBERADA com Hs ≤ 2 m que o mar rompeu; só o ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</span></div>
+        <div role="listitem"><b>${nUnits}</b><span>offshore units, plus ${M.places.length - nUnits} measured sites and terminals</span></div>
+        <div role="listitem"><b>${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</b><span>band coverage over ${en.int(N.heldOut.pairs)} satellite measurements it had not seen</span></div>
+        <div role="listitem"><b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b><span>of the CLEARED with Hs ≤ 2 m that the sea broke; ECMWF alone: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</span></div>
       </div>` : ''}
-      <div class="jn-k">o que você precisa decidir?</div>
+      <div class="jn-k">what do you need to decide?</div>
       <div class="jn-seg jn-uses" id="jn-uses">${USES.map(([v, a, b]) => `<button type="button" data-use="${v}">${esc(a)}<small>${esc(b)}</small></button>`).join('')}</div>
     </div>
   </div>
   <div class="jn-box" id="jn-opbox">
-    <div class="jn-k">a operação</div>
-    <div class="jn-chips" id="jn-ops" role="radiogroup" aria-label="Operação"></div>
+    <div class="jn-k">the operation</div>
+    <div class="jn-chips" id="jn-ops" role="radiogroup" aria-label="Operation"></div>
     <div id="jn-edit"></div>
   </div>
   <div class="jn-answer" id="jn-answer">
     <p class="jn-late" id="jn-late" role="note" hidden></p>
-    <div id="jn-ansl" aria-live="polite"><p class="jn-ans">A janela operacional de cada unidade offshore do Brasil, decidida contra o limite publicado.</p>
-    <p class="jn-sub"><noscript>Este app decide no seu navegador e precisa de JavaScript. O método e as decisões publicadas estão em <a href="/janela/metodo/">/janela/metodo/</a>.</noscript><span id="jn-load">carregando a previsão de hoje…</span></p></div>
-    <div class="jn-seg jn-crit" id="jn-crit" role="radiogroup" aria-label="Critério">${seg('data-crit', CRIT)}</div>
-    <details class="jn-src jn-critd"><summary>como este critério decide</summary><span id="jn-critx"></span></details>
+    <div id="jn-ansl" aria-live="polite"><p class="jn-ans">The operating window of every offshore unit in Brazil, decided against the published limit.</p>
+    <p class="jn-sub"><noscript>This app decides in your browser and needs JavaScript. The method and the published decisions are at <a href="/janela/metodo/">/janela/metodo/</a>.</noscript><span id="jn-load">loading today's forecast…</span></p></div>
+    <div class="jn-seg jn-crit" id="jn-crit" role="radiogroup" aria-label="Criterion">${seg('data-crit', CRIT)}</div>
+    <details class="jn-src jn-critd"><summary>how this criterion decides</summary><span id="jn-critx"></span></details>
   </div>
   <div class="jn-box jn-time" id="jn-time">
     <div class="jn-timeh"><span class="jn-when" id="jn-when">—</span><span class="jn-lead" id="jn-lead"></span><span class="jn-grow"></span>
-      <button type="button" class="jn-btn" id="jn-prev" aria-label="seis horas antes">‹</button><button type="button" class="jn-btn" id="jn-play" aria-pressed="false" aria-label="tocar a semana">▶</button><button type="button" class="jn-btn" id="jn-next" aria-label="seis horas depois">›</button></div>
+      <button type="button" class="jn-btn" id="jn-prev" aria-label="six hours earlier">‹</button><button type="button" class="jn-btn" id="jn-play" aria-pressed="false" aria-label="play the week">▶</button><button type="button" class="jn-btn" id="jn-next" aria-label="six hours later">›</button></div>
     <div class="jn-days" id="jn-days" aria-hidden="true"></div>
-    <div class="jn-strip" id="jn-strip" role="slider" tabindex="0" aria-label="Início da janela, horário de Brasília" aria-valuemin="0" aria-valuemax="28" aria-valuenow="0"></div>
+    <div class="jn-strip" id="jn-strip" role="slider" tabindex="0" aria-label="Window start, Brasília time" aria-valuemin="0" aria-valuemax="28" aria-valuenow="0"></div>
   </div>
   <div class="jn-box jn-card" id="jn-card" hidden></div>
   <div class="jn-box" id="jn-listbox">
-    <div class="jn-k" id="jn-listk">as unidades, pela próxima janela</div>
-    <div class="jn-find"><input class="jn-in" id="jn-q" type="search" placeholder="Buscar unidade ou campo: P-75, Búzios" aria-label="Buscar unidade ou campo" autocomplete="off"></div>
-    <div class="jn-seg three-l tight" id="jn-kind" role="radiogroup" aria-label="Que locais">${seg('data-kind', [['all', 'Todos', ''], ['uep', 'Unidades', ''], ['own', 'Bacias e terminais', '']])}</div>
+    <div class="jn-k" id="jn-listk">the units, by their next window</div>
+    <div class="jn-find"><input class="jn-in" id="jn-q" type="search" placeholder="Search a unit or field: P-75, Búzios" aria-label="Search a unit or field" autocomplete="off"></div>
+    <div class="jn-seg three-l tight" id="jn-kind" role="radiogroup" aria-label="Which places">${seg('data-kind', [['all', 'All', ''], ['uep', 'Units', ''], ['own', 'Basins and terminals', '']])}</div>
     <div class="jn-rows" id="jn-rows"></div>
   </div>
 </section>
-<section class="jn-pane" id="pane-mes" data-mode="mes" aria-label="A campanha" hidden>
+<section class="jn-pane" id="pane-mes" data-mode="mes" aria-label="The campaign" hidden>
   <div class="jn-box">
-    <div class="jn-k">a campanha · meses à frente</div>
-    <p class="jn-p">Para planejar instalação, descomissionamento ou uma sequência de alívios: quantos dias N operações levam a partir de um mês, quais meses abrem janela e quanto o α da DNV fecha — contado em ${Number(W.to.slice(0, 4)) - Number(W.from.slice(0, 4)) + 1} anos de mar passado, sem nada ajustado.</p>
-    <div class="jn-k jn-k2">área</div><div class="jn-seg three-l" id="jn-m-site" role="radiogroup" aria-label="Área">${seg('data-ms', Object.entries(W.sites).map(([k, s]) => [k, s.name.replace(/^Bacia d[eo] /, '').replace(/^Margem Equatorial — /, '').replace(/ — .*$/, ''), '']))}</div>
-    <div class="jn-k jn-k2">limite de Hs (OPLIM)</div><div class="jn-seg six" id="jn-m-lim" role="radiogroup" aria-label="Limite de Hs">${seg('data-ml', W.limits.map((l) => [l, l.replace('.', ',') + ' m', '']))}</div>
-    <div class="jn-k jn-k2">janela (TR)</div><div class="jn-seg four" id="jn-m-tr" role="radiogroup" aria-label="Janela">${seg('data-mt', W.periods.map((t) => [String(t), t + ' h', '']))}</div>
+    <div class="jn-k">the campaign · months ahead</div>
+    <p class="jn-p">To plan an installation, a decommissioning or a run of offloadings: how many days N operations take from a given month, which months open a window and how much DNV's α closes — counted over ${Number(W.to.slice(0, 4)) - Number(W.from.slice(0, 4)) + 1} years of past sea, nothing fitted.</p>
+    <div class="jn-k jn-k2">area</div><div class="jn-seg three-l" id="jn-m-site" role="radiogroup" aria-label="Area">${seg('data-ms', Object.entries(W.sites).map(([k, s]) => [k, area(k, s), '']))}</div>
+    <div class="jn-k jn-k2">Hs limit (OPLIM)</div><div class="jn-seg six" id="jn-m-lim" role="radiogroup" aria-label="Hs limit">${seg('data-ml', W.limits.map((l) => [l, l + ' m', '']))}</div>
+    <div class="jn-k jn-k2">window (TR)</div><div class="jn-seg four" id="jn-m-tr" role="radiogroup" aria-label="Window">${seg('data-mt', W.periods.map((t) => [String(t), t + ' h', '']))}</div>
   </div>
   <div class="jn-box" id="jn-m-camp-b">
-    <div class="jn-k">quantas operações</div><div class="jn-seg four" id="jn-m-n" role="radiogroup" aria-label="Operações">${seg('data-mn', [1, 5, 10, 20].map((k) => [String(k), String(k), '']))}</div>
-    <div class="jn-k jn-k2">começando em 1º de</div><div class="jn-seg six" id="jn-m-start" role="radiogroup" aria-label="Mês de início">${seg('data-mm', MON.map((m, k) => [String(k + 1).padStart(2, '0'), m, '']))}</div>
+    <div class="jn-k">how many operations</div><div class="jn-seg four" id="jn-m-n" role="radiogroup" aria-label="Operations">${seg('data-mn', [1, 5, 10, 20].map((k) => [String(k), String(k), '']))}</div>
+    <div class="jn-k jn-k2">starting on the 1st of</div><div class="jn-seg six" id="jn-m-start" role="radiogroup" aria-label="Start month">${seg('data-mm', MON.map((m, k) => [String(k + 1).padStart(2, '0'), m, '']))}</div>
     <div id="jn-m-camp"></div>
   </div>
   <div class="jn-box" id="jn-m-chart"></div>
@@ -205,28 +242,28 @@ function panel(M, N) {
   <div class="jn-box" id="jn-m-table"></div>
   <div class="jn-box" id="jn-m-cost"></div>
   <div class="jn-box" id="jn-m-rests"></div>
-  <div class="jn-box"><p class="jn-fine">Cada início de operação de 3 em 3 h em ${Number(W.to.slice(0, 4)) - Number(W.from.slice(0, 4)) + 1} anos de hindcast (${esc(W.from.slice(0, 4))}–${esc(W.to.slice(0, 4))}): cabe ou não cabe uma janela de TR horas com Hs abaixo do limite. Frações exatas de inteiros, nada ajustado.</p></div>
+  <div class="jn-box"><p class="jn-fine">Every operation start, every 3 h, over ${Number(W.to.slice(0, 4)) - Number(W.from.slice(0, 4)) + 1} years of hindcast (${esc(W.from.slice(0, 4))}–${esc(W.to.slice(0, 4))}): a window of TR hours with Hs under the limit fits, or it does not. Exact fractions of integers, nothing fitted.</p></div>
 </section>
-<section class="jn-pane" id="pane-placar" data-mode="placar" aria-label="O placar" hidden>
-  <div class="jn-box"><div class="jn-k">o placar · a previsão contra o satélite</div>
-    <p class="jn-p">Cada faixa é comprometida antes de o mar acontecer e avaliada depois contra o que um altímetro de satélite mediu. Uma previsão errada fica no registro para sempre.</p></div>
-  ${N.heldOut ? `<div class="jn-box"><div class="jn-k">o que já está medido</div>
-    <div class="jn-season"><div><div class="jn-k">cobertura da faixa que decide</div><div class="big">${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</div><div class="s">em ${br.int(N.heldOut.pairs)} comparações com satélite que ela não viu (reivindica 90%)</div></div>
-    <div><div class="jn-k">LIBERADA que o mar rompeu</div><div class="big">${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</div><div class="s">${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)} com Hs ≤ 2 m; só a faixa do ECMWF: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</div></div></div>
-    <p class="jn-fine">Medido em retrospecto: as faixas calibradas antes de ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))} e julgadas só depois (certs/janela-providers-eval.json). Abaixo, o registro para a frente, que ninguém pode reescrever.</p></div>` : ''}
+<section class="jn-pane" id="pane-placar" data-mode="placar" aria-label="The scoreboard" hidden>
+  <div class="jn-box"><div class="jn-k">the scoreboard · the forecast against the satellite</div>
+    <p class="jn-p">Every band is committed before the sea happens and scored afterwards against what a satellite altimeter measured. A wrong forecast stays in the record for good.</p></div>
+  ${N.heldOut ? `<div class="jn-box"><div class="jn-k">what is already measured</div>
+    <div class="jn-season"><div><div class="jn-k">coverage of the deciding band</div><div class="big">${fl(pc1(N.heldOut.coverage), RE, covOf(HA.U))}</div><div class="s">over ${en.int(N.heldOut.pairs)} satellite comparisons it had not seen (it claims 90%)</div></div>
+    <div><div class="jn-k">CLEARED that the sea broke</div><div class="big">${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</div><div class="s">${en.int(N.heldOut.broke)} of ${en.int(N.heldOut.liberada)} with Hs ≤ 2 m; ECMWF's band alone: ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}</div></div></div>
+    <p class="jn-fine">Measured in hindsight: the bands calibrated before ${esc(N.heldOut.from.slice(0, 7))} and judged only after it (certs/janela-providers-eval.json). Below, the forward record, which nobody can rewrite.</p></div>` : ''}
   <div id="jn-props" class="jn-pane"></div>
-  <div class="jn-box"><div class="jn-k">a regra de admissão</div>
-    <p class="jn-p">${esc(PLACAR.RULE_PT)} A admissão se perde por registro, nunca por opinião.</p></div>
+  <div class="jn-box"><div class="jn-k">the admission rule</div>
+    <p class="jn-p">${esc(PLACAR.RULE_EN)} Admission is lost by record, never by opinion.</p></div>
 </section>
 <div class="jn-box jn-trust" id="jn-trust">
-  <div class="jn-k">por que confiar</div>
-  <p class="jn-p">O veredito é aritmética exata sobre o limite como impresso; a faixa é uma reivindicação que o placar audita em público. A faixa publicada é arredondada <b>para fora</b> (Hs a 0,001 m, vento a 0,01 nó): um LIBERADA ou VETADA sobre ela vale sobre a exata; só INDEFINIDA pode crescer. Não é aprovação de operação: é evidência que um vistoriador refaz. <a href="/janela/metodo/">O método ↗</a> · <a href="/janela/janela-apresentacao.pdf">a apresentação (PDF)</a></p>
-  ${N.heldOut ? `<p class="jn-p">Em ${br.int(N.heldOut.pairs)} comparações com satélite que nenhuma faixa viu (desde ${esc(N.heldOut.from.slice(5, 7) + '/' + N.heldOut.from.slice(0, 4))}): quando a faixa que decide pôs Hs abaixo de 2 m, o mar passou do limite em <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b> das vezes (${br.int(N.heldOut.broke)} de ${br.int(N.heldOut.liberada)}); só com a faixa do ECMWF, em ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}.</p>` : ''}
-  <div class="jn-k jn-k2">em que cada veredito se apoia</div>
+  <div class="jn-k">why trust it</div>
+  <p class="jn-p">The verdict is exact arithmetic on the limit as printed; the band is a claim the scoreboard audits in public. The published band is rounded <b>outward</b> (Hs to 0.001 m, wind to 0.01 kn): a CLEARED or BLOCKED on it holds on the exact band; only UNDECIDED can grow. It is not an approval of an operation: it is evidence a surveyor can redo. <a href="/janela/metodo/">The method ↗</a> · <a href="/janela/janela-apresentacao.pdf">the presentation (PDF, in Portuguese)</a></p>
+  ${N.heldOut ? `<p class="jn-p">Over ${en.int(N.heldOut.pairs)} satellite comparisons no band had seen (since ${esc(N.heldOut.from.slice(0, 7))}): when the deciding band put Hs under 2 m, the sea went over the limit <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b> of the time (${en.int(N.heldOut.broke)} of ${en.int(N.heldOut.liberada)}); with ECMWF's band alone, ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}.</p>` : ''}
+  <div class="jn-k jn-k2">what each verdict rests on</div>
   ${trustChain(N)}
-  ${legendPt({ compact: true, from: [WR.DECIDED, WR.COMPUTED] })}
+  ${legend({ compact: true, from: [WR.DECIDED, WR.COMPUTED] })}
   <p class="jn-check" id="jn-check">—</p>
-  <p class="jn-fine">Previsão ECMWF open data (CC BY 4.0) e NOAA WAVEWATCH III (domínio público) · corrente: Generated using E.U. Copernicus Marine Service Information, <a href="https://doi.org/10.48670/moi-00016">doi:10.48670/moi-00016</a> · altimetria NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · unidades, campos e pré-sal: ANP — GeoMaps · costa: Natural Earth · código: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
+  <p class="jn-fine">Forecast: ECMWF open data (CC BY 4.0) and NOAA WAVEWATCH III (public domain) · current: Generated using E.U. Copernicus Marine Service Information, <a href="https://doi.org/10.48670/moi-00016">doi:10.48670/moi-00016</a> · altimetry NOAA RADS · hindcast Ifremer WW3 (CC BY-SA 4.0) · units, fields and pre-salt: ANP — GeoMaps · coast: Natural Earth · code: <a href="https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela">apps/janela</a></p>
 </div>
 </div>`;
 }
@@ -235,21 +272,21 @@ function extra() {
   return `<canvas id="jn-crest" class="jn-layer" aria-hidden="true"></canvas>
 <canvas id="jn-wind" class="jn-layer" aria-hidden="true"></canvas>
 <canvas id="jn-marks" class="jn-layer" aria-hidden="true"></canvas>
-<div class="jn-clock" id="jn-clock" aria-hidden="true"><span id="jn-clockt">—</span><span class="jn-lead" id="jn-clockl"></span><button type="button" class="jn-btn jn-keybtn" id="jn-keybtn" aria-expanded="false" aria-controls="jn-legend" aria-label="Legenda do mapa">?</button></div>
-<div class="jn-legend" id="jn-legend" role="note" aria-label="Legenda do mapa">
-  <div class="row"><span><i class="jn-g L"></i>LIBERADA</span><span><i class="jn-g V"></i>VETADA</span><span><i class="jn-g I"></i>INDEFINIDA</span><span><i class="jn-g S"></i>SEM DADOS</span></div>
-  <div class="row fc"><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="cr" d="M5 10 Q11 4 17 10"/></svg>ondas: cristas, mais claras = maior Hs</span><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="st" d="M2 8 L20 4"/></svg>vento a 10 m</span><span>previsão ECMWF, não decidida: um desenho do modelo</span></div>
+<div class="jn-clock" id="jn-clock" aria-hidden="true"><span id="jn-clockt">—</span><span class="jn-lead" id="jn-clockl"></span><button type="button" class="jn-btn jn-keybtn" id="jn-keybtn" aria-expanded="false" aria-controls="jn-legend" aria-label="Map legend">?</button></div>
+<div class="jn-legend" id="jn-legend" role="note" aria-label="Map legend">
+  <div class="row"><span><i class="jn-g L"></i>CLEARED</span><span><i class="jn-g V"></i>BLOCKED</span><span><i class="jn-g I"></i>UNDECIDED</span><span><i class="jn-g S"></i>NEEDS DATA</span></div>
+  <div class="row fc"><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="cr" d="M5 10 Q11 4 17 10"/></svg>waves: crests, lighter = higher Hs</span><span><svg viewBox="0 0 22 12" aria-hidden="true"><path class="st" d="M2 8 L20 4"/></svg>wind at 10 m</span><span>ECMWF forecast, not decided: a drawing of the model</span></div>
 </div>
-<section class="jn-board open" id="jn-board" aria-label="Quadro da frota: cada local contra os 29 inícios da semana" hidden>
+<section class="jn-board open" id="jn-board" aria-label="Fleet board: every place against the week's 29 starts" hidden>
   <header class="jn-bbar">
-    <button type="button" class="jn-bt" id="jn-bt" aria-expanded="true" aria-controls="jn-bgrid" title="Quadro da frota (tecla Q)"><i aria-hidden="true"></i>Quadro da frota</button>
+    <button type="button" class="jn-bt" id="jn-bt" aria-expanded="true" aria-controls="jn-bgrid" title="Fleet board (key Q)"><i aria-hidden="true"></i>Fleet board</button>
     <span class="jn-bsum" id="jn-bsum"></span>
     <span class="jn-grow"></span>
-    <span class="jn-bkey" aria-hidden="true"><span><i class="jn-g L"></i>LIBERADA</span><span><i class="jn-g V"></i>VETADA</span><span><i class="jn-g I"></i>INDEFINIDA</span><span><i class="jn-g S"></i>SEM DADOS</span></span>
-    <button type="button" class="jn-bcsv" id="jn-bcsv" title="Baixar o quadro como planilha (CSV): cada local, cada início, o veredito">CSV ↓</button>
-    <div class="jn-bsort" id="jn-bsort" role="radiogroup" aria-label="Ordem do quadro"><button type="button" role="radio" data-bsort="bacia" aria-checked="true">por bacia</button><button type="button" role="radio" data-bsort="janela" aria-checked="false">pela próxima janela</button></div>
+    <span class="jn-bkey" aria-hidden="true"><span><i class="jn-g L"></i>CLEARED</span><span><i class="jn-g V"></i>BLOCKED</span><span><i class="jn-g I"></i>UNDECIDED</span><span><i class="jn-g S"></i>NEEDS DATA</span></span>
+    <button type="button" class="jn-bcsv" id="jn-bcsv" title="Download the board as a spreadsheet (CSV): every place, every start, the verdict">CSV ↓</button>
+    <div class="jn-bsort" id="jn-bsort" role="radiogroup" aria-label="Board order"><button type="button" role="radio" data-bsort="bacia" aria-checked="true">by basin</button><button type="button" role="radio" data-bsort="janela" aria-checked="false">by next window</button></div>
   </header>
-  <div class="jn-bgrid" id="jn-bgrid" role="table" aria-label="Quadro da frota"></div>
+  <div class="jn-bgrid" id="jn-bgrid" role="table" aria-label="Fleet board"></div>
 </section>
 <div class="jn-tip" id="jn-tip" role="status"></div>
 <div class="jn-status" id="jn-status" role="status"></div>
@@ -295,31 +332,34 @@ function emit(N, git) {
   }
   const CAMP = fs.readFileSync(path.join(ROOT, 'instruments', 'window', 'campaign.js'));
   const W = N.work;
+  const ME = shipEnglish(M);
   const cfg = {
     v: 1, git, model: MODEL.fingerprint(M),
     data: { today: [RAW + 'today.json', 'data/today.json'], todayJs: 'data/today.js', field: [RAW + 'field.bin', 'data/field.bin'], fieldJs: 'data/field.js' },
-    places: M.places, presets: M.presets, npcp: M.npcp, crits: M.crits, alphaT: M.alphaT, wind46: M.wind46,
+    places: ME.places, presets: ME.presets, npcp: ME.npcp, crits: M.crits, alphaT: M.alphaT, wind46: M.wind46,
     t41: M.t41, columns: M.columns, dnvSource: { title: M.dnvSource.title, sha256: M.dnvSource.sha256 },
     work: { from: W.from, to: W.to, samples: W.samples, source: W.source, limits: W.limits, periods: W.periods,
-      sites: Object.fromEntries(Object.entries(W.sites).map(([k, s]) => [k, { name: s.name, cells: s.cells }])) },
-    records: M.records, modules: mods, proposerNames: PLACAR.NAMES_PT,
+      sites: Object.fromEntries(Object.entries(W.sites).map(([k, s]) => [k, { name: MODEL.EN.sites[k] || s.name, cells: s.cells }])) },
+    records: M.records, modules: mods, proposerNames: PLACAR.NAMES_EN,
     plan: { src: CAMP.toString('utf8'), sha256: sha(CAMP), hindcast: hind, source: W.source },
     /* WARRANT v2.1: the premises each verdict rests on, every grade's numbers read from its record (numbers.js) */
     premises: Object.assign({ borrowKm: J('apps/janela/scenario/platforms.json').borrowKm, words: GW, gloss: GG,
       /* drawn at runtime (app.js): the legends name the standings those figures draw (R20) — a decided band with computed
          lines, and a decided band with the chosen α */
-      legend: { dc: legendPt({ compact: true, from: [WR.DECIDED, WR.COMPUTED] }), dch: legendPt({ compact: true, from: [WR.DECIDED, WR.CHOSEN] }) } }, N.premises),
+      legend: { dc: legend({ compact: true, from: [WR.DECIDED, WR.COMPUTED] }), dch: legend({ compact: true, from: [WR.DECIDED, WR.CHOSEN] }) } }, N.premises),
+    /* the English for the Portuguese the tab still meets (shipEnglish and enWords above) */
+    en: enWords(),
     shas: { 'app.js': sha(APPJS), 'geo.js': sha(geoJs), 'early.js': sha(EARLY) }
   };
   const json = JSON.stringify(cfg).replace(/</g, '\\u003c');
   const html = renderApp({
-    title: 'Janela — a janela operacional de cada unidade offshore, decidida',
-    description: 'Para as unidades de produção offshore do Brasil: a próxima janela de alívio, carga de PSV, lançamento ou içamento, decidida contra o limite da operação sobre uma previsão com o erro medido por satélite — LIBERADA, VETADA, INDEFINIDA ou SEM DADOS, com o motivo.',
-    path: '/janela/', lang: 'pt-BR', appName: 'Janela', brand: 'CERT-MACHINE', homeHref: '/', og: { image: '/janela/og.png', alt: 'Janela: o mapa da margem brasileira com as unidades offshore e a janela de cada operação, decidida' },
+    title: 'Janela — every offshore unit\'s operating window, decided',
+    description: 'For Brazil\'s offshore production units: the next window for offloading, PSV cargo, line laying or lifting, decided against the operation\'s limit over a forecast whose error was measured by satellite — CLEARED, BLOCKED, UNDECIDED or NEEDS DATA, with the reason.',
+    path: '/janela/', lang: 'en', appName: 'Janela', brand: 'CERT-MACHINE', homeHref: '/', og: { image: '/janela/og.png', alt: 'Janela: the map of the Brazilian margin with the offshore units and each operation\'s window, decided' },
     meta: '<span id="jn-run">ECMWF · —</span>',
-    topHtml: '<nav class="jn-modes" id="jn-modes" role="tablist" aria-label="Modo"><button type="button" role="tab" data-mode="semana" aria-selected="true">SEMANA</button><button type="button" role="tab" data-mode="mes" aria-selected="false">CAMPANHA</button><button type="button" role="tab" data-mode="placar" aria-selected="false">PLACAR</button></nav>',
-    navLinks: [{ href: '/janela/metodo/', label: 'Método ↗' }, { href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela', label: 'código' }],
-    mapAria: 'Mapa da margem brasileira: cada unidade de produção offshore marcada com o veredito da operação escolhida na hora escolhida; a previsão de ondas e vento desenhada por cima',
+    topHtml: '<nav class="jn-modes" id="jn-modes" role="tablist" aria-label="Mode"><button type="button" role="tab" data-mode="semana" aria-selected="true">WEEK</button><button type="button" role="tab" data-mode="mes" aria-selected="false">CAMPAIGN</button><button type="button" role="tab" data-mode="placar" aria-selected="false">SCOREBOARD</button></nav>',
+    navLinks: [{ href: '/janela/metodo/', label: 'Method ↗' }, { href: 'https://github.com/carlostoledo1891/cert-machine/tree/main/apps/janela', label: 'code' }],
+    mapAria: 'Map of the Brazilian margin: every offshore production unit marked with the verdict of the chosen operation at the chosen hour; the wave and wind forecast drawn over it',
     styles: ['vendor/maplibre-gl.css'],
     cssRaw: require('./style.js')(),
     noDock: true, noLeft: true, warrant: true,
@@ -332,4 +372,4 @@ function emit(N, git) {
   return { html, bytes: html.length, geo: geoJs.length, fields: G.fields.features.length, places: M.places.length };
 }
 
-module.exports = { emit, geo, vendor };
+module.exports = { emit, geo, vendor, shipEnglish };
