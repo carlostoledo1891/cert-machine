@@ -27,6 +27,23 @@ NEXT SESSION, IN ORDER:
      the operator topped up to US$35. Facts https://69d9t7dxjffo6n-8000.proxy.runpod.net/_status.json; when _phase is
      "complete": `node tools/import-runpod-eth.js 69d9t7dxjffo6n`, then delete-pod 69d9t7dxjffo6n, get-pod → 404, record
      both in corpus/eth-refutation/POD.txt, re-record eth-bridge / eth-tsavo ("not run" lines), rebuild /eth/.
+  ◆ 2026-10-30 ~05:00 UTC — "BUILD EVERY OPEN RULE" (the operator chose: R20, R22, R23, R30, R28, the three main-figure
+     proposals, D10), and the ETH drop to post. STATE:
+     ETH: the drop (notes/x/drops/d01-eth-kernels.txt, reworded to three checks) — X's API refuses replies to posts that
+       don't mention us; the OPERATOR posts it by hand under x.com/dimitrispapail/status/2115451187801514168, then the
+       link reply under it; record the ids in outreach.json after. Nothing else open on ETH.
+     LIVE (7485d5dc): R20 (legends derived; 56 exclude lists gone; gated) and R28 (the kit draws a refused value as a void
+       its own size; gated; no page redraws).
+     SPECIMENS ON BRANCHES (pushed, NOT merged; each waits on the operator's look):
+       grammar-r22-r23-r30 — on /reports/kissing.html: the figure's record line (path + sha256 12 hex) and stop sentence;
+         each section's reasons block. On approval: R22 site-wide through design/refresh.js; R23/R30 per figure (lanes).
+       fig-explained-stage (c9c4a34c) — /explained/'s stage as an SVG hero (records via records.js STAGE); needs
+         `check-render --accept` for its new figure at merge.
+       fig-uirapuru-patch7 (cacc12f4) — patch 7 as the hero, the ringed bird the × (tree 3 at 0 breaks "every bird ≥ 70");
+         same render accept at merge.
+     WAITING ON THE OPERATOR'S RULING: the landing strip — only one of the two REFUTED rows has an exhibited witness
+       (horizonmath; erdos852 is a scalar comparison, rule 5 says no ×), and six verdict words must fold into three greys;
+       D10's policy for values that are not record cells (claimant text, build-derived numbers).
   ◆ 2026-10-30 ~01:20 UTC — MERGED AND LIVE on the operator's "Approve and merge, this is the path I was looking for. We can
      keep going": /grammar/ as the visual page (merge d7bf86a7; the ruler recorded its card grids with --accept-worse, Swell's
      row kept). CORRECTION the operator made: NO commit links or hashes on public cards (they pointed to commits whose
