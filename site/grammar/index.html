@@ -124,7 +124,6 @@
   --container:1200px;
   --read:82ch;
   --title:28ch;
-  --hero:1440px;
   --radius-s:6px;
   --radius-m:10px;
   --radius-l:16px;
@@ -361,19 +360,15 @@ figure{margin:0}
   padding:1.5rem;overflow-x:auto}
 .figbox svg{display:block;width:100%;height:auto}
 figcaption{color:var(--ink-4);font-size:0.8125rem;line-height:1.55;margin-top:16px;margin-bottom:24px}
-/* THE HERO (D12, ruled 2026-10-29; design/tokens.js LAYOUT.hero): the one figure a page declares draws its box past
-   the container into the room beside it, up to --hero wide and never past the gutter; its caption stays on the spine.
-   On a phone the box runs edge to edge, its drawing sits on the spine, and a builder may give it a second drawing at
-   a phone's scale (.hv-n, swapped for .hv-w). tools/check-measure.js counts none of the hero's own edges and ratchets
-   its width up instead. */
-.hero .figbox{--bleed:max(0px,min((var(--hero) - 100%) / 2,(100vw - 100%) / 2 - var(--gutter)));
-  margin-inline:calc(-1 * var(--bleed))}
+/* THE HERO (D12, 2026-10-29; its width ruled back 2026-10-30, the operator: "It must have the same default width of
+   the content below"): the one figure a page declares is drawn at the container's width like every other figure, never
+   past it, on a desk or a phone. What stays is what it says, not its size: its witness is the first × a reader meets
+   (tools/check-wiring.js), and a builder may give it a second drawing at a phone's scale (.hv-n, swapped for .hv-w). */
 .hero .hv-n{display:none}
 /* a hero right under the title (R28: the page names its witness before its first section) gets the room a section
    would have had; it was this rule in two builders' own CSS until the third page needed it (2026-10-29) */
 .page > header + .hero{margin-top:var(--s-7)}
-@media (max-width:680px){.hero .figbox{margin-inline:calc(-1 * var(--gutter));padding-inline:var(--gutter);
-  border-inline:0;border-radius:0}.hero .hv-w{display:none}.hero .hv-n{display:block}}
+@media (max-width:680px){.hero .hv-w{display:none}.hero .hv-n{display:block}}
 .figbox svg text{font-family:var(--f-mono)}
 .t-ax{font-size:12px;fill:var(--ink-3)}
 .t-lab{font-size:13px;fill:var(--ink)}
@@ -730,9 +725,10 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .gx-art svg{display:block;width:100%;height:auto}
 .gx-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
 .gx-k a{color:var(--ink-3)}
-.gx-t{font-family:var(--f-display);font-size:var(--text-body);font-weight:550;color:var(--ink)}
+.gx-t{font-family:var(--f-display);font-size:var(--text-body);font-weight:var(--weight-display);color:var(--ink)}
 .gx-d{font-size:var(--text-small);color:var(--ink-2)}
 .gx-d .w-legend{margin-top:0}
+.gx-card .gx-d .w-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
 .gx-code{font-family:var(--f-mono);font-size:var(--text-eyebrow);color:var(--ink-3);border-top:1px solid var(--rule);padding-top:var(--s-3);margin-top:auto;overflow-wrap:anywhere}
 .gx-f .gr-f{margin-top:0}
 .gx-f .gr-f + .gr-f{margin-top:var(--s-2)}
@@ -768,11 +764,11 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 .gx-big,.gx-huge,.gx-num,.gx-op,.gx-ans{font-family:var(--f-display);fill:var(--ink)}
 .gx-num,.gx-ans{font-family:var(--f-mono)}
 .gx-op{fill:var(--ink-3)}
-.gx-chip{font-family:var(--f-mono);font-weight:600;letter-spacing:var(--track-loose);fill:var(--ink-3)}
+.gx-chip{font-family:var(--f-mono);font-weight:var(--weight-strong);letter-spacing:var(--track-loose);fill:var(--ink-3)}
 .gx-chip.on{fill:var(--paper)}
 .gx-n{font-family:var(--f-mono);fill:var(--ink-2)}
 .gx-mood{font-style:italic;fill:var(--ink)}
-.gx-ic{font-family:var(--f-mono);font-weight:600}
+.gx-ic{font-family:var(--f-mono);font-weight:var(--weight-strong)}
 .gx-before .w-computed{stroke:var(--ink-3)}
 .gx-before .w-chosen{stroke:var(--ink-2)}
 
@@ -879,6 +875,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="56" y1="388" x2="972" y2="388" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="514.0" y="430.0" text-anchor="middle" class="t-note">x</text>
     <rect x="56.0" y="24.0" width="152.7" height="364.0" class="w-void" fill="url(#gx-h1)" stroke="var(--rule-strong)" stroke-width="1"/>
+    <rect x="59.0" y="154.9" width="146.7" height="48" rx="4" fill="var(--paper)"/>
     <text x="132.3" y="176.9" text-anchor="middle" class="t-lab">∅</text>
     <text x="132.3" y="194.9" text-anchor="middle" class="t-note">x &lt; 0 · refused</text>
     <path d="M208.6,186.7H514.0V108.0H819.4V42.3H972.0" class="w-decided" fill="none" stroke-width="1.4"/>
@@ -891,8 +888,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <path class="w-wx" d="M503.0,190.3L525.0,212.3M503.0,212.3L525.0,190.3" fill="none" stroke-width="3.5" stroke-linecap="round"/>
     <text x="544.5" y="256.4" text-anchor="start" class="t-lab">x = 1/2: the segment reads 2/3, and (2/3)² = 4/9, not 1/2</text>
     <text x="965.9" y="34.6" text-anchor="end" class="t-note">an enclosure: √x lies between the staircases · decided, solid</text>
-    <text x="385.8" y="276.0" text-anchor="start" class="t-note">√(1/4) = 1/2 · decided, solid</text>
-    <text x="965.9" y="136.0" text-anchor="end" class="t-note">Math.sqrt · computed, dashed</text>
+    <text x="373.5" y="264.8" text-anchor="start" class="t-note">√(1/4) = 1/2</text>
+    <text x="373.5" y="276.0" text-anchor="start" class="t-note">decided, solid</text>
+    <text x="697.2" y="120.6" text-anchor="end" class="t-note">Math.sqrt · computed</text>
     <text x="611.7" y="210.2" text-anchor="start" class="t-note">a straight segment, one curve of many · chosen, dotted</text>
   </svg>
 </div><div class="hv-n">
@@ -919,8 +917,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="38" y1="416" x2="388" y2="416" stroke="var(--c-axis)" stroke-width="1"/>
     <text x="213.0" y="458.0" text-anchor="middle" class="t-note">x</text>
     <rect x="38.0" y="20.0" width="58.3" height="396.0" class="w-void" fill="url(#gx-h2)" stroke="var(--rule-strong)" stroke-width="1"/>
+    <rect x="41.0" y="164.3" width="52.3" height="48" rx="4" fill="var(--paper)"/>
     <text x="67.2" y="186.3" text-anchor="middle" class="t-lab">∅</text>
-    <text x="67.2" y="204.3" text-anchor="middle" class="t-note">refused</text>
+    <text x="67.2" y="204.3" text-anchor="middle" class="t-note">x &lt; 0</text>
     <path d="M96.3,197.0H213.0V111.3H329.7V39.9H388.0" class="w-decided" fill="none" stroke-width="1.4"/>
     <path d="M96.3,416.0H213.0V201.9H329.7V111.4H388.0" class="w-decided" fill="none" stroke-width="1.4"/>
     <polyline points="96.3,416.0 98.7,385.5 101.0,372.9 103.3,363.2 105.7,355.1 108.0,347.9 110.3,341.4 112.7,335.4 115.0,329.8 117.3,324.6 119.7,319.7 122.0,315.0 124.3,310.5 126.7,306.2 129.0,302.0 131.3,298.0 133.7,294.2 136.0,290.4 138.3,286.8 140.7,283.2 143.0,279.8 145.3,276.4 147.7,273.1 150.0,269.9 152.3,266.8 154.7,263.7 157.0,260.7 159.3,257.7 161.7,254.8 164.0,252.0 166.3,249.2 168.7,246.4 171.0,243.7 173.3,241.0 175.7,238.4 178.0,235.8 180.3,233.2 182.7,230.7 185.0,228.2 187.3,225.8 189.7,223.3 192.0,221.0 194.3,218.6 196.7,216.3 199.0,213.9 201.3,211.7 203.7,209.4 206.0,207.2 208.3,205.0 210.7,202.8 213.0,200.6 215.3,198.5 217.7,196.3 220.0,194.2 222.3,192.2 224.7,190.1 227.0,188.0 229.3,186.0 231.7,184.0 234.0,182.0 236.3,180.0 238.7,178.1 241.0,176.1 243.3,174.2 245.7,172.3 248.0,170.4 250.3,168.5 252.7,166.7 255.0,164.8 257.3,163.0 259.7,161.1 262.0,159.3 264.3,157.5 266.7,155.7 269.0,154.0 271.3,152.2 273.7,150.4 276.0,148.7 278.3,147.0 280.7,145.3 283.0,143.5 285.3,141.8 287.7,140.2 290.0,138.5 292.3,136.8 294.7,135.2 297.0,133.5 299.3,131.9 301.7,130.2 304.0,128.6 306.3,127.0 308.7,125.4 311.0,123.8 313.3,122.2 315.7,120.7 318.0,119.1 320.3,117.5 322.7,116.0 325.0,114.4 327.3,112.9 329.7,111.4 332.0,109.9 334.3,108.4 336.7,106.8 339.0,105.4 341.3,103.9 343.7,102.4 346.0,100.9 348.3,99.4 350.7,98.0 353.0,96.5 355.3,95.1 357.7,93.6 360.0,92.2 362.3,90.8 364.7,89.3 367.0,87.9 369.3,86.5 371.7,85.1 374.0,83.7 376.3,82.3 378.7,80.9 381.0,79.5 383.3,78.2 385.7,76.8 388.0,75.4" class="w-computed" fill="none" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>
@@ -932,8 +931,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <text x="166.3" y="339.8" text-anchor="start" class="t-lab">x = 1/2: the segment reads 2/3,</text>
     <text x="166.3" y="361.2" text-anchor="start" class="t-lab">and (2/3)² = 4/9, not 1/2</text>
     <text x="385.7" y="31.6" text-anchor="end" class="t-note">the enclosure · decided</text>
-    <text x="166.3" y="288.1" text-anchor="start" class="t-note">a knot · decided</text>
-    <text x="385.7" y="141.8" text-anchor="end" class="t-note">Math.sqrt · computed</text>
+    <text x="159.3" y="288.1" text-anchor="start" class="t-note">a knot</text>
+    <text x="159.3" y="306.3" text-anchor="start" class="t-note">decided</text>
+    <text x="325.0" y="93.1" text-anchor="end" class="t-note">Math.sqrt · computed</text>
     <text x="227.0" y="221.0" text-anchor="start" class="t-note">a segment · chosen</text>
   </svg>
 </div>
@@ -988,14 +988,14 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="98.0" y1="30.0" x2="152.0" y2="30.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
     <text x="170.0" y="36.0" class="gx-op" font-size="20" text-anchor="middle">=</text>
     <line x1="188.0" y1="30.0" x2="242.0" y2="30.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
-  </svg><div class="gx-d">A float anywhere on the path: the mark is <span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">computed</span>.</div></div><div class="gx-eq">  <svg viewBox="0 0 250 56" role="img" aria-label="DECIDED meet CHOSEN is CHOSEN.">
+  </svg><div class="gx-d">A float anywhere on the path: the mark is computed.</div></div><div class="gx-eq">  <svg viewBox="0 0 250 56" role="img" aria-label="DECIDED meet CHOSEN is CHOSEN.">
     <defs><pattern id="gx-h6" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1"/></pattern></defs>
     <line x1="8.0" y1="30.0" x2="62.0" y2="30.0" class="w-decided" fill="none" stroke-width="2.4"/>
     <text x="80.0" y="36.0" class="gx-op" font-size="20" text-anchor="middle">∧</text>
     <line x1="98.0" y1="30.0" x2="152.0" y2="30.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
     <text x="170.0" y="36.0" class="gx-op" font-size="20" text-anchor="middle">=</text>
     <line x1="188.0" y1="30.0" x2="242.0" y2="30.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
-  </svg><div class="gx-d">A choice anywhere on the path: <span class="w-val w-chosen" title="chosen — one member of a set the data admits">chosen</span>. A straight line between two exact knots is one of many.</div></div><div class="gx-eq">  <svg viewBox="0 0 250 56" role="img" aria-label="COMPUTED meet REFUSED is REFUSED.">
+  </svg><div class="gx-d">A choice anywhere on the path: chosen. A straight line between two exact knots is one of many.</div></div><div class="gx-eq">  <svg viewBox="0 0 250 56" role="img" aria-label="COMPUTED meet REFUSED is REFUSED.">
     <defs><pattern id="gx-h7" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="var(--ink-4)" stroke-width="1"/></pattern></defs>
     <line x1="8.0" y1="30.0" x2="62.0" y2="30.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
     <text x="80.0" y="36.0" class="gx-op" font-size="20" text-anchor="middle">∧</text>
@@ -1013,9 +1013,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <div class="col"><p>Each part below is live: drawn by <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/playground/warrant.js">playground/warrant.js</a> or <a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/components.js">design/components.js</a> when this page is built, with the call that draws it.</p></div><div class="gx-grid c3"><div class="gx-card"><div class="gx-k">a number in text</div><div class="gx-d"><div class="gx-vals"><span><span class="w-val w-decided" title="decided — exact arithmetic backs it">1/2</span><em>decided</em></span><span><span class="w-val w-computed" title="computed — float, or a number someone printed; nothing decided it">1.4142</span><em>computed</em></span><span><span class="w-val w-chosen" title="chosen — one member of a set the data admits">2/3</span><em>chosen</em></span><span><span class="w-val w-refused" title="refused — no mark — the void is drawn">refused</span><em>refused</em></span></div></div><div class="gx-code">W.value(&#39;1.4142&#39;, W.COMPUTED)</div></div>
 <div class="gx-card"><div class="gx-k">a verdict word</div><div class="gx-d"><div class="gx-chips"><span class="tag held">CERTIFIED</span> <span class="tag held">WITNESSED</span> <span class="tag dep">REFUTED</span> <span class="tag dep">PARTIAL</span> <span class="tag open">REFUSED</span> <span class="tag open">NEEDS DATA</span></div>One shape per word, everywhere; the word carries the verdict, never a stroke.</div><div class="gx-code">C.tag(&#39;REFUTED&#39;)</div></div>
 <div class="gx-card"><div class="gx-k">the witness</div><div class="gx-art">  <svg viewBox="0 0 260 70" role="img" aria-label="The witness in a figure: a red cross on the object, drawn at the figure&#39;s scale.">
-    <line x1="14.0" y1="54.0" x2="246.0" y2="22.0" class="w-decided" fill="none" stroke-width="2"/>
-<path class="w-wx" d="M141.0,17.0L159.0,35.0M141.0,35.0L159.0,17.0" fill="none" stroke-width="3" stroke-linecap="round"/>
-    <text x="166.0" y="20.0" text-anchor="start" class="t-ax">the object that broke it</text>
+    <line x1="14.0" y1="62.0" x2="246.0" y2="30.0" class="w-decided" fill="none" stroke-width="2"/>
+<path class="w-wx" d="M111.0,27.0L129.0,45.0M111.0,45.0L129.0,27.0" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <text x="136.0" y="24.0" text-anchor="start" class="t-ax">the object that broke it</text>
   </svg></div><div class="gx-d">In text, beside the words that name it <span class="wx" aria-label="the exhibited counterexample">&times;</span>; in a figure, on the object, at the figure’s scale.</div><div class="gx-code">W.witnessMark(x, y, { size, width })</div></div>
 <div class="gx-card"><div class="gx-k">the legend</div><div class="gx-d"><div class="w-legend compact" data-n="4"><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div><div class="item"><svg viewBox="0 0 46 14" aria-hidden="true"><defs><pattern id="w-legend-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs><rect x="0" y="1" width="46" height="12" class="w-void" fill="url(#w-legend-hatch)" stroke="var(--rule-strong)" stroke-width="1"/></svg><div><div class="k">refused</div><div class="g">no mark — the void is drawn</div></div></div></div></div><div class="gx-code">W.legendHtml({ compact: true })</div></div>
 <div class="gx-card"><div class="gx-k">a grade</div><div class="gx-d"><div class="gx-grades"><span class="w-grade g3" title="validated — checked against observations of the thing itself, held out, with the number"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="on"/></svg>validated</span><span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span></div>How far a premise was checked: a word first, a three-step glyph second, never a colour.</div><div class="gx-code">W.grade(W.COMPARED)</div></div>
@@ -1041,17 +1041,17 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="176.0" y1="78.0" x2="256.0" y2="78.0" class="w-computed" fill="none" stroke-width="1.2" stroke-dasharray="1.5 2"/>
     <rect x="176.0" y="90.0" width="64.4" height="18" rx="2" fill="none" stroke="var(--rule-strong)" stroke-width="1"/>
     <text x="208.2" y="102.5" text-anchor="middle" font-size="10" class="gx-chip">REFUTED</text>
-    <text x="158.0" y="130.0" text-anchor="start" class="t-note">a word; the number keeps its mark</text>
+    <text x="158.0" y="130.0" text-anchor="start" class="t-note">a word, and its own mark</text>
   </svg></div><div class="gx-d">A verdict is a word in a chip; what a mark rests on is its stroke or underline. They never share a channel, so a refutation proved here is drawn solid.</div><div class="gx-f"><span class="gr-f">Found on <a href="../instruments/neural-geometry/index.html">neural-geometry</a>: a failed frame verdict struck its fitted number through. The verdict is a word now, and the number keeps its dashed underline. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></div></div>
 <div class="gx-card"><div class="gx-k">rule 2</div><div class="gx-t">A pick is a member of its set, and the build checks it.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="Before: a picked point drawn outside the box the data admit. After: the pick sits inside the box, and membership is checked exactly.">
     <text x="8.0" y="16.0" class="gx-eb">before</text>
     <text x="158.0" y="16.0" class="gx-eb">after</text>
     <line x1="150.0" y1="8.0" x2="150.0" y2="132.0" stroke="var(--rule)" stroke-width="1" fill="none"/>
     <rect x="16" y="40" width="80" height="58" fill="var(--band-fill)" class="w-decided" stroke-width="1.5"/>
-    <circle cx="116" cy="50" r="5" class="w-chosen" fill="none" stroke-width="1.8" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <circle cx="118" cy="52" r="8" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
     <text x="8.0" y="122.0" text-anchor="start" class="t-note">outside the set</text>
     <rect x="166" y="40" width="80" height="58" fill="var(--band-fill)" class="w-decided" stroke-width="1.5"/>
-    <circle cx="214" cy="66" r="5" class="w-chosen" fill="none" stroke-width="1.8" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <circle cx="206" cy="69" r="8" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
     <text x="262.0" y="72.0" class="gx-op" font-size="20" text-anchor="start">∈</text>
     <text x="158.0" y="122.0" text-anchor="start" class="t-note">a member, checked</text>
   </svg></div><div class="gx-d">A figure that draws one member of a set the data admit draws a real member, verified exactly when the page is built.</div><div class="gx-f"><span class="gr-f">Found on <a href="../instruments/census/index.html">census</a>: its least-squares totals left the ±½ box a rounded integer allows. The repair is now a fit held inside the box, its optimality conditions checked exactly. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span><span class="gr-f">Found on <a href="../instruments/occultation/index.html">occultation</a>: the curve joining its chords is not concave, so no convex body has it; it is drawn dotted, as a chosen picture. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span><span class="gr-f">Found on <a href="../instruments/navier-stokes/index.html">navier-stokes</a>: the drawn core was not incompressible (|div u| about 1.2 times its larger term); the build now refuses it above 10<sup>−6</sup>. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/3a0725483faedf8b61f88dbde22c1ca780a7ab45">fixed 28 October · 3a072548</a></span></div></div>
@@ -1097,7 +1097,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="162.0" y1="96.0" x2="290.0" y2="52.0" class="w-decided" fill="none" stroke-width="1.8"/>
 <path class="w-wx" d="M219.0,39.0L233.0,53.0M219.0,53.0L233.0,39.0" fill="none" stroke-width="2.8" stroke-linecap="round"/>
     <text x="238.0" y="40.0" text-anchor="start" class="t-ax">the object</text>
-    <text x="158.0" y="126.0" text-anchor="start" class="t-note">an object breaks the claim</text>
+    <text x="158.0" y="126.0" text-anchor="start" class="t-note">an object breaks a claim</text>
   </svg></div><div class="gx-d">The red × marks an exhibited counterexample: an object that broke a claim made about its own record, with words. Never a verdict word, a region, a scalar comparison or a deduction. When in doubt, ink.</div><div class="gx-f"><span class="gr-f">Found on <a href="../instruments/return-level-check/index.html">the return-level check</a>: “not the certified fit” came off the × list: a box clearing a box has no witness point. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/824b1261a1d89a2fb7275e0ee22f9ca1a03d418f">fixed 28 October · 824b1261</a></span></div></div>
 <div class="gx-card"><div class="gx-k">rule 6</div><div class="gx-t">Mood.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="A verdict that holds given a chosen input names the input in italic.">
     <rect x="20.0" y="30.0" width="50.0" height="18" rx="2" fill="var(--ink)" stroke-width="1"/>
@@ -1164,7 +1164,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <rect x="178" y="42" width="96" height="54" stroke="var(--ink-4)" stroke-width="1" fill="none"/>
     <text x="226.0" y="64.0" text-anchor="middle" class="t-ax">copied bytes</text>
     <text x="226.0" y="80.0" text-anchor="middle" class="t-ax">untouched</text>
-    <text x="158.0" y="126.0" text-anchor="start" class="t-note">a wrapper; one anchor each</text>
+    <text x="158.0" y="126.0" text-anchor="start" class="t-note">changed by its wrapper</text>
   </svg></div><div class="gx-d">It changes only through its wrapper, by anchored replacements that each refuse unless their anchor occurs exactly once.</div><div class="gx-f"><span class="gr-f">Found on <a href="../instruments/affect/index.html">affect</a>: its script is a copy and stays untouched; every change is a named passage the wrapper replaces. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4fbb5ad3d8e6558542d40d17008b4a0e9011ad98">fixed 28 October · 4fbb5ad3</a></span></div></div></div><h3 class="gr-h3">Two rulings</h3><div class="gx-grid c3"><div class="gx-card"><div class="gx-k">ruling · 28 October</div><div class="gx-t">A layout placed by a float solver is a chosen picture.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="A map placed by a float solver: the edges that exist are solid, the ring around a group is dotted, and the layout as a whole is said to be a chosen picture.">
     <line x1="40.0" y1="46.0" x2="70.0" y2="34.0" class="w-decided" fill="none" stroke-width="1.4"/>
     <line x1="70.0" y1="34.0" x2="64.0" y2="70.0" class="w-decided" fill="none" stroke-width="1.4"/>
@@ -1182,7 +1182,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <circle cx="260" cy="44" r="4" fill="var(--ink-2)"/>
     <circle cx="228" cy="96" r="4" fill="var(--ink-2)"/>
     <ellipse cx="235" cy="62" rx="44" ry="42" class="w-chosen" fill="none" stroke-width="1.6" stroke-dasharray="1 5" stroke-linecap="round"/>
-    <text x="12.0" y="126.0" text-anchor="start" class="t-note">edges that exist: solid; the ring and the layout: chosen</text>
+    <text x="12.0" y="126.0" text-anchor="start" class="t-note">edges solid; the ring and the layout chosen</text>
   </svg></div><div class="gx-d">The caption says so once; each mark keeps the standing of what it asserts, so an edge that exists is solid.</div><div class="gx-f"><span class="gr-f">Found on <a href="../instruments/neural-geometry/index.html">neural-geometry</a>: its eigenvector map’s ring is dotted as a chosen picture, and its sentence about the controls was corrected. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/17eb3d7c61b8dcc434792469294d3d95cd418cf0">fixed 28 October · 17eb3d7c</a></span></div></div>
 <div class="gx-card"><div class="gx-k">ruling · 28 October</div><div class="gx-t">A model’s answer is a claim someone made.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="A model&#39;s answer flows into a figure on a dashed wire and prints with a dashed underline: a claim someone made.">
     <rect x="16" y="40" width="96" height="44" rx="6" stroke="var(--rule-strong)" stroke-width="1" fill="none"/>
@@ -1219,7 +1219,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <line x1="138.0" y1="67.0" x2="160.0" y2="67.0" stroke="var(--ink-3)" stroke-width="1.5"/>
     <path d="M156,62 L162,67 L156,72" fill="none" stroke="var(--ink-3)" stroke-width="1.5"/>
     <rect x="166" y="28" width="122" height="78" rx="6" stroke="var(--rule-strong)" stroke-width="1" fill="none"/>
-    <text x="176.0" y="46.0" class="gx-eb">2 · then compare</text>
+    <text x="176.0" y="46.0" class="gx-eb">2 · compare</text>
     <text x="176.0" y="66.0" text-anchor="start" class="t-lab">N 556</text>
     <text x="176.0" y="82.0" text-anchor="start" class="t-lab">r 0.44</text>
     <text x="176.0" y="98.0" text-anchor="start" class="t-lab">bias +0.27 m</text>
@@ -1238,7 +1238,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <rect x="166" y="50" width="116" height="34" fill="var(--band-fill)"/>
     <line x1="166.0" y1="50.0" x2="282.0" y2="50.0" class="w-decided" fill="none" stroke-width="1.5"/>
     <line x1="166.0" y1="84.0" x2="282.0" y2="84.0" class="w-decided" fill="none" stroke-width="1.5"/>
-    <text x="158.0" y="124.0" text-anchor="start" class="t-note">the same edges, and a halo</text>
+    <text x="158.0" y="124.0" text-anchor="start" class="t-note">edges, and a halo</text>
   </svg></div><div class="gx-d">An extent carried by a model not validated where it is drawn keeps its crisp edges and gains a blur outside them.</div><div class="gx-f"><span class="gr-f">Found on <a href="../janela/index.html">Janela</a>: a band borrowed from the nearest measured site, and the wind band, validated nowhere, gained the halo. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/bea04b72610309408dca71b2e9df01f221352530">fixed 28 October · bea04b72</a></span></div></div>
 <div class="gx-card"><div class="gx-k">rule 14</div><div class="gx-t">A forecast is computed and dashed, on canvas too.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="Before: a forecast drawn solid. After: the same forecast dashed, on a canvas with setLineDash from the same patterns.">
     <text x="8.0" y="16.0" class="gx-eb">before</text>
@@ -1247,7 +1247,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <polyline points="12.0,75.5 15.2,77.4 18.3,79.2 21.4,80.7 24.6,82.0 27.8,83.0 30.9,83.6 34.0,84.0 37.2,83.9 40.4,83.6 43.5,82.9 46.6,81.9 49.8,80.6 53.0,79.0 56.1,77.2 59.3,75.3 62.4,73.2 65.5,71.0 68.7,68.8 71.8,66.6 75.0,64.5 78.2,62.6 81.3,60.8 84.5,59.3 87.6,58.0 90.8,57.0 93.9,56.4 97.0,56.0 100.2,56.1 103.3,56.4 106.5,57.1 109.7,58.1 112.8,59.4 116.0,61.0 119.1,62.8 122.3,64.7 125.4,66.8 128.6,69.0 131.7,71.2 134.8,73.4 138.0,75.5" fill="none" stroke="var(--ink)" stroke-width="1.8" stroke-linejoin="round"/>
     <text x="8.0" y="126.0" text-anchor="start" class="t-note">a forecast, solid</text>
     <polyline points="162.0,75.5 165.2,77.4 168.3,79.2 171.4,80.7 174.6,82.0 177.8,83.0 180.9,83.6 184.1,84.0 187.2,83.9 190.3,83.6 193.5,82.9 196.7,81.9 199.8,80.6 202.9,79.0 206.1,77.2 209.3,75.3 212.4,73.2 215.6,71.0 218.7,68.8 221.8,66.6 225.0,64.5 228.2,62.6 231.3,60.8 234.4,59.3 237.6,58.0 240.8,57.0 243.9,56.4 247.1,56.0 250.2,56.1 253.3,56.4 256.5,57.1 259.6,58.1 262.8,59.4 265.9,61.0 269.1,62.8 272.3,64.7 275.4,66.8 278.6,69.0 281.7,71.2 284.9,73.4 288.0,75.5" class="w-computed" fill="none" stroke-width="1.8" stroke-dasharray="5 4" stroke-linejoin="round"/>
-    <text x="158.0" y="126.0" text-anchor="start" class="t-note">dashed: setLineDash([5, 4])</text>
+    <text x="158.0" y="126.0" text-anchor="start" class="t-note">dashed, on canvas too</text>
   </svg></div><div class="gx-d">A canvas takes the same patterns: <span class="m">setLineDash</span> is given <span class="m">G.claim(width)</span>.</div><div class="gx-f"><span class="gr-f">Found on <a href="../swell/index.html">Swell</a>: its forecast lines were solid until 28 October; every one is dashed now. <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/4a1d50b8632bfa211ce1b6dd7623bf337eaec227">fixed 28 October · 4a1d50b8</a></span></div></div>
 <div class="gx-card"><div class="gx-k">rule 15</div><div class="gx-t">A field drawn from a model is a picture of it.</div><div class="gx-art">  <svg viewBox="0 0 300 140" role="img" aria-label="Wave crests drawn from a model, with a legend line saying they are a picture of the model.">
     <polyline points="20.0,30.0 26.5,30.6 33.0,31.2 39.5,31.8 46.0,32.4 52.5,32.8 59.0,33.2 65.5,33.6 72.0,33.8 78.5,34.0 85.0,34.0 91.5,34.0 98.0,33.8 104.5,33.6 111.0,33.2 117.5,32.8 124.0,32.4 130.5,31.8 137.0,31.2 143.5,30.6 150.0,30.0 156.5,29.4 163.0,28.8 169.5,28.2 176.0,27.6 182.5,27.2 189.0,26.8 195.5,26.4 202.0,26.2 208.5,26.0 215.0,26.0 221.5,26.0 228.0,26.2 234.5,26.4 241.0,26.8 247.5,27.2 254.0,27.6 260.5,28.2 267.0,28.8 273.5,29.4 280.0,30.0" fill="none" stroke="var(--ink-3)" stroke-width="1.2" stroke-linejoin="round"/>
@@ -1300,7 +1300,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <path class="w-wx" d="M44.0,44.0L96.0,96.0M44.0,96.0L96.0,44.0" fill="none" stroke-width="7" stroke-linecap="round"/>
     <text x="130.0" y="62.0" text-anchor="start" class="t-lab">--witness #e0574e</text>
     <text x="130.0" y="82.0" text-anchor="start" class="t-ax">5.3:1 on the page ground</text>
-    <text x="130.0" y="102.0" text-anchor="start" class="t-ax">an exhibited counterexample, nothing else</text>
+    <text x="130.0" y="102.0" text-anchor="start" class="t-ax">a shown counterexample, only</text>
   </svg></div><div class="gx-d">Until 29 October the apps carried a second red for a refused state, ΔE about 4 from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.</div></div></div><h3 class="gr-h3">Four kinds of colour</h3><div class="gx-grid c4"><div class="gx-card"><div class="gx-k">the witness</div><div class="gx-art">  <svg viewBox="0 0 220 120" role="img" aria-label="The witness: one red cross, on an object, with words.">
 <path class="w-wx" d="M38.0,38.0L74.0,74.0M38.0,74.0L74.0,38.0" fill="none" stroke-width="5" stroke-linecap="round"/>
     <text x="96.0" y="52.0" text-anchor="start" class="t-lab">--witness</text>
@@ -1310,9 +1310,9 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <circle cx="22" cy="30" r="9" fill="var(--gx-id0)"/>
     <text x="42.0" y="34.0" text-anchor="start" class="t-ax">lineage · Machinidae</text>
     <rect x="14" y="52" width="16" height="16" fill="var(--gx-id1)"/>
-    <text x="42.0" y="64.0" text-anchor="start" class="t-ax">the rules arm · Machinidae</text>
+    <text x="42.0" y="64.0" text-anchor="start" class="t-ax">rules arm · Machinidae</text>
     <path d="M22,80 L32,98 L12,98 Z" fill="var(--gx-id2)"/>
-    <text x="42.0" y="94.0" text-anchor="start" class="t-ax">the second series compared in a print figure, always with ■ · print only</text>
+    <text x="42.0" y="94.0" text-anchor="start" class="t-ax">second series · print only</text>
   </svg></div><div class="gx-d">At most three hues for the series in one figure, each with its own shape.</div></div>
 <div class="gx-card"><div class="gx-k">order</div><div class="gx-art">  <svg viewBox="0 0 220 120" role="img" aria-label="Order: one hue in lightness steps, each step with its word.">
     <rect x="12" y="26" width="60" height="40" rx="3" fill="var(--gx-or0)"/>
@@ -1399,32 +1399,32 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <div class="col"><p>Each issue is a fact about the built site. Where a count moved, it is counted twice by the same rule: on the site as git holds it at e310e071^, the commit before the fixes, and on the site as built now.</p></div><div class="gx-grid c3"><div class="gx-card"><div class="gx-k">fixed · <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/e310e071b2f27f6440bc06791801f8bcc2b54878">fixed 29 October · e310e071</a></div><div class="gx-t">The tone ran against the order</div><div class="gx-art">  <svg viewBox="0 0 300 116" role="img" aria-label="The three standing strokes in the tones they had before the fix and the tones they have now: before, chosen read brighter than computed; now lightness falls with standing.">
     <g class="gx-before">
     <text x="0.0" y="16.0" class="gx-eb">before</text>
-    <line x1="0.0" y1="36.0" x2="64.0" y2="36.0" class="w-decided" fill="none" stroke-width="2.4"/>
-    <text x="72.0" y="40.0" text-anchor="start" class="t-ax">decided · L 0.97</text>
-    <line x1="0.0" y1="62.0" x2="64.0" y2="62.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
-    <text x="72.0" y="66.0" text-anchor="start" class="t-ax">computed · L 0.69</text>
-    <line x1="0.0" y1="88.0" x2="64.0" y2="88.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
-    <text x="72.0" y="92.0" text-anchor="start" class="t-ax">chosen · L 0.84</text>
+    <line x1="0.0" y1="36.0" x2="40.0" y2="36.0" class="w-decided" fill="none" stroke-width="2.4"/>
+    <text x="48.0" y="40.0" text-anchor="start" class="t-ax">decided .97</text>
+    <line x1="0.0" y1="62.0" x2="40.0" y2="62.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <text x="48.0" y="66.0" text-anchor="start" class="t-ax">computed .69</text>
+    <line x1="0.0" y1="88.0" x2="40.0" y2="88.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <text x="48.0" y="92.0" text-anchor="start" class="t-ax">chosen .84</text>
     </g>
     <g class="gx-now">
     <text x="154.0" y="16.0" class="gx-eb">now</text>
-    <line x1="154.0" y1="36.0" x2="218.0" y2="36.0" class="w-decided" fill="none" stroke-width="2.4"/>
-    <text x="226.0" y="40.0" text-anchor="start" class="t-ax">decided · L 0.97</text>
-    <line x1="154.0" y1="62.0" x2="218.0" y2="62.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
-    <text x="226.0" y="66.0" text-anchor="start" class="t-ax">computed · L 0.84</text>
-    <line x1="154.0" y1="88.0" x2="218.0" y2="88.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
-    <text x="226.0" y="92.0" text-anchor="start" class="t-ax">chosen · L 0.69</text>
+    <line x1="154.0" y1="36.0" x2="194.0" y2="36.0" class="w-decided" fill="none" stroke-width="2.4"/>
+    <text x="202.0" y="40.0" text-anchor="start" class="t-ax">decided .97</text>
+    <line x1="154.0" y1="62.0" x2="194.0" y2="62.0" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/>
+    <text x="202.0" y="66.0" text-anchor="start" class="t-ax">computed .84</text>
+    <line x1="154.0" y1="88.0" x2="194.0" y2="88.0" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/>
+    <text x="202.0" y="92.0" text-anchor="start" class="t-ax">chosen .69</text>
     </g>
     <line x1="150.0" y1="8.0" x2="150.0" y2="108.0" stroke="var(--rule)" stroke-width="1" fill="none"/>
   </svg></div><div class="gx-d">A chosen stroke was drawn brighter than a computed one, so the weaker standing read stronger. Lightness now falls with standing, asserted by a battery from the tokens.</div></div>
 <div class="gx-card"><div class="gx-k">fixed · <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/e310e071b2f27f6440bc06791801f8bcc2b54878">fixed 29 October · e310e071</a></div><div class="gx-t">An edge drawn inside its record</div><div class="gx-art">  <svg viewBox="0 0 300 126" role="img" aria-label="The top of one step of the decided staircase, magnified: the record&#39;s edge, the edge drawn before the fix just inside it, and the edge drawn now just outside it.">
-    <line x1="20.0" y1="41.6" x2="210.0" y2="41.6" class="w-decided" fill="none" stroke-width="2"/>
-    <text x="218.0" y="45.6" text-anchor="start" class="t-ax">now 100.8 · 11/180 px out</text>
-    <line x1="20.0" y1="65.3" x2="210.0" y2="65.3" stroke="var(--ink-3)" stroke-width="1"/>
-    <text x="218.0" y="69.3" text-anchor="start" class="t-ax">the record, row 3631/36</text>
-    <line x1="20.0" y1="80.4" x2="210.0" y2="80.4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"/>
-    <text x="218.0" y="84.4" text-anchor="start" class="t-ax">before 100.9 · 7/180 px in</text>
-    <text x="20.0" y="118.0" text-anchor="start" class="t-note">the top of the step [1, 3/2], rows of the 400 × 250 drawing</text>
+    <line x1="12.0" y1="41.6" x2="130.0" y2="41.6" class="w-decided" fill="none" stroke-width="2"/>
+    <text x="138.0" y="45.6" text-anchor="start" class="t-ax">now: 11/180 px outside</text>
+    <line x1="12.0" y1="65.3" x2="130.0" y2="65.3" stroke="var(--ink-3)" stroke-width="1"/>
+    <text x="138.0" y="69.3" text-anchor="start" class="t-ax">the record</text>
+    <line x1="12.0" y1="80.4" x2="130.0" y2="80.4" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="138.0" y="84.4" text-anchor="start" class="t-ax">before: 7/180 px inside</text>
+    <text x="12.0" y="118.0" text-anchor="start" class="t-note">the top of the step [1, 3/2], magnified</text>
   </svg></div><div class="gx-d">The staircase’s top was written to the nearest tenth of a pixel and sat 7/180 of a pixel inside its record. Every edge now rounds outward, and the build refuses one drawn inside.</div></div>
 <div class="gx-card"><div class="gx-k">fixed · <a class="gr-c" href="https://github.com/carlostoledo1891/cert-machine/commit/e310e071b2f27f6440bc06791801f8bcc2b54878">fixed 29 October · e310e071</a></div><div class="gx-t">Dashes with no standing</div><div class="gx-art">  <svg viewBox="0 0 300 126" role="img" aria-label="Dashed marks with no standing, before the fix and now, and the pages carrying them.">
     <text x="0.0" y="20.0" text-anchor="start" class="t-ax">dashed marks with no standing</text>
@@ -1485,23 +1485,23 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <text x="58.0" y="38.0" text-anchor="start" class="t-ax">0</text>
     <text x="50.0" y="56.0" text-anchor="end" class="t-ax">now</text>
     <rect x="58" y="46" width="178.0" height="12" fill="var(--ink)" fill-opacity="1"/>
-    <text x="242.0" y="56.0" text-anchor="start" class="t-ax">248</text>
+    <text x="242.0" y="56.0" text-anchor="start" class="t-ax">249</text>
     <text x="0.0" y="78.0" text-anchor="start" class="t-ax">values without one</text>
     <text x="50.0" y="96.0" text-anchor="end" class="t-ax">before</text>
     <rect x="58" y="86" width="178.0" height="12" fill="var(--ink)" fill-opacity="0.38"/>
     <text x="242.0" y="96.0" text-anchor="start" class="t-ax">1,719</text>
     <text x="50.0" y="114.0" text-anchor="end" class="t-ax">now</text>
-    <rect x="58" y="104" width="159.5" height="12" fill="var(--ink)" fill-opacity="1"/>
-    <text x="223.5" y="114.0" text-anchor="start" class="t-ax">1,540</text>
+    <rect x="58" y="104" width="160.0" height="12" fill="var(--ink)" fill-opacity="1"/>
+    <text x="224.0" y="114.0" text-anchor="start" class="t-ax">1,545</text>
   </svg></div><div class="gx-d">A number’s standing was written where it was printed. A number can now be printed from its record through an address, and a gate re-reads it from the built page; most still have none.</div></div>
 <div class="gx-card"><div class="gx-k">open</div><div class="gx-t">A reason only in a tooltip</div><div class="gx-art">  <svg viewBox="0 0 300 68" role="img" aria-label="Value reasons shown only as a tooltip, before and now.">
     <text x="0.0" y="20.0" text-anchor="start" class="t-ax">reasons shown only on hover</text>
     <text x="50.0" y="38.0" text-anchor="end" class="t-ax">before</text>
-    <rect x="58" y="28" width="171.2" height="12" fill="var(--ink)" fill-opacity="0.38"/>
-    <text x="235.2" y="38.0" text-anchor="start" class="t-ax">1,160</text>
+    <rect x="58" y="28" width="171.1" height="12" fill="var(--ink)" fill-opacity="0.38"/>
+    <text x="235.1" y="38.0" text-anchor="start" class="t-ax">1,160</text>
     <text x="50.0" y="56.0" text-anchor="end" class="t-ax">now</text>
     <rect x="58" y="46" width="178.0" height="12" fill="var(--ink)" fill-opacity="1"/>
-    <text x="242.0" y="56.0" text-anchor="start" class="t-ax">1,206</text>
+    <text x="242.0" y="56.0" text-anchor="start" class="t-ax">1,207</text>
   </svg></div><div class="gx-d">A value’s reason (“measured, not decided”) is often a hover title: invisible on a phone. It should be visible text.</div></div>
 <div class="gx-card"><div class="gx-k">open</div><div class="gx-t">The dotted line inks more than the dashed one</div><div class="gx-art">  <svg viewBox="0 0 300 150" role="img" aria-label="The fraction of its length each pattern inks, against stroke width: the dashed line is flat, the dotted line rises with width and crosses above it.">
     <line x1="34" y1="92.9" x2="290" y2="92.9" stroke="var(--c-grid)" stroke-width="1"/>
@@ -1521,8 +1521,8 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
     <polyline points="136.4,89.0 138.5,88.2 140.7,87.4 142.8,86.6 144.9,85.8 147.1,85.0 149.2,84.2 151.3,83.4 153.5,82.6 155.6,81.8 157.7,81.0 159.9,80.2 162.0,79.4 164.1,78.6 166.3,77.8 168.4,77.0 170.5,76.2 172.7,75.4 174.8,74.6 176.9,73.8 179.1,73.0 181.2,72.2 183.3,71.4 185.5,70.6 187.6,69.8 189.7,69.0 191.9,68.2 194.0,67.4 196.1,66.6 198.3,65.8 200.4,65.0 202.5,64.2 204.7,63.4 206.8,62.6 208.9,61.8 211.1,61.0 213.2,60.1 215.3,59.3 217.5,58.5 219.6,57.7 221.7,56.9 223.9,56.1 226.0,55.3 228.1,54.5 230.3,53.7 232.4,52.9 234.5,52.1 236.7,51.3 238.8,50.5 240.9,49.7 243.1,48.9 245.2,48.1 247.3,47.3 249.5,46.5 251.6,45.7 253.7,44.9 255.9,44.1 258.0,43.3 260.1,42.5 262.3,41.7 264.4,40.9 266.5,40.1 268.7,39.3 270.8,38.5 272.9,37.7 275.1,36.9 277.2,36.1 279.3,35.3 281.5,34.5 283.6,33.7 285.7,32.9 287.9,32.1 290.0,31.3" fill="none" stroke="var(--ink)" stroke-width="2.4" stroke-linejoin="round"/>
     <line x1="228.6" y1="12.0" x2="228.6" y2="116.0" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>
     <text x="232.6" y="22.0" text-anchor="start" class="t-ax">the legend</text>
-    <text x="44.2" y="108.9" text-anchor="start" class="t-ax">dotted</text>
-    <text x="44.2" y="80.3" text-anchor="start" class="t-ax">dashed</text>
+    <text x="192.7" y="59.9" text-anchor="end" class="t-ax">dotted</text>
+    <text x="192.7" y="72.9" text-anchor="end" class="t-ax">dashed</text>
   </svg></div><div class="gx-d">At the legend’s 2.4 px, the chosen pattern inks 0.57 of its length and the computed one 0.56: the weaker standing carries more ink. The tone carries the order since the fix above; whether density should too is open.</div></div></div>
 </section>
 
@@ -1536,7 +1536,7 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
 <div class="gx-card"><div class="gx-k">A3</div><div class="gx-t">Outward</div><div class="gx-d">A lower end rounds down and an upper end up, in digits and in pixels, at the resolution the figure declares.</div></div>
 <div class="gx-card"><div class="gx-k">A4</div><div class="gx-t">A scale with a guide</div><div class="gx-d">Four standings onto five strokes, the legend derived from the scale; every channel it uses is monotone in it, or constant.</div></div>
 <div class="gx-card"><div class="gx-k">A5</div><div class="gx-t">A typed value</div><div class="gx-d">A value carries its datum, its standing, its premises and its record’s address; the arithmetic demotes it and the renderer only reads it.</div></div>
-<div class="gx-card"><div class="gx-k">A6</div><div class="gx-t">A frame is a page</div><div class="gx-d">In motion every frame obeys A1; a standing never tweens and a value never travels.</div></div></div><h3 class="gr-h3">Rules in progress</h3><div class="col"><p>A rule enters the rulebook when a check exists that refuses a page breaking it; until then it binds new work. The status is decided by this page’s build: 1 gated, 6 partly, 8 open.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rule</th><th>what it says</th><th>status</th></tr></thead><tbody><tr><td class="mono">R17</td><td>A number’s standing is read from a typed value carrying its record’s address.</td><td><span class="gx-st">partial</span><br><span class="gx-note">248 values carry an address; 1,540 do not</span></td></tr><tr><td class="mono">R18</td><td>Every channel the standing scale uses is monotone in it, or constant.</td><td><span class="gx-st">gated</span><br><span class="gx-note">tone falls with standing; a battery asserts it</span></td></tr><tr><td class="mono">R19</td><td>Pixels round outward, and a figure prints the smallest difference it can show.</td><td><span class="gx-st">partial</span><br><span class="gx-note">refused on this page’s enclosure; not yet in the chart kit</span></td></tr><tr><td class="mono">R20</td><td>The legend is derived from the figure, never declared.</td><td><span class="gx-st">open</span><br><span class="gx-note">55 calls still tell the legend what to leave out</span></td></tr><tr><td class="mono">R21</td><td>A dash is a standing everywhere: strokes, borders, motion.</td><td><span class="gx-st">partial</span><br><span class="gx-note">36 unclassed dashes and 34 dashed borders left</span></td></tr><tr><td class="mono">R22</td><td>A mark’s reason is visible text, never only a tooltip.</td><td><span class="gx-st">open</span><br><span class="gx-note">1,206 reasons live only in a tooltip</span></td></tr><tr><td class="mono">R23</td><td>A figure names its record and its digest on itself.</td><td><span class="gx-st">open</span><br><span class="gx-note">no caption names its record yet</span></td></tr><tr><td class="mono">R24</td><td>A page’s standing is computed by its builder, never typed.</td><td><span class="gx-st">open</span><br><span class="gx-note">not built</span></td></tr><tr><td class="mono">R25</td><td>A frame is a page: standing never tweens, a value never travels.</td><td><span class="gx-st">open</span><br><span class="gx-note">no gate yet</span></td></tr><tr><td class="mono">R26</td><td>A chosen input is a handle, and a drag is a test.</td><td><span class="gx-st">partial</span><br><span class="gx-note">one instrument: the return-level check’s design height</span></td></tr><tr><td class="mono">R27</td><td>A premise grade is a pair: a verification bit and a validation rung.</td><td><span class="gx-st">partial</span><br><span class="gx-note">on Swell and on this page; other chains as they are next edited</span></td></tr><tr><td class="mono">R28</td><td>A witness is an event, and a void has a size.</td><td><span class="gx-st">partial</span><br><span class="gx-note">4 pages declare a hero; the void’s size is not built</span></td></tr><tr><td class="mono">R29</td><td>The registry is one machine-readable file, lifted by digest into every sibling.</td><td><span class="gx-st">open</span><br><span class="gx-note">the five patterns still live in several copies</span></td></tr><tr><td class="mono">R30</td><td>A figure carries the sentence that would stop it.</td><td><span class="gx-st">open</span><br><span class="gx-note">not built</span></td></tr><tr><td class="mono">R31</td><td>A conformance suite, and the checks as a package.</td><td><span class="gx-st">open</span><br><span class="gx-note">the red controls are its seed</span></td></tr></tbody></table></div></div>
+<div class="gx-card"><div class="gx-k">A6</div><div class="gx-t">A frame is a page</div><div class="gx-d">In motion every frame obeys A1; a standing never tweens and a value never travels.</div></div></div><h3 class="gr-h3">Rules in progress</h3><div class="col"><p>A rule enters the rulebook when a check exists that refuses a page breaking it; until then it binds new work. The status is decided by this page’s build: 1 gated, 6 partly, 8 open.</p></div><div class="wide"><div class="tw"><table><thead><tr><th>rule</th><th>what it says</th><th>status</th></tr></thead><tbody><tr><td class="mono">R17</td><td>A number’s standing is read from a typed value carrying its record’s address.</td><td><span class="gx-st">partial</span><br><span class="gx-note">249 values carry an address; 1,545 do not</span></td></tr><tr><td class="mono">R18</td><td>Every channel the standing scale uses is monotone in it, or constant.</td><td><span class="gx-st">gated</span><br><span class="gx-note">tone falls with standing; a battery asserts it</span></td></tr><tr><td class="mono">R19</td><td>Pixels round outward, and a figure prints the smallest difference it can show.</td><td><span class="gx-st">partial</span><br><span class="gx-note">refused on this page’s enclosure; not yet in the chart kit</span></td></tr><tr><td class="mono">R20</td><td>The legend is derived from the figure, never declared.</td><td><span class="gx-st">open</span><br><span class="gx-note">55 calls still tell the legend what to leave out</span></td></tr><tr><td class="mono">R21</td><td>A dash is a standing everywhere: strokes, borders, motion.</td><td><span class="gx-st">partial</span><br><span class="gx-note">36 unclassed dashes and 34 dashed borders left</span></td></tr><tr><td class="mono">R22</td><td>A mark’s reason is visible text, never only a tooltip.</td><td><span class="gx-st">open</span><br><span class="gx-note">1,207 reasons live only in a tooltip</span></td></tr><tr><td class="mono">R23</td><td>A figure names its record and its digest on itself.</td><td><span class="gx-st">open</span><br><span class="gx-note">no caption names its record yet</span></td></tr><tr><td class="mono">R24</td><td>A page’s standing is computed by its builder, never typed.</td><td><span class="gx-st">open</span><br><span class="gx-note">not built</span></td></tr><tr><td class="mono">R25</td><td>A frame is a page: standing never tweens, a value never travels.</td><td><span class="gx-st">open</span><br><span class="gx-note">no gate yet</span></td></tr><tr><td class="mono">R26</td><td>A chosen input is a handle, and a drag is a test.</td><td><span class="gx-st">partial</span><br><span class="gx-note">one instrument: the return-level check’s design height</span></td></tr><tr><td class="mono">R27</td><td>A premise grade is a pair: whether the code was verified, and how far it was validated.</td><td><span class="gx-st">partial</span><br><span class="gx-note">on Swell and on this page; other chains as they are next edited</span></td></tr><tr><td class="mono">R28</td><td>A witness is an event, and a void has a size.</td><td><span class="gx-st">partial</span><br><span class="gx-note">4 pages declare a hero; the void’s size is not built</span></td></tr><tr><td class="mono">R29</td><td>The registry is one machine-readable file, copied by digest into every sibling.</td><td><span class="gx-st">open</span><br><span class="gx-note">the five patterns still live in several copies</span></td></tr><tr><td class="mono">R30</td><td>A figure carries the sentence that would stop it.</td><td><span class="gx-st">open</span><br><span class="gx-note">not built</span></td></tr><tr><td class="mono">R31</td><td>A conformance suite, and the checks as a package.</td><td><span class="gx-st">open</span><br><span class="gx-note">the red controls are its seed</span></td></tr></tbody></table></div></div>
 </section>
 
 <section class="" id="enforced">
@@ -1546,34 +1546,34 @@ span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
   </div>
 <div class="wide">
   <div class="stats" data-n="6">
-    <div class="stat"><div class="k">dash patterns</div><div class="v">5</div><div class="n">twenty-five on 5 September; 543 conforming uses, 0 outside</div></div>
-    <div class="stat"><div class="k">numbers re-read</div><div class="v">247</div><div class="n">on 6 pages; 1,540 still carry no address</div></div>
-    <div class="stat"><div class="k">pages with the legend</div><div class="v">56 of 56</div><div class="n">of 133 walked, the ones that draw the grammar</div></div>
+    <div class="stat"><div class="k">dash patterns</div><div class="v">5</div><div class="n">twenty-five on 5 September; 576 conforming uses, 0 outside</div></div>
+    <div class="stat"><div class="k">numbers re-read</div><div class="v">248</div><div class="n">on 7 pages; 1,545 still carry no address</div></div>
+    <div class="stat"><div class="k">pages that draw it</div><div class="v">56</div><div class="n">every one prints its legend; 133 pages walked</div></div>
     <div class="stat"><div class="k">figures recorded</div><div class="v">100</div><div class="n">none may get thinner in ink</div></div>
     <div class="stat"><div class="k">pages measured</div><div class="v">137</div><div class="n">at 1440 and 768 and 390 px</div></div>
     <div class="stat"><div class="k">red controls</div><div class="v">every run</div><div class="n">planted violations each check must catch</div></div>
   </div>
-</div><div class="gx-grid c2"><div class="gx-card"><div class="gx-k">the dash census</div><div class="gx-art">  <svg viewBox="0 0 340 164" role="img" aria-label="The dash census: how many times each of the five permitted patterns appears on the built site.">
+</div><div class="gx-grid c2"><div class="gx-card"><div class="gx-k">the dash census</div><div class="gx-art">  <svg viewBox="0 0 400 164" role="img" aria-label="The dash census: how many times each of the five permitted patterns appears on the built site.">
     <line x1="12.0" y1="22.0" x2="60.0" y2="22.0" class="w-computed" fill="none" stroke-width="2" stroke-dasharray="5 4"/>
     <text x="70.0" y="26.0" text-anchor="start" class="t-ax">5 4</text>
-    <rect x="112" y="16" width="150.0" height="12" fill="var(--ink)" fill-opacity="0.75"/>
-    <text x="268.0" y="26.0" text-anchor="start" class="t-ax">257 · computed</text>
+    <rect x="112" y="16" width="120.0" height="12" fill="var(--ink)" fill-opacity="0.75"/>
+    <text x="238.0" y="26.0" text-anchor="start" class="t-ax">271 · computed</text>
     <line x1="12.0" y1="52.0" x2="60.0" y2="52.0" class="w-computed" fill="none" stroke-width="1.2" stroke-dasharray="1.5 2"/>
     <text x="70.0" y="56.0" text-anchor="start" class="t-ax">1.5 2</text>
-    <rect x="112" y="46" width="29.2" height="12" fill="var(--ink)" fill-opacity="0.75"/>
-    <text x="147.2" y="56.0" text-anchor="start" class="t-ax">50 · computed, thin</text>
+    <rect x="112" y="46" width="23.9" height="12" fill="var(--ink)" fill-opacity="0.75"/>
+    <text x="141.9" y="56.0" text-anchor="start" class="t-ax">54 · computed, thin</text>
     <line x1="12.0" y1="82.0" x2="60.0" y2="82.0" class="w-chosen" fill="none" stroke-width="2.2" stroke-dasharray="1 5" stroke-linecap="round"/>
     <text x="70.0" y="86.0" text-anchor="start" class="t-ax">1 5</text>
-    <rect x="112" y="76" width="53.7" height="12" fill="var(--ink)" fill-opacity="0.75"/>
-    <text x="171.7" y="86.0" text-anchor="start" class="t-ax">92 · chosen</text>
+    <rect x="112" y="76" width="45.6" height="12" fill="var(--ink)" fill-opacity="0.75"/>
+    <text x="163.6" y="86.0" text-anchor="start" class="t-ax">103 · chosen</text>
     <line x1="12.0" y1="112.0" x2="60.0" y2="112.0" class="w-chosen" fill="none" stroke-width="1.2" stroke-dasharray="1 3" stroke-linecap="round"/>
     <text x="70.0" y="116.0" text-anchor="start" class="t-ax">1 3</text>
-    <rect x="112" y="106" width="30.9" height="12" fill="var(--ink)" fill-opacity="0.75"/>
-    <text x="148.9" y="116.0" text-anchor="start" class="t-ax">53 · chosen, thin</text>
+    <rect x="112" y="106" width="24.4" height="12" fill="var(--ink)" fill-opacity="0.75"/>
+    <text x="142.4" y="116.0" text-anchor="start" class="t-ax">55 · chosen, thin</text>
     <line x1="12.0" y1="142.0" x2="60.0" y2="142.0" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="2 3"/>
     <text x="70.0" y="146.0" text-anchor="start" class="t-ax">2 3</text>
-    <rect x="112" y="136" width="49.0" height="12" fill="var(--ink)" fill-opacity="0.75"/>
-    <text x="167.0" y="146.0" text-anchor="start" class="t-ax">84 · a guide</text>
+    <rect x="112" y="136" width="38.1" height="12" fill="var(--ink)" fill-opacity="0.75"/>
+    <text x="156.1" y="146.0" text-anchor="start" class="t-ax">86 · a guide</text>
   </svg></div><div class="gx-d">Uses of each permitted pattern on the built site, at the last sync.</div></div>
 <div class="gx-card"><div class="gx-k">the checks</div><div class="gx-d"><ul class="plain"><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-grammar.js">check-grammar</a></b> — only the five patterns may appear; three uses that are not lines are declared by name, each with its reason. The first census, on 5 September, counted twenty-five: the dash had been derived from the stroke width, one carrying <span class="m">1.04 5.460000000000001</span> into published HTML.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-marks.js">check-marks</a></b> — a value printed through <span class="m">W.val</span> carries its record’s address; every build follows it back and prints the datum again by the same rule (<a href="https://github.com/carlostoledo1891/cert-machine/blob/main/design/record.js">design/record.js</a>). Four planted marks are refused on every run.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-wiring.js">check-wiring</a></b> — a page with a mark of the grammar and no legend is refused; one hero per page, its × first and at weight.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-render.js">check-render</a></b> — no leaked template text, no paint that does not resolve, no figure thinner in ink than its record, no script error. Its paint check went strict when a legend swatch fell through to black on a near-black ground and passed every run.</li><li><b><a href="https://github.com/carlostoledo1891/cert-machine/blob/main/tools/check-measure.js">check-measure</a></b> — every page driven in Chrome at 1440, 768, 390 px; left edges, overflow, escapes and clipped elements may only go down.</li></ul></div></div></div><div class="col"><p>This page is held to the same standard by its own builder, which reads every number on it from its record and refuses to build when one stops saying what the page says.</p><details class="more"><summary>This page refuses to build if …</summary><ul class="plain"><li>… the rulebook (design/WARRANT.md) is not a frozen version with a date on its first line.</li><li>… warrant.js draws a standing with a stroke other than the one this page describes.</li><li>… the standing legend no longer defines its own hatch for the void (the specimens below paint the void with it).</li><li>… playground/warrant-pt.js lacks a Portuguese word for a legend or ladder word on this page.</li><li>… a step of the decided enclosure of √x fails its own exact check (squaring the bounds).</li><li>… a float value of Math.sqrt lies outside the decided enclosure (the caption says every one is inside).</li><li>… a knot of the meet specimen is not an exact square root (y² = x, checked in rationals).</li><li>… the witness specimen stops breaking its claim (the segment&#39;s value at x = 1/2 squares to 1/2).</li><li>… the hero&#39;s × is drawn thinner than its decided marks (a witness is an event at the figure&#39;s scale).</li><li>… the hero&#39;s window no longer holds the witness and the knots either side of it.</li><li>… a step of the enclosure in the hero leaves the window it is drawn in.</li><li>… an edge of the hero&#39;s enclosure is drawn inside its record (the paths round outward to a tenth of a pixel).</li><li>… neural-geometry&#39;s record no longer holds a tied minimum spanning tree (rule 3&#39;s finding would be false).</li><li>… blind-spot&#39;s builder no longer records the headline it retired, or its live headline no longer counts the corpus sample it is built from.</li><li>… the atlas no longer holds exactly one claim whose verdict turns on the reading of its box.</li><li>… the atlas claim that turns on its box no longer turns by moving one edge.</li><li>… navier-stokes&#39; build no longer refuses a drawn field that is not divergence-free, or its page lost the italic &quot;given&quot; and h = 3/50.</li><li>… navier-stokes&#39; threshold is no longer a power of ten.</li><li>… contours&#39; builder no longer records the expected count it printed truncated.</li><li>… the truncated count is not what cutting its digits gives, or rounding gives the same.</li><li>… occultation no longer says its joined dots are not a member of the set, or no longer prints the empty face-value set as ∅.</li><li>… design/grammar.js no longer records the first census it was written after (twenty-five patterns, one with a float artefact).</li><li>… Swell&#39;s comparison or its held-out band record no longer says what the chain on this page prints.</li><li>… no beach reads low any more (rule 16&#39;s finding would be false).</li><li>… Swell&#39;s legend no longer says its crests are a picture of the island model.</li><li>… the δ₃ report no longer lists its read steps as assumed premises.</li><li>… the rulebook&#39;s registered colours disagree with the tokens, or the apps&#39; refused state is a second red again.</li><li>… the rulebook no longer states the validator&#39;s thresholds, or the two measurements the colour law came from.</li><li>… the dash census (tools/check-grammar.js --report) cannot be read, or counts a pattern outside the five.</li><li>… the marks gate (tools/check-marks.js) did not pass with every red control fired, or the census stopped counting the values without an address.</li><li>… the legend check (tools/check-wiring.js) cannot be read, or finds a page that draws the grammar without its legend.</li><li>… the layout ruler&#39;s or the render check&#39;s record is missing its viewports, pages or figures.</li><li>… a page a finding links to is not in the built site.</li><li>… a commit it cites as a fix is not in this repository&#39;s history.</li><li>… the rulebook holds a rule this page does not explain, or has lost one it does (rules 1–16, by number and title).</li><li>… the rulebook&#39;s colour law no longer has seven rules.</li><li>… rule 8&#39;s drawing stops showing a cut bound inside its record and a rounded one outside.</li><li>… a decimal on rule 8&#39;s drawing is not exact.</li><li>… the specimen frame moved: y is no longer [0, 9/4].</li><li>… git no longer holds the staircase as it was drawn before the outward fix.</li><li>… the edge drawn before the fix is not inside its record, or the edge the rule draws today is.</li><li>… the stroke tones before the fix cannot be read from git, were in order after all, or today&#39;s run against the order.</li><li>… the site as git holds it before the fixes cannot be read and counted.</li><li>… a fixed issue no longer reads as fixed (the census then and now disagree with the page).</li><li>… the landing animated a dash before the fix, or animates one now.</li><li>… /eth/&#39;s first tile is not where the page says it was or is.</li><li>… at the legend&#39;s own width the dotted line no longer inks more than the dashed one (the open issue would be closed).</li><li>… the registered colours no longer hold two identity hues and a print hue, and one ordered scale of three.</li><li>… the apps&#39; status row no longer names allowed, refused by the rule and undetermined.</li><li>… the rulebook no longer names the pair that read the same to a deuteranope.</li><li>… the validator no longer reproduces the rulebook&#39;s ΔE for the failed pair, or the pair that replaced it fails.</li><li>… the code sample shows a call whose output is not what the module returns.</li></ul></details></div>
 </section>
@@ -1602,7 +1602,7 @@ W.css()</pre><p>On a canvas, <span class="m">setLineDash</span> takes the same p
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md, design/colour.js and the records each card cites, at git 7f521c52, by tools/build-grammar.js and its drawings, tools/build-grammar-plates.js. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built from playground/warrant.js, design/grammar.js, design/WARRANT.md, design/colour.js and the records each card cites, at git 30038407, by tools/build-grammar.js and its drawings, tools/build-grammar-plates.js. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>

@@ -1,22 +1,23 @@
 #!/usr/bin/env node
-/* build-grammar.js — /grammar/: the visual grammar (WARRANT), as a public page.
-   tools/ · cert-machine · 2026-10-29
+/* build-grammar.js — /grammar/: the visual grammar (WARRANT), as a public page, and the one page about it.
+   tools/ · cert-machine · 2026-10-29, redrawn 2026-10-30
 
    WHO IT IS FOR. Researchers and engineers who make figures and reports, and anyone who wants to read the pages here
-   correctly. It makes one case — a figure can say what each of its marks rests on — and teaches how.
+   correctly. It makes one case — a figure can say what each of its marks rests on — and SHOWS it: the operator's ruling
+   of 2026-10-30 was that a page about a visual grammar must draw its components, illustrate its rules and draw its
+   colour law, and that the grammar has ONE page (the companion beside it was folded in; the review behind the rulings
+   is internal and never cited — issues and their fixes are).
 
    WHAT IT IS MADE OF, and why it cannot fall out of step with the code:
-     · every specimen is drawn by playground/warrant.js itself (W.attrs, W.meet, W.value, W.witness, W.legendHtml,
-       W.grade, W.premisesHtml) on numbers this file computes: y = √x, with the exact parts decided here in BigInt;
-     · the rules are design/WARRANT.md's, in plain words. The rulebook is read when the page is built, and the page
-       refuses when the rulebook holds a rule this page does not explain or has lost one it does;
-     · every finding cited is one the rulebook or a commit names, on one of our own pages, and every number in a
-       finding is read from the record or the code that holds it (the tied trees recomputed by playground/mst.js,
-       the atlas's readings from its atlas.json, Swell's comparison from certs/), never typed;
-     · the checks' numbers are read from their own output (check-grammar --report, check-wiring) and their records
-       (the layout ruler's and the render check's baselines) when the page is built.
-   The words of the marks (labels, glosses, grade names) are warrant.js's own, so a Portuguese page can follow from
-   playground/warrant-pt.js without retyping them.
+     · every drawing is made by playground/warrant.js on numbers this file computes or reads (y = √x, decided here in
+       BigInt; the colours from the rulebook's registry through design/colour.js) — the drawings themselves live in
+       tools/build-grammar-plates.js, which invents no data;
+     · the rules are design/WARRANT.md's, in plain words; the page refuses when the rulebook holds a rule it does not
+       explain or has lost one it does;
+     · every issue cited is one a commit fixed on one of our own pages, every number in it read from its record, and
+       the counts before and after are taken by the census that gates the site, on the site as git holds it at the
+       commit before the fixes and on the site now;
+     · the checks' numbers are read from their own output and their records when the page is built.
 
    THIS PAGE REFUSES TO BUILD IF … — the list it prints IS the GUARDS array below: each guard() checks its condition
    and records its plain words in the same statement (the landing's device, tools/build-site.js).
@@ -181,7 +182,7 @@ function html() {
         + '\n' + hh.def
         + '\n' + CH.axes(f, { yTicks: [q(0, '0'), q(0.5, '1/2'), q(1, '1')], xTicks: [q(0, '0'), q(0.25, '1/4'), q(0.5, '1/2'), q(0.75, '3/4'), q(1, '1'), q(1.25, '5/4')], xLabel: 'x' })
         + '\n' + PL.voidRect(hh, vx0, f.T, vx1 - vx0, f.ph)
-        + '\n    <rect x="' + (vx0 + 8).toFixed(1) + '" y="' + (f.T + f.ph * 0.42 - 22).toFixed(1) + '" width="' + (vx1 - vx0 - 16).toFixed(1) + '" height="48" rx="4" fill="var(--paper)"/>'
+        + '\n    <rect x="' + (vx0 + 3).toFixed(1) + '" y="' + (f.T + f.ph * 0.42 - 22).toFixed(1) + '" width="' + (vx1 - vx0 - 6).toFixed(1) + '" height="48" rx="4" fill="var(--paper)"/>'
         + '\n' + CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42, '∅', 't-lab', 'middle')
         + '\n' + CH.txt((vx0 + vx1) / 2, f.T + f.ph * 0.42 + 18, L.voidT, 't-note', 'middle')
         + '\n    <path d="' + stairIn(f, 'hi') + '" ' + W.attrs(W.DECIDED, { width: 1.4 }) + '/>'
@@ -192,20 +193,20 @@ function html() {
         + '\n' + W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo)
         + '\n' + (L.wx2 ? lab(L.wx, WXTXT[0], 't-lab', 'start') + '\n' + lab(L.wx2, WXTXT[1], 't-lab', 'start') : lab(L.wx, WXTXT.join(' '), 't-lab', 'start'))
         + '\n' + lab(L.enc, L.encT, 't-note', 'end')
-        + '\n' + lab(L.dec, L.decT, 't-note', 'end')
+        + '\n' + lab(L.dec, L.decT, 't-note', 'start') + '\n' + lab(L.dec2, L.decT2, 't-note', 'start')
         + '\n' + lab(L.com, L.comT, 't-note', 'end')
         + '\n' + lab(L.cho, L.choT, 't-note', 'start')
         + '\n' + CH.close;
     };
     const svg = draw(HERO, HERO_WX, 7, { voidT: 'x < 0 · refused', wx: [0.55, 0.47],
       enc: [1.24, 1.262], encT: 'an enclosure: √x lies between the staircases · decided, solid',
-      dec: [0.225, 0.545], decT: '√(1/4) = 1/2 · decided, solid',
-      com: [1.24, 1.135], comT: 'Math.sqrt · computed, dashed',
+      dec: [0.27, 0.44], decT: '√(1/4) = 1/2', dec2: [0.27, 0.40], decT2: 'decided, solid',
+      com: [0.80, 0.955], comT: 'Math.sqrt · computed',
       cho: [0.66, 0.635], choT: 'a straight segment, one curve of many · chosen, dotted' });
-    const svgN = draw(HERO_N, HERO_WX_N, 5, { voidT: 'refused', wx: [0.30, 0.25], wx2: [0.30, 0.18],
+    const svgN = draw(HERO_N, HERO_WX_N, 5, { voidT: 'x < 0', wx: [0.30, 0.25], wx2: [0.30, 0.18],
       enc: [1.24, 1.262], encT: 'the enclosure · decided',
-      dec: [0.225, 0.56], decT: 'a knot · decided',
-      com: [1.24, 1.14], comT: 'Math.sqrt · computed',
+      dec: [0.27, 0.42], decT: 'a knot', dec2: [0.27, 0.36], decT2: 'decided',
+      com: [0.98, 1.06], comT: 'Math.sqrt · computed',
       cho: [0.56, 0.64], choT: 'a segment · chosen' });
     return C.figure({ svgRaw: svg, svgNarrowRaw: svgN, hero: true, captionRaw: '<span class="gr-k">the whole grammar, in one figure</span>'
       + 'y = √x near zero. <b>Decided</b>, solid: the enclosure, ' + numword(STEPS) + ' steps of width 1/2, each an integer square root over ' + Q + ' checked by squaring, its edges moved away from the curve to the next tenth of a pixel; and the knots where √x is exact (' + KNOTS.map(([x]) => fstr(x)).join(', ') + '). '
@@ -518,9 +519,9 @@ function html() {
     ['R24', 'A page’s standing is computed by its builder, never typed.', typeof W.pageStanding === 'function' ? 'partial' : 'open', 'not built'],
     ['R25', 'A frame is a page: standing never tweens, a value never travels.', exists('tools/check-frames.js') ? 'gated' : 'open', 'no gate yet'],
     ['R26', 'A chosen input is a handle, and a drag is a test.', exists('playground/return-level-check/drive.js') ? 'partial' : 'open', 'one instrument: the return-level check’s design height'],
-    ['R27', 'A premise grade is a pair: a verification bit and a validation rung.', typeof W.pairWord === 'function' ? 'partial' : 'open', 'on Swell and on this page; other chains as they are next edited'],
+    ['R27', 'A premise grade is a pair: whether the code was verified, and how far it was validated.', typeof W.pairWord === 'function' ? 'partial' : 'open', 'on Swell and on this page; other chains as they are next edited'],
     ['R28', 'A witness is an event, and a void has a size.', heroPages ? 'partial' : 'open', heroPages + ' pages declare a hero; the void’s size is not built'],
-    ['R29', 'The registry is one machine-readable file, lifted by digest into every sibling.', exists('design/warrant/registry.json') ? 'gated' : 'open', 'the five patterns still live in several copies'],
+    ['R29', 'The registry is one machine-readable file, copied by digest into every sibling.', exists('design/warrant/registry.json') ? 'gated' : 'open', 'the five patterns still live in several copies'],
     ['R30', 'A figure carries the sentence that would stop it.', 'open', 'not built'],
     ['R31', 'A conformance suite, and the checks as a package.', exists('kits/warrant-check') ? 'partial' : 'open', 'the red controls are its seed'],
   ];
@@ -584,7 +585,7 @@ function html() {
   /* §2 the components */
   const vEx = W.val({ rec: { path: 'certs/eth-kernel.json', ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the record\'s count of decided claims' });
   const chipsAll = ['CERTIFIED', 'WITNESSED', 'REFUTED', 'PARTIAL', 'REFUSED', 'NEEDS DATA'].map((w) => C.tag(w)).join(' ');
-  const wxSvg = PL.svg(260, 70, 'The witness in a figure: a red cross on the object, drawn at the figure\'s scale.', [PL.line(14, 54, 246, 22, W.attrs(W.DECIDED, { width: 2 })), W.witnessMark(150, 26, { size: 9, width: 3 }), PL.t(166, 20, 'the object that broke it', 't-ax')].join('\n'));
+  const wxSvg = PL.svg(260, 70, 'The witness in a figure: a red cross on the object, drawn at the figure\'s scale.', [PL.line(14, 62, 246, 30, W.attrs(W.DECIDED, { width: 2 })), W.witnessMark(120, 36, { size: 9, width: 3 }), PL.t(136, 24, 'the object that broke it', 't-ax')].join('\n'));
   const COMPONENTS = [
     PL.card({ k: 'a number in text', d: '<div class="gx-vals"><span>' + W.value('1/2', W.DECIDED) + '<em>decided</em></span><span>' + W.value('1.4142', W.COMPUTED) + '<em>computed</em></span><span>' + W.value('2/3', W.CHOSEN) + '<em>chosen</em></span><span>' + W.value('refused', W.REFUSED) + '<em>refused</em></span></div>', code: esc("W.value('1.4142', W.COMPUTED)") }),
     PL.card({ k: 'a verdict word', d: '<div class="gx-chips">' + chipsAll + '</div>One shape per word, everywhere; the word carries the verdict, never a stroke.', code: esc("C.tag('REFUTED')") }),
@@ -736,7 +737,7 @@ function html() {
 .gx-art svg{display:block;width:100%;height:auto}
 .gx-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
 .gx-k a{color:var(--ink-3)}
-.gx-t{font-family:var(--f-display);font-size:var(--text-body);font-weight:550;color:var(--ink)}
+.gx-t{font-family:var(--f-display);font-size:var(--text-body);font-weight:var(--weight-display);color:var(--ink)}
 .gx-d{font-size:var(--text-small);color:var(--ink-2)}
 .gx-d .w-legend{margin-top:0}
 .gx-card .gx-d .w-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -775,11 +776,11 @@ function html() {
 .gx-big,.gx-huge,.gx-num,.gx-op,.gx-ans{font-family:var(--f-display);fill:var(--ink)}
 .gx-num,.gx-ans{font-family:var(--f-mono)}
 .gx-op{fill:var(--ink-3)}
-.gx-chip{font-family:var(--f-mono);font-weight:600;letter-spacing:var(--track-loose);fill:var(--ink-3)}
+.gx-chip{font-family:var(--f-mono);font-weight:var(--weight-strong);letter-spacing:var(--track-loose);fill:var(--ink-3)}
 .gx-chip.on{fill:var(--paper)}
 .gx-n{font-family:var(--f-mono);fill:var(--ink-2)}
 .gx-mood{font-style:italic;fill:var(--ink)}
-.gx-ic{font-family:var(--f-mono);font-weight:600}
+.gx-ic{font-family:var(--f-mono);font-weight:var(--weight-strong)}
 .gx-before .w-computed{stroke:var(${TB[1].tok})}
 .gx-before .w-chosen{stroke:var(${TB[2].tok})}
 `;

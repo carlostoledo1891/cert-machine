@@ -105,8 +105,8 @@ function ladderOfStandings() {
   return '<div class="gx-steps">' + cells.join('') + '</div>'
     + '<div class="gx-arrow"><span>stronger</span><span>weaker</span></div>'
     + '<div class="gx-eqs">'
-    + eq(W.DECIDED, W.COMPUTED, 'A float anywhere on the path: the mark is ' + W.value('computed', W.COMPUTED) + '.')
-    + eq(W.DECIDED, W.CHOSEN, 'A choice anywhere on the path: ' + W.value('chosen', W.CHOSEN) + '. A straight line between two exact knots is one of many.')
+    + eq(W.DECIDED, W.COMPUTED, 'A float anywhere on the path: the mark is computed.')
+    + eq(W.DECIDED, W.CHOSEN, 'A choice anywhere on the path: chosen. A straight line between two exact knots is one of many.')
     + eq(W.COMPUTED, W.REFUSED, 'A refusal anywhere on the path: nothing is drawn, and the void says so.')
     + '</div>';
 }
@@ -173,7 +173,7 @@ const RULE_ART = {
   12: (sw) => svg(RW, RH, 'Two steps: first reproduce the published comparison, then compare on the current tables, with the numbers the record holds.', [
     '    <rect x="12" y="28" width="122" height="78" rx="6" ' + hair('--rule-strong') + '/>', eb(22, 46, '1 · reproduce'), t(22, 66, 'the published', 't-lab'), t(22, 82, 'comparison: same', 't-lab'), t(22, 98, 'probes, same tables', 't-lab'),
     line(138, 67, 160, 67, 'stroke="var(--ink-3)" stroke-width="1.5"'), pathD('M156,62 L162,67 L156,72', 'fill="none" stroke="var(--ink-3)" stroke-width="1.5"'),
-    '    <rect x="166" y="28" width="122" height="78" rx="6" ' + hair('--rule-strong') + '/>', eb(176, 46, '2 · then compare'), t(176, 66, 'N ' + sw.n, 't-lab'), t(176, 82, 'r ' + sw.r, 't-lab'), t(176, 98, 'bias ' + sw.bias + ' m', 't-lab'),
+    '    <rect x="166" y="28" width="122" height="78" rx="6" ' + hair('--rule-strong') + '/>', eb(176, 46, '2 · compare'), t(176, 66, 'N ' + sw.n, 't-lab'), t(176, 82, 'r ' + sw.r, 't-lab'), t(176, 98, 'bias ' + sw.bias + ' m', 't-lab'),
     t(12, 128, 'a comparison is trusted once it reproduces')].join('\n')),
   /* 13. the halo */
   13: () => { const band = (x, halo) => (halo ? '    <rect class="gr-halo" filter="url(#gx-blur)" x="' + x + '" y="50" width="116" height="34"/>\n' : '')
@@ -184,7 +184,7 @@ const RULE_ART = {
   /* 14. a forecast line is computed, on canvas too */
   14: () => halves('before', 'after', 'Before: a forecast drawn solid. After: the same forecast dashed, on a canvas with setLineDash from the same patterns.', [
     poly(wave(12, 138, 70, 14, 0.4), 'fill="none" stroke="var(--ink)" stroke-width="1.8"'), t(8, 126, 'a forecast, solid'),
-    poly(wave(162, 288, 70, 14, 0.4), W.attrs(W.COMPUTED, { width: 1.8 })), t(158, 126, 'dashed: setLineDash([5, 4])')].join('\n')),
+    poly(wave(162, 288, 70, 14, 0.4), W.attrs(W.COMPUTED, { width: 1.8 })), t(158, 126, 'dashed, on canvas too')].join('\n')),
   /* 15. a field drawn from a model is a picture of the model */
   15: () => svg(RW, RH, 'Wave crests drawn from a model, with a legend line saying they are a picture of the model.', [
     ...[0, 1, 2, 3].map((i) => poly(wave(20, 280, 30 + i * 18, 4, i * 0.9), 'fill="none" stroke="var(--ink-3)" stroke-width="1.2"')),
