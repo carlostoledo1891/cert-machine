@@ -63,22 +63,16 @@ const git = (args) => cp.execFileSync('git', ['-C', ROOT].concat(args), { encodi
 const MONTH = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const day = (iso) => Number(iso.slice(8, 10)) + ' ' + MONTH[Number(iso.slice(5, 7)) - 1];
 
-/* THE SPECIMENS' EXACT NUMBERS: y = √x, decided in BigInt. */
+/* THE SPECIMENS' EXACT NUMBERS: y = √x, decided in BigInt. The hero's rule — its knots, its segments and the claim they
+   make for a tolerance ε — is tools/grammar-hero.js, shared with the page's ε handle, which runs the same file. */
+const HERO = require(path.join(__dirname, 'grammar-hero.js'));
 const B = (x) => BigInt(x);
-const gcd = (x, y) => { x = x < 0n ? -x : x; y = y < 0n ? -y : y; while (y) [x, y] = [y, x % y]; return x; };
-const fr = (n, d = 1n) => { n = B(n); d = B(d); if (d < 0n) { n = -n; d = -d; } const g = gcd(n, d) || 1n; return [n / g, d / g]; };
-const fsub = (p, q) => fr(p[0] * q[1] - q[0] * p[1], p[1] * q[1]);
-const fadd = (p, q) => fr(p[0] * q[1] + q[0] * p[1], p[1] * q[1]);
-const fmul = (p, q) => fr(p[0] * q[0], p[1] * q[1]);
-const fdiv = (p, q) => fr(p[0] * q[1], p[1] * q[0]);
-const feq = (p, q) => p[0] * q[1] === q[0] * p[1];
-const fnum = (p) => Number(p[0]) / Number(p[1]);
-const fstr = (p) => (p[1] === 1n ? String(p[0]) : p[0] + '/' + p[1]);
+const { fr, fsub, fadd, fmul, fdiv, feq, fnum, fstr } = HERO;
 const isqrt = (n) => { if (n < 2n) return n; let x = B(Math.floor(Math.sqrt(Number(n)))); while (x * x > n) x--; while ((x + 1n) * (x + 1n) <= n) x++; return x; };
 
 /* DECIDED: an enclosure of √x on [0, 4] in eight steps of width 1/2. √ is increasing, so on [k/2, (k+1)/2] it lies
    between √(k/2) and √((k+1)/2); each is bracketed by an integer square root over 64 and checked by squaring. */
-const Q = 64n, STEPS = 8, cells = [];
+const Q = HERO.Q, STEPS = 8, cells = [];
 for (let k = 0; k < STEPS; k++) {
   const lo = isqrt(B(k) * Q * Q / 2n), m2 = B(k + 1) * Q * Q / 2n, s = isqrt(m2), hi = s * s === m2 ? s : s + 1n;
   cells.push({ x0: fr(k, 2), x1: fr(k + 1, 2), lo: fr(lo, Q), hi: fr(hi, Q),
@@ -136,11 +130,11 @@ function html() {
   const inside = flo.filter(([x, y]) => { const k = Math.min(STEPS - 1, Math.floor(2 * x)), c = cells[k]; return fnum(c.lo) <= y && y <= fnum(c.hi); }).length;
   guard('a float value of Math.sqrt lies outside the decided enclosure (the caption says every one is inside)', inside === NPTS, inside + ' of ' + NPTS);
   /* the meet: five knots where √x is exact */
-  const KNOTS = [[fr(0), fr(0)], [fr(1, 4), fr(1, 2)], [fr(1), fr(1)], [fr(9, 4), fr(3, 2)], [fr(4), fr(2)]];
+  const KNOTS = HERO.KNOTS;
   guard('a knot of the meet specimen is not an exact square root (y² = x, checked in rationals)', KNOTS.every(([x, y]) => feq(fmul(y, y), x)));
   /* the witness: the segment between the knots at 1/4 and 1, read at x = 1/2, against √(1/2) */
-  const WX = fr(1, 2), [k1, k2] = [KNOTS[1], KNOTS[2]];
-  const WY = fadd(k1[1], fmul(fdiv(fsub(k2[1], k1[1]), fsub(k2[0], k1[0])), fsub(WX, k1[0])));
+  const WX = HERO.WX, [k1, k2] = [KNOTS[1], KNOTS[2]];
+  const WY = HERO.segAt(WX);
   const WY2 = fmul(WY, WY);
   const WITNESS_STOP = 'the witness specimen stops breaking its claim (the segment\'s value at x = 1/2 squares to 1/2)';   /* the hero's stop sentence too (R30) */
   guard(WITNESS_STOP, !feq(WY2, WX) && fnum(WX) > fnum(k1[0]) && fnum(WX) < fnum(k2[0]));
@@ -157,9 +151,8 @@ function html() {
      `layers` draws the WARRANT panel one standing at a time for the four frames under the hero. */
   const HERO_DECIDED = 2, HERO_WX = { size: 11, width: 3.5 }, HERO_WX_N = { size: 9, width: 3 };
   guard('the hero\'s × is drawn thinner than its decided marks (a witness is an event at the figure\'s scale)', HERO_WX.width >= HERO_DECIDED && HERO_WX_N.width >= HERO_DECIDED);
-  const HX1 = fr(5, 4), inView = KNOTS.filter(([x]) => fnum(x) <= fnum(HX1)), nextK = KNOTS[inView.length];
-  /* where the last segment in view leaves the window, exactly: on the line from the last knot in view to the next */
-  const exitY = fadd(inView[inView.length - 1][1], fmul(fdiv(fsub(nextK[1], inView[inView.length - 1][1]), fsub(nextK[0], inView[inView.length - 1][0])), fsub(HX1, inView[inView.length - 1][0])));
+  /* the window, its knots, and where the last segment in view leaves it, exactly (grammar-hero.js) */
+  const HX1 = HERO.HX1, inView = HERO.inView, exitY = HERO.exitY;
   guard('the hero\'s window no longer holds the witness and the knots either side of it', inView.length >= 3 && fnum(WX) < fnum(inView[2][0]) && fnum(exitY) < 1.3);
   /* the enclosure in view: the steps that start left of 5/4, the last one cut at the window's edge */
   const cellsIn = cells.filter((c) => fnum(c.x0) < fnum(HX1)).map((c) => (fnum(c.x1) > fnum(HX1) ? Object.assign({}, c, { x1: HX1 }) : c));
@@ -172,7 +165,9 @@ function html() {
   { const f = CH.frame(HP);
     guard('an edge of the hero\'s enclosure is drawn inside its record (the paths round outward to a tenth of a pixel)',
       cellsIn.every((c) => Number(away(f.py(fnum(c.hi)), -1)) <= f.py(fnum(c.hi)) && Number(away(f.py(fnum(c.lo)), 1)) >= f.py(fnum(c.lo)))); }
-  const WXTXT = ['the segment at x = ' + fstr(WX), 'reads ' + fstr(WY) + ', and', '(' + fstr(WY) + ')² = ' + fstr(WY2) + ', not ' + fstr(WX)];
+  /* the three lines beside the ×: the hero's rule at ε = 0, the state the ε handle starts from */
+  const D0 = HERO.decide(0), WXTXT = D0.lines;
+  guard(WITNESS_STOP, D0.verdict === 'REFUTED' && feq(D0.x, WX) && feq(D0.y, WY));
   const q = (v, tt) => ({ v, t: tt });
   const heroAxes = (f, sparse) => CH.axes(f, { yTicks: [q(0, '0'), q(0.5, '1/2'), q(1, '1')], xTicks: (sparse ? [q(0, '0'), q(0.5, '1/2'), q(1, '1')] : [q(0, '0'), q(0.25, '1/4'), q(0.5, '1/2'), q(0.75, '3/4'), q(1, '1'), q(1.25, '5/4')]) });
   const eb = (x, y, s) => '    <text x="' + x + '" y="' + y + '" class="gx-eb" font-size="11">' + esc(s) + '</text>';
@@ -201,8 +196,9 @@ function html() {
     if (has(W.COMPUTED)) out.push('    <polyline points="' + flo.filter(([x]) => x <= 1.25).map(([x, y]) => P(f, x, y)).join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.8 }) + ' stroke-linejoin="round"/>');
     if (has(W.CHOSEN)) out.push('    <path d="' + seg + '" ' + W.attrs(MEET, { width: 3 }) + '/>');
     if (has(W.DECIDED)) out.push(inView.map(([x, y]) => '    <circle cx="' + f.px(fnum(x)).toFixed(1) + '" cy="' + f.py(fnum(y)).toFixed(1) + '" r="' + (L.r || 5) + '" class="w-decided" fill="var(--ink)" stroke-width="' + HERO_DECIDED + '"/>').join('\n'));
-    if (wxo) out.push('    <line x1="' + (f.px(fnum(WX)) + 8).toFixed(1) + '" y1="' + (f.py(fnum(WY)) + 8).toFixed(1) + '" x2="' + (f.px(L.wx[0]) - 2).toFixed(1) + '" y2="' + (f.py(L.wx[1]) + 6).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>',
-      W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo), ...WXTXT.map((tx, i) => lab([L.wx[0], L.wx[1] - i * L.wxStep], tx, L.wxCls, 'start')));
+    /* the witness, wrapped in one group the ε handle moves (a bare <g> paints nothing: the figure draws as before) */
+    if (wxo) out.push('    <g class="gx-wx">', '    <line x1="' + (f.px(fnum(WX)) + 8).toFixed(1) + '" y1="' + (f.py(fnum(WY)) + 8).toFixed(1) + '" x2="' + (f.px(L.wx[0]) - 2).toFixed(1) + '" y2="' + (f.py(L.wx[1]) + 6).toFixed(1) + '" stroke="var(--ink-4)" stroke-width="1" stroke-dasharray="' + G.GUIDE + '"/>',
+      W.witnessMark(f.px(fnum(WX)), f.py(fnum(WY)), wxo), ...WXTXT.map((tx, i) => lab([L.wx[0], L.wx[1] - i * L.wxStep], tx, L.wxCls, 'start')), '    </g>');
     if (has(W.DECIDED)) out.push(lab(L.enc, L.encT, 't-note', 'end'), lab(L.dec, L.decT, 't-note', 'start'));
     if (has(W.COMPUTED)) out.push(lab(L.com, L.comT, 't-note', 'end'));
     if (has(W.CHOSEN)) out.push(lab(L.cho, L.choT, 't-note', 'start'));
@@ -229,6 +225,53 @@ function html() {
     + '<b>Computed</b>, dashed: Math.sqrt at ' + fmt(NPTS) + ' points (all ' + fmt(inside) + ' inside the enclosure; comparing two doubles is exact). '
     + '<b>Chosen</b>, dotted: the straight segments between the knots, one curve of the infinitely many through them, so ' + m('W.meet(DECIDED, DECIDED, CHOSEN)') + ' is ' + esc(W.NAME[MEET].toLowerCase()) + '. '
     + '<b>Refused</b>: for x &lt; 0 there is no real root, and nothing is drawn but the void. On the left the same five layers in one ink at one weight, as a default plotting call draws them.</details>' });
+  /* THE ε HANDLE (2026-10-30, the operator's ruling; D14's grammar, WARRANT's R26). The segments' claim made with a
+     tolerance: every straight segment is within ε of √x on the window. ε is a chosen input, named in italic, typed in
+     its field or dragged along its own ruler in steps of 1/Q; tools/grammar-hero.js decides the claim, here and on the
+     page, which runs the same file. The flip (the least ε at which it holds) is a decided mark, drawn solid on the
+     ruler once; a drag moves only chosen marks — ε's line and knob, the segments raised by ε (dotted, drawn only for
+     ε > 0) — and the witness, which snaps to the next point that breaks the claim or goes when none does. ε starts at 0,
+     where the hero is the static figure above, byte for byte; the block is hidden until its script runs, so a reader
+     without scripts sees the page as it was. tools/drive-grammar-eps.js drives it in Chrome. */
+  const PEAK = HERO.SEGS.find((sg) => sg.inWindow && feq(sg.gap, HERO.FLIP));
+  guard('the hero\'s ε handle no longer flips at an exact rational inside its ruler, or its largest gap no longer squares back to its point (the root of the peak, squared, is the peak\'s x)',
+    !!PEAK && HERO.KFLIP > 0 && HERO.KFLIP < HERO.KMAX && feq(fmul(PEAK.root, PEAK.root), PEAK.at) && feq(HERO.eps(HERO.KFLIP), HERO.FLIP)
+      && HERO.decide(HERO.KFLIP).verdict === 'HOLDS' && HERO.decide(HERO.KFLIP - 1).verdict === 'REFUTED');
+  const epsRuler = (RW, L, R, cls) => {
+    const AY = 30, X = (k) => L + k / HERO.KMAX * (RW - L - R), out = [];
+    const lab = (k) => (k === 0 ? '0' : fstr(HERO.eps(k)));
+    out.push('    <line x1="' + L + '" y1="' + AY + '" x2="' + (RW - R) + '" y2="' + AY + '" stroke="var(--rule-strong)" stroke-width="1"/>');
+    for (let k = 0; k <= HERO.KMAX; k++) {
+      const x = X(k).toFixed(1), major = k % (HERO.KMAX / 4) === 0;
+      out.push('    <line x1="' + x + '" y1="' + (AY - (major ? 5 : 3)) + '" x2="' + x + '" y2="' + (AY + (major ? 5 : 3)) + '" stroke="var(--rule-strong)" stroke-width="1"/>');
+      if (major) out.push(CH.txt(X(k), AY + 22, lab(k), 't-ax', k === 0 ? 'start' : k === HERO.KMAX ? 'end' : 'middle'));
+    }
+    /* the flip, decided: drawn once, never moved by a drag */
+    const xf = X(HERO.KFLIP);
+    out.push('    <line x1="' + xf.toFixed(1) + '" y1="' + (AY - 16) + '" x2="' + xf.toFixed(1) + '" y2="' + (AY + 8) + '" ' + W.attrs(W.DECIDED, { width: 2 }) + '/>');
+    out.push(CH.txt(xf + 6, AY - 8, 'holds from ' + fstr(HERO.FLIP), 't-note', 'start'));
+    /* ε, chosen: its line and its knob (the slider) */
+    out.push('    <line class="gx-eps-hl" x1="' + X(0).toFixed(1) + '" y1="' + (AY - 20) + '" x2="' + X(0).toFixed(1) + '" y2="' + (AY + 10) + '" ' + W.attrs(W.CHOSEN, { width: 2 }) + '/>');
+    out.push('    <circle class="gx-knob" cx="' + X(0).toFixed(1) + '" cy="' + AY + '" r="8" tabindex="0" role="slider" aria-label="ε, the tolerance of the segments\' claim" aria-valuemin="0" aria-valuemax="' + HERO.KMAX + '" aria-valuenow="0" aria-valuetext="ε = 0"/>');
+    return '<svg class="' + cls + '" viewBox="0 0 ' + RW + ' 60" role="group" aria-label="The tolerance ε on a ruler from 0 to ' + fstr(HERO.eps(HERO.KMAX)) + ', in steps of 1/' + HERO.Q + ', with the decided flip at ' + fstr(HERO.FLIP) + ' as a solid tick">\n' + out.join('\n') + '\n</svg>';
+  };
+  const RULER_W = { w: 1040, L: 16, R: 16 }, RULER_N = { w: 400, L: 14, R: 14 };
+  /* what the page's script needs to move the chosen marks: each hero drawing's frame and the anchor of its words */
+  /* (`top`: the raised segments stop just under the enclosure's label, so a large ε never draws through its words) */
+  const frameOf = (Gm, Lx) => { const f = CH.frame(Gm); return { L: f.L, T: f.T, pw: f.pw, ph: f.ph, x0: f.x0, x1: f.x1, y0: f.yv0, y1: f.yv1, top: Math.min(f.yv1, Lx.enc[1] - 0.045), wx: Lx.wx }; };
+  const attrObj = (sv) => Object.fromEntries([...sv.matchAll(/([a-z-]+)="([^"]*)"/g)].map((mm) => [mm[1], mm[2]]));
+  const EPS_CFG = { frames: { w: frameOf(HP, LW), n: frameOf(HPN, LN) }, rulers: { w: RULER_W, n: RULER_N },
+    band: attrObj(W.attrs(W.CHOSEN, { width: 1.4 })), chips: { REFUTED: C.tag('REFUTED'), HOLDS: C.tag('HOLDS', 'held') } };
+  const epsBlock = '<div class="wide gx-eps" id="gx-eps" hidden>'
+    + '<p class="gx-eps-claim">The segments’ claim, with a tolerance: every straight segment is within <i>ε = <input id="gx-eps-in" type="text" inputmode="numeric" value="0" aria-label="ε, the tolerance, as a fraction such as 3/64"></i> of √x on [0, ' + fstr(HERO.HX1) + ']. '
+    + 'ε is a choice: type it, or drag its handle along the ruler, in steps of 1/' + HERO.Q + '. The solid tick is where the answer changes, decided once in exact rationals; a drag moves only ε, the segments raised by ε (dotted, above them), the × and the words.</p>'
+    + '<div class="gx-eps-r" id="gx-eps-r">' + epsRuler(RULER_W.w, RULER_W.L, RULER_W.R, 'gx-eps-w') + epsRuler(RULER_N.w, RULER_N.L, RULER_N.R, 'gx-eps-n') + '</div>'
+    + '<div class="gx-eps-dv" id="gx-eps-dv" aria-live="polite"></div>'
+    + '<p class="gx-eps-flip">It holds from ε = ' + fstr(HERO.FLIP) + ' up: the largest gap in the window is at x = ' + fstr(PEAK.at) + ', where the segment reads ' + fstr(HERO.segAt(PEAK.at)) + ' and √x is ' + fstr(PEAK.root) + '. Below ' + fstr(HERO.FLIP) + ' a point breaks it: the hero’s own x = ' + fstr(WX) + ' while it can, then x = ' + fstr(PEAK.at) + '.</p>'
+    + '<script type="application/json" id="gx-eps-cfg">' + JSON.stringify(EPS_CFG).replace(/</g, '\\u003c') + '</script>'
+    + '<script>' + read('tools/grammar-hero.js') + '</script>'
+    + '<script>' + read('tools/grammar-eps.js') + '</script>'
+    + '</div>';
   /* THE FOUR FRAMES: the WARRANT panel built one standing at a time, each frame adding one stroke */
   const FRAME_L = { eb: '', voidT2: '', sparse: true, r: 4, enc: [1.24, 1.255], encT: 'enclosure', dec: [0.27, 0.40], decT: 'exact knot',
     com: [1.0, 1.08], comT: 'Math.sqrt', cho: [0.78, 0.66], choT: 'segment' };
@@ -565,6 +608,7 @@ function html() {
   B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'WARRANT, the visual layer of evidence',
     deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
+  B_.push(epsBlock);
   B_.push('<div class="col gx-key">' + W.legendHtml() + '</div>');
   B_.push('%%TOC%%');
 
@@ -601,8 +645,9 @@ function html() {
   const SCENES_DIR = path.join(__dirname, 'grammar-scenes');
   const MODS = ['maps', 'routes-time', 'fields', 'systems'].map((n) => path.join(SCENES_DIR, n + '.js')).filter((f) => fs.existsSync(f)).map((f) => require(f));
   const SHORT = { maps: 'Maps', 'routes-time': 'Routes and time', fields: 'Fields and images', systems: 'Systems' };
-  const TOPICS = [{ id: 'charts', short: 'Charts', title: 'Charts you already draw', lead: 'Four charts of the kinds people draw every day, each twice: as a plotting library draws it, and in WARRANT. One reads a real record; one is computed from its equations as this page is built; two are illustrations, their numbers invented and said so on the figure. The arithmetic on an invention is still exact, so its ties, gaps and counts are decided given it; and no invention carries a red ×, which would be a forged counterexample.',
-    scenes: [GAL.designWave(guard), GAL.moody(guard), GAL.leaderboard(guard), GAL.admissions(guard)] }]
+  const TOPICS = [{ id: 'charts', short: 'Charts', title: 'Charts you already draw', lead: 'Five charts of the kinds people draw every day, each twice: as a plotting library draws it, and in WARRANT. Two read a real record; one is computed from its equations as this page is built; two are illustrations, their numbers invented and said so on the figure. The arithmetic on an invention is still exact, so its ties, gaps and counts are decided given it; and no invention carries a red ×, which would be a forged counterexample.',
+    /* the fifth, a contour chart, is drawn by the fields module (its chartScenes) and stands here */
+    scenes: [GAL.designWave(guard), GAL.moody(guard), GAL.leaderboard(guard), GAL.admissions(guard)].concat(MODS.flatMap((M) => (M.chartScenes || []).map((fn) => fn(guard)))) }]
     .concat(MODS.map((M) => ({ id: M.topic.id, short: SHORT[M.topic.id] || M.topic.short || M.topic.title, title: M.topic.title, lead: M.topic.lead || '', scenes: M.scenes.map((fn) => fn(guard)) })))
     .concat([{ id: 'text', short: 'Text and tables', title: 'Numbers in prose and in tables', lead: 'Prose flattens standing more than any chart does: a fit, a float interval and a rounded design value read the same in a sentence.', scenes: [GAL.reportText()] }]);
   const allScenes = TOPICS.flatMap((tp) => tp.scenes.map((sc) => Object.assign({ topic: tp }, sc)));
@@ -884,6 +929,21 @@ function html() {
 .gx-open{margin-top:var(--s-5)}
 .gx-law{font-family:var(--f-display);font-size:var(--text-2);line-height:var(--leading-snug);color:var(--ink);margin-bottom:var(--s-4)}
 .gx-more{margin-top:var(--s-3)}
+/* the ε handle under the hero (D14's grammar): ε in italic, its ruler, the words; shown by its script */
+.gx-eps{margin-top:var(--s-5)}
+.gx-eps-claim,.gx-eps-flip,.gx-eps-dv{font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-2)}
+.gx-eps-claim i,.gx-eps-dv i{color:var(--ink)}
+.gx-eps-claim input{width:5ch;font:inherit;font-style:italic;color:var(--ink);background:transparent;border:0;border-bottom:1px dotted var(--ink-3);padding:0;text-align:center}
+.gx-eps-claim input[aria-invalid]{border-bottom-color:var(--ink-5)}
+.gx-eps-r{touch-action:none;cursor:ew-resize;user-select:none;margin-top:var(--s-3)}
+.gx-eps-r svg{display:block;width:100%;height:auto;overflow:visible}
+.gx-eps-r .gx-eps-n{display:none}
+@media (max-width:680px){.gx-eps-r .gx-eps-w{display:none}.gx-eps-r .gx-eps-n{display:block}}
+.gx-knob{fill:var(--ink);stroke:var(--sunk);stroke-width:2;cursor:grab}
+.gx-knob:focus-visible{outline:none;stroke:var(--ink);stroke-width:3}
+.gx-eps-r.drag .gx-knob{cursor:grabbing}
+.gx-eps-dv{margin-top:var(--s-2)}
+.gx-eps-flip{margin-top:var(--s-2)}
 .gx-more summary{cursor:pointer;color:var(--ink-3)}
 .gx-grid{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:700px){.gx-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}

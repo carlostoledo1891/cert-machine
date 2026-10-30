@@ -1,5 +1,5 @@
 /* fields.js — scenes of /grammar/: fields, images and physics. How to draw a field from a model, an image as the
-   set of its fits, a shape from chords, an error budget, a count field under a curve and a calibration band, each from one of
+   set of its fits, a shape from chords, an error budget and a calibration band, each from one of
    the instruments' own records, twice: as a default plotting call draws it, and in WARRANT.
    tools/grammar-scenes/ · cert-machine · 2026-10-30
 
@@ -11,6 +11,7 @@
      · occultation     instruments/occultation/out/page.json (the chords, the misses, the floor and ceiling)
      · stereo-reach    instruments/stereo/budget.js over instruments/interval/interval.js, on presets.js's literals
      · contours        kits/warrant-mpl/examples/data/contours-a20.json, which must carry certs/ecbench-ledger.json's digest
+                       (drawn here, shown among the charts: tools/build-grammar.js takes it from `chartScenes`, 2026-10-30)
      · curveset        playground/curveset/out/page.json and playground/curveset/envelope.js
    Nothing here is red: no scene exhibits a counterexample to a claim about its own record.                        MIT */
 'use strict';
@@ -568,6 +569,9 @@ function curveset(guard) {
 
 module.exports = {
   topic: { id: 'fields', title: 'Fields, images and physics',
-    lead: 'A field from a model, an image as the set of its fits, a shape from its chords, an error budget, counts under a curve and a calibration band: six ways to draw physical data, each from one of the instruments’ own records, first as a plotting library draws it and then in WARRANT.' },
-  scenes: [navierStokes, interferometer, occultation, stereoBudget, ecContours, curveset],
+    lead: 'A field from a model, an image as the set of its fits, a shape from its chords, an error budget and a calibration band: five ways to draw physical data, each from one of the instruments’ own records, first as a plotting library draws it and then in WARRANT.' },
+  scenes: [navierStokes, interferometer, occultation, stereoBudget, curveset],
+  /* the contour figure stands in the charts' gallery (the operator's ruling of 2026-10-30: "a contour figure in the
+     gallery"), drawn by this file once and shown there, not twice on one page */
+  chartScenes: [ecContours],
 };

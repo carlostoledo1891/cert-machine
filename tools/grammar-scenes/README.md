@@ -1,6 +1,8 @@
 # tools/grammar-scenes — the scenes of /grammar/, by topic
 
-Each file here exports `{ topic, scenes }`: a topic (`{ id, title, lead }`) and an array of scene functions. A scene
+Each file here exports `{ topic, scenes }`: a topic (`{ id, title, lead }`) and an array of scene functions. It may
+also export `chartScenes`, scene functions it draws that stand in the page's charts gallery instead of its own topic
+(fields.js's contour chart, 2026-10-30): one drawing, one place on the page. A scene
 function takes `guard(plain, ok, msg)` and returns:
 
 ```js
