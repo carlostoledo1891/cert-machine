@@ -203,8 +203,9 @@ function textClass(standing) {
    such a value as addressed. */
 function value(text, standing, { title, derived, claim } = {}) {
   const t = title || GLOSS[standing];
-  const from = derived ? ` data-derived="${[].concat(derived).join(' ').replace(/"/g, '&quot;')}"` : '';
-  const cl = claim ? ` data-claim-rec="${String(claim).replace(/"/g, '&quot;')}"` : '';
+  /* addresses are listed space-separated, so a space inside one (a model's name as a key) is written %20 */
+  const from = derived ? ` data-derived="${[].concat(derived).map((x) => String(x).replace(/ /g, '%20')).join(' ').replace(/"/g, '&quot;')}"` : '';
+  const cl = claim ? ` data-claim-rec="${String(claim).replace(/ /g, '%20').replace(/"/g, '&quot;')}"` : '';
   return `<span class="w-val ${textClass(standing)}"${from}${cl} title="${String(t).replace(/"/g, '&quot;')}">${text}</span>`;
 }
 

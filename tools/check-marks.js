@@ -88,8 +88,9 @@ function main() {
     if (!items.length && !/\bdata-(derived|claim-rec)="(?!\$\{)/.test(fs.readFileSync(file, 'utf8'))) continue;
     pages++;
     /* D10: every input address of a derived value, and a claimant's number's claim cell, must resolve */
-    for (const m of fs.readFileSync(file, 'utf8').matchAll(/\bdata-(derived|claim-rec)="([^"]+)"/g)) for (const addr of m[2].split(/\s+/)) {
-      if (addr.includes('${')) continue;   /* a template in an inlined script (warrant.js value()), not an address */
+    for (const m of fs.readFileSync(file, 'utf8').matchAll(/\bdata-(derived|claim-rec)="([^"]+)"/g)) for (const raw of (m[2].includes('${') ? [] : m[2].split(/\s+/))) {
+      /* a template in an inlined script (warrant.js value()) is not an address; a space inside one is written %20 */
+      const addr = raw.replace(/%20/g, ' ');
       marks++;
       const am = /^([^#]+)#(\/.*)$/.exec(addr);
       let why = am && ROOTS.test(am[1]) ? null : 'not <record file>#<pointer> under a record root: ' + addr;
