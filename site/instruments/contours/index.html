@@ -721,7 +721,7 @@ section h2 + *, section h3 + * { margin-top: var(--s-4); }
 </style>
 </head>
 <body>
-<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep)try{localStorage.setItem("warrant-theme",t)}catch(e){}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
 
 <main>
 <header class="hero"><div class="wrap">
@@ -1023,6 +1023,26 @@ const ECGEO = { lit, scaledLit, polygon, classify, count, diagnostics, cmpLit, o
 if (typeof module !== 'undefined' && module.exports) module.exports = ECGEO;
 else if (typeof window !== 'undefined') window.ECGEO = ECGEO;
 </script>
+<script>(function () {
+  'use strict';
+  if (window.WTHEME) return;
+  var R = document.documentElement, fns = [], cache = {};
+  function tok(n) { return getComputedStyle(R).getPropertyValue(n).trim(); }
+  function trip(n) {
+    if (cache[n]) return cache[n];
+    var m = /^#([0-9a-f]{6})$/i.exec(tok(n));
+    if (!m) throw new Error('theme.js: ' + n + ' is not a #rrggbb token');
+    return (cache[n] = [0, 2, 4].map(function (i) { return parseInt(m[1].substr(i, 2), 16); }));
+  }
+  document.addEventListener('warrant-theme', function () { cache = {}; for (var i = 0; i < fns.length; i++) fns[i](); });
+  window.WTHEME = {
+    tok: tok,
+    rgb: function (n) { return trip(n).slice(); },
+    rgba: function (n, a) { return 'rgba(' + trip(n).join(',') + ',' + a + ')'; },
+    light: function () { return R.getAttribute('data-theme') === 'light'; },
+    on: function (f) { fns.push(f); }
+  };
+})();</script>
 <script>/* app.js — the contour instrument, in the tab.
    playground/contours/ · cert-machine
 
@@ -1074,8 +1094,7 @@ else if (typeof window !== 'undefined') window.ECGEO = ECGEO;
     bounds = { x0: g.x0, x1: g.x1, y0: g.y0, y1: g.y1 };
     ctx.setTransform(2, 0, 0, 2, 0, 0);
     ctx.clearRect(0, 0, W, H);
-    const cs = getComputedStyle(document.documentElement);
-    const ink = cs.getPropertyValue('--ink').trim() || '#e8e8ec';
+    const ink = window.WTHEME.tok('--ink');   /* playground/design/theme.js: read at every paint, so a flip repaints in the new ink */
     const cw = PW / g.nx, chh = PH / g.ny;
     const lmax = Math.log1p(g.max);
     for (let j = 0; j < g.ny; j++) for (let i = 0; i < g.nx; i++) {
@@ -1198,6 +1217,9 @@ else if (typeof window !== 'undefined') window.ECGEO = ECGEO;
   selT.addEventListener('change', select);
   fill();
   select();
+  /* the reader flipped the pill: the density is the one thing painted in pixels, so it alone is painted again, from
+     the grid already held (the SVG over it follows the tokens by itself; nothing is decided again) */
+  window.WTHEME.on(() => drawDensity(row.dataset));
 })();
 </script>
 </body>
