@@ -1,13 +1,13 @@
 /* apps/uirapuru/page.js — the four instruments of the Uirapuru story; runs after common.js and forest.js inside the builder's IIFE.
    Every decision here is a loop over whole numbers; the forest is seeded (forest.js), the birds invented. */
-const {forest}=window.FOREST;
+const {forest,shade}=window.FOREST;
 const BLUE={{F7_BLUE}};
 /* one square per tree, darker is bluer; a toy holds no number and is drawn as the void, hatched (WARRANT v2: it was a square
    in the guide pattern 2 3, which says nothing); a missing tree is not drawn; the ringed tree is the bird the word rests on */
 const drawPatch=(svg,b,wit,slots)=>{const n=slots||b.length,cols=Math.ceil(Math.sqrt(n)),rows=Math.ceil(n/cols),cell=320/cols;svg.setAttribute('viewBox','0 0 320 '+(rows*cell).toFixed(1));const vid=svg.id+'-void';let s='<defs><pattern id="'+vid+'" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="7" stroke="var(--ink-5)" stroke-width="1"/></pattern></defs>';
  for(let i=0;i<b.length;i++){const x=(i%cols)*cell,y=Math.floor(i/cols)*cell,g=cell*.14,w=cell-2*g,r=(cell*.12).toFixed(2);
   if(typeof b[i]!=='number')s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" class="w-void" fill="url(#'+vid+')" stroke="var(--border-strong)" stroke-width="1"/>';
-  else s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="var(--ink)" fill-opacity="'+(0.06+0.9*b[i]/100).toFixed(3)+'"/>';}
+  else s+='<rect x="'+(x+g).toFixed(2)+'" y="'+(y+g).toFixed(2)+'" width="'+w.toFixed(2)+'" height="'+w.toFixed(2)+'" rx="'+r+'" fill="var(--ink)" fill-opacity="'+shade(b[i]).toFixed(3)+'"/>';}
  if(wit>=0&&wit<b.length){const cx=(wit%cols)*cell+cell/2,cy=Math.floor(wit/cols)*cell+cell/2,rr=cell*.58;s+='<circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--paper)" stroke-width="3.5"/><circle cx="'+cx.toFixed(2)+'" cy="'+cy.toFixed(2)+'" r="'+rr.toFixed(2)+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>';}
  svg.innerHTML=s;};
 /* the call: every bird in the patch, in whole numbers; the word, the bird it rests on, the count */

@@ -8,3 +8,5 @@
 .easy .ask .q.on .a{display:block}
 .easy .ask .q.on .ctrl{opacity:.45;pointer-events:none}
 .easy .tblwrap{overflow-x:auto;margin:24px 0 0}
+/* the hero (patch 7, apps/uirapuru/build.js) stands in the cold open under the deck that introduces the forest */
+.easy .cold > .hero{margin-top:var(--s-6)}
