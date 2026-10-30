@@ -179,7 +179,9 @@ if (RUNREC) {
 const timed = (rec, kind) => { if (!RUNREC) return null; const r = RUNREC.runs.find((x) => x.record === rec && x.kind === kind); return r ? r.seconds : null; };
 const secs0 = (s) => s === null ? 'not yet timed' : s < 1 ? '< 1 s' : s < 90 ? s + ' s' : Math.round(s / 6) / 10 + ' min';
 /* the page's runtimes are measurements (COMPUTED); RERUN.md keeps plain text */
-const secs = (s) => s === null ? secs0(s) : W.value(secs0(s), W.COMPUTED, { title: 'measured wall clock, ' + (RUNREC ? RUNREC.date + ' on ' + RUNREC.machine.cpu : 'one run') + '; not decided' });
+/* D10: a measured runtime names the run record's cell it is printed from (`derived`) */
+const secs = (s, rec, kind) => s === null ? secs0(s) : W.value(secs0(s), W.COMPUTED, { title: 'measured wall clock, ' + (RUNREC ? RUNREC.date + ' on ' + RUNREC.machine.cpu : 'one run') + '; not decided',
+  derived: [RUN_RECORD + '#/runs/' + RUNREC.runs.findIndex((x) => x.record === rec && x.kind === kind) + '/seconds'] });
 
 /* ---- the counts, all derived ---------------------------------------------------- */
 const N = {
@@ -258,13 +260,13 @@ const kitRows = KIT.entries.map((e) => {
   const rows = rowsOf(e.record);
   const vh = e.verifier ? verifierHref(e.verifier) : null;
   const cmdCell = (cmd, kind) => cmd
-    ? { raw: '<span class="m">' + C.esc(cmd) + '</span><br><small>' + secs(timed(e.record, kind)) + '</small>' }
+    ? { raw: '<span class="m">' + C.esc(cmd) + '</span><br><small>' + secs(timed(e.record, kind), e.record, kind) + '</small>' }
     : { raw: '<small>—</small>' };
   return [
     { raw: '<span class="m">' + C.esc(e.record) + '</span><br><small>' + C.esc(needsShown(e.needs)) + '</small>' },
     { raw: '<a href="' + C.escAttr(rows[0].page) + '">' + rows.length + ' row' + (rows.length === 1 ? '' : 's') + '</a><br><small>' + C.esc(verdictSummary(rows)) + '</small>' },
     cmdCell(e.rederive, 'rederive'),
-    e.verifier ? { raw: (vh ? '<a href="' + vh + '"><span class="m">' + C.esc(e.verifier) + '</span></a>' : '<span class="m">' + C.esc(e.verifier) + '</span>') + '<br><small>' + secs(timed(e.record, 'verifier')) + '</small>' } : { raw: '<small>—</small>' },
+    e.verifier ? { raw: (vh ? '<a href="' + vh + '"><span class="m">' + C.esc(e.verifier) + '</span></a>' : '<span class="m">' + C.esc(e.verifier) + '</span>') + '<br><small>' + secs(timed(e.record, 'verifier'), e.record, 'verifier') + '</small>' } : { raw: '<small>—</small>' },
     cmdCell(e.second, 'second'),
     { raw: '<span class="m">' + sha(e.record).slice(0, 16) + '…</span>' }
   ];
