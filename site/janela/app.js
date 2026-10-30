@@ -1396,17 +1396,39 @@ function pad() {
   if (T && !MAP.fitted && MAP.ready) { MAP.fitted = true; MAP.map.fitBounds(phone.matches ? BOUNDS_PHONE : BOUNDS, { padding: phone.matches ? Object.assign({}, P, { right: P.right + 34, left: P.left + 10 }) : P, duration: 0 }); reveal(S.site); return; }
   MAP.map.easeTo({ padding: P, duration: 300 });
 }
+/* THE GROUND FLIPS WITH THE THEME (2026-10-30 late): on screen the sea is the page and the land a step up; on paper the
+   land is the page and the sea a step down, the way a light map reads. Same tokens, no new value. */
+function lightTheme() { return document.documentElement.getAttribute('data-theme') === 'light'; }
+function mapPaint() {
+  var L = lightTheme();
+  return { sea: { 'background-color': COL[L ? '--surface2' : '--paper'] }, 'fields-fill': { 'fill-color': COL['--ink-5'] }, fields: { 'line-color': COL['--ink-5'] },
+    presal: { 'line-color': COL['--ink-4'] }, land: { 'fill-color': COL[L ? '--paper' : '--surface2'] }, coast: { 'line-color': COL['--ink-5'] } };
+}
 function mapStyle() {
+  var P = mapPaint(), paint = function (id, rest) { return Object.assign({}, P[id], rest || {}); };
   return { version: 8, sources: { land: { type: 'geojson', data: GEO.land }, fields: { type: 'geojson', data: GEO.fields }, presal: { type: 'geojson', data: GEO.presal } },
     layers: [
-      { id: 'sea', type: 'background', paint: { 'background-color': COL['--paper'] } },
-      { id: 'fields-fill', type: 'fill', source: 'fields', paint: { 'fill-color': COL['--ink-5'], 'fill-opacity': 0.07 } },
-      { id: 'fields', type: 'line', source: 'fields', paint: { 'line-color': COL['--ink-5'], 'line-width': 0.8, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0.55, 7, 1] } },
-      { id: 'presal', type: 'line', source: 'presal', paint: { 'line-color': COL['--ink-4'], 'line-width': 1, 'line-opacity': 0.6 } },
-      { id: 'land', type: 'fill', source: 'land', paint: { 'fill-color': COL['--surface2'] } },
-      { id: 'coast', type: 'line', source: 'land', paint: { 'line-color': COL['--ink-5'], 'line-width': 0.8 } }
+      { id: 'sea', type: 'background', paint: paint('sea') },
+      { id: 'fields-fill', type: 'fill', source: 'fields', paint: paint('fields-fill', { 'fill-opacity': 0.07 }) },
+      { id: 'fields', type: 'line', source: 'fields', paint: paint('fields', { 'line-width': 0.8, 'line-opacity': ['interpolate', ['linear'], ['zoom'], 3, 0.55, 7, 1] }) },
+      { id: 'presal', type: 'line', source: 'presal', paint: paint('presal', { 'line-width': 1, 'line-opacity': 0.6 }) },
+      { id: 'land', type: 'fill', source: 'land', paint: paint('land') },
+      { id: 'coast', type: 'line', source: 'land', paint: paint('coast', { 'line-width': 0.8 }) }
     ] };
 }
+/* THE PILL FLIPS THE THEME (design/nav.js dispatches "warrant-theme" on document): the tokens are read again, the map's
+   layers re-painted in place, the panel and the marks redrawn from what is already decided. Nothing is decided again. */
+function repaint() {
+  colors();
+  var map = MAP.map;
+  if (map) {
+    var go = function () { var P = mapPaint(); Object.keys(P).forEach(function (id) { if (!map.getLayer(id)) return; Object.keys(P[id]).forEach(function (k) { map.setPaintProperty(id, k, P[id][k]); }); }); };
+    if (map.isStyleLoaded()) go(); else map.once('load', go);
+  }
+  FIELD.dirty = true; FIELD.clear = true;
+  render();
+}
+document.addEventListener('warrant-theme', repaint);
 function initMap() {
   if (!window.maplibregl) { status('the map did not load; the panel works without it'); return; }
   var map;

@@ -1233,26 +1233,48 @@ function poiPopup(p) {
   PL.popup = new maplibregl.Popup({ closeButton: true, offset: 12, className: 'sw-pop' }).setLngLat([p.lon, p.lat])
     .setHTML('<b>' + esc(p.name || t('poi_' + p.cat)) + '</b><span>' + esc(t('poi_' + p.cat)) + '</span><a href="https://www.google.com/maps/dir/?api=1&destination=' + p.lat + ',' + p.lon + '" target="_blank" rel="noopener">' + t('route') + '</a>').addTo(A.map);
 }
-/* the basemap, from the tokens: the island and its coast in grays (frontier's style, house values) */
+/* the basemap, from the tokens: the island and its coast in grays (frontier's style, house values). THE GROUND FLIPS
+   WITH THE THEME (2026-10-30 late): on screen the sea is the page and the island a step up from it; on paper the island
+   is the page and the sea a step down, the way a light map reads. The parks take the island's own ground on paper: the
+   one step under white is the sea's, and a park the sea's grey would read as water. Same tokens, no new value. */
+function lightTheme() { return document.documentElement.getAttribute('data-theme') === 'light'; }
+function mapPaint() {
+  var cs = getComputedStyle(document.documentElement), v = function (k) { return cs.getPropertyValue(k).trim(); }, L = lightTheme();
+  var sea = v(L ? '--surface2' : '--paper');
+  return { sea: { 'background-color': sea }, earth: { 'fill-color': v(L ? '--paper' : '--surface') }, green: { 'fill-color': v(L ? '--paper' : '--surface2') },
+    beach: { 'fill-color': v('--rule') }, urban: { 'fill-color': v('--sunk') }, water: { 'fill-color': sea }, river: { 'line-color': v('--rule') },
+    'roads-minor': { 'line-color': v('--rule-soft') }, 'roads-major': { 'line-color': v('--rule') }, buildings: { 'fill-color': v('--surface2') },
+    coast: { 'line-color': v('--ink-4') }, night: { 'background-color': v('--paper') } };
+}
 function mapStyle() {
-  var cs = getComputedStyle(document.documentElement), v = function (k) { return cs.getPropertyValue(k).trim(); };
-  var src = 'pm', local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  var P = mapPaint(), src = 'pm', local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   var turl = local ? new URL(CFG.tiles.local, location.href).href : CFG.tiles.url;
+  var paint = function (id, rest) { return Object.assign({}, P[id], rest || {}); };
   return { version: 8, name: 'swell', sources: { pm: { type: 'vector', url: 'pmtiles://' + turl, attribution: CFG.tiles.attribution } },
     layers: [
-      { id: 'sea', type: 'background', paint: { 'background-color': v('--paper') } },
-      { id: 'earth', type: 'fill', source: src, 'source-layer': 'earth', filter: ['==', '$type', 'Polygon'], paint: { 'fill-color': v('--surface') } },
-      { id: 'green', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'national_park', 'park', 'protected_area', 'nature_reserve', 'forest', 'wood', 'scrub', 'grassland', 'grass', 'golf_course'], paint: { 'fill-color': v('--surface2'), 'fill-opacity': 0.6 } },
-      { id: 'beach', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'beach', 'sand'], paint: { 'fill-color': v('--rule') } },
-      { id: 'urban', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'residential', 'commercial', 'industrial', 'retail'], paint: { 'fill-color': v('--sunk') } },
-      { id: 'water', type: 'fill', source: src, 'source-layer': 'water', filter: ['all', ['==', '$type', 'Polygon'], ['!in', 'kind', 'ocean', 'sea', 'bay', 'strait']], paint: { 'fill-color': v('--paper') } },
-      { id: 'river', type: 'line', source: src, 'source-layer': 'water', minzoom: 12, filter: ['in', 'kind', 'river', 'stream', 'canal'], paint: { 'line-color': v('--rule'), 'line-width': 0.6 } },
-      { id: 'roads-minor', type: 'line', source: src, 'source-layer': 'roads', minzoom: 13, filter: ['in', 'kind', 'minor_road', 'other'], paint: { 'line-color': v('--rule-soft'), 'line-width': ['interpolate', ['exponential', 1.6], ['zoom'], 13, 0.4, 18, 5] } },
-      { id: 'roads-major', type: 'line', source: src, 'source-layer': 'roads', minzoom: 9, filter: ['in', 'kind', 'major_road', 'highway'], paint: { 'line-color': v('--rule'), 'line-width': ['interpolate', ['exponential', 1.6], ['zoom'], 9, 0.5, 18, 9] } },
-      { id: 'buildings', type: 'fill', source: src, 'source-layer': 'buildings', minzoom: 15, paint: { 'fill-color': v('--surface2'), 'fill-opacity': 0.7 } },
-      { id: 'coast', type: 'line', source: src, 'source-layer': 'earth', filter: ['==', '$type', 'Polygon'], paint: { 'line-color': v('--ink-4'), 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.5, 15, 1.0] } },
-      { id: 'night', type: 'background', paint: { 'background-color': v('--paper'), 'background-opacity': 0, 'background-opacity-transition': { duration: 500, delay: 0 } } },
+      { id: 'sea', type: 'background', paint: paint('sea') },
+      { id: 'earth', type: 'fill', source: src, 'source-layer': 'earth', filter: ['==', '$type', 'Polygon'], paint: paint('earth') },
+      { id: 'green', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'national_park', 'park', 'protected_area', 'nature_reserve', 'forest', 'wood', 'scrub', 'grassland', 'grass', 'golf_course'], paint: paint('green', { 'fill-opacity': 0.6 }) },
+      { id: 'beach', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'beach', 'sand'], paint: paint('beach') },
+      { id: 'urban', type: 'fill', source: src, 'source-layer': 'landuse', filter: ['in', 'kind', 'residential', 'commercial', 'industrial', 'retail'], paint: paint('urban') },
+      { id: 'water', type: 'fill', source: src, 'source-layer': 'water', filter: ['all', ['==', '$type', 'Polygon'], ['!in', 'kind', 'ocean', 'sea', 'bay', 'strait']], paint: paint('water') },
+      { id: 'river', type: 'line', source: src, 'source-layer': 'water', minzoom: 12, filter: ['in', 'kind', 'river', 'stream', 'canal'], paint: paint('river', { 'line-width': 0.6 }) },
+      { id: 'roads-minor', type: 'line', source: src, 'source-layer': 'roads', minzoom: 13, filter: ['in', 'kind', 'minor_road', 'other'], paint: paint('roads-minor', { 'line-width': ['interpolate', ['exponential', 1.6], ['zoom'], 13, 0.4, 18, 5] }) },
+      { id: 'roads-major', type: 'line', source: src, 'source-layer': 'roads', minzoom: 9, filter: ['in', 'kind', 'major_road', 'highway'], paint: paint('roads-major', { 'line-width': ['interpolate', ['exponential', 1.6], ['zoom'], 9, 0.5, 18, 9] }) },
+      { id: 'buildings', type: 'fill', source: src, 'source-layer': 'buildings', minzoom: 15, paint: paint('buildings', { 'fill-opacity': 0.7 }) },
+      { id: 'coast', type: 'line', source: src, 'source-layer': 'earth', filter: ['==', '$type', 'Polygon'], paint: paint('coast', { 'line-width': ['interpolate', ['linear'], ['zoom'], 9, 0.5, 15, 1.0] }) },
+      { id: 'night', type: 'background', paint: paint('night', { 'background-opacity': 0, 'background-opacity-transition': { duration: 500, delay: 0 } }) },
     ] };
+}
+/* THE PILL FLIPS THE THEME (design/nav.js dispatches "warrant-theme" on document): the tokens are read again, the map's
+   layers re-painted in place, the canvases redrawn from what is already computed. Nothing is decided again. */
+function repaint() {
+  colors();
+  if (A.map) {
+    var go = function () { var P = mapPaint(); Object.keys(P).forEach(function (id) { if (!A.map.getLayer(id)) return; Object.keys(P[id]).forEach(function (k) { A.map.setPaintProperty(id, k, P[id][k]); }); }); A.map.triggerRepaint(); };
+    if (A.map.isStyleLoaded()) go(); else A.map.once('load', go);
+  }
+  if (A.ready) { drawDayStrip(); drawTimeline(); if (A.sel) renderCard(); else drawSparks(); drawCurrents(); }
 }
 
 /* ================================================================ the re-check: the day re-derived in this tab */
@@ -1310,6 +1332,7 @@ function boot() {
   A.map.once('load', function () { if (!/praia=/.test(location.hash)) fitIsland(); });
   UI.phone.addEventListener('change', function () { setSheet('peek'); setMapPadding(); fitIsland(); });
   addEventListener('resize', function () { moveTabLine(); if (A.ready) { drawDayStrip(); drawTimeline(); if (A.sel) renderCard(); else drawSparks(); } });
+  document.addEventListener('warrant-theme', repaint);
   windSetup(); animateWaves();
   loadDay().then(function (day) {
     if (day.v !== 'swell-day-1') throw new Error('not a Swell day: ' + day.v);

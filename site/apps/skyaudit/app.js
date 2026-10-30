@@ -61,10 +61,15 @@ const protocol = new pmtiles.Protocol();
 maplibregl.addProtocol('pmtiles', protocol.tile);
 const OFM_DARK = 'https://tiles.openfreemap.org/styles/fiord';
 
+/* THE BASEMAP FOLLOWS THE THEME (2026-10-30 late): the build writes the pinned tiles' style twice, the dark one and a
+   light one whose every grey is a print-register value (apps/skyaudit/build.js lightStyle); the pill picks it. */
+const lightTheme = () => document.documentElement.getAttribute('data-theme') === 'light';
+const themeStyle = () => (lightTheme() && CFG.styleLight ? CFG.styleLight : CFG.style);
+let pinnedTiles = false;
 async function pickStyle() {
   try {
     const r = await fetch(CFG.tiles, { headers: { Range: 'bytes=0-127' } });
-    if (r.ok || r.status === 206) return CFG.style;
+    if (r.ok || r.status === 206) { pinnedTiles = true; return themeStyle(); }
   } catch (e) { /* fall through */ }
   console.warn('skyaudit: pinned tiles unreachable — falling back to OpenFreeMap');
   return OFM_DARK;
@@ -167,14 +172,14 @@ function layers() {
         ? f.track.map((e) => altColor(e[3]))
         : COL[f.verdicts[S.key]] || COL.F),
       opacity: 0.9, pickable: true,
-      updateTriggers: { getColor: [S.key, S.mode] } }),
+      updateTriggers: { getColor: [S.key, S.mode, S.theme] } }),
     new deck.IconLayer({ id: 'heads', data: heads,
       iconAtlas: CHEV_URL, iconMapping: CHEV_MAP, getIcon: () => 'chev',
       getPosition: (d) => [d.p.lon, d.p.lat],
       getAngle: (d) => -d.p.brg,
       getColor: (d) => (S.mode === 'a' ? altColor(d.p.alt) : COL[d.f.verdicts[S.key]] || COL.F),
       getSize: 15, sizeMinPixels: 11, sizeMaxPixels: 20, pickable: true,
-      updateTriggers: { getColor: [S.key, S.mode] } }),
+      updateTriggers: { getColor: [S.key, S.mode, S.theme] } }),
   );
   /* heliport nodes + the planned route */
   const PL = CFG.planner;
@@ -203,7 +208,7 @@ function layers() {
         widthUnits: 'pixels', widthMinPixels: 2, capRounded: true, jointRounded: true,
         pickable: true,
         onHover: (i) => { S.hovRoute = i.object ? i.object.from + '|' + i.object.to : null; },
-        updateTriggers: { getColor: [selKeyR, S.hovRoute], getWidth: [selKeyR] } }));
+        updateTriggers: { getColor: [selKeyR, S.hovRoute, S.theme], getWidth: [selKeyR] } }));
     } else if (selRoute) {
       L.push(new deck.PathLayer({ id: 'plan-route', data: [selRoute],
         getPath: (r) => r.coords, getColor: [...COL.sig, 200],
@@ -319,6 +324,21 @@ $('scrub').oninput = (e) => { S.t = +e.target.value; };
 $('speed').onclick = (e) => { if (e.target.dataset.v) { S.speed = +e.target.dataset.v; segSync($('speed'), S.speed); } };
 $('mode').onclick = (e) => { if (e.target.dataset.v) { S.mode = e.target.dataset.v; segSync($('mode'), S.mode); renderCounts(); } };
 new MutationObserver(loadColors).observe(document.documentElement, { attributes: true });
+/* THE PILL FLIPS THE THEME (design/nav.js dispatches "warrant-theme" on document): the colours are read again (the
+   observer above), the deck layers re-coloured on their next frame, the basemap's paint swapped in place from the
+   other pinned style. Nothing is decided again. */
+S.theme = 0;
+document.addEventListener('warrant-theme', () => {
+  loadColors(); S.theme++;
+  if (!map || !pinnedTiles) return;
+  fetch(themeStyle()).then((r) => r.json()).then((st) => {
+    const go = () => {
+      for (const l of st.layers) for (const [k, v] of Object.entries(l.paint || {})) if (/color/.test(k) && map.getLayer(l.id)) map.setPaintProperty(l.id, k, v);
+      if (map.getLayer('sk-buildings')) map.setPaintProperty('sk-buildings', 'fill-extrusion-color', getComputedStyle(document.documentElement).getPropertyValue('--surface').trim());
+    };
+    if (map.isStyleLoaded()) go(); else map.once('load', go);
+  }).catch((e) => console.warn('skyaudit: the other style did not load', e));
+});
 
 /* ---------------------------- the live mission (sim, gold) ------- */
 /* A SIMULATION from mid-box parameters and the cited L/D–speed line
