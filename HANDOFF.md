@@ -22,7 +22,8 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ 2026-10-30 — /GRAMMAR/ AS A ONE-PAGER, A SPECIMEN ON BRANCH grammar-onepager (pushed, NOT merged; c3dfee96), on the
+  ◆ 2026-10-30 — /GRAMMAR/ AS A ONE-PAGER, MERGED AND LIVE (merge 477d1575, on the operator's "approved, you can merge and
+     push live"; the specimen was branch grammar-onepager, c3dfee96), on the
      operator's "Use the roundtable to perfect the construction of the Grammar page … the one pager to explain and
      impress". Four review panels (Tufte/Bertin/Wilkinson, Victor/Sanderson/Bostock, Norman/Maeda/Sagmeister, Chief
      Scientist/CTO; brief in the session scratchpad, internal, never cited) read today's page; the specimen follows where
@@ -32,7 +33,7 @@ NEXT SESSION, IN ORDER:
      as premises, one figure in three registers + the Python and JS calls, held by the build, the colour law; the rules,
      issues, axioms and guards behind disclosures; R17–R31's table off the page. Machinery: figure({ source }) and
      W.value({ illustration }) (WARRANT.md's dated section on the branch). 11,800 px at 1440 (was 17,200). Gates green on the
-     branch but the known Swell flap. ON APPROVAL: merge into main, `make page`, push. Left out, each a question: a live ε
+     branch and after the merge but the known Swell flap (@1440 9 → 10, bytes unchanged). Left out, each a question: a live ε
      handle on the hero (one panel wanted it, two refused it on this page), a contour figure in the gallery.
   ◆ 2026-10-30 — THE HOME PAGE'S HERO REMOVED on the operator's word ("remove the homepage hero chart. push live"): the
      register's decided-claims strip (tools/build-site.js's HERO block, its figure and CH.script()) is gone; the home page
