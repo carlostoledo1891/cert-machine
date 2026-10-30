@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 late — RULED (the operator, on "some pages do not have the dark/light toggle"): the ten DARK_ONLY
+     /instruments pages are REDRAWN IN TOKENS (their art becomes ink on paper in light), canvases REPAINT AT ONCE on a
+     flip (design/nav.js now dispatches "warrant-theme" on document, 9820a8d3; contours gets the same fix), and THE APPS
+     TOO (Swell, Janela, SkyAudit, the atlas map): light basemaps and light status colours — any new colour value comes to
+     the operator for approval before it ships. Three lanes: lane-light-plates, lane-light-canvas, lane-light-apps.
   ◆ 2026-10-30 evening — THE SEVEN RULINGS BUILT AND LIVE (five worktree lanes, merged on branch merge-1030, the operator:
      "Follow your recommendations"). /claimbox/ republished again on the operator's word from claimbox 5530c96 (fac29cbf;
      live sha256 fbd87029… checked). WHAT LANDED:
