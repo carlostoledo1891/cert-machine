@@ -560,6 +560,9 @@ function html() {
      then how the build holds it and the colour law. The rulebook's cards, every issue found, the foundations and the
      guards stay on this page, one click down. */
   const B_ = [];
+  /* the theme switch (a trial on this page): the stored choice is applied before the header paints; dark is the default */
+  B_.push('<script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>'
+    + '<div class="gx-theme" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>');
   B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'What each mark rests on',
     deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
@@ -683,8 +686,8 @@ function html() {
     PL.card({ k: 'a premise chain', d: W.premisesHtml([{ grade: W.COMPARED, verified: false, label: 'The island model', evidence: 'beside a Boussinesq model.' }, { grade: W.ASSUMED, label: 'Breaking', evidence: 'from the literature.' }], { meetLine: 'The weakest premise is <b>assumed</b>.' }), code: esc('W.premisesHtml([...], { meetLine })') }),
   ];
   B_.push(C.section({ lab: 'outputs and code', title: 'One figure, three registers, your own code', id: 'outputs', wide: true,
-    bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on this dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
-      + '<div class="gx-outs">' + outCard('on screen', '', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
+    bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on the site’s dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
+      + '<div class="gx-outs">' + outCard('on screen', 'gx-screen', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
       + '<div class="gx-codes"><div><div class="gx-k">python · matplotlib</div>' + C.code(PY) + '</div><div><div class="gx-k">javascript · svg and html</div>' + C.code(JS) + '</div></div>'
       + '<div class="col">' + C.pRaw('No package yet: copy one folder. ' + a(blob('kits/warrant-mpl'), 'kits/warrant-mpl') + ' for matplotlib (with the design wave, a return curve and the contours as worked examples), or ' + a(blob('playground/warrant.js'), 'warrant.js') + ' and ' + a(blob('design/grammar.js'), 'grammar.js') + ' for the web, MIT. On a canvas, ' + m('setLineDash') + ' takes the same patterns. '
         + 'The words in Portuguese — ' + WPT.GRADE.map((g) => '<em>' + esc(g) + '</em>').join(', ') + ' — are in ' + a(blob('playground/warrant-pt.js'), 'warrant-pt.js') + '.')
@@ -735,9 +738,9 @@ function html() {
     ['Colour never carries standing.', 'The stroke does; nor does it stand in for a verdict word.'], ['Four kinds only:', 'the witness, identity, order, status.'],
     ['Every pair passes the validator,', 'on the figure’s own ground, for every simulated deficiency.'], ['No yellow, no orange.', ''], ['A new colour needs the report and an approval,', 'recorded in the rulebook.']];
   B_.push(C.section({ lab: 'the colour law', title: 'Ink first, and one red', id: 'colour', wide: true,
-    bodyRaw: '<div class="col">' + C.p('Every figure reads in greyscale first, and the strokes take lightness in order of standing. The one red, --witness ' + witnessHex + ' at ' + contrastW.toFixed(1) + ':1 on the page ground, marks an exhibited counterexample and nothing else: on this page, once, on the hero. A colour enters only with a measurement, and the law itself came from one: two series colours of a sibling project, distinct to most readers, were one colour to a deuteranope.') + '</div>'
-      + PL.grid(2, [PL.card({ k: 'the ink ramp', art: PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }), d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing.' }),
-        PL.card({ k: 'the one red', d: '<div class="gx-red">--witness ' + esc(witnessHex) + '</div><div class="gx-red-n">' + contrastW.toFixed(1) + ':1 on the page ground · an exhibited counterexample, only · on this page, the hero’s ×</div>Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
+    bodyRaw: '<div class="col">' + C.p('Every figure reads in greyscale first, and the strokes take lightness in order of standing. The one red, --witness ' + witnessHex + ' at ' + contrastW.toFixed(1) + ':1 on the dark ground, marks an exhibited counterexample and nothing else: on this page, once, on the hero. A colour enters only with a measurement, and the law itself came from one: two series colours of a sibling project, distinct to most readers, were one colour to a deuteranope.') + '</div>'
+      + PL.grid(2, [PL.card({ k: 'the ink ramp, on the dark screen', art: '<div class="gx-screen">' + PL.inkRamp({ ramp: RAMP, tones: { decided: TA[0].tok, computed: TA[1].tok, chosen: TA[2].tok } }) + '</div>', d: 'Five greys, OKLab lightness under each. The strokes take them in order of standing, so a copy in greyscale loses nothing. On paper the order runs the other way, darker = stronger: #000 decided, #262626 computed, #4d4d4d chosen.' }),
+        PL.card({ k: 'the one red', d: '<div class="gx-red">--witness ' + esc(witnessHex) + '</div><div class="gx-red-n">' + contrastW.toFixed(1) + ':1 on the dark ground · an exhibited counterexample, only · on this page, the hero’s ×</div>Until 29 October the apps carried a second red for a refused state, ΔE about ' + esc(de4[1]) + ' from this one: one red to the eye with two meanings. It is folded: the apps’ refused state reads this token, with its meaning.' })])
       + '<h3 class="gr-h3">Every pair passes the validator</h3>'
       + '<div class="col">' + C.p('OKLab ΔE × 100 for every pair that shares a figure, under the colour-vision model of Machado, Oliveira and Fernandes (2009), computed as this page is built:') + '</div>'
       + PL.validatorPlate({ before: VB, after: VA, threshold: cvdMin })
@@ -751,6 +754,24 @@ function html() {
   /* the print register's values are declared once in :root (the page's own tokens, where a literal belongs) and the
      paper panel re-points the screen tokens at them */
   const paperCss = Object.entries(PAPER).map(([k, v]) => { const n = '--gx-pr' + k.slice(1); VARS[n] = v; return k + ':var(' + n + ')'; }).join(';');
+  /* A LIGHT THEME, ON THIS PAGE ONLY (2026-10-30, the operator: "only on the grammar page … a light/dark switch … I want
+     to test first"). The site is one dark palette by design (design/tokens.js); this is a trial. It adds no colour: every
+     light value is the approved print register's (design/print/tokens.js: white paper, the three inks, the guide, the
+     grid, the neutral order ramp) and the witness red is the same token. The strokes keep their order the paper way,
+     darker = stronger (v2.3). A caption is text, so it takes ink-3, never the guide (which is a mark grade, 3.45:1). */
+  const LIGHT = { '--paper': prHex('--paper'), '--surface': prHex('--paper'), '--sunk': prHex('--paper'), '--surface2': prHex('--o-1'),
+    '--ink': prHex('--ink'), '--ink-2': prHex('--ink-2'), '--ink-3': prHex('--ink-3'), '--ink-4': prHex('--ink-3'), '--ink-5': prHex('--guide'),
+    '--rule': prHex('--grid'), '--rule-strong': prHex('--o-3'), '--rule-soft': prHex('--o-1'),
+    '--sig': prHex('--ink'), '--sig-2': prHex('--guide'), '--sig-soft': prHex('--o-1'), '--held': prHex('--ink'), '--held-soft': prHex('--o-1'),
+    '--warn': prHex('--ink-3'), '--warn-soft': prHex('--paper'), '--mark': prHex('--o-3'), '--band-fill': 'rgba(0,0,0,.06)',
+    '--c-1': prHex('--ink'), '--c-2': prHex('--ink-3'), '--c-3': prHex('--guide'), '--c-grid': prHex('--grid'), '--c-axis': prHex('--guide'),
+    '--c-s1': prHex('--o-1'), '--c-s2': prHex('--o-2'), '--c-s3': prHex('--o-3'), '--c-s4': prHex('--o-4'), '--c-s5': prHex('--o-5') };
+  guard('the light trial names a token the dark palette does not have, or a value outside the print register',
+    Object.keys(LIGHT).every((k) => k in T.DARKONLY) && Object.values(LIGHT).every((h) => /^rgba\(0,0,0,/.test(h) || PR.REGISTER.some((x) => x.hex === h)));
+  const lightCss = 'color-scheme:light;' + Object.entries(LIGHT).map(([k, v]) => k + ':' + v).join(';');
+  /* the "on screen" sample stays the site's dark register in either theme: it is a picture of the screen */
+  const DARK_SAMPLE = ['--paper', '--sunk', '--surface', '--ink', '--ink-2', '--ink-3', '--ink-4', '--ink-5', '--rule', '--rule-strong', '--c-grid', '--c-axis'];
+  const screenCss = DARK_SAMPLE.map((k) => { const n = '--gx-dk' + k.slice(1); VARS[n] = T.DARKONLY[k]; return k + ':var(' + n + ')'; }).join(';');
   const CSS = `
 /* /grammar/ (tools/build-grammar.js): the frames, the gallery's pairs, the outputs, the cards (the hero is design/template.js) */
 :root{${Object.entries(VARS).map(([k, v]) => k + ':' + v).join(';')}}
@@ -791,6 +812,13 @@ function html() {
 .gx-outbox:not(.gx-paper) svg text{font-family:var(--f-mono)}
 .gx-paper{${paperCss};background:var(--paper)}
 .gx-grey{filter:grayscale(1)}
+.gx-screen{${screenCss};background:var(--sunk)}
+:root[data-theme="light"]{${lightCss}}
+.gx-theme{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.gx-theme button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.gx-theme button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.gx-theme button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.page > header{margin-top:var(--s-7)}}
 .gx-codes{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:900px){.gx-codes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-codes > div{min-width:0}
@@ -849,7 +877,13 @@ function html() {
 .gx-before .w-computed{stroke:var(${TB[1].tok})}
 .gx-before .w-chosen{stroke:var(${TB[2].tok})}
 `;
-  return TPL.render({ title: 'The visual grammar', bodyRaw: body, footRaw: foot, path: '/grammar/', cssRaw: CSS,
+  const THEME_JS = '<script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".gx-theme button");'
+    + 'function set(t){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");'
+    + 'for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));'
+    + 'try{localStorage.setItem("warrant-theme",t)}catch(e){}}'
+    + 'set(r.getAttribute("data-theme")==="light"?"light":"dark");'
+    + 'for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"))});})();</script>';
+  return TPL.render({ title: 'The visual grammar', bodyRaw: body, footRaw: foot, path: '/grammar/', cssRaw: CSS, scriptRaw: THEME_JS,
     desc: 'WARRANT, a visual grammar in which every mark says what it rests on — decided, computed, chosen or refused — shown on the charts people already draw, each drawn twice, with the build that holds it.' });
 }
 

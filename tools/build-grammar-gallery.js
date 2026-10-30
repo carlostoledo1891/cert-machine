@@ -156,7 +156,7 @@ function moody(guard) {
     out.push(t(f.px(4600), f.py(0.093), '∅ Re 2300–4000: no correlation holds', 't-note'));
     out.push(poly([P(f, RE0, 0.1), P(f, RE1, 64 / RE1)], W.attrs(W.DECIDED, { width: 2 })));
     out.push(t(f.px(650), f.py(0.016), '64/Re', 't-lab'), t(f.px(650), f.py(0.0132), 'exact', 't-note'));
-    for (const c of curves) out.push(poly(c.pts.map((p) => P(f, p.Re, p.f)), W.attrs(W.COMPUTED, { width: 1.4 })));
+    for (const c of curves) out.push(poly(c.pts.map((p) => P(f, p.Re, p.f)), W.attrs(W.COMPUTED, { width: 1.6 })));
     const last = (c) => c.pts[c.pts.length - 1];
     for (const c of curves.slice(1)) out.push(mood(f.L + f.pw - 2, f.py(last(c).f) - 4, 'given ε/D = ' + c.lab, 'end'));
     out.push(mood(f.L + f.pw - 2, f.py(last(curves[0]).f) - 4, 'smooth', 'end'));

@@ -22,6 +22,15 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 — A LIGHT/DARK SWITCH ON /GRAMMAR/ ONLY, A TRIAL ON BRANCH grammar-theme-switch (the operator: "only on the
+     grammar page … a light/dark switch floating on the top right, below the navbar … if good we will apply on all pages
+     but I want to test first"). A pill under the nav, right edge at the gutter; dark is the default, the choice kept in
+     localStorage ("warrant-theme") and applied before the header paints. The light theme adds no colour: every value is
+     the approved print register's (white, #000/#262626/#4d4d4d, guide, grid, the neutral order ramp), the witness the same
+     token, the strokes ordered the paper way (darker = stronger). The "on screen" sample and the ink-ramp swatches stay
+     dark in either theme (they are pictures of the screen). Scoped in tools/build-grammar.js's own stylesheet; design/
+     tokens.js keeps its one palette. Gates green but the Swell flap. ON THE OPERATOR'S WORD: merge and push live; a
+     site-wide switch would move the light block into design/tokens.js (the "ONE THEME, DELIBERATELY" note there changes).
   ◆ 2026-10-30 — /GRAMMAR/ AS A ONE-PAGER, MERGED AND LIVE (merge 477d1575, on the operator's "approved, you can merge and
      push live"; the specimen was branch grammar-onepager, c3dfee96), on the
      operator's "Use the roundtable to perfect the construction of the Grammar page … the one pager to explain and
