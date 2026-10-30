@@ -22,7 +22,13 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
-  ◆ 2026-10-30 — /GRAMMAR/ AS A CATALOGUE OF HOW TO SHOW DATA, ON BRANCH grammar-theme-switch (pushed, NOT merged), on the
+  ◆ 2026-10-30 — LIVE on the operator's "merge all, publish live": the catalogue and the switch below (merge 8fe5385b); the
+     H1 now "WARRANT, the visual layer of evidence" (the operator's idea, "the visual layer of mathematics", made accurate:
+     most scenes are measurements, fits and forecasts, and what the grammar draws is the standing of evidence); and
+     CLAIMBOX'S LANDING PAGE as a foreign zone at /claimbox/ (design/zones.js 131e0d04, publish-zone 1a5bf395 from claimbox
+     77a68e43, sitemap 9110cef6; linked from no page here). claimbox has since committed 157a587 (a new paragraph in its
+     measured section): republish only on the operator's word (`node tools/publish-zone.js claimbox --push`).
+  ◆ 2026-10-30 — /GRAMMAR/ AS A CATALOGUE OF HOW TO SHOW DATA, ON BRANCH grammar-theme-switch (merged 8fe5385b), on the
      operator's "add as many scenarios as possible … maps, physics, routes … not research but how we can show data", "keep
      the endless page … left anchors menu by topic" and "the page must act as an AI briefing tool". Four parallel lanes
      wrote tools/grammar-scenes/{maps,routes-time,fields,systems}.js (README there: the interface): 23 scenes from real

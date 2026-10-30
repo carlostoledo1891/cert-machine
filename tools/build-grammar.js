@@ -563,7 +563,7 @@ function html() {
   /* the theme switch (a trial on this page): the stored choice is applied before the header paints; dark is the default */
   B_.push('<script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script>'
     + '<div class="gx-theme" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div>');
-  B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'What each mark rests on',
+  B_.push(C.header({ eyebrow: 'Carlos Toledo · the visual grammar', title: 'WARRANT, the visual layer of evidence',
     deck: 'An ordinary chart draws a proof, a floating-point estimate, a guess and a gap with the same line. In WARRANT each has its own stroke, a verdict is a word, and the build refuses a figure that claims more than its record.' }));
   B_.push(heroFig);
   B_.push('<div class="col gx-key">' + W.legendHtml() + '</div>');
