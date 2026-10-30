@@ -368,6 +368,7 @@ function stereoBudget(guard) {
   guard(STOP, inside(cB.quantization, cX.quantization) && inside(cX.quantization, cL.withSync) && P.observed.rmse.every((x) => x >= tB && x <= tW), tB + ' ' + tW);
   /* every height printed is the upper end of an enclosure, so it is rounded up, at a millimetre */
   const cm = (x) => (Number(OUT.up(x, 3)) * 100).toFixed(1);
+  const cmDown = (x) => (Number(OUT.down(x, 3)) * 100).toFixed(1);   /* the span's lower end, the best total, rounds down */
   const boxes = [
     { c: cB.quantization, st: W.DECIDED, id: 0, lab: ['best corner,', cm(cB.quantization.vert) + ' cm tall'] },
     { c: cX.quantization, st: W.DECIDED, id: 1, lab: ['every reading', 'of the paper,', cm(cX.quantization.vert) + ' cm tall'] },
@@ -408,7 +409,7 @@ function stereoBudget(guard) {
     link: 'instruments/stereo-reach/',
     rule: 'Draw an error budget as nested enclosures, one per premise, innermost first: solid where it rests on the source’s literals or on boxes around what the source leaves out, dotted where it adds a chosen scenario, and name the chosen inputs in italic.',
     hides: 'The usual error bar is one cross of symmetric whiskers. It hides that the error is a box in two dimensions, and that its size rests on three different things: the paper’s numbers, the numbers the paper leaves out, and a lag the page chose.',
-    caption: 'The two-smartphone rig of Vieira et al. (2020) at Leme, at the pressure gauge ' + RG + ' m out: the set of ranges and elevations one matched pixel cannot tell apart. The paper gives the baseline (' + P.B.v + ' m), the height (' + P.Hc.v + ' m) and the lens; it does not give the pixel pitch or the matching precision, so those are boxes. The outer box adds a lag of half a frame and a texture speed, both chosen; with the slope and the surface’s own motion the total height is ' + cm(cL.total[1]) + ' cm. The four observed RMSEs against the gauge (' + P.observed.rmse.map((x) => (x * 100).toFixed(0)).join(', ') + ' cm) lie between the best total, ' + cm(tB) + ' cm, and the worst, ' + cm(tW) + ' cm.',
+    caption: 'The two-smartphone rig of Vieira et al. (2020) at Leme, at the pressure gauge ' + RG + ' m out: the set of ranges and elevations one matched pixel cannot tell apart. The paper gives the baseline (' + P.B.v + ' m), the height (' + P.Hc.v + ' m) and the lens; it does not give the pixel pitch or the matching precision, so those are boxes. The outer box adds a lag of half a frame and a texture speed, both chosen; with the slope and the surface’s own motion the total height is ' + cm(cL.total[1]) + ' cm. The four observed RMSEs against the gauge (' + P.observed.rmse.map((x) => (x * 100).toFixed(0)).join(', ') + ' cm) lie between the best total, ' + cmDown(tB) + ' cm, and the worst, ' + cm(tW) + ' cm.',
   };
 }
 

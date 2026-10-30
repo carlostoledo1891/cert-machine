@@ -895,7 +895,7 @@ function html() {
 .gx-theme button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
 .gx-theme button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
 .gx-theme button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-@media (max-width:680px){.page > header{margin-top:var(--s-7)}}
+@media (max-width:680px){.page > header{margin-top:var(--s-7)}.gx-theme{position:absolute}}   /* on a phone it stays at the top, never over the text */
 .gx-codes{display:grid;gap:var(--s-5);grid-template-columns:minmax(0,1fr);margin-top:var(--s-6)}
 @media (min-width:900px){.gx-codes{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .gx-codes > div{min-width:0}
