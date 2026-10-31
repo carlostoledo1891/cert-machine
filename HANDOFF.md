@@ -27,6 +27,9 @@ NEXT SESSION, IN ORDER:
      decided; the self-audit chart first among three proof points; OpenAI statements in two groups (208 vs 34, the six-way
      split in a details element); one rigor block (design/reasons.js pageReasons); the operator's e-mail as the direct contact
      (approved); phone drawings for every chart (page-only CSS). Still unlinked. BLACK HOLE: on hold (the operator).
+     v4 LIVE: the schema as a step list on phones, the undated manuscript said in the caption, the tab title "Verify · AI
+     publishes faster than anyone can check", the tolerance label in the legend. Left (shared component): the standing
+     legend's COMPUTED/CHOSEN entries wrap narrow under the tolerance chart.
   ◆ 2026-10-31 — /VERIFY/ v2 LIVE (the operator: "Merge and push live"): tailored to reviewers (tools/verify-page.js): the
      avalanche hero (the register's decided claims over time, the HorizonMath ×), scale stats, the two offers, the product schema
      (design/components.js flow gained record/source), the tolerance chart, OpenAI's statement readings, the verdict mix, the
