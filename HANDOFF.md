@@ -22,6 +22,10 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — VERIFY GYM ON THE ENVIRONMENTS HUB (the operator: "Hub is toped, go"; Prime Intellect topped up ~US$60):
+     publish v0 to carlos-toledo on the Hub, scorecard rows for 3–4 open-weights models via Prime inference, the readiness
+     gate on Qwen3.5-9B, then a GRPO pilot on Hosted Training (2 runs), hard stop US$60, no RunPod, no model published;
+     branch lane-gym-train-1031. RunPod: no pods; US$1.85 spent 29–31 Oct (CPU).
   ◆ 2026-10-31 — X REPLY POSTED BY THE OPERATOR to @wyatt_benno (x.com/wyatt_benno/status/2116532090128752776, "formal
      verification … airplane mode"): Verify as the offline, model-free checker + the statement gap (34 of 242); text in
      notes/x/reply-wyatt-benno-2026-10-31.txt; /verify/ now has its own share card (design/assets/og-verify.png, og:image).
