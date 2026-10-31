@@ -402,7 +402,10 @@ function legend({ items, x, y, gap }) {
    The script is the ONE scripted element the design system ships: activation
    swaps the readout text, nothing more. Scripts off: hover still highlights,
    the default narration stands, the caption still explains. */
-function flow({ w, h, alt, readout, nodes, edges, caption }) {
+function flow({ w, h, alt, readout, nodes, edges, caption, record, source }) {
+  /* `record` / `source` (2026-10-31, /verify/'s schema): a schematic names what it rests on like any figure — a record,
+     or the source line figure() prints ('built: <what>', 'illustration'); left out, the caption is as it always was */
+  if (record && source) throw new Error('components.flow: a schematic names a record or a source, not both');
   const W = require('../playground/warrant.js');
   const standings = [...new Set(nodes.filter((n) => n.standing !== undefined).map((n) => n.standing))];
   const parts = [];
@@ -458,7 +461,10 @@ function flow({ w, h, alt, readout, nodes, edges, caption }) {
     + '    <div class="mach-ro"><div class="k" data-ro-k>' + esc(readout.k) + '</div>'
     + '<div class="d" data-ro-d>' + esc(readout.d) + '</div></div>\n'
     + parts.join('\n') + '\n  </div>\n'
-    + (caption ? '  <figcaption>' + esc(caption) + '</figcaption>\n' : '')
+    + (caption || record || source ? (() => {
+      const rl = record ? recordLine(record) : source ? sourceLine(source, parts.join('\n')) : { attr: '', html: '' };
+      return '  <figcaption' + rl.attr + '>' + esc(caption || '') + rl.html + '</figcaption>\n';
+    })() : '')
     + (standings.length ? '  ' + W.legendHtml({ compact: true, from: standings }) + '\n' : '')
     + '</figure></div>\n' + script;
 }

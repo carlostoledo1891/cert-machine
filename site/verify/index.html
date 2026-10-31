@@ -855,32 +855,497 @@ div.w-why ul li::before { content: none; }
 <header class="col">
   <div class="eyebrow">cert-machine · verify</div>
   <h1>Verify: an independent check for what AI systems claim</h1>
-  <p class="deck">AI systems now produce results faster than anyone can check them, and the usual checks have two blind spots. A grader that compares decimals admits answers that are provably wrong. A proof checker verifies whatever statement it is handed, and nobody checks that statement against the claim. Verify re-decides a claim from its own bytes, with code that shares nothing with yours, and returns one of three words: CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.</p>
+  <p class="deck">AI systems are producing numbers, claims and proofs faster than anyone can read them, and the pace is still rising. Soon, perhaps, they will produce them continuously, and every one will need checking before anyone builds on it. Verify re-decides a claim from its own bytes, with code that shares nothing with the claimant, and returns one of three words: CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.</p>
 </header>
 
-<p><a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">Request a pilot →</a> · <a href="#offers">The two offers →</a> · <a href="../machine/">How a claim is decided →</a></p>
+<p><a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">Request a pilot →</a> · <a href="#offers">The two offers →</a> · <a href="#how">How it works →</a> · <a href="#engine">Everything built on it →</a></p>
+
+<div class="wide hero" data-hero><figure>
+  <div class="figbox">
+<div class="hv-w">
+  <svg viewBox="0 0 1000 420" role="img" aria-label="A step chart of the register’s published claims, decided and recorded day by day from 2026-08-25 to 2026-10-05: 131 decided in all, 107 of them CERTIFIED and 24 with another verdict. A red cross on 2026-09-29 marks HorizonMath’s refuted R(k,k) bound, whose own certificate has 56 pairs outside R.">
+    <line x1="52" y1="369.0" x2="850" y2="369.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="373.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="52" y1="312.5" x2="850" y2="312.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="316.5" text-anchor="end" class="t-ax">25</text>
+    <line x1="52" y1="256.0" x2="850" y2="256.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="260.0" text-anchor="end" class="t-ax">50</text>
+    <line x1="52" y1="199.5" x2="850" y2="199.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="203.5" text-anchor="end" class="t-ax">75</text>
+    <line x1="52" y1="143.0" x2="850" y2="143.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="147.0" text-anchor="end" class="t-ax">100</text>
+    <line x1="52" y1="86.5" x2="850" y2="86.5" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="90.5" text-anchor="end" class="t-ax">125</text>
+    <line x1="52" y1="30.0" x2="850" y2="30.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="43.0" y="34.0" text-anchor="end" class="t-ax">150</text>
+    <line x1="206.2" y1="369" x2="206.2" y2="374" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="206.2" y="389.0" text-anchor="middle" class="t-ax">Sep 1</text>
+    <line x1="460.1" y1="369" x2="460.1" y2="374" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="460.1" y="389.0" text-anchor="middle" class="t-ax">Sep 15</text>
+    <line x1="750.3" y1="369" x2="750.3" y2="374" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="750.3" y="389.0" text-anchor="middle" class="t-ax">Oct 1</text>
+    <line x1="52" y1="369" x2="850" y2="369" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="43.0" y="16.0" text-anchor="start" class="t-note">published claims decided, cumulative, by the day each was recorded</text>
+    <path d="M79.2 369.0 L79.2 344.1 L97.3 344.1 L97.3 341.9 L169.9 341.9 L169.9 328.3 L242.4 328.3 L242.4 305.7 L333.1 305.7 L333.1 260.5 L460.1 260.5 L460.1 258.3 L568.9 258.3 L568.9 256.0 L587.0 256.0 L587.0 253.7 L677.7 253.7 L677.7 251.5 L695.8 251.5 L695.8 249.2 L714.0 249.2 L714.0 174.6 L804.7 174.6 L804.7 95.5 L822.8 95.5 L822.8 72.9 L822.8 369.0 Z" fill="var(--c-1)" opacity="0.08"/>
+    <path d="M79.2 369.0 L79.2 364.5 L97.3 364.5 L97.3 364.5 L169.9 364.5 L169.9 362.2 L242.4 362.2 L242.4 362.2 L333.1 362.2 L333.1 353.2 L460.1 353.2 L460.1 350.9 L568.9 350.9 L568.9 348.7 L587.0 348.7 L587.0 346.4 L677.7 346.4 L677.7 344.1 L695.8 344.1 L695.8 341.9 L714.0 341.9 L714.0 317.0 L804.7 317.0 L804.7 317.0 L822.8 317.0 L822.8 314.8" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M79.2 369.0 L79.2 348.7 L97.3 348.7 L97.3 346.4 L169.9 346.4 L169.9 335.1 L242.4 335.1 L242.4 312.5 L333.1 312.5 L333.1 276.3 L460.1 276.3 L460.1 276.3 L568.9 276.3 L568.9 276.3 L587.0 276.3 L587.0 276.3 L677.7 276.3 L677.7 276.3 L695.8 276.3 L695.8 276.3 L714.0 276.3 L714.0 226.6 L804.7 226.6 L804.7 147.5 L822.8 147.5 L822.8 127.2" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M79.2 369.0 L79.2 344.1 L97.3 344.1 L97.3 341.9 L169.9 341.9 L169.9 328.3 L242.4 328.3 L242.4 305.7 L333.1 305.7 L333.1 260.5 L460.1 260.5 L460.1 258.3 L568.9 258.3 L568.9 256.0 L587.0 256.0 L587.0 253.7 L677.7 253.7 L677.7 251.5 L695.8 251.5 L695.8 249.2 L714.0 249.2 L714.0 174.6 L804.7 174.6 L804.7 95.5 L822.8 95.5 L822.8 72.9" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="79.2" cy="364.5" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="97.3" cy="364.5" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="169.9" cy="362.2" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="242.4" cy="362.2" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="333.1" cy="353.2" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="460.1" cy="350.9" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="568.9" cy="348.7" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="587.0" cy="346.4" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="677.7" cy="344.1" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="695.8" cy="341.9" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="714.0" cy="317.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="804.7" cy="317.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="822.8" cy="314.8" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="79.2" cy="348.7" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="97.3" cy="346.4" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="169.9" cy="335.1" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="242.4" cy="312.5" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="333.1" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="460.1" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="568.9" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="587.0" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="677.7" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="695.8" cy="276.3" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="714.0" cy="226.6" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="804.7" cy="147.5" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="822.8" cy="127.2" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="79.2" cy="344.1" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="97.3" cy="341.9" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="169.9" cy="328.3" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="242.4" cy="305.7" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="333.1" cy="260.5" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="460.1" cy="258.3" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="568.9" cy="256.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="587.0" cy="253.7" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="677.7" cy="251.5" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="695.8" cy="249.2" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="714.0" cy="174.6" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="804.7" cy="95.5" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="822.8" cy="72.9" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <text x="832.8" y="76.9" text-anchor="start" class="t-lab">131 decided</text>
+    <text x="832.8" y="131.2" text-anchor="start" class="t-lab">107 CERTIFIED</text>
+    <text x="832.8" y="318.8" text-anchor="start" class="t-lab">24 other verdicts</text>
+    <circle cx="79.2" cy="344.1" r="11" fill="transparent" data-cm="2026-08-25 · 11 recorded that day" data-cmv="11 decided to date: 9 CERTIFIED, 2 other" tabindex="0"/>
+    <circle cx="97.3" cy="341.9" r="11" fill="transparent" data-cm="2026-08-26 · 1 recorded that day" data-cmv="12 decided to date: 10 CERTIFIED, 2 other" tabindex="0"/>
+    <circle cx="169.9" cy="328.3" r="11" fill="transparent" data-cm="2026-08-30 · 6 recorded that day" data-cmv="18 decided to date: 15 CERTIFIED, 3 other" tabindex="0"/>
+    <circle cx="242.4" cy="305.7" r="11" fill="transparent" data-cm="2026-09-03 · 10 recorded that day" data-cmv="28 decided to date: 25 CERTIFIED, 3 other" tabindex="0"/>
+    <circle cx="333.1" cy="260.5" r="11" fill="transparent" data-cm="2026-09-08 · 20 recorded that day" data-cmv="48 decided to date: 41 CERTIFIED, 7 other" tabindex="0"/>
+    <circle cx="460.1" cy="258.3" r="11" fill="transparent" data-cm="2026-09-15 · 1 recorded that day" data-cmv="49 decided to date: 41 CERTIFIED, 8 other" tabindex="0"/>
+    <circle cx="568.9" cy="256.0" r="11" fill="transparent" data-cm="2026-09-21 · 1 recorded that day" data-cmv="50 decided to date: 41 CERTIFIED, 9 other" tabindex="0"/>
+    <circle cx="587.0" cy="253.7" r="11" fill="transparent" data-cm="2026-09-22 · 1 recorded that day" data-cmv="51 decided to date: 41 CERTIFIED, 10 other" tabindex="0"/>
+    <circle cx="677.7" cy="251.5" r="11" fill="transparent" data-cm="2026-09-27 · 1 recorded that day" data-cmv="52 decided to date: 41 CERTIFIED, 11 other" tabindex="0"/>
+    <circle cx="695.8" cy="249.2" r="11" fill="transparent" data-cm="2026-09-28 · 1 recorded that day" data-cmv="53 decided to date: 41 CERTIFIED, 12 other" tabindex="0"/>
+    <circle cx="714.0" cy="174.6" r="11" fill="transparent" data-cm="2026-09-29 · 33 recorded that day" data-cmv="86 decided to date: 63 CERTIFIED, 23 other" tabindex="0"/>
+    <circle cx="804.7" cy="95.5" r="11" fill="transparent" data-cm="2026-10-04 · 35 recorded that day" data-cmv="121 decided to date: 98 CERTIFIED, 23 other" tabindex="0"/>
+    <circle cx="822.8" cy="72.9" r="11" fill="transparent" data-cm="2026-10-05 · 10 recorded that day" data-cmv="131 decided to date: 107 CERTIFIED, 24 other" tabindex="0"/>
+    <path d="M707.0,310.0L721.0,324.0M707.0,324.0L721.0,310.0" fill="none" stroke="var(--sunk)" stroke-width="6.0" stroke-linecap="round"/><path class="w-wx" d="M707.0,310.0L721.0,324.0M707.0,324.0L721.0,310.0" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <text x="700.0" y="304.0" text-anchor="end" class="t-lab">HorizonMath’s R(k,k) bound, refuted:</text>
+    <text x="700.0" y="321.0" text-anchor="end" class="t-note">56 of its certificate’s 201 pairs lie outside R</text>
+    <line x1="52" y1="408" x2="66" y2="408" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="71.0" y="412.0" text-anchor="start" class="t-note">every decided claim</text>
+    <line x1="229" y1="408" x2="243" y2="408" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="248.0" y="412.0" text-anchor="start" class="t-note">CERTIFIED</text>
+    <line x1="337" y1="408" x2="351" y2="408" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <text x="356.0" y="412.0" text-anchor="start" class="t-note">REFUTED, PARTIAL, MIXED, REPAIRED, NEEDS DATA</text>
+  </svg>
+</div><div class="hv-n">
+  <svg viewBox="0 0 360 400" role="img" aria-label="A step chart of the register’s published claims, decided and recorded day by day from 2026-08-25 to 2026-10-05: 131 decided in all, 107 of them CERTIFIED and 24 with another verdict. A red cross on 2026-09-29 marks HorizonMath’s refuted R(k,k) bound, whose own certificate has 56 pairs outside R.">
+    <line x1="38" y1="330.0" x2="320" y2="330.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="334.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="38" y1="280.0" x2="320" y2="280.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="284.0" text-anchor="end" class="t-ax">25</text>
+    <line x1="38" y1="230.0" x2="320" y2="230.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="234.0" text-anchor="end" class="t-ax">50</text>
+    <line x1="38" y1="180.0" x2="320" y2="180.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="184.0" text-anchor="end" class="t-ax">75</text>
+    <line x1="38" y1="130.0" x2="320" y2="130.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="134.0" text-anchor="end" class="t-ax">100</text>
+    <line x1="38" y1="80.0" x2="320" y2="80.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="84.0" text-anchor="end" class="t-ax">125</text>
+    <line x1="38" y1="30.0" x2="320" y2="30.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="29.0" y="34.0" text-anchor="end" class="t-ax">150</text>
+    <line x1="92.5" y1="330" x2="92.5" y2="335" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="92.5" y="350.0" text-anchor="middle" class="t-ax">Sep 1</text>
+    <line x1="284.8" y1="330" x2="284.8" y2="335" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="284.8" y="350.0" text-anchor="middle" class="t-ax">Oct 1</text>
+    <line x1="38" y1="330" x2="320" y2="330" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="29.0" y="16.0" text-anchor="start" class="t-note">claims decided, to date</text>
+    <path d="M47.6 330.0 L47.6 308.0 L54.0 308.0 L54.0 306.0 L79.7 306.0 L79.7 294.0 L105.3 294.0 L105.3 274.0 L137.3 274.0 L137.3 234.0 L182.2 234.0 L182.2 232.0 L220.7 232.0 L220.7 230.0 L227.1 230.0 L227.1 228.0 L259.1 228.0 L259.1 226.0 L265.5 226.0 L265.5 224.0 L271.9 224.0 L271.9 158.0 L304.0 158.0 L304.0 88.0 L310.4 88.0 L310.4 68.0 L310.4 330.0 Z" fill="var(--c-1)" opacity="0.08"/>
+    <path d="M47.6 330.0 L47.6 326.0 L54.0 326.0 L54.0 326.0 L79.7 326.0 L79.7 324.0 L105.3 324.0 L105.3 324.0 L137.3 324.0 L137.3 316.0 L182.2 316.0 L182.2 314.0 L220.7 314.0 L220.7 312.0 L227.1 312.0 L227.1 310.0 L259.1 310.0 L259.1 308.0 L265.5 308.0 L265.5 306.0 L271.9 306.0 L271.9 284.0 L304.0 284.0 L304.0 284.0 L310.4 284.0 L310.4 282.0" fill="none" stroke="var(--c-3)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M47.6 330.0 L47.6 312.0 L54.0 312.0 L54.0 310.0 L79.7 310.0 L79.7 300.0 L105.3 300.0 L105.3 280.0 L137.3 280.0 L137.3 248.0 L182.2 248.0 L182.2 248.0 L220.7 248.0 L220.7 248.0 L227.1 248.0 L227.1 248.0 L259.1 248.0 L259.1 248.0 L265.5 248.0 L265.5 248.0 L271.9 248.0 L271.9 204.0 L304.0 204.0 L304.0 134.0 L310.4 134.0 L310.4 116.0" fill="none" stroke="var(--c-2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M47.6 330.0 L47.6 308.0 L54.0 308.0 L54.0 306.0 L79.7 306.0 L79.7 294.0 L105.3 294.0 L105.3 274.0 L137.3 274.0 L137.3 234.0 L182.2 234.0 L182.2 232.0 L220.7 232.0 L220.7 230.0 L227.1 230.0 L227.1 228.0 L259.1 228.0 L259.1 226.0 L265.5 226.0 L265.5 224.0 L271.9 224.0 L271.9 158.0 L304.0 158.0 L304.0 88.0 L310.4 88.0 L310.4 68.0" fill="none" stroke="var(--c-1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="47.6" cy="326.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="54.0" cy="326.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="79.7" cy="324.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="105.3" cy="324.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="137.3" cy="316.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="182.2" cy="314.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="220.7" cy="312.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="227.1" cy="310.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="259.1" cy="308.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="265.5" cy="306.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="271.9" cy="284.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="304.0" cy="284.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="310.4" cy="282.0" r="3.2" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="47.6" cy="312.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="54.0" cy="310.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="79.7" cy="300.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="105.3" cy="280.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="137.3" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="182.2" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="220.7" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="227.1" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="259.1" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="265.5" cy="248.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="271.9" cy="204.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="304.0" cy="134.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="310.4" cy="116.0" r="3.2" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="47.6" cy="308.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="54.0" cy="306.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="79.7" cy="294.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="105.3" cy="274.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="137.3" cy="234.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="182.2" cy="232.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="220.7" cy="230.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="227.1" cy="228.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="259.1" cy="226.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="265.5" cy="224.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="271.9" cy="158.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="304.0" cy="88.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <circle cx="310.4" cy="68.0" r="3.2" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5"/>
+    <text x="320.4" y="72.0" text-anchor="start" class="t-lab">131</text>
+    <text x="320.4" y="120.0" text-anchor="start" class="t-lab">107</text>
+    <text x="320.4" y="286.0" text-anchor="start" class="t-lab">24</text>
+    <circle cx="47.6" cy="308.0" r="11" fill="transparent" data-cm="2026-08-25 · 11 recorded that day" data-cmv="11 decided to date: 9 CERTIFIED, 2 other" tabindex="0"/>
+    <circle cx="54.0" cy="306.0" r="11" fill="transparent" data-cm="2026-08-26 · 1 recorded that day" data-cmv="12 decided to date: 10 CERTIFIED, 2 other" tabindex="0"/>
+    <circle cx="79.7" cy="294.0" r="11" fill="transparent" data-cm="2026-08-30 · 6 recorded that day" data-cmv="18 decided to date: 15 CERTIFIED, 3 other" tabindex="0"/>
+    <circle cx="105.3" cy="274.0" r="11" fill="transparent" data-cm="2026-09-03 · 10 recorded that day" data-cmv="28 decided to date: 25 CERTIFIED, 3 other" tabindex="0"/>
+    <circle cx="137.3" cy="234.0" r="11" fill="transparent" data-cm="2026-09-08 · 20 recorded that day" data-cmv="48 decided to date: 41 CERTIFIED, 7 other" tabindex="0"/>
+    <circle cx="182.2" cy="232.0" r="11" fill="transparent" data-cm="2026-09-15 · 1 recorded that day" data-cmv="49 decided to date: 41 CERTIFIED, 8 other" tabindex="0"/>
+    <circle cx="220.7" cy="230.0" r="11" fill="transparent" data-cm="2026-09-21 · 1 recorded that day" data-cmv="50 decided to date: 41 CERTIFIED, 9 other" tabindex="0"/>
+    <circle cx="227.1" cy="228.0" r="11" fill="transparent" data-cm="2026-09-22 · 1 recorded that day" data-cmv="51 decided to date: 41 CERTIFIED, 10 other" tabindex="0"/>
+    <circle cx="259.1" cy="226.0" r="11" fill="transparent" data-cm="2026-09-27 · 1 recorded that day" data-cmv="52 decided to date: 41 CERTIFIED, 11 other" tabindex="0"/>
+    <circle cx="265.5" cy="224.0" r="11" fill="transparent" data-cm="2026-09-28 · 1 recorded that day" data-cmv="53 decided to date: 41 CERTIFIED, 12 other" tabindex="0"/>
+    <circle cx="271.9" cy="158.0" r="11" fill="transparent" data-cm="2026-09-29 · 33 recorded that day" data-cmv="86 decided to date: 63 CERTIFIED, 23 other" tabindex="0"/>
+    <circle cx="304.0" cy="88.0" r="11" fill="transparent" data-cm="2026-10-04 · 35 recorded that day" data-cmv="121 decided to date: 98 CERTIFIED, 23 other" tabindex="0"/>
+    <circle cx="310.4" cy="68.0" r="11" fill="transparent" data-cm="2026-10-05 · 10 recorded that day" data-cmv="131 decided to date: 107 CERTIFIED, 24 other" tabindex="0"/>
+    <path d="M265.9,278.0L277.9,290.0M265.9,290.0L277.9,278.0" fill="none" stroke="var(--sunk)" stroke-width="6.0" stroke-linecap="round"/><path class="w-wx" d="M265.9,278.0L277.9,290.0M265.9,290.0L277.9,278.0" fill="none" stroke-width="3" stroke-linecap="round"/>
+    <text x="257.9" y="271.0" text-anchor="end" class="t-lab">R(k,k) refuted:</text>
+    <text x="257.9" y="288.0" text-anchor="end" class="t-note">56 pairs outside R</text>
+    <line x1="38" y1="369" x2="52" y2="369" stroke="var(--c-1)" stroke-width="2" stroke-linecap="round"/>
+    <text x="57.0" y="373.0" text-anchor="start" class="t-note">all decided</text>
+    <line x1="159" y1="369" x2="173" y2="369" stroke="var(--c-2)" stroke-width="2" stroke-linecap="round"/>
+    <text x="178.0" y="373.0" text-anchor="start" class="t-note">CERTIFIED</text>
+    <line x1="38" y1="388" x2="52" y2="388" stroke="var(--c-3)" stroke-width="2" stroke-linecap="round"/>
+    <text x="57.0" y="392.0" text-anchor="start" class="t-note">every other verdict</text>
+  </svg>
+</div>
+  </div>
+  <figcaption data-record="certs/claims-ledger.json@42e96aa98a0c certs/horizonmath-ledger.json@78adab0aa528" data-stop>Every published claim this machine has decided, one at a time, as each was recorded: <span class="w-val w-decided" data-w="decided" data-rec="certs/claims-ledger.json#/decided" data-fmt="int" title="the register’s count of decided rows">131</span> since 2026-08-25, from DeepMind, OpenAI, agent platforms and AI-assisted manuscripts among others. Each step is an exact count. <span class="wx" aria-label="a counterexample exhibited by the claim’s own record">&times;</span> is a counterexample on the claim’s own record: <span class="w-val w-decided" data-derived="certs/horizonmath-ledger.json#/rows[id=ramsey-asymptotic]/points" title="decided — the pairs its own certificate uses that the record places outside R">56</span> pairs of the certificate behind a published Ramsey bound fall outside the region the bound needs. Hover a day for its counts.<span class="fig-rec">Records: <span class="m">certs/claims-ledger.json</span> · sha256 42e96aa98a0c; <span class="m">certs/horizonmath-ledger.json</span> · sha256 78adab0aa528</span><span class="fig-stop">The build refuses this figure if its three curves do not end at the register&#39;s decided count, its CERTIFIED count and the rest, or the refuted claim it marks no longer exhibits, in its own record, pairs outside R.</span></figcaption>
+</figure></div>
+
+<div class="wide">
+  <div class="stats" data-n="4">
+    <div class="stat"><div class="k">vector pairs of published kissing configurations, each decided exactly</div><div class="v">over <span class="w-val w-decided" data-derived="certs/kissing-wave.json#/rows" title="decided — every pair of every configuration, summed and cut toward zero">9.75 × 10¹⁵</span></div><div class="n">every pair of 28 configurations from three claimants, in exact arithmetic, in <span class="w-val w-computed" data-derived="certs/kissing-wave.json#/rows" title="computed — the wall-clock seconds the engine recorded per configuration, summed, on one 8-core machine">17.0</span> machine-hours · <a href="../reports/kissing.html">the kissing wave</a></div></div>
+    <div class="stat"><div class="k">digits in the largest integers compared exactly</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="certs/xx-ledger.json#/xx64[id=cf_above_10]/digits/0" data-fmt="int" title="the digit count of each side of the comparison">2,598,236</span></div><div class="n">x^x = 64, the root an AI model proposed, trapped between two fractions; each side is one exact comparison of whole numbers · <a href="../reports/xx.html">the page</a></div></div>
+    <div class="stat"><div class="k">OpenAI formal proofs replayed on a second, independent kernel</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="certs/openai-math-kernel.json#/counts/decided" data-fmt="int" title="decided — exact arithmetic backs it">416</span></div><div class="n"><span class="w-val w-decided" data-w="decided" data-rec="certs/openai-math-kernel.json#/counts/words/CERTIFIED" data-fmt="int" title="decided — exact arithmetic backs it">398</span> certified, <span class="w-val w-decided" data-w="decided" data-rec="certs/openai-math-kernel.json#/counts/words/REFUSED" data-fmt="int" title="decided — exact arithmetic backs it">18</span> refused with the reason, from a release of <span class="w-val w-decided" data-w="decided" data-rec="corpus/openai-math/release.json#/stated/manuscripts" data-fmt="int" title="decided — exact arithmetic backs it">719</span> machine-generated manuscripts · <a href="../reports/openai-math.html">the audit</a></div></div>
+    <div class="stat"><div class="k">provably wrong answers minted to attack graders</div><div class="v"><span class="w-val w-decided" data-w="decided" data-rec="certs/envs-record.json#/provablyWrong" data-fmt="int" title="decided — exact arithmetic backs it">4,000</span></div><div class="n">each one outside a certified enclosure and inside a grader’s tolerance, minted from certificates already on disk · <a href="../reports/envs.html">the measurement</a></div></div>
+  </div>
+</div>
 
 <section class="col" id="offers">
   <div class="sec-head">
     <div class="lab">the offers</div>
     <h2>Two ways to use it</h2>
   </div>
-<ul class="plain"><li><b>Graders that cannot be gamed, for RL and evaluation teams.</b> You send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a certificate, in code you run, that must refuse a set of planted wrong answers before it grades anything. On the mix measured here, an absolute-tolerance grader admitted <span class="w-val w-chosen" data-derived="certs/envs-record.json#/graders/0/falseAccept certs/envs-record.json#/graders/0/wrongSubmissions" title="chosen — exact over 4,000 provably wrong answers whose mix of 5 canary families and 9 tolerances was picked here; another mix gives another rate">89.55%</span> of 4,000 provably wrong answers; a certificate grader admitted none and rejected nothing right (<a href="../reports/envs.html">the measurement</a>). Three environments built this way run on Prime Intellect’s Environments Hub: lattice-claims, blind-spot and break-the-grader.</li><li><b>Independent audits, for labs, AI-for-science companies and registries.</b> You send a claim as published, with its bytes. You get each finite part decided in exact arithmetic or by a second, independent proof kernel; what each formal statement says, read against the claim and kept apart from what was decided; and the gaps listed first. Before or after publication; the pilot’s terms say when the report is published.</li></ul>
+<ul class="plain"><li><b>Graders that cannot be gamed, for RL and evaluation teams.</b> Send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a certificate, in code you run, that must refuse a set of planted wrong answers before it grades anything. On the mix measured here a tolerance grader admitted <span class="w-val w-chosen" data-derived="certs/envs-record.json#/graders/0/falseAccept certs/envs-record.json#/graders/0/wrongSubmissions" title="chosen — exact over 4,000 provably wrong answers whose mix of 5 canary families and 9 tolerances was picked here; another mix gives another rate">89.55%</span> of 4,000 provably wrong answers; the certificate grader admitted none and rejected nothing right.</li><li><b>Independent audits, for labs, AI-for-science companies and registries.</b> Send a claim as published, with its bytes. You get the gaps listed first, every finite part decided in exact arithmetic or by a second, independent proof kernel, and every formal statement read against the claim and kept apart from what was decided. Before or after publication; the pilot’s terms say when the report is published.</li></ul><p><a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">Request a pilot →</a></p>
 <div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-chosen">chosen</span> — exact over 4,000 provably wrong answers whose mix of 5 canary families and 9 tolerances was picked here; another mix gives another rate</li></ul></div></section>
 
-<section class="col">
-  <div class="sec-head">
-    <div class="lab">the evidence</div>
+<section class="" id="how">
+  <div class="col sec-head">
+    <div class="lab">how it works</div>
+    <h2>From a claim to a certificate</h2>
+  </div>
+<div class="wide"><figure class="mach">
+  <div class="figbox">
+    <div class="mach-ro"><div class="k" data-ro-k>a claim, decided</div><div class="d" data-ro-d>Select a step for what it does and why it can be trusted.</div></div>
+    <svg viewBox="0 0 600 392" role="img" aria-label="A schema of Verify in four steps: a published claim and its bytes are stated as an object by claimbox, decided exactly by code that shares nothing with the claimant, and returned as a certificate (certified, refuted or refused). The certificate feeds two offers: an audit report per claim, for labs, and a reward per answer, for RL teams.">
+      <defs><marker id="mfa" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L8 4L0 8z" fill="var(--ink-3)"/></marker></defs>
+      <path class="ed" d="M282 52 L318 52" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M282 52 L318 52"/></circle>
+      <path class="ed" d="M450 86 L450 158" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M450 86 L450 158"/></circle>
+      <path class="ed" d="M318 192 L282 192" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M318 192 L282 192"/></circle>
+      <path class="ed" d="M150 226 L150 304" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M150 226 L150 304"/></circle>
+      <path class="ed" d="M190 226 C190 268 450 262 450 304" marker-end="url(#mfa)"/>
+      <circle class="ed-f" r="2.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M190 226 C190 268 450 262 450 304"/></circle>
+      <g class="nd" tabindex="0" role="button" aria-label="the claim" data-t="the claim" data-d="What a model, a paper or a leaderboard said, with the files behind it: a configuration, a table, a proof, an answer. Each file is pinned by its SHA-256 before anything is read, so the verdict names exactly what it decided.">
+        <rect class="nd-box" x="20" y="20" width="260" height="64" rx="5"/>
+        <rect class="acc-dep" x="20" y="20" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="34" y="38">1 · THE CLAIM</text>
+        <text class="nd-v" x="34" y="73">a published claim, its bytes</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="stated" data-t="stated" data-d="claimbox turns the claim’s words into an object a machine can check, prints it back in plain words, and refuses what does not come down to finitely many exact facts, naming why. A statement is read against the claim before anything is decided, and the reading is kept apart from the decision.">
+        <rect class="nd-box" x="320" y="20" width="260" height="64" rx="5"/>
+        <rect class="acc-held" x="320" y="20" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="334" y="38">2 · STATED</text>
+        <text class="nd-v" x="334" y="73">claimbox: words → an object</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="decided" data-t="decided" data-d="Exact rational arithmetic, interval enclosures rounded outward, or a second proof kernel, in code written apart from the claimant’s. No floating-point number takes part in a decision, and the decider is attacked with planted forgeries before it is trusted.">
+        <rect class="nd-box" x="320" y="160" width="260" height="64" rx="5"/>
+        <rect class="acc-sig" x="320" y="160" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="334" y="178">3 · DECIDED</text>
+        <text class="nd-v" x="334" y="213">exact; no code of yours runs</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="the certificate" data-t="the certificate" data-d="One of three words. CERTIFIED, with a falsifier that would break it. REFUTED, with the object that breaks the claim. REFUSED, with the reason and what would make it decidable. Each re-runs with one command, without this engine.">
+        <rect class="nd-box" x="20" y="160" width="260" height="64" rx="5"/>
+        <rect class="acc-sig" x="20" y="160" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="34" y="178">4 · THE CERTIFICATE</text>
+        <text class="nd-v" x="34" y="213">CERTIFIED · REFUTED · REFUSED</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="an audit" data-t="an audit" data-d="For labs, AI-for-science companies and registries: a published claim goes in at step 1, and a report comes out listing every gap first, then every finite part decided, every formal statement read against the claim.">
+        <rect class="nd-box" x="20" y="306" width="260" height="64" rx="5"/>
+        <rect class="acc-warn" x="20" y="306" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="34" y="324">AN AUDIT · FOR LABS</text>
+        <text class="nd-v" x="34" y="359">the report, gaps listed first</text>
+      </g>
+      <g class="nd" tabindex="0" role="button" aria-label="a grader" data-t="a grader" data-d="For RL and evaluation teams: a task family is stated once at step 2, then every model answer is decided at step 3 and the certificate is the reward. It must refuse planted wrong answers before it grades anything, so a policy cannot learn to fool it.">
+        <rect class="nd-box" x="320" y="306" width="260" height="64" rx="5"/>
+        <rect class="acc-warn" x="320" y="306" width="3" height="64" rx="1.5"/>
+        <text class="nd-k" x="334" y="324">A GRADER · FOR RL TEAMS</text>
+        <text class="nd-v" x="334" y="359">the reward is the certificate</text>
+      </g>
+      <text class="ed-lab" x="440" y="126" text-anchor="end">nothing of yours is run</text>
+      <text class="ed-lab" x="140" y="270" text-anchor="end">per claim</text>
+      <text class="ed-lab" x="462" y="270" text-anchor="start">per answer</text>
+    </svg>
+  </div>
+  <figcaption data-source="built">The product in four steps. An audit is the whole path for one published claim; a grader states a task family once and runs steps 3 and 4 on every answer a model gives.<span class="fig-rec">Record: none — a diagram of the four steps and the two offers this page describes; it carries no number.</span></figcaption>
+</figure></div>
+<script>(function(){var f=document.querySelector("figure.mach");if(!f)return;var k=f.querySelector("[data-ro-k]"),d=f.querySelector("[data-ro-d]");function on(g){var o=f.querySelector("g.nd.on");if(o)o.classList.remove("on");g.classList.add("on");k.textContent=g.getAttribute("data-t");d.textContent=g.getAttribute("data-d");}f.querySelectorAll("g.nd").forEach(function(g){g.addEventListener("click",function(){on(g)});g.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();on(g)}});});})();</script>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">for graders</div>
+    <h2>A tolerance is a hole a model can learn</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 760 360" role="img" aria-label="The share of provably wrong answers each grader admits, against its tolerance on a log axis, measured at 9 tolerances and joined by dotted lines. The tolerance graders admit fewer as the tolerance tightens but never none; the certificate grader is a solid line at zero, because it reads no tolerance.">
+    <line x1="54" y1="286.0" x2="738" y2="286.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="45.0" y="290.0" text-anchor="end" class="t-ax">0</text>
+    <line x1="54" y1="219.0" x2="738" y2="219.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="45.0" y="223.0" text-anchor="end" class="t-ax">25</text>
+    <line x1="54" y1="152.0" x2="738" y2="152.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="45.0" y="156.0" text-anchor="end" class="t-ax">50</text>
+    <line x1="54" y1="85.0" x2="738" y2="85.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="45.0" y="89.0" text-anchor="end" class="t-ax">75</text>
+    <line x1="54" y1="18.0" x2="738" y2="18.0" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="45.0" y="22.0" text-anchor="end" class="t-ax">100</text>
+    <line x1="70.3" y1="286" x2="70.3" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="70.3" y="306.0" text-anchor="middle" class="t-ax">10⁻¹⁵</text>
+    <line x1="233.2" y1="286" x2="233.2" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="233.2" y="306.0" text-anchor="middle" class="t-ax">10⁻¹²</text>
+    <line x1="396.0" y1="286" x2="396.0" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="396.0" y="306.0" text-anchor="middle" class="t-ax">10⁻⁹</text>
+    <line x1="558.8" y1="286" x2="558.8" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="558.8" y="306.0" text-anchor="middle" class="t-ax">10⁻⁶</text>
+    <line x1="721.7" y1="286" x2="721.7" y2="291" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="721.7" y="306.0" text-anchor="middle" class="t-ax">10⁻³</text>
+    <line x1="54" y1="286" x2="738" y2="286" stroke="var(--c-axis)" stroke-width="1"/>
+    <text x="396.0" y="328.0" text-anchor="middle" class="t-note">the grader’s tolerance (log scale)</text>
+    <text x="13" y="152" class="t-note" transform="rotate(-90 13 152)" text-anchor="middle">wrong answers admitted (%)</text>
+    <line x1="54" y1="286.0" x2="738" y2="286.0" stroke="var(--ink)" stroke-width="1.5"/>
+    <text x="732.0" y="280.0" text-anchor="end" class="t-lab">certificate grader: 0 at every tolerance</text>
+    <path d="M70.3 166.9 L124.6 78.2 L233.2 47.8 L341.7 39.2 L396.0 35.1 L450.3 30.6 L558.8 19.7 L667.4 19.7 L721.7 19.7" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70.3 98.8 L124.6 76.9 L233.2 54.7 L341.7 43.3 L396.0 38.6 L450.3 31.2 L558.8 24.3 L667.4 24.3 L721.7 24.3" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M70.3 286.0 L124.6 286.0 L233.2 286.0 L341.7 286.0 L396.0 286.0 L450.3 286.0 L558.8 286.0 L667.4 286.0 L721.7 286.0" class="w-chosen" fill="none" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="70.3" cy="166.9" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻¹⁵" data-cmv="44.4% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="124.6" cy="78.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻¹⁴" data-cmv="77.5% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="233.2" cy="47.8" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻¹²" data-cmv="88.9% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="341.7" cy="39.2" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻¹⁰" data-cmv="92.1% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="396.0" cy="35.1" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻⁹" data-cmv="93.6% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="450.3" cy="30.6" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻⁸" data-cmv="95.3% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="558.8" cy="19.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻⁶" data-cmv="99.4% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="667.4" cy="19.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻⁴" data-cmv="99.4% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="721.7" cy="19.7" r="4.5" fill="var(--c-1)" stroke="var(--sunk)" stroke-width="1.5" data-cm="absolute tolerance · tolerance 10⁻³" data-cmv="99.4% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="70.3" cy="98.8" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻¹⁵" data-cmv="69.8% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="124.6" cy="76.9" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻¹⁴" data-cmv="78.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="233.2" cy="54.7" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻¹²" data-cmv="86.3% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="341.7" cy="43.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻¹⁰" data-cmv="90.6% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="396.0" cy="38.6" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻⁹" data-cmv="92.3% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="450.3" cy="31.2" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻⁸" data-cmv="95.1% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="558.8" cy="24.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻⁶" data-cmv="97.6% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="667.4" cy="24.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻⁴" data-cmv="97.6% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="721.7" cy="24.3" r="4.5" fill="var(--c-2)" stroke="var(--sunk)" stroke-width="1.5" data-cm="relative tolerance · tolerance 10⁻³" data-cmv="97.6% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="70.3" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻¹⁵" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="124.6" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻¹⁴" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="233.2" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻¹²" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="341.7" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻¹⁰" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="396.0" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻⁹" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="450.3" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻⁸" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="558.8" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻⁶" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="667.4" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻⁴" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <circle cx="721.7" cy="286.0" r="4.5" fill="var(--c-3)" stroke="var(--sunk)" stroke-width="1.5" data-cm="exact match of a decimal · tolerance 10⁻³" data-cmv="0.0% of the provably wrong answers minted at that tolerance admitted" tabindex="0"/>
+    <rect x="54" y="343" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="73.0" y="353.0" text-anchor="start" class="t-note">absolute tolerance</text>
+    <rect x="224" y="343" width="11" height="10" rx="2" fill="var(--c-2)"/>
+    <text x="243.0" y="353.0" text-anchor="start" class="t-note">relative tolerance</text>
+    <rect x="394" y="343" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="413.0" y="353.0" text-anchor="start" class="t-note">exact match of a decimal</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/envs-record.json@59008e31a3ce" data-stop>Answers minted wrong from certificates, each outside a proved enclosure and inside the grader’s tolerance. Tightening the tolerance by twelve orders of magnitude does not close the hole; only a grader that reads the certificate admits none, and it rejected nothing right. Each dot is an exact count at one tolerance; the dotted joins are a picture between them.<span class="fig-rec">Record: <span class="m">certs/envs-record.json</span> · sha256 59008e31a3ce</span><span class="fig-stop">The build refuses this figure if the certificate grader false-accepts or false-rejects a submission in the record, or the absolute-tolerance grader false-accepts fewer than half of the provably-wrong ones.</span></figcaption>
+</figure></div><div class="col"><div class="w-legend compact" data-n="3" data-derived><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item" data-s="chosen"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div></div><div class="col"><p>A grader that compares decimals within a tolerance rewards answers that are provably wrong, and a policy trained against it learns exactly those. Three environments built on certificates instead run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a></p></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">for audits</div>
     <h2>What it has already caught</h2>
   </div>
-<div class="wide">
-  <div class="stats" data-n="4">
-    <div class="stat"><div class="k">of OpenAI’s formalized families state less than their headline</div><div class="v">34 of 242</div><div class="n">a different or weaker theorem than the headline, with nothing in the release saying so; the proofs themselves passed a second, independent kernel · <a href="../reports/openai-math.html">the audit</a></div></div>
-    <div class="stat"><div class="k">asterisks removed from a registry on these replays</div><div class="v">10</div><div class="n">the optimization-constants registry (Davis, Ivanisvili, Tao), which cites the replays · <a href="../reports/optimization-constants.html">the replays</a></div></div>
-    <div class="stat"><div class="k">planted forgeries certified</div><div class="v">0 of 572</div><div class="n">the verifier is attacked before it is trusted: a pre-registered self-audit with exact witnesses · <a href="../reports/selfaudit.html">the self-audit</a></div></div>
-    <div class="stat"><div class="k">outside re-derivations, no disagreement</div><div class="v">7</div><div class="n">by people with no connection to this work, most with their own code · <a href="../reports/rerun.html">the rerun kit</a></div></div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 860 279" role="img" aria-label="Bars: OpenAI’s 242 formalized families by how their Lean statements read against the headline: 127 MATCHES, 38 NARROWER — DECLARED, 39 NARROWER — UNLINKED, 4 SUPPORT-ONLY, 23 NARROWER — UNDECLARED, 11 DIFFERENT.">
+    <line x1="200.0" y1="10" x2="200.0" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="200.0" y="210.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="432.3" y1="10" x2="432.3" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="432.3" y="210.0" text-anchor="middle" class="t-ax">50</text>
+    <line x1="664.6" y1="10" x2="664.6" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="664.6" y="210.0" text-anchor="middle" class="t-ax">100</text>
+    <path d="M200 14 h586 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-586 Z" fill="var(--c-3)" data-cm="MATCHES" data-cmv="127" tabindex="0"/>
+    <text x="190.0" y="29.0" text-anchor="end" class="t-ax">MATCHES</text>
+    <text x="798.0" y="29.0" text-anchor="start" class="t-lab">127</text>
+    <path d="M200 44 h172.53543307086613 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-172.53543307086613 Z" fill="var(--c-3)" data-cm="NARROWER — DECLARED" data-cmv="38" tabindex="0"/>
+    <text x="190.0" y="59.0" text-anchor="end" class="t-ax">NARROWER — DECLARED</text>
+    <text x="384.5" y="59.0" text-anchor="start" class="t-lab">38</text>
+    <path d="M200 74 h177.18110236220474 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-177.18110236220474 Z" fill="var(--c-3)" data-cm="NARROWER — UNLINKED" data-cmv="39" tabindex="0"/>
+    <text x="190.0" y="89.0" text-anchor="end" class="t-ax">NARROWER — UNLINKED</text>
+    <text x="389.2" y="89.0" text-anchor="start" class="t-lab">39</text>
+    <path d="M200 104 h14.58267716535434 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-14.58267716535434 Z" fill="var(--c-3)" data-cm="SUPPORT-ONLY" data-cmv="4" tabindex="0"/>
+    <text x="190.0" y="119.0" text-anchor="end" class="t-ax">SUPPORT-ONLY</text>
+    <text x="226.6" y="119.0" text-anchor="start" class="t-lab">4</text>
+    <path d="M200 134 h102.85039370078744 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-102.85039370078744 Z" fill="var(--c-1)" data-cm="NARROWER — UNDECLARED" data-cmv="23" tabindex="0"/>
+    <text x="190.0" y="149.0" text-anchor="end" class="t-ax">NARROWER — UNDECLARED</text>
+    <text x="314.9" y="149.0" text-anchor="start" class="t-lab">23</text>
+    <path d="M200 164 h47.102362204724415 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-47.102362204724415 Z" fill="var(--c-1)" data-cm="DIFFERENT" data-cmv="11" tabindex="0"/>
+    <text x="190.0" y="179.0" text-anchor="end" class="t-ax">DIFFERENT</text>
+    <text x="259.1" y="179.0" text-anchor="start" class="t-lab">11</text>
+    <text x="495.0" y="232.0" text-anchor="middle" class="t-note">formalized families</text>
+    <rect x="200" y="244" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="219.0" y="254.0" text-anchor="start" class="t-note">states less than its headline, and nothing says so</text>
+    <rect x="200" y="263" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="219.0" y="273.0" text-anchor="start" class="t-note">matches, or the release says what it covers</text>
+  </svg>
   </div>
-</div><p>A claimant’s own words, after an audit: “Carlos Toledo has independently verified the complete configurations in all 19 dimensions, confirming their point counts and exact dimensions.” (the Qiushi Engine authors (Oxelra-AI)).</p>
+  <figcaption data-record="certs/openai-math-statements.json@dc5ca586fa26" data-stop>A proof checker verifies the statement it is handed; nobody checked the statement against the claim. Read clause by clause, <span class="w-val w-computed" data-derived="certs/openai-math-statements.json#/counts/words certs/openai-math-statements.json#/rows" title="computed — a reading by AI agents, second-read where the first found a gap: a claim about the statement, not a certificate">34 of 242</span> of OpenAI’s formalized families prove a different or weaker theorem than their headline, with nothing in the release saying so, while the proofs themselves pass a second kernel. Each word is a reading, kept apart from what was decided.<span class="fig-rec">Record: <span class="m">certs/openai-math-statements.json</span> · sha256 dc5ca586fa26</span><span class="fig-stop">The build refuses this figure if its bars do not sum to the families the statements record read, or none of them states less than its headline with nothing saying so.</span></figcaption>
+</figure></div><div class="col"><p><a href="../reports/openai-math.html">The OpenAI audit →</a></p></div><div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 860 254" role="img" aria-label="Bars: the register’s 131 decided claims by verdict: 107 CERTIFIED, 9 PARTIAL, 6 REPAIRED, 5 MIXED, 2 REFUTED, 2 NEEDS DATA.">
+    <line x1="130.0" y1="10" x2="130.0" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="130.0" y="210.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="284.2" y1="10" x2="284.2" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="284.2" y="210.0" text-anchor="middle" class="t-ax">50</text>
+    <line x1="438.4" y1="10" x2="438.4" y2="190" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="438.4" y="210.0" text-anchor="middle" class="t-ax">100</text>
+    <path d="M130 14 h326 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-326 Z" fill="var(--c-2)" data-cm="CERTIFIED" data-cmv="107" tabindex="0"/>
+    <text x="120.0" y="29.0" text-anchor="end" class="t-ax">CERTIFIED</text>
+    <text x="468.0" y="29.0" text-anchor="start" class="t-lab">107 · held, with its falsifier</text>
+    <path d="M130 44 h23.757009345794387 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-23.757009345794387 Z" fill="var(--c-3)" data-cm="PARTIAL" data-cmv="9" tabindex="0"/>
+    <text x="120.0" y="59.0" text-anchor="end" class="t-ax">PARTIAL</text>
+    <text x="165.8" y="59.0" text-anchor="start" class="t-lab">9 · a fragment certified, the core refused</text>
+    <path d="M130 74 h14.504672897196258 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-14.504672897196258 Z" fill="var(--c-3)" data-cm="REPAIRED" data-cmv="6" tabindex="0"/>
+    <text x="120.0" y="89.0" text-anchor="end" class="t-ax">REPAIRED</text>
+    <text x="156.5" y="89.0" text-anchor="start" class="t-lab">6 · refuted as printed; the object beside it certified</text>
+    <path d="M130 104 h11.420560747663558 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-11.420560747663558 Z" fill="var(--c-3)" data-cm="MIXED" data-cmv="5" tabindex="0"/>
+    <text x="120.0" y="119.0" text-anchor="end" class="t-ax">MIXED</text>
+    <text x="153.4" y="119.0" text-anchor="start" class="t-lab">5 · one record holds both</text>
+    <path d="M130 134 h2.168224299065429 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-2.168224299065429 Z" fill="var(--c-1)" data-cm="REFUTED" data-cmv="2" tabindex="0"/>
+    <text x="120.0" y="149.0" text-anchor="end" class="t-ax">REFUTED</text>
+    <text x="144.2" y="149.0" text-anchor="start" class="t-lab">2 · the object that breaks it, printed</text>
+    <path d="M130 164 h2.168224299065429 a4 4 0 0 1 4 4 v14 a4 4 0 0 1 -4 4 h-2.168224299065429 Z" fill="var(--c-3)" data-cm="NEEDS DATA" data-cmv="2" tabindex="0"/>
+    <text x="120.0" y="179.0" text-anchor="end" class="t-ax">NEEDS DATA</text>
+    <text x="144.2" y="179.0" text-anchor="start" class="t-lab">2 · the bytes that would decide it, named</text>
+    <text x="295.0" y="232.0" text-anchor="middle" class="t-note">published claims</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/claims-ledger.json@42e96aa98a0c" data-stop>Most published claims hold. The value is in the ones that do not, and in saying exactly which part held: every verdict above names its record, and none is a summary.<span class="fig-rec">Record: <span class="m">certs/claims-ledger.json</span> · sha256 42e96aa98a0c</span><span class="fig-stop">The build refuses this figure if its bars do not number the register&#39;s decided claims verdict by verdict.</span></figcaption>
+</figure></div><div class="col"><p><a href="../reports/claims.html">Every claim, with its verdict →</a></p></div><div class="col"><blockquote>“Carlos Toledo has independently verified the complete configurations in all 19 dimensions, confirming their point counts and exact dimensions.”<cite>the claimant, after an audit: the Qiushi Engine authors (Oxelra-AI)</cite></blockquote></div><div class="wide">
+  <div class="stats" data-n="2">
+    <div class="stat"><div class="k">asterisks removed from a registry on these replays</div><div class="v">10</div><div class="n">the optimization-constants registry (Davis, Ivanisvili, Tao), which cites the replays · <a href="../reports/optimization-constants.html">the replays</a></div></div>
+    <div class="stat"><div class="k">outside re-derivations, no disagreement</div><div class="v">7</div><div class="n">5 of them by people with no connection to this work, with their own code · <a href="../reports/rerun.html">the rerun kit</a></div></div>
+  </div>
+<div class="w-why"><div class="k">why these numbers stand as they do</div><ul><li><span class="w-computed">computed</span> — a reading by AI agents, second-read where the first found a gap: a claim about the statement, not a certificate</li></ul></div></div>
+</section>
+
+<section class="">
+  <div class="col sec-head">
+    <div class="lab">why you can trust it</div>
+    <h2>The verifier is attacked first</h2>
+  </div>
+<div class="wide"><figure>
+  <div class="figbox">
+  <svg viewBox="0 0 860 235" role="img" aria-label="Bars: of the planted false values each witnessed by an independent script, a double-precision check accepted 82 at tolerance 1e-6, 33 at tolerance 1e-9, 7 at tolerance 1e-12; the exact decider certified none of the 322 false mutants.">
+    <line x1="190.0" y1="10" x2="190.0" y2="146" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="190.0" y="166.0" text-anchor="middle" class="t-ax">0</text>
+    <line x1="359.5" y1="10" x2="359.5" y2="146" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="359.5" y="166.0" text-anchor="middle" class="t-ax">100</text>
+    <line x1="529.0" y1="10" x2="529.0" y2="146" stroke="var(--c-grid)" stroke-width="1"/>
+    <text x="529.0" y="166.0" text-anchor="middle" class="t-ax">200</text>
+    <path d="M190 15 h134.98305084745766 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-134.98305084745766 Z" fill="var(--c-3)" data-cm="float check at 10⁻⁶" data-cmv="82 of 295 witnessed-false mutants accepted" tabindex="0"/>
+    <text x="180.0" y="31.0" text-anchor="end" class="t-ax">float check at 10⁻⁶</text>
+    <text x="337.0" y="31.0" text-anchor="start" class="t-lab">82 of 295 accepted</text>
+    <path d="M190 49 h51.932203389830505 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-51.932203389830505 Z" fill="var(--c-3)" data-cm="float check at 10⁻⁹" data-cmv="33 of 295 witnessed-false mutants accepted" tabindex="0"/>
+    <text x="180.0" y="65.0" text-anchor="end" class="t-ax">float check at 10⁻⁹</text>
+    <text x="253.9" y="65.0" text-anchor="start" class="t-lab">33 of 295 accepted</text>
+    <path d="M190 83 h7.86440677966101 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h-7.86440677966101 Z" fill="var(--c-3)" data-cm="float check at 10⁻¹²" data-cmv="7 of 295 witnessed-false mutants accepted" tabindex="0"/>
+    <text x="180.0" y="99.0" text-anchor="end" class="t-ax">float check at 10⁻¹²</text>
+    <text x="209.9" y="99.0" text-anchor="start" class="t-lab">7 of 295 accepted</text>
+    <path d="M190 117 h0 a4 4 0 0 1 4 4 v16 a4 4 0 0 1 -4 4 h0 Z" fill="var(--c-1)" data-cm="this decider" data-cmv="0 of 322 false mutants certified; 0 true ones refuted" tabindex="0"/>
+    <text x="180.0" y="133.0" text-anchor="end" class="t-ax">this decider</text>
+    <text x="200.0" y="133.0" text-anchor="start" class="t-lab">0 of 322 certified</text>
+    <text x="440.0" y="188.0" text-anchor="middle" class="t-note">planted false values accepted</text>
+    <rect x="190" y="219" width="11" height="10" rx="2" fill="var(--c-3)"/>
+    <text x="209.0" y="229.0" text-anchor="start" class="t-note">a double-precision check at a tolerance</text>
+    <rect x="505" y="219" width="11" height="10" rx="2" fill="var(--c-1)"/>
+    <text x="524.0" y="229.0" text-anchor="start" class="t-note">the exact decider</text>
+  </svg>
+  </div>
+  <figcaption data-record="certs/selfaudit-mutations.json@51e491d99f3b" data-stop>The verifier is attacked before it is trusted: <span class="w-val w-decided" data-w="decided" data-rec="certs/selfaudit-mutations.json#/all/mutants" data-fmt="int" title="decided — exact arithmetic backs it">572</span> mutants of <span class="w-val w-decided" data-w="decided" data-rec="certs/selfaudit-mutations.json#/all/rows" data-fmt="int" title="decided — exact arithmetic backs it">119</span> register rows, pre-registered, each false one witnessed by a script that shares no code with the decider. The decider certified none of the false ones and refuted none of the true ones; the same mutants through a floating-point check pass in the numbers above.<span class="fig-rec">Record: <span class="m">certs/selfaudit-mutations.json</span> · sha256 51e491d99f3b</span><span class="fig-stop">The build refuses this figure if the self-audit record counts a false certification or a false refutation, or a float check it draws admits no witnessed-false mutant.</span></figcaption>
+</figure></div>
+</section>
+
+<section class="" id="engine">
+  <div class="col sec-head">
+    <div class="lab">the engine</div>
+    <h2>Built on the same engine</h2>
+  </div>
+<div class="col"><p>The two offers above are what a pilot buys. Everything below runs on the same decider and the same three words, and most of it is open.</p></div><div class="wide"><div class="cards"><a class="card" href="#gym"><span class="card-k">under development</span><span class="card-t">Verify Gym</span><span class="card-d">A training ground where the reward is certified decimals: both ends of an interval proven, or nothing.</span></a>
+<a class="card" href="https://app.primeintellect.ai/dashboard/environments/carlos-toledo/lattice-claims" target="_blank" rel="noopener"><span class="card-k">RL environment · Prime Intellect hub</span><span class="card-t">lattice-claims</span><span class="card-d">A lattice claim is decided exactly, or the grader says what it would need.</span></a>
+<a class="card" href="https://app.primeintellect.ai/dashboard/environments/carlos-toledo/blind-spot" target="_blank" rel="noopener"><span class="card-k">RL environment · Prime Intellect hub</span><span class="card-t">blind-spot</span><span class="card-d">An RTL mutation task: a kill is simulated, never taken from an answer key.</span></a>
+<a class="card" href="https://app.primeintellect.ai/dashboard/environments/carlos-toledo/break-the-grader" target="_blank" rel="noopener"><span class="card-k">RL environment · Prime Intellect hub</span><span class="card-t">break-the-grader</span><span class="card-d">The reward is breaking a grader, and “I could not break it” is scored apart.</span></a>
+<a class="card" href="../claimbox/"><span class="card-k">open source</span><span class="card-t">claimbox</span><span class="card-d">From a claim’s text to an object a machine can check, printed back in plain words, or refused with the reason.</span></a>
+<a class="card" href="../grammar/"><span class="card-k">open source · kits for matplotlib and the web</span><span class="card-t">WARRANT, the visual grammar</span><span class="card-d">Charts that show what decided each number: proved, computed, chosen or refused. Copy kits/warrant-mpl or warrant.js.</span></a>
+<a class="card" href="../reports/rerun.html"><span class="card-k">open kit</span><span class="card-t">The re-run kit</span><span class="card-d">Re-derive a verdict with your own code; the outside re-derivations so far are listed with it.</span></a>
+<a class="card" href="../apps/"><span class="card-k">decision apps</span><span class="card-t">Apps on the same verdicts</span><span class="card-d">SkyAudit, Janela, Swell and PU Verificado: operational answers with the certificate one click down.</span></a></div></div>
+</section>
+
+<section class="col" id="gym">
+  <div class="sec-head">
+    <div class="lab">the training ground</div>
+    <h2>Verify Gym</h2>
+  </div>
+<p><span class="tag open">under development</span></p><p>An always-evolving training ground on top of cert-machine. Models propose the tightest rational interval they can around a constant: first, roots of x^x = y, k-th roots of integers and real roots of integer polynomials. The reward is certified decimals, both ends proven exactly; an end that is refuted, malformed or unchecked earns nothing, so the reward cannot be gamed.</p><p>New families arrive from the register’s newly decided claims. A held-out set is frozen, and a public scorecard ranks every model, ours included. A trained open model ships only if it beats its own base on the held-out set.</p>
 </section>
 
 <section class="col">
@@ -896,12 +1361,38 @@ div.w-why ul li::before { content: none; }
     <div class="lab">a pilot</div>
     <h2>How a pilot starts</h2>
   </div>
-<ul class="plain"><li><b>1. Open a request.</b> The <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form</a> asks what you want checked and where it is published. The form is public; if the claim is not, say so and leave only how to reach you.</li><li><b>2. Scope before work.</b> Before anything is run, you get the list of what can be decided, what will be read, and what will be refused, and why.</li><li><b>3. The certificate.</b> Each verdict comes with its certificate and a one-line command that re-derives it without this engine.</li></ul>
-</section>
+<ul class="plain"><li><b>1. Open a request.</b> The <a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">pilot form</a> asks what you want checked and where it is published. The form is public; if the claim is not, say so and leave only how to reach you.</li><li><b>2. Scope before work.</b> Before anything is run, you get the list of what can be decided, what will be read, and what will be refused, and why.</li><li><b>3. The certificate.</b> Each verdict comes with its certificate and a one-line command that re-derives it without this engine.</li></ul><p><a href="https://github.com/carlostoledo1891/cert-machine/issues/new?template=pilot.yml">Request a pilot →</a></p>
+<div class="w-why" data-page><div class="k">why these numbers stand as they do</div><ul><li><span class="w-decided">decided</span> — the register’s count of decided rows</li><li><span class="w-decided">decided</span> — the pairs its own certificate uses that the record places outside R</li><li><span class="w-decided">decided</span> — every pair of every configuration, summed and cut toward zero</li><li><span class="w-computed">computed</span> — the wall-clock seconds the engine recorded per configuration, summed, on one 8-core machine</li><li><span class="w-decided">decided</span> — the digit count of each side of the comparison</li></ul></div></section><script>
+(function(){
+  var tip=null;
+  function show(el){
+    var box=el.closest('.figbox'); if(!box) return;
+    if(!tip){ tip=document.createElement('div'); tip.className='cm-tip'; document.body.appendChild(tip); }
+    tip.innerHTML='<b>'+el.getAttribute('data-cm')+'</b>'+(el.getAttribute('data-cmv')?'<span>'+el.getAttribute('data-cmv')+'</span>':'');
+    tip.style.display='block';
+    var r=el.getBoundingClientRect(), t=tip.getBoundingClientRect();
+    var x=r.left+r.width/2-t.width/2, y=r.top-t.height-10;
+    if(y<4) y=r.bottom+10;
+    tip.style.left=Math.max(6,Math.min(x,innerWidth-t.width-6))+'px';
+    tip.style.top=(y+scrollY)+'px';
+    var c=el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c&&el.hasAttribute('data-cmx')){ c.setAttribute('x1',el.getAttribute('data-cmx')); c.setAttribute('x2',el.getAttribute('data-cmx')); c.style.opacity=1; }
+  }
+  function hide(el){
+    if(tip) tip.style.display='none';
+    var c=el&&el.ownerSVGElement&&el.ownerSVGElement.querySelector('.cm-cross');
+    if(c) c.style.opacity=0;
+  }
+  document.addEventListener('pointerover',function(e){ var el=e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('pointerout',function(e){ var el=e.target.closest('[data-cm]'); if(el) hide(el); });
+  document.addEventListener('focusin',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) show(el); });
+  document.addEventListener('focusout',function(e){ var el=e.target.closest&&e.target.closest('[data-cm]'); if(el) hide(el); });
+  addEventListener('scroll',function(){ if(tip) tip.style.display='none'; },{passive:true});
+})();</script>
 
 </div>
 
-<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built by tools/build-site.js from certs/envs-record.json, certs/openai-math-statements.json, certs/selfaudit-mutations.json, corpus/external-reruns.json, corpus/recognition.json and the registry snapshots in corpus/optconst-queue/. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>Built by tools/build-site.js and tools/verify-page.js from certs/claims-ledger.json, certs/horizonmath-ledger.json, certs/kissing-wave.json, certs/xx-ledger.json, certs/openai-math-kernel.json, corpus/openai-math/release.json, certs/openai-math-statements.json, certs/envs-record.json, certs/selfaudit-mutations.json, corpus/external-reruns.json, corpus/recognition.json and the registry snapshots in corpus/optconst-queue/. Nothing on this page is live. MIT. <a href="https://github.com/carlostoledo1891/cert-machine">Source</a>.</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../index.html">home</a><a href="../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
 
 </body>
 </html>
