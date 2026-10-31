@@ -154,6 +154,9 @@ function sharedWithRoot(p, q, xs, cap) {   /* decimals the fraction p/q shares w
   while (d < cap && fracFloor(p, q, d + 1) === decScaled(xs, d + 1)) d++;
   return d;
 }
+const ZERO_TICK = 8;                                    /* how far a zero's tick hangs under the axis */
+const zeroTick = (x, y0, w) => '    <rect x="' + x.toFixed(1) + '" y="' + (y0 + 1.5).toFixed(1) + '" width="' + w.toFixed(1)
+  + '" height="' + ZERO_TICK + '" fill="var(--c-2)" data-w="decided"/>';
 function figTight() {
   const ys = S.decidedYs.filter((y) => y <= 100);
   const vals = ys.map((y) => {
@@ -164,12 +167,14 @@ function figTight() {
     return { y, bar: b.sharedDecimals, tick };
   });
   const finite = vals.filter((v) => !v.exact);
+  const zeros = finite.filter((v) => v.bar === 0).map((v) => v.y);
   const top = Math.max(...finite.map((v) => Math.max(v.bar, v.tick))) + 1;
   const f = CH.frame({ w: FIG_W, h: 300, x0: 0, x1: ys.length, y0: 0, y1: top, padL: 62, padR: 22, padT: 22, padB: 48 });
   const yt = []; for (let d = 0; d < top; d += 2) yt.push({ v: d, t: String(d) });
   yt.push({ v: top, t: 'exact' });
   const out = [CH.open({ w: f.w, h: f.h, alt: 'For each y from 2 to ' + ys[ys.length - 1] + ', a bar: the decimal places on which the two decided fractions agree, from ' + Math.min(...finite.map((v) => v.bar)) + ' to ' + Math.max(...finite.map((v) => v.bar))
-    + '. A dashed step line above the bars: the places the closest fraction shares with the computed root. At y = 4 and y = 27 the root is a whole number and the bar reaches the top line, labelled exact.' })];
+    + '. A dashed step line above the bars: the places the closest fraction shares with the computed root. At y = 4 and y = 27 the root is a whole number and the bar reaches the top line, labelled exact.'
+    + (zeros.length ? ' At y = ' + zeros.join(' and y = ') + ' the two fractions share no decimal: the bar has no height, and a short solid tick under the axis marks the zero, keyed 0 decimals shared.' : '') })];
   out.push(CH.axes(f, { yTicks: yt, xTicks: [], xLabel: 'y', yLabel: 'decimals' }));
   const bw = f.pw / ys.length;
   const step = [];
@@ -177,11 +182,18 @@ function figTight() {
     const x = f.L + i * bw;
     const h = v.exact ? top : v.bar;
     out.push('    <rect x="' + (x + 1).toFixed(1) + '" y="' + f.py(h).toFixed(1) + '" width="' + (bw - 2).toFixed(1) + '" height="' + (f.py(0) - f.py(h)).toFixed(1) + '" fill="' + (v.exact ? 'var(--ink)' : 'var(--c-2)') + '" data-rec="' + LED + '#/brackets[y=' + v.y + ']/sharedDecimals"/>');
+    /* a true zero (the two fractions share no decimal) has no height to draw: a short solid tick hangs under the
+       axis in the bar's colour, a decided mark, so the zero reads as a value and not as a missing bar (keyed below) */
+    if (!v.exact && v.bar === 0) out.push(zeroTick(x + 1, f.py(0), bw - 2));
     const t = v.exact ? top : v.tick;
     step.push((i ? 'L' : 'M') + x.toFixed(1) + ' ' + f.py(t).toFixed(1) + ' L' + (x + bw).toFixed(1) + ' ' + f.py(t).toFixed(1));
     if ([2, 10, 27, 50, 64, 100].includes(v.y)) out.push(CH.txt(x + bw / 2, f.T + f.ph + 18, String(v.y), 't-ax', 'middle'));
   });
   out.push('    <path d="' + step.join(' ') + '" ' + W.attrs(W.COMPUTED, { width: 1.6 }) + '/>');
+  if (zeros.length) {                                  /* the key: the tick as drawn, on the axis title's line */
+    const label = '0 decimals shared', kx = f.L + f.pw - 19 - Math.ceil(label.length * 6.9), ky = f.T + f.ph + 42;
+    out.push(zeroTick(kx, ky - 11.5, bw - 2), CH.txt(kx + 19, ky, label, 't-note', 'start'));
+  }
   out.push(CH.close);
   return { svg: out.join('\n'), top, ys };
 }
