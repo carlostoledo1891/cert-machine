@@ -16,7 +16,9 @@ mutants), check.js held to check.py on every one and on every format-4 red contr
 its word decides only the claim its row states — the EinsteinArena forgery (the score moved 2,000,001 units of its last digit)
 refused record-decision-mismatch by both checkers and the SMT export; and the BOX HELD TO THE ROW: a row that decided agreement
 within the platform's resolution certifies only that box, so the half-unit box at the row's own print is refused and the
-record's own claim is admitted CERTIFIED with the resolution box.
+record's own claim is admitted CERTIFIED with the resolution box. (9) ONE READING OF A ROW'S BAR (2026-10-31): the number after
+the row claim's last relation, for the bar check and the record with no value alike — the horizonmath row that prints two numbers
+admits the object stating its claim, CERTIFIED, and refuses the one stating its first decimal (record-bar-mismatch), in both checkers.
 
 usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
@@ -732,6 +734,55 @@ try:
         red(smt8 == 'record-decision-mismatch', 'the SMT export of ' + what + ' -> refused (record-decision-mismatch)', str(smt8))
 finally:
     shutil.rmtree(tmp8, ignore_errors=True)
+
+# ---- 9 · ONE reading of a row's bar (2026-10-31, the operator's ruling on claimbox's ask (b)) ---------------------------
+# A row's bar is the number after its claim's LAST relation (or "is"), read once, in both checkers, for the bar check and for
+# the record with no value. Before, the bar check read the claim's FIRST decimal: the horizonmath row
+# "Area(E) = 0.1091479892... < 0.1148103258186177 (the AlphaEvolve baseline)" prints two numbers, and the object stating the
+# row's claim (lt 0.1148103258186177, the record valueless, CERTIFIED) was refused record-bar-mismatch ("the record decided
+# 0.1091479892") although the valueless rule read 0.1148103258186177. Found by claimbox's register readers (batch 2).
+# The object stating the first decimal as its bar is refused: the row decided the baseline, not its own rounding.
+tmp9 = tempfile.mkdtemp(prefix='claimbox-onebar-')
+try:
+    HM_REC, HM_ROW, HM_PIN = 'certs/horizonmath-ledger.json', 'keich-thin-triangles-128', 'corpus/horizonmath/kakeya-a2-intercepts.json'
+    with open(os.path.join(ROOT, HM_REC), encoding='utf-8') as fh:
+        hm_row = next(x for x in json.load(fh)['rows'] if x['id'] == HM_ROW)
+    hm_claim = hm_row['claim']
+    ok(hm_claim.startswith('Area(E) = 0.1091479892... < 0.1148103258186177') and hm_row['verdict'] == C and 'value' not in hm_row,
+       'the exact case: the row prints two numbers, the rounded area then the baseline after the last relation, carries no value, says CERTIFIED', hm_claim[:70])
+    ok(B.row_bar(hm_claim) == ('<', '0.1148103258186177'), 'the row\'s bar is read once: < 0.1148103258186177 (the number after the last relation)', str(B.row_bar(hm_claim)))
+    hm_src_sha = hashlib.sha256(open(os.path.join(ROOT, HM_REC), 'rb').read()).hexdigest()
+    hm_pin = {'path': HM_PIN, 'sha256': hashlib.sha256(open(os.path.join(ROOT, HM_PIN), 'rb').read()).hexdigest()}
+
+    def hm_object(printed, tag):
+        q = Fraction(printed)
+        return {'id': 'onebar-' + tag, 'text': hm_claim,
+                'source': {'what': 'the row\'s claim as the record prints it', 'path': HM_REC, 'sha256': hm_src_sha, 'quote': hm_claim},
+                'reading': 'universal',
+                'domain': {'kind': 'finite', 'pin': hm_pin, 'decoder': 'the 128 printed intercepts at "intercepts", each decimal string the rational it denotes, exactly', 'count': 128, 'variable': 'b'},
+                'predicate': [{'g': {'named': 'the area of the union of the 128 thin triangles, as the problem defines it', 'where': 'instruments/horizonmath/kakeya_area.py', 'args': ['b']},
+                               'rel': 'lt', 'printed': printed, 'c': str(q.numerator) + '/' + str(q.denominator)}],
+                'reference': 'the bar is the problem\'s printed AlphaEvolve baseline taken exactly',
+                'hypotheses': ['the printed intercepts are the claimant\'s construction'],
+                'falsifier': ['the area computed exactly is at least the bar', 'the pinned file does not hash to ' + hm_pin['sha256'][:8] + '…'],
+                'record': {'path': HM_REC, 'row': HM_ROW, 'value': None, 'verdict': C}}
+    cases9 = [   # (label, object, expected word, expected kind)
+        ('the row\'s own claim (lt 0.1148103258186177, the bar after the last relation) takes the row\'s word', hm_object('0.1148103258186177', 'own'), B.ADMITTED, None),
+        ('THE FIRST DECIMAL as the bar (lt 0.1091479892: the area\'s rounding, not the bar the row decided)', hm_object('0.1091479892', 'first'), B.REFUSED_WORD, 'record-bar-mismatch'),
+    ]
+    paths9 = []
+    for i, (label, o, word, kind) in enumerate(cases9):
+        res = B.check_obj(o)
+        good = res['word'] == word and res['kind'] == kind and (word != B.ADMITTED or res['decided'] == [C])
+        (ok if word == B.ADMITTED else red)(good, 'one bar: ' + label + ' -> ' + (kind or 'ADMITTED [CERTIFIED]'), (res['kind'] or res['word']) + ': ' + (res['msg'] or ' · '.join(res['decided']))[:90])
+        pth = os.path.join(tmp9, 'case-' + str(i) + '.json')
+        json.dump(o, open(pth, 'w'))
+        paths9.append(pth)
+    j9 = js_batch(paths9)
+    disagree = [lab for (lab, _, word, kind), jr in zip(cases9, j9) if not (jr and jr['word'] == word and jr['kind'] == kind and (word != B.ADMITTED or jr['decided'] == [C]))]
+    ok(not disagree, 'check.js gives the same word and kind on both one-bar cases', '; '.join(disagree)[:160])
+finally:
+    shutil.rmtree(tmp9, ignore_errors=True)
 
 print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

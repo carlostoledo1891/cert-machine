@@ -47,7 +47,7 @@ instruments/claimbox/v4/           the format-4 calibration objects (section "Fo
 | `reference` | what the number is about: which bar, which reading of the bytes, which quantity | non-empty (the lattice-claims lesson) |
 | `hypotheses` | what is taken from the literature and read, never decided | a list, may be empty |
 | `falsifier` | what would make the object go red | non-empty (the certificate rule) |
-| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three, the record's bar is the object's, and the record's value re-decided against the object's bar gives the record's verdict; a record that carries no value decides only the claim its row states (below, "A record with no value"), else `record-decision-mismatch`. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
+| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three, the record's bar is the object's (the row's bar read one way, below, "The bar a row states"; else `record-bar-mismatch`), and the record's value re-decided against the object's bar gives the record's verdict; a record that carries no value decides only the claim its row states (below, "A record with no value"), else `record-decision-mismatch`. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
 | `repair` | optional: the bar the record certifies beside a refuted print | its own `printed`/`c` rule; re-decided the same way |
 | `notes` | optional prose | a list of strings |
 
@@ -87,6 +87,17 @@ an EinsteinArena row of `certs/mc100-einstein-arena.json` carries no value, and 
 2,000,001 units of its last digit (1.5027436494326166 for the row's 1.5027436492326165) was admitted CERTIFIED by both
 checkers; it is now refused by both and by the SMT export (the battery's section 8, with the record's own claim admitted
 beside it). A record that carries a value is unchanged: the value is re-decided against the object's bar, as before.
+
+**The bar a row states (2026-10-31, the operator's ruling on claimbox's ask (b)).** Both checkers read a record row's bar ONE
+way, in one place each (`row_bar` in check.py, `rowBar` in check.js, held to each other by the battery): the number after the
+row claim's LAST relation, or the word `is`, as in the record with no value above. The bar check (`record-bar-mismatch`: a
+predicate's printed bar, other than an `in`, must be that number) and the record with no value read the same number, and the
+relation the checker notes when the object's differs is that relation. Before, the bar check read the claim's FIRST decimal: the
+horizonmath row `Area(E) = 0.1091479892... < 0.1148103258186177 (the AlphaEvolve baseline)` prints the rounded area first and
+the bar after its relation, and the object stating the row's own claim (`lt 0.1148103258186177`, the record valueless,
+CERTIFIED) was refused `record-bar-mismatch` ("the record decided 0.1091479892"). Found by claimbox's register readers. It is
+now admitted with the row's word, and an object stating the first decimal as its bar is refused `record-bar-mismatch` (battery
+§9). No object of the corpus changed its word.
 
 **The box held to the row (2026-10-30, the operator's ruling).** A row whose claim is agreement within the platform's
 resolution — it carries `decision.agreement` and `minImprovement`, the rule of `tools/run-mc100-einstein.js` `agreement()` —

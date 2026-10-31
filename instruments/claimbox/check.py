@@ -536,14 +536,21 @@ def record_value(v, where):
     raise Refuse('record-value', where + ': ' + repr(v)[:80])
 
 
-BAR_IN_CLAIM = re.compile(r'-?\d+\.\d+')
-REL_IN_CLAIM = re.compile(r'(<=|>=|≤|≥|<|>|=)')
 REL_WORD = {'<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq'}
-# the claim a record row states, when the row carries no value (2026-10-30): the LAST relation, or the word "is", followed by a
-# number (an integer or a decimal, not inside a longer number). Its word decides that claim and no other: a predicate whose word
-# is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
+# THE BAR A RECORD ROW STATES, read ONE way (2026-10-30 for the record with no value; 2026-10-31 for every row, the operator's
+# ruling on claimbox's ask (b)): the LAST relation, or the word "is", followed by a number (an integer or a decimal, not inside a
+# longer number). The bar check and the record with no value both read it here: a predicate's bar must be that number, and a
+# predicate whose word is the record's alone must state it under the same relation ("in" and "eq" state the value: "is" or "=").
+# Before 2026-10-31 the bar check read the claim's FIRST decimal, and a row printing two numbers ("Area(E) = 0.1091479892... <
+# 0.1148103258186177") refused the object stating the row's own claim.
 STATED_BAR = re.compile(r'(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)')
 STATED_REL = dict(REL_WORD, **{'is': 'eq'})
+
+
+def row_bar(claim):
+    """the bar a record row's claim states: (the relation as printed, the number as printed), or None when it states none"""
+    stated = STATED_BAR.findall(claim)
+    return stated[-1] if stated else None
 
 
 def agreement_box(row, bar):
@@ -991,10 +998,9 @@ def check_obj(o, root=ROOT):
                     raise Refuse('record-decision-mismatch', 'the lane row says ' + rv + ', its kernels give ' + lane_word + ' (' + (' · '.join(kernels) or 'no kernel printed') + ')')
             value = record_value(get_path(row, r['value']), 'record.value ' + str(r['value'])) if r['value'] is not None else None
             claim_str = str(row.get('claim', ''))
-            m = BAR_IN_CLAIM.search(claim_str)
-            rec_bar = Fraction(m.group(0)) if m else None
-            mr = REL_IN_CLAIM.search(claim_str)
-            rec_rel = REL_WORD.get(mr.group(0)) if mr else None
+            stated = row_bar(claim_str)
+            rec_bar = Fraction(stated[1]) if stated else None
+            rec_rel = STATED_REL[stated[0]] if stated else None
             if ridx is not None and preds[ridx]['rel'] == 'holds' and value is not None:
                 raise Refuse('record-predicate', 'record.predicate ' + str(ridx) + ' is a "holds" predicate, but the record carries a value')
             # with record.predicate stated, the record's value, bar and verdict belong to that predicate alone; beside it a
@@ -1013,9 +1019,9 @@ def check_obj(o, root=ROOT):
                     decided.append(rv)
                     continue
                 if p['rel'] != 'in' and p['printed'] is not None and rec_bar is not None and rec_bar != p['c']:
-                    raise Refuse('record-bar-mismatch', 'the record decided ' + m.group(0) + ', the object states ' + p['printed'])
+                    raise Refuse('record-bar-mismatch', 'the record decided ' + stated[1] + ', the object states ' + p['printed'])
                 if p['rel'] != 'in' and p['printed'] is not None and rec_rel is not None and rec_rel != p['rel']:
-                    out['notes'].append('the record\'s claim prints the relation ' + mr.group(0) + ', the object states ' + p['rel'] + '; the decision below is under the object\'s')
+                    out['notes'].append('the record\'s claim prints the relation ' + stated[0] + ', the object states ' + p['rel'] + '; the decision below is under the object\'s')
                 fo = from_object[i]
                 if value is not None:
                     dv = decide(value, p['rel'], p['c'])
@@ -1029,11 +1035,10 @@ def check_obj(o, root=ROOT):
                 else:
                     # the record's word alone decides this predicate (no value, nothing decided from the object): it decides
                     # the claim its row states, so the object must state that claim's bar under that claim's relation
-                    stated = STATED_BAR.findall(claim_str)
                     mine = Fraction(p['printed']) if p['printed'] is not None else p['c']
                     if not stated:
                         raise Refuse('record-decision-mismatch', 'the record carries no value and its claim states no bar: its word decides no claim the object states')
-                    srel, sbar = stated[-1]
+                    srel, sbar = stated
                     if STATED_REL[srel] != ('eq' if p['rel'] in ('in', 'eq') else p['rel']) or Fraction(sbar) != mine:
                         raise Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p['rel'] + ' ' + (p['printed'] if p['printed'] is not None else str(p['c'])) + ': the record\'s word is for another claim')
                     row_box = agreement_box(row, Fraction(sbar))

@@ -354,13 +354,17 @@ function recordValue(v, where) {
   if (Array.isArray(v) && v.length === 2 && v.every(isNum)) { const lo = Q.fromDouble(Number(v[0].text)), hi = Q.fromDouble(Number(v[1].text)); if (lo.cmp(hi) > 0) throw new Refuse('record-value', where + ': enclosure with lo > hi'); return ['enclosure', [lo, hi]]; }
   throw new Refuse('record-value', where + ': ' + JSON.stringify(v === undefined ? null : (isNum(v) ? v.text : v)).slice(0, 80));
 }
-const BAR_IN_CLAIM = /-?\d+\.\d+/, REL_IN_CLAIM = /(<=|>=|≤|≥|<|>|=)/;
 const REL_WORD = { '<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq' };
-// the claim a record row states, when the row carries no value (2026-10-30): the LAST relation, or the word "is", followed by a
-// number (an integer or a decimal, not inside a longer number). Its word decides that claim and no other: a predicate whose word
-// is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
+// THE BAR A RECORD ROW STATES, read ONE way (2026-10-30 for the record with no value; 2026-10-31 for every row, the operator's
+// ruling on claimbox's ask (b)): the LAST relation, or the word "is", followed by a number (an integer or a decimal, not inside a
+// longer number). The bar check and the record with no value both read it here: a predicate's bar must be that number, and a
+// predicate whose word is the record's alone must state it under the same relation ("in" and "eq" state the value: "is" or "=").
+// Before 2026-10-31 the bar check read the claim's FIRST decimal, and a row printing two numbers ("Area(E) = 0.1091479892... <
+// 0.1148103258186177") refused the object stating the row's own claim.
 const STATED_BAR = /(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)/g;
 const STATED_REL = Object.assign({}, REL_WORD, { is: 'eq' });
+// the bar a record row's claim states: [the relation as printed, the number as printed], or null when it states none
+function rowBar(claim) { const stated = [...claim.matchAll(STATED_BAR)]; return stated.length ? [stated[stated.length - 1][1], stated[stated.length - 1][2]] : null; }
 // the box a valueless row decided when its claim is agreement within the platform's resolution (a row carrying
 // decision.agreement and minImprovement, tools/run-mc100-einstein.js agreement()): [bar - t, bar + t], t the row's minImprovement
 // as the decimal it prints when nonzero, else 10^-12 · max(1, |bar|) — the decider's rule, exactly; null for any other row
@@ -638,8 +642,8 @@ function checkObj(o, root = ROOT) {
       }
       value = r.value === null ? null : recordValue(getPath(row, r.value), 'record.value ' + String(r.value));
       const claimStr = String(row.claim || '');
-      const m = BAR_IN_CLAIM.exec(claimStr), mr = REL_IN_CLAIM.exec(claimStr);
-      const recBar = m ? Q.fromDecimal(m[0]) : null, recRel = mr ? REL_WORD[mr[0]] : null;
+      const stated = rowBar(claimStr);
+      const recBar = stated ? Q.fromDecimal(stated[1]) : null, recRel = stated ? STATED_REL[stated[0]] : null;
       if (rix !== null && preds[rix].rel === 'holds' && value !== null) throw new Refuse('record-predicate', 'record.predicate ' + rix + ' is a "holds" predicate, but the record carries a value');
       const decided = [];
       preds.forEach((p, i) => {
@@ -650,8 +654,8 @@ function checkObj(o, root = ROOT) {
           return;
         }
         if (p.rel === 'holds') { decided.push(rv); return; }
-        if (p.rel !== 'in' && p.printed !== null && recBar && !recBar.eq(p.c)) throw new Refuse('record-bar-mismatch', 'the record decided ' + m[0] + ', the object states ' + p.printed);
-        if (p.rel !== 'in' && p.printed !== null && recRel && recRel !== p.rel) out.notes.push('the record\'s claim prints the relation ' + mr[0] + ', the object states ' + p.rel + '; the decision below is under the object\'s');
+        if (p.rel !== 'in' && p.printed !== null && recBar && !recBar.eq(p.c)) throw new Refuse('record-bar-mismatch', 'the record decided ' + stated[1] + ', the object states ' + p.printed);
+        if (p.rel !== 'in' && p.printed !== null && recRel && recRel !== p.rel) out.notes.push('the record\'s claim prints the relation ' + stated[0] + ', the object states ' + p.rel + '; the decision below is under the object\'s');
         const fo = fromObject[i];
         if (value !== null) {
           const dv = decide(value, p.rel, p.c);
@@ -662,9 +666,8 @@ function checkObj(o, root = ROOT) {
         else {
           // the record's word alone decides this predicate (no value, nothing decided from the object): it decides the claim its
           // row states, so the object must state that claim's bar under that claim's relation
-          const stated = [...claimStr.matchAll(STATED_BAR)];
-          if (!stated.length) throw new Refuse('record-decision-mismatch', 'the record carries no value and its claim states no bar: its word decides no claim the object states');
-          const [, srel, sbar] = stated[stated.length - 1];
+          if (!stated) throw new Refuse('record-decision-mismatch', 'the record carries no value and its claim states no bar: its word decides no claim the object states');
+          const [srel, sbar] = stated;
           const mine = p.printed !== null ? Q.fromDecimal(p.printed) : p.c;
           if (STATED_REL[srel] !== (p.rel === 'in' || p.rel === 'eq' ? 'eq' : p.rel) || !Q.fromDecimal(sbar).eq(mine))
             throw new Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p.rel + ' ' + (p.printed !== null ? p.printed : p.c.toString()) + ': the record\'s word is for another claim');
