@@ -22,6 +22,15 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — /REPORTS/XX.HTML LIVE (the operator: "built here on the reports page with the grammar"; listed under the
+     audits): claimbox's x^x = y study lifted (LIFT-claimbox.json extended, dated; corpus/claimbox-xx/), every bracket
+     re-decided HERE by tools/run-xx-ledger.py (certs/xx-ledger.json: 210 CERTIFIED, 8 planted REFUTED, 216/216 mutants flip;
+     claimbox's word agrees on all 226; --check ~9 s, in the control and make test). The re-lift moved the Riemann
+     companion's lift date: its battery sentence now reads \RfBatteryDate (2026-10-22, from the observation's file name; the
+     operator: "pin the observation date"), the PDF rebuilt. Open: bars of height 0 at y = 23 and 51 (true zeros, invisible).
+  ◆ 2026-10-31 — BLACK HOLE (M87*, WebGL, the operator chose; scout first): notes/black-hole-scout-2026-10-31.md + targets row
+     m87-kerr-standing-render, verdict OPEN-narrowed; Phase 0 (the decided shadow-edge layer) is the only ready step; eight
+     questions for the operator in the note (colours, headline, GRMHD, jet frequency, camera, loop crossfade, LICENSE-DATA wording).
   ◆ 2026-10-31 — claimbox's x^x = 64 study REVIEWED (read-only; objects compiled in the scratchpad): check.js agrees with
      check.py on all 8 words; the reduction holds (add q ≥ 1, the negative-base convention, N ≥ 2 > e^(1/e) to its text);
      root digits recomputed independently. FIXED on the operator's word: check.py crashed on Python ≥ 3.11 for values over

@@ -353,9 +353,13 @@ const README = T(LIFT + '/README.md'); need(/overlap by 10⁻¹⁸/.test(README)
 need(/No model, no parser framework, no dependency, no guess\. The grammar is a closed list of claim shapes/.test(README), 'the producer\'s README no longer states its rule');
 
 /* ================================================================ the producer's battery, as observed on the pinned commit */
-const MT_OUT = T(LIFT + '/make-test-2026-10-22.txt').trim().split('\n').pop(); const mt = MT_OUT.match(/^(\d+) pass, (\d+) fail; (\d+)\/(\d+) red controls fired — claimbox$/);
+const MT_FILE = 'make-test-2026-10-22.txt';
+const MT_OUT = T(LIFT + '/' + MT_FILE).trim().split('\n').pop(); const mt = MT_OUT.match(/^(\d+) pass, (\d+) fail; (\d+)\/(\d+) red controls fired — claimbox$/);
 need(mt && mt[2] === '0' && mt[3] === mt[4], 'the producer\'s battery line is not green: ' + MT_OUT);
 def('RfClaimboxChecks', mt[1]); def('RfClaimboxReds', mt[3]);
+/* the day the battery was observed, read from its file's name: the lift date moves with every re-lift, the observation does
+   not (2026-10-31, the operator: "pin the observation date") */
+def('RfBatteryDate', MT_FILE.match(/(\d{4}-\d{2}-\d{2})/)[1]);
 def('RfCommit', git);
 fs.writeFileSync(OUT, M.join('\n') + '\n');
 console.log('wrote ' + path.relative(ROOT, OUT) + ' (' + (M.length - 1) + ' macros)');
