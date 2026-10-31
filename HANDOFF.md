@@ -35,7 +35,10 @@ NEXT SESSION, IN ORDER:
      OPEN for the operator: an `in` decided by a valueless EA row states the half-unit box, the row decided agreement
      within the platform's resolution (first-autocorrelation: 1.26e-16 from the print, half-unit 5e-17).
      lane-overlaps (approved): pqc @1440 and navier-stokes at 900 px tall (the card hides below 960, ACCEPTED), and the
-     older small-screen overlaps (approved) — running.
+     older small-screen overlaps (approved) — DONE AND LIVE: pqc/interferometer panels closed by default below 820 px,
+     navier-stokes' slider narrows at 1280 and its button sits above the bar on phones (pqc-app.js layout() patched,
+     declared in playground/pqc/PROVENANCE.json). LEFT: navier-stokes at 1024×768 (the bar 39×26 px under the button —
+     no room between foot and panel below ~1125 px wide); pqc's canvas caption clips at 390 (text, pre-existing).
   ◆ 2026-10-30 late — RULED (the operator, on "some pages do not have the dark/light toggle"): the ten DARK_ONLY
      /instruments pages are REDRAWN IN TOKENS (their art becomes ink on paper in light), canvases REPAINT AT ONCE on a
      flip (design/nav.js now dispatches "warrant-theme" on document, 9820a8d3; contours gets the same fix), and THE APPS
