@@ -1,0 +1,39 @@
+# Verify Gym GRPO pilot on Prime Hosted Training (notes/verify-gym-preregistration-2026-10-31.md, deviation 4).
+# B = Qwen/Qwen3.5-9B, LoRA (the platform's), thinking off, 16,384 tokens, temperature 1.0: the readiness gate's
+# settings (GO: 88/100 groups not all equal, mean reward 0.0757). The training rows are the v0 stage from row 0;
+# the replicate (pilot-qwen9b-s5000.toml) differs ONLY in that offset. The eval skips step 0 (B is the qwen3.5-9b
+# scorecard row, same sampling) and runs at the last step only (T, the one checkpoint, fixed in advance), on the
+# 120 frozen held-out tasks x 8.
+# Launch: prime train <this file> -y
+name = "vg-pilot-qwen9b-s0"
+model = "Qwen/Qwen3.5-9B"
+max_steps = 12
+batch_size = 64
+rollouts_per_example = 8
+
+[sampling]
+max_tokens = 16384
+temperature = 1.0
+enable_thinking = false
+
+[[env]]
+id = "carlos-toledo/verify-gym"
+version = "0.1.0"
+args = { num_tasks = 2400, start = 0, stage = "v0", eval_split = "heldout" }
+
+[eval]
+interval = 12
+num_examples = 120
+rollouts_per_example = 8
+skip_first_step = true
+
+[eval.sampling]
+max_tokens = 16384
+temperature = 1.0
+enable_thinking = false
+
+# Without at least one [[eval.env]] the CLI drops the whole [eval] section (lattice-claims' finding).
+[[eval.env]]
+id = "carlos-toledo/verify-gym"
+version = "0.1.0"
+args = { num_tasks = 8, start = 0, stage = "v0", eval_split = "heldout" }

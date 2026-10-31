@@ -1,0 +1,37 @@
+{
+ "what": "verify-gym model answers (the frozen held-out set): 120 tasks x 8 samples, every reply stored; graded by scorecard.py --add",
+ "settings": {
+  "model": "google/gemma-4-26b-a4b-it",
+  "endpoint": "https://api.pinference.ai/api/v1",
+  "provider": "Prime Inference",
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "max_tokens": 16384,
+  "extra_body": {
+   "chat_template_kwargs": {
+    "enable_thinking": false
+   }
+  },
+  "thinking": "off (chat_template_kwargs enable_thinking false)",
+  "tools": "none",
+  "pilot": false
+ },
+ "started": "2026-10-31T17:04:30Z",
+ "finished": "2026-10-31T18:21:10Z",
+ "log": {
+  "file": "rollouts.jsonl",
+  "sha256": "541aded25d5bfdeb778c35321d2ab5a58212baf18e30ab8e1c2153b0dcb5b467"
+ },
+ "usage": {
+  "prompt_tokens": 406080,
+  "completion_tokens": 2920682,
+  "cost_usd_reported": 0.2436,
+  "samples_with_usage": 960
+ },
+ "prices_usd_per_1m": {
+  "input": 0.021,
+  "output": 0.064
+ },
+ "cost_usd_at_listed_prices": 0.1955,
+ "truncated": 10
+}

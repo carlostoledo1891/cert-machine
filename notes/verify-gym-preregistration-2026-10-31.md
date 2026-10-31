@@ -240,3 +240,28 @@ Any change after this commit is recorded here, dated, with its reason.
      account is not enrolled in (`onDemandBetaAccess: false`), and Qwen3.5-9B is not among the deployable adapter
      models. If that is still so after the gate, no training step runs and that is reported; nothing about the
      ship criterion changes.
+
+4. **2026-10-31, after the readiness gate (GO) and before any training step: the pilot's shape.** The gate on
+   Qwen3.5-9B (corpus/verify-gym/readiness-qwen3.5-9b/readiness.json) said GO: 88 of 100 groups not all equal,
+   mean reward 2421/32000 (0.0757), 27 of 800 replies cut off, US$2.28 reported, 0 disagreements between the
+   deciders and recheck.py AGREES on its 288 paid samples. The pilot is fixed here, before any launch:
+   - Two runs on Prime Hosted Training, environments/verify_gym/train/pilot-qwen9b-s0.toml and -s5000.toml,
+     identical except for the training rows' offset in the v0 stage (row 0 and row 5000): Qwen/Qwen3.5-9B with
+     the platform's LoRA, GRPO, **12 steps × 64 rollouts (8 tasks × 8)**, the gate's sampling (thinking off,
+     16,384 tokens, temperature 1.0), carlos-toledo/verify-gym 0.1.0.
+   - Why so small. Measured from the gate: about 11,100 output tokens per rollout, so at the 9B's listed Hosted
+     Training prices (US$0.6 per million trained, 0.2 input, 0.6 output) a rollout costs about US$0.014, and one
+     held-out evaluation (960 replies) about US$6.5. Twelve steps plus one held-out evaluation is about US$17 a
+     run, US$34 for the pair; with the US$17.5 already spent on pilots, rows and the gate, that stays under the
+     US$60 stop. This is a pilot of the protocol at the smallest size that trains at all; a null is expected and
+     is a result.
+   - **Checkpoint choice:** the last step's checkpoint, fixed here in advance. The hosted eval has one interval,
+     so a val-stream selection among checkpoints and a single held-out evaluation cannot both be configured; a
+     rule fixed before training uses neither the held-out set nor the val stream, which is what the clause
+     protects. **B's held-out evaluation** is the qwen3.5-9b scorecard row (Prime Inference, the same sampling),
+     so the hosted eval skips step 0; that B and T are served by different stacks is a limit of this pilot,
+     stated with its result.
+   - Every rewarded training sample the platform stores is re-decided by recheck.py; the platform stores a
+     subset of each step's rollouts (lattice-claims: 64 of 128), and the re-check covers exactly what is stored,
+     with the count reported. Every held-out reply of T must be retrievable for criterion 5; if the platform
+     does not return them all, criterion 5 is not met and the result is NO-SHIP by the rule.

@@ -120,7 +120,7 @@ def build():
 def model_row(run_dir):
     """The scorecard row of one stored model run, graded here from its replies (never from the run's own grades)."""
     run = json.load(open(os.path.join(run_dir, "run.json")))
-    text = open(os.path.join(run_dir, run["log"]["file"]), encoding="utf-8").read()
+    text = rollouts.read(os.path.join(run_dir, run["log"]["file"]))
     if hashlib.sha256(text.encode("utf-8")).hexdigest() != run["log"]["sha256"]:
         die("%s: the log does not hash to the sha256 run.json names" % run_dir)
     head, samples = rollouts.loads(text)

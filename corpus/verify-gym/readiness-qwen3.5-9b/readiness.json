@@ -1,0 +1,64 @@
+{
+ "what": "verify-gym readiness gate (notes/verify-gym-preregistration-2026-10-31.md, 'Before any paid training step'): the first 100 tasks of the validation rotation x 8 samples, every sample graded by both deciders",
+ "settings": {
+  "dry_run": null,
+  "model": "qwen/qwen3.5-9b",
+  "endpoint": "https://api.pinference.ai/api/v1",
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "max_tokens": 16384,
+  "extra_body": {
+   "chat_template_kwargs": {
+    "enable_thinking": false
+   }
+  },
+  "started": "2026-10-31"
+ },
+ "n_tasks": 100,
+ "samples": 8,
+ "log": {
+  "file": "rollouts.jsonl",
+  "sha256": "e548ec14846f6e3a91d15d8ce09911fb502680a2f456f5d22d8247d5000256dc"
+ },
+ "rule": {
+  "spread_share_at_least": "30/100",
+  "mean_reward_in": [
+   "2/100",
+   "80/100"
+  ],
+  "bounds": "inclusive"
+ },
+ "groups": 100,
+ "groups_not_all_equal": 88,
+ "spread_share": "22/25",
+ "spread_share_float": 0.88,
+ "mean_reward": "2421/32000",
+ "mean_reward_float": 0.075656,
+ "by_family": {
+  "xx": 0.060202,
+  "kroot": 0.094318,
+  "poly": 0.072917
+ },
+ "verdicts": {
+  "REFUTED": 432,
+  "MALFORMED": 54,
+  "CERTIFIED": 313,
+  "REFUSED": 1
+ },
+ "usage": {
+  "prompt_tokens": 327920,
+  "completion_tokens": 8907327,
+  "cost_usd_reported": 2.2837,
+  "samples_with_usage": 800
+ },
+ "truncated": 27,
+ "crosscheck": {
+  "distinct_answers_compared": 736,
+  "disagreements": 0
+ },
+ "conditions": {
+  "spread": true,
+  "mean": true
+ },
+ "verdict": "GO"
+}

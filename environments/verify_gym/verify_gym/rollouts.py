@@ -16,9 +16,11 @@ progress / cap (a trainer that stores rewards as float32 cannot write k/20 exact
 smallest step, 1/20). Standard library only: a trainer can import this to write the log.               MIT"""
 from __future__ import annotations
 
+import gzip
 import hashlib
 import json
 import math
+import os
 
 FORMAT = "verify-gym-rollouts/1"
 SPLITS = ("train", "val", "heldout")
@@ -44,6 +46,18 @@ def progress_of(reward, cap):
     """The integer progress a logged reward stands for, or None when no reward of this environment equals it."""
     k = round(reward * cap)
     return k if abs(reward * cap - k) <= EPS and 0 <= k <= cap else None
+
+
+def read(path):
+    """The log's text from PATH, or from PATH.gz when only the gzipped copy is stored (a large log is committed
+    gzipped; its sha256 is always the sha256 of the text, never of the archive)."""
+    if not os.path.exists(path) and os.path.exists(path + ".gz"):
+        path += ".gz"
+    if path.endswith(".gz"):
+        with gzip.open(path, "rt", encoding="utf-8") as f:
+            return f.read()
+    with open(path, encoding="utf-8") as f:
+        return f.read()
 
 
 def loads(text):
