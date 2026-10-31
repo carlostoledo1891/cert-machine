@@ -74,6 +74,13 @@ NEXT SESSION, IN ORDER:
      claimbox's word agrees on all 226; --check ~9 s, in the control and make test). The re-lift moved the Riemann
      companion's lift date: its battery sentence now reads \RfBatteryDate (2026-10-22, from the observation's file name; the
      operator: "pin the observation date"), the PDF rebuilt. Open: bars of height 0 at y = 23 and 51 (true zeros, invisible).
+     COMPLETED as a worked AI-assisted formalization pipeline (lane-xx-pipeline, the operator 2026-10-31): THE REDUCTION
+     PROVED IN LEAN (lean/xx-reduction, 15 theorems, Lean v4.34.1 + Mathlib d13f23b7; .github/workflows/xx-reduction.yml:
+     lake build, only the three standard axioms, Comparator replaying every theorem in Lean's kernel and nanoda;
+     certs/xx-reduction-lean.json from run 41221355209 by tools/record-xx-reduction.js; the ledger re-hashes the Lean file
+     and names the theorem per comparison). The negative-base convention stays read. ONE REFUSED CLAIM of our own ("the root
+     of x^x = 64 is transcendental": true by Gelfond–Schneider, cited; no comparison decides it), its reason and what would
+     decide it in the ledger and on the page. A Lean edit re-runs the workflow; re-record with the new run id.
   ◆ 2026-10-31 — BLACK HOLE (M87*, WebGL, the operator chose; scout first): notes/black-hole-scout-2026-10-31.md + targets row
      m87-kerr-standing-render, verdict OPEN-narrowed; Phase 0 (the decided shadow-edge layer) is the only ready step; eight
      questions for the operator in the note (colours, headline, GRMHD, jet frequency, camera, loop crossfade, LICENSE-DATA wording).

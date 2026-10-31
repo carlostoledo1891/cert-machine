@@ -10,9 +10,17 @@ THE DECISION. N >= 2 is the integer the pinned file prints; x is the real root o
 in lowest terms,
     x > a   iff  p^p < N^q * q^p          x < a   iff  p^p > N^q * q^p
 and for a whole number k >= 1,  x >= k iff k^k <= N  and  x <= k iff k^k >= N.  Two integers are computed exactly and
-compared; no logarithm, no float. The step from x to the comparison rests on x^x being <= 1 on (0, 1], strictly
-increasing on [1, oo) and having no negative real root: that argument is READ (claimbox/library/selfpower.py, copied
-beside the records), not decided here, and the ledger says so in `reduction`.
+compared; no logarithm, no float. The step from x to the comparison rests on x^x being <= 1 on (0, 1] and strictly
+increasing on [1, oo): that step is PROVED IN LEAN (lean/xx-reduction/XXReduction.lean, checked on GitHub Actions by
+Lean's kernel and replayed by nanoda, certs/xx-reduction-lean.json) for positive reals, and `reduction` names the
+theorem behind each comparison and the run. Read, not decided: the negative-base convention (that a negative x is not
+a root worth counting), as claimbox/library/selfpower.py states it. Without a valid Lean record the reduction falls back
+to `read, not decided`, and the page says so.
+
+CERT-MACHINE'S OWN CLAIM (6). One claim is not claimbox's: "the root of x^x = 64 is transcendental", true by the
+Gelfond–Schneider theorem and the rational-root argument, and outside what this decider reads (a comparison of the root
+with one fraction). It goes through the decider like every other statement and must come out REFUSED, with its reason
+and what would make it decidable written beside it.
 
 WHAT IS DECIDED. (1) Every bracket of the study (records/xxy-study.json: `bracket` of each row in `decidedYs`), its two
 sides, against N read from corpus/xxy/n/<y>.json; at the four whole-number roots (y = k^k) the two bounds x >= k and
@@ -118,6 +126,16 @@ def decide(N, a, rel, sizes=False):
 
 
 STMT = re.compile(r'^xroot\((\w+)\)\s*([<>≤≥])\s*(\d+(?:\.\d+)?(?:/\d+)?)$')
+PLAIN = re.compile(r'^x\s*([<>≤≥])\s*(\d+(?:/\d+)?)$')
+
+
+def decide_statement(N, statement):
+    """a statement in words, the way cert-machine's own claims are written: only `x REL a` is read; anything else is
+    REFUSED, because the decider answers one question, where the root sits against one fraction"""
+    m = PLAIN.match(statement.strip())
+    if not m:
+        return 'REFUSED', {'why': 'not a comparison of the root with one fraction, the one statement this decider reads'}
+    return decide(N, Fraction(m.group(2)), REL[m.group(1)])
 
 
 def parse(statement):
@@ -237,6 +255,29 @@ for c in CHK64['claims']:
         mutants.append({'of': '64/' + c['id'], 'y': 64, 'statement': 'x %s %s' % (SYM[rel], frac(ma)),
                         'how': 'the numerator moved one unit the wrong way', 'word': mw, 'sign': mf.get('sign')})
 
+# ---- 4b. cert-machine's own claim, which the decider must refuse ---------------------------------------------------------
+OWN = [{
+    'id': 'cm_xx64_transcendental', 'y': 64,
+    'statement': 'the root of xˣ = 64 is transcendental',
+    'form': 'x is transcendental',
+    'origin': 'cert-machine\'s own claim (added 2026-10-31): not claimbox\'s, not the AI model\'s',
+    'expect': 'REFUSED',
+    'reason': 'This decider answers one question: does the root lie above or below a given fraction, by one comparison of two '
+              'whole numbers. "Transcendental" says the root is a root of no polynomial with integer coefficients: infinitely '
+              'many polynomials, not one comparison, and no number of decided brackets reaches it.',
+    'trueBy': 'Cited, not decided: the root is not a fraction (p/q in lowest terms with q > 1 would give p^p = 64^q·q^p, which q '
+              'cannot divide, and no whole k has k^k = 64), and an irrational algebraic x would make x^x transcendental by the '
+              'Gelfond–Schneider theorem, while 64 is not.',
+    'decidableBy': 'A kernel-checked proof: the Gelfond–Schneider theorem formalized (Mathlib at the pin of lean/xx-reduction, '
+                   'd13f23b7, holds no Gelfond–Schneider theorem), then the two-line argument above in Lean on top of '
+                   'XXReduction.existsUnique_root. With that, it is a theorem to check, not a comparison to compute.',
+}]
+own = []
+for c in OWN:
+    N, nrel = n_of(c['y']) if c['y'] != 64 else (N64, 'corpus/xx64/problem.json')
+    word, facts = decide_statement(N, c['statement'])
+    own.append(dict(c, N=N, nFile=nrel, word=word, why=facts.get('why')))
+
 # ---- 5. the gates: expectation, agreement, red controls ------------------------------------------------------------------
 def disagreements(xs):
     """every claim whose word here differs from its expectation or from claimbox's record"""
@@ -264,6 +305,66 @@ if len(disagreements(forged)) != 1:
 # the decider on a refused input: a fraction at or below 1
 if decide(5, Fraction(1, 2), 'gt')[0] != 'REFUSED' or decide(1, Fraction(3, 2), 'gt')[0] != 'REFUSED':
     die('the decider decided outside the reduction')
+# cert-machine's own claims: each must come out as expected, and the words-reader must still decide what it reads
+for r in own:
+    if r['word'] != r['expect']:
+        die('cert-machine\'s own claim %s came out %s, expected %s' % (r['id'], r['word'], r['expect']))
+if decide_statement(64, 'x > 2')[0] != 'CERTIFIED' or decide_statement(64, 'x < 2')[0] != 'REFUTED':
+    die('the statement reader refuses what it should decide')
+
+
+# ---- 5b. the reduction: proved in Lean, or read ---------------------------------------------------------------------------
+LEAN_REC = 'certs/xx-reduction-lean.json'
+LEAN_DIR = 'lean/xx-reduction'
+STANDARD = {'propext', 'Classical.choice', 'Quot.sound'}
+KERNELS = ['lean-build', 'lean-comparator', 'nanoda']
+# the theorem behind each comparison the decider makes: a fraction p/q > 1, or a whole number k >= 1 (q = 1)
+THEOREM_FOR = {'gt': 'XXReduction.lt_root_iff', 'ge': 'XXReduction.le_root_iff', 'lt': 'XXReduction.root_lt_iff', 'le': 'XXReduction.root_le_iff'}
+WHOLE_FOR = {'gt': 'XXReduction.lt_root_iff', 'ge': 'XXReduction.natCast_le_root_iff', 'lt': 'XXReduction.root_lt_iff', 'le': 'XXReduction.root_le_natCast_iff'}
+UNIQUE = ['XXReduction.existsUnique_root', 'XXReduction.one_lt_of_selfpow_eq']
+NEGATIVE = ('the negative-base convention: every theorem is about positive reals (Mathlib\'s Real.rpow); that a negative x is '
+            'not a root worth counting is a reading of the problem (claimbox/library/selfpower.py), not decided here')
+
+
+def lean_reduction():
+    """the reduction's standing, from certs/xx-reduction-lean.json when it is a green run of the checkout's bytes"""
+    base = {'statement': 'for N >= 2, x^x = N has exactly one positive real root x, and for whole numbers 1 <= q <= p: '
+                         'p/q < x iff p^p < N^q·q^p, p/q <= x iff p^p <= N^q·q^p, x < p/q iff N^q·q^p < p^p, x <= p/q iff N^q·q^p <= p^p; '
+                         'at q = 1, k <= x iff k^k <= N and x <= k iff N <= k^k',
+            'rests on': 'x^x <= 1 on (0, 1], x^x strictly increasing on [1, oo)',
+            'read': NEGATIVE}
+    if not os.path.exists(os.path.join(ROOT, LEAN_REC)):
+        return dict(base, standing='read, not decided', why='no Lean record (certs/xx-reduction-lean.json)')
+    rec = J(LEAN_REC)
+    thm = {t['name']: t for t in rec.get('theorems', [])}
+    need = sorted(set(UNIQUE) | set(THEOREM_FOR.values()) | set(WHOLE_FOR.values()))
+    bad = []
+    for n in need:
+        t = thm.get(n)
+        if not t:
+            bad.append(n + ' is not in the record')
+        elif t.get('word') != 'PROVED' or not set(t.get('axioms') or []) <= STANDARD or any(k not in (t.get('kernels') or []) for k in KERNELS):
+            bad.append(n + ' is not PROVED by all three kernels on the standard axioms')
+    for f, h in (rec.get('files') or {}).items():
+        if sha(LEAN_DIR + '/' + f) != h:
+            bad.append(LEAN_DIR + '/' + f + ' differs from the bytes the run checked')
+    if not rec.get('files') or (rec.get('run') or {}).get('conclusion') != 'success':
+        bad.append('the record names no green run or no files')
+    if bad:
+        die('the Lean record does not back the reduction: ' + '; '.join(bad))
+    return dict(base, standing='proved in Lean, kernel-checked',
+                record=LEAN_REC, recordSha256=sha(LEAN_REC), run={k: rec['run'][k] for k in ('id', 'url', 'commit')},
+                lean=rec.get('leanVersion'), mathlib=rec.get('mathlib'), kernels=KERNELS,
+                theorems={'unique': UNIQUE, 'fraction': THEOREM_FOR, 'whole': WHOLE_FOR,
+                          'note': 'a fraction p/q > 1 in lowest terms has 1 <= q < p, a whole bound k >= 1 is q = 1: both inside the theorems\' 1 <= q <= p'})
+
+
+reduction = lean_reduction()
+# every decided comparison is inside the theorems' hypotheses: N >= 2, and a fraction >= 1 with q >= 1
+for r in everything:
+    a = Fraction(r['a'])
+    if not (r['N'] >= 2 and a >= 1):
+        die('%s is outside the proved reduction (N = %d, a = %s)' % (r['id'], r['N'], r['a']))
 
 
 # ---- 6. what the brackets pin: decimals both ends share, the enclosure printed outward ---------------------------------
@@ -332,9 +433,7 @@ ledger = {
     'claimboxCommit': prov['source_commit'],
     'pins': {k: pinned[k] for k in ('records/xxy-study.json', 'records/xxy-check.json', 'records/xx64-check.json',
                                     'claimbox/library/selfpower.py', 'corpus/xx64/problem.json')},
-    'reduction': {'statement': 'x > p/q iff p^p < N^q·q^p and x < p/q iff p^p > N^q·q^p, for p/q > 1, q >= 1, N >= 2; x >= k iff k^k <= N, x <= k iff k^k >= N',
-                  'rests on': 'x^x <= 1 on (0, 1], x^x strictly increasing on [1, oo), no negative real root (claimbox/library/selfpower.py)',
-                  'standing': 'read, not decided'},
+    'reduction': reduction,
     'counts': {
         'roots': len(decided_ys), 'exactRoots': len(exact_roots),
         'claims': len(rows), 'CERTIFIED': count(rows, 'CERTIFIED'), 'REFUTED': count(rows, 'REFUTED'),
@@ -344,7 +443,9 @@ ledger = {
         'mutants': len(mutants), 'mutantsFlipped': count(mutants, 'REFUTED'),
         'redControls': len(planted) + count(sixty_four, 'REFUTED') + len(mutants) + 2,
         'redControlsFired': len(planted) + count(sixty_four, 'REFUTED') + count(mutants, 'REFUTED') + 2,
+        'own': len(own), 'ownRefused': count(own, 'REFUSED'),
     },
+    'own': {'standing': 'cert-machine\'s own claims, through the same decider; claimbox stated none of them', 'rows': own},
     'exactRoots': exact_roots,
     'bracket64': bracket64,
     'claims': rows,
@@ -370,14 +471,15 @@ if CHECK:
         die('the ledger does not re-derive: ' + ', '.join(diff) + ' differ')
     c = ledger['counts']
     print('xx ledger: re-derived identically — %d claims (%d CERTIFIED, %d REFUTED), x^x = 64 %d of %d, %d mutants flipped, '
-          'claimbox agrees on all %d, %.1f s' % (c['claims'], c['CERTIFIED'], c['REFUTED'], c['xx64Certified'] + c['xx64Refuted'],
-                                                 c['xx64Claims'], c['mutantsFlipped'], c['claims'] + c['xx64Claims'], ledger['seconds']))
+          'claimbox agrees on all %d, %d own claim(s) REFUSED as expected, the reduction %s, %.1f s' % (
+              c['claims'], c['CERTIFIED'], c['REFUTED'], c['xx64Certified'] + c['xx64Refuted'], c['xx64Claims'], c['mutantsFlipped'],
+              c['claims'] + c['xx64Claims'], c['ownRefused'], ledger['reduction']['standing'], ledger['seconds']))
     sys.exit(0)
 
 with open(os.path.join(ROOT, OUT), 'w', encoding='utf-8') as f:
     f.write(json.dumps(ledger, indent=1, ensure_ascii=False) + '\n')
 c = ledger['counts']
 print('%s written: %d roots, %d claims — %d CERTIFIED, %d REFUTED (the %d planted); x^x = 64: %d CERTIFIED, %d REFUTED; '
-      '%d of %d mutants flipped; claimbox agrees on every claim; %.1f s' % (
+      '%d of %d mutants flipped; claimbox agrees on every claim; %d own claim(s) REFUSED; the reduction %s; %.1f s' % (
           OUT, c['roots'], c['claims'], c['CERTIFIED'], c['REFUTED'], c['planted'], c['xx64Certified'], c['xx64Refuted'],
-          c['mutantsFlipped'], c['mutants'], ledger['seconds']))
+          c['mutantsFlipped'], c['mutants'], c['ownRefused'], ledger['reduction']['standing'], ledger['seconds']))

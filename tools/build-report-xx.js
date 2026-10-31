@@ -64,6 +64,23 @@ const r64 = L.xx64, lo64 = r64.find((r) => r.id === 'cf_above_10'), hi64 = r64.f
 if (!lo64 || !hi64 || lo64.word !== 'CERTIFIED' || hi64.word !== 'CERTIFIED') die('the x^x = 64 bracket is not certified both sides');
 if (lo64.digits[0] !== lo64.digits[1]) die('the page says both sides of the 64 comparison have the same number of digits');
 if (L.bracket64.lo !== lo64.a || L.bracket64.hi !== hi64.a) die('the 64 bracket and its claims differ');
+/* the reduction: proved in Lean (certs/xx-reduction-lean.json, re-hashed by the ledger) or read; the page says which */
+const RED = L.reduction, LREC = 'certs/xx-reduction-lean.json';
+const PROVED = RED.standing === 'proved in Lean, kernel-checked';
+if (!PROVED && RED.standing !== 'read, not decided') die('the ledger names a reduction standing the page does not word: ' + RED.standing);
+const LR = PROVED ? J(LREC) : null;
+if (PROVED && (String(LR.run.id) !== String(RED.run.id) || LR.run.conclusion !== 'success')) die('the ledger and the Lean record name different runs');
+const THM = PROVED ? RED.theorems : null;
+if (PROVED) for (const n of [].concat(THM.unique, Object.values(THM.fraction), Object.values(THM.whole))) {
+  const t = LR.theorems.find((x) => x.name === n);
+  if (!t || t.word !== 'PROVED' || t.kernels.length !== 3) die(n + ' is not PROVED by three kernels in the Lean record');
+}
+/* cert-machine's own claim, which the decider must refuse */
+const OWN = L.own.rows, own64 = OWN.find((r) => r.id === 'cm_xx64_transcendental');
+if (!own64 || own64.word !== 'REFUSED' || cnt.own !== OWN.length || cnt.ownRefused !== cnt.own) die('cert-machine\u2019s own claim is not the one REFUSED row the page describes');
+if (!own64.reason || !own64.trueBy || !own64.decidableBy) die('the refused claim has no reason, no citation or no way to decide it in the ledger');
+/* a ledger sentence in page type: a^b becomes a raised b, x^x the one glyph */
+const prose = (t) => C.esc(t).replace(/x\^x/g, 'xˣ').replace(/([A-Za-z0-9]+)\^([A-Za-z0-9]+)/g, '$1<sup>$2</sup>');
 const WORD = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
 const word = (n) => WORD[n] || String(n), Word = (n) => { const w = word(n); return w[0].toUpperCase() + w.slice(1); };
 const sh64 = L.bracket64.sharedDecimals;
@@ -279,14 +296,18 @@ B.push(C.header({
 }));
 B.push('<p class="scope">Decided here: every side of every trap the study proposed, the four whole-number roots from both sides, and the eight claims about xˣ = 64, each by one exact '
   + 'comparison of integers (certs/xx-ledger.json, tools/run-xx-ledger.py). claimbox’s words are shown beside ours. Computed and not decided: the roots’ digits, their continued fractions, '
-  + 'the closest fractions and every statistic. Read and not decided: the argument that the root is unique and that a fraction bounds it exactly when one integer exceeds another. '
-  + 'Cited and not decided: the Gelfond–Schneider theorem.</p>');
+  + 'the closest fractions and every statistic. '
+  + (PROVED ? 'Proved in Lean and checked by two kernels: that the root is unique and that a fraction bounds it exactly when one integer exceeds another (certs/xx-reduction-lean.json). Read and not decided: the negative-base convention. '
+    : 'Read and not decided: the argument that the root is unique and that a fraction bounds it exactly when one integer exceeds another. ')
+  + 'Refused: ' + word(cnt.ownRefused) + ' claim of our own, that the root of 64 is transcendental. Cited and not decided: the Gelfond–Schneider theorem.</p>');
 B.push(C.tldr({
   findingRaw: '<b>' + dv(LED, '/counts/CERTIFIED') + ' of ' + dv(LED, '/counts/claims') + ' claims CERTIFIED</b> and the other ' + dv(LED, '/counts/planted') + ', the planted wrong brackets, REFUTED: '
     + dv(LED, '/counts/roots') + ' roots of xˣ = y each trapped between two fractions, and at y = ' + andList(EXACT.map((y, i) => dv(LED, '/exactRoots/' + i)))
-    + ' the root pinned to a whole number from both sides. The root of 64 is decided to ' + word(sh64) + ' decimals. claimbox’s record gives the same word on every claim.',
+    + ' the root pinned to a whole number from both sides. The root of 64 is decided to ' + word(sh64) + ' decimals. claimbox’s record gives the same word on every claim. '
+    + Word(cnt.ownRefused) + ' claim of cert-machine’s own, that the root of 64 is transcendental, is ' + tag(own64.word) + ': it is true, by a cited theorem, and no comparison of two integers decides it.',
   mechanismRaw: 'For a fraction p/q above 1, x > p/q exactly when p' + sup('p') + ' < N' + sup('q') + '·q' + sup('p') + ', where N = y is read from the pinned file; '
-    + 'both sides are computed as whole numbers and compared. No logarithm is evaluated. ' + dv(LED, '/counts/mutants') + ' mutants, each fraction moved one unit the wrong way or each whole-number bound made strict, must flip to REFUTED, and all do.',
+    + 'both sides are computed as whole numbers and compared. No logarithm is evaluated. ' + dv(LED, '/counts/mutants') + ' mutants, each fraction moved one unit the wrong way or each whole-number bound made strict, must flip to REFUTED, and all do.'
+    + (PROVED ? ' That the comparison decides the bracket is proved in Lean and checked by two kernels (§4).' : ''),
   checkRaw: C.m('python3 -I tools/run-xx-ledger.py --check') + ' (seconds; the Python standard library) re-hashes the copies and re-decides every claim.'
 }));
 B.push(C.stats([
@@ -316,7 +337,7 @@ B.push(C.section({
     })
     + '<div class="col">' + C.pRaw('xˣ grows for x above 1, so x is above a fraction p/q exactly when (p/q)' + sup('p/q') + ' is below 64, that is, when p' + sup('p') + ' is below 64' + sup('q') + '·q' + sup('p') + '. '
       + 'For the fraction below, each side of that comparison is a whole number of ' + dv(LED, at64('cf_above_10', 'digits/0')) + ' digits. The recorder computes both exactly and compares them; '
-      + 'the step from x to the comparison is read, not decided (§4).')
+      + (PROVED ? 'the step from x to the comparison is proved in Lean and checked by two kernels (§4).' : 'the step from x to the comparison is read, not decided (§4).'))
     + C.eq(dFrom(String(lo64.a.split('/')[0]), LED + '#' + at64('cf_above_10', 'a'), 'p, the numerator of the decided fraction') + sup(dFrom(lo64.a.split('/')[0], LED + '#' + at64('cf_above_10', 'a'), 'p')) + ' &lt; '
       + dFrom('64', LED + '#' + at64('cf_above_10', 'N'), 'N, read from the pinned file') + sup(dFrom(lo64.a.split('/')[1], LED + '#' + at64('cf_above_10', 'a'), 'q')) + ' · '
       + dFrom(lo64.a.split('/')[1], LED + '#' + at64('cf_above_10', 'a'), 'q') + sup(dFrom(lo64.a.split('/')[0], LED + '#' + at64('cf_above_10', 'a'), 'p')))
@@ -327,8 +348,13 @@ B.push(C.section({
       cols: [{ h: 'the claim about xˣ = 64' }, { h: 'origin' }, { h: 'each side, digits' }, { h: 'decided here' }, { h: 'claimbox’s record' }],
       rows: L.xx64.map((r) => [{ raw: 'x ' + C.esc({ gt: '>', lt: '<', ge: '≥', le: '≤' }[r.rel]) + ' ' + dv(LED, at64(r.id, 'a'), 'raw') },
         { raw: C.esc(ORIGIN[r.origin] || r.origin) }, { raw: dv(LED, at64(r.id, 'digits/0')) + ' and ' + dv(LED, at64(r.id, 'digits/1')) }, { raw: tag(r.word) }, { raw: tag(r.claimbox.word) }])
+        .concat([[{ raw: prose(own64.form) }, { raw: 'cert-machine’s own' },
+          { raw: W.value('no comparison', W.REFUSED, { derived: LED + '#/own/rows[id=' + own64.id + ']/why', title: 'refused: ' + own64.why }) },
+          { raw: tag(own64.word) }, { raw: C.esc('—') }]])
     })
     + '<div class="col">' + C.pRaw('The first two rows are the AI’s four-decimal proposal; the planted rows move it one unit in the last decimal, the wrong way, and are refuted. A refutation here is a comparison of two numbers, so it has no witness point to draw.')
+    + C.pRaw('<b>The last row is cert-machine’s own claim, and it is refused.</b> ' + prose(own64.reason) + ' It is true: ' + prose(own64.trueBy.replace(/^Cited, not decided: /, '')) + ' That theorem is cited, not decided here (§3, one). '
+      + '<b>What would make it decidable.</b> ' + prose(own64.decidableBy) + ' claimbox stated no such claim; it is the one row of this page that is not claimbox’s.')
     + W.legendHtml({ compact: true }) + '</div>'
 }));
 
@@ -379,7 +405,7 @@ B.push(C.section({
     + '<h3>One: only kᵏ has a fraction for a root (a theorem, cited)</h3>'
     + C.pRaw('The root is a whole number exactly at y = ' + andList(EXACT.map((y, i) => dv(LED, '/exactRoots/' + i))) + ', and each is pinned from both sides: x ≥ k and x ≤ k, both certified here. '
       + 'For every other whole y the root is not even algebraic. If it were a fraction p/q in lowest terms with q above 1, then p' + sup('p') + ' = y' + sup('q') + '·q' + sup('p') + ', which q cannot divide; '
-      + 'if it were an irrational algebraic number, xˣ would be transcendental by the Gelfond–Schneider theorem. That theorem is cited, not decided here. So ' + dv(LED, '/counts/exactRoots') + ' roots are fractions, and every other one is a number no fraction will ever equal.')
+      + 'if it were an irrational algebraic number, xˣ would be transcendental by the Gelfond–Schneider theorem. That theorem is cited, not decided here, which is why the claim of §1’s last row is refused. So ' + dv(LED, '/counts/exactRoots') + ' roots are fractions, and every other one is a number no fraction will ever equal.')
     + '<h3>Two: near kᵏ, one enormous step (an observation)</h3>'
     + C.pRaw('Just off kᵏ the root sits just off k, by about 1/(kᵏ(1 + ln k)), the reciprocal of the slope of xˣ at k. Its continued fraction says so with one huge quotient: at y = ' + dv(STU, nearAt(255, 'y')) + ' it is ' + cv(STU, nearAt(255, 'quotient'), 'int', WHY_CF)
       + ', where the slope predicts ' + cv(STU, nearAt(255, 'predicted'), 'raw', 'kᵏ(1 + ln k) in floating point, as the study prints it') + '; at y = ' + dv(STU, nearAt(3126, 'y')) + ' it is ' + cv(STU, nearAt(3126, 'quotient'), 'int', WHY_CF)
@@ -408,22 +434,36 @@ B.push(C.section({
     { b: 'cert-machine decides, again.', raw: 'tools/run-xx-ledger.py reads the copies of those records that LIFT-claimbox.json made (every file re-hashed against PROVENANCE-claimbox.json, which names the claimbox commit they came from), '
       + 'decides every side with code that shares nothing with claimbox or the receiver, refuses if any word differs from claimbox’s, and requires every planted bracket and every mutant to come out REFUTED: '
       + dv(LED, '/counts/redControlsFired') + ' of ' + dv(LED, '/counts/redControls') + ' red controls fired.' }
-  ])
-    + C.pRaw('<b>What the decisions rest on.</b> Each verdict above is an exact integer comparison. The step from the root to that comparison is an argument, read and not run by any machine here:')
-    + W.premisesHtml([
-      { grade: W.ASSUMED, label: 'The reduction: x > p/q exactly when p' + sup('p') + ' < N' + sup('q') + '·q' + sup('p') + ', for p/q above 1', evidence: 'xˣ ≤ 1 on (0, 1], strictly increasing on [1, ∞), and no negative real root: the argument written into claimbox’s library (claimbox/library/selfpower.py, copied here); read, not decided' },
-      { grade: W.ASSUMED, label: 'Only kᵏ has a fraction for a root (§3, one)', evidence: 'the Gelfond–Schneider theorem, cited, with the two-line divisibility argument for a fraction; not decided here' }
-    ])
-    + C.pRaw('<b>What is not claimed.</b> That the computed digits are right beyond the decided ones; that the observations of §3 are theorems; anything about a y the study did not decide. The study’s numbers are a proposer’s, and this page draws them dashed.')
+  ].concat(PROVED ? [{ b: 'Lean proves the step.', raw: 'The reduction from the root to the integer comparison is a Lean theorem, checked by two kernels on GitHub’s runners; the ledger re-hashes the Lean file against the run’s record before it names the theorems.' }] : [],
+    [{ b: 'Our own claim is refused.', raw: 'One claim the pipeline cannot decide went in beside claimbox’s, and the decider refused it, with the reason and what would decide it written down (§1).' }]))
+    + (PROVED
+      ? C.pRaw('<b>What the decisions rest on.</b> Each verdict above is an exact integer comparison, and the step from the root to that comparison is <b>decided</b>: proved in Lean 4 with Mathlib (lean/xx-reduction). '
+        + 'For a whole N ≥ 2, xˣ = N has exactly one positive real root (' + C.m(THM.unique[0]) + '), and for whole numbers 1 ≤ q ≤ p it lies above p/q exactly when p' + sup('p') + ' &lt; N' + sup('q') + '·q' + sup('p') + ' (' + C.m(THM.fraction.gt) + '; '
+        + C.m(THM.fraction.ge) + ', ' + C.m(THM.fraction.lt) + ' and ' + C.m(THM.fraction.le) + ' for the other three comparisons, ' + C.m(THM.whole.ge) + ' and ' + C.m(THM.whole.le) + ' for a whole number). '
+        + 'Every one of the ' + dFrom(String(LR.theorems.length), LREC + '#/theorems', 'the theorems of the Lean record, each PROVED') + ' theorems passes Lean’s kernel inside ' + C.m('lake build') + ', Lean’s kernel again inside Comparator on a fresh runner, and nanoda, a kernel written independently of Lean’s (<a href="' + C.escAttr(LR.run.url) + '">run ' + dv(LREC, '/run/id', 'raw') + '</a>), '
+        + 'and depends on no axiom beyond propext, Classical.choice and Quot.sound. A fraction the study proposed is above 1 in lowest terms, so 1 ≤ q &lt; p; a whole-number bound is q = 1: every comparison on this page is inside the theorems. What is left is read or cited:')
+      + W.premisesHtml([
+        { grade: W.ASSUMED, label: 'Only a positive x counts as a root', evidence: 'the theorems speak of positive reals (Mathlib’s Real.rpow); what xˣ means for a negative x, and that no negative x is a root worth counting, is the convention claimbox’s library states (claimbox/library/selfpower.py, copied here); read, not decided' },
+        { grade: W.ASSUMED, label: 'The recorder computes p' + sup('p') + ' and N' + sup('q') + '·q' + sup('p') + ' correctly', evidence: 'Python’s whole numbers in tools/run-xx-ledger.py; the theorems say what the comparison means, not that the code computes it. Tested by ' + dv(LED, '/counts/redControls') + ' red controls, not proved' },
+        { grade: W.ASSUMED, label: 'Only kᵏ has a fraction for a root (§3, one)', evidence: 'the Gelfond–Schneider theorem, cited, with the two-line divisibility argument for a fraction; not decided here, and the claim of §1’s last row is refused for that reason' }
+      ])
+      : C.pRaw('<b>What the decisions rest on.</b> Each verdict above is an exact integer comparison. The step from the root to that comparison is an argument, read and not run by any machine here:')
+      + W.premisesHtml([
+        { grade: W.ASSUMED, label: 'The reduction: x > p/q exactly when p' + sup('p') + ' < N' + sup('q') + '·q' + sup('p') + ', for p/q above 1', evidence: 'xˣ ≤ 1 on (0, 1], strictly increasing on [1, ∞), and no negative real root: the argument written into claimbox’s library (claimbox/library/selfpower.py, copied here); read, not decided' },
+        { grade: W.ASSUMED, label: 'Only kᵏ has a fraction for a root (§3, one)', evidence: 'the Gelfond–Schneider theorem, cited, with the two-line divisibility argument for a fraction; not decided here' }
+      ]))
+    + C.pRaw('<b>What is not claimed.</b> That the computed digits are right beyond the decided ones; that the observations of §3 are theorems; that the root of 64 is transcendental (true, cited, refused here); anything about a y the study did not decide. The study’s numbers are a proposer’s, and this page draws them dashed.')
     + W.legendHtml({ compact: true })
-    + C.pRaw('Re-run: ' + C.m('python3 -I tools/run-xx-ledger.py --check') + ' · ' + C.m('make drift') + ' (the copies against claimbox) · in claimbox: ' + C.m('python3 -m claimbox check corpus/xxy/claims.claim --run') + '.')
+    + C.pRaw('Re-run: ' + C.m('python3 -I tools/run-xx-ledger.py --check') + ' · ' + C.m('make drift') + ' (the copies against claimbox) · in claimbox: ' + C.m('python3 -m claimbox check corpus/xxy/claims.claim --run')
+      + (PROVED ? ' · the Lean proof: ' + C.m('.github/workflows/xx-reduction.yml') + ' on GitHub Actions, recorded by ' + C.m('node tools/record-xx-reduction.js <run>') : '') + '.')
 }));
 
 const foot = '<p>' + C.esc('Generated by tools/build-report-xx.js from certs/xx-ledger.json (' + L.generated + ', re-derived at build) and the copies of claimbox’s records in corpus/claimbox-xx. MIT.') + '</p>';
 const html = TPL.render({
   title: 'xˣ = y, by fractions · cert-machine', bodyRaw: B.join('\n\n'), footRaw: foot, path: '/reports/xx.html',
   desc: 'The real root of x^x = y for every y to a thousand, computed by an AI model; ' + cnt.roots + ' of them trapped between two fractions, every side decided here by one exact integer comparison: '
-    + cnt.CERTIFIED + ' of ' + cnt.claims + ' claims certified, the ' + cnt.planted + ' planted wrong brackets refuted, claimbox’s words the same on every claim.'
+    + cnt.CERTIFIED + ' of ' + cnt.claims + ' claims certified, the ' + cnt.planted + ' planted wrong brackets refuted, claimbox’s words the same on every claim'
+    + (PROVED ? '; the step from the root to the comparison proved in Lean' : '') + '; ' + word(cnt.ownRefused) + ' claim of our own refused.'
 });
 fs.writeFileSync(path.join(ROOT, 'reports', 'xx.html'), html);
 console.log('reports/xx.html written: ' + cnt.roots + ' roots, ' + cnt.CERTIFIED + ' of ' + cnt.claims + ' certified, ' + cnt.planted + ' planted refuted, ' + cnt.mutantsFlipped + ' mutants flipped @ git ' + git + ' (' + Math.round(html.length / 1024) + ' KB)');

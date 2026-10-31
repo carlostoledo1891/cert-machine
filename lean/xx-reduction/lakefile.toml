@@ -1,0 +1,18 @@
+name = "xx_reduction"
+version = "0.1.0"
+defaultTargets = ["XXReduction"]
+
+[leanOptions]
+autoImplicit = false
+
+# The Mathlib the ETH bridge's openai/ project builds on (corpus/eth-refutation/bridge/openai), for Lean
+# v4.34.1, the toolchain Comparator is built with.
+[[require]]
+name = "mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+
+# XXReduction.lean, one file: the theorems. Axioms.lean is not part of the library; the workflow runs it
+# with `lake env lean`.
+[[lean_lib]]
+name = "XXReduction"
