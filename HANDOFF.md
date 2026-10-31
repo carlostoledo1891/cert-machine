@@ -30,6 +30,11 @@ NEXT SESSION, IN ORDER:
      v4 LIVE: the schema as a step list on phones, the undated manuscript said in the caption, the tab title "Verify · AI
      publishes faster than anyone can check", the tolerance label in the legend. Left (shared component): the standing
      legend's COMPUTED/CHOSEN entries wrap narrow under the tolerance chart.
+     v5 LIVE — MARKETING PAGE (the operator: "No need to pin everything on Verify LP, this is a mkt touchpoint and the focus now
+     is content and visuals"): no record lines, stop sentences, hashes or rigor block on the page (numbers still read from
+     records; data-record kept in the HTML; one line links the evidence in /reports/); design/marketing.js lists marketing pages
+     (one place); check-grammar's figNoStop skips them; visuals: CTA buttons, alternating proof sections, offer panels, a
+     closing "Bring one claim" panel. Memory: verify-lp-is-marketing.
   ◆ 2026-10-31 — /VERIFY/ v2 LIVE (the operator: "Merge and push live"): tailored to reviewers (tools/verify-page.js): the
      avalanche hero (the register's decided claims over time, the HorizonMath ×), scale stats, the two offers, the product schema
      (design/components.js flow gained record/source), the tolerance chart, OpenAI's statement readings, the verdict mix, the
