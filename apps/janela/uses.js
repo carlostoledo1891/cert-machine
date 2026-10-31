@@ -8,8 +8,9 @@
    is a door only (the method page). The door ids are the ones client.js acts on.
 
    THE PAGES ARE ENGLISH since 2026-10-30 (the operator: no more pt-BR pages).
-   Each entry's `en` holds its English words; the deck (sent, byte-identical)
-   still calls cases() with no language and reads the Portuguese ones.
+   Each entry's `en` holds its English words; the deck went English too on
+   2026-10-31 (it was never sent) and calls cases('en'). The Portuguese words
+   stay as each entry's base, read by nothing published today.
    apps/janela · cert-machine                                             MIT */
 'use strict';
 
@@ -65,7 +66,7 @@ const USES = [
     en: { label: 'Method ↗', sub: 'sources and limits' } }
 ];
 
-/* lang 'en' lays an entry's English over its Portuguese (the door ids and the links stay); no lang: the deck's words */
+/* lang 'en' lays an entry's English over its Portuguese (the door ids and the links stay); no lang: the Portuguese words */
 const pick = (lang) => (u) => (lang === 'en' ? Object.assign({}, u, u.en) : u);
 const doors = (lang) => USES.filter((u) => u.door).map(pick(lang));
 const cases = (lang) => USES.filter((u) => u.who).map(pick(lang));

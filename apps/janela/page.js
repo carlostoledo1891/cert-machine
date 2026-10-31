@@ -954,7 +954,7 @@ function build(N, B, git, battery) {
     + '<h1>The operational window, decided.</h1>'
     + '<p class="deck">For production areas, platforms and oil and LNG terminals: the sea forecast with its error measured against satellites, decided against the published limit — the Harbour Master\'s (Capitania dos Portos), DNV\'s or yours. Each hour comes out with one of four verdicts and the reason.</p>'
     + '<div class="jn-quad">' + quad.map((v) => '<div>' + L.chip(v, true) + '<p>' + esc(QUAD[v]) + '</p></div>').join('') + '</div>'
-    + '<div class="jn-cta"><a class="go" href="/janela/">Open the app ↗</a><a href="/janela/janela-apresentacao.pdf">The deck, in Portuguese (PDF)</a><a href="#para-quem">Who it is for ↓</a><a href="#semana">The week ↓</a><a href="#mes">The month ↓</a>' + (N.alpha ? '<a href="#alfa">The site\'s α ↓</a>' : '') + '<a href="#placar">The scoreboard ↓</a><a href="#confiar">Why trust it ↓</a></div>'
+    + '<div class="jn-cta"><a class="go" href="/janela/">Open the app ↗</a><a href="/janela/janela-apresentacao.pdf">The deck (PDF)</a><a href="#para-quem">Who it is for ↓</a><a href="#semana">The week ↓</a><a href="#mes">The month ↓</a>' + (N.alpha ? '<a href="#alfa">The site\'s α ↓</a>' : '') + '<a href="#placar">The scoreboard ↓</a><a href="#confiar">Why trust it ↓</a></div>'
     + '</header>');
   out.push(C.stats([
     { k: 'sites', v: String(N.counted.sites), n: n('field') + ' production areas, ' + n('platform') + ' platform, ' + n('terminal') + ' terminals and ' + n('coast') + ' coastal point; the model node of each one, named' },
