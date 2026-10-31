@@ -1,0 +1,45 @@
+[project]
+name = "verify-gym"
+version = "0.1.0"
+description = "Bracket a constant, and be paid only for what is certified: tighter intervals around x^x = N roots, k-th roots and polynomial roots, every side decided by exact integer arithmetic, the reward the certified decimals gained."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Carlos Toledo" }]
+tags = [
+    "train",
+    "eval",
+    "single-turn",
+    "math",
+    "exact-arithmetic",
+    "verifiable-reward",
+    "graded-reward",
+    "reward-hacking",
+    "synthetic",
+    "procedural",
+]
+keywords = ["rl-environment", "verifier", "exact-arithmetic", "certificates", "curriculum", "evaluation"]
+# The adapters need the framework. Nothing else does: the decider, the families, the curriculum, the gate and the
+# policies import only the standard library (tests/test_framework_free.py blocks every third-party import). The
+# core runs on Python 3.9; the framework is what needs 3.11.
+dependencies = ["verifiers>=0.2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.urls]
+Source = "https://github.com/carlostoledo1891/cert-machine"
+
+[project.scripts]
+verify-gym = "verify_gym.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["verify_gym"]
+
+[tool.verifiers.eval]
+num_examples = 120
+rollouts_per_example = 8

@@ -1,0 +1,73 @@
+{
+ "name": "verify-gym curriculum",
+ "version": 1,
+ "rule": "Append-only. A family entry, once listed, never changes: its spec is pinned by sha256 in PROVENANCE.json and the battery refuses a change. A new family is appended with its source (the ledger whose decided claims it came from, and that ledger's sha256), its own exact side decider in BOTH verify_gym/exact.py and check.js, and its own held-out file appended to `heldout`. A new mix is a new stage id; an existing stage never changes. A held-out file, once listed, is never edited. The numbers that generate a family (tiers, ranges, weights) live once, in verify_gym/families.py; cap and limit are stated here too and the battery requires the two to agree.",
+ "families": [
+  {
+   "id": "xx",
+   "version": 1,
+   "added": "2026-10-31",
+   "constant": "the real root of x^x = N, N an integer >= 2 not of the form k^k",
+   "decides": "x > p/q iff p^p < N^q * q^p; x < p/q iff p^p > N^q * q^p; p/q >= 1 in lowest terms (a bar below 1 is REFUSED)",
+   "stated_bracket": "(floor(x), floor(x) + 1), from k^k against N",
+   "limit_digits": 5,
+   "cap": 8,
+   "tiers": "N in [2, 99] (weight 3), [100, 9999] (4), [10^4, 10^6 - 1] (3)",
+   "source": "certs/xx-ledger.json: the x^x = y study, whose brackets tools/run-xx-ledger.py re-decides with the same reduction"
+  },
+  {
+   "id": "kroot",
+   "version": 1,
+   "added": "2026-10-31",
+   "constant": "x = n^(1/k), n >= 2 not a perfect k-th power, k >= 2",
+   "decides": "x > p/q iff p^k < n q^k; x < p/q iff p^k > n q^k; p/q > 0 (a bar at or below 0 is REFUSED)",
+   "stated_bracket": "(m, m + 1), m the exact integer k-th root",
+   "limit_digits": 30,
+   "cap": 20,
+   "tiers": "k <= 3 and n < 10^3 (weight 3), k <= 5 and n in [10^3, 10^6) (4), k <= 7 and n in [10^6, 10^12) (3)",
+   "source": "the gym's own: the calibration family"
+  },
+  {
+   "id": "poly",
+   "version": 1,
+   "added": "2026-10-31",
+   "constant": "the one real root of an integer polynomial P (no rational root) in a stated isolating interval (l, h)",
+   "decides": "the isolation first: P(l) P(h) < 0 and one sign variation of (1+t)^d P((l + h t)/(1 + t)) (Descartes); then, for l < a < h, x > a iff sign P(a) = sign P(l) and x < a iff sign P(a) = sign P(h), P(a) != 0; a <= l or a >= h by comparison",
+   "stated_bracket": "the isolating interval: dyadic endpoints from Descartes bisection of the Cauchy bound",
+   "limit_digits": 30,
+   "cap": 20,
+   "tiers": "degree 3-4, coefficients in [-9, 9] (weight 4); degree 5-6, in [-20, 20] (3); cluster: (b x - a)^2 (x + c) - e, one of the two roots near a/b (3)",
+   "source": "the gym's own: root clustering is the difficulty a float cannot see"
+  }
+ ],
+ "stages": [
+  {
+   "id": "v0",
+   "added": "2026-10-31",
+   "families": [
+    "xx",
+    "kroot",
+    "poly"
+   ],
+   "mix": [
+    1,
+    1,
+    1
+   ]
+  }
+ ],
+ "heldout": [
+  {
+   "version": "v0",
+   "file": "heldout-v0.json",
+   "n": 120,
+   "per_family": 40,
+   "families": [
+    "xx",
+    "kroot",
+    "poly"
+   ],
+   "sha256": "789cead61a5cb4612589b511562d9a6bfb4fe7d2b7dd2dcfc80b94193e71978d"
+  }
+ ]
+}

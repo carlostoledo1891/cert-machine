@@ -1,0 +1,33 @@
+{
+ "what": "verify-gym pins: the two deciders by sha256, and every curriculum entry (family, stage, held-out set) by the sha256 of its canonical JSON. battery.py refuses a listed entry that changes or disappears; new entries append. --pin records a deliberate change.",
+ "files": {
+  "environments/verify_gym/verify_gym/exact.py": "42696b35e905b05463b4335b65176c53781a6d7765b071c7ba4fd4aa950dd67e",
+  "environments/verify_gym/check.js": "76d946bd1ccc884a8a40f0f07d8dd6b408f07ccd3c21e5131cb228457c93dfb2"
+ },
+ "families": [
+  [
+   "xx",
+   "ea2c37382ef3cf9830d6b32870e69ab23cd3e25cc3e72f983d51f328420f7f84"
+  ],
+  [
+   "kroot",
+   "9520af6cd6be24d9cdcf80767fdc6be0cc1b957f6bb000538b3d97a116bebe8e"
+  ],
+  [
+   "poly",
+   "1bc597db923ac77665b56d0e0aeb6c03dcd624f25df944e998f35c0d1a0dc37b"
+  ]
+ ],
+ "stages": [
+  [
+   "v0",
+   "15f0462b003636393f78389f7d4331721ad8ce7b6d1c604397f85f7e3033b894"
+  ]
+ ],
+ "heldout": [
+  [
+   "v0",
+   "5bc4c35d65bb9addd0dbfd963aaef90e126c44c27601558f566182c5ed6e01be"
+  ]
+ ]
+}

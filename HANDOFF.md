@@ -26,8 +26,12 @@ NEXT SESSION, IN ORDER:
      first, then model (a trained open model ships only if it beats its base on held-out tasks); first family BRACKET A
      CONSTANT (x^x = y, k-th roots, polynomial roots; reward = certified decimals, 0 if refuted or unchecked — the graded
      reward answers lattice-claims' and Claim Court's collapse); training budget up to US$500 later; name "Verify Gym".
-     v0 BEING BUILT on lane-verify-gym (pre-registration first, environments/verify_gym, two exact deciders, frozen held-out,
-     policy scorecard). No paid runs, no Hub publish, no page without the operator's word.
+     v0 BUILT on lane-verify-gym, NOT MERGED: notes/verify-gym-preregistration-2026-10-31.md (committed before any score;
+     deviation 1 = a misbuilt forgery the gate caught), environments/verify_gym (exact.py + check.js agree on 2,600 answers;
+     held-out 120 tasks sha256 789cead6…978d; gate 2,240 planted / 0 leaked), certs/verify-gym-scorecard.json (never 0,
+     echo 0, float 0.531 with 22 REFUTED, bisect 0.340, cf 0.981), battery ~30 s in make test + the control; targets row
+     verify-gym-2026-10. NEXT, each the operator's: model rows (API spend), the val-stream readiness gate, a GRPO pilot.
+     No paid runs, no Hub publish, no page without the operator's word.
   ◆ 2026-10-31 — SPEEDRUN SR008 SUBMITTED by the operator, as "Verify" (carlostoledo.co/verify): answers and the 8-slide deck
      in outreach/speedrun-sr008/ (untracked: the repo is public; deck.js rebuilds the PDF from records). If speedrun asks for
      more: a video pitch (the operator on camera, script in application.md) or a 15-minute interview.
