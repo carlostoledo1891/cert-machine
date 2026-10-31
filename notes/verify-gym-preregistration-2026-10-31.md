@@ -265,3 +265,12 @@ Any change after this commit is recorded here, dated, with its reason.
      subset of each step's rollouts (lattice-claims: 64 of 128), and the re-check covers exactly what is stored,
      with the count reported. Every held-out reply of T must be retrievable for criterion 5; if the platform
      does not return them all, criterion 5 is not met and the result is NO-SHIP by the rule.
+
+5. **2026-10-31, the pilot did not run: Hosted Training refused the launch.** `prime train
+   pilot-qwen9b-s0.toml -y` returned HTTP 403: "Shared Hosted Training for LoRA runs stopped accepting new runs
+   on October 8, 2026. Hosted Training is transitioning to dedicated runs." The account lists no dedicated
+   models, no GPU types and no on-demand beta access (corpus/verify-gym/training-attempt.json). No training step
+   ran, nothing was billed for it, and no trained model exists, so the ship criterion has nothing to judge. The
+   protocol, the configs and the readiness GO stand for a later run on dedicated Hosted Training or on rented
+   GPUs; either is a new decision of the operator's, and a change of trainer (full fine-tune instead of LoRA,
+   or self-hosted prime-rl) is a further dated deviation before its first step.
