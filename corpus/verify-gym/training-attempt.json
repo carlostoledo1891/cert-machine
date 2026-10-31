@@ -1,0 +1,16 @@
+{
+ "what": "Verify Gym step 3 (the GRPO pilot on Prime Hosted Training): the launch attempt and what refused it",
+ "date": "2026-10-31",
+ "config": "environments/verify_gym/train/pilot-qwen9b-s0.toml (deviation 4; the replicate -s5000 was not attempted)",
+ "cli": "prime 0.6.31 (~/.local/bin/prime), `prime train pilot-qwen9b-s0.toml -y` (the CLI the lattice-claims runs used)",
+ "refusal": "Error: Failed to create Hosted Training run: HTTP 403: Shared Hosted Training for LoRA runs stopped accepting new runs on October 8, 2026. Hosted Training is transitioning to dedicated runs. Existing LoRA adapters will remain downloadable and deployable until further notice.",
+ "cost_usd": 0,
+ "reads_before_the_attempt": {
+  "GET /api/v1/rft/models": "{\"models\": []}",
+  "GET /api/v1/training/available-fft-models": "{\"models\": [], \"onDemand\": [], \"onDemandBetaAccess\": false}",
+  "GET /api/v1/training/available-gpu-types": "{\"gpuTypes\": []}",
+  "GET /api/v1/rft/deployable-models": "Qwen/Qwen3.5-35B-A3B, meta-llama/Llama-3.2-1B-Instruct, openai/gpt-oss-120b, meta-llama/Llama-3.2-3B-Instruct, openai/gpt-oss-20b, zai-org/GLM-4.7 (no Qwen3.5-9B)",
+  "prime 0.19.0 `train models`": "No models available for Hosted Training. On-demand training is in beta. Contact Prime support to request access."
+ },
+ "not_tried": "A dedicated (full fine-tune, `--full-finetune`) run: the account has no dedicated models, GPU types or on-demand beta access, it is billed per GPU-hour at a price not shown to this account, and it is not the pre-registered LoRA pilot. No training step ran; no model exists to publish."
+}

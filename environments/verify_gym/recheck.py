@@ -113,7 +113,7 @@ def main(argv=None):
     ap.add_argument("--json", default=None)
     a = ap.parse_args(argv)
     api.preflight()
-    rec = recheck_text(open(a.log, encoding="utf-8").read(), os.path.basename(a.log))
+    rec = recheck_text(rollouts.read(a.log), os.path.basename(a.log))
     if a.json:
         with open(a.json, "w") as f:
             f.write(json.dumps(rec, indent=1, ensure_ascii=False) + "\n")

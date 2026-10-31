@@ -163,10 +163,12 @@ red(len(bad) == 1, "the cross-check catches a forged Python result")
 try:
     doc = scorecard.build()
     old = json.load(open(scorecard.OUT))
-    doc["models"] = old.get("models", [])
+    doc["models"] = [scorecard.model_row(os.path.join(ROOT, os.path.dirname(m["log"]["file"])))
+                     for m in old.get("models", [])]           # every model row re-graded from its stored replies
     ok(scorecard.dump(doc) == open(scorecard.OUT).read(),
-       "certs/verify-gym-scorecard.json re-derives (gate %d planted / 0 leaked, %d answers decided twice)"
-       % (doc["gate"]["planted"], doc["crosscheck"]["answers_compared"]))
+       "certs/verify-gym-scorecard.json re-derives (gate %d planted / 0 leaked, %d answers decided twice, %d model "
+       "rows re-graded from their stored replies)"
+       % (doc["gate"]["planted"], doc["crosscheck"]["answers_compared"], len(doc["models"])))
 except SystemExit as e:
     ok(False, str(e))
     doc = None
@@ -181,6 +183,13 @@ for p in rec["policies"]:
            [str(v["CERTIFIED"]), str(v["REFUTED"]), str(v["MALFORMED"])]
     cells = [c.strip() for c in line.strip("|").split("|")][1:]
     ok(cells == want, "the README's row for %s is the scorecard's" % p["id"])
+for m in rec["models"]:
+    line = next((l for l in readme.splitlines() if l.startswith("| `%s`" % m["model"])), "")
+    v, bf = m["verdicts"], m["by_family"]
+    want = ["%.3f" % m["mean_reward"]] + ["%.3f" % bf[f]["mean_reward"] for f in ("xx", "kroot", "poly")] + \
+           [str(v["CERTIFIED"]), str(v["REFUTED"]), str(v["MALFORMED"]), str(m["truncated"])]
+    cells = [c.strip() for c in line.strip("|").split("|")][1:]
+    ok(cells == want, "the README's model row for %s is the scorecard's" % m["model"])
 g = rec["gate"]
 ok("%d forgeries planted on %d rows · %d leaked · %d misfiled · %d green controls" % (
     g["planted"], g["rows"], g["leaked"], g["misfiled"], g["green"]) in readme, "the README's gate line is the record's")

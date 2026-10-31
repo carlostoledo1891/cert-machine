@@ -212,3 +212,65 @@ Any change after this commit is recorded here, dated, with its reason.
    rationals. A reply the caller truncates is paid 0 in the readiness run too, as it already was for model rows.
    The rollout log a trainer writes is defined in verify_gym/rollouts.py. A logged reward is read as
    reward × cap, which must be within 10^-6 of an integer, so that a float32 store of k/20 still reads as k.
+
+3. **2026-10-31, before the readiness gate: the base model, the training sampling, and where each step runs.**
+   Written before any readiness sample and before any training step.
+   - **B is Qwen/Qwen3.5-9B** (the 4B's hosted trainer delivered no updates in the lattice-claims runs; the 9B's
+     did). The training sampling, which the readiness gate uses: thinking off (`chat_template_kwargs:
+     {enable_thinking: false}`), temperature 1.0, top-p 1.0, **max tokens 16,384**, no tools.
+   - Why 16,384 and not lattice-claims' 1,536. Pilots on the TRAINING stream (never the held-out set or the val
+     stream) measured the 9B with thinking off: at 4,096 tokens all 9 of 9 replies were cut off; at 16,384, 11 of
+     12 finished, and every one ran 7,000 to 14,600 tokens (it reasons in the visible reply when thinking is
+     off). Below about 8,000 tokens the gate would measure the length limit, not the model. The pilot replies
+     are kept outside the repository; their cost (all pilots, six models) was US$1.41.
+   - **The readiness gate runs on Prime Inference** (`qwen/qwen3.5-9b`, api.pinference.ai), through
+     readiness.py's live path, because the operator's GO names Prime and no other GPU. Estimated cost: 800
+     samples × about 10,900 output tokens at US$0.25 per million, plus input, about US$2.2. The earlier "about
+     US$1" was written from lattice-claims' 115-token answers and is wrong by about 2× for this environment; the
+     run is stopped if it passes US$4.5 (2× this estimate).
+   - **Model rows** (the scorecard): four open-weights models on Prime Inference at the same sampling (thinking
+     off, 16,384 tokens, temperature 1.0, top-p 1.0, no tools): deepseek/deepseek-v4-pro,
+     deepseek/deepseek-v4.1-flash, google/gemma-4-26b-a4b-it, and qwen/qwen3.5-9b (B itself, on this server).
+     The models were chosen by the measured cost per row, before any held-out answer of theirs existed:
+     qwen3.5-397b-a17b (about US$34 a row) and kimi-k3 (about US$37) were not run, and minimax-m3 was dropped
+     because 9 of 12 of its pilot replies hit 16,384 tokens.
+   - **Training (step 3) is on Prime Hosted Training or not at all** (the operator's GO; no rented GPUs). Read on
+     2026-10-31 before any launch: `/rft/models` (the LoRA models Hosted Training offers) is empty, `prime train
+     models` (CLI 0.6.31 and 0.19.0) says no models are available and that on-demand training is a beta this
+     account is not enrolled in (`onDemandBetaAccess: false`), and Qwen3.5-9B is not among the deployable adapter
+     models. If that is still so after the gate, no training step runs and that is reported; nothing about the
+     ship criterion changes.
+
+4. **2026-10-31, after the readiness gate (GO) and before any training step: the pilot's shape.** The gate on
+   Qwen3.5-9B (corpus/verify-gym/readiness-qwen3.5-9b/readiness.json) said GO: 88 of 100 groups not all equal,
+   mean reward 2421/32000 (0.0757), 27 of 800 replies cut off, US$2.28 reported, 0 disagreements between the
+   deciders and recheck.py AGREES on its 288 paid samples. The pilot is fixed here, before any launch:
+   - Two runs on Prime Hosted Training, environments/verify_gym/train/pilot-qwen9b-s0.toml and -s5000.toml,
+     identical except for the training rows' offset in the v0 stage (row 0 and row 5000): Qwen/Qwen3.5-9B with
+     the platform's LoRA, GRPO, **12 steps × 64 rollouts (8 tasks × 8)**, the gate's sampling (thinking off,
+     16,384 tokens, temperature 1.0), carlos-toledo/verify-gym 0.1.0.
+   - Why so small. Measured from the gate: about 11,100 output tokens per rollout, so at the 9B's listed Hosted
+     Training prices (US$0.6 per million trained, 0.2 input, 0.6 output) a rollout costs about US$0.014, and one
+     held-out evaluation (960 replies) about US$6.5. Twelve steps plus one held-out evaluation is about US$17 a
+     run, US$34 for the pair; with the US$17.5 already spent on pilots, rows and the gate, that stays under the
+     US$60 stop. This is a pilot of the protocol at the smallest size that trains at all; a null is expected and
+     is a result.
+   - **Checkpoint choice:** the last step's checkpoint, fixed here in advance. The hosted eval has one interval,
+     so a val-stream selection among checkpoints and a single held-out evaluation cannot both be configured; a
+     rule fixed before training uses neither the held-out set nor the val stream, which is what the clause
+     protects. **B's held-out evaluation** is the qwen3.5-9b scorecard row (Prime Inference, the same sampling),
+     so the hosted eval skips step 0; that B and T are served by different stacks is a limit of this pilot,
+     stated with its result.
+   - Every rewarded training sample the platform stores is re-decided by recheck.py; the platform stores a
+     subset of each step's rollouts (lattice-claims: 64 of 128), and the re-check covers exactly what is stored,
+     with the count reported. Every held-out reply of T must be retrievable for criterion 5; if the platform
+     does not return them all, criterion 5 is not met and the result is NO-SHIP by the rule.
+
+5. **2026-10-31, the pilot did not run: Hosted Training refused the launch.** `prime train
+   pilot-qwen9b-s0.toml -y` returned HTTP 403: "Shared Hosted Training for LoRA runs stopped accepting new runs
+   on October 8, 2026. Hosted Training is transitioning to dedicated runs." The account lists no dedicated
+   models, no GPU types and no on-demand beta access (corpus/verify-gym/training-attempt.json). No training step
+   ran, nothing was billed for it, and no trained model exists, so the ship criterion has nothing to judge. The
+   protocol, the configs and the readiness GO stand for a later run on dedicated Hosted Training or on rented
+   GPUs; either is a new decision of the operator's, and a change of trainer (full fine-tune instead of LoRA,
+   or self-hosted prime-rl) is a further dated deviation before its first step.

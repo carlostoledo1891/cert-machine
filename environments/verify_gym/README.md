@@ -9,10 +9,24 @@ The reward is the number of decimals the answer certifies beyond the interval th
 side pays 0, and so does an unreadable answer.
 
 ```bash
+prime env install carlos-toledo/verify-gym     # or: pip install verify-gym from the Hub's index
+```
+
+```python
+import verifiers as vf
+env = vf.load_environment("verify-gym")          # train: the v0 stage; eval: the frozen held-out set
+env = vf.load_environment("verify-gym", eval_split="val")   # eval on the validation stream instead
+```
+
+```bash
 python -m verify_gym.cli gate              # the forgery battery
 python -m verify_gym.cli baseline          # the reference policies on the frozen held-out set, no API key
 python -m verify_gym.cli tasks 3 --prompts
 ```
+
+This is v0 (package 0.1.0): three families, curriculum version 1, the held-out set `heldout-v0.json`. The decider,
+the families, the gate and the policies are the Python standard library; only the two adapters import the
+framework.
 
 ## The families
 
@@ -59,7 +73,7 @@ decision is two million-bit powers, about 0.2 s on Python 3.9.
 
 These are the five reference policies on the 120 frozen held-out tasks (40 per family). They read only the
 prompt, need no key and no network, and every answer is decided twice. The table is
-`certs/verify-gym-scorecard.json`:
+[`certs/verify-gym-scorecard.json`](https://github.com/carlostoledo1891/cert-machine/blob/main/certs/verify-gym-scorecard.json):
 
 | policy | mean reward | xx | kroot | poly | certified | refuted | malformed |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -79,9 +93,36 @@ A mean that hides that is a mean a model can buy by guessing. `echo` is certifie
 because copying is worth 0 by construction. `cf` is the ceiling within the size limit, and it is published on
 purpose. This environment does not measure whether a program can do this. It measures whether the answer checks.
 
-There are no model rows yet. They come later, one run per row, each with its model id, sampling, date and every
-reply stored. The protocol is fixed in advance in
-[the pre-registration](../../notes/verify-gym-preregistration-2026-10-31.md).
+The protocol for model rows is fixed in advance in
+[the pre-registration](https://github.com/carlostoledo1891/cert-machine/blob/main/notes/verify-gym-preregistration-2026-10-31.md).
+
+## Model rows
+
+Open-weights models on the same 120 frozen prompts, 8 samples each (960 replies per model), served by Prime
+Inference on 2026-10-31: thinking off, temperature 1.0, top-p 1.0, 16,384 tokens, no tools. Every reply is
+stored with its sha256 (`corpus/verify-gym/runs/`) and graded by both deciders; a reply cut off at the token
+limit scores 0 and is counted apart. Mean reward is per reply. Spend is what the endpoint reported.
+
+| model | mean reward | xx | kroot | poly | certified | refuted | malformed | cut off |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| `deepseek/deepseek-v4-pro` | 0.049 | 0.073 | 0.051 | 0.025 | 331 | 546 | 83 | 0 |
+| `deepseek/deepseek-v4.1-flash` | 0.099 | 0.092 | 0.145 | 0.060 | 368 | 517 | 73 | 2 |
+| `google/gemma-4-26b-a4b-it` | 0.083 | 0.120 | 0.059 | 0.070 | 363 | 520 | 67 | 10 |
+| `qwen/qwen3.5-9b` | 0.075 | 0.064 | 0.097 | 0.065 | 369 | 506 | 59 | 24 |
+
+REFUSED (a side outside the family's reduction: not decided, paid 0) is not a column: qwen/qwen3.5-9b 2.
+
+Every model is below `bisect`, the 20-step exact bisection, and every one states more false brackets than
+true ones: deepseek/deepseek-v4-pro gave 546 REFUTED of 960. These rows have no tool: every
+bracket comes from the model's own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24, qwen3.5-9b US$2.53.
+
+## The readiness gate on the base model
+
+Qwen3.5-9B (thinking off, 16,384 tokens, temperature 1.0, Prime Inference) on the first 100 val tasks × 8:
+88 of 100 groups had rewards that were not all equal, the mean reward was 2421/32000 (0.0757), 27 of 800 replies were
+cut off, and both deciders agreed on all 736 distinct answers: **GO**. Cost US$2.28.
+No model has been trained: Prime's shared LoRA Hosted Training stopped accepting runs on 2026-10-08
+(the refusal is in `corpus/verify-gym/training-attempt.json`).
 
 ## The forgery gate runs first
 
@@ -117,6 +158,12 @@ planted forgery: 2,600 answers, compared on the verdict, both side words, the de
 agree on all of them, and one difference would refuse the scorecard. A future training run is held to the same
 rule: every sample that earned a reward is re-decided by `check.js` afterwards.
 
+`check.js` and the scripts that need it or spend money (`crosscheck.py`, `scorecard.py`, `readiness.py`,
+`recheck.py`, `modelrow.py`) live beside the package in
+[the source repository](https://github.com/carlostoledo1891/cert-machine/tree/main/environments/verify_gym), not
+in the wheel. The wheel holds the decider, the families, the curriculum, the held-out file, the gate, the
+policies and the two adapters.
+
 ## A curriculum that only grows
 
 `verify_gym/curriculum.json` is append-only. Each family, training stage and held-out set is pinned by sha256,
@@ -130,12 +177,15 @@ It then needs four things:
 3. a curriculum entry naming the ledger it came from;
 4. its own frozen held-out file.
 
-The held-out set `heldout-v0.json` (sha256 `789cead6…978d`) is never edited. The training and validation pools
+The held-out set `heldout-v0.json` (sha256
+`789cead61a5cb4612589b511562d9a6bfb4fe7d2b7dd2dcfc80b94193e71978d`, 120 tasks, 40 per family) is never edited;
+`api.heldout()` refuses a file that does not hash to it. The training and validation pools
 redraw any instance it contains.
 
 ## Before and after a training run
 
-Two protocol steps from the pre-registration are built and tested end to end. Neither has been run on a model.
+Two protocol steps from the pre-registration are built and tested end to end. The readiness gate has been run on
+Qwen3.5-9B (above: GO); the re-check has had no training run to check.
 
 **The readiness gate**, before any paid training step. It takes the first 100 tasks of the validation rotation
 with 8 samples each, graded by both deciders. The result is GO only if at least 30% of the groups of 8 have

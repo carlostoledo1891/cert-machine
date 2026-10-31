@@ -1,0 +1,20 @@
+{
+ "what": "Verify Gym on the Prime Intellect Environments Hub: the publication record",
+ "state": "PUBLISHED 2026-10-31 (13:58 UTC) as carlos-toledo/verify-gym 0.1.0 (v0), PUBLIC, on the operator's word (GO 2026-10-31: publish to the Hub under the existing namespace, version v0)",
+ "slug": "carlos-toledo/verify-gym",
+ "environment_id": "eunjl6ct9twad9weskcr0dcb",
+ "version": "0.1.0",
+ "source_commit": "111320f6",
+ "wheel": "verify_gym-0.1.0-py3-none-any.whl",
+ "wheel_sha256": "9ff5deca1001afba0b6a19ab0d9a279c79ffaa6f96425441efa68e769c66085a",
+ "wheel_contents": "verify_gym/: __init__, adapters_v0, adapters_v1, api, cli, curriculum.json, exact, families, forgeries, heldout-v0.json, policies, rollouts, task (check.js and the spend scripts stay in the repository)",
+ "heldout_sha256": "789cead61a5cb4612589b511562d9a6bfb4fe7d2b7dd2dcfc80b94193e71978d",
+ "install": "prime env install carlos-toledo/verify-gym",
+ "url": "https://app.primeintellect.ai/dashboard/environments/carlos-toledo/verify-gym",
+ "cli": "prime 0.6.31 (~/.local/bin/prime), `env push --visibility PUBLIC` from environments/verify_gym",
+ "verifiedFromTheHub": [
+  "pip download verify_gym==0.1.0 from https://hub.primeintellect.ai/carlos-toledo/simple/: sha256 9ff5deca…085a, the pushed wheel byte for byte",
+  "fresh python3.12 venv + verifiers 0.3.1, run with -I from a directory with no source tree (the site-packages copy): api.heldout('v0') 120 rows (hash-checked on read); the gate on the held-out set 2,240 planted / 0 leaked / 0 misfiled / 240 green controls; echo scores 0.0 and cf 1.0 on heldout/0; vf.load_environment('verify-gym', num_tasks=12) gives a SingleTurnEnv, 12 train rows all from the train split, 120 eval rows all held-out, every answer empty; eval_split='val' gives the val stream",
+  "fresh python3.12 venv + verifiers 0.4.0 (the latest; its root package is v1-only, so vf.load_environment is gone there): verifiers.v1 resolves 'carlos-toledo/verify-gym' to VerifyGymTaskset through the package's __all__, the environment class SingleAgentEnv, and the taskset loads (split val, 3 tasks)"
+ ]
+}
