@@ -116,7 +116,7 @@ KINDS = {
     'record-value': 'the record\'s value is neither an exact rational nor an enclosure of two numbers',
     'record-bar-mismatch': 'the record decided a bar other than the object\'s',
     'record-pin-mismatch': 'the record decided bytes other than the object\'s pin (the record row carries a sha256 that differs)',
-    'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict; or the record carries no value and its claim does not state the object\'s bar under the object\'s relation (its word decides only the claim its row states)',
+    'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict; or the record carries no value and its claim does not state the object\'s bar under the object\'s relation (its word decides only the claim its row states), or the object\'s box is narrower than the box a row deciding agreement within the platform\'s resolution checked (under REFUTED: wider)',
     'record-value-mismatch': 'the value computed from the object is not the record\'s exact value',
     'repair': 'the repair block is malformed, or its bar re-decided does not give its verdict',
     'record-predicate': 'the record names a predicate that does not exist, a "holds" predicate while it carries a value, or leaves a predicate beside it that is neither "holds" nor decidable from the object',
@@ -538,6 +538,21 @@ REL_WORD = {'<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'g
 # is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
 STATED_BAR = re.compile(r'(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)')
 STATED_REL = dict(REL_WORD, **{'is': 'eq'})
+
+
+def agreement_box(row, bar):
+    """the box a valueless row decided when its claim is agreement within the platform's resolution (a row carrying
+    decision.agreement and minImprovement, tools/run-mc100-einstein.js agreement()): [bar - t, bar + t], t the row's
+    minImprovement as the decimal it prints when nonzero, else 10^-12 · max(1, |bar|) — the decider's rule, exactly. None for
+    any other row. (2026-10-30, the operator: hold the box to the row.)"""
+    dec = row.get('decision')
+    mi = row.get('minImprovement')
+    if not (isinstance(dec, dict) and isinstance(dec.get('agreement'), dict)):
+        return None
+    if isinstance(mi, bool) or not isinstance(mi, (int, float)) or mi < 0:
+        raise Refuse('record-decision-mismatch', 'the row decided agreement within the platform\'s resolution but carries no minImprovement to read it from')
+    t = Fraction(repr(mi)) if mi > 0 else Fraction(1, 10 ** 12) * max(Fraction(1), abs(bar))
+    return bar - t, bar + t
 
 
 def decide(value, rel, c):
@@ -1015,6 +1030,13 @@ def check_obj(o, root=ROOT):
                     srel, sbar = stated[-1]
                     if STATED_REL[srel] != ('eq' if p['rel'] in ('in', 'eq') else p['rel']) or Fraction(sbar) != mine:
                         raise Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p['rel'] + ' ' + (p['printed'] if p['printed'] is not None else str(p['c'])) + ': the record\'s word is for another claim')
+                    row_box = agreement_box(row, Fraction(sbar))
+                    if row_box is not None and p['rel'] in ('in', 'eq'):
+                        # the row decided agreement within the platform's resolution: certify only what it checked
+                        olo, ohi = p['c'] if p['rel'] == 'in' else (p['c'], p['c'])
+                        blo, bhi = row_box
+                        if (rv == WORDS[0] and not (olo <= blo and ohi >= bhi)) or (rv == WORDS[1] and not (olo >= blo and ohi <= bhi)):
+                            raise Refuse('record-decision-mismatch', 'the record decided agreement with ' + sbar + ' within ' + str(bhi - Fraction(sbar)) + ' ([' + str(blo) + ', ' + str(bhi) + ']); the object\'s box [' + str(olo) + ', ' + str(ohi) + '] is ' + ('narrower' if rv == WORDS[0] else 'wider') + ': the row did not check it')
                     decided.append(rv)
             composed = compose(decided)
             if composed != rv:

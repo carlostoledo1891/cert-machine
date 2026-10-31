@@ -14,7 +14,9 @@ check.js held to check.py, Z3. (7) FORMAT 4 (2026-10-30): the eight objects of v
 the canonical form and its digest, int64, the Lean kind decided by a kernel lane's record, a refusing object and two
 mutants), check.js held to check.py on every one and on every format-4 red control. (8) A RECORD WITH NO VALUE (2026-10-30):
 its word decides only the claim its row states — the EinsteinArena forgery (the score moved 2,000,001 units of its last digit)
-refused record-decision-mismatch by both checkers and the SMT export, the record's own claim admitted CERTIFIED.
+refused record-decision-mismatch by both checkers and the SMT export; and the BOX HELD TO THE ROW: a row that decided agreement
+within the platform's resolution certifies only that box, so the half-unit box at the row's own print is refused and the
+record's own claim is admitted CERTIFIED with the resolution box.
 
 usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
@@ -625,8 +627,11 @@ finally:
 # value, and the receiver took the record's word for a platform score moved 2,000,001 units of its last digit and printed
 # CERTIFIED. The object below is the one claimbox's recorded route writes (an "in" over the named platform score, the record's
 # value null), built here from the record's own claim; the forgery prints the score moved past twice the platform's
-# resolution (2·10⁻⁸ / 10⁻¹⁶ + 1 = 2,000,001 units). Both checkers and the SMT export must refuse it; the record's own claim
-# must still be admitted with the record's word.
+# resolution (2·10⁻⁸ / 10⁻¹⁶ + 1 = 2,000,001 units). Both checkers and the SMT export must refuse it.
+# THE BOX HELD TO THE ROW (the operator's ruling, later the same day): the row decided agreement with its print within the
+# platform's resolution (minImprovement 1e-8 here), so the record's own claim is admitted only with that box (a `box` block
+# quoting problems.json); the half-unit box of the printed digits (5·10⁻¹⁷), which claimbox wrote and both checkers certified,
+# is narrower than what the row checked and must be refused (the exact objective is 1.26·10⁻¹⁶ from the print).
 tmp8 = tempfile.mkdtemp(prefix='claimbox-rdm-')
 try:
     EA_REC, EA_ROW = 'certs/mc100-einstein-arena.json', 'ea-best-first-autocorrelation-inequality'
@@ -641,16 +646,23 @@ try:
        'the exact case: the record\'s row prints ' + ea_print + ', carries no value, says CERTIFIED; the forgery prints ' + ea_moved)
     ea_pin = {'path': 'corpus/einstein-arena/best-2.json', 'sha256': hashlib.sha256(open(os.path.join(ROOT, 'corpus/einstein-arena/best-2.json'), 'rb').read()).hexdigest()}
 
-    def ea_object(printed, tag, rel='in', claim=None):
+    PROBLEMS = 'corpus/einstein-arena/problems.json'
+    ea_quote = re.search(r'"slug":"first-autocorrelation-inequality","title":"[^"]*","scoring":"minimize","minImprovement":1e-8', open(os.path.join(ROOT, PROBLEMS), encoding='utf-8').read()).group(0)
+    ea_box = {'kind': 'resolution', 'key': 'minImprovement', 'halfWidth': '1/100000000',
+              'source': {'path': PROBLEMS, 'sha256': hashlib.sha256(open(os.path.join(ROOT, PROBLEMS), 'rb').read()).hexdigest(), 'quote': ea_quote}}
+
+    def ea_object(printed, tag, rel='in', claim=None, box=True):
         sentence = claim if claim is not None else ea_row['claim'].replace(ea_print, printed)
         sp = os.path.join(tmp8, tag + '.md')
         open(sp, 'w', encoding='utf-8').write(sentence + '\n')
         d = len(printed.split('.')[1])
-        half = Fraction(5, 10 ** (d + 1))
+        half = Fraction(1, 10 ** 8) if box else Fraction(5, 10 ** (d + 1))
         lo, hi = Fraction(printed) - half, Fraction(printed) + half
         pred = {'g': {'named': 'the platform\'s score of the published object, as the claimant defines it', 'where': 'tools/run-mc100-einstein.js', 'args': ['f']},
                 'rel': rel, 'printed': printed,
                 'c': [str(lo.numerator) + '/' + str(lo.denominator), str(hi.numerator) + '/' + str(hi.denominator)] if rel == 'in' else str(Fraction(printed).numerator) + '/' + str(Fraction(printed).denominator)}
+        if box and rel == 'in':
+            pred['box'] = clone(ea_box)
         return {'id': 'rdm-' + tag, 'text': sentence,
                 'source': {'what': 'the sentence, planted', 'path': os.path.relpath(sp, ROOT), 'sha256': hashlib.sha256(open(sp, 'rb').read()).hexdigest(), 'quote': sentence},
                 'reading': 'universal',
@@ -670,12 +682,35 @@ try:
     json.dump(nobar, open(nbp, 'w'))
     o_nobar = ea_object(ea_print, 'nobar')
     o_nobar['record']['path'] = os.path.relpath(nbp, ROOT)
+
+    def forged_row(tag, **fields):
+        """a copy of the record with the row's fields replaced (None removes one); the object pointed at it"""
+        with open(os.path.join(ROOT, EA_REC), encoding='utf-8') as fh:
+            cp = json.load(fh)
+        for x in cp['rows']:
+            if x['id'] == EA_ROW:
+                for k, v in fields.items():
+                    if v is None:
+                        x.pop(k, None)
+                    else:
+                        x[k] = v
+        fp_ = os.path.join(tmp8, 'row-' + tag + '.json')
+        json.dump(cp, open(fp_, 'w'))
+        o = ea_object(ea_print, 'row-' + tag)
+        o['record']['path'] = os.path.relpath(fp_, ROOT)
+        o['record']['verdict'] = fields.get('verdict', C)
+        return o
     cases8 = [   # (label, object, expected word, expected kind)
-        ('the record\'s own claim (the score as the row prints it)', ea_object(ea_print, 'own'), B.ADMITTED, None),
+        ('the record\'s own claim with the box the row decided (the print ± minImprovement 1e-8, quoted)', ea_object(ea_print, 'own'), B.ADMITTED, None),
+        ('THE HALF-UNIT BOX at the row\'s print (5e-17: narrower than the 1e-8 the row checked)', ea_object(ea_print, 'half', box=False), B.REFUSED_WORD, 'record-decision-mismatch'),
         ('THE FORGERY: the score moved 2,000,001 units of its last digit', ea_object(ea_moved, 'moved'), B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('the forgery with the half-unit box, as claimbox wrote it', ea_object(ea_moved, 'moved-half', box=False), B.REFUSED_WORD, 'record-decision-mismatch'),
         ('the score moved one unit of its last digit', ea_object(ea_print[:-1] + str(int(ea_print[-1]) + 1), 'one'), B.REFUSED_WORD, 'record-decision-mismatch'),
         ('the row\'s bar under another relation (le where the row states the value)', ea_object(ea_print, 'le', rel='le'), B.REFUSED_WORD, 'record-decision-mismatch'),
         ('a record row whose claim states no bar', o_nobar, B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('a CERTIFIED row that checked a narrower box (minImprovement 1e-20): the object\'s wider box follows', forged_row('narrow-c', minImprovement=1e-20), B.ADMITTED, None),
+        ('a REFUTED row that checked a narrower box (minImprovement 1e-20): the object\'s wider box does not follow', forged_row('narrow-r', minImprovement=1e-20, verdict=R), B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('a row deciding agreement but carrying no minImprovement', forged_row('nomi', minImprovement=None), B.REFUSED_WORD, 'record-decision-mismatch'),
     ]
     paths8 = []
     for i, (label, o, word, kind) in enumerate(cases8):
@@ -688,12 +723,13 @@ try:
     j8 = js_batch(paths8)
     disagree = [lab for (lab, _, word, kind), jr in zip(cases8, j8) if not (jr and jr['word'] == word and jr['kind'] == kind and (word != B.ADMITTED or jr['decided'] == [C]))]
     ok(not disagree, 'check.js gives the same word and kind on every valueless-record case (' + str(len(cases8)) + ')', '; '.join(disagree)[:160])
-    try:
-        B.to_smt(cases8[1][1])
-        smt8 = None
-    except B.Refuse as e:
-        smt8 = e.kind
-    red(smt8 == 'record-decision-mismatch', 'the SMT export of the forgery -> refused (record-decision-mismatch)', str(smt8))
+    for k, what in ((1, 'the half-unit box'), (2, 'the forgery')):
+        try:
+            B.to_smt(cases8[k][1])
+            smt8 = None
+        except B.Refuse as e:
+            smt8 = e.kind
+        red(smt8 == 'record-decision-mismatch', 'the SMT export of ' + what + ' -> refused (record-decision-mismatch)', str(smt8))
 finally:
     shutil.rmtree(tmp8, ignore_errors=True)
 
