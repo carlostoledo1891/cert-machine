@@ -163,10 +163,12 @@ red(len(bad) == 1, "the cross-check catches a forged Python result")
 try:
     doc = scorecard.build()
     old = json.load(open(scorecard.OUT))
-    doc["models"] = old.get("models", [])
+    doc["models"] = [scorecard.model_row(os.path.join(ROOT, os.path.dirname(m["log"]["file"])))
+                     for m in old.get("models", [])]           # every model row re-graded from its stored replies
     ok(scorecard.dump(doc) == open(scorecard.OUT).read(),
-       "certs/verify-gym-scorecard.json re-derives (gate %d planted / 0 leaked, %d answers decided twice)"
-       % (doc["gate"]["planted"], doc["crosscheck"]["answers_compared"]))
+       "certs/verify-gym-scorecard.json re-derives (gate %d planted / 0 leaked, %d answers decided twice, %d model "
+       "rows re-graded from their stored replies)"
+       % (doc["gate"]["planted"], doc["crosscheck"]["answers_compared"], len(doc["models"])))
 except SystemExit as e:
     ok(False, str(e))
     doc = None

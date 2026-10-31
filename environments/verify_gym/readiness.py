@@ -73,14 +73,21 @@ def policy_reply(name, row, k):
     return _REPLY[key], "stop"
 
 
+USAGE = {}                                             # (task id, sample) -> the endpoint's token counts and cost
+
+
 def endpoint_reply(cfg, row, k):
+    """One sample from an OpenAI-compatible endpoint: (reply text, finish_reason). A sampling field set to None in cfg
+    (temperature, top_p) is left out of the request, for APIs that refuse it; the endpoint's usage (tokens, and cost
+    when it reports one) is kept in USAGE, never the key."""
     body = {"model": cfg["model"], "messages": [{"role": "user", "content": row["prompt"]}],
-            "temperature": cfg["temperature"], "top_p": cfg["top_p"], "max_tokens": cfg["max_tokens"], "n": 1,
+            "max_tokens": cfg["max_tokens"], "n": 1,
             "seed": int(hashlib.sha256(("%s|%d" % (row["id"], k)).encode()).hexdigest()[:8], 16),
+            **{f: cfg[f] for f in ("temperature", "top_p") if cfg.get(f) is not None},
             **cfg["extra_body"]}
     key = os.environ.get(cfg["api_key_env"] or "", "")
     req = urllib.request.Request(cfg["endpoint"].rstrip("/") + "/chat/completions", data=json.dumps(body).encode(),
-                                 headers={"content-type": "application/json",
+                                 headers={"content-type": "application/json", "user-agent": "verify-gym/0",
                                           **({"authorization": "Bearer " + key} if key else {})})
     err = None
     for attempt in range(3):
@@ -88,6 +95,9 @@ def endpoint_reply(cfg, row, k):
             with urllib.request.urlopen(req, timeout=cfg["timeout"]) as r:
                 j = json.loads(r.read())
             c = j["choices"][0]
+            u = j.get("usage") or {}
+            USAGE[(row["id"], k)] = {f: u[f] for f in ("prompt_tokens", "completion_tokens", "cost")
+                                     if isinstance(u.get(f), (int, float)) and not isinstance(u.get(f), bool)}
             return (c.get("message") or {}).get("content") or "", c.get("finish_reason")
         except Exception as e:                          # noqa: BLE001 (any failure is retried, then stops the run)
             err = e
@@ -96,11 +106,12 @@ def endpoint_reply(cfg, row, k):
 
 
 # ---- the run ---------------------------------------------------------------------------------------------------
-def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1):
-    """Every (task, sample) answered, graded twice, and the GO rule. Returns (summary, log text)."""
-    api.preflight()
-    rows = tasks(n_tasks)
-    head = rollouts.header("val", **settings, n_tasks=n_tasks, samples=samples)
+def collect(answer, rows, split, settings, samples, out=None, workers=1, **head_extra):
+    """Every (task, sample) of `rows` answered once, in order: the samples, each graded by the environment's decider
+    and logged as it arrives (DIR/rollouts.partial.jsonl), resumed from that log when it holds the same settings.
+    A truncated reply (finish_reason "length") is paid 0. Shared by this gate and modelrow.py (the scorecard's
+    model rows), so the two cannot answer, log or pay by different rules. Returns (header, ordered samples)."""
+    head = rollouts.header(split, **settings, **head_extra, samples=samples)
     done = {}
     partial = os.path.join(out, "rollouts.partial.jsonl") if out else None
     if partial and os.path.exists(partial):             # resume: only a log of the same settings
@@ -121,7 +132,8 @@ def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1)
         g = grade(r, reply)
         trunc = finish == "length"
         s = rollouts.sample(r["id"], reply, 0.0 if trunc else g["reward"], sample=k, finish_reason=finish,
-                            verdict=g["verdict"], progress=0 if trunc else g["progress"])
+                            verdict=g["verdict"], progress=0 if trunc else g["progress"],
+                            **({"usage": USAGE.pop((r["id"], k))} if (r["id"], k) in USAGE else {}))
         with lock:
             done[(r["id"], k)] = s
             if partial:
@@ -141,6 +153,15 @@ def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1)
             s = dict(done[(r["id"], k)])
             s.pop("_line", None)
             ordered.append(s)
+    return head, ordered
+
+
+def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1):
+    """Every (task, sample) answered, graded twice, and the GO rule. Returns (summary, log text)."""
+    api.preflight()
+    rows = tasks(n_tasks)
+    head, ordered = collect(answer, rows, "val", settings, samples, out, workers, n_tasks=n_tasks)
+    partial = os.path.join(out, "rollouts.partial.jsonl") if out else None
 
     # every sample decided again by check.js; one difference refuses
     items, py = [], {}
@@ -184,6 +205,7 @@ def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1)
                                      max(1, sum(1 for s in ordered if s["task_id"].startswith(f + "/")))), 6)
                       for f in fams},
         "verdicts": dict(Counter(s["verdict"] for s in ordered)),
+        **({"usage": usage_total(ordered)} if any("usage" in s for s in ordered) else {}),
         "truncated": sum(1 for s in ordered if s["finish_reason"] == "length"),
         "crosscheck": {"distinct_answers_compared": compared, "disagreements": 0},
         "conditions": {k: bool(v) for k, v in conds.items()},
@@ -196,6 +218,19 @@ def run(answer, settings, n_tasks=N_TASKS, samples=SAMPLES, out=None, workers=1)
         if partial and os.path.exists(partial):
             os.remove(partial)
     return summary, text
+
+
+def usage_total(samples):
+    """The endpoint's own counts summed over the samples that carry them (a resumed run's included)."""
+    tot = Counter()
+    for s in samples:
+        for f, v in (s.get("usage") or {}).items():
+            tot[f] += v
+    out = {f: tot[f] for f in ("prompt_tokens", "completion_tokens") if f in tot}
+    if "cost" in tot:
+        out["cost_usd_reported"] = round(tot["cost"], 6)
+    out["samples_with_usage"] = sum(1 for s in samples if s.get("usage"))
+    return out
 
 
 def line(s):

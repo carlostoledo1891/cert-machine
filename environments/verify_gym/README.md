@@ -9,10 +9,24 @@ The reward is the number of decimals the answer certifies beyond the interval th
 side pays 0, and so does an unreadable answer.
 
 ```bash
+prime env install carlos-toledo/verify-gym     # or: pip install verify-gym from the Hub's index
+```
+
+```python
+import verifiers as vf
+env = vf.load_environment("verify-gym")          # train: the v0 stage; eval: the frozen held-out set
+env = vf.load_environment("verify-gym", eval_split="val")   # eval on the validation stream instead
+```
+
+```bash
 python -m verify_gym.cli gate              # the forgery battery
 python -m verify_gym.cli baseline          # the reference policies on the frozen held-out set, no API key
 python -m verify_gym.cli tasks 3 --prompts
 ```
+
+This is v0 (package 0.1.0): three families, curriculum version 1, the held-out set `heldout-v0.json`. The decider,
+the families, the gate and the policies are the Python standard library; only the two adapters import the
+framework.
 
 ## The families
 
@@ -59,7 +73,7 @@ decision is two million-bit powers, about 0.2 s on Python 3.9.
 
 These are the five reference policies on the 120 frozen held-out tasks (40 per family). They read only the
 prompt, need no key and no network, and every answer is decided twice. The table is
-`certs/verify-gym-scorecard.json`:
+[`certs/verify-gym-scorecard.json`](https://github.com/carlostoledo1891/cert-machine/blob/main/certs/verify-gym-scorecard.json):
 
 | policy | mean reward | xx | kroot | poly | certified | refuted | malformed |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -81,7 +95,7 @@ purpose. This environment does not measure whether a program can do this. It mea
 
 There are no model rows yet. They come later, one run per row, each with its model id, sampling, date and every
 reply stored. The protocol is fixed in advance in
-[the pre-registration](../../notes/verify-gym-preregistration-2026-10-31.md).
+[the pre-registration](https://github.com/carlostoledo1891/cert-machine/blob/main/notes/verify-gym-preregistration-2026-10-31.md).
 
 ## The forgery gate runs first
 
@@ -117,6 +131,12 @@ planted forgery: 2,600 answers, compared on the verdict, both side words, the de
 agree on all of them, and one difference would refuse the scorecard. A future training run is held to the same
 rule: every sample that earned a reward is re-decided by `check.js` afterwards.
 
+`check.js` and the scripts that need it or spend money (`crosscheck.py`, `scorecard.py`, `readiness.py`,
+`recheck.py`, `modelrow.py`) live beside the package in
+[the source repository](https://github.com/carlostoledo1891/cert-machine/tree/main/environments/verify_gym), not
+in the wheel. The wheel holds the decider, the families, the curriculum, the held-out file, the gate, the
+policies and the two adapters.
+
 ## A curriculum that only grows
 
 `verify_gym/curriculum.json` is append-only. Each family, training stage and held-out set is pinned by sha256,
@@ -130,7 +150,9 @@ It then needs four things:
 3. a curriculum entry naming the ledger it came from;
 4. its own frozen held-out file.
 
-The held-out set `heldout-v0.json` (sha256 `789cead6…978d`) is never edited. The training and validation pools
+The held-out set `heldout-v0.json` (sha256
+`789cead61a5cb4612589b511562d9a6bfb4fe7d2b7dd2dcfc80b94193e71978d`, 120 tasks, 40 per family) is never edited;
+`api.heldout()` refuses a file that does not hash to it. The training and validation pools
 redraw any instance it contains.
 
 ## Before and after a training run
