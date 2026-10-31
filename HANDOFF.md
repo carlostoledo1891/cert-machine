@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 evening — VERIFY GYM ON THE HUB: carlos-toledo/verify-gym 0.1.0 public
+     (app.primeintellect.ai/dashboard/environments/carlos-toledo/verify-gym), checked from the registry. Scorecard rows (Prime
+     inference, 120×8, both deciders, 0 disagreements): deepseek-v4-pro 0.049, deepseek-v4.1-flash 0.099, gemma-4-26b 0.083,
+     qwen3.5-9b 0.075 — all below exact bisection (0.340), every one more refuted than certified brackets. Readiness GO on
+     Qwen3.5-9B (88/100 groups vary; recheck agrees on 288). Spend US$17.6 (wallet US$60.24); no pods. TRAINING BLOCKED: Prime's
+     shared LoRA Hosted Training closed to new runs on 2026-10-08 (HTTP 403); dedicated access needs Prime support; the pilot
+     configs wait in environments/verify_gym/train/. Hub README is one version behind (model rows, readiness).
+     /claimbox/ republished from claimbox e006a0a (SOTA definitions; printed-digit reading of table scores accepted).
   ◆ 2026-10-31 — VERIFY GYM ON THE ENVIRONMENTS HUB (the operator: "Hub is toped, go"; Prime Intellect topped up ~US$60):
      publish v0 to carlos-toledo on the Hub, scorecard rows for 3–4 open-weights models via Prime inference, the readiness
      gate on Qwen3.5-9B, then a GRPO pilot on Hosted Training (2 runs), hard stop US$60, no RunPod, no model published;
