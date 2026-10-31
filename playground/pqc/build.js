@@ -79,6 +79,9 @@ if (!own) throw new Error('pqc: no published record for the reduced lattice (dim
 if (!APP.includes('The published record at this dimension is ' + best.norm + '.') || best.seed === R.seed) throw new Error('pqc: the app\'s caption no longer names the dimension\'s best on another seed; rewrite the note');
 if (Number(R.final.ratioLo) <= own.ratio) throw new Error('pqc: LLL reached the seed-' + R.seed + ' record; rewrite the note');
 
+/* THE PANEL IS A <section> INSIDE ITS <aside> (2026-10-30), so the reasons the panel's values carry (R22,
+   design/reasons.js) are said at the panel's end, beside them. With no section on the page the block went before
+   </main>, in the flow of a fixed viewport, and printed at the top left over the title. */
 const body = `
 <canvas id="stage"></canvas>
 
@@ -101,7 +104,7 @@ const body = `
 
 <button class="pt" id="panelToggle">controls</button>
 
-<aside class="panel">
+<aside class="panel"><section>
   <div class="grp">
     <span class="eyebrow">view</span>
     <div class="row-btns">
@@ -159,7 +162,7 @@ const body = `
   <div class="grp">
     <div class="note-sm">This folder audits. It does not propose a cryptosystem, a parameter set, or a variant of one, and it never will &mdash; that is written into its charter, not left to judgement.</div>
   </div>
-</aside>
+</section></aside>
 
 <script id="pqc-data" type="application/json">${JSON.stringify(D).replace(/</g, '\\u003c')}</script>
 <script>${THEME.CLIENT}</script>
