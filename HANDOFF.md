@@ -22,6 +22,14 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-30 night — OUTREACH on the operator's per-item yes: teorth/optimizationproblems#246 reply to maximusrufus
+     (issuecomment-6537863084; his 0c57070 checked exactly, never run; outreach.json row). X, one post each with an image
+     and the link in the body, no reply (the operator's new form): d03 kissing hours (chart from certs/kissing-wave.json,
+     28 decided configurations, 17 h, dim 45 = 9.1 h) x.com/_carlos_toledo_/status/2116360628843483483; d06 the human
+     bound (the K(11) figure, light) …/2116360637668323551; 07 the grammar (the √x hero, light) …/2116360646367289686.
+     STALE IN THE MENU, corrected: the Woett reply was POSTED 2026-10-06 and the N(6) note is DONE (0b17df38).
+     STILL QUEUED (each needs its own yes): X d02, d04, d05, d07, 05 Ramsey, 06 METR, 08 reruns, 09 Campos; speedrun SR008
+     (closes 11-01 23:59 PT, draft outreach/speedrun-sr008/, the operator's [YOU] facts); OEIS pack (by hand).
   ◆ 2026-10-30 night — /claimbox/ REPUBLISHED on the operator's word ("wait for claimbox to finish and send live") from
      claimbox 70e3691 (c32aa22c; live sha256 ab3a82c1… checked). A RECEIVER FINDING from claimbox (not yet acted on; its
      PLAN.md §9): the receiver took a record's word for an EinsteinArena platform score moved by 2,000,001 units of its last
