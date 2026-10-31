@@ -21,7 +21,16 @@
     const avail = W - panelW();
     PL = Math.max(150, Math.min(avail * 0.37, 470)); PR = avail - Math.max(50, avail * 0.05);
     PT = Math.max(116, H * 0.15); PB = H - Math.max(215, H * 0.29);
+    /* below 820 px the panel starts hidden and the chart is drawn across the screen the title stands on: it starts
+       right of the title when 320 px remain there, below it otherwise (2026-10-30) */
+    const T = W < 820 && document.querySelector('.ov-title');
+    if (T) {
+      const r = T.getBoundingClientRect();
+      if (avail - (r.right + 40) >= 320) PL = Math.max(PL, r.right + 40);
+      else { PL = 48; PT = Math.max(PT, r.bottom + 32); }
+    }
   }
+  if (document.fonts) document.fonts.ready.then(() => { layout(); draw(); });   /* the title's box moves once its face loads */
   /* every mark in the ink token, read through playground/design/theme.js, so the light theme draws ink on paper */
   const ink = a => window.WTHEME.rgba('--ink', a);
   const MONO = '9px ui-monospace,Menlo,monospace';

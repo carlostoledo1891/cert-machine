@@ -98,7 +98,10 @@ h1{margin:0;font-family:var(--font-sans);}
 .ov-transport{left:50%;transform:translateX(-50%);bottom:clamp(1rem,3vh,2rem);display:flex;align-items:center;gap:var(--s-3);
   background:color-mix(in srgb,var(--bg-raised) 86%,transparent);border:1px solid var(--border);
   border-radius:var(--radius-pill);padding:6px 12px;backdrop-filter:blur(14px);}
-.ov-transport input[type=range]{width:min(34vw,340px);accent-color:var(--ink-2);}
+/* the slider gives way before the bar reaches the foot or the controls button: the bar's fixed parts are 170px, and the
+   room between the foot (40ch from the left edge) and the button (beside the 330px panel) is 100vw - 860px, so from
+   1370px wide it is the old 340px; at 1280 it ran 33px into both (2026-10-30) */
+.ov-transport input[type=range]{width:clamp(96px,calc(100vw - 1030px),340px);accent-color:var(--ink-2);}
 .ov-transport .k{font-family:var(--font-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-5);}
 #play{width:30px;height:26px;padding:0;font-size:11px;font-family:var(--font-mono);background:transparent;
   border:1px solid var(--border-strong);color:var(--ink-3);border-radius:var(--radius-pill);cursor:pointer;}
@@ -160,6 +163,11 @@ ${GRAMMAR.css('.spk')}
   .ov-verdict{top:auto;bottom:calc(7.5rem + 90px);max-width:92vw;}
   .ov-why{width:94vw;bottom:5.2rem;}
   .ov-transport input[type=range]{width:44vw;}
+  /* the controls button stands above the transport bar's line (the bar is 40px: a 26px button, 14px of padding and
+     border; --s-7 is that and a gap) rather than beside its end, which it covered by 35px at 390 (2026-10-30) */
+  .pt{transform:translateY(calc(-1 * var(--s-7)));}
+  /* the opened panel is the whole width: its button stays on the screen (it stood 27px off the left edge at 390) */
+  body:not(.ov-panel-hidden) .pt{right:auto;left:var(--s-2);margin-right:0;}
   .ov-panel{width:100vw;padding-top:4.4rem;}
 }
 `;
