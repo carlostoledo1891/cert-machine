@@ -2038,7 +2038,7 @@ put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlost
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
-put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · an independent check for what AI systems claim', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
+put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · AI publishes faster than anyone can check', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
   desc: 'Graders that cannot be gamed and independent audits of AI-generated claims: re-decided from their own bytes, with code that shares nothing with the claimant, and returned as certified, refuted or refused.' })));
 put('apps/index.html', Buffer.from(TPL.render({ title: 'Apps', bodyRaw: appsBody, footRaw: appsFoot, path: '/apps/',
   desc: 'The decision products built on cert-machine: SkyAudit, Janela, Swell, Decidível, Contraprova and the Registro de Abatimento — pinned public data decided over a declared envelope, the certificate one click below the answer.' })));

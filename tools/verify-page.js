@@ -37,7 +37,9 @@ module.exports = function verifyPage(X) {
   /* a chart drawn twice: the desk's drawing and the phone's, swapped at the template's phone width by the css below */
   const dual = (wide, narrow) => '<div class="vw-w">\n' + wide + '\n</div><div class="vw-n">\n' + narrow + '\n</div>';
   const css = '/* /verify/ (tools/verify-page.js): every chart carries a second drawing at a phone\'s scale */\n'
-    + '.vw-n{display:none}\n@media (max-width:680px){.vw-w{display:none}.vw-n{display:block}}';
+    + '.vw-n{display:none}\n@media (max-width:680px){.vw-w{display:none}.vw-n{display:block}}\n'
+    /* the standing legend under the tolerance chart sat flush on the paragraph after it */
+    + '.col > .w-legend{margin-bottom:var(--s-4)}';
   /* bars with a legend: the legend's lines are counted before the drawing is sized, so a wrapped key is never cut */
   const barsH = (rows, rowH, keys, w, padL, padR) => rows * rowH + 61 + 19 * Math.max(1, CH.legendLines(keys, w - padL - padR));
 
@@ -61,6 +63,7 @@ module.exports = function verifyPage(X) {
   /* the record reads "Month-D-YYYY" off the folder's name; one folder is named in ISO form ("…-2026-09-24"), which the
      record leaves null, and its date is read off the same folder name here */
   const msDates = Orel.manuscripts.map((m) => msDate(m.date) || ((/-(\d{4}-\d{2}-\d{2})$/.exec(m.dir) || [])[1] || null));
+  const msFromDir = Orel.manuscripts.filter((m) => !msDate(m.date)).length;   /* said in the caption, in words */
   const oDays = [...new Set(msDates)].sort();
   const oCum = oDays.map((d) => msDates.filter((x) => x <= d).length);
   const oOn = oDays.map((d) => msDates.filter((x) => x === d).length);
@@ -148,7 +151,9 @@ module.exports = function verifyPage(X) {
       + W.value(fmt(oOn[oPeak]), W.DECIDED, { derived: OREL + '#/manuscripts', title: 'decided — the manuscripts whose folder carries that one date, counted' })
       + ' of them dated ' + C.esc(oDays[oPeak]) + ', and marks its own formal review “' + C.esc(Orel.stated.review) + '”. Checking runs at another pace: since ' + C.esc(days[0]) + ' this machine has decided '
       + W.val({ rec: { path: REG, ptr: '/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the register’s count of decided rows' })
-      + ' published claims, one at a time, from DeepMind, OpenAI, agent platforms and AI-assisted manuscripts. Each step is an exact count. '
+      + ' published claims, one at a time, from DeepMind, OpenAI, agent platforms and AI-assisted manuscripts. Each step is an exact count'
+      + (msFromDir === 1 ? '; the one manuscript the release record leaves undated takes its date from its folder’s name. '
+        : msFromDir ? '; the ' + numword(msFromDir) + ' manuscripts the release record leaves undated take their dates from their folders’ names. ' : '. ')
       + W.witness('a counterexample exhibited by the claim’s own record') + ' is a counterexample on the claim’s own record: '
       + W.value(fmt(hmOut), W.DECIDED, { derived: HM + '#/rows[id=' + hmRec.id + ']/points', title: 'decided — the pairs its own certificate uses that the record places outside R' })
       + ' pairs of the certificate behind a published Ramsey bound fall outside the region the bound needs. Hover a day for its counts.'
@@ -224,7 +229,7 @@ module.exports = function verifyPage(X) {
   const gTicks = [0, 100, 200].map((v) => ({ v, t: String(v) }));
   const ostSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(2, 40, short ? GKEYS_N : GKEYS, w, padL, padR), rowH: 40, max: S.counts.families, padL, padR, rows: gRows(short),
     xTicks: gTicks, xLabel: 'formalized families', keys: short ? GKEYS_N : GKEYS, alt: OST_ALT });
-  const ostFig = C.figure({ svgRaw: dual(ostSvg(860, 200, 70, false), ostSvg(320, 84, 20, true)), record: OST, stop: OST_STOP,
+  const ostFig = C.figure({ svgRaw: dual(ostSvg(860, 200, 70, false), ostSvg(320, 100, 20, true)), record: OST, stop: OST_STOP,
     captionRaw: 'A proof checker verifies the statement it is handed; nobody checked the statement against the claim. Read clause by clause, '
       + W.value(fmt(sShort) + ' of ' + fmt(S.counts.families), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'], title: READ })
       + ' of OpenAI’s formalized families prove a different or weaker theorem than their headline, with nothing in the release saying so, while the proofs themselves pass a second kernel. Each group is a reading, kept apart from what was decided.' });
@@ -250,17 +255,17 @@ module.exports = function verifyPage(X) {
 
   /* ---- BELOW: the schema --------------------------------------------------------------------------------------- */
   const nodes = [
-    { id: 'claim', x: 20, y: 20, w: 260, h: 64, role: 'dep', k: '1 · THE CLAIM', v: 'a published claim, its bytes',
+    { id: 'claim', x: 20, y: 20, w: 260, h: 64, role: 'dep', p: '1 · The claim.', k: '1 · THE CLAIM', v: 'a published claim, its bytes',
       t: 'the claim', d: 'What a model, a paper or a leaderboard said, with the files behind it: a configuration, a table, a proof, an answer. Each file is pinned by its SHA-256 before anything is read, so the verdict names exactly what it decided.' },
-    { id: 'stated', x: 320, y: 20, w: 260, h: 64, role: 'held', k: '2 · STATED', v: 'claimbox: words → an object',
+    { id: 'stated', x: 320, y: 20, w: 260, h: 64, role: 'held', p: '2 · Stated.', k: '2 · STATED', v: 'claimbox: words → an object',
       t: 'stated', d: 'claimbox turns the claim’s words into an object a machine can check, prints it back in plain words, and refuses what does not come down to finitely many exact facts, naming why. A statement is read against the claim before anything is decided, and the reading is kept apart from the decision.' },
-    { id: 'decided', x: 320, y: 160, w: 260, h: 64, role: 'sig', k: '3 · DECIDED', v: 'exact; no code of yours runs',
+    { id: 'decided', x: 320, y: 160, w: 260, h: 64, role: 'sig', p: '3 · Decided.', k: '3 · DECIDED', v: 'exact; no code of yours runs',
       t: 'decided', d: 'Exact rational arithmetic, interval enclosures rounded outward, or a second proof kernel, in code written apart from the claimant’s. No floating-point number takes part in a decision, and the decider is attacked with planted forgeries before it is trusted.' },
-    { id: 'cert', x: 20, y: 160, w: 260, h: 64, role: 'sig', k: '4 · THE CERTIFICATE', v: 'CERTIFIED · REFUTED · REFUSED',
+    { id: 'cert', x: 20, y: 160, w: 260, h: 64, role: 'sig', p: '4 · The certificate.', k: '4 · THE CERTIFICATE', v: 'CERTIFIED · REFUTED · REFUSED',
       t: 'the certificate', d: 'One of three words. CERTIFIED, with a falsifier that would break it. REFUTED, with the object that breaks the claim. REFUSED, with the reason and what would make it decidable. Each re-runs with one command, without this engine.' },
-    { id: 'audit', x: 20, y: 306, w: 260, h: 64, role: 'warn', k: 'AN AUDIT · FOR LABS', v: 'the report, gaps listed first',
+    { id: 'audit', x: 20, y: 306, w: 260, h: 64, role: 'warn', p: 'An audit.', k: 'AN AUDIT · FOR LABS', v: 'the report, gaps listed first',
       t: 'an audit', d: 'For labs, AI-for-science companies and registries: a published claim goes in at step 1, and a report comes out listing every gap first, then every finite part decided, every formal statement read against the claim.' },
-    { id: 'grader', x: 320, y: 306, w: 260, h: 64, role: 'warn', k: 'A GRADER · FOR RL TEAMS', v: 'the reward is the certificate',
+    { id: 'grader', x: 320, y: 306, w: 260, h: 64, role: 'warn', p: 'A grader.', k: 'A GRADER · FOR RL TEAMS', v: 'the reward is the certificate',
       t: 'a grader', d: 'For RL and evaluation teams: a task family is stated once at step 2, then every model answer is decided at step 3 and the certificate is the reward. It must refuse planted wrong answers before it grades anything, so a policy cannot learn to fool it.' },
   ];
   const edges = [
@@ -270,10 +275,17 @@ module.exports = function verifyPage(X) {
     { d: 'M150 226 L150 304', lab: 'per claim', lx: 140, ly: 270, anchor: 'end' },
     { d: 'M190 226 C190 268 450 262 450 304', lab: 'per answer', lx: 462, ly: 270, anchor: 'start' },
   ];
-  const schema = C.flow({ w: 600, h: 392, nodes, edges, source: 'built: a diagram of the four steps and the two offers this page describes; it carries no number',
+  /* a phone does not get the drawing at half scale (the 600-wide schematic read at ~0.5x on a 390 px screen): it gets
+     the same steps as a list, each with what the drawing's readout says on click, shown inline. Not a second flow():
+     the schematic is the page's one interactive figure and its ids and script are bound once. `p` is the step's name
+     in that list; the drawing ignores it. */
+  const SCHEMA_CAP = 'The product in four steps. An audit is the whole path for one published claim; a grader states a task family once and runs steps 3 and 4 on every answer a model gives.';
+  const schemaPhone = '<div class="col">' + C.p(SCHEMA_CAP) + C.plainList(nodes.map((n) => ({ b: n.p, text: n.d }))) + '</div>';
+  const schemaFlow = C.flow({ w: 600, h: 392, nodes, edges, source: 'built: a diagram of the four steps and the two offers this page describes; it carries no number',
     alt: 'A schema of Verify in four steps: a published claim and its bytes are stated as an object by claimbox, decided exactly by code that shares nothing with the claimant, and returned as a certificate (certified, refuted or refused). The certificate feeds two offers: an audit report per claim, for labs, and a reward per answer, for RL teams.',
     readout: { k: 'a claim, decided', d: 'Select a step for what it does and why it can be trusted.' },
-    caption: 'The product in four steps. An audit is the whole path for one published claim; a grader states a task family once and runs steps 3 and 4 on every answer a model gives.' });
+    caption: SCHEMA_CAP });
+  const schema = dual(schemaFlow, schemaPhone);
 
   /* ---- BELOW: graders, what a tolerance admits (the envs record, drawn as /reports/envs.html draws it) ---------- */
   const encl = E.graders.find((g) => /enclosure/.test(g.name)), absT = E.graders.find((g) => /absolute/.test(g.name));
@@ -290,12 +302,13 @@ module.exports = function verifyPage(X) {
     yTicks: [0, 25, 50, 75, 100].map((v) => ({ v, t: String(v) })),
     xTicks: (short ? [1e-15, 1e-9, 1e-3] : [1e-15, 1e-12, 1e-9, 1e-6, 1e-3]).map((v) => ({ v, t: tolWord(v) })),
     alt: ENV_ALT,
-    hlines: [{ y: 0, token: 'var(--ink)', t: short ? undefined : 'certificate grader: 0 at every tolerance' }],
+    /* the certificate grader's line is named in the legend at both widths: a label on the line itself sat on the dots at 0 */
+    hlines: [{ y: 0, token: 'var(--ink)' }],
     curves: ser.map(([, g]) => ({ pts: tols.map((t) => [t, 100 * (g.falseAcceptByTolerance[String(t)] || 0)]), standing: W.CHOSEN })),
     pts: [].concat(...ser.map(([n, g, tok]) => tols.map((t) => ({ x: t, y: 100 * (g.falseAcceptByTolerance[String(t)] || 0), token: tok,
       k: n + ' · tolerance ' + tolWord(t), v: pctS(g.falseAcceptByTolerance[String(t)] || 0) + ' of the provably wrong answers minted at that tolerance admitted' })))),
     keys: ser.map(([n, , tok]) => ({ token: tok, t: short ? n.replace('exact match of a decimal', 'exact decimal match') : n }))
-      .concat(short ? [{ token: 'var(--ink)', kind: 'line', t: 'certificate grader: 0 at every tolerance' }] : [])
+      .concat([{ token: 'var(--ink)', kind: 'line', t: short ? 'certificate grader: always 0' : 'certificate grader: 0 at every tolerance' }])
   });
   const envFig = C.figure({ svgRaw: dual(envSvg(false), envSvg(true)), record: ENV, stop: ENV_STOP,
     captionRaw: 'Answers minted wrong from certificates, each outside a proved enclosure and inside the grader’s tolerance. Tightening the tolerance by '
