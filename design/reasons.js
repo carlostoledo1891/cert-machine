@@ -12,7 +12,12 @@
    standing's own word comes first, so the line reads as the value would be read aloud: "computed — a wall-clock
    time on the rented machine: measured, not decided".
 
-   Idempotent: a section that already ends with its reasons block is not given a second one.             MIT */
+   Idempotent: a section that already ends with its reasons block is not given a second one.
+
+   ONE BLOCK FOR THE PAGE (2026-10-31, the operator, for /verify/): a page may say every reason once, at its end,
+   instead of after each section: its builder calls pageReasons(body) and places the block it returns; the block
+   carries data-all, and deriveReasons leaves a page that holds one alone. The rows are the same rows, by the same test.
+                                                                                                         MIT */
 'use strict';
 
 const ENT = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'", '&rsquo;': '’', '&lsquo;': '‘', '&ldquo;': '“', '&rdquo;': '”', '&nbsp;': ' ' };
@@ -48,9 +53,16 @@ function hiddenRows(markup, seen) {
 }
 const block = (rows) => '<div class="w-why"><div class="k">why these numbers stand as they do</div><ul>' + rows.join('') + '</ul></div>';
 
+/* every hidden reason in a page's markup, as one block for its end (data-all), or '' when there is none */
+function pageReasons(markup) {
+  const rows = hiddenRows(markup, visibleText(markup));
+  return rows.length ? block(rows).replace('<div class="w-why">', '<div class="w-why" data-all>') : '';
+}
+
 function deriveReasons(html) {
   const page = String(html);
   if (!/class="[^"]*\bw-val\b[^"]*"[^>]*\btitle="/.test(page)) return page;
+  if (/<div class="w-why" data-all>/.test(page)) return page;
   const seen = visibleText(page);
   const out = page.replace(/<section\b[^>]*>[\s\S]*?<\/section>/g, (sec) => {
     if (/<div class="w-why"/.test(sec)) return sec;
@@ -93,4 +105,4 @@ function deriveReasons(html) {
   return out.slice(0, at) + pb + out.slice(at);
 }
 
-module.exports = { deriveReasons, reasonOf, visibleText };
+module.exports = { deriveReasons, pageReasons, reasonOf, visibleText };
