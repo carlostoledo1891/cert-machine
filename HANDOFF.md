@@ -27,7 +27,8 @@ NEXT SESSION, IN ORDER:
      and the link in the body, no reply (the operator's new form): d03 kissing hours (chart from certs/kissing-wave.json,
      28 decided configurations, 17 h, dim 45 = 9.1 h) x.com/_carlos_toledo_/status/2116360628843483483; d06 the human
      bound (the K(11) figure, light) …/2116360637668323551; 07 the grammar (the √x hero, light) …/2116360646367289686.
-     STALE IN THE MENU, corrected: the Woett reply was POSTED 2026-10-06 and the N(6) note is DONE (0b17df38).
+     RULED (the operator): NO line about AI/Claude on X posts from now on (d03/d06 went out with it; the queued drafts
+     carry none). STALE IN THE MENU, corrected: the Woett reply was POSTED 2026-10-06 and the N(6) note is DONE (0b17df38).
      STILL QUEUED (each needs its own yes): X d02, d04, d05, d07, 05 Ramsey, 06 METR, 08 reruns, 09 Campos; speedrun SR008
      (closes 11-01 23:59 PT, draft outreach/speedrun-sr008/, the operator's [YOU] facts); OEIS pack (by hand).
   ◆ 2026-10-30 night — /claimbox/ REPUBLISHED on the operator's word ("wait for claimbox to finish and send live") from
