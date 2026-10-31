@@ -204,3 +204,11 @@ Any change after this commit is recorded here, dated, with its reason.
    MALFORMED as their expected verdict where the moved numerator would reach the limit. The xx comparison is
    memoised; it is pure, and the word is unchanged. The reward, the families, the held-out set and the readings
    are unchanged.
+
+2. **2026-10-31, the re-check and the readiness gate built (recheck.py, readiness.py): nothing above changed.**
+   Three details the text left open are now fixed in code, and no score on any model exists. The "100 tasks from
+   the val stream" are the first 100 of the validation rotation (xx/val/0, kroot/val/0, poly/val/0, xx/val/1, …),
+   the order the CLI and the v0 adapter already used. The two GO bounds are inclusive and are decided in exact
+   rationals. A reply the caller truncates is paid 0 in the readiness run too, as it already was for model rows.
+   The rollout log a trainer writes is defined in verify_gym/rollouts.py. A logged reward is read as
+   reward × cap, which must be within 10^-6 of an integer, so that a float32 store of k/20 still reads as k.
