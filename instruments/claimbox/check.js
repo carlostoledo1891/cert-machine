@@ -361,6 +361,19 @@ const REL_WORD = { '<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', 
 // is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
 const STATED_BAR = /(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)/g;
 const STATED_REL = Object.assign({}, REL_WORD, { is: 'eq' });
+// the box a valueless row decided when its claim is agreement within the platform's resolution (a row carrying
+// decision.agreement and minImprovement, tools/run-mc100-einstein.js agreement()): [bar - t, bar + t], t the row's minImprovement
+// as the decimal it prints when nonzero, else 10^-12 · max(1, |bar|) — the decider's rule, exactly; null for any other row
+// (2026-10-30, the operator: hold the box to the row)
+function agreementBox(row, bar) {
+  const dec = row.decision, mi = row.minImprovement;
+  const isObj = (x) => x && typeof x === 'object' && !Array.isArray(x) && !isNum(x);
+  if (!isObj(dec) || !isObj(dec.agreement)) return null;
+  if (!isNum(mi) || mi.text.startsWith('-')) throw new Refuse('record-decision-mismatch', 'the row decided agreement within the platform\'s resolution but carries no minImprovement to read it from');
+  const m = Q.fromDecimal(mi.text);
+  const t = m.n > 0n ? m : new Q(1n, 10n ** 12n).mul(bar.abs().cmp(Z(1)) > 0 ? bar.abs() : Z(1));
+  return [bar.sub(t), bar.add(t)];
+}
 
 function decide(value, rel, c) {
   const [C, R, F] = WORDS;
@@ -655,6 +668,15 @@ function checkObj(o, root = ROOT) {
           const mine = p.printed !== null ? Q.fromDecimal(p.printed) : p.c;
           if (STATED_REL[srel] !== (p.rel === 'in' || p.rel === 'eq' ? 'eq' : p.rel) || !Q.fromDecimal(sbar).eq(mine))
             throw new Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p.rel + ' ' + (p.printed !== null ? p.printed : p.c.toString()) + ': the record\'s word is for another claim');
+          const rowBox = agreementBox(row, Q.fromDecimal(sbar));
+          if (rowBox && (p.rel === 'in' || p.rel === 'eq')) {
+            // the row decided agreement within the platform's resolution: certify only what it checked
+            const [olo, ohi] = p.rel === 'in' ? p.c : [p.c, p.c];
+            const [blo, bhi] = rowBox;
+            const wider = olo.cmp(blo) <= 0 && ohi.cmp(bhi) >= 0, inside = olo.cmp(blo) >= 0 && ohi.cmp(bhi) <= 0;
+            if ((rv === WORDS[0] && !wider) || (rv === WORDS[1] && !inside))
+              throw new Refuse('record-decision-mismatch', 'the record decided agreement with ' + sbar + ' within ' + bhi.sub(Q.fromDecimal(sbar)).toString() + ' ([' + blo + ', ' + bhi + ']); the object\'s box [' + olo + ', ' + ohi + '] is ' + (rv === WORDS[0] ? 'narrower' : 'wider') + ': the row did not check it');
+          }
           decided.push(rv);
         }
       });

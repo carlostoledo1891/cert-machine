@@ -32,8 +32,11 @@ NEXT SESSION, IN ORDER:
      last relation or "is" + number, same bar, same relation), else REFUSED record-decision-mismatch — check.py, check.js,
      SCHEMA.md, battery §8 (the forgery CERTIFIED on main, now refused by both checkers and the SMT export). Pinned files
      changed: check.py, check.js, SCHEMA.md (the ten objects and certs/claims-ledger.json unchanged): `make lift` in claimbox.
-     OPEN for the operator: an `in` decided by a valueless EA row states the half-unit box, the row decided agreement
-     within the platform's resolution (first-autocorrelation: 1.26e-16 from the print, half-unit 5e-17).
+     RULED + FIXED ("hold the box to the row", branch lane-receiver-row-box): an `in`/`eq` decided by a valueless row that
+     decided agreement within the platform's resolution is held to [S - t, S + t] (t = minImprovement, else 1e-12 relative):
+     narrower under CERTIFIED (wider under REFUTED) is REFUSED record-decision-mismatch. First-autocorrelation's half-unit box,
+     CERTIFIED on main, now refused by both checkers + SMT. claimbox's writer must carry the problems.json `box` block on
+     its 10 EA recorded-route objects (table in the lane report); then `make lift` in claimbox (check.py, check.js, SCHEMA.md).
      lane-overlaps (approved): pqc @1440 and navier-stokes at 900 px tall (the card hides below 960, ACCEPTED), and the
      older small-screen overlaps (approved) — DONE AND LIVE: pqc/interferometer panels closed by default below 820 px,
      navier-stokes' slider narrows at 1280 and its button sits above the bar on phones (pqc-app.js layout() patched,

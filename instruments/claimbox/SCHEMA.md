@@ -88,6 +88,18 @@ an EinsteinArena row of `certs/mc100-einstein-arena.json` carries no value, and 
 checkers; it is now refused by both and by the SMT export (the battery's section 8, with the record's own claim admitted
 beside it). A record that carries a value is unchanged: the value is re-decided against the object's bar, as before.
 
+**The box held to the row (2026-10-30, the operator's ruling).** A row whose claim is agreement within the platform's
+resolution — it carries `decision.agreement` and `minImprovement`, the rule of `tools/run-mc100-einstein.js` `agreement()` —
+decided that the exact objective lies in [S − t, S + t], S the bar its claim states and t its `minImprovement` (the decimal the
+number prints) when nonzero, else 10⁻¹²·max(1, |S|). An `in` or `eq` predicate decided by that row's word alone is held to that
+box: under CERTIFIED the object's box must contain it, under REFUTED lie inside it (the word follows only in that direction);
+else `record-decision-mismatch` — certify only what the row checked. A row deciding agreement with no `minImprovement` is
+refused the same way. The half-unit box of the printed digits is narrower than the row's box whenever half a unit of the last digit is below t
+(every EinsteinArena row whose print is not an integer), so a claim over a platform score read from the recorded route carries a `box` block (above) quoting the platform's
+resolution from `corpus/einstein-arena/problems.json`: its half-width is then exactly t. Found on the row
+ea-best-first-autocorrelation-inequality: its exact objective is 1.26·10⁻¹⁶ from the print, outside the half-unit box
+(5·10⁻¹⁷), inside the row's (10⁻⁸); the half-unit object was certified by both checkers and is now refused (battery §8).
+
 **Decisions the checker makes.** From the record's exact value or enclosure it re-decides each inequality
 against the object's bar with the one predicate of `instruments/verdict.js` (written once more here in
 Python, and held to the module's by the battery's 600-case concord), composes the words (REFUTED if any,
