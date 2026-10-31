@@ -14,9 +14,12 @@ at read time, and printed on the page.
 
 The code in this repository is MIT. **These files are not, and MIT does not
 apply to them.** They are redistributed here under the EHT Collaboration's own
-release terms, which require citation of the release and the associated
-publications. Consult the release page for the authoritative terms — they
-govern, not this file:
+release terms: the release's LICENSE.txt dedicates the data files to the public
+domain under the ODC Public Domain Dedication and Licence (ODC-PDDL), and its
+scripts are GPLv3. Citation of the release and the associated publications is
+the Collaboration's request, not a licence condition; we honour it. Consult the
+release for the authoritative terms (corrected 2026-10-31: this file used to say
+the terms require citation) — they govern, not this file:
 
   https://eventhorizontelescope.org/for-astronomers/data
 
