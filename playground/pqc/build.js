@@ -79,6 +79,9 @@ if (!own) throw new Error('pqc: no published record for the reduced lattice (dim
 if (!APP.includes('The published record at this dimension is ' + best.norm + '.') || best.seed === R.seed) throw new Error('pqc: the app\'s caption no longer names the dimension\'s best on another seed; rewrite the note');
 if (Number(R.final.ratioLo) <= own.ratio) throw new Error('pqc: LLL reached the seed-' + R.seed + ' record; rewrite the note');
 
+/* THE PANEL IS A <section> INSIDE ITS <aside> (2026-10-30), so the reasons the panel's values carry (R22,
+   design/reasons.js) are said at the panel's end, beside them. With no section on the page the block went before
+   </main>, in the flow of a fixed viewport, and printed at the top left over the title. */
 const body = `
 <canvas id="stage"></canvas>
 
@@ -101,7 +104,7 @@ const body = `
 
 <button class="pt" id="panelToggle">controls</button>
 
-<aside class="panel">
+<aside class="panel"><section>
   <div class="grp">
     <span class="eyebrow">view</span>
     <div class="row-btns">
@@ -159,10 +162,11 @@ const body = `
   <div class="grp">
     <div class="note-sm">This folder audits. It does not propose a cryptosystem, a parameter set, or a variant of one, and it never will &mdash; that is written into its charter, not left to judgement.</div>
   </div>
-</aside>
+</section></aside>
 
 <script id="pqc-data" type="application/json">${JSON.stringify(D).replace(/</g, '\\u003c')}</script>
 <script>${THEME.CLIENT}</script>
+<script>if (innerWidth < 820) document.body.classList.add('panel-hidden');   /* the panel starts hidden on a phone or a tablet (see the css) */</script>
 <script>${APP}</script>`;
 
 function build(OUTDIR) {
@@ -182,7 +186,14 @@ function build(OUTDIR) {
 /* the site nav floats over a full-viewport instrument, as on /instruments/interferometer */
 .topnav { background: linear-gradient(var(--bg), rgba(10,10,12,0)); border: 0; -webkit-backdrop-filter: none; backdrop-filter: none; }
 body { padding-top: 0; }
-.note-sm b { color: var(--ink-2); font-weight: 500; }`,
+.note-sm b { color: var(--ink-2); font-weight: 500; }
+/* PHONES AND TABLETS (2026-10-30, the operator: closed by default on phones and tablets). Below 820 px the panel opened
+   over the title and the readouts; it now starts hidden there (the script before the app), as on /instruments/rewire
+   and /instruments/navier-stokes, and the controls button opens it. Hidden, it fades where it stands rather than
+   sliding out: a translated box outside the viewport widens <main>. On a phone the source line keeps clear of the
+   controls button, as on rewire, and an opened panel keeps its button on the screen (it stood 27px off the left edge). */
+body.panel-hidden .panel { transform: none; opacity: 0; visibility: hidden; pointer-events: none; }
+@media (max-width: 760px) { .ov-foot .src { padding-right: var(--s-10); } body:not(.panel-hidden) .pt { right: auto; left: var(--s-2); margin-right: 0; } }`,
     body: `<main>${body}</main>`,
   });
   fs.writeFileSync(path.join(dir, 'index.html'), html);

@@ -195,7 +195,15 @@ function build(OUT) {
     title: 'Not the picture — the set of pictures · instruments',
     desc: 'Every sky the Event Horizon Telescope data allow for M87, drawn at once: agreement as ink, disagreement as texture.',
     path: '/instruments/interferometer/', body,
-    css: `${CSS}`, script: `<script>${THEME.CLIENT}</script>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
+    /* PHONES AND TABLETS (2026-10-30, the operator: closed by default on phones and tablets). Below 820 px the panel
+       opened over the title and the readouts; it now starts hidden there (the script before the app), as on
+       /instruments/rewire and /instruments/navier-stokes, and the controls button opens it. Hidden, it fades where it
+       stands rather than sliding out: a translated box outside the viewport widens <main>. On a phone the source line
+       keeps clear of the controls button, as on rewire, and an opened panel keeps its button on the screen (it stood 27px off
+       the left edge). */
+    css: `${CSS}
+body.ov-panel-hidden .ov-panel { transform: none; opacity: 0; visibility: hidden; pointer-events: none; }
+@media (max-width: 760px) { .ov-foot .src { padding-right: var(--s-10); } body:not(.ov-panel-hidden) .pt { right: auto; left: var(--s-2); margin-right: 0; } }`, script: `<script>${THEME.CLIENT}</script>\n<script>if (innerWidth < 820) document.body.classList.add('ov-panel-hidden');   /* the panel starts hidden on a phone or a tablet (see the css) */</script>\n<script>${APP}</script>\n<script>(function(){document.getElementById('aboutOpen').onclick=function(){document.body.classList.add('sheet-open');};document.getElementById('aboutClose').onclick=function(){document.body.classList.remove('sheet-open');};document.addEventListener('keydown',function(e){if(e.key==='Escape')document.body.classList.remove('sheet-open');});})();</script>`,
   });
   const dir = path.join(OUT, 'interferometer');
   fs.mkdirSync(dir, { recursive: true });

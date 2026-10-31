@@ -731,6 +731,8 @@ body.sheet-open .sheet { opacity: 1; visibility: visible; }
    a phone the title does too, as a document page's header does (body: above any page's own panel padding) */
 body .ov-panel, body .panel { padding-top: calc(var(--nav-h) + var(--s-3) + var(--s-7)); }
 @media (max-width: 680px) { body .ov-title { top: calc(var(--nav-h) + var(--s-3) + var(--s-7)); } }
+body.ov-panel-hidden .ov-panel { transform: none; opacity: 0; visibility: hidden; pointer-events: none; }
+@media (max-width: 760px) { .ov-foot .src { padding-right: var(--s-10); } body:not(.ov-panel-hidden) .pt { right: auto; left: var(--s-2); margin-right: 0; } }
 /* @site-util */
 
 /* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
@@ -961,6 +963,7 @@ body .ov-panel, body .panel { padding-top: calc(var(--nav-h) + var(--s-3) + var(
     on: function (f) { fns.push(f); }
   };
 })();</script>
+<script>if (innerWidth < 820) document.body.classList.add('ov-panel-hidden');   /* the panel starts hidden on a phone or a tablet (see the css) */</script>
 <script>/* interferometer-app.js — the drawing half.  Inlined into
    site/interferometer/index.html by tools/build-interferometer.js.
 
