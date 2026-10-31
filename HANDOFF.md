@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — X REPLY POSTED BY THE OPERATOR to @wyatt_benno (x.com/wyatt_benno/status/2116532090128752776, "formal
+     verification … airplane mode"): Verify as the offline, model-free checker + the statement gap (34 of 242); text in
+     notes/x/reply-wyatt-benno-2026-10-31.txt; /verify/ now has its own share card (design/assets/og-verify.png, og:image).
+     The landing links /verify/ with one line (the operator: "Landing, one line"); EHT licence wording corrected; dReal
+     re-run 41216848783 recorded (same totals); the self-audit amendment KEPT (the operator).
   ◆ 2026-10-31 — /VERIFY/ v3 LIVE (the operator: "Proceed all"): H1 "AI now publishes faster than anyone can check. Verify
      checks it."; the hero contrasts OpenAI's release (719 manuscripts by date, review "unchecked") with the register's 131
      decided; the self-audit chart first among three proof points; OpenAI statements in two groups (208 vs 34, the six-way
