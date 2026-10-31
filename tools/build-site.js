@@ -1931,6 +1931,82 @@ const appsBody = [
 ].join('\n\n');
 const appsFoot = '<p>Built by tools/build-site.js from the heads the app builds wrote, at git ' + git + '. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
 
+/* ---- /verify/ — the product face (the operator, 2026-10-31: "Verify is the name, build it") ------------------------
+   Two offers on the instruments that exist, and a way to start a pilot. Every number is the landing's own (tolAdmit,
+   asterisksOff, externalReruns) or read here from its record, so the product page and the evidence cannot disagree.
+   The folder already serves the standard-library verifiers (verify/verify_*.py); the page sits beside them. */
+const PILOT = GITHUB + '/issues/new?template=pilot.yml';
+const vOpenai = (() => {
+  const S = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'openai-math-statements.json'), 'utf8'));
+  const short = (S.counts.words.DIFFERENT || 0) + (S.counts.words['NARROWER — UNDECLARED'] || 0);
+  guard('/verify/ says a share of OpenAI\'s formalized families state less than their headline; the statements record no longer counts one',
+    short > 0 && S.rows.length === S.counts.families);
+  return { short, n: S.rows.length };
+})();
+const vMut = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'selfaudit-mutations.json'), 'utf8')).all;
+guard('/verify/ says no planted forgery was certified; the self-audit record counts a false certification', vMut.falseCertifications === 0 && vMut.mutants > 0);
+const vReruns = { n: externalReruns.length };
+guard('/verify/ says most outside re-derivations used their own code; the reruns record says otherwise', rerunsOwn * 2 > externalReruns.length);
+const verifyBody = [
+  C.header({
+    eyebrow: 'cert-machine · verify',
+    title: 'Verify: an independent check for what AI systems claim',
+    deck: 'AI systems now produce results faster than anyone can check them, and the usual checks have two blind spots. '
+      + 'A grader that compares decimals admits answers that are provably wrong. A proof checker verifies whatever statement '
+      + 'it is handed, and nobody checks that statement against the claim. Verify re-decides a claim from its own bytes, '
+      + 'with code that shares nothing with yours, and returns one of three words: CERTIFIED, REFUTED with the object that '
+      + 'breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.'
+  }),
+  C.pRaw('<a href="' + C.escAttr(PILOT) + '">Request a pilot →</a> · <a href="#offers">The two offers →</a> · <a href="../machine/">How a claim is decided →</a>'),
+  C.section({
+    lab: 'the offers', title: 'Two ways to use it', id: 'offers',
+    bodyRaw: C.plainList([
+      { b: 'Graders that cannot be gamed, for RL and evaluation teams.',
+        raw: 'You send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a '
+          + 'certificate, in code you run, that must refuse a set of planted wrong answers before it grades anything. On the '
+          + 'mix measured here, an absolute-tolerance grader admitted ' + tolPct + ' of ' + fmt(tolAdmit.n) + ' provably wrong '
+          + 'answers; a certificate grader admitted none and rejected nothing right (<a href="../reports/envs.html">the measurement</a>). '
+          + 'Three environments built this way run on Prime Intellect’s Environments Hub: lattice-claims, blind-spot and break-the-grader.' },
+      { b: 'Independent audits, for labs, AI-for-science companies and registries.',
+        raw: 'You send a claim as published, with its bytes. You get each finite part decided in exact arithmetic or by a second, '
+          + 'independent proof kernel; what each formal statement says, read against the claim and kept apart from what was '
+          + 'decided; and the gaps listed first. Before or after publication; the pilot’s terms say when the report is published.' }
+    ])
+  }),
+  C.section({
+    lab: 'the evidence', title: 'What it has already caught',
+    bodyRaw: C.stats([
+      { k: 'of OpenAI’s formalized families state less than their headline', v: vOpenai.short + ' of ' + vOpenai.n,
+        nRaw: 'a different or weaker theorem than the headline, with nothing in the release saying so; the proofs themselves passed a second, independent kernel · <a href="../reports/openai-math.html">the audit</a>' },
+      { k: 'asterisks removed from a registry on these replays', v: String(asterisksOff),
+        nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), which cites the replays · <a href="../reports/optimization-constants.html">the replays</a>' },
+      { k: 'planted forgeries certified', v: '0 of ' + fmt(vMut.mutants),
+        nRaw: 'the verifier is attacked before it is trusted: a pre-registered self-audit with exact witnesses · <a href="../reports/selfaudit.html">the self-audit</a>' },
+      { k: 'outside re-derivations, no disagreement', v: String(vReruns.n),
+        nRaw: 'by people with no connection to this work, most with their own code · <a href="../reports/rerun.html">the rerun kit</a>' }
+    ]) + C.pRaw('A claimant’s own words, after an audit: “' + C.esc(OUTSIDE.plain(qiushi.quote)) + '” (' + C.esc(qiushi.who) + ').')
+  }),
+  C.section({
+    lab: 'the limits', title: 'What it refuses',
+    bodyRaw: C.plainList([
+      { b: 'Claims that do not come down to finitely many exact facts.', text: 'An asymptotic statement, a “for all n”, or a proof written in prose is refused with the reason, and the refusal says what would make it decidable.' },
+      { b: 'Your code.', text: 'Nothing a claimant wrote is run. The decision comes from code written apart from it, so a bug cannot certify itself.' },
+      { b: 'Meaning, passed off as a decision.', text: 'A kernel cannot say what a statement means. Where a verdict rests on reading a statement, the report says so and keeps the reading apart from what was decided.' },
+      { b: 'A verdict it cannot back.', text: 'Absence of proof is never turned into CERTIFIED or REFUTED. Not peer-reviewed; every page ships its own falsifiers.' }
+    ])
+  }),
+  C.section({
+    lab: 'a pilot', title: 'How a pilot starts',
+    bodyRaw: C.plainList([
+      { b: '1. Open a request.', raw: 'The <a href="' + C.escAttr(PILOT) + '">pilot form</a> asks what you want checked and where it is published. The form is public; if the claim is not, say so and leave only how to reach you.' },
+      { b: '2. Scope before work.', text: 'Before anything is run, you get the list of what can be decided, what will be read, and what will be refused, and why.' },
+      { b: '3. The certificate.', text: 'Each verdict comes with its certificate and a one-line command that re-derives it without this engine.' }
+    ])
+  })
+].join('\n\n');
+const verifyFoot = '<p>Built by tools/build-site.js from certs/envs-record.json, certs/openai-math-statements.json, certs/selfaudit-mutations.json, '
+  + 'corpus/external-reruns.json, corpus/recognition.json and the registry snapshots in corpus/optconst-queue/. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
+
 /* ---- assemble site/ — INCREMENTAL SYNC ----------------------------------
    Operator rulings (2026-08-27): every PAGE lives under /reports (plus the
    landing and /machine/); /research/ carries ONLY raw artifact files that
@@ -2009,6 +2085,8 @@ put('robots.txt', Buffer.from('User-agent: *\nAllow: /\nSitemap: https://carlost
 put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: methodBody, footRaw: methodFoot, path: '/machine/',
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
+put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · an independent check for what AI systems claim', bodyRaw: verifyBody, footRaw: verifyFoot, path: '/verify/',
+  desc: 'Graders that cannot be gamed and independent audits of AI-generated claims: re-decided from their own bytes, with code that shares nothing with the claimant, and returned as certified, refuted or refused.' })));
 put('apps/index.html', Buffer.from(TPL.render({ title: 'Apps', bodyRaw: appsBody, footRaw: appsFoot, path: '/apps/',
   desc: 'The decision products built on cert-machine: SkyAudit, Janela, Swell, Decidível, Contraprova and the Registro de Abatimento — pinned public data decided over a declared envelope, the certificate one click below the answer.' })));
 for (const f of fs.readdirSync(path.join(ROOT, 'reports'))) {

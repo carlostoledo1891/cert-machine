@@ -1,0 +1,52 @@
+name: Request a Verify pilot
+description: A grader that cannot be gamed, or an independent audit of a claim — scoped before any work starts.
+title: "[pilot] "
+labels: ["pilot"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Verify** re-decides a claim from its own bytes, with code that shares nothing with yours, and returns
+        CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason — each with a certificate
+        that re-runs. See https://carlostoledo.co/verify/
+
+        **This form is public.** If what you want checked is not public yet, leave only how to reach you and the
+        word "private"; the rest happens off this page.
+  - type: dropdown
+    id: offer
+    attributes:
+      label: Which offer
+      options:
+        - A grader that cannot be gamed (RL or evaluation)
+        - An independent audit of a claim
+        - Not sure yet
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What you want checked
+      description: The task family and what counts as correct, or the claim as it is (or will be) published.
+    validations:
+      required: true
+  - type: input
+    id: where
+    attributes:
+      label: Where it is published, or "private"
+      description: A link to the claim or its bytes — paper, repository, release, leaderboard.
+    validations:
+      required: false
+  - type: input
+    id: when
+    attributes:
+      label: Timing
+      description: Any date that matters (a release, a submission, a training run).
+    validations:
+      required: false
+  - type: input
+    id: contact
+    attributes:
+      label: How to reach you
+      description: Your GitHub handle is enough; add another way if you prefer.
+    validations:
+      required: false
