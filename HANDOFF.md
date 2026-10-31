@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — claimbox's x^x = 64 study REVIEWED (read-only; objects compiled in the scratchpad): check.js agrees with
+     check.py on all 8 words; the reduction holds (add q ≥ 1, the negative-base convention, N ≥ 2 > e^(1/e) to its text);
+     root digits recomputed independently. FIXED on the operator's word: check.py crashed on Python ≥ 3.11 for values over
+     4,300 digits (str() limit); the limit is lifted, exact values unchanged (cf-above-10: 2.8 s on 3.12, 88 s on 3.9).
+     claimbox re-lifts check.py. PROPOSED, NOT ADOPTED (the operator chose only the crash fix): tie an expression's literal N
+     to the pinned file, and require `printed` so the bar inside the expression is held to the claim's text.
   ◆ 2026-10-31 — /VERIFY/ LIVE AND LISTED, NOT LINKED (the operator: "Verify is the name, build it"; "push live and listed but
      no link yet"): the product face in tools/build-site.js (two offers — graders that cannot be gamed, independent audits;
      the evidence read from the landing's own records; what it refuses; how a pilot starts) and the pilot form

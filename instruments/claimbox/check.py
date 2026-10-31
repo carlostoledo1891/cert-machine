@@ -53,6 +53,12 @@ import sys
 import time
 from fractions import Fraction
 
+# Python 3.11+ refuses str() of an int over 4,300 digits by default, and every decided value is carried as its exact string
+# (records compare it as a Fraction). x^x = 64's 2.6-million-digit comparisons crashed here on 3.12 (2026-10-31, the
+# operator's word): lift the limit so the exact value is printed under any Python, exactly as under 3.9.
+if hasattr(sys, 'set_int_max_str_digits'):
+    sys.set_int_max_str_digits(0)
+
 ROOT = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
 ARB = os.path.join(ROOT, 'certs', 'kernel-arb-audit.json')
 VERDICT_JS = os.path.join(ROOT, 'instruments', 'verdict.js')
