@@ -212,3 +212,31 @@ Any change after this commit is recorded here, dated, with its reason.
    rationals. A reply the caller truncates is paid 0 in the readiness run too, as it already was for model rows.
    The rollout log a trainer writes is defined in verify_gym/rollouts.py. A logged reward is read as
    reward × cap, which must be within 10^-6 of an integer, so that a float32 store of k/20 still reads as k.
+
+3. **2026-10-31, before the readiness gate: the base model, the training sampling, and where each step runs.**
+   Written before any readiness sample and before any training step.
+   - **B is Qwen/Qwen3.5-9B** (the 4B's hosted trainer delivered no updates in the lattice-claims runs; the 9B's
+     did). The training sampling, which the readiness gate uses: thinking off (`chat_template_kwargs:
+     {enable_thinking: false}`), temperature 1.0, top-p 1.0, **max tokens 16,384**, no tools.
+   - Why 16,384 and not lattice-claims' 1,536. Pilots on the TRAINING stream (never the held-out set or the val
+     stream) measured the 9B with thinking off: at 4,096 tokens all 9 of 9 replies were cut off; at 16,384, 11 of
+     12 finished, and every one ran 7,000 to 14,600 tokens (it reasons in the visible reply when thinking is
+     off). Below about 8,000 tokens the gate would measure the length limit, not the model. The pilot replies
+     are kept outside the repository; their cost (all pilots, six models) was US$1.41.
+   - **The readiness gate runs on Prime Inference** (`qwen/qwen3.5-9b`, api.pinference.ai), through
+     readiness.py's live path, because the operator's GO names Prime and no other GPU. Estimated cost: 800
+     samples × about 10,900 output tokens at US$0.25 per million, plus input, about US$2.2. The earlier "about
+     US$1" was written from lattice-claims' 115-token answers and is wrong by about 2× for this environment; the
+     run is stopped if it passes US$4.5 (2× this estimate).
+   - **Model rows** (the scorecard): four open-weights models on Prime Inference at the same sampling (thinking
+     off, 16,384 tokens, temperature 1.0, top-p 1.0, no tools): deepseek/deepseek-v4-pro,
+     deepseek/deepseek-v4.1-flash, google/gemma-4-26b-a4b-it, and qwen/qwen3.5-9b (B itself, on this server).
+     The models were chosen by the measured cost per row, before any held-out answer of theirs existed:
+     qwen3.5-397b-a17b (about US$34 a row) and kimi-k3 (about US$37) were not run, and minimax-m3 was dropped
+     because 9 of 12 of its pilot replies hit 16,384 tokens.
+   - **Training (step 3) is on Prime Hosted Training or not at all** (the operator's GO; no rented GPUs). Read on
+     2026-10-31 before any launch: `/rft/models` (the LoRA models Hosted Training offers) is empty, `prime train
+     models` (CLI 0.6.31 and 0.19.0) says no models are available and that on-demand training is a beta this
+     account is not enrolled in (`onDemandBetaAccess: false`), and Qwen3.5-9B is not among the deployable adapter
+     models. If that is still so after the gate, no training step runs and that is reported; nothing about the
+     ship criterion changes.
