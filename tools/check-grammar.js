@@ -41,6 +41,7 @@ const G = require(path.join(__dirname, '..', 'design', 'grammar.js'));
 const ROOT = path.join(__dirname, '..');
 const SITE = path.join(ROOT, 'site');
 const { skipDir } = require(path.join(ROOT, 'design', 'zones.js'));   /* site/machinidae/ and any other foreign zone: never measured */
+const MKT = require(path.join(ROOT, 'design', 'marketing.js'));   /* the marketing pages: the one pin-display count they skip is figNoStop */
 const BASELINE = path.join(ROOT, 'design', 'grammar-baseline.json');
 
 /* ------------------------------------------------------------ collection --
@@ -122,7 +123,8 @@ function marksCensus(root = SITE) {
     for (const fg of src.match(/<figure\b[^>]*>[\s\S]*?<\/figure>/g) || []) {   /* a figure with a class is a figure (found 2026-10-30 on Janela) */
       if (!/class="[^"]*\bw-(decided|computed|chosen|void)\b|data-w="/.test(fg)) continue;
       if (!/<figcaption[^>]*\sdata-(record|source)=/.test(fg)) figNoRecord.push(rel);   /* a figure with no record says what it is instead (an illustration, or built from what it names) */
-      if (!/<figcaption[^>]*\sdata-stop[\s>]/.test(fg)) figNoStop.push(rel);
+      /* a marketing page (design/marketing.js, the operator 2026-10-31) prints no stop sentence; its record attribute stays */
+      if (!/<figcaption[^>]*\sdata-stop[\s>]/.test(fg) && !MKT.isMarketing(rel)) figNoStop.push(rel);
     }
     const rb = /border(?:-[a-z]+)?\s*:[^;{}]*\bdashed\b/g;
     while ((m = rb.exec(src))) borders.push(rel);

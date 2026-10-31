@@ -267,11 +267,16 @@ function sourceLine(source, art) {
   if (!m) throw new Error('components.figure: a source is "illustration" or "built: <what>"');
   return { attr: ' data-source="built"', html: '<span class="fig-rec">Record: none — ' + esc(m[1]) + '.</span>' };
 }
-function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero, record, stop, source }) {
+function figure({ svgRaw, svgNarrowRaw, caption, captionRaw, wide, hero, record, stop, source, pins = true }) {
   /* a hero may carry a second drawing for a phone (`svgNarrowRaw`): the two swap by design/template.js's hero rule */
   const art = hero && svgNarrowRaw ? '<div class="hv-w">\n' + svgRaw + '\n</div><div class="hv-n">\n' + svgNarrowRaw + '\n</div>' : svgRaw;
   if (record && source) throw new Error('components.figure: a figure names a record or a source, not both');
-  const rl = record ? recordLine(record) : sourceLine(source, art);
+  /* `pins: false` (2026-10-31), for a page on design/marketing.js's list only: the figcaption keeps its data-record /
+     data-source attribute, and the record line and the stop sentence are not printed (a stop is refused: the builder
+     keeps its own refusal, unprinted) */
+  if (!pins && stop) throw new Error('components.figure: an unpinned figure prints no stop sentence');
+  const rl0 = record ? recordLine(record) : sourceLine(source, art);
+  const rl = pins ? rl0 : { attr: rl0.attr, html: '' };
   const tail = rl.html + (stop ? '<span class="fig-stop">The build refuses this figure if ' + esc(stop) + '.</span>' : '');
   const cap = caption ? esc(caption) : captionRaw;
   const inner = '<figure>\n  <div class="figbox">\n' + art + '\n  </div>\n'

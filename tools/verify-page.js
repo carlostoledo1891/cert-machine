@@ -1,22 +1,24 @@
-/* verify-page.js — /verify/, the product face, cut for a reviewer who gives it ninety seconds (the operator,
-   2026-10-31, v3, "Proceed all": the hook in the title, the avalanche from both sides, the OpenAI chart in two groups,
-   one rigor block, a direct contact, a top half read in ninety seconds, charts that read on a phone).
+/* verify-page.js — /verify/, the product face: a marketing touchpoint (the operator, 2026-10-31, v5: "No need to pin
+   everything on Verify LP, this is a mkt touchpoint and the focus now is content and visuals"; the page is on
+   design/marketing.js's list). v3 cut it for a ninety-second read (the hook in the title, the avalanche from both
+   sides, the OpenAI chart in two groups, a direct contact); v5 takes the visible pins off and gives it a rhythm.
    tools/ · cert-machine
 
    Called once by tools/build-site.js, which hands it the landing's own numbers (tolAdmit, asterisksOff, the reruns,
-   the pinned outside quotation) so the product page and the evidence cannot disagree. Every other number is read
-   here from its record and printed through playground/warrant.js with its address (W.val, or W.value with the cells
-   it is derived from); every figure names its record and the sentence of the check below that would refuse it.
-   Every chart is drawn by design/charts.js twice, at a desk's width and at a phone's (.vw-w / .vw-n, swapped by the
-   page's own css, returned below; the hero swaps by the template's own rule); the schema is design/components.js
-   flow(). Nothing on this page is live: the future the deck speaks of is said in words, never drawn as a feed.
+   the pinned outside quotation) so the product page and the evidence cannot disagree. Every other number is still
+   read here from its record and printed through playground/warrant.js with its address (W.val, or W.value with the
+   cells it is derived from), so tools/check-marks.js re-reads every one; every figure keeps its records in its
+   figcaption's data-record attribute. WHAT THE PAGE NO LONGER PRINTS (v5): the record line and the stop sentence under
+   each figure (figure({ pins: false })), the reasons block, a value's reason in its tooltip (the tooltip says its
+   standing's word), the record files in the footer. The refusals stay in the code below (vg) and stop the build like
+   the landing's guards; they are not printed. ONE line near the end sends a reader to the evidence, in /reports/.
 
-   THE TOP HALF is what a reviewer reads in ninety seconds: the hook, the avalanche (what one AI release published
-   against what this machine decided, both from records), the scale, three proof points, the two offers with a direct
-   contact. THE REST sits below, compact. The reasons the values' tooltips carry are said once, at the page's end
-   (design/reasons.js pageReasons), not after every section.
-
-   Its refusals are its own (vg): they stop the build like the landing's guards, and are not listed on the landing. */
+   THE RHYTHM (v5): the hero and the scale at full width; then the proofs as alternating splits (words beside a figure
+   drawn at the split's own width, the side flipping each time; one column under 1024 px); the offers as two panels; the
+   schema at full width; the graders as a split; the register at full width; the engine's cards; the limits as four
+   panels; a closing call to action. Every chart is drawn by design/charts.js twice, for the desk and for a phone
+   (.vw-w / .vw-n, swapped by the page's own css below; the hero swaps by the template's rule). Only the template's
+   tokens are used: no new colour. Nothing on this page is live. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -29,17 +31,66 @@ module.exports = function verifyPage(X) {
   const vg = (plain, ok, msg) => { if (!ok) fail((msg ? msg + ' — ' : '') + '/verify/ refuses to build if ' + plain); };
   const PILOT = GITHUB + '/issues/new?template=pilot.yml';
   const MAIL = 'carlos@carlostoledo.co';   /* published on this page by the operator's word (2026-10-31) */
-  const mail = '<a href="mailto:' + MAIL + '"><span class="m">' + MAIL + '</span></a>';
   const HUB = 'https://app.primeintellect.ai/dashboard/environments/carlos-toledo/';
   const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
   const pow10 = (e) => '10' + String(e).split('').map((c) => SUP[c]).join('');
   const SURF = CH.SURFACE;
   /* a chart drawn twice: the desk's drawing and the phone's, swapped at the template's phone width by the css below */
   const dual = (wide, narrow) => '<div class="vw-w">\n' + wide + '\n</div><div class="vw-n">\n' + narrow + '\n</div>';
-  const css = '/* /verify/ (tools/verify-page.js): every chart carries a second drawing at a phone\'s scale */\n'
+  const MKT = require(path.join(ROOT, 'design', 'marketing.js'));
+  vg('it is not on design/marketing.js\'s list of marketing pages, and it prints no record lines', MKT.isMarketing('verify/index.html'));
+  const css = '/* /verify/ (tools/verify-page.js, v5): every chart carries a second drawing at a phone\'s scale */\n'
     + '.vw-n{display:none}\n@media (max-width:680px){.vw-w{display:none}.vw-n{display:block}}\n'
-    /* the standing legend under the tolerance chart sat flush on the paragraph after it */
-    + '.col > .w-legend{margin-bottom:var(--s-4)}';
+    /* the calls to action: one filled, one outlined, in the template's own ink and paper; every value a token */
+    + '.vf-cta{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-3) var(--s-4);margin:var(--s-6) 0 0}\n'
+    + 'a.vf-btn{display:inline-flex;align-items:center;gap:var(--s-2);padding:var(--s-3) var(--s-5);border:1px solid var(--ink);border-radius:var(--radius-m);'
+    + 'background:var(--ink);color:var(--paper);font-weight:var(--weight-medium);font-size:var(--text-body);line-height:var(--leading-snug);'
+    + 'transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}\n'
+    + 'a.vf-btn:hover{background:var(--ink-2);border-color:var(--ink-2)}\n'
+    + 'a.vf-btn.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}\n'
+    + 'a.vf-btn.ghost:hover{border-color:var(--ink);background:transparent}\n'
+    + 'a.vf-btn .m{background:transparent;border:0;padding:0;color:inherit;font-size:var(--text-small)}\n'
+    + '.vf-jump{margin:var(--s-5) 0 0;font-size:var(--text-small);color:var(--ink-4)}\n'
+    + '.vf-jump a{margin-right:var(--s-4)}\n'
+    + '.vf-top + .hero{margin-top:var(--s-8)}\n'
+    /* the splits: words beside a figure, the side flipping section by section. The column gap is a hairline more than
+       the token, so a second column's text sits exactly on the stat grid's second column (one left edge, not two) */
+    + '.page{--col-gap:calc(var(--s-7) + 1px)}\n'
+    + '.vf-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-6) var(--col-gap);align-items:center}\n'
+    + '.vf-split.flip > .vf-text{order:2}\n'
+    + '.vf-text > p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3)}\n'
+    + '.vf-text .sec-head{margin-bottom:var(--s-5)}\n'
+    + '.vf-fig figcaption{margin-bottom:0}\n'
+    /* the one number a proof stands on, a step above the section's title */
+    + '.vf-text > p.vf-big{font-family:var(--f-display);font-size:calc(var(--text-1) * 1.25);line-height:var(--leading-tight);letter-spacing:var(--track-display);'
+    + 'font-weight:var(--weight-title);color:var(--ink);margin:0;padding-bottom:var(--s-1)}\n'
+    + '.vf-text > p.vf-big-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4);'
+    + 'margin:var(--s-4) 0 var(--s-5);line-height:var(--leading-snug)}\n'
+    + '.vf-text blockquote{margin:0 0 var(--s-5);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-2)}\n'
+    + '.vf-fig .w-legend{margin-top:var(--s-5)}\n'
+    + '.vf-quote blockquote{font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-2);max-width:var(--read)}\n'
+    + '@media (max-width:1023px){.vf-split{grid-template-columns:minmax(0,1fr)}.vf-split.flip > .vf-text{order:0}}\n'
+    /* panels: the two offers, the four limits, the three pilot steps */
+    + '.vf-panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5) var(--col-gap)}\n'
+    + '.vf-panel{background:var(--surface);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5);display:flex;flex-direction:column;gap:var(--s-3)}\n'
+    + '.vf-panel h3{margin:0}\n.vf-panel p{margin:0;font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3)}\n'
+    + '.vf-panel .vf-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}\n'
+    + '.vf-panel .vf-go{margin-top:auto;padding-top:var(--s-3)}\n'
+    + '.vf-close ul.plain{margin:var(--s-5) 0 0;max-width:var(--read)}\n'
+    + '@media (max-width:860px){.vf-panels{grid-template-columns:minmax(0,1fr)}}\n'
+    /* the close: the call to action, then the one line that sends a reader to the evidence */
+    + '.vf-close{background:var(--sunk);border:1px solid var(--rule);border-radius:var(--radius-m);padding:var(--s-5)}\n'
+    + '.vf-close h2{max-width:var(--title)}\n.vf-close > p{max-width:var(--read);font-size:var(--text-3);line-height:var(--leading-body);color:var(--ink-3);margin:var(--s-4) 0 0}\n'
+    + '.vf-close .vf-note{font-size:var(--text-small);color:var(--ink-4);margin:var(--s-4) 0 0}\n'
+        + '.vf-ev{margin:var(--s-7) 0 0;font-size:var(--text-small);color:var(--ink-4)}\n'
+    + 'details.more{margin-top:var(--s-6)}';
+  /* a section as words beside a figure: `flip` puts the figure first on a desk; one column under 1024 px */
+  const split = ({ id, lab, title, textRaw, figRaw, flip, afterRaw }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n<div class="vf-split' + (flip ? ' flip' : '') + '">\n'
+    + '<div class="vf-text"><div class="sec-head"><div class="lab">' + C.esc(lab) + '</div><h2>' + C.esc(title) + '</h2></div>\n' + textRaw + '\n</div>\n'
+    + '<div class="vf-fig">\n' + figRaw + '\n</div>\n</div>\n' + (afterRaw || '') + '</section>';
+  const big = (vRaw, k) => '<p class="vf-big">' + vRaw + '</p><p class="vf-big-k">' + C.esc(k) + '</p>';
+  /* the split's figures are drawn at the split's own width (a ~610 px column), so their type reads at its size */
+  const SW_ = 480;
   /* bars with a legend: the legend's lines are counted before the drawing is sized, so a wrapped key is never cut */
   const barsH = (rows, rowH, keys, w, padL, padR) => rows * rowH + 61 + 19 * Math.max(1, CH.legendLines(keys, w - padL - padR));
 
@@ -141,22 +192,21 @@ module.exports = function verifyPage(X) {
     + ' manuscripts dated from ' + oDays[0] + ' to ' + oDays[oDays.length - 1] + ', ' + numword(oOn[oPeak]) + ' of them on ' + oDays[oPeak]
     + '. Over the same weeks and before them, this machine decided ' + numword(L.decided) + ' published claims, recorded day by day from ' + days[0] + ' to ' + days[days.length - 1]
     + '. A red cross on the lower curve on ' + hmRow.recordedOn + ' marks HorizonMath’s refuted R(k,k) bound, whose own certificate has ' + numword(hmOut) + ' pairs outside R.';
+  void msFromDir;   /* v5: the caption no longer says how the one undated manuscript is dated; the curve still dates it */
   const hero = C.figure({
-    hero: true, record: [OREL, REG, HM], stop: HERO_STOP,
-    svgRaw: heroSvg({ w: 1000, h: 420, padL: 52, padR: 150, mid: true, short: false, alt: HERO_ALT }),
-    svgNarrowRaw: heroSvg({ w: 330, h: 400, padL: 38, padR: 40, mid: false, short: true, alt: HERO_ALT }),
-    captionRaw: 'One AI release, OpenAI’s mathematics collection, holds '
-      + W.val({ rec: { path: OREL, ptr: '/stated/manuscripts' }, standing: W.DECIDED, fmt: 'int', why: 'the manuscripts the release links, counted in a clone at the pinned commit' })
+    hero: true, record: [OREL, REG, HM], pins: false,
+    svgRaw: heroSvg({ w: 1000, h: 440, padL: 52, padR: 150, mid: true, short: false, alt: HERO_ALT }),
+    svgNarrowRaw: heroSvg({ w: 330, h: 420, padL: 38, padR: 40, mid: false, short: true, alt: HERO_ALT }),
+    captionRaw: 'One AI release, OpenAI’s mathematics collection: '
+      + W.val({ rec: { path: OREL, ptr: '/stated/manuscripts' }, standing: W.DECIDED, fmt: 'int' })
       + ' machine-generated manuscripts, '
-      + W.value(fmt(oOn[oPeak]), W.DECIDED, { derived: OREL + '#/manuscripts', title: 'decided — the manuscripts whose folder carries that one date, counted' })
-      + ' of them dated ' + C.esc(oDays[oPeak]) + ', and marks its own formal review “' + C.esc(Orel.stated.review) + '”. Checking runs at another pace: since ' + C.esc(days[0]) + ' this machine has decided '
-      + W.val({ rec: { path: REG, ptr: '/decided' }, standing: W.DECIDED, fmt: 'int', why: 'the register’s count of decided rows' })
-      + ' published claims, one at a time, from DeepMind, OpenAI, agent platforms and AI-assisted manuscripts. Each step is an exact count'
-      + (msFromDir === 1 ? '; the one manuscript the release record leaves undated takes its date from its folder’s name. '
-        : msFromDir ? '; the ' + numword(msFromDir) + ' manuscripts the release record leaves undated take their dates from their folders’ names. ' : '. ')
-      + W.witness('a counterexample exhibited by the claim’s own record') + ' is a counterexample on the claim’s own record: '
-      + W.value(fmt(hmOut), W.DECIDED, { derived: HM + '#/rows[id=' + hmRec.id + ']/points', title: 'decided — the pairs its own certificate uses that the record places outside R' })
-      + ' pairs of the certificate behind a published Ramsey bound fall outside the region the bound needs. Hover a day for its counts.'
+      + W.value(fmt(oOn[oPeak]), W.DECIDED, { derived: OREL + '#/manuscripts' })
+      + ' of them on a single day, its formal review marked “' + C.esc(Orel.stated.review) + '”. Checking runs at another pace: '
+      + W.val({ rec: { path: REG, ptr: '/decided' }, standing: W.DECIDED, fmt: 'int' })
+      + ' published claims decided here, one at a time. '
+      + W.witness('a counterexample exhibited by the claim’s own record') + ' marks a published Ramsey bound refuted by its own certificate: '
+      + W.value(fmt(hmOut), W.DECIDED, { derived: HM + '#/rows[id=' + hmRec.id + ']/points' })
+      + ' of its pairs fall outside the region the bound needs.'
   });
 
   /* ---- the scale: four things already decided, each read from its record --------------------------------------- */
@@ -172,17 +222,16 @@ module.exports = function verifyPage(X) {
     xxBig && xxBig.word === xxBig.expect && xxBig.claimbox && xxBig.claimbox.word === xxBig.word && Xx.counts.agreeWithClaimbox === Xx.counts.claims);
   vg('the second kernel has not decided every OpenAI challenge in the release', Ok.counts.decided === Ok.counts.of && Ok.counts.of === Orel.counted.challenges);
   const scale = C.stats([
-    { k: 'vector pairs of published kissing configurations, each decided exactly', vRaw: 'over ' + W.value(kwSci, W.DECIDED, { derived: KWR + '#/rows', title: 'decided — every pair of every configuration, summed and cut toward zero' }),
-      nRaw: 'every pair of ' + fmt(kwRows.length) + ' configurations from three claimants, in exact arithmetic, in '
-        + W.value(kwH, W.COMPUTED, { derived: KWR + '#/rows', title: 'computed — the wall-clock seconds the engine recorded per configuration, summed, on one 8-core machine' })
-        + ' machine-hours · <a href="../reports/kissing.html">the kissing wave</a>' },
-    { k: 'digits in the largest integers compared exactly', vRaw: W.val({ rec: { path: XXR, ptr: '/xx64[id=' + xxBig.id + ']/digits/0' }, standing: W.DECIDED, fmt: 'int', why: 'the digit count of each side of the comparison' }),
-      nRaw: 'x^x = 64, the root an AI model proposed, trapped between two fractions; each side is one exact comparison of whole numbers · <a href="../reports/xx.html">the page</a>' },
-    { k: 'OpenAI formal proofs replayed on a second, independent kernel', vRaw: W.val({ rec: { path: OK_, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int' }),
-      nRaw: W.val({ rec: { path: OK_, ptr: '/counts/words/CERTIFIED' }, standing: W.DECIDED, fmt: 'int' }) + ' certified, '
-        + W.val({ rec: { path: OK_, ptr: '/counts/words/REFUSED' }, standing: W.DECIDED, fmt: 'int' }) + ' refused with the reason: every Lean challenge in the release above · <a href="../reports/openai-math.html">the audit</a>' },
-    { k: 'provably wrong answers minted to attack graders', vRaw: W.val({ rec: { path: ENV, ptr: '/provablyWrong' }, standing: W.DECIDED, fmt: 'int' }),
-      nRaw: 'each one outside a certified enclosure and inside a grader’s tolerance, minted from certificates already on disk · <a href="../reports/envs.html">the measurement</a>' },
+    { k: 'vector pairs decided exactly', vRaw: 'over ' + W.value(kwSci, W.DECIDED, { derived: KWR + '#/rows' }),
+      nRaw: 'every pair of ' + fmt(kwRows.length) + ' published kissing configurations, in '
+        + W.value(kwH, W.COMPUTED, { derived: KWR + '#/rows' }) + ' machine-hours · <a href="../reports/kissing.html">the kissing wave</a>' },
+    { k: 'digits compared exactly', vRaw: W.val({ rec: { path: XXR, ptr: '/xx64[id=' + xxBig.id + ']/digits/0' }, standing: W.DECIDED, fmt: 'int' }),
+      nRaw: 'x^x = 64: the root an AI model proposed, trapped between two fractions · <a href="../reports/xx.html">the page</a>' },
+    { k: 'OpenAI formal proofs replayed', vRaw: W.val({ rec: { path: OK_, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int' }),
+      nRaw: 'on a second, independent kernel: ' + W.val({ rec: { path: OK_, ptr: '/counts/words/CERTIFIED' }, standing: W.DECIDED, fmt: 'int' }) + ' certified, '
+        + W.val({ rec: { path: OK_, ptr: '/counts/words/REFUSED' }, standing: W.DECIDED, fmt: 'int' }) + ' refused with the reason · <a href="../reports/openai-math.html">the audit</a>' },
+    { k: 'wrong answers minted to attack graders', vRaw: W.val({ rec: { path: ENV, ptr: '/provablyWrong' }, standing: W.DECIDED, fmt: 'int' }),
+      nRaw: 'each inside a grader’s tolerance and outside a proved enclosure · <a href="../reports/envs.html">the measurement</a>' },
   ]);
 
   /* ---- PROOF 1: the self-audit, a float check against the decider on the same planted mutants -------------------- */
@@ -191,19 +240,25 @@ module.exports = function verifyPage(X) {
   vg(MUT_STOP, M.falseCertifications === 0 && M.falseRefutations === 0 && M.mutants > 0 && taus.every((t) => M.float[t] && M.float[t].witnessedFalseAccepted > 0));
   const tolWord = (t) => pow10(Math.round(Math.log10(t)));
   const mutRows = (short) => taus.map((t) => ({ k: (short ? 'float, ' : 'float check at ') + tolWord(Number(t)), v: M.float[t].witnessedFalseAccepted, token: 'var(--c-3)',
-    lab: fmt(M.float[t].witnessedFalseAccepted) + ' of ' + fmt(M.float[t].witnessedFalse) + (short ? '' : ' accepted'), hover: fmt(M.float[t].witnessedFalseAccepted) + ' of ' + fmt(M.float[t].witnessedFalse) + ' witnessed-false mutants accepted' }))
-    .concat([{ k: 'this decider', v: M.falseCertifications, token: 'var(--c-1)', lab: fmt(M.falseCertifications) + ' of ' + fmt(M.byTruth.FALSE) + (short ? '' : ' certified'),
+    lab: fmt(M.float[t].witnessedFalseAccepted) + ' of ' + fmt(M.float[t].witnessedFalse) + (short === true ? '' : ' accepted'), hover: fmt(M.float[t].witnessedFalseAccepted) + ' of ' + fmt(M.float[t].witnessedFalse) + ' witnessed-false mutants accepted' }))
+    .concat([{ k: 'this decider', v: M.falseCertifications, token: 'var(--c-1)', lab: fmt(M.falseCertifications) + ' of ' + fmt(M.byTruth.FALSE) + (short === true ? '' : ' certified'),
       hover: fmt(M.falseCertifications) + ' of ' + fmt(M.byTruth.FALSE) + ' false mutants certified; ' + fmt(M.falseRefutations) + ' true ones refuted' }]);
   const MUT_ALT = 'Bars: of the planted false values each witnessed by an independent script, a double-precision check accepted ' + taus.map((t) => fmt(M.float[t].witnessedFalseAccepted) + ' at tolerance ' + t).join(', ') + '; the exact decider certified none of the ' + fmt(M.byTruth.FALSE) + ' false mutants.';
   const mutKeys = (short) => [{ token: 'var(--c-3)', t: short ? 'a float check at a tolerance' : 'a double-precision check at a tolerance' }, { token: 'var(--c-1)', t: 'the exact decider' }];
   const mutTicks = [0, 100, 200, 300].filter((v) => v <= M.float['1e-6'].witnessedFalse).map((v) => ({ v, t: String(v) }));
-  const mutSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(4, 34, mutKeys(short), w, padL, padR), rowH: 34, max: M.float['1e-6'].witnessedFalse, padL, padR, rows: mutRows(short),
-    xTicks: short ? mutTicks.filter((t) => t.v !== 100) : mutTicks, xLabel: short ? 'planted false values accepted' : 'planted false values accepted', keys: mutKeys(short), alt: MUT_ALT });
-  const mutFig = C.figure({ svgRaw: dual(mutSvg(860, 190, 170, false), mutSvg(320, 104, 30, true)), record: MUT, stop: MUT_STOP,
-    captionRaw: 'The verifier is attacked before it is trusted: '
-      + W.val({ rec: { path: MUT, ptr: '/all/mutants' }, standing: W.DECIDED, fmt: 'int' }) + ' mutants of '
-      + W.val({ rec: { path: MUT, ptr: '/all/rows' }, standing: W.DECIDED, fmt: 'int' }) + ' register rows, pre-registered, each false one witnessed by a script that shares no code with the decider. '
-      + 'The decider certified none of the false ones and refuted none of the true ones; the same mutants through a floating-point check pass in the numbers above.' });
+  const mutSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(4, 42, mutKeys(short), w, padL, padR), rowH: 42, max: M.float['1e-6'].witnessedFalse, padL, padR, rows: mutRows(short),
+    xTicks: short === true ? mutTicks.filter((t) => t.v !== 100) : mutTicks, xLabel: short ? 'planted false values accepted' : 'planted false values accepted', keys: mutKeys(short), alt: MUT_ALT });
+  const mutFig = C.figure({ svgRaw: dual(mutSvg(SW_, 108, 128, 'split'), mutSvg(320, 104, 30, true)), record: MUT, pins: false,
+    captionRaw: 'The same planted false values, through a floating-point check at three tolerances and through the exact decider.' });
+  const MA = '/all/';
+  const mutText = big(W.val({ rec: { path: MUT, ptr: MA + 'falseCertifications' }, standing: W.DECIDED, fmt: 'int' }) + ' of '
+      + W.val({ rec: { path: MUT, ptr: MA + 'byTruth/FALSE' }, standing: W.DECIDED, fmt: 'int' }), 'planted false values certified')
+    + C.pRaw('Before it is trusted, the decider is attacked: ' + W.val({ rec: { path: MUT, ptr: MA + 'mutants' }, standing: W.DECIDED, fmt: 'int' })
+      + ' pre-registered mutants of ' + W.val({ rec: { path: MUT, ptr: MA + 'rows' }, standing: W.DECIDED, fmt: 'int' })
+      + ' published claims, each false one witnessed by a script that shares no code with it.')
+    + C.pRaw('At a tolerance of ' + tolWord(1e-6) + ', a floating-point check accepted ' + W.val({ rec: { path: MUT, ptr: MA + 'float/1e-6/witnessedFalseAccepted' }, standing: W.DECIDED, fmt: 'int' })
+      + ' of the ' + W.val({ rec: { path: MUT, ptr: MA + 'float/1e-6/witnessedFalse' }, standing: W.DECIDED, fmt: 'int' })
+      + ' witnessed-false values. The exact decider certified none of the false ones, and refuted none of the true ones.');
 
   /* ---- PROOF 2: what reading the statement finds (OpenAI's formalized families), in two groups ------------------
      The six words are readings, not certificates. The page draws two groups in plain words; the six-way split is one
@@ -220,6 +275,7 @@ module.exports = function verifyPage(X) {
     && byRow(HOLD) === sHold && byRow(SHORT) === sShort && S.rows.every((r) => SW.includes(r.word)) && sShort > 0);
   const READ = 'computed — a reading by AI agents, second-read where the first found a gap: a claim about the statement, not a certificate';
   const GKEYS = [{ token: 'var(--c-3)', t: 'says what its headline claims, or the release says what it covers' }, { token: 'var(--c-1)', t: 'claims more than it proves, and nothing says so' }];
+  const GKEYS_S = [{ token: 'var(--c-3)', t: 'as headlined, or the release says so' }, { token: 'var(--c-1)', t: 'claims more than it proves, unsaid' }];
   const GKEYS_N = [{ token: 'var(--c-3)', t: 'as claimed, or declared' }, { token: 'var(--c-1)', t: 'claims more, unsaid' }];
   const OST_ALT = 'Bars: OpenAI’s ' + S.counts.families + ' formalized families, read statement against headline, in two groups: ' + sHold + ' say what their headline claims or the release says what they cover, and '
     + sShort + ' claim more than they prove with nothing saying so. The six readings: ' + SW.map((w) => (sw[w] || 0) + ' ' + w).join(', ') + '.';
@@ -227,12 +283,16 @@ module.exports = function verifyPage(X) {
     { k: short ? 'as claimed' : 'as claimed, or declared', v: sHold, token: 'var(--c-3)', lab: fmt(sHold), hover: HOLD.map((w) => fmt(sw[w] || 0) + ' ' + w).join(' · ') },
     { k: short ? 'claims more' : 'claims more, unsaid', v: sShort, token: 'var(--c-1)', lab: fmt(sShort), hover: SHORT.map((w) => fmt(sw[w] || 0) + ' ' + w).join(' · ') }];
   const gTicks = [0, 100, 200].map((v) => ({ v, t: String(v) }));
-  const ostSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(2, 40, short ? GKEYS_N : GKEYS, w, padL, padR), rowH: 40, max: S.counts.families, padL, padR, rows: gRows(short),
-    xTicks: gTicks, xLabel: 'formalized families', keys: short ? GKEYS_N : GKEYS, alt: OST_ALT });
-  const ostFig = C.figure({ svgRaw: dual(ostSvg(860, 200, 70, false), ostSvg(320, 100, 20, true)), record: OST, stop: OST_STOP,
-    captionRaw: 'A proof checker verifies the statement it is handed; nobody checked the statement against the claim. Read clause by clause, '
-      + W.value(fmt(sShort) + ' of ' + fmt(S.counts.families), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'], title: READ })
-      + ' of OpenAI’s formalized families prove a different or weaker theorem than their headline, with nothing in the release saying so, while the proofs themselves pass a second kernel. Each group is a reading, kept apart from what was decided.' });
+  const gk = (short) => short === 'split' ? GKEYS_S : short ? GKEYS_N : GKEYS;
+  const ostSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(2, 52, gk(short), w, padL, padR), rowH: 52, max: S.counts.families, padL, padR, rows: gRows(short),
+    xTicks: gTicks, xLabel: 'formalized families', keys: gk(short), alt: OST_ALT });
+  const ostFig = C.figure({ svgRaw: dual(ostSvg(SW_, 112, 40, 'split'), ostSvg(320, 100, 20, true)), record: OST, pins: false,
+    captionRaw: 'OpenAI’s formalized families, each statement read against its headline. A reading, kept apart from what was decided.' });
+  const ostText = big(W.value(fmt(sShort) + ' of ' + fmt(S.counts.families), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }),
+      'formalized families claim more than they prove')
+    + C.p('A proof checker verifies the statement it is handed; nobody checks the statement against the claim. Read clause by clause, these prove a weaker or a different theorem than their headline, and nothing in the release says so, while the proofs themselves pass a second kernel.')
+    + C.pRaw('<a href="../reports/openai-math.html">The OpenAI audit →</a>');
+
   /* the six readings, one click down */
   const sixRows = (short) => SW.map((w) => ({ k: w, v: sw[w] || 0, token: SHORT.includes(w) ? 'var(--c-1)' : 'var(--c-3)', lab: fmt(sw[w] || 0) }));
   const sixKeys = (short) => short ? GKEYS_N : GKEYS;
@@ -241,16 +301,16 @@ module.exports = function verifyPage(X) {
   const sixSvg = (w, padL, padR, short) => CH.bars({ w, h: barsH(SW.length, 30, sixKeys(short), w, padL, padR), rowH: 30, max: Math.max(...SW.map((x) => sw[x] || 0)), padL, padR,
     rows: sixRows(short), xTicks: (short ? [0, 100] : [0, 50, 100]).map((v) => ({ v, t: String(v) })), xLabel: 'formalized families', keys: sixKeys(short),
     alt: 'Bars: OpenAI’s ' + S.counts.families + ' formalized families by how their Lean statements read against the headline: ' + SW.map((w) => (sw[w] || 0) + ' ' + w).join(', ') + '.' });
-  const sixFig = C.figure({ wide: false, svgRaw: dual(sixSvg(860, 200, 70, false), sixSvg(320, 172, 36, true)), record: OST, stop: SIX_STOP,
-    captionRaw: 'The six readings behind the two groups. MATCHES: the statement says what the headline says. NARROWER — DECLARED: weaker, and the release says so. NARROWER — UNLINKED: weaker, and a scope note says so without linking it. SUPPORT-ONLY: a lemma, not the result. NARROWER — UNDECLARED and DIFFERENT: weaker or another theorem, and nothing says so. Readings, not certificates.' });
+  const sixFig = C.figure({ wide: false, svgRaw: dual(sixSvg(860, 200, 70, false), sixSvg(320, 172, 36, true)), record: OST, pins: false,
+    captionRaw: 'The six readings behind the two groups. MATCHES: the statement says what the headline says. NARROWER — DECLARED: weaker, and the release says so. NARROWER — UNLINKED: weaker, and a scope note says so without linking it. SUPPORT-ONLY: a lemma, not the result. NARROWER — UNDECLARED and DIFFERENT: weaker or another theorem, and nothing says so.' });
   const sixFold = '<div class="wide"><details class="more"><summary>The six readings, one by one</summary>' + sixFig + '</details></div>';
 
   /* ---- PROOF 3: what came back from outside ------------------------------------------------------------------- */
   const back = C.stats([
-    { k: 'asterisks removed from a registry on these replays', v: String(asterisksOff),
-      nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao), which cites the replays · <a href="../reports/optimization-constants.html">the replays</a>' },
-    { k: 'outside re-derivations, no disagreement', v: String(externalReruns.length),
-      nRaw: rerunsOwn + ' of them by people with no connection to this work, with their own code · <a href="../reports/rerun.html">the rerun kit</a>' },
+    { k: 'asterisks removed from a registry', v: String(asterisksOff),
+      nRaw: 'the optimization-constants registry (Davis, Ivanisvili, Tao) cites the replays · <a href="../reports/optimization-constants.html">the replays</a>' },
+    { k: 'outside re-runs, no disagreement', v: String(externalReruns.length),
+      nRaw: rerunsOwn + ' of them by people with no connection to this work, with their own code · <a href="../reports/rerun.html">the re-run kit</a>' },
   ]);
 
   /* ---- BELOW: the schema --------------------------------------------------------------------------------------- */
@@ -281,7 +341,7 @@ module.exports = function verifyPage(X) {
      in that list; the drawing ignores it. */
   const SCHEMA_CAP = 'The product in four steps. An audit is the whole path for one published claim; a grader states a task family once and runs steps 3 and 4 on every answer a model gives.';
   const schemaPhone = '<div class="col">' + C.p(SCHEMA_CAP) + C.plainList(nodes.map((n) => ({ b: n.p, text: n.d }))) + '</div>';
-  const schemaFlow = C.flow({ w: 600, h: 392, nodes, edges, source: 'built: a diagram of the four steps and the two offers this page describes; it carries no number',
+  const schemaFlow = C.flow({ w: 600, h: 392, nodes, edges,
     alt: 'A schema of Verify in four steps: a published claim and its bytes are stated as an object by claimbox, decided exactly by code that shares nothing with the claimant, and returned as a certificate (certified, refuted or refused). The certificate feeds two offers: an audit report per claim, for labs, and a reward per answer, for RL teams.',
     readout: { k: 'a claim, decided', d: 'Select a step for what it does and why it can be trusted.' },
     caption: SCHEMA_CAP });
@@ -297,10 +357,10 @@ module.exports = function verifyPage(X) {
   const pctS = (x) => (100 * x).toFixed(1) + '%';
   const ENV_ALT = 'The share of provably wrong answers each grader admits, against its tolerance on a log axis, measured at ' + tols.length + ' tolerances and joined by dotted lines. The tolerance graders admit fewer as the tolerance tightens but never none; the certificate grader is a solid line at zero, because it reads no tolerance.';
   const envSvg = (short) => CH.scatter({
-    w: short ? 320 : 760, h: short ? 320 : 360, logX: true, x0: tols[0] * 0.5, x1: tols[tols.length - 1] * 2, y0: 0, y1: 100, padL: short ? 34 : 54, padR: short ? 12 : 22,
-    xLabel: short ? 'tolerance (log scale)' : 'the grader’s tolerance (log scale)', yLabel: short ? undefined : 'wrong answers admitted (%)', yTitle: short ? 'wrong answers admitted (%)' : undefined, padT: short ? 30 : undefined,
+    w: short ? 320 : SW_, h: short ? 320 : 380, logX: true, x0: tols[0] * 0.5, x1: tols[tols.length - 1] * 2, y0: 0, y1: 100, padL: short ? 34 : 40, padR: short ? 12 : 16,
+    xLabel: 'tolerance (log scale)', yTitle: 'wrong answers admitted (%)', padT: 30,
     yTicks: [0, 25, 50, 75, 100].map((v) => ({ v, t: String(v) })),
-    xTicks: (short ? [1e-15, 1e-9, 1e-3] : [1e-15, 1e-12, 1e-9, 1e-6, 1e-3]).map((v) => ({ v, t: tolWord(v) })),
+    xTicks: [1e-15, 1e-9, 1e-3].map((v) => ({ v, t: tolWord(v) })),
     alt: ENV_ALT,
     /* the certificate grader's line is named in the legend at both widths: a label on the line itself sat on the dots at 0 */
     hlines: [{ y: 0, token: 'var(--ink)' }],
@@ -308,11 +368,14 @@ module.exports = function verifyPage(X) {
     pts: [].concat(...ser.map(([n, g, tok]) => tols.map((t) => ({ x: t, y: 100 * (g.falseAcceptByTolerance[String(t)] || 0), token: tok,
       k: n + ' · tolerance ' + tolWord(t), v: pctS(g.falseAcceptByTolerance[String(t)] || 0) + ' of the provably wrong answers minted at that tolerance admitted' })))),
     keys: ser.map(([n, , tok]) => ({ token: tok, t: short ? n.replace('exact match of a decimal', 'exact decimal match') : n }))
-      .concat([{ token: 'var(--ink)', kind: 'line', t: short ? 'certificate grader: always 0' : 'certificate grader: 0 at every tolerance' }])
+      .concat([{ token: 'var(--ink)', kind: 'line', t: 'certificate grader: always 0' }])
   });
-  const envFig = C.figure({ svgRaw: dual(envSvg(false), envSvg(true)), record: ENV, stop: ENV_STOP,
-    captionRaw: 'Answers minted wrong from certificates, each outside a proved enclosure and inside the grader’s tolerance. Tightening the tolerance by '
-      + numword(Math.round(Math.log10(tols[tols.length - 1] / tols[0]))) + ' orders of magnitude does not close the hole; only a grader that reads the certificate admits none, and it rejected nothing right. Each dot is an exact count at one tolerance; the dotted joins are a picture between them.' });
+  const envFig = C.figure({ svgRaw: dual(envSvg(false), envSvg(true)), record: ENV, pins: false,
+    captionRaw: 'Each dot is an exact count at one tolerance; the dotted joins only guide the eye.' });
+  const envText = big(tolPct, 'of ' + fmt(tolAdmit.n) + ' provably wrong answers admitted by a tolerance grader')
+    + C.p('A grader that compares decimals within a tolerance rewards answers that are provably wrong, and a policy trained against it learns exactly those. Tightening the tolerance by '
+      + numword(Math.round(Math.log10(tols[tols.length - 1] / tols[0]))) + ' orders of magnitude does not close the hole. A grader that reads the certificate admits none, and rejects nothing right.')
+    + C.pRaw('Three environments built on certificates run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a>');
 
   /* ---- BELOW: the register's verdict mix ----------------------------------------------------------------------- */
   const VW = ['CERTIFIED', 'PARTIAL', 'REPAIRED', 'MIXED', 'REFUTED', 'NEEDS DATA'];
@@ -321,12 +384,12 @@ module.exports = function verifyPage(X) {
   const VDESC = { CERTIFIED: 'held, with its falsifier', PARTIAL: 'a fragment certified, the core refused', REPAIRED: 'refuted as printed; the object beside it certified',
     MIXED: 'one record holds both', REFUTED: 'the object that breaks it, printed', 'NEEDS DATA': 'the bytes that would decide it, named' };
   const REG_ALT = 'Bars: the register’s ' + L.decided + ' decided claims by verdict: ' + VW.map((w) => (L.byVerdict[w] || 0) + ' ' + w).join(', ') + '.';
-  const regSvg = (short) => CH.bars({ w: short ? 320 : 860, rowH: 30, max: L.byVerdict.CERTIFIED, padL: short ? 100 : 130, padR: short ? 44 : 400,
+  const regSvg = (short) => CH.bars({ w: short ? 320 : 860, rowH: short ? 30 : 36, max: L.byVerdict.CERTIFIED, padL: short ? 100 : 130, padR: short ? 44 : 400,
     rows: VW.map((w) => ({ k: w, v: L.byVerdict[w] || 0, token: w === 'CERTIFIED' ? 'var(--c-2)' : w === 'REFUTED' ? 'var(--c-1)' : 'var(--c-3)',
       lab: fmt(L.byVerdict[w] || 0) + (short ? '' : ' · ' + VDESC[w]), hover: fmt(L.byVerdict[w] || 0) + ' · ' + VDESC[w] })),
     xTicks: (short ? [0, 100] : [0, 50, 100]).map((v) => ({ v, t: String(v) })), xLabel: 'published claims', alt: REG_ALT });
-  const regFig = C.figure({ svgRaw: dual(regSvg(false), regSvg(true)), record: REG, stop: REG_STOP,
-    captionRaw: 'Most published claims hold. The value is in the ones that do not, and in saying exactly which part held: every verdict above names its record, and none is a summary.' });
+  const regFig = C.figure({ svgRaw: dual(regSvg(false), regSvg(true)), record: REG, pins: false,
+    captionRaw: 'Every published claim decided so far, by its verdict.' });
 
   /* ---- BELOW: built on the same engine --------------------------------------------------------------------------- */
   /* the apps by name, once each (SkyAudit's two cities are one app); the frozen Petrobras submissions are not named */
@@ -342,9 +405,13 @@ module.exports = function verifyPage(X) {
     { href: '../apps/', k: 'decision apps', title: 'Apps on the same verdicts', desc: appNames.join(', ') + ' and PU Verificado: operational answers with the certificate one click down.' },
   ]);
 
-  const legend = '<div class="col">' + W.legendHtml({ compact: true }) + '</div>';
+  const legend = W.legendHtml({ compact: true });
   const col = (raw) => '<div class="col">' + raw + '</div>';
-  const pilotLine = '<a href="' + C.escAttr(PILOT) + '">Request a pilot →</a> · or write to ' + mail;
+  const btn = (href, raw, ghost) => '<a class="vf-btn' + (ghost ? ' ghost' : '') + '" href="' + C.escAttr(href) + '">' + raw + '</a>';
+  const ctas = '<div class="vf-cta">' + btn(PILOT, 'Request a pilot →') + btn('mailto:' + MAIL, '<span class="m">' + MAIL + '</span>', true) + '</div>';
+  const panel = (k, title, raw, go) => '<div class="vf-panel">' + (k ? '<span class="vf-k">' + C.esc(k) + '</span>' : '') + '<h3>' + C.esc(title) + '</h3><p>' + raw + '</p>'
+    + (go ? '<p class="vf-go">' + go + '</p>' : '') + '</div>';
+  const sec = ({ id, lab, title, raw }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n<div class="sec-head"><div class="lab">' + C.esc(lab) + '</div><h2>' + C.esc(title) + '</h2></div>\n' + raw + '\n</section>';
   const sections = [
     C.header({
       eyebrow: 'cert-machine · verify',
@@ -352,68 +419,55 @@ module.exports = function verifyPage(X) {
       deck: 'Verify re-decides a published claim from its own bytes, with code that shares nothing with the claimant, and returns one of three words: '
         + 'CERTIFIED, REFUTED with the object that breaks it, or REFUSED with the reason. Every verdict comes with a certificate anyone can re-run.'
     }),
-    C.pRaw(pilotLine + ' · <a href="#evidence">The evidence</a> · <a href="#offers">The offers</a> · <a href="#how">How it works</a> · <a href="#engine">Built on it</a>'),
+    '<div class="col vf-top">' + ctas + '<p class="vf-jump"><a href="#evidence">The evidence</a><a href="#offers">The offers</a><a href="#how">How it works</a><a href="#engine">Built on it</a></p></div>',
     hero,
     scale,
-    /* three proof points, the strongest trust signal first */
-    C.section({ lab: 'proof 1 of 3 · trust', title: 'The verifier is attacked before it is trusted', id: 'evidence', wide: true, bodyRaw: mutFig }),
-    C.section({ lab: 'proof 2 of 3 · audits', title: 'It reads the statement a proof checker is handed', wide: true,
-      bodyRaw: ostFig + col(C.pRaw('<a href="../reports/openai-math.html">The OpenAI audit →</a>')) + sixFold }),
-    C.section({ lab: 'proof 3 of 3 · outside', title: 'Outside checkers re-ran it and agreed', wide: true,
-      bodyRaw: col(C.quote({ text: '“' + OUTSIDE.plain(qiushi.quote) + '”', cite: 'the claimant, after an audit: ' + qiushi.who })) + back }),
-    C.section({
-      lab: 'the offers', title: 'Two ways to use it', id: 'offers',
-      bodyRaw: C.plainList([
-        { b: 'Graders that cannot be gamed, for RL and evaluation teams.',
-          raw: 'Send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a certificate, in code you run, '
-            + 'that must refuse planted wrong answers before it grades anything. On the mix measured here a tolerance grader admitted '
-            + tolPct + ' of ' + fmt(tolAdmit.n) + ' provably wrong answers; the certificate grader admitted none and rejected nothing right.' },
-        { b: 'Independent audits, for labs, AI-for-science companies and registries.',
-          raw: 'Send a claim as published, with its bytes. You get the gaps listed first, every finite part decided in exact arithmetic or by a second, '
-            + 'independent proof kernel, and every formal statement read against the claim and kept apart from what was decided. Before or after publication; the pilot’s terms say when the report is published.' }
-      ]) + C.pRaw(pilotLine + '. The form is public; a claim that is not yet public goes by e-mail.')
-    }),
-    C.section({ lab: 'below · how it works', title: 'From a claim to a certificate', id: 'how', wide: true, bodyRaw: schema }),
-    C.section({
-      lab: 'below · for graders', title: 'A tolerance is a hole a model can learn', wide: true,
-      bodyRaw: envFig + legend + col(C.pRaw('A grader that compares decimals within a tolerance rewards answers that are provably wrong, and a policy trained against it learns exactly those. '
-        + 'Three environments built on certificates instead run on Prime Intellect’s Environments Hub. <a href="../reports/envs.html">The measurement →</a>'))
-    }),
-    C.section({ lab: 'below · every verdict', title: 'What the register holds', wide: true,
-      bodyRaw: regFig + col(C.pRaw('<a href="../reports/claims.html">Every claim, with its verdict →</a>')) }),
-    C.section({
-      lab: 'below · the engine', title: 'Built on the same engine', id: 'engine', wide: true,
-      bodyRaw: col(C.p('The two offers above are what a pilot buys. Everything below runs on the same decider and the same three words, and most of it is open.'))
+    /* three proof points, the strongest trust signal first; the side of the figure flips each time */
+    split({ id: 'evidence', lab: 'proof 1 of 3 · trust', title: 'The verifier is attacked before it is trusted', textRaw: mutText, figRaw: mutFig }),
+    split({ lab: 'proof 2 of 3 · audits', title: 'It reads the statement a proof checker is handed', textRaw: ostText, figRaw: ostFig, flip: true, afterRaw: sixFold }),
+    sec({ lab: 'proof 3 of 3 · outside', title: 'Outside checkers ran it again and agreed',
+      raw: '<div class="col vf-quote">' + C.quote({ text: '“' + OUTSIDE.plain(qiushi.quote) + '”', cite: 'the claimant, after an audit: ' + qiushi.who })
+        + C.p('Every verdict re-runs with one command, without this engine.') + '</div>' + back }),
+    sec({ id: 'offers', lab: 'the offers', title: 'Two ways to use it', raw: '<div class="wide"><div class="vf-panels">'
+      + panel('for RL and evaluation teams', 'Graders that cannot be gamed',
+        'Send a task family, its answer format and what counts as correct. You get a grader whose ground truth is a certificate, in code you run, that must refuse planted wrong answers before it grades anything.',
+        '<a href="' + C.escAttr(PILOT) + '">Request a grader pilot →</a>')
+      + panel('for labs, AI-for-science companies and registries', 'Independent audits',
+        'Send a claim as published, with its bytes. You get the gaps listed first, every finite part decided in exact arithmetic or by a second, independent proof kernel, and every formal statement read against the claim. Before or after publication; the pilot’s terms say when the report is published.',
+        '<a href="' + C.escAttr(PILOT) + '">Request an audit pilot →</a>')
+      + '</div></div>' }),
+    sec({ id: 'how', lab: 'how it works', title: 'From a claim to a certificate', raw: schema }),
+    split({ lab: 'for graders', title: 'A tolerance is a hole a model can learn', textRaw: envText, figRaw: envFig + legend, flip: true }),
+    sec({ lab: 'the register', title: 'Most published claims hold',
+      raw: col(C.p('The value is in the ones that do not, and in saying exactly which part held.')) + regFig + col(C.pRaw('<a href="../reports/claims.html">Every claim, with its verdict →</a>')) }),
+    sec({ id: 'engine', lab: 'the platform', title: 'Built on the same engine',
+      raw: col(C.p('The two offers above are what a pilot buys. Everything below runs on the same decider and the same three words, and most of it is open.'))
         + '<div class="col" id="gym">' + C.pRaw(C.tag('under development', 'open') + ' <b>Verify Gym.</b> An always-evolving training ground on top of cert-machine. Models propose the tightest rational interval they can around a constant: '
           + 'first, roots of x^x = y, k-th roots of integers and real roots of integer polynomials. The reward is certified decimals, both ends proven exactly; '
           + 'an end that is refuted, malformed or unchecked earns nothing, so the reward cannot be gamed. New families arrive from the register’s newly decided claims; '
-          + 'a held-out set is frozen, and a public scorecard ranks every model, ours included. A trained open model ships only if it beats its own base on the held-out set.') + '</div>' + products
-    }),
-    C.section({
-      lab: 'below · the limits', title: 'What it refuses',
-      bodyRaw: C.plainList([
-        { b: 'Claims that do not come down to finitely many exact facts.', text: 'An asymptotic statement, a “for all n”, or a proof written in prose is refused with the reason, and the refusal says what would make it decidable.' },
-        { b: 'Your code.', text: 'Nothing a claimant wrote is run. The decision comes from code written apart from it, so a bug cannot certify itself.' },
-        { b: 'Meaning, passed off as a decision.', text: 'A kernel cannot say what a statement means. Where a verdict rests on reading a statement, the report says so and keeps the reading apart from what was decided.' },
-        { b: 'A verdict it cannot back.', text: 'Absence of proof is never turned into CERTIFIED or REFUTED. Not peer-reviewed; every page ships its own falsifiers.' }
-      ])
-    }),
-    C.section({
-      lab: 'below · a pilot', title: 'How a pilot starts', id: 'pilot',
-      bodyRaw: C.plainList([
-        { b: '1. Open a request.', raw: 'The <a href="' + C.escAttr(PILOT) + '">pilot form</a> asks what you want checked and where it is published. The form is public; if the claim is not, write to ' + mail + ' instead.' },
-        { b: '2. Scope before work.', text: 'Before anything is run, you get the list of what can be decided, what will be read, and what will be refused, and why.' },
-        { b: '3. The certificate.', text: 'Each verdict comes with its certificate and a one-line command that re-derives it without this engine.' }
-      ]) + C.pRaw(pilotLine)
-    })
+          + 'a held-out set is frozen, and a public scorecard ranks every model, ours included. A trained open model ships only if it beats its own base on the held-out set.') + '</div>' + products }),
+    sec({ lab: 'the limits', title: 'What it refuses', raw: '<div class="wide"><div class="vf-panels">'
+      + panel('', 'Claims that are not finite', 'An asymptotic statement, a “for all n”, or a proof written in prose is refused with the reason, and the refusal says what would make it decidable.')
+      + panel('', 'Your code', 'Nothing a claimant wrote is run. The decision comes from code written apart from it, so a bug cannot certify itself.')
+      + panel('', 'Meaning, passed off as a decision', 'A kernel cannot say what a statement means. Where a verdict rests on reading a statement, the report says so and keeps the reading apart from what was decided.')
+      + panel('', 'A verdict it cannot back', 'Absence of proof is never turned into CERTIFIED or REFUTED. Not peer-reviewed; every page ships its own falsifiers.')
+      + '</div></div>' }),
+    /* the close: one call to action, the pilot's three steps, then the one line to the evidence */
+    '<section id="pilot">\n<div class="vf-close">\n<div class="sec-head"><div class="lab">start a pilot</div><h2>Bring one claim. Get a certificate.</h2></div>\n'
+      + C.p('Send one published claim, or one task family. Before anything runs, you get the scope: what can be decided, what will be read, what will be refused, and why.')
+      + C.plainList([
+        { b: '1. Open a request.', raw: 'The <a href="' + C.escAttr(PILOT) + '">pilot form</a> asks what you want checked and where it is published.' },
+        { b: '2. Scope before work.', text: 'The list of what can be decided, what will be read and what will be refused, before anything is run.' },
+        { b: '3. The certificate.', text: 'Each verdict with its certificate, and a one-line command that re-derives it without this engine.' }])
+      + ctas + '<p class="vf-note">The form is public; a claim that is not yet public goes by e-mail.</p>\n</div>\n'
+      + '<p class="vf-ev">Every number on this page is read from a public record; the evidence is in <a href="../reports/">the reports →</a></p>\n</section>'
   ];
-  /* ONE rigor block (the operator, 2026-10-31): every value's reason that only its tooltip carries, said once at the
-     page's end instead of after each section. design/reasons.js leaves a page that carries its own block alone. */
-  let body = sections.join('\n\n');
-  const why = RS.pageReasons(body);
-  if (why) { const at = body.lastIndexOf('</section>'); body = body.slice(0, at) + why + body.slice(at); }
+  /* v5 (design/marketing.js): no reasons block; a value's tooltip says its standing's word, not its reason (the grammar's
+     marks stay, and the standing legend under the graders' chart says what each one means) */
+  let body = sections.join('\n\n').replace(/(<span class="w-val (w-(decided|computed|chosen|refused))\b[^"]*"[^>]*?) title="[^"]*"/g, (m0, pre, cls, st) => pre + ' title="' + st + '"');
+  vg('a value on it still carries its reason in a tooltip', !/<span class="w-val[^>]*title="[^"]*[ —:]/.test(body.replace(/<script[\s\S]*?<\/script>/g, '')));
+  void RS;
   body += CH.script();
-  const foot = '<p>Built by tools/build-site.js and tools/verify-page.js from ' + [REG, HM, KWR, XXR, OK_, OREL, OST, ENV, MUT, 'corpus/external-reruns.json', 'corpus/recognition.json'].join(', ')
-    + ' and the registry snapshots in corpus/optconst-queue/. Nothing on this page is live. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
+  const foot = '<p>Nothing on this page is live. MIT. <a href="' + GITHUB + '">Source</a>.</p>';
   return { body, foot, css };
 };
