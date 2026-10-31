@@ -172,6 +172,7 @@ test:
 	@printf "%-30s " "pu (Tesouro Direto prices)"; $(NODE) instruments/pu/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "curveseeds (NIST seeds)"; $(NODE) instruments/curveseeds/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "certified-mathbench (env)"; $(PY) environments/certified_mathbench/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "verify-gym (env + scorecard)"; $(PY) environments/verify_gym/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "machine-claims-100 (pins)"; $(NODE) tools/run-machine-claims.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "mc100 (the deciding runs)"; $(NODE) instruments/mc100/battery.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "mc100 (the Python runs)"; $(PY) instruments/mc100/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }

@@ -53,6 +53,7 @@ from __future__ import annotations
 
 import re
 from fractions import Fraction
+from functools import lru_cache
 
 CERTIFIED, REFUTED, REFUSED = "CERTIFIED", "REFUTED", "REFUSED"
 MALFORMED = "MALFORMED"
@@ -98,6 +99,13 @@ def _cmp(u, v):
     return (u > v) - (u < v)
 
 
+@lru_cache(maxsize=8192)
+def _xx_cmp(N, p, q):
+    """sign of p^p - N^q * q^p (the sign of a^a - N, raised to the q-th power). Pure, so it is memoised: the
+    gate and the policies ask the same comparison more than once, and each costs up to two million-bit powers."""
+    return _cmp(p ** p, N ** q * q ** p)
+
+
 def side_xx(N, a, rel):
     """x > a ('gt') or x < a ('lt') for the root of x^x = N."""
     if not (isinstance(N, int) and N >= 2):
@@ -105,7 +113,7 @@ def side_xx(N, a, rel):
     if a < 1:
         return REFUSED, "a bar below 1 is outside the reduction (x^x is not monotone on (0, 1))"
     p, q = a.numerator, a.denominator
-    c = _cmp(p ** p, N ** q * q ** p)            # sign of a^a - N, raised to the q-th power
+    c = _xx_cmp(N, p, q)
     hold = c < 0 if rel == "gt" else c > 0
     return (CERTIFIED if hold else REFUTED), "p^p %s N^q*q^p" % ("<" if c < 0 else ">" if c > 0 else "=")
 

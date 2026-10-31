@@ -35,6 +35,13 @@ def _ceil_dec(x, k):
     return _dec(-((-x.numerator * 10 ** k) // x.denominator), k)
 
 
+def _mutant(numerator, row):
+    """A tight bracket's side moved one unit of its denominator crosses the root (x - p/q < 1/q for the
+    Farey/convergent brackets cf gives), so it is REFUTED, unless the moved numerator reaches the size limit,
+    where it is MALFORMED before any arithmetic. Worth 0 either way; the expected verdict says which."""
+    return exact.REFUTED if abs(numerator) < 10 ** row["limit_digits"] else exact.MALFORMED
+
+
 def plant(row):
     """[(name, reply, expected verdict)] for one row, every one worth 0. Built from the row and the true bracket."""
     F = REGISTRY[row["family"]]
@@ -44,7 +51,9 @@ def plant(row):
     x = F.hp_estimate(row["instance"], 60)
     xf = float(x)
     T = frac_text
-    k = 4 if row["family"] == "xx" else 25                      # the most decimals the size limit admits
+    # the most decimals the size limit admits for this root (deviation 1 of the pre-registration: a fixed 25 put
+    # the forgery over the limit for kroot roots near 10^6, where it scored MALFORMED, not REFUTED; 0 either way)
+    k = min(25, row["limit_digits"] - 1 - len(str(abs(int(x)))))
     out = [
         ("the stated bracket, copied", _J(row["lo0"], row["hi0"]), exact.CERTIFIED),
         ("the sides swapped (lo > hi)", _J(T(hi_g), T(lo_g)), exact.MALFORMED),
@@ -52,9 +61,9 @@ def plant(row):
         ("lo above the root", _J(T(hi_g), T(hi0 + 1)), exact.REFUTED),
         ("hi below the root", _J(T(lo0), T(lo_g)), exact.REFUTED),
         ("lo one unit of its denominator the wrong way",
-         _J(T(Fraction(lo_g.numerator + 1, lo_g.denominator)), T(hi0 + 1)), exact.REFUTED),
+         _J(T(Fraction(lo_g.numerator + 1, lo_g.denominator)), T(hi0 + 1)), _mutant(lo_g.numerator + 1, row)),
         ("hi one unit of its denominator the wrong way",
-         _J(T(lo0), T(Fraction(hi_g.numerator - 1, hi_g.denominator))), exact.REFUTED),
+         _J(T(lo0), T(Fraction(hi_g.numerator - 1, hi_g.denominator))), _mutant(hi_g.numerator - 1, row)),
         ("an endpoint of 90 digits", _J("1" + "0" * 89, T(hi0 + 1)), exact.MALFORMED),
         ("a fraction over the size limit, tight and true",
          _J(_floor_dec(x, 40), _ceil_dec(x, 40)) if row["family"] != "xx" else

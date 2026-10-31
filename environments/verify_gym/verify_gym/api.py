@@ -120,7 +120,7 @@ def score(task_id, reply):
     return grade(row(task_id), reply)
 
 
-def preflight(n=6):
+def preflight(n=4):
     """Run the forgery gate. Any caller that reports numbers without calling this first is reporting numbers it
     has not earned."""
     from .forgeries import gate

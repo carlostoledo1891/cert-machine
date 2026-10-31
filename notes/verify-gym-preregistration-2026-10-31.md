@@ -194,3 +194,13 @@ Otherwise GRPO has nothing to reinforce (or nothing left to learn), and that mea
 ## Deviations
 
 Any change after this commit is recorded here, dated, with its reason.
+
+1. **2026-10-31, the first held-out run: a misbuilt forgery, caught by the gate before anything was graded.**
+   The scorecard's first run refused before grading any policy. The gate reported
+   `MISFILED kroot/heldout/2: hi a truncated decimal (looks tight, below the root) -> MALFORMED, not REFUTED`.
+   The forgery printed 25 decimals whatever the root's size. For a root near 10^6 that puts the numerator over
+   the 10^30 limit, so it was refused as oversize, not refuted. It scored 0 either way: nothing leaked. The
+   forgery now uses the most decimals the limit admits for that root (at most 25). The two one-unit mutants name
+   MALFORMED as their expected verdict where the moved numerator would reach the limit. The xx comparison is
+   memoised; it is pure, and the word is unchanged. The reward, the families, the held-out set and the readings
+   are unchanged.

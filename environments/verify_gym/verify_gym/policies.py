@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 from fractions import Fraction
+from functools import lru_cache
 
 from . import exact
 from .families import REGISTRY, frac_text
@@ -117,6 +118,7 @@ def _bracket(x, limit, target):
         r = 1 / f
 
 
+@lru_cache(maxsize=4096)
 def cf(prompt, digits=100):
     d = _data(prompt)
     F = REGISTRY[d["family"]]
