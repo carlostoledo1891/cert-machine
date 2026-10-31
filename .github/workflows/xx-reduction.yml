@@ -1,0 +1,276 @@
+# The x^x reduction, proved in Lean — lean/xx-reduction (reports/xx.html, certs/xx-reduction-lean.json). One Lake
+# project on Lean v4.34.1 and Mathlib d13f23b7 (the ETH bridge's openai/ pins), one file: x^x <= 1 on (0, 1], x^x
+# strictly increasing on [1, oo), for N >= 2 exactly one positive root, and for 1 <= q <= p the four comparisons
+# p/q < x <-> p^p < N^q q^p (and <=, and the two reverse ones), the step tools/run-xx-ledger.py rests on.
+#
+# The pattern is the ETH bridge's (.github/workflows/eth-bridge.yml), for one project:
+# build: the source gates (tools/xx-reduction-gates.js sources: toolchain and Mathlib pins, no sorry/axiom/
+# native_decide, every theorem printed), elan, lake update, lake exe cache get, lake build (Lean's kernel),
+# #print axioms (Axioms.lean), the log gates (only propext, Classical.choice, Quot.sound), artifact xx-reduction.
+# tools + kernels: the SECOND kernel. Every theorem replayed by Comparator, in Lean's kernel and in nanoda, on a fresh
+# runner on which nothing has built the project before Comparator does, with the tools at the ETH bridge's pins:
+#   Comparator leanprover/comparator d03acab1 (tag v4.34.0) built with Lean v4.34.1; lean4export 076e8e57
+#   (comparator's manifest) built with v4.34.1; landrun 811cfff5; nanoda ammkrn/nanoda_lib 3a240721.
+# Declared BEFORE the first run, every configuration that differs from the tools' defaults (the ETH bridge's 1, 2, 3,
+# 5 and 6, here for v4.34.1 only):
+#   1. Comparator's lean-toolchain raised from v4.34.0 to v4.34.1.
+#   2. nanoda as lane K builds it: corpus/openai-math/nanoda/issue44.patch (src/tc.rs) and the worker stack raised
+#      to 1 GiB (src/lib.rs); the diff is kept with the run (nanoda.patch).
+#   3. The Comparator config (written by tools/xx-reduction-gates.js challenge): enable_nanoda true, permitted_axioms
+#      the three standard ones, theorem_names EVERY theorem of XXReduction.lean, no definition holes.
+#   4. The challenge is GENERATED: XXChallenge.lean is XXReduction.lean with every proof replaced by `sorry` and its
+#      header comment replaced; ONE block is appended to lakefile.toml, [[lean_lib]] name = "XXChallenge". The
+#      solution module is XXReduction. Comparator's statement match is a consistency check of our own text.
+#   5. Comparator runs as `lake env comparator <config>` with the project's toolchain first on PATH, without the
+#      README's systemd-run wrapper: the solution is our own code.
+#   6. The timed step runs under `ulimit -s unlimited` and RUST_MIN_STACK=1 GiB; GLIBC_TUNABLES is not set.
+# tools/record-xx-reduction.js downloads a green run and writes certs/xx-reduction-lean.json. Nothing here pushes.
+name: xx-reduction
+on:
+  push:
+    paths:
+      - 'lean/xx-reduction/**'
+      - '.github/workflows/xx-reduction.yml'
+      - 'tools/xx-reduction-gates.js'
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  COMPARATOR_PIN: d03acab154d269c06e60e4de7e4cc85deebff94b   # tag v4.34.0; its toolchain raised to v4.34.1
+  COMPARATOR_TOOLCHAIN: leanprover/lean4:v4.34.1
+  LEAN4EXPORT_434: 076e8e57707e813375e8f9da8bf989799ace9680  # comparator v4.34.0's manifest, built with v4.34.1
+  LANDRUN_PIN: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4
+  NANODA_PIN: 3a2407216ee84a75f9e1aead6803d0578be06ae7
+  NANODA_BUILD: issue44-stack1g
+  ISSUE44_SHA256: 3939d228619a28d7437bad82c1d41fe1fd4597a7ea55b849840c0f7caa7d0ee5
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      OUT: ${{ github.workspace }}/out
+    defaults:
+      run:
+        working-directory: lean/xx-reduction
+    steps:
+      - uses: actions/checkout@v4
+      - name: free disk
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          df -h / | tail -1
+          mkdir -p "$OUT"
+      - name: source gates (pins, nothing forbidden, every theorem printed)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/xx-reduction-gates.js" sources | tee "$OUT/sources-gate.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: dependencies and the Mathlib cache
+        run: |
+          set -euo pipefail
+          WANT_TC=$(cat lean-toolchain)
+          lake update 2>&1 | tail -20
+          test "$(cat lean-toolchain)" = "$WANT_TC"   # lake update must not move the toolchain
+          WANT=$(sed -n 's/^rev = "\([0-9a-f]\{40\}\)"$/\1/p' lakefile.toml)
+          GOT=$(cd .lake/packages/mathlib && git rev-parse HEAD)
+          echo "mathlib wanted $WANT, checked out $GOT"
+          test "$WANT" = "$GOT"
+          lake exe cache get 2>&1 | tail -5
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          df -h / | tail -1
+      - name: build
+        run: |
+          set +e
+          {
+            echo "commit: $GITHUB_SHA"
+            echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+            echo "toolchain: $(cat lean-toolchain)"
+            lean --version; lake --version
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "runner: $RUNNER_OS $RUNNER_ARCH $(uname -r)"
+          } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+          start=$(date +%s)
+          lake build 2>&1 | tee "$OUT/build.log"
+          echo "${PIPESTATUS[0]}" > "$OUT/build-exit.txt"
+          echo $(( $(date +%s) - start )) > "$OUT/build-seconds.txt"
+          exit 0
+      - name: axioms
+        run: |
+          set +e
+          lake env lean Axioms.lean 2>&1 | tee "$OUT/axioms.log"
+          echo "${PIPESTATUS[0]}" > "$OUT/axioms-exit.txt"
+          exit 0
+      - name: hashes of every source the build read
+        if: always()
+        run: |
+          find . -path ./.lake -prune -o -type f \( -name '*.lean' -o -name 'lakefile.toml' -o -name 'lean-toolchain' \) -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          cat "$OUT/sources.sha256"
+      - name: log gates (exit codes, no sorry, no error, only the three standard axioms)
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/xx-reduction-gates.js" logs "$OUT" | tee "$OUT/logs-gate.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xx-reduction
+          path: ${{ github.workspace }}/out
+          retention-days: 90
+
+  tools:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: corpus/openai-math/nanoda/issue44.patch
+          sparse-checkout-cone-mode: false
+          path: audit
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/kernel-tools
+          key: xx-reduction-tools-${{ env.COMPARATOR_PIN }}-${{ env.COMPARATOR_TOOLCHAIN }}-${{ env.LEAN4EXPORT_434 }}-${{ env.LANDRUN_PIN }}-${{ env.NANODA_PIN }}-${{ env.NANODA_BUILD }}-${{ env.ISSUE44_SHA256 }}
+      - if: steps.cache.outputs.cache-hit != 'true'
+        name: build comparator, lean4export (v4.34.1), landrun, nanoda at their pins
+        run: |
+          set -euo pipefail
+          start=$(date +%s)
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          export PATH="$HOME/.elan/bin:$PATH"
+          mkdir -p ~/kernel-tools/bin ~/kernel-tools/v4.34.1 ~/src && cd ~/src
+          git clone -q https://github.com/leanprover/comparator.git && cd comparator && git checkout -q "$COMPARATOR_PIN"
+          echo "$COMPARATOR_TOOLCHAIN" > lean-toolchain
+          sed -i 's/"rev": "[0-9a-f]\{40\}"/"rev": "'"$LEAN4EXPORT_434"'"/' lake-manifest.json
+          lake build lean4export comparator
+          test "$(cd .lake/packages/lean4export && git rev-parse HEAD)" = "$LEAN4EXPORT_434"
+          cp .lake/build/bin/comparator ~/kernel-tools/bin/
+          cp .lake/packages/lean4export/.lake/build/bin/lean4export ~/kernel-tools/v4.34.1/lean4export
+          echo "lean4export $LEAN4EXPORT_434 (comparator's manifest), built with $COMPARATOR_TOOLCHAIN" > ~/kernel-tools/v4.34.1/lean4export.txt
+          cd ~/src && git clone -q https://github.com/Zouuup/landrun.git && cd landrun && git checkout -q "$LANDRUN_PIN"
+          go build -o ~/kernel-tools/bin/landrun ./cmd/landrun
+          cd ~/src && git clone -q https://github.com/ammkrn/nanoda_lib.git && cd nanoda_lib && git checkout -q "$NANODA_PIN"
+          sed -i 's/pub(crate) const STACK_SIZE: usize = 16_777_216;/pub(crate) const STACK_SIZE: usize = 1_073_741_824;/' src/lib.rs
+          test "$(git diff --numstat src/lib.rs | awk '{print $1+$2}')" = "2"
+          P="$GITHUB_WORKSPACE/audit/corpus/openai-math/nanoda/issue44.patch"
+          test "$(sha256sum "$P" | cut -d' ' -f1)" = "$ISSUE44_SHA256"
+          git apply "$P"
+          test -z "$(git diff --name-only | grep -v -x -e src/lib.rs -e src/tc.rs)"
+          git diff > ~/kernel-tools/nanoda.patch
+          cargo build --release -q
+          cp target/release/nanoda_bin ~/kernel-tools/bin/
+          echo "$NANODA_BUILD" > ~/kernel-tools/nanoda.build
+          { echo "go: $(go version)"; echo "cargo: $(cargo --version)"; echo "rustc: $(rustc --version)"; } > ~/kernel-tools/builders.txt
+          echo $(( $(date +%s) - start )) > ~/kernel-tools/tools-seconds.txt
+          ls -la ~/kernel-tools/bin ~/kernel-tools/v4.34.1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kernel-tools-xx
+          path: ~/kernel-tools
+          retention-days: 3
+
+  kernels:
+    needs: tools
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    env:
+      OUT: ${{ github.workspace }}/out
+    defaults:
+      run:
+        working-directory: lean/xx-reduction
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: kernel-tools-xx
+          path: ~/kernel-tools
+      - name: free disk, the machine
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost || true
+          mkdir -p "$OUT"
+          chmod +x ~/kernel-tools/bin/* ~/kernel-tools/v4.34.1/lean4export
+          {
+            echo "runner: $RUNNER_NAME $RUNNER_OS $RUNNER_ARCH, image $ImageOS $ImageVersion"
+            echo "cpus: $(nproc)"; grep -E '^(MemTotal|SwapTotal):' /proc/meminfo
+            echo "vm.max_map_count: $(cat /proc/sys/vm/max_map_count)"
+            echo "kernel: $(uname -r)"; echo "landlock: $(cat /sys/kernel/security/lsm 2>/dev/null || echo unreadable)"
+            df -h / | tail -1
+          } | tee "$OUT/machine.txt"
+          cp ~/kernel-tools/nanoda.patch "$OUT/nanoda.patch"
+          cp ~/kernel-tools/builders.txt "$OUT/" 2>/dev/null || true
+      - name: source gates
+        run: |
+          set -o pipefail
+          node "$GITHUB_WORKSPACE/tools/xx-reduction-gates.js" sources | tee "$OUT/sources-gate.txt"
+      - name: elan
+        run: |
+          set -euo pipefail
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: dependencies and the Mathlib cache (as the build job)
+        run: |
+          set -euo pipefail
+          WANT_TC=$(cat lean-toolchain)
+          lake update 2>&1 | tail -20
+          test "$(cat lean-toolchain)" = "$WANT_TC"
+          WANT=$(sed -n 's/^rev = "\([0-9a-f]\{40\}\)"$/\1/p' lakefile.toml)
+          GOT=$(cd .lake/packages/mathlib && git rev-parse HEAD)
+          echo "mathlib wanted $WANT, checked out $GOT"
+          test "$WANT" = "$GOT"
+          lake exe cache get 2>&1 | tail -5
+          cp lake-manifest.json "$OUT/lake-manifest.json"
+          # nothing of the project is built before Comparator builds it
+          test -z "$(find .lake/build -name '*.olean' 2>/dev/null)"
+          df -h / | tail -1
+      - name: the challenge (every proof replaced by sorry), the config, the one lakefile block
+        run: |
+          set -euo pipefail
+          node "$GITHUB_WORKSPACE/tools/xx-reduction-gates.js" challenge . | tee "$OUT/challenge-step.txt"
+          cp XXChallenge.lean comparator-xx.json lakefile.toml "$OUT/"
+          find . -path ./.lake -prune -o -type f \( -name '*.lean' -o -name 'lakefile.toml' -o -name 'lean-toolchain' \) -print | sort | xargs sha256sum > "$OUT/sources.sha256"
+          cat "$OUT/sources.sha256"
+          {
+            echo "commit: $GITHUB_SHA"
+            echo "run: $GITHUB_RUN_ID attempt $GITHUB_RUN_ATTEMPT"
+            echo "toolchain: $(cat lean-toolchain)"
+            lean --version; lake --version
+            echo "lean prefix: $(lean --print-prefix)"
+            echo "mathlib: $(cd .lake/packages/mathlib && git rev-parse HEAD)"
+            echo "comparator: $COMPARATOR_PIN built with $COMPARATOR_TOOLCHAIN"
+            cat ~/kernel-tools/v4.34.1/lean4export.txt
+            echo "nanoda: $NANODA_PIN, build $(cat ~/kernel-tools/nanoda.build)"
+            echo "landrun: $LANDRUN_PIN"
+            cat "$OUT/machine.txt"
+          } > "$OUT/env.txt" 2>&1
+          cat "$OUT/env.txt"
+      - name: Comparator on every theorem, Lean's kernel and nanoda
+        run: |
+          set +e
+          LP="$(lean --print-prefix)/bin"
+          date +%s > "$OUT/comparator.start"
+          ( ulimit -s unlimited 2>/dev/null || true; export RUST_MIN_STACK=1073741824
+            exec /usr/bin/time -v timeout 5400 env PATH="$LP:$PATH" COMPARATOR_LANDRUN="$HOME/kernel-tools/bin/landrun" \
+              COMPARATOR_LEAN4EXPORT="$HOME/kernel-tools/v4.34.1/lean4export" COMPARATOR_NANODA="$HOME/kernel-tools/bin/nanoda_bin" \
+              lake env "$HOME/kernel-tools/bin/comparator" comparator-xx.json > "$OUT/comparator.log" 2> "$OUT/comparator.err" )
+          echo $? > "$OUT/comparator.exit"
+          date +%s > "$OUT/comparator.end"
+          echo "comparator: exit $(cat "$OUT/comparator.exit"), $(( $(cat "$OUT/comparator.end") - $(cat "$OUT/comparator.start") )) s"
+          grep -v '^Exporting' "$OUT/comparator.log" | tail -40
+          tail -40 "$OUT/comparator.err"
+          exit 0
+      - name: kernel gates (the files as built from the checkout, both kernels accept, every theorem exported)
+        run: |
+          set -o pipefail
+          git checkout -- lakefile.toml
+          rm -f XXChallenge.lean comparator-xx.json
+          test -z "$(git status --porcelain --untracked-files=no -- .)"
+          node "$GITHUB_WORKSPACE/tools/xx-reduction-gates.js" kernels "$OUT" | tee "$OUT/kernels-gate.txt"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: xx-reduction-kernels
+          path: ${{ github.workspace }}/out
+          retention-days: 90
