@@ -1,5 +1,8 @@
-/* deck.js — Janela's pitch deck (pt-BR, 16:9, 12 slides), printed to PDF by
-   headless Chrome at site/janela/janela-apresentacao.pdf.
+/* deck.js — Janela's pitch deck (English, 16:9, 12 slides), printed to PDF by
+   headless Chrome at site/janela/janela-apresentacao.pdf. English since
+   2026-10-31 (the operator: the deck was never sent; the app and the method
+   page went English on 2026-10-30). The file keeps its Portuguese name: the
+   pages link that URL.
 
    ONE NUMBERS OBJECT. Every figure is read from numbers.js (the same N the
    method page reads), from uses.js (the use cases the app's doors and the page
@@ -27,12 +30,14 @@ const ROOT = path.join(__dirname, '..', '..');
 const CP = require(path.join(ROOT, 'apps', 'contraprova', 'deck.js'));
 const { APP_DARK } = require(path.join(ROOT, 'design', 'app-shell.js'));
 const T = require(path.join(ROOT, 'design', 'tokens.js'));
-const { br, Q } = require('./numbers.js');
+const { en, Q } = require('./numbers.js');
 const USES = require('./uses.js');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const need = (c, m) => { if (!c) throw new Error('janela deck: ' + m); };
-const pct = (w, n, k) => br.dec((100 * w / n).toFixed(k === undefined ? 1 : k)) + '%';
-const d2 = (x) => br.dec(Number(x).toFixed(2));
+const pct = (w, n, k) => en.dec((100 * w / n).toFixed(k === undefined ? 1 : k)) + '%';
+const d2 = (x) => en.dec(Number(x).toFixed(2));
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const ym = (iso) => MONTHS[+iso.slice(5, 7) - 1] + ' ' + iso.slice(0, 4);
 
 /* ---- the facts a slide states that N does not already hold, each from its record ---- */
 function facts(N) {
@@ -75,9 +80,9 @@ function facts(N) {
   const H = require('./audit/hindcast.js').load('santos');
   const CAMP = require(path.join(ROOT, 'instruments', 'window', 'campaign.js'));
   const run = (lim) => CAMP.campaign(H, { limit: lim, TR: 48, N: 10, start: '11-01' });
-  const days = (h) => (h === null || h === undefined ? '—' : br.dec((Math.round(h / 2.4) / 10).toFixed(1)));
+  const days = (h) => (h === null || h === undefined ? '—' : en.dec((Math.round(h / 2.4) / 10).toFixed(1)));
   const sea = run('2.0'), tab = run(Q.str(Q.mul(Q.parse(c.a), Q.parse('2.0')))), loc = run(Q.str(Q.mul(Q.parse(c.s.a), Q.parse('2.0'))));
-  F.camp = [['o mar (Hs ≤ 2,0 m)', sea], ['α do local (OPWF ' + br.dec(c.s.wf) + ' m)', loc], ['Tabela 4-1 (OPWF ' + br.dec(c.wf) + ' m)', tab]]
+  F.camp = [['the sea (Hs ≤ 2.0 m)', sea], ['the site\'s α (OPWF ' + en.dec(c.s.wf) + ' m)', loc], ['Table 4-1 (OPWF ' + en.dec(c.wf) + ' m)', tab]]
     .map(([k, r]) => ({ k, q50: days(r.q50), q90: days(r.q90), worst: days(r.worst), wy: r.worstYear, fin: r.finished, cen: r.censored }));
 
   /* the third provider, measured (certs/janela-providers-eval-aifs.json, providers-eval-aifs-v1) */
@@ -108,7 +113,7 @@ function facts(N) {
   /* the day the app re-decides (the local copy build-today.js just wrote and gated), when it is on this disk */
   const TD = path.join(ROOT, 'site', 'janela', 'data', 'today.json');
   F.day = fs.existsSync(TD) ? (() => { const t = JSON.parse(fs.readFileSync(TD, 'utf8')); return { decisions: t.decisions, second: t.second, run: t.run, proposers: t.ledger ? t.ledger.proposers.length : null }; })() : null;
-  F.month = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'][+N.feed.run.slice(5, 7) - 1] + ' de ' + N.feed.run.slice(0, 4);
+  F.month = ym(N.feed.run);
   return F;
 }
 
@@ -138,118 +143,118 @@ td.n,th.n{text-align:right;font-family:var(--f-mono)}
 `;
 }
 
-const CHIP = { L: 'LIBERADA', V: 'VETADA', I: 'INDEFINIDA', S: 'SEM DADOS' };
+const CHIP = { L: 'CLEARED', V: 'BLOCKED', I: 'UNDECIDED', S: 'NEEDS DATA' };
 const chip = (k) => '<span class="jn-c ' + k + '"><i></i>' + CHIP[k] + '</span>';
-const GLOSS = { L: 'todo limite vale na borda desfavorável da faixa medida, em cada passo da janela', V: 'um limite falha já na borda favorável; sai com a testemunha: a hora e a variável',
-  I: 'a faixa atravessa o limite; sai com o limiar que viraria a decisão', S: 'a regra limita o que ninguém prevê ali (corrente, visibilidade), e diz o quê' };
+const GLOSS = { L: 'every limit holds at the measured band\'s unfavourable edge, at every step of the window', V: 'a limit fails even at the favourable edge; it comes with the witness: the hour and the variable',
+  I: 'the band straddles the limit; it comes with the threshold that would flip the decision', S: 'the rule limits what nobody forecasts there (current, visibility), and says what' };
 
 function build(N, shots) {
-  const F = facts(N), U = USES.cases(), S_ = [];
-  const ft = (n) => '<div class="ft"><span>JANELA · carlostoledo.co/janela</span><span>a janela operacional, decidida · ' + esc(F.month) + '</span><span>' + n + '/12</span></div>';
-  const img = (k, cls, w) => shots && shots[k] ? '<img class="shot ' + cls + '" style="width:' + w + 'px" src="data:image/png;base64,' + shots[k] + '" alt="">' : '<div class="' + (k === 'card' ? 'ph-empty' : 'fl-empty') + '">o app</div>';
-  const H = F.H, broke = pct(H.broke, H.liberada, 2), eBroke = pct(H.eBroke, H.eLiberada, 2), cov = br.dec((100 * H.coverage).toFixed(1)) + '%';
-  const since = H.from.slice(5, 7) + '/' + H.from.slice(0, 4);
+  const F = facts(N), U = USES.cases('en'), S_ = [];
+  const ft = (n) => '<div class="ft"><span>JANELA · carlostoledo.co/janela</span><span>the operational window, decided · ' + esc(F.month) + '</span><span>' + n + '/12</span></div>';
+  const img = (k, cls, w) => shots && shots[k] ? '<img class="shot ' + cls + '" style="width:' + w + 'px" src="data:image/png;base64,' + shots[k] + '" alt="">' : '<div class="' + (k === 'card' ? 'ph-empty' : 'fl-empty') + '">the app</div>';
+  const H = F.H, broke = pct(H.broke, H.liberada, 2), eBroke = pct(H.eBroke, H.eLiberada, 2), cov = en.dec((100 * H.coverage).toFixed(1)) + '%';
+  const since = ym(H.from);
 
   /* 1 · cover */
-  S_.push('<section class="s"><div class="ey">Janela · energia offshore · janelas operacionais</div>'
-    + '<div class="cover"><div><h1>A janela de cada operação offshore, decidida.</h1>'
-    + '<p style="margin-top:26px;max-width:46ch">Para as ' + F.units + ' unidades de produção offshore do Brasil: o mar dos próximos sete dias contra o limite da sua operação — alívio, carga, lançamento, içamento, a regra da Capitania — sobre uma previsão cujo erro foi medido por satélite. Cada decisão sai com o motivo, e quem confere a refaz.</p></div>'
-    + '<div class="card core"><div class="k">o que já está medido</div><div class="big">' + broke + '</div>'
-    + '<p style="font-size:16px">das janelas LIBERADA com Hs ≤ 2 m que o mar rompeu, em ' + br.int(H.pairs) + ' comparações com satélite que a faixa nunca viu (desde ' + since + '): <b>' + br.int(H.broke) + ' de ' + br.int(H.liberada) + '</b>.</p>'
-    + '<p style="font-size:14px">Com a faixa de um provedor só (ECMWF), no mesmo teste: ' + eBroke + '. A faixa que decide cobre ' + cov + ' do que o satélite viu; reivindica 90%.</p></div></div>'
+  S_.push('<section class="s"><div class="ey">Janela · offshore energy · operational windows</div>'
+    + '<div class="cover"><div><h1>The window for every offshore operation, decided.</h1>'
+    + '<p style="margin-top:26px;max-width:46ch">For Brazil\'s ' + F.units + ' offshore production units: the next seven days of sea against your operation\'s limit — offloading, cargo, line laying, lifting, the Harbour Master\'s rule — over a forecast whose error was measured by satellite. Every decision comes out with its reason, and whoever checks it redoes it.</p></div>'
+    + '<div class="card core"><div class="k">what is already measured</div><div class="big">' + broke + '</div>'
+    + '<p style="font-size:16px">of the CLEARED windows with Hs ≤ 2 m that the sea broke, in ' + en.int(H.pairs) + ' satellite comparisons the band never saw (since ' + since + '): <b>' + en.int(H.broke) + ' of ' + en.int(H.liberada) + '</b>.</p>'
+    + '<p style="font-size:14px">With a single provider\'s band (ECMWF), in the same test: ' + eBroke + '. The band that decides covers ' + cov + ' of what the satellite saw; it claims 90%.</p></div></div>'
     + '<div class="row" style="margin-top:auto;margin-bottom:34px;gap:22px">' + ['L', 'V', 'I', 'S'].map((k) => '<div>' + chip(k) + '<div class="gl">' + esc(GLOSS[k]) + '</div></div>').join('') + '</div>' + ft(1) + '</section>');
 
   /* 2 · the problem */
-  S_.push('<section class="s"><div class="ey">1 · o problema</div><h2>A previsão é uma figura; a operação precisa de uma decisão que se defenda.</h2><div class="col3">'
-    + '<div class="card claim"><div class="k">2,4 m previstos, limite 2,5 m</div><p>Uma previsão sem o seu erro medido no local não diz se a janela cabe. Quem decide arredonda pelo receio ou pela pressa — e uma janela rompida custa embarcação, e uma janela perdida custa diária e tanque.</p></div>'
-    + '<div class="card claim"><div class="k">o α da DNV fecha janelas</div><p>A Tabela 4-1 (DNV-OS-H101), calibrada no Mar do Norte, encolhe o limite de previsão. Em Santos, Hs ≤ 2,0 m por 48 h: o mar abre <b>' + F.work.sea + '</b> dos inícios; a tabela deixa <b>' + F.work.tab + '</b>.</p></div>'
-    + '<div class="card claim"><div class="k">o papel</div><p>Vistoria, seguradora e SMS pedem o argumento de tempo por escrito. Nenhum provedor publica o próprio placar contra o que o mar fez.</p></div>'
-    + '</div><p class="qt" style="margin-top:28px">“' + esc(F.b704.split(' Guidance note')[0]) + '” — DNV-OS-H101, Seção 4, B704. A norma já pede o erro do local; ninguém o mede.</p>' + ft(2) + '</section>');
+  S_.push('<section class="s"><div class="ey">1 · the problem</div><h2>A forecast is a number; an operation needs a decision it can defend.</h2><div class="col3">'
+    + '<div class="card claim"><div class="k">2.4 m forecast, 2.5 m limit</div><p>A forecast without its error measured at the site does not say whether the window fits. Whoever decides rounds out of caution or out of haste — and a broken window can cost a vessel, while a missed one costs day rate and tank space.</p></div>'
+    + '<div class="card claim"><div class="k">DNV\'s α closes windows</div><p>Table 4-1 (DNV-OS-H101), calibrated in the North Sea, shrinks the forecast limit. In Santos, Hs ≤ 2.0 m for 48 h: the sea opens <b>' + F.work.sea + '</b> of the starts; the table leaves <b>' + F.work.tab + '</b>.</p></div>'
+    + '<div class="card claim"><div class="k">the paperwork</div><p>Marine warranty, the insurer and HSE ask for the weather argument in writing. No provider publishes its own scoreboard against what the sea did.</p></div>'
+    + '</div><p class="qt" style="margin-top:28px">“' + esc(F.b704.split(' Guidance note')[0]) + '” — DNV-OS-H101, Section 4, B704. The standard already asks for the site\'s error; nobody measures it.</p>' + ft(2) + '</section>');
 
   /* 3 · the product */
-  S_.push('<section class="s"><div class="ey">2 · o produto</div><h2 style="font-size:36px;margin-bottom:22px">A frota no mapa, a resposta primeiro.</h2><div class="split">'
+  S_.push('<section class="s"><div class="ey">2 · the product</div><h2 style="font-size:36px;margin-bottom:22px">The fleet on the map, the answer first.</h2><div class="split">'
     + '<div>' + img('fleet', '', 690) + '</div><div class="pts">'
-    + '<div class="pt"><b>A resposta antes do gráfico</b><p>Quantas unidades podem começar a operação na hora escolhida, e quais não podem, pelo nome.</p></div>'
-    + '<div class="pt"><b>O quadro da frota</b><p>Cada unidade contra os 29 inícios da semana, por bacia ou pela menor folga, ligado ao mapa; sai como planilha (CSV).</p></div>'
-    + '<div class="pt"><b>Quatro vereditos, sempre com a palavra</b><p>Forma e palavra, nunca só a cor: LIBERADA, VETADA com a testemunha, INDEFINIDA com o limiar, SEM DADOS com o que falta.</p></div>'
-    + '<div class="pt"><b>Três critérios lado a lado</b><p>A faixa medida, a Tabela 4-1 da DNV e o α do local, para a mesma janela.</p></div>'
-    + '<div class="pt"><b>Refeito no seu navegador</b><p>' + (F.day ? 'As ' + br.int(F.day.decisions) + ' decisões publicadas do dia' : 'Todas as decisões publicadas do dia') + ', re-decididas na aba pelos mesmos módulos pinados, em segundos, e comparadas com o registro.</p></div>'
+    + '<div class="pt"><b>The answer before the chart</b><p>How many units can start the operation at the chosen hour, and which cannot, by name.</p></div>'
+    + '<div class="pt"><b>The fleet board</b><p>Every unit against the week\'s 29 starts, by basin or by smallest margin, linked to the map; it exports as a spreadsheet (CSV).</p></div>'
+    + '<div class="pt"><b>Four verdicts, always with the word</b><p>Shape and word, never colour alone: CLEARED, BLOCKED with the witness, UNDECIDED with the threshold, NEEDS DATA with what is missing.</p></div>'
+    + '<div class="pt"><b>Three criteria side by side</b><p>The measured band, DNV\'s Table 4-1 and the site\'s α, for the same window.</p></div>'
+    + '<div class="pt"><b>Redone in your browser</b><p>' + (F.day ? 'The day\'s ' + en.int(F.day.decisions) + ' published decisions' : 'Every published decision of the day') + ', re-decided in the tab by the same pinned modules, in seconds, and compared with the record.</p></div>'
     + '</div></div>' + ft(3) + '</section>');
 
   /* 4 · who it is for */
-  S_.push('<section class="s"><div class="ey">3 · para quem</div><h2 style="font-size:36px">Seis decisões, e a porta de cada uma no app.</h2><table class="sm"><thead><tr><th>quem</th><th>a pergunta</th><th>o que leva</th><th>horizonte</th></tr></thead><tbody>'
+  S_.push('<section class="s"><div class="ey">3 · who it is for</div><h2 style="font-size:36px">Six decisions, and each one\'s door into the app.</h2><table class="sm"><thead><tr><th>who</th><th>the question</th><th>what they leave with</th><th>horizon</th></tr></thead><tbody>'
     + U.map((u) => '<tr><td>' + esc(u.who) + '</td><td>' + esc(u.q) + '</td><td>' + esc(u.gets) + '</td><td>' + esc(u.n.split(' · ')[1] || u.n) + '</td></tr>').join('')
     + '</tbody></table>' + ft(4) + '</section>');
 
   /* 5 · one decision, inside */
-  S_.push('<section class="s"><div class="ey">4 · uma decisão, por dentro</div><div class="split2"><div>' + img('card', 'ph', 262) + '</div><div>'
-    + '<h2 style="font-size:34px">Cada veredito com o motivo, a folga e o papel para refazê-lo.</h2><div class="pts">'
-    + '<div class="pt"><b>A próxima janela e a folga</b><p>Quando começar, até quando, e quanto falta até o limite na borda desfavorável — a folga arredondada para baixo, nunca exagerada.</p></div>'
-    + '<div class="pt"><b>ALÍVIO CRÍTICO, com os seus números</b><p>Capacidade, estoque e produção digitados ficam no navegador; a Janela põe “tanques cheios em X h” ao lado da próxima janela de alívio e avisa quando ela abre tarde demais.</p></div>'
-    + '<div class="pt"><b>O custo da espera</b><p>À sua diária — a Janela não inventa diária — até a próxima janela LIBERADA.</p></div>'
-    + '<div class="pt"><b>Nota de decisão e certificado .json</b><p>A regra citada com o ato e a página, a rodada, a faixa, o sha256 de cada módulo e registro, e os comandos para refazer à mão.</p></div>'
+  S_.push('<section class="s"><div class="ey">4 · one decision, inside</div><div class="split2"><div>' + img('card', 'ph', 262) + '</div><div>'
+    + '<h2 style="font-size:34px">Every verdict with its reason, its margin and the paperwork to redo it.</h2><div class="pts">'
+    + '<div class="pt"><b>The next window and its margin</b><p>When to start, until when, and how far the unfavourable edge sits from the limit — the margin rounded down, never overstated.</p></div>'
+    + '<div class="pt"><b>CRITICAL OFFLOADING, with your numbers</b><p>Storage, inventory and production typed in stay in the browser; Janela puts “tanks full in X h” beside the next offloading window and warns when it opens too late.</p></div>'
+    + '<div class="pt"><b>The cost of waiting</b><p>At your day rate — Janela never invents a day rate — until the next CLEARED window.</p></div>'
+    + '<div class="pt"><b>Decision note and .json certificate</b><p>The rule cited with its act and page, the run, the band, the sha256 of every module and record, and the commands to redo it by hand.</p></div>'
     + '</div></div></div>' + ft(5) + '</section>');
 
   /* 6 · the measured band */
-  S_.push('<section class="s"><div class="ey">5 · a faixa medida</div><h2>A previsão com o erro medido contra satélite, local a local, prazo a prazo.</h2><div class="col3">'
-    + '<div class="card"><div class="k">o arquivo</div><div class="big">' + br.int(F.ecmwfPairs) + '</div><p>pares previsão ECMWF × altímetro de satélite em ' + F.mainSites + ' locais, 2023–2026; mais ' + br.int(F.noaaPairs) + ' da NOAA WAVEWATCH III. Uma faixa calibrada por local e prazo, reivindicando 9/10.</p></div>'
-    + '<div class="card"><div class="k">fora da amostra</div><div class="big">' + cov + '</div><p>de cobertura em ' + br.int(H.pairs) + ' comparações posteriores a ' + since + ', que nenhuma faixa viu na calibração.</p></div>'
-    + '<div class="card core"><div class="k">a decisão que vale</div><div class="big">' + broke + '</div><p>das LIBERADA com Hs ≤ 2 m rompidas pelo mar (' + br.int(H.broke) + ' de ' + br.int(H.liberada) + '); só com o ECMWF, ' + eBroke + ' (' + br.int(H.eBroke) + ' de ' + br.int(H.eLiberada) + ').</p></div>'
-    + '</div><p style="margin-top:22px;font-size:16px">Dois provedores, ECMWF e NOAA: decide a <b>união</b> das duas faixas calibradas, que cobre sempre que uma cobre — escolhida por medição, antes de decidir. Os ensembles brutos são mostrados e avaliados, nunca decidem.</p>'
-    + (F.aifs ? '<p style="margin-top:10px;font-size:14px">Um terceiro, o modelo de IA do ECMWF (AIFS, em dados abertos desde maio de 2026), foi medido pela mesma regra, escrita antes: em ' + br.int(F.aifs.test) + ' comparações posteriores a ' + F.aifs.from.slice(8, 10) + '/' + F.aifs.from.slice(5, 7) + ', a união IFS ∪ AIFS liberou ' + F.aifs.ea.liberada + ' com ' + F.aifs.ea.brokeLiberada + ' rompida; IFS ∪ NOAA, ' + F.aifs.en.liberada + ' com ' + F.aifs.en.brokeLiberada + '. Sem diferença medida no que importa primeiro — ele é avaliado todo dia e ainda não decide.</p>' : '') + ft(6) + '</section>');
+  S_.push('<section class="s"><div class="ey">5 · the measured band</div><h2>The forecast with its error measured by satellite, per site and lead time.</h2><div class="col3">'
+    + '<div class="card"><div class="k">the archive</div><div class="big">' + en.int(F.ecmwfPairs) + '</div><p>ECMWF forecast × satellite altimeter pairs at ' + F.mainSites + ' sites, 2023–2026; plus ' + en.int(F.noaaPairs) + ' from NOAA WAVEWATCH III. A band calibrated per site and lead time, claiming 9 in 10.</p></div>'
+    + '<div class="card"><div class="k">out of sample</div><div class="big">' + cov + '</div><p>coverage in ' + en.int(H.pairs) + ' comparisons since ' + since + ', which no band saw in calibration.</p></div>'
+    + '<div class="card core"><div class="k">the decision that counts</div><div class="big">' + broke + '</div><p>of the CLEARED windows with Hs ≤ 2 m broken by the sea (' + en.int(H.broke) + ' of ' + en.int(H.liberada) + '); with ECMWF alone, ' + eBroke + ' (' + en.int(H.eBroke) + ' of ' + en.int(H.eLiberada) + ').</p></div>'
+    + '</div><p style="margin-top:22px;font-size:16px">Two providers, ECMWF and NOAA: the <b>union</b> of the two calibrated bands decides, and it covers whenever either one covers — chosen by measurement, before deciding. The raw ensembles are shown and scored; they never decide.</p>'
+    + (F.aifs ? '<p style="margin-top:10px;font-size:14px">A third, ECMWF\'s AI model (AIFS, open data since May 2026), was measured by the same rule, written beforehand: in ' + en.int(F.aifs.test) + ' comparisons after ' + en.date(F.aifs.from) + ', the union IFS ∪ AIFS cleared ' + en.int(F.aifs.ea.liberada) + ' with ' + en.int(F.aifs.ea.brokeLiberada) + ' broken; IFS ∪ NOAA, ' + en.int(F.aifs.en.liberada) + ' with ' + en.int(F.aifs.en.brokeLiberada) + '. No measured difference where it matters first — it is scored every day and does not decide yet.</p>' : '') + ft(6) + '</section>');
 
   /* 7 · the site alpha */
   const A = F.alpha;
-  S_.push('<section class="s"><div class="ey">6 · o α do local</div><h2>Nas bacias offshore, o α medido fica acima da tabela do Mar do Norte em toda célula.</h2><div class="col3">'
-    + '<div class="card"><div class="k">o método, calibrado antes</div><div class="big">' + A.cal.within + ' de ' + A.cal.of + '</div><p>células da Tabela 4-1 reproduzidas (±0,02) pelo método que a fez, antes de olhar o Brasil.</p></div>'
-    + '<div class="card core"><div class="k">Hs de projeto 2 m · ' + A.basins + ' locais offshore</div><div class="big">' + d2(A.lo) + '–' + d2(A.hi) + '</div><p>o α do local, contra ' + d2(A.tLo) + '–' + d2(A.tHi) + ' da tabela; o intervalo de 90% acima da tabela em ' + A.above + ' de ' + A.n + ' células.</p></div>'
-    + '<div class="card"><div class="k">Santos · Hs ≤ 2,0 m · 48 h</div><table class="sm" style="font-size:14px"><tbody><tr><td>o mar permite</td><td class="n">' + F.work.sea + '</td></tr><tr><td>Tabela 4-1 (α ' + br.dec(F.work.aT) + ')</td><td class="n">' + F.work.tab + '</td></tr><tr><td>α do local (' + br.dec(F.work.aS) + ')</td><td class="n">' + F.work.loc + '</td></tr></tbody></table><p style="font-size:13px">dos inícios de operação, ' + F.work.from + '–' + F.work.to + ', contados exatamente.</p></div>'
-    + '</div><p style="margin-top:22px;font-size:15px">Uma estimativa estatística (intervalo de 90%, reamostragem por dia), usada pelo seu limite inferior; a cauda de 1 em 10.000 da norma é extrapolação de modelo. Na costa (Florianópolis) e em Sergipe-Alagoas o α do local fica na tabela ou abaixo dela — e a Janela diz isso também. Evidência para o vistoriador refazer, nunca uma aprovação.</p>' + ft(7) + '</section>');
+  S_.push('<section class="s"><div class="ey">6 · the site\'s α</div><h2>Over the offshore basins, the measured α sits above the North Sea table in every cell.</h2><div class="col3">'
+    + '<div class="card"><div class="k">the method, calibrated first</div><div class="big">' + A.cal.within + ' of ' + A.cal.of + '</div><p>Table 4-1 cells reproduced (±0.02) by the method that made the table, before looking at Brazil.</p></div>'
+    + '<div class="card core"><div class="k">design Hs 2 m · ' + A.basins + ' offshore sites</div><div class="big">' + d2(A.lo) + '–' + d2(A.hi) + '</div><p>the site\'s α, against ' + d2(A.tLo) + '–' + d2(A.tHi) + ' in the table; the 90% interval sits above the table in ' + A.above + ' of ' + A.n + ' cells.</p></div>'
+    + '<div class="card"><div class="k">Santos · Hs ≤ 2.0 m · 48 h</div><table class="sm" style="font-size:14px"><tbody><tr><td>the sea allows</td><td class="n">' + F.work.sea + '</td></tr><tr><td>Table 4-1 (α ' + en.dec(F.work.aT) + ')</td><td class="n">' + F.work.tab + '</td></tr><tr><td>the site\'s α (' + en.dec(F.work.aS) + ')</td><td class="n">' + F.work.loc + '</td></tr></tbody></table><p style="font-size:13px">of operation starts, ' + F.work.from + '–' + F.work.to + ', counted exactly.</p></div>'
+    + '</div><p style="margin-top:22px;font-size:15px">A statistical estimate (90% interval, resampled by day), used at its lower bound; the standard\'s 1-in-10,000 tail is a model extrapolation. On the coast (Florianópolis) and in Sergipe-Alagoas the site\'s α sits at or below the table — and Janela says that too. Evidence for the surveyor to redo, never an approval.</p>' + ft(7) + '</section>');
 
   /* 8 · the campaign */
-  S_.push('<section class="s"><div class="ey">7 · a campanha</div><h2>Dez lançamentos de 48 h em Santos a partir de 1º de novembro: quantos dias de embarcação?</h2>'
-    + '<table><thead><tr><th>critério</th><th class="n">metade dos anos</th><th class="n">9 de cada 10</th><th class="n">o pior ano</th></tr></thead><tbody>'
-    + F.camp.map((r) => '<tr><td>' + esc(r.k) + '</td><td class="n"><b>' + r.q50 + ' dias</b></td><td class="n">' + r.q90 + '</td><td class="n">' + r.worst + (r.wy ? ' (' + r.wy + ')' : '') + '</td></tr>').join('')
-    + '</tbody></table><p style="margin-top:24px">Cada um dos ' + (F.camp[0].fin + F.camp[0].cen) + ' anos do hindcast roda a campanha: a primeira janela depois de 1º de novembro, a operação ocupa a janela, a seguinte procura a partir do fim dela. Os quantis são estatísticas de ordem exatas dos anos que terminam' + (F.camp.some((r) => r.cen) ? ' (' + F.camp.filter((r) => r.cen).map((r) => r.cen + ' ano na linha “' + r.k.split(' (')[0] + '”').join(' e ') + ' não termina antes do fim do registro: contado, fica de fora)' : '') + '. <b>A distância entre a tabela e o α do local, em dias de embarcação, é o argumento que o vistoriador avalia.</b></p>'
-    + '<p style="margin-top:12px;font-size:14px">Sem trânsito nem espera de mobilização; um hindcast (Ifremer WAVEWATCH III) é o mar passado de um modelo, e a conta é exata sobre ele' + (F.pnb ? ' — e o hindcast foi conferido contra ' + F.pnb.deployments + ' implantações das boias da Marinha (PNBOIA, ' + F.pnb.from + '–' + F.pnb.to + ', ' + br.int(F.pnb.pairs) + ' pares): tempo com Hs ≤ 2,0 m, boias ' + F.pnb.b20 + ', hindcast ' + F.pnb.h20 + '; abaixo de 1,5 m o hindcast é conservador (' + F.pnb.h15 + ' contra ' + F.pnb.b15 + ')' : '') + '. No app, qualquer área, limite, janela, número de operações e mês.</p>' + ft(8) + '</section>');
+  S_.push('<section class="s"><div class="ey">7 · the campaign</div><h2>Ten 48 h line-laying operations in Santos from 1 November: how many vessel days?</h2>'
+    + '<table><thead><tr><th>criterion</th><th class="n">half the years</th><th class="n">9 in 10</th><th class="n">the worst year</th></tr></thead><tbody>'
+    + F.camp.map((r) => '<tr><td>' + esc(r.k) + '</td><td class="n"><b>' + r.q50 + ' days</b></td><td class="n">' + r.q90 + '</td><td class="n">' + r.worst + (r.wy ? ' (' + r.wy + ')' : '') + '</td></tr>').join('')
+    + '</tbody></table><p style="margin-top:24px">Each of the ' + (F.camp[0].fin + F.camp[0].cen) + ' hindcast years runs the campaign: the first window after 1 November, the operation takes the window, the next one is sought from its end. The quantiles are exact order statistics of the years that finish' + (F.camp.some((r) => r.cen) ? ' (' + F.camp.filter((r) => r.cen).map((r) => r.cen + (r.cen === 1 ? ' year' : ' years') + ' in the row “' + r.k.split(' (')[0] + '”').join(' and ') + ' did not finish before the record ends: counted, left out)' : '') + '. <b>The distance between the table and the site\'s α, in vessel days, is the argument the surveyor weighs.</b></p>'
+    + '<p style="margin-top:12px;font-size:14px">No transit or mobilisation wait; a hindcast (Ifremer WAVEWATCH III) is a model\'s past sea, and the count is exact over it' + (F.pnb ? ' — and the hindcast was checked against ' + F.pnb.deployments + ' deployments of the Brazilian Navy\'s buoys (PNBOIA, ' + F.pnb.from + '–' + F.pnb.to + ', ' + en.int(F.pnb.pairs) + ' pairs): time with Hs ≤ 2.0 m, buoys ' + F.pnb.b20 + ', hindcast ' + F.pnb.h20 + '; below 1.5 m the hindcast is conservative (' + F.pnb.h15 + ' against ' + F.pnb.b15 + ')' : '') + '. In the app: any area, limit, window, number of operations and month.</p>' + ft(8) + '</section>');
 
   /* 9 · why trust it */
   const sec = F.day && F.day.second;
-  S_.push('<section class="s"><div class="ey">8 · por que confiar</div><h2>Confiança que se confere, não que se pede.</h2><div class="col2" style="gap:22px">'
-    + '<div class="pt"><b>Aritmética exata</b><p>Cada veredito é decidido em racionais sobre o limite como impresso; a faixa publicada é arredondada para fora, então LIBERADA e VETADA valem sobre a exata.</p></div>'
-    + '<div class="pt"><b>Refeito no navegador de quem lê</b><p>Os módulos que decidem vão dentro da página, com sha256 pinado; a aba refaz todas as decisões publicadas do dia e compara com o registro.</p></div>'
-    + '<div class="pt"><b>Um segundo verificador</b><p>Escrito a partir da especificação, sem ler o primeiro (Python, nenhum código em comum)' + (sec ? ': ' + br.int(sec.equal) + ' de ' + br.int(sec.decisions) + ' decisões iguais' : '') + '. O build recusa um dia em que os dois discordem.</p></div>'
-    + '<div class="pt"><b>Um placar público</b><p>' + br.int(N.ledger.commits) + ' faixas comprometidas antes da hora-alvo desde ' + br.date(N.ledger.first) + ', avaliadas por satélite; a regra que poda uma faixa foi datada antes do primeiro dado. O registro só cresce.</p></div>'
-    + '<div class="pt"><b>Entradas pinadas</b><p>A previsão, as faixas, as regras da Capitania e a tabela da DNV entram por sha256; a Nota diz qual commit fez o dia e como refazê-lo.</p></div>'
-    + '<div class="pt"><b>O que é dito, e o que não é</b><p>Decide-se a faixa nos passos da previsão, no nó do modelo — não o mar entre passos, não o berço, não uma probabilidade.</p></div>'
+  S_.push('<section class="s"><div class="ey">8 · why trust it</div><h2>Trust you can check, not trust you are asked for.</h2><div class="col2" style="gap:22px">'
+    + '<div class="pt"><b>Exact arithmetic</b><p>Every verdict is decided in rationals on the limit as printed; the published band is rounded outward, so CLEARED and BLOCKED hold on the exact one.</p></div>'
+    + '<div class="pt"><b>Redone in the reader\'s browser</b><p>The modules that decide ship inside the page, pinned by sha256; the tab redoes every published decision of the day and compares it with the record.</p></div>'
+    + '<div class="pt"><b>A second checker</b><p>Written from the specification without reading the first (Python, no code in common)' + (sec ? ': ' + en.int(sec.equal) + ' of ' + en.int(sec.decisions) + ' decisions equal' : '') + '. The build refuses a day on which the two disagree.</p></div>'
+    + '<div class="pt"><b>A public scoreboard</b><p>' + en.int(N.ledger.commits) + ' bands committed before the target hour since ' + en.date(N.ledger.first) + ', scored by satellite; the rule that prunes a band was dated before the first datum. The record only grows.</p></div>'
+    + '<div class="pt"><b>Pinned inputs</b><p>The forecast, the bands, the Harbour Masters\' local rules (NPCPs) and DNV\'s table enter by sha256; the decision note says which commit made the day and how to redo it.</p></div>'
+    + '<div class="pt"><b>What is said, and what is not</b><p>The band is decided at the forecast steps, at the model node — not the sea between steps, not the berth, not a probability.</p></div>'
     + '</div>' + ft(9) + '</section>');
 
   /* 10 · coverage and sources */
-  S_.push('<section class="s"><div class="ey">9 · cobertura e fontes</div><h2>A margem brasileira inteira, com dados de uso comercial livre.</h2><div class="col3">'
-    + '<div class="card"><div class="k">onde</div><div class="big">' + F.units + '</div><p>unidades de produção offshore da ANP (FPSO, FSO, plataformas), cada uma com a faixa do local medido mais perto; ' + F.sites + ' locais medidos contra satélite, de Pelotas à Foz do Amazonas.</p></div>'
-    + '<div class="card"><div class="k">as regras</div><div class="big">' + F.rules + '</div><p>limites publicados de ' + F.acts + ' atos da Autoridade Marítima (NPCPs e portarias), com página e citação literal; o critério de alívio citado (OMAE2010-20147); a Tabela 4-1 da DNV.</p></div>'
-    + '<div class="card"><div class="k">os dados</div><p style="font-size:15px">ECMWF open data (CC BY 4.0) · NOAA WAVEWATCH III (domínio público) · altimetria NOAA (domínio público) · corrente Copernicus Marine (mostrada, ainda não decidida) · hindcast Ifremer (CC BY-SA 4.0) · ANP GeoMaps.</p></div>'
-    + '</div><p style="margin-top:22px;font-size:15px">Coleta diária automática; cada dia publicado com o commit que o fez. A Janela roda no navegador: nenhum número digitado (estoque, diária, limite) sai dele.</p>' + ft(10) + '</section>');
+  S_.push('<section class="s"><div class="ey">9 · coverage and sources</div><h2>The whole Brazilian margin, on data free for commercial use.</h2><div class="col3">'
+    + '<div class="card"><div class="k">where</div><div class="big">' + F.units + '</div><p>ANP offshore production units (FPSO, FSO, platforms), each with the band of the nearest measured site; ' + F.sites + ' sites measured against satellite, from Pelotas to Foz do Amazonas.</p></div>'
+    + '<div class="card"><div class="k">the rules</div><div class="big">' + F.rules + '</div><p>published limits from ' + F.acts + ' acts of the Maritime Authority (NPCPs, the Harbour Masters\' local rules, and ordinances), with page and literal quote; the offloading criterion cited (OMAE2010-20147); DNV\'s Table 4-1.</p></div>'
+    + '<div class="card"><div class="k">the data</div><p style="font-size:15px">ECMWF open data (CC BY 4.0) · NOAA WAVEWATCH III (public domain) · NOAA altimetry (public domain) · Copernicus Marine currents (shown, not yet decided) · Ifremer hindcast (CC BY-SA 4.0) · ANP GeoMaps.</p></div>'
+    + '</div><p style="margin-top:22px;font-size:15px">Collected automatically every day; each day published with the commit that made it. Janela runs in the browser: no number you type (inventory, day rate, limit) leaves it.</p>' + ft(10) + '</section>');
 
   /* 11 · honest limits */
-  S_.push('<section class="s"><div class="ey">10 · o que a Janela não diz</div><h2>Os limites, ditos antes que alguém pergunte.</h2><ul style="font-size:17px">'
-    + '<li><b>Não é aprovação de operação.</b> Garantia marítima e classificadoras são donas dessa palavra; a Janela é evidência que um vistoriador refaz.</li>'
-    + '<li><b>O nó do modelo, não o berço.</b> Num terminal, a previsão é o mar aberto da aproximação: limites de onda no berço ficam SEM DADOS até existir a transferência costeira.</li>'
-    + '<li><b>Corrente e visibilidade não decidem.</b> A corrente é mostrada e está sendo medida contra observação; uma regra que a limita fica SEM DADOS, e diz o que a fecharia.</li>'
-    + '<li><b>O α do local é uma estimativa;</b> a cauda de 1 em 10.000 da norma é extrapolação. Em Sergipe-Alagoas a faixa tende a ser conservadora (o satélite vê o mar de 40–100 km da costa).</li>'
-    + '<li><b>O placar para a frente está começando:</b> as primeiras faixas são avaliadas três dias depois de cada dia fechar; a primeira leitura de admissão vem com 30 dias-ensaio.</li>'
-    + '<li><b>Os limites de carga, lançamento e içamento são exemplos</b> e dizem isso; o de alívio é citado. Use os do seu procedimento.</li>'
+  S_.push('<section class="s"><div class="ey">10 · what Janela does not say</div><h2>The limits, stated before anyone asks.</h2><ul style="font-size:17px">'
+    + '<li><b>It is not an approval of an operation.</b> Marine warranty and the class societies own that word; Janela is evidence a surveyor redoes.</li>'
+    + '<li><b>The model node, not the berth.</b> At a terminal, the forecast is the open sea of the approach: wave limits at the berth stay NEEDS DATA until a coastal transfer exists.</li>'
+    + '<li><b>Current and visibility do not decide.</b> The current is shown and is being measured against observation; a rule that limits it stays NEEDS DATA, and says what would close it.</li>'
+    + '<li><b>The site\'s α is an estimate;</b> the standard\'s 1-in-10,000 tail is an extrapolation. In Sergipe-Alagoas the band tends to be conservative (the satellite sees the sea 40–100 km off the coast).</li>'
+    + '<li><b>The forward scoreboard is just starting:</b> the first bands are scored three days after each day closes; the first admission reading comes with 30 trial days.</li>'
+    + '<li><b>The cargo, line-laying and lifting limits are examples</b> and say so; the offloading one is cited. Use your procedure\'s.</li>'
     + '</ul>' + ft(11) + '</section>');
 
   /* 12 · the next step */
-  S_.push('<section class="s"><div class="ey">11 · o próximo passo</div><h2>Um piloto sobre as suas operações, avaliado pelo próprio placar.</h2><div class="col3">'
-    + '<div class="card"><div class="k">pedimos</div><ul style="font-size:15px"><li>uma operação (alívio, carga de PSV, uma campanha)</li><li>os limites do seu procedimento</li><li>as unidades e um interlocutor de operação</li><li>se houver, o registro de espera por tempo, para comparar</li></ul></div>'
-    + '<div class="card"><div class="k">entregamos</div><ul style="font-size:15px"><li>as janelas diárias dessas unidades, com Nota de decisão</li><li>as decisões conferidas por satélite, no placar</li><li>o argumento do α do local, para o vistoriador refazer</li><li>tudo reexecutável, com o código aberto</li></ul></div>'
-    + '<div class="card core"><div class="k">contato</div><p><b>Carlos Toledo</b></p><p>carlos@carlostoledo.co</p><p>carlostoledo.co/janela</p><p style="font-size:13px">o método: carlostoledo.co/janela/metodo</p></div>'
-    + '</div><p style="margin-top:22px;font-size:13px;color:var(--ink-4)">Evidência reexecutável sobre uma janela — não aprovação de operação nem certificação de classe; não substitui o procedimento nem a responsabilidade de quem assina. Os números deste documento são lidos dos registros do repositório no momento em que ele foi gerado.</p>' + ft(12) + '</section>');
+  S_.push('<section class="s"><div class="ey">11 · the next step</div><h2>A pilot on your operations, judged by its own scoreboard.</h2><div class="col3">'
+    + '<div class="card"><div class="k">we ask for</div><ul style="font-size:15px"><li>one operation (offloading, PSV cargo, a campaign)</li><li>your procedure\'s limits</li><li>the units and an operations contact</li><li>if there is one, the weather-downtime log, to compare</li></ul></div>'
+    + '<div class="card"><div class="k">we deliver</div><ul style="font-size:15px"><li>the daily windows for those units, with a decision note</li><li>the decisions checked by satellite, on the scoreboard</li><li>the site\'s α argument, for the surveyor to redo</li><li>all of it re-runnable, with the code open</li></ul></div>'
+    + '<div class="card core"><div class="k">contact</div><p><b>Carlos Toledo</b></p><p>carlos@carlostoledo.co</p><p>carlostoledo.co/janela</p><p style="font-size:13px">the method: carlostoledo.co/janela/metodo</p></div>'
+    + '</div><p style="margin-top:22px;font-size:13px;color:var(--ink-4)">Re-runnable evidence about a window — not an approval of an operation nor a class certification; it does not replace the procedure or the responsibility of whoever signs. The numbers in this document are read from the repository\'s records at the moment it was generated.</p>' + ft(12) + '</section>');
 
   need(S_.length === 12, 'expected 12 slides, built ' + S_.length);
-  return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>Janela — apresentação</title>'
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Janela — the deck</title>'
     + '<link rel="stylesheet" href="' + T.GOOGLE_FONTS + '"><style>' + css() + '</style></head><body>' + S_.join('\n') + '</body></html>';
 }
 
@@ -293,13 +298,13 @@ async function shots() {
 /* ---- the link-preview card (site/janela/og.png, 1200x630): the same words as slide 1, the app's own picture ---- */
 function ogHtml(N, shots) {
   const F = facts(N);
-  return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><link rel="stylesheet" href="' + T.GOOGLE_FONTS + '"><style>' + css()
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="' + T.GOOGLE_FONTS + '"><style>' + css()
     + 'html,body{width:1200px;height:630px;overflow:hidden}.og{width:1200px;height:630px;display:grid;grid-template-columns:520px 1fr;gap:0;background:var(--paper)}'
     + '.og .t{padding:56px 22px 44px 56px;display:flex;flex-direction:column;gap:22px}.og h1{font-size:52px;max-width:none}.og p{font-size:19px}'
     + '.og .pic{position:relative;overflow:hidden;border-left:1px solid var(--rule)}.og .pic img{position:absolute;right:0;top:0;height:630px}'
     + '.og .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}.og .jn-c{font-size:11px;padding:.4em .6em;gap:6px}.og .u{font-family:var(--f-mono);font-size:13px;letter-spacing:.14em;color:var(--ink-4);text-transform:uppercase}</style></head><body>'
-    + '<div class="og"><div class="t"><div class="u">Janela · energia offshore</div><h1>A janela de cada operação offshore, decidida.</h1>'
-    + '<p>' + F.units + ' unidades de produção · previsão com o erro medido por satélite · o limite da sua operação</p>'
+    + '<div class="og"><div class="t"><div class="u">Janela · offshore energy</div><h1>The window for every offshore operation, decided.</h1>'
+    + '<p>' + F.units + ' production units · a forecast with its error measured by satellite · your operation\'s limit</p>'
     + '<div class="chips">' + ['L', 'V', 'I', 'S'].map(chip).join('') + '</div></div>'
     + '<div class="pic">' + (shots && shots.fleet ? '<img src="data:image/png;base64,' + shots.fleet + '" alt="">' : '') + '</div></div></body></html>';
 }

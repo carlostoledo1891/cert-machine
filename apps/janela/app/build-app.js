@@ -257,7 +257,7 @@ function panel(M, N) {
 </section>
 <div class="jn-box jn-trust" id="jn-trust">
   <div class="jn-k">why trust it</div>
-  <p class="jn-p">The verdict is exact arithmetic on the limit as printed; the band is a claim the scoreboard audits in public. The published band is rounded <b>outward</b> (Hs to 0.001 m, wind to 0.01 kn): a CLEARED or BLOCKED on it holds on the exact band; only UNDECIDED can grow. It is not an approval of an operation: it is evidence a surveyor can redo. <a href="/janela/metodo/">The method ↗</a> · <a href="/janela/janela-apresentacao.pdf">the presentation (PDF, in Portuguese)</a></p>
+  <p class="jn-p">The verdict is exact arithmetic on the limit as printed; the band is a claim the scoreboard audits in public. The published band is rounded <b>outward</b> (Hs to 0.001 m, wind to 0.01 kn): a CLEARED or BLOCKED on it holds on the exact band; only UNDECIDED can grow. It is not an approval of an operation: it is evidence a surveyor can redo. <a href="/janela/metodo/">The method ↗</a> · <a href="/janela/janela-apresentacao.pdf">the deck (PDF)</a></p>
   ${N.heldOut ? `<p class="jn-p">Over ${en.int(N.heldOut.pairs)} satellite comparisons no band had seen (since ${esc(N.heldOut.from.slice(0, 7))}): when the deciding band put Hs under 2 m, the sea went over the limit <b>${fl(pc2(N.heldOut.broke, N.heldOut.liberada), RE, brokeOf(HA.U))}</b> of the time (${en.int(N.heldOut.broke)} of ${en.int(N.heldOut.liberada)}); with ECMWF's band alone, ${fl(pc2(N.heldOut.eBroke, N.heldOut.eLiberada), RE, brokeOf(HA.E))}.</p>` : ''}
   <div class="jn-k jn-k2">what each verdict rests on</div>
   ${trustChain(N)}

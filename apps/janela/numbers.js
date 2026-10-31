@@ -352,7 +352,7 @@ const br = {
   hm: (iso) => iso.slice(11, 16)
 };
 
-/* English number words, once (2026-10-30: the pages went English; `br` stays for the deck, which was sent and does not move) */
+/* English number words, once (2026-10-30: the pages went English; 2026-10-31: the deck too, it was never sent) */
 const en = {
   int: (x) => Math.round(x).toLocaleString('en'),
   dec: (s) => String(s),
