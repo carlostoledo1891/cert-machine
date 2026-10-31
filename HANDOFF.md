@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — /VERIFY/ LIVE AND LISTED, NOT LINKED (the operator: "Verify is the name, build it"; "push live and listed but
+     no link yet"): the product face in tools/build-site.js (two offers — graders that cannot be gamed, independent audits;
+     the evidence read from the landing's own records; what it refuses; how a pilot starts) and the pilot form
+     .github/ISSUE_TEMPLATE/pilot.yml. In the sitemap, indexable; NO link from the landing, nav or hubs until the operator
+     says. For speedrun SR008: outreach/speedrun-sr008/application.md v2 (the strategy; [YOU] facts), closes 11-01 23:59 PT.
   ◆ 2026-10-30 night — OUTREACH on the operator's per-item yes: teorth/optimizationproblems#246 reply to maximusrufus
      (issuecomment-6537863084; his 0c57070 checked exactly, never run; outreach.json row). X, one post each with an image
      and the link in the body, no reply (the operator's new form): d03 kissing hours (chart from certs/kissing-wave.json,
