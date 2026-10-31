@@ -9,9 +9,43 @@
   "corpus/xx64/problem.json": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
  },
  "reduction": {
-  "statement": "x > p/q iff p^p < N^q·q^p and x < p/q iff p^p > N^q·q^p, for p/q > 1, q >= 1, N >= 2; x >= k iff k^k <= N, x <= k iff k^k >= N",
-  "rests on": "x^x <= 1 on (0, 1], x^x strictly increasing on [1, oo), no negative real root (claimbox/library/selfpower.py)",
-  "standing": "read, not decided"
+  "statement": "for N >= 2, x^x = N has exactly one positive real root x, and for whole numbers 1 <= q <= p: p/q < x iff p^p < N^q·q^p, p/q <= x iff p^p <= N^q·q^p, x < p/q iff N^q·q^p < p^p, x <= p/q iff N^q·q^p <= p^p; at q = 1, k <= x iff k^k <= N and x <= k iff N <= k^k",
+  "rests on": "x^x <= 1 on (0, 1], x^x strictly increasing on [1, oo)",
+  "read": "the negative-base convention: every theorem is about positive reals (Mathlib's Real.rpow); that a negative x is not a root worth counting is a reading of the problem (claimbox/library/selfpower.py), not decided here",
+  "standing": "proved in Lean, kernel-checked",
+  "record": "certs/xx-reduction-lean.json",
+  "recordSha256": "f0b52eae30ab4de56ec4cf364ca6c2abea1d2d81078560c9a9795f1cab3e5daa",
+  "run": {
+   "id": 41221355209,
+   "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/41221355209",
+   "commit": "6241f331013389006ab351d6344a5d1a061541d0"
+  },
+  "lean": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+  "kernels": [
+   "lean-build",
+   "lean-comparator",
+   "nanoda"
+  ],
+  "theorems": {
+   "unique": [
+    "XXReduction.existsUnique_root",
+    "XXReduction.one_lt_of_selfpow_eq"
+   ],
+   "fraction": {
+    "gt": "XXReduction.lt_root_iff",
+    "ge": "XXReduction.le_root_iff",
+    "lt": "XXReduction.root_lt_iff",
+    "le": "XXReduction.root_le_iff"
+   },
+   "whole": {
+    "gt": "XXReduction.lt_root_iff",
+    "ge": "XXReduction.natCast_le_root_iff",
+    "lt": "XXReduction.root_lt_iff",
+    "le": "XXReduction.root_le_natCast_iff"
+   },
+   "note": "a fraction p/q > 1 in lowest terms has 1 <= q < p, a whole bound k >= 1 is q = 1: both inside the theorems' 1 <= q <= p"
+  }
  },
  "counts": {
   "roots": 105,
@@ -28,7 +62,29 @@
   "mutants": 216,
   "mutantsFlipped": 216,
   "redControls": 228,
-  "redControlsFired": 228
+  "redControlsFired": 228,
+  "own": 1,
+  "ownRefused": 1
+ },
+ "own": {
+  "standing": "cert-machine's own claims, through the same decider; claimbox stated none of them",
+  "rows": [
+   {
+    "id": "cm_xx64_transcendental",
+    "y": 64,
+    "statement": "the root of xˣ = 64 is transcendental",
+    "form": "x is transcendental",
+    "origin": "cert-machine's own claim (added 2026-10-31): not claimbox's, not the AI model's",
+    "expect": "REFUSED",
+    "reason": "This decider answers one question: does the root lie above or below a given fraction, by one comparison of two whole numbers. \"Transcendental\" says the root is a root of no polynomial with integer coefficients: infinitely many polynomials, not one comparison, and no number of decided brackets reaches it.",
+    "trueBy": "Cited, not decided: the root is not a fraction (p/q in lowest terms with q > 1 would give p^p = 64^q·q^p, which q cannot divide, and no whole k has k^k = 64), and an irrational algebraic x would make x^x transcendental by the Gelfond–Schneider theorem, while 64 is not.",
+    "decidableBy": "A kernel-checked proof: the Gelfond–Schneider theorem formalized (Mathlib at the pin of lean/xx-reduction, d13f23b7, holds no Gelfond–Schneider theorem), then the two-line argument above in Lean on top of XXReduction.existsUnique_root. With that, it is a theorem to check, not a comparison to compute.",
+    "N": 64,
+    "nFile": "corpus/xx64/problem.json",
+    "word": "REFUSED",
+    "why": "not a comparison of the root with one fraction, the one statement this decider reads"
+   }
+  ]
  },
  "exactRoots": [
   4,
@@ -8255,6 +8311,6 @@
    }
   ]
  },
- "generated": "2026-10-31T04:20:05Z",
- "seconds": 8.2
+ "generated": "2026-10-31T17:07:14Z",
+ "seconds": 8.5
 }

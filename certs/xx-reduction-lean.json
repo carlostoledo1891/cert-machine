@@ -1,0 +1,400 @@
+{
+ "what": "The x^x reduction, proved in Lean 4 with Mathlib: x^x <= 1 on (0, 1] and strictly increasing on [1, oo); for N >= 2, x^x = N has exactly one positive real root, and it is above 1; and for whole numbers 1 <= q <= p, p/q < x iff p^p < N^q·q^p, p/q <= x iff p^p <= N^q·q^p, x < p/q iff N^q·q^p < p^p, x <= p/q iff N^q·q^p <= p^p, with the whole-number bounds at q = 1. That is the step from the root to the integer comparison every verdict of certs/xx-ledger.json rests on; the ledger names the theorem behind each kind of comparison. Every theorem is checked by Lean's kernel in lake build and replayed by Lean's kernel again and by nanoda, an independently written kernel, through Comparator.",
+ "campaign": "reports/xx.html, the AI-assisted formalization pipeline completed (the operator, 2026-10-31)",
+ "words": {
+  "PROVED": "lake build exit 0 on Lean v4.34.1 and Mathlib d13f23b7; #print axioms names only propext, Classical.choice, Quot.sound (or nothing); no Lean file contains sorry, admit, native_decide, an axiom declaration, implemented_by, extern, unsafe or debug.skipKernelTC; Comparator's kernels gate passed (both kernels accept, the theorem exported)"
+ },
+ "kernelIds": {
+  "lean-build": "Lean's kernel inside lake build, Lean v4.34.1 and Mathlib d13f23b7 (the build job)",
+  "lean-comparator": "Lean's kernel again: Comparator (leanprover/comparator d03acab1, tag v4.34.0, built with Lean v4.34.1) replays the lean4export export of the solution module XXReduction into its own Lean kernel (the kernels job, on a fresh runner on which nothing built the project before Comparator did)",
+  "nanoda": "nanoda (ammkrn/nanoda_lib 3a240721 with the issue44 patch and a 1 GiB stack, as lane K builds it), an independently written kernel in Rust, run by Comparator on the same export"
+ },
+ "run": {
+  "id": 41221355209,
+  "url": "https://github.com/carlostoledo1891/cert-machine/actions/runs/41221355209",
+  "commit": "6241f331013389006ab351d6344a5d1a061541d0",
+  "branch": "lane-xx-pipeline",
+  "createdAt": "2026-10-31T16:47:18Z",
+  "conclusion": "success"
+ },
+ "gates": "tools/xx-reduction-gates.js (sources: pins, nothing forbidden, every theorem printed; logs: exit codes, no sorry, no error, standard axioms only; kernels: Comparator, Lean's kernel and nanoda)",
+ "toolchain": "leanprover/lean4:v4.34.1",
+ "leanVersion": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+ "mathlib": "d13f23b723b8a846827a245b89c10fc7d3f11612",
+ "packages": [
+  {
+   "name": "mathlib",
+   "rev": "d13f23b723b8a846827a245b89c10fc7d3f11612"
+  },
+  {
+   "name": "plausible",
+   "rev": "118aa17ee84656b8bd727fef7c458ee8c833385c"
+  },
+  {
+   "name": "LeanSearchClient",
+   "rev": "ddf04cf3949fa556442341e87d47f9f6e6074707"
+  },
+  {
+   "name": "importGraph",
+   "rev": "e928b72544873815af278d38681b31c0293588e3"
+  },
+  {
+   "name": "proofwidgets",
+   "rev": "106ff4fafc74ef4ac99d81dbf3ab399118f497a5"
+  },
+  {
+   "name": "aesop",
+   "rev": "355695d523e41d0554926416cba2a2b3544fbbc9"
+  },
+  {
+   "name": "Qq",
+   "rev": "6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259"
+  },
+  {
+   "name": "batteries",
+   "rev": "f2effa3d803fda822b1f97b806c47cf2adfbcbc2"
+  },
+  {
+   "name": "Cli",
+   "rev": "e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204"
+  }
+ ],
+ "buildSeconds": 9,
+ "files": {
+  "Axioms.lean": "f22254a70fe7533faf9c0b71e99ff46d17493a7b1fd523af9382bdedc5712281",
+  "XXReduction.lean": "0f87a91d20859116d4260fb69476626f597f606cb9949fe9c5170e7995d4bed6",
+  "lakefile.toml": "6a2a782f0f5dbc1bbf6a96e1191a3e25f35c952bdbf3427f12459efe791b153c",
+  "lean-toolchain": "d5edba4e4b8faad9c1baeadb265716d20d03be4d1a2647dc5e35b0c0325bea7b"
+ },
+ "theorems": [
+  {
+   "name": "XXReduction.selfpow_le_one",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "On (0, 1], x^x ≤ 1.",
+   "statement": "theorem selfpow_le_one {x : ℝ} (hx : 0 < x) (h1 : x ≤ 1) : x ^ x ≤ 1",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 24
+  },
+  {
+   "name": "XXReduction.selfpow_strictMonoOn",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "x^x is strictly increasing on [1, ∞): for 1 ≤ a < b, a^a ≤ a^b < b^b.",
+   "statement": "theorem selfpow_strictMonoOn : StrictMonoOn (fun x : ℝ => x ^ x) (Set.Ici 1)",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 28
+  },
+  {
+   "name": "XXReduction.one_lt_of_selfpow_eq",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "A positive root of x^x = N with N > 1 is above 1.",
+   "statement": "theorem one_lt_of_selfpow_eq {N x : ℝ} (hN : 1 < N) (hx : 0 < x) (h : x ^ x = N) : 1 < x",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 36
+  },
+  {
+   "name": "XXReduction.exists_selfpow_eq",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "For N ≥ 1, x^x = N has a root x ≥ 1: x^x is continuous on [1, N], equal to 1 at 1 and at least N at N.",
+   "statement": "theorem exists_selfpow_eq {N : ℝ} (hN : 1 ≤ N) : ∃ x : ℝ, 1 ≤ x ∧ x ^ x = N",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 42
+  },
+  {
+   "name": "XXReduction.existsUnique_selfpow_eq",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "For a real N ≥ 2, x^x = N has exactly one positive real root.",
+   "statement": "theorem existsUnique_selfpow_eq {N : ℝ} (hN : 2 ≤ N) : ∃! x : ℝ, 0 < x ∧ x ^ x = N",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 57
+  },
+  {
+   "name": "XXReduction.existsUnique_root",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "For a whole number N ≥ 2, x^x = N has exactly one positive real root.",
+   "statement": "theorem existsUnique_root {N : ℕ} (hN : 2 ≤ N) : ∃! x : ℝ, 0 < x ∧ x ^ x = (N : ℝ)",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 67
+  },
+  {
+   "name": "XXReduction.frac_selfpow_pow",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "((p/q)^(p/q))^q = (p/q)^p for q ≥ 1.",
+   "statement": "theorem frac_selfpow_pow (p q : ℕ) (hq : 0 < q) :\n    (((p : ℝ) / q) ^ ((p : ℝ) / q)) ^ q = ((p : ℝ) / q) ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 71
+  },
+  {
+   "name": "XXReduction.frac_selfpow_lt_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "(p/q)^(p/q) < N exactly when p^p < N^q·q^p, for q ≥ 1 and N ≥ 0.",
+   "statement": "theorem frac_selfpow_lt_iff (p q : ℕ) (hq : 0 < q) {N : ℝ} (hN : 0 ≤ N) :\n    ((p : ℝ) / q) ^ ((p : ℝ) / q) < N ↔ (p : ℝ) ^ p < N ^ q * (q : ℝ) ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 79
+  },
+  {
+   "name": "XXReduction.frac_selfpow_le_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "(p/q)^(p/q) ≤ N exactly when p^p ≤ N^q·q^p, for q ≥ 1 and N ≥ 0.",
+   "statement": "theorem frac_selfpow_le_iff (p q : ℕ) (hq : 0 < q) {N : ℝ} (hN : 0 ≤ N) :\n    ((p : ℝ) / q) ^ ((p : ℝ) / q) ≤ N ↔ (p : ℝ) ^ p ≤ N ^ q * (q : ℝ) ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 87
+  },
+  {
+   "name": "XXReduction.lt_root_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "**The reduction, x > p/q.** For N ≥ 2, the positive root x of x^x = N, and whole numbers 1 ≤ q ≤ p: p/q < x exactly when p^p < N^q·q^p.",
+   "statement": "theorem lt_root_iff {N p q : ℕ} (hN : 2 ≤ N) (hq : 0 < q) (hqp : q ≤ p) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : (p : ℝ) / q < x ↔ p ^ p < N ^ q * q ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 96
+  },
+  {
+   "name": "XXReduction.le_root_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "**The reduction, x ≥ p/q.** For N ≥ 2, the positive root x of x^x = N, and whole numbers 1 ≤ q ≤ p: p/q ≤ x exactly when p^p ≤ N^q·q^p.",
+   "statement": "theorem le_root_iff {N p q : ℕ} (hN : 2 ≤ N) (hq : 0 < q) (hqp : q ≤ p) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : (p : ℝ) / q ≤ x ↔ p ^ p ≤ N ^ q * q ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 109
+  },
+  {
+   "name": "XXReduction.root_lt_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "**The reduction, x < p/q.** For N ≥ 2, the positive root x of x^x = N, and whole numbers 1 ≤ q ≤ p: x < p/q exactly when N^q·q^p < p^p.",
+   "statement": "theorem root_lt_iff {N p q : ℕ} (hN : 2 ≤ N) (hq : 0 < q) (hqp : q ≤ p) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : x < (p : ℝ) / q ↔ N ^ q * q ^ p < p ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 122
+  },
+  {
+   "name": "XXReduction.root_le_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "**The reduction, x ≤ p/q.** For N ≥ 2, the positive root x of x^x = N, and whole numbers 1 ≤ q ≤ p: x ≤ p/q exactly when N^q·q^p ≤ p^p.",
+   "statement": "theorem root_le_iff {N p q : ℕ} (hN : 2 ≤ N) (hq : 0 < q) (hqp : q ≤ p) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : x ≤ (p : ℝ) / q ↔ N ^ q * q ^ p ≤ p ^ p",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 128
+  },
+  {
+   "name": "XXReduction.natCast_le_root_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "The whole-number bound from below (q = 1): k ≤ x exactly when k^k ≤ N, for k ≥ 1.",
+   "statement": "theorem natCast_le_root_iff {N k : ℕ} (hN : 2 ≤ N) (hk : 1 ≤ k) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : (k : ℝ) ≤ x ↔ k ^ k ≤ N",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 133
+  },
+  {
+   "name": "XXReduction.root_le_natCast_iff",
+   "word": "PROVED",
+   "axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+   ],
+   "kernels": [
+    "lean-build",
+    "lean-comparator",
+    "nanoda"
+   ],
+   "doc": "The whole-number bound from above (q = 1): x ≤ k exactly when N ≤ k^k, for k ≥ 1.",
+   "statement": "theorem root_le_natCast_iff {N k : ℕ} (hN : 2 ≤ N) (hk : 1 ≤ k) {x : ℝ} (hx : 0 < x)\n    (hroot : x ^ x = (N : ℝ)) : x ≤ (k : ℝ) ↔ N ≤ k ^ k",
+   "file": "lean/xx-reduction/XXReduction.lean",
+   "line": 139
+  }
+ ],
+ "kernelReplay": {
+  "config": {
+   "challenge_module": "XXChallenge",
+   "solution_module": "XXReduction",
+   "theorem_names": [
+    "XXReduction.selfpow_le_one",
+    "XXReduction.selfpow_strictMonoOn",
+    "XXReduction.one_lt_of_selfpow_eq",
+    "XXReduction.exists_selfpow_eq",
+    "XXReduction.existsUnique_selfpow_eq",
+    "XXReduction.existsUnique_root",
+    "XXReduction.frac_selfpow_pow",
+    "XXReduction.frac_selfpow_lt_iff",
+    "XXReduction.frac_selfpow_le_iff",
+    "XXReduction.lt_root_iff",
+    "XXReduction.le_root_iff",
+    "XXReduction.root_lt_iff",
+    "XXReduction.root_le_iff",
+    "XXReduction.natCast_le_root_iff",
+    "XXReduction.root_le_natCast_iff"
+   ],
+   "definition_names": [],
+   "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+   ],
+   "enable_nanoda": true
+  },
+  "challengeSha256": "4eb734ac3a595226760a32e33218a568501f7c0170049da5eafa736f91427347",
+  "lakefileAmendment": "[[lean_lib]]\nname = \"XXChallenge\"",
+  "exit": 0,
+  "verdictLines": [
+   "nanoda kernel accepts the solution",
+   "Lean default kernel accepts the solution",
+   "Your solution is okay!"
+  ],
+  "theoremsExported": 15,
+  "seconds": 49,
+  "maxRssKB": 7341424,
+  "leanVersion": "Lean (version 4.34.1, x86_64-unknown-linux-gnu, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+  "lean4export": "lean4export 076e8e57707e813375e8f9da8bf989799ace9680 (comparator's manifest), built with leanprover/lean4:v4.34.1",
+  "env": [
+   "comparator: d03acab154d269c06e60e4de7e4cc85deebff94b built with leanprover/lean4:v4.34.1",
+   "nanoda: 3a2407216ee84a75f9e1aead6803d0578be06ae7, build issue44-stack1g",
+   "landrun: 811cfff51ceaf3d9843708aa6d22e9b84ccac8b4",
+   "runner: GitHub Actions 1000003363 Linux X64, image ubuntu24 20261026.354.1",
+   "cpus: 4",
+   "MemTotal:       16367524 kB",
+   "kernel: 7.0.0-1017-azure"
+  ]
+ },
+ "logs": "corpus/xx-reduction-lean/runs/41221355209",
+ "notProved": [
+  "The negative-base convention. Every theorem is about positive reals (Mathlib's Real.rpow); what x^x means for a negative x, and that no negative x is a root worth counting, is a reading of the problem (claimbox/library/selfpower.py), not proved here.",
+  "The decider's code. tools/run-xx-ledger.py computes p^p and N^q·q^p with Python's integers and compares them; the Lean theorems say that comparison decides the bracket, and nothing here proves that the Python computes it. Its red controls (planted wrong brackets, mutants) test it; they do not prove it.",
+  "The transcendence of the roots (reports/xx.html §3, one) rests on the Gelfond–Schneider theorem, cited; Mathlib at d13f23b7 holds no Gelfond–Schneider theorem, and none is proved here.",
+  "The Comparator challenge is generated from our own file (every proof replaced by sorry), so its statement match checks our text against itself."
+ ]
+}
