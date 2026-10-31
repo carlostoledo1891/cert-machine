@@ -93,9 +93,33 @@ A mean that hides that is a mean a model can buy by guessing. `echo` is certifie
 because copying is worth 0 by construction. `cf` is the ceiling within the size limit, and it is published on
 purpose. This environment does not measure whether a program can do this. It measures whether the answer checks.
 
-There are no model rows yet. They come later, one run per row, each with its model id, sampling, date and every
-reply stored. The protocol is fixed in advance in
+The protocol for model rows is fixed in advance in
 [the pre-registration](https://github.com/carlostoledo1891/cert-machine/blob/main/notes/verify-gym-preregistration-2026-10-31.md).
+
+## Model rows
+
+Open-weights models on the same 120 frozen prompts, 8 samples each (960 replies per model), served by Prime
+Inference on 2026-10-31: thinking off, temperature 1.0, top-p 1.0, 16,384 tokens, no tools. Every reply is
+stored with its sha256 (`corpus/verify-gym/runs/`) and graded by both deciders; a reply cut off at the token
+limit scores 0 and is counted apart. Mean reward is per reply. Spend is what the endpoint reported.
+
+| model | mean reward | xx | kroot | poly | certified | refuted | malformed | cut off |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| `deepseek/deepseek-v4-pro` | 0.049 | 0.073 | 0.051 | 0.025 | 331 | 546 | 83 | 0 |
+| `deepseek/deepseek-v4.1-flash` | 0.099 | 0.092 | 0.145 | 0.060 | 368 | 517 | 73 | 2 |
+| `google/gemma-4-26b-a4b-it` | 0.083 | 0.120 | 0.059 | 0.070 | 363 | 520 | 67 | 10 |
+
+Every model is below `bisect`, the 20-step exact bisection, and every one states more false brackets than
+true ones: deepseek/deepseek-v4-pro gave 546 REFUTED of 960. These rows have no tool: every
+bracket comes from the model's own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24.
+
+## The readiness gate on the base model
+
+Qwen3.5-9B (thinking off, 16,384 tokens, temperature 1.0, Prime Inference) on the first 100 val tasks × 8:
+88 of 100 groups had rewards that were not all equal, the mean reward was 2421/32000 (0.0757), 27 of 800 replies were
+cut off, and both deciders agreed on all 736 distinct answers: **GO**. Cost US$2.28.
+No model has been trained: Prime's shared LoRA Hosted Training stopped accepting runs on 2026-10-08
+(the refusal is in `corpus/verify-gym/training-attempt.json`).
 
 ## The forgery gate runs first
 
@@ -157,7 +181,8 @@ redraw any instance it contains.
 
 ## Before and after a training run
 
-Two protocol steps from the pre-registration are built and tested end to end. Neither has been run on a model.
+Two protocol steps from the pre-registration are built and tested end to end. The readiness gate has been run on
+Qwen3.5-9B (above: GO); the re-check has had no training run to check.
 
 **The readiness gate**, before any paid training step. It takes the first 100 tasks of the validation rotation
 with 8 samples each, graded by both deciders. The result is GO only if at least 30% of the groups of 8 have
