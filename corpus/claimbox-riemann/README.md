@@ -1,12 +1,26 @@
-# claimbox — the claim-machine
+# claimbox — the language for cert-machine
 
-A standard-library pattern-matching translator that reduces a claim, as a human or an AI wrote it, in prose or
-LaTeX, to the predicate JSON [cert-machine](https://github.com/carlostoledo1891/cert-machine) decides — and refuses
-what its grammar does not cover.
+**claimbox is the language humans and AIs state checkable claims in. [cert-machine](https://github.com/carlostoledo1891/cert-machine) decides them.**
+
+claimbox is to cert-machine what the Lean language is to Lean's kernel: one checker, a separate project, decides; claimbox
+states a claim so precisely that it can, prints the claim back in plain words from the object the checker receives,
+anchors every number to a line of its source or a pinned file, declares how the bytes are read, and gives an unclear
+claim a named hole or a fork instead of a guess. claimbox never decides.
 
 ```
-[ human or AI text ]  →  [ claimbox: grammar + translate ]  →  [ predicate JSON ]  →  [ cert-machine decides ]
+[ human or AI text ]  →  [ claimbox: the claim, printed back ]  →  [ the claim object ]  →  [ cert-machine decides ]
 ```
+
+- [PLAN.md](PLAN.md): what claimbox is, how it works at the end, the ten commitments, the roadmap.
+- [LANGUAGE.md](LANGUAGE.md): the language, written down (roadmap step 1), with twenty decided claims as examples.
+- [web/](web/): the landing page, built from the run records (`make web`; `python3 -m web.build --check` re-reads every
+  value). To be served at carlostoledo.co/claimbox/.
+- [notes/research-2026-10-30.md](notes/research-2026-10-30.md): the neighbours, the literature, what changes the design.
+
+## Today's translator (roadmap step 0)
+
+The language is built on the translator below, which reads a closed list of claim shapes with patterns and stays as one
+proposer of claims.
 
 No model, no parser framework, no dependency, no guess. The grammar is a closed list of claim shapes; the translator
 extracts the printed bar as the exact rational its digits mean, finds the line of the source that prints it, decodes

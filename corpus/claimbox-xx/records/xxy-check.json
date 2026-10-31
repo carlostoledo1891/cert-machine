@@ -1,0 +1,5238 @@
+{
+ "what": "claimbox check --run of corpus/xxy/claims.claim: per claim, its kind or its hole, and per reading the object compiled (its id, pin and reading), the definitions it rests on and cert-machine's line and word",
+ "from": "corpus/xxy/claims.claim",
+ "claims": [
+  {
+   "id": "y2_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n2) > 471/302",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y2-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/2.json",
+      "sha256": "d6cd823f28d9c9134b4bcc8a51258a6afa8e61fa9dba6a5b6542469a7ffdb401"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y2-gt  []  from the object: CERTIFIED value -33614359028231133063014926223…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y2_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n2) < 641/411",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y2-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/2.json",
+      "sha256": "d6cd823f28d9c9134b4bcc8a51258a6afa8e61fa9dba6a5b6542469a7ffdb401"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y2-lt  []  from the object: CERTIFIED value 220122632900268335659150292275…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3) > 502/275",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3.json",
+      "sha256": "360c9ef8c3e64d42b610bc0f630e119b15c078ac978f978934e0ad5e4e108233"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3-gt  []  from the object: CERTIFIED value -11918096984334391603654766932…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3) < 387/212",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3.json",
+      "sha256": "360c9ef8c3e64d42b610bc0f630e119b15c078ac978f978934e0ad5e4e108233"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3-lt  []  from the object: CERTIFIED value 157014036430167783062654335305…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y4_ge",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n4) ≥ 2",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y4-ge",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/4.json",
+      "sha256": "886215d400f3def995725c60dd1456da75b05bd1a9770a3bc6a0db6629eb331f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y4-ge  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y4_le",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n4) ≤ 2",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y4-le",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/4.json",
+      "sha256": "886215d400f3def995725c60dd1456da75b05bd1a9770a3bc6a0db6629eb331f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y4-le  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y5_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n5) > 609/286",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y5-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/5.json",
+      "sha256": "7a2e04f2e9ea0e4afd2e90d803c12374702a4c0d78771871b89166768ae7d9b5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y5-gt  []  from the object: CERTIFIED value -63233579140780750369228563169…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y5_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n5) < 181/85",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y5-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/5.json",
+      "sha256": "7a2e04f2e9ea0e4afd2e90d803c12374702a4c0d78771871b89166768ae7d9b5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y5-lt  []  from the object: CERTIFIED value 255061912314675148699989272140…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y6_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n6) > 1136/509",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y6-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/6.json",
+      "sha256": "c727666b5e26ed44a93b832f6cb33800d75f2668bcf1f3023e734ef96832579b"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y6-gt  []  from the object: CERTIFIED value -11283140249557471772915283320…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y6_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n6) < 1781/798",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y6-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/6.json",
+      "sha256": "c727666b5e26ed44a93b832f6cb33800d75f2668bcf1f3023e734ef96832579b"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y6-lt  []  from the object: CERTIFIED value 369493125450697648133672190129…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y7_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n7) > 44/19",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y7-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/7.json",
+      "sha256": "2982bed9a561c73aa82633ef26d3b12467599e0c7f02dfd5c6e754e9bae4b449"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y7-gt  []  from the object: CERTIFIED value -48268532513325307543466304682…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y7_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n7) < 183/79",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y7-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/7.json",
+      "sha256": "2982bed9a561c73aa82633ef26d3b12467599e0c7f02dfd5c6e754e9bae4b449"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y7-lt  []  from the object: CERTIFIED value 114470389010848084244422794313…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y8_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n8) > 246/103",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y8-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/8.json",
+      "sha256": "9b026000b3949a71b464f5a0dae046b32140f17dd323bb498a89771e3a2b1163"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y8-gt  []  from the object: CERTIFIED value -21233051046922313579776940279…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y8_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n8) < 289/121",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y8-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/8.json",
+      "sha256": "9b026000b3949a71b464f5a0dae046b32140f17dd323bb498a89771e3a2b1163"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y8-lt  []  from the object: CERTIFIED value 224409839467135544151528335054…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y9_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n9) > 1799/734",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y9-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/9.json",
+      "sha256": "74d47be81f6ad91af9ffb12d4139fab09a39ebb1c6aa551cf4142893f46456c3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y9-gt  []  from the object: CERTIFIED value -21974788793316883912763501771…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y9_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n9) < 125/51",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y9-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/9.json",
+      "sha256": "74d47be81f6ad91af9ffb12d4139fab09a39ebb1c6aa551cf4142893f46456c3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y9-lt  []  from the object: CERTIFIED value 332179477480552412819578368378…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y10_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n10) > 203/81",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y10-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/10.json",
+      "sha256": "d8583c595832ed95020827fbba1901adcbf5a7a0aca7fdb4feb822cf3dc9549a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y10-gt  []  from the object: CERTIFIED value -46440291918557295789575214226…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y10_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n10) < 198/79",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y10-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/10.json",
+      "sha256": "d8583c595832ed95020827fbba1901adcbf5a7a0aca7fdb4feb822cf3dc9549a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y10-lt  []  from the object: CERTIFIED value 119363723966209448392582980570…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y11_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n11) > 23/9",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y11-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/11.json",
+      "sha256": "957f22e7ffa9fc63b218f116e02352745e749cb885d7aa7271b44593dfeeeb3a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y11-gt  []  from the object: CERTIFIED value -17876474862584647165722139372  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y11_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n11) < 18/7",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y11-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/11.json",
+      "sha256": "957f22e7ffa9fc63b218f116e02352745e749cb885d7aa7271b44593dfeeeb3a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y11-lt  []  from the object: CERTIFIED value 7613233834090375225645  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y12_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n12) > 1763/678",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y12-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/12.json",
+      "sha256": "efdb4177762a36a662e48a42b4b84eeb50502fa8676bc08fe59d3c03dc2a7051"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y12-gt  []  from the object: CERTIFIED value -27270999935595998414589197954…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y12_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n12) < 1750/673",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y12-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/12.json",
+      "sha256": "efdb4177762a36a662e48a42b4b84eeb50502fa8676bc08fe59d3c03dc2a7051"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y12-lt  []  from the object: CERTIFIED value 593028764733095381972596270191…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y13_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n13) > 1891/716",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y13-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/13.json",
+      "sha256": "63db8786f42db1dbe53ebbcbf69317865c560d313a26a6c3c9715799b1ddf618"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y13-gt  []  from the object: CERTIFIED value -10963597298621737010634393120…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y13_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n13) < 1788/677",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y13-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/13.json",
+      "sha256": "63db8786f42db1dbe53ebbcbf69317865c560d313a26a6c3c9715799b1ddf618"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y13-lt  []  from the object: CERTIFIED value 364605433426037987664564501819…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y14_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n14) > 1958/731",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y14-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/14.json",
+      "sha256": "c49f0ca8f215d75a499fd7f3d4b32897b2d2537619e837b33441862f42403c0d"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y14-gt  []  from the object: CERTIFIED value -31063219829369693410317550028…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y14_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n14) < 75/28",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y14-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/14.json",
+      "sha256": "c49f0ca8f215d75a499fd7f3d4b32897b2d2537619e837b33441862f42403c0d"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y14-lt  []  from the object: CERTIFIED value 113427175722278005011290132591…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y15_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n15) > 1381/509",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y15-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/15.json",
+      "sha256": "deefff876f4ed907aeb3bd453de1b5a80e9d4ab86dfa94f819cf9d193a4f9b33"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y15-gt  []  from the object: CERTIFIED value -22215404431147218918242602850…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y15_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n15) < 350/129",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y15-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/15.json",
+      "sha256": "deefff876f4ed907aeb3bd453de1b5a80e9d4ab86dfa94f819cf9d193a4f9b33"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y15-lt  []  from the object: CERTIFIED value 100286624372219974738116466127…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y16_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n16) > 442/161",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y16-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/16.json",
+      "sha256": "1d3843f5aa17cef34de0ee188a38997f943b5740470298966c6c8aae3492f7e1"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y16-gt  []  from the object: CERTIFIED value -16227401727814465340865356083…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y16_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n16) < 593/216",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y16-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/16.json",
+      "sha256": "1d3843f5aa17cef34de0ee188a38997f943b5740470298966c6c8aae3492f7e1"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y16-lt  []  from the object: CERTIFIED value 268732459064829613102981905419…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y17_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n17) > 927/334",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y17-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/17.json",
+      "sha256": "0348a8d61c491fb9703ab3891116eb623c01e804c6da119666d224b14ede020a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y17-gt  []  from the object: CERTIFIED value -64594756811410515956026083124…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y17_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n17) < 136/49",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y17-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/17.json",
+      "sha256": "0348a8d61c491fb9703ab3891116eb623c01e804c6da119666d224b14ede020a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y17-lt  []  from the object: CERTIFIED value 874456090918744432537166573665…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y18_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n18) > 614/219",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y18-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/18.json",
+      "sha256": "4a12b44df8f368b59ed069742e426c0fc18736887e33b0270ce401f9f15d0c3a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y18-gt  []  from the object: CERTIFIED value -39482396869141506856977906856…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y18_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n18) < 1071/382",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y18-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/18.json",
+      "sha256": "4a12b44df8f368b59ed069742e426c0fc18736887e33b0270ce401f9f15d0c3a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y18-lt  []  from the object: CERTIFIED value 104285260828550035015376889363…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y19_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n19) > 150/53",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y19-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/19.json",
+      "sha256": "0714e6d22c6c1559547e259ff965e40b2694b2117d80aee9f32327c7c78e7b6a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y19-gt  []  from the object: CERTIFIED value -97623908037765541165580499053…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y19_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n19) < 1517/536",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y19-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/19.json",
+      "sha256": "0714e6d22c6c1559547e259ff965e40b2694b2117d80aee9f32327c7c78e7b6a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y19-lt  []  from the object: CERTIFIED value 173545058186913459124061979428…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y20_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n20) > 888/311",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y20-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/20.json",
+      "sha256": "6fc0c528ff5f6db4118091b82d2935042159a7f75a505b6faca8d5d85ede64d2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y20-gt  []  from the object: CERTIFIED value -30052820105953759646844210868…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y20_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n20) < 2447/857",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y20-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/20.json",
+      "sha256": "6fc0c528ff5f6db4118091b82d2935042159a7f75a505b6faca8d5d85ede64d2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y20-lt  []  from the object: CERTIFIED value 121910138400419665320993741356…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y21_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n21) > 619/215",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y21-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/21.json",
+      "sha256": "3606317bc70e3fad5b7dc528e15bfdb78aeff67a4043a25eecfa73018ff4d95e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y21-gt  []  from the object: CERTIFIED value -11359476636511344728759584340…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y21_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n21) < 262/91",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y21-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/21.json",
+      "sha256": "3606317bc70e3fad5b7dc528e15bfdb78aeff67a4043a25eecfa73018ff4d95e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y21-lt  []  from the object: CERTIFIED value 373119174265173841856255398829…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y22_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n22) > 29/10",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y22-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/22.json",
+      "sha256": "320df343bf4428e44d488388725d10016835d181e688532c107ffa20992c8f80"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y22-gt  []  from the object: CERTIFIED value -88306125981188865438171785268…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y22_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n22) < 177/61",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y22-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/22.json",
+      "sha256": "320df343bf4428e44d488388725d10016835d181e688532c107ffa20992c8f80"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y22-lt  []  from the object: CERTIFIED value 186083849462014719906598595087…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y23_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n23) > 38/13",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y23-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/23.json",
+      "sha256": "30561cb45e81e50a8c5f336d4b96e8974ce981382e844544a54115507c09f596"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y23-gt  []  from the object: CERTIFIED value -13202225956168962686518485371…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y23_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n23) < 3",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y23-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/23.json",
+      "sha256": "30561cb45e81e50a8c5f336d4b96e8974ce981382e844544a54115507c09f596"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y23-lt  []  from the object: CERTIFIED value 4  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y24_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n24) > 992/337",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y24-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/24.json",
+      "sha256": "cf9454a95f7ed18a41cf383035f461bd7e70455314f494d1da87bea4c709f560"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y24-gt  []  from the object: CERTIFIED value -37615631537482031642065161576…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y24_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n24) < 209/71",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y24-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/24.json",
+      "sha256": "cf9454a95f7ed18a41cf383035f461bd7e70455314f494d1da87bea4c709f560"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y24-lt  []  from the object: CERTIFIED value 482221152086767989161660563901…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y25_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n25) > 1289/435",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y25-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/25.json",
+      "sha256": "30aeb4b351ccf321a8bdb8c249fc1b97f80d34baf086a72ba2387de6ecc2f761"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y25-gt  []  from the object: CERTIFIED value -16417547852007384245668378733…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y25_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n25) < 403/136",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y25-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/25.json",
+      "sha256": "30aeb4b351ccf321a8bdb8c249fc1b97f80d34baf086a72ba2387de6ecc2f761"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y25-lt  []  from the object: CERTIFIED value 380854497484992339185418070278…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y26_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n26) > 331/111",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y26-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/26.json",
+      "sha256": "4626d04d2c389967c1d7b25743f217ab16b18e2765d583ae40ac39b64925d687"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y26-gt  []  from the object: CERTIFIED value -23497699101171183172135074457…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y26_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n26) < 2815/944",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y26-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/26.json",
+      "sha256": "4626d04d2c389967c1d7b25743f217ab16b18e2765d583ae40ac39b64925d687"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y26-lt  []  from the object: CERTIFIED value 303361038023397464558528565353…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y27_ge",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n27) ≥ 3",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y27-ge",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/27.json",
+      "sha256": "eb0d041a54f1e7a37e8a8899513e08414ed703b58336af75d014ca40784156c9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y27-ge  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y27_le",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n27) ≤ 3",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y27-le",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/27.json",
+      "sha256": "eb0d041a54f1e7a37e8a8899513e08414ed703b58336af75d014ca40784156c9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y27-le  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y28_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n28) > 2441/809",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y28-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/28.json",
+      "sha256": "c9d444688732601dd1880d449a5631f824a676b996958228180971c04bfea3b1"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y28-gt  []  from the object: CERTIFIED value -62198640583101608867998550158…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y28_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n28) < 1569/520",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y28-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/28.json",
+      "sha256": "c9d444688732601dd1880d449a5631f824a676b996958228180971c04bfea3b1"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y28-lt  []  from the object: CERTIFIED value 192126850705509444865415121933…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y29_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n29) > 179/59",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y29-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/29.json",
+      "sha256": "48915003322cb1eb2981fef894bb07912512562e253931b7d638a06d7e72be4c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y29-gt  []  from the object: CERTIFIED value -13899394299080938082953777031…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y29_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n29) < 804/265",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y29-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/29.json",
+      "sha256": "48915003322cb1eb2981fef894bb07912512562e253931b7d638a06d7e72be4c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y29-lt  []  from the object: CERTIFIED value 109561335385362012896655167194…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y30_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n30) > 61/20",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y30-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/30.json",
+      "sha256": "66b7750a81d31f612d6e72aa9fe5a4fdc94ea32ff5699ed1775b470b54514da0"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y30-gt  []  from the object: CERTIFIED value -24968731352635733576811135647…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y30_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n30) < 58/19",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y30-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/30.json",
+      "sha256": "66b7750a81d31f612d6e72aa9fe5a4fdc94ea32ff5699ed1775b470b54514da0"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y30-lt  []  from the object: CERTIFIED value 190241079365123406785243332231…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y31_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n31) > 1217/397",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y31-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/31.json",
+      "sha256": "0174ada148f3936160ba2e336c1cf017785b93b8f875375af8df57d692046976"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y31-gt  []  from the object: CERTIFIED value -79321182608496847925917062188…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y31_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n31) < 702/229",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y31-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/31.json",
+      "sha256": "0174ada148f3936160ba2e336c1cf017785b93b8f875375af8df57d692046976"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y31-lt  []  from the object: CERTIFIED value 715305315609926817705840213994…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y32_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n32) > 3025/982",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y32-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/32.json",
+      "sha256": "8063f898004864988035aa547b78bf33cfdbb45f194bdb5dfc24201df1754229"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y32-gt  []  from the object: CERTIFIED value -92884213591730426067338672965…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y32_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n32) < 268/87",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y32-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/32.json",
+      "sha256": "8063f898004864988035aa547b78bf33cfdbb45f194bdb5dfc24201df1754229"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y32-lt  []  from the object: CERTIFIED value 115942825393658632124018735105…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y33_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n33) > 424/137",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y33-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/33.json",
+      "sha256": "d2df82cf673821656a0736b58d7a96bc83339a34c2e3441e2bce9452c6823014"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y33-gt  []  from the object: CERTIFIED value -65311869219351927948816623129…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y33_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n33) < 913/295",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y33-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/33.json",
+      "sha256": "d2df82cf673821656a0736b58d7a96bc83339a34c2e3441e2bce9452c6823014"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y33-lt  []  from the object: CERTIFIED value 132167328157462360311604531292…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y34_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n34) > 314/101",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y34-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/34.json",
+      "sha256": "ad1a816aedcc26733fe175280f8bcd518428fefb572b9d62983de910738a9fb3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y34-gt  []  from the object: CERTIFIED value -93203186028904572404575140405…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y34_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n34) < 171/55",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y34-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/34.json",
+      "sha256": "ad1a816aedcc26733fe175280f8bcd518428fefb572b9d62983de910738a9fb3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y34-lt  []  from the object: CERTIFIED value 142260077029444993509067458860…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y35_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n35) > 153/49",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y35-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/35.json",
+      "sha256": "94d94c65156435bf8b38c9b42b1cc07618a4e2e898a2047da6ee4ffa5e67a029"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y35-gt  []  from the object: CERTIFIED value -64542722025129497626309447552…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y35_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n35) < 1861/596",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y35-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/35.json",
+      "sha256": "94d94c65156435bf8b38c9b42b1cc07618a4e2e898a2047da6ee4ffa5e67a029"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y35-lt  []  from the object: CERTIFIED value 358833956799061660812432175492…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y36_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n36) > 2173/693",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y36-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/36.json",
+      "sha256": "dc1553444117b3d1ab864f1bbe30b4df6e9284f6f6e0ea131d42a228cdcf35ab"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y36-gt  []  from the object: CERTIFIED value -10342498620595409518067277546…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y36_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n36) < 994/317",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y36-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/36.json",
+      "sha256": "dc1553444117b3d1ab864f1bbe30b4df6e9284f6f6e0ea131d42a228cdcf35ab"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y36-lt  []  from the object: CERTIFIED value 735061147582364115303257973018…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y37_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n37) > 891/283",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y37-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/37.json",
+      "sha256": "8b701fcc78be36487e1893c5a5b475561b43f25c085805ef6b275a2d7e236bdb"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y37-gt  []  from the object: CERTIFIED value -89440534866381107119735191489…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y37_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n37) < 1294/411",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y37-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/37.json",
+      "sha256": "8b701fcc78be36487e1893c5a5b475561b43f25c085805ef6b275a2d7e236bdb"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y37-lt  []  from the object: CERTIFIED value 116579943742542516713941694119…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y38_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n38) > 1533/485",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y38-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/38.json",
+      "sha256": "5c110a6a68b707a1adcc8250769bbdc9ef13bc18ea8cfc1da8c9eb3578e39bd6"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y38-gt  []  from the object: CERTIFIED value -63320726810357901353370125076…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y38_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n38) < 1985/628",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y38-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/38.json",
+      "sha256": "5c110a6a68b707a1adcc8250769bbdc9ef13bc18ea8cfc1da8c9eb3578e39bd6"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y38-lt  []  from the object: CERTIFIED value 162567353931826890717448254126…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y39_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n39) > 257/81",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y39-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/39.json",
+      "sha256": "397e6607cfab565682e9cfead36c6f293f16f4520440e1801195b82f884a8987"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y39-gt  []  from the object: CERTIFIED value -21217499693611607070511749295…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y39_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n39) < 679/214",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y39-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/39.json",
+      "sha256": "397e6607cfab565682e9cfead36c6f293f16f4520440e1801195b82f884a8987"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y39-lt  []  from the object: CERTIFIED value 126996691228254583457497008216…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y40_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n40) > 2777/872",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y40-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/40.json",
+      "sha256": "6b0b35ad241e201758a3f35b56bf6b6645e8e7cf6d8c98589ebec3e6caaeba75"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y40-gt  []  from the object: CERTIFIED value -55508971227405234656960915112…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y40_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n40) < 2570/807",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y40-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/40.json",
+      "sha256": "6b0b35ad241e201758a3f35b56bf6b6645e8e7cf6d8c98589ebec3e6caaeba75"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y40-lt  []  from the object: CERTIFIED value 566417278856286788725419028346…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y41_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n41) > 147/46",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y41-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/41.json",
+      "sha256": "c2673559f538c1a0c44338188a9f17637872f683edbf461d730173d2ac5485c2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y41-gt  []  from the object: CERTIFIED value -16499647060303828874112160209…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y41_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n41) < 163/51",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y41-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/41.json",
+      "sha256": "c2673559f538c1a0c44338188a9f17637872f683edbf461d730173d2ac5485c2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y41-lt  []  from the object: CERTIFIED value 589807805741151930097739931719…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y42_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n42) > 93/29",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y42-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/42.json",
+      "sha256": "13b13d98ebf33b57e45b63ebf2a61a20f3c69109a1753969d4a448f24c5a6d31"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y42-gt  []  from the object: CERTIFIED value -22693134195036904448372015490…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y42_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n42) < 356/111",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y42-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/42.json",
+      "sha256": "13b13d98ebf33b57e45b63ebf2a61a20f3c69109a1753969d4a448f24c5a6d31"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y42-lt  []  from the object: CERTIFIED value 260976597825906890013389430667…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y43_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n43) > 428/133",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y43-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/43.json",
+      "sha256": "49678781ac4e43236dda8187f5170af6cab61c14a3291ea62b9420d2efa68dbe"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y43-gt  []  from the object: CERTIFIED value -78308083307838756100101208973…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y43_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n43) < 1461/454",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y43-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/43.json",
+      "sha256": "49678781ac4e43236dda8187f5170af6cab61c14a3291ea62b9420d2efa68dbe"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y43-lt  []  from the object: CERTIFIED value 564837544821677019484911197583…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y44_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n44) > 1172/363",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y44-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/44.json",
+      "sha256": "b9c53ef3dfe6c3e021bbebea6f2c38eb14fe36b48753c0ec307f1aeea2da984e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y44-gt  []  from the object: CERTIFIED value -10143930593964029976418359816…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y44_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n44) < 1059/328",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y44-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/44.json",
+      "sha256": "b9c53ef3dfe6c3e021bbebea6f2c38eb14fe36b48753c0ec307f1aeea2da984e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y44-lt  []  from the object: CERTIFIED value 103424369632179404380112076089…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y45_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n45) > 366/113",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y45-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/45.json",
+      "sha256": "1349671ebed54759ff3e4c1363e80c71401fd04c32825adfd233fd6d50b005f4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y45-gt  []  from the object: CERTIFIED value -22436048062042573379904742721…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y45_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n45) < 515/159",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y45-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/45.json",
+      "sha256": "1349671ebed54759ff3e4c1363e80c71401fd04c32825adfd233fd6d50b005f4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y45-lt  []  from the object: CERTIFIED value 363065112484378731002936208361…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y46_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n46) > 887/273",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y46-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/46.json",
+      "sha256": "e2235cfd13c82b827b3e8afed2cfe841b273d0062b198a6c739ab54dd870ea72"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y46-gt  []  from the object: CERTIFIED value -13417010776735129907559252125…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y46_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n46) < 2674/823",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y46-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/46.json",
+      "sha256": "e2235cfd13c82b827b3e8afed2cfe841b273d0062b198a6c739ab54dd870ea72"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y46-lt  []  from the object: CERTIFIED value 287518737892015816980106783218…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y47_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n47) > 1183/363",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y47-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/47.json",
+      "sha256": "562411a10d4f3ec983d30b61ba595a21ce3490233c7f52f1a256cf167e9b8577"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y47-gt  []  from the object: CERTIFIED value -54002920220601558620529557148…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y47_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n47) < 818/251",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y47-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/47.json",
+      "sha256": "562411a10d4f3ec983d30b61ba595a21ce3490233c7f52f1a256cf167e9b8577"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y47-lt  []  from the object: CERTIFIED value 249621011515388780396192289511…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y48_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n48) > 791/242",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y48-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/48.json",
+      "sha256": "2b987e53d41c3e970edc599cab81d8b0d308edbfc53c6b090336a5c7322f7fb0"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y48-gt  []  from the object: CERTIFIED value -48613620509213713905180531047…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y48_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n48) < 219/67",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y48-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/48.json",
+      "sha256": "2b987e53d41c3e970edc599cab81d8b0d308edbfc53c6b090336a5c7322f7fb0"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y48-lt  []  from the object: CERTIFIED value 307431764845908654952639835796…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y49_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n49) > 731/223",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y49-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/49.json",
+      "sha256": "ddcf2fd565cea6876441b51a2efac79d05d8dfff730e35ecc8b973ef83a69584"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y49-gt  []  from the object: CERTIFIED value -75287951429796927618343431992…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y49_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n49) < 2865/874",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y49-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/49.json",
+      "sha256": "ddcf2fd565cea6876441b51a2efac79d05d8dfff730e35ecc8b973ef83a69584"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y49-lt  []  from the object: CERTIFIED value 450175502459677137124354566772…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y50_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n50) > 309/94",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y50-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/50.json",
+      "sha256": "bacb4808f32dc6ba203abc805b7b1c39a0023fc3269f94c64ee6ab81be72179e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y50-gt  []  from the object: CERTIFIED value -14505507688887370485346104988…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y50_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n50) < 1213/369",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y50-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/50.json",
+      "sha256": "bacb4808f32dc6ba203abc805b7b1c39a0023fc3269f94c64ee6ab81be72179e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y50-lt  []  from the object: CERTIFIED value 289253006844452327500865756281…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y51_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n51) > 89/27",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y51-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/51.json",
+      "sha256": "815256116a36d2dc77a00c95b7862c44f29fd29fc8946d4400db512bb24e5bce"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y51-gt  []  from the object: CERTIFIED value -42666043153702403049125956878…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y51_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n51) < 33/10",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y51-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/51.json",
+      "sha256": "815256116a36d2dc77a00c95b7862c44f29fd29fc8946d4400db512bb24e5bce"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y51-lt  []  from the object: CERTIFIED value 100676162601480268396160299346…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y52_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n52) > 899/272",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y52-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/52.json",
+      "sha256": "354f35ad70d83f037a741058ec387c1d039d17684e4b8238cfaf58f3da024662"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y52-gt  []  from the object: CERTIFIED value -24261313632765245313320837987…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y52_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n52) < 704/213",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y52-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/52.json",
+      "sha256": "354f35ad70d83f037a741058ec387c1d039d17684e4b8238cfaf58f3da024662"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y52-lt  []  from the object: CERTIFIED value 360401244654802906475665849857…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y53_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n53) > 1415/427",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y53-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/53.json",
+      "sha256": "3d8758e177d977cccf252f745a7b572fc8ebd4996e73b5e593bed5eb19d922f9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y53-gt  []  from the object: CERTIFIED value -42272187994613765185661921928…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y53_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n53) < 623/188",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y53-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/53.json",
+      "sha256": "3d8758e177d977cccf252f745a7b572fc8ebd4996e73b5e593bed5eb19d922f9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y53-lt  []  from the object: CERTIFIED value 393003936215247870660734085777…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y54_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n54) > 402/121",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y54-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/54.json",
+      "sha256": "6528dd7d63e8ec0f99465cc192fe4d935364919b9c5eb7621aa9167e6bc5c2a6"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y54-gt  []  from the object: CERTIFIED value -89524735251122219849870658431…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y54_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n54) < 103/31",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y54-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/54.json",
+      "sha256": "6528dd7d63e8ec0f99465cc192fe4d935364919b9c5eb7621aa9167e6bc5c2a6"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y54-lt  []  from the object: CERTIFIED value 372532982975570070963340284141…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y55_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n55) > 413/124",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y55-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/55.json",
+      "sha256": "6110184cad0275c2eb293a4ef6db3f60d3dd04f605b0ecf4d0e9e8294b21e0e3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y55-gt  []  from the object: CERTIFIED value -42629751824810598133595903262…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y55_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n55) < 10/3",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y55-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/55.json",
+      "sha256": "6110184cad0275c2eb293a4ef6db3f60d3dd04f605b0ecf4d0e9e8294b21e0e3"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y55-lt  []  from the object: CERTIFIED value 175722625  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y56_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n56) > 1419/425",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y56-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/56.json",
+      "sha256": "4ae569da5afad2f4617da45d1994a3c2f205adb1d13dab4287901fe5453cf86c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y56-gt  []  from the object: CERTIFIED value -83172342043644678515593893772…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y56_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n56) < 3242/971",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y56-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/56.json",
+      "sha256": "4ae569da5afad2f4617da45d1994a3c2f205adb1d13dab4287901fe5453cf86c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y56-lt  []  from the object: CERTIFIED value 121024478061340932254179764866…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y57_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n57) > 579/173",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y57-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/57.json",
+      "sha256": "d14772cd282c8e4f9c72cf3da66b0ea975ca898ad586bfb0b5b324a5f0bee3df"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y57-gt  []  from the object: CERTIFIED value -37479214012802881479256090984…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y57_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n57) < 743/222",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y57-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/57.json",
+      "sha256": "d14772cd282c8e4f9c72cf3da66b0ea975ca898ad586bfb0b5b324a5f0bee3df"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y57-lt  []  from the object: CERTIFIED value 676637887962997288572300658961…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y58_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n58) > 889/265",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y58-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/58.json",
+      "sha256": "b7663af171b4e29b5ef07f4170c3036c2443d6d3b031e5f36bce034d93259ece"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y58-gt  []  from the object: CERTIFIED value -28888975900106942710347063165…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y58_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n58) < 104/31",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y58-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/58.json",
+      "sha256": "b7663af171b4e29b5ef07f4170c3036c2443d6d3b031e5f36bce034d93259ece"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y58-lt  []  from the object: CERTIFIED value 485488659436340669878862490659…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y59_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n59) > 770/229",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y59-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/59.json",
+      "sha256": "9044d30d302abe4972f2d0e11b0e0a504a1e274b1080b7bb7e93bd22596cf1a4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y59-gt  []  from the object: CERTIFIED value -52364191830137000085411069811…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y59_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n59) < 269/80",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y59-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/59.json",
+      "sha256": "9044d30d302abe4972f2d0e11b0e0a504a1e274b1080b7bb7e93bd22596cf1a4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y59-lt  []  from the object: CERTIFIED value 367448054404584579674976720015…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y60_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n60) > 337/100",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y60-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/60.json",
+      "sha256": "52270e61dddd55e67fa1d4d8900dc38bbf464f6bc926bcad0b199f5249985c59"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y60-gt  []  from the object: CERTIFIED value -57637240330706523362856730245…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y60_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n60) < 765/227",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y60-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/60.json",
+      "sha256": "52270e61dddd55e67fa1d4d8900dc38bbf464f6bc926bcad0b199f5249985c59"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y60-lt  []  from the object: CERTIFIED value 203648660797081277809713125955…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y61_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n61) > 510/151",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y61-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/61.json",
+      "sha256": "6d9ac89edededa60b7e265b025304df9289f6f9f7b9940c536993d4b08986b22"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y61-gt  []  from the object: CERTIFIED value -37838622652262639973678123814…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y61_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n61) < 1351/400",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y61-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/61.json",
+      "sha256": "6d9ac89edededa60b7e265b025304df9289f6f9f7b9940c536993d4b08986b22"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y61-lt  []  from the object: CERTIFIED value 297273513551238718211829787809…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y62_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n62) > 44/13",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y62-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/62.json",
+      "sha256": "b60d978cf6ea59e616613372f3f85e05f1540ce052bc9cf62e5960dc231f7b3d"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y62-gt  []  from the object: CERTIFIED value -12702380525745054642188073623…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y62_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n62) < 1205/356",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y62-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/62.json",
+      "sha256": "b60d978cf6ea59e616613372f3f85e05f1540ce052bc9cf62e5960dc231f7b3d"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y62-lt  []  from the object: CERTIFIED value 627925118144743670580653732017…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y63_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n63) > 1618/477",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y63-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/63.json",
+      "sha256": "bf9cf01b858d3ae282fcc8960ac99622dd4e8c3ed5f65d93666e3aea6d9964bd"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y63-gt  []  from the object: CERTIFIED value -28995106815114455138725942327…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y63_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n63) < 2215/653",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y63-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/63.json",
+      "sha256": "bf9cf01b858d3ae282fcc8960ac99622dd4e8c3ed5f65d93666e3aea6d9964bd"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y63-lt  []  from the object: CERTIFIED value 170859990853520253151282573949…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y64_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n64) > 758/223",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y64-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/64.json",
+      "sha256": "d807cbd9e9c3fe76af4918830e5885f0ca1ee211fa0c551b81d6bc8a8ccd35e2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y64-gt  []  from the object: CERTIFIED value -56419310093015483661552218122…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y64_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n64) < 775/228",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y64-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/64.json",
+      "sha256": "d807cbd9e9c3fe76af4918830e5885f0ca1ee211fa0c551b81d6bc8a8ccd35e2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y64-lt  []  from the object: CERTIFIED value 103853234097887735665799663411…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y65_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n65) > 562/165",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y65-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/65.json",
+      "sha256": "ea5c3031426a19498028587c19cf12bc01a78440bbd0ef73cdd277dd3ce6e388"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y65-gt  []  from the object: CERTIFIED value -25356768041551042511445886322…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y65_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n65) < 671/197",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y65-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/65.json",
+      "sha256": "ea5c3031426a19498028587c19cf12bc01a78440bbd0ef73cdd277dd3ce6e388"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y65-lt  []  from the object: CERTIFIED value 520553164632746903449778165550…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y66_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n66) > 1529/448",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y66-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/66.json",
+      "sha256": "c53696ab5d2eacf7ea7919898624572e0dbc84799bb9f0cf724ef5af6ae54f77"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y66-gt  []  from the object: CERTIFIED value -15127107187544469347817680888…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y66_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n66) < 843/247",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y66-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/66.json",
+      "sha256": "c53696ab5d2eacf7ea7919898624572e0dbc84799bb9f0cf724ef5af6ae54f77"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y66-lt  []  from the object: CERTIFIED value 120204396362724602635053407235…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y67_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n67) > 2917/853",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y67-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/67.json",
+      "sha256": "e17bce449d827e9fcb4343dcd5d3212ea56ed8f00e8b3520ec0dfd90e973d9fa"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y67-gt  []  from the object: CERTIFIED value -21654463624296369034715843028…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y67_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n67) < 2257/660",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y67-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/67.json",
+      "sha256": "e17bce449d827e9fcb4343dcd5d3212ea56ed8f00e8b3520ec0dfd90e973d9fa"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y67-lt  []  from the object: CERTIFIED value 133518393441408423009180088598…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y68_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n68) > 1093/319",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y68-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/68.json",
+      "sha256": "ea719aca79924d2c7a64810099f8188e326a5ac5fe4b1370be8fe7fc377b3280"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y68-gt  []  from the object: CERTIFIED value -64733634406834214955880473742…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y68_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n68) < 1535/448",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y68-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/68.json",
+      "sha256": "ea719aca79924d2c7a64810099f8188e326a5ac5fe4b1370be8fe7fc377b3280"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y68-lt  []  from the object: CERTIFIED value 675620803828380301363362036157…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y69_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n69) > 1253/365",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y69-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/69.json",
+      "sha256": "58c917b7ffa3fab0026b501ae63c48972a04094eb403cc71a0af5efc0ee553ad"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y69-gt  []  from the object: CERTIFIED value -23064281147426401836526441067…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y69_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n69) < 1023/298",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y69-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/69.json",
+      "sha256": "58c917b7ffa3fab0026b501ae63c48972a04094eb403cc71a0af5efc0ee553ad"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y69-lt  []  from the object: CERTIFIED value 729011786751121597543992168065…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y70_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n70) > 2012/585",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y70-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/70.json",
+      "sha256": "ac185cd237040849b6406d96878a92caee7406d7d88ea282bba7150455913205"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y70-gt  []  from the object: CERTIFIED value -85448054442628299013010683977…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y70_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n70) < 1417/412",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y70-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/70.json",
+      "sha256": "ac185cd237040849b6406d96878a92caee7406d7d88ea282bba7150455913205"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y70-lt  []  from the object: CERTIFIED value 947423476157578739687354622475…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y71_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n71) > 317/92",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y71-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/71.json",
+      "sha256": "ae1937b8c4f5fc5ebbd930a99a7f917231d16aedb0d4805189821f5bdc7d1317"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y71-gt  []  from the object: CERTIFIED value -11419274386150038401891233044…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y71_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n71) < 286/83",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y71-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/71.json",
+      "sha256": "ae1937b8c4f5fc5ebbd930a99a7f917231d16aedb0d4805189821f5bdc7d1317"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y71-lt  []  from the object: CERTIFIED value 748078923162939484566696459085…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y72_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n72) > 2261/655",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y72-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/72.json",
+      "sha256": "4359395013726561f8c8005abd5de862bbe02472c15d8ce8cce136649db57bf4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y72-gt  []  from the object: CERTIFIED value -21649432079370596627332504967…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y72_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n72) < 2620/759",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y72-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/72.json",
+      "sha256": "4359395013726561f8c8005abd5de862bbe02472c15d8ce8cce136649db57bf4"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y72-lt  []  from the object: CERTIFIED value 115835348636947483172132833844…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y73_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n73) > 536/155",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y73-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/73.json",
+      "sha256": "2766a0c9e1ff0de8c37aa3178eeaaf2a96da418095e9e6bb1903749472711e51"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y73-gt  []  from the object: CERTIFIED value -79281522958677771323142564619…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y73_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n73) < 83/24",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y73-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/73.json",
+      "sha256": "2766a0c9e1ff0de8c37aa3178eeaaf2a96da418095e9e6bb1903749472711e51"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y73-lt  []  from the object: CERTIFIED value 272263929708788919497543477592…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y74_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n74) > 821/237",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y74-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/74.json",
+      "sha256": "2284bc7068190d8c87aa7c8e376813f91c3785a427d6c409c0013cec633818d9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y74-gt  []  from the object: CERTIFIED value -63081997665663124618529787116…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y74_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n74) < 97/28",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y74-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/74.json",
+      "sha256": "2284bc7068190d8c87aa7c8e376813f91c3785a427d6c409c0013cec633818d9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y74-lt  []  from the object: CERTIFIED value 482555381472851124538655635037…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y75_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n75) > 871/251",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y75-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/75.json",
+      "sha256": "695b900baeca5c3568c5a3be4385a1e74a1c65e8b65e5000a811f3e4c0157125"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y75-gt  []  from the object: CERTIFIED value -49298935690819738814952234351…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y75_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n75) < 465/134",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y75-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/75.json",
+      "sha256": "695b900baeca5c3568c5a3be4385a1e74a1c65e8b65e5000a811f3e4c0157125"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y75-lt  []  from the object: CERTIFIED value 195951503698422844021979160996…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y76_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n76) > 942/271",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y76-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/76.json",
+      "sha256": "1fdc3d05225da77efa48cb6addf275449b7a3d8b7b6c058640598d465c727fa9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y76-gt  []  from the object: CERTIFIED value -13318822540281860328127625078…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y76_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n76) < 1957/563",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y76-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/76.json",
+      "sha256": "1fdc3d05225da77efa48cb6addf275449b7a3d8b7b6c058640598d465c727fa9"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y76-lt  []  from the object: CERTIFIED value 267901851684517454205437223809…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y77_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n77) > 383/110",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y77-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/77.json",
+      "sha256": "38cbad86e3a83ea4ad1dc180d24819720fa432d26d1376cbd0abebd8d016f3b2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y77-gt  []  from the object: CERTIFIED value -12028718846882328804701198770…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y77_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n77) < 1438/413",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y77-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/77.json",
+      "sha256": "38cbad86e3a83ea4ad1dc180d24819720fa432d26d1376cbd0abebd8d016f3b2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y77-lt  []  from the object: CERTIFIED value 719653992132276279357775685540…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y78_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n78) > 1123/322",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y78-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/78.json",
+      "sha256": "39d7f54c4254c9d4907228e6155a0b44f089539e21506a6ea0b781688ae1718b"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y78-gt  []  from the object: CERTIFIED value -12132367052196862690147091227…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y78_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n78) < 422/121",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y78-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/78.json",
+      "sha256": "39d7f54c4254c9d4907228e6155a0b44f089539e21506a6ea0b781688ae1718b"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y78-lt  []  from the object: CERTIFIED value 521144093172728221542260046750…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y79_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n79) > 255/73",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y79-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/79.json",
+      "sha256": "499748c82534084531d53523b2f26e80016ab0bc53e0f3214ca3e44948876213"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y79-gt  []  from the object: CERTIFIED value -68654719070126028907511764345…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y79_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n79) < 517/148",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y79-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/79.json",
+      "sha256": "499748c82534084531d53523b2f26e80016ab0bc53e0f3214ca3e44948876213"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y79-lt  []  from the object: CERTIFIED value 852444273117868119938543657961…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y80_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n80) > 2981/852",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y80-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/80.json",
+      "sha256": "a67efdf93976d6bb16c59ebc255dd85149abd1dc4d764cee5058011850f40317"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y80-gt  []  from the object: CERTIFIED value -13721653123075676390672403290…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y80_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n80) < 1494/427",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y80-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/80.json",
+      "sha256": "a67efdf93976d6bb16c59ebc255dd85149abd1dc4d764cee5058011850f40317"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y80-lt  []  from the object: CERTIFIED value 779450531990060374007864192443…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y81_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n81) > 7/2",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y81-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/81.json",
+      "sha256": "4d2a3292d22860da22cf677290cb80178310584bb044693cdeec7b884a0be67a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y81-gt  []  from the object: CERTIFIED value -16265  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y81_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n81) < 403/115",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y81-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/81.json",
+      "sha256": "4d2a3292d22860da22cf677290cb80178310584bb044693cdeec7b884a0be67a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y81-lt  []  from the object: CERTIFIED value 184779540717950869297718438196…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y82_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n82) > 3050/869",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y82-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/82.json",
+      "sha256": "8259c46fef75ea698ff33a0f1c9d697ee10de6d955e20bc83748aaeed3957c28"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y82-gt  []  from the object: CERTIFIED value -13752850949834367423067608508…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y82_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n82) < 179/51",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y82-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/82.json",
+      "sha256": "8259c46fef75ea698ff33a0f1c9d697ee10de6d955e20bc83748aaeed3957c28"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y82-lt  []  from the object: CERTIFIED value 471330710164664118925881897577…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y83_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n83) > 116/33",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y83-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/83.json",
+      "sha256": "eea3951fda3dbd85df32888cfe3a163e2f05369fd8093daf2f59f260058b662c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y83-gt  []  from the object: CERTIFIED value -46509911701659049771047035870…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y83_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n83) < 109/31",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y83-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/83.json",
+      "sha256": "eea3951fda3dbd85df32888cfe3a163e2f05369fd8093daf2f59f260058b662c"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y83-lt  []  from the object: CERTIFIED value 792293075572521452244364279779…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y84_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n84) > 1549/440",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y84-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/84.json",
+      "sha256": "6e98bcfa1ad8e158367fdf0a3d2cefd777bb2e9728e91134eaaee3e56357c287"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y84-gt  []  from the object: CERTIFIED value -81212699798482303070007009808…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y84_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n84) < 2151/611",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y84-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/84.json",
+      "sha256": "6e98bcfa1ad8e158367fdf0a3d2cefd777bb2e9728e91134eaaee3e56357c287"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y84-lt  []  from the object: CERTIFIED value 175400787500621416140475388693…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y85_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n85) > 892/253",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y85-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/85.json",
+      "sha256": "c36ede10fd5bb82024c76d25e73005cbd02e2e3e4e4a2e01c8f91f12aad6bde8"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y85-gt  []  from the object: CERTIFIED value -12778149686495656032080558585…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y85_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n85) < 3293/934",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y85-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/85.json",
+      "sha256": "c36ede10fd5bb82024c76d25e73005cbd02e2e3e4e4a2e01c8f91f12aad6bde8"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y85-lt  []  from the object: CERTIFIED value 180728325828742277282137511928…  0.003 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y86_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n86) > 286/81",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y86-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/86.json",
+      "sha256": "c2d7a76adc9f662d85c0d2a0096a5d02a48fb81e7f56e24144963664781c9f0f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y86-gt  []  from the object: CERTIFIED value -30902614599668601339121770450…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y86_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n86) < 113/32",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y86-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/86.json",
+      "sha256": "c2d7a76adc9f662d85c0d2a0096a5d02a48fb81e7f56e24144963664781c9f0f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y86-lt  []  from the object: CERTIFIED value 270435664835469535060608824564…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y87_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n87) > 983/278",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y87-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/87.json",
+      "sha256": "ac8226643c8dc1285898669a73a6d0446a8e3c5cbe0eb56f246999ddf16110ea"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y87-gt  []  from the object: CERTIFIED value -25184249923545626264879675145…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y87_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n87) < 1425/403",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y87-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/87.json",
+      "sha256": "ac8226643c8dc1285898669a73a6d0446a8e3c5cbe0eb56f246999ddf16110ea"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y87-lt  []  from the object: CERTIFIED value 820391473831604755249269740078…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y88_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n88) > 1381/390",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y88-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/88.json",
+      "sha256": "3627b9484f45e4fb8190f22de30e760a9b2e3b6c586e44f5eab4b13a91649993"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y88-gt  []  from the object: CERTIFIED value -92834938326509323105085137007…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y88_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n88) < 2546/719",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y88-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/88.json",
+      "sha256": "3627b9484f45e4fb8190f22de30e760a9b2e3b6c586e44f5eab4b13a91649993"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y88-lt  []  from the object: CERTIFIED value 327523440897614107220019512355…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y89_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n89) > 578/163",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y89-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/89.json",
+      "sha256": "886c11a0e0595fac315ab6e2f8836f44fe6679739f5f92b2057e24d464b5e98a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y89-gt  []  from the object: CERTIFIED value -40894887707989084289794603870…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y89_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n89) < 539/152",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y89-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/89.json",
+      "sha256": "886c11a0e0595fac315ab6e2f8836f44fe6679739f5f92b2057e24d464b5e98a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y89-lt  []  from the object: CERTIFIED value 260503682908874523128706343224…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y90_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n90) > 941/265",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y90-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/90.json",
+      "sha256": "a8fc9a79b05cfb9b858f09875ff0ebb612b7e2530851954da8fd275158966905"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y90-gt  []  from the object: CERTIFIED value -25808420474926465780708266052…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y90_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n90) < 174/49",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y90-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/90.json",
+      "sha256": "a8fc9a79b05cfb9b858f09875ff0ebb612b7e2530851954da8fd275158966905"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y90-lt  []  from the object: CERTIFIED value 586766053019676514957310249676…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y91_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n91) > 32/9",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y91-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/91.json",
+      "sha256": "53807c478234a8e855f7d904060b07822ac13d2498a4d69f10922ed43e895006"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y91-gt  []  from the object: CERTIFIED value -78739935957602577656263470713…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y91_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n91) < 1497/421",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y91-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/91.json",
+      "sha256": "53807c478234a8e855f7d904060b07822ac13d2498a4d69f10922ed43e895006"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y91-lt  []  from the object: CERTIFIED value 145387061268075013867714472223…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y92_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n92) > 235/66",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y92-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/92.json",
+      "sha256": "425efe208c643cd604a126e65b3fa27faa7aad5bdbf9ebd38080cbf8fe0535ca"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y92-gt  []  from the object: CERTIFIED value -68679828672027801505546837534…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y92_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n92) < 1791/503",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y92-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/92.json",
+      "sha256": "425efe208c643cd604a126e65b3fa27faa7aad5bdbf9ebd38080cbf8fe0535ca"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y92-lt  []  from the object: CERTIFIED value 297096085015107421226120055507…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y93_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n93) > 2617/734",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y93-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/93.json",
+      "sha256": "333acc175bb9958504fb117c4ca958106429863142c195a858e0cd22cdfa1f61"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y93-gt  []  from the object: CERTIFIED value -41569574324675245020338772645…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y93_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n93) < 3462/971",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y93-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/93.json",
+      "sha256": "333acc175bb9958504fb117c4ca958106429863142c195a858e0cd22cdfa1f61"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y93-lt  []  from the object: CERTIFIED value 122644005890529956017496128411…  0.003 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y94_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n94) > 382/107",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y94-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/94.json",
+      "sha256": "0b5ada4a757eaad6d0a9a2cfdc9c1abe6984215cc832d50ddb1b4864d1cbe704"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y94-gt  []  from the object: CERTIFIED value -55448801404209415674688735618…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y94_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n94) < 3081/863",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y94-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/94.json",
+      "sha256": "0b5ada4a757eaad6d0a9a2cfdc9c1abe6984215cc832d50ddb1b4864d1cbe704"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y94-lt  []  from the object: CERTIFIED value 549279806604530134146774342308…  0.002 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y95_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n95) > 1841/515",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y95-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/95.json",
+      "sha256": "1efc1f7b0a7f643ffc4beb5227784429a0bff85a738023150c4ecc1ddebc9d1f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y95-gt  []  from the object: CERTIFIED value -15713900383389924501957723540…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y95_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n95) < 765/214",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y95-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/95.json",
+      "sha256": "1efc1f7b0a7f643ffc4beb5227784429a0bff85a738023150c4ecc1ddebc9d1f"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y95-lt  []  from the object: CERTIFIED value 370823291381335685530640410468…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y96_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n96) > 68/19",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y96-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/96.json",
+      "sha256": "e5a68e30093c81739f1f5b5fc25b8e0d6f03b96f4a922182ca486960b7204022"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y96-gt  []  from the object: CERTIFIED value -73855930285645245641900582119…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y96_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n96) < 451/126",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y96-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/96.json",
+      "sha256": "e5a68e30093c81739f1f5b5fc25b8e0d6f03b96f4a922182ca486960b7204022"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y96-lt  []  from the object: CERTIFIED value 818652515416055928910769812320…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y97_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n97) > 534/149",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y97-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/97.json",
+      "sha256": "de88a0d7fee01d0392b6672b1d54fd223fde3636fca23e947678fff2059ad6ba"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y97-gt  []  from the object: CERTIFIED value -25442250469970441825842913067…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y97_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n97) < 1025/286",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y97-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/97.json",
+      "sha256": "de88a0d7fee01d0392b6672b1d54fd223fde3636fca23e947678fff2059ad6ba"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y97-lt  []  from the object: CERTIFIED value 140288636860075381586784306562…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y98_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n98) > 2293/639",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y98-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/98.json",
+      "sha256": "acb8827780cc7ecedd617b9e47c764a608bb4aa6f7b2b8bc1eb7f4732cc10291"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y98-gt  []  from the object: CERTIFIED value -25412366518332327431673880057…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y98_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n98) < 1116/311",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y98-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/98.json",
+      "sha256": "acb8827780cc7ecedd617b9e47c764a608bb4aa6f7b2b8bc1eb7f4732cc10291"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y98-lt  []  from the object: CERTIFIED value 479817323994717797910933863822…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y99_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n99) > 1412/393",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y99-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/99.json",
+      "sha256": "57a416fae61f9e700f458111a0549342d9495dd93b460edb14d4e7e9d2ca3740"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y99-gt  []  from the object: CERTIFIED value -27243452608209109899811672049…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y99_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n99) < 909/253",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y99-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/99.json",
+      "sha256": "57a416fae61f9e700f458111a0549342d9495dd93b460edb14d4e7e9d2ca3740"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y99-lt  []  from the object: CERTIFIED value 114707791813843849382819563301…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y100_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n100) > 259/72",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y100-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/100.json",
+      "sha256": "9f9a1c8d08ca6440d4b7b33d7cbd7691a71196d326f15c271e600ac4183e08e5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y100-gt  []  from the object: CERTIFIED value -11485456766250700776200120143…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y100_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n100) < 795/221",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y100-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/100.json",
+      "sha256": "9f9a1c8d08ca6440d4b7b33d7cbd7691a71196d326f15c271e600ac4183e08e5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y100-lt  []  from the object: CERTIFIED value 138340622114714451300757751072…  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y255_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n255) > 2435/609",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y255-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/255.json",
+      "sha256": "55269e03a0102a68d6ff4b4d0e83f9ad2095ccad01b893cd6c151317e3758ee7"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y255-gt  []  from the object: CERTIFIED value -33704367443810673449352004680…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y255_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n255) < 2439/610",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y255-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/255.json",
+      "sha256": "55269e03a0102a68d6ff4b4d0e83f9ad2095ccad01b893cd6c151317e3758ee7"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y255-lt  []  from the object: CERTIFIED value 356479855715201670089995431139…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y256_ge",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n256) ≥ 4",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y256-ge",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/256.json",
+      "sha256": "a7192892f84b1a0df8b8458314f950d403d5ca24a2742ec42725d9811c809de2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y256-ge  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y256_le",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n256) ≤ 4",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y256-le",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/256.json",
+      "sha256": "a7192892f84b1a0df8b8458314f950d403d5ca24a2742ec42725d9811c809de2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y256-le  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y257_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n257) > 4",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y257-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/257.json",
+      "sha256": "838b4dca1c849f564e2a63f23e243f9bfaee8d65be34b6f8e0425f60616ef45e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y257-gt  []  from the object: CERTIFIED value -1  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y257_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n257) < 2449/612",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y257-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/257.json",
+      "sha256": "838b4dca1c849f564e2a63f23e243f9bfaee8d65be34b6f8e0425f60616ef45e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y257-lt  []  from the object: CERTIFIED value 228152642850035141765124401810…  0.001 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3124_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3124) > 4",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3124-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3124.json",
+      "sha256": "70b0afb8567d66b53a836baff2933c8360c8289c69adebd774852be1b1277d93"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3124-gt  []  from the object: CERTIFIED value -2868  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3124_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3124) < 5",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3124-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3124.json",
+      "sha256": "70b0afb8567d66b53a836baff2933c8360c8289c69adebd774852be1b1277d93"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3124-lt  []  from the object: CERTIFIED value 1  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3125_ge",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3125) ≥ 5",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3125-ge",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3125.json",
+      "sha256": "43b3e8a17a96fb2505880d077ba6dc7119e0a13e7835c0638c5d9922bbaf7464"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3125-ge  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3125_le",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3125) ≤ 5",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3125-le",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3125.json",
+      "sha256": "43b3e8a17a96fb2505880d077ba6dc7119e0a13e7835c0638c5d9922bbaf7464"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3125-le  []  from the object: CERTIFIED value 0  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3126_gt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3126) > 5",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3126-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3126.json",
+      "sha256": "c4e95f557b83e93f6057759e362adb425aae2776256f092db3bdbd9a96e82d6e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3126-gt  []  from the object: CERTIFIED value -1  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y3126_lt",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n3126) < 6",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y3126-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/3126.json",
+      "sha256": "c4e95f557b83e93f6057759e362adb425aae2776256f092db3bdbd9a96e82d6e"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y3126-lt  []  from the object: CERTIFIED value 43530  0.0 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y10_planted_lt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n10) < 203/81",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y10-planted-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/10.json",
+      "sha256": "d8583c595832ed95020827fbba1901adcbf5a7a0aca7fdb4feb822cf3dc9549a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y10-planted-lt  []  from the object: REFUTED value -46440291918557295789575214226…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y10_planted_gt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n10) > 198/79",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y10-planted-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/10.json",
+      "sha256": "d8583c595832ed95020827fbba1901adcbf5a7a0aca7fdb4feb822cf3dc9549a"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y10-planted-gt  []  from the object: REFUTED value 119363723966209448392582980570…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y64_planted_lt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n64) < 758/223",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y64-planted-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/64.json",
+      "sha256": "d807cbd9e9c3fe76af4918830e5885f0ca1ee211fa0c551b81d6bc8a8ccd35e2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y64-planted-lt  []  from the object: REFUTED value -56419310093015483661552218122…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y64_planted_gt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n64) > 775/228",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y64-planted-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/64.json",
+      "sha256": "d807cbd9e9c3fe76af4918830e5885f0ca1ee211fa0c551b81d6bc8a8ccd35e2"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y64-planted-gt  []  from the object: REFUTED value 103853234097887735665799663411…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y100_planted_lt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n100) < 259/72",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y100-planted-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/100.json",
+      "sha256": "9f9a1c8d08ca6440d4b7b33d7cbd7691a71196d326f15c271e600ac4183e08e5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y100-planted-lt  []  from the object: REFUTED value -11485456766250700776200120143…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y100_planted_gt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n100) > 795/221",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y100-planted-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/100.json",
+      "sha256": "9f9a1c8d08ca6440d4b7b33d7cbd7691a71196d326f15c271e600ac4183e08e5"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y100-planted-gt  []  from the object: REFUTED value 138340622114714451300757751072…  0.0 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y255_planted_lt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n255) < 2435/609",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y255-planted-lt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/255.json",
+      "sha256": "55269e03a0102a68d6ff4b4d0e83f9ad2095ccad01b893cd6c151317e3758ee7"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y255-planted-lt  []  from the object: REFUTED value -33704367443810673449352004680…  0.001 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "y255_planted_gt",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n255) > 2439/610",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "y255-planted-gt",
+     "pin": {
+      "path": "../claimbox/corpus/xxy/n/255.json",
+      "sha256": "55269e03a0102a68d6ff4b4d0e83f9ad2095ccad01b893cd6c151317e3758ee7"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  y255-planted-gt  []  from the object: REFUTED value 356479855715201670089995431139…  0.001 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  }
+ ]
+}

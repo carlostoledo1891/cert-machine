@@ -1,0 +1,1514 @@
+-- x^x = y: each root bracketed by its last two convergents with denominator <= 1000; at y = k^k pinned to k.
+-- Written by tools/xx_study.py; python3 -m claimbox check corpus/xxy/claims.claim --run --record records/xxy-check.json
+source P = ../claimbox/corpus/xxy/source.md
+data   n2 = ../claimbox/corpus/xxy/n/2.json
+read   n2 as integers
+data   n3 = ../claimbox/corpus/xxy/n/3.json
+read   n3 as integers
+data   n4 = ../claimbox/corpus/xxy/n/4.json
+read   n4 as integers
+data   n5 = ../claimbox/corpus/xxy/n/5.json
+read   n5 as integers
+data   n6 = ../claimbox/corpus/xxy/n/6.json
+read   n6 as integers
+data   n7 = ../claimbox/corpus/xxy/n/7.json
+read   n7 as integers
+data   n8 = ../claimbox/corpus/xxy/n/8.json
+read   n8 as integers
+data   n9 = ../claimbox/corpus/xxy/n/9.json
+read   n9 as integers
+data   n10 = ../claimbox/corpus/xxy/n/10.json
+read   n10 as integers
+data   n11 = ../claimbox/corpus/xxy/n/11.json
+read   n11 as integers
+data   n12 = ../claimbox/corpus/xxy/n/12.json
+read   n12 as integers
+data   n13 = ../claimbox/corpus/xxy/n/13.json
+read   n13 as integers
+data   n14 = ../claimbox/corpus/xxy/n/14.json
+read   n14 as integers
+data   n15 = ../claimbox/corpus/xxy/n/15.json
+read   n15 as integers
+data   n16 = ../claimbox/corpus/xxy/n/16.json
+read   n16 as integers
+data   n17 = ../claimbox/corpus/xxy/n/17.json
+read   n17 as integers
+data   n18 = ../claimbox/corpus/xxy/n/18.json
+read   n18 as integers
+data   n19 = ../claimbox/corpus/xxy/n/19.json
+read   n19 as integers
+data   n20 = ../claimbox/corpus/xxy/n/20.json
+read   n20 as integers
+data   n21 = ../claimbox/corpus/xxy/n/21.json
+read   n21 as integers
+data   n22 = ../claimbox/corpus/xxy/n/22.json
+read   n22 as integers
+data   n23 = ../claimbox/corpus/xxy/n/23.json
+read   n23 as integers
+data   n24 = ../claimbox/corpus/xxy/n/24.json
+read   n24 as integers
+data   n25 = ../claimbox/corpus/xxy/n/25.json
+read   n25 as integers
+data   n26 = ../claimbox/corpus/xxy/n/26.json
+read   n26 as integers
+data   n27 = ../claimbox/corpus/xxy/n/27.json
+read   n27 as integers
+data   n28 = ../claimbox/corpus/xxy/n/28.json
+read   n28 as integers
+data   n29 = ../claimbox/corpus/xxy/n/29.json
+read   n29 as integers
+data   n30 = ../claimbox/corpus/xxy/n/30.json
+read   n30 as integers
+data   n31 = ../claimbox/corpus/xxy/n/31.json
+read   n31 as integers
+data   n32 = ../claimbox/corpus/xxy/n/32.json
+read   n32 as integers
+data   n33 = ../claimbox/corpus/xxy/n/33.json
+read   n33 as integers
+data   n34 = ../claimbox/corpus/xxy/n/34.json
+read   n34 as integers
+data   n35 = ../claimbox/corpus/xxy/n/35.json
+read   n35 as integers
+data   n36 = ../claimbox/corpus/xxy/n/36.json
+read   n36 as integers
+data   n37 = ../claimbox/corpus/xxy/n/37.json
+read   n37 as integers
+data   n38 = ../claimbox/corpus/xxy/n/38.json
+read   n38 as integers
+data   n39 = ../claimbox/corpus/xxy/n/39.json
+read   n39 as integers
+data   n40 = ../claimbox/corpus/xxy/n/40.json
+read   n40 as integers
+data   n41 = ../claimbox/corpus/xxy/n/41.json
+read   n41 as integers
+data   n42 = ../claimbox/corpus/xxy/n/42.json
+read   n42 as integers
+data   n43 = ../claimbox/corpus/xxy/n/43.json
+read   n43 as integers
+data   n44 = ../claimbox/corpus/xxy/n/44.json
+read   n44 as integers
+data   n45 = ../claimbox/corpus/xxy/n/45.json
+read   n45 as integers
+data   n46 = ../claimbox/corpus/xxy/n/46.json
+read   n46 as integers
+data   n47 = ../claimbox/corpus/xxy/n/47.json
+read   n47 as integers
+data   n48 = ../claimbox/corpus/xxy/n/48.json
+read   n48 as integers
+data   n49 = ../claimbox/corpus/xxy/n/49.json
+read   n49 as integers
+data   n50 = ../claimbox/corpus/xxy/n/50.json
+read   n50 as integers
+data   n51 = ../claimbox/corpus/xxy/n/51.json
+read   n51 as integers
+data   n52 = ../claimbox/corpus/xxy/n/52.json
+read   n52 as integers
+data   n53 = ../claimbox/corpus/xxy/n/53.json
+read   n53 as integers
+data   n54 = ../claimbox/corpus/xxy/n/54.json
+read   n54 as integers
+data   n55 = ../claimbox/corpus/xxy/n/55.json
+read   n55 as integers
+data   n56 = ../claimbox/corpus/xxy/n/56.json
+read   n56 as integers
+data   n57 = ../claimbox/corpus/xxy/n/57.json
+read   n57 as integers
+data   n58 = ../claimbox/corpus/xxy/n/58.json
+read   n58 as integers
+data   n59 = ../claimbox/corpus/xxy/n/59.json
+read   n59 as integers
+data   n60 = ../claimbox/corpus/xxy/n/60.json
+read   n60 as integers
+data   n61 = ../claimbox/corpus/xxy/n/61.json
+read   n61 as integers
+data   n62 = ../claimbox/corpus/xxy/n/62.json
+read   n62 as integers
+data   n63 = ../claimbox/corpus/xxy/n/63.json
+read   n63 as integers
+data   n64 = ../claimbox/corpus/xxy/n/64.json
+read   n64 as integers
+data   n65 = ../claimbox/corpus/xxy/n/65.json
+read   n65 as integers
+data   n66 = ../claimbox/corpus/xxy/n/66.json
+read   n66 as integers
+data   n67 = ../claimbox/corpus/xxy/n/67.json
+read   n67 as integers
+data   n68 = ../claimbox/corpus/xxy/n/68.json
+read   n68 as integers
+data   n69 = ../claimbox/corpus/xxy/n/69.json
+read   n69 as integers
+data   n70 = ../claimbox/corpus/xxy/n/70.json
+read   n70 as integers
+data   n71 = ../claimbox/corpus/xxy/n/71.json
+read   n71 as integers
+data   n72 = ../claimbox/corpus/xxy/n/72.json
+read   n72 as integers
+data   n73 = ../claimbox/corpus/xxy/n/73.json
+read   n73 as integers
+data   n74 = ../claimbox/corpus/xxy/n/74.json
+read   n74 as integers
+data   n75 = ../claimbox/corpus/xxy/n/75.json
+read   n75 as integers
+data   n76 = ../claimbox/corpus/xxy/n/76.json
+read   n76 as integers
+data   n77 = ../claimbox/corpus/xxy/n/77.json
+read   n77 as integers
+data   n78 = ../claimbox/corpus/xxy/n/78.json
+read   n78 as integers
+data   n79 = ../claimbox/corpus/xxy/n/79.json
+read   n79 as integers
+data   n80 = ../claimbox/corpus/xxy/n/80.json
+read   n80 as integers
+data   n81 = ../claimbox/corpus/xxy/n/81.json
+read   n81 as integers
+data   n82 = ../claimbox/corpus/xxy/n/82.json
+read   n82 as integers
+data   n83 = ../claimbox/corpus/xxy/n/83.json
+read   n83 as integers
+data   n84 = ../claimbox/corpus/xxy/n/84.json
+read   n84 as integers
+data   n85 = ../claimbox/corpus/xxy/n/85.json
+read   n85 as integers
+data   n86 = ../claimbox/corpus/xxy/n/86.json
+read   n86 as integers
+data   n87 = ../claimbox/corpus/xxy/n/87.json
+read   n87 as integers
+data   n88 = ../claimbox/corpus/xxy/n/88.json
+read   n88 as integers
+data   n89 = ../claimbox/corpus/xxy/n/89.json
+read   n89 as integers
+data   n90 = ../claimbox/corpus/xxy/n/90.json
+read   n90 as integers
+data   n91 = ../claimbox/corpus/xxy/n/91.json
+read   n91 as integers
+data   n92 = ../claimbox/corpus/xxy/n/92.json
+read   n92 as integers
+data   n93 = ../claimbox/corpus/xxy/n/93.json
+read   n93 as integers
+data   n94 = ../claimbox/corpus/xxy/n/94.json
+read   n94 as integers
+data   n95 = ../claimbox/corpus/xxy/n/95.json
+read   n95 as integers
+data   n96 = ../claimbox/corpus/xxy/n/96.json
+read   n96 as integers
+data   n97 = ../claimbox/corpus/xxy/n/97.json
+read   n97 as integers
+data   n98 = ../claimbox/corpus/xxy/n/98.json
+read   n98 as integers
+data   n99 = ../claimbox/corpus/xxy/n/99.json
+read   n99 as integers
+data   n100 = ../claimbox/corpus/xxy/n/100.json
+read   n100 as integers
+data   n255 = ../claimbox/corpus/xxy/n/255.json
+read   n255 as integers
+data   n256 = ../claimbox/corpus/xxy/n/256.json
+read   n256 as integers
+data   n257 = ../claimbox/corpus/xxy/n/257.json
+read   n257 as integers
+data   n3124 = ../claimbox/corpus/xxy/n/3124.json
+read   n3124 as integers
+data   n3125 = ../claimbox/corpus/xxy/n/3125.json
+read   n3125 as integers
+data   n3126 = ../claimbox/corpus/xxy/n/3126.json
+read   n3126 as integers
+use    xroot v1
+
+claim  y2_gt over n2
+  quote "for y = 2: xroot > 471/302" from P
+  : xroot(n2) > 471/302
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y2_lt over n2
+  quote "for y = 2: xroot < 641/411" from P
+  : xroot(n2) < 641/411
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3_gt over n3
+  quote "for y = 3: xroot > 502/275" from P
+  : xroot(n3) > 502/275
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3_lt over n3
+  quote "for y = 3: xroot < 387/212" from P
+  : xroot(n3) < 387/212
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y4_ge over n4
+  quote "for y = 4: xroot ≥ 2" from P
+  : xroot(n4) ≥ 2
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y4_le over n4
+  quote "for y = 4: xroot ≤ 2" from P
+  : xroot(n4) ≤ 2
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y5_gt over n5
+  quote "for y = 5: xroot > 609/286" from P
+  : xroot(n5) > 609/286
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y5_lt over n5
+  quote "for y = 5: xroot < 181/85" from P
+  : xroot(n5) < 181/85
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y6_gt over n6
+  quote "for y = 6: xroot > 1136/509" from P
+  : xroot(n6) > 1136/509
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y6_lt over n6
+  quote "for y = 6: xroot < 1781/798" from P
+  : xroot(n6) < 1781/798
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y7_gt over n7
+  quote "for y = 7: xroot > 44/19" from P
+  : xroot(n7) > 44/19
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y7_lt over n7
+  quote "for y = 7: xroot < 183/79" from P
+  : xroot(n7) < 183/79
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y8_gt over n8
+  quote "for y = 8: xroot > 246/103" from P
+  : xroot(n8) > 246/103
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y8_lt over n8
+  quote "for y = 8: xroot < 289/121" from P
+  : xroot(n8) < 289/121
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y9_gt over n9
+  quote "for y = 9: xroot > 1799/734" from P
+  : xroot(n9) > 1799/734
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y9_lt over n9
+  quote "for y = 9: xroot < 125/51" from P
+  : xroot(n9) < 125/51
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y10_gt over n10
+  quote "for y = 10: xroot > 203/81" from P
+  : xroot(n10) > 203/81
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y10_lt over n10
+  quote "for y = 10: xroot < 198/79" from P
+  : xroot(n10) < 198/79
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y11_gt over n11
+  quote "for y = 11: xroot > 23/9" from P
+  : xroot(n11) > 23/9
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y11_lt over n11
+  quote "for y = 11: xroot < 18/7" from P
+  : xroot(n11) < 18/7
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y12_gt over n12
+  quote "for y = 12: xroot > 1763/678" from P
+  : xroot(n12) > 1763/678
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y12_lt over n12
+  quote "for y = 12: xroot < 1750/673" from P
+  : xroot(n12) < 1750/673
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y13_gt over n13
+  quote "for y = 13: xroot > 1891/716" from P
+  : xroot(n13) > 1891/716
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y13_lt over n13
+  quote "for y = 13: xroot < 1788/677" from P
+  : xroot(n13) < 1788/677
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y14_gt over n14
+  quote "for y = 14: xroot > 1958/731" from P
+  : xroot(n14) > 1958/731
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y14_lt over n14
+  quote "for y = 14: xroot < 75/28" from P
+  : xroot(n14) < 75/28
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y15_gt over n15
+  quote "for y = 15: xroot > 1381/509" from P
+  : xroot(n15) > 1381/509
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y15_lt over n15
+  quote "for y = 15: xroot < 350/129" from P
+  : xroot(n15) < 350/129
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y16_gt over n16
+  quote "for y = 16: xroot > 442/161" from P
+  : xroot(n16) > 442/161
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y16_lt over n16
+  quote "for y = 16: xroot < 593/216" from P
+  : xroot(n16) < 593/216
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y17_gt over n17
+  quote "for y = 17: xroot > 927/334" from P
+  : xroot(n17) > 927/334
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y17_lt over n17
+  quote "for y = 17: xroot < 136/49" from P
+  : xroot(n17) < 136/49
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y18_gt over n18
+  quote "for y = 18: xroot > 614/219" from P
+  : xroot(n18) > 614/219
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y18_lt over n18
+  quote "for y = 18: xroot < 1071/382" from P
+  : xroot(n18) < 1071/382
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y19_gt over n19
+  quote "for y = 19: xroot > 150/53" from P
+  : xroot(n19) > 150/53
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y19_lt over n19
+  quote "for y = 19: xroot < 1517/536" from P
+  : xroot(n19) < 1517/536
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y20_gt over n20
+  quote "for y = 20: xroot > 888/311" from P
+  : xroot(n20) > 888/311
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y20_lt over n20
+  quote "for y = 20: xroot < 2447/857" from P
+  : xroot(n20) < 2447/857
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y21_gt over n21
+  quote "for y = 21: xroot > 619/215" from P
+  : xroot(n21) > 619/215
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y21_lt over n21
+  quote "for y = 21: xroot < 262/91" from P
+  : xroot(n21) < 262/91
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y22_gt over n22
+  quote "for y = 22: xroot > 29/10" from P
+  : xroot(n22) > 29/10
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y22_lt over n22
+  quote "for y = 22: xroot < 177/61" from P
+  : xroot(n22) < 177/61
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y23_gt over n23
+  quote "for y = 23: xroot > 38/13" from P
+  : xroot(n23) > 38/13
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y23_lt over n23
+  quote "for y = 23: xroot < 3" from P
+  : xroot(n23) < 3
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y24_gt over n24
+  quote "for y = 24: xroot > 992/337" from P
+  : xroot(n24) > 992/337
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y24_lt over n24
+  quote "for y = 24: xroot < 209/71" from P
+  : xroot(n24) < 209/71
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y25_gt over n25
+  quote "for y = 25: xroot > 1289/435" from P
+  : xroot(n25) > 1289/435
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y25_lt over n25
+  quote "for y = 25: xroot < 403/136" from P
+  : xroot(n25) < 403/136
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y26_gt over n26
+  quote "for y = 26: xroot > 331/111" from P
+  : xroot(n26) > 331/111
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y26_lt over n26
+  quote "for y = 26: xroot < 2815/944" from P
+  : xroot(n26) < 2815/944
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y27_ge over n27
+  quote "for y = 27: xroot ≥ 3" from P
+  : xroot(n27) ≥ 3
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y27_le over n27
+  quote "for y = 27: xroot ≤ 3" from P
+  : xroot(n27) ≤ 3
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y28_gt over n28
+  quote "for y = 28: xroot > 2441/809" from P
+  : xroot(n28) > 2441/809
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y28_lt over n28
+  quote "for y = 28: xroot < 1569/520" from P
+  : xroot(n28) < 1569/520
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y29_gt over n29
+  quote "for y = 29: xroot > 179/59" from P
+  : xroot(n29) > 179/59
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y29_lt over n29
+  quote "for y = 29: xroot < 804/265" from P
+  : xroot(n29) < 804/265
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y30_gt over n30
+  quote "for y = 30: xroot > 61/20" from P
+  : xroot(n30) > 61/20
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y30_lt over n30
+  quote "for y = 30: xroot < 58/19" from P
+  : xroot(n30) < 58/19
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y31_gt over n31
+  quote "for y = 31: xroot > 1217/397" from P
+  : xroot(n31) > 1217/397
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y31_lt over n31
+  quote "for y = 31: xroot < 702/229" from P
+  : xroot(n31) < 702/229
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y32_gt over n32
+  quote "for y = 32: xroot > 3025/982" from P
+  : xroot(n32) > 3025/982
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y32_lt over n32
+  quote "for y = 32: xroot < 268/87" from P
+  : xroot(n32) < 268/87
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y33_gt over n33
+  quote "for y = 33: xroot > 424/137" from P
+  : xroot(n33) > 424/137
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y33_lt over n33
+  quote "for y = 33: xroot < 913/295" from P
+  : xroot(n33) < 913/295
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y34_gt over n34
+  quote "for y = 34: xroot > 314/101" from P
+  : xroot(n34) > 314/101
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y34_lt over n34
+  quote "for y = 34: xroot < 171/55" from P
+  : xroot(n34) < 171/55
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y35_gt over n35
+  quote "for y = 35: xroot > 153/49" from P
+  : xroot(n35) > 153/49
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y35_lt over n35
+  quote "for y = 35: xroot < 1861/596" from P
+  : xroot(n35) < 1861/596
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y36_gt over n36
+  quote "for y = 36: xroot > 2173/693" from P
+  : xroot(n36) > 2173/693
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y36_lt over n36
+  quote "for y = 36: xroot < 994/317" from P
+  : xroot(n36) < 994/317
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y37_gt over n37
+  quote "for y = 37: xroot > 891/283" from P
+  : xroot(n37) > 891/283
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y37_lt over n37
+  quote "for y = 37: xroot < 1294/411" from P
+  : xroot(n37) < 1294/411
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y38_gt over n38
+  quote "for y = 38: xroot > 1533/485" from P
+  : xroot(n38) > 1533/485
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y38_lt over n38
+  quote "for y = 38: xroot < 1985/628" from P
+  : xroot(n38) < 1985/628
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y39_gt over n39
+  quote "for y = 39: xroot > 257/81" from P
+  : xroot(n39) > 257/81
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y39_lt over n39
+  quote "for y = 39: xroot < 679/214" from P
+  : xroot(n39) < 679/214
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y40_gt over n40
+  quote "for y = 40: xroot > 2777/872" from P
+  : xroot(n40) > 2777/872
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y40_lt over n40
+  quote "for y = 40: xroot < 2570/807" from P
+  : xroot(n40) < 2570/807
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y41_gt over n41
+  quote "for y = 41: xroot > 147/46" from P
+  : xroot(n41) > 147/46
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y41_lt over n41
+  quote "for y = 41: xroot < 163/51" from P
+  : xroot(n41) < 163/51
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y42_gt over n42
+  quote "for y = 42: xroot > 93/29" from P
+  : xroot(n42) > 93/29
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y42_lt over n42
+  quote "for y = 42: xroot < 356/111" from P
+  : xroot(n42) < 356/111
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y43_gt over n43
+  quote "for y = 43: xroot > 428/133" from P
+  : xroot(n43) > 428/133
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y43_lt over n43
+  quote "for y = 43: xroot < 1461/454" from P
+  : xroot(n43) < 1461/454
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y44_gt over n44
+  quote "for y = 44: xroot > 1172/363" from P
+  : xroot(n44) > 1172/363
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y44_lt over n44
+  quote "for y = 44: xroot < 1059/328" from P
+  : xroot(n44) < 1059/328
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y45_gt over n45
+  quote "for y = 45: xroot > 366/113" from P
+  : xroot(n45) > 366/113
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y45_lt over n45
+  quote "for y = 45: xroot < 515/159" from P
+  : xroot(n45) < 515/159
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y46_gt over n46
+  quote "for y = 46: xroot > 887/273" from P
+  : xroot(n46) > 887/273
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y46_lt over n46
+  quote "for y = 46: xroot < 2674/823" from P
+  : xroot(n46) < 2674/823
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y47_gt over n47
+  quote "for y = 47: xroot > 1183/363" from P
+  : xroot(n47) > 1183/363
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y47_lt over n47
+  quote "for y = 47: xroot < 818/251" from P
+  : xroot(n47) < 818/251
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y48_gt over n48
+  quote "for y = 48: xroot > 791/242" from P
+  : xroot(n48) > 791/242
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y48_lt over n48
+  quote "for y = 48: xroot < 219/67" from P
+  : xroot(n48) < 219/67
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y49_gt over n49
+  quote "for y = 49: xroot > 731/223" from P
+  : xroot(n49) > 731/223
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y49_lt over n49
+  quote "for y = 49: xroot < 2865/874" from P
+  : xroot(n49) < 2865/874
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y50_gt over n50
+  quote "for y = 50: xroot > 309/94" from P
+  : xroot(n50) > 309/94
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y50_lt over n50
+  quote "for y = 50: xroot < 1213/369" from P
+  : xroot(n50) < 1213/369
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y51_gt over n51
+  quote "for y = 51: xroot > 89/27" from P
+  : xroot(n51) > 89/27
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y51_lt over n51
+  quote "for y = 51: xroot < 33/10" from P
+  : xroot(n51) < 33/10
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y52_gt over n52
+  quote "for y = 52: xroot > 899/272" from P
+  : xroot(n52) > 899/272
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y52_lt over n52
+  quote "for y = 52: xroot < 704/213" from P
+  : xroot(n52) < 704/213
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y53_gt over n53
+  quote "for y = 53: xroot > 1415/427" from P
+  : xroot(n53) > 1415/427
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y53_lt over n53
+  quote "for y = 53: xroot < 623/188" from P
+  : xroot(n53) < 623/188
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y54_gt over n54
+  quote "for y = 54: xroot > 402/121" from P
+  : xroot(n54) > 402/121
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y54_lt over n54
+  quote "for y = 54: xroot < 103/31" from P
+  : xroot(n54) < 103/31
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y55_gt over n55
+  quote "for y = 55: xroot > 413/124" from P
+  : xroot(n55) > 413/124
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y55_lt over n55
+  quote "for y = 55: xroot < 10/3" from P
+  : xroot(n55) < 10/3
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y56_gt over n56
+  quote "for y = 56: xroot > 1419/425" from P
+  : xroot(n56) > 1419/425
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y56_lt over n56
+  quote "for y = 56: xroot < 3242/971" from P
+  : xroot(n56) < 3242/971
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y57_gt over n57
+  quote "for y = 57: xroot > 579/173" from P
+  : xroot(n57) > 579/173
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y57_lt over n57
+  quote "for y = 57: xroot < 743/222" from P
+  : xroot(n57) < 743/222
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y58_gt over n58
+  quote "for y = 58: xroot > 889/265" from P
+  : xroot(n58) > 889/265
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y58_lt over n58
+  quote "for y = 58: xroot < 104/31" from P
+  : xroot(n58) < 104/31
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y59_gt over n59
+  quote "for y = 59: xroot > 770/229" from P
+  : xroot(n59) > 770/229
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y59_lt over n59
+  quote "for y = 59: xroot < 269/80" from P
+  : xroot(n59) < 269/80
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y60_gt over n60
+  quote "for y = 60: xroot > 337/100" from P
+  : xroot(n60) > 337/100
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y60_lt over n60
+  quote "for y = 60: xroot < 765/227" from P
+  : xroot(n60) < 765/227
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y61_gt over n61
+  quote "for y = 61: xroot > 510/151" from P
+  : xroot(n61) > 510/151
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y61_lt over n61
+  quote "for y = 61: xroot < 1351/400" from P
+  : xroot(n61) < 1351/400
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y62_gt over n62
+  quote "for y = 62: xroot > 44/13" from P
+  : xroot(n62) > 44/13
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y62_lt over n62
+  quote "for y = 62: xroot < 1205/356" from P
+  : xroot(n62) < 1205/356
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y63_gt over n63
+  quote "for y = 63: xroot > 1618/477" from P
+  : xroot(n63) > 1618/477
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y63_lt over n63
+  quote "for y = 63: xroot < 2215/653" from P
+  : xroot(n63) < 2215/653
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y64_gt over n64
+  quote "for y = 64: xroot > 758/223" from P
+  : xroot(n64) > 758/223
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y64_lt over n64
+  quote "for y = 64: xroot < 775/228" from P
+  : xroot(n64) < 775/228
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y65_gt over n65
+  quote "for y = 65: xroot > 562/165" from P
+  : xroot(n65) > 562/165
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y65_lt over n65
+  quote "for y = 65: xroot < 671/197" from P
+  : xroot(n65) < 671/197
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y66_gt over n66
+  quote "for y = 66: xroot > 1529/448" from P
+  : xroot(n66) > 1529/448
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y66_lt over n66
+  quote "for y = 66: xroot < 843/247" from P
+  : xroot(n66) < 843/247
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y67_gt over n67
+  quote "for y = 67: xroot > 2917/853" from P
+  : xroot(n67) > 2917/853
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y67_lt over n67
+  quote "for y = 67: xroot < 2257/660" from P
+  : xroot(n67) < 2257/660
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y68_gt over n68
+  quote "for y = 68: xroot > 1093/319" from P
+  : xroot(n68) > 1093/319
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y68_lt over n68
+  quote "for y = 68: xroot < 1535/448" from P
+  : xroot(n68) < 1535/448
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y69_gt over n69
+  quote "for y = 69: xroot > 1253/365" from P
+  : xroot(n69) > 1253/365
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y69_lt over n69
+  quote "for y = 69: xroot < 1023/298" from P
+  : xroot(n69) < 1023/298
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y70_gt over n70
+  quote "for y = 70: xroot > 2012/585" from P
+  : xroot(n70) > 2012/585
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y70_lt over n70
+  quote "for y = 70: xroot < 1417/412" from P
+  : xroot(n70) < 1417/412
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y71_gt over n71
+  quote "for y = 71: xroot > 317/92" from P
+  : xroot(n71) > 317/92
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y71_lt over n71
+  quote "for y = 71: xroot < 286/83" from P
+  : xroot(n71) < 286/83
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y72_gt over n72
+  quote "for y = 72: xroot > 2261/655" from P
+  : xroot(n72) > 2261/655
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y72_lt over n72
+  quote "for y = 72: xroot < 2620/759" from P
+  : xroot(n72) < 2620/759
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y73_gt over n73
+  quote "for y = 73: xroot > 536/155" from P
+  : xroot(n73) > 536/155
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y73_lt over n73
+  quote "for y = 73: xroot < 83/24" from P
+  : xroot(n73) < 83/24
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y74_gt over n74
+  quote "for y = 74: xroot > 821/237" from P
+  : xroot(n74) > 821/237
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y74_lt over n74
+  quote "for y = 74: xroot < 97/28" from P
+  : xroot(n74) < 97/28
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y75_gt over n75
+  quote "for y = 75: xroot > 871/251" from P
+  : xroot(n75) > 871/251
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y75_lt over n75
+  quote "for y = 75: xroot < 465/134" from P
+  : xroot(n75) < 465/134
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y76_gt over n76
+  quote "for y = 76: xroot > 942/271" from P
+  : xroot(n76) > 942/271
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y76_lt over n76
+  quote "for y = 76: xroot < 1957/563" from P
+  : xroot(n76) < 1957/563
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y77_gt over n77
+  quote "for y = 77: xroot > 383/110" from P
+  : xroot(n77) > 383/110
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y77_lt over n77
+  quote "for y = 77: xroot < 1438/413" from P
+  : xroot(n77) < 1438/413
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y78_gt over n78
+  quote "for y = 78: xroot > 1123/322" from P
+  : xroot(n78) > 1123/322
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y78_lt over n78
+  quote "for y = 78: xroot < 422/121" from P
+  : xroot(n78) < 422/121
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y79_gt over n79
+  quote "for y = 79: xroot > 255/73" from P
+  : xroot(n79) > 255/73
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y79_lt over n79
+  quote "for y = 79: xroot < 517/148" from P
+  : xroot(n79) < 517/148
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y80_gt over n80
+  quote "for y = 80: xroot > 2981/852" from P
+  : xroot(n80) > 2981/852
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y80_lt over n80
+  quote "for y = 80: xroot < 1494/427" from P
+  : xroot(n80) < 1494/427
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y81_gt over n81
+  quote "for y = 81: xroot > 7/2" from P
+  : xroot(n81) > 7/2
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y81_lt over n81
+  quote "for y = 81: xroot < 403/115" from P
+  : xroot(n81) < 403/115
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y82_gt over n82
+  quote "for y = 82: xroot > 3050/869" from P
+  : xroot(n82) > 3050/869
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y82_lt over n82
+  quote "for y = 82: xroot < 179/51" from P
+  : xroot(n82) < 179/51
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y83_gt over n83
+  quote "for y = 83: xroot > 116/33" from P
+  : xroot(n83) > 116/33
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y83_lt over n83
+  quote "for y = 83: xroot < 109/31" from P
+  : xroot(n83) < 109/31
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y84_gt over n84
+  quote "for y = 84: xroot > 1549/440" from P
+  : xroot(n84) > 1549/440
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y84_lt over n84
+  quote "for y = 84: xroot < 2151/611" from P
+  : xroot(n84) < 2151/611
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y85_gt over n85
+  quote "for y = 85: xroot > 892/253" from P
+  : xroot(n85) > 892/253
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y85_lt over n85
+  quote "for y = 85: xroot < 3293/934" from P
+  : xroot(n85) < 3293/934
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y86_gt over n86
+  quote "for y = 86: xroot > 286/81" from P
+  : xroot(n86) > 286/81
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y86_lt over n86
+  quote "for y = 86: xroot < 113/32" from P
+  : xroot(n86) < 113/32
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y87_gt over n87
+  quote "for y = 87: xroot > 983/278" from P
+  : xroot(n87) > 983/278
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y87_lt over n87
+  quote "for y = 87: xroot < 1425/403" from P
+  : xroot(n87) < 1425/403
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y88_gt over n88
+  quote "for y = 88: xroot > 1381/390" from P
+  : xroot(n88) > 1381/390
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y88_lt over n88
+  quote "for y = 88: xroot < 2546/719" from P
+  : xroot(n88) < 2546/719
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y89_gt over n89
+  quote "for y = 89: xroot > 578/163" from P
+  : xroot(n89) > 578/163
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y89_lt over n89
+  quote "for y = 89: xroot < 539/152" from P
+  : xroot(n89) < 539/152
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y90_gt over n90
+  quote "for y = 90: xroot > 941/265" from P
+  : xroot(n90) > 941/265
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y90_lt over n90
+  quote "for y = 90: xroot < 174/49" from P
+  : xroot(n90) < 174/49
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y91_gt over n91
+  quote "for y = 91: xroot > 32/9" from P
+  : xroot(n91) > 32/9
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y91_lt over n91
+  quote "for y = 91: xroot < 1497/421" from P
+  : xroot(n91) < 1497/421
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y92_gt over n92
+  quote "for y = 92: xroot > 235/66" from P
+  : xroot(n92) > 235/66
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y92_lt over n92
+  quote "for y = 92: xroot < 1791/503" from P
+  : xroot(n92) < 1791/503
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y93_gt over n93
+  quote "for y = 93: xroot > 2617/734" from P
+  : xroot(n93) > 2617/734
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y93_lt over n93
+  quote "for y = 93: xroot < 3462/971" from P
+  : xroot(n93) < 3462/971
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y94_gt over n94
+  quote "for y = 94: xroot > 382/107" from P
+  : xroot(n94) > 382/107
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y94_lt over n94
+  quote "for y = 94: xroot < 3081/863" from P
+  : xroot(n94) < 3081/863
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y95_gt over n95
+  quote "for y = 95: xroot > 1841/515" from P
+  : xroot(n95) > 1841/515
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y95_lt over n95
+  quote "for y = 95: xroot < 765/214" from P
+  : xroot(n95) < 765/214
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y96_gt over n96
+  quote "for y = 96: xroot > 68/19" from P
+  : xroot(n96) > 68/19
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y96_lt over n96
+  quote "for y = 96: xroot < 451/126" from P
+  : xroot(n96) < 451/126
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y97_gt over n97
+  quote "for y = 97: xroot > 534/149" from P
+  : xroot(n97) > 534/149
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y97_lt over n97
+  quote "for y = 97: xroot < 1025/286" from P
+  : xroot(n97) < 1025/286
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y98_gt over n98
+  quote "for y = 98: xroot > 2293/639" from P
+  : xroot(n98) > 2293/639
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y98_lt over n98
+  quote "for y = 98: xroot < 1116/311" from P
+  : xroot(n98) < 1116/311
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y99_gt over n99
+  quote "for y = 99: xroot > 1412/393" from P
+  : xroot(n99) > 1412/393
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y99_lt over n99
+  quote "for y = 99: xroot < 909/253" from P
+  : xroot(n99) < 909/253
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y100_gt over n100
+  quote "for y = 100: xroot > 259/72" from P
+  : xroot(n100) > 259/72
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y100_lt over n100
+  quote "for y = 100: xroot < 795/221" from P
+  : xroot(n100) < 795/221
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y255_gt over n255
+  quote "for y = 255: xroot > 2435/609" from P
+  : xroot(n255) > 2435/609
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y255_lt over n255
+  quote "for y = 255: xroot < 2439/610" from P
+  : xroot(n255) < 2439/610
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y256_ge over n256
+  quote "for y = 256: xroot ≥ 4" from P
+  : xroot(n256) ≥ 4
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y256_le over n256
+  quote "for y = 256: xroot ≤ 4" from P
+  : xroot(n256) ≤ 4
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y257_gt over n257
+  quote "for y = 257: xroot > 4" from P
+  : xroot(n257) > 4
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y257_lt over n257
+  quote "for y = 257: xroot < 2449/612" from P
+  : xroot(n257) < 2449/612
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3124_gt over n3124
+  quote "for y = 3124: xroot > 4" from P
+  : xroot(n3124) > 4
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3124_lt over n3124
+  quote "for y = 3124: xroot < 5" from P
+  : xroot(n3124) < 5
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3125_ge over n3125
+  quote "for y = 3125: xroot ≥ 5" from P
+  : xroot(n3125) ≥ 5
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3125_le over n3125
+  quote "for y = 3125: xroot ≤ 5" from P
+  : xroot(n3125) ≤ 5
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3126_gt over n3126
+  quote "for y = 3126: xroot > 5" from P
+  : xroot(n3126) > 5
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y3126_lt over n3126
+  quote "for y = 3126: xroot < 6" from P
+  : xroot(n3126) < 6
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  y10_planted_lt over n10
+  quote "planted, for y = 10: xroot < 203/81" from P
+  : xroot(n10) < 203/81
+  expect REFUTED
+
+claim  y10_planted_gt over n10
+  quote "planted, for y = 10: xroot > 198/79" from P
+  : xroot(n10) > 198/79
+  expect REFUTED
+
+claim  y64_planted_lt over n64
+  quote "planted, for y = 64: xroot < 758/223" from P
+  : xroot(n64) < 758/223
+  expect REFUTED
+
+claim  y64_planted_gt over n64
+  quote "planted, for y = 64: xroot > 775/228" from P
+  : xroot(n64) > 775/228
+  expect REFUTED
+
+claim  y100_planted_lt over n100
+  quote "planted, for y = 100: xroot < 259/72" from P
+  : xroot(n100) < 259/72
+  expect REFUTED
+
+claim  y100_planted_gt over n100
+  quote "planted, for y = 100: xroot > 795/221" from P
+  : xroot(n100) > 795/221
+  expect REFUTED
+
+claim  y255_planted_lt over n255
+  quote "planted, for y = 255: xroot < 2435/609" from P
+  : xroot(n255) < 2435/609
+  expect REFUTED
+
+claim  y255_planted_gt over n255
+  quote "planted, for y = 255: xroot > 2439/610" from P
+  : xroot(n255) > 2439/610
+  expect REFUTED

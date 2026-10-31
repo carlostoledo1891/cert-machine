@@ -1,6 +1,6 @@
 {
  "source_root": "~/Projects/claimbox",
- "policy": "READ-ONLY. claimbox is the producer (the claim-machine); this manifest copies its pinned Riemann records and corpus OUT, for the companion paper riemann-finite-layer, and never writes back. The build reads the copies under corpus/claimbox-riemann only; `make drift` re-hashes both ends and names what moved, and PROVENANCE-claimbox.json records the claimbox commit the copies came from. Operator-approved 2026-10-22 as the one exception to CLAUDE.md's 'nothing here reads claimbox'.",
+ "policy": "READ-ONLY. claimbox is the producer (the claim-machine); this manifest copies its pinned Riemann records and corpus OUT, for the companion paper riemann-finite-layer, and never writes back. The build reads the copies under corpus/claimbox-riemann only; `make drift` re-hashes both ends and names what moved, and PROVENANCE-claimbox.json records the claimbox commit the copies came from. Operator-approved 2026-10-22 as the one exception to CLAUDE.md's 'nothing here reads claimbox'. Extended by the operator on 2026-10-31 for the x^x = y report (reports/xx.html): claimbox's x^x records, its sources and the two files they rest on (the proposer's computation and the reduction, read, never run here) are copied into corpus/claimbox-xx, and tools/run-xx-ledger.py re-decides every bracket from them with code of its own.",
  "items": [
   {
    "src": "records/riemann-run.json",
@@ -156,6 +156,48 @@
    "src": "records/coverage.json",
    "dst": "corpus/claimbox-cryptids/register-coverage.json",
    "note": "the grammar over the register's 132 sentences: shaped or refused, by family and rule (M1 of the paper variant)",
+   "exclude": []
+  },
+  {
+   "src": "records/xxy-study.json",
+   "dst": "corpus/claimbox-xx/records/xxy-study.json",
+   "note": "the study: the real root of x^x = y for y = 2..1000 and 3124..3126, computed by Newton's method in 160-digit arithmetic (the proposals of claude-opus-5-5), its continued fraction, closest fraction and bracket",
+   "exclude": []
+  },
+  {
+   "src": "records/xxy-check.json",
+   "dst": "corpus/claimbox-xx/records/xxy-check.json",
+   "note": "claimbox's check run of the 218 bracket claims: per claim the receiver's word, shown on the page beside ours as the second decision",
+   "exclude": []
+  },
+  {
+   "src": "records/xx64-check.json",
+   "dst": "corpus/claimbox-xx/records/xx64-check.json",
+   "note": "claimbox's check run of the eight x^x = 64 claims (the operator's picture)",
+   "exclude": []
+  },
+  {
+   "src": "corpus/xx64",
+   "dst": "corpus/claimbox-xx/corpus/xx64",
+   "note": "the x^x = 64 sources: the problem, its N, the claims",
+   "exclude": []
+  },
+  {
+   "src": "corpus/xxy",
+   "dst": "corpus/claimbox-xx/corpus/xxy",
+   "note": "the x^x = y sources: the proposals, the claims, one pinned N per decided y",
+   "exclude": []
+  },
+  {
+   "src": "tools/xx_study.py",
+   "dst": "corpus/claimbox-xx/tools/xx_study.py",
+   "note": "the proposer's computation, pinned as evidence and never run here",
+   "exclude": []
+  },
+  {
+   "src": "claimbox/library/selfpower.py",
+   "dst": "corpus/claimbox-xx/claimbox/library/selfpower.py",
+   "note": "the reduction xroot > p/q iff p^p < N^q·q^p and the uniqueness argument: read, not decided",
    "exclude": []
   }
  ],

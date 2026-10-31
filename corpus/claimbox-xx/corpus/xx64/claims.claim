@@ -1,0 +1,53 @@
+-- x^x = 64 (the operator's experiment, 2026-10-31): the AI proposes, claimbox states, cert-machine decides.
+-- python3 -m claimbox check corpus/xx64/claims.claim --run
+source P = ../claimbox/corpus/xx64/problem.md
+data   n = ../claimbox/corpus/xx64/problem.json
+read   n as integers
+use    xroot v1
+
+claim  above over n
+  quote "xroot > 3.3991" from P
+  : xroot(n) > 3.3991
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  below over n
+  quote "xroot < 3.3992" from P
+  : xroot(n) < 3.3992
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  planted_above over n
+  quote "xroot > 3.3992" from P
+  : xroot(n) > 3.3992
+  expect REFUTED
+
+claim  planted_below over n
+  quote "xroot < 3.3991" from P
+  : xroot(n) < 3.3991
+  expect REFUTED
+
+-- sharper: consecutive convergents of the continued fraction bracket the root with the smallest integers there are
+claim  cf_above_8 over n
+  quote "xroot > 58815/17303" from P
+  : xroot(n) > 58815/17303
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  cf_below_7 over n
+  quote "xroot < 47207/13888" from P
+  : xroot(n) < 47207/13888
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  cf_above_10 over n
+  quote "xroot > 458912/135009" from P
+  : xroot(n) > 458912/135009
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED
+
+claim  cf_below_9 over n
+  quote "xroot < 400097/117706" from P
+  : xroot(n) < 400097/117706
+  proposed by model:claude-opus-5-5
+  expect CERTIFIED

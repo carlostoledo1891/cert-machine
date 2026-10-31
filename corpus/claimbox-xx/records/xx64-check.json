@@ -1,0 +1,198 @@
+{
+ "what": "claimbox check --run of corpus/xx64/claims.claim: per claim, its kind or its hole, and per reading the object compiled (its id, pin and reading), the definitions it rests on and cert-machine's line and word",
+ "from": "corpus/xx64/claims.claim",
+ "claims": [
+  {
+   "id": "above",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) > 3.3991",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "above",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  above  []  from the object: CERTIFIED value -23997591260104981357931372992…  0.054 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.1
+    }
+   ]
+  },
+  {
+   "id": "below",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) < 3.3992",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "below",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  below  []  from the object: CERTIFIED value 762829575382540886860142679041…  0.003 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "planted_above",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n) > 3.3992",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "planted-above",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  planted-above  []  from the object: REFUTED value 762829575382540886860142679041…  0.003 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.0
+    }
+   ]
+  },
+  {
+   "id": "planted_below",
+   "kind": "bounded",
+   "expect": "REFUTED",
+   "statement": "xroot(n) < 3.3991",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "planted-below",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  planted-below  []  from the object: REFUTED value -23997591260104981357931372992…  0.048 s  note: no record attached",
+     "word": "REFUTED",
+     "seconds": 0.1
+    }
+   ]
+  },
+  {
+   "id": "cf_above_8",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) > 58815/17303",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "cf-above-8",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  cf-above-8  []  from the object: CERTIFIED value -46367332732498507832798083309…  0.113 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.1
+    }
+   ]
+  },
+  {
+   "id": "cf_below_7",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) < 47207/13888",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "cf-below-7",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  cf-below-7  []  from the object: CERTIFIED value 760632318984775112174335784542…  0.076 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 0.1
+    }
+   ]
+  },
+  {
+   "id": "cf_above_10",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) > 458912/135009",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "cf-above-10",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  cf-above-10  []  from the object: CERTIFIED value -75703801487412566717828282107…  2.816 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 2.9
+    }
+   ]
+  },
+  {
+   "id": "cf_below_9",
+   "kind": "bounded",
+   "expect": "CERTIFIED",
+   "statement": "xroot(n) < 400097/117706",
+   "readings": [
+    {
+     "reading": "integers",
+     "object": "cf-below-9",
+     "pin": {
+      "path": "../claimbox/corpus/xx64/problem.json",
+      "sha256": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+     },
+     "count": 1,
+     "elements": null,
+     "definitions": [
+      "xroot v1"
+     ],
+     "certMachine": "ADMITTED  cf-below-9  []  from the object: CERTIFIED value 495443853685401911616758911966…  2.285 s  note: no record attached",
+     "word": "CERTIFIED",
+     "seconds": 2.3
+    }
+   ]
+  }
+ ]
+}
