@@ -133,6 +133,40 @@ It then needs four things:
 The held-out set `heldout-v0.json` (sha256 `789cead6…978d`) is never edited. The training and validation pools
 redraw any instance it contains.
 
+## Before and after a training run
+
+Two protocol steps from the pre-registration are built and tested end to end. Neither has been run on a model.
+
+**The readiness gate**, before any paid training step. It takes the first 100 tasks of the validation rotation
+with 8 samples each, graded by both deciders. The result is GO only if at least 30% of the groups of 8 have
+rewards that are not all equal, and the mean reward is between 0.02 and 0.80. Otherwise GRPO has nothing to
+reinforce.
+
+```bash
+python3 readiness.py --dry-run mix                          # no model: each sample a different reference policy
+python3 readiness.py --endpoint http://HOST:PORT/v1 --model ID --max-tokens N --out RUN   # costs money
+```
+
+The dry run with `mix` says GO, and with `cf` or `never` it says NO-GO. The live path is tested against a local
+stand-in server in the battery: truncated replies are paid 0, a failed call stops the run with no verdict, and a
+re-run resumes.
+
+**The re-check**, after a training run. The trainer writes a rollout log (`verify_gym/rollouts.py`: one header
+line, then one line per sample with `task_id`, `reply` and `reward`). `recheck.py` decides every paid sample
+again with `check.js`, and it refuses the run's result if one paid reward is not the one `check.js` gives.
+
+```bash
+python3 recheck.py RUN/rollouts.jsonl
+```
+
+The battery requires it to refuse six forged logs:
+- a REFUTED answer paid 1;
+- a certified answer paid one step more than it earned;
+- a reward no answer can earn;
+- a paid reply with no answer;
+- a paid truncated reply;
+- a held-out task in a training log.
+
 ## Both framework bindings are verified
 
 `adapters_v0.load_environment` gives a `SingleTurnEnv`: the training stage for training, and the held-out set
