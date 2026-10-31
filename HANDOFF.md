@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — WRAPPED UP (make control 181/181, fe1ab71e). BLACK HOLE STARTED. The operator's rulings on the scout's questions:
+     disk in the INK RAMP (greys; red stays the witness); headline about STANDING ("every line says what it rests on"), never
+     "most accurate"; a SIMPLE THIN-DISK model labelled assumed (no simulated plasma); the JET from real VLBI images at their own
+     frequency (licence checked first) and, where data stops, an ASSUMED SKETCH drawn dotted as chosen; camera FIXED at 17° by
+     default (moving it is an explicit control that labels the view a model); the X loop may use a LABELLED crossfade. sin-mfg's
+     location not answered (the scout skips it). Phase 0 (the decided shadow-edge layer) running on lane-bh-phase0.
   ◆ 2026-10-31 evening — VERIFY GYM ON THE HUB: carlos-toledo/verify-gym 0.1.0 public
      (app.primeintellect.ai/dashboard/environments/carlos-toledo/verify-gym), checked from the registry. Scorecard rows (Prime
      inference, 120×8, both deciders, 0 disagreements): deepseek-v4-pro 0.049, deepseek-v4.1-flash 0.099, gemma-4-26b 0.083,
