@@ -9,7 +9,7 @@
   "easota": "instruments/easota/decide.js (overlap, autocorr, mindist, flat, edges, circles)"
  },
  "rules": {
-  "certified": "every constraint holds exactly and the exact objective (or its rigorous enclosure) agrees with the printed score within the platform's resolution: its minImprovement when nonzero, else 1e-12 relative; printedSide records where the printed double falls",
+  "certified": "every constraint holds exactly and the exact objective (or every point of its rigorous enclosure: the distance is measured from the printed score to the enclosure's far end, printed rounded up) agrees with the printed score within the platform's resolution: its minImprovement when nonzero, else 1e-12 relative (printed exactly); printedSide records where the printed double falls",
   "repaired": "a constraint holds only up to a numerical tolerance or a normalisation, not exactly (whose, and since when, is named in the row from corpus/sources/easota-platform: the platform's overlap verifier rescales Σh to n/2 with no tolerance; the 1e-6 is the Together repository notebook's); the as-published value is compared with the printed score and an exact witness from the same bytes is certified next to it (kind tolerance-witness)",
   "refuted": "a printed score the exact value does not reproduce (kind not-from-the-published-data)",
   "openKissingRungs": "for a penalty-scored kissing rung, feasible = n nonzero vectors in R^d (what the platform scores); the score is Σ max(0, 2 − |c_i − c_j|) over pairs, c_i = 2x_i/|x_i| — inferred, and reproduced to every printed digit for all four kissing rows; a score above 0 is the platform's own statement that the object is not a kissing configuration, and the decision of that, pair by pair, is the row's content"
@@ -43,7 +43,7 @@
     "printedScore": "0.3808585748578584",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000000116311242",
+     "distance": "0.000000000000000116311243",
      "tolerance": "0.0000001",
      "printedSide": "above",
      "rule": "the platform's minImprovement 1e-7"
@@ -55,7 +55,7 @@
      "printedBoundProvedByRepair": true
     }
    },
-   "ms": 890.3
+   "ms": 966
   },
   {
    "id": "ea-best-first-autocorrelation-inequality",
@@ -82,13 +82,13 @@
     "printedScore": "1.5027436492326165",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000000126271352",
+     "distance": "0.000000000000000126271353",
      "tolerance": "0.00000001",
      "printedSide": "above",
      "rule": "the platform's minImprovement 1e-8"
     }
    },
-   "ms": 24410.9
+   "ms": 15121.6
   },
   {
    "id": "ea-best-min-distance-ratio-2d",
@@ -119,13 +119,13 @@
     "printedScore": "12.889229907717521",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000003694992313",
+     "distance": "0.000000000000003694992314",
      "tolerance": "0.0000001",
      "printedSide": "above",
      "rule": "the platform's minImprovement 1e-7"
     }
    },
-   "ms": 3.7,
+   "ms": 2.4,
    "sameClaimAs": "ea-mindist-ours_2026"
   },
   {
@@ -165,7 +165,7 @@
     },
     "worst": null
    },
-   "ms": 133.7,
+   "ms": 100.1,
    "sameClaimAs": "kiss-ea-594-winner"
   },
   {
@@ -193,14 +193,14 @@
     "printedScore": "1.2807274949642549",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000088792928580000",
+     "distance": "0.000000000088793006730000",
      "tolerance": "0.000001",
      "printedSide": "below",
      "rule": "the platform's minImprovement 0.000001"
     },
     "note": "the platform evaluates |g| on 10^6 grid points — a lower bound of the supremum the definition names; the enclosure is the supremum itself (instruments/trigmin)"
    },
-   "ms": 618.6
+   "ms": 467.7
   },
   {
    "id": "ea-best-edges-vs-triangles",
@@ -228,13 +228,13 @@
     "printedScore": "-0.7117091757692579",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000001793425133",
+     "distance": "0.000000000000001793425134",
      "tolerance": "0.000001",
      "printedSide": "below",
      "rule": "the platform's minImprovement 0.000001"
     }
    },
-   "ms": 47231.5
+   "ms": 31753.3
   },
   {
    "id": "ea-best-circles-rectangle",
@@ -271,7 +271,7 @@
     },
     "repair": null
    },
-   "ms": 10.5
+   "ms": 9.6
   },
   {
    "id": "ea-best-kissing-number-d12",
@@ -334,7 +334,7 @@
      "contacts": 40992
     }
    },
-   "ms": 183.1
+   "ms": 106.3
   },
   {
    "id": "ea-best-kissing-number-d11-605",
@@ -366,8 +366,8 @@
     "printedScore": "1.7102381876301676",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000000005136744",
-     "tolerance": "0.00000000000171023818763",
+     "distance": "0.000000000000000005136745",
+     "tolerance": "0.0000000000017102381876301676",
      "printedSide": "above",
      "rule": "1e-12 relative (minImprovement 0)"
     },
@@ -389,7 +389,7 @@
      "cos2ExactShort": "233050194575085969203214304574464190512995782138831705441388…(143 chars)"
     }
    },
-   "ms": 174
+   "ms": 109.7
   },
   {
    "id": "ea-best-kissing-number-d12-842",
@@ -421,7 +421,7 @@
     "printedScore": "0.5469062458557645",
     "agreement": {
      "agrees": true,
-     "distance": "0.000000000000000037798315",
+     "distance": "0.000000000000000037798316",
      "tolerance": "0.000000000001",
      "printedSide": "below",
      "rule": "1e-12 relative (minImprovement 0)"
@@ -444,7 +444,7 @@
      "cos2ExactShort": "118057959234943597540108180552366082799050943659949033572101…(151 chars)"
     }
    },
-   "ms": 207.1
+   "ms": 119.8
   }
  ],
  "count": 10,
@@ -554,10 +554,10 @@
   }
  ],
  "timing": {
-  "runMs": 74185.3,
-  "rowMsTotal": 73863.4
+  "runMs": 48953,
+  "rowMsTotal": 48756.5
  },
- "generated": "2026-10-06T03:36:58.398Z",
- "git": "a310e6e",
+ "generated": "2026-10-31T01:26:17.685Z",
+ "git": "df88e284",
  "node": "v24.14.1"
 }

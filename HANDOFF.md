@@ -37,6 +37,11 @@ NEXT SESSION, IN ORDER:
      narrower under CERTIFIED (wider under REFUTED) is REFUSED record-decision-mismatch. First-autocorrelation's half-unit box,
      CERTIFIED on main, now refused by both checkers + SMT. claimbox's writer must carry the problems.json `box` block on
      its 10 EA recorded-route objects (table in the lane report); then `make lift` in claimbox (check.py, check.js, SCHEMA.md).
+     RULED + FIXED ("fix the decider", branch lane-agreement-far-end): tools/run-mc100-einstein.js agreement() measures to the
+     enclosure's FAR end (distance rounded up, tolerance exact: the 605's had been cut toward zero); the record re-recorded, no
+     verdict moved (7 distances +1 in the last digit, the 605 tolerance, the rule's wording, stamps); 40 mc100-ea mutants
+     re-decided in a dry run, identical; self-audit amendment 2026-10-30, inventory regenerated, run + mutations re-pinned,
+     concord regenerated, the rerun page rebuilt; mc100 battery +2 reds. claimbox pins none of it.
      lane-overlaps (approved): pqc @1440 and navier-stokes at 900 px tall (the card hides below 960, ACCEPTED), and the
      older small-screen overlaps (approved) — DONE AND LIVE: pqc/interferometer panels closed by default below 820 px,
      navier-stokes' slider narrows at 1280 and its button sits above the bar on phones (pqc-app.js layout() patched,
