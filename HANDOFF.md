@@ -22,6 +22,9 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — SPEEDRUN SR008 SUBMITTED by the operator, as "Verify" (carlostoledo.co/verify): answers and the 8-slide deck
+     in outreach/speedrun-sr008/ (untracked: the repo is public; deck.js rebuilds the PDF from records). If speedrun asks for
+     more: a video pitch (the operator on camera, script in application.md) or a 15-minute interview.
   ◆ 2026-10-31 — /REPORTS/XX.HTML LIVE (the operator: "built here on the reports page with the grammar"; listed under the
      audits): claimbox's x^x = y study lifted (LIFT-claimbox.json extended, dated; corpus/claimbox-xx/), every bracket
      re-decided HERE by tools/run-xx-ledger.py (certs/xx-ledger.json: 210 CERTIFIED, 8 planted REFUTED, 216/216 mutants flip;
