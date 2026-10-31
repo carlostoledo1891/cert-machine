@@ -68,6 +68,19 @@
 > row), so no mutant or decision moves. The inventory is regenerated and the run and mutations records re-pinned with
 > this amendment as the reason.
 
+> **Amendment 2026-10-30 (the EinsteinArena agreement measured to the enclosure's far end; no verdict moved).** On the
+> operator's ruling ("fix the decider"), tools/run-mc100-einstein.js agreement() measured the distance from the printed
+> score S to the NEAR end of the exact objective's enclosure, so an enclosure whose near end was within the platform's
+> resolution and whose far end was not was decided as agreement; it now measures to the FAR end (every point of the
+> enclosure within the resolution, so a CERTIFIED agreement proves S ± tol), prints that distance rounded up (it was cut
+> toward zero at 24 decimals) and the tolerance exactly (the 605 rung's 1e-12 · 1.7102381876301676 had been cut to
+> 0.00000000000171023818763). certs/mc100-einstein-arena.json re-recorded by the tool: no verdict, kind or scope moves;
+> seven `agreement.distance` strings move up in their last digit (flat polynomials' to its far end, 0.00000000008879300673),
+> one `tolerance` is printed exactly, the certified rule's wording and the stamps move. The mc100-ea mutants were re-decided
+> under the new rule in a dry run (40 mutants, `--only mc100-ea`): every word and outcome identical to the record's, so no
+> mutant or decision moves. The inventory is regenerated and the run and mutations records re-pinned with this amendment
+> as the reason.
+
 
 Written before any run, on the operator's word "start" (2026-10-20 night), after "Hold any change on the paper
 and other fronts. I do not know yet if they are really valuable. Let's focus on benchmark cert-machine." Nothing

@@ -223,6 +223,18 @@ if (EAL) {
     red(EA.easotaRow(mr, F, prob).verdict === 'REFUTED', 'a minimum-overlap value set to 1.0000001 (outside [0, 1]) is REFUTED');
   }
   {
+    /* the agreement measured to the enclosure's FAR end (2026-10-30): an enclosure whose near end is within the resolution
+       of the print but whose far end is not proves nothing about S ± tol, and must not be decided as agreement */
+    const P = (s) => require(path.join(ROOT, 'instruments', 'easota', 'lib.js')).parseDecimal(s);
+    const a1 = EA.agreement(P('0.00000005'), P('0.0000003'), '0', 1e-7), a2 = EA.agreement(P('-0.0000002'), P('0.0000002'), '0', 1e-7);
+    red(!a1.agrees && a1.distance === '0.000000300000000000000000', 'an enclosure [5e-8, 3e-7] around the print 0 at resolution 1e-7: the near end is within it, the far end is not — no agreement (distance to the far end, ' + a1.distance + ')');
+    red(!a2.agrees, 'the print 0 inside an enclosure [-2e-7, 2e-7] wider than the resolution 1e-7 — no agreement (it had been distance 0)');
+    const a3 = EA.agreement(P('0.00000005'), P('0.0000001'), '0', 1e-7);
+    ok(a3.agrees, 'an enclosure [5e-8, 1e-7] whose far end is exactly at the resolution agrees (the rule is <=)');
+    const t605 = EAL.rows.find((r) => r.id === 'ea-best-kissing-number-d11-605').decision.agreement.tolerance;
+    ok(t605 === '0.0000000000017102381876301676', 'the 605 rung\'s tolerance printed exactly, 1e-12 · 1.7102381876301676 (it had been cut toward zero at 24 decimals)', t605);
+  }
+  {
     const x = EA.parseJsonExact('{"x":[0.1000000000000000055511151231257827]}').x[0].lit;
     red(x === '0.1000000000000000055511151231257827' && JSON.parse('[0.1000000000000000055511151231257827]')[0] === 0.1, 'the reader keeps a literal JSON.parse would round (0.1000000000000000055511151231257827 stays itself, not 0.1)');
   }

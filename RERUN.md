@@ -15,12 +15,12 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 
 | record | needs | rows | re-derive | stdlib verifier | second implementation | sha256 at this build |
 |---|---|---|---|---|---|---|
-| `certs/ai-claims-summary.json` | nothing to run | 6 (5 CERTIFIED, 1 PARTIAL) | — | — | — | `f312b04e0a567478…` |
+| `certs/ai-claims-summary.json` | nothing to run | 6 (5 CERTIFIED, 1 PARTIAL) | — | — | — | `d5e561e3888537da…` |
 | `certs/erdos852-certificate.json` | node for the export; python3 standard library for the verifier; corpus/sources for the pinned paper | 1 (1 REFUTED) | `node tools/export-erdos852-certificate.js` (5.5 s) | `python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources` (< 1 s) | — | `13cfc7fa212a4355…` |
 | `certs/kissing-ledger.json` | node | 11 (10 CERTIFIED, 1 QUEUED) | `node tools/run-kissing-ledger.js` (7.2 s) | — | — | `5c823b21ac43b5bd…` |
 | `ledger.json` | node | 1 (1 MIXED) | `make engine` (5.7 min) | — | — | `4b666d3d92235765…` |
 | `certs/strassen-certificate.json` | node for the export; python3 standard library for the verifier; corpus/sources for the pinned bytes | 10 (10 CERTIFIED) | `node tools/export-strassen-certificate.js` (< 1 s) | `python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources` (< 1 s) | — | `0e400efeb8a4bba9…` |
-| `certs/easota-ledger.json` | node | 20 (16 CERTIFIED, 4 REPAIRED) | `node tools/run-easota-ledger.js` (3.2 s) | — | — | `96b1d8cfe772e003…` |
+| `certs/easota-ledger.json` | node | 20 (16 CERTIFIED, 4 REPAIRED) | `node tools/run-easota-ledger.js` (3.2 s) | — | — | `57f46876a7c79b0c…` |
 | `certs/ecbench-ledger.json` | node | 1 (1 MIXED) | `node tools/run-ecbench-ledger.js` (6.1 s) | — | — | `8b1230e4fb6f91d9…` |
 | `certs/gsm8k-ledger.json` | python3 standard library and the instrument's own modules (instruments/gsm8k) | 1 (1 MIXED) | `python3 tools/run-gsm8k-ledger.py` (1.6 s) | — | — | `7fbcda606b601c9c…` |
 | `certs/horizon-ledger.json` | python3 standard library and the instrument's own modules (instruments/horizon) | 1 (1 MIXED) | `python3 tools/run-horizon-ledger.py` (2.2 min) | — | — | `fa5b0bac0539bf96…` |
@@ -38,7 +38,7 @@ Every row of the claims register (`certs/claims-ledger.json`, 131 decided rows) 
 | `certs/mc100-alphatensor-q.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 12 (12 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-q` (< 1 s) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-q.json --sources corpus/sources` (< 1 s) | — | `753485444a3e4498…` |
 | `certs/mc100-alphatensor-f2.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 8 (8 CERTIFIED) | `node tools/run-mc100-tensors.js alphatensor-f2` (< 1 s) | `python3 tools/verify_strassen.py certs/mc100-alphatensor-f2.json --sources corpus/sources` (< 1 s) | — | `0222c5552b7c24f3…` |
 | `certs/mc100-alphaevolve-nb-matmul.json` | node and python3 (the transcriber is stdlib Python for the npz archives); the verifier is python3 standard library alone | 15 (15 CERTIFIED) | `node tools/run-mc100-tensors.js alphaevolve-nb-matmul` (1.6 s) | `python3 tools/verify_strassen.py certs/mc100-alphaevolve-nb-matmul.json --sources corpus/sources` (1.1 s) | — | `50183f3ffba87bd2…` |
-| `certs/mc100-einstein-arena.json` | node (the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate the run) | 8 (1 REPAIRED, 7 CERTIFIED) | `node tools/run-mc100-einstein.js` (46.6 s) | — | — | `5d05c32da7e1d478…` |
+| `certs/mc100-einstein-arena.json` | node (the 65,536-value autocorrelation and the 500-row edges-vs-triangles envelope dominate the run) | 8 (1 REPAIRED, 7 CERTIFIED) | `node tools/run-mc100-einstein.js` (46.6 s) | — | — | `2526c08b4a11f2ab…` |
 | `certs/mc100-station-v2.json` | python3 standard library and instruments/polymaps | 1 (1 CERTIFIED) | `python3 tools/run-mc100-station.py` (< 1 s) | — | — | `b526305ff85bbb35…` |
 
 Runtimes measured 2026-10-21 on Apple M2 (Darwin 27.0.0, v24.14.1, Python 3.9.6); the register's 132 rows compared before and after, none moved.
@@ -75,4 +75,4 @@ Kinds: `own-code` — the claim re-derived from the published statement with the
 
 V8's BigInt and IEEE-754 directed rounding in the engine; Python's fractions and decimal in the detached verifiers; a handful of named external theorems consumed and cross-checked, never machine-proved; the operating system's hashing; and one operator on one machine. The verifiers shrink the engine, the second implementations shrink the verifiers, and only the registry above shrinks the last item.
 
-git e9141192
+git df88e284

@@ -22,8 +22,9 @@
    platform's score of it is S. S is a float64 evaluation printed as a double. The rule, fixed before any row was
    decided here and stated in the ledger:
      · CERTIFIED (kind none) — every constraint of the problem holds EXACTLY, and the exact objective (or its
-       rigorous enclosure) agrees with S within the platform's own resolution: its minImprovement for the problem
-       when that is nonzero, else 1e-12 relative. The side on which S falls is recorded beside it.
+       rigorous enclosure, every point of it: the distance runs to its far end) agrees with S within the platform's
+       own resolution: its minImprovement for the problem when that is nonzero, else 1e-12 relative. The side on which
+       S falls is recorded beside it.
      · REPAIRED (kind tolerance-witness) — a constraint holds only up to a numerical tolerance or a normalisation,
        not exactly; the as-published value is compared with S, and an exact witness built from the same bytes
        (instruments/easota's repair) is certified next to it with its deficit. Whose tolerance, and when, is read
@@ -129,14 +130,23 @@ const bigDiv = (a, b, d = 30) => { /* a/b to d decimals, floor, as a string, a,b
   const s = ((a * 10n ** BigInt(d)) / b).toString().padStart(d + 1, '0');
   return (neg ? '-' : '') + s.slice(0, s.length - d) + '.' + s.slice(s.length - d);
 };
-/* the agreement rule: |exact - S| <= tol, tol = minImprovement when nonzero, else 1e-12 relative; exact may be an enclosure [lo, hi] */
+/* a non-negative rational printed OUTWARD (rounded up) at d decimals: an upper bound never prints below itself */
+const decUp = (r, d) => { const t = L.toFixed(r, d); return Q.cmp(L.parseDecimal(t), r) === 0 ? t : L.toFixed(Q.add(L.parseDecimal(t), Q.R(1n, 10n ** BigInt(d))), d); };
+/* a rational with a finite decimal expansion, printed exactly (every digit, trailing zeros dropped) */
+const decExact = (r) => { for (let k = 0; k <= 80; k++) { const t = L.toFixed(r, k); if (Q.cmp(L.parseDecimal(t), r) === 0) return k ? t.replace(/\.?0+$/, '') : t; } die('not a finite decimal: ' + Q.toString(r)); };
+/* the agreement rule: |exact - S| <= tol, tol = minImprovement when nonzero, else 1e-12 relative; exact may be an enclosure
+   [lo, hi], and then EVERY point of it must be within tol of S — the distance is measured from S to the enclosure's FAR end
+   (2026-10-30, the operator: a CERTIFIED agreement proves the exact objective lies in S ± tol; measuring to the near end
+   agreed an enclosure whose near end was within tol and whose far end was not). distance is printed rounded up, tolerance
+   exactly (it had been cut toward zero at 24 decimals, 1e-12 · 1.7102381876301676 for the 605 rung) */
 function agreement(lo, hi, Slit, minImp) {
   const S = L.parseDecimal(Slit);
   const absS = Q.abs(S);
   const tol = minImp > 0 ? L.parseDecimal(String(minImp)) : Q.mul(L.parseDecimal('1e-12'), Q.cmp(absS, Q.R(1n)) > 0 ? absS : Q.R(1n));
-  const dist = Q.cmp(S, lo) < 0 ? Q.sub(lo, S) : (Q.cmp(S, hi) > 0 ? Q.sub(S, hi) : Q.R(0n));
+  const dLo = Q.abs(Q.sub(S, lo)), dHi = Q.abs(Q.sub(S, hi));
+  const far = Q.cmp(dLo, dHi) >= 0 ? dLo : dHi;
   const side = Q.cmp(S, lo) < 0 ? 'below' : (Q.cmp(S, hi) > 0 ? 'above' : 'inside');
-  return { agrees: Q.cmp(dist, tol) <= 0, distance: dec(dist, 24), tolerance: L.toFixed(tol, 24).replace(/0+$/, ''), printedSide: side, rule: minImp > 0 ? 'the platform\'s minImprovement ' + minImp : '1e-12 relative (minImprovement 0)' };
+  return { agrees: Q.cmp(far, tol) <= 0, distance: decUp(far, 24), tolerance: decExact(tol), printedSide: side, rule: minImp > 0 ? 'the platform\'s minImprovement ' + minImp : '1e-12 relative (minImprovement 0)' };
 }
 
 /* ================================================================================
@@ -407,7 +417,7 @@ function main() {
     pool: POOL, wave: 1, manifest: 'corpus/machine-claims-100.json', registered: M.registered,
     deciders: { kissing: 'instruments/kissing/kissing.js (certify; imported unchanged) + the full pass in this tool (every pair, the worst exactly, the penalty enclosed)', easota: 'instruments/easota/decide.js (overlap, autocorr, mindist, flat, edges, circles)' },
     rules: {
-      certified: 'every constraint holds exactly and the exact objective (or its rigorous enclosure) agrees with the printed score within the platform\'s resolution: its minImprovement when nonzero, else 1e-12 relative; printedSide records where the printed double falls',
+      certified: 'every constraint holds exactly and the exact objective (or every point of its rigorous enclosure: the distance is measured from the printed score to the enclosure\'s far end, printed rounded up) agrees with the printed score within the platform\'s resolution: its minImprovement when nonzero, else 1e-12 relative (printed exactly); printedSide records where the printed double falls',
       repaired: 'a constraint holds only up to a numerical tolerance or a normalisation, not exactly (whose, and since when, is named in the row from corpus/sources/easota-platform: the platform\'s overlap verifier rescales Σh to n/2 with no tolerance; the 1e-6 is the Together repository notebook\'s); the as-published value is compared with the printed score and an exact witness from the same bytes is certified next to it (kind tolerance-witness)',
       refuted: 'a printed score the exact value does not reproduce (kind not-from-the-published-data)',
       openKissingRungs: 'for a penalty-scored kissing rung, feasible = n nonzero vectors in R^d (what the platform scores); the score is Σ max(0, 2 − |c_i − c_j|) over pairs, c_i = 2x_i/|x_i| — inferred, and reproduced to every printed digit for all four kissing rows; a score above 0 is the platform\'s own statement that the object is not a kissing configuration, and the decision of that, pair by pair, is the row\'s content'
