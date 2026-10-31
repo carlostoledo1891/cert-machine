@@ -22,6 +22,11 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — /VERIFY/ v3 LIVE (the operator: "Proceed all"): H1 "AI now publishes faster than anyone can check. Verify
+     checks it."; the hero contrasts OpenAI's release (719 manuscripts by date, review "unchecked") with the register's 131
+     decided; the self-audit chart first among three proof points; OpenAI statements in two groups (208 vs 34, the six-way
+     split in a details element); one rigor block (design/reasons.js pageReasons); the operator's e-mail as the direct contact
+     (approved); phone drawings for every chart (page-only CSS). Still unlinked. BLACK HOLE: on hold (the operator).
   ◆ 2026-10-31 — /VERIFY/ v2 LIVE (the operator: "Merge and push live"): tailored to reviewers (tools/verify-page.js): the
      avalanche hero (the register's decided claims over time, the HorizonMath ×), scale stats, the two offers, the product schema
      (design/components.js flow gained record/source), the tolerance chart, OpenAI's statement readings, the verdict mix, the
