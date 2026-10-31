@@ -22,6 +22,17 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — /VERIFY/ v2 LIVE (the operator: "Merge and push live"): tailored to reviewers (tools/verify-page.js): the
+     avalanche hero (the register's decided claims over time, the HorizonMath ×), scale stats, the two offers, the product schema
+     (design/components.js flow gained record/source), the tolerance chart, OpenAI's statement readings, the verdict mix, the
+     self-audit, "built on the same engine" cards, Verify Gym "under development". Still unlinked. Known: charts render small at
+     390 (no narrow variant for non-hero figures).
+     VERIFY GYM v0 MERGED (environments/verify_gym; certs/verify-gym-scorecard.json; pre-registration
+     notes/verify-gym-preregistration-2026-10-31.md committed before any score): 3 families, reward = certified decimals above
+     the task's own bracket, held-out 120 tasks sha256 789cead6…, two deciders agree on 2,600 answers, 2,240 forgeries 0 leaked;
+     policies: cf 0.981, float 0.531 (22 refuted), bisect 0.340, never/echo 0. NEXT, EACH ON THE OPERATOR'S WORD: model rows
+     (~US$5/model), the base-model readiness gate (~US$1), a GRPO pilot (~US$25–40 with a replicate; needs the Hub publish or
+     self-hosted prime-rl on RunPod), the base model (Qwen3.5-4B or 9B).
   ◆ 2026-10-31 — VERIFY GYM (the operator: "a real one, not experimental… the first real outcome on this path"). RULED: ground
      first, then model (a trained open model ships only if it beats its base on held-out tasks); first family BRACKET A
      CONSTANT (x^x = y, k-th roots, polynomial roots; reward = certified decimals, 0 if refuted or unchecked — the graded
