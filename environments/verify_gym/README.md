@@ -108,10 +108,13 @@ limit scores 0 and is counted apart. Mean reward is per reply. Spend is what the
 | `deepseek/deepseek-v4-pro` | 0.049 | 0.073 | 0.051 | 0.025 | 331 | 546 | 83 | 0 |
 | `deepseek/deepseek-v4.1-flash` | 0.099 | 0.092 | 0.145 | 0.060 | 368 | 517 | 73 | 2 |
 | `google/gemma-4-26b-a4b-it` | 0.083 | 0.120 | 0.059 | 0.070 | 363 | 520 | 67 | 10 |
+| `qwen/qwen3.5-9b` | 0.075 | 0.064 | 0.097 | 0.065 | 369 | 506 | 59 | 24 |
+
+REFUSED (a side outside the family's reduction: not decided, paid 0) is not a column: qwen/qwen3.5-9b 2.
 
 Every model is below `bisect`, the 20-step exact bisection, and every one states more false brackets than
 true ones: deepseek/deepseek-v4-pro gave 546 REFUTED of 960. These rows have no tool: every
-bracket comes from the model's own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24.
+bracket comes from the model's own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24, qwen3.5-9b US$2.53.
 
 ## The readiness gate on the base model
 
