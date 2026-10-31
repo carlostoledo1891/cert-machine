@@ -12,7 +12,9 @@ when the kernel audit lacks an operation of the vocabulary. (5) A GREEN control:
 printed-digits box ("in") is admitted and decided CERTIFIED. (6) Version 3: the primitive objects decided from the bytes,
 check.js held to check.py, Z3. (7) FORMAT 4 (2026-10-30): the eight objects of v4/ (the readings and standings per input,
 the canonical form and its digest, int64, the Lean kind decided by a kernel lane's record, a refusing object and two
-mutants), check.js held to check.py on every one and on every format-4 red control.
+mutants), check.js held to check.py on every one and on every format-4 red control. (8) A RECORD WITH NO VALUE (2026-10-30):
+its word decides only the claim its row states — the EinsteinArena forgery (the score moved 2,000,001 units of its last digit)
+refused record-decision-mismatch by both checkers and the SMT export, the record's own claim admitted CERTIFIED.
 
 usage: python3 instruments/claimbox/battery.py        exit 0 iff every check passes and every red control fires
 MIT"""
@@ -617,6 +619,83 @@ try:
     B.load_vocab()
 finally:
     shutil.rmtree(tmp7, ignore_errors=True)
+
+# ---- 8 · a record with no value decides only the claim its row states (2026-10-30, record-decision-mismatch) -----------
+# Found by claimbox's sensitivity run (its PLAN.md §9): an EinsteinArena row of certs/mc100-einstein-arena.json carries no
+# value, and the receiver took the record's word for a platform score moved 2,000,001 units of its last digit and printed
+# CERTIFIED. The object below is the one claimbox's recorded route writes (an "in" over the named platform score, the record's
+# value null), built here from the record's own claim; the forgery prints the score moved past twice the platform's
+# resolution (2·10⁻⁸ / 10⁻¹⁶ + 1 = 2,000,001 units). Both checkers and the SMT export must refuse it; the record's own claim
+# must still be admitted with the record's word.
+tmp8 = tempfile.mkdtemp(prefix='claimbox-rdm-')
+try:
+    EA_REC, EA_ROW = 'certs/mc100-einstein-arena.json', 'ea-best-first-autocorrelation-inequality'
+    with open(os.path.join(ROOT, EA_REC), encoding='utf-8') as fh:
+        ea_row = next(x for x in json.load(fh)['rows'] if x['id'] == EA_ROW)
+    ea_print = re.search(r'score of it is (-?\d+\.\d+)', ea_row['claim']).group(1)
+    ea_digits = len(ea_print.split('.')[1])
+    ea_moved_q = Fraction(ea_print) + 2000001 * Fraction(1, 10 ** ea_digits)
+    ea_moved = str(ea_moved_q.numerator * 10 ** ea_digits // ea_moved_q.denominator)
+    ea_moved = ea_moved[:-ea_digits] + '.' + ea_moved[-ea_digits:]
+    ok(ea_print == '1.5027436492326165' and ea_moved == '1.5027436494326166' and ea_row['verdict'] == C and 'value' not in ea_row,
+       'the exact case: the record\'s row prints ' + ea_print + ', carries no value, says CERTIFIED; the forgery prints ' + ea_moved)
+    ea_pin = {'path': 'corpus/einstein-arena/best-2.json', 'sha256': hashlib.sha256(open(os.path.join(ROOT, 'corpus/einstein-arena/best-2.json'), 'rb').read()).hexdigest()}
+
+    def ea_object(printed, tag, rel='in', claim=None):
+        sentence = claim if claim is not None else ea_row['claim'].replace(ea_print, printed)
+        sp = os.path.join(tmp8, tag + '.md')
+        open(sp, 'w', encoding='utf-8').write(sentence + '\n')
+        d = len(printed.split('.')[1])
+        half = Fraction(5, 10 ** (d + 1))
+        lo, hi = Fraction(printed) - half, Fraction(printed) + half
+        pred = {'g': {'named': 'the platform\'s score of the published object, as the claimant defines it', 'where': 'tools/run-mc100-einstein.js', 'args': ['f']},
+                'rel': rel, 'printed': printed,
+                'c': [str(lo.numerator) + '/' + str(lo.denominator), str(hi.numerator) + '/' + str(hi.denominator)] if rel == 'in' else str(Fraction(printed).numerator) + '/' + str(Fraction(printed).denominator)}
+        return {'id': 'rdm-' + tag, 'text': sentence,
+                'source': {'what': 'the sentence, planted', 'path': os.path.relpath(sp, ROOT), 'sha256': hashlib.sha256(open(sp, 'rb').read()).hexdigest(), 'quote': sentence},
+                'reading': 'universal',
+                'domain': {'kind': 'finite', 'pin': ea_pin, 'decoder': 'the array at data.values: 65536 values, each JSON number as the double it denotes, exactly', 'count': 65536, 'variable': 'f'},
+                'predicate': [pred],
+                'reference': 'the printed ' + printed + ' is the box its digits allow; the object is read as each JSON number as the double it denotes, exactly',
+                'hypotheses': ['the printed number is a rounding of the quantity: it is read as the box its digits allow, half a unit of the last digit either way'],
+                'falsifier': ['the quantity computed exactly lies outside the box', 'the pinned file does not hash to ' + ea_pin['sha256'][:8] + '…'],
+                'record': {'path': EA_REC, 'row': EA_ROW, 'value': None, 'verdict': C}}
+    # a copy of the record whose row's claim states no bar at all
+    with open(os.path.join(ROOT, EA_REC), encoding='utf-8') as fh:
+        nobar = json.load(fh)
+    for x in nobar['rows']:
+        if x['id'] == EA_ROW:
+            x['claim'] = x['claim'].split(' and the platform')[0]
+    nbp = os.path.join(tmp8, 'nobar.json')
+    json.dump(nobar, open(nbp, 'w'))
+    o_nobar = ea_object(ea_print, 'nobar')
+    o_nobar['record']['path'] = os.path.relpath(nbp, ROOT)
+    cases8 = [   # (label, object, expected word, expected kind)
+        ('the record\'s own claim (the score as the row prints it)', ea_object(ea_print, 'own'), B.ADMITTED, None),
+        ('THE FORGERY: the score moved 2,000,001 units of its last digit', ea_object(ea_moved, 'moved'), B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('the score moved one unit of its last digit', ea_object(ea_print[:-1] + str(int(ea_print[-1]) + 1), 'one'), B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('the row\'s bar under another relation (le where the row states the value)', ea_object(ea_print, 'le', rel='le'), B.REFUSED_WORD, 'record-decision-mismatch'),
+        ('a record row whose claim states no bar', o_nobar, B.REFUSED_WORD, 'record-decision-mismatch'),
+    ]
+    paths8 = []
+    for i, (label, o, word, kind) in enumerate(cases8):
+        res = B.check_obj(o)
+        good = res['word'] == word and res['kind'] == kind and (word != B.ADMITTED or res['decided'] == [C])
+        (ok if word == B.ADMITTED else red)(good, 'a valueless record: ' + label + ' -> ' + (kind or 'ADMITTED [CERTIFIED]'), (res['kind'] or res['word']) + ': ' + (res['msg'] or ' · '.join(res['decided']))[:90])
+        pth = os.path.join(tmp8, 'case-' + str(i) + '.json')
+        json.dump(o, open(pth, 'w'))
+        paths8.append(pth)
+    j8 = js_batch(paths8)
+    disagree = [lab for (lab, _, word, kind), jr in zip(cases8, j8) if not (jr and jr['word'] == word and jr['kind'] == kind and (word != B.ADMITTED or jr['decided'] == [C]))]
+    ok(not disagree, 'check.js gives the same word and kind on every valueless-record case (' + str(len(cases8)) + ')', '; '.join(disagree)[:160])
+    try:
+        B.to_smt(cases8[1][1])
+        smt8 = None
+    except B.Refuse as e:
+        smt8 = e.kind
+    red(smt8 == 'record-decision-mismatch', 'the SMT export of the forgery -> refused (record-decision-mismatch)', str(smt8))
+finally:
+    shutil.rmtree(tmp8, ignore_errors=True)
 
 print('\n' + str(passes) + ' pass, ' + str(fails) + ' fail; ' + str(reds_fired) + '/' + str(reds) + ' red controls fired — instruments/claimbox' + ('\nNOT RUN (not counted as passing): ' + '; '.join(notrun) if notrun else ''))
 sys.exit(0 if fails == 0 and reds_fired == reds else 1)

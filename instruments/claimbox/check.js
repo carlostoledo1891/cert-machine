@@ -356,6 +356,11 @@ function recordValue(v, where) {
 }
 const BAR_IN_CLAIM = /-?\d+\.\d+/, REL_IN_CLAIM = /(<=|>=|≤|≥|<|>|=)/;
 const REL_WORD = { '<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq' };
+// the claim a record row states, when the row carries no value (2026-10-30): the LAST relation, or the word "is", followed by a
+// number (an integer or a decimal, not inside a longer number). Its word decides that claim and no other: a predicate whose word
+// is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
+const STATED_BAR = /(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)/g;
+const STATED_REL = Object.assign({}, REL_WORD, { is: 'eq' });
 
 function decide(value, rel, c) {
   const [C, R, F] = WORDS;
@@ -640,7 +645,18 @@ function checkObj(o, root = ROOT) {
           if (fo && fo.value !== null && value[0] === 'exact' && !Q.fromString(fo.value).eq(value[1])) throw new Refuse('record-value-mismatch', 'the object gives ' + fo.value.slice(0, 40) + '…, the record holds ' + value[1].toString().slice(0, 40) + '…');
           if (fo && fo.word !== dv) throw new Refuse('record-decision-mismatch', 'from the object ' + fo.word + ', from the record\'s value ' + dv);
           decided.push(dv);
-        } else if (fo) decided.push(fo.word); else decided.push(rv);
+        } else if (fo) decided.push(fo.word);
+        else {
+          // the record's word alone decides this predicate (no value, nothing decided from the object): it decides the claim its
+          // row states, so the object must state that claim's bar under that claim's relation
+          const stated = [...claimStr.matchAll(STATED_BAR)];
+          if (!stated.length) throw new Refuse('record-decision-mismatch', 'the record carries no value and its claim states no bar: its word decides no claim the object states');
+          const [, srel, sbar] = stated[stated.length - 1];
+          const mine = p.printed !== null ? Q.fromDecimal(p.printed) : p.c;
+          if (STATED_REL[srel] !== (p.rel === 'in' || p.rel === 'eq' ? 'eq' : p.rel) || !Q.fromDecimal(sbar).eq(mine))
+            throw new Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p.rel + ' ' + (p.printed !== null ? p.printed : p.c.toString()) + ': the record\'s word is for another claim');
+          decided.push(rv);
+        }
       });
       const composed = compose(decided);
       if (composed !== rv) throw new Refuse('record-decision-mismatch', 'the re-decision gives ' + composed + ', the record says ' + rv);

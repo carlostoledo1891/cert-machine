@@ -27,8 +27,15 @@ NEXT SESSION, IN ORDER:
      PLAN.md §9): the receiver took a record's word for an EinsteinArena platform score moved by 2,000,001 units of its last
      digit (certs/mc100-einstein-arena.json, whose row carries no value) and printed CERTIFIED. Proposed: hold an object's
      bar to the claim its record row states, or require the record's value, else refuse as record-decision-mismatch.
-     A receiver change: both checkers + the decider, then `make lift` in claimbox. APPROVED ("Fix now"): lane
-     lane-receiver-record-mismatch running; lane-overlaps fixes pqc @1440 and navier-stokes at 900 px tall (approved).
+     A receiver change: both checkers + the decider, then `make lift` in claimbox. FIXED on the operator's "Fix now"
+     (branch lane-receiver-record-mismatch): a valueless record's word decides only the claim its row states (the row's
+     last relation or "is" + number, same bar, same relation), else REFUSED record-decision-mismatch — check.py, check.js,
+     SCHEMA.md, battery §8 (the forgery CERTIFIED on main, now refused by both checkers and the SMT export). Pinned files
+     changed: check.py, check.js, SCHEMA.md (the ten objects and certs/claims-ledger.json unchanged): `make lift` in claimbox.
+     OPEN for the operator: an `in` decided by a valueless EA row states the half-unit box, the row decided agreement
+     within the platform's resolution (first-autocorrelation: 1.26e-16 from the print, half-unit 5e-17).
+     lane-overlaps (approved): pqc @1440 and navier-stokes at 900 px tall (the card hides below 960, ACCEPTED), and the
+     older small-screen overlaps (approved) — running.
   ◆ 2026-10-30 late — RULED (the operator, on "some pages do not have the dark/light toggle"): the ten DARK_ONLY
      /instruments pages are REDRAWN IN TOKENS (their art becomes ink on paper in light), canvases REPAINT AT ONCE on a
      flip (design/nav.js now dispatches "warrant-theme" on document, 9820a8d3; contours gets the same fix), and THE APPS

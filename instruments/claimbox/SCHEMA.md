@@ -47,7 +47,7 @@ instruments/claimbox/v4/           the format-4 calibration objects (section "Fo
 | `reference` | what the number is about: which bar, which reading of the bytes, which quantity | non-empty (the lattice-claims lesson) |
 | `hypotheses` | what is taken from the literature and read, never decided | a list, may be empty |
 | `falsifier` | what would make the object go red | non-empty (the certificate rule) |
-| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three, the record's bar is the object's, and the record's value re-decided against the object's bar gives the record's verdict. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
+| `record` | the deciding record, its row, where its value is, its verdict; optionally `predicate`, the index of the predicate it decided | the record exists, the word is one of the three, the record's bar is the object's, and the record's value re-decided against the object's bar gives the record's verdict; a record that carries no value decides only the claim its row states (below, "A record with no value"), else `record-decision-mismatch`. With `predicate` stated (2026-10-21), the value comparison, the bar check and the re-decision apply to that predicate alone; beside it a `holds` predicate takes the record's word and every other predicate is decided from the object (or the object is refused, `record-predicate`); the words compose as before and the composed word is still held to the record's. Without it the checker behaves as before: every predicate is held to the record's one value — the default is "as before", not 0, because an object whose predicate 0 is a `holds` while its record carries a value (optq-86-pinho) would otherwise be refused by the rule that refuses a record naming a `holds` predicate while carrying a value |
 | `repair` | optional: the bar the record certifies beside a refuted print | its own `printed`/`c` rule; re-decided the same way |
 | `notes` | optional prose | a list of strings |
 
@@ -76,6 +76,17 @@ checker refuses to run unless `certs/kernel-arb-audit.json` holds that operation
 the audit, not typed here. A quantity no primitive expression states, such as a certificate's bound, is a
 *named* function with its definition on disk (`where`), decided by the record's decider; version 2 counts
 how many claims need one.
+
+**A record with no value (2026-10-30).** When the record carries no value (`record.value` null) and a predicate is neither
+a `holds` nor decided from the object, the record's word is the only thing deciding it, and that word was written for the claim
+the record's row states, not for the object's. The checkers then hold the object to that claim: the row's `claim` must state a
+bar — its LAST relation (`<=`, `>=`, `≤`, `≥`, `<`, `>`, `=`) or the word `is`, followed by an integer or a decimal not inside a
+longer number — and the object's printed bar must be that number exactly, under the same relation (`in` and `eq` state a value:
+`is` or `=`). Otherwise the object is REFUSED, `record-decision-mismatch`. Found by claimbox's sensitivity run (its PLAN.md §9):
+an EinsteinArena row of `certs/mc100-einstein-arena.json` carries no value, and an object printing that row's score moved
+2,000,001 units of its last digit (1.5027436494326166 for the row's 1.5027436492326165) was admitted CERTIFIED by both
+checkers; it is now refused by both and by the SMT export (the battery's section 8, with the record's own claim admitted
+beside it). A record that carries a value is unchanged: the value is re-decided against the object's bar, as before.
 
 **Decisions the checker makes.** From the record's exact value or enclosure it re-decides each inequality
 against the object's bar with the one predicate of `instruments/verdict.js` (written once more here in
