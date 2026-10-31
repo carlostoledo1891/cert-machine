@@ -116,7 +116,7 @@ KINDS = {
     'record-value': 'the record\'s value is neither an exact rational nor an enclosure of two numbers',
     'record-bar-mismatch': 'the record decided a bar other than the object\'s',
     'record-pin-mismatch': 'the record decided bytes other than the object\'s pin (the record row carries a sha256 that differs)',
-    'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict',
+    'record-decision-mismatch': 'the record\'s value re-decided against the object\'s bar, or the decision from the object, does not give the record\'s verdict; or the record carries no value and its claim does not state the object\'s bar under the object\'s relation (its word decides only the claim its row states)',
     'record-value-mismatch': 'the value computed from the object is not the record\'s exact value',
     'repair': 'the repair block is malformed, or its bar re-decided does not give its verdict',
     'record-predicate': 'the record names a predicate that does not exist, a "holds" predicate while it carries a value, or leaves a predicate beside it that is neither "holds" nor decidable from the object',
@@ -533,6 +533,11 @@ def record_value(v, where):
 BAR_IN_CLAIM = re.compile(r'-?\d+\.\d+')
 REL_IN_CLAIM = re.compile(r'(<=|>=|≤|≥|<|>|=)')
 REL_WORD = {'<=': 'le', '≤': 'le', '>=': 'ge', '≥': 'ge', '<': 'lt', '>': 'gt', '=': 'eq'}
+# the claim a record row states, when the row carries no value (2026-10-30): the LAST relation, or the word "is", followed by a
+# number (an integer or a decimal, not inside a longer number). Its word decides that claim and no other: a predicate whose word
+# is the record's alone must state the same bar under the same relation ("in" and "eq" state the value: "is" or "=").
+STATED_BAR = re.compile(r'(<=|>=|≤|≥|<|>|=|\bis)\s*(-?\d+(?:\.\d+)?)(?!\d|\.\d)')
+STATED_REL = dict(REL_WORD, **{'is': 'eq'})
 
 
 def decide(value, rel, c):
@@ -1001,6 +1006,15 @@ def check_obj(o, root=ROOT):
                 elif fo is not None:
                     decided.append(fo['word'])
                 else:
+                    # the record's word alone decides this predicate (no value, nothing decided from the object): it decides
+                    # the claim its row states, so the object must state that claim's bar under that claim's relation
+                    stated = STATED_BAR.findall(claim_str)
+                    mine = Fraction(p['printed']) if p['printed'] is not None else p['c']
+                    if not stated:
+                        raise Refuse('record-decision-mismatch', 'the record carries no value and its claim states no bar: its word decides no claim the object states')
+                    srel, sbar = stated[-1]
+                    if STATED_REL[srel] != ('eq' if p['rel'] in ('in', 'eq') else p['rel']) or Fraction(sbar) != mine:
+                        raise Refuse('record-decision-mismatch', 'the record carries no value; its claim states ' + srel + ' ' + sbar + ', the object states ' + p['rel'] + ' ' + (p['printed'] if p['printed'] is not None else str(p['c'])) + ': the record\'s word is for another claim')
                     decided.append(rv)
             composed = compose(decided)
             if composed != rv:
