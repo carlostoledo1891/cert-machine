@@ -162,6 +162,7 @@ test:
 	@printf "%-30s " "ledger: sampled replay"; $(PY) instruments/ledger/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "AlphaProof Nexus OEIS"; $(PY) tools/apn-oeis.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "paper references (check-bib)"; $(NODE) tools/check-bib.js paper/tex/cert-machine-method.bib paper/tex/qiushi-kissing-refs.bib paper/tex/optconst-replays-refs.bib paper/tex/openai-math-release-refs.bib paper/tex/riemann-finite-layer-refs.bib >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
+	@printf "%-30s " "x^x = y (brackets re-decided)"; $(PY) tools/run-xx-ledger.py --check >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "claimbox lift (Riemann records)"; $(NODE) tools/check-claimbox-lift.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "copy census (hub vocabulary)"; $(NODE) tools/check-copy.js >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
 	@printf "%-30s " "bandeira (Farkas certificate)"; $(PY) instruments/bandeira/battery.py >/dev/null 2>&1 && echo PASS || { echo FAIL; touch .test-failed; }
@@ -340,6 +341,8 @@ reports:
 	@$(NODE) tools/build-report-lueker.js
 	@$(NODE) tools/build-report-cryptids.js
 	@$(NODE) tools/build-report-ramsey-graphs.js
+	@$(PY) -I tools/run-xx-ledger.py
+	@$(NODE) tools/build-report-xx.js
 	@$(NODE) tools/build-report-monthly.js
 	@$(NODE) tools/build-paper-grading.js
 	@$(NODE) tools/run-gym-record.js

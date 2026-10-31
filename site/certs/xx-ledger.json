@@ -1,0 +1,8260 @@
+{
+ "what": "x^x = y, every bracket decided here (tools/run-xx-ledger.py): the study claimbox stated from an AI model's proposals (claude-opus-5-5), read from the copies LIFT-claimbox.json made into corpus/claimbox-xx, each side one exact integer comparison by code that shares nothing with claimbox or the receiver; claimbox's word beside ours, which must agree",
+ "claimboxCommit": "850213d77020d2e4228455b642366cbe797fff22",
+ "pins": {
+  "records/xxy-study.json": "bf49436db85d7e994e878ab328d48f6e891dca776e93ad785470a5226ee6468a",
+  "records/xxy-check.json": "248620a59378685867f368bf9ad9fde3fec00cc8e26a8a11e7d39ed55e3650de",
+  "records/xx64-check.json": "8bb2ec8074417da13b63e876c818db8b8e5ef191fc0d22eac868696cd26b8924",
+  "claimbox/library/selfpower.py": "e414ab05c2937fc8ec266004bb25a1c467a27365a5e028e69f17d6754bb97ed8",
+  "corpus/xx64/problem.json": "03733521516d8b3d69296d41472766fb69efa2a76ae228ffbc654b1601029324"
+ },
+ "reduction": {
+  "statement": "x > p/q iff p^p < N^q·q^p and x < p/q iff p^p > N^q·q^p, for p/q > 1, q >= 1, N >= 2; x >= k iff k^k <= N, x <= k iff k^k >= N",
+  "rests on": "x^x <= 1 on (0, 1], x^x strictly increasing on [1, oo), no negative real root (claimbox/library/selfpower.py)",
+  "standing": "read, not decided"
+ },
+ "counts": {
+  "roots": 105,
+  "exactRoots": 4,
+  "claims": 218,
+  "CERTIFIED": 210,
+  "REFUTED": 8,
+  "planted": 8,
+  "agreeWithClaimbox": 218,
+  "xx64Claims": 8,
+  "xx64Certified": 6,
+  "xx64Refuted": 2,
+  "xx64AgreeWithClaimbox": 8,
+  "mutants": 216,
+  "mutantsFlipped": 216,
+  "redControls": 228,
+  "redControlsFired": 228
+ },
+ "exactRoots": [
+  4,
+  27,
+  256,
+  3125
+ ],
+ "bracket64": {
+  "lo": "458912/135009",
+  "hi": "400097/117706",
+  "sharedDecimals": 9,
+  "loDec": "3.399121540045478449584842491982",
+  "hiDec": "3.399121540108405688749936281923",
+  "loShared": "3.399121540",
+  "hiShared": "3.399121541"
+ },
+ "claims": [
+  {
+   "id": "y2_gt",
+   "y": 2,
+   "N": 2,
+   "nFile": "corpus/xxy/n/2.json",
+   "statement": "x > 471/302",
+   "rel": "gt",
+   "a": "471/302",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "471^471 vs 2^302·302^471",
+   "sign": -1,
+   "bits": [
+    4183,
+    4183
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n2) > 471/302"
+   }
+  },
+  {
+   "id": "y2_lt",
+   "y": 2,
+   "N": 2,
+   "nFile": "corpus/xxy/n/2.json",
+   "statement": "x < 641/411",
+   "rel": "lt",
+   "a": "641/411",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "641^641 vs 2^411·411^641",
+   "sign": 1,
+   "bits": [
+    5977,
+    5977
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n2) < 641/411"
+   }
+  },
+  {
+   "id": "y3_gt",
+   "y": 3,
+   "N": 3,
+   "nFile": "corpus/xxy/n/3.json",
+   "statement": "x > 502/275",
+   "rel": "gt",
+   "a": "502/275",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "502^502 vs 3^275·275^502",
+   "sign": -1,
+   "bits": [
+    4504,
+    4504
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3) > 502/275"
+   }
+  },
+  {
+   "id": "y3_lt",
+   "y": 3,
+   "N": 3,
+   "nFile": "corpus/xxy/n/3.json",
+   "statement": "x < 387/212",
+   "rel": "lt",
+   "a": "387/212",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "387^387 vs 3^212·212^387",
+   "sign": 1,
+   "bits": [
+    3327,
+    3327
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3) < 387/212"
+   }
+  },
+  {
+   "id": "y4_ge",
+   "y": 4,
+   "N": 4,
+   "nFile": "corpus/xxy/n/4.json",
+   "statement": "x ≥ 2",
+   "rel": "ge",
+   "a": "2",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2^2 vs 4",
+   "sign": 0,
+   "bits": [
+    3,
+    3
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n4) ≥ 2"
+   }
+  },
+  {
+   "id": "y4_le",
+   "y": 4,
+   "N": 4,
+   "nFile": "corpus/xxy/n/4.json",
+   "statement": "x ≤ 2",
+   "rel": "le",
+   "a": "2",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2^2 vs 4",
+   "sign": 0,
+   "bits": [
+    3,
+    3
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n4) ≤ 2"
+   }
+  },
+  {
+   "id": "y5_gt",
+   "y": 5,
+   "N": 5,
+   "nFile": "corpus/xxy/n/5.json",
+   "statement": "x > 609/286",
+   "rel": "gt",
+   "a": "609/286",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "609^609 vs 5^286·286^609",
+   "sign": -1,
+   "bits": [
+    5634,
+    5634
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n5) > 609/286"
+   }
+  },
+  {
+   "id": "y5_lt",
+   "y": 5,
+   "N": 5,
+   "nFile": "corpus/xxy/n/5.json",
+   "statement": "x < 181/85",
+   "rel": "lt",
+   "a": "181/85",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "181^181 vs 5^85·85^181",
+   "sign": 1,
+   "bits": [
+    1358,
+    1358
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n5) < 181/85"
+   }
+  },
+  {
+   "id": "y6_gt",
+   "y": 6,
+   "N": 6,
+   "nFile": "corpus/xxy/n/6.json",
+   "statement": "x > 1136/509",
+   "rel": "gt",
+   "a": "1136/509",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1136^1136 vs 6^509·509^1136",
+   "sign": -1,
+   "bits": [
+    11531,
+    11531
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n6) > 1136/509"
+   }
+  },
+  {
+   "id": "y6_lt",
+   "y": 6,
+   "N": 6,
+   "nFile": "corpus/xxy/n/6.json",
+   "statement": "x < 1781/798",
+   "rel": "lt",
+   "a": "1781/798",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1781^1781 vs 6^798·798^1781",
+   "sign": 1,
+   "bits": [
+    19233,
+    19233
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n6) < 1781/798"
+   }
+  },
+  {
+   "id": "y7_gt",
+   "y": 7,
+   "N": 7,
+   "nFile": "corpus/xxy/n/7.json",
+   "statement": "x > 44/19",
+   "rel": "gt",
+   "a": "44/19",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "44^44 vs 7^19·19^44",
+   "sign": -1,
+   "bits": [
+    241,
+    241
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n7) > 44/19"
+   }
+  },
+  {
+   "id": "y7_lt",
+   "y": 7,
+   "N": 7,
+   "nFile": "corpus/xxy/n/7.json",
+   "statement": "x < 183/79",
+   "rel": "lt",
+   "a": "183/79",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "183^183 vs 7^79·79^183",
+   "sign": 1,
+   "bits": [
+    1376,
+    1376
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n7) < 183/79"
+   }
+  },
+  {
+   "id": "y8_gt",
+   "y": 8,
+   "N": 8,
+   "nFile": "corpus/xxy/n/8.json",
+   "statement": "x > 246/103",
+   "rel": "gt",
+   "a": "246/103",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "246^246 vs 8^103·103^246",
+   "sign": -1,
+   "bits": [
+    1954,
+    1954
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n8) > 246/103"
+   }
+  },
+  {
+   "id": "y8_lt",
+   "y": 8,
+   "N": 8,
+   "nFile": "corpus/xxy/n/8.json",
+   "statement": "x < 289/121",
+   "rel": "lt",
+   "a": "289/121",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "289^289 vs 8^121·121^289",
+   "sign": 1,
+   "bits": [
+    2363,
+    2363
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n8) < 289/121"
+   }
+  },
+  {
+   "id": "y9_gt",
+   "y": 9,
+   "N": 9,
+   "nFile": "corpus/xxy/n/9.json",
+   "statement": "x > 1799/734",
+   "rel": "gt",
+   "a": "1799/734",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1799^1799 vs 9^734·734^1799",
+   "sign": -1,
+   "bits": [
+    19453,
+    19453
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n9) > 1799/734"
+   }
+  },
+  {
+   "id": "y9_lt",
+   "y": 9,
+   "N": 9,
+   "nFile": "corpus/xxy/n/9.json",
+   "statement": "x < 125/51",
+   "rel": "lt",
+   "a": "125/51",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "125^125 vs 9^51·51^125",
+   "sign": 1,
+   "bits": [
+    871,
+    871
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n9) < 125/51"
+   }
+  },
+  {
+   "id": "y10_gt",
+   "y": 10,
+   "N": 10,
+   "nFile": "corpus/xxy/n/10.json",
+   "statement": "x > 203/81",
+   "rel": "gt",
+   "a": "203/81",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "203^203 vs 10^81·81^203",
+   "sign": -1,
+   "bits": [
+    1557,
+    1557
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n10) > 203/81"
+   }
+  },
+  {
+   "id": "y10_lt",
+   "y": 10,
+   "N": 10,
+   "nFile": "corpus/xxy/n/10.json",
+   "statement": "x < 198/79",
+   "rel": "lt",
+   "a": "198/79",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "198^198 vs 10^79·79^198",
+   "sign": 1,
+   "bits": [
+    1511,
+    1511
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n10) < 198/79"
+   }
+  },
+  {
+   "id": "y11_gt",
+   "y": 11,
+   "N": 11,
+   "nFile": "corpus/xxy/n/11.json",
+   "statement": "x > 23/9",
+   "rel": "gt",
+   "a": "23/9",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "23^23 vs 11^9·9^23",
+   "sign": -1,
+   "bits": [
+    105,
+    105
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n11) > 23/9"
+   }
+  },
+  {
+   "id": "y11_lt",
+   "y": 11,
+   "N": 11,
+   "nFile": "corpus/xxy/n/11.json",
+   "statement": "x < 18/7",
+   "rel": "lt",
+   "a": "18/7",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "18^18 vs 11^7·7^18",
+   "sign": 1,
+   "bits": [
+    76,
+    75
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n11) < 18/7"
+   }
+  },
+  {
+   "id": "y12_gt",
+   "y": 12,
+   "N": 12,
+   "nFile": "corpus/xxy/n/12.json",
+   "statement": "x > 1763/678",
+   "rel": "gt",
+   "a": "1763/678",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1763^1763 vs 12^678·678^1763",
+   "sign": -1,
+   "bits": [
+    19012,
+    19012
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n12) > 1763/678"
+   }
+  },
+  {
+   "id": "y12_lt",
+   "y": 12,
+   "N": 12,
+   "nFile": "corpus/xxy/n/12.json",
+   "statement": "x < 1750/673",
+   "rel": "lt",
+   "a": "1750/673",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1750^1750 vs 12^673·673^1750",
+   "sign": 1,
+   "bits": [
+    18853,
+    18853
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n12) < 1750/673"
+   }
+  },
+  {
+   "id": "y13_gt",
+   "y": 13,
+   "N": 13,
+   "nFile": "corpus/xxy/n/13.json",
+   "statement": "x > 1891/716",
+   "rel": "gt",
+   "a": "1891/716",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1891^1891 vs 13^716·716^1891",
+   "sign": -1,
+   "bits": [
+    20584,
+    20584
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n13) > 1891/716"
+   }
+  },
+  {
+   "id": "y13_lt",
+   "y": 13,
+   "N": 13,
+   "nFile": "corpus/xxy/n/13.json",
+   "statement": "x < 1788/677",
+   "rel": "lt",
+   "a": "1788/677",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1788^1788 vs 13^677·677^1788",
+   "sign": 1,
+   "bits": [
+    19318,
+    19318
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n13) < 1788/677"
+   }
+  },
+  {
+   "id": "y14_gt",
+   "y": 14,
+   "N": 14,
+   "nFile": "corpus/xxy/n/14.json",
+   "statement": "x > 1958/731",
+   "rel": "gt",
+   "a": "1958/731",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1958^1958 vs 14^731·731^1958",
+   "sign": -1,
+   "bits": [
+    21412,
+    21412
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n14) > 1958/731"
+   }
+  },
+  {
+   "id": "y14_lt",
+   "y": 14,
+   "N": 14,
+   "nFile": "corpus/xxy/n/14.json",
+   "statement": "x < 75/28",
+   "rel": "lt",
+   "a": "75/28",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "75^75 vs 14^28·28^75",
+   "sign": 1,
+   "bits": [
+    468,
+    468
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n14) < 75/28"
+   }
+  },
+  {
+   "id": "y15_gt",
+   "y": 15,
+   "N": 15,
+   "nFile": "corpus/xxy/n/15.json",
+   "statement": "x > 1381/509",
+   "rel": "gt",
+   "a": "1381/509",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1381^1381 vs 15^509·509^1381",
+   "sign": -1,
+   "bits": [
+    14406,
+    14406
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n15) > 1381/509"
+   }
+  },
+  {
+   "id": "y15_lt",
+   "y": 15,
+   "N": 15,
+   "nFile": "corpus/xxy/n/15.json",
+   "statement": "x < 350/129",
+   "rel": "lt",
+   "a": "350/129",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "350^350 vs 15^129·129^350",
+   "sign": 1,
+   "bits": [
+    2958,
+    2958
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n15) < 350/129"
+   }
+  },
+  {
+   "id": "y16_gt",
+   "y": 16,
+   "N": 16,
+   "nFile": "corpus/xxy/n/16.json",
+   "statement": "x > 442/161",
+   "rel": "gt",
+   "a": "442/161",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "442^442 vs 16^161·161^442",
+   "sign": -1,
+   "bits": [
+    3885,
+    3885
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n16) > 442/161"
+   }
+  },
+  {
+   "id": "y16_lt",
+   "y": 16,
+   "N": 16,
+   "nFile": "corpus/xxy/n/16.json",
+   "statement": "x < 593/216",
+   "rel": "lt",
+   "a": "593/216",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "593^593 vs 16^216·216^593",
+   "sign": 1,
+   "bits": [
+    5463,
+    5463
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n16) < 593/216"
+   }
+  },
+  {
+   "id": "y17_gt",
+   "y": 17,
+   "N": 17,
+   "nFile": "corpus/xxy/n/17.json",
+   "statement": "x > 927/334",
+   "rel": "gt",
+   "a": "927/334",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "927^927 vs 17^334·334^927",
+   "sign": -1,
+   "bits": [
+    9137,
+    9137
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n17) > 927/334"
+   }
+  },
+  {
+   "id": "y17_lt",
+   "y": 17,
+   "N": 17,
+   "nFile": "corpus/xxy/n/17.json",
+   "statement": "x < 136/49",
+   "rel": "lt",
+   "a": "136/49",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "136^136 vs 17^49·49^136",
+   "sign": 1,
+   "bits": [
+    964,
+    964
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n17) < 136/49"
+   }
+  },
+  {
+   "id": "y18_gt",
+   "y": 18,
+   "N": 18,
+   "nFile": "corpus/xxy/n/18.json",
+   "statement": "x > 614/219",
+   "rel": "gt",
+   "a": "614/219",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "614^614 vs 18^219·219^614",
+   "sign": -1,
+   "bits": [
+    5687,
+    5687
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n18) > 614/219"
+   }
+  },
+  {
+   "id": "y18_lt",
+   "y": 18,
+   "N": 18,
+   "nFile": "corpus/xxy/n/18.json",
+   "statement": "x < 1071/382",
+   "rel": "lt",
+   "a": "1071/382",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1071^1071 vs 18^382·382^1071",
+   "sign": 1,
+   "bits": [
+    10780,
+    10780
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n18) < 1071/382"
+   }
+  },
+  {
+   "id": "y19_gt",
+   "y": 19,
+   "N": 19,
+   "nFile": "corpus/xxy/n/19.json",
+   "statement": "x > 150/53",
+   "rel": "gt",
+   "a": "150/53",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "150^150 vs 19^53·53^150",
+   "sign": -1,
+   "bits": [
+    1085,
+    1085
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n19) > 150/53"
+   }
+  },
+  {
+   "id": "y19_lt",
+   "y": 19,
+   "N": 19,
+   "nFile": "corpus/xxy/n/19.json",
+   "statement": "x < 1517/536",
+   "rel": "lt",
+   "a": "1517/536",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1517^1517 vs 19^536·536^1517",
+   "sign": 1,
+   "bits": [
+    16031,
+    16031
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n19) < 1517/536"
+   }
+  },
+  {
+   "id": "y20_gt",
+   "y": 20,
+   "N": 20,
+   "nFile": "corpus/xxy/n/20.json",
+   "statement": "x > 888/311",
+   "rel": "gt",
+   "a": "888/311",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "888^888 vs 20^311·311^888",
+   "sign": -1,
+   "bits": [
+    8698,
+    8698
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n20) > 888/311"
+   }
+  },
+  {
+   "id": "y20_lt",
+   "y": 20,
+   "N": 20,
+   "nFile": "corpus/xxy/n/20.json",
+   "statement": "x < 2447/857",
+   "rel": "lt",
+   "a": "2447/857",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2447^2447 vs 20^857·857^2447",
+   "sign": 1,
+   "bits": [
+    27546,
+    27546
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n20) < 2447/857"
+   }
+  },
+  {
+   "id": "y21_gt",
+   "y": 21,
+   "N": 21,
+   "nFile": "corpus/xxy/n/21.json",
+   "statement": "x > 619/215",
+   "rel": "gt",
+   "a": "619/215",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "619^619 vs 21^215·215^619",
+   "sign": -1,
+   "bits": [
+    5741,
+    5741
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n21) > 619/215"
+   }
+  },
+  {
+   "id": "y21_lt",
+   "y": 21,
+   "N": 21,
+   "nFile": "corpus/xxy/n/21.json",
+   "statement": "x < 262/91",
+   "rel": "lt",
+   "a": "262/91",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "262^262 vs 21^91·91^262",
+   "sign": 1,
+   "bits": [
+    2105,
+    2105
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n21) < 262/91"
+   }
+  },
+  {
+   "id": "y22_gt",
+   "y": 22,
+   "N": 22,
+   "nFile": "corpus/xxy/n/22.json",
+   "statement": "x > 29/10",
+   "rel": "gt",
+   "a": "29/10",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "29^29 vs 22^10·10^29",
+   "sign": -1,
+   "bits": [
+    141,
+    141
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n22) > 29/10"
+   }
+  },
+  {
+   "id": "y22_lt",
+   "y": 22,
+   "N": 22,
+   "nFile": "corpus/xxy/n/22.json",
+   "statement": "x < 177/61",
+   "rel": "lt",
+   "a": "177/61",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "177^177 vs 22^61·61^177",
+   "sign": 1,
+   "bits": [
+    1322,
+    1322
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n22) < 177/61"
+   }
+  },
+  {
+   "id": "y23_gt",
+   "y": 23,
+   "N": 23,
+   "nFile": "corpus/xxy/n/23.json",
+   "statement": "x > 38/13",
+   "rel": "gt",
+   "a": "38/13",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "38^38 vs 23^13·13^38",
+   "sign": -1,
+   "bits": [
+    200,
+    200
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n23) > 38/13"
+   }
+  },
+  {
+   "id": "y23_lt",
+   "y": 23,
+   "N": 23,
+   "nFile": "corpus/xxy/n/23.json",
+   "statement": "x < 3",
+   "rel": "lt",
+   "a": "3",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3^3 vs 23",
+   "sign": 1,
+   "bits": [
+    5,
+    5
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n23) < 3"
+   }
+  },
+  {
+   "id": "y24_gt",
+   "y": 24,
+   "N": 24,
+   "nFile": "corpus/xxy/n/24.json",
+   "statement": "x > 992/337",
+   "rel": "gt",
+   "a": "992/337",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "992^992 vs 24^337·337^992",
+   "sign": -1,
+   "bits": [
+    9875,
+    9875
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n24) > 992/337"
+   }
+  },
+  {
+   "id": "y24_lt",
+   "y": 24,
+   "N": 24,
+   "nFile": "corpus/xxy/n/24.json",
+   "statement": "x < 209/71",
+   "rel": "lt",
+   "a": "209/71",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "209^209 vs 24^71·71^209",
+   "sign": 1,
+   "bits": [
+    1611,
+    1611
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n24) < 209/71"
+   }
+  },
+  {
+   "id": "y25_gt",
+   "y": 25,
+   "N": 25,
+   "nFile": "corpus/xxy/n/25.json",
+   "statement": "x > 1289/435",
+   "rel": "gt",
+   "a": "1289/435",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1289^1289 vs 25^435·435^1289",
+   "sign": -1,
+   "bits": [
+    13318,
+    13318
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n25) > 1289/435"
+   }
+  },
+  {
+   "id": "y25_lt",
+   "y": 25,
+   "N": 25,
+   "nFile": "corpus/xxy/n/25.json",
+   "statement": "x < 403/136",
+   "rel": "lt",
+   "a": "403/136",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "403^403 vs 25^136·136^403",
+   "sign": 1,
+   "bits": [
+    3488,
+    3488
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n25) < 403/136"
+   }
+  },
+  {
+   "id": "y26_gt",
+   "y": 26,
+   "N": 26,
+   "nFile": "corpus/xxy/n/26.json",
+   "statement": "x > 331/111",
+   "rel": "gt",
+   "a": "331/111",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "331^331 vs 26^111·111^331",
+   "sign": -1,
+   "bits": [
+    2771,
+    2771
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n26) > 331/111"
+   }
+  },
+  {
+   "id": "y26_lt",
+   "y": 26,
+   "N": 26,
+   "nFile": "corpus/xxy/n/26.json",
+   "statement": "x < 2815/944",
+   "rel": "lt",
+   "a": "2815/944",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2815^2815 vs 26^944·944^2815",
+   "sign": 1,
+   "bits": [
+    32257,
+    32257
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n26) < 2815/944"
+   }
+  },
+  {
+   "id": "y27_ge",
+   "y": 27,
+   "N": 27,
+   "nFile": "corpus/xxy/n/27.json",
+   "statement": "x ≥ 3",
+   "rel": "ge",
+   "a": "3",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3^3 vs 27",
+   "sign": 0,
+   "bits": [
+    5,
+    5
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n27) ≥ 3"
+   }
+  },
+  {
+   "id": "y27_le",
+   "y": 27,
+   "N": 27,
+   "nFile": "corpus/xxy/n/27.json",
+   "statement": "x ≤ 3",
+   "rel": "le",
+   "a": "3",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3^3 vs 27",
+   "sign": 0,
+   "bits": [
+    5,
+    5
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n27) ≤ 3"
+   }
+  },
+  {
+   "id": "y28_gt",
+   "y": 28,
+   "N": 28,
+   "nFile": "corpus/xxy/n/28.json",
+   "statement": "x > 2441/809",
+   "rel": "gt",
+   "a": "2441/809",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2441^2441 vs 28^809·809^2441",
+   "sign": -1,
+   "bits": [
+    27470,
+    27470
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n28) > 2441/809"
+   }
+  },
+  {
+   "id": "y28_lt",
+   "y": 28,
+   "N": 28,
+   "nFile": "corpus/xxy/n/28.json",
+   "statement": "x < 1569/520",
+   "rel": "lt",
+   "a": "1569/520",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1569^1569 vs 28^520·520^1569",
+   "sign": 1,
+   "bits": [
+    16656,
+    16656
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n28) < 1569/520"
+   }
+  },
+  {
+   "id": "y29_gt",
+   "y": 29,
+   "N": 29,
+   "nFile": "corpus/xxy/n/29.json",
+   "statement": "x > 179/59",
+   "rel": "gt",
+   "a": "179/59",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "179^179 vs 29^59·59^179",
+   "sign": -1,
+   "bits": [
+    1340,
+    1340
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n29) > 179/59"
+   }
+  },
+  {
+   "id": "y29_lt",
+   "y": 29,
+   "N": 29,
+   "nFile": "corpus/xxy/n/29.json",
+   "statement": "x < 804/265",
+   "rel": "lt",
+   "a": "804/265",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "804^804 vs 29^265·265^804",
+   "sign": 1,
+   "bits": [
+    7760,
+    7760
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n29) < 804/265"
+   }
+  },
+  {
+   "id": "y30_gt",
+   "y": 30,
+   "N": 30,
+   "nFile": "corpus/xxy/n/30.json",
+   "statement": "x > 61/20",
+   "rel": "gt",
+   "a": "61/20",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "61^61 vs 30^20·20^61",
+   "sign": -1,
+   "bits": [
+    362,
+    362
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n30) > 61/20"
+   }
+  },
+  {
+   "id": "y30_lt",
+   "y": 30,
+   "N": 30,
+   "nFile": "corpus/xxy/n/30.json",
+   "statement": "x < 58/19",
+   "rel": "lt",
+   "a": "58/19",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "58^58 vs 30^19·19^58",
+   "sign": 1,
+   "bits": [
+    340,
+    340
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n30) < 58/19"
+   }
+  },
+  {
+   "id": "y31_gt",
+   "y": 31,
+   "N": 31,
+   "nFile": "corpus/xxy/n/31.json",
+   "statement": "x > 1217/397",
+   "rel": "gt",
+   "a": "1217/397",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1217^1217 vs 31^397·397^1217",
+   "sign": -1,
+   "bits": [
+    12474,
+    12474
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n31) > 1217/397"
+   }
+  },
+  {
+   "id": "y31_lt",
+   "y": 31,
+   "N": 31,
+   "nFile": "corpus/xxy/n/31.json",
+   "statement": "x < 702/229",
+   "rel": "lt",
+   "a": "702/229",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "702^702 vs 31^229·229^702",
+   "sign": 1,
+   "bits": [
+    6638,
+    6638
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n31) < 702/229"
+   }
+  },
+  {
+   "id": "y32_gt",
+   "y": 32,
+   "N": 32,
+   "nFile": "corpus/xxy/n/32.json",
+   "statement": "x > 3025/982",
+   "rel": "gt",
+   "a": "3025/982",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3025^3025 vs 32^982·982^3025",
+   "sign": -1,
+   "bits": [
+    34978,
+    34978
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n32) > 3025/982"
+   }
+  },
+  {
+   "id": "y32_lt",
+   "y": 32,
+   "N": 32,
+   "nFile": "corpus/xxy/n/32.json",
+   "statement": "x < 268/87",
+   "rel": "lt",
+   "a": "268/87",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "268^268 vs 32^87·87^268",
+   "sign": 1,
+   "bits": [
+    2162,
+    2162
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n32) < 268/87"
+   }
+  },
+  {
+   "id": "y33_gt",
+   "y": 33,
+   "N": 33,
+   "nFile": "corpus/xxy/n/33.json",
+   "statement": "x > 424/137",
+   "rel": "gt",
+   "a": "424/137",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "424^424 vs 33^137·137^424",
+   "sign": -1,
+   "bits": [
+    3701,
+    3701
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n33) > 424/137"
+   }
+  },
+  {
+   "id": "y33_lt",
+   "y": 33,
+   "N": 33,
+   "nFile": "corpus/xxy/n/33.json",
+   "statement": "x < 913/295",
+   "rel": "lt",
+   "a": "913/295",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "913^913 vs 33^295·295^913",
+   "sign": 1,
+   "bits": [
+    8979,
+    8979
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n33) < 913/295"
+   }
+  },
+  {
+   "id": "y34_gt",
+   "y": 34,
+   "N": 34,
+   "nFile": "corpus/xxy/n/34.json",
+   "statement": "x > 314/101",
+   "rel": "gt",
+   "a": "314/101",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "314^314 vs 34^101·101^314",
+   "sign": -1,
+   "bits": [
+    2605,
+    2605
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n34) > 314/101"
+   }
+  },
+  {
+   "id": "y34_lt",
+   "y": 34,
+   "N": 34,
+   "nFile": "corpus/xxy/n/34.json",
+   "statement": "x < 171/55",
+   "rel": "lt",
+   "a": "171/55",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "171^171 vs 34^55·55^171",
+   "sign": 1,
+   "bits": [
+    1269,
+    1269
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n34) < 171/55"
+   }
+  },
+  {
+   "id": "y35_gt",
+   "y": 35,
+   "N": 35,
+   "nFile": "corpus/xxy/n/35.json",
+   "statement": "x > 153/49",
+   "rel": "gt",
+   "a": "153/49",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "153^153 vs 35^49·49^153",
+   "sign": -1,
+   "bits": [
+    1111,
+    1111
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n35) > 153/49"
+   }
+  },
+  {
+   "id": "y35_lt",
+   "y": 35,
+   "N": 35,
+   "nFile": "corpus/xxy/n/35.json",
+   "statement": "x < 1861/596",
+   "rel": "lt",
+   "a": "1861/596",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1861^1861 vs 35^596·596^1861",
+   "sign": 1,
+   "bits": [
+    20214,
+    20214
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n35) < 1861/596"
+   }
+  },
+  {
+   "id": "y36_gt",
+   "y": 36,
+   "N": 36,
+   "nFile": "corpus/xxy/n/36.json",
+   "statement": "x > 2173/693",
+   "rel": "gt",
+   "a": "2173/693",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2173^2173 vs 36^693·693^2173",
+   "sign": -1,
+   "bits": [
+    24089,
+    24089
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n36) > 2173/693"
+   }
+  },
+  {
+   "id": "y36_lt",
+   "y": 36,
+   "N": 36,
+   "nFile": "corpus/xxy/n/36.json",
+   "statement": "x < 994/317",
+   "rel": "lt",
+   "a": "994/317",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "994^994 vs 36^317·317^994",
+   "sign": 1,
+   "bits": [
+    9898,
+    9898
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n36) < 994/317"
+   }
+  },
+  {
+   "id": "y37_gt",
+   "y": 37,
+   "N": 37,
+   "nFile": "corpus/xxy/n/37.json",
+   "statement": "x > 891/283",
+   "rel": "gt",
+   "a": "891/283",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "891^891 vs 37^283·283^891",
+   "sign": -1,
+   "bits": [
+    8732,
+    8732
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n37) > 891/283"
+   }
+  },
+  {
+   "id": "y37_lt",
+   "y": 37,
+   "N": 37,
+   "nFile": "corpus/xxy/n/37.json",
+   "statement": "x < 1294/411",
+   "rel": "lt",
+   "a": "1294/411",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1294^1294 vs 37^411·411^1294",
+   "sign": 1,
+   "bits": [
+    13377,
+    13377
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n37) < 1294/411"
+   }
+  },
+  {
+   "id": "y38_gt",
+   "y": 38,
+   "N": 38,
+   "nFile": "corpus/xxy/n/38.json",
+   "statement": "x > 1533/485",
+   "rel": "gt",
+   "a": "1533/485",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1533^1533 vs 38^485·485^1533",
+   "sign": -1,
+   "bits": [
+    16223,
+    16223
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n38) > 1533/485"
+   }
+  },
+  {
+   "id": "y38_lt",
+   "y": 38,
+   "N": 38,
+   "nFile": "corpus/xxy/n/38.json",
+   "statement": "x < 1985/628",
+   "rel": "lt",
+   "a": "1985/628",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1985^1985 vs 38^628·628^1985",
+   "sign": 1,
+   "bits": [
+    21746,
+    21746
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n38) < 1985/628"
+   }
+  },
+  {
+   "id": "y39_gt",
+   "y": 39,
+   "N": 39,
+   "nFile": "corpus/xxy/n/39.json",
+   "statement": "x > 257/81",
+   "rel": "gt",
+   "a": "257/81",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "257^257 vs 39^81·81^257",
+   "sign": -1,
+   "bits": [
+    2058,
+    2058
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n39) > 257/81"
+   }
+  },
+  {
+   "id": "y39_lt",
+   "y": 39,
+   "N": 39,
+   "nFile": "corpus/xxy/n/39.json",
+   "statement": "x < 679/214",
+   "rel": "lt",
+   "a": "679/214",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "679^679 vs 39^214·214^679",
+   "sign": 1,
+   "bits": [
+    6388,
+    6388
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n39) < 679/214"
+   }
+  },
+  {
+   "id": "y40_gt",
+   "y": 40,
+   "N": 40,
+   "nFile": "corpus/xxy/n/40.json",
+   "statement": "x > 2777/872",
+   "rel": "gt",
+   "a": "2777/872",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2777^2777 vs 40^872·872^2777",
+   "sign": -1,
+   "bits": [
+    31767,
+    31767
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n40) > 2777/872"
+   }
+  },
+  {
+   "id": "y40_lt",
+   "y": 40,
+   "N": 40,
+   "nFile": "corpus/xxy/n/40.json",
+   "statement": "x < 2570/807",
+   "rel": "lt",
+   "a": "2570/807",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2570^2570 vs 40^807·807^2570",
+   "sign": 1,
+   "bits": [
+    29112,
+    29112
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n40) < 2570/807"
+   }
+  },
+  {
+   "id": "y41_gt",
+   "y": 41,
+   "N": 41,
+   "nFile": "corpus/xxy/n/41.json",
+   "statement": "x > 147/46",
+   "rel": "gt",
+   "a": "147/46",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "147^147 vs 41^46·46^147",
+   "sign": -1,
+   "bits": [
+    1059,
+    1059
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n41) > 147/46"
+   }
+  },
+  {
+   "id": "y41_lt",
+   "y": 41,
+   "N": 41,
+   "nFile": "corpus/xxy/n/41.json",
+   "statement": "x < 163/51",
+   "rel": "lt",
+   "a": "163/51",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "163^163 vs 41^51·51^163",
+   "sign": 1,
+   "bits": [
+    1198,
+    1198
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n41) < 163/51"
+   }
+  },
+  {
+   "id": "y42_gt",
+   "y": 42,
+   "N": 42,
+   "nFile": "corpus/xxy/n/42.json",
+   "statement": "x > 93/29",
+   "rel": "gt",
+   "a": "93/29",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "93^93 vs 42^29·29^93",
+   "sign": -1,
+   "bits": [
+    609,
+    609
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n42) > 93/29"
+   }
+  },
+  {
+   "id": "y42_lt",
+   "y": 42,
+   "N": 42,
+   "nFile": "corpus/xxy/n/42.json",
+   "statement": "x < 356/111",
+   "rel": "lt",
+   "a": "356/111",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "356^356 vs 42^111·111^356",
+   "sign": 1,
+   "bits": [
+    3018,
+    3018
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n42) < 356/111"
+   }
+  },
+  {
+   "id": "y43_gt",
+   "y": 43,
+   "N": 43,
+   "nFile": "corpus/xxy/n/43.json",
+   "statement": "x > 428/133",
+   "rel": "gt",
+   "a": "428/133",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "428^428 vs 43^133·133^428",
+   "sign": -1,
+   "bits": [
+    3742,
+    3742
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n43) > 428/133"
+   }
+  },
+  {
+   "id": "y43_lt",
+   "y": 43,
+   "N": 43,
+   "nFile": "corpus/xxy/n/43.json",
+   "statement": "x < 1461/454",
+   "rel": "lt",
+   "a": "1461/454",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1461^1461 vs 43^454·454^1461",
+   "sign": 1,
+   "bits": [
+    15360,
+    15360
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n43) < 1461/454"
+   }
+  },
+  {
+   "id": "y44_gt",
+   "y": 44,
+   "N": 44,
+   "nFile": "corpus/xxy/n/44.json",
+   "statement": "x > 1172/363",
+   "rel": "gt",
+   "a": "1172/363",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1172^1172 vs 44^363·363^1172",
+   "sign": -1,
+   "bits": [
+    11949,
+    11949
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n44) > 1172/363"
+   }
+  },
+  {
+   "id": "y44_lt",
+   "y": 44,
+   "N": 44,
+   "nFile": "corpus/xxy/n/44.json",
+   "statement": "x < 1059/328",
+   "rel": "lt",
+   "a": "1059/328",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1059^1059 vs 44^328·328^1059",
+   "sign": 1,
+   "bits": [
+    10642,
+    10642
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n44) < 1059/328"
+   }
+  },
+  {
+   "id": "y45_gt",
+   "y": 45,
+   "N": 45,
+   "nFile": "corpus/xxy/n/45.json",
+   "statement": "x > 366/113",
+   "rel": "gt",
+   "a": "366/113",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "366^366 vs 45^113·113^366",
+   "sign": -1,
+   "bits": [
+    3117,
+    3117
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n45) > 366/113"
+   }
+  },
+  {
+   "id": "y45_lt",
+   "y": 45,
+   "N": 45,
+   "nFile": "corpus/xxy/n/45.json",
+   "statement": "x < 515/159",
+   "rel": "lt",
+   "a": "515/159",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "515^515 vs 45^159·159^515",
+   "sign": 1,
+   "bits": [
+    4640,
+    4640
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n45) < 515/159"
+   }
+  },
+  {
+   "id": "y46_gt",
+   "y": 46,
+   "N": 46,
+   "nFile": "corpus/xxy/n/46.json",
+   "statement": "x > 887/273",
+   "rel": "gt",
+   "a": "887/273",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "887^887 vs 46^273·273^887",
+   "sign": -1,
+   "bits": [
+    8687,
+    8687
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n46) > 887/273"
+   }
+  },
+  {
+   "id": "y46_lt",
+   "y": 46,
+   "N": 46,
+   "nFile": "corpus/xxy/n/46.json",
+   "statement": "x < 2674/823",
+   "rel": "lt",
+   "a": "2674/823",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2674^2674 vs 46^823·823^2674",
+   "sign": 1,
+   "bits": [
+    30443,
+    30443
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n46) < 2674/823"
+   }
+  },
+  {
+   "id": "y47_gt",
+   "y": 47,
+   "N": 47,
+   "nFile": "corpus/xxy/n/47.json",
+   "statement": "x > 1183/363",
+   "rel": "gt",
+   "a": "1183/363",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1183^1183 vs 47^363·363^1183",
+   "sign": -1,
+   "bits": [
+    12077,
+    12077
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n47) > 1183/363"
+   }
+  },
+  {
+   "id": "y47_lt",
+   "y": 47,
+   "N": 47,
+   "nFile": "corpus/xxy/n/47.json",
+   "statement": "x < 818/251",
+   "rel": "lt",
+   "a": "818/251",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "818^818 vs 47^251·251^818",
+   "sign": 1,
+   "bits": [
+    7915,
+    7915
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n47) < 818/251"
+   }
+  },
+  {
+   "id": "y48_gt",
+   "y": 48,
+   "N": 48,
+   "nFile": "corpus/xxy/n/48.json",
+   "statement": "x > 791/242",
+   "rel": "gt",
+   "a": "791/242",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "791^791 vs 48^242·242^791",
+   "sign": -1,
+   "bits": [
+    7616,
+    7616
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n48) > 791/242"
+   }
+  },
+  {
+   "id": "y48_lt",
+   "y": 48,
+   "N": 48,
+   "nFile": "corpus/xxy/n/48.json",
+   "statement": "x < 219/67",
+   "rel": "lt",
+   "a": "219/67",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "219^219 vs 48^67·67^219",
+   "sign": 1,
+   "bits": [
+    1703,
+    1703
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n48) < 219/67"
+   }
+  },
+  {
+   "id": "y49_gt",
+   "y": 49,
+   "N": 49,
+   "nFile": "corpus/xxy/n/49.json",
+   "statement": "x > 731/223",
+   "rel": "gt",
+   "a": "731/223",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "731^731 vs 49^223·223^731",
+   "sign": -1,
+   "bits": [
+    6955,
+    6955
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n49) > 731/223"
+   }
+  },
+  {
+   "id": "y49_lt",
+   "y": 49,
+   "N": 49,
+   "nFile": "corpus/xxy/n/49.json",
+   "statement": "x < 2865/874",
+   "rel": "lt",
+   "a": "2865/874",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2865^2865 vs 49^874·874^2865",
+   "sign": 1,
+   "bits": [
+    32903,
+    32903
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n49) < 2865/874"
+   }
+  },
+  {
+   "id": "y50_gt",
+   "y": 50,
+   "N": 50,
+   "nFile": "corpus/xxy/n/50.json",
+   "statement": "x > 309/94",
+   "rel": "gt",
+   "a": "309/94",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "309^309 vs 50^94·94^309",
+   "sign": -1,
+   "bits": [
+    2556,
+    2556
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n50) > 309/94"
+   }
+  },
+  {
+   "id": "y50_lt",
+   "y": 50,
+   "N": 50,
+   "nFile": "corpus/xxy/n/50.json",
+   "statement": "x < 1213/369",
+   "rel": "lt",
+   "a": "1213/369",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1213^1213 vs 50^369·369^1213",
+   "sign": 1,
+   "bits": [
+    12427,
+    12427
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n50) < 1213/369"
+   }
+  },
+  {
+   "id": "y51_gt",
+   "y": 51,
+   "N": 51,
+   "nFile": "corpus/xxy/n/51.json",
+   "statement": "x > 89/27",
+   "rel": "gt",
+   "a": "89/27",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "89^89 vs 51^27·27^89",
+   "sign": -1,
+   "bits": [
+    577,
+    577
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n51) > 89/27"
+   }
+  },
+  {
+   "id": "y51_lt",
+   "y": 51,
+   "N": 51,
+   "nFile": "corpus/xxy/n/51.json",
+   "statement": "x < 33/10",
+   "rel": "lt",
+   "a": "33/10",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "33^33 vs 51^10·10^33",
+   "sign": 1,
+   "bits": [
+    167,
+    167
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n51) < 33/10"
+   }
+  },
+  {
+   "id": "y52_gt",
+   "y": 52,
+   "N": 52,
+   "nFile": "corpus/xxy/n/52.json",
+   "statement": "x > 899/272",
+   "rel": "gt",
+   "a": "899/272",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "899^899 vs 52^272·272^899",
+   "sign": -1,
+   "bits": [
+    8822,
+    8822
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n52) > 899/272"
+   }
+  },
+  {
+   "id": "y52_lt",
+   "y": 52,
+   "N": 52,
+   "nFile": "corpus/xxy/n/52.json",
+   "statement": "x < 704/213",
+   "rel": "lt",
+   "a": "704/213",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "704^704 vs 52^213·213^704",
+   "sign": 1,
+   "bits": [
+    6660,
+    6660
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n52) < 704/213"
+   }
+  },
+  {
+   "id": "y53_gt",
+   "y": 53,
+   "N": 53,
+   "nFile": "corpus/xxy/n/53.json",
+   "statement": "x > 1415/427",
+   "rel": "gt",
+   "a": "1415/427",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1415^1415 vs 53^427·427^1415",
+   "sign": -1,
+   "bits": [
+    14811,
+    14811
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n53) > 1415/427"
+   }
+  },
+  {
+   "id": "y53_lt",
+   "y": 53,
+   "N": 53,
+   "nFile": "corpus/xxy/n/53.json",
+   "statement": "x < 623/188",
+   "rel": "lt",
+   "a": "623/188",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "623^623 vs 53^188·188^623",
+   "sign": 1,
+   "bits": [
+    5784,
+    5784
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n53) < 623/188"
+   }
+  },
+  {
+   "id": "y54_gt",
+   "y": 54,
+   "N": 54,
+   "nFile": "corpus/xxy/n/54.json",
+   "statement": "x > 402/121",
+   "rel": "gt",
+   "a": "402/121",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "402^402 vs 54^121·121^402",
+   "sign": -1,
+   "bits": [
+    3478,
+    3478
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n54) > 402/121"
+   }
+  },
+  {
+   "id": "y54_lt",
+   "y": 54,
+   "N": 54,
+   "nFile": "corpus/xxy/n/54.json",
+   "statement": "x < 103/31",
+   "rel": "lt",
+   "a": "103/31",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "103^103 vs 54^31·31^103",
+   "sign": 1,
+   "bits": [
+    689,
+    689
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n54) < 103/31"
+   }
+  },
+  {
+   "id": "y55_gt",
+   "y": 55,
+   "N": 55,
+   "nFile": "corpus/xxy/n/55.json",
+   "statement": "x > 413/124",
+   "rel": "gt",
+   "a": "413/124",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "413^413 vs 55^124·124^413",
+   "sign": -1,
+   "bits": [
+    3589,
+    3589
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n55) > 413/124"
+   }
+  },
+  {
+   "id": "y55_lt",
+   "y": 55,
+   "N": 55,
+   "nFile": "corpus/xxy/n/55.json",
+   "statement": "x < 10/3",
+   "rel": "lt",
+   "a": "10/3",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "10^10 vs 55^3·3^10",
+   "sign": 1,
+   "bits": [
+    34,
+    34
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n55) < 10/3"
+   }
+  },
+  {
+   "id": "y56_gt",
+   "y": 56,
+   "N": 56,
+   "nFile": "corpus/xxy/n/56.json",
+   "statement": "x > 1419/425",
+   "rel": "gt",
+   "a": "1419/425",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1419^1419 vs 56^425·425^1419",
+   "sign": -1,
+   "bits": [
+    14858,
+    14858
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n56) > 1419/425"
+   }
+  },
+  {
+   "id": "y56_lt",
+   "y": 56,
+   "N": 56,
+   "nFile": "corpus/xxy/n/56.json",
+   "statement": "x < 3242/971",
+   "rel": "lt",
+   "a": "3242/971",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3242^3242 vs 56^971·971^3242",
+   "sign": 1,
+   "bits": [
+    37811,
+    37811
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n56) < 3242/971"
+   }
+  },
+  {
+   "id": "y57_gt",
+   "y": 57,
+   "N": 57,
+   "nFile": "corpus/xxy/n/57.json",
+   "statement": "x > 579/173",
+   "rel": "gt",
+   "a": "579/173",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "579^579 vs 57^173·173^579",
+   "sign": -1,
+   "bits": [
+    5314,
+    5314
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n57) > 579/173"
+   }
+  },
+  {
+   "id": "y57_lt",
+   "y": 57,
+   "N": 57,
+   "nFile": "corpus/xxy/n/57.json",
+   "statement": "x < 743/222",
+   "rel": "lt",
+   "a": "743/222",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "743^743 vs 57^222·222^743",
+   "sign": 1,
+   "bits": [
+    7087,
+    7087
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n57) < 743/222"
+   }
+  },
+  {
+   "id": "y58_gt",
+   "y": 58,
+   "N": 58,
+   "nFile": "corpus/xxy/n/58.json",
+   "statement": "x > 889/265",
+   "rel": "gt",
+   "a": "889/265",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "889^889 vs 58^265·265^889",
+   "sign": -1,
+   "bits": [
+    8709,
+    8709
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n58) > 889/265"
+   }
+  },
+  {
+   "id": "y58_lt",
+   "y": 58,
+   "N": 58,
+   "nFile": "corpus/xxy/n/58.json",
+   "statement": "x < 104/31",
+   "rel": "lt",
+   "a": "104/31",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "104^104 vs 58^31·31^104",
+   "sign": 1,
+   "bits": [
+    697,
+    697
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n58) < 104/31"
+   }
+  },
+  {
+   "id": "y59_gt",
+   "y": 59,
+   "N": 59,
+   "nFile": "corpus/xxy/n/59.json",
+   "statement": "x > 770/229",
+   "rel": "gt",
+   "a": "770/229",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "770^770 vs 59^229·229^770",
+   "sign": -1,
+   "bits": [
+    7384,
+    7384
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n59) > 770/229"
+   }
+  },
+  {
+   "id": "y59_lt",
+   "y": 59,
+   "N": 59,
+   "nFile": "corpus/xxy/n/59.json",
+   "statement": "x < 269/80",
+   "rel": "lt",
+   "a": "269/80",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "269^269 vs 59^80·80^269",
+   "sign": 1,
+   "bits": [
+    2172,
+    2172
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n59) < 269/80"
+   }
+  },
+  {
+   "id": "y60_gt",
+   "y": 60,
+   "N": 60,
+   "nFile": "corpus/xxy/n/60.json",
+   "statement": "x > 337/100",
+   "rel": "gt",
+   "a": "337/100",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "337^337 vs 60^100·100^337",
+   "sign": -1,
+   "bits": [
+    2830,
+    2830
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n60) > 337/100"
+   }
+  },
+  {
+   "id": "y60_lt",
+   "y": 60,
+   "N": 60,
+   "nFile": "corpus/xxy/n/60.json",
+   "statement": "x < 765/227",
+   "rel": "lt",
+   "a": "765/227",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "765^765 vs 60^227·227^765",
+   "sign": 1,
+   "bits": [
+    7329,
+    7329
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n60) < 765/227"
+   }
+  },
+  {
+   "id": "y61_gt",
+   "y": 61,
+   "N": 61,
+   "nFile": "corpus/xxy/n/61.json",
+   "statement": "x > 510/151",
+   "rel": "gt",
+   "a": "510/151",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "510^510 vs 61^151·151^510",
+   "sign": -1,
+   "bits": [
+    4588,
+    4588
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n61) > 510/151"
+   }
+  },
+  {
+   "id": "y61_lt",
+   "y": 61,
+   "N": 61,
+   "nFile": "corpus/xxy/n/61.json",
+   "statement": "x < 1351/400",
+   "rel": "lt",
+   "a": "1351/400",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1351^1351 vs 61^400·400^1351",
+   "sign": 1,
+   "bits": [
+    14051,
+    14051
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n61) < 1351/400"
+   }
+  },
+  {
+   "id": "y62_gt",
+   "y": 62,
+   "N": 62,
+   "nFile": "corpus/xxy/n/62.json",
+   "statement": "x > 44/13",
+   "rel": "gt",
+   "a": "44/13",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "44^44 vs 62^13·13^44",
+   "sign": -1,
+   "bits": [
+    241,
+    241
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n62) > 44/13"
+   }
+  },
+  {
+   "id": "y62_lt",
+   "y": 62,
+   "N": 62,
+   "nFile": "corpus/xxy/n/62.json",
+   "statement": "x < 1205/356",
+   "rel": "lt",
+   "a": "1205/356",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1205^1205 vs 62^356·356^1205",
+   "sign": 1,
+   "bits": [
+    12333,
+    12333
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n62) < 1205/356"
+   }
+  },
+  {
+   "id": "y63_gt",
+   "y": 63,
+   "N": 63,
+   "nFile": "corpus/xxy/n/63.json",
+   "statement": "x > 1618/477",
+   "rel": "gt",
+   "a": "1618/477",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1618^1618 vs 63^477·477^1618",
+   "sign": -1,
+   "bits": [
+    17248,
+    17248
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n63) > 1618/477"
+   }
+  },
+  {
+   "id": "y63_lt",
+   "y": 63,
+   "N": 63,
+   "nFile": "corpus/xxy/n/63.json",
+   "statement": "x < 2215/653",
+   "rel": "lt",
+   "a": "2215/653",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2215^2215 vs 63^653·653^2215",
+   "sign": 1,
+   "bits": [
+    24616,
+    24616
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n63) < 2215/653"
+   }
+  },
+  {
+   "id": "y64_gt",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xxy/n/64.json",
+   "statement": "x > 758/223",
+   "rel": "gt",
+   "a": "758/223",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "758^758 vs 64^223·223^758",
+   "sign": -1,
+   "bits": [
+    7252,
+    7252
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n64) > 758/223"
+   }
+  },
+  {
+   "id": "y64_lt",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xxy/n/64.json",
+   "statement": "x < 775/228",
+   "rel": "lt",
+   "a": "775/228",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "775^775 vs 64^228·228^775",
+   "sign": 1,
+   "bits": [
+    7439,
+    7439
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n64) < 775/228"
+   }
+  },
+  {
+   "id": "y65_gt",
+   "y": 65,
+   "N": 65,
+   "nFile": "corpus/xxy/n/65.json",
+   "statement": "x > 562/165",
+   "rel": "gt",
+   "a": "562/165",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "562^562 vs 65^165·165^562",
+   "sign": -1,
+   "bits": [
+    5134,
+    5134
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n65) > 562/165"
+   }
+  },
+  {
+   "id": "y65_lt",
+   "y": 65,
+   "N": 65,
+   "nFile": "corpus/xxy/n/65.json",
+   "statement": "x < 671/197",
+   "rel": "lt",
+   "a": "671/197",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "671^671 vs 65^197·197^671",
+   "sign": 1,
+   "bits": [
+    6301,
+    6301
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n65) < 671/197"
+   }
+  },
+  {
+   "id": "y66_gt",
+   "y": 66,
+   "N": 66,
+   "nFile": "corpus/xxy/n/66.json",
+   "statement": "x > 1529/448",
+   "rel": "gt",
+   "a": "1529/448",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1529^1529 vs 66^448·448^1529",
+   "sign": -1,
+   "bits": [
+    16175,
+    16175
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n66) > 1529/448"
+   }
+  },
+  {
+   "id": "y66_lt",
+   "y": 66,
+   "N": 66,
+   "nFile": "corpus/xxy/n/66.json",
+   "statement": "x < 843/247",
+   "rel": "lt",
+   "a": "843/247",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "843^843 vs 66^247·247^843",
+   "sign": 1,
+   "bits": [
+    8194,
+    8194
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n66) < 843/247"
+   }
+  },
+  {
+   "id": "y67_gt",
+   "y": 67,
+   "N": 67,
+   "nFile": "corpus/xxy/n/67.json",
+   "statement": "x > 2917/853",
+   "rel": "gt",
+   "a": "2917/853",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2917^2917 vs 67^853·853^2917",
+   "sign": -1,
+   "bits": [
+    33576,
+    33576
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n67) > 2917/853"
+   }
+  },
+  {
+   "id": "y67_lt",
+   "y": 67,
+   "N": 67,
+   "nFile": "corpus/xxy/n/67.json",
+   "statement": "x < 2257/660",
+   "rel": "lt",
+   "a": "2257/660",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2257^2257 vs 67^660·660^2257",
+   "sign": 1,
+   "bits": [
+    25144,
+    25144
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n67) < 2257/660"
+   }
+  },
+  {
+   "id": "y68_gt",
+   "y": 68,
+   "N": 68,
+   "nFile": "corpus/xxy/n/68.json",
+   "statement": "x > 1093/319",
+   "rel": "gt",
+   "a": "1093/319",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1093^1093 vs 68^319·319^1093",
+   "sign": -1,
+   "bits": [
+    11033,
+    11033
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n68) > 1093/319"
+   }
+  },
+  {
+   "id": "y68_lt",
+   "y": 68,
+   "N": 68,
+   "nFile": "corpus/xxy/n/68.json",
+   "statement": "x < 1535/448",
+   "rel": "lt",
+   "a": "1535/448",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1535^1535 vs 68^448·448^1535",
+   "sign": 1,
+   "bits": [
+    16247,
+    16247
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n68) < 1535/448"
+   }
+  },
+  {
+   "id": "y69_gt",
+   "y": 69,
+   "N": 69,
+   "nFile": "corpus/xxy/n/69.json",
+   "statement": "x > 1253/365",
+   "rel": "gt",
+   "a": "1253/365",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1253^1253 vs 69^365·365^1253",
+   "sign": -1,
+   "bits": [
+    12895,
+    12895
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n69) > 1253/365"
+   }
+  },
+  {
+   "id": "y69_lt",
+   "y": 69,
+   "N": 69,
+   "nFile": "corpus/xxy/n/69.json",
+   "statement": "x < 1023/298",
+   "rel": "lt",
+   "a": "1023/298",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1023^1023 vs 69^298·298^1023",
+   "sign": 1,
+   "bits": [
+    10229,
+    10229
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n69) < 1023/298"
+   }
+  },
+  {
+   "id": "y70_gt",
+   "y": 70,
+   "N": 70,
+   "nFile": "corpus/xxy/n/70.json",
+   "statement": "x > 2012/585",
+   "rel": "gt",
+   "a": "2012/585",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2012^2012 vs 70^585·585^2012",
+   "sign": -1,
+   "bits": [
+    22081,
+    22081
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n70) > 2012/585"
+   }
+  },
+  {
+   "id": "y70_lt",
+   "y": 70,
+   "N": 70,
+   "nFile": "corpus/xxy/n/70.json",
+   "statement": "x < 1417/412",
+   "rel": "lt",
+   "a": "1417/412",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1417^1417 vs 70^412·412^1417",
+   "sign": 1,
+   "bits": [
+    14835,
+    14835
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n70) < 1417/412"
+   }
+  },
+  {
+   "id": "y71_gt",
+   "y": 71,
+   "N": 71,
+   "nFile": "corpus/xxy/n/71.json",
+   "statement": "x > 317/92",
+   "rel": "gt",
+   "a": "317/92",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "317^317 vs 71^92·92^317",
+   "sign": -1,
+   "bits": [
+    2634,
+    2634
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n71) > 317/92"
+   }
+  },
+  {
+   "id": "y71_lt",
+   "y": 71,
+   "N": 71,
+   "nFile": "corpus/xxy/n/71.json",
+   "statement": "x < 286/83",
+   "rel": "lt",
+   "a": "286/83",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "286^286 vs 71^83·83^286",
+   "sign": 1,
+   "bits": [
+    2334,
+    2334
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n71) < 286/83"
+   }
+  },
+  {
+   "id": "y72_gt",
+   "y": 72,
+   "N": 72,
+   "nFile": "corpus/xxy/n/72.json",
+   "statement": "x > 2261/655",
+   "rel": "gt",
+   "a": "2261/655",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2261^2261 vs 72^655·655^2261",
+   "sign": -1,
+   "bits": [
+    25194,
+    25194
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n72) > 2261/655"
+   }
+  },
+  {
+   "id": "y72_lt",
+   "y": 72,
+   "N": 72,
+   "nFile": "corpus/xxy/n/72.json",
+   "statement": "x < 2620/759",
+   "rel": "lt",
+   "a": "2620/759",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2620^2620 vs 72^759·759^2620",
+   "sign": 1,
+   "bits": [
+    29752,
+    29752
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n72) < 2620/759"
+   }
+  },
+  {
+   "id": "y73_gt",
+   "y": 73,
+   "N": 73,
+   "nFile": "corpus/xxy/n/73.json",
+   "statement": "x > 536/155",
+   "rel": "gt",
+   "a": "536/155",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "536^536 vs 73^155·155^536",
+   "sign": -1,
+   "bits": [
+    4860,
+    4860
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n73) > 536/155"
+   }
+  },
+  {
+   "id": "y73_lt",
+   "y": 73,
+   "N": 73,
+   "nFile": "corpus/xxy/n/73.json",
+   "statement": "x < 83/24",
+   "rel": "lt",
+   "a": "83/24",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "83^83 vs 73^24·24^83",
+   "sign": 1,
+   "bits": [
+    530,
+    530
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n73) < 83/24"
+   }
+  },
+  {
+   "id": "y74_gt",
+   "y": 74,
+   "N": 74,
+   "nFile": "corpus/xxy/n/74.json",
+   "statement": "x > 821/237",
+   "rel": "gt",
+   "a": "821/237",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "821^821 vs 74^237·237^821",
+   "sign": -1,
+   "bits": [
+    7949,
+    7949
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n74) > 821/237"
+   }
+  },
+  {
+   "id": "y74_lt",
+   "y": 74,
+   "N": 74,
+   "nFile": "corpus/xxy/n/74.json",
+   "statement": "x < 97/28",
+   "rel": "lt",
+   "a": "97/28",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "97^97 vs 74^28·28^97",
+   "sign": 1,
+   "bits": [
+    641,
+    641
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n74) < 97/28"
+   }
+  },
+  {
+   "id": "y75_gt",
+   "y": 75,
+   "N": 75,
+   "nFile": "corpus/xxy/n/75.json",
+   "statement": "x > 871/251",
+   "rel": "gt",
+   "a": "871/251",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "871^871 vs 75^251·251^871",
+   "sign": -1,
+   "bits": [
+    8507,
+    8507
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n75) > 871/251"
+   }
+  },
+  {
+   "id": "y75_lt",
+   "y": 75,
+   "N": 75,
+   "nFile": "corpus/xxy/n/75.json",
+   "statement": "x < 465/134",
+   "rel": "lt",
+   "a": "465/134",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "465^465 vs 75^134·134^465",
+   "sign": 1,
+   "bits": [
+    4121,
+    4121
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n75) < 465/134"
+   }
+  },
+  {
+   "id": "y76_gt",
+   "y": 76,
+   "N": 76,
+   "nFile": "corpus/xxy/n/76.json",
+   "statement": "x > 942/271",
+   "rel": "gt",
+   "a": "942/271",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "942^942 vs 76^271·271^942",
+   "sign": -1,
+   "bits": [
+    9307,
+    9307
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n76) > 942/271"
+   }
+  },
+  {
+   "id": "y76_lt",
+   "y": 76,
+   "N": 76,
+   "nFile": "corpus/xxy/n/76.json",
+   "statement": "x < 1957/563",
+   "rel": "lt",
+   "a": "1957/563",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1957^1957 vs 76^563·563^1957",
+   "sign": 1,
+   "bits": [
+    21399,
+    21399
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n76) < 1957/563"
+   }
+  },
+  {
+   "id": "y77_gt",
+   "y": 77,
+   "N": 77,
+   "nFile": "corpus/xxy/n/77.json",
+   "statement": "x > 383/110",
+   "rel": "gt",
+   "a": "383/110",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "383^383 vs 77^110·110^383",
+   "sign": -1,
+   "bits": [
+    3287,
+    3287
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n77) > 383/110"
+   }
+  },
+  {
+   "id": "y77_lt",
+   "y": 77,
+   "N": 77,
+   "nFile": "corpus/xxy/n/77.json",
+   "statement": "x < 1438/413",
+   "rel": "lt",
+   "a": "1438/413",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1438^1438 vs 77^413·413^1438",
+   "sign": 1,
+   "bits": [
+    15085,
+    15085
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n77) < 1438/413"
+   }
+  },
+  {
+   "id": "y78_gt",
+   "y": 78,
+   "N": 78,
+   "nFile": "corpus/xxy/n/78.json",
+   "statement": "x > 1123/322",
+   "rel": "gt",
+   "a": "1123/322",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1123^1123 vs 78^322·322^1123",
+   "sign": -1,
+   "bits": [
+    11380,
+    11380
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n78) > 1123/322"
+   }
+  },
+  {
+   "id": "y78_lt",
+   "y": 78,
+   "N": 78,
+   "nFile": "corpus/xxy/n/78.json",
+   "statement": "x < 422/121",
+   "rel": "lt",
+   "a": "422/121",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "422^422 vs 78^121·121^422",
+   "sign": 1,
+   "bits": [
+    3681,
+    3681
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n78) < 422/121"
+   }
+  },
+  {
+   "id": "y79_gt",
+   "y": 79,
+   "N": 79,
+   "nFile": "corpus/xxy/n/79.json",
+   "statement": "x > 255/73",
+   "rel": "gt",
+   "a": "255/73",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "255^255 vs 79^73·73^255",
+   "sign": -1,
+   "bits": [
+    2039,
+    2039
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n79) > 255/73"
+   }
+  },
+  {
+   "id": "y79_lt",
+   "y": 79,
+   "N": 79,
+   "nFile": "corpus/xxy/n/79.json",
+   "statement": "x < 517/148",
+   "rel": "lt",
+   "a": "517/148",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "517^517 vs 79^148·148^517",
+   "sign": 1,
+   "bits": [
+    4661,
+    4661
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n79) < 517/148"
+   }
+  },
+  {
+   "id": "y80_gt",
+   "y": 80,
+   "N": 80,
+   "nFile": "corpus/xxy/n/80.json",
+   "statement": "x > 2981/852",
+   "rel": "gt",
+   "a": "2981/852",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2981^2981 vs 80^852·852^2981",
+   "sign": -1,
+   "bits": [
+    34406,
+    34406
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n80) > 2981/852"
+   }
+  },
+  {
+   "id": "y80_lt",
+   "y": 80,
+   "N": 80,
+   "nFile": "corpus/xxy/n/80.json",
+   "statement": "x < 1494/427",
+   "rel": "lt",
+   "a": "1494/427",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1494^1494 vs 80^427·427^1494",
+   "sign": 1,
+   "bits": [
+    15755,
+    15755
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n80) < 1494/427"
+   }
+  },
+  {
+   "id": "y81_gt",
+   "y": 81,
+   "N": 81,
+   "nFile": "corpus/xxy/n/81.json",
+   "statement": "x > 7/2",
+   "rel": "gt",
+   "a": "7/2",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "7^7 vs 81^2·2^7",
+   "sign": -1,
+   "bits": [
+    20,
+    20
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n81) > 7/2"
+   }
+  },
+  {
+   "id": "y81_lt",
+   "y": 81,
+   "N": 81,
+   "nFile": "corpus/xxy/n/81.json",
+   "statement": "x < 403/115",
+   "rel": "lt",
+   "a": "403/115",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "403^403 vs 81^115·115^403",
+   "sign": 1,
+   "bits": [
+    3488,
+    3488
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n81) < 403/115"
+   }
+  },
+  {
+   "id": "y82_gt",
+   "y": 82,
+   "N": 82,
+   "nFile": "corpus/xxy/n/82.json",
+   "statement": "x > 3050/869",
+   "rel": "gt",
+   "a": "3050/869",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3050^3050 vs 82^869·869^3050",
+   "sign": -1,
+   "bits": [
+    35303,
+    35303
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n82) > 3050/869"
+   }
+  },
+  {
+   "id": "y82_lt",
+   "y": 82,
+   "N": 82,
+   "nFile": "corpus/xxy/n/82.json",
+   "statement": "x < 179/51",
+   "rel": "lt",
+   "a": "179/51",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "179^179 vs 82^51·51^179",
+   "sign": 1,
+   "bits": [
+    1340,
+    1340
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n82) < 179/51"
+   }
+  },
+  {
+   "id": "y83_gt",
+   "y": 83,
+   "N": 83,
+   "nFile": "corpus/xxy/n/83.json",
+   "statement": "x > 116/33",
+   "rel": "gt",
+   "a": "116/33",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "116^116 vs 83^33·33^116",
+   "sign": -1,
+   "bits": [
+    796,
+    796
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n83) > 116/33"
+   }
+  },
+  {
+   "id": "y83_lt",
+   "y": 83,
+   "N": 83,
+   "nFile": "corpus/xxy/n/83.json",
+   "statement": "x < 109/31",
+   "rel": "lt",
+   "a": "109/31",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "109^109 vs 83^31·31^109",
+   "sign": 1,
+   "bits": [
+    738,
+    738
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n83) < 109/31"
+   }
+  },
+  {
+   "id": "y84_gt",
+   "y": 84,
+   "N": 84,
+   "nFile": "corpus/xxy/n/84.json",
+   "statement": "x > 1549/440",
+   "rel": "gt",
+   "a": "1549/440",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1549^1549 vs 84^440·440^1549",
+   "sign": -1,
+   "bits": [
+    16415,
+    16415
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n84) > 1549/440"
+   }
+  },
+  {
+   "id": "y84_lt",
+   "y": 84,
+   "N": 84,
+   "nFile": "corpus/xxy/n/84.json",
+   "statement": "x < 2151/611",
+   "rel": "lt",
+   "a": "2151/611",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2151^2151 vs 84^611·611^2151",
+   "sign": 1,
+   "bits": [
+    23814,
+    23814
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n84) < 2151/611"
+   }
+  },
+  {
+   "id": "y85_gt",
+   "y": 85,
+   "N": 85,
+   "nFile": "corpus/xxy/n/85.json",
+   "statement": "x > 892/253",
+   "rel": "gt",
+   "a": "892/253",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "892^892 vs 85^253·253^892",
+   "sign": -1,
+   "bits": [
+    8743,
+    8743
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n85) > 892/253"
+   }
+  },
+  {
+   "id": "y85_lt",
+   "y": 85,
+   "N": 85,
+   "nFile": "corpus/xxy/n/85.json",
+   "statement": "x < 3293/934",
+   "rel": "lt",
+   "a": "3293/934",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3293^3293 vs 85^934·934^3293",
+   "sign": 1,
+   "bits": [
+    38480,
+    38480
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n85) < 3293/934"
+   }
+  },
+  {
+   "id": "y86_gt",
+   "y": 86,
+   "N": 86,
+   "nFile": "corpus/xxy/n/86.json",
+   "statement": "x > 286/81",
+   "rel": "gt",
+   "a": "286/81",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "286^286 vs 86^81·81^286",
+   "sign": -1,
+   "bits": [
+    2334,
+    2334
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n86) > 286/81"
+   }
+  },
+  {
+   "id": "y86_lt",
+   "y": 86,
+   "N": 86,
+   "nFile": "corpus/xxy/n/86.json",
+   "statement": "x < 113/32",
+   "rel": "lt",
+   "a": "113/32",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "113^113 vs 86^32·32^113",
+   "sign": 1,
+   "bits": [
+    771,
+    771
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n86) < 113/32"
+   }
+  },
+  {
+   "id": "y87_gt",
+   "y": 87,
+   "N": 87,
+   "nFile": "corpus/xxy/n/87.json",
+   "statement": "x > 983/278",
+   "rel": "gt",
+   "a": "983/278",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "983^983 vs 87^278·278^983",
+   "sign": -1,
+   "bits": [
+    9773,
+    9773
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n87) > 983/278"
+   }
+  },
+  {
+   "id": "y87_lt",
+   "y": 87,
+   "N": 87,
+   "nFile": "corpus/xxy/n/87.json",
+   "statement": "x < 1425/403",
+   "rel": "lt",
+   "a": "1425/403",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1425^1425 vs 87^403·403^1425",
+   "sign": 1,
+   "bits": [
+    14930,
+    14930
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n87) < 1425/403"
+   }
+  },
+  {
+   "id": "y88_gt",
+   "y": 88,
+   "N": 88,
+   "nFile": "corpus/xxy/n/88.json",
+   "statement": "x > 1381/390",
+   "rel": "gt",
+   "a": "1381/390",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1381^1381 vs 88^390·390^1381",
+   "sign": -1,
+   "bits": [
+    14406,
+    14406
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n88) > 1381/390"
+   }
+  },
+  {
+   "id": "y88_lt",
+   "y": 88,
+   "N": 88,
+   "nFile": "corpus/xxy/n/88.json",
+   "statement": "x < 2546/719",
+   "rel": "lt",
+   "a": "2546/719",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2546^2546 vs 88^719·719^2546",
+   "sign": 1,
+   "bits": [
+    28806,
+    28806
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n88) < 2546/719"
+   }
+  },
+  {
+   "id": "y89_gt",
+   "y": 89,
+   "N": 89,
+   "nFile": "corpus/xxy/n/89.json",
+   "statement": "x > 578/163",
+   "rel": "gt",
+   "a": "578/163",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "578^578 vs 89^163·163^578",
+   "sign": -1,
+   "bits": [
+    5304,
+    5304
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n89) > 578/163"
+   }
+  },
+  {
+   "id": "y89_lt",
+   "y": 89,
+   "N": 89,
+   "nFile": "corpus/xxy/n/89.json",
+   "statement": "x < 539/152",
+   "rel": "lt",
+   "a": "539/152",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "539^539 vs 89^152·152^539",
+   "sign": 1,
+   "bits": [
+    4891,
+    4891
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n89) < 539/152"
+   }
+  },
+  {
+   "id": "y90_gt",
+   "y": 90,
+   "N": 90,
+   "nFile": "corpus/xxy/n/90.json",
+   "statement": "x > 941/265",
+   "rel": "gt",
+   "a": "941/265",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "941^941 vs 90^265·265^941",
+   "sign": -1,
+   "bits": [
+    9296,
+    9296
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n90) > 941/265"
+   }
+  },
+  {
+   "id": "y90_lt",
+   "y": 90,
+   "N": 90,
+   "nFile": "corpus/xxy/n/90.json",
+   "statement": "x < 174/49",
+   "rel": "lt",
+   "a": "174/49",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "174^174 vs 90^49·49^174",
+   "sign": 1,
+   "bits": [
+    1296,
+    1296
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n90) < 174/49"
+   }
+  },
+  {
+   "id": "y91_gt",
+   "y": 91,
+   "N": 91,
+   "nFile": "corpus/xxy/n/91.json",
+   "statement": "x > 32/9",
+   "rel": "gt",
+   "a": "32/9",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "32^32 vs 91^9·9^32",
+   "sign": -1,
+   "bits": [
+    161,
+    161
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n91) > 32/9"
+   }
+  },
+  {
+   "id": "y91_lt",
+   "y": 91,
+   "N": 91,
+   "nFile": "corpus/xxy/n/91.json",
+   "statement": "x < 1497/421",
+   "rel": "lt",
+   "a": "1497/421",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1497^1497 vs 91^421·421^1497",
+   "sign": 1,
+   "bits": [
+    15791,
+    15791
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n91) < 1497/421"
+   }
+  },
+  {
+   "id": "y92_gt",
+   "y": 92,
+   "N": 92,
+   "nFile": "corpus/xxy/n/92.json",
+   "statement": "x > 235/66",
+   "rel": "gt",
+   "a": "235/66",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "235^235 vs 92^66·66^235",
+   "sign": -1,
+   "bits": [
+    1851,
+    1851
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n92) > 235/66"
+   }
+  },
+  {
+   "id": "y92_lt",
+   "y": 92,
+   "N": 92,
+   "nFile": "corpus/xxy/n/92.json",
+   "statement": "x < 1791/503",
+   "rel": "lt",
+   "a": "1791/503",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1791^1791 vs 92^503·503^1791",
+   "sign": 1,
+   "bits": [
+    19355,
+    19355
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n92) < 1791/503"
+   }
+  },
+  {
+   "id": "y93_gt",
+   "y": 93,
+   "N": 93,
+   "nFile": "corpus/xxy/n/93.json",
+   "statement": "x > 2617/734",
+   "rel": "gt",
+   "a": "2617/734",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2617^2617 vs 93^734·734^2617",
+   "sign": -1,
+   "bits": [
+    29713,
+    29713
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n93) > 2617/734"
+   }
+  },
+  {
+   "id": "y93_lt",
+   "y": 93,
+   "N": 93,
+   "nFile": "corpus/xxy/n/93.json",
+   "statement": "x < 3462/971",
+   "rel": "lt",
+   "a": "3462/971",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3462^3462 vs 93^971·971^3462",
+   "sign": 1,
+   "bits": [
+    40705,
+    40705
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n93) < 3462/971"
+   }
+  },
+  {
+   "id": "y94_gt",
+   "y": 94,
+   "N": 94,
+   "nFile": "corpus/xxy/n/94.json",
+   "statement": "x > 382/107",
+   "rel": "gt",
+   "a": "382/107",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "382^382 vs 94^107·107^382",
+   "sign": -1,
+   "bits": [
+    3277,
+    3277
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n94) > 382/107"
+   }
+  },
+  {
+   "id": "y94_lt",
+   "y": 94,
+   "N": 94,
+   "nFile": "corpus/xxy/n/94.json",
+   "statement": "x < 3081/863",
+   "rel": "lt",
+   "a": "3081/863",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "3081^3081 vs 94^863·863^3081",
+   "sign": 1,
+   "bits": [
+    35707,
+    35707
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n94) < 3081/863"
+   }
+  },
+  {
+   "id": "y95_gt",
+   "y": 95,
+   "N": 95,
+   "nFile": "corpus/xxy/n/95.json",
+   "statement": "x > 1841/515",
+   "rel": "gt",
+   "a": "1841/515",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1841^1841 vs 95^515·515^1841",
+   "sign": -1,
+   "bits": [
+    19968,
+    19968
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n95) > 1841/515"
+   }
+  },
+  {
+   "id": "y95_lt",
+   "y": 95,
+   "N": 95,
+   "nFile": "corpus/xxy/n/95.json",
+   "statement": "x < 765/214",
+   "rel": "lt",
+   "a": "765/214",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "765^765 vs 95^214·214^765",
+   "sign": 1,
+   "bits": [
+    7329,
+    7329
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n95) < 765/214"
+   }
+  },
+  {
+   "id": "y96_gt",
+   "y": 96,
+   "N": 96,
+   "nFile": "corpus/xxy/n/96.json",
+   "statement": "x > 68/19",
+   "rel": "gt",
+   "a": "68/19",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "68^68 vs 96^19·19^68",
+   "sign": -1,
+   "bits": [
+    414,
+    414
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n96) > 68/19"
+   }
+  },
+  {
+   "id": "y96_lt",
+   "y": 96,
+   "N": 96,
+   "nFile": "corpus/xxy/n/96.json",
+   "statement": "x < 451/126",
+   "rel": "lt",
+   "a": "451/126",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "451^451 vs 96^126·126^451",
+   "sign": 1,
+   "bits": [
+    3977,
+    3977
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n96) < 451/126"
+   }
+  },
+  {
+   "id": "y97_gt",
+   "y": 97,
+   "N": 97,
+   "nFile": "corpus/xxy/n/97.json",
+   "statement": "x > 534/149",
+   "rel": "gt",
+   "a": "534/149",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "534^534 vs 97^149·149^534",
+   "sign": -1,
+   "bits": [
+    4839,
+    4839
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n97) > 534/149"
+   }
+  },
+  {
+   "id": "y97_lt",
+   "y": 97,
+   "N": 97,
+   "nFile": "corpus/xxy/n/97.json",
+   "statement": "x < 1025/286",
+   "rel": "lt",
+   "a": "1025/286",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1025^1025 vs 97^286·286^1025",
+   "sign": 1,
+   "bits": [
+    10252,
+    10252
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n97) < 1025/286"
+   }
+  },
+  {
+   "id": "y98_gt",
+   "y": 98,
+   "N": 98,
+   "nFile": "corpus/xxy/n/98.json",
+   "statement": "x > 2293/639",
+   "rel": "gt",
+   "a": "2293/639",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2293^2293 vs 98^639·639^2293",
+   "sign": -1,
+   "bits": [
+    25597,
+    25597
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n98) > 2293/639"
+   }
+  },
+  {
+   "id": "y98_lt",
+   "y": 98,
+   "N": 98,
+   "nFile": "corpus/xxy/n/98.json",
+   "statement": "x < 1116/311",
+   "rel": "lt",
+   "a": "1116/311",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1116^1116 vs 98^311·311^1116",
+   "sign": 1,
+   "bits": [
+    11299,
+    11299
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n98) < 1116/311"
+   }
+  },
+  {
+   "id": "y99_gt",
+   "y": 99,
+   "N": 99,
+   "nFile": "corpus/xxy/n/99.json",
+   "statement": "x > 1412/393",
+   "rel": "gt",
+   "a": "1412/393",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "1412^1412 vs 99^393·393^1412",
+   "sign": -1,
+   "bits": [
+    14775,
+    14775
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n99) > 1412/393"
+   }
+  },
+  {
+   "id": "y99_lt",
+   "y": 99,
+   "N": 99,
+   "nFile": "corpus/xxy/n/99.json",
+   "statement": "x < 909/253",
+   "rel": "lt",
+   "a": "909/253",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "909^909 vs 99^253·253^909",
+   "sign": 1,
+   "bits": [
+    8934,
+    8934
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n99) < 909/253"
+   }
+  },
+  {
+   "id": "y100_gt",
+   "y": 100,
+   "N": 100,
+   "nFile": "corpus/xxy/n/100.json",
+   "statement": "x > 259/72",
+   "rel": "gt",
+   "a": "259/72",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "259^259 vs 100^72·72^259",
+   "sign": -1,
+   "bits": [
+    2077,
+    2077
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n100) > 259/72"
+   }
+  },
+  {
+   "id": "y100_lt",
+   "y": 100,
+   "N": 100,
+   "nFile": "corpus/xxy/n/100.json",
+   "statement": "x < 795/221",
+   "rel": "lt",
+   "a": "795/221",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "795^795 vs 100^221·221^795",
+   "sign": 1,
+   "bits": [
+    7660,
+    7660
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n100) < 795/221"
+   }
+  },
+  {
+   "id": "y255_gt",
+   "y": 255,
+   "N": 255,
+   "nFile": "corpus/xxy/n/255.json",
+   "statement": "x > 2435/609",
+   "rel": "gt",
+   "a": "2435/609",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2435^2435 vs 255^609·609^2435",
+   "sign": -1,
+   "bits": [
+    27394,
+    27394
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n255) > 2435/609"
+   }
+  },
+  {
+   "id": "y255_lt",
+   "y": 255,
+   "N": 255,
+   "nFile": "corpus/xxy/n/255.json",
+   "statement": "x < 2439/610",
+   "rel": "lt",
+   "a": "2439/610",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2439^2439 vs 255^610·610^2439",
+   "sign": 1,
+   "bits": [
+    27444,
+    27444
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n255) < 2439/610"
+   }
+  },
+  {
+   "id": "y256_ge",
+   "y": 256,
+   "N": 256,
+   "nFile": "corpus/xxy/n/256.json",
+   "statement": "x ≥ 4",
+   "rel": "ge",
+   "a": "4",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "4^4 vs 256",
+   "sign": 0,
+   "bits": [
+    9,
+    9
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n256) ≥ 4"
+   }
+  },
+  {
+   "id": "y256_le",
+   "y": 256,
+   "N": 256,
+   "nFile": "corpus/xxy/n/256.json",
+   "statement": "x ≤ 4",
+   "rel": "le",
+   "a": "4",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "4^4 vs 256",
+   "sign": 0,
+   "bits": [
+    9,
+    9
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n256) ≤ 4"
+   }
+  },
+  {
+   "id": "y257_gt",
+   "y": 257,
+   "N": 257,
+   "nFile": "corpus/xxy/n/257.json",
+   "statement": "x > 4",
+   "rel": "gt",
+   "a": "4",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "4^4 vs 257",
+   "sign": -1,
+   "bits": [
+    9,
+    9
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n257) > 4"
+   }
+  },
+  {
+   "id": "y257_lt",
+   "y": 257,
+   "N": 257,
+   "nFile": "corpus/xxy/n/257.json",
+   "statement": "x < 2449/612",
+   "rel": "lt",
+   "a": "2449/612",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "2449^2449 vs 257^612·612^2449",
+   "sign": 1,
+   "bits": [
+    27571,
+    27571
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n257) < 2449/612"
+   }
+  },
+  {
+   "id": "y3124_gt",
+   "y": 3124,
+   "N": 3124,
+   "nFile": "corpus/xxy/n/3124.json",
+   "statement": "x > 4",
+   "rel": "gt",
+   "a": "4",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "4^4 vs 3124",
+   "sign": -1,
+   "bits": [
+    9,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3124) > 4"
+   }
+  },
+  {
+   "id": "y3124_lt",
+   "y": 3124,
+   "N": 3124,
+   "nFile": "corpus/xxy/n/3124.json",
+   "statement": "x < 5",
+   "rel": "lt",
+   "a": "5",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "5^5 vs 3124",
+   "sign": 1,
+   "bits": [
+    12,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3124) < 5"
+   }
+  },
+  {
+   "id": "y3125_ge",
+   "y": 3125,
+   "N": 3125,
+   "nFile": "corpus/xxy/n/3125.json",
+   "statement": "x ≥ 5",
+   "rel": "ge",
+   "a": "5",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "5^5 vs 3125",
+   "sign": 0,
+   "bits": [
+    12,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3125) ≥ 5"
+   }
+  },
+  {
+   "id": "y3125_le",
+   "y": 3125,
+   "N": 3125,
+   "nFile": "corpus/xxy/n/3125.json",
+   "statement": "x ≤ 5",
+   "rel": "le",
+   "a": "5",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "5^5 vs 3125",
+   "sign": 0,
+   "bits": [
+    12,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3125) ≤ 5"
+   }
+  },
+  {
+   "id": "y3126_gt",
+   "y": 3126,
+   "N": 3126,
+   "nFile": "corpus/xxy/n/3126.json",
+   "statement": "x > 5",
+   "rel": "gt",
+   "a": "5",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "5^5 vs 3126",
+   "sign": -1,
+   "bits": [
+    12,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3126) > 5"
+   }
+  },
+  {
+   "id": "y3126_lt",
+   "y": 3126,
+   "N": 3126,
+   "nFile": "corpus/xxy/n/3126.json",
+   "statement": "x < 6",
+   "rel": "lt",
+   "a": "6",
+   "origin": "the study's bracket (proposed)",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "6^6 vs 3126",
+   "sign": 1,
+   "bits": [
+    16,
+    12
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n3126) < 6"
+   }
+  },
+  {
+   "id": "y10_planted_lt",
+   "y": 10,
+   "N": 10,
+   "nFile": "corpus/xxy/n/10.json",
+   "statement": "x < 203/81",
+   "rel": "lt",
+   "a": "203/81",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "203^203 vs 10^81·81^203",
+   "sign": -1,
+   "bits": [
+    1557,
+    1557
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n10) < 203/81"
+   }
+  },
+  {
+   "id": "y10_planted_gt",
+   "y": 10,
+   "N": 10,
+   "nFile": "corpus/xxy/n/10.json",
+   "statement": "x > 198/79",
+   "rel": "gt",
+   "a": "198/79",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "198^198 vs 10^79·79^198",
+   "sign": 1,
+   "bits": [
+    1511,
+    1511
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n10) > 198/79"
+   }
+  },
+  {
+   "id": "y64_planted_lt",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xxy/n/64.json",
+   "statement": "x < 758/223",
+   "rel": "lt",
+   "a": "758/223",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "758^758 vs 64^223·223^758",
+   "sign": -1,
+   "bits": [
+    7252,
+    7252
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n64) < 758/223"
+   }
+  },
+  {
+   "id": "y64_planted_gt",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xxy/n/64.json",
+   "statement": "x > 775/228",
+   "rel": "gt",
+   "a": "775/228",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "775^775 vs 64^228·228^775",
+   "sign": 1,
+   "bits": [
+    7439,
+    7439
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n64) > 775/228"
+   }
+  },
+  {
+   "id": "y100_planted_lt",
+   "y": 100,
+   "N": 100,
+   "nFile": "corpus/xxy/n/100.json",
+   "statement": "x < 259/72",
+   "rel": "lt",
+   "a": "259/72",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "259^259 vs 100^72·72^259",
+   "sign": -1,
+   "bits": [
+    2077,
+    2077
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n100) < 259/72"
+   }
+  },
+  {
+   "id": "y100_planted_gt",
+   "y": 100,
+   "N": 100,
+   "nFile": "corpus/xxy/n/100.json",
+   "statement": "x > 795/221",
+   "rel": "gt",
+   "a": "795/221",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "795^795 vs 100^221·221^795",
+   "sign": 1,
+   "bits": [
+    7660,
+    7660
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n100) > 795/221"
+   }
+  },
+  {
+   "id": "y255_planted_lt",
+   "y": 255,
+   "N": 255,
+   "nFile": "corpus/xxy/n/255.json",
+   "statement": "x < 2435/609",
+   "rel": "lt",
+   "a": "2435/609",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "2435^2435 vs 255^609·609^2435",
+   "sign": -1,
+   "bits": [
+    27394,
+    27394
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n255) < 2435/609"
+   }
+  },
+  {
+   "id": "y255_planted_gt",
+   "y": 255,
+   "N": 255,
+   "nFile": "corpus/xxy/n/255.json",
+   "statement": "x > 2439/610",
+   "rel": "gt",
+   "a": "2439/610",
+   "origin": "planted wrong bracket",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "2439^2439 vs 255^610·610^2439",
+   "sign": 1,
+   "bits": [
+    27444,
+    27444
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n255) > 2439/610"
+   }
+  }
+ ],
+ "xx64": [
+  {
+   "id": "above",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x > 33991/10000",
+   "rel": "gt",
+   "a": "33991/10000",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "33991^33991 vs 64^10000·10000^33991",
+   "sign": -1,
+   "bits": [
+    511662,
+    511663
+   ],
+   "digits": [
+    154026,
+    154026
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) > 3.3991"
+   }
+  },
+  {
+   "id": "below",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x < 4249/1250",
+   "rel": "lt",
+   "a": "4249/1250",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "4249^4249 vs 64^1250·1250^4249",
+   "sign": 1,
+   "bits": [
+    51213,
+    51213
+   ],
+   "digits": [
+    15417,
+    15417
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) < 3.3992"
+   }
+  },
+  {
+   "id": "planted_above",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x > 4249/1250",
+   "rel": "gt",
+   "a": "4249/1250",
+   "origin": "planted wrong bound",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "4249^4249 vs 64^1250·1250^4249",
+   "sign": 1,
+   "bits": [
+    51213,
+    51213
+   ],
+   "digits": [
+    15417,
+    15417
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n) > 3.3992"
+   }
+  },
+  {
+   "id": "planted_below",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x < 33991/10000",
+   "rel": "lt",
+   "a": "33991/10000",
+   "origin": "planted wrong bound",
+   "word": "REFUTED",
+   "expect": "REFUTED",
+   "compared": "33991^33991 vs 64^10000·10000^33991",
+   "sign": -1,
+   "bits": [
+    511662,
+    511663
+   ],
+   "digits": [
+    154026,
+    154026
+   ],
+   "claimbox": {
+    "word": "REFUTED",
+    "expect": "REFUTED",
+    "statement": "xroot(n) < 3.3991"
+   }
+  },
+  {
+   "id": "cf_above_8",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x > 58815/17303",
+   "rel": "gt",
+   "a": "58815/17303",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "58815^58815 vs 64^17303·17303^58815",
+   "sign": -1,
+   "bits": [
+    931859,
+    931859
+   ],
+   "digits": [
+    280518,
+    280518
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) > 58815/17303"
+   }
+  },
+  {
+   "id": "cf_below_7",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x < 47207/13888",
+   "rel": "lt",
+   "a": "47207/13888",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "47207^47207 vs 64^13888·13888^47207",
+   "sign": 1,
+   "bits": [
+    732970,
+    732970
+   ],
+   "digits": [
+    220646,
+    220646
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) < 47207/13888"
+   }
+  },
+  {
+   "id": "cf_above_10",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x > 458912/135009",
+   "rel": "gt",
+   "a": "458912/135009",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "458912^458912 vs 64^135009·135009^458912",
+   "sign": -1,
+   "bits": [
+    8631152,
+    8631152
+   ],
+   "digits": [
+    2598236,
+    2598236
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) > 458912/135009"
+   }
+  },
+  {
+   "id": "cf_below_9",
+   "y": 64,
+   "N": 64,
+   "nFile": "corpus/xx64/problem.json",
+   "statement": "x < 400097/117706",
+   "rel": "lt",
+   "a": "400097/117706",
+   "origin": "proposed",
+   "word": "CERTIFIED",
+   "expect": "CERTIFIED",
+   "compared": "400097^400097 vs 64^117706·117706^400097",
+   "sign": 1,
+   "bits": [
+    7445802,
+    7445802
+   ],
+   "digits": [
+    2241410,
+    2241410
+   ],
+   "claimbox": {
+    "word": "CERTIFIED",
+    "expect": "CERTIFIED",
+    "statement": "xroot(n) < 400097/117706"
+   }
+  }
+ ],
+ "mutants": [
+  {
+   "of": "y2_gt",
+   "y": 2,
+   "statement": "x > 236/151",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y2_lt",
+   "y": 2,
+   "statement": "x < 640/411",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y3_gt",
+   "y": 3,
+   "statement": "x > 503/275",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y3_lt",
+   "y": 3,
+   "statement": "x < 193/106",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y4_ge",
+   "y": 4,
+   "statement": "x > 2",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y4_le",
+   "y": 4,
+   "statement": "x < 2",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y5_gt",
+   "y": 5,
+   "statement": "x > 305/143",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y5_lt",
+   "y": 5,
+   "statement": "x < 36/17",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y6_gt",
+   "y": 6,
+   "statement": "x > 1137/509",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y6_lt",
+   "y": 6,
+   "statement": "x < 890/399",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y7_gt",
+   "y": 7,
+   "statement": "x > 45/19",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y7_lt",
+   "y": 7,
+   "statement": "x < 182/79",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y8_gt",
+   "y": 8,
+   "statement": "x > 247/103",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y8_lt",
+   "y": 8,
+   "statement": "x < 288/121",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y9_gt",
+   "y": 9,
+   "statement": "x > 900/367",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y9_lt",
+   "y": 9,
+   "statement": "x < 124/51",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y10_gt",
+   "y": 10,
+   "statement": "x > 68/27",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y10_lt",
+   "y": 10,
+   "statement": "x < 197/79",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y11_gt",
+   "y": 11,
+   "statement": "x > 8/3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y11_lt",
+   "y": 11,
+   "statement": "x < 17/7",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y12_gt",
+   "y": 12,
+   "statement": "x > 294/113",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y12_lt",
+   "y": 12,
+   "statement": "x < 1749/673",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y13_gt",
+   "y": 13,
+   "statement": "x > 473/179",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y13_lt",
+   "y": 13,
+   "statement": "x < 1787/677",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y14_gt",
+   "y": 14,
+   "statement": "x > 1959/731",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y14_lt",
+   "y": 14,
+   "statement": "x < 37/14",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y15_gt",
+   "y": 15,
+   "statement": "x > 1382/509",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y15_lt",
+   "y": 15,
+   "statement": "x < 349/129",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y16_gt",
+   "y": 16,
+   "statement": "x > 443/161",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y16_lt",
+   "y": 16,
+   "statement": "x < 74/27",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y17_gt",
+   "y": 17,
+   "statement": "x > 464/167",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y17_lt",
+   "y": 17,
+   "statement": "x < 135/49",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y18_gt",
+   "y": 18,
+   "statement": "x > 205/73",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y18_lt",
+   "y": 18,
+   "statement": "x < 535/191",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y19_gt",
+   "y": 19,
+   "statement": "x > 151/53",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y19_lt",
+   "y": 19,
+   "statement": "x < 379/134",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y20_gt",
+   "y": 20,
+   "statement": "x > 889/311",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y20_lt",
+   "y": 20,
+   "statement": "x < 2446/857",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y21_gt",
+   "y": 21,
+   "statement": "x > 124/43",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y21_lt",
+   "y": 21,
+   "statement": "x < 261/91",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y22_gt",
+   "y": 22,
+   "statement": "x > 3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y22_lt",
+   "y": 22,
+   "statement": "x < 176/61",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y23_gt",
+   "y": 23,
+   "statement": "x > 3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y23_lt",
+   "y": 23,
+   "statement": "x < 2",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y24_gt",
+   "y": 24,
+   "statement": "x > 993/337",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y24_lt",
+   "y": 24,
+   "statement": "x < 208/71",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y25_gt",
+   "y": 25,
+   "statement": "x > 86/29",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y25_lt",
+   "y": 25,
+   "statement": "x < 201/68",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y26_gt",
+   "y": 26,
+   "statement": "x > 332/111",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y26_lt",
+   "y": 26,
+   "statement": "x < 1407/472",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y27_ge",
+   "y": 27,
+   "statement": "x > 3",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y27_le",
+   "y": 27,
+   "statement": "x < 3",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y28_gt",
+   "y": 28,
+   "statement": "x > 2442/809",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y28_lt",
+   "y": 28,
+   "statement": "x < 196/65",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y29_gt",
+   "y": 29,
+   "statement": "x > 180/59",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y29_lt",
+   "y": 29,
+   "statement": "x < 803/265",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y30_gt",
+   "y": 30,
+   "statement": "x > 31/10",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y30_lt",
+   "y": 30,
+   "statement": "x < 3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y31_gt",
+   "y": 31,
+   "statement": "x > 1218/397",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y31_lt",
+   "y": 31,
+   "statement": "x < 701/229",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y32_gt",
+   "y": 32,
+   "statement": "x > 1513/491",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y32_lt",
+   "y": 32,
+   "statement": "x < 89/29",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y33_gt",
+   "y": 33,
+   "statement": "x > 425/137",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y33_lt",
+   "y": 33,
+   "statement": "x < 912/295",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y34_gt",
+   "y": 34,
+   "statement": "x > 315/101",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y34_lt",
+   "y": 34,
+   "statement": "x < 34/11",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y35_gt",
+   "y": 35,
+   "statement": "x > 22/7",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y35_lt",
+   "y": 35,
+   "statement": "x < 465/149",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y36_gt",
+   "y": 36,
+   "statement": "x > 2174/693",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y36_lt",
+   "y": 36,
+   "statement": "x < 993/317",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y37_gt",
+   "y": 37,
+   "statement": "x > 892/283",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y37_lt",
+   "y": 37,
+   "statement": "x < 431/137",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y38_gt",
+   "y": 38,
+   "statement": "x > 1534/485",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y38_lt",
+   "y": 38,
+   "statement": "x < 496/157",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y39_gt",
+   "y": 39,
+   "statement": "x > 86/27",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y39_lt",
+   "y": 39,
+   "statement": "x < 339/107",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y40_gt",
+   "y": 40,
+   "statement": "x > 1389/436",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y40_lt",
+   "y": 40,
+   "statement": "x < 2569/807",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y41_gt",
+   "y": 41,
+   "statement": "x > 74/23",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y41_lt",
+   "y": 41,
+   "statement": "x < 54/17",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y42_gt",
+   "y": 42,
+   "statement": "x > 94/29",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y42_lt",
+   "y": 42,
+   "statement": "x < 355/111",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y43_gt",
+   "y": 43,
+   "statement": "x > 429/133",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y43_lt",
+   "y": 43,
+   "statement": "x < 730/227",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y44_gt",
+   "y": 44,
+   "statement": "x > 391/121",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y44_lt",
+   "y": 44,
+   "statement": "x < 529/164",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y45_gt",
+   "y": 45,
+   "statement": "x > 367/113",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y45_lt",
+   "y": 45,
+   "statement": "x < 514/159",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y46_gt",
+   "y": 46,
+   "statement": "x > 296/91",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y46_lt",
+   "y": 46,
+   "statement": "x < 2673/823",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y47_gt",
+   "y": 47,
+   "statement": "x > 1184/363",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y47_lt",
+   "y": 47,
+   "statement": "x < 817/251",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y48_gt",
+   "y": 48,
+   "statement": "x > 36/11",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y48_lt",
+   "y": 48,
+   "statement": "x < 218/67",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y49_gt",
+   "y": 49,
+   "statement": "x > 732/223",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y49_lt",
+   "y": 49,
+   "statement": "x < 1432/437",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y50_gt",
+   "y": 50,
+   "statement": "x > 155/47",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y50_lt",
+   "y": 50,
+   "statement": "x < 404/123",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y51_gt",
+   "y": 51,
+   "statement": "x > 10/3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y51_lt",
+   "y": 51,
+   "statement": "x < 16/5",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y52_gt",
+   "y": 52,
+   "statement": "x > 225/68",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y52_lt",
+   "y": 52,
+   "statement": "x < 703/213",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y53_gt",
+   "y": 53,
+   "statement": "x > 1416/427",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y53_lt",
+   "y": 53,
+   "statement": "x < 311/94",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y54_gt",
+   "y": 54,
+   "statement": "x > 403/121",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y54_lt",
+   "y": 54,
+   "statement": "x < 102/31",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y55_gt",
+   "y": 55,
+   "statement": "x > 207/62",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y55_lt",
+   "y": 55,
+   "statement": "x < 3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y56_gt",
+   "y": 56,
+   "statement": "x > 284/85",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y56_lt",
+   "y": 56,
+   "statement": "x < 3241/971",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y57_gt",
+   "y": 57,
+   "statement": "x > 580/173",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y57_lt",
+   "y": 57,
+   "statement": "x < 371/111",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y58_gt",
+   "y": 58,
+   "statement": "x > 178/53",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y58_lt",
+   "y": 58,
+   "statement": "x < 103/31",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y59_gt",
+   "y": 59,
+   "statement": "x > 771/229",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y59_lt",
+   "y": 59,
+   "statement": "x < 67/20",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y60_gt",
+   "y": 60,
+   "statement": "x > 169/50",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y60_lt",
+   "y": 60,
+   "statement": "x < 764/227",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y61_gt",
+   "y": 61,
+   "statement": "x > 511/151",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y61_lt",
+   "y": 61,
+   "statement": "x < 27/8",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y62_gt",
+   "y": 62,
+   "statement": "x > 45/13",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y62_lt",
+   "y": 62,
+   "statement": "x < 301/89",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y63_gt",
+   "y": 63,
+   "statement": "x > 1619/477",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y63_lt",
+   "y": 63,
+   "statement": "x < 2214/653",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y64_gt",
+   "y": 64,
+   "statement": "x > 759/223",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y64_lt",
+   "y": 64,
+   "statement": "x < 129/38",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y65_gt",
+   "y": 65,
+   "statement": "x > 563/165",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y65_lt",
+   "y": 65,
+   "statement": "x < 670/197",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y66_gt",
+   "y": 66,
+   "statement": "x > 765/224",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y66_lt",
+   "y": 66,
+   "statement": "x < 842/247",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y67_gt",
+   "y": 67,
+   "statement": "x > 2918/853",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y67_lt",
+   "y": 67,
+   "statement": "x < 188/55",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y68_gt",
+   "y": 68,
+   "statement": "x > 1094/319",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y68_lt",
+   "y": 68,
+   "statement": "x < 767/224",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y69_gt",
+   "y": 69,
+   "statement": "x > 1254/365",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y69_lt",
+   "y": 69,
+   "statement": "x < 511/149",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y70_gt",
+   "y": 70,
+   "statement": "x > 671/195",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y70_lt",
+   "y": 70,
+   "statement": "x < 354/103",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y71_gt",
+   "y": 71,
+   "statement": "x > 159/46",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y71_lt",
+   "y": 71,
+   "statement": "x < 285/83",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y72_gt",
+   "y": 72,
+   "statement": "x > 2262/655",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y72_lt",
+   "y": 72,
+   "statement": "x < 873/253",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y73_gt",
+   "y": 73,
+   "statement": "x > 537/155",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y73_lt",
+   "y": 73,
+   "statement": "x < 41/12",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y74_gt",
+   "y": 74,
+   "statement": "x > 274/79",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y74_lt",
+   "y": 74,
+   "statement": "x < 24/7",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y75_gt",
+   "y": 75,
+   "statement": "x > 872/251",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y75_lt",
+   "y": 75,
+   "statement": "x < 232/67",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y76_gt",
+   "y": 76,
+   "statement": "x > 943/271",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y76_lt",
+   "y": 76,
+   "statement": "x < 1956/563",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y77_gt",
+   "y": 77,
+   "statement": "x > 192/55",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y77_lt",
+   "y": 77,
+   "statement": "x < 1437/413",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y78_gt",
+   "y": 78,
+   "statement": "x > 562/161",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y78_lt",
+   "y": 78,
+   "statement": "x < 421/121",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y79_gt",
+   "y": 79,
+   "statement": "x > 256/73",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y79_lt",
+   "y": 79,
+   "statement": "x < 129/37",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y80_gt",
+   "y": 80,
+   "statement": "x > 7/2",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y80_lt",
+   "y": 80,
+   "statement": "x < 1493/427",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y81_gt",
+   "y": 81,
+   "statement": "x > 4",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y81_lt",
+   "y": 81,
+   "statement": "x < 402/115",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y82_gt",
+   "y": 82,
+   "statement": "x > 3051/869",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y82_lt",
+   "y": 82,
+   "statement": "x < 178/51",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y83_gt",
+   "y": 83,
+   "statement": "x > 39/11",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y83_lt",
+   "y": 83,
+   "statement": "x < 108/31",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y84_gt",
+   "y": 84,
+   "statement": "x > 155/44",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y84_lt",
+   "y": 84,
+   "statement": "x < 2150/611",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y85_gt",
+   "y": 85,
+   "statement": "x > 893/253",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y85_lt",
+   "y": 85,
+   "statement": "x < 1646/467",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y86_gt",
+   "y": 86,
+   "statement": "x > 287/81",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y86_lt",
+   "y": 86,
+   "statement": "x < 7/2",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y87_gt",
+   "y": 87,
+   "statement": "x > 492/139",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y87_lt",
+   "y": 87,
+   "statement": "x < 1424/403",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y88_gt",
+   "y": 88,
+   "statement": "x > 691/195",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y88_lt",
+   "y": 88,
+   "statement": "x < 2545/719",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y89_gt",
+   "y": 89,
+   "statement": "x > 579/163",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y89_lt",
+   "y": 89,
+   "statement": "x < 269/76",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y90_gt",
+   "y": 90,
+   "statement": "x > 942/265",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y90_lt",
+   "y": 90,
+   "statement": "x < 173/49",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y91_gt",
+   "y": 91,
+   "statement": "x > 11/3",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y91_lt",
+   "y": 91,
+   "statement": "x < 1496/421",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y92_gt",
+   "y": 92,
+   "statement": "x > 118/33",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y92_lt",
+   "y": 92,
+   "statement": "x < 1790/503",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y93_gt",
+   "y": 93,
+   "statement": "x > 1309/367",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y93_lt",
+   "y": 93,
+   "statement": "x < 3461/971",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y94_gt",
+   "y": 94,
+   "statement": "x > 383/107",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y94_lt",
+   "y": 94,
+   "statement": "x < 3080/863",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y95_gt",
+   "y": 95,
+   "statement": "x > 1842/515",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y95_lt",
+   "y": 95,
+   "statement": "x < 382/107",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y96_gt",
+   "y": 96,
+   "statement": "x > 69/19",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y96_lt",
+   "y": 96,
+   "statement": "x < 25/7",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y97_gt",
+   "y": 97,
+   "statement": "x > 535/149",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y97_lt",
+   "y": 97,
+   "statement": "x < 512/143",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y98_gt",
+   "y": 98,
+   "statement": "x > 2294/639",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y98_lt",
+   "y": 98,
+   "statement": "x < 1115/311",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y99_gt",
+   "y": 99,
+   "statement": "x > 471/131",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y99_lt",
+   "y": 99,
+   "statement": "x < 908/253",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y100_gt",
+   "y": 100,
+   "statement": "x > 65/18",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y100_lt",
+   "y": 100,
+   "statement": "x < 794/221",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y255_gt",
+   "y": 255,
+   "statement": "x > 4",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y255_lt",
+   "y": 255,
+   "statement": "x < 1219/305",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y256_ge",
+   "y": 256,
+   "statement": "x > 4",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y256_le",
+   "y": 256,
+   "statement": "x < 4",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y257_gt",
+   "y": 257,
+   "statement": "x > 5",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y257_lt",
+   "y": 257,
+   "statement": "x < 4",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y3124_gt",
+   "y": 3124,
+   "statement": "x > 5",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y3124_lt",
+   "y": 3124,
+   "statement": "x < 4",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "y3125_ge",
+   "y": 3125,
+   "statement": "x > 5",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y3125_le",
+   "y": 3125,
+   "statement": "x < 5",
+   "how": "the bound made strict",
+   "word": "REFUTED",
+   "sign": 0
+  },
+  {
+   "of": "y3126_gt",
+   "y": 3126,
+   "statement": "x > 6",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "y3126_lt",
+   "y": 3126,
+   "statement": "x < 5",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "64/above",
+   "y": 64,
+   "statement": "x > 4249/1250",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "64/below",
+   "y": 64,
+   "statement": "x < 2124/625",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "64/cf_above_8",
+   "y": 64,
+   "statement": "x > 58816/17303",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "64/cf_below_7",
+   "y": 64,
+   "statement": "x < 23603/6944",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  },
+  {
+   "of": "64/cf_above_10",
+   "y": 64,
+   "statement": "x > 21853/6429",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": 1
+  },
+  {
+   "of": "64/cf_below_9",
+   "y": 64,
+   "statement": "x < 200048/58853",
+   "how": "the numerator moved one unit the wrong way",
+   "word": "REFUTED",
+   "sign": -1
+  }
+ ],
+ "brackets": [
+  {
+   "y": 2,
+   "exact": false,
+   "lo": "471/302",
+   "hi": "641/411",
+   "width": "1/124122",
+   "widthLog10": -5.093849,
+   "sharedDecimals": 4,
+   "loDec": "1.559602649006622516556291390728",
+   "hiDec": "1.559610705596107055961070559611"
+  },
+  {
+   "y": 3,
+   "exact": false,
+   "lo": "502/275",
+   "hi": "387/212",
+   "width": "1/58300",
+   "widthLog10": -4.765669,
+   "sharedDecimals": 4,
+   "loDec": "1.825454545454545454545454545454",
+   "hiDec": "1.825471698113207547169811320755"
+  },
+  {
+   "y": 4,
+   "exact": true,
+   "k": 2,
+   "lo": "2",
+   "hi": "2",
+   "width": "0",
+   "sharedDecimals": null,
+   "loDec": "2",
+   "hiDec": "2"
+  },
+  {
+   "y": 5,
+   "exact": false,
+   "lo": "609/286",
+   "hi": "181/85",
+   "width": "1/24310",
+   "widthLog10": -4.385785,
+   "sharedDecimals": 3,
+   "loDec": "2.129370629370629370629370629370",
+   "hiDec": "2.129411764705882352941176470589"
+  },
+  {
+   "y": 6,
+   "exact": false,
+   "lo": "1136/509",
+   "hi": "1781/798",
+   "width": "1/406182",
+   "widthLog10": -5.608721,
+   "sharedDecimals": 5,
+   "loDec": "2.231827111984282907662082514734",
+   "hiDec": "2.231829573934837092731829573935"
+  },
+  {
+   "y": 7,
+   "exact": false,
+   "lo": "44/19",
+   "hi": "183/79",
+   "width": "1/1501",
+   "widthLog10": -3.176381,
+   "sharedDecimals": 2,
+   "loDec": "2.315789473684210526315789473684",
+   "hiDec": "2.316455696202531645569620253165"
+  },
+  {
+   "y": 8,
+   "exact": false,
+   "lo": "246/103",
+   "hi": "289/121",
+   "width": "1/12463",
+   "widthLog10": -4.095623,
+   "sharedDecimals": 3,
+   "loDec": "2.388349514563106796116504854368",
+   "hiDec": "2.388429752066115702479338842976"
+  },
+  {
+   "y": 9,
+   "exact": false,
+   "lo": "1799/734",
+   "hi": "125/51",
+   "width": "1/37434",
+   "widthLog10": -4.573266,
+   "sharedDecimals": 4,
+   "loDec": "2.450953678474114441416893732970",
+   "hiDec": "2.450980392156862745098039215687"
+  },
+  {
+   "y": 10,
+   "exact": false,
+   "lo": "203/81",
+   "hi": "198/79",
+   "width": "1/6399",
+   "widthLog10": -3.806112,
+   "sharedDecimals": 3,
+   "loDec": "2.506172839506172839506172839506",
+   "hiDec": "2.506329113924050632911392405064"
+  },
+  {
+   "y": 11,
+   "exact": false,
+   "lo": "23/9",
+   "hi": "18/7",
+   "width": "1/63",
+   "widthLog10": -1.799341,
+   "sharedDecimals": 1,
+   "loDec": "2.555555555555555555555555555555",
+   "hiDec": "2.571428571428571428571428571429"
+  },
+  {
+   "y": 12,
+   "exact": false,
+   "lo": "1763/678",
+   "hi": "1750/673",
+   "width": "1/456294",
+   "widthLog10": -5.659245,
+   "sharedDecimals": 5,
+   "loDec": "2.600294985250737463126843657817",
+   "hiDec": "2.600297176820208023774145616642"
+  },
+  {
+   "y": 13,
+   "exact": false,
+   "lo": "1891/716",
+   "hi": "1788/677",
+   "width": "1/484732",
+   "widthLog10": -5.685502,
+   "sharedDecimals": 5,
+   "loDec": "2.641061452513966480446927374301",
+   "hiDec": "2.641063515509601181683899556869"
+  },
+  {
+   "y": 14,
+   "exact": false,
+   "lo": "1958/731",
+   "hi": "75/28",
+   "width": "1/20468",
+   "widthLog10": -4.311075,
+   "sharedDecimals": 4,
+   "loDec": "2.678522571819425444596443228454",
+   "hiDec": "2.678571428571428571428571428572"
+  },
+  {
+   "y": 15,
+   "exact": false,
+   "lo": "1381/509",
+   "hi": "350/129",
+   "width": "1/65661",
+   "widthLog10": -4.817307,
+   "sharedDecimals": 4,
+   "loDec": "2.713163064833005893909626719056",
+   "hiDec": "2.713178294573643410852713178295"
+  },
+  {
+   "y": 16,
+   "exact": false,
+   "lo": "442/161",
+   "hi": "593/216",
+   "width": "1/34776",
+   "widthLog10": -4.54128,
+   "sharedDecimals": 4,
+   "loDec": "2.745341614906832298136645962732",
+   "hiDec": "2.745370370370370370370370370371"
+  },
+  {
+   "y": 17,
+   "exact": false,
+   "lo": "927/334",
+   "hi": "136/49",
+   "width": "1/16366",
+   "widthLog10": -4.213943,
+   "sharedDecimals": 3,
+   "loDec": "2.775449101796407185628742514970",
+   "hiDec": "2.775510204081632653061224489796"
+  },
+  {
+   "y": 18,
+   "exact": false,
+   "lo": "614/219",
+   "hi": "1071/382",
+   "width": "1/83658",
+   "widthLog10": -4.922507,
+   "sharedDecimals": 4,
+   "loDec": "2.803652968036529680365296803652",
+   "hiDec": "2.803664921465968586387434554974"
+  },
+  {
+   "y": 19,
+   "exact": false,
+   "lo": "150/53",
+   "hi": "1517/536",
+   "width": "1/28408",
+   "widthLog10": -4.453441,
+   "sharedDecimals": 3,
+   "loDec": "2.830188679245283018867924528301",
+   "hiDec": "2.830223880597014925373134328359"
+  },
+  {
+   "y": 20,
+   "exact": false,
+   "lo": "888/311",
+   "hi": "2447/857",
+   "width": "1/266527",
+   "widthLog10": -5.425741,
+   "sharedDecimals": 5,
+   "loDec": "2.855305466237942122186495176848",
+   "hiDec": "2.855309218203033838973162193699"
+  },
+  {
+   "y": 21,
+   "exact": false,
+   "lo": "619/215",
+   "hi": "262/91",
+   "width": "1/19565",
+   "widthLog10": -4.29148,
+   "sharedDecimals": 3,
+   "loDec": "2.879069767441860465116279069767",
+   "hiDec": "2.879120879120879120879120879121"
+  },
+  {
+   "y": 22,
+   "exact": false,
+   "lo": "29/10",
+   "hi": "177/61",
+   "width": "1/610",
+   "widthLog10": -2.78533,
+   "sharedDecimals": 2,
+   "loDec": "2.900000000000000000000000000000",
+   "hiDec": "2.901639344262295081967213114755"
+  },
+  {
+   "y": 23,
+   "exact": false,
+   "lo": "38/13",
+   "hi": "3",
+   "width": "1/13",
+   "widthLog10": -1.113943,
+   "sharedDecimals": 0,
+   "loDec": "2.923076923076923076923076923076",
+   "hiDec": "3.000000000000000000000000000000"
+  },
+  {
+   "y": 24,
+   "exact": false,
+   "lo": "992/337",
+   "hi": "209/71",
+   "width": "1/23927",
+   "widthLog10": -4.378888,
+   "sharedDecimals": 4,
+   "loDec": "2.943620178041543026706231454005",
+   "hiDec": "2.943661971830985915492957746479"
+  },
+  {
+   "y": 25,
+   "exact": false,
+   "lo": "1289/435",
+   "hi": "403/136",
+   "width": "1/59160",
+   "widthLog10": -4.772028,
+   "sharedDecimals": 4,
+   "loDec": "2.963218390804597701149425287356",
+   "hiDec": "2.963235294117647058823529411765"
+  },
+  {
+   "y": 26,
+   "exact": false,
+   "lo": "331/111",
+   "hi": "2815/944",
+   "width": "1/104784",
+   "widthLog10": -5.020295,
+   "sharedDecimals": 4,
+   "loDec": "2.981981981981981981981981981981",
+   "hiDec": "2.981991525423728813559322033899"
+  },
+  {
+   "y": 27,
+   "exact": true,
+   "k": 3,
+   "lo": "3",
+   "hi": "3",
+   "width": "0",
+   "sharedDecimals": null,
+   "loDec": "3",
+   "hiDec": "3"
+  },
+  {
+   "y": 28,
+   "exact": false,
+   "lo": "2441/809",
+   "hi": "1569/520",
+   "width": "1/420680",
+   "widthLog10": -5.623952,
+   "sharedDecimals": 5,
+   "loDec": "3.017305315203955500618046971569",
+   "hiDec": "3.017307692307692307692307692308"
+  },
+  {
+   "y": 29,
+   "exact": false,
+   "lo": "179/59",
+   "hi": "804/265",
+   "width": "1/15635",
+   "widthLog10": -4.194098,
+   "sharedDecimals": 3,
+   "loDec": "3.033898305084745762711864406779",
+   "hiDec": "3.033962264150943396226415094340"
+  },
+  {
+   "y": 30,
+   "exact": false,
+   "lo": "61/20",
+   "hi": "58/19",
+   "width": "1/380",
+   "widthLog10": -2.579784,
+   "sharedDecimals": 2,
+   "loDec": "3.050000000000000000000000000000",
+   "hiDec": "3.052631578947368421052631578948"
+  },
+  {
+   "y": 31,
+   "exact": false,
+   "lo": "1217/397",
+   "hi": "702/229",
+   "width": "1/90913",
+   "widthLog10": -4.958626,
+   "sharedDecimals": 3,
+   "loDec": "3.065491183879093198992443324937",
+   "hiDec": "3.065502183406113537117903930132"
+  },
+  {
+   "y": 32,
+   "exact": false,
+   "lo": "3025/982",
+   "hi": "268/87",
+   "width": "1/85434",
+   "widthLog10": -4.931631,
+   "sharedDecimals": 4,
+   "loDec": "3.080448065173116089613034623217",
+   "hiDec": "3.080459770114942528735632183909"
+  },
+  {
+   "y": 33,
+   "exact": false,
+   "lo": "424/137",
+   "hi": "913/295",
+   "width": "1/40415",
+   "widthLog10": -4.606543,
+   "sharedDecimals": 3,
+   "loDec": "3.094890510948905109489051094890",
+   "hiDec": "3.094915254237288135593220338984"
+  },
+  {
+   "y": 34,
+   "exact": false,
+   "lo": "314/101",
+   "hi": "171/55",
+   "width": "1/5555",
+   "widthLog10": -3.744684,
+   "sharedDecimals": 2,
+   "loDec": "3.108910891089108910891089108910",
+   "hiDec": "3.109090909090909090909090909091"
+  },
+  {
+   "y": 35,
+   "exact": false,
+   "lo": "153/49",
+   "hi": "1861/596",
+   "width": "1/29204",
+   "widthLog10": -4.465442,
+   "sharedDecimals": 4,
+   "loDec": "3.122448979591836734693877551020",
+   "hiDec": "3.122483221476510067114093959732"
+  },
+  {
+   "y": 36,
+   "exact": false,
+   "lo": "2173/693",
+   "hi": "994/317",
+   "width": "1/219681",
+   "widthLog10": -5.341792,
+   "sharedDecimals": 5,
+   "loDec": "3.135642135642135642135642135642",
+   "hiDec": "3.135646687697160883280757097792"
+  },
+  {
+   "y": 37,
+   "exact": false,
+   "lo": "891/283",
+   "hi": "1294/411",
+   "width": "1/116313",
+   "widthLog10": -5.065628,
+   "sharedDecimals": 4,
+   "loDec": "3.148409893992932862190812720848",
+   "hiDec": "3.148418491484184914841849148419"
+  },
+  {
+   "y": 38,
+   "exact": false,
+   "lo": "1533/485",
+   "hi": "1985/628",
+   "width": "1/304580",
+   "widthLog10": -5.483701,
+   "sharedDecimals": 5,
+   "loDec": "3.160824742268041237113402061855",
+   "hiDec": "3.160828025477707006369426751593"
+  },
+  {
+   "y": 39,
+   "exact": false,
+   "lo": "257/81",
+   "hi": "679/214",
+   "width": "1/17334",
+   "widthLog10": -4.238899,
+   "sharedDecimals": 4,
+   "loDec": "3.172839506172839506172839506172",
+   "hiDec": "3.172897196261682242990654205608"
+  },
+  {
+   "y": 40,
+   "exact": false,
+   "lo": "2777/872",
+   "hi": "2570/807",
+   "width": "1/703704",
+   "widthLog10": -5.84739,
+   "sharedDecimals": 5,
+   "loDec": "3.184633027522935779816513761467",
+   "hiDec": "3.184634448574969021065675340769"
+  },
+  {
+   "y": 41,
+   "exact": false,
+   "lo": "147/46",
+   "hi": "163/51",
+   "width": "1/2346",
+   "widthLog10": -3.370328,
+   "sharedDecimals": 2,
+   "loDec": "3.195652173913043478260869565217",
+   "hiDec": "3.196078431372549019607843137255"
+  },
+  {
+   "y": 42,
+   "exact": false,
+   "lo": "93/29",
+   "hi": "356/111",
+   "width": "1/3219",
+   "widthLog10": -3.507721,
+   "sharedDecimals": 2,
+   "loDec": "3.206896551724137931034482758620",
+   "hiDec": "3.207207207207207207207207207208"
+  },
+  {
+   "y": 43,
+   "exact": false,
+   "lo": "428/133",
+   "hi": "1461/454",
+   "width": "1/60382",
+   "widthLog10": -4.780907,
+   "sharedDecimals": 4,
+   "loDec": "3.218045112781954887218045112781",
+   "hiDec": "3.218061674008810572687224669604"
+  },
+  {
+   "y": 44,
+   "exact": false,
+   "lo": "1172/363",
+   "hi": "1059/328",
+   "width": "1/119064",
+   "widthLog10": -5.07578,
+   "sharedDecimals": 5,
+   "loDec": "3.228650137741046831955922865013",
+   "hiDec": "3.228658536585365853658536585366"
+  },
+  {
+   "y": 45,
+   "exact": false,
+   "lo": "366/113",
+   "hi": "515/159",
+   "width": "1/17967",
+   "widthLog10": -4.254476,
+   "sharedDecimals": 4,
+   "loDec": "3.238938053097345132743362831858",
+   "hiDec": "3.238993710691823899371069182390"
+  },
+  {
+   "y": 46,
+   "exact": false,
+   "lo": "887/273",
+   "hi": "2674/823",
+   "width": "1/224679",
+   "widthLog10": -5.351562,
+   "sharedDecimals": 5,
+   "loDec": "3.249084249084249084249084249084",
+   "hiDec": "3.249088699878493317132442284326"
+  },
+  {
+   "y": 47,
+   "exact": false,
+   "lo": "1183/363",
+   "hi": "818/251",
+   "width": "1/91113",
+   "widthLog10": -4.95958,
+   "sharedDecimals": 4,
+   "loDec": "3.258953168044077134986225895316",
+   "hiDec": "3.258964143426294820717131474104"
+  },
+  {
+   "y": 48,
+   "exact": false,
+   "lo": "791/242",
+   "hi": "219/67",
+   "width": "1/16214",
+   "widthLog10": -4.20989,
+   "sharedDecimals": 3,
+   "loDec": "3.268595041322314049586776859504",
+   "hiDec": "3.268656716417910447761194029851"
+  },
+  {
+   "y": 49,
+   "exact": false,
+   "lo": "731/223",
+   "hi": "2865/874",
+   "width": "1/194902",
+   "widthLog10": -5.289816,
+   "sharedDecimals": 4,
+   "loDec": "3.278026905829596412556053811659",
+   "hiDec": "3.278032036613272311212814645309"
+  },
+  {
+   "y": 50,
+   "exact": false,
+   "lo": "309/94",
+   "hi": "1213/369",
+   "width": "1/34686",
+   "widthLog10": -4.540154,
+   "sharedDecimals": 4,
+   "loDec": "3.287234042553191489361702127659",
+   "hiDec": "3.287262872628726287262872628727"
+  },
+  {
+   "y": 51,
+   "exact": false,
+   "lo": "89/27",
+   "hi": "33/10",
+   "width": "1/270",
+   "widthLog10": -2.431364,
+   "sharedDecimals": 0,
+   "loDec": "3.296296296296296296296296296296",
+   "hiDec": "3.300000000000000000000000000000"
+  },
+  {
+   "y": 52,
+   "exact": false,
+   "lo": "899/272",
+   "hi": "704/213",
+   "width": "1/57936",
+   "widthLog10": -4.762949,
+   "sharedDecimals": 4,
+   "loDec": "3.305147058823529411764705882352",
+   "hiDec": "3.305164319248826291079812206573"
+  },
+  {
+   "y": 53,
+   "exact": false,
+   "lo": "1415/427",
+   "hi": "623/188",
+   "width": "1/80276",
+   "widthLog10": -4.904586,
+   "sharedDecimals": 4,
+   "loDec": "3.313817330210772833723653395784",
+   "hiDec": "3.313829787234042553191489361703"
+  },
+  {
+   "y": 54,
+   "exact": false,
+   "lo": "402/121",
+   "hi": "103/31",
+   "width": "1/3751",
+   "widthLog10": -3.574147,
+   "sharedDecimals": 3,
+   "loDec": "3.322314049586776859504132231404",
+   "hiDec": "3.322580645161290322580645161291"
+  },
+  {
+   "y": 55,
+   "exact": false,
+   "lo": "413/124",
+   "hi": "10/3",
+   "width": "1/372",
+   "widthLog10": -2.570543,
+   "sharedDecimals": 2,
+   "loDec": "3.330645161290322580645161290322",
+   "hiDec": "3.333333333333333333333333333334"
+  },
+  {
+   "y": 56,
+   "exact": false,
+   "lo": "1419/425",
+   "hi": "3242/971",
+   "width": "1/412675",
+   "widthLog10": -5.615608,
+   "sharedDecimals": 5,
+   "loDec": "3.338823529411764705882352941176",
+   "hiDec": "3.338825952626158599382080329558"
+  },
+  {
+   "y": 57,
+   "exact": false,
+   "lo": "579/173",
+   "hi": "743/222",
+   "width": "1/38406",
+   "widthLog10": -4.584399,
+   "sharedDecimals": 4,
+   "loDec": "3.346820809248554913294797687861",
+   "hiDec": "3.346846846846846846846846846847"
+  },
+  {
+   "y": 58,
+   "exact": false,
+   "lo": "889/265",
+   "hi": "104/31",
+   "width": "1/8215",
+   "widthLog10": -3.914608,
+   "sharedDecimals": 3,
+   "loDec": "3.354716981132075471698113207547",
+   "hiDec": "3.354838709677419354838709677420"
+  },
+  {
+   "y": 59,
+   "exact": false,
+   "lo": "770/229",
+   "hi": "269/80",
+   "width": "1/18320",
+   "widthLog10": -4.262925,
+   "sharedDecimals": 3,
+   "loDec": "3.362445414847161572052401746724",
+   "hiDec": "3.362500000000000000000000000000"
+  },
+  {
+   "y": 60,
+   "exact": false,
+   "lo": "337/100",
+   "hi": "765/227",
+   "width": "1/22700",
+   "widthLog10": -4.356026,
+   "sharedDecimals": 4,
+   "loDec": "3.370000000000000000000000000000",
+   "hiDec": "3.370044052863436123348017621146"
+  },
+  {
+   "y": 61,
+   "exact": false,
+   "lo": "510/151",
+   "hi": "1351/400",
+   "width": "1/60400",
+   "widthLog10": -4.781037,
+   "sharedDecimals": 3,
+   "loDec": "3.377483443708609271523178807947",
+   "hiDec": "3.377500000000000000000000000000"
+  },
+  {
+   "y": 62,
+   "exact": false,
+   "lo": "44/13",
+   "hi": "1205/356",
+   "width": "1/4628",
+   "widthLog10": -3.665393,
+   "sharedDecimals": 3,
+   "loDec": "3.384615384615384615384615384615",
+   "hiDec": "3.384831460674157303370786516854"
+  },
+  {
+   "y": 63,
+   "exact": false,
+   "lo": "1618/477",
+   "hi": "2215/653",
+   "width": "1/311481",
+   "widthLog10": -5.493432,
+   "sharedDecimals": 5,
+   "loDec": "3.392033542976939203354297693920",
+   "hiDec": "3.392036753445635528330781010720"
+  },
+  {
+   "y": 64,
+   "exact": false,
+   "lo": "758/223",
+   "hi": "775/228",
+   "width": "1/50844",
+   "widthLog10": -4.70624,
+   "sharedDecimals": 4,
+   "loDec": "3.399103139013452914798206278026",
+   "hiDec": "3.399122807017543859649122807018"
+  },
+  {
+   "y": 65,
+   "exact": false,
+   "lo": "562/165",
+   "hi": "671/197",
+   "width": "1/32505",
+   "widthLog10": -4.51195,
+   "sharedDecimals": 4,
+   "loDec": "3.406060606060606060606060606060",
+   "hiDec": "3.406091370558375634517766497462"
+  },
+  {
+   "y": 66,
+   "exact": false,
+   "lo": "1529/448",
+   "hi": "843/247",
+   "width": "1/110656",
+   "widthLog10": -5.043975,
+   "sharedDecimals": 4,
+   "loDec": "3.412946428571428571428571428571",
+   "hiDec": "3.412955465587044534412955465588"
+  },
+  {
+   "y": 67,
+   "exact": false,
+   "lo": "2917/853",
+   "hi": "2257/660",
+   "width": "1/562980",
+   "widthLog10": -5.750493,
+   "sharedDecimals": 5,
+   "loDec": "3.419695193434935521688159437280",
+   "hiDec": "3.419696969696969696969696969697"
+  },
+  {
+   "y": 68,
+   "exact": false,
+   "lo": "1093/319",
+   "hi": "1535/448",
+   "width": "1/142912",
+   "widthLog10": -5.155069,
+   "sharedDecimals": 5,
+   "loDec": "3.426332288401253918495297805642",
+   "hiDec": "3.426339285714285714285714285715"
+  },
+  {
+   "y": 69,
+   "exact": false,
+   "lo": "1253/365",
+   "hi": "1023/298",
+   "width": "1/108770",
+   "widthLog10": -5.036509,
+   "sharedDecimals": 4,
+   "loDec": "3.432876712328767123287671232876",
+   "hiDec": "3.432885906040268456375838926175"
+  },
+  {
+   "y": 70,
+   "exact": false,
+   "lo": "2012/585",
+   "hi": "1417/412",
+   "width": "1/241020",
+   "widthLog10": -5.382053,
+   "sharedDecimals": 4,
+   "loDec": "3.439316239316239316239316239316",
+   "hiDec": "3.439320388349514563106796116505"
+  },
+  {
+   "y": 71,
+   "exact": false,
+   "lo": "317/92",
+   "hi": "286/83",
+   "width": "1/7636",
+   "widthLog10": -3.882866,
+   "sharedDecimals": 3,
+   "loDec": "3.445652173913043478260869565217",
+   "hiDec": "3.445783132530120481927710843374"
+  },
+  {
+   "y": 72,
+   "exact": false,
+   "lo": "2261/655",
+   "hi": "2620/759",
+   "width": "1/497145",
+   "widthLog10": -5.696483,
+   "sharedDecimals": 4,
+   "loDec": "3.451908396946564885496183206106",
+   "hiDec": "3.451910408432147562582345191041"
+  },
+  {
+   "y": 73,
+   "exact": false,
+   "lo": "536/155",
+   "hi": "83/24",
+   "width": "1/3720",
+   "widthLog10": -3.570543,
+   "sharedDecimals": 3,
+   "loDec": "3.458064516129032258064516129032",
+   "hiDec": "3.458333333333333333333333333334"
+  },
+  {
+   "y": 74,
+   "exact": false,
+   "lo": "821/237",
+   "hi": "97/28",
+   "width": "1/6636",
+   "widthLog10": -3.821906,
+   "sharedDecimals": 3,
+   "loDec": "3.464135021097046413502109704641",
+   "hiDec": "3.464285714285714285714285714286"
+  },
+  {
+   "y": 75,
+   "exact": false,
+   "lo": "871/251",
+   "hi": "465/134",
+   "width": "1/33634",
+   "widthLog10": -4.526779,
+   "sharedDecimals": 4,
+   "loDec": "3.470119521912350597609561752988",
+   "hiDec": "3.470149253731343283582089552239"
+  },
+  {
+   "y": 76,
+   "exact": false,
+   "lo": "942/271",
+   "hi": "1957/563",
+   "width": "1/152573",
+   "widthLog10": -5.183478,
+   "sharedDecimals": 4,
+   "loDec": "3.476014760147601476014760147601",
+   "hiDec": "3.476021314387211367673179396093"
+  },
+  {
+   "y": 77,
+   "exact": false,
+   "lo": "383/110",
+   "hi": "1438/413",
+   "width": "1/45430",
+   "widthLog10": -4.657343,
+   "sharedDecimals": 4,
+   "loDec": "3.481818181818181818181818181818",
+   "hiDec": "3.481840193704600484261501210654"
+  },
+  {
+   "y": 78,
+   "exact": false,
+   "lo": "1123/322",
+   "hi": "422/121",
+   "width": "1/38962",
+   "widthLog10": -4.590641,
+   "sharedDecimals": 3,
+   "loDec": "3.487577639751552795031055900621",
+   "hiDec": "3.487603305785123966942148760331"
+  },
+  {
+   "y": 79,
+   "exact": false,
+   "lo": "255/73",
+   "hi": "517/148",
+   "width": "1/10804",
+   "widthLog10": -4.033585,
+   "sharedDecimals": 3,
+   "loDec": "3.493150684931506849315068493150",
+   "hiDec": "3.493243243243243243243243243244"
+  },
+  {
+   "y": 80,
+   "exact": false,
+   "lo": "2981/852",
+   "hi": "1494/427",
+   "width": "1/363804",
+   "widthLog10": -5.560867,
+   "sharedDecimals": 5,
+   "loDec": "3.498826291079812206572769953051",
+   "hiDec": "3.498829039812646370023419203748"
+  },
+  {
+   "y": 81,
+   "exact": false,
+   "lo": "7/2",
+   "hi": "403/115",
+   "width": "1/230",
+   "widthLog10": -2.361728,
+   "sharedDecimals": 2,
+   "loDec": "3.500000000000000000000000000000",
+   "hiDec": "3.504347826086956521739130434783"
+  },
+  {
+   "y": 82,
+   "exact": false,
+   "lo": "3050/869",
+   "hi": "179/51",
+   "width": "1/44319",
+   "widthLog10": -4.64659,
+   "sharedDecimals": 3,
+   "loDec": "3.509781357882623705408515535097",
+   "hiDec": "3.509803921568627450980392156863"
+  },
+  {
+   "y": 83,
+   "exact": false,
+   "lo": "116/33",
+   "hi": "109/31",
+   "width": "1/1023",
+   "widthLog10": -3.009876,
+   "sharedDecimals": 2,
+   "loDec": "3.515151515151515151515151515151",
+   "hiDec": "3.516129032258064516129032258065"
+  },
+  {
+   "y": 84,
+   "exact": false,
+   "lo": "1549/440",
+   "hi": "2151/611",
+   "width": "1/268840",
+   "widthLog10": -5.429494,
+   "sharedDecimals": 5,
+   "loDec": "3.520454545454545454545454545454",
+   "hiDec": "3.520458265139116202945990180033"
+  },
+  {
+   "y": 85,
+   "exact": false,
+   "lo": "892/253",
+   "hi": "3293/934",
+   "width": "1/236302",
+   "widthLog10": -5.373467,
+   "sharedDecimals": 5,
+   "loDec": "3.525691699604743083003952569169",
+   "hiDec": "3.525695931477516059957173447538"
+  },
+  {
+   "y": 86,
+   "exact": false,
+   "lo": "286/81",
+   "hi": "113/32",
+   "width": "1/2592",
+   "widthLog10": -3.413635,
+   "sharedDecimals": 2,
+   "loDec": "3.530864197530864197530864197530",
+   "hiDec": "3.531250000000000000000000000000"
+  },
+  {
+   "y": 87,
+   "exact": false,
+   "lo": "983/278",
+   "hi": "1425/403",
+   "width": "1/112034",
+   "widthLog10": -5.04935,
+   "sharedDecimals": 4,
+   "loDec": "3.535971223021582733812949640287",
+   "hiDec": "3.535980148883374689826302729529"
+  },
+  {
+   "y": 88,
+   "exact": false,
+   "lo": "1381/390",
+   "hi": "2546/719",
+   "width": "1/280410",
+   "widthLog10": -5.447793,
+   "sharedDecimals": 5,
+   "loDec": "3.541025641025641025641025641025",
+   "hiDec": "3.541029207232267037552155771906"
+  },
+  {
+   "y": 89,
+   "exact": false,
+   "lo": "578/163",
+   "hi": "539/152",
+   "width": "1/24776",
+   "widthLog10": -4.394031,
+   "sharedDecimals": 4,
+   "loDec": "3.546012269938650306748466257668",
+   "hiDec": "3.546052631578947368421052631579"
+  },
+  {
+   "y": 90,
+   "exact": false,
+   "lo": "941/265",
+   "hi": "174/49",
+   "width": "1/12985",
+   "widthLog10": -4.113442,
+   "sharedDecimals": 2,
+   "loDec": "3.550943396226415094339622641509",
+   "hiDec": "3.551020408163265306122448979592"
+  },
+  {
+   "y": 91,
+   "exact": false,
+   "lo": "32/9",
+   "hi": "1497/421",
+   "width": "1/3789",
+   "widthLog10": -3.578525,
+   "sharedDecimals": 3,
+   "loDec": "3.555555555555555555555555555555",
+   "hiDec": "3.555819477434679334916864608077"
+  },
+  {
+   "y": 92,
+   "exact": false,
+   "lo": "235/66",
+   "hi": "1791/503",
+   "width": "1/33198",
+   "widthLog10": -4.521112,
+   "sharedDecimals": 4,
+   "loDec": "3.560606060606060606060606060606",
+   "hiDec": "3.560636182902584493041749502983"
+  },
+  {
+   "y": 93,
+   "exact": false,
+   "lo": "2617/734",
+   "hi": "3462/971",
+   "width": "1/712714",
+   "widthLog10": -5.852915,
+   "sharedDecimals": 5,
+   "loDec": "3.565395095367847411444141689373",
+   "hiDec": "3.565396498455200823892893923790"
+  },
+  {
+   "y": 94,
+   "exact": false,
+   "lo": "382/107",
+   "hi": "3081/863",
+   "width": "1/92341",
+   "widthLog10": -4.965395,
+   "sharedDecimals": 3,
+   "loDec": "3.570093457943925233644859813084",
+   "hiDec": "3.570104287369640787949015063732"
+  },
+  {
+   "y": 95,
+   "exact": false,
+   "lo": "1841/515",
+   "hi": "765/214",
+   "width": "1/110210",
+   "widthLog10": -5.042221,
+   "sharedDecimals": 4,
+   "loDec": "3.574757281553398058252427184466",
+   "hiDec": "3.574766355140186915887850467290"
+  },
+  {
+   "y": 96,
+   "exact": false,
+   "lo": "68/19",
+   "hi": "451/126",
+   "width": "1/2394",
+   "widthLog10": -3.379124,
+   "sharedDecimals": 2,
+   "loDec": "3.578947368421052631578947368421",
+   "hiDec": "3.579365079365079365079365079366"
+  },
+  {
+   "y": 97,
+   "exact": false,
+   "lo": "534/149",
+   "hi": "1025/286",
+   "width": "1/42614",
+   "widthLog10": -4.629552,
+   "sharedDecimals": 3,
+   "loDec": "3.583892617449664429530201342281",
+   "hiDec": "3.583916083916083916083916083917"
+  },
+  {
+   "y": 98,
+   "exact": false,
+   "lo": "2293/639",
+   "hi": "1116/311",
+   "width": "1/198729",
+   "widthLog10": -5.298261,
+   "sharedDecimals": 4,
+   "loDec": "3.588419405320813771517996870109",
+   "hiDec": "3.588424437299035369774919614148"
+  },
+  {
+   "y": 99,
+   "exact": false,
+   "lo": "1412/393",
+   "hi": "909/253",
+   "width": "1/99429",
+   "widthLog10": -4.997513,
+   "sharedDecimals": 4,
+   "loDec": "3.592875318066157760814249363867",
+   "hiDec": "3.592885375494071146245059288538"
+  },
+  {
+   "y": 100,
+   "exact": false,
+   "lo": "259/72",
+   "hi": "795/221",
+   "width": "1/15912",
+   "widthLog10": -4.201725,
+   "sharedDecimals": 4,
+   "loDec": "3.597222222222222222222222222222",
+   "hiDec": "3.597285067873303167420814479639"
+  },
+  {
+   "y": 255,
+   "exact": false,
+   "lo": "2435/609",
+   "hi": "2439/610",
+   "width": "1/371490",
+   "widthLog10": -5.569947,
+   "sharedDecimals": 4,
+   "loDec": "3.998357963875205254515599343185",
+   "hiDec": "3.998360655737704918032786885246"
+  },
+  {
+   "y": 256,
+   "exact": true,
+   "k": 4,
+   "lo": "4",
+   "hi": "4",
+   "width": "0",
+   "sharedDecimals": null,
+   "loDec": "4",
+   "hiDec": "4"
+  },
+  {
+   "y": 257,
+   "exact": false,
+   "lo": "4",
+   "hi": "2449/612",
+   "width": "1/612",
+   "widthLog10": -2.786751,
+   "sharedDecimals": 2,
+   "loDec": "4.000000000000000000000000000000",
+   "hiDec": "4.001633986928104575163398692811"
+  },
+  {
+   "y": 3124,
+   "exact": false,
+   "lo": "4",
+   "hi": "5",
+   "width": "1",
+   "widthLog10": 0.0,
+   "sharedDecimals": 0,
+   "loDec": "4.000000000000000000000000000000",
+   "hiDec": "5.000000000000000000000000000000"
+  },
+  {
+   "y": 3125,
+   "exact": true,
+   "k": 5,
+   "lo": "5",
+   "hi": "5",
+   "width": "0",
+   "sharedDecimals": null,
+   "loDec": "5",
+   "hiDec": "5"
+  },
+  {
+   "y": 3126,
+   "exact": false,
+   "lo": "5",
+   "hi": "6",
+   "width": "1",
+   "widthLog10": 0.0,
+   "sharedDecimals": 0,
+   "loDec": "5.000000000000000000000000000000",
+   "hiDec": "6.000000000000000000000000000000"
+  }
+ ],
+ "champions": {
+  "standing": "computed: the study's numbers, transcribed as strings and checked against its own continued fractions; nothing decided",
+  "rows": [
+   {
+    "y": 709,
+    "n": 22,
+    "a": 4651670,
+    "p": "20921543179",
+    "q": "4735484816"
+   },
+   {
+    "y": 419,
+    "n": 32,
+    "a": 35362,
+    "p": "13411503747543",
+    "q": "3189935931869"
+   },
+   {
+    "y": 621,
+    "n": 26,
+    "a": 24682,
+    "p": "433820684589981",
+    "q": "99395501124953"
+   },
+   {
+    "y": 101,
+    "n": 29,
+    "a": 16855,
+    "p": "927575580554664451",
+    "q": "257542007895192516"
+   },
+   {
+    "y": 441,
+    "n": 28,
+    "a": 8503,
+    "p": "216551952620850577",
+    "q": "51251230167401757"
+   },
+   {
+    "y": 3126,
+    "n": 1,
+    "a": 8155,
+    "p": "5",
+    "q": "1"
+   },
+   {
+    "y": 3124,
+    "n": 2,
+    "a": 8152,
+    "p": "5",
+    "q": "1"
+   },
+   {
+    "y": 559,
+    "n": 18,
+    "a": 7265,
+    "p": "92456025",
+    "q": "21392036"
+   },
+   {
+    "y": 551,
+    "n": 19,
+    "a": 6687,
+    "p": "430879037",
+    "q": "99829925"
+   },
+   {
+    "y": 184,
+    "n": 33,
+    "a": 5222,
+    "p": "60797132994905165",
+    "q": "15748191489283486"
+   },
+   {
+    "y": 907,
+    "n": 30,
+    "a": 5221,
+    "p": "34845572519084601",
+    "q": "7714867346196346"
+   },
+   {
+    "y": 616,
+    "n": 20,
+    "a": 5099,
+    "p": "272886334",
+    "q": "62569637"
+   }
+  ]
+ },
+ "generated": "2026-10-31T04:20:05Z",
+ "seconds": 8.2
+}

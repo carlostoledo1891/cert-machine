@@ -532,6 +532,15 @@ const REPORTS = [
     n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'ramsey-ledger.json'), 'utf8'));
       if (L.rows.length !== 18) fail('the Ramsey graphs card would misstate the record');
       return Object.entries(L.counts).map(([w, c]) => c + ' ' + w).join(' · ') + ' · 2 gaps in the release\'s check'; })() },
+  /* the x^x = y report (2026-10-31, the operator): an AI model's proposals, stated by claimbox, decided here with code of
+     our own — filed with the audits, because what is decided is a machine's claims, re-decided from their bytes */
+  { g: 'ai', f: 'xx.html', k: 'audit · an AI model\'s fractions',
+    title: 'The real roots of xˣ = y: every fraction bracket an AI model proposed, decided exactly',
+    desc: 'An AI model computed the root of xˣ = y for every y to a thousand and proposed two fractions to trap each root it put forward; claimbox stated them as claims. '
+      + 'Every side is decided again here, one exact comparison of whole numbers each, with claimbox\'s words beside ours, and the continued fractions read for what they show.',
+    n: (() => { const L = JSON.parse(fs.readFileSync(path.join(ROOT, 'certs', 'xx-ledger.json'), 'utf8')), c = L.counts;
+      if (c.agreeWithClaimbox !== c.claims || c.REFUTED !== c.planted || c.mutantsFlipped !== c.mutants) fail('the x^x card would misstate the record');
+      return c.CERTIFIED + ' of ' + c.claims + ' claims certified · the ' + c.planted + ' planted refuted · claimbox agrees on every claim'; })() },
   { g: 'ai', f: 'selfaudit.html', k: 'the self-audit',
     title: 'The instrument, measured by its own rules',
     desc: 'A pre-registered self-measurement of this machine on its frozen register: planted false, true and malformed claims on every mutable row, '
