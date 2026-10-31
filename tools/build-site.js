@@ -1160,7 +1160,7 @@ B.push(C.section({
       n: 'METR’s time horizon · GSM8K’s answer key · the graders measured · three environments on two frameworks' },
     { href: 'reports/index.html#theorems', k: (seriesCount('theorems') + seriesCount('decisions')) + ' reports', title: 'Certified decisions: theorems, exact values, operations',
       desc: 'Results proved here in exact or interval arithmetic — the calibration of the instruments and some values that were not known — and operational numbers decided over declared envelopes for energy, maritime, aviation and ocean statistics.',
-      n: 'δ₃ = ' + d3.theorem.delta3LowerBound + ' · λ(4) and λ(5) · Erdős #290 and #1038 · Janela (Portuguese), HarborProof, SkyAudit' }
+      n: 'δ₃ = ' + d3.theorem.delta3LowerBound + ' · λ(4) and λ(5) · Erdős #290 and #1038 · Janela, HarborProof, SkyAudit' }
   ])
 }));
 guard('the δ₃ ledger stops verifying the theorem δ₃ = 117/2192 with all of its certificates',
