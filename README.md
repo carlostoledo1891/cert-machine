@@ -2,80 +2,49 @@
 
 *Exact arithmetic, no code shared with the claimant, refusal as a verdict.*
 
-*Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)*
-
+*Carlos Toledo · cert-machine · [carlostoledo.co](https://carlostoledo.co)* &nbsp;
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22225860.svg)](https://doi.org/10.5281/zenodo.22225860)
-**δ₃ = 117/2192** — Graham's $100 question, the case k = 3 of Erdős #1186: the twelve-block colouring of
-Parrilo, Robertson and Saracino (2008) is optimal, so a two-colouring of {1,…,n} has at least
-(117/2192 + o(1))n² monochromatic three-term progressions. Five exact certificates, re-decided by a second
-verifier that shares no code with the first. [The page](https://carlostoledo.co/reports/delta3.html) ·
-[the paper](https://carlostoledo.co/paper/delta3.pdf) · archived at
-[doi:10.5281/zenodo.23171167](https://doi.org/10.5281/zenodo.23171167) · read line by line by the author;
-not refereed, not formalised.
 
-**λ(4) = −L(1,2,3,4)** — the third exact value of Chowla's cosine dip (Erdős #510, finite front),
-proved by executing and completing Mercer's 2019 strategy. [The proof page](https://carlostoledo.co/reports/lambda4.html) ·
-[the write-up](paper/lambda4-proof.md) · machine-derived, not peer-reviewed, refutations invited.
+AI systems now announce records, constants and proofs faster than anyone reads them, and most checks
+compare decimals. Each claim here is re-decided from its published bytes in exact arithmetic, without
+running the claimant's code, and comes back as one of three words: **CERTIFIED**, **REFUTED** with the
+object that breaks it, or **REFUSED** with the reason. Nothing asks for trust: every page is built from
+records that re-run, and refuses to build when a record stops supporting a sentence.
 
-**λ(5) = −L(1,2,4,5,6)** — the fourth, an algebraic number of degree exactly 5, with its minimal
-polynomial exhibited; and with it λ(6) < λ(5), the first non-monotonicity of the sequence.
-[The proof page](https://carlostoledo.co/reports/lambda5.html) · machine-derived, not peer-reviewed.
-An independent audit sharing no code with the engine walked every gcd-reduced 5-set with largest element
-≤ 30 — 139,246 sets, zero refuters — and cross-validated the engine's symbolic layer against direct
-summation to 5e-14; it does **not** yet walk the interior of the eight closure trees, which λ(4)'s audit does.
+## What has come back from outside
 
-> I decide mathematical claims — mine and other people's — in exact
-> arithmetic, without running the claimant's code, and I publish the
-> refusals as well as the verdicts.
->
-> *Only a machine that can prove a theorem should be trusted to refuse one:*
-> the theorems here are the calibration, the audits are the work.
+- **Cited by a registry.** The optimization-constants registry (D. Davis, P. Ivanisvili, T. Tao) removed
+  ten asterisks on these replays, 3 + 1 + 4 + 2 in four merged pull requests (#216, #230, #232, #243),
+  and corrected one row on our check (C₈₄b). Its constant pages cite the replays as [T2026].
+- **Credited by the claimant.** The Qiushi Engine (Oxelra-AI) published the point sets behind 17 of its
+  19 kissing bounds at the audit's request; every pair of 9.75 × 10¹⁵ was then decided exactly. In the
+  authors' words: *"Carlos Toledo has independently verified the complete configurations in all 19
+  dimensions, confirming their point counts and exact dimensions."*
+- **Re-derived outside.** Three outside replayers made seven re-derivations (rainrzk, maximusrufus,
+  JeetuSK0808): five with their own code, two with the tools that wrote the record. They reached the
+  same verdict on every row.
+- **Listed.** Awesome-ai-proofs records two of these audits as audit events.
 
-```
-make engine    generate → screen → certify; writes ledger.json
-make control   rebuild index.html from the ledger (runs every battery)
-make test      every battery
-make site      assemble the public site bundle (site/)
-make drift     re-hash the lifted instruments against the source lab
-```
+Every send and its status is on [the about page](https://carlostoledo.co/about/).
 
-## For evaluation teams: tasks graded by an exact verifier
+## Start here
 
-Every task this machine ships is graded by an exact verifier — no answer key,
-no judge model, no tolerance — and every published number is an enclosure or
-an exact decision with a REFUSED third value. Four artifacts, each with a
-battery on every build and a ledger behind every figure:
-
-- **[METR's time horizon, certified](https://carlostoledo.co/reports/time-horizon.html)** —
-  METR's Time Horizon 1.1 estimator re-implemented in standard-library Python with
-  the optimum proved unique by the Krawczyk operator: 44 of 44 fits certified with
-  boxes below 10⁻¹⁰ on METR's own runs and site files; their printed coefficients
-  are the rounding of the box for 22 of 23 models; the post-2023 doubling time
-  re-derives as 128.74 days (`instruments/horizon`, `tools/run-horizon-ledger.py`).
-  The instrument built to decide a time horizon on judge-free tasks, calibrated on
-  the one that exists; the result written for a system card, a regulator and a post.
-- **[blind-spot](https://carlostoledo.co/instruments/blind-spot)** under
-  [Inspect](environments/blind_spot/inspect/) and verifiers — an RTL mutation task
-  (yosys mutants, SAT-labelled; a kill is simulated, equivalence is proved) whose
-  Inspect scorer is the verifiers rubric's own function, with a battery proving the
-  two grade all 400 pooled mutants identically. Three rungs; human baselines by
-  the protocol in `environments/blind_spot/baselines.json`.
-- **[GSM8K's answer key, re-decided](https://carlostoledo.co/reports/gsm8k-audit.html)** —
-  every calculator annotation and prose step of the 8,792 keys evaluated exactly:
-  the arithmetic is clean where humans looked and slips where no model disagreed;
-  GSM8K-Platinum's ten relabellings are readings, not sums (`instruments/gsm8k`).
-- **Three verifier-graded environments on the Prime Intellect hub** —
-  `carlos-toledo/blind-spot`, `break-the-grader`, `lattice-claims`
-  (`environments/`, `instruments/wiring`), each verified from the registry in a
-  clean install and run against live models with every rollout re-scored offline.
-
-The shortest tour: [carlostoledo.co/portfolio](https://carlostoledo.co/portfolio/).
+| | |
+|---|---|
+| [**The audits**](https://carlostoledo.co/reports/index.html#audits) | releases, registries, manuscripts and announced records from AI systems, re-decided from their published bytes by programs that share no code with the claimant |
+| [**Two claimed refutations of ETH**](https://carlostoledo.co/eth/) | OpenAI's and Anthropic's Lean proofs replayed from their pinned bytes under two kernels; what each statement says is read separately, and the page keeps the two kinds of check apart |
+| [**The claims register**](https://carlostoledo.co/reports/claims.html) | 131 machine-generated claims decided since August 2026, each with its verdict and the record that decided it |
+| [**δ₃ = 117/2192**](https://carlostoledo.co/reports/delta3.html) | Graham's $100 question (Erdős #1186, k = 3): five exact certificates, a second verifier with no shared code, [the paper](https://carlostoledo.co/paper/delta3.pdf), [doi:10.5281/zenodo.23171167](https://doi.org/10.5281/zenodo.23171167) |
+| [**λ(4)**](https://carlostoledo.co/reports/lambda4.html) and [**λ(5)**](https://carlostoledo.co/reports/lambda5.html) | exact values of Chowla's cosine dip (Erdős #510), with an outside re-certification of λ(4) that shares no code with this machine |
+| [**The method paper**](https://carlostoledo.co/paper/cert-machine-method.pdf) | how a claim is decided and what gets refused (draft) |
+| [**WARRANT, the visual layer of evidence**](https://carlostoledo.co/grammar/) | every mark says what it rests on: solid where decided, dashed where computed, dotted where chosen, absent where refused |
+| [**Send a claim**](https://github.com/carlostoledo1891/cert-machine/issues/new?template=claim.yml) | a claim sent here is either decided or refused with the reason; the verdict is published whichever way it falls |
 
 ## Check a result yourself, in ten seconds
 
-Every headline claim detaches into a certificate — a JSON file of exact
-numbers — plus a verifier in plain Python: standard library only, nothing to
-install, zero code shared with the engine that produced the claim.
+Every headline claim detaches into a certificate (a JSON file of exact numbers) and a verifier in plain
+Python: standard library only, nothing to install, and no code shared with the engine that produced the
+claim.
 
 ```
 python3 tools/verify_erdos852.py certs/erdos852-certificate.json --sources corpus/sources
@@ -83,17 +52,14 @@ python3 tools/verify_keller.py   certs/keller-certificate.json   --sources corpu
 python3 tools/verify_strassen.py certs/strassen-certificate.json --sources corpus/sources
 ```
 
-Each one re-derives the mathematics from the certificate alone, re-hashes the
-pinned sources it cites, must refute a deliberately forged value before it
-will exit green, and prints the sha256 of the certificate it checked. All
-three finish in about a second.
+Each verifier re-derives the mathematics from the certificate alone and re-hashes the pinned sources it
+cites. It must refute a deliberately forged value before it exits green, and it prints the sha256 of the
+certificate it checked. Each run takes about a second.
 
-The whole kit — one line per record the claims register is derived from, the
-verifier where one exists, the record's hash, and the registry of who outside
-has re-run what — is [RERUN.md](RERUN.md), generated by the same build as
-[carlostoledo.co/reports/rerun.html](https://carlostoledo.co/reports/rerun.html).
-A rerun is reported through the `rerun` issue template and recorded in
-`corpus/external-reruns.json`.
+The whole kit is [RERUN.md](RERUN.md): one line for each record the claims register is derived from, the
+verifier where one exists, the record's hash, and the registry of who outside has re-run what. The same
+build generates [carlostoledo.co/reports/rerun.html](https://carlostoledo.co/reports/rerun.html).
+A rerun is reported through the `rerun` issue template and recorded in `corpus/external-reruns.json`.
 
 ## What the machine holds
 
@@ -101,7 +67,7 @@ Three products for the AI-mathematics era, standing on classical proving
 ground:
 
 - **Certified audits of published AI-generated mathematics.** The
-  GPT-published constant on Erdős #852, refuted at its 12th significant digit
+  GPT-published constant on Erdős #852, refuted at its 11th significant digit
   and shown to *be* the naive IEEE-754 float product, digit for digit — with
   the corrected value certified to width 3.2e-16. All 51 printed rows of the
   Ramanujan Machine's seven result sheets decided: 50 survive an
@@ -139,6 +105,36 @@ Plus the extremal tables: the first certified mu(n) rows for n = 10..17, an
 on a lineage that runs Campbell–Ferguson–Forcade 1983 → Goddard 1992 →
 Mercer 2019 → here, and M(0,1,2,6,9) = 1 **exactly**, by Sturm — an equality
 no floating-point enclosure could ever decide.
+
+## For evaluation teams: tasks graded by an exact verifier
+
+Every task this machine ships is graded by an exact verifier — no answer key,
+no judge model, no tolerance — and every published number is an enclosure or
+an exact decision with a REFUSED third value. Four artifacts, each with a
+battery on every build and a ledger behind every figure:
+
+- **[METR's time horizon, certified](https://carlostoledo.co/reports/time-horizon.html)** —
+  METR's Time Horizon 1.1 estimator re-implemented in standard-library Python with
+  the optimum proved unique by the Krawczyk operator: 44 of 44 fits certified with
+  boxes below 10⁻¹⁰ on METR's own runs and site files; their printed coefficients
+  are the rounding of the box for 22 of 23 models; the post-2023 doubling time
+  re-derives as 128.74 days (`instruments/horizon`, `tools/run-horizon-ledger.py`).
+  The instrument built to decide a time horizon on judge-free tasks, calibrated on
+  the one that exists; the result written for a system card, a regulator and a post.
+- **[blind-spot](https://carlostoledo.co/instruments/blind-spot)** under
+  [Inspect](environments/blind_spot/inspect/) and verifiers — an RTL mutation task
+  (yosys mutants, SAT-labelled; a kill is simulated, equivalence is proved) whose
+  Inspect scorer is the verifiers rubric's own function, with a battery proving the
+  two grade all 400 pooled mutants identically. Three rungs; human baselines by
+  the protocol in `environments/blind_spot/baselines.json`.
+- **[GSM8K's answer key, re-decided](https://carlostoledo.co/reports/gsm8k-audit.html)** —
+  every calculator annotation and prose step of the 8,792 keys evaluated exactly:
+  the arithmetic is clean where humans looked and slips where no model disagreed;
+  GSM8K-Platinum's ten relabellings are readings, not sums (`instruments/gsm8k`).
+- **Three verifier-graded environments on the Prime Intellect hub** —
+  `carlos-toledo/blind-spot`, `break-the-grader`, `lattice-claims`
+  (`environments/`, `instruments/wiring`), each verified from the registry in a
+  clean install and run against live models with every rollout re-scored offline.
 
 ## The problem
 
@@ -349,6 +345,16 @@ reader in under a minute, which is exactly the review this page invites.
   re-derives the Jacobian, expands the determinant symbolically, evaluates the
   collisions, re-hashes the pinned sources, and must also refute a deliberately
   forged coefficient before it will exit green.
+
+## Build
+
+```
+make engine    generate → screen → certify; writes ledger.json
+make control   rebuild index.html from the ledger (runs every battery)
+make test      every battery
+make site      assemble the public site bundle (site/)
+make drift     re-hash the lifted instruments against the source lab
+```
 
 ## License
 
