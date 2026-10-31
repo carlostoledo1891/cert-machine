@@ -35,7 +35,6 @@ const CH = require(path.join(ROOT, 'design', 'charts.js'));
 const T = require(path.join(ROOT, 'design', 'tokens.js'));
 const G = require(path.join(ROOT, 'design', 'grammar.js'));
 const W = require(path.join(ROOT, 'playground', 'warrant.js'));
-const WPT = require(path.join(ROOT, 'playground', 'warrant-pt.js'));
 const APP = require(path.join(ROOT, 'design', 'app-shell.js'));
 const { mstUnique } = require(path.join(ROOT, 'playground', 'mst.js'));
 const COL = require(path.join(ROOT, 'design', 'colour.js'));
@@ -116,9 +115,6 @@ function html() {
   const hatch = /<pattern id="([^"]+)"/.exec(LEGEND_FULL);
   guard('the standing legend no longer defines its own hatch for the void (the specimens below paint the void with it)', !!hatch);
   const HATCH = hatch[1];
-  /* the Portuguese words exist for every word the legend and the ladder use, so a pt page can follow */
-  guard('playground/warrant-pt.js lacks a Portuguese word for a legend or ladder word on this page',
-    W.LEGEND.every((L) => WPT.LEGEND[L.label] && WPT.LEGEND[L.gloss]) && WPT.GRADE.length === W.GRADE.length);
 
   /* =============================================== the specimens' numbers ==
      y = √x on [−1, 4]. Everything exact is decided here in BigInt; everything float is Math.sqrt. */
@@ -744,8 +740,7 @@ function html() {
     bodyRaw: '<div class="col">' + C.p('The design wave from the gallery, the same drawing three times: on the site’s dark screen; on white paper in the print register, where every ink is checked for contrast; and as a mono laser prints it, every colour its grey. Standing rides on the stroke, never on colour, so nothing is lost on the way down.') + '</div>'
       + '<div class="gx-outs">' + outCard('on screen', 'gx-screen', dwScreen, 'The site’s dark register.') + outCard('on paper', 'gx-paper', dwPaper, 'The print register: ink #000 decided, #262626 computed, #4d4d4d chosen.') + outCard('on a mono laser', 'gx-paper gx-grey', dwGrey, 'Every colour its grey; the strokes still say what each mark rests on.') + '</div>'
       + '<div class="gx-codes"><div><div class="gx-k">python · matplotlib</div>' + C.code(PY) + '</div><div><div class="gx-k">javascript · svg and html</div>' + C.code(JS) + '</div></div>'
-      + '<div class="col">' + C.pRaw('No package yet: copy one folder. ' + a(blob('kits/warrant-mpl'), 'kits/warrant-mpl') + ' for matplotlib (with the design wave, a return curve and the contours as worked examples), or ' + a(blob('playground/warrant.js'), 'warrant.js') + ' and ' + a(blob('design/grammar.js'), 'grammar.js') + ' for the web, MIT. On a canvas, ' + m('setLineDash') + ' takes the same patterns. '
-        + 'The words in Portuguese — ' + WPT.GRADE.map((g) => '<em>' + esc(g) + '</em>').join(', ') + ' — are in ' + a(blob('playground/warrant-pt.js'), 'warrant-pt.js') + '.')
+      + '<div class="col">' + C.pRaw('No package yet: copy one folder. ' + a(blob('kits/warrant-mpl'), 'kits/warrant-mpl') + ' for matplotlib (with the design wave, a return curve and the contours as worked examples), or ' + a(blob('playground/warrant.js'), 'warrant.js') + ' and ' + a(blob('design/grammar.js'), 'grammar.js') + ' for the web, MIT. On a canvas, ' + m('setLineDash') + ' takes the same patterns.')
       + '<details class="more"><summary>Every part, with the call that draws it</summary>' + PL.grid(3, COMPONENTS) + '</details></div>' }));
 
   /* §5 held by the build */

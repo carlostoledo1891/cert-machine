@@ -27,7 +27,8 @@ NEXT SESSION, IN ORDER:
      PLAN.md §9): the receiver took a record's word for an EinsteinArena platform score moved by 2,000,001 units of its last
      digit (certs/mc100-einstein-arena.json, whose row carries no value) and printed CERTIFIED. Proposed: hold an object's
      bar to the claim its record row states, or require the record's value, else refuse as record-decision-mismatch.
-     A receiver change: both checkers + the decider, then `make lift` in claimbox. Waits on the operator's word.
+     A receiver change: both checkers + the decider, then `make lift` in claimbox. APPROVED ("Fix now"): lane
+     lane-receiver-record-mismatch running; lane-overlaps fixes pqc @1440 and navier-stokes at 900 px tall (approved).
   ◆ 2026-10-30 late — RULED (the operator, on "some pages do not have the dark/light toggle"): the ten DARK_ONLY
      /instruments pages are REDRAWN IN TOKENS (their art becomes ink on paper in light), canvases REPAINT AT ONCE on a
      flip (design/nav.js now dispatches "warrant-theme" on document, 9820a8d3; contours gets the same fix), and THE APPS
@@ -71,7 +72,9 @@ NEXT SESSION, IN ORDER:
      OPEN, FOUND ON THE WAY: apps/janela/deck.sha256 (20320b47) already disagreed with the deck's words (2c14fed4) before
        today; the deck builder's --v-refu → --witness edit changes the words hash again, so the next build with Janela's
        local day data re-prints janela-apresentacao.pdf (same look, new bytes) — pin first if that PDF counts as sent.
-       playground/warrant-pt.js: Janela no longer reads it; its header still names /eleicoes2026/ — likely dead now.
+       playground/warrant-pt.js: REMOVED 2026-10-30 night on the operator's word, with /grammar/'s "words in Portuguese" line.
+       THE DECK: not sent (the operator); re-printed from today's data (words cc376971…, deck.sha256 honest again; the deck
+       itself is still in Portuguese).
        claims.json's "what" line still says quem/disse. Seven values on /janela/metodo/ have no record address (forecast
        numbers in the gzip feed).
   ◆ 2026-10-30 — THE OPERATOR RULED THE OPEN QUESTIONS (asked in chat, every answer below is theirs). DONE: /claimbox/

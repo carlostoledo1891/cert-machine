@@ -20,7 +20,7 @@ const esc = require(path.join(ROOT, 'design', 'components.js')).esc;
 /* WARRANT (design/WARRANT.md, v2.1): the grammar's renderer, here for the shell's own marks and shipped to the tab beside
    the deciding modules (not a deciding module: no pin, no day check), so the card draws with the same calls */
 const WR = require(path.join(ROOT, 'playground', 'warrant.js'));
-/* its own English words: the legend and the premise ladder (the app went English 2026-10-30; warrant-pt.js is not read here) */
+/* its own English words: the legend and the premise ladder (the app went English 2026-10-30) */
 const GW = WR.GRADE, GG = WR.GRADE_GLOSS, legend = WR.legendHtml;
 /* a held-out statistic is a FLOATING-POINT evaluation (the record says so): its value is computed, never decided */
 /* `from`: the record cells it is computed from (numbers.js N.at, D10) */
