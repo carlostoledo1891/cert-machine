@@ -22,6 +22,12 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 — VERIFY GYM (the operator: "a real one, not experimental… the first real outcome on this path"). RULED: ground
+     first, then model (a trained open model ships only if it beats its base on held-out tasks); first family BRACKET A
+     CONSTANT (x^x = y, k-th roots, polynomial roots; reward = certified decimals, 0 if refuted or unchecked — the graded
+     reward answers lattice-claims' and Claim Court's collapse); training budget up to US$500 later; name "Verify Gym".
+     v0 BEING BUILT on lane-verify-gym (pre-registration first, environments/verify_gym, two exact deciders, frozen held-out,
+     policy scorecard). No paid runs, no Hub publish, no page without the operator's word.
   ◆ 2026-10-31 — SPEEDRUN SR008 SUBMITTED by the operator, as "Verify" (carlostoledo.co/verify): answers and the 8-slide deck
      in outreach/speedrun-sr008/ (untracked: the repo is public; deck.js rebuilds the PDF from records). If speedrun asks for
      more: a video pitch (the operator on camera, script in application.md) or a 15-minute interview.
