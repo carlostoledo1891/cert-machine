@@ -31,6 +31,7 @@ import os
 import sys
 import threading
 import time
+import urllib.error
 import urllib.request
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -73,6 +74,7 @@ def policy_reply(name, row, k):
     return _REPLY[key], "stop"
 
 
+RATE_LIMIT_WAITS = 120                                 # HTTP 429s waited out per call (about 2 h at most)
 USAGE = {}                                             # (task id, sample) -> the endpoint's token counts and cost
 
 
@@ -90,7 +92,8 @@ def endpoint_reply(cfg, row, k):
                                  headers={"content-type": "application/json", "user-agent": "verify-gym/0",
                                           **({"authorization": "Bearer " + key} if key else {})})
     err = None
-    for attempt in range(3):
+    failures, waits = 0, 0
+    while True:
         try:
             with urllib.request.urlopen(req, timeout=cfg["timeout"]) as r:
                 j = json.loads(r.read())
@@ -99,10 +102,17 @@ def endpoint_reply(cfg, row, k):
             USAGE[(row["id"], k)] = {f: u[f] for f in ("prompt_tokens", "completion_tokens", "cost")
                                      if isinstance(u.get(f), (int, float)) and not isinstance(u.get(f), bool)}
             return (c.get("message") or {}).get("content") or "", c.get("finish_reason")
+        except urllib.error.HTTPError as e:             # a rate limit (429) is waited out, never counted as a failure
+            if e.code == 429 and waits < RATE_LIMIT_WAITS:
+                waits += 1
+                time.sleep(min(60, 5 * 2 ** min(waits, 4)))
+                continue
+            err, failures = e, failures + 1
         except Exception as e:                          # noqa: BLE001 (any failure is retried, then stops the run)
-            err = e
-            time.sleep(2 ** attempt)
-    raise RuntimeError("the call for %s sample %d failed 3 times: %s" % (row["id"], k, str(err)[:200]))
+            err, failures = e, failures + 1
+        if failures >= 3:
+            raise RuntimeError("the call for %s sample %d failed 3 times: %s" % (row["id"], k, str(err)[:200]))
+        time.sleep(2 ** failures)
 
 
 # ---- the run ---------------------------------------------------------------------------------------------------
