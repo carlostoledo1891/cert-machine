@@ -1,0 +1,1137 @@
+{
+ "what": "M87*: the lensing maps of Phase 1 (COMPUTED, double precision, stored as half floats) graded against Phase 0's decided Kerr curve and against Gralla & Lupsasca's closed form",
+ "standing": "COMPUTED: the maps draw dashed; only the Phase 0 curve draws solid. AGREES means the computed layer reached the premise ladder's \"verified\" rung against the decided one, at the stated resolution; it is never CERTIFIED",
+ "verdict": "AGREES",
+ "preregistration": {
+  "path": "notes/black-hole-phase0-preregistration-2026-10-31.md",
+  "sha256": "f88a04e91c38de3817d3d4241a383acc09ec2b4a239c936b3c0c522bad7f169b",
+  "section": "Phase 1",
+  "committedBeforeAnyRay": "455fa5fb"
+ },
+ "code": {
+  "instruments/kerr/rays.js": "1aa399df725d7fa309540f1d6e3fe0414ee74c081fcfd845bea39c7a7c3f40fa",
+  "instruments/kerr/kerr.js": "f25ee51474069f12db6dbce4a1fc516acdc87c4231e9c1a55f37b6d3d9873de6",
+  "tools/run-bh-maps.js": "2f20b4072e1c05d5d9db4a63ed85be0e171ebb5a5c31d8705233f6fa3ac3bcd1",
+  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
+  "instruments/interval/algebraic.js": "bf6bbbccc41237c3519e173cf5a9439c3da59f8487b74c090f56a3c3fa57cfb0",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920"
+ },
+ "phase0": {
+  "record": "certs/bh-shadow.json",
+  "sha256": "4fa03091059dc8c475ceacca31f89cffd9ab1072dc9777acc7b8ac961d689499"
+ },
+ "maps": {
+  "manifest": "corpus/bh-maps/manifest.json",
+  "manifestSha256": "3635538572da897d78cd2dc85e0207b531a854b029ccf2e94b2a89418f389641",
+  "files": 16,
+  "totalBytes": 4937606,
+  "grid": {
+   "n": 512,
+   "alpha": [
+    -20,
+    20
+   ],
+   "beta": [
+    -20,
+    20
+   ],
+   "pitchM": "5/64",
+   "pixelCentre": "α_i = −20 + (i + ½)·5/64, β_j = 20 − (j + ½)·5/64 (row 0 the top)",
+   "axes": "Bardeen's image plane in units of M, observer at infinity: α to the right, β up along the projected spin axis; λ = −α sin θo, η = (α² − a²) cos²θo + β²"
+  },
+  "spins": [
+   "0",
+   "1/2",
+   "47/50",
+   "499/500"
+  ],
+  "defaultSpin": "47/50",
+  "camera": {
+   "inclinationDeg": 17,
+   "cos": 0.9563047559630355,
+   "sin": 0.2923717047227367,
+   "note": "the operator's ruling: fixed at 17° (the jet's 17.2° ± 3.3°, Mertens et al. 2016); the EHT's 163° is the mirror image"
+  },
+  "disk": {
+   "standing": "ASSUMED (the operator's simple thin-disk model)",
+   "velocity": "prograde Keplerian circular orbits, Ω = 1/(r^{3/2} + a); g = 1/[u^t (1 − Ω λ)], u^t = (r^{3/2} + a)/(r^{3/4} √(r^{3/2} − 3 r^{1/2} + 2a))",
+   "innerEdge": "cut at the ISCO: g only where r_s ≥ the upper end of Phase 0's ISCO enclosure; inside it r_s and φ_s are kept, g is NaN (no plunging matter)",
+   "riscoUsed": {
+    "0": 6.000001,
+    "1/2": 4.233003,
+    "47/50": 2.023594,
+    "499/500": 1.236971
+   },
+   "emissionForPhase2": "declared, not used by the maps: optically thin, every image adds; J(r) ∝ r⁻² on [r_isco, 20 M]; I_obs = Σ_n g_n³ J(r_n)"
+  }
+ },
+ "words": {
+  "AGREES": "the check holds at its stated resolution",
+  "DISAGREES": "it fails: the map (or the control) is not the decided geometry"
+ },
+ "checks": {
+  "pins": {
+   "files": 16,
+   "verdict": "AGREES",
+   "rule": "every stored file and its decompressed bytes match the manifest's sha256"
+  },
+  "schwarzschild": {
+   "sqrt27": "[5.196152422706631, 5.196152422706633] (Phase 0)",
+   "maxTracedEdgeMinusSqrt27M": "8.88e-16",
+   "threshold": "1e-8 M",
+   "verdict": "AGREES"
+  },
+  "perSpin": {
+   "0": {
+    "spin": "0",
+    "coverage": {
+     "n0": {
+      "pixels": 257988,
+      "beyond200M": 0,
+      "withG": 237946
+     },
+     "n1": {
+      "pixels": 6982,
+      "beyond200M": 266,
+      "withG": 4158
+     },
+     "n2": {
+      "pixels": 260,
+      "beyond200M": 8,
+      "withG": 104
+     }
+    },
+    "retrace": {
+     "sampled": 2703,
+     "bitIdentical": 2703,
+     "differ": 0,
+     "verdict": "AGREES"
+    },
+    "closedForm": {
+     "crossings": 2732,
+     "maxMinoTimeVsAngular": "1.51e-14",
+     "maxRadiusErrorM": "3.07e-10",
+     "worstAt": {
+      "alpha": 5.1953125,
+      "beta": 2.9296875,
+      "n": 1,
+      "r": 166.449275
+     },
+     "threshold": "1e-6 M",
+     "verdict": "AGREES"
+    },
+    "curve": {
+     "decidedPoints": 4534,
+     "maxBoxHalfWidthM": "3.50e-9",
+     "smallestEndBeta": "6.21e-5"
+    },
+    "pointwise": {
+     "epsilon": 0.000001,
+     "points": 756,
+     "rule": "the ray at (1 − ε)·P captured and at (1 + ε)·P escaped, P proven on the decided curve",
+     "fail": 0,
+     "firstFailures": [],
+     "verdict": "AGREES"
+    },
+    "bisected": {
+     "points": 24,
+     "resolution": "2e-3 / 2^44 relative",
+     "maxDistanceToDecidedM": "2.31e-15"
+    },
+    "texture": {
+     "capturedPixels": 13900,
+     "insideDecidedCurve": 13900,
+     "mismatched": 0,
+     "unjudgedWithin1e4M": 0,
+     "extents": {
+      "W": {
+       "fromMap": 10.390625,
+       "trueExtentIn": "[10.3902, 10.5469]",
+       "phase0": "[10.392304, 10.392306]",
+       "meets": true
+      },
+      "H": {
+       "fromMap": 10.390625,
+       "trueExtentIn": "[10.3902, 10.5469]",
+       "phase0": "[10.392304, 10.392305]",
+       "meets": true
+      },
+      "d": {
+       "fromMap": 10.390625,
+       "trueExtentIn": "[10.3902, 10.5469]",
+       "phase0": "[10.392304, 10.392305]",
+       "meets": true
+      }
+     },
+     "verdict": "AGREES"
+    },
+    "convergence": {
+     "spokes": [
+      {
+       "at": {
+        "alpha": -5.1962,
+        "beta": 0.0001,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "9.714e-1",
+        "3.179e-2",
+        "1.353e-3",
+        "5.842e-5"
+       ],
+       "ratios": [
+        0.0327,
+        0.0426,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": -3.8441,
+        "beta": 3.4961,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "7.513e-1",
+        "2.588e-2",
+        "1.104e-3",
+        "4.769e-5"
+       ],
+       "ratios": [
+        0.0344,
+        0.0427,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": -0.0075,
+        "beta": 5.1961,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "6.697e-1",
+        "2.354e-2",
+        "1.005e-3",
+        "4.342e-5"
+       ],
+       "ratios": [
+        0.0351,
+        0.0427,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": 3.8366,
+        "beta": 3.5044,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "7.509e-1",
+        "2.587e-2",
+        "1.104e-3",
+        "4.767e-5"
+       ],
+       "ratios": [
+        0.0344,
+        0.0427,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": 5.1962,
+        "beta": 0.0003,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "9.714e-1",
+        "3.179e-2",
+        "1.353e-3",
+        "5.842e-5"
+       ],
+       "ratios": [
+        0.0327,
+        0.0426,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": 3.8554,
+        "beta": -3.4837,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "1.273e+0",
+        "3.903e-2",
+        "1.657e-3",
+        "7.151e-5"
+       ],
+       "ratios": [
+        0.0307,
+        0.0424,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": 0.0301,
+        "beta": -5.1961,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "1.454e+0",
+        "4.298e-2",
+        "1.821e-3",
+        "7.860e-5"
+       ],
+       "ratios": [
+        0.0296,
+        0.0424,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      },
+      {
+       "at": {
+        "alpha": -3.8253,
+        "beta": -3.5167,
+        "rOrbit": 3
+       },
+       "distanceM": [
+        "1.276e+0",
+        "3.911e-2",
+        "1.660e-3",
+        "7.164e-5"
+       ],
+       "ratios": [
+        0.0306,
+        0.0424,
+        0.0432
+       ],
+       "expMinusGamma": 0.0432,
+       "decreasingAndBelowPixel": true,
+       "withinFivePercentOfExpMinusPi": true
+      }
+     ],
+     "rule": "the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2",
+     "verdict": "AGREES"
+    }
+   },
+   "1/2": {
+    "spin": "1/2",
+    "coverage": {
+     "n0": {
+      "pixels": 258228,
+      "beyond200M": 0,
+      "withG": 248610
+     },
+     "n1": {
+      "pixels": 7254,
+      "beyond200M": 261,
+      "withG": 5033
+     },
+     "n2": {
+      "pixels": 263,
+      "beyond200M": 2,
+      "withG": 157
+     }
+    },
+    "retrace": {
+     "sampled": 2703,
+     "bitIdentical": 2703,
+     "differ": 0,
+     "verdict": "AGREES"
+    },
+    "closedForm": {
+     "crossings": 2739,
+     "maxMinoTimeVsAngular": "1.83e-12",
+     "maxRadiusErrorM": "3.49e-10",
+     "worstAt": {
+      "alpha": 4.3359375,
+      "beta": -4.9609375,
+      "n": 1,
+      "r": 139.363306
+     },
+     "threshold": "1e-6 M",
+     "verdict": "AGREES"
+    },
+    "curve": {
+     "decidedPoints": 4526,
+     "maxBoxHalfWidthM": "1.04e-8",
+     "smallestEndBeta": "1.99e-5"
+    },
+    "pointwise": {
+     "epsilon": 0.000001,
+     "points": 755,
+     "rule": "the ray at (1 − ε)·P captured and at (1 + ε)·P escaped, P proven on the decided curve",
+     "fail": 0,
+     "firstFailures": [],
+     "verdict": "AGREES"
+    },
+    "bisected": {
+     "points": 24,
+     "resolution": "2e-3 / 2^44 relative",
+     "maxDistanceToDecidedM": "2.25e-15"
+    },
+    "texture": {
+     "capturedPixels": 13510,
+     "insideDecidedCurve": 13510,
+     "mismatched": 0,
+     "unjudgedWithin1e4M": 0,
+     "extents": {
+      "W": {
+       "fromMap": 10.15625,
+       "trueExtentIn": "[10.1558, 10.3125]",
+       "phase0": "[10.239951, 10.239962]",
+       "meets": true
+      },
+      "H": {
+       "fromMap": 10.234375,
+       "trueExtentIn": "[10.2340, 10.3906]",
+       "phase0": "[10.254574, 10.254579]",
+       "meets": true
+      },
+      "d": {
+       "fromMap": 10.195313,
+       "trueExtentIn": "[10.1949, 10.3516]",
+       "phase0": "[10.247263, 10.247270]",
+       "meets": true
+      }
+     },
+     "verdict": "AGREES"
+    },
+    "convergence": {
+     "spokes": [
+      {
+       "at": {
+        "alpha": -4.8188,
+        "beta": 0,
+        "rOrbit": 2.7097
+       },
+       "distanceM": [
+        "1.014e+0",
+        "3.705e-2",
+        "1.780e-3",
+        "8.690e-5"
+       ],
+       "ratios": [
+        0.0365,
+        0.048,
+        0.0488
+       ],
+       "expMinusGamma": 0.0489,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -3.5422,
+        "beta": 3.3878,
+        "rOrbit": 2.7567
+       },
+       "distanceM": [
+        "7.844e-1",
+        "3.027e-2",
+        "1.460e-3",
+        "7.136e-5"
+       ],
+       "ratios": [
+        0.0386,
+        0.0482,
+        0.0489
+       ],
+       "expMinusGamma": 0.0489,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 0.2898,
+        "beta": 5.1273,
+        "rOrbit": 2.8933
+       },
+       "distanceM": [
+        "7.038e-1",
+        "2.751e-2",
+        "1.320e-3",
+        "6.412e-5"
+       ],
+       "ratios": [
+        0.0391,
+        0.048,
+        0.0486
+       ],
+       "expMinusGamma": 0.0486,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 4.0695,
+        "beta": 3.4708,
+        "rOrbit": 3.0216
+       },
+       "distanceM": [
+        "7.888e-1",
+        "2.974e-2",
+        "1.404e-3",
+        "6.717e-5"
+       ],
+       "ratios": [
+        0.0377,
+        0.0472,
+        0.0478
+       ],
+       "expMinusGamma": 0.0479,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 5.4212,
+        "beta": 0.0002,
+        "rOrbit": 3.066
+       },
+       "distanceM": [
+        "1.004e+0",
+        "3.574e-2",
+        "1.672e-3",
+        "7.943e-5"
+       ],
+       "ratios": [
+        0.0356,
+        0.0468,
+        0.0475
+       ],
+       "expMinusGamma": 0.0476,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 4.088,
+        "beta": -3.4506,
+        "rOrbit": 3.0222
+       },
+       "distanceM": [
+        "1.298e+0",
+        "4.363e-2",
+        "2.047e-3",
+        "9.791e-5"
+       ],
+       "ratios": [
+        0.0336,
+        0.0469,
+        0.0478
+       ],
+       "expMinusGamma": 0.0479,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 0.3249,
+        "beta": -5.1272,
+        "rOrbit": 2.8945
+       },
+       "distanceM": [
+        "1.498e+0",
+        "4.905e-2",
+        "2.332e-3",
+        "1.132e-4"
+       ],
+       "ratios": [
+        0.0328,
+        0.0475,
+        0.0486
+       ],
+       "expMinusGamma": 0.0486,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -3.5255,
+        "beta": -3.4067,
+        "rOrbit": 2.7573
+       },
+       "distanceM": [
+        "1.333e+0",
+        "4.546e-2",
+        "2.179e-3",
+        "1.065e-4"
+       ],
+       "ratios": [
+        0.0341,
+        0.0479,
+        0.0489
+       ],
+       "expMinusGamma": 0.0489,
+       "decreasingAndBelowPixel": true
+      }
+     ],
+     "rule": "the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2",
+     "verdict": "AGREES"
+    }
+   },
+   "47/50": {
+    "spin": "47/50",
+    "coverage": {
+     "n0": {
+      "pixels": 259308,
+      "beyond200M": 0,
+      "withG": 257451
+     },
+     "n1": {
+      "pixels": 8556,
+      "beyond200M": 274,
+      "withG": 7159
+     },
+     "n2": {
+      "pixels": 475,
+      "beyond200M": 7,
+      "withG": 340
+     }
+    },
+    "retrace": {
+     "sampled": 2703,
+     "bitIdentical": 2703,
+     "differ": 0,
+     "verdict": "AGREES"
+    },
+    "closedForm": {
+     "crossings": 2760,
+     "maxMinoTimeVsAngular": "3.97e-13",
+     "maxRadiusErrorM": "1.74e-10",
+     "worstAt": {
+      "alpha": 4.0234375,
+      "beta": 4.5703125,
+      "n": 1,
+      "r": 90.585377
+     },
+     "threshold": "1e-6 M",
+     "verdict": "AGREES"
+    },
+    "curve": {
+     "decidedPoints": 4840,
+     "maxBoxHalfWidthM": "3.25e-9",
+     "smallestEndBeta": "7.38e-5"
+    },
+    "pointwise": {
+     "epsilon": 0.000001,
+     "points": 807,
+     "rule": "the ray at (1 − ε)·P captured and at (1 + ε)·P escaped, P proven on the decided curve",
+     "fail": 0,
+     "firstFailures": [],
+     "verdict": "AGREES"
+    },
+    "bisected": {
+     "points": 24,
+     "resolution": "2e-3 / 2^44 relative",
+     "maxDistanceToDecidedM": "2.19e-15"
+    },
+    "texture": {
+     "capturedPixels": 12312,
+     "insideDecidedCurve": 12312,
+     "mismatched": 0,
+     "unjudgedWithin1e4M": 0,
+     "extents": {
+      "W": {
+       "fromMap": 9.609375,
+       "trueExtentIn": "[9.6090, 9.7656]",
+       "phase0": "[9.732062, 9.732134]",
+       "meets": true
+      },
+      "H": {
+       "fromMap": 9.765625,
+       "trueExtentIn": "[9.7652, 9.9219]",
+       "phase0": "[9.833778, 9.833817]",
+       "meets": true
+      },
+      "d": {
+       "fromMap": 9.6875,
+       "trueExtentIn": "[9.6871, 9.8438]",
+       "phase0": "[9.782920, 9.782976]",
+       "meets": true
+      }
+     },
+     "verdict": "AGREES"
+    },
+    "convergence": {
+     "spokes": [
+      {
+       "at": {
+        "alpha": -4.2259,
+        "beta": 0.0001,
+        "rOrbit": 2.0818
+       },
+       "distanceM": [
+        "1.219e+0",
+        "7.682e-2",
+        "6.945e-3",
+        "6.503e-4"
+       ],
+       "ratios": [
+        0.063,
+        0.0904,
+        0.0936
+       ],
+       "expMinusGamma": 0.0941,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -2.5819,
+        "beta": 3.693,
+        "rOrbit": 2.2615
+       },
+       "distanceM": [
+        "9.093e-1",
+        "5.734e-2",
+        "4.810e-3",
+        "4.149e-4"
+       ],
+       "ratios": [
+        0.0631,
+        0.0839,
+        0.0863
+       ],
+       "expMinusGamma": 0.0865,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 0.369,
+        "beta": 4.91,
+        "rOrbit": 2.5392
+       },
+       "distanceM": [
+        "8.238e-1",
+        "4.692e-2",
+        "3.458e-3",
+        "2.608e-4"
+       ],
+       "ratios": [
+        0.057,
+        0.0737,
+        0.0754
+       ],
+       "expMinusGamma": 0.0756,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 3.8441,
+        "beta": 3.6952,
+        "rOrbit": 2.8169
+       },
+       "distanceM": [
+        "8.694e-1",
+        "4.346e-2",
+        "2.821e-3",
+        "1.870e-4"
+       ],
+       "ratios": [
+        0.05,
+        0.0649,
+        0.0663
+       ],
+       "expMinusGamma": 0.0664,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 5.5062,
+        "beta": -0.0001,
+        "rOrbit": 2.9365
+       },
+       "distanceM": [
+        "1.092e+0",
+        "4.926e-2",
+        "3.026e-3",
+        "1.902e-4"
+       ],
+       "ratios": [
+        0.0451,
+        0.0614,
+        0.0629
+       ],
+       "expMinusGamma": 0.063,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 3.8379,
+        "beta": -3.7006,
+        "rOrbit": 2.8164
+       },
+       "distanceM": [
+        "1.435e+0",
+        "6.280e-2",
+        "4.042e-3",
+        "2.677e-4"
+       ],
+       "ratios": [
+        0.0438,
+        0.0644,
+        0.0662
+       ],
+       "expMinusGamma": 0.0664,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 0.3637,
+        "beta": -4.9097,
+        "rOrbit": 2.5387
+       },
+       "distanceM": [
+        "1.650e+0",
+        "7.721e-2",
+        "5.612e-3",
+        "4.227e-4"
+       ],
+       "ratios": [
+        0.0468,
+        0.0727,
+        0.0753
+       ],
+       "expMinusGamma": 0.0756,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -2.5863,
+        "beta": -3.6891,
+        "rOrbit": 2.261
+       },
+       "distanceM": [
+        "1.592e+0",
+        "8.497e-2",
+        "7.038e-3",
+        "6.063e-4"
+       ],
+       "ratios": [
+        0.0534,
+        0.0828,
+        0.0861
+       ],
+       "expMinusGamma": 0.0866,
+       "decreasingAndBelowPixel": true
+      }
+     ],
+     "rule": "the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2",
+     "verdict": "AGREES"
+    }
+   },
+   "499/500": {
+    "spin": "499/500",
+    "coverage": {
+     "n0": {
+      "pixels": 259863,
+      "beyond200M": 0,
+      "withG": 259490
+     },
+     "n1": {
+      "pixels": 9420,
+      "beyond200M": 270,
+      "withG": 8678
+     },
+     "n2": {
+      "pixels": 643,
+      "beyond200M": 6,
+      "withG": 559
+     }
+    },
+    "retrace": {
+     "sampled": 2703,
+     "bitIdentical": 2703,
+     "differ": 0,
+     "verdict": "AGREES"
+    },
+    "closedForm": {
+     "crossings": 2778,
+     "maxMinoTimeVsAngular": "7.50e-13",
+     "maxRadiusErrorM": "1.68e-10",
+     "worstAt": {
+      "alpha": 4.0234375,
+      "beta": 4.5703125,
+      "n": 1,
+      "r": 84.689502
+     },
+     "threshold": "1e-6 M",
+     "verdict": "AGREES"
+    },
+    "curve": {
+     "decidedPoints": 4370,
+     "maxBoxHalfWidthM": "4.52e-9",
+     "smallestEndBeta": "4.49e-5"
+    },
+    "pointwise": {
+     "epsilon": 0.000001,
+     "points": 729,
+     "rule": "the ray at (1 − ε)·P captured and at (1 + ε)·P escaped, P proven on the decided curve",
+     "fail": 0,
+     "firstFailures": [],
+     "verdict": "AGREES"
+    },
+    "bisected": {
+     "points": 24,
+     "resolution": "2e-3 / 2^44 relative",
+     "maxDistanceToDecidedM": "2.44e-15"
+    },
+    "texture": {
+     "capturedPixels": 12038,
+     "insideDecidedCurve": 12036,
+     "mismatched": 0,
+     "unjudgedWithin1e4M": 2,
+     "extents": {
+      "W": {
+       "fromMap": 9.453125,
+       "trueExtentIn": "[9.4527, 9.6094]",
+       "phase0": "[9.599985, 9.600050]",
+       "meets": true
+      },
+      "H": {
+       "fromMap": 9.609375,
+       "trueExtentIn": "[9.6090, 9.7656]",
+       "phase0": "[9.742479, 9.742522]",
+       "meets": true
+      },
+      "d": {
+       "fromMap": 9.53125,
+       "trueExtentIn": "[9.5308, 9.6875]",
+       "phase0": "[9.671232, 9.671286]",
+       "meets": true
+      }
+     },
+     "verdict": "AGREES"
+    },
+    "convergence": {
+     "spokes": [
+      {
+       "at": {
+        "alpha": -4.0922,
+        "beta": 0,
+        "rOrbit": 1.9049
+       },
+       "distanceM": [
+        "1.293e+0",
+        "1.002e-1",
+        "1.195e-2",
+        "1.513e-3"
+       ],
+       "ratios": [
+        0.0775,
+        0.1193,
+        0.1266
+       ],
+       "expMinusGamma": 0.1281,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -2.8162,
+        "beta": 3.3246,
+        "rOrbit": 2.0907
+       },
+       "distanceM": [
+        "9.821e-1",
+        "7.347e-2",
+        "7.687e-3",
+        "8.386e-4"
+       ],
+       "ratios": [
+        0.0748,
+        0.1046,
+        0.1091
+       ],
+       "expMinusGamma": 0.1099,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 1.0983,
+        "beta": 4.8532,
+        "rOrbit": 2.5263
+       },
+       "distanceM": [
+        "8.484e-1",
+        "5.132e-2",
+        "4.079e-3",
+        "3.330e-4"
+       ],
+       "ratios": [
+        0.0605,
+        0.0795,
+        0.0816
+       ],
+       "expMinusGamma": 0.0819,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 4.1272,
+        "beta": 3.4093,
+        "rOrbit": 2.7924
+       },
+       "distanceM": [
+        "9.024e-1",
+        "4.723e-2",
+        "3.254e-3",
+        "2.295e-4"
+       ],
+       "ratios": [
+        0.0523,
+        0.0689,
+        0.0705
+       ],
+       "expMinusGamma": 0.0707,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 5.5078,
+        "beta": 0.0001,
+        "rOrbit": 2.9014
+       },
+       "distanceM": [
+        "1.110e+0",
+        "5.254e-2",
+        "3.420e-3",
+        "2.283e-4"
+       ],
+       "ratios": [
+        0.0473,
+        0.0651,
+        0.0667
+       ],
+       "expMinusGamma": 0.0669,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 4.1332,
+        "beta": -3.4032,
+        "rOrbit": 2.7929
+       },
+       "distanceM": [
+        "1.423e+0",
+        "6.575e-2",
+        "4.490e-3",
+        "3.163e-4"
+       ],
+       "ratios": [
+        0.0462,
+        0.0683,
+        0.0704
+       ],
+       "expMinusGamma": 0.0707,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": 1.1034,
+        "beta": -4.8527,
+        "rOrbit": 2.5268
+       },
+       "distanceM": [
+        "1.660e+0",
+        "8.243e-2",
+        "6.452e-3",
+        "5.257e-4"
+       ],
+       "ratios": [
+        0.0497,
+        0.0783,
+        0.0815
+       ],
+       "expMinusGamma": 0.0819,
+       "decreasingAndBelowPixel": true
+      },
+      {
+       "at": {
+        "alpha": -2.8125,
+        "beta": -3.3286,
+        "rOrbit": 2.0912
+       },
+       "distanceM": [
+        "1.626e+0",
+        "1.029e-1",
+        "1.059e-2",
+        "1.153e-3"
+       ],
+       "ratios": [
+        0.0633,
+        0.1029,
+        0.1088
+       ],
+       "expMinusGamma": 0.1098,
+       "decreasingAndBelowPixel": true
+      }
+     ],
+     "rule": "the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2",
+     "verdict": "AGREES"
+    }
+   }
+  }
+ },
+ "redControls": [
+  {
+   "control": "the a = 0 map against the a = 47/50 decided curve (wrong spin): 2312 pixels mismatched",
+   "expected": "DISAGREES",
+   "got": "DISAGREES",
+   "ok": true
+  },
+  {
+   "control": "a 128² map at a = 47/50, θo = 25° (wrong inclination) against the 17° decided curve: 56 pixels mismatched",
+   "expected": "DISAGREES",
+   "got": "DISAGREES",
+   "ok": true
+  },
+  {
+   "control": "rays at θo = 25° at the a = 47/50, 17° decided points (73 of 73 fail)",
+   "expected": "DISAGREES",
+   "got": "DISAGREES",
+   "ok": true
+  },
+  {
+   "control": "rays at a = 1/2 at the a = 47/50 decided points (wrong spin; 73 of 73 fail)",
+   "expected": "DISAGREES",
+   "got": "DISAGREES",
+   "ok": true
+  },
+  {
+   "control": "one byte of a47_50-n0.rpg.f16.gz flipped: the manifest pin",
+   "expected": "fails",
+   "got": "fails",
+   "ok": true
+  },
+  {
+   "control": "a planted √26 for the Schwarzschild edge",
+   "expected": "DISAGREES",
+   "got": "DISAGREES",
+   "ok": true
+  }
+ ],
+ "timing": {
+  "ms": 9760
+ }
+}

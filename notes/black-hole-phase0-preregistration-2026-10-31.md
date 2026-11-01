@@ -230,3 +230,25 @@ CERTIFIED: a computed map is graded, the premise ladder's "verified" rung):
 a = 47/50 decided curve) DISAGREES on check 4; a map at a wrong inclination (a = 47/50 at θo = 25°, a small grid made
 in the check) DISAGREES on checks 3 and 4; rays traced at a = 1/2 at the a = 47/50 decided points DISAGREE on check 3;
 a forged texture byte fails check 1; a planted √26 fails check 5.
+
+### Phase 1 deviations
+
+Written 2026-10-31, after the maps existed (the build, same day):
+
+1. **The start and the escape radius: 200 M, not 10⁶ and 10³.** Started at 10⁶ M, the second-order radial equation is
+   ill-conditioned (pr² ≈ r⁴ ≫ the impact-parameter terms) and the first trial rays turned at ~600 M. Now the far
+   leg is exact in another way: the Mino time from infinity to 200 M and the radial part of φ by Gauss–Legendre in
+   1/r, the decoupled polar motion integrated from the observer over that time, and dr/dτ projected back onto ±√R
+   wherever R > r⁴/100 (far from a radial turning point). A ray is ESCAPED outgoing past 200 M, and its remaining
+   crossings are counted from the polar motion over the remaining Mino time (their radii, beyond 200 M, stored as
+   +∞: 266–274 n = 1 pixels per spin, 2–8 n = 2 pixels, none at n = 0).
+2. **The step control uses err^(−1/4)**, not the textbook err^(−1/5), so that only √ is needed (Math.pow is not
+   correctly rounded): the maps are bit-reproducible, and a re-trace gave byte-identical files.
+3. **Check 2 covers rays with η > 0 only** (vortical rays, η ≤ 0, never cross the equator), and the radius error is
+   first-order, √R(r_s)·|ΔI| + |R′|ΔI²/4 bounded by 4r³ΔI².
+4. **Check 4's extents are coarse by construction**: the true extent lies in [map − 4 × 10⁻⁴, map + 2 × pitch], a
+   window of 0.156 M, wider than the spin dependence between neighbouring spins (0.15 M from a = 0 to 1/2). The pixel
+   classification (zero mismatches outside 10⁻⁴ M of the decided curve) is the sharp half of check 4.
+5. **Found**: the n = 2 ring is far narrower than one pixel (its outer band edge lies 10⁻³–10⁻² M outside the curve,
+   the pitch is 0.078 M), so the n = 2 layer only samples it (260–643 pixels per spin). Phase 2 must not draw the
+   n = 2 layer as if it were resolved.
