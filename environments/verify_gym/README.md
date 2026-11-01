@@ -99,7 +99,9 @@ The protocol for model rows is fixed in advance in
 ## Model rows
 
 Open-weights models on the same 120 frozen prompts, 8 samples each (960 replies per model), served by Prime
-Inference on 2026-10-31: thinking off, temperature 1.0, top-p 1.0, 16,384 tokens, no tools. Every reply is
+Inference on 2026-10-31: thinking off, temperature 1.0, top-p 1.0, 16,384 tokens, no tools. gpt-oss cannot
+switch its reasoning off, so its two rows run at `reasoning_effort: "low"`, the least the API offers; the
+reasoning channel counts toward the 16,384 tokens, and only the final answer is stored and graded. Every reply is
 stored with its sha256 (`corpus/verify-gym/runs/`) and graded by both deciders; a reply cut off at the token
 limit scores 0 and is counted apart. Mean reward is per reply. Spend is what the endpoint reported.
 
@@ -109,12 +111,45 @@ limit scores 0 and is counted apart. Mean reward is per reply. Spend is what the
 | `deepseek/deepseek-v4.1-flash` | 0.099 | 0.092 | 0.145 | 0.060 | 368 | 517 | 73 | 2 |
 | `google/gemma-4-26b-a4b-it` | 0.083 | 0.120 | 0.059 | 0.070 | 363 | 520 | 67 | 10 |
 | `qwen/qwen3.5-9b` | 0.075 | 0.064 | 0.097 | 0.065 | 369 | 506 | 59 | 24 |
+| `openai/gpt-oss-20b` | 0.054 | 0.079 | 0.046 | 0.036 | 569 | 354 | 37 | 0 |
+| `openai/gpt-oss-120b` | 0.095 | 0.118 | 0.107 | 0.058 | 618 | 295 | 20 | 27 |
+| `qwen/qwen3.5-35b-a3b` | 0.079 | 0.048 | 0.108 | 0.080 | 335 | 549 | 73 | 3 |
 
 REFUSED (a side outside the family's reduction: not decided, paid 0) is not a column: qwen/qwen3.5-9b 2.
 
-Every model is below `bisect`, the 20-step exact bisection, and every one states more false brackets than
-true ones: deepseek/deepseek-v4-pro gave 546 REFUTED of 960. These rows have no tool: every
-bracket comes from the model's own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24, qwen3.5-9b US$2.53.
+Every model is below `bisect`, the 20-step exact bisection. Every row without reasoning states more false
+brackets than true ones; deepseek/deepseek-v4-pro, for one, gave 546 REFUTED of 960. The two gpt-oss rows, which
+reason at low effort, certify more than they refute. These rows have no tool: every bracket comes from the model's
+own arithmetic in its reply, and the grader refutes the ones that arithmetic got wrong. Spend: deepseek-v4-pro
+US$6.78, deepseek-v4.1-flash US$4.19, gemma-4-26b-a4b-it US$0.24, qwen3.5-9b US$2.53, gpt-oss-20b US$0.18,
+gpt-oss-120b US$1.70, qwen3.5-35b-a3b US$13.44. z-ai/glm-4.7 was stopped at 105 of 960 replies when its cost was
+projected past twice its estimate, and it has no row.
+
+## The verifier in the loop
+
+Nothing new is sampled for this table. Each row's 8 stored replies per task become ONE answer in three ways:
+- **first**: sample 0;
+- **majority**: the bracket stated most often;
+- **Verify**: keep only the replies both deciders call CERTIFIED and take the tightest. When none is certified,
+  give no answer.
+
+Reward is the mean over the 120 tasks. "False" counts the tasks whose chosen answer is REFUTED. The record is
+[`certs/verify-gym-filter.json`](https://github.com/carlostoledo1891/cert-machine/blob/main/certs/verify-gym-filter.json),
+in which every chosen answer is decided by both deciders.
+
+| model | first reward | first false | majority reward | majority false | Verify reward | Verify certified | Verify false |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| deepseek/deepseek-v4-pro | 0.041 | 70 | 0.065 | 56 | 0.175 | 112 | 0 |
+| deepseek/deepseek-v4.1-flash | 0.089 | 71 | 0.128 | 55 | 0.318 | 114 | 0 |
+| google/gemma-4-26b-a4b-it | 0.069 | 70 | 0.122 | 53 | 0.231 | 103 | 0 |
+| qwen/qwen3.5-9b | 0.061 | 65 | 0.103 | 53 | 0.244 | 107 | 0 |
+| openai/gpt-oss-20b | 0.049 | 50 | 0.074 | 27 | 0.147 | 120 | 0 |
+| openai/gpt-oss-120b | 0.097 | 35 | 0.116 | 26 | 0.249 | 120 | 0 |
+| qwen/qwen3.5-35b-a3b | 0.064 | 76 | 0.103 | 62 | 0.253 | 101 | 0 |
+
+The reward is the verifier's own number, so Verify is the best of the 8 under it by definition. What the table
+shows is that Verify reaches that best with no answer key. Taking the first reply, or the majority, states a false
+bracket on 26 to 76 of the 120 tasks, and a reader cannot tell those from the true ones. Verify states none.
 
 ## The readiness gate on the base model
 

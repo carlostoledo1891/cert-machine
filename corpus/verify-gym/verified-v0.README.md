@@ -31,6 +31,6 @@ not published anywhere; whether it is, and where, is the operator's decision.
 ## Licence
 
 Our part is MIT: the selection, the certificates and the schema. The `reply` texts are model outputs, generated
-through Prime Inference on 2026-10-31. Each model's own licence and Prime Intellect's terms of service apply to
+through Prime Inference on 2026-10-31 (the last row finished on 2026-11-01). Each model's own licence and Prime Intellect's terms of service apply to
 them. They are not restated or reviewed here, so read the model's card before reusing its outputs, and before
 training on them in particular.

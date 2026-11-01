@@ -2,7 +2,9 @@
 """filter.py: THE VERIFIER IN THE LOOP (the pre-registration's deviation 7), and the verified-answers dataset.
 
     python3 environments/verify_gym/filter.py           write certs/verify-gym-filter.json and the dataset
-    python3 environments/verify_gym/filter.py --check   the same, and refuse unless both equal the stored files
+    python3 environments/verify_gym/filter.py --data P  write the dataset to P instead (kept out of the repository)
+    python3 environments/verify_gym/filter.py --check   the same, and refuse unless the record (and the dataset, when
+                                                        it is stored in the repository) equal the stored files
 
 Nothing is sampled here. Every model row in certs/verify-gym-scorecard.json already holds 8 stored replies per
 held-out task; this reads each row's log (it must hash to the sha256 the scorecard names), grades every reply with
@@ -242,11 +244,11 @@ if __name__ == "__main__":
     doc, gz = build()
     text = dump(doc)
     if "--check" in sys.argv:
-        if not (os.path.exists(OUT) and os.path.exists(DATA)):
-            die("no record or no dataset")
+        if not os.path.exists(OUT):
+            die("no record at certs/verify-gym-filter.json")
         if open(OUT).read() != text:
             die("certs/verify-gym-filter.json does not re-derive")
-        if open(DATA, "rb").read() != gz:
+        if os.path.exists(DATA) and open(DATA, "rb").read() != gz:   # stored only when under 10 MB gzipped
             die("corpus/verify-gym/verified-v0.jsonl.gz does not re-derive")
         print("verify-gym filter re-derived: %d rows x 3 strategies, %d distinct answers decided twice, 0 "
               "disagreements; dataset %d rows (%d paid, recheck AGREES)" % (
@@ -254,7 +256,7 @@ if __name__ == "__main__":
                   doc["dataset"]["paid_rows"]))
     else:
         open(OUT, "w").write(text)
-        open(DATA, "wb").write(gz)
+        open(sys.argv[sys.argv.index("--data") + 1] if "--data" in sys.argv else DATA, "wb").write(gz)
         print("wrote certs/verify-gym-filter.json and %s (%d rows, %d bytes gzipped)" % (
             os.path.relpath(DATA, ROOT), doc["dataset"]["rows"], doc["dataset"]["gzip_bytes"]))
         for r in doc["rows"]:

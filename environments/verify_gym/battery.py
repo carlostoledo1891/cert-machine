@@ -17,7 +17,10 @@ interpreter, and the framework binding under a venv with `verifiers` when one ex
 READINESS GATE: recheck.py agrees with an honest training log; readiness.py's dry run on the 100 val tasks x 8
 says GO for `mix`; the live path runs end to end against a local OpenAI-compatible stand-in (no spend): settings
 in every request, the key never written, truncated replies paid 0, a failed call stops with no verdict and the
-re-run resumes, and the stored log re-checks.
+re-run resumes, and the stored log re-checks. (7) THE VERIFIER IN THE LOOP: certs/verify-gym-filter.json (and
+corpus/verify-gym/verified-v0.jsonl.gz, when it is committed) re-derive from the stored model logs (filter.py), the
+filter covers every model row and lets through 0 false brackets on each, and the README's filter table is the
+record's.
 
 RED CONTROLS. The gate must FAIL under a grader that accepts everything, one that rejects everything, and one with
 the xx comparison flipped; the cross-check must catch a forged Python result; a tampered curriculum entry and a
@@ -194,6 +197,31 @@ g = rec["gate"]
 ok("%d forgeries planted on %d rows · %d leaked · %d misfiled · %d green controls" % (
     g["planted"], g["rows"], g["leaked"], g["misfiled"], g["green"]) in readme, "the README's gate line is the record's")
 ok("{:,} answers".format(rec["crosscheck"]["answers_compared"]) in readme, "the README's cross-check count is the record's")
+
+# the verifier in the loop (deviation 7) and the verified-answers dataset re-derive from the stored logs
+import importlib  # noqa: E402
+vfilter = importlib.import_module("filter")              # filter.py (the name of a builtin, so imported by name)
+try:
+    fdoc, fgz = vfilter.build()
+    ok(vfilter.dump(fdoc) == open(vfilter.OUT).read(),
+       "certs/verify-gym-filter.json re-derives (%d rows, %d answers decided twice, dataset %d rows, recheck AGREES)"
+       % (len(fdoc["rows"]), fdoc["crosscheck"]["distinct_answers_compared"], fdoc["dataset"]["rows"]))
+    if os.path.exists(vfilter.DATA):                      # the dataset is committed only when it is small enough
+        ok(open(vfilter.DATA, "rb").read() == fgz, "verified-v0.jsonl.gz re-derives byte for byte")
+    ok([r["id"] for r in fdoc["rows"]] == [m["id"] for m in rec["models"]], "the filter covers every model row")
+    ok(all(r["strategies"]["verify"]["false_brackets_let_through"] == 0 for r in fdoc["rows"]),
+       "the filter lets through 0 false brackets on every row (counted)")
+    for r in fdoc["rows"]:
+        line = next((l for l in readme.splitlines() if l.startswith("| %s |" % r["model"])), "")
+        s = r["strategies"]
+        want = ["%.3f" % s["first"]["mean_reward_float"], str(s["first"]["false_brackets_let_through"]),
+                "%.3f" % s["majority"]["mean_reward_float"], str(s["majority"]["false_brackets_let_through"]),
+                "%.3f" % s["verify"]["mean_reward_float"], str(s["verify"]["certified"]),
+                str(s["verify"]["false_brackets_let_through"])]
+        cells = [c.strip() for c in line.strip("|").split("|")][1:]
+        ok(cells == want, "the README's filter row for %s is the record's" % r["model"])
+except SystemExit as e:
+    ok(False, str(e))
 
 # 6 · the two protocol steps built after v0: the re-check of a run's paid samples, and the readiness gate
 import readiness  # noqa: E402
