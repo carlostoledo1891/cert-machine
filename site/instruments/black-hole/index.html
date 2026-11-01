@@ -645,6 +645,15 @@ section .prose { margin-top: var(--s-4); }
   .bh-tag, .bh-time { font-size: 10px; left: var(--s-2); }
   .bh-tag { top: var(--s-2); } .bh-time { bottom: var(--s-2); }
 }
+/* the layer boxes in ink, not the browser's accent (a colour outside the palette), in both themes */
+.bh-panel input[type=checkbox] { accent-color: var(--ink); }
+/* the theme pill is fixed under the nav at the top right (design/nav.js): beside the viewer the panel sticks below it,
+   the offset theme.js gives a full-screen instrument's panel, and scrolls inside itself when the window is short, so
+   the pill never lands on a control. On a phone the pill scrolls away with the page and the panel stacks below. */
+@media (min-width: 921px) {
+  .bh-panel { position: sticky; top: calc(var(--nav-h) + var(--s-3) + var(--s-7)); max-height: calc(100vh - var(--nav-h) - var(--s-3) - var(--s-7) - var(--s-4));
+    overflow-y: auto; overscroll-behavior: contain; padding-right: var(--s-2); }
+}
 
 /* the floating surfaces in the surface tokens, at the alpha they had (playground/design/theme.js) */
 .ov-panel, .panel { background: color-mix(in srgb, var(--bg-raised) 86%, transparent); }
