@@ -1,0 +1,53 @@
+/* page.css — /instruments/black-hole/. Tokens only; no new colour (the image is mixed between --bg and --ink in the tab). */
+.bh-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-5); align-items: start; margin-top: var(--s-5); }
+@media (max-width: 920px) { .bh-wrap { grid-template-columns: minmax(0, 1fr); } }
+.bh-fig { margin: 0; }
+.bh-stage { position: relative; width: 100%; max-width: 760px; aspect-ratio: 1 / 1; background: var(--bg); border-radius: var(--radius-s); overflow: hidden; }
+.bh-stage canvas, .bh-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.bh-stage canvas { opacity: 0; transition: opacity var(--dur-med) var(--ease-out); image-rendering: auto; }
+.bh-stage.ready canvas { opacity: 1; }
+.bh-tag, .bh-time { position: absolute; left: var(--s-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--ink-2);
+  background: color-mix(in srgb, var(--bg) 78%, transparent); padding: 3px 7px; border-radius: var(--radius-s); max-width: calc(100% - 2 * var(--s-3)); }
+.bh-tag { top: var(--s-3); }
+.bh-stage.model .bh-tag { color: var(--ink); font-weight: 600; }
+.bh-time { bottom: var(--s-3); }
+.bh-time .k { color: var(--ink-4); text-transform: uppercase; font-size: 9.5px; letter-spacing: .12em; }
+.bh-stage.failed .bh-tag { color: var(--ink); }
+.bh-fig figcaption { margin-top: var(--s-3); font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); max-width: 760px; }
+.bh-fig figcaption .fig-rec, .bh-fig figcaption .fig-stop { display: block; margin-top: var(--s-2); font-size: var(--text-eyebrow); color: var(--ink-4); overflow-wrap: anywhere; }
+.bh-legend { margin-top: var(--s-3); max-width: 760px; }
+
+.bh-panel { display: grid; gap: var(--s-4); font-size: 13px; color: var(--ink-2); }
+.bh-panel .grp { display: grid; gap: var(--s-2); }
+.bh-panel .lab { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.bh-panel .lab em { text-transform: none; }
+.bh-panel .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.bh-panel .seg button { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); background: transparent; border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill); padding: 4px 11px; cursor: pointer; }
+.bh-panel .seg button[aria-pressed="true"] { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+.bh-panel .seg button:disabled { opacity: .35; cursor: not-allowed; }
+.bh-panel .ck { display: flex; gap: 8px; align-items: baseline; line-height: 1.4; cursor: pointer; }
+.bh-panel select { width: 100%; font: inherit; font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-s); padding: 5px 7px; }
+.bh-panel .rd { margin: 0; display: grid; gap: 4px; }
+.bh-panel .rd dt { font-size: 11px; color: var(--ink-4); }
+.bh-panel .rd dd { margin: 0 0 4px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); overflow-wrap: anywhere; }
+.bh-panel .note { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--ink-4); }
+.bh-panel .tiny { font-size: 11px; color: var(--ink-4); display: block; line-height: 1.45; }
+
+.bh-t { border-collapse: collapse; font-size: 13px; width: 100%; }
+.bh-t th, .bh-t td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+/* no uppercase: it turns µas into ΜAS */
+.bh-t th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .02em; color: var(--ink-3); font-weight: 500; }
+section.wrap + section.wrap { margin-top: var(--s-8); }
+.bh-t td { color: var(--ink-2); }
+.bh-t td .w-val { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; }
+.bh-t .src { font-size: 11px; color: var(--ink-4); margin-top: 2px; }
+section ul.plain { padding-left: 1.1em; max-width: var(--read); }
+section ul.plain li + li { margin-top: var(--s-2); }
+section ul.src li { font-size: 13px; color: var(--ink-3); }
+section .prose { margin-top: var(--s-4); }
+@media (max-width: 680px) {
+  .bh-tag, .bh-time { font-size: 10px; left: var(--s-2); }
+  .bh-tag { top: var(--s-2); } .bh-time { bottom: var(--s-2); }
+}

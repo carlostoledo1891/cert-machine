@@ -43,6 +43,7 @@ const CE = require(path.join(HERE, 'census', 'build.js'));
 const EC = require(path.join(HERE, 'contours', 'build.js'));
 const SR = require(path.join(HERE, 'stereo-reach', 'build.js'));
 const NS = require(path.join(HERE, 'navier-stokes', 'build.js'));
+const BH = require(path.join(HERE, 'black-hole', 'build.js'));
 const RLC = require(path.join(HERE, 'return-level-check', 'build.js'));
 const PUI = require(path.join(HERE, 'pu', 'build.js'));
 const RLA = require(path.join(HERE, 'return-level-atlas', 'build.js'));
@@ -118,11 +119,12 @@ const fact = (k, v, note) =>
    has no row, so the two cannot drift apart. `backing` is what decides the
    headline number, in the words the pages use; `battery` is whether a battery
    in make test covers the page, decided by the file's existence, not typed. */
-const BATTERY_FOR = { pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js', pu: 'instruments/pu/battery.js' };
+const BATTERY_FOR = { 'black-hole': 'tools/run-bh-maps.js', pqc: 'instruments/pqc/battery.js', occultation: 'instruments/occultation/battery.js', transit: 'instruments/transit/battery.js', 'lattice-claims': 'instruments/wiring/battery.py', 'blind-spot': 'environments/blind_spot/battery.py', contours: 'instruments/ecbench/battery.js', 'stereo-reach': 'instruments/stereo/battery.js', 'return-level-check': 'instruments/hseva/battery.js', 'return-level-atlas': 'instruments/hseva/battery.js', pu: 'instruments/pu/battery.js' };
 const MANIFEST = [
   { id: 'shape-hunt', title: 'Nothing here is a perfect circle.', blurb: 'Sixteen million exact tests for hidden polygons in the geometries the pages next door report, then the same search with the geometry shuffled out.', backing: 'exact', art: () => SH.cardArt(), scale: `${fmt(SH.SHAPETESTS)} shape tests` },
   { id: 'navier-stokes', title: 'Turn the singularity.', blurb: 'The object a Millennium proof constructs, not a simulation of it: a self-similar core you collapse by hand, and the one parameter it hangs on, with the two classical exclusions that close on it from opposite sides — decided in your tab in exact integers.', backing: 'exact', art: () => NS.cardArt(), scale: `${NS.facts.criteria} criteria, decided live` },
   { id: 'interferometer', title: 'Not the picture. The set of pictures.', blurb: 'The black-hole image is one sky chosen by a prior from the many the data allow. This draws the set, and brackets the source without any prior at all.', backing: 'float', art: () => UV.svg, scale: `longest baseline ${n(UV.maxUV, 2)} Gλ` },
+  { id: 'black-hole', title: 'Every line says what it rests on.', blurb: 'M87*\u2019s black hole with each element\u2019s standing drawn: the shadow\u2019s edge decided in interval arithmetic and solid, the image computed by rays traced through the Kerr metric, the thin disk assumed and turning on M87*\u2019s own clock.', backing: 'certificate', art: () => BH.cardArt(), scale: `${BH.facts.spins} spins \u00b7 ${BH.facts.views - BH.facts.spins + 1} views` },
   { id: 'curveset', title: 'The line they published, and the lines that fit.', blurb: 'A calibration used backwards comes off a fitted curve. This prices the fit: what the standards allow, assuming only monotone.', backing: 'float', art: () => CS.cardArt(), scale: `${n(CS.monoR(CS.pontius), 0)}× the reported ±` },
   { id: 'plates', title: 'Manifolds we are handed.', blurb: 'Eight stated manifolds drawn from their rule; two of them are certificates rendered at their own resolution.', backing: 'certificate', art: () => PL.cardArt(), scale: `plate I of ${PL.counts.plates}` },
   { id: 'affect', title: 'The geometry of feeling, and the control that catches it.', blurb: 'Twelve feelings under six moods, and twelve clock hours through the same pipeline as the control that must not move.', backing: 'float', art: () => AF.cardArt(), scale: 'twelve feelings, pairwise' },
@@ -150,7 +152,7 @@ const MANIFEST = [
    lead (the Navier–Stokes object, the Treasury's price), then the widest audiences (the black-hole image, a grader's
    blind spot, a return level certified in your tab), then the rest, the geometry studies last. One list; the cards and
    the manifest the homepage reads follow it, and a card missing from it refuses the page. */
-const INSTRUMENT_ORDER = ['navier-stokes', 'pu', 'interferometer', 'blind-spot', 'return-level-check', 'pqc', 'lattice-claims', 'rewire',
+const INSTRUMENT_ORDER = ['navier-stokes', 'pu', 'interferometer', 'black-hole', 'blind-spot', 'return-level-check', 'pqc', 'lattice-claims', 'rewire',
   'shape-hunt', 'contours', 'occultation', 'transit', 'curveset', 'stereo-reach', 'census', 'return-level-atlas', 'simplex', 'graph',
   'plates', 'answer-shape', 'neural-geometry', 'exact-geometry', 'affect'];
 for (const m of MANIFEST) if (!INSTRUMENT_ORDER.includes(m.id)) { console.error('instruments: ' + m.id + ' has no place in INSTRUMENT_ORDER'); process.exit(1); }
@@ -225,6 +227,16 @@ const body = `
   </a>
 
 
+  <a class="card" href="black-hole/index.html">
+    <figure class="card-art">
+      ${plate(BH.cardArt(), `${BH.facts.spins} spins &middot; ${BH.facts.views - BH.facts.spins + 1} views &middot; the edge decided`)}
+    </figure>
+    <div class="card-body">
+      <h2>Every line says what it rests on.</h2>
+      <p class="sub">The black hole in M87, drawn so that each element carries its standing. The edge of its shadow is decided in interval arithmetic and drawn solid; the image is computed, ray by ray, through the Kerr metric, and drawn as computed; the disk is an assumed thin disk that turns at its Keplerian rate on M87*&rsquo;s own clock, sped up and shown. Choose the spin and the mass; leave M87*&rsquo;s view and the page says you are looking at the model.</p>
+      <span class="go">open the instrument <span class="arw">&rarr;</span></span>
+    </div>
+  </a>
   <a class="card" href="curveset/index.html">
     <figure class="card-art">
       ${plate(CS.cardArt(), `${n(CS.monoR(CS.pontius), 0)}&times; the reported &plusmn;, assuming only monotone`)}
@@ -513,10 +525,12 @@ const ce = CE.build(OUT);
 const ec = EC.build(OUT);
 const sr = SR.build(OUT);
 const ns = NS.build(OUT);
+const bh = BH.build(OUT);
 const rlc = RLC.build(OUT);
 const pui = PUI.build(OUT);
 const rla = RLA.build(OUT);
 
+console.log(`site/instruments/black-hole/        ${(bh.bytes / 1024).toFixed(0)} KB  ·  ${bh.views} views, ${bh.maps} map files beside it (${(bh.mapBytes / 1048576).toFixed(1)} MB)`);
 console.log(`site/instruments/navier-stokes/     ${(ns.bytes / 1024).toFixed(0)} KB  ·  ${NS.facts.criteria} criteria and ${NS.facts.exponents} exponents decided live in exact rationals, paper ${NS.facts.paper}`);
 const git = (() => { try { return cp.execSync('git rev-parse --short HEAD', { cwd: ROOT, encoding: 'utf8' }).trim(); } catch (e) { return 'unknown'; } })();
 console.log(`site/instruments/index.html            ${(html.length / 1024).toFixed(0)} KB  ·  u–v art from ${fmt(UV.rows)} released rows, ${UV.baselines} baselines`);

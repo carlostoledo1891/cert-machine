@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>M87*: a black hole where every line says what it rests on · Carlos Toledo</title>
+<meta name="description" content="M87*’s black hole drawn with each element’s standing: the shadow’s edge decided in interval arithmetic and drawn solid, the image computed by rays traced through the Kerr metric, the thin disk assumed and turning on M87*’s own clock.">
+<meta name="author" content="Carlos Toledo">
+<meta name="theme-color" content="#0a0a0c">
+<meta name="robots" content="max-image-preview:large">
+<link rel="canonical" href="https://carlostoledo.co/instruments/black-hole/">
+<meta property="og:url" content="https://carlostoledo.co/instruments/black-hole/">
+<meta property="og:title" content="M87*: a black hole where every line says what it rests on · Carlos Toledo">
+<meta property="og:description" content="M87*’s black hole drawn with each element’s standing: the shadow’s edge decided in interval arithmetic and drawn solid, the image computed by rays traced through the Kerr metric, the thin disk assumed and turning on M87*’s own clock.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="cert-machine · Carlos Toledo">
+<meta property="og:image" content="https://carlostoledo.co/og-landing.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Independent exact certification of machine-generated mathematics — exact arithmetic, no code shared with the claimant, refusal as a verdict.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M87*: a black hole where every line says what it rests on · Carlos Toledo">
+<meta name="twitter:description" content="M87*’s black hole drawn with each element’s standing: the shadow’s edge decided in interval arithmetic and drawn solid, the image computed by rays traced through the Kerr metric, the thin disk assumed and turning on M87*’s own clock.">
+<meta name="twitter:image" content="https://carlostoledo.co/og-landing.png">
+
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;480;530;550;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* @site-css sheet=own grammar=0 */
+:root{
+  color-scheme:dark;
+  --paper:#0a0a0c;
+  --surface:#141419;
+  --sunk:#101014;
+  --surface2:#1a1a20;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --rule:#232329;
+  --rule-strong:#32323c;
+  --rule-soft:#1c1c22;
+  --sig:#f6f6f8;
+  --sig-2:#6e6e7a;
+  --sig-soft:#1a1a20;
+  --held:#f6f6f8;
+  --held-soft:#1a1a20;
+  --warn:#9a9aa6;
+  --warn-soft:#141419;
+  --mark:#32323c;
+  --witness:#e0574e;
+  --band-fill:rgba(246,246,248,0.07);
+  --c-1:#f6f6f8;
+  --c-2:#a9a9b4;
+  --c-3:#6e6e7a;
+  --c-ctx:var(--ink-5);
+  --c-grid:#1c1c22;
+  --c-axis:#2a2a32;
+  --c-s1:#4a4a55;
+  --c-s2:#6e6e7a;
+  --c-s3:#8b8b97;
+  --c-s4:#a9a9b4;
+  --c-s5:#f6f6f8;
+  --bg:#0a0a0c;
+  --bg-raised:#101014;
+  --surface:#141419;
+  --surface-2:#1a1a20;
+  --border:#232329;
+  --border-strong:#32323c;
+  --ink:#f6f6f8;
+  --ink-2:#c9c9d2;
+  --ink-3:#9a9aa6;
+  --ink-4:#6e6e7a;
+  --ink-5:#4a4a55;
+  --series-1:#f6f6f8;
+  --series-2:#a9a9b4;
+  --series-3:#6e6e7a;
+  --chart-grid:#1c1c22;
+  --chart-axis:#2a2a32;
+  --band-fill:rgba(246,246,248,0.07);
+  --verdict-certified-bg:#f6f6f8;
+  --verdict-certified-ink:#0a0a0c;
+  --verdict-refuted-ink:#f6f6f8;
+  --verdict-refused-ink:#9a9aa6;
+  --text-display:clamp(2.75rem,1.2rem + 6vw,5.5rem);
+  --text-1:clamp(1.9rem,1.2rem + 2.4vw,3rem);
+  --text-2:clamp(1.35rem,1.1rem + 1vw,1.75rem);
+  --text-3:1.125rem;
+  --text-body:0.9375rem;
+  --text-small:0.8125rem;
+  --text-mono:0.8125rem;
+  --text-eyebrow:0.6875rem;
+  --leading-tight:1.04;
+  --leading-snug:1.25;
+  --leading-body:1.65;
+  --leading-loose:1.9;
+  --track-display:-0.035em;
+  --track-title:-0.02em;
+  --track-eyebrow:0.16em;
+  --track-loose:0.08em;
+  --track-slight:0.04em;
+  --weight-display:550;
+  --weight-title:530;
+  --weight-medium:480;
+  --weight-body:400;
+  --weight-mono:500;
+  --weight-strong:600;
+  --s-1:0.25rem;
+  --s-2:0.5rem;
+  --s-3:0.75rem;
+  --s-4:1rem;
+  --s-5:1.5rem;
+  --s-6:2rem;
+  --s-7:3rem;
+  --s-8:4rem;
+  --s-9:6rem;
+  --s-10:8rem;
+  --section-pad:clamp(5rem,12vh,9rem);
+  --gutter:clamp(1.25rem,4vw,3rem);
+  --container:1200px;
+  --read:82ch;
+  --title:28ch;
+  --radius-s:6px;
+  --radius-m:10px;
+  --radius-l:16px;
+  --radius-pill:999px;
+  --ease-out:cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast:160ms;
+  --dur-med:280ms;
+  --dur-slow:520ms;
+  --shadow:0 8px 28px rgba(0,0,0,.55);
+  --f-display:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-sans:"Inter","Helvetica Neue",-apple-system,system-ui,sans-serif;
+  --f-mono:"JetBrains Mono","SF Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --font-sans:var(--f-sans);
+  --font-mono:var(--f-mono);
+}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --paper:#ffffff;
+  --surface:#ffffff;
+  --sunk:#ffffff;
+  --surface2:#e9e9e9;
+  --ink:#000000;
+  --ink-2:#262626;
+  --ink-3:#4d4d4d;
+  --ink-4:#4d4d4d;
+  --ink-5:#8a8a8a;
+  --rule:#dcdcdc;
+  --rule-strong:#c1c1c1;
+  --rule-soft:#e9e9e9;
+  --sig:#000000;
+  --sig-2:#8a8a8a;
+  --sig-soft:#e9e9e9;
+  --held:#000000;
+  --held-soft:#e9e9e9;
+  --warn:#4d4d4d;
+  --warn-soft:#ffffff;
+  --mark:#c1c1c1;
+  --band-fill:rgba(0,0,0,.06);
+  --c-1:#000000;
+  --c-2:#4d4d4d;
+  --c-3:#8a8a8a;
+  --c-grid:#dcdcdc;
+  --c-axis:#8a8a8a;
+  --c-s1:#e9e9e9;
+  --c-s2:#d5d5d5;
+  --c-s3:#c1c1c1;
+  --c-s4:#aeaeae;
+  --c-s5:#9b9b9b;
+  --bg:#ffffff;
+  --bg-raised:#ffffff;
+  --surface-2:#e9e9e9;
+  --border:#dcdcdc;
+  --border-strong:#c1c1c1;
+  --series-1:#000000;
+  --series-2:#4d4d4d;
+  --series-3:#8a8a8a;
+  --chart-grid:#dcdcdc;
+  --chart-axis:#8a8a8a;
+  --verdict-certified-bg:#000000;
+  --verdict-certified-ink:#ffffff;
+  --verdict-refuted-ink:#000000;
+  --verdict-refused-ink:#4d4d4d;
+}
+
+
+.foot{margin-top:var(--section-pad);border-top:1px solid var(--rule);padding:var(--s-6) 0 var(--s-8);
+  color:var(--ink-5);font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);
+  line-height:var(--leading-loose);text-transform:uppercase}
+.foot-in{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
+.foot-body p{margin:0 0 var(--s-3)}
+.foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
+.foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
+.foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
+
+/* @/site-css */
+
+*,*::before,*::after{box-sizing:border-box}
+html{color-scheme:dark;-webkit-text-size-adjust:100%}
+body{margin:0;padding-top:var(--nav-h);background:var(--paper);color:var(--ink-2);
+  font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-body);
+  font-weight:var(--weight-body);
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility}
+::selection{background:var(--ink);color:var(--paper)}
+img{max-width:100%}
+
+.eyebrow,.lab{font-family:var(--f-mono);font-size:var(--text-eyebrow);font-weight:var(--weight-mono);
+  letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+
+/* ---- THE TABLE RULE, once (2026-09-04, and shared 2026-09-15) ------------
+   A table is allowed to be wider than the page. It is not allowed to take the
+   page with it. AND IT SAYS THAT IT SCROLLS: the four layers are the standard
+   scroll-shadow — two ground-coloured covers pinned to the CONTENT
+   (background-attachment:local, so they slide away as you scroll) over two
+   shadows pinned to the BOX, so a shadow shows exactly when there is
+   something past that edge. A box that hides a column without saying so is
+   the same defect as a number without its units. This shipped on
+   /instruments on 2026-09-04 and NOT on the reports, for no reason anybody
+   chose.                                                                  */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;
+  border:1px solid var(--rule);border-radius:var(--radius-m);margin:0 0 var(--s-5);
+  background:
+    linear-gradient(to right, var(--sunk) 40%, rgba(16,16,20,0)) left center / 44px 100% no-repeat local,
+    linear-gradient(to left,  var(--sunk) 40%, rgba(16,16,20,0)) right center / 44px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(246,246,248,0.13), rgba(246,246,248,0)) right center / 16px 100% no-repeat scroll,
+    var(--sunk)}
+.tw > table{margin:0}
+.tw th:first-child,.tw td:first-child{position:sticky;left:0;background:var(--sunk)}
+
+/* THE BAR'S HEIGHT, ONCE (2026-09-15). It was written in three places — here,
+   playground/design/shell.css's body padding and design/template.js's .page
+   padding — so a taller bar would have needed three edits and got one. The
+   body clears it in design/base.js; a viewport page sets it to 0. */
+:root{--nav-h:60px}
+/* OPAQUE, AND THE REASON IS THE DARK LOCK (2026-09-05). This was frosted
+   glass: 82% paper plus a 14px backdrop blur. Frosted glass assumes a light
+   ground — the blur mixes toward white and reads as frost. This site's ground
+   is near-black and what scrolls under the bar is high-contrast white line art,
+   so the 18% that came through rendered a white stroke at a value which
+   is 1.6:1 against the bar: a grey smear, not glass. It was worst on
+   /instruments, where card art passes under it continuously.
+
+   With the site locked to one dark theme there is no future light ground that
+   would ever make the effect read correctly, so it goes rather than gets
+   tuned. The hairline border still separates the bar from the page. */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:50;background:var(--paper);
+  border-bottom:1px solid var(--rule)}
+.topnav-in{padding:0 var(--gutter);height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;gap:24px}
+.topnav .brand{font-family:var(--f-mono);font-weight:600;font-size:.8125rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink);text-decoration:none;border:none}
+.navlinks{display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.navlinks a{font-family:var(--f-mono);font-size:.6875rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-4);text-decoration:none;border:none;transition:color .16s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a[aria-current="page"]{color:var(--ink)}
+.navlinks .ghbtn{border:1px solid var(--rule);border-radius:var(--radius-pill);width:34px;height:34px;
+  display:inline-flex;align-items:center;justify-content:center;
+  color:var(--ink-3);background:var(--surface);transition:color .16s,border-color .16s}
+.navlinks .ghbtn:hover{border-color:var(--rule-strong);color:var(--ink)}
+/* THE MARK OWNS ITS SIZE (2026-09-05). It shipped with width/height attributes
+   only, and an attribute loses to any stylesheet rule: five /instruments pages
+   carry a page-wide svg{width:100%;height:auto} for their figures, so on those
+   pages the mark drew at 32px on desktop and 292px tall inside the open phone
+   drawer — the same nav, three sizes, and no screenshot of a closed nav could
+   see the third. */
+.navlinks .ghbtn svg{display:block;width:17px;height:17px;flex:none}
+.gh-t{display:none}
+
+/* the drawer: pure CSS state — a checkbox the burger label toggles */
+.nav-ck{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.nav-burger{display:none;width:40px;height:40px;align-items:center;justify-content:center;
+  cursor:pointer;margin-right:-8px;border-radius:var(--radius-s)}
+.nav-burger .nb{position:relative;display:block;width:18px;height:2px;background:var(--ink);
+  border-radius:1px;transition:transform .18s ease}
+.nav-burger .nb::before,.nav-burger .nb::after{content:'';position:absolute;left:0;width:18px;height:2px;
+  background:var(--ink);border-radius:1px;transition:transform .18s ease,opacity .18s ease}
+.nav-burger .nb::before{top:-6px}
+.nav-burger .nb::after{top:6px}
+.nav-ck:focus-visible ~ .topnav-in .nav-burger{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){
+  .nav-burger{display:flex}
+  .navlinks{display:none;position:absolute;top:var(--nav-h);left:0;right:0;
+    flex-direction:column;align-items:stretch;gap:0;
+    background:var(--paper);border-bottom:1px solid var(--rule);padding:6px var(--gutter) 16px}
+  .navlinks a{padding:13px 0;border-bottom:1px solid var(--rule-soft)}
+  .navlinks a:last-child{border-bottom:none}
+  .navlinks .ghbtn{width:auto;height:auto;border:none;border-radius:0;background:none;
+    justify-content:flex-start;gap:10px;border-bottom:1px solid var(--rule-soft)}
+  .gh-t{display:inline}
+  .nav-ck:checked ~ .topnav-in .navlinks{display:flex}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb{transform:rotate(45deg)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::before{transform:rotate(90deg) translateX(6px)}
+  .nav-ck:checked ~ .topnav-in .nav-burger .nb::after{opacity:0}
+}
+[id]{scroll-margin-top:84px}
+/* the theme pill: under the bar, its right edge at the gutter; on a phone it stays at the top of the page and scrolls
+   away with it, never over the text (the /grammar/ trial's rules, 2026-10-30) */
+.theme-pill{position:fixed;top:calc(var(--nav-h) + var(--s-3));right:var(--gutter);z-index:40;display:flex;padding:var(--s-1);gap:var(--s-1);
+  background:var(--paper);border:1px solid var(--rule-strong);border-radius:var(--radius-pill)}
+.theme-pill button{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;
+  color:var(--ink-3);background:none;border:0;border-radius:var(--radius-pill);padding:var(--s-1) var(--s-3);cursor:pointer}
+.theme-pill button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.theme-pill button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+@media (max-width:680px){.theme-pill{position:absolute}.page > header{margin-top:var(--s-7)}}
+@media print{.theme-pill{display:none}}
+/* shell.css — the navbar and the measure scale, and nothing else. Everything an
+   /instruments page looks like beyond this is that page's own business. */
+/* THE SECTION'S OWN NAV IS GONE (2026-09-05) — design/nav.js is the site's
+   one nav and this section carries it like every other page. What is left here
+   is the consequence: the site nav is FIXED at 60px, so the page has to start
+   below it. The reports' shell does the same thing with its own padding. */
+/* THE BOX MODEL, SHARED — and it was not, until 2026-09-05. The
+   `*{box-sizing:border-box}` reset was declared in SIX page.css files and in
+   bench.css, and in the shell not at all. A page that did not carry its own copy
+   got content-box, so `.wrap`'s max-width:1200 became 1200 PLUS its 48px
+   gutters: /instruments/graph rendered 1296 wide and sat its whole column at
+   x=120 while every other page on the site sits at x=168. The site's one-left-
+   edge claim was being upheld by six identical copies of a reset, any one of
+   which could have gone missing — and the seventh page proved it. */
+/* THE FOUNDATION IS design/base.js (2026-09-15) — the reset, the ground, the
+   type, the selection colour, the eyebrow and the table wrapper, shared with
+   the report sheet because they were two descriptions of the same four
+   things and they had already diverged. What is left here is this section's
+   own: the container and the two tracks. */
+
+/* ---- ONE CONTAINER, TWO TRACKS, NO BREAKOUTS ------------------------------
+   Nine pages arrived by four routes — written here, ported from the bench,
+   crossed with declared patches — and each brought its own idea of how wide a
+   page is. The first pass (2026-09-04) cut SEVEN container widths and EIGHT
+   reading measures down to three widths. The ruler then measured what three
+   widths still cost: /instruments sat at x=108 and the reports at x=398, so
+   the front page and this place shared no left edge, and the 1560px "wide"
+   track produced the 1849px table that ran off the screen.
+
+   So: ONE container, and it is the same number the reports use — the values
+   come from design/tokens.js now (--container, --read, --title), which is why
+   there is no :root block here any more.
+
+   A COMPONENT NEVER BREAKS OUT. Wider than the container means it scrolls
+   inside the container (.tw below), sheds columns, or becomes a different
+   component. The reading measure stays WIDER than the reports' old 68ch: these
+   pages are figure-first, the prose sits beside and beneath components running
+   the full track, and a narrow column there reads as a leftover.
+
+   THERE IS NO NARROW CONTAINER, and that is the point. A narrow container is
+   centred, so a section using one steps inward from every other section on the
+   page and the left edge stops being a line. The reading measure belongs to
+   the PROSE — .lede, .prose, .why cap themselves and stay left — while the
+   container keeps its width for whatever component comes next. */
+.wrap, .container { max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter); }
+.wrap.wide, .container.wide, .wide > .container,
+.wrap.narrow, .container.narrow { max-width: var(--container); }
+.lede, .prose, .prose > p, .why { max-width: var(--read); }
+
+
+/* ---- THE BASE TYPOGRAPHY (2026-09-15). h1/h2/h3, p and a were declared in
+   bench.css AND in five page sheets — six copies of three rules, and the
+   reason /instruments/graph once shipped in Times was exactly this kind of
+   foundation living everywhere and therefore nowhere. ---- */
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: var(--weight-display);
+  letter-spacing: var(--track-display); line-height: var(--leading-tight); }
+p { margin: 0; }
+a { color: inherit; }
+
+/* ---- the eyebrow: seven declarations before this, and the weight was the
+   thing they disagreed about. The report engine sets 500, bench.css set none
+   at all, and interferometer set 500 on its own — so /instruments ran its
+   eyebrows a weight lighter than the reports on every page but one. 500, once,
+   on both sides of the site. ---- */
+/* .eyebrow is design/base.js's now — one rule for both sheets (2026-09-15) */
+
+/* ---- the hero. The bottom padding is the LARGER of the two that were in
+   service; curveset's tighter one was not a decision, it was a copy that had
+   drifted. A page wanting a different hero (the gathering page does, and says
+   so) overrides these two properties and nothing else. ---- */
+.hero { padding: clamp(2.5rem, 8vh, 6rem) 0 clamp(2rem, 5vh, 4rem); }
+.hero h1 { font-size: clamp(2.1rem, 1rem + 4vw, 3.9rem); max-width: var(--title);
+  margin-top: var(--s-4); text-wrap: balance; }
+.hero .lede { margin-top: var(--s-6); max-width: var(--read); font-size: var(--text-3);
+  color: var(--ink-3); line-height: 1.55; }
+.hero .lede b { color: var(--ink-2); font-weight: var(--weight-medium); }
+
+/* the footer is design/footer.js now, emitted by the one shell (2026-09-15) */
+
+/* ---- the panel: a raised box with a hairline. Spacing between consecutive
+   panels is a sibling rule, so a page never adds a margin-top of its own and
+   the two versions cannot disagree about which edge carries the gap. ---- */
+.panel { background: var(--bg-raised); border: 1px solid var(--border);
+  border-radius: var(--radius-l); padding: var(--s-5); }
+.panel + .panel { margin-top: clamp(1.25rem, 3vw, 2.5rem); }
+
+/* ---- FIGURE PRIMITIVES ----------------------------------------------------
+   THE DEFECT THIS CLOSES, and it is the one the operator saw as "lots of svg
+   elements are black". The gathering page embeds each instrument's card art
+   but NOT the stylesheet that colours it, and an SVG element whose class
+   resolves to nothing paints nothing — the default stroke is 'none'. Measured
+   on /instruments before this: 12 kinds of classed element painting nothing,
+   including 63 chords on the affect card and 60 on answer-shape, which is why
+   those two plates measured 1.4% and 1.2% ink and read as black boxes.
+
+   A figure vocabulary used by more than one page is a shared component, the
+   same as a hero or a footer. Phase 3 moved the furniture and left these.  */
+.ch { stroke: var(--ink-2); }
+.ord { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; opacity: 0.9; }
+/* .clo CLOSES THE WALK .ord DRAWS, and it is the SAME data at the SAME
+   standing — the step from the last item back to the first, computed exactly
+   the way every other step is. It was dashed to mark that ROLE, which is the
+   forbidden use: dash carries standing, never identity or role. The legitimate
+   channel was already doing the work — .ord is --ink at 0.9, .clo is --ink-3 —
+   so dropping the dash costs nothing, exactly as it did on answer-shape.
+   See design/CONTRACT.md. (No backticks in this comment on purpose: it lives
+   inside a template literal, and one backtick ends the literal.) */
+.clo { fill: none; stroke: var(--ink-3); stroke-width: 2.1; stroke-linecap: round; }
+.mst { fill: none; stroke: var(--ink); stroke-width: 2.1; stroke-linecap: round; opacity: 0.9; }
+.pt { fill: var(--ink-2); }
+/* .lb HAD NO FONT-SIZE, and that is two review defects in one line. Each
+   instrument page sets 8.5px on its own svg.pl .lb; the GATHERING page inlines
+   no page stylesheet, so every embedded card art fell back to the browser
+   default of 16px — in viewBox units, on a plate scaled about 1.5x. So the
+   affect card's labels rendered near 24px and ran clean out of the card
+   ("delighted" sliced at the right edge, "miserable" cut to "serable"), and
+   adjacent cards showed wildly different label sizes because each viewBox
+   scales differently. The pages' own 8.5px rules are more specific and still
+   win; this is the floor that was missing. */
+.lb { fill: var(--ink-4); font-family: var(--font-mono); font-size: 8.5px; }
+.ax line { stroke: var(--border-strong); }
+.ax text { fill: var(--ink-5); font-family: var(--font-mono); font-size: 9px; }
+.cs-grid { stroke: var(--chart-grid); stroke-width: 1; }
+.cs-err { stroke: var(--ink-4); stroke-width: 1.4; }
+/* a horizontal reference line at the asked value, and the two drop lines from
+   it to the baseline. "an axis, a ruler, a ghost, a reference circle" is the
+   contract's own definition of a GUIDE, so they take the guide pattern rather
+   than a fourth invented one. */
+.cs-drop { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-ask { stroke: var(--ink-4); stroke-width: 1; stroke-dasharray: 2 3; }
+.cs-fill { fill: var(--band-fill); stroke: none; }
+.cs-std { fill: var(--ink); }
+.cs-tick { fill: var(--ink-4); font-family: var(--font-mono); font-size: 10px; }
+/* PAINT LIVES HERE; ANCHORING STAYS ON THE PAGE (2026-09-05). These four were
+   defined ONLY in playground/curveset/page.css, which curveset inlines and the
+   gathering page does not. /instruments embeds curveset's card art WITHOUT that
+   stylesheet, so all four fell through to SVG's default BLACK fill and measured
+   1.06:1 against the plate — the same family as the twelve invisible kinds
+   caught on 2026-09-05, of which these four were missed because they are text
+   and a dot rather than strokes.
+
+   And they were dim even where they DID paint: .cs-axname at --ink-5 is
+   2.24:1, under the 3:1 floor this repository enforces everywhere else. Each
+   is lifted one rung — axis names to --ink-4 (3.97:1), the two data labels,
+   which carry words a reader has to read ("reported ±550 lb", "unbounded above
+   — over range"), to --ink-3. */
+.cs-fitdot   { fill: var(--ink-2); }
+.cs-axname   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-4); letter-spacing: 0.08em; }
+.cs-asklab   { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+.cs-void-lab { font-family: var(--font-mono); font-size: 10px; fill: var(--ink-3); }
+
+/* ---- THE GRAMMAR: its classes, its legend and the one accent are declared ONCE, in ../warrant.js css(), which
+   reports and apps include too (2026-10-28). ---- */
+
+/* ---- WARRANT (playground/warrant.js): stroke pattern carries standing. A REFUSED mark has no stroke at all; the
+   void is a hatched field, never a line. TONE IS MONOTONE IN STANDING (D9, ruled 2026-10-29: until then chosen took
+   --ink-2, brighter than computed's --ink-3, the weaker standing reading stronger):
+   decided --ink, computed --ink-2, chosen --ink-3, asserted by design/battery.js W1 from the tokens. ---- */
+.w-decided { stroke: var(--ink); }
+.w-computed { stroke: var(--ink-2); }
+.w-chosen { stroke: var(--ink-3); }
+/* THE SAME CLASSES IN HTML: on a word they set a voice, and the voice uses THE SAME DASH PATTERN as the line. Decided
+   carries no mark: it is the voice the rest of the site is written in. The underline does the work and brightness
+   only supports it, because dimness alone reads as low confidence and standing is not confidence. */
+.w-val { text-underline-offset: 0.24em; text-decoration-thickness: from-font; }
+.w-decided { color: var(--ink); }
+.w-computed { color: var(--ink-2); text-decoration: underline dashed var(--ink-4); }
+.w-chosen { color: var(--ink-2); text-decoration: underline dotted var(--ink-4); }
+.w-refused { color: var(--ink-4); font-style: normal; }
+span.w-refused::before { content: "\2205\00a0"; color: var(--ink-5); }
+/* R22 (2026-10-30): a section's reasons, said once in words where a value's reason was only a tooltip (design/reasons.js) */
+.w-why { grid-column: 1 / -1; margin-top: var(--s-5); border-top: 1px solid var(--rule); padding-top: var(--s-3); }
+.w-why .k { font-family: var(--f-mono); font-size: var(--text-eyebrow); letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-4); }
+div.w-why ul { list-style: none; padding: 0; margin: var(--s-2) 0 0; }
+div.w-why ul li { margin-left: 0; padding-left: 0; font-size: var(--text-small); color: var(--ink-3); padding-top: var(--s-1); padding-bottom: var(--s-1); }
+div.w-why ul li::before { content: none; }
+/* .w-void is deliberately NOT here: the void is a hatch, a hatch is an SVG <pattern>, and a pattern is addressed by
+   an id that lives in the figure that defines it. */
+/* ---- the standing legend; its column count comes from design/grid.js keyed on data-n ---- */
+.w-legend { display: grid; gap: var(--s-3) var(--s-6); margin-top: var(--s-5);
+  grid-template-columns: minmax(0, 1fr); align-items: start; }
+.w-legend .item { display: grid; grid-template-columns: 46px minmax(0, 1fr);
+  gap: var(--s-3); align-items: center; }
+.w-legend svg { display: block; width: 46px; height: 14px; overflow: visible; }
+.w-legend .k { font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink); }
+.w-legend .g { font-size: var(--text-small); color: var(--ink-4); line-height: var(--leading-snug); margin-top: var(--s-1); }
+/* THE ONE ACCENT (design/tokens.js --witness): only ever on a × glyph beside words */
+.wx { color: var(--witness); font-weight: var(--weight-strong); }
+.w-wx { stroke: var(--witness); }
+/* the compact legend: held to a short measure so its items stay narrower than anything the layout ruler measures */
+.w-legend.compact { max-width: 17rem; }
+/* ---- MODELS AS PREMISES (v2.1): the grade is a word and a ladder in ink; brightness supports, never carries ---- */
+.w-premises { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; gap: var(--s-2); }
+.w-premises li { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: var(--s-3); align-items: baseline; }
+.w-premises .ev { color: var(--ink-3); }
+.w-grade { display: inline-flex; align-items: center; gap: var(--s-2); font-family: var(--font-mono); font-size: var(--text-eyebrow);
+  letter-spacing: var(--track-loose); text-transform: uppercase; color: var(--ink-3); white-space: nowrap; }
+.w-grade svg { width: 13px; height: 9px; flex: none; }
+/* D11: a pair whose bit is off wraps the bit's word under the rung's, aligned past the glyph */
+.w-grade.v0 { display: inline-grid; grid-template-columns: auto 1fr; column-gap: var(--s-2); align-items: center; }
+.w-grade .bit { grid-column: 2; color: var(--ink-4); }
+.w-grade rect.on { fill: currentColor; }
+.w-grade rect.off { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.45; }
+.w-grade.g3 { color: var(--ink); }
+.w-grade.g0 { color: var(--ink-4); }
+.w-meet { margin: var(--s-3) 0 0; color: var(--ink-2); }
+@media (min-width: 700px) {
+.w-legend[data-n="1"]{grid-template-columns:repeat(1,minmax(0,1fr))}
+.w-legend[data-n="1"] .item:nth-child(n+1):nth-child(-n+1){grid-column:span 1}
+.w-legend[data-n="2"]{grid-template-columns:repeat(2,minmax(0,1fr))}
+.w-legend[data-n="2"] .item:nth-child(n+1):nth-child(-n+2){grid-column:span 1}
+.w-legend[data-n="3"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="3"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 1}
+.w-legend[data-n="4"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="4"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 1}
+.w-legend[data-n="5"]{grid-template-columns:repeat(6,minmax(0,1fr))}
+.w-legend[data-n="5"] .item:nth-child(n+1):nth-child(-n+3){grid-column:span 2}
+.w-legend[data-n="5"] .item:nth-child(n+4):nth-child(-n+5){grid-column:span 3}
+.w-legend[data-n="6"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="6"] .item:nth-child(n+1):nth-child(-n+6){grid-column:span 1}
+.w-legend[data-n="7"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="7"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="7"] .item:nth-child(n+5):nth-child(-n+7){grid-column:span 4}
+.w-legend[data-n="8"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="8"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 1}
+.w-legend[data-n="9"]{grid-template-columns:repeat(3,minmax(0,1fr))}
+.w-legend[data-n="9"] .item:nth-child(n+1):nth-child(-n+9){grid-column:span 1}
+.w-legend[data-n="10"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="10"] .item:nth-child(n+1):nth-child(-n+4){grid-column:span 3}
+.w-legend[data-n="10"] .item:nth-child(n+5):nth-child(-n+10){grid-column:span 4}
+.w-legend[data-n="11"]{grid-template-columns:repeat(12,minmax(0,1fr))}
+.w-legend[data-n="11"] .item:nth-child(n+1):nth-child(-n+8){grid-column:span 3}
+.w-legend[data-n="11"] .item:nth-child(n+9):nth-child(-n+11){grid-column:span 4}
+.w-legend[data-n="12"]{grid-template-columns:repeat(4,minmax(0,1fr))}
+.w-legend[data-n="12"] .item:nth-child(n+1):nth-child(-n+12){grid-column:span 1}
+.w-legend.compact { max-width: 34rem; }
+}
+
+/* ---- THE CERT-UNIT ART VOCABULARIES (2026-09-15) --------------------------
+   The unit graph and the contact sheet are drawn by instruments/cert-unit, and
+   FOUR pages inline them: /instruments/graph, /instruments/rewire,
+   /instruments/lattice-claims and the gathering page. Each art carried its own
+   <style>, so each of those pages shipped a second stylesheet. The rules live
+   in instruments/cert-unit/art-css.js — one source, read here and by the
+   renderers — and embedArt() below strips the copy when a page inlines the
+   art. Same rule as the figure primitives above: a vocabulary used by more
+   than one page is a shared component.                                    */
+
+.ug .nd { fill:var(--bg-raised); stroke:var(--ink); stroke-opacity:.22; }
+.ug .nd.inst { stroke-opacity:.45; }
+.ug .sep { stroke:var(--ink); stroke-opacity:.14; }
+.ug .nt { fill:var(--ink-2); font-family:var(--f-mono); font-size:8px; }
+.ug .pl { fill:var(--ink-3); font-family:var(--f-mono); font-size:6.5px; }
+.ug .pl.fired { fill:var(--ink); }
+.ug .cap { fill:var(--ink-4); font-family:var(--f-mono); font-size:7px; letter-spacing:.12em; }
+.ug .pt { fill:var(--paper); stroke:var(--ink); stroke-opacity:.6; stroke-width:1.2; }
+.ug .pt.dec { fill:var(--ink); fill-opacity:.75; stroke:none; }
+.ug .pt.idle { stroke-opacity:.28; }
+.ug .pt.fired { fill:var(--ink); stroke:var(--ink); }
+.ug .w { fill:none; stroke:var(--ink); stroke-width:1.2; }
+.ug .w.solid { stroke-opacity:.75; }
+.ug .w.dashed { stroke-opacity:.42; stroke-dasharray:5 4; }   /* grammar.js CLAIM */
+
+.cg .cs { fill:var(--ink); fill-opacity:.05; stroke:none; }
+.cg .cs.fired { fill-opacity:.92; }
+/* fill inside a ring is right; a fill with no ring is a wrong answer; a ring
+   with no fill is the answer it missed. */
+.cg .ck { fill:none; stroke:var(--ink); stroke-opacity:.5; stroke-width:1; }
+.cg .cl { fill:var(--ink-3); font-family:var(--f-mono); font-size:9px; }
+.cg .cp { fill:var(--ink-4); font-family:var(--f-mono); font-size:6.5px; }
+.cg .ct { fill:var(--ink); font-family:var(--f-mono); font-size:10px; letter-spacing:.1em; }
+.cg .cn { fill:var(--ink-4); font-family:var(--f-mono); font-size:8px; }
+.cg .cr { stroke:var(--ink); stroke-width:1.6; }
+.cg .cr.solid { stroke-opacity:.55; }
+.cg .cr.dashed { stroke-opacity:.28; stroke-dasharray:1.5 2; }
+/* the pqc card's two marks, for the same reason: the gathering page inlines
+   that art and carries no page stylesheet of pqc's. */
+.pqc-card .lb { fill: var(--ink-3); font-family: var(--f-mono); font-size: 10px; }
+.pqc-card .ax { stroke: var(--ink); stroke-opacity: .16; }
+
+
+/* page.css — /instruments/black-hole/. Tokens only; no new colour (the image is mixed between --bg and --ink in the tab). */
+.bh-wrap { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--s-5); align-items: start; margin-top: var(--s-5); }
+@media (max-width: 920px) { .bh-wrap { grid-template-columns: minmax(0, 1fr); } }
+.bh-fig { margin: 0; }
+.bh-stage { position: relative; width: 100%; max-width: 760px; aspect-ratio: 1 / 1; background: var(--bg); border-radius: var(--radius-s); overflow: hidden; }
+.bh-stage canvas, .bh-stage svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.bh-stage canvas { opacity: 0; transition: opacity var(--dur-med) var(--ease-out); image-rendering: auto; }
+.bh-stage.ready canvas { opacity: 1; }
+.bh-tag, .bh-time { position: absolute; left: var(--s-3); font-family: var(--font-mono); font-size: 11px; letter-spacing: .04em; color: var(--ink-2);
+  background: color-mix(in srgb, var(--bg) 78%, transparent); padding: 3px 7px; border-radius: var(--radius-s); max-width: calc(100% - 2 * var(--s-3)); }
+.bh-tag { top: var(--s-3); }
+.bh-stage.model .bh-tag { color: var(--ink); font-weight: 600; }
+.bh-time { bottom: var(--s-3); }
+.bh-time .k { color: var(--ink-4); text-transform: uppercase; font-size: 9.5px; letter-spacing: .12em; }
+.bh-stage.failed .bh-tag { color: var(--ink); }
+.bh-fig figcaption { margin-top: var(--s-3); font-size: var(--text-small); line-height: 1.55; color: var(--ink-3); max-width: 760px; }
+.bh-fig figcaption .fig-rec, .bh-fig figcaption .fig-stop { display: block; margin-top: var(--s-2); font-size: var(--text-eyebrow); color: var(--ink-4); overflow-wrap: anywhere; }
+.bh-legend { margin-top: var(--s-3); max-width: 760px; }
+
+.bh-panel { display: grid; gap: var(--s-4); font-size: 13px; color: var(--ink-2); }
+.bh-panel .grp { display: grid; gap: var(--s-2); }
+.bh-panel .lab { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+.bh-panel .lab em { text-transform: none; }
+.bh-panel .seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.bh-panel .seg button { font-family: var(--font-mono); font-size: 12px; color: var(--ink-3); background: transparent; border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill); padding: 4px 11px; cursor: pointer; }
+.bh-panel .seg button[aria-pressed="true"] { color: var(--bg); background: var(--ink); border-color: var(--ink); }
+.bh-panel .seg button:disabled { opacity: .35; cursor: not-allowed; }
+.bh-panel .ck { display: flex; gap: 8px; align-items: baseline; line-height: 1.4; cursor: pointer; }
+.bh-panel select { width: 100%; font: inherit; font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-s); padding: 5px 7px; }
+.bh-panel .rd { margin: 0; display: grid; gap: 4px; }
+.bh-panel .rd dt { font-size: 11px; color: var(--ink-4); }
+.bh-panel .rd dd { margin: 0 0 4px; font-family: var(--font-mono); font-size: 12.5px; color: var(--ink); overflow-wrap: anywhere; }
+.bh-panel .note { margin: 0; font-size: 11.5px; line-height: 1.45; color: var(--ink-4); }
+.bh-panel .tiny { font-size: 11px; color: var(--ink-4); display: block; line-height: 1.45; }
+
+.bh-t { border-collapse: collapse; font-size: 13px; width: 100%; }
+.bh-t th, .bh-t td { text-align: left; vertical-align: top; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+/* no uppercase: it turns µas into ΜAS */
+.bh-t th { font-family: var(--font-mono); font-size: 11px; letter-spacing: .02em; color: var(--ink-3); font-weight: 500; }
+section.wrap + section.wrap { margin-top: var(--s-8); }
+.bh-t td { color: var(--ink-2); }
+.bh-t td .w-val { font-family: var(--font-mono); font-size: 12px; white-space: nowrap; }
+.bh-t .src { font-size: 11px; color: var(--ink-4); margin-top: 2px; }
+section ul.plain { padding-left: 1.1em; max-width: var(--read); }
+section ul.plain li + li { margin-top: var(--s-2); }
+section ul.src li { font-size: 13px; color: var(--ink-3); }
+section .prose { margin-top: var(--s-4); }
+@media (max-width: 680px) {
+  .bh-tag, .bh-time { font-size: 10px; left: var(--s-2); }
+  .bh-tag { top: var(--s-2); } .bh-time { bottom: var(--s-2); }
+}
+
+/* the floating surfaces in the surface tokens, at the alpha they had (playground/design/theme.js) */
+.ov-panel, .panel { background: color-mix(in srgb, var(--bg-raised) 86%, transparent); }
+.sheet { background: color-mix(in srgb, var(--bg) 96%, transparent); }
+/* the theme pill (design/nav.js) sits under the nav at the top right: the panel's first control starts below it, and on
+   a phone the title does too, as a document page's header does (body: above any page's own panel padding) */
+body .ov-panel, body .panel { padding-top: calc(var(--nav-h) + var(--s-3) + var(--s-7)); }
+@media (max-width: 680px) { body .ov-title { top: calc(var(--nav-h) + var(--s-3) + var(--s-7)); } }
+/* @site-util */
+
+/* ---- THE RHYTHM STEPS (2026-09-15) ---------------------------------------
+   135 elements across nineteen builders carried a margin-top style attribute
+   — the spacing token was right, but it was written on the ELEMENT, where no
+   stylesheet can see it and no restyle can reach it. These are the same steps
+   under a name. A class is not a better value than the token it sets; it is a
+   value a stylesheet can find.
+
+   They are a LAST RESORT, not a layout system: a rhythm that repeats belongs
+   in a rule for the component that repeats it (see the prose rhythm the four
+   bare-prose pages take). ---- */
+/* DOUBLED ON PURPOSE (2026-09-15). These are what a builder writes when it
+   wants THIS element to take THIS step, and they replaced inline styles,
+   which beat every selector. A single class does not: the site's own
+   adjacency rules (.section p + p and its family) would win, and the
+   element would silently take a different step than the one asked for.
+   Measured before this was added: 80 utilities across sixteen pages were
+   being overridden. Doubling the class costs one specificity point and
+   makes the ask hold. */
+.mt2.mt2.mt2 { margin-top: var(--s-2); }
+.mt3.mt3.mt3 { margin-top: var(--s-3); }
+.mt4.mt4.mt4 { margin-top: var(--s-4); }
+.mt5.mt5.mt5 { margin-top: var(--s-5); }
+.mt6.mt6.mt6 { margin-top: var(--s-6); }
+.mt7.mt7.mt7 { margin-top: var(--s-7); }
+.mt8.mt8.mt8 { margin-top: var(--s-8); }
+
+/* ---- THE TWO MEASURES (2026-09-15) ---------------------------------------
+   The site has exactly two: --read for prose and --title for a headline. They
+   were overridden inline on 52 elements with ELEVEN bespoke values — 13, 14,
+   19, 20, 24, 26, 28, 30, 34, 36, 40ch on headlines and 64, 70, 72, 74, 78,
+   80, 84ch on prose — each one tuned to break one particular string on the day
+   it was written, and each one invisible to a restyle. They are the two
+   tokens now; text-wrap:balance does the per-string work, which is what it
+   is for. ---- */
+.rd.rd.rd { max-width: var(--read); }
+.ti.ti.ti { max-width: var(--title); }
+
+/* ---- THE PROSE VOICES (2026-09-15) ---------------------------------------
+   A body size beside a quiet ink, and its two neighbours,
+   were written on 40 elements across nine builders. They are three voices and
+   they have names: body prose, a quieter aside, and the ink the page speaks
+   in. ---- */
+.body-3.body-3.body-3 { font-size: var(--text-body); color: var(--ink-3); }
+.body-4.body-4.body-4 { font-size: var(--text-small); color: var(--ink-4); }
+.ink.ink.ink { color: var(--ink); }
+.ink-2.ink-2.ink-2 { color: var(--ink-2); }
+.ink-3.ink-3.ink-3 { color: var(--ink-3); }
+.ink-4.ink-4.ink-4 { color: var(--ink-4); }
+.ink-5.ink-5.ink-5 { color: var(--ink-5); }
+.small.small.small { font-size: var(--text-small); }
+/* the REPRODUCE block — six pages print the commands that rebuild them, in
+   the same voice, and each wrote it on the element (2026-09-15) */
+.cmd.cmd.cmd { font-size: var(--text-eyebrow); line-height: 2; }
+.small-78.small-78.small-78 { font-size: 0.78rem; }   /* neural-geometry's plate labels */
+.mt0.mt0.mt0 { margin-top: 0; }
+.no-rule.no-rule.no-rule { border-top: 0; }
+.span-all.span-all.span-all { grid-column: 1 / -1; }
+/* a looser leading for a long prose block — answer-shape's, and the only
+   place on the site that asks for one (2026-09-15) */
+.lead.lead.lead { line-height: 1.7; }
+
+/* @/site-util */
+.standfirst{font-size:var(--text-3);line-height:var(--leading-snug);font-style:italic;color:var(--ink-4);margin:var(--s-4) 0 0;max-width:var(--read);text-wrap:pretty}
+</style>
+</head>
+<body>
+<nav class="topnav"><script>try{if(localStorage.getItem("warrant-theme")==="light")document.documentElement.setAttribute("data-theme","light")}catch(e){}</script><input type="checkbox" id="navdrawer" class="nav-ck"><div class="topnav-in"><a class="brand" href="../../index.html">Carlos Toledo</a><label class="nav-burger" for="navdrawer" aria-label="Toggle navigation"><span class="nb"></span></label><div class="navlinks"><a href="../../reports/index.html">Reports</a><a href="../../instruments/index.html" aria-current="page">Instruments</a><a href="../../machine/index.html">Method</a><a href="../../grammar/index.html">Grammar</a><a href="../../about/index.html">About</a><a class="ghbtn" href="https://github.com/carlostoledo1891/cert-machine" aria-label="GitHub"><svg width="17" height="17" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg><span class="gh-t">GitHub</span></a></div></div></nav><div class="theme-pill" role="group" aria-label="Colour theme"><button type="button" data-t="dark">Dark</button><button type="button" data-t="light">Light</button></div><script>(function(){var r=document.documentElement,bs=document.querySelectorAll(".theme-pill button");function set(t,keep){if(t==="light")r.setAttribute("data-theme","light");else r.removeAttribute("data-theme");for(var i=0;i<bs.length;i++)bs[i].setAttribute("aria-pressed",String(bs[i].getAttribute("data-t")===t));if(keep){try{localStorage.setItem("warrant-theme",t)}catch(e){}document.dispatchEvent(new CustomEvent("warrant-theme",{detail:t}))}}set(r.getAttribute("data-theme")==="light"?"light":"dark",false);for(var i=0;i<bs.length;i++)bs[i].addEventListener("click",function(){set(this.getAttribute("data-t"),true)})})();</script>
+
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">Carlos Toledo &middot; instruments &middot; the black hole in M87</div>
+  <h1>M87*: a black hole where every line says what it rests on</h1>
+<p class="standfirst">The shadow’s edge decided, the image computed, the disk assumed, on M87*’s own clock</p>
+  <p class="lede">M87*, the black hole the Event Horizon Telescope imaged, drawn so that each element carries its standing. The edge of its shadow is decided in interval arithmetic and drawn solid. The image is computed, ray by ray, through the Kerr metric and drawn as computed. The glowing disk is an assumed thin disk, and it turns at its Keplerian rate on M87*&rsquo;s own clock, sped up and shown. Nothing here models the plasma, and the page says where the assumptions begin.</p>
+</div></header>
+
+<section class="wrap">
+  <div class="bh-wrap">
+    <div><figure class="bh-fig">
+  <div class="bh-stage" id="bh-stage">
+    <canvas id="bh-gl" width="512" height="512" aria-hidden="true"></canvas>
+    <svg id="bh-ov" viewBox="0 0 512 512" role="img" aria-label="The shadow edge of the black hole decided in interval arithmetic and drawn as a solid line over the computed image; the frame of the image is dashed, the jet sketch dotted.">
+  <rect x="1" y="1" width="510" height="510" class="w-computed" fill="none" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <path id="bh-jet" d="M184.16 203.61L181.64 199.86L179.20 196.12L176.84 192.38L174.54 188.64L172.31 184.90L170.13 181.15L168.01 177.41L165.94 173.67L163.92 169.93L161.94 166.18L160.00 162.44L158.10 158.70L156.23 154.96L154.40 151.21L152.60 147.47L150.84 143.73L149.10 139.99L147.39 136.24L145.70 132.50L144.05 128.76L142.41 125.02L140.80 121.28L139.21 117.53L137.64 113.79L136.10 110.05L134.57 106.31L133.06 102.56L131.57 98.82L130.10 95.08L128.64 91.34L127.20 87.59L125.78 83.85L124.37 80.11L122.98 76.37L121.60 72.62L120.24 68.88L118.88 65.14L117.55 61.40L116.22 57.66L114.91 53.91L113.61 50.17L112.32 46.43L111.04 42.69L109.78 38.94L108.52 35.20L107.28 31.46L106.04 27.72L104.82 23.97L103.60 20.23L102.40 16.49L101.20 12.75L100.02 9.00M327.84 203.61L330.36 199.86L332.80 196.12L335.16 192.38L337.46 188.64L339.69 184.90L341.87 181.15L343.99 177.41L346.06 173.67L348.08 169.93L350.06 166.18L352.00 162.44L353.90 158.70L355.77 154.96L357.60 151.21L359.40 147.47L361.16 143.73L362.90 139.99L364.61 136.24L366.30 132.50L367.95 128.76L369.59 125.02L371.20 121.28L372.79 117.53L374.36 113.79L375.90 110.05L377.43 106.31L378.94 102.56L380.43 98.82L381.90 95.08L383.36 91.34L384.80 87.59L386.22 83.85L387.63 80.11L389.02 76.37L390.40 72.62L391.76 68.88L393.12 65.14L394.45 61.40L395.78 57.66L397.09 53.91L398.39 50.17L399.68 46.43L400.96 42.69L402.22 38.94L403.48 35.20L404.72 31.46L405.96 27.72L407.18 23.97L408.40 20.23L409.60 16.49L410.80 12.75L411.98 9.00" class="w-chosen" fill="none" stroke-width="1.5" stroke-dasharray="1 5" stroke-linecap="round"/>
+  <path id="bh-casing" d="M201.91 255.89L201.93 254.59L201.97 253.30L202.04 251.99L202.13 250.69L202.25 249.38L202.40 248.11L202.57 246.83L202.76 245.56L202.99 244.30L203.24 243.02L203.52 241.73L203.82 240.45L204.16 239.18L204.52 237.91L204.90 236.65L205.31 235.40L205.74 234.19L206.19 232.98L206.67 231.79L207.19 230.55L207.71 229.38L208.26 228.22L208.84 227.05L209.45 225.89L210.08 224.73L210.75 223.58L211.42 222.48L212.11 221.38L212.84 220.28L213.57 219.23L214.33 218.18L215.12 217.13L215.93 216.11L216.75 215.11L217.64 214.08L218.53 213.09L219.42 212.14L220.32 211.22L221.28 210.28L222.24 209.37L223.21 208.50L224.18 207.66L225.22 206.80L226.26 205.98L227.31 205.19L228.36 204.42L229.42 203.69L230.55 202.94L231.68 202.23L232.82 201.54L233.96 200.89L235.11 200.26L236.26 199.67L237.43 199.10L238.60 198.55L239.77 198.03L240.95 197.54L242.21 197.05L243.46 196.59L244.73 196.16L246.00 195.76L247.28 195.38L248.57 195.03L249.87 194.71L251.17 194.42L252.48 194.15L253.79 193.92L255.12 193.71L256.45 193.53L257.79 193.38L259.07 193.26L260.35 193.17L261.64 193.11L262.94 193.07L264.25 193.06L265.56 193.08L266.87 193.13L268.20 193.21L269.53 193.31L270.87 193.44L272.14 193.60L273.42 193.78L274.71 193.99L276.00 194.23L277.30 194.51L278.60 194.81L279.91 195.14L281.16 195.48L282.41 195.86L283.66 196.26L284.92 196.70L286.18 197.17L287.38 197.64L288.58 198.14L289.78 198.68L290.99 199.24L292.20 199.85L293.35 200.45L294.49 201.08L295.65 201.74L296.80 202.44L297.88 203.13L298.97 203.85L300.06 204.61L301.15 205.41L302.25 206.25L303.27 207.06L304.29 207.91L305.32 208.81L306.27 209.67L307.23 210.57L308.19 211.52L309.15 212.51L310.03 213.46L310.91 214.45L311.80 215.49L312.69 216.57L313.50 217.61L314.31 218.70L315.13 219.84L315.88 220.95L316.62 222.08L317.31 223.20L317.97 224.31L318.63 225.47L319.25 226.62L319.87 227.83L320.45 229.03L320.98 230.20L321.52 231.44L322.02 232.66L322.52 233.96L322.98 235.24L323.41 236.51L323.80 237.78L324.18 239.08L324.51 240.34L324.83 241.63L325.12 242.95L325.37 244.20L325.60 245.49L325.81 246.79L325.99 248.10L326.13 249.37L326.26 250.71L326.36 252.03L326.42 253.34L326.47 254.74L326.49 256.13L326.46 257.50L326.42 258.78L326.34 260.13L326.25 261.42L326.12 262.73L325.96 264.07L325.79 265.35L325.58 266.63L325.35 267.91L325.08 269.25L324.78 270.55L324.47 271.82L324.14 273.07L323.76 274.36L323.35 275.65L322.94 276.88L322.48 278.15L321.98 279.44L321.48 280.65L320.94 281.89L320.40 283.06L319.83 284.25L319.21 285.46L318.59 286.60L317.93 287.76L317.27 288.87L316.58 289.99L315.84 291.11L315.05 292.28L314.23 293.41L313.42 294.49L312.61 295.53L311.72 296.61L310.83 297.64L309.95 298.63L309.07 299.58L308.11 300.56L307.15 301.50L306.20 302.40L305.24 303.26L304.22 304.15L303.19 305.00L302.17 305.82L301.07 306.65L299.98 307.44L298.89 308.20L297.80 308.92L296.72 309.61L295.57 310.30L294.42 310.97L293.27 311.60L292.13 312.19L290.91 312.79L289.71 313.36L288.50 313.89L287.30 314.39L286.11 314.86L284.84 315.33L283.59 315.76L282.33 316.17L281.08 316.54L279.84 316.88L278.53 317.21L277.23 317.51L275.93 317.78L274.64 318.02L273.35 318.23L272.07 318.41L270.80 318.56L269.46 318.70L268.13 318.80L266.81 318.87L265.49 318.92L264.18 318.94L262.87 318.92L261.57 318.89L260.28 318.82L259.00 318.73L257.72 318.61L256.38 318.46L255.05 318.28L253.73 318.07L252.41 317.83L251.10 317.57L249.80 317.27L248.51 316.95L247.22 316.60L245.94 316.23L244.67 315.82L243.40 315.39L242.14 314.92L240.89 314.43L239.71 313.94L238.53 313.42L237.37 312.88L236.20 312.30L235.05 311.70L233.90 311.08L232.76 310.42L231.62 309.73L230.49 309.02L229.36 308.27L228.30 307.54L227.25 306.77L226.20 305.98L225.16 305.15L224.13 304.29L223.15 303.45L222.18 302.57L221.22 301.67L220.26 300.72L219.36 299.80L218.47 298.85L217.58 297.86L216.70 296.83L215.87 295.82L215.06 294.80L214.27 293.75L213.51 292.70L212.78 291.64L212.06 290.54L211.36 289.44L210.69 288.33L210.03 287.17L209.39 286.01L208.79 284.85L208.21 283.68L207.66 282.50L207.14 281.33L206.62 280.08L206.14 278.89L205.69 277.67L205.26 276.45L204.86 275.22L204.49 274.00L204.13 272.73L203.80 271.45L203.49 270.16L203.21 268.86L202.97 267.60L202.75 266.32L202.55 265.03L202.38 263.74L202.23 262.45L202.12 261.16L202.02 259.86L201.96 258.55L201.92 257.26L201.91 256.11L201.91 255.89Z" fill="none" stroke="var(--bg)" stroke-width="2.8" stroke-linejoin="round" opacity="0.75"/>
+  <path id="bh-curve" d="M201.91 255.89L201.93 254.59L201.97 253.30L202.04 251.99L202.13 250.69L202.25 249.38L202.40 248.11L202.57 246.83L202.76 245.56L202.99 244.30L203.24 243.02L203.52 241.73L203.82 240.45L204.16 239.18L204.52 237.91L204.90 236.65L205.31 235.40L205.74 234.19L206.19 232.98L206.67 231.79L207.19 230.55L207.71 229.38L208.26 228.22L208.84 227.05L209.45 225.89L210.08 224.73L210.75 223.58L211.42 222.48L212.11 221.38L212.84 220.28L213.57 219.23L214.33 218.18L215.12 217.13L215.93 216.11L216.75 215.11L217.64 214.08L218.53 213.09L219.42 212.14L220.32 211.22L221.28 210.28L222.24 209.37L223.21 208.50L224.18 207.66L225.22 206.80L226.26 205.98L227.31 205.19L228.36 204.42L229.42 203.69L230.55 202.94L231.68 202.23L232.82 201.54L233.96 200.89L235.11 200.26L236.26 199.67L237.43 199.10L238.60 198.55L239.77 198.03L240.95 197.54L242.21 197.05L243.46 196.59L244.73 196.16L246.00 195.76L247.28 195.38L248.57 195.03L249.87 194.71L251.17 194.42L252.48 194.15L253.79 193.92L255.12 193.71L256.45 193.53L257.79 193.38L259.07 193.26L260.35 193.17L261.64 193.11L262.94 193.07L264.25 193.06L265.56 193.08L266.87 193.13L268.20 193.21L269.53 193.31L270.87 193.44L272.14 193.60L273.42 193.78L274.71 193.99L276.00 194.23L277.30 194.51L278.60 194.81L279.91 195.14L281.16 195.48L282.41 195.86L283.66 196.26L284.92 196.70L286.18 197.17L287.38 197.64L288.58 198.14L289.78 198.68L290.99 199.24L292.20 199.85L293.35 200.45L294.49 201.08L295.65 201.74L296.80 202.44L297.88 203.13L298.97 203.85L300.06 204.61L301.15 205.41L302.25 206.25L303.27 207.06L304.29 207.91L305.32 208.81L306.27 209.67L307.23 210.57L308.19 211.52L309.15 212.51L310.03 213.46L310.91 214.45L311.80 215.49L312.69 216.57L313.50 217.61L314.31 218.70L315.13 219.84L315.88 220.95L316.62 222.08L317.31 223.20L317.97 224.31L318.63 225.47L319.25 226.62L319.87 227.83L320.45 229.03L320.98 230.20L321.52 231.44L322.02 232.66L322.52 233.96L322.98 235.24L323.41 236.51L323.80 237.78L324.18 239.08L324.51 240.34L324.83 241.63L325.12 242.95L325.37 244.20L325.60 245.49L325.81 246.79L325.99 248.10L326.13 249.37L326.26 250.71L326.36 252.03L326.42 253.34L326.47 254.74L326.49 256.13L326.46 257.50L326.42 258.78L326.34 260.13L326.25 261.42L326.12 262.73L325.96 264.07L325.79 265.35L325.58 266.63L325.35 267.91L325.08 269.25L324.78 270.55L324.47 271.82L324.14 273.07L323.76 274.36L323.35 275.65L322.94 276.88L322.48 278.15L321.98 279.44L321.48 280.65L320.94 281.89L320.40 283.06L319.83 284.25L319.21 285.46L318.59 286.60L317.93 287.76L317.27 288.87L316.58 289.99L315.84 291.11L315.05 292.28L314.23 293.41L313.42 294.49L312.61 295.53L311.72 296.61L310.83 297.64L309.95 298.63L309.07 299.58L308.11 300.56L307.15 301.50L306.20 302.40L305.24 303.26L304.22 304.15L303.19 305.00L302.17 305.82L301.07 306.65L299.98 307.44L298.89 308.20L297.80 308.92L296.72 309.61L295.57 310.30L294.42 310.97L293.27 311.60L292.13 312.19L290.91 312.79L289.71 313.36L288.50 313.89L287.30 314.39L286.11 314.86L284.84 315.33L283.59 315.76L282.33 316.17L281.08 316.54L279.84 316.88L278.53 317.21L277.23 317.51L275.93 317.78L274.64 318.02L273.35 318.23L272.07 318.41L270.80 318.56L269.46 318.70L268.13 318.80L266.81 318.87L265.49 318.92L264.18 318.94L262.87 318.92L261.57 318.89L260.28 318.82L259.00 318.73L257.72 318.61L256.38 318.46L255.05 318.28L253.73 318.07L252.41 317.83L251.10 317.57L249.80 317.27L248.51 316.95L247.22 316.60L245.94 316.23L244.67 315.82L243.40 315.39L242.14 314.92L240.89 314.43L239.71 313.94L238.53 313.42L237.37 312.88L236.20 312.30L235.05 311.70L233.90 311.08L232.76 310.42L231.62 309.73L230.49 309.02L229.36 308.27L228.30 307.54L227.25 306.77L226.20 305.98L225.16 305.15L224.13 304.29L223.15 303.45L222.18 302.57L221.22 301.67L220.26 300.72L219.36 299.80L218.47 298.85L217.58 297.86L216.70 296.83L215.87 295.82L215.06 294.80L214.27 293.75L213.51 292.70L212.78 291.64L212.06 290.54L211.36 289.44L210.69 288.33L210.03 287.17L209.39 286.01L208.79 284.85L208.21 283.68L207.66 282.50L207.14 281.33L206.62 280.08L206.14 278.89L205.69 277.67L205.26 276.45L204.86 275.22L204.49 274.00L204.13 272.73L203.80 271.45L203.49 270.16L203.21 268.86L202.97 267.60L202.75 266.32L202.55 265.03L202.38 263.74L202.23 262.45L202.12 261.16L202.02 259.86L201.96 258.55L201.92 257.26L201.91 256.11L201.91 255.89Z" class="w-decided" fill="none" stroke-width="1.6" stroke-linejoin="round" data-rec="playground/black-hole/out/scene.json#/views/2/curve/points"/>
+</svg>
+    <div class="bh-tag" id="bh-viewtag">M87*&rsquo;s view, 17&deg; (assumed, from the jet)</div>
+    <div class="bh-time" aria-live="off"><span class="k">t</span> <span class="w-computed" id="bh-t">0</span> t<sub>g</sub> &middot; <span class="k">M87* day</span> <span class="w-computed" id="bh-days">[0.0, 0.0]</span></div>
+  </div>
+  <figcaption data-record="certs/bh-shadow.json@8019e1ed10db certs/bh-maps-check.json@eb4fddd7572b corpus/bh-maps/manifest.json@bd7f6cf3367f playground/black-hole/out/scene.json@7416887baeb3" data-stop>The shadow&rsquo;s edge, Bardeen&rsquo;s critical curve, is the one solid line: Phase 0 encloses it in interval arithmetic and the line is drawn at least as wide as the boxes that cover it (0.02 M across at most), so the true curve lies inside it. The image under it is <span class="w-computed">computed</span>: each pixel is a light ray traced backward through the Kerr metric in double precision (the lensing maps, which agree with the decided curve on every pre-registered check) and shaded in your tab as an <em>assumed</em> thin disk, &Sigma; g&sup3;J; its frame is dashed for that standing. The jet is a dotted sketch, <em>chosen</em> to be legible: no jet image is drawn. Every image of the disk shows it at one moment; the light-travel delay between them is not applied.
+    <span class="fig-rec">Records: <span class="m">certs/bh-shadow.json</span> &middot; sha256 8019e1ed10db; <span class="m">certs/bh-maps-check.json</span> &middot; sha256 eb4fddd7572b; <span class="m">corpus/bh-maps/manifest.json</span> &middot; sha256 bd7f6cf3367f; <span class="m">playground/black-hole/out/scene.json</span> &middot; sha256 7416887baeb3</span><span class="fig-stop">The build refuses this figure if the scene record does not re-derive from Phase 0&rsquo;s decider, if a map does not agree with the decided curve or is not its pinned file, or if the solid line is drawn thinner than the boxes it covers.</span></figcaption>
+</figure>
+    <div class="bh-legend"><div class="w-legend compact" data-n="3" data-from="markup"><div class="item" data-s="decided"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-decided" fill="none" stroke-width="2.4"/></svg><div><div class="k">decided</div><div class="g">exact arithmetic backs it</div></div></div><div class="item" data-s="computed"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-computed" fill="none" stroke-width="2.4" stroke-dasharray="5 4"/></svg><div><div class="k">computed</div><div class="g">float, or a number someone printed; nothing decided it</div></div></div><div class="item" data-s="chosen"><svg viewBox="0 0 46 14" aria-hidden="true"><line x1="1" y1="7" x2="45" y2="7" class="w-chosen" fill="none" stroke-width="2.4" stroke-dasharray="1 5" stroke-linecap="round"/></svg><div><div class="k">chosen</div><div class="g">one member of a set the data admits</div></div></div></div></div></div>
+    <div class="bh-panel">
+  <div class="grp"><div class="lab">spin <em>a</em>, <span class="w-chosen">chosen</span>: the data do not constrain it</div><div class="seg" role="group" aria-label="spin"><button type="button" data-spin="0" aria-pressed="false">0</button><button type="button" data-spin="1/2" aria-pressed="false">0.5</button><button type="button" data-spin="47/50" aria-pressed="true">0.94</button><button type="button" data-spin="499/500" aria-pressed="false">0.998</button></div>
+    <p class="note" id="bh-spinnote" hidden>Off 17&deg; the maps exist for a = 0.94 only.</p></div>
+  <div class="grp"><div class="lab">the view</div><div class="seg" role="group" aria-label="inclination"><button type="button" data-view="17" aria-pressed="true">17&deg; &middot; M87*</button><button type="button" data-view="45" aria-pressed="false">45&deg; &middot; model</button><button type="button" data-view="80" aria-pressed="false">80&deg; &middot; model</button></div>
+    <p class="note">17&deg; is M87*&rsquo;s view, taken from its jet; leaving it draws a picture of the model.</p></div>
+  <div class="grp"><div class="lab">layers</div>
+    <label class="ck"><input type="checkbox" data-lay="1" checked> n = 0, the disk seen directly</label>
+    <label class="ck"><input type="checkbox" data-lay="2" checked> n = 1, the first photon-ring image</label>
+    <label class="ck"><input type="checkbox" data-lay="4"> n = 2, unresolved: narrower than one pixel of the maps, so drawn blurred, never as a line</label></div>
+  <div class="grp"><label class="lab" for="bh-row">mass row</label>
+    <select id="bh-row"><option value="eht2019" selected>EHT 2019 (the ring, GRMHD-calibrated)</option><option value="gebhardt2011">stars (Gebhardt+11)</option><option value="liepold2023">stars (Liepold+23)</option><option value="walsh2013">gas (Walsh+13)</option></select>
+    <dl class="rd">
+      <dt>&theta;<sub>g</sub> = GM/c&sup2;D, &micro;as</dt><dd><span id="bh-tg" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/thetaG/eht2019/uas" data-fmt="raw" title="decided — exact arithmetic backs it">[3.400000, 4.200000]</span></dd>
+      <dt>the shadow, d&#772; over every spin at 17&deg;, &micro;as</dt><dd><span id="bh-pred" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/eht2019/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[32.8810, 43.6497]</span></dd>
+      <dt>the ring the EHT measures</dt><dd><span class="w-val w-computed" data-w="computed" data-rec="certs/bh-shadow.json#/inputs/rings[id=eht2017-2021]/published" data-fmt="raw" title="computed — float, or a number someone printed; nothing decided it">43.9 ± 0.6 µas, persistent 2017–2021</span></dd>
+      <dt>ring &divide; shadow, <em>compared</em></dt><dd><span id="bh-ratio" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/comparison/rows/eht2019/eht2017-2021/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[0.9919, 1.3534]</span></dd>
+    </dl>
+    <p class="note" id="bh-circ">This row&rsquo;s &theta;<sub>g</sub> was fitted to the 2017 ring with the GRMHD calibration, so the ratio returns that calibration: printed, never a test.</p></div>
+  <div class="grp"><div class="lab">the clock</div>
+    <dl class="rd">
+      <dt>one second here</dt><dd><span class="w-chosen">4</span> t<sub>g</sub> = <span class="w-computed" id="bh-speedh">&hellip;</span> h of M87* (t<sub>g</sub> = <span id="bh-tgh" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/tgHours" data-fmt="raw" title="decided — exact arithmetic backs it">[7.6618, 10.1247]</span> h, <span id="bh-rowlabel">EHT 2019 (the ring, GRMHD-calibrated)</span>)</dd>
+      <dt>the inner edge goes round in</dt><dd><span id="bh-iscotg" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/47~150 pro/periodTg" data-fmt="raw" title="decided — exact arithmetic backs it">[23.993115, 23.993116]</span> t<sub>g</sub> = <span id="bh-iscod" class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/iscoDays/47~150 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[7.6596, 10.1218]</span> days, <span class="w-chosen" id="bh-iscos">&hellip;</span> s here (<span id="bh-spinlabel">a = 47/50 = 0.94 (the chosen default)</span>)</dd>
+    </dl>
+    <p class="note" id="bh-reduce" hidden>Your system asks for reduced motion, so the clock stands still at t = 0.</p></div>
+  <div class="grp tiny"><span class="lab">drawn by</span> <span id="bh-renderer">&hellip;</span>. <span id="bh-pin">The map files are checked against their pinned sha256 as they load.</span></div>
+</div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>What each line rests on</h2>
+  <div class="tw"><table class="bh-t"><thead><tr><th>element</th><th>drawn as</th><th>standing</th><th>what it rests on</th></tr></thead><tbody><tr><td>the shadow&rsquo;s edge (the critical curve)</td><td>the solid line</td><td><span class="w-decided">decided</span></td><td>Phase 0: interval enclosure by two deciders that share no code; drawn as a cover of boxes, the line wider than any of them</td></tr><tr><td>the image of the disk and its photon rings</td><td>the grey field, its frame dashed</td><td><span class="w-computed">computed</span></td><td>rays traced in double precision through the Kerr metric (the lensing maps), graded against the decided curve; shaded in float32 in your tab</td></tr><tr><td>the disk, its brightness and its motion</td><td>the pattern in the grey field</td><td><em>assumed</em></td><td>a thin disk on Keplerian orbits; the pattern turns at Ω(r) = 1/(r<sup>3/2</sup> + a) per t<sub>g</sub>, born and faded every 40 t<sub>g</sub></td></tr><tr><td>the spin</td><td>the pressed button</td><td><span class="w-chosen">chosen</span></td><td>four precomputed values; the decided band over every spin is in the table below</td></tr><tr><td>the view</td><td>17&deg; (or 45&deg;, 80&deg; as a model)</td><td><em>assumed</em></td><td>M87*&rsquo;s inclination from its jet; the other two are pictures of the model</td></tr><tr><td>the jet</td><td>the dotted funnel</td><td><span class="w-chosen">chosen</span></td><td>an assumed sketch; no jet image is drawn</td></tr><tr><td>the clock</td><td>t in t<sub>g</sub> and M87* days</td><td><span class="w-decided">decided</span> &times; <span class="w-chosen">chosen</span></td><td>t<sub>g</sub> per mass row and the ISCO periods are Phase 0&rsquo;s; four t<sub>g</sub> a second is chosen; the elapsed time is measured by your browser</td></tr></tbody></table></div>
+  <p class="prose">The chain the image travelled through, in order, each premise with the grade its checking reached:</p>
+  <ol class="w-premises"><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The Kerr metric</b> <span class="ev">general relativity, an uncharged black hole in vacuum, no plasma lensing: adopted, not checked here</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The inclination, 17°</b> <span class="ev">from the jet’s motions (Mertens et al. 2016, 17.2° ± 3.3°); the EHT’s 163° is the same curve mirrored</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The spin, swept over four values</b> <span class="ev">the data constrain nothing; 0.94 is the chosen default</span></div></li><li><span class="w-grade g1" title="verified — the code reproduces an exact solution of its own equations; not measured against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>verified</span><div><b>The ray tracer (instruments/kerr/rays.js)</b> <span class="ev">its crossings against Gralla & Lupsasca’s closed form and its shadow against Phase 0’s decided curve: AGREES on every check, at every map (certs/bh-maps-check.json)</span></div></li><li><span class="w-grade g0" title="assumed — adopted from a source, chosen, or read; no machine here checked it"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="off"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="off"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>assumed</span><div><b>The thin disk and its emission</b> <span class="ev">equatorial, prograde Keplerian, cut at the ISCO, optically thin, J ∝ r⁻², I = Σ g³J; the brightness pattern that turns with it is chosen to be legible</span></div></li><li><span class="w-grade g2" title="compared — checked against a model that keeps more of the physics, with the number; not against the thing itself"><svg viewBox="0 0 13 9" aria-hidden="true"><rect x="0" y="6" width="3" height="3" rx="0.5" class="on"/><rect x="5" y="3" width="3" height="6" rx="0.5" class="on"/><rect x="10" y="0" width="3" height="9" rx="0.5" class="off"/></svg>compared</span><div><b>The ring-to-shadow factor (the mass-row comparison only)</b> <span class="ev">calibrated on GRMHD in the EHT’s Paper VI; a thin disk’s lensing ring sits about 5 % outside the curve (Gralla, Holz & Wald 2019)</span></div></li></ol><p class="w-meet">The image is as checked as its weakest premise: <b>assumed</b>, the thin disk. The shadow&rsquo;s edge rests only on the Kerr metric, the spin and the view.</p>
+</section>
+
+<section class="wrap">
+  <h2>The shadow against the ring, per mass row</h2>
+  <p class="prose">The size of the shadow on the sky is the curve&rsquo;s mean diameter d&#772; in M times &theta;<sub>g</sub> = GM/c&sup2;D, and &theta;<sub>g</sub> for a dynamical mass does not depend on the distance assumed (the mass scales with it). The EHT measures a ring of <span class="w-val w-computed" data-w="computed" data-rec="certs/bh-shadow.json#/inputs/rings[id=eht2017-2021]/published" data-fmt="raw" title="computed — float, or a number someone printed; nothing decided it">43.9 ± 0.6 µas, persistent 2017–2021</span>. The ring is not the shadow&rsquo;s edge: the factor between them is <em>calibrated</em> on simulations, so the last column is the factor each row would need, <em>compared</em>, never a verdict on the black hole, on general relativity, or on which mass is right.</p>
+  <div class="tw"><table class="bh-t"><thead><tr><th>mass row</th><th>&theta;<sub>g</sub>, &micro;as</th><th>shadow over every spin, 17&deg;, &micro;as</th><th>over 13.9&ndash;20.5&deg;</th><th>ring &divide; shadow</th></tr></thead><tbody><tr><td>EHT 2019 (the ring, GRMHD-calibrated)<div class="src">EHT Collaboration 2019, First M87 EHT Results VI, ApJL 875, L6 (arXiv:1906.11243)</div></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/thetaG/eht2019/uas" data-fmt="raw" title="decided — exact arithmetic backs it">[3.400000, 4.200000]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/eht2019/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[32.8810, 43.6497]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/eht2019/bandIncl" data-fmt="raw" title="decided — exact arithmetic backs it">[32.8359, 43.7001]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/comparison/rows/eht2019/eht2017-2021/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[0.9919, 1.3534]</span></td></tr><tr><td>stars (Gebhardt+11)<div class="src">Gebhardt et al. 2011, ApJ 729, 119 (arXiv:1101.1954), Gemini/NIFS stellar dynamics</div></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/thetaG/gebhardt2011/uas" data-fmt="raw" title="decided — exact arithmetic backs it">[3.418876, 3.860023]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/gebhardt2011/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[33.0636, 40.1164]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/gebhardt2011/bandIncl" data-fmt="raw" title="decided — exact arithmetic backs it">[33.0182, 40.1627]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/comparison/rows/gebhardt2011/eht2017-2021/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[1.0793, 1.3459]</span></td></tr><tr><td>stars (Liepold+23)<div class="src">Liepold, Ma &amp; Walsh 2023, ApJL 945, L35 (arXiv:2302.07884), Keck IFS, triaxial orbit models</div></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/thetaG/liepold2023/uas" data-fmt="raw" title="decided — exact arithmetic backs it">[3.008191, 3.372465]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/liepold2023/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[29.0919, 35.0493]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/liepold2023/bandIncl" data-fmt="raw" title="decided — exact arithmetic backs it">[29.0519, 35.0898]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/comparison/rows/liepold2023/eht2017-2021/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[1.2354, 1.5297]</span></td></tr><tr><td>gas (Walsh+13)<div class="src">Walsh et al. 2013, ApJ 770, 86 (arXiv:1304.7273), HST/STIS gas dynamics</div></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/thetaG/walsh2013/uas" data-fmt="raw" title="decided — exact arithmetic backs it">[1.544008, 2.426300]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/walsh2013/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[14.9319, 25.2160]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/predictedUas/walsh2013/bandIncl" data-fmt="raw" title="decided — exact arithmetic backs it">[14.9114, 25.2452]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/comparison/rows/walsh2013/eht2017-2021/band17" data-fmt="raw" title="decided — exact arithmetic backs it">[1.7171, 2.9802]</span></td></tr></tbody></table></div>
+  <p class="prose">The EHT row&rsquo;s &theta;<sub>g</sub> was fitted to the 2017 ring with that calibration, so its ratio returns the calibration. The last column of the gas-dynamical row (Walsh et al. 2013) starts above every other row&rsquo;s; the stellar rows and the EHT&rsquo;s own overlap. Every interval is printed outward from certs/bh-shadow.json.</p>
+</section>
+
+<section class="wrap">
+  <h2>The clock</h2>
+  <p class="prose">The disk turns as a disk of matter on circular orbits would: at radius r its pattern goes round once every 2&pi;(r<sup>3/2</sup> + a) t<sub>g</sub>, where t<sub>g</sub> = GM/c&sup3; is the black hole&rsquo;s own unit of time. Here one second of the screen is <span class="w-chosen">four</span> t<sub>g</sub>, and the clock on the image counts t<sub>g</sub> from the moment the page opened and prints them as days of M87*, an interval because the mass is one. The inner edge turns fastest, the outer disk slowest, so the pattern shears and never returns: the picture does not loop, and nothing resets it. Its features are born and fade every 40 t<sub>g</sub> (assumed), so the shear never winds the disk into stripes. The periods at the inner edge, the ISCO of Bardeen, Press &amp; Teukolsky, decided in Phase 0:</p>
+  <div class="tw"><table class="bh-t"><thead><tr><th>spin</th><th>r<sub>isco</sub>, M</th><th>period, t<sub>g</sub></th><th>days, EHT 2019 (the ring, GRMHD-calibrated)</th><th>days, stars (Gebhardt+11)</th><th>days, stars (Liepold+23)</th><th>days, gas (Walsh+13)</th></tr></thead><tbody><tr><td>a = 0</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/0 pro/r" data-fmt="raw" title="decided — exact arithmetic backs it">[5.999999, 6.000001]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/0 pro/periodTg" data-fmt="raw" title="decided — exact arithmetic backs it">[92.343584, 92.343588]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/iscoDays/0 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[29.4802, 38.9560]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/gebhardt2011/iscoDays/0 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[32.6388, 36.8503]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/liepold2023/iscoDays/0 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[26.9533, 30.2173]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/walsh2013/iscoDays/0 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[14.7401, 23.1631]</span></td></tr><tr><td>a = 1/2</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/1~12 pro/r" data-fmt="raw" title="decided — exact arithmetic backs it">[4.233002, 4.233003]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/1~12 pro/periodTg" data-fmt="raw" title="decided — exact arithmetic backs it">[57.862420, 57.862421]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/iscoDays/1~12 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[18.4722, 24.4098]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/gebhardt2011/iscoDays/1~12 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[20.4514, 23.0904]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/liepold2023/iscoDays/1~12 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[16.8889, 18.9341]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/walsh2013/iscoDays/1~12 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[9.2361, 14.5140]</span></td></tr><tr><td>a = 47/50 = 0.94 (the chosen default)</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/47~150 pro/r" data-fmt="raw" title="decided — exact arithmetic backs it">[2.023593, 2.023594]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/47~150 pro/periodTg" data-fmt="raw" title="decided — exact arithmetic backs it">[23.993115, 23.993116]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/iscoDays/47~150 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[7.6596, 10.1218]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/gebhardt2011/iscoDays/47~150 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[8.4803, 9.5746]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/liepold2023/iscoDays/47~150 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[7.0031, 7.8512]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/walsh2013/iscoDays/47~150 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[3.8298, 6.0184]</span></td></tr><tr><td>a = 499/500 = 0.998</td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/499~1500 pro/r" data-fmt="raw" title="decided — exact arithmetic backs it">[1.236970, 1.236971]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/isco/at/499~1500 pro/periodTg" data-fmt="raw" title="decided — exact arithmetic backs it">[14.914702, 14.914703]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/eht2019/iscoDays/499~1500 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[4.7614, 6.2920]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/gebhardt2011/iscoDays/499~1500 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[5.2715, 5.9519]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/liepold2023/iscoDays/499~1500 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[4.3533, 4.8805]</span></td><td><span class="w-val w-decided" data-w="decided" data-rec="certs/bh-shadow.json#/enclosures/clock/walsh2013/iscoDays/499~1500 pro" data-fmt="raw" title="decided — exact arithmetic backs it">[2.3807, 3.7412]</span></td></tr></tbody></table></div>
+  <p class="prose">These are coordinate times at infinity in the hole&rsquo;s rest frame; an observer on Earth sees them stretched by M87&rsquo;s redshift, not applied here.</p>
+</section>
+
+<section class="wrap">
+  <h2>What this does not show</h2>
+  <ul class="plain">
+    <li><b>The plasma.</b> No magnetohydrodynamics, no electron temperatures, no polarization: the disk is a thin, optically thin sheet with J &prop; r<sup>&minus;2</sup>, cut at the ISCO. What M87* looks like is set by its plasma, and the plasma is assumed. This is why the page claims a standing for each line and nothing more.</li>
+    <li><b>The second photon ring.</b> The n = 2 image is far narrower than one pixel of the maps; the layer only samples it, so it is drawn blurred and labelled unresolved. No photon ring has been detected in M87*: every ring layer here is the model&rsquo;s.</li>
+    <li><b>Light-travel time.</b> The maps carry no arrival time, so every image of the disk is drawn at one moment; a real n = 1 image arrives later than the direct one.</li>
+    <li><b>The sky&rsquo;s orientation.</b> The image is in the black hole&rsquo;s frame, the spin axis up; it is not rotated to M87*&rsquo;s position angle.</li>
+    <li><b>The jet.</b> No jet image is used. The 230 GHz data do not image the jet at this scale, and the jet maps at lower frequencies were not checked for a licence here; the funnel is a dotted sketch, chosen.</li>
+    <li><b>The ring the EHT measures.</b> It is compared in the table above and not drawn over the image; that is the next step, with the interferometer&rsquo;s data-allowed set (<a href="../interferometer/index.html">the interferometer</a>).</li>
+  </ul>
+</section>
+
+<section class="wrap">
+  <h2>Sources</h2>
+  <ul class="plain src"><li>Bardeen 1973, Timelike and null geodesics in the Kerr metric, in Black Holes (Les Houches), eds. DeWitt &amp; DeWitt, p. 215 — the critical curve</li><li>Bardeen, Press &amp; Teukolsky 1972, ApJ 178, 347 — the ISCO</li><li>Gralla &amp; Lupsasca 2020, PRD 101, 044031 and 044032 (arXiv:1910.12873, 1910.12881) — the curve in this form</li><li>Johnson et al. 2020, Sci. Adv. 6, eaaz1310 (arXiv:1907.04329) — the photon ring's universal structure</li><li>Gralla, Holz &amp; Wald 2019, PRD 100, 024018 (arXiv:1906.00873) — shadow, photon ring and lensing ring are different things</li><li>C. Givord 2026, Elliptic Integrals in Kerr Spacetime: Explicit Reduction, AGM Evaluation… (Zenodo, DOI 10.5281/zenodo.19558035) — claims certified AGM error bounds for Kerr elliptic integrals; its method was not read, and Phase 0 needs no elliptic integral (the Lyapunov exponent is not among these claims)</li><li>no prior interval enclosure of the Kerr shadow was found (the scout's search, 2026-10-31)</li><li>EHT Collaboration 2019, First M87 EHT Results VI, ApJL 875, L6 (arXiv:1906.11243)</li><li>Gebhardt et al. 2011, ApJ 729, 119 (arXiv:1101.1954), Gemini/NIFS stellar dynamics</li><li>Liepold, Ma &amp; Walsh 2023, ApJL 945, L35 (arXiv:2302.07884), Keck IFS, triaxial orbit models</li><li>Walsh et al. 2013, ApJ 770, 86 (arXiv:1304.7273), HST/STIS gas dynamics</li><li>EHT Collaboration 2019, Paper VI (arXiv:1906.11243)</li><li>EHT Collaboration, "Horizon-scale variability of M87* from 2017–2021 EHT observations" (arXiv:2509.24593)</li><li>Mertens et al. 2016, A&amp;A 595, A54 — the inclination, from the jet</li><li>instruments/kerr/rays.js and certs/bh-maps-check.json — the lensing maps (Phase 1) and their grade</li></ul>
+  <p class="prose">The decided layer, its pre-registration and every deviation: notes/black-hole-phase0-preregistration-2026-10-31.md (Phases 0, 1 and 2), certs/bh-shadow.json and certs/bh-maps-check.json, re-derived by <span class="m">tools/run-bh-shadow.js --check</span> and <span class="m">tools/run-bh-maps.js --check</span> in the test suite.</p>
+</section>
+
+<footer class="foot"><div class="foot-in"><div class="foot-body"><p>nothing here is gated · every number came out of the record beside the page</p></div><div class="foot-line"><span>Carlos Toledo · cert-machine</span><a href="../../index.html">home</a><a href="../../papers/index.html">papers</a><a href="https://github.com/carlostoledo1891/cert-machine">source</a><a href="https://doi.org/10.5281/zenodo.22225860">doi 10.5281/zenodo.22225860</a></div></div></footer>
+<script id="bh-spec" type="application/json">{"grid":512,"mapsDir":"maps/","record":"certs/bh-shadow.json","defaultKey":"47/50","defaultSpin":"47/50","defaultRow":"eht2019","tgPerSecond":4,"epochTg":40,"views":[{"key":"0","spin":"0","spinD":0,"inclinationDeg":"17","model":false,"spinLabel":"a = 0","iscoKey":"0 pro","files":{"n0":{"name":"a0-n0.rpg.f16.gz","sha256":"f1ee62af511a11e30fedd1b686fddf961dce6d80e312fea740a81c2e0bf35f83","rawSha256":"75bcfb8ff46f177d2b8917d1442cbba7d27d7fcbefbd9d3f9aa900070617078e","bytes":1163436},"n1":{"name":"a0-n1.rpg.f16.gz","sha256":"2d0c47e78e638e9989db2174684b5ef1129e445f3a87687aba129d8cbcfea074","rawSha256":"516981f04768e86754cc54084d2489e4c31fcd9a16207fbc6708c736a28ea50d","bytes":37665},"n2":{"name":"a0-n2.rpg.f16.gz","sha256":"ed01a8a0103b442c1bad8d14f6bd17d5e2e55e309705debc7a3b50290659d001","rawSha256":"13ed2adc227b5fdc8459289be876b1a62fb9491b9d7fd0bdb41475a79f4025a8","bytes":3371},"fate":{"name":"a0-fate.u8.gz","sha256":"b6025872c83880a3eabe7943527a1506ec5ad85a6c3233fc2caff815140ef0f1","rawSha256":"57a06a27e71a85ba1b9920d8740dd66788caa14ed43e7d4ea5f824efb62e304c","bytes":1451}},"curve":{"points":[-5.1963,0.0065,-5.1948,0.1165,-5.1914,0.2212,-5.186,0.324,-5.1785,0.4276,-5.1677,0.5428,-5.1546,0.656,-5.1395,0.7649,-5.1226,0.871,-5.1048,0.9701,-5.0822,1.0821,-5.0597,1.183,-5.0334,1.2903,-5.0071,1.3889,-4.977,1.4931,-4.947,1.5898,-4.9131,1.6915,-4.8793,1.7867,-4.8436,1.8813,-4.806,1.9753,-4.761,2.0816,-4.7159,2.1819,-4.6708,2.2768,-4.6257,2.3671,-4.5731,2.4672,-4.5205,2.5623,-4.4679,2.653,-4.4152,2.7396,-4.3551,2.8342,-4.295,2.9245,-4.2349,3.0109,-4.1748,3.0938,-4.1109,3.1781,-4.0357,3.273,-3.9606,3.3636,-3.8854,3.4501,-3.8103,3.533,-3.7351,3.6123,-3.66,3.6884,-3.5848,3.7615,-3.5097,3.8317,-3.4345,3.8992,-3.3443,3.9769,-3.2541,4.051,-3.1639,4.1218,-3.0738,4.1895,-2.9836,4.2542,-2.8934,4.316,-2.8032,4.3751,-2.713,4.4316,-2.6228,4.4856,-2.5327,4.5371,-2.4425,4.5863,-2.3523,4.6332,-2.2621,4.6779,-2.1569,4.7273,-2.0517,4.7739,-1.9465,4.8178,-1.8413,4.859,-1.736,4.8976,-1.6308,4.9336,-1.5256,4.9671,-1.4204,4.9982,-1.3152,5.027,-1.21,5.0533,-1.1048,5.0773,-0.9995,5.0991,-0.8943,5.1186,-0.7891,5.1359,-0.6839,5.1509,-0.5787,5.1638,-0.4735,5.1745,-0.3683,5.1831,-0.263,5.1895,-0.1578,5.1937,-0.0526,5.1959,0.0526,5.1959,0.1578,5.1937,0.263,5.1895,0.3683,5.1831,0.4735,5.1745,0.5787,5.1638,0.6839,5.1509,0.7891,5.1359,0.8943,5.1186,0.9995,5.0991,1.1048,5.0773,1.21,5.0533,1.3152,5.027,1.4204,4.9982,1.5256,4.9671,1.6308,4.9336,1.736,4.8976,1.8413,4.859,1.9465,4.8178,2.0517,4.7739,2.1569,4.7273,2.2621,4.6779,2.3523,4.6332,2.4425,4.5863,2.5327,4.5371,2.6228,4.4856,2.713,4.4316,2.8032,4.3751,2.8934,4.316,2.9836,4.2542,3.0738,4.1895,3.1639,4.1218,3.2541,4.051,3.3443,3.9769,3.4345,3.8992,3.5097,3.8317,3.5848,3.7615,3.66,3.6884,3.7351,3.6123,3.8103,3.533,3.8854,3.4501,3.9606,3.3636,4.0357,3.273,4.1109,3.1781,4.1748,3.0938,4.2349,3.0109,4.295,2.9245,4.3551,2.8342,4.4152,2.7396,4.4679,2.653,4.5205,2.5623,4.5731,2.4672,4.6257,2.3671,4.6708,2.2768,4.7159,2.1819,4.761,2.0816,4.806,1.9753,4.8436,1.8813,4.8793,1.7867,4.9131,1.6915,4.947,1.5898,4.977,1.4931,5.0071,1.3889,5.0334,1.2903,5.0597,1.183,5.0822,1.0821,5.1048,0.9701,5.1226,0.871,5.1395,0.7649,5.1546,0.656,5.1677,0.5428,5.1776,0.4389,5.1851,0.3387,5.191,0.232,5.1946,0.1265,5.1961,0.0205,5.1953,-0.0931,5.1924,-0.1979,5.187,-0.3086,5.1795,-0.4161,5.1696,-0.5246,5.1583,-0.6258,5.1452,-0.7261,5.1301,-0.8256,5.1132,-0.9246,5.0935,-1.0277,5.071,-1.1337,5.0447,-1.2455,5.0184,-1.3476,4.9883,-1.455,4.9582,-1.5543,4.9244,-1.6584,4.8906,-1.7556,4.8511,-1.8618,4.8136,-1.9569,4.7685,-2.0644,4.7234,-2.1656,4.6783,-2.2613,4.6332,-2.3523,4.5806,-2.4532,4.528,-2.549,4.4754,-2.6403,4.4228,-2.7275,4.3626,-2.8226,4.3025,-2.9135,4.2424,-3.0003,4.1823,-3.0836,4.1109,-3.1781,4.0357,-3.273,3.9606,-3.3636,3.8854,-3.4501,3.8103,-3.533,3.7351,-3.6123,3.66,-3.6884,3.5848,-3.7615,3.5097,-3.8317,3.4345,-3.8992,3.3443,-3.9769,3.2541,-4.051,3.1639,-4.1218,3.0738,-4.1895,2.9836,-4.2542,2.8934,-4.316,2.8032,-4.3751,2.713,-4.4316,2.6228,-4.4856,2.5327,-4.5371,2.4425,-4.5863,2.3523,-4.6332,2.2621,-4.6779,2.1569,-4.7273,2.0517,-4.7739,1.9465,-4.8178,1.8413,-4.859,1.736,-4.8976,1.6308,-4.9336,1.5256,-4.9671,1.4204,-4.9982,1.3152,-5.027,1.21,-5.0533,1.1048,-5.0773,0.9995,-5.0991,0.8943,-5.1186,0.7891,-5.1359,0.6839,-5.1509,0.5787,-5.1638,0.4735,-5.1745,0.3683,-5.1831,0.263,-5.1895,0.1578,-5.1937,0.0526,-5.1959,-0.0526,-5.1959,-0.1578,-5.1937,-0.263,-5.1895,-0.3683,-5.1831,-0.4735,-5.1745,-0.5787,-5.1638,-0.6839,-5.1509,-0.7891,-5.1359,-0.8943,-5.1186,-0.9995,-5.0991,-1.1048,-5.0773,-1.21,-5.0533,-1.3152,-5.027,-1.4204,-4.9982,-1.5256,-4.9671,-1.6308,-4.9336,-1.736,-4.8976,-1.8413,-4.859,-1.9465,-4.8178,-2.0517,-4.7739,-2.1569,-4.7273,-2.2621,-4.6779,-2.3523,-4.6332,-2.4425,-4.5863,-2.5327,-4.5371,-2.6228,-4.4856,-2.713,-4.4316,-2.8032,-4.3751,-2.8934,-4.316,-2.9836,-4.2542,-3.0738,-4.1895,-3.1639,-4.1218,-3.2541,-4.051,-3.3443,-3.9769,-3.4345,-3.8992,-3.5097,-3.8317,-3.5848,-3.7615,-3.66,-3.6884,-3.7351,-3.6123,-3.8103,-3.533,-3.8854,-3.4501,-3.9606,-3.3636,-4.0357,-3.273,-4.1109,-3.1781,-4.1748,-3.0938,-4.2349,-3.0109,-4.295,-2.9245,-4.3551,-2.8342,-4.4152,-2.7396,-4.4679,-2.653,-4.5205,-2.5623,-4.5731,-2.4672,-4.6257,-2.3671,-4.6708,-2.2768,-4.7159,-2.1819,-4.761,-2.0816,-4.806,-1.9753,-4.8436,-1.8813,-4.8793,-1.7867,-4.9131,-1.6915,-4.947,-1.5898,-4.977,-1.4931,-5.0071,-1.3889,-5.0334,-1.2903,-5.0597,-1.183,-5.0822,-1.0821,-5.1048,-0.9701,-5.1226,-0.871,-5.1395,-0.7649,-5.1546,-0.656,-5.1677,-0.5428,-5.1776,-0.4389,-5.1851,-0.3387,-5.191,-0.232,-5.1946,-0.1265,-5.1961,-0.0205,-5.1963,-0.0065,-5.1963,0.0065]}},{"key":"1/2","spin":"1/2","spinD":0.5,"inclinationDeg":"17","model":false,"spinLabel":"a = 1/2","iscoKey":"1/2 pro","files":{"n0":{"name":"a1_2-n0.rpg.f16.gz","sha256":"713647e0604a67c63b3b0da8058694b8f4b9c8a2437256133211afaa87ffe5dc","rawSha256":"47fe1f978b195f6ee4c5df716f67078bc692479d476b372640ce63f9dca842a8","bytes":1179618},"n1":{"name":"a1_2-n1.rpg.f16.gz","sha256":"728749d39a054746d01bfd36dda9317bd7bec0f246cb3d4114bc071c12dcc2fc","rawSha256":"118ca531f5018921788146ca4d3aa3ab2edaf23779e800089922607bf842c691","bytes":40624},"n2":{"name":"a1_2-n2.rpg.f16.gz","sha256":"f9640a6a93413a29e73d257f62318a3276b4243b7675d1b7ebb9946f208528e8","rawSha256":"22314fa7bc446f6bf06dd3c3cb091cd456be7349456d3e9bafd37efe7f35b30e","bytes":3597},"fate":{"name":"a1_2-fate.u8.gz","sha256":"9745c13dda3437e7f17589753765f480b0b43d668e3cf1dd1da147ee2114c3ae","rawSha256":"af21cfd86b37186e2147b5791ccd0ff2f562d7399935a9e9324ad0d21a1e508b","bytes":1460}},"curve":{"points":[-4.8188,0.0032,-4.8177,0.1043,-4.8145,0.2087,-4.8092,0.3136,-4.802,0.4146,-4.7922,0.5222,-4.7807,0.6246,-4.7671,0.7267,-4.7507,0.8336,-4.7326,0.9369,-4.7129,1.0376,-4.6915,1.1363,-4.6668,1.2401,-4.6413,1.3384,-4.6117,1.4437,-4.582,1.5412,-4.5491,1.6423,-4.5161,1.7369,-4.4799,1.8347,-4.4403,1.935,-4.4006,2.0297,-4.3577,2.1267,-4.3147,2.2186,-4.2685,2.3128,-4.2205,2.4055,-4.1675,2.5028,-4.1145,2.5955,-4.0614,2.684,-4.0017,2.779,-3.9419,2.8697,-3.8821,2.9565,-3.8222,3.0397,-3.7557,3.1282,-3.689,3.2131,-3.6223,3.2944,-3.5556,3.3725,-3.4888,3.4477,-3.4152,3.5271,-3.3416,3.6033,-3.2679,3.6765,-3.184,3.7563,-3.1035,3.8297,-3.0228,3.9001,-2.942,3.9677,-2.8612,4.0326,-2.7803,4.095,-2.6993,4.1549,-2.6047,4.2218,-2.5099,4.2856,-2.4151,4.3465,-2.3201,4.4046,-2.225,4.46,-2.1298,4.5127,-2.0345,4.5629,-1.939,4.6107,-1.8435,4.656,-1.7478,4.699,-1.652,4.7398,-1.556,4.7783,-1.46,4.8146,-1.3638,4.8488,-1.2675,4.8809,-1.1711,4.9109,-1.0746,4.9389,-0.9779,4.9648,-0.8673,4.9921,-0.7565,5.0168,-0.6456,5.039,-0.5345,5.0586,-0.4233,5.0758,-0.3118,5.0905,-0.2003,5.1027,-0.0885,5.1125,0.0234,5.1198,0.1354,5.1246,0.2477,5.127,0.36,5.1269,0.4726,5.1244,0.5853,5.1193,0.6982,5.1118,0.8112,5.1017,0.9244,5.0891,1.0236,5.0759,1.1229,5.0607,1.2223,5.0435,1.3219,5.0242,1.4216,5.0029,1.5214,4.9794,1.6214,4.9538,1.7214,4.9259,1.8216,4.8958,1.922,4.8634,2.0224,4.8287,2.123,4.7915,2.2237,4.7519,2.3245,4.7097,2.4255,4.6649,2.5266,4.6174,2.6278,4.5671,2.7292,4.5139,2.8306,4.4576,2.9177,4.4069,3.0049,4.3538,3.0922,4.2982,3.1795,4.2401,3.267,4.1792,3.3546,4.1154,3.4422,4.0488,3.53,3.9789,3.6178,3.9058,3.7058,3.8292,3.7938,3.7488,3.8672,3.6788,3.9444,3.6022,4.018,3.526,4.0916,3.4465,4.1653,3.3635,4.2317,3.2854,4.2982,3.204,4.3647,3.119,4.4312,3.0301,4.4904,2.9474,4.5497,2.8611,4.609,2.7708,4.6683,2.6761,4.7203,2.5891,4.7723,2.498,4.8243,2.4023,4.8763,2.3013,4.9228,2.2062,4.9675,2.1098,5.0085,2.0165,5.0495,1.9178,5.0867,1.8225,5.124,1.7211,5.1576,1.6236,5.1912,1.5192,5.2211,1.4192,5.251,1.3108,5.2762,1.2114,5.3005,1.1065,5.3229,0.9995,5.3416,0.9002,5.3585,0.7999,5.3734,0.6985,5.387,0.5914,5.3982,0.4849,5.4076,0.3733,5.4139,0.2733,5.4186,0.1632,5.4209,0.057,5.421,-0.0449,5.4189,-0.1519,5.4148,-0.2551,5.4085,-0.3602,5.4001,-0.4647,5.3898,-0.5667,5.3772,-0.6707,5.3622,-0.7758,5.3454,-0.8789,5.3267,-0.9805,5.3061,-1.0808,5.2837,-1.1801,5.2584,-1.2822,5.2323,-1.3796,5.2024,-1.4825,5.1726,-1.5782,5.139,-1.6786,5.1017,-1.7827,5.0644,-1.8803,5.0234,-1.9813,4.9824,-2.0765,4.9377,-2.1747,4.8931,-2.2677,4.8466,-2.3597,4.7946,-2.4576,4.7426,-2.5506,4.6906,-2.6393,4.6312,-2.7358,4.5719,-2.8278,4.5127,-2.9155,4.4534,-2.9995,4.3869,-3.0898,4.3203,-3.1761,4.2539,-3.2587,4.1875,-3.3378,4.1211,-3.4137,4.0474,-3.4946,3.9738,-3.5721,3.8966,-3.65,3.8232,-3.7212,3.7498,-3.7895,3.6618,-3.8679,3.5739,-3.9428,3.4861,-4.0142,3.3984,-4.0825,3.3108,-4.1477,3.2233,-4.21,3.1359,-4.2695,3.0485,-4.3263,2.9613,-4.3807,2.8742,-4.4326,2.7871,-4.4821,2.6857,-4.537,2.5844,-4.589,2.4833,-4.6381,2.3822,-4.6844,2.2813,-4.7281,2.1805,-4.7692,2.0799,-4.8077,1.9793,-4.8439,1.8789,-4.8776,1.7787,-4.909,1.6785,-4.9381,1.5785,-4.965,1.4786,-4.9897,1.3789,-5.0123,1.2792,-5.0328,1.1797,-5.0511,1.0803,-5.0675,0.9811,-5.0818,0.8678,-5.0957,0.7547,-5.1071,0.6417,-5.1159,0.5289,-5.1222,0.4163,-5.126,0.3038,-5.1273,0.1915,-5.1261,0.0794,-5.1225,-0.0326,-5.1164,-0.1444,-5.1079,-0.2561,-5.0969,-0.3676,-5.0834,-0.4789,-5.0675,-0.5901,-5.0491,-0.7011,-5.0282,-0.8119,-5.0048,-0.9226,-4.9788,-1.0332,-4.9502,-1.1298,-4.9231,-1.2262,-4.894,-1.3226,-4.8628,-1.4188,-4.8295,-1.5149,-4.7941,-1.6109,-4.7565,-1.7067,-4.7168,-1.8025,-4.6747,-1.8981,-4.6304,-1.9936,-4.5837,-2.089,-4.5346,-2.1842,-4.4829,-2.2794,-4.4287,-2.3744,-4.3718,-2.4693,-4.3121,-2.5641,-4.2495,-2.6587,-4.1839,-2.7398,-4.1252,-2.8208,-4.0641,-2.9016,-4.0005,-2.9824,-3.9343,-3.0631,-3.8653,-3.1438,-3.7934,-3.2209,-3.7216,-3.2947,-3.6502,-3.3684,-3.5759,-3.442,-3.4986,-3.5155,-3.418,-3.5823,-3.3417,-3.649,-3.2623,-3.7157,-3.1796,-3.7823,-3.0933,-3.8422,-3.0123,-3.9021,-2.928,-3.9619,-2.8399,-4.0216,-2.7478,-4.0747,-2.6622,-4.1277,-2.5727,-4.1807,-2.4789,-4.2321,-2.3835,-4.2784,-2.293,-4.3247,-2.1978,-4.3676,-2.1047,-4.4106,-2.0065,-4.4502,-1.9105,-4.4898,-1.8086,-4.526,-1.7091,-4.559,-1.6127,-4.5919,-1.5095,-4.6216,-1.4095,-4.6504,-1.3044,-4.675,-1.2065,-4.6981,-1.1069,-4.7194,-1.0052,-4.7392,-0.9007,-4.7572,-0.7926,-4.772,-0.6913,-4.7848,-0.5901,-4.7954,-0.489,-4.8045,-0.383,-4.8112,-0.278,-4.8158,-0.1757,-4.8183,-0.0716,-4.8188,-0.0032,-4.8188,0.0032]}},{"key":"47/50","spin":"47/50","spinD":0.94,"inclinationDeg":"17","model":false,"spinLabel":"a = 47/50 = 0.94 (the chosen default)","iscoKey":"47/50 pro","files":{"n0":{"name":"a47_50-n0.rpg.f16.gz","sha256":"c1ad08acd0a22727b944d0d1f313649f825a76b06b2165997ca4deb3dda844a7","rawSha256":"5ac936076986c8106bf3c00bb2fcf38a47b777d8da3b3ee42797a3dc5808fa44","bytes":1193717},"n1":{"name":"a47_50-n1.rpg.f16.gz","sha256":"025e172414eae8a0e5a89ecb1ce82f8b6e0d85d555f29e873364942bb31fb4df","rawSha256":"8f6279a3461460a24c9f189574cb7b9b0378e34ba37ec46aca1237c73958b6e8","bytes":47890},"n2":{"name":"a47_50-n2.rpg.f16.gz","sha256":"7018f3a769ca4983fae7839a817e22bd69a3343361c972f5c1f327a2b45294d8","rawSha256":"e5e5ad8b4e2992eceabb0d32469519e77c295a9086bf751d641a59500f903cd5","bytes":5016},"fate":{"name":"a47_50-fate.u8.gz","sha256":"804da45c2ddbf649d9cd51fe2697ac72bb55e6bf5acfb0bb13f0d015ccca77dc","rawSha256":"76a4c0c5493d069563514c42c9883c6f55192a70b2d4862381795d4000b04f81","bytes":1424}},"curve":{"points":[-4.2261,0.0084,-4.2246,0.1104,-4.2214,0.2112,-4.216,0.3135,-4.2086,0.415,-4.1991,0.5168,-4.1877,0.6166,-4.1744,0.7161,-4.159,0.8154,-4.1417,0.9143,-4.122,1.0142,-4.1001,1.1148,-4.0762,1.2148,-4.0502,1.3142,-4.0222,1.413,-3.9921,1.5115,-3.9599,1.6094,-3.9266,1.704,-3.8912,1.7985,-3.8542,1.8916,-3.8135,1.988,-3.7726,2.0794,-3.7296,2.1707,-3.6844,2.2617,-3.637,2.3525,-3.5873,2.4429,-3.5354,2.5329,-3.4832,2.6191,-3.4288,2.705,-3.372,2.7906,-3.315,2.8728,-3.2556,2.9548,-3.1939,3.0365,-3.1307,3.1164,-3.0662,3.1946,-2.9971,3.275,-2.9277,3.3523,-2.8579,3.4267,-2.7877,3.4985,-2.7128,3.5719,-2.6375,3.6427,-2.5618,3.7108,-2.4857,3.7765,-2.4047,3.8435,-2.3233,3.9079,-2.2414,3.9699,-2.1591,4.0296,-2.0764,4.0869,-1.9885,4.1451,-1.9002,4.2008,-1.8113,4.2543,-1.722,4.3054,-1.6322,4.3544,-1.5418,4.4011,-1.451,4.4457,-1.3596,4.4882,-1.2678,4.5287,-1.1754,4.5671,-1.0777,4.6053,-0.9793,4.6413,-0.8804,4.6751,-0.781,4.7066,-0.681,4.736,-0.5804,4.7632,-0.4792,4.7882,-0.3775,4.8111,-0.2752,4.8317,-0.1724,4.8502,-0.0689,4.8664,0.0351,4.8804,0.1396,4.8922,0.2395,4.9013,0.3399,4.9083,0.4408,4.9133,0.5422,4.9161,0.6442,4.9169,0.7466,4.9154,0.8496,4.9117,0.9531,4.9058,1.0572,4.8977,1.1617,4.8872,1.2612,4.875,1.3612,4.8607,1.4617,4.8442,1.5626,4.8254,1.664,4.8042,1.7659,4.7807,1.8683,4.7547,1.9654,4.7278,2.0629,4.6986,2.1608,4.667,2.2592,4.6329,2.358,4.5963,2.4513,4.5595,2.5451,4.5202,2.6392,4.4784,2.7336,4.434,2.8285,4.3869,2.9178,4.3402,3.0074,4.2909,3.0973,4.2389,3.1876,4.1842,3.2721,4.1304,3.3569,4.0739,3.442,4.0146,3.5274,3.9524,3.6131,3.8871,3.693,3.8234,3.773,3.7568,3.8534,3.6869,3.9277,3.6195,4.0023,3.549,4.0771,3.4752,4.1521,3.3979,4.2211,3.3238,4.2902,3.2463,4.3595,3.1651,4.429,3.0801,4.4923,2.999,4.5557,2.9141,4.6193,2.825,4.6783,2.7385,4.7358,2.6502,4.7902,2.5626,4.8416,2.476,4.893,2.385,4.9412,2.2952,4.9896,2.2005,5.0348,2.1071,5.0769,2.0155,5.119,1.9184,5.1579,1.8232,5.1969,1.7217,5.2327,1.6221,5.2661,1.5226,5.297,1.4233,5.3264,1.3216,5.3525,1.2234,5.3771,1.123,5.4,1.0198,5.4196,0.9216,5.4377,0.8208,5.4536,0.7194,5.4676,0.6172,5.4791,0.5177,5.4889,0.4134,5.4965,0.3099,5.5019,0.2079,5.5052,0.0985,5.507,-0.0098,5.5048,-0.1175,5.5014,-0.2175,5.4957,-0.3227,5.4881,-0.4231,5.4782,-0.5254,5.4659,-0.6301,5.452,-0.7305,5.436,-0.8305,5.418,-0.9302,5.3967,-1.0352,5.3738,-1.137,5.3493,-1.2362,5.3231,-1.3333,5.2938,-1.4341,5.262,-1.5351,5.2294,-1.6314,5.1936,-1.7304,5.1547,-1.8313,5.1157,-1.9261,5.0736,-2.0227,5.0316,-2.114,4.9864,-2.207,4.938,-2.3013,4.8897,-2.3908,4.8383,-2.4815,4.787,-2.5678,4.7326,-2.6552,4.6751,-2.7433,4.613,-2.8341,4.5494,-2.9228,4.4859,-3.0073,4.4226,-3.088,4.3532,-3.1727,4.2839,-3.2535,4.2148,-3.3306,4.1459,-3.4045,4.0709,-3.4815,3.9961,-3.555,3.9215,-3.6252,3.8472,-3.6924,3.7669,-3.762,3.6868,-3.8284,3.607,-3.8918,3.5213,-3.957,3.4359,-4.019,3.3508,-4.078,3.266,-4.1343,3.1815,-4.1879,3.0913,-4.2425,3.0014,-4.2943,2.9118,-4.3434,2.8226,-4.3899,2.7277,-4.4368,2.6333,-4.4811,2.5392,-4.5227,2.4455,-4.5618,2.3521,-4.5985,2.2534,-4.635,2.1551,-4.6689,2.0571,-4.7004,1.9596,-4.7294,1.8626,-4.7562,1.7602,-4.782,1.6584,-4.8054,1.557,-4.8265,1.4561,-4.8451,1.3557,-4.8616,1.2557,-4.8758,1.1562,-4.8878,1.0517,-4.8982,0.9477,-4.9062,0.8442,-4.912,0.7412,-4.9155,0.6388,-4.9169,0.5369,-4.916,0.4355,-4.9131,0.3346,-4.908,0.2342,-4.9009,0.1344,-4.8917,0.0298,-4.8798,-0.0741,-4.8656,-0.1775,-4.8493,-0.2804,-4.8307,-0.3826,-4.81,-0.4843,-4.787,-0.5854,-4.7619,-0.686,-4.7346,-0.786,-4.7051,-0.8854,-4.6734,-0.9843,-4.6395,-1.0826,-4.6034,-1.1803,-4.5651,-1.2726,-4.5266,-1.3645,-4.4861,-1.4558,-4.4434,-1.5466,-4.3987,-1.6369,-4.3518,-1.7267,-4.3028,-1.816,-4.2515,-1.9048,-4.198,-1.9932,-4.1421,-2.081,-4.0838,-2.1637,-4.0263,-2.246,-3.9666,-2.3278,-3.9044,-2.4092,-3.8399,-2.4902,-3.7727,-2.5663,-3.7069,-2.6419,-3.6386,-2.7172,-3.5677,-2.7921,-3.4941,-2.8622,-3.4221,-2.932,-3.3475,-3.0015,-3.27,-3.0706,-3.1895,-3.135,-3.1111,-3.1981,-3.031,-3.2599,-2.9491,-3.3192,-2.8669,-3.3762,-2.7844,-3.433,-2.6985,-3.4874,-2.6123,-3.5396,-2.5259,-3.5915,-2.4355,-3.6411,-2.3448,-3.6885,-2.2536,-3.7337,-2.1622,-3.7767,-2.0705,-3.8175,-1.9786,-3.8582,-1.8816,-3.8952,-1.788,-3.9306,-1.6929,-3.9639,-1.5975,-3.9951,-1.5019,-4.0242,-1.4062,-4.0522,-1.3068,-4.0782,-1.2068,-4.1021,-1.1061,-4.124,-1.0046,-4.1431,-0.9063,-4.1605,-0.8063,-4.1759,-0.7058,-4.1892,-0.6045,-4.2005,-0.5036,-4.2096,-0.403,-4.2168,-0.3014,-4.2219,-0.1992,-4.2249,-0.0986,-4.2261,-0.0084,-4.2261,0.0084]}},{"key":"499/500","spin":"499/500","spinD":0.998,"inclinationDeg":"17","model":false,"spinLabel":"a = 499/500 = 0.998","iscoKey":"499/500 pro","files":{"n0":{"name":"a499_500-n0.rpg.f16.gz","sha256":"dc4d1ffc1ed24595542653380ffeedfd9f49d168c842d9a35286755c7dd7cad5","rawSha256":"bfbdddc0bd86a7d174c056fe8147fe5039215dc671e8e74e2c1696f7e9e3266d","bytes":1197344},"n1":{"name":"a499_500-n1.rpg.f16.gz","sha256":"f04a920b917b368fb030ed804d1a35e2c5ba4515a1919223d24bc03181d48297","rawSha256":"55422afff18b30c4bfb3530661c65eccf0ae95f5ed39da20d47ed8e71b5cd829","bytes":53384},"n2":{"name":"a499_500-n2.rpg.f16.gz","sha256":"15f48f43e96208e285547c9e069b1c53bf33cdbca044611f1040b96bf8c865bd","rawSha256":"76af6567f7d8ee7889cce720e7d8651e867d2f2c6fee5eac3cb0cdd84f42ad79","bytes":6139},"fate":{"name":"a499_500-fate.u8.gz","sha256":"9792aa9b5054d8db0b7fa45a4364e5c3e6afce1a219a4facd143d16c0b36b0dc","rawSha256":"0bd8f9788d53c6647fc81723c7be351501745da885caf3a9ee81847e1c1a61eb","bytes":1470}},"curve":{"points":[-4.0925,0.0086,-4.091,0.1091,-4.0878,0.21,-4.0825,0.3116,-4.0753,0.4119,-4.066,0.513,-4.0544,0.6152,-4.041,0.7155,-4.0257,0.8151,-4.0083,0.9141,-3.989,1.0128,-3.9677,1.1111,-3.9438,1.2115,-3.9181,1.3106,-3.8906,1.4079,-3.8615,1.5038,-3.8298,1.6008,-3.7964,1.6965,-3.7612,1.7911,-3.7242,1.8846,-3.6853,1.9772,-3.6442,2.0698,-3.6016,2.1607,-3.557,2.2508,-3.5105,2.3403,-3.462,2.429,-3.4115,2.5171,-3.3589,2.6044,-3.3042,2.6911,-3.2474,2.7771,-3.1901,2.8599,-3.1306,2.9421,-3.0689,3.0238,-3.0067,3.1026,-2.9422,3.1808,-2.8762,3.2575,-2.807,3.3345,-2.7372,3.409,-2.6668,3.4809,-2.5921,3.5541,-2.5168,3.6248,-2.4407,3.693,-2.3641,3.7589,-2.2868,3.8226,-2.2049,3.8871,-2.1223,3.9494,-2.039,4.0093,-1.955,4.0671,-1.8703,4.1228,-1.7848,4.1763,-1.6987,4.2277,-1.6076,4.2795,-1.5158,4.329,-1.4232,4.3763,-1.3298,4.4215,-1.2357,4.4646,-1.1407,4.5055,-1.045,4.5443,-0.9485,4.5809,-0.8512,4.6155,-0.7531,4.6479,-0.6542,4.6783,-0.5545,4.7064,-0.4541,4.7325,-0.3528,4.7564,-0.2508,4.7781,-0.148,4.7976,-0.0492,4.8142,0.0504,4.8287,0.1507,4.8411,0.2517,4.8515,0.3535,4.8597,0.4559,4.8657,0.5591,4.8696,0.6629,4.8712,0.7675,4.8705,0.8678,4.8677,0.9687,4.8627,1.0703,4.8555,1.1725,4.8461,1.2754,4.8344,1.3789,4.8202,1.4779,4.8046,1.5774,4.7866,1.6775,4.7664,1.7782,4.7438,1.8795,4.7187,1.9814,4.6911,2.0785,4.6626,2.1761,4.6316,2.2742,4.5981,2.3728,4.562,2.4664,4.5254,2.5606,4.4864,2.6551,4.4448,2.7502,4.4004,2.8401,4.3562,2.9304,4.3093,3.0211,4.2598,3.1122,4.2074,3.1981,4.1556,3.2843,4.1012,3.3708,4.0438,3.4577,3.9835,3.5392,3.9244,3.6209,3.8623,3.703,3.7972,3.7854,3.7289,3.8622,3.6623,3.9393,3.5926,4.0167,3.5196,4.0883,3.4489,4.1602,3.3751,4.2323,3.2977,4.3047,3.2165,4.3712,3.1386,4.4379,3.0569,4.5048,2.9712,4.5674,2.8874,4.6286,2.8017,4.6868,2.7162,4.7422,2.6312,4.7976,2.542,4.8501,2.4534,4.8997,2.3656,4.9493,2.2732,4.9959,2.1818,5.0395,2.0918,5.0832,1.9966,5.1238,1.9028,5.1645,1.8031,5.2021,1.7048,5.2367,1.6086,5.2689,1.5125,5.2988,1.4169,5.3272,1.3192,5.354,1.219,5.3793,1.1158,5.4014,1.0163,5.422,0.9138,5.4398,0.8142,5.4557,0.7136,5.4699,0.6085,5.4818,0.5042,5.4911,0.4039,5.4987,0.2988,5.504,0.1941,5.507,0.0893,5.5078,-0.0162,5.5063,-0.1194,5.5027,-0.2243,5.4967,-0.3297,5.489,-0.4294,5.4786,-0.5341,5.4668,-0.6334,5.4525,-0.7348,5.4362,-0.835,5.4172,-0.9385,5.3967,-1.0385,5.373,-1.1425,5.3477,-1.2434,5.3209,-1.3416,5.2925,-1.4376,5.261,-1.5366,5.2272,-1.6355,5.1927,-1.73,5.1551,-1.8267,5.1144,-1.925,5.0738,-2.0175,5.0302,-2.1115,4.9835,-2.2067,4.9369,-2.2968,4.8873,-2.388,4.8347,-2.4799,4.7822,-2.5672,4.7268,-2.6553,4.6715,-2.7391,4.6132,-2.8235,4.5521,-2.9083,4.4866,-2.995,4.4197,-3.0796,4.353,-3.1602,4.2866,-3.2372,4.2143,-3.3174,4.1422,-3.3938,4.0704,-3.4669,3.9988,-3.5367,3.9215,-3.609,3.8445,-3.6779,3.7677,-3.7438,3.6854,-3.8114,3.6034,-3.8759,3.5217,-3.9373,3.4403,-3.9958,3.3535,-4.0555,3.267,-4.1123,3.1809,-4.1662,3.0894,-4.2208,2.9984,-4.2724,2.9078,-4.3213,2.8176,-4.3675,2.7222,-4.4138,2.6273,-4.4573,2.5328,-4.4981,2.4389,-4.5364,2.3454,-4.5723,2.2469,-4.6076,2.1489,-4.6404,2.0515,-4.6707,1.9545,-4.6986,1.8528,-4.7256,1.7517,-4.75,1.6511,-4.772,1.5512,-4.7916,1.4518,-4.8089,1.3478,-4.8247,1.2445,-4.8381,1.1418,-4.8492,1.0398,-4.8579,0.9384,-4.8644,0.8376,-4.8688,0.7376,-4.8709,0.6332,-4.871,0.5295,-4.8687,0.4266,-4.8642,0.3243,-4.8576,0.2228,-4.8487,0.122,-4.8378,0.0219,-4.8247,-0.0775,-4.8096,-0.1761,-4.7925,-0.2787,-4.7724,-0.3805,-4.7501,-0.4816,-4.7256,-0.5818,-4.699,-0.6812,-4.6702,-0.7799,-4.6393,-0.8778,-4.6063,-0.9749,-4.5711,-1.0712,-4.5339,-1.1667,-4.4945,-1.2614,-4.453,-1.3554,-4.4094,-1.4486,-4.3636,-1.5409,-4.3157,-1.6325,-4.2656,-1.7192,-4.2157,-1.8052,-4.1637,-1.8905,-4.1097,-1.9751,-4.0536,-2.0589,-3.9953,-2.142,-3.9348,-2.2245,-3.872,-2.3062,-3.8069,-2.3833,-3.7427,-2.4598,-3.6762,-2.5357,-3.6073,-2.6109,-3.536,-2.6854,-3.4622,-2.7557,-3.3896,-2.8253,-3.3145,-2.8944,-3.2367,-2.9601,-3.1594,-3.0245,-3.0803,-3.0866,-3.0007,-3.1481,-2.9182,-3.2075,-2.8351,-3.2646,-2.7514,-3.3196,-2.6671,-3.3742,-2.5794,-3.4267,-2.491,-3.4771,-2.4019,-3.5255,-2.3119,-3.5719,-2.2212,-3.6164,-2.1297,-3.6589,-2.0373,-3.6991,-1.9449,-3.7379,-1.8506,-3.774,-1.7573,-3.8083,-1.663,-3.8409,-1.5676,-3.8717,-1.4709,-3.9008,-1.3726,-3.9275,-1.2755,-3.9524,-1.1766,-3.9751,-1.0782,-3.996,-0.9784,-4.0149,-0.878,-4.0314,-0.7792,-4.046,-0.68,-4.0586,-0.5801,-4.0692,-0.4803,-4.0778,-0.3806,-4.0844,-0.2802,-4.089,-0.178,-4.0916,-0.0751,-4.0925,-0.0086,-4.0925,0.0086]}},{"key":"47/50 @ 45","spin":"47/50","spinD":0.94,"inclinationDeg":"45","model":true,"spinLabel":"a = 47/50 = 0.94 (the chosen default), at 45° (a picture of the model)","iscoKey":"47/50 pro","files":{"n0":{"name":"a47_50-i45-n0.rpg.f16.gz","sha256":"dfea9a236bd1ad6ca5867f459f422ce5c6c22f56b62b1793a4b0bd268f0b50db","rawSha256":"ca90acce5e76c3e5188bf30e503525968c561fca202cf7d011402eeecad2e17b","bytes":1135260},"n1":{"name":"a47_50-i45-n1.rpg.f16.gz","sha256":"c0745ca53f4e638a2b3a828dd83bf8f87cdc4b6383ccc57f66d596e2cff273f0","rawSha256":"0bde15b3c90048ad593aeb052e59c9ab000f5df72718b4164ae2f2408a5bcac4","bytes":61342},"n2":{"name":"a47_50-i45-n2.rpg.f16.gz","sha256":"a29fd95a849fe50afaebbf784f9cc818752377852d6504ff95ef9df02b8aa3dd","rawSha256":"7de9a1932c7f35b98722f7a21764f2e1f0b6fedcc19f9275b5e1bc2915f30d01","bytes":5116},"fate":{"name":"a47_50-i45-fate.u8.gz","sha256":"45dcb36ba9e1d63d61ffdd0c138693d7bc1f70e7012dc4c9c465cb68dbba65a7","rawSha256":"1f32177708d4e841b0d7113b1fef63a0b037fc3367819ad209c7de288a54e179","bytes":1628}},"curve":{"points":[-3.257,0.0013,-3.2553,0.1013,-3.2529,0.2014,-3.2487,0.3036,-3.2429,0.4035,-3.2354,0.5048,-3.2261,0.6074,-3.2153,0.7078,-3.2028,0.8074,-3.1885,0.9082,-3.1726,1.008,-3.1549,1.1077,-3.1351,1.2088,-3.1141,1.3071,-3.0911,1.4059,-3.0661,1.505,-3.0399,1.6018,-3.0116,1.6988,-2.9814,1.7959,-2.9497,1.8912,-2.9163,1.9856,-2.8811,2.0794,-2.8431,2.1749,-2.8036,2.2688,-2.7625,2.3612,-2.7197,2.4523,-2.6753,2.5422,-2.6292,2.6309,-2.5798,2.7211,-2.5286,2.8102,-2.4769,2.8959,-2.4232,2.9808,-2.3674,3.0649,-2.3089,3.1492,-2.2473,3.2336,-2.185,3.3153,-2.1219,3.3943,-2.0549,3.4744,-1.9869,3.552,-1.918,3.6272,-1.8481,3.7001,-1.7773,3.7708,-1.7021,3.8425,-1.6258,3.912,-1.5485,3.9793,-1.47,4.0445,-1.3903,4.1077,-1.3095,4.1688,-1.2276,4.228,-1.1445,4.2852,-1.0602,4.3405,-0.9747,4.3938,-0.888,4.4453,-0.8001,4.4948,-0.711,4.5424,-0.6188,4.589,-0.5232,4.6346,-0.4263,4.678,-0.3281,4.7193,-0.2285,4.7585,-0.1276,4.7954,-0.0253,4.8301,0.0784,4.8625,0.1746,4.8903,0.2719,4.916,0.3704,4.9398,0.4701,4.9615,0.5709,4.9811,0.6729,4.9986,0.776,5.0139,0.8803,5.027,0.9858,5.0378,1.0924,5.0463,1.2003,5.0523,1.3093,5.0559,1.4094,5.057,1.5104,5.0559,1.6125,5.0526,1.7155,5.0471,1.8195,5.0392,1.9245,5.0288,2.0304,5.016,2.1374,5.0006,2.2453,4.9826,2.3542,4.9618,2.453,4.9406,2.5527,4.9171,2.6531,4.891,2.7544,4.8624,2.8564,4.8312,2.9592,4.7972,3.0629,4.7603,3.1673,4.7205,3.2608,4.6824,3.3549,4.6418,3.4497,4.5985,3.5451,4.5525,3.6411,4.5035,3.7378,4.4515,3.826,4.4016,3.9177,4.347,4.0038,4.2933,4.0905,4.2368,4.1776,4.1773,4.2651,4.1147,4.3469,4.0536,4.4291,3.9895,4.5117,3.9222,4.5883,3.8571,4.6653,3.789,4.7427,3.7176,4.8204,3.6428,4.8919,3.5709,4.9637,3.4958,5.0359,3.4171,5.1083,3.3346,5.1745,3.256,5.2408,3.1737,5.3074,3.0875,5.3676,3.0061,5.428,2.9209,5.4869,2.8341,5.5443,2.7456,5.5984,2.6582,5.6528,2.5663,5.7039,2.4757,5.7517,2.3868,5.7996,2.2932,5.8442,2.2015,5.8889,2.1047,5.9303,2.01,5.9718,1.9094,6.0099,1.8113,6.0446,1.7163,6.0793,1.6148,6.1115,1.514,6.1412,1.4142,6.1691,1.3125,6.1953,1.2087,6.2181,1.1103,6.2391,1.0104,6.2584,0.9087,6.2755,0.8075,6.2905,0.707,6.3037,0.6043,6.3151,0.498,6.3241,0.3943,6.3312,0.2881,6.3359,0.1853,6.3386,0.0809,6.3392,-0.0211,6.3377,-0.1271,6.3338,-0.2363,6.3281,-0.3387,6.3204,-0.4402,6.3107,-0.5414,6.2984,-0.6474,6.2843,-0.75,6.2672,-0.8583,6.2479,-0.9656,6.2268,-1.0699,6.2041,-1.1719,6.1796,-1.2721,6.1534,-1.3707,6.1255,-1.468,6.0958,-1.564,6.0619,-1.6665,6.0272,-1.7646,5.9891,-1.8656,5.951,-1.9605,5.9096,-2.058,5.8683,-2.1501,5.8236,-2.2445,5.7756,-2.3406,5.7278,-2.4318,5.6766,-2.5246,5.6256,-2.6128,5.5713,-2.7024,5.5172,-2.7878,5.4599,-2.8743,5.4011,-2.9593,5.3408,-3.0427,5.2741,-3.1311,5.2076,-3.2153,5.1414,-3.2957,5.0754,-3.3726,5.0031,-3.4533,4.9311,-3.5304,4.8594,-3.604,4.7879,-3.6744,4.7104,-3.7478,4.6332,-3.8178,4.5564,-3.8846,4.4735,-3.9537,4.3911,-4.0195,4.3091,-4.0822,4.2275,-4.142,4.1402,-4.2032,4.0533,-4.2614,3.9669,-4.3167,3.8809,-4.3692,3.7864,-4.4242,3.6894,-4.4779,3.593,-4.5284,3.4973,-4.5759,3.4022,-4.6205,3.3078,-4.6625,3.214,-4.7018,3.1208,-4.7386,3.0167,-4.7771,2.9134,-4.8127,2.811,-4.8454,2.7093,-4.8755,2.6084,-4.9029,2.5083,-4.9278,2.409,-4.9503,2.3105,-4.9704,2.202,-4.9901,2.0945,-5.0071,1.9879,-5.0214,1.8824,-5.0333,1.7778,-5.0426,1.6742,-5.0496,1.5715,-5.0542,1.4699,-5.0566,1.3692,-5.0568,1.2596,-5.0546,1.1511,-5.0499,1.0438,-5.0427,0.9377,-5.0332,0.8328,-5.0213,0.729,-5.0072,0.6264,-4.9909,0.5249,-4.9724,0.4246,-4.9518,0.3255,-4.9292,0.2275,-4.9045,0.1307,-4.8779,0.0264,-4.8466,-0.0766,-4.813,-0.1782,-4.7772,-0.2785,-4.7392,-0.3774,-4.699,-0.4749,-4.6566,-0.5712,-4.6121,-0.6641,-4.5665,-0.7538,-4.5199,-0.8423,-4.4713,-0.9296,-4.4209,-1.0157,-4.3686,-1.1006,-4.3143,-1.1844,-4.2581,-1.2669,-4.1999,-1.3483,-4.1398,-1.4286,-4.0777,-1.5077,-4.0136,-1.5856,-3.9474,-1.6625,-3.879,-1.7382,-3.8085,-1.8128,-3.7358,-1.8832,-3.6639,-1.9526,-3.5899,-2.021,-3.5135,-2.0885,-3.4347,-2.1521,-3.357,-2.2148,-3.2767,-2.2767,-3.1938,-2.3357,-3.111,-2.3932,-3.0264,-2.4487,-2.941,-2.5021,-2.8546,-2.5536,-2.7673,-2.6032,-2.679,-2.6509,-2.5896,-2.6969,-2.4991,-2.7412,-2.4072,-2.7838,-2.314,-2.8247,-2.2193,-2.8628,-2.1261,-2.8994,-2.0314,-2.9345,-1.9349,-2.9672,-1.8394,-2.9981,-1.743,-3.027,-1.6467,-3.0546,-1.5483,-3.0802,-1.45,-3.1039,-1.352,-3.1262,-1.2515,-3.1466,-1.1513,-3.1649,-1.0524,-3.1815,-0.9535,-3.1965,-0.8537,-3.2098,-0.7529,-3.2216,-0.6507,-3.2315,-0.5501,-3.2397,-0.4495,-3.2463,-0.3488,-3.2512,-0.2475,-3.2544,-0.1443,-3.256,-0.0418,-3.257,-0.0013,-3.257,0.0013]}},{"key":"47/50 @ 80","spin":"47/50","spinD":0.94,"inclinationDeg":"80","model":true,"spinLabel":"a = 47/50 = 0.94 (the chosen default), at 80° (a picture of the model)","iscoKey":"47/50 pro","files":{"n0":{"name":"a47_50-i80-n0.rpg.f16.gz","sha256":"76332430734f42f076f53b6fdec3bb7ef5744b107e01de1b816a84b74ecceabe","rawSha256":"bccb16cec44057d00b1a5fb5d543371591508690a196857213478fae97d017a6","bytes":894300},"n1":{"name":"a47_50-i80-n1.rpg.f16.gz","sha256":"beb760e108e543975497943d6dd0e77fd54367ad22072638681b72e57a82abdd","rawSha256":"da70207eb3afb5e2ee999d27d4d5382a817f1216c75c8aaf441c4d71059b814b","bytes":230368},"n2":{"name":"a47_50-i80-n2.rpg.f16.gz","sha256":"46f49d5f7ec686e194fff9ebcd4c87bc015ca9df2ae21b36c53d4df35c076b53","rawSha256":"9d0e975d991876e008c1921a08def561202735efa65e05b684827d51c567316c","bytes":5825},"fate":{"name":"a47_50-i80-fate.u8.gz","sha256":"7c89231dee4bc56dcb016cbd73eb5e4823bf220c474ead2cc6908da4d6d984f4","rawSha256":"bece39a8630bfbf150da3a559e2b26cfdecec46bba4248dddc86facb08e4866e","bytes":1990}},"curve":{"points":[-2.6703,0.0057,-2.6695,0.1102,-2.6674,0.2139,-2.664,0.3151,-2.6591,0.4195,-2.6528,0.5229,-2.6454,0.6245,-2.6366,0.7247,-2.6266,0.8247,-2.6149,0.9263,-2.6019,1.0275,-2.5874,1.1281,-2.5716,1.2277,-2.5545,1.3263,-2.5359,1.4248,-2.5157,1.523,-2.4938,1.6217,-2.4702,1.7203,-2.4449,1.8186,-2.4179,1.9163,-2.3893,2.0134,-2.3589,2.1098,-2.3268,2.2054,-2.2929,2.3002,-2.2572,2.3942,-2.2197,2.4875,-2.1797,2.5812,-2.1372,2.6751,-2.0926,2.7683,-2.0457,2.8609,-1.9983,2.9494,-1.9485,3.0377,-1.8961,3.1258,-1.8429,3.2106,-1.787,3.2955,-1.7281,3.3803,-1.6682,3.4624,-1.6073,3.5419,-1.5431,3.6217,-1.4776,3.6991,-1.411,3.7742,-1.3407,3.8497,-1.2691,3.9229,-1.196,3.9941,-1.1215,4.0632,-1.0456,4.1304,-0.9643,4.1988,-0.8827,4.2641,-0.7995,4.3273,-0.7146,4.3886,-0.6281,4.4479,-0.5398,4.5053,-0.45,4.5606,-0.3584,4.6139,-0.2651,4.6651,-0.1761,4.7113,-0.0855,4.7556,0.0065,4.7981,0.1001,4.8387,0.1952,4.8773,0.2919,4.9139,0.3901,4.9485,0.4898,4.9811,0.5911,5.0115,0.694,5.0397,0.7914,5.0641,0.8902,5.0864,0.9903,5.1067,1.0918,5.125,1.1947,5.141,1.2989,5.1549,1.4046,5.1664,1.5116,5.1756,1.6122,5.182,1.7139,5.1862,1.8169,5.1883,1.9211,5.188,2.0265,5.1854,2.133,5.1803,2.2408,5.1727,2.3413,5.1635,2.4429,5.1519,2.5454,5.1379,2.649,5.1216,2.7537,5.1027,2.8593,5.0811,2.9571,5.059,3.0557,5.0345,3.1552,5.0076,3.2555,4.9781,3.3567,4.946,3.4588,4.9112,3.5617,4.8734,3.656,4.8366,3.7511,4.7971,3.8468,4.755,3.9433,4.7102,4.0405,4.6624,4.1384,4.6115,4.2271,4.5631,4.3164,4.5119,4.4063,4.4579,4.4968,4.4009,4.5878,4.3408,4.6795,4.2774,4.7614,4.2181,4.8438,4.1559,4.9267,4.0907,5.01,4.0222,5.0938,3.9503,5.178,3.8748,5.2521,3.8055,5.3265,3.7331,5.4013,3.6572,5.4765,3.5778,5.552,3.4944,5.6278,3.4069,5.6931,3.3283,5.7587,3.246,5.8217,3.1635,5.8823,3.081,5.943,2.9946,6.004,2.904,6.0597,2.8176,6.1155,2.7271,6.1714,2.6318,6.222,2.5416,6.2727,2.4468,6.3235,2.3467,6.3688,2.2528,6.4142,2.1535,6.4541,2.0616,6.494,1.9644,6.534,1.861,6.5684,1.7666,6.6028,1.6659,6.6359,1.5624,6.6647,1.4657,6.6935,1.3614,6.7195,1.2594,6.7427,1.1605,6.7659,1.0518,6.7861,0.9458,6.8036,0.844,6.8188,0.7431,6.8319,0.6438,6.8435,0.54,6.8537,0.4287,6.8614,0.3207,6.8665,0.2207,6.8699,0.1093,6.871,0.0069,6.8702,-0.0954,6.8674,-0.1977,6.8621,-0.3084,6.8548,-0.4151,6.845,-0.5255,6.8333,-0.6317,6.8203,-0.7327,6.8036,-0.844,6.7861,-0.9458,6.7659,-1.0518,6.7427,-1.1605,6.7195,-1.2594,6.6935,-1.3614,6.6647,-1.4657,6.6359,-1.5624,6.6028,-1.6659,6.5684,-1.7666,6.534,-1.861,6.494,-1.9644,6.4541,-2.0616,6.4142,-2.1535,6.3688,-2.2528,6.3235,-2.3467,6.2783,-2.436,6.2276,-2.5314,6.1771,-2.622,6.1266,-2.7084,6.0708,-2.7999,6.0151,-2.8871,5.9597,-2.9704,5.8988,-3.0579,5.8382,-3.1414,5.7696,-3.2319,5.704,-3.3148,5.6387,-3.394,5.5628,-3.4822,5.4872,-3.5661,5.412,-3.6461,5.3372,-3.7225,5.2627,-3.7954,5.1886,-3.8651,5.1043,-3.9411,5.0204,-4.0134,4.9371,-4.0823,4.8541,-4.1479,4.7717,-4.2105,4.6897,-4.2701,4.598,-4.3339,4.5069,-4.3944,4.4163,-4.4517,4.3264,-4.506,4.237,-4.5575,4.1482,-4.6063,4.0502,-4.6574,3.953,-4.7055,3.8564,-4.7507,3.7606,-4.7931,3.6655,-4.8327,3.5711,-4.8699,3.4681,-4.9078,3.3659,-4.943,3.2647,-4.9753,3.1642,-5.005,3.0647,-5.0322,2.966,-5.0569,2.8682,-5.0792,2.7624,-5.101,2.6577,-5.1201,2.554,-5.1367,2.4514,-5.1508,2.3497,-5.1626,2.2491,-5.1721,2.1413,-5.1798,2.0346,-5.1851,1.9292,-5.1879,1.8249,-5.1883,1.7218,-5.1865,1.6199,-5.1824,1.5193,-5.1762,1.4122,-5.1672,1.3064,-5.1558,1.2021,-5.1421,1.0991,-5.1262,0.9975,-5.1081,0.8973,-5.088,0.7984,-5.0657,0.7009,-5.0415,0.5979,-5.0134,0.4965,-4.9832,0.3967,-4.9508,0.2984,-4.9163,0.2016,-4.8798,0.1064,-4.8413,0.0127,-4.8009,-0.0794,-4.7585,-0.1701,-4.7143,-0.2592,-4.6683,-0.3526,-4.6171,-0.4443,-4.564,-0.5343,-4.5088,-0.6226,-4.4516,-0.7092,-4.3924,-0.7942,-4.3312,-0.8776,-4.2681,-0.9593,-4.2029,-1.0381,-4.1368,-1.1143,-4.0698,-1.1889,-4.0009,-1.2621,-3.9299,-1.3339,-3.8568,-1.4042,-3.7816,-1.471,-3.7067,-1.5366,-3.6296,-1.6009,-3.55,-1.662,-3.4708,-1.722,-3.389,-1.781,-3.3044,-1.837,-3.2198,-1.8922,-3.1322,-1.9446,-3.0443,-1.9945,-2.9563,-2.0419,-2.8681,-2.0888,-2.7759,-2.1335,-2.6831,-2.176,-2.5895,-2.216,-2.4963,-2.2536,-2.4035,-2.2893,-2.3101,-2.3231,-2.2159,-2.3552,-2.121,-2.3856,-2.0255,-2.4142,-1.9293,-2.4412,-1.8325,-2.4664,-1.7353,-2.49,-1.638,-2.5128,-1.5364,-2.5339,-1.4345,-2.5531,-1.3343,-2.5706,-1.2336,-2.5864,-1.1346,-2.6009,-1.0348,-2.6139,-0.9345,-2.6255,-0.8341,-2.6357,-0.7341,-2.6446,-0.6341,-2.6523,-0.5306,-2.6585,-0.4291,-2.6634,-0.3279,-2.667,-0.2279,-2.6692,-0.1277,-2.6702,-0.0248,-2.6703,-0.0057,-2.6703,0.0057]}}],"rows":{"eht2019":{"label":"EHT 2019 (the ring, GRMHD-calibrated)","thetaG":"[3.400000, 4.200000]","pred":"[32.8810, 43.6497]","ratio":"[0.9919, 1.3534]","tgHours":"[7.6618, 10.1247]","iscoDays":{"0 pro":"[29.4802, 38.9560]","1/2 pro":"[18.4722, 24.4098]","47/50 pro":"[7.6596, 10.1218]","99/100 pro":"[5.5044, 7.2738]","499/500 pro":"[4.7614, 6.2920]","99/100 retro":"[51.9189, 68.6073]","499/500 retro":"[52.1059, 68.8544]"},"circular":true},"gebhardt2011":{"label":"stars (Gebhardt+11)","thetaG":"[3.418876, 3.860023]","pred":"[33.0636, 40.1164]","ratio":"[1.0793, 1.3459]","tgHours":"[8.4827, 9.5774]","iscoDays":{"0 pro":"[32.6388, 36.8503]","1/2 pro":"[20.4514, 23.0904]","47/50 pro":"[8.4803, 9.5746]","99/100 pro":"[6.0942, 6.8806]","499/500 pro":"[5.2715, 5.9519]","99/100 retro":"[57.4817, 64.8988]","499/500 retro":"[57.6887, 65.1325]"},"circular":false},"liepold2023":{"label":"stars (Liepold+23)","thetaG":"[3.008191, 3.372465]","pred":"[29.0919, 35.0493]","ratio":"[1.2354, 1.5297]","tgHours":"[7.0051, 7.8535]","iscoDays":{"0 pro":"[26.9533, 30.2173]","1/2 pro":"[16.8889, 18.9341]","47/50 pro":"[7.0031, 7.8512]","99/100 pro":"[5.0326, 5.6421]","499/500 pro":"[4.3533, 4.8805]","99/100 retro":"[47.4687, 53.2170]","499/500 retro":"[47.6397, 53.4087]"},"circular":false},"walsh2013":{"label":"gas (Walsh+13)","thetaG":"[1.544008, 2.426300]","pred":"[14.9319, 25.2160]","ratio":"[1.7171, 2.9802]","tgHours":"[3.8309, 6.0201]","iscoDays":{"0 pro":"[14.7401, 23.1631]","1/2 pro":"[9.2361, 14.5140]","47/50 pro":"[3.8298, 6.0184]","99/100 pro":"[2.7522, 4.3250]","499/500 pro":"[2.3807, 3.7412]","99/100 retro":"[25.9594, 40.7935]","499/500 retro":"[26.0529, 40.9405]"},"circular":false}},"isco":{"0 pro":"[92.343584, 92.343588]","1/2 pro":"[57.862420, 57.862421]","47/50 pro":"[23.993115, 23.993116]","99/100 pro":"[17.242077, 17.242078]","499/500 pro":"[14.914702, 14.914703]","99/100 retro":"[162.630670, 162.630671]","499/500 retro":"[163.216350, 163.216351]"}}</script>
+<script>(function () {
+  'use strict';
+  if (window.WTHEME) return;
+  var R = document.documentElement, fns = [], cache = {};
+  function tok(n) { return getComputedStyle(R).getPropertyValue(n).trim(); }
+  function trip(n) {
+    if (cache[n]) return cache[n];
+    var m = /^#([0-9a-f]{6})$/i.exec(tok(n));
+    if (!m) throw new Error('theme.js: ' + n + ' is not a #rrggbb token');
+    return (cache[n] = [0, 2, 4].map(function (i) { return parseInt(m[1].substr(i, 2), 16); }));
+  }
+  document.addEventListener('warrant-theme', function () { cache = {}; for (var i = 0; i < fns.length; i++) fns[i](); });
+  window.WTHEME = {
+    tok: tok,
+    rgb: function (n) { return trip(n).slice(); },
+    rgba: function (n, a) { return 'rgba(' + trip(n).join(',') + ',' + a + ')'; },
+    light: function () { return R.getAttribute('data-theme') === 'light'; },
+    on: function (f) { fns.push(f); }
+  };
+})();</script>
+<script>/* paths.js — the black-hole viewer's overlay paths, ONCE: required by build.js for the page as written, inlined in the page
+   for the tab. playground/black-hole/ · cert-machine · 2026-10-31 (Phase 2)
+
+   The overlay is a 512 × 512 user space, one unit per map pixel: α = −20 + x·40/512, β = 20 − y·40/512 (Bardeen's image
+   plane in M, the spin axis up).
+     curvePath(points)   the DECIDED shadow edge: the scene record's polyline through the centres of its cover boxes
+                         (playground/black-hole/scene.js), closed; the stroke width the page gives it is the record's
+                         strokeM in these units, so the true curve lies inside the drawn line
+     jetPath(deg, sign)  the jet, an ASSUMED sketch: the edges of a funnel ±1.5·√z about the spin axis (z in M along it,
+                         3 to 80 M), projected at the view's inclination, cut where it leaves the field and inside the
+                         shadow's box; sign +1 the jet toward us (the one the page draws), −1 the counter-jet.
+                         Chosen to be legible: no jet image is drawn, and nothing about its shape is measured here. */
+(function (root) {
+  'use strict';
+  var N = 512, HALF = 20;
+  var px = function (al) { return ((al + HALF) * N / (2 * HALF)).toFixed(2); };
+  var py = function (be) { return ((HALF - be) * N / (2 * HALF)).toFixed(2); };
+  function curvePath(points) {
+    var d = '';
+    for (var i = 0; i < points.length; i += 2) d += (i ? 'L' : 'M') + px(points[i]) + ' ' + py(points[i + 1]);
+    return d + 'Z';
+  }
+  function jetPath(deg, sign) {
+    var si = Math.sin(Number(deg) * Math.PI / 180), d = '';
+    [-1, 1].forEach(function (side) {
+      var first = true;
+      for (var z = 3; z <= 80; z += 1) {
+        var x = side * 1.5 * Math.sqrt(z), y = sign * z * si;
+        if (Math.abs(y) > 19.5 || Math.abs(x) > 19.5) break;
+        if (Math.abs(y) < 5.6 && Math.abs(x) < 5.6) continue;
+        d += (first ? 'M' : 'L') + px(x) + ' ' + py(y);
+        first = false;
+      }
+    });
+    return d;
+  }
+  var api = { N: N, HALF: HALF, curvePath: curvePath, jetPath: jetPath, unitsPerM: N / (2 * HALF) };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api; else root.BHPATHS = api;
+})(this);
+</script>
+<script>/* app.js — the black-hole viewer, in the reader's tab. playground/black-hole/ · cert-machine · 2026-10-31 (Phase 2)
+
+   WHAT RUNS HERE, by standing (notes/black-hole-phase0-preregistration-2026-10-31.md, § Phase 2):
+     COMPUTED  the image: the Phase 1 lensing maps (corpus/bh-maps/, the pinned bytes, sha256 checked here before a
+               pixel is drawn), shaded per pixel per frame as I = Σ_n g_n³ J(r_n), J = r⁻² · P on [r_isco, 20 M],
+               in float32 on the GPU (raw WebGL2, no library) or in double precision on a canvas 2D fallback;
+     ASSUMED   the disk and its brightness pattern P: value noise in (φ, ln r) that turns with the matter at the
+               prograde Keplerian rate Ω = 1/(r^{3/2} + a) per t_g, its features born and faded on a global schedule
+               (two staggered epochs of 40 t_g, crossfaded at constant variance) so the shear never winds it to stripes;
+     DECIDED   the shadow edge is the SVG stroke over the canvas, drawn from the scene record; nothing here moves it.
+   The clock: t in t_g, 4 t_g per second on the screen (chosen), printed in days from the mass row's t_g enclosure.
+   Nothing is reset: the picture never repeats, and the page never claims it loops. */
+(function () {
+  'use strict';
+  var SPEC = JSON.parse(document.getElementById('bh-spec').textContent);
+  var $ = function (id) { return document.getElementById(id); };
+  var canvas = $('bh-gl'), stage = $('bh-stage');
+  var N = SPEC.grid, TEP = SPEC.epochTg, RATE = SPEC.tgPerSecond;
+  var S = { key: SPEC.defaultKey, spin: SPEC.defaultSpin, deg: '17', row: SPEC.defaultRow, lay: 3, t: 0, paused: false };
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var view = function (k) { for (var i = 0; i < SPEC.views.length; i++) if (SPEC.views[i].key === k) return SPEC.views[i]; return null; };
+
+  /* ---------- half floats ---------- */
+  var HALF = new Float32Array(65536);
+  for (var h = 0; h < 65536; h++) {
+    var s = h & 0x8000 ? -1 : 1, e = (h >> 10) & 31, m = h & 1023;
+    HALF[h] = e === 0 ? s * m * Math.pow(2, -24) : e === 31 ? (m ? NaN : s * Infinity) : s * (1 + m / 1024) * Math.pow(2, e - 15);
+  }
+  var NEG1 = 0xBC00;   /* half(−1): the sentinel for "no crossing" or "no emission" (NaN and +∞ in the corpus) */
+  function clean(u16) {
+    var out = new Uint16Array(u16.length);
+    for (var i = 0; i < u16.length; i++) { var x = u16[i]; out[i] = ((x & 0x7C00) === 0x7C00) ? NEG1 : x; }
+    return out;
+  }
+
+  /* ---------- the pinned bytes ---------- */
+  var pinNote = $('bh-pin');
+  var pinState = { checked: 0, failed: 0, unchecked: 0 };
+  function hex(buf) { var a = new Uint8Array(buf), s = ''; for (var i = 0; i < a.length; i++) s += (a[i] < 16 ? '0' : '') + a[i].toString(16); return s; }
+  function showPins() {
+    if (!pinNote) return;
+    pinNote.textContent = pinState.failed ? pinState.failed + ' file(s) did not match their pinned sha256 and were not drawn.'
+      : pinState.unchecked ? 'This browser offers no digest on this connection, so the ' + pinState.unchecked + ' file(s) in use were not checked against their pins here.'
+      : 'The ' + pinState.checked + ' map files loaded so far match their pinned sha256, checked in this tab.';
+  }
+  function gunzip(bytes) {
+    if (typeof DecompressionStream === 'undefined') return Promise.reject(new Error('this browser cannot decompress the maps (no DecompressionStream)'));
+    var ds = new DecompressionStream('gzip');
+    return new Response(new Blob([bytes]).stream().pipeThrough(ds)).arrayBuffer();
+  }
+  function getFile(f) {
+    return fetch(SPEC.mapsDir + f.name).then(function (r) { if (!r.ok) throw new Error(f.name + ': HTTP ' + r.status); return r.arrayBuffer(); }).then(function (buf) {
+      var b = new Uint8Array(buf), gz = b[0] === 0x1f && b[1] === 0x8b;
+      var want = gz ? f.sha256 : f.rawSha256;
+      var dig = window.crypto && window.crypto.subtle ? window.crypto.subtle.digest('SHA-256', buf).then(hex) : Promise.resolve(null);
+      return dig.then(function (d) {
+        if (d === null) pinState.unchecked++; else if (d !== want) { pinState.failed++; showPins(); throw new Error(f.name + ' is not the pinned file'); } else pinState.checked++;
+        showPins();
+        return gz ? gunzip(b) : buf;
+      });
+    });
+  }
+  var maps = {};
+  function load(key) {
+    if (maps[key]) return maps[key];
+    var v = view(key);
+    maps[key] = Promise.all(['n0', 'n1', 'n2'].map(function (n) { return getFile(v.files[n]); })).then(function (bufs) {
+      var L = bufs.map(function (b) { return clean(new Uint16Array(b)); });
+      /* the exposure (CHOSEN): the static image with the pattern flat, so that its brightest 1 % saturate */
+      var I0 = [], A = L[0], B = L[1];
+      for (var p = 0; p < N * N; p++) {
+        var t = 0;
+        for (var k = 0; k < 2; k++) { var X = k ? B : A, r = HALF[X[3 * p]], g = HALF[X[3 * p + 2]]; if (g > 0 && r > 0 && r <= 20) t += g * g * g / (r * r); }
+        if (t > 0) I0.push(t);
+      }
+      I0.sort(function (x, y) { return x - y; });
+      var expo = I0.length ? I0[Math.floor(0.99 * (I0.length - 1))] / 2.2 : 1;
+      return { L: L, expo: expo, key: key };
+    });
+    return maps[key];
+  }
+
+  /* ---------- the pattern (ASSUMED), one definition for both renderers ---------- */
+  var GLSL_PATTERN = [
+    'float h3(vec3 p){ p = fract(p * vec3(0.1031, 0.1030, 0.0973)); p += dot(p, p.yzx + 33.33); return fract((p.x + p.y) * p.z); }',
+    'float vn(vec2 x, float per, float seed){ vec2 i = floor(x), f = fract(x); f = f * f * (3.0 - 2.0 * f);',
+    '  float i0 = mod(i.x, per), i1 = mod(i.x + 1.0, per);',
+    '  float a = h3(vec3(i0, i.y, seed)), b = h3(vec3(i1, i.y, seed)), c = h3(vec3(i0, i.y + 1.0, seed)), d = h3(vec3(i1, i.y + 1.0, seed));',
+    '  return mix(mix(a, b, f.x), mix(c, d, f.x), f.y) * 2.0 - 1.0; }',
+    'float fbm(float ph, float lr, float seed){ float u = ph * 0.15915494309; return 0.65 * vn(vec2(u * 16.0, lr * 5.0), 16.0, seed) + 0.35 * vn(vec2(u * 32.0, lr * 10.0), 32.0, seed + 17.0); }'
+  ].join('\n');
+  function fract(x) { return x - Math.floor(x); }
+  function h3(x, y, z) {
+    x = fract(x * 0.1031); y = fract(y * 0.1030); z = fract(z * 0.0973);
+    var d = x * (y + 33.33) + y * (z + 33.33) + z * (x + 33.33);
+    x += d; y += d; z += d;
+    return fract((x + y) * z);
+  }
+  function vn(x, y, per, seed) {
+    var ix = Math.floor(x), iy = Math.floor(y), fx = x - ix, fy = y - iy;
+    fx = fx * fx * (3 - 2 * fx); fy = fy * fy * (3 - 2 * fy);
+    var i0 = ((ix % per) + per) % per, i1 = (((ix + 1) % per) + per) % per;
+    var a = h3(i0, iy, seed), b = h3(i1, iy, seed), c = h3(i0, iy + 1, seed), d = h3(i1, iy + 1, seed);
+    return ((a + (b - a) * fx) * (1 - fy) + (c + (d - c) * fx) * fy) * 2 - 1;
+  }
+  function fbm(ph, lr, seed) { var u = ph * 0.15915494309; return 0.65 * vn(u * 16, lr * 5, 16, seed) + 0.35 * vn(u * 32, lr * 10, 32, seed + 17); }
+  /* the epochs, in double precision on this side: which two are live, how far into each, and their weights */
+  function epochs(t) {
+    var s = t / TEP, kA = Math.floor(s), fA = s - kA, kB = Math.floor(s + 0.5), fB = s + 0.5 - kB;
+    var wA = Math.pow(Math.sin(Math.PI * fA), 2), wB = Math.pow(Math.sin(Math.PI * fB), 2), n = Math.sqrt(wA * wA + wB * wB);
+    return { kA: kA % 4096, kB: (kB % 4096) + 5000, dA: t - kA * TEP, dB: t - (kB - 0.5) * TEP, wA: wA / n, wB: wB / n };
+  }
+
+  /* ---------- the GPU renderer ---------- */
+  var gl = null, prog = null, tex = {}, U = {}, glKey = null;
+  var VS = '#version 300 es\nin vec2 p; void main(){ gl_Position = vec4(p, 0.0, 1.0); }';
+  var FS = '#version 300 es\nprecision highp float; precision highp int; precision highp sampler2D;\n'
+    + 'uniform sampler2D t0, t1, t2; uniform float uA, uExpo, uScale, kA, kB, dA, dB, wA, wB; uniform int uLay; uniform vec3 uBg, uInk;\nout vec4 o;\n'
+    + GLSL_PATTERN + '\n'
+    + 'float pat(float r, float ph){ float om = 1.0 / (r * sqrt(r) + uA), lr = log(r);'
+    + '  float F = wA * fbm(ph - om * dA, lr, kA) + wB * fbm(ph - om * dB, lr, kB); return max(0.05, 1.0 + 0.8 * F); }\n'
+    + 'float em(vec3 c){ if (c.z <= 0.0 || c.x <= 0.0 || c.x > 20.0) return 0.0; return c.z * c.z * c.z / (c.x * c.x) * pat(c.x, c.y); }\n'
+    + 'void main(){ ivec2 q = ivec2(floor(gl_FragCoord.xy * uScale)); q.y = ' + (N - 1) + ' - q.y; float I = 0.0;\n'
+    + '  if ((uLay & 1) != 0) I += em(texelFetch(t0, q, 0).xyz);\n'
+    + '  if ((uLay & 2) != 0) I += em(texelFetch(t1, q, 0).xyz);\n'
+    + '  if ((uLay & 4) != 0) { float s2 = 0.0; for (int dy = -2; dy <= 2; dy++) for (int dx = -2; dx <= 2; dx++) {'
+    + '    ivec2 z = clamp(q + 2 * ivec2(dx, dy), ivec2(0), ivec2(' + (N - 1) + ')); s2 += em(texelFetch(t2, z, 0).xyz); } I += s2 / 25.0; }\n'
+    + '  float v = pow(1.0 - exp(-I / uExpo), 0.85); o = vec4(mix(uBg, uInk, v), 1.0); }';
+  function initGL() {
+    try { gl = canvas.getContext('webgl2', { antialias: false, premultipliedAlpha: false, preserveDrawingBuffer: true }); } catch (e) { gl = null; }
+    if (!gl) return false;
+    var sh = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+    try {
+      prog = gl.createProgram();
+      gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS));
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+    } catch (e) { if (window.console) console.warn('black hole: WebGL2 shader refused, using the canvas 2D fallback: ' + e.message); gl = null; return false; }
+    gl.useProgram(prog);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(prog, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    ['t0', 't1', 't2', 'uA', 'uExpo', 'uScale', 'kA', 'kB', 'dA', 'dB', 'wA', 'wB', 'uLay', 'uBg', 'uInk'].forEach(function (n) { U[n] = gl.getUniformLocation(prog, n); });
+    gl.uniform1i(U.t0, 0); gl.uniform1i(U.t1, 1); gl.uniform1i(U.t2, 2);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    return true;
+  }
+  function upload(m) {
+    if (glKey === m.key) return;
+    if (!tex[m.key]) tex[m.key] = m.L.map(function (L) {
+      var t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+      gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB16F, N, N, 0, gl.RGB, gl.HALF_FLOAT, L);
+      return t;
+    });
+    tex[m.key].forEach(function (t, i) { gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, t); });
+    glKey = m.key;
+  }
+  function drawGL(m, col) {
+    upload(m);
+    var E = epochs(S.t);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    gl.uniform1f(U.uA, Number(m.spinD)); gl.uniform1f(U.uExpo, m.expo); gl.uniform1f(U.uScale, N / canvas.width);
+    gl.uniform1f(U.kA, E.kA); gl.uniform1f(U.kB, E.kB); gl.uniform1f(U.dA, E.dA); gl.uniform1f(U.dB, E.dB); gl.uniform1f(U.wA, E.wA); gl.uniform1f(U.wB, E.wB);
+    gl.uniform1i(U.uLay, S.lay);
+    gl.uniform3f(U.uBg, col.bg[0] / 255, col.bg[1] / 255, col.bg[2] / 255); gl.uniform3f(U.uInk, col.ink[0] / 255, col.ink[1] / 255, col.ink[2] / 255);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  /* ---------- the canvas 2D fallback (double precision, a quarter of the pixels, a dozen frames a second) ---------- */
+  var ctx2 = null, img2 = null, F32 = {};
+  function f32(m) {
+    if (!F32[m.key]) F32[m.key] = m.L.map(function (L) { var o = new Float32Array(L.length); for (var i = 0; i < L.length; i++) o[i] = HALF[L[i]]; return o; });
+    return F32[m.key];
+  }
+  function draw2D(m, col) {
+    var n = N / 2;
+    if (!ctx2) { canvas.width = n; canvas.height = n; ctx2 = canvas.getContext('2d'); img2 = ctx2.createImageData(n, n); }
+    var L = f32(m), E = epochs(S.t), a = Number(m.spinD), d = img2.data;
+    var em = function (X, p) {
+      var r = X[3 * p], ph = X[3 * p + 1], g = X[3 * p + 2];
+      if (!(g > 0 && r > 0 && r <= 20)) return 0;
+      var om = 1 / (r * Math.sqrt(r) + a), lr = Math.log(r);
+      var P = Math.max(0.05, 1 + 0.8 * (E.wA * fbm(ph - om * E.dA, lr, E.kA) + E.wB * fbm(ph - om * E.dB, lr, E.kB)));
+      return g * g * g / (r * r) * P;
+    };
+    for (var j = 0; j < n; j++) for (var i = 0; i < n; i++) {
+      var p = (2 * j) * N + 2 * i, I = 0;
+      if (S.lay & 1) I += em(L[0], p);
+      if (S.lay & 2) I += em(L[1], p);
+      if (S.lay & 4) { var s2 = 0; for (var dy = -2; dy <= 2; dy++) for (var dx = -2; dx <= 2; dx++) { var y = Math.min(N - 1, Math.max(0, 2 * j + 2 * dy)), x = Math.min(N - 1, Math.max(0, 2 * i + 2 * dx)); s2 += em(L[2], y * N + x); } I += s2 / 25; }
+      var v = Math.pow(1 - Math.exp(-I / m.expo), 0.85), o = 4 * (j * n + i);
+      d[o] = col.bg[0] + (col.ink[0] - col.bg[0]) * v; d[o + 1] = col.bg[1] + (col.ink[1] - col.bg[1]) * v; d[o + 2] = col.bg[2] + (col.ink[2] - col.bg[2]) * v; d[o + 3] = 255;
+    }
+    ctx2.putImageData(img2, 0, 0);
+  }
+
+  /* ---------- the overlay: the decided curve, the jet sketch, the view's label (the paths: paths.js, shared with the build) ---------- */
+  var BP = window.BHPATHS;
+  function overlay() {
+    var v = view(S.key);
+    var cd = BP.curvePath(v.curve.points);
+    $('bh-curve').setAttribute('d', cd); $('bh-casing').setAttribute('d', cd);
+    $('bh-curve').setAttribute('data-rec', 'playground/black-hole/out/scene.json#/views/' + SPEC.views.indexOf(v) + '/curve/points');
+    $('bh-jet').setAttribute('d', BP.jetPath(v.inclinationDeg, 1));
+    $('bh-viewtag').textContent = v.model ? 'a picture of the model at ' + v.inclinationDeg + '°, not M87*’s view' : 'M87*’s view, 17° (assumed, from the jet)';
+    stage.classList.toggle('model', !!v.model);
+  }
+
+  /* ---------- the readouts ---------- */
+  var ivOf = function (s) { var m = /\[\s*([-\d.e+]+)\s*,\s*([-\d.e+]+)\s*\]/.exec(s); return m ? [Number(m[1]), Number(m[2])] : null; };
+  var down = function (x, d) { var k = Math.pow(10, d); return (Math.floor(x * k) / k).toFixed(d); };
+  var up = function (x, d) { var k = Math.pow(10, d); return (Math.ceil(x * k) / k).toFixed(d); };
+  function setVal(id, text, rec) { var e = $(id); if (!e) return; e.textContent = text; if (rec) e.setAttribute('data-rec', rec); }
+  var esc = function (s) { return String(s).replace(/~/g, '~0').replace(/\//g, '~1'); };
+  function readouts() {
+    var v = view(S.key), R = SPEC.rows[S.row], base = SPEC.record + '#/enclosures/';
+    setVal('bh-tg', R.thetaG, base + 'thetaG/' + S.row + '/uas');
+    setVal('bh-pred', R.pred, base + 'predictedUas/' + S.row + '/band17');
+    setVal('bh-ratio', R.ratio, base + 'comparison/rows/' + S.row + '/eht2017-2021/band17');
+    setVal('bh-tgh', R.tgHours, base + 'clock/' + S.row + '/tgHours');
+    setVal('bh-iscod', R.iscoDays[v.iscoKey], base + 'clock/' + S.row + '/iscoDays/' + esc(v.iscoKey));
+    setVal('bh-iscotg', SPEC.isco[v.iscoKey], base + 'isco/at/' + esc(v.iscoKey) + '/periodTg');
+    var P = ivOf(SPEC.isco[v.iscoKey]);
+    setVal('bh-iscos', up(P[1] / RATE, 1));
+    var H = ivOf(R.tgHours);
+    setVal('bh-speedh', '[' + down(RATE * H[0], 2) + ', ' + up(RATE * H[1], 2) + ']');
+    $('bh-rowlabel').textContent = R.label;
+    $('bh-circ').hidden = !R.circular;
+    $('bh-spinlabel').textContent = v.spinLabel;
+  }
+  function clock() {
+    var R = SPEC.rows[S.row], H = ivOf(R.tgHours);
+    $('bh-t').textContent = Math.floor(S.t).toLocaleString('en-US');
+    $('bh-days').textContent = '[' + down(S.t * H[0] / 24, 1) + ', ' + up(S.t * H[1] / 24, 1) + ']';
+  }
+
+  /* ---------- the controls ---------- */
+  function choose(key) {
+    S.key = key;
+    var v = view(key);
+    S.spin = v.spin; S.deg = v.inclinationDeg;
+    document.querySelectorAll('[data-spin]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-spin') === v.spin && !v.model)); b.disabled = !!v.model; });
+    document.querySelectorAll('[data-view]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-view') === v.inclinationDeg)); });
+    $('bh-spinnote').hidden = !v.model;
+    overlay(); readouts();
+    load(key).then(function () { if (S.key === key) frame(true); }).catch(fail);
+  }
+  document.querySelectorAll('[data-spin]').forEach(function (b) { b.addEventListener('click', function () { choose(b.getAttribute('data-spin')); }); });
+  document.querySelectorAll('[data-view]').forEach(function (b) {
+    b.addEventListener('click', function () { var d = b.getAttribute('data-view'); choose(d === '17' ? SPEC.defaultSpin : SPEC.defaultSpin + ' @ ' + d); });
+  });
+  document.querySelectorAll('[data-lay]').forEach(function (c) {
+    c.addEventListener('change', function () { var bit = Number(c.getAttribute('data-lay')); S.lay = c.checked ? (S.lay | bit) : (S.lay & ~bit); frame(true); });
+  });
+  var rowSel = $('bh-row');
+  rowSel.addEventListener('change', function () { S.row = rowSel.value; readouts(); clock(); });
+
+  /* ---------- the loop ---------- */
+  var colours = null;
+  function readColours() {
+    var T = window.WTHEME;
+    colours = T ? { bg: T.rgb('--bg'), ink: T.rgb('--ink') } : { bg: [10, 10, 12], ink: [246, 246, 248] };
+  }
+  if (window.WTHEME) window.WTHEME.on(function () { readColours(); frame(true); });
+  readColours();
+  var useGL = initGL(), last = null, slow = 0, frames = 0, last2D = 0;
+  stage.setAttribute('data-renderer', useGL ? 'webgl2' : 'canvas2d');
+  $('bh-renderer').textContent = useGL ? 'WebGL2, float32' : 'canvas 2D, double precision, a quarter of the pixels';
+  var current = null;
+  function frame(force) {
+    var p = maps[S.key];
+    if (!p) return;
+    p.then(function (m) {
+      if (m.key !== S.key) return;
+      m.spinD = view(S.key).spinD;
+      current = m;
+      if (useGL) drawGL(m, colours); else draw2D(m, colours);
+      stage.classList.add('ready');
+    });
+  }
+  function tick(now) {
+    if (last !== null && !S.paused && !reduce) {
+      var dt = Math.min(0.1, (now - last) / 1000);
+      S.t += dt * RATE;
+      if (useGL) {
+        /* degrade gracefully: if frames run slow for a second, shade half the pixels */
+        frames++; if (now - last > 40) slow++;
+        if (frames === 60) { if (slow > 30 && canvas.width === N) { canvas.width = N / 2; canvas.height = N / 2; $('bh-renderer').textContent = 'WebGL2, float32, half the pixels (this machine ran slow)'; } frames = 0; slow = 0; }
+      }
+    }
+    last = now;
+    if (current && (useGL || now - last2D > 80)) { last2D = now; if (useGL) drawGL(current, colours); else draw2D(current, colours); }
+    clock();
+    requestAnimationFrame(tick);
+  }
+  function fail(e) { stage.classList.add('failed'); $('bh-viewtag').textContent = 'not drawn: ' + (e && e.message ? e.message : e); }
+  if (reduce) $('bh-reduce').hidden = false;
+  choose(S.key);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
