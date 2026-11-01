@@ -30,9 +30,10 @@ function refresh(html, pagePath) {
   /* the nav, whole, with the theme pill that follows it (2026-10-30) — nav.js's element is the only <nav class="topnav"> on a page */
   const nav = NAVJS.navHtml({ here: sectionOf(pagePath), root, path: pagePath });
   out = out.replace(NAVJS.NAV_RE, () => nav);
-  /* the footer's site line (byline · home · papers · source · doi); the builder's own paragraphs above it stay */
+  /* the footer's site line (byline · home · papers · contact · source · doi) and the contact card after the footer
+     (design/contact.js, 2026-11-01); the builder's own paragraphs above it stay */
   const line = FOOT.footerHtml({ innerRaw: '', root }).replace(/^[\s\S]*?(<div class="foot-line">)/, '$1');
-  out = out.replace(/<div class="foot-line">[\s\S]*?<\/div><\/div><\/footer>/, () => line);
+  out = out.replace(FOOT.FOOT_LINE_RE, () => line);
   /* the share card: a page still naming the retired /og.png default takes the site's card (2026-10-30, template.js) */
   out = require('./template.js').recard(out);
   /* the stylesheet's site part and the utility layer (design/sheet.js markers, 2026-10-29); a page built before the

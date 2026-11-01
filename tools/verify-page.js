@@ -30,8 +30,11 @@ module.exports = function verifyPage(X) {
   const RS = require(path.join(ROOT, 'design', 'reasons.js'));
   const J = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
   const vg = (plain, ok, msg) => { if (!ok) fail((msg ? msg + ' — ' : '') + '/verify/ refuses to build if ' + plain); };
-  const PILOT = GITHUB + '/issues/new?template=pilot.yml';
-  const MAIL = 'carlos@carlostoledo.co';   /* published on this page by the operator's word (2026-10-31) */
+  /* the contact card (design/contact.js, 2026-11-01): the calls to action and the product cards' pilot links open it,
+     each prefilling its product; while the module holds no Web3Forms key each is a plain mailto: to the one address */
+  const CT = require(path.join(ROOT, 'design', 'contact.js'));
+  const PILOT = CT.PILOT;
+  const MAIL = CT.MAIL;   /* published on this page by the operator's word (2026-10-31) */
   const HUB = 'https://app.primeintellect.ai/dashboard/environments/carlos-toledo/';
   const SUP = { '-': '⁻', 0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴', 5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹' };
   const pow10 = (e) => '10' + String(e).split('').map((c) => SUP[c]).join('');
@@ -441,18 +444,18 @@ module.exports = function verifyPage(X) {
     + '<h3>' + C.esc(title) + '</h3><p>' + C.esc(line) + '</p>'
     + (numRaw ? '<p class="vf-pn">' + numRaw + '</p>' : '')
     + '<p class="vf-pe">' + evRaw + '</p>' + (go ? '<p class="vf-go">' + go + '</p>' : '') + '</div>';
-  const pilotGo = (what) => '<a href="' + C.escAttr(PILOT) + '">Request ' + what + ' pilot →</a>';
+  const pilotGo = (what, product) => CT.trigger({ raw: 'Request ' + what + ' pilot →', product });
   const FLAG = [
     { who: 'for RL and evaluation teams', title: 'Verify Graders', stand: 'pilots',
       line: 'Reward and grading a policy cannot game: the ground truth is a certificate, in code you run, and the grader must refuse planted wrong answers before it grades anything.',
       numRaw: tolPct, evRaw: 'of ' + fmt(tolAdmit.n) + ' provably wrong answers pass a tolerance grader. A certificate grader admits ' + encl0 + '.',
-      go: pilotGo('a grader') },
+      go: pilotGo('a grader', 'Verify Graders') },
     { who: 'for labs and AI-for-science teams', title: 'Verify Audits', stand: 'pilots',
       line: 'An independent audit of a claim, before or after publication: the gaps listed first, every finite part decided exactly, every formal statement read against its headline.',
       numRaw: W.value(fmt(sShort) + ' of ' + fmt(S.counts.families), W.COMPUTED, { derived: [OST + '#/counts/words', OST + '#/rows'] }),
       evRaw: 'formal statements in OpenAI’s math release claim more than they prove, while its '
         + W.val({ rec: { path: OK_, ptr: '/counts/decided' }, standing: W.DECIDED, fmt: 'int' }) + ' proofs pass a second kernel. <a href="../reports/openai-math.html">The audit →</a>',
-      go: pilotGo('an audit') },
+      go: pilotGo('an audit', 'Verify Audits') },
   ];
   const REST = [
     { who: 'for anyone who trains on a reward', title: 'Grader Red-Team', stand: 'pilots',
@@ -460,13 +463,13 @@ module.exports = function verifyPage(X) {
       evRaw: 'Our own decider, first: ' + W.val({ rec: { path: MUT, ptr: MA + 'mutants' }, standing: W.DECIDED, fmt: 'int' }) + ' planted forgeries, '
         + W.val({ rec: { path: MUT, ptr: MA + 'falseCertifications' }, standing: W.DECIDED, fmt: 'int' }) + ' certified; a float check at ' + tolWord(1e-6) + ' let '
         + W.val({ rec: { path: MUT, ptr: MA + 'float/1e-6/witnessedFalseAccepted' }, standing: W.DECIDED, fmt: 'int' }) + ' through.',
-      go: pilotGo('a red-team') },
+      go: pilotGo('a red-team', 'Grader Red-Team') },
     { who: 'for benchmark and data teams', title: 'Eval & Data Audit', stand: 'pilots',
       line: 'Answer keys and benchmark labels re-decided step by step; every wrong key comes back with the exact value that shows it.',
       evRaw: 'GSM8K: ' + W.value(fmt(gsmItems), W.DECIDED, { derived: [GSM + '#/test/items', GSM + '#/train/items'] }) + ' answer keys re-decided, '
         + W.value(fmt(gsmWrong), W.DECIDED, { derived: [GSM + '#/test/classes/PRINTED_STEP_WRONG', GSM + '#/train/classes/PRINTED_STEP_WRONG'] })
         + ' printed steps wrong by more than a rounding. <a href="../reports/gsm8k-audit.html">The audit →</a>',
-      go: pilotGo('a data-audit') },
+      go: pilotGo('a data-audit', 'Eval & Data Audit') },
     { who: 'for model builders', title: 'Verify Gym', stand: 'live',
       line: 'An RL environment whose reward is certified decimals: both ends of an interval proven, or nothing. Training a model on it is in development.',
       evRaw: W.value(fmt(gymBelow) + ' of ' + fmt(G.models.length), W.DECIDED, { derived: [GYM + '#/models', GYM + '#/policies'] }) + ' open models score below exact bisection: the best '
@@ -487,14 +490,16 @@ module.exports = function verifyPage(X) {
       go: '<a href="../claimbox/">Follow claimbox →</a>' },
   ];
   vg('a product carries no standing word, or a product offered for a pilot has no way to ask for one',
-    FLAG.concat(REST).every((p) => STAND[p.stand] && (p.stand !== 'pilots' || /pilot\.yml/.test(p.go || ''))));
+    FLAG.concat(REST).every((p) => STAND[p.stand] && (p.stand !== 'pilots' || /data-contact="/.test(p.go || ''))));
+  vg('its products are not the contact card\'s products, in the same order (design/contact.js PRODUCTS)',
+    JSON.stringify(FLAG.concat(REST).map((p) => p.title)) === JSON.stringify(CT.PRODUCTS));
   const productGrid = '<div class="wide"><div class="vf-prods flag">' + FLAG.map(prod).join('') + '</div>'
     + '<div class="vf-prods">' + REST.map(prod).join('') + '</div></div>';
 
   const legend = W.legendHtml({ compact: true });
   const col = (raw) => '<div class="col">' + raw + '</div>';
-  const btn = (href, raw, ghost) => '<a class="vf-btn' + (ghost ? ' ghost' : '') + '" href="' + C.escAttr(href) + '">' + raw + '</a>';
-  const ctas = '<div class="vf-cta">' + btn(PILOT, 'Request a pilot →') + btn('mailto:' + MAIL, '<span class="m">' + MAIL + '</span>', true) + '</div>';
+  const btn = (raw, ghost) => CT.trigger({ raw, cls: 'vf-btn' + (ghost ? ' ghost' : '') });
+  const ctas = '<div class="vf-cta">' + btn('Request a pilot →') + btn('<span class="m">' + MAIL + '</span>', true) + '</div>';
   const panel = (k, title, raw, go) => '<div class="vf-panel">' + (k ? '<span class="vf-k">' + C.esc(k) + '</span>' : '') + '<h3>' + C.esc(title) + '</h3><p>' + raw + '</p>'
     + (go ? '<p class="vf-go">' + go + '</p>' : '') + '</div>';
   const sec = ({ id, lab, title, raw }) => '<section' + (id ? ' id="' + id + '"' : '') + '>\n<div class="sec-head"><div class="lab">' + C.esc(lab) + '</div><h2>' + C.esc(title) + '</h2></div>\n' + raw + '\n</section>';

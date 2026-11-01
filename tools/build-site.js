@@ -1096,6 +1096,9 @@ B.push(C.header({
     + 'build when a record stops supporting a sentence.'
 }));
 B.push(C.pRaw('<b>Verify</b>: graders that cannot be gamed and independent audits, for teams that need AI claims checked. <a href="verify/">See Verify →</a>'));   /* the one link to /verify/ (the operator, 2026-10-31: "Landing, one line") */
+/* the landing's Contact button (the operator, 2026-11-01): it opens the contact card (design/contact.js), or is a mailto:
+   while the module holds no Web3Forms key */
+B.push(C.pRaw(require(path.join(ROOT, 'design', 'contact.js')).trigger({ raw: 'Contact', cls: 'ccd-btn' })));
 B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href="reports/index.html#audits">The audits →</a> · '
   + '<a href="eth/">The two claimed refutations of ETH, decided and read →</a> · '
   + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));
@@ -2040,6 +2043,8 @@ put('machine/index.html', Buffer.from(TPL.render({ title: 'Method', bodyRaw: met
   desc: 'How a claim becomes a certificate: claims over boxes, the three verdicts and their witnesses, the exact and outward-rounded arithmetic, the certifiers, the verification discipline, the glossary, the errata and the citation.' })));
 put('machine/log.html', Buffer.from(REFRESH.refresh(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'), '/machine/log.html')));
 put('og-verify.png', fs.readFileSync(path.join(ROOT, 'design', 'assets', 'og-verify.png')));   /* /verify/'s share card: its hero chart, rendered 2026-10-31 (the operator: "a nice OG, very visually catching") */
+console.log('contact card: ' + (require(path.join(ROOT, 'design', 'contact.js')).enabled() ? 'on (design/contact.js holds a Web3Forms key)'
+  : 'off, every trigger a mailto: (no Web3Forms key in design/contact.js)'));
 put('verify/index.html', Buffer.from(TPL.render({ title: 'Verify · AI publishes faster than anyone can check', bodyRaw: verifyBody, footRaw: verifyFoot, cssRaw: verifyCss, path: '/verify/',
   desc: 'Graders that cannot be gamed and independent audits of AI-generated claims: re-decided from their own bytes, with code that shares nothing with the claimant, and returned as certified, refuted or refused.',
   og: { image: '/og-verify.png', alt: 'AI now publishes faster than anyone can check: one AI release of 719 manuscripts against 131 claims decided exactly, each with its certificate.' } })));
