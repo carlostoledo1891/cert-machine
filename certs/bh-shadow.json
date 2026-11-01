@@ -1,0 +1,763 @@
+{
+ "what": "M87*: the Kerr critical curve (the shadow edge) enclosed over the stated spin range and inclination, its diameter in µas for each published mass row, its ratio to the EHT ring (COMPARED), and the ISCO clock — the black hole's decided layer (Phase 0), no render, no page",
+ "preregistration": {
+  "path": "notes/black-hole-phase0-preregistration-2026-10-31.md",
+  "sha256": "3ae1bda6544aa50928b42be574c5ae1d368d25e2e96fb3a3bb0a8022336c2293",
+  "committedBeforeAnyEnclosure": "76383c0d"
+ },
+ "code": {
+  "instruments/kerr/kerr.js": "f25ee51474069f12db6dbce4a1fc516acdc87c4231e9c1a55f37b6d3d9873de6",
+  "instruments/kerr/second.py": "fd02986b546505f13831d00d97da3a370e175bbdd90edbc97d9f25f0b2e9fc13",
+  "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
+  "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
+  "instruments/interval/algebraic.js": "bf6bbbccc41237c3519e173cf5a9439c3da59f8487b74c090f56a3c3fa57cfb0",
+  "instruments/interval/rational.js": "59e97fc40328adc7866f148d8ee61156810dbbcd890b4361dca697aa58d71920",
+  "design/outward.js": "4a6ef53bede8e735d680665d571843dc93d1d40027ca68e043369cf6ed949065"
+ },
+ "words": {
+  "CERTIFIED": "the enclosure lies inside the claim's interval (a printed decimal claims ± half a unit in its last digit)",
+  "REFUTED": "the enclosure is disjoint from the claim: false, proven, given the inputs",
+  "REFUSED": "outside the pre-registered domain, or neither inside nor disjoint at the enclosure's width",
+  "COMPARED": "the measured ring against the decided shadow: a ratio band, never a verdict on the black hole, on GR, or on which mass is right"
+ },
+ "printing": "every enclosure printed OUTWARD (design/outward.js; rationals by BigInt floor/ceiling): a lower end rounded down, an upper end up. M units at 6 decimals, µas and ratios at 4, θg as exact rationals and at 6",
+ "inputs": {
+  "constants": {
+   "c": "299 792 458 m/s (SI, exact)",
+   "GMsun": "1.327 124 4 × 10²⁰ m³ s⁻² (IAU 2015 Resolution B3, nominal; exact)",
+   "au": "149 597 870 700 m (IAU 2012 B2; exact); pc = (648 000/π) au (IAU 2015 B2)",
+   "thetaG": "θg in µas = (M/M☉)·(GM☉/c²)/(D_Mpc · au): one au at one Mpc is one µas, π cancels, θg is an exact rational",
+   "tg": "t_g = GM/c³ = (M/M☉)·(GM☉/c²)/c s; t_g per solar mass ∈ [0.000004925490947641, 0.000004925490947642] s (exact: 2369865000000000000/481142900310249813202427)"
+  },
+  "massRows": [
+   {
+    "id": "eht2019",
+    "label": "EHT 2019 (the ring, GRMHD-calibrated)",
+    "published": "θg = GM/(Dc²) = 3.8 ± 0.4 µas; M = 6.5 ± 0.2 (stat) ± 0.7 (sys) × 10⁹ M☉ at D = 16.8 (+0.8, −0.7) Mpc",
+    "read": "θg ∈ [3.4, 4.2] µas (the measured angle; distance-free). For the clock (which needs M, not M/D): the stat and sys halves added linearly, M ∈ [5.6, 7.4] × 10⁹ M☉",
+    "source": "EHT Collaboration 2019, First M87 EHT Results VI, ApJL 875, L6 (arXiv:1906.11243)",
+    "circular": "this θg was derived FROM the 2017 ring with the GRMHD calibration, so the 2017 ring against this shadow returns that calibration: printed, never a test"
+   },
+   {
+    "id": "gebhardt2011",
+    "label": "stars (Gebhardt+11)",
+    "published": "(6.6 ± 0.4) × 10⁹ M☉ at D = 17.9 Mpc",
+    "read": "M ∈ [6.2, 7.0] × 10⁹ M☉ at 17.9 Mpc",
+    "source": "Gebhardt et al. 2011, ApJ 729, 119 (arXiv:1101.1954), Gemini/NIFS stellar dynamics"
+   },
+   {
+    "id": "liepold2023",
+    "label": "stars (Liepold+23)",
+    "published": "(5.37 +0.37 −0.25 ± 0.22) × 10⁹ M☉ at D = 16.8 Mpc (the ±0.22 is the distance systematic)",
+    "read": "M ∈ [5.12, 5.74] × 10⁹ M☉ at 16.8 Mpc (the distance term cancels in M/D and is dropped)",
+    "source": "Liepold, Ma & Walsh 2023, ApJL 945, L35 (arXiv:2302.07884), Keck IFS, triaxial orbit models"
+   },
+   {
+    "id": "walsh2013",
+    "label": "gas (Walsh+13)",
+    "published": "(3.5 +0.9 −0.7) × 10⁹ M☉ (68%) at D = 17.9 Mpc",
+    "read": "M ∈ [2.8, 4.4] × 10⁹ M☉ at 17.9 Mpc",
+    "source": "Walsh et al. 2013, ApJ 770, 86 (arXiv:1304.7273), HST/STIS gas dynamics"
+   }
+  ],
+  "distanceFree": "a dynamical mass scales as M ∝ D, so M/D (θg) is what the data fix, whatever distance is assumed: the comparison with the ring needs no distance and none is propagated (the scout's finding). The clock needs M itself, so it carries each row's distance. The distances 17.9 and 16.8 Mpc came from a search summary, not from each paper's own table",
+  "rings": [
+   {
+    "id": "eht2017",
+    "d": [
+     "39",
+     "45"
+    ],
+    "published": "42 ± 3 µas, \"across all methods, a crescent diameter\"",
+    "source": "EHT Collaboration 2019, Paper VI (arXiv:1906.11243)"
+   },
+   {
+    "id": "eht2017-2021",
+    "d": [
+     "43.3",
+     "44.5"
+    ],
+    "published": "43.9 ± 0.6 µas, persistent 2017–2021",
+    "source": "EHT Collaboration, \"Horizon-scale variability of M87* from 2017–2021 EHT observations\" (arXiv:2509.24593)"
+   }
+  ],
+  "spin": "a ∈ [0, 499/500] (0.998, Thorne 1974): ASSUMED, swept, never picked; |a| ≤ 0.998 by the mirror a → −a (checked below)",
+  "inclination": "θo = 17° (the camera, the operator's ruling) and the band θo ∈ [13.9°, 20.5°] = 17.2° ± 3.3° (Mertens et al. 2016, A&A 595, A54, from the jet): ASSUMED. The EHT's 163° is the same curve mirrored (β² and α unchanged under cos θo → −cos θo)",
+  "diameter": "W = max α − min α (horizontal extent), H = 2 max β (vertical extent), d̄ = (W + H)/2: a defined quantity, not \"the\" diameter"
+ },
+ "premises": [
+  {
+   "premise": "the Kerr metric (GR, uncharged, vacuum; no plasma lensing)",
+   "standing": "assumed"
+  },
+  {
+   "premise": "the critical curve in closed form (Bardeen 1973; Gralla & Lupsasca 2020)",
+   "standing": "decided (algebraic; enclosed here)"
+  },
+  {
+   "premise": "spin a ∈ [0, 0.998]",
+   "standing": "assumed (unconstrained by data)"
+  },
+  {
+   "premise": "inclination 17° (17.2° ± 3.3°)",
+   "standing": "assumed (jet kinematics)"
+  },
+  {
+   "premise": "each mass row's published 68% range read as a box",
+   "standing": "assumed (a box is not a hard bound on nature)"
+  },
+  {
+   "premise": "the ring the EHT measures (a fit to visibilities)",
+   "standing": "computed (by the EHT)"
+  },
+  {
+   "premise": "the ring-to-shadow factor (GRMHD-calibrated in Paper VI; a thin disk's lensing ring ~5% outside the curve, Gralla, Holz & Wald 2019)",
+   "standing": "compared, never decided: everything in the comparison rests on it"
+  }
+ ],
+ "enclosures": {
+  "schwarzschild": {
+   "claim": "b_c = √27 M = 3√3 M: b² = 27 makes r = 3 a double root of r³ − b²(r − 2)",
+   "exact": "f(3) = 0, f'(3) = 0 (rationals)",
+   "verdict": "CERTIFIED",
+   "sqrt27": "[5.196152422706631, 5.196152422706633]",
+   "diameter2sqrt27": "[10.392304845413260, 10.392304845413268]"
+  },
+  "photonOrbits": {
+   "1/2": {
+    "rMinus": "[2.347296355333, 2.347296355334]",
+    "rPlus": "[3.532088886237, 3.532088886238]",
+    "how": "roots of r(r − 3)² = 4a² in [1, 3] and [3, 4] by exact rational bisection to 2⁻⁵⁰; signs at 1, 3, 4: 1, -1, 1"
+   },
+   "47/50": {
+    "rMinus": "[1.425244268702, 1.425244268703]",
+    "rPlus": "[3.946366077483, 3.946366077484]",
+    "how": "roots of r(r − 3)² = 4a² in [1, 3] and [3, 4] by exact rational bisection to 2⁻⁵⁰; signs at 1, 3, 4: 1, -1, 1"
+   },
+   "99/100": {
+    "rMinus": "[1.167641851857, 1.167641851858]",
+    "rPlus": "[3.991102861089, 3.991102861090]",
+    "how": "roots of r(r − 3)² = 4a² in [1, 3] and [3, 4] by exact rational bisection to 2⁻⁵⁰; signs at 1, 3, 4: 1, -1, 1"
+   },
+   "499/500": {
+    "rMinus": "[1.073909257679, 1.073909257680]",
+    "rPlus": "[3.998221892847, 3.998221892848]",
+    "how": "roots of r(r − 3)² = 4a² in [1, 3] and [3, 4] by exact rational bisection to 2⁻⁵⁰; signs at 1, 3, 4: 1, -1, 1"
+   }
+  },
+  "curveAt17": {
+   "cos17": "[0.956304755963033, 0.956304755963038]",
+   "sin17": "[0.292371704722735, 0.292371704722738]",
+   "spins": {
+    "0": {
+     "W": "[10.392304, 10.392306]",
+     "H": "[10.392304, 10.392305]",
+     "d": "[10.392304, 10.392305]"
+    },
+    "1/2": {
+     "W": "[10.239951, 10.239962]",
+     "H": "[10.254574, 10.254579]",
+     "d": "[10.247263, 10.247270]"
+    },
+    "47/50": {
+     "W": "[9.732062, 9.732134]",
+     "H": "[9.833778, 9.833817]",
+     "d": "[9.782920, 9.782976]"
+    },
+    "99/100": {
+     "W": "[9.620487, 9.620572]",
+     "H": "[9.755842, 9.755884]",
+     "d": "[9.688165, 9.688228]"
+    },
+    "499/500": {
+     "W": "[9.599985, 9.600050]",
+     "H": "[9.742479, 9.742522]",
+     "d": "[9.671232, 9.671286]"
+    }
+   }
+  },
+  "mirror": {
+   "-1/2": {
+    "W": "[10.239951, 10.239962]",
+    "H": "[10.254574, 10.254579]",
+    "d": "[10.247263, 10.247270]"
+   },
+   "-47/50": {
+    "W": "[9.732062, 9.732134]",
+    "H": "[9.833778, 9.833817]",
+    "d": "[9.782920, 9.782976]"
+   },
+   "-499/500": {
+    "W": "[9.599985, 9.600050]",
+    "H": "[9.742479, 9.742522]",
+    "d": "[9.671232, 9.671286]"
+   }
+  },
+  "band17": {
+   "over": "every a ∈ [0, 499/500] at θo = 17°",
+   "tol": 0.001,
+   "boxes": 320,
+   "W": {
+    "min": "[9.599464, 9.600378]",
+    "max": "[10.392013, 10.392888]"
+   },
+   "H": {
+    "min": "[9.742327, 9.742701]",
+    "max": "[10.392304, 10.392689]"
+   },
+   "d": {
+    "min": "[9.670896, 9.671539]",
+    "max": "[10.392158, 10.392772]"
+   },
+   "band": "d̄ ∈ [9.670896, 10.392772] M for every spin in the range",
+   "read": "min and max are each an enclosure of the extreme value over the range; the band is ⊆ [min.lo, max.hi]"
+  },
+  "bandIncl": {
+   "over": "every a ∈ [0, 499/500] and every θo ∈ [13.9°, 20.5°]",
+   "tol": 0.02,
+   "boxes": 465,
+   "d": {
+    "min": "[9.657622, 9.677562]",
+    "max": "[10.384894, 10.404776]"
+   },
+   "band": "d̄ ∈ [9.657622, 10.404776] M",
+   "deciders": "the first decider alone (the second does not carry a wide inclination box); W and H are not banded over inclination"
+  },
+  "thetaG": {
+   "eht2019": {
+    "uas": "[3.400000, 4.200000]",
+    "exact": [
+     "17/5",
+     "21/5"
+    ]
+   },
+   "gebhardt2011": {
+    "uas": "[3.418876, 3.860023]",
+    "exact": [
+     "979544200000000000000000000/286510513363250290479019613",
+     "157991000000000000000000000/40930073337607184354145659"
+    ]
+   },
+   "liepold2023": {
+    "uas": "[3.008191, 3.372465]",
+    "exact": [
+     "101114240000000000000000000/33612965254906458659549787",
+     "16194077500000000000000000/4801852179272351237078541"
+    ]
+   },
+   "walsh2013": {
+    "uas": "[1.544008, 2.426300]",
+    "exact": [
+     "63196400000000000000000000/40930073337607184354145659",
+     "695160400000000000000000000/286510513363250290479019613"
+    ]
+   }
+  },
+  "predictedUas": {
+   "eht2019": {
+    "schwarzschild2sqrt27": "[35.3338, 43.6477]",
+    "band17": "[32.8810, 43.6497]",
+    "bandIncl": "[32.8359, 43.7001]"
+   },
+   "gebhardt2011": {
+    "schwarzschild2sqrt27": "[35.5300, 40.1146]",
+    "band17": "[33.0636, 40.1164]",
+    "bandIncl": "[33.0182, 40.1627]"
+   },
+   "liepold2023": {
+    "schwarzschild2sqrt27": "[31.2620, 35.0477]",
+    "band17": "[29.0919, 35.0493]",
+    "bandIncl": "[29.0519, 35.0898]"
+   },
+   "walsh2013": {
+    "schwarzschild2sqrt27": "[16.0458, 25.2149]",
+    "band17": "[14.9319, 25.2160]",
+    "bandIncl": "[14.9114, 25.2452]"
+   }
+  },
+  "comparison": {
+   "standing": "COMPARED: ring ÷ predicted d̄ — the factor each row would need between the ring and the shadow edge. The factor is a calibrated premise (GRMHD), so this is a ratio band, not a verdict",
+   "rows": {
+    "eht2019": {
+     "eht2017": {
+      "band17": "[0.8934, 1.3686]",
+      "bandIncl": "[0.8924, 1.3705]"
+     },
+     "eht2017-2021": {
+      "band17": "[0.9919, 1.3534]",
+      "bandIncl": "[0.9908, 1.3553]"
+     }
+    },
+    "gebhardt2011": {
+     "eht2017": {
+      "band17": "[0.9721, 1.3611]",
+      "bandIncl": "[0.9710, 1.3629]"
+     },
+     "eht2017-2021": {
+      "band17": "[1.0793, 1.3459]",
+      "bandIncl": "[1.0781, 1.3478]"
+     }
+    },
+    "liepold2023": {
+     "eht2017": {
+      "band17": "[1.1127, 1.5469]",
+      "bandIncl": "[1.1114, 1.5490]"
+     },
+     "eht2017-2021": {
+      "band17": "[1.2354, 1.5297]",
+      "bandIncl": "[1.2339, 1.5318]"
+     }
+    },
+    "walsh2013": {
+     "eht2017": {
+      "band17": "[1.5466, 3.0137]",
+      "bandIncl": "[1.5448, 3.0179]"
+     },
+     "eht2017-2021": {
+      "band17": "[1.7171, 2.9802]",
+      "bandIncl": "[1.7151, 2.9843]"
+     }
+    }
+   },
+   "circular": "this θg was derived FROM the 2017 ring with the GRMHD calibration, so the 2017 ring against this shadow returns that calibration: printed, never a test"
+  },
+  "isco": {
+   "formula": "Bardeen, Press & Teukolsky 1972: Z₁ = 1 + (1 − a²)^(1/3)[(1 + a)^(1/3) + (1 − a)^(1/3)], Z₂ = √(3a² + Z₁²), r = 3 + Z₂ ∓ √((3 − Z₁)(3 + Z₁ + 2Z₂)); P = 2π (r^(3/2) ± a) t_g, coordinate time at infinity in the hole's rest frame (an observer sees it × (1 + z), z ≈ 0.0043, not applied)",
+   "at": {
+    "0 pro": {
+     "r": "[5.999999, 6.000001]",
+     "periodTg": "[92.343584, 92.343588]"
+    },
+    "1/2 pro": {
+     "r": "[4.233002, 4.233003]",
+     "periodTg": "[57.862420, 57.862421]"
+    },
+    "47/50 pro": {
+     "r": "[2.023593, 2.023594]",
+     "periodTg": "[23.993115, 23.993116]"
+    },
+    "99/100 pro": {
+     "r": "[1.454497, 1.454498]",
+     "periodTg": "[17.242077, 17.242078]"
+    },
+    "499/500 pro": {
+     "r": "[1.236970, 1.236971]",
+     "periodTg": "[14.914702, 14.914703]"
+    },
+    "99/100 retro": {
+     "r": "[8.971861, 8.971862]",
+     "periodTg": "[162.630670, 162.630671]"
+    },
+    "499/500 retro": {
+     "r": "[8.994374, 8.994375]",
+     "periodTg": "[163.216350, 163.216351]"
+    }
+   },
+   "overSpinRange": {
+    "prograde": {
+     "r": "[1.234878, 6.000034]",
+     "periodTg": "[14.892158, 92.382991]"
+    },
+    "retrograde": {
+     "r": "[5.999951, 8.998594]",
+     "periodTg": "[92.303506, 163.336250]"
+    }
+   }
+  },
+  "clock": {
+   "eht2019": {
+    "tgHours": "[7.6618, 10.1247]",
+    "iscoDays": {
+     "0 pro": "[29.4802, 38.9560]",
+     "1/2 pro": "[18.4722, 24.4098]",
+     "47/50 pro": "[7.6596, 10.1218]",
+     "99/100 pro": "[5.5044, 7.2738]",
+     "499/500 pro": "[4.7614, 6.2920]",
+     "99/100 retro": "[51.9189, 68.6073]",
+     "499/500 retro": "[52.1059, 68.8544]"
+    },
+    "iscoDaysOverSpinRange": {
+     "prograde": "[4.7542, 38.9727]",
+     "retrograde": "[29.4674, 68.9049]"
+    }
+   },
+   "gebhardt2011": {
+    "tgHours": "[8.4827, 9.5774]",
+    "iscoDays": {
+     "0 pro": "[32.6388, 36.8503]",
+     "1/2 pro": "[20.4514, 23.0904]",
+     "47/50 pro": "[8.4803, 9.5746]",
+     "99/100 pro": "[6.0942, 6.8806]",
+     "499/500 pro": "[5.2715, 5.9519]",
+     "99/100 retro": "[57.4817, 64.8988]",
+     "499/500 retro": "[57.6887, 65.1325]"
+    },
+    "iscoDaysOverSpinRange": {
+     "prograde": "[5.2636, 36.8660]",
+     "retrograde": "[32.6246, 65.1804]"
+    }
+   },
+   "liepold2023": {
+    "tgHours": "[7.0051, 7.8535]",
+    "iscoDays": {
+     "0 pro": "[26.9533, 30.2173]",
+     "1/2 pro": "[16.8889, 18.9341]",
+     "47/50 pro": "[7.0031, 7.8512]",
+     "99/100 pro": "[5.0326, 5.6421]",
+     "499/500 pro": "[4.3533, 4.8805]",
+     "99/100 retro": "[47.4687, 53.2170]",
+     "499/500 retro": "[47.6397, 53.4087]"
+    },
+    "iscoDaysOverSpinRange": {
+     "prograde": "[4.3467, 30.2302]",
+     "retrograde": "[26.9416, 53.4479]"
+    }
+   },
+   "walsh2013": {
+    "tgHours": "[3.8309, 6.0201]",
+    "iscoDays": {
+     "0 pro": "[14.7401, 23.1631]",
+     "1/2 pro": "[9.2361, 14.5140]",
+     "47/50 pro": "[3.8298, 6.0184]",
+     "99/100 pro": "[2.7522, 4.3250]",
+     "499/500 pro": "[2.3807, 3.7412]",
+     "99/100 retro": "[25.9594, 40.7935]",
+     "499/500 retro": "[26.0529, 40.9405]"
+    },
+    "iscoDaysOverSpinRange": {
+     "prograde": "[2.3771, 23.1730]",
+     "retrograde": "[14.7337, 40.9705]"
+    }
+   }
+  }
+ },
+ "secondDecider": {
+  "decider": "instruments/kerr/second.py (decimal, ROUND_FLOOR / ROUND_CEILING, 40 digits)",
+  "rule": "for every quantity the two enclosures intersect (both hold the true value); disjoint = a bug, the record refused",
+  "quantities": 51,
+  "agree": true,
+  "band17": {
+   "d": {
+    "min": [
+     "9.52091551636479042731433138058418566385",
+     "9.727100762146060538580646720879747829685"
+    ],
+    "max": [
+     "10.38246504326862772872200639515230775184",
+     "10.49743090885090952217310229516908147164"
+    ]
+   },
+   "boxes": 143,
+   "note": "a fixed spin grid, coarser than the first decider's branch and bound"
+  },
+  "notCarried": "the inclination band"
+ },
+ "claims": [
+  {
+   "claim": "mean diameter d̄ at a → 0, θo = 17°, in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "10.39",
+   "verdict": "CERTIFIED",
+   "enclosure": "[10.392304, 10.392305]"
+  },
+  {
+   "claim": "mean diameter d̄ at a = 0.999, θo = 17°, in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "9.67",
+   "verdict": "REFUSED",
+   "reason": "spin 0.999 is outside the pre-registered range [0, 0.998]: not decided"
+  },
+  {
+   "claim": "d̄ over the spin range at 17° lies in [9.66, 10.40] M (the scout said over a ∈ [0, 1); read on [0, 0.998] only)",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[9.66, 10.40]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[9.670896, 10.392772]"
+  },
+  {
+   "claim": "r_isco at a = 0 (prograde), in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "6",
+   "verdict": "CERTIFIED",
+   "enclosure": "[5.999999, 6.000001]"
+  },
+  {
+   "claim": "r_isco at a = 47/50 (prograde), in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "2.136",
+   "verdict": "REFUTED",
+   "enclosure": "[2.023593, 2.023594]"
+  },
+  {
+   "claim": "r_isco at a = 499/500 (prograde), in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "1.448",
+   "verdict": "REFUTED",
+   "enclosure": "[1.236970, 1.236971]"
+  },
+  {
+   "claim": "r_isco at a = 99/100 (retrograde), in M",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "8.79",
+   "verdict": "REFUTED",
+   "enclosure": "[8.971861, 8.971862]"
+  },
+  {
+   "claim": "t_g = GM/c³ at M = 6.5 × 10⁹ M☉, in hours",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "8.89",
+   "verdict": "CERTIFIED",
+   "enclosure": "[8.893247, 8.893248]"
+  },
+  {
+   "claim": "ISCO period at a = 0 pro, M = 6.5 × 10⁹ M☉, in days",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "34.2",
+   "verdict": "CERTIFIED",
+   "enclosure": "[34.2180, 34.2181]"
+  },
+  {
+   "claim": "ISCO period at a = 47/50 pro, M = 6.5 × 10⁹ M☉, in days",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "9.5",
+   "verdict": "REFUTED",
+   "enclosure": "[8.8906, 8.8907]"
+  },
+  {
+   "claim": "ISCO period at a = 499/500 pro, M = 6.5 × 10⁹ M☉, in days",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "6.4",
+   "verdict": "REFUTED",
+   "enclosure": "[5.5266, 5.5267]"
+  },
+  {
+   "claim": "ISCO period at a = 99/100 retro, M = 6.5 × 10⁹ M☉, in days",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "58",
+   "verdict": "REFUTED",
+   "enclosure": "[60.2631, 60.2632]"
+  },
+  {
+   "claim": "θg for EHT 6.5e9 at 16.8 Mpc, in µas",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "3.82",
+   "verdict": "CERTIFIED",
+   "enclosure": "[3.818993, 3.818994]"
+  },
+  {
+   "claim": "θg for Gebhardt+11 6.6e9 at 17.9, in µas",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "3.64",
+   "verdict": "CERTIFIED",
+   "enclosure": "[3.639449, 3.639450]"
+  },
+  {
+   "claim": "θg for Liepold+23 5.37e9 at 16.8, in µas",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "3.16",
+   "verdict": "CERTIFIED",
+   "enclosure": "[3.155075, 3.155076]"
+  },
+  {
+   "claim": "θg for Walsh+13 3.5e9 at 17.9, in µas",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "1.93",
+   "verdict": "CERTIFIED",
+   "enclosure": "[1.930011, 1.930012]"
+  },
+  {
+   "claim": "the critical-curve d̄ over the spin range at 17°, EHT 6.5e9, in µas, lies in [36.9, 39.7]",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[36.9, 39.7]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[36.9330, 39.6900]"
+  },
+  {
+   "claim": "the critical-curve d̄ over the spin range at 17°, Gebhardt+11 6.6e9, in µas, lies in [35.2, 37.8]",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[35.2, 37.8]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[35.1967, 37.8240]"
+  },
+  {
+   "claim": "the critical-curve d̄ over the spin range at 17°, Liepold+23 5.37e9, in µas, lies in [30.5, 32.8]",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[30.5, 32.8]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[30.5124, 32.7900]"
+  },
+  {
+   "claim": "the critical-curve d̄ over the spin range at 17°, Walsh+13 3.5e9, in µas, lies in [18.7, 20.1]",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[18.7, 20.1]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[18.6649, 20.0582]"
+  },
+  {
+   "claim": "the 43.9 ± 0.6 µas ring over that curve (EHT 6.5e9) lies in [1.09, 1.21] (arithmetic only; the reading is COMPARED)",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[1.09, 1.21]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[1.0909, 1.2049]"
+  },
+  {
+   "claim": "the 43.9 ± 0.6 µas ring over that curve (Walsh+13 3.5e9) lies in [2.1, 2.4] (arithmetic only; the reading is COMPARED)",
+   "by": "the scout (notes/black-hole-scout-2026-10-31.md, float64, not in the repository)",
+   "claimed": "[2.1, 2.4]",
+   "verdict": "CERTIFIED",
+   "enclosure": "[2.1587, 2.3842]"
+  }
+ ],
+ "redControls": [
+  {
+   "control": "b_c = √26 claimed for √27",
+   "expected": "REFUTED",
+   "got": "REFUTED",
+   "ok": true
+  },
+  {
+   "control": "b² = 28: is r = 3 a double root of r³ − b²(r − 2)?",
+   "expected": "no",
+   "got": "no",
+   "ok": true
+  },
+  {
+   "control": "θg of the gas row claimed at a mass moved to 6.5 × 10⁹ (3.584 µas)",
+   "expected": "REFUTED",
+   "got": "REFUTED",
+   "ok": true
+  },
+  {
+   "control": "a spin outside [0, 0.998]: a = 999/1000",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true
+  },
+  {
+   "control": "a spin outside [0, 0.998]: a = 1",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true
+  },
+  {
+   "control": "a spin outside [0, 0.998]: a = 6/5",
+   "expected": "REFUSED",
+   "got": "REFUSED",
+   "ok": true
+  },
+  {
+   "control": "d̄ at a = 0, 17°, EHT row claimed as 30 µas",
+   "expected": "REFUTED",
+   "got": "REFUTED",
+   "ok": true
+  },
+  {
+   "control": "Schwarzschild d̄ claimed as 10.5 M",
+   "expected": "REFUTED",
+   "got": "REFUTED",
+   "ok": true
+  },
+  {
+   "control": "at a = 0 the enclosure of W holds 2√27",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "at a = 0 the enclosure of H holds 2√27",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "at a = 0 the enclosure of d holds 2√27",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 1/2: W unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 1/2: H unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 1/2: d unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 47/50: W unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 47/50: H unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 47/50: d unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 499/500: W unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 499/500: H unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 499/500: d unchanged (the enclosures intersect)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 1/2: α_max(−a) = −α_min(a)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 47/50: α_max(−a) = −α_min(a)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  },
+  {
+   "control": "mirror a → −a, a = 499/500: α_max(−a) = −α_min(a)",
+   "expected": "yes",
+   "got": "yes",
+   "ok": true
+  }
+ ],
+ "priorArt": [
+  "Bardeen 1973, Timelike and null geodesics in the Kerr metric, in Black Holes (Les Houches), eds. DeWitt & DeWitt, p. 215 — the critical curve",
+  "Bardeen, Press & Teukolsky 1972, ApJ 178, 347 — the ISCO",
+  "Gralla & Lupsasca 2020, PRD 101, 044031 and 044032 (arXiv:1910.12873, 1910.12881) — the curve in this form",
+  "Johnson et al. 2020, Sci. Adv. 6, eaaz1310 (arXiv:1907.04329) — the photon ring's universal structure",
+  "Gralla, Holz & Wald 2019, PRD 100, 024018 (arXiv:1906.00873) — shadow, photon ring and lensing ring are different things",
+  "C. Givord 2026, Elliptic Integrals in Kerr Spacetime: Explicit Reduction, AGM Evaluation… (Zenodo, DOI 10.5281/zenodo.19558035) — claims certified AGM error bounds for Kerr elliptic integrals; its method was not read, and Phase 0 needs no elliptic integral (the Lyapunov exponent is not among these claims)",
+  "no prior interval enclosure of the Kerr shadow was found (the scout's search, 2026-10-31)"
+ ],
+ "timing": {
+  "firstDeciderMs": 21835
+ }
+}
