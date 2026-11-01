@@ -322,3 +322,18 @@ Any change after this commit is recorded here, dated, with its reason.
      of every row that both deciders call CERTIFIED, each re-decided by check.js before it is written, the
      paid ones through recheck.py as well. These are HELD-OUT tasks: a model trained on this file can never be
      evaluated on heldout-v0. It is not published; the operator decides.
+
+8. **2026-10-31, during the four rows: the 2× stop read on the endpoint's reported cost.** Deviation 6 said "a row
+   is stopped if its cost passes 2× its estimate" without saying which cost. The watchdog first summed tokens at
+   the listed prices, and by that reading openai/gpt-oss-120b was heading for about US$2.03 against a US$2.0 stop
+   (its replies on the held-out set ran longer than in the pilot). The scorecard's spend column is the cost the
+   endpoint reports, and for gpt-oss that is about three quarters of the listed-price figure (cached input), so
+   the per-row stop was switched to the reported cost at 206 of 960 gpt-oss-120b replies, before any row reached
+   either reading's limit. The lane's US$30 stop stayed on the listed prices, the higher of the two. Nothing
+   about sampling or grading changed.
+   - **z-ai/glm-4.7 was stopped** at 105 of 960 replies (US$0.48 reported), on its projection, before it passed
+     its limit: its held-out replies averaged 1,995 output tokens against 861 in the pilot, so the row was
+     heading for about US$4.4 against a US$4.0 stop (2 × US$2.0), and 7 of the 105 had already hit 16,384
+     tokens. The operator's rule is to stop and report when a step is projected past 2× its estimate. The 105
+     replies are kept outside the repository and the run can resume from them; a partial run is never a row,
+     so z-ai/glm-4.7 has no row and no filter result.

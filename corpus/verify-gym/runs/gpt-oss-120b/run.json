@@ -1,0 +1,35 @@
+{
+ "what": "verify-gym model answers (the frozen held-out set): 120 tasks x 8 samples, every reply stored; graded by scorecard.py --add",
+ "settings": {
+  "model": "openai/gpt-oss-120b",
+  "endpoint": "https://api.pinference.ai/api/v1",
+  "provider": "Prime Inference",
+  "temperature": 1.0,
+  "top_p": 1.0,
+  "max_tokens": 16384,
+  "extra_body": {
+   "reasoning_effort": "low"
+  },
+  "thinking": "low (reasoning_effort low; gpt-oss cannot be off)",
+  "tools": "none",
+  "pilot": false
+ },
+ "started": "2026-11-01T02:24:50Z",
+ "finished": "2026-11-01T03:10:11Z",
+ "log": {
+  "file": "rollouts.jsonl",
+  "sha256": "37afbac2be7e400c44b63411aaf3508e8fca23bddab3ad63cb0729640d428eaa"
+ },
+ "usage": {
+  "prompt_tokens": 421042,
+  "completion_tokens": 2974539,
+  "cost_usd_reported": 1.7008,
+  "samples_with_usage": 960
+ },
+ "prices_usd_per_1m": {
+  "input": 0.35,
+  "output": 0.75
+ },
+ "cost_usd_at_listed_prices": 2.3783,
+ "truncated": 27
+}
