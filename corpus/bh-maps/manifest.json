@@ -29,6 +29,26 @@
   "499/500"
  ],
  "defaultSpin": "47/50",
+ "views": [
+  {
+   "key": "47/50 @ 45",
+   "spin": "47/50",
+   "inclinationDeg": "45",
+   "cos": 0.7071067811865476,
+   "sin": 0.7071067811865475,
+   "files": "a47_50-i45-*",
+   "note": "Phase 2 (pre-registered 2026-10-31): leaving M87*'s 17° view, a picture of the model, not of M87*; the default spin only; cos and sin fixed doubles inside kerr.js's enclosures"
+  },
+  {
+   "key": "47/50 @ 80",
+   "spin": "47/50",
+   "inclinationDeg": "80",
+   "cos": 0.17364817766693041,
+   "sin": 0.984807753012208,
+   "files": "a47_50-i80-*",
+   "note": "Phase 2 (pre-registered 2026-10-31): leaving M87*'s 17° view, a picture of the model, not of M87*; the default spin only; cos and sin fixed doubles inside kerr.js's enclosures"
+  }
+ ],
  "spinNote": "a = 47/50 = 0.94 is the CHOSEN default (the common GRMHD value 0.9375 is within 0.003; Phase 0 has enclosures at 0.94); a = 0 is Schwarzschild",
  "layers": {
   "n = 0, 1, 2": "the n-th crossing of the equatorial plane outside the horizon, counted backward from the observer (n = 0 the direct image, n = 1, 2 the first and second photon-ring images): r_s (M; +∞ for a crossing beyond 200 M on the way out), φ_s (rad in [0, 2π); φ = 0 the observer's azimuth, the near side; the prograde disk turns counter-clockwise in the image) and g = ν_obs/ν_emit",
@@ -51,7 +71,7 @@
   "reproducible": "only + − × ÷ and √ per ray: bit-identical on any IEEE-754 machine (re-traced on a sample in --check)",
   "code": {
    "instruments/kerr/rays.js": "1aa399df725d7fa309540f1d6e3fe0414ee74c081fcfd845bea39c7a7c3f40fa",
-   "tools/run-bh-maps.js": "2f20b4072e1c05d5d9db4a63ed85be0e171ebb5a5c31d8705233f6fa3ac3bcd1"
+   "tools/run-bh-maps.js": "37a74ab313fb626b956fa46fbd6fd3616994f1930b90583a261584988f9ca533"
   }
  },
  "files": {
@@ -198,8 +218,88 @@
    "sha256": "9792aa9b5054d8db0b7fa45a4364e5c3e6afce1a219a4facd143d16c0b36b0dc",
    "rawBytes": 262144,
    "rawSha256": "0bd8f9788d53c6647fc81723c7be351501745da885caf3a9ee81847e1c1a61eb"
+  },
+  "a47_50-i45-n0.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "45",
+   "layer": "n = 0",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 1135260,
+   "sha256": "dfea9a236bd1ad6ca5867f459f422ce5c6c22f56b62b1793a4b0bd268f0b50db",
+   "rawBytes": 1572864,
+   "rawSha256": "ca90acce5e76c3e5188bf30e503525968c561fca202cf7d011402eeecad2e17b"
+  },
+  "a47_50-i45-n1.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "45",
+   "layer": "n = 1",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 61342,
+   "sha256": "c0745ca53f4e638a2b3a828dd83bf8f87cdc4b6383ccc57f66d596e2cff273f0",
+   "rawBytes": 1572864,
+   "rawSha256": "0bde15b3c90048ad593aeb052e59c9ab000f5df72718b4164ae2f2408a5bcac4"
+  },
+  "a47_50-i45-n2.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "45",
+   "layer": "n = 2",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 5116,
+   "sha256": "a29fd95a849fe50afaebbf784f9cc818752377852d6504ff95ef9df02b8aa3dd",
+   "rawBytes": 1572864,
+   "rawSha256": "7de9a1932c7f35b98722f7a21764f2e1f0b6fedcc19f9275b5e1bc2915f30d01"
+  },
+  "a47_50-i45-fate.u8.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "45",
+   "layer": "fate",
+   "format": "gzip of 512 × 512 bytes: bit 7 set = captured by the horizon, bits 0–6 = the number of equatorial crossings outside the horizon (capped at 127)",
+   "bytes": 1628,
+   "sha256": "45dcb36ba9e1d63d61ffdd0c138693d7bc1f70e7012dc4c9c465cb68dbba65a7",
+   "rawBytes": 262144,
+   "rawSha256": "1f32177708d4e841b0d7113b1fef63a0b037fc3367819ad209c7de288a54e179"
+  },
+  "a47_50-i80-n0.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "80",
+   "layer": "n = 0",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 894300,
+   "sha256": "76332430734f42f076f53b6fdec3bb7ef5744b107e01de1b816a84b74ecceabe",
+   "rawBytes": 1572864,
+   "rawSha256": "bccb16cec44057d00b1a5fb5d543371591508690a196857213478fae97d017a6"
+  },
+  "a47_50-i80-n1.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "80",
+   "layer": "n = 1",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 230368,
+   "sha256": "beb760e108e543975497943d6dd0e77fd54367ad22072638681b72e57a82abdd",
+   "rawBytes": 1572864,
+   "rawSha256": "da70207eb3afb5e2ee999d27d4d5382a817f1216c75c8aaf441c4d71059b814b"
+  },
+  "a47_50-i80-n2.rpg.f16.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "80",
+   "layer": "n = 2",
+   "format": "gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent",
+   "bytes": 5825,
+   "sha256": "46f49d5f7ec686e194fff9ebcd4c87bc015ca9df2ae21b36c53d4df35c076b53",
+   "rawBytes": 1572864,
+   "rawSha256": "9d0e975d991876e008c1921a08def561202735efa65e05b684827d51c567316c"
+  },
+  "a47_50-i80-fate.u8.gz": {
+   "spin": "47/50",
+   "inclinationDeg": "80",
+   "layer": "fate",
+   "format": "gzip of 512 × 512 bytes: bit 7 set = captured by the horizon, bits 0–6 = the number of equatorial crossings outside the horizon (capped at 127)",
+   "bytes": 1990,
+   "sha256": "7c89231dee4bc56dcb016cbd73eb5e4823bf220c474ead2cc6908da4d6d984f4",
+   "rawBytes": 262144,
+   "rawSha256": "bece39a8630bfbf150da3a559e2b26cfdecec46bba4248dddc86facb08e4866e"
   }
  },
- "totalBytes": 4937606,
- "builtSeconds": 31
+ "totalBytes": 7273435,
+ "builtSeconds": 52
 }

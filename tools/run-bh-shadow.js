@@ -83,6 +83,8 @@ const SAMPLE_SPINS = ['0', '1/2', '47/50', '99/100', '499/500'];
 const ROOT_SPINS = ['1/2', '47/50', '99/100', '499/500'];
 const ISCO_AT = [['0', 1], ['1/2', 1], ['47/50', 1], ['99/100', 1], ['499/500', 1], ['99/100', -1], ['499/500', -1]];
 const TOL17 = 1e-3, TOL_INCL = 2e-2;
+/* Phase 2 (pre-registered 2026-10-31, § Phase 2): the viewer's two views off 17°, at the default spin only */
+const VIEWS = [['47/50', '45'], ['47/50', '80']];
 
 /* ---------- helpers ---------- */
 
@@ -133,6 +135,9 @@ function decideJS() {
     const e = K.extents(K.qIv(Q.neg(pq(a))), th17);
     R.mirror[a] = { W: e.W, H: e.H, d: e.d, alphaMax: e.alpha.max, alphaMin: e.alpha.min };
   }
+  /* Phase 2: the curve at the viewer's views off 17° */
+  R.views = {};
+  for (const [a, deg] of VIEWS) R.views[a + ' @ ' + deg] = K.extents(K.qIv(pq(a)), K.incl(deg));
   /* (b) the bands */
   R.band17 = K.band(pq(SPIN.lo), pq(SPIN.hi), INCL.camera, INCL.camera, { tol: TOL17 });
   R.bandIncl = K.band(pq(SPIN.lo), pq(SPIN.hi), INCL.band[0], INCL.band[1], { tol: TOL_INCL, keys: ['d'] });
@@ -169,7 +174,8 @@ function decidePY() {
   const inp = {
     rootSpins: ROOT_SPINS, spins: SAMPLE_SPINS,
     rows: ROWS.map(r => (r.thetaG ? { id: r.id, thetaG: r.thetaG } : { id: r.id, mass: r.mass, distanceMpc: r.distanceMpc })),
-    isco: ISCO_AT.map(([a, d]) => [a, d > 0])
+    isco: ISCO_AT.map(([a, d]) => [a, d > 0]),
+    views: VIEWS
   };
   const res = cp.spawnSync('python3', ['-I', path.join(ROOT, 'instruments/kerr/second.py')],
     { input: JSON.stringify(inp), encoding: 'utf8', maxBuffer: 1 << 26 });
@@ -191,6 +197,7 @@ function agree(J, P) {
   add('cos 17°', ivQ(J.cos17), pIv(P.cos17));
   add('sin 17°', ivQ(J.sin17), pIv(P.sin17));
   for (const a of SAMPLE_SPINS) for (const k of ['W', 'H', 'd']) add(k + ' at a = ' + a + ', 17°', ivQ(J.spins[a][k]), pIv(P.spins[a][k]));
+  for (const [a, deg] of VIEWS) for (const k of ['W', 'H', 'd']) add(k + ' at a = ' + a + ', ' + deg + '°', ivQ(J.views[a + ' @ ' + deg][k]), pIv(P.views[a + ' @ ' + deg][k]));
   for (const k of ['W', 'H', 'd']) for (const m of ['min', 'max'])
     add(m + ' of ' + k + ' over the spin range, 17°', ivQ(J.band17[k][m]), pIv(P.band17[k][m]));
   for (const row of ROWS) add('θg, ' + row.id, J.thetaG[row.id], pIv(P.thetaG[row.id]));
@@ -401,6 +408,10 @@ function build() {
       curveAt17: {
         cos17: enc(J.cos17, 15), sin17: enc(J.sin17, 15),
         spins: Object.fromEntries(SAMPLE_SPINS.map(a => [a, { W: M6(J.spins[a].W), H: M6(J.spins[a].H), d: M6(J.spins[a].d) }]))
+      },
+      curveViews: {
+        over: 'the viewer\'s two views off 17° (Phase 2, pre-registered 2026-10-31): a picture of the model, not of M87*; the default spin only',
+        views: Object.fromEntries(VIEWS.map(([a, deg]) => [a + ' @ ' + deg, { spin: a, inclinationDeg: deg, W: M6(J.views[a + ' @ ' + deg].W), H: M6(J.views[a + ' @ ' + deg].H), d: M6(J.views[a + ' @ ' + deg].d) }]))
       },
       mirror: Object.fromEntries(Object.keys(J.mirror).map(a => ['-' + a, { W: M6(J.mirror[a].W), H: M6(J.mirror[a].H), d: M6(J.mirror[a].d) }])),
       band17: {

@@ -2,12 +2,12 @@
  "what": "M87*: the Kerr critical curve (the shadow edge) enclosed over the stated spin range and inclination, its diameter in µas for each published mass row, its ratio to the EHT ring (COMPARED), and the ISCO clock — the black hole's decided layer (Phase 0), no render, no page",
  "preregistration": {
   "path": "notes/black-hole-phase0-preregistration-2026-10-31.md",
-  "sha256": "f88a04e91c38de3817d3d4241a383acc09ec2b4a239c936b3c0c522bad7f169b",
+  "sha256": "01e09d68931177396a929aa3a3d776258630d375b2c6333948f119601e98488b",
   "committedBeforeAnyEnclosure": "76383c0d"
  },
  "code": {
   "instruments/kerr/kerr.js": "f25ee51474069f12db6dbce4a1fc516acdc87c4231e9c1a55f37b6d3d9873de6",
-  "instruments/kerr/second.py": "fd02986b546505f13831d00d97da3a370e175bbdd90edbc97d9f25f0b2e9fc13",
+  "instruments/kerr/second.py": "97fc37b21dc0e4d76ddac3559f25936a07d2153f9577d9e429499e468ab66f57",
   "instruments/interval/interval.js": "9891280d08e59f7f3cf1549257d86af988f93971a4c307abc309cb0550a315cd",
   "instruments/interval/transcendental.js": "7d62c491ab6e79a7873f78111f666eb71924b26cc406a8758b91ebd77ad69b79",
   "instruments/interval/algebraic.js": "bf6bbbccc41237c3519e173cf5a9439c3da59f8487b74c090f56a3c3fa57cfb0",
@@ -194,6 +194,25 @@
      "W": "[9.599985, 9.600050]",
      "H": "[9.742479, 9.742522]",
      "d": "[9.671232, 9.671286]"
+    }
+   }
+  },
+  "curveViews": {
+   "over": "the viewer's two views off 17° (Phase 2, pre-registered 2026-10-31): a picture of the model, not of M87*; the default spin only",
+   "views": {
+    "47/50 @ 45": {
+     "spin": "47/50",
+     "inclinationDeg": "45",
+     "W": "[9.595175, 9.595945]",
+     "H": "[10.114035, 10.114262]",
+     "d": "[9.854605, 9.855104]"
+    },
+    "47/50 @ 80": {
+     "spin": "47/50",
+     "inclinationDeg": "80",
+     "W": "[9.540638, 9.546274]",
+     "H": "[10.376849, 10.378078]",
+     "d": "[9.958743, 9.962176]"
     }
    }
   },
@@ -455,7 +474,7 @@
  "secondDecider": {
   "decider": "instruments/kerr/second.py (decimal, ROUND_FLOOR / ROUND_CEILING, 40 digits)",
   "rule": "for every quantity the two enclosures intersect (both hold the true value); disjoint = a bug, the record refused",
-  "quantities": 51,
+  "quantities": 57,
   "agree": true,
   "band17": {
    "d": {
@@ -779,6 +798,6 @@
   "no prior interval enclosure of the Kerr shadow was found (the scout's search, 2026-10-31)"
  ],
  "timing": {
-  "firstDeciderMs": 20370
+  "firstDeciderMs": 21342
  }
 }

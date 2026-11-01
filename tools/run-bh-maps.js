@@ -38,8 +38,18 @@ const DEFAULT_SPIN = '47/50';
 const NCROSS = 3, TOL = 1e-12;
 /* cos 17° and sin 17° as doubles, each asserted inside Phase 0's enclosure (certs/bh-shadow.json) */
 const COS17 = 0.9563047559630355, SIN17 = 0.2923717047227367;
+/* Phase 2 (pre-registered 2026-10-31, § Phase 2): the viewer's two views off 17°, at the default spin only — a picture of
+   the model, not of M87*. cos and sin as fixed doubles, each asserted inside kerr.js's enclosure below */
+const VIEWS = [
+  { s: '47/50', deg: '45', cos: 0.7071067811865476, sin: 0.7071067811865475 },
+  { s: '47/50', deg: '80', cos: 0.17364817766693041, sin: 0.984807753012208 }
+];
+const viewKey = v => v.s + ' @ ' + v.deg;
+/* every map: the four spins at 17°, then the views */
+const MAPS = SPINS.map(s => ({ key: s, s, deg: '17', cos: COS17, sin: SIN17 })).concat(VIEWS.map(v => Object.assign({ key: viewKey(v) }, v)));
 const spinD = s => (s.includes('/') ? Number(s.split('/')[0]) / Number(s.split('/')[1]) : Number(s));
 const tag = s => 'a' + s.replace('/', '_');
+const mapTag = m => tag(m.s) + (m.deg === '17' ? '' : '-i' + m.deg);
 const alphaOf = i => -HALF + (i + 0.5) * PITCH;                    /* column i, left to right */
 const betaOf = j => HALF - (j + 0.5) * PITCH;                      /* row j, top to bottom */
 
@@ -74,15 +84,15 @@ function riscoFor(shadow, s) {
 
 /* ---------- worker: a block of rows ---------- */
 if (!isMainThread) {
-  const { s, j0, j1 } = workerData;
+  const { key, s, cos, sin, j0, j1 } = workerData;
   const a = spinD(s);
   const shadow = JSON.parse(fs.readFileSync(path.join(ROOT, SHADOW), 'utf8'));
   const risco = riscoFor(shadow, s);
   const rows = j1 - j0;
   const out = [0, 1, 2].map(() => new Uint16Array(N * N * 3)), fate = new Uint8Array(N * N);
-  for (let j = j0; j < j1; j++) for (let i = 0; i < N; i++) pixel(a, COS17, SIN17, risco, i, j, out, null, fate);
+  for (let j = j0; j < j1; j++) for (let i = 0; i < N; i++) pixel(a, cos, sin, risco, i, j, out, null, fate);
   parentPort.postMessage({
-    s, j0, j1,
+    key, j0, j1,
     layers: out.map(L => Buffer.from(L.buffer, j0 * N * 3 * 2, rows * N * 3 * 2)),
     fate: Buffer.from(fate.buffer, j0 * N, rows * N)
   });
@@ -95,18 +105,26 @@ const shadow = JSON.parse(fs.readFileSync(path.join(ROOT, SHADOW), 'utf8'));
 {
   const c = ivOf(shadow.enclosures.curveAt17.cos17), s = ivOf(shadow.enclosures.curveAt17.sin17);
   if (!(c[0] <= COS17 && COS17 <= c[1] && s[0] <= SIN17 && SIN17 <= s[1])) die('cos 17° / sin 17° outside Phase 0\'s enclosures');
+  const K = require('../instruments/kerr/kerr.js');
+  for (const v of VIEWS) {
+    const th = K.incl(v.deg);
+    if (!(th.c[0] <= v.cos && v.cos <= th.c[1] && th.s[0] <= v.sin && v.sin <= th.s[1])) die('cos / sin ' + v.deg + '° outside kerr.js\'s enclosure');
+    if (!shadow.enclosures.curveViews || !shadow.enclosures.curveViews.views[viewKey(v)]) die('no Phase 0 enclosure for the view ' + viewKey(v) + ' in ' + SHADOW);
+  }
 }
 
-const fileName = (s, n) => (n === 'fate' ? tag(s) + '-fate.u8.gz' : tag(s) + '-n' + n + '.rpg.f16.gz');
+/* a map is named by its spin (17°) or its key (a view, '47/50 @ 45') */
+const mapOf = k => MAPS.find(m => m.key === k) || die('no map ' + k);
+const fileName = (k, n) => { const t = mapTag(mapOf(k)); return n === 'fate' ? t + '-fate.u8.gz' : t + '-n' + n + '.rpg.f16.gz'; };
 
 async function buildMaps() {
   fs.mkdirSync(OUTDIR, { recursive: true });
   const os = require('os');
   const nW = Math.max(1, Math.min(8, os.cpus().length));
   const jobs = [];
-  for (const s of SPINS) { const per = Math.ceil(N / nW); for (let j0 = 0; j0 < N; j0 += per) jobs.push({ s, j0, j1: Math.min(N, j0 + per) }); }
+  for (const m of MAPS) { const per = Math.ceil(N / nW); for (let j0 = 0; j0 < N; j0 += per) jobs.push({ key: m.key, s: m.s, cos: m.cos, sin: m.sin, j0, j1: Math.min(N, j0 + per) }); }
   const bufs = {};
-  for (const s of SPINS) bufs[s] = { layers: [0, 1, 2].map(() => Buffer.alloc(N * N * 3 * 2)), fate: Buffer.alloc(N * N) };
+  for (const m of MAPS) bufs[m.key] = { layers: [0, 1, 2].map(() => Buffer.alloc(N * N * 3 * 2)), fate: Buffer.alloc(N * N) };
   const t0 = Date.now();
   let next = 0;
   await new Promise((resolve, reject) => {
@@ -116,8 +134,8 @@ async function buildMaps() {
       const jb = jobs[next++]; live++;
       const w = new Worker(__filename, { workerData: jb });
       w.on('message', m => {
-        m.layers.forEach((L, n) => Buffer.from(L).copy(bufs[m.s].layers[n], m.j0 * N * 3 * 2));
-        Buffer.from(m.fate).copy(bufs[m.s].fate, m.j0 * N);
+        m.layers.forEach((L, n) => Buffer.from(L).copy(bufs[m.key].layers[n], m.j0 * N * 3 * 2));
+        Buffer.from(m.fate).copy(bufs[m.key].fate, m.j0 * N);
       });
       w.on('error', reject);
       w.on('exit', () => { live--; launch(); });
@@ -125,15 +143,15 @@ async function buildMaps() {
     for (let k = 0; k < nW; k++) launch();
   });
   const files = {};
-  for (const s of SPINS) {
+  for (const { key, s, deg } of MAPS) {
     const put = (n, raw, format) => {
       const gz = zlib.gzipSync(raw, { level: 9 });
-      const name = fileName(s, n);
+      const name = fileName(key, n);
       fs.writeFileSync(path.join(OUTDIR, name), gz);
-      files[name] = { spin: s, layer: n === 'fate' ? 'fate' : 'n = ' + n, format, bytes: gz.length, sha256: sha256(gz), rawBytes: raw.length, rawSha256: sha256(raw) };
+      files[name] = Object.assign({ spin: s }, deg === '17' ? {} : { inclinationDeg: deg }, { layer: n === 'fate' ? 'fate' : 'n = ' + n, format, bytes: gz.length, sha256: sha256(gz), rawBytes: raw.length, rawSha256: sha256(raw) });
     };
-    for (let n = 0; n < NCROSS; n++) put(n, bufs[s].layers[n], 'gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent');
-    put('fate', bufs[s].fate, 'gzip of 512 × 512 bytes: bit 7 set = captured by the horizon, bits 0–6 = the number of equatorial crossings outside the horizon (capped at 127)');
+    for (let n = 0; n < NCROSS; n++) put(n, bufs[key].layers[n], 'gzip of 512 × 512 × 3 IEEE half floats, little-endian, interleaved (r_s in M, φ_s in rad, g); row 0 the top; NaN where absent');
+    put('fate', bufs[key].fate, 'gzip of 512 × 512 bytes: bit 7 set = captured by the horizon, bits 0–6 = the number of equatorial crossings outside the horizon (capped at 127)');
   }
   const man = {
     what: 'the lensing maps of M87* (Phase 1): COMPUTED in double precision, stored as half floats; a picture of the Kerr geometry, not a decided object. The only decided curve is Phase 0\'s (certs/bh-shadow.json); certs/bh-maps-check.json grades these maps against it',
@@ -143,6 +161,8 @@ async function buildMaps() {
       axes: 'Bardeen\'s image plane in units of M, observer at infinity: α to the right, β up along the projected spin axis; λ = −α sin θo, η = (α² − a²) cos²θo + β²' },
     camera: { inclinationDeg: 17, cos: COS17, sin: SIN17, note: 'the operator\'s ruling: fixed at 17° (the jet\'s 17.2° ± 3.3°, Mertens et al. 2016); the EHT\'s 163° is the mirror image' },
     spins: SPINS, defaultSpin: DEFAULT_SPIN,
+    views: VIEWS.map(v => ({ key: viewKey(v), spin: v.s, inclinationDeg: v.deg, cos: v.cos, sin: v.sin, files: mapTag(v) + '-*',
+      note: 'Phase 2 (pre-registered 2026-10-31): leaving M87*\'s 17° view, a picture of the model, not of M87*; the default spin only; cos and sin fixed doubles inside kerr.js\'s enclosures' })),
     spinNote: 'a = 47/50 = 0.94 is the CHOSEN default (the common GRMHD value 0.9375 is within 0.003; Phase 0 has enclosures at 0.94); a = 0 is Schwarzschild',
     layers: {
       'n = 0, 1, 2': 'the n-th crossing of the equatorial plane outside the horizon, counted backward from the observer (n = 0 the direct image, n = 1, 2 the first and second photon-ring images): r_s (M; +∞ for a crossing beyond 200 M on the way out), φ_s (rad in [0, 2π); φ = 0 the observer\'s azimuth, the near side; the prograde disk turns counter-clockwise in the image) and g = ν_obs/ν_emit',
@@ -252,9 +272,10 @@ function loadMaps() {
 }
 const halfAt = (buf, p, c) => buf.readUInt16LE((p * 3 + c) * 2);
 
-function checkSpin(s, maps, opts) {
-  const a = spinD(s), res = { spin: s };
-  const fate = maps.raw[fileName(s, 'fate')], L = [0, 1, 2].map(n => maps.raw[fileName(s, n)]);
+function checkSpin(key, maps, opts) {
+  const m = mapOf(key), s = m.s, cosO = m.cos, sinO = m.sin;
+  const a = spinD(s), res = m.deg === '17' ? { spin: s } : { spin: s, inclinationDeg: m.deg };
+  const fate = maps.raw[fileName(key, 'fate')], L = [0, 1, 2].map(n => maps.raw[fileName(key, n)]);
   const risco = riscoFor(shadow, s);
   /* what the layers hold (a description for the viewer, not a check) */
   res.coverage = {};
@@ -272,7 +293,7 @@ function checkSpin(s, maps, opts) {
   const traces = [];
   for (let p = 0; p < N * N; p += 97) {
     const i = p % N, j = (p - i) / N;
-    const t = pixel(a, COS17, SIN17, risco, i, j, out, null, fz);
+    const t = pixel(a, cosO, sinO, risco, i, j, out, null, fz);
     sampled++;
     let same = fz[p] === fate[p];
     for (let n = 0; n < NCROSS; n++) for (let c = 0; c < 3; c++) if (out[n][p * 3 + c] !== halfAt(L[n], p, c)) same = false;
@@ -306,18 +327,19 @@ function checkSpin(s, maps, opts) {
     worstAt: worst && { alpha: worst.alpha, beta: worst.beta, n: worst.n, r: Number(worst.r.toFixed(6)) },
     threshold: '1e-6 M', verdict: maxDr < 1e-6 ? 'AGREES' : 'DISAGREES' };
   /* 3. pointwise against the decided curve */
-  const curve = decidedCurve(s, '17');
+  const curve = decidedCurve(s, m.deg);
   lap(s + " curve");
   res.curve = { decidedPoints: curve.points.length, maxBoxHalfWidthM: curve.maxHalfWidth.toExponential(2), smallestEndBeta: curve.endBeta.toExponential(2) };
-  res.pointwise = pointwise(a, COS17, SIN17, curve, 1e-6, 720);
+  res.pointwise = pointwise(a, cosO, sinO, curve, 1e-6, 720);
   lap(s + ' pointwise');
-  res.bisected = bisectEdge(a, COS17, SIN17, curve, 24);
+  res.bisected = bisectEdge(a, cosO, sinO, curve, 24);
   lap(s + ' bisected');
   /* 4. the map's shadow edge */
-  res.texture = textureCheck(fate, curve, s);
+  res.texture = textureCheck(fate, curve, phase0Of(key));
   lap(s + ' texture');
   /* 6. convergence of the photon-ring images */
-  res.convergence = convergence(a, curve);
+  /* the views search the band edge out to 8·P, not 1.5·P (Phase 2 deviation 1): below a steeply inclined shadow a ray crosses the near disk plane far out and again behind the hole, so the n = 1 band reaches past 1.5·P */
+  res.convergence = m.deg === '17' ? convergence(a, curve, cosO, sinO) : convergence(a, curve, cosO, sinO, 8);
   lap(s + ' convergence');
   return { res, curve };
 }
@@ -358,7 +380,9 @@ function bisectEdge(a, cosO, sinO, curve, count) {
   return { points: count, resolution: '2e-3 / 2^44 relative', maxDistanceToDecidedM: maxD.toExponential(2), radii };
 }
 
-function textureCheck(fate, curve, s) {
+/* Phase 0's extents for a map: the 17° sample spins, or the views (certs/bh-shadow.json curveViews) */
+function phase0Of(key) { const m = mapOf(key); return m.deg === '17' ? shadow.enclosures.curveAt17.spins[m.s] : shadow.enclosures.curveViews.views[key]; }
+function textureCheck(fate, curve, ph0) {
   const dist = radialOf(curve);
   let inside = 0, mismatch = 0, unjudged = 0, captured = 0;
   let aMin = Infinity, aMax = -Infinity, bMin = Infinity, bMax = -Infinity;
@@ -376,7 +400,6 @@ function textureCheck(fate, curve, s) {
   const slack = 4e-4;                                              /* (pitch/2)²/(2·4 M), twice: the row/column offset of an extreme */
   const res = { capturedPixels: captured, insideDecidedCurve: inside, mismatched: mismatch, unjudgedWithin1e4M: unjudged };
   const ext = {};
-  const ph0 = shadow.enclosures.curveAt17.spins[s];
   const meets = (lo, hi, enc) => lo <= enc[1] && enc[0] <= hi;
   if (ph0) {
     for (const [key, X] of [['W', W], ['H', H]]) {
@@ -391,13 +414,13 @@ function textureCheck(fate, curve, s) {
   return res;
 }
 
-function convergence(a, curve) {
+function convergence(a, curve, cosO = COS17, sinO = SIN17, tOut = 1.5) {
   const P = curve.points, spokes = 8, step = Math.floor(P.length / spokes), rows = [];
   let ok = true;
   for (let k = 0; k < spokes; k++) {
     const p = P[k * step], rho = Math.hypot(p.a, p.b);
-    const countAt = (t, cap) => RAYS.trace(a, COS17, SIN17, p.a * t, p.b * t, { tol: TOL, maxCross: 0, stopAfter: cap }).count;
-    const tLo = 1 + 1e-11, tHi = 1.5;
+    const countAt = (t, cap) => RAYS.trace(a, cosO, sinO, p.a * t, p.b * t, { tol: TOL, maxCross: 0, stopAfter: cap }).count;
+    const tLo = 1 + 1e-11, tHi = tOut;
     const ds = [];
     for (let n = 1; n <= 4; n++) {
       if (countAt(tLo, n + 1) < n + 1 || countAt(tHi, n + 1) >= n + 1) { ds.push(null); continue; }
@@ -415,7 +438,7 @@ function convergence(a, curve) {
       distanceM: ds.map(d => (d === null ? null : d.toExponential(3))), ratios: ratios.map(r => (r === null ? null : Number(r.toFixed(4)))),
       expMinusGamma: Number(Math.exp(-gam).toFixed(4)), decreasingAndBelowPixel: dec, ...(schw === null ? {} : { withinFivePercentOfExpMinusPi: schw }) });
   }
-  return { spokes: rows, rule: 'the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2', verdict: ok ? 'AGREES' : 'DISAGREES' };
+  return { spokes: rows, rule: 'the outer edge of the n-th lensing band (crossings drop below n + 1) along a spoke through a decided point, n = 1…4: strictly decreasing, the last below one pixel; at a = 0 successive ratios within 5% of e^(−π) for n ≥ 2', ...(tOut === 1.5 ? {} : { searchedOutTo: tOut + ' × P (Phase 2 deviation 1)' }), verdict: ok ? 'AGREES' : 'DISAGREES' };
 }
 
 /* a small fate-only map at any (a, θo), for the red control */
@@ -445,6 +468,8 @@ function buildRecord() {
   if (maps.man.method.code["instruments/kerr/rays.js"] !== shaFile("instruments/kerr/rays.js")) die('rays.js changed since the maps were traced: run --maps');
   const per = {}, curves = {};
   for (const s of SPINS) { const { res, curve } = checkSpin(s, maps); per[s] = res; curves[s] = curve; }
+  const perView = {};
+  for (const v of VIEWS) { const k = viewKey(v); const { res, curve } = checkSpin(k, maps); perView[k] = res; curves[k] = curve; }
   /* 5. Schwarzschild: the bisected edge against √27 */
   const s27 = Math.sqrt(27);
   const dev = Math.max(...per['0'].bisected.radii.map(r => Math.abs(r - s27)));
@@ -455,7 +480,7 @@ function buildRecord() {
   const red = (control, expect, got) => reds.push({ control, expected: expect, got, ok: expect === got });
   {
     const fate0 = maps.raw[fileName('0', 'fate')];
-    const t = textureCheck(fate0, curves['47/50'], '47/50');
+    const t = textureCheck(fate0, curves['47/50'], phase0Of('47/50'));
     red('the a = 0 map against the a = 47/50 decided curve (wrong spin): ' + t.mismatched + ' pixels mismatched', 'DISAGREES', t.verdict);
   }
   {
@@ -481,12 +506,22 @@ function buildRecord() {
     const d26 = Math.min(...per['0'].bisected.radii.map(r => Math.abs(r - s26)));
     red('a planted √26 for the Schwarzschild edge', 'DISAGREES', d26 < 1e-8 ? 'AGREES' : 'DISAGREES');
   }
+  {
+    /* Phase 2's two: a view against the other view's decided curve */
+    const [v45, v80] = VIEWS.map(viewKey);
+    const t = textureCheck(maps.raw[fileName(v45, 'fate')], curves[v80], phase0Of(v80));
+    red('the 45° map against the 80° decided curve (wrong view): ' + t.mismatched + ' pixels mismatched', 'DISAGREES', t.verdict);
+    const pw = pointwise(0.94, VIEWS[0].cos, VIEWS[0].sin, curves[v80], 1e-6, 72);
+    red('rays at 45° at the 80° decided points (wrong view; ' + pw.fail + ' of ' + pw.points + ' fail)', 'DISAGREES', pw.verdict);
+  }
   const badReds = reds.filter(r => !r.ok);
   if (badReds.length) die('red controls not as named: ' + JSON.stringify(badReds));
   for (const s of SPINS) delete per[s].bisected.radii;
+  for (const k of Object.keys(perView)) delete perView[k].bisected.radii;
 
   const verdicts = [pinsOk ? 'AGREES' : 'DISAGREES', schw.verdict];
   for (const s of SPINS) for (const k of ['retrace', 'closedForm', 'pointwise', 'texture', 'convergence']) verdicts.push(per[s][k].verdict);
+  for (const k0 of Object.keys(perView)) for (const k of ['retrace', 'closedForm', 'pointwise', 'texture', 'convergence']) verdicts.push(perView[k0][k].verdict);
   const all = verdicts.every(v => v === 'AGREES');
   const man = maps.man;
   return {
@@ -498,12 +533,13 @@ function buildRecord() {
       'instruments/interval/transcendental.js', 'instruments/interval/algebraic.js', 'instruments/interval/rational.js'].map(f => [f, shaFile(f)])),
     phase0: { record: SHADOW, sha256: shaFile(SHADOW) },
     maps: { manifest: 'corpus/bh-maps/manifest.json', manifestSha256: shaFile('corpus/bh-maps/manifest.json'), files: Object.keys(man.files).length,
-      totalBytes: man.totalBytes, grid: man.grid, spins: man.spins, defaultSpin: man.defaultSpin, camera: man.camera, disk: man.disk },
+      totalBytes: man.totalBytes, grid: man.grid, spins: man.spins, defaultSpin: man.defaultSpin, camera: man.camera, views: man.views, disk: man.disk },
     words: { AGREES: 'the check holds at its stated resolution', DISAGREES: 'it fails: the map (or the control) is not the decided geometry' },
     checks: {
       pins: { files: maps.pins.length, verdict: pinsOk ? 'AGREES' : 'DISAGREES', rule: 'every stored file and its decompressed bytes match the manifest\'s sha256' },
       schwarzschild: schw,
-      perSpin: per
+      perSpin: per,
+      perView
     },
     redControls: reds,
     timing: { ms: Date.now() - t0 }
@@ -514,7 +550,8 @@ function buildRecord() {
   if (MODE === 'maps') { await buildMaps(); return; }
   const rec = buildRecord();
   const strip = o => { const c = JSON.parse(JSON.stringify(o)); delete c.timing; return JSON.stringify(c, null, 1); };
-  const summary = () => SPINS.map(s => s + ': pointwise ' + rec.checks.perSpin[s].pointwise.verdict + ', texture ' + rec.checks.perSpin[s].texture.mismatched + ' mismatched').join('; ');
+  const summary = () => SPINS.map(s => s + ': pointwise ' + rec.checks.perSpin[s].pointwise.verdict + ', texture ' + rec.checks.perSpin[s].texture.mismatched + ' mismatched').join('; ')
+    + '; views ' + Object.keys(rec.checks.perView).map(k => k + '° ' + ['retrace', 'closedForm', 'pointwise', 'texture', 'convergence'].map(c => rec.checks.perView[k][c].verdict).join('/')).join(', ');
   if (MODE === 'check') {
     if (!fs.existsSync(OUT)) die(OUT + ' does not exist; run without --check first');
     if (strip(JSON.parse(fs.readFileSync(OUT, 'utf8'))) !== strip(rec)) die('certs/bh-maps-check.json does not re-derive identically');

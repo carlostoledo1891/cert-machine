@@ -297,3 +297,17 @@ M87*): θo ∈ {45°, 80°}, at a = 47/50 only.
 - **Red controls** (each as named, every run): the 45° map against the 80° decided curve DISAGREES on check 4; rays
   at 45° at the 80° decided points DISAGREE on check 3.
 - **Budget**: about 1.3 MB per view gzipped, so about 7.5 MB for corpus/bh-maps/ in all (stated in the record).
+
+### Phase 2 deviations
+
+Written 2026-10-31, after the views' maps existed (the build, same day):
+
+1. **Check 6's search reaches 8·P at the views, not 1.5·P.** Below a steeply inclined shadow a ray crosses the near
+   side of the disk plane far out and crosses again behind the hole, so the n = 1 band's outer edge lies past 1.5·P on
+   the lower spokes (at 80°, 11–20 M from the curve; the second crossing itself lies at 30–150 M, outside the disk).
+   The first run found no edge there and read DISAGREES on the lower three spokes of each view, with n = 2…4 decreasing
+   and below a pixel on every spoke. The rule is unchanged (the band edges strictly decreasing, the last below one
+   pixel); only the bracket of the search grew, at the views alone (the 17° maps keep 1.5·P, their record unchanged).
+   Both views then AGREE on every check. The record says so (`searchedOutTo`).
+2. **The 17° maps re-traced to the same bytes** (all sixteen sha256 unchanged), as pre-registered. The views add
+   eight files, 2,335,829 bytes; corpus/bh-maps/ is 24 files, 7,273,435 bytes.

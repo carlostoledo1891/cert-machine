@@ -345,6 +345,11 @@ def main():
         e = extents(V(F(a)), th17)
         out['spins'][a] = {k: e[k].strs() for k in ('W', 'H', 'd')}
     out['band17'] = band_spin(th17)
+    # Phase 2 (pre-registered 2026-10-31): the curve's extents at the viewer's two views off 17°
+    out['views'] = {}
+    for a, deg in inp.get('views', []):
+        e = extents(V(F(a)), Incl(int(deg)))
+        out['views'][a + ' @ ' + deg] = {k: e[k].strs() for k in ('W', 'H', 'd')}
     out['thetaG'] = {}
     for row in inp.get('rows', []):
         if 'thetaG' in row:
