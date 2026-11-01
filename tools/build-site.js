@@ -1098,7 +1098,7 @@ B.push(C.header({
 B.push(C.pRaw('<b>Verify</b>: graders that cannot be gamed and independent audits, for teams that need AI claims checked. <a href="verify/">See Verify →</a>'));   /* the one link to /verify/ (the operator, 2026-10-31: "Landing, one line") */
 /* the landing's Contact button (the operator, 2026-11-01): it opens the contact card (design/contact.js), or is a mailto:
    while the module holds no Web3Forms key */
-B.push(C.pRaw(require(path.join(ROOT, 'design', 'contact.js')).trigger({ raw: 'Contact', cls: 'ct-btn' })));
+B.push(C.pRaw(require(path.join(ROOT, 'design', 'contact.js')).trigger({ raw: 'Contact', cls: 'ccd-btn' })));
 B.push(C.pRaw('<a href="#outside">What came back from outside →</a> · <a href="reports/index.html#audits">The audits →</a> · '
   + '<a href="eth/">The two claimed refutations of ETH, decided and read →</a> · '
   + '<a href="paper/cert-machine-method.pdf">The method paper (' + C.esc(paperStatus) + ') →</a>'));

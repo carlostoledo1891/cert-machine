@@ -25,7 +25,7 @@
 const { GITHUB } = require('./nav.js');
 
 /* ---- paste the Web3Forms access key here (the operator supplies it) ---- */
-const WEB3FORMS_KEY = '';
+const WEB3FORMS_KEY = '6eb04316-c621-4d65-8704-f361e4d69aec';
 
 const ENDPOINT = 'https://api.web3forms.com/submit';
 const MAIL = 'carlos@carlostoledo.co';
@@ -56,11 +56,11 @@ function trigger({ raw, product = '', cls = '' }) {
 function cardHtml() {
   if (!enabled()) return '';
   const opts = PRODUCTS.concat([OTHER]).map((p) => '<option value="' + escAttr(p) + '">' + esc(p) + '</option>').join('');
-  const field = (lab, ctl, opt) => '<label class="ct-f"><span class="ct-l">' + lab + (opt ? ' <em>optional</em>' : '') + '</span>' + ctl + '</label>';
-  return '<dialog id="ct-card" class="ct" aria-modal="true" aria-labelledby="ct-title" aria-describedby="ct-note"><div class="ct-in">'
-    + '<div class="ct-head"><div><span class="ct-k">contact</span><h2 id="ct-title">Write to Carlos</h2></div>'
-    + '<button type="button" class="ct-x" data-ct-close aria-label="Close">×</button></div>'
-    + '<form class="ct-form" action="' + escAttr(module.exports.ENDPOINT) + '" method="POST">'
+  const field = (lab, ctl, opt) => '<label class="ccd-f"><span class="ccd-l">' + lab + (opt ? ' <em>optional</em>' : '') + '</span>' + ctl + '</label>';
+  return '<dialog id="ccd-card" class="ccd" aria-modal="true" aria-labelledby="ccd-title" aria-describedby="ccd-note"><div class="ccd-in">'
+    + '<div class="ccd-head"><div><span class="ccd-k">contact</span><h2 id="ccd-title">Write to Carlos</h2></div>'
+    + '<button type="button" class="ccd-x" data-ccd-close aria-label="Close">×</button></div>'
+    + '<form class="ccd-form" action="' + escAttr(module.exports.ENDPOINT) + '" method="POST">'
     + '<input type="hidden" name="access_key" value="' + escAttr(key()) + '">'
     + field('Name', '<input name="name" autocomplete="name" required>')
     + field('E-mail', '<input type="email" name="email" autocomplete="email" required>')
@@ -68,20 +68,20 @@ function cardHtml() {
     + field('What it is about', '<select name="product">' + opts + '</select>')
     + field('Message', '<textarea name="message" rows="5" required></textarea>')
     + '<div hidden><label>Leave this box empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></div>'
-    + '<p class="ct-status" role="status" aria-live="polite"></p>'
-    + '<div class="ct-acts"><button type="submit" class="ct-b ct-send">Send</button><button type="button" class="ct-b ghost" data-ct-close>Cancel</button></div>'
-    + '<p class="ct-note" id="ct-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p>'
-    + '<p class="ct-note">Or write to <a href="mailto:' + MAIL + '">' + MAIL + '</a>, or open the public <a href="' + escAttr(PILOT) + '">pilot form on GitHub</a>.</p>'
+    + '<p class="ccd-status" role="status" aria-live="polite"></p>'
+    + '<div class="ccd-acts"><button type="submit" class="ccd-b ccd-send">Send</button><button type="button" class="ccd-b ghost" data-ccd-close>Cancel</button></div>'
+    + '<p class="ccd-note" id="ccd-note">Sent by Web3Forms to Carlos’s inbox; nothing stored here.</p>'
+    + '<p class="ccd-note">Or write to <a href="mailto:' + MAIL + '">' + MAIL + '</a>, or open the public <a href="' + escAttr(PILOT) + '">pilot form on GitHub</a>.</p>'
     + '</form>'
-    + '<div class="ct-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p>'
-    + '<div class="ct-acts"><button type="button" class="ct-b ghost" data-ct-close>Close</button></div></div>'
+    + '<div class="ccd-done" hidden tabindex="-1"><h3>Thank you. It is sent.</h3><p>Your message is on its way to Carlos’s inbox; the reply comes to the address you gave.</p>'
+    + '<div class="ccd-acts"><button type="button" class="ccd-b ghost" data-ccd-close>Close</button></div></div>'
     + '</div></dialog>' + SCRIPT;
 }
 
 /* the script, ES5 like the theme pill's. It reads the endpoint from the form's action and the key from its hidden
    field, so nothing in it changes with them. */
-const SCRIPT = '<script>(function(){var d=document.getElementById("ct-card");if(!d||!d.showModal)return;'
-  + 'var f=d.querySelector(".ct-form"),done=d.querySelector(".ct-done"),st=d.querySelector(".ct-status"),go=d.querySelector(".ct-send"),E=f.elements,'
+const SCRIPT = '<script>(function(){var d=document.getElementById("ccd-card");if(!d||!d.showModal)return;'
+  + 'var f=d.querySelector(".ccd-form"),done=d.querySelector(".ccd-done"),st=d.querySelector(".ccd-status"),go=d.querySelector(".ccd-send"),E=f.elements,'
   + 'MAIL=' + JSON.stringify(MAIL) + ',OTHER=' + JSON.stringify(OTHER) + ',FROM=' + JSON.stringify(FROM_NAME) + ',opener=null,down=null;'
   + 'function say(s,t){st.textContent=t||"";if(s)st.setAttribute("data-s",s);else st.removeAttribute("data-s")}'
   + 'function open(p,from){opener=from;if(!done.hidden){f.reset();done.hidden=true;f.hidden=false}say("");go.disabled=false;'
@@ -95,7 +95,7 @@ const SCRIPT = '<script>(function(){var d=document.getElementById("ct-card");if(
   + 'd.addEventListener("keydown",function(e){if(e.key!=="Tab")return;var q=[].filter.call(d.querySelectorAll("a[href],button,input,select,textarea"),'
   + 'function(x){return !x.disabled&&x.tabIndex>=0&&x.getClientRects().length>0});if(!q.length)return;var a=q[0],z=q[q.length-1];'
   + 'if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}});'
-  + '[].forEach.call(d.querySelectorAll("[data-ct-close]"),function(b){b.addEventListener("click",function(){d.close()})});'
+  + '[].forEach.call(d.querySelectorAll("[data-ccd-close]"),function(b){b.addEventListener("click",function(){d.close()})});'
   + 'function sent(){go.disabled=false;say("");f.hidden=true;done.hidden=false;done.focus()}'
   + 'f.addEventListener("submit",function(e){e.preventDefault();var p=E.product.value||OTHER,nm=E.name.value.trim(),subj="Verify — "+p+" — "+nm;'
   + 'if(E.botcheck.checked){sent();return}'
@@ -108,52 +108,52 @@ const SCRIPT = '<script>(function(){var d=document.getElementById("ct-card");if(
   + '.then(function(r){return r.json()}).then(function(j){if(j&&j.success)sent();else fail(j&&j.message)},function(){fail("")})})})();</script>';
 
 /* what cardHtml emits, for design/refresh.js to replace in one match after the footer */
-const CARD_RE = /<dialog id="ct-card"[\s\S]*?<\/dialog><script>[\s\S]*?<\/script>/;
+const CARD_RE = /<dialog id="ccd-card"[\s\S]*?<\/dialog><script>[\s\S]*?<\/script>/;
 
-/* the rules, once (in footerCss(), so both sheets carry them). The landing's Contact button is .ct-btn; the card
-   is .ct. Every value is a token. */
+/* the rules, once (in footerCss(), so both sheets carry them). The landing's Contact button is .ccd-btn; the card
+   is .ccd. Every value is a token. */
 function cardCss() {
   return `
-/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ct-btn */
-a.ct-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
+/* the contact card (design/contact.js): a trigger looks like whatever its page makes it; the landing's is .ccd-btn */
+a.ccd-btn{display:inline-flex;align-items:center;padding:var(--s-2) var(--s-4);border:1px solid var(--rule-strong);border-radius:var(--radius-m);
   color:var(--ink);font-weight:var(--weight-medium);font-size:var(--text-small);line-height:var(--leading-snug);
   transition:border-color var(--dur-fast) var(--ease-out)}
-a.ct-btn:hover{border-color:var(--ink)}
-.ct{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
+a.ccd-btn:hover{border-color:var(--ink)}
+.ccd{width:min(calc(100vw - 2 * var(--gutter)), 36rem);max-width:none;max-height:calc(100dvh - 2 * var(--s-4));padding:0;margin:auto;
   background:var(--surface);color:var(--ink-2);border:1px solid var(--rule-strong);border-radius:var(--radius-l);box-shadow:var(--shadow);overflow:auto}
-.ct::backdrop{background:var(--paper);opacity:.82}
-.ct [hidden]{display:none}
-.ct-in{padding:var(--s-5)}
-.ct-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
-.ct-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
-.ct h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
-.ct h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
-.ct-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
+.ccd::backdrop{background:var(--paper);opacity:.82}
+.ccd [hidden]{display:none}
+.ccd-in{padding:var(--s-5)}
+.ccd-head{display:flex;align-items:flex-start;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+.ccd-k{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-eyebrow);text-transform:uppercase;color:var(--ink-4)}
+.ccd h2{font-size:var(--text-2);margin:var(--s-1) 0 0}
+.ccd h3{font-size:var(--text-2);margin:0 0 var(--s-3)}
+.ccd-x{flex:none;width:var(--s-7);height:var(--s-7);display:inline-flex;align-items:center;justify-content:center;background:none;color:var(--ink-3);
   border:1px solid var(--rule);border-radius:var(--radius-pill);font-size:var(--text-3);line-height:var(--leading-tight);cursor:pointer}
-.ct-x:hover{color:var(--ink);border-color:var(--ink)}
-.ct-form{display:grid;gap:var(--s-4)}
-.ct-f{display:grid;gap:var(--s-2)}
-.ct-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
-.ct-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
-.ct input,.ct select,.ct textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
+.ccd-x:hover{color:var(--ink);border-color:var(--ink)}
+.ccd-form{display:grid;gap:var(--s-4)}
+.ccd-f{display:grid;gap:var(--s-2)}
+.ccd-l{font-family:var(--f-mono);font-size:var(--text-eyebrow);letter-spacing:var(--track-loose);text-transform:uppercase;color:var(--ink-3)}
+.ccd-l em{font-style:normal;color:var(--ink-4);text-transform:none;letter-spacing:var(--track-slight)}
+.ccd input,.ccd select,.ccd textarea{width:100%;font-family:var(--f-sans);font-size:var(--text-body);line-height:var(--leading-snug);color:var(--ink);
   background:var(--sunk);border:1px solid var(--rule-strong);border-radius:var(--radius-s);padding:var(--s-2) var(--s-3)}
-.ct textarea{resize:vertical;line-height:var(--leading-body)}
-.ct input:focus-visible,.ct select:focus-visible,.ct textarea:focus-visible,.ct button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
-.ct-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
-.ct-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
+.ccd textarea{resize:vertical;line-height:var(--leading-body)}
+.ccd input:focus-visible,.ccd select:focus-visible,.ccd textarea:focus-visible,.ccd button:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.ccd-acts{display:flex;flex-wrap:wrap;gap:var(--s-3)}
+.ccd-b{font-family:var(--f-sans);font-size:var(--text-body);font-weight:var(--weight-medium);line-height:var(--leading-snug);padding:var(--s-2) var(--s-5);
   border:1px solid var(--ink);border-radius:var(--radius-m);background:var(--ink);color:var(--paper);cursor:pointer;
   transition:background var(--dur-fast) var(--ease-out),border-color var(--dur-fast) var(--ease-out)}
-.ct-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
-.ct-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
-.ct-b.ghost:hover{border-color:var(--ink)}
-.ct-b:disabled{opacity:.6;cursor:progress}
-.ct-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
-.ct-status:empty{display:none}
-.ct-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
-.ct-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
-.ct-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
-.ct-done:focus{outline:none}
-@media print{.ct{display:none}}
+.ccd-b:hover{background:var(--ink-2);border-color:var(--ink-2)}
+.ccd-b.ghost{background:transparent;color:var(--ink);border-color:var(--rule-strong)}
+.ccd-b.ghost:hover{border-color:var(--ink)}
+.ccd-b:disabled{opacity:.6;cursor:progress}
+.ccd-status{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-3)}
+.ccd-status:empty{display:none}
+.ccd-status[data-s="error"]{color:var(--ink);border-left:2px solid var(--ink);padding-left:var(--s-3)}
+.ccd-note{margin:0;font-size:var(--text-small);line-height:var(--leading-body);color:var(--ink-4)}
+.ccd-done p{font-size:var(--text-body);line-height:var(--leading-body);color:var(--ink-3);margin:0 0 var(--s-5)}
+.ccd-done:focus{outline:none}
+@media print{.ccd{display:none}}
 `;
 }
 

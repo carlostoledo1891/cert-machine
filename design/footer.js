@@ -38,7 +38,7 @@ function footerHtml({ innerRaw = '', root = '' } = {}) {
 
 /* the footer's site line through the end of the footer, and the card after it when there is one: what
    design/refresh.js replaces in a committed page */
-const FOOT_LINE_RE = /<div class="foot-line">[\s\S]*?<\/div><\/div><\/footer>(?:<dialog id="ct-card"[\s\S]*?<\/dialog><script>[\s\S]*?<\/script>)?/;
+const FOOT_LINE_RE = /<div class="foot-line">[\s\S]*?<\/div><\/div><\/footer>(?:<dialog id="ccd-card"[\s\S]*?<\/dialog><script>[\s\S]*?<\/script>)?/;
 
 /* The look is the report footer's — mono, eyebrow-size, uppercase, ink-5 —
    which was the majority form. The container is the footer's own, so it sits
