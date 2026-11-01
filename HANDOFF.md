@@ -22,6 +22,16 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-11-01 — BLACK HOLE LIVE AND LISTED: /instruments/black-hole/ (dfe6a4fb; Phase 0 certs/bh-shadow.json, Phase 1
+     corpus/bh-maps + certs/bh-maps-check.json, Phase 2 playground/black-hole/): the decided Kerr shadow edge solid, the
+     computed image, the assumed thin disk on M87*'s clock; spin, view (17° M87* / 45° / 80° model), ring layers, mass row.
+     Jet a dotted assumed sketch (no licence-clear image at this scale); no light-travel delay; Phase 3 (the interferometer's
+     data-allowed skies beside it) next. /VERIFY/ PRODUCT LINEUP LIVE: "One decider, eight products" (Graders, Audits =
+     flagships; Grader Red-Team, Eval & Data Audit = pilots open; Verify Gym = live on the Hub; Training-Run Audit, Verified
+     Datasets, Statement Check = in development); deck slide 8 the lineup (outreach/speedrun-sr008/, untracked).
+     PRIME LANE (lane-gym-prime-1031b, NOT merged): rows gpt-oss-20b 0.054, gpt-oss-120b 0.095; qwen3.5-35b-a3b still
+     sampling; glm-4.7 stopped at 2× cost; filter trial: Verify as filter 0.18–0.32 reward, 103–114/120 certified, 0 false
+     vs first answer 0.04–0.09 with 65–71 false; steps 2–4 to finish.
   ◆ 2026-10-31 night — SPEEDRUN SCOUT: Kumesh Aroomoogan (x.com/kumesh_a/status/2116603153059582000) asked SR008 applicants
      to e-mail; the operator SENT the e-mail (product framing; deck v2 attached) and POSTED the X reply
      (notes/x/reply-kumesh-2026-10-31.txt). Deck v2: outreach/speedrun-sr008/verify-deck.pdf, 9 slides from /verify/'s own
