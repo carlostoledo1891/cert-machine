@@ -22,6 +22,10 @@ Kept current at every handoff; a session that changes any task's state
 updates this menu in the same commit (CLAUDE.md rule). Grouped by who acts.
 
 NEXT SESSION, IN ORDER:
+  ◆ 2026-10-31 night — SPEEDRUN SCOUT: Kumesh Aroomoogan (x.com/kumesh_a/status/2116603153059582000) asked SR008 applicants
+     to e-mail; the operator SENT the e-mail (product framing; deck v2 attached) and POSTED the X reply
+     (notes/x/reply-kumesh-2026-10-31.txt). Deck v2: outreach/speedrun-sr008/verify-deck.pdf, 9 slides from /verify/'s own
+     figures + Verify Gym's scorecard (deck.js rebuilds it from records). Draft folder untracked.
   ◆ 2026-10-31 — WRAPPED UP (make control 181/181, fe1ab71e). BLACK HOLE STARTED. The operator's rulings on the scout's questions:
      disk in the INK RAMP (greys; red stays the witness); headline about STANDING ("every line says what it rests on"), never
      "most accurate"; a SIMPLE THIN-DISK model labelled assumed (no simulated plasma); the JET from real VLBI images at their own
