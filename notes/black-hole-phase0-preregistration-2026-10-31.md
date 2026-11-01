@@ -148,3 +148,11 @@ Written 2026-10-31, after the enclosures existed (the build, same day):
 5. **Found**: the scout's float script used (3 + 2Z₁ + Z₂) where Bardeen, Press & Teukolsky have (3 + Z₁ + 2Z₂).
    Its r_isco at 0.94 and 0.998, its retrograde r_isco at 0.99, and the three ISCO periods built on them are REFUTED
    in the record (a = 0 is unaffected, since (3 − Z₁) = 0 there).
+6. **The distances, read from the papers** (2026-10-31, the Phase 1 lane, closing the gap in § Inputs): each dynamical
+   row's distance was read from the paper's own text in its arXiv e-print source (sha256 pinned in the record's
+   `distanceSource`). Gebhardt+11 (§1): "We assume a distance to M87 of 17.9 Mpc. The value of the black-hole mass
+   scales linearly with assumed distance." Liepold+23 (§1): "at a distance of 16.8 ± 0.7 Mpc to M87, the value adopted
+   in [Paper VI] and in this work". Walsh+13 (§1): "Throughout the paper, we assume a distance to M87 of D = 17.9 Mpc
+   in order to allow for a direct comparison to the stellar-dynamical M_BH measurement by Gebhardt et al. (2011)";
+   its mass, (3.5 +0.9 −0.7) × 10⁹ M☉ (68%), confirmed from its abstract. The search summary's values were the
+   papers' own: no input changed, so no enclosure, θg, ratio or ISCO period moved.

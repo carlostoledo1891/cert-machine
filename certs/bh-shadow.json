@@ -2,7 +2,7 @@
  "what": "M87*: the Kerr critical curve (the shadow edge) enclosed over the stated spin range and inclination, its diameter in µas for each published mass row, its ratio to the EHT ring (COMPARED), and the ISCO clock — the black hole's decided layer (Phase 0), no render, no page",
  "preregistration": {
   "path": "notes/black-hole-phase0-preregistration-2026-10-31.md",
-  "sha256": "3ae1bda6544aa50928b42be574c5ae1d368d25e2e96fb3a3bb0a8022336c2293",
+  "sha256": "b757999a372f6f8360dfbb2f1ede786ee3efa613411177d5c94a379c29503891",
   "committedBeforeAnyEnclosure": "76383c0d"
  },
  "code": {
@@ -43,24 +43,45 @@
     "label": "stars (Gebhardt+11)",
     "published": "(6.6 ± 0.4) × 10⁹ M☉ at D = 17.9 Mpc",
     "read": "M ∈ [6.2, 7.0] × 10⁹ M☉ at 17.9 Mpc",
-    "source": "Gebhardt et al. 2011, ApJ 729, 119 (arXiv:1101.1954), Gemini/NIFS stellar dynamics"
+    "source": "Gebhardt et al. 2011, ApJ 729, 119 (arXiv:1101.1954), Gemini/NIFS stellar dynamics",
+    "distanceSource": {
+     "url": "https://arxiv.org/abs/1101.1954",
+     "quote": "We assume a distance to M87 of 17.9 Mpc. The value of the black-hole mass scales linearly with assumed distance.",
+     "where": "§1, the paper's own text (e-print gebhardt.tex, line 188)",
+     "eprint": "https://arxiv.org/e-print/1101.1954",
+     "eprintSha256": "3149a3766d424df0c4441991be2bb1ed4150741089de8273c8fc0f706fc6c831"
+    }
    },
    {
     "id": "liepold2023",
     "label": "stars (Liepold+23)",
     "published": "(5.37 +0.37 −0.25 ± 0.22) × 10⁹ M☉ at D = 16.8 Mpc (the ±0.22 is the distance systematic)",
     "read": "M ∈ [5.12, 5.74] × 10⁹ M☉ at 16.8 Mpc (the distance term cancels in M/D and is dropped)",
-    "source": "Liepold, Ma & Walsh 2023, ApJL 945, L35 (arXiv:2302.07884), Keck IFS, triaxial orbit models"
+    "source": "Liepold, Ma & Walsh 2023, ApJL 945, L35 (arXiv:2302.07884), Keck IFS, triaxial orbit models",
+    "distanceSource": {
+     "url": "https://arxiv.org/abs/2302.07884",
+     "quote": "corresponding to a physical range of 50 pc–12 kpc at a distance of 16.8 ± 0.7 Mpc to M87, the value adopted in [EHT 2019 Paper VI] and in this work",
+     "where": "§1, the paper's own text (e-print M87.tex, line 193; LaTeX markup removed); Table 1's note: the second error is the systematic from the distance, 16.8 ± 0.7 Mpc",
+     "eprint": "https://arxiv.org/e-print/2302.07884",
+     "eprintSha256": "e95f7ffa8664fe5ceda79e2e6843b43068888f2297d75c97012d67338a9b7550"
+    }
    },
    {
     "id": "walsh2013",
     "label": "gas (Walsh+13)",
     "published": "(3.5 +0.9 −0.7) × 10⁹ M☉ (68%) at D = 17.9 Mpc",
     "read": "M ∈ [2.8, 4.4] × 10⁹ M☉ at 17.9 Mpc",
-    "source": "Walsh et al. 2013, ApJ 770, 86 (arXiv:1304.7273), HST/STIS gas dynamics"
+    "source": "Walsh et al. 2013, ApJ 770, 86 (arXiv:1304.7273), HST/STIS gas dynamics",
+    "distanceSource": {
+     "url": "https://arxiv.org/abs/1304.7273",
+     "quote": "Throughout the paper, we assume a distance to M87 of D = 17.9 Mpc in order to allow for a direct comparison to the stellar-dynamical M_BH measurement by Gebhardt et al. (2011).",
+     "where": "§1, the paper's own text (e-print ms.tex, lines 221–224; LaTeX markup removed); the mass, its abstract: \"M_BH = (3.5 +0.9 −0.7) × 10⁹ M☉ (68% confidence)\"",
+     "eprint": "https://arxiv.org/e-print/1304.7273",
+     "eprintSha256": "fa4558b9f2cb24ac380970b3952683b2a1a00dd5d8697bbfdf08dd082c1e9c82"
+    }
    }
   ],
-  "distanceFree": "a dynamical mass scales as M ∝ D, so M/D (θg) is what the data fix, whatever distance is assumed: the comparison with the ring needs no distance and none is propagated (the scout's finding). The clock needs M itself, so it carries each row's distance. The distances 17.9 and 16.8 Mpc came from a search summary, not from each paper's own table",
+  "distanceFree": "a dynamical mass scales as M ∝ D, so M/D (θg) is what the data fix, whatever distance is assumed: the comparison with the ring needs no distance and none is propagated (the scout's finding). The clock needs M itself, so it carries each row's distance. Each dynamical row's distance is read from the paper's own text (its arXiv e-print source, sha256-pinned in distanceSource, read 2026-10-31): Gebhardt+11 and Walsh+13 assume 17.9 Mpc, Liepold+23 adopts 16.8 ± 0.7 Mpc. The Phase 0 values, first taken from a search summary, were the papers' own: nothing moved",
   "rings": [
    {
     "id": "eht2017",
@@ -758,6 +779,6 @@
   "no prior interval enclosure of the Kerr shadow was found (the scout's search, 2026-10-31)"
  ],
  "timing": {
-  "firstDeciderMs": 21835
+  "firstDeciderMs": 19854
  }
 }
