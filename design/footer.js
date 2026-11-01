@@ -15,6 +15,7 @@
 'use strict';
 
 const { GITHUB } = require('./nav.js');
+const CT = require('./contact.js');   /* the contact card (2026-11-01): the footer's "contact" link, and the card after the footer */
 const CONCEPT_DOI = 'https://doi.org/10.5281/zenodo.22225860';
 
 /* `innerRaw` is markup the builder generated (paragraphs); `root` is the
@@ -26,10 +27,18 @@ function footerHtml({ innerRaw = '', root = '' } = {}) {
     + '<span>Carlos Toledo · cert-machine</span>'
     + '<a href="' + root + 'index.html">home</a>'
     + '<a href="' + root + 'papers/index.html">papers</a>'
+    + CT.trigger({ raw: 'contact' })
     + '<a href="' + GITHUB + '">source</a>'
     + '<a href="' + CONCEPT_DOI + '">doi 10.5281/zenodo.22225860</a>'
-    + '</div></div></footer>';
+    + '</div></div></footer>'
+    /* the contact card and its script, right after the footer, so the re-bake that renews the footer's line renews it
+       (design/refresh.js); empty while design/contact.js holds no key, and then the "contact" link is a plain mailto: */
+    + CT.cardHtml();
 }
+
+/* the footer's site line through the end of the footer, and the card after it when there is one: what
+   design/refresh.js replaces in a committed page */
+const FOOT_LINE_RE = /<div class="foot-line">[\s\S]*?<\/div><\/div><\/footer>(?:<dialog id="ct-card"[\s\S]*?<\/dialog><script>[\s\S]*?<\/script>)?/;
 
 /* The look is the report footer's — mono, eyebrow-size, uppercase, ink-5 —
    which was the majority form. The container is the footer's own, so it sits
@@ -44,7 +53,7 @@ function footerCss() {
 .foot-line{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-5);margin-top:var(--s-4)}
 .foot a{color:var(--ink-3);border-bottom:1px solid var(--rule-strong);text-transform:none;letter-spacing:var(--track-slight);text-decoration:none}
 .foot a:hover{color:var(--ink);border-bottom-color:var(--ink)}
-`;
+${CT.cardCss()}`;
 }
 
-module.exports = { footerHtml, footerCss, CONCEPT_DOI };
+module.exports = { footerHtml, footerCss, CONCEPT_DOI, FOOT_LINE_RE };
