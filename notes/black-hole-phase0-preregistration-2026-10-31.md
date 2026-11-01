@@ -156,3 +156,77 @@ Written 2026-10-31, after the enclosures existed (the build, same day):
    in order to allow for a direct comparison to the stellar-dynamical M_BH measurement by Gebhardt et al. (2011)";
    its mass, (3.5 +0.9 −0.7) × 10⁹ M☉ (68%), confirmed from its abstract. The search summary's values were the
    papers' own: no input changed, so no enclosure, θg, ratio or ISCO period moved.
+
+## Phase 1 — the lensing maps, computed (pre-registered 2026-10-31, before any map exists)
+
+Written and committed before a single ray is traced. At the commit that adds this section no code in this repository
+traces a Kerr null geodesic and corpus/bh-maps/ does not exist. Phase 1 is COMPUTED (double precision, never
+enclosed): its maps are a picture of the geometry, checked against the DECIDED curve of Phase 0, which they never
+replace. Grammar note for Phase 2: the maps draw dashed (computed); only the Phase 0 curve draws solid (decided).
+No renderer, no page. The record is certs/bh-maps-check.json, written by tools/run-bh-maps.js with `--check`.
+
+**What a map is.** For one spin a and the camera's θo = 17° (the operator's ruling), an observer at infinity, and each
+pixel of the image plane (Bardeen's α, β in units of M; β along the projection of the spin axis; λ = −α sin θo,
+η = (α² − a²) cos²θo + β²), the null geodesic traced backward from the observer, and along it:
+- the first three crossings of the equatorial plane outside the horizon, n = 0, 1, 2 (the direct image and the first
+  and second photon-ring images), each with its source radius r_s, its source azimuth φ_s (mod 2π; φ = 0 is the
+  observer's azimuth, the near side of the disk) and its redshift factor g;
+- the ray's fate: captured (it reaches the horizon) or escaped, and the number of crossings it made.
+
+**The grid.** 512 × 512 pixels over α, β ∈ [−20, 20] M; pitch 5/64 M = 0.078125 M (exact); pixel centres at
+−20 + (i + ½)·5/64; row 0 is the top (β largest). Stored as IEEE half floats (float16: r_s to ~0.01 M at 20 M, g to
+~10⁻³), one RGB file (r_s, φ_s, g) per (spin, n) and one byte per pixel for the fate, under corpus/bh-maps/, with a
+JSON manifest (grid, parameters, method, and the sha256 of every file). Budget: a few MB in all (sizes stated in the
+record).
+
+**Spins.** a ∈ {0, 1/2, 47/50, 499/500}: four of Phase 0's sample spins, so each map has a decided curve at its own
+spin to be checked against. The viewer's default is a = 47/50 = 0.94, CHOSEN (the common GRMHD value 0.9375 is
+within 0.003 of it, and 0.94 has Phase 0's enclosures); a = 0 is the Schwarzschild check. The spin stays ASSUMED.
+
+**The disk (ASSUMED, the operator's simple thin-disk model).** Equatorial, geometrically thin; matter on prograde
+Keplerian circular orbits, Ω = 1/(r^{3/2} + a), so g = 1/[u^t (1 − Ω λ)] with
+u^t = (r^{3/2} + a)/(r^{3/4} √(r^{3/2} − 3 r^{1/2} + 2a)); the disk is CUT at the ISCO (no plunging matter): a crossing
+inside r_isco keeps its r_s and φ_s and has no g. The emission the Phase 2 viewer will apply (declared now, not used
+by the maps): optically thin, so every image adds; emissivity J(r) ∝ r⁻² on [r_isco, 20 M]; observed intensity
+Σ_n g_n³ J(r_n) (a flat emitted spectrum at fixed observed frequency). All of it ASSUMED; none of it decided.
+
+**The method, and why.** An ODE integration with error control, not Gralla & Lupsasca's elliptic closed form, so
+that the closed form can CHECK the integration instead of being it. In Mino time τ the geodesic is the second-order
+polynomial system r'' = R′(r)/2, u'' = G′(u)/2 with u = cos θ, R(r) = (r² + a² − aλ)² − Δ(η + (λ − a)²),
+G(u) = η − (η + λ² − a²)u² − a²u⁴, plus the quadrature for φ: regular at every turning point (no sign bookkeeping)
+and at the poles. Dormand–Prince 5(4), adaptive, local tolerance 10⁻¹² (relative and absolute, per component);
+each equatorial crossing located by re-stepping the integrator itself (a secant on u = 0); rays start at r = 10⁶ M
+with the exact Mino time from infinity (Gauss–Legendre on the regular integrand in 1/r). Captured: r falls below
+r₊ + 10⁻⁶. Escaped: outgoing past r = 10³ M (crossings beyond that are not counted; none lies in the field). Only
++ − × ÷ and √ are used per ray (cos 17° and sin 17° are fixed doubles from Phase 0's enclosures), so the maps are
+bit-reproducible on any IEEE machine. The elliptic route was the scout's suggestion; it needs four radial root
+cases and incomplete elliptic integrals of the third kind for φ, and a mistake there would be invisible without a
+second method. Here the second method is the closed form.
+
+**What counts as agreement with Phase 0** (each a check in the record; the words are AGREES / DISAGREES, never
+CERTIFIED: a computed map is graded, the premise ladder's "verified" rung):
+1. **The pins.** Every file's sha256 matches the manifest, and a deterministic sample of pixels re-traced gives the
+   same float16 bits.
+2. **The closed form.** On that sample, every crossing's Mino time against Gralla & Lupsasca's angular solution
+   (G_θ in Legendre form, Carlson's R_F), and every r_s against the master equation G_θ = I_r with I_r by an
+   independent radial quadrature: the measured error printed; agreement if |δr_s| < 10⁻⁶ M on every sampled crossing.
+3. **The shadow edge against the decided curve, pointwise.** At points proven on the curve by Phase 0's decider
+   (instruments/kerr/kerr.js, interval boxes at the map's spin and 17°), the ray at (1 − 10⁻⁶)·P is captured and the
+   ray at (1 + 10⁻⁶)·P escapes; on a subset the traced edge is bisected along the ray through P and its distance to
+   the decided point printed.
+4. **The shadow edge in the map.** Every pixel's captured bit agrees with the decided curve (inside or outside it),
+   except pixels within 10⁻⁴ M of the curve, which are counted and not judged. W, H and d̄ measured from the
+   captured pixels lie, within the grid's resolution (a true extent lies in [map, map + 2 × pitch]), in Phase 0's
+   enclosures at the same spin (certs/bh-shadow.json).
+5. **Schwarzschild.** At a = 0 the traced edge is the circle √27 M: every bisected edge point within the measured
+   error of Phase 0's enclosure of √27.
+6. **The photon-ring images converge to the curve.** Along spokes through decided points, the outer edge of the
+   n-th lensing band (where a ray's crossings drop below n + 1), n = 1 … 4: the distance to the curve strictly
+   decreases with n and the last is below one pixel; at a = 0 the ratio of successive distances is e^{−π}
+   (Lyapunov γ = π) within 5% for n ≥ 2. For a ≠ 0 the ratios are printed beside e^{−γ} (γ in float from Gralla &
+   Lupsasca's formula), not judged.
+
+**Red controls** (each must come out as named, every run): a map at the wrong spin (the a = 0 map against the
+a = 47/50 decided curve) DISAGREES on check 4; a map at a wrong inclination (a = 47/50 at θo = 25°, a small grid made
+in the check) DISAGREES on checks 3 and 4; rays traced at a = 1/2 at the a = 47/50 decided points DISAGREE on check 3;
+a forged texture byte fails check 1; a planted √26 fails check 5.
