@@ -274,3 +274,51 @@ Any change after this commit is recorded here, dated, with its reason.
    protocol, the configs and the readiness GO stand for a later run on dedicated Hosted Training or on rented
    GPUs; either is a new decision of the operator's, and a change of trainer (full fine-tune instead of LoRA,
    or self-hosted prime-rl) is a further dated deviation before its first step.
+
+6. **2026-10-31, before any held-out answer of theirs: four more model rows.** The operator's word (2026-10-31):
+   rows for the stronger open models Prime Inference still serves, at most US$30 for this step and the next
+   together. Read from `/v1/models` on 2026-10-31 (US$ per million tokens, input / output):
+   openai/gpt-oss-120b 0.35 / 0.75, openai/gpt-oss-20b 0.07 / 0.30, z-ai/glm-4.7 0.60 / 2.20,
+   qwen/qwen3.5-35b-a3b 0.25 / 1.30. Each answered a one-line arithmetic ping (not a task), and each was piloted on
+   the TRAINING stream (6 tasks × 2 samples, never a row, kept outside the repository; US$0.21 for the four).
+   - **Sampling, as for the four rows above:** temperature 1.0, top-p 1.0, max tokens 16,384, no tools, 8 samples
+     on each of the 120 frozen prompts. **Thinking off** for z-ai/glm-4.7 and qwen/qwen3.5-35b-a3b
+     (`chat_template_kwargs: {enable_thinking: false}`; the ping returned no reasoning field and 0 reasoning
+     tokens with it, a reasoning field without it). **gpt-oss cannot be switched off**: it always reasons in a
+     separate channel. Its rows are run at `reasoning_effort: "low"`, the least the API offers, and are labelled
+     thinking "low (cannot be off)". Only the final `content` is stored and graded, as for every row; the
+     reasoning channel is not stored. The 16,384-token limit counts the reasoning, so a reply cut off inside it
+     scores 0 and is counted in the cut-off column.
+   - **Estimated cost**, from the pilots' tokens per reply (gpt-oss-120b 1,189, gpt-oss-20b 827, glm-4.7 861,
+     qwen3.5-35b-a3b 10,055) × 960 replies at the listed prices: US$1.0, US$0.27, US$2.0 and US$12.7, about US$16
+     for the four. A row is stopped if its cost passes 2× its estimate, and the lane stops if its total would pass
+     US$30.
+
+7. **2026-10-31, before any of the four new rows' held-out samples exist: the verifier in the loop.** The four
+   rows above already hold 8 stored samples per held-out task; their verdict counts are published. The four new
+   rows are drawn under deviation 6 after this commit. Nothing new is sampled for this step: it reads the stored
+   samples of every model row in certs/verify-gym-scorecard.json, as scorecard.py grades them (a reply cut off at
+   the limit is no answer). For each row and each of the 120 tasks, three ways to turn 8 samples into ONE answer:
+   - **(a) first:** sample 0.
+   - **(b) majority:** the bracket stated most often among the replies that state one (`lo` and `hi` read as
+     exact rationals; a text that is not a rational is compared as text), ties to the bracket whose first
+     occurrence is earliest. No bracket stated: no answer. It uses no verifier and no answer key.
+   - **(c) Verify as the filter:** only the samples both deciders call CERTIFIED; of those, the most certified
+     progress, then the narrower bracket (exact hi − lo), then the earlier sample. None certified: no answer
+     (an abstention, which states nothing false).
+   - **Measured, per row and strategy:** tasks (of 120) whose chosen answer is CERTIFIED; mean reward over the
+     120 tasks, in exact rationals; **false brackets let through** (chosen answers that are REFUTED); REFUSED,
+     MALFORMED and no-answer counts; per family. (c) lets through 0 REFUTED answers by construction; the record
+     shows it by counting, not by assuming it.
+   - **Not run:** best-of-8 by the model's own choice. It needs a second call per task with a choice prompt
+     that is not in the frozen protocol; majority is the verifier-free selection here.
+   - **What this is.** The reward is the verifier's own number, so (c) is the best of the 8 under this reward by
+     definition. The point is not that (c) wins; it is that the winner is reached with no answer key, and that
+     (a) and (b) state false brackets a reader cannot tell from true ones. The rows headlined are the one with
+     the lowest and the one with the highest mean reward in the scorecard; every row is in the record.
+   - **The record:** certs/verify-gym-filter.json, written by environments/verify_gym/filter.py, every chosen
+     answer re-decided by check.js (one difference writes nothing), `--check` re-derives it from the stored logs.
+   - **The verified-answers dataset** (corpus/verify-gym/verified-v0.jsonl.gz): every non-cut-off held-out sample
+     of every row that both deciders call CERTIFIED, each re-decided by check.js before it is written, the
+     paid ones through recheck.py as well. These are HELD-OUT tasks: a model trained on this file can never be
+     evaluated on heldout-v0. It is not published; the operator decides.
